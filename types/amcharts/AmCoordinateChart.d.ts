@@ -1,8 +1,8 @@
-import AmChart from './AmChart';
-import AmGraph from './AmGraph';
-import GraphDataItem from './GraphDataItem';
-import Guide from './Guide';
-import ValueAxis from './ValueAxis';
+import AmChart from "./AmChart";
+import AmGraph from "./AmGraph";
+import GraphDataItem from "./GraphDataItem";
+import Guide from "./Guide";
+import ValueAxis from "./ValueAxis";
 
 /**
  * AmCoordinateChart is a base class of AmRectangularChart. It can not be instantiated explicitly.

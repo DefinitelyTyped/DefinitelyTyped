@@ -1,32 +1,32 @@
-import { createDoc } from 'apidoc';
+import { createDoc } from "apidoc";
 
 const apidocOutput = createDoc({
-    excludeFilters: [''],
-    includeFilters: [''],
-    src: '',
-    dest: '',
-    template: '',
-    templateSingleFile: '',
-    config: '',
+    excludeFilters: [""],
+    includeFilters: [""],
+    src: "",
+    dest: "",
+    template: "",
+    templateSingleFile: "",
+    config: "",
     apiprivate: true,
     verbose: true,
     single: true,
     debug: true,
     colorize: true,
-    filters: { aFilter: '' },
-    languages: { aLanguage: '' },
-    parsers: { aParser: '' },
-    workers: { aWorker: '' },
+    filters: { aFilter: "" },
+    languages: { aLanguage: "" },
+    parsers: { aParser: "" },
+    workers: { aWorker: "" },
     silent: true,
     dryRun: true,
     markdown: true,
-    lineEnding: '',
-    encoding: '',
+    lineEnding: "",
+    encoding: "",
     copyDefinitions: true,
-    filterBy: '',
+    filterBy: "",
 });
 
-if (typeof apidocOutput !== 'boolean') {
+if (typeof apidocOutput !== "boolean") {
     const { data, project } = apidocOutput;
 }
 
@@ -44,17 +44,17 @@ createDoc({
     },
     parsers: {
         parse: (content, source, messagesg) => ({
-            name: '',
-            title: '',
-            description: '',
+            name: "",
+            title: "",
+            description: "",
         }),
-        path: '',
-        getGroup: () => '',
+        path: "",
+        getGroup: () => "",
         markdownFields: [],
         markdownRemovePTags: [],
     },
     workers: {
         work: {},
     },
-    filterBy: [''],
+    filterBy: [""],
 });

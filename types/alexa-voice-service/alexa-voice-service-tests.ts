@@ -1,11 +1,11 @@
-import * as AVS from 'alexa-voice-service';
+import * as AVS from "alexa-voice-service";
 
 const options = {
     debug: true,
-    clientId: '',
-    clientSecret: '',
-    deviceId: '',
-    refreshToken: '',
+    clientId: "",
+    clientSecret: "",
+    deviceId: "",
+    refreshToken: "",
 };
 
 const avsInstance = new AVS(options);

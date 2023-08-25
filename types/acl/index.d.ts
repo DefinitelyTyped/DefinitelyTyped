@@ -6,11 +6,11 @@
 
 /// <reference types="node"/>
 
-import http = require('http');
-import Promise = require('bluebird');
-import express = require('express');
-import redis = require('redis');
-import mongo = require('mongodb');
+import http = require("http");
+import Promise = require("bluebird");
+import express = require("express");
+import redis = require("redis");
+import mongo = require("mongodb");
 
 export = AclStatic;
 

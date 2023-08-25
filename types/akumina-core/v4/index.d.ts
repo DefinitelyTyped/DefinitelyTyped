@@ -8,8 +8,8 @@
 
 /// <reference types="jquery" />
 
-import IGetListRequest from './interfaces/IGetListRequest';
-import ISavePageWidgetRequest from './interfaces/ISavePageWidgetRequest';
+import IGetListRequest from "./interfaces/IGetListRequest";
+import ISavePageWidgetRequest from "./interfaces/ISavePageWidgetRequest";
 
 declare namespace Akumina {
     class BaseWidget {

@@ -1,4 +1,4 @@
-import getContext = require('audio-context');
+import getContext = require("audio-context");
 
 const context = getContext();
 const myContext = getContext(22000);

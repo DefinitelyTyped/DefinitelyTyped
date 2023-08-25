@@ -51,6 +51,6 @@ declare interface AppInterface {
 
 declare var App: AppInterface;
 
-declare module 'actioncable' {
+declare module "actioncable" {
     export = ActionCable;
 }

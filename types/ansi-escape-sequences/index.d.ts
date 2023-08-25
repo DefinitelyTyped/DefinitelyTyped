@@ -5,38 +5,38 @@
 // TypeScript Version: 2.1
 
 export type Style =
-    | 'reset'
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'fontDefault'
-    | 'font2'
-    | 'font3'
-    | 'font4'
-    | 'font5'
-    | 'font6'
-    | 'imageNegative'
-    | 'imagePositive'
-    | 'black'
-    | 'red'
-    | 'green'
-    | 'yellow'
-    | 'blue'
-    | 'magenta'
-    | 'cyan'
-    | 'white'
-    | 'grey'
-    | 'gray'
-    | 'bg-black'
-    | 'bg-red'
-    | 'bg-green'
-    | 'bg-yellow'
-    | 'bg-blue'
-    | 'bg-magenta'
-    | 'bg-cyan'
-    | 'bg-white'
-    | 'bg-grey'
-    | 'bg-gray';
+    | "reset"
+    | "bold"
+    | "italic"
+    | "underline"
+    | "fontDefault"
+    | "font2"
+    | "font3"
+    | "font4"
+    | "font5"
+    | "font6"
+    | "imageNegative"
+    | "imagePositive"
+    | "black"
+    | "red"
+    | "green"
+    | "yellow"
+    | "blue"
+    | "magenta"
+    | "cyan"
+    | "white"
+    | "grey"
+    | "gray"
+    | "bg-black"
+    | "bg-red"
+    | "bg-green"
+    | "bg-yellow"
+    | "bg-blue"
+    | "bg-magenta"
+    | "bg-cyan"
+    | "bg-white"
+    | "bg-grey"
+    | "bg-gray";
 
 /**
  * Various formatting styles (aka Select Graphic Rendition codes).

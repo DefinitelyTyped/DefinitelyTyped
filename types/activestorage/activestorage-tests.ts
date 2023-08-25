@@ -1,4 +1,4 @@
-import * as ActiveStorage from 'activestorage';
+import * as ActiveStorage from "activestorage";
 
 ActiveStorage.start();
 
@@ -13,8 +13,8 @@ const delegate: ActiveStorage.DirectUploadDelegate = {
 };
 
 const d = new ActiveStorage.DirectUpload(
-    new File([], 'blank.txt'),
-    '/rails/active_storage/direct_uploads',
+    new File([], "blank.txt"),
+    "/rails/active_storage/direct_uploads",
     delegate,
 );
 

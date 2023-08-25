@@ -1,4 +1,4 @@
-import AmCoordinateChart from './AmCoordinateChart';
+import AmCoordinateChart from "./AmCoordinateChart";
 
 /**
  * AmRadarChart is the class you have to use for radar and polar chart types.

@@ -5,36 +5,36 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import _AmAngularGauge from './AmAngularGauge';
-import _AmBalloon from './AmBalloon';
-import _AmChart from './AmChart';
-import _AmCoordinateChart from './AmCoordinateChart';
+import _AmAngularGauge from "./AmAngularGauge";
+import _AmBalloon from "./AmBalloon";
+import _AmChart from "./AmChart";
+import _AmCoordinateChart from "./AmCoordinateChart";
 // import _AmFunnelChart from "./AmFunnelChart";
 // import _AmGanttChart from "./AmGanttChart";
-import _AmGraph from './AmGraph';
-import _AmLegend from './AmLegend';
-import _AmPieChart from './AmPieChart';
-import _AmRadarChart from './AmRadarChart';
-import _AmRectangularChart from './AmRectangularChart';
-import _AmSerialChart from './AmSerialChart';
+import _AmGraph from "./AmGraph";
+import _AmLegend from "./AmLegend";
+import _AmPieChart from "./AmPieChart";
+import _AmRadarChart from "./AmRadarChart";
+import _AmRectangularChart from "./AmRectangularChart";
+import _AmSerialChart from "./AmSerialChart";
 // import _AmSlicedChart from "./AmSlicedChart";
-import _AmXYChart from './AmXYChart';
-import _AxisBase from './AxisBase';
-import _CategoryAxis from './CategoryAxis';
-import _ChartCursor from './ChartCursor';
-import _ChartScrollbar from './ChartScrollbar';
-import _GaugeArrow from './GaugeArrow';
-import _GaugeAxis from './GaugeAxis';
-import _GaugeBand from './GaugeBand';
-import _GraphDataItem from './GraphDataItem';
-import _Guide from './Guide';
+import _AmXYChart from "./AmXYChart";
+import _AxisBase from "./AxisBase";
+import _CategoryAxis from "./CategoryAxis";
+import _ChartCursor from "./ChartCursor";
+import _ChartScrollbar from "./ChartScrollbar";
+import _GaugeArrow from "./GaugeArrow";
+import _GaugeAxis from "./GaugeAxis";
+import _GaugeBand from "./GaugeBand";
+import _GraphDataItem from "./GraphDataItem";
+import _Guide from "./Guide";
 // import _Image from "./Image";
-import _Label from './Label';
-import _SerialDataItem from './SerialDataItem';
-import _Slice from './Slice';
-import _Title from './Title';
-import _TrendLine from './TrendLine';
-import _ValueAxis from './ValueAxis';
+import _Label from "./Label";
+import _SerialDataItem from "./SerialDataItem";
+import _Slice from "./Slice";
+import _Title from "./Title";
+import _TrendLine from "./TrendLine";
+import _ValueAxis from "./ValueAxis";
 
 /**
  * AmCharts namespace is create automatically when amcharts.js or amstock.js file is included.

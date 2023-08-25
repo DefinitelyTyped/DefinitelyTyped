@@ -6,7 +6,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
 export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
@@ -17,7 +17,7 @@ export type IToast = angular.toastr.IToast;
 export type IToastOptions = angular.toastr.IToastOptions;
 export type IToastrService = angular.toastr.IToastrService;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace toastr {
         interface IToastBaseConfig {
             allowHtml?: boolean | undefined;

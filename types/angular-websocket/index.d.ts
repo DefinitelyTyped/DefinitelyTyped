@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
 export type IWebSocketProvider = angular.websocket.IWebSocketProvider;
@@ -13,7 +13,7 @@ export type IWebSocketMessageHandler = angular.websocket.IWebSocketMessageHandle
 export type IWebSocketQueueItem = angular.websocket.IWebSocketQueueItem;
 export type IWebSocket = angular.websocket.IWebSocket;
 
-declare module 'angular' {
+declare module "angular" {
     namespace websocket {
         /**
          * Options available to be specified for IWebSocketProvider.
@@ -24,7 +24,7 @@ declare module 'angular' {
             useApplyAsync?: boolean | undefined;
             initialTimeout?: number | undefined;
             maxTimeout?: number | undefined;
-            binaryType?: 'blob' | 'arraybuffer' | undefined;
+            binaryType?: "blob" | "arraybuffer" | undefined;
             reconnectIfNotNormalClose?: boolean | undefined;
         }
 

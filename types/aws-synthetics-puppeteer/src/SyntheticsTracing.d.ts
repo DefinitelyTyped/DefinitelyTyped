@@ -1,5 +1,5 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsTracing' {
+declare module "SyntheticsTracing" {
     const _exports: SyntheticsTracing;
     export = _exports;
     /**
@@ -181,6 +181,6 @@ declare module 'SyntheticsTracing' {
         getSegmentById(id: string): AWSXRaySDKClient.Segment;
         resetSegments(): void;
     }
-    import * as AWSXRaySDKClient from 'aws-xray-sdk-core';
-    import * as http from 'http';
+    import * as AWSXRaySDKClient from "aws-xray-sdk-core";
+    import * as http from "http";
 }

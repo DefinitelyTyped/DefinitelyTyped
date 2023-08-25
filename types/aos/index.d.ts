@@ -6,37 +6,37 @@
 
 declare namespace Aos {
     type easingOptions =
-        | 'linear'
-        | 'ease'
-        | 'ease-in'
-        | 'ease-out'
-        | 'ease-in-out'
-        | 'ease-in-back'
-        | 'ease-out-back'
-        | 'ease-in-out-back'
-        | 'ease-in-sine'
-        | 'ease-out-sine'
-        | 'ease-in-out-sine'
-        | 'ease-in-quad'
-        | 'ease-out-quad'
-        | 'ease-in-out-quad'
-        | 'ease-in-cubic'
-        | 'ease-out-cubic'
-        | 'ease-in-out-cubic'
-        | 'ease-in-quart'
-        | 'ease-out-quart'
-        | 'ease-in-out-quart';
+        | "linear"
+        | "ease"
+        | "ease-in"
+        | "ease-out"
+        | "ease-in-out"
+        | "ease-in-back"
+        | "ease-out-back"
+        | "ease-in-out-back"
+        | "ease-in-sine"
+        | "ease-out-sine"
+        | "ease-in-out-sine"
+        | "ease-in-quad"
+        | "ease-out-quad"
+        | "ease-in-out-quad"
+        | "ease-in-cubic"
+        | "ease-out-cubic"
+        | "ease-in-out-cubic"
+        | "ease-in-quart"
+        | "ease-out-quart"
+        | "ease-in-out-quart";
 
     type anchorPlacementOptions =
-        | 'top-bottom'
-        | 'top-center'
-        | 'top-top'
-        | 'center-bottom'
-        | 'center-center'
-        | 'center-top'
-        | 'bottom-bottom'
-        | 'bottom-center'
-        | 'bottom-top';
+        | "top-bottom"
+        | "top-center"
+        | "top-top"
+        | "center-bottom"
+        | "center-center"
+        | "center-top"
+        | "bottom-bottom"
+        | "bottom-center"
+        | "bottom-top";
 
     interface Aos {
         /**
@@ -70,7 +70,7 @@ declare namespace Aos {
         /**
          * Accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
          */
-        disable?: 'phone' | 'tablet' | 'mobile' | boolean | (() => boolean) | undefined;
+        disable?: "phone" | "tablet" | "mobile" | boolean | (() => boolean) | undefined;
         /**
          * Class applied after initialization
          */
@@ -133,7 +133,7 @@ declare namespace Aos {
         detail: Element;
     }
 
-    type AosEventType = 'aos:in' | 'aos:out';
+    type AosEventType = "aos:in" | "aos:out";
 }
 
 declare global {

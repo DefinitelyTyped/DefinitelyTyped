@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type SNSHandler = Handler<SNSEvent, void>;
 

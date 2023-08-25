@@ -1,5 +1,5 @@
-import { AudioManager as AM, Behavior, Drawable, InputManager as IM, Sprite } from 'athenajs';
-import Shape from './shape';
+import { AudioManager as AM, Behavior, Drawable, InputManager as IM, Sprite } from "athenajs";
+import Shape from "./shape";
 
 /**
  * Simple Behavior for the tetris shape that moves the shape on cursor key press
@@ -80,7 +80,7 @@ class ShapeBehavior extends Behavior {
         if (!this.startTime) {
             this.startTime = timestamp;
         } else {
-            if (timestamp - this.startTime > sprite.data['speed']) {
+            if (timestamp - this.startTime > sprite.data["speed"]) {
                 // timer reached
                 this.startTime = timestamp;
                 return true;
@@ -92,7 +92,7 @@ class ShapeBehavior extends Behavior {
     checkKeyDelay(key: number, timestamp: number, x: number, y: number): void {
         const sprite = this.sprite as Shape;
         if (this.ready(key, timestamp)) {
-            sprite.snapTile(x, y) && AM.play('move');
+            sprite.snapTile(x, y) && AM.play("move");
         }
     }
 
@@ -118,13 +118,13 @@ class ShapeBehavior extends Behavior {
         }
 
         // Then checks cursor keys
-        if (IM.isKeyDown('DOWN')) {
+        if (IM.isKeyDown("DOWN")) {
             this.checkKeyDelay(1, timestamp, 0, 1);
-        } else if (IM.isKeyDown('LEFT')) {
+        } else if (IM.isKeyDown("LEFT")) {
             this.checkKeyDelay(2, timestamp, -1, 0);
-        } else if (IM.isKeyDown('RIGHT')) {
+        } else if (IM.isKeyDown("RIGHT")) {
             this.checkKeyDelay(3, timestamp, 1, 0);
-        } else if ((IM.isKeyDown('UP') || IM.isKeyDown('SPACE')) && (timestamp - this.lastRotation > 150)) {
+        } else if ((IM.isKeyDown("UP") || IM.isKeyDown("SPACE")) && (timestamp - this.lastRotation > 150)) {
             this.lastRotation = timestamp;
             sprite.nextRotation();
         } else if (this.state) {

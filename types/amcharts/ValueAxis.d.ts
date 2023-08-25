@@ -1,6 +1,6 @@
-import AmChart from './AmChart';
-import AxisBase from './AxisBase';
-import Guide from './Guide';
+import AmChart from "./AmChart";
+import AxisBase from "./AxisBase";
+import Guide from "./Guide";
 
 /**
  * ValueAxis is the class which displays value axis for the chart. The chart can have any number of value axes.

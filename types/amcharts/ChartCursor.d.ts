@@ -1,5 +1,5 @@
-import AmChart from './AmChart';
-import AmGraph from './AmGraph';
+import AmChart from "./AmChart";
+import AmGraph from "./AmGraph";
 
 /**
  * ChartCursor is a class which displays a cursor which follows the mouse.

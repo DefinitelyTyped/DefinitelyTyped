@@ -8,7 +8,7 @@
 type Func = (...args: any[]) => any;
 export {};
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 export function array(arr: any[], message?: string): asserts arr is any[];
 

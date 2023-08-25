@@ -24,11 +24,11 @@ declare class User {
 }
 
 interface UserObj {
-    readonly 'name': string;
-    readonly 'first-name': string;
-    readonly 'last-name': string;
-    readonly 'display-name': string;
-    readonly 'email': string;
-    readonly 'active': boolean;
-    readonly 'password'?: { value: string } | undefined;
+    readonly "name": string;
+    readonly "first-name": string;
+    readonly "last-name": string;
+    readonly "display-name": string;
+    readonly "email": string;
+    readonly "active": boolean;
+    readonly "password"?: { value: string } | undefined;
 }

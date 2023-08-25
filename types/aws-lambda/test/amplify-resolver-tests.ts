@@ -4,7 +4,7 @@ import {
     AppSyncIdentityIAM,
     AppSyncIdentityLambda,
     AppSyncIdentityOIDC,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 const handler: AmplifyGraphQlResolverHandler = async (event, context) => {
     str = event.fieldName;
@@ -68,5 +68,5 @@ const handlerWithArgumentsAndResult: AmplifyGraphQlResolverHandler<CustomArgs, S
     str = event.arguments.arg1;
     num = event.source.source1;
 
-    return { result1: 'result1' };
+    return { result1: "result1" };
 };

@@ -1,4 +1,4 @@
-const testApp = angular.module('testApp');
+const testApp = angular.module("testApp");
 
 testApp.config((
     $accordionConfig: ng.ui.bootstrap.IAccordionConfig,
@@ -22,24 +22,24 @@ testApp.config((
     /**
      * $buttonConfig tests
      */
-    $buttonConfig.activeClass = 'active-state';
-    $buttonConfig.toggleEvent = 'dblclick';
+    $buttonConfig.activeClass = "active-state";
+    $buttonConfig.toggleEvent = "dblclick";
 
     /**
      * $datepickerConfig tests
      */
-    $datepickerConfig.datepickerMode = 'month';
-    $datepickerConfig.formatDay = 'd';
-    $datepickerConfig.formatDayHeader = 'E';
-    $datepickerConfig.formatDayTitle = 'dd-MM-yyyy';
-    $datepickerConfig.formatMonth = 'M';
-    $datepickerConfig.formatMonthTitle = 'yy';
-    $datepickerConfig.formatYear = 'y';
-    $datepickerConfig.initDate = '1389586124979';
-    $datepickerConfig.maxDate = '1389586124979';
-    $datepickerConfig.maxMode = 'month';
-    $datepickerConfig.minDate = '1389586124979';
-    $datepickerConfig.minMode = 'month';
+    $datepickerConfig.datepickerMode = "month";
+    $datepickerConfig.formatDay = "d";
+    $datepickerConfig.formatDayHeader = "E";
+    $datepickerConfig.formatDayTitle = "dd-MM-yyyy";
+    $datepickerConfig.formatMonth = "M";
+    $datepickerConfig.formatMonthTitle = "yy";
+    $datepickerConfig.formatYear = "y";
+    $datepickerConfig.initDate = "1389586124979";
+    $datepickerConfig.maxDate = "1389586124979";
+    $datepickerConfig.maxMode = "month";
+    $datepickerConfig.minDate = "1389586124979";
+    $datepickerConfig.minMode = "month";
     $datepickerConfig.shortcutPropagation = true;
     $datepickerConfig.showWeeks = false;
     $datepickerConfig.startingDay = 1;
@@ -48,24 +48,24 @@ testApp.config((
     $datepickerConfig.yearColumns = 9;
     $datepickerConfig.yearRows = 6;
     $datepickerConfig.ngModelOptions.allowInvalid = false;
-    $datepickerConfig.ngModelOptions.timezone = 'EST';
-    $datepickerConfig.ngModelOptions.updateOn = 'click';
+    $datepickerConfig.ngModelOptions.timezone = "EST";
+    $datepickerConfig.ngModelOptions.updateOn = "click";
 
     /**
      * $datepickerPopupConfig tests
      */
-    $datepickerPopupConfig.datepickerMode = 'month';
-    $datepickerPopupConfig.formatDay = 'd';
-    $datepickerPopupConfig.formatDayHeader = 'E';
-    $datepickerPopupConfig.formatDayTitle = 'dd-MM-yyyy';
-    $datepickerPopupConfig.formatMonth = 'M';
-    $datepickerPopupConfig.formatMonthTitle = 'yy';
-    $datepickerPopupConfig.formatYear = 'y';
-    $datepickerPopupConfig.initDate = '1389586124979';
-    $datepickerPopupConfig.maxDate = '1389586124979';
-    $datepickerPopupConfig.maxMode = 'month';
-    $datepickerPopupConfig.minDate = '1389586124979';
-    $datepickerPopupConfig.minMode = 'month';
+    $datepickerPopupConfig.datepickerMode = "month";
+    $datepickerPopupConfig.formatDay = "d";
+    $datepickerPopupConfig.formatDayHeader = "E";
+    $datepickerPopupConfig.formatDayTitle = "dd-MM-yyyy";
+    $datepickerPopupConfig.formatMonth = "M";
+    $datepickerPopupConfig.formatMonthTitle = "yy";
+    $datepickerPopupConfig.formatYear = "y";
+    $datepickerPopupConfig.initDate = "1389586124979";
+    $datepickerPopupConfig.maxDate = "1389586124979";
+    $datepickerPopupConfig.maxMode = "month";
+    $datepickerPopupConfig.minDate = "1389586124979";
+    $datepickerPopupConfig.minMode = "month";
     $datepickerPopupConfig.shortcutPropagation = true;
     $datepickerPopupConfig.showWeeks = false;
     $datepickerPopupConfig.startingDay = 1;
@@ -74,29 +74,29 @@ testApp.config((
     $datepickerPopupConfig.yearColumns = 9;
     $datepickerPopupConfig.yearRows = 6;
     $datepickerPopupConfig.ngModelOptions.allowInvalid = false;
-    $datepickerPopupConfig.ngModelOptions.timezone = 'EST';
-    $datepickerPopupConfig.ngModelOptions.updateOn = 'click';
-    $datepickerPopupConfig.altInputFormats = ['mm/dd/YYYY', 'mm-dd-YY'];
+    $datepickerPopupConfig.ngModelOptions.timezone = "EST";
+    $datepickerPopupConfig.ngModelOptions.updateOn = "click";
+    $datepickerPopupConfig.altInputFormats = ["mm/dd/YYYY", "mm-dd-YY"];
     $datepickerPopupConfig.appendToBody = true;
-    $datepickerPopupConfig.currentText = 'Select Today';
-    $datepickerPopupConfig.clearText = 'Reset Selection';
+    $datepickerPopupConfig.currentText = "Select Today";
+    $datepickerPopupConfig.clearText = "Reset Selection";
     $datepickerPopupConfig.closeOnDateSelection = false;
-    $datepickerPopupConfig.closeText = 'Finished';
-    $datepickerPopupConfig.datepickerPopup = 'dd-MM-yyyy';
-    $datepickerPopupConfig.datepickerPopupTemplateUrl = 'template.html';
-    $datepickerPopupConfig.datepickerTemplateUrl = 'template.html';
-    $datepickerPopupConfig.html5Types.date = 'MM-dd-yyyy';
-    $datepickerPopupConfig.html5Types['datetime-local'] = 'yyyy-MM-ddTHH:mm:ss.sss';
-    $datepickerPopupConfig.html5Types.month = 'yyyy-MM';
+    $datepickerPopupConfig.closeText = "Finished";
+    $datepickerPopupConfig.datepickerPopup = "dd-MM-yyyy";
+    $datepickerPopupConfig.datepickerPopupTemplateUrl = "template.html";
+    $datepickerPopupConfig.datepickerTemplateUrl = "template.html";
+    $datepickerPopupConfig.html5Types.date = "MM-dd-yyyy";
+    $datepickerPopupConfig.html5Types["datetime-local"] = "yyyy-MM-ddTHH:mm:ss.sss";
+    $datepickerPopupConfig.html5Types.month = "yyyy-MM";
     $datepickerPopupConfig.onOpenFocus = false;
     $datepickerPopupConfig.showButtonBar = false;
-    $datepickerPopupConfig.placement = 'auto bottom left';
+    $datepickerPopupConfig.placement = "auto bottom left";
 
     /**
      * $dropdownConfig tests
      */
-    $dropdownConfig.appendToOpenClass = 'some-thing';
-    $dropdownConfig.openClass = 'show';
+    $dropdownConfig.appendToOpenClass = "some-thing";
+    $dropdownConfig.openClass = "show";
 
     /**
      * $modalProvider tests
@@ -109,15 +109,15 @@ testApp.config((
     $paginationConfig.boundaryLinks = true;
     $paginationConfig.boundaryLinkNumbers = true;
     $paginationConfig.directionLinks = false;
-    $paginationConfig.firstText = 'First Page';
+    $paginationConfig.firstText = "First Page";
     $paginationConfig.itemsPerPage = 25;
-    $paginationConfig.lastText = 'Last Page';
+    $paginationConfig.lastText = "Last Page";
     $paginationConfig.maxSize = 13;
     $paginationConfig.numPages = 13;
-    $paginationConfig.nextText = 'Next Page';
-    $paginationConfig.previousText = 'Previous Page';
+    $paginationConfig.nextText = "Next Page";
+    $paginationConfig.previousText = "Previous Page";
     $paginationConfig.rotate = false;
-    $paginationConfig.templateUrl = 'template.html';
+    $paginationConfig.templateUrl = "template.html";
     $paginationConfig.totalItems = 13;
     $paginationConfig.forceEllipses = true;
 
@@ -126,8 +126,8 @@ testApp.config((
      */
     $pagerConfig.align = false;
     $pagerConfig.itemsPerPage = 25;
-    $pagerConfig.nextText = 'Next Page';
-    $pagerConfig.previousText = 'Previous Page';
+    $pagerConfig.nextText = "Next Page";
+    $pagerConfig.previousText = "Previous Page";
 
     /**
      * $progressConfig tests
@@ -139,15 +139,15 @@ testApp.config((
      * $ratingConfig tests
      */
     $ratingConfig.max = 10;
-    $ratingConfig.stateOff = 'rating-state-off';
-    $ratingConfig.stateOn = 'rating-state-on';
-    $ratingConfig.titles = ['1', '2', '3', '4', '5'];
+    $ratingConfig.stateOff = "rating-state-off";
+    $ratingConfig.stateOn = "rating-state-on";
+    $ratingConfig.titles = ["1", "2", "3", "4", "5"];
 
     /**
      * $timepickerConfig tests
      */
     $timepickerConfig.hourStep = 2;
-    $timepickerConfig.meridians = ['-AM-', '-PM-'];
+    $timepickerConfig.meridians = ["-AM-", "-PM-"];
     $timepickerConfig.minuteStep = 5;
     $timepickerConfig.secondStep = 5;
     $timepickerConfig.mousewheel = false;
@@ -156,26 +156,26 @@ testApp.config((
     $timepickerConfig.arrowkeys = false;
     $timepickerConfig.showSpinners = false;
     $timepickerConfig.showSeconds = true;
-    $timepickerConfig.templateUrl = 'template.html';
+    $timepickerConfig.templateUrl = "template.html";
 
     /**
      * $tooltipProvider tests
      */
     $tooltipProvider.options({
-        placement: 'bottom',
+        placement: "bottom",
         animation: false,
         popupDelay: 1000,
         popupCloseDelay: 1000,
         appendToBody: true,
-        trigger: 'mouseenter hover',
+        trigger: "mouseenter hover",
         useContentExp: true,
     });
     $tooltipProvider.setTriggers({
-        'customOpenTrigger': 'customCloseTrigger',
+        "customOpenTrigger": "customCloseTrigger",
     });
 });
 
-testApp.controller('TestCtrl', (
+testApp.controller("TestCtrl", (
     $scope: ng.ui.bootstrap.IModalScope,
     $log: ng.ILogService,
     $modal: ng.ui.bootstrap.IModalService,
@@ -187,55 +187,55 @@ testApp.controller('TestCtrl', (
      * test the $modal service
      */
     const modalInstance = $modal.open({
-        ariaLabelledBy: 'label',
-        ariaDescribedBy: 'description',
+        ariaLabelledBy: "label",
+        ariaDescribedBy: "description",
         animation: false,
-        backdrop: 'static',
-        backdropClass: 'modal-backdrop-test',
+        backdrop: "static",
+        backdropClass: "modal-backdrop-test",
         bindToController: true,
-        controller: 'ModalTestCtrl',
-        controllerAs: 'vm',
+        controller: "ModalTestCtrl",
+        controllerAs: "vm",
         keyboard: true,
-        openedClass: 'modal-open my-modal',
+        openedClass: "modal-open my-modal",
         resolve: {
             items: () => {
                 return [1, 2, 3, 4, 5];
             },
         },
         scope: $scope,
-        template: '<div>i\'m a template!</div>',
-        templateUrl: '/templates/modal.html',
-        windowClass: 'modal-test',
+        template: "<div>i'm a template!</div>",
+        templateUrl: "/templates/modal.html",
+        windowClass: "modal-test",
     });
 
     modalInstance.opened.then(() => {
-        $log.log('modal opened');
+        $log.log("modal opened");
     });
 
     modalInstance.rendered.then(() => {
-        $log.log('modal rendered');
+        $log.log("modal rendered");
     });
 
     modalInstance.closed.then(() => {
-        $log.log('modal closed');
+        $log.log("modal closed");
     });
 
     modalInstance.result.then((closeResult: any) => {
-        $log.log('modal closed', closeResult);
+        $log.log("modal closed", closeResult);
     }, (dismissResult: any) => {
-        $log.log('modal dismissed', dismissResult);
+        $log.log("modal dismissed", dismissResult);
     });
 
     $modal.open({
-        backdrop: 'static',
+        backdrop: "static",
     });
 
     $modal.open({
-        template: () => '<div>i\'m a template!</div>',
+        template: () => "<div>i'm a template!</div>",
     });
 
     $modal.open({
-        templateUrl: () => '/templates/modal.html',
+        templateUrl: () => "/templates/modal.html",
     });
 
     $modal.getPromiseChain().then(() => {});
@@ -249,39 +249,39 @@ testApp.controller('TestCtrl', (
      */
     $modalStack.open(modalInstance, { scope: $scope });
     $modalStack.close(modalInstance);
-    $modalStack.close(modalInstance, 'with reason');
+    $modalStack.close(modalInstance, "with reason");
     $modalStack.dismiss(modalInstance);
-    $modalStack.dismiss(modalInstance, 'with reason');
+    $modalStack.dismiss(modalInstance, "with reason");
     $modalStack.dismissAll();
-    $modalStack.dismissAll('with reason');
+    $modalStack.dismissAll("with reason");
     $modalStack.getTop().key.close();
 
     /**
      * test the $position service
      */
     const elementLogger = (coordinates: ng.ui.bootstrap.IPositionCoordinates): void => {
-        $log.log('height', coordinates.height);
-        $log.log('left', coordinates.left);
-        $log.log('top', coordinates.top);
-        $log.log('width', coordinates.width);
+        $log.log("height", coordinates.height);
+        $log.log("left", coordinates.left);
+        $log.log("top", coordinates.top);
+        $log.log("width", coordinates.width);
     };
-    const element = angular.element('<div/>');
+    const element = angular.element("<div/>");
     elementLogger($position.position(element));
     elementLogger($position.offset(element));
 
     /**
      * test the $transition service
      */
-    $log.log('animationEndEventName', $transition.animationEndEventName);
-    $log.log('transitionEndEventName', $transition.transitionEndEventName);
+    $log.log("animationEndEventName", $transition.animationEndEventName);
+    $log.log("transitionEndEventName", $transition.transitionEndEventName);
 
-    const transitionElement = angular.element('<div/>');
-    $transition(transitionElement, 'transition-class', { animation: true });
-    $transition(transitionElement, { height: '100px', width: '50px' }, { animation: true });
+    const transitionElement = angular.element("<div/>");
+    $transition(transitionElement, "transition-class", { animation: true });
+    $transition(transitionElement, { height: "100px", width: "50px" }, { animation: true });
     $transition(transitionElement, () => {}, { animation: true });
 });
 
-testApp.controller('ModalTestCtrl', (
+testApp.controller("ModalTestCtrl", (
     $scope: IModalTestCtrlScope,
     $log: ng.ILogService,
     $modalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -293,7 +293,7 @@ testApp.controller('ModalTestCtrl', (
 
     $scope.close = () => {
         if ($scope.useReason) {
-            $modalInstance.close('with reason');
+            $modalInstance.close("with reason");
         } else {
             $modalInstance.close();
         }
@@ -301,7 +301,7 @@ testApp.controller('ModalTestCtrl', (
 
     $scope.dismiss = () => {
         if ($scope.useReason) {
-            $modalInstance.dismiss('with reason');
+            $modalInstance.dismiss("with reason");
         } else {
             $modalInstance.dismiss();
         }

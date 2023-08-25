@@ -9,9 +9,9 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace translate {
         interface ITranslationTable {
             [key: string]: string | ITranslationTable;
@@ -168,7 +168,7 @@ declare module 'angular' {
     }
 
     interface IFilterService {
-        (name: 'translate'): {
+        (name: "translate"): {
             (translationId: string, interpolateParams?: any, interpolation?: string, forceLanguage?: string): string;
             (
                 translationIds: string[],

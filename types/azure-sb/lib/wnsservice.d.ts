@@ -1,6 +1,6 @@
-import NotificationHubService = require('azure-sb/lib/notificationhubservice');
+import NotificationHubService = require("azure-sb/lib/notificationhubservice");
 import Callback = Azure.ServiceBus.ResponseCallback;
-import { Azure } from 'azure-sb';
+import { Azure } from "azure-sb";
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
 import Dictionary = Azure.ServiceBus.Dictionary;
 
@@ -26,20 +26,20 @@ interface Options {
 }
 
 type badges =
-    | 'none'
-    | 'activity'
-    | 'alert'
-    | 'available'
-    | 'away'
-    | 'busy'
-    | 'newMessage'
-    | 'paused'
-    | 'playing'
-    | 'unavailable'
-    | 'error'
-    | 'attention';
+    | "none"
+    | "activity"
+    | "alert"
+    | "available"
+    | "away"
+    | "busy"
+    | "newMessage"
+    | "paused"
+    | "playing"
+    | "unavailable"
+    | "error"
+    | "attention";
 
-type types = 'wns/toast' | 'wns/badge' | 'wns/tile' | 'wns/raw';
+type types = "wns/toast" | "wns/badge" | "wns/tile" | "wns/raw";
 
 declare class WnsService {
     constructor(service: NotificationHubService);

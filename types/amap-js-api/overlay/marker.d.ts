@@ -1,26 +1,26 @@
 declare namespace AMap {
     namespace Marker {
         interface EventMap<I = Marker> {
-            click: MapsEvent<'click', I>;
-            dblclick: MapsEvent<'dblclick', I>;
-            rightclick: MapsEvent<'rightclick', I>;
-            mousemove: MapsEvent<'mousemove', I>;
-            mouseover: MapsEvent<'mouseover', I>;
-            mouseout: MapsEvent<'mouseout', I>;
-            mousedown: MapsEvent<'mousedown', I>;
-            mouseup: MapsEvent<'mouseup', I>;
-            dragstart: MapsEvent<'dragstart', I>;
-            dragging: MapsEvent<'dragging', I>;
-            dragend: MapsEvent<'dragend', I>;
-            moving: Event<'moving', { passedPath: LngLat[] }>;
-            moveend: Event<'moveend'>;
-            movealong: Event<'movealong'>;
-            touchstart: MapsEvent<'touchstart', I>;
-            touchmove: MapsEvent<'touchmove', I>;
-            touchend: MapsEvent<'touchend', I>;
+            click: MapsEvent<"click", I>;
+            dblclick: MapsEvent<"dblclick", I>;
+            rightclick: MapsEvent<"rightclick", I>;
+            mousemove: MapsEvent<"mousemove", I>;
+            mouseover: MapsEvent<"mouseover", I>;
+            mouseout: MapsEvent<"mouseout", I>;
+            mousedown: MapsEvent<"mousedown", I>;
+            mouseup: MapsEvent<"mouseup", I>;
+            dragstart: MapsEvent<"dragstart", I>;
+            dragging: MapsEvent<"dragging", I>;
+            dragend: MapsEvent<"dragend", I>;
+            moving: Event<"moving", { passedPath: LngLat[] }>;
+            moveend: Event<"moveend">;
+            movealong: Event<"movealong">;
+            touchstart: MapsEvent<"touchstart", I>;
+            touchmove: MapsEvent<"touchmove", I>;
+            touchend: MapsEvent<"touchend", I>;
         }
 
-        type LabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
+        type LabelDirection = "top" | "right" | "bottom" | "left" | "center";
         interface Label {
             content?: string | undefined;
             offset?: Pixel | undefined;
@@ -28,15 +28,15 @@ declare namespace AMap {
         }
 
         type Anchor =
-            | 'top-left'
-            | 'top-center'
-            | 'top-right'
-            | 'middle-left'
-            | 'center'
-            | 'middle-right'
-            | 'bottom-left'
-            | 'bottom-center'
-            | 'bottom-right';
+            | "top-left"
+            | "top-center"
+            | "top-right"
+            | "middle-left"
+            | "center"
+            | "middle-right"
+            | "bottom-left"
+            | "bottom-center"
+            | "bottom-right";
 
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**

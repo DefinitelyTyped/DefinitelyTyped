@@ -3,11 +3,11 @@ import {
     CloudFormationCustomResourceHandler,
     CloudFormationCustomResourceResponse,
     CloudFormationCustomResourceSuccessResponse,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 const handler: CloudFormationCustomResourceHandler = async (event, context, callback) => {
     switch (event.RequestType) {
-        case 'Create':
+        case "Create":
             str = event.LogicalResourceId;
             str = event.RequestId;
             anyObj = event.ResourceProperties;
@@ -17,10 +17,10 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
             str = event.ServiceToken;
             str = event.StackId;
             break;
-        case 'Update':
+        case "Update":
             anyObj = event.OldResourceProperties;
             break;
-        case 'Delete':
+        case "Delete":
             str = event.PhysicalResourceId;
             break;
     }
@@ -35,7 +35,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: strOrUndefined,
         RequestId: str,
         StackId: str,
-        Status: 'SUCCESS',
+        Status: "SUCCESS",
         NoEcho: boolOrUndefined,
     };
 
@@ -46,7 +46,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         PhysicalResourceId: str,
         RequestId: str,
         StackId: str,
-        Status: 'SUCCESS',
+        Status: "SUCCESS",
     };
     successResponse = {
         Data: anyObj,
@@ -55,7 +55,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: strOrUndefined,
         RequestId: str,
         StackId: str,
-        Status: 'SUCCESS',
+        Status: "SUCCESS",
         NoEcho: boolOrUndefined,
     };
     failedResponse = {
@@ -65,7 +65,7 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
         Reason: str,
         RequestId: str,
         StackId: str,
-        Status: 'FAILED',
+        Status: "FAILED",
     };
     response = successResponse;
     response = failedResponse;

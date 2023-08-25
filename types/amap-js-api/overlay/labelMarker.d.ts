@@ -2,18 +2,18 @@ declare namespace AMap {
     namespace LabelMarker {
         interface EventMap<I = LabelMarker> extends LabelsLayer.EventMap<I> {}
 
-        type TextDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
-        type FontWeight = 'normal' | 'thin' | 'bold';
+        type TextDirection = "top" | "right" | "bottom" | "left" | "center";
+        type FontWeight = "normal" | "thin" | "bold";
         type Anchor =
-            | 'top-left'
-            | 'top-center'
-            | 'top-right'
-            | 'middle-left'
-            | 'center'
-            | 'middle-right'
-            | 'bottom-left'
-            | 'bottom-center'
-            | 'bottom-right';
+            | "top-left"
+            | "top-center"
+            | "top-right"
+            | "middle-left"
+            | "center"
+            | "middle-right"
+            | "bottom-left"
+            | "bottom-center"
+            | "bottom-right";
         interface TextStyle {
             fontSize?: number | undefined;
             fontFamily?: string | undefined;
@@ -109,7 +109,7 @@ declare namespace AMap {
          */
         off<C = this>(
             eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
+            handler: ((this: C, event: any) => void) | "mv",
             context?: C,
         ): any; // should be void
 

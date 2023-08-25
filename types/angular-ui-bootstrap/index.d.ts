@@ -9,12 +9,12 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare const moduleName: 'ui.bootstrap';
+declare const moduleName: "ui.bootstrap";
 export = moduleName;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui.bootstrap {
         interface IAccordionConfig {
             /**
@@ -44,7 +44,7 @@ declare module 'angular' {
 
         type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
 
-        type DatepickerMode = 'day' | 'month' | 'year';
+        type DatepickerMode = "day" | "month" | "year";
 
         interface IDatepickerCellArgs {
             date: Date;
@@ -241,7 +241,7 @@ declare module 'angular' {
              */
             html5Types?: {
                 date?: string | undefined;
-                'datetime-local'?: string | undefined;
+                "datetime-local"?: string | undefined;
                 month?: string | undefined;
             } | undefined;
 

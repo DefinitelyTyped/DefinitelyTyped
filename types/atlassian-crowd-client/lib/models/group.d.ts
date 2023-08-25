@@ -13,7 +13,7 @@ declare class Group {
 }
 
 interface GroupObj {
-    readonly type: 'GROUP';
+    readonly type: "GROUP";
     readonly name: string;
     readonly description: string;
     readonly active: boolean;

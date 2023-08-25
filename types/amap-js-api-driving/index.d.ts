@@ -34,8 +34,8 @@ declare namespace AMap {
     }
     namespace Driving {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -47,7 +47,7 @@ declare namespace AMap {
              * 默认值：base，返回基本地址信息
              * 当取值为：all，返回DriveStep基本信息+DriveStep详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
             /**
              * 默认为0，表示可以使用轮渡，为1的时候表示不可以使用轮渡
              */
@@ -257,7 +257,7 @@ declare namespace AMap {
         interface Poi {
             location: LngLat;
             name: string;
-            type: 'start' | 'end' | 'waypoint';
+            type: "start" | "end" | "waypoint";
         }
         interface SearchResultCommon {
             /**
@@ -319,7 +319,7 @@ declare namespace AMap {
             waypoints: Array<PlaceSearch.PoiExt & { isWaypoint: boolean }>;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'error' | 'no_data' | 'complete';
+        type SearchStatus = "error" | "no_data" | "complete";
     }
     class Driving extends EventEmitter {
         /**

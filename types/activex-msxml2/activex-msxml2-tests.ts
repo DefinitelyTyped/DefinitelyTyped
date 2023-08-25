@@ -2,23 +2,23 @@
 
 // https://msdn.microsoft.com/en-us/library/ms764708(v=vs.85).aspx
 {
-    const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const dom = new ActiveXObject("Msxml2.DOMDocument.6.0");
     dom.async = false;
     dom.resolveExternals = false;
-    dom.loadXML('<a>A</a>');
+    dom.loadXML("<a>A</a>");
     WScript.Echo(`dom: ${dom.xml}`);
 }
 
 // https://msdn.microsoft.com/en-us/library/ms766390(v=vs.85).aspx
 {
-    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
-    doc.load('test.xml');
+    const doc = new ActiveXObject("Msxml2.DOMDocument.6.0");
+    doc.load("test.xml");
     WScript.Echo(`doc: ${doc.xml}`);
 }
 
 const MakeDOM = () => {
     try {
-        const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+        const dom = new ActiveXObject("Msxml2.DOMDocument.6.0");
         dom.async = false;
         dom.validateOnParse = false;
         dom.resolveExternals = false;
@@ -40,7 +40,7 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms759105(v=vs.85).aspx
 {
-    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const doc = new ActiveXObject("Msxml2.DOMDocument.6.0");
     doc.async = false;
     doc.resolveExternals = false;
     doc.validateOnParse = false;
@@ -61,20 +61,20 @@ const LoadDOM = (file: string) => {
 </doc>
 `;
     doc.loadXML(xml);
-    doc.save('saved.xml');
+    doc.save("saved.xml");
 }
 
 // https://msdn.microsoft.com/en-us/library/ms764656(v=vs.85).aspx
 {
-    const doc = LoadDOM('test.xml')!;
-    const xsl = (LoadDOM('test.xsl')! as any) as MSXML2.IXMLDOMNode;
+    const doc = LoadDOM("test.xml")!;
+    const xsl = (LoadDOM("test.xsl")! as any) as MSXML2.IXMLDOMNode;
 
     const str = doc.transformNode(xsl);
-    WScript.Echo('\ndoc.transformNode:\n' + str);
+    WScript.Echo("\ndoc.transformNode:\n" + str);
 
     const out = MakeDOM()!;
     doc.transformNodeToObject(xsl, out);
-    WScript.Echo('\ndoc.transformNodeToObject:\n' + out.xml);
+    WScript.Echo("\ndoc.transformNodeToObject:\n" + out.xml);
 }
 
 // https://msdn.microsoft.com/en-us/library/ms763685(v=vs.85).aspx
@@ -82,89 +82,89 @@ const LoadDOM = (file: string) => {
     const dom = MakeDOM()!;
 
     // Create a processing instruction targeted for xml.
-    let node = dom.createProcessingInstruction('xml', 'version=\'1.0\'') as any;
+    let node = dom.createProcessingInstruction("xml", "version='1.0'") as any;
     dom.appendChild(node);
 
     // Create a processing instruction targeted for xml-stylesheet.
-    node = dom.createProcessingInstruction('xml-stylesheet', 'type=\'text/xml\' href=\'test.xsl\'');
+    node = dom.createProcessingInstruction("xml-stylesheet", "type='text/xml' href='test.xsl'");
     dom.appendChild(node);
 
     // Create a comment for the document.
-    node = dom.createComment('sample xml file created using XML DOM object.');
+    node = dom.createComment("sample xml file created using XML DOM object.");
     dom.appendChild(node);
 
     // Create the root element.
-    const root = dom.createElement('root') as any;
+    const root = dom.createElement("root") as any;
 
     // Create a "created" attribute for the root element and assign the "using dom" character data as the attribute value.
-    const attr = dom.createAttribute('created') as any;
-    attr.value = 'using dom';
+    const attr = dom.createAttribute("created") as any;
+    attr.value = "using dom";
     root.setAttributeNode(attr);
 
     // Add the root element to the DOM instance.
     dom.appendChild(root);
 
     // Insert a newline + tab.
-    root.appendChild(dom.createTextNode('\n\t'));
+    root.appendChild(dom.createTextNode("\n\t"));
 
     // Create more nodes and add them to the root element just created.
 
     // Add a text node as <node1>.
-    node = dom.createElement('node1');
-    node.text = 'some character data';
+    node = dom.createElement("node1");
+    node.text = "some character data";
     root.appendChild(node);
 
     // Add a newline + tab.
-    root.appendChild(dom.createTextNode('\n\t'));
+    root.appendChild(dom.createTextNode("\n\t"));
 
     // Add a CDATA section as <node2>.
-    node = dom.createElement('node2');
-    const cd = dom.createCDATASection('some mark-up text');
+    node = dom.createElement("node2");
+    const cd = dom.createCDATASection("some mark-up text");
     node.appendChild(cd);
     root.appendChild(node);
 
     // Create an element (<node3>) to hold three empty subelements.
-    node = dom.createElement('node3');
+    node = dom.createElement("node3");
     // Create a document fragment to be added to <node3>.
     const frag = dom.createDocumentFragment();
 
     // Add a newline + tab + tab as a text node and an empty subnode.
-    frag.appendChild(dom.createTextNode('\n\t\t') as any);
-    frag.appendChild(dom.createElement('subNode1') as any);
+    frag.appendChild(dom.createTextNode("\n\t\t") as any);
+    frag.appendChild(dom.createElement("subNode1") as any);
 
     // Add a newline + tab + tab as a text node and an empty subnode.
-    frag.appendChild(dom.createTextNode('\n\t\t') as any);
-    frag.appendChild(dom.createElement('subNode2') as any);
+    frag.appendChild(dom.createTextNode("\n\t\t") as any);
+    frag.appendChild(dom.createElement("subNode2") as any);
 
     // Add a newline + tab + tab as a text node and an empty subnode.
-    frag.appendChild(dom.createTextNode('\n\t\t') as any);
-    frag.appendChild(dom.createElement('subNode3') as any);
+    frag.appendChild(dom.createTextNode("\n\t\t") as any);
+    frag.appendChild(dom.createElement("subNode3") as any);
 
     // Add a newline + tab.
-    frag.appendChild(dom.createTextNode('\n\t') as any);
+    frag.appendChild(dom.createTextNode("\n\t") as any);
     node.appendChild(frag);
     root.appendChild(node);
 
     // Add a newline.
-    root.appendChild(dom.createTextNode('\n'));
+    root.appendChild(dom.createTextNode("\n"));
 
     // Save the XML document to a file.
-    dom.save('dynamDom.xml');
+    dom.save("dynamDom.xml");
 }
 
 // https://msdn.microsoft.com/en-us/library/ms757050(v=vs.85).aspx
 {
-    const dom = LoadDOM('stocks.xml')!;
+    const dom = LoadDOM("stocks.xml")!;
     try {
         // Query a single node.
-        const oNode = dom.selectSingleNode('//stock[1]/*');
+        const oNode = dom.selectSingleNode("//stock[1]/*");
         if (oNode != null) {
             WScript.Echo(`Result from selectSingleNode:\n\tNode, <${oNode.nodeName}>:\n\t${oNode.xml}\n\n`);
         }
 
         // Query a node-set.
-        WScript.Echo('Results from selectNodes:\n');
-        const oNodes = dom.selectNodes('//stock[1]/*');
+        WScript.Echo("Results from selectNodes:\n");
+        const oNodes = dom.selectNodes("//stock[1]/*");
 
         for (let i = 0; i < oNodes.length; i++) {
             const nextNode = oNodes.nextNode;
@@ -178,8 +178,8 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms757064(v=vs.85).aspx
 {
-    const xhr = new ActiveXObject('Msxml2.XMLHTTP.6.0');
-    xhr.open('GET', 'http://localhost/sxh/contact.asp?SearchID=John Doe', false);
+    const xhr = new ActiveXObject("Msxml2.XMLHTTP.6.0");
+    xhr.open("GET", "http://localhost/sxh/contact.asp?SearchID=John Doe", false);
     xhr.send();
 
     const doc = xhr.responseXML;
@@ -188,7 +188,7 @@ const LoadDOM = (file: string) => {
 
 const xmlValidation = (fn: (x: MSXML2.DOMDocument60) => void) => {
     // Create and initialize the DOMDocument object
-    const x = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const x = new ActiveXObject("Msxml2.DOMDocument.6.0");
     x.async = false;
     x.validateOnParse = true;
     x.resolveExternals = true;
@@ -217,8 +217,8 @@ ${x.xml}
 {
     const validateFile = (filename: string) => xmlValidation(x => x.load(filename));
 
-    let sOutput = validateFile('nn-valid.xml');
-    sOutput = sOutput + validateFile('nn-notValid.xml');
+    let sOutput = validateFile("nn-valid.xml");
+    sOutput = sOutput + validateFile("nn-notValid.xml");
     WScript.Echo(sOutput);
 }
 
@@ -227,16 +227,16 @@ ${x.xml}
     const validateFile = (filename: string) =>
         xmlValidation(x => {
             // Configure DOM properties for namespace selection.
-            x.setProperty('SelectionLanguage', 'XPath');
-            const ns = 'xmlns:x=\'urn:book\'';
-            x.setProperty('SelectionNamespaces', ns);
+            x.setProperty("SelectionLanguage", "XPath");
+            const ns = "xmlns:x='urn:book'";
+            x.setProperty("SelectionNamespaces", ns);
 
             // Load and validate the specified file into the DOM.
             x.load(filename);
         });
 
-    let sOutput = validateFile('sl-valid.xml');
-    sOutput = sOutput + validateFile('sl-notValid.xml');
+    let sOutput = validateFile("sl-valid.xml");
+    sOutput = sOutput + validateFile("sl-notValid.xml");
     WScript.Echo(sOutput);
 }
 
@@ -245,8 +245,8 @@ ${x.xml}
     const validateFile = (filename: string) =>
         xmlValidation(xd => {
             // Create a schema cache and add books.xsd to it.
-            const xs = new ActiveXObject('Msxml2.XMLSchemaCache');
-            xs.add('urn:books', 'sc.xsd');
+            const xs = new ActiveXObject("Msxml2.XMLSchemaCache");
+            xs.add("urn:books", "sc.xsd");
 
             // Assign the schema cache to the DOMDocument's schemas collection.
             xd.schemas = xs;
@@ -254,8 +254,8 @@ ${x.xml}
             xd.load(filename);
         });
 
-    let sOutput = validateFile('sc-valid.xml');
-    sOutput = sOutput + validateFile('sc-notValid.xml');
+    let sOutput = validateFile("sc-valid.xml");
+    sOutput = sOutput + validateFile("sc-notValid.xml");
     WScript.Echo(sOutput);
 }
 
@@ -263,34 +263,34 @@ ${x.xml}
 {
     const validateFile = (filename: string) =>
         xmlValidation(x => {
-            x.setProperty('UseInlineSchema', true);
+            x.setProperty("UseInlineSchema", true);
             x.load(filename);
         });
 
-    let sOutput = validateFile('valid.xml');
-    sOutput = sOutput + validateFile('notValid.xml');
+    let sOutput = validateFile("valid.xml");
+    sOutput = sOutput + validateFile("notValid.xml");
     WScript.Echo(sOutput);
 }
 
 // https://msdn.microsoft.com/en-us/library/ms757833(v=vs.85).aspx
 {
     // Load an XML document into a DOM instance.
-    const oXMLDoc = LoadDOM('books.xml')!;
+    const oXMLDoc = LoadDOM("books.xml")!;
 
     // Load the schema for the xml document.
-    const oXSDDoc = LoadDOM('books.xsd')!;
+    const oXSDDoc = LoadDOM("books.xsd")!;
 
     // Create a schema cache instance.
-    const oSCache = new ActiveXObject('Msxml2.XMLSchemaCache.6.0');
+    const oSCache = new ActiveXObject("Msxml2.XMLSchemaCache.6.0");
 
     // Add the just-loaded schema definition to the schema collection
-    oSCache.add('urn:books', oXSDDoc);
+    oSCache.add("urn:books", oXSDDoc);
 
     // Assign the schema to the XML document's schema collection
     oXMLDoc.schemas = oSCache;
 
     // Validate the entire DOM.
-    WScript.Echo('Validating DOM...');
+    WScript.Echo("Validating DOM...");
     let oError = oXMLDoc.validate();
     let msg: string;
     if (oError.errorCode !== 0) {
@@ -303,8 +303,8 @@ ${oXMLDoc.xml}`;
     WScript.Echo(msg);
 
     // Validate all //books nodes, node by node.
-    WScript.Echo('Validating all book nodes, \'//book\', one by one ...');
-    let oNodes = oXMLDoc.selectNodes('//book');
+    WScript.Echo("Validating all book nodes, '//book', one by one ...");
+    let oNodes = oXMLDoc.selectNodes("//book");
     for (let i = 0; i < oNodes.length; i++) {
         const oNode = oNodes.item(i);
         oError = oXMLDoc.validateNode(oNode);
@@ -318,8 +318,8 @@ ${oError.reason}`;
     }
 
     // validate all children of all book node, //book/*, node by node
-    oNodes = oXMLDoc.selectNodes('//book/*');
-    WScript.Echo('Validating all children of all book nodes, "//book/*, one by one...');
+    oNodes = oXMLDoc.selectNodes("//book/*");
+    WScript.Echo("Validating all children of all book nodes, \"//book/*, one by one...");
     for (let i = 0; i < oNodes.length; i++) {
         const oNode = oNodes.item(i);
         oError = oXMLDoc.validateNode(oNode);

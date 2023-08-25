@@ -6,9 +6,9 @@
 
 /// <reference types="jquery" />
 
-import * as amplify from 'amplify';
+import * as amplify from "amplify";
 
-declare module 'amplify' {
+declare module "amplify" {
     interface Request {
         /***
          * Request a resource.

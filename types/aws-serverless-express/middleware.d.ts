@@ -1,13 +1,13 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
-import { RequestHandler } from 'express';
-import 'http';
+import { APIGatewayProxyEvent, Context } from "aws-lambda";
+import { RequestHandler } from "express";
+import "http";
 
 export interface APIGateway {
-    event: Omit<APIGatewayProxyEvent, 'body'>;
+    event: Omit<APIGatewayProxyEvent, "body">;
     context: NonFunctionProperties<Context>;
 }
 
-declare module 'http' {
+declare module "http" {
     interface IncomingMessage {
         apiGateway?: APIGateway;
     }

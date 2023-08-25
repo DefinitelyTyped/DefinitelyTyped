@@ -247,60 +247,60 @@ declare namespace apostrophe {
     }
 
     type AposCoreModules =
-        | 'apostrophe-admin-bar'
-        | 'apostrophe-any-page-manager'
-        | 'apostrophe-areas'
-        | 'apostrophe-assets'
-        | 'apostrophe-attachments'
-        | 'apostrophe-browser-utils'
-        | 'apostrophe-caches'
-        | 'apostrophe-custom-pages'
-        | 'apostrophe-db'
-        | 'apostrophe-doc-type-manager'
-        | 'apostrophe-docs'
-        | 'apostrophe-email'
-        | 'apostrophe-express'
-        | 'apostrophe-files'
-        | 'apostrophe-files-widgets'
-        | 'apostrophe-global'
-        | 'apostrophe-groups'
-        | 'apostrophe-html-widgets'
-        | 'apostrophe-i18n'
-        | 'apostrophe-images'
-        | 'apostrophe-images-widgets'
-        | 'apostrophe-jobs'
-        | 'apostrophe-launder'
-        | 'apostrophe-locks'
-        | 'apostrophe-login'
-        | 'apostrophe-migrations'
-        | 'apostrophe-modal'
-        | 'apostrophe-module'
-        | 'apostrophe-notifications'
-        | 'apostrophe-oembed'
-        | 'apostrophe-pager'
-        | 'apostrophe-pages'
-        | 'apostrophe-permissions'
-        | 'apostrophe-pieces'
-        | 'apostrophe-pieces-pages'
-        | 'apostrophe-pieces-widgets'
-        | 'apostrophe-polymorphic-manager'
-        | 'apostrophe-push'
-        | 'apostrophe-rich-text-widgets'
-        | 'apostrophe-schemas'
-        | 'apostrophe-search'
-        | 'apostrophe-service-bridge'
-        | 'apostrophe-soft-redirects'
-        | 'apostrophe-tags'
-        | 'apostrophe-tasks'
-        | 'apostrophe-templates'
-        | 'apostrophe-ui'
-        | 'apostrophe-urls'
-        | 'apostrophe-users'
-        | 'apostrophe-utils'
-        | 'apostrophe-versions'
-        | 'apostrophe-video-fields'
-        | 'apostrophe-video-widgets'
-        | 'apostrophe-widgets';
+        | "apostrophe-admin-bar"
+        | "apostrophe-any-page-manager"
+        | "apostrophe-areas"
+        | "apostrophe-assets"
+        | "apostrophe-attachments"
+        | "apostrophe-browser-utils"
+        | "apostrophe-caches"
+        | "apostrophe-custom-pages"
+        | "apostrophe-db"
+        | "apostrophe-doc-type-manager"
+        | "apostrophe-docs"
+        | "apostrophe-email"
+        | "apostrophe-express"
+        | "apostrophe-files"
+        | "apostrophe-files-widgets"
+        | "apostrophe-global"
+        | "apostrophe-groups"
+        | "apostrophe-html-widgets"
+        | "apostrophe-i18n"
+        | "apostrophe-images"
+        | "apostrophe-images-widgets"
+        | "apostrophe-jobs"
+        | "apostrophe-launder"
+        | "apostrophe-locks"
+        | "apostrophe-login"
+        | "apostrophe-migrations"
+        | "apostrophe-modal"
+        | "apostrophe-module"
+        | "apostrophe-notifications"
+        | "apostrophe-oembed"
+        | "apostrophe-pager"
+        | "apostrophe-pages"
+        | "apostrophe-permissions"
+        | "apostrophe-pieces"
+        | "apostrophe-pieces-pages"
+        | "apostrophe-pieces-widgets"
+        | "apostrophe-polymorphic-manager"
+        | "apostrophe-push"
+        | "apostrophe-rich-text-widgets"
+        | "apostrophe-schemas"
+        | "apostrophe-search"
+        | "apostrophe-service-bridge"
+        | "apostrophe-soft-redirects"
+        | "apostrophe-tags"
+        | "apostrophe-tasks"
+        | "apostrophe-templates"
+        | "apostrophe-ui"
+        | "apostrophe-urls"
+        | "apostrophe-users"
+        | "apostrophe-utils"
+        | "apostrophe-versions"
+        | "apostrophe-video-fields"
+        | "apostrophe-video-widgets"
+        | "apostrophe-widgets";
 
     // Pass in custom modules to AposModuleOptions to allow them in extend
     interface AposModuleOptions<C = {}> {
@@ -309,7 +309,7 @@ declare namespace apostrophe {
         label: string;
         pluralLabel?: string | undefined;
         playerData?: false | string[] | undefined;
-        scene?: 'user' | undefined;
+        scene?: "user" | undefined;
         addFields?: Field[] | undefined;
         removeFields?: Field[] | undefined;
         arrangeFields?: {

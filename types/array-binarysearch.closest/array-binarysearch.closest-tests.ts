@@ -1,4 +1,4 @@
-import binarySearch = require('array-binarysearch.closest');
+import binarySearch = require("array-binarysearch.closest");
 
 // Test with object
 
@@ -31,16 +31,16 @@ binarySearch([21, 42, 91, 91], 92, null, null, 2, 4);
 binarySearch([21, 42, 91, 91], 40, (a: number, b: number) => a === b ? 0 : (a < b ? -1 : 1));
 // 1
 binarySearch(
-    ['G', 'KG', 'KG', 'MG'],
-    'g',
+    ["G", "KG", "KG", "MG"],
+    "g",
     (a: string, b: string, i: number) => a.toLowerCase().localeCompare(b.toLowerCase()),
     null,
     1,
 );
 // 1
 binarySearch(
-    ['G', 'KG', 'KG', 'MG'],
-    'KG',
+    ["G", "KG", "KG", "MG"],
+    "KG",
     (a: string, b: string, i: number, arr: ReadonlyArray<string>) => a.localeCompare(b),
     null,
     1,

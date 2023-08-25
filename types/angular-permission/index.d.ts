@@ -7,9 +7,9 @@
 /// <reference types="angular" />
 /// <reference types="angular-ui-router" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace permission {
         /**
          * Used as optional parameter provided on definitions of permissions and roles
@@ -200,7 +200,7 @@ declare module 'angular' {
     }
 }
 
-declare module 'angular-permission' {
+declare module "angular-permission" {
     export var permission: string;
     export var ngPermission: string;
     export var uiPermission: string;

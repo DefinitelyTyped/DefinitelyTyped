@@ -54,5 +54,5 @@ export class PDFPropertiesOperation {
     execute(context: ExecutionContext): Promise<any>;
     validate(): void;
 }
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { PDFPropertiesOptions } from './option/pdfproperties/pdf-properties-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { PDFPropertiesOptions } from "./option/pdfproperties/pdf-properties-options";

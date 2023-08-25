@@ -1,5 +1,5 @@
-import { Azure } from '../index';
-import NotificationHubService = require('azure-sb/lib/notificationhubservice');
+import { Azure } from "../index";
+import NotificationHubService = require("azure-sb/lib/notificationhubservice");
 import ResponseCallback = Azure.ServiceBus.ResponseCallback;
 import NotificationHubRegistration = Azure.ServiceBus.NotificationHubRegistration;
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;

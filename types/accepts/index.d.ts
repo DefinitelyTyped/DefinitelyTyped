@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 declare namespace accepts {
     interface Accepts {

@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
 export type HotkeysProvider = ng.hotkeys.HotkeysProvider;
 export type HotkeysProviderChained = ng.hotkeys.HotkeysProviderChained;
 export type Hotkey = ng.hotkeys.Hotkey;
 
-declare module 'angular' {
+declare module "angular" {
     namespace hotkeys {
         interface HotkeysProvider {
             /**
@@ -136,7 +136,7 @@ declare module 'angular' {
             /**
              * An array of tag names to allow this combo in ('INPUT', 'SELECT', and/or 'TEXTAREA')
              */
-            allowIn?: Array<'INPUT' | 'SELECT' | 'TEXTAREA'> | undefined;
+            allowIn?: Array<"INPUT" | "SELECT" | "TEXTAREA"> | undefined;
             /**
              * Whether the hotkey persists navigation events
              */

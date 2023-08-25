@@ -1,14 +1,14 @@
-declare module 'angular-mocks/ngMock' {
+declare module "angular-mocks/ngMock" {
     const _: string;
     export = _;
 }
 
-declare module 'angular-mocks/ngMockE2E' {
+declare module "angular-mocks/ngMockE2E" {
     const _: string;
     export = _;
 }
 
-declare module 'angular-mocks/ngAnimateMock' {
+declare module "angular-mocks/ngAnimateMock" {
     const _: string;
     export = _;
 }

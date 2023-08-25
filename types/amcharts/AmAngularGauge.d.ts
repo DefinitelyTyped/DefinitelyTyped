@@ -1,11 +1,11 @@
-import AmBalloon from './AmBalloon';
-import AmChart from './AmChart';
-import AmLegend from './AmLegend';
-import ExportSettings from './ExportSettings';
-import GaugeArrow from './GaugeArrow';
-import GaugeAxis from './GaugeAxis';
-import Label from './Label';
-import Title from './Title';
+import AmBalloon from "./AmBalloon";
+import AmChart from "./AmChart";
+import AmLegend from "./AmLegend";
+import ExportSettings from "./ExportSettings";
+import GaugeArrow from "./GaugeArrow";
+import GaugeAxis from "./GaugeAxis";
+import Label from "./Label";
+import Title from "./Title";
 
 /**
  * AmAngularGauge Extension for AmChart to create gauge charts.

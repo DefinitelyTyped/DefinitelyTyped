@@ -1,4 +1,4 @@
-import AsyncCache = require('async-cache');
+import AsyncCache = require("async-cache");
 
 const stats = new AsyncCache<number>({
     max: 1000,
@@ -12,15 +12,15 @@ AsyncCache({
     load(key, cb) {},
 });
 
-stats.get('', (er, stat) => {
+stats.get("", (er, stat) => {
     er; // $ExpectType any
     stat; // $ExpectType number
 });
 
 stats.keys(); // $ExpectType string[]
-stats.set('', 1); // $ExpectType boolean
-stats.set('', 1, 1);
+stats.set("", 1); // $ExpectType boolean
+stats.set("", 1, 1);
 stats.reset();
-stats.has(''); // $ExpectType boolean
-stats.del('');
-stats.peek(''); // $ExpectType number | undefined
+stats.has(""); // $ExpectType boolean
+stats.del("");
+stats.peek(""); // $ExpectType number | undefined

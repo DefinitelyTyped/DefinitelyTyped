@@ -1,4 +1,4 @@
-import { Paint, PaintOptions } from 'athenajs';
+import { Paint, PaintOptions } from "athenajs";
 
 interface FlashOptions extends PaintOptions {
     lineHeight: number;
@@ -12,14 +12,14 @@ export default class FlashLines extends Paint {
     lineHeight: number;
 
     constructor(name: string, options: FlashOptions) {
-        super('flashlines', options);
+        super("flashlines", options);
 
         this.lines = [];
         this.lineHeight = options.lineHeight;
     }
 
     flash() {
-        return this.animate('Fade', {
+        return this.animate("Fade", {
             startValue: 1,
             endValue: 0,
             duration: 400,
@@ -29,7 +29,7 @@ export default class FlashLines extends Paint {
 
     render() {
         for (const line of this.lines) {
-            this.rect(0, line * this.lineHeight, this.width, this.lineHeight, 'white');
+            this.rect(0, line * this.lineHeight, this.width, this.lineHeight, "white");
         }
     }
 }

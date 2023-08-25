@@ -23,7 +23,7 @@ declare namespace AMap {
          */
         off<C = this>(
             eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
+            handler: ((this: C, event: any) => void) | "mv",
             context?: C,
         ): this;
         /**

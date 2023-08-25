@@ -1,4 +1,4 @@
-import arrayForEach = require('array-foreach');
+import arrayForEach = require("array-foreach");
 
 const array: Array<number> = [1, 2, 3, 4];
 const result: Array<number> = [];
@@ -22,18 +22,18 @@ arrayForEach(array, function(i) {
         i: i,
         that: this.that,
     });
-}, { that: 'jeff' });
+}, { that: "jeff" });
 
 arrayForEach(array, function(i, index) {
     resultThis.push({
         i: i + index,
         that: this.that,
     });
-}, { that: 'jeff' });
+}, { that: "jeff" });
 
 arrayForEach(array, function(i, index, array) {
     resultThis.push({
         i: array[i],
         that: this.that,
     });
-}, { that: 'jeff' });
+}, { that: "jeff" });

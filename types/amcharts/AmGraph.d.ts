@@ -1,6 +1,6 @@
-import AmBalloon from './AmBalloon';
-import GraphDataItem from './GraphDataItem';
-import ValueAxis from './ValueAxis';
+import AmBalloon from "./AmBalloon";
+import GraphDataItem from "./GraphDataItem";
+import ValueAxis from "./ValueAxis";
 
 /**
  * AmGraph class displays all types of graphs - line, column, step line, smoothed line, ohlc and candlestick.

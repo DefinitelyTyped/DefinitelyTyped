@@ -6,7 +6,7 @@ import {
     RangeLike,
     ReadonlyEditOptions,
     TextInsertionOptions,
-} from '../index';
+} from "../index";
 
 /** Represents a selection in the TextEditor. */
 export interface Selection {

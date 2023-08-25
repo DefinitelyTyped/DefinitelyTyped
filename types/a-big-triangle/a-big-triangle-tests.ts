@@ -1,4 +1,4 @@
-import drawTriangle = require('a-big-triangle');
+import drawTriangle = require("a-big-triangle");
 
 const gl = new WebGLRenderingContext();
 

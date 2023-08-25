@@ -14,8 +14,8 @@ declare function audiosprite(
 ): void;
 
 declare namespace audiosprite {
-    type ExportType = 'jukebox' | 'howler' | 'createjs' | null;
-    type LogLevel = 'debug' | 'info' | 'notice' | 'warning' | 'error';
+    type ExportType = "jukebox" | "howler" | "createjs" | null;
+    type LogLevel = "debug" | "info" | "notice" | "warning" | "error";
     type VBR = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
     type VBR_Vorbis = VBR | 10;
     type Channels = 1 | 2;
@@ -32,7 +32,7 @@ declare namespace audiosprite {
         minlength?: number | undefined;
         bitrate?: number | undefined;
         vbr?: VBR | undefined;
-        'vbr:vorbis'?: VBR_Vorbis | undefined;
+        "vbr:vorbis"?: VBR_Vorbis | undefined;
         samplerate?: number | undefined;
         channels?: Channels | undefined;
         rawparts?: string | undefined;

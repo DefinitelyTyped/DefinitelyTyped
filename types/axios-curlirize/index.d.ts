@@ -5,7 +5,7 @@
 
 export = AxiosCurlirize;
 
-import { AxiosInstance } from 'axios';
+import { AxiosInstance } from "axios";
 
 interface Result {
     command: string;

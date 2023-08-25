@@ -8,12 +8,12 @@ interface AsyncStringGetter {
 const taskArray: AsyncStringGetter[] = [
     callback => {
         setTimeout(() => {
-            callback(undefined, 'one');
+            callback(undefined, "one");
         }, 200);
     },
     callback => {
         setTimeout(() => {
-            callback(undefined, 'two');
+            callback(undefined, "two");
         }, 100);
     },
 ];
@@ -69,16 +69,16 @@ const taskDict: Lookup<AsyncNumberGetter> = {
 };
 
 async.series(taskDict, (err, results) => {
-    const one = results['one'];
+    const one = results["one"];
     console.log(one && one.toFixed(1));
 });
 
 async.parallel(taskDict, (err, results) => {
-    const one = results['one'];
+    const one = results["one"];
     console.log(one && one.toFixed(1));
 });
 
 async.parallelLimit(taskDict, 3, (err, results) => {
-    const one = results['one'];
+    const one = results["one"];
     console.log(one && one.toFixed(1));
 });

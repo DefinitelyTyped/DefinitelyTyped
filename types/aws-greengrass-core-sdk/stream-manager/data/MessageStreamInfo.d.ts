@@ -1,4 +1,4 @@
-import { MessageStreamDefinition, MessageStreamDefinitionMap, TypesMap, ValidationsMap } from '.';
+import { MessageStreamDefinition, MessageStreamDefinitionMap, TypesMap, ValidationsMap } from ".";
 
 /**
  * Message stream information including its definition, storage status and export status.

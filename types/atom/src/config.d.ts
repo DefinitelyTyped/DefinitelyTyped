@@ -1,4 +1,4 @@
-import { ConfigValues, Disposable, ScopeDescriptor } from '../index';
+import { ConfigValues, Disposable, ScopeDescriptor } from "../index";
 
 /** Used to access all of Atom's configuration details. */
 export interface Config {

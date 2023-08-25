@@ -6,7 +6,7 @@
 
 /// <reference types="geojson" />
 
-import * as ArcGis from 'arcgis-rest-api';
+import * as ArcGis from "arcgis-rest-api";
 
 /**
  * Converts an ArcGIS geometry into a GeoJSON geometry.

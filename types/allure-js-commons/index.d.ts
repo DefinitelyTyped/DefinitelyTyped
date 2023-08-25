@@ -39,12 +39,12 @@ declare namespace Allure {
         targetDir: string;
     }
 
-    type Status = 'passed' | 'pending' | 'skipped' | 'failed' | 'broken';
+    type Status = "passed" | "pending" | "skipped" | "failed" | "broken";
 
     enum TYPE {
-        TEXT = 'text',
-        HTML = 'html',
-        MARKDOWN = 'markdown',
+        TEXT = "text",
+        HTML = "html",
+        MARKDOWN = "markdown",
     }
 
     class Suite {

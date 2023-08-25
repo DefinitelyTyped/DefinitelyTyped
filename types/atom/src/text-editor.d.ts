@@ -30,7 +30,7 @@ import {
     TextBuffer,
     TextEditOptions,
     TextInsertionOptions,
-} from '../index';
+} from "../index";
 
 /**
  *  This class represents all essential editing state for a single TextBuffer,
@@ -429,13 +429,13 @@ export class TextEditor {
     /** Convert a position in buffer-coordinates to screen-coordinates. */
     screenPositionForBufferPosition(
         bufferPosition: PointCompatible,
-        options?: { clipDirection?: 'backward' | 'forward' | 'closest' | undefined },
+        options?: { clipDirection?: "backward" | "forward" | "closest" | undefined },
     ): Point;
 
     /** Convert a position in screen-coordinates to buffer-coordinates. */
     bufferPositionForScreenPosition(
         bufferPosition: PointCompatible,
-        options?: { clipDirection?: 'backward' | 'forward' | 'closest' | undefined },
+        options?: { clipDirection?: "backward" | "forward" | "closest" | undefined },
     ): Point;
 
     /** Convert a range in buffer-coordinates to screen-coordinates. */
@@ -456,7 +456,7 @@ export class TextEditor {
     /** Clip the given Point to a valid position on screen. */
     clipScreenPosition(
         screenPosition: PointCompatible,
-        options?: { clipDirection?: 'backward' | 'forward' | 'closest' | undefined },
+        options?: { clipDirection?: "backward" | "forward" | "closest" | undefined },
     ): Point;
 
     /**
@@ -465,7 +465,7 @@ export class TextEditor {
      */
     clipScreenRange(
         range: RangeCompatible,
-        options?: { clipDirection?: 'backward' | 'forward' | 'closest' | undefined },
+        options?: { clipDirection?: "backward" | "forward" | "closest" | undefined },
     ): Range;
 
     // Decorations
@@ -513,7 +513,7 @@ export class TextEditor {
         properties?: {
             maintainHistory?: boolean | undefined;
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
         },
     ): DisplayMarker;
 
@@ -528,7 +528,7 @@ export class TextEditor {
         properties?: {
             maintainHistory?: boolean | undefined;
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
         },
     ): DisplayMarker;
 
@@ -539,7 +539,7 @@ export class TextEditor {
     markBufferPosition(
         bufferPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
         },
     ): DisplayMarker;
 
@@ -550,8 +550,8 @@ export class TextEditor {
     markScreenPosition(
         screenPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
-            clipDirection?: 'backward' | 'forward' | 'closest' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+            clipDirection?: "backward" | "forward" | "closest" | undefined;
         },
     ): DisplayMarker;
 

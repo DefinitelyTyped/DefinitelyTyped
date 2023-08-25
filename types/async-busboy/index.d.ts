@@ -4,9 +4,9 @@
 //                 BendingBender <https://github.com/bendingbender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as fs from 'fs';
-import * as http from 'http';
-import busboy = require('busboy');
+import * as fs from "fs";
+import * as http from "http";
+import busboy = require("busboy");
 
 export = asyncBusboy;
 
@@ -17,19 +17,19 @@ declare function asyncBusboy(
 declare function asyncBusboy(req: http.IncomingMessage, options?: asyncBusboy.Options): Promise<asyncBusboy.Result>;
 
 declare namespace asyncBusboy {
-    interface Options extends Omit<busboy.BusboyConfig, 'headers'> {
+    interface Options extends Omit<busboy.BusboyConfig, "headers"> {
         headers?: http.IncomingHttpHeaders | undefined;
-        onFile?: busboy.BusboyEvents['file'] | undefined;
+        onFile?: busboy.BusboyEvents["file"] | undefined;
     }
 
-    type OnFileOptions = WithRequiredProps<Options, 'onFile'>;
+    type OnFileOptions = WithRequiredProps<Options, "onFile">;
 
     interface Result {
         fields: { [key: string]: unknown };
         files: FileReadStream[];
     }
 
-    type OnFileResult = Omit<Result, 'files'>;
+    type OnFileResult = Omit<Result, "files">;
 
     interface FileReadStream extends fs.ReadStream {
         fieldname: string;

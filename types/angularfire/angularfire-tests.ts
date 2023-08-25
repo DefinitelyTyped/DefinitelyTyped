@@ -1,16 +1,16 @@
-var myapp = angular.module('myapp', ['firebase']);
+var myapp = angular.module("myapp", ["firebase"]);
 
 interface AngularFireScope extends ng.IScope {
     data: any;
 }
 
-var url = 'https://myapp.firebaseio.com';
+var url = "https://myapp.firebaseio.com";
 
-myapp.controller('MyController', [
-    '$scope',
-    '$firebase',
-    '$FirebaseObject',
-    '$FirebaseArray',
+myapp.controller("MyController", [
+    "$scope",
+    "$firebase",
+    "$FirebaseObject",
+    "$FirebaseArray",
     function(
         $scope: AngularFireScope,
         $firebase: AngularFireService,
@@ -26,14 +26,14 @@ myapp.controller('MyController', [
             sync.$asObject();
             sync.$ref();
             sync.$remove();
-            sync.$push({ foo: 'foo data' });
-            sync.$set('foo', 1);
+            sync.$push({ foo: "foo data" });
+            sync.$set("foo", 1);
             sync.$set({ foo: 2 });
             sync.$update({ foo: 3 });
-            sync.$update('foo', { bar: 1 });
+            sync.$update("foo", { bar: 1 });
 
             // Increment the message count by 1
-            sync.$transaction('count', function(currentCount) {
+            sync.$transaction("count", function(currentCount) {
                 if (!currentCount) return 1; // Initial value for counter.
                 if (currentCount < 0) return; // Return undefined to abort transaction.
                 return currentCount + 1; // Increment the count by 1.
@@ -55,32 +55,32 @@ myapp.controller('MyController', [
             var obj = $FirebaseObject(ref);
 
             // $id
-            if (obj.$id !== ref.name()) throw 'error';
+            if (obj.$id !== ref.name()) throw "error";
 
             // $loaded()
             obj.$loaded().then(data => {
-                if (data !== obj) throw 'error';
+                if (data !== obj) throw "error";
                 // $priority
                 obj.$priority;
 
                 // $value, $save()
-                obj.$value = 'foobar';
+                obj.$value = "foobar";
                 obj.$save();
             });
 
             // $ref()
-            if (obj.$ref() !== ref) throw 'error';
+            if (obj.$ref() !== ref) throw "error";
 
             // $bindTo()
-            obj.$bindTo($scope, 'data').then(function() {
+            obj.$bindTo($scope, "data").then(function() {
                 console.log($scope.data);
-                $scope.data.foo = 'baz'; // will be saved to Firebase
-                sync.$set({ foo: 'baz' }); // this would update Firebase and $scope.data
+                $scope.data.foo = "baz"; // will be saved to Firebase
+                sync.$set({ foo: "baz" }); // this would update Firebase and $scope.data
             });
 
             // $watch()
             var unwatch = obj.$watch(function() {
-                console.log('data changed!');
+                console.log("data changed!");
             });
             unwatch();
 
@@ -90,7 +90,7 @@ myapp.controller('MyController', [
             // $extend()
             var NewFactory = $FirebaseObject.$extend({
                 getMyFavoriteColor: function() {
-                    return this.favoriteColor + ', no green!'; // obscure Monty Python reference
+                    return this.favoriteColor + ", no green!"; // obscure Monty Python reference
                 },
             });
             var customObj = $firebase(ref, { objectFactory: NewFactory }).$asObject();
@@ -101,10 +101,10 @@ myapp.controller('MyController', [
             var list = $FirebaseArray(ref);
 
             // $ref()
-            if (list.$ref() !== ref) throw 'error';
+            if (list.$ref() !== ref) throw "error";
 
             // $add()
-            list.$add({ foo: 'foo value' });
+            list.$add({ foo: "foo value" });
 
             // $keyAt()
             var key = list.$keyAt(0);
@@ -116,7 +116,7 @@ myapp.controller('MyController', [
             var item = list.$getRecord(key);
 
             // $save()
-            item['bar'] = 'bar value';
+            item["bar"] = "bar value";
             list.$save(item);
 
             // $remove()
@@ -124,26 +124,26 @@ myapp.controller('MyController', [
 
             // $loaded()
             list.$loaded().then(data => {
-                if (data !== list) throw 'error';
+                if (data !== list) throw "error";
             });
 
             // $watch()
             var unwatch = list.$watch((event, key, prevChild) => {
                 switch (event) {
-                    case 'child_added':
-                        console.log(key + ' added');
+                    case "child_added":
+                        console.log(key + " added");
                         break;
-                    case 'child_changed':
-                        console.log(key + ' changed');
+                    case "child_changed":
+                        console.log(key + " changed");
                         break;
-                    case 'child_moved':
-                        console.log(key + ' moved');
+                    case "child_moved":
+                        console.log(key + " moved");
                         break;
-                    case 'child_removed':
-                        console.log(key + ' removed');
+                    case "child_removed":
+                        console.log(key + " removed");
                         break;
                     default:
-                        throw 'error';
+                        throw "error";
                 }
             });
             unwatch();
@@ -163,7 +163,7 @@ myapp.controller('MyController', [
             });
             var list = $firebase(ref, { arrayFactory: ArrayWithSum }).$asArray();
             list.$loaded().then(function() {
-                console.log('List has ' + (<any> list).sum() + ' items');
+                console.log("List has " + (<any> list).sum() + " items");
             });
         }
     },
@@ -173,36 +173,36 @@ interface AngularFireAuthScope extends ng.IScope {
     loginObj: AngularFireAuth;
 }
 
-myapp.controller('MyAuthController', [
-    '$scope',
-    '$firebaseAuth',
+myapp.controller("MyAuthController", [
+    "$scope",
+    "$firebaseAuth",
     function($scope: AngularFireAuthScope, $firebaseAuth: AngularFireAuthService) {
         var dataRef = new Firebase(url);
         $scope.loginObj = $firebaseAuth(dataRef);
         $scope.loginObj.$getAuth();
         var credentials = {
-            email: 'my@email.com',
-            password: 'mypassword',
+            email: "my@email.com",
+            password: "mypassword",
         };
         var resetPasswordCredentials = {
-            email: 'my@email.com',
+            email: "my@email.com",
         };
         var changePasswordCredentials = {
-            email: 'my@email.com',
-            oldPassword: 'mypassword',
-            newPassword: 'mypassword',
+            email: "my@email.com",
+            oldPassword: "mypassword",
+            newPassword: "mypassword",
         };
         var changeUserCredentials = {
-            oldEmail: 'my@email.com',
-            newEmail: 'my@email.com',
-            password: 'mypassword',
+            oldEmail: "my@email.com",
+            newEmail: "my@email.com",
+            password: "mypassword",
         };
-        $scope.loginObj.$authWithCustomToken('token').then(_ => {});
+        $scope.loginObj.$authWithCustomToken("token").then(_ => {});
         $scope.loginObj.$authAnonymously().then(_ => {});
         $scope.loginObj.$authWithPassword(credentials).then(_ => {});
-        $scope.loginObj.$authWithOAuthPopup('github').then(_ => {});
-        $scope.loginObj.$authWithOAuthRedirect('google').then(_ => {});
-        $scope.loginObj.$authWithOAuthToken('twitter', 'token').then(_ => {});
+        $scope.loginObj.$authWithOAuthPopup("github").then(_ => {});
+        $scope.loginObj.$authWithOAuthRedirect("google").then(_ => {});
+        $scope.loginObj.$authWithOAuthToken("twitter", "token").then(_ => {});
         $scope.loginObj.$getAuth();
         $scope.loginObj.$onAuth(() => {});
         $scope.loginObj.$unauth();

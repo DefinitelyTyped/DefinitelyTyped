@@ -1,22 +1,22 @@
-angular.module('app', ['ngIdle'])
+angular.module("app", ["ngIdle"])
     .config([
-        'KeepaliveProvider',
-        'IdleProvider',
-        'TitleProvider',
+        "KeepaliveProvider",
+        "IdleProvider",
+        "TitleProvider",
         (
             keepaliveProvider: angular.idle.IKeepAliveProvider,
             idleProvider: angular.idle.IIdleProvider,
             titleProvider: angular.idle.ITitleProvider,
         ) => {
-            idleProvider.interrupt('mousemove keydown DOMMouseScroll mousewheel mousedown');
+            idleProvider.interrupt("mousemove keydown DOMMouseScroll mousewheel mousedown");
             idleProvider.idle(5);
             idleProvider.timeout(5);
             idleProvider.keepalive(true);
             idleProvider.autoResume(true);
 
             const config: ng.IRequestConfig = {
-                url: 'http://google.com',
-                method: 'GET',
+                url: "http://google.com",
+                method: "GET",
             };
 
             keepaliveProvider.http(config.url); // should accept string and ng.IRequestConfig
@@ -27,9 +27,9 @@ angular.module('app', ['ngIdle'])
         },
     ])
     .run([
-        'Keepalive',
-        'Idle',
-        'Title',
+        "Keepalive",
+        "Idle",
+        "Title",
         (
             Keepalive: angular.idle.IKeepAliveService,
             Idle: angular.idle.IIdleService,

@@ -7,9 +7,9 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngResource module (angular-resource.js)
     ///////////////////////////////////////////////////////////////////////////////
@@ -213,7 +213,7 @@ declare module 'angular' {
 
     namespace auto {
         interface IInjectorService {
-            get(name: '$resource'): resource.IResourceService;
+            get(name: "$resource"): resource.IResourceService;
         }
     }
 }

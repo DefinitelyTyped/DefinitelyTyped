@@ -9,12 +9,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace material {
         interface IAriaProvider {
             disableWarnings(): void;
@@ -249,9 +249,9 @@ declare module 'angular' {
 
         interface IThemeHues {
             default?: string | undefined;
-            'hue-1'?: string | undefined;
-            'hue-2'?: string | undefined;
-            'hue-3'?: string | undefined;
+            "hue-1"?: string | undefined;
+            "hue-2"?: string | undefined;
+            "hue-3"?: string | undefined;
         }
 
         interface IThemePalette {
@@ -359,22 +359,22 @@ declare module 'angular' {
         interface IColorPalette {
             red: IPalette;
             pink: IPalette;
-            'deep-purple': IPalette;
+            "deep-purple": IPalette;
             indigo: IPalette;
             blue: IPalette;
-            'light-blue': IPalette;
+            "light-blue": IPalette;
             cyan: IPalette;
             teal: IPalette;
             green: IPalette;
-            'light-green': IPalette;
+            "light-green": IPalette;
             lime: IPalette;
             yellow: IPalette;
             amber: IPalette;
             orange: IPalette;
-            'deep-orange': IPalette;
+            "deep-orange": IPalette;
             brown: IPalette;
             grey: IPalette;
-            'blue-grey': IPalette;
+            "blue-grey": IPalette;
         }
 
         interface IConfiguredColorPalette extends IColorPalette {

@@ -85,7 +85,7 @@ declare namespace ADOX {
 
     class Catalog {
         private constructor();
-        private 'ADOX.Catalog_typekey': Catalog;
+        private "ADOX.Catalog_typekey": Catalog;
 
         /** Can be set to a Connection object or a string. Returns the active Connection object, or `null` */
         ActiveConnection: string | ADODB.Connection | null;
@@ -129,7 +129,7 @@ declare namespace ADOX {
 
     class Column {
         private constructor();
-        private 'ADOX.Column_typekey': Column;
+        private "ADOX.Column_typekey": Column;
         Attributes: ColumnAttributesEnum;
         DefinedSize: number;
         Name: string;
@@ -157,7 +157,7 @@ declare namespace ADOX {
 
     class Group {
         private constructor();
-        private 'ADOX.Group_typekey': Group;
+        private "ADOX.Group_typekey": Group;
 
         /**
          * @param Name Specifies the name of the object for which to set permissions. Pass `null` if you want to get the permissions for the object container.
@@ -207,7 +207,7 @@ declare namespace ADOX {
 
     class Index {
         private constructor();
-        private 'ADOX.Index_typekey': Index;
+        private "ADOX.Index_typekey": Index;
         Clustered: boolean;
         readonly Columns: Columns;
         IndexNulls: AllowNullsEnum;
@@ -228,7 +228,7 @@ declare namespace ADOX {
 
     class Key {
         private constructor();
-        private 'ADOX.Key_typekey': Key;
+        private "ADOX.Key_typekey": Key;
         readonly Columns: Columns;
         DeleteRule: RuleEnum;
         Name: string;
@@ -259,7 +259,7 @@ declare namespace ADOX {
 
     class Procedure {
         private constructor();
-        private 'ADOX.Procedure_typekey': Procedure;
+        private "ADOX.Procedure_typekey": Procedure;
         Command: ADODB.Command;
         readonly DateCreated: VarDate | null;
         readonly DateModified: VarDate | null;
@@ -277,7 +277,7 @@ declare namespace ADOX {
 
     class Table {
         private constructor();
-        private 'ADOX.Table_typekey': Table;
+        private "ADOX.Table_typekey": Table;
         readonly Columns: Columns;
         readonly DateCreated: VarDate;
         readonly DateModified: VarDate;
@@ -300,7 +300,7 @@ declare namespace ADOX {
 
     class User {
         private constructor();
-        private 'ADOX.User_typekey': User;
+        private "ADOX.User_typekey": User;
         ChangePassword(OldPassword: string, NewPassword: string): void;
 
         /**
@@ -352,7 +352,7 @@ declare namespace ADOX {
 
     class View {
         private constructor();
-        private 'ADOX.View_typekey': View;
+        private "ADOX.View_typekey": View;
         Command: ADODB.Command;
         readonly DateCreated: VarDate;
         readonly DateModified: VarDate;
@@ -370,11 +370,11 @@ declare namespace ADOX {
 }
 
 interface ActiveXObjectNameMap {
-    'ADOX.Catalog': ADOX.Catalog;
-    'ADOX.Column': ADOX.Column;
-    'ADOX.Group': ADOX.Group;
-    'ADOX.Index': ADOX.Index;
-    'ADOX.Key': ADOX.Key;
-    'ADOX.Table': ADOX.Table;
-    'ADOX.User': ADOX.User;
+    "ADOX.Catalog": ADOX.Catalog;
+    "ADOX.Column": ADOX.Column;
+    "ADOX.Group": ADOX.Group;
+    "ADOX.Index": ADOX.Index;
+    "ADOX.Key": ADOX.Key;
+    "ADOX.Table": ADOX.Table;
+    "ADOX.User": ADOX.User;
 }

@@ -13,7 +13,7 @@ const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     return results;
 };
 
-const fso = new ActiveXObject('Scripting.FileSystemObject');
+const fso = new ActiveXObject("Scripting.FileSystemObject");
 
 // https://msdn.microsoft.com/en-us/library/ebkhfaaz(v=vs.84).aspx
 {
@@ -21,17 +21,17 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
     const driveTypeString = (drive: Scripting.Drive) => {
         switch (drive.DriveType) {
             case Scripting.DriveTypeConst.Removable:
-                return 'Removeable';
+                return "Removeable";
             case Scripting.DriveTypeConst.Fixed:
-                return 'Fixecd';
+                return "Fixecd";
             case Scripting.DriveTypeConst.Remote:
-                return 'Network';
+                return "Network";
             case Scripting.DriveTypeConst.CDRom:
-                return 'CD-ROM';
+                return "CD-ROM";
             case Scripting.DriveTypeConst.RamDisk:
-                return 'RAM Disk';
+                return "RAM Disk";
             default:
-                return 'Unknown';
+                return "Unknown";
         }
     };
 
@@ -39,18 +39,18 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
     const attributesString = (f: Scripting.File | Scripting.Folder) => {
         const attr = f.Attributes;
         if (attr === 0) {
-            return 'Normal';
+            return "Normal";
         }
         const attributeStrings: string[] = [];
-        if (attr & Scripting.FileAttribute.Directory) attributeStrings.push('Directory');
-        if (attr & Scripting.FileAttribute.ReadOnly) attributeStrings.push('Read-only');
-        if (attr & Scripting.FileAttribute.Hidden) attributeStrings.push('Hidden');
-        if (attr & Scripting.FileAttribute.System) attributeStrings.push('System');
-        if (attr & Scripting.FileAttribute.Volume) attributeStrings.push('Volume');
-        if (attr & Scripting.FileAttribute.Archive) attributeStrings.push('Archive');
-        if (attr & Scripting.FileAttribute.Alias) attributeStrings.push('Alias');
-        if (attr & Scripting.FileAttribute.Compressed) attributeStrings.push('Compressed');
-        return attributeStrings.join(',');
+        if (attr & Scripting.FileAttribute.Directory) attributeStrings.push("Directory");
+        if (attr & Scripting.FileAttribute.ReadOnly) attributeStrings.push("Read-only");
+        if (attr & Scripting.FileAttribute.Hidden) attributeStrings.push("Hidden");
+        if (attr & Scripting.FileAttribute.System) attributeStrings.push("System");
+        if (attr & Scripting.FileAttribute.Volume) attributeStrings.push("Volume");
+        if (attr & Scripting.FileAttribute.Archive) attributeStrings.push("Archive");
+        if (attr & Scripting.FileAttribute.Alias) attributeStrings.push("Alias");
+        if (attr & Scripting.FileAttribute.Compressed) attributeStrings.push("Compressed");
+        return attributeStrings.join(",");
     };
 
     const drivesInfoReport = () => {
@@ -59,7 +59,7 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
                 d.DriveLetter,
                 d.Path,
                 driveTypeString(d),
-                d.IsReady ? 'true' : 'false',
+                d.IsReady ? "true" : "false",
             ];
             if (d.IsReady) {
                 parts = parts.concat([
@@ -71,7 +71,7 @@ const fso = new ActiveXObject('Scripting.FileSystemObject');
                     d.SerialNumber.toString(16),
                 ]);
             }
-            return parts.join('    ');
+            return parts.join("    ");
         };
 
         const ret = `
@@ -79,41 +79,41 @@ Number of drives:    ${fso.Drives.Count}
 
         Drive        File    Total   Free    Available    Serial
 Letter    Path    Type    Ready?    Name    System    Space    Space     Space    Number
-${new Array(106).join('-')}
-${collectionToArray(fso.Drives).map(driveLine).join('\n')}`
-            .trim().replace('    ', '\t');
+${new Array(106).join("-")}
+${collectionToArray(fso.Drives).map(driveLine).join("\n")}`
+            .trim().replace("    ", "\t");
     };
 
     type fiileFolderKey = keyof Scripting.File & keyof Scripting.Folder;
-    type keys = fiileFolderKey | 'Attribs' | 'Created' | 'Accessed' | 'Modified';
+    type keys = fiileFolderKey | "Attribs" | "Created" | "Accessed" | "Modified";
     const detailBuilder = (
         f: Scripting.File | Scripting.Folder,
-        x: fiileFolderKey | 'Attribs' | 'Created' | 'Accessed' | 'Modified',
+        x: fiileFolderKey | "Attribs" | "Created" | "Accessed" | "Modified",
     ) => {
-        if (x === 'Attribs') return attributesString(f);
+        if (x === "Attribs") return attributesString(f);
         const label = x;
         switch (x) {
-            case 'Created':
-                x = 'DateCreated';
+            case "Created":
+                x = "DateCreated";
                 break;
-            case 'Accessed':
-                x = 'DateLastAccessed';
+            case "Accessed":
+                x = "DateLastAccessed";
                 break;
-            case 'Modified':
-                x = 'DateLastModified';
+            case "Modified":
+                x = "DateLastModified";
                 break;
         }
         return `${label}\t${f[x]}\n`;
     };
 
     const fileDetailsString = (f: Scripting.File) => {
-        const keys: keys[] = ['Path', 'Name', 'Type', 'Attribs', 'Created', 'Accessed', 'Modified', 'Size'];
-        return keys.map(x => detailBuilder(f, x)).join('');
+        const keys: keys[] = ["Path", "Name", "Type", "Attribs", "Created", "Accessed", "Modified", "Size"];
+        return keys.map(x => detailBuilder(f, x)).join("");
     };
 
     const folderDetailsString = (f: Scripting.Folder) => {
-        const keys: keys[] = ['Path', 'Name', 'Attribs', 'Created', 'Accessed', 'Modified', 'Size'];
-        return keys.map(x => detailBuilder(f, x)).join('');
+        const keys: keys[] = ["Path", "Name", "Attribs", "Created", "Accessed", "Modified", "Size"];
+        return keys.map(x => detailBuilder(f, x)).join("");
     };
 
     const folderContentsString = (f: Scripting.Folder): string => {
@@ -122,19 +122,19 @@ ${collectionToArray(fso.Drives).map(driveLine).join('\n')}`
         return `
 Folder:    ${f.Path}
 
-There ${files.length === 1 ? 'is 1 file' : `are ${files.length} files`}
-${files.map(fileDetailsString).join('')}
+There ${files.length === 1 ? "is 1 file" : `are ${files.length} files`}
+${files.map(fileDetailsString).join("")}
 
-There ${subfolders.length === 1 ? 'is 1 subfolder' : `are ${subfolders.length} subfolders`}
-${subfolders.map(folderDetailsString).join('')}
-${subfolders.map(folderContentsString).join('')}`
-            .trim().replace('    ', '\t');
+There ${subfolders.length === 1 ? "is 1 subfolder" : `are ${subfolders.length} subfolders`}
+${subfolders.map(folderDetailsString).join("")}
+${subfolders.map(folderContentsString).join("")}`
+            .trim().replace("    ", "\t");
     };
 
-    const testDrive = 'C:\\';
-    const testPath = 'C:\\test';
+    const testDrive = "C:\\";
+    const testPath = "C:\\test";
     const testfolderInfo = () => {
-        if (!fso.DriveExists(testDrive) || !fso.FolderExists(testPath)) return '';
+        if (!fso.DriveExists(testDrive) || !fso.FolderExists(testPath)) return "";
         return folderContentsString(fso.GetFolder(testPath));
     };
 
@@ -150,36 +150,36 @@ ${subfolders.map(folderContentsString).join('')}`
     };
 
     const createLyrics = (folder: Scripting.Folder) => {
-        let stream = folder.CreateTextFile('Paragraph1.txt');
-        stream.Write('Lorem Ipsum - Paragraph 1');
+        let stream = folder.CreateTextFile("Paragraph1.txt");
+        stream.Write("Lorem Ipsum - Paragraph 1");
         stream.WriteBlankLines(1);
-        stream.WriteLine('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sem.');
-        stream.WriteLine('Donec ante. Nulla facilisi. Phasellus interdum nulla a nunc. Morbi laoreet nunc.');
+        stream.WriteLine("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas sem.");
+        stream.WriteLine("Donec ante. Nulla facilisi. Phasellus interdum nulla a nunc. Morbi laoreet nunc.");
         stream.WriteBlankLines(2);
         stream.Close();
 
-        stream = folder.CreateTextFile('Paragraph2.txt');
-        stream.WriteLine('Lorem Ipsum - Paragraph 2');
+        stream = folder.CreateTextFile("Paragraph2.txt");
+        stream.WriteLine("Lorem Ipsum - Paragraph 2");
         stream.WriteBlankLines(1);
-        stream.WriteLine('Nullam nulla quam, sollicitudin ut, lobortis ornare, tristique a, augue.');
-        stream.WriteLine('Vestibulum sem felis, fermentum eu, volutpat eu, vulputate eget, elit. ');
+        stream.WriteLine("Nullam nulla quam, sollicitudin ut, lobortis ornare, tristique a, augue.");
+        stream.WriteLine("Vestibulum sem felis, fermentum eu, volutpat eu, vulputate eget, elit. ");
         stream.WriteBlankLines(2);
         stream.Close();
     };
 
     const getLyrics = () => {
         const folderPath = `${testPath}\\LoremIpsum`;
-        let lyrics = '';
+        let lyrics = "";
 
         // One way to read from a file
-        let stream = fso.OpenTextFile(fso.BuildPath(folderPath, 'Paragraph1.txt'));
-        lyrics = stream.ReadAll() + '\n\n';
+        let stream = fso.OpenTextFile(fso.BuildPath(folderPath, "Paragraph1.txt"));
+        lyrics = stream.ReadAll() + "\n\n";
         stream.Close();
 
         // Another way to read from a file
-        stream = fso.GetFile(fso.BuildPath(folderPath, 'Paragraph2.txt')).OpenAsTextStream();
+        stream = fso.GetFile(fso.BuildPath(folderPath, "Paragraph2.txt")).OpenAsTextStream();
         while (!stream.AtEndOfStream) {
-            lyrics += stream.ReadLine() + '\n';
+            lyrics += stream.ReadLine() + "\n";
         }
         stream.Close();
 
@@ -194,19 +194,19 @@ ${subfolders.map(folderContentsString).join('')}`
 
         const testFolder = fso.CreateFolder(testPath);
 
-        const stream = fso.CreateTextFile(fso.BuildPath(testPath, 'readme.txt'));
-        stream.WriteLine('My sample text collection');
+        const stream = fso.CreateTextFile(fso.BuildPath(testPath, "readme.txt"));
+        stream.WriteLine("My sample text collection");
         stream.Close();
 
-        const subfolder = testFolder.SubFolders.Add('LoremIpsum');
+        const subfolder = testFolder.SubFolders.Add("LoremIpsum");
         createLyrics(subfolder);
         return true;
     };
 
-    const echoLines = (linecount = 1) => new Array(linecount).forEach(() => WScript.Echo(''));
+    const echoLines = (linecount = 1) => new Array(linecount).forEach(() => WScript.Echo(""));
 
     if (!buildTestFolder()) {
-        WScript.Echo('Test directory already exists or cannot be created. Cannot continue.');
+        WScript.Echo("Test directory already exists or cannot be created. Cannot continue.");
     } else {
         drivesInfoReport();
         echoLines(2);
@@ -223,7 +223,7 @@ ${subfolders.map(folderContentsString).join('')}`
     const showFreeSpace = (drvPath: string) => {
         const d = fso.GetDrive(fso.GetDriveName(drvPath));
         let s = `Drive ${drvPath} - `;
-        s += d.VolumeName + '<br>';
+        s += d.VolumeName + "<br>";
         s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
         return (s);
     };
@@ -234,7 +234,7 @@ ${subfolders.map(folderContentsString).join('')}`
     const getALine = (filespec: string) => {
         const file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
 
-        let s = '';
+        let s = "";
         while (!file.AtEndOfLine) {
             s += file.Read(1);
         }
@@ -250,20 +250,20 @@ ${subfolders.map(folderContentsString).join('')}`
         const drv = fso.GetDrive(fso.GetDriveName(path));
         const ret = drv.IsReady
             ? `${drv.Path} - ${drv.FreeSpace / bytesPerGB} GB free of ${drv.TotalSize / bytesPerGB} GB`
-            : 'Not ready';
+            : "Not ready";
         WScript.Echo(ret);
     };
 
     const showFolderInfo = () => {
-        const fldr = fso.GetFolder('c:\\');
+        const fldr = fso.GetFolder("c:\\");
         let ret = `
 Folder: ${fldr.Path}
 Drive: ${fldr.Drive}
-${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
+${fldr.IsRootFolder ? "Is root folder" : `Parent folder: ${fldr.ParentFolder}`}
         `.trim();
 
         // Create and delete a folder.
-        const newFolderName = 'C:\\TempFolder1';
+        const newFolderName = "C:\\TempFolder1";
         fso.CreateFolder(newFolderName);
         ret += `Base Name of Added Folder: ${fso.GetBaseName(newFolderName)}`;
         fso.DeleteFolder(newFolderName);
@@ -275,54 +275,54 @@ ${fldr.IsRootFolder ? 'Is root folder' : `Parent folder: ${fldr.ParentFolder}`}
 // https://msdn.microsoft.com/en-us/library/czxefwt8(v=vs.84).aspx
 {
     const readFiles = () => {
-        const file = fso.CreateTextFile('c:\\testfile.txt', true);
+        const file = fso.CreateTextFile("c:\\testfile.txt", true);
 
         // Write a line.
-        WScript.Echo('Writing file');
-        file.WriteLine('Hello World');
+        WScript.Echo("Writing file");
+        file.WriteLine("Hello World");
         file.WriteBlankLines(1);
         file.Close();
 
         // Read the contents of the file.
-        WScript.Echo('Reading file');
-        const textStream = fso.OpenTextFile('c:\\testfile.txt', Scripting.IOMode.ForReading);
+        WScript.Echo("Reading file");
+        const textStream = fso.OpenTextFile("c:\\testfile.txt", Scripting.IOMode.ForReading);
         WScript.Echo(`File contents = "${textStream.ReadLine()}"`);
         textStream.Close();
     };
 
     const manipulateFiles = () => {
-        const file = fso.CreateTextFile('c:\\testfile.txt', true);
+        const file = fso.CreateTextFile("c:\\testfile.txt", true);
 
-        WScript.Echo('Writing file');
+        WScript.Echo("Writing file");
 
         // Write a line.
-        file.Write('This is a test.');
+        file.Write("This is a test.");
 
         // Close the file to writing.
         file.Close();
 
-        WScript.Echo('Moving file to c:\\tmp');
+        WScript.Echo("Moving file to c:\\tmp");
 
         // Get a handle to the file in root of C:\.
-        let file2 = fso.GetFile('c:\\testfile.txt');
+        let file2 = fso.GetFile("c:\\testfile.txt");
 
         // Move the file to \tmp directory.
-        file2.Move('c:\\tmp\\testfile.txt');
+        file2.Move("c:\\tmp\\testfile.txt");
 
-        WScript.Echo('Copying file to c:\\temp <br>');
+        WScript.Echo("Copying file to c:\\temp <br>");
 
         // Copy the file to \temp.
-        file2.Copy('c:\\temp\\testfile.txt');
+        file2.Copy("c:\\temp\\testfile.txt");
 
-        WScript.Echo('Deleting files <br>');
+        WScript.Echo("Deleting files <br>");
 
         // Get handles to files' current location.
-        file2 = fso.GetFile('c:\\tmp\\testfile.txt');
-        const file3 = fso.GetFile('c:\\temp\\testfile.txt');
+        file2 = fso.GetFile("c:\\tmp\\testfile.txt");
+        const file3 = fso.GetFile("c:\\temp\\testfile.txt");
 
         // Delete the files.
         file2.Delete();
         file3.Delete();
-        WScript.Echo('All done!');
+        WScript.Echo("All done!");
     };
 }

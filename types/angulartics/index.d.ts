@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export = angulartics; // AMD/Require module support
 export as namespace angulartics; // UMD module support

@@ -6,8 +6,8 @@
  * are not intended as functional tests.
  */
 
-import { effect, reactive, stop, toRaw } from '@vue/reactivity';
-import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from 'alpinejs';
+import { effect, reactive, stop, toRaw } from "@vue/reactivity";
+import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from "alpinejs";
 
 { // Alpine.reactive
     // example usage from docs:
@@ -96,7 +96,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
             // do something
         },
     );
-    Alpine.directive('trap', directiveHandler);
+    Alpine.directive("trap", directiveHandler);
 }
 
 { // Alpine.addRootSelector
@@ -104,7 +104,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
 
     // $ExpectType void
-    Alpine.addRootSelector(() => `[${Alpine.prefixed('data')}]`);
+    Alpine.addRootSelector(() => `[${Alpine.prefixed("data")}]`);
 }
 
 { // Alpine.addInitSelector
@@ -112,7 +112,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/portal/src/index.js
 
     // $ExpectType void
-    Alpine.addInitSelector(() => `[${Alpine.prefixed('portal-target')}]`);
+    Alpine.addInitSelector(() => `[${Alpine.prefixed("portal-target")}]`);
 }
 
 { // Alpine.addScopeToNode
@@ -120,8 +120,8 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://github.com/alpinejs/alpine/blob/e75587e61dfa7913aa03886c84aea084b595383f/packages/alpinejs/src/directives/x-if.js
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
 
-    const target = document.querySelector('target')!;
-    const clone = document.querySelector('clone')!;
+    const target = document.querySelector("target")!;
+    const clone = document.querySelector("clone")!;
 
     // $ExpectType () => void
     Alpine.addScopeToNode(clone, {}, target);
@@ -149,7 +149,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     const into = (i: string) => i;
 
     // $ExpectType void
-    Alpine.mapAttributes(startingWith(':', into(Alpine.prefixed('bind:'))));
+    Alpine.mapAttributes(startingWith(":", into(Alpine.prefixed("bind:"))));
 }
 
 { // Alpine.evaluateLater
@@ -157,7 +157,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://alpinejs.dev/advanced/extending#introducing-reactivity
 
     const el = document.body;
-    const expression = '2 < 5';
+    const expression = "2 < 5";
     // $resultType (resultCallback: (result: unknown) => void) => void
     const getThingToLog = Alpine.evaluateLater(el, expression);
 
@@ -183,17 +183,17 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     const data = Alpine.mergeProxies(Alpine.closestDataStack(el));
 
     const one = { one: 1 };
-    const two = { two: '2' };
+    const two = { two: "2" };
     const three = { three: [3] };
     const four = { four: true };
     // $ExpectType { one: number; } & { two: string; } & { three: number[]; } & { four: boolean; }
     const mergedFour = Alpine.mergeProxies([one, two, three, four]);
 
     // $ExpectType string
-    const mergedTwo = Alpine.mergeProxies(['hello', 'world']);
+    const mergedTwo = Alpine.mergeProxies(["hello", "world"]);
 
     // $ExpectType never
-    const mergedTwoNever = Alpine.mergeProxies(['hello', 123]);
+    const mergedTwoNever = Alpine.mergeProxies(["hello", 123]);
 }
 
 { // Alpine.closestRoot
@@ -247,9 +247,9 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
         el,
         setFunction,
         {
-            during: { overflow: 'hidden' },
-            start: { height: '100px' },
-            end: { height: '200px' },
+            during: { overflow: "hidden" },
+            start: { height: "100px" },
+            end: { height: "200px" },
         },
         () => transitioning = true,
         () => transitioning = false,
@@ -260,17 +260,17 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     const el = document.body;
 
     // $ExpectType: () => void
-    Alpine.setStyles(el, 'visibility: hidden');
+    Alpine.setStyles(el, "visibility: hidden");
     // $ExpectType: () => void
-    Alpine.setStyles(el, { visibility: 'hidden' });
+    Alpine.setStyles(el, { visibility: "hidden" });
 }
 
 { // Alpine.mutateDom
     // inspired by
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/portal/src/index.js
 
-    const target = document.querySelector('target')!;
-    const clone = document.querySelector('clone')!;
+    const target = document.querySelector("target")!;
+    const clone = document.querySelector("clone")!;
 
     // $ExpectType void
     Alpine.mutateDom(() => {
@@ -284,7 +284,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://alpinejs.dev/advanced/extending#method-signature
 
     // $ExpectType void
-    Alpine.directive('[name]', (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
+    Alpine.directive("[name]", (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
         // $ExpectType Node
         el;
         // $ExpectType string
@@ -353,7 +353,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // inspired by
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
     const el = document.body;
-    const expression = '2 < 5';
+    const expression = "2 < 5";
     const dataProviderContext = {};
 
     // $ExpectType unknown
@@ -392,11 +392,11 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://github.com/alpinejs/alpine/blob/34b86216a51b3d67018d51b96daf970d4e9b5150/packages/alpinejs/src/directives/x-cloak.js
 
     // $ExpectType string
-    Alpine.prefixed('cloak');
+    Alpine.prefixed("cloak");
 
     const el = document.body;
     // $ExpectType void
-    el.removeAttribute(Alpine.prefixed('cloak'));
+    el.removeAttribute(Alpine.prefixed("cloak"));
 }
 
 { // Alpine.prefix
@@ -404,7 +404,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://github.com/alpinejs/alpine/blob/7922e7fb8d54de64ebfc4814c2115293a5518ebd/tests/cypress/integration/custom-prefix.spec.js
 
     // $ExpectType void
-    Alpine.prefix('data-x-');
+    Alpine.prefix("data-x-");
 }
 
 { // Alpine.plugin
@@ -412,8 +412,8 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://alpinejs.dev/advanced/extending#bundle-module
 
     const MyAlpinePlugin = (alpine: typeof Alpine) => {
-        alpine.directive('foo', (el, directive, utilities) => {});
-        alpine.magic('foo', () => {});
+        alpine.directive("foo", (el, directive, utilities) => {});
+        alpine.magic("foo", () => {});
     };
 
     // $ExpectType: void
@@ -425,15 +425,15 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://alpinejs.dev/advanced/extending#custom-magics
 
     // $ExpectType void
-    Alpine.magic('now', () => {
+    Alpine.magic("now", () => {
         return (new Date()).toLocaleTimeString();
     });
     // $ExpectType void
-    Alpine.magic('clipboard', () => {
+    Alpine.magic("clipboard", () => {
         return (subject: string) => navigator.clipboard.writeText(subject);
     });
     // $ExpectType void
-    Alpine.magic('clipboard', () => (subject: string) => {
+    Alpine.magic("clipboard", () => (subject: string) => {
         navigator.clipboard.writeText(subject);
     });
 }
@@ -452,19 +452,19 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     };
 
     // $ExpectType void
-    Alpine.store('darkMode', darkModeDataContext);
+    Alpine.store("darkMode", darkModeDataContext);
 
     // $ExpectType void
-    (Alpine.store('darkMode') as typeof darkModeDataContext).toggle();
+    (Alpine.store("darkMode") as typeof darkModeDataContext).toggle();
 
     // $ExpectType void
-    Alpine.store('darkMode', false);
+    Alpine.store("darkMode", false);
 
     // $ExpectType void
-    Alpine.store('tabs', {
-        current: 'first',
+    Alpine.store("tabs", {
+        current: "first",
 
-        items: ['first', 'second', 'third'],
+        items: ["first", "second", "third"],
     });
 }
 
@@ -481,8 +481,8 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/tests/cypress/integration/clone.spec.js
 
-    const original = document.getElementById('original')!;
-    const copy = document.getElementById('copy')!;
+    const original = document.getElementById("original")!;
+    const copy = document.getElementById("copy")!;
 
     // $ExpectType void
     Alpine.clone(original, copy);
@@ -499,7 +499,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     // https://alpinejs.dev/globals/alpine-data
 
     // $ExpectType void
-    Alpine.data('dropdown', () => ({
+    Alpine.data("dropdown", () => ({
         open: false,
 
         toggle() {
@@ -508,12 +508,12 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     }));
 
     // $ExpectType void
-    Alpine.data('dropdown', (initialOpenState = false) => ({
+    Alpine.data("dropdown", (initialOpenState = false) => ({
         open: initialOpenState,
     }));
 
     // $ExpectType void
-    Alpine.data('dropdown', () => ({
+    Alpine.data("dropdown", () => ({
         init() {
             // This code will be executed before Alpine
             // initializes the rest of the component.
@@ -521,34 +521,34 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
     }));
 
     // $ExpectType void
-    Alpine.data('dropdown', () => ({
+    Alpine.data("dropdown", () => ({
         open: false,
 
         init() {
-            this.$watch('open', () => {});
+            this.$watch("open", () => {});
         },
     }));
 
     // $ExpectType void
-    Alpine.data('dropdown', () => ({
+    Alpine.data("dropdown", () => ({
         open: false,
 
         trigger: {
-            ['@click']() {
+            ["@click"]() {
                 this.open = !this.open;
             },
         },
 
         dialogue: {
-            ['x-show']() {
+            ["x-show"]() {
                 return this.open;
             },
         },
     }));
 
     // $ExpectType void
-    Alpine.data('user', () => ({
-        user: { id: 1, name: 'John Doe' },
+    Alpine.data("user", () => ({
+        user: { id: 1, name: "John Doe" },
 
         init() {
             // $ExpectType Record<string, any> & XDataContext & AlpineMagics<Record<string, any>>
@@ -567,16 +567,16 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
             this.$store;
 
             // $ExpectType void
-            this.$dispatch('fooEvent');
+            this.$dispatch("fooEvent");
 
             // $ExpectType void
-            this.$dispatch('fooEvent', 'Hello World');
+            this.$dispatch("fooEvent", "Hello World");
 
             // $ExpectType string
-            this.$id('fooBar');
+            this.$id("fooBar");
 
             // $ExpectType string
-            this.$id('fooBar', 1);
+            this.$id("fooBar", 1);
 
             // $ExpectType Promise<void>
             this.$nextTick(() => {
@@ -588,7 +588,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
 
             // $ExpectType void
             this.$watch(
-                'user',
+                "user",
                 (
                     // $ExpectType any
                     newValue,
@@ -599,11 +599,11 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
 
     // $ExpectType void
     Alpine.data(
-        'user',
+        "user",
         (): AlpineComponent<{
             user: { id: number; name: string };
         }> => ({
-            user: { id: 1, name: 'John Doe' },
+            user: { id: 1, name: "John Doe" },
 
             init() {
                 // $ExpectType { user: { id: number; name: string; }; }
@@ -611,7 +611,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
 
                 // $ExpectType void
                 this.$watch(
-                    'user',
+                    "user",
                     (
                         // $ExpectType { id: number; name: string; }
                         newValue,
@@ -622,7 +622,7 @@ import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from
 
                 // $ExpectType void
                 this.$watch(
-                    'user.id',
+                    "user.id",
                     (
                         // $ExpectType any
                         newValue,

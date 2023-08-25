@@ -1,11 +1,11 @@
-import awsLambdaFastify from 'aws-lambda-fastify';
-import { Callback, Context } from 'aws-lambda/handler';
-import fastify, { FastifyReply, FastifyRequest } from 'fastify';
-import { RouteGenericInterface } from 'fastify/types/route';
-import { IncomingMessage, Server, ServerResponse } from 'http';
+import awsLambdaFastify from "aws-lambda-fastify";
+import { Callback, Context } from "aws-lambda/handler";
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import { RouteGenericInterface } from "fastify/types/route";
+import { IncomingMessage, Server, ServerResponse } from "http";
 
 const app = fastify();
-const proxy = awsLambdaFastify(app, { binaryMimeTypes: ['application/octet-stream'] });
+const proxy = awsLambdaFastify(app, { binaryMimeTypes: ["application/octet-stream"] });
 
 const handler = proxy;
 const handlerWithCallback = (

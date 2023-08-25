@@ -25,7 +25,7 @@ interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     platform?: string | undefined;
     saveEvents?: boolean | undefined;

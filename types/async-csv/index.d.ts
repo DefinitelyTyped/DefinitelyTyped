@@ -55,7 +55,7 @@ declare namespace CsvAsync {
 
     type PlainObject<T> = Record<string, T>;
 
-    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
+    type RecordDelimiter = string | Buffer | "auto" | "unix" | "mac" | "windows" | "ascii" | "unicode";
 
     interface CastingContext {
         readonly column?: number | string | undefined;

@@ -11,6 +11,6 @@ declare class Session {
 
 interface SessionObj {
     readonly token: string;
-    readonly 'created-date': number;
-    readonly 'expiry-date': number;
+    readonly "created-date": number;
+    readonly "expiry-date": number;
 }

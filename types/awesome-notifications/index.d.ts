@@ -3,7 +3,7 @@
 // Definitions by: Sibin Grasic <https://github.com/oblakstudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type AwnPosition = 'bottom-right' | 'bottom-left' | 'top-left' | 'top-right';
+export type AwnPosition = "bottom-right" | "bottom-left" | "top-left" | "top-right";
 
 export interface AwnDurations {
     global?: number;
@@ -47,12 +47,12 @@ export interface AwnOptions {
     durations?: AwnDurations;
     minDurations?: {
         async?: number;
-        'async-block'?: number;
+        "async-block"?: number;
     };
     labels?: AwnLabels;
     messages?: {
         async?: string;
-        'async-block'?: string;
+        "async-block"?: string;
     };
 }
 

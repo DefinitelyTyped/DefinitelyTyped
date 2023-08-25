@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import anyDB = require('any-db');
+import anyDB = require("any-db");
 
 declare namespace begin {
     /**

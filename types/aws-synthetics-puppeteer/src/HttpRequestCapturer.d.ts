@@ -1,5 +1,5 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'HttpRequestCapturer' {
+declare module "HttpRequestCapturer" {
     const _exports: HttpRequestCapturer;
     export = _exports;
     /**
@@ -28,6 +28,6 @@ declare module 'HttpRequestCapturer' {
         addHelperHeaders(stepId: any, requestOptions: any, body: any, stepConfig: any): void;
         getHttpTimings(timings: any): HttpTimingsResult;
     }
-    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
-    import { HttpTimingsResult } from 'HttpRequestsReport';
+    import { SyntheticsConfiguration } from "SyntheticsConfiguration";
+    import { HttpTimingsResult } from "HttpRequestsReport";
 }

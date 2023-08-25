@@ -1,4 +1,4 @@
-import AmChart from './AmChart';
+import AmChart from "./AmChart";
 
 /**
  * AmLegend is the class that displays legend of the chart.

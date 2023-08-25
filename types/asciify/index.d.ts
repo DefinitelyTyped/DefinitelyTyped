@@ -16,7 +16,7 @@ interface AsciifyCallback {
     (err: any, asciifiedText: string): void;
 }
 
-declare module 'asciify' {
+declare module "asciify" {
     function asciify(text: string, callback: AsciifyCallback): void;
     function asciify(text: string, options: string, callback: AsciifyCallback): void;
     function asciify(text: string, options: AsciifyOptions, callback: AsciifyCallback): void;

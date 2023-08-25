@@ -547,7 +547,7 @@ interface ThenRet {
 }
 interface ForRet {
     in(expr: any): ForExpression;
-    in_: ForRet['in'];
+    in_: ForRet["in"];
 }
 /**
  * PartialStatement
@@ -822,69 +822,69 @@ interface PartialStatement {
 }
 interface RemoveRet {
     into(collection: any): RemoveExpression;
-    in: RemoveRet['into'];
-    in_: RemoveRet['into'];
+    in: RemoveRet["into"];
+    in_: RemoveRet["into"];
 }
 interface UpsertRet {
     insert(insertExpr: any): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
-    replace: UpsertRetInsertRet['update'];
+    replace: UpsertRetInsertRet["update"];
 }
 interface UpsertRetInsertRetUpdateRet {
     into(inCollection: any): UpsertExpression;
-    in: UpsertRetInsertRetUpdateRet['into'];
-    in_: UpsertRetInsertRetUpdateRet['into'];
+    in: UpsertRetInsertRetUpdateRet["into"];
+    in_: UpsertRetInsertRetUpdateRet["into"];
 }
 interface InsertRet {
     into(collection: any): InsertExpression;
-    in: InsertRet['into'];
-    in_: InsertRet['into'];
+    in: InsertRet["into"];
+    in_: InsertRet["into"];
 }
 interface UpdateRetWithRet {
     into(collection: any): UpdateExpression;
-    in: UpdateRetWithRet['into'];
-    in_: UpdateRetWithRet['into'];
+    in: UpdateRetWithRet["into"];
+    in_: UpdateRetWithRet["into"];
 }
 interface ReplaceRetWithRet {
     into(collection: any): ReplaceExpression;
-    in: ReplaceRetWithRet['into'];
-    in_: ReplaceRetWithRet['into'];
+    in: ReplaceRetWithRet["into"];
+    in_: ReplaceRetWithRet["into"];
 }
 interface RemoveRet {
     into(collection: any): RemoveExpression;
-    in: RemoveRet['into'];
-    in_: RemoveRet['into'];
+    in: RemoveRet["into"];
+    in_: RemoveRet["into"];
 }
 interface UpsertRet {
     insert(insertExpr: any): UpsertRetInsertRet;
 }
 interface UpsertRetInsertRet {
     update(updateOrReplaceExpr: any): UpsertRetInsertRetUpdateRet;
-    replace: UpsertRetInsertRet['update'];
+    replace: UpsertRetInsertRet["update"];
 }
 interface UpsertRetInsertRetUpdateRet {
     into(inCollection: any): UpsertExpression;
-    in: UpsertRetInsertRetUpdateRet['into'];
-    in_: UpsertRetInsertRetUpdateRet['into'];
+    in: UpsertRetInsertRetUpdateRet["into"];
+    in_: UpsertRetInsertRetUpdateRet["into"];
 }
 interface InsertRet {
     into(collection: any): InsertExpression;
-    in: InsertRet['into'];
-    in_: InsertRet['into'];
+    in: InsertRet["into"];
+    in_: InsertRet["into"];
 }
 interface UpdateRetWithRet {
     into(collection: any): UpdateExpression;
     with(collection: any): UpdateRetWithRet;
-    in: UpdateRetWithRet['into'];
-    in_: UpdateRetWithRet['into'];
+    in: UpdateRetWithRet["into"];
+    in_: UpdateRetWithRet["into"];
 }
 interface ReplaceRetWithRet {
     into(collection: any): ReplaceExpression;
     with(collection: any): ReplaceRetWithRet;
-    in: ReplaceRetWithRet['into'];
-    in_: ReplaceRetWithRet['into'];
+    in: ReplaceRetWithRet["into"];
+    in_: ReplaceRetWithRet["into"];
 }
 declare function toArray(self: Expression, ...args: any[]): any[];
 declare function isQuotedString(str: string): boolean;

@@ -521,14 +521,14 @@ export interface _InputManager {
      * A list of common keyCodes
      */
     KEYS: {
-        'UP': 38;
-        'DOWN': 40;
-        'LEFT': 37;
-        'RIGHT': 39;
-        'SPACE': 32;
-        'ENTER': 13;
-        'ESCAPE': 27;
-        'CTRL': 17;
+        "UP": 38;
+        "DOWN": 40;
+        "LEFT": 37;
+        "RIGHT": 39;
+        "SPACE": 32;
+        "ENTER": 13;
+        "ESCAPE": 27;
+        "CTRL": 17;
     };
     /**
      * List of common pad buttons

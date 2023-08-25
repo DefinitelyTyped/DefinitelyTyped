@@ -12,12 +12,12 @@ interface Dictionary<T> {
 // Named export this interface for use in setup method parameter
 export interface ConfigAttributes {
     log_level?:
-        | 'LOG_LEVEL_VERBOSE'
-        | 'LOG_LEVEL_DEBUG'
-        | 'LOG_LEVEL_INFO'
-        | 'LOG_LEVEL_WARN'
-        | 'LOG_LEVEL_ERROR'
-        | 'LOG_LEVEL_NONE'
+        | "LOG_LEVEL_VERBOSE"
+        | "LOG_LEVEL_DEBUG"
+        | "LOG_LEVEL_INFO"
+        | "LOG_LEVEL_WARN"
+        | "LOG_LEVEL_ERROR"
+        | "LOG_LEVEL_NONE"
         | undefined;
     result_post_delay_ms?: number | undefined;
 }

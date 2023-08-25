@@ -13,7 +13,7 @@ declare namespace assert {
         expected: any;
         operator: string;
         generatedMessage: boolean;
-        code: 'ERR_ASSERTION';
+        code: "ERR_ASSERTION";
 
         constructor(options?: {
             /** If provided, the error message is set to this value. */
@@ -82,15 +82,15 @@ declare namespace assert {
     const strict:
         & Omit<
             typeof assert,
-            | 'equal'
-            | 'notEqual'
-            | 'deepEqual'
-            | 'notDeepEqual'
-            | 'ok'
-            | 'strictEqual'
-            | 'deepStrictEqual'
-            | 'ifError'
-            | 'strict'
+            | "equal"
+            | "notEqual"
+            | "deepEqual"
+            | "notDeepEqual"
+            | "ok"
+            | "strictEqual"
+            | "deepStrictEqual"
+            | "ifError"
+            | "strict"
         >
         & {
             (value: any, message?: string | Error): asserts value;

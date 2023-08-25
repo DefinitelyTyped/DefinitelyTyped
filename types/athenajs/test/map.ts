@@ -1,7 +1,7 @@
-import { Map, TileDesc } from 'athenajs';
+import { Map, TileDesc } from "athenajs";
 
 const map = new Map({
-    src: 'tiles',
+    src: "tiles",
     tileWidth: 32,
     tileHeight: 32,
     width: 29 * 32,

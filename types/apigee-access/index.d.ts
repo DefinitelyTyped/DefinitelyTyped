@@ -9,13 +9,13 @@ declare namespace ApigeeAccess {
     function setIntVariable(request: any, name: string, value: string | number): void;
     function deleteVariable(request: any, name: string): void;
     function getCache(name: string, options?: CacheOptions): any;
-    function getVault(name: string, scope?: 'organization' | 'environment'): SecureVault;
+    function getVault(name: string, scope?: "organization" | "environment"): SecureVault;
     function getQuota(options?: any): QuotaService;
-    function getMode(): 'apigee' | 'standalone';
+    function getMode(): "apigee" | "standalone";
 
     interface CacheOptions {
         resource?: string | undefined;
-        scope?: 'global' | 'application' | 'exclusive' | undefined;
+        scope?: "global" | "application" | "exclusive" | undefined;
         defaultTtl?: number | undefined;
         timeout?: number | undefined;
     }
@@ -40,7 +40,7 @@ declare namespace ApigeeAccess {
 
     interface QuotaServiceApplyOptions {
         identifier: string;
-        timeUnit: 'minute' | 'hour' | 'day' | 'week' | 'month';
+        timeUnit: "minute" | "hour" | "day" | "week" | "month";
         allow: number;
         interval?: number | undefined;
         weight?: number | undefined;

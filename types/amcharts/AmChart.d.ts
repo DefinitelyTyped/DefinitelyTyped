@@ -1,8 +1,8 @@
-import AmBalloon from './AmBalloon';
-import AmLegend from './AmLegend';
-import ExportSettings from './ExportSettings';
-import Label from './Label';
-import Title from './Title';
+import AmBalloon from "./AmBalloon";
+import AmLegend from "./AmLegend";
+import ExportSettings from "./ExportSettings";
+import Label from "./Label";
+import Title from "./Title";
 
 /**
  * AmChart is a base class of all charts. It can not be instantiated explicitly.

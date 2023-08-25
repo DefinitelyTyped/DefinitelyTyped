@@ -1,4 +1,4 @@
-import Timeout from 'await-timeout';
+import Timeout from "await-timeout";
 
 /**
  * This test is just a TS-friendly version of the await-timeout README:
@@ -26,7 +26,7 @@ declare const MyTimeoutError: any;
     await Timeout.set(1000);
 
     // wait 1000 ms and reject with 'Error'
-    await Timeout.set(1000, 'Error');
+    await Timeout.set(1000, "Error");
 });
 
 // 2. Use `Timeout` instance inside `try...finally` block to make proper cleanup:
@@ -34,9 +34,9 @@ declare const MyTimeoutError: any;
     const timer = new Timeout();
     try {
         await Promise.race([
-            fetch('https://example.com'),
+            fetch("https://example.com"),
             timer.set(1000)
-                .then(() => Promise.reject('Timeout')),
+                .then(() => Promise.reject("Timeout")),
         ]);
     } finally {
         timer.clear();
@@ -56,7 +56,7 @@ declare const MyTimeoutError: any;
 (async () => {
     const timer = new Timeout();
     timer.set(1000)
-        .then(() => console.log('1000 ms passed.'));
+        .then(() => console.log("1000 ms passed."));
 });
 
 // If you need to reject after timeout:
@@ -64,7 +64,7 @@ declare const MyTimeoutError: any;
     const timer = new Timeout();
     timer.set(1000)
         .then(() => {
-            throw new Error('Timeout');
+            throw new Error("Timeout");
         });
 });
 
@@ -79,10 +79,10 @@ declare const MyTimeoutError: any;
 // The second parameter `message` is just convenient way to reject with `new Error(message)`:
 (async () => {
     const timer = new Timeout();
-    timer.set(1000, 'Timeout');
+    timer.set(1000, "Timeout");
     // is equivalent to
     timer.set(1000).then(() => {
-        throw new Error('Timeout');
+        throw new Error("Timeout");
     });
 });
 
@@ -96,19 +96,19 @@ declare const MyTimeoutError: any;
 //  * promise automatically rejected after timeout
 //  * timeout automatically cleared if promise fulfills first
 (async () => {
-    const promise = fetch('https://example.com');
+    const promise = fetch("https://example.com");
 
-    const timeoutedPromise = Timeout.wrap(promise, 1000, 'Timeout');
+    const timeoutedPromise = Timeout.wrap(promise, 1000, "Timeout");
 });
 // Actually it is a shortcut for        :
 (async () => {
-    const promise = fetch('https://example.com');
+    const promise = fetch("https://example.com");
 
     const timer = new Timeout();
     try {
         const timeoutedPromise = await Promise.race([
             promise,
-            timer.set(1000, 'Timeout'),
+            timer.set(1000, "Timeout"),
         ]);
     } finally {
         timer.clear();
@@ -120,7 +120,7 @@ declare const MyTimeoutError: any;
 (async () => {
     const timer = new Timeout();
     timer.set(1000)
-        .then(() => console.log('This will never be called, because timeout is cleared on the next line'));
+        .then(() => console.log("This will never be called, because timeout is cleared on the next line"));
     timer.clear();
 });
 

@@ -1,6 +1,6 @@
-import { Result, RunOptions, Spec } from 'axe-core';
-import { AxeAnalysis, AxeBuilder, BuilderOptions } from 'axe-webdriverjs';
-import { Builder, WebDriver } from 'selenium-webdriver';
+import { Result, RunOptions, Spec } from "axe-core";
+import { AxeAnalysis, AxeBuilder, BuilderOptions } from "axe-webdriverjs";
+import { Builder, WebDriver } from "selenium-webdriver";
 
 const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: BuilderOptions) => {
     const [builderCalled, builderNewed, ...builders] = [
@@ -16,15 +16,15 @@ const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: Bu
     const spec: Spec = {};
 
     const analysis: AxeAnalysis = await AxeBuilder(webDriver)
-        .include('include')
-        .exclude('exclude')
+        .include("include")
+        .exclude("exclude")
         .options(runOptions)
-        .withRules('rule')
-        .withRules(['rule', 'rule'])
-        .withTags('tag')
-        .withTags(['tag', 'tag'])
-        .disableRules('rule')
-        .disableRules(['rule', 'rule'])
+        .withRules("rule")
+        .withRules(["rule", "rule"])
+        .withTags("tag")
+        .withTags(["tag", "tag"])
+        .disableRules("rule")
+        .disableRules(["rule", "rule"])
         .configure(spec)
         .analyze((err: Error | null, internalResults: AxeAnalysis) => {});
 
@@ -40,8 +40,8 @@ const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: Bu
     const violations: Result[] = analysis.violations;
 };
 
-const driver = new Builder().forBrowser('firefox').build();
-const axeSource = 'some string literal';
+const driver = new Builder().forBrowser("firefox").build();
+const axeSource = "some string literal";
 const axeBuilderOptions: BuilderOptions = {
     logIframeErrors: false,
 };

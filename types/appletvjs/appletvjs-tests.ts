@@ -12,7 +12,7 @@ function test_AppEvents() {
         // do something
     };
 
-    App.reload({ someProperty: 'Testing...' });
+    App.reload({ someProperty: "Testing..." });
 }
 
 // test the global device object properties
@@ -28,27 +28,27 @@ function test_DeviceProperties() {
 function test_FeatureElement() {
     var parser = new DOMParser();
     var document = parser.parseFromString(
-        '<menuBar id="menuBar"></menuBar><textField id="textField"></textField>',
-        'application/xml',
+        "<menuBar id=\"menuBar\"></menuBar><textField id=\"textField\"></textField>",
+        "application/xml",
     );
-    var textField = document.getElementById('textField');
-    textField.addEventListener('change', function() {
+    var textField = document.getElementById("textField");
+    textField.addEventListener("change", function() {
         change.call(this, textField);
     });
 
     var change = function(textField: AppleTVJS.FeatureElement) {
-        var keyboard: AppleTVJS.Keyboard = textField.getFeature('Keyboard');
+        var keyboard: AppleTVJS.Keyboard = textField.getFeature("Keyboard");
 
         var text = keyboard.text;
     };
 
-    var menuBar = document.getElementById('menuBar');
-    textField.addEventListener('change', function() {
+    var menuBar = document.getElementById("menuBar");
+    textField.addEventListener("change", function() {
         change.call(this, textField);
     });
 
     var select = function(menuBar: AppleTVJS.FeatureElement) {
-        var menuBarDocument: AppleTVJS.MenuBarDocument = menuBar.getFeature('MenuBarDocument');
+        var menuBarDocument: AppleTVJS.MenuBarDocument = menuBar.getFeature("MenuBarDocument");
 
         var document = menuBarDocument.getDocument(menuBar);
         menuBarDocument.setDocument(document, menuBar);
@@ -57,21 +57,21 @@ function test_FeatureElement() {
 }
 
 function test_MediaItem() {
-    var mediaItem = new AppleTVJS.MediaItem('video', 'http://www.vidme.com/abc123');
-    mediaItem.artworkImageURL = 'http://google.com/artwork.png';
-    mediaItem.contentRatingDomain = 'movie';
+    var mediaItem = new AppleTVJS.MediaItem("video", "http://www.vidme.com/abc123");
+    mediaItem.artworkImageURL = "http://google.com/artwork.png";
+    mediaItem.contentRatingDomain = "movie";
     mediaItem.contentRatingRanking = 1;
-    mediaItem.description = 'Media Item';
+    mediaItem.description = "Media Item";
 
     var highlight = new AppleTVJS.Highlight();
-    highlight.description = 'Highlight';
+    highlight.description = "Highlight";
     highlight.duration = 10;
-    highlight.imageURL = 'http://google.com/img.png';
-    highlight.name = 'Name of Highlight';
+    highlight.imageURL = "http://google.com/img.png";
+    highlight.name = "Name of Highlight";
     highlight.starttime = 10;
 
     var highlightGroup = new AppleTVJS.HighlightGroup();
-    highlightGroup.name = 'Highlight Group';
+    highlightGroup.name = "Highlight Group";
     highlightGroup.hightlights.push(highlight);
 
     mediaItem.highlightGroups.push(highlightGroup);
@@ -84,7 +84,7 @@ function test_MediaItem() {
 
     mediaItem.isExplicit = false;
     mediaItem.resumeTime = 0;
-    mediaItem.subtitle = 'Subtitle';
+    mediaItem.subtitle = "Subtitle";
 
     var loadAssetIDCallback = function(assetID: string, error: string) {
         // do something
@@ -120,7 +120,7 @@ function test_MediaItem() {
 // test the global navigation document object
 function test_navigationDocument() {
     var parser = new DOMParser();
-    var document = parser.parseFromString('<document></document>', 'application/xml');
+    var document = parser.parseFromString("<document></document>", "application/xml");
 
     var documents = navigationDocument.documents;
 
@@ -140,7 +140,7 @@ function test_navigationDocument() {
 function test_Player() {
     var playlist = new AppleTVJS.Playlist();
 
-    var mediaItem = new AppleTVJS.MediaItem('audio');
+    var mediaItem = new AppleTVJS.MediaItem("audio");
     playlist.push(mediaItem);
     playlist.pop();
     var result: AppleTVJS.MediaItem[] = playlist.splice(0, 1, mediaItem);
@@ -150,7 +150,7 @@ function test_Player() {
     player.playlist = playlist;
 
     var parser = new DOMParser();
-    var document = parser.parseFromString('<document></document>', 'application/xml');
+    var document = parser.parseFromString("<document></document>", "application/xml");
     player.overlayDocument = document;
 
     player.present();
@@ -208,15 +208,15 @@ function test_Settings() {
     var restrictions = Settings.restrictions;
     var allowsExplicit = restrictions.allowsExplicit;
     var maxMovieRank = restrictions.maxMovieRank;
-    var maxMovieRatingForCountry = restrictions.maxMovieRatingForCountry('US');
+    var maxMovieRatingForCountry = restrictions.maxMovieRatingForCountry("US");
     var allowsExplmaxTVShowRankicit = restrictions.maxTVShowRank;
-    var maxTVShowRatingForCountry = restrictions.maxTVShowRatingForCountry('US');
+    var maxTVShowRatingForCountry = restrictions.maxTVShowRatingForCountry("US");
     var storeFrontCountryCode = Settings.storefrontCountryCode;
 }
 
 function test_TVError() {
     var tvError = new AppleTVJS.TVError();
-    tvError.code = '404';
-    tvError.description = 'Not found';
-    tvError.domain = 'NSMachErrorDomain';
+    tvError.code = "404";
+    tvError.description = "Not found";
+    tvError.domain = "NSMachErrorDomain";
 }

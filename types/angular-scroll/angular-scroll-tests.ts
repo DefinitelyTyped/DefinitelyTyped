@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import duScroll = require('angular-scroll');
+import * as angular from "angular";
+import duScroll = require("angular-scroll");
 
 namespace TestApp {
     class TestController {
@@ -71,10 +71,10 @@ namespace TestApp {
         };
 
         private readonly onScrollCompleted = (): void => {
-            console.log('Done scrolling');
+            console.log("Done scrolling");
         };
     }
 
-    angular.module('testApp', [duScroll])
-        .controller('testController', TestController);
+    angular.module("testApp", [duScroll])
+        .controller("testController", TestController);
 }

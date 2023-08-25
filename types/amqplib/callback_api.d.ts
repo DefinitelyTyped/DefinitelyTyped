@@ -1,6 +1,6 @@
-import events = require('events');
-import { Message, Options, Replies, ServerProperties } from './properties';
-export * from './properties';
+import events = require("events");
+import { Message, Options, Replies, ServerProperties } from "./properties";
+export * from "./properties";
 
 export interface Connection extends events.EventEmitter {
     close(callback?: (err: any) => void): void;

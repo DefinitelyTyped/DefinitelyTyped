@@ -25,7 +25,7 @@ export interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
     platform?: string | undefined;
@@ -34,7 +34,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
-    sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSiteCookie?: "Lax" | "Strict" | "None" | undefined;
     useNativeDeviceInfo?: boolean | undefined;
     trackingOptions?: {
         city?: boolean | undefined;

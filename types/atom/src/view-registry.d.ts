@@ -1,4 +1,4 @@
-import { Disposable, TextEditor, TextEditorElement } from '../index';
+import { Disposable, TextEditor, TextEditorElement } from "../index";
 
 /**
  *  ViewRegistry handles the association between model and view types in Atom.

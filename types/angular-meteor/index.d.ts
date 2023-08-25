@@ -6,9 +6,9 @@
 
 /// <reference types="meteor" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace meteor {
         interface IRootScopeService extends angular.IRootScopeService {
             /**

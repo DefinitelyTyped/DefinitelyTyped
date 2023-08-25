@@ -3,8 +3,8 @@
 // Definitions by: Marton Lederer <https://github.com/martonlederer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { SignatureOptions } from 'arweave/node/lib/crypto/crypto-interface';
-import Transaction from 'arweave/node/lib/transaction';
+import { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
+import Transaction from "arweave/node/lib/transaction";
 
 /**
  * Arweave wallet declarations
@@ -50,10 +50,10 @@ declare global {
  * Arweave wallet permission types
  */
 export type PermissionType =
-    | 'ACCESS_ADDRESS'
-    | 'ACCESS_ALL_ADDRESSES'
-    | 'SIGN_TRANSACTION'
-    | 'ENCRYPT'
-    | 'DECRYPT';
+    | "ACCESS_ADDRESS"
+    | "ACCESS_ALL_ADDRESSES"
+    | "SIGN_TRANSACTION"
+    | "ENCRYPT"
+    | "DECRYPT";
 
 export {};

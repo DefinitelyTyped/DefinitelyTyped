@@ -6,12 +6,12 @@
 // Minimum TypeScript Version: 3.8
 
 /// <reference types="node" />
-import * as StreamManager from './stream-manager';
+import * as StreamManager from "./stream-manager";
 
 export interface PublishParams {
     topic: string;
     payload: Buffer | Blob | string | ArrayLike<any>;
-    queueFullPolicy?: 'AllOrError' | 'BestEffort' | undefined;
+    queueFullPolicy?: "AllOrError" | "BestEffort" | undefined;
 }
 
 export interface IotCallbackData {

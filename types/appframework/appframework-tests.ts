@@ -1,23 +1,23 @@
 af(($: appFrameworkStatic) => {});
 
 ((): appFrameworkCollection => {
-    return $('div'); // => all DIV elements on the page
+    return $("div"); // => all DIV elements on the page
 })();
 ((): appFrameworkCollection => {
-    return $('<p />', {}); // context
+    return $("<p />", {}); // context
 })();
 ((): appFrameworkCollection => {
-    return $($('')); // appFrameworkCollection
+    return $($("")); // appFrameworkCollection
 })();
 ((): appFrameworkCollection => {
-    return $(document.createElement('div')); // HTMLElement
+    return $(document.createElement("div")); // HTMLElement
 })();
 ((): appFrameworkCollection => {
     return $({}); // Object(any)
 })();
 
 ((): boolean => {
-    return $.is$($(''));
+    return $.is$($(""));
 })();
 
 ((): boolean[] => {
@@ -30,7 +30,7 @@ $.each([], (index: number, item: any) => {});
 $.each({}, (key: string, value: any) => {});
 
 ((): Object => {
-    return $.extend({ one: 'patridge' }, { two: 'turtle doves' });
+    return $.extend({ one: "patridge" }, { two: "turtle doves" });
 })();
 
 ((): boolean => {
@@ -60,36 +60,36 @@ $.jsonP({});
 })();
 
 ((): XMLHttpRequest => {
-    return $.get('', (data: any, status?: string, xhr?: XMLHttpRequest) => {});
+    return $.get("", (data: any, status?: string, xhr?: XMLHttpRequest) => {});
 })();
 
 ((): XMLHttpRequest => {
-    return $.post('', (data: any, status?: string, xhr?: XMLHttpRequest) => {});
+    return $.post("", (data: any, status?: string, xhr?: XMLHttpRequest) => {});
 })();
 ((): XMLHttpRequest => {
-    return $.post('', {}, (data: any, status?: string, xhr?: XMLHttpRequest) => {});
+    return $.post("", {}, (data: any, status?: string, xhr?: XMLHttpRequest) => {});
 })();
 
 ((): XMLHttpRequest => {
-    return $.getJSON('', (data: any, status?: string, xhr?: XMLHttpRequest) => {});
+    return $.getJSON("", (data: any, status?: string, xhr?: XMLHttpRequest) => {});
 })();
 ((): XMLHttpRequest => {
-    return $.getJSON('', {}, (data: any, status?: string, xhr?: XMLHttpRequest) => {});
+    return $.getJSON("", {}, (data: any, status?: string, xhr?: XMLHttpRequest) => {});
 })();
 
 ((): string => {
     return $.param({});
 })();
 ((): string => {
-    return $.param({}, '');
+    return $.param({}, "");
 })();
 
 ((): Object => {
-    return $.parseJSON('');
+    return $.parseJSON("");
 })();
 
 ((): Object => {
-    return $.parseXML('');
+    return $.parseXML("");
 })();
 
 ((): string => {
@@ -97,43 +97,43 @@ $.jsonP({});
 })();
 
 ((): Object => {
-    return $.getCssMatrix(document.createElement('div'));
+    return $.getCssMatrix(document.createElement("div"));
 })();
 ((): Object => {
-    return $.getCssMatrix($(''));
+    return $.getCssMatrix($(""));
 })();
 
 ((): appFrameworkCollection => {
-    return $.create('');
+    return $.create("");
 })();
 ((): appFrameworkCollection => {
-    return $.create('', {});
+    return $.create("", {});
 })();
 
 ((): appFrameworkCollection => {
-    return $.query('');
+    return $.query("");
 })();
 ((): appFrameworkCollection => {
-    return $.query('', {});
+    return $.query("", {});
 })();
 
 ((): Object => {
-    return $.Event('', {});
+    return $.Event("", {});
 })();
 
 ((): void => {
-    return $.bind({}, '', () => {});
+    return $.bind({}, "", () => {});
 })();
 
 ((): void => {
-    return $.trigger({}, '');
+    return $.trigger({}, "");
 })();
 ((): void => {
-    return $.trigger({}, '', []);
+    return $.trigger({}, "", []);
 })();
 
 ((): void => {
-    return $.unbind({}, '', () => {});
+    return $.unbind({}, "", () => {});
 })();
 
 ((): void => {
@@ -141,7 +141,7 @@ $.jsonP({});
 })();
 
 ((): void => {
-    return $.cleanUpContent(document.createElement('div'), false, false);
+    return $.cleanUpContent(document.createElement("div"), false, false);
 })();
 
 ((): void => {
@@ -155,10 +155,10 @@ $.jsonP({});
 })();
 
 ((): void => {
-    return $.parseJS('');
+    return $.parseJS("");
 })();
 ((): void => {
-    return $.parseJS(document.createElement('div'));
+    return $.parseJS(document.createElement("div"));
 })();
 
 $.os.webkit;
@@ -186,206 +186,206 @@ $.feat.cssTransformStart;
 $.feat.cssTransformEnd;
 
 ((): appFrameworkCollection => {
-    return $('').reduce(hoge => {
+    return $("").reduce(hoge => {
         return hoge;
     });
 })();
 
 ((): number => {
-    return $('').push($(''));
+    return $("").push($(""));
 })();
 
 ((): number => {
-    return $('').indexOf($(''));
+    return $("").indexOf($(""));
 })();
 
 ((): appFrameworkCollection[] => {
-    return $('').concat($(''));
+    return $("").concat($(""));
 })();
 
 ((): appFrameworkCollection[] => {
-    return $('').slice(0);
+    return $("").slice(0);
 })();
 
 ((): number => {
-    return $('').length;
+    return $("").length;
 })();
 
 ((): appFrameworkCollection => {
-    return $('').map(() => {});
+    return $("").map(() => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').each(() => {});
+    return $("").each(() => {});
 })();
 
 ((): void => {
-    return $('').forEach(() => {});
+    return $("").forEach(() => {});
 })();
 
 ((): appFrameworkStatic => {
-    return $('').ready(() => {});
+    return $("").ready(() => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').find('');
-})();
-
-((): string => {
-    return $('').html();
-})();
-((): appFrameworkCollection => {
-    return $('').html('');
-})();
-((): appFrameworkCollection => {
-    return $('').html('', false);
+    return $("").find("");
 })();
 
 ((): string => {
-    return $('').text();
+    return $("").html();
 })();
 ((): appFrameworkCollection => {
-    return $('').text('');
+    return $("").html("");
+})();
+((): appFrameworkCollection => {
+    return $("").html("", false);
+})();
+
+((): string => {
+    return $("").text();
+})();
+((): appFrameworkCollection => {
+    return $("").text("");
 })();
 
 (() => {
-    return $('').css('');
+    return $("").css("");
 })();
 ((): appFrameworkCollection => {
-    return $('').css('', '');
+    return $("").css("", "");
 })();
 ((): appFrameworkCollection => {
-    return $('').css({});
+    return $("").css({});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').vendorCss('');
+    return $("").vendorCss("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').computedStyle('');
+    return $("").computedStyle("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').empty();
+    return $("").empty();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').hide();
+    return $("").hide();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').show();
+    return $("").show();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').toggle();
-})();
-
-((): string => {
-    return $('').val();
-})();
-((): appFrameworkCollection => {
-    return $('').val('');
+    return $("").toggle();
 })();
 
 ((): string => {
-    return $('').attr('');
+    return $("").val();
 })();
 ((): appFrameworkCollection => {
-    return $('').attr({});
-})();
-((): appFrameworkCollection => {
-    return $('').attr('', '');
-})();
-((): appFrameworkCollection => {
-    return $('').attr('', {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').removeAttr('');
+    return $("").val("");
 })();
 
 ((): string => {
-    return $('').prop('');
+    return $("").attr("");
 })();
 ((): appFrameworkCollection => {
-    return $('').prop({});
+    return $("").attr({});
 })();
 ((): appFrameworkCollection => {
-    return $('').prop('', '');
+    return $("").attr("", "");
 })();
 ((): appFrameworkCollection => {
-    return $('').prop('', {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').removeProp('');
+    return $("").attr("", {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').remove();
+    return $("").removeAttr("");
+})();
+
+((): string => {
+    return $("").prop("");
 })();
 ((): appFrameworkCollection => {
-    return $('').remove('');
+    return $("").prop({});
 })();
 ((): appFrameworkCollection => {
-    return $('').remove(document.createElement('div'));
+    return $("").prop("", "");
 })();
 ((): appFrameworkCollection => {
-    return $('').remove($(''));
+    return $("").prop("", {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').addClass('');
+    return $("").removeProp("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').removeClass('');
+    return $("").remove();
+})();
+((): appFrameworkCollection => {
+    return $("").remove("");
+})();
+((): appFrameworkCollection => {
+    return $("").remove(document.createElement("div"));
+})();
+((): appFrameworkCollection => {
+    return $("").remove($(""));
 })();
 
 ((): appFrameworkCollection => {
-    return $('').toggleClass('');
+    return $("").addClass("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').replaceClass('', '');
+    return $("").removeClass("");
+})();
+
+((): appFrameworkCollection => {
+    return $("").toggleClass("");
+})();
+
+((): appFrameworkCollection => {
+    return $("").replaceClass("", "");
 })();
 
 ((): boolean => {
-    return $('').hasClass('', document.createElement('div'));
+    return $("").hasClass("", document.createElement("div"));
 })();
 
 ((): appFrameworkCollection => {
-    return $('').append('');
+    return $("").append("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').appendTo('');
+    return $("").appendTo("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').prependTo('');
+    return $("").prependTo("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').prepend('');
+    return $("").prepend("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').insertBefore('');
+    return $("").insertBefore("");
 })();
 
 ((): void => {
-    return $('').insertAfter('');
+    return $("").insertAfter("");
 })();
 
 ((): HTMLElement[] => {
-    return $('').get();
+    return $("").get();
 })();
 
 ((): HTMLElement => {
-    return $('').get(0);
+    return $("").get(0);
 })();
 
 ((): {
@@ -396,231 +396,231 @@ $.feat.cssTransformEnd;
     width: number;
     height: number;
 } => {
-    return $('').offset();
+    return $("").offset();
 })();
 
 ((): string => {
-    return $('').height();
+    return $("").height();
 })();
 
 ((): string => {
-    return $('').width();
+    return $("").width();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').parent();
+    return $("").parent();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').parents();
+    return $("").parents();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').children();
+    return $("").children();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').siblings();
+    return $("").siblings();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').closest();
+    return $("").closest();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').filter();
+    return $("").filter();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').not();
+    return $("").not();
 })();
 
 ((): any => {
-    return $('').data('');
+    return $("").data("");
 })();
 ((): appFrameworkCollection => {
-    return $('').data('', '');
+    return $("").data("", "");
 })();
 ((): appFrameworkCollection => {
-    return $('').data('', {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').end();
+    return $("").data("", {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').clone();
+    return $("").end();
+})();
+
+((): appFrameworkCollection => {
+    return $("").clone();
 })();
 
 ((): number => {
-    return $('').size();
+    return $("").size();
 })();
 
 ((): string => {
-    return $('').serialize();
+    return $("").serialize();
 })();
 
 ((): appFrameworkCollection => {
-    return $('').eq(0);
-})();
-
-((): number => {
-    return $('').index();
-})();
-((): number => {
-    return $('').index('');
+    return $("").eq(0);
 })();
 
 ((): number => {
-    return $('').is('');
+    return $("").index();
+})();
+((): number => {
+    return $("").index("");
+})();
+
+((): number => {
+    return $("").is("");
 })();
 
 ((): appFrameworkCollection => {
-    return $('').bind({});
+    return $("").bind({});
 })();
 ((): appFrameworkCollection => {
-    return $('').bind('', () => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').unbind({});
-})();
-((): appFrameworkCollection => {
-    return $('').unbind();
-})();
-((): appFrameworkCollection => {
-    return $('').unbind('', () => {});
+    return $("").bind("", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').one({});
+    return $("").unbind({});
 })();
 ((): appFrameworkCollection => {
-    return $('').one('', () => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').delegate('', {});
+    return $("").unbind();
 })();
 ((): appFrameworkCollection => {
-    return $('').delegate('', '', () => {});
+    return $("").unbind("", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').undelegate('', {});
+    return $("").one({});
 })();
 ((): appFrameworkCollection => {
-    return $('').undelegate('', '', () => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').on({});
-})();
-((): appFrameworkCollection => {
-    return $('').on('', () => {});
-})();
-((): appFrameworkCollection => {
-    return $('').on('', '', () => {});
+    return $("").one("", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').off({});
+    return $("").delegate("", {});
 })();
 ((): appFrameworkCollection => {
-    return $('').off('', () => {});
-})();
-((): appFrameworkCollection => {
-    return $('').off('', '', () => {});
+    return $("").delegate("", "", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').trigger('');
+    return $("").undelegate("", {});
 })();
 ((): appFrameworkCollection => {
-    return $('').trigger({});
-})();
-
-((): appFrameworkCollection => {
-    return $('').click();
-})();
-((): appFrameworkCollection => {
-    return $('').click(() => {});
+    return $("").undelegate("", "", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').keydown();
+    return $("").on({});
 })();
 ((): appFrameworkCollection => {
-    return $('').keydown(() => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').keyup();
+    return $("").on("", () => {});
 })();
 ((): appFrameworkCollection => {
-    return $('').keyup(() => {});
+    return $("").on("", "", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').keypress();
+    return $("").off({});
 })();
 ((): appFrameworkCollection => {
-    return $('').keypress(() => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').submit();
+    return $("").off("", () => {});
 })();
 ((): appFrameworkCollection => {
-    return $('').submit(() => {});
+    return $("").off("", "", () => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').load();
+    return $("").trigger("");
 })();
 ((): appFrameworkCollection => {
-    return $('').load(() => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').resize();
-})();
-((): appFrameworkCollection => {
-    return $('').resize(() => {});
+    return $("").trigger({});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').change();
+    return $("").click();
 })();
 ((): appFrameworkCollection => {
-    return $('').change(() => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').select();
-})();
-((): appFrameworkCollection => {
-    return $('').select(() => {});
+    return $("").click(() => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').error();
+    return $("").keydown();
 })();
 ((): appFrameworkCollection => {
-    return $('').error(() => {});
-})();
-
-((): appFrameworkCollection => {
-    return $('').focus();
-})();
-((): appFrameworkCollection => {
-    return $('').focus(() => {});
+    return $("").keydown(() => {});
 })();
 
 ((): appFrameworkCollection => {
-    return $('').blur();
+    return $("").keyup();
 })();
 ((): appFrameworkCollection => {
-    return $('').blur(() => {});
+    return $("").keyup(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").keypress();
+})();
+((): appFrameworkCollection => {
+    return $("").keypress(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").submit();
+})();
+((): appFrameworkCollection => {
+    return $("").submit(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").load();
+})();
+((): appFrameworkCollection => {
+    return $("").load(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").resize();
+})();
+((): appFrameworkCollection => {
+    return $("").resize(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").change();
+})();
+((): appFrameworkCollection => {
+    return $("").change(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").select();
+})();
+((): appFrameworkCollection => {
+    return $("").select(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").error();
+})();
+((): appFrameworkCollection => {
+    return $("").error(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").focus();
+})();
+((): appFrameworkCollection => {
+    return $("").focus(() => {});
+})();
+
+((): appFrameworkCollection => {
+    return $("").blur();
+})();
+((): appFrameworkCollection => {
+    return $("").blur(() => {});
 })();

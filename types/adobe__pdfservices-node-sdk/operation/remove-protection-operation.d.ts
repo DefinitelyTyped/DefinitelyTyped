@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PdfFormat } from "../pdfservices-sdk";
 
 /**
  * An operation that allows to remove password security from a PDF document.

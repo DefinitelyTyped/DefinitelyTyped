@@ -49,7 +49,7 @@ interface MinimistOptions {
         [key: string]: any;
     } | undefined;
     stopEarly?: boolean | undefined;
-    '--'?: boolean | undefined;
+    "--"?: boolean | undefined;
     unknown?: ((param: string) => boolean) | undefined;
 }
 

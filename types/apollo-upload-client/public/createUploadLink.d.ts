@@ -1,7 +1,7 @@
-import apolloCore = require('@apollo/client/core');
-import apolloHttp = require('@apollo/client/link/http');
-import formDataAppendFile = require('./formDataAppendFile');
-import isExtractableFile = require('./isExtractableFile');
+import apolloCore = require("@apollo/client/core");
+import apolloHttp = require("@apollo/client/link/http");
+import formDataAppendFile = require("./formDataAppendFile");
+import isExtractableFile = require("./isExtractableFile");
 
 declare namespace createUploadLink {
     type UploadLinkOptions =

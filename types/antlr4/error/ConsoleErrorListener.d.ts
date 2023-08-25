@@ -1,4 +1,4 @@
-import ErrorListener from './ErrorListener';
+import ErrorListener from "./ErrorListener";
 
 /**
  * This implementation prints messages to stderr containing the

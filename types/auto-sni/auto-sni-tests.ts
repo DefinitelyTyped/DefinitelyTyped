@@ -1,19 +1,19 @@
-import autosni = require('auto-sni');
+import autosni = require("auto-sni");
 const a = autosni({
     agreeTos: true,
-    email: '',
-    dir: '',
-    domains: [''],
+    email: "",
+    dir: "",
+    domains: [""],
 });
 
 const b = autosni({
     agreeTos: true,
-    email: '',
+    email: "",
     domains: () => [],
 });
 
 const c = autosni({
     agreeTos: true,
-    email: '',
+    email: "",
     domains: () => Promise.resolve([]),
 });

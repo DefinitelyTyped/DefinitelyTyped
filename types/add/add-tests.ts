@@ -1,4 +1,4 @@
-import add = require('add');
+import add = require("add");
 const { dumbSum, fastTwoSum, nextPowerTwo } = add;
 
 // $ExpectType number
@@ -11,7 +11,7 @@ add(15, 14);
 dumbSum([15, 14]);
 
 // @ts-expect-error
-dumbSum(20, 'a');
+dumbSum(20, "a");
 
 // $ExpectType [number, number, null]
 fastTwoSum(1 / 3, 1 / 6);

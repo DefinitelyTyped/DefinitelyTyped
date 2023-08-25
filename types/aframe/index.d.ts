@@ -10,9 +10,9 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-import * as anime from 'animejs';
-import * as three from 'three';
-import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
+import * as anime from "animejs";
+import * as three from "three";
+import * as threeDeprecated from "three/examples/jsm/deprecated/Geometry";
 
 export type ThreeLib = typeof three;
 export type AnimeLib = typeof anime;
@@ -25,13 +25,13 @@ export interface Animation {
     attribute: string;
     begin: string | number;
     delay: number;
-    direction: 'alternate' | 'alternateReverse' | 'normal' | 'reverse';
+    direction: "alternate" | "alternateReverse" | "normal" | "reverse";
     dur: number;
     easing(): void;
     end: string;
-    fill: 'backwards' | 'both' | 'forwards' | 'none';
+    fill: "backwards" | "both" | "forwards" | "none";
     from: any; // TODO type
-    repeat: number | 'indefinite';
+    repeat: number | "indefinite";
     to: number;
 }
 
@@ -148,12 +148,12 @@ export interface Entity<C = ObjectMap<Component>> extends ANode {
 
     // getAttribute specific usages
     getAttribute(type: string): any;
-    getAttribute(type: 'position' | 'rotation' | 'scale'): Coordinate;
+    getAttribute(type: "position" | "rotation" | "scale"): Coordinate;
 
     // setAttribute specific usages
     setAttribute(attr: string, value: any): void;
     setAttribute(attr: string, property: string, componentAttrValue?: any): void;
-    setAttribute(type: 'position' | 'rotation' | 'scale', value: Coordinate): void;
+    setAttribute(type: "position" | "rotation" | "scale", value: Coordinate): void;
 
     // addEventListener specific usages
     addEventListener<K extends keyof EntityEventMap>(
@@ -174,8 +174,8 @@ export type DetailEvent<D> = Event & {
 };
 
 export interface EntityEventMap {
-    'child-attached': DetailEvent<{ el: Element | Entity }>;
-    'child-detached': DetailEvent<{ el: Element | Entity }>;
+    "child-attached": DetailEvent<{ el: Element | Entity }>;
+    "child-detached": DetailEvent<{ el: Element | Entity }>;
     componentchanged: DetailEvent<{
         name: string;
         id: string;
@@ -222,23 +222,23 @@ export type MultiPropertySchema<T extends object> = {
 };
 
 export type PropertyTypes =
-    | 'array'
-    | 'asset'
-    | 'audio'
-    | 'boolean'
-    | 'color'
-    | 'int'
-    | 'map'
-    | 'model'
-    | 'number'
-    | 'selector'
-    | 'selectorAll'
-    | 'string'
-    | 'vec2'
-    | 'vec3'
-    | 'vec4';
+    | "array"
+    | "asset"
+    | "audio"
+    | "boolean"
+    | "color"
+    | "int"
+    | "map"
+    | "model"
+    | "number"
+    | "selector"
+    | "selectorAll"
+    | "string"
+    | "vec2"
+    | "vec3"
+    | "vec4";
 
-export type SceneEvents = 'enter-vr' | 'exit-vr' | 'loaded' | 'renderstart';
+export type SceneEvents = "enter-vr" | "exit-vr" | "loaded" | "renderstart";
 
 export interface Scene extends Entity {
     behaviors: Behavior[];
@@ -274,14 +274,14 @@ export interface SchemaUtils {
 export interface Shader {
     name: string;
     data: object;
-    schema: Schema<this['data']>;
+    schema: Schema<this["data"]>;
     material: THREE.Material;
     vertexShader: string;
     fragmentShader: string;
 
-    init(data?: this['data']): void;
+    init(data?: this["data"]): void;
     tick?(time: number, timeDelta: number): void;
-    update(oldData: this['data']): void;
+    update(oldData: this["data"]): void;
 }
 
 export interface ShaderConstructor<T extends object> {
@@ -377,7 +377,7 @@ export interface PrimitiveDefinition {
     transforms?: any; // TODO cleanup type
 }
 export interface MinimalShaderDefinition {
-    schema: Shader['schema'];
+    schema: Shader["schema"];
 }
 export type ShaderDefinition<T extends object = MinimalShaderDefinition & object> =
     & T
@@ -430,55 +430,55 @@ export interface AFrame {
 }
 
 // module.exports
-export const AComponent: AFrame['AComponent'];
-export const AEntity: AFrame['AEntity'];
-export const ANode: AFrame['ANode'];
-export const AScene: AFrame['AScene'];
-export const components: AFrame['components'];
-export const geometries: AFrame['geometries'];
-export const primitives: AFrame['primitives'];
-export const scenes: AFrame['scenes'];
-export const schema: AFrame['schema'];
-export const shaders: AFrame['shaders'];
-export const systems: AFrame['systems'];
-export const THREE: AFrame['THREE'];
-export const ANIME: AFrame['ANIME'];
-export const utils: AFrame['utils'];
-export const version: AFrame['version'];
-export const registerComponent: AFrame['registerComponent'];
-export const registerElement: AFrame['registerElement'];
-export const registerGeometry: AFrame['registerGeometry'];
-export const registerPrimitive: AFrame['registerPrimitive'];
-export const registerShader: AFrame['registerShader'];
-export const registerSystem: AFrame['registerSystem'];
+export const AComponent: AFrame["AComponent"];
+export const AEntity: AFrame["AEntity"];
+export const ANode: AFrame["ANode"];
+export const AScene: AFrame["AScene"];
+export const components: AFrame["components"];
+export const geometries: AFrame["geometries"];
+export const primitives: AFrame["primitives"];
+export const scenes: AFrame["scenes"];
+export const schema: AFrame["schema"];
+export const shaders: AFrame["shaders"];
+export const systems: AFrame["systems"];
+export const THREE: AFrame["THREE"];
+export const ANIME: AFrame["ANIME"];
+export const utils: AFrame["utils"];
+export const version: AFrame["version"];
+export const registerComponent: AFrame["registerComponent"];
+export const registerElement: AFrame["registerElement"];
+export const registerGeometry: AFrame["registerGeometry"];
+export const registerPrimitive: AFrame["registerPrimitive"];
+export const registerShader: AFrame["registerShader"];
+export const registerSystem: AFrame["registerSystem"];
 
 // global exports
 declare global {
     var hasNativeWebVRImplementation: boolean;
 
     namespace AFRAME {
-        const AComponent: AFrame['AComponent'];
-        const AEntity: AFrame['AEntity'];
-        const ANode: AFrame['ANode'];
-        const AScene: AFrame['AScene'];
-        const components: AFrame['components'];
-        const geometries: AFrame['geometries'];
-        const primitives: AFrame['primitives'];
-        const scenes: AFrame['scenes'];
-        const schema: AFrame['schema'];
-        const shaders: AFrame['shaders'];
-        const systems: AFrame['systems'];
-        const THREE: AFrame['THREE'];
-        const ANIME: AFrame['ANIME'];
-        const utils: AFrame['utils'];
+        const AComponent: AFrame["AComponent"];
+        const AEntity: AFrame["AEntity"];
+        const ANode: AFrame["ANode"];
+        const AScene: AFrame["AScene"];
+        const components: AFrame["components"];
+        const geometries: AFrame["geometries"];
+        const primitives: AFrame["primitives"];
+        const scenes: AFrame["scenes"];
+        const schema: AFrame["schema"];
+        const shaders: AFrame["shaders"];
+        const systems: AFrame["systems"];
+        const THREE: AFrame["THREE"];
+        const ANIME: AFrame["ANIME"];
+        const utils: AFrame["utils"];
         const version: string;
 
-        const registerComponent: AFrame['registerComponent'];
-        const registerElement: AFrame['registerElement'];
-        const registerGeometry: AFrame['registerGeometry'];
-        const registerPrimitive: AFrame['registerPrimitive'];
-        const registerShader: AFrame['registerShader'];
-        const registerSystem: AFrame['registerSystem'];
+        const registerComponent: AFrame["registerComponent"];
+        const registerElement: AFrame["registerElement"];
+        const registerGeometry: AFrame["registerGeometry"];
+        const registerPrimitive: AFrame["registerPrimitive"];
+        const registerShader: AFrame["registerShader"];
+        const registerSystem: AFrame["registerSystem"];
     }
 
     /**
@@ -486,7 +486,7 @@ declare global {
      */
     interface Document {
         createElement(tagName: string): Entity;
-        querySelector(selectors: 'a-scene'): Scene;
+        querySelector(selectors: "a-scene"): Scene;
         querySelector(selectors: string): Entity<any>;
         querySelectorAll(selectors: string): NodeListOf<Entity<any> | Element>;
     }

@@ -1,19 +1,19 @@
-import * as ng from 'angular';
+import * as ng from "angular";
 
-const myApp = ng.module('myApp', ['feature-flags']);
+const myApp = ng.module("myApp", ["feature-flags"]);
 
 const flagsData: Array<ng.featureflags.FlagData> = [
     {
-        key: '1',
+        key: "1",
         active: true,
-        name: 'flag1',
-        description: 'This is the first flag',
+        name: "flag1",
+        description: "This is the first flag",
     },
     {
-        key: '2',
+        key: "2",
         active: false,
-        name: 'flag2',
-        description: 'This is the second flag',
+        name: "flag2",
+        description: "This is the second flag",
     },
 ];
 
@@ -27,6 +27,6 @@ myApp.run(function(
     featureFlags: ng.featureflags.FeatureFlagsService,
 ) {
     featureFlags.set($q.resolve(flagsData));
-    featureFlags.set($http.get('/data/flags.json'));
-    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>('/data/flags.json'));
+    featureFlags.set($http.get("/data/flags.json"));
+    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>("/data/flags.json"));
 });

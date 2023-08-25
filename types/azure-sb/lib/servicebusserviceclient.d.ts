@@ -1,4 +1,4 @@
-import ServiceClient = require('azure-sb/lib/serviceclient');
+import ServiceClient = require("azure-sb/lib/serviceclient");
 
 declare class ServiceBusServiceClient extends ServiceClient {
     constructor(

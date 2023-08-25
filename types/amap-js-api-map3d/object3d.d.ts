@@ -68,10 +68,10 @@ declare namespace AMap {
                     color?: string | number[] | undefined;
                 }
                 & ({
-                    unit?: 'meter' | undefined;
+                    unit?: "meter" | undefined;
                     path: Array<[number, number]> | LngLat[];
                 } | {
-                    unit: 'px';
+                    unit: "px";
                     path: Array<[number, number]> | Pixel[];
                 });
         }

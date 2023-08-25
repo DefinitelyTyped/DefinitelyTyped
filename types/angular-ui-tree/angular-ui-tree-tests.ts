@@ -1,13 +1,13 @@
 var treeNode: AngularUITree.ITreeNode = {
     id: 0,
     nodes: [],
-    title: 'test',
+    title: "test",
 };
 
 var treeNode2: AngularUITree.ITreeNode = {
-    id: '0',
+    id: "0",
     nodes: [treeNode],
-    title: 'test2',
+    title: "test2",
 };
 
 // fake jquery node here so that we can pull a pretend

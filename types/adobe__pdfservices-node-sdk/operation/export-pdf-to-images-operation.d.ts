@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
 
 /**
  * An operation which exports a source PDF file to a supported format specified by

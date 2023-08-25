@@ -1,4 +1,4 @@
-import { Callback, StartOptions } from './shared';
+import { Callback, StartOptions } from "./shared";
 
 export namespace events {
     /**

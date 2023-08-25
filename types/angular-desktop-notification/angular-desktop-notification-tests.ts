@@ -1,9 +1,9 @@
-import * as angular from 'angular';
+import * as angular from "angular";
 
 angular
-    .module('app', ['ngDesktopNotification'])
+    .module("app", ["ngDesktopNotification"])
     .config([
-        'desktopNotificationProvider',
+        "desktopNotificationProvider",
         (desktopNotificationProvider: angular.desktopNotification.IDesktopNotificationProvider) => {
             desktopNotificationProvider.config({
                 autoClose: true,
@@ -12,8 +12,8 @@ angular
             });
         },
     ])
-    .controller('AppController', [
-        'desktopNotification',
+    .controller("AppController", [
+        "desktopNotification",
         (desktopNotification: angular.desktopNotification.IDesktopNotificationService) => {
             // Check support and permission
             const isNotificationSupported = desktopNotification.isSupported();
@@ -29,11 +29,11 @@ angular
                 permission => {
                     // Show notification
                     desktopNotification.show(
-                        'Notification title',
+                        "Notification title",
                         {
-                            tag: 'tag',
-                            body: 'Notification body',
-                            icon: 'https://www.iconurl.com/icon-name.icon-extension',
+                            tag: "tag",
+                            body: "Notification body",
+                            icon: "https://www.iconurl.com/icon-name.icon-extension",
                             onClick: () => {
                                 // Notification clicked
                             },

@@ -1,4 +1,4 @@
-import AmGraph from './AmGraph';
+import AmGraph from "./AmGraph";
 
 /**
  * ChartScrollbarSettings settings set's settings for chart scrollbar.

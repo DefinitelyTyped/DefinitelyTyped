@@ -17,7 +17,7 @@ declare namespace my {
     }
     interface ErrMsgResponse {
         /** 成功：ok，错误：详细信息 */
-        errMsg: 'ok' | string;
+        errMsg: "ok" | string;
     }
     interface TempFileResponse {
         /** 文件的临时路径 */
@@ -156,7 +156,7 @@ declare namespace my {
         /** 输入框内的提示文案 */
         placeholder?: string | undefined;
         /** message对齐方式，可用枚举left/center/right，iOS ‘center’, android ‘left’ */
-        align?: 'left' | 'center' | 'right' | string | undefined;
+        align?: "left" | "center" | "right" | string | undefined;
         /** 确认按钮文字，默认‘确定’ */
         okButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
@@ -171,7 +171,7 @@ declare namespace my {
          */
         content: string;
         /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-        type?: 'none' | 'success' | 'fail' | 'exception' | string | undefined;
+        type?: "none" | "success" | "fail" | "exception" | string | undefined;
         /**
          * 显示时长，单位为 ms，默认 2000
          */
@@ -214,7 +214,7 @@ declare namespace my {
         /**
          * 飘红类型，支持 none（无红点）/ point（纯红点） / num（数字红点）/ text（文案红点）/ more（...）
          */
-        type: 'none' | 'point' | 'num' | 'text' | 'more' | string;
+        type: "none" | "point" | "num" | "text" | "more" | string;
 
         /**
          * 自定义飘红文案：
@@ -340,9 +340,9 @@ declare namespace my {
     }
     interface ChooseContactOptions extends BaseOptions {
         /** 选择类型，值为single（单选）或者 multi（多选） */
-        chooseType: 'single' | 'multi' | string;
+        chooseType: "single" | "multi" | string;
         /** 包含手机通讯录联系人的模式：默认为不包含（none）、或者仅仅包含双向通讯录联系人（known）、或者包含手机通讯录联系人（all） */
-        includeMobileContactMode?: 'none' | 'known' | 'all' | string | undefined;
+        includeMobileContactMode?: "none" | "known" | "all" | string | undefined;
         /** 是否包含自己 */
         includeMe?: boolean | undefined;
         /** 最大选择人数，仅 chooseType 为 multi 时才有效 */
@@ -391,7 +391,7 @@ declare namespace my {
          * 4. yyyy-MM （最低基础库：1.1.1, 可用 canIUse('datePicker.object.format.yyyy-MM') 判断）
          * 5. yyyy （最低基础库：1.1.1,可用 canIUse('datePicker.object.format.yyyy') 判断）
          */
-        format: 'yyyy-MM-dd' | 'HH:mm' | 'yyyy-MM-dd HH:mm' | 'yyyy-MM' | 'yyyy';
+        format: "yyyy-MM-dd" | "HH:mm" | "yyyy-MM-dd HH:mm" | "yyyy-MM" | "yyyy";
         /** 初始选择的日期时间，默认当前时间 */
         currentDate: string;
         /** 最小日期时间 */
@@ -410,13 +410,13 @@ declare namespace my {
 
     // #region 动画 https://docs.alipay.com/mini/api/ui-animation
     type TimingFunction =
-        | 'linear'
-        | 'ease'
-        | 'ease-in'
-        | 'ease-in-out'
-        | 'ease-out'
-        | 'step-start'
-        | 'step-end';
+        | "linear"
+        | "ease"
+        | "ease-in"
+        | "ease-in-out"
+        | "ease-out"
+        | "step-start"
+        | "step-end";
     interface CreateAnimationOptions {
         /** 动画持续时间，单位ms，默认值 400 */
         duration: number;
@@ -608,11 +608,11 @@ declare namespace my {
          * textAlign 是 Canvas 2D API 描述绘制文本时，文本的对齐方式的属性。注意，该对齐是基于
          * CanvasRenderingContext2D.fillText 方法的x的值。所以如果 textAlign="center"，那么该文本将画在 x-50%*width
          */
-        setTextAlign(textAlign: 'left' | 'right' | 'center' | 'start' | 'end'): void;
+        setTextAlign(textAlign: "left" | "right" | "center" | "start" | "end"): void;
         /**
          * textBaseline 是 Canvas 2D API 描述绘制文本时，当前文本基线的属性。
          */
-        setTextBaseline(textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom'): void;
+        setTextBaseline(textBaseline: "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom"): void;
         /**
          * 设置填充色。
          *
@@ -667,14 +667,14 @@ declare namespace my {
          *
          * @param lineCap 线条的结束端点样式
          */
-        setLineCap(lineCap: 'round' | 'butt' | 'square'): void;
+        setLineCap(lineCap: "round" | "butt" | "square"): void;
 
         /**
          * 设置线条的交点样式。
          *
          * @param lineJoin 线条的结束交点样式
          */
-        setLineJoin(lineJoin: 'round' | 'bevel' | 'miter'): void;
+        setLineJoin(lineJoin: "round" | "bevel" | "miter"): void;
 
         /**
          * 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当 setLineJoin() 为 miter 时才有效。超过最大倾斜长度的，连接处将以 lineJoin 为 bevel 来显示
@@ -1413,7 +1413,7 @@ declare namespace my {
          * TINYAPP：回跳至小程序地址；
          * WINDOWS：支付宝服务窗，默认值；
          */
-        invoke_type?: 'TINYAPP' | 'TINYAPP' | 'WINDOWS' | string | undefined;
+        invoke_type?: "TINYAPP" | "TINYAPP" | "WINDOWS" | string | undefined;
         /**
          * 信用业务服务，注意：该字段不能为空，且必须根据说明的指引配置商户专属的场景ID，商户自助接入时，登录后台可配置场景ID，将后台配置的场景ID作为该字段的输入；
          * 参考说明一自助进行配置；
@@ -1438,7 +1438,7 @@ declare namespace my {
         /**
          * 租金的结算方式，非必填字段，默认是支付宝租金结算支付 merchant：表示商户自行结算，信用借还不提供租金支付能力； alipay：表示使用支付宝支付功能，给用户提供租金代扣及赔偿金支付能力；
          */
-        rent_settle_type?: 'merchant' | 'alipay' | string | undefined;
+        rent_settle_type?: "merchant" | "alipay" | string | undefined;
         /**
          * 商户请求状态上下文。商户发起借用服务时，需要在借用结束后返回给商户的参数，格式：json；
          * 如果json的某一项值包含中文，请使用encodeURIComponent对该值进行编码；
@@ -1474,7 +1474,7 @@ declare namespace my {
              * 9000    成功
              * 4000    系统异常
              */
-            resultStatus: '6001' | '6002' | '9000' | '4000' | string;
+            resultStatus: "6001" | "6002" | "9000" | "4000" | string;
             result: {
                 /**
                  * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数
@@ -1497,7 +1497,7 @@ declare namespace my {
                 /**
                  * 是否准入:Y:准入；N:不准入(该字段目前无实际意义)
                  */
-                admit_state: 'Y' | 'N' | string;
+                admit_state: "Y" | "N" | string;
                 /**
                  * 物品借用/租赁者的用户id
                  * @example
@@ -1512,7 +1512,7 @@ declare namespace my {
     // #endregion
 
     // #region 文本风险识别 https://docs.alipay.com/mini/api/text-identification
-    type TextRiskIdentificationType = 'keyword' | '0' | '1' | '2' | '3' | string;
+    type TextRiskIdentificationType = "keyword" | "0" | "1" | "2" | "3" | string;
     interface TextRiskIdentificationOptions extends BaseOptions {
         /**
          * 需要进行风险识别的文本内容
@@ -1572,7 +1572,7 @@ declare namespace my {
         /**
          * 要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） ，仅在当前小程序为开发版或体验版时此参数有效；如果当前小程序是正式版，则打开的小程序必定是正式版。默认值 release
          */
-        envVersion?: 'develop' | 'trial' | 'release' | string | undefined;
+        envVersion?: "develop" | "trial" | "release" | string | undefined;
     }
     /**
      * 跳转到其他小程序。详细接入参考[指引](https://docs.alipay.com/mini/introduce/open-miniprogram)
@@ -1607,7 +1607,7 @@ declare namespace my {
 // 多媒体
 declare namespace my {
     // #region 图片 https://docs.alipay.com/mini/api/media-image
-    type ImageSourceType = 'album' | 'camera';
+    type ImageSourceType = "album" | "camera";
     interface ChooseImageOptions extends BaseOptions {
         /** 最大可选照片数，默认1张 */
         count: number;
@@ -1628,12 +1628,12 @@ declare namespace my {
 
     interface GenerateImageFromCodeOptions extends BaseOptions {
         code: string;
-        format: 'QRCODE';
+        format: "QRCODE";
         width: number;
         /**
          * @defaultValue 'H'
          */
-        correctLevel?: 'L' | 'M' | 'Q' | 'H';
+        correctLevel?: "L" | "M" | "Q" | "H";
         success?(res: { image: string }): void;
     }
 
@@ -1723,15 +1723,15 @@ declare namespace my {
             height: number; // 图片高度（单位px）
             path: string; // 图片本地路径
             orientation:
-                | 'up'
-                | 'up-mirrored'
-                | 'down'
-                | ' down-mirrored'
-                | 'left-mirrored'
-                | 'right'
-                | 'lright-mirrored'
-                | 'left';
-            type: 'png' | 'jpg' | 'gif' | 'webp' | 'hevc' | 'bmp' | 'heic';
+                | "up"
+                | "up-mirrored"
+                | "down"
+                | " down-mirrored"
+                | "left-mirrored"
+                | "right"
+                | "lright-mirrored"
+                | "left";
+            type: "png" | "jpg" | "gif" | "webp" | "hevc" | "bmp" | "heic";
         }): void;
     }
     /**
@@ -1864,7 +1864,7 @@ declare namespace my {
         /** 文件路径 */
         apFilePath: string;
         /** 摘要算法，支持md5和sha1，默认为md5 */
-        digestAlgorithm?: 'md5' | 'sha1' | undefined;
+        digestAlgorithm?: "md5" | "sha1" | undefined;
         success?(options: GetFileInfoSuccess): void;
     }
     /**
@@ -2052,7 +2052,7 @@ declare namespace my {
         /** 设置请求的 HTTP 头，默认 {'Content-Type': 'application/x-www-form-urlencoded'} */
         header?: RequestHeader | undefined;
         /** 默认GET，目前支持GET，POST */
-        method?: 'GET' | 'POST' | undefined;
+        method?: "GET" | "POST" | undefined;
         /** 请求的参数 */
         data?: any;
         /**
@@ -2060,7 +2060,7 @@ declare namespace my {
          */
         timeout?: number | undefined;
         /** 期望返回的数据格式，默认json，支持json，text，base64 */
-        dataType?: 'json' | 'text' | 'base64' | undefined;
+        dataType?: "json" | "text" | "base64" | undefined;
         /** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
         success?(res: DataResponse): void;
     }
@@ -2076,7 +2076,7 @@ declare namespace my {
         /**
          * 文件类型
          */
-        fileType: 'image' | 'video' | 'audio';
+        fileType: "image" | "video" | "audio";
         /** HTTP 请求 Header */
         header?: RequestHeader | undefined;
         /** HTTP 请求中其他额外的 form 数据 */
@@ -2114,7 +2114,7 @@ declare namespace my {
         data?: any;
         /** 设置请求的头部 */
         header?: RequestHeader | undefined;
-        method?: 'GET' | 'POST' | undefined; // todo missing in api
+        method?: "GET" | "POST" | undefined; // todo missing in api
     }
     /**
      * 创建一个 WebSocket 的连接；
@@ -2255,7 +2255,7 @@ declare namespace my {
         /**
          * 系统名：Android，iOS
          */
-        platform: 'Android' | 'iOS' | string;
+        platform: "Android" | "iOS" | string;
         /**
          * 屏幕宽度
          */
@@ -2275,7 +2275,7 @@ declare namespace my {
         /**
          * 当前运行的客户端，当前是支付宝则有效值是"alipay"
          */
-        app: 'alipay' | string;
+        app: "alipay" | string;
     }
     interface GetSystemInfoOptions extends BaseOptions {
         success?(res: SystemInfo): void;
@@ -2293,7 +2293,7 @@ declare namespace my {
             networkType: NetworkType;
         }): void;
     }
-    type NetworkType = 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
+    type NetworkType = "UNKNOWN" | "NOTREACHABLE" | "WIFI" | "3G" | "2G" | "4G" | "WWAN";
     function getNetworkType(options: GetNetworkTypeOptions): void;
 
     /**
@@ -2435,16 +2435,16 @@ declare namespace my {
          * lbs开关(app)    LBS    iOS
          */
         authType:
-            | 'BACKGROUNDER'
-            | 'SHORTCUT'
-            | 'MICROPHONE'
-            | 'ADDRESSBOOK'
-            | 'CAMERA'
-            | 'PHOTO'
-            | 'NOTIFICATION'
-            | 'SELFSTARTING'
-            | 'LBSSERVICE'
-            | 'LBS';
+            | "BACKGROUNDER"
+            | "SHORTCUT"
+            | "MICROPHONE"
+            | "ADDRESSBOOK"
+            | "CAMERA"
+            | "PHOTO"
+            | "NOTIFICATION"
+            | "SELFSTARTING"
+            | "LBSSERVICE"
+            | "LBS";
     }
     function showAuthGuide(options: showAuthGuideOptions): void;
     // #endregion
@@ -2453,7 +2453,7 @@ declare namespace my {
 // 扫码
 declare namespace my {
     // #region 扫码 https://docs.alipay.com/mini/api/scan
-    type scanType = 'qr' | 'bar';
+    type scanType = "qr" | "bar";
     interface ScanCodeData {
         /**
          * 扫描二维码时返回二维码数据
@@ -3090,11 +3090,11 @@ declare namespace my {
         /**
          * 来源小程序或公众号或App的 appId，详见下方说明
          */
-        'referrerInfo.appId': string;
+        "referrerInfo.appId": string;
         /**
          * 来源小程序传过来的数据，scene=1037或1038时支持
          */
-        'referrerInfo.extraData': object;
+        "referrerInfo.extraData": object;
         // #endregion
     }
     interface AppOptions {
@@ -3164,7 +3164,7 @@ declare namespace my {
     }
     interface ComponentRelation {
         /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
-        type: 'parent' | 'child' | 'ancestor' | 'descendant';
+        type: "parent" | "child" | "ancestor" | "descendant";
         /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
         target?: string | undefined;
         /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
@@ -3273,28 +3273,28 @@ declare namespace my {
         dataset: { [name: string]: string };
     }
     type TouchEventType =
-        | 'tap'
-        | 'touchstart'
-        | 'touchmove'
-        | 'touchcancel'
-        | 'touchend'
-        | 'touchforcechange';
+        | "tap"
+        | "touchstart"
+        | "touchmove"
+        | "touchcancel"
+        | "touchend"
+        | "touchforcechange";
 
     type TransitionEventType =
-        | 'transitionend'
-        | 'animationstart'
-        | 'animationiteration'
-        | 'animationend';
+        | "transitionend"
+        | "animationstart"
+        | "animationiteration"
+        | "animationend";
 
     type EventType =
-        | 'input'
-        | 'form'
-        | 'submit'
-        | 'scroll'
+        | "input"
+        | "form"
+        | "submit"
+        | "scroll"
         | TouchEventType
         | TransitionEventType
-        | 'tap'
-        | 'longpress';
+        | "tap"
+        | "longpress";
     interface BaseEvent<T extends string, Detail> {
         type: T;
         timeStamp: number;

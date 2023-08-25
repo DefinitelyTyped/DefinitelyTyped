@@ -29,6 +29,6 @@ function TestCtrl($q: ng.IQService, MyService: MyService) {
         .then(objectCallback);
 }
 
-TestCtrl.$inject = ['$q', 'MyService'];
+TestCtrl.$inject = ["$q", "MyService"];
 
-angular.module('test').controller('TestCtrl', TestCtrl);
+angular.module("test").controller("TestCtrl", TestCtrl);

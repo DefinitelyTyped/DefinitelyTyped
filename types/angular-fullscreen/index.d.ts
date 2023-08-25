@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace fullscreen {
         /**
          * Prefixing interface name with "I" is not recommended: https://www.typescriptlang.org/Handbook#writing-dts-files

@@ -11,9 +11,9 @@
 
 /// <reference types="node" />
 
-import * as events from 'events';
-import { ConsumeMessage, GetMessage, Message, Options, Replies, ServerProperties } from './properties';
-export * from './properties';
+import * as events from "events";
+import { ConsumeMessage, GetMessage, Message, Options, Replies, ServerProperties } from "./properties";
+export * from "./properties";
 
 export interface Connection extends events.EventEmitter {
     close(): Promise<void>;
@@ -40,7 +40,7 @@ export interface Channel extends events.EventEmitter {
 
     assertExchange(
         exchange: string,
-        type: 'direct' | 'topic' | 'headers' | 'fanout' | 'match' | string,
+        type: "direct" | "topic" | "headers" | "fanout" | "match" | string,
         options?: Options.AssertExchange,
     ): Promise<Replies.AssertExchange>;
     checkExchange(exchange: string): Promise<Replies.Empty>;

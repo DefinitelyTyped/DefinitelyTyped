@@ -3,7 +3,7 @@
 // Definitions by: mbutsykin <https://github.com/mbutsykin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'angular-es' {
+declare module "angular-es" {
     interface ClassDecorator {
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }

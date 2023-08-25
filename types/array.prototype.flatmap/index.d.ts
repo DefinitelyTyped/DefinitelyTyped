@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import flatMapImpl = require('./implementation');
+import flatMapImpl = require("./implementation");
 
 interface FlatMap {
     <A, B, T extends object | undefined = undefined>(

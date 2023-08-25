@@ -3,8 +3,8 @@
 // Definitions by: Tyler Krupicka <https://github.com/tylerkrupicka>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Result, RunOptions, Spec } from 'axe-core';
-import { WebDriver } from 'selenium-webdriver';
+import { Result, RunOptions, Spec } from "axe-core";
+import { WebDriver } from "selenium-webdriver";
 
 export interface AxeAnalysis {
     inapplicable: Result[];

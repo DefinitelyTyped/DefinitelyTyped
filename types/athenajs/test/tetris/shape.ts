@@ -1,5 +1,5 @@
-import { AudioManager as AM, JSObject, Sprite, Tile } from 'athenajs';
-import ShapeBehavior from './shape_behavior';
+import { AudioManager as AM, JSObject, Sprite, Tile } from "athenajs";
+import ShapeBehavior from "./shape_behavior";
 
 interface shapeDescription {
     name: string;
@@ -19,8 +19,8 @@ class Shape extends Sprite {
 
     constructor(name: string, options = {}) {
         super(name, {
-            imageId: 'tiles',
-            easing: 'linear',
+            imageId: "tiles",
+            easing: "linear",
             // behavior: ShapeBehavior,
             // ...options
         });
@@ -44,7 +44,7 @@ class Shape extends Sprite {
          */
         this.shapes = [
             {
-                name: 'I',
+                name: "I",
                 width: 80,
                 height: 80,
                 color: 7,
@@ -56,7 +56,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'J',
+                name: "J",
                 width: 60,
                 height: 60,
                 color: 6,
@@ -68,7 +68,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'L',
+                name: "L",
                 width: 60,
                 height: 60,
                 color: 5,
@@ -80,7 +80,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'O',
+                name: "O",
                 width: 80,
                 height: 60,
                 color: 4,
@@ -92,7 +92,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'S',
+                name: "S",
                 width: 60,
                 height: 60,
                 color: 3,
@@ -104,7 +104,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'Z',
+                name: "Z",
                 width: 60,
                 height: 60,
                 color: 2,
@@ -116,7 +116,7 @@ class Shape extends Sprite {
                 ],
             },
             {
-                name: 'T',
+                name: "T",
                 width: 60,
                 height: 60,
                 color: 1,
@@ -130,7 +130,7 @@ class Shape extends Sprite {
         ];
 
         this.addAnimations();
-        this.setShape('S', 0);
+        this.setShape("S", 0);
     }
 
     /**
@@ -165,13 +165,13 @@ class Shape extends Sprite {
         console.log(`[Shape] setRandomShape() - ${shapeName}`);
 
         if (!this.movable) {
-            this.animate('Fade', {
+            this.animate("Fade", {
                 duration: 200,
                 startValue: 1,
                 endValue: 0,
             }).then(() => {
                 this.setShape(shapeName, rotation);
-                this.animate('Fade', {
+                this.animate("Fade", {
                     duration: 200,
                     startValue: 0,
                     endValue: 1,
@@ -213,8 +213,8 @@ class Shape extends Sprite {
             if (vertical === 1) {
                 this.movable = false;
                 if (notify) {
-                    AM.play('ground');
-                    this.notify('ground', {
+                    AM.play("ground");
+                    this.notify("ground", {
                         startLine: tilePos.y,
                         numRows: this.shape.height / map.tileHeight,
                     });
@@ -245,9 +245,9 @@ class Shape extends Sprite {
         if (!map.checkMatrixForCollision(matrix, this.shape.width, tilePos.x, tilePos.y, Tile.TYPE.WALL)) {
             // change shape rotation if no collision detected
             this.setShape(this.shapeName, newRotation);
-            AM.play('rotate');
+            AM.play("rotate");
         } else {
-            console.log('rotation not possible');
+            console.log("rotation not possible");
         }
     }
 
@@ -268,7 +268,7 @@ class Shape extends Sprite {
         this.shapes.forEach(shape => {
             let offsetX = 0;
             for (let i = 0; i < 4; ++i) {
-                this.addAnimation(`${shape.name}${i}`, 'tiles', {
+                this.addAnimation(`${shape.name}${i}`, "tiles", {
                     offsetY,
                     offsetX,
                     frameWidth: shape.width,

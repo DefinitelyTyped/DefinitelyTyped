@@ -1,4 +1,4 @@
-var app = angular.module('ag', ['pascalprecht.translate', '$httpProvider']);
+var app = angular.module("ag", ["pascalprecht.translate", "$httpProvider"]);
 
 app.config((growlProvider: angular.growl.IGrowlProvider, $httpProvider: angular.IHttpProvider) => {
     var ttl: angular.growl.IGrowlTTLConfig = {
@@ -12,20 +12,20 @@ app.config((growlProvider: angular.growl.IGrowlProvider, $httpProvider: angular.
         .globalDisableIcons(true)
         .globalReversedOrder(false)
         .globalDisableCountDown(true)
-        .messageVariableKey('someKey')
+        .messageVariableKey("someKey")
         .globalInlineMessages(false)
-        .globalPosition('top-center')
-        .messagesKey('someKey')
-        .messageTextKey('someKey')
-        .messageTitleKey('someKey')
-        .messageSeverityKey('someKey')
+        .globalPosition("top-center")
+        .messagesKey("someKey")
+        .messageTextKey("someKey")
+        .messageTitleKey("someKey")
+        .messageSeverityKey("someKey")
         .onlyUniqueMessages(false);
 
     $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
 });
 
 app.controller(
-    'Ctrl',
+    "Ctrl",
     (
         $scope: angular.IScope,
         growl: angular.growl.IGrowlService,
@@ -37,7 +37,7 @@ app.controller(
             disableCloseButton: true,
         };
 
-        var message = 'Some message';
+        var message = "Some message";
 
         growl.warning(message);
         growl.warning(message, config);
@@ -49,7 +49,7 @@ app.controller(
         growl.success(message, config);
         growl.general(message);
         growl.general(message, config);
-        growl.general(message, config, 'error');
+        growl.general(message, config, "error");
         growl.onlyUnique();
         growl.reverseOrder();
         growl.inlineMessages();
@@ -62,7 +62,7 @@ app.controller(
         growlMessages.deleteMessage(messages[1]);
 
         var testMessage = growl.warning(message);
-        testMessage.setText('Some other message');
+        testMessage.setText("Some other message");
         testMessage.destroy();
     },
 );

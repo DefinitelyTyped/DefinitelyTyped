@@ -1,4 +1,4 @@
-import { DisplayMarker, Disposable, Point, PointCompatible, Range, ScopeDescriptor } from '../index';
+import { DisplayMarker, Disposable, Point, PointCompatible, Range, ScopeDescriptor } from "../index";
 
 /**
  *  The Cursor class represents the little blinking line identifying where text

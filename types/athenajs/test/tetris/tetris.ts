@@ -1,8 +1,8 @@
-import { Game } from 'athenajs';
-import Grid from './grid';
+import { Game } from "athenajs";
+import Grid from "./grid";
 
 const tetris = new Game({
-    name: 'athena-tetris',
+    name: "athena-tetris",
     showFps: true,
     debug: true,
     width: 800,

@@ -1,8 +1,8 @@
-import { Message, MessageStreamDefinition, MessageStreamInfo, ReadMessagesOptions } from './data';
-import * as util from './util';
+import { Message, MessageStreamDefinition, MessageStreamInfo, ReadMessagesOptions } from "./data";
+import * as util from "./util";
 
-export * from './data';
-export * from './exceptions';
+export * from "./data";
+export * from "./exceptions";
 export { util };
 
 export interface StreamManagerLogger {

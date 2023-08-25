@@ -3,13 +3,13 @@
 // Definitions by: mtgto <https://github.com/mtgto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import CrowdApi = require('./api');
-import { Settings } from './settings';
-import Attributes = require('./lib/models/attributes');
-import Group = require('./lib/models/group');
-import User = require('./lib/models/user');
-import Session = require('./lib/models/session');
-import ValidationFactors = require('./lib/models/validation-factors');
+import CrowdApi = require("./api");
+import { Settings } from "./settings";
+import Attributes = require("./lib/models/attributes");
+import Group = require("./lib/models/group");
+import User = require("./lib/models/user");
+import Session = require("./lib/models/session");
+import ValidationFactors = require("./lib/models/validation-factors");
 
 export = CrowdClient;
 declare class CrowdClient extends CrowdApi {

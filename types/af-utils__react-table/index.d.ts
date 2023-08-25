@@ -3,8 +3,8 @@
 // Definitions by: Hunter Ross <https://github.com/huner2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Headless from '@af-utils/react-virtual-headless';
-import * as React from 'react';
+import * as Headless from "@af-utils/react-virtual-headless";
+import * as React from "react";
 
 export type RowProps = Record<string, unknown> & {
     ref: React.Ref<HTMLElement>;
@@ -105,7 +105,7 @@ export const DefaultTableComponents: ComponentMap;
 export interface TableColumnProps {
     key: string;
     // Note, align is not explicitly checked in the code.
-    align?: React.CSSProperties['textAlign'];
+    align?: React.CSSProperties["textAlign"];
     label?: string;
     Cell?: React.ReactNode;
     render?: (cellData: any, row: any) => React.ReactNode;
@@ -124,21 +124,21 @@ export interface TableColumnProps {
  */
 export class ColumnModel {
     static readonly KEYS: [
-        'key',
-        'align',
-        'label',
-        'render',
-        'format',
-        'Cell',
-        'background',
-        'border',
-        'width',
-        'minWidth',
+        "key",
+        "align",
+        "label",
+        "render",
+        "format",
+        "Cell",
+        "background",
+        "border",
+        "width",
+        "minWidth",
     ];
 
     // Don't think it's possible to not redefine these.
     key: string;
-    align?: React.CSSProperties['textAlign'];
+    align?: React.CSSProperties["textAlign"];
     label?: string;
     Cell?: React.ReactNode;
     render?: (cellData: any, row: any) => React.ReactNode;
@@ -178,6 +178,6 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Table: React.FC<TableProps>;
 
-export * from '@af-utils/react-virtual-headless';
+export * from "@af-utils/react-virtual-headless";
 
 export {};

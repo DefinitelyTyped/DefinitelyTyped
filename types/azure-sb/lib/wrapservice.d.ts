@@ -1,4 +1,4 @@
-import { Azure } from 'azure-sb';
+import { Azure } from "azure-sb";
 
 declare class WrapService {
     constructor(acsHost: string, issuer?: string, accessKey?: string);

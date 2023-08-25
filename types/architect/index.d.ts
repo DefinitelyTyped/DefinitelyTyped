@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export type Config = any;
 export type Service = any;
@@ -15,9 +15,9 @@ export function loadConfig(configPath: string, callback?: (err: Error, config: C
 export function createApp(config: Config, callback?: (err: Error, app: Architect) => void): Architect;
 
 export interface Architect extends EventEmitter {
-    on(event: 'service', listener: (name: string, service: Service, plugin: Plugin) => void): this;
-    on(event: 'plugin', listener: (plugin: Plugin) => void): this;
-    on(event: 'ready', listener: (app: Architect) => void): this;
-    on(event: 'error', listener: (error: Error) => void): this;
+    on(event: "service", listener: (name: string, service: Service, plugin: Plugin) => void): this;
+    on(event: "plugin", listener: (plugin: Plugin) => void): this;
+    on(event: "ready", listener: (app: Architect) => void): this;
+    on(event: "error", listener: (error: Error) => void): this;
     getService(name: string): any;
 }

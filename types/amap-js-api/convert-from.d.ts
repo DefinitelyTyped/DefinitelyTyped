@@ -10,8 +10,8 @@ declare namespace AMap {
              */
             locations: LngLat[];
         }
-        type Type = 'gps' | 'baidu' | 'mapbar';
-        type SearchStatus = 'complete' | 'error';
+        type Type = "gps" | "baidu" | "mapbar";
+        type SearchStatus = "complete" | "error";
     }
     /**
      * 为坐标转换类，支持将其他坐标系的坐标点转换为高德坐标系。

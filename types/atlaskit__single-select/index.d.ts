@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, SyntheticEvent } from 'react';
+import { Component, ReactNode, SyntheticEvent } from "react";
 
 export default class SingleSelect extends Component<Props> {}
 export class StatelessSelect extends Component<StatelessProps> {}
 
 export interface Props {
     /** Subtle items do not have a background color. */
-    appearance?: 'default' | 'subtle' | undefined;
+    appearance?: "default" | "subtle" | undefined;
     /** Item to be selected on component mount. */
     defaultSelected?: ItemType | undefined;
     /** Sets whether the dropdown should be constrained to the width of its trigger */
@@ -118,7 +118,7 @@ export interface ItemType {
     description?: string | undefined;
     label?: string | undefined;
     tooltipDescription?: string | undefined;
-    tooltipPosition?: 'top' | 'bottom' | 'left' | undefined;
+    tooltipPosition?: "top" | "bottom" | "left" | undefined;
     value?: string | number | undefined;
     filterValues?: string[] | undefined;
     isDisabled?: boolean | undefined;

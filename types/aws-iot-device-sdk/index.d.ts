@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import * as mqtt from 'mqtt';
-import * as WebSocket from 'ws';
+import { EventEmitter } from "events";
+import * as mqtt from "mqtt";
+import * as WebSocket from "ws";
 
 export interface DeviceOptions extends mqtt.IClientOptions {
     /** the AWS IoT region you will operate in (default "us-east-1") */
@@ -68,7 +68,7 @@ export interface DeviceOptions extends mqtt.IClientOptions {
      * set to "oldest" or "newest" to define drop behavior on a full
      * queue when offlineQueueMaxSize > 0
      */
-    offlineQueueDropBehavior?: 'oldest' | 'newest' | undefined;
+    offlineQueueDropBehavior?: "oldest" | "newest" | undefined;
 
     /**
      * the minimum time in milliseconds between publishes when draining
@@ -96,7 +96,7 @@ export interface DeviceOptions extends mqtt.IClientOptions {
      *
      * 1. https://github.com/aws/aws-iot-device-sdk-js#websockets
      */
-    protocol?: 'mqtts' | 'wss' | undefined;
+    protocol?: "mqtts" | "wss" | undefined;
     /**
      * if protocol is set to "wss", you can use this parameter to pass
      * additional options to the underlying WebSocket object;
@@ -157,15 +157,15 @@ export class device extends EventEmitter {
      */
     updateWebSocketCredentials(accessKeyId: string, secretKey: string, sessionToken: string, expiration: Date): void;
 
-    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void): this;
+    on(event: "connect" | "close" | "reconnect" | "offline", listener: () => void): this;
 
     // Error | string comes from:
     // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b46/device/index.js#L744
     // Remove when https://github.com/aws/aws-iot-device-sdk-js/issues/95 is fixed
-    on(event: 'error', listener: (error: Error | string) => void): this;
+    on(event: "error", listener: (error: Error | string) => void): this;
 
     /** Emitted when a message is received on a topic not related to any Thing Shadows */
-    on(event: 'message', listener: (topic: string, payload: any) => void): this;
+    on(event: "message", listener: (topic: string, payload: any) => void): this;
 
     // The following publish, subscribe, unsubscribe and end Definitions
     // are derived from the mqtt definition as they are re-surfaced through
@@ -387,11 +387,11 @@ export class thingShadow extends EventEmitter {
      */
     end(force?: boolean, callback?: Function): mqtt.Client;
 
-    on(event: 'connect' | 'close' | 'reconnect' | 'offline', listener: () => void): this;
-    on(event: 'error', listener: (error: Error) => void): this;
+    on(event: "connect" | "close" | "reconnect" | "offline", listener: () => void): this;
+    on(event: "error", listener: (error: Error) => void): this;
 
     /** Emitted when a message is received on a topic not related to any Thing Shadows */
-    on(event: 'message', listener: (topic: string, payload: any) => void): this;
+    on(event: "message", listener: (topic: string, payload: any) => void): this;
 
     /**
      * Emitted when an operation update|get|delete completes.
@@ -406,25 +406,25 @@ export class thingShadow extends EventEmitter {
      * returned from each operation.
      */
     on(
-        event: 'status',
+        event: "status",
         listener: (
             thingName: string,
-            operationStatus: 'accepted' | 'rejected',
+            operationStatus: "accepted" | "rejected",
             clientToken: string,
             stateObject: any,
         ) => void,
     ): this;
 
     /** Emitted when an operation update|get|delete has timed out. */
-    on(event: 'timeout', listener: (thingName: string, clientToken: string) => void): this;
+    on(event: "timeout", listener: (thingName: string, clientToken: string) => void): this;
 
     /** Emitted when a delta has been received for a registered Thing Shadow. */
-    on(event: 'delta', listener: (thingName: string, stateObject: any) => void): this;
+    on(event: "delta", listener: (thingName: string, stateObject: any) => void): this;
 
     /** Emitted when a different client"s update or delete operation is accepted on the shadow. */
     on(
-        event: 'foreignStateChange',
-        listener: (thingName: string, operation: 'update' | 'delete', stateObject: any) => void,
+        event: "foreignStateChange",
+        listener: (thingName: string, operation: "update" | "delete", stateObject: any) => void,
     ): this;
 }
 

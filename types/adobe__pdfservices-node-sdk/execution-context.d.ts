@@ -1,5 +1,5 @@
-import { Credentials } from './auth/credentials';
-import { ClientConfig } from './client-config';
+import { Credentials } from "./auth/credentials";
+import { ClientConfig } from "./client-config";
 
 /**
  * Represents the execution context of an Operation. An execution context typically consists of the desired

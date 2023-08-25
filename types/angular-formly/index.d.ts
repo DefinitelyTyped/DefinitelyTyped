@@ -6,11 +6,11 @@
 
 /// <reference types="angular" />
 
-declare module 'AngularFormly' {
+declare module "AngularFormly" {
     export = AngularFormly;
 }
 
-declare module 'angular-formly' {
+declare module "angular-formly" {
     var angularFormlyDefaultExport: string;
     export = angularFormlyDefaultExport;
 }

@@ -1,7 +1,7 @@
-angular.module('promise-tracker-tests', []).run([
-    '$q',
-    '$http',
-    'promiseTracker',
+angular.module("promise-tracker-tests", []).run([
+    "$q",
+    "$http",
+    "promiseTracker",
     (
         $q: angular.IQService,
         $http: angular.IHttpService,
@@ -27,8 +27,8 @@ angular.module('promise-tracker-tests', []).run([
 
         const trackerWithSomeOptions = promiseTracker({ activationDelay: 500 });
 
-        $http.post('/foo', {}, {});
-        $http.post('/foo', {}, { tracker: trackerWithOptions });
-        $http.post('/foo', {}, { tracker: [trackerWithoutOptions, trackerWithOptions] });
+        $http.post("/foo", {}, {});
+        $http.post("/foo", {}, { tracker: trackerWithOptions });
+        $http.post("/foo", {}, { tracker: [trackerWithoutOptions, trackerWithOptions] });
     },
 ]);

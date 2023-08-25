@@ -6,9 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare const exportedString: 'ui.router';
+declare const exportedString: "ui.router";
 export default exportedString;
 
 export type IState = angular.ui.IState;
@@ -24,7 +24,7 @@ export type IUrlRouterService = angular.ui.IUrlRouterService;
 export type IUiViewScrollProvider = angular.ui.IUiViewScrollProvider;
 export type IType = angular.ui.IType;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui {
         interface IState {
             name?: string | undefined;

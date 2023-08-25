@@ -1,4 +1,4 @@
-import { Callback, Handler } from '../handler';
+import { Callback, Handler } from "../handler";
 
 export type LexV2Handler = Handler<LexV2Event, LexV2Result>;
 export type LexV2Callback = Callback<LexV2Result>;
@@ -7,8 +7,8 @@ export type LexV2Callback = Callback<LexV2Result>;
 // https://docs.aws.amazon.com/lexv2/latest/dg/lambda.html
 export interface LexV2Event {
     messageVersion: string;
-    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
-    inputMode: 'DTMF' | 'Speech' | 'Text';
+    invocationSource: "DialogCodeHook" | "FulfillmentCodeHook";
+    inputMode: "DTMF" | "Speech" | "Text";
     responseContentType: string;
     sessionId: string;
     inputTranscript: string;
@@ -39,7 +39,7 @@ export interface LexV2Interpretation {
 }
 
 export interface LexV2Intent {
-    confirmationState: 'Confirmed' | 'Denied' | 'None';
+    confirmationState: "Confirmed" | "Denied" | "None";
     name: string;
     slots: LexV2Slots;
     state: LexV2IntentState;
@@ -47,12 +47,12 @@ export interface LexV2Intent {
 }
 
 export type LexV2IntentState =
-    | 'Failed'
-    | 'Fulfilled'
-    | 'FulfillmentInProgress'
-    | 'InProgress'
-    | 'ReadyForFulfillment'
-    | 'Waiting';
+    | "Failed"
+    | "Fulfilled"
+    | "FulfillmentInProgress"
+    | "InProgress"
+    | "ReadyForFulfillment"
+    | "Waiting";
 
 export interface LexV2SentimentResponse {
     sentiment: string;
@@ -84,18 +84,18 @@ export interface LexV2ActiveContext {
 }
 
 export type LevV2DialogActionWithoutSlot =
-    | { type: 'Close' }
-    | { type: 'ConfirmIntent' }
-    | { type: 'Delegate' }
-    | { type: 'ElicitIntent' };
+    | { type: "Close" }
+    | { type: "ConfirmIntent" }
+    | { type: "Delegate" }
+    | { type: "ElicitIntent" };
 
 export type LexV2DialogAction =
     | (LevV2DialogActionWithoutSlot & { slotToElicit?: never })
-    | { type: 'ElicitSlot'; slotToElicit: string };
+    | { type: "ElicitSlot"; slotToElicit: string };
 
 export type LexV2ResultDialogAction =
     | (LevV2DialogActionWithoutSlot & { slotToElicit?: never })
-    | { type: 'ElicitSlot'; slotToElicit: string; slotElicitationStyle: 'Default' | 'SpellByLetter' | 'SpellByWord' };
+    | { type: "ElicitSlot"; slotToElicit: string; slotElicitationStyle: "Default" | "SpellByLetter" | "SpellByWord" };
 
 export interface LexV2Result {
     sessionState: {
@@ -113,12 +113,12 @@ export interface LexV2Result {
 export type LexV2Message = LexV2ContentMessage | LexV2ImageResponseCardMessage;
 
 export interface LexV2ContentMessage {
-    contentType: 'CustomPayload' | 'PlainText' | 'SSML';
+    contentType: "CustomPayload" | "PlainText" | "SSML";
     content: string;
 }
 
 export interface LexV2ImageResponseCardMessage {
-    contentType: 'ImageResponseCard';
+    contentType: "ImageResponseCard";
     imageResponseCard: LexV2ImageResponseCard;
 }
 
@@ -138,12 +138,12 @@ export type LexV2Slot = LexV2ScalarSlotValue | LexV2ListSlotValue;
 export type LexV2Slots = Record<string, LexV2Slot | null>;
 
 export interface LexV2ScalarSlotValue {
-    shape: 'Scalar';
+    shape: "Scalar";
     value: LexV2SlotValue;
 }
 
 export interface LexV2ListSlotValue {
-    shape: 'List';
+    shape: "List";
     value: LexV2SlotValue;
     values: LexV2ScalarSlotValue[];
 }

@@ -3,9 +3,9 @@
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import antlr4 from 'antlr4';
+import antlr4 from "antlr4";
 
-export type CasePreference = 'LOWER' | 'UPPER' | 'BOTH';
+export type CasePreference = "LOWER" | "UPPER" | "BOTH";
 
 export interface AutoSuggester {
     autosuggest: (inputText: string) => string[];

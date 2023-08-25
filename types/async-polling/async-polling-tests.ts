@@ -1,4 +1,4 @@
-import AsyncPolling = require('async-polling');
+import AsyncPolling = require("async-polling");
 
 // Tests based on examples in https://github.com/cGuille/async-polling#readme
 
@@ -20,8 +20,8 @@ let polling = AsyncPolling(end => {
         end(null, response);
     });
 }, 3000);
-polling.on('error', (error: Error) => {});
-polling.on('result', (result: any) => {});
+polling.on("error", (error: Error) => {});
+polling.on("result", (result: any) => {});
 polling.run();
 polling.stop();
 
@@ -35,7 +35,7 @@ let i = 0;
 polling = AsyncPolling(function(end) {
     ++i;
     if (i === 3) {
-        return end(new Error('i is ' + i));
+        return end(new Error("i is " + i));
     }
     if (i >= 5) {
         this.stop();
@@ -44,19 +44,19 @@ polling = AsyncPolling(function(end) {
     end(null, `#${i} wait a second...`);
 }, 1000);
 
-const eventNames: AsyncPolling.EventName[] = ['run', 'start', 'end', 'schedule', 'stop'];
+const eventNames: AsyncPolling.EventName[] = ["run", "start", "end", "schedule", "stop"];
 eventNames.forEach(eventName => {
     polling.on(eventName, () => {
-        console.log('lifecycle:', eventName);
+        console.log("lifecycle:", eventName);
     });
 });
 
-polling.on('result', (result: any) => {
-    console.log('result:', result);
+polling.on("result", (result: any) => {
+    console.log("result:", result);
 });
 
-polling.on('error', (error: Error) => {
-    console.error('error:', error);
+polling.on("error", (error: Error) => {
+    console.error("error:", error);
 });
 
 polling.run();

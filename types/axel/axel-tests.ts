@@ -1,4 +1,4 @@
-import * as axel from 'axel';
+import * as axel from "axel";
 
 axel.clear();
 axel.bg(0, 255, 0);

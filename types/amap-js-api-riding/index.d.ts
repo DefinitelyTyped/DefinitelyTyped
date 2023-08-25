@@ -15,8 +15,8 @@ declare namespace AMap {
     }
     namespace Riding {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -148,7 +148,7 @@ declare namespace AMap {
             /**
              * 类型
              */
-            type: 'start' | 'end';
+            type: "start" | "end";
         }
         interface SearchResultBase extends SearchResultCommon {
             /**
@@ -179,7 +179,7 @@ declare namespace AMap {
             destinationName: string;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
 
     class Riding extends EventEmitter {

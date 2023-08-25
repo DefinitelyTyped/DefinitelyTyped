@@ -1,4 +1,4 @@
-import android = require('android-versions');
+import android = require("android-versions");
 
 android.get(23); // $ExpectType AndroidVersion | null
 

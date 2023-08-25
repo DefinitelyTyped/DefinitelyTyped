@@ -1,14 +1,14 @@
-import * as amqp from 'amqp';
+import * as amqp from "amqp";
 
 async function connect() {
     const promise = new Promise<amqp.AMQPClient>((resolve, reject) => {
         const client = amqp.createConnection({
-            clientProperties: { applicationName: 'typing' },
-            url: 'amqp://admin:password@localhost:5672',
+            clientProperties: { applicationName: "typing" },
+            url: "amqp://admin:password@localhost:5672",
         });
 
-        client.once('error', reject);
-        client.once('ready', resolve);
+        client.once("error", reject);
+        client.once("ready", resolve);
     });
 
     return promise;
@@ -17,16 +17,16 @@ async function connect() {
 async function start() {
     try {
         const client = await connect();
-        console.log('Connected');
+        console.log("Connected");
 
-        const queue = client.queue('perth-now', {
+        const queue = client.queue("perth-now", {
             autoDelete: false,
             durable: true,
         }, q => {
-            console.log('Queue opened');
-            console.log('Name: %s Channel: %s', q.name, q.channel);
+            console.log("Queue opened");
+            console.log("Name: %s Channel: %s", q.name, q.channel);
 
-            queue.bind('amq.fanout', '#', () => {
+            queue.bind("amq.fanout", "#", () => {
                 queue.subscribe(
                     { ack: true },
                     (msg, _, __, ack) => {
@@ -36,11 +36,11 @@ async function start() {
             });
         });
 
-        const exchange = client.exchange('amq.fanout', { confirm: true });
+        const exchange = client.exchange("amq.fanout", { confirm: true });
 
-        exchange.once('open', () => {
+        exchange.once("open", () => {
             exchange.publish(
-                'content',
+                "content",
                 { message: new Date().toLocaleTimeString() },
                 { deliveryMode: 2 },
                 (err, msg) => {
@@ -51,8 +51,8 @@ async function start() {
                 },
             );
 
-            exchange.publish('content', { message: 'content message' }, () => {
-                console.log('Published');
+            exchange.publish("content", { message: "content message" }, () => {
+                console.log("Published");
             });
         });
     } catch (ex) {

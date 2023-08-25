@@ -1,4 +1,4 @@
-import AmChart from './AmChart';
+import AmChart from "./AmChart";
 
 export default class PeriodSelector {
     /**

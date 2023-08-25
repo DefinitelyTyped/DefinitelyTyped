@@ -9,8 +9,8 @@
 declare namespace AMap {
     namespace Geocoder {
         interface EventMap {
-            complete: Event<'complete', GeocodeResult | {} | ReGeocodeResult | BatchReGeocodeResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", GeocodeResult | {} | ReGeocodeResult | BatchReGeocodeResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -32,7 +32,7 @@ declare namespace AMap {
             /**
              * 是否返回详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
         }
         interface BuildingArea {
             /**
@@ -325,7 +325,7 @@ declare namespace AMap {
              */
             regeocodes: ReGeocode[];
         }
-        type SearchStatus = 'complete' | 'no_data' | 'error';
+        type SearchStatus = "complete" | "no_data" | "error";
     }
     class Geocoder extends EventEmitter {
         /**

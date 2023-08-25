@@ -2,8 +2,8 @@ import {
     APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
-} from '../common/api-gateway';
-import { Callback, CognitoIdentity, Handler } from '../handler';
+} from "../common/api-gateway";
+import { Callback, CognitoIdentity, Handler } from "../handler";
 
 /**
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
@@ -200,10 +200,10 @@ export interface APIGatewayEventRequestContextV2 {
 export interface APIGatewayEventWebsocketRequestContextV2 {
     routeKey: string;
     messageId: string;
-    eventType: 'CONNECT' | 'MESSAGE' | 'DISCONNECT';
+    eventType: "CONNECT" | "MESSAGE" | "DISCONNECT";
     extendedRequestId: string;
     requestTime: string;
-    messageDirection: 'IN';
+    messageDirection: "IN";
     stage: string;
     connectedAt: number;
     requestTimeEpoch: number;

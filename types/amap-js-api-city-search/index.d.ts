@@ -9,8 +9,8 @@
 declare namespace AMap {
     namespace CitySearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface SearchResult {
             /**
@@ -43,7 +43,7 @@ declare namespace AMap {
              */
             status: string;
         }
-        type SearchStatus = 'error' | 'complete' | 'no_data';
+        type SearchStatus = "error" | "complete" | "no_data";
     }
     /**
      * 根据IP返回对应城市信息

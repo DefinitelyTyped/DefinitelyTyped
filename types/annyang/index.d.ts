@@ -59,16 +59,16 @@ export interface CommandOption {
  *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
  */
 export type Events =
-    | 'start'
-    | 'soundstart'
-    | 'error'
-    | 'end'
-    | 'result'
-    | 'resultMatch'
-    | 'resultNoMatch'
-    | 'errorNetwork'
-    | 'errorPermissionBlocked'
-    | 'errorPermissionDenied';
+    | "start"
+    | "soundstart"
+    | "error"
+    | "end"
+    | "result"
+    | "resultMatch"
+    | "resultNoMatch"
+    | "errorNetwork"
+    | "errorPermissionBlocked"
+    | "errorPermissionDenied";
 
 export interface Annyang {
     /**

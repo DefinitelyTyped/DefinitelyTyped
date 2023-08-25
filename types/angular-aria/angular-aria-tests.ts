@@ -14,8 +14,8 @@ function testProvider($ariaProvider: angular.aria.IAriaProvider): void {
 
 function testService($aria: angular.aria.IAriaService): void {
     // $ExpectType boolean
-    $aria.config('tabindex');
+    $aria.config("tabindex");
 
     // @ts-expect-error
-    $aria.config('unknown-string');
+    $aria.config("unknown-string");
 }

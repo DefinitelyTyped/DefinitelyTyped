@@ -1,14 +1,14 @@
-import * as Ajv from 'ajv';
-import * as pack from 'ajv-pack';
+import * as Ajv from "ajv";
+import * as pack from "ajv-pack";
 
 const ajv = new Ajv({ sourceCode: true });
 
 const schema = {
-    type: 'object',
+    type: "object",
     properties: {
         foo: {
-            type: 'string',
-            pattern: '^[a-z]+$',
+            type: "string",
+            pattern: "^[a-z]+$",
         },
     },
 };

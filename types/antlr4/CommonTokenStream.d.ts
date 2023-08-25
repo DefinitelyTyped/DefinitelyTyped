@@ -1,6 +1,6 @@
-import BufferedTokenStream from './BufferedTokenStream';
-import Lexer from './Lexer';
-import Token from './Token';
+import BufferedTokenStream from "./BufferedTokenStream";
+import Lexer from "./Lexer";
+import Token from "./Token";
 
 /**
  * This class extends {@link BufferedTokenStream} with functionality to filter

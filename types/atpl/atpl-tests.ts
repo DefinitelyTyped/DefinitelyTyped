@@ -1,4 +1,4 @@
-import atpl = require('atpl');
+import atpl = require("atpl");
 
 var bool: boolean;
 var str: string;

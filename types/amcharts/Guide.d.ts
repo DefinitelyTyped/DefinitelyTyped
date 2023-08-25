@@ -1,4 +1,4 @@
-import ValueAxis from './ValueAxis';
+import ValueAxis from "./ValueAxis";
 
 /**
  * Guides are straight vertical or horizontal lines or areas supported by AmSerialChart, AmXYChart and AmRadarChart.

@@ -3,7 +3,7 @@
 // Definitions by: Thomas Wirth <https://github.com/wtho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { reactive as VueReactive, ReactiveEffect, ReactiveEffectOptions, UnwrapNestedRefs } from '@vue/reactivity';
+import { reactive as VueReactive, ReactiveEffect, ReactiveEffectOptions, UnwrapNestedRefs } from "@vue/reactivity";
 
 interface Evaluator {
     (el: Node, expression: string /*, extras?: unknown */): (resultCallback: (result: unknown) => void) => void;
@@ -15,10 +15,10 @@ interface ReactiveEffectRunner<T = any> {
 }
 
 interface ReactivityEngine {
-    reactive: Alpine['reactive'];
-    release: Alpine['release'];
-    effect: Alpine['effect'];
-    raw: Alpine['raw'];
+    reactive: Alpine["reactive"];
+    release: Alpine["release"];
+    effect: Alpine["effect"];
+    raw: Alpine["raw"];
 }
 
 type Walker = (el: Node, callback: (el: Node, skip: () => void) => void) => void;
@@ -244,7 +244,7 @@ export interface Alpine {
      */
     magic(
         name: string,
-        callback: (el: Node, extras: { Alpine: Alpine; interceptor: Alpine['interceptor'] }) => any,
+        callback: (el: Node, extras: { Alpine: Alpine; interceptor: Alpine["interceptor"] }) => any,
     ): void;
     /**
      * Retrieves state in the global store.

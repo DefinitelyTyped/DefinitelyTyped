@@ -1,8 +1,8 @@
-import * as auth0 from 'auth0-js';
-import Auth0Lock, { Auth0LockPasswordless } from 'auth0-lock';
+import * as auth0 from "auth0-js";
+import Auth0Lock, { Auth0LockPasswordless } from "auth0-lock";
 
-const CLIENT_ID = 'YOUR_AUTH0_APP_CLIENTID';
-const DOMAIN = 'YOUR_DOMAIN_AT.auth0.com';
+const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
+const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
 
 const lock: Auth0LockStatic = new Auth0Lock(CLIENT_ID, DOMAIN);
 
@@ -45,25 +45,25 @@ lock.checkSession({
 // Show supports UI arguments
 
 const showOptions: Auth0LockShowOptions = {
-    allowedConnections: ['twitter', 'facebook'],
+    allowedConnections: ["twitter", "facebook"],
     allowSignUp: true,
     allowForgotPassword: false,
     auth: {
         autoParseHash: true,
-        params: { state: 'foo' },
+        params: { state: "foo" },
         redirect: true,
-        redirectUrl: 'some url',
-        responseType: 'token',
+        redirectUrl: "some url",
+        responseType: "token",
         sso: true,
     },
-    initialScreen: 'login',
+    initialScreen: "login",
     flashMessage: {
-        type: 'error',
-        text: 'an error has occurred',
+        type: "error",
+        text: "an error has occurred",
     },
     rememberLastLogin: false,
     languageDictionary: {
-        title: 'test',
+        title: "test",
     },
 };
 
@@ -73,34 +73,34 @@ lock.show(showOptions);
 
 // "on" event-driven example
 
-lock.on('authenticated', function(authResult: AuthResult) {
+lock.on("authenticated", function(authResult: AuthResult) {
     lock.getProfile(authResult.idToken, function(error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) {
         if (error) {
             // Handle error
             return;
         }
 
-        localStorage.setItem('idToken', authResult.idToken);
-        localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem("idToken", authResult.idToken);
+        localStorage.setItem("profile", JSON.stringify(profile));
     });
 });
 
-lock.on('authenticated', function(authResult: AuthResult) {
+lock.on("authenticated", function(authResult: AuthResult) {
     lock.getUserInfo(authResult.accessToken, function(error, profile) {
         if (error) {
             // Handle error
             return;
         }
 
-        localStorage.setItem('idToken', authResult.idToken);
-        localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem("idToken", authResult.idToken);
+        localStorage.setItem("profile", JSON.stringify(profile));
     });
 });
 
 // "off" listener removal. Auth0 lock inherits this method from EventEmitter
 // https://github.com/browserify/events/blob/48e3d18659caf72d94d319871106f089bb40002d/events.js#L321
 
-lock.off('authenticated', authResult => {});
+lock.off("authenticated", authResult => {});
 
 // test theme
 
@@ -108,19 +108,19 @@ const themeOptions: Auth0LockConstructorOptions = {
     theme: {
         authButtons: {
             fooProvider: {
-                displayName: 'foo',
+                displayName: "foo",
             },
             barProvider: {
-                displayName: 'foo',
-                primaryColor: '#FF0000',
-                foregroundColor: '#00FF00',
-                icon: 'http://baz.com/icon.png',
+                displayName: "foo",
+                primaryColor: "#FF0000",
+                foregroundColor: "#00FF00",
+                icon: "http://baz.com/icon.png",
             },
         },
         hideMainScreenTitle: false,
         labeledSubmitButton: false,
-        logo: 'https://example.com/assets/logo.png',
-        primaryColor: 'green',
+        logo: "https://example.com/assets/logo.png",
+        primaryColor: "green",
     },
 };
 
@@ -139,10 +139,10 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 const authOptions: Auth0LockConstructorOptions = {
     auth: {
         autoParseHash: true,
-        params: { state: 'foo' },
+        params: { state: "foo" },
         redirect: true,
-        redirectUrl: 'some url',
-        responseType: 'token',
+        redirectUrl: "some url",
+        responseType: "token",
         sso: true,
     },
 };
@@ -152,9 +152,9 @@ new Auth0Lock(CLIENT_ID, DOMAIN, authOptions);
 // test "other" properties
 
 const otherOptions: Auth0LockConstructorOptions = {
-    clientBaseUrl: 'http://www.example.com',
-    configurationBaseUrl: 'https://cdn.auth0.com',
-    languageBaseUrl: 'http://www.example.com',
+    clientBaseUrl: "http://www.example.com",
+    configurationBaseUrl: "https://cdn.auth0.com",
+    languageBaseUrl: "http://www.example.com",
     hashCleanup: false,
     leeway: 30,
     _enableImpersonation: true,
@@ -167,12 +167,12 @@ new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
 // test multi-variant example
 
 const multiVariantOptions: Auth0LockConstructorOptions = {
-    container: 'myContainer',
+    container: "myContainer",
     closable: false,
-    language: 'en',
+    language: "en",
     languageDictionary: {
-        signUpTerms: 'I agree to the <a href=\'/terms\' target=\'_new\'>terms of service</a> ...',
-        title: 'My Company',
+        signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
+        title: "My Company",
     },
     autoclose: true,
     autofocus: false,
@@ -188,15 +188,15 @@ new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
 
 const textFieldOptions: Auth0LockConstructorOptions = {
     additionalSignUpFields: [{
-        name: 'address',
-        placeholder: 'enter your address',
+        name: "address",
+        placeholder: "enter your address",
         // The following properties are optional
-        icon: 'https://example.com/assests/address_icon.png',
-        prefill: 'street 123',
+        icon: "https://example.com/assests/address_icon.png",
+        prefill: "street 123",
         validator: function(input: string) {
             return {
                 valid: input.length >= 10,
-                hint: 'Must have 10 or more chars', // optional
+                hint: "Must have 10 or more chars", // optional
             };
         },
     }],
@@ -208,17 +208,17 @@ new Auth0Lock(CLIENT_ID, DOMAIN, textFieldOptions);
 
 const selectFieldOptions: Auth0LockConstructorOptions = {
     additionalSignUpFields: [{
-        type: 'select',
-        name: 'location',
-        placeholder: 'choose your location',
+        type: "select",
+        name: "location",
+        placeholder: "choose your location",
         options: [
-            { value: 'us', label: 'United States' },
-            { value: 'fr', label: 'France' },
-            { value: 'ar', label: 'Argentina' },
+            { value: "us", label: "United States" },
+            { value: "fr", label: "France" },
+            { value: "ar", label: "Argentina" },
         ],
         // The following properties are optional
-        icon: 'https://example.com/assests/location_icon.png',
-        prefill: 'us',
+        icon: "https://example.com/assests/location_icon.png",
+        prefill: "us",
     }],
 };
 
@@ -228,27 +228,27 @@ new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptions);
 
 const selectFieldOptionsWithCallbacks: Auth0LockConstructorOptions = {
     additionalSignUpFields: [{
-        type: 'select',
-        name: 'location',
-        placeholder: 'choose your location',
+        type: "select",
+        name: "location",
+        placeholder: "choose your location",
         options: function(cb) {
             // obtain options, in case of error you call cb with the error in the
             // first arg instead of null
 
             const options = [
-                { value: 'us', label: 'United States' },
-                { value: 'fr', label: 'France' },
-                { value: 'ar', label: 'Argentina' },
+                { value: "us", label: "United States" },
+                { value: "fr", label: "France" },
+                { value: "ar", label: "Argentina" },
             ];
 
             cb(null, options);
         },
-        icon: 'https://example.com/assests/location_icon.png',
+        icon: "https://example.com/assests/location_icon.png",
         prefill: function(cb) {
             // obtain prefill, in case of error you call cb with the error in the
             // first arg instead of null
 
-            const prefill = 'us';
+            const prefill = "us";
 
             cb(null, prefill);
         },
@@ -261,10 +261,10 @@ new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
 const checkboxFieldOptions: Auth0LockConstructorOptions = {
     additionalSignUpFields: [{
-        type: 'checkbox',
-        name: 'remember',
-        placeholder: 'Remember Me',
-        prefill: 'false',
+        type: "checkbox",
+        name: "remember",
+        placeholder: "Remember Me",
+        prefill: "false",
     }],
 };
 
@@ -278,7 +278,7 @@ const avatarOptions: Auth0LockConstructorOptions = {
             // obtain url for email, in case of error you call cb with the error in
             // the first arg instead of null
 
-            const url = 'url';
+            const url = "url";
 
             cb(null, url);
         },
@@ -286,7 +286,7 @@ const avatarOptions: Auth0LockConstructorOptions = {
             // obtain displayName for email, in case of error you call cb with the
             // error in the first arg instead of null
 
-            const displayName = 'displayName';
+            const displayName = "displayName";
 
             cb(null, displayName);
         },
@@ -296,49 +296,49 @@ const avatarOptions: Auth0LockConstructorOptions = {
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
 const authResultWithUndefined: AuthResult = {
-    accessToken: 'fake_access_token',
+    accessToken: "fake_access_token",
     expiresIn: 7200,
-    idToken: 'fake_id_token',
+    idToken: "fake_id_token",
     idTokenPayload: {
         name: undefined,
         nickname: undefined,
         picture: undefined,
         email: undefined,
         email_verified: undefined,
-        aud: 'EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg',
+        aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
         exp: 1494393724,
         iat: 1494357724,
-        iss: 'https://www.foo.com',
-        sub: 'auth0|aksjfkladsf',
+        iss: "https://www.foo.com",
+        sub: "auth0|aksjfkladsf",
         acr: undefined,
         amr: undefined,
     },
     refreshToken: undefined,
-    state: '923jf092j3.FFSDJFDSKLDF',
-    tokenType: 'Bearer',
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: "Bearer",
 };
 
 const authResultFilled: AuthResult = {
-    accessToken: 'fake_access_token',
+    accessToken: "fake_access_token",
     expiresIn: 7200,
-    idToken: 'fake_id_token',
+    idToken: "fake_id_token",
     idTokenPayload: {
-        name: 'fake name',
-        nickname: 'fake nickname',
-        picture: 'https://www.fakeavatar.com/fake.png',
-        email: 'fake@fake.com',
+        name: "fake name",
+        nickname: "fake nickname",
+        picture: "https://www.fakeavatar.com/fake.png",
+        email: "fake@fake.com",
         email_verified: true,
-        aud: 'EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg',
+        aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
         exp: 1494393724,
         iat: 1494357724,
-        iss: 'https://www.foo.com',
-        sub: 'auth0|aksjfkladsf',
-        acr: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor',
-        amr: ['mfa'],
+        iss: "https://www.foo.com",
+        sub: "auth0|aksjfkladsf",
+        acr: "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
+        amr: ["mfa"],
     },
-    refreshToken: 'refresh_token',
-    state: '923jf092j3.FFSDJFDSKLDF',
-    tokenType: 'Bearer',
+    refreshToken: "refresh_token",
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: "Bearer",
 };
 
 new Auth0LockPasswordless(CLIENT_ID, DOMAIN); // $ExpectType Auth0LockPasswordlessStatic

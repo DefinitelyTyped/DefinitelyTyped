@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
 
 /**
  * Convert a PDF file into a searchable PDF file. Allows specifying locale({OCROptions.OCRSupportedLocale}) and

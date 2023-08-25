@@ -52,4 +52,4 @@ export class ReorderPagesOperation {
     getIncludeRanges(): any[][];
     getSourceFileRefs(): any[];
 }
-import { ExecutionContext, FileRef, PageRanges, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, PdfFormat } from "../pdfservices-sdk";

@@ -6,13 +6,13 @@ function flatten(rangeList) {
     return points;
 }
 function testRangeList(rangeList, points) {
-    assert.equal('' + flatten(rangeList), '' + points);
+    assert.equal("" + flatten(rangeList), "" + points);
 }
 
 const aceRangeListTests = {
-    name: 'ACE range_list.js',
+    name: "ACE range_list.js",
 
-    'test: rangeList pointIndex': function() {
+    "test: rangeList pointIndex": function() {
         var rangeList = new AceAjax.RangeList();
         rangeList.ranges = [
             new AceAjax.Range(1, 2, 3, 4),
@@ -30,7 +30,7 @@ const aceRangeListTests = {
         assert.equal(rangeList.pointIndex({ row: 18, column: 9 }), -4);
     },
 
-    'test: rangeList add': function() {
+    "test: rangeList add": function() {
         var rangeList = new AceAjax.RangeList();
         rangeList.addList([
             new AceAjax.Range(9, 0, 9, 1),
@@ -52,7 +52,7 @@ const aceRangeListTests = {
         assert.range(rangeList.ranges[4], 7, 8, 7, 8);
     },
 
-    'test: rangeList add empty': function() {
+    "test: rangeList add empty": function() {
         var rangeList = new AceAjax.RangeList();
         rangeList.addList([
             new AceAjax.Range(7, 10, 7, 10),
@@ -65,7 +65,7 @@ const aceRangeListTests = {
         testRangeList(rangeList, [7, 10, 7, 10, 8, 10, 8, 10, 9, 10, 9, 10]);
     },
 
-    'test: rangeList merge': function() {
+    "test: rangeList merge": function() {
         var rangeList = new AceAjax.RangeList();
         rangeList.addList([
             new AceAjax.Range(1, 2, 3, 4),
@@ -95,7 +95,7 @@ const aceRangeListTests = {
         assert.equal(rangeList.ranges.length, 2);
     },
 
-    'test: rangeList remove': function() {
+    "test: rangeList remove": function() {
         var rangeList = new AceAjax.RangeList();
         var list = [
             new AceAjax.Range(1, 2, 3, 4),

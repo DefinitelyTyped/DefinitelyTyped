@@ -3050,7 +3050,7 @@ declare namespace Excel {
     }
 
     class AboveAverage {
-        private 'Excel.AboveAverage_typekey': AboveAverage;
+        private "Excel.AboveAverage_typekey": AboveAverage;
         private constructor();
         AboveBelow: XlAboveBelow;
         readonly Application: Application;
@@ -3075,7 +3075,7 @@ declare namespace Excel {
     }
 
     class Action {
-        private 'Excel.Action_typekey': Action;
+        private "Excel.Action_typekey": Action;
         private constructor();
         readonly Application: Application;
         readonly Caption: string;
@@ -3099,7 +3099,7 @@ declare namespace Excel {
     }
 
     class AddIn {
-        private 'Excel.AddIn_typekey': AddIn;
+        private "Excel.AddIn_typekey": AddIn;
         private constructor();
         readonly Application: Application;
         readonly Author: string;
@@ -3141,7 +3141,7 @@ declare namespace Excel {
     }
 
     class AllowEditRange {
-        private 'Excel.AllowEditRange_typekey': AllowEditRange;
+        private "Excel.AllowEditRange_typekey": AllowEditRange;
         private constructor();
         ChangePassword(Password: string): void;
         Delete(): void;
@@ -3160,7 +3160,7 @@ declare namespace Excel {
     }
 
     class Application {
-        private 'Excel.Application_typekey': Application;
+        private "Excel.Application_typekey": Application;
         private constructor();
         readonly _Default: string;
         _Evaluate(Name: any): any;
@@ -3618,7 +3618,7 @@ declare namespace Excel {
         RecordMacro(BasicCode: string): void;
 
         /** This overload prevents recording */
-        RecordMacro(BasicCode: '', XlmCode: ''): void;
+        RecordMacro(BasicCode: "", XlmCode: ""): void;
         readonly RecordRelative: boolean;
         ReferenceStyle: XlReferenceStyle;
         RegisteredFunctions(Index1: string | undefined, Index2?: string): SafeArray | null;
@@ -3785,7 +3785,7 @@ declare namespace Excel {
     }
 
     class AutoCorrect {
-        private 'Excel.AutoCorrect_typekey': AutoCorrect;
+        private "Excel.AutoCorrect_typekey": AutoCorrect;
         private constructor();
 
         /** @returns The string to be replaced */
@@ -3808,7 +3808,7 @@ declare namespace Excel {
     }
 
     class AutoFilter {
-        private 'Excel.AutoFilter_typekey': AutoFilter;
+        private "Excel.AutoFilter_typekey": AutoFilter;
         private constructor();
         readonly Application: Application;
         ApplyFilter(): void;
@@ -3822,7 +3822,7 @@ declare namespace Excel {
     }
 
     class AutoRecover {
-        private 'Excel.AutoRecover_typekey': AutoRecover;
+        private "Excel.AutoRecover_typekey": AutoRecover;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -3848,7 +3848,7 @@ declare namespace Excel {
     }
 
     class Axis {
-        private 'Excel.Axis_typekey': Axis;
+        private "Excel.Axis_typekey": Axis;
         private constructor();
         readonly Application: Application;
         AxisBetweenCategories: boolean;
@@ -3903,7 +3903,7 @@ declare namespace Excel {
     }
 
     class AxisTitle {
-        private 'Excel.AxisTitle_typekey': AxisTitle;
+        private "Excel.AxisTitle_typekey": AxisTitle;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -3938,7 +3938,7 @@ declare namespace Excel {
     }
 
     class Border {
-        private 'Excel.Border_typekey': Border;
+        private "Excel.Border_typekey": Border;
         private constructor();
         readonly Application: Application;
         Color: XlRgbColor | number;
@@ -4001,7 +4001,7 @@ declare namespace Excel {
     }
 
     class CalculatedMember {
-        private 'Excel.CalculatedMember_typekey': CalculatedMember;
+        private "Excel.CalculatedMember_typekey": CalculatedMember;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -4053,7 +4053,7 @@ declare namespace Excel {
     }
 
     class CalloutFormat {
-        private 'Excel.CalloutFormat_typekey': CalloutFormat;
+        private "Excel.CalloutFormat_typekey": CalloutFormat;
         private constructor();
         Accent: Office.MsoTriState;
         Angle: Office.MsoCalloutAngleType;
@@ -4075,7 +4075,7 @@ declare namespace Excel {
     }
 
     class CellFormat {
-        private 'Excel.CellFormat_typekey': CellFormat;
+        private "Excel.CellFormat_typekey": CellFormat;
         private constructor();
         AddIndent: boolean;
         readonly Application: Application;
@@ -4099,7 +4099,7 @@ declare namespace Excel {
     }
 
     class Characters {
-        private 'Excel.Characters_typekey': Characters;
+        private "Excel.Characters_typekey": Characters;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -4114,7 +4114,7 @@ declare namespace Excel {
     }
 
     class Chart {
-        private 'Excel.Chart_typekey': Chart;
+        private "Excel.Chart_typekey": Chart;
         private constructor();
         __PrintOut(
             From?: any,
@@ -4437,7 +4437,7 @@ declare namespace Excel {
     }
 
     class ChartArea {
-        private 'Excel.ChartArea_typekey': ChartArea;
+        private "Excel.ChartArea_typekey": ChartArea;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -4463,7 +4463,7 @@ declare namespace Excel {
     }
 
     class ChartColorFormat {
-        private 'Excel.ChartColorFormat_typekey': ChartColorFormat;
+        private "Excel.ChartColorFormat_typekey": ChartColorFormat;
         private constructor();
         readonly _Default: number;
         readonly Application: Application;
@@ -4475,7 +4475,7 @@ declare namespace Excel {
     }
 
     class ChartFillFormat {
-        private 'Excel.ChartFillFormat_typekey': ChartFillFormat;
+        private "Excel.ChartFillFormat_typekey": ChartFillFormat;
         private constructor();
         readonly Application: Application;
         readonly BackColor: ChartColorFormat;
@@ -4508,7 +4508,7 @@ declare namespace Excel {
     }
 
     class ChartFormat {
-        private 'Excel.ChartFormat_typekey': ChartFormat;
+        private "Excel.ChartFormat_typekey": ChartFormat;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -4524,7 +4524,7 @@ declare namespace Excel {
     }
 
     class ChartGroup {
-        private 'Excel.ChartGroup_typekey': ChartGroup;
+        private "Excel.ChartGroup_typekey": ChartGroup;
         private constructor();
         readonly Application: Application;
         AxisGroup: XlAxisGroup;
@@ -4569,7 +4569,7 @@ declare namespace Excel {
     }
 
     class ChartObject {
-        private 'Excel.ChartObject_typekey': ChartObject;
+        private "Excel.ChartObject_typekey": ChartObject;
         private constructor();
         _Copy(): any;
         Activate(): any;
@@ -4656,7 +4656,7 @@ declare namespace Excel {
     }
 
     class ChartTitle {
-        private 'Excel.ChartTitle_typekey': ChartTitle;
+        private "Excel.ChartTitle_typekey": ChartTitle;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -4691,7 +4691,7 @@ declare namespace Excel {
     }
 
     class ColorFormat {
-        private 'Excel.ColorFormat_typekey': ColorFormat;
+        private "Excel.ColorFormat_typekey": ColorFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -4705,7 +4705,7 @@ declare namespace Excel {
     }
 
     class ColorScale {
-        private 'Excel.ColorScale_typekey': ColorScale;
+        private "Excel.ColorScale_typekey": ColorScale;
         private constructor();
         readonly Application: Application;
         readonly AppliesTo: Range;
@@ -4732,7 +4732,7 @@ declare namespace Excel {
     }
 
     class ColorScaleCriterion {
-        private 'Excel.ColorScaleCriterion_typekey': ColorScaleCriterion;
+        private "Excel.ColorScaleCriterion_typekey": ColorScaleCriterion;
         private constructor();
         readonly FormatColor: FormatColor;
         readonly Index: number;
@@ -4741,7 +4741,7 @@ declare namespace Excel {
     }
 
     class Comment {
-        private 'Excel.Comment_typekey': Comment;
+        private "Excel.Comment_typekey": Comment;
         private constructor();
         readonly Application: Application;
         readonly Author: string;
@@ -4766,7 +4766,7 @@ declare namespace Excel {
     }
 
     class ConditionValue {
-        private 'Excel.ConditionValue_typekey': ConditionValue;
+        private "Excel.ConditionValue_typekey": ConditionValue;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -4808,7 +4808,7 @@ declare namespace Excel {
     }
 
     class ConnectorFormat {
-        private 'Excel.ConnectorFormat_typekey': ConnectorFormat;
+        private "Excel.ConnectorFormat_typekey": ConnectorFormat;
         private constructor();
         readonly Application: Application;
         BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
@@ -4827,7 +4827,7 @@ declare namespace Excel {
     }
 
     class ControlFormat {
-        private 'Excel.ControlFormat_typekey': ControlFormat;
+        private "Excel.ControlFormat_typekey": ControlFormat;
         private constructor();
         _Default: number;
         AddItem(Text: string, Index?: number): void;
@@ -4855,7 +4855,7 @@ declare namespace Excel {
     }
 
     class Corners {
-        private 'Excel.Corners_typekey': Corners;
+        private "Excel.Corners_typekey": Corners;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -4865,7 +4865,7 @@ declare namespace Excel {
     }
 
     class CubeField {
-        private 'Excel.CubeField_typekey': CubeField;
+        private "Excel.CubeField_typekey": CubeField;
         private constructor();
         _AddMemberPropertyField(Property: string, PropertyOrder?: any): void;
         readonly _Caption: string;
@@ -4931,7 +4931,7 @@ declare namespace Excel {
     }
 
     class CustomProperty {
-        private 'Excel.CustomProperty_typekey': CustomProperty;
+        private "Excel.CustomProperty_typekey": CustomProperty;
         private constructor();
         readonly _Default: any;
         readonly Application: Application;
@@ -4943,7 +4943,7 @@ declare namespace Excel {
     }
 
     class CustomView {
-        private 'Excel.CustomView_typekey': CustomView;
+        private "Excel.CustomView_typekey": CustomView;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -4967,7 +4967,7 @@ declare namespace Excel {
     }
 
     class Databar {
-        private 'Excel.Databar_typekey': Databar;
+        private "Excel.Databar_typekey": Databar;
         private constructor();
         readonly Application: Application;
         readonly AppliesTo: Range;
@@ -4998,7 +4998,7 @@ declare namespace Excel {
     }
 
     class DataBarBorder {
-        private 'Excel.DataBarBorder_typekey': DataBarBorder;
+        private "Excel.DataBarBorder_typekey": DataBarBorder;
         private constructor();
         readonly Application: Application;
         readonly Color: FormatColor;
@@ -5008,7 +5008,7 @@ declare namespace Excel {
     }
 
     class DataLabel {
-        private 'Excel.DataLabel_typekey': DataLabel;
+        private "Excel.DataLabel_typekey": DataLabel;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -5091,7 +5091,7 @@ declare namespace Excel {
     }
 
     class DataTable {
-        private 'Excel.DataTable_typekey': DataTable;
+        private "Excel.DataTable_typekey": DataTable;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -5109,7 +5109,7 @@ declare namespace Excel {
     }
 
     class DefaultWebOptions {
-        private 'Excel.DefaultWebOptions_typekey': DefaultWebOptions;
+        private "Excel.DefaultWebOptions_typekey": DefaultWebOptions;
         private constructor();
         AllowPNG: boolean;
         AlwaysSaveInDefaultEncoding: boolean;
@@ -5136,7 +5136,7 @@ declare namespace Excel {
     }
 
     class Diagram {
-        private 'Excel.Diagram_typekey': Diagram;
+        private "Excel.Diagram_typekey": Diagram;
         private constructor();
         readonly Application: Application;
         AutoFormat: Office.MsoTriState;
@@ -5151,7 +5151,7 @@ declare namespace Excel {
     }
 
     class DiagramNode {
-        private 'Excel.DiagramNode_typekey': DiagramNode;
+        private "Excel.DiagramNode_typekey": DiagramNode;
         private constructor();
 
         /**
@@ -5210,7 +5210,7 @@ declare namespace Excel {
     }
 
     class Dialog {
-        private 'Excel.Dialog_typekey': Dialog;
+        private "Excel.Dialog_typekey": Dialog;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -5250,7 +5250,7 @@ declare namespace Excel {
     }
 
     class DialogFrame {
-        private 'Excel.DialogFrame_typekey': DialogFrame;
+        private "Excel.DialogFrame_typekey": DialogFrame;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -5288,7 +5288,7 @@ declare namespace Excel {
     }
 
     class DialogSheet {
-        private 'Excel.DialogSheet_typekey': DialogSheet;
+        private "Excel.DialogSheet_typekey": DialogSheet;
         private constructor();
         __PrintOut(
             From?: any,
@@ -5486,7 +5486,7 @@ declare namespace Excel {
     }
 
     class DialogSheetView {
-        private 'Excel.DialogSheetView_typekey': DialogSheetView;
+        private "Excel.DialogSheetView_typekey": DialogSheetView;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -5495,7 +5495,7 @@ declare namespace Excel {
     }
 
     class DisplayFormat {
-        private 'Excel.DisplayFormat_typekey': DisplayFormat;
+        private "Excel.DisplayFormat_typekey": DisplayFormat;
         private constructor();
         readonly AddIndent: boolean | null;
         readonly Application: Application;
@@ -5521,7 +5521,7 @@ declare namespace Excel {
     }
 
     class DisplayUnitLabel {
-        private 'Excel.DisplayUnitLabel_typekey': DisplayUnitLabel;
+        private "Excel.DisplayUnitLabel_typekey": DisplayUnitLabel;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -5555,7 +5555,7 @@ declare namespace Excel {
     }
 
     class DownBars {
-        private 'Excel.DownBars_typekey': DownBars;
+        private "Excel.DownBars_typekey": DownBars;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -5570,7 +5570,7 @@ declare namespace Excel {
     }
 
     class DropLines {
-        private 'Excel.DropLines_typekey': DropLines;
+        private "Excel.DropLines_typekey": DropLines;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -5583,7 +5583,7 @@ declare namespace Excel {
     }
 
     class Error {
-        private 'Excel.Error_typekey': Error;
+        private "Excel.Error_typekey": Error;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -5593,7 +5593,7 @@ declare namespace Excel {
     }
 
     class ErrorBars {
-        private 'Excel.ErrorBars_typekey': ErrorBars;
+        private "Excel.ErrorBars_typekey": ErrorBars;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -5608,7 +5608,7 @@ declare namespace Excel {
     }
 
     class ErrorCheckingOptions {
-        private 'Excel.ErrorCheckingOptions_typekey': ErrorCheckingOptions;
+        private "Excel.ErrorCheckingOptions_typekey": ErrorCheckingOptions;
         private constructor();
         readonly Application: Application;
         BackgroundChecking: boolean;
@@ -5636,7 +5636,7 @@ declare namespace Excel {
     }
 
     class FileExportConverter {
-        private 'Excel.FileExportConverter_typekey': FileExportConverter;
+        private "Excel.FileExportConverter_typekey": FileExportConverter;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -5657,7 +5657,7 @@ declare namespace Excel {
     }
 
     class FillFormat {
-        private 'Excel.FillFormat_typekey': FillFormat;
+        private "Excel.FillFormat_typekey": FillFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -5702,7 +5702,7 @@ declare namespace Excel {
     }
 
     class Filter {
-        private 'Excel.Filter_typekey': Filter;
+        private "Excel.Filter_typekey": Filter;
         private constructor();
         readonly _Operator: XlAutoFilterOperator;
         readonly Application: Application;
@@ -5726,7 +5726,7 @@ declare namespace Excel {
     }
 
     class Floor {
-        private 'Excel.Floor_typekey': Floor;
+        private "Excel.Floor_typekey": Floor;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -5744,7 +5744,7 @@ declare namespace Excel {
     }
 
     class Font {
-        private 'Excel.Font_typekey': Font;
+        private "Excel.Font_typekey": Font;
         private constructor();
         readonly Application: Application;
         Background: XlBackground;
@@ -5752,7 +5752,7 @@ declare namespace Excel {
         Color: XlRgbColor | number;
         ColorIndex: number | XlColorIndex;
         readonly Creator: XlCreator;
-        FontStyle: 'Regular' | 'Italic' | 'Bold' | 'Bold Italic';
+        FontStyle: "Regular" | "Italic" | "Bold" | "Bold Italic";
         Italic: boolean;
         Name: string;
         OutlineFont: any;
@@ -5769,7 +5769,7 @@ declare namespace Excel {
     }
 
     class FormatColor {
-        private 'Excel.FormatColor_typekey': FormatColor;
+        private "Excel.FormatColor_typekey": FormatColor;
         private constructor();
         readonly Application: Application;
         Color: XlRgbColor | number;
@@ -5781,7 +5781,7 @@ declare namespace Excel {
     }
 
     class FormatCondition {
-        private 'Excel.FormatCondition_typekey': FormatCondition;
+        private "Excel.FormatCondition_typekey": FormatCondition;
         private constructor();
         _Modify(Type: XlFormatConditionType, Operator?: any, Formula1?: any, Formula2?: any): void;
         readonly Application: Application;
@@ -5859,7 +5859,7 @@ declare namespace Excel {
     }
 
     class FreeformBuilder {
-        private 'Excel.FreeformBuilder_typekey': FreeformBuilder;
+        private "Excel.FreeformBuilder_typekey": FreeformBuilder;
         private constructor();
         AddNodes(
             SegmentType: Office.MsoSegmentType.msoSegmentCurve,
@@ -5886,7 +5886,7 @@ declare namespace Excel {
     // there is no way to use the Globals class from within Javascript
 
     class Graphic {
-        private 'Excel.Graphic_typekey': Graphic;
+        private "Excel.Graphic_typekey": Graphic;
         private constructor();
         readonly Application: Application;
         Brightness: number;
@@ -5905,7 +5905,7 @@ declare namespace Excel {
     }
 
     class Gridlines {
-        private 'Excel.Gridlines_typekey': Gridlines;
+        private "Excel.Gridlines_typekey": Gridlines;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -5918,7 +5918,7 @@ declare namespace Excel {
     }
 
     class GroupObject {
-        private 'Excel.GroupObject_typekey': GroupObject;
+        private "Excel.GroupObject_typekey": GroupObject;
         private constructor();
         _Default: number;
         AddIndent: boolean;
@@ -5983,14 +5983,14 @@ declare namespace Excel {
     }
 
     class HeaderFooter {
-        private 'Excel.HeaderFooter_typekey': HeaderFooter;
+        private "Excel.HeaderFooter_typekey": HeaderFooter;
         private constructor();
         readonly Picture: Graphic;
         Text: string;
     }
 
     class HiLoLines {
-        private 'Excel.HiLoLines_typekey': HiLoLines;
+        private "Excel.HiLoLines_typekey": HiLoLines;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -6003,7 +6003,7 @@ declare namespace Excel {
     }
 
     class HPageBreak {
-        private 'Excel.HPageBreak_typekey': HPageBreak;
+        private "Excel.HPageBreak_typekey": HPageBreak;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6027,7 +6027,7 @@ declare namespace Excel {
     }
 
     class Hyperlink {
-        private 'Excel.Hyperlink_typekey': Hyperlink;
+        private "Excel.Hyperlink_typekey": Hyperlink;
         private constructor();
         Address: string;
         AddToFavorites(): void;
@@ -6072,7 +6072,7 @@ declare namespace Excel {
     }
 
     class Icon {
-        private 'Excel.Icon_typekey': Icon;
+        private "Excel.Icon_typekey": Icon;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6092,7 +6092,7 @@ declare namespace Excel {
     }
 
     class IconSetCondition {
-        private 'Excel.IconSetCondition_typekey': IconSetCondition;
+        private "Excel.IconSetCondition_typekey": IconSetCondition;
         private constructor();
         readonly Application: Application;
         readonly AppliesTo: Range;
@@ -6123,7 +6123,7 @@ declare namespace Excel {
     }
 
     class IconCriterion {
-        private 'Excel.IconCriterion_typekey': IconCriterion;
+        private "Excel.IconCriterion_typekey": IconCriterion;
         private constructor();
         Icon: XlIcon;
         readonly Index: number;
@@ -6143,7 +6143,7 @@ declare namespace Excel {
     }
 
     class Interior {
-        private 'Excel.Interior_typekey': Interior;
+        private "Excel.Interior_typekey": Interior;
         private constructor();
         readonly Application: Application;
         Color: XlRgbColor | number;
@@ -6162,7 +6162,7 @@ declare namespace Excel {
     }
 
     class LeaderLines {
-        private 'Excel.LeaderLines_typekey': LeaderLines;
+        private "Excel.LeaderLines_typekey": LeaderLines;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -6174,7 +6174,7 @@ declare namespace Excel {
     }
 
     class Legend {
-        private 'Excel.Legend_typekey': Legend;
+        private "Excel.Legend_typekey": Legend;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -6210,7 +6210,7 @@ declare namespace Excel {
     }
 
     class LegendEntry {
-        private 'Excel.LegendEntry_typekey': LegendEntry;
+        private "Excel.LegendEntry_typekey": LegendEntry;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -6229,7 +6229,7 @@ declare namespace Excel {
     }
 
     class LegendKey {
-        private 'Excel.LegendKey_typekey': LegendKey;
+        private "Excel.LegendKey_typekey": LegendKey;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -6260,7 +6260,7 @@ declare namespace Excel {
     }
 
     class LineFormat {
-        private 'Excel.LineFormat_typekey': LineFormat;
+        private "Excel.LineFormat_typekey": LineFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -6283,7 +6283,7 @@ declare namespace Excel {
     }
 
     class LinkFormat {
-        private 'Excel.LinkFormat_typekey': LinkFormat;
+        private "Excel.LinkFormat_typekey": LinkFormat;
         private constructor();
         readonly Application: Application;
         AutoUpdate: boolean;
@@ -6294,7 +6294,7 @@ declare namespace Excel {
     }
 
     class ListColumn {
-        private 'Excel.ListColumn_typekey': ListColumn;
+        private "Excel.ListColumn_typekey": ListColumn;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -6324,7 +6324,7 @@ declare namespace Excel {
     }
 
     class ListDataFormat {
-        private 'Excel.ListDataFormat_typekey': ListDataFormat;
+        private "Excel.ListDataFormat_typekey": ListDataFormat;
         private constructor();
         readonly _Default: XlListDataType;
         readonly AllowFillIn: boolean;
@@ -6345,7 +6345,7 @@ declare namespace Excel {
     }
 
     class ListObject {
-        private 'Excel.ListObject_typekey': ListObject;
+        private "Excel.ListObject_typekey": ListObject;
         private constructor();
         readonly _Default: string;
         readonly Active: boolean;
@@ -6443,7 +6443,7 @@ declare namespace Excel {
     }
 
     class ListRow {
-        private 'Excel.ListRow_typekey': ListRow;
+        private "Excel.ListRow_typekey": ListRow;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6468,7 +6468,7 @@ declare namespace Excel {
 
     /** Macintosh only */
     class Mailer {
-        private 'Excel.Mailer_typekey': Mailer;
+        private "Excel.Mailer_typekey": Mailer;
         private constructor();
         readonly Application: Application;
         BCCRecipients: any;
@@ -6485,7 +6485,7 @@ declare namespace Excel {
     }
 
     class Menu {
-        private 'Excel.Menu_typekey': Menu;
+        private "Excel.Menu_typekey": Menu;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -6498,7 +6498,7 @@ declare namespace Excel {
     }
 
     class MenuBar {
-        private 'Excel.MenuBar_typekey': MenuBar;
+        private "Excel.MenuBar_typekey": MenuBar;
         private constructor();
         Activate(): void;
         readonly Application: Application;
@@ -6524,7 +6524,7 @@ declare namespace Excel {
     }
 
     class MenuItem {
-        private 'Excel.MenuItem_typekey': MenuItem;
+        private "Excel.MenuItem_typekey": MenuItem;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -6573,7 +6573,7 @@ declare namespace Excel {
     }
 
     class Module {
-        private 'Excel.Module_typekey': Module;
+        private "Excel.Module_typekey": Module;
         private constructor();
         __PrintOut(
             From?: any,
@@ -6701,7 +6701,7 @@ declare namespace Excel {
     }
 
     class MultiThreadedCalculation {
-        private 'Excel.MultiThreadedCalculation_typekey': MultiThreadedCalculation;
+        private "Excel.MultiThreadedCalculation_typekey": MultiThreadedCalculation;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6712,7 +6712,7 @@ declare namespace Excel {
     }
 
     class Name {
-        private 'Excel.Name_typekey': Name;
+        private "Excel.Name_typekey": Name;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -6766,7 +6766,7 @@ declare namespace Excel {
     }
 
     class NegativeBarFormat {
-        private 'Excel.NegativeBarFormat_typekey': NegativeBarFormat;
+        private "Excel.NegativeBarFormat_typekey": NegativeBarFormat;
         private constructor();
         readonly Application: Application;
         readonly BorderColor: FormatColor;
@@ -6778,7 +6778,7 @@ declare namespace Excel {
     }
 
     class ODBCConnection {
-        private 'Excel.ODBCConnection_typekey': ODBCConnection;
+        private "Excel.ODBCConnection_typekey": ODBCConnection;
         private constructor();
         AlwaysUseConnectionFile: boolean;
         readonly Application: Application;
@@ -6806,7 +6806,7 @@ declare namespace Excel {
     }
 
     class ODBCError {
-        private 'Excel.ODBCError_typekey': ODBCError;
+        private "Excel.ODBCError_typekey": ODBCError;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6826,7 +6826,7 @@ declare namespace Excel {
     }
 
     class OLEDBConnection {
-        private 'Excel.OLEDBConnection_typekey': OLEDBConnection;
+        private "Excel.OLEDBConnection_typekey": OLEDBConnection;
         private constructor();
         readonly ADOConnection: ADODB.Connection;
         AlwaysUseConnectionFile: boolean;
@@ -6869,7 +6869,7 @@ declare namespace Excel {
     }
 
     class OLEDBError {
-        private 'Excel.OLEDBError_typekey': OLEDBError;
+        private "Excel.OLEDBError_typekey": OLEDBError;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -6892,7 +6892,7 @@ declare namespace Excel {
     }
 
     class OLEFormat {
-        private 'Excel.OLEFormat_typekey': OLEFormat;
+        private "Excel.OLEFormat_typekey": OLEFormat;
         private constructor();
         Activate(): void;
         readonly Application: Application;
@@ -6904,7 +6904,7 @@ declare namespace Excel {
     }
 
     class OLEObject {
-        private 'Excel.OLEObject_typekey': OLEObject;
+        private "Excel.OLEObject_typekey": OLEObject;
         private constructor();
         Activate(): any;
         AltHTML: string;
@@ -6958,7 +6958,7 @@ declare namespace Excel {
     }
 
     class OLEObjects {
-        private 'Excel.OLEObjects_typekey': OLEObjects;
+        private "Excel.OLEObjects_typekey": OLEObjects;
         private constructor();
         Add(
             ClassType: string,
@@ -7051,7 +7051,7 @@ declare namespace Excel {
     }
 
     class Outline {
-        private 'Excel.Outline_typekey': Outline;
+        private "Excel.Outline_typekey": Outline;
         private constructor();
         readonly Application: Application;
         AutomaticStyles: boolean;
@@ -7063,7 +7063,7 @@ declare namespace Excel {
     }
 
     class Page {
-        private 'Excel.Page_typekey': Page;
+        private "Excel.Page_typekey": Page;
         private constructor();
         readonly CenterFooter: HeaderFooter;
         readonly CenterHeader: HeaderFooter;
@@ -7081,7 +7081,7 @@ declare namespace Excel {
     }
 
     class PageSetup {
-        private 'Excel.PageSetup_typekey': PageSetup;
+        private "Excel.PageSetup_typekey": PageSetup;
         private constructor();
         AlignMarginsHeaderFooter: boolean;
         readonly Application: Application;
@@ -7137,7 +7137,7 @@ declare namespace Excel {
     }
 
     class Pane {
-        private 'Excel.Pane_typekey': Pane;
+        private "Excel.Pane_typekey": Pane;
         private constructor();
         Activate(): boolean;
         readonly Application: Application;
@@ -7165,7 +7165,7 @@ declare namespace Excel {
     }
 
     class Parameter {
-        private 'Excel.Parameter_typekey': Parameter;
+        private "Excel.Parameter_typekey": Parameter;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -7193,7 +7193,7 @@ declare namespace Excel {
     }
 
     class Phonetic {
-        private 'Excel.Phonetic_typekey': Phonetic;
+        private "Excel.Phonetic_typekey": Phonetic;
         private constructor();
         Alignment: number;
         readonly Application: Application;
@@ -7225,7 +7225,7 @@ declare namespace Excel {
     }
 
     class PictureFormat {
-        private 'Excel.PictureFormat_typekey': PictureFormat;
+        private "Excel.PictureFormat_typekey": PictureFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -7245,7 +7245,7 @@ declare namespace Excel {
     }
 
     class PivotAxis {
-        private 'Excel.PivotAxis_typekey': PivotAxis;
+        private "Excel.PivotAxis_typekey": PivotAxis;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -7254,7 +7254,7 @@ declare namespace Excel {
     }
 
     class PivotCache {
-        private 'Excel.PivotCache_typekey': PivotCache;
+        private "Excel.PivotCache_typekey": PivotCache;
         private constructor();
         readonly ADOConnection: ADODB.Connection;
         readonly Application: Application;
@@ -7325,7 +7325,7 @@ declare namespace Excel {
     }
 
     class PivotCell {
-        private 'Excel.PivotCell_typekey': PivotCell;
+        private "Excel.PivotCell_typekey": PivotCell;
         private constructor();
         AllocateChange(): void;
         readonly Application: Application;
@@ -7350,7 +7350,7 @@ declare namespace Excel {
     }
 
     class PivotField {
-        private 'Excel.PivotField_typekey': PivotField;
+        private "Excel.PivotField_typekey": PivotField;
         private constructor();
         _AutoSort(Order: number, Field: string): void;
         _Default: string;
@@ -7445,7 +7445,7 @@ declare namespace Excel {
     }
 
     class PivotFields {
-        private 'Excel.PivotFields_typekey': PivotFields;
+        private "Excel.PivotFields_typekey": PivotFields;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -7460,7 +7460,7 @@ declare namespace Excel {
         & ((Indexes: SafeArray<number | string>) => PivotFields);
 
     class PivotFilter {
-        private 'Excel.PivotFilter_typekey': PivotFilter;
+        private "Excel.PivotFilter_typekey": PivotFilter;
         private constructor();
         readonly Active: boolean;
         readonly Application: Application;
@@ -7501,7 +7501,7 @@ declare namespace Excel {
     }
 
     class PivotFormula {
-        private 'Excel.PivotFormula_typekey': PivotFormula;
+        private "Excel.PivotFormula_typekey": PivotFormula;
         private constructor();
         _Default: string;
         readonly Application: Application;
@@ -7527,7 +7527,7 @@ declare namespace Excel {
     }
 
     class PivotItem {
-        private 'Excel.PivotItem_typekey': PivotItem;
+        private "Excel.PivotItem_typekey": PivotItem;
         private constructor();
         _Default: string;
         readonly Application: Application;
@@ -7566,7 +7566,7 @@ declare namespace Excel {
     }
 
     class PivotItems {
-        private 'Excel.PivotItems_typekey': PivotItems;
+        private "Excel.PivotItems_typekey": PivotItems;
         private constructor();
         Add(Name: string): void;
         readonly Application: Application;
@@ -7582,7 +7582,7 @@ declare namespace Excel {
         & ((Indexes: SafeArray<number | string>) => PivotItems);
 
     class PivotLayout {
-        private 'Excel.PivotLayout_typekey': PivotLayout;
+        private "Excel.PivotLayout_typekey": PivotLayout;
         private constructor();
         AddFields(RowFields?: any, ColumnFields?: any, PageFields?: any, AppendField?: any): void;
         readonly Application: Application;
@@ -7602,7 +7602,7 @@ declare namespace Excel {
     }
 
     class PivotLine {
-        private 'Excel.PivotLine_typekey': PivotLine;
+        private "Excel.PivotLine_typekey": PivotLine;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -7633,7 +7633,7 @@ declare namespace Excel {
     }
 
     class PivotTable {
-        private 'Excel.PivotTable_typekey': PivotTable;
+        private "Excel.PivotTable_typekey": PivotTable;
         private constructor();
         _Default: string;
 
@@ -7882,7 +7882,7 @@ declare namespace Excel {
     }
 
     class PlotArea {
-        private 'Excel.PlotArea_typekey': PlotArea;
+        private "Excel.PlotArea_typekey": PlotArea;
         private constructor();
         readonly _InsideHeight: number;
         readonly _InsideLeft: number;
@@ -7910,7 +7910,7 @@ declare namespace Excel {
     }
 
     class Point {
-        private 'Excel.Point_typekey': Point;
+        private "Excel.Point_typekey": Point;
         private constructor();
 
         /** @param Type [Type=2] */
@@ -7981,7 +7981,7 @@ declare namespace Excel {
     }
 
     class ProtectedViewWindow {
-        private 'Excel.ProtectedViewWindow_typekey': ProtectedViewWindow;
+        private "Excel.ProtectedViewWindow_typekey": ProtectedViewWindow;
         private constructor();
         readonly _Default: string;
         Activate(): void;
@@ -8012,7 +8012,7 @@ declare namespace Excel {
     }
 
     class Protection {
-        private 'Excel.Protection_typekey': Protection;
+        private "Excel.Protection_typekey": Protection;
         private constructor();
         readonly AllowDeletingColumns: boolean;
         readonly AllowDeletingRows: boolean;
@@ -8029,7 +8029,7 @@ declare namespace Excel {
     }
 
     class PublishObject {
-        private 'Excel.PublishObject_typekey': PublishObject;
+        private "Excel.PublishObject_typekey": PublishObject;
         private constructor();
         readonly Application: Application;
         AutoRepublish: boolean;
@@ -8074,7 +8074,7 @@ declare namespace Excel {
     }
 
     class QueryTable {
-        private 'Excel.QueryTable_typekey': QueryTable;
+        private "Excel.QueryTable_typekey": QueryTable;
         private constructor();
         AdjustColumnWidth: boolean;
         readonly Application: Application;
@@ -8471,7 +8471,7 @@ declare namespace Excel {
         readonly PivotItem: PivotItem;
         readonly PivotTable: PivotTable;
         readonly Precedents: Range;
-        readonly PrefixCharacter: '\'' | '"' | '^' | '\\' | '';
+        readonly PrefixCharacter: "'" | "\"" | "^" | "\\" | "";
         readonly Previous: Range;
         PrintOut<T extends boolean | undefined>(
             From?: number,
@@ -8682,7 +8682,7 @@ declare namespace Excel {
     }
 
     class RecentFile {
-        private 'Excel.RecentFile_typekey': RecentFile;
+        private "Excel.RecentFile_typekey": RecentFile;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -8707,7 +8707,7 @@ declare namespace Excel {
     }
 
     class Research {
-        private 'Excel.Research_typekey': Research;
+        private "Excel.Research_typekey": Research;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -8724,7 +8724,7 @@ declare namespace Excel {
     }
 
     class RoutingSlip {
-        private 'Excel.RoutingSlip_typekey': RoutingSlip;
+        private "Excel.RoutingSlip_typekey": RoutingSlip;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -8740,7 +8740,7 @@ declare namespace Excel {
     }
 
     class RTD {
-        private 'Excel.RTD_typekey': RTD;
+        private "Excel.RTD_typekey": RTD;
         private constructor();
         RefreshData(): void;
         RestartServers(): void;
@@ -8748,7 +8748,7 @@ declare namespace Excel {
     }
 
     class Scenario {
-        private 'Excel.Scenario_typekey': Scenario;
+        private "Excel.Scenario_typekey": Scenario;
         private constructor();
         readonly Application: Application;
         ChangeScenario(ChangingCells: Range, Values?: SafeArray): any;
@@ -8788,7 +8788,7 @@ declare namespace Excel {
     }
 
     class Series {
-        private 'Excel.Series_typekey': Series;
+        private "Excel.Series_typekey": Series;
         private constructor();
 
         /** @param Type [Type=2] */
@@ -8901,7 +8901,7 @@ declare namespace Excel {
     }
 
     class SeriesLines {
-        private 'Excel.SeriesLines_typekey': SeriesLines;
+        private "Excel.SeriesLines_typekey": SeriesLines;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -8927,7 +8927,7 @@ declare namespace Excel {
     }
 
     class ShadowFormat {
-        private 'Excel.ShadowFormat_typekey': ShadowFormat;
+        private "Excel.ShadowFormat_typekey": ShadowFormat;
         private constructor();
         readonly Application: any;
         Blur: number;
@@ -8948,7 +8948,7 @@ declare namespace Excel {
     }
 
     class Shape {
-        private 'Excel.Shape_typekey': Shape;
+        private "Excel.Shape_typekey": Shape;
         private constructor();
         readonly Adjustments: Adjustments;
         AlternativeText: string;
@@ -9039,7 +9039,7 @@ declare namespace Excel {
     }
 
     class ShapeNode {
-        private 'Excel.ShapeNode_typekey': ShapeNode;
+        private "Excel.ShapeNode_typekey": ShapeNode;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -9323,7 +9323,7 @@ declare namespace Excel {
     }
 
     class Slicer {
-        private 'Excel.Slicer_typekey': Slicer;
+        private "Excel.Slicer_typekey": Slicer;
         private constructor();
         readonly ActiveItem: SlicerItem;
         readonly Application: Application;
@@ -9351,7 +9351,7 @@ declare namespace Excel {
     }
 
     class SlicerCache {
-        private 'Excel.SlicerCache_typekey': SlicerCache;
+        private "Excel.SlicerCache_typekey": SlicerCache;
         private constructor();
         readonly Application: Application;
         ClearManualFilter(): void;
@@ -9377,7 +9377,7 @@ declare namespace Excel {
     }
 
     class SlicerCacheLevel {
-        private 'Excel.SlicerCacheLevel_typekey': SlicerCacheLevel;
+        private "Excel.SlicerCacheLevel_typekey": SlicerCacheLevel;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -9413,7 +9413,7 @@ declare namespace Excel {
     }
 
     class SlicerItem {
-        private 'Excel.SlicerItem_typekey': SlicerItem;
+        private "Excel.SlicerItem_typekey": SlicerItem;
         private constructor();
         readonly Application: Application;
         readonly Caption: string;
@@ -9470,7 +9470,7 @@ declare namespace Excel {
     }
 
     class SmartTag {
-        private 'Excel.SmartTag_typekey': SmartTag;
+        private "Excel.SmartTag_typekey": SmartTag;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -9486,7 +9486,7 @@ declare namespace Excel {
     }
 
     class SmartTagAction {
-        private 'Excel.SmartTagAction_typekey': SmartTagAction;
+        private "Excel.SmartTagAction_typekey": SmartTagAction;
         private constructor();
         readonly _Default: string;
         readonly ActiveXControl: any;
@@ -9515,7 +9515,7 @@ declare namespace Excel {
     }
 
     class SmartTagOptions {
-        private 'Excel.SmartTagOptions_typekey': SmartTagOptions;
+        private "Excel.SmartTagOptions_typekey": SmartTagOptions;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9525,7 +9525,7 @@ declare namespace Excel {
     }
 
     class SmartTagRecognizer {
-        private 'Excel.SmartTagRecognizer_typekey': SmartTagRecognizer;
+        private "Excel.SmartTagRecognizer_typekey": SmartTagRecognizer;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -9558,7 +9558,7 @@ declare namespace Excel {
     }
 
     class Sort {
-        private 'Excel.Sort_typekey': Sort;
+        private "Excel.Sort_typekey": Sort;
         private constructor();
         readonly Application: Application;
         Apply(): void;
@@ -9574,7 +9574,7 @@ declare namespace Excel {
     }
 
     class SortField {
-        private 'Excel.SortField_typekey': SortField;
+        private "Excel.SortField_typekey": SortField;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9604,7 +9604,7 @@ declare namespace Excel {
     }
 
     class SoundNote {
-        private 'Excel.SoundNote_typekey': SoundNote;
+        private "Excel.SoundNote_typekey": SoundNote;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9616,7 +9616,7 @@ declare namespace Excel {
     }
 
     class SparkAxes {
-        private 'Excel.SparkAxes_typekey': SparkAxes;
+        private "Excel.SparkAxes_typekey": SparkAxes;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9626,7 +9626,7 @@ declare namespace Excel {
     }
 
     class SparkColor {
-        private 'Excel.SparkColor_typekey': SparkColor;
+        private "Excel.SparkColor_typekey": SparkColor;
         private constructor();
         readonly Application: Application;
         readonly Color: FormatColor;
@@ -9636,7 +9636,7 @@ declare namespace Excel {
     }
 
     class SparkHorizontalAxis {
-        private 'Excel.SparkHorizontalAxis_typekey': SparkHorizontalAxis;
+        private "Excel.SparkHorizontalAxis_typekey": SparkHorizontalAxis;
         private constructor();
         readonly Application: Application;
         readonly Axis: SparkColor;
@@ -9647,7 +9647,7 @@ declare namespace Excel {
     }
 
     class Sparkline {
-        private 'Excel.Sparkline_typekey': Sparkline;
+        private "Excel.Sparkline_typekey": Sparkline;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9659,7 +9659,7 @@ declare namespace Excel {
     }
 
     class SparklineGroup {
-        private 'Excel.SparklineGroup_typekey': SparklineGroup;
+        private "Excel.SparklineGroup_typekey": SparklineGroup;
         private constructor();
         readonly Application: Application;
         readonly Axes: SparkAxes;
@@ -9700,7 +9700,7 @@ declare namespace Excel {
     }
 
     class SparkPoints {
-        private 'Excel.SparkPoints_typekey': SparkPoints;
+        private "Excel.SparkPoints_typekey": SparkPoints;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9714,7 +9714,7 @@ declare namespace Excel {
     }
 
     class SparkVerticalAxis {
-        private 'Excel.SparkVerticalAxis_typekey': SparkVerticalAxis;
+        private "Excel.SparkVerticalAxis_typekey": SparkVerticalAxis;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -9726,7 +9726,7 @@ declare namespace Excel {
     }
 
     class Speech {
-        private 'Excel.Speech_typekey': Speech;
+        private "Excel.Speech_typekey": Speech;
         private constructor();
         Direction: XlSpeakDirection;
         Speak(Text: string, SpeakAsync?: boolean, SpeakXML?: boolean, Purge?: boolean): void;
@@ -9734,7 +9734,7 @@ declare namespace Excel {
     }
 
     class SpellingOptions {
-        private 'Excel.SpellingOptions_typekey': SpellingOptions;
+        private "Excel.SpellingOptions_typekey": SpellingOptions;
         private constructor();
         ArabicModes: XlArabicModes;
         ArabicStrictAlefHamza: boolean;
@@ -9758,7 +9758,7 @@ declare namespace Excel {
     }
 
     class Style {
-        private 'Excel.Style_typekey': Style;
+        private "Excel.Style_typekey": Style;
         private constructor();
         readonly _Default: string;
         AddIndent: boolean;
@@ -9806,7 +9806,7 @@ declare namespace Excel {
     }
 
     class Tab {
-        private 'Excel.Tab_typekey': Tab;
+        private "Excel.Tab_typekey": Tab;
         private constructor();
         readonly Application: Application;
         Color: XlRgbColor | number;
@@ -9818,7 +9818,7 @@ declare namespace Excel {
     }
 
     class TableStyle {
-        private 'Excel.TableStyle_typekey': TableStyle;
+        private "Excel.TableStyle_typekey": TableStyle;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -9836,7 +9836,7 @@ declare namespace Excel {
     }
 
     class TableStyleElement {
-        private 'Excel.TableStyleElement_typekey': TableStyleElement;
+        private "Excel.TableStyleElement_typekey": TableStyleElement;
         private constructor();
         readonly Application: Application;
         readonly Borders: Borders;
@@ -9871,7 +9871,7 @@ declare namespace Excel {
     }
 
     class TextEffectFormat {
-        private 'Excel.TextEffectFormat_typekey': TextEffectFormat;
+        private "Excel.TextEffectFormat_typekey": TextEffectFormat;
         private constructor();
         Alignment: Office.MsoTextEffectAlignment;
         readonly Application: any;
@@ -9892,7 +9892,7 @@ declare namespace Excel {
     }
 
     class TextFrame {
-        private 'Excel.TextFrame_typekey': TextFrame;
+        private "Excel.TextFrame_typekey": TextFrame;
         private constructor();
         readonly Application: Application;
         AutoMargins: boolean;
@@ -9913,7 +9913,7 @@ declare namespace Excel {
     }
 
     class TextFrame2 {
-        private 'Excel.TextFrame2_typekey': TextFrame2;
+        private "Excel.TextFrame2_typekey": TextFrame2;
         private constructor();
         readonly Application: any;
         AutoSize: Office.MsoAutoSize;
@@ -9940,7 +9940,7 @@ declare namespace Excel {
     }
 
     class ThreeDFormat {
-        private 'Excel.ThreeDFormat_typekey': ThreeDFormat;
+        private "Excel.ThreeDFormat_typekey": ThreeDFormat;
         private constructor();
         readonly Application: any;
         BevelBottomDepth: number;
@@ -9984,7 +9984,7 @@ declare namespace Excel {
     }
 
     class TickLabels {
-        private 'Excel.TickLabels_typekey': TickLabels;
+        private "Excel.TickLabels_typekey": TickLabels;
         private constructor();
         Alignment: number;
         readonly Application: Application;
@@ -10007,7 +10007,7 @@ declare namespace Excel {
     }
 
     class Toolbar {
-        private 'Excel.Toolbar_typekey': Toolbar;
+        private "Excel.Toolbar_typekey": Toolbar;
         private constructor();
         readonly Application: Application;
         readonly BuiltIn: boolean;
@@ -10027,7 +10027,7 @@ declare namespace Excel {
     }
 
     class ToolbarButton {
-        private 'Excel.ToolbarButton_typekey': ToolbarButton;
+        private "Excel.ToolbarButton_typekey": ToolbarButton;
         private constructor();
         readonly Application: Application;
         readonly BuiltIn: boolean;
@@ -10085,7 +10085,7 @@ declare namespace Excel {
     }
 
     class Top10 {
-        private 'Excel.Top10_typekey': Top10;
+        private "Excel.Top10_typekey": Top10;
         private constructor();
         readonly Application: Application;
         readonly AppliesTo: Range;
@@ -10111,7 +10111,7 @@ declare namespace Excel {
     }
 
     class TreeviewControl {
-        private 'Excel.TreeviewControl_typekey': TreeviewControl;
+        private "Excel.TreeviewControl_typekey": TreeviewControl;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -10121,7 +10121,7 @@ declare namespace Excel {
     }
 
     class Trendline {
-        private 'Excel.Trendline_typekey': Trendline;
+        private "Excel.Trendline_typekey": Trendline;
         private constructor();
         readonly Application: Application;
         Backward: number;
@@ -10172,7 +10172,7 @@ declare namespace Excel {
     }
 
     class UniqueValues {
-        private 'Excel.UniqueValues_typekey': UniqueValues;
+        private "Excel.UniqueValues_typekey": UniqueValues;
         private constructor();
         readonly Application: Application;
         readonly AppliesTo: Range;
@@ -10195,7 +10195,7 @@ declare namespace Excel {
     }
 
     class UpBars {
-        private 'Excel.UpBars_typekey': UpBars;
+        private "Excel.UpBars_typekey": UpBars;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -10220,7 +10220,7 @@ declare namespace Excel {
     }
 
     class UserAccess {
-        private 'Excel.UserAccess_typekey': UserAccess;
+        private "Excel.UserAccess_typekey": UserAccess;
         private constructor();
         AllowEdit: boolean;
         Delete(): void;
@@ -10237,7 +10237,7 @@ declare namespace Excel {
     }
 
     class Validation {
-        private 'Excel.Validation_typekey': Validation;
+        private "Excel.Validation_typekey": Validation;
         private constructor();
         Add(Type: XlDVType.xlValidateInputOnly): void;
         Add(
@@ -10299,7 +10299,7 @@ declare namespace Excel {
     }
 
     class ValueChange {
-        private 'Excel.ValueChange_typekey': ValueChange;
+        private "Excel.ValueChange_typekey": ValueChange;
         private constructor();
         readonly AllocationMethod: XlAllocationMethod;
         readonly AllocationValue: XlAllocationValue;
@@ -10316,7 +10316,7 @@ declare namespace Excel {
     }
 
     class VPageBreak {
-        private 'Excel.VPageBreak_typekey': VPageBreak;
+        private "Excel.VPageBreak_typekey": VPageBreak;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -10340,7 +10340,7 @@ declare namespace Excel {
     }
 
     class Walls {
-        private 'Excel.Walls_typekey': Walls;
+        private "Excel.Walls_typekey": Walls;
         private constructor();
         readonly Application: Application;
         readonly Border: Border;
@@ -10359,7 +10359,7 @@ declare namespace Excel {
     }
 
     class Watch {
-        private 'Excel.Watch_typekey': Watch;
+        private "Excel.Watch_typekey": Watch;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -10381,7 +10381,7 @@ declare namespace Excel {
     }
 
     class WebOptions {
-        private 'Excel.WebOptions_typekey': WebOptions;
+        private "Excel.WebOptions_typekey": WebOptions;
         private constructor();
         AllowPNG: boolean;
         readonly Application: Application;
@@ -10402,7 +10402,7 @@ declare namespace Excel {
     }
 
     class Window {
-        private 'Excel.Window_typekey': Window;
+        private "Excel.Window_typekey": Window;
         private constructor();
         _DisplayRightToLeft: boolean;
         _PrintOut(
@@ -10523,7 +10523,7 @@ declare namespace Excel {
     }
 
     class Workbook {
-        private 'Excel.Workbook_typekey': Workbook;
+        private "Excel.Workbook_typekey": Workbook;
         private constructor();
         __PrintOut(
             From?: any,
@@ -10673,7 +10673,7 @@ declare namespace Excel {
         HighlightChangesOnScreen: boolean;
         HighlightChangesOptions(
             When?: XlHighlightChangesTime,
-            Who?: 'Everyone' | 'Everyone but me' | string,
+            Who?: "Everyone" | "Everyone but me" | string,
             Where?: string,
         ): void;
         readonly HTMLProject: Office.HTMLProject;
@@ -10856,7 +10856,7 @@ declare namespace Excel {
     }
 
     class WorkbookConnection {
-        private 'Excel.WorkbookConnection_typekey': WorkbookConnection;
+        private "Excel.WorkbookConnection_typekey": WorkbookConnection;
         private constructor();
         _Default: string;
         readonly Application: Application;
@@ -11048,7 +11048,7 @@ declare namespace Excel {
     }
 
     class Worksheet {
-        private 'Excel.Worksheet_typekey': Worksheet;
+        private "Excel.Worksheet_typekey": Worksheet;
         private constructor();
         __PrintOut(
             From?: any,
@@ -11307,7 +11307,7 @@ declare namespace Excel {
     }
 
     class WorksheetFunction {
-        private 'Excel.WorksheetFunction_typekey': WorksheetFunction;
+        private "Excel.WorksheetFunction_typekey": WorksheetFunction;
         private constructor();
         _WSFunction(
             Arg1?: any,
@@ -13045,7 +13045,7 @@ declare namespace Excel {
     }
 
     class WorksheetView {
-        private 'Excel.WorksheetView_typekey': WorksheetView;
+        private "Excel.WorksheetView_typekey": WorksheetView;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -13059,7 +13059,7 @@ declare namespace Excel {
     }
 
     class XmlDataBinding {
-        private 'Excel.XmlDataBinding_typekey': XmlDataBinding;
+        private "Excel.XmlDataBinding_typekey": XmlDataBinding;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -13072,7 +13072,7 @@ declare namespace Excel {
     }
 
     class XmlMap {
-        private 'Excel.XmlMap_typekey': XmlMap;
+        private "Excel.XmlMap_typekey": XmlMap;
         private constructor();
         readonly _Default: string;
         AdjustColumnWidth: boolean;
@@ -13110,7 +13110,7 @@ declare namespace Excel {
     }
 
     class XmlNamespace {
-        private 'Excel.XmlNamespace_typekey': XmlNamespace;
+        private "Excel.XmlNamespace_typekey": XmlNamespace;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -13133,7 +13133,7 @@ declare namespace Excel {
     }
 
     class XmlSchema {
-        private 'Excel.XmlSchema_typekey': XmlSchema;
+        private "Excel.XmlSchema_typekey": XmlSchema;
         private constructor();
         readonly Application: Application;
         readonly Creator: XlCreator;
@@ -13154,7 +13154,7 @@ declare namespace Excel {
     }
 
     class XPath {
-        private 'Excel.XPath_typekey': XPath;
+        private "Excel.XPath_typekey": XPath;
         private constructor();
         readonly _Default: string;
         readonly Application: Application;
@@ -13169,69 +13169,69 @@ declare namespace Excel {
 
     namespace EventHelperTypes {
         type Application_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         type Chart_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         type OLEObject_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         type QueryTable_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         type Workbook_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         type Worksheet_Invoke_ArgNames = [
-            'dispidMember',
-            'riid',
-            'lcid',
-            'wFlags',
-            'pdispparams',
-            'pvarResult',
-            'pexcepinfo',
-            'puArgErr',
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
         ];
 
         interface Application_Invoke_Parameter {
@@ -13310,8 +13310,8 @@ interface EnumeratorConstructor {
 interface ActiveXObject {
     on(
         obj: Excel.Application,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13325,8 +13325,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.Application,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -13334,42 +13334,42 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.Application, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.Application_Invoke_ArgNames,
         handler: (this: Excel.Application, parameter: Excel.EventHelperTypes.Application_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.Application,
         event:
-            | 'NewWorkbook'
-            | 'WorkbookActivate'
-            | 'WorkbookAddinInstall'
-            | 'WorkbookAddinUninstall'
-            | 'WorkbookDeactivate'
-            | 'WorkbookOpen',
-        argNames: ['Wb'],
+            | "NewWorkbook"
+            | "WorkbookActivate"
+            | "WorkbookAddinInstall"
+            | "WorkbookAddinUninstall"
+            | "WorkbookDeactivate"
+            | "WorkbookOpen",
+        argNames: ["Wb"],
         handler: (this: Excel.Application, parameter: { readonly Wb: Excel.Workbook }) => void,
     ): void;
     on(
         obj: Excel.Application,
         event:
-            | 'ProtectedViewWindowActivate'
-            | 'ProtectedViewWindowDeactivate'
-            | 'ProtectedViewWindowOpen'
-            | 'ProtectedViewWindowResize',
-        argNames: ['Pvw'],
+            | "ProtectedViewWindowActivate"
+            | "ProtectedViewWindowDeactivate"
+            | "ProtectedViewWindowOpen"
+            | "ProtectedViewWindowResize",
+        argNames: ["Pvw"],
         handler: (this: Excel.Application, parameter: { readonly Pvw: Excel.ProtectedViewWindow }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'ProtectedViewWindowBeforeClose',
-        argNames: ['Pvw', 'Reason', 'Cancel'],
+        event: "ProtectedViewWindowBeforeClose",
+        argNames: ["Pvw", "Reason", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13381,8 +13381,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'ProtectedViewWindowBeforeEdit',
-        argNames: ['Pvw', 'Cancel'],
+        event: "ProtectedViewWindowBeforeEdit",
+        argNames: ["Pvw", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Pvw: Excel.ProtectedViewWindow; Cancel: boolean },
@@ -13390,20 +13390,20 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.Application, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate',
-        argNames: ['Sh'],
+        event: "SheetActivate" | "SheetCalculate" | "SheetDeactivate",
+        argNames: ["Sh"],
         handler: (this: Excel.Application, parameter: { readonly Sh: Excel.Chart | Excel.Worksheet }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetBeforeDoubleClick' | 'SheetBeforeRightClick',
-        argNames: ['Sh', 'Target', 'Cancel'],
+        event: "SheetBeforeDoubleClick" | "SheetBeforeRightClick",
+        argNames: ["Sh", "Target", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Range; Cancel: boolean },
@@ -13411,8 +13411,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetChange' | 'SheetSelectionChange',
-        argNames: ['Sh', 'Target'],
+        event: "SheetChange" | "SheetSelectionChange",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Range },
@@ -13420,8 +13420,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetFollowHyperlink',
-        argNames: ['Sh', 'Target'],
+        event: "SheetFollowHyperlink",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Hyperlink },
@@ -13429,8 +13429,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetPivotTableAfterValueChange',
-        argNames: ['Sh', 'TargetPivotTable', 'TargetRange'],
+        event: "SheetPivotTableAfterValueChange",
+        argNames: ["Sh", "TargetPivotTable", "TargetRange"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13442,8 +13442,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetPivotTableBeforeAllocateChanges' | 'SheetPivotTableBeforeCommitChanges',
-        argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'],
+        event: "SheetPivotTableBeforeAllocateChanges" | "SheetPivotTableBeforeCommitChanges",
+        argNames: ["Sh", "TargetPivotTable", "ValueChangeStart", "ValueChangeEnd", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13457,8 +13457,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetPivotTableBeforeDiscardChanges',
-        argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
+        event: "SheetPivotTableBeforeDiscardChanges",
+        argNames: ["Sh", "TargetPivotTable", "ValueChangeStart", "ValueChangeEnd"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13471,8 +13471,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'SheetPivotTableUpdate',
-        argNames: ['Sh', 'Target'],
+        event: "SheetPivotTableUpdate",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.PivotTable },
@@ -13480,8 +13480,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WindowActivate' | 'WindowDeactivate' | 'WindowResize',
-        argNames: ['Wb', 'Wn'],
+        event: "WindowActivate" | "WindowDeactivate" | "WindowResize",
+        argNames: ["Wb", "Wn"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly Wn: Excel.Window },
@@ -13489,8 +13489,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookAfterSave',
-        argNames: ['Wb', 'Success'],
+        event: "WorkbookAfterSave",
+        argNames: ["Wb", "Success"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly Success: boolean },
@@ -13498,8 +13498,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookAfterXmlExport',
-        argNames: ['Wb', 'Map', 'Url', 'Result'],
+        event: "WorkbookAfterXmlExport",
+        argNames: ["Wb", "Map", "Url", "Result"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13512,8 +13512,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookAfterXmlImport',
-        argNames: ['Wb', 'Map', 'IsRefresh', 'Result'],
+        event: "WorkbookAfterXmlImport",
+        argNames: ["Wb", "Map", "IsRefresh", "Result"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13526,14 +13526,14 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookBeforeClose' | 'WorkbookBeforePrint',
-        argNames: ['Wb', 'Cancel'],
+        event: "WorkbookBeforeClose" | "WorkbookBeforePrint",
+        argNames: ["Wb", "Cancel"],
         handler: (this: Excel.Application, parameter: { readonly Wb: Excel.Workbook; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookBeforeSave',
-        argNames: ['Wb', 'SaveAsUI', 'Cancel'],
+        event: "WorkbookBeforeSave",
+        argNames: ["Wb", "SaveAsUI", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly SaveAsUI: boolean; Cancel: boolean },
@@ -13541,8 +13541,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookBeforeXmlExport',
-        argNames: ['Wb', 'Map', 'Url', 'Cancel'],
+        event: "WorkbookBeforeXmlExport",
+        argNames: ["Wb", "Map", "Url", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13555,8 +13555,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookBeforeXmlImport',
-        argNames: ['Wb', 'Map', 'Url', 'IsRefresh', 'Cancel'],
+        event: "WorkbookBeforeXmlImport",
+        argNames: ["Wb", "Map", "Url", "IsRefresh", "Cancel"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13570,8 +13570,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookNewChart',
-        argNames: ['Wb', 'Ch'],
+        event: "WorkbookNewChart",
+        argNames: ["Wb", "Ch"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly Ch: Excel.Chart },
@@ -13579,8 +13579,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookNewSheet',
-        argNames: ['Wb', 'Sh'],
+        event: "WorkbookNewSheet",
+        argNames: ["Wb", "Sh"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly Sh: Excel.Worksheet },
@@ -13588,8 +13588,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookPivotTableCloseConnection' | 'WorkbookPivotTableOpenConnection',
-        argNames: ['Wb', 'Target'],
+        event: "WorkbookPivotTableCloseConnection" | "WorkbookPivotTableOpenConnection",
+        argNames: ["Wb", "Target"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly Target: Excel.PivotTable },
@@ -13597,8 +13597,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookRowsetComplete',
-        argNames: ['Wb', 'Description', 'Sheet', 'Success'],
+        event: "WorkbookRowsetComplete",
+        argNames: ["Wb", "Description", "Sheet", "Success"],
         handler: (
             this: Excel.Application,
             parameter: {
@@ -13611,8 +13611,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Application,
-        event: 'WorkbookSync',
-        argNames: ['Wb', 'SyncEventType'],
+        event: "WorkbookSync",
+        argNames: ["Wb", "SyncEventType"],
         handler: (
             this: Excel.Application,
             parameter: { readonly Wb: Excel.Workbook; readonly SyncEventType: Office.MsoSyncEventType },
@@ -13620,8 +13620,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'BeforeDoubleClick',
-        argNames: ['ElementID', 'Arg1', 'Arg2', 'Cancel'],
+        event: "BeforeDoubleClick",
+        argNames: ["ElementID", "Arg1", "Arg2", "Cancel"],
         handler: (
             this: Excel.Chart,
             parameter: { readonly ElementID: number; readonly Arg1: number; readonly Arg2: number; Cancel: boolean },
@@ -13629,14 +13629,14 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'BeforeRightClick',
-        argNames: ['Cancel'],
+        event: "BeforeRightClick",
+        argNames: ["Cancel"],
         handler: (this: Excel.Chart, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.Chart,
             parameter: {
@@ -13650,8 +13650,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.Chart,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -13659,20 +13659,20 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.Chart, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.Chart_Invoke_ArgNames,
         handler: (this: Excel.Chart, parameter: Excel.EventHelperTypes.Chart_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'MouseDown' | 'MouseMove' | 'MouseUp',
-        argNames: ['Button', 'Shift', 'x', 'y'],
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "x", "y"],
         handler: (
             this: Excel.Chart,
             parameter: { readonly Button: number; readonly Shift: number; readonly x: number; readonly y: number },
@@ -13680,14 +13680,14 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.Chart, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'Select',
-        argNames: ['ElementID', 'Arg1', 'Arg2'],
+        event: "Select",
+        argNames: ["ElementID", "Arg1", "Arg2"],
         handler: (
             this: Excel.Chart,
             parameter: { readonly ElementID: number; readonly Arg1: number; readonly Arg2: number },
@@ -13695,14 +13695,14 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'SeriesChange',
-        argNames: ['SeriesIndex', 'PointIndex'],
+        event: "SeriesChange",
+        argNames: ["SeriesIndex", "PointIndex"],
         handler: (this: Excel.Chart, parameter: { readonly SeriesIndex: number; readonly PointIndex: number }) => void,
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.OLEObject,
             parameter: {
@@ -13716,8 +13716,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.OLEObject,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -13725,38 +13725,38 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.OLEObject, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.OLEObject_Invoke_ArgNames,
         handler: (this: Excel.OLEObject, parameter: Excel.EventHelperTypes.OLEObject_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.OLEObject, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'AfterRefresh',
-        argNames: ['Success'],
+        event: "AfterRefresh",
+        argNames: ["Success"],
         handler: (this: Excel.QueryTable, parameter: { readonly Success: boolean }) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'BeforeRefresh',
-        argNames: ['Cancel'],
+        event: "BeforeRefresh",
+        argNames: ["Cancel"],
         handler: (this: Excel.QueryTable, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.QueryTable,
             parameter: {
@@ -13770,8 +13770,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.QueryTable,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -13779,32 +13779,32 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.QueryTable, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.QueryTable_Invoke_ArgNames,
         handler: (this: Excel.QueryTable, parameter: Excel.EventHelperTypes.QueryTable_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.QueryTable, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'AfterSave',
-        argNames: ['Success'],
+        event: "AfterSave",
+        argNames: ["Success"],
         handler: (this: Excel.Workbook, parameter: { readonly Success: boolean }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'AfterXmlExport',
-        argNames: ['Map', 'Url', 'Result'],
+        event: "AfterXmlExport",
+        argNames: ["Map", "Url", "Result"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Map: Excel.XmlMap; readonly Url: string; readonly Result: Excel.XlXmlExportResult },
@@ -13812,8 +13812,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'AfterXmlImport',
-        argNames: ['Map', 'IsRefresh', 'Result'],
+        event: "AfterXmlImport",
+        argNames: ["Map", "IsRefresh", "Result"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13825,20 +13825,20 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'BeforeClose' | 'BeforePrint',
-        argNames: ['Cancel'],
+        event: "BeforeClose" | "BeforePrint",
+        argNames: ["Cancel"],
         handler: (this: Excel.Workbook, parameter: { Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'BeforeSave',
-        argNames: ['SaveAsUI', 'Cancel'],
+        event: "BeforeSave",
+        argNames: ["SaveAsUI", "Cancel"],
         handler: (this: Excel.Workbook, parameter: { readonly SaveAsUI: boolean; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'BeforeXmlExport',
-        argNames: ['Map', 'Url', 'Cancel'],
+        event: "BeforeXmlExport",
+        argNames: ["Map", "Url", "Cancel"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Map: Excel.XmlMap; readonly Url: string; Cancel: boolean },
@@ -13846,8 +13846,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'BeforeXmlImport',
-        argNames: ['Map', 'Url', 'IsRefresh', 'Cancel'],
+        event: "BeforeXmlImport",
+        argNames: ["Map", "Url", "IsRefresh", "Cancel"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13860,8 +13860,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13875,8 +13875,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -13884,44 +13884,44 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.Workbook, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.Workbook_Invoke_ArgNames,
         handler: (this: Excel.Workbook, parameter: Excel.EventHelperTypes.Workbook_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'NewChart',
-        argNames: ['Ch'],
+        event: "NewChart",
+        argNames: ["Ch"],
         handler: (this: Excel.Workbook, parameter: { readonly Ch: Excel.Chart }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'NewSheet' | 'SheetActivate' | 'SheetCalculate' | 'SheetDeactivate',
-        argNames: ['Sh'],
+        event: "NewSheet" | "SheetActivate" | "SheetCalculate" | "SheetDeactivate",
+        argNames: ["Sh"],
         handler: (this: Excel.Workbook, parameter: { readonly Sh: Excel.Chart | Excel.Worksheet }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'PivotTableCloseConnection' | 'PivotTableOpenConnection',
-        argNames: ['Target'],
+        event: "PivotTableCloseConnection" | "PivotTableOpenConnection",
+        argNames: ["Target"],
         handler: (this: Excel.Workbook, parameter: { readonly Target: Excel.PivotTable }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.Workbook, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'RowsetComplete',
-        argNames: ['Description', 'Sheet', 'Success'],
+        event: "RowsetComplete",
+        argNames: ["Description", "Sheet", "Success"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Description: string; readonly Sheet: string; readonly Success: boolean },
@@ -13929,8 +13929,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetBeforeDoubleClick' | 'SheetBeforeRightClick',
-        argNames: ['Sh', 'Target', 'Cancel'],
+        event: "SheetBeforeDoubleClick" | "SheetBeforeRightClick",
+        argNames: ["Sh", "Target", "Cancel"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Range; Cancel: boolean },
@@ -13938,8 +13938,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetChange' | 'SheetSelectionChange',
-        argNames: ['Sh', 'Target'],
+        event: "SheetChange" | "SheetSelectionChange",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Range },
@@ -13947,8 +13947,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetFollowHyperlink',
-        argNames: ['Sh', 'Target'],
+        event: "SheetFollowHyperlink",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.Hyperlink },
@@ -13956,8 +13956,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetPivotTableAfterValueChange',
-        argNames: ['Sh', 'TargetPivotTable', 'TargetRange'],
+        event: "SheetPivotTableAfterValueChange",
+        argNames: ["Sh", "TargetPivotTable", "TargetRange"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13969,8 +13969,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetPivotTableBeforeAllocateChanges' | 'SheetPivotTableBeforeCommitChanges',
-        argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'],
+        event: "SheetPivotTableBeforeAllocateChanges" | "SheetPivotTableBeforeCommitChanges",
+        argNames: ["Sh", "TargetPivotTable", "ValueChangeStart", "ValueChangeEnd", "Cancel"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13984,8 +13984,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetPivotTableBeforeDiscardChanges',
-        argNames: ['Sh', 'TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
+        event: "SheetPivotTableBeforeDiscardChanges",
+        argNames: ["Sh", "TargetPivotTable", "ValueChangeStart", "ValueChangeEnd"],
         handler: (
             this: Excel.Workbook,
             parameter: {
@@ -13998,8 +13998,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'SheetPivotTableChangeSync' | 'SheetPivotTableUpdate',
-        argNames: ['Sh', 'Target'],
+        event: "SheetPivotTableChangeSync" | "SheetPivotTableUpdate",
+        argNames: ["Sh", "Target"],
         handler: (
             this: Excel.Workbook,
             parameter: { readonly Sh: Excel.Worksheet; readonly Target: Excel.PivotTable },
@@ -14007,38 +14007,38 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'Sync',
-        argNames: ['SyncEventType'],
+        event: "Sync",
+        argNames: ["SyncEventType"],
         handler: (this: Excel.Workbook, parameter: { readonly SyncEventType: Office.MsoSyncEventType }) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'WindowActivate' | 'WindowDeactivate' | 'WindowResize',
-        argNames: ['Wn'],
+        event: "WindowActivate" | "WindowDeactivate" | "WindowResize",
+        argNames: ["Wn"],
         handler: (this: Excel.Workbook, parameter: { readonly Wn: Excel.Window }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'BeforeDoubleClick' | 'BeforeRightClick',
-        argNames: ['Target', 'Cancel'],
+        event: "BeforeDoubleClick" | "BeforeRightClick",
+        argNames: ["Target", "Cancel"],
         handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.Range; Cancel: boolean }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'Change' | 'SelectionChange',
-        argNames: ['Target'],
+        event: "Change" | "SelectionChange",
+        argNames: ["Target"],
         handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.Range }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'FollowHyperlink',
-        argNames: ['Target'],
+        event: "FollowHyperlink",
+        argNames: ["Target"],
         handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.Hyperlink }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'GetIDsOfNames',
-        argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'],
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
         handler: (
             this: Excel.Worksheet,
             parameter: {
@@ -14052,8 +14052,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'GetTypeInfo',
-        argNames: ['itinfo', 'lcid', 'pptinfo'],
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
         handler: (
             this: Excel.Worksheet,
             parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
@@ -14061,20 +14061,20 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'GetTypeInfoCount',
-        argNames: ['pctinfo'],
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
         handler: (this: Excel.Worksheet, parameter: { pctinfo: number }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'Invoke',
+        event: "Invoke",
         argNames: Excel.EventHelperTypes.Worksheet_Invoke_ArgNames,
         handler: (this: Excel.Worksheet, parameter: Excel.EventHelperTypes.Worksheet_Invoke_Parameter) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'PivotTableAfterValueChange',
-        argNames: ['TargetPivotTable', 'TargetRange'],
+        event: "PivotTableAfterValueChange",
+        argNames: ["TargetPivotTable", "TargetRange"],
         handler: (
             this: Excel.Worksheet,
             parameter: { readonly TargetPivotTable: Excel.PivotTable; readonly TargetRange: Excel.Range },
@@ -14082,8 +14082,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'PivotTableBeforeAllocateChanges' | 'PivotTableBeforeCommitChanges',
-        argNames: ['TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd', 'Cancel'],
+        event: "PivotTableBeforeAllocateChanges" | "PivotTableBeforeCommitChanges",
+        argNames: ["TargetPivotTable", "ValueChangeStart", "ValueChangeEnd", "Cancel"],
         handler: (
             this: Excel.Worksheet,
             parameter: {
@@ -14096,8 +14096,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'PivotTableBeforeDiscardChanges',
-        argNames: ['TargetPivotTable', 'ValueChangeStart', 'ValueChangeEnd'],
+        event: "PivotTableBeforeDiscardChanges",
+        argNames: ["TargetPivotTable", "ValueChangeStart", "ValueChangeEnd"],
         handler: (
             this: Excel.Worksheet,
             parameter: {
@@ -14109,67 +14109,67 @@ interface ActiveXObject {
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'PivotTableChangeSync' | 'PivotTableUpdate',
-        argNames: ['Target'],
+        event: "PivotTableChangeSync" | "PivotTableUpdate",
+        argNames: ["Target"],
         handler: (this: Excel.Worksheet, parameter: { readonly Target: Excel.PivotTable }) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'QueryInterface',
-        argNames: ['riid', 'ppvObj'],
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
         handler: (this: Excel.Worksheet, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
     ): void;
     on(
         obj: Excel.Application,
-        event: 'AddRef' | 'AfterCalculate' | 'Release',
+        event: "AddRef" | "AfterCalculate" | "Release",
         handler: (this: Excel.Application, parameter: {}) => void,
     ): void;
     on(
         obj: Excel.Chart,
-        event: 'Activate' | 'AddRef' | 'Calculate' | 'Deactivate' | 'DragOver' | 'DragPlot' | 'Release' | 'Resize',
+        event: "Activate" | "AddRef" | "Calculate" | "Deactivate" | "DragOver" | "DragPlot" | "Release" | "Resize",
         handler: (this: Excel.Chart, parameter: {}) => void,
     ): void;
     on(
         obj: Excel.OLEObject,
-        event: 'AddRef' | 'GotFocus' | 'LostFocus' | 'Release',
+        event: "AddRef" | "GotFocus" | "LostFocus" | "Release",
         handler: (this: Excel.OLEObject, parameter: {}) => void,
     ): void;
     on(
         obj: Excel.QueryTable,
-        event: 'AddRef' | 'Release',
+        event: "AddRef" | "Release",
         handler: (this: Excel.QueryTable, parameter: {}) => void,
     ): void;
     on(
         obj: Excel.Workbook,
-        event: 'Activate' | 'AddinInstall' | 'AddinUninstall' | 'AddRef' | 'Deactivate' | 'Open' | 'Release',
+        event: "Activate" | "AddinInstall" | "AddinUninstall" | "AddRef" | "Deactivate" | "Open" | "Release",
         handler: (this: Excel.Workbook, parameter: {}) => void,
     ): void;
     on(
         obj: Excel.Worksheet,
-        event: 'Activate' | 'AddRef' | 'Calculate' | 'Deactivate' | 'Release',
+        event: "Activate" | "AddRef" | "Calculate" | "Deactivate" | "Release",
         handler: (this: Excel.Worksheet, parameter: {}) => void,
     ): void;
     set(
         obj: Excel.Chart,
-        propertyName: 'HasAxis',
+        propertyName: "HasAxis",
         parameterTypes: [Excel.XlAxisType | undefined, Excel.XlAxisGroup | undefined],
         newValue: boolean,
     ): void;
-    set(obj: Excel.ControlFormat, propertyName: 'List', parameterTypes: [number], newValue: string): void;
-    set(obj: Excel.ControlFormat, propertyName: 'List', parameterTypes: never[], newValue: SafeArray<string>): void;
-    set(obj: Excel.PageSetup, propertyName: 'PrintQuality', parameterTypes: [number], newValue: number): void;
-    set(obj: Excel.Workbook, propertyName: 'Colors', parameterTypes: [number], newValue: number): void;
-    set(obj: Excel.Range, propertyName: 'Value', parameterTypes: [Excel.XlRangeValueDataType], newValue: any): void;
+    set(obj: Excel.ControlFormat, propertyName: "List", parameterTypes: [number], newValue: string): void;
+    set(obj: Excel.ControlFormat, propertyName: "List", parameterTypes: never[], newValue: SafeArray<string>): void;
+    set(obj: Excel.PageSetup, propertyName: "PrintQuality", parameterTypes: [number], newValue: number): void;
+    set(obj: Excel.Workbook, propertyName: "Colors", parameterTypes: [number], newValue: number): void;
+    set(obj: Excel.Range, propertyName: "Value", parameterTypes: [Excel.XlRangeValueDataType], newValue: any): void;
     set(
         obj: Excel.PivotField,
-        propertyName: 'Subtotals',
+        propertyName: "Subtotals",
         parameterTypes: [Excel.PivotFieldSubtotal],
         newValue: boolean,
     ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Excel.Application': Excel.Application;
-    'Excel.Chart': Excel.Chart;
-    'Excel.Sheet': Excel.Worksheet;
+    "Excel.Application": Excel.Application;
+    "Excel.Chart": Excel.Chart;
+    "Excel.Sheet": Excel.Worksheet;
 }

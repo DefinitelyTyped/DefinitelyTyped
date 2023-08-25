@@ -1,4 +1,4 @@
-import AuthenticationContext = require('adal-angular');
+import AuthenticationContext = require("adal-angular");
 
 const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error) => {
     if (error) {
@@ -15,7 +15,7 @@ const onToken: AuthenticationContext.TokenCallback = (errorDesc, token, error) =
         console.error(error);
         return;
     }
-    console.log('Making request with token:', token);
+    console.log("Making request with token:", token);
 };
 
 const onUser: AuthenticationContext.UserCallback = (error, user) => {
@@ -27,7 +27,7 @@ const onUser: AuthenticationContext.UserCallback = (error, user) => {
 };
 
 const acquireAnAccessToken = () => {
-    const resourceId = 'https://graph.microsoft.net';
+    const resourceId = "https://graph.microsoft.net";
     authenticationContext.acquireToken(
         resourceId,
         (errorDesc, token, error) => {
@@ -54,14 +54,14 @@ const acquireAnAccessToken = () => {
 };
 
 const config: AuthenticationContext.Options = {
-    clientId: '7cee0f68-5051-41f6-9e45-80463d21d65d',
-    redirectUri: 'http://localhost:16969/',
-    instance: 'https://login.microsoftonline.com/',
-    tenant: 'contoso.onmicrosoft.com',
-    extraQueryParameter: 'nux=1',
-    correlationId: '123',
+    clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
+    redirectUri: "http://localhost:16969/",
+    instance: "https://login.microsoftonline.com/",
+    tenant: "contoso.onmicrosoft.com",
+    extraQueryParameter: "nux=1",
+    correlationId: "123",
     popUp: true,
-    cacheLocation: 'localStorage',
+    cacheLocation: "localStorage",
     callback: onLogin,
 };
 
@@ -77,7 +77,7 @@ if (authenticationContext.isCallback(window.location.hash)) {
 }
 
 const injectedContext = AuthenticationContext.inject({
-    clientId: '7cee0f68-5051-41f6-9e45-80463d21d65d',
+    clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
 });
 injectedContext.handleWindowCallback();
 

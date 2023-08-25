@@ -1,6 +1,6 @@
-import Parser from '../Parser';
-import ParseTree from './ParseTree';
-import Tree from './Tree';
+import Parser from "../Parser";
+import ParseTree from "./ParseTree";
+import Tree from "./Tree";
 
 declare namespace Trees {
     /**

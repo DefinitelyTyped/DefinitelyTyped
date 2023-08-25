@@ -1,5 +1,5 @@
-import AmRectangularChart from './AmRectangularChart';
-import CategoryAxis from './CategoryAxis';
+import AmRectangularChart from "./AmRectangularChart";
+import CategoryAxis from "./CategoryAxis";
 
 /**
  * AmSerialChart is the class you have to use for majority of chart types.

@@ -33,7 +33,7 @@ declare namespace AMap {
             blur?: number | undefined;
             zIndex?: number | undefined;
             renderOnZooming?: boolean | undefined;
-            ['3d']?: {
+            ["3d"]?: {
                 heightScale?: number | undefined;
                 heightBezier?: number[] | undefined;
                 gridSize?: number | undefined;

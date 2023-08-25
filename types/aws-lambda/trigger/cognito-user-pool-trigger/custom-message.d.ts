@@ -1,5 +1,5 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, StringMap } from "./_common";
 
 export interface BaseCustomMessageTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
     request: {
@@ -19,22 +19,22 @@ export interface BaseCustomMessageTriggerEvent<T extends string> extends BaseTri
     };
 }
 
-export type CustomMessageAdminCreateUserTriggerEvent = BaseCustomMessageTriggerEvent<'CustomMessage_AdminCreateUser'>;
+export type CustomMessageAdminCreateUserTriggerEvent = BaseCustomMessageTriggerEvent<"CustomMessage_AdminCreateUser">;
 
-export type CustomMessageAuthenticationTriggerEvent = BaseCustomMessageTriggerEvent<'CustomMessage_Authentication'>;
+export type CustomMessageAuthenticationTriggerEvent = BaseCustomMessageTriggerEvent<"CustomMessage_Authentication">;
 
-export type CustomMessageForgotPasswordTriggerEvent = BaseCustomMessageTriggerEvent<'CustomMessage_ForgotPassword'>;
+export type CustomMessageForgotPasswordTriggerEvent = BaseCustomMessageTriggerEvent<"CustomMessage_ForgotPassword">;
 
-export type CustomMessageResendCodeTriggerEvent = BaseCustomMessageTriggerEvent<'CustomMessage_ResendCode'>;
+export type CustomMessageResendCodeTriggerEvent = BaseCustomMessageTriggerEvent<"CustomMessage_ResendCode">;
 
-export type CustomMessageSignUpTriggerEvent = BaseCustomMessageTriggerEvent<'CustomMessage_SignUp'>;
+export type CustomMessageSignUpTriggerEvent = BaseCustomMessageTriggerEvent<"CustomMessage_SignUp">;
 
 export type CustomMessageUpdateUserAttributeTriggerEvent = BaseCustomMessageTriggerEvent<
-    'CustomMessage_UpdateUserAttribute'
+    "CustomMessage_UpdateUserAttribute"
 >;
 
 export type CustomMessageVerifyUserAttributeTriggerEvent = BaseCustomMessageTriggerEvent<
-    'CustomMessage_VerifyUserAttribute'
+    "CustomMessage_VerifyUserAttribute"
 >;
 
 /**

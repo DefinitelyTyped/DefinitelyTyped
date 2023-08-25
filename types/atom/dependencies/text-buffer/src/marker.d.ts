@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { Point, PointCompatible, Range, RangeCompatible } from './text-buffer';
+import { Disposable } from "../../../index";
+import { Point, PointCompatible, Range, RangeCompatible } from "./text-buffer";
 
 /**
  *  Represents a buffer annotation that remains logically stationary even as
@@ -127,7 +127,7 @@ export interface CopyMarkerOptions {
     reversed?: boolean | undefined;
 
     /** Determines the rules by which changes to the buffer invalidate the marker. */
-    invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+    invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
 
     /**
      *  Indicates whether insertions at the start or end of the marked range should

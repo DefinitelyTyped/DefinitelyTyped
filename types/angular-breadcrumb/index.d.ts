@@ -6,12 +6,12 @@
 
 /// <reference types="angular-ui-router" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace ui {
         export interface IState {
             ncyBreadcrumb?: {

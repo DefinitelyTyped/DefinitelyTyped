@@ -1,4 +1,4 @@
-import admin = require('admin-check');
+import admin = require("admin-check");
 
 admin.check().then(result => {
     if (result) {

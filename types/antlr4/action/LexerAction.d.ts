@@ -1,5 +1,5 @@
-import LexerActionType from '../atn/LexerActionType';
-import HashCode from '../misc/HashCode';
+import LexerActionType from "../atn/LexerActionType";
+import HashCode from "../misc/HashCode";
 
 export default abstract class LexerAction {
     readonly actionType: LexerActionType;

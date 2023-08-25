@@ -6,15 +6,15 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage, RequestOptions, ServerResponse } from 'http';
+import { IncomingMessage, RequestOptions, ServerResponse } from "http";
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { Socket } from 'net';
+import { Socket } from "net";
 
 export type MaybePromise<T> = T | Promise<T>;
 
-export type NetworkType = 'http' | 'https';
+export type NetworkType = "http" | "https";
 
 export interface ProxyOptions {
     /** Port number of proxy server */
@@ -24,7 +24,7 @@ export interface ProxyOptions {
     /** Throttle in kb/s, unlimited for default */
     throttle?: number | undefined;
     /** Type of the proxy server, could be 'http' or 'https'. */
-    type?: 'http' | 'https' | undefined;
+    type?: "http" | "https" | undefined;
     /** Host name of the proxy server, required when this is an https proxy */
     hostname?: string | undefined;
     /** Force intercept all https request, default to false */
@@ -160,9 +160,9 @@ export class ProxyServer extends ProxyCore {
     constructor(config?: ProxyOptions);
 
     /** Emit when proxy server is ready */
-    on(eventName: 'ready', listener: () => void): this;
+    on(eventName: "ready", listener: () => void): this;
     /** Emit when error happened inside proxy server */
-    on(eventName: 'error', listener: (err: Error) => void): this;
+    on(eventName: "error", listener: (err: Error) => void): this;
 
     /** Start proxy server */
     start(): this;

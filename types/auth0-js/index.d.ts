@@ -323,7 +323,7 @@ export class Redirect {
             /** type of the response used. It can be any of the values `code` and `token` */
             responseType?: string | undefined;
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: 'query' | 'fragment' | undefined;
+            responseMode?: "query" | "fragment" | undefined;
             /** scopes to be requested during AuthN. e.g. `openid email` */
             scope: string;
         },
@@ -412,7 +412,7 @@ export class Popup {
              * how the Auth response is encoded and redirected back to the client.
              * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
              */
-            responseMode?: 'query' | 'fragment' | 'form_post' | undefined;
+            responseMode?: "query" | "fragment" | "form_post" | undefined;
             /**
              * value used to mitigate XSRF attacks.
              * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
@@ -444,9 +444,9 @@ export class Popup {
             /** url that the Auth0 will redirect after Auth with the Authorization Response */
             redirectUri?: string | undefined;
             /** type of the response used. */
-            responseType?: 'code' | 'token' | undefined;
+            responseType?: "code" | "token" | undefined;
             /** how the AuthN response is encoded and redirected back to the client. */
-            responseMode?: 'query' | 'fragment' | undefined;
+            responseMode?: "query" | "fragment" | undefined;
             /** scopes to be requested during AuthN. e.g. `openid email` */
             scope?: string | undefined;
         },
@@ -458,7 +458,7 @@ export class Popup {
      */
     passwordlessVerify(
         options: {
-            type: 'sms' | 'email';
+            type: "sms" | "email";
             /**  only if type = sms */
             phoneNumber?: string | undefined;
             /** only if type = email */
@@ -612,10 +612,10 @@ export interface CaptchaTemplates {
 }
 
 export interface Auth0Challenge {
-    type: 'code';
+    type: "code";
     image: string;
     required: boolean;
-    provider: 'auth0' | 'recaptcha_v2';
+    provider: "auth0" | "recaptcha_v2";
     [other: string]: unknown;
 }
 
@@ -629,24 +629,24 @@ export interface PasswordlessAuthOptions {
 /**
  * These are error codes defined by the auth0-js lib.
  */
-export type LibErrorCodes = 'timeout' | 'request_error' | 'invalid_token';
+export type LibErrorCodes = "timeout" | "request_error" | "invalid_token";
 
 /**
  * The user was not logged in at Auth0, so silent authentication is not possible.
  */
-export type LoginRequiredErrorCode = 'login_required';
+export type LoginRequiredErrorCode = "login_required";
 
 /**
  * The user was logged in at Auth0 and has authorized the application, but needs to
  * be redirected elsewhere before authentication can be completed; for example, when
  * using a redirect rule.
  */
-export type InteractionRequiredErrorCode = 'interaction_required';
+export type InteractionRequiredErrorCode = "interaction_required";
 
 /**
  * The user was logged in at Auth0, but needs to give consent to authorize the application.
  */
-export type ConsentRequiredErrorCode = 'consent_required';
+export type ConsentRequiredErrorCode = "consent_required";
 
 /**
  * These are error codes defined by the OpenID Connect specification.
@@ -655,12 +655,12 @@ export type SpecErrorCodes =
     | LoginRequiredErrorCode
     | InteractionRequiredErrorCode
     | ConsentRequiredErrorCode
-    | 'account_selection_required'
-    | 'invalid_request_uri'
-    | 'invalid_request_object'
-    | 'request_not_supported'
-    | 'request_uri_not_supported'
-    | 'registration_not_supported';
+    | "account_selection_required"
+    | "invalid_request_uri"
+    | "invalid_request_object"
+    | "request_not_supported"
+    | "request_uri_not_supported"
+    | "registration_not_supported";
 
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
@@ -753,7 +753,7 @@ export interface PasswordlessStartAuthParams extends BaseAuthOptions {
 
 export interface PasswordlessStartOptions {
     connection: string;
-    send: 'link' | 'code';
+    send: "link" | "code";
     phoneNumber?: string | undefined;
     email?: string | undefined;
     authParams?: PasswordlessStartAuthParams | undefined;
@@ -764,7 +764,7 @@ export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     verificationCode: string;
     phoneNumber?: string | undefined;
     email?: string | undefined;
-    send?: 'link' | 'code' | undefined;
+    send?: "link" | "code" | undefined;
     responseMode?: string | undefined;
 }
 
@@ -829,7 +829,7 @@ export interface AuthorizeUrlOptions {
      * Supported values are `query`, `fragment` and `form_post`
      * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
      */
-    responseMode?: 'query' | 'fragment' | 'form_post' | undefined;
+    responseMode?: "query" | "fragment" | "form_post" | undefined;
     /**
      * value used to mitigate XSRF attacks.
      * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
@@ -1024,8 +1024,8 @@ export interface AuthorizeOptions {
     language?: string | undefined;
     login_hint?: string | undefined;
     prompt?: string | undefined;
-    mode?: 'login' | 'signUp' | undefined;
-    screen_hint?: 'signup' | undefined;
+    mode?: "login" | "signUp" | undefined;
+    screen_hint?: "signup" | undefined;
     accessType?: string | undefined;
     approvalPrompt?: string | undefined;
     appState?: any;

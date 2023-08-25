@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Disposable } from 'event-kit';
+import { Disposable } from "event-kit";
 
 declare global {
     namespace AtomKeymap {

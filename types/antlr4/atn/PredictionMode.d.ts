@@ -1,6 +1,6 @@
-import AltDict from '../misc/AltDict';
-import BitSet from '../misc/BitSet';
-import ATNConfigSet from './ATNConfigSet';
+import AltDict from "../misc/AltDict";
+import BitSet from "../misc/BitSet";
+import ATNConfigSet from "./ATNConfigSet";
 
 export default PredictionMode;
 declare namespace PredictionMode {

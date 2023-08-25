@@ -1,4 +1,4 @@
-import SerialDataItem from './SerialDataItem';
+import SerialDataItem from "./SerialDataItem";
 
 /**
  * GraphDataItem holds all the information about the graph's data item.

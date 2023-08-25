@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Callback, Context } from 'aws-lambda';
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { Callback, Context } from "aws-lambda";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 interface AwsLambdaFastifyOptions {
     binaryMimeTypes?: string[] | undefined;

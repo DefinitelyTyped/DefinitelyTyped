@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace locker {
         interface ILockerServicePutFunction {
             (current: any): any;
@@ -130,7 +130,7 @@ declare module 'angular' {
              *
              * @param  namespace  The namespace to switch to
              */
-            'namespace'(name: string): ILockerService;
+            "namespace"(name: string): ILockerService;
             /**
              * Check browser support
              *
@@ -150,7 +150,7 @@ declare module 'angular' {
 
         interface ILockerSettings {
             driver?: string | undefined;
-            'namespace'?: string | boolean | undefined;
+            "namespace"?: string | boolean | undefined;
             separator?: string | undefined;
             eventsEnabled?: boolean | undefined;
             extend?: Object | undefined;

@@ -1,5 +1,5 @@
-import AmChart from './AmChart';
-import GaugeBand from './GaugeBand';
+import AmChart from "./AmChart";
+import GaugeBand from "./GaugeBand";
 
 export default class GaugeAxis {
     /**

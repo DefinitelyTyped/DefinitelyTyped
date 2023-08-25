@@ -251,7 +251,7 @@ export interface QueueObject<T> {
  * - The `unshift` method was removed.
  */
 // FIXME: can not use Omit due to ts version restriction. Replace Pick with Omit, when ts 3.5+ will be allowed
-export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, 'push' | 'unshift'>> {
+export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, "push" | "unshift">> {
     push<R>(task: T | T[], priority?: number): Promise<R>;
     push<R, E = Error>(task: T | T[], priority: number, callback: AsyncResultCallback<R, E>): void;
 }

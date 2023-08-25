@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace Map {
-        type Feature = 'bg' | 'point' | 'road' | 'building';
-        type ViewMode = '2D' | '3D';
+        type Feature = "bg" | "point" | "road" | "building";
+        type ViewMode = "2D" | "3D";
         interface Options {
             /**
              * 地图视口，用于控制影响地图静态显示的属性
@@ -38,7 +38,7 @@ declare namespace AMap {
             /**
              * 地图显示的参考坐标系
              */
-            crs?: 'EPSG3857' | 'EPSG3395' | 'EPSG4326' | undefined;
+            crs?: "EPSG3857" | "EPSG3395" | "EPSG4326" | undefined;
             /**
              * 地图平移过程中是否使用动画
              */
@@ -110,7 +110,7 @@ declare namespace AMap {
             /**
              * 设置地图上显示的元素种类
              */
-            features?: Feature[] | 'all' | Feature | undefined;
+            features?: Feature[] | "all" | Feature | undefined;
             /**
              * 设置地图显示3D楼块效果
              */
@@ -152,8 +152,8 @@ declare namespace AMap {
             forceVector?: boolean | undefined;
 
             // internal
-            baseRender?: 'vw' | 'd' | 'dv' | 'v' | undefined;
-            overlayRender?: 'c' | 'd' | undefined;
+            baseRender?: "vw" | "d" | "dv" | "v" | undefined;
+            overlayRender?: "c" | "d" | undefined;
             showLabel?: boolean | undefined;
             gridMapForeign?: boolean | undefined;
             logoUrl?: string | undefined;
@@ -232,36 +232,36 @@ declare namespace AMap {
             isIndoorPOI: boolean;
         }>;
         interface EventMap {
-            click: MapsEvent<'click', Map>;
-            dblclick: MapsEvent<'dblclick', Map>;
-            rightclick: MapsEvent<'rightclick', Map>;
-            rdblclick: MapsEvent<'rdblclick', Map>;
-            mouseup: MapsEvent<'mouseup', Map>;
-            mousedown: MapsEvent<'mousedown', Map>;
-            mousemove: MapsEvent<'mousemove', Map>;
-            mousewheel: MapsEvent<'mousewheel', Map>;
-            mouseover: MapsEvent<'mouseover', Map>;
-            mouseout: MapsEvent<'mouseout', Map>;
-            touchstart: MapsEvent<'touchstart', Map>;
-            touchmove: MapsEvent<'touchmove', Map>;
-            touchend: MapsEvent<'touchend', Map>;
-            contextmenu: MapsEvent<'contextmenu', Map>;
+            click: MapsEvent<"click", Map>;
+            dblclick: MapsEvent<"dblclick", Map>;
+            rightclick: MapsEvent<"rightclick", Map>;
+            rdblclick: MapsEvent<"rdblclick", Map>;
+            mouseup: MapsEvent<"mouseup", Map>;
+            mousedown: MapsEvent<"mousedown", Map>;
+            mousemove: MapsEvent<"mousemove", Map>;
+            mousewheel: MapsEvent<"mousewheel", Map>;
+            mouseover: MapsEvent<"mouseover", Map>;
+            mouseout: MapsEvent<"mouseout", Map>;
+            touchstart: MapsEvent<"touchstart", Map>;
+            touchmove: MapsEvent<"touchmove", Map>;
+            touchend: MapsEvent<"touchend", Map>;
+            contextmenu: MapsEvent<"contextmenu", Map>;
 
-            hotspotclick: HotspotEvent<'hotspotclick'>;
-            hotspotover: HotspotEvent<'hotspotover'>;
-            hotspotout: HotspotEvent<'hotspotout'>;
+            hotspotclick: HotspotEvent<"hotspotclick">;
+            hotspotover: HotspotEvent<"hotspotover">;
+            hotspotout: HotspotEvent<"hotspotout">;
 
-            complete: Event<'complete'>;
-            mapmove: Event<'mapmove'>;
-            movestart: Event<'movestart'>;
-            moveend: Event<'moveend'>;
-            zoomchange: Event<'zoomchange'>;
-            zoomstart: Event<'zoomstart'>;
-            zoomend: Event<'zoomend'>;
-            dragstart: Event<'dragstart'>;
-            dragging: Event<'dragging'>;
-            dragend: Event<'dragend'>;
-            resize: Event<'resize'>;
+            complete: Event<"complete">;
+            mapmove: Event<"mapmove">;
+            movestart: Event<"movestart">;
+            moveend: Event<"moveend">;
+            zoomchange: Event<"zoomchange">;
+            zoomstart: Event<"zoomstart">;
+            zoomend: Event<"zoomend">;
+            dragstart: Event<"dragstart">;
+            dragging: Event<"dragging">;
+            dragend: Event<"dragend">;
+            resize: Event<"resize">;
         }
     }
 
@@ -392,7 +392,7 @@ declare namespace AMap {
          * 返回添加的覆盖物对象
          * @param type 覆盖物类型
          */
-        getAllOverlays(type?: 'marker' | 'circle' | 'polyline' | 'polygon'): Overlay[];
+        getAllOverlays(type?: "marker" | "circle" | "polyline" | "polygon"): Overlay[];
         /**
          * 设置地图显示的中心点
          * @param center 中心点经纬度
@@ -547,11 +547,11 @@ declare namespace AMap {
          * 设置地图上显示的元素种类
          * @param feature 元素
          */
-        setFeatures(feature: Map.Feature | Map.Feature[] | 'all'): void;
+        setFeatures(feature: Map.Feature | Map.Feature[] | "all"): void;
         /**
          * 获取地图显示元素种类
          */
-        getFeatures(): Map.Feature | Map.Feature[] | 'all';
+        getFeatures(): Map.Feature | Map.Feature[] | "all";
         /**
          * 修改底图图层
          * @param layer 图层

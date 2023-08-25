@@ -1,4 +1,4 @@
-import { CommandEvent, CompositeDisposable, Disposable } from '../index';
+import { CommandEvent, CompositeDisposable, Disposable } from "../index";
 
 export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
     [key: string]: EventTarget;

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export import ServiceBusService = require('./lib/servicebusservice');
-export import NotificationHubService = require('./lib/notificationhubservice');
-export import WrapService = require('./lib/wrapservice');
+export import ServiceBusService = require("./lib/servicebusservice");
+export import NotificationHubService = require("./lib/notificationhubservice");
+export import WrapService = require("./lib/wrapservice");
 
 export function createServiceBusService(
     namespaceOrConnectionString?: string,
@@ -154,7 +154,7 @@ export namespace Azure.ServiceBus {
         readonly lastActiveOn?: string | undefined;
         readonly expirationTime?: string | undefined;
         readonly lastUpdate?: string | undefined;
-        platform: 'apns' | 'wns' | 'mpns' | 'adm' | 'gcm';
+        platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
         pushChannel: string;
         readonly expiredPushChannel?: string | undefined;
         tags?: Array<string> | undefined;
@@ -194,23 +194,23 @@ export namespace Azure.ServiceBus {
 
     export namespace Results.Models {
         export enum EntityStatus {
-            Active = 'Active',
-            Creating = 'Creating',
-            Deleting = 'Deleting',
-            Disabled = 'Disabled',
-            ReceiveDisabled = 'ReceiveDisabled',
-            Renaming = 'Renaming',
-            Restoring = 'Restoring',
-            SendDisabled = 'SendDisabled',
-            Unknown = 'Unknown',
+            Active = "Active",
+            Creating = "Creating",
+            Deleting = "Deleting",
+            Disabled = "Disabled",
+            ReceiveDisabled = "ReceiveDisabled",
+            Renaming = "Renaming",
+            Restoring = "Restoring",
+            SendDisabled = "SendDisabled",
+            Unknown = "Unknown",
         }
 
         export enum EntityAvailabilityStatus {
-            Available = 'Available',
-            Limited = 'Limited',
-            Renaming = 'Renaming',
-            Restoring = 'Restoring',
-            Unknown = 'Unknown',
+            Available = "Available",
+            Limited = "Limited",
+            Renaming = "Renaming",
+            Restoring = "Restoring",
+            Unknown = "Unknown",
         }
 
         interface Base {
@@ -249,11 +249,11 @@ export namespace Azure.ServiceBus {
         //   [x: string]: string | Dictionary<string | object>;
         // }
 
-        export const ActiveMessageCount = 'd2p1:ActiveMessageCount';
-        export const DeadLetterMessageCount = 'd2p1:DeadLetterMessageCount';
-        export const ScheduledMessageCount = 'd2p1:ScheduledMessageCount';
-        export const TransferMessageCount = 'd2p1:TransferMessageCount';
-        export const TransferDeadLetterMessageCount = 'd2p1:TransferDeadLetterMessageCount';
+        export const ActiveMessageCount = "d2p1:ActiveMessageCount";
+        export const DeadLetterMessageCount = "d2p1:DeadLetterMessageCount";
+        export const ScheduledMessageCount = "d2p1:ScheduledMessageCount";
+        export const TransferMessageCount = "d2p1:TransferMessageCount";
+        export const TransferDeadLetterMessageCount = "d2p1:TransferDeadLetterMessageCount";
 
         export interface Topic extends ExtendedBase {
             AccessedAt: DateString;

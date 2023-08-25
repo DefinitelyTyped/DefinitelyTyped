@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
-import { Filter } from 'ldapjs';
+import { Filter } from "ldapjs";
 
 interface ADProperties {
     url: string;
@@ -16,37 +16,37 @@ interface ADProperties {
     referrals?: {
         enabled: false;
         exclude: [
-            'ldaps?://ForestDnsZones\\..*/.*',
-            'ldaps?://DomainDnsZones\\..*/.*',
-            'ldaps?://.*/CN=Configuration,.*',
+            "ldaps?://ForestDnsZones\\..*/.*",
+            "ldaps?://DomainDnsZones\\..*/.*",
+            "ldaps?://.*/CN=Configuration,.*",
         ];
     } | undefined;
     attributes?: {
         user: [
-            'dn',
-            'distinguishedName',
-            'userPrincipalName',
-            'sAMAccountName',
-            'mail',
-            'lockoutTime',
-            'whenCreated',
-            'pwdLastSet',
-            'userAccountControl',
-            'employeeID',
-            'sn',
-            'givenName',
-            'initials',
-            'cn',
-            'displayName',
-            'comment',
-            'description',
+            "dn",
+            "distinguishedName",
+            "userPrincipalName",
+            "sAMAccountName",
+            "mail",
+            "lockoutTime",
+            "whenCreated",
+            "pwdLastSet",
+            "userAccountControl",
+            "employeeID",
+            "sn",
+            "givenName",
+            "initials",
+            "cn",
+            "displayName",
+            "comment",
+            "description",
         ];
         group: [
-            'dn',
-            'cn',
-            'description',
-            'distinguishedName',
-            'objectCategory',
+            "dn",
+            "cn",
+            "description",
+            "distinguishedName",
+            "objectCategory",
         ];
     } | undefined;
 }
@@ -68,13 +68,13 @@ interface LDAPjsReqProps {
     strictDN?: boolean | undefined;
 }
 
-type MembershipType = 'all' | 'user' | 'group';
+type MembershipType = "all" | "user" | "group";
 
 interface ReqProps extends LDAPjsReqProps {
     baseDN?: string | undefined;
     bindDN?: string | undefined;
     bindCredentials?: string | undefined;
-    scope?: 'base' | 'one' | 'sub' | undefined;
+    scope?: "base" | "one" | "sub" | undefined;
     filter: string | Filter;
     attributes: AttributeSpec;
     sizeLimit: 0;
@@ -88,28 +88,28 @@ interface AttributeSpec {
 }
 
 type GroupAttributes =
-    | 'distinguishedName'
-    | 'objectCategory'
-    | 'cn'
-    | 'description';
+    | "distinguishedName"
+    | "objectCategory"
+    | "cn"
+    | "description";
 
 type UserAttributes =
-    | 'distinguishedName'
-    | 'userPrincipalName'
-    | 'sAMAccountName'
-    | 'mail'
-    | 'lockoutTime'
-    | 'whenCreated'
-    | 'pwdLastSet'
-    | 'userAccountControl'
-    | 'employeeID'
-    | 'sn'
-    | 'givenName'
-    | 'initials'
-    | 'cn'
-    | 'displayName'
-    | 'comment'
-    | 'description';
+    | "distinguishedName"
+    | "userPrincipalName"
+    | "sAMAccountName"
+    | "mail"
+    | "lockoutTime"
+    | "whenCreated"
+    | "pwdLastSet"
+    | "userAccountControl"
+    | "employeeID"
+    | "sn"
+    | "givenName"
+    | "initials"
+    | "cn"
+    | "displayName"
+    | "comment"
+    | "description";
 
 interface FindResult {
     groups: object[];

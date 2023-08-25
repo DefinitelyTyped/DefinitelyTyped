@@ -1,11 +1,11 @@
-export * from './MessageStreamInfo';
+export * from "./MessageStreamInfo";
 
 export interface EventTypeOptions {
     S3Task: 0;
 }
 
 export interface EventTypeOptionsFlipped {
-    0: 'S3Task';
+    0: "S3Task";
 }
 
 type EventTypeValue = EventTypeOptions[keyof EventTypeOptions];
@@ -36,11 +36,11 @@ export interface StatusOptions {
 }
 
 export interface StatusOptionsFlipped {
-    0: 'Success';
-    1: 'Failure';
-    2: 'InProgress';
-    3: 'Warning';
-    4: 'Canceled';
+    0: "Success";
+    1: "Failure";
+    2: "InProgress";
+    3: "Warning";
+    4: "Canceled";
 }
 
 type StatusValue = StatusOptions[keyof StatusOptions];
@@ -75,11 +75,11 @@ export interface StatusLevelOptions {
 }
 
 export interface StatusLevelOptionsFlipped {
-    0: 'ERROR';
-    1: 'WARN';
-    2: 'INFO';
-    3: 'DEBUG';
-    4: 'TRACE';
+    0: "ERROR";
+    1: "WARN";
+    2: "INFO";
+    3: "DEBUG";
+    4: "TRACE";
 }
 
 export type StatusLevelValue = StatusLevelOptions[keyof StatusLevelOptions];
@@ -746,8 +746,8 @@ export type StrategyOnFullValue = keyof StrategyOnFullOptionsFlipped;
 export type StrategyOnFullMap = StrategyOnFullValue;
 
 export interface StrategyOnFullOptionsFlipped {
-    0: 'RejectNewData';
-    1: 'OverwriteOldestData';
+    0: "RejectNewData";
+    1: "OverwriteOldestData";
 }
 
 /**
@@ -773,8 +773,8 @@ export interface PersistenceOptions {
 }
 
 export interface PersistenceOptionsFlipped {
-    0: 'File';
-    1: 'Memory';
+    0: "File";
+    1: "Memory";
 }
 
 export type PersistenceValue = keyof PersistenceOptionsFlipped;
@@ -805,8 +805,8 @@ export interface ExportFormatOptions {
 }
 
 export interface ExportFormatOptionsFlipped {
-    0: 'RAW_NOT_BATCHED';
-    1: 'JSON_BATCHED';
+    0: "RAW_NOT_BATCHED";
+    1: "JSON_BATCHED";
 }
 
 export type ExportFormatValue = keyof ExportFormatOptions;

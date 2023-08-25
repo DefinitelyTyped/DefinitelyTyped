@@ -107,7 +107,7 @@ export class ArgumentTypeError extends Error {
 // Passed to the Action constructor.  Subclasses are just expected to relay this to
 // the super() constructor, so using an "opaque type" pattern is probably fine.
 // Someone may want to fill this out in the future.
-export type ActionConstructorOptions = number & { _: 'ActionConstructorOptions' };
+export type ActionConstructorOptions = number & { _: "ActionConstructorOptions" };
 
 export class HelpFormatter {}
 export class ArgumentDefaultsHelpFormatter {}

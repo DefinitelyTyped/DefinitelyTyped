@@ -9,35 +9,35 @@
 declare namespace AMap {
     namespace PlaceSearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
-            selectChanged: Event<'selectChanged', {
-                selected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'];
-                lastSelected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'] | null;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
+            selectChanged: Event<"selectChanged", {
+                selected: SelectChangeEventData | EventMap["markerClick"] | EventMap["listElementClick"];
+                lastSelected: SelectChangeEventData | EventMap["markerClick"] | EventMap["listElementClick"] | null;
             }>;
-            listElementClick: SelectChangeEvent<'listElementClick', MouseEvent>;
-            markerClick: SelectChangeEvent<'markerClick', Marker.EventMap['click']>;
+            listElementClick: SelectChangeEvent<"listElementClick", MouseEvent>;
+            markerClick: SelectChangeEvent<"markerClick", Marker.EventMap["click"]>;
             // internal
-            renderComplete: Event<'renderComplete', {
+            renderComplete: Event<"renderComplete", {
                 result: SelectChangeEventData[];
                 markers: Marker[];
                 listElements: HTMLElement[];
             }>;
             infoWindowClick: Event<
-                'infoWindowClick',
+                "infoWindowClick",
                 SelectChangeEventData & {
                     event: MouseEvent;
                     infoWindow: InfoWindow;
                     infoWindowContentDom: HTMLDivElement;
                 }
             >;
-            willClear: Event<'willClear', {
+            willClear: Event<"willClear", {
                 id: string;
                 index: number;
                 data: Poi[];
             }>;
-            markerDestoryed: Event<'markerDestoryed', SelectChangeEventData>; // typo in source code
-            listElementDetroyed: Event<'listElementDetroyed', SelectChangeEventData>; // typo too
+            markerDestoryed: Event<"markerDestoryed", SelectChangeEventData>; // typo in source code
+            listElementDetroyed: Event<"listElementDetroyed", SelectChangeEventData>; // typo too
         }
 
         interface SelectChangeEventData {
@@ -503,25 +503,25 @@ declare namespace AMap {
                 discounts?: Discount[] | undefined;
             }
             & ({
-                deep_type: 'CINEMA';
+                deep_type: "CINEMA";
                 /**
                  * @deprecated 影院类深度信息
                  */
                 cinema: Cinema;
             } | {
-                deep_type: 'DINING';
+                deep_type: "DINING";
                 /**
                  * @deprecated 餐饮类深度信息
                  */
                 dining: Dining;
             } | {
-                deep_type: 'SCENIC';
+                deep_type: "SCENIC";
                 /**
                  * @deprecated 景点类深度信息
                  */
                 scenic: Scenic;
             } | {
-                deep_type: 'HOTEL';
+                deep_type: "HOTEL";
                 /**
                  * @deprecated 酒店类深度信息
                  */
@@ -561,7 +561,7 @@ declare namespace AMap {
              * 是否返回详细信息
              * base返回基本地址信息；all返回基本+详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
             /**
              * Map对象
              */
@@ -577,7 +577,7 @@ declare namespace AMap {
             /**
              * 绘制的UI风格
              */
-            renderStyle?: 'newpc' | 'default' | undefined;
+            renderStyle?: "newpc" | "default" | undefined;
             /**
              * 是否自动调整地图视野使绘制的Marker点都处于视口的可见范围
              */
@@ -642,7 +642,7 @@ declare namespace AMap {
             cityList?: CityInfo[] | undefined;
         }
         type Poi = PoiBase | PoiExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class PlaceSearch extends EventEmitter {
         /**

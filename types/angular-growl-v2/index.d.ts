@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace growl {
         /**
          * Global Time-To-Leave configuration.

@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
-import * as moment from 'moment';
+import * as angular from "angular";
+import * as moment from "moment";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace bootstrap.calendar {
         interface IEventAction {
             /**

@@ -1,20 +1,20 @@
-import { aql, db, query } from '@arangodb';
-import { genRandomBytes, md5 } from '@arangodb/crypto';
-import { createRouter } from '@arangodb/foxx';
-import sessionsMiddleware = require('@arangodb/foxx/sessions');
-import jwtStorage = require('@arangodb/foxx/sessions/storages/jwt');
-import cookieTransport = require('@arangodb/foxx/sessions/transports/cookie');
-import createAuth = require('@arangodb/foxx/auth');
-import { create } from '@arangodb/foxx/queues';
+import { aql, db, query } from "@arangodb";
+import { genRandomBytes, md5 } from "@arangodb/crypto";
+import { createRouter } from "@arangodb/foxx";
+import sessionsMiddleware = require("@arangodb/foxx/sessions");
+import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
+import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
+import createAuth = require("@arangodb/foxx/auth");
+import { create } from "@arangodb/foxx/queues";
 
-console.warnStack(new Error(), 'something went wrong');
+console.warnStack(new Error(), "something went wrong");
 
 interface User {
     username: string;
     password?: string | undefined;
 }
-const coll = module.context.collection('users')!;
-coll.save({ username: 'user' });
+const coll = module.context.collection("users")!;
+coll.save({ username: "user" });
 const doc = coll.any();
 console.log(doc.username);
 
@@ -22,9 +22,9 @@ const coll2 = db._collection(coll.name());
 console.log(coll2 === coll);
 
 const users = coll as ArangoDB.Collection<User>;
-const admin = users.firstExample({ username: 'admin' })!;
-users.update(admin, { password: md5('hunter2') });
-console.logLines('user', users.documentId(admin._key), admin.username);
+const admin = users.firstExample({ username: "admin" })!;
+users.update(admin, { password: md5("hunter2") });
+console.logLines("user", users.documentId(admin._key), admin.username);
 
 db._query(aql`
     FOR u IN ${users}
@@ -48,54 +48,54 @@ interface Banana {
     };
 }
 
-const bananas = db._createDocumentCollection('bananas', {
+const bananas = db._createDocumentCollection("bananas", {
     waitForSync: false,
     keyOptions: {
-        type: 'autoincrement',
+        type: "autoincrement",
         increment: 11,
         offset: 23,
     },
 }) as ArangoDB.Collection<Banana>;
 
-const bananas2 = db._createDocumentCollection('bananas2', {
+const bananas2 = db._createDocumentCollection("bananas2", {
     keyOptions: {
-        type: 'padded',
+        type: "padded",
     },
 }) as ArangoDB.Collection<Banana>;
 
-const bananas3 = db._createDocumentCollection('bananas3', {
+const bananas3 = db._createDocumentCollection("bananas3", {
     keyOptions: {
-        type: 'uuid',
+        type: "uuid",
     },
 }) as ArangoDB.Collection<Banana>;
 
 bananas.ensureIndex({
-    type: 'hash',
+    type: "hash",
     unique: true,
-    fields: ['color', 'shape.type'],
+    fields: ["color", "shape.type"],
 });
 bananas.updateByExample(
     bananas.any(),
-    { shape: { type: 'round' } },
+    { shape: { type: "round" } },
     { mergeObjects: true },
 );
 bananas.ensureIndex({
-    type: 'geo',
-    fields: ['latLng'],
+    type: "geo",
+    fields: ["latLng"],
 });
 
 const router = createRouter();
 module.context.use(router);
 
-router.get('/', (req, res) => {
-    if (req.cookie('sid', { secret: 'keyboardcat' })) {
-        res.set('content-type', 'text/plain');
-        res.write('Welcome back, Commander');
+router.get("/", (req, res) => {
+    if (req.cookie("sid", { secret: "keyboardcat" })) {
+        res.set("content-type", "text/plain");
+        res.write("Welcome back, Commander");
     } else {
         res.json({ success: false });
     }
 })
-    .queryParam('noJoi', {
+    .queryParam("noJoi", {
         validate(value) {
             return { value };
         },
@@ -107,12 +107,12 @@ router.put(
             // $ExpectType string
             const id = db._executeTransaction({
                 collections: {
-                    read: 'users',
-                    write: ['groups', 'member'],
+                    read: "users",
+                    write: ["groups", "member"],
                     allowImplicit: false,
                 },
                 action: params => {
-                    return '1234';
+                    return "1234";
                 },
                 params: JSON.parse(request.body),
             });
@@ -125,20 +125,20 @@ router.put(
 );
 
 router.use((req, res, next) => {
-    if (req.is('json')) res.throw('too many requests');
+    if (req.is("json")) res.throw("too many requests");
     next();
 });
 
 router.use(
     sessionsMiddleware({
-        storage: jwtStorage({ algorithm: 'none' }),
-        transport: 'header',
+        storage: jwtStorage({ algorithm: "none" }),
+        transport: "header",
     }),
 );
 router.use(
     sessionsMiddleware({
-        storage: jwtStorage({ algorithm: 'HS512', secret: 'tacocat' }),
-        transport: cookieTransport({ secret: 'banana', algorithm: 'sha256' }),
+        storage: jwtStorage({ algorithm: "HS512", secret: "tacocat" }),
+        transport: cookieTransport({ secret: "banana", algorithm: "sha256" }),
     }),
 );
 
@@ -146,8 +146,8 @@ router.use((req, res, next) => {
     if (!req.auth || !req.auth.basic) {
         res.throw(401);
     } else if (
-        req.auth.basic.username !== 'admin'
-        || req.auth.basic.password !== 'hunter2'
+        req.auth.basic.username !== "admin"
+        || req.auth.basic.password !== "hunter2"
     ) {
         res.throw(403);
     }
@@ -159,29 +159,29 @@ console.log(
         FOR u IN users
         ${
         aql.literal(
-            Math.random() < 0.5 ? 'FILTER u.admin' : 'FILTER !u.admin',
+            Math.random() < 0.5 ? "FILTER u.admin" : "FILTER !u.admin",
         )
     }
         RETURN u
     `.toArray(),
 );
 
-const auth = createAuth({ method: 'pbkdf2' });
-const authData = auth.create('hunter2');
+const auth = createAuth({ method: "pbkdf2" });
+const authData = auth.create("hunter2");
 console.log(authData.iter);
 
-const view = db._view('yolo')!;
+const view = db._view("yolo")!;
 view.properties({
     consolidationIntervalMsec: 123,
     consolidationPolicy: {
-        type: 'bytes',
+        type: "bytes",
         segmentThreshold: 234,
     },
 });
 
 // $ExpectType Queue
-const myQueue = create('myQueue');
+const myQueue = create("myQueue");
 // $ExpectType string
-const myString = myQueue.push({ mount: '/mount', name: 'myItem' }, {});
+const myString = myQueue.push({ mount: "/mount", name: "myItem" }, {});
 
 console.log(Buffer.concat([Buffer.allocUnsafe(4), genRandomBytes(4)], 8));

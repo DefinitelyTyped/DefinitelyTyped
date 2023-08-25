@@ -12,27 +12,27 @@ function testStates(session, states) {
 }
 
 const aceBackgroundTokenizerTests = {
-    'test background tokenizer update on session change': function() {
+    "test background tokenizer update on session change": function() {
         var doc = new AceAjax.EditSession([
-            '/*',
-            '*/',
-            'var juhu',
+            "/*",
+            "*/",
+            "var juhu",
         ]);
-        doc.setMode('./mode/javascript');
+        doc.setMode("./mode/javascript");
 
         forceTokenize(doc);
-        testStates(doc, ['comment', 'start', 'start']);
+        testStates(doc, ["comment", "start", "start"]);
 
         doc.remove(new AceAjax.Range(0, 2, 1, 2));
-        testStates(doc, [null, 'start']);
+        testStates(doc, [null, "start"]);
 
         forceTokenize(doc);
-        testStates(doc, ['comment', 'comment']);
+        testStates(doc, ["comment", "comment"]);
 
-        doc.insert({ row: 0, column: 2 }, '\n*/');
-        testStates(doc, [undefined, undefined, 'comment']);
+        doc.insert({ row: 0, column: 2 }, "\n*/");
+        testStates(doc, [undefined, undefined, "comment"]);
 
         forceTokenize(doc);
-        testStates(doc, ['comment', 'start', 'start']);
+        testStates(doc, ["comment", "start", "start"]);
     },
 };

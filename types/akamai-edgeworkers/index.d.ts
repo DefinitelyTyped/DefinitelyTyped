@@ -294,7 +294,7 @@ declare namespace EW {
         cancel?: ReadableStreamErrorCallback;
         pull?: ReadableByteStreamControllerCallback;
         start?: ReadableByteStreamControllerCallback;
-        type: 'bytes';
+        type: "bytes";
     }
 
     interface WritableStreamDefaultController {
@@ -380,7 +380,7 @@ declare namespace EW {
 
         cancel(reason?: any): Promise<void>;
 
-        getReader(options: { mode: 'byob' }): ReadableStreamBYOBReader;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
 
         getReader(): ReadableStreamDefaultReader<R>;
 
@@ -723,7 +723,7 @@ declare namespace EW {
 /**
  * Query, add, and remove cookies.
  */
-declare module 'cookies' {
+declare module "cookies" {
     /**
      * Provides access to the Cookies header of a request, allowing the
      * addition, removal, or modification of cookie values.
@@ -802,7 +802,7 @@ declare module 'cookies' {
             expires?: { toUTCString: () => string } | undefined;
             httpOnly?: boolean | undefined;
             secure?: boolean | undefined;
-            sameSite?: 'Strict' | 'Lax' | 'None' | true | undefined;
+            sameSite?: "Strict" | "Lax" | "None" | true | undefined;
         });
 
         /**
@@ -819,7 +819,7 @@ declare module 'cookies' {
         expires: { toUTCString: () => string };
         httpOnly: boolean;
         secure: boolean;
-        sameSite: 'Strict' | 'Lax' | 'None' | true;
+        sameSite: "Strict" | "Lax" | "None" | true;
     }
 }
 
@@ -827,8 +827,8 @@ declare module 'cookies' {
  * Creates a response that can be returned from the `responseProvider()`
  * callback in a promise.
  */
-declare module 'create-response' {
-    import { ReadableStream } from 'streams';
+declare module "create-response" {
+    import { ReadableStream } from "streams";
 
     /**
      * Specifies headers for createResponse(). Keys are treated as header
@@ -868,8 +868,8 @@ declare module 'create-response' {
     }): object;
 }
 
-declare module 'http-request' {
-    import { ReadableStream } from 'streams';
+declare module "http-request" {
+    import { ReadableStream } from "streams";
 
     /**
      * A request body, either in the form of a static string or a readable stream.
@@ -931,7 +931,7 @@ declare module 'http-request' {
  *
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
-declare module 'streams' {
+declare module "streams" {
     interface ReadableStream<R = any> extends EW.ReadableStreamEW {
     }
 
@@ -1026,8 +1026,8 @@ declare module 'streams' {
     };
 }
 
-declare module 'text-encode-transform' {
-    import { ReadableStream, WritableStream } from 'streams';
+declare module "text-encode-transform" {
+    import { ReadableStream, WritableStream } from "streams";
 
     interface TextEncoderCommon {
         /**
@@ -1108,7 +1108,7 @@ declare module 'text-encode-transform' {
  * messages are written to response headers or the responseProvider()
  * multipart output.
  */
-declare module 'log' {
+declare module "log" {
     interface Logger {
         /**
          * Emit a message to the log. If logging is not enabled, this is a noop.
@@ -1141,7 +1141,7 @@ declare module 'log' {
 /**
  * Query, add, and remove parameters from the query string.
  */
-declare module 'url-search-params' {
+declare module "url-search-params" {
     export default class URLSearchParams {
         /**
          * Create a new URLSearchParams object.
@@ -1203,7 +1203,7 @@ declare module 'url-search-params' {
     }
 }
 
-declare module 'encoding' {
+declare module "encoding" {
     /**
      * The atob() function takes a string of base64 encoded data and returns a decoded ASCII binary string.
      * @param encodedData Input data that needs to be decoded
@@ -1223,7 +1223,7 @@ declare module 'encoding' {
          * @param encodedData Input data that needs to be decoded.
          * @param outputFormat Optional argument for output format type.
          */
-        decode(encodedData: string, outputFormat?: 'String' | 'Uint8Array'): DecodedValue;
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
     }
 
     const base64: Base64;
@@ -1233,7 +1233,7 @@ declare module 'encoding' {
          * @param encodedData Input data that needs to be decoded.
          * @param outputFormat Optional argument for output format type.
          */
-        decode(encodedData: string, outputFormat?: 'String' | 'Uint8Array'): DecodedValue;
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
     }
 
     const base64url: Base64url;
@@ -1243,7 +1243,7 @@ declare module 'encoding' {
          * @param encodedData Input data that needs to be decoded.
          * @param outputFormat Optional argument for output format type.
          */
-        decode(encodedData: string, outputFormat?: 'String' | 'Uint8Array'): DecodedValue;
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
     }
 
     const base16: Base16;
@@ -1335,7 +1335,7 @@ declare module 'encoding' {
  * The crypto module is available to use in your EdgeWorkers code bundles to expose support for a Javascript crypto API based on the Web Crypto API.
  * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
  */
-declare module 'crypto' {
+declare module "crypto" {
     interface Crypto {
         readonly subtle: SubtleCrypto;
 
@@ -1361,9 +1361,9 @@ declare module 'crypto' {
         | Float32Array
         | Float64Array;
 
-    type Usages = 'encrypt' | 'decrypt' | 'sign' | 'verify' | 'deriveKey' | 'deriveBits' | 'wrapKey' | 'unwrapKey';
+    type Usages = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
 
-    type Format = 'raw' | 'pkcs8' | 'spki' | 'jwk';
+    type Format = "raw" | "pkcs8" | "spki" | "jwk";
 
     interface CryptoKey {
         readonly type: string;
@@ -1486,8 +1486,8 @@ declare module 'crypto' {
  * the parser encounters an element matching the selector, enabling modification
  * of tag attributes, insertion of new content around the element, or removal of the element.
  */
-declare module 'html-rewriter' {
-    import { ReadableStream, WritableStream } from 'streams';
+declare module "html-rewriter" {
+    import { ReadableStream, WritableStream } from "streams";
 
     class HtmlRewritingStream implements GenericHtmlRewritingStream {
         readonly writable: WritableStream;

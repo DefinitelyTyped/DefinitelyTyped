@@ -1,4 +1,4 @@
-import { Config, Disposable, Project } from '../index';
+import { Config, Disposable, Project } from "../index";
 
 /** Represents the underlying git operations performed by Atom. */
 export class GitRepository {
@@ -40,7 +40,7 @@ export class GitRepository {
 
     // Repository Details
     /** A string indicating the type of version control system used by this repository. */
-    getType(): 'git';
+    getType(): "git";
 
     /** Returns the string path of the repository. */
     getPath(): string;

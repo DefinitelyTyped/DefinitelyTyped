@@ -1,6 +1,6 @@
-import { AudioManager as AM, Deferred, Dom, Map, Scene, SimpleText, Tile } from 'athenajs';
-import FlashLines from './flash_lines';
-import Shape from './shape';
+import { AudioManager as AM, Deferred, Dom, Map, Scene, SimpleText, Tile } from "athenajs";
+import FlashLines from "./flash_lines";
+import Shape from "./shape";
 
 // size constants
 const MAP_ROWS = 22;
@@ -53,49 +53,49 @@ class Grid extends Scene {
         super({
             resources: [
                 {
-                    id: 'tiles',
-                    type: 'image',
-                    src: 'img/tetris_tiles.png',
+                    id: "tiles",
+                    type: "image",
+                    src: "img/tetris_tiles.png",
                 },
                 {
-                    id: 'gameover',
-                    type: 'audio',
-                    src: 'sound/gameover.mp3',
+                    id: "gameover",
+                    type: "audio",
+                    src: "sound/gameover.mp3",
                 },
                 {
-                    id: 'ground',
-                    type: 'audio',
-                    src: 'sound/ground.mp3',
+                    id: "ground",
+                    type: "audio",
+                    src: "sound/ground.mp3",
                 },
                 {
-                    id: 'level',
-                    type: 'audio',
-                    src: 'sound/level.mp3',
+                    id: "level",
+                    type: "audio",
+                    src: "sound/level.mp3",
                 },
                 {
-                    id: 'lines',
-                    type: 'audio',
-                    src: 'sound/lines.mp3',
+                    id: "lines",
+                    type: "audio",
+                    src: "sound/lines.mp3",
                 },
                 {
-                    id: 'lines_tetris',
-                    type: 'audio',
-                    src: 'sound/lines_tetris.mp3',
+                    id: "lines_tetris",
+                    type: "audio",
+                    src: "sound/lines_tetris.mp3",
                 },
                 {
-                    id: 'move',
-                    type: 'audio',
-                    src: 'sound/move.mp3',
+                    id: "move",
+                    type: "audio",
+                    src: "sound/move.mp3",
                 },
                 {
-                    id: 'pause',
-                    type: 'audio',
-                    src: 'sound/pause.mp3',
+                    id: "pause",
+                    type: "audio",
+                    src: "sound/pause.mp3",
                 },
                 {
-                    id: 'rotate',
-                    type: 'audio',
-                    src: 'sound/rotate.mp3',
+                    id: "rotate",
+                    type: "audio",
+                    src: "sound/rotate.mp3",
                 },
             ],
         });
@@ -108,7 +108,7 @@ class Grid extends Scene {
         this.scoreTable = [40, 100, 300, 1200];
 
         // we only need to catch the 'ground' event from the 'shape' element
-        this.bindEvents('shape:ground');
+        this.bindEvents("shape:ground");
     }
 
     /**
@@ -151,7 +151,7 @@ class Grid extends Scene {
     createMap() {
         // first create the map with an empty buffer
         const map = new Map({
-            src: 'tiles',
+            src: "tiles",
             tileWidth: TILE_WIDTH,
             tileHeight: TILE_WIDTH,
             width: TILE_WIDTH * MAP_COLS,
@@ -185,56 +185,56 @@ class Grid extends Scene {
      * Generates the tile sprite that will be moved by the player
      */
     createShapes() {
-        this.shape = new Shape('shape', {
+        this.shape = new Shape("shape", {
             data: {
                 speed: this.timing,
             },
         });
 
-        this.nextShape = new Shape('nextShape', {
+        this.nextShape = new Shape("nextShape", {
             x: 610,
             y: 110,
         });
 
         this.nextShape.movable = false;
-        this.nextString = new SimpleText('nextString', {
-            text: 'Next',
+        this.nextString = new SimpleText("nextString", {
+            text: "Next",
             x: 620,
             y: 70,
         });
 
-        this.scoreString = new SimpleText('scoreString', {
-            text: 'Score: 0',
+        this.scoreString = new SimpleText("scoreString", {
+            text: "Score: 0",
             x: 50,
             y: 70,
         });
 
-        this.linesString = new SimpleText('linesString', {
-            text: 'Lines: 0',
+        this.linesString = new SimpleText("linesString", {
+            text: "Lines: 0",
             x: 50,
             y: 120,
         });
 
-        this.levelString = new SimpleText('levelString', {
-            text: 'Level: 0',
+        this.levelString = new SimpleText("levelString", {
+            text: "Level: 0",
             x: 50,
             y: 170,
         });
 
-        this.pauseString = new SimpleText('pauseString', {
-            text: 'Pause',
+        this.pauseString = new SimpleText("pauseString", {
+            text: "Pause",
             x: 380,
             y: 550,
             visible: false,
         });
 
-        this.controls = new SimpleText('controlsString', {
-            text: 'Controls:\narrow keys',
+        this.controls = new SimpleText("controlsString", {
+            text: "Controls:\narrow keys",
             x: 50,
             y: 220,
         });
 
-        this.flashLines = new FlashLines('flash', {
+        this.flashLines = new FlashLines("flash", {
             x: (TOTAL_WIDTH - TILE_WIDTH * MAP_COLS) / 2 + TILE_WIDTH,
             y: (TOTAL_HEIGHT - TILE_HEIGHT * MAP_ROWS) / 2,
             width: TILE_WIDTH * (MAP_COLS - 2),
@@ -255,7 +255,7 @@ class Grid extends Scene {
     start() {
         const map = this.map;
 
-        this.setBackgroundImage('img/background.png');
+        this.setBackgroundImage("img/background.png");
 
         // center map
         this.setMap(
@@ -290,9 +290,9 @@ class Grid extends Scene {
 
         this.shape.setRandomShape();
         this.nextShape.setRandomShape();
-        this.linesString.setText('Lines: ' + this.lines);
-        this.scoreString.setText('Score: ' + this.score);
-        this.levelString.setText('Level: ' + this.level);
+        this.linesString.setText("Lines: " + this.lines);
+        this.scoreString.setText("Score: " + this.score);
+        this.levelString.setText("Level: " + this.level);
 
         this.shape.movable = true;
         this.shape.behavior.reset();
@@ -302,8 +302,8 @@ class Grid extends Scene {
      * Called on game over, simply displays the score in an alert box and restarts the game
      */
     gameover() {
-        AM.play('gameover');
-        alert('game over!' + this.score);
+        AM.play("gameover");
+        alert("game over!" + this.score);
         this.reset();
     }
 
@@ -315,7 +315,7 @@ class Grid extends Scene {
         const shape = this.shape;
 
         switch (event.type) {
-            case 'shape:ground':
+            case "shape:ground":
                 // update the map with the new shape
                 this.updateMap();
                 // check for lines to remove
@@ -366,7 +366,7 @@ class Grid extends Scene {
      * startLine up to startLine + height
      */
     getLinesToRemove(startLine: number, height: number): number[] {
-        console.log('[Grid] getLinesToRemove()');
+        console.log("[Grid] getLinesToRemove()");
         const map = this.map;
         const lines: number[] = [];
         let lastLine = startLine + height - 1;
@@ -393,10 +393,10 @@ class Grid extends Scene {
     updateLevel() {
         const oldLevel = this.level;
         this.level = Math.floor(this.lines / 10);
-        this.levelString.setText('Level: ' + this.level);
+        this.levelString.setText("Level: " + this.level);
         this.timing = START_TIMING - this.level * LEVEL_TIMING;
-        this.shape.data['speed'] = this.timing;
-        oldLevel !== this.level && AM.play('level');
+        this.shape.data["speed"] = this.timing;
+        oldLevel !== this.level && AM.play("level");
     }
 
     /**
@@ -405,13 +405,13 @@ class Grid extends Scene {
     increaseScore(lines: number) {
         this.score += this.scoreTable[lines - 1] + this.level * this.scoreTable[lines - 1];
         this.lines += lines;
-        this.linesString.setText('Lines: ' + this.lines);
-        this.scoreString.setText('Score: ' + this.score);
+        this.linesString.setText("Lines: " + this.lines);
+        this.scoreString.setText("Score: " + this.score);
 
         if (lines === 4) {
-            AM.play('lines_tetris');
+            AM.play("lines_tetris");
         } else {
-            AM.play('lines');
+            AM.play("lines");
         }
     }
 
@@ -444,9 +444,9 @@ class Grid extends Scene {
                 map.updateTile(map.numCols - 1, i, 8, Tile.TYPE.WALL);
             }
 
-            Dom('.athena-game').addClass('shake-vertical shake-constant');
+            Dom(".athena-game").addClass("shake-vertical shake-constant");
             setTimeout(() => {
-                Dom('.athena-game').removeClass('shake-vertical shake-constant');
+                Dom(".athena-game").removeClass("shake-vertical shake-constant");
             }, 300);
 
             this.increaseScore(lines.length);
@@ -456,7 +456,7 @@ class Grid extends Scene {
 
     pause(isRunning: boolean) {
         this.pauseString.visible = !isRunning;
-        AM.play('pause');
+        AM.play("pause");
     }
 }
 

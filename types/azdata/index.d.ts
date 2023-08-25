@@ -17,8 +17,8 @@
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
-declare module 'azdata' {
-    import * as vscode from 'vscode';
+declare module "azdata" {
+    import * as vscode from "vscode";
 
     /**
      * The version of the application.
@@ -30,9 +30,9 @@ declare module 'azdata' {
          * Well-known app quality values
          */
         export enum AppQuality {
-            stable = 'stable',
-            insider = 'insider',
-            dev = 'dev',
+            stable = "stable",
+            insider = "insider",
+            dev = "dev",
         }
 
         /**
@@ -129,27 +129,27 @@ declare module 'azdata' {
             /**
              * Username and password
              */
-            SqlLogin = 'SqlLogin',
+            SqlLogin = "SqlLogin",
             /**
              * Windows Authentication
              */
-            Integrated = 'Integrated',
+            Integrated = "Integrated",
             /**
              * Azure Active Directory - Universal with MFA support
              */
-            AzureMFA = 'AzureMFA',
+            AzureMFA = "AzureMFA",
             /**
              * Azure Active Directory - Password
              */
-            AzureMFAAndUser = 'AzureMFAAndUser',
+            AzureMFAAndUser = "AzureMFAAndUser",
             /**
              * Datacenter Security Token Service Authentication
              */
-            DSTSAuth = 'dstsAuth',
+            DSTSAuth = "dstsAuth",
             /**
              * No authentication required
              */
-            None = 'None',
+            None = "None",
         }
 
         /**
@@ -266,9 +266,9 @@ declare module 'azdata' {
          * Supported connection event types
          */
         export type ConnectionEventType =
-            | 'onConnect'
-            | 'onDisconnect'
-            | 'onConnectionChanged';
+            | "onConnect"
+            | "onDisconnect"
+            | "onConnectionChanged";
 
         /**
          * Connection Event Lister
@@ -672,23 +672,23 @@ declare module 'azdata' {
     }
 
     export enum ServiceOptionType {
-        string = 'string',
-        multistring = 'multistring',
-        password = 'password',
-        number = 'number',
-        category = 'category',
-        boolean = 'boolean',
-        object = 'object',
+        string = "string",
+        multistring = "multistring",
+        password = "password",
+        number = "number",
+        category = "category",
+        boolean = "boolean",
+        object = "object",
     }
 
     export enum ConnectionOptionSpecialType {
-        connectionName = 'connectionName',
-        serverName = 'serverName',
-        databaseName = 'databaseName',
-        authType = 'authType',
-        userName = 'userName',
-        password = 'password',
-        appName = 'appName',
+        connectionName = "connectionName",
+        serverName = "serverName",
+        databaseName = "databaseName",
+        authType = "authType",
+        userName = "userName",
+        password = "password",
+        appName = "appName",
     }
 
     export interface CategoryValue {
@@ -1134,16 +1134,16 @@ declare module 'azdata' {
      * Defines all the supported visualization types
      */
     export type VisualizationType =
-        | 'bar'
-        | 'count'
-        | 'doughnut'
-        | 'horizontalBar'
-        | 'image'
-        | 'line'
-        | 'pie'
-        | 'scatter'
-        | 'table'
-        | 'timeSeries';
+        | "bar"
+        | "count"
+        | "doughnut"
+        | "horizontalBar"
+        | "image"
+        | "line"
+        | "pie"
+        | "scatter"
+        | "table"
+        | "timeSeries";
 
     /**
      * Defines the configuration options for visualization
@@ -3057,8 +3057,8 @@ declare module 'azdata' {
     }
 
     export enum ExtensionNodeType {
-        Server = 'Server',
-        Database = 'Database',
+        Server = "Server",
+        Database = "Database",
     }
 
     export class TreeItem extends vscode.TreeItem {
@@ -3432,85 +3432,85 @@ declare module 'azdata' {
      * Valid values for the align-items CSS property
      */
     export type AlignItemsType =
-        | 'normal'
-        | 'stretch'
-        | 'center'
-        | 'start'
-        | 'end'
-        | 'flex-start'
-        | 'flex-end'
-        | 'baseline'
-        | 'first baseline'
-        | 'last baseline'
-        | 'safe center'
-        | 'unsafe center'
-        | 'inherit'
-        | 'initial'
-        | 'unset';
+        | "normal"
+        | "stretch"
+        | "center"
+        | "start"
+        | "end"
+        | "flex-start"
+        | "flex-end"
+        | "baseline"
+        | "first baseline"
+        | "last baseline"
+        | "safe center"
+        | "unsafe center"
+        | "inherit"
+        | "initial"
+        | "unset";
 
     /**
      * Valid values for the justify-content CSS property
      */
     export type JustifyContentType =
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'initial'
-        | 'inherit';
+        | "flex-start"
+        | "flex-end"
+        | "center"
+        | "space-between"
+        | "space-around"
+        | "initial"
+        | "inherit";
     /**
      * Valid values for the align-content CSS property
      */
     export type AlignContentType =
-        | 'stretch'
-        | 'center'
-        | 'flex-start'
-        | 'flex-end'
-        | 'space-between'
-        | 'space-around'
-        | 'initial'
-        | 'inherit';
+        | "stretch"
+        | "center"
+        | "flex-start"
+        | "flex-end"
+        | "space-between"
+        | "space-around"
+        | "initial"
+        | "inherit";
     /**
      * Valid values for flex-wrap CSS property
      */
-    export type FlexWrapType = 'nowrap' | 'wrap' | 'wrap-reverse';
+    export type FlexWrapType = "nowrap" | "wrap" | "wrap-reverse";
     /**
      * Valid values for the text-align CSS property
      */
-    export type TextAlignType = 'left' | 'right' | 'center' | 'justify' | 'initial' | 'inherit';
+    export type TextAlignType = "left" | "right" | "center" | "justify" | "initial" | "inherit";
     /**
      * Valid values for the position CSS property
      */
-    export type PositionType = 'static' | 'absolute' | 'fixed' | 'relative' | 'sticky' | 'initial' | 'inherit';
+    export type PositionType = "static" | "absolute" | "fixed" | "relative" | "sticky" | "initial" | "inherit";
     /**
      * Valid values for the display CSS property
      */
     export type DisplayType =
-        | 'inline'
-        | 'block'
-        | 'contents'
-        | 'flex'
-        | 'grid'
-        | 'inline-block'
-        | 'inline-flex'
-        | 'inline-grid'
-        | 'inline-table'
-        | 'list-item'
-        | 'run-in'
-        | 'table'
-        | 'table-caption'
-        | 'table-column-group'
-        | 'table-header-group'
-        | 'table-footer-group'
-        | 'table-row-group'
-        | 'table-cell'
-        | 'table-column'
-        | 'table-row'
-        | 'none'
-        | 'initial'
-        | 'inherit'
-        | '';
+        | "inline"
+        | "block"
+        | "contents"
+        | "flex"
+        | "grid"
+        | "inline-block"
+        | "inline-flex"
+        | "inline-grid"
+        | "inline-table"
+        | "list-item"
+        | "run-in"
+        | "table"
+        | "table-caption"
+        | "table-column-group"
+        | "table-header-group"
+        | "table-footer-group"
+        | "table-row-group"
+        | "table-cell"
+        | "table-column"
+        | "table-row"
+        | "none"
+        | "initial"
+        | "inherit"
+        | "";
 
     /**
      * Set of CSS key-value pairs
@@ -3666,8 +3666,8 @@ declare module 'azdata' {
     }
 
     export enum Orientation {
-        Horizontal = 'horizontal',
-        Vertical = 'vertical',
+        Horizontal = "horizontal",
+        Vertical = "vertical",
     }
 
     export interface ToolbarLayout {
@@ -3707,13 +3707,13 @@ declare module 'azdata' {
     }
 
     export enum CardType {
-        VerticalButton = 'VerticalButton',
-        Details = 'Details',
-        ListItem = 'ListItem',
+        VerticalButton = "VerticalButton",
+        Details = "Details",
+        ListItem = "ListItem",
         /**
          * Card with the icon as a background image
          */
-        Image = 'Image',
+        Image = "Image",
     }
 
     /**
@@ -3742,23 +3742,23 @@ declare module 'azdata' {
         label: string;
         value?: string | undefined;
         tooltip?: string | undefined;
-        fontWeight?: 'normal' | 'bold' | undefined;
+        fontWeight?: "normal" | "bold" | undefined;
     }
 
     export type InputBoxInputType =
-        | 'color'
-        | 'date'
-        | 'datetime-local'
-        | 'email'
-        | 'month'
-        | 'number'
-        | 'password'
-        | 'range'
-        | 'search'
-        | 'text'
-        | 'time'
-        | 'url'
-        | 'week';
+        | "color"
+        | "date"
+        | "datetime-local"
+        | "email"
+        | "month"
+        | "number"
+        | "password"
+        | "range"
+        | "search"
+        | "text"
+        | "time"
+        | "url"
+        | "week";
 
     export interface ComponentProperties {
         height?: number | string | undefined;
@@ -3833,7 +3833,7 @@ declare module 'azdata' {
     /**
      * Supported values for aria-live accessibility attribute
      */
-    export type AriaLiveValue = 'polite' | 'assertive' | 'off';
+    export type AriaLiveValue = "polite" | "assertive" | "off";
 
     export interface InputBoxProperties extends ComponentProperties {
         value?: string | undefined;
@@ -3969,12 +3969,12 @@ declare module 'azdata' {
      * The type of control of a declarative table column
      */
     export enum DeclarativeDataType {
-        string = 'string',
-        category = 'category',
-        boolean = 'boolean',
-        editableCategory = 'editableCategory',
-        component = 'component',
-        menu = 'menu',
+        string = "string",
+        category = "category",
+        boolean = "boolean",
+        editableCategory = "editableCategory",
+        component = "component",
+        menu = "menu",
     }
 
     /**
@@ -4000,10 +4000,10 @@ declare module 'azdata' {
      * The type of text this is - used to determine display color and how the text is displayed
      */
     export enum TextType {
-        Normal = 'Normal',
-        Error = 'Error',
-        UnorderedList = 'UnorderedList',
-        OrderedList = 'OrderedList',
+        Normal = "Normal",
+        Error = "Error",
+        UnorderedList = "UnorderedList",
+        OrderedList = "OrderedList",
     }
 
     export interface TextComponentProperties extends ComponentProperties, TitledComponentProperties {
@@ -4244,15 +4244,15 @@ declare module 'azdata' {
         /**
          * Opens up the File Picker dialog when clicked
          */
-        File = 'File',
+        File = "File",
         /**
          * Normal button with no special behavior
          */
-        Normal = 'Normal',
+        Normal = "Normal",
         /**
          * Button that displays additional information when hovered over
          */
-        Informational = 'Informational',
+        Informational = "Informational",
     }
 
     export interface ButtonProperties extends ComponentWithIconProperties {
@@ -4566,7 +4566,7 @@ declare module 'azdata' {
      */
     export interface InfoBoxComponent extends Component, InfoBoxComponentProperties {}
 
-    export type InfoBoxStyle = 'information' | 'warning' | 'error' | 'success';
+    export type InfoBoxStyle = "information" | "warning" | "error" | "success";
 
     /**
      * Properties for configuring a InfoBoxComponent
@@ -4702,7 +4702,7 @@ declare module 'azdata' {
         /**
          * Position of the icon. Default value is top.
          */
-        iconPosition?: 'top' | 'left';
+        iconPosition?: "top" | "left";
     }
 
     /**
@@ -4815,8 +4815,8 @@ declare module 'azdata' {
      * Defines the tab orientation of TabbedPanelComponent
      */
     export enum TabOrientation {
-        Vertical = 'vertical',
-        Horizontal = 'horizontal',
+        Vertical = "vertical",
+        Horizontal = "horizontal",
     }
 
     /**
@@ -5092,7 +5092,7 @@ declare module 'azdata' {
         /**
          * The width of a dialog, either from a predetermined size list or a specific size (such as px)
          */
-        export type DialogWidth = 'narrow' | 'medium' | 'wide' | number | string;
+        export type DialogWidth = "narrow" | "medium" | "wide" | number | string;
 
         /**
          * A message shown in a dialog. If the level is not set it defaults to error.
@@ -5129,19 +5129,19 @@ declare module 'azdata' {
         /**
          * The reason that the dialog was closed
          */
-        export type CloseReason = 'close' | 'cancel' | 'ok';
+        export type CloseReason = "close" | "cancel" | "ok";
         /**
          * These dialog styles affect how the dialog displays in the application.
          * normal: Positioned top and centered.
          * flyout (default): Positioned full screen height, opens from the right side of the application.
          * callout: Opens below or beside parent element, contains footer section with buttons.
          */
-        export type DialogStyle = 'normal' | 'flyout' | 'callout';
+        export type DialogStyle = "normal" | "flyout" | "callout";
 
         /**
          * Where to position the dialog relative to the parent element
          */
-        export type DialogPosition = 'left' | 'below';
+        export type DialogPosition = "left" | "below";
 
         /**
          * The p
@@ -5316,7 +5316,7 @@ declare module 'azdata' {
             secondary?: boolean;
         }
 
-        export type DialogButtonPosition = 'left' | 'right';
+        export type DialogButtonPosition = "left" | "right";
 
         export interface WizardPageChangeInfo {
             /**
@@ -5497,11 +5497,11 @@ declare module 'azdata' {
      */
     export namespace queryeditor {
         export type QueryEventType =
-            | 'queryStart'
-            | 'queryUpdate'
-            | 'queryStop'
-            | 'executionPlan'
-            | 'visualize';
+            | "queryStart"
+            | "queryUpdate"
+            | "queryStop"
+            | "executionPlan"
+            | "visualize";
 
         /**
          * A message sent during the execution of a query
@@ -5703,23 +5703,23 @@ declare module 'azdata' {
     }
 
     export enum DataProviderType {
-        ConnectionProvider = 'ConnectionProvider',
-        BackupProvider = 'BackupProvider',
-        RestoreProvider = 'RestoreProvider',
-        ScriptingProvider = 'ScriptingProvider',
-        ObjectExplorerProvider = 'ObjectExplorerProvider',
-        TaskServicesProvider = 'TaskServicesProvider',
-        FileBrowserProvider = 'FileBrowserProvider',
-        ProfilerProvider = 'ProfilerProvider',
-        MetadataProvider = 'MetadataProvider',
-        QueryProvider = 'QueryProvider',
-        AdminServicesProvider = 'AdminServicesProvider',
-        AgentServicesProvider = 'AgentServicesProvider',
-        CapabilitiesProvider = 'CapabilitiesProvider',
-        ObjectExplorerNodeProvider = 'ObjectExplorerNodeProvider',
-        IconProvider = 'IconProvider',
-        SerializationProvider = 'SerializationProvider',
-        SqlAssessmentServicesProvider = 'SqlAssessmentServicesProvider',
+        ConnectionProvider = "ConnectionProvider",
+        BackupProvider = "BackupProvider",
+        RestoreProvider = "RestoreProvider",
+        ScriptingProvider = "ScriptingProvider",
+        ObjectExplorerProvider = "ObjectExplorerProvider",
+        TaskServicesProvider = "TaskServicesProvider",
+        FileBrowserProvider = "FileBrowserProvider",
+        ProfilerProvider = "ProfilerProvider",
+        MetadataProvider = "MetadataProvider",
+        QueryProvider = "QueryProvider",
+        AdminServicesProvider = "AdminServicesProvider",
+        AgentServicesProvider = "AgentServicesProvider",
+        CapabilitiesProvider = "CapabilitiesProvider",
+        ObjectExplorerNodeProvider = "ObjectExplorerNodeProvider",
+        IconProvider = "IconProvider",
+        SerializationProvider = "SerializationProvider",
+        SqlAssessmentServicesProvider = "SqlAssessmentServicesProvider",
     }
 
     /**
@@ -6295,7 +6295,7 @@ declare module 'azdata' {
             outputs?: ICellOutput[] | undefined;
         }
 
-        export type CellType = 'code' | 'markdown' | 'raw';
+        export type CellType = "code" | "markdown" | "raw";
 
         export interface ICellMetadata {
             language?: string | undefined;
@@ -6315,7 +6315,7 @@ declare module 'azdata' {
         /**
          * An alias for a stream type.
          */
-        export type StreamType = 'stdout' | 'stderr';
+        export type StreamType = "stdout" | "stderr";
 
         /**
          * A multiline string.
@@ -6323,7 +6323,7 @@ declare module 'azdata' {
         export type MultilineString = string | string[];
 
         export interface IStreamResult extends ICellOutput {
-            output_type: 'stream';
+            output_type: "stream";
             /**
              * Stream output field defining the stream name, for example stdout
              */
@@ -6346,16 +6346,16 @@ declare module 'azdata' {
             data: DisplayResultData;
         }
         export interface IDisplayData extends IDisplayResult {
-            output_type: 'display_data';
+            output_type: "display_data";
         }
         export interface IUpdateDisplayData extends IDisplayResult {
-            output_type: 'update_display_data';
+            output_type: "update_display_data";
         }
         export interface IExecuteResult extends IDisplayResult {
             /**
              * Type of cell output.
              */
-            output_type: 'execute_result';
+            output_type: "execute_result";
             /**
              * Number of times the cell was executed
              */
@@ -6365,7 +6365,7 @@ declare module 'azdata' {
             /**
              * Type of cell output.
              */
-            output_type: 'error';
+            output_type: "error";
             /**
              * Exception name
              */
@@ -6381,11 +6381,11 @@ declare module 'azdata' {
         }
 
         export type OutputTypeName =
-            | 'execute_result'
-            | 'display_data'
-            | 'stream'
-            | 'error'
-            | 'update_display_data';
+            | "execute_result"
+            | "display_data"
+            | "stream"
+            | "error"
+            | "update_display_data";
 
         export type Output = IDisplayData | IUpdateDisplayData | IExecuteResult | IErrorResult | IStreamResult;
 
@@ -6639,7 +6639,7 @@ declare module 'azdata' {
             cursor_start: number;
             cursor_end: number;
             metadata: any;
-            status: 'ok' | 'error';
+            status: "ok" | "error";
         }
         /**
          * A `'complete_reply'` message on the `'stream'` channel.
@@ -6656,14 +6656,14 @@ declare module 'azdata' {
          * The valid Kernel status states.
          */
         export type KernelStatus =
-            | 'unknown'
-            | 'starting'
-            | 'reconnecting'
-            | 'idle'
-            | 'busy'
-            | 'restarting'
-            | 'dead'
-            | 'connected';
+            | "unknown"
+            | "starting"
+            | "reconnecting"
+            | "idle"
+            | "busy"
+            | "restarting"
+            | "dead"
+            | "connected";
 
         /**
          * An arguments object for the kernel changed event.
@@ -6792,14 +6792,14 @@ declare module 'azdata' {
          * See [Messaging in Jupyter](https://jupyter-client.readthedocs.io/en/latest/messaging.html#execution-results).
          */
         export interface IExecuteReply {
-            status: 'ok' | 'error' | 'abort';
+            status: "ok" | "error" | "abort";
             execution_count: number | null | undefined;
         }
 
         /**
          * The valid channel names.
          */
-        export type Channel = 'shell' | 'iopub' | 'stdin' | 'execute_reply';
+        export type Channel = "shell" | "iopub" | "stdin" | "execute_reply";
 
         /**
          * Kernel message header content.
@@ -6831,21 +6831,21 @@ declare module 'azdata' {
          * A kernel message on the `'shell'` channel.
          */
         export interface IShellMessage extends IMessage {
-            channel: 'shell';
+            channel: "shell";
         }
 
         /**
          * A kernel message on the `'iopub'` channel.
          */
         export interface IIOPubMessage extends IMessage {
-            channel: 'iopub';
+            channel: "iopub";
         }
 
         /**
          * A kernel message on the `'stdin'` channel.
          */
         export interface IStdinMessage extends IMessage {
-            channel: 'stdin';
+            channel: "stdin";
             content: {
                 prompt: string;
                 password: boolean;

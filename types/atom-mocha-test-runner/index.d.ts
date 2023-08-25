@@ -6,7 +6,7 @@
 
 /// <reference types="mocha" />
 
-import { TestRunner } from 'atom';
+import { TestRunner } from "atom";
 
 interface AtomMochaOptions {
     /** Which reporter to use on the terminal. */

@@ -1,11 +1,11 @@
-import LexerAction from '../action/LexerAction';
-import IntervalSet from '../misc/IntervalSet';
-import ATNState from '../state/ATNState';
-import BasicState from '../state/BasicState';
-import StarLoopEntryState from '../state/StarLoopEntryState';
-import Transition from '../transition/Transition';
-import ATN from './ATN';
-import ATNDeserializationOptions from './ATNDeserializationOptions';
+import LexerAction from "../action/LexerAction";
+import IntervalSet from "../misc/IntervalSet";
+import ATNState from "../state/ATNState";
+import BasicState from "../state/BasicState";
+import StarLoopEntryState from "../state/StarLoopEntryState";
+import Transition from "../transition/Transition";
+import ATN from "./ATN";
+import ATNDeserializationOptions from "./ATNDeserializationOptions";
 
 export default class ATNDeserializer {
     deserializationOptions: ATNDeserializationOptions;

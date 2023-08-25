@@ -1,7 +1,7 @@
 /**
  * Created by shearerbeard on 6/28/15.
  */
-import Alt = require('alt');
+import Alt = require("alt");
 
 // New alt instance
 var alt = new Alt();
@@ -40,7 +40,7 @@ class AbstractStoreModel<S> implements AltJS.StoreModel<S> {
 class GenerateActionsClass extends AbstractActions {
     constructor(config: AltJS.Alt) {
         super(config);
-        this.generateActions('notifyTest');
+        this.generateActions("notifyTest");
     }
 }
 
@@ -73,15 +73,15 @@ var testSource: AltJS.Source = {
                 return new Promise<string>((res: any, rej: any) => {
                     setTimeout(() => {
                         if (!!true) {
-                            res('stuff');
+                            res("stuff");
                         } else {
-                            rej('Things have broken');
+                            rej("Things have broken");
                         }
                     }, 250);
                 });
             },
             local() {
-                return 'local';
+                return "local";
             },
             success: explicitActions.success,
             error: explicitActions.error,
@@ -91,7 +91,7 @@ var testSource: AltJS.Source = {
 };
 
 class TestStore extends AbstractStoreModel<AltTestState> implements AltTestState {
-    hello: string = 'world';
+    hello: string = "world";
     constructor() {
         super();
         this.bindAction(generatedActions.notifyTest, this.onTest);
@@ -110,7 +110,7 @@ class TestStore extends AbstractStoreModel<AltTestState> implements AltTestState
     }
 
     split(): string[] {
-        return this.hello.split('');
+        return this.hello.split("");
     }
 }
 
@@ -133,7 +133,7 @@ testStore.unlisten(testCallback);
 var name: string = testStore.getState().hello;
 var nameChars: Array<string> = testStore.split();
 
-generatedActions.notifyTest('types');
-explicitActions.doTest('more types');
+generatedActions.notifyTest("types");
+explicitActions.doTest("more types");
 
 export var result = testStore.getState();

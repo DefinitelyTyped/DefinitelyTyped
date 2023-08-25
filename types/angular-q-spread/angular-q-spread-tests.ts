@@ -11,7 +11,7 @@ function TestCtrl($scope: IScope, $q: ng.IQService, MyService: IMyService) {
     $scope.name = null;
 
     function firstCallback(firstname: string, lastname: string) {
-        return firstname + ' ' + lastname;
+        return firstname + " " + lastname;
     }
 
     function anotherCallback(fullname: string) {
@@ -19,7 +19,7 @@ function TestCtrl($scope: IScope, $q: ng.IQService, MyService: IMyService) {
     }
 
     function failureCallback(reason: any) {
-        alert('Could not load data: ' + reason);
+        alert("Could not load data: " + reason);
     }
 
     $q
@@ -32,6 +32,6 @@ function TestCtrl($scope: IScope, $q: ng.IQService, MyService: IMyService) {
         .catch(failureCallback);
 }
 
-TestCtrl.$inject = ['$scope', '$q', 'MyService'];
+TestCtrl.$inject = ["$scope", "$q", "MyService"];
 
-angular.module('test').controller('TestCtrl', TestCtrl);
+angular.module("test").controller("TestCtrl", TestCtrl);

@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace Text {
-        type TextAlign = 'left' | 'right' | 'center';
-        type VerticalAlign = 'top' | 'middle' | 'bottom';
+        type TextAlign = "left" | "right" | "center";
+        type VerticalAlign = "top" | "middle" | "bottom";
         interface EventMap<I = Text> extends Marker.EventMap<I> {}
         interface Options extends Marker.Options {
             /**

@@ -1,13 +1,13 @@
-import { Azure } from 'azure-sb';
+import { Azure } from "azure-sb";
 import Callback = Azure.ServiceBus.ResponseCallback;
 import NotificationHubRegistration = Azure.ServiceBus.NotificationHubRegistration;
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
 import NotificationHubInstallation = Azure.ServiceBus.NotificationHubInstallation;
 
-import ApnsService = require('./apnsservice');
-import GcmService = require('./gcmservice');
-import MpnsService = require('./mpnservice');
-import WnsService = require('./wnsservice');
+import ApnsService = require("./apnsservice");
+import GcmService = require("./gcmservice");
+import MpnsService = require("./mpnservice");
+import WnsService = require("./wnsservice");
 
 declare class NotificationHubService {
     constructor(

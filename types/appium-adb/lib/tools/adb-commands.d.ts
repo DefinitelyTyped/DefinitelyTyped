@@ -1,5 +1,5 @@
-import { SubProcess, TeenProcessExecOptions } from 'teen_process';
-import { Log, LogcatOpts } from '../logcat';
+import { SubProcess, TeenProcessExecOptions } from "teen_process";
+import { Log, LogcatOpts } from "../logcat";
 
 export { LogcatOpts };
 

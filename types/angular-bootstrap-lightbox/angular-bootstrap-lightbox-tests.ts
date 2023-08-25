@@ -1,15 +1,15 @@
 var imageList: angular.bootstrap.lightbox.ILightboxImageInfo[] = [];
 imageList.push({
-    url: 'url1',
+    url: "url1",
     width: 100,
     height: 100,
 });
 imageList.push({
-    url: 'url2',
+    url: "url2",
     width: 100,
     height: 100,
-    thumbUrl: 'thumbUrl',
-    caption: 'caption',
+    thumbUrl: "thumbUrl",
+    caption: "caption",
 });
 
 var lightBox: angular.bootstrap.lightbox.ILightbox = <any> {};
@@ -17,7 +17,7 @@ lightBox.openModal(imageList, 0);
 lightBox.openModal(imageList, 0, {});
 
 var provider: angular.bootstrap.lightbox.ILightBoxProvider = <any> {};
-provider.templateUrl = 'templateUrl';
+provider.templateUrl = "templateUrl";
 provider.calculateImageDimensionLimits = (
     dimensions: angular.bootstrap.lightbox.IImageDimensionParameter,
 ): angular.bootstrap.lightbox.IImageDimensionLimits => {

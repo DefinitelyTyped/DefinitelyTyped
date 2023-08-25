@@ -805,15 +805,15 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/service/$filter
      */
     interface IFilterService {
-        (name: 'filter'): IFilterFilter;
-        (name: 'currency'): IFilterCurrency;
-        (name: 'number'): IFilterNumber;
-        (name: 'date'): IFilterDate;
-        (name: 'json'): IFilterJson;
-        (name: 'lowercase'): IFilterLowercase;
-        (name: 'uppercase'): IFilterUppercase;
-        (name: 'limitTo'): IFilterLimitTo;
-        (name: 'orderBy'): IFilterOrderBy;
+        (name: "filter"): IFilterFilter;
+        (name: "currency"): IFilterCurrency;
+        (name: "number"): IFilterNumber;
+        (name: "date"): IFilterDate;
+        (name: "json"): IFilterJson;
+        (name: "lowercase"): IFilterLowercase;
+        (name: "uppercase"): IFilterUppercase;
+        (name: "limitTo"): IFilterLimitTo;
+        (name: "orderBy"): IFilterOrderBy;
         /**
          * Usage:
          * $filter(name);
@@ -1858,7 +1858,7 @@ declare namespace angular {
         config: IRequestConfig;
         statusText: string;
         /** Added in AngularJS 1.6.6 */
-        xhrStatus: 'complete' | 'error' | 'timeout' | 'abort';
+        xhrStatus: "complete" | "error" | "timeout" | "abort";
     }
 
     /** @deprecated The old name of IHttpResponse. Kept for compatibility. */
@@ -2403,7 +2403,7 @@ declare namespace angular {
         templateNamespace?: string | undefined;
         templateUrl?: string | ((tElement: TElement, tAttrs: TAttributes) => string) | undefined;
         terminal?: boolean | undefined;
-        transclude?: boolean | 'element' | { [slot: string]: string } | undefined;
+        transclude?: boolean | "element" | { [slot: string]: string } | undefined;
     }
 
     /**
@@ -2433,33 +2433,33 @@ declare namespace angular {
             annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
-            get(name: '$anchorScroll'): IAnchorScrollService;
-            get(name: '$cacheFactory'): ICacheFactoryService;
-            get(name: '$compile'): ICompileService;
-            get(name: '$controller'): IControllerService;
-            get(name: '$document'): IDocumentService;
-            get(name: '$exceptionHandler'): IExceptionHandlerService;
-            get(name: '$filter'): IFilterService;
-            get(name: '$http'): IHttpService;
-            get(name: '$httpBackend'): IHttpBackendService;
-            get(name: '$httpParamSerializer'): IHttpParamSerializer;
-            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer;
-            get(name: '$interpolate'): IInterpolateService;
-            get(name: '$interval'): IIntervalService;
-            get(name: '$locale'): ILocaleService;
-            get(name: '$location'): ILocationService;
-            get(name: '$log'): ILogService;
-            get(name: '$parse'): IParseService;
-            get(name: '$q'): IQService;
-            get(name: '$rootElement'): IRootElementService;
-            get(name: '$rootScope'): IRootScopeService;
-            get(name: '$sce'): ISCEService;
-            get(name: '$sceDelegate'): ISCEDelegateService;
-            get(name: '$templateCache'): ITemplateCacheService;
-            get(name: '$templateRequest'): ITemplateRequestService;
-            get(name: '$timeout'): ITimeoutService;
-            get(name: '$window'): IWindowService;
-            get<T>(name: '$xhrFactory'): IXhrFactory<T>;
+            get(name: "$anchorScroll"): IAnchorScrollService;
+            get(name: "$cacheFactory"): ICacheFactoryService;
+            get(name: "$compile"): ICompileService;
+            get(name: "$controller"): IControllerService;
+            get(name: "$document"): IDocumentService;
+            get(name: "$exceptionHandler"): IExceptionHandlerService;
+            get(name: "$filter"): IFilterService;
+            get(name: "$http"): IHttpService;
+            get(name: "$httpBackend"): IHttpBackendService;
+            get(name: "$httpParamSerializer"): IHttpParamSerializer;
+            get(name: "$httpParamSerializerJQLike"): IHttpParamSerializer;
+            get(name: "$interpolate"): IInterpolateService;
+            get(name: "$interval"): IIntervalService;
+            get(name: "$locale"): ILocaleService;
+            get(name: "$location"): ILocationService;
+            get(name: "$log"): ILogService;
+            get(name: "$parse"): IParseService;
+            get(name: "$q"): IQService;
+            get(name: "$rootElement"): IRootElementService;
+            get(name: "$rootScope"): IRootScopeService;
+            get(name: "$sce"): ISCEService;
+            get(name: "$sceDelegate"): ISCEDelegateService;
+            get(name: "$templateCache"): ITemplateCacheService;
+            get(name: "$templateRequest"): ITemplateRequestService;
+            get(name: "$timeout"): ITimeoutService;
+            get(name: "$window"): IWindowService;
+            get<T>(name: "$xhrFactory"): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: { new(...args: any[]): T }, locals?: any): T;
             invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;

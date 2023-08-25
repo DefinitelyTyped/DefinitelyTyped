@@ -4,7 +4,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Disposable, TooltipPlacement } from '../index';
+import { Disposable, TooltipPlacement } from "../index";
 
 export declare interface ButtonOptions {
     /** (optional)
@@ -33,7 +33,7 @@ export declare interface ButtonOptions {
      *     iconset: 'ion'
      * ```
      */
-    iconset?: undefined | 'ion' | 'fa' | 'fab' | 'fi' | 'icomoon' | 'devicon' | 'mdi';
+    iconset?: undefined | "ion" | "fa" | "fab" | "fi" | "icomoon" | "devicon" | "mdi";
 
     /** (optional)
      * You can use `text` to:
@@ -122,7 +122,7 @@ export declare interface ButtonOptions {
         } & {
             class?: string;
             placement?: TooltipPlacement | (() => TooltipPlacement);
-            trigger?: 'click' | 'hover' | 'focus' | 'manual';
+            trigger?: "click" | "hover" | "focus" | "manual";
             delay?: { show: number; hide: number };
         });
 

@@ -7,7 +7,7 @@
 //                 Vince Broz <https://github.com/apiology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
 
 declare namespace asana {
     var Client: ClientStatic;
@@ -2976,8 +2976,8 @@ declare namespace asana {
         }
 
         interface ResourceStream<T extends AnonymousResource> {
-            on(command: 'data', callback: (resource: T) => any): void;
-            on(command: 'end' | 'finish' | 'error', callback: () => void): void;
+            on(command: "data", callback: (resource: T) => any): void;
+            on(command: "end" | "finish" | "error", callback: () => void): void;
         }
 
         interface ResourceList<T extends AnonymousResource> {
@@ -3144,12 +3144,12 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'custom_field' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "custom_field" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<CustomFields.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'project' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "project" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Projects.Type>>;
             // typeaheadForWorkspace(
@@ -3159,17 +3159,17 @@ declare namespace asana {
             // ): Promise<ResourceList<Portfolios.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'tag' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "tag" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tags.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'task' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "task" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'user' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "user" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Users.Type>>;
             typeaheadForWorkspace(

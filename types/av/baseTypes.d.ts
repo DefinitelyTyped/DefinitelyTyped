@@ -26,7 +26,7 @@ declare namespace AV {
 
     type BufferFormats = Buffer | TypedArray | ArrayBuffer | BufferList;
 
-    type Encoding = 'ascii' | 'utf8' | 'utf16-be' | 'utf16-le' | 'utf16-bom';
+    type Encoding = "ascii" | "utf8" | "utf16-be" | "utf16-le" | "utf16-bom";
 
     class UnderflowError extends Error {
     }

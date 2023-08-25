@@ -1,9 +1,9 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** A notification to the user containing a message and type. */
 export class Notification {
-    constructor(type: 'warning' | 'info' | 'success', message: string, options?: NotificationOptions);
-    constructor(type: 'fatal' | 'error', message: string, options?: ErrorNotificationOptions);
+    constructor(type: "warning" | "info" | "success", message: string, options?: NotificationOptions);
+    constructor(type: "fatal" | "error", message: string, options?: ErrorNotificationOptions);
 
     // Event Subscription
     /** Invoke the given callback when the notification is dismissed. */

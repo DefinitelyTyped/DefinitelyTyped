@@ -6,11 +6,11 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type gettextCatalog = angular.gettext.gettextCatalog;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace gettext {
         interface gettextCatalog {
             //////////////

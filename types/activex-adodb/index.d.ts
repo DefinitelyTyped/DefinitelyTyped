@@ -597,12 +597,12 @@ declare namespace ADODB {
     }
 
     class Bookmark {
-        private 'ADODB.Bookmark_typekey': Bookmark;
+        private "ADODB.Bookmark_typekey": Bookmark;
         private constructor();
     }
 
     class Command {
-        private 'ADODB.Command_typekey': Command;
+        private "ADODB.Command_typekey": Command;
         private constructor();
 
         /**
@@ -651,7 +651,7 @@ declare namespace ADODB {
     }
 
     class Connection {
-        private 'ADODB.Connection_typekey': Connection;
+        private "ADODB.Connection_typekey": Connection;
         private constructor();
 
         /** Sum of one or more of the values in the **XactAttributeEnum** enum */
@@ -718,7 +718,7 @@ declare namespace ADODB {
     }
 
     class Error {
-        private 'ADODB.Error_typekey': Error;
+        private "ADODB.Error_typekey": Error;
         private constructor();
         readonly Description: string;
         readonly HelpContext: number;
@@ -738,7 +738,7 @@ declare namespace ADODB {
     }
 
     class Field {
-        private 'ADODB.Field_typekey': Field;
+        private "ADODB.Field_typekey": Field;
         private constructor();
         readonly ActualSize: number;
         AppendChunk(Data: any): void;
@@ -790,7 +790,7 @@ declare namespace ADODB {
     }
 
     class Parameter {
-        private 'ADODB.Parameter_typekey': Parameter;
+        private "ADODB.Parameter_typekey": Parameter;
         private constructor();
         AppendChunk(Val: any): void;
 
@@ -823,7 +823,7 @@ declare namespace ADODB {
     }
 
     class Property {
-        private 'ADODB.Property_typekey': Property;
+        private "ADODB.Property_typekey": Property;
         private constructor();
 
         /** Sum of one or more of the values in the **PropertyAttributesEnum** enum */
@@ -834,7 +834,7 @@ declare namespace ADODB {
     }
 
     class Record {
-        private 'ADODB.Record_typekey': Record;
+        private "ADODB.Record_typekey": Record;
         private constructor();
 
         /**
@@ -1079,7 +1079,7 @@ declare namespace ADODB {
     }
 
     class Stream {
-        private 'ADODB.Stream_typekey': Stream;
+        private "ADODB.Stream_typekey": Stream;
         private constructor();
         Cancel(): void;
         Charset: string;
@@ -1129,32 +1129,32 @@ declare namespace ADODB {
 
     namespace EventHelperTypes {
         type Connection_ExecuteComplete_ArgNames = [
-            'RecordsAffected',
-            'pError',
-            'adStatus',
-            'pCommand',
-            'pRecordset',
-            'pConnection',
+            "RecordsAffected",
+            "pError",
+            "adStatus",
+            "pCommand",
+            "pRecordset",
+            "pConnection",
         ];
 
         type Connection_WillConnect_ArgNames = [
-            'ConnectionString',
-            'UserID',
-            'Password',
-            'Options',
-            'adStatus',
-            'pConnection',
+            "ConnectionString",
+            "UserID",
+            "Password",
+            "Options",
+            "adStatus",
+            "pConnection",
         ];
 
         type Connection_WillExecute_ArgNames = [
-            'Source',
-            'CursorType',
-            'LockType',
-            'Options',
-            'adStatus',
-            'pCommand',
-            'pRecordset',
-            'pConnection',
+            "Source",
+            "CursorType",
+            "LockType",
+            "Options",
+            "adStatus",
+            "pCommand",
+            "pRecordset",
+            "pConnection",
         ];
 
         interface Connection_ExecuteComplete_Parameter {
@@ -1191,8 +1191,8 @@ declare namespace ADODB {
 interface ActiveXObject {
     on(
         obj: ADODB.Connection,
-        event: 'BeginTransComplete',
-        argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'],
+        event: "BeginTransComplete",
+        argNames: ["TransactionLevel", "pError", "adStatus", "pConnection"],
         handler: (
             this: ADODB.Connection,
             parameter: {
@@ -1205,8 +1205,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Connection,
-        event: 'CommitTransComplete' | 'ConnectComplete' | 'InfoMessage' | 'RollbackTransComplete',
-        argNames: ['pError', 'adStatus', 'pConnection'],
+        event: "CommitTransComplete" | "ConnectComplete" | "InfoMessage" | "RollbackTransComplete",
+        argNames: ["pError", "adStatus", "pConnection"],
         handler: (
             this: ADODB.Connection,
             parameter: {
@@ -1218,8 +1218,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Connection,
-        event: 'Disconnect',
-        argNames: ['adStatus', 'pConnection'],
+        event: "Disconnect",
+        argNames: ["adStatus", "pConnection"],
         handler: (
             this: ADODB.Connection,
             parameter: { adStatus: ADODB.EventStatusEnum; readonly pConnection: ADODB.Connection },
@@ -1227,7 +1227,7 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Connection,
-        event: 'ExecuteComplete',
+        event: "ExecuteComplete",
         argNames: ADODB.EventHelperTypes.Connection_ExecuteComplete_ArgNames,
         handler: (
             this: ADODB.Connection,
@@ -1236,20 +1236,20 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Connection,
-        event: 'WillConnect',
+        event: "WillConnect",
         argNames: ADODB.EventHelperTypes.Connection_WillConnect_ArgNames,
         handler: (this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillConnect_Parameter) => void,
     ): void;
     on(
         obj: ADODB.Connection,
-        event: 'WillExecute',
+        event: "WillExecute",
         argNames: ADODB.EventHelperTypes.Connection_WillExecute_ArgNames,
         handler: (this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillExecute_Parameter) => void,
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'EndOfRecordset',
-        argNames: ['fMoreData', 'adStatus', 'pRecordset'],
+        event: "EndOfRecordset",
+        argNames: ["fMoreData", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: { fMoreData: boolean; adStatus: ADODB.EventStatusEnum; readonly pRecordset: ADODB.Recordset },
@@ -1257,8 +1257,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'FetchComplete',
-        argNames: ['pError', 'adStatus', 'pRecordset'],
+        event: "FetchComplete",
+        argNames: ["pError", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1270,8 +1270,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'FetchProgress',
-        argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'],
+        event: "FetchProgress",
+        argNames: ["Progress", "MaxProgress", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1284,8 +1284,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'FieldChangeComplete',
-        argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'],
+        event: "FieldChangeComplete",
+        argNames: ["cFields", "Fields", "pError", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1299,8 +1299,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'MoveComplete' | 'RecordsetChangeComplete',
-        argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'],
+        event: "MoveComplete" | "RecordsetChangeComplete",
+        argNames: ["adReason", "pError", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1313,8 +1313,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'RecordChangeComplete',
-        argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'],
+        event: "RecordChangeComplete",
+        argNames: ["adReason", "cRecords", "pError", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1328,8 +1328,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'WillChangeField',
-        argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'],
+        event: "WillChangeField",
+        argNames: ["cFields", "Fields", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1342,8 +1342,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'WillChangeRecord',
-        argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'],
+        event: "WillChangeRecord",
+        argNames: ["adReason", "cRecords", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1356,8 +1356,8 @@ interface ActiveXObject {
     ): void;
     on(
         obj: ADODB.Recordset,
-        event: 'WillChangeRecordset' | 'WillMove',
-        argNames: ['adReason', 'adStatus', 'pRecordset'],
+        event: "WillChangeRecordset" | "WillMove",
+        argNames: ["adReason", "adStatus", "pRecordset"],
         handler: (
             this: ADODB.Recordset,
             parameter: {
@@ -1367,14 +1367,14 @@ interface ActiveXObject {
             },
         ) => void,
     ): void;
-    set(obj: ADODB.Recordset, propertyName: 'Collect', parameterTypes: [any], newValue: any): void;
+    set(obj: ADODB.Recordset, propertyName: "Collect", parameterTypes: [any], newValue: any): void;
 }
 
 interface ActiveXObjectNameMap {
-    'ADODB.Command': ADODB.Command;
-    'ADODB.Connection': ADODB.Connection;
-    'ADODB.Parameter': ADODB.Parameter;
-    'ADODB.Record': ADODB.Record;
-    'ADODB.Recordset': ADODB.Recordset;
-    'ADODB.Stream': ADODB.Stream;
+    "ADODB.Command": ADODB.Command;
+    "ADODB.Connection": ADODB.Connection;
+    "ADODB.Parameter": ADODB.Parameter;
+    "ADODB.Record": ADODB.Record;
+    "ADODB.Recordset": ADODB.Recordset;
+    "ADODB.Stream": ADODB.Stream;
 }

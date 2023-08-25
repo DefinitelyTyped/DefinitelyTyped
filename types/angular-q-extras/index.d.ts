@@ -7,10 +7,10 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
-    type PromiseState = 'fulfilled' | 'rejected';
+declare module "angular" {
+    type PromiseState = "fulfilled" | "rejected";
 
     interface PromiseValue<T> {
         state: PromiseState;

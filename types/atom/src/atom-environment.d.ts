@@ -19,7 +19,7 @@ import {
     ViewRegistry,
     WindowLoadSettings,
     Workspace,
-} from '../index';
+} from "../index";
 
 /**
  *  Atom global for dealing with packages, themes, menus, and the window.
@@ -120,7 +120,7 @@ export interface AtomEnvironment {
      *  Gets the release channel of the Atom application.
      *  Returns the release channel, which can be 'dev', 'nightly', 'beta', or 'stable'.
      */
-    getReleaseChannel(): 'dev' | 'nightly' | 'beta' | 'stable';
+    getReleaseChannel(): "dev" | "nightly" | "beta" | "stable";
 
     /** Returns a boolean that is true if the current version is an official release. */
     isReleasedVersion(): boolean;
@@ -295,7 +295,7 @@ export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
 
 export interface ConfirmationOptions {
     /** The type of the confirmation prompt. */
-    type?: 'none' | 'info' | 'error' | 'question' | 'warning' | undefined;
+    type?: "none" | "info" | "error" | "question" | "warning" | undefined;
 
     /** The text for the buttons. */
     buttons?: ReadonlyArray<string> | undefined;

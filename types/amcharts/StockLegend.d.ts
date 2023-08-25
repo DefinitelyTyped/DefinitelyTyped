@@ -1,4 +1,4 @@
-import AmLegend from './AmLegend';
+import AmLegend from "./AmLegend";
 
 /**
  * StockLegend is a legend of StockPanel.

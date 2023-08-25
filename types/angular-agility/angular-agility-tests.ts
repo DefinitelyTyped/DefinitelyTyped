@@ -1,35 +1,35 @@
 var validIconStrategy: aa.IValidIconStrategy = <aa.IValidIconStrategy> {};
-validIconStrategy.validIcon = '';
-validIconStrategy.invalidIcon = '';
+validIconStrategy.validIcon = "";
+validIconStrategy.invalidIcon = "";
 validIconStrategy.getContainer(<ng.IAugmentedJQueryStatic> {});
 
 var provider: aa.IFormExtensionsProvider = <aa.IFormExtensionsProvider> {};
-provider.defaultLabelStrategy = '';
-provider.defaultFieldGroupStrategy = '';
-provider.defaultValMsgPlacementStrategy = '';
+provider.defaultLabelStrategy = "";
+provider.defaultFieldGroupStrategy = "";
+provider.defaultValMsgPlacementStrategy = "";
 provider.validIconStrategy = validIconStrategy;
-provider.defaultSpinnerClickStrategy = '';
-provider.defaultNotifyTarget = '';
-provider.defaultOnNavigateAwayStrategy = '';
-provider.validationMessages['testName'] = 'testMessages';
-provider.valMsgForTemplate = '';
+provider.defaultSpinnerClickStrategy = "";
+provider.defaultNotifyTarget = "";
+provider.defaultOnNavigateAwayStrategy = "";
+provider.validationMessages["testName"] = "testMessages";
+provider.valMsgForTemplate = "";
 provider.confirmResetStrategy = (): boolean => {
     return false;
 };
-provider.globalSettings['testSetting'] = 'test';
-provider.labelStrategies['testLabelStratgey'] = (
+provider.globalSettings["testSetting"] = "test";
+provider.labelStrategies["testLabelStratgey"] = (
     element: ng.IAugmentedJQueryStatic,
     labelText: string,
     isRequired: boolean,
 ): void => {};
-provider.fieldGroupStrategies['testFieldGroupStratgey'] = (element: ng.IAugmentedJQueryStatic): void => {};
-provider.valMsgPlacementStrategies['testValMsgPlacementStrategy'] = (
+provider.fieldGroupStrategies["testFieldGroupStratgey"] = (element: ng.IAugmentedJQueryStatic): void => {};
+provider.valMsgPlacementStrategies["testValMsgPlacementStrategy"] = (
     formFieldElement: ng.IAugmentedJQueryStatic,
     formName: string,
     formFieldName: string,
 ): void => {};
-provider.spinnerClickStrategies['testSpinnerClickStratgey'] = (element: ng.IAugmentedJQueryStatic): void => {};
-provider.onNavigateAwayStrategies['testOnNavigateAwayStrategy'] = (
+provider.spinnerClickStrategies["testSpinnerClickStratgey"] = (element: ng.IAugmentedJQueryStatic): void => {};
+provider.onNavigateAwayStrategies["testOnNavigateAwayStrategy"] = (
     rootFormScope: ng.IScope,
     rootForm: ng.IAugmentedJQueryStatic,
     $injector: ng.auto.IInjectorService,
@@ -43,49 +43,49 @@ defaults.danger = (message: string, options: any, notifier: any): any => {};
 defaults.error = (message: string, options: any, notifier: any): any => {};
 
 var configWithoutTemplate: aa.INotifyConfig = {
-    name: '',
+    name: "",
     options: <aa.INotifyOptions> {},
     namedDefaults: <aa.INotifyDefaults> {},
 };
 
 var configWithTemplate: aa.INotifyConfig = {
-    name: '',
-    template: '',
-    templateName: '',
+    name: "",
+    template: "",
+    templateName: "",
     options: <aa.INotifyOptions> {},
     namedDefaults: <aa.INotifyDefaults> {},
 };
 
 var notifyOptionsWithoutCssClasses: aa.INotifyOptions = {
-    messageType: '',
+    messageType: "",
     allowHtml: true,
-    message: '',
+    message: "",
 };
 
 var notifyOptionsWithCssClasses: aa.INotifyOptions = {
-    cssClasses: '',
-    messageType: '',
+    cssClasses: "",
+    messageType: "",
     allowHtml: true,
-    message: '',
+    message: "",
 };
 
 var notifyConfigProvider: aa.INotifyConfigProvider = <aa.INotifyConfigProvider> {};
 notifyConfigProvider.notifyConfigs = {};
-notifyConfigProvider.defaultTargetContainerName = '';
-notifyConfigProvider.defaultNotifyConfig = '';
-notifyConfigProvider.addOrUpdateNotifyConfig('', configWithTemplate);
+notifyConfigProvider.defaultTargetContainerName = "";
+notifyConfigProvider.defaultNotifyConfig = "";
+notifyConfigProvider.addOrUpdateNotifyConfig("", configWithTemplate);
 notifyConfigProvider.optionsTransformer(notifyOptionsWithCssClasses, <ng.ISCEService> {});
 
 var fullExternalConfig: aa.IExternalFormValidationConfig = {
-    validations: '',
-    ignore: '',
-    globals: '',
-    resolve: '',
+    validations: "",
+    ignore: "",
+    globals: "",
+    resolve: "",
     resolveFn: (modelValue: string): string => {
-        return '';
+        return "";
     },
 };
 
 var minimalExternalConfig: aa.IExternalFormValidationConfig = {
-    validations: '',
+    validations: "",
 };

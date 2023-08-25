@@ -13,38 +13,38 @@ type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
 declare namespace anime {
     type EasingOptions =
-        | 'linear'
-        | 'easeInQuad'
-        | 'easeInCubic'
-        | 'easeInQuart'
-        | 'easeInQuint'
-        | 'easeInSine'
-        | 'easeInExpo'
-        | 'easeInCirc'
-        | 'easeInBack'
-        | 'easeInElastic'
-        | 'easeInBounce'
-        | 'easeOutQuad'
-        | 'easeOutCubic'
-        | 'easeOutQuart'
-        | 'easeOutQuint'
-        | 'easeOutSine'
-        | 'easeOutExpo'
-        | 'easeOutCirc'
-        | 'easeOutBack'
-        | 'easeOutElastic'
-        | 'easeOutBounce'
-        | 'easeInOutQuad'
-        | 'easeInOutCubic'
-        | 'easeInOutQuart'
-        | 'easeInOutQuint'
-        | 'easeInOutSine'
-        | 'easeInOutExpo'
-        | 'easeInOutCirc'
-        | 'easeInOutBack'
-        | 'easeInOutElastic'
-        | 'easeInOutBounce';
-    type DirectionOptions = 'reverse' | 'alternate' | 'normal';
+        | "linear"
+        | "easeInQuad"
+        | "easeInCubic"
+        | "easeInQuart"
+        | "easeInQuint"
+        | "easeInSine"
+        | "easeInExpo"
+        | "easeInCirc"
+        | "easeInBack"
+        | "easeInElastic"
+        | "easeInBounce"
+        | "easeOutQuad"
+        | "easeOutCubic"
+        | "easeOutQuart"
+        | "easeOutQuint"
+        | "easeOutSine"
+        | "easeOutExpo"
+        | "easeOutCirc"
+        | "easeOutBack"
+        | "easeOutElastic"
+        | "easeOutBounce"
+        | "easeInOutQuad"
+        | "easeInOutCubic"
+        | "easeInOutQuart"
+        | "easeInOutQuint"
+        | "easeInOutSine"
+        | "easeInOutExpo"
+        | "easeInOutCirc"
+        | "easeInOutBack"
+        | "easeInOutElastic"
+        | "easeInOutBounce";
+    type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
         begin?: AnimeCallbackFunction | undefined;
@@ -138,11 +138,11 @@ declare namespace anime {
 
     interface StaggerOptions {
         start?: number | string | undefined;
-        direction?: 'normal' | 'reverse' | undefined;
+        direction?: "normal" | "reverse" | undefined;
         easing?: CustomEasingFunction | string | EasingOptions | undefined;
         grid?: ReadonlyArray<number> | undefined;
-        axis?: 'x' | 'y' | undefined;
-        from?: 'first' | 'last' | 'center' | number | undefined;
+        axis?: "x" | "y" | undefined;
+        from?: "first" | "last" | "center" | number | undefined;
     }
 
     // Helpers

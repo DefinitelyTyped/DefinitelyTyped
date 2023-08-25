@@ -6,7 +6,7 @@
 
 declare namespace AceAjax {
     export interface Delta {
-        action: 'insert' | 'remove';
+        action: "insert" | "remove";
         start: Position;
         end: Position;
         lines: string[];
@@ -34,8 +34,8 @@ declare namespace AceAjax {
     export interface CommandManager {
         byName: CommandMap;
         commands: CommandMap;
-        on(name: 'exec', callback: execEventHandler): Function;
-        on(name: 'afterExec', callback: execEventHandler): Function;
+        on(name: "exec", callback: execEventHandler): Function;
+        on(name: "afterExec", callback: execEventHandler): Function;
         once(name: string, callback: Function): void;
         setDefaultHandler(name: string, callback: Function): void;
         removeDefaultHandler(name: string, callback: Function): void;
@@ -305,7 +305,7 @@ declare namespace AceAjax {
      * At its core, `Document`s are just an array of strings, with each row in the document matching up to the array index.
      */
 
-    type NewLineMode = 'auto' | 'unix' | 'windows';
+    type NewLineMode = "auto" | "unix" | "windows";
 
     export interface Document {
         on(event: string, fn: (e: any) => any): void;
@@ -1127,7 +1127,7 @@ declare namespace AceAjax {
     export interface Editor extends OptionProvider {
         on(ev: string, callback: (e: any) => any): void;
 
-        addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
+        addEventListener(ev: "change", callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;
 
         off(ev: string, callback: Function): void;

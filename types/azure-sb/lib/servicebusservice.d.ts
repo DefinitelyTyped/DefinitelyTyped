@@ -1,6 +1,6 @@
-import { Azure } from '../index';
+import { Azure } from "../index";
 
-import ServiceBusServiceBase = require('./servicebusservicebase');
+import ServiceBusServiceBase = require("./servicebusservicebase");
 
 import CreateNotificationHubOptions = Azure.ServiceBus.CreateNotificationHubOptions;
 import CreateQueueOptions = Azure.ServiceBus.CreateQueueOptions;

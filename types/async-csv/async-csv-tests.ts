@@ -10,12 +10,12 @@ import {
     stringify,
     transform,
     TransformOptions,
-} from 'async-csv';
-import { readFileSync } from 'fs';
+} from "async-csv";
+import { readFileSync } from "fs";
 
 (async (): Promise<void> => {
-    const csvString = 'foo,bar,baz\n1,2,3';
-    const csvBuffer: Buffer = readFileSync('data.csv');
+    const csvString = "foo,bar,baz\n1,2,3";
+    const csvBuffer: Buffer = readFileSync("data.csv");
 
     const defaultAnyRows = await parse(csvString);
     const numRows = await parse(csvString);
@@ -49,12 +49,12 @@ import { readFileSync } from 'fs';
     };
 
     const columnsArray: CsvParseOptions = {
-        columns: [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }],
+        columns: [{ name: "foo" }, { name: "bar" }, { name: "baz" }],
     };
 
     const columnsCallback: CsvParseOptions = {
         columns: (record: any): ColumnOption[] => {
-            return ['', undefined, null, false, { name: 'foo' }];
+            return ["", undefined, null, false, { name: "foo" }];
         },
     };
 
@@ -75,11 +75,11 @@ import { readFileSync } from 'fs';
     };
 
     const recordDelimiterString: CsvParseOptions = {
-        record_delimiter: 'foo',
+        record_delimiter: "foo",
     };
 
     const recordDelimiterStringArray: CsvParseOptions = {
-        record_delimiter: ['foo', 'bar'],
+        record_delimiter: ["foo", "bar"],
     };
 
     const recordDelimiterBuffer: CsvParseOptions = {
@@ -97,20 +97,20 @@ import { readFileSync } from 'fs';
         cast: true,
         cast_date: true,
         columns: true,
-        comment: 'foo',
-        delimiter: ',',
-        escape: '\\',
+        comment: "foo",
+        delimiter: ",",
+        escape: "\\",
         from: 0,
         from_line: 0,
         info: true,
         ltrim: true,
         max_record_size: 8192,
-        objname: 'o',
-        quote: '"',
+        objname: "o",
+        quote: "\"",
         raw: true,
         relax: true,
         relax_column_count: true,
-        record_delimiter: ['\r\n', '\n'],
+        record_delimiter: ["\r\n", "\n"],
         rtrim: true,
         skip_empty_lines: true,
         skip_lines_with_error: true,
@@ -142,7 +142,7 @@ import { readFileSync } from 'fs';
     };
 
     const castingContextWithStringColumn: CastingContext = {
-        column: 'foo',
+        column: "foo",
         empty_lines: 42,
         header: true,
         index: 42,
@@ -153,7 +153,7 @@ import { readFileSync } from 'fs';
     };
 
     const generateColumnsStringArray: CsvGenerateOptions = {
-        columns: ['foo', 'bar', 'baz'],
+        columns: ["foo", "bar", "baz"],
     };
 
     const generateEndDate: CsvGenerateOptions = {
@@ -165,14 +165,14 @@ import { readFileSync } from 'fs';
     };
 
     const generateEofString: CsvGenerateOptions = {
-        eof: 'foo',
+        eof: "foo",
     };
 
     const generateOptions: CsvGenerateOptions = {
         columns: 42,
-        delimiter: ',',
+        delimiter: ",",
         duration: 3600,
-        encoding: 'UTF-8',
+        encoding: "UTF-8",
         end: 3600,
         eof: true,
         fixed_size: true,
@@ -184,7 +184,7 @@ import { readFileSync } from 'fs';
         maxWordLength: 20,
         object_mode: true,
         objectMode: true,
-        row_delimiter: '\n',
+        row_delimiter: "\n",
         seed: true,
         sleep: 42,
     };
@@ -192,19 +192,19 @@ import { readFileSync } from 'fs';
     const transformOptions: TransformOptions = {
         consume: true,
         parallel: 4,
-        params: 'test',
+        params: "test",
     };
 
     const stringifyColumnsStringArray: CsvStringifyOptions = {
-        columns: ['foo', 'bar', 'baz'],
+        columns: ["foo", "bar", "baz"],
     };
 
     const stringifyColumnsPlainObject: CsvStringifyOptions = {
-        columns: { foo: 'bar' },
+        columns: { foo: "bar" },
     };
 
     const stringifyColumnsColumnOptionArray: CsvStringifyOptions = {
-        columns: ['foo', undefined, null],
+        columns: ["foo", undefined, null],
     };
 
     const stringifyBufferDelimiter: CsvStringifyOptions = {
@@ -224,7 +224,7 @@ import { readFileSync } from 'fs';
     };
 
     const stringifyRecordDelimiterString: CsvStringifyOptions = {
-        record_delimiter: 'foo',
+        record_delimiter: "foo",
     };
 
     const stringifyRecordDelimiterBuffer: CsvStringifyOptions = {
@@ -233,23 +233,23 @@ import { readFileSync } from 'fs';
 
     const stringifyOptions: CsvStringifyOptions = {
         cast: {
-            boolean: (value: boolean, context: CastingContext): string => (value ? 'yes' : 'no'),
+            boolean: (value: boolean, context: CastingContext): string => (value ? "yes" : "no"),
             date: (value: Date, context: CastingContext): string => value.toISOString(),
             number: (value: number, context: CastingContext): string => value.toString(),
             object: (value: Record<string, any>, context: CastingContext): string => JSON.stringify(value),
             string: (value: string, context: CastingContext): string => value,
         },
         columns: [],
-        delimiter: ',',
+        delimiter: ",",
         eof: true,
-        escape: '\\',
+        escape: "\\",
         header: true,
         quote: true,
         quoted: true,
         quoted_empty: true,
         quoted_match: true,
         quoted_string: true,
-        record_delimiter: 'auto',
+        record_delimiter: "auto",
     };
 
     const resultGenerateWithoutOptions = await generate();

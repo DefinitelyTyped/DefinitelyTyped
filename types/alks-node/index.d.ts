@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Moment } from 'moment';
+import { Moment } from "moment";
 
 export interface Auth {
     token?: string | undefined;

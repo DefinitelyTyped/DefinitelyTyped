@@ -1,4 +1,4 @@
-import AxisBase from './AxisBase';
+import AxisBase from "./AxisBase";
 
 export default class CategoryAxis extends AxisBase {
     /**

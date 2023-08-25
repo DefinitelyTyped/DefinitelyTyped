@@ -7,392 +7,392 @@
 /// <reference types="node" />
 
 declare namespace ArangoDB {
-    type JwtAlgorithm = 'HS512' | 'HS384' | 'HS256';
+    type JwtAlgorithm = "HS512" | "HS384" | "HS256";
     type HashAlgorithm =
-        | 'sha512'
-        | 'sha384'
-        | 'sha256'
-        | 'sha224'
-        | 'sha1'
-        | 'md5';
+        | "sha512"
+        | "sha384"
+        | "sha256"
+        | "sha224"
+        | "sha1"
+        | "md5";
     type HttpMethod =
-        | 'HEAD'
-        | 'GET'
-        | 'POST'
-        | 'PUT'
-        | 'PATCH'
-        | 'DELETE'
-        | 'OPTIONS';
+        | "HEAD"
+        | "GET"
+        | "POST"
+        | "PUT"
+        | "PATCH"
+        | "DELETE"
+        | "OPTIONS";
     type HttpStatus =
-        | 'continue'
-        | 'switching protocols'
-        | 'processing'
-        | 'ok'
-        | 'created'
-        | 'accepted'
-        | 'non-authoritative information'
-        | 'no content'
-        | 'reset content'
-        | 'partial content'
-        | 'multi-status'
-        | 'already reported'
-        | 'im used'
-        | 'multiple choices'
-        | 'moved permanently'
-        | 'found'
-        | 'see other'
-        | 'not modified'
-        | 'use proxy'
-        | '(unused)'
-        | 'temporary redirect'
-        | 'permanent redirect'
-        | 'bad request'
-        | 'unauthorized'
-        | 'payment required'
-        | 'forbidden'
-        | 'not found'
-        | 'method not allowed'
-        | 'not acceptable'
-        | 'proxy authentication required'
-        | 'request timeout'
-        | 'conflict'
-        | 'gone'
-        | 'length required'
-        | 'precondition failed'
-        | 'payload too large'
-        | 'uri too long'
-        | 'unsupported media type'
-        | 'range not satisfiable'
-        | 'expectation failed'
-        | 'i\'m a teapot'
-        | 'misdirected request'
-        | 'unprocessable entity'
-        | 'locked'
-        | 'failed dependency'
-        | 'unordered collection'
-        | 'upgrade required'
-        | 'precondition required'
-        | 'too many requests'
-        | 'request header fields too large'
-        | 'unavailable for legal reasons'
-        | 'internal server error'
-        | 'not implemented'
-        | 'bad gateway'
-        | 'service unavailable'
-        | 'gateway timeout'
-        | 'http version not supported'
-        | 'variant also negotiates'
-        | 'insufficient storage'
-        | 'loop detected'
-        | 'bandwidth limit exceeded'
-        | 'not extended'
-        | 'network authentication required';
-    type EdgeDirection = 'any' | 'inbound' | 'outbound';
-    type EngineType = 'mmfiles' | 'rocksdb';
-    type IndexType = 'persistent' | 'hash' | 'skiplist' | 'fulltext' | 'geo' | 'ttl';
-    type ViewType = 'arangosearch';
-    type KeyGeneratorType = 'traditional' | 'autoincrement' | 'padded' | 'uuid';
+        | "continue"
+        | "switching protocols"
+        | "processing"
+        | "ok"
+        | "created"
+        | "accepted"
+        | "non-authoritative information"
+        | "no content"
+        | "reset content"
+        | "partial content"
+        | "multi-status"
+        | "already reported"
+        | "im used"
+        | "multiple choices"
+        | "moved permanently"
+        | "found"
+        | "see other"
+        | "not modified"
+        | "use proxy"
+        | "(unused)"
+        | "temporary redirect"
+        | "permanent redirect"
+        | "bad request"
+        | "unauthorized"
+        | "payment required"
+        | "forbidden"
+        | "not found"
+        | "method not allowed"
+        | "not acceptable"
+        | "proxy authentication required"
+        | "request timeout"
+        | "conflict"
+        | "gone"
+        | "length required"
+        | "precondition failed"
+        | "payload too large"
+        | "uri too long"
+        | "unsupported media type"
+        | "range not satisfiable"
+        | "expectation failed"
+        | "i'm a teapot"
+        | "misdirected request"
+        | "unprocessable entity"
+        | "locked"
+        | "failed dependency"
+        | "unordered collection"
+        | "upgrade required"
+        | "precondition required"
+        | "too many requests"
+        | "request header fields too large"
+        | "unavailable for legal reasons"
+        | "internal server error"
+        | "not implemented"
+        | "bad gateway"
+        | "service unavailable"
+        | "gateway timeout"
+        | "http version not supported"
+        | "variant also negotiates"
+        | "insufficient storage"
+        | "loop detected"
+        | "bandwidth limit exceeded"
+        | "not extended"
+        | "network authentication required";
+    type EdgeDirection = "any" | "inbound" | "outbound";
+    type EngineType = "mmfiles" | "rocksdb";
+    type IndexType = "persistent" | "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
+    type ViewType = "arangosearch";
+    type KeyGeneratorType = "traditional" | "autoincrement" | "padded" | "uuid";
     type ErrorName =
-        | 'ERROR_NO_ERROR'
-        | 'ERROR_FAILED'
-        | 'ERROR_SYS_ERROR'
-        | 'ERROR_OUT_OF_MEMORY'
-        | 'ERROR_INTERNAL'
-        | 'ERROR_ILLEGAL_NUMBER'
-        | 'ERROR_NUMERIC_OVERFLOW'
-        | 'ERROR_ILLEGAL_OPTION'
-        | 'ERROR_DEAD_PID'
-        | 'ERROR_NOT_IMPLEMENTED'
-        | 'ERROR_BAD_PARAMETER'
-        | 'ERROR_FORBIDDEN'
-        | 'ERROR_OUT_OF_MEMORY_MMAP'
-        | 'ERROR_CORRUPTED_CSV'
-        | 'ERROR_FILE_NOT_FOUND'
-        | 'ERROR_CANNOT_WRITE_FILE'
-        | 'ERROR_CANNOT_OVERWRITE_FILE'
-        | 'ERROR_TYPE_ERROR'
-        | 'ERROR_LOCK_TIMEOUT'
-        | 'ERROR_CANNOT_CREATE_DIRECTORY'
-        | 'ERROR_CANNOT_CREATE_TEMP_FILE'
-        | 'ERROR_REQUEST_CANCELED'
-        | 'ERROR_DEBUG'
-        | 'ERROR_IP_ADDRESS_INVALID'
-        | 'ERROR_FILE_EXISTS'
-        | 'ERROR_LOCKED'
-        | 'ERROR_DEADLOCK'
-        | 'ERROR_SHUTTING_DOWN'
-        | 'ERROR_ONLY_ENTERPRISE'
-        | 'ERROR_RESOURCE_LIMIT'
-        | 'ERROR_ARANGO_ICU_ERROR'
-        | 'ERROR_CANNOT_READ_FILE'
-        | 'ERROR_HTTP_BAD_PARAMETER'
-        | 'ERROR_HTTP_UNAUTHORIZED'
-        | 'ERROR_HTTP_FORBIDDEN'
-        | 'ERROR_HTTP_NOT_FOUND'
-        | 'ERROR_HTTP_METHOD_NOT_ALLOWED'
-        | 'ERROR_HTTP_NOT_ACCEPTABLE'
-        | 'ERROR_HTTP_PRECONDITION_FAILED'
-        | 'ERROR_HTTP_SERVER_ERROR'
-        | 'ERROR_HTTP_SERVICE_UNAVAILABLE'
-        | 'ERROR_HTTP_GATEWAY_TIMEOUT'
-        | 'ERROR_HTTP_CORRUPTED_JSON'
-        | 'ERROR_HTTP_SUPERFLUOUS_SUFFICES'
-        | 'ERROR_ARANGO_ILLEGAL_STATE'
-        | 'ERROR_ARANGO_DATAFILE_SEALED'
-        | 'ERROR_ARANGO_READ_ONLY'
-        | 'ERROR_ARANGO_DUPLICATE_IDENTIFIER'
-        | 'ERROR_ARANGO_DATAFILE_UNREADABLE'
-        | 'ERROR_ARANGO_DATAFILE_EMPTY'
-        | 'ERROR_ARANGO_RECOVERY'
-        | 'ERROR_ARANGO_DATAFILE_STATISTICS_NOT_FOUND'
-        | 'ERROR_ARANGO_CORRUPTED_DATAFILE'
-        | 'ERROR_ARANGO_ILLEGAL_PARAMETER_FILE'
-        | 'ERROR_ARANGO_CORRUPTED_COLLECTION'
-        | 'ERROR_ARANGO_MMAP_FAILED'
-        | 'ERROR_ARANGO_FILESYSTEM_FULL'
-        | 'ERROR_ARANGO_NO_JOURNAL'
-        | 'ERROR_ARANGO_DATAFILE_ALREADY_EXISTS'
-        | 'ERROR_ARANGO_DATADIR_LOCKED'
-        | 'ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS'
-        | 'ERROR_ARANGO_MSYNC_FAILED'
-        | 'ERROR_ARANGO_DATADIR_UNLOCKABLE'
-        | 'ERROR_ARANGO_SYNC_TIMEOUT'
-        | 'ERROR_ARANGO_CONFLICT'
-        | 'ERROR_ARANGO_DATADIR_INVALID'
-        | 'ERROR_ARANGO_DOCUMENT_NOT_FOUND'
-        | 'ERROR_ARANGO_DATA_SOURCE_NOT_FOUND'
-        | 'ERROR_ARANGO_COLLECTION_PARAMETER_MISSING'
-        | 'ERROR_ARANGO_DOCUMENT_HANDLE_BAD'
-        | 'ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL'
-        | 'ERROR_ARANGO_DUPLICATE_NAME'
-        | 'ERROR_ARANGO_ILLEGAL_NAME'
-        | 'ERROR_ARANGO_NO_INDEX'
-        | 'ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED'
-        | 'ERROR_ARANGO_INDEX_NOT_FOUND'
-        | 'ERROR_ARANGO_CROSS_COLLECTION_REQUEST'
-        | 'ERROR_ARANGO_INDEX_HANDLE_BAD'
-        | 'ERROR_ARANGO_DOCUMENT_TOO_LARGE'
-        | 'ERROR_ARANGO_COLLECTION_NOT_UNLOADED'
-        | 'ERROR_ARANGO_COLLECTION_TYPE_INVALID'
-        | 'ERROR_ARANGO_VALIDATION_FAILED'
-        | 'ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED'
-        | 'ERROR_ARANGO_DOCUMENT_KEY_BAD'
-        | 'ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED'
-        | 'ERROR_ARANGO_DATADIR_NOT_WRITABLE'
-        | 'ERROR_ARANGO_OUT_OF_KEYS'
-        | 'ERROR_ARANGO_DOCUMENT_KEY_MISSING'
-        | 'ERROR_ARANGO_DOCUMENT_TYPE_INVALID'
-        | 'ERROR_ARANGO_DATABASE_NOT_FOUND'
-        | 'ERROR_ARANGO_DATABASE_NAME_INVALID'
-        | 'ERROR_ARANGO_USE_SYSTEM_DATABASE'
-        | 'ERROR_ARANGO_ENDPOINT_NOT_FOUND'
-        | 'ERROR_ARANGO_INVALID_KEY_GENERATOR'
-        | 'ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE'
-        | 'ERROR_ARANGO_INDEX_DOCUMENT_ATTRIBUTE_MISSING'
-        | 'ERROR_ARANGO_INDEX_CREATION_FAILED'
-        | 'ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT'
-        | 'ERROR_ARANGO_COLLECTION_TYPE_MISMATCH'
-        | 'ERROR_ARANGO_COLLECTION_NOT_LOADED'
-        | 'ERROR_ARANGO_DOCUMENT_REV_BAD'
-        | 'ERROR_ARANGO_DATAFILE_FULL'
-        | 'ERROR_ARANGO_EMPTY_DATADIR'
-        | 'ERROR_ARANGO_TRY_AGAIN'
-        | 'ERROR_ARANGO_BUSY'
-        | 'ERROR_ARANGO_MERGE_IN_PROGRESS'
-        | 'ERROR_ARANGO_IO_ERROR'
-        | 'ERROR_REPLICATION_NO_RESPONSE'
-        | 'ERROR_REPLICATION_INVALID_RESPONSE'
-        | 'ERROR_REPLICATION_MASTER_ERROR'
-        | 'ERROR_REPLICATION_MASTER_INCOMPATIBLE'
-        | 'ERROR_REPLICATION_MASTER_CHANGE'
-        | 'ERROR_REPLICATION_LOOP'
-        | 'ERROR_REPLICATION_UNEXPECTED_MARKER'
-        | 'ERROR_REPLICATION_INVALID_APPLIER_STATE'
-        | 'ERROR_REPLICATION_UNEXPECTED_TRANSACTION'
-        | 'ERROR_REPLICATION_INVALID_APPLIER_CONFIGURATION'
-        | 'ERROR_REPLICATION_RUNNING'
-        | 'ERROR_REPLICATION_APPLIER_STOPPED'
-        | 'ERROR_REPLICATION_NO_START_TICK'
-        | 'ERROR_REPLICATION_START_TICK_NOT_PRESENT'
-        | 'ERROR_REPLICATION_WRONG_CHECKSUM'
-        | 'ERROR_REPLICATION_SHARD_NONEMPTY'
-        | 'ERROR_CLUSTER_NO_AGENCY'
-        | 'ERROR_CLUSTER_NO_COORDINATOR_HEADER'
-        | 'ERROR_CLUSTER_COULD_NOT_LOCK_PLAN'
-        | 'ERROR_CLUSTER_COLLECTION_ID_EXISTS'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION_IN_PLAN'
-        | 'ERROR_CLUSTER_COULD_NOT_READ_CURRENT_VERSION'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION'
-        | 'ERROR_CLUSTER_TIMEOUT'
-        | 'ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_PLAN'
-        | 'ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_CURRENT'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE_IN_PLAN'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE'
-        | 'ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_PLAN'
-        | 'ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_CURRENT'
-        | 'ERROR_CLUSTER_SHARD_GONE'
-        | 'ERROR_CLUSTER_CONNECTION_LOST'
-        | 'ERROR_CLUSTER_MUST_NOT_SPECIFY_KEY'
-        | 'ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS'
-        | 'ERROR_CLUSTER_NOT_ALL_SHARDING_ATTRIBUTES_GIVEN'
-        | 'ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES'
-        | 'ERROR_CLUSTER_UNSUPPORTED'
-        | 'ERROR_CLUSTER_ONLY_ON_COORDINATOR'
-        | 'ERROR_CLUSTER_READING_PLAN_AGENCY'
-        | 'ERROR_CLUSTER_COULD_NOT_TRUNCATE_COLLECTION'
-        | 'ERROR_CLUSTER_AQL_COMMUNICATION'
-        | 'ERROR_ARANGO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED'
-        | 'ERROR_CLUSTER_COULD_NOT_DETERMINE_ID'
-        | 'ERROR_CLUSTER_ONLY_ON_DBSERVER'
-        | 'ERROR_CLUSTER_BACKEND_UNAVAILABLE'
-        | 'ERROR_CLUSTER_UNKNOWN_CALLBACK_ENDPOINT'
-        | 'ERROR_CLUSTER_AGENCY_STRUCTURE_INVALID'
-        | 'ERROR_CLUSTER_AQL_COLLECTION_OUT_OF_SYNC'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_INDEX_IN_PLAN'
-        | 'ERROR_CLUSTER_COULD_NOT_DROP_INDEX_IN_PLAN'
-        | 'ERROR_CLUSTER_CHAIN_OF_DISTRIBUTESHARDSLIKE'
-        | 'ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE'
-        | 'ERROR_CLUSTER_UNKNOWN_DISTRIBUTESHARDSLIKE'
-        | 'ERROR_CLUSTER_INSUFFICIENT_DBSERVERS'
-        | 'ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER'
-        | 'ERROR_CLUSTER_SHARD_LEADER_REFUSES_REPLICATION'
-        | 'ERROR_CLUSTER_SHARD_FOLLOWER_REFUSES_OPERATION'
-        | 'ERROR_CLUSTER_SHARD_LEADER_RESIGNED'
-        | 'ERROR_CLUSTER_AGENCY_COMMUNICATION_FAILED'
-        | 'ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_REPLICATION_FACTOR'
-        | 'ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_NUMBER_OF_SHARDS'
-        | 'ERROR_CLUSTER_LEADERSHIP_CHALLENGE_ONGOING'
-        | 'ERROR_CLUSTER_NOT_LEADER'
-        | 'ERROR_CLUSTER_COULD_NOT_CREATE_VIEW_IN_PLAN'
-        | 'ERROR_QUERY_KILLED'
-        | 'ERROR_QUERY_PARSE'
-        | 'ERROR_QUERY_EMPTY'
-        | 'ERROR_QUERY_SCRIPT'
-        | 'ERROR_QUERY_NUMBER_OUT_OF_RANGE'
-        | 'ERROR_QUERY_VARIABLE_NAME_INVALID'
-        | 'ERROR_QUERY_VARIABLE_REDECLARED'
-        | 'ERROR_QUERY_VARIABLE_NAME_UNKNOWN'
-        | 'ERROR_QUERY_COLLECTION_LOCK_FAILED'
-        | 'ERROR_QUERY_TOO_MANY_COLLECTIONS'
-        | 'ERROR_QUERY_DOCUMENT_ATTRIBUTE_REDECLARED'
-        | 'ERROR_QUERY_FUNCTION_NAME_UNKNOWN'
-        | 'ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH'
-        | 'ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH'
-        | 'ERROR_QUERY_INVALID_REGEX'
-        | 'ERROR_QUERY_BIND_PARAMETERS_INVALID'
-        | 'ERROR_QUERY_BIND_PARAMETER_MISSING'
-        | 'ERROR_QUERY_BIND_PARAMETER_UNDECLARED'
-        | 'ERROR_QUERY_BIND_PARAMETER_TYPE'
-        | 'ERROR_QUERY_INVALID_LOGICAL_VALUE'
-        | 'ERROR_QUERY_INVALID_ARITHMETIC_VALUE'
-        | 'ERROR_QUERY_DIVISION_BY_ZERO'
-        | 'ERROR_QUERY_ARRAY_EXPECTED'
-        | 'ERROR_QUERY_FAIL_CALLED'
-        | 'ERROR_QUERY_GEO_INDEX_MISSING'
-        | 'ERROR_QUERY_FULLTEXT_INDEX_MISSING'
-        | 'ERROR_QUERY_INVALID_DATE_VALUE'
-        | 'ERROR_QUERY_MULTI_MODIFY'
-        | 'ERROR_QUERY_INVALID_AGGREGATE_EXPRESSION'
-        | 'ERROR_QUERY_COMPILE_TIME_OPTIONS'
-        | 'ERROR_QUERY_EXCEPTION_OPTIONS'
-        | 'ERROR_QUERY_COLLECTION_USED_IN_EXPRESSION'
-        | 'ERROR_QUERY_DISALLOWED_DYNAMIC_CALL'
-        | 'ERROR_QUERY_ACCESS_AFTER_MODIFICATION'
-        | 'ERROR_QUERY_FUNCTION_INVALID_NAME'
-        | 'ERROR_QUERY_FUNCTION_INVALID_CODE'
-        | 'ERROR_QUERY_FUNCTION_NOT_FOUND'
-        | 'ERROR_QUERY_FUNCTION_RUNTIME_ERROR'
-        | 'ERROR_QUERY_BAD_JSON_PLAN'
-        | 'ERROR_QUERY_NOT_FOUND'
-        | 'ERROR_QUERY_IN_USE'
-        | 'ERROR_QUERY_USER_ASSERT'
-        | 'ERROR_QUERY_USER_WARN'
-        | 'ERROR_CURSOR_NOT_FOUND'
-        | 'ERROR_CURSOR_BUSY'
-        | 'ERROR_TRANSACTION_INTERNAL'
-        | 'ERROR_TRANSACTION_NESTED'
-        | 'ERROR_TRANSACTION_UNREGISTERED_COLLECTION'
-        | 'ERROR_TRANSACTION_DISALLOWED_OPERATION'
-        | 'ERROR_TRANSACTION_ABORTED'
-        | 'ERROR_USER_INVALID_NAME'
-        | 'ERROR_USER_INVALID_PASSWORD'
-        | 'ERROR_USER_DUPLICATE'
-        | 'ERROR_USER_NOT_FOUND'
-        | 'ERROR_USER_CHANGE_PASSWORD'
-        | 'ERROR_USER_EXTERNAL'
-        | 'ERROR_SERVICE_INVALID_NAME'
-        | 'ERROR_SERVICE_INVALID_MOUNT'
-        | 'ERROR_SERVICE_DOWNLOAD_FAILED'
-        | 'ERROR_SERVICE_UPLOAD_FAILED'
-        | 'ERROR_LDAP_CANNOT_INIT'
-        | 'ERROR_LDAP_CANNOT_SET_OPTION'
-        | 'ERROR_LDAP_CANNOT_BIND'
-        | 'ERROR_LDAP_CANNOT_UNBIND'
-        | 'ERROR_LDAP_CANNOT_SEARCH'
-        | 'ERROR_LDAP_CANNOT_START_TLS'
-        | 'ERROR_LDAP_FOUND_NO_OBJECTS'
-        | 'ERROR_LDAP_NOT_ONE_USER_FOUND'
-        | 'ERROR_LDAP_USER_NOT_IDENTIFIED'
-        | 'ERROR_LDAP_INVALID_MODE'
-        | 'ERROR_TASK_INVALID_ID'
-        | 'ERROR_TASK_DUPLICATE_ID'
-        | 'ERROR_TASK_NOT_FOUND'
-        | 'ERROR_GRAPH_INVALID_GRAPH'
-        | 'ERROR_GRAPH_COULD_NOT_CREATE_GRAPH'
-        | 'ERROR_GRAPH_INVALID_VERTEX'
-        | 'ERROR_GRAPH_COULD_NOT_CREATE_VERTEX'
-        | 'ERROR_GRAPH_COULD_NOT_CHANGE_VERTEX'
-        | 'ERROR_GRAPH_INVALID_EDGE'
-        | 'ERROR_GRAPH_COULD_NOT_CREATE_EDGE'
-        | 'ERROR_GRAPH_COULD_NOT_CHANGE_EDGE'
-        | 'ERROR_GRAPH_TOO_MANY_ITERATIONS'
-        | 'ERROR_GRAPH_INVALID_FILTER_RESULT'
-        | 'ERROR_GRAPH_EMPTY'
-        | 'ERROR_SESSION_UNKNOWN'
-        | 'ERROR_SESSION_EXPIRED'
-        | 'SIMPLE_CLIENT_UNKNOWN_ERROR'
-        | 'SIMPLE_CLIENT_COULD_NOT_CONNECT'
-        | 'SIMPLE_CLIENT_COULD_NOT_WRITE'
-        | 'SIMPLE_CLIENT_COULD_NOT_READ'
-        | 'COMMUNICATOR_REQUEST_ABORTED'
-        | 'COMMUNICATOR_DISABLED'
-        | 'ERROR_MALFORMED_MANIFEST_FILE'
-        | 'ERROR_INVALID_SERVICE_MANIFEST'
-        | 'ERROR_SERVICE_FILES_MISSING'
-        | 'ERROR_SERVICE_FILES_OUTDATED'
-        | 'ERROR_INVALID_FOXX_OPTIONS'
-        | 'ERROR_INVALID_MOUNTPOINT'
-        | 'ERROR_SERVICE_NOT_FOUND'
-        | 'ERROR_SERVICE_NEEDS_CONFIGURATION'
-        | 'ERROR_SERVICE_MOUNTPOINT_CONFLICT'
-        | 'ERROR_SERVICE_MANIFEST_NOT_FOUND'
-        | 'ERROR_SERVICE_OPTIONS_MALFORMED'
-        | 'ERROR_SERVICE_SOURCE_NOT_FOUND'
-        | 'ERROR_SERVICE_SOURCE_ERROR'
-        | 'ERROR_SERVICE_UNKNOWN_SCRIPT'
-        | 'ERROR_MODULE_NOT_FOUND'
-        | 'ERROR_MODULE_SYNTAX_ERROR'
-        | 'ERROR_MODULE_FAILURE'
-        | 'ERROR_NO_SMART_COLLECTION'
-        | 'ERROR_NO_SMART_GRAPH_ATTRIBUTE'
-        | 'ERROR_CANNOT_DROP_SMART_COLLECTION'
-        | 'ERROR_KEY_MUST_BE_PREFIXED_WITH_SMART_GRAPH_ATTRIBUTE'
-        | 'ERROR_ILLEGAL_SMART_GRAPH_ATTRIBUTE'
-        | 'ERROR_AGENCY_INQUIRY_SYNTAX'
-        | 'ERROR_AGENCY_INFORM_MUST_BE_OBJECT'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_TERM'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_ID'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_ACTIVE'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_POOL'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_MIN_PING'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_MAX_PING'
-        | 'ERROR_AGENCY_INFORM_MUST_CONTAIN_TIMEOUT_MULT'
-        | 'ERROR_AGENCY_INQUIRE_CLIENT_ID_MUST_BE_STRING'
-        | 'ERROR_AGENCY_CANNOT_REBUILD_DBS'
-        | 'ERROR_SUPERVISION_GENERAL_FAILURE'
-        | 'ERROR_DISPATCHER_IS_STOPPING'
-        | 'ERROR_QUEUE_UNKNOWN'
-        | 'ERROR_QUEUE_FULL';
+        | "ERROR_NO_ERROR"
+        | "ERROR_FAILED"
+        | "ERROR_SYS_ERROR"
+        | "ERROR_OUT_OF_MEMORY"
+        | "ERROR_INTERNAL"
+        | "ERROR_ILLEGAL_NUMBER"
+        | "ERROR_NUMERIC_OVERFLOW"
+        | "ERROR_ILLEGAL_OPTION"
+        | "ERROR_DEAD_PID"
+        | "ERROR_NOT_IMPLEMENTED"
+        | "ERROR_BAD_PARAMETER"
+        | "ERROR_FORBIDDEN"
+        | "ERROR_OUT_OF_MEMORY_MMAP"
+        | "ERROR_CORRUPTED_CSV"
+        | "ERROR_FILE_NOT_FOUND"
+        | "ERROR_CANNOT_WRITE_FILE"
+        | "ERROR_CANNOT_OVERWRITE_FILE"
+        | "ERROR_TYPE_ERROR"
+        | "ERROR_LOCK_TIMEOUT"
+        | "ERROR_CANNOT_CREATE_DIRECTORY"
+        | "ERROR_CANNOT_CREATE_TEMP_FILE"
+        | "ERROR_REQUEST_CANCELED"
+        | "ERROR_DEBUG"
+        | "ERROR_IP_ADDRESS_INVALID"
+        | "ERROR_FILE_EXISTS"
+        | "ERROR_LOCKED"
+        | "ERROR_DEADLOCK"
+        | "ERROR_SHUTTING_DOWN"
+        | "ERROR_ONLY_ENTERPRISE"
+        | "ERROR_RESOURCE_LIMIT"
+        | "ERROR_ARANGO_ICU_ERROR"
+        | "ERROR_CANNOT_READ_FILE"
+        | "ERROR_HTTP_BAD_PARAMETER"
+        | "ERROR_HTTP_UNAUTHORIZED"
+        | "ERROR_HTTP_FORBIDDEN"
+        | "ERROR_HTTP_NOT_FOUND"
+        | "ERROR_HTTP_METHOD_NOT_ALLOWED"
+        | "ERROR_HTTP_NOT_ACCEPTABLE"
+        | "ERROR_HTTP_PRECONDITION_FAILED"
+        | "ERROR_HTTP_SERVER_ERROR"
+        | "ERROR_HTTP_SERVICE_UNAVAILABLE"
+        | "ERROR_HTTP_GATEWAY_TIMEOUT"
+        | "ERROR_HTTP_CORRUPTED_JSON"
+        | "ERROR_HTTP_SUPERFLUOUS_SUFFICES"
+        | "ERROR_ARANGO_ILLEGAL_STATE"
+        | "ERROR_ARANGO_DATAFILE_SEALED"
+        | "ERROR_ARANGO_READ_ONLY"
+        | "ERROR_ARANGO_DUPLICATE_IDENTIFIER"
+        | "ERROR_ARANGO_DATAFILE_UNREADABLE"
+        | "ERROR_ARANGO_DATAFILE_EMPTY"
+        | "ERROR_ARANGO_RECOVERY"
+        | "ERROR_ARANGO_DATAFILE_STATISTICS_NOT_FOUND"
+        | "ERROR_ARANGO_CORRUPTED_DATAFILE"
+        | "ERROR_ARANGO_ILLEGAL_PARAMETER_FILE"
+        | "ERROR_ARANGO_CORRUPTED_COLLECTION"
+        | "ERROR_ARANGO_MMAP_FAILED"
+        | "ERROR_ARANGO_FILESYSTEM_FULL"
+        | "ERROR_ARANGO_NO_JOURNAL"
+        | "ERROR_ARANGO_DATAFILE_ALREADY_EXISTS"
+        | "ERROR_ARANGO_DATADIR_LOCKED"
+        | "ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS"
+        | "ERROR_ARANGO_MSYNC_FAILED"
+        | "ERROR_ARANGO_DATADIR_UNLOCKABLE"
+        | "ERROR_ARANGO_SYNC_TIMEOUT"
+        | "ERROR_ARANGO_CONFLICT"
+        | "ERROR_ARANGO_DATADIR_INVALID"
+        | "ERROR_ARANGO_DOCUMENT_NOT_FOUND"
+        | "ERROR_ARANGO_DATA_SOURCE_NOT_FOUND"
+        | "ERROR_ARANGO_COLLECTION_PARAMETER_MISSING"
+        | "ERROR_ARANGO_DOCUMENT_HANDLE_BAD"
+        | "ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL"
+        | "ERROR_ARANGO_DUPLICATE_NAME"
+        | "ERROR_ARANGO_ILLEGAL_NAME"
+        | "ERROR_ARANGO_NO_INDEX"
+        | "ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED"
+        | "ERROR_ARANGO_INDEX_NOT_FOUND"
+        | "ERROR_ARANGO_CROSS_COLLECTION_REQUEST"
+        | "ERROR_ARANGO_INDEX_HANDLE_BAD"
+        | "ERROR_ARANGO_DOCUMENT_TOO_LARGE"
+        | "ERROR_ARANGO_COLLECTION_NOT_UNLOADED"
+        | "ERROR_ARANGO_COLLECTION_TYPE_INVALID"
+        | "ERROR_ARANGO_VALIDATION_FAILED"
+        | "ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED"
+        | "ERROR_ARANGO_DOCUMENT_KEY_BAD"
+        | "ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED"
+        | "ERROR_ARANGO_DATADIR_NOT_WRITABLE"
+        | "ERROR_ARANGO_OUT_OF_KEYS"
+        | "ERROR_ARANGO_DOCUMENT_KEY_MISSING"
+        | "ERROR_ARANGO_DOCUMENT_TYPE_INVALID"
+        | "ERROR_ARANGO_DATABASE_NOT_FOUND"
+        | "ERROR_ARANGO_DATABASE_NAME_INVALID"
+        | "ERROR_ARANGO_USE_SYSTEM_DATABASE"
+        | "ERROR_ARANGO_ENDPOINT_NOT_FOUND"
+        | "ERROR_ARANGO_INVALID_KEY_GENERATOR"
+        | "ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE"
+        | "ERROR_ARANGO_INDEX_DOCUMENT_ATTRIBUTE_MISSING"
+        | "ERROR_ARANGO_INDEX_CREATION_FAILED"
+        | "ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT"
+        | "ERROR_ARANGO_COLLECTION_TYPE_MISMATCH"
+        | "ERROR_ARANGO_COLLECTION_NOT_LOADED"
+        | "ERROR_ARANGO_DOCUMENT_REV_BAD"
+        | "ERROR_ARANGO_DATAFILE_FULL"
+        | "ERROR_ARANGO_EMPTY_DATADIR"
+        | "ERROR_ARANGO_TRY_AGAIN"
+        | "ERROR_ARANGO_BUSY"
+        | "ERROR_ARANGO_MERGE_IN_PROGRESS"
+        | "ERROR_ARANGO_IO_ERROR"
+        | "ERROR_REPLICATION_NO_RESPONSE"
+        | "ERROR_REPLICATION_INVALID_RESPONSE"
+        | "ERROR_REPLICATION_MASTER_ERROR"
+        | "ERROR_REPLICATION_MASTER_INCOMPATIBLE"
+        | "ERROR_REPLICATION_MASTER_CHANGE"
+        | "ERROR_REPLICATION_LOOP"
+        | "ERROR_REPLICATION_UNEXPECTED_MARKER"
+        | "ERROR_REPLICATION_INVALID_APPLIER_STATE"
+        | "ERROR_REPLICATION_UNEXPECTED_TRANSACTION"
+        | "ERROR_REPLICATION_INVALID_APPLIER_CONFIGURATION"
+        | "ERROR_REPLICATION_RUNNING"
+        | "ERROR_REPLICATION_APPLIER_STOPPED"
+        | "ERROR_REPLICATION_NO_START_TICK"
+        | "ERROR_REPLICATION_START_TICK_NOT_PRESENT"
+        | "ERROR_REPLICATION_WRONG_CHECKSUM"
+        | "ERROR_REPLICATION_SHARD_NONEMPTY"
+        | "ERROR_CLUSTER_NO_AGENCY"
+        | "ERROR_CLUSTER_NO_COORDINATOR_HEADER"
+        | "ERROR_CLUSTER_COULD_NOT_LOCK_PLAN"
+        | "ERROR_CLUSTER_COLLECTION_ID_EXISTS"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_READ_CURRENT_VERSION"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_COLLECTION"
+        | "ERROR_CLUSTER_TIMEOUT"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_COLLECTION_IN_CURRENT"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_DATABASE"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_REMOVE_DATABASE_IN_CURRENT"
+        | "ERROR_CLUSTER_SHARD_GONE"
+        | "ERROR_CLUSTER_CONNECTION_LOST"
+        | "ERROR_CLUSTER_MUST_NOT_SPECIFY_KEY"
+        | "ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS"
+        | "ERROR_CLUSTER_NOT_ALL_SHARDING_ATTRIBUTES_GIVEN"
+        | "ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES"
+        | "ERROR_CLUSTER_UNSUPPORTED"
+        | "ERROR_CLUSTER_ONLY_ON_COORDINATOR"
+        | "ERROR_CLUSTER_READING_PLAN_AGENCY"
+        | "ERROR_CLUSTER_COULD_NOT_TRUNCATE_COLLECTION"
+        | "ERROR_CLUSTER_AQL_COMMUNICATION"
+        | "ERROR_ARANGO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED"
+        | "ERROR_CLUSTER_COULD_NOT_DETERMINE_ID"
+        | "ERROR_CLUSTER_ONLY_ON_DBSERVER"
+        | "ERROR_CLUSTER_BACKEND_UNAVAILABLE"
+        | "ERROR_CLUSTER_UNKNOWN_CALLBACK_ENDPOINT"
+        | "ERROR_CLUSTER_AGENCY_STRUCTURE_INVALID"
+        | "ERROR_CLUSTER_AQL_COLLECTION_OUT_OF_SYNC"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_INDEX_IN_PLAN"
+        | "ERROR_CLUSTER_COULD_NOT_DROP_INDEX_IN_PLAN"
+        | "ERROR_CLUSTER_CHAIN_OF_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_UNKNOWN_DISTRIBUTESHARDSLIKE"
+        | "ERROR_CLUSTER_INSUFFICIENT_DBSERVERS"
+        | "ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER"
+        | "ERROR_CLUSTER_SHARD_LEADER_REFUSES_REPLICATION"
+        | "ERROR_CLUSTER_SHARD_FOLLOWER_REFUSES_OPERATION"
+        | "ERROR_CLUSTER_SHARD_LEADER_RESIGNED"
+        | "ERROR_CLUSTER_AGENCY_COMMUNICATION_FAILED"
+        | "ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_REPLICATION_FACTOR"
+        | "ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_NUMBER_OF_SHARDS"
+        | "ERROR_CLUSTER_LEADERSHIP_CHALLENGE_ONGOING"
+        | "ERROR_CLUSTER_NOT_LEADER"
+        | "ERROR_CLUSTER_COULD_NOT_CREATE_VIEW_IN_PLAN"
+        | "ERROR_QUERY_KILLED"
+        | "ERROR_QUERY_PARSE"
+        | "ERROR_QUERY_EMPTY"
+        | "ERROR_QUERY_SCRIPT"
+        | "ERROR_QUERY_NUMBER_OUT_OF_RANGE"
+        | "ERROR_QUERY_VARIABLE_NAME_INVALID"
+        | "ERROR_QUERY_VARIABLE_REDECLARED"
+        | "ERROR_QUERY_VARIABLE_NAME_UNKNOWN"
+        | "ERROR_QUERY_COLLECTION_LOCK_FAILED"
+        | "ERROR_QUERY_TOO_MANY_COLLECTIONS"
+        | "ERROR_QUERY_DOCUMENT_ATTRIBUTE_REDECLARED"
+        | "ERROR_QUERY_FUNCTION_NAME_UNKNOWN"
+        | "ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH"
+        | "ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH"
+        | "ERROR_QUERY_INVALID_REGEX"
+        | "ERROR_QUERY_BIND_PARAMETERS_INVALID"
+        | "ERROR_QUERY_BIND_PARAMETER_MISSING"
+        | "ERROR_QUERY_BIND_PARAMETER_UNDECLARED"
+        | "ERROR_QUERY_BIND_PARAMETER_TYPE"
+        | "ERROR_QUERY_INVALID_LOGICAL_VALUE"
+        | "ERROR_QUERY_INVALID_ARITHMETIC_VALUE"
+        | "ERROR_QUERY_DIVISION_BY_ZERO"
+        | "ERROR_QUERY_ARRAY_EXPECTED"
+        | "ERROR_QUERY_FAIL_CALLED"
+        | "ERROR_QUERY_GEO_INDEX_MISSING"
+        | "ERROR_QUERY_FULLTEXT_INDEX_MISSING"
+        | "ERROR_QUERY_INVALID_DATE_VALUE"
+        | "ERROR_QUERY_MULTI_MODIFY"
+        | "ERROR_QUERY_INVALID_AGGREGATE_EXPRESSION"
+        | "ERROR_QUERY_COMPILE_TIME_OPTIONS"
+        | "ERROR_QUERY_EXCEPTION_OPTIONS"
+        | "ERROR_QUERY_COLLECTION_USED_IN_EXPRESSION"
+        | "ERROR_QUERY_DISALLOWED_DYNAMIC_CALL"
+        | "ERROR_QUERY_ACCESS_AFTER_MODIFICATION"
+        | "ERROR_QUERY_FUNCTION_INVALID_NAME"
+        | "ERROR_QUERY_FUNCTION_INVALID_CODE"
+        | "ERROR_QUERY_FUNCTION_NOT_FOUND"
+        | "ERROR_QUERY_FUNCTION_RUNTIME_ERROR"
+        | "ERROR_QUERY_BAD_JSON_PLAN"
+        | "ERROR_QUERY_NOT_FOUND"
+        | "ERROR_QUERY_IN_USE"
+        | "ERROR_QUERY_USER_ASSERT"
+        | "ERROR_QUERY_USER_WARN"
+        | "ERROR_CURSOR_NOT_FOUND"
+        | "ERROR_CURSOR_BUSY"
+        | "ERROR_TRANSACTION_INTERNAL"
+        | "ERROR_TRANSACTION_NESTED"
+        | "ERROR_TRANSACTION_UNREGISTERED_COLLECTION"
+        | "ERROR_TRANSACTION_DISALLOWED_OPERATION"
+        | "ERROR_TRANSACTION_ABORTED"
+        | "ERROR_USER_INVALID_NAME"
+        | "ERROR_USER_INVALID_PASSWORD"
+        | "ERROR_USER_DUPLICATE"
+        | "ERROR_USER_NOT_FOUND"
+        | "ERROR_USER_CHANGE_PASSWORD"
+        | "ERROR_USER_EXTERNAL"
+        | "ERROR_SERVICE_INVALID_NAME"
+        | "ERROR_SERVICE_INVALID_MOUNT"
+        | "ERROR_SERVICE_DOWNLOAD_FAILED"
+        | "ERROR_SERVICE_UPLOAD_FAILED"
+        | "ERROR_LDAP_CANNOT_INIT"
+        | "ERROR_LDAP_CANNOT_SET_OPTION"
+        | "ERROR_LDAP_CANNOT_BIND"
+        | "ERROR_LDAP_CANNOT_UNBIND"
+        | "ERROR_LDAP_CANNOT_SEARCH"
+        | "ERROR_LDAP_CANNOT_START_TLS"
+        | "ERROR_LDAP_FOUND_NO_OBJECTS"
+        | "ERROR_LDAP_NOT_ONE_USER_FOUND"
+        | "ERROR_LDAP_USER_NOT_IDENTIFIED"
+        | "ERROR_LDAP_INVALID_MODE"
+        | "ERROR_TASK_INVALID_ID"
+        | "ERROR_TASK_DUPLICATE_ID"
+        | "ERROR_TASK_NOT_FOUND"
+        | "ERROR_GRAPH_INVALID_GRAPH"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_GRAPH"
+        | "ERROR_GRAPH_INVALID_VERTEX"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_VERTEX"
+        | "ERROR_GRAPH_COULD_NOT_CHANGE_VERTEX"
+        | "ERROR_GRAPH_INVALID_EDGE"
+        | "ERROR_GRAPH_COULD_NOT_CREATE_EDGE"
+        | "ERROR_GRAPH_COULD_NOT_CHANGE_EDGE"
+        | "ERROR_GRAPH_TOO_MANY_ITERATIONS"
+        | "ERROR_GRAPH_INVALID_FILTER_RESULT"
+        | "ERROR_GRAPH_EMPTY"
+        | "ERROR_SESSION_UNKNOWN"
+        | "ERROR_SESSION_EXPIRED"
+        | "SIMPLE_CLIENT_UNKNOWN_ERROR"
+        | "SIMPLE_CLIENT_COULD_NOT_CONNECT"
+        | "SIMPLE_CLIENT_COULD_NOT_WRITE"
+        | "SIMPLE_CLIENT_COULD_NOT_READ"
+        | "COMMUNICATOR_REQUEST_ABORTED"
+        | "COMMUNICATOR_DISABLED"
+        | "ERROR_MALFORMED_MANIFEST_FILE"
+        | "ERROR_INVALID_SERVICE_MANIFEST"
+        | "ERROR_SERVICE_FILES_MISSING"
+        | "ERROR_SERVICE_FILES_OUTDATED"
+        | "ERROR_INVALID_FOXX_OPTIONS"
+        | "ERROR_INVALID_MOUNTPOINT"
+        | "ERROR_SERVICE_NOT_FOUND"
+        | "ERROR_SERVICE_NEEDS_CONFIGURATION"
+        | "ERROR_SERVICE_MOUNTPOINT_CONFLICT"
+        | "ERROR_SERVICE_MANIFEST_NOT_FOUND"
+        | "ERROR_SERVICE_OPTIONS_MALFORMED"
+        | "ERROR_SERVICE_SOURCE_NOT_FOUND"
+        | "ERROR_SERVICE_SOURCE_ERROR"
+        | "ERROR_SERVICE_UNKNOWN_SCRIPT"
+        | "ERROR_MODULE_NOT_FOUND"
+        | "ERROR_MODULE_SYNTAX_ERROR"
+        | "ERROR_MODULE_FAILURE"
+        | "ERROR_NO_SMART_COLLECTION"
+        | "ERROR_NO_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_CANNOT_DROP_SMART_COLLECTION"
+        | "ERROR_KEY_MUST_BE_PREFIXED_WITH_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_ILLEGAL_SMART_GRAPH_ATTRIBUTE"
+        | "ERROR_AGENCY_INQUIRY_SYNTAX"
+        | "ERROR_AGENCY_INFORM_MUST_BE_OBJECT"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_TERM"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_ID"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_ACTIVE"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_POOL"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_MIN_PING"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_MAX_PING"
+        | "ERROR_AGENCY_INFORM_MUST_CONTAIN_TIMEOUT_MULT"
+        | "ERROR_AGENCY_INQUIRE_CLIENT_ID_MUST_BE_STRING"
+        | "ERROR_AGENCY_CANNOT_REBUILD_DBS"
+        | "ERROR_SUPERVISION_GENERAL_FAILURE"
+        | "ERROR_DISPATCHER_IS_STOPPING"
+        | "ERROR_QUEUE_UNKNOWN"
+        | "ERROR_QUEUE_FULL";
 
     // Collection
 
@@ -861,23 +861,23 @@ declare namespace ArangoDB {
     }
 
     type ArangoSearchViewConsolidationType =
-        | 'bytes'
-        | 'bytes_accum'
-        | 'count'
-        | 'fill';
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
 
     interface ArangoSearchViewCollectionLink {
         analyzers?: string[] | undefined;
         fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined } | undefined;
         includeAllFields?: boolean | undefined;
         trackListPositions?: boolean | undefined;
-        storeValues?: 'none' | 'id' | undefined;
+        storeValues?: "none" | "id" | undefined;
     }
 
     interface ArangoSearchViewProperties {
         id: string;
         name: string;
-        type: 'arangosearch';
+        type: "arangosearch";
 
         cleanupIntervalStep: number;
         consolidationIntervalMsec: number;
@@ -1098,14 +1098,14 @@ declare namespace Foxx {
         & { type: string };
 
     type ConfigurationType =
-        | 'integer'
-        | 'boolean'
-        | 'string'
-        | 'number'
-        | 'json'
-        | 'password'
-        | 'int'
-        | 'bool';
+        | "integer"
+        | "boolean"
+        | "string"
+        | "number"
+        | "json"
+        | "password"
+        | "int"
+        | "bool";
     interface ConfigurationDefinition {
         default?: any;
         type?: ConfigurationType | undefined;
@@ -1171,8 +1171,8 @@ declare namespace Foxx {
         createDocumentationRouter(
             opts?:
                 | Partial<DocumentationRouterOptions>
-                | DocumentationRouterOptions['before']
-                | DocumentationRouterOptions['swaggerRoot'],
+                | DocumentationRouterOptions["before"]
+                | DocumentationRouterOptions["swaggerRoot"],
         ): Router;
         file(name: string): Buffer;
         file(name: string, encoding: string): string;
@@ -1451,7 +1451,7 @@ declare namespace Foxx {
     }
 }
 
-declare module '@arangodb' {
+declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
     namespace aql {
         function literal(value: any): ArangoDB.AqlLiteral;
@@ -1470,12 +1470,12 @@ declare module '@arangodb' {
     };
 }
 
-declare module '@arangodb/foxx/router' {
+declare module "@arangodb/foxx/router" {
     function createRouter(): Foxx.Router;
     export = createRouter;
 }
 
-declare module '@arangodb/foxx/queues' {
+declare module "@arangodb/foxx/queues" {
     interface QueueItem {
         name: string;
         mount: string;
@@ -1545,7 +1545,7 @@ declare module '@arangodb/foxx/queues' {
     export { createQueue as create, deleteQueue as delete, get, Job, JobOptions, Queue, QueueItem, Script };
 }
 
-declare module '@arangodb/foxx/graphql' {
+declare module "@arangodb/foxx/graphql" {
     type GraphQLSchema = object;
     type GraphQLFormatErrorFunction = (error: any) => any;
     interface GraphQLModule {
@@ -1573,14 +1573,14 @@ declare module '@arangodb/foxx/graphql' {
     export = createGraphQLRouter;
 }
 
-declare module '@arangodb/foxx/sessions' {
+declare module "@arangodb/foxx/sessions" {
     interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
             | Foxx.SessionTransport
             | Foxx.SessionTransport[]
-            | 'cookie'
-            | 'header';
+            | "cookie"
+            | "header";
         autoCreate?: boolean | undefined;
     }
     function sessionsMiddleware(
@@ -1589,7 +1589,7 @@ declare module '@arangodb/foxx/sessions' {
     export = sessionsMiddleware;
 }
 
-declare module '@arangodb/foxx/sessions/storages/collection' {
+declare module "@arangodb/foxx/sessions/storages/collection" {
     interface CollectionStorageOptions {
         collection: string | ArangoDB.Collection;
         ttl?: number | undefined;
@@ -1599,12 +1599,12 @@ declare module '@arangodb/foxx/sessions/storages/collection' {
     function collectionStorage(
         options:
             | CollectionStorageOptions
-            | CollectionStorageOptions['collection'],
+            | CollectionStorageOptions["collection"],
     ): Foxx.CollectionSessionStorage;
     export = collectionStorage;
 }
 
-declare module '@arangodb/foxx/sessions/storages/jwt' {
+declare module "@arangodb/foxx/sessions/storages/jwt" {
     interface SafeJwtStorageOptions {
         algorithm?: ArangoDB.JwtAlgorithm | undefined;
         secret: string;
@@ -1613,7 +1613,7 @@ declare module '@arangodb/foxx/sessions/storages/jwt' {
         maxExp?: number | undefined;
     }
     interface UnsafeJwtStorageOptions {
-        algorithm: 'none';
+        algorithm: "none";
         ttl?: number | undefined;
         verify?: boolean | undefined;
         maxExp?: number | undefined;
@@ -1622,12 +1622,12 @@ declare module '@arangodb/foxx/sessions/storages/jwt' {
         options:
             | SafeJwtStorageOptions
             | UnsafeJwtStorageOptions
-            | SafeJwtStorageOptions['secret'],
+            | SafeJwtStorageOptions["secret"],
     ): Foxx.SessionStorage;
     export = jwtStorage;
 }
 
-declare module '@arangodb/foxx/sessions/transports/cookie' {
+declare module "@arangodb/foxx/sessions/transports/cookie" {
     interface CookieTransportOptions {
         name?: string | undefined;
         ttl?: number | undefined;
@@ -1645,7 +1645,7 @@ declare module '@arangodb/foxx/sessions/transports/cookie' {
     export = cookieTransport;
 }
 
-declare module '@arangodb/foxx/sessions/transports/header' {
+declare module "@arangodb/foxx/sessions/transports/header" {
     interface HeaderTransportOptions {
         name?: string | undefined;
     }
@@ -1656,7 +1656,7 @@ declare module '@arangodb/foxx/sessions/transports/header' {
     export = headerTransport;
 }
 
-declare module '@arangodb/foxx/auth' {
+declare module "@arangodb/foxx/auth" {
     interface AuthData {
         method: string;
         iter?: number | undefined;
@@ -1672,7 +1672,7 @@ declare module '@arangodb/foxx/auth' {
         saltLength?: number | undefined;
     }
     interface Pbkdf2AuthOptions {
-        method: 'pbkdf2';
+        method: "pbkdf2";
         saltLength?: number | undefined;
         workFactor?: number | undefined;
     }
@@ -1680,7 +1680,7 @@ declare module '@arangodb/foxx/auth' {
     export = createAuth;
 }
 
-declare module '@arangodb/foxx/oauth1' {
+declare module "@arangodb/foxx/oauth1" {
     interface OAuth1Options {
         requestTokenEndpoint: string;
         authEndpoint: string;
@@ -1688,7 +1688,7 @@ declare module '@arangodb/foxx/oauth1' {
         activeUserEndpoint?: string | undefined;
         clientId: string;
         clientSecret: string;
-        signatureMethod?: 'HMAC-SHA1' | 'PLAINTEXT' | undefined;
+        signatureMethod?: "HMAC-SHA1" | "PLAINTEXT" | undefined;
     }
     interface OAuth1Client {
         fetchRequestToken(
@@ -1718,14 +1718,14 @@ declare module '@arangodb/foxx/oauth1' {
         ): {
             url: string;
             qs: string;
-            headers: { accept: 'application/json'; authorization: string };
+            headers: { accept: "application/json"; authorization: string };
         };
     }
     function createOAuth1Client(options: OAuth1Options): OAuth1Client;
     export = createOAuth1Client;
 }
 
-declare module '@arangodb/foxx/oauth2' {
+declare module "@arangodb/foxx/oauth2" {
     interface OAuth2Options {
         authEndpoint: string;
         tokenEndpoint: string;
@@ -1750,11 +1750,11 @@ declare module '@arangodb/foxx/oauth2' {
     export = createOAuth2Client;
 }
 
-declare module '@arangodb/foxx' {
+declare module "@arangodb/foxx" {
     function createRouter(): Foxx.Router;
 }
 
-declare module '@arangodb/request' {
+declare module "@arangodb/request" {
     interface Response {
         rawBody: Buffer;
         body: string | Buffer;
@@ -1800,7 +1800,7 @@ declare module '@arangodb/request' {
     export = request;
 }
 
-declare module '@arangodb/crypto' {
+declare module "@arangodb/crypto" {
     function createNonce(): string;
     function checkAndMarkNonce(nonce: string): void;
     function rand(): number;
@@ -1814,7 +1814,7 @@ declare module '@arangodb/crypto' {
         message: string,
         algorithm: ArangoDB.JwtAlgorithm,
     ): string;
-    function jwtEncode(key: null, message: string, algorithm: 'none'): string;
+    function jwtEncode(key: null, message: string, algorithm: "none"): string;
     function jwtDecode(
         key: string | null,
         token: string,
@@ -1840,7 +1840,7 @@ declare module '@arangodb/crypto' {
     ): string;
 }
 
-declare module '@arangodb/general-graph' {
+declare module "@arangodb/general-graph" {
     interface EdgeDefinition {
         collection: string;
         from: string[];
@@ -2045,7 +2045,7 @@ declare module '@arangodb/general-graph' {
     ): EdgeDefinition[];
 }
 
-declare module '@arangodb/locals' {
+declare module "@arangodb/locals" {
     const context: Foxx.Context;
 }
 

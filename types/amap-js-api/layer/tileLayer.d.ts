@@ -1,7 +1,7 @@
 declare namespace AMap {
     namespace TileLayer {
         interface EventMap {
-            complete: Event<'complete'>;
+            complete: Event<"complete">;
         }
 
         interface Options extends Layer.Options {

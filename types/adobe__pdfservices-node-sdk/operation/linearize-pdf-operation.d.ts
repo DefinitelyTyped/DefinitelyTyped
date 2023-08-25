@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PdfFormat } from "../pdfservices-sdk";
 
 /**
  * An operation that converts a PDF file into a linearized (also known as “web optimized”) PDF file.

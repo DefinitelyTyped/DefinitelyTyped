@@ -1,25 +1,25 @@
-import { createResponse } from 'create-response';
-import { httpRequest } from 'http-request';
-import { ReadableStream } from 'streams';
-import { TextEncoderStream } from 'text-encode-transform';
+import { createResponse } from "create-response";
+import { httpRequest } from "http-request";
+import { ReadableStream } from "streams";
+import { TextEncoderStream } from "text-encode-transform";
 
 // Check the arguments of httpRequest
-httpRequest('url');
-httpRequest('url', {});
-httpRequest('url', { headers: { 'Accept-Encoding': 'zz' } });
-httpRequest('url', { method: 'POST', body: 'post payload' });
-httpRequest('url', { timeout: 9 });
-httpRequest('url', {
-    method: 'POST',
+httpRequest("url");
+httpRequest("url", {});
+httpRequest("url", { headers: { "Accept-Encoding": "zz" } });
+httpRequest("url", { method: "POST", body: "post payload" });
+httpRequest("url", { timeout: 9 });
+httpRequest("url", {
+    method: "POST",
     body: new ReadableStream({
         start(controller) {
-            controller.enqueue('This is a ReadableStream test');
+            controller.enqueue("This is a ReadableStream test");
             controller.close();
         },
     }).pipeThrough(new TextEncoderStream()),
 });
 
-httpRequest('url').then(response => {
+httpRequest("url").then(response => {
     // Verify the non-body fields
     const status = response.status;
     const ok = response.ok;
@@ -27,7 +27,7 @@ httpRequest('url').then(response => {
     response.text().then(words => words.toUpperCase());
     response.json().then(obj => JSON.stringify(obj));
 
-    response.getHeader('Date');
+    response.getHeader("Date");
 
     // Verify getHeaders
     const headers = response.getHeaders();

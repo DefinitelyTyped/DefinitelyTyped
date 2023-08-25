@@ -1,4 +1,4 @@
-import { AmCharts } from 'amcharts';
+import { AmCharts } from "amcharts";
 
 const theme = AmCharts.themes.light;
 
@@ -7,8 +7,8 @@ AmCharts.useUTC = false;
 AmCharts.theme = theme;
 
 // "JSON"-style API.
-const chart = AmCharts.makeChart('chartdiv', {
-    type: 'gauge',
+const chart = AmCharts.makeChart("chartdiv", {
+    type: "gauge",
     arrows: [
         {
             value: 130,
@@ -16,7 +16,7 @@ const chart = AmCharts.makeChart('chartdiv', {
     ],
     titles: [
         {
-            text: 'Speedometer',
+            text: "Speedometer",
             size: 15,
         },
     ],
@@ -25,25 +25,25 @@ const chart = AmCharts.makeChart('chartdiv', {
     },
     axes: [
         {
-            bottomText: '0 km/h',
+            bottomText: "0 km/h",
             endValue: 220,
             valueInterval: 10,
             bands: [
                 {
-                    color: '#00CC00',
+                    color: "#00CC00",
                     endValue: 90,
                     startValue: 0,
                 },
                 {
-                    color: '#ffac29',
+                    color: "#ffac29",
                     endValue: 130,
                     startValue: 90,
                 },
                 {
-                    color: '#ea3838',
+                    color: "#ea3838",
                     endValue: 220,
                     startValue: 130,
-                    innerRadius: '95%',
+                    innerRadius: "95%",
                 },
             ],
         },

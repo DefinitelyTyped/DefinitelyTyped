@@ -370,7 +370,7 @@ declare namespace AMap {
             center?: LngLat | undefined;
             rotation?: number | undefined;
             zoom?: number | undefined;
-            crs?: 'EPSG3857' | 'EPSG3395' | 'EPSG4326' | undefined;
+            crs?: "EPSG3857" | "EPSG3395" | "EPSG4326" | undefined;
         });
 
         /**

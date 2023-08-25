@@ -8,9 +8,9 @@ export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
-export type Transport = 'http' | 'beacon';
+export type Transport = "http" | "beacon";
 // https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
-export type ServerZone = 'EU' | 'US';
+export type ServerZone = "EU" | "US";
 
 // https://amplitude.github.io/Amplitude-JavaScript/Options
 export interface Config {
@@ -33,19 +33,19 @@ export interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
     onExitPage?: (() => void) | undefined;
     platform?: string | undefined;
-    sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSiteCookie?: "Lax" | "Strict" | "None" | undefined;
     saveEvents?: boolean | undefined;
     savedMaxCount?: number | undefined;
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
     sessionId?: number | null;
-    storage?: '' | 'cookies' | 'localStorage' | 'sessionStorage' | 'none';
+    storage?: "" | "cookies" | "localStorage" | "sessionStorage" | "none";
     trackingOptions?: {
         city?: boolean | undefined;
         country?: boolean | undefined;
@@ -206,7 +206,7 @@ export interface CookieStorageOptions {
     expirationDays?: number | undefined;
     domain?: string | undefined;
     secure?: boolean | undefined;
-    sameSite?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSite?: "Lax" | "Strict" | "None" | undefined;
 }
 export interface CookieStorage {
     reset(): void;

@@ -45,7 +45,7 @@ declare namespace AlipayJSSDK {
         /** 网络是否可用 */
         networkAvailable: boolean;
         /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
-        networkType: 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
+        networkType: "UNKNOWN" | "NOTREACHABLE" | "WIFI" | "3G" | "2G" | "4G" | "WWAN";
     }
 
     /** 蓝牙设备信息 */
@@ -239,7 +239,7 @@ declare namespace AlipayJSSDK {
                     /** 最大可选照片数，默认1张，上限9张 */
                     count?: number;
                     /** 相册选取或者拍照，默认 ['camera', 'album'] */
-                    sourceType?: Array<'camera' | 'album'>;
+                    sourceType?: Array<"camera" | "album">;
                     complete?: CompleteCallBack;
                 }
                 | number,
@@ -291,7 +291,7 @@ declare namespace AlipayJSSDK {
                     /** 最大录制时长，单位秒，默认60s */
                     maxDuration?: number;
                     /** 相册选取或者拍照，默认 ['camera','album'] */
-                    sourceType?: Array<'camera' | 'album'>;
+                    sourceType?: Array<"camera" | "album">;
                     /** 前置或者后置摄像头，默认前后都有，即：[‘front’, ‘back’] */
                     camera?: string[];
                     complete?: CompleteCallBack;
@@ -550,7 +550,7 @@ declare namespace AlipayJSSDK {
          */
         scan(option?: {
             /** 扫描目标类型，支持 qr / bar，相应扫码选框会不同，默认 qr */
-            type: 'qr' | 'bar';
+            type: "qr" | "bar";
             complete?: CompleteCallBack;
         }): Promise<{
             /** 扫码所得数据 */
@@ -1246,7 +1246,7 @@ declare namespace AlipayJSSDK {
                     /** 文字内容 */
                     content: string;
                     /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-                    type?: 'none' | 'success' | 'fail' | 'exception';
+                    type?: "none" | "success" | "fail" | "exception";
                     /** 显示时长，单位为 ms，默认 2000 */
                     duration?: number;
                     complete?: CompleteCallBack;
@@ -1372,7 +1372,7 @@ declare namespace AlipayJSSDK {
                 /** 按钮标题文字颜色，与 type、icon 三选一。 */
                 color?: string;
                 /** 按钮图标类型，与 title、icon 三选一。支持 user / filter / search / add / settings / scan / info / help / locate / more */
-                type?: 'user' | 'filter' | 'search' | 'add' | 'settings' | 'scan' | 'info' | 'help' | 'locate' | 'more';
+                type?: "user" | "filter" | "search" | "add" | "settings" | "scan" | "info" | "help" | "locate" | "more";
                 /** 按钮图标，支持 base64。与 type 三选一 */
                 icon?: string;
                 /** 按钮红色气泡，默认 -1。其中 0 表示小红点，-1 表示不显示，其他值展示出来 */

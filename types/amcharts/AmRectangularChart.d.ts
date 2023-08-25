@@ -1,7 +1,7 @@
-import AmCoordinateChart from './AmCoordinateChart';
-import ChartCursor from './ChartCursor';
-import ChartScrollbar from './ChartScrollbar';
-import TrendLine from './TrendLine';
+import AmCoordinateChart from "./AmCoordinateChart";
+import ChartCursor from "./ChartCursor";
+import ChartScrollbar from "./ChartScrollbar";
+import TrendLine from "./TrendLine";
 
 /**
  * AmRectangularChart is a base class of AmSerialChart and AmXYChart. It can not be instantiated explicitly.

@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace idle {
         /**
          * Used to configure the Title service.

@@ -54,4 +54,4 @@ export class CombineFilesOperation {
     getIncludeRanges(): any[];
     getSourceFileRefs(): any[];
 }
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from "../pdfservices-sdk";

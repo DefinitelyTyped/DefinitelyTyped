@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from "../pdfservices-sdk";
 
 /**
  * An operation to delete pages in a PDF file.

@@ -133,13 +133,13 @@ declare namespace AltJS {
     type ExportConfig = { [key: string]: (...args: Array<any>) => any };
 }
 
-declare module 'alt/utils/chromeDebug' {
+declare module "alt/utils/chromeDebug" {
     function chromeDebug(alt: AltJS.Alt): void;
     export = chromeDebug;
 }
 
-declare module 'alt/AltContainer' {
-    import * as React from 'react';
+declare module "alt/AltContainer" {
+    import * as React from "react";
 
     interface ContainerProps {
         store?: AltJS.AltStore<any> | undefined;
@@ -159,7 +159,7 @@ declare module 'alt/AltContainer' {
     export = AltContainer;
 }
 
-declare module 'alt' {
+declare module "alt" {
     var alt: AltJS.AltFactory;
     export = alt;
 }

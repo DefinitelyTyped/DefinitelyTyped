@@ -1,5 +1,5 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { CompressPDFOptions } from './option/compresspdf/compress-pdf-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { CompressPDFOptions } from "./option/compresspdf/compress-pdf-options";
 
 /**
  * An operation that reduces the size of a PDF file.

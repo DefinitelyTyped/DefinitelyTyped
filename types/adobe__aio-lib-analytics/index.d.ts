@@ -38,7 +38,7 @@ export class AnalyticsCoreAPI {
 
     getReport(body: {
         rsid: string;
-        globalFilters: Array<{ type: 'dateRange'; dateRange: string }>;
+        globalFilters: Array<{ type: "dateRange"; dateRange: string }>;
         metricContainer: {
             metrics: Array<{ id: string }>;
         };

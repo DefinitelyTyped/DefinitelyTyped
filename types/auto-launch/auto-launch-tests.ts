@@ -1,8 +1,8 @@
-import AutoLaunch = require('auto-launch');
+import AutoLaunch = require("auto-launch");
 
 const minecraftAutoLauncher = new AutoLaunch({
-    name: 'Minecraft',
-    path: '/Applications/Minecraft.app',
+    name: "Minecraft",
+    path: "/Applications/Minecraft.app",
     mac: {
         useLaunchAgent: true,
     },

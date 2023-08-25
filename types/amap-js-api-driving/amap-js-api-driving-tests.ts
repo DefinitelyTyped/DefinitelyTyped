@@ -9,16 +9,16 @@ new AMap.Driving({});
 // $ExpectType Driving
 const driving = new AMap.Driving({
     policy: AMap.DrivingPolicy.LEAST_DISTANCE,
-    extensions: 'all',
+    extensions: "all",
     ferry: true,
     map,
-    panel: 'result',
+    panel: "result",
     hideMarkers: false,
     showTraffic: true,
-    province: '粤',
-    number: 'NH1N11',
+    province: "粤",
+    number: "NH1N11",
     isOutline: true,
-    outlineColor: 'blue',
+    outlineColor: "blue",
     autoFitView: true,
 });
 
@@ -29,8 +29,8 @@ driving.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
 driving.search(lnglat, lnglat, { waypoints: [lnglat] });
 driving.search(lnglat, lnglat, { waypoints: [lnglat] }, (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
-    if (typeof result !== 'string') {
+    const temp: "error" | "complete" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType LngLat
         result.destination;
         // $ExpectType Poi
@@ -151,9 +151,9 @@ driving.search(lnglat, lnglat, { waypoints: [lnglat] }, (status, result) => {
         result;
     }
 });
-driving.search([{ keyword: 'start' }, { keyword: 'end' }], (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
-    if (typeof result !== 'string') {
+driving.search([{ keyword: "start" }, { keyword: "end" }], (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResultExt
         result;
         // $ExpectType string
@@ -173,8 +173,8 @@ driving.search([{ keyword: 'start' }, { keyword: 'end' }], (status, result) => {
 });
 
 driving.search([
-    { keyword: 'start', city: 'startCity' },
-    { keyword: 'end', city: 'endCity' },
+    { keyword: "start", city: "startCity" },
+    { keyword: "end", city: "endCity" },
 ]);
 
 // $ExpectType void
@@ -188,7 +188,7 @@ driving.setAvoidPolygons([[lnglat, lnglat, lnglat, lnglat]]);
 driving.setAvoidPolygons([[lnglatTuple, lnglatTuple, lnglatTuple, lnglatTuple]]);
 
 // $ExpectType void
-driving.setAvoidRoad('roadName');
+driving.setAvoidRoad("roadName");
 
 // $ExpectType void
 driving.clearAvoidRoad();
@@ -218,24 +218,24 @@ driving.searchOnAMAP({
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglatTuple,
-    originName: 'originName',
+    originName: "originName",
     destination: lnglatTuple,
-    destinationName: 'destinationName',
+    destinationName: "destinationName",
 });
 
 // $ExpectType void
-driving.setProvinceAndNumber('province', 'number');
+driving.setProvinceAndNumber("province", "number");
 
-driving.on('complete', (event: AMap.Driving.EventMap['complete']) => {
+driving.on("complete", (event: AMap.Driving.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
     event.info;
 
-    if ('start' in event) {
+    if ("start" in event) {
         // $ExpectType LngLat
         event.destination;
-        if ('destinationName' in event) {
+        if ("destinationName" in event) {
             // $ExpectType string
             event.destinationName;
             // $ExpectType string

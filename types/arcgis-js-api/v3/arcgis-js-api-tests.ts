@@ -1,6 +1,6 @@
-import esri = require('esri');
-import Map = require('esri/map');
-import Point = require('esri/geometry/Point');
+import esri = require("esri");
+import Map = require("esri/map");
+import Point = require("esri/geometry/Point");
 
 class MapController {
     map: Map;
@@ -12,7 +12,7 @@ class MapController {
         let point = new Point(-122.45, 37.75); // long, lat
 
         let mapOptions: esri.MapOptions = {};
-        mapOptions.basemap = 'topo';
+        mapOptions.basemap = "topo";
         mapOptions.center = point;
         mapOptions.zoom = 13;
 
@@ -20,7 +20,7 @@ class MapController {
     }
 }
 
-import IdentityManager = require('esri/IdentityManager');
+import IdentityManager = require("esri/IdentityManager");
 
 const esriId: IdentityManager = IdentityManager as any;
 esriId.enablePostMessageAuth();

@@ -10,10 +10,10 @@ new AMap.Heatmap(map, {});
 const heatmap = new AMap.Heatmap(map, {
     radius: 30,
     gradient: {
-        0.4: 'rgb(0, 255, 255)',
-        0.65: 'rgb(0, 110, 255)',
-        0.85: 'rgb(100, 0, 255)',
-        1.0: 'rgb(100, 0, 255)',
+        0.4: "rgb(0, 255, 255)",
+        0.65: "rgb(0, 110, 255)",
+        0.85: "rgb(100, 0, 255)",
+        1.0: "rgb(100, 0, 255)",
     },
     opacity: [0, 0.5],
     zooms: [1, 18],
@@ -30,10 +30,10 @@ heatmap.setOptions({});
 heatmap.setOptions({
     radius: 30,
     gradient: {
-        0.4: 'rgb(0, 255, 255)',
-        0.65: 'rgb(0, 110, 255)',
-        0.85: 'rgb(100, 0, 255)',
-        1.0: 'rgb(100, 0, 255)',
+        0.4: "rgb(0, 255, 255)",
+        0.65: "rgb(0, 110, 255)",
+        0.85: "rgb(100, 0, 255)",
+        1.0: "rgb(100, 0, 255)",
     },
     opacity: [0, 0.5],
     zooms: [1, 18],
@@ -53,7 +53,7 @@ heatmap.setDataSet({
 
 // $ExpectType void
 heatmap.setDataSet({
-    data: '',
+    data: "",
     dataParser: () => {
         return {
             data: [

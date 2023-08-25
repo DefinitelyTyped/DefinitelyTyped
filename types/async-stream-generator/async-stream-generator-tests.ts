@@ -1,7 +1,7 @@
-import streamify = require('async-stream-generator');
+import streamify = require("async-stream-generator");
 
 async function* generator() {
-    yield 'foo';
+    yield "foo";
 }
 
 async function notGenerator() {
@@ -9,7 +9,7 @@ async function notGenerator() {
 }
 
 function* notAsync() {
-    yield 'foo';
+    yield "foo";
 }
 
 // @ts-expect-error

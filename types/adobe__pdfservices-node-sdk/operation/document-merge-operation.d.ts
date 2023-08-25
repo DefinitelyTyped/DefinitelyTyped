@@ -55,5 +55,5 @@ export class DocumentMergeOperation {
     execute(context: ExecutionContext): Promise<FileRef>;
     validate(context: any): void;
 }
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { DocumentMergeOptions } from './option/documentmerge/document-merge-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { DocumentMergeOptions } from "./option/documentmerge/document-merge-options";

@@ -61,7 +61,7 @@ declare namespace stdole {
     }
 
     class StdFont {
-        private 'stdole.StdFont_typekey': StdFont;
+        private "stdole.StdFont_typekey": StdFont;
         private constructor();
         readonly Bold: boolean;
         readonly Charset: number;
@@ -74,7 +74,7 @@ declare namespace stdole {
     }
 
     class StdPicture {
-        private 'stdole.StdPicture_typekey': StdPicture;
+        private "stdole.StdPicture_typekey": StdPicture;
         private constructor();
         readonly Handle: number;
         readonly Height: number;
@@ -99,8 +99,8 @@ declare namespace stdole {
 interface ActiveXObject {
     on(
         obj: stdole.StdFont,
-        event: 'FontChanged',
-        argNames: ['PropertyName'],
+        event: "FontChanged",
+        argNames: ["PropertyName"],
         handler: (this: stdole.StdFont, parameter: { readonly PropertyName: string }) => void,
     ): void;
 }

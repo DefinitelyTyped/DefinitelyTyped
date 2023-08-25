@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import * as FS from 'fs';
-import { Constants } from './util';
+import * as FS from "fs";
+import { Constants } from "./util";
 
 declare class AdmZip {
     /**

@@ -2,7 +2,7 @@ export interface StartOptions {
     port?: number | undefined;
     quiet?: boolean | undefined;
     cwd?: string | undefined;
-    logLevel?: 'normal' | 'verbose' | 'debug' | undefined;
+    logLevel?: "normal" | "verbose" | "debug" | undefined;
     symlink?: boolean | undefined;
 }
 

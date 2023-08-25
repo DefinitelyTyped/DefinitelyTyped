@@ -2,9 +2,9 @@ import {
     APIGatewayAuthorizerResultContext,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
-} from '../common/api-gateway';
-import { Callback, Handler } from '../handler';
-import { APIGatewayEventRequestContextV2 } from './api-gateway-proxy';
+} from "../common/api-gateway";
+import { Callback, Handler } from "../handler";
+import { APIGatewayEventRequestContextV2 } from "./api-gateway-proxy";
 
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
 export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
@@ -26,14 +26,14 @@ export type APIGatewayRequestAuthorizerWithContextHandler<
 export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
 
 export interface APIGatewayTokenAuthorizerEvent {
-    type: 'TOKEN';
+    type: "TOKEN";
     methodArn: string;
     authorizationToken: string;
 }
 
 export interface APIGatewayRequestAuthorizerEventV2 {
     version: string;
-    type: 'REQUEST';
+    type: "REQUEST";
     routeArn: string;
     identitySource: string[];
     routeKey: string;
@@ -77,7 +77,7 @@ export interface APIGatewayRequestAuthorizerEventStageVariables {
 // See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-input.html for the
 // formal definition.
 export interface APIGatewayRequestAuthorizerEvent {
-    type: 'REQUEST';
+    type: "REQUEST";
     methodArn: string;
     resource: string;
     path: string;

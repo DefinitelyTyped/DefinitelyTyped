@@ -29,11 +29,11 @@ export type Position2D = [number, number];
 export type Position = Position2D | [number, number, number] | [number, number, number, number];
 
 export interface CircularArc {
-    'c': [Position, Position2D];
+    "c": [Position, Position2D];
 }
 
 export interface Arc {
-    'a': [
+    "a": [
         Position, // End point: x, y, <z>, <m>
         Position2D, // Center point: center_x, center_y
         number, // minor
@@ -47,7 +47,7 @@ export interface Arc {
 export type ElipticArc = Arc;
 
 export interface OldCircularArc {
-    'a': [
+    "a": [
         Position, // End point: x, y, <z>, <m>
         Position2D, // Center point: center_x, center_y
         number, // minor
@@ -56,7 +56,7 @@ export interface OldCircularArc {
 }
 
 export interface BezierCurve {
-    'b': [
+    "b": [
         Position,
         Position2D,
         Position2D,
@@ -129,113 +129,113 @@ export interface Envelope extends Geometry {
 }
 
 export type esriGeometryType =
-    | 'esriGeometryPoint'
-    | 'esriGeometryMultipoint'
-    | 'esriGeometryPolyline'
-    | 'esriGeometryPolygon'
-    | 'esriGeometryEnvelope';
+    | "esriGeometryPoint"
+    | "esriGeometryMultipoint"
+    | "esriGeometryPolyline"
+    | "esriGeometryPolygon"
+    | "esriGeometryEnvelope";
 
 export type Color = [number, number, number, number];
 export type SimpleMarkerSymbolStyle =
-    | 'esriSMSCircle'
-    | 'esriSMSCross'
-    | 'esriSMSDiamond'
-    | 'esriSMSSquare'
-    | 'esriSMSX'
-    | 'esriSMSTriangle';
+    | "esriSMSCircle"
+    | "esriSMSCross"
+    | "esriSMSDiamond"
+    | "esriSMSSquare"
+    | "esriSMSX"
+    | "esriSMSTriangle";
 export type SimpleLineSymbolStyle =
-    | 'esriSLSDash'
-    | 'esriSLSDashDot'
-    | 'esriSLSDashDotDot'
-    | 'esriSLSDot'
-    | 'esriSLSNull'
-    | 'esriSLSSolid';
+    | "esriSLSDash"
+    | "esriSLSDashDot"
+    | "esriSLSDashDotDot"
+    | "esriSLSDot"
+    | "esriSLSNull"
+    | "esriSLSSolid";
 export type SimpleFillSymbolStyle =
-    | 'esriSFSBackwardDiagonal'
-    | 'esriSFSCross'
-    | 'esriSFSDiagonalCross'
-    | 'esriSFSForwardDiagonal'
-    | 'esriSFSHorizontal'
-    | 'esriSFSNull'
-    | 'esriSFSSolid'
-    | 'esriSFSVertical';
-export type SymbolType = 'esriSLS' | 'esriSMS' | 'esriSFS' | 'esriPMS' | 'esriPFS' | 'esriTS';
+    | "esriSFSBackwardDiagonal"
+    | "esriSFSCross"
+    | "esriSFSDiagonalCross"
+    | "esriSFSForwardDiagonal"
+    | "esriSFSHorizontal"
+    | "esriSFSNull"
+    | "esriSFSSolid"
+    | "esriSFSVertical";
+export type SymbolType = "esriSLS" | "esriSMS" | "esriSFS" | "esriPMS" | "esriPFS" | "esriTS";
 
 export interface Symbol {
-    'type': SymbolType;
-    'style'?: string | undefined;
+    "type": SymbolType;
+    "style"?: string | undefined;
 }
 
 export interface SimpleLineSymbol extends Symbol {
-    'type': 'esriSLS';
-    'style'?: SimpleLineSymbolStyle | undefined;
-    'color'?: Color | undefined;
-    'width'?: number | undefined;
+    "type": "esriSLS";
+    "style"?: SimpleLineSymbolStyle | undefined;
+    "color"?: Color | undefined;
+    "width"?: number | undefined;
 }
 
 export interface MarkerSymbol extends Symbol {
-    'angle'?: number | undefined;
-    'xoffset'?: number | undefined;
-    'yoffset'?: number | undefined;
+    "angle"?: number | undefined;
+    "xoffset"?: number | undefined;
+    "yoffset"?: number | undefined;
 }
 
 export interface SimpleMarkerSymbol extends MarkerSymbol {
-    'type': 'esriSMS';
-    'style'?: SimpleMarkerSymbolStyle | undefined;
-    'color'?: Color | undefined;
-    'size'?: number | undefined;
-    'outline'?: SimpleLineSymbol | undefined;
+    "type": "esriSMS";
+    "style"?: SimpleMarkerSymbolStyle | undefined;
+    "color"?: Color | undefined;
+    "size"?: number | undefined;
+    "outline"?: SimpleLineSymbol | undefined;
 }
 
 export interface SimpleFillSymbol extends Symbol {
-    'type': 'esriSFS';
-    'style'?: SimpleFillSymbolStyle | undefined;
-    'color'?: Color | undefined;
-    'outline'?: SimpleLineSymbol | undefined; // if outline has been specified
+    "type": "esriSFS";
+    "style"?: SimpleFillSymbolStyle | undefined;
+    "color"?: Color | undefined;
+    "outline"?: SimpleLineSymbol | undefined; // if outline has been specified
 }
 
 export interface PictureSourced {
-    'url'?: string | undefined; // Relative URL for static layers and full URL for dynamic layers. Access relative URL using http://<mapservice-url>/<layerId1>/images/<imageUrl11>
-    'imageData'?: string | undefined; // "<base64EncodedImageData>";
-    'contentType'?: string | undefined;
-    'width'?: number | undefined;
-    'height'?: number | undefined;
-    'angle'?: number | undefined;
-    'xoffset'?: number | undefined;
-    'yoffset'?: number | undefined;
+    "url"?: string | undefined; // Relative URL for static layers and full URL for dynamic layers. Access relative URL using http://<mapservice-url>/<layerId1>/images/<imageUrl11>
+    "imageData"?: string | undefined; // "<base64EncodedImageData>";
+    "contentType"?: string | undefined;
+    "width"?: number | undefined;
+    "height"?: number | undefined;
+    "angle"?: number | undefined;
+    "xoffset"?: number | undefined;
+    "yoffset"?: number | undefined;
 }
 
 export interface PictureMarkerSymbol extends MarkerSymbol, PictureSourced {
-    'type': 'esriPMS';
+    "type": "esriPMS";
 }
 
 export interface PictureFillSymbol extends Symbol, PictureSourced {
-    'type': 'esriPFS';
-    'outline'?: SimpleLineSymbol | undefined; // if outline has been specified
-    'xscale'?: number | undefined;
-    'yscale'?: number | undefined;
+    "type": "esriPFS";
+    "outline"?: SimpleLineSymbol | undefined; // if outline has been specified
+    "xscale"?: number | undefined;
+    "yscale"?: number | undefined;
 }
 
 export interface Font {
-    'family'?: string | undefined; // "<fontFamily>";
-    'size'?: number | undefined; // <fontSize>;
-    'style'?: 'italic' | 'normal' | 'oblique' | undefined;
-    'weight'?: 'bold' | 'bolder' | 'lighter' | 'normal' | undefined;
-    'decoration'?: 'line-through' | 'underline' | 'none' | undefined;
+    "family"?: string | undefined; // "<fontFamily>";
+    "size"?: number | undefined; // <fontSize>;
+    "style"?: "italic" | "normal" | "oblique" | undefined;
+    "weight"?: "bold" | "bolder" | "lighter" | "normal" | undefined;
+    "decoration"?: "line-through" | "underline" | "none" | undefined;
 }
 
 export interface TextSymbol extends MarkerSymbol {
-    'type': 'esriTS';
-    'color'?: Color | undefined;
-    'backgroundColor'?: Color | undefined;
-    'borderLineSize'?: number | undefined; // <size>;
-    'borderLineColor'?: Color | undefined;
-    'haloSize'?: number | undefined; // <size>;
-    'haloColor'?: Color | undefined;
-    'verticalAlignment'?: 'baseline' | 'top' | 'middle' | 'bottom' | undefined;
-    'horizontalAlignment'?: 'left' | 'right' | 'center' | 'justify' | undefined;
-    'rightToLeft'?: boolean | undefined;
-    'kerning'?: boolean | undefined;
-    'font'?: Font | undefined;
-    'text'?: string | undefined; // only applicable when specified as a client-side graphic.
+    "type": "esriTS";
+    "color"?: Color | undefined;
+    "backgroundColor"?: Color | undefined;
+    "borderLineSize"?: number | undefined; // <size>;
+    "borderLineColor"?: Color | undefined;
+    "haloSize"?: number | undefined; // <size>;
+    "haloColor"?: Color | undefined;
+    "verticalAlignment"?: "baseline" | "top" | "middle" | "bottom" | undefined;
+    "horizontalAlignment"?: "left" | "right" | "center" | "justify" | undefined;
+    "rightToLeft"?: boolean | undefined;
+    "kerning"?: boolean | undefined;
+    "font"?: Font | undefined;
+    "text"?: string | undefined; // only applicable when specified as a client-side graphic.
 }

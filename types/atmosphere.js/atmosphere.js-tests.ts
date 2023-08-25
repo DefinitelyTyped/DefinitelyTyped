@@ -2,17 +2,17 @@ var socket = atmosphere;
 
 var request1: Atmosphere.Request = new atmosphere.AtmosphereRequest();
 
-request1.url = document.location.toString() + 'chat';
-request1.contentType = 'application/json';
-request1.transport = 'websocket';
-request1.fallbackTransport = 'long-polling';
+request1.url = document.location.toString() + "chat";
+request1.contentType = "application/json";
+request1.transport = "websocket";
+request1.fallbackTransport = "long-polling";
 
 var request2: Atmosphere.Request = {
-    url: 'http://localhost:8080/chat',
-    contentType: 'application/json',
-    logLevel: 'debug',
-    transport: 'websocket',
-    fallbackTransport: 'long-polling',
+    url: "http://localhost:8080/chat",
+    contentType: "application/json",
+    logLevel: "debug",
+    transport: "websocket",
+    fallbackTransport: "long-polling",
 };
 
 request1.onError = function(response?: Atmosphere.Response) {};
@@ -32,15 +32,15 @@ request1.execute = function() {};
 request1.close = function() {};
 request1.disconnect = function() {};
 request1.getUrl = function(): string {
-    return 'http://www.toedter.com';
+    return "http://www.toedter.com";
 };
 request1.push = function(message: string, dispatchUrl?: string) {};
 request1.getUUID = function() {};
 request1.pushLocal = function(message: string) {};
 
 var subSocket: Atmosphere.Request = socket.subscribe(request1);
-var subSocket2: Atmosphere.Request = socket.subscribe('http://chat.com', function() {}, request2);
+var subSocket2: Atmosphere.Request = socket.subscribe("http://chat.com", function() {}, request2);
 subSocket2.close();
 
-subSocket.push('test');
+subSocket.push("test");
 socket.unsubscribe();

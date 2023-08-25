@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as events from 'events';
-import * as net from 'net';
+import * as events from "events";
+import * as net from "net";
 
 export type Callback<T> = (value: T) => void;
 export interface AMQPClient extends net.Socket {
@@ -48,7 +48,7 @@ export interface AMQPQueue extends events.EventEmitter {
 }
 
 export interface AMQPExchange extends events.EventEmitter {
-    on(event: 'open' | 'ack' | 'error' | 'exchangeBindOk' | 'exchangeUnbindOk', callback: Callback<void>): this;
+    on(event: "open" | "ack" | "error" | "exchangeBindOk" | "exchangeUnbindOk", callback: Callback<void>): this;
 
     publish(routingKey: string, message: Buffer | {}, callback: (err?: boolean, msg?: string) => void): void;
     publish(
@@ -213,7 +213,7 @@ export interface ExchangeOptions {
     /**
      * Default: 'topic'
      */
-    type?: 'direct' | 'fanout' | 'topic' | undefined;
+    type?: "direct" | "fanout" | "topic" | undefined;
 
     /**
      * Default: false

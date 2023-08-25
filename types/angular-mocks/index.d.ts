@@ -8,12 +8,12 @@
 
 /// <reference path="mocks.d.ts" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
     // We reopen it to add the MockStatic definition
@@ -632,7 +632,7 @@ declare module 'angular' {
              * [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent) and
              * keyboard events (keydown, keypress, and keyup).
              */
-            keys?: Array<'ctrl' | 'alt' | 'shift' | 'meta'> | undefined;
+            keys?: Array<"ctrl" | "alt" | "shift" | "meta"> | undefined;
             /**
              * The [relatedTarget](https://developer.mozilla.org/docs/Web/API/MouseEvent/relatedTarget)
              * for [MouseEvent](https://developer.mozilla.org/docs/Web/API/MouseEvent).

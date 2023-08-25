@@ -7,7 +7,7 @@
 /// <reference types="signalr" />
 /// <reference types="angular" />
 
-declare module 'angular-signalr-hub' {
+declare module "angular-signalr-hub" {
     let _: string;
     export = _;
 }

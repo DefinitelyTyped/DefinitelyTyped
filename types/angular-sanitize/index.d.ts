@@ -8,9 +8,9 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngSanitize module (angular-sanitize.js)
     // see https://code.angularjs.org/1.7.0/docs/api/ngSanitize
@@ -105,7 +105,7 @@ declare module 'angular' {
         // Extend angular $filter declarations to include filters from angular.sanitize module
         ///////////////////////////////////////////////////////////////////////////////
         interface IFilterService {
-            (name: 'linky'): angular.sanitize.filter.ILinky;
+            (name: "linky"): angular.sanitize.filter.ILinky;
         }
     }
 }

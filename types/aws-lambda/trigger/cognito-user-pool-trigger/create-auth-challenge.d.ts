@@ -1,10 +1,10 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, ChallengeResult, CustomChallengeResult, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, ChallengeResult, CustomChallengeResult, StringMap } from "./_common";
 
 /**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-create-auth-challenge.html
  */
-export interface CreateAuthChallengeTriggerEvent extends BaseTriggerEvent<'CreateAuthChallenge_Authentication'> {
+export interface CreateAuthChallengeTriggerEvent extends BaseTriggerEvent<"CreateAuthChallenge_Authentication"> {
     request: {
         userAttributes: StringMap;
         challengeName: string;

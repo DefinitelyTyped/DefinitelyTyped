@@ -1,4 +1,4 @@
-import { middleware, newInstance, options } from 'apicache';
+import { middleware, newInstance, options } from "apicache";
 
 let cache = middleware;
 

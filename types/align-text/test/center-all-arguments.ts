@@ -1,15 +1,15 @@
-import align from 'align-text';
+import align from "align-text";
 
 function centerAlign(len: number, longest: number, line: string, lines: string[], idx: number) {
     return {
-        character: '\t',
+        character: "\t",
         indent: Math.floor((longest - len) / 2),
-        prefix: '~ ',
+        prefix: "~ ",
         line,
         lines,
         idx,
     };
 }
 
-const text = ['abc', 'abc', 'abc'];
+const text = ["abc", "abc", "abc"];
 align(text, centerAlign);

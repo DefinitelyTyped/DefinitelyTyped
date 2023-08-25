@@ -51,7 +51,7 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
 
     iterator(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
 
-    readonly status: 'new' | 'opening' | 'open' | 'closing' | 'closed';
+    readonly status: "new" | "opening" | "open" | "closing" | "closed";
     isOperational(): boolean;
 }
 
@@ -78,13 +78,13 @@ export interface AbstractIteratorOptions<K = any> extends AbstractOptions {
 export type AbstractBatch<K = any, V = any> = PutBatch<K, V> | DelBatch<K, V>;
 
 export interface PutBatch<K = any, V = any> {
-    readonly type: 'put';
+    readonly type: "put";
     readonly key: K;
     readonly value: V;
 }
 
 export interface DelBatch<K = any, V = any> {
-    readonly type: 'del';
+    readonly type: "del";
     readonly key: K;
 }
 

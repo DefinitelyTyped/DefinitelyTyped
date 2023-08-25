@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Socket as NetSocket } from 'net';
+import { EventEmitter } from "events";
+import { Socket as NetSocket } from "net";
 
 export class Socket extends EventEmitter {
     set(name: string, val: any): Socket;

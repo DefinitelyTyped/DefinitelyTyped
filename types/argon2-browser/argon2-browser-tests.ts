@@ -1,13 +1,13 @@
-import * as argon2 from 'argon2-browser';
+import * as argon2 from "argon2-browser";
 
 const mandatoryOptions = {
-    pass: 'Qwerty12?',
-    salt: 'somesalt',
+    pass: "Qwerty12?",
+    salt: "somesalt",
 };
 
 const verifyOptions = {
-    pass: 'Qwerty12?',
-    encoded: '$argon2d$v=19$m=1024,t=1,p=1$c29tZXNhbHQ$TOg+KXa3SC9Wv+UvX9HP7NUsOY/0IM4b1PlasiUwhHs',
+    pass: "Qwerty12?",
+    encoded: "$argon2d$v=19$m=1024,t=1,p=1$c29tZXNhbHQ$TOg+KXa3SC9Wv+UvX9HP7NUsOY/0IM4b1PlasiUwhHs",
 };
 
 (async () => {
@@ -19,7 +19,7 @@ const verifyOptions = {
     (await argon2.hash(mandatoryOptions)).hashHex;
 
     // $ExpectType string
-    (await argon2.hash({ ...mandatoryOptions, distPath: 'path' })).encoded;
+    (await argon2.hash({ ...mandatoryOptions, distPath: "path" })).encoded;
     // $ExpectType string
     (await argon2.hash({ ...mandatoryOptions, hashLen: 24 })).encoded;
     // $ExpectType string
@@ -41,7 +41,7 @@ const verifyOptions = {
     await argon2.verify(verifyOptions);
 
     // @ts-expect-error
-    (await argon2.hash({ ...mandatoryOptions, secret: 'test' })).encoded;
+    (await argon2.hash({ ...mandatoryOptions, secret: "test" })).encoded;
     // @ts-expect-error
-    (await argon2.hash({ ...mandatoryOptions, ad: 'test' })).encoded;
+    (await argon2.hash({ ...mandatoryOptions, ad: "test" })).encoded;
 })();

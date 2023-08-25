@@ -1,5 +1,5 @@
-import utils = require('arcgis-to-geojson-utils');
-import arcgisApi = require('arcgis-rest-api');
+import utils = require("arcgis-to-geojson-utils");
+import arcgisApi = require("arcgis-rest-api");
 
 const arcgisPoint: arcgisApi.Point = {
     x: -122.6764,
@@ -9,7 +9,7 @@ const arcgisPoint: arcgisApi.Point = {
     },
 };
 const geojsonPoint: GeoJSON.Point = {
-    type: 'Point',
+    type: "Point",
     coordinates: [45.5165, -122.6764],
 };
 

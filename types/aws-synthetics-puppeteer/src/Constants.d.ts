@@ -1,5 +1,5 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'Constants' {
+declare module "Constants" {
     const ARTIFACT_UPLOAD_DIR: string;
     const SSE_KMS: string;
     const S3_PREFIX: string;

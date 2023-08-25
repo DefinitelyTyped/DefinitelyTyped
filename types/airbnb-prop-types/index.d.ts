@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as PropTypes from 'prop-types';
+import * as PropTypes from "prop-types";
 
 export interface ReactComponentLike {
     setState(...args: any[]): any;

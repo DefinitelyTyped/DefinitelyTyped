@@ -143,29 +143,29 @@ declare namespace DAO {
     }
 
     const enum LanguageConstants {
-        dbLangArabic = ';LANGID=0x0401;CP=1256;COUNTRY=0',
-        dbLangChineseSimplified = ';LANGID=0x0804;CP=936;COUNTRY=0',
-        dbLangChineseTraditional = ';LANGID=0x0404;CP=950;COUNTRY=0',
-        dbLangCyrillic = ';LANGID=0x0419;CP=1251;COUNTRY=0',
-        dbLangCzech = ';LANGID=0x0405;CP=1250;COUNTRY=0',
-        dbLangDutch = ';LANGID=0x0413;CP=1252;COUNTRY=0',
-        dbLangGeneral = ';LANGID=0x0409;CP=1252;COUNTRY=0',
-        dbLangGreek = ';LANGID=0x0408;CP=1253;COUNTRY=0',
-        dbLangHebrew = ';LANGID=0x040D;CP=1255;COUNTRY=0',
-        dbLangHindi = ';LANGID=0x00000439;CP=65001;COUNTRY=0',
-        dbLangHungarian = ';LANGID=0x040E;CP=1250;COUNTRY=0',
-        dbLangIcelandic = ';LANGID=0x040F;CP=1252;COUNTRY=0',
-        dbLangJapanese = ';LANGID=0x0411;CP=932;COUNTRY=0',
-        dbLangJapaneseRadicalStrokeCount = ';LANGID=0x00040411;CP=65001;COUNTRY=0',
-        dbLangKorean = ';LANGID=0x0412;CP=949;COUNTRY=0',
-        dbLangNordic = ';LANGID=0x041D;CP=1252;COUNTRY=0',
-        dbLangNorwDan = ';LANGID=0x0406;CP=1252;COUNTRY=0',
-        dbLangPolish = ';LANGID=0x0415;CP=1250;COUNTRY=0',
-        dbLangSlovenian = ';LANGID=0x0424;CP=1250;COUNTRY=0',
-        dbLangSpanish = ';LANGID=0x040A;CP=1252;COUNTRY=0',
-        dbLangSwedFin = ';LANGID=0x041D;CP=1252;COUNTRY=0',
-        dbLangThai = ';LANGID=0x041E;CP=874;COUNTRY=0',
-        dbLangTurkish = ';LANGID=0x041F;CP=1254;COUNTRY=0',
+        dbLangArabic = ";LANGID=0x0401;CP=1256;COUNTRY=0",
+        dbLangChineseSimplified = ";LANGID=0x0804;CP=936;COUNTRY=0",
+        dbLangChineseTraditional = ";LANGID=0x0404;CP=950;COUNTRY=0",
+        dbLangCyrillic = ";LANGID=0x0419;CP=1251;COUNTRY=0",
+        dbLangCzech = ";LANGID=0x0405;CP=1250;COUNTRY=0",
+        dbLangDutch = ";LANGID=0x0413;CP=1252;COUNTRY=0",
+        dbLangGeneral = ";LANGID=0x0409;CP=1252;COUNTRY=0",
+        dbLangGreek = ";LANGID=0x0408;CP=1253;COUNTRY=0",
+        dbLangHebrew = ";LANGID=0x040D;CP=1255;COUNTRY=0",
+        dbLangHindi = ";LANGID=0x00000439;CP=65001;COUNTRY=0",
+        dbLangHungarian = ";LANGID=0x040E;CP=1250;COUNTRY=0",
+        dbLangIcelandic = ";LANGID=0x040F;CP=1252;COUNTRY=0",
+        dbLangJapanese = ";LANGID=0x0411;CP=932;COUNTRY=0",
+        dbLangJapaneseRadicalStrokeCount = ";LANGID=0x00040411;CP=65001;COUNTRY=0",
+        dbLangKorean = ";LANGID=0x0412;CP=949;COUNTRY=0",
+        dbLangNordic = ";LANGID=0x041D;CP=1252;COUNTRY=0",
+        dbLangNorwDan = ";LANGID=0x0406;CP=1252;COUNTRY=0",
+        dbLangPolish = ";LANGID=0x0415;CP=1250;COUNTRY=0",
+        dbLangSlovenian = ";LANGID=0x0424;CP=1250;COUNTRY=0",
+        dbLangSpanish = ";LANGID=0x040A;CP=1252;COUNTRY=0",
+        dbLangSwedFin = ";LANGID=0x041D;CP=1252;COUNTRY=0",
+        dbLangThai = ";LANGID=0x041E;CP=874;COUNTRY=0",
+        dbLangTurkish = ";LANGID=0x041F;CP=1254;COUNTRY=0",
     }
 
     const enum LockTypeEnum {
@@ -325,13 +325,13 @@ declare namespace DAO {
     type Bookmark = SafeArray<number>;
 
     class ComplexType {
-        private 'DAO.ComplexType_typekey': ComplexType;
+        private "DAO.ComplexType_typekey": ComplexType;
         private constructor();
         readonly Fields: Fields;
     }
 
     class Connection {
-        private 'DAO.Connection_typekey': Connection;
+        private "DAO.Connection_typekey": Connection;
         private constructor();
         Cancel(): void;
         Close(): void;
@@ -364,7 +364,7 @@ declare namespace DAO {
     }
 
     class Container {
-        private 'DAO.Container_typekey': Container;
+        private "DAO.Container_typekey": Container;
         private constructor();
         readonly AllPermissions: number;
         readonly Documents: Documents;
@@ -384,7 +384,7 @@ declare namespace DAO {
     }
 
     class Database {
-        private 'DAO.Database_typekey': Database;
+        private "DAO.Database_typekey": Database;
         private constructor();
         Close(): void;
         readonly CollatingOrder: number;
@@ -439,7 +439,7 @@ declare namespace DAO {
     }
 
     class DBEngine {
-        private 'DAO.DBEngine_typekey': DBEngine;
+        private "DAO.DBEngine_typekey": DBEngine;
         private constructor();
         BeginTrans(): void;
 
@@ -505,7 +505,7 @@ declare namespace DAO {
     }
 
     class Document {
-        private 'DAO.Document_typekey': Document;
+        private "DAO.Document_typekey": Document;
         private constructor();
         readonly AllPermissions: number;
         readonly Container: string;
@@ -527,7 +527,7 @@ declare namespace DAO {
     }
 
     class Error {
-        private 'DAO.Error_typekey': Error;
+        private "DAO.Error_typekey": Error;
         private constructor();
         readonly Description: string;
         readonly HelpContext: number;
@@ -545,7 +545,7 @@ declare namespace DAO {
 
     class Field {
         private constructor();
-        private 'DAO.Field2_typekey': Field;
+        private "DAO.Field2_typekey": Field;
         AllowZeroLength: boolean;
         AppendChunk(Val: any): void;
         AppendOnly: boolean;
@@ -589,7 +589,7 @@ declare namespace DAO {
     }
 
     class Group {
-        private 'DAO.Group_typekey': Group;
+        private "DAO.Group_typekey": Group;
         private constructor();
         CreateUser(Name?: string, PID?: string, Password?: string): User;
         Name: string;
@@ -608,7 +608,7 @@ declare namespace DAO {
     }
 
     class Index {
-        private 'DAO.Index_typekey': Index;
+        private "DAO.Index_typekey": Index;
         private constructor();
         Clustered: boolean;
         CreateField(Name?: string): Field;
@@ -634,7 +634,7 @@ declare namespace DAO {
     }
 
     class Parameter {
-        private 'DAO.Parameter_typekey': Parameter;
+        private "DAO.Parameter_typekey": Parameter;
         private constructor();
         Direction: number;
         readonly Name: string;
@@ -660,7 +660,7 @@ declare namespace DAO {
     }
 
     class Property {
-        private 'DAO.Property_typekey': Property;
+        private "DAO.Property_typekey": Property;
         private constructor();
         readonly Inherited: boolean;
         Name: string;
@@ -670,7 +670,7 @@ declare namespace DAO {
     }
 
     class QueryDef {
-        private 'DAO.QueryDef_typekey': QueryDef;
+        private "DAO.QueryDef_typekey": QueryDef;
         private constructor();
         CacheSize: number;
         Cancel(): void;
@@ -805,7 +805,7 @@ declare namespace DAO {
     }
 
     class Relation {
-        private 'DAO.Relation_typekey': Relation;
+        private "DAO.Relation_typekey": Relation;
         private constructor();
         Attributes: RelationAttributeEnum;
         CreateField(Name?: string): Field;
@@ -827,7 +827,7 @@ declare namespace DAO {
     }
 
     class TableDef {
-        private 'DAO.TableDef_typekey': TableDef;
+        private "DAO.TableDef_typekey": TableDef;
         private constructor();
         Attributes: TableDefAttributeEnum;
         readonly ConflictTable: string;
@@ -861,7 +861,7 @@ declare namespace DAO {
     }
 
     class User {
-        private 'DAO.User_typekey': User;
+        private "DAO.User_typekey": User;
         private constructor();
         CreateGroup(Name?: string, PID?: string): Group;
         readonly Groups: Groups;
@@ -882,7 +882,7 @@ declare namespace DAO {
     }
 
     class Workspace {
-        private 'DAO.Workspace_typekey': Workspace;
+        private "DAO.Workspace_typekey": Workspace;
         private constructor();
         BeginTrans(): void;
         Close(): void;
@@ -936,13 +936,13 @@ declare namespace DAO {
 }
 
 interface ActiveXObjectNameMap {
-    'DAO.DBEngine': DAO.DBEngine;
-    'DAO.Field': DAO.Field;
-    'DAO.Group': DAO.Group;
-    'DAO.Index': DAO.Index;
-    'DAO.PrivateDBEngine': DAO.DBEngine;
-    'DAO.QueryDef': DAO.QueryDef;
-    'DAO.Relation': DAO.Relation;
-    'DAO.TableDef': DAO.TableDef;
-    'DAO.User': DAO.User;
+    "DAO.DBEngine": DAO.DBEngine;
+    "DAO.Field": DAO.Field;
+    "DAO.Group": DAO.Group;
+    "DAO.Index": DAO.Index;
+    "DAO.PrivateDBEngine": DAO.DBEngine;
+    "DAO.QueryDef": DAO.QueryDef;
+    "DAO.Relation": DAO.Relation;
+    "DAO.TableDef": DAO.TableDef;
+    "DAO.User": DAO.User;
 }

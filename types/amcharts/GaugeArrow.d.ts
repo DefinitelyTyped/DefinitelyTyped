@@ -1,4 +1,4 @@
-import GaugeAxis from './GaugeAxis';
+import GaugeAxis from "./GaugeAxis";
 
 export default class GaugeArrow {
     /**

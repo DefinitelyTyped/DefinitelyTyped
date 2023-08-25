@@ -1,4 +1,4 @@
-import { AnalogClock } from 'analog-clock';
+import { AnalogClock } from "analog-clock";
 
 // Create an AnalogClock instance
 const analogClockInstance = new AnalogClock();
@@ -23,10 +23,10 @@ const offset = analogClockInstance.offset || 0;
 
 // Set invalid types for time, offset, and dark properties
 // @ts-expect-error
-analogClockInstance.time = 'invalid';
+analogClockInstance.time = "invalid";
 
 // @ts-expect-error
-analogClockInstance.offset = 'invalid';
+analogClockInstance.offset = "invalid";
 
 // @ts-expect-error
-analogClockInstance.dark = 'invalid';
+analogClockInstance.dark = "invalid";

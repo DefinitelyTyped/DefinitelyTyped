@@ -1,11 +1,11 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, StringMap } from "./_common";
 
 /**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-verify-auth-challenge-response.html
  */
 export interface VerifyAuthChallengeResponseTriggerEvent
-    extends BaseTriggerEvent<'VerifyAuthChallengeResponse_Authentication'>
+    extends BaseTriggerEvent<"VerifyAuthChallengeResponse_Authentication">
 {
     request: {
         userAttributes: StringMap;

@@ -2,10 +2,10 @@
 // deploy thi as an EdgeWorker. When it runs, it will stream a resource
 // back, replacing all of the text with UPPER CASE. The resource
 // in question doesn't matter.
-import { createResponse } from 'create-response';
-import { httpRequest } from 'http-request';
-import { TransformStream } from 'streams';
-import { TextDecoderStream, TextEncoderStream } from 'text-encode-transform';
+import { createResponse } from "create-response";
+import { httpRequest } from "http-request";
+import { TransformStream } from "streams";
+import { TextDecoderStream, TextEncoderStream } from "text-encode-transform";
 
 class ToUpperCaseStream extends TransformStream<string, string> {
     constructor() {
@@ -19,12 +19,12 @@ class ToUpperCaseStream extends TransformStream<string, string> {
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
-    return httpRequest('http://www.mofroyo.co/us/en/index.html').then(response => {
+    return httpRequest("http://www.mofroyo.co/us/en/index.html").then(response => {
         const responseHeader = JSON.stringify(request.getHeaders()); // get headers from response provider event
         const httpRequestHeader = JSON.stringify(response.getHeaders()); // get headers from httprequest
         return createResponse(
             response.status,
-            { 'resp-header': responseHeader, 'httpreq-header': httpRequestHeader }, // passing both these headers should return them in response
+            { "resp-header": responseHeader, "httpreq-header": httpRequestHeader }, // passing both these headers should return them in response
             response.body.pipeThrough(new TextDecoderStream()).pipeThrough(new ToUpperCaseStream()).pipeThrough(
                 new TextEncoderStream(),
             ),

@@ -1,4 +1,4 @@
-import arrayToString from '../utils/arrayToString';
+import arrayToString from "../utils/arrayToString";
 
 declare namespace utils {
     export { arrayToString };

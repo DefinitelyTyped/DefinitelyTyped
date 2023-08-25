@@ -61,4 +61,4 @@ export class InsertPagesOperation {
     validate(context: any): void;
     updateFilesToInsert(basePage: any, combineOperationInput: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from "../pdfservices-sdk";

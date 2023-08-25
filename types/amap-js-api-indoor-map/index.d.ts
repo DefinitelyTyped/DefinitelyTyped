@@ -9,12 +9,12 @@
 declare namespace AMap {
     namespace IndoorMap {
         interface EventMap {
-            complete: Event<'complete'>;
-            click: MouseEvent<'click'>;
+            complete: Event<"complete">;
+            click: MouseEvent<"click">;
 
-            floor_complete: Event<'floor_complete', SearchResult>;
-            mouseover: MouseEvent<'mouseover'>;
-            mouseout: MouseEvent<'mouseout'>;
+            floor_complete: Event<"floor_complete", SearchResult>;
+            mouseover: MouseEvent<"mouseover">;
+            mouseout: MouseEvent<"mouseout">;
         }
         type MouseEvent<N extends string> = Event<N, {
             /**
@@ -79,7 +79,7 @@ declare namespace AMap {
              */
             floor_names: string[];
         }
-        type ShopCategory = 'public' | 'connection' | 'shop';
+        type ShopCategory = "public" | "connection" | "shop";
         interface Shop {
             /**
              * 店铺的id

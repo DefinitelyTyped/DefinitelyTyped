@@ -14,7 +14,7 @@
  | limitations under the License.
  */
 
-import * as adlib from 'adlib';
+import * as adlib from "adlib";
 
 const transform1: adlib.TransformFunction = (key: string, value: any, settings: any, param?: any): any => {
     return null;
@@ -25,12 +25,12 @@ const transformsList: adlib.TransformsList = {
 };
 
 const template = {
-    value: '{{ instance.color }}',
+    value: "{{ instance.color }}",
 };
 
 const settings = {
     instance: {
-        color: 'red',
+        color: "red",
     },
 };
 

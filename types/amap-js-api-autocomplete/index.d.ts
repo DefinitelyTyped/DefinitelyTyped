@@ -9,12 +9,12 @@
 declare namespace AMap {
     namespace Autocomplete {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
-            select: Event<'select', { tip: Tip }>;
-            choose: Event<'choose', { tip: Tip }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
+            select: Event<"select", { tip: Tip }>;
+            choose: Event<"choose", { tip: Tip }>;
         }
-        type DataType = 'all' | 'bus' | 'poi' | 'busline';
+        type DataType = "all" | "bus" | "poi" | "busline";
         interface Options {
             /**
              * 输入提示时限定POI类型，多个类型用“|”分隔
@@ -97,7 +97,7 @@ declare namespace AMap {
              */
             tips: Tip[];
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class Autocomplete extends EventEmitter {
         /**

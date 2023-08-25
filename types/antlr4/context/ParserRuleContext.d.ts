@@ -1,10 +1,10 @@
-import RecognitionException from '../error/RecognitionException';
-import Token from '../Token';
-import ErrorNode from '../tree/ErrorNode';
-import ParseTree from '../tree/ParseTree';
-import ParseTreeListener from '../tree/ParseTreeListener';
-import TerminalNode from '../tree/TerminalNode';
-import RuleContext from './RuleContext';
+import RecognitionException from "../error/RecognitionException";
+import Token from "../Token";
+import ErrorNode from "../tree/ErrorNode";
+import ParseTree from "../tree/ParseTree";
+import ParseTreeListener from "../tree/ParseTreeListener";
+import TerminalNode from "../tree/TerminalNode";
+import RuleContext from "./RuleContext";
 
 export default class ParserRuleContext extends RuleContext {
     static readonly EMPTY: ParserRuleContext;

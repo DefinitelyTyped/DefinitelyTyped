@@ -1,28 +1,28 @@
-import { Behavior, Drawable, Map } from 'athenajs';
+import { Behavior, Drawable, Map } from "athenajs";
 
-const sprite = new Drawable('mySprite', {
-    objectId: 'my Rocking Sprite',
+const sprite = new Drawable("mySprite", {
+    objectId: "my Rocking Sprite",
     layer: 0,
 });
-const sprite2 = new Drawable('mySprite2', {});
+const sprite2 = new Drawable("mySprite2", {});
 
 sprite.addChild(sprite2);
-sprite.animate('Fade', {
+sprite.animate("Fade", {
     duration: 100,
 });
-sprite.moveTo(0, 0).notify('yo!');
+sprite.moveTo(0, 0).notify("yo!");
 
 sprite.onCollision(sprite2);
-sprite.onEvent('boom');
-sprite.playSound('explosion', {
+sprite.onEvent("boom");
+sprite.playSound("explosion", {
     pan: true,
 });
-sprite.setBehavior('stupid');
+sprite.setBehavior("stupid");
 sprite.setBehavior(Behavior);
 sprite.setScale(1.0);
 
-const str: string = sprite.getProperty('strProp');
-sprite.setProperty('strProp', str);
+const str: string = sprite.getProperty("strProp");
+sprite.setProperty("strProp", str);
 
 sprite.setMask({
     x: 0,

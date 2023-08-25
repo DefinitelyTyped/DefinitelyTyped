@@ -1,4 +1,4 @@
-import Guide from './Guide';
+import Guide from "./Guide";
 
 /**
  * AxisBase is the base class for ValueAxis and CategoryAxis. It can not be instantiated explicitly.

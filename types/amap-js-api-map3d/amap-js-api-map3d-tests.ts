@@ -334,7 +334,7 @@ const testMeshLine = new AMap.Object3D.MeshLine({
     path: [lnglat],
     width: 1,
     height: 1,
-    color: 'red',
+    color: "red",
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
@@ -348,22 +348,22 @@ new AMap.Object3D.MeshLine({
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
     path: [lnglat],
-    unit: 'meter',
+    unit: "meter",
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
     path: [pixel],
-    unit: 'px',
+    unit: "px",
 });
 // @ts-expect-error
 new AMap.Object3D.MeshLine({
     path: [lnglat],
-    unit: 'px',
+    unit: "px",
 });
 // @ts-expect-error
 new AMap.Object3D.MeshLine({
     path: [pixel],
-    unit: 'meter',
+    unit: "meter",
 });
 
 // $ExpectType number[]
@@ -425,7 +425,7 @@ testMeshLine.setWidth(10);
 testMeshLine.setHeight(10);
 
 // $ExpectType void
-testMeshLine.setColor('red');
+testMeshLine.setColor("red");
 
 /**
  * object3d/prism.ts
@@ -438,44 +438,44 @@ new AMap.Object3D.Prism({});
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red',
+    color: "red",
     height: 1,
-    color2: 'blue',
+    color2: "blue",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [pixel],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[lnglat]],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[pixel]],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[lnglatTuple]],
-    color: 'red',
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: ['red'],
+    color: ["red"],
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({

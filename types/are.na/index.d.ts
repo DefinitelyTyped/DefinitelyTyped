@@ -280,19 +280,19 @@ declare namespace Arena {
     /**
      * The type of block.
      */
-    type BlockType = 'Image' | 'Text' | 'Link' | 'Media' | 'Attachment';
+    type BlockType = "Image" | "Text" | "Link" | "Media" | "Attachment";
 
     /**
      * Either "default" (a standard channel) or "profile" the default channel of a user
      */
-    type ChannelKind = 'default' | 'profile';
+    type ChannelKind = "default" | "profile";
 
     /**
      * Can be "private" (only open for reading and adding to the channel by channel author and collaborators),
      * "closed" (open for reading by everyone, only channel author and collaborators can add) or "public"
      * (everyone can read and add to the channel)
      */
-    type ChannelStatus = 'private' | 'closed' | 'open';
+    type ChannelStatus = "private" | "closed" | "open";
 
     /**
      * Representation of a block's source
@@ -475,7 +475,7 @@ declare namespace Arena {
      * Block of type "Text"
      */
     interface TextBlock extends Block {
-        class: 'Text';
+        class: "Text";
         content: string;
         content_html: string;
         image: null;
@@ -485,7 +485,7 @@ declare namespace Arena {
      * Block of type "Image"
      */
     interface ImageBlock extends Block {
-        class: 'Image';
+        class: "Image";
         content: null;
         content_html: null;
         image: Image;
@@ -495,7 +495,7 @@ declare namespace Arena {
      * Block of type "Link"
      */
     interface LinkBlock extends Block {
-        class: 'Link';
+        class: "Link";
         content: null;
         content_html: null;
         image: Image;
@@ -505,7 +505,7 @@ declare namespace Arena {
      * Block of type "Media"
      */
     interface MediaBlock extends Block {
-        class: 'Media';
+        class: "Media";
         content: null;
         content_html: null;
         image: null;
@@ -515,7 +515,7 @@ declare namespace Arena {
      * Block of type "Attachment"
      */
     interface AttachmentBlock extends Block {
-        class: 'Attachment';
+        class: "Attachment";
         content: null;
         content_html: null;
         image: null;

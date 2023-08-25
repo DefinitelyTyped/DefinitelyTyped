@@ -1,5 +1,5 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, StringMap } from "./_common";
 
 export interface GroupOverrideDetails {
     groupsToOverride?: string[] | undefined;
@@ -22,22 +22,22 @@ export interface BasePreTokenGenerationTriggerEvent<T extends string> extends Ba
     };
 }
 
-export type PreTokenGenerationHostedAuthTriggerEvent = BasePreTokenGenerationTriggerEvent<'TokenGeneration_HostedAuth'>;
+export type PreTokenGenerationHostedAuthTriggerEvent = BasePreTokenGenerationTriggerEvent<"TokenGeneration_HostedAuth">;
 
 export type PreTokenGenerationAuthenticationTriggerEvent = BasePreTokenGenerationTriggerEvent<
-    'TokenGeneration_Authentication'
+    "TokenGeneration_Authentication"
 >;
 
 export type PreTokenGenerationNewPasswordChallengeTriggerEvent = BasePreTokenGenerationTriggerEvent<
-    'TokenGeneration_NewPasswordChallenge'
+    "TokenGeneration_NewPasswordChallenge"
 >;
 
 export type PreTokenGenerationAuthenticateDeviceTriggerEvent = BasePreTokenGenerationTriggerEvent<
-    'TokenGeneration_AuthenticateDevice'
+    "TokenGeneration_AuthenticateDevice"
 >;
 
 export type PreTokenGenerationRefreshTokensTriggerEvent = BasePreTokenGenerationTriggerEvent<
-    'TokenGeneration_RefreshTokens'
+    "TokenGeneration_RefreshTokens"
 >;
 
 /**

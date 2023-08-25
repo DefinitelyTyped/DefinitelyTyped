@@ -1,5 +1,5 @@
-import AmChart from './AmChart';
-import Slice from './Slice';
+import AmChart from "./AmChart";
+import Slice from "./Slice";
 
 /**
  * AmPieChart class creates pie/donut chart.

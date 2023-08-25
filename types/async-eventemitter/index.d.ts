@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * The API and behavior of AsyncEventEmitter is as far as possible and meaningful identical to

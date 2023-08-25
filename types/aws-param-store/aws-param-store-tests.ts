@@ -10,8 +10,8 @@ import {
     parameterQuery,
     putParameter,
     putParameterSync,
-} from 'aws-param-store';
-import { SSM } from 'aws-sdk2-types';
+} from "aws-param-store";
+import { SSM } from "aws-sdk2-types";
 
 declare let bool: boolean;
 declare let query: ParameterQuery;
