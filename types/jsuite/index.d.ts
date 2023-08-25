@@ -18,7 +18,7 @@ interface Iconfig {
     end?: number | undefined;
     maxUnitsUsage?: number | undefined;
 }
-declare module jSuite {
+declare namespace jSuite {
     function getVersion(): string;
     function setLogging(toggle: boolean): void;
     function getRoleCenter(): any;

@@ -37,7 +37,7 @@ log('Found a prefab ' + prefabIndex);
 // $ExpectType void
 clearLog();
 
-// $ExpectType [number, number, number]
+// $ExpectType [x: number, y: number, z: number]
 let size = getSize();
 
 // $ExpectType number
@@ -51,3 +51,37 @@ setLevel((levelIndex + 1) % count);
 
 // $ExpectType number
 let version = getVersion();
+
+///////////////////////////////////////////////////////////
+// Start of Fancade Beta features, play.fancade.com/beta //
+///////////////////////////////////////////////////////////
+
+// $ExpectType void
+setEventListener('block-placed', (x, y, z) => {});
+
+// $ExpectType void
+setEventListener('update', () => {});
+
+// $ExpectType void
+setEventListener('keydown', key => {});
+
+// $ExpectType void
+setEventListener('keyup', key => {});
+
+// $ExpectType void
+selectAt(0, 0, 0);
+
+// $ExpectType number
+getSelectedCount();
+
+// $ExpectType boolean
+isGamePaused();
+
+// $ExpectType boolean
+isGamePlaying();
+
+// $ExpectType boolean
+isKeyDown(55);
+
+// $ExpectType void
+generateSwipe(0, 0, 0, 0, 0, 0);

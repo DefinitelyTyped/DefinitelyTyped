@@ -1,6 +1,7 @@
 // Type definitions for non-npm package maxmsp 1.0
 // Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
 // Definitions by: TomW <https://github.com/twhiston>
+//                 FrancescElies <https://github.com/FrancescElies>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
 // Documentation is property of Cycling '74 and published with permission.
@@ -1681,6 +1682,11 @@ declare class MGraphics {
      * to 0.
      */
     autofill: number;
+
+    /**
+     * Array of two values width and height of the jsui object in the maxpat
+     */
+    size: [number, number];
 
     /**
      * The init routine is the first thing that an mgraphics-based Javascript program needs to call. It initializes the library, sets up the internal mgraphics variables and prepares the jsui object

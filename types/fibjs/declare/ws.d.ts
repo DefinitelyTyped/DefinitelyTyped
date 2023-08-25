@@ -202,7 +202,7 @@
 declare module "ws" {
     
 
-    module ws {
+    namespace ws {
         
         /**
          * 

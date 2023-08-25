@@ -23,7 +23,7 @@ export interface ParseOptions {
     deURI?: boolean;
 }
 
-// eslint-disable-next-line no-unnecessary-generics -- allows the user to specify a specific type that they expect the string to parse to
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- allows the user to specify a specific type that they expect the string to parse to
 export function parse<T extends object>(urlFragment: string, options?: ParseOptions): T;
 
 /**

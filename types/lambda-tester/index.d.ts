@@ -1,4 +1,4 @@
-// Type definitions for lambda-tester 3.6
+// Type definitions for lambda-tester 4.0
 // Project: https://github.com/vandium-io/lambda-tester#readme
 // Definitions by: Ivan Kerin <https://github.com/ivank>
 //                 Hajo Aho-Mantila <https://github.com/HajoAhoMantila>

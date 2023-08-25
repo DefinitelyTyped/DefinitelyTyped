@@ -8,7 +8,7 @@ declare module 'gijgo' {
     export = Types;
 }
 
-declare module Types {
+declare namespace Types {
 
     //Grid
     interface GridPager {

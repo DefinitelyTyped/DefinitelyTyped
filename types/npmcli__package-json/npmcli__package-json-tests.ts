@@ -12,4 +12,8 @@ import PackageJson = require('@npmcli/package-json');
     });
 
     await pkgJson.save();
+
+    const pkgJson2 = new PackageJson();
+
+    pkgJson2.fromJSON('{"name": "foo"}');
 })();

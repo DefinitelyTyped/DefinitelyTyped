@@ -1,5 +1,5 @@
-import { Scene } from './../scenes/Scene.js';
-import { Camera } from './../cameras/Camera.js';
+import { Scene } from '../scenes/Scene.js';
+import { Camera } from '../cameras/Camera.js';
 import { WebGLExtensions } from './webgl/WebGLExtensions.js';
 import { WebGLInfo } from './webgl/WebGLInfo.js';
 import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
@@ -7,13 +7,13 @@ import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
 import { WebGLProperties } from './webgl/WebGLProperties.js';
 import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
 import { WebGLState } from './webgl/WebGLState.js';
-import { Vector2 } from './../math/Vector2.js';
-import { Vector4 } from './../math/Vector4.js';
-import { Color, ColorRepresentation } from './../math/Color.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Vector4 } from '../math/Vector4.js';
+import { Color, ColorRepresentation } from '../math/Color.js';
 import { WebGLRenderTarget } from './WebGLRenderTarget.js';
 import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets.js';
-import { Object3D } from './../core/Object3D.js';
-import { Material } from './../materials/Material.js';
+import { Object3D } from '../core/Object3D.js';
+import { Material } from '../materials/Material.js';
 import {
     ToneMapping,
     ShadowMapType,
@@ -22,14 +22,15 @@ import {
     ColorSpace,
     WebGLCoordinateSystem,
 } from '../constants.js';
-import { WebXRManager } from '../renderers/webxr/WebXRManager.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { WebXRManager } from './webxr/WebXRManager.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 import { OffscreenCanvas, Texture } from '../textures/Texture.js';
 import { Data3DTexture } from '../textures/Data3DTexture.js';
 import { Vector3 } from '../math/Vector3.js';
 import { Box3 } from '../math/Box3.js';
 import { DataArrayTexture } from '../textures/DataArrayTexture.js';
 import { WebGLProgram } from './webgl/WebGLProgram.js';
+import { Plane } from '../math/Plane.js';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -184,7 +185,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * @default []
      */
-    clippingPlanes: any[];
+    clippingPlanes: readonly Plane[];
 
     /**
      * @default false
@@ -210,6 +211,8 @@ export class WebGLRenderer implements Renderer {
     get coordinateSystem(): typeof WebGLCoordinateSystem;
 
     /**
+     * @deprecated Migrate your lighting according to the following guide:
+     * https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733.
      * @default true
      */
     useLegacyLights: boolean;

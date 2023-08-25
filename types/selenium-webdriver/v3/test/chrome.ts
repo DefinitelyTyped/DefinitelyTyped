@@ -1,13 +1,15 @@
+import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
-import * as webdriver from 'selenium-webdriver';
 
 function TestChromeDriver() {
     let driver: chrome.Driver = chrome.Driver.createSession();
     driver = chrome.Driver.createSession(webdriver.Capabilities.chrome());
-    driver = chrome.Driver.createSession(webdriver.Capabilities.chrome(),
+    driver = chrome.Driver.createSession(
+        webdriver.Capabilities.chrome(),
         new remote.DriverService('executable', new chrome.Options()),
-        new webdriver.promise.ControlFlow());
+        new webdriver.promise.ControlFlow(),
+    );
 
     let baseDriver: webdriver.WebDriver = driver;
 }
@@ -32,8 +34,12 @@ function TestChromeOptions() {
     options = options.androidUseRunningApp(true);
     options = options.setLoggingPrefs(new webdriver.logging.Preferences());
     options = options.setPerfLoggingPrefs({
-        enableNetwork: true, enablePage: true, enableTimeline: true,
-        tracingCategories: 'category', bufferUsageReportingInterval: 1000 });
+        enableNetwork: true,
+        enablePage: true,
+        enableTimeline: true,
+        tracingCategories: 'category',
+        bufferUsageReportingInterval: 1000,
+    });
     options = options.setProxy({ proxyType: 'proxyType' });
     options = options.setUserPreferences('preferences');
     let capabilities: webdriver.Capabilities = options.toCapabilities();

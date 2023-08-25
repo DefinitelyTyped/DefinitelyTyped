@@ -7,7 +7,7 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client {
-    export module drive {
+    export namespace drive {
         const files: {
             get: (parameters: GetParameters) => HttpRequest<FileResource>;
             patch: (parameters: PatchParameters) => HttpRequest<FileResource>;
