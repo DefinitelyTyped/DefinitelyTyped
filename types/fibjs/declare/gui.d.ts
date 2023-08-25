@@ -202,7 +202,7 @@
 declare module "gui" {
     
 
-    module gui {
+    namespace gui {
         
         /**
          * 

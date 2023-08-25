@@ -15,7 +15,7 @@ declare function _<A, B, C, D, E, F, G, R>(fn: _.F7<A, B, C, D, E, F, G, R>, tra
 declare function _<A, B, C, D, E, F, G, H, R>(fn: _.F8<A, B, C, D, E, F, G, H, R>, transformer?: _.M): (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H) => Promise<R>;
 declare function _(fn: _.F, transformer?: _.M): (...args: any[]) => Promise<any>;
 
-declare module _ {
+declare namespace _ {
     type Callback<R> = (err: Error, result: R) => any;
     type F0<R> = (cb: Callback<R>) => any;
     type F1<A, R> = (a: A, cb: Callback<R>) => any;

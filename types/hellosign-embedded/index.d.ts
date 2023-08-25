@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-export declare module HelloSign {
+export declare namespace HelloSign {
     interface ClassNames {
         BASE: 'x-hellosign-embedded';
         BASE_IN_MODAL: 'x-hellosign-embedded--in-modal';

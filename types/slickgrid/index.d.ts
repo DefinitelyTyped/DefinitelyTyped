@@ -1562,14 +1562,14 @@ declare namespace Slick {
         (row: number, cell: number, value: any, columnDef: Column<T>, dataContext: SlickData): string;
     }
 
-    export module Formatters {
+    export namespace Formatters {
         var PercentComplete: Formatter<Slick.SlickData>;
         var PercentCompleteBar: Formatter<Slick.SlickData>;
         var YesNo: Formatter<Slick.SlickData>;
         var Checkmark: Formatter<Slick.SlickData>;
     }
 
-    export module Data {
+    export namespace Data {
 
         export interface DataViewOptions<T extends Slick.SlickData> {
             groupItemMetadataProvider?: GroupItemMetadataProvider<T> | undefined;
@@ -1696,7 +1696,7 @@ declare namespace Slick {
 
         }
 
-        export module Aggregators {
+        export namespace Aggregators {
             export class Aggregator<T extends Slick.SlickData> {
                 public field: string;
                 public init(): void;

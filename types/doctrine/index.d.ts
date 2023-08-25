@@ -103,7 +103,7 @@ export type Type =
      type.TypeApplication | type.UndefinedLiteral | type.UnionType |
      type.VoidLiteral);
 
-export module type {
+export namespace type {
   export interface AllLiteral { type: 'AllLiteral' }
   export interface ArrayType { type: 'ArrayType', elements: Type[] }
   export interface FieldType { type: 'FieldType', key: string, value?: Type | undefined }

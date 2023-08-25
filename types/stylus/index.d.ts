@@ -659,7 +659,7 @@ declare namespace Stylus {
 
     //#region Nodes Classes
 
-    export module Nodes {
+    export namespace Nodes {
         export class Node {
             lineno: number;
             column: number;

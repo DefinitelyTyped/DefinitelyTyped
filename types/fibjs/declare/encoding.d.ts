@@ -221,7 +221,7 @@ declare module "encoding" {
     import hexNS = require('hex')
     import jsonNS = require('json')
 
-    module encoding {
+    namespace encoding {
 
 
 

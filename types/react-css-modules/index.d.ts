@@ -16,7 +16,7 @@ interface CSSModules {
     <C extends Function>(Component: C, defaultStyles: StylesObject, options?: TypeOptions): C;
 }
 
-declare module CSSModules {
+declare namespace CSSModules {
     // Extend your component's Prop interface with this one to get access to `this.props.styles`
     //
     // interface MyComponentProps extends CSSModules.InjectedCSSModuleProps {}

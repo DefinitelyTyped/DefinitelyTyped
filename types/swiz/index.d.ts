@@ -140,7 +140,7 @@ interface IValidator {
 
 export declare function stripSerializerTypes(obj: any): any;
 
-export declare module struct {
+export declare namespace struct {
     export function Obj(name: string, options?: IObjOptions): IObj;
     export function Field(name: string, options?: IFieldOptions): IField;
     export function coerce(value: any, coerceTo: string): any;

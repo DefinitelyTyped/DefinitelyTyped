@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module CANNON {
+declare namespace CANNON {
 
     export interface IAABBOptions {
 

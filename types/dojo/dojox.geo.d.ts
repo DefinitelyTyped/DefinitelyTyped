@@ -3752,7 +3752,7 @@ declare namespace dojox {
                  */
                 WidgetFeature(): void;
             }
-            module _base {
+            namespace _base {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/geo/openlayers/_base.Collection.html
                  *

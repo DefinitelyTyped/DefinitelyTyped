@@ -35,7 +35,7 @@ export declare class Swig {
     loaders: typeof loaders;
 }
 
-export declare module lexer {
+export declare namespace lexer {
     export enum TYPES {
         /** Whitespace */
         WHITESPACE = 0,
@@ -100,7 +100,7 @@ export declare module lexer {
     export function read(str: string): string[];
 }
 
-export declare module parser {
+export declare namespace parser {
     interface ParseReturn {
         name: string;
         parent: any;
@@ -125,7 +125,7 @@ export interface TemplateLoader {
     load(identifier: string): any;
 }
 
-export declare module loaders {
+export declare namespace loaders {
     export function fs(basepath?: string, encoding?: string): TemplateLoader;
     export function memory(mapping: any, basepath?: string): TemplateLoader;
 }

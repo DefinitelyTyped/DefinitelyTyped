@@ -1,4 +1,4 @@
-module AccordionComponent {
+namespace AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
             width: "100%",
@@ -20,7 +20,7 @@ module AccordionComponent {
 
 
 
-module AutocompleteComponent{
+namespace AutocompleteComponent{
     var carList = [
                 "Audi S6", "Austin-Healey", "Alfa Romeo", "Aston Martin",
                 "BMW 7", "Bentley Mulsanne", "Bugatti Veyron",
@@ -57,7 +57,7 @@ module AutocompleteComponent{
 
 
 
-module Barcodecomponent {
+namespace Barcodecomponent {
     $(function () {
         var barcodesample = new ej.datavisualization.Barcode($("#Barcode"), {
             text:"http://www.syncfusion.com"
@@ -69,7 +69,7 @@ module Barcodecomponent {
 
 
 
-module Bulletgraphcomponent {
+namespace Bulletgraphcomponent {
     $(function () {
         var bulletsample = new ej.datavisualization.BulletGraph($("#BulletGraph"), {
             isResponsive: true,
@@ -132,7 +132,7 @@ module Bulletgraphcomponent {
 
 
 
-module ButtonComponent {
+namespace ButtonComponent {
     $(function () {
         var basicButton = new ej.Button($("#buttonnormal"), {
             size: "large",
@@ -180,7 +180,7 @@ module ButtonComponent {
 
 
 
-module ChartComponent {
+namespace ChartComponent {
     $(function () {
         var chartsample = new ej.datavisualization.Chart($("#Chart"), {
             primaryXAxis: {
@@ -307,7 +307,7 @@ module ChartComponent {
 
 
 
-module circulargaugecomponent {
+namespace circulargaugecomponent {
     $(function () {
         var circularsample = new ej.datavisualization.CircularGauge($("#CircularGauge"), {
             enableAnimation: false,
@@ -360,7 +360,7 @@ module circulargaugecomponent {
 
 
 
-module ColorPickerComponent {
+namespace ColorPickerComponent {
     $(function () {
         var colorSample = new ej.ColorPicker($("#colorpick"), {
             value: "#278787"
@@ -371,7 +371,7 @@ module ColorPickerComponent {
 
 
 
-module ComboBoxComponent{
+namespace ComboBoxComponent{
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
         { empid: "bk4", text: "Discover" }, { empid: "bk5", text: "Dazzler" }, { empid: "bk6", text: "Flame" },
@@ -391,7 +391,7 @@ module ComboBoxComponent{
 
 
 
-module DatePickerComponent {
+namespace DatePickerComponent {
     $(function () {
         var dateSample = new ej.DatePicker($("#datepick"), {
             width: "100%"
@@ -402,7 +402,7 @@ module DatePickerComponent {
 
 
 
-module DateTimePickerComponent {
+namespace DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateRangePicker($("#daterangepick"), {
             width: "100%"
@@ -412,7 +412,7 @@ module DateTimePickerComponent {
 
 
 
-module DateTimePickerComponent {
+namespace DateTimePickerComponent {
     $(function () {
         var datetimeSample = new ej.DateTimePicker($("#datetimepick"), {
             width: "100%"
@@ -495,7 +495,7 @@ function createLabel(options : any) {
 
 
 
-module DialogComponent {
+namespace DialogComponent {
     $(function () {
         var dialogInstance = new ej.Dialog($("#basicDialog"), {
             width: 550,
@@ -520,7 +520,7 @@ module DialogComponent {
 
 
 
-module digitalgaugecomponent {
+namespace digitalgaugecomponent {
     $(function () {
         var digitalgaugesample = new ej.datavisualization.DigitalGauge($("#DigitalGauge"), {
             width: 525,
@@ -547,7 +547,7 @@ module digitalgaugecomponent {
 
 
 
-module DropDownListComponent {
+namespace DropDownListComponent {
     var BikeList = [
         { empid: "bk1", text: "Apache RTR" }, { empid: "bk2", text: "CBR 150-R" }, { empid: "bk3", text: "CBZ Xtreme" },
         { empid: "bk4", text: "Discover" }, { empid: "bk5", text: "Dazzler" }, { empid: "bk6", text: "Flame" },
@@ -580,7 +580,7 @@ module DropDownListComponent {
 
 
 
-module ExplorerComponent {
+namespace ExplorerComponent {
     $(function () {
         var file = new ej.FileExplorer($("#fileExplorer"), {
             path: (<any>window).baseurl + "Content/FileBrowser/",
@@ -596,7 +596,7 @@ module ExplorerComponent {
 
 
 
-module GanttComponent {
+namespace GanttComponent {
      $(function () {
          var ganttInstance = new ej.Gantt($("#GanttContainer"), {
         dataSource: (<any>window).projectData,
@@ -648,7 +648,7 @@ module GanttComponent {
 
 
 
-module GridComponent {
+namespace GridComponent {
     $(function () {
         var gridInstance = new ej.Grid($("#Grid"), {
             dataSource: (<any>window).gridData,
@@ -733,7 +733,7 @@ $(function () {
 
 
 
-module KanbanComponent {
+namespace KanbanComponent {
     $(function () {
         var sample = new ej.Kanban($("#Kanban"), {
            dataSource: new ej.DataManager((<any>window).kanbanData).executeLocal(new ej.Query().take(20)),
@@ -756,7 +756,7 @@ module KanbanComponent {
 }
 
 
-module lineargaugecomponent {
+namespace lineargaugecomponent {
     $(function () {
         var linearsample = new ej.datavisualization.LinearGauge($("#LinearGauge"), {
             labelColor: "#8c8c8c", width: 500,
@@ -786,7 +786,7 @@ module lineargaugecomponent {
 
 
 
-module ListBoxComponent {
+namespace ListBoxComponent {
     $(function () {
         var listboxInstance = new ej.ListBox($("#selectcar"), {
             showCheckbox: true
@@ -796,7 +796,7 @@ module ListBoxComponent {
 
 
 
-module ListviewComponent {
+namespace ListviewComponent {
     $(function () {
         var listviewInstance = new ej.ListView($("#defaultlistview"), {
             enableCheckMark: true,
@@ -1000,7 +1000,7 @@ var randomcountriesData1 = [
     { country: "Fiji", "continent": "Oceania", "CategoryName": "Books", "Sales": 618.0 },
 ];
 
-module mapcomponenet {
+namespace mapcomponenet {
     $(function () {
         var mapsample = new ej.datavisualization.Map($("#map"), {
             enableAnimation: true,
@@ -1036,7 +1036,7 @@ module mapcomponenet {
 
 
 
-module MenuComponent {
+namespace MenuComponent {
     $(function () {
         var sample = new ej.Menu($("#syncfusionProducts"),{
             width: "100%",
@@ -1058,7 +1058,7 @@ module MenuComponent {
 
 
 
-module NavigationDrawerComponent {
+namespace NavigationDrawerComponent {
     $(function () {
         var navigationdrawerInstance = new ej.NavigationDrawer($("#navpane"), {
            targetId: "butdrawer",
@@ -1081,7 +1081,7 @@ module NavigationDrawerComponent {
 
 
 
-module PDFViewerComponent {
+namespace PDFViewerComponent {
     $(function () {
         var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
             serviceUrl:(<any>window).baseurl+ "api/PdfViewer",
@@ -1092,7 +1092,7 @@ module PDFViewerComponent {
 
 
 
-module PivotChartOlap {
+namespace PivotChartOlap {
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"),{
             dataSource: {
@@ -1171,7 +1171,7 @@ var pivot_dataset = [
     { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" }
 ]
 
-module PivotChartRelational {
+namespace PivotChartRelational {
 
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"),{
@@ -1227,7 +1227,7 @@ module PivotChartRelational {
 
 
 
-module PivotGaugeOlap {
+namespace PivotGaugeOlap {
 
     $(function () {
         var sample = new ej.PivotGauge($("#PivotGauge"),{
@@ -1361,7 +1361,7 @@ var pivot_dataset = [
     { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" }
 ]
 
-module PivotGaugeRelational {
+namespace PivotGaugeRelational {
     $(function () {
         var sample = new ej.PivotGauge($("#PivotGauge"),{
             dataSource: {
@@ -1455,7 +1455,7 @@ module PivotGaugeRelational {
 
 
 
-module PivotGridOlap {
+namespace PivotGridOlap {
 
     $(function () {
         var sample = new ej.PivotGrid($("#PivotGrid"),{
@@ -1521,7 +1521,7 @@ var pivot_dataset = [
     { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" }
 ]
 
-module PivotGridRelational {
+namespace PivotGridRelational {
     $(function () {
         var sample = new ej.PivotGrid($("#PivotGrid"),{
             dataSource: {
@@ -1563,7 +1563,7 @@ module PivotGridRelational {
 
 
 
-module PivotTreeMap {
+namespace PivotTreeMap {
     $(function () {
         var sample = new ej.PivotTreeMap($("#PivotTreeMap"),{
             dataSource: {
@@ -1598,7 +1598,7 @@ module PivotTreeMap {
 
 
 
-module ProgressBarComponent {
+namespace ProgressBarComponent {
     $(function () {
         var sample = new ej.ProgressBar($("#progressBar"),{
             width: 200,
@@ -1621,7 +1621,7 @@ declare var rteObj: any;
 declare var data: any;
 var radialEle = $('#defaultradialmenu'), action = 0, forRedo = 0;
 var rteEle = $("#rteSample1");
-module RadialMenuComponent {
+namespace RadialMenuComponent {
     $(function () {
 
         if (!(ej.browserInfo().name == "msie" && parseInt(ej.browserInfo().version) < 9)) {
@@ -1697,7 +1697,7 @@ function redo(e: any) {
 
 
 
-module RadialSliderComponent {
+namespace RadialSliderComponent {
     $(function () {
         var radialsliderInstance = new ej.RadialSlider($("#radialSlider"), {
            innerCircleImageUrl: "images/radialslider/chevron-right.png"
@@ -1706,7 +1706,7 @@ module RadialSliderComponent {
 }
 
 
-module rangecomponent {
+namespace rangecomponent {
     $(function () {
         var linearsample = new ej.datavisualization.RangeNavigator($("#RangeNavigator"), {
             enableDeferredUpdate: true,
@@ -1822,7 +1822,7 @@ function GetData() {
 
 
 
-module RatingComponent {
+namespace RatingComponent {
     $(function () {
 
         var sample1 = new ej.Rating($("#fullRating"),{
@@ -1877,7 +1877,7 @@ module RatingComponent {
 
 
 var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"], fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"], action1 = ["New", "Clear"], action2 = ["Bold", "Italic", "Underline", "strikethrough", "superscript", "subscript", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyFull", "Undo", "Redo"];
-module RibbonComponent {
+namespace RibbonComponent {
     $(function () {
         var sample = new ej.Ribbon($("#defaultRibbon"), {
             width: "100%",
@@ -2567,7 +2567,7 @@ function onClick(args:any) {
 
 
 
-module RotatorComponent {
+namespace RotatorComponent {
     $(function () {
         var rotatorInstance = new ej.Rotator($("#sliderContent"), {
             slideWidth: "100%",
@@ -2590,7 +2590,7 @@ module RotatorComponent {
 
 
 
-module RTEComponent {
+namespace RTEComponent {
     $(function () {
         var sample = new ej.RTE($("#rteSample"),{
             width: "100%",
@@ -2662,7 +2662,7 @@ module RTEComponent {
 
 
 
-module ScheduleComponent {
+namespace ScheduleComponent {
     $(function () {
         var sample = new ej.Schedule($("#Schedule1"), {
             width: "100%",
@@ -2732,7 +2732,7 @@ module ScheduleComponent {
 
 
 
-module ScrollerComponent {
+namespace ScrollerComponent {
     $(function () {
         var scrollerSample = new ej.Scroller($("#scrollcontent"), {
             height: "300px",
@@ -2747,7 +2747,7 @@ module ScrollerComponent {
 
 
 
-module SignatureComponent {
+namespace SignatureComponent {
     $(function () {
         var basicSignature = new ej.Signature($("#signature"), {
             height: "400px",
@@ -2760,7 +2760,7 @@ module SignatureComponent {
 
 
 
-module SliderComponent {
+namespace SliderComponent {
     $(function () {
         var slider = new ej.Slider($("#minSlider"), {
             sliderType: "MinRange",
@@ -2782,7 +2782,7 @@ module SliderComponent {
 
 
 
-module linesparkline {
+namespace linesparkline {
     $(function () {
 
         var sparklinesample = new ej.Sparkline($("#line"), {
@@ -2797,7 +2797,7 @@ module linesparkline {
     });
 }
 
-module columnsparkline {
+namespace columnsparkline {
     $(function () {
         var sparkcolumnsample = new ej.Sparkline($("#column"), {
             dataSource: [2, 6, -1, 1, 12, 5, -2, 7, -3, 5, 8, 10,],
@@ -2815,7 +2815,7 @@ module columnsparkline {
     });
 }
 
-module areasparkline {
+namespace areasparkline {
     $(function () {
         var sparkareasample = new ej.Sparkline($("#area"), {
             dataSource: [12, -10, 11, 8, 17, 6, 2, -17, 13, -6, 8, 10,],
@@ -2835,7 +2835,7 @@ module areasparkline {
     });
 }
 
-module windlosssparkline {
+namespace windlosssparkline {
     $(function () {
         var sparkwinlosssample = new ej.Sparkline($("#winloss"), {
             dataSource: [12, 15, -11, 13, 17, 0, -12, 17, 13, -15, 8, 10,],
@@ -2845,7 +2845,7 @@ module windlosssparkline {
     });
 }
 
-module piesparkline1 {
+namespace piesparkline1 {
     $(function () {
         var sparkpiesample1 = new ej.Sparkline($("#pie1"), {
             dataSource: [4, 6, 7],
@@ -2861,7 +2861,7 @@ module piesparkline1 {
     });
 }
 
-module piesparkline2 {
+namespace piesparkline2 {
     $(function () {
         var sparkpiesample2 = new ej.Sparkline($("#pie2"), {
             dataSource: [8, 9, 1,],
@@ -2877,7 +2877,7 @@ module piesparkline2 {
     });
 }
 
-module piesparkline3 {
+namespace piesparkline3 {
     $(function () {
         var sparkpiesample3 = new ej.Sparkline($("#pie3"), {
             dataSource: [2, 3, 5],
@@ -2893,7 +2893,7 @@ module piesparkline3 {
     });
 }
 
-module piesparkline4 {
+namespace piesparkline4 {
     $(function () {
         var sparkpiesample4 = new ej.Sparkline($("#pie4"), {
             dataSource: [10, 12, 11],
@@ -2912,7 +2912,7 @@ module piesparkline4 {
 
 
 
-module SplitterComponent {
+namespace SplitterComponent {
     $(function () {
         var splitterInstance = new ej.Splitter($("#outterSpliter"), {
             height: "250px",
@@ -2929,7 +2929,7 @@ module SplitterComponent {
 
 
 
-module SpreadsheetComponent {
+namespace SpreadsheetComponent {
 $(function () {
         var sample = new ej.Spreadsheet($("#basicSpreadsheet"), {
             scrollSettings: {
@@ -2995,7 +2995,7 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "France", JobDescription: "Marketing",                                                     EmployeesCount: 50  }
 ];
 
-module sunburstcomponent {
+namespace sunburstcomponent {
     $(function () {
         var sunburstsample = new ej.SunburstChart($("#Sunburst"), {
             valueMemberPath: "EmployeesCount",
@@ -3030,7 +3030,7 @@ module sunburstcomponent {
 
 
 
-module TabComponent {
+namespace TabComponent {
     $(function () {
         var sample = new ej.Tab($("#defaultTab"),{
             width: "500px",
@@ -3045,7 +3045,7 @@ module TabComponent {
 
 
 
-module TagCloudComponent {
+namespace TagCloudComponent {
 
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
@@ -3081,7 +3081,7 @@ module TagCloudComponent {
 }
 
 
-module EditorComponent {
+namespace EditorComponent {
     $(function () {
         var num = new ej.NumericTextbox($("#numeric"), {
             value: 30,
@@ -3115,7 +3115,7 @@ module EditorComponent {
 
 
 
-module TileViewComponent {
+namespace TileViewComponent {
     $(function () {
         var tile1 = new ej.Tile($("#tile1"), {
             imagePosition:"fill",
@@ -3194,7 +3194,7 @@ module TileViewComponent {
 
 
 
-module TimePickerComponent {
+namespace TimePickerComponent {
     $(function () {
         var timeSample = new ej.TimePicker($("#timepick"), {
             width: "100%"
@@ -3205,7 +3205,7 @@ module TimePickerComponent {
 
 
 
-module ToolbarComponent {
+namespace ToolbarComponent {
     $(function () {
         var sample = new ej.Toolbar($("#editingToolbar"),{
             width: "100%",
@@ -3220,7 +3220,7 @@ module ToolbarComponent {
 
 
 
-module TooltipComponent {
+namespace TooltipComponent {
     $(function () {
 
         var sample1 = new ej.Tooltip($("#link1"),{
@@ -3276,7 +3276,7 @@ module TooltipComponent {
 
 
 
-module TreeGridComponent {
+namespace TreeGridComponent {
     $(function () {
         var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
         dataSource: (<any>window).treeGridData,
@@ -3335,7 +3335,7 @@ var population_data: Array<Object> = [
     { Continent: "Europe", Country: "UK", Growth: 1, Population: 63181775 }
 ];
 
-module treemapcomponent {
+namespace treemapcomponent {
     $(function () {
         var treemapsample = new ej.datavisualization.TreeMap($("#treemap"), {
             leafItemSettings: { showLabels: true, labelPath: "Country" },
@@ -3359,7 +3359,7 @@ module treemapcomponent {
 
 
 
-module TreeViewComponent {
+namespace TreeViewComponent {
     $(function () {
         var tree = new ej.TreeView($("#treeView"), {
             allowEditing: true,
@@ -3372,7 +3372,7 @@ module TreeViewComponent {
 
 
 
-module UploadboxComponent {
+namespace UploadboxComponent {
 
     $(function () {
         var sample = new ej.Uploadbox($("#UploadDefault"),{
@@ -3395,7 +3395,7 @@ module UploadboxComponent {
 
 
 
-module WaitingPopupComponent {
+namespace WaitingPopupComponent {
     $(function () {
         var sample = new ej.WaitingPopup($("#target"),{
             showOnInit: true,

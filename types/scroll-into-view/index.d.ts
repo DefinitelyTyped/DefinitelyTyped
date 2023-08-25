@@ -5,7 +5,7 @@
 //                 goodCycle <https://github.com/goodCycle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module __ScrollIntoView {
+declare namespace __ScrollIntoView {
 
     interface Settings {
         time?: number | undefined

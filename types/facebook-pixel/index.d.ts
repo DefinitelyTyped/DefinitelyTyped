@@ -7,7 +7,7 @@
 declare var fbq:facebook.Pixel.Event;
 
 
-declare module facebook.Pixel {
+declare namespace facebook.Pixel {
     interface Event {
         (eventType:string, InitialAppId:string):void;
         (eventType:string, InitialAppId:string, eventName:string,
@@ -129,7 +129,7 @@ declare module facebook.Pixel {
 }
 
 // For Facebook Tag API using Dynamic Product Ads
-declare module facebook.Pixel.DPA {
+declare namespace facebook.Pixel.DPA {
 
     interface ViewContentParameters extends facebook.Pixel.ViewContentParameters {
         content_type:string;

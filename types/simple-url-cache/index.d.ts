@@ -66,7 +66,7 @@ declare module 'simple-url-cache' {
             public getCurrentUrl():string;
         }
 
-        module RedisPool {
+        namespace RedisPool {
             export function connect(config:RedisStorageConfig): redis.RedisClient;
             export function isOnline():boolean;
             export function kill():void;

@@ -8,7 +8,7 @@
 
 declare var commangular: commangular.ICommAngularStatic;
 
-declare module commangular {
+declare namespace commangular {
 
     ///////////////////////////////////////////////////////////////////////////
     // Commangular Static
@@ -258,7 +258,7 @@ declare module commangular {
 /**
  * Extending the angular rootScope to include the dispatch function in all scopes.
  */
-declare module angular {
+declare namespace angular {
 
     interface IRootScopeService {
 

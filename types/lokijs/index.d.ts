@@ -2016,7 +2016,7 @@ declare class _LokiFsAdapter extends LokiFsAdapter { }
 declare class LokiConstructor extends Loki {
     constructor(filename: string, options?: Partial<LokiConstructorOptions> & Partial<LokiConfigOptions> & Partial<ThrottledSaveDrainOptions>);
 }
-declare module LokiConstructor {
+declare namespace LokiConstructor {
     export var persistenceAdapters: {
         fs: _LokiFsAdapter,
         localStorage: _LokiLocalStorageAdapter

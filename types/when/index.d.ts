@@ -9,7 +9,7 @@ declare function When<T, U>(promiseOrValue: T | When.Promise<T> | When.Thenable<
 
 declare namespace When {
     // Helper interfaces
-    module _ {
+    namespace _ {
         interface Fn0<T> { (): T }
         interface Fn1<A1, T> { (a1: A1): T }
         interface Fn2<A1, A2, T> { (a1: A1, a2: A2): T }

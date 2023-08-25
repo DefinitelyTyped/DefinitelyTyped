@@ -12,14 +12,14 @@ import child_process = require("child_process");
 
 export declare function identify(path: string, callback: (err: Error, features: Features) => void): child_process.ChildProcess;
 export declare function identify(path: any[], callback: (err: Error, result: string) => void): child_process.ChildProcess;
-export declare module identify {
+export declare namespace identify {
     export var path: string;
 }
 export declare function readMetadata(path: string, callback: (err: Error, result: any) => void): child_process.ChildProcess;
 
 export declare function convert(args: any, callback: (err: Error, result: any) => void): child_process.ChildProcess;
 export declare function convert(args: any, timeout: number, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-export declare module convert {
+export declare namespace convert {
     export var path: string;
 }
 

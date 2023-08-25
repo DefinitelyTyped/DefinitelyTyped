@@ -220,7 +220,7 @@ declare namespace dojox {
              */
             Viewport(): void;
         }
-        module _base {
+        namespace _base {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/gfx3d/_base.Cube.html
              *

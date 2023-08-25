@@ -27,7 +27,7 @@ declare namespace libphonenumber {
         UNKNOWN = -1,
     }
 
-    export module PhoneNumber {
+    export namespace PhoneNumber {
         export enum CountryCodeSource {
             FROM_NUMBER_WITH_PLUS_SIGN = 1,
             FROM_NUMBER_WITH_IDD = 5,
@@ -93,7 +93,7 @@ declare namespace libphonenumber {
         clearPreferredDomesticCarrierCode(): void;
     }
 
-    export module PhoneNumberUtil {
+    export namespace PhoneNumberUtil {
         export enum ValidationResult {
             /** The number length matches that of valid numbers for this region. =0 */
             IS_POSSIBLE,
@@ -177,7 +177,7 @@ declare namespace libphonenumber {
         clear(): void;
     }
 
-    export module ShortNumberInfo {
+    export namespace ShortNumberInfo {
         /** Cost categories of short numbers. */
         export enum ShortNumberCost {
             TOLL_FREE = 0,

@@ -412,7 +412,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## The history of Definitely Typed
 
-Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).  
+Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).
 
 ## FAQ
 

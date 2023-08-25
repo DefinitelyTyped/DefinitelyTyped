@@ -2,7 +2,7 @@
 
 import amplitude = require('amplitude-js');
 
-module Amplitude.Tests {
+namespace Amplitude.Tests {
 
     function all() {
         var client: amplitude.AmplitudeClient = new amplitude.AmplitudeClient();

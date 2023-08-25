@@ -17,7 +17,7 @@ declare namespace dojox {
          */
         interface _crypto {
         }
-        module _base {
+        namespace _base {
         }
 
     }

@@ -511,7 +511,7 @@ declare module 'meteor/mongo' {
     }
 }
 
-declare module MongoInternals {
+declare namespace MongoInternals {
     interface MongoConnection {
         db: MongoDb;
         client: MongoClient;

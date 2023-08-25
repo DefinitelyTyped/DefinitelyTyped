@@ -7,7 +7,7 @@
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
 
-declare module Sylvester {
+declare namespace Sylvester {
     interface VectorStatic {
         /**
          * Constructor function.
@@ -775,7 +775,7 @@ interface Plane {
     setVectors(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
 }
 
-declare module Sylvester {
+declare namespace Sylvester {
     export var version: string;
     export var precision: number;
 }

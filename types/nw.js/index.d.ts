@@ -10,7 +10,7 @@ declare global {
     /**
      * Helpers class and interfaces defined here, to make `nw` module cleaner.
      */
-    module NWJS_Helpers {
+    namespace NWJS_Helpers {
         /**
          * The clipboard object.
          */

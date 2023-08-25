@@ -30,7 +30,7 @@ declare var menuButton: ASPxClientButton;
 declare var aboutWindow: ASPxClientPopupControl;
 declare var offersZone: ASPxClientDockZone;
 
-module DXDemo {
+namespace DXDemo {
     function showPage(page: string, params: { [key: string]: any }, skipHistory?: boolean): void {
         var queryString = getQueryString(params || {});
         hiddenField.Set("page", page);

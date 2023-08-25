@@ -7,7 +7,7 @@
 import * as Backbone from 'backbone';
 
 declare module 'backbone' {
-    export module Associations {
+    export namespace Associations {
         /** Defines a 1:Many relationship type */
         export var Many: string;
         /** Defines a 1:1 relationship type */

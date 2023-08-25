@@ -5,7 +5,7 @@
 
 
 declare namespace svgjs {
-    export module draggable {
+    export namespace draggable {
         export interface DragDelta {
             x: number
             y: number
