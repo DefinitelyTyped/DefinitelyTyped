@@ -147,7 +147,6 @@ export class Driver extends webdriver.WebDriver {
      * ID that may later be used to {@linkplain #uninstallAddon uninstall} the
      * addon.
      *
-     *
      * @param {string} path Path on the local filesystem to the web extension to
      *     install.
      * @param {boolean} temporary Flag indicating whether the extension should be

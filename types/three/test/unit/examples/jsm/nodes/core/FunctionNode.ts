@@ -22,7 +22,7 @@ const includes = [mx_noise];
 const someFunc1 = new FunctionNode<[a: Node]>();
 const someFunc2 = new FunctionNode<{ a: Node }>();
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 function assertSwizzable<T extends Node>(_s: Swizzable<T>) {}
 
 type a = ProxiedObject<readonly [Node]>;

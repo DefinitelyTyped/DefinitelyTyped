@@ -16,9 +16,13 @@ export interface QueryResult<T> {
     records: T[];
 }
 
+// Unfortunately because TypeScript wants you to believe JS has classical inheritance,
+// you can't say that Query "extends Readable" because `filter` and `map` disagree with Readable's own.
+// That can only be fixed by a breaking change in Query's filter and map methods. Your call.
 export class Query<T> extends Readable implements Promise<T> {
     end(): Query<T>;
 
+    // @ts-ignore conflicts with built-in Readable.filter
     filter(filter: Object): Query<T>;
 
     include(include: string): Query<T>;
@@ -53,6 +57,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
 
+    // @ts-ignore conflicts with built-in Readable.map
     map(callback: (currentValue: Object) => void): Promise<any>;
 
     scanAll(value: boolean): Query<T>;

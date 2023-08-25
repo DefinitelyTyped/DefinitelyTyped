@@ -222,5 +222,5 @@ export interface ContourDensity<Datum = [number, number]> {
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

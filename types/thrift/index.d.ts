@@ -318,7 +318,7 @@ export function createServer<TProcessor, THandler>(
     options?: ServerOptions<TProcessor, THandler>
 ): http.Server | tls.Server;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
 export class TBufferedTransport implements TTransport {

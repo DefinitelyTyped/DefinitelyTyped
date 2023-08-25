@@ -1611,5 +1611,5 @@ interface IConstants {
     LOG_LEVEL: number;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Akumina;
