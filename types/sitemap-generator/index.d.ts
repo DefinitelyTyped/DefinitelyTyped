@@ -32,13 +32,19 @@ interface SiteMapRotator {
     finish: () => void;
 }
 
+type EventCallback<T extends EventTypes> =
+    T extends 'error' ? (error: ErrorMessage) => void :
+    T extends 'add' ? (url: string) => void :
+    T extends 'ignore' ? (url: string) => void :
+    () => void;
+
 interface Methods {
     start: () => void;
     stop: () => void;
     getCrawler: () => Crawler;
     getSitemap: () => SiteMapRotator;
     queueURL: (url: string) => void;
-    on: <T extends EventTypes>(events: T, cb: T extends 'error' ? (error: ErrorMessage) => void : () => void) => void;
+    on: <T extends EventTypes>(events: T, cb: EventCallback<T>) => void;
 }
 
 declare function SitemapGenerator(url: string, options?: Options): Methods;
