@@ -13,6 +13,10 @@
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
+type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
 declare namespace jwplayer {
     interface Version {
         version: string;
@@ -174,6 +178,7 @@ declare namespace jwplayer {
     interface Caption {
         id: number | string;
         label: string;
+        language?: string;
     }
 
     interface AudioTrackChangedParam {
@@ -196,38 +201,61 @@ declare namespace jwplayer {
     interface MetaDateRange {
         metadataType: 'date-range';
         metadataTime: number;
-        metadata: {
-            attributes: Attribute[];
-            content: string;
-            duration: number;
-            end: number;
-            endDate: string;
-            start: number;
-            startDate: string;
-            tag: 'EXT-X-DATERANGE';
-        };
+        metadata: DateRangeMetaData;
+    }
+
+    interface DateRangeMetaData {
+        attributes: Attribute[];
+        content: string;
+        duration: number;
+        end: number;
+        endDate: string;
+        start: number;
+        startDate: string;
+        tag: 'EXT-X-DATERANGE';
+    }
+
+    interface MetaDiscontinuity {
+        metadataType: 'discontinuity';
+        metadataTime: number;
+        metadata: DiscontinuityMetaData;
+    }
+
+    interface DiscontinuityMetaData {
+        metadataType: 'discontinuity';
+        discontinuitySequence: number;
+        end: number;
+        PTS: number;
+        start: number;
+        tag: string;
     }
 
     interface MetaEMSG {
         metadataType: 'emsg';
         metadataTime: number;
-        metadata: {
-            duration: number;
-            end: number;
-            id: number;
-            messageData: any[];
-            metadataType: 'emsg';
-            presentationTimeOffset: number;
-            start: number;
-            schemeIdUri: string;
-            timescale: number;
-        };
+        metadata: EMSGMetaData;
+    }
+
+    interface EMSGMetaData {
+        duration: number;
+        end: number;
+        id: number;
+        messageData: any[];
+        metadataType: 'emsg';
+        presentationTimeOffset: number;
+        start: number;
+        schemeIdUri: string;
+        timescale: number;
     }
 
     interface MetaID3 {
         metadataType: 'id3';
         metadataTime: number;
-        metadata: any;
+        metadata: ID3MetaData;
+    }
+
+    interface ID3MetaData {
+        [tag: string]: string;
     }
 
     interface MetaMedia {
@@ -242,36 +270,35 @@ declare namespace jwplayer {
         metadataType: 'program-date-time';
         metadataTime: number;
         programDateTime: string;
-        metadata: {
-            end: number;
-            programDateTime: string;
-            start: number;
-        };
+        metadata: ProgramDateTimeMetaData;
+    }
+
+    interface ProgramDateTimeMetaData {
+        end: number;
+        programDateTime: string;
+        start: number;
     }
 
     interface MetaSCTE35 {
         metadataType: 'scte-35';
         metadataTime: number;
-        metadata: {
-            content: string;
-            end: number;
-            start: number;
-            tag: 'EXT-X-CUE-OUT' | 'EXT-X-CUE-IN';
-        };
+        metadata: SCTE35MetaData;
     }
 
-    interface MetaDiscontinuity {
-        metadataType: 'discontinuity';
-        metadataTime: number;
-        metadata: {
-            metadataType: 'discontinuity';
-            discontinuitySequence: number;
-            end: number;
-            PTS: number;
-            start: number;
-            tag: string;
-        };
+    interface SCTE35MetaData {
+        content: string;
+        end: number;
+        start: number;
+        tag: 'EXT-X-CUE-OUT' | 'EXT-X-CUE-IN';
     }
+
+    type MetaData =
+        | DateRangeMetaData
+        | DiscontinuityMetaData
+        | EMSGMetaData
+        | ID3MetaData
+        | ProgramDateTimeMetaData
+        | SCTE35MetaData;
 
     interface MetaUnknown {
         metadataType: 'unknown';
@@ -304,10 +331,13 @@ declare namespace jwplayer {
         type: 'controls';
     }
 
-    interface ErrorParam {
+    interface Error {
         code: number;
         message: string;
         sourceError: object | null;
+    }
+
+    interface ErrorParam extends Error {
         type: 'error';
     }
 
@@ -473,6 +503,13 @@ declare namespace jwplayer {
         name: string;
     }
 
+    interface CustomButton {
+        btnClass?: string;
+        id: string;
+        img: string;
+        tooltip: string;
+    }
+
     interface CaptionsConfig {
         color?: string;
         fontSize?: number;
@@ -509,6 +546,8 @@ declare namespace jwplayer {
         reason: 'auto' | 'api' | 'initial choice';
     }
 
+    type Preload = 'metadata' | 'auto' | 'none';
+
     interface PlaylistItem {
         adschedule?: Adschedule;
         allSources?: Source[];
@@ -520,7 +559,7 @@ declare namespace jwplayer {
         link?: string;
         mediaid?: string;
         minDvrWindow?: number;
-        preload?: 'metadata' | 'auto' | 'none';
+        preload?: Preload;
         recommendations?: string;
         sources: [Source];
         starttime?: number;
@@ -550,7 +589,7 @@ declare namespace jwplayer {
         label: string;
         liveSyncDuration?: number;
         mimeType?: string;
-        preload?: 'metadata' | 'auto' | 'none';
+        preload?: Preload;
         type: string;
     }
 
@@ -605,10 +644,13 @@ declare namespace jwplayer {
         value: string;
     }
 
-    interface CastParam {
+    interface CastState {
         available: boolean;
         active: boolean;
         deviceName: string;
+    }
+
+    interface CastParam extends CastState {
         type: 'cast';
     }
 
@@ -632,124 +674,124 @@ declare namespace jwplayer {
     }
 
     interface IntlConfig {
-        advertising?: IntlAdvertising;
-        airplay?: string;
-        audioTracks?: string;
-        auto?: string;
-        buffer?: string;
-        captionsStyles?: IntlCaptionsStyles;
-        cast?: string;
-        cc?: string;
-        close?: string;
+        advertising: IntlAdvertising;
+        airplay: string;
+        audioTracks: string;
+        auto: string;
+        buffer: string;
+        captionsStyles: IntlCaptionsStyles;
+        cast: string;
+        cc: string;
+        close: string;
         displayHeading?: string;
-        errors?: IntlErrors;
-        exitFullscreen?: string;
-        fullscreen?: string;
-        hd?: string;
-        liveBroadcast?: string;
-        logo?: string;
-        mute?: string;
-        next?: string;
-        nextUp?: string;
-        notLive?: string;
-        off?: string;
-        pause?: string;
-        pipIcon?: string;
-        play?: string;
-        playback?: string;
-        playbackRates?: string;
-        player?: string;
-        playlist?: string;
-        poweredBy?: string;
-        prev?: string;
-        related?: IntlRelated;
-        replay?: string;
-        rewind?: string;
-        settings?: string;
-        sharing?: IntlSharing;
-        shortcuts?: IntlShortcuts;
-        slider?: string;
-        stop?: string;
-        unmute?: string;
-        videoInfo?: string;
-        volume?: string;
-        volumeSlider?: string;
+        errors: IntlErrors;
+        exitFullscreen: string;
+        fullscreen: string;
+        hd: string;
+        liveBroadcast: string;
+        logo: string;
+        mute: string;
+        next: string;
+        nextUp: string;
+        notLive: string;
+        off: string;
+        pause: string;
+        pipIcon: string;
+        play: string;
+        playback: string;
+        playbackRates: string;
+        player: string;
+        playlist: string;
+        poweredBy: string;
+        prev: string;
+        related: IntlRelated;
+        replay: string;
+        rewind: string;
+        settings: string;
+        sharing: IntlSharing;
+        shortcuts: IntlShortcuts;
+        slider: string;
+        stop: string;
+        unmute: string;
+        videoInfo: string;
+        volume: string;
+        volumeSlider: string;
     }
 
     interface IntlAdvertising {
-        admessage?: string;
-        cuetext?: string;
-        loadingAd?: string;
-        podmessage?: string;
-        skipmessage?: string;
-        skiptext?: string;
+        admessage: string;
+        cuetext: string;
+        loadingAd: string;
+        podmessage: string;
+        skipmessage: string;
+        skiptext: string;
     }
 
     interface IntlCaptionsStyles {
-        backgroundColor?: string;
-        backgroundOpacity?: string;
-        black?: string;
-        blue?: string;
-        characterEdge?: string;
-        cyan?: string;
-        depressed?: string;
-        disabled?: string;
-        dropShadow?: string;
-        enabled?: string;
-        fontColor?: string;
-        fontFamily?: string;
-        fontOpacity?: string;
-        fontSize?: string;
-        green?: string;
-        magenta?: string;
-        none?: string;
-        raised?: string;
-        red?: string;
-        reset?: string;
-        subtitleSettings?: string;
-        uniform?: string;
-        white?: string;
-        windowColor?: string;
-        windowOpacity?: string;
-        yellow?: string;
+        backgroundColor: string;
+        backgroundOpacity: string;
+        black: string;
+        blue: string;
+        characterEdge: string;
+        cyan: string;
+        depressed: string;
+        disabled: string;
+        dropShadow: string;
+        enabled: string;
+        fontColor: string;
+        fontFamily: string;
+        fontOpacity: string;
+        fontSize: string;
+        green: string;
+        magenta: string;
+        none: string;
+        raised: string;
+        red: string;
+        reset: string;
+        subtitleSettings: string;
+        uniform: string;
+        white: string;
+        windowColor: string;
+        windowOpacity: string;
+        yellow: string;
     }
 
     interface IntlErrors {
-        badConnection?: string;
-        cantLoadPlayer?: string;
-        cantPlayInBrowser?: string;
-        cantPlayVideo?: string;
-        errorCode?: string;
-        liveStreamDown?: string;
-        protectedContent?: string;
-        technicalError?: string;
+        badConnection: string;
+        cantLoadPlayer: string;
+        cantPlayInBrowser: string;
+        cantPlayVideo: string;
+        errorCode: string;
+        liveStreamDown: string;
+        protectedContent: string;
+        technicalError: string;
     }
 
     interface IntlRelated {
-        autoplaymessage?: string;
-        heading?: string;
+        autoplaymessage: string;
+        heading: string;
     }
 
     interface IntlSharing {
-        copied?: string;
-        email?: string;
-        embed?: string;
-        heading?: string;
-        link?: string;
+        copied: string;
+        email: string;
+        embed: string;
+        heading: string;
+        link: string;
     }
 
     interface IntlShortcuts {
-        captionsToggle?: string;
-        decreaseVolume?: string;
-        fullscreenToggle?: string;
-        increaseVolume?: string;
-        keyboardShortcuts?: string;
-        playPause?: string;
-        seekBackward?: string;
-        seekForward?: string;
-        seekPercent?: string;
-        spacebar?: string;
-        volumeToggle?: string;
+        captionsToggle: string;
+        decreaseVolume: string;
+        fullscreenToggle: string;
+        increaseVolume: string;
+        keyboardShortcuts: string;
+        playPause: string;
+        seekBackward: string;
+        seekForward: string;
+        seekPercent: string;
+        spacebar: string;
+        volumeToggle: string;
     }
 
     interface EventParams {
@@ -854,7 +896,6 @@ declare namespace jwplayer {
         open: RPOpenParam;
         play: RPPlayParam;
         playlist: RPPlaylistParam;
-        videoThumbFirstFrame: RPVideoFirstThumbFrame;
         warning: RPWarningParam;
     }
 
@@ -1022,7 +1063,7 @@ declare namespace jwplayer {
         duration?: number;
         endstate?: string;
         forceNonLinearFullSlot?: boolean;
-        freewheel: FreeWheelConfig;
+        freewheel?: FreeWheelConfig;
         fwassetid?: string;
         loadVideoTimeout?: number;
         locale?: string;
@@ -1332,7 +1373,7 @@ declare namespace jwplayer {
 
     interface AutoPauseConfig {
         pauseAds?: boolean;
-        viewability?: boolean;
+        viewability: boolean;
     }
 
     interface CastConfig {
@@ -1356,13 +1397,18 @@ declare namespace jwplayer {
 
     interface RelatedConfig {
         autoplaymessage?: string;
-        autoplaytimer?: number;
+        autoplaytimer: number;
+        disableRelated: boolean;
         displayMode?: RelatedDisplayMode;
         file?: string;
         onclick?: 'link' | 'play';
-        oncomplete?: 'autoplay' | 'hide' | 'none' | 'show';
+        oncomplete: 'autoplay' | 'hide' | 'none' | 'show';
         selector?: string;
+        shouldAutoAdvance: boolean;
+        showButton: boolean;
     }
+
+    type RelatedSetupConfig = Partial<RelatedConfig>;
 
     type RelatedDisplayMode = 'none' | 'overlay' | 'shelf' | 'shelfWidget';
 
@@ -1399,16 +1445,18 @@ declare namespace jwplayer {
         url?: string;
     }
 
-    interface PlayerConfig {
+    type StreamType = 'VOD' | 'Live' | 'DVR';
+
+    interface SetupConfig {
         aboutlink?: string;
         abouttext?: string;
         advertising?: AdvertisingConfig;
         allowFullscreen?: boolean;
         aspectratio?: string;
-        autoPause?: AutoPauseConfig;
+        autoPause?: Partial<AutoPauseConfig>;
         autostart?: boolean | 'viewable';
         base?: string;
-        captions: CaptionsConfig;
+        captions?: CaptionsConfig;
         cast?: CastConfig;
         controls?: boolean;
         defaultBandwidthEstimate?: number;
@@ -1420,11 +1468,11 @@ declare namespace jwplayer {
         floating?: FloatingConfig;
         ga?: GaConfig;
         generateSEOMetadata?: boolean;
-        height?: number;
+        height?: number | string;
         hlsjsdefault?: boolean;
         horizontalVolumeSlider?: boolean;
         intl?: {
-            [lang: string]: IntlConfig;
+            [lang: string]: RecursivePartial<IntlConfig>;
         };
         liveSyncDuration?: number;
         liveTimeout?: number;
@@ -1433,22 +1481,126 @@ declare namespace jwplayer {
         mute?: boolean;
         nextUpDisplay?: boolean;
         nextupoffset?: number | string;
-        pipIcon?: boolean;
+        pipIcon?: 'disabled' | 'enabled';
         playbackRateControls?: boolean;
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;
         playlistIndex?: number;
-        preload?: boolean;
+        preload?: Preload;
         qualityLabels?: {
             [bandwidth: number]: string;
         };
-        related?: RelatedConfig;
+        related?: RelatedSetupConfig;
         repeat?: boolean;
         renderCaptionsNatively?: boolean;
         sharing?: SharingConfig;
         skin?: SkinConfig;
         stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
-        width?: number;
+        width?: number | string;
+    }
+
+    interface PlayerConfig extends SetupConfig {
+        activeTab: boolean;
+        allowFullscreen: boolean;
+        altText: string;
+        audioMode: boolean;
+        autoPause: AutoPauseConfig;
+        autoStart: boolean;
+        autoplaytimer?: number;
+        autostartMuted?: boolean;
+        backgroundLoading: boolean;
+        bandwidthEstimate: number;
+        base: string;
+        bitrateSelection?: number;
+        buffer: number;
+        captions: CaptionsConfig;
+        captionsIndex: number;
+        captionsList: Caption[];
+        captionsTrack?: any;
+        castActive?: boolean;
+        castAvailable: boolean;
+        castState?: CastState;
+        containerHeight: number;
+        containerWidth: number;
+        controls: boolean;
+        controlsEnabled: boolean;
+        cues: SliderCue[];
+        currentTime: number;
+        customButtons?: CustomButton[];
+        defaultPlaybackRate: number;
+        displaydescription: boolean;
+        displayPlaybackLabel: boolean;
+        displaytitle: boolean;
+        duration: number;
+        dvrSeekLimit: number;
+        edition: string;
+        enableShortcuts: boolean;
+        error?: any;
+        errorEvent?: Error;
+        feedData?: FeedData;
+        file?: string;
+        fullscreen: boolean;
+        generateSEOMetadata: boolean;
+        height: number | string;
+        hideAdsControls?: boolean;
+        horizontalVolumeSlider: boolean;
+        id: string;
+        iFrame: boolean;
+        image?: string;
+        include_compatibility_script?: string;
+        inDom: boolean;
+        instreamMode: boolean;
+        intersectionRatio: number;
+        isAudioFile: boolean;
+        item: number;
+        itemMeta: MetaData;
+        itemReady: boolean;
+        jwStart: number;
+        key: string;
+        language: string;
+        localization: IntlConfig;
+        logoWidth: number;
+        loop: boolean;
+        mediaContainer: HTMLDivElement;
+        mediaElement: HTMLVideoElement;
+        mediaid?: string;
+        minDvrWindow: number;
+        mute: boolean;
+        nextUp?: PlaylistItem;
+        nextUpDisplay: boolean;
+        ph?: number;
+        pid?: string;
+        playbackRate: number;
+        playbackRateControls: boolean;
+        playbackRates: number[];
+        playlistItem?: PlaylistItem;
+        playOnViewable: boolean;
+        playReason?: PlayReason;
+        playRejected: boolean;
+        plugins: {
+            [pluginUrl: string]: any; // Appears to contain config-data for plugins
+        };
+        position: number;
+        preload: Preload;
+        provider: Provider;
+        qualityLabel?: string;
+        recItems?: PlaylistItem[];
+        related: RelatedConfig;
+        renderCaptionsNatively: boolean;
+        repeat: boolean;
+        scrubbing: boolean;
+        setupConfig: SetupConfig;
+        sharing?: SharingConfig;
+        skin: SkinConfig;
+        state: PlayState;
+        streamType: StreamType;
+        stretching: 'exactfit' | 'fill' | 'none' | 'uniform';
+        supportsPlaybackRate: boolean;
+        touchMode: boolean;
+        viewable: 0 | 1;
+        visibility: 0 | 1;
+        volume: number;
+        width: number | string;
     }
 
     interface JWPlayer {
@@ -1460,7 +1612,7 @@ declare namespace jwplayer {
         getAbsolutePosition(): string | null;
         getBuffer(): number;
         getCaptionsList(): Caption[];
-        getConfig(): PlayerConfig;
+        getConfig(): SetupConfig;
         getContainer(): HTMLElement;
         getControls(): boolean;
         getCues(): SliderCue[];
@@ -1514,7 +1666,7 @@ declare namespace jwplayer {
         seek(position: number): JWPlayer;
         setAllowFullscreen(allowFullscreen?: boolean): JWPlayer;
         setCaptions(styles: CaptionsConfig): JWPlayer;
-        setConfig(config: PlayerConfig): JWPlayer;
+        setConfig(config: SetupConfig): JWPlayer;
         setControls(state?: boolean): JWPlayer;
         setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
@@ -1527,7 +1679,7 @@ declare namespace jwplayer {
         setPlaylistItemCallback(
             callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
         ): void;
-        setup(options: PlayerConfig): JWPlayer;
+        setup(options: SetupConfig): JWPlayer;
         setVolume(volume: number): JWPlayer;
         skipAd(): void;
         stop(): JWPlayer;
