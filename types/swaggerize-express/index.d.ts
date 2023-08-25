@@ -20,7 +20,7 @@ import express = require('express');
 declare function swaggerize(options: swaggerize.Options): express.RequestHandler;
 
 declare namespace swaggerize {
-    export module Swagger {
+    export namespace Swagger {
         export interface ApiDefinition {
             swagger: string
             info: InfoObject

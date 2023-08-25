@@ -105,7 +105,7 @@ export declare function spawn(file?: string, args?: string[], opt?: TerminalOpti
 export declare function open(opt?: { cols?: number | undefined; rows?: number | undefined }): Terminal;
 
 // Internal stuff that probably isn't very useful but is exported by pty.js
-export declare module native {
+export declare namespace native {
     /** Unix-only. */
     export function fork(
         file: string, args: string[], env: any, cwd: string, cols: number, rows: number,
