@@ -29,7 +29,7 @@ declare class diff_match_patch {
 
     diff_bisect_(text1: string, text2: string, deadline: number): diff_match_patch.Diff[];
 
-    diff_linesToChars_(text1: string, text2: string): { chars1: string; chars2: string; lineArray: string[]; };
+    diff_linesToChars_(text1: string, text2: string): { chars1: string; chars2: string; lineArray: string[] };
 
     diff_charsToLines_(diffs: diff_match_patch.Diff[], lineArray: string[]): void;
 
