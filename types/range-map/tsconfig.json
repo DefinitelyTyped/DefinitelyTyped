@@ -6,23 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
-        "paths": {
-            "find-cache-dir": [
-                "find-cache-dir/v2"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "find-cache-dir-tests.ts"
+        "range-map-tests.ts"
     ]
 }

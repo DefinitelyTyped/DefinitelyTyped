@@ -1400,7 +1400,7 @@ declare module 'wonder.js/dist/es2015/event/object/Event' {
         phase: EEventPhase;
         abstract clone(): any;
         stopPropagation(): void;
-        // eslint-disable-next-line no-single-element-tuple-type
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         protected copyMember(destination: Event, source: Event, memberArr: [any]): Event;
     }
 }

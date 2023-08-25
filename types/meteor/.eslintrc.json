@@ -1,9 +1,9 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off"
     }
 }

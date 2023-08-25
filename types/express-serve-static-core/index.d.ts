@@ -137,10 +137,10 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Route,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -152,10 +152,10 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Path,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -167,7 +167,7 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -179,7 +179,7 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     (path: PathParams, subApplication: Application): T;
@@ -196,7 +196,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         LocalsObj extends Record<string, any> = Record<string, any>
         >(
         // (This generic is meant to be passed explicitly.)
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -207,7 +207,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         LocalsObj extends Record<string, any> = Record<string, any>
         >(
         // (This generic is meant to be passed explicitly.)
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -218,7 +218,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         LocalsObj extends Record<string, any> = Record<string, any>
     >(
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -229,7 +229,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         LocalsObj extends Record<string, any> = Record<string, any>
     >(
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
 }
