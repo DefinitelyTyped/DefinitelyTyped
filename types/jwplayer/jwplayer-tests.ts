@@ -89,6 +89,11 @@ player
     .off('adBlock')
     .off('adClick')
     .playlistItem(1)
+    .playlistNext()
+    .playlistPrev()
+    .playToggle()
+    .castToggle()
+    .setPip()
     .stopCasting()
     .stop()
     .remove();
@@ -111,6 +116,12 @@ player.getConfig();
 // $ExpectType HTMLElement
 player.getContainer();
 
+// $ExpectType number
+player.getContainerPercentViewable();
+
+// $ExpectType 0 | 1
+player.getContainerViewable();
+
 // $ExpectType boolean
 player.getControls();
 
@@ -125,6 +136,9 @@ player.getCurrentCaptions();
 
 // $ExpectType number
 player.getCurrentQuality();
+
+// $ExpectType number
+player.getCurrentTime();
 
 // $ExpectType number
 player.getDuration();
@@ -173,6 +187,9 @@ player.getSafeRegion();
 
 // $ExpectType PlayState
 player.getState();
+
+// $ExpectType Stretching
+player.getStretching();
 
 // $ExpectType 0 | 1
 player.getViewable();

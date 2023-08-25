@@ -1,4 +1,4 @@
-// Type definitions for JW Player 8.2
+// Type definitions for JW Player 8.28
 // Project: https://github.com/jwplayer/jwplayer
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Tomer Kruvi <https://github.com/kutomer>
@@ -9,6 +9,7 @@
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 Zack Haigh <https://github.com/zetagame>
 //                 Ethan Setnik <https://github.com/esetnik>
+//                 Nils Ramirez Hiorth <https://github.com/nlhiorth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
@@ -1445,7 +1446,16 @@ declare namespace jwplayer {
         url?: string;
     }
 
+    interface TimeSliderConfig {
+        legacy?: boolean;
+        preferChapterImages?: boolean;
+        showKnob?: boolean;
+        showAdMarkers?: boolean;
+    }
+
     type StreamType = 'VOD' | 'Live' | 'DVR';
+
+    type Stretching = 'exactfit' | 'fill' | 'none' | 'uniform';
 
     interface SetupConfig {
         aboutlink?: string;
@@ -1495,7 +1505,8 @@ declare namespace jwplayer {
         renderCaptionsNatively?: boolean;
         sharing?: SharingConfig;
         skin?: SkinConfig;
-        stretching?: 'exactfit' | 'fill' | 'none' | 'uniform';
+        stretching?: Stretching;
+        timeSlider?: TimeSliderConfig;
         width?: number | string;
     }
 
@@ -1594,7 +1605,7 @@ declare namespace jwplayer {
         skin: SkinConfig;
         state: PlayState;
         streamType: StreamType;
-        stretching: 'exactfit' | 'fill' | 'none' | 'uniform';
+        stretching: Stretching;
         supportsPlaybackRate: boolean;
         touchMode: boolean;
         viewable: 0 | 1;
@@ -1607,6 +1618,7 @@ declare namespace jwplayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         addCues(cues: SliderCue[]): JWPlayer;
         addPlugin(name: string, pluginInstance: any): void;
+        castToggle(): JWPlayer;
         getAdBlock(): boolean;
         getAudioTracks(): AudioTrack[];
         getAbsolutePosition(): string | null;
@@ -1614,11 +1626,14 @@ declare namespace jwplayer {
         getCaptionsList(): Caption[];
         getConfig(): SetupConfig;
         getContainer(): HTMLElement;
+        getContainerPercentViewable(): number;
+        getContainerViewable(): 0 | 1;
         getControls(): boolean;
         getCues(): SliderCue[];
         getCurrentAudioTrack(): number;
         getCurrentCaptions(): number;
         getCurrentQuality(): number;
+        getCurrentTime(): number;
         getDuration(): number;
         getEnvironment(): Environment;
         getFloating(): boolean;
@@ -1638,6 +1653,7 @@ declare namespace jwplayer {
         getRenderingMode(): string;
         getSafeRegion(): Region;
         getState(): PlayState;
+        getStretching(): Stretching;
         getViewable(): 0 | 1;
         getVisualQuality(): VisualQuality | undefined;
         getVolume(): number;
@@ -1658,6 +1674,9 @@ declare namespace jwplayer {
         play(state?: boolean): JWPlayer;
         playAd(tag: string | string[]): void;
         playlistItem(index: number): JWPlayer;
+        playlistNext(): JWPlayer;
+        playlistPrev(): JWPlayer;
+        playToggle(): JWPlayer;
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
@@ -1675,6 +1694,7 @@ declare namespace jwplayer {
         setFloating(shouldFloat?: boolean): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
+        setPip(state?: boolean): JWPlayer;
         setPlaybackRate(rate?: number): JWPlayer;
         setPlaylistItemCallback(
             callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
