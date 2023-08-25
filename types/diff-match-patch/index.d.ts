@@ -4,12 +4,11 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace diff_match_patch
-{
+declare namespace diff_match_patch {
     type Diff = [number, string];
 
     interface patch_obj {
-        diffs: diff_match_patch.Diff[];
+        diffs: Diff[];
         start1: number | null;
         start2: number | null;
         length1: number;
@@ -72,25 +71,25 @@ declare class diff_match_patch {
 
     patch_addContext_(patch: typeof diff_match_patch.patch_obj, text: string): void;
 
-    patch_make(a: string, opt_b: string | diff_match_patch.Diff[]): typeof diff_match_patch.patch_obj[];
-    patch_make(a: diff_match_patch.Diff[]): typeof diff_match_patch.patch_obj[];
-    patch_make(a: string, opt_b: string, opt_c: diff_match_patch.Diff[]): typeof diff_match_patch.patch_obj[];
+    patch_make(a: string, opt_b: string | diff_match_patch.Diff[]): Array<typeof diff_match_patch.patch_obj>;
+    patch_make(a: diff_match_patch.Diff[]): Array<typeof diff_match_patch.patch_obj>;
+    patch_make(a: string, opt_b: string, opt_c: diff_match_patch.Diff[]): Array<typeof diff_match_patch.patch_obj>;
 
-    patch_deepCopy(patches: typeof diff_match_patch.patch_obj[]): typeof diff_match_patch.patch_obj[];
+    patch_deepCopy(patches: Array<typeof diff_match_patch.patch_obj>): Array<typeof diff_match_patch.patch_obj>;
 
-    patch_apply(patches: typeof diff_match_patch.patch_obj[], text: string): [string, boolean[]];
+    patch_apply(patches: Array<typeof diff_match_patch.patch_obj>, text: string): [string, boolean[]];
 
-    patch_addPadding(patches: typeof diff_match_patch.patch_obj[]): string;
+    patch_addPadding(patches: Array<typeof diff_match_patch.patch_obj>): string;
 
-    patch_splitMax(patches: typeof diff_match_patch.patch_obj[]): void;
+    patch_splitMax(patches: Array<typeof diff_match_patch.patch_obj>): void;
 
-    patch_fromText(text: string): typeof diff_match_patch.patch_obj[];
+    patch_fromText(text: string): Array<typeof diff_match_patch.patch_obj>;
 
-    patch_toText(patches: typeof diff_match_patch.patch_obj[]): string;
+    patch_toText(patches: Array<typeof diff_match_patch.patch_obj>): string;
 
     static patch_obj: {
         new (): diff_match_patch.patch_obj;
-    }
+    };
 
     static diff_match_patch: typeof diff_match_patch;
     static DIFF_DELETE: -1;
