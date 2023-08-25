@@ -251,10 +251,10 @@ declare namespace jwplayer {
     interface MetaID3 {
         metadataType: 'id3';
         metadataTime: number;
-        metadata: ID3MetaData;
+        metadata: Id3MetaData;
     }
 
-    interface ID3MetaData {
+    interface Id3MetaData {
         [tag: string]: string;
     }
 
@@ -296,7 +296,7 @@ declare namespace jwplayer {
         | DateRangeMetaData
         | DiscontinuityMetaData
         | EMSGMetaData
-        | ID3MetaData
+        | Id3MetaData
         | ProgramDateTimeMetaData
         | SCTE35MetaData;
 
