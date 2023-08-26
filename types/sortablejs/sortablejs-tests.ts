@@ -426,43 +426,43 @@ Sortable.mount(new MultiDrag());
 
 // AutoScroll
 new Sortable(el, {
-	scroll: true,
-	forceAutoScrollFallback: false,
-	scrollFn: function(offsetX, offsetY, originalEvent, touchEvt, hoverTargetEl) { },
-	scrollSensitivity: 30,
-	scrollSpeed: 10,
-	bubbleScroll: true
+    scroll: true,
+    forceAutoScrollFallback: false,
+    scrollFn: function(offsetX, offsetY, originalEvent, touchEvt, hoverTargetEl) {},
+    scrollSensitivity: 30,
+    scrollSpeed: 10,
+    bubbleScroll: true,
 });
 
 // MultiDrag
 new Sortable(el, {
-	multiDrag: true,
-	selectedClass: "sortable-selected",
-	multiDragKey: null,
-	avoidImplicitDeselect: false,
+    multiDrag: true,
+    selectedClass: 'sortable-selected',
+    multiDragKey: null,
+    avoidImplicitDeselect: false,
 
-	onSelect: function(evt) {
-		evt.item;
-	},
+    onSelect: function(evt) {
+        evt.item;
+    },
 
-	onDeselect: function(evt) {
-		evt.item;
-	}
+    onDeselect: function(evt) {
+        evt.item;
+    },
 });
 
 // OnSpill
 new Sortable(el, {
-	removeOnSpill: true,
-	revertOnSpill: true,
-	onSpill: function(evt) {
-		evt.item;
-	}
+    removeOnSpill: true,
+    revertOnSpill: true,
+    onSpill: function(evt) {
+        evt.item;
+    },
 });
 
 // Swap
 new Sortable(el, {
-	swap: true,
-	swapClass: "sortable-swap-highlight"
+    swap: true,
+    swapClass: 'sortable-swap-highlight',
 });
 
 Sortable.get(new HTMLElement());
