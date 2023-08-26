@@ -16,10 +16,12 @@ import {
     RequestDetails,
     generateRequestDetails,
     SendResult,
-    sendNotification
+    sendNotification,
+    HttpsProxyAgentOptions,
 } from 'web-push';
 
 declare const anything: any;
+declare const stringValue: string;
 
 // ==============
 //  WebPushError
@@ -77,23 +79,53 @@ encryptionResult.cipherText;
 // ===================
 
 // $ExpectType { Authorization: string; 'Crypto-Key': string; }
-getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedContentEncodings.AES_GCM, 150);
+getVapidHeaders('audience', 'https://subject.com', 'publicKey', 'privateKey', supportedContentEncodings.AES_GCM, 150);
 // $ExpectType { Authorization: string; }
-getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM, 150);
+getVapidHeaders(
+    'audience',
+    'https://subject.com',
+    'publicKey',
+    'privateKey',
+    supportedContentEncodings.AES_128_GCM,
+    150,
+);
+
+// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+getVapidHeaders(
+    'audience',
+    'mailto:subject@subject.com',
+    'publicKey',
+    'privateKey',
+    supportedContentEncodings.AES_GCM,
+    150,
+);
+// $ExpectType { Authorization: string; }
+getVapidHeaders(
+    'audience',
+    'mailto:subject@subject.com',
+    'publicKey',
+    'privateKey',
+    supportedContentEncodings.AES_128_GCM,
+    150,
+);
 
 // expiration is optional
 // $ExpectType { Authorization: string; 'Crypto-Key': string; }
-getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedContentEncodings.AES_GCM);
+getVapidHeaders('audience', 'https://subject.com', 'publicKey', 'privateKey', supportedContentEncodings.AES_GCM);
 // $ExpectType { Authorization: string; }
-getVapidHeaders('audience', 'subject', 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM);
+getVapidHeaders('audience', 'https://subject.com', 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM);
+
+// Allow "string" subjects since we can't verify what they start with
+// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+getVapidHeaders('audience', stringValue, 'publicKey', 'privateKey', supportedContentEncodings.AES_GCM);
 
 // Buffers are not supported here
 // @ts-expect-error
 getVapidHeaders('audience', buffer, 'publicKey', 'privateKey', supportedContentEncodings.AES_128_GCM);
 // @ts-expect-error
-getVapidHeaders('audience', 'subject', buffer, 'privateKey', supportedContentEncodings.AES_128_GCM);
+getVapidHeaders('audience', 'https://subject.com', buffer, 'privateKey', supportedContentEncodings.AES_128_GCM);
 // @ts-expect-error
-getVapidHeaders('audience', 'subject', 'publicKey', buffer, supportedContentEncodings.AES_128_GCM);
+getVapidHeaders('audience', 'https://subject.com', 'publicKey', buffer, supportedContentEncodings.AES_128_GCM);
 
 // =====================
 //  generateVAPIDKeys()
@@ -140,7 +172,7 @@ const pushSubscription: PushSubscription = {
     keys: {
         p256dh: 'p256dhString',
         auth: 'authString',
-    }
+    },
 };
 
 // ================
@@ -153,32 +185,32 @@ requestOptions = {};
 
 requestOptions = {
     headers: {
-        someHeader: 'value'
-    }
+        someHeader: 'value',
+    },
 };
 
 requestOptions = {
-    gcmAPIKey: 'key'
+    gcmAPIKey: 'key',
 };
 
 requestOptions = {
     vapidDetails: {
         privateKey: 'private',
         publicKey: 'public',
-        subject: 'subject'
-    }
+        subject: 'subject',
+    },
 };
 
 requestOptions = {
-    TTL: 100
+    TTL: 100,
 };
 
 requestOptions = {
-    contentEncoding: supportedContentEncodings.AES_128_GCM
+    contentEncoding: supportedContentEncodings.AES_128_GCM,
 };
 
 requestOptions = {
-    proxy: 'http://proxy'
+    proxy: 'http://proxy',
 };
 
 declare const agent: https.Agent;
@@ -193,18 +225,24 @@ requestOptions = {
 requestOptions = {
     agent,
     headers: {
-        someHeader: 'value'
+        someHeader: 'value',
     },
     gcmAPIKey: 'key',
     vapidDetails: {
         privateKey: 'private',
         publicKey: 'public',
-        subject: 'subject'
+        subject: 'subject',
     },
     TTL: 100,
     contentEncoding: supportedContentEncodings.AES_GCM,
     proxy: 'http://proxy',
     timeout: 2000,
+};
+
+declare const proxyOptions: HttpsProxyAgentOptions;
+
+requestOptions = {
+    proxy: proxyOptions,
 };
 
 // ==========================
@@ -303,7 +341,7 @@ sendNotification({ endpoint: 'endpoint', keys: { p256dh: 'p256dh', auth: 'auth' 
 
 const sendResult = sendNotification(pushSubscription, 'payload');
 
-sendResult.then((result) => {
+sendResult.then(result => {
     // ExpectType number
     result.statusCode;
     // $ExpectType string
@@ -311,5 +349,4 @@ sendResult.then((result) => {
     // $ExpectType Headers
     result.headers;
 });
-sendResult.catch((error: WebPushError) => {
-});
+sendResult.catch((error: WebPushError) => {});
