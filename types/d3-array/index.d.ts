@@ -32,21 +32,10 @@ export interface Numeric {
  *
  * The first generic "TObject" refers to the type of the data object that is available in the accessor functions.
  * The second generic "TReduce" refers to the type of the data available at the deepest level (the result data).
- * The third geneirc "TKeys" refers to the type of all accessor functions from which the key at each level is inferred.
+ * The third generic "TKeys" refers to the type of the keys at each level of the nestes InternMap.
  */
-export type NestedInternMap<
-    TObject,
-    TReduce,
-    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
-> = TKeys extends [infer TFirst, ...infer TRest]
-    ? InternMap<
-          TFirst extends (value: TObject, index: number, values: TObject[]) => infer K ? K : never,
-          NestedInternMap<
-              TObject,
-              TReduce,
-              TRest extends Array<(value: TObject, index: number, values: TObject[]) => unknown> ? TRest : never
-          >
-      >
+export type NestedInternMap<TObject, TReduce, TKeys extends unknown[]> = TKeys extends [infer TFirst, ...infer TRest]
+    ? InternMap<TFirst, NestedInternMap<TObject, TReduce, TRest>>
     : TReduce;
 
 /**
@@ -54,23 +43,10 @@ export type NestedInternMap<
  *
  * The first generic "TObject" refers to the type of the data object that is available in the accessor functions.
  * The second generic "TReduce" refers to the type of the data available at the deepest level (the result data).
- * The third geneirc "TKeys" refers to the type of all accessor functions from which the key at each level is inferred.
+ * The third generic "TKeys" refers to the type of the keys at each level of the nestes Array.
  */
-export type NestedArray<
-    TObject,
-    TReduce,
-    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
-> = TKeys extends [infer TFirst, ...infer TRest]
-    ? Array<
-          [
-              TFirst extends (value: TObject, index: number, values: TObject[]) => infer K ? K : never,
-              NestedArray<
-                  TObject,
-                  TReduce,
-                  TRest extends Array<(value: TObject, index: number, values: TObject[]) => unknown> ? TRest : never
-              >,
-          ]
-      >
+export type NestedArray<TObject, TReduce, TKeys extends unknown[]> = TKeys extends [infer TFirst, ...infer TRest]
+    ? Array<[TFirst, NestedArray<TObject, TReduce, TRest>]>
     : TReduce;
 
 // --------------------------------------------------------------------------------------
@@ -496,9 +472,11 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
  * @param iterable The iterable to group.
  * @param keys The key functions.
  */
-export function group<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
+export function group<TObject, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedInternMap<TObject, TObject[], TKeys>;
 
 /**
@@ -507,9 +485,11 @@ export function group<TObject, TKeys extends Array<(value: TObject, index: numbe
  * @param iterable The iterable to group.
  * @param keys The key functions.
  */
-export function groups<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
+export function groups<TObject, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedArray<TObject, TObject[], TKeys>;
 
 /**
@@ -518,19 +498,12 @@ export function groups<TObject, TKeys extends Array<(value: TObject, index: numb
  * @param iterable The iterable to group.
  * @param keys The key functions.
  */
-export function flatGroup<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
+export function flatGroup<TObject, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
-    ...keys: TKeys
-): Array<
-    [
-        ...{
-            [F in keyof TKeys]: TKeys[F] extends (value: TObject, index: number, values: TObject[]) => infer R
-                ? R
-                : never;
-        },
-        TObject[],
-    ]
->;
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
+): Array<[...TKeys, TObject[]]>;
 
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
@@ -538,9 +511,11 @@ export function flatGroup<TObject, TKeys extends Array<(value: TObject, index: n
  * @param iterable The iterable to group.
  * @param key The key functions.
  */
-export function index<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
+export function index<TObject, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedInternMap<TObject, TObject, TKeys>;
 
 /**
@@ -549,9 +524,11 @@ export function index<TObject, TKeys extends Array<(value: TObject, index: numbe
  * @param iterable The iterable to group.
  * @param keys The key functions.
  */
-export function indexes<TObject, TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>>(
+export function indexes<TObject, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedArray<TObject, TObject, TKeys>;
 
 /**
@@ -561,14 +538,12 @@ export function indexes<TObject, TKeys extends Array<(value: TObject, index: num
  * @param reduce The reduce function.
  * @param keys The key functions.
  */
-export function rollup<
-    TObject,
-    TReduce,
-    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
->(
+export function rollup<TObject, TReduce, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
     reduce: (values: TObject[]) => TReduce,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedInternMap<TObject, TReduce, TKeys>;
 
 /**
@@ -578,14 +553,12 @@ export function rollup<
  * @param reduce The reduce function.
  * @param keys The key functions.
  */
-export function rollups<
-    TObject,
-    TReduce,
-    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
->(
+export function rollups<TObject, TReduce, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
     reduce: (values: TObject[]) => TReduce,
-    ...keys: TKeys
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
 ): NestedArray<TObject, TReduce, TKeys>;
 
 /**
@@ -595,24 +568,13 @@ export function rollups<
  * @param reduce The reduce function.
  * @param keys The key functions.
  */
-export function flatRollup<
-    TObject,
-    TReduce,
-    TKeys extends Array<(value: TObject, index: number, values: TObject[]) => unknown>,
->(
+export function flatRollup<TObject, TReduce, TKeys extends unknown[]>(
     iterable: Iterable<TObject>,
     reduce: (values: TObject[]) => TReduce,
-    ...keys: TKeys
-): Array<
-    [
-        ...{
-            [F in keyof TKeys]: TKeys[F] extends (value: TObject, index: number, values: TObject[]) => infer R
-                ? R
-                : never;
-        },
-        TReduce,
-    ]
->;
+    ...keys: {
+        [Index in keyof TKeys]: (value: TObject, index: number, values: TObject[]) => TKeys[Index];
+    }
+): Array<[...TKeys, TReduce]>;
 
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified comparator, and then returns an array of keys in sorted order.

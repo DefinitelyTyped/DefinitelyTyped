@@ -1038,6 +1038,13 @@ const grouped45: d3Array.InternMap<
     (d, index, values) => values.length,
 );
 
+// $ExpectType InternMap<string, InternMap<RoleLiteral, ObjDefinition[]>>
+const groupedExplicitType = d3Array.group<ObjDefinition, [string, RoleLiteral]>(
+    objArray,
+    d => d.name,
+    d => d.role,
+);
+
 // index() ---------------------------------------------------------------------
 
 const indexed: d3Array.InternMap<string, ObjDefinition> = d3Array.index(objArray, d => d.name);
@@ -1274,6 +1281,13 @@ const indexed45: d3Array.InternMap<
     d => d.date,
     (d, index) => index % 2,
     (d, index, values) => values.length,
+);
+
+// $ExpectType InternMap<string, InternMap<RoleLiteral, ObjDefinition>>
+const indexedExplicitType = d3Array.index<ObjDefinition, [string, RoleLiteral]>(
+    objArray,
+    d => d.name,
+    d => d.role,
 );
 
 // rollup() ---------------------------------------------------------------------
@@ -1524,6 +1538,14 @@ const rolledup45: d3Array.InternMap<
     (d, index, values) => values.length,
 );
 
+// $ExpectType InternMap<string, InternMap<RoleLiteral, number>>
+const rolledupExplicitType = d3Array.rollup<ObjDefinition, number, [string, RoleLiteral]>(
+    objArray,
+    v => v.length,
+    d => d.name,
+    d => d.role,
+);
+
 // groups() ---------------------------------------------------------------------
 
 const groups: Array<[string, ObjDefinition[]]> = d3Array.groups(objArray, d => d.name);
@@ -1712,6 +1734,13 @@ const groups20: Array<
     (d, index, values) => values.length,
 );
 
+// $ExpectType [string, [RoleLiteral, ObjDefinition[]][]][]
+const groupsExplicitType = d3Array.groups<ObjDefinition, [string, RoleLiteral]>(
+    objArray,
+    d => d.name,
+    d => d.role,
+);
+
 // indexes() ---------------------------------------------------------------------
 
 const indexes: Array<[string, ObjDefinition]> = d3Array.indexes(objArray, d => d.name);
@@ -1898,6 +1927,13 @@ const indexes20: Array<
     d => d.date,
     (d, index) => index % 2,
     (d, index, values) => values.length,
+);
+
+// $ExpectType [string, [RoleLiteral, ObjDefinition][]][]
+const indexesExplicitType = d3Array.indexes<ObjDefinition, [string, RoleLiteral]>(
+    objArray,
+    d => d.name,
+    d => d.role,
 );
 
 // rollups() ---------------------------------------------------------------------
@@ -2096,6 +2132,14 @@ const rolledups20: Array<
     (d, index, values) => values.length,
 );
 
+// $ExpectType [string, [RoleLiteral, number][]][]
+const rolledupsExplicitType = d3Array.rollups<ObjDefinition, number, [string, RoleLiteral]>(
+    objArray,
+    v => v.length,
+    d => d.name,
+    d => d.role,
+);
+
 // flatGroup() ---------------------------------------------------------------------
 
 const flatGroup: Array<[string, ObjDefinition[]]> = d3Array.flatGroup(objArray, d => d.name);
@@ -2221,6 +2265,13 @@ const flatGroup45: Array<
     d => d.date,
     (d, index) => index % 2,
     (d, index, values) => values.length,
+);
+
+// $ExpectType [string, RoleLiteral, ObjDefinition[]][]
+const flatGroupExplicitType = d3Array.flatGroup<ObjDefinition, [string, RoleLiteral]>(
+    objArray,
+    d => d.name,
+    d => d.role,
 );
 
 // flatRollup() ---------------------------------------------------------------------
@@ -2361,6 +2412,14 @@ const flatRolledup45: Array<
     d => d.date,
     (d, index) => index % 2,
     (d, index, values) => values.length,
+);
+
+// $ExpectType [string, RoleLiteral, number][]
+const flatRolledupExplicitType = d3Array.flatRollup<ObjDefinition, number, [string, RoleLiteral]>(
+    objArray,
+    v => v.length,
+    d => d.name,
+    d => d.role,
 );
 
 // groupSort() -------------------
