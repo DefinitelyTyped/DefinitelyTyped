@@ -202,6 +202,8 @@ export interface Magics<T> {
     ) => void;
 }
 
+export type PluginCallback = (Alpine: Alpine) => void;
+
 export interface ReactiveEffect<T = any> {
     (): T;
     id: number;
@@ -355,7 +357,7 @@ export interface Alpine {
     nextTick: (callback?: () => void) => Promise<unknown>;
     prefixed: (subject?: string) => string;
     prefix: (newPrefix: string) => void;
-    plugin: (callbacks: ((Alpine: any) => void) | Array<(Alpine: any) => void>) => void;
+    plugin: (callbacks: PluginCallback | PluginCallback[]) => void;
     magic: (name: string, callback: (el: ElementWithXAttributes, options: MagicUtilities) => unknown) => void;
     store: {
         <T extends keyof Stores>(name: T): Stores[T];
