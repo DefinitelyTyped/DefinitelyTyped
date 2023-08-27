@@ -12,8 +12,8 @@ import Alpine, {
     DirectiveUtilities,
     DirectiveCallback,
     ElementWithXAttributes,
+    ReactiveEffect,
 } from 'alpinejs';
-import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
 {
     // Alpine.reactive
@@ -42,7 +42,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     // https://alpinejs.dev/advanced/reactivity#alpine-effect
     const data = Alpine.reactive({ count: 1 });
 
-    // $ExpectType ReactiveEffectRunner<any>
+    // $ExpectType ReactiveEffect<void>
     Alpine.effect(() => {
         console.log(data.count);
     });
@@ -78,7 +78,12 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 {
     // Alpine.setReactivityEngine
     // $ExpectType void
-    Alpine.setReactivityEngine({ reactive, effect, release: stop, raw: toRaw });
+    Alpine.setReactivityEngine({
+        reactive: val => val,
+        effect: cb => 1,
+        release: (id: number) => undefined,
+        raw: val => val,
+    });
 }
 
 {
@@ -103,7 +108,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             expression;
             // $ExpectType string[]
             modifiers;
-            // $ExpectType <T = any>(fn: () => T, options?: ReactiveEffectOptions | undefined) => ReactiveEffectRunner<any>
+            // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
             effect;
             // $ExpectType <T>(expression: string) => (callback?: ((value: T) => void) | undefined, extras?: {} | undefined) => void
             evaluateLater;
@@ -163,16 +168,18 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     // inspired by
     // https://github.com/alpinejs/alpine/blob/8d4f1266b25a550d9bd777b8aeb632a6857e89d1/packages/alpinejs/src/directives/x-bind.js
 
-    const startingWith = (s: string, r: string) => <T>(attribute: {
-        name: string;
-        value: T;
-    }): {
-        name: string;
-        value: T;
-    } => ({
-        name: attribute.name.replace(s, r),
-        value: attribute.value,
-    });
+    const startingWith =
+        (s: string, r: string) =>
+        <T>(attribute: {
+            name: string;
+            value: T;
+        }): {
+            name: string;
+            value: T;
+        } => ({
+            name: attribute.name.replace(s, r),
+            value: attribute.value,
+        });
     const into = (i: string) => i;
 
     // $ExpectType void
@@ -199,10 +206,13 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
 
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    const justExpressionEvaluator = <T>(el: ElementWithXAttributes, expression?: string | (() => T)) => (
-        resultCallback: (result: T) => void,
-    ) => resultCallback(typeof expression === 'function' ? expression() : Alpine.evaluate<T>(el, expression ?? ''));
+    const justExpressionEvaluator =
+        <T>(
+            el: ElementWithXAttributes,
+            expression?: string | (() => T), // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ) =>
+        (resultCallback: (result: T) => void) =>
+            resultCallback(typeof expression === 'function' ? expression() : Alpine.evaluate<T>(el, expression ?? ''));
 
     Alpine.setEvaluator(justExpressionEvaluator);
 }
@@ -331,7 +341,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         expression;
         // $ExpectType Alpine
         Alpine;
-        // $ExpectType <T = any>(fn: () => T, options?: ReactiveEffectOptions | undefined) => ReactiveEffectRunner<any>
+        // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
         effect;
         // $ExpectType (callback: () => void) => void
         cleanup;
@@ -348,7 +358,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         expression;
         // $ExpectType Alpine
         Alpine;
-        // $ExpectType <T = any>(fn: () => T, options?: ReactiveEffectOptions | undefined) => ReactiveEffectRunner<any>
+        // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
         effect;
         // $ExpectType (callback: () => void) => void
         cleanup;
@@ -603,7 +613,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         user: { id: 1, name: 'John Doe' },
 
         init() {
-            // $ExpectType { user: { id: number; name: string; }; init(): void; } & XDataContext & AlpineMagics<{ user: { id: number; name: string; }; init(): void; }>
+            // $ExpectType { user: { id: number; name: string; }; init(): void; } & XDataContext & Magics<{ user: { id: number; name: string; }; init(): void; }>
             this;
 
             // $ExpectType { user: { id: number; name: string; }; init(): void; }
@@ -615,7 +625,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             // $ExpectType HTMLElement
             this.$refs.fooElement;
 
-            // $ExpectType (name: string) => string | number | boolean | XDataContext
+            // $ExpectType Stores
             this.$store;
 
             // $ExpectType void

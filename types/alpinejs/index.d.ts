@@ -110,7 +110,7 @@ interface InterceptorObject {
 
 export interface DirectiveUtilities {
     Alpine: Alpine;
-    effect: typeof import('@vue/reactivity').effect;
+    effect: <T>(callback: () => T) => ReactiveEffect<T>;
     cleanup: (callback: () => void) => void;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     evaluateLater: <T>(expression: string) => (callback?: (value: T) => void, extras?: {}) => void;
@@ -186,7 +186,7 @@ export interface Magics<T> {
     /**
      * Access registered global Alpine stores.
      */
-    $store: Stores
+    $store: Stores;
     /**
      * Fire the given callback when the value in the property is changed.
      *
@@ -199,22 +199,29 @@ export interface Magics<T> {
     ) => void;
 }
 
+export interface ReactiveEffect<T = any> {
+    (): T;
+    id: number;
+    active: boolean;
+    raw: () => T;
+}
+
 export interface Alpine {
-    readonly reactive: typeof import('@vue/reactivity').reactive;
-    readonly release: typeof import('@vue/reactivity').stop;
-    readonly effect: typeof import('@vue/reactivity').effect;
-    readonly raw: typeof import('@vue/reactivity').toRaw;
+    readonly reactive: <T>(obj: T) => T;
+    readonly release: (effect: ReactiveEffect) => void;
+    readonly effect: <T>(fn: () => T) => ReactiveEffect<T>;
+    readonly raw: <T>(obj: T) => T;
     version: string;
     flushAndStopDeferringMutations: () => void;
     dontAutoEvaluateFunctions: (callback: () => void) => void;
     disableEffectScheduling: (callback: () => void) => void;
     startObservingMutations: () => void;
     stopObservingMutations: () => void;
-    setReactivityEngine: (engine: {
-        reactive: typeof import('@vue/reactivity').reactive;
-        effect: typeof import('@vue/reactivity').effect;
-        release: typeof import('@vue/reactivity').stop;
-        raw: typeof import('@vue/reactivity').toRaw;
+    setReactivityEngine: <E>(engine: {
+        reactive: <T>(obj: T) => T;
+        release: (effect: E) => void;
+        effect: (fn: () => any) => E;
+        raw: <T>(obj: T) => T;
     }) => void;
     onAttributeRemoved: (el: ElementWithXAttributes, name: string, callback: () => void) => void;
     onAttributesAdded: (callback: AttrMutationCallback) => void;
@@ -230,10 +237,7 @@ export interface Alpine {
     ) => () => void;
     deferMutations: () => void;
     mapAttributes: (
-        callback: (attribute: {
-            name: string;
-            value: string | (() => unknown);
-        }) => {
+        callback: (attribute: { name: string; value: string | (() => unknown) }) => {
             name: string;
             value: string | (() => unknown);
         },
@@ -281,9 +285,7 @@ export interface Alpine {
             _x_interceptor: true;
             initialize: (data: Record<string, unknown>, path: string, key: string) => void;
         }) => void,
-    ) => (
-        initialValue: any,
-    ) => {
+    ) => (initialValue: any) => {
         initialValue: unknown;
         _x_interceptor: true;
         initialize: (data: Record<string, unknown>, path: string, key: string) => void;
