@@ -1,6 +1,7 @@
 // Type definitions for alpinejs 3.13
 // Project: https://github.com/alpinejs/alpine
 // Definitions by: Thomas Wirth <https://github.com/wtho>
+//                 Eric Kwoka <https://github.com/ekwoka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.6
 
