@@ -12,7 +12,6 @@ import Alpine, {
     DirectiveUtilities,
     DirectiveCallback,
     ElementWithXAttributes,
-    ReactiveEffect,
 } from 'alpinejs';
 
 {
