@@ -514,16 +514,22 @@ import Alpine, {
     Alpine.store('darkMode', darkModeDataContext);
 
     // $ExpectType void
-    Alpine.store<typeof darkModeDataContext>('darkMode').toggle();
+    Alpine.store('darkMode').toggle();
 
     // $ExpectType void
-    Alpine.store('darkMode', false);
+    Alpine.store('darkModeState', false);
 
     // $ExpectType void
     Alpine.store('tabs', {
         current: 'first',
 
         items: ['first', 'second', 'third'],
+    });
+    // @ts-expect-error
+    Alpine.store('tabs', 'hello');
+
+    Alpine.store('untypedKey', {
+        foo: 'bar',
     });
 }
 
@@ -693,4 +699,18 @@ import Alpine, {
             },
         }),
     );
+}
+
+declare module 'alpinejs' {
+    interface Stores {
+        darkMode: {
+            on: boolean;
+            toggle(): void;
+        };
+        darkModeState: boolean;
+        tabs: {
+            current: string;
+            items: string[];
+        };
+    }
 }

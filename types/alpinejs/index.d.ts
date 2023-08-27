@@ -143,7 +143,9 @@ interface XDataContext {
     destroy?(): void;
 }
 
-export interface Stores {}
+export interface Stores {
+    [key: string | symbol]: unknown;
+}
 
 export interface Magics<T> {
     /**
@@ -355,10 +357,8 @@ export interface Alpine {
     plugin: (callbacks: ((Alpine: any) => void) | Array<(Alpine: any) => void>) => void;
     magic: (name: string, callback: (el: ElementWithXAttributes, options: MagicUtilities) => unknown) => void;
     store: {
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T_10 extends string | number | boolean | unknown[] | Record<string, unknown>>(name: string): T_10;
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T_11 extends string | number | boolean | unknown[] | Record<string, unknown>>(name: string, value: T_11): void;
+        <T extends keyof Stores>(name: T): Stores[T];
+        <T extends keyof Stores>(name: T, value: Stores[T]): void;
     };
     start: () => void;
     clone: (oldEl: ElementWithXAttributes, newEl: ElementWithXAttributes) => void;
@@ -368,7 +368,7 @@ export interface Alpine {
     data: <T_12 extends Record<string | symbol, unknown>>(
         name: string,
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        callback: (...args: unknown[]) => AlpineComponent<T_12>,
+        callback: (...args: unknown[]) => AlpineComponent<T_12>, // Needed generic to properly autotype objects
     ) => void;
     bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;
 }
