@@ -70,7 +70,7 @@ declare namespace newrelic {
      *   values cannot be complex objects, only simple types such as strings and numbers.
      * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/set-custom-attribute
      */
-    function setCustomAttribute(name: string, value: SimpleType): void;
+    function setCustomAttribute(name: string, value: SimpleType, persist?: boolean): void;
 
     /**
      * Allows selective ignoring of known errors that the Browser agent captures.
