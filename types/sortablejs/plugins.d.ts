@@ -13,6 +13,10 @@ export interface AutoScrollOptions {
      */
     scroll?: boolean | HTMLElement | undefined;
     /**
+     * force the autoscroll fallback to kick in
+     */
+    forceAutoScrollFallback?: boolean | undefined;
+    /**
      * if you have custom scrollbar scrollFn may be used for autoscrolling.
      */
     scrollFn?: ((

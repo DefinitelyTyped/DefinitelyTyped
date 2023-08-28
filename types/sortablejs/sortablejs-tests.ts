@@ -424,6 +424,47 @@ const { AutoScroll, MultiDrag, OnSpill, Swap } = Sortable;
 Sortable.mount(new AutoScroll(), new MultiDrag(), new OnSpill(), new Swap());
 Sortable.mount(new MultiDrag());
 
+// AutoScroll
+new Sortable(el, {
+    scroll: true,
+    forceAutoScrollFallback: false,
+    scrollFn: function(offsetX, offsetY, originalEvent, touchEvt, hoverTargetEl) {},
+    scrollSensitivity: 30,
+    scrollSpeed: 10,
+    bubbleScroll: true,
+});
+
+// MultiDrag
+new Sortable(el, {
+    multiDrag: true,
+    selectedClass: 'sortable-selected',
+    multiDragKey: null,
+    avoidImplicitDeselect: false,
+
+    onSelect: function(evt) {
+        evt.item;
+    },
+
+    onDeselect: function(evt) {
+        evt.item;
+    },
+});
+
+// OnSpill
+new Sortable(el, {
+    removeOnSpill: true,
+    revertOnSpill: true,
+    onSpill: function(evt) {
+        evt.item;
+    },
+});
+
+// Swap
+new Sortable(el, {
+    swap: true,
+    swapClass: 'sortable-swap-highlight',
+});
+
 Sortable.get(new HTMLElement());
 
 Sortable.ghost;
