@@ -110,7 +110,7 @@ player.getBuffer();
 // $ Caption[]
 player.getCaptionsList();
 
-// $ExpectType SetupConfig
+// $ExpectType PlayerConfig
 player.getConfig();
 
 // $ExpectType HTMLElement

@@ -1624,7 +1624,7 @@ declare namespace jwplayer {
         getAbsolutePosition(): string | null;
         getBuffer(): number;
         getCaptionsList(): Caption[];
-        getConfig(): SetupConfig;
+        getConfig(): PlayerConfig;
         getContainer(): HTMLElement;
         getContainerPercentViewable(): number;
         getContainerViewable(): 0 | 1;
