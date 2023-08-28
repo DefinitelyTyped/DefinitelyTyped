@@ -13,7 +13,7 @@ const name: IconName = 'foo';
 // @ts-expect-error
 octicons.alert.heights[192];
 
-type Removed = 'eye-slash' | 'fire' | 'no-entry-fill';
+type Removed = 'eye-slash' | 'fire' | 'no-entry-fill' | 'issue-tracked-in';
 
 // $ExpectType true
 type T0 = Removed extends IconName ? never : true;
