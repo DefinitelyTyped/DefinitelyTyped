@@ -11,7 +11,7 @@
  */
 declare function groupBy<T, K extends PropertyKey>(
     entries: Iterable<T>,
-    callbackfn: (value: T, index: number, thisArg: T[]) => K
+    callbackfn: (value: T, index: number) => K
 ): Record<K, T[]>;
 
 /**
