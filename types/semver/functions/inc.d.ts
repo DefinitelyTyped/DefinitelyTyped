@@ -7,7 +7,7 @@ declare namespace inc {
 }
 
 /**
- * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
+ * Return the version incremented by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if it's not valid.
  */
 declare function inc(
     version: string | SemVer,
