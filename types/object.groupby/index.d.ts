@@ -1,7 +1,7 @@
 // Type definitions for object.groupby 1.0
 // Project: https://github.com/es-shims/Object.groupBy#readme
 // Definitions by: Ana Kucherova <https://github.com/chilldriven>
-                   Jordan Harband <https://github.com/ljharb>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
