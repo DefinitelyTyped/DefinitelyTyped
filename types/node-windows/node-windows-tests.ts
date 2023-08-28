@@ -8,6 +8,10 @@ const service = new Service({
     name: 'test',
     script: './test-script.js',
     logmode: LogMode.rotate,
+    nodeOptions: [
+        '--harmony',
+        '--max_old_space_size=4096'
+    ],
 });
 
 service.on('install', () => log.info('Service Installed', 1000));

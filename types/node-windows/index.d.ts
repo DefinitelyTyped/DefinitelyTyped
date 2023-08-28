@@ -99,8 +99,9 @@ export interface ServiceConfig {
     /**
      * @cfg {string} [nodeOptions='--harmony']
      * Options to be passed to the node process.
+     * Array or space separated string of node options.
      */
-    nodeOptions?: string | undefined;
+    nodeOptions?: string | string[] | undefined;
     /**
      * @cfg {Number} [maxRestarts=3]
      * The maximum number of restarts within a 60 second period before haulting the process.
