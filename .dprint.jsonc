@@ -21,13 +21,11 @@
     "./types/office-js",
     "./types/office-runtime",
     "./types/oibackoff",
-    "./types/oibackoff",
     "./types/openui5",
     "./types/p5",
     "./types/sawtooth-sdk",
     "./types/three",
     "./types/winrt-uwp",
-    "./types/vscode",
     "./types/vscode"
   ],
   "plugins": [
