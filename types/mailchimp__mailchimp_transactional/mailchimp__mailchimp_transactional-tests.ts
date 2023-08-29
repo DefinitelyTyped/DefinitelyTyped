@@ -197,5 +197,5 @@ checkType<WhitelistsListResponse[]>(mailchimp.whitelists.list({ email: '' }));
 
 // This crutch is needed because TS@4.7 doesn't output union types in a predictable order,
 // so $ExpectType sometimes produces Promise<Foo | AxiosError> and sometimes Promise<AxiosError | Foo>
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 function checkType<T>(arg: Promise<T | AxiosError>): void {}

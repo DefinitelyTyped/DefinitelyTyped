@@ -1,6 +1,6 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-declare-current-package": "off"
     }
 }

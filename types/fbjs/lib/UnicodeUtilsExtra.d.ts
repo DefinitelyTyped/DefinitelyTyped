@@ -38,5 +38,5 @@ declare namespace UnicodeUtilsExtra {
     function pyEscape(s: string): string;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeUtilsExtra;

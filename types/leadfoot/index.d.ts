@@ -6,7 +6,7 @@
 /// <reference types="dojo" />
 /// <reference types="node" />
 
-declare module leadfoot {
+declare namespace leadfoot {
 
     /**
      * An error from the remote WebDriver server.
@@ -1654,7 +1654,7 @@ declare module 'leadfoot/Command' {
         static addElementMethod(target: Command<any>, key: string): void;
     }
 
-    module Command {
+    namespace Command {
         export interface Context extends Array<Element> {
             isSingle: boolean;
             depth: number;

@@ -166,7 +166,7 @@ export class envelope {
  * Exposes static functions that act on or return envelopes.
  * @module envelope
  */
-export module envelope {
+export namespace envelope {
 
     /**
      * Creates a new envelope from MapDotNet XML.
@@ -362,7 +362,7 @@ export class geometry {
  * constructors for specific geometries such as polygon and polyline.
  * @module geometry
  */
-export module geometry {
+export namespace geometry {
 
     /**
      * A polyline object which is an open path geometry with one or more paths.
@@ -705,7 +705,7 @@ export class point {
  * Exposes static functions that act on points.
  * @module point
  */
-export module point {
+export namespace point {
 
     /**
      * Computes the distance between two points in coordinate units.
@@ -732,7 +732,7 @@ export module point {
  * Exposes static functions related to the Spherical Mercator projection.
  * @module sphericalMercator
  */
-export module sphericalMercator {
+export namespace sphericalMercator {
 
     /**
      * Gets the EPSG number for Spherical Mercator.
@@ -1029,7 +1029,7 @@ export var version: string;
  * Exposes static functions for working with well known text.
  * @module wkt
  */
-export module wkt {
+export namespace wkt {
 
     /**
      * Parses WKT as a point.
@@ -1094,7 +1094,7 @@ export module wkt {
  * and requestors.
  * @module tile
  */
-export module tile {
+export namespace tile {
 
     /**
      * A tile layer is a view on the map containing an array of rectangular content.
@@ -1439,7 +1439,7 @@ export module tile {
      * Exposes static functions for generating and handling quad tiles.
      * @module quad
      */
-    export module quad {
+    export namespace quad {
 
         /**
          * Generates a new quad tile based on a given quad key.

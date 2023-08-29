@@ -272,6 +272,8 @@ pubnub.parseToken('someToken');
 
 pubnub.setToken('someToken');
 
+pubnub.getToken();
+
 pubnub.revokeToken('someToken');
 
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));

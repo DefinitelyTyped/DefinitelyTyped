@@ -22,7 +22,11 @@ run({
     inspectPort: () => 8081,
     testNamePatterns: ['executed'],
     setup: (root) => {},
-    watch: true
+    watch: true,
+    shard: {
+        index: 1,
+        total: 3,
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -285,7 +289,7 @@ it.only('only shorthand', {
     timeout: Infinity,
 });
 
-// Test callback mode
+// Test with suite context
 describe(s => {
     // $ExpectType SuiteContext
     s;
@@ -316,31 +320,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before(cb => {
+before((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-beforeEach(cb => {
+beforeEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-after(cb => {
+after((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-afterEach(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
-});
-beforeEach(cb => {
+afterEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -670,14 +676,15 @@ class TestReporter extends Transform {
             case 'test:fail':
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
                     ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
                 );
                 break;
             case 'test:pass':
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
+                    ${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
                 );
                 break;
             case 'test:plan':

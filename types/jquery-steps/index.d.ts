@@ -10,7 +10,7 @@ interface JQuery {
     steps(param?: JQuerySteps.Settings): JQuerySteps.JQuerySteps;
 }
 
-declare module JQuerySteps {
+declare namespace JQuerySteps {
 
     //#region "JQuerySteps"
 
