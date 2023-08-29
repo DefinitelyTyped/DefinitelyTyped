@@ -37,15 +37,15 @@ declare namespace GoogleAppsScript {
         }
 
         type SheetsOnChangeChangeType =
-            | 'EDIT'
-            | 'INSERT_ROW'
-            | 'INSERT_COLUMN'
-            | 'REMOVE_ROW'
-            | 'REMOVE_COLUMN'
-            | 'INSERT_GRID'
-            | 'REMOVE_GRID'
-            | 'FORMAT'
-            | 'OTHER';
+            | "EDIT"
+            | "INSERT_ROW"
+            | "INSERT_COLUMN"
+            | "REMOVE_ROW"
+            | "REMOVE_COLUMN"
+            | "INSERT_GRID"
+            | "REMOVE_GRID"
+            | "FORMAT"
+            | "OTHER";
         interface SheetsOnChange extends AppsScriptEvent {
             changeType: SheetsOnChangeChangeType;
             source: Spreadsheet.Spreadsheet;
@@ -102,9 +102,9 @@ declare namespace GoogleAppsScript {
             authMode: Script.AuthMode;
             year: number;
             month: number;
-            'week-of-year': number;
-            'day-of-month': number;
-            'day-of-week': number;
+            "week-of-year": number;
+            "day-of-month": number;
+            "day-of-week": number;
             hour: number;
             minute: number;
             second: number;

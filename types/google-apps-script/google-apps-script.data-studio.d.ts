@@ -606,21 +606,21 @@ declare namespace GoogleAppsScript {
             /** A timestamp that marks the most recent request for a refresh of data. */
             lastRefresh: string;
         }
-        type RegexpOperator = 'REGEXP_PARTIAL_MATCH' | 'REGEXP_EXACT_MATCH';
+        type RegexpOperator = "REGEXP_PARTIAL_MATCH" | "REGEXP_EXACT_MATCH";
         type NumericOperator =
-            | 'NUMERIC_GREATER_THAN'
-            | 'NUMERIC_GREATER_THAN_OR_EQUAL'
-            | 'NUMERIC_LESS_THAN'
-            | 'NUMERIC_LESS_THAN_OR_EQUAL';
+            | "NUMERIC_GREATER_THAN"
+            | "NUMERIC_GREATER_THAN_OR_EQUAL"
+            | "NUMERIC_LESS_THAN"
+            | "NUMERIC_LESS_THAN_OR_EQUAL";
         interface DimensionsFilters {
             /** The name of the field to be filtered */
             fieldName: string;
             /** An array of values to use for the operator. */
             values: string[];
             /** Whether data matching this filter should be included or excluded from the getData() response. */
-            type: 'INCLUDE' | 'EXCLUDE';
+            type: "INCLUDE" | "EXCLUDE";
             /** The operator to apply. */
-            operator: 'EQUALS' | 'CONTAINS' | RegexpOperator | 'IN_LIST' | 'IS_NULL' | 'BETWEEN' | NumericOperator;
+            operator: "EQUALS" | "CONTAINS" | RegexpOperator | "IN_LIST" | "IS_NULL" | "BETWEEN" | NumericOperator;
         }
     }
 }

@@ -98,7 +98,7 @@ declare namespace GoogleAppsScript {
         interface HttpHeaders {
             [key: string]: string;
         }
-        type HttpMethod = 'get' | 'delete' | 'patch' | 'post' | 'put';
+        type HttpMethod = "get" | "delete" | "patch" | "post" | "put";
         type Payload = string | { [key: string]: any } | Base.Blob;
     }
 }

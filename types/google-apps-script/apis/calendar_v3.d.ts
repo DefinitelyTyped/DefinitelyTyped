@@ -487,7 +487,7 @@ declare namespace GoogleAppsScript {
                 end?: Calendar.Schema.EventDateTime | undefined;
                 endTimeUnspecified?: boolean | undefined;
                 etag?: string | undefined;
-                eventType?: 'default' | 'outOfOffice' | 'focusTime' | 'workingLocation';
+                eventType?: "default" | "outOfOffice" | "focusTime" | "workingLocation";
                 extendedProperties?: Calendar.Schema.EventExtendedProperties | undefined;
                 gadget?: Calendar.Schema.EventGadget | undefined;
                 guestsCanInviteOthers?: boolean | undefined;

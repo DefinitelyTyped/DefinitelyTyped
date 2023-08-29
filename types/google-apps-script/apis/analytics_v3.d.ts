@@ -1045,9 +1045,9 @@ declare namespace GoogleAppsScript {
                 /** The unique table ID of the form ga:XXXX, where XXXX is the Analytics view (profile) ID for which the query will retrieve the data. */
                 ids?: string;
                 /** Start date for fetching Analytics data. Requests can specify a start date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or NdaysAgo where N is a positive integer). */
-                'start-date'?: string;
+                "start-date"?: string;
                 /** End date for fetching Analytics data. Request can specify an end date formatted as YYYY-MM-DD, or as a relative date (e.g., today, yesterday, or NdaysAgo where N is a positive integer). */
-                'end-date'?: string;
+                "end-date"?: string;
                 /** A list of comma-separated metrics, such as ga:sessions,ga:bounces. */
                 metrics?: string;
                 /** A list of comma-separated dimensions for your Analytics data, such as ga:browser,ga:city. */
@@ -1064,11 +1064,11 @@ declare namespace GoogleAppsScript {
                  * FASTER — Returns a fast response with a smaller sample size.
                  * HIGHER_PRECISION — Returns a more accurate response using a large sample size, but this may result in the response being slower.
                  */
-                samplingLevel?: 'DEFAULT' | 'FASTER' | 'HIGHER_PRECISION';
+                samplingLevel?: "DEFAULT" | "FASTER" | "HIGHER_PRECISION";
                 /** The first row of data to retrieve, starting at 1. Use this parameter as a pagination mechanism along with the max-results parameter. */
-                'start-index'?: number;
+                "start-index"?: number;
                 /** The maximum number of rows to include in the response. */
-                'max-results'?: number;
+                "max-results"?: number;
             }
             interface Goal {
                 accountId?: string | undefined;

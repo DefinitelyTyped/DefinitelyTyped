@@ -4,7 +4,7 @@ declare namespace GoogleAppsScript {
     namespace Language {
         interface LanguageAdvancedParameters {
             /** the content type of the text; supported values are 'text' (default) and 'html' */
-            contentType?: 'html' | 'text' | undefined;
+            contentType?: "html" | "text" | undefined;
         }
         /**
          * The Language service provides scripts a way to compute automatic translations of text.

@@ -1570,9 +1570,9 @@ declare namespace GoogleAppsScript {
             SHEET,
         }
 
-        type FontLine = 'none' | 'underline' | 'line-through';
-        type FontStyle = 'normal' | 'italic';
-        type FontWeight = 'normal' | 'bold';
+        type FontLine = "none" | "underline" | "line-through";
+        type FontStyle = "normal" | "italic";
+        type FontWeight = "normal" | "bold";
         /**
          * Access and modify spreadsheet ranges. A range can be a single cell in a sheet or a group of
          * adjacent cells in a sheet.
@@ -1770,8 +1770,8 @@ declare namespace GoogleAppsScript {
             setFormulaR1C1(formula: string): Range;
             setFormulas(formulas: string[][]): Range;
             setFormulasR1C1(formulas: string[][]): Range;
-            setHorizontalAlignment(alignment: 'left' | 'center' | 'normal' | 'right' | null): Range;
-            setHorizontalAlignments(alignments: ('left' | 'center' | 'normal' | 'right' | null)[][]): Range;
+            setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): Range;
+            setHorizontalAlignments(alignments: ("left" | "center" | "normal" | "right" | null)[][]): Range;
             setNote(note: string | null): Range;
             setNotes(notes: (string | null)[][]): Range;
             setNumberFormat(numberFormat: string): Range;
@@ -1788,8 +1788,8 @@ declare namespace GoogleAppsScript {
             setTextStyles(styles: TextStyle[][]): Range;
             setValue(value: any): Range;
             setValues(values: any[][]): Range;
-            setVerticalAlignment(alignment: 'top' | 'middle' | 'bottom' | null): Range;
-            setVerticalAlignments(alignments: ('top' | 'middle' | 'bottom' | null)[][]): Range;
+            setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): Range;
+            setVerticalAlignments(alignments: ("top" | "middle" | "bottom" | null)[][]): Range;
             setVerticalText(isVertical: boolean): Range;
             setWrap(isWrapEnabled: boolean): Range;
             setWrapStrategies(strategies: WrapStrategy[][]): Range;
@@ -1859,14 +1859,14 @@ declare namespace GoogleAppsScript {
             setFontWeight(fontWeight: FontWeight | null): RangeList;
             setFormula(formula: string): RangeList;
             setFormulaR1C1(formula: string): RangeList;
-            setHorizontalAlignment(alignment: 'left' | 'center' | 'normal' | 'right' | null): RangeList;
+            setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): RangeList;
             setNote(note: string | null): RangeList;
             setNumberFormat(numberFormat: string): RangeList;
             setShowHyperlink(showHyperlink: boolean): RangeList;
             setTextDirection(direction: TextDirection | null): RangeList;
             setTextRotation(degrees: Integer): RangeList;
             setValue(value: any): RangeList;
-            setVerticalAlignment(alignment: 'top' | 'middle' | 'bottom' | null): RangeList;
+            setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): RangeList;
             setVerticalText(isVertical: boolean): RangeList;
             setWrap(isWrapEnabled: boolean): RangeList;
             setWrapStrategy(strategy: WrapStrategy): RangeList;
