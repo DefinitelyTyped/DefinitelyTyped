@@ -19,9 +19,9 @@ function testInterval() {
         (arg1: number, arg2: string) => {
             console.log("arg1", arg1);
             console.log("arg2", arg2);
-            // @ts-expect-error
         },
         0,
+        // @ts-expect-error
         "wrong-type",
         "200",
     );
@@ -36,10 +36,10 @@ function testInterval() {
     handle = setInterval(
         (arg1: number) => {
             console.log("arg1", arg1);
-            // @ts-expect-error
         },
         0,
         100,
+        // @ts-expect-error
         "missing-arg",
     );
     clearInterval(handle);
@@ -64,9 +64,9 @@ function testTimeout() {
         (arg1: number, arg2: string) => {
             console.log("arg1", arg1);
             console.log("arg2", arg2);
-            // @ts-expect-error
         },
         0,
+        // @ts-expect-error
         "wrong-type",
         "200",
     );
@@ -81,10 +81,10 @@ function testTimeout() {
     handle = setTimeout(
         (arg1: number) => {
             console.log("arg1", arg1);
-            // @ts-expect-error
         },
         0,
         100,
+        // @ts-expect-error
         "missing-arg",
     );
     clearTimeout(handle);
@@ -108,8 +108,8 @@ function testImmediate() {
         (arg1: number, arg2: string) => {
             console.log("arg1", arg1);
             console.log("arg2", arg2);
-            // @ts-expect-error
         },
+        // @ts-expect-error
         "wrong-type",
         "200",
     );
@@ -124,9 +124,9 @@ function testImmediate() {
     handle = setImmediate(
         (arg1: number) => {
             console.log("arg1", arg1);
-            // @ts-expect-error
         },
         100,
+        // @ts-expect-error
         "missing-arg",
     );
     clearImmediate(handle);
