@@ -24,7 +24,7 @@ declare function ReactReconciler<
     NoTimeout,
 >(
     config: ReactReconciler.HostConfig<
-        /* eslint-disable no-unnecessary-generics */
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
         Type,
         Props,
         Container,
@@ -38,7 +38,7 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
-        /* eslint-enable no-unnecessary-generics */
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
 

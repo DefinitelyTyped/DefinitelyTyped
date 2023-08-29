@@ -15,7 +15,7 @@ interface CordovaPlugins {
 /**
  * Keep the type global namespace clean by using a module
  */
-declare module CordovaPluginDeviceName {
+declare namespace CordovaPluginDeviceName {
     interface CordovaPluginDeviceName {
         /**
          * User-friendly name of the device.

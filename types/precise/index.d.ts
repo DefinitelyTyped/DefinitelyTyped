@@ -9,7 +9,7 @@
  */
 declare function _precise(): _precise.Precise;
 
-declare module _precise {
+declare namespace _precise {
     class Precise {
         constructor();
 

@@ -351,6 +351,7 @@ import { Socket } from 'node:dgram';
 
     _socket.destroy();
     _server.close();
+    _server[Symbol.asyncDispose]();
 }
 
 {

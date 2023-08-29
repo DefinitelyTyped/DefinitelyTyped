@@ -24,6 +24,7 @@ import {
     BatchJob,
     WhitePaper,
     DataCategorical,
+    Delete,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -55,3 +56,4 @@ import {
 <BatchJob />; // $ExpectType Element
 <WhitePaper />; // $ExpectType Element
 <DataCategorical />; // $ExpectType Element
+<Delete />; // $ExpectType Element

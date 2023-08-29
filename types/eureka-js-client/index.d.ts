@@ -71,7 +71,7 @@ export namespace EurekaClient {
         ssl?: boolean | undefined;
         useDns?: boolean | undefined;
         preferSameZone?: boolean | undefined;
-        clusterRefreshInterval?: boolean | undefined;
+        clusterRefreshInterval?: number | undefined;
         fetchMetadata?: boolean | undefined;
         registerWithEureka?: boolean | undefined;
         useLocalMetadata?: boolean | undefined;
