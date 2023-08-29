@@ -1,16 +1,16 @@
 module AccordionComponent {
     $(function() {
-        var sample = new ej.Accordion($('#basicAccordion'), {
-            width: '100%',
+        var sample = new ej.Accordion($("#basicAccordion"), {
+            width: "100%",
             allowKeyboardNavigation: true,
             collapseSpeed: 500,
             collapsible: true,
             enableAnimation: true,
             enableMultipleOpen: true,
-            events: 'click',
+            events: "click",
             expandSpeed: 500,
-            headerSize: '40px',
-            htmlAttributes: { title: 'Demo' },
+            headerSize: "40px",
+            htmlAttributes: { title: "Demo" },
             selectedItemIndex: 1,
             showCloseButton: true,
             showRoundedCorner: true,
@@ -20,96 +20,96 @@ module AccordionComponent {
 
 module AutocompleteComponent {
     var carList = [
-        'Audi S6',
-        'Austin-Healey',
-        'Alfa Romeo',
-        'Aston Martin',
-        'BMW 7',
-        'Bentley Mulsanne',
-        'Bugatti Veyron',
-        'Chevrolet Camaro',
-        'Cadillac',
-        'Duesenberg J',
-        'Dodge Sprinter',
-        'Elantra',
-        'Excavator',
-        'Ford Boss 302',
-        'Ferrari 360',
-        'Ford Thunderbird',
-        'GAZ Siber',
-        'Honda S2000',
-        'Hyundai Santro',
-        'Isuzu Swift',
-        'Infiniti Skyline',
-        'Jaguar XJS',
-        'Kia Sedona EX',
-        'Koenigsegg Agera',
-        'Lotus Esprit',
-        'Lamborghini Diablo',
-        'Mercedes-Benz',
-        'Mercury Coupe',
-        'Maruti Alto 800',
-        'Nissan Qashqai',
-        'Oldsmobile S98',
-        'Opel Superboss',
-        'Porsche 356',
-        'Pontiac Sunbird',
-        'Scion SRS/SC/SD',
-        'Saab Sportcombi',
-        'Subaru Sambar',
-        'Suzuki Swift',
-        'Triumph Spitfire',
-        'Toyota 2000GT',
-        'Volvo P1800',
-        'Volkswagen Shirako',
+        "Audi S6",
+        "Austin-Healey",
+        "Alfa Romeo",
+        "Aston Martin",
+        "BMW 7",
+        "Bentley Mulsanne",
+        "Bugatti Veyron",
+        "Chevrolet Camaro",
+        "Cadillac",
+        "Duesenberg J",
+        "Dodge Sprinter",
+        "Elantra",
+        "Excavator",
+        "Ford Boss 302",
+        "Ferrari 360",
+        "Ford Thunderbird",
+        "GAZ Siber",
+        "Honda S2000",
+        "Hyundai Santro",
+        "Isuzu Swift",
+        "Infiniti Skyline",
+        "Jaguar XJS",
+        "Kia Sedona EX",
+        "Koenigsegg Agera",
+        "Lotus Esprit",
+        "Lamborghini Diablo",
+        "Mercedes-Benz",
+        "Mercury Coupe",
+        "Maruti Alto 800",
+        "Nissan Qashqai",
+        "Oldsmobile S98",
+        "Opel Superboss",
+        "Porsche 356",
+        "Pontiac Sunbird",
+        "Scion SRS/SC/SD",
+        "Saab Sportcombi",
+        "Subaru Sambar",
+        "Suzuki Swift",
+        "Triumph Spitfire",
+        "Toyota 2000GT",
+        "Volvo P1800",
+        "Volkswagen Shirako",
     ];
     $(function() {
-        var autocompleteInstance = new ej.Autocomplete($('#selectCar'), {
-            width: '100%',
-            watermarkText: 'Select a car',
+        var autocompleteInstance = new ej.Autocomplete($("#selectCar"), {
+            width: "100%",
+            watermarkText: "Select a car",
             dataSource: carList,
             enableAutoFill: true,
             showPopupButton: true,
-            multiSelectMode: 'delimiter',
+            multiSelectMode: "delimiter",
         });
     });
 }
 
 module Barcodecomponent {
     $(function() {
-        var barcodesample = new ej.datavisualization.Barcode($('#Barcode'), {
-            text: 'http://www.syncfusion.com',
+        var barcodesample = new ej.datavisualization.Barcode($("#Barcode"), {
+            text: "http://www.syncfusion.com",
         });
     });
 }
 
 module Bulletgraphcomponent {
     $(function() {
-        var bulletsample = new ej.datavisualization.BulletGraph($('#BulletGraph'), {
+        var bulletsample = new ej.datavisualization.BulletGraph($("#BulletGraph"), {
             isResponsive: true,
             load: function() {
-                var sender = $('#BulletGraph').data('ejBulletGraph');
+                var sender = $("#BulletGraph").data("ejBulletGraph");
                 var bulletTheme = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 if (bulletTheme) {
                     switch (bulletTheme) {
-                        case 'flatdark':
-                        case 'flatazuredark':
-                        case 'flatlimedark':
-                        case 'flatsaffrondark':
-                        case 'gradientdark':
-                        case 'gradientazuredark':
-                        case 'gradientlimedark':
-                        case 'gradientsaffrondark':
-                        case 'flathigh-contrast-01dark':
-                        case 'flathigh-contrast-02dark':
-                            bulletTheme = 'flatdark';
+                        case "flatdark":
+                        case "flatazuredark":
+                        case "flatlimedark":
+                        case "flatsaffrondark":
+                        case "gradientdark":
+                        case "gradientazuredark":
+                        case "gradientlimedark":
+                        case "gradientsaffrondark":
+                        case "flathigh-contrast-01dark":
+                        case "flathigh-contrast-02dark":
+                            bulletTheme = "flatdark";
                             break;
-                        case 'flatoffice-365light':
-                        case 'flatmateriallight':
-                            bulletTheme = 'material';
+                        case "flatoffice-365light":
+                        case "flatmateriallight":
+                            bulletTheme = "material";
                             break;
                         default:
-                            bulletTheme = 'flatlight';
+                            bulletTheme = "flatlight";
                             break;
                     }
                     sender.model.theme = bulletTheme;
@@ -124,20 +124,20 @@ module Bulletgraphcomponent {
             },
             qualitativeRanges: [{
                 rangeEnd: 4.3,
-                rangeStroke: '#ebebeb',
+                rangeStroke: "#ebebeb",
             }, {
                 rangeEnd: 7.3,
-                rangeStroke: '#d8d8d8',
+                rangeStroke: "#d8d8d8",
             }, {
                 rangeEnd: 10,
-                rangeStroke: '#7f7f7f',
+                rangeStroke: "#7f7f7f",
             }],
             captionSettings: {
-                textPosition: 'right',
-                text: 'Revenue YTD',
+                textPosition: "right",
+                text: "Revenue YTD",
                 subTitle: {
-                    text: '$ in Thousands',
-                    textPosition: 'right',
+                    text: "$ in Thousands",
+                    textPosition: "right",
                 },
             },
         });
@@ -146,47 +146,47 @@ module Bulletgraphcomponent {
 
 module ButtonComponent {
     $(function() {
-        var basicButton = new ej.Button($('#buttonnormal'), {
-            size: 'large',
+        var basicButton = new ej.Button($("#buttonnormal"), {
+            size: "large",
             showRoundedCorner: true,
-            contentType: 'textandimage',
-            prefixIcon: 'e-icon e-save',
-            text: 'Save',
+            contentType: "textandimage",
+            prefixIcon: "e-icon e-save",
+            text: "Save",
         });
-        var toggleButton = new ej.ToggleButton($('#TextOnly'), {
+        var toggleButton = new ej.ToggleButton($("#TextOnly"), {
             showRoundedCorner: true,
-            size: 'large',
-            contentType: 'textandimage',
-            defaultPrefixIcon: 'e-icon e-save',
-            activePrefixIcon: 'e-icon e-delete',
-            defaultText: 'Save',
-            activeText: 'Delete',
+            size: "large",
+            contentType: "textandimage",
+            defaultPrefixIcon: "e-icon e-save",
+            activePrefixIcon: "e-icon e-delete",
+            defaultText: "Save",
+            activeText: "Delete",
         });
-        var splitbuttonnormal = new ej.SplitButton($('#splitbuttonnormal'), {
+        var splitbuttonnormal = new ej.SplitButton($("#splitbuttonnormal"), {
             showRoundedCorner: true,
-            size: 'large',
-            prefixIcon: 'e-icon e-file-empty',
-            targetID: 'menu1',
-            contentType: 'textandimage',
-            text: 'File',
+            size: "large",
+            prefixIcon: "e-icon e-file-empty",
+            targetID: "menu1",
+            contentType: "textandimage",
+            text: "File",
         });
-        var groupButton = new ej.GroupButton($('#groupButton'), {
+        var groupButton = new ej.GroupButton($("#groupButton"), {
             showRoundedCorner: true,
-            size: 'large',
+            size: "large",
         });
-        var check1 = new ej.CheckBox($('#check1'), {
-            size: 'medium',
+        var check1 = new ej.CheckBox($("#check1"), {
+            size: "medium",
             enableTriState: true,
         });
-        var check2 = new ej.CheckBox($('#check2'), {
-            size: 'medium',
+        var check2 = new ej.CheckBox($("#check2"), {
+            size: "medium",
             enableTriState: true,
         });
-        var radio1 = new ej.RadioButton($('#radio1'), {
-            size: 'medium',
+        var radio1 = new ej.RadioButton($("#radio1"), {
+            size: "medium",
         });
-        var radio2 = new ej.RadioButton($('#radio2'), {
-            size: 'medium',
+        var radio2 = new ej.RadioButton($("#radio2"), {
+            size: "medium",
             checked: true,
         });
     });
@@ -194,23 +194,23 @@ module ButtonComponent {
 
 module ChartComponent {
     $(function() {
-        var chartsample = new ej.datavisualization.Chart($('#Chart'), {
+        var chartsample = new ej.datavisualization.Chart($("#Chart"), {
             primaryXAxis: {
                 range: { min: 2005, max: 2011, interval: 1 },
-                title: { text: 'Year' },
-                valueType: 'category',
+                title: { text: "Year" },
+                valueType: "category",
             },
             primaryYAxis: {
                 range: { min: 25, max: 50, interval: 5 },
-                labelFormat: '{value}%',
-                title: { text: 'Efficiency' },
+                labelFormat: "{value}%",
+                title: { text: "Efficiency" },
             },
             commonSeriesOptions: {
-                type: 'line',
+                type: "line",
                 enableAnimation: true,
-                tooltip: { visible: true, template: 'Tooltip' },
+                tooltip: { visible: true, template: "Tooltip" },
                 marker: {
-                    shape: 'circle',
+                    shape: "circle",
                     size: {
                         height: 10,
                         width: 10,
@@ -230,7 +230,7 @@ module ChartComponent {
                         { x: 2010, y: 35 },
                         { x: 2011, y: 30 },
                     ],
-                    name: 'India',
+                    name: "India",
                 },
                 {
                     points: [
@@ -242,7 +242,7 @@ module ChartComponent {
                         { x: 2010, y: 39 },
                         { x: 2011, y: 37 },
                     ],
-                    name: 'Germany',
+                    name: "Germany",
                 },
                 {
                     points: [
@@ -254,7 +254,7 @@ module ChartComponent {
                         { x: 2010, y: 42 },
                         { x: 2011, y: 43 },
                     ],
-                    name: 'England',
+                    name: "England",
                 },
                 {
                     points: [
@@ -266,12 +266,12 @@ module ChartComponent {
                         { x: 2010, y: 48 },
                         { x: 2011, y: 46 },
                     ],
-                    name: 'France',
+                    name: "France",
                 },
             ],
             isResponsive: true,
             load: function() {
-                var sender = $('#Chart').data('ejChart');
+                var sender = $("#Chart").data("ejChart");
                 if (!!window.orientation && sender) { // to modify chart properties for mobile view
                     var model = sender.model,
                         seriesLength = model.series.length;
@@ -288,59 +288,59 @@ module ChartComponent {
                         model.series[i].marker.size.width = 6;
                         model.series[i].marker.size.height = 6;
                     }
-                    model.primaryXAxis.labelIntersectAction = 'rotate45';
+                    model.primaryXAxis.labelIntersectAction = "rotate45";
                     if (model.primaryXAxis.title) {
-                        model.primaryXAxis.title.text = '';
+                        model.primaryXAxis.title.text = "";
                     }
                     if (model.primaryYAxis.title) {
-                        model.primaryYAxis.title.text = '';
+                        model.primaryYAxis.title.text = "";
                     }
-                    model.primaryXAxis.edgeLabelPlacement = 'hide';
-                    model.primaryYAxis.labelIntersectAction = 'rotate45';
-                    model.primaryYAxis.edgeLabelPlacement = 'hide';
+                    model.primaryXAxis.edgeLabelPlacement = "hide";
+                    model.primaryYAxis.labelIntersectAction = "rotate45";
+                    model.primaryYAxis.edgeLabelPlacement = "hide";
                 }
                 var theme = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 if (theme) {
                     switch (theme) {
-                        case 'flatdark':
-                        case 'flatazuredark':
-                        case 'flatlimedark':
-                        case 'flatsaffrondark':
-                            theme = 'flatdark';
+                        case "flatdark":
+                        case "flatazuredark":
+                        case "flatlimedark":
+                        case "flatsaffrondark":
+                            theme = "flatdark";
                             break;
-                        case 'gradientlight':
-                        case 'gradientazurelight':
-                        case 'gradientlimelight':
-                        case 'gradientsaffronlight':
-                            theme = 'gradientlight';
+                        case "gradientlight":
+                        case "gradientazurelight":
+                        case "gradientlimelight":
+                        case "gradientsaffronlight":
+                            theme = "gradientlight";
                             break;
-                        case 'gradientdark':
-                        case 'gradientazuredark':
-                        case 'gradientlimedark':
-                        case 'gradientsaffrondark':
-                            theme = 'gradientdark';
+                        case "gradientdark":
+                        case "gradientazuredark":
+                        case "gradientlimedark":
+                        case "gradientsaffrondark":
+                            theme = "gradientdark";
                             break;
-                        case 'flatbootstraplight':
-                            theme = 'bootstrap';
+                        case "flatbootstraplight":
+                            theme = "bootstrap";
                             break;
-                        case 'flathigh-contrast-01dark':
-                        case 'flathigh-contrast-02dark':
-                            theme = 'high-contrast-01';
+                        case "flathigh-contrast-01dark":
+                        case "flathigh-contrast-02dark":
+                            theme = "high-contrast-01";
                             break;
-                        case 'flatmateriallight':
-                        case 'flatoffice-365light':
-                            theme = 'material';
+                        case "flatmateriallight":
+                        case "flatoffice-365light":
+                            theme = "material";
                             break;
 
                         default:
-                            theme = 'flatlight';
+                            theme = "flatlight";
                             break;
                     }
                     sender.model.theme = theme;
                 }
             },
-            title: { text: 'Efficiency of oil-fired power production' },
-            size: { height: '600' },
+            title: { text: "Efficiency of oil-fired power production" },
+            size: { height: "600" },
             legend: { visible: true },
         });
     });
@@ -348,10 +348,10 @@ module ChartComponent {
 
 module circulargaugecomponent {
     $(function() {
-        var circularsample = new ej.datavisualization.CircularGauge($('#CircularGauge'), {
+        var circularsample = new ej.datavisualization.CircularGauge($("#CircularGauge"), {
             enableAnimation: false,
             isResponsive: true,
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             width: 500,
             scales: [{
                 showRanges: true,
@@ -374,14 +374,14 @@ module circulargaugecomponent {
                     width: 7,
                 }],
                 ticks: [{
-                    type: 'major',
+                    type: "major",
                     distanceFromScale: 2,
                     height: 16,
                     width: 1,
-                    color: '#8c8c8c',
-                }, { type: 'minor', height: 8, width: 1, distanceFromScale: 2, color: '#8c8c8c' }],
+                    color: "#8c8c8c",
+                }, { type: "minor", height: 8, width: 1, distanceFromScale: 2, color: "#8c8c8c" }],
                 labels: [{
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }],
                 ranges: [{
                     distanceFromScale: -30,
@@ -391,14 +391,14 @@ module circulargaugecomponent {
                     distanceFromScale: -30,
                     startValue: 70,
                     endValue: 110,
-                    backgroundColor: '#fc0606',
-                    border: { color: '#fc0606' },
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" },
                 }, {
                     distanceFromScale: -30,
                     startValue: 110,
                     endValue: 120,
-                    backgroundColor: '#f5b43f',
-                    border: { color: '#f5b43f' },
+                    backgroundColor: "#f5b43f",
+                    border: { color: "#f5b43f" },
                 }],
             }],
         });
@@ -407,32 +407,32 @@ module circulargaugecomponent {
 
 module ColorPickerComponent {
     $(function() {
-        var colorSample = new ej.ColorPicker($('#colorpick'), {
-            value: '#278787',
+        var colorSample = new ej.ColorPicker($("#colorpick"), {
+            value: "#278787",
         });
     });
 }
 
 module ComboBoxComponent {
     var BikeList = [
-        { empid: 'bk1', text: 'Apache RTR' },
-        { empid: 'bk2', text: 'CBR 150-R' },
-        { empid: 'bk3', text: 'CBZ Xtreme' },
-        { empid: 'bk4', text: 'Discover' },
-        { empid: 'bk5', text: 'Dazzler' },
-        { empid: 'bk6', text: 'Flame' },
-        { empid: 'bk7', text: 'Fazzer' },
-        { empid: 'bk8', text: 'FZ-S' },
-        { empid: 'bk9', text: 'Pulsar' },
-        { empid: 'bk10', text: 'Shine' },
-        { empid: 'bk11', text: 'R15' },
-        { empid: 'bk12', text: 'Unicorn' },
+        { empid: "bk1", text: "Apache RTR" },
+        { empid: "bk2", text: "CBR 150-R" },
+        { empid: "bk3", text: "CBZ Xtreme" },
+        { empid: "bk4", text: "Discover" },
+        { empid: "bk5", text: "Dazzler" },
+        { empid: "bk6", text: "Flame" },
+        { empid: "bk7", text: "Fazzer" },
+        { empid: "bk8", text: "FZ-S" },
+        { empid: "bk9", text: "Pulsar" },
+        { empid: "bk10", text: "Shine" },
+        { empid: "bk11", text: "R15" },
+        { empid: "bk12", text: "Unicorn" },
     ];
     $(function() {
-        var comboboxInstance = new ej.ComboBox($('#selectCar'), {
-            width: '100%',
-            placeholder: 'Select a Bike',
-            fields: { text: 'text', value: 'empid' },
+        var comboboxInstance = new ej.ComboBox($("#selectCar"), {
+            width: "100%",
+            placeholder: "Select a Bike",
+            fields: { text: "text", value: "empid" },
             dataSource: BikeList,
             autofill: true,
         });
@@ -441,40 +441,40 @@ module ComboBoxComponent {
 
 module DatePickerComponent {
     $(function() {
-        var dateSample = new ej.DatePicker($('#datepick'), {
-            width: '100%',
+        var dateSample = new ej.DatePicker($("#datepick"), {
+            width: "100%",
         });
     });
 }
 
 module DateTimePickerComponent {
     $(function() {
-        var datetimeSample = new ej.DateRangePicker($('#daterangepick'), {
-            width: '100%',
+        var datetimeSample = new ej.DateRangePicker($("#daterangepick"), {
+            width: "100%",
         });
     });
 }
 
 module DateTimePickerComponent {
     $(function() {
-        var datetimeSample = new ej.DateTimePicker($('#datetimepick'), {
-            width: '100%',
+        var datetimeSample = new ej.DateTimePicker($("#datetimepick"), {
+            width: "100%",
         });
     });
 }
 
 $(function() {
-    var diagram = new ej.datavisualization.Diagram($('#diagram'), {
-        width: '1000px',
-        height: '600px',
+    var diagram = new ej.datavisualization.Diagram($("#diagram"), {
+        width: "1000px",
+        height: "600px",
         pageSettings: {
             // Sets page size
             pageHeight: 500,
             pageWidth: 500,
             // Customizes the appearance of page
             pageBorderWidth: 4,
-            pageBackgroundColor: 'white',
-            pageBorderColor: 'lightgray',
+            pageBackgroundColor: "white",
+            pageBorderColor: "lightgray",
             pageMargin: 25,
             showPageBreak: true,
             multiplePage: true,
@@ -489,120 +489,120 @@ $(function() {
         },
         nodes: [
             createNode({
-                name: 'NewIdea',
+                name: "NewIdea",
                 width: 150,
                 height: 60,
                 offsetX: 300,
                 offsetY: 60,
-                labels: [createLabel({ 'text': 'New idea identified' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "New idea identified" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Terminator,
             }),
             createNode({
-                name: 'Meeting',
+                name: "Meeting",
                 width: 150,
                 height: 60,
                 offsetX: 300,
                 offsetY: 155,
-                labels: [createLabel({ 'text': 'Meeting with board' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Meeting with board" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Process,
             }),
             createNode({
-                name: 'BoardDecision',
+                name: "BoardDecision",
                 width: 150,
                 height: 110,
                 offsetX: 300,
                 offsetY: 280,
                 labels: [
                     createLabel({
-                        text: 'Board decides \nwhether \nto proceed',
-                        wrapText: 'true',
-                        'margin': { left: 20, top: 0, right: 20, bottom: 0 },
+                        text: "Board decides \nwhether \nto proceed",
+                        wrapText: "true",
+                        "margin": { left: 20, top: 0, right: 20, bottom: 0 },
                     }),
                 ],
-                type: 'flow',
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Decision,
             }),
             createNode({
-                name: 'Project',
+                name: "Project",
                 width: 150,
                 height: 100,
                 offsetX: 300,
                 offsetY: 430,
-                labels: [createLabel({ 'text': 'Find Project \nmanager' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Find Project \nmanager" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Decision,
             }),
             createNode({
-                name: 'End',
+                name: "End",
                 width: 150,
                 height: 60,
                 offsetX: 300,
                 offsetY: 555,
-                labels: [createLabel({ 'text': 'Implement and Deliver' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Implement and Deliver" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Process,
             }),
             createNode({
-                name: 'Decision',
+                name: "Decision",
                 width: 250,
                 height: 60,
                 offsetX: 550,
                 offsetY: 60,
-                labels: [createLabel({ 'text': 'Decision Process for new software ideas' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Decision Process for new software ideas" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Card,
-                fillColor: '#858585',
-                borderColor: '#858585',
+                fillColor: "#858585",
+                borderColor: "#858585",
             }),
             createNode({
-                name: 'Reject',
+                name: "Reject",
                 width: 150,
                 height: 60,
                 offsetX: 550,
                 offsetY: 285,
-                labels: [createLabel({ 'text': 'Reject and write report' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Reject and write report" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Process,
             }),
             createNode({
-                name: 'Resources',
+                name: "Resources",
                 width: 150,
                 height: 60,
                 offsetX: 550,
                 offsetY: 430,
-                labels: [createLabel({ 'text': 'Hire new resources' })],
-                type: 'flow',
+                labels: [createLabel({ "text": "Hire new resources" })],
+                type: "flow",
                 shape: ej.datavisualization.Diagram.FlowShapes.Process,
             }),
         ],
         connectors: [
-            createConnector({ name: 'connector1', sourceNode: 'NewIdea', targetNode: 'Meeting' }),
-            createConnector({ name: 'connector2', sourceNode: 'Meeting', targetNode: 'BoardDecision' }),
+            createConnector({ name: "connector1", sourceNode: "NewIdea", targetNode: "Meeting" }),
+            createConnector({ name: "connector2", sourceNode: "Meeting", targetNode: "BoardDecision" }),
             createConnector({
-                name: 'connector3',
-                sourceNode: 'BoardDecision',
-                targetNode: 'Project',
-                labels: [createLabel({ 'text': 'Yes' })],
+                name: "connector3",
+                sourceNode: "BoardDecision",
+                targetNode: "Project",
+                labels: [createLabel({ "text": "Yes" })],
             }),
             createConnector({
-                name: 'connector4',
-                sourceNode: 'Project',
-                targetNode: 'End',
-                labels: [createLabel({ 'text': 'Yes' })],
+                name: "connector4",
+                sourceNode: "Project",
+                targetNode: "End",
+                labels: [createLabel({ "text": "Yes" })],
             }),
             createConnector({
-                name: 'connector5',
-                sourceNode: 'BoardDecision',
-                targetNode: 'Reject',
-                labels: [createLabel({ 'text': 'No' })],
+                name: "connector5",
+                sourceNode: "BoardDecision",
+                targetNode: "Reject",
+                labels: [createLabel({ "text": "No" })],
             }),
             createConnector({
-                name: 'connector6',
-                sourceNode: 'Project',
-                targetNode: 'Resources',
-                labels: [createLabel({ 'text': 'No' })],
+                name: "connector6",
+                sourceNode: "Project",
+                targetNode: "Resources",
+                labels: [createLabel({ "text": "No" })],
             }),
         ],
     });
@@ -610,23 +610,23 @@ $(function() {
 
 function createNode(option: ej.datavisualization.Diagram.Node) {
     if (!option.fillColor) {
-        option.borderColor = '#1BA0E2';
-        option.fillColor = '#1BA0E2';
+        option.borderColor = "#1BA0E2";
+        option.fillColor = "#1BA0E2";
     }
-    option.labels[0].fontColor = 'white';
+    option.labels[0].fontColor = "white";
     return option;
 }
 
 function createConnector(option: ej.datavisualization.Diagram.Connector) {
     option.targetDecorator = {
         shape: ej.datavisualization.Diagram.DecoratorShapes.Arrow,
-        borderColor: '#606060',
+        borderColor: "#606060",
         width: 10,
         height: 10,
     };
-    option.lineColor = '#606060';
+    option.lineColor = "#606060";
     if (option.labels && option.labels.length > 0) {
-        option.labels[0].fillColor = 'white';
+        option.labels[0].fillColor = "white";
     }
     return option;
 }
@@ -637,22 +637,22 @@ function createLabel(options: any) {
 
 module DialogComponent {
     $(function() {
-        var dialogInstance = new ej.Dialog($('#basicDialog'), {
+        var dialogInstance = new ej.Dialog($("#basicDialog"), {
             width: 550,
             minWidth: 310,
             minHeight: 215,
-            target: '.control',
+            target: ".control",
             close: () => {
-                $('#btnOpen').show();
+                $("#btnOpen").show();
             },
         });
-        var btnInstance = new ej.Button($('#btnOpen'), {
-            size: 'medium',
+        var btnInstance = new ej.Button($("#btnOpen"), {
+            size: "medium",
             click: () => {
-                $('#btnOpen').hide();
-                $('#basicDialog').ejDialog('open');
+                $("#btnOpen").hide();
+                $("#basicDialog").ejDialog("open");
             },
-            type: 'button',
+            type: "button",
             height: 30,
             width: 150,
         });
@@ -661,7 +661,7 @@ module DialogComponent {
 
 module digitalgaugecomponent {
     $(function() {
-        var digitalgaugesample = new ej.datavisualization.DigitalGauge($('#DigitalGauge'), {
+        var digitalgaugesample = new ej.datavisualization.DigitalGauge($("#DigitalGauge"), {
             width: 525,
             height: 305,
             isResponsive: true,
@@ -669,12 +669,12 @@ module digitalgaugecomponent {
                 segmentSettings: {
                     width: 1,
                     spacing: 0,
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 },
                 characterSettings: {
                     opacity: 0.8,
                 },
-                value: 'Syncfusion',
+                value: "Syncfusion",
                 position: { x: 52, y: 52 },
             }],
         });
@@ -683,35 +683,35 @@ module digitalgaugecomponent {
 
 module DropDownListComponent {
     var BikeList = [
-        { empid: 'bk1', text: 'Apache RTR' },
-        { empid: 'bk2', text: 'CBR 150-R' },
-        { empid: 'bk3', text: 'CBZ Xtreme' },
-        { empid: 'bk4', text: 'Discover' },
-        { empid: 'bk5', text: 'Dazzler' },
-        { empid: 'bk6', text: 'Flame' },
-        { empid: 'bk7', text: 'Fazzer' },
-        { empid: 'bk8', text: 'FZ-S' },
-        { empid: 'bk9', text: 'Pulsar' },
-        { empid: 'bk10', text: 'Shine' },
-        { empid: 'bk11', text: 'R15' },
-        { empid: 'bk12', text: 'Unicorn' },
+        { empid: "bk1", text: "Apache RTR" },
+        { empid: "bk2", text: "CBR 150-R" },
+        { empid: "bk3", text: "CBZ Xtreme" },
+        { empid: "bk4", text: "Discover" },
+        { empid: "bk5", text: "Dazzler" },
+        { empid: "bk6", text: "Flame" },
+        { empid: "bk7", text: "Fazzer" },
+        { empid: "bk8", text: "FZ-S" },
+        { empid: "bk9", text: "Pulsar" },
+        { empid: "bk10", text: "Shine" },
+        { empid: "bk11", text: "R15" },
+        { empid: "bk12", text: "Unicorn" },
     ];
     $(function() {
-        var sample = new ej.DropDownList($('#bikeList'), {
+        var sample = new ej.DropDownList($("#bikeList"), {
             dataSource: BikeList,
-            width: '100%',
-            watermarkText: 'Select a bike',
-            fields: { id: 'empid', text: 'text', value: 'text' },
+            width: "100%",
+            watermarkText: "Select a bike",
+            fields: { id: "empid", text: "text", value: "text" },
             enableFilterSearch: true,
             caseSensitiveSearch: true,
             enableIncrementalSearch: true,
             enablePopupResize: true,
-            delimiterChar: ';',
+            delimiterChar: ";",
             multiSelectMode: ej.MultiSelectMode.Delimiter,
-            maxPopupHeight: '300px',
-            minPopupHeight: '150px',
-            maxPopupWidth: '500px',
-            minPopupWidth: '350px',
+            maxPopupHeight: "300px",
+            minPopupHeight: "150px",
+            maxPopupWidth: "500px",
+            minPopupWidth: "350px",
             showCheckbox: true,
             showRoundedCorner: true,
         });
@@ -720,57 +720,57 @@ module DropDownListComponent {
 
 module ExplorerComponent {
     $(function() {
-        var file = new ej.FileExplorer($('#fileExplorer'), {
-            path: (<any> window).baseurl + 'Content/FileBrowser/',
-            width: '100%',
-            minWidth: '150px',
-            layout: 'tile',
+        var file = new ej.FileExplorer($("#fileExplorer"), {
+            path: (<any> window).baseurl + "Content/FileBrowser/",
+            width: "100%",
+            minWidth: "150px",
+            layout: "tile",
             isResponsive: true,
-            ajaxAction: (<any> window).baseurl + 'api/FileExplorer/FileOperations',
+            ajaxAction: (<any> window).baseurl + "api/FileExplorer/FileOperations",
         });
     });
 }
 
 module GanttComponent {
     $(function() {
-        var ganttInstance = new ej.Gantt($('#GanttContainer'), {
+        var ganttInstance = new ej.Gantt($("#GanttContainer"), {
             dataSource: (<any> window).projectData,
             allowColumnResize: true,
             allowSorting: true,
             allowSelection: true,
             enableContextMenu: true,
-            taskIdMapping: 'taskID',
+            taskIdMapping: "taskID",
             allowDragAndDrop: true,
-            taskNameMapping: 'taskName',
-            startDateMapping: 'startDate',
+            taskNameMapping: "taskName",
+            startDateMapping: "startDate",
             showColumnChooser: true,
             showColumnOptions: true,
-            progressMapping: 'progress',
-            durationMapping: 'duration',
-            endDateMapping: 'endDate',
-            childMapping: 'subtasks',
-            scheduleStartDate: '02/01/2017',
-            scheduleEndDate: '04/09/2017',
+            progressMapping: "progress",
+            durationMapping: "duration",
+            endDateMapping: "endDate",
+            childMapping: "subtasks",
+            scheduleStartDate: "02/01/2017",
+            scheduleEndDate: "04/09/2017",
             // Resources mapping
-            resourceInfoMapping: 'resourceId',
-            resourceNameMapping: 'resourceName',
-            resourceIdMapping: 'resourceId',
+            resourceInfoMapping: "resourceId",
+            resourceNameMapping: "resourceName",
+            resourceIdMapping: "resourceId",
             resources: (<any> window).projectResources,
-            predecessorMapping: 'predecessor',
+            predecessorMapping: "predecessor",
             showResourceNames: true,
             toolbarSettings: {
                 showToolbar: true,
                 toolbarItems: [
-                    'add',
-                    'edit',
-                    'delete',
-                    'update',
-                    'cancel',
-                    'indent',
-                    'outdent',
-                    'expandAll',
-                    'collapseAll',
-                    'search',
+                    "add",
+                    "edit",
+                    "delete",
+                    "update",
+                    "cancel",
+                    "indent",
+                    "outdent",
+                    "expandAll",
+                    "collapseAll",
+                    "search",
                 ],
             },
             editSettings: {
@@ -778,11 +778,11 @@ module GanttComponent {
                 allowAdding: true,
                 allowDeleting: true,
                 allowIndent: true,
-                editMode: 'cellEditing',
+                editMode: "cellEditing",
             },
             sizeSettings: {
-                width: '100%',
-                height: '100%',
+                width: "100%",
+                height: "100%",
             },
             dragTooltip: { showTooltip: true },
             showGridCellTooltip: true,
@@ -794,7 +794,7 @@ module GanttComponent {
 
 module GridComponent {
     $(function() {
-        var gridInstance = new ej.Grid($('#Grid'), {
+        var gridInstance = new ej.Grid($("#Grid"), {
             dataSource: (<any> window).gridData,
             allowGrouping: true,
             allowSorting: true,
@@ -806,8 +806,8 @@ module GridComponent {
             allowFiltering: true,
             allowScrolling: true,
             enableRowHover: true,
-            selectionType: 'multiple',
-            selectionSettings: { enableToggle: true, selectionMode: ['row', 'cell', 'column'] },
+            selectionType: "multiple",
+            selectionSettings: { enableToggle: true, selectionMode: ["row", "cell", "column"] },
             allowKeyboardNavigation: true,
             editSettings: {
                 allowEditing: true,
@@ -818,44 +818,44 @@ module GridComponent {
             },
             toolbarSettings: {
                 showToolbar: true,
-                toolbarItems: ['add', 'edit', 'delete', 'update', 'cancel', 'search'],
+                toolbarItems: ["add", "edit", "delete", "update", "cancel", "search"],
             },
             columns: [
                 {
-                    field: 'OrderID',
-                    headerText: 'Order ID',
+                    field: "OrderID",
+                    headerText: "Order ID",
                     isPrimaryKey: true,
                     width: 75,
                     textAlign: ej.TextAlign.Right,
                 },
-                { field: 'CustomerID', headerText: 'Customer ID', editType: ej.Grid.EditingType.String, width: 80 },
+                { field: "CustomerID", headerText: "Customer ID", editType: ej.Grid.EditingType.String, width: 80 },
                 {
-                    field: 'EmployeeID',
-                    headerText: 'Employee ID',
+                    field: "EmployeeID",
+                    headerText: "Employee ID",
                     width: 75,
                     editType: ej.Grid.EditingType.Dropdown,
                     textAlign: ej.TextAlign.Right,
                     priority: 4,
                 },
                 {
-                    field: 'Freight',
+                    field: "Freight",
                     width: 75,
-                    format: '{0:C}',
+                    format: "{0:C}",
                     editType: ej.Grid.EditingType.Numeric,
                     textAlign: ej.TextAlign.Right,
                     priority: 3,
                 },
                 {
-                    field: 'OrderDate',
-                    headerText: 'Order Date',
+                    field: "OrderDate",
+                    headerText: "Order Date",
                     width: 80,
-                    format: '{0:MM/dd/yyyy}',
+                    format: "{0:MM/dd/yyyy}",
                     textAlign: ej.TextAlign.Right,
                     priority: 2,
                 },
                 {
-                    field: 'ShipCity',
-                    headerText: 'Ship City',
+                    field: "ShipCity",
+                    headerText: "Ship City",
                     editType: ej.Grid.EditingType.Dropdown,
                     width: 110,
                     priority: 2,
@@ -865,83 +865,83 @@ module GridComponent {
             minWidth: 700,
             showSummary: true,
             summaryRows: [{
-                title: 'Sum',
+                title: "Sum",
                 summaryColumns: [{
                     summaryType: ej.Grid.SummaryType.Sum,
-                    displayColumn: 'Freight',
-                    dataMember: 'Freight',
-                    format: '{0:C2}',
+                    displayColumn: "Freight",
+                    dataMember: "Freight",
+                    format: "{0:C2}",
                 }],
             }],
         });
     });
 }
 
-var columns = ['Vegie-spread', 'Tofuaa', 'Alice Mutton', 'Konbu', 'Fløtemysost'];
+var columns = ["Vegie-spread", "Tofuaa", "Alice Mutton", "Konbu", "Fløtemysost"];
 var itemSource: any[] = [];
 for (var i = 0; i < columns.length; i++) {
     for (var j = 0; j < 6; j++) {
         var value = Math.floor((Math.random() * 100) + 1);
-        itemSource.push({ ProductName: columns[i], Year: 'Y' + (2011 + j), Value: value });
+        itemSource.push({ ProductName: columns[i], Year: "Y" + (2011 + j), Value: value });
     }
 }
 
 $(function() {
-    var heatmap = new ej.datavisualization.HeatMap($('#heatmap'), {
+    var heatmap = new ej.datavisualization.HeatMap($("#heatmap"), {
         colorMappingCollection: [
-            { value: 0, color: '#8ec8f8', label: { text: '0' } },
-            { value: 100, color: '#0d47a1', label: { text: '100' } },
+            { value: 0, color: "#8ec8f8", label: { text: "0" } },
+            { value: 100, color: "#0d47a1", label: { text: "100" } },
         ],
         isResponsive: true,
         itemsSource: itemSource,
-        width: '100%',
+        width: "100%",
         itemsMapping: {
-            column: { propertyName: 'ProductName', displayName: 'Product Name' },
-            row: { propertyName: 'Year', displayName: 'Year' },
-            value: { propertyName: 'Value' },
+            column: { propertyName: "ProductName", displayName: "Product Name" },
+            row: { propertyName: "Year", displayName: "Year" },
+            value: { propertyName: "Value" },
             columnMapping: [
-                { 'propertyName': columns[0], 'displayName': columns[0] },
-                { 'propertyName': columns[1], 'displayName': columns[1] },
-                { 'propertyName': columns[2], 'displayName': columns[2] },
-                { 'propertyName': columns[3], 'displayName': columns[3] },
-                { 'propertyName': columns[4], 'displayName': columns[4] },
-                { 'propertyName': columns[5], 'displayName': columns[5] },
+                { "propertyName": columns[0], "displayName": columns[0] },
+                { "propertyName": columns[1], "displayName": columns[1] },
+                { "propertyName": columns[2], "displayName": columns[2] },
+                { "propertyName": columns[3], "displayName": columns[3] },
+                { "propertyName": columns[4], "displayName": columns[4] },
+                { "propertyName": columns[5], "displayName": columns[5] },
             ],
             headerMapping: {
-                propertyName: 'Year',
-                displayName: 'Year',
-                columnStyle: { width: 105, textAlign: 'right' },
+                propertyName: "Year",
+                displayName: "Year",
+                columnStyle: { width: 105, textAlign: "right" },
             },
         },
-        legendCollection: ['heatmap_legend'],
+        legendCollection: ["heatmap_legend"],
     });
-    var heatmaplegend = new ej.datavisualization.HeatMapLegend($('#heatmap_legend'), {
+    var heatmaplegend = new ej.datavisualization.HeatMapLegend($("#heatmap_legend"), {
         colorMappingCollection: [
-            { value: 0, color: '#8ec8f8', label: { text: '0' } },
-            { value: 100, color: '#0d47a1', label: { text: '100' } },
+            { value: 0, color: "#8ec8f8", label: { text: "0" } },
+            { value: 100, color: "#0d47a1", label: { text: "100" } },
         ],
-        height: '50px',
-        width: '75%',
+        height: "50px",
+        width: "75%",
         isResponsive: true,
     });
 });
 
 module KanbanComponent {
     $(function() {
-        var sample = new ej.Kanban($('#Kanban'), {
+        var sample = new ej.Kanban($("#Kanban"), {
             dataSource: new ej.DataManager((<any> window).kanbanData).executeLocal(new ej.Query().take(20)),
             columns: [
-                { headerText: 'Backlog', key: 'Open' },
-                { headerText: 'In Progress', key: 'InProgress' },
-                { headerText: 'Testing', key: 'Testing' },
-                { headerText: 'Done', key: 'Close' },
+                { headerText: "Backlog", key: "Open" },
+                { headerText: "In Progress", key: "InProgress" },
+                { headerText: "Testing", key: "Testing" },
+                { headerText: "Done", key: "Close" },
             ],
-            keyField: 'Status',
+            keyField: "Status",
             allowTitle: true,
             fields: {
-                content: 'Summary',
-                primaryKey: 'Id',
-                imageUrl: 'ImgUrl',
+                content: "Summary",
+                primaryKey: "Id",
+                imageUrl: "ImgUrl",
             },
             allowSelection: false,
         });
@@ -950,14 +950,14 @@ module KanbanComponent {
 
 module lineargaugecomponent {
     $(function() {
-        var linearsample = new ej.datavisualization.LinearGauge($('#LinearGauge'), {
-            labelColor: '#8c8c8c',
+        var linearsample = new ej.datavisualization.LinearGauge($("#LinearGauge"), {
+            labelColor: "#8c8c8c",
             width: 500,
             isResponsive: true,
             enableAnimation: false,
             scales: [{
                 width: 4,
-                border: { color: 'transparent', width: 0 },
+                border: { color: "transparent", width: 0 },
                 showBarPointers: false,
                 showRanges: true,
                 length: 310,
@@ -966,26 +966,26 @@ module lineargaugecomponent {
                     value: 50,
                     length: 10,
                     width: 10,
-                    backgroundColor: '#4D4D4D',
-                    border: { color: '#4D4D4D' },
+                    backgroundColor: "#4D4D4D",
+                    border: { color: "#4D4D4D" },
                 }],
                 labels: [{
-                    font: { size: '11px', fontFamily: 'Segoe UI', fontStyle: 'bold' },
+                    font: { size: "11px", fontFamily: "Segoe UI", fontStyle: "bold" },
                     distanceFromScale: { x: -13 },
                 }],
-                ticks: [{ type: 'majorinterval', width: 1, color: '#8c8c8c' }],
+                ticks: [{ type: "majorinterval", width: 1, color: "#8c8c8c" }],
                 ranges: [{
                     endValue: 60,
                     startValue: 0,
-                    backgroundColor: '#F6B53F',
-                    border: { color: '#F6B53F' },
+                    backgroundColor: "#F6B53F",
+                    border: { color: "#F6B53F" },
                     startWidth: 4,
                     endWidth: 4,
                 }, {
                     endValue: 100,
                     startValue: 60,
-                    backgroundColor: '#E94649',
-                    border: { color: '#E94649' },
+                    backgroundColor: "#E94649",
+                    border: { color: "#E94649" },
                     startWidth: 4,
                     endWidth: 4,
                 }],
@@ -996,7 +996,7 @@ module lineargaugecomponent {
 
 module ListBoxComponent {
     $(function() {
-        var listboxInstance = new ej.ListBox($('#selectcar'), {
+        var listboxInstance = new ej.ListBox($("#selectcar"), {
             showCheckbox: true,
         });
     });
@@ -1004,7 +1004,7 @@ module ListBoxComponent {
 
 module ListviewComponent {
     $(function() {
-        var listviewInstance = new ej.ListView($('#defaultlistview'), {
+        var listviewInstance = new ej.ListView($("#defaultlistview"), {
             enableCheckMark: true,
             width: 400,
         });
@@ -1012,15 +1012,15 @@ module ListviewComponent {
 }
 
 var world_map = {
-    'type': 'FeatureCollection',
-    'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-    'features': [
+    "type": "FeatureCollection",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "features": [
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Afghanistan', 'name': 'Afghanistan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Afghanistan", "name": "Afghanistan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [61.21081709172573, 35.650072333309218],
                     [62.230651483005879, 35.270663967422287],
                     [62.984662306576588, 35.404040839167614],
@@ -1094,11 +1094,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Angola', 'name': 'Angola', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Angola", "name": "Angola", "continent": "Africa" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [16.326528354567042, -5.877470391466217],
                     [16.573179965896141, -6.622644545115092],
                     [16.860190870845226, -7.222297865429978],
@@ -1179,11 +1179,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Albania', 'name': 'Albania', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Albania", "name": "Albania", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [20.590247430104906, 41.855404161133592],
                     [20.463175083099195, 41.515089016275333],
                     [20.605181919037356, 41.086226304685219],
@@ -1210,11 +1210,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'United Arab Emirates', 'name': 'United Arab Emirates', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "United Arab Emirates", "name": "United Arab Emirates", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [51.579518670463258, 24.245497137951102],
                     [51.757440626844172, 24.294072984305462],
                     [51.794389275932865, 24.019826158132499],
@@ -1241,11 +1241,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Argentina', 'name': 'Argentina', 'continent': 'South America' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Argentina", "name": "Argentina", "continent": "South America" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-65.5, -55.2],
                     [-66.45, -55.25],
                     [-66.95992, -54.89681],
@@ -1372,11 +1372,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Armenia', 'name': 'Armenia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Armenia", "name": "Armenia", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [43.582745802592726, 41.09214325618256],
                     [44.972480096218071, 41.248128567055588],
                     [45.179495883979335, 40.985353908851401],
@@ -1401,15 +1401,15 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': {
-                'admin': 'French Southern and Antarctic Lands',
-                'name': 'Fr. S. Antarctic Lands',
-                'continent': 'Seven seas (open ocean)',
+            "type": "Feature",
+            "properties": {
+                "admin": "French Southern and Antarctic Lands",
+                "name": "Fr. S. Antarctic Lands",
+                "continent": "Seven seas (open ocean)",
             },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [68.935, -48.625],
                     [69.58, -48.94],
                     [70.525, -49.065],
@@ -1423,11 +1423,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Australia', 'name': 'Australia', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Australia", "name": "Australia", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [145.397978143494782, -40.792548516605883],
                     [146.364120721623692, -41.137695407883335],
                     [146.908583612250823, -41.000546156580668],
@@ -1674,11 +1674,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Austria', 'name': 'Austria', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Austria", "name": "Austria", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [16.979666782304033, 48.123497015976298],
                     [16.903754103267257, 47.714865627628321],
                     [16.340584344150411, 47.712901923201215],
@@ -1720,11 +1720,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Azerbaijan', 'name': 'Azerbaijan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Azerbaijan", "name": "Azerbaijan", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [45.001987339056789, 39.740003567049591],
                     [45.298144972521435, 39.471751207022422],
                     [45.739978468616997, 39.473999131827149],
@@ -1774,11 +1774,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Burundi', 'name': 'Burundi', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Burundi", "name": "Burundi", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [29.339997592900342, -4.499983412294092],
                     [29.276383904749046, -3.293907159034063],
                     [29.02492638521678, -2.839257907730157],
@@ -1796,11 +1796,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Belgium', 'name': 'Belgium', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Belgium", "name": "Belgium", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [3.314971144228536, 51.345780951536071],
                     [4.047071160507527, 51.267258612668556],
                     [4.973991326526913, 51.475023708698124],
@@ -1820,11 +1820,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Benin', 'name': 'Benin', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Benin", "name": "Benin", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [2.691701694356254, 6.258817246928628],
                     [1.865240512712318, 6.14215770102973],
                     [1.618950636409238, 6.832038072126236],
@@ -1854,11 +1854,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Burkina Faso', 'name': 'Burkina Faso', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Burkina Faso", "name": "Burkina Faso", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-2.827496303712706, 9.642460842319775],
                     [-3.511898972986272, 9.900326239456216],
                     [-3.980449184576684, 9.862344061721698],
@@ -1902,11 +1902,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Bangladesh', 'name': 'Bangladesh', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Bangladesh", "name": "Bangladesh", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [92.672720981825549, 22.041238918541247],
                     [92.652257114637976, 21.324047552978481],
                     [92.30323449093865, 21.475485337809815],
@@ -1947,11 +1947,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Bulgaria', 'name': 'Bulgaria', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Bulgaria", "name": "Bulgaria", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [22.657149692482985, 44.234923000661276],
                     [22.94483239105184, 43.823785305347123],
                     [23.332302280376322, 43.897010809904707],
@@ -1984,11 +1984,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'The Bahamas', 'name': 'Bahamas', 'continent': 'North America' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "The Bahamas", "name": "Bahamas", "continent": "North America" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-77.53466, 23.75975],
                     [-77.78, 23.71],
                     [-78.03405, 24.28615],
@@ -2012,11 +2012,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Bosnia and Herzegovina', 'name': 'Bosnia and Herz.', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Bosnia and Herzegovina", "name": "Bosnia and Herz.", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [19.005486281010118, 44.860233669609144],
                     [19.36803, 44.863],
                     [19.11761, 44.42307],
@@ -2043,11 +2043,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Belarus', 'name': 'Belarus', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Belarus", "name": "Belarus", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [23.484127638449841, 53.912497667041123],
                     [24.45068362803703, 53.905702216194747],
                     [25.536353794056989, 54.282423407602515],
@@ -2096,11 +2096,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Belize', 'name': 'Belize', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Belize", "name": "Belize", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-89.143080410503302, 17.808318996649316],
                     [-89.150909389995519, 17.955467637600414],
                     [-89.029857347351808, 18.001511338772485],
@@ -2125,11 +2125,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Bolivia', 'name': 'Bolivia', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Bolivia", "name": "Bolivia", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-62.84646847192154, -22.034985446869442],
                     [-63.986838141522462, -21.993644301035946],
                     [-64.377021043542243, -22.798091322523533],
@@ -2194,11 +2194,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Brazil', 'name': 'Brazil', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Brazil", "name": "Brazil", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-57.625133429582945, -30.216294854454258],
                     [-56.290899624239067, -28.852760512000884],
                     [-55.162286342984558, -27.881915378533456],
@@ -2406,11 +2406,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Brunei', 'name': 'Brunei', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Brunei", "name": "Brunei", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [114.204016554828343, 4.525873928236805],
                     [114.599961379048707, 4.900011298029965],
                     [115.450710483869798, 5.447729803891532],
@@ -2423,11 +2423,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Bhutan', 'name': 'Bhutan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Bhutan", "name": "Bhutan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [91.69665652869665, 27.771741848251661],
                     [92.10371178585973, 27.4526140406332],
                     [92.033483514375078, 26.838310451763554],
@@ -2445,11 +2445,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Botswana', 'name': 'Botswana', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Botswana", "name": "Botswana", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [25.649163445750155, -18.536025892818987],
                     [25.850391473094724, -18.714412937090533],
                     [26.164790887158478, -19.293085625894935],
@@ -2494,15 +2494,15 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': {
-                'admin': 'Central African Republic',
-                'name': 'Central African Rep.',
-                'continent': 'Africa',
+            "type": "Feature",
+            "properties": {
+                "admin": "Central African Republic",
+                "name": "Central African Rep.",
+                "continent": "Africa",
             },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [15.279460483469107, 7.421924546737968],
                     [16.106231723706767, 7.497087917506504],
                     [16.290561557691884, 7.754307359239304],
@@ -2569,11 +2569,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Canada', 'name': 'Canada', 'continent': 'North America' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Canada", "name": "Canada", "continent": "North America" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-63.6645, 46.55001],
                     [-62.9393, 46.41587],
                     [-62.01208, 46.44314],
@@ -3395,11 +3395,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Switzerland', 'name': 'Switzerland', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Switzerland", "name": "Switzerland", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [9.594226108446346, 47.525058091820256],
                     [9.632931756232974, 47.347601223329974],
                     [9.479969516649019, 47.102809963563367],
@@ -3428,11 +3428,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Chile', 'name': 'Chile', 'continent': 'South America' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Chile", "name": "Chile", "continent": "South America" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-68.634010227583147, -52.636370458874353],
                     [-68.633349999999879, -54.8695],
                     [-67.56244, -54.87001],
@@ -3552,11 +3552,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'China', 'name': 'China', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "China", "name": "China", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [110.339187860151526, 18.678395087147603],
                     [109.475209588663702, 18.19770091396861],
                     [108.655207961056135, 18.507681993071397],
@@ -3802,11 +3802,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ivory Coast', 'name': 'Côte d\'Ivoire', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ivory Coast", "name": "Côte d'Ivoire", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-2.856125047202397, 4.994475816259508],
                     [-3.311084357100071, 4.984295559098014],
                     [-4.008819545904941, 5.179813340674314],
@@ -3857,11 +3857,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Cameroon', 'name': 'Cameroon', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Cameroon", "name": "Cameroon", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [13.07582238124675, 2.267097072759014],
                     [12.951333855855605, 2.321615708826939],
                     [12.359380323952218, 2.19281220133945],
@@ -3927,15 +3927,15 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': {
-                'admin': 'Democratic Republic of the Congo',
-                'name': 'Dem. Rep. Congo',
-                'continent': 'Africa',
+            "type": "Feature",
+            "properties": {
+                "admin": "Democratic Republic of the Congo",
+                "name": "Dem. Rep. Congo",
+                "continent": "Africa",
             },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [30.833859897593801, 3.50916596111034],
                     [30.773346795380036, 2.339883327642127],
                     [31.174149204235807, 2.204465236821263],
@@ -4062,11 +4062,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Republic of Congo', 'name': 'Congo', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Republic of Congo", "name": "Congo", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [12.995517205465173, -4.781103203961883],
                     [12.620759718484491, -4.438023369976135],
                     [12.318607618873923, -4.606230157086187],
@@ -4120,11 +4120,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Colombia', 'name': 'Colombia', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Colombia", "name": "Colombia", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-75.373223232713841, -0.15203175212045],
                     [-75.801465827116587, 0.084801337073202],
                     [-76.292314419240938, 0.416047268064119],
@@ -4229,11 +4229,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Costa Rica', 'name': 'Costa Rica', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Costa Rica", "name": "Costa Rica", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-82.965783047197348, 8.225027980985983],
                     [-83.508437262694287, 8.446926581247281],
                     [-83.711473965169063, 8.656836249216864],
@@ -4274,11 +4274,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Cuba', 'name': 'Cuba', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Cuba", "name": "Cuba", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-82.268151211257035, 23.188610744717703],
                     [-81.404457160146819, 23.117271429938775],
                     [-80.61876868358118, 23.105980129482994],
@@ -4325,11 +4325,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Northern Cyprus', 'name': 'N. Cyprus', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Northern Cyprus", "name": "N. Cyprus", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [32.731780226377445, 35.14002594658843],
                     [32.802473585752743, 35.145503648411363],
                     [32.946960890440799, 35.38670339613369],
@@ -4350,11 +4350,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Cyprus', 'name': 'Cyprus', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Cyprus", "name": "Cyprus", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [33.973616570783456, 35.058506374647997],
                     [34.004880812320032, 34.978097846001852],
                     [32.97982710137844, 34.571869411755436],
@@ -4374,11 +4374,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Czech Republic', 'name': 'Czech Rep.', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Czech Republic", "name": "Czech Rep.", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [16.960288120194573, 48.596982326850593],
                     [16.49928266771877, 48.785808010445095],
                     [16.029647251050218, 48.733899034207916],
@@ -4418,11 +4418,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Germany', 'name': 'Germany', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Germany", "name": "Germany", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [9.92190636560923, 54.983104153048025],
                     [9.939579705452898, 54.596641954153242],
                     [10.950112338920517, 54.363607082733147],
@@ -4485,11 +4485,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Djibouti', 'name': 'Djibouti', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Djibouti", "name": "Djibouti", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [43.081226027200152, 12.699638576707112],
                     [43.317852410664663, 12.390148423711022],
                     [43.286381463398911, 11.974928290245883],
@@ -4509,11 +4509,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Denmark', 'name': 'Denmark', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Denmark", "name": "Denmark", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [12.690006137755629, 55.60999095318077],
                     [12.089991082414738, 54.800014553437919],
                     [11.043543328504226, 55.36486379660424],
@@ -4543,11 +4543,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Dominican Republic', 'name': 'Dominican Rep.', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Dominican Republic", "name": "Dominican Rep.", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-71.71236141629295, 19.714455878167353],
                     [-71.587304450146604, 19.884910590082093],
                     [-70.806706102161726, 19.880285549391981],
@@ -4578,11 +4578,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Algeria', 'name': 'Algeria', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Algeria", "name": "Algeria", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [11.99950564947161, 23.471668402596443],
                     [8.572893100629782, 21.565660712159136],
                     [5.677565952180684, 19.601206976799713],
@@ -4649,11 +4649,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ecuador', 'name': 'Ecuador', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ecuador", "name": "Ecuador", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-80.302560594387188, -3.404856459164712],
                     [-79.770293341780913, -2.65751189535964],
                     [-79.986559210922394, -2.220794366061014],
@@ -4691,11 +4691,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Egypt', 'name': 'Egypt', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Egypt", "name": "Egypt", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [34.9226, 29.50133],
                     [34.64174, 29.09942],
                     [34.42655, 28.34399],
@@ -4742,11 +4742,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Eritrea', 'name': 'Eritrea', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Eritrea", "name": "Eritrea", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [42.351560000000106, 12.54223000000013],
                     [42.00975, 12.86582],
                     [41.59856, 13.452090000000108],
@@ -4779,11 +4779,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Spain', 'name': 'Spain', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Spain", "name": "Spain", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-9.034817674180244, 41.880570583659669],
                     [-8.98443315269567, 42.592775173506261],
                     [-9.392883673530644, 43.026624660812686],
@@ -4839,11 +4839,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Estonia', 'name': 'Estonia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Estonia", "name": "Estonia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [24.312862583114615, 57.793423570376966],
                     [24.428927850042154, 58.383413397853275],
                     [24.061198357853179, 58.257374579493394],
@@ -4865,11 +4865,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ethiopia', 'name': 'Ethiopia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ethiopia", "name": "Ethiopia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [37.90607, 14.959430000000165],
                     [38.51295, 14.50547],
                     [39.0994, 14.74064],
@@ -4933,11 +4933,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Finland', 'name': 'Finland', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Finland", "name": "Finland", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [28.591929559043187, 69.064776923286644],
                     [28.445943637818651, 68.36461294216403],
                     [29.9774263852206, 67.698297024192641],
@@ -4980,11 +4980,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Fiji', 'name': 'Fiji', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Fiji", "name": "Fiji", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [178.3736, -17.33992],
                     [178.71806, -17.62846],
                     [178.55271, -18.15059],
@@ -5013,11 +5013,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Falkland Islands', 'name': 'Falkland Is.', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Falkland Islands", "name": "Falkland Is.", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-61.2, -51.85],
                     [-60.0, -51.25],
                     [-59.15, -51.5],
@@ -5032,11 +5032,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'France', 'name': 'France', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "France", "name": "France", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-52.556424730018378, 2.504705308437053],
                     [-52.939657151894963, 2.124857692875622],
                     [-53.41846513529525, 2.053389187016037],
@@ -5117,11 +5117,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Gabon', 'name': 'Gabon', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Gabon", "name": "Gabon", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [11.093772820691923, -3.978826592630546],
                     [10.066135288135738, -2.969482517105681],
                     [9.405245395554969, -2.144313246269042],
@@ -5157,11 +5157,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'United Kingdom', 'name': 'United Kingdom', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "United Kingdom", "name": "United Kingdom", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-5.661948614921896, 54.554603176483838],
                     [-6.197884894220976, 53.867565009163329],
                     [-6.953730231137994, 54.073702297575622],
@@ -5223,11 +5223,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Georgia', 'name': 'Georgia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Georgia", "name": "Georgia", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [41.55408410011065, 41.535656236327561],
                     [41.703170607272703, 41.962942816732912],
                     [41.453470086438379, 42.645123399417926],
@@ -5256,11 +5256,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ghana', 'name': 'Ghana', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ghana", "name": "Ghana", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [1.060121697604927, 5.928837388528875],
                     [-0.507637905265938, 5.343472601742675],
                     [-1.063624640294193, 5.000547797053811],
@@ -5290,11 +5290,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Guinea', 'name': 'Guinea', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Guinea", "name": "Guinea", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-8.439298468448696, 7.686042792181736],
                     [-8.722123582382123, 7.711674302598509],
                     [-8.926064622422002, 7.309037380396375],
@@ -5369,11 +5369,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Gambia', 'name': 'Gambia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Gambia", "name": "Gambia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-16.84152462408127, 13.151393947802557],
                     [-16.713728807023468, 13.594958604379853],
                     [-15.624596320039936, 13.623587347869556],
@@ -5394,11 +5394,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Guinea Bissau', 'name': 'Guinea-Bissau', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Guinea Bissau", "name": "Guinea-Bissau", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-15.130311245168167, 11.040411688679525],
                     [-15.664180467175523, 11.458474025920792],
                     [-16.085214199273562, 11.524594021038236],
@@ -5422,11 +5422,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Equatorial Guinea', 'name': 'Eq. Guinea', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Equatorial Guinea", "name": "Eq. Guinea", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [9.492888624721981, 1.010119533691494],
                     [9.305613234096255, 1.160911363119183],
                     [9.649158155972627, 2.283866075037735],
@@ -5438,11 +5438,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Greece', 'name': 'Greece', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Greece", "name": "Greece", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [23.699980096133, 35.705004380835526],
                     [24.246665073348673, 35.368022365860149],
                     [25.025015496528873, 35.424995632461979],
@@ -5502,11 +5502,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Greenland', 'name': 'Greenland', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Greenland", "name": "Greenland", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-46.76379, 82.62796],
                     [-43.40644, 83.22516],
                     [-39.89753, 83.18018],
@@ -5643,11 +5643,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Guatemala', 'name': 'Guatemala', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Guatemala", "name": "Guatemala", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-90.095554572290951, 13.73533763270073],
                     [-90.608624030300817, 13.909771429901948],
                     [-91.232410244496037, 13.927832342987953],
@@ -5687,11 +5687,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Guyana', 'name': 'Guyana', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Guyana", "name": "Guyana", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-59.758284878159181, 8.367034816924045],
                     [-59.10168412945864, 7.99920197187049],
                     [-58.482962205628041, 7.347691351750696],
@@ -5736,11 +5736,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Honduras', 'name': 'Honduras', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Honduras", "name": "Honduras", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-87.316654425795463, 12.984685777229],
                     [-87.48940873894712, 13.29753489832393],
                     [-87.793111131526501, 13.384480495655165],
@@ -5802,11 +5802,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Croatia', 'name': 'Croatia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Croatia", "name": "Croatia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [18.829838087650039, 45.908877671891837],
                     [19.072768995854172, 45.521511135432078],
                     [19.390475701584588, 45.236515611342369],
@@ -5853,11 +5853,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Haiti', 'name': 'Haiti', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Haiti", "name": "Haiti", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-73.189790615517595, 19.915683905511909],
                     [-72.579672817663607, 19.871500555902351],
                     [-71.71236141629295, 19.714455878167353],
@@ -5883,11 +5883,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Hungary', 'name': 'Hungary', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Hungary", "name": "Hungary", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [16.202298211337361, 46.852385972676949],
                     [16.534267612380372, 47.496170966169103],
                     [16.340584344150411, 47.712901923201215],
@@ -5923,11 +5923,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Indonesia', 'name': 'Indonesia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Indonesia", "name": "Indonesia", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [120.715608758630438, -10.239581394087862],
                     [120.295014276206871, -10.258649997603525],
                     [118.967808465654684, -9.55796925215803],
@@ -6194,11 +6194,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'India', 'name': 'India', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "India", "name": "India", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [77.837450799474553, 35.494009507787759],
                     [78.912268914713209, 34.321936346975782],
                     [78.811086460285722, 33.506198025032404],
@@ -6339,11 +6339,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ireland', 'name': 'Ireland', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ireland", "name": "Ireland", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-6.197884894220989, 53.86756500916335],
                     [-6.032985398777609, 53.153164170944336],
                     [-6.788856573910847, 52.260117906292322],
@@ -6361,11 +6361,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Iran', 'name': 'Iran', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Iran", "name": "Iran", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [53.921597934795543, 37.198918361961255],
                     [54.800303989486558, 37.392420762678178],
                     [55.511578403551894, 37.964117133123153],
@@ -6445,11 +6445,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Iraq', 'name': 'Iraq', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Iraq", "name": "Iraq", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [45.420618117053202, 35.977545884742817],
                     [46.076340366404786, 35.67738332777548],
                     [46.15178795755093, 35.093258775364284],
@@ -6484,11 +6484,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Iceland', 'name': 'Iceland', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Iceland", "name": "Iceland", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-14.508695441129232, 66.455892239031414],
                     [-14.739637417041605, 65.808748277440287],
                     [-13.609732224979807, 65.126671047619851],
@@ -6513,11 +6513,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Israel', 'name': 'Israel', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Israel", "name": "Israel", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [35.719918247222743, 32.709192409794859],
                     [35.545665317534535, 32.393992011030569],
                     [35.183930291491428, 32.532510687788935],
@@ -6545,11 +6545,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Italy', 'name': 'Italy', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Italy", "name": "Italy", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [15.52037601081383, 38.231155096991465],
                     [15.160242954171732, 37.444045518537813],
                     [15.309897902089002, 37.134219468731793],
@@ -6643,11 +6643,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Jamaica', 'name': 'Jamaica', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Jamaica", "name": "Jamaica", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-77.569600796199197, 18.490525417550483],
                     [-76.896618618462114, 18.400866807524078],
                     [-76.365359056285527, 18.16070058844759],
@@ -6663,11 +6663,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Jordan', 'name': 'Jordan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Jordan", "name": "Jordan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [35.545665317534535, 32.393992011030569],
                     [35.719918247222743, 32.709192409794859],
                     [36.834062127435537, 32.312937526980768],
@@ -6691,11 +6691,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Japan', 'name': 'Japan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Japan", "name": "Japan", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [134.638428176003856, 34.149233710256418],
                     [134.766379022358478, 33.806334743783673],
                     [134.20341596897083, 33.201177883429622],
@@ -6767,11 +6767,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Kazakhstan', 'name': 'Kazakhstan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Kazakhstan", "name": "Kazakhstan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [70.962314894499272, 42.26615428320553],
                     [70.388964878220776, 42.081307684897517],
                     [69.070027296835221, 41.384244289712335],
@@ -6888,11 +6888,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Kenya', 'name': 'Kenya', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Kenya", "name": "Kenya", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [40.993, -0.85829],
                     [41.58513, -1.68325],
                     [40.88477, -2.08255],
@@ -6934,11 +6934,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Kyrgyzstan', 'name': 'Kyrgyzstan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Kyrgyzstan", "name": "Kyrgyzstan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [70.96231489449913, 42.266154283205481],
                     [71.186280552052111, 42.704292914392127],
                     [71.84463829945058, 42.845395412765093],
@@ -6978,11 +6978,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Cambodia', 'name': 'Cambodia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Cambodia", "name": "Cambodia", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [103.497279901139677, 10.632555446815926],
                     [103.090689731867229, 11.153660590047162],
                     [102.58493248902667, 12.186594956913279],
@@ -7004,11 +7004,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'South Korea', 'name': 'Korea', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "South Korea", "name": "Korea", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [128.349716424676586, 38.612242946927843],
                     [129.212919549680038, 37.432392483055942],
                     [129.460449660358137, 36.784189154602821],
@@ -7032,11 +7032,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Kosovo', 'name': 'Kosovo', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Kosovo", "name": "Kosovo", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [20.76216, 42.05186],
                     [20.717310000000108, 41.84711],
                     [20.59023, 41.85541],
@@ -7062,11 +7062,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Kuwait', 'name': 'Kuwait', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Kuwait", "name": "Kuwait", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [47.974519077349889, 29.975819200148493],
                     [48.183188510944483, 29.534476630159759],
                     [48.09394331237641, 29.306299343374999],
@@ -7080,11 +7080,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Laos', 'name': 'Lao PDR', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Laos", "name": "Lao PDR", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [105.218776890078871, 14.27321177821069],
                     [105.544338413517664, 14.723933620660414],
                     [105.589038527450128, 15.570316066952856],
@@ -7126,11 +7126,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Lebanon', 'name': 'Lebanon', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Lebanon", "name": "Lebanon", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [35.821100701650231, 33.277426459276292],
                     [35.552796665190805, 33.264274807258012],
                     [35.460709262846699, 33.089040025356276],
@@ -7146,11 +7146,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Liberia', 'name': 'Liberia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Liberia", "name": "Liberia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-7.712159389669749, 4.364565944837721],
                     [-7.974107224957249, 4.355755113131961],
                     [-9.004793667018673, 4.832418524592199],
@@ -7182,11 +7182,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Libya', 'name': 'Libya', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Libya", "name": "Libya", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [14.8513, 22.862950000000119],
                     [14.143870883855239, 22.491288967371126],
                     [13.581424594790459, 23.040506089769274],
@@ -7247,11 +7247,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Sri Lanka', 'name': 'Sri Lanka', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Sri Lanka", "name": "Sri Lanka", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [81.787959018891371, 7.523055324733162],
                     [81.637322218760573, 6.481775214051921],
                     [81.218019647144317, 6.197141424988287],
@@ -7266,11 +7266,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Lesotho', 'name': 'Lesotho', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Lesotho", "name": "Lesotho", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [28.978262566857236, -28.955596612261708],
                     [29.325166456832587, -29.257386976846245],
                     [29.018415154748016, -29.743765557577362],
@@ -7287,11 +7287,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Lithuania', 'name': 'Lithuania', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Lithuania", "name": "Lithuania", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [22.731098667092649, 54.327536932993311],
                     [22.651051873472536, 54.582740993866729],
                     [22.757763706155256, 54.856574408581366],
@@ -7315,11 +7315,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Luxembourg', 'name': 'Luxembourg', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Luxembourg", "name": "Luxembourg", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [6.043073357781109, 50.128051662794221],
                     [6.242751092156992, 49.90222565367872],
                     [6.186320428094176, 49.4638028021145],
@@ -7331,11 +7331,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Latvia', 'name': 'Latvia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Latvia", "name": "Latvia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [21.05580040862241, 56.031076361711051],
                     [21.090423618257965, 56.783872789122924],
                     [21.581866489353668, 57.411870632549913],
@@ -7362,11 +7362,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Morocco', 'name': 'Morocco', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Morocco", "name": "Morocco", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-5.193863491222031, 35.755182196590845],
                     [-4.591006232105143, 35.330711981745644],
                     [-3.640056525070007, 35.39985504815197],
@@ -7435,11 +7435,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Moldova', 'name': 'Moldova', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Moldova", "name": "Moldova", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [26.619336785597788, 48.220726223333457],
                     [26.857823520624798, 48.368210761094488],
                     [27.52253746919515, 48.467119452501102],
@@ -7471,11 +7471,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Madagascar', 'name': 'Madagascar', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Madagascar", "name": "Madagascar", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [49.543518914595737, -12.469832858940553],
                     [49.80898074727908, -12.895284925999551],
                     [50.05651085795715, -13.555761407121981],
@@ -7529,11 +7529,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Mexico', 'name': 'Mexico', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Mexico", "name": "Mexico", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-97.140008307670684, 25.869997463478395],
                     [-97.528072475966539, 24.992144069920297],
                     [-97.702945522842214, 24.272343044526728],
@@ -7708,11 +7708,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Macedonia', 'name': 'Macedonia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Macedonia", "name": "Macedonia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [20.59023, 41.85541],
                     [20.717310000000108, 41.84711],
                     [20.76216, 42.05186],
@@ -7734,11 +7734,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Mali', 'name': 'Mali', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Mali", "name": "Mali", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-12.170750291380299, 14.616834214735503],
                     [-11.834207526079465, 14.799096991428936],
                     [-11.666078253617853, 15.388208319556295],
@@ -7819,11 +7819,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Myanmar', 'name': 'Myanmar', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Myanmar", "name": "Myanmar", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [99.543309360759281, 20.186597601802056],
                     [98.959675734454848, 19.752980658440944],
                     [98.253723992915582, 19.708203029860041],
@@ -7898,11 +7898,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Montenegro', 'name': 'Montenegro', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Montenegro", "name": "Montenegro", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [19.801613396898681, 42.500093492190835],
                     [19.738051385179627, 42.688247382165564],
                     [19.30449, 42.19574],
@@ -7925,11 +7925,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Mongolia', 'name': 'Mongolia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Mongolia", "name": "Mongolia", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [87.751264276076697, 49.297197984405479],
                     [88.805566847695488, 49.470520738312409],
                     [90.713667433640666, 50.331811835321076],
@@ -8009,11 +8009,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Mozambique', 'name': 'Mozambique', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Mozambique", "name": "Mozambique", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [34.559989047999345, -11.520020033415923],
                     [35.312397902169032, -11.439146416879145],
                     [36.514081658684248, -11.720938002166733],
@@ -8095,11 +8095,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Mauritania', 'name': 'Mauritania', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Mauritania", "name": "Mauritania", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-12.170750291380299, 14.616834214735503],
                     [-12.830658331747513, 15.303691514542942],
                     [-13.43573767745306, 16.039383042866188],
@@ -8143,11 +8143,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Malawi', 'name': 'Malawi', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Malawi", "name": "Malawi", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [34.559989047999345, -11.520020033415923],
                     [34.280006137841973, -12.280025323132504],
                     [34.559989047999345, -13.579997653866872],
@@ -8180,11 +8180,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Malaysia', 'name': 'Malaysia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Malaysia", "name": "Malaysia", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [101.075515578213299, 6.204867051615891],
                     [101.154218784593809, 5.691384182147713],
                     [101.814281854258013, 5.810808417174228],
@@ -8252,11 +8252,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Namibia', 'name': 'Namibia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Namibia", "name": "Namibia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [16.344976840895239, -28.576705010697697],
                     [15.601818068105812, -27.821247247022797],
                     [15.210472446359457, -27.09095590587404],
@@ -8305,11 +8305,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'New Caledonia', 'name': 'New Caledonia', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "New Caledonia", "name": "New Caledonia", "continent": "Oceania" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [165.779989862326346, -21.080004978115621],
                     [166.599991489933814, -21.700018812753523],
                     [167.120011428086883, -22.159990736583488],
@@ -8327,11 +8327,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Niger', 'name': 'Niger', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Niger", "name": "Niger", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [2.154473504249949, 11.940150051313422],
                     [2.177107781593917, 12.625017808477534],
                     [1.024103224297619, 12.851825669806598],
@@ -8394,11 +8394,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Nigeria', 'name': 'Nigeria', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Nigeria", "name": "Nigeria", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [8.500287713259693, 4.771982937026847],
                     [7.462108188515939, 4.41210826254624],
                     [7.082596469764438, 4.464689032403228],
@@ -8461,11 +8461,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Nicaragua', 'name': 'Nicaragua', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Nicaragua", "name": "Nicaragua", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-85.712540452807289, 11.088444932494822],
                     [-86.058488328785245, 11.40343862552994],
                     [-86.525849982432931, 11.806876532432593],
@@ -8522,11 +8522,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Netherlands', 'name': 'Netherlands', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Netherlands", "name": "Netherlands", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [6.074182570020922, 53.51040334737813],
                     [6.905139601274128, 53.482162177130633],
                     [7.092053256873895, 53.14404328064488],
@@ -8545,11 +8545,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Norway', 'name': 'Norway', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Norway", "name": "Norway", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [28.165547316202911, 71.185474351680497],
                     [31.293418409965472, 70.453787746859902],
                     [30.005435011522785, 70.186258856884876],
@@ -8645,11 +8645,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Nepal', 'name': 'Nepal', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Nepal", "name": "Nepal", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [88.120440708369841, 27.876541652939586],
                     [88.043132765661198, 27.445818589786818],
                     [88.174804315140904, 26.810405178325944],
@@ -8677,11 +8677,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'New Zealand', 'name': 'New Zealand', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "New Zealand", "name": "New Zealand", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [173.020374790740703, -40.919052422856417],
                     [173.247234328502003, -41.331998793300777],
                     [173.958405389702875, -40.926700534835604],
@@ -8753,11 +8753,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Oman', 'name': 'Oman', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Oman", "name": "Oman", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [58.861141391846573, 21.114034532144299],
                     [58.487985874266961, 20.428985907467101],
                     [58.03431847517659, 20.481437486243347],
@@ -8810,11 +8810,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Pakistan', 'name': 'Pakistan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Pakistan", "name": "Pakistan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [75.158027785140902, 37.13303091078911],
                     [75.896897414050116, 36.666806138651829],
                     [76.192848341785677, 35.898403428687821],
@@ -8885,11 +8885,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Panama', 'name': 'Panama', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Panama", "name": "Panama", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-77.881571417945239, 7.223771267114783],
                     [-78.214936082660103, 7.512254950384159],
                     [-78.429160732726061, 8.052041123888925],
@@ -8946,11 +8946,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Peru', 'name': 'Peru', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Peru", "name": "Peru", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-69.590423753524036, -17.580011895419329],
                     [-69.858443569605839, -18.092693780187009],
                     [-70.3725723944777, -18.347975355708861],
@@ -9031,11 +9031,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Philippines', 'name': 'Philippines', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Philippines", "name": "Philippines", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [126.376813592637447, 8.414706325713352],
                     [126.478512811387873, 7.750354112168976],
                     [126.537423944200611, 7.189380601424572],
@@ -9156,11 +9156,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Papua New Guinea', 'name': 'Papua New Guinea', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Papua New Guinea", "name": "Papua New Guinea", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [155.880025669578401, -6.819996840037758],
                     [155.599991082988765, -6.919990736522491],
                     [155.166994256815087, -6.535931491729299],
@@ -9249,11 +9249,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Poland', 'name': 'Poland', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Poland", "name": "Poland", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [15.016995883858666, 51.106674099321566],
                     [14.607098422919531, 51.745188096719964],
                     [14.685026482815685, 52.089947414755187],
@@ -9303,11 +9303,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Puerto Rico', 'name': 'Puerto Rico', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Puerto Rico", "name": "Puerto Rico", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-66.2824344550082, 18.51476166429536],
                     [-65.771302863209286, 18.426679185453875],
                     [-65.591003790942935, 18.228034979723912],
@@ -9321,11 +9321,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'North Korea', 'name': 'Dem. Rep. Korea', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "North Korea", "name": "Dem. Rep. Korea", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [130.640015903852401, 42.39500946712527],
                     [130.780007358931101, 42.220007229168843],
                     [130.400030552288996, 42.280003567059701],
@@ -9373,11 +9373,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Portugal', 'name': 'Portugal', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Portugal", "name": "Portugal", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-9.034817674180244, 41.880570583659669],
                     [-8.671945766626719, 42.134689439454952],
                     [-8.26385698081779, 42.280468654950326],
@@ -9415,11 +9415,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Paraguay', 'name': 'Paraguay', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Paraguay", "name": "Paraguay", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-62.685057135657871, -22.24902922942238],
                     [-62.291179368729203, -21.051634616787389],
                     [-62.265961269770784, -20.513734633061272],
@@ -9457,11 +9457,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Palestine', 'name': 'Palestine', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Palestine", "name": "Palestine", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [35.545665317534535, 32.393992011030569],
                     [35.545251906076196, 31.782504787720832],
                     [35.397560662586038, 31.489086005167572],
@@ -9475,11 +9475,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Qatar', 'name': 'Qatar', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Qatar", "name": "Qatar", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [50.810108270069563, 24.754742539971371],
                     [50.743910760303677, 25.482424221289389],
                     [51.01335167827348, 26.006991685484191],
@@ -9493,11 +9493,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Romania', 'name': 'Romania', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Romania", "name": "Romania", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [22.710531447040488, 47.882193915389394],
                     [23.142236362406798, 48.096341050806942],
                     [23.760958286237404, 47.985598456405448],
@@ -9546,11 +9546,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Russia', 'name': 'Russia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Russia", "name": "Russia", "continent": "Europe" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [143.648007440362846, 50.747600409541512],
                     [144.65414757708561, 48.976390692737581],
                     [143.173927850517174, 49.306551418650365],
@@ -10128,11 +10128,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Rwanda', 'name': 'Rwanda', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Rwanda", "name": "Rwanda", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [30.419104852019235, -1.134659112150416],
                     [30.816134881317705, -1.698914076345388],
                     [30.758308953583104, -2.287250257988368],
@@ -10150,11 +10150,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Western Sahara', 'name': 'W. Sahara', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Western Sahara", "name": "W. Sahara", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-8.794883999049075, 27.120696316022503],
                     [-8.81782833498667, 27.656425889592349],
                     [-8.665589565454805, 27.656425889592349],
@@ -10187,11 +10187,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Saudi Arabia', 'name': 'Saudi Arabia', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Saudi Arabia", "name": "Saudi Arabia", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [42.779332309750963, 16.34789134364868],
                     [42.64957278826607, 16.77463532151496],
                     [42.347989129410706, 17.075805568911996],
@@ -10272,11 +10272,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Sudan', 'name': 'Sudan', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Sudan", "name": "Sudan", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [33.963392794971178, 9.464285229420623],
                     [33.824963480907506, 9.48406084571536],
                     [33.842130853028145, 9.981914637215992],
@@ -10360,11 +10360,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'South Sudan', 'name': 'S. Sudan', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "South Sudan", "name": "S. Sudan", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [33.963392794971178, 9.464285229420623],
                     [33.97498, 8.68456],
                     [33.82550000000014, 8.37916],
@@ -10432,11 +10432,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Senegal', 'name': 'Senegal', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Senegal", "name": "Senegal", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-16.713728807023468, 13.594958604379853],
                     [-17.126106736712611, 14.373515733289221],
                     [-17.625042690490655, 14.72954051356407],
@@ -10485,11 +10485,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Solomon Islands', 'name': 'Solomon Is.', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Solomon Islands", "name": "Solomon Is.", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [162.119024693040842, -10.482719008021133],
                     [162.398645868172196, -10.826367282762119],
                     [161.700032180018354, -10.820011081590222],
@@ -10535,11 +10535,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Sierra Leone', 'name': 'Sierra Leone', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Sierra Leone", "name": "Sierra Leone", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-11.438779466182053, 6.785916856305746],
                     [-11.708194545935736, 6.860098374860724],
                     [-12.428098924193815, 7.262942002792029],
@@ -10566,11 +10566,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'El Salvador', 'name': 'El Salvador', 'continent': 'North America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "El Salvador", "name": "El Salvador", "continent": "North America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-87.793111131526558, 13.384480495655051],
                     [-87.904112108089507, 13.149016831917134],
                     [-88.483301561216791, 13.163951320849488],
@@ -10595,11 +10595,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Somaliland', 'name': 'Somaliland', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Somaliland", "name": "Somaliland", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [48.938129510296491, 9.451748968946672],
                     [48.486735874226994, 8.837626247589979],
                     [47.78942, 8.003],
@@ -10628,11 +10628,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Somalia', 'name': 'Somalia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Somalia", "name": "Somalia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [49.72862, 11.5789],
                     [50.25878, 11.67957],
                     [50.73202, 12.0219],
@@ -10673,11 +10673,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Republic of Serbia', 'name': 'Serbia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Republic of Serbia", "name": "Serbia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [20.874312778413408, 45.416375433934306],
                     [21.483526238702204, 45.181170152357865],
                     [21.562022739353718, 44.768947251965635],
@@ -10728,11 +10728,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Suriname', 'name': 'Suriname', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Suriname", "name": "Suriname", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-57.147436489476874, 5.973149929219161],
                     [-55.949318406789786, 5.772877915872],
                     [-55.841779751190408, 5.953125311706059],
@@ -10763,11 +10763,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Slovakia', 'name': 'Slovakia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Slovakia", "name": "Slovakia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [18.85314415861361, 49.496229763377634],
                     [18.909574822676316, 49.435845852244562],
                     [19.320712517990469, 49.571574001659179],
@@ -10805,11 +10805,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Slovenia', 'name': 'Slovenia', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Slovenia", "name": "Slovenia", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [13.806475457421524, 46.509306138691201],
                     [14.632471551174827, 46.431817328469535],
                     [15.137091912504982, 46.658702704447016],
@@ -10832,11 +10832,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Sweden', 'name': 'Sweden', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Sweden", "name": "Sweden", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [22.183173455501922, 65.723740546320158],
                     [21.213516879977213, 65.02600535751526],
                     [21.369631381930954, 64.413587958424273],
@@ -10881,11 +10881,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Swaziland', 'name': 'Swaziland', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Swaziland", "name": "Swaziland", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [32.071665480281062, -26.733820082304902],
                     [31.868060337051073, -27.17792734142127],
                     [31.282773064913325, -27.285879408478991],
@@ -10901,11 +10901,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Syria', 'name': 'Syria', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Syria", "name": "Syria", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [38.792340529136077, 33.378686428352218],
                     [36.834062127435537, 32.312937526980768],
                     [35.719918247222743, 32.709192409794859],
@@ -10937,11 +10937,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Chad', 'name': 'Chad', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Chad", "name": "Chad", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [14.495787387762899, 12.859396267137353],
                     [14.595781284247604, 13.330426947477859],
                     [13.954476759505607, 13.353448798063765],
@@ -11004,11 +11004,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Togo', 'name': 'Togo', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Togo", "name": "Togo", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [1.865240512712318, 6.14215770102973],
                     [1.060121697604927, 5.928837388528875],
                     [0.836931186536333, 6.279978745952147],
@@ -11032,11 +11032,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Thailand', 'name': 'Thailand', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Thailand", "name": "Thailand", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [102.58493248902667, 12.186594956913279],
                     [101.687157830819928, 12.645740057826568],
                     [100.831809523524839, 12.627084865769204],
@@ -11105,11 +11105,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Tajikistan', 'name': 'Tajikistan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Tajikistan", "name": "Tajikistan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [71.014198032520156, 40.244365546218226],
                     [70.648018833299957, 39.935753892571157],
                     [69.559609816368507, 40.103211371412968],
@@ -11155,11 +11155,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Turkmenistan', 'name': 'Turkmenistan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Turkmenistan", "name": "Turkmenistan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [61.21081709172573, 35.650072333309218],
                     [61.123070509694131, 36.491597194966239],
                     [60.377637973883864, 36.52738312432836],
@@ -11218,11 +11218,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'East Timor', 'name': 'Timor-Leste', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "East Timor", "name": "Timor-Leste", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [124.96868248911619, -8.892790215697081],
                     [125.086246372580248, -8.656887302284678],
                     [125.947072381698234, -8.432094821815033],
@@ -11238,15 +11238,15 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': {
-                'admin': 'Trinidad and Tobago',
-                'name': 'Trinidad and Tobago',
-                'continent': 'North America',
+            "type": "Feature",
+            "properties": {
+                "admin": "Trinidad and Tobago",
+                "name": "Trinidad and Tobago",
+                "continent": "North America",
             },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-61.68, 10.76],
                     [-61.105, 10.89],
                     [-60.895, 10.855],
@@ -11259,11 +11259,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Tunisia', 'name': 'Tunisia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Tunisia", "name": "Tunisia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [9.482139926805273, 30.307556057246181],
                     [9.055602654668148, 32.102691962201284],
                     [8.439102817426116, 32.506284898400814],
@@ -11299,11 +11299,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Turkey', 'name': 'Turkey', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Turkey", "name": "Turkey", "continent": "Asia" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [36.913127068842151, 41.335358384764291],
                     [38.347664829264502, 40.948586127275711],
                     [39.512606642420238, 41.102762763018561],
@@ -11376,11 +11376,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Taiwan', 'name': 'Taiwan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Taiwan", "name": "Taiwan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [121.777817824389899, 24.394273586519393],
                     [121.175632358892713, 22.790857245367164],
                     [120.747079705896198, 21.970571397382106],
@@ -11394,11 +11394,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'United Republic of Tanzania', 'name': 'Tanzania', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "United Republic of Tanzania", "name": "Tanzania", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [33.903711197104592, -0.95],
                     [34.07262, -1.05982],
                     [37.69869, -3.09699],
@@ -11452,11 +11452,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Uganda', 'name': 'Uganda', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Uganda", "name": "Uganda", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [31.86617, -1.02736],
                     [30.769860000000101, -1.01455],
                     [30.419104852019291, -1.134659112150416],
@@ -11488,11 +11488,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Ukraine', 'name': 'Ukraine', 'continent': 'Europe' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Ukraine", "name": "Ukraine", "continent": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [31.78599816257158, 52.10167796488544],
                     [32.159412062312661, 52.061266994833204],
                     [32.412058139787625, 52.288694973349735],
@@ -11595,11 +11595,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Uruguay', 'name': 'Uruguay', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Uruguay", "name": "Uruguay", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-57.625133429582945, -30.216294854454258],
                     [-56.976025763564721, -30.109686374636119],
                     [-55.97324459494093, -30.883075860316296],
@@ -11625,15 +11625,15 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': {
-                'admin': 'United States of America',
-                'name': 'United States',
-                'continent': 'North America',
+            "type": "Feature",
+            "properties": {
+                "admin": "United States of America",
+                "name": "United States",
+                "continent": "North America",
             },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [-155.54211, 19.08348],
                     [-155.68817, 18.91619],
                     [-155.93665, 19.05939],
@@ -12088,11 +12088,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Uzbekistan', 'name': 'Uzbekistan', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Uzbekistan", "name": "Uzbekistan", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [66.518606805288655, 37.362784328758785],
                     [66.546150343700205, 37.974684963526855],
                     [65.215998976507379, 38.402695013984292],
@@ -12151,11 +12151,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Venezuela', 'name': 'Venezuela', 'continent': 'South America' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Venezuela", "name": "Venezuela", "continent": "South America" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [-71.331583624950284, 11.776284084515805],
                     [-71.36000566271079, 11.53999359786121],
                     [-71.947049933546495, 11.423282375530018],
@@ -12252,11 +12252,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Vietnam', 'name': 'Vietnam', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Vietnam", "name": "Vietnam", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [108.050180291782908, 21.552379869060111],
                     [106.715067987090066, 20.696850694252014],
                     [105.881682163519002, 19.752050482659694],
@@ -12305,11 +12305,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Vanuatu', 'name': 'Vanuatu', 'continent': 'Oceania' },
-            'geometry': {
-                'type': 'MultiPolygon',
-                'coordinates': [[[
+            "type": "Feature",
+            "properties": { "admin": "Vanuatu", "name": "Vanuatu", "continent": "Oceania" },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [[[
                     [167.844876743845077, -16.466333103097153],
                     [167.515181105822847, -16.597849623279966],
                     [167.180007765977791, -16.159995212470957],
@@ -12327,11 +12327,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Yemen', 'name': 'Yemen', 'continent': 'Asia' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Yemen", "name": "Yemen", "continent": "Asia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [53.108572625547502, 16.651051133688949],
                     [52.385205926325874, 16.38241120041965],
                     [52.191729363825075, 15.938433132384018],
@@ -12380,11 +12380,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'South Africa', 'name': 'South Africa', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "South Africa", "name": "South Africa", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [31.521001417778869, -29.257386976846245],
                     [31.325561150850994, -29.401977634398907],
                     [30.901762729625336, -29.909956963828034],
@@ -12484,11 +12484,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Zambia', 'name': 'Zambia', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Zambia", "name": "Zambia", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [32.759375441221316, -9.230599053589058],
                     [33.231387973775291, -9.676721693564799],
                     [33.485687697083584, -10.525558770391111],
@@ -12554,11 +12554,11 @@ var world_map = {
             },
         },
         {
-            'type': 'Feature',
-            'properties': { 'admin': 'Zimbabwe', 'name': 'Zimbabwe', 'continent': 'Africa' },
-            'geometry': {
-                'type': 'Polygon',
-                'coordinates': [[
+            "type": "Feature",
+            "properties": { "admin": "Zimbabwe", "name": "Zimbabwe", "continent": "Africa" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
                     [31.191409132621278, -22.251509698172395],
                     [30.659865350067083, -22.151567478119912],
                     [30.322883335091767, -22.271611830333931],
@@ -12603,37 +12603,37 @@ var world_map = {
 };
 
 var randomcountriesData1 = [
-    { country: 'Iran', 'continent': 'Asia', 'CategoryName': 'Books', 'Sales': 550 },
-    { country: 'Benin', 'continent': 'Africa', 'CategoryName': 'Books', 'Sales': 1000 },
-    { country: 'China', 'continent': 'Asia', 'CategoryName': 'Books', 'Sales': 420 },
-    { country: 'Chile', 'continent': 'South America', 'CategoryName': 'Books', 'Sales': 1100 },
-    { country: 'Cuba', 'continent': 'North America', 'CategoryName': 'Books', 'Sales': 450 },
-    { country: 'Spain', 'continent': 'Europe', 'CategoryName': 'Books', 'Sales': 1200 },
-    { country: 'Fiji', 'continent': 'Oceania', 'CategoryName': 'Books', 'Sales': 618.0 },
+    { country: "Iran", "continent": "Asia", "CategoryName": "Books", "Sales": 550 },
+    { country: "Benin", "continent": "Africa", "CategoryName": "Books", "Sales": 1000 },
+    { country: "China", "continent": "Asia", "CategoryName": "Books", "Sales": 420 },
+    { country: "Chile", "continent": "South America", "CategoryName": "Books", "Sales": 1100 },
+    { country: "Cuba", "continent": "North America", "CategoryName": "Books", "Sales": 450 },
+    { country: "Spain", "continent": "Europe", "CategoryName": "Books", "Sales": 1200 },
+    { country: "Fiji", "continent": "Oceania", "CategoryName": "Books", "Sales": 618.0 },
 ];
 
 module mapcomponenet {
     $(function() {
-        var mapsample = new ej.datavisualization.Map($('#map'), {
+        var mapsample = new ej.datavisualization.Map($("#map"), {
             enableAnimation: true,
             navigationControl: {
                 enableNavigation: true,
-                orientation: 'vertical',
+                orientation: "vertical",
                 absolutePosition: { x: 5, y: 15 },
-                dockPosition: 'none',
+                dockPosition: "none",
             },
             layers: [
                 {
-                    layerType: 'geometry',
+                    layerType: "geometry",
                     enableMouseHover: false,
                     enableSelection: false,
                     shapeSettings: {
-                        fill: '#626171',
+                        fill: "#626171",
                         autoFill: false,
-                        highlightStroke: 'white',
-                        stroke: 'white',
+                        highlightStroke: "white",
+                        stroke: "white",
                         strokeThickness: 0.5,
-                        highlightColor: '#BFBFBF',
+                        highlightColor: "#BFBFBF",
                     },
                     shapeData: world_map,
                     legendSettings: { dockOnMap: false },
@@ -12645,49 +12645,49 @@ module mapcomponenet {
 
 module MenuComponent {
     $(function() {
-        var sample = new ej.Menu($('#syncfusionProducts'), {
-            width: '100%',
+        var sample = new ej.Menu($("#syncfusionProducts"), {
+            width: "100%",
             animationType: ej.AnimationType.Default,
-            cssClass: 'gradient-lime ',
+            cssClass: "gradient-lime ",
             enableAnimation: true,
             enableSeparator: true,
             height: 40,
-            htmlAttributes: { 'aria-label': 'menu' },
-            menuType: 'normalmenu',
+            htmlAttributes: { "aria-label": "menu" },
+            menuType: "normalmenu",
             orientation: ej.Orientation.Horizontal,
             showRootLevelArrows: true,
             showSubLevelArrows: true,
             subMenuDirection: ej.Direction.Right,
-            titleText: 'Menu',
+            titleText: "Menu",
         });
     });
 }
 
 module NavigationDrawerComponent {
     $(function() {
-        var navigationdrawerInstance = new ej.NavigationDrawer($('#navpane'), {
-            targetId: 'butdrawer',
-            contentId: 'content_container',
-            type: 'overlay',
-            direction: 'left',
+        var navigationdrawerInstance = new ej.NavigationDrawer($("#navpane"), {
+            targetId: "butdrawer",
+            contentId: "content_container",
+            type: "overlay",
+            direction: "left",
             enableListView: true,
             listViewSettings: {
                 width: 300,
                 selectedItemIndex: 0,
             },
-            position: 'normal',
+            position: "normal",
         });
-        $('#navpane_listview').click(function(e: any) {
-            var text = e.target['text'] || $(e.target).closest('li.e-list').text();
-            $('#butdrawer').parent().children('h2').text(text);
+        $("#navpane_listview").click(function(e: any) {
+            var text = e.target["text"] || $(e.target).closest("li.e-list").text();
+            $("#butdrawer").parent().children("h2").text(text);
         });
     });
 }
 
 module PDFViewerComponent {
     $(function() {
-        var pdfviewerControl = new ej.PdfViewer($('#pdfviewer'), {
-            serviceUrl: (<any> window).baseurl + 'api/PdfViewer',
+        var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
+            serviceUrl: (<any> window).baseurl + "api/PdfViewer",
             isResponsive: true,
         });
     });
@@ -12695,29 +12695,29 @@ module PDFViewerComponent {
 
 module PivotChartOlap {
     $(function() {
-        var sample = new ej.PivotChart($('#PivotChart'), {
+        var sample = new ej.PivotChart($("#PivotChart"), {
             dataSource: {
-                data: '//bi.syncfusion.com/olap/msmdpump.dll',
-                catalog: 'Adventure Works DW 2008 SE',
-                cube: 'Adventure Works',
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
                 rows: [
                     {
-                        fieldName: '[Date].[Fiscal]',
+                        fieldName: "[Date].[Fiscal]",
                     },
                 ],
                 columns: [
                     {
-                        fieldName: '[Customer].[Customer Geography]',
+                        fieldName: "[Customer].[Customer Geography]",
                     },
                 ],
                 values: [
                     {
                         measures: [
                             {
-                                fieldName: '[Measures].[Internet Sales Amount]',
+                                fieldName: "[Measures].[Internet Sales Amount]",
                             },
                         ],
-                        axis: 'columns',
+                        axis: "columns",
                     },
                 ],
                 filters: [],
@@ -12725,19 +12725,19 @@ module PivotChartOlap {
             isResponsive: true,
             zooming: { enableScrollbar: true },
             commonSeriesOptions: {
-                type: 'column',
+                type: "column",
             },
-            size: { height: '460px', width: '100%' },
-            primaryXAxis: { title: { text: 'Date - Fiscal' }, labelRotation: 0 },
-            primaryYAxis: { title: { text: 'Internet Sales Amount' } },
+            size: { height: "460px", width: "100%" },
+            primaryXAxis: { title: { text: "Date - Fiscal" }, labelRotation: 0 },
+            primaryYAxis: { title: { text: "Internet Sales Amount" } },
             legend: { visible: true, rowCount: 2 },
             load: function() {
                 var PivotChart = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 PivotChart = PivotChart.toString();
-                if (PivotChart.indexOf('dark') > -1 || PivotChart.indexOf('contrast') > -1) {
-                    PivotChart = 'flatdark';
+                if (PivotChart.indexOf("dark") > -1 || PivotChart.indexOf("contrast") > -1) {
+                    PivotChart = "flatdark";
                 } else {
-                    PivotChart = 'flatlight';
+                    PivotChart = "flatlight";
                 }
                 this.model.theme = PivotChart;
             },
@@ -12746,61 +12746,61 @@ module PivotChartOlap {
 }
 
 var pivot_dataset = [
-    { Amount: 100, Country: 'Canada', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Alberta' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'British Columbia' },
-    { Amount: 300, Country: 'Canada', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Brunswick' },
-    { Amount: 150, Country: 'Canada', Date: 'FY 2008', Product: 'Bike', Quantity: 3, State: 'Manitoba' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Car', Quantity: 4, State: 'Ontario' },
-    { Amount: 100, Country: 'Canada', Date: 'FY 2007', Product: 'Van', Quantity: 1, State: 'Quebec' },
-    { Amount: 200, Country: 'France', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Charente-Maritime' },
-    { Amount: 250, Country: 'France', Date: 'FY 2006', Product: 'Van', Quantity: 4, State: 'Essonne' },
-    { Amount: 300, Country: 'France', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Garonne (Haute)' },
-    { Amount: 150, Country: 'France', Date: 'FY 2008', Product: 'Van', Quantity: 2, State: 'Gers' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'Bayern' },
-    { Amount: 250, Country: 'Germany', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Brandenburg' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2008', Product: 'Car', Quantity: 4, State: 'Hamburg' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2008', Product: 'Bike', Quantity: 4, State: 'Hessen' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2007', Product: 'Van', Quantity: 3, State: 'Nordrhein-Westfalen' },
-    { Amount: 100, Country: 'Germany', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Saarland' },
-    { Amount: 150, Country: 'United Kingdom', Date: 'FY 2008', Product: 'Bike', Quantity: 5, State: 'England' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Alabama' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Van', Quantity: 4, State: 'California' },
-    { Amount: 100, Country: 'United States', Date: 'FY 2006', Product: 'Bike', Quantity: 2, State: 'Colorado' },
-    { Amount: 150, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'New Mexico' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Bike', Quantity: 4, State: 'New York' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'North Carolina' },
-    { Amount: 300, Country: 'United States', Date: 'FY 2007', Product: 'Van', Quantity: 4, State: 'South Carolina' },
+    { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Van", Quantity: 3, State: "British Columbia" },
+    { Amount: 300, Country: "Canada", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Brunswick" },
+    { Amount: 150, Country: "Canada", Date: "FY 2008", Product: "Bike", Quantity: 3, State: "Manitoba" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Car", Quantity: 4, State: "Ontario" },
+    { Amount: 100, Country: "Canada", Date: "FY 2007", Product: "Van", Quantity: 1, State: "Quebec" },
+    { Amount: 200, Country: "France", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Charente-Maritime" },
+    { Amount: 250, Country: "France", Date: "FY 2006", Product: "Van", Quantity: 4, State: "Essonne" },
+    { Amount: 300, Country: "France", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Garonne (Haute)" },
+    { Amount: 150, Country: "France", Date: "FY 2008", Product: "Van", Quantity: 2, State: "Gers" },
+    { Amount: 200, Country: "Germany", Date: "FY 2006", Product: "Van", Quantity: 3, State: "Bayern" },
+    { Amount: 250, Country: "Germany", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Brandenburg" },
+    { Amount: 150, Country: "Germany", Date: "FY 2008", Product: "Car", Quantity: 4, State: "Hamburg" },
+    { Amount: 200, Country: "Germany", Date: "FY 2008", Product: "Bike", Quantity: 4, State: "Hessen" },
+    { Amount: 150, Country: "Germany", Date: "FY 2007", Product: "Van", Quantity: 3, State: "Nordrhein-Westfalen" },
+    { Amount: 100, Country: "Germany", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Saarland" },
+    { Amount: 150, Country: "United Kingdom", Date: "FY 2008", Product: "Bike", Quantity: 5, State: "England" },
+    { Amount: 250, Country: "United States", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Alabama" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Van", Quantity: 4, State: "California" },
+    { Amount: 100, Country: "United States", Date: "FY 2006", Product: "Bike", Quantity: 2, State: "Colorado" },
+    { Amount: 150, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "New Mexico" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Bike", Quantity: 4, State: "New York" },
+    { Amount: 250, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "North Carolina" },
+    { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" },
 ];
 
 module PivotChartRelational {
     $(function() {
-        var sample = new ej.PivotChart($('#PivotChart'), {
+        var sample = new ej.PivotChart($("#PivotChart"), {
             dataSource: {
                 data: pivot_dataset,
                 rows: [
                     {
-                        fieldName: 'Country',
-                        fieldCaption: 'Country',
+                        fieldName: "Country",
+                        fieldCaption: "Country",
                     },
                     {
-                        fieldName: 'State',
-                        fieldCaption: 'State',
+                        fieldName: "State",
+                        fieldCaption: "State",
                     },
                     {
-                        fieldName: 'Date',
-                        fieldCaption: 'Date',
+                        fieldName: "Date",
+                        fieldCaption: "Date",
                     },
                 ],
                 columns: [
                     {
-                        fieldName: 'Product',
-                        fieldCaption: 'Product',
+                        fieldName: "Product",
+                        fieldCaption: "Product",
                     },
                 ],
                 values: [
                     {
-                        fieldName: 'Amount',
-                        fieldCaption: 'Amount',
+                        fieldName: "Amount",
+                        fieldCaption: "Amount",
                     },
                 ],
                 filters: [],
@@ -12808,18 +12808,18 @@ module PivotChartRelational {
             isResponsive: true,
             zooming: { enableScrollbar: true },
             commonSeriesOptions: {
-                type: 'column',
+                type: "column",
             },
-            size: { height: '460px', width: '100%' },
-            primaryYAxis: { title: { text: 'Amount' } },
+            size: { height: "460px", width: "100%" },
+            primaryYAxis: { title: { text: "Amount" } },
             legend: { visible: true },
             load: function() {
                 var PivotChart = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 PivotChart = PivotChart.toString();
-                if (PivotChart.indexOf('dark') > -1 || PivotChart.indexOf('contrast') > -1) {
-                    PivotChart = 'flatdark';
+                if (PivotChart.indexOf("dark") > -1 || PivotChart.indexOf("contrast") > -1) {
+                    PivotChart = "flatdark";
                 } else {
-                    PivotChart = 'flatlight';
+                    PivotChart = "flatlight";
                 }
                 this.model.theme = PivotChart;
             },
@@ -12829,39 +12829,39 @@ module PivotChartRelational {
 
 module PivotGaugeOlap {
     $(function() {
-        var sample = new ej.PivotGauge($('#PivotGauge'), {
+        var sample = new ej.PivotGauge($("#PivotGauge"), {
             dataSource: {
-                data: '//bi.syncfusion.com/olap/msmdpump.dll',
-                catalog: 'Adventure Works DW 2008 SE',
-                cube: 'Adventure Works',
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
                 rows: [
                     {
-                        fieldName: '[Date].[Fiscal]',
-                        filterItems: { filterType: 'include', values: ['[Date].[Fiscal].[Fiscal Year].&amp;[2004]'] },
+                        fieldName: "[Date].[Fiscal]",
+                        filterItems: { filterType: "include", values: ["[Date].[Fiscal].[Fiscal Year].&amp;[2004]"] },
                     },
                 ],
                 columns: [
                     {
-                        fieldName: '[Customer].[Customer Geography]',
+                        fieldName: "[Customer].[Customer Geography]",
                     },
                 ],
                 values: [
                     {
                         measures: [
                             {
-                                fieldName: '[Measures].[Internet Sales Amount]',
+                                fieldName: "[Measures].[Internet Sales Amount]",
                             },
                             {
-                                fieldName: '[Measures].[Internet Revenue Status]',
+                                fieldName: "[Measures].[Internet Revenue Status]",
                             },
                             {
-                                fieldName: '[Measures].[Internet Revenue Trend]',
+                                fieldName: "[Measures].[Internet Revenue Trend]",
                             },
                             {
-                                fieldName: '[Measures].[Internet Revenue Goal]',
+                                fieldName: "[Measures].[Internet Revenue Goal]",
                             },
                         ],
-                        axis: 'columns',
+                        axis: "columns",
                     },
                 ],
                 filters: [],
@@ -12885,49 +12885,49 @@ module PivotGaugeOlap {
                     length: 120,
                     width: 7,
                 }, {
-                    type: 'marker',
-                    markerType: 'diamond',
+                    type: "marker",
+                    markerType: "diamond",
                     distanceFromScale: 5,
-                    placement: 'center',
-                    backgroundColor: '#29A4D9',
+                    placement: "center",
+                    backgroundColor: "#29A4D9",
                     length: 25,
                     width: 15,
                 }],
                 ticks: [{
-                    type: 'major',
+                    type: "major",
                     distanceFromScale: 2,
                     height: 16,
                     width: 1,
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }, {
-                    type: 'minor',
+                    type: "minor",
                     height: 6,
                     width: 1,
                     distanceFromScale: 2,
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }],
                 labels: [{
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }],
                 ranges: [{
                     distanceFromScale: -5,
-                    backgroundColor: '#fc0606',
-                    border: { color: '#fc0606' },
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" },
                 }, {
                     distanceFromScale: -5,
                 }],
                 customLabels: [{
                     position: { x: 180, y: 290 },
-                    font: { size: '10px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }, {
                     position: { x: 180, y: 320 },
-                    font: { size: '10px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }, {
                     position: { x: 180, y: 150 },
-                    font: { size: '12px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }],
             }],
         });
@@ -12935,56 +12935,56 @@ module PivotGaugeOlap {
 }
 
 var pivot_dataset = [
-    { Amount: 100, Country: 'Canada', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Alberta' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'British Columbia' },
-    { Amount: 300, Country: 'Canada', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Brunswick' },
-    { Amount: 150, Country: 'Canada', Date: 'FY 2008', Product: 'Bike', Quantity: 3, State: 'Manitoba' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Car', Quantity: 4, State: 'Ontario' },
-    { Amount: 100, Country: 'Canada', Date: 'FY 2007', Product: 'Van', Quantity: 1, State: 'Quebec' },
-    { Amount: 200, Country: 'France', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Charente-Maritime' },
-    { Amount: 250, Country: 'France', Date: 'FY 2006', Product: 'Van', Quantity: 4, State: 'Essonne' },
-    { Amount: 300, Country: 'France', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Garonne (Haute)' },
-    { Amount: 150, Country: 'France', Date: 'FY 2008', Product: 'Van', Quantity: 2, State: 'Gers' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'Bayern' },
-    { Amount: 250, Country: 'Germany', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Brandenburg' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2008', Product: 'Car', Quantity: 4, State: 'Hamburg' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2008', Product: 'Bike', Quantity: 4, State: 'Hessen' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2007', Product: 'Van', Quantity: 3, State: 'Nordrhein-Westfalen' },
-    { Amount: 100, Country: 'Germany', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Saarland' },
-    { Amount: 150, Country: 'United Kingdom', Date: 'FY 2008', Product: 'Bike', Quantity: 5, State: 'England' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Alabama' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Van', Quantity: 4, State: 'California' },
-    { Amount: 100, Country: 'United States', Date: 'FY 2006', Product: 'Bike', Quantity: 2, State: 'Colorado' },
-    { Amount: 150, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'New Mexico' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Bike', Quantity: 4, State: 'New York' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'North Carolina' },
-    { Amount: 300, Country: 'United States', Date: 'FY 2007', Product: 'Van', Quantity: 4, State: 'South Carolina' },
+    { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Van", Quantity: 3, State: "British Columbia" },
+    { Amount: 300, Country: "Canada", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Brunswick" },
+    { Amount: 150, Country: "Canada", Date: "FY 2008", Product: "Bike", Quantity: 3, State: "Manitoba" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Car", Quantity: 4, State: "Ontario" },
+    { Amount: 100, Country: "Canada", Date: "FY 2007", Product: "Van", Quantity: 1, State: "Quebec" },
+    { Amount: 200, Country: "France", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Charente-Maritime" },
+    { Amount: 250, Country: "France", Date: "FY 2006", Product: "Van", Quantity: 4, State: "Essonne" },
+    { Amount: 300, Country: "France", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Garonne (Haute)" },
+    { Amount: 150, Country: "France", Date: "FY 2008", Product: "Van", Quantity: 2, State: "Gers" },
+    { Amount: 200, Country: "Germany", Date: "FY 2006", Product: "Van", Quantity: 3, State: "Bayern" },
+    { Amount: 250, Country: "Germany", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Brandenburg" },
+    { Amount: 150, Country: "Germany", Date: "FY 2008", Product: "Car", Quantity: 4, State: "Hamburg" },
+    { Amount: 200, Country: "Germany", Date: "FY 2008", Product: "Bike", Quantity: 4, State: "Hessen" },
+    { Amount: 150, Country: "Germany", Date: "FY 2007", Product: "Van", Quantity: 3, State: "Nordrhein-Westfalen" },
+    { Amount: 100, Country: "Germany", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Saarland" },
+    { Amount: 150, Country: "United Kingdom", Date: "FY 2008", Product: "Bike", Quantity: 5, State: "England" },
+    { Amount: 250, Country: "United States", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Alabama" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Van", Quantity: 4, State: "California" },
+    { Amount: 100, Country: "United States", Date: "FY 2006", Product: "Bike", Quantity: 2, State: "Colorado" },
+    { Amount: 150, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "New Mexico" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Bike", Quantity: 4, State: "New York" },
+    { Amount: 250, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "North Carolina" },
+    { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" },
 ];
 
 module PivotGaugeRelational {
     $(function() {
-        var sample = new ej.PivotGauge($('#PivotGauge'), {
+        var sample = new ej.PivotGauge($("#PivotGauge"), {
             dataSource: {
                 data: pivot_dataset,
                 rows: [
                     {
-                        fieldName: 'Country',
+                        fieldName: "Country",
                     },
                     {
-                        fieldName: 'State',
+                        fieldName: "State",
                     },
                 ],
                 columns: [
                     {
-                        fieldName: 'Product',
+                        fieldName: "Product",
                     },
                 ],
                 values: [
                     {
-                        fieldName: 'Amount',
+                        fieldName: "Amount",
                     },
                     {
-                        fieldName: 'Quantity',
+                        fieldName: "Quantity",
                     },
                 ],
             },
@@ -13007,49 +13007,49 @@ module PivotGaugeRelational {
                     length: 120,
                     width: 7,
                 }, {
-                    type: 'marker',
-                    markerType: 'diamond',
+                    type: "marker",
+                    markerType: "diamond",
                     distanceFromScale: 5,
-                    placement: 'center',
-                    backgroundColor: '#29A4D9',
+                    placement: "center",
+                    backgroundColor: "#29A4D9",
                     length: 25,
                     width: 15,
                 }],
                 ticks: [{
-                    type: 'major',
+                    type: "major",
                     distanceFromScale: 2,
                     height: 16,
                     width: 1,
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }, {
-                    type: 'minor',
+                    type: "minor",
                     height: 6,
                     width: 1,
                     distanceFromScale: 2,
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }],
                 labels: [{
-                    color: '#8c8c8c',
+                    color: "#8c8c8c",
                 }],
                 ranges: [{
                     distanceFromScale: -5,
-                    backgroundColor: '#fc0606',
-                    border: { color: '#fc0606' },
+                    backgroundColor: "#fc0606",
+                    border: { color: "#fc0606" },
                 }, {
                     distanceFromScale: -5,
                 }],
                 customLabels: [{
                     position: { x: 180, y: 290 },
-                    font: { size: '10px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }, {
                     position: { x: 180, y: 320 },
-                    font: { size: '10px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "10px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }, {
                     position: { x: 180, y: 150 },
-                    font: { size: '12px', fontFamily: 'Segoe UI', fontStyle: 'Normal' },
-                    color: '#666666',
+                    font: { size: "12px", fontFamily: "Segoe UI", fontStyle: "Normal" },
+                    color: "#666666",
                 }],
             }],
         });
@@ -13058,130 +13058,130 @@ module PivotGaugeRelational {
 
 module PivotGridOlap {
     $(function() {
-        var sample = new ej.PivotGrid($('#PivotGrid'), {
+        var sample = new ej.PivotGrid($("#PivotGrid"), {
             dataSource: {
-                data: '//bi.syncfusion.com/olap/msmdpump.dll',
-                catalog: 'Adventure Works DW 2008 SE',
-                cube: 'Adventure Works',
+                data: "//bi.syncfusion.com/olap/msmdpump.dll",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
                 rows: [
                     {
-                        fieldName: '[Date].[Fiscal]',
+                        fieldName: "[Date].[Fiscal]",
                     },
                 ],
                 columns: [
                     {
-                        fieldName: '[Customer].[Customer Geography]',
+                        fieldName: "[Customer].[Customer Geography]",
                     },
                 ],
                 values: [
                     {
                         measures: [
                             {
-                                fieldName: '[Measures].[Internet Sales Amount]',
+                                fieldName: "[Measures].[Internet Sales Amount]",
                             },
                         ],
-                        axis: 'columns',
+                        axis: "columns",
                     },
                 ],
                 filters: [],
             },
             enableGroupingBar: true,
-            pivotTableFieldListID: 'PivotSchemaDesigner',
+            pivotTableFieldListID: "PivotSchemaDesigner",
         });
-        $('#PivotSchemaDesigner').ejPivotSchemaDesigner();
+        $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
 
 var pivot_dataset = [
-    { Amount: 100, Country: 'Canada', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Alberta' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'British Columbia' },
-    { Amount: 300, Country: 'Canada', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Brunswick' },
-    { Amount: 150, Country: 'Canada', Date: 'FY 2008', Product: 'Bike', Quantity: 3, State: 'Manitoba' },
-    { Amount: 200, Country: 'Canada', Date: 'FY 2006', Product: 'Car', Quantity: 4, State: 'Ontario' },
-    { Amount: 100, Country: 'Canada', Date: 'FY 2007', Product: 'Van', Quantity: 1, State: 'Quebec' },
-    { Amount: 200, Country: 'France', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Charente-Maritime' },
-    { Amount: 250, Country: 'France', Date: 'FY 2006', Product: 'Van', Quantity: 4, State: 'Essonne' },
-    { Amount: 300, Country: 'France', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Garonne (Haute)' },
-    { Amount: 150, Country: 'France', Date: 'FY 2008', Product: 'Van', Quantity: 2, State: 'Gers' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2006', Product: 'Van', Quantity: 3, State: 'Bayern' },
-    { Amount: 250, Country: 'Germany', Date: 'FY 2007', Product: 'Car', Quantity: 3, State: 'Brandenburg' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2008', Product: 'Car', Quantity: 4, State: 'Hamburg' },
-    { Amount: 200, Country: 'Germany', Date: 'FY 2008', Product: 'Bike', Quantity: 4, State: 'Hessen' },
-    { Amount: 150, Country: 'Germany', Date: 'FY 2007', Product: 'Van', Quantity: 3, State: 'Nordrhein-Westfalen' },
-    { Amount: 100, Country: 'Germany', Date: 'FY 2005', Product: 'Bike', Quantity: 2, State: 'Saarland' },
-    { Amount: 150, Country: 'United Kingdom', Date: 'FY 2008', Product: 'Bike', Quantity: 5, State: 'England' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2007', Product: 'Car', Quantity: 4, State: 'Alabama' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Van', Quantity: 4, State: 'California' },
-    { Amount: 100, Country: 'United States', Date: 'FY 2006', Product: 'Bike', Quantity: 2, State: 'Colorado' },
-    { Amount: 150, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'New Mexico' },
-    { Amount: 200, Country: 'United States', Date: 'FY 2005', Product: 'Bike', Quantity: 4, State: 'New York' },
-    { Amount: 250, Country: 'United States', Date: 'FY 2008', Product: 'Car', Quantity: 3, State: 'North Carolina' },
-    { Amount: 300, Country: 'United States', Date: 'FY 2007', Product: 'Van', Quantity: 4, State: 'South Carolina' },
+    { Amount: 100, Country: "Canada", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Alberta" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Van", Quantity: 3, State: "British Columbia" },
+    { Amount: 300, Country: "Canada", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Brunswick" },
+    { Amount: 150, Country: "Canada", Date: "FY 2008", Product: "Bike", Quantity: 3, State: "Manitoba" },
+    { Amount: 200, Country: "Canada", Date: "FY 2006", Product: "Car", Quantity: 4, State: "Ontario" },
+    { Amount: 100, Country: "Canada", Date: "FY 2007", Product: "Van", Quantity: 1, State: "Quebec" },
+    { Amount: 200, Country: "France", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Charente-Maritime" },
+    { Amount: 250, Country: "France", Date: "FY 2006", Product: "Van", Quantity: 4, State: "Essonne" },
+    { Amount: 300, Country: "France", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Garonne (Haute)" },
+    { Amount: 150, Country: "France", Date: "FY 2008", Product: "Van", Quantity: 2, State: "Gers" },
+    { Amount: 200, Country: "Germany", Date: "FY 2006", Product: "Van", Quantity: 3, State: "Bayern" },
+    { Amount: 250, Country: "Germany", Date: "FY 2007", Product: "Car", Quantity: 3, State: "Brandenburg" },
+    { Amount: 150, Country: "Germany", Date: "FY 2008", Product: "Car", Quantity: 4, State: "Hamburg" },
+    { Amount: 200, Country: "Germany", Date: "FY 2008", Product: "Bike", Quantity: 4, State: "Hessen" },
+    { Amount: 150, Country: "Germany", Date: "FY 2007", Product: "Van", Quantity: 3, State: "Nordrhein-Westfalen" },
+    { Amount: 100, Country: "Germany", Date: "FY 2005", Product: "Bike", Quantity: 2, State: "Saarland" },
+    { Amount: 150, Country: "United Kingdom", Date: "FY 2008", Product: "Bike", Quantity: 5, State: "England" },
+    { Amount: 250, Country: "United States", Date: "FY 2007", Product: "Car", Quantity: 4, State: "Alabama" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Van", Quantity: 4, State: "California" },
+    { Amount: 100, Country: "United States", Date: "FY 2006", Product: "Bike", Quantity: 2, State: "Colorado" },
+    { Amount: 150, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "New Mexico" },
+    { Amount: 200, Country: "United States", Date: "FY 2005", Product: "Bike", Quantity: 4, State: "New York" },
+    { Amount: 250, Country: "United States", Date: "FY 2008", Product: "Car", Quantity: 3, State: "North Carolina" },
+    { Amount: 300, Country: "United States", Date: "FY 2007", Product: "Van", Quantity: 4, State: "South Carolina" },
 ];
 
 module PivotGridRelational {
     $(function() {
-        var sample = new ej.PivotGrid($('#PivotGrid'), {
+        var sample = new ej.PivotGrid($("#PivotGrid"), {
             dataSource: {
                 data: pivot_dataset,
                 rows: [
                     {
-                        fieldName: 'Country',
-                        fieldCaption: 'Country',
+                        fieldName: "Country",
+                        fieldCaption: "Country",
                     },
                     {
-                        fieldName: 'State',
-                        fieldCaption: 'State',
+                        fieldName: "State",
+                        fieldCaption: "State",
                     },
                 ],
                 columns: [{
-                    fieldName: 'Product',
-                    fieldCaption: 'Product',
+                    fieldName: "Product",
+                    fieldCaption: "Product",
                 }],
                 values: [
                     {
-                        fieldName: 'Amount',
-                        fieldCaption: 'Amount',
+                        fieldName: "Amount",
+                        fieldCaption: "Amount",
                     },
                     {
-                        fieldName: 'Quantity',
-                        fieldCaption: 'Quantity',
+                        fieldName: "Quantity",
+                        fieldCaption: "Quantity",
                     },
                 ],
                 filters: [],
             },
             enableGroupingBar: true,
-            pivotTableFieldListID: 'PivotSchemaDesigner',
+            pivotTableFieldListID: "PivotSchemaDesigner",
         });
-        $('#PivotSchemaDesigner').ejPivotSchemaDesigner();
+        $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
 }
 
 module PivotTreeMap {
     $(function() {
-        var sample = new ej.PivotTreeMap($('#PivotTreeMap'), {
+        var sample = new ej.PivotTreeMap($("#PivotTreeMap"), {
             dataSource: {
-                data: '//bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;',
-                catalog: 'Adventure Works DW 2008 SE',
-                cube: 'Adventure Works',
+                data: "//bi.syncfusion.com/olap/msmdpump.dll;Locale Identifier=1033;",
+                catalog: "Adventure Works DW 2008 SE",
+                cube: "Adventure Works",
                 rows: [
                     {
-                        fieldName: '[Customer].[Customer Geography]',
+                        fieldName: "[Customer].[Customer Geography]",
                     },
                 ],
                 columns: [
                     {
-                        fieldName: '[Date].[Fiscal]',
+                        fieldName: "[Date].[Fiscal]",
                     },
                 ],
                 values: [
                     {
                         measures: [
                             {
-                                fieldName: '[Measures].[Customer Count]',
+                                fieldName: "[Measures].[Customer Count]",
                             },
                         ],
-                        axis: 'columns',
+                        axis: "columns",
                     },
                 ],
                 filters: [],
@@ -13192,7 +13192,7 @@ module PivotTreeMap {
 
 module ProgressBarComponent {
     $(function() {
-        var sample = new ej.ProgressBar($('#progressBar'), {
+        var sample = new ej.ProgressBar($("#progressBar"), {
             width: 200,
             value: 45,
             height: 20,
@@ -13200,38 +13200,38 @@ module ProgressBarComponent {
             maxValue: 200,
             minValue: 0,
             showRoundedCorner: true,
-            text: 'loading...',
+            text: "loading...",
         });
     });
 }
 
 declare var rteObj: any;
 declare var data: any;
-var radialEle = $('#defaultradialmenu'), action = 0, forRedo = 0;
-var rteEle = $('#rteSample1');
+var radialEle = $("#defaultradialmenu"), action = 0, forRedo = 0;
+var rteEle = $("#rteSample1");
 module RadialMenuComponent {
     $(function() {
-        if (!(ej.browserInfo().name == 'msie' && parseInt(ej.browserInfo().version) < 9)) {
-            var radialmenuInstance = new ej.RadialMenu($('#defaultradialmenu'), {
-                imageClass: 'imageclass',
-                backImageClass: 'backimageclass',
-                targetElementId: 'radialtarget1',
+        if (!(ej.browserInfo().name == "msie" && parseInt(ej.browserInfo().version) < 9)) {
+            var radialmenuInstance = new ej.RadialMenu($("#defaultradialmenu"), {
+                imageClass: "imageclass",
+                backImageClass: "backimageclass",
+                targetElementId: "radialtarget1",
             });
-            $('#radialtarget1').parent().css('position', 'relative');
+            $("#radialtarget1").parent().css("position", "relative");
         } else {
-            $('#contentDiv').html('Radial Menu is only supported from Internet Explorer Versioned 9 and above.').css({
-                'font-size': '20px',
-                'color': 'red',
+            $("#contentDiv").html("Radial Menu is only supported from Internet Explorer Versioned 9 and above.").css({
+                "font-size": "20px",
+                "color": "red",
             });
         }
-        var rteInstance = new ej.RTE($('#rteSample1'), {
-            width: '100%',
-            minWidth: '10px',
+        var rteInstance = new ej.RTE($("#rteSample1"), {
+            width: "100%",
+            minWidth: "10px",
             change: e => {
-                radialEle.ejRadialMenu('enableItem', 'Undo');
+                radialEle.ejRadialMenu("enableItem", "Undo");
             },
             select: e => {
-                var target = $('#radialtarget1'),
+                var target = $("#radialtarget1"),
                     radialRadius = 150,
                     radialDiameter = 2 * radialRadius,
                     // To get Iframe positions
@@ -13244,148 +13244,148 @@ module RadialMenuComponent {
                     y = iframeY > target.height() - radialRadius
                         ? target.height() - radialDiameter
                         : (iframeY > radialRadius ? iframeY - radialRadius : 0);
-                radialEle.ejRadialMenu('setPosition', x, y);
+                radialEle.ejRadialMenu("setPosition", x, y);
                 radialEle.focus();
-                $('iframe').contents().find('body').blur();
+                $("iframe").contents().find("body").blur();
             },
             showToolbar: false,
             showContextMenu: false,
         });
         $(window).resize(function() {
             if (ej.isMobile() && ej.isPortrait()) {
-                $('#defaultradialmenu').css({ 'left': 25 });
+                $("#defaultradialmenu").css({ "left": 25 });
             }
         });
     });
 }
 
 function bold(e: any) {
-    rteObj = rteEle.data('ejRTE');
-    rteObj.executeCommand('bold');
+    rteObj = rteEle.data("ejRTE");
+    rteObj.executeCommand("bold");
     data = rteObj._getSelectedHtmlString() ? true : false;
     if (data) action += 1;
     forRedo = action;
     radialEle.focus();
 }
 function italic(e: any) {
-    rteObj = rteEle.data('ejRTE');
-    rteObj.executeCommand('italic');
+    rteObj = rteEle.data("ejRTE");
+    rteObj.executeCommand("italic");
     data = rteObj._getSelectedHtmlString() ? true : false;
     if (data) action += 1;
     forRedo = action;
     radialEle.focus();
 }
 function undo(e: any) {
-    rteObj = rteEle.data('ejRTE');
-    rteObj.executeCommand('undo');
+    rteObj = rteEle.data("ejRTE");
+    rteObj.executeCommand("undo");
     action -= 1;
     if (action == 0) {
-        radialEle.ejRadialMenu('disableItem', 'Undo');
+        radialEle.ejRadialMenu("disableItem", "Undo");
     }
-    radialEle.ejRadialMenu('enableItem', 'Redo');
+    radialEle.ejRadialMenu("enableItem", "Redo");
     radialEle.focus();
 }
 function redo(e: any) {
-    rteObj = rteEle.data('ejRTE');
-    rteObj.executeCommand('redo');
+    rteObj = rteEle.data("ejRTE");
+    rteObj.executeCommand("redo");
     action += 1;
-    if (forRedo == action) radialEle.ejRadialMenu('disableItem', 'Redo');
-    radialEle.ejRadialMenu('enableItem', 'Undo');
+    if (forRedo == action) radialEle.ejRadialMenu("disableItem", "Redo");
+    radialEle.ejRadialMenu("enableItem", "Undo");
     radialEle.focus();
 }
 
 module RadialSliderComponent {
     $(function() {
-        var radialsliderInstance = new ej.RadialSlider($('#radialSlider'), {
-            innerCircleImageUrl: 'images/radialslider/chevron-right.png',
+        var radialsliderInstance = new ej.RadialSlider($("#radialSlider"), {
+            innerCircleImageUrl: "images/radialslider/chevron-right.png",
         });
     });
 }
 
 module rangecomponent {
     $(function() {
-        var linearsample = new ej.datavisualization.RangeNavigator($('#RangeNavigator'), {
+        var linearsample = new ej.datavisualization.RangeNavigator($("#RangeNavigator"), {
             enableDeferredUpdate: true,
-            padding: '15',
+            padding: "15",
             allowSnapping: true,
             selectedRangeSettings: {
-                start: '2010/5/1',
-                end: '2011/10/1',
+                start: "2010/5/1",
+                end: "2011/10/1",
             },
             isResponsive: true,
             tooltipSettings: {
                 visible: true,
-                labelFormat: 'MM/dd/yyyy',
-                backgroundColor: 'gray',
-                tooltipDisplayMode: 'ondemand',
+                labelFormat: "MM/dd/yyyy",
+                backgroundColor: "gray",
+                tooltipDisplayMode: "ondemand",
             },
             load: () => {
-                var rn = $('#RangeNavigator').data('ejRangeNavigator');
+                var rn = $("#RangeNavigator").data("ejRangeNavigator");
                 rn.model.series = [
                     {
-                        type: 'line',
+                        type: "line",
                         dataSource: data.Open,
-                        xName: 'XValue',
-                        yName: 'YValue',
-                        fill: '#69D2E7',
+                        xName: "XValue",
+                        yName: "YValue",
+                        fill: "#69D2E7",
                     },
                 ];
             },
             loaded: function() {
-                var sender = $('#RangeNavigator').data('ejRangeNavigator');
+                var sender = $("#RangeNavigator").data("ejRangeNavigator");
                 var theme = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 if (theme) {
                     switch (theme) {
-                        case 'flatazurelight':
-                            theme = 'azurelight';
+                        case "flatazurelight":
+                            theme = "azurelight";
                             break;
-                        case 'flatlimelight':
-                            theme = 'limelight';
+                        case "flatlimelight":
+                            theme = "limelight";
                             break;
-                        case 'flatsaffronlight':
-                            theme = 'saffronlight';
+                        case "flatsaffronlight":
+                            theme = "saffronlight";
                             break;
-                        case 'gradientazurelight':
-                            theme = 'gradientazure';
+                        case "gradientazurelight":
+                            theme = "gradientazure";
                             break;
-                        case 'gradientlimelight':
-                            theme = 'gradientlime';
+                        case "gradientlimelight":
+                            theme = "gradientlime";
                             break;
-                        case 'gradientsaffronlight':
-                            theme = 'gradientsaffron';
+                        case "gradientsaffronlight":
+                            theme = "gradientsaffron";
                             break;
-                        case 'flatazuredark':
-                            theme = 'azuredark';
+                        case "flatazuredark":
+                            theme = "azuredark";
                             break;
-                        case 'flatlimedark':
-                            theme = 'limedark';
+                        case "flatlimedark":
+                            theme = "limedark";
                             break;
-                        case 'flatsaffrondark':
-                            theme = 'saffrondark';
+                        case "flatsaffrondark":
+                            theme = "saffrondark";
                             break;
-                        case 'gradientazuredark':
-                            theme = 'gradientazuredark';
+                        case "gradientazuredark":
+                            theme = "gradientazuredark";
                             break;
-                        case 'gradientlimedark':
-                            theme = 'gradientlimedark';
+                        case "gradientlimedark":
+                            theme = "gradientlimedark";
                             break;
-                        case 'gradientsaffrondark':
-                            theme = 'gradientsaffrondark';
+                        case "gradientsaffrondark":
+                            theme = "gradientsaffrondark";
                             break;
-                        case 'flathigh-contrast-01dark':
-                            theme = 'highcontrast01';
+                        case "flathigh-contrast-01dark":
+                            theme = "highcontrast01";
                             break;
-                        case 'flathigh-contrast-02dark':
-                            theme = 'highcontrast02';
+                        case "flathigh-contrast-02dark":
+                            theme = "highcontrast02";
                             break;
-                        case 'flatmateriallight':
-                            theme = 'material';
+                        case "flatmateriallight":
+                            theme = "material";
                             break;
-                        case 'flatoffice-365light':
-                            theme = 'office';
+                        case "flatoffice-365light":
+                            theme = "office";
                             break;
                         default:
-                            theme = 'flatlight';
+                            theme = "flatlight";
                             break;
                     }
                     sender.model.theme = theme;
@@ -13422,11 +13422,11 @@ function GetData() {
 
 module RatingComponent {
     $(function() {
-        var sample1 = new ej.Rating($('#fullRating'), {
+        var sample1 = new ej.Rating($("#fullRating"), {
             value: 4,
             precision: ej.Rating.Precision.Full,
             allowReset: true,
-            cssClass: 'gradient-lime',
+            cssClass: "gradient-lime",
             enabled: true,
             enablePersistence: true,
             incrementStep: 2,
@@ -13438,33 +13438,33 @@ module RatingComponent {
             showTooltip: true,
         });
 
-        var sample2 = new ej.Rating($('#halfRating'), {
+        var sample2 = new ej.Rating($("#halfRating"), {
             precision: ej.Rating.Precision.Half,
             value: 3.5,
             allowReset: true,
-            cssClass: 'gradient-lime',
+            cssClass: "gradient-lime",
             enabled: true,
             enablePersistence: true,
             incrementStep: 2,
             maxValue: 10,
             minValue: 0,
-            orientation: 'horizontal',
+            orientation: "horizontal",
             shapeHeight: 25,
             shapeWidth: 25,
             showTooltip: true,
         });
 
-        var sample3 = new ej.Rating($('#exactRating'), {
+        var sample3 = new ej.Rating($("#exactRating"), {
             precision: ej.Rating.Precision.Exact,
             value: 3.7,
             allowReset: true,
-            cssClass: 'gradient-lime',
+            cssClass: "gradient-lime",
             enabled: true,
             enablePersistence: true,
             incrementStep: 2,
             maxValue: 10,
             minValue: 0,
-            orientation: 'horizontal',
+            orientation: "horizontal",
             shapeHeight: 25,
             shapeWidth: 25,
             showTooltip: true,
@@ -13472,657 +13472,657 @@ module RatingComponent {
     });
 }
 
-var fontfamily = ['Segoe UI', 'Arial', 'Times New Roman', 'Tahoma', 'Helvetica'],
-    fontsize = ['1pt', '2pt', '3pt', '4pt', '5pt'],
-    action1 = ['New', 'Clear'],
+var fontfamily = ["Segoe UI", "Arial", "Times New Roman", "Tahoma", "Helvetica"],
+    fontsize = ["1pt", "2pt", "3pt", "4pt", "5pt"],
+    action1 = ["New", "Clear"],
     action2 = [
-        'Bold',
-        'Italic',
-        'Underline',
-        'strikethrough',
-        'superscript',
-        'subscript',
-        'JustifyLeft',
-        'JustifyCenter',
-        'JustifyRight',
-        'JustifyFull',
-        'Undo',
-        'Redo',
+        "Bold",
+        "Italic",
+        "Underline",
+        "strikethrough",
+        "superscript",
+        "subscript",
+        "JustifyLeft",
+        "JustifyCenter",
+        "JustifyRight",
+        "JustifyFull",
+        "Undo",
+        "Redo",
     ];
 module RibbonComponent {
     $(function() {
-        var sample = new ej.Ribbon($('#defaultRibbon'), {
-            width: '100%',
+        var sample = new ej.Ribbon($("#defaultRibbon"), {
+            width: "100%",
             expandPinSettings: {
-                toolTip: 'Collapse the Ribbon',
+                toolTip: "Collapse the Ribbon",
             },
             collapsePinSettings: {
-                toolTip: 'Pin the Ribbon',
+                toolTip: "Pin the Ribbon",
             },
             applicationTab: {
                 type: ej.Ribbon.ApplicationTabType.Menu,
-                menuItemID: 'ribbonmenu',
+                menuItemID: "ribbonmenu",
                 menuSettings: { openOnClick: false },
             },
             tabs: [{
-                id: 'home',
-                text: 'HOME',
+                id: "home",
+                text: "HOME",
                 groups: [{
-                    text: 'New',
+                    text: "New",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'new',
-                            text: 'New',
-                            toolTip: 'New',
+                            id: "new",
+                            text: "New",
+                            toolTip: "New",
                             buttonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-new',
-                                click: 'onClick',
+                                prefixIcon: "e-icon e-ribbon e-new",
+                                click: "onClick",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 60,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Clipboard',
+                    text: "Clipboard",
                     alignType: ej.Ribbon.AlignType.Columns,
                     content: [{
                         groups: [{
-                            id: 'paste',
-                            text: 'paste',
-                            toolTip: 'Paste',
+                            id: "paste",
+                            text: "paste",
+                            toolTip: "Paste",
                             splitButtonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
-                                prefixIcon: 'e-icon e-ribbon e-ribbonpaste',
-                                targetID: 'pasteSplit',
-                                buttonMode: 'dropdown',
-                                click: 'onClick',
+                                prefixIcon: "e-icon e-ribbon e-ribbonpaste",
+                                targetID: "pasteSplit",
+                                buttonMode: "dropdown",
+                                click: "onClick",
                                 arrowPosition: ej.ArrowPosition.Bottom,
                             },
                         }],
                         defaults: {
-                            type: 'splitbutton',
+                            type: "splitbutton",
                             width: 50,
                             height: 70,
                         },
                     }, {
                         groups: [{
-                            id: 'cut',
-                            text: 'Cut',
-                            toolTip: 'Cut',
+                            id: "cut",
+                            text: "Cut",
+                            toolTip: "Cut",
                             buttonSettings: {
                                 contentType: ej.ContentType.TextAndImage,
-                                click: 'onClick',
-                                prefixIcon: 'e-icon e-ribbon e-ribboncut',
+                                click: "onClick",
+                                prefixIcon: "e-icon e-ribbon e-ribboncut",
                             },
                         }, {
-                            id: 'copy',
-                            text: 'Copy',
-                            toolTip: 'Copy',
+                            id: "copy",
+                            text: "Copy",
+                            toolTip: "Copy",
                             buttonSettings: {
                                 contentType: ej.ContentType.TextAndImage,
-                                click: 'onClick',
-                                prefixIcon: 'e-icon e-ribbon e-ribboncopy',
+                                click: "onClick",
+                                prefixIcon: "e-icon e-ribbon e-ribboncopy",
                             },
                         }, {
-                            id: 'clear',
-                            text: 'Clear',
-                            toolTip: 'Clear All',
+                            id: "clear",
+                            text: "Clear",
+                            toolTip: "Clear All",
                             buttonSettings: {
                                 contentType: ej.ContentType.TextAndImage,
-                                click: 'onClick',
-                                prefixIcon: 'e-icon e-ribbon clearAll',
+                                click: "onClick",
+                                prefixIcon: "e-icon e-ribbon clearAll",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 60,
                             isBig: false,
                         },
                     }],
                 }, {
-                    text: 'Font',
-                    alignType: 'rows',
+                    text: "Font",
+                    alignType: "rows",
                     content: [{
                         groups: [{
-                            id: 'fontfamily',
-                            toolTip: 'Font',
+                            id: "fontfamily",
+                            toolTip: "Font",
                             dropdownSettings: {
                                 dataSource: fontfamily,
-                                text: 'Segoe UI',
-                                select: 'onClick',
+                                text: "Segoe UI",
+                                select: "onClick",
                                 width: 150,
                             },
                         }, {
-                            id: 'fontsize',
-                            toolTip: 'FontSize',
+                            id: "fontsize",
+                            toolTip: "FontSize",
                             dropdownSettings: {
                                 dataSource: fontsize,
-                                text: '1pt',
-                                select: 'onClick',
+                                text: "1pt",
+                                select: "onClick",
                                 width: 65,
                             },
                         }],
                         defaults: {
-                            type: 'dropdownlist',
+                            type: "dropdownlist",
                             height: 28,
                         },
                     }, {
                         groups: [{
-                            id: 'bold',
-                            toolTip: 'Bold',
+                            id: "bold",
+                            toolTip: "Bold",
                             type: ej.Ribbon.Type.ToggleButton,
                             toggleButtonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
-                                defaultText: 'Bold',
-                                activeText: 'Bold',
-                                click: 'onClick',
-                                defaultPrefixIcon: 'e-icon e-ribbon bold',
-                                activePrefixIcon: 'e-icon e-ribbon bold',
+                                defaultText: "Bold",
+                                activeText: "Bold",
+                                click: "onClick",
+                                defaultPrefixIcon: "e-icon e-ribbon bold",
+                                activePrefixIcon: "e-icon e-ribbon bold",
                             },
                         }, {
-                            id: 'italic',
-                            toolTip: 'Italic',
+                            id: "italic",
+                            toolTip: "Italic",
                             type: ej.Ribbon.Type.ToggleButton,
                             toggleButtonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
-                                defaultText: 'Italic',
-                                activeText: 'Italic',
-                                click: 'onClick',
-                                defaultPrefixIcon: 'e-icon e-ribbon e-ribbonitalic',
-                                activePrefixIcon: 'e-icon e-ribbon e-ribbonitalic',
+                                defaultText: "Italic",
+                                activeText: "Italic",
+                                click: "onClick",
+                                defaultPrefixIcon: "e-icon e-ribbon e-ribbonitalic",
+                                activePrefixIcon: "e-icon e-ribbon e-ribbonitalic",
                             },
                         }, {
-                            id: 'underline',
-                            text: 'Underline',
-                            toolTip: 'Underline',
+                            id: "underline",
+                            text: "Underline",
+                            toolTip: "Underline",
                             type: ej.Ribbon.Type.ToggleButton,
                             toggleButtonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
-                                defaultText: 'Underline',
-                                activeText: 'Underline',
-                                click: 'onClick',
-                                defaultPrefixIcon: 'e-icon e-ribbon e-ribbonunderline',
-                                activePrefixIcon: 'e-icon e-ribbon e-ribbonunderline',
+                                defaultText: "Underline",
+                                activeText: "Underline",
+                                click: "onClick",
+                                defaultPrefixIcon: "e-icon e-ribbon e-ribbonunderline",
+                                activePrefixIcon: "e-icon e-ribbon e-ribbonunderline",
                             },
                         }, {
-                            id: 'strikethrough',
-                            text: 'strikethrough',
-                            toolTip: 'Strikethrough',
+                            id: "strikethrough",
+                            text: "strikethrough",
+                            toolTip: "Strikethrough",
                             type: ej.Ribbon.Type.ToggleButton,
                             toggleButtonSettings: {
                                 contentType: ej.ContentType.ImageOnly,
-                                defaultText: 'Strikethrough',
-                                activeText: 'Strikethrough',
-                                click: 'onClick',
-                                defaultPrefixIcon: 'e-icon e-ribbon strikethrough',
-                                activePrefixIcon: 'e-icon e-ribbon strikethrough',
+                                defaultText: "Strikethrough",
+                                activeText: "Strikethrough",
+                                click: "onClick",
+                                defaultPrefixIcon: "e-icon e-ribbon strikethrough",
+                                activePrefixIcon: "e-icon e-ribbon strikethrough",
                             },
                         }, {
-                            id: 'superscript',
-                            text: 'superscript',
-                            toolTip: 'Superscript',
+                            id: "superscript",
+                            text: "superscript",
+                            toolTip: "Superscript",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.ImageOnly,
-                                prefixIcon: 'e-icon e-ribbon e-superscripticon',
+                                prefixIcon: "e-icon e-ribbon e-superscripticon",
                             },
                         }, {
-                            id: 'subscript',
-                            text: 'subscript',
-                            toolTip: 'Subscript',
+                            id: "subscript",
+                            text: "subscript",
+                            toolTip: "Subscript",
                             enableSeparator: true,
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.ImageOnly,
-                                prefixIcon: 'e-icon e-ribbon e-subscripticon',
+                                prefixIcon: "e-icon e-ribbon e-subscripticon",
                             },
                         }, {
-                            id: 'fontcolor',
-                            text: 'Font Color',
-                            toolTip: 'Font Color',
+                            id: "fontcolor",
+                            text: "Font Color",
+                            toolTip: "Font Color",
                             type: ej.Ribbon.Type.Custom,
-                            contentID: 'fontcolor',
+                            contentID: "fontcolor",
                         }, {
-                            id: 'fillcolor',
-                            text: 'Fill Color',
-                            toolTip: 'Fill Color',
+                            id: "fillcolor",
+                            text: "Fill Color",
+                            toolTip: "Fill Color",
                             type: ej.Ribbon.Type.Custom,
-                            contentID: 'fillcolor',
+                            contentID: "fillcolor",
                         }],
                         defaults: {
                             isBig: false,
                         },
                     }],
                 }, {
-                    text: 'Alignment',
+                    text: "Alignment",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [
                         {
                             groups: [{
-                                id: 'bullet',
-                                text: 'Bullet Format',
-                                toolTip: 'Bullets',
+                                id: "bullet",
+                                text: "Bullet Format",
+                                toolTip: "Bullets",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-bullet',
+                                    prefixIcon: "e-icon e-ribbon e-bullet",
                                 },
                             }, {
-                                id: 'number',
-                                text: 'Number Format',
-                                toolTip: 'Numbering',
+                                id: "number",
+                                text: "Number Format",
+                                toolTip: "Numbering",
                                 enableSeparator: true,
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-numbericon',
+                                    prefixIcon: "e-icon e-ribbon e-numbericon",
                                 },
                             }, {
-                                id: 'textindent',
-                                text: 'Indent',
-                                toolTip: 'Text Indent',
+                                id: "textindent",
+                                text: "Indent",
+                                toolTip: "Text Indent",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-indent',
+                                    prefixIcon: "e-icon e-ribbon e-indent",
                                 },
                             }, {
-                                id: 'textoudent',
-                                text: 'Outdent',
-                                toolTip: 'Text Outdent',
+                                id: "textoudent",
+                                text: "Outdent",
+                                toolTip: "Text Outdent",
                                 enableSeparator: true,
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-outdent',
+                                    prefixIcon: "e-icon e-ribbon e-outdent",
                                 },
                             }, {
-                                id: 'sortascending',
-                                text: 'Sort',
-                                toolTip: 'Sort',
+                                id: "sortascending",
+                                text: "Sort",
+                                toolTip: "Sort",
                                 enableSeparator: true,
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-sort',
+                                    prefixIcon: "e-icon e-ribbon e-sort",
                                 },
                             }, {
-                                id: 'border',
-                                text: 'Border',
-                                toolTip: 'Border',
+                                id: "border",
+                                text: "Border",
+                                toolTip: "Border",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-border',
+                                    prefixIcon: "e-icon e-ribbon e-border",
                                 },
                             }],
                             defaults: {
-                                type: 'button',
+                                type: "button",
                                 isBig: false,
                             },
                         },
                         {
                             groups: [{
-                                id: 'alignleft',
-                                text: 'JustifyLeft',
-                                toolTip: 'Align Left',
+                                id: "alignleft",
+                                text: "JustifyLeft",
+                                toolTip: "Align Left",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon alignleft',
+                                    prefixIcon: "e-icon e-ribbon alignleft",
                                 },
                             }, {
-                                id: 'aligncenter',
-                                text: 'JustifyCenter',
-                                toolTip: 'Align Center',
+                                id: "aligncenter",
+                                text: "JustifyCenter",
+                                toolTip: "Align Center",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon aligncenter',
+                                    prefixIcon: "e-icon e-ribbon aligncenter",
                                 },
                             }, {
-                                id: 'alignright',
-                                text: 'JustifyRight',
-                                toolTip: 'Align Right',
+                                id: "alignright",
+                                text: "JustifyRight",
+                                toolTip: "Align Right",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon alignright',
+                                    prefixIcon: "e-icon e-ribbon alignright",
                                 },
                             }, {
-                                id: 'justify',
-                                text: 'JustifyFull',
-                                toolTip: 'Justify',
+                                id: "justify",
+                                text: "JustifyFull",
+                                toolTip: "Justify",
                                 enableSeparator: true,
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon justify',
+                                    prefixIcon: "e-icon e-ribbon justify",
                                 },
                             }, {
-                                id: 'uppercase',
-                                text: 'Upper Case',
-                                toolTip: 'Upper Case',
+                                id: "uppercase",
+                                text: "Upper Case",
+                                toolTip: "Upper Case",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-uppercase',
+                                    prefixIcon: "e-icon e-ribbon e-uppercase",
                                 },
                             }, {
-                                id: 'lowercase',
-                                text: 'Lower Case',
-                                toolTip: 'Lower Case',
+                                id: "lowercase",
+                                text: "Lower Case",
+                                toolTip: "Lower Case",
                                 buttonSettings: {
-                                    click: 'onClick',
+                                    click: "onClick",
                                     contentType: ej.ContentType.ImageOnly,
-                                    prefixIcon: 'e-icon e-ribbon e-lowercase',
+                                    prefixIcon: "e-icon e-ribbon e-lowercase",
                                 },
                             }],
                             defaults: {
-                                type: 'button',
+                                type: "button",
                                 isBig: false,
                             },
                         },
                     ],
                 }, {
-                    text: 'Actions',
+                    text: "Actions",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'undo',
-                            text: 'Undo',
-                            toolTip: 'Undo',
+                            id: "undo",
+                            text: "Undo",
+                            toolTip: "Undo",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-undo',
+                                prefixIcon: "e-icon e-ribbon e-undo",
                             },
                         }, {
-                            id: 'redo',
-                            text: 'Redo',
-                            toolTip: 'Redo',
+                            id: "redo",
+                            text: "Redo",
+                            toolTip: "Redo",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-redo',
+                                prefixIcon: "e-icon e-ribbon e-redo",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 40,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'View',
+                    text: "View",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'zoomin',
-                            text: 'Zoom In',
-                            toolTip: 'Zoom In',
+                            id: "zoomin",
+                            text: "Zoom In",
+                            toolTip: "Zoom In",
                             buttonSettings: {
                                 width: 58,
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-zoomin',
+                                prefixIcon: "e-icon e-ribbon e-zoomin",
                             },
                         }, {
-                            id: 'zoomout',
-                            text: 'Zoom Out',
-                            toolTip: 'Zoom Out',
+                            id: "zoomout",
+                            text: "Zoom Out",
+                            toolTip: "Zoom Out",
                             buttonSettings: {
                                 width: 70,
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-zoomout',
+                                prefixIcon: "e-icon e-ribbon e-zoomout",
                             },
                         }, {
-                            id: 'fullscreen',
-                            text: 'Full Screen',
-                            toolTip: 'Full Screen',
+                            id: "fullscreen",
+                            text: "Full Screen",
+                            toolTip: "Full Screen",
                             buttonSettings: {
                                 width: 73,
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-fullscreen',
+                                prefixIcon: "e-icon e-ribbon e-fullscreen",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             height: 70,
                         },
                     }],
                 }],
             }, {
-                id: 'insert',
-                text: 'INSERT',
+                id: "insert",
+                text: "INSERT",
                 groups: [{
-                    text: 'Tables',
+                    text: "Tables",
                     alignType: ej.Ribbon.AlignType.Columns,
                     content: [{
                         groups: [{
-                            id: 'tables',
-                            text: 'Tables',
-                            toolTip: 'Tables',
+                            id: "tables",
+                            text: "Tables",
+                            toolTip: "Tables",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-table',
+                                prefixIcon: "e-icon e-ribbon e-table",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 50,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Illustrations',
+                    text: "Illustrations",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'pictures',
-                            text: 'Pictures',
-                            toolTip: 'Pictures',
+                            id: "pictures",
+                            text: "Pictures",
+                            toolTip: "Pictures",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-picture',
+                                prefixIcon: "e-icon e-ribbon e-picture",
                             },
                         }, {
-                            id: 'videos',
-                            text: 'Videos',
-                            toolTip: 'Videos',
+                            id: "videos",
+                            text: "Videos",
+                            toolTip: "Videos",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-video',
+                                prefixIcon: "e-icon e-ribbon e-video",
                             },
                         }, {
-                            id: 'shapes',
-                            text: 'Shapes',
-                            toolTip: 'Shapes',
+                            id: "shapes",
+                            text: "Shapes",
+                            toolTip: "Shapes",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-shape',
+                                prefixIcon: "e-icon e-ribbon e-shape",
                             },
                         }, {
-                            id: 'charts',
-                            text: 'Charts',
-                            toolTip: 'Charts',
+                            id: "charts",
+                            text: "Charts",
+                            toolTip: "Charts",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-chart',
+                                prefixIcon: "e-icon e-ribbon e-chart",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 56,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Comments',
+                    text: "Comments",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'comments',
-                            text: 'Comments',
-                            toolTip: 'Comments',
+                            id: "comments",
+                            text: "Comments",
+                            toolTip: "Comments",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-comment',
+                                prefixIcon: "e-icon e-ribbon e-comment",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 70,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Text',
+                    text: "Text",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'text',
-                            text: 'Text',
-                            toolTip: 'Text',
+                            id: "text",
+                            text: "Text",
+                            toolTip: "Text",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-text',
+                                prefixIcon: "e-icon e-ribbon e-text",
                                 width: 50,
                             },
                         }, {
-                            id: 'datetime',
-                            text: 'Date Time',
-                            toolTip: 'DateTime',
+                            id: "datetime",
+                            text: "Date Time",
+                            toolTip: "DateTime",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-datetimenew',
+                                prefixIcon: "e-icon e-ribbon e-datetimenew",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 70,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Hyperlink',
+                    text: "Hyperlink",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'hyperlink',
-                            text: 'Hyperlink',
-                            toolTip: 'Hyperlink',
+                            id: "hyperlink",
+                            text: "Hyperlink",
+                            toolTip: "Hyperlink",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-hyperlink',
+                                prefixIcon: "e-icon e-ribbon e-hyperlink",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 70,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Equation',
+                    text: "Equation",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'equation',
-                            text: 'Equation',
-                            toolTip: 'Equation',
+                            id: "equation",
+                            text: "Equation",
+                            toolTip: "Equation",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-equation',
+                                prefixIcon: "e-icon e-ribbon e-equation",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 60,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Print Layout',
+                    text: "Print Layout",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'printlayout',
-                            text: 'Print Layout',
-                            toolTip: 'Print Layout',
+                            id: "printlayout",
+                            text: "Print Layout",
+                            toolTip: "Print Layout",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-printlayout',
+                                prefixIcon: "e-icon e-ribbon e-printlayout",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 80,
                             height: 70,
                         },
                     }],
                 }, {
-                    text: 'Save',
+                    text: "Save",
                     alignType: ej.Ribbon.AlignType.Rows,
                     content: [{
                         groups: [{
-                            id: 'print',
-                            text: 'Print',
-                            toolTip: 'Print',
+                            id: "print",
+                            text: "Print",
+                            toolTip: "Print",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-print',
+                                prefixIcon: "e-icon e-ribbon e-print",
                             },
                         }, {
-                            id: 'save',
-                            text: 'Save',
-                            toolTip: 'Save',
+                            id: "save",
+                            text: "Save",
+                            toolTip: "Save",
                             buttonSettings: {
-                                click: 'onClick',
+                                click: "onClick",
                                 contentType: ej.ContentType.TextAndImage,
                                 imagePosition: ej.ImagePosition.ImageTop,
-                                prefixIcon: 'e-icon e-ribbon e-save',
+                                prefixIcon: "e-icon e-ribbon e-save",
                             },
                         }],
                         defaults: {
-                            type: 'button',
+                            type: "button",
                             width: 50,
                             height: 70,
                         },
@@ -14130,19 +14130,19 @@ module RibbonComponent {
                 }],
             }],
             create: function createControl(args) {
-                var ribbon = $('#defaultRibbon').data('ejRibbon');
-                $('#fontcolor').ejColorPicker({
-                    value: '#FFFF00',
-                    modelType: 'palette',
-                    cssClass: 'e-ribbon',
-                    toolIcon: 'e-fontcoloricon',
+                var ribbon = $("#defaultRibbon").data("ejRibbon");
+                $("#fontcolor").ejColorPicker({
+                    value: "#FFFF00",
+                    modelType: "palette",
+                    cssClass: "e-ribbon",
+                    toolIcon: "e-fontcoloricon",
                     select: colorHandler,
                 });
-                $('#fillcolor').ejColorPicker({
-                    value: '#FF0000',
-                    modelType: 'palette',
-                    cssClass: 'e-ribbon',
-                    toolIcon: 'e-fillcoloricon',
+                $("#fillcolor").ejColorPicker({
+                    value: "#FF0000",
+                    modelType: "palette",
+                    cssClass: "e-ribbon",
+                    toolIcon: "e-fillcoloricon",
                     select: colorHandler,
                 });
             },
@@ -14150,52 +14150,52 @@ module RibbonComponent {
     });
 }
 function colorHandler(args: any) {
-    (this._id.indexOf('fillcolor') != -1)
-        ? $('#contenteditor').css('background-color', args.value)
-        : document.execCommand('forecolor', false, args.value);
+    (this._id.indexOf("fillcolor") != -1)
+        ? $("#contenteditor").css("background-color", args.value)
+        : document.execCommand("forecolor", false, args.value);
 }
 function onClick(args: any) {
     let val: any, prop = args.text;
     val = (ej.isNullOrUndefined(args.model.text)) ? args.model.activeText : args.model.text;
     if (action1.indexOf(val) != -1) {
-        $('#contenteditor').empty();
+        $("#contenteditor").empty();
     } else if (action2.indexOf(val) != -1) {
         document.execCommand(val, false, null);
     } else if (fontfamily.indexOf(prop) != -1) {
-        document.execCommand('FontName', false, prop);
+        document.execCommand("FontName", false, prop);
     } else if (fontsize.indexOf(prop) != -1) {
-        document.execCommand('FontSize', false, prop.replace('pt', ''));
+        document.execCommand("FontSize", false, prop.replace("pt", ""));
     } else {
-        $('#contenteditor').append('<p> Action: ' + val + ' Triggered </p>');
+        $("#contenteditor").append("<p> Action: " + val + " Triggered </p>");
     }
 }
 
 module RotatorComponent {
     $(function() {
-        var rotatorInstance = new ej.Rotator($('#sliderContent'), {
-            slideWidth: '100%',
-            frameSpace: '0px',
-            slideHeight: 'auto',
-            displayItemsCount: '1',
-            navigateSteps: '1',
-            pagerPosition: 'outside',
-            orientation: 'horizontal',
+        var rotatorInstance = new ej.Rotator($("#sliderContent"), {
+            slideWidth: "100%",
+            frameSpace: "0px",
+            slideHeight: "auto",
+            displayItemsCount: "1",
+            navigateSteps: "1",
+            pagerPosition: "outside",
+            orientation: "horizontal",
             showPager: true,
             enabled: true,
             showCaption: true,
             allowKeyboardNavigation: true,
             showPlayButton: true,
             isResponsive: true,
-            animationType: 'slide',
+            animationType: "slide",
         });
     });
 }
 
 module RTEComponent {
     $(function() {
-        var sample = new ej.RTE($('#rteSample'), {
-            width: '100%',
-            minWidth: '150px',
+        var sample = new ej.RTE($("#rteSample"), {
+            width: "100%",
+            minWidth: "150px",
             showFooter: true,
             showHtmlSource: true,
             allowEditing: true,
@@ -14204,18 +14204,18 @@ module RTEComponent {
             autoHeight: true,
             colorPaletteColumns: 10,
             colorPaletteRows: 5,
-            cssClass: 'gradient-lime',
+            cssClass: "gradient-lime",
             enableResize: true,
             enableTabKeyNavigation: true,
             fileBrowser: {
-                filePath: (<any> window).baseurl + 'Content/FileBrowser/',
-                extensionAllow: '*.png, *.doc, *.pdf, *.txt, *.docx',
-                ajaxAction: (<any> window).baseurl + 'api/FileExplorer/FileOperations',
+                filePath: (<any> window).baseurl + "Content/FileBrowser/",
+                extensionAllow: "*.png, *.doc, *.pdf, *.txt, *.docx",
+                ajaxAction: (<any> window).baseurl + "api/FileExplorer/FileOperations",
             },
             imageBrowser: {
-                filePath: (<any> window).baseurl + 'Content/FileBrowser/',
-                extensionAllow: '*.png, *.gif, *.jpg, *.jpeg, *.docx',
-                ajaxAction: (<any> window).baseurl + 'api/FileExplorer/FileOperations',
+                filePath: (<any> window).baseurl + "Content/FileBrowser/",
+                extensionAllow: "*.png, *.gif, *.jpg, *.jpeg, *.docx",
+                ajaxAction: (<any> window).baseurl + "api/FileExplorer/FileOperations",
             },
             isResponsive: true,
             showClearAll: true,
@@ -14223,46 +14223,46 @@ module RTEComponent {
             showDimensions: true,
             showCharCount: true,
             tools: {
-                formatStyle: ['format'],
-                edit: ['findAndReplace'],
-                font: ['fontName', 'fontSize', 'fontColor', 'backgroundColor'],
-                style: ['bold', 'italic', 'underline', 'strikethrough'],
-                alignment: ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                lists: ['unorderedList', 'orderedList'],
-                clipboard: ['cut', 'copy', 'paste'],
-                doAction: ['undo', 'redo'],
-                indenting: ['outdent', 'indent'],
-                clear: ['clearFormat', 'clearAll'],
-                links: ['createLink', 'removeLink'],
-                images: ['image'],
-                media: ['video'],
+                formatStyle: ["format"],
+                edit: ["findAndReplace"],
+                font: ["fontName", "fontSize", "fontColor", "backgroundColor"],
+                style: ["bold", "italic", "underline", "strikethrough"],
+                alignment: ["justifyLeft", "justifyCenter", "justifyRight", "justifyFull"],
+                lists: ["unorderedList", "orderedList"],
+                clipboard: ["cut", "copy", "paste"],
+                doAction: ["undo", "redo"],
+                indenting: ["outdent", "indent"],
+                clear: ["clearFormat", "clearAll"],
+                links: ["createLink", "removeLink"],
+                images: ["image"],
+                media: ["video"],
                 tables: [
-                    'createTable',
-                    'addRowAbove',
-                    'addRowBelow',
-                    'addColumnLeft',
-                    'addColumnRight',
-                    'deleteRow',
-                    'deleteColumn',
-                    'deleteTable',
+                    "createTable",
+                    "addRowAbove",
+                    "addRowBelow",
+                    "addColumnLeft",
+                    "addColumnRight",
+                    "deleteRow",
+                    "deleteColumn",
+                    "deleteTable",
                 ],
-                effects: ['superscript', 'subscript'],
-                casing: ['upperCase', 'lowerCase'],
-                view: ['fullScreen', 'zoomIn', 'zoomOut'],
-                print: ['print'],
+                effects: ["superscript", "subscript"],
+                casing: ["upperCase", "lowerCase"],
+                view: ["fullScreen", "zoomIn", "zoomOut"],
+                print: ["print"],
                 customUnorderedList: [{
-                    name: 'unOrderInsert',
-                    tooltip: 'Custom UnOrderList',
-                    css: 'e-rte-toolbar-icon e-rte-unlistitems customUnOrder',
-                    text: 'Smiley',
-                    listImage: 'url(\'../content/images/rte/Smiley-GIF.gif\')',
+                    name: "unOrderInsert",
+                    tooltip: "Custom UnOrderList",
+                    css: "e-rte-toolbar-icon e-rte-unlistitems customUnOrder",
+                    text: "Smiley",
+                    listImage: "url('../content/images/rte/Smiley-GIF.gif')",
                 }],
                 customOrderedList: [{
-                    name: 'orderInsert',
-                    tooltip: 'Custom OrderList',
-                    css: 'e-rte-toolbar-icon e-rte-listitems customOrder',
-                    text: 'Lower-Greek',
-                    listStyle: 'lower-greek',
+                    name: "orderInsert",
+                    tooltip: "Custom OrderList",
+                    css: "e-rte-toolbar-icon e-rte-listitems customOrder",
+                    text: "Lower-Greek",
+                    listStyle: "lower-greek",
                 }],
             },
         });
@@ -14271,9 +14271,9 @@ module RTEComponent {
 
 module ScheduleComponent {
     $(function() {
-        var sample = new ej.Schedule($('#Schedule1'), {
-            width: '100%',
-            height: '525px',
+        var sample = new ej.Schedule($("#Schedule1"), {
+            width: "100%",
+            height: "525px",
             currentDate: new Date(2017, 5, 5),
             timeScale: {
                 minorSlotCount: 4,
@@ -14283,59 +14283,59 @@ module ScheduleComponent {
                 enable: true,
                 menuItems: {
                     appointment: [
-                        { id: 'open', text: 'Open Appointment' },
-                        { id: 'delete', text: 'Delete Appointment' },
-                        { id: 'customMenu3', text: 'Menu Item 3' },
-                        { id: 'customMenu4', text: 'Menu Item 4' },
+                        { id: "open", text: "Open Appointment" },
+                        { id: "delete", text: "Delete Appointment" },
+                        { id: "customMenu3", text: "Menu Item 3" },
+                        { id: "customMenu4", text: "Menu Item 4" },
                     ],
                     cells: [
-                        { id: 'new', text: 'New Appointment' },
-                        { id: 'recurrence', text: 'New Recurring Appointment' },
-                        { id: 'today', text: 'Today' },
-                        { id: 'gotodate', text: 'Go to date' },
-                        { id: 'settings', text: 'Settings' },
-                        { id: 'view', text: 'View', parentId: 'settings' },
-                        { id: 'timemode', text: 'TimeMode', parentId: 'settings' },
-                        { id: 'view_Day', text: 'Day', parentId: 'view' },
-                        { id: 'view_Week', text: 'Week', parentId: 'view' },
-                        { id: 'view_Workweek', text: 'Workweek', parentId: 'view' },
-                        { id: 'view_Month', text: 'Month', parentId: 'view' },
-                        { id: 'timemode_Hour12', text: '12 Hours', parentId: 'timemode' },
-                        { id: 'timemode_Hour24', text: '24 Hours', parentId: 'timemode' },
-                        { id: 'workhours', text: 'Work Hours', parentId: 'settings' },
-                        { id: 'customMenu1', text: 'Menu Item 1' },
-                        { id: 'customMenu2', text: 'Menu Item 2' },
+                        { id: "new", text: "New Appointment" },
+                        { id: "recurrence", text: "New Recurring Appointment" },
+                        { id: "today", text: "Today" },
+                        { id: "gotodate", text: "Go to date" },
+                        { id: "settings", text: "Settings" },
+                        { id: "view", text: "View", parentId: "settings" },
+                        { id: "timemode", text: "TimeMode", parentId: "settings" },
+                        { id: "view_Day", text: "Day", parentId: "view" },
+                        { id: "view_Week", text: "Week", parentId: "view" },
+                        { id: "view_Workweek", text: "Workweek", parentId: "view" },
+                        { id: "view_Month", text: "Month", parentId: "view" },
+                        { id: "timemode_Hour12", text: "12 Hours", parentId: "timemode" },
+                        { id: "timemode_Hour24", text: "24 Hours", parentId: "timemode" },
+                        { id: "workhours", text: "Work Hours", parentId: "settings" },
+                        { id: "customMenu1", text: "Menu Item 1" },
+                        { id: "customMenu2", text: "Menu Item 2" },
                     ],
                 },
             },
             resources: [{
-                field: 'ownerId',
-                title: 'Owner',
-                name: 'Owners',
+                field: "ownerId",
+                title: "Owner",
+                name: "Owners",
                 allowMultiple: true,
                 resourceSettings: {
                     dataSource: [
-                        { text: 'Nancy', id: 1, groupId: 1, color: '#f8a398' },
-                        { text: 'Steven', id: 3, groupId: 2, color: '#56ca85' },
-                        { text: 'Michael', id: 5, groupId: 1, color: '#51a0ed' },
+                        { text: "Nancy", id: 1, groupId: 1, color: "#f8a398" },
+                        { text: "Steven", id: 3, groupId: 2, color: "#56ca85" },
+                        { text: "Michael", id: 5, groupId: 1, color: "#51a0ed" },
                     ],
-                    text: 'text',
-                    id: 'id',
-                    groupId: 'groupId',
-                    color: 'color',
+                    text: "text",
+                    id: "id",
+                    groupId: "groupId",
+                    color: "color",
                 },
             }],
             appointmentSettings: {
                 dataSource: new ej.DataManager((<any> window).ResourcesData).executeLocal(new ej.Query().take(10)),
-                id: 'Id',
-                subject: 'Subject',
-                startTime: 'StartTime',
-                endTime: 'EndTime',
-                description: 'Description',
-                allDay: 'AllDay',
-                recurrence: 'Recurrence',
-                recurrenceRule: 'RecurrenceRule',
-                resourceFields: 'ownerId',
+                id: "Id",
+                subject: "Subject",
+                startTime: "StartTime",
+                endTime: "EndTime",
+                description: "Description",
+                allDay: "AllDay",
+                recurrence: "Recurrence",
+                recurrenceRule: "RecurrenceRule",
+                resourceFields: "ownerId",
             },
         });
     });
@@ -14343,11 +14343,11 @@ module ScheduleComponent {
 
 module ScrollerComponent {
     $(function() {
-        var scrollerSample = new ej.Scroller($('#scrollcontent'), {
-            height: '300px',
-            width: '100%',
+        var scrollerSample = new ej.Scroller($("#scrollcontent"), {
+            height: "300px",
+            width: "100%",
         });
-        $(window).bind('resize', function() {
+        $(window).bind("resize", function() {
             scrollerSample.refresh();
         });
     });
@@ -14355,8 +14355,8 @@ module ScrollerComponent {
 
 module SignatureComponent {
     $(function() {
-        var basicSignature = new ej.Signature($('#signature'), {
-            height: '400px',
+        var basicSignature = new ej.Signature($("#signature"), {
+            height: "400px",
             isResponsive: true,
             strokeWidth: 3,
         });
@@ -14365,14 +14365,14 @@ module SignatureComponent {
 
 module SliderComponent {
     $(function() {
-        var slider = new ej.Slider($('#minSlider'), {
-            sliderType: 'MinRange',
+        var slider = new ej.Slider($("#minSlider"), {
+            sliderType: "MinRange",
             value: 60,
             minValue: 0,
             maxValue: 100,
         });
-        var rangeslider = new ej.Slider($('#rangeSlider'), {
-            sliderType: 'Range',
+        var rangeslider = new ej.Slider($("#rangeSlider"), {
+            sliderType: "Range",
             values: [30, 60],
             minValue: 0,
         });
@@ -14381,140 +14381,140 @@ module SliderComponent {
 
 module linesparkline {
     $(function() {
-        var sparklinesample = new ej.Sparkline($('#line'), {
+        var sparklinesample = new ej.Sparkline($("#line"), {
             dataSource: [12, 14, 11, 12, 11, 15, 12, 10, 11, 12, 15, 13, 12, 11, 10, 13, 15, 12, 14, 16, 14, 12, 11],
             tooltip: {
                 visible: true,
-                font: { size: '12px' },
+                font: { size: "12px" },
             },
-            type: 'line',
-            size: { height: '40', width: '170' },
+            type: "line",
+            size: { height: "40", width: "170" },
         });
     });
 }
 
 module columnsparkline {
     $(function() {
-        var sparkcolumnsample = new ej.Sparkline($('#column'), {
+        var sparkcolumnsample = new ej.Sparkline($("#column"), {
             dataSource: [2, 6, -1, 1, 12, 5, -2, 7, -3, 5, 8, 10],
-            negativePointColor: 'red',
-            highPointColor: 'blue',
+            negativePointColor: "red",
+            highPointColor: "blue",
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            type: 'column',
-            size: { height: '100', width: '150' },
+            type: "column",
+            size: { height: "100", width: "150" },
         });
     });
 }
 
 module areasparkline {
     $(function() {
-        var sparkareasample = new ej.Sparkline($('#area'), {
+        var sparkareasample = new ej.Sparkline($("#area"), {
             dataSource: [12, -10, 11, 8, 17, 6, 2, -17, 13, -6, 8, 10],
             markerSettings: { visible: true },
-            highPointColor: 'blue',
-            lowPointColor: 'orange',
-            type: 'area',
+            highPointColor: "blue",
+            lowPointColor: "orange",
+            type: "area",
             opacity: 0.5,
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            size: { height: '100', width: '150' },
+            size: { height: "100", width: "150" },
         });
     });
 }
 
 module windlosssparkline {
     $(function() {
-        var sparkwinlosssample = new ej.Sparkline($('#winloss'), {
+        var sparkwinlosssample = new ej.Sparkline($("#winloss"), {
             dataSource: [12, 15, -11, 13, 17, 0, -12, 17, 13, -15, 8, 10],
-            type: 'winloss',
-            size: { height: '100', width: '150' },
+            type: "winloss",
+            size: { height: "100", width: "150" },
         });
     });
 }
 
 module piesparkline1 {
     $(function() {
-        var sparkpiesample1 = new ej.Sparkline($('#pie1'), {
+        var sparkpiesample1 = new ej.Sparkline($("#pie1"), {
             dataSource: [4, 6, 7],
-            type: 'pie',
+            type: "pie",
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            size: { height: '40', width: '40' },
+            size: { height: "40", width: "40" },
         });
     });
 }
 
 module piesparkline2 {
     $(function() {
-        var sparkpiesample2 = new ej.Sparkline($('#pie2'), {
+        var sparkpiesample2 = new ej.Sparkline($("#pie2"), {
             dataSource: [8, 9, 1],
-            type: 'pie',
+            type: "pie",
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            size: { height: '40', width: '40' },
+            size: { height: "40", width: "40" },
         });
     });
 }
 
 module piesparkline3 {
     $(function() {
-        var sparkpiesample3 = new ej.Sparkline($('#pie3'), {
+        var sparkpiesample3 = new ej.Sparkline($("#pie3"), {
             dataSource: [2, 3, 5],
-            type: 'pie',
+            type: "pie",
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            size: { height: '40', width: '40' },
+            size: { height: "40", width: "40" },
         });
     });
 }
 
 module piesparkline4 {
     $(function() {
-        var sparkpiesample4 = new ej.Sparkline($('#pie4'), {
+        var sparkpiesample4 = new ej.Sparkline($("#pie4"), {
             dataSource: [10, 12, 11],
-            type: 'pie',
+            type: "pie",
             tooltip: {
                 visible: true,
                 font: {
-                    size: '12px',
+                    size: "12px",
                 },
             },
-            size: { height: '40', width: '40' },
+            size: { height: "40", width: "40" },
         });
     });
 }
 
 module SplitterComponent {
     $(function() {
-        var splitterInstance = new ej.Splitter($('#outterSpliter'), {
-            height: '250px',
-            width: '50%',
+        var splitterInstance = new ej.Splitter($("#outterSpliter"), {
+            height: "250px",
+            width: "50%",
             orientation: ej.Orientation.Vertical,
             properties: [{}, { paneSize: 80 }],
             isResponsive: true,
         });
-        var splitterInstance1 = new ej.Splitter($('#innerSpliter'), {
+        var splitterInstance1 = new ej.Splitter($("#innerSpliter"), {
             isResponsive: true,
         });
     });
@@ -14522,25 +14522,25 @@ module SplitterComponent {
 
 module SpreadsheetComponent {
     $(function() {
-        var sample = new ej.Spreadsheet($('#basicSpreadsheet'), {
+        var sample = new ej.Spreadsheet($("#basicSpreadsheet"), {
             scrollSettings: {
                 height: 550,
             },
             importSettings: {
-                importMapper: (<any> window).baseurl + 'api/Spreadsheet/Import',
+                importMapper: (<any> window).baseurl + "api/Spreadsheet/Import",
             },
             exportSettings: {
-                excelUrl: (<any> window).baseurl + 'api/Spreadsheet/ExcelExport',
-                csvUrl: (<any> window).baseurl + 'api/Spreadsheet/CsvExport',
-                pdfUrl: (<any> window).baseurl + 'api/Spreadsheet/PdfExport',
+                excelUrl: (<any> window).baseurl + "api/Spreadsheet/ExcelExport",
+                csvUrl: (<any> window).baseurl + "api/Spreadsheet/CsvExport",
+                pdfUrl: (<any> window).baseurl + "api/Spreadsheet/PdfExport",
             },
-            sheets: [{ rangeSettings: [{ dataSource: (<any> window).defaultData, startCell: 'A1' }] }],
+            sheets: [{ rangeSettings: [{ dataSource: (<any> window).defaultData, startCell: "A1" }] }],
             loadComplete: () => {
-                var spreadsheet = $('#basicSpreadsheet').data('ejSpreadsheet'), xlFormat = spreadsheet.XLFormat;
+                var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
                 if (!(<any> spreadsheet).isImport) {
                     spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
-                    xlFormat.format({ 'style': { 'font-weight': 'bold' } }, 'A1:H1');
-                    xlFormat.format({ 'type': 'currency' }, 'E2:H11');
+                    xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:H1");
+                    xlFormat.format({ "type": "currency" }, "E2:H11");
                     spreadsheet.XLRibbon.updateRibbonIcons();
                 }
             },
@@ -14549,152 +14549,152 @@ module SpreadsheetComponent {
 }
 
 var default_data: Array<Object> = [
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Sales', JobGroup: 'Executive', EmployeesCount: 50 },
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Sales', JobGroup: 'Analyst', EmployeesCount: 40 },
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Marketing', EmployeesCount: 40 },
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Technical', JobGroup: 'Testers', EmployeesCount: 55 },
+    { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Executive", EmployeesCount: 50 },
+    { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Analyst", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Marketing", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 55 },
     {
-        Category: 'Employees',
-        Country: 'USA',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Windows',
+        Category: "Employees",
+        Country: "USA",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Windows",
         EmployeesCount: 175,
     },
     {
-        Category: 'Employees',
-        Country: 'USA',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Web',
+        Category: "Employees",
+        Country: "USA",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Web",
         EmployeesCount: 70,
     },
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Management', EmployeesCount: 40 },
-    { Category: 'Employees', Country: 'USA', JobDescription: 'Accounts', EmployeesCount: 60 },
+    { Category: "Employees", Country: "USA", JobDescription: "Management", EmployeesCount: 40 },
+    { Category: "Employees", Country: "USA", JobDescription: "Accounts", EmployeesCount: 60 },
 
-    { Category: 'Employees', Country: 'India', JobDescription: 'Technical', JobGroup: 'Testers', EmployeesCount: 43 },
+    { Category: "Employees", Country: "India", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 43 },
     {
-        Category: 'Employees',
-        Country: 'India',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Windows',
+        Category: "Employees",
+        Country: "India",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Windows",
         EmployeesCount: 125,
     },
     {
-        Category: 'Employees',
-        Country: 'India',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Web',
+        Category: "Employees",
+        Country: "India",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Web",
         EmployeesCount: 60,
     },
-    { Category: 'Employees', Country: 'India', JobDescription: 'HR Executives', EmployeesCount: 70 },
-    { Category: 'Employees', Country: 'India', JobDescription: 'Accounts', EmployeesCount: 45 },
+    { Category: "Employees", Country: "India", JobDescription: "HR Executives", EmployeesCount: 70 },
+    { Category: "Employees", Country: "India", JobDescription: "Accounts", EmployeesCount: 45 },
 
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Sales', JobGroup: 'Executive', EmployeesCount: 30 },
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Sales', JobGroup: 'Analyst', EmployeesCount: 40 },
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Marketing', EmployeesCount: 50 },
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Technical', JobGroup: 'Testers', EmployeesCount: 40 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Sales", JobGroup: "Executive", EmployeesCount: 30 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Sales", JobGroup: "Analyst", EmployeesCount: 40 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Marketing", EmployeesCount: 50 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 40 },
     {
-        Category: 'Employees',
-        Country: 'Germany',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Windows',
+        Category: "Employees",
+        Country: "Germany",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Windows",
         EmployeesCount: 65,
     },
     {
-        Category: 'Employees',
-        Country: 'Germany',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Web',
+        Category: "Employees",
+        Country: "Germany",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Web",
         EmployeesCount: 27,
     },
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Management', EmployeesCount: 33 },
-    { Category: 'Employees', Country: 'Germany', JobDescription: 'Accounts', EmployeesCount: 55 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Management", EmployeesCount: 33 },
+    { Category: "Employees", Country: "Germany", JobDescription: "Accounts", EmployeesCount: 55 },
 
-    { Category: 'Employees', Country: 'UK', JobDescription: 'Technical', JobGroup: 'Testers', EmployeesCount: 45 },
+    { Category: "Employees", Country: "UK", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 45 },
     {
-        Category: 'Employees',
-        Country: 'UK',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Windows',
+        Category: "Employees",
+        Country: "UK",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Windows",
         EmployeesCount: 96,
     },
     {
-        Category: 'Employees',
-        Country: 'UK',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Web',
+        Category: "Employees",
+        Country: "UK",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Web",
         EmployeesCount: 55,
     },
-    { Category: 'Employees', Country: 'UK', JobDescription: 'HR Executives', EmployeesCount: 60 },
-    { Category: 'Employees', Country: 'UK', JobDescription: 'Accounts', EmployeesCount: 30 },
+    { Category: "Employees", Country: "UK", JobDescription: "HR Executives", EmployeesCount: 60 },
+    { Category: "Employees", Country: "UK", JobDescription: "Accounts", EmployeesCount: 30 },
 
-    { Category: 'Employees', Country: 'France', JobDescription: 'Technical', JobGroup: 'Testers', EmployeesCount: 40 },
+    { Category: "Employees", Country: "France", JobDescription: "Technical", JobGroup: "Testers", EmployeesCount: 40 },
     {
-        Category: 'Employees',
-        Country: 'France',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Windows',
+        Category: "Employees",
+        Country: "France",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Windows",
         EmployeesCount: 65,
     },
     {
-        Category: 'Employees',
-        Country: 'France',
-        JobDescription: 'Technical',
-        JobGroup: 'Developers',
-        JobRole: 'Web',
+        Category: "Employees",
+        Country: "France",
+        JobDescription: "Technical",
+        JobGroup: "Developers",
+        JobRole: "Web",
         EmployeesCount: 27,
     },
-    { Category: 'Employees', Country: 'France', JobDescription: 'Marketing', EmployeesCount: 50 },
+    { Category: "Employees", Country: "France", JobDescription: "Marketing", EmployeesCount: 50 },
 ];
 
 module sunburstcomponent {
     $(function() {
-        var sunburstsample = new ej.SunburstChart($('#Sunburst'), {
-            valueMemberPath: 'EmployeesCount',
+        var sunburstsample = new ej.SunburstChart($("#Sunburst"), {
+            valueMemberPath: "EmployeesCount",
             levels: [
-                { groupMemberPath: 'Country' },
-                { groupMemberPath: 'JobDescription' },
-                { groupMemberPath: 'JobGroup' },
-                { groupMemberPath: 'JobRole' },
+                { groupMemberPath: "Country" },
+                { groupMemberPath: "JobDescription" },
+                { groupMemberPath: "JobGroup" },
+                { groupMemberPath: "JobRole" },
             ],
             dataSource: default_data,
             dataLabelSettings: { visible: true },
             tooltip: { visible: false },
             enableAnimation: false,
-            size: { height: '600' },
+            size: { height: "600" },
             innerRadius: 0.2,
             load: function() {
-                var sender = $('#Sunburst').data('ejSunburstChart');
+                var sender = $("#Sunburst").data("ejSunburstChart");
                 var SunBurstTheme = (<any> window).themeStyle + (<any> window).themeColor + (<any> window).themeVarient;
                 SunBurstTheme = SunBurstTheme.toString();
-                if (SunBurstTheme.indexOf('dark') > -1 || SunBurstTheme.indexOf('contrast') > -1) {
-                    SunBurstTheme = 'flatdark';
+                if (SunBurstTheme.indexOf("dark") > -1 || SunBurstTheme.indexOf("contrast") > -1) {
+                    SunBurstTheme = "flatdark";
                 } else {
-                    SunBurstTheme = 'flatlight';
+                    SunBurstTheme = "flatlight";
                 }
                 sender.model.theme = SunBurstTheme;
             },
-            title: { text: 'Employees Count' },
+            title: { text: "Employees Count" },
             zoomSettings: { enable: false },
-            legend: { visible: true, position: 'top' },
+            legend: { visible: true, position: "top" },
         });
     });
 }
 
 module TabComponent {
     $(function() {
-        var sample = new ej.Tab($('#defaultTab'), {
-            width: '500px',
+        var sample = new ej.Tab($("#defaultTab"), {
+            width: "500px",
             collapsible: true,
-            events: 'click',
+            events: "click",
             heightAdjustMode: ej.Tab.HeightAdjustMode.Content,
             showCloseButton: true,
             showRoundedCorner: false,
@@ -14704,35 +14704,35 @@ module TabComponent {
 
 module TagCloudComponent {
     var websiteCollection = [
-        { text: 'Google', url: 'http://www.google.com', frequency: 12 },
-        { text: 'All Things Digital', url: 'http://allthingsd.com/', frequency: 3 },
-        { text: 'Arts Technica', url: 'http://arstechnica.com/', frequency: 8 },
-        { text: 'Business Week', url: 'http://www.businessweek.com/', frequency: 2 },
-        { text: 'Yahoo', url: 'http://in.yahoo.com/', frequency: 12 },
-        { text: 'Center Networks', url: 'http://www.centernetworks.com/', frequency: 5 },
-        { text: 'Crave', url: 'http://news.cnet.com/crave/', frequency: 8 },
-        { text: 'Crunch Gear', url: 'http://techcrunch.com/gadgets/', frequency: 20 },
-        { text: 'Daily Tech', url: 'http://www.dailytech.com/', frequency: 1 },
-        { text: 'Electronista', url: 'http://www.electronista.com/', frequency: 3 },
-        { text: 'Engadget', url: 'http://www.engadget.com/', frequency: 5 },
-        { text: 'Gearlog', url: 'http://www.gearlog.com/', frequency: 9 },
-        { text: 'Information Week', url: 'http://www.informationweek.com/', frequency: 0 },
-        { text: 'PCWorld', url: 'http://www.pcworld.com/', frequency: 11 },
-        { text: 'Tech Republic', url: 'http://techrepublic.com/', frequency: 3 },
-        { text: 'Valleywag', url: 'http://valleywag.gawker.com/', frequency: 6 },
-        { text: 'Rediff', url: 'http://in.rediff.com/', frequency: 9 },
-        { text: 'WebProNews', url: 'http://www.webpronews.com/', frequency: 2 },
+        { text: "Google", url: "http://www.google.com", frequency: 12 },
+        { text: "All Things Digital", url: "http://allthingsd.com/", frequency: 3 },
+        { text: "Arts Technica", url: "http://arstechnica.com/", frequency: 8 },
+        { text: "Business Week", url: "http://www.businessweek.com/", frequency: 2 },
+        { text: "Yahoo", url: "http://in.yahoo.com/", frequency: 12 },
+        { text: "Center Networks", url: "http://www.centernetworks.com/", frequency: 5 },
+        { text: "Crave", url: "http://news.cnet.com/crave/", frequency: 8 },
+        { text: "Crunch Gear", url: "http://techcrunch.com/gadgets/", frequency: 20 },
+        { text: "Daily Tech", url: "http://www.dailytech.com/", frequency: 1 },
+        { text: "Electronista", url: "http://www.electronista.com/", frequency: 3 },
+        { text: "Engadget", url: "http://www.engadget.com/", frequency: 5 },
+        { text: "Gearlog", url: "http://www.gearlog.com/", frequency: 9 },
+        { text: "Information Week", url: "http://www.informationweek.com/", frequency: 0 },
+        { text: "PCWorld", url: "http://www.pcworld.com/", frequency: 11 },
+        { text: "Tech Republic", url: "http://techrepublic.com/", frequency: 3 },
+        { text: "Valleywag", url: "http://valleywag.gawker.com/", frequency: 6 },
+        { text: "Rediff", url: "http://in.rediff.com/", frequency: 9 },
+        { text: "WebProNews", url: "http://www.webpronews.com/", frequency: 2 },
     ];
 
     $(function() {
-        var sample = new ej.TagCloud($('#techWebList'), {
-            titleText: 'Tech Sites',
+        var sample = new ej.TagCloud($("#techWebList"), {
+            titleText: "Tech Sites",
             dataSource: websiteCollection,
-            cssClass: 'gradient-lime',
+            cssClass: "gradient-lime",
             fields: {
-                text: 'text',
-                url: 'url',
-                frequency: 'frequency',
+                text: "text",
+                url: "url",
+                frequency: "frequency",
             },
         });
     });
@@ -14740,126 +14740,126 @@ module TagCloudComponent {
 
 module EditorComponent {
     $(function() {
-        var num = new ej.NumericTextbox($('#numeric'), {
+        var num = new ej.NumericTextbox($("#numeric"), {
             value: 30,
             minValue: 1,
             maxValue: 100,
-            name: 'numeric',
-            width: '100%',
+            name: "numeric",
+            width: "100%",
         });
-        var per = new ej.PercentageTextbox($('#percent'), {
+        var per = new ej.PercentageTextbox($("#percent"), {
             value: 60,
             minValue: 10,
             maxValue: 1000,
-            name: 'percent',
-            width: '100%',
+            name: "percent",
+            width: "100%",
         });
-        var cur = new ej.CurrencyTextbox($('#currency'), {
+        var cur = new ej.CurrencyTextbox($("#currency"), {
             value: 100,
             minValue: 10,
             maxValue: 1000,
-            name: 'currency',
-            width: '100%',
+            name: "currency",
+            width: "100%",
         });
-        var mask = new ej.MaskEdit($('#maskedit'), {
-            name: 'mask',
-            value: '4242422424',
-            maskFormat: '99 999-99999',
-            width: '100%',
+        var mask = new ej.MaskEdit($("#maskedit"), {
+            name: "mask",
+            value: "4242422424",
+            maskFormat: "99 999-99999",
+            width: "100%",
         });
     });
 }
 
 module TileViewComponent {
     $(function() {
-        var tile1 = new ej.Tile($('#tile1'), {
-            imagePosition: 'fill',
-            caption: { text: 'People' },
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/people_1.png',
+        var tile1 = new ej.Tile($("#tile1"), {
+            imagePosition: "fill",
+            caption: { text: "People" },
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/people_1.png",
         });
-        var tile2 = new ej.Tile($('#tile2'), {
-            imagePosition: 'center',
-            tileSize: 'small',
-            imageUrl: 'content/images/tile/windows/alerts.png',
+        var tile2 = new ej.Tile($("#tile2"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: "content/images/tile/windows/alerts.png",
         });
-        var tile3 = new ej.Tile($('#tile3'), {
-            imagePosition: 'center',
-            tileSize: 'small',
-            imageUrl: 'content/images/tile/windows/bing.png',
+        var tile3 = new ej.Tile($("#tile3"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: "content/images/tile/windows/bing.png",
         });
-        var tile4 = new ej.Tile($('#tile4'), {
-            tileSize: 'small',
-            imageUrl: 'content/images/tile/windows/camera.png',
+        var tile4 = new ej.Tile($("#tile4"), {
+            tileSize: "small",
+            imageUrl: "content/images/tile/windows/camera.png",
         });
-        var tile5 = new ej.Tile($('#tile5'), {
-            imagePosition: 'center',
-            tileSize: 'small',
-            imageUrl: 'content/images/tile/windows/messages.png',
+        var tile5 = new ej.Tile($("#tile5"), {
+            imagePosition: "center",
+            tileSize: "small",
+            imageUrl: "content/images/tile/windows/messages.png",
         });
-        var tile6 = new ej.Tile($('#tile6'), {
-            imagePosition: 'center',
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/games.png',
-            caption: { text: 'Play' },
+        var tile6 = new ej.Tile($("#tile6"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/games.png",
+            caption: { text: "Play" },
         });
-        var tile7 = new ej.Tile($('#tile7'), {
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/map.png',
-            caption: { text: 'Maps' },
+        var tile7 = new ej.Tile($("#tile7"), {
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/map.png",
+            caption: { text: "Maps" },
         });
-        var tile8 = new ej.Tile($('#tile8'), {
-            imagePosition: 'fill',
-            tileSize: 'wide',
-            imageUrl: 'content/images/tile/windows/sports.png',
-            caption: { text: 'Sports' },
+        var tile8 = new ej.Tile($("#tile8"), {
+            imagePosition: "fill",
+            tileSize: "wide",
+            imageUrl: "content/images/tile/windows/sports.png",
+            caption: { text: "Sports" },
         });
-        var tile9 = new ej.Tile($('#tile9'), {
-            imagePosition: 'fill',
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/people_2.png',
-            caption: { text: 'People' },
+        var tile9 = new ej.Tile($("#tile9"), {
+            imagePosition: "fill",
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/people_2.png",
+            caption: { text: "People" },
         });
-        var tile10 = new ej.Tile($('#tile10'), {
-            imagePosition: 'center',
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/pictures.png',
-            caption: { text: 'Photo' },
+        var tile10 = new ej.Tile($("#tile10"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/pictures.png",
+            caption: { text: "Photo" },
         });
-        var tile11 = new ej.Tile($('#tile11'), {
-            imagePosition: 'center',
-            tileSize: 'wide',
-            imageUrl: 'content/images/tile/windows/weather.png',
-            caption: { text: 'Weather' },
+        var tile11 = new ej.Tile($("#tile11"), {
+            imagePosition: "center",
+            tileSize: "wide",
+            imageUrl: "content/images/tile/windows/weather.png",
+            caption: { text: "Weather" },
         });
-        var tile12 = new ej.Tile($('#tile12'), {
-            imagePosition: 'center',
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/music.png',
-            caption: { text: 'Music' },
+        var tile12 = new ej.Tile($("#tile12"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/music.png",
+            caption: { text: "Music" },
         });
-        var tile13 = new ej.Tile($('#tile13'), {
-            imagePosition: 'center',
-            tileSize: 'medium',
-            imageUrl: 'content/images/tile/windows/favs.png',
-            caption: { text: 'Favorites' },
+        var tile13 = new ej.Tile($("#tile13"), {
+            imagePosition: "center",
+            tileSize: "medium",
+            imageUrl: "content/images/tile/windows/favs.png",
+            caption: { text: "Favorites" },
         });
     });
 }
 
 module TimePickerComponent {
     $(function() {
-        var timeSample = new ej.TimePicker($('#timepick'), {
-            width: '100%',
+        var timeSample = new ej.TimePicker($("#timepick"), {
+            width: "100%",
         });
     });
 }
 
 module ToolbarComponent {
     $(function() {
-        var sample = new ej.Toolbar($('#editingToolbar'), {
-            width: '100%',
-            cssClass: 'gradient-lime',
+        var sample = new ej.Toolbar($("#editingToolbar"), {
+            width: "100%",
+            cssClass: "gradient-lime",
             enableSeparator: true,
             isResponsive: true,
             orientation: ej.Orientation.Horizontal,
@@ -14870,54 +14870,54 @@ module ToolbarComponent {
 
 module TooltipComponent {
     $(function() {
-        var sample1 = new ej.Tooltip($('#link1'), {
+        var sample1 = new ej.Tooltip($("#link1"), {
             content:
-                'ECMAScript (or ES) is a trademarked scripting-language specification standardized by Ecma International in ECMA-262 and ISO/IEC 16262.',
-            associate: 'mousefollow',
+                "ECMAScript (or ES) is a trademarked scripting-language specification standardized by Ecma International in ECMA-262 and ISO/IEC 16262.",
+            associate: "mousefollow",
             autoCloseTimeout: 5000,
-            collision: 'fit',
-            containment: '.frame',
+            collision: "fit",
+            containment: ".frame",
             showRoundedCorner: true,
             showShadow: true,
         });
 
-        var sample2 = new ej.Tooltip($('#link2'), {
+        var sample2 = new ej.Tooltip($("#link2"), {
             content:
-                'The World Wide Web (WWW) is an information space where documents and other web resources are identified by URLs, interlinked by hypertext links, and can be accessed via the Internet.',
+                "The World Wide Web (WWW) is an information space where documents and other web resources are identified by URLs, interlinked by hypertext links, and can be accessed via the Internet.",
             position: {
                 stem: {
-                    horizontal: 'right',
-                    vertical: 'center',
+                    horizontal: "right",
+                    vertical: "center",
                 },
                 target: {
-                    horizontal: 'left',
-                    vertical: 'center',
+                    horizontal: "left",
+                    vertical: "center",
                 },
             },
             autoCloseTimeout: 5000,
-            collision: 'fit',
-            containment: '.frame',
+            collision: "fit",
+            containment: ".frame",
             showRoundedCorner: true,
             showShadow: true,
         });
 
-        var sample3 = new ej.Tooltip($('#link3'), {
+        var sample3 = new ej.Tooltip($("#link3"), {
             content:
-                'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
+                "Object-oriented programming (OOP) is a programming language model organized around objects rather than \"actions\" and data rather than logic.",
             position: {
                 stem: {
-                    horizontal: 'right',
-                    vertical: 'center',
+                    horizontal: "right",
+                    vertical: "center",
                 },
                 target: {
-                    horizontal: 'left',
-                    vertical: 'center',
+                    horizontal: "left",
+                    vertical: "center",
                 },
             },
-            associate: 'mousefollow',
+            associate: "mousefollow",
             autoCloseTimeout: 5000,
-            collision: 'fit',
-            containment: '.frame',
+            collision: "fit",
+            containment: ".frame",
             showRoundedCorner: true,
             showShadow: true,
         });
@@ -14926,9 +14926,9 @@ module TooltipComponent {
 
 module TreeGridComponent {
     $(function() {
-        var treegridInstance = new ej.TreeGrid($('#TreeGridContainer'), {
+        var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
             dataSource: (<any> window).treeGridData,
-            childMapping: 'subtasks',
+            childMapping: "subtasks",
             allowSorting: true,
             allowMultiSorting: true,
             enableAltRow: true,
@@ -14939,53 +14939,53 @@ module TreeGridComponent {
             showColumnOptions: true,
             contextMenuSettings: {
                 showContextMenu: true,
-                contextMenuItems: ['add', 'edit', 'delete'],
+                contextMenuItems: ["add", "edit", "delete"],
             },
             columnDialogFields: [
-                'field',
-                'headerText',
-                'editType',
-                'width',
-                'visible',
-                'allowSorting',
-                'textAlign',
-                'headerTextAlign',
+                "field",
+                "headerText",
+                "editType",
+                "width",
+                "visible",
+                "allowSorting",
+                "textAlign",
+                "headerTextAlign",
             ],
             editSettings: {
                 allowAdding: true,
                 allowEditing: true,
                 allowDeleting: true,
-                editMode: 'cellEditing',
-                rowPosition: 'belowSelectedRow',
+                editMode: "cellEditing",
+                rowPosition: "belowSelectedRow",
             },
             toolbarSettings: {
                 showToolbar: true,
-                toolbarItems: ['add', 'edit', 'delete', 'update', 'cancel', 'expandAll', 'collapseAll'],
+                toolbarItems: ["add", "edit", "delete", "update", "cancel", "expandAll", "collapseAll"],
             },
             columns: [
                 {
-                    field: 'taskID',
-                    headerText: 'Task Id',
+                    field: "taskID",
+                    headerText: "Task Id",
                     allowFiltering: false,
-                    editType: 'numericedit',
-                    filterEditType: 'numericedit',
+                    editType: "numericedit",
+                    filterEditType: "numericedit",
                 },
-                { field: 'taskName', headerText: 'Task Name', editType: 'stringedit', filterEditType: 'stringedit' },
+                { field: "taskName", headerText: "Task Name", editType: "stringedit", filterEditType: "stringedit" },
                 {
-                    field: 'startDate',
-                    headerText: 'Start Date',
-                    editType: 'datepicker',
-                    filterEditType: 'datepicker',
-                    format: '{0:MM/dd/yyyy}',
+                    field: "startDate",
+                    headerText: "Start Date",
+                    editType: "datepicker",
+                    filterEditType: "datepicker",
+                    format: "{0:MM/dd/yyyy}",
                 },
                 {
-                    field: 'endDate',
-                    headerText: 'End Date',
-                    editType: 'datepicker',
-                    filterEditType: 'datepicker',
-                    format: '{0:MM/dd/yyyy}',
+                    field: "endDate",
+                    headerText: "End Date",
+                    editType: "datepicker",
+                    filterEditType: "datepicker",
+                    format: "{0:MM/dd/yyyy}",
                 },
-                { field: 'progress', headerText: 'Progress', editType: 'numericedit', filterEditType: 'numericedit' },
+                { field: "progress", headerText: "Progress", editType: "numericedit", filterEditType: "numericedit" },
             ],
             isResponsive: true,
         });
@@ -14993,43 +14993,43 @@ module TreeGridComponent {
 }
 
 var population_data: Array<Object> = [
-    { Continent: 'Asia', Country: 'Indonesia', Growth: 3, Population: 237641326 },
-    { Continent: 'Asia', Country: 'Russia', Growth: 2, Population: 152518015 },
-    { Continent: 'Asia', Country: 'Malaysia', Growth: 1, Population: 29672000 },
-    { Continent: 'North America', Country: 'United States', Growth: 4, Population: 315645000 },
-    { Continent: 'North America', Country: 'Mexico', Growth: 2, Population: 112336538 },
-    { Continent: 'North America', Country: 'Canada', Growth: 1, Population: 39056064 },
-    { Continent: 'South America', Country: 'Colombia', Growth: 1, Population: 47000000 },
-    { Continent: 'South America', Country: 'Brazil', Growth: 3, Population: 193946886 },
-    { Continent: 'Africa', Country: 'Nigeria', Growth: 2, Population: 170901000 },
-    { Continent: 'Africa', Country: 'Egypt', Growth: 1, Population: 83661000 },
-    { Continent: 'Europe', Country: 'Germany', Growth: 1, Population: 81993000 },
-    { Continent: 'Europe', Country: 'France', Growth: 1, Population: 65605000 },
-    { Continent: 'Europe', Country: 'UK', Growth: 1, Population: 63181775 },
+    { Continent: "Asia", Country: "Indonesia", Growth: 3, Population: 237641326 },
+    { Continent: "Asia", Country: "Russia", Growth: 2, Population: 152518015 },
+    { Continent: "Asia", Country: "Malaysia", Growth: 1, Population: 29672000 },
+    { Continent: "North America", Country: "United States", Growth: 4, Population: 315645000 },
+    { Continent: "North America", Country: "Mexico", Growth: 2, Population: 112336538 },
+    { Continent: "North America", Country: "Canada", Growth: 1, Population: 39056064 },
+    { Continent: "South America", Country: "Colombia", Growth: 1, Population: 47000000 },
+    { Continent: "South America", Country: "Brazil", Growth: 3, Population: 193946886 },
+    { Continent: "Africa", Country: "Nigeria", Growth: 2, Population: 170901000 },
+    { Continent: "Africa", Country: "Egypt", Growth: 1, Population: 83661000 },
+    { Continent: "Europe", Country: "Germany", Growth: 1, Population: 81993000 },
+    { Continent: "Europe", Country: "France", Growth: 1, Population: 65605000 },
+    { Continent: "Europe", Country: "UK", Growth: 1, Population: 63181775 },
 ];
 
 module treemapcomponent {
     $(function() {
-        var treemapsample = new ej.datavisualization.TreeMap($('#treemap'), {
-            leafItemSettings: { showLabels: true, labelPath: 'Country' },
+        var treemapsample = new ej.datavisualization.TreeMap($("#treemap"), {
+            leafItemSettings: { showLabels: true, labelPath: "Country" },
             rangeColorMapping: [
-                { color: '#77D8D8', legendLabel: '1% Growth', from: 0, to: 1 },
-                { color: '#AED960', from: 0, legendLabel: '2% Growth', to: 2 },
-                { color: '#FFAF51', from: 0, legendLabel: '3% Growth', to: 3 },
-                { color: '#F3D240', from: 0, legendLabel: '4% Growth', to: 4 },
+                { color: "#77D8D8", legendLabel: "1% Growth", from: 0, to: 1 },
+                { color: "#AED960", from: 0, legendLabel: "2% Growth", to: 2 },
+                { color: "#FFAF51", from: 0, legendLabel: "3% Growth", to: 3 },
+                { color: "#F3D240", from: 0, legendLabel: "4% Growth", to: 4 },
             ],
             levels: [
                 {
-                    groupPath: 'Continent',
+                    groupPath: "Continent",
                     groupGap: 5,
                     headerHeight: 25,
                     showHeader: true,
-                    headerTemplate: 'headertemplate',
+                    headerTemplate: "headertemplate",
                 },
             ],
             dataSource: population_data,
-            colorValuePath: 'Growth',
-            weightValuePath: 'Population',
+            colorValuePath: "Growth",
+            weightValuePath: "Population",
             borderThickness: 0,
             showLegend: true,
         });
@@ -15038,7 +15038,7 @@ module treemapcomponent {
 
 module TreeViewComponent {
     $(function() {
-        var tree = new ej.TreeView($('#treeView'), {
+        var tree = new ej.TreeView($("#treeView"), {
             allowEditing: true,
             allowDragAndDrop: true,
             allowDropChild: true,
@@ -15049,21 +15049,21 @@ module TreeViewComponent {
 
 module UploadboxComponent {
     $(function() {
-        var sample = new ej.Uploadbox($('#UploadDefault'), {
-            saveUrl: (<any> window).baseurl + 'api/uploadbox/Save',
-            removeUrl: (<any> window).baseurl + 'api/uploadbox/Remove',
+        var sample = new ej.Uploadbox($("#UploadDefault"), {
+            saveUrl: (<any> window).baseurl + "api/uploadbox/Save",
+            removeUrl: (<any> window).baseurl + "api/uploadbox/Remove",
             buttonText: {
-                browse: 'Choose File',
-                upload: 'Upload',
-                cancel: 'Cancel',
+                browse: "Choose File",
+                upload: "Upload",
+                cancel: "Cancel",
             },
-            cssClass: 'gradient- purple',
+            cssClass: "gradient- purple",
             dialogAction: {
                 modal: false,
                 closeOnComplete: false,
                 drag: true,
             },
-            extensionsAllow: '.zip',
+            extensionsAllow: ".zip",
             multipleFilesSelection: true,
             showFileDetails: true,
         });
@@ -15072,12 +15072,12 @@ module UploadboxComponent {
 
 module WaitingPopupComponent {
     $(function() {
-        var sample = new ej.WaitingPopup($('#target'), {
+        var sample = new ej.WaitingPopup($("#target"), {
             showOnInit: true,
             showImage: true,
-            text: 'waiting&hellip;',
-            target: '#target',
-            appendTo: '#waiting',
+            text: "waiting&hellip;",
+            target: "#target",
+            appendTo: "#waiting",
         });
     });
 }
