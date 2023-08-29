@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/lru-cache": "^4.1.3"
-  }
+    "private": true,
+    "dependencies": {
+        "@types/lru-cache": "^4.1.3"
+    }
 }

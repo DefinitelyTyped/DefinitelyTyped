@@ -21,11 +21,7 @@ console.log(zip.readAsText("some_folder/my_file.txt"));
 // same async
 zip.readAsTextAsync("my_file.txt", (data, err) => console.log(err ? "Error: " + err : data));
 // extracts the specified file to the specified location
-zip.extractEntryTo(
-    /*entry name*/ "some_folder/my_file.txt",
-    /*target path*/ "/home/me/tempfolder",
-    /*overwrite*/ true,
-);
+zip.extractEntryTo(/*entry name*/ "some_folder/my_file.txt", /*target path*/ "/home/me/tempfolder", /*overwrite*/ true);
 // extracts everything
 zip.extractAllTo(/*target path*/ "/home/me/zipcontent/", /*overwrite*/ true);
 // extracts everything and calls callback -> async extracction

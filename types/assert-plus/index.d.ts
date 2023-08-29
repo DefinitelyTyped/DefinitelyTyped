@@ -87,49 +87,28 @@ export function optionalUuid(options: string | undefined, message?: string): ass
 
 export function optionalArrayOfArray(arr: any[][] | undefined, message?: string): asserts arr is any[][] | undefined;
 
-export function optionalArrayOfBool(
-    arr: boolean[] | undefined,
-    message?: string,
-): asserts arr is boolean[] | undefined;
+export function optionalArrayOfBool(arr: boolean[] | undefined, message?: string): asserts arr is boolean[] | undefined;
 
-export function optionalArrayOfBuffer(
-    arr: Buffer[] | undefined,
-    message?: string,
-): asserts arr is Buffer[] | undefined;
+export function optionalArrayOfBuffer(arr: Buffer[] | undefined, message?: string): asserts arr is Buffer[] | undefined;
 
 export function optionalArrayOfFunc(arr: Func[] | undefined, message?: string): asserts arr is Func[] | undefined;
 
-export function optionalArrayOfNumber(
-    arr: number[] | undefined,
-    message?: string,
-): asserts arr is number[] | undefined;
+export function optionalArrayOfNumber(arr: number[] | undefined, message?: string): asserts arr is number[] | undefined;
 
-export function optionalArrayOfFinite(
-    arr: number[] | undefined,
-    message?: string,
-): asserts arr is number[] | undefined;
+export function optionalArrayOfFinite(arr: number[] | undefined, message?: string): asserts arr is number[] | undefined;
 
 export function optionalArrayOfObject<T extends object = any>(
     arr: T[] | undefined,
     message?: string,
 ): asserts arr is T[] | undefined;
 
-export function optionalArrayOfString(
-    arr: string[] | undefined,
-    message?: string,
-): asserts arr is string[] | undefined;
+export function optionalArrayOfString(arr: string[] | undefined, message?: string): asserts arr is string[] | undefined;
 
-export function optionalArrayOfStream(
-    arr: Stream[] | undefined,
-    message?: string,
-): asserts arr is Stream[] | undefined;
+export function optionalArrayOfStream(arr: Stream[] | undefined, message?: string): asserts arr is Stream[] | undefined;
 
 export function optionalArrayOfDate(arr: Date[] | undefined, message?: string): asserts arr is Date[] | undefined;
 
-export function optionalArrayOfRegexp(
-    arr: RegExp[] | undefined,
-    message?: string,
-): asserts arr is RegExp[] | undefined;
+export function optionalArrayOfRegexp(arr: RegExp[] | undefined, message?: string): asserts arr is RegExp[] | undefined;
 
 export function optionalArrayOfUuid(arr: string[] | undefined, message?: string): asserts arr is string[] | undefined;
 

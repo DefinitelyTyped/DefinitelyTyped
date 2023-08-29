@@ -202,7 +202,7 @@
 declare module "util" {
     
 
-    module util {
+    namespace util {
         
         
         

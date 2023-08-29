@@ -76,7 +76,7 @@
         content: "您是否想查询快递单号：1234567890",
         confirmButtonText: "马上查询",
         cancelButtonText: "暂不需要",
-        success: result => {
+        success: (result) => {
             my.alert({
                 title: `${result.confirm}`,
             });
@@ -88,7 +88,7 @@
         placeholder: "给朋友留言",
         okButtonText: "确定",
         cancelButtonText: "取消",
-        success: result => {
+        success: (result) => {
             my.alert({
                 title: JSON.stringify(result),
             });
@@ -136,7 +136,7 @@
             { index: 4, type: "more" },
         ],
         cancelButtonText: "取消好了",
-        success: res => {
+        success: (res) => {
             const btn = res.index === -1 ? "取消" : `第${res.index}个`;
             my.alert({
                 title: `你点了${btn}按钮`,
@@ -157,7 +157,7 @@
 (() => {
     // https://docs.alipay.com/mini/api/ui-contact
     my.choosePhoneContact({
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: `姓名：${res.name}\n号码：${res.mobile}`,
             });
@@ -165,12 +165,12 @@
     });
     my.chooseAlipayContact({
         count: 2,
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: "chooseAlipayContact response: " + JSON.stringify(res),
             });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({
                 content: "chooseAlipayContact response: " + JSON.stringify(res),
             });
@@ -182,12 +182,12 @@
         includeMobileContactMode: "known", // 仅包含双向手机通讯录联系人，也即双方手机通讯录都存有对方号码的联系人
         multiChooseMax: 3, // 最多能选择三个联系人
         multiChooseMaxTips: "超过选择的最大人数了",
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: "chooseContact : " + JSON.stringify(res),
             });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({
                 content: "chooseContact : " + JSON.stringify(res),
             });
@@ -244,7 +244,7 @@
                 adCode: "110106",
             },
         ],
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: `${res.city}:${res.adCode}`,
             });
@@ -259,7 +259,7 @@
         currentDate: "2012-12-12",
         startDate: "2012-12-10",
         endDate: "2012-12-15",
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: res.date,
             });
@@ -866,7 +866,7 @@
                 .selectAll(".all").boundingClientRect()
                 .select("#scroll").scrollOffset()
                 .selectViewport().boundingClientRect()
-                .selectViewport().scrollOffset().exec(ret => {
+                .selectViewport().scrollOffset().exec((ret) => {
                     console.log(JSON.stringify(ret, null, 2));
                 });
         },
@@ -913,7 +913,7 @@
     // https://docs.alipay.com/mini/api/openapi-authorize
     my.getAuthCode({
         scopes: "auth_user",
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: res.authCode,
             });
@@ -925,9 +925,9 @@
     // https://docs.alipay.com/mini/api/userinfo
     my.getAuthCode({
         scopes: "auth_user",
-        success: res => {
+        success: (res) => {
             my.getAuthUserInfo({
-                success: userInfo => {
+                success: (userInfo) => {
                     my.alert({
                         content: userInfo.nickName,
                     });
@@ -944,12 +944,12 @@
     // https://docs.alipay.com/mini/api/openapi-pay
     my.tradePay({
         tradeNO: "201711152100110410533667792", // 调用统一收单交易创建接口（alipay.trade.create），获得返回字段支付宝交易号trade_no
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: JSON.stringify(res),
             });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({
                 content: JSON.stringify(res),
             });
@@ -963,13 +963,13 @@
         // tslint:disable-next-line:max-line-length
         signStr:
             "biz_content%3D%257B%2522access_params%2522%253A%257B%2522channel%2522%253A%2522ALIPAYAPP%2522%257D%252C%2522external_agreement_no%2522%253A%2522xidong___2317%2522%252C%2522external_logon_id%2522%253A%252213852852877%2522%252C%2522personal_product_code%2522%253A%2522GENERAL_WITHHOLDING_P%2522%252C%2522product_code%2522%253A%2522GENERAL_WITHHOLDING%2522%252C%2522sign_scene%2522%253A%2522INDUSTRY%257CCARRENTAL%2522%252C%2522third_party_type%2522%253A%2522PARTNER%2522%257D%26sign%3Df3pjBDTRftOwXWnCqAMAnkBfGTFlcMmZI8hEgmV6uREZRXVDuLsSjD8WO%252FeZ1fjDG8GqVO9t1AN7q6yCUHKX%252Bw%252FE7efXwpVDWldr4iVuXDtNd3UJDJUiRJhIm6b73czWacVzm1XIery%252F2DyKI2y08tBf5NNWuQCC3d%252FITxziTl8%253D%26timestamp%3D2017-06-27%2B14%253A44%253A00%26sign_type%3DRSA%26notify_url%3Dhttp%253A%252F%252Fapi.test.alipay.net%252Fatinterface%252Freceive_notify.htm%26charset%3DUTF-8%26app_id%3D2017060101317939%26method%3Dalipay.user.agreement.page.sign%26return_url%3Dhttp%253A%252F%252Fapi.test.alipay.net%252Fatinterface%252Freceive_notify.htm%26version%3D1.0",
-        success: res => {
+        success: (res) => {
             my.alert({
                 title: "success", // alert框的标题
                 content: JSON.stringify(res),
             });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({
                 title: "fail", // alert框的标题
                 content: JSON.stringify(res),
@@ -1018,10 +1018,10 @@
     // https://docs.alipay.com/mini/api/add-card-auth
     my.addCardAuth({
         url: "从 openapi 接口获取到的 url",
-        success: res => {
+        success: (res) => {
             my.alert({ content: "授权成功" });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({ content: "授权失败" });
         },
     });
@@ -1031,10 +1031,10 @@
     // https://docs.alipay.com/mini/api/zm-service
     my.startZMVerify({
         bizNo: "your-biz-no",
-        success: res => {
+        success: (res) => {
             my.alert({ title: "success:" + JSON.stringify(res) });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({ title: "fail: " + JSON.stringify(res) });
         },
     });
@@ -1057,7 +1057,7 @@
         borrow_time: "2017-04-27 10:01:01",
         expiry_time: "2017-05-27 10:01:01",
         rent_info: "2hour-free",
-        success: res => {
+        success: (res) => {
             try {
                 const { resultStatus, result } = res;
                 switch (resultStatus) {
@@ -1093,7 +1093,7 @@
                 });
             }
         },
-        fail: error => {
+        fail: (error) => {
             // 调用接口失败, 请在这里提示用户稍后重试
             my.alert({
                 content: "调用失败" + JSON.stringify(error, null, 4),
@@ -1111,13 +1111,13 @@
     my.textRiskIdentification({
         content: "加我支付宝",
         type: ["keyword", "0", "1", "2", "3"],
-        success: res => {
+        success: (res) => {
             my.alert({
                 title: "ok", // alert 框的标题
                 content: JSON.stringify(res),
             });
         },
-        fail: res => {
+        fail: (res) => {
             my.alert({
                 title: "fail", // alert 框的标题
                 content: JSON.stringify(res),
@@ -1133,10 +1133,10 @@
         extraData: {
             data1: "test",
         },
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
-        fail: res => {
+        fail: (res) => {
             console.log(JSON.stringify(res));
         },
     });
@@ -1144,10 +1144,10 @@
         extraData: {
             data1: "test",
         },
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
-        fail: res => {
+        fail: (res) => {
             console.log(JSON.stringify(res));
         },
     });
@@ -1167,7 +1167,7 @@
         },
     });
     // H5的js代码中需要先定义my.onMessage 用于接收来自小程序的消息。
-    my.onMessage = e => {
+    my.onMessage = (e) => {
         console.log(e); // {'sendToWebView': '1'}
     };
     // H5想小程序发送消息
@@ -1179,7 +1179,7 @@
     const img = null as any as HTMLImageElement;
     my.chooseImage({
         count: 2,
-        success: res => {
+        success: (res) => {
             img.src = res.apFilePaths[0];
         },
     });
@@ -1219,24 +1219,24 @@
     my.compressImage({
         apFilePaths: ["https://resource/apmlcc0ed184daffc5a0d8da86b2f518cf7b.image"],
         // level: 1,
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
     // 网络图片路径
     my.getImageInfo({
         src: "https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg",
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
 
     // apFilePath
     my.chooseImage({
-        success: res => {
+        success: (res) => {
             my.getImageInfo({
                 src: res.apFilePaths[0],
-                success: res => {
+                success: (res) => {
                     console.log(JSON.stringify(res));
                 },
             });
@@ -1246,7 +1246,7 @@
     // 相对路径
     my.getImageInfo({
         src: "image/api.png",
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
@@ -1313,10 +1313,10 @@
 (() => {
     // https://docs.alipay.com/mini/api/file
     my.chooseImage({
-        success: res => {
+        success: (res) => {
             my.saveFile({
                 apFilePath: res.apFilePaths[0],
-                success: res => {
+                success: (res) => {
                     console.log(JSON.stringify(res));
                 },
             });
@@ -1325,26 +1325,26 @@
     my.getFileInfo({
         apFilePath: "https://resource/apml953bb093ebd2834530196f50a4413a87.video",
         digestAlgorithm: "sha1",
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
     my.getSavedFileInfo({
         apFilePath: "https://resource/apml953bb093ebd2834530196f50a4413a87.video",
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
     my.getSavedFileList({
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
     });
     my.getSavedFileList({
-        success: res => {
+        success: (res) => {
             my.removeSavedFile({
                 apFilePath: res.fileList[0].apFilePath,
-                success: res => {
+                success: (res) => {
                     console.log("remove success");
                 },
             });
@@ -1377,7 +1377,7 @@
         address: "杨高路地铁站",
     });
     my.chooseLocation({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
     });
@@ -1409,7 +1409,7 @@
         fileType: "image",
         fileName: "file",
         filePath: "...",
-        success: res => {
+        success: (res) => {
             my.alert({
                 content: "上传成功",
             });
@@ -1476,7 +1476,7 @@
         callback() {
             my.sendSocketMessage({
                 data: this.data.toSendMessage, // 需要发送的内容
-                success: res => {
+                success: (res) => {
                     my.alert({ content: "数据发送！" + this.data.toSendMessage });
                 },
             });
@@ -1486,7 +1486,7 @@
         url: "服务器地址",
     });
 
-    my.onSocketMessage(res => {
+    my.onSocketMessage((res) => {
         console.log("收到服务器内容：" + res.data);
     });
     my.onSocketOpen(() => {
@@ -1516,19 +1516,19 @@
                 });
             });
 
-            my.onSocketError(res => {
+            my.onSocketError((res) => {
                 my.alert({ content: "WebSocket 连接打开失败，请检查！" + res });
             });
 
             // 注意： 回调方法的注册在整个小程序启动阶段只要做一次，调多次会有多次回调
-            my.onSocketMessage(res => {
+            my.onSocketMessage((res) => {
                 my.alert({ content: "收到数据！" + JSON.stringify(res) });
             });
         },
         connect_start() {
             my.connectSocket({
                 url: "服务器地址", // 开发者服务器接口地址，必须是 wss 协议，且域名必须是后台配置的合法域名
-                success: res => {
+                success: (res) => {
                     my.showToast({
                         content: "success", // 文字内容
                     });
@@ -1566,7 +1566,7 @@
         },
         getSystemInfoPage(this: my.Page) {
             my.getSystemInfo({
-                success: res => {
+                success: (res) => {
                     this.setData({
                         systemInfo: res,
                     });
@@ -1594,7 +1594,7 @@
         },
         getNetworkType(this: my.Page) {
             my.getNetworkType({
-                success: res => {
+                success: (res) => {
                     this.setData({
                         hasNetworkType: true,
                         networkType: res.networkType,
@@ -1609,7 +1609,7 @@
             });
         },
     });
-    my.onNetworkStatusChange(res => {
+    my.onNetworkStatusChange((res) => {
         console.log(JSON.stringify(res));
     });
     my.offNetworkStatusChange();
@@ -1726,24 +1726,24 @@
     // https://docs.alipay.com/mini/api/screen-brightness
     my.setKeepScreenOn({
         keepScreenOn: true,
-        success: res => {
+        success: (res) => {
         },
-        fail: res => {
+        fail: (res) => {
         },
     });
     my.getScreenBrightness({
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
-        fail: res => {
+        fail: (res) => {
         },
     });
     my.setScreenBrightness({
         brightness: 0.5,
-        success: res => {
+        success: (res) => {
             console.log(JSON.stringify(res));
         },
-        fail: res => {
+        fail: (res) => {
         },
     });
 })();
@@ -1761,7 +1761,7 @@
         scan() {
             my.scan({
                 type: "qr",
-                success: res => {
+                success: (res) => {
                     my.alert({ title: res.code });
                 },
             });
@@ -1773,33 +1773,33 @@
     // https://docs.alipay.com/mini/api/bluetooth-intro
     // 初始化
     my.openBluetoothAdapter({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
     });
     // 注册发现事件
     my.onBluetoothDeviceFound({
-        success: res => {
+        success: (res) => {
             const device = res.devices[0];
             // 连接发现的设备
             my.connectBLEDevice({
                 deviceId,
-                success: res => {
+                success: (res) => {
                     console.log(res);
                 },
-                fail: res => {
+                fail: (res) => {
                 },
-                complete: res => {
+                complete: (res) => {
                 },
             });
             // 停止搜索
             my.stopBluetoothDevicesDiscovery({
-                success: res => {
+                success: (res) => {
                     console.log(res);
                 },
-                fail: res => {
+                fail: (res) => {
                 },
-                complete: res => {
+                complete: (res) => {
                 },
             });
         },
@@ -1809,7 +1809,7 @@
     const characteristicId = "test";
     // 注册连接事件
     my.onBLEConnectionStateChanged({
-        success: res => {
+        success: (res) => {
             console.log(res);
             if (res.connected) {
                 // 开始读写notify等操作
@@ -1817,12 +1817,12 @@
                     deviceId,
                     serviceId,
                     characteristicId,
-                    success: res => {
+                    success: (res) => {
                         console.log(res);
                     },
-                    fail: res => {
+                    fail: (res) => {
                     },
-                    complete: res => {
+                    complete: (res) => {
                     },
                 });
             }
@@ -1830,31 +1830,31 @@
     });
     // 注册接收read或notify的数据
     my.onBLECharacteristicValueChange({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
     });
     // 开始搜索
     my.startBluetoothDevicesDiscovery({
         services: ["fff0"],
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
 
     // 断开连接
     my.disconnectBLEDevice({
         deviceId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
 
@@ -1865,11 +1865,11 @@
 
     // 退出蓝牙模块
     my.closeBluetoothAdapter({
-        success: res => {
+        success: (res) => {
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
 })();
@@ -1877,65 +1877,65 @@
 (() => {
     // https://docs.alipay.com/mini/api/bluetooth-api
     my.openBluetoothAdapter({
-        success: res => {
+        success: (res) => {
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.closeBluetoothAdapter({
-        success: res => {
+        success: (res) => {
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.getBluetoothAdapterState({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.startBluetoothDevicesDiscovery({
         services: ["fff0"],
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.stopBluetoothDevicesDiscovery({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.getBluetoothDevices({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.getConnectedBluetoothDevices({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     const deviceId = "test";
@@ -1944,22 +1944,22 @@
     my.connectBLEDevice({
         // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
         deviceId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.disconnectBLEDevice({
         deviceId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.writeBLECharacteristicValue({
@@ -1967,57 +1967,57 @@
         serviceId,
         characteristicId,
         value: "fffe",
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.readBLECharacteristicValue({
         deviceId,
         serviceId,
         characteristicId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.notifyBLECharacteristicValueChange({
         deviceId,
         serviceId,
         characteristicId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.getBLEDeviceServices({
         deviceId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     my.getBLEDeviceCharacteristics({
         deviceId,
         serviceId,
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
     Page({
@@ -2054,7 +2054,7 @@
     // https://docs.alipay.com/mini/api/yqleyc
     my.startBeaconDiscovery({
         uuids: ["uuid1", "uuid2"],
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
         fail: () => {
@@ -2064,32 +2064,32 @@
     });
 
     my.stopBeaconDiscovery({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
 
     my.getBeacons({
-        success: res => {
+        success: (res) => {
             console.log(res);
         },
-        fail: res => {
+        fail: (res) => {
         },
-        complete: res => {
+        complete: (res) => {
         },
     });
 
     my.onBeaconUpdate({
-        success: res => {
+        success: (res) => {
         },
     });
 
     my.onBeaconServiceChange({
-        success: res => {
+        success: (res) => {
         },
     });
 })();
@@ -2111,7 +2111,7 @@
                 // tslint:disable-next-line:max-line-length
                 key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKmi0dUSVQ04hL6GZGPMFK8+d6\nGzulagP27qSUBYxIJfE04KT+OHVeFFb6K+8nWDea5mkmZrIgp022zZVDgdWPNM62\n3ouBwHlsfm2ekey8PpQxfXaj8lhM9t8rJlC4FEc0s8Qp7Q5/uYrowQbT9m6t7BFK\n3egOO2xOKzLpYSqfbQIDAQAB",
                 text: this.data.inputValue,
-                success: result => {
+                success: (result) => {
                     this.setData({ outputValue: result.text });
                 },
                 fail(e) {
@@ -2140,7 +2140,7 @@
                     + "N+vghDlHI4owvl5wwVlAO8iQBy8e8QJBAJe9CVXFV0XJR/n/XnER66FxGzJjVi0f\n"
                     + "185nOlFARI5CHG5VxxT2PUCo5mHBl8ctIj+rQvalvGs515VQ6YEVDCECQE3S0AU2\n"
                     + "BKyFVNtTpPiTyRUWqig4EbSXwjXdr8iBBJDLsMpdWsq7DCwv/ToBoLg+cQ4Crc5/\n5DChU8P30EjOiEo=",
-                success: result => {
+                success: (result) => {
                     this.setData({ outputValue: result.text });
                 },
                 fail(e) {

@@ -4239,10 +4239,7 @@ declare module "esri/dijit/Directions" {
         /** Fires when a existing route layer item is successfully updated in ArcGIS Online or Portal after user clicks the Save button. */
         on(type: "route-item-updated", listener: (event: { target: Directions }) => void): esri.Handle;
         /** Fired when you hover over a route segment in the directions display. */
-        on(
-            type: "segment-highlight",
-            listener: (event: { graphic: Graphic; target: Directions }) => void,
-        ): esri.Handle;
+        on(type: "segment-highlight", listener: (event: { graphic: Graphic; target: Directions }) => void): esri.Handle;
         /** Fires when a route segment is selected in the directions display. */
         on(type: "segment-select", listener: (event: { graphic: Graphic; target: Directions }) => void): esri.Handle;
         on(type: string, listener: (event: any) => void): esri.Handle;
@@ -4465,10 +4462,7 @@ declare module "esri/dijit/FeatureTable" {
             listener: (event: { features: Graphic[]; relationship: any; row: any; target: FeatureTable }) => void,
         ): esri.Handle;
         /** Fires when the statistics dialog box shows the calculated statistics on a column with numeric data. */
-        on(
-            type: "show-statistics",
-            listener: (event: { statistics: any; target: FeatureTable }) => void,
-        ): esri.Handle;
+        on(type: "show-statistics", listener: (event: { statistics: any; target: FeatureTable }) => void): esri.Handle;
         /** Fires when a column is sorted. */
         on(type: "sort", listener: (event: { sortEvent: any; target: FeatureTable }) => void): esri.Handle;
         on(type: string, listener: (event: any) => void): esri.Handle;
@@ -5315,10 +5309,7 @@ declare module "esri/dijit/ObliqueViewer" {
         /** Sets the map extent to the currently selected image. */
         zoomToSelectedImage(): void;
         /** Fires when the azimuth is changed. */
-        on(
-            type: "azimuth-change",
-            listener: (event: { azimuth: number; target: ObliqueViewer }) => void,
-        ): esri.Handle;
+        on(type: "azimuth-change", listener: (event: { azimuth: number; target: ObliqueViewer }) => void): esri.Handle;
         /** Fires when the selected raster is changed. */
         on(
             type: "raster-select",
@@ -7719,10 +7710,7 @@ declare module "esri/dijit/geoenrichment/InfographicsCarousel" {
         /** Fires when loading data for the study area. */
         on(type: "data-load", listener: (event: { target: InfographicsCarousel }) => void): esri.Handle;
         /** Fires when data for the study area is ready. */
-        on(
-            type: "data-ready",
-            listener: (event: { provider: any; target: InfographicsCarousel }) => void,
-        ): esri.Handle;
+        on(type: "data-ready", listener: (event: { provider: any; target: InfographicsCarousel }) => void): esri.Handle;
         /** Fires when the InfographicsCarousel is resized. */
         on(type: "resize", listener: (event: { size: number[]; target: InfographicsCarousel }) => void): esri.Handle;
         on(type: string, listener: (event: any) => void): esri.Handle;
@@ -10051,10 +10039,7 @@ declare module "esri/layers/ArcGISTiledMapServiceLayer" {
         /** Fires when a layer resumes drawing. */
         on(type: "resume", listener: (event: { target: ArcGISTiledMapServiceLayer }) => void): esri.Handle;
         /** Fires when a layer's minScale and/or maxScale is changed. */
-        on(
-            type: "scale-range-change",
-            listener: (event: { target: ArcGISTiledMapServiceLayer }) => void,
-        ): esri.Handle;
+        on(type: "scale-range-change", listener: (event: { target: ArcGISTiledMapServiceLayer }) => void): esri.Handle;
         /** Fires when a layer's scale visibility changes. */
         on(
             type: "scale-visibility-change",
@@ -10989,10 +10974,7 @@ declare module "esri/layers/GraphicsLayer" {
             listener: (event: { graphic: Graphic; node: HTMLElement; target: GraphicsLayer }) => void,
         ): esri.Handle;
         /** Fires when a graphic is removed from the GraphicsLayer. */
-        on(
-            type: "graphic-remove",
-            listener: (event: { graphic: Graphic; target: GraphicsLayer }) => void,
-        ): esri.Handle;
+        on(type: "graphic-remove", listener: (event: { graphic: Graphic; target: GraphicsLayer }) => void): esri.Handle;
         /** Fires when all graphics in the GraphicsLayer are cleared. */
         on(type: "graphics-clear", listener: (event: { target: GraphicsLayer }) => void): esri.Handle;
         /** Fires when a mouse button is pressed down and the mouse cursor is on a graphic. */
@@ -12067,10 +12049,7 @@ declare module "esri/layers/WCSConnection" {
         /** Triggered when successfully retrieved list of coverages. */
         on(type: "onConnected", listener: (event: { target: WCSConnection }) => void): esri.Handle;
         /** Triggered when an error occurred. */
-        on(
-            type: "onConnectionFailed",
-            listener: (event: { error: Error; target: WCSConnection }) => void,
-        ): esri.Handle;
+        on(type: "onConnectionFailed", listener: (event: { error: Error; target: WCSConnection }) => void): esri.Handle;
         on(type: string, listener: (event: any) => void): esri.Handle;
     }
     export = WCSConnection;
@@ -13039,10 +13018,7 @@ declare module "esri/map" {
         /** Fires after the layer has been removed. */
         on(type: "layer-remove", listener: (event: { layer: Layer; target: Map }) => void): esri.Handle;
         /** Fires when the map layer order has been changed. */
-        on(
-            type: "layer-reorder",
-            listener: (event: { index: number; layer: Layer; target: Map }) => void,
-        ): esri.Handle;
+        on(type: "layer-reorder", listener: (event: { index: number; layer: Layer; target: Map }) => void): esri.Handle;
         /** Fires when a map layer resumes drawing. */
         on(type: "layer-resume", listener: (event: { layer: Layer; target: Map }) => void): esri.Handle;
         /** Fires after all layers are added to the map using the map.addLayers method. */
@@ -13087,10 +13063,7 @@ declare module "esri/map" {
             listener: (event: { extent: Extent; height: number; width: number; target: Map }) => void,
         ): esri.Handle;
         /** Fires when the map's timeExtent property is set. */
-        on(
-            type: "time-extent-change",
-            listener: (event: { timeExtent: TimeExtent; target: Map }) => void,
-        ): esri.Handle;
+        on(type: "time-extent-change", listener: (event: { timeExtent: TimeExtent; target: Map }) => void): esri.Handle;
         /** Fires when the page is refreshed. */
         on(type: "unload", listener: (event: { map: Map; target: Map }) => void): esri.Handle;
         /** Fires after layers that are updating their content have completed. */
@@ -15730,10 +15703,7 @@ declare module "esri/tasks/GeometryService" {
             listener: (event: { geometries: Point[]; target: GeometryService }) => void,
         ): esri.Handle;
         /** Fires when the lengths operation is complete. */
-        on(
-            type: "lengths-complete",
-            listener: (event: { result: any; target: GeometryService }) => void,
-        ): esri.Handle;
+        on(type: "lengths-complete", listener: (event: { result: any; target: GeometryService }) => void): esri.Handle;
         /** Fires when the offset operation is complete. */
         on(
             type: "offset-complete",
@@ -17156,10 +17126,7 @@ declare module "esri/tasks/datareviewer/BatchValidationTask" {
             listener: (event: { disabled: boolean; target: BatchValidationTask }) => void,
         ): esri.Handle;
         /** Fires when the editJob method is complete. */
-        on(
-            type: "edit-job",
-            listener: (event: { edited: boolean; target: BatchValidationTask }) => void,
-        ): esri.Handle;
+        on(type: "edit-job", listener: (event: { edited: boolean; target: BatchValidationTask }) => void): esri.Handle;
         /** Fires when the enableJob method is complete. */
         on(
             type: "enable-job",
@@ -17168,10 +17135,7 @@ declare module "esri/tasks/datareviewer/BatchValidationTask" {
         /** Fires when an error occurs during a BatchValidationTask method execution. */
         on(type: "error", listener: (event: { error: Error; target: BatchValidationTask }) => void): esri.Handle;
         /** Fires when the executeJob method is complete. */
-        on(
-            type: "execute-job",
-            listener: (event: { jobId: string; target: BatchValidationTask }) => void,
-        ): esri.Handle;
+        on(type: "execute-job", listener: (event: { jobId: string; target: BatchValidationTask }) => void): esri.Handle;
         /** Fires when the getAdhocJobsList method is complete. */
         on(
             type: "get-adhoc-jobs-list",
@@ -17854,10 +17818,7 @@ declare module "esri/tasks/geoenrichment/StandardGeographyQueryTask" {
          */
         execute(GeographyQuery: GeographyQueryBase): any;
         /** Fires when an error occurs during the query. */
-        on(
-            type: "error",
-            listener: (event: { error: Error; target: StandardGeographyQueryTask }) => void,
-        ): esri.Handle;
+        on(type: "error", listener: (event: { error: Error; target: StandardGeographyQueryTask }) => void): esri.Handle;
         /** Fires when the query successfully executes. */
         on(
             type: "execute-complete",
@@ -18479,10 +18440,7 @@ declare module "esri/toolbars/edit" {
         /** Refreshes the internal state of the toolbar. */
         refresh(): void;
         /** Activates the toolbar for editing geometries. */
-        on(
-            type: "activate",
-            listener: (event: { graphic: Graphic; tool: string; target: Edit }) => void,
-        ): esri.Handle;
+        on(type: "activate", listener: (event: { graphic: Graphic; tool: string; target: Edit }) => void): esri.Handle;
         /** Deactivates the toolbar and reactivates map navigation. */
         on(
             type: "deactivate",
@@ -18514,10 +18472,7 @@ declare module "esri/toolbars/edit" {
         /** Fires when a user clicks on the handle to begin rotating a graphic. */
         on(type: "rotate-start", listener: (event: { graphic: Graphic; target: Edit }) => void): esri.Handle;
         /** Fires when the mouse button is released from the rotate handle to finish rotating the graphic. */
-        on(
-            type: "rotate-stop",
-            listener: (event: { graphic: Graphic; info: any; target: Edit }) => void,
-        ): esri.Handle;
+        on(type: "rotate-stop", listener: (event: { graphic: Graphic; info: any; target: Edit }) => void): esri.Handle;
         /** Fires continuously as the graphic is being scaled. */
         on(type: "scale", listener: (event: { graphic: Graphic; info: any; target: Edit }) => void): esri.Handle;
         /** Fires when the user begins to drag a handle to scale the graphic. */

@@ -12,12 +12,12 @@ minecraftAutoLauncher.enable();
 minecraftAutoLauncher.disable();
 
 minecraftAutoLauncher.isEnabled()
-    .then(isEnabled => {
+    .then((isEnabled) => {
         if (isEnabled) {
             return;
         }
         minecraftAutoLauncher.enable();
     })
-    .catch(err => {
+    .catch((err) => {
         console.error(err);
     });

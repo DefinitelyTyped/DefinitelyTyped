@@ -31,6 +31,7 @@ const options: Options = {
     minFileSize: 1,
     multiples: false,
     uploadDir: "/dir",
+    createDirsFromUploads: false,
     filter: (part) => {
         // $ExpectType Part
         part;
@@ -176,30 +177,41 @@ form.onPart = part => {
     form._handlePart(part);
 };
 
-http.createServer(req => {
+http.createServer(async req => {
     // $ExpectType IncomingMessage
     req;
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields, files) => { // testing with callback
         // $ExpectType any
         err;
-        // $ExpectType Fields
+        // $ExpectType Fields<string>
         fields;
-        // $ExpectType Files
+        // $ExpectType Files<string>
         files;
     });
-});
 
-http.createServer(req => {
+    form.parse<"name" | "age", "avatar" | "document">(req, (err, fields, files) => { // testing with callback and type arguments
+        // $ExpectType any
+        err;
+        // $ExpectType Fields<"name" | "age">
+        fields;
+        // $ExpectType Files<"avatar" | "document">
+        files;
+    });
+
     form.parse(req); // testing without callback
-});
 
-http.createServer(async req => {
     const [fields, files] = await form.parse(req); // testing with promise
-    // $ExpectType Fields
+    // $ExpectType Fields<string>
     fields;
-    // $ExpectType Files
+    // $ExpectType Files<string>
     files;
+
+    const [newFields, newFiles] = await form.parse<"name" | "age", "avatar" | "document">(req); // testing with promise and type arguments
+    // $ExpectType Fields<"name" | "age">
+    newFields;
+    // $ExpectType Files<"avatar" | "document">
+    newFiles;
 });
 
 // $ExpectType IncomingForm

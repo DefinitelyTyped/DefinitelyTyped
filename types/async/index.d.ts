@@ -438,10 +438,7 @@ export function some<T, E = Error>(
     iterator: AsyncBooleanIterator<T, E>,
     callback: AsyncBooleanResultCallback<E>,
 ): void;
-export function some<T, E = Error>(
-    arr: IterableCollection<T>,
-    iterator: AsyncBooleanIterator<T, E>,
-): Promise<boolean>;
+export function some<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>): Promise<boolean>;
 export const someSeries: typeof some;
 export function someLimit<T, E = Error>(
     arr: IterableCollection<T>,
@@ -457,10 +454,7 @@ export function every<T, E = Error>(
     iterator: AsyncBooleanIterator<T, E>,
     callback: AsyncBooleanResultCallback<E>,
 ): void;
-export function every<T, E = Error>(
-    arr: IterableCollection<T>,
-    iterator: AsyncBooleanIterator<T, E>,
-): Promise<boolean>;
+export function every<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>): Promise<boolean>;
 export const everySeries: typeof every;
 export function everyLimit<T, E = Error>(
     arr: IterableCollection<T>,
@@ -525,10 +519,7 @@ export function groupByLimit<T, K, E = Error>(
 export const groupBySeries: typeof groupBy;
 
 // Control Flow
-export function series<T, E = Error>(
-    tasks: Array<AsyncFunction<T, E>>,
-    callback: AsyncResultArrayCallback<T, E>,
-): void;
+export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultArrayCallback<T, E>): void;
 export function series<T, E = Error>(
     tasks: Dictionary<AsyncFunction<T, E>>,
     callback: AsyncResultObjectCallback<T, E>,

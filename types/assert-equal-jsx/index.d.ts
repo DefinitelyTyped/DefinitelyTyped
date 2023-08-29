@@ -12,10 +12,6 @@ declare namespace assertEqualJSX {
     }
 }
 
-declare function assertEqualJSX(
-    actual: JSX.Element,
-    expected: JSX.Element,
-    opts?: assertEqualJSX.AsssertOptions,
-): void;
+declare function assertEqualJSX(actual: JSX.Element, expected: JSX.Element, opts?: assertEqualJSX.AsssertOptions): void;
 
 export = assertEqualJSX;

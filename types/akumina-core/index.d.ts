@@ -755,12 +755,7 @@ declare namespace Akumina {
                  * @param columnName Coloumn Name for tags
                  * @param tagList semicolon seprated list of tags
                  */
-                SetTagsForItem(
-                    listName: string,
-                    itemId: string,
-                    columnName: string,
-                    tagList: any,
-                ): JQueryDeferred<any>;
+                SetTagsForItem(listName: string, itemId: string, columnName: string, tagList: any): JQueryDeferred<any>;
 
                 /**
                  * Set permissions for list item
@@ -1729,5 +1724,5 @@ interface IConstants {
     LOG_LEVEL: number;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Akumina;

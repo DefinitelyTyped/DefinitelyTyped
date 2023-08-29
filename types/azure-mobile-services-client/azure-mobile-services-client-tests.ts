@@ -7,7 +7,7 @@ console.log("Azure application KEY: " + client.applicationKey.replace(/./gi, "*"
 if (client.currentUser === null) {
     client.login("facebook")
         .then((u: Microsoft.WindowsAzure.User) => alert(u.level))
-        .done(() => alert("USER: " + client.currentUser.userId), e => alert("ERROR: " + e));
+        .done(() => alert("USER: " + client.currentUser.userId), (e) => alert("ERROR: " + e));
 } else client.logout();
 
 // define an interface that map to server side Table data
@@ -25,7 +25,7 @@ tableTodoItems.read()
         data = retList;
         return retList.length;
     })
-    .done((n: number) => alert(n + " items downloaded"), e => alert("ERROR: " + e));
+    .done((n: number) => alert(n + " items downloaded"), (e) => alert("ERROR: " + e));
 
 // define simple handler used in callback calls for insert/update and delete
 function handlerInsUpd(e: any, i: any) {

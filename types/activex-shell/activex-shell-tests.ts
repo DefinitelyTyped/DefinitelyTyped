@@ -409,7 +409,7 @@ const buildHotkey = (
     }
 })();
 
-const collectionToArray = <T>(col: any): T[] => { // eslint-disable-line no-unnecessary-generics
+const collectionToArray = <T>(col: any): T[] => { // eslint-disable-line @definitelytyped/no-unnecessary-generics
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();

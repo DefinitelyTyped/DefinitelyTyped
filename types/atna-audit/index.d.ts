@@ -109,11 +109,7 @@ export namespace construct {
     }
 
     class AuditSourceIdentification {
-        constructor(
-            auditEnterpriseSiteId: string | null | undefined,
-            auditSourceId: string,
-            auditSourceTypeCode: Code,
-        );
+        constructor(auditEnterpriseSiteId: string | null | undefined, auditSourceId: string, auditSourceTypeCode: Code);
 
         toXML(): string;
     }

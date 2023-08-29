@@ -497,12 +497,7 @@ ${
     {
         const device = cd.ShowSelectDevice();
         const items = device
-            && cd.ShowSelectItems(
-                device,
-                WIA.WiaImageIntent.UnspecifiedIntent,
-                WIA.WiaImageBias.MaximizeQuality,
-                true,
-            );
+            && cd.ShowSelectItems(device, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
         const item = items && items(1);
         if (item) {
             const count = collectionToArray(item.Items).filter(childItem => {

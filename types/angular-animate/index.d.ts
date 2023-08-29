@@ -45,20 +45,10 @@ declare module "angular" {
                 | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
                 | undefined;
             beforeRemoveClass?:
-                | ((
-                    element: JQuery,
-                    removedClasses: string,
-                    doneFunction: Function,
-                    options: IAnimationOptions,
-                ) => any)
+                | ((element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
                 | undefined;
             removeClass?:
-                | ((
-                    element: JQuery,
-                    removedClasses: string,
-                    doneFunction: Function,
-                    options: IAnimationOptions,
-                ) => any)
+                | ((element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
                 | undefined;
             enter?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
             leave?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;

@@ -205,7 +205,8 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        function getMacroData(callback: (data: object) => void): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        function getMacroData<T extends object>(callback: (data: T) => void): void;
 
         /**
          * Get the body saved in the saveMacro method.
@@ -521,12 +522,12 @@ declare namespace AP {
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number | undefined;
+            width?: number | string | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number | undefined;
+            height?: number | string | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
@@ -707,11 +708,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe to the event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function oncePublic(
-            name: string,
-            listener: (data: object) => void,
-            filter: (toCompare: any) => boolean,
-        ): void;
+        function oncePublic(name: string, listener: (data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Adds a listener for all occurrences of any event, regardless of name.
@@ -730,10 +727,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe for any event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function onAnyPublic(
-            listener: (name: string, data: object) => void,
-            filter: (toCompare: any) => boolean,
-        ): void;
+        function onAnyPublic(listener: (name: string, data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Removes a particular listener for an event.
@@ -780,7 +774,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[]): void;
+        function emit(name: string, args?: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -791,7 +785,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[]): void;
+        function emitPublic(name: string, args?: string[]): void;
     }
 
     /**
@@ -871,13 +865,62 @@ declare namespace AP {
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string): void;
+        function pushState(newState: any, title?: string, url?: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.
          * @param url URL to update current history value with
          */
         function replaceState(url: string): void;
+
+        /**
+         * Register a function to run when state is changed.
+         * You should use this to update your UI to show the state.
+         * NB: The function is only documented in the example code provided.
+         *
+         * @param callback Function to run when the state is changed.
+         * @example
+         * AP.history.popState(function(e){
+         *     alert("The URL has changed from: " + e.oldURL + "to: " + e.newURL);
+         * });
+         * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
+         */
+        function popState(
+            callback: (event: {
+                /**
+                 * Add-on key
+                 */
+                key: string;
+                /**
+                 * URL hash
+                 */
+                hash: null | string;
+                /**
+                 * URL query parameters
+                 */
+                query: null | string;
+                /**
+                 * Title of the destination page.
+                 */
+                title: string;
+                /**
+                 * Complete url
+                 */
+                href: string;
+                /**
+                 * State defined in the pushState function
+                 */
+                state: unknown;
+                /**
+                 * URL added to history
+                 */
+                newURL: string;
+                /**
+                 * URL previously in the history, or undefined if no URLs were already in the history.
+                 */
+                oldURL?: string;
+            }) => void,
+        ): void;
     }
 
     /**
@@ -1225,6 +1268,19 @@ declare namespace AP {
              */
             absoluteUrl: string;
         }
+
+        interface NavigatorLocationContext {
+            /**
+             * The type of the page.
+             */
+            target: NavigatorTargetJira | NavigatorTargetConfluence;
+
+            /**
+             * Specific information that identifies the page.
+             */
+            context: Partial<NavigatorContext>;
+        }
+
         /**
          * Returns the context of the current page within the host application.
          *
@@ -1239,7 +1295,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string) => void): void;
+        function getLocation(callback: (location: NavigatorLocationContext) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.

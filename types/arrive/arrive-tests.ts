@@ -24,7 +24,7 @@ $(".container-1").arrive(".test-elem", function() {
     const $newElem = $(this);
 });
 
-$(document).arrive(".test-elem", newElem => {
+$(document).arrive(".test-elem", (newElem) => {
     const $newElem = $(newElem);
 });
 

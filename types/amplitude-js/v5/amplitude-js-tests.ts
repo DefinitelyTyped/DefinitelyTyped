@@ -66,12 +66,7 @@ import amplitude = require("amplitude-js");
     client.logEvent("EVENT_IDENTIFIER_HERE", { color: "blue", age: 20, key: "value" });
     client.logEvent("EVENT_IDENTIFIER_HERE", null, (httpCode, response) => {});
     client.logEventWithGroups("initialize_game", { key: "value" }, { sport: "soccer" });
-    client.logEventWithTimestamp(
-        "EVENT_IDENTIFIER_HERE",
-        { key: "value" },
-        1505430378000,
-        (httpCode, response) => {},
-    );
+    client.logEventWithTimestamp("EVENT_IDENTIFIER_HERE", { key: "value" }, 1505430378000, (httpCode, response) => {});
     client.setDeviceId("45f0954f-eb79-4463-ac8a-233a6f45a8f0");
     client.setDomain(".amplitude.com");
     client.setUserId("joe@gmail.com");

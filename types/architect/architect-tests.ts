@@ -11,11 +11,11 @@ architect.loadConfig("./fake-path", (err, config) => {
         console.log("Service registered %s", name);
     });
 
-    myApp.on("plugin", plugin => {
+    myApp.on("plugin", (plugin) => {
         console.log("Plugin registered", plugin);
     });
 
-    myApp.on("ready", app => {
+    myApp.on("ready", (app) => {
         console.log("All plugins loaded");
     });
 });

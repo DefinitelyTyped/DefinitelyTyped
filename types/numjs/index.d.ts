@@ -384,7 +384,7 @@ export function std<T = number>(x: NjParam<T>): T;
  * Subtract second argument from the first, element-wise.
  *
  */
-export function subtract<T = number>(a: NjParam<T>, b: NjParam<T>): T;
+export function subtract<T = number>(a: NjParam<T>, b: NjParam<T>): NdArray<T>;
 
 /**
  * Return the sum of input array elements.

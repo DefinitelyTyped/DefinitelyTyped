@@ -5,10 +5,7 @@ const acePlaceholderTests = {
         var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);", mode);
         var editor = new AceAjax.Editor(renderer, session);
 
-        new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, {
-            row: 1,
-            column: 15,
-        }]);
+        new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
         editor.moveCursorTo(0, 5);
         editor.insert("b");
@@ -25,10 +22,7 @@ const acePlaceholderTests = {
         var session = new AceAjax.EditSession("var a = 10;\nconsole.log(a, a);\n", mode);
         var editor = new AceAjax.Editor(renderer, session);
 
-        new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, {
-            row: 1,
-            column: 15,
-        }]);
+        new AceAjax.PlaceHolder(session, 1, { row: 0, column: 4 }, [{ row: 1, column: 12 }, { row: 1, column: 15 }]);
 
         editor.moveCursorTo(2, 0);
         editor.insert("b");

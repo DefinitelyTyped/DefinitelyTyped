@@ -540,11 +540,18 @@ export class ExtensibleFilter extends Filter {
 
 export interface AttributeJson {
     type: string;
-    vals: string[];
+    values: string[];
 }
 
 export class Attribute {
-    constructor(options?: { type?: string; vals?: any });
+    constructor(options?: {
+        type?: string;
+        values?: any;
+        /**
+         * @deprecated
+         */
+        vals?: any;
+    });
     readonly type: string;
     readonly buffers: Buffer[];
 
@@ -553,6 +560,10 @@ export class Attribute {
      *  get: When reading it always returns an array of strings.
      *  set: When assigning it accepts either an array or a single value.
      *       `Buffer`s are assigned directly, any other value is converted to string and loaded into a `Buffer`.
+     */
+    values: string | string[];
+    /**
+     * @deprecated
      */
     vals: string | string[];
 
@@ -569,7 +580,6 @@ interface LDAPMessageJsonObject {
     messageID: number;
     protocolOp: string | undefined;
     controls: Control[];
-    [k: string]: any;
 }
 
 export abstract class LDAPMessage {
@@ -585,7 +595,7 @@ export abstract class LDAPMessage {
     readonly json: LDAPMessageJsonObject;
 
     /** plain old js object */
-    readonly pojo: SearchEntryObject;
+    readonly pojo: LDAPMessageJsonObject;
 
     /** Stringified json property */
     toString(): string;
@@ -610,18 +620,19 @@ export class SearchResultDone extends BaseLDAPResult {
     readonly type: 'SearchResultDone';
 }
 
-export interface SearchEntryObject {
-    dn: string;
-    controls: Control[];
-    [p: string]: string | string[];
-}
+export type SearchEntryObject = LDAPMessageJsonObject & {
+    type: 'SearchResultEntry';
+    objectName: string;
+    attributes: AttributeJson[];
+};
 
 export class SearchEntry extends LDAPMessage {
     readonly type: 'SearchResultEntry';
     objectName: string | null;
     attributes: Attribute[];
 
-    readonly json: LDAPMessageJsonObject & { objectName: string; attributes: AttributeJson[] };
+    readonly json: SearchEntryObject;
+    readonly pojo: SearchEntryObject;
 }
 
 export function parseDN(dn: string): dn.DN;

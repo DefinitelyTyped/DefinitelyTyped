@@ -22,7 +22,7 @@ source = new AV.BufferSource(buffer);
 source = new AV.BufferSource(new ArrayBuffer(10));
 source = new AV.BufferSource(bufferList);
 source.start();
-source.on("data", buffer => {
+source.on("data", (buffer) => {
     console.log(buffer.length);
 });
 
@@ -32,13 +32,13 @@ asset = AV.Asset.fromFile(new File([], "test-file"));
 asset = AV.Asset.fromBuffer(typedArray);
 asset = new AV.Asset(source);
 asset.start();
-asset.get("format", format => {
+asset.get("format", (format) => {
     console.log(format.formatID);
 });
-asset.get("metadata", metadata => {
+asset.get("metadata", (metadata) => {
     console.log(metadata.asdf);
 });
-asset.on("error", error => {
+asset.on("error", (error) => {
     console.log(error.stack);
 });
 
@@ -48,7 +48,7 @@ player = AV.Player.fromFile(new File([], "test-file"));
 player = AV.Player.fromBuffer(typedArray);
 player = new AV.Player(asset);
 player.play();
-player.on("error", error => {
+player.on("error", (error) => {
     console.log(error.stack);
 });
 
@@ -73,7 +73,7 @@ const device: AV.Device | null = AV.AudioDevice.create(12345, 2);
 const audioDevice = new AV.AudioDevice(12345, 2);
 console.log(audioDevice.playing);
 audioDevice.seek(10);
-audioDevice.once("refill", buffer => {
+audioDevice.once("refill", (buffer) => {
     console.log(buffer.length);
 });
 
@@ -98,7 +98,7 @@ class MyDecoder extends AV.Decoder {
 AV.Decoder.register("mp3", MyDecoder);
 const decoder: AV.Decoder | null = AV.Decoder.find("mp3");
 if (decoder) {
-    decoder.on("error", error => {
+    decoder.on("error", (error) => {
         console.log(error.stack);
     });
 }
@@ -114,7 +114,7 @@ class MyDemuxer extends AV.Demuxer {
 AV.Demuxer.register(MyDemuxer);
 const demuxer: AV.Demuxer | null = AV.Demuxer.find(buffer);
 if (demuxer) {
-    demuxer.on("error", error => {
+    demuxer.on("error", (error) => {
         console.log(error.stack);
     });
 }

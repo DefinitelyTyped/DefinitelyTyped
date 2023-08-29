@@ -3814,13 +3814,7 @@ declare namespace PowerPoint {
          * @param number [Copies=0]
          * @param Office.MsoTriState [Collate=-99]
          */
-        PrintOut(
-            From?: number,
-            To?: number,
-            PrintToFile?: string,
-            Copies?: number,
-            Collate?: Office.MsoTriState,
-        ): void;
+        PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
         readonly PublishObjects: PublishObjects;
 
         /**
@@ -4753,13 +4747,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddSmartArt(
-            Layout: Office.SmartArtLayout,
-            Left?: number,
-            Top?: number,
-            Width?: number,
-            Height?: number,
-        ): Shape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -5564,13 +5552,7 @@ declare namespace PowerPoint {
          * @param number [Copies=0]
          * @param Office.MsoTriState [Collate=-99]
          */
-        PrintOut(
-            From?: number,
-            To?: number,
-            PrintToFile?: string,
-            Copies?: number,
-            Collate?: Office.MsoTriState,
-        ): void;
+        PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
         Slide: any;
         readonly Type: PpViewType;
         Zoom: number;

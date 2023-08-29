@@ -26,7 +26,7 @@ angular
             // Request permission
             desktopNotification.requestPermission().then(
                 // Permission granted
-                permission => {
+                (permission) => {
                     // Show notification
                     desktopNotification.show(
                         "Notification title",

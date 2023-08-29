@@ -19,7 +19,7 @@ Object.keys({
     brightMagenta: 95,
     brightCyan: 96,
     brightWhite: 97,
-}).forEach(color => {
+}).forEach((color) => {
     const cname = color.replace(
         /([a-z])([A-Z])/g,
         (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`,

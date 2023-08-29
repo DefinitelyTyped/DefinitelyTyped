@@ -317,6 +317,10 @@ export interface Client {
     initiate_login_uri?: string | undefined;
 }
 
+export interface ClientsPaged extends Omit<Page, "length"> {
+    clients: Client[];
+}
+
 export interface ResourceServer {
     /**
      * The identifier of the resource server.
@@ -1179,10 +1183,7 @@ export class AuthenticationClient {
     verifyEmailCode(data: VerifyEmailOptions, cb: (err: Error, message: string) => void): void;
 
     verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated): Promise<any>;
-    verifySMSCode(
-        data: VerifySMSOptions | VerifySMSOptionsDeprecated,
-        cb: (err: Error, message: string) => void,
-    ): void;
+    verifySMSCode(data: VerifySMSOptions | VerifySMSOptionsDeprecated, cb: (err: Error, message: string) => void): void;
 
     getDelegationToken(data: DelegationTokenOptions): Promise<any>;
     getDelegationToken(data: DelegationTokenOptions, cb: (err: Error, message: string) => void): void;
@@ -1717,11 +1718,7 @@ export class OrganizationsManager {
     getByName(params: { name: string }, cb: (err: Error, organization: Organization) => void): void;
 
     update(params: ObjectWithId, data: UpdateOrganization): Promise<Organization>;
-    update(
-        params: ObjectWithId,
-        data: UpdateOrganization,
-        cb: (err: Error, organization: Organization) => void,
-    ): void;
+    update(params: ObjectWithId, data: UpdateOrganization, cb: (err: Error, organization: Organization) => void): void;
 
     delete(params: ObjectWithId): Promise<void>;
     delete(params: ObjectWithId, cb: (err: Error) => void): void;
@@ -1738,10 +1735,7 @@ export class OrganizationsManager {
         cb: (err: Error, connection: OrganizationConnection) => void,
     ): void;
 
-    addEnabledConnection(
-        params: ObjectWithId,
-        data: AddOrganizationEnabledConnection,
-    ): Promise<OrganizationConnection>;
+    addEnabledConnection(params: ObjectWithId, data: AddOrganizationEnabledConnection): Promise<OrganizationConnection>;
     addEnabledConnection(
         params: ObjectWithId,
         data: AddOrganizationEnabledConnection,
@@ -1828,9 +1822,7 @@ export class OrganizationsManager {
     deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
     deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
 
-    getMemberRoles(
-        params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
-    ): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
     getMemberRoles(
         params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
     ): Promise<Omit<RolePage, "length">>;
@@ -1888,9 +1880,18 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     updateConnection(params: ObjectWithId, data: UpdateConnection): Promise<Connection>;
 
     // Clients
-    getClients(params?: GetClientsOptions): Promise<Client[]>;
+    getClients(): Promise<Client[]>;
     getClients(cb: (err: Error, clients: Client[]) => void): void;
-    getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void): void;
+    getClients(params: GetClientsOptions & { include_totals?: false }): Promise<Client[]>;
+    getClients(params: GetClientsOptions & { include_totals: true }): Promise<ClientsPaged>;
+    getClients(
+        params: GetClientsOptions & { include_totals?: false },
+        cb: (err: Error, clients: Client[]) => void,
+    ): void;
+    getClients(
+        params: GetClientsOptions & { include_totals: true },
+        cb: (err: Error, pagedClients: ClientsPaged) => void,
+    ): void;
 
     getClient(params: ClientParams): Promise<Client>;
     getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
@@ -1916,21 +1917,14 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
     updateClientGrant(params: ObjectWithId, data: UpdateClientGrant): Promise<ClientGrant>;
-    updateClientGrant(
-        params: ObjectWithId,
-        data: UpdateClientGrant,
-        cb: (err: Error, data: ClientGrant) => void,
-    ): void;
+    updateClientGrant(params: ObjectWithId, data: UpdateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
     deleteClientGrant(params: ObjectWithId): Promise<void>;
     deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
     // Device Keys
     getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
-    getDeviceCredentials(
-        params: GetDeviceCredentialsParams,
-        cb: (err: Error, data: DeviceCredential[]) => void,
-    ): void;
+    getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;

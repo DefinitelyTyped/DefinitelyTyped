@@ -88,7 +88,7 @@ function fullScreenMediaBrowser() {
     const mediaBrowser = new atv.FullScreenMediaBrowser();
     mediaBrowser.type = "commentsScreenOnly";
 
-    mediaBrowser.onLoadMetadata = photoId => {
+    mediaBrowser.onLoadMetadata = (photoId) => {
         // Do nothing
         console.log("on load metadata " + photoId);
         mediaBrowser.updateMetadata(photoId, {
@@ -98,11 +98,11 @@ function fullScreenMediaBrowser() {
         });
     };
 
-    mediaBrowser.onItemSelection = photoId => {
+    mediaBrowser.onItemSelection = (photoId) => {
         console.log("item selected " + photoId);
     };
 
-    mediaBrowser.onMarkCommentsAsViewed = photoID => {
+    mediaBrowser.onMarkCommentsAsViewed = (photoID) => {
         console.log("mark comments viewed " + photoID);
     };
 

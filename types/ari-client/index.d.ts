@@ -1016,18 +1016,12 @@ export interface Resource {
     /**
      * Event showing failure of a recording operation.
      */
-    on(
-        event: RecordingFailedEventType,
-        callback: (event: RecordingFailed, liverecording: LiveRecording) => void,
-    ): void;
+    on(event: RecordingFailedEventType, callback: (event: RecordingFailed, liverecording: LiveRecording) => void): void;
 
     /**
      * Notification that trying to move a channel to another Stasis application failed.
      */
-    on(
-        event: ApplicationMoveFailedEventType,
-        callback: (event: ApplicationMoveFailed, channel: Channel) => void,
-    ): void;
+    on(event: ApplicationMoveFailedEventType, callback: (event: ApplicationMoveFailed, channel: Channel) => void): void;
 
     /**
      * Notification that another WebSocket has taken over for an application. An application may only be subscribed to by a single WebSocket at a time. If multiple WebSockets attempt to subscribe
@@ -1151,10 +1145,7 @@ export interface Resource {
     /**
      * Talking was detected on the channel.
      */
-    on(
-        event: ChannelTalkingStartedEventType,
-        callback: (event: ChannelTalkingStarted, channel: Channel) => void,
-    ): void;
+    on(event: ChannelTalkingStartedEventType, callback: (event: ChannelTalkingStarted, channel: Channel) => void): void;
 
     /**
      * Talking is no longer detected on the channel.
@@ -1416,10 +1407,7 @@ export interface Resource {
     /**
      * A hangup was requested on the channel.
      */
-    once(
-        event: ChannelHangupRequestEventType,
-        callback: (event: ChannelHangupRequest, channel: Channel) => void,
-    ): void;
+    once(event: ChannelHangupRequestEventType, callback: (event: ChannelHangupRequest, channel: Channel) => void): void;
 
     /**
      * Channel variable changed.
@@ -1455,10 +1443,7 @@ export interface Resource {
     /**
      * The state of a contact on an endpoint has changed.
      */
-    once(
-        event: ContactStatusChangeEventType,
-        callback: (event: ContactStatusChange, endpoint: Endpoint) => void,
-    ): void;
+    once(event: ContactStatusChangeEventType, callback: (event: ContactStatusChange, endpoint: Endpoint) => void): void;
 
     /**
      * The state of a peer associated with an endpoint has changed.
@@ -1468,10 +1453,7 @@ export interface Resource {
     /**
      * Endpoint state changed.
      */
-    once(
-        event: EndpointStateChangeEventType,
-        callback: (event: EndpointStateChange, endpoint: Endpoint) => void,
-    ): void;
+    once(event: EndpointStateChangeEventType, callback: (event: EndpointStateChange, endpoint: Endpoint) => void): void;
 
     /**
      * Dialing state has changed.
@@ -1491,18 +1473,12 @@ export interface Resource {
     /**
      * A text message was received from an endpoint.
      */
-    once(
-        event: TextMessageReceivedEventType,
-        callback: (event: TextMessageReceived, endpoint: Endpoint) => void,
-    ): void;
+    once(event: TextMessageReceivedEventType, callback: (event: TextMessageReceived, endpoint: Endpoint) => void): void;
 
     /**
      * Channel changed Connected Line.
      */
-    once(
-        event: ChannelConnectedLineEventType,
-        callback: (event: ChannelConnectedLine, channel: Channel) => void,
-    ): void;
+    once(event: ChannelConnectedLineEventType, callback: (event: ChannelConnectedLine, channel: Channel) => void): void;
 
     /**
      * Error emitted when WebSocket reconnection attempts exceeded MaxRetries.
@@ -1573,10 +1549,7 @@ export interface Resource {
     /**
      * Event showing the start of a media playback operation.
      */
-    addListener(
-        event: PlaybackStartedEventType,
-        callback: (event: PlaybackStarted, playback: Playback) => void,
-    ): void;
+    addListener(event: PlaybackStartedEventType, callback: (event: PlaybackStarted, playback: Playback) => void): void;
 
     /**
      * Event showing the continuation of a media playback operation from one media URI to the next in the list.
@@ -1679,10 +1652,7 @@ export interface Resource {
     /**
      * Notification that a channel has been destroyed.
      */
-    addListener(
-        event: ChannelDestroyedEventType,
-        callback: (event: ChannelDestroyed, channel: Channel) => void,
-    ): void;
+    addListener(event: ChannelDestroyedEventType, callback: (event: ChannelDestroyed, channel: Channel) => void): void;
 
     /**
      * Notification that a channel has entered a bridge.
@@ -2145,10 +2115,7 @@ export interface Asterisk {
      * @param params.objectType - The type of configuration object to delete.
      * @param params.id - The unique identifier of the object to delete.
      */
-    deleteObject(
-        params: { configClass: string; objectType: string; id: string },
-        callback: (err: Error) => void,
-    ): void;
+    deleteObject(params: { configClass: string; objectType: string; id: string }, callback: (err: Error) => void): void;
 
     /**
      * Delete a dynamic configuration object.

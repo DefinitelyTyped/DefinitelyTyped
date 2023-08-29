@@ -6,7 +6,7 @@ art.font("my text", "Doom", (rendered: string) => {
     rendered.big();
 });
 
-art.font("my text", "Doom", "", rendered => {
+art.font("my text", "Doom", "", (rendered) => {
     rendered.big();
 });
 
@@ -26,8 +26,8 @@ art.artwork({
     }, (_final: any) => {});
 });
 
-art.font("Ghost Wire BBS", "Doom", logo => {
-    art.font("No place like home", "rusted", subtext => {
+art.font("Ghost Wire BBS", "Doom", (logo) => {
+    art.font("No place like home", "rusted", (subtext) => {
         art.table({
             verticalBar: " ",
             horizontalBar: " ",
@@ -63,7 +63,7 @@ art.image({
     width: 40,
     filepath: "/Images/initech.png",
     alphabet: "wide",
-}).font("INITECH", "Doom", "cyan", _ascii => {
+}).font("INITECH", "Doom", "cyan", (_ascii) => {
 });
 
 art.table({
@@ -150,14 +150,14 @@ const image = new art.Image({
 image.write((_err: any, _rendered: string) => {
 });
 
-art.font("Prompt", "Basic", "red").font("v1", "Doom", "magenta", _rendered => {
+art.font("Prompt", "Basic", "red").font("v1", "Doom", "magenta", (_rendered) => {
 });
 
 art.image({
     width: 40,
     filepath: "/Images/initech.png",
     alphabet: "wide",
-}).font("INITECH", "Doom", "cyan", _ascii => {
+}).font("INITECH", "Doom", "cyan", (_ascii) => {
 });
 
 art.style("my text", "red+underline");
@@ -182,7 +182,7 @@ art.table({
             style: "white",
         },
     ],
-}, _rendered => {
+}, (_rendered) => {
     // use rendered text
 });
 
@@ -203,6 +203,6 @@ art.table({
         horizontal: "━",
     },
     borderColor: "bright_white",
-}, _rendered => {
+}, (_rendered) => {
     // use rendered text
 });

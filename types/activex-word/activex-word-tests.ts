@@ -365,17 +365,9 @@ const activeDoc = app.ActiveDocument;
     activeDoc.AttachedTemplate.AutoTextEntries.Add("MyText", app.Selection.Range);
 
     // no method assignment in Javascript
-    ActiveXObject.set(
-        app.System,
-        "PrivateProfileString",
-        ["C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"],
-        "1",
-    );
+    ActiveXObject.set(app.System, "PrivateProfileString", ["C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"], "1");
 
-    const docNum = parseInt(
-        app.System.PrivateProfileString("C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"),
-        10,
-    );
+    const docNum = parseInt(app.System.PrivateProfileString("C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"), 10);
 
     const section = "HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options";
     const programDir = app.System.PrivateProfileString("", section, "PROGRAMDIR");

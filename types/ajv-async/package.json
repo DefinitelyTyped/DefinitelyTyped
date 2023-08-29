@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "ajv": "*"
-  }
+    "private": true,
+    "dependencies": {
+        "ajv": "*"
+    }
 }

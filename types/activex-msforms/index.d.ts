@@ -1476,10 +1476,7 @@ interface ActiveXObject {
         obj: MSForms.CheckBox,
         event: "BeforeDragOver",
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (
-            this: MSForms.CheckBox,
-            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
-        ) => void,
+        handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.CheckBox,
@@ -1530,10 +1527,7 @@ interface ActiveXObject {
         obj: MSForms.ComboBox,
         event: "BeforeDragOver",
         argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
-        handler: (
-            this: MSForms.ComboBox,
-            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
-        ) => void,
+        handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
     ): void;
     on(
         obj: MSForms.ComboBox,
@@ -1719,10 +1713,7 @@ interface ActiveXObject {
         obj: MSForms.Image,
         event: "BeforeDropOrPaste",
         argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
-        handler: (
-            this: MSForms.Image,
-            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
-        ) => void,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Image,
@@ -1755,10 +1746,7 @@ interface ActiveXObject {
         obj: MSForms.Label,
         event: "BeforeDropOrPaste",
         argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
-        handler: (
-            this: MSForms.Label,
-            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
-        ) => void,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void,
     ): void;
     on(
         obj: MSForms.Label,
@@ -2310,11 +2298,7 @@ interface ActiveXObject {
         event: "Change" | "Click" | "DropButtonClick",
         handler: (this: MSForms.ComboBox, parameter: {}) => void,
     ): void;
-    on(
-        obj: MSForms.CommandButton,
-        event: "Click",
-        handler: (this: MSForms.CommandButton, parameter: {}) => void,
-    ): void;
+    on(obj: MSForms.CommandButton, event: "Click", handler: (this: MSForms.CommandButton, parameter: {}) => void): void;
     on(
         obj: MSForms.Control,
         event: "AfterUpdate" | "Enter",
@@ -2333,11 +2317,7 @@ interface ActiveXObject {
     on(obj: MSForms.HTMLTextArea, event: "Click", handler: (this: MSForms.HTMLTextArea, parameter: {}) => void): void;
     on(obj: MSForms.Image, event: "Click", handler: (this: MSForms.Image, parameter: {}) => void): void;
     on(obj: MSForms.Label, event: "Click", handler: (this: MSForms.Label, parameter: {}) => void): void;
-    on(
-        obj: MSForms.ListBox,
-        event: "Change" | "Click",
-        handler: (this: MSForms.ListBox, parameter: {}) => void,
-    ): void;
+    on(obj: MSForms.ListBox, event: "Change" | "Click", handler: (this: MSForms.ListBox, parameter: {}) => void): void;
     on(obj: MSForms.MultiPage, event: "Change", handler: (this: MSForms.MultiPage, parameter: {}) => void): void;
     on(
         obj: MSForms.OptionButton,

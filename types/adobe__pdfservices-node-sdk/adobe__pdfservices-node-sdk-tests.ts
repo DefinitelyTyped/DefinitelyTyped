@@ -99,10 +99,7 @@ function deletePages() {
     const pageRanges = new PageRanges();
 
     deletePagesOperation.setInput(
-        FileRef.createFromLocalFile(
-            "~/Documents/deletePagesOperationInput.pdf",
-            DeletePages.SupportedSourceFormat.pdf,
-        ),
+        FileRef.createFromLocalFile("~/Documents/deletePagesOperationInput.pdf", DeletePages.SupportedSourceFormat.pdf),
     );
     pageRanges.addSinglePage(1);
     deletePagesOperation.setPageRanges(pageRanges);
@@ -397,10 +394,7 @@ function rotatePages() {
     const rotatePagesOperation = RotatePages.Operation.createNew();
 
     rotatePagesOperation.setInput(
-        FileRef.createFromLocalFile(
-            "~/Documents/rotatePagesOperationInput.pdf",
-            RotatePages.SupportedSourceFormat.pdf,
-        ),
+        FileRef.createFromLocalFile("~/Documents/rotatePagesOperationInput.pdf", RotatePages.SupportedSourceFormat.pdf),
     );
     rotatePagesOperation.setAngleToRotatePagesBy(RotatePages.Angle._90);
 

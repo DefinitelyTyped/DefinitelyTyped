@@ -6977,10 +6977,7 @@ interface ActiveXObject {
         obj: Outlook.TaskRequestDeclineItem,
         event: "AttachmentAdd" | "AttachmentRead" | "AttachmentRemove",
         argNames: ["Attachment"],
-        handler: (
-            this: Outlook.TaskRequestDeclineItem,
-            parameter: { readonly Attachment: Outlook.Attachment },
-        ) => void,
+        handler: (this: Outlook.TaskRequestDeclineItem, parameter: { readonly Attachment: Outlook.Attachment }) => void,
     ): void;
     on(
         obj: Outlook.TaskRequestDeclineItem,

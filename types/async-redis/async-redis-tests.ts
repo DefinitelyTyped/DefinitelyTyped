@@ -33,7 +33,7 @@ client.batch();
 client.eventNames();
 
 // $ExpectType RedisClient
-client.on("event", data => data);
+client.on("event", (data) => data);
 
 // $ExpectType boolean
 client.connected;

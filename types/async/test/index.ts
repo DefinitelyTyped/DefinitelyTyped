@@ -604,19 +604,19 @@ async.retry<number, string>({ errorFilter: (x: string) => true }, cb => {
 }); // $ExpectType Promise<number>
 
 async.retryable(
-    callback => {},
+    (callback) => {},
 );
 async.retryable(
     3,
-    callback => {},
+    (callback) => {},
 );
 async.retryable(
     { times: 3, interval: 200 },
-    callback => {},
+    (callback) => {},
 );
 async.retryable(
     { times: 3, interval: retryCount => 200 * retryCount },
-    callback => {},
+    (callback) => {},
 );
 
 async.parallel([
@@ -864,7 +864,7 @@ async.mapValues(
     { a: 1, b: 2, c: 3 },
     // $ExpectType (val: number, key: string) => Promise<string>
     async (val, key) => {
-        const newVal = await new Promise<string>(resolve => {
+        const newVal = await new Promise<string>((resolve) => {
             setTimeout(
                 () => {
                     console.log(`async.mapValues: ${key} = ${val}`);
@@ -998,7 +998,7 @@ async.some<number>(
     },
 );
 
-async.some([], async item => false); // $ExpectType Promise<boolean>
+async.some([], async (item) => false); // $ExpectType Promise<boolean>
 
 // timeout
 

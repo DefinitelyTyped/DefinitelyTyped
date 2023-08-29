@@ -2,7 +2,7 @@
 
 import amplitude = require("amplitude-js");
 
-module Amplitude.Tests {
+namespace Amplitude.Tests {
     function all() {
         var client: amplitude.AmplitudeClient = new amplitude.AmplitudeClient();
         var identify: amplitude.Identify = new amplitude.Identify();
@@ -113,9 +113,7 @@ module Amplitude.Tests {
             "city": "San Francisco",
         });
         revenue = new amplitude.Revenue().setProductId("productIdentifier").setPrice(10.99).setQuantity(5);
-        revenue = new amplitude.Revenue().setProductId("productIdentifier").setPrice(10.99).setRevenueType(
-            "purchase",
-        );
+        revenue = new amplitude.Revenue().setProductId("productIdentifier").setPrice(10.99).setRevenueType("purchase");
 
         identify = new client.Identify();
         revenue = new client.Revenue();

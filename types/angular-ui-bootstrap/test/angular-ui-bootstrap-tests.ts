@@ -240,7 +240,7 @@ testApp.controller("TestCtrl", (
 
     $modal.getPromiseChain().then(() => {});
 
-    $modal.getPromiseChain().then(value => value * 2);
+    $modal.getPromiseChain().then((value) => value * 2);
 
     $modal.getPromiseChain().then((value: string) => value);
 

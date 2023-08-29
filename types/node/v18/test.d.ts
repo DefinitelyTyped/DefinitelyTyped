@@ -3,6 +3,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module 'node:test' {
+    import { AsyncResource } from 'node:async_hooks';
     /**
      * Programmatically start the test runner.
      * @since v18.9.0
@@ -166,9 +167,8 @@ declare module 'node:test' {
 
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
-    type SuiteFn = (done: (result?: any) => void) => void;
+    type SuiteFn = (s: SuiteContext) => void | Promise<void>;
 
     interface RunOptions {
         /**
@@ -205,6 +205,19 @@ declare module 'node:test' {
          * incremented from the primary's `process.debugPort`.
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
 
     /**
@@ -372,6 +385,24 @@ declare module 'node:test' {
         readonly mock: MockTracker;
     }
 
+    /**
+     * An instance of `SuiteContext` is passed to each suite function in order to
+     * interact with the test runner. However, the `SuiteContext` constructor is not
+     * exposed as part of the API.
+     * @since v18.7.0, v16.17.0
+     */
+    class SuiteContext {
+        /**
+         * The name of the suite.
+         * @since v18.8.0, v16.18.0
+         */
+        readonly name: string;
+        /**
+         * Can be used to abort test subtasks when the test has been aborted.
+         * @since v18.7.0, v16.17.0
+         */
+        readonly signal: AbortSignal;
+    }
     interface TestOptions {
         /**
          * If a number is provided, then that many tests would run in parallel.
@@ -459,7 +490,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
 
     /**
      * Configuration options for hooks.
@@ -737,11 +768,16 @@ interface TestFail {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
         /**
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -776,7 +812,12 @@ interface TestPass {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -851,6 +892,34 @@ interface TestStdout {
      */
     message: string;
 }
+interface TestEnqueue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestDequeue {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The path of the test file, undefined if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
 
 /**
  * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
@@ -879,7 +948,10 @@ declare module 'node:test/reporters' {
         | { type: 'test:plan', data: TestPlan }
         | { type: 'test:start', data: TestStart }
         | { type: 'test:stderr', data: TestStderr }
-        | { type: 'test:stdout', data: TestStdout };
+        | { type: 'test:stdout', data: TestStdout }
+        | { type: 'test:enqueue'; data: TestEnqueue }
+        | { type: 'test:dequeue'; data: TestDequeue }
+        | { type: 'test:watch:drained' };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
@@ -898,5 +970,5 @@ declare module 'node:test/reporters' {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, tap, Spec as spec };
+    export { dot, tap, Spec as spec, TestEvent };
 }

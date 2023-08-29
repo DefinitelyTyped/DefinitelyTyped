@@ -3741,9 +3741,9 @@ declare namespace Access {
     interface Children {
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Item<T = Control>(Index: number | string): T;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T = Control>(Index: number | string): T;
     }
 
@@ -4236,10 +4236,10 @@ declare namespace Access {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Item<T = Control>(Index: number | string): T;
         readonly Parent: any;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T = Control>(Index: number | string): T;
     }
 
@@ -4498,11 +4498,7 @@ declare namespace Access {
         Close(ObjectType: AcObjectType, ObjectName: string, Save?: AcCloseSave): void;
         Close(): void;
         CloseDatabase(): void;
-        CopyDatabaseFile(
-            DatabaseFileName: string,
-            OverwriteExistingFile?: boolean,
-            DisconnectAllUsers?: boolean,
-        ): void;
+        CopyDatabaseFile(DatabaseFileName: string, OverwriteExistingFile?: boolean, DisconnectAllUsers?: boolean): void;
 
         /** @param SourceObjectType [SourceObjectType=-1] */
         CopyObject(
@@ -9098,10 +9094,7 @@ interface ActiveXObject {
         obj: Access.ObjectFrame,
         event: "MouseDown" | "MouseMove" | "MouseUp",
         argNames: ["Button", "Shift", "X", "Y"],
-        handler: (
-            this: Access.ObjectFrame,
-            parameter: { Button: number; Shift: number; X: number; Y: number },
-        ) => void,
+        handler: (this: Access.ObjectFrame, parameter: { Button: number; Shift: number; X: number; Y: number }) => void,
     ): void;
     on(
         obj: Access.ObjectFrame,
@@ -9146,10 +9139,7 @@ interface ActiveXObject {
         obj: Access.OptionGroup,
         event: "MouseDown" | "MouseMove" | "MouseUp",
         argNames: ["Button", "Shift", "X", "Y"],
-        handler: (
-            this: Access.OptionGroup,
-            parameter: { Button: number; Shift: number; X: number; Y: number },
-        ) => void,
+        handler: (this: Access.OptionGroup, parameter: { Button: number; Shift: number; X: number; Y: number }) => void,
     ): void;
     on(
         obj: Access.Page,

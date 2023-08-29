@@ -19,10 +19,7 @@ export = toPolar;
  *
  * const polarCoords = polar([0,1, 1,0]) // [1,0, 1,Math.PI/2]
  */
-declare function toPolar<TArr extends MutableArrayLike<number>>(
-    array: TArr,
-    center?: readonly [number, number],
-): TArr;
+declare function toPolar<TArr extends MutableArrayLike<number>>(array: TArr, center?: readonly [number, number]): TArr;
 
 declare namespace toPolar {
     const polar: typeof toPolar;

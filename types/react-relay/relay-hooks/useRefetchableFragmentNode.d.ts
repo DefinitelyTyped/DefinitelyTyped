@@ -104,5 +104,5 @@ export function useRefetchableFragmentNode<TQuery extends OperationType, TKey ex
     fragmentNode: ReaderFragment,
     parentFragmentRef: unknown,
     componentDisplayName: string,
-): // eslint-disable-next-line no-unnecessary-generics
+): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ReturnTypeNode<TQuery, TKey, InternalOptions>;

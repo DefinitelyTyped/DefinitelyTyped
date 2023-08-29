@@ -238,10 +238,7 @@ export class _FX {
     /**
      * Add a new easing function for other objects to use
      */
-    addEasing(
-        easingName: string,
-        easingFn: (x?: number, t?: number, b?: number, c?: number, d?: number) => void,
-    ): void;
+    addEasing(easingName: string, easingFn: (x?: number, t?: number, b?: number, c?: number, d?: number) => void): void;
 
     /**
      * Retrieves an easing function

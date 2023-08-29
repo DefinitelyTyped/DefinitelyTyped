@@ -11,14 +11,14 @@ app.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
     blockUIConfig.cssClass = "block-ui my-custom-class";
     blockUIConfig.blockBrowserNavigation = true;
 
-    blockUIConfig.requestFilter = config => {
+    blockUIConfig.requestFilter = (config) => {
         if (config.url.match(/^\/api\/quote($|\/).*/)) {
             return false;
         }
         return true;
     };
 
-    blockUIConfig.requestFilter = config => {
+    blockUIConfig.requestFilter = (config) => {
         if (config.url.match(/^\/api\/quote($|\/).*/)) {
             return "Hello World";
         }

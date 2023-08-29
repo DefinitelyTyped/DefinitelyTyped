@@ -186,7 +186,7 @@ $.feat.cssTransformStart;
 $.feat.cssTransformEnd;
 
 ((): appFrameworkCollection => {
-    return $("").reduce(hoge => {
+    return $("").reduce((hoge) => {
         return hoge;
     });
 })();

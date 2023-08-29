@@ -918,13 +918,10 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule =
-        | {
-              parse(text: string, options?: any): AST.Program;
-          }
-        | {
-              parseForESLint(text: string, options?: any): ESLintParseResult;
-          };
+    type ParserModule = ESLint.ObjectMetaProperties & (
+          { parse(text: string, options?: any): AST.Program; }
+        | { parseForESLint(text: string, options?: any): ESLintParseResult; }
+        );
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -939,7 +936,7 @@ export namespace Linter {
     }
 
     // https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins
-    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> {
+    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> extends ESLint.ObjectMetaProperties {
         supportsAutofix?: boolean | undefined;
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
@@ -1066,7 +1063,20 @@ export namespace ESLint {
         parserOptions?: Linter.ParserOptions | undefined;
     }
 
-    interface Plugin {
+    interface ObjectMetaProperties {
+        /** @deprecated Use `meta.name` instead. */
+        name?: string | undefined;
+
+        /** @deprecated Use `meta.version` instead. */
+        version?: string | undefined;
+
+        meta?: {
+            name?: string | undefined;
+            version?: string | undefined;
+        };
+    }
+
+    interface Plugin extends ObjectMetaProperties {
         configs?: Record<string, ConfigData | Linter.FlatConfig | Linter.FlatConfig[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;

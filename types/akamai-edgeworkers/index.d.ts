@@ -83,6 +83,12 @@ declare namespace EW {
          * @param deny_reason The deny reason set if the status code is a 403
          */
         respondWith(status: number, headers: object, body: string, deny_reason?: string): void;
+
+        /**
+         * Checks if the request has been terminated. Returns `true` after
+         * `respondWith()` has been called.
+         */
+        wasTerminated(): boolean;
     }
 
     interface HasStatus {

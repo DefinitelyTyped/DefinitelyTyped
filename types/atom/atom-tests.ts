@@ -3032,11 +3032,7 @@ function testTextEditor() {
         ],
         { invalidate: "overlap" },
     );
-    displayMarker = editor.markBufferRange(range, {
-        invalidate: "surround",
-        maintainHistory: false,
-        reversed: false,
-    });
+    displayMarker = editor.markBufferRange(range, { invalidate: "surround", maintainHistory: false, reversed: false });
 
     displayMarker = editor.markBufferPosition(pos);
     displayMarker = editor.markBufferPosition([0, 0]);

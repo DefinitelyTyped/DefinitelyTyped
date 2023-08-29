@@ -92,7 +92,7 @@ anime({
     endDelay: -1.12742e-12,
     loop: true,
     easing: (el, i, total) => {
-        return t => {
+        return (t) => {
             return Math.pow(Math.sin(t * (i + 1)), total);
         };
     },

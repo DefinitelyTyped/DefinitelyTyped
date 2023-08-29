@@ -75,18 +75,12 @@ export class Emitter<OptionalEmissions = { [key: string]: any }, RequiredEmissio
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof OptionalEmissions>(
-        eventName: T,
-        handler: (value?: OptionalEmissions[T]) => void,
-    ): Disposable;
+    once<T extends keyof OptionalEmissions>(eventName: T, handler: (value?: OptionalEmissions[T]) => void): Disposable;
     /**
      *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
-    once<T extends keyof RequiredEmissions>(
-        eventName: T,
-        handler: (value: RequiredEmissions[T]) => void,
-    ): Disposable;
+    once<T extends keyof RequiredEmissions>(eventName: T, handler: (value: RequiredEmissions[T]) => void): Disposable;
 
     /**
      *  Register the given handler function to be invoked before all other

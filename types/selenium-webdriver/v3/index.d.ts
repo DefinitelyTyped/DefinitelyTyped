@@ -1058,13 +1058,11 @@ export namespace promise {
      * <p>If this Deferred is rejected and there are no listeners registered before
      * the next turn of the event loop, the rejection will be passed to the
      * {@link promise.ControlFlow} as an unhandled failure.
-     *
      */
     class Deferred<T> {
         // region Constructors
 
         /**
-         *
          * @param {promise.ControlFlow=} opt_flow The control flow
          *     this instance was created under. This should only be provided during
          *     unit tests.
@@ -1173,8 +1171,7 @@ export namespace promise {
      * @final
      */
     class ControlFlow extends EventEmitter {
-        /**
-         */
+        /** */
         constructor();
 
         /**
@@ -1294,7 +1291,6 @@ export class Condition<T> {
 
 /**
  * Defines a condition that will result in a {@link WebElement}.
- *
  */
 export class WebElementCondition extends Condition<WebElement> {
     // add an unused private member so the compiler treats this
@@ -1532,7 +1528,6 @@ export interface IButton {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
  */
 export const Button: IButton;
 
@@ -1620,7 +1615,6 @@ export interface IKey {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
  */
 export const Key: IKey;
 
@@ -1637,7 +1631,6 @@ export const Key: IKey;
  *         dragAndDrop(element3, element4).
  *         keyUp(Key.SHIFT).
  *         perform();
- *
  */
 export class ActionSequence {
     // region Constructors
@@ -2096,8 +2089,7 @@ export interface ProxyConfig {
 export class Builder {
     // region Constructors
 
-    /**
-     */
+    /** */
     constructor();
 
     // endregion
@@ -2485,7 +2477,6 @@ export class By {
  * Care should be taken when using JavaScript minifiers (such as the
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
- *
  */
 export type ByHash =
     | { className: string }
@@ -2968,8 +2959,7 @@ export class Listener {
 export class EventEmitter {
     // region Constructors
 
-    /**
-     */
+    /** */
     constructor();
 
     // endregion
@@ -3137,7 +3127,6 @@ export interface IWebDriverOptionsCookie {
      *
      * The expiry is always returned in seconds since epoch when
      * {@linkplain Options#getCookies() retrieving cookies} from the browser.
-     *
      */
     expiry?: number | Date | undefined;
 }
@@ -3148,7 +3137,6 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
      *
      * The expiry is always returned in seconds since epoch when
      * {@linkplain Options#getCookies() retrieving cookies} from the browser.
-     *
      */
     expiry?: number | undefined;
 }
@@ -3518,9 +3506,9 @@ export class FileDetector {
 export type CreateSessionCapabilities =
     | Capabilities
     | {
-          desired?: Capabilities | undefined;
-          required?: Capabilities | undefined;
-      };
+        desired?: Capabilities | undefined;
+        required?: Capabilities | undefined;
+    };
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.
@@ -3539,7 +3527,6 @@ export type CreateSessionCapabilities =
  *   driver.call(function() {
  *     alert('message is abc? ' + (message.join('') == 'abc'));
  *   });
- *
  */
 export class WebDriver {
     // region Constructors
@@ -4423,7 +4410,6 @@ export interface Serializable<T> {
  *     }, function(error) {
  *       alert('The element was not found, as expected');
  *     });
- *
  */
 export class WebElement implements Serializable<IWebElementId> {
     /**

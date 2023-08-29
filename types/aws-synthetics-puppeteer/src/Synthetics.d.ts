@@ -150,12 +150,7 @@ declare module "Synthetics" {
          * @param callback Function is invoked with response <http.IncomingMessage> received from http call.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeHttpStep(
-            stepName: string | null,
-            requestOptions?: any,
-            callback?: any,
-            stepConfig?: any,
-        ): Promise<void>;
+        executeHttpStep(stepName: string | null, requestOptions?: any, callback?: any, stepConfig?: any): Promise<void>;
         completeHttpStep(
             stepName: string,
             stepId: string,

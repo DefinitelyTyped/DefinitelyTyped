@@ -92,8 +92,8 @@ myApp.controller(
             options.resolve = {
                 nativePromise: () => Promise.resolve(),
                 angularPromise: () => $q.resolve(),
-                annotatedNativePromise: ["fakeService", fake => Promise.resolve()],
-                annotatedAngularPromise: ["fakeService", fake => $q.resolve()],
+                annotatedNativePromise: ["fakeService", (fake) => Promise.resolve()],
+                annotatedAngularPromise: ["fakeService", (fake) => $q.resolve()],
             };
 
             options.controller = "TestController";
@@ -178,8 +178,8 @@ myApp.controller("DialogController", ($scope: TestScope, $mdDialog: ng.material.
         .resolve({
             nativePromise: () => Promise.resolve(),
             angularPromise: () => $q.resolve(),
-            annotatedNativePromise: ["fakeService", fake => Promise.resolve()],
-            annotatedAngularPromise: ["fakeService", fake => $q.resolve()],
+            annotatedNativePromise: ["fakeService", (fake) => Promise.resolve()],
+            annotatedAngularPromise: ["fakeService", (fake) => $q.resolve()],
         })
         .controller("TestController")
         .controller(function TestController(param) {})
@@ -192,8 +192,8 @@ myApp.controller("DialogController", ($scope: TestScope, $mdDialog: ng.material.
     dialogOptions.resolve = {
         nativePromise: () => Promise.resolve(),
         angularPromise: () => $q.resolve(),
-        annotatedNativePromise: ["fakeService", fake => Promise.resolve()],
-        annotatedAngularPromise: ["fakeService", fake => $q.resolve()],
+        annotatedNativePromise: ["fakeService", (fake) => Promise.resolve()],
+        annotatedAngularPromise: ["fakeService", (fake) => $q.resolve()],
     };
 
     dialogOptions.controller = "TestController";
@@ -254,7 +254,7 @@ myApp.controller("SidenavController", ($scope: TestScope, $mdSidenav: ng.materia
     $scope["isOpen"] = $mdSidenav(componentId).isOpen();
     $scope["isLockedOpen"] = $mdSidenav(componentId).isLockedOpen();
 
-    $scope["asyncLookup"] = $mdSidenav(componentId, true).then(instance => {
+    $scope["asyncLookup"] = $mdSidenav(componentId, true).then((instance) => {
         instance.toggle();
         instance.open();
         instance.close();
@@ -281,8 +281,8 @@ myApp.controller("ToastController", ($scope: TestScope, $mdToast: ng.material.IT
             resolve: {
                 nativePromise: () => Promise.resolve(),
                 angularPromise: () => $q.resolve(),
-                annotatedNativePromise: ["fakeService", fake => Promise.resolve()],
-                annotatedAngularPromise: ["fakeService", fake => $q.resolve()],
+                annotatedNativePromise: ["fakeService", (fake) => Promise.resolve()],
+                annotatedAngularPromise: ["fakeService", (fake) => $q.resolve()],
             },
         };
 
@@ -349,8 +349,8 @@ myApp.controller("PanelController", ($scope: TestScope, $mdPanel: ng.material.IP
             resolve: {
                 nativePromise: () => Promise.resolve(),
                 angularPromise: () => $q.resolve(),
-                annotatedNativePromise: ["fakeService", fake => Promise.resolve()],
-                annotatedAngularPromise: ["fakeService", fake => $q.resolve()],
+                annotatedNativePromise: ["fakeService", (fake) => Promise.resolve()],
+                annotatedAngularPromise: ["fakeService", (fake) => $q.resolve()],
             },
         };
 
@@ -360,19 +360,19 @@ myApp.controller("PanelController", ($scope: TestScope, $mdPanel: ng.material.IP
         config.controller = ["fakeService", function TestController(fake) {}];
         config.controller = ["fakeService", class {}];
 
-        config.onDomAdded = paneRef => Promise.resolve();
+        config.onDomAdded = (paneRef) => Promise.resolve();
         config.onDomAdded = () => $q.reject();
         config.onDomAdded = () => {};
 
-        config.onOpenComplete = paneRef => Promise.resolve();
+        config.onOpenComplete = (paneRef) => Promise.resolve();
         config.onOpenComplete = () => $q.reject();
         config.onOpenComplete = () => {};
 
-        config.onRemoving = paneRef => Promise.resolve();
+        config.onRemoving = (paneRef) => Promise.resolve();
         config.onRemoving = () => $q.reject();
         config.onRemoving = () => {};
 
-        config.onDomRemoved = paneRef => Promise.resolve();
+        config.onDomRemoved = (paneRef) => Promise.resolve();
         config.onDomRemoved = () => $q.reject();
         config.onDomRemoved = () => {};
 

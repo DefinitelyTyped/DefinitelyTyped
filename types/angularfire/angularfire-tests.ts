@@ -58,7 +58,7 @@ myapp.controller("MyController", [
             if (obj.$id !== ref.name()) throw "error";
 
             // $loaded()
-            obj.$loaded().then(data => {
+            obj.$loaded().then((data) => {
                 if (data !== obj) throw "error";
                 // $priority
                 obj.$priority;

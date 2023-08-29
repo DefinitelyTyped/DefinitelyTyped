@@ -226,7 +226,7 @@ mod.filter({
     },
     name2: ["foo", (foo: any) => () => {}],
 });
-const customStatefulFilter: ng.IFilterFunction = s => 1;
+const customStatefulFilter: ng.IFilterFunction = (s) => 1;
 mod.filter("name", () => customStatefulFilter);
 mod.filter("name", ["$scope", () => customStatefulFilter]);
 mod.filter({
@@ -286,17 +286,17 @@ $sceDelegateProvider.trustedResourceUrlList(["https://example.com"]);
 
 // Promise signature tests
 let foo: ng.IPromise<number>;
-foo.then(x => {
+foo.then((x) => {
     // x is inferred to be a number
     x.toFixed();
     return "asdf";
-}).then(x => {
+}).then((x) => {
     // x is inferred to be string
     const len = x.length;
     return 123;
-}, e => {
+}, (e) => {
     return anyOf2([123], toPromise([123])); // IPromise<T> | T, both are good for the 2nd arg of .then()
-}).then(x => {
+}).then((x) => {
     // x is infered to be a number or number[]
     if (Array.isArray(x)) {
         x[0].toFixed();
@@ -312,22 +312,22 @@ foo.then(x => {
     // Typescript will prevent you to actually use x as a local variable before you check it is not void
     // Try object:
     return { a: 123 };
-}).then(x => {
+}).then((x) => {
     // Object is inferred here
     x.a = 123;
     // Try a promise
     const y: ng.IPromise<number> = null;
     const condition: boolean = null;
     return condition ? y : x.a; // IPromise<T> | T, both are good for the 1st arg of .then()
-}).then(x => {
+}).then((x) => {
     // x is infered to be a number, which is the resolved value of a promise
     x.toFixed();
 });
 
 namespace TestPromiseInterop {
     declare const promiseInterop: ng.IPromise<number>;
-    const ngStringPromise: ng.IPromise<string> = promiseInterop.then(num => Promise.resolve(String(num)));
-    const caughtStringPromise: ng.IPromise<string | number> = promiseInterop.catch(reason =>
+    const ngStringPromise: ng.IPromise<string> = promiseInterop.then((num) => Promise.resolve(String(num)));
+    const caughtStringPromise: ng.IPromise<string | number> = promiseInterop.catch((reason) =>
         Promise.resolve("oh noes")
     );
 }
@@ -449,117 +449,117 @@ namespace TestQ {
         result = $q.when<AbcObject>(abcObjectPromiseLike);
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, any => any);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, any => any, any => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, (any) => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, (any) => any, (any) => any);
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObject,
-            any => ghObject,
+            (any) => ghObject,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObject,
-            any => ghObject,
+            (any) => ghObject,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObject,
-            any => ghObject,
-            any => any,
+            (any) => ghObject,
+            (any) => any,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObject,
-            any => ghObjectPromise,
+            (any) => ghObjectPromise,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObject,
-            any => ghObjectPromise,
-            any => any,
+            (any) => ghObjectPromise,
+            (any) => any,
         );
 
         result = $q.when<AbcObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromiseLike,
             (result: EfObject) => abcObject,
-            any => ghObject,
+            (any) => ghObject,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromiseLike,
             (result: EfObject) => abcObject,
-            any => ghObject,
+            (any) => ghObject,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromiseLike,
             (result: EfObject) => abcObject,
-            any => ghObject,
-            any => any,
+            (any) => ghObject,
+            (any) => any,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromiseLike,
             (result: EfObject) => abcObject,
-            any => ghObjectPromise,
+            (any) => ghObjectPromise,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromiseLike,
             (result: EfObject) => abcObject,
-            any => ghObjectPromise,
-            any => any,
+            (any) => ghObjectPromise,
+            (any) => any,
         );
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, any => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any);
         result = $q.when<AbcObject, EfObject>(
             efObject,
             (result: EfObject) => abcObjectPromise,
-            any => any,
-            any => any,
+            (any) => any,
+            (any) => any,
         );
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike);
-        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, any => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any);
         result = $q.when<AbcObject, EfObject>(
             efObject,
             (result: EfObject) => abcObjectPromiseLike,
-            any => any,
-            any => any,
+            (any) => any,
+            (any) => any,
         );
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObjectPromise,
-            any => ghObject,
+            (any) => ghObject,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObjectPromise,
-            any => ghObject,
-            any => any,
+            (any) => ghObject,
+            (any) => any,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObjectPromise,
-            any => ghObjectPromise,
+            (any) => ghObjectPromise,
         );
         resultOther = $q.when<AbcObject, GhObject, EfObject>(
             efObjectPromise,
             (result: EfObject) => abcObjectPromise,
-            any => ghObjectPromise,
-            any => any,
+            (any) => ghObjectPromise,
+            (any) => any,
         );
     }
 }
 
 let httpFoo: ng.IHttpPromise<number>;
-httpFoo.then(x => {
+httpFoo.then((x) => {
     // When returning a promise the generic type must be inferred.
     const innerPromise: ng.IPromise<number> = null;
     return innerPromise;
-}).then(x => {
+}).then((x) => {
     // must still be number.
     x.toFixed();
 });
@@ -1007,7 +1007,7 @@ angular.module("AnotherSampleDirective", []).directive("myDirective", [
                     )
                     .catch((): any => null)
                     .finally((): any => null);
-                let promise = new $q(resolve => {
+                let promise = new $q((resolve) => {
                     resolve();
                 });
 

@@ -202,7 +202,7 @@
 declare module "path_win32" {
     
 
-    module path_win32 {
+    namespace path_win32 {
         
         
         /**

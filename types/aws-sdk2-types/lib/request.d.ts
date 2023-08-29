@@ -187,11 +187,7 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request failed.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    on(
-        event: "httpError",
-        listener: (err: Error, response: Response<D, E>) => void,
-        prepend?: boolean,
-    ): Request<D, E>;
+    on(event: "httpError", listener: (err: Error, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
     /**
      * Adds a listener that is triggered when the server is finished sending data.
      *

@@ -238,5 +238,5 @@ declare namespace Browser {
     /* tslint:enable:strict-export-declare-modifiers */
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Browser;

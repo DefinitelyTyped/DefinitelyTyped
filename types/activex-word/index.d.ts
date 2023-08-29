@@ -6218,13 +6218,7 @@ declare namespace Word {
             IgnoreHe?: any,
             LanguageID?: any,
         ): void;
-        SortOld(
-            ExcludeHeader?: any,
-            SortFieldType?: any,
-            SortOrder?: any,
-            CaseSensitive?: any,
-            LanguageID?: any,
-        ): void;
+        SortOld(ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, LanguageID?: any): void;
         Width: number;
     }
 
@@ -9242,12 +9236,7 @@ declare namespace Word {
             Connection?: any,
             LinkToSource?: any,
         ): void;
-        CreateHeaderSource(
-            Name: string,
-            PasswordDocument?: any,
-            WritePasswordDocument?: any,
-            HeaderRecord?: any,
-        ): void;
+        CreateHeaderSource(Name: string, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any): void;
         readonly Creator: number;
         readonly DataSource: MailMergeDataSource;
         Destination: WdMailMergeDestination;
@@ -9446,19 +9435,9 @@ declare namespace Word {
         AddMergeRec(Range: Range): MailMergeField;
         AddMergeSeq(Range: Range): MailMergeField;
         AddNext(Range: Range): MailMergeField;
-        AddNextIf(
-            Range: Range,
-            MergeField: string,
-            Comparison: WdMailMergeComparison,
-            CompareTo?: any,
-        ): MailMergeField;
+        AddNextIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
         AddSet(Range: Range, Name: string, ValueText?: any, ValueAutoText?: any): MailMergeField;
-        AddSkipIf(
-            Range: Range,
-            MergeField: string,
-            Comparison: WdMailMergeComparison,
-            CompareTo?: any,
-        ): MailMergeField;
+        AddSkipIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;

@@ -165,9 +165,7 @@ validateRequireableTop(AirbnbPropTypes.restrictedProp(() => "Error"));
 validateRequireableTop(AirbnbPropTypes.restrictedProp(() => new Error("Error")));
 
 validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }));
-validateRequireableTop(
-    AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string }),
-);
+validateRequireableTop(AirbnbPropTypes.sequenceOf({ validator: PropTypes.number }, { validator: PropTypes.string }));
 validateRequireableTop(AirbnbPropTypes.sequenceOf(
     { validator: PropTypes.number, min: 0, max: 10 },
     { validator: PropTypes.string },

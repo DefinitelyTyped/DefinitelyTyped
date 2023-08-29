@@ -450,10 +450,5 @@ interface ActiveXObjectNameMap {
 }
 
 interface ActiveXObject {
-    set(
-        obj: IWshRuntimeLibrary.WshEnvironment,
-        propertyName: "Item",
-        parameterTypes: [string],
-        newValue: string,
-    ): void;
+    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: "Item", parameterTypes: [string], newValue: string): void;
 }

@@ -5526,12 +5526,7 @@ declare namespace Office {
         Add(FileName: string, Section?: MsoFileNewSection, DisplayName?: string, Action?: MsoFileNewAction): boolean;
         readonly Application: any;
         readonly Creator: number;
-        Remove(
-            FileName: string,
-            Section?: MsoFileNewSection,
-            DisplayName?: string,
-            Action?: MsoFileNewAction,
-        ): boolean;
+        Remove(FileName: string, Section?: MsoFileNewSection, DisplayName?: string, Action?: MsoFileNewAction): boolean;
     }
 
     class OfficeTheme {

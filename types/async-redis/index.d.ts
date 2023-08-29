@@ -962,23 +962,9 @@ interface Commands {
      * Return a range of members in a sorted set, by lexicographical range.
      */
     zrangebylex(key: string, min: string, max: string): Promise<string[]>;
-    zrangebylex(
-        key: string,
-        min: string,
-        max: string,
-        limit: string,
-        offset: number,
-        count: number,
-    ): Promise<string[]>;
+    zrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number): Promise<string[]>;
     ZRANGEBYLEX(key: string, min: string, max: string): Promise<string[]>;
-    ZRANGEBYLEX(
-        key: string,
-        min: string,
-        max: string,
-        limit: string,
-        offset: number,
-        count: number,
-    ): Promise<string[]>;
+    ZRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number): Promise<string[]>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.

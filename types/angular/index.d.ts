@@ -415,11 +415,7 @@ declare namespace angular {
         $addControl(control: INgModelController | IFormController): void;
         $getControls(): ReadonlyArray<INgModelController | IFormController>;
         $removeControl(control: INgModelController | IFormController): void;
-        $setValidity(
-            validationErrorKey: string,
-            isValid: boolean,
-            control: INgModelController | IFormController,
-        ): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;

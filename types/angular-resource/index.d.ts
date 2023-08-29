@@ -50,12 +50,7 @@ declare module "angular" {
                 actions?: IActionHash,
                 options?: IResourceOptions,
             ): IResourceClass<IResource<any>>;
-            <T>(
-                url: string,
-                paramDefaults?: any,
-                actions?: IActionHash,
-                options?: IResourceOptions,
-            ): IResourceClass<T>;
+            <T>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
             <T, U>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): U;
         }
 

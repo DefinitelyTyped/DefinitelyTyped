@@ -75,10 +75,7 @@ declare namespace accounting {
             decimal?: string,
             format?: string,
         ): string[];
-        formatColumn(
-            numbers: number[],
-            options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>,
-        ): string[];
+        formatColumn(numbers: number[], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string[];
 
         formatColumn(
             numbers: number[][],

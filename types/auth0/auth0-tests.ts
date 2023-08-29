@@ -466,6 +466,18 @@ management
         // Handle the error
     });
 
+// Get all clients with pagination and totals using a callback
+management.getClients({ page: 0, per_page: 5, include_totals: true }, (err, pagedClients) => {
+    // $ExpectType ClientsPaged
+    pagedClients;
+});
+
+// Get all clients with pagination and totals returning a Promise
+management.getClients({ page: 0, per_page: 5, include_totals: true }).then(pagedClients => {
+    // $ExpectType ClientsPaged
+    pagedClients;
+});
+
 // Connections
 // Get all Connections with promise
 management
@@ -571,16 +583,10 @@ management.getClientGrants({ audience: "audience" }).then((data: auth0.ClientGra
 management.getClientGrants({ audience: "audience" }, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
 
 management.getClientGrants({ client_id: "client_id" }).then((data: auth0.ClientGrant[]) => console.log(data));
-management.getClientGrants(
-    { client_id: "client_id" },
-    (err: Error, data: auth0.ClientGrant[]) => console.log(data),
-);
+management.getClientGrants({ client_id: "client_id" }, (err: Error, data: auth0.ClientGrant[]) => console.log(data));
 
 management.getClientGrants({ include_totals: true }).then((data: auth0.ClientGrantPage) => console.log(data));
-management.getClientGrants(
-    { include_totals: true },
-    (err: Error, data: auth0.ClientGrantPage) => console.log(data),
-);
+management.getClientGrants({ include_totals: true }, (err: Error, data: auth0.ClientGrantPage) => console.log(data));
 
 // Jobs
 management
@@ -967,10 +973,7 @@ management.deleteGuardianEnrollment({ id: "cd_0000000000000001" }, err => consol
 management
     .createGuardianEnrollmentTicket({ user_id: "user_id", send_mail: true })
     .then(results => console.log(results));
-management.createGuardianEnrollmentTicket(
-    { user_id: "user_id", send_mail: true },
-    (err, data) => console.log(data),
-);
+management.createGuardianEnrollmentTicket({ user_id: "user_id", send_mail: true }, (err, data) => console.log(data));
 
 // MFA invalidate remember browser
 management.invalidateRememberBrowser({ id: "cd_0000000000000001" }).then(() => console.log("mfa resetter"));
@@ -1295,16 +1298,21 @@ management.organizations.getByName({ name: "" }).then((organization: auth0.Organ
 /**
  * Create an Organization using a callback
  */
-management.organizations.create({
-    name: "test_organization",
-    display_name: "Test Organization",
-    enabled_connections: [{
-        connection_id: "connection-id",
-        assign_membership_on_login: true,
-    }],
-}, (err, organization: auth0.Organization) => {
-    console.log({ organization });
-});
+management.organizations.create(
+    {
+        name: "test_organization",
+        display_name: "Test Organization",
+        enabled_connections: [
+            {
+                connection_id: "connection-id",
+                assign_membership_on_login: true,
+            },
+        ],
+    },
+    (err, organization: auth0.Organization) => {
+        console.log({ organization });
+    },
+);
 
 /**
  * Create an Organization returning a Promise
@@ -1425,10 +1433,7 @@ management.organizations
 /**
  * Remove an Organization's Enabled Connection using a callback
  */
-management.organizations.removeEnabledConnection(
-    { id: "organization_id", connection_id: "connection_id" },
-    err => {},
-);
+management.organizations.removeEnabledConnection({ id: "organization_id", connection_id: "connection_id" }, err => {});
 
 /**
  * Remove an Organization's Enabled Connection returning a Promise

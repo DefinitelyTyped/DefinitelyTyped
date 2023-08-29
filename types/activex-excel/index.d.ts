@@ -8182,12 +8182,7 @@ declare namespace Excel {
          * @param Paste [Paste=-4104]
          * @param Operation [Operation=-4142]
          */
-        _PasteSpecial(
-            Paste?: XlPasteType,
-            Operation?: XlPasteSpecialOperation,
-            SkipBlanks?: any,
-            Transpose?: any,
-        ): any;
+        _PasteSpecial(Paste?: XlPasteType, Operation?: XlPasteSpecialOperation, SkipBlanks?: any, Transpose?: any): any;
         _PrintOut(
             From?: any,
             To?: any,
@@ -9221,13 +9216,7 @@ declare namespace Excel {
         ): Shape;
         AddPolyline(SafeArrayOfPoints: SafeArray<number>): Shape;
         AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddSmartArt(
-            Layout: Office.SmartArtLayout,
-            Left?: number,
-            Top?: number,
-            Width?: number,
-            Height?: number,
-        ): Shape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
         AddTextbox(
             Orientation: Office.MsoTextOrientation,
             Left: number,

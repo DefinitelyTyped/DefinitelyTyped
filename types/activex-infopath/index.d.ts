@@ -1387,10 +1387,7 @@ interface ActiveXObject {
         obj: InfoPath.XDocument,
         event: "OnVersionUpgrade",
         argNames: ["pEvent"],
-        handler: (
-            this: InfoPath.XDocument,
-            parameter: { readonly pEvent: InfoPath.VersionUpgradeEventObject },
-        ) => void,
+        handler: (this: InfoPath.XDocument, parameter: { readonly pEvent: InfoPath.VersionUpgradeEventObject }) => void,
     ): void;
     on(
         obj: InfoPath.XDocument,

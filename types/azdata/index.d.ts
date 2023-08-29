@@ -1048,12 +1048,7 @@ declare module "azdata" {
         ): Thenable<void>;
         revertCell(ownerUri: string, rowId: number, columnId: number): Thenable<EditRevertCellResult>;
         revertRow(ownerUri: string, rowId: number): Thenable<void>;
-        updateCell(
-            ownerUri: string,
-            rowId: number,
-            columnId: number,
-            newValue: string,
-        ): Thenable<EditUpdateCellResult>;
+        updateCell(ownerUri: string, rowId: number, columnId: number, newValue: string): Thenable<EditUpdateCellResult>;
         getEditRows(rowData: EditSubsetParams): Thenable<EditSubsetResult>;
 
         // Edit Data Notifications
@@ -2110,10 +2105,7 @@ declare module "azdata" {
 
         // Job Schedule management methods
         getJobSchedules(ownerUri: string): Thenable<AgentJobSchedulesResult>;
-        createJobSchedule(
-            ownerUri: string,
-            scheduleInfo: AgentJobScheduleInfo,
-        ): Thenable<CreateAgentJobScheduleResult>;
+        createJobSchedule(ownerUri: string, scheduleInfo: AgentJobScheduleInfo): Thenable<CreateAgentJobScheduleResult>;
         updateJobSchedule(
             ownerUri: string,
             originalScheduleName: string,
@@ -5621,10 +5613,7 @@ declare module "azdata" {
          * @param providerId Optional provider ID this editor will be associated with. Defaults to MSSQL.
          * @return A promise that resolves to a {@link QueryDocument}.
          */
-        export function openQueryDocument(
-            options?: { content?: string },
-            providerId?: string,
-        ): Thenable<QueryDocument>;
+        export function openQueryDocument(options?: { content?: string }, providerId?: string): Thenable<QueryDocument>;
     }
 
     /**

@@ -111,7 +111,7 @@ router.put(
                     write: ["groups", "member"],
                     allowImplicit: false,
                 },
-                action: params => {
+                action: (params) => {
                     return "1234";
                 },
                 params: JSON.parse(request.body),

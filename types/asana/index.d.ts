@@ -2548,12 +2548,7 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            create(
-                resource: number | string,
-                target: string,
-                data: any,
-                dispatchOptions?: any,
-            ): Promise<Webhooks.Type>;
+            create(resource: number | string, target: string, data: any, dispatchOptions?: any): Promise<Webhooks.Type>;
 
             /**
              * * Returns the compact representation of all webhooks your app has

@@ -23,9 +23,7 @@ angular.module("myApp").controller("helloController", function(gettextCatalog: a
 
 angular.module("myApp").controller("helloController", function(gettextCatalog: angular.gettext.gettextCatalog) {
     var myString2: string = gettextCatalog.getPlural(3, "Bird", "Birds");
-    var myStringWithScope: string = gettextCatalog.getPlural(4, "{{color}} Bird", "{{color}} Birds", {
-        color: "Blue",
-    });
+    var myStringWithScope: string = gettextCatalog.getPlural(4, "{{color}} Bird", "{{color}} Birds", { color: "Blue" });
     var myStringWithContext: string = gettextCatalog.getPlural(5, "pick", "picks", null, "noun");
 });
 

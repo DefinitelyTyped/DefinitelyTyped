@@ -750,11 +750,7 @@ declare namespace OSS {
         /**
          * Get an image from the image channel.
          */
-        get(
-            name: string,
-            file?: any,
-            options?: ImageGetOptions,
-        ): Promise<{ content: any; res: NormalSuccessResponse }>;
+        get(name: string, file?: any, options?: ImageGetOptions): Promise<{ content: any; res: NormalSuccessResponse }>;
 
         /**
          * Get an image read stream.
@@ -1101,10 +1097,7 @@ declare class OSS {
     /**
      * multi upload
      */
-    initMultipartUpload(
-        name: string,
-        options?: OSS.InitMultipartUploadOptions,
-    ): Promise<OSS.InitMultipartUploadResult>;
+    initMultipartUpload(name: string, options?: OSS.InitMultipartUploadOptions): Promise<OSS.InitMultipartUploadResult>;
 
     /**
      * After initiating a Multipart Upload event, you can upload data in parts based on the specified object name and Upload ID.

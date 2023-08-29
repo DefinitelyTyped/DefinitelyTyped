@@ -202,7 +202,7 @@
 declare module "coroutine" {
     
 
-    module coroutine {
+    namespace coroutine {
         
         
         /**

@@ -21,7 +21,7 @@ declare namespace LoaderRegistry {
         registerNodeLoader(type: string | NamedNode, loader: Loader<any, any>): void;
         load<
             T extends any = unknown,
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             TLoader extends Loader<T, TOptions> = Loader<T>,
             TOptions extends Record<string, any> = TLoader extends Loader<T, infer U> ? U : {}>(
                 node: GraphPointer,

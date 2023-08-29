@@ -51,9 +51,7 @@ function test_client() {
 
         // 3) register a procedure for remoting
         const add2reg = session.register("com.myapp.add2", myInstance.add2, { invoke: "roundrobin" });
-        const doGreetingReg = session.register("com.myapp.doGreeting", myInstance.doGreeting, {
-            invoke: "roundrobin",
-        });
+        const doGreetingReg = session.register("com.myapp.doGreeting", myInstance.doGreeting, { invoke: "roundrobin" });
 
         // 4) call a remote procedure
         session.call<number>("com.myapp.add2", [2, 3]).then(res => {

@@ -54,24 +54,7 @@ const data = new Uint8Array([
     133,
     109,
 ]);
-const keyData: Uint8Array = new Uint8Array([
-    93,
-    210,
-    19,
-    203,
-    234,
-    199,
-    254,
-    16,
-    118,
-    129,
-    214,
-    61,
-    229,
-    117,
-    91,
-    33,
-]);
+const keyData: Uint8Array = new Uint8Array([93, 210, 19, 203, 234, 199, 254, 16, 118, 129, 214, 61, 229, 117, 91, 33]);
 const signature = new Uint8Array([
     77,
     125,
@@ -150,7 +133,7 @@ crypto.subtle.importKey("spki", raw_key, { name: "RANDOM" }, true, ["wrapKey"]);
 crypto.subtle.importKey("raw", raw_key, { name: "AES-GCM" }, false, ["encrypt"]);
 crypto.subtle
     .importKey("raw", raw_key, "AES-CBC", false, ["encrypt", "decrypt"])
-    .then(imported_key => {
+    .then((imported_key) => {
         crypto.subtle.encrypt(
             {
                 name: "AES-CBC",
@@ -202,7 +185,7 @@ crypto.subtle.importKey(
     },
     false,
     ["sign"],
-).then(imported_key => {
+).then((imported_key) => {
     crypto.subtle.sign(
         "RSASSA-PKCS1-v1_5",
         imported_key,
@@ -223,15 +206,15 @@ crypto.subtle.importKey(
     },
     false,
     ["sign", "verify"],
-).then(imported_key => {
+).then((imported_key) => {
     const data = Uint8Array.from([97, 110, 103, 117, 115, 32, 97, 110, 100, 32, 111, 119, 101, 110]);
-    crypto.subtle.sign("HMAC", imported_key, data).then(sig => {
+    crypto.subtle.sign("HMAC", imported_key, data).then((sig) => {
         crypto.subtle.verify("HMAC", imported_key, sig, data);
     });
 });
 
 crypto.subtle.importKey("raw", keyData, { name: "AES-GCM" }, false, ["encrypt", "decrypt"])
-    .then(imported_key => {
+    .then((imported_key) => {
         const iv: Uint8Array = new Uint8Array([
             237,
             234,
@@ -252,7 +235,7 @@ crypto.subtle.importKey("raw", keyData, { name: "AES-GCM" }, false, ["encrypt", 
         ]);
         const raw_data: Uint8Array = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
         crypto.subtle.encrypt({ name: "AES-GCM", iv: { iv }, tagLength: 96 }, imported_key, raw_data).then(
-            encrypted_data => {
+            (encrypted_data) => {
                 crypto.subtle.decrypt(
                     {
                         name: "AES-GCM",

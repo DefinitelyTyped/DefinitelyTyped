@@ -151,7 +151,7 @@ class Shape extends Sprite {
     setShape(name: string, rotation: number): void {
         this.shapeName = name;
         this.rotation = rotation;
-        this.shape = this.shapes.find(shape => shape.name === this.shapeName) || this.shapes[0];
+        this.shape = this.shapes.find((shape) => shape.name === this.shapeName) || this.shapes[0];
         this.setAnimation(`${name}${rotation}`);
     }
 
@@ -265,7 +265,7 @@ class Shape extends Sprite {
         // shape sprite images start at the top of the image file
         let offsetY = 0;
 
-        this.shapes.forEach(shape => {
+        this.shapes.forEach((shape) => {
             let offsetX = 0;
             for (let i = 0; i < 4; ++i) {
                 this.addAnimation(`${shape.name}${i}`, "tiles", {

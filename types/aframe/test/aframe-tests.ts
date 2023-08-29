@@ -109,7 +109,7 @@ const testSystem: SystemDefinition = {
 
     init() {
         this.data.counter = 1;
-        ((this.el as Entity).sceneEl as Scene).addEventListener("enter-vr", e => {});
+        ((this.el as Entity).sceneEl as Scene).addEventListener("enter-vr", (e) => {});
     },
 };
 

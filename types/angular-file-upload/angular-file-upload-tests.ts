@@ -40,19 +40,19 @@ angular.module("app", ["angularFileUpload"])
         uploader.onWhenAddingFileFailed = (item, /*{File|FileLikeObject}*/ filter, options) => {
             console.info("onWhenAddingFileFailed", item, filter, options);
         };
-        uploader.onAfterAddingFile = fileItem => {
+        uploader.onAfterAddingFile = (fileItem) => {
             console.info("onAfterAddingFile", fileItem);
         };
-        uploader.onAfterAddingAll = addedFileItems => {
+        uploader.onAfterAddingAll = (addedFileItems) => {
             console.info("onAfterAddingAll", addedFileItems);
         };
-        uploader.onBeforeUploadItem = item => {
+        uploader.onBeforeUploadItem = (item) => {
             console.info("onBeforeUploadItem", item);
         };
         uploader.onProgressItem = (fileItem, progress) => {
             console.info("onProgressItem", fileItem, progress);
         };
-        uploader.onProgressAll = progress => {
+        uploader.onProgressAll = (progress) => {
             console.info("onProgressAll", progress);
         };
         uploader.onSuccessItem = (fileItem, response, status, headers) => {

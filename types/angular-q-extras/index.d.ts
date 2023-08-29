@@ -127,14 +127,7 @@ declare module "angular" {
                 T6 | IPromise<T6>,
             ],
         ): IPromise<
-            [
-                PromiseValue<T1>,
-                PromiseValue<T2>,
-                PromiseValue<T3>,
-                PromiseValue<T4>,
-                PromiseValue<T5>,
-                PromiseValue<T6>,
-            ]
+            [PromiseValue<T1>, PromiseValue<T2>, PromiseValue<T3>, PromiseValue<T4>, PromiseValue<T5>, PromiseValue<T6>]
         >;
         allSettled<T1, T2, T3, T4, T5>(
             values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise<T4>, T5 | IPromise<T5>],

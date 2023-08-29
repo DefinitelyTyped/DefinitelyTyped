@@ -24,11 +24,7 @@ declare module "angular" {
             // Executes the callback function ONLY when the match differs from previous match.
             // Returns the current match truthiness.
             // The 'scope' parameter is required for cleanup reasons (destroy event).
-            onChange(
-                scope: angular.IScope,
-                list: Array<string> | string,
-                callback: (result: boolean) => void,
-            ): boolean;
+            onChange(scope: angular.IScope, list: Array<string> | string, callback: (result: boolean) => void): boolean;
 
             // Executes the callback only when inside of the particular screensize.
             // The 'scope' parameter is optional. If it's not passed in, '$rootScope' is used.

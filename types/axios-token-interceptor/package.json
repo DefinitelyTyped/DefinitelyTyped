@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "axios": "*"
-  }
+    "private": true,
+    "dependencies": {
+        "axios": "*"
+    }
 }

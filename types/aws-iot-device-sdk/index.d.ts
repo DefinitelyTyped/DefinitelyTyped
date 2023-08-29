@@ -359,11 +359,7 @@ export class thingShadow extends EventEmitter {
      * @param the options to subscribe with
      * @param callback fired on suback
      */
-    subscribe(
-        topic: string | string[],
-        options?: { qos: 0 | 1 },
-        callback?: mqtt.ClientSubscribeCallback,
-    ): mqtt.Client;
+    subscribe(topic: string | string[], options?: { qos: 0 | 1 }, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
 
     /**
      * Unsubscribe from a topic or topics

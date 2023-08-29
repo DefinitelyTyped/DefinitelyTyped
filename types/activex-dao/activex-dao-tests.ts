@@ -82,10 +82,7 @@ const findRecordCount = (dbs: DAO.Database, sql: string) => {
 // https://msdn.microsoft.com/VBA/Access-VBA/articles/extract-data-from-a-record-in-a-dao-recordset
 {
     // copy entire records to an array
-    const rstEmployees = dbsNorthwind.OpenRecordset(
-        "SELECT FirstName, LastName, Title FROM Employees",
-        dbOpenSnapshot,
-    );
+    const rstEmployees = dbsNorthwind.OpenRecordset("SELECT FirstName, LastName, Title FROM Employees", dbOpenSnapshot);
     const records = new VBArray<string>(rstEmployees.GetRows(3));
     const recordCount = records.ubound(2) + 1;
     const columnCount = records.ubound(1) + 1;

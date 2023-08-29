@@ -29,12 +29,7 @@ declare namespace AMap {
          * @param handler：事件功能函数（必填）
          * @param context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
          */
-        function addDomListener(
-            instance: any,
-            eventName: string,
-            handler: EventCallback,
-            context?: any,
-        ): EventListener;
+        function addDomListener(instance: any, eventName: string, handler: EventCallback, context?: any): EventListener;
 
         /**
          * 注册对象事件：给对象注册事件，并返回eventListener。运行AMap.event.removeListener(eventListener)可以删除该事件的监听器。

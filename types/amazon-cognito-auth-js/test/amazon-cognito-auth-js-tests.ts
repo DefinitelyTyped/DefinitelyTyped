@@ -72,7 +72,7 @@ authOptions = {
     UserPoolId: "us-east-1_faKE4ReAl",
     AdvancedSecurityDataCollectionFlag: true,
     Storage: cookieStorage,
-    LaunchUri: uri => console.log(uri),
+    LaunchUri: (uri) => console.log(uri),
 };
 auth = new lib.CognitoAuth(authOptions);
 
@@ -105,8 +105,8 @@ auth.makePOSTRequest(
     { "Content-Type": "application/json" },
     { pool: "2" },
     "https://auth.com/signin",
-    data => console.log(data),
-    error => console.log(error),
+    (data) => console.log(data),
+    (error) => console.log(error),
 );
 auth.createCORSRequest("POST", "/myapp/login"); // $ExpectType XMLHttpRequest | XDomainRequest || XDomainRequest | XMLHttpRequest
 auth.onFailure("request failed"); // $ExpectType void

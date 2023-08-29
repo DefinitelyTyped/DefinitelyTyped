@@ -54,7 +54,7 @@ app.controller("mainCtrl", ["$scope", "$meteor", ($scope: CustomScope, $meteor: 
     $scope.todoSubscribed = <TodoAngularMeteorObject> $meteor.object(Todos, "TodoID").subscribe("todos");
     $scope.todo = $scope.todoNotAuto.getRawObject();
     $scope.todoNotAuto.reset();
-    $scope.todoNotAuto.save($scope.todo).then(data => {
+    $scope.todoNotAuto.save($scope.todo).then((data) => {
         return data == 1;
     });
 
@@ -124,7 +124,7 @@ app.controller("mainCtrl", ["$scope", "$meteor", ($scope: CustomScope, $meteor: 
 
     // Subscribe ->
 
-    $meteor.subscribe("todos").then(subscriptionHandle => {
+    $meteor.subscribe("todos").then((subscriptionHandle) => {
         // Bind all the todos to $scope.todos
         $scope.todos = $meteor.collection(Todos);
 
@@ -134,7 +134,7 @@ app.controller("mainCtrl", ["$scope", "$meteor", ($scope: CustomScope, $meteor: 
         subscriptionHandle.stop();
     });
 
-    $scope.subscribe("todos").then(subscriptionHandle => {
+    $scope.subscribe("todos").then((subscriptionHandle) => {
         // Bind all the todos to $scope.books
         $scope.todos = $meteor.collection(Todos);
 
@@ -143,10 +143,10 @@ app.controller("mainCtrl", ["$scope", "$meteor", ($scope: CustomScope, $meteor: 
         // No need to stop the subscription, it will automatically close on scope destroy
     });
 
-    $meteor.call<ITodo>("subscribe", $scope.todo._id, $scope.currentUser._id).then(data => {
+    $meteor.call<ITodo>("subscribe", $scope.todo._id, $scope.currentUser._id).then((data) => {
         // Handle success
         console.log("success subscribing", data.name);
-    }, err => {
+    }, (err) => {
         // Handle error
         console.log("failed", err);
     });
