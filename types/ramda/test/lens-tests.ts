@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // $ExpectType Lens<number[], number>

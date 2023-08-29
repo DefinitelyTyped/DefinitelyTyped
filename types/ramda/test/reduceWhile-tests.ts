@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const isOdd = (acc: number, x: number) => x % 2 === 1;

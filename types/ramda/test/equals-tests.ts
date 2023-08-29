@@ -1,8 +1,8 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     R.equals(1, 1); // => true
-    R.equals('2', '1'); // => false
+    R.equals("2", "1"); // => false
     R.equals([1, 2, 3], [1, 2, 3]); // => true
     R.equals(R.__, 1)(1); // => true
     R.equals(1)(1); // => true

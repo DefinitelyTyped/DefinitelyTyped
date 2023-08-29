@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function Circle(this: { r: number; metaInfo?: string; area: () => number }, r: number, metaInfo?: string) {
@@ -15,10 +15,10 @@ import * as R from 'ramda';
     const circleN = R.constructN(2, Circle);
 
     // $ExpectType { r: number; metaInfo?: string | undefined; area: () => number; }
-    const circleObject0 = circleN(10)('Some additional information');
+    const circleObject0 = circleN(10)("Some additional information");
 
     // $ExpectType { r: number; metaInfo?: string | undefined; area: () => number; }
-    const circleObject1 = circleN(10, 'Some additional information');
+    const circleObject1 = circleN(10, "Some additional information");
 });
 
 (() => {
@@ -34,8 +34,8 @@ import * as R from 'ramda';
     const circleN = R.constructN(2, Circle);
 
     // $ExpectType Circle
-    const circleObject0 = circleN(10)('Some additional information');
+    const circleObject0 = circleN(10)("Some additional information");
 
     // $ExpectType Circle
-    const circleObject1 = circleN(10, 'Some additional information');
+    const circleObject1 = circleN(10, "Some additional information");
 });

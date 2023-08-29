@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 interface Person {
     name: string;
@@ -10,15 +10,15 @@ interface Person {
     const sortByAgeDescending = R.sortBy<Person>(({ age }) => -age);
 
     const alice = {
-        name: 'ALICE',
+        name: "ALICE",
         age: 101,
     };
     const bob = {
-        name: 'Bob',
+        name: "Bob",
         age: -10,
     };
     const clara = {
-        name: 'clara',
+        name: "clara",
         age: 314.159,
     };
     const people = [clara, bob, alice];
@@ -29,15 +29,15 @@ interface Person {
     // $ExpectType (list: readonly Person[]) => Person[]
     const sortByNameCaseInsensitive = R.sortBy<Person>(({ name }) => name.toLowerCase());
     const alice = {
-        name: 'ALICE',
+        name: "ALICE",
         age: 101,
     };
     const bob = {
-        name: 'Bob',
+        name: "Bob",
         age: -10,
     };
     const clara = {
-        name: 'clara',
+        name: "clara",
         age: 314.159,
     };
     const people = [clara, bob, alice];

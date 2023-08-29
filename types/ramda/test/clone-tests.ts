@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const obj1 = [{}, {}, {}];
@@ -7,7 +7,7 @@ import * as R from 'ramda';
     const a2: Array<{ a: number }> = R.clone(obj2);
     const a3: any = R.clone({});
     const a4: number = R.clone(10);
-    const a5: string = R.clone('foo');
+    const a5: string = R.clone("foo");
     const a6: number = R.clone(Date.now());
 });
 

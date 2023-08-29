@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function isPositive(n: number) {
@@ -11,8 +11,8 @@ import * as R from 'ramda';
     }
 
     const colors = {
-        1: { color: 'read' },
-        2: { color: 'black', bgcolor: 'yellow' },
+        1: { color: "read" },
+        2: { color: "black", bgcolor: "yellow" },
     };
     R.pickBy(containsBackground, colors); // => {2: {color: 'black', bgcolor: 'yellow'}}
 
@@ -32,7 +32,7 @@ import * as R from 'ramda';
 });
 
 (() => {
-    R.pickBy((_, key) => key !== 'c', { a: 1, b: 2, c: 3, d: 4 }); // => { a: 1, b: 2, d: 4 }
+    R.pickBy((_, key) => key !== "c", { a: 1, b: 2, c: 3, d: 4 }); // => { a: 1, b: 2, d: 4 }
 
     interface T1 {
         a: number;
@@ -40,7 +40,7 @@ import * as R from 'ramda';
         c: number;
         d: number;
     }
-    const excludePropertyD = R.pickBy<T1>((val, key) => key !== 'd');
+    const excludePropertyD = R.pickBy<T1>((val, key) => key !== "d");
     interface T2 {
         a: number;
         b: number;

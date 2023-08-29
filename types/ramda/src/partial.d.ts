@@ -1,2 +1,2 @@
-import { partial } from '../index';
+import { partial } from "../index";
 export default partial;

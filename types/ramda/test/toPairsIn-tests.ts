@@ -1,9 +1,9 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 class F {
     [k: string]: string;
-    x = 'X';
-    y = 'Y';
+    x = "X";
+    y = "Y";
 }
 
 (() => {
@@ -13,11 +13,11 @@ class F {
 });
 
 class C {
-    x: 'X' = 'X';
-    y: 'Y' = 'Y';
+    x: "X" = "X";
+    y: "Y" = "Y";
 }
 
 (() => {
     const c = new C();
-    const a: Array<['x', 'X'] | ['y', 'Y']> = R.toPairsIn(c); // => [['x','X'], ['y','Y']]
+    const a: Array<["x", "X"] | ["y", "Y"]> = R.toPairsIn(c); // => [['x','X'], ['y','Y']]
 });

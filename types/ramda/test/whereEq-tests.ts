@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // pred :: Object -> Boolean
@@ -7,5 +7,5 @@ import * as R from 'ramda';
     pred({ a: 1, b: 2 }); // => true
     pred({ a: 1, b: 2, c: 3 }); // => true
     pred({ a: 1, b: 1 }); // => false
-    R.whereEq({ a: 'one' }, { a: 'one' }); // => true
+    R.whereEq({ a: "one" }, { a: "one" }); // => true
 });

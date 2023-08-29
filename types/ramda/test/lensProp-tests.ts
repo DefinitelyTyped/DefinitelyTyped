@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     interface ObjWithPhrase {
@@ -6,8 +6,8 @@ import * as R from 'ramda';
     }
 
     // $ExpectType Lens<ObjWithPhrase, string>
-    R.lensProp<ObjWithPhrase>('phrase');
+    R.lensProp<ObjWithPhrase>("phrase");
 
     // @ts-expect-error
-    R.lensProp<ObjWithPhrase>('phrae');
+    R.lensProp<ObjWithPhrase>("phrae");
 });

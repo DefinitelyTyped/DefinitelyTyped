@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 class Rectangle {
     constructor(public width: number, public height: number) {
@@ -60,7 +60,7 @@ class Rectangle {
 
 (() => {
     const reduceIndexed = R.addIndex<string, { [elem: string]: number }>(R.reduce);
-    const letters = ['a', 'b', 'c'];
+    const letters = ["a", "b", "c"];
 
     function objectify(accObject: { [elem: string]: number }, elem: string, idx: number, _list: string[]) {
         accObject[elem] = idx;
@@ -89,7 +89,7 @@ class Rectangle {
 
 (() => {
     const mapIndexed = R.addIndex<string, string>(R.map);
-    mapIndexed((val: string, idx: number) => `${idx}-${val}`)(['f', 'o', 'o', 'b', 'a', 'r']);
+    mapIndexed((val: string, idx: number) => `${idx}-${val}`)(["f", "o", "o", "b", "a", "r"]);
     // => ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
     const mapIndexed2 = R.addIndex<Rectangle, number>(R.map);
     // $ExpectType number[]
@@ -103,13 +103,13 @@ class Rectangle {
 (() => {
     const reduceIndexed = R.addIndex<string, string>(R.reduce);
     // $ExpectType string
-    reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, '', [
-        'f',
-        'o',
-        'o',
-        'b',
-        'a',
-        'r',
+    reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, "", [
+        "f",
+        "o",
+        "o",
+        "b",
+        "a",
+        "r",
     ]);
     // => ['0-f,1-o,2-o,3-b,4-a,5-r']
 });

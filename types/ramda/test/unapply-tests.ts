@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const fn: (...args: string[]) => string = R.unapply(JSON.stringify);

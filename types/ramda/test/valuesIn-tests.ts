@@ -1,9 +1,9 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 class F {
     [k: string]: string;
-    x = 'X';
-    y = 'Y';
+    x = "X";
+    y = "Y";
 }
 
 (() => {

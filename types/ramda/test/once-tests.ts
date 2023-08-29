@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // $ExpectType (x: number) => number
@@ -8,5 +8,5 @@ import * as R from 'ramda';
     addOneOnce(addOneOnce(50)); // => 11
 
     // $ExpectType string
-    const str = R.once(() => 'test')();
+    const str = R.once(() => "test")();
 });

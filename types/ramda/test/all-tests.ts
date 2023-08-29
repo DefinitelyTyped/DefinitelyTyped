@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const lessThan2 = R.flip(R.lt)(2);

@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const xs = R.range(0, 10);
@@ -6,7 +6,7 @@ import * as R from 'ramda';
     R.slice(2, 5)(xs); // => [2, 3, 4]
     R.slice(2)(5, xs); // => [2, 3, 4]
 
-    const str = 'Hello World';
+    const str = "Hello World";
     R.slice(2, 5, str); // => 'llo'
     R.slice(2, 5)(str); // => 'llo'
     R.slice(2)(5, str); // => 'llo'
@@ -18,7 +18,7 @@ import * as R from 'ramda';
         text: string;
     }
 
-    const arr: A[] = [{ text: 'one' }, { text: 'two' }, { text: 'three' }, { text: 'four' }];
+    const arr: A[] = [{ text: "one" }, { text: "two" }, { text: "three" }, { text: "four" }];
 
     const sliceFromSecondToThird = R.slice(1, 3);
 
@@ -37,8 +37,8 @@ import * as R from 'ramda';
 
 (() => {
     // make type inference work well
-    const str = 'Hello World';
-    const arr = ['one', 'two', 'three', 'four', 'five'];
+    const str = "Hello World";
+    const arr = ["one", "two", "three", "four", "five"];
 
     // $ExpectType (list: string) => string
     const pipeSlice = R.pipe(R.slice(2, 5));

@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
-    const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const sampleList = ["a", "b", "c", "d", "e", "f"];
 
     R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
     R.move<string>(-1, 0, sampleList); // => ['f', 'a', 'b', 'c', 'd', 'e'] list rotation

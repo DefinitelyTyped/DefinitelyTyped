@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 function add(a: number, b: number) {
     return a + b;

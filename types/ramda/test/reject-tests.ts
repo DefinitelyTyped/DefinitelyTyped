@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function isOdd(n: number) {
@@ -33,7 +33,7 @@ import * as R from 'ramda';
     }
 
     // @ts-expect-error
-    R.reject(isEven, ['foo']);
+    R.reject(isEven, ["foo"]);
 });
 
 (() => {

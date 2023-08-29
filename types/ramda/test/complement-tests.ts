@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function isEven(n: number) {
@@ -17,8 +17,8 @@ import * as R from 'ramda';
     const isLengthNotEqual = R.complement(isLengthEqual);
 
     // @ts-expect-error
-    isLengthNotEqual('FOO', 'BAR');
-    isLengthNotEqual('BAZ', 4); // => true
+    isLengthNotEqual("FOO", "BAR");
+    isLengthNotEqual("BAZ", 4); // => true
 
     // $ExpectType (value: any) => value is any
     R.complement(R.isNil);

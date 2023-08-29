@@ -1,9 +1,9 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const orValue = 11;
-    const orValueStr = 'str';
-    const testPath = ['x', 0, 'y'];
+    const orValueStr = "str";
+    const testPath = ["x", 0, "y"];
     const testObj = {
         x: [
             { y: 2, z: 3 },

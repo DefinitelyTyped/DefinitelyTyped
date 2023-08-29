@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const addFour = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;

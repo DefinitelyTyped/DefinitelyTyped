@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     interface User {
@@ -9,8 +9,8 @@ import * as R from 'ramda';
     const db = {
         getUserById(userId: string): Promise<User> {
             return Promise.resolve({
-                name: 'Jon',
-                followers: ['Samwell', 'Edd', 'Grenn'],
+                name: "Jon",
+                followers: ["Samwell", "Edd", "Grenn"],
             });
         },
         getFollowers(user: User): Promise<string[]> {

@@ -1,5 +1,5 @@
-import * as R from 'ramda';
-import { Ord } from 'ramda/tools';
+import * as R from "ramda";
+import { Ord } from "ramda/tools";
 
 (() => {
     function cmp(obj: { x: Ord }) {
@@ -9,8 +9,8 @@ import { Ord } from 'ramda/tools';
     const a = { x: 1 };
     const b = { x: 2 };
     const c = { x: 3 };
-    const d = { x: 'a' };
-    const e = { x: 'z' };
+    const d = { x: "a" };
+    const e = { x: "z" };
     const f = { x: new Date(0) };
     const g = { x: new Date(60 * 1000) };
     R.minBy(cmp, a, b); // => {x: 1}

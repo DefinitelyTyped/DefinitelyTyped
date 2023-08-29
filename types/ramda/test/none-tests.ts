@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     R.none(Number.isNaN, [1, 2, 3]); // => true

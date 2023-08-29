@@ -1,9 +1,9 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const xs = [{ a: 1 }, { a: 2 }, { a: 3 }];
-    R.find(R.propEq(2, 'a'))(xs); // => {a: 2}
-    R.find(R.propEq(4, 'a'))(xs); // => undefined
+    R.find(R.propEq(2, "a"))(xs); // => {a: 2}
+    R.find(R.propEq(4, "a"))(xs); // => undefined
 });
 
 (() => {

@@ -1,11 +1,11 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const spec = { x: 2 };
     const x1: boolean = R.where(spec, { w: 10, x: 2, y: 300 }); // => true
-    const x2: boolean = R.where(spec, { x: 1, y: 'moo', z: true }); // => false
+    const x2: boolean = R.where(spec, { x: 1, y: "moo", z: true }); // => false
     const x3: boolean = R.where(spec)({ w: 10, x: 2, y: 300 }); // => true
-    const x4: boolean = R.where(spec)({ x: 1, y: 'moo', z: true }); // => false
+    const x4: boolean = R.where(spec)({ x: 1, y: "moo", z: true }); // => false
 
     // There's no way to represent the below functionality in typescript
     // per https://stackoverflow.com/a/29803848/632495

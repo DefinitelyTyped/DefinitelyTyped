@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     R.mergeLeft({ foo: { bar: 1 } }, { foo: { bar: 2 } }); // => {foo: {bar: 1}}

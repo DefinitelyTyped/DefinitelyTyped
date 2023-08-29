@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
-    const consoleInput = (input: number) => console.log('input is: ' + input);
+    const consoleInput = (input: number) => console.log("input is: " + input);
     // $ExpectType (value: number) => number
     const tapConsoleInput = R.tap(consoleInput);
     // $ExpectType number
@@ -10,10 +10,10 @@ import * as R from 'ramda';
 
 (() => {
     const assertsInput = (input: string | number): asserts input is number => {
-        if (typeof input !== 'number') {
-            throw new Error('input is not number');
+        if (typeof input !== "number") {
+            throw new Error("input is not number");
         }
-        console.log('input is: ' + input);
+        console.log("input is: " + input);
     };
     // $ExpectType (value: string | number) => number
     const tapUnionTypeInput = R.tap(assertsInput);

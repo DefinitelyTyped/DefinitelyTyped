@@ -1,2 +1,2 @@
-import { anyPass } from '../index';
+import { anyPass } from "../index";
 export default anyPass;

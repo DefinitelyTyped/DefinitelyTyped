@@ -1,12 +1,12 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // $ExpectType (str: string) => boolean
-    const endsWithStringC = R.endsWith('c');
+    const endsWithStringC = R.endsWith("c");
     // $ExpectType boolean
-    endsWithStringC('abc'); // => true
+    endsWithStringC("abc"); // => true
     // $ExpectType boolean
-    endsWithStringC('abc'); // => true
+    endsWithStringC("abc"); // => true
 
     // @ts-expect-error
     R.endsWith(3, [1, 2, 3]);

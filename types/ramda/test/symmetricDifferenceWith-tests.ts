@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
-    const eqA = R.eqBy<{ a: number }>(R.prop('a'));
+    const eqA = R.eqBy<{ a: number }>(R.prop("a"));
     const l1 = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }];
     const l2 = [{ a: 3 }, { a: 4 }, { a: 5 }, { a: 6 }];
     // $ExpectType { a: number; }[]
@@ -15,8 +15,8 @@ import * as R from 'ramda';
 
 (() => {
     const eqL = R.eqBy<string>(s => s.length);
-    const l1 = ['bb', 'ccc', 'dddd'];
-    const l2 = ['aaa', 'bb', 'c'];
+    const l1 = ["bb", "ccc", "dddd"];
+    const l2 = ["aaa", "bb", "c"];
     R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
     R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
 });

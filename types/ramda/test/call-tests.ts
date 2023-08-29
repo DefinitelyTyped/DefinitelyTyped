@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const add = (a: number, b: number): number => a + b;
@@ -7,5 +7,5 @@ import * as R from 'ramda';
     const callAdd = R.call(add, 1, 2);
 
     // @ts-expect-error
-    R.call(add, 'a', 2);
+    R.call(add, "a", 2);
 });

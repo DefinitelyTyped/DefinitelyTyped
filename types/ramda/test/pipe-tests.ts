@@ -1,24 +1,24 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 function double(x: number): number {
     return x + x;
 }
 
 function shout(x: number): string {
-    return x >= 10 ? 'big' : 'small';
+    return x >= 10 ? "big" : "small";
 }
 
 (() => {
     const func: (x: number) => string = R.pipe(double, double, shout);
     const res: string = R.pipe(double, double, shout)(10);
 
-    const capitalize = (str: string) => R.pipe(R.split(''), R.adjust(0, R.toUpper), R.join(''))(str);
+    const capitalize = (str: string) => R.pipe(R.split(""), R.adjust(0, R.toUpper), R.join(""))(str);
 
     const f = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1
 
     // pipe with first function taking no params
-    const f10 = () => 'str';
+    const f10 = () => "str";
     const f11 = (str: string) => str;
     const f12: () => string = R.pipe(f10, f11);
 });
@@ -93,8 +93,8 @@ function shout(x: number): string {
         title: string;
     }
     const list: Book[] = [
-        { id: 'xyz', title: 'A' },
-        { id: 'abc', title: 'B' },
+        { id: "xyz", title: "A" },
+        { id: "abc", title: "B" },
     ];
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -109,16 +109,16 @@ function shout(x: number): string {
         lastName: string;
     }
     const makeQuery = (email: string) => ({ query: { email } });
-    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
+    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: "Jon", lastName: "Snow" });
     const getTitleAsync = (person: Person) =>
-        person.firstName === 'Jon' && person.lastName === 'Snow'
-            ? Promise.resolve('King in the North')
-            : Promise.reject('Unknown');
+        person.firstName === "Jon" && person.lastName === "Snow"
+            ? Promise.resolve("King in the North")
+            : Promise.reject("Unknown");
 
     const getMemberName: (email: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
         makeQuery,
         fetchMember,
-        R.andThen(R.pick(['firstName', 'lastName'])),
+        R.andThen(R.pick(["firstName", "lastName"])),
     );
 
     const getMemberTitle: (email: string) => Promise<string> = R.pipe(makeQuery, fetchMember, R.andThen(getTitleAsync));
@@ -129,14 +129,14 @@ function shout(x: number): string {
         firstName: string;
         lastName: string;
     }
-    const failedFetch = (id: string): Promise<Person> => Promise.reject('bad ID');
-    const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
-    const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: 'Saul', lastName: 'Goodman' });
+    const failedFetch = (id: string): Promise<Person> => Promise.reject("bad ID");
+    const useDefault = (): Person => ({ firstName: "Bob", lastName: "Loblaw" });
+    const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: "Saul", lastName: "Goodman" });
 
     const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
         failedFetch,
         R.otherwise(useDefault),
-        R.andThen(R.pick(['firstName', 'lastName'])),
+        R.andThen(R.pick(["firstName", "lastName"])),
     );
 
     const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(

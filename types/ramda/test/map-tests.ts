@@ -1,11 +1,11 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // Flatten all arrays in the list but leave other values alone.
     const flattenArrays = R.map(R.ifElse(Array.isArray, R.flatten, R.identity));
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
-    flattenArrays([[[10], 123], [8, [10]], 'hello']); // => [[10, 123], [8, 10], "hello"]
+    flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
 });
 
 (() => {
@@ -18,7 +18,7 @@ import * as R from 'ramda';
     // functor
     const numberFunctor = {
         map: <U>(fn: (c: number) => U) => {
-            const chars = 'Ifmmp!Xpsme'.split('');
+            const chars = "Ifmmp!Xpsme".split("");
             return chars.map(char => fn(char.charCodeAt(0)));
         },
     };
@@ -47,7 +47,7 @@ import * as R from 'ramda';
     R.map(R.inc)({ a: 1, b: 2 });
     R.map(R.toString)({ a: 1, b: 2 });
 
-    const obj: A | C = { a: 1, b: 2, c: '3' };
+    const obj: A | C = { a: 1, b: 2, c: "3" };
 
     // $ExpectType Record<"b", void>
     R.map(

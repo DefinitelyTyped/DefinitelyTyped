@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     const a = R.mergeWith(R.concat, { a: true, values: [10, 20] }, { b: true, values: [15, 35] });

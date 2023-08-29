@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     interface FormatSpec {
@@ -6,12 +6,12 @@ import * as R from 'ramda';
         value: string;
     }
 
-    const indentN = R.pipe(R.times(R.always(' ')), R.join(''), R.replace(/^(?!$)/gm));
+    const indentN = R.pipe(R.times(R.always(" ")), R.join(""), R.replace(/^(?!$)/gm));
 
     // $ExpectType Curry<(args_0: FormatSpec) => any>
     const format = R.converge(R.call, [({ indent }: FormatSpec) => indentN(indent), ({ value }: FormatSpec) => value]);
 
-    format({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
+    format({ indent: 2, value: "foo\nbar\nbaz\n" }); // => '  foo\n  bar\n  baz\n'
 
     // $ExpectType Curry<(args_0: FormatSpec) => string>
     const format2 = R.converge(
@@ -23,7 +23,7 @@ import * as R from 'ramda';
     );
 
     // $ExpectType string
-    const indented = format2({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
+    const indented = format2({ indent: 2, value: "foo\nbar\nbaz\n" }); // => '  foo\n  bar\n  baz\n'
 });
 
 (() => {
@@ -62,7 +62,7 @@ import * as R from 'ramda';
     fn(1, 2);
 
     // @ts-expect-error
-    fn('1', 2);
+    fn("1", 2);
 
     // @ts-expect-error
     fn(1, 2, 3);
@@ -126,10 +126,10 @@ import * as R from 'ramda';
     const intersectionOfArguments = R.converge(add3, [args1, args2, args3]);
 
     // $ExpectType number
-    const resultNumber = intersectionOfArguments(1, { q: 'text', w: 22 }, 11);
+    const resultNumber = intersectionOfArguments(1, { q: "text", w: 22 }, 11);
 
     // @ts-expect-error
-    const errorArguments = intersectionOfArguments(1, { q: 'text' }, 11);
+    const errorArguments = intersectionOfArguments(1, { q: "text" }, 11);
 
     const argsIncompatible = (a1: string) => 1;
 

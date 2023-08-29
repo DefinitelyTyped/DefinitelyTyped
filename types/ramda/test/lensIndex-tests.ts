@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // $ExpectType Lens<number[], number>
@@ -13,9 +13,9 @@ import * as R from 'ramda';
     type Line = [First, Second, Third];
 
     const lines: Line[] = [
-        ['a', 1, true],
-        ['b', 2, false],
-        ['c', 3, true],
+        ["a", 1, true],
+        ["b", 2, false],
+        ["c", 3, true],
     ];
 
     // $ExpectType Lens<Line, string>

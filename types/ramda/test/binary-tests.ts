@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function takesThreeArgs(a: number, b: number, c: number) {

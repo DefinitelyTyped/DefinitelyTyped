@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function addFourNumbers(a: number, b: number, c: number, d: number): number {

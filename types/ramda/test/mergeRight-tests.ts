@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
-    R.mergeRight({ name: 'fred', age: 10 }, { age: 40 });
+    R.mergeRight({ name: "fred", age: 10 }, { age: 40 });
     // => { 'name': 'fred', 'age': 40 }
 
     const withDefaults = R.mergeRight({ x: 0, y: 0 });

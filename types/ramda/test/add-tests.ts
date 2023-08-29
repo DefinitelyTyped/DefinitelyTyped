@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     // $ExpectType number
@@ -11,7 +11,7 @@ import * as R from 'ramda';
     // cannot add anything other than two numbers
 
     // @ts-expect-error
-    R.add('foo', 'bar');
+    R.add("foo", "bar");
     // @ts-expect-error
-    R.add('foo')('bar');
+    R.add("foo")("bar");
 });

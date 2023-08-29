@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 interface Point {
     x: number;
@@ -8,11 +8,11 @@ interface Point {
 (() => {
     const headLens = R.lensIndex<string>(0);
     // $ExpectType string
-    R.view(headLens, ['a', 'b', 'c']); // => 'a'
+    R.view(headLens, ["a", "b", "c"]); // => 'a'
 });
 
 (() => {
-    const xLens = R.lens<Point, number>(R.prop('x'), R.assoc('x'));
+    const xLens = R.lens<Point, number>(R.prop("x"), R.assoc("x"));
     // $ExpectType number
     R.view(xLens, { x: 1, y: 2 }); // => 1
     // $ExpectType (obj: Point) => number
@@ -23,11 +23,11 @@ interface Point {
 (() => {
     const headLens = R.lensIndex<string>(0);
     // $ExpectType string
-    R.view(headLens, ['a', 'b', 'c']); // => 'a'
+    R.view(headLens, ["a", "b", "c"]); // => 'a'
 });
 
 (() => {
-    const xLens = R.lensProp<Point>('x');
+    const xLens = R.lensProp<Point>("x");
     // $ExpectType number
     R.view(xLens, { x: 1, y: 2 }); // => 1
 });
@@ -40,7 +40,7 @@ interface Point {
         ],
     };
 
-    const xyLens = R.lensPath<typeof testObj>(['x', 0, 'y']);
+    const xyLens = R.lensPath<typeof testObj>(["x", 0, "y"]);
 
     // Array seems to be an issue
     R.view(xyLens, testObj); // => 2
@@ -51,7 +51,7 @@ interface Point {
         },
     };
 
-    const xyLens2 = R.lensPath<typeof testObj2>(['root', 'x', 'y']);
+    const xyLens2 = R.lensPath<typeof testObj2>(["root", "x", "y"]);
 
     // $ExpectType number
     R.view(xyLens2, testObj2); // => 2

@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 interface Point {
     x: number;
@@ -8,11 +8,11 @@ interface Point {
 (() => {
     const headLens = R.lensIndex<string>(0);
     // $ExpectType string[]
-    R.over(headLens, R.toUpper, ['a', 'b', 'c']); // => ['A', 'b', 'c']
+    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
 });
 
 (() => {
-    const xLens = R.lens<Point, number>(R.prop('x'), R.assoc('x'));
+    const xLens = R.lens<Point, number>(R.prop("x"), R.assoc("x"));
     // $ExpectType { x: number; y: number; }
     R.over(xLens, R.negate, { x: 1, y: 2 }); // => {x: -1, y: 2}
     // $ExpectType (value: Point) => Point
@@ -25,11 +25,11 @@ interface Point {
 (() => {
     const headLens = R.lensIndex<string>(0);
     // $ExpectType string[]
-    R.over(headLens, R.toUpper, ['a', 'b', 'c']); // => ['A', 'b', 'c']
+    R.over(headLens, R.toUpper, ["a", "b", "c"]); // => ['A', 'b', 'c']
 });
 
 (() => {
-    const xLens = R.lensProp<Point>('x');
+    const xLens = R.lensProp<Point>("x");
     // $ExpectType { x: number; y: number; }
     R.over(xLens, R.negate, { x: 1, y: 2 }); // => {x: -1, y: 2}
 });
@@ -41,7 +41,7 @@ interface Point {
             { y: 4, z: 5 },
         ],
     };
-    const xyLens = R.lensPath<typeof testObj, number>(['x', 0, 'y']);
+    const xyLens = R.lensPath<typeof testObj, number>(["x", 0, "y"]);
 
     // $ExpectType { x: { y: number; z: number; }[]; }
     R.over(xyLens, R.negate, testObj); // => {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
@@ -50,5 +50,5 @@ interface Point {
 (() => {
     const headLens = R.lensIndex<string>(0);
     // $ExpectType string[]
-    R.over(headLens, R.toUpper, ['foo', 'bar', 'baz']); // => ['FOO', 'bar', 'baz']
+    R.over(headLens, R.toUpper, ["foo", "bar", "baz"]); // => ['FOO', 'bar', 'baz']
 });
