@@ -6,22 +6,22 @@
 // Minimum TypeScript Version: 3.4
 
 /**
- * Returns an object that groups the items of the iterable object into arrays, using the return value of the callback function as the key.
- * @param entries An iterable object that contains key-value entries for properties and methods.
- * @param callbackfn A function that accepts up to two arguments. The map method calls the callbackfn function one time for each element in `entries`.
+ * Returns an object that groups the iterable of the iterable object into arrays, using the return value of the callback function as the key.
+ * @param iterable An iterable object
+ * @param callbackfn A function that accepts up to two arguments. The map method calls the callbackfn function one time for each element in `iterable`.
  */
 declare function groupBy<T, K extends PropertyKey>(
-    entries: Iterable<T>,
+    iterable: Iterable<T>,
     callbackfn: (value: T, index: number) => K
 ): Record<K, T[]>;
 
 /**
- * Returns an object that groups the items of the iterable object into arrays, using the return value of the callback function as the key.
- * @param entries An iterable object that contains key-value entries for properties and methods.
- * @param callbackfn A function that accepts up to two arguments. The map method calls the callbackfn function one time for each element in `entries`.
+ * Returns an object that groups the iterable of the iterable object into arrays, using the return value of the callback function as the key.
+ * @param iterable An iterable object
+ * @param callbackfn A function that accepts up to two arguments. The map method calls the callbackfn function one time for each element in `iterable`.
  */
 declare function groupBy(
-    entries: Iterable<any>,
+    iterable: Iterable<any>,
     callbackfn: (value: any, index: number) => PropertyKey
 ): Record<PropertyKey, any[]>;
 
