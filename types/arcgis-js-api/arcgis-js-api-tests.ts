@@ -1,6 +1,6 @@
-import Map = require('esri/Map');
-import MapView = require('esri/views/MapView');
-import Point = require('esri/geometry/Point');
+import Map = require("esri/Map");
+import MapView = require("esri/views/MapView");
+import Point = require("esri/geometry/Point");
 
 class MapController {
     map: Map;
@@ -15,7 +15,7 @@ class MapController {
         });
 
         this.map = new Map({
-            basemap: { title: 'topo-vector' },
+            basemap: { title: "topo-vector" },
         });
 
         let view = new MapView({
@@ -27,5 +27,5 @@ class MapController {
     }
 }
 
-import esriRequest = require('esri/request');
-esriRequest(new URL('https://js.arcigs.com/'));
+import esriRequest = require("esri/request");
+esriRequest(new URL("https://js.arcigs.com/"));
