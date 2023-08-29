@@ -28,8 +28,8 @@ export class Channel {
   join(timeout?: number): Push;
   leave(timeout?: number): Push;
 
-  onClose(callback: (payload: any, ref: any, joinRef: any) => void | Promise<void>): void;
-  onError(callback: (reason?: any) => void | Promise<void>): void;
+  onClose(callback: (payload: any, ref: any, joinRef: any) => void | Promise<void>): number;
+  onError(callback: (reason?: any) => void | Promise<void>): number;
   onMessage(event: string, payload: any, ref: any): any;
 
   on(event: string, callback: (response?: any) => void | Promise<void>): number;

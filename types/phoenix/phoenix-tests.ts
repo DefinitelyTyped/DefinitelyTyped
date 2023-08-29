@@ -51,13 +51,16 @@ function test_hooks() {
   const socket = new Socket('/ws', { params: { userToken: '123' } });
   socket.connect();
 
-  socket.onError(() => console.log('there was an error with the connection!'));
-  socket.onClose(() => console.log('the connection dropped'));
+  const socketOnErrorRef = socket.onError(() => console.log('there was an error with the connection!'));
+  const socketOnCloseRef = socket.onClose(() => console.log('the connection dropped'));
+  socket.off([socketOnErrorRef, socketOnCloseRef]);
 
   const channel = socket.channel('room:123', { token: '123' });
 
-  channel.onError(() => console.log('there was an error!'));
-  channel.onClose(() => console.log('the channel has gone away gracefully'));
+  const channelOnErrorRef = channel.onError(() => console.log('there was an error!'));
+  const channelOnCloseRef = channel.onClose(() => console.log('the channel has gone away gracefully'));
+  channel.off('phx_error', channelOnErrorRef);
+  channel.off('phx_close', channelOnCloseRef);
 }
 
 function test_presence() {
