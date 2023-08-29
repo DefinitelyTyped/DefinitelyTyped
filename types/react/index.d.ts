@@ -36,9 +36,9 @@
 
 /// <reference path="global.d.ts" />
 
-import * as CSS from 'csstype';
-import * as PropTypes from 'prop-types';
-import { Interaction as SchedulerInteraction } from 'scheduler/tracing';
+import * as CSS from "csstype";
+import * as PropTypes from "prop-types";
+import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -52,8 +52,8 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type Booleanish = boolean | 'true' | 'false';
-type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
+type Booleanish = boolean | "true" | "false";
+type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
@@ -96,7 +96,7 @@ declare namespace React {
         readonly current: T | null;
     }
     // Bivariance hack for consistent unsoundness with RefObject
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }['bivarianceHack'];
+    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
@@ -125,7 +125,7 @@ declare namespace React {
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
         // otherwise it will infer `{}` instead of `never`
-        'ref' extends keyof ComponentPropsWithRef<C> ? NonNullable<ComponentPropsWithRef<C>['ref']> extends Ref<
+        "ref" extends keyof ComponentPropsWithRef<C> ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
                 infer Instance
             > ? Instance
             : never
@@ -170,11 +170,11 @@ declare namespace React {
 
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
-        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>,
+        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
     > extends ReactElement<P, Exclude<T, number>> {}
 
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
-        ref?: ('ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
+        ref?: ("ref" extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
@@ -315,7 +315,7 @@ declare namespace React {
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
-        type: 'input',
+        type: "input",
         props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -485,7 +485,7 @@ declare namespace React {
      */
     type ProfilerOnRenderCallback = (
         id: string,
-        phase: 'mount' | 'update',
+        phase: "mount" | "update",
         actualDuration: number,
         baseDuration: number,
         startTime: number,
@@ -866,11 +866,11 @@ declare namespace React {
         // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        P extends any ? ('ref' extends keyof P ? Omit<P, 'ref'> : P) : P;
+        P extends any ? ("ref" extends keyof P ? Omit<P, "ref"> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
-        'ref' extends keyof P
+        "ref" extends keyof P
             ? P extends { ref?: infer R | undefined }
                 ? string extends R ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
                 : P
@@ -1304,7 +1304,7 @@ declare namespace React {
         twist: number;
         width: number;
         height: number;
-        pointerType: 'mouse' | 'pen' | 'touch';
+        pointerType: "mouse" | "pen" | "touch";
         isPrimary: boolean;
     }
 
@@ -1325,20 +1325,20 @@ declare namespace React {
     }
 
     export type ModifierKey =
-        | 'Alt'
-        | 'AltGraph'
-        | 'CapsLock'
-        | 'Control'
-        | 'Fn'
-        | 'FnLock'
-        | 'Hyper'
-        | 'Meta'
-        | 'NumLock'
-        | 'ScrollLock'
-        | 'Shift'
-        | 'Super'
-        | 'Symbol'
-        | 'SymbolLock';
+        | "Alt"
+        | "AltGraph"
+        | "CapsLock"
+        | "Control"
+        | "Fn"
+        | "FnLock"
+        | "Hyper"
+        | "Meta"
+        | "NumLock"
+        | "ScrollLock"
+        | "Shift"
+        | "Super"
+        | "Symbol"
+        | "SymbolLock";
 
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
@@ -1429,7 +1429,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }['bivarianceHack'];
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
@@ -1680,298 +1680,298 @@ declare namespace React {
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
-        'aria-activedescendant'?: string | undefined;
+        "aria-activedescendant"?: string | undefined;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
-        'aria-atomic'?: Booleanish | undefined;
+        "aria-atomic"?: Booleanish | undefined;
         /**
          * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
          * presented if they are made.
          */
-        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
+        "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
         /**
          * Defines a string value that labels the current element, which is intended to be converted into Braille.
          * @see aria-label.
          */
-        'aria-braillelabel'?: string | undefined;
+        "aria-braillelabel"?: string | undefined;
         /**
          * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
          * @see aria-roledescription.
          */
-        'aria-brailleroledescription'?: string | undefined;
-        'aria-busy'?: Booleanish | undefined;
+        "aria-brailleroledescription"?: string | undefined;
+        "aria-busy"?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
          * @see aria-pressed @see aria-selected.
          */
-        'aria-checked'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-checked"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Defines the total number of columns in a table, grid, or treegrid.
          * @see aria-colindex.
          */
-        'aria-colcount'?: number | undefined;
+        "aria-colcount"?: number | undefined;
         /**
          * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
          * @see aria-colcount @see aria-colspan.
          */
-        'aria-colindex'?: number | undefined;
+        "aria-colindex"?: number | undefined;
         /**
          * Defines a human readable text alternative of aria-colindex.
          * @see aria-rowindextext.
          */
-        'aria-colindextext'?: string | undefined;
+        "aria-colindextext"?: string | undefined;
         /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
-        'aria-colspan'?: number | undefined;
+        "aria-colspan"?: number | undefined;
         /**
          * Identifies the element (or elements) whose contents or presence are controlled by the current element.
          * @see aria-owns.
          */
-        'aria-controls'?: string | undefined;
+        "aria-controls"?: string | undefined;
         /** Indicates the element that represents the current item within a container or set of related elements. */
-        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time' | undefined;
+        "aria-current"?: boolean | "false" | "true" | "page" | "step" | "location" | "date" | "time" | undefined;
         /**
          * Identifies the element (or elements) that describes the object.
          * @see aria-labelledby
          */
-        'aria-describedby'?: string | undefined;
+        "aria-describedby"?: string | undefined;
         /**
          * Defines a string value that describes or annotates the current element.
          * @see related aria-describedby.
          */
-        'aria-description'?: string | undefined;
+        "aria-description"?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
          */
-        'aria-details'?: string | undefined;
+        "aria-details"?: string | undefined;
         /**
          * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
          * @see aria-hidden @see aria-readonly.
          */
-        'aria-disabled'?: Booleanish | undefined;
+        "aria-disabled"?: Booleanish | undefined;
         /**
          * Indicates what functions can be performed when a dragged object is released on the drop target.
          * @deprecated in ARIA 1.1
          */
-        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup' | undefined;
+        "aria-dropeffect"?: "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined;
         /**
          * Identifies the element that provides an error message for the object.
          * @see aria-invalid @see aria-describedby.
          */
-        'aria-errormessage'?: string | undefined;
+        "aria-errormessage"?: string | undefined;
         /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
-        'aria-expanded'?: Booleanish | undefined;
+        "aria-expanded"?: Booleanish | undefined;
         /**
          * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
          * allows assistive technology to override the general default of reading in document source order.
          */
-        'aria-flowto'?: string | undefined;
+        "aria-flowto"?: string | undefined;
         /**
          * Indicates an element's "grabbed" state in a drag-and-drop operation.
          * @deprecated in ARIA 1.1
          */
-        'aria-grabbed'?: Booleanish | undefined;
+        "aria-grabbed"?: Booleanish | undefined;
         /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
-        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
+        "aria-haspopup"?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
         /**
          * Indicates whether the element is exposed to an accessibility API.
          * @see aria-disabled.
          */
-        'aria-hidden'?: Booleanish | undefined;
+        "aria-hidden"?: Booleanish | undefined;
         /**
          * Indicates the entered value does not conform to the format expected by the application.
          * @see aria-errormessage.
          */
-        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling' | undefined;
+        "aria-invalid"?: boolean | "false" | "true" | "grammar" | "spelling" | undefined;
         /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
-        'aria-keyshortcuts'?: string | undefined;
+        "aria-keyshortcuts"?: string | undefined;
         /**
          * Defines a string value that labels the current element.
          * @see aria-labelledby.
          */
-        'aria-label'?: string | undefined;
+        "aria-label"?: string | undefined;
         /**
          * Identifies the element (or elements) that labels the current element.
          * @see aria-describedby.
          */
-        'aria-labelledby'?: string | undefined;
+        "aria-labelledby"?: string | undefined;
         /** Defines the hierarchical level of an element within a structure. */
-        'aria-level'?: number | undefined;
+        "aria-level"?: number | undefined;
         /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
-        'aria-live'?: 'off' | 'assertive' | 'polite' | undefined;
+        "aria-live"?: "off" | "assertive" | "polite" | undefined;
         /** Indicates whether an element is modal when displayed. */
-        'aria-modal'?: Booleanish | undefined;
+        "aria-modal"?: Booleanish | undefined;
         /** Indicates whether a text box accepts multiple lines of input or only a single line. */
-        'aria-multiline'?: Booleanish | undefined;
+        "aria-multiline"?: Booleanish | undefined;
         /** Indicates that the user may select more than one item from the current selectable descendants. */
-        'aria-multiselectable'?: Booleanish | undefined;
+        "aria-multiselectable"?: Booleanish | undefined;
         /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
-        'aria-orientation'?: 'horizontal' | 'vertical' | undefined;
+        "aria-orientation"?: "horizontal" | "vertical" | undefined;
         /**
          * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
          * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
          * @see aria-controls.
          */
-        'aria-owns'?: string | undefined;
+        "aria-owns"?: string | undefined;
         /**
          * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
          * A hint could be a sample value or a brief description of the expected format.
          */
-        'aria-placeholder'?: string | undefined;
+        "aria-placeholder"?: string | undefined;
         /**
          * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-setsize.
          */
-        'aria-posinset'?: number | undefined;
+        "aria-posinset"?: number | undefined;
         /**
          * Indicates the current "pressed" state of toggle buttons.
          * @see aria-checked @see aria-selected.
          */
-        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-pressed"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Indicates that the element is not editable, but is otherwise operable.
          * @see aria-disabled.
          */
-        'aria-readonly'?: Booleanish | undefined;
+        "aria-readonly"?: Booleanish | undefined;
         /**
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?:
-            | 'additions'
-            | 'additions removals'
-            | 'additions text'
-            | 'all'
-            | 'removals'
-            | 'removals additions'
-            | 'removals text'
-            | 'text'
-            | 'text additions'
-            | 'text removals'
+        "aria-relevant"?:
+            | "additions"
+            | "additions removals"
+            | "additions text"
+            | "all"
+            | "removals"
+            | "removals additions"
+            | "removals text"
+            | "text"
+            | "text additions"
+            | "text removals"
             | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
-        'aria-required'?: Booleanish | undefined;
+        "aria-required"?: Booleanish | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
-        'aria-roledescription'?: string | undefined;
+        "aria-roledescription"?: string | undefined;
         /**
          * Defines the total number of rows in a table, grid, or treegrid.
          * @see aria-rowindex.
          */
-        'aria-rowcount'?: number | undefined;
+        "aria-rowcount"?: number | undefined;
         /**
          * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
          * @see aria-rowcount @see aria-rowspan.
          */
-        'aria-rowindex'?: number | undefined;
+        "aria-rowindex"?: number | undefined;
         /**
          * Defines a human readable text alternative of aria-rowindex.
          * @see aria-colindextext.
          */
-        'aria-rowindextext'?: string | undefined;
+        "aria-rowindextext"?: string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
          */
-        'aria-rowspan'?: number | undefined;
+        "aria-rowspan"?: number | undefined;
         /**
          * Indicates the current "selected" state of various widgets.
          * @see aria-checked @see aria-pressed.
          */
-        'aria-selected'?: Booleanish | undefined;
+        "aria-selected"?: Booleanish | undefined;
         /**
          * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-posinset.
          */
-        'aria-setsize'?: number | undefined;
+        "aria-setsize"?: number | undefined;
         /** Indicates if items in a table or grid are sorted in ascending or descending order. */
-        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
+        "aria-sort"?: "none" | "ascending" | "descending" | "other" | undefined;
         /** Defines the maximum allowed value for a range widget. */
-        'aria-valuemax'?: number | undefined;
+        "aria-valuemax"?: number | undefined;
         /** Defines the minimum allowed value for a range widget. */
-        'aria-valuemin'?: number | undefined;
+        "aria-valuemin"?: number | undefined;
         /**
          * Defines the current value for a range widget.
          * @see aria-valuetext.
          */
-        'aria-valuenow'?: number | undefined;
+        "aria-valuenow"?: number | undefined;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
-        'aria-valuetext'?: string | undefined;
+        "aria-valuetext"?: string | undefined;
     }
 
     // All the WAI-ARIA 1.1 role attribute values from https://www.w3.org/TR/wai-aria-1.1/#role_definitions
     type AriaRole =
-        | 'alert'
-        | 'alertdialog'
-        | 'application'
-        | 'article'
-        | 'banner'
-        | 'button'
-        | 'cell'
-        | 'checkbox'
-        | 'columnheader'
-        | 'combobox'
-        | 'complementary'
-        | 'contentinfo'
-        | 'definition'
-        | 'dialog'
-        | 'directory'
-        | 'document'
-        | 'feed'
-        | 'figure'
-        | 'form'
-        | 'grid'
-        | 'gridcell'
-        | 'group'
-        | 'heading'
-        | 'img'
-        | 'link'
-        | 'list'
-        | 'listbox'
-        | 'listitem'
-        | 'log'
-        | 'main'
-        | 'marquee'
-        | 'math'
-        | 'menu'
-        | 'menubar'
-        | 'menuitem'
-        | 'menuitemcheckbox'
-        | 'menuitemradio'
-        | 'navigation'
-        | 'none'
-        | 'note'
-        | 'option'
-        | 'presentation'
-        | 'progressbar'
-        | 'radio'
-        | 'radiogroup'
-        | 'region'
-        | 'row'
-        | 'rowgroup'
-        | 'rowheader'
-        | 'scrollbar'
-        | 'search'
-        | 'searchbox'
-        | 'separator'
-        | 'slider'
-        | 'spinbutton'
-        | 'status'
-        | 'switch'
-        | 'tab'
-        | 'table'
-        | 'tablist'
-        | 'tabpanel'
-        | 'term'
-        | 'textbox'
-        | 'timer'
-        | 'toolbar'
-        | 'tooltip'
-        | 'tree'
-        | 'treegrid'
-        | 'treeitem'
+        | "alert"
+        | "alertdialog"
+        | "application"
+        | "article"
+        | "banner"
+        | "button"
+        | "cell"
+        | "checkbox"
+        | "columnheader"
+        | "combobox"
+        | "complementary"
+        | "contentinfo"
+        | "definition"
+        | "dialog"
+        | "directory"
+        | "document"
+        | "feed"
+        | "figure"
+        | "form"
+        | "grid"
+        | "gridcell"
+        | "group"
+        | "heading"
+        | "img"
+        | "link"
+        | "list"
+        | "listbox"
+        | "listitem"
+        | "log"
+        | "main"
+        | "marquee"
+        | "math"
+        | "menu"
+        | "menubar"
+        | "menuitem"
+        | "menuitemcheckbox"
+        | "menuitemradio"
+        | "navigation"
+        | "none"
+        | "note"
+        | "option"
+        | "presentation"
+        | "progressbar"
+        | "radio"
+        | "radiogroup"
+        | "region"
+        | "row"
+        | "rowgroup"
+        | "rowheader"
+        | "scrollbar"
+        | "search"
+        | "searchbox"
+        | "separator"
+        | "slider"
+        | "spinbutton"
+        | "status"
+        | "switch"
+        | "tab"
+        | "table"
+        | "tablist"
+        | "tabpanel"
+        | "term"
+        | "textbox"
+        | "timer"
+        | "toolbar"
+        | "tooltip"
+        | "tree"
+        | "treegrid"
+        | "treeitem"
         | (string & {});
 
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -1985,7 +1985,7 @@ declare namespace React {
         accessKey?: string | undefined;
         autoFocus?: boolean | undefined;
         className?: string | undefined;
-        contentEditable?: Booleanish | 'inherit' | undefined;
+        contentEditable?: Booleanish | "inherit" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
@@ -1999,7 +1999,7 @@ declare namespace React {
         style?: CSSProperties | undefined;
         tabIndex?: number | undefined;
         title?: string | undefined;
-        translate?: 'yes' | 'no' | undefined;
+        translate?: "yes" | "no" | undefined;
 
         // Unknown
         radioGroup?: string | undefined; // <command>, <menuitem>
@@ -2032,14 +2032,14 @@ declare namespace React {
         itemRef?: string | undefined;
         results?: number | undefined;
         security?: string | undefined;
-        unselectable?: 'on' | 'off' | undefined;
+        unselectable?: "on" | "off" | undefined;
 
         // Living Standard
         /**
          * Hints at the type of data that might be entered by the user while editing the element or its contents
          * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
          */
-        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
+        inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
          * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
@@ -2071,7 +2071,7 @@ declare namespace React {
         async?: boolean | undefined;
         autoComplete?: string | undefined;
         autoPlay?: boolean | undefined;
-        capture?: boolean | 'user' | 'environment' | undefined;
+        capture?: boolean | "user" | "environment" | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
         charSet?: string | undefined;
@@ -2171,21 +2171,21 @@ declare namespace React {
     }
 
     type HTMLAttributeReferrerPolicy =
-        | ''
-        | 'no-referrer'
-        | 'no-referrer-when-downgrade'
-        | 'origin'
-        | 'origin-when-cross-origin'
-        | 'same-origin'
-        | 'strict-origin'
-        | 'strict-origin-when-cross-origin'
-        | 'unsafe-url';
+        | ""
+        | "no-referrer"
+        | "no-referrer-when-downgrade"
+        | "origin"
+        | "origin-when-cross-origin"
+        | "same-origin"
+        | "strict-origin"
+        | "strict-origin-when-cross-origin"
+        | "unsafe-url";
 
     type HTMLAttributeAnchorTarget =
-        | '_self'
-        | '_blank'
-        | '_parent'
-        | '_top'
+        | "_self"
+        | "_blank"
+        | "_parent"
+        | "_top"
         | (string & {});
 
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2236,7 +2236,7 @@ declare namespace React {
         formNoValidate?: boolean | undefined;
         formTarget?: string | undefined;
         name?: string | undefined;
-        type?: 'submit' | 'reset' | 'button' | undefined;
+        type?: "submit" | "reset" | "button" | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
     }
 
@@ -2314,7 +2314,7 @@ declare namespace React {
         /** @deprecated */
         frameBorder?: number | string | undefined;
         height?: number | string | undefined;
-        loading?: 'eager' | 'lazy' | undefined;
+        loading?: "eager" | "lazy" | undefined;
         /** @deprecated */
         marginHeight?: number | undefined;
         /** @deprecated */
@@ -2333,9 +2333,9 @@ declare namespace React {
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
-        decoding?: 'async' | 'auto' | 'sync' | undefined;
+        decoding?: "async" | "auto" | "sync" | undefined;
         height?: number | string | undefined;
-        loading?: 'eager' | 'lazy' | undefined;
+        loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
@@ -2350,38 +2350,38 @@ declare namespace React {
     }
 
     type HTMLInputTypeAttribute =
-        | 'button'
-        | 'checkbox'
-        | 'color'
-        | 'date'
-        | 'datetime-local'
-        | 'email'
-        | 'file'
-        | 'hidden'
-        | 'image'
-        | 'month'
-        | 'number'
-        | 'password'
-        | 'radio'
-        | 'range'
-        | 'reset'
-        | 'search'
-        | 'submit'
-        | 'tel'
-        | 'text'
-        | 'time'
-        | 'url'
-        | 'week'
+        | "button"
+        | "checkbox"
+        | "color"
+        | "date"
+        | "datetime-local"
+        | "email"
+        | "file"
+        | "hidden"
+        | "image"
+        | "month"
+        | "number"
+        | "password"
+        | "radio"
+        | "range"
+        | "reset"
+        | "search"
+        | "submit"
+        | "tel"
+        | "text"
+        | "time"
+        | "url"
+        | "week"
         | (string & {});
 
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
         autoComplete?: string | undefined;
-        capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
-        enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         form?: string | undefined;
         formAction?:
             | string
@@ -2436,7 +2436,7 @@ declare namespace React {
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: 'high' | 'low' | 'auto';
+        fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2507,7 +2507,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean | undefined;
         start?: number | undefined;
-        type?: '1' | 'a' | 'A' | 'i' | 'I' | undefined;
+        type?: "1" | "a" | "A" | "i" | "I" | undefined;
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2584,13 +2584,13 @@ declare namespace React {
     }
 
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: 'left' | 'center' | 'right' | undefined;
+        align?: "left" | "center" | "right" | undefined;
         bgcolor?: string | undefined;
         border?: number | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
         frame?: boolean | undefined;
-        rules?: 'none' | 'groups' | 'rows' | 'columns' | 'all' | undefined;
+        rules?: "none" | "groups" | "rows" | "columns" | "all" | undefined;
         summary?: string | undefined;
         width?: number | string | undefined;
     }
@@ -2615,7 +2615,7 @@ declare namespace React {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
+        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
         rowSpan?: number | undefined;
@@ -2623,11 +2623,11 @@ declare namespace React {
         abbr?: string | undefined;
         height?: number | string | undefined;
         width?: number | string | undefined;
-        valign?: 'top' | 'middle' | 'bottom' | 'baseline' | undefined;
+        valign?: "top" | "middle" | "bottom" | "baseline" | undefined;
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
+        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         headers?: string | undefined;
         rowSpan?: number | undefined;
@@ -2692,27 +2692,27 @@ declare namespace React {
 
         // SVG Specific attributes
         accentHeight?: number | string | undefined;
-        accumulate?: 'none' | 'sum' | undefined;
-        additive?: 'replace' | 'sum' | undefined;
+        accumulate?: "none" | "sum" | undefined;
+        additive?: "replace" | "sum" | undefined;
         alignmentBaseline?:
-            | 'auto'
-            | 'baseline'
-            | 'before-edge'
-            | 'text-before-edge'
-            | 'middle'
-            | 'central'
-            | 'after-edge'
-            | 'text-after-edge'
-            | 'ideographic'
-            | 'alphabetic'
-            | 'hanging'
-            | 'mathematical'
-            | 'inherit'
+            | "auto"
+            | "baseline"
+            | "before-edge"
+            | "text-before-edge"
+            | "middle"
+            | "central"
+            | "after-edge"
+            | "text-after-edge"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "inherit"
             | undefined;
-        allowReorder?: 'no' | 'yes' | undefined;
+        allowReorder?: "no" | "yes" | undefined;
         alphabetic?: number | string | undefined;
         amplitude?: number | string | undefined;
-        arabicForm?: 'initial' | 'medial' | 'terminal' | 'isolated' | undefined;
+        arabicForm?: "initial" | "medial" | "terminal" | "isolated" | undefined;
         ascent?: number | string | undefined;
         attributeName?: string | undefined;
         attributeType?: string | undefined;
@@ -2732,7 +2732,7 @@ declare namespace React {
         clipPathUnits?: number | string | undefined;
         clipRule?: number | string | undefined;
         colorInterpolation?: number | string | undefined;
-        colorInterpolationFilters?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit' | undefined;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit" | undefined;
         colorProfile?: number | string | undefined;
         colorRendering?: number | string | undefined;
         contentScriptType?: number | string | undefined;
@@ -2759,13 +2759,13 @@ declare namespace React {
         externalResourcesRequired?: Booleanish | undefined;
         fill?: string | undefined;
         fillOpacity?: number | string | undefined;
-        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
+        fillRule?: "nonzero" | "evenodd" | "inherit" | undefined;
         filter?: string | undefined;
         filterRes?: number | string | undefined;
         filterUnits?: number | string | undefined;
         floodColor?: number | string | undefined;
         floodOpacity?: number | string | undefined;
-        focusable?: Booleanish | 'auto' | undefined;
+        focusable?: Booleanish | "auto" | undefined;
         fontFamily?: string | undefined;
         fontSize?: number | string | undefined;
         fontSizeAdjust?: number | string | undefined;
@@ -2884,8 +2884,8 @@ declare namespace React {
         stroke?: string | undefined;
         strokeDasharray?: string | number | undefined;
         strokeDashoffset?: string | number | undefined;
-        strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
-        strokeLinejoin?: 'miter' | 'round' | 'bevel' | 'inherit' | undefined;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit" | undefined;
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit" | undefined;
         strokeMiterlimit?: number | string | undefined;
         strokeOpacity?: number | string | undefined;
         strokeWidth?: number | string | undefined;
@@ -3087,7 +3087,7 @@ declare namespace React {
         track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
         u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        'var': DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
         wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
@@ -3461,7 +3461,7 @@ declare global {
             track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
             u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-            'var': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;

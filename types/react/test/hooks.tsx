@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 const { useSyncExternalStore } = React;
 
@@ -52,20 +52,20 @@ interface AppState {
 }
 
 type AppActions =
-    | { type: 'getOlder' }
-    | { type: 'resetAge' };
+    | { type: "getOlder" }
+    | { type: "resetAge" };
 
 function reducer(s: AppState, action: AppActions): AppState {
     switch (action.type) {
-        case 'getOlder':
+        case "getOlder":
             return { ...s, age: s.age + 1 };
-        case 'resetAge':
+        case "resetAge":
             return { ...s, age: 0 };
     }
 }
 
 const initialState = {
-    name: 'Daniel',
+    name: "Daniel",
     age: 26,
 };
 
@@ -86,10 +86,10 @@ export function App() {
     return (
         <>
             <Person {...state} />
-            <FancyButton onClick={() => dispatch({ type: 'getOlder' })}>
+            <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
                 Birthday time!
             </FancyButton>
-            <FancyButton onClick={() => dispatch({ type: 'resetAge' })}>
+            <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
                 Let's start over.
             </FancyButton>
         </>
@@ -117,7 +117,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
 
     // inline object, to (manually) check if autocomplete works
-    React.useReducer(reducer, { age: 42, name: 'The Answer' });
+    React.useReducer(reducer, { age: 42, name: "The Answer" });
 
     // Implicit any
     // @ts-expect-error
@@ -132,7 +132,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
         return Number(value);
     }, []);
     // $ExpectType number
-    typedCallback('1');
+    typedCallback("1");
     // Argument of type '{}' is not assignable to parameter of type 'string'.
     // @ts-expect-error
     typedCallback({});
@@ -201,7 +201,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
         didLayout.current = true;
     }, []);
     React.useEffect(() => {
-        dispatch({ type: 'getOlder' });
+        dispatch({ type: "getOlder" });
         // @ts-expect-error
         dispatch();
 
@@ -366,7 +366,7 @@ function useConcurrentHooks() {
     };
 
     function Constructible() {
-        return '';
+        return "";
     }
 }
 
@@ -374,7 +374,7 @@ function startTransitionTest() {
     function transitionToPage(page: string) {}
 
     React.startTransition(() => {
-        transitionToPage('/');
+        transitionToPage("/");
     });
 
     // @ts-expect-error
@@ -387,7 +387,7 @@ function Dialog() {
     const descriptionId = `${id}-description`;
 
     return (
-        <div role='dialog' aria-labelledby={nameId} aria-describedby={descriptionId}>
+        <div role="dialog" aria-labelledby={nameId} aria-describedby={descriptionId}>
             <h2 id={nameId}>Name</h2>
             <p id={descriptionId}>Description</p>
         </div>
@@ -420,7 +420,7 @@ function useStoreWrong() {
     // @ts-expect-error
     const version: number = useSyncExternalStore(
         () => () => {},
-        () => '1',
+        () => "1",
     );
 }
 

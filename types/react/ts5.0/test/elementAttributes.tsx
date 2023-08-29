@@ -1,63 +1,63 @@
-import * as React from 'react';
+import * as React from "react";
 
 const testCases = [
     <span />,
-    <span accessKey='s' />,
+    <span accessKey="s" />,
     <span autoFocus />,
-    <span className='klass' />,
+    <span className="klass" />,
     <span contentEditable />,
-    <span contextMenu='menuId' />,
-    <span dir='rtl' />,
+    <span contextMenu="menuId" />,
+    <span dir="rtl" />,
     <span draggable />,
     <span hidden />,
-    <span id='s' />,
-    <span lang='art-x-tokipona' />,
-    <input placeholder='placeholder' />,
-    <span slot='my-text' />,
+    <span id="s" />,
+    <span lang="art-x-tokipona" />,
+    <input placeholder="placeholder" />,
+    <span slot="my-text" />,
     <span spellCheck />,
     <span tabIndex={0} />,
-    <span title='title' />,
-    <span role='button' />,
-    <span autoCapitalize='off' />,
-    <span autoCapitalize='none' />,
-    <span autoCapitalize='on' />,
-    <span autoCapitalize='words' />,
-    <span autoCapitalize='sentences' />,
-    <span autoCorrect='off' />,
-    <span autoCorrect='on' />,
-    <span translate='no' />,
-    <span translate='yes' />,
+    <span title="title" />,
+    <span role="button" />,
+    <span autoCapitalize="off" />,
+    <span autoCapitalize="none" />,
+    <span autoCapitalize="on" />,
+    <span autoCapitalize="words" />,
+    <span autoCapitalize="sentences" />,
+    <span autoCorrect="off" />,
+    <span autoCorrect="on" />,
+    <span translate="no" />,
+    <span translate="yes" />,
     <svg>
-        <image crossOrigin='anonymous' />
+        <image crossOrigin="anonymous" />
     </svg>,
     <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
-    <input enterKeyHint='done' />,
-    <input accept='image/*' capture='user' />,
-    <input accept='image/*' capture='environment' />,
-    <input accept='image/*' capture />,
-    <input accept='video/*' capture='user' />,
-    <input accept='video/*' capture='environment' />,
+    <input value={["one", "two"] as ReadonlyArray<string>} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
+    <input enterKeyHint="done" />,
+    <input accept="image/*" capture="user" />,
+    <input accept="image/*" capture="environment" />,
+    <input accept="image/*" capture />,
+    <input accept="video/*" capture="user" />,
+    <input accept="video/*" capture="environment" />,
     // @ts-expect-error
-    <input accept='video/*' capture='haha' />,
-    <input accept='video/*' capture />,
-    <input accept='audio/*' capture />,
+    <input accept="video/*" capture="haha" />,
+    <input accept="video/*" capture />,
+    <input accept="audio/*" capture />,
 
-    <div role='dialog' />,
-    <div role='none presentation' />,
-    <svg role='treeitem' />,
-    <a target='_blank'></a>,
-    <a target='some-frame'></a>,
-    <input type='button' />,
-    <input type='some-type' />,
+    <div role="dialog" />,
+    <div role="none presentation" />,
+    <svg role="treeitem" />,
+    <a target="_blank"></a>,
+    <a target="some-frame"></a>,
+    <input type="button" />,
+    <input type="some-type" />,
     // @ts-expect-error
-    <input enterKeyHint='don' />,
+    <input enterKeyHint="don" />,
     <video disableRemotePlayback onResize={() => {}} />,
     <picture>
-        <source media='test' srcSet='test' width={50} height={50} />
-        <img src='test' width={100} height={100} />
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img src="test" width={100} height={100} />
     </picture>,
     <dialog
         onCancel={event => {
@@ -70,7 +70,7 @@ const testCases = [
         }}
     >
     </dialog>,
-    <link nonce='8IBTHwOdqNKAWeKl7plt8g==' />,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
 ];
 
@@ -119,15 +119,15 @@ function formActionsTest() {
             formData;
         }}
     >
-        <input type='text' name='title' defaultValue='Hello' />
+        <input type="text" name="title" defaultValue="Hello" />
         <input
-            type='submit'
+            type="submit"
             // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
             }}
-            value='Save'
+            value="Save"
         />
         <button
             // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.

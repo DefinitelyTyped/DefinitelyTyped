@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface SCProps {
     foo?: number | undefined;
@@ -6,7 +6,7 @@ interface SCProps {
 const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-StatelessComponent.displayName = 'StatelessComponent3';
+StatelessComponent.displayName = "StatelessComponent3";
 StatelessComponent.defaultProps = {
     foo: 42,
 };
@@ -15,26 +15,26 @@ StatelessComponent.defaultProps = {
 const StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
-StatelessComponent2.displayName = 'StatelessComponent4';
+StatelessComponent2.displayName = "StatelessComponent4";
 StatelessComponent2.defaultProps = {
     foo: 42,
 };
 <StatelessComponent2>24</StatelessComponent2>;
 
 // svg sanity check
-<svg viewBox='0 0 1000 1000'>
+<svg viewBox="0 0 1000 1000">
     <g>
-        <text x='200' y='300' strokeWidth='5' stroke='black' alignmentBaseline='middle'>
+        <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
         </text>
-        <div slot='Some Div'>Hello again!</div>
+        <div slot="Some Div">Hello again!</div>
     </g>
 </svg>;
 
 // React-specific Attributes
 <div
     defaultChecked
-    defaultValue='some value'
+    defaultValue="some value"
     contentEditable
     suppressContentEditableWarning
 >
@@ -44,9 +44,9 @@ StatelessComponent2.defaultProps = {
 // WAI-ARIA 1.1 Attributes
 <div
     aria-atomic={false}
-    aria-checked='true'
+    aria-checked="true"
     aria-colcount={7}
-    aria-label='test'
+    aria-label="test"
 >
     <b>bar</b>
 </div>;
@@ -59,11 +59,11 @@ interface State {
 }
 class ComponentWithPropsAndState extends React.Component<Props, State> {
 }
-<ComponentWithPropsAndState hello='TypeScript' />;
+<ComponentWithPropsAndState hello="TypeScript" />;
 
 class ComponentWithoutState extends React.Component<Props> {
 }
-<ComponentWithoutState hello='TypeScript' />;
+<ComponentWithoutState hello="TypeScript" />;
 
 class ComponentWithoutPropsAndState extends React.Component {
 }
@@ -78,20 +78,20 @@ const StatelessComponentWithoutProps: React.SFC = props => {
 class SetStateTest extends React.Component<{}, { foo: boolean; bar: boolean }> {
     handleSomething = () => {
         // @ts-expect-error
-        this.setState({ foo: '' });
+        this.setState({ foo: "" });
         this.setState({ foo: true });
         this.setState({ foo: true, bar: true });
         this.setState({});
         // @ts-expect-error
         this.setState({ foo: true, foo2: true });
         // @ts-expect-error
-        this.setState(() => ({ foo: '' }));
+        this.setState(() => ({ foo: "" }));
         this.setState(() => ({ foo: true }));
         this.setState(() => ({ foo: true, bar: true }));
         // @ts-expect-error
         this.setState(() => ({ foo: true, foo2: true }));
         // @ts-expect-error
-        this.setState(() => ({ foo: '', foo2: true }));
+        this.setState(() => ({ foo: "", foo2: true }));
         this.setState(() => ({})); // ok!
         // @ts-expect-error
         this.setState({ foo: true, bar: undefined });
@@ -101,7 +101,7 @@ class SetStateTest extends React.Component<{}, { foo: boolean; bar: boolean }> {
 // Below tests that extended types for state work
 export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
     foo() {
-        this.setState({ baseProp: 'foobar' });
+        this.setState({ baseProp: "foobar" });
     }
 }
 
@@ -114,15 +114,15 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 // }
 
 // Undesired. Should error but v15 types accept any string as a valid element type.
-const CustomElement: React.ReactType = 'my-undeclared-element';
+const CustomElement: React.ReactType = "my-undeclared-element";
 // @ts-expect-error
 <my-undeclared-element />;
 
 // custom elements now need to be declared as intrinsic elements
-declare module 'react' {
+declare module "react" {
     namespace JSX {
         interface IntrinsicElements {
-            'my-declared-element': {};
+            "my-declared-element": {};
         }
     }
 }
@@ -132,30 +132,30 @@ declare module 'react' {
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'my-declared-element-deprecated': {};
+            "my-declared-element-deprecated": {};
         }
     }
 }
 
-const CustomElement2: React.ElementType = 'my-declared-element-deprecated';
+const CustomElement2: React.ElementType = "my-declared-element-deprecated";
 <my-declared-element-deprecated />;
 
-const CustomElement3: React.ElementType = 'my-declared-element';
+const CustomElement3: React.ElementType = "my-declared-element";
 <my-declared-element />;
 
 function reactNodeTests() {
     function* createChildren() {
-        yield <div key='one'>one</div>;
-        yield <div key='two'>two</div>;
+        yield <div key="one">one</div>;
+        yield <div key="two">two</div>;
     }
 
-    <div>{Object.freeze([<div key='one'>one</div>, <div key='two'>two</div>])}</div>;
-    <div>{new Set([<div key='one'>one</div>, <div key='two'>two</div>])}</div>;
+    <div>{Object.freeze([<div key="one">one</div>, <div key="two">two</div>])}</div>;
+    <div>{new Set([<div key="one">one</div>, <div key="two">two</div>])}</div>;
     // TODO: This warns at runtime so we should probably reject it as well
     <div>
         {new Map([
-            ['one', <div key='one'>one</div>],
-            ['two', <div key='two'>two</div>],
+            ["one", <div key="one">one</div>],
+            ["two", <div key="two">two</div>],
         ])}
     </div>;
     <div>{createChildren()}</div>;

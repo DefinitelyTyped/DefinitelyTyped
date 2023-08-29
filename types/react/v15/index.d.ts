@@ -62,7 +62,7 @@ type NativeTouchEvent = TouchEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
+type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
@@ -81,7 +81,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }['bivarianceHack'];
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -224,7 +224,7 @@ declare namespace React {
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
-        type: 'input',
+        type: "input",
         props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -491,20 +491,20 @@ declare namespace React {
     }
 
     type ModifierKey =
-        | 'Alt'
-        | 'AltGraph'
-        | 'CapsLock'
-        | 'Control'
-        | 'Fn'
-        | 'FnLock'
-        | 'Hyper'
-        | 'Meta'
-        | 'NumLock'
-        | 'ScrollLock'
-        | 'Shift'
-        | 'Super'
-        | 'Symbol'
-        | 'SymbolLock';
+        | "Alt"
+        | "AltGraph"
+        | "CapsLock"
+        | "Control"
+        | "Fn"
+        | "FnLock"
+        | "Hyper"
+        | "Meta"
+        | "NumLock"
+        | "ScrollLock"
+        | "Shift"
+        | "Super"
+        | "Symbol"
+        | "SymbolLock";
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
         altKey: boolean;
@@ -584,7 +584,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }['bivarianceHack'];
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -813,7 +813,7 @@ declare namespace React {
     // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
     // See CSS 3 Explicit Defaulting https://www.w3.org/TR/css-cascade-3/#defaulting-keywords
     // "all CSS properties can accept these values"
-    type CSSWideKeyword = 'initial' | 'inherit' | 'unset';
+    type CSSWideKeyword = "initial" | "inherit" | "unset";
 
     // See CSS 3 <percentage> type https://drafts.csswg.org/css-values-3/#percentages
     type CSSPercentage = string;
@@ -829,23 +829,23 @@ declare namespace React {
          */
         alignContent?:
             | CSSWideKeyword
-            | 'flex-start'
-            | 'flex-end'
-            | 'center'
-            | 'space-between'
-            | 'space-around'
-            | 'stretch'
+            | "flex-start"
+            | "flex-end"
+            | "center"
+            | "space-between"
+            | "space-around"
+            | "stretch"
             | undefined;
 
         /**
          * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
          */
-        alignItems?: CSSWideKeyword | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | undefined;
+        alignItems?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "baseline" | "stretch" | undefined;
 
         /**
          * Allows the default alignment to be overridden for individual flex items.
          */
-        alignSelf?: CSSWideKeyword | 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | undefined;
+        alignSelf?: CSSWideKeyword | "auto" | "flex-start" | "flex-end" | "center" | "baseline" | "stretch" | undefined;
 
         /**
          * This property allows precise alignment of elements, such as graphics,
@@ -906,7 +906,7 @@ declare namespace React {
          * or scrolls along with its containing block.
          * See CSS 3 background-attachment property https://drafts.csswg.org/css-backgrounds-3/#the-background-attachment
          */
-        backgroundAttachment?: CSSWideKeyword | 'scroll' | 'fixed' | 'local' | undefined;
+        backgroundAttachment?: CSSWideKeyword | "scroll" | "fixed" | "local" | undefined;
 
         /**
          * This property describes how the element's background images should blend with each other and the element's background color.
@@ -1252,7 +1252,7 @@ declare namespace React {
          * Describes the number of columns of the element.
          * See CSS 3 column-count property https://www.w3.org/TR/css3-multicol/#cc
          */
-        columnCount?: CSSWideKeyword | number | 'auto' | undefined;
+        columnCount?: CSSWideKeyword | number | "auto" | undefined;
 
         /**
          * Specifies how to fill columns (balanced or sequential).
@@ -1388,7 +1388,7 @@ declare namespace React {
         /**
          * The flex-direction CSS property describes how flex items are placed in the flex container, by setting the direction of the flex container's main axis.
          */
-        flexDirection?: CSSWideKeyword | 'row' | 'row-reverse' | 'column' | 'column-reverse' | undefined;
+        flexDirection?: CSSWideKeyword | "row" | "row-reverse" | "column" | "column-reverse" | undefined;
 
         /**
          * The flex-flow CSS property defines the flex container's main and cross axis. It is a shorthand property for the flex-direction and flex-wrap properties.
@@ -1429,7 +1429,7 @@ declare namespace React {
          * If wrapping is allowed, this property also enables you to control the direction in which lines are stacked.
          * See CSS flex-wrap property https://drafts.csswg.org/css-flexbox-1/#flex-wrap-property
          */
-        flexWrap?: CSSWideKeyword | 'nowrap' | 'wrap' | 'wrap-reverse' | undefined;
+        flexWrap?: CSSWideKeyword | "nowrap" | "wrap" | "wrap-reverse" | undefined;
 
         /**
          * Elements which have the style float are floated horizontally.
@@ -1468,15 +1468,15 @@ declare namespace React {
          */
         fontSize?:
             | CSSWideKeyword
-            | 'xx-small'
-            | 'x-small'
-            | 'small'
-            | 'medium'
-            | 'large'
-            | 'x-large'
-            | 'xx-large'
-            | 'larger'
-            | 'smaller'
+            | "xx-small"
+            | "x-small"
+            | "small"
+            | "medium"
+            | "large"
+            | "x-large"
+            | "xx-large"
+            | "larger"
+            | "smaller"
             | CSSLength
             | CSSPercentage
             | undefined;
@@ -1487,7 +1487,7 @@ declare namespace React {
          * This preserves the readability of the text when fallback happens.
          * See CSS 3 font-size-adjust property https://www.w3.org/TR/css-fonts-3/#propdef-font-size-adjust
          */
-        fontSizeAdjust?: CSSWideKeyword | 'none' | number | undefined;
+        fontSizeAdjust?: CSSWideKeyword | "none" | number | undefined;
 
         /**
          * Allows you to expand or condense the widths for a normal, condensed, or expanded font face.
@@ -1495,15 +1495,15 @@ declare namespace React {
          */
         fontStretch?:
             | CSSWideKeyword
-            | 'normal'
-            | 'ultra-condensed'
-            | 'extra-condensed'
-            | 'condensed'
-            | 'semi-condensed'
-            | 'semi-expanded'
-            | 'expanded'
-            | 'extra-expanded'
-            | 'ultra-expanded'
+            | "normal"
+            | "ultra-condensed"
+            | "extra-condensed"
+            | "condensed"
+            | "semi-condensed"
+            | "semi-expanded"
+            | "expanded"
+            | "extra-expanded"
+            | "ultra-expanded"
             | undefined;
 
         /**
@@ -1512,7 +1512,7 @@ declare namespace React {
          * Oblique faces can be simulated by artificially sloping the glyphs of the regular face.
          * See CSS 3 font-style property https://www.w3.org/TR/css-fonts-3/#propdef-font-style
          */
-        fontStyle?: CSSWideKeyword | 'normal' | 'italic' | 'oblique' | undefined;
+        fontStyle?: CSSWideKeyword | "normal" | "italic" | "oblique" | undefined;
 
         /**
          * This value specifies whether the user agent is allowed to synthesize bold or oblique font faces when a font family lacks bold or italic faces.
@@ -1535,10 +1535,10 @@ declare namespace React {
          */
         fontWeight?:
             | CSSWideKeyword
-            | 'normal'
-            | 'bold'
-            | 'bolder'
-            | 'lighter'
+            | "normal"
+            | "bold"
+            | "bolder"
+            | "lighter"
             | 100
             | 200
             | 300
@@ -1647,12 +1647,12 @@ declare namespace React {
          */
         justifyContent?:
             | CSSWideKeyword
-            | 'flex-start'
-            | 'flex-end'
-            | 'center'
-            | 'space-between'
-            | 'space-around'
-            | 'space-evenly'
+            | "flex-start"
+            | "flex-end"
+            | "center"
+            | "space-between"
+            | "space-around"
+            | "space-evenly"
             | undefined;
 
         layoutGrid?: CSSWideKeyword | any;
@@ -1686,7 +1686,7 @@ declare namespace React {
          * Specifies the height of an inline block level element.
          * See CSS 2.1 line-height property https://www.w3.org/TR/CSS21/visudet.html#propdef-line-height
          */
-        lineHeight?: CSSWideKeyword | 'normal' | number | CSSLength | CSSPercentage | undefined;
+        lineHeight?: CSSWideKeyword | "normal" | number | CSSLength | CSSPercentage | undefined;
 
         /**
          * Shorthand property that sets the list-style-type, list-style-position and list-style-image properties in one declaration.
@@ -1871,7 +1871,7 @@ declare namespace React {
          * The overflow property controls how extra content exceeding the bounding box of an element is rendered.
          * It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
          */
-        overflow?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible' | undefined;
+        overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible" | undefined;
 
         /**
          * Specifies the preferred scrolling methods for elements that overflow.
@@ -1881,12 +1881,12 @@ declare namespace React {
         /**
          * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
          */
-        overflowX?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible' | undefined;
+        overflowX?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible" | undefined;
 
         /**
          * Controls how extra content exceeding the y-axis of the bounding box of an element is rendered.
          */
-        overflowY?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible' | undefined;
+        overflowY?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible" | undefined;
 
         /**
          * The padding optional CSS property sets the required padding space on one to four sides of an element.
@@ -1994,7 +1994,7 @@ declare namespace React {
          * The position property controls the type of positioning used by an element within its parent elements.
          * The effect of the position property depends on a lot of factors, for example the position property of parent elements.
          */
-        position?: CSSWideKeyword | 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky' | undefined;
+        position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky" | undefined;
 
         /**
          * Obsolete: unsupported.
@@ -2478,13 +2478,13 @@ declare namespace React {
          * When elements overlap, z-order determines which one covers the other.
          * See CSS 2 z-index property https://www.w3.org/TR/CSS2/visuren.html#z-index
          */
-        zIndex?: CSSWideKeyword | 'auto' | number | undefined;
+        zIndex?: CSSWideKeyword | "auto" | number | undefined;
 
         /**
          * Sets the initial zoom factor of a document defined by @viewport.
          * See CSS zoom descriptor https://drafts.csswg.org/css-device-adapt/#zoom-desc
          */
-        zoom?: CSSWideKeyword | 'auto' | number | CSSPercentage | undefined;
+        zoom?: CSSWideKeyword | "auto" | number | CSSPercentage | undefined;
 
         [propertyName: string]: any;
     }
@@ -2492,189 +2492,189 @@ declare namespace React {
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
-        'aria-activedescendant'?: string | undefined;
+        "aria-activedescendant"?: string | undefined;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
-        'aria-atomic'?: boolean | 'false' | 'true' | undefined;
+        "aria-atomic"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
          * presented if they are made.
          */
-        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
+        "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
-        'aria-busy'?: boolean | 'false' | 'true' | undefined;
+        "aria-busy"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
          * @see aria-pressed @see aria-selected.
          */
-        'aria-checked'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-checked"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Defines the total number of columns in a table, grid, or treegrid.
          * @see aria-colindex.
          */
-        'aria-colcount'?: number | undefined;
+        "aria-colcount"?: number | undefined;
         /**
          * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
          * @see aria-colcount @see aria-colspan.
          */
-        'aria-colindex'?: number | undefined;
+        "aria-colindex"?: number | undefined;
         /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
-        'aria-colspan'?: number | undefined;
+        "aria-colspan"?: number | undefined;
         /**
          * Identifies the element (or elements) whose contents or presence are controlled by the current element.
          * @see aria-owns.
          */
-        'aria-controls'?: string | undefined;
+        "aria-controls"?: string | undefined;
         /** Indicates the element that represents the current item within a container or set of related elements. */
-        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time' | undefined;
+        "aria-current"?: boolean | "false" | "true" | "page" | "step" | "location" | "date" | "time" | undefined;
         /**
          * Identifies the element (or elements) that describes the object.
          * @see aria-labelledby
          */
-        'aria-describedby'?: string | undefined;
+        "aria-describedby"?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
          */
-        'aria-details'?: string | undefined;
+        "aria-details"?: string | undefined;
         /**
          * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
          * @see aria-hidden @see aria-readonly.
          */
-        'aria-disabled'?: boolean | 'false' | 'true' | undefined;
+        "aria-disabled"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what functions can be performed when a dragged object is released on the drop target.
          * @deprecated in ARIA 1.1
          */
-        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup' | undefined;
+        "aria-dropeffect"?: "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined;
         /**
          * Identifies the element that provides an error message for the object.
          * @see aria-invalid @see aria-describedby.
          */
-        'aria-errormessage'?: string | undefined;
+        "aria-errormessage"?: string | undefined;
         /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
-        'aria-expanded'?: boolean | 'false' | 'true' | undefined;
+        "aria-expanded"?: boolean | "false" | "true" | undefined;
         /**
          * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
          * allows assistive technology to override the general default of reading in document source order.
          */
-        'aria-flowto'?: string | undefined;
+        "aria-flowto"?: string | undefined;
         /**
          * Indicates an element's "grabbed" state in a drag-and-drop operation.
          * @deprecated in ARIA 1.1
          */
-        'aria-grabbed'?: boolean | 'false' | 'true' | undefined;
+        "aria-grabbed"?: boolean | "false" | "true" | undefined;
         /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
-        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
+        "aria-haspopup"?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
         /**
          * Indicates whether the element is exposed to an accessibility API.
          * @see aria-disabled.
          */
-        'aria-hidden'?: boolean | 'false' | 'true' | undefined;
+        "aria-hidden"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the entered value does not conform to the format expected by the application.
          * @see aria-errormessage.
          */
-        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling' | undefined;
+        "aria-invalid"?: boolean | "false" | "true" | "grammar" | "spelling" | undefined;
         /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
-        'aria-keyshortcuts'?: string | undefined;
+        "aria-keyshortcuts"?: string | undefined;
         /**
          * Defines a string value that labels the current element.
          * @see aria-labelledby.
          */
-        'aria-label'?: string | undefined;
+        "aria-label"?: string | undefined;
         /**
          * Identifies the element (or elements) that labels the current element.
          * @see aria-describedby.
          */
-        'aria-labelledby'?: string | undefined;
+        "aria-labelledby"?: string | undefined;
         /** Defines the hierarchical level of an element within a structure. */
-        'aria-level'?: number | undefined;
+        "aria-level"?: number | undefined;
         /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
-        'aria-live'?: 'off' | 'assertive' | 'polite' | undefined;
+        "aria-live"?: "off" | "assertive" | "polite" | undefined;
         /** Indicates whether an element is modal when displayed. */
-        'aria-modal'?: boolean | 'false' | 'true' | undefined;
+        "aria-modal"?: boolean | "false" | "true" | undefined;
         /** Indicates whether a text box accepts multiple lines of input or only a single line. */
-        'aria-multiline'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiline"?: boolean | "false" | "true" | undefined;
         /** Indicates that the user may select more than one item from the current selectable descendants. */
-        'aria-multiselectable'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiselectable"?: boolean | "false" | "true" | undefined;
         /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
-        'aria-orientation'?: 'horizontal' | 'vertical' | undefined;
+        "aria-orientation"?: "horizontal" | "vertical" | undefined;
         /**
          * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
          * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
          * @see aria-controls.
          */
-        'aria-owns'?: string | undefined;
+        "aria-owns"?: string | undefined;
         /**
          * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
          * A hint could be a sample value or a brief description of the expected format.
          */
-        'aria-placeholder'?: string | undefined;
+        "aria-placeholder"?: string | undefined;
         /**
          * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-setsize.
          */
-        'aria-posinset'?: number | undefined;
+        "aria-posinset"?: number | undefined;
         /**
          * Indicates the current "pressed" state of toggle buttons.
          * @see aria-checked @see aria-selected.
          */
-        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-pressed"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Indicates that the element is not editable, but is otherwise operable.
          * @see aria-disabled.
          */
-        'aria-readonly'?: boolean | 'false' | 'true' | undefined;
+        "aria-readonly"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text' | undefined;
+        "aria-relevant"?: "additions" | "additions text" | "all" | "removals" | "text" | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
-        'aria-required'?: boolean | 'false' | 'true' | undefined;
+        "aria-required"?: boolean | "false" | "true" | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
-        'aria-roledescription'?: string | undefined;
+        "aria-roledescription"?: string | undefined;
         /**
          * Defines the total number of rows in a table, grid, or treegrid.
          * @see aria-rowindex.
          */
-        'aria-rowcount'?: number | undefined;
+        "aria-rowcount"?: number | undefined;
         /**
          * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
          * @see aria-rowcount @see aria-rowspan.
          */
-        'aria-rowindex'?: number | undefined;
+        "aria-rowindex"?: number | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
          */
-        'aria-rowspan'?: number | undefined;
+        "aria-rowspan"?: number | undefined;
         /**
          * Indicates the current "selected" state of various widgets.
          * @see aria-checked @see aria-pressed.
          */
-        'aria-selected'?: boolean | 'false' | 'true' | undefined;
+        "aria-selected"?: boolean | "false" | "true" | undefined;
         /**
          * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-posinset.
          */
-        'aria-setsize'?: number | undefined;
+        "aria-setsize"?: number | undefined;
         /** Indicates if items in a table or grid are sorted in ascending or descending order. */
-        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
+        "aria-sort"?: "none" | "ascending" | "descending" | "other" | undefined;
         /** Defines the maximum allowed value for a range widget. */
-        'aria-valuemax'?: number | undefined;
+        "aria-valuemax"?: number | undefined;
         /** Defines the minimum allowed value for a range widget. */
-        'aria-valuemin'?: number | undefined;
+        "aria-valuemin"?: number | undefined;
         /**
          * Defines the current value for a range widget.
          * @see aria-valuetext.
          */
-        'aria-valuenow'?: number | undefined;
+        "aria-valuenow"?: number | undefined;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
-        'aria-valuetext'?: string | undefined;
+        "aria-valuetext"?: string | undefined;
     }
 
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -2738,7 +2738,7 @@ declare namespace React {
          * Hints at the type of data that might be entered by the user while editing the element or its contents
          * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
          */
-        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
+        inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
          * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
@@ -3038,7 +3038,7 @@ declare namespace React {
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: 'high' | 'low' | 'auto';
+        fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -3261,27 +3261,27 @@ declare namespace React {
 
         // SVG Specific attributes
         accentHeight?: number | string | undefined;
-        accumulate?: 'none' | 'sum' | undefined;
-        additive?: 'replace' | 'sum' | undefined;
+        accumulate?: "none" | "sum" | undefined;
+        additive?: "replace" | "sum" | undefined;
         alignmentBaseline?:
-            | 'auto'
-            | 'baseline'
-            | 'before-edge'
-            | 'text-before-edge'
-            | 'middle'
-            | 'central'
-            | 'after-edge'
-            | 'text-after-edge'
-            | 'ideographic'
-            | 'alphabetic'
-            | 'hanging'
-            | 'mathematical'
-            | 'inherit'
+            | "auto"
+            | "baseline"
+            | "before-edge"
+            | "text-before-edge"
+            | "middle"
+            | "central"
+            | "after-edge"
+            | "text-after-edge"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "inherit"
             | undefined;
-        allowReorder?: 'no' | 'yes' | undefined;
+        allowReorder?: "no" | "yes" | undefined;
         alphabetic?: number | string | undefined;
         amplitude?: number | string | undefined;
-        arabicForm?: 'initial' | 'medial' | 'terminal' | 'isolated' | undefined;
+        arabicForm?: "initial" | "medial" | "terminal" | "isolated" | undefined;
         ascent?: number | string | undefined;
         attributeName?: string | undefined;
         attributeType?: string | undefined;
@@ -3301,7 +3301,7 @@ declare namespace React {
         clipPathUnits?: number | string | undefined;
         clipRule?: number | string | undefined;
         colorInterpolation?: number | string | undefined;
-        colorInterpolationFilters?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit' | undefined;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit" | undefined;
         colorProfile?: number | string | undefined;
         colorRendering?: number | string | undefined;
         contentScriptType?: number | string | undefined;
@@ -3328,7 +3328,7 @@ declare namespace React {
         externalResourcesRequired?: number | string | undefined;
         fill?: string | undefined;
         fillOpacity?: number | string | undefined;
-        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
+        fillRule?: "nonzero" | "evenodd" | "inherit" | undefined;
         filter?: string | undefined;
         filterRes?: number | string | undefined;
         filterUnits?: number | string | undefined;
@@ -3452,8 +3452,8 @@ declare namespace React {
         stroke?: string | undefined;
         strokeDasharray?: string | number | undefined;
         strokeDashoffset?: string | number | undefined;
-        strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
-        strokeLinejoin?: 'miter' | 'round' | 'bevel' | 'inherit' | undefined;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit" | undefined;
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit" | undefined;
         strokeMiterlimit?: number | string | undefined;
         strokeOpacity?: number | string | undefined;
         strokeWidth?: number | string | undefined;
@@ -3633,7 +3633,7 @@ declare namespace React {
         track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
         u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        'var': DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
         wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3671,7 +3671,7 @@ declare namespace React {
 
     type Validator<T> = {
         bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null;
-    }['bivarianceHack'];
+    }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
@@ -3883,7 +3883,7 @@ declare global {
             track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
             u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-            'var': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLElement>, HTMLElement>;
