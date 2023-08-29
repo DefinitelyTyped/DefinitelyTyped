@@ -824,7 +824,7 @@
      * lightState part
      */
 
-    export module lightState {
+    export namespace lightState {
 
         class State {
             payload(): Object;

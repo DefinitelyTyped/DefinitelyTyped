@@ -47,7 +47,7 @@ declare const DZ: DeezerSdk.DZ;
  * See: {@link https://developers.deezer.com/sdk/javascript/init | DZ.init}
  */
 // The client may want to set this, so we have to disable a rule:
-// eslint-disable-next-line prefer-declare-function
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
 declare let dzAsyncInit: () => void;
 
 /**

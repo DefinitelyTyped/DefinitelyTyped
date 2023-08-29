@@ -2,7 +2,7 @@ function test_window() {
     const window: Titanium.UI.Window = Ti.UI.createWindow({
         title: 'Test',
         backgroundColor: 'white',
-        borderRadius: 10
+        borderRadius: 10,
     });
 
     window.backgroundColor = 'blue';
@@ -14,7 +14,7 @@ function test_window() {
     let label: Titanium.UI.Label;
     label = Ti.UI.createLabel({
         color: '#900',
-        text: 'Simple label'
+        text: 'Simple label',
     });
     label.textAlign = Ti.UI.TEXT_ALIGNMENT_LEFT;
     label.width = Ti.UI.SIZE;
@@ -29,16 +29,16 @@ function test_tableview() {
         const row = Ti.UI.createTableViewRow();
         const label = Ti.UI.createLabel({
             left: 10,
-            text: 'Row ' + (i + 1)
+            text: 'Row ' + (i + 1),
         });
         const image = Ti.UI.createImageView({
-            image: 'KS_nav_ui.png'
+            image: 'KS_nav_ui.png',
         });
         const button = Ti.UI.createButton({
             right: 10,
             height: 30,
             width: 80,
-            title: 'Button example'
+            title: 'Button example',
         });
         row.add(label);
         row.add(image);
@@ -47,7 +47,7 @@ function test_tableview() {
     }
     const table = Ti.UI.createTableView({
         data,
-        style: Ti.UI.iOS.TableViewStyle.PLAIN
+        style: Ti.UI.iOS.TableViewStyle.PLAIN,
     });
 }
 
@@ -60,7 +60,7 @@ function test_fs() {
     let imageFile = Ti.Filesystem.getFile(imageDir.resolve() + 'image.jpg');
     if (!imageFile.write(data)) {
         Ti.UI.createAlertDialog({
-            message: 'IO Error'
+            message: 'IO Error',
         }).show();
     }
     imageFile = null;
@@ -78,7 +78,7 @@ function test_network() {
         onerror: (e: FailureResponse) => {
             alert(e.error);
         },
-        timeout: 5000  // in milliseconds
+        timeout: 5000, // in milliseconds
     });
     // Prepare the connection.
     client.open('GET', url);
@@ -104,12 +104,12 @@ function test_listdataitem() {
         {
             properties: {
                 itemId: 'test',
-                title: 'Jon Doe'
-            }
-        }
+                title: 'Jon Doe',
+            },
+        },
     ];
     const section1 = Ti.UI.createListSection({
-        items: items1
+        items: items1,
     });
 
     const template = {
@@ -118,19 +118,19 @@ function test_listdataitem() {
                 type: 'Ti.UI.Label',
                 bindId: 'title',
                 properties: {
-                    color: 'black'
-                }
-            }
-        ]
+                    color: 'black',
+                },
+            },
+        ],
     };
     const items2: ListDataItem[] = [
         {
             template: 'custom',
             title: { text: 'Jane Doe' },
             properties: {
-                accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE
-            }
-        }
+                accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
+            },
+        },
     ];
     const section2 = Ti.UI.createListSection({
         items: items2,
@@ -138,7 +138,7 @@ function test_listdataitem() {
 
     const list = Ti.UI.createListView({
         templates: { custom: template },
-        sections: [section1]
+        sections: [section1],
     });
     list.replaceSectionAt(0, section2);
 }
@@ -151,7 +151,7 @@ function test_globals() {
         console.log('App was built for development');
     }
     setTimeout(() => {
-      console.log(global.L('greeting', 'Localized greeting'));
+        console.log(global.L('greeting', 'Localized greeting'));
     }, 200);
 }
 
@@ -168,6 +168,6 @@ function test_media() {
         allowMultiple: true,
         success: (result: CameraMediaMultipleItemsType) => {
             console.log(`Selected ${result.images.length} photos!`);
-        }
+        },
     });
 }

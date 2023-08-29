@@ -21,7 +21,7 @@ declare namespace CardBody {
     } & JSX.IntrinsicElements[T];
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function CardBody<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardBody.Props<T>): JSX.Element;
 
 export default CardBody;

@@ -560,6 +560,7 @@ es/Db2DataSharingGroup.d.ts
 es/Db2Database.d.ts
 es/Debug.d.ts
 es/DecisionTree.d.ts
+es/Delete.d.ts
 es/Delivery.d.ts
 es/DeliveryAdd.d.ts
 es/DeliveryParcel.d.ts
@@ -1526,6 +1527,7 @@ es/ResultDraft.d.ts
 es/ResultNew.d.ts
 es/ResultOld.d.ts
 es/RetryFailed.d.ts
+es/Return.d.ts
 es/Review.d.ts
 es/Rewind_10.d.ts
 es/Rewind_30.d.ts
@@ -2670,6 +2672,7 @@ lib/Db2DataSharingGroup.d.ts
 lib/Db2Database.d.ts
 lib/Debug.d.ts
 lib/DecisionTree.d.ts
+lib/Delete.d.ts
 lib/Delivery.d.ts
 lib/DeliveryAdd.d.ts
 lib/DeliveryParcel.d.ts
@@ -3636,6 +3639,7 @@ lib/ResultDraft.d.ts
 lib/ResultNew.d.ts
 lib/ResultOld.d.ts
 lib/RetryFailed.d.ts
+lib/Return.d.ts
 lib/Review.d.ts
 lib/Rewind_10.d.ts
 lib/Rewind_30.d.ts

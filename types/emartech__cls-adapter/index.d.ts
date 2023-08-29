@@ -33,7 +33,7 @@ declare class ContextFactory {
     /**
      * Returns the all the values set on the storage.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static getContextStorage: <T = Record<string, unknown>>() => T & {
         requestId: string;
     };

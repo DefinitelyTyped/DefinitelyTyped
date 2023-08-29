@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module ActionCable {
+declare namespace ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;

@@ -13,12 +13,6 @@ export type HowlErrorCallback = (soundId: number, error: unknown) => void;
 export type SpatialOrientation = [number, number, number];
 export type SpatialPosition = [number, number, number];
 
-export enum State {
-    Unloaded = 'unloaded',
-    Loading = 'loading',
-    Loaded = 'loaded',
-}
-
 export interface SoundSpriteDefinitions {
     [name: string]: [number, number] | [number, number, boolean];
 }
@@ -32,10 +26,6 @@ export interface PannerAttributes {
     panningModel?: 'HRTF' | 'equalpower';
     refDistance?: number;
     rolloffFactor?: number;
-}
-
-export interface Sound {
-    (howl: Howl): this;
 }
 
 export interface HowlListeners {
@@ -269,33 +259,43 @@ export class Howl {
     pannerAttr(options: PannerAttributes, id?: number): this;
 }
 
-declare global {
-    class HowlerGlobal {
-        mute(muted: boolean): this;
-        stop(): this;
+export interface HowlerGlobal {
+    mute(muted: boolean): this;
+    stop(): this;
 
-        volume(): number;
-        volume(volume: number): this;
+    volume(): number;
+    volume(volume: number): this;
 
-        codecs(ext: string): boolean;
-        unload(): this;
-        usingWebAudio: boolean;
-        html5PoolSize: number;
-        noAudio: boolean;
-        autoUnlock: boolean;
-        autoSuspend: boolean;
-        ctx: AudioContext;
-        masterGain: GainNode;
+    codecs(ext: string): boolean;
+    unload(): this;
+    usingWebAudio: boolean;
+    html5PoolSize: number;
+    noAudio: boolean;
+    autoUnlock: boolean;
+    autoSuspend: boolean;
+    ctx: AudioContext;
+    masterGain: GainNode;
 
-        stereo(pan: number): this;
+    stereo(pan: number): this;
 
-        pos(): SpatialPosition;
-        pos(x: number, y?: number, z?: number): this;
+    pos(): SpatialPosition;
+    pos(x: number, y?: number, z?: number): this;
 
-        orientation(): SpatialOrientation;
-        orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
-    }
-    const Howler: HowlerGlobal;
+    orientation(): SpatialOrientation;
+    orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
 }
 
-export const Howler: HowlerGlobal;
+import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from '.';
+export { Howler };
+
+declare global {
+    // tslint:disable:no-empty-interface
+    interface Howl extends _Howl {}
+    interface HowlerGlobal extends _HowlerGlobal {}
+    var Howl: typeof _Howl;
+    var HowlerGlobal: {
+        prototype: _HowlerGlobal;
+        new (): _HowlerGlobal;
+    };
+    var Howler: HowlerGlobal;
+}

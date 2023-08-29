@@ -167,9 +167,8 @@ declare module 'node:test' {
 
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
-    type SuiteFn = (done: (result?: any) => void) => void;
+    type SuiteFn = (s: SuiteContext) => void | Promise<void>;
 
     interface RunOptions {
         /**
@@ -386,6 +385,24 @@ declare module 'node:test' {
         readonly mock: MockTracker;
     }
 
+    /**
+     * An instance of `SuiteContext` is passed to each suite function in order to
+     * interact with the test runner. However, the `SuiteContext` constructor is not
+     * exposed as part of the API.
+     * @since v18.7.0, v16.17.0
+     */
+    class SuiteContext {
+        /**
+         * The name of the suite.
+         * @since v18.8.0, v16.18.0
+         */
+        readonly name: string;
+        /**
+         * Can be used to abort test subtasks when the test has been aborted.
+         * @since v18.7.0, v16.17.0
+         */
+        readonly signal: AbortSignal;
+    }
     interface TestOptions {
         /**
          * If a number is provided, then that many tests would run in parallel.
@@ -473,7 +490,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
 
     /**
      * Configuration options for hooks.
@@ -756,6 +773,11 @@ interface TestFail {
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -791,6 +813,11 @@ interface TestPass {
          * The duration of the test in milliseconds.
          */
         duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.

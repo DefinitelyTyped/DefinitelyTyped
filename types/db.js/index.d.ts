@@ -3,7 +3,7 @@
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module DbJs {
+declare namespace DbJs {
     interface ErrorListener {
         (err: Error): void;
     }

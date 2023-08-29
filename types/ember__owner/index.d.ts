@@ -187,5 +187,9 @@ export interface Resolver {
     normalize?: (fullName: FullName) => string;
 }
 
+export function getOwner(object: object): Owner | undefined;
+
+export function setOwner(object: object, owner: Owner): void;
+
 // Don't export things unless we *intend* to.
 export {};

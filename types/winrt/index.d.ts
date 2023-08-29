@@ -19,8 +19,8 @@ and limitations under the License.
 ***************************************************************************** */
 
 declare namespace Windows {
-    export module Foundation {
-        export module Collections {
+    export namespace Foundation {
+        export namespace Collections {
             export enum CollectionChange {
                 reset,
                 itemInserted,
@@ -189,7 +189,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Foundation {
+    export namespace Foundation {
         export interface IUriRuntimeClass {
             absoluteUri: string;
             displayUri: string;
@@ -571,8 +571,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Foundation {
-        export module Metadata {
+    export namespace Foundation {
+        export namespace Metadata {
             export class WebHostHiddenAttribute {
             }
             export class VariantAttribute {
@@ -671,8 +671,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Foundation {
-        export module Diagnostics {
+    export namespace Foundation {
+        export namespace Diagnostics {
             export enum ErrorOptions {
                 none,
                 suppressExceptions,
@@ -692,8 +692,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Background {
+    export namespace ApplicationModel {
+        export namespace Background {
             export enum BackgroundAccessStatus {
                 unspecified,
                 allowedWithAlwaysOnRealTimeConnectivity,
@@ -896,8 +896,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Contacts {
+    export namespace ApplicationModel {
+        export namespace Contacts {
             export enum ContactFieldType {
                 email,
                 phoneNumber,
@@ -1063,9 +1063,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Contacts {
-            export module Provider {
+    export namespace ApplicationModel {
+        export namespace Contacts {
+            export namespace Provider {
                 export interface IContactRemovedEventArgs {
                     id: string;
                 }
@@ -1098,8 +1098,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module DataTransfer {
+    export namespace ApplicationModel {
+        export namespace DataTransfer {
             export interface IStandardDataFormatsStatics {
                 bitmap: string;
                 html: string;
@@ -1330,8 +1330,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Search {
+    export namespace ApplicationModel {
+        export namespace Search {
             export interface ISearchPaneQueryLinguisticDetails {
                 queryTextAlternatives: Windows.Foundation.Collections.IVectorView<string>;
                 queryTextCompositionLength: number;
@@ -1467,9 +1467,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module DataTransfer {
-            export module ShareTarget {
+    export namespace ApplicationModel {
+        export namespace DataTransfer {
+            export namespace ShareTarget {
                 export interface IQuickLink {
                     id: string;
                     supportedDataFormats: Windows.Foundation.Collections.IVector<string>;
@@ -1511,8 +1511,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Activation {
+    export namespace ApplicationModel {
+        export namespace Activation {
             export interface ISplashScreen {
                 imageLocation: Windows.Foundation.Rect;
                 ondismissed: any/* TODO */;
@@ -1687,8 +1687,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Core {
+    export namespace ApplicationModel {
+        export namespace Core {
             export class CoreApplication {
                 static mainView: Windows.ApplicationModel.Core.CoreApplicationView;
                 static views: Windows.Foundation.Collections.IVectorView<Windows.ApplicationModel.Core.CoreApplicationView>;
@@ -1753,7 +1753,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
+    export namespace ApplicationModel {
         export class SuspendingEventArgs implements Windows.ApplicationModel.ISuspendingEventArgs {
             suspendingOperation: Windows.ApplicationModel.SuspendingOperation;
         }
@@ -1840,8 +1840,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Resources {
+    export namespace ApplicationModel {
+        export namespace Resources {
             export interface IResourceLoader {
                 getString(resource: string): string;
             }
@@ -1861,9 +1861,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Resources {
-            export module Core {
+    export namespace ApplicationModel {
+        export namespace Resources {
+            export namespace Core {
                 export interface IResourceManager {
                     allResourceMaps: Windows.Foundation.Collections.IMapView<string, Windows.ApplicationModel.Resources.Core.ResourceMap>;
                     defaultContext: Windows.ApplicationModel.Resources.Core.ResourceContext;
@@ -2128,9 +2128,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Resources {
-            export module Management {
+    export namespace ApplicationModel {
+        export namespace Resources {
+            export namespace Management {
                 export enum IndexedResourceType {
                     string,
                     path,
@@ -2176,8 +2176,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module ApplicationModel {
-        export module Store {
+    export namespace ApplicationModel {
+        export namespace Store {
             export interface LicenseChangedEventHandler {
                 (): void;
             }
@@ -2277,8 +2277,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Data {
-        export module Html {
+    export namespace Data {
+        export namespace Html {
             export interface IHtmlUtilities {
                 convertToText(html: string): string;
             }
@@ -2289,8 +2289,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Data {
-        export module Json {
+    export namespace Data {
+        export namespace Json {
             export enum JsonValueType {
                 null_,
                 boolean,
@@ -2457,9 +2457,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Data {
-        export module Xml {
-            export module Dom {
+    export namespace Data {
+        export namespace Xml {
+            export namespace Dom {
                 export enum NodeType {
                     invalid,
                     elementNode,
@@ -3142,9 +3142,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Data {
-        export module Xml {
-            export module Xsl {
+    export namespace Data {
+        export namespace Xml {
+            export namespace Xsl {
                 export interface IXsltProcessor {
                     transformToString(inputNode: Windows.Data.Xml.Dom.IXmlNode): string;
                 }
@@ -3160,8 +3160,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Sms {
+    export namespace Devices {
+        export namespace Sms {
             export enum SmsMessageClass {
                 none,
                 class0,
@@ -3440,8 +3440,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Enumeration {
+    export namespace Devices {
+        export namespace Enumeration {
             export enum DeviceClass {
                 all,
                 audioCapture,
@@ -3607,9 +3607,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Enumeration {
-            export module Pnp {
+    export namespace Devices {
+        export namespace Enumeration {
+            export namespace Pnp {
                 export enum PnpObjectType {
                     unknown,
                     deviceInterface,
@@ -3715,8 +3715,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Geolocation {
+    export namespace Devices {
+        export namespace Geolocation {
             export enum PositionAccuracy {
                 default,
                 high,
@@ -3807,8 +3807,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Input {
+    export namespace Devices {
+        export namespace Input {
             export enum PointerDeviceType {
                 touch,
                 pen,
@@ -3898,8 +3898,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Portable {
+    export namespace Devices {
+        export namespace Portable {
             export enum ServiceDeviceType {
                 calendarService,
                 contactsService,
@@ -3929,9 +3929,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Printers {
-            export module Extensions {
+    export namespace Devices {
+        export namespace Printers {
+            export namespace Extensions {
                 export interface IPrintTaskConfigurationSaveRequestedDeferral {
                     complete(): void;
                 }
@@ -3983,8 +3983,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Devices {
-        export module Sensors {
+    export namespace Devices {
+        export namespace Sensors {
             export interface IAccelerometerStatics {
                 getDefault(): Windows.Devices.Sensors.Accelerometer;
             }
@@ -4255,8 +4255,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Globalization {
-        export module Fonts {
+    export namespace Globalization {
+        export namespace Fonts {
             export interface ILanguageFontGroup {
                 documentAlternate1Font: Windows.Globalization.Fonts.LanguageFont;
                 documentAlternate2Font: Windows.Globalization.Fonts.LanguageFont;
@@ -4305,7 +4305,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Globalization {
+    export namespace Globalization {
         export enum DayOfWeek {
             sunday,
             monday,
@@ -4594,8 +4594,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Globalization {
-        export module DateTimeFormatting {
+    export namespace Globalization {
+        export namespace DateTimeFormatting {
             export enum YearFormat {
                 none,
                 default,
@@ -4699,8 +4699,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Globalization {
-        export module NumberFormatting {
+    export namespace Globalization {
+        export namespace NumberFormatting {
             export interface INumberFormatter {
                 format(value: number): string;
             }
@@ -4826,8 +4826,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Globalization {
-        export module Collation {
+    export namespace Globalization {
+        export namespace Collation {
             export interface ICharacterGrouping {
                 first: string;
                 label: string;
@@ -4883,8 +4883,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Graphics {
-        export module Display {
+    export namespace Graphics {
+        export namespace Display {
             export interface DisplayPropertiesEventHandler {
                 (sender: any): void;
             }
@@ -4933,8 +4933,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Graphics {
-        export module Imaging {
+    export namespace Graphics {
+        export namespace Imaging {
             export enum BitmapPixelFormat {
                 unknown,
                 rgba16,
@@ -5217,9 +5217,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Graphics {
-        export module Printing {
-            export module OptionDetails {
+    export namespace Graphics {
+        export namespace Printing {
+            export namespace OptionDetails {
                 export enum PrintOptionStates {
                     none,
                     enabled,
@@ -5418,8 +5418,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Graphics {
-        export module Printing {
+    export namespace Graphics {
+        export namespace Printing {
             export interface PrintPageDescription {
                 pageSize: Windows.Foundation.Size;
                 imageableRect: Windows.Foundation.Rect;
@@ -5886,8 +5886,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Management {
-        export module Deployment {
+    export namespace Management {
+        export namespace Deployment {
             export enum DeploymentProgressState {
                 queued,
                 processing,
@@ -5970,8 +5970,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Management {
-        export module Core {
+    export namespace Management {
+        export namespace Core {
             export interface IApplicationDataManagerStatics {
                 createForPackageFamily(packageFamilyName: string): Windows.Storage.ApplicationData;
             }
@@ -5984,8 +5984,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module Capture {
+    export namespace Media {
+        export namespace Capture {
             export enum CameraCaptureUIMode {
                 photoOrVideo,
                 photo,
@@ -6196,8 +6196,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module Devices {
+    export namespace Media {
+        export namespace Devices {
             export enum TelephonyKey {
                 d0,
                 d1,
@@ -6403,7 +6403,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
+    export namespace Media {
         export enum SoundLevel {
             muted,
             low,
@@ -6487,8 +6487,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module Playlists {
+    export namespace Media {
+        export namespace Playlists {
             export enum PlaylistFormat {
                 windowsMedia,
                 zune,
@@ -6514,8 +6514,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module PlayTo {
+    export namespace Media {
+        export namespace PlayTo {
             export interface IPlayToSource {
                 connection: Windows.Media.PlayTo.PlayToConnection;
                 next: Windows.Media.PlayTo.PlayToSource;
@@ -6739,8 +6739,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module MediaProperties {
+    export namespace Media {
+        export namespace MediaProperties {
             export interface IMediaRatio {
                 denominator: number;
                 numerator: number;
@@ -6868,8 +6868,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module Protection {
+    export namespace Media {
+        export namespace Protection {
             export class MediaProtectionManager implements Windows.Media.Protection.IMediaProtectionManager {
                 properties: Windows.Foundation.Collections.IPropertySet;
                 onservicerequested: any/* TODO */;
@@ -6971,8 +6971,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Media {
-        export module Transcoding {
+    export namespace Media {
+        export namespace Transcoding {
             export enum TranscodeFailureReason {
                 none,
                 unknown,
@@ -7019,8 +7019,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module NetworkOperators {
+    export namespace Networking {
+        export namespace NetworkOperators {
             export enum DataClasses {
                 none,
                 gprs,
@@ -7332,8 +7332,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module BackgroundTransfer {
+    export namespace Networking {
+        export namespace BackgroundTransfer {
             export enum BackgroundTransferStatus {
                 idle,
                 running,
@@ -7511,8 +7511,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module Proximity {
+    export namespace Networking {
+        export namespace Proximity {
             export interface IProximityMessage {
                 data: Windows.Storage.Streams.IBuffer;
                 dataAsString: string;
@@ -7646,8 +7646,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module Sockets {
+    export namespace Networking {
+        export namespace Sockets {
             export enum ControlChannelTriggerStatus {
                 hardwareSlotRequested,
                 softwareSlotAllocated,
@@ -8055,7 +8055,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
+    export namespace Networking {
         export enum HostNameSortOptions {
             none,
             optimizeForLongConnections,
@@ -8109,8 +8109,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module Connectivity {
+    export namespace Networking {
+        export namespace Connectivity {
             export class IPInformation implements Windows.Networking.Connectivity.IIPInformation {
                 networkAdapter: Windows.Networking.Connectivity.NetworkAdapter;
                 prefixLength: number;
@@ -8316,8 +8316,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Networking {
-        export module PushNotifications {
+    export namespace Networking {
+        export namespace PushNotifications {
             export enum PushNotificationType {
                 toast,
                 tile,
@@ -8372,9 +8372,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Authentication {
-            export module OnlineId {
+    export namespace Security {
+        export namespace Authentication {
+            export namespace OnlineId {
                 export enum CredentialPromptType {
                     promptIfNeeded,
                     retypeCredentials,
@@ -8481,9 +8481,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Authentication {
-            export module Web {
+    export namespace Security {
+        export namespace Authentication {
+            export namespace Web {
                 export enum WebAuthenticationStatus {
                     success,
                     userCancel,
@@ -8527,9 +8527,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Credentials {
-            export module UI {
+    export namespace Security {
+        export namespace Credentials {
+            export namespace UI {
                 export enum AuthenticationProtocol {
                     basic,
                     digest,
@@ -8601,8 +8601,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Credentials {
+    export namespace Security {
+        export namespace Credentials {
             export interface IPasswordCredential {
                 password: string;
                 properties: Windows.Foundation.Collections.IPropertySet;
@@ -8653,9 +8653,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Cryptography {
-            export module Certificates {
+    export namespace Security {
+        export namespace Cryptography {
+            export namespace Certificates {
                 export enum EnrollKeyUsages {
                     none,
                     decryption,
@@ -8748,9 +8748,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Cryptography {
-            export module Core {
+    export namespace Security {
+        export namespace Cryptography {
+            export namespace Core {
                 export enum CryptographicPrivateKeyBlobType {
                     pkcs8RawPrivateKeyInfo,
                     pkcs1RsaPrivateKey,
@@ -9054,9 +9054,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Cryptography {
-            export module DataProtection {
+    export namespace Security {
+        export namespace Cryptography {
+            export namespace DataProtection {
                 export interface IDataProtectionProvider {
                     protectAsync(data: Windows.Storage.Streams.IBuffer): Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IBuffer>;
                     unprotectAsync(data: Windows.Storage.Streams.IBuffer): Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IBuffer>;
@@ -9079,8 +9079,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module Cryptography {
+    export namespace Security {
+        export namespace Cryptography {
             export enum BinaryStringEncoding {
                 utf8,
                 utf16LE,
@@ -9116,8 +9116,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Security {
-        export module ExchangeActiveSyncProvisioning {
+    export namespace Security {
+        export namespace ExchangeActiveSyncProvisioning {
             export enum EasRequireEncryptionResult {
                 notEvaluated,
                 compliant,
@@ -9270,8 +9270,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Streams {
+    export namespace Storage {
+        export namespace Streams {
             export enum ByteOrder {
                 littleEndian,
                 bigEndian,
@@ -9579,9 +9579,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Pickers {
-            export module Provider {
+    export namespace Storage {
+        export namespace Pickers {
+            export namespace Provider {
                 export interface IFileRemovedEventArgs {
                     id: string;
                 }
@@ -9692,8 +9692,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Provider {
+    export namespace Storage {
+        export namespace Provider {
             export enum CachedFileTarget {
                 local,
                 remote,
@@ -9777,8 +9777,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module FileProperties {
+    export namespace Storage {
+        export namespace FileProperties {
             export enum PropertyPrefetchOptions {
                 none,
                 musicProperties,
@@ -10009,7 +10009,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
+    export namespace Storage {
         export interface IKnownFoldersStatics {
             documentsLibrary: Windows.Storage.StorageFolder;
             homeGroup: Windows.Storage.StorageFolder;
@@ -10425,8 +10425,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Search {
+    export namespace Storage {
+        export namespace Search {
             export interface SortEntry {
                 propertyName: string;
                 ascendingOrder: boolean;
@@ -10635,8 +10635,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module AccessCache {
+    export namespace Storage {
+        export namespace AccessCache {
             export interface AccessListEntry {
                 token: string;
                 metadata: string;
@@ -10763,8 +10763,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module BulkAccess {
+    export namespace Storage {
+        export namespace BulkAccess {
             export interface IStorageItemInformation {
                 basicProperties: Windows.Storage.FileProperties.BasicProperties;
                 documentProperties: Windows.Storage.FileProperties.DocumentProperties;
@@ -10906,8 +10906,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Pickers {
+    export namespace Storage {
+        export namespace Pickers {
             export enum PickerViewMode {
                 list,
                 thumbnail,
@@ -11090,8 +11090,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Storage {
-        export module Compression {
+    export namespace Storage {
+        export namespace Compression {
             export enum CompressAlgorithm {
                 invalidAlgorithm,
                 nullAlgorithm,
@@ -11135,8 +11135,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module Profile {
+    export namespace System {
+        export namespace Profile {
             export interface IHardwareToken {
                 certificate: Windows.Storage.Streams.IBuffer;
                 id: Windows.Storage.Streams.IBuffer;
@@ -11157,8 +11157,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module Threading {
+    export namespace System {
+        export namespace Threading {
             export enum WorkItemPriority {
                 low,
                 normal,
@@ -11211,9 +11211,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module Threading {
-            export module Core {
+    export namespace System {
+        export namespace Threading {
+            export namespace Core {
                 export interface SignalHandler {
                     (signalNotifier: Windows.System.Threading.Core.SignalNotifier, timedOut: boolean): void;
                 }
@@ -11254,8 +11254,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module UserProfile {
+    export namespace System {
+        export namespace UserProfile {
             export enum AccountPictureKind {
                 smallImage,
                 largeImage,
@@ -11333,7 +11333,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
+    export namespace System {
         export interface ILauncherUIOptions {
             invocationPoint: Windows.Foundation.Point;
             preferredPlacement: Windows.UI.Popups.Placement;
@@ -11527,8 +11527,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module Display {
+    export namespace System {
+        export namespace Display {
             export interface IDisplayRequest {
                 requestActive(): void;
                 requestRelease(): void;
@@ -11541,8 +11541,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module System {
-        export module RemoteDesktop {
+    export namespace System {
+        export namespace RemoteDesktop {
             export interface IInteractiveSessionStatics {
                 isRemote: boolean;
             }
@@ -11553,8 +11553,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module ApplicationSettings {
+    export namespace UI {
+        export namespace ApplicationSettings {
             export interface ISettingsCommandFactory {
                 create(settingsCommandId: any, label: string, handler: Windows.UI.Popups.UICommandInvokedHandler): Windows.UI.ApplicationSettings.SettingsCommand;
             }
@@ -11598,8 +11598,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-    export module ViewManagement {
+    export namespace UI {
+    export namespace ViewManagement {
         export enum ViewSizePreference {
             default = 0,
             useLess = 1,
@@ -11778,8 +11778,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Input {
+    export namespace UI {
+        export namespace Input {
             export enum EdgeGestureKind {
                 touch,
                 keyboard,
@@ -12158,8 +12158,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Popups {
+    export namespace UI {
+        export namespace Popups {
             export enum MessageDialogOptions {
                 none,
                 acceptUserInputAfterDelay,
@@ -12238,8 +12238,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module StartScreen {
+    export namespace UI {
+        export namespace StartScreen {
             export enum TileOptions {
                 none,
                 showNameOnLogo,
@@ -12319,8 +12319,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Text {
+    export namespace UI {
+        export namespace Text {
             export enum CaretType {
                 normal,
                 null_,
@@ -12837,9 +12837,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Core {
-            export module AnimationMetrics {
+    export namespace UI {
+        export namespace Core {
+            export namespace AnimationMetrics {
                 export enum PropertyAnimationType {
                     scale,
                     translation,
@@ -12981,8 +12981,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Core {
+    export namespace UI {
+        export namespace Core {
             export enum CoreWindowActivationState {
                 codeActivated,
                 deactivated,
@@ -13342,9 +13342,9 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Input {
-            export module Inking {
+    export namespace UI {
+        export namespace Input {
+            export namespace Inking {
                 export enum InkManipulationMode {
                     inking,
                     erasing,
@@ -13518,8 +13518,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module WebUI {
+    export namespace UI {
+        export namespace WebUI {
             export interface IActivatedDeferral {
                 complete(): void;
             }
@@ -13699,7 +13699,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
+    export namespace UI {
         export interface IColors {
         }
         export interface IColorsStatics {
@@ -14005,8 +14005,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module UI {
-        export module Notifications {
+    export namespace UI {
+        export namespace Notifications {
             export enum NotificationSetting {
                 enabled,
                 disabledForApplication,
@@ -14278,7 +14278,7 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Web {
+    export namespace Web {
         export enum WebErrorStatus {
             unknown,
             certificateCommonNameIsIncorrect,
@@ -14343,8 +14343,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Web {
-        export module Syndication {
+    export namespace Web {
+        export namespace Syndication {
             export interface RetrievalProgress {
                 bytesRetrieved: number;
                 totalBytesToRetrieve: number;
@@ -14714,8 +14714,8 @@ declare namespace Windows {
     }
 }
 declare namespace Windows {
-    export module Web {
-        export module AtomPub {
+    export namespace Web {
+        export namespace AtomPub {
             export interface IResourceCollection extends Windows.Web.Syndication.ISyndicationNode {
                 accepts: Windows.Foundation.Collections.IVectorView<string>;
                 categories: Windows.Foundation.Collections.IVectorView<Windows.Web.Syndication.SyndicationCategory>;

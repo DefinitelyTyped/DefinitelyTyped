@@ -163,7 +163,7 @@ export type UserInfo<CustomClaims = {}> = {
 
 export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<Credentials>;
     exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<Credentials>;
@@ -172,7 +172,7 @@ export class Auth {
     refreshToken(params: RefreshTokenParams): Promise<Credentials>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
     passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
@@ -214,7 +214,7 @@ export interface PatchUserParams<T> {
 
 export class Users {
     constructor(options: UsersOptions);
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     getUser<T>(parameters: GetUserParams): Promise<Auth0User<T>>;
     patchUser<T>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
 }
