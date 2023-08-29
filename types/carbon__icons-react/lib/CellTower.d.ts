@@ -1,1 +1,1 @@
-export { CellTower as default } from '../';
+export { CellTower as default } from "../";

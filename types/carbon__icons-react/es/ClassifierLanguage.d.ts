@@ -1,1 +1,1 @@
-export { ClassifierLanguage as default } from '../';
+export { ClassifierLanguage as default } from "../";

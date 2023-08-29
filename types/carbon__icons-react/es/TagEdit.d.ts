@@ -1,1 +1,1 @@
-export { TagEdit as default } from '../';
+export { TagEdit as default } from "../";

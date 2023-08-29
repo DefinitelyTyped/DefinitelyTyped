@@ -1,1 +1,1 @@
-export { FolderOff as default } from '../';
+export { FolderOff as default } from "../";

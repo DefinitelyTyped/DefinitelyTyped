@@ -1,1 +1,1 @@
-export { TropicalStorm as default } from '../';
+export { TropicalStorm as default } from "../";

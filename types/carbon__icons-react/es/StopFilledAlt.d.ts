@@ -1,1 +1,1 @@
-export { StopFilledAlt as default } from '../';
+export { StopFilledAlt as default } from "../";

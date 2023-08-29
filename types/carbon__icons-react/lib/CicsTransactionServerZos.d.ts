@@ -1,1 +1,1 @@
-export { CicsTransactionServerZos as default } from '../';
+export { CicsTransactionServerZos as default } from "../";

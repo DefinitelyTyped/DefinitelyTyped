@@ -1,1 +1,1 @@
-export { Touch_1DownFilled as default } from '../';
+export { Touch_1DownFilled as default } from "../";

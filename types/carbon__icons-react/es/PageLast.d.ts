@@ -1,1 +1,1 @@
-export { PageLast as default } from '../';
+export { PageLast as default } from "../";

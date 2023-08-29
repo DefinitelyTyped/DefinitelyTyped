@@ -1,1 +1,1 @@
-export { CaretLeftGlyph as default } from '../';
+export { CaretLeftGlyph as default } from "../";

@@ -1,1 +1,1 @@
-export { SailboatCoastal as default } from '../';
+export { SailboatCoastal as default } from "../";

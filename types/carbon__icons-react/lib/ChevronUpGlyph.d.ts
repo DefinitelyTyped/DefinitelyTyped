@@ -1,1 +1,1 @@
-export { ChevronUpGlyph as default } from '../';
+export { ChevronUpGlyph as default } from "../";

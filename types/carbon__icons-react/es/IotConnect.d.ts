@@ -1,1 +1,1 @@
-export { IotConnect as default } from '../';
+export { IotConnect as default } from "../";

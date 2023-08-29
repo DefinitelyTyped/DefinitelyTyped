@@ -1,1 +1,1 @@
-export { Vlan as default } from '../';
+export { Vlan as default } from "../";

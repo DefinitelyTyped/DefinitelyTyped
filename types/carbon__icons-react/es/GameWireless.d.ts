@@ -1,1 +1,1 @@
-export { GameWireless as default } from '../';
+export { GameWireless as default } from "../";

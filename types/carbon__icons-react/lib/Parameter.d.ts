@@ -1,1 +1,1 @@
-export { Parameter as default } from '../';
+export { Parameter as default } from "../";

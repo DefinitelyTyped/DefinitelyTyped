@@ -1,1 +1,1 @@
-export { NetworkAdminControl as default } from '../';
+export { NetworkAdminControl as default } from "../";

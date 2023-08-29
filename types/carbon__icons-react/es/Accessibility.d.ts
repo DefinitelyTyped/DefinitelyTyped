@@ -1,1 +1,1 @@
-export { Accessibility as default } from '../';
+export { Accessibility as default } from "../";

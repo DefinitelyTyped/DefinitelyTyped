@@ -1,1 +1,1 @@
-export { TransformBinary as default } from '../';
+export { TransformBinary as default } from "../";

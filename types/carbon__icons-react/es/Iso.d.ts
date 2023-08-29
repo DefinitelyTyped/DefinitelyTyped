@@ -1,1 +1,1 @@
-export { Iso as default } from '../';
+export { Iso as default } from "../";

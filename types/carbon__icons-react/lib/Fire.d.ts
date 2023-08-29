@@ -1,1 +1,1 @@
-export { Fire as default } from '../';
+export { Fire as default } from "../";

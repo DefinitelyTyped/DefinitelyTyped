@@ -1,1 +1,1 @@
-export { Transpose as default } from '../';
+export { Transpose as default } from "../";

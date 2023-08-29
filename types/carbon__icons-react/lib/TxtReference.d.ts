@@ -1,1 +1,1 @@
-export { TxtReference as default } from '../';
+export { TxtReference as default } from "../";

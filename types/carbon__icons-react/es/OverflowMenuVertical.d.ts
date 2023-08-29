@@ -1,1 +1,1 @@
-export { OverflowMenuVertical as default } from '../';
+export { OverflowMenuVertical as default } from "../";

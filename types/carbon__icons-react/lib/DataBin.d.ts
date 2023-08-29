@@ -1,1 +1,1 @@
-export { DataBin as default } from '../';
+export { DataBin as default } from "../";

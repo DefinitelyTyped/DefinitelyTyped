@@ -1,1 +1,1 @@
-export { IbmCloudTransitGateway as default } from '../';
+export { IbmCloudTransitGateway as default } from "../";

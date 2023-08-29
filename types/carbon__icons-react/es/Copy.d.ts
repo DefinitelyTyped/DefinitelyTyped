@@ -1,1 +1,1 @@
-export { Copy as default } from '../';
+export { Copy as default } from "../";

@@ -1,1 +1,1 @@
-export { ScriptReference as default } from '../';
+export { ScriptReference as default } from "../";

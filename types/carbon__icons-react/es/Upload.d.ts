@@ -1,1 +1,1 @@
-export { Upload as default } from '../';
+export { Upload as default } from "../";

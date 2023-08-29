@@ -1,1 +1,1 @@
-export { NetworkPublic as default } from '../';
+export { NetworkPublic as default } from "../";

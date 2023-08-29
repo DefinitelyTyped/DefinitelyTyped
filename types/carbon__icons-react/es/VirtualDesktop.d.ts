@@ -1,1 +1,1 @@
-export { VirtualDesktop as default } from '../';
+export { VirtualDesktop as default } from "../";

@@ -1,1 +1,1 @@
-export { SwitchLayer_2 as default } from '../';
+export { SwitchLayer_2 as default } from "../";

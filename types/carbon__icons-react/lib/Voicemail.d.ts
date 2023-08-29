@@ -1,1 +1,1 @@
-export { Voicemail as default } from '../';
+export { Voicemail as default } from "../";

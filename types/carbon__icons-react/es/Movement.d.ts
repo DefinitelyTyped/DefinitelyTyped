@@ -1,1 +1,1 @@
-export { Movement as default } from '../';
+export { Movement as default } from "../";

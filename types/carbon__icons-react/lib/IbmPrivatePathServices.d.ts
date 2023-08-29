@@ -1,1 +1,1 @@
-export { IbmPrivatePathServices as default } from '../';
+export { IbmPrivatePathServices as default } from "../";

@@ -1,1 +1,1 @@
-export { Lifesaver as default } from '../';
+export { Lifesaver as default } from "../";

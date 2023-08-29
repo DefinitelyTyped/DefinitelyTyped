@@ -1,1 +1,1 @@
-export { VirtualPrivateCloudAlt as default } from '../';
+export { VirtualPrivateCloudAlt as default } from "../";

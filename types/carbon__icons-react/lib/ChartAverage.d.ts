@@ -1,1 +1,1 @@
-export { ChartAverage as default } from '../';
+export { ChartAverage as default } from "../";

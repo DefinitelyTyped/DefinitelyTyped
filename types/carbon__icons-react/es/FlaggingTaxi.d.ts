@@ -1,1 +1,1 @@
-export { FlaggingTaxi as default } from '../';
+export { FlaggingTaxi as default } from "../";

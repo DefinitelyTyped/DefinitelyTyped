@@ -1,1 +1,1 @@
-export { ObservedHail as default } from '../';
+export { ObservedHail as default } from "../";

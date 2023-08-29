@@ -1,1 +1,1 @@
-export { Scooter as default } from '../';
+export { Scooter as default } from "../";

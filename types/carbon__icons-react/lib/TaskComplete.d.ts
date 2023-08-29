@@ -1,1 +1,1 @@
-export { TaskComplete as default } from '../';
+export { TaskComplete as default } from "../";

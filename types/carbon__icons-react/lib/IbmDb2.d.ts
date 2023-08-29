@@ -1,1 +1,1 @@
-export { IbmDb2 as default } from '../';
+export { IbmDb2 as default } from "../";

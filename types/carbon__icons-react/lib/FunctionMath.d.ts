@@ -1,1 +1,1 @@
-export { FunctionMath as default } from '../';
+export { FunctionMath as default } from "../";

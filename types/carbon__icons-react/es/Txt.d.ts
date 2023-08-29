@@ -1,1 +1,1 @@
-export { Txt as default } from '../';
+export { Txt as default } from "../";

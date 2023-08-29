@@ -1,1 +1,1 @@
-export { ChargingStation as default } from '../';
+export { ChargingStation as default } from "../";

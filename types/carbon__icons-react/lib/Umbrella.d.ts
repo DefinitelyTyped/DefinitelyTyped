@@ -1,1 +1,1 @@
-export { Umbrella as default } from '../';
+export { Umbrella as default } from "../";

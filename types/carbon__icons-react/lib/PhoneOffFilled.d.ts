@@ -1,1 +1,1 @@
-export { PhoneOffFilled as default } from '../';
+export { PhoneOffFilled as default } from "../";

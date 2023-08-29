@@ -1,1 +1,1 @@
-export { Gift as default } from '../';
+export { Gift as default } from "../";

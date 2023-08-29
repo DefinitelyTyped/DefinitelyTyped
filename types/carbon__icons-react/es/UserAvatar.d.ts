@@ -1,1 +1,1 @@
-export { UserAvatar as default } from '../';
+export { UserAvatar as default } from "../";

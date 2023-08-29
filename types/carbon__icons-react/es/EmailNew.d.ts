@@ -1,1 +1,1 @@
-export { EmailNew as default } from '../';
+export { EmailNew as default } from "../";

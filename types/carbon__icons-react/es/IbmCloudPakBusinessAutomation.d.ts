@@ -1,1 +1,1 @@
-export { IbmCloudPakBusinessAutomation as default } from '../';
+export { IbmCloudPakBusinessAutomation as default } from "../";

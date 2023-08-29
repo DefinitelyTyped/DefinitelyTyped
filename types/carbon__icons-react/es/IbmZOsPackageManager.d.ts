@@ -1,1 +1,1 @@
-export { IbmZOsPackageManager as default } from '../';
+export { IbmZOsPackageManager as default } from "../";

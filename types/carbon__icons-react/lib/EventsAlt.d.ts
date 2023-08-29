@@ -1,1 +1,1 @@
-export { EventsAlt as default } from '../';
+export { EventsAlt as default } from "../";

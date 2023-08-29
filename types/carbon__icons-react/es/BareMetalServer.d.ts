@@ -1,1 +1,1 @@
-export { BareMetalServer as default } from '../';
+export { BareMetalServer as default } from "../";

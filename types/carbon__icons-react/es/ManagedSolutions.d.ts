@@ -1,1 +1,1 @@
-export { ManagedSolutions as default } from '../';
+export { ManagedSolutions as default } from "../";

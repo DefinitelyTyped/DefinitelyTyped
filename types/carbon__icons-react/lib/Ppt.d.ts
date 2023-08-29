@@ -1,1 +1,1 @@
-export { Ppt as default } from '../';
+export { Ppt as default } from "../";

@@ -1,1 +1,1 @@
-export { TextTracking as default } from '../';
+export { TextTracking as default } from "../";

@@ -1,1 +1,1 @@
-export { AddFilled as default } from '../';
+export { AddFilled as default } from "../";

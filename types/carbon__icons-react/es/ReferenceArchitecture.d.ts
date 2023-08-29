@@ -1,1 +1,1 @@
-export { ReferenceArchitecture as default } from '../';
+export { ReferenceArchitecture as default } from "../";

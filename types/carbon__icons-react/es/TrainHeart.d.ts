@@ -1,1 +1,1 @@
-export { TrainHeart as default } from '../';
+export { TrainHeart as default } from "../";

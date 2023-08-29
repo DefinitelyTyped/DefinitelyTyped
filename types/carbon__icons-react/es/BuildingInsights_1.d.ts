@@ -1,1 +1,1 @@
-export { BuildingInsights_1 as default } from '../';
+export { BuildingInsights_1 as default } from "../";

@@ -1,1 +1,1 @@
-export { ChatOperational as default } from '../';
+export { ChatOperational as default } from "../";

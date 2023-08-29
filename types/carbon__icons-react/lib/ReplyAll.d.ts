@@ -1,1 +1,1 @@
-export { ReplyAll as default } from '../';
+export { ReplyAll as default } from "../";

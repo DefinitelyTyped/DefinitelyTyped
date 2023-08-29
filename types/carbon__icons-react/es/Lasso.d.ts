@@ -1,1 +1,1 @@
-export { Lasso as default } from '../';
+export { Lasso as default } from "../";

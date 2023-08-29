@@ -1,1 +1,1 @@
-export { Medication as default } from '../';
+export { Medication as default } from "../";

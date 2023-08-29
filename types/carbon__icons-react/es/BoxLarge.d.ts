@@ -1,1 +1,1 @@
-export { BoxLarge as default } from '../';
+export { BoxLarge as default } from "../";

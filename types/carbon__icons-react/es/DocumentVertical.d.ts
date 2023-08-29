@@ -1,1 +1,1 @@
-export { DocumentVertical as default } from '../';
+export { DocumentVertical as default } from "../";

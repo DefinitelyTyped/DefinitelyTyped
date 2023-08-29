@@ -1,1 +1,1 @@
-export { BringForward as default } from '../';
+export { BringForward as default } from "../";

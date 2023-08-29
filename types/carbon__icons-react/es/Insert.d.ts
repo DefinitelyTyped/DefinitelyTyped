@@ -1,1 +1,1 @@
-export { Insert as default } from '../';
+export { Insert as default } from "../";

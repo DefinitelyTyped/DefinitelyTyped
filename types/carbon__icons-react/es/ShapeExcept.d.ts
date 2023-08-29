@@ -1,1 +1,1 @@
-export { ShapeExcept as default } from '../';
+export { ShapeExcept as default } from "../";

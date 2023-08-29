@@ -1,1 +1,1 @@
-export { ContinuousIntegration as default } from '../';
+export { ContinuousIntegration as default } from "../";

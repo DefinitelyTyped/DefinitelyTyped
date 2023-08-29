@@ -1,1 +1,1 @@
-export { LetterMm as default } from '../';
+export { LetterMm as default } from "../";

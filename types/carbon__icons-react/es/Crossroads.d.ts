@@ -1,1 +1,1 @@
-export { Crossroads as default } from '../';
+export { Crossroads as default } from "../";

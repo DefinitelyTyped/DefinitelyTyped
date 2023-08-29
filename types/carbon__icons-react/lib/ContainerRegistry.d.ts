@@ -1,1 +1,1 @@
-export { ContainerRegistry as default } from '../';
+export { ContainerRegistry as default } from "../";

@@ -1,1 +1,1 @@
-export { Certificate as default } from '../';
+export { Certificate as default } from "../";

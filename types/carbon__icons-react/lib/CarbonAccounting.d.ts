@@ -1,1 +1,1 @@
-export { CarbonAccounting as default } from '../';
+export { CarbonAccounting as default } from "../";

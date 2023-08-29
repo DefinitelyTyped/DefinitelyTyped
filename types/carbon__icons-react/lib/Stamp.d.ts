@@ -1,1 +1,1 @@
-export { Stamp as default } from '../';
+export { Stamp as default } from "../";

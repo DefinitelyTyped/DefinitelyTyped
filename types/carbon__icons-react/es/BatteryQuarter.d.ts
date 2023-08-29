@@ -1,1 +1,1 @@
-export { BatteryQuarter as default } from '../';
+export { BatteryQuarter as default } from "../";

@@ -1,1 +1,1 @@
-export { Term as default } from '../';
+export { Term as default } from "../";

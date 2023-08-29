@@ -1,1 +1,1 @@
-export { WatsonHealthAiStatusFailed as default } from '../../';
+export { WatsonHealthAiStatusFailed as default } from "../../";

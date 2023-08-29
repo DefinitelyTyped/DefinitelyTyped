@@ -1,1 +1,1 @@
-export { IbmCloudVpcEndpoints as default } from '../';
+export { IbmCloudVpcEndpoints as default } from "../";

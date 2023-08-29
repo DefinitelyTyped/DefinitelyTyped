@@ -1,1 +1,1 @@
-export { IbmOpenshiftContainerPlatformOnVpcForRegulatedIndustries as default } from '../';
+export { IbmOpenshiftContainerPlatformOnVpcForRegulatedIndustries as default } from "../";

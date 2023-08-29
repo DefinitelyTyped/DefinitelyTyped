@@ -1,1 +1,1 @@
-export { TableShortcut as default } from '../';
+export { TableShortcut as default } from "../";

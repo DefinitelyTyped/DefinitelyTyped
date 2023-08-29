@@ -1,1 +1,1 @@
-export { ChartBarFloating as default } from '../';
+export { ChartBarFloating as default } from "../";

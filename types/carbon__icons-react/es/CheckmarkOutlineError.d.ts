@@ -1,1 +1,1 @@
-export { CheckmarkOutlineError as default } from '../';
+export { CheckmarkOutlineError as default } from "../";

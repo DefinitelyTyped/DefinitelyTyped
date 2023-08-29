@@ -1,1 +1,1 @@
-export { ToolKit as default } from '../';
+export { ToolKit as default } from "../";

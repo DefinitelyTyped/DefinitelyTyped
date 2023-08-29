@@ -1,1 +1,1 @@
-export { DrillThrough as default } from '../';
+export { DrillThrough as default } from "../";

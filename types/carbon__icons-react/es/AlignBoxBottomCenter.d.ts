@@ -1,1 +1,1 @@
-export { AlignBoxBottomCenter as default } from '../';
+export { AlignBoxBottomCenter as default } from "../";

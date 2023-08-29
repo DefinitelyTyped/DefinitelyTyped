@@ -1,1 +1,1 @@
-export { Theater as default } from '../';
+export { Theater as default } from "../";

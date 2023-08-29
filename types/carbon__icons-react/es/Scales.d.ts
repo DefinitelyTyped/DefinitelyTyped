@@ -1,1 +1,1 @@
-export { Scales as default } from '../';
+export { Scales as default } from "../";

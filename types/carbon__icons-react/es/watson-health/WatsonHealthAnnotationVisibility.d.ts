@@ -1,1 +1,1 @@
-export { WatsonHealthAnnotationVisibility as default } from '../../';
+export { WatsonHealthAnnotationVisibility as default } from "../../";

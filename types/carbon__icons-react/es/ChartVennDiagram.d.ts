@@ -1,1 +1,1 @@
-export { ChartVennDiagram as default } from '../';
+export { ChartVennDiagram as default } from "../";

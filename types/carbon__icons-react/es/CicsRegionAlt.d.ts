@@ -1,1 +1,1 @@
-export { CicsRegionAlt as default } from '../';
+export { CicsRegionAlt as default } from "../";

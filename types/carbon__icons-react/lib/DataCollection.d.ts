@@ -1,1 +1,1 @@
-export { DataCollection as default } from '../';
+export { DataCollection as default } from "../";

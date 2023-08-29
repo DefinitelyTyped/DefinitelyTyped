@@ -1,1 +1,1 @@
-export { IncompleteGlyph as default } from '../';
+export { IncompleteGlyph as default } from "../";

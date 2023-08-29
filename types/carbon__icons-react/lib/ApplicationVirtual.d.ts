@@ -1,1 +1,1 @@
-export { ApplicationVirtual as default } from '../';
+export { ApplicationVirtual as default } from "../";

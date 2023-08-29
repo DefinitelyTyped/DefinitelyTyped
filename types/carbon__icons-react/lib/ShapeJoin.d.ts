@@ -1,1 +1,1 @@
-export { ShapeJoin as default } from '../';
+export { ShapeJoin as default } from "../";

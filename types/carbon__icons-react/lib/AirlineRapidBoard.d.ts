@@ -1,1 +1,1 @@
-export { AirlineRapidBoard as default } from '../';
+export { AirlineRapidBoard as default } from "../";

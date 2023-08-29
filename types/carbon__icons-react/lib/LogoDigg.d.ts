@@ -1,1 +1,1 @@
-export { LogoDigg as default } from '../';
+export { LogoDigg as default } from "../";

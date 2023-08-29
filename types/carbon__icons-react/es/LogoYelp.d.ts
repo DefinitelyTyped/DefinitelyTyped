@@ -1,1 +1,1 @@
-export { LogoYelp as default } from '../';
+export { LogoYelp as default } from "../";

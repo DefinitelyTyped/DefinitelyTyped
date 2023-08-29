@@ -1,1 +1,1 @@
-export { CategoryNew as default } from '../';
+export { CategoryNew as default } from "../";

@@ -1,1 +1,1 @@
-export { LogoRScript as default } from '../';
+export { LogoRScript as default } from "../";

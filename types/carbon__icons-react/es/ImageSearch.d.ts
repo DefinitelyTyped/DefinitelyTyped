@@ -1,1 +1,1 @@
-export { ImageSearch as default } from '../';
+export { ImageSearch as default } from "../";

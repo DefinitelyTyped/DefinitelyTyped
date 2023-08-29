@@ -1,1 +1,1 @@
-export { GasStation as default } from '../';
+export { GasStation as default } from "../";

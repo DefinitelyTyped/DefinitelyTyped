@@ -1,1 +1,1 @@
-export { DroneVideo as default } from '../';
+export { DroneVideo as default } from "../";

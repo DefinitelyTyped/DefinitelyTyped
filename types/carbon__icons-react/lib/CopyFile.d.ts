@@ -1,1 +1,1 @@
-export { CopyFile as default } from '../';
+export { CopyFile as default } from "../";

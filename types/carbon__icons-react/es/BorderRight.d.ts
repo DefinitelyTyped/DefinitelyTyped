@@ -1,1 +1,1 @@
-export { BorderRight as default } from '../';
+export { BorderRight as default } from "../";

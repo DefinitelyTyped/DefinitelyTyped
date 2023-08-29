@@ -1,1 +1,1 @@
-export { ChartAreaStepper as default } from '../';
+export { ChartAreaStepper as default } from "../";

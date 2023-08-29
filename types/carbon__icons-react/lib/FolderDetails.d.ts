@@ -1,1 +1,1 @@
-export { FolderDetails as default } from '../';
+export { FolderDetails as default } from "../";

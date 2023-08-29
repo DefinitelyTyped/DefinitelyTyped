@@ -1,1 +1,1 @@
-export { RouterVoice as default } from '../';
+export { RouterVoice as default } from "../";

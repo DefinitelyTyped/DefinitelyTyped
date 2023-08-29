@@ -1,1 +1,1 @@
-export { MapIdentify as default } from '../';
+export { MapIdentify as default } from "../";

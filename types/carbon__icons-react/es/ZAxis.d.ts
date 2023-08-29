@@ -1,1 +1,1 @@
-export { ZAxis as default } from '../';
+export { ZAxis as default } from "../";

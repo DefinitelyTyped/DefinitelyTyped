@@ -1,1 +1,1 @@
-export { SelectWindow as default } from '../';
+export { SelectWindow as default } from "../";

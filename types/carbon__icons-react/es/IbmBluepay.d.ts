@@ -1,1 +1,1 @@
-export { IbmBluepay as default } from '../';
+export { IbmBluepay as default } from "../";

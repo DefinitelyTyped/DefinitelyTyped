@@ -1,1 +1,1 @@
-export { Bullhorn as default } from '../';
+export { Bullhorn as default } from "../";

@@ -1,1 +1,1 @@
-export { WatsonHealthCobbAngle as default } from '../../';
+export { WatsonHealthCobbAngle as default } from "../../";

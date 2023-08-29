@@ -1,1 +1,1 @@
-export { DirectionLoopLeft as default } from '../';
+export { DirectionLoopLeft as default } from "../";

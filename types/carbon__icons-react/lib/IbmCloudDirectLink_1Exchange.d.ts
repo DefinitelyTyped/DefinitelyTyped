@@ -1,1 +1,1 @@
-export { IbmCloudDirectLink_1Exchange as default } from '../';
+export { IbmCloudDirectLink_1Exchange as default } from "../";

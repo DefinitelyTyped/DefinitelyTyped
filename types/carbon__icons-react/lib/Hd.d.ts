@@ -1,1 +1,1 @@
-export { Hd as default } from '../';
+export { Hd as default } from "../";

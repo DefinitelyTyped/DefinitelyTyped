@@ -1,1 +1,1 @@
-export { ChoroplethMap as default } from '../';
+export { ChoroplethMap as default } from "../";

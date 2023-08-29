@@ -1,1 +1,1 @@
-export { BastionHost as default } from '../';
+export { BastionHost as default } from "../";

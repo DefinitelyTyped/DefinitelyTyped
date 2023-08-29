@@ -1,1 +1,1 @@
-export { Scan as default } from '../';
+export { Scan as default } from "../";

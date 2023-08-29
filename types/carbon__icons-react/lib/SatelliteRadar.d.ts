@@ -1,1 +1,1 @@
-export { SatelliteRadar as default } from '../';
+export { SatelliteRadar as default } from "../";

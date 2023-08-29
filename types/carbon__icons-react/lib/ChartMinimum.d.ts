@@ -1,1 +1,1 @@
-export { ChartMinimum as default } from '../';
+export { ChartMinimum as default } from "../";

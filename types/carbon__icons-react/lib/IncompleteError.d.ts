@@ -1,1 +1,1 @@
-export { IncompleteError as default } from '../';
+export { IncompleteError as default } from "../";

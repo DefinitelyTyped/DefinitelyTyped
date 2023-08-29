@@ -1,1 +1,1 @@
-export { IbmCloudPakSystem as default } from '../';
+export { IbmCloudPakSystem as default } from "../";

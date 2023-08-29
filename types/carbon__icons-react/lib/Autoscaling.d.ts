@@ -1,1 +1,1 @@
-export { Autoscaling as default } from '../';
+export { Autoscaling as default } from "../";

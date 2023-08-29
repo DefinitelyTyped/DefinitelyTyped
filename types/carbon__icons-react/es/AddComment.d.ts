@@ -1,1 +1,1 @@
-export { AddComment as default } from '../';
+export { AddComment as default } from "../";

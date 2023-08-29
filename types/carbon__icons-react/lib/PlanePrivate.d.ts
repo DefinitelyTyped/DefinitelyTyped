@@ -1,1 +1,1 @@
-export { PlanePrivate as default } from '../';
+export { PlanePrivate as default } from "../";

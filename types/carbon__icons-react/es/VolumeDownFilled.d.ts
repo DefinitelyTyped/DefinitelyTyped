@@ -1,1 +1,1 @@
-export { VolumeDownFilled as default } from '../';
+export { VolumeDownFilled as default } from "../";

@@ -1,1 +1,1 @@
-export { JoinLeft as default } from '../';
+export { JoinLeft as default } from "../";

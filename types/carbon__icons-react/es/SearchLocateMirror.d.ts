@@ -1,1 +1,1 @@
-export { SearchLocateMirror as default } from '../';
+export { SearchLocateMirror as default } from "../";

@@ -1,1 +1,1 @@
-export { SkipBackSolidFilled as default } from '../';
+export { SkipBackSolidFilled as default } from "../";

@@ -1,1 +1,1 @@
-export { Van as default } from '../';
+export { Van as default } from "../";

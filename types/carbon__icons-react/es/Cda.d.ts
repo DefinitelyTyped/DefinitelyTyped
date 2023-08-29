@@ -1,1 +1,1 @@
-export { Cda as default } from '../';
+export { Cda as default } from "../";

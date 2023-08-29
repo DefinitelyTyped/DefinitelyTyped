@@ -1,1 +1,1 @@
-export { GatewayUserAccess as default } from '../';
+export { GatewayUserAccess as default } from "../";

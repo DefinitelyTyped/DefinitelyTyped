@@ -1,1 +1,1 @@
-export { OpenPanelFilledTop as default } from '../';
+export { OpenPanelFilledTop as default } from "../";

@@ -1,1 +1,1 @@
-export { Milestone as default } from '../';
+export { Milestone as default } from "../";

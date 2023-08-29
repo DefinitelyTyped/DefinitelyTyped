@@ -1,1 +1,1 @@
-export { LightFilled as default } from '../';
+export { LightFilled as default } from "../";

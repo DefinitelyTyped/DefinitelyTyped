@@ -1,1 +1,1 @@
-export { ShoppingCartArrowDown as default } from '../';
+export { ShoppingCartArrowDown as default } from "../";

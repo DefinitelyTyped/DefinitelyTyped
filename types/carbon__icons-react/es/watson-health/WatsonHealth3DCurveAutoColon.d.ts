@@ -1,1 +1,1 @@
-export { WatsonHealth3DCurveAutoColon as default } from '../../';
+export { WatsonHealth3DCurveAutoColon as default } from "../../";

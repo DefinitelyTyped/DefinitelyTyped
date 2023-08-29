@@ -1,1 +1,1 @@
-export { HealthCross as default } from '../';
+export { HealthCross as default } from "../";

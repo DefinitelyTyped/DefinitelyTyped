@@ -1,1 +1,1 @@
-export { WatsonHealth3DCurveManual as default } from '../../';
+export { WatsonHealth3DCurveManual as default } from "../../";

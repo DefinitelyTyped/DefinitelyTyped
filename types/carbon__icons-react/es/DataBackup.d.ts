@@ -1,1 +1,1 @@
-export { DataBackup as default } from '../';
+export { DataBackup as default } from "../";

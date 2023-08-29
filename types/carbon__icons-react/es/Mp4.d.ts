@@ -1,1 +1,1 @@
-export { Mp4 as default } from '../';
+export { Mp4 as default } from "../";

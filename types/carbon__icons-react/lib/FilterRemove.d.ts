@@ -1,1 +1,1 @@
-export { FilterRemove as default } from '../';
+export { FilterRemove as default } from "../";

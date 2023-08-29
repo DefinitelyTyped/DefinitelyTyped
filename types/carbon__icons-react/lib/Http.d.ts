@@ -1,1 +1,1 @@
-export { Http as default } from '../';
+export { Http as default } from "../";

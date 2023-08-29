@@ -1,1 +1,1 @@
-export { Gamification as default } from '../';
+export { Gamification as default } from "../";

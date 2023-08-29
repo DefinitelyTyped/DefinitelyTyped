@@ -1,1 +1,1 @@
-export { Area as default } from '../';
+export { Area as default } from "../";

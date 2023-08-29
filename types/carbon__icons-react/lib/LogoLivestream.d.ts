@@ -1,1 +1,1 @@
-export { LogoLivestream as default } from '../';
+export { LogoLivestream as default } from "../";

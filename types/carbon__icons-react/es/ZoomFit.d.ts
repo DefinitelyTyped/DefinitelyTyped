@@ -1,1 +1,1 @@
-export { ZoomFit as default } from '../';
+export { ZoomFit as default } from "../";

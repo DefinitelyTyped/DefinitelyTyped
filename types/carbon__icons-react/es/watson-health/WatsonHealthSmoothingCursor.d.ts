@@ -1,1 +1,1 @@
-export { WatsonHealthSmoothingCursor as default } from '../../';
+export { WatsonHealthSmoothingCursor as default } from "../../";

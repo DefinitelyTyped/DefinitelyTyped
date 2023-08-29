@@ -1,1 +1,1 @@
-export { Factor as default } from '../';
+export { Factor as default } from "../";

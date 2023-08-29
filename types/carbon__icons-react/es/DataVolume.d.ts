@@ -1,1 +1,1 @@
-export { DataVolume as default } from '../';
+export { DataVolume as default } from "../";

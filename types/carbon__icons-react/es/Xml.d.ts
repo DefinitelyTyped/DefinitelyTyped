@@ -1,1 +1,1 @@
-export { Xml as default } from '../';
+export { Xml as default } from "../";

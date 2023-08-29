@@ -1,1 +1,1 @@
-export { CharacterPatterns as default } from '../';
+export { CharacterPatterns as default } from "../";

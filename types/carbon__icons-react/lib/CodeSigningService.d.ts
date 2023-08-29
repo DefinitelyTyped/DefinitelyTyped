@@ -1,1 +1,1 @@
-export { CodeSigningService as default } from '../';
+export { CodeSigningService as default } from "../";

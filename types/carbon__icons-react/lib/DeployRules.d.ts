@@ -1,1 +1,1 @@
-export { DeployRules as default } from '../';
+export { DeployRules as default } from "../";

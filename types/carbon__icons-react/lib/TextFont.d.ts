@@ -1,1 +1,1 @@
-export { TextFont as default } from '../';
+export { TextFont as default } from "../";

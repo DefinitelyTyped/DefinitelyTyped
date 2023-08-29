@@ -1,1 +1,1 @@
-export { EdtLoop as default } from '../';
+export { EdtLoop as default } from "../";

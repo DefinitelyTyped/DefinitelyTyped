@@ -1,1 +1,1 @@
-export { JsonReference as default } from '../';
+export { JsonReference as default } from "../";

@@ -1,1 +1,1 @@
-export { Send as default } from '../';
+export { Send as default } from "../";

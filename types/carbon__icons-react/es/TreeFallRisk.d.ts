@@ -1,1 +1,1 @@
-export { TreeFallRisk as default } from '../';
+export { TreeFallRisk as default } from "../";

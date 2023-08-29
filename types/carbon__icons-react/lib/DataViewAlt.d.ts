@@ -1,1 +1,1 @@
-export { DataViewAlt as default } from '../';
+export { DataViewAlt as default } from "../";

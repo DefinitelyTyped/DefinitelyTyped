@@ -1,1 +1,1 @@
-export { ViewMode_2 as default } from '../';
+export { ViewMode_2 as default } from "../";

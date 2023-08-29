@@ -1,1 +1,1 @@
-export { CloudMonitoring as default } from '../';
+export { CloudMonitoring as default } from "../";

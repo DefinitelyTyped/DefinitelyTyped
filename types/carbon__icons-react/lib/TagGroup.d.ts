@@ -1,1 +1,1 @@
-export { TagGroup as default } from '../';
+export { TagGroup as default } from "../";

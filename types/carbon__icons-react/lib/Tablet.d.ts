@@ -1,1 +1,1 @@
-export { Tablet as default } from '../';
+export { Tablet as default } from "../";

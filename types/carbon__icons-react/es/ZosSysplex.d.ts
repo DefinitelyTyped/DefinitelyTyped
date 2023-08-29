@@ -1,1 +1,1 @@
-export { ZosSysplex as default } from '../';
+export { ZosSysplex as default } from "../";

@@ -1,1 +1,1 @@
-export { EdgeDevice as default } from '../';
+export { EdgeDevice as default } from "../";

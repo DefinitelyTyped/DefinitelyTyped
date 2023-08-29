@@ -1,1 +1,1 @@
-export { AssetView as default } from '../';
+export { AssetView as default } from "../";

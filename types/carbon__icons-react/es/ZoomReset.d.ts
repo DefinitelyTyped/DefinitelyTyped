@@ -1,1 +1,1 @@
-export { ZoomReset as default } from '../';
+export { ZoomReset as default } from "../";

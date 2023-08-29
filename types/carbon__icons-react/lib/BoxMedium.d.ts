@@ -1,1 +1,1 @@
-export { BoxMedium as default } from '../';
+export { BoxMedium as default } from "../";

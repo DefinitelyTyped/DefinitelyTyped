@@ -1,1 +1,1 @@
-export { Drought as default } from '../';
+export { Drought as default } from "../";

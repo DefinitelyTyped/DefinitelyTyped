@@ -1,1 +1,1 @@
-export { CloudOffline as default } from '../';
+export { CloudOffline as default } from "../";

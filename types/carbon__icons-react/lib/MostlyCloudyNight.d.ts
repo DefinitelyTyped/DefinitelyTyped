@@ -1,1 +1,1 @@
-export { MostlyCloudyNight as default } from '../';
+export { MostlyCloudyNight as default } from "../";

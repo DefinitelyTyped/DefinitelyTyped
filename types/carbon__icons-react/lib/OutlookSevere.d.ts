@@ -1,1 +1,1 @@
-export { OutlookSevere as default } from '../';
+export { OutlookSevere as default } from "../";

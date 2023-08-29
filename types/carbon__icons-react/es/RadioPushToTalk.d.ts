@@ -1,1 +1,1 @@
-export { RadioPushToTalk as default } from '../';
+export { RadioPushToTalk as default } from "../";

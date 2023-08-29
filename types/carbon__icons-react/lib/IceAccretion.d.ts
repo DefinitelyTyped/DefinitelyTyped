@@ -1,1 +1,1 @@
-export { IceAccretion as default } from '../';
+export { IceAccretion as default } from "../";

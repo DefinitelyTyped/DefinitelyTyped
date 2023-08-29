@@ -1,1 +1,1 @@
-export { Ordinal as default } from '../';
+export { Ordinal as default } from "../";

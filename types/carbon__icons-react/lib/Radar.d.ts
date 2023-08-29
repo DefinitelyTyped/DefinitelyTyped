@@ -1,1 +1,1 @@
-export { Radar as default } from '../';
+export { Radar as default } from "../";

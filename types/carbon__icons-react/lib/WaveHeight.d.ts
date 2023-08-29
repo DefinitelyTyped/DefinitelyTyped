@@ -1,1 +1,1 @@
-export { WaveHeight as default } from '../';
+export { WaveHeight as default } from "../";

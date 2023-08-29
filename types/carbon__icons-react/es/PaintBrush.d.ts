@@ -1,1 +1,1 @@
-export { PaintBrush as default } from '../';
+export { PaintBrush as default } from "../";

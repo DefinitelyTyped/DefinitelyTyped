@@ -1,1 +1,1 @@
-export { LogoFacebook as default } from '../';
+export { LogoFacebook as default } from "../";

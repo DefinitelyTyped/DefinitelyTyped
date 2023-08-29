@@ -1,1 +1,1 @@
-export { PreviousFilled as default } from '../';
+export { PreviousFilled as default } from "../";

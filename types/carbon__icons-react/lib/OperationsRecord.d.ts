@@ -1,1 +1,1 @@
-export { OperationsRecord as default } from '../';
+export { OperationsRecord as default } from "../";

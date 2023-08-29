@@ -1,1 +1,1 @@
-export { Money as default } from '../';
+export { Money as default } from "../";

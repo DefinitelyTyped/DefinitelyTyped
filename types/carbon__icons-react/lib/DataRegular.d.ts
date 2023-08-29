@@ -1,1 +1,1 @@
-export { DataRegular as default } from '../';
+export { DataRegular as default } from "../";

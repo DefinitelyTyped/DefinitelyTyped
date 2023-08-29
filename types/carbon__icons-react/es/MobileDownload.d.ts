@@ -1,1 +1,1 @@
-export { MobileDownload as default } from '../';
+export { MobileDownload as default } from "../";

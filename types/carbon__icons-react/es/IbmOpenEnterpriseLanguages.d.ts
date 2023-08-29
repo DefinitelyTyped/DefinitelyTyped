@@ -1,1 +1,1 @@
-export { IbmOpenEnterpriseLanguages as default } from '../';
+export { IbmOpenEnterpriseLanguages as default } from "../";

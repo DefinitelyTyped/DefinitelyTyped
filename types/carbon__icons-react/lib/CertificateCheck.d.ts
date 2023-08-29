@@ -1,1 +1,1 @@
-export { CertificateCheck as default } from '../';
+export { CertificateCheck as default } from "../";

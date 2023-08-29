@@ -1,1 +1,1 @@
-export { Play as default } from '../';
+export { Play as default } from "../";

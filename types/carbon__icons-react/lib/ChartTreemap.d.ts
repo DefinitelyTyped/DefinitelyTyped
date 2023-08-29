@@ -1,1 +1,1 @@
-export { ChartTreemap as default } from '../';
+export { ChartTreemap as default } from "../";

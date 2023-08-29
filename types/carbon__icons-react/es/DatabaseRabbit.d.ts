@@ -1,1 +1,1 @@
-export { DatabaseRabbit as default } from '../';
+export { DatabaseRabbit as default } from "../";

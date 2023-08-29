@@ -1,1 +1,1 @@
-export { ChartSpiral as default } from '../';
+export { ChartSpiral as default } from "../";

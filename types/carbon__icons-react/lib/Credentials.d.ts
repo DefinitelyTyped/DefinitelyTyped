@@ -1,1 +1,1 @@
-export { Credentials as default } from '../';
+export { Credentials as default } from "../";

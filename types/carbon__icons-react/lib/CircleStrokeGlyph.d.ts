@@ -1,1 +1,1 @@
-export { CircleStrokeGlyph as default } from '../';
+export { CircleStrokeGlyph as default } from "../";

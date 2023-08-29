@@ -1,1 +1,1 @@
-export { Collaborate as default } from '../';
+export { Collaborate as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmZEnvironmentsDevSecOps as default } from '../';
+export { IbmZEnvironmentsDevSecOps as default } from "../";

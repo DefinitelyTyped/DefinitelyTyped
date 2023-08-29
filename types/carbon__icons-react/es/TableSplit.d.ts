@@ -1,1 +1,1 @@
-export { TableSplit as default } from '../';
+export { TableSplit as default } from "../";

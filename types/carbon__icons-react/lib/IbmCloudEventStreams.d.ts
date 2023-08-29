@@ -1,1 +1,1 @@
-export { IbmCloudEventStreams as default } from '../';
+export { IbmCloudEventStreams as default } from "../";

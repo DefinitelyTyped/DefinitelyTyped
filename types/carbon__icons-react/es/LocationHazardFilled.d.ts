@@ -1,1 +1,1 @@
-export { LocationHazardFilled as default } from '../';
+export { LocationHazardFilled as default } from "../";

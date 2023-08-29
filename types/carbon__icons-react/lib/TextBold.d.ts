@@ -1,1 +1,1 @@
-export { TextBold as default } from '../';
+export { TextBold as default } from "../";

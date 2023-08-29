@@ -1,1 +1,1 @@
-export { RuleDraft as default } from '../';
+export { RuleDraft as default } from "../";

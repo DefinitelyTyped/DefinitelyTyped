@@ -1,1 +1,1 @@
-export { CharacterDecimal as default } from '../';
+export { CharacterDecimal as default } from "../";

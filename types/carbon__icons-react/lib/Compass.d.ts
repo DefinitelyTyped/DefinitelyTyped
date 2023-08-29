@@ -1,1 +1,1 @@
-export { Compass as default } from '../';
+export { Compass as default } from "../";

@@ -1,1 +1,1 @@
-export { LogoReact as default } from '../';
+export { LogoReact as default } from "../";

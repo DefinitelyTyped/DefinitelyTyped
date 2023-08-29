@@ -1,1 +1,1 @@
-export { PcnMilitary as default } from '../';
+export { PcnMilitary as default } from "../";

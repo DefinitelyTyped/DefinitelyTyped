@@ -1,1 +1,1 @@
-export { Settings as default } from '../';
+export { Settings as default } from "../";

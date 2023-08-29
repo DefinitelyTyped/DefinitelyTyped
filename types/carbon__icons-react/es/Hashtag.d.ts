@@ -1,1 +1,1 @@
-export { Hashtag as default } from '../';
+export { Hashtag as default } from "../";

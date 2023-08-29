@@ -1,1 +1,1 @@
-export { IbmWatsonKnowledgeCatalog as default } from '../';
+export { IbmWatsonKnowledgeCatalog as default } from "../";

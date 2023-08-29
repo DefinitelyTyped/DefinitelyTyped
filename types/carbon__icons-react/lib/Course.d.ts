@@ -1,1 +1,1 @@
-export { Course as default } from '../';
+export { Course as default } from "../";

@@ -1,1 +1,1 @@
-export { Query as default } from '../';
+export { Query as default } from "../";

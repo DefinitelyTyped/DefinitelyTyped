@@ -1,1 +1,1 @@
-export { DataVolumeAlt as default } from '../';
+export { DataVolumeAlt as default } from "../";

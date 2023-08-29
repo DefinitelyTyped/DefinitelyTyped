@@ -1,1 +1,1 @@
-export { Db2Database as default } from '../';
+export { Db2Database as default } from "../";

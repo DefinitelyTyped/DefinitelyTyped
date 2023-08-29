@@ -1,1 +1,1 @@
-export { TemperatureMax as default } from '../';
+export { TemperatureMax as default } from "../";

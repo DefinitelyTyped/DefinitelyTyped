@@ -1,1 +1,1 @@
-export { Tif as default } from '../';
+export { Tif as default } from "../";

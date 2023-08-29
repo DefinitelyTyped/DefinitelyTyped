@@ -1,1 +1,1 @@
-export { TextAlignMixed as default } from '../';
+export { TextAlignMixed as default } from "../";

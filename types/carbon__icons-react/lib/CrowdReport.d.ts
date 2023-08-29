@@ -1,1 +1,1 @@
-export { CrowdReport as default } from '../';
+export { CrowdReport as default } from "../";

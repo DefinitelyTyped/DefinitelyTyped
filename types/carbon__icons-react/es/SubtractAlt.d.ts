@@ -1,1 +1,1 @@
-export { SubtractAlt as default } from '../';
+export { SubtractAlt as default } from "../";

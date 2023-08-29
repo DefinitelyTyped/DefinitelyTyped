@@ -1,1 +1,1 @@
-export { MediaCast as default } from '../';
+export { MediaCast as default } from "../";

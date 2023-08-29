@@ -1,1 +1,1 @@
-export { Quotes as default } from '../';
+export { Quotes as default } from "../";

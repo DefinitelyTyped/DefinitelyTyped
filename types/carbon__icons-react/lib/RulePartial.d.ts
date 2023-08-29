@@ -1,1 +1,1 @@
-export { RulePartial as default } from '../';
+export { RulePartial as default } from "../";

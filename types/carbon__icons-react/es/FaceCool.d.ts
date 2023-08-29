@@ -1,1 +1,1 @@
-export { FaceCool as default } from '../';
+export { FaceCool as default } from "../";

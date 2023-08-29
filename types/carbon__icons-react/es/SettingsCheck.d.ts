@@ -1,1 +1,1 @@
-export { SettingsCheck as default } from '../';
+export { SettingsCheck as default } from "../";

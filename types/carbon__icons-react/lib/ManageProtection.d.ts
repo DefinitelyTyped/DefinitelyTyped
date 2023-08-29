@@ -1,1 +1,1 @@
-export { ManageProtection as default } from '../';
+export { ManageProtection as default } from "../";

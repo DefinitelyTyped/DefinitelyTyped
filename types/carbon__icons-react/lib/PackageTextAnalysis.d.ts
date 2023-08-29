@@ -1,1 +1,1 @@
-export { PackageTextAnalysis as default } from '../';
+export { PackageTextAnalysis as default } from "../";

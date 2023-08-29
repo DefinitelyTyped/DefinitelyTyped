@@ -1,1 +1,1 @@
-export { CommunicationUnified as default } from '../';
+export { CommunicationUnified as default } from "../";

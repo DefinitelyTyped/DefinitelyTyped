@@ -1,1 +1,1 @@
-export { VlanIbm as default } from '../';
+export { VlanIbm as default } from "../";

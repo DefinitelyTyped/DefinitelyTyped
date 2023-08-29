@@ -1,1 +1,1 @@
-export { TextIndent as default } from '../';
+export { TextIndent as default } from "../";

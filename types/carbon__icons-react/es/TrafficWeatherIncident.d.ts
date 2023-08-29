@@ -1,1 +1,1 @@
-export { TrafficWeatherIncident as default } from '../';
+export { TrafficWeatherIncident as default } from "../";

@@ -1,1 +1,1 @@
-export { Buoy as default } from '../';
+export { Buoy as default } from "../";

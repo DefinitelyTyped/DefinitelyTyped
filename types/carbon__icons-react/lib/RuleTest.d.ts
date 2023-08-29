@@ -1,1 +1,1 @@
-export { RuleTest as default } from '../';
+export { RuleTest as default } from "../";

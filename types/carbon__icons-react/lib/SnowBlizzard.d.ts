@@ -1,1 +1,1 @@
-export { SnowBlizzard as default } from '../';
+export { SnowBlizzard as default } from "../";

@@ -1,1 +1,1 @@
-export { MobileCheck as default } from '../';
+export { MobileCheck as default } from "../";

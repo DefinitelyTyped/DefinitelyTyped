@@ -1,1 +1,1 @@
-export { DocumentUnknown as default } from '../';
+export { DocumentUnknown as default } from "../";

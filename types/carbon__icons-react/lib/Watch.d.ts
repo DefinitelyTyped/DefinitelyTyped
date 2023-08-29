@@ -1,1 +1,1 @@
-export { Watch as default } from '../';
+export { Watch as default } from "../";

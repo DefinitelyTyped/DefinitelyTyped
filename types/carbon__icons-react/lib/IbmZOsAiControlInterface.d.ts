@@ -1,1 +1,1 @@
-export { IbmZOsAiControlInterface as default } from '../';
+export { IbmZOsAiControlInterface as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmCloudPrivilegedAccessGateway as default } from '../';
+export { IbmCloudPrivilegedAccessGateway as default } from "../";

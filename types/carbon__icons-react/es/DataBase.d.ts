@@ -1,1 +1,1 @@
-export { DataBase as default } from '../';
+export { DataBase as default } from "../";

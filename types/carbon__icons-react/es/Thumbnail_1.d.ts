@@ -1,1 +1,1 @@
-export { Thumbnail_1 as default } from '../';
+export { Thumbnail_1 as default } from "../";

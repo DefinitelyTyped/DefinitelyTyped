@@ -1,1 +1,1 @@
-export { CarbonUiBuilder as default } from '../';
+export { CarbonUiBuilder as default } from "../";

@@ -1,1 +1,1 @@
-export { CharacterUpperCase as default } from '../';
+export { CharacterUpperCase as default } from "../";

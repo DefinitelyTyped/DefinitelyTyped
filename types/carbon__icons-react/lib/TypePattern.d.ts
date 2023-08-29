@@ -1,1 +1,1 @@
-export { TypePattern as default } from '../';
+export { TypePattern as default } from "../";

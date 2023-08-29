@@ -1,1 +1,1 @@
-export { FlowData as default } from '../';
+export { FlowData as default } from "../";

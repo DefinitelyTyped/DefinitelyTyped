@@ -1,1 +1,1 @@
-export { FlagFilled as default } from '../';
+export { FlagFilled as default } from "../";

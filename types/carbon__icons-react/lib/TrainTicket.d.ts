@@ -1,1 +1,1 @@
-export { TrainTicket as default } from '../';
+export { TrainTicket as default } from "../";

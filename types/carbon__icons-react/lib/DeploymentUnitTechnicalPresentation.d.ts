@@ -1,1 +1,1 @@
-export { DeploymentUnitTechnicalPresentation as default } from '../';
+export { DeploymentUnitTechnicalPresentation as default } from "../";

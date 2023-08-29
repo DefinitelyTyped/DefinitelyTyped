@@ -1,1 +1,1 @@
-export { VirtualMachine as default } from '../';
+export { VirtualMachine as default } from "../";

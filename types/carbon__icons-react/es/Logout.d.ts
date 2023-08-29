@@ -1,1 +1,1 @@
-export { Logout as default } from '../';
+export { Logout as default } from "../";

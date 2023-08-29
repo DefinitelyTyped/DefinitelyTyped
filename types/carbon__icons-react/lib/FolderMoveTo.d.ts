@@ -1,1 +1,1 @@
-export { FolderMoveTo as default } from '../';
+export { FolderMoveTo as default } from "../";

@@ -1,1 +1,1 @@
-export { Usb as default } from '../';
+export { Usb as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmCloudContinuousDelivery as default } from '../';
+export { IbmCloudContinuousDelivery as default } from "../";

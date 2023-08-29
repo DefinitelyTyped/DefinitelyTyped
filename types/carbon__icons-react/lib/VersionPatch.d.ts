@@ -1,1 +1,1 @@
-export { VersionPatch as default } from '../';
+export { VersionPatch as default } from "../";

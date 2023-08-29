@@ -1,1 +1,1 @@
-export { CloudSatelliteConfig as default } from '../';
+export { CloudSatelliteConfig as default } from "../";

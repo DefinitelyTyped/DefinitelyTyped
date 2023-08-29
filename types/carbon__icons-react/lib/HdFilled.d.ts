@@ -1,1 +1,1 @@
-export { HdFilled as default } from '../';
+export { HdFilled as default } from "../";

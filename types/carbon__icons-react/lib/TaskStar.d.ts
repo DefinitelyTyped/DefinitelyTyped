@@ -1,1 +1,1 @@
-export { TaskStar as default } from '../';
+export { TaskStar as default } from "../";

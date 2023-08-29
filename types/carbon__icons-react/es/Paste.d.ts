@@ -1,1 +1,1 @@
-export { Paste as default } from '../';
+export { Paste as default } from "../";

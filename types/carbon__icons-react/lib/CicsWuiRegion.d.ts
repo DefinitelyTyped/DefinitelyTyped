@@ -1,1 +1,1 @@
-export { CicsWuiRegion as default } from '../';
+export { CicsWuiRegion as default } from "../";

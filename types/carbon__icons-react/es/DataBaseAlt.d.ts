@@ -1,1 +1,1 @@
-export { DataBaseAlt as default } from '../';
+export { DataBaseAlt as default } from "../";

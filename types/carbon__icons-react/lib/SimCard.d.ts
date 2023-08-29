@@ -1,1 +1,1 @@
-export { SimCard as default } from '../';
+export { SimCard as default } from "../";

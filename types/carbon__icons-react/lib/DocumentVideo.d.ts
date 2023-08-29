@@ -1,1 +1,1 @@
-export { DocumentVideo as default } from '../';
+export { DocumentVideo as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmWatsonDiscovery as default } from '../';
+export { IbmWatsonDiscovery as default } from "../";

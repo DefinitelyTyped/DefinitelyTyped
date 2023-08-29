@@ -1,1 +1,1 @@
-export { LocationPerson as default } from '../';
+export { LocationPerson as default } from "../";

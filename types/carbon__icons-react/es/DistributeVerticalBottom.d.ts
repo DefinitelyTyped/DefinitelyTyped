@@ -1,1 +1,1 @@
-export { DistributeVerticalBottom as default } from '../';
+export { DistributeVerticalBottom as default } from "../";

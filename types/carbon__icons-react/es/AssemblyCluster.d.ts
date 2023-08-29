@@ -1,1 +1,1 @@
-export { AssemblyCluster as default } from '../';
+export { AssemblyCluster as default } from "../";

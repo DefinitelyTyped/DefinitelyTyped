@@ -1,1 +1,1 @@
-export { InstanceBx as default } from '../';
+export { InstanceBx as default } from "../";

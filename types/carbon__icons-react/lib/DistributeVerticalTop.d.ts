@@ -1,1 +1,1 @@
-export { DistributeVerticalTop as default } from '../';
+export { DistributeVerticalTop as default } from "../";

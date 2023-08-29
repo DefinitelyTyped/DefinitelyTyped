@@ -1,1 +1,1 @@
-export { IbmCloudForEducation as default } from '../';
+export { IbmCloudForEducation as default } from "../";

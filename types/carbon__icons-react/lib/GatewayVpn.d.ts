@@ -1,1 +1,1 @@
-export { GatewayVpn as default } from '../';
+export { GatewayVpn as default } from "../";

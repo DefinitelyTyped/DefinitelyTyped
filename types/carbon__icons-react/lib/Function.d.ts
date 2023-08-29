@@ -1,1 +1,1 @@
-export { Function as default } from '../';
+export { Function as default } from "../";

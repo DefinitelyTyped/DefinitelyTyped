@@ -1,1 +1,1 @@
-export { LogoAngular as default } from '../';
+export { LogoAngular as default } from "../";

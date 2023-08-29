@@ -1,1 +1,1 @@
-export { Switcher as default } from '../';
+export { Switcher as default } from "../";

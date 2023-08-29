@@ -1,1 +1,1 @@
-export { IbmWatsonTextToSpeech as default } from '../';
+export { IbmWatsonTextToSpeech as default } from "../";

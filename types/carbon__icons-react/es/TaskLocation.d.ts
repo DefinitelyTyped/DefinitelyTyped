@@ -1,1 +1,1 @@
-export { TaskLocation as default } from '../';
+export { TaskLocation as default } from "../";

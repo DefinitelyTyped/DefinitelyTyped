@@ -1,1 +1,1 @@
-export { VegetationAsset as default } from '../';
+export { VegetationAsset as default } from "../";

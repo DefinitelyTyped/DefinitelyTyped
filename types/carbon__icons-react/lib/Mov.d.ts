@@ -1,1 +1,1 @@
-export { Mov as default } from '../';
+export { Mov as default } from "../";

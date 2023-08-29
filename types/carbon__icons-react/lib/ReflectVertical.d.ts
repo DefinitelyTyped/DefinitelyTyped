@@ -1,1 +1,1 @@
-export { ReflectVertical as default } from '../';
+export { ReflectVertical as default } from "../";

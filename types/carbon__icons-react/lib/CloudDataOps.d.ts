@@ -1,1 +1,1 @@
-export { CloudDataOps as default } from '../';
+export { CloudDataOps as default } from "../";

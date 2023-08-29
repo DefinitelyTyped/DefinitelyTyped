@@ -1,1 +1,1 @@
-export { Db2BufferPool as default } from '../';
+export { Db2BufferPool as default } from "../";

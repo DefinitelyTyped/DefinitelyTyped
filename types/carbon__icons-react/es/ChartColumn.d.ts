@@ -1,1 +1,1 @@
-export { ChartColumn as default } from '../';
+export { ChartColumn as default } from "../";

@@ -1,1 +1,1 @@
-export { CloudLogging as default } from '../';
+export { CloudLogging as default } from "../";

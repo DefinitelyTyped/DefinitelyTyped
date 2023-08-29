@@ -1,1 +1,1 @@
-export { GatewayPublic as default } from '../';
+export { GatewayPublic as default } from "../";

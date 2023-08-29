@@ -1,1 +1,1 @@
-export { IbmMatch_360 as default } from '../';
+export { IbmMatch_360 as default } from "../";

@@ -1,1 +1,1 @@
-export { WorshipMuslim as default } from '../';
+export { WorshipMuslim as default } from "../";

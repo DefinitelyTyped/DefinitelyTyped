@@ -1,1 +1,1 @@
-export { CodeReference as default } from '../';
+export { CodeReference as default } from "../";

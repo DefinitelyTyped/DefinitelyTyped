@@ -1,1 +1,1 @@
-export { DocumentSubtract as default } from '../';
+export { DocumentSubtract as default } from "../";

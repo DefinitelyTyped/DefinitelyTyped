@@ -1,1 +1,1 @@
-export { InstanceClassic as default } from '../';
+export { InstanceClassic as default } from "../";

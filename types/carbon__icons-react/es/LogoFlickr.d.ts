@@ -1,1 +1,1 @@
-export { LogoFlickr as default } from '../';
+export { LogoFlickr as default } from "../";

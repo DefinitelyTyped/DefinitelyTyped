@@ -1,1 +1,1 @@
-export { ChartMultitype as default } from '../';
+export { ChartMultitype as default } from "../";

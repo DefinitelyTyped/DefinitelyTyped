@@ -1,1 +1,1 @@
-export { InformationFilled as default } from '../';
+export { InformationFilled as default } from "../";

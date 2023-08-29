@@ -1,1 +1,1 @@
-export { MachineLearningModel as default } from '../';
+export { MachineLearningModel as default } from "../";

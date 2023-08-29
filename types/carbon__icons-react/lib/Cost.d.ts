@@ -1,1 +1,1 @@
-export { Cost as default } from '../';
+export { Cost as default } from "../";

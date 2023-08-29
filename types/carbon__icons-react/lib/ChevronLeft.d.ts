@@ -1,1 +1,1 @@
-export { ChevronLeft as default } from '../';
+export { ChevronLeft as default } from "../";

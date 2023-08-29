@@ -1,1 +1,1 @@
-export { PortInput as default } from '../';
+export { PortInput as default } from "../";

@@ -1,1 +1,1 @@
-export { DropPhotoFilled as default } from '../';
+export { DropPhotoFilled as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmCloudSecurityComplianceCenterWorkloadProtection as default } from '../';
+export { IbmCloudSecurityComplianceCenterWorkloadProtection as default } from "../";

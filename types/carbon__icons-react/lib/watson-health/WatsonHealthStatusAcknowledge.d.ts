@@ -1,1 +1,1 @@
-export { WatsonHealthStatusAcknowledge as default } from '../../';
+export { WatsonHealthStatusAcknowledge as default } from "../../";

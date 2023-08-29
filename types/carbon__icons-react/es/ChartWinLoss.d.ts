@@ -1,1 +1,1 @@
-export { ChartWinLoss as default } from '../';
+export { ChartWinLoss as default } from "../";

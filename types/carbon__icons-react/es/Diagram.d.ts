@@ -1,1 +1,1 @@
-export { Diagram as default } from '../';
+export { Diagram as default } from "../";

@@ -1,1 +1,1 @@
-export { WatsonHealthICa_2D as default } from '../../';
+export { WatsonHealthICa_2D as default } from "../../";

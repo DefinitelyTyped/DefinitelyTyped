@@ -1,1 +1,1 @@
-export { Explore as default } from '../';
+export { Explore as default } from "../";

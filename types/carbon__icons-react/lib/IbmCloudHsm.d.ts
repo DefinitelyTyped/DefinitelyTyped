@@ -1,1 +1,1 @@
-export { IbmCloudHsm as default } from '../';
+export { IbmCloudHsm as default } from "../";

@@ -1,1 +1,1 @@
-export { ChartRiver as default } from '../';
+export { ChartRiver as default } from "../";

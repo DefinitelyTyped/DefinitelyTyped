@@ -1,1 +1,1 @@
-export { AnalyticsCustom as default } from '../';
+export { AnalyticsCustom as default } from "../";

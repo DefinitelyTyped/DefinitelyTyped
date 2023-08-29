@@ -1,1 +1,1 @@
-export { NumberSmall_6 as default } from '../';
+export { NumberSmall_6 as default } from "../";

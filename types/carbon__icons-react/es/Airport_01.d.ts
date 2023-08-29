@@ -1,1 +1,1 @@
-export { Airport_01 as default } from '../';
+export { Airport_01 as default } from "../";

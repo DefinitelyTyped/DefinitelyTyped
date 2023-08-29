@@ -1,1 +1,1 @@
-export { ConnectRecursive as default } from '../';
+export { ConnectRecursive as default } from "../";

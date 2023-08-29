@@ -1,1 +1,1 @@
-export { TagImport as default } from '../';
+export { TagImport as default } from "../";

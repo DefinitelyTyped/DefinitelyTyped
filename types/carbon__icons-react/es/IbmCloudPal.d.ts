@@ -1,1 +1,1 @@
-export { IbmCloudPal as default } from '../';
+export { IbmCloudPal as default } from "../";

@@ -1,1 +1,1 @@
-export { CutOut as default } from '../';
+export { CutOut as default } from "../";

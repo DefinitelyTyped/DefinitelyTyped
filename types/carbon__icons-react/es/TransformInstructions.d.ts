@@ -1,1 +1,1 @@
-export { TransformInstructions as default } from '../';
+export { TransformInstructions as default } from "../";

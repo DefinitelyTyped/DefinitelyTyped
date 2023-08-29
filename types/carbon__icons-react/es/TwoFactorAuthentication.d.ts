@@ -1,1 +1,1 @@
-export { TwoFactorAuthentication as default } from '../';
+export { TwoFactorAuthentication as default } from "../";

@@ -1,1 +1,1 @@
-export { PiggyBankSlot as default } from '../';
+export { PiggyBankSlot as default } from "../";

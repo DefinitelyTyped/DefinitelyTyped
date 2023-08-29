@@ -1,1 +1,1 @@
-export { QqPlot as default } from '../';
+export { QqPlot as default } from "../";

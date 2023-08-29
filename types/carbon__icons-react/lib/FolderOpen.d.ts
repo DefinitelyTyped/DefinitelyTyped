@@ -1,1 +1,1 @@
-export { FolderOpen as default } from '../';
+export { FolderOpen as default } from "../";

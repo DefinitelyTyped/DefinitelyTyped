@@ -1,1 +1,1 @@
-export { TextClearFormat as default } from '../';
+export { TextClearFormat as default } from "../";

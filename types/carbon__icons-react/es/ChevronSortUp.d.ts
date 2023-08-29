@@ -1,1 +1,1 @@
-export { ChevronSortUp as default } from '../';
+export { ChevronSortUp as default } from "../";

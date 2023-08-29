@@ -1,1 +1,1 @@
-export { TrafficFlowIncident as default } from '../';
+export { TrafficFlowIncident as default } from "../";

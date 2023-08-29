@@ -1,1 +1,1 @@
-export { BookmarkAdd as default } from '../';
+export { BookmarkAdd as default } from "../";

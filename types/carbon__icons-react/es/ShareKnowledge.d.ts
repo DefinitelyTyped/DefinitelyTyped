@@ -1,1 +1,1 @@
-export { ShareKnowledge as default } from '../';
+export { ShareKnowledge as default } from "../";

@@ -1,1 +1,1 @@
-export { WatsonHealthAiStatusRejected as default } from '../../';
+export { WatsonHealthAiStatusRejected as default } from "../../";

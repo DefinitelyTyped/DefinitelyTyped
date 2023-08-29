@@ -1,1 +1,1 @@
-export { Cyclist as default } from '../';
+export { Cyclist as default } from "../";

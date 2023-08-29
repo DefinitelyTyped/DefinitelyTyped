@@ -1,1 +1,1 @@
-export { AsleepFilled as default } from '../';
+export { AsleepFilled as default } from "../";

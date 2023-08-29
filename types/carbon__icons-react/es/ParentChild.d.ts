@@ -1,1 +1,1 @@
-export { ParentChild as default } from '../';
+export { ParentChild as default } from "../";

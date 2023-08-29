@@ -1,1 +1,1 @@
-export { VideoAdd as default } from '../';
+export { VideoAdd as default } from "../";

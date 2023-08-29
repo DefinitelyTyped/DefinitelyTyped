@@ -1,1 +1,1 @@
-export { PauseFilled as default } from '../';
+export { PauseFilled as default } from "../";

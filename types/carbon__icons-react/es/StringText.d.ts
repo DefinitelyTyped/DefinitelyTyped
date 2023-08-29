@@ -1,1 +1,1 @@
-export { StringText as default } from '../';
+export { StringText as default } from "../";

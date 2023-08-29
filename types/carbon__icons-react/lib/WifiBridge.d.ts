@@ -1,1 +1,1 @@
-export { WifiBridge as default } from '../';
+export { WifiBridge as default } from "../";

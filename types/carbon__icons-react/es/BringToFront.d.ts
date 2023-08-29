@@ -1,1 +1,1 @@
-export { BringToFront as default } from '../';
+export { BringToFront as default } from "../";

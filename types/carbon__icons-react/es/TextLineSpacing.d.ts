@@ -1,1 +1,1 @@
-export { TextLineSpacing as default } from '../';
+export { TextLineSpacing as default } from "../";

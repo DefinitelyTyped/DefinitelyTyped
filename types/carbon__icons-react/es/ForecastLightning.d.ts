@@ -1,1 +1,1 @@
-export { ForecastLightning as default } from '../';
+export { ForecastLightning as default } from "../";

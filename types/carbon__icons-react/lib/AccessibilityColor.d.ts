@@ -1,1 +1,1 @@
-export { AccessibilityColor as default } from '../';
+export { AccessibilityColor as default } from "../";

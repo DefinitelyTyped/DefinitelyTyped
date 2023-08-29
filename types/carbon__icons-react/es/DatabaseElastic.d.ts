@@ -1,1 +1,1 @@
-export { DatabaseElastic as default } from '../';
+export { DatabaseElastic as default } from "../";

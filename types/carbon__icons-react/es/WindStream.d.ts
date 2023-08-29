@@ -1,1 +1,1 @@
-export { WindStream as default } from '../';
+export { WindStream as default } from "../";

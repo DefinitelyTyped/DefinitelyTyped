@@ -1,1 +1,1 @@
-export { TextItalic as default } from '../';
+export { TextItalic as default } from "../";

@@ -1,1 +1,1 @@
-export { Growth as default } from '../';
+export { Growth as default } from "../";

@@ -1,1 +1,1 @@
-export { PhraseSentiment as default } from '../';
+export { PhraseSentiment as default } from "../";

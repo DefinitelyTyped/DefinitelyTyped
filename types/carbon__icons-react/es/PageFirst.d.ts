@@ -1,1 +1,1 @@
-export { PageFirst as default } from '../';
+export { PageFirst as default } from "../";

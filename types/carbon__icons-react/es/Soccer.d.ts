@@ -1,1 +1,1 @@
-export { Soccer as default } from '../';
+export { Soccer as default } from "../";

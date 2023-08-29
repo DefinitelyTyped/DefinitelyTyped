@@ -1,1 +1,1 @@
-export { PartitionCollection as default } from '../';
+export { PartitionCollection as default } from "../";

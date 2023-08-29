@@ -1,1 +1,1 @@
-export { AirlineDigitalGate as default } from '../';
+export { AirlineDigitalGate as default } from "../";

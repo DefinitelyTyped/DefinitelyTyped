@@ -1,1 +1,1 @@
-export { DataUnstructured as default } from '../';
+export { DataUnstructured as default } from "../";

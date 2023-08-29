@@ -1,1 +1,1 @@
-export { Idea as default } from '../';
+export { Idea as default } from "../";

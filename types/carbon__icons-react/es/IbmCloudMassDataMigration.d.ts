@@ -1,1 +1,1 @@
-export { IbmCloudMassDataMigration as default } from '../';
+export { IbmCloudMassDataMigration as default } from "../";

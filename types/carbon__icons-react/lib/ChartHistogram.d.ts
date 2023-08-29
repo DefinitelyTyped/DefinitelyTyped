@@ -1,1 +1,1 @@
-export { ChartHistogram as default } from '../';
+export { ChartHistogram as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmVsiOnVpcForRegulatedIndustries as default } from '../';
+export { IbmVsiOnVpcForRegulatedIndustries as default } from "../";

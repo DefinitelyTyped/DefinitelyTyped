@@ -1,1 +1,1 @@
-export { SupportVectorMachine as default } from '../';
+export { SupportVectorMachine as default } from "../";

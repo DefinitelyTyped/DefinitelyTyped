@@ -1,1 +1,1 @@
-export { DocumentAttachment as default } from '../';
+export { DocumentAttachment as default } from "../";

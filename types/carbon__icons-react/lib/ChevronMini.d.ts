@@ -1,1 +1,1 @@
-export { ChevronMini as default } from '../';
+export { ChevronMini as default } from "../";

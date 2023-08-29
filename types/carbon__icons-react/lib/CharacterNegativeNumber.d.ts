@@ -1,1 +1,1 @@
-export { CharacterNegativeNumber as default } from '../';
+export { CharacterNegativeNumber as default } from "../";

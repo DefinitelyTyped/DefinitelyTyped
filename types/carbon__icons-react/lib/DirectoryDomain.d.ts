@@ -1,1 +1,1 @@
-export { DirectoryDomain as default } from '../';
+export { DirectoryDomain as default } from "../";

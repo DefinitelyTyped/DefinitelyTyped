@@ -1,1 +1,1 @@
-export { DirectionSharpTurnFilled as default } from '../';
+export { DirectionSharpTurnFilled as default } from "../";

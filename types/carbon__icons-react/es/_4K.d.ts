@@ -1,1 +1,1 @@
-export { _4K as default } from '../';
+export { _4K as default } from "../";

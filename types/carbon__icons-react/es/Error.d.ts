@@ -1,1 +1,1 @@
-export { Error as default } from '../';
+export { Error as default } from "../";

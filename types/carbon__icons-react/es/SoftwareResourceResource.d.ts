@@ -1,1 +1,1 @@
-export { SoftwareResourceResource as default } from '../';
+export { SoftwareResourceResource as default } from "../";

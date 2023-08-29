@@ -1,1 +1,1 @@
-export { Plane as default } from '../';
+export { Plane as default } from "../";

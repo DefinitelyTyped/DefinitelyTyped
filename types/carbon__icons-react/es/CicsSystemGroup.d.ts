@@ -1,1 +1,1 @@
-export { CicsSystemGroup as default } from '../';
+export { CicsSystemGroup as default } from "../";

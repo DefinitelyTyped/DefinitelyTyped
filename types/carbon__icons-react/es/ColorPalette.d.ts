@@ -1,1 +1,1 @@
-export { ColorPalette as default } from '../';
+export { ColorPalette as default } from "../";

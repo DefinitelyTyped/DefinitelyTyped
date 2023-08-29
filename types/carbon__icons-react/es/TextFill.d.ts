@@ -1,1 +1,1 @@
-export { TextFill as default } from '../';
+export { TextFill as default } from "../";

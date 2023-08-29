@@ -1,1 +1,1 @@
-export { IbmCloudSecretsManager as default } from '../';
+export { IbmCloudSecretsManager as default } from "../";

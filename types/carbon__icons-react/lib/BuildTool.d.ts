@@ -1,1 +1,1 @@
-export { BuildTool as default } from '../';
+export { BuildTool as default } from "../";

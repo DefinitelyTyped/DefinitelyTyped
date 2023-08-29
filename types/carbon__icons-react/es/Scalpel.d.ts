@@ -1,1 +1,1 @@
-export { Scalpel as default } from '../';
+export { Scalpel as default } from "../";

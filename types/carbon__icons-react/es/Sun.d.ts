@@ -1,1 +1,1 @@
-export { Sun as default } from '../';
+export { Sun as default } from "../";

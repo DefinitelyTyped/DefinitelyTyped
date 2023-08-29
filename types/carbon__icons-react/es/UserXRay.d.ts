@@ -1,1 +1,1 @@
-export { UserXRay as default } from '../';
+export { UserXRay as default } from "../";

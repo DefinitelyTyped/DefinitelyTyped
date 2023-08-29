@@ -1,1 +1,1 @@
-export { FloatingIp as default } from '../';
+export { FloatingIp as default } from "../";

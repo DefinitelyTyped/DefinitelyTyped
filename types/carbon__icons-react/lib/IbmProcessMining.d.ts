@@ -1,1 +1,1 @@
-export { IbmProcessMining as default } from '../';
+export { IbmProcessMining as default } from "../";

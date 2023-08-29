@@ -1,1 +1,1 @@
-export { LocationStarFilled as default } from '../';
+export { LocationStarFilled as default } from "../";

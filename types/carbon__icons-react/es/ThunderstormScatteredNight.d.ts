@@ -1,1 +1,1 @@
-export { ThunderstormScatteredNight as default } from '../';
+export { ThunderstormScatteredNight as default } from "../";

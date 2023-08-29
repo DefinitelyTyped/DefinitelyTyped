@@ -1,1 +1,1 @@
-export { IbmCloudResiliency as default } from '../';
+export { IbmCloudResiliency as default } from "../";

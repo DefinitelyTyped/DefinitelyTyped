@@ -1,1 +1,1 @@
-export { InstanceVirtual as default } from '../';
+export { InstanceVirtual as default } from "../";

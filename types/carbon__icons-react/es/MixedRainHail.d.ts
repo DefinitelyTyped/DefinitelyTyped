@@ -1,1 +1,1 @@
-export { MixedRainHail as default } from '../';
+export { MixedRainHail as default } from "../";

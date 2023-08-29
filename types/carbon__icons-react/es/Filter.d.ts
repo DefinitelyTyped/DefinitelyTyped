@@ -1,1 +1,1 @@
-export { Filter as default } from '../';
+export { Filter as default } from "../";

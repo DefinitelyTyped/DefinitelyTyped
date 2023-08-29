@@ -1,1 +1,1 @@
-export { CloudFoundry_2 as default } from '../';
+export { CloudFoundry_2 as default } from "../";

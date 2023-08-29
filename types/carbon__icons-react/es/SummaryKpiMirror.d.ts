@@ -1,1 +1,1 @@
-export { SummaryKpiMirror as default } from '../';
+export { SummaryKpiMirror as default } from "../";

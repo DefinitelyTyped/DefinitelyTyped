@@ -1,1 +1,1 @@
-export { Smell as default } from '../';
+export { Smell as default } from "../";

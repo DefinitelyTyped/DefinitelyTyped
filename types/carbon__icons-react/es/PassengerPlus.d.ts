@@ -1,1 +1,1 @@
-export { PassengerPlus as default } from '../';
+export { PassengerPlus as default } from "../";

@@ -1,1 +1,1 @@
-export { ChartBullet as default } from '../';
+export { ChartBullet as default } from "../";

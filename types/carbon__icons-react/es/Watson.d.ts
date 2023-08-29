@@ -1,1 +1,1 @@
-export { Watson as default } from '../';
+export { Watson as default } from "../";

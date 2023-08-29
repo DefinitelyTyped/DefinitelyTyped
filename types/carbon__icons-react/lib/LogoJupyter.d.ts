@@ -1,1 +1,1 @@
-export { LogoJupyter as default } from '../';
+export { LogoJupyter as default } from "../";

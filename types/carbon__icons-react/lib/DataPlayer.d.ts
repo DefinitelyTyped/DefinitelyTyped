@@ -1,1 +1,1 @@
-export { DataPlayer as default } from '../';
+export { DataPlayer as default } from "../";

@@ -1,1 +1,1 @@
-export { NetworkOverlay as default } from '../';
+export { NetworkOverlay as default } from "../";

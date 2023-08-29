@@ -1,1 +1,1 @@
-export { SplitScreen as default } from '../';
+export { SplitScreen as default } from "../";

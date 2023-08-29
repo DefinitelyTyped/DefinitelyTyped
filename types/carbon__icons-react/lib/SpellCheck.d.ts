@@ -1,1 +1,1 @@
-export { SpellCheck as default } from '../';
+export { SpellCheck as default } from "../";

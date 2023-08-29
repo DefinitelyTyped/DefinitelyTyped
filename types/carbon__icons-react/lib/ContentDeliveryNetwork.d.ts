@@ -1,1 +1,1 @@
-export { ContentDeliveryNetwork as default } from '../';
+export { ContentDeliveryNetwork as default } from "../";

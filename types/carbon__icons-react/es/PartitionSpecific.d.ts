@@ -1,1 +1,1 @@
-export { PartitionSpecific as default } from '../';
+export { PartitionSpecific as default } from "../";

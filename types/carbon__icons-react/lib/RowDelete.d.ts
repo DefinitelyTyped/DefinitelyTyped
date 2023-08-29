@@ -1,1 +1,1 @@
-export { RowDelete as default } from '../';
+export { RowDelete as default } from "../";

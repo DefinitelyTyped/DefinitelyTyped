@@ -1,1 +1,1 @@
-export { LogoSvelte as default } from '../';
+export { LogoSvelte as default } from "../";

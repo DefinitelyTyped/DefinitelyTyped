@@ -1,1 +1,1 @@
-export { InsertPage as default } from '../';
+export { InsertPage as default } from "../";

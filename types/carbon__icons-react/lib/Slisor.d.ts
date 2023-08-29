@@ -1,1 +1,1 @@
-export { Slisor as default } from '../';
+export { Slisor as default } from "../";

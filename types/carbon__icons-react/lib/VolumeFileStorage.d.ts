@@ -1,1 +1,1 @@
-export { VolumeFileStorage as default } from '../';
+export { VolumeFileStorage as default } from "../";

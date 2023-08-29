@@ -1,1 +1,1 @@
-export { Barcode as default } from '../';
+export { Barcode as default } from "../";

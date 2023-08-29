@@ -1,1 +1,1 @@
-export { Rewind_30 as default } from '../';
+export { Rewind_30 as default } from "../";

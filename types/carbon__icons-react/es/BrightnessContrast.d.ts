@@ -1,1 +1,1 @@
-export { BrightnessContrast as default } from '../';
+export { BrightnessContrast as default } from "../";

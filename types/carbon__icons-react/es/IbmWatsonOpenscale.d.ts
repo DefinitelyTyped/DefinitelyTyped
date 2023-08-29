@@ -1,1 +1,1 @@
-export { IbmWatsonOpenscale as default } from '../';
+export { IbmWatsonOpenscale as default } from "../";

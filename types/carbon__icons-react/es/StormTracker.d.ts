@@ -1,1 +1,1 @@
-export { StormTracker as default } from '../';
+export { StormTracker as default } from "../";

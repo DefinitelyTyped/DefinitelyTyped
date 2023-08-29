@@ -1,1 +1,1 @@
-export { Router as default } from '../';
+export { Router as default } from "../";

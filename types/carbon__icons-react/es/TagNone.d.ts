@@ -1,1 +1,1 @@
-export { TagNone as default } from '../';
+export { TagNone as default } from "../";

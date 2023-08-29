@@ -1,1 +1,1 @@
-export { WatsonHealthQcLaunch as default } from '../../';
+export { WatsonHealthQcLaunch as default } from "../../";

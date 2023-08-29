@@ -1,1 +1,1 @@
-export { IbmCloudProjects as default } from '../';
+export { IbmCloudProjects as default } from "../";

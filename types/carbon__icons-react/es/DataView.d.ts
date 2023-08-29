@@ -1,1 +1,1 @@
-export { DataView as default } from '../';
+export { DataView as default } from "../";

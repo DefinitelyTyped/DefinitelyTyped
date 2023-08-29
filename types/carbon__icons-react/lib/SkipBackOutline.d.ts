@@ -1,1 +1,1 @@
-export { SkipBackOutline as default } from '../';
+export { SkipBackOutline as default } from "../";

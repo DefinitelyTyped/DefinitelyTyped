@@ -1,1 +1,1 @@
-export { IbmWatsonStudio as default } from '../';
+export { IbmWatsonStudio as default } from "../";

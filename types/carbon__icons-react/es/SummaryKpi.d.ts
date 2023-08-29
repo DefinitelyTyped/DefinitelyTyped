@@ -1,1 +1,1 @@
-export { SummaryKpi as default } from '../';
+export { SummaryKpi as default } from "../";

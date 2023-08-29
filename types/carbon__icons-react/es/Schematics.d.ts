@@ -1,1 +1,1 @@
-export { Schematics as default } from '../';
+export { Schematics as default } from "../";

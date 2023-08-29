@@ -1,1 +1,1 @@
-export { Jpg as default } from '../';
+export { Jpg as default } from "../";

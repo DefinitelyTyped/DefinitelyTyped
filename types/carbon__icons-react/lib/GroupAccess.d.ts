@@ -1,1 +1,1 @@
-export { GroupAccess as default } from '../';
+export { GroupAccess as default } from "../";

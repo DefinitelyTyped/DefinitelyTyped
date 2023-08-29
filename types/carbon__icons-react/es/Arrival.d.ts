@@ -1,1 +1,1 @@
-export { Arrival as default } from '../';
+export { Arrival as default } from "../";

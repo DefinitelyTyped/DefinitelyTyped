@@ -1,1 +1,1 @@
-export { EdgeCluster as default } from '../';
+export { EdgeCluster as default } from "../";

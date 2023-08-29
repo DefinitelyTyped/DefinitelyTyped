@@ -1,1 +1,1 @@
-export { AudioConsole as default } from '../';
+export { AudioConsole as default } from "../";

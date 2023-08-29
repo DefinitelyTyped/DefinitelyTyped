@@ -1,1 +1,1 @@
-export { ColumnInsert as default } from '../';
+export { ColumnInsert as default } from "../";

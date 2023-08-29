@@ -1,1 +1,1 @@
-export { WatsonHealthContourDraw as default } from '../../';
+export { WatsonHealthContourDraw as default } from "../../";

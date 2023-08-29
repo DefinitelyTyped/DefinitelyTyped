@@ -1,1 +1,1 @@
-export { DocumentEpdf as default } from '../';
+export { DocumentEpdf as default } from "../";

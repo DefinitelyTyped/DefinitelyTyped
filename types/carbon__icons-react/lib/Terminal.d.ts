@@ -1,1 +1,1 @@
-export { Terminal as default } from '../';
+export { Terminal as default } from "../";

@@ -1,1 +1,1 @@
-export { EarthEuropeAfricaFilled as default } from '../';
+export { EarthEuropeAfricaFilled as default } from "../";

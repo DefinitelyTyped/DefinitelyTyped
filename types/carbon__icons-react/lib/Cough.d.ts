@@ -1,1 +1,1 @@
-export { Cough as default } from '../';
+export { Cough as default } from "../";

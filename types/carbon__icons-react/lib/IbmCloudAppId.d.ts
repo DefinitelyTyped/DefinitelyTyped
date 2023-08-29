@@ -1,1 +1,1 @@
-export { IbmCloudAppId as default } from '../';
+export { IbmCloudAppId as default } from "../";

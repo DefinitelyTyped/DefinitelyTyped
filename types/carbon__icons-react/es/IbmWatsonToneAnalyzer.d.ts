@@ -1,1 +1,1 @@
-export { IbmWatsonToneAnalyzer as default } from '../';
+export { IbmWatsonToneAnalyzer as default } from "../";

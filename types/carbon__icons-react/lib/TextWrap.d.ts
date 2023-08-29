@@ -1,1 +1,1 @@
-export { TextWrap as default } from '../';
+export { TextWrap as default } from "../";

@@ -1,1 +1,1 @@
-export { RecentlyViewed as default } from '../';
+export { RecentlyViewed as default } from "../";

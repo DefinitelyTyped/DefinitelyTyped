@@ -1,1 +1,1 @@
-export { DataDefinition as default } from '../';
+export { DataDefinition as default } from "../";

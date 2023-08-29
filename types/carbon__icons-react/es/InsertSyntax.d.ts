@@ -1,1 +1,1 @@
-export { InsertSyntax as default } from '../';
+export { InsertSyntax as default } from "../";

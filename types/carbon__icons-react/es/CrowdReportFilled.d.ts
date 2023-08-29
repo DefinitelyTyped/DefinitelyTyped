@@ -1,1 +1,1 @@
-export { CrowdReportFilled as default } from '../';
+export { CrowdReportFilled as default } from "../";

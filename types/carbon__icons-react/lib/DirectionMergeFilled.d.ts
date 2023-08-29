@@ -1,1 +1,1 @@
-export { DirectionMergeFilled as default } from '../';
+export { DirectionMergeFilled as default } from "../";

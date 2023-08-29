@@ -1,1 +1,1 @@
-export { EventSchedule as default } from '../';
+export { EventSchedule as default } from "../";

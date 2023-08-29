@@ -1,1 +1,1 @@
-export { HybridNetworkingAlt as default } from '../';
+export { HybridNetworkingAlt as default } from "../";

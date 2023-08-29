@@ -1,1 +1,1 @@
-export { NotAvailable as default } from '../';
+export { NotAvailable as default } from "../";

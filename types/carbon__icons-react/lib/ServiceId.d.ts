@@ -1,1 +1,1 @@
-export { ServiceId as default } from '../';
+export { ServiceId as default } from "../";

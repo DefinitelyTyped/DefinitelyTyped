@@ -1,1 +1,1 @@
-export { RunMirror as default } from '../';
+export { RunMirror as default } from "../";

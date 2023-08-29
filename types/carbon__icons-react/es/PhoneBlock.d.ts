@@ -1,1 +1,1 @@
-export { PhoneBlock as default } from '../';
+export { PhoneBlock as default } from "../";

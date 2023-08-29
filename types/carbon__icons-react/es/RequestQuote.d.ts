@@ -1,1 +1,1 @@
-export { RequestQuote as default } from '../';
+export { RequestQuote as default } from "../";

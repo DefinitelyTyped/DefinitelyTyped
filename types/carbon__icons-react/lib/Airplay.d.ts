@@ -1,1 +1,1 @@
-export { Airplay as default } from '../';
+export { Airplay as default } from "../";

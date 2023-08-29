@@ -1,1 +1,1 @@
-export { ConditionPoint as default } from '../';
+export { ConditionPoint as default } from "../";

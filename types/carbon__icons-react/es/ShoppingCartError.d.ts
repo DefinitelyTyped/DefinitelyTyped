@@ -1,1 +1,1 @@
-export { ShoppingCartError as default } from '../';
+export { ShoppingCartError as default } from "../";

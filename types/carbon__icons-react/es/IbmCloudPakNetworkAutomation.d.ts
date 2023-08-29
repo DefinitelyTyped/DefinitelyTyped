@@ -1,1 +1,1 @@
-export { IbmCloudPakNetworkAutomation as default } from '../';
+export { IbmCloudPakNetworkAutomation as default } from "../";

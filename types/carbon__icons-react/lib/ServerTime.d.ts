@@ -1,1 +1,1 @@
-export { ServerTime as default } from '../';
+export { ServerTime as default } from "../";

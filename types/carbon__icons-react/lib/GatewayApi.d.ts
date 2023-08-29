@@ -1,1 +1,1 @@
-export { GatewayApi as default } from '../';
+export { GatewayApi as default } from "../";

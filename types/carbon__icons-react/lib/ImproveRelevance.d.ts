@@ -1,1 +1,1 @@
-export { ImproveRelevance as default } from '../';
+export { ImproveRelevance as default } from "../";

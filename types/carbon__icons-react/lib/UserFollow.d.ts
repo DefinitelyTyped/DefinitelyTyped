@@ -1,1 +1,1 @@
-export { UserFollow as default } from '../';
+export { UserFollow as default } from "../";

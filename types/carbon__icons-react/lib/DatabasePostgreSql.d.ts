@@ -1,1 +1,1 @@
-export { DatabasePostgreSql as default } from '../';
+export { DatabasePostgreSql as default } from "../";

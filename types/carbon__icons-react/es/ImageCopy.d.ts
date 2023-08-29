@@ -1,1 +1,1 @@
-export { ImageCopy as default } from '../';
+export { ImageCopy as default } from "../";

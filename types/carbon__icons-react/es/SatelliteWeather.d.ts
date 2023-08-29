@@ -1,1 +1,1 @@
-export { SatelliteWeather as default } from '../';
+export { SatelliteWeather as default } from "../";

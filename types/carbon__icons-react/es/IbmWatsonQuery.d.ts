@@ -1,1 +1,1 @@
-export { IbmWatsonQuery as default } from '../';
+export { IbmWatsonQuery as default } from "../";

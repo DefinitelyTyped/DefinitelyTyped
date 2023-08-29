@@ -1,1 +1,1 @@
-export { DataReference as default } from '../';
+export { DataReference as default } from "../";

@@ -1,1 +1,1 @@
-export { GeneratePdf as default } from '../';
+export { GeneratePdf as default } from "../";

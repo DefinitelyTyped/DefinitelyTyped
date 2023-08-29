@@ -1,1 +1,1 @@
-export { Pressure as default } from '../';
+export { Pressure as default } from "../";

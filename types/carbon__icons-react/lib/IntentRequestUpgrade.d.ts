@@ -1,1 +1,1 @@
-export { IntentRequestUpgrade as default } from '../';
+export { IntentRequestUpgrade as default } from "../";

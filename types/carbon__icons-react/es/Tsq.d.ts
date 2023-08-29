@@ -1,1 +1,1 @@
-export { Tsq as default } from '../';
+export { Tsq as default } from "../";

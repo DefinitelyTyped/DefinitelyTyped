@@ -1,1 +1,1 @@
-export { CurrencyYen as default } from '../';
+export { CurrencyYen as default } from "../";

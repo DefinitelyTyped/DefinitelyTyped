@@ -1,1 +1,1 @@
-export { Task as default } from '../';
+export { Task as default } from "../";

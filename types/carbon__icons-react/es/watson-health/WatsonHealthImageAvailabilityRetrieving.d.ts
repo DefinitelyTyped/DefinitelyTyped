@@ -1,1 +1,1 @@
-export { WatsonHealthImageAvailabilityRetrieving as default } from '../../';
+export { WatsonHealthImageAvailabilityRetrieving as default } from "../../";

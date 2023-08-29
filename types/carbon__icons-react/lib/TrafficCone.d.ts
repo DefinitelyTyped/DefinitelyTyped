@@ -1,1 +1,1 @@
-export { TrafficCone as default } from '../';
+export { TrafficCone as default } from "../";

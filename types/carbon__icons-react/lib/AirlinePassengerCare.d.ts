@@ -1,1 +1,1 @@
-export { AirlinePassengerCare as default } from '../';
+export { AirlinePassengerCare as default } from "../";

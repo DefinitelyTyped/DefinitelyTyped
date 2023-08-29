@@ -1,1 +1,1 @@
-export { UserCertification as default } from '../';
+export { UserCertification as default } from "../";

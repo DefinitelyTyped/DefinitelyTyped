@@ -1,1 +1,1 @@
-export { LicenseThirdParty as default } from '../';
+export { LicenseThirdParty as default } from "../";

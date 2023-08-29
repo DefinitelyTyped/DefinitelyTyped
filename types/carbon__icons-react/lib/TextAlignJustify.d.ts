@@ -1,1 +1,1 @@
-export { TextAlignJustify as default } from '../';
+export { TextAlignJustify as default } from "../";

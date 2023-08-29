@@ -1,1 +1,1 @@
-export { ConvertToCloud as default } from '../';
+export { ConvertToCloud as default } from "../";

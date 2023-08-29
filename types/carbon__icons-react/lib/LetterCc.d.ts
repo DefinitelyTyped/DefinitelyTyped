@@ -1,1 +1,1 @@
-export { LetterCc as default } from '../';
+export { LetterCc as default } from "../";

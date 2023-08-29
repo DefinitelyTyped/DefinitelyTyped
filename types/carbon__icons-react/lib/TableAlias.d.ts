@@ -1,1 +1,1 @@
-export { TableAlias as default } from '../';
+export { TableAlias as default } from "../";

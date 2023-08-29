@@ -1,1 +1,1 @@
-export { TrophyFilled as default } from '../';
+export { TrophyFilled as default } from "../";

@@ -1,1 +1,1 @@
-export { RowCollapse as default } from '../';
+export { RowCollapse as default } from "../";

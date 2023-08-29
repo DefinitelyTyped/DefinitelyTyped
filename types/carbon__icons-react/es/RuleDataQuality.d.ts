@@ -1,1 +1,1 @@
-export { RuleDataQuality as default } from '../';
+export { RuleDataQuality as default } from "../";

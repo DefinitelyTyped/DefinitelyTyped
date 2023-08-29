@@ -1,1 +1,1 @@
-export { Store as default } from '../';
+export { Store as default } from "../";

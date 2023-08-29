@@ -1,1 +1,1 @@
-export { IbmZCloudModStack as default } from '../';
+export { IbmZCloudModStack as default } from "../";

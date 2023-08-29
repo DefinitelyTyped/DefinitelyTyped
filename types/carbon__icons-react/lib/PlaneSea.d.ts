@@ -1,1 +1,1 @@
-export { PlaneSea as default } from '../';
+export { PlaneSea as default } from "../";

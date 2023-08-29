@@ -1,1 +1,1 @@
-export { VerticalView as default } from '../';
+export { VerticalView as default } from "../";

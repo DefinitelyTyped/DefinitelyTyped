@@ -1,1 +1,1 @@
-export { IbmCloudKeyProtect as default } from '../';
+export { IbmCloudKeyProtect as default } from "../";

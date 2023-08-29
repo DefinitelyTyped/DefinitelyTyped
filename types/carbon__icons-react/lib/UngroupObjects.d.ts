@@ -1,1 +1,1 @@
-export { UngroupObjects as default } from '../';
+export { UngroupObjects as default } from "../";

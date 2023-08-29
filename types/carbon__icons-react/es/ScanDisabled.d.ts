@@ -1,1 +1,1 @@
-export { ScanDisabled as default } from '../';
+export { ScanDisabled as default } from "../";

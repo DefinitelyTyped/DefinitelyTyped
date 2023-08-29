@@ -1,1 +1,1 @@
-export { TaskSettings as default } from '../';
+export { TaskSettings as default } from "../";

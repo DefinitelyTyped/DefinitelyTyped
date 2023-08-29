@@ -1,1 +1,1 @@
-export { ChartErrorBarAlt as default } from '../';
+export { ChartErrorBarAlt as default } from "../";

@@ -1,1 +1,1 @@
-export { Redo as default } from '../';
+export { Redo as default } from "../";

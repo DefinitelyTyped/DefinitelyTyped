@@ -1,1 +1,1 @@
-export { Gradient as default } from '../';
+export { Gradient as default } from "../";

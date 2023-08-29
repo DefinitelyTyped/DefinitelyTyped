@@ -1,1 +1,1 @@
-export { Upgrade as default } from '../';
+export { Upgrade as default } from "../";

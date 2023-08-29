@@ -1,1 +1,1 @@
-export { SkipForward as default } from '../';
+export { SkipForward as default } from "../";

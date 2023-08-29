@@ -1,1 +1,1 @@
-export { RadarEnhanced as default } from '../';
+export { RadarEnhanced as default } from "../";

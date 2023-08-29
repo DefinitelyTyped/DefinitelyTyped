@@ -1,1 +1,1 @@
-export { Box as default } from '../';
+export { Box as default } from "../";

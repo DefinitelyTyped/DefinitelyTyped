@@ -1,1 +1,1 @@
-export { CrossTab as default } from '../';
+export { CrossTab as default } from "../";

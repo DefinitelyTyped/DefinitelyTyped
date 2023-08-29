@@ -1,1 +1,1 @@
-export { Dvr as default } from '../';
+export { Dvr as default } from "../";

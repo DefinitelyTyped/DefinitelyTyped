@@ -1,1 +1,1 @@
-export { UserProfileAlt as default } from '../';
+export { UserProfileAlt as default } from "../";

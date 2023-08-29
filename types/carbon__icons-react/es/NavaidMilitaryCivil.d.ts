@@ -1,1 +1,1 @@
-export { NavaidMilitaryCivil as default } from '../';
+export { NavaidMilitaryCivil as default } from "../";

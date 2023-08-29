@@ -1,1 +1,1 @@
-export { ChartNetwork as default } from '../';
+export { ChartNetwork as default } from "../";

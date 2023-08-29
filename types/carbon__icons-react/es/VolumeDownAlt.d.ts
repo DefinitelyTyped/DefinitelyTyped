@@ -1,1 +1,1 @@
-export { VolumeDownAlt as default } from '../';
+export { VolumeDownAlt as default } from "../";

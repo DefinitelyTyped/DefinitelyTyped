@@ -1,1 +1,1 @@
-export { Wmv as default } from '../';
+export { Wmv as default } from "../";

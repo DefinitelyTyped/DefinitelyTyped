@@ -1,1 +1,1 @@
-export { SquareFillGlyph as default } from '../';
+export { SquareFillGlyph as default } from "../";

@@ -1,1 +1,1 @@
-export { NonCertified as default } from '../';
+export { NonCertified as default } from "../";

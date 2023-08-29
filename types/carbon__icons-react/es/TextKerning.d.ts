@@ -1,1 +1,1 @@
-export { TextKerning as default } from '../';
+export { TextKerning as default } from "../";

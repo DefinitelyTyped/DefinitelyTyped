@@ -1,1 +1,1 @@
-export { SaveModel as default } from '../';
+export { SaveModel as default } from "../";

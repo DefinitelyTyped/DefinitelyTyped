@@ -1,1 +1,1 @@
-export { IbmTelehealth as default } from '../';
+export { IbmTelehealth as default } from "../";

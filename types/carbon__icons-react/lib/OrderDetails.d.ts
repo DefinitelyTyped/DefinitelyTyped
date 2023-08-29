@@ -1,1 +1,1 @@
-export { OrderDetails as default } from '../';
+export { OrderDetails as default } from "../";

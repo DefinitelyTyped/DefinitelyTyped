@@ -1,1 +1,1 @@
-export { FilterEdit as default } from '../';
+export { FilterEdit as default } from "../";

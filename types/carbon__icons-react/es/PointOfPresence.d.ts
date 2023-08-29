@@ -1,1 +1,1 @@
-export { PointOfPresence as default } from '../';
+export { PointOfPresence as default } from "../";

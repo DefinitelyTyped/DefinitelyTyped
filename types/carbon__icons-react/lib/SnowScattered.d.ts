@@ -1,1 +1,1 @@
-export { SnowScattered as default } from '../';
+export { SnowScattered as default } from "../";

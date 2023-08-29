@@ -1,1 +1,1 @@
-export { QOperationGauge as default } from '../../';
+export { QOperationGauge as default } from "../../";

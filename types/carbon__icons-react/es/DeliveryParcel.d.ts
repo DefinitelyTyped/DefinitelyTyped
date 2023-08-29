@@ -1,1 +1,1 @@
-export { DeliveryParcel as default } from '../';
+export { DeliveryParcel as default } from "../";

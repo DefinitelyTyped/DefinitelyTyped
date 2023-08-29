@@ -1,1 +1,1 @@
-export { LogoXing as default } from '../';
+export { LogoXing as default } from "../";

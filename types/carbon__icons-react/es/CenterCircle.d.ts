@@ -1,1 +1,1 @@
-export { CenterCircle as default } from '../';
+export { CenterCircle as default } from "../";

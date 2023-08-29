@@ -1,1 +1,1 @@
-export { Draggable as default } from '../';
+export { Draggable as default } from "../";

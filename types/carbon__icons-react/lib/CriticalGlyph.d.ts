@@ -1,1 +1,1 @@
-export { CriticalGlyph as default } from '../';
+export { CriticalGlyph as default } from "../";

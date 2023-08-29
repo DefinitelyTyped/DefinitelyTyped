@@ -1,1 +1,1 @@
-export { LogoAnsibleCommunity as default } from '../';
+export { LogoAnsibleCommunity as default } from "../";

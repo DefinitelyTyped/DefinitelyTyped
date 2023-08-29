@@ -1,1 +1,1 @@
-export { GroupAccount as default } from '../';
+export { GroupAccount as default } from "../";

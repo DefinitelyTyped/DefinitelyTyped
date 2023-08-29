@@ -1,1 +1,1 @@
-export { WatsonHealthPetImageB as default } from '../../';
+export { WatsonHealthPetImageB as default } from "../../";

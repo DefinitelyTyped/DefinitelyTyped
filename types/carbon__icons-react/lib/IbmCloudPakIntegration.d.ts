@@ -1,1 +1,1 @@
-export { IbmCloudPakIntegration as default } from '../';
+export { IbmCloudPakIntegration as default } from "../";

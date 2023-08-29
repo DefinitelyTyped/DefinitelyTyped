@@ -1,1 +1,1 @@
-export { TextSelection as default } from '../';
+export { TextSelection as default } from "../";

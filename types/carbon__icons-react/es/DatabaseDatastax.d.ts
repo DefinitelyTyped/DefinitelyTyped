@@ -1,1 +1,1 @@
-export { DatabaseDatastax as default } from '../';
+export { DatabaseDatastax as default } from "../";

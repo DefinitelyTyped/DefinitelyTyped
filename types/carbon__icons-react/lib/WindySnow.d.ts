@@ -1,1 +1,1 @@
-export { WindySnow as default } from '../';
+export { WindySnow as default } from "../";

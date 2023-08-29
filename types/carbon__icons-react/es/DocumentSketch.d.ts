@@ -1,1 +1,1 @@
-export { DocumentSketch as default } from '../';
+export { DocumentSketch as default } from "../";

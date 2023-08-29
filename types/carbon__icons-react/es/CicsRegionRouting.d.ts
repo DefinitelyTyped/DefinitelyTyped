@@ -1,1 +1,1 @@
-export { CicsRegionRouting as default } from '../';
+export { CicsRegionRouting as default } from "../";

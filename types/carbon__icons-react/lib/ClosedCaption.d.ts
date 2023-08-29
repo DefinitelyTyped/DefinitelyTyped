@@ -1,1 +1,1 @@
-export { ClosedCaption as default } from '../';
+export { ClosedCaption as default } from "../";

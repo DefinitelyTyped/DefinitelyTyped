@@ -1,1 +1,1 @@
-export { Boolean as default } from '../';
+export { Boolean as default } from "../";

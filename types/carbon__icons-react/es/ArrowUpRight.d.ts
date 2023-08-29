@@ -1,1 +1,1 @@
-export { ArrowUpRight as default } from '../';
+export { ArrowUpRight as default } from "../";

@@ -1,1 +1,1 @@
-export { PlayOutline as default } from '../';
+export { PlayOutline as default } from "../";

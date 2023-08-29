@@ -1,1 +1,1 @@
-export { StarReview as default } from '../';
+export { StarReview as default } from "../";

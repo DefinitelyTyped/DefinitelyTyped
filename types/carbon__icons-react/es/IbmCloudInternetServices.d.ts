@@ -1,1 +1,1 @@
-export { IbmCloudInternetServices as default } from '../';
+export { IbmCloudInternetServices as default } from "../";

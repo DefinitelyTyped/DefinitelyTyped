@@ -1,1 +1,1 @@
-export { DataVis_1 as default } from '../';
+export { DataVis_1 as default } from "../";

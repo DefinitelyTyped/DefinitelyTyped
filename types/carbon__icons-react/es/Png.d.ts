@@ -1,1 +1,1 @@
-export { Png as default } from '../';
+export { Png as default } from "../";

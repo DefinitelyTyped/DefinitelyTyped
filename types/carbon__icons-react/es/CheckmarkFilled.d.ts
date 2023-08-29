@@ -1,1 +1,1 @@
-export { CheckmarkFilled as default } from '../';
+export { CheckmarkFilled as default } from "../";

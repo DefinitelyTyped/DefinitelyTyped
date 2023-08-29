@@ -1,1 +1,1 @@
-export { DatabaseMongodb as default } from '../';
+export { DatabaseMongodb as default } from "../";

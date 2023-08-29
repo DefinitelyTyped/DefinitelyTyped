@@ -1,1 +1,1 @@
-export { WifiBridgeAlt as default } from '../';
+export { WifiBridgeAlt as default } from "../";

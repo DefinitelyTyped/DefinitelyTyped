@@ -1,1 +1,1 @@
-export { ChatLaunch as default } from '../';
+export { ChatLaunch as default } from "../";

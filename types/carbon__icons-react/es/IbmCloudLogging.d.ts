@@ -1,1 +1,1 @@
-export { IbmCloudLogging as default } from '../';
+export { IbmCloudLogging as default } from "../";

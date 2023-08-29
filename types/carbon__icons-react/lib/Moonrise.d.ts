@@ -1,1 +1,1 @@
-export { Moonrise as default } from '../';
+export { Moonrise as default } from "../";

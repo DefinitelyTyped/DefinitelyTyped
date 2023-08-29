@@ -1,1 +1,1 @@
-export { ExamMode as default } from '../';
+export { ExamMode as default } from "../";

@@ -1,1 +1,1 @@
-export { GatewayMail as default } from '../';
+export { GatewayMail as default } from "../";

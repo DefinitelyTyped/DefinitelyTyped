@@ -1,1 +1,1 @@
-export { WorkflowAutomation as default } from '../';
+export { WorkflowAutomation as default } from "../";

@@ -1,1 +1,1 @@
-export { Meter as default } from '../';
+export { Meter as default } from "../";

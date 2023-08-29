@@ -1,1 +1,1 @@
-export { InProgressError as default } from '../';
+export { InProgressError as default } from "../";

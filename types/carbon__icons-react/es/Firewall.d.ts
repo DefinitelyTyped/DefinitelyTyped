@@ -1,1 +1,1 @@
-export { Firewall as default } from '../';
+export { Firewall as default } from "../";

@@ -1,1 +1,1 @@
-export { EdgeService as default } from '../';
+export { EdgeService as default } from "../";

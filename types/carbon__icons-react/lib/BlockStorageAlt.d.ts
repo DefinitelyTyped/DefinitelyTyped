@@ -1,1 +1,1 @@
-export { BlockStorageAlt as default } from '../';
+export { BlockStorageAlt as default } from "../";

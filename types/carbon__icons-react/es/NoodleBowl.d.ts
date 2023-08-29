@@ -1,1 +1,1 @@
-export { NoodleBowl as default } from '../';
+export { NoodleBowl as default } from "../";

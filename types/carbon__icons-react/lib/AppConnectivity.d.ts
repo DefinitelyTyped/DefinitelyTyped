@@ -1,1 +1,1 @@
-export { AppConnectivity as default } from '../';
+export { AppConnectivity as default } from "../";

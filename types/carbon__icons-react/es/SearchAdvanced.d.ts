@@ -1,1 +1,1 @@
-export { SearchAdvanced as default } from '../';
+export { SearchAdvanced as default } from "../";

@@ -1,1 +1,1 @@
-export { Rss as default } from '../';
+export { Rss as default } from "../";

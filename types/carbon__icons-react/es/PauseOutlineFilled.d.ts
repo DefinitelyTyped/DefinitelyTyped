@@ -1,1 +1,1 @@
-export { PauseOutlineFilled as default } from '../';
+export { PauseOutlineFilled as default } from "../";

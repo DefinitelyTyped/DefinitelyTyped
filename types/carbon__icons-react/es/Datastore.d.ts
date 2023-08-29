@@ -1,1 +1,1 @@
-export { Datastore as default } from '../';
+export { Datastore as default } from "../";

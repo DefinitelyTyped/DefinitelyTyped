@@ -1,1 +1,1 @@
-export { Chip as default } from '../';
+export { Chip as default } from "../";

@@ -1,1 +1,1 @@
-export { Mpg2 as default } from '../';
+export { Mpg2 as default } from "../";

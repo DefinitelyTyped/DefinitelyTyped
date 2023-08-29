@@ -1,1 +1,1 @@
-export { NavaidVor as default } from '../';
+export { NavaidVor as default } from "../";

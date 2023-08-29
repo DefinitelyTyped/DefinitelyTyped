@@ -1,1 +1,1 @@
-export { VehicleServices as default } from '../';
+export { VehicleServices as default } from "../";

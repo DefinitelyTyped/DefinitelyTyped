@@ -1,1 +1,1 @@
-export { IntentRequestActive as default } from '../';
+export { IntentRequestActive as default } from "../";

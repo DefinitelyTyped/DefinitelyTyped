@@ -1,1 +1,1 @@
-export { BorderNone as default } from '../';
+export { BorderNone as default } from "../";

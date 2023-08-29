@@ -1,1 +1,1 @@
-export { ChatOff as default } from '../';
+export { ChatOff as default } from "../";

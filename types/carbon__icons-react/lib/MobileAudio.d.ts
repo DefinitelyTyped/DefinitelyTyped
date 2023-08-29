@@ -1,1 +1,1 @@
-export { MobileAudio as default } from '../';
+export { MobileAudio as default } from "../";

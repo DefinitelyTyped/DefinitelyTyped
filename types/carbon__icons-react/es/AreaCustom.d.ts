@@ -1,1 +1,1 @@
-export { AreaCustom as default } from '../';
+export { AreaCustom as default } from "../";

@@ -1,1 +1,1 @@
-export { IsoFilled as default } from '../';
+export { IsoFilled as default } from "../";

@@ -1,1 +1,1 @@
-export { CautionInvertedGlyph as default } from '../';
+export { CautionInvertedGlyph as default } from "../";

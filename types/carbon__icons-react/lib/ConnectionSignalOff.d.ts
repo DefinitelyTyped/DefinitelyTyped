@@ -1,1 +1,1 @@
-export { ConnectionSignalOff as default } from '../';
+export { ConnectionSignalOff as default } from "../";

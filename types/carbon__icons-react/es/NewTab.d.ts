@@ -1,1 +1,1 @@
-export { NewTab as default } from '../';
+export { NewTab as default } from "../";

@@ -1,1 +1,1 @@
-export { IbmCloudIpsecVpn as default } from '../';
+export { IbmCloudIpsecVpn as default } from "../";

@@ -1,1 +1,1 @@
-export { MapBoundaryVegetation as default } from '../';
+export { MapBoundaryVegetation as default } from "../";

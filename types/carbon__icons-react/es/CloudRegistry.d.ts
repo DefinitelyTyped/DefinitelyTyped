@@ -1,1 +1,1 @@
-export { CloudRegistry as default } from '../';
+export { CloudRegistry as default } from "../";

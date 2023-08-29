@@ -1,1 +1,1 @@
-export { WinterWarning as default } from '../';
+export { WinterWarning as default } from "../";

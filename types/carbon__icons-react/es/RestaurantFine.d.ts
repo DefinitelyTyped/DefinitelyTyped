@@ -1,1 +1,1 @@
-export { RestaurantFine as default } from '../';
+export { RestaurantFine as default } from "../";

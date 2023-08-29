@@ -1,1 +1,1 @@
-export { RuleLocked as default } from '../';
+export { RuleLocked as default } from "../";

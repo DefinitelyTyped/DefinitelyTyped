@@ -1,1 +1,1 @@
-export { Inspection as default } from '../';
+export { Inspection as default } from "../";

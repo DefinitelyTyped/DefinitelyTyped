@@ -1,1 +1,1 @@
-export { IbmCloudHyperProtectVs as default } from '../';
+export { IbmCloudHyperProtectVs as default } from "../";

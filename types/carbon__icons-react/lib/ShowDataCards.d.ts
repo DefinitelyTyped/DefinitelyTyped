@@ -1,1 +1,1 @@
-export { ShowDataCards as default } from '../';
+export { ShowDataCards as default } from "../";

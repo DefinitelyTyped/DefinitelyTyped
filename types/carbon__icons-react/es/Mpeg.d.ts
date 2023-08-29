@@ -1,1 +1,1 @@
-export { Mpeg as default } from '../';
+export { Mpeg as default } from "../";

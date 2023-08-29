@@ -1,1 +1,1 @@
-export { EdgeNodeAlt as default } from '../';
+export { EdgeNodeAlt as default } from "../";

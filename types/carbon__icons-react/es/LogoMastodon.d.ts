@@ -1,1 +1,1 @@
-export { LogoMastodon as default } from '../';
+export { LogoMastodon as default } from "../";

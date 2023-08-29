@@ -1,1 +1,1 @@
-export { Fade as default } from '../';
+export { Fade as default } from "../";

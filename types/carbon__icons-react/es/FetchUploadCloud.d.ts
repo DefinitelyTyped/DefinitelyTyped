@@ -1,1 +1,1 @@
-export { FetchUploadCloud as default } from '../';
+export { FetchUploadCloud as default } from "../";

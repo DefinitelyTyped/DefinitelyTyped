@@ -1,1 +1,1 @@
-export { CicsDb2Connection as default } from '../';
+export { CicsDb2Connection as default } from "../";

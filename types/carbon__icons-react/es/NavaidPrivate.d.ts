@@ -1,1 +1,1 @@
-export { NavaidPrivate as default } from '../';
+export { NavaidPrivate as default } from "../";

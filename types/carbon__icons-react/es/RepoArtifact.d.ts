@@ -1,1 +1,1 @@
-export { RepoArtifact as default } from '../';
+export { RepoArtifact as default } from "../";

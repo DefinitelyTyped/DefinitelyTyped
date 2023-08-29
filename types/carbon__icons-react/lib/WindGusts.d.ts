@@ -1,1 +1,1 @@
-export { WindGusts as default } from '../';
+export { WindGusts as default } from "../";

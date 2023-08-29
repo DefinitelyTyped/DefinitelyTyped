@@ -1,1 +1,1 @@
-export { Hourglass as default } from '../';
+export { Hourglass as default } from "../";

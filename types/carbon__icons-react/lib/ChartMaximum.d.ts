@@ -1,1 +1,1 @@
-export { ChartMaximum as default } from '../';
+export { ChartMaximum as default } from "../";

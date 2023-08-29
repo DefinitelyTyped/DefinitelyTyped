@@ -1,1 +1,1 @@
-export { ApplicationWeb as default } from '../';
+export { ApplicationWeb as default } from "../";

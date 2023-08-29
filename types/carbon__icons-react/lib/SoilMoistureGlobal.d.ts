@@ -1,1 +1,1 @@
-export { SoilMoistureGlobal as default } from '../';
+export { SoilMoistureGlobal as default } from "../";

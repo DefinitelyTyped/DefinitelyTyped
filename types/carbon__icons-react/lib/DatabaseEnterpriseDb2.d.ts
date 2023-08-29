@@ -1,1 +1,1 @@
-export { DatabaseEnterpriseDb2 as default } from '../';
+export { DatabaseEnterpriseDb2 as default } from "../";

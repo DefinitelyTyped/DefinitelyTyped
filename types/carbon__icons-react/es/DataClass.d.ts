@@ -1,1 +1,1 @@
-export { DataClass as default } from '../';
+export { DataClass as default } from "../";

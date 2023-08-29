@@ -1,1 +1,1 @@
-export { LoadBalancerGlobal as default } from '../';
+export { LoadBalancerGlobal as default } from "../";

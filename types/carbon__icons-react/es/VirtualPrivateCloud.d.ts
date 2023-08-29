@@ -1,1 +1,1 @@
-export { VirtualPrivateCloud as default } from '../';
+export { VirtualPrivateCloud as default } from "../";

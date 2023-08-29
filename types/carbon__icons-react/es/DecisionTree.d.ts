@@ -1,1 +1,1 @@
-export { DecisionTree as default } from '../';
+export { DecisionTree as default } from "../";

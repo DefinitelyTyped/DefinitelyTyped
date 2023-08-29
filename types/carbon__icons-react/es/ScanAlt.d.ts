@@ -1,1 +1,1 @@
-export { ScanAlt as default } from '../';
+export { ScanAlt as default } from "../";

@@ -1,1 +1,1 @@
-export { Map as default } from '../';
+export { Map as default } from "../";
