@@ -1,10 +1,10 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { ColorValue } from '../../StyleSheet/StyleSheet';
-import { TouchableMixin } from './Touchable';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { TouchableMixin } from "./Touchable";
 
-import type { TVProps } from './TouchableOpacity';
-import { TouchableWithoutFeedbackProps } from './TouchableWithoutFeedback';
+import type { TVProps } from "./TouchableOpacity";
+import { TouchableWithoutFeedbackProps } from "./TouchableWithoutFeedback";
 
 interface BaseBackgroundPropType {
     type: string;
@@ -12,13 +12,13 @@ interface BaseBackgroundPropType {
 }
 
 interface RippleBackgroundPropType extends BaseBackgroundPropType {
-    type: 'RippleAndroid';
+    type: "RippleAndroid";
     borderless: boolean;
     color?: number | null | undefined;
 }
 
 interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
-    type: 'ThemeAttrAndroid';
+    type: "ThemeAttrAndroid";
     attribute: string;
 }
 

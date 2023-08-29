@@ -1,4 +1,4 @@
-import { ColorValue, OpaqueColorValue } from './StyleSheet';
+import { ColorValue, OpaqueColorValue } from "./StyleSheet";
 
 type DynamicColorIOSTuple = {
     light: ColorValue;

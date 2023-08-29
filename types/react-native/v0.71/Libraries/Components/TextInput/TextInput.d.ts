@@ -1,53 +1,53 @@
-import type * as React from 'react';
-import { TimerMixin } from '../../../private/TimerMixin';
-import { Constructor } from '../../../private/Utilities';
-import { HostComponent, NativeMethods } from '../../../public/ReactNativeTypes';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { TextStyle } from '../../StyleSheet/StyleSheetTypes';
-import { NativeSyntheticEvent, NativeTouchEvent, TargetedEvent } from '../../Types/CoreEventTypes';
-import { EventEmitter } from '../../vendor/emitter/EventEmitter';
-import { AccessibilityProps } from '../View/ViewAccessibility';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { HostComponent, NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { TextStyle } from "../../StyleSheet/StyleSheetTypes";
+import { NativeSyntheticEvent, NativeTouchEvent, TargetedEvent } from "../../Types/CoreEventTypes";
+import { EventEmitter } from "../../vendor/emitter/EventEmitter";
+import { AccessibilityProps } from "../View/ViewAccessibility";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export type KeyboardType =
-    | 'default'
-    | 'email-address'
-    | 'numeric'
-    | 'phone-pad'
-    | 'number-pad'
-    | 'decimal-pad';
+    | "default"
+    | "email-address"
+    | "numeric"
+    | "phone-pad"
+    | "number-pad"
+    | "decimal-pad";
 export type KeyboardTypeIOS =
-    | 'ascii-capable'
-    | 'numbers-and-punctuation'
-    | 'url'
-    | 'name-phone-pad'
-    | 'twitter'
-    | 'web-search';
-export type KeyboardTypeAndroid = 'visible-password';
+    | "ascii-capable"
+    | "numbers-and-punctuation"
+    | "url"
+    | "name-phone-pad"
+    | "twitter"
+    | "web-search";
+export type KeyboardTypeAndroid = "visible-password";
 export type KeyboardTypeOptions =
     | KeyboardType
     | KeyboardTypeAndroid
     | KeyboardTypeIOS;
 
 export type InputModeOptions =
-    | 'none'
-    | 'text'
-    | 'decimal'
-    | 'numeric'
-    | 'tel'
-    | 'search'
-    | 'email'
-    | 'url';
+    | "none"
+    | "text"
+    | "decimal"
+    | "numeric"
+    | "tel"
+    | "search"
+    | "email"
+    | "url";
 
-export type ReturnKeyType = 'done' | 'go' | 'next' | 'search' | 'send';
-export type ReturnKeyTypeAndroid = 'none' | 'previous';
+export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
+export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS =
-    | 'default'
-    | 'google'
-    | 'join'
-    | 'route'
-    | 'yahoo'
-    | 'emergency-call';
+    | "default"
+    | "google"
+    | "join"
+    | "route"
+    | "yahoo"
+    | "emergency-call";
 
 export type ReturnKeyTypeOptions =
     | ReturnKeyType
@@ -55,12 +55,12 @@ export type ReturnKeyTypeOptions =
     | ReturnKeyTypeIOS;
 
 type DataDetectorTypes =
-    | 'phoneNumber'
-    | 'link'
-    | 'address'
-    | 'calendarEvent'
-    | 'none'
-    | 'all';
+    | "phoneNumber"
+    | "link"
+    | "address"
+    | "calendarEvent"
+    | "none"
+    | "all";
 
 /**
  * DocumentSelectionState is responsible for maintaining selection information
@@ -108,10 +108,10 @@ export interface TextInputIOSProps {
      * When the clear button should appear on the right side of the text view
      */
     clearButtonMode?:
-        | 'never'
-        | 'while-editing'
-        | 'unless-editing'
-        | 'always'
+        | "never"
+        | "while-editing"
+        | "unless-editing"
+        | "always"
         | undefined;
 
     /**
@@ -146,7 +146,7 @@ export interface TextInputIOSProps {
     /**
      * Determines the color of the keyboard.
      */
-    keyboardAppearance?: 'default' | 'light' | 'dark' | undefined;
+    keyboardAppearance?: "default" | "light" | "dark" | undefined;
 
     /**
      * Provide rules for your password.
@@ -218,34 +218,34 @@ export interface TextInputIOSProps {
      *  - `'oneTimeCode'`
      */
     textContentType?:
-        | 'none'
-        | 'URL'
-        | 'addressCity'
-        | 'addressCityAndState'
-        | 'addressState'
-        | 'countryName'
-        | 'creditCardNumber'
-        | 'emailAddress'
-        | 'familyName'
-        | 'fullStreetAddress'
-        | 'givenName'
-        | 'jobTitle'
-        | 'location'
-        | 'middleName'
-        | 'name'
-        | 'namePrefix'
-        | 'nameSuffix'
-        | 'nickname'
-        | 'organizationName'
-        | 'postalCode'
-        | 'streetAddressLine1'
-        | 'streetAddressLine2'
-        | 'sublocality'
-        | 'telephoneNumber'
-        | 'username'
-        | 'password'
-        | 'newPassword'
-        | 'oneTimeCode'
+        | "none"
+        | "URL"
+        | "addressCity"
+        | "addressCityAndState"
+        | "addressState"
+        | "countryName"
+        | "creditCardNumber"
+        | "emailAddress"
+        | "familyName"
+        | "fullStreetAddress"
+        | "givenName"
+        | "jobTitle"
+        | "location"
+        | "middleName"
+        | "name"
+        | "namePrefix"
+        | "nameSuffix"
+        | "nickname"
+        | "organizationName"
+        | "postalCode"
+        | "streetAddressLine1"
+        | "streetAddressLine2"
+        | "sublocality"
+        | "telephoneNumber"
+        | "username"
+        | "password"
+        | "newPassword"
+        | "oneTimeCode"
         | undefined;
 
     /**
@@ -283,11 +283,11 @@ export interface TextInputAndroidProps {
      * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
      */
     importantForAutofill?:
-        | 'auto'
-        | 'no'
-        | 'noExcludeDescendants'
-        | 'yes'
-        | 'yesExcludeDescendants'
+        | "auto"
+        | "no"
+        | "noExcludeDescendants"
+        | "yes"
+        | "yesExcludeDescendants"
         | undefined;
 
     /**
@@ -324,7 +324,7 @@ export interface TextInputAndroidProps {
      * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
      * The default value is simple.
      */
-    textBreakStrategy?: 'simple' | 'highQuality' | 'balanced' | undefined;
+    textBreakStrategy?: "simple" | "highQuality" | "balanced" | undefined;
 
     /**
      * The color of the textInput underline.
@@ -334,7 +334,7 @@ export interface TextInputAndroidProps {
     /**
      * Vertically align text when `multiline` is set to true
      */
-    textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center' | undefined;
+    textAlignVertical?: "auto" | "top" | "bottom" | "center" | undefined;
 
     /**
      * When false, it will prevent the soft keyboard from showing when the field is focused. The default value is true
@@ -344,7 +344,7 @@ export interface TextInputAndroidProps {
     /**
      * Vertically align text when `multiline` is set to true
      */
-    verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle' | undefined;
+    verticalAlign?: "auto" | "top" | "bottom" | "middle" | undefined;
 }
 
 /**
@@ -436,7 +436,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      *
      * https://reactnative.dev/docs/textinput#autocapitalize
      */
-    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
+    autoCapitalize?: "none" | "sentences" | "words" | "characters" | undefined;
 
     /**
      * Specifies autocomplete hints for the system, so it can provide autofill.
@@ -505,58 +505,58 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
      * - `username-new`
      */
     autoComplete?:
-        | 'additional-name'
-        | 'address-line1'
-        | 'address-line2'
-        | 'birthdate-day'
-        | 'birthdate-full'
-        | 'birthdate-month'
-        | 'birthdate-year'
-        | 'cc-csc'
-        | 'cc-exp'
-        | 'cc-exp-day'
-        | 'cc-exp-month'
-        | 'cc-exp-year'
-        | 'cc-number'
-        | 'country'
-        | 'current-password'
-        | 'email'
-        | 'family-name'
-        | 'gender'
-        | 'given-name'
-        | 'honorific-prefix'
-        | 'honorific-suffix'
-        | 'name'
-        | 'name-family'
-        | 'name-given'
-        | 'name-middle'
-        | 'name-middle-initial'
-        | 'name-prefix'
-        | 'name-suffix'
-        | 'new-password'
-        | 'nickname'
-        | 'one-time-code'
-        | 'organization'
-        | 'organization-title'
-        | 'password'
-        | 'password-new'
-        | 'postal-address'
-        | 'postal-address-country'
-        | 'postal-address-extended'
-        | 'postal-address-extended-postal-code'
-        | 'postal-address-locality'
-        | 'postal-address-region'
-        | 'postal-code'
-        | 'street-address'
-        | 'sms-otp'
-        | 'tel'
-        | 'tel-country-code'
-        | 'tel-national'
-        | 'tel-device'
-        | 'url'
-        | 'username'
-        | 'username-new'
-        | 'off'
+        | "additional-name"
+        | "address-line1"
+        | "address-line2"
+        | "birthdate-day"
+        | "birthdate-full"
+        | "birthdate-month"
+        | "birthdate-year"
+        | "cc-csc"
+        | "cc-exp"
+        | "cc-exp-day"
+        | "cc-exp-month"
+        | "cc-exp-year"
+        | "cc-number"
+        | "country"
+        | "current-password"
+        | "email"
+        | "family-name"
+        | "gender"
+        | "given-name"
+        | "honorific-prefix"
+        | "honorific-suffix"
+        | "name"
+        | "name-family"
+        | "name-given"
+        | "name-middle"
+        | "name-middle-initial"
+        | "name-prefix"
+        | "name-suffix"
+        | "new-password"
+        | "nickname"
+        | "one-time-code"
+        | "organization"
+        | "organization-title"
+        | "password"
+        | "password-new"
+        | "postal-address"
+        | "postal-address-country"
+        | "postal-address-extended"
+        | "postal-address-extended-postal-code"
+        | "postal-address-locality"
+        | "postal-address-region"
+        | "postal-code"
+        | "street-address"
+        | "sms-otp"
+        | "tel"
+        | "tel-country-code"
+        | "tel-national"
+        | "tel-device"
+        | "url"
+        | "username"
+        | "username-new"
+        | "off"
         | undefined;
 
     /**
@@ -772,7 +772,7 @@ export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputA
     /**
      * Align the input text to the left, center, or right sides of the input field.
      */
-    textAlign?: 'left' | 'center' | 'right' | undefined;
+    textAlign?: "left" | "center" | "right" | undefined;
 
     /**
      * Used to locate this view in end-to-end tests

@@ -1,4 +1,4 @@
-import { ColorValue } from '../StyleSheet/StyleSheet';
+import { ColorValue } from "../StyleSheet/StyleSheet";
 
 export type ShareContent =
     | {
@@ -19,12 +19,12 @@ export type ShareOptions = {
 };
 
 export type ShareSharedAction = {
-    action: 'sharedAction';
+    action: "sharedAction";
     activityType?: string | undefined;
 };
 
 export type ShareDismissedAction = {
-    action: 'dismissedAction';
+    action: "dismissedAction";
 };
 
 export type ShareAction = ShareSharedAction | ShareDismissedAction;
@@ -62,8 +62,8 @@ export interface ShareStatic {
      * - `dialogTitle`
      */
     share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
-    sharedAction: 'sharedAction';
-    dismissedAction: 'dismissedAction';
+    sharedAction: "sharedAction";
+    dismissedAction: "dismissedAction";
 }
 
 export const Share: ShareStatic;

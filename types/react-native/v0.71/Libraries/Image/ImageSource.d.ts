@@ -44,7 +44,7 @@ export interface ImageURISource {
      *
      * @platform ios
      */
-    cache?: 'default' | 'reload' | 'force-cache' | 'only-if-cached' | undefined;
+    cache?: "default" | "reload" | "force-cache" | "only-if-cached" | undefined;
     /**
      * `body` is the HTTP body to send with the request. This must be a valid
      * UTF-8 string, and will be sent exactly as specified, with no

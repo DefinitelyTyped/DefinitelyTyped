@@ -1,10 +1,10 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { LayoutChangeEvent } from '../../Types/CoreEventTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { LayoutChangeEvent } from "../../Types/CoreEventTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * @see https://reactnative.dev/docs/activityindicator#props
@@ -31,7 +31,7 @@ export interface ActivityIndicatorProps extends ViewProps {
      *
      * enum('small', 'large')
      */
-    size?: number | 'small' | 'large' | undefined;
+    size?: number | "small" | "large" | undefined;
 
     style?: StyleProp<ViewStyle> | undefined;
 }
@@ -72,7 +72,7 @@ export interface ActivityIndicatorIOSProps extends ViewProps {
      *
      * enum('small', 'large')
      */
-    size?: 'small' | 'large' | undefined;
+    size?: "small" | "large" | undefined;
 
     style?: StyleProp<ViewStyle> | undefined;
 }

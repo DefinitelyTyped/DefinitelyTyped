@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { Constructor } from '../../private/Utilities';
-import { Insets } from '../../public/Insets';
-import { NativeMethods } from '../../public/ReactNativeTypes';
-import { AccessibilityProps } from '../Components/View/ViewAccessibility';
-import { StyleProp } from '../StyleSheet/StyleSheet';
-import { ImageStyle, ViewStyle } from '../StyleSheet/StyleSheetTypes';
-import { LayoutChangeEvent, NativeSyntheticEvent } from '../Types/CoreEventTypes';
-import { ImageResizeMode } from './ImageResizeMode';
-import { ImageRequireSource, ImageURISource } from './ImageSource';
+import * as React from "react";
+import { Constructor } from "../../private/Utilities";
+import { Insets } from "../../public/Insets";
+import { NativeMethods } from "../../public/ReactNativeTypes";
+import { AccessibilityProps } from "../Components/View/ViewAccessibility";
+import { StyleProp } from "../StyleSheet/StyleSheet";
+import { ImageStyle, ViewStyle } from "../StyleSheet/StyleSheetTypes";
+import { LayoutChangeEvent, NativeSyntheticEvent } from "../Types/CoreEventTypes";
+import { ImageResizeMode } from "./ImageResizeMode";
+import { ImageRequireSource, ImageURISource } from "./ImageSource";
 
 /**
  * @see ImagePropsIOS.onProgress
@@ -62,7 +62,7 @@ interface ImagePropsAndroid {
      * and produces higher quality images. This should be used if the image is smaller than the view.
      * It should also be used if the image is slightly bigger than the view.
      */
-    resizeMethod?: 'auto' | 'resize' | 'scale' | undefined;
+    resizeMethod?: "auto" | "resize" | "scale" | undefined;
 
     /**
      * Duration of fade in animation in ms. Defaults to 300
@@ -200,7 +200,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      *
      * @platform android
      */
-    resizeMethod?: 'auto' | 'resize' | 'scale' | undefined;
+    resizeMethod?: "auto" | "resize" | "scale" | undefined;
 
     /**
      * The image source (either a remote URL or a local file resource).
@@ -274,7 +274,7 @@ export class Image extends ImageBase {
     static abortPrefetch?(requestId: number): void;
     static queryCache?(
         urls: string[],
-    ): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
+    ): Promise<{ [url: string]: "memory" | "disk" | "disk/memory" }>;
 
     /**
      * @see https://reactnative.dev/docs/image#resolveassetsource
@@ -306,5 +306,5 @@ export class ImageBackground extends ImageBackgroundBase {
     abortPrefetch?(requestId: number): void;
     queryCache?(
         urls: string[],
-    ): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
+    ): Promise<{ [url: string]: "memory" | "disk" | "disk/memory" }>;
 }

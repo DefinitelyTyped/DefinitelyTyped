@@ -1,8 +1,8 @@
-import type * as React from 'react';
-import type { ScrollViewProps } from '../Components/ScrollView/ScrollView';
-import { StyleProp } from '../StyleSheet/StyleSheet';
-import { ViewStyle } from '../StyleSheet/StyleSheetTypes';
-import type { LayoutChangeEvent } from '../Types/CoreEventTypes';
+import type * as React from "react";
+import type { ScrollViewProps } from "../Components/ScrollView/ScrollView";
+import { StyleProp } from "../StyleSheet/StyleSheet";
+import { ViewStyle } from "../StyleSheet/StyleSheetTypes";
+import type { LayoutChangeEvent } from "../Types/CoreEventTypes";
 
 export interface ViewToken {
     item: any;
@@ -65,7 +65,7 @@ export interface ListRenderItemInfo<ItemT> {
     separators: {
         highlight: () => void;
         unhighlight: () => void;
-        updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+        updateProps: (select: "leading" | "trailing", newProps: any) => void;
     };
 }
 

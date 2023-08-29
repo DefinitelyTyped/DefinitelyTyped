@@ -1,4 +1,4 @@
-import type { Animated } from './Animated';
+import type { Animated } from "./Animated";
 
 export function useAnimatedValue(
     initialValue: number,

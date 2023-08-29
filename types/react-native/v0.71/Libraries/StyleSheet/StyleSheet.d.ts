@@ -1,4 +1,4 @@
-import { ImageStyle, TextStyle, ViewStyle } from './StyleSheetTypes';
+import { ImageStyle, TextStyle, ViewStyle } from "./StyleSheetTypes";
 
 export interface StyleSheetProperties {
     hairlineWidth: number;
@@ -15,7 +15,7 @@ export type StyleProp<T> =
     | RecursiveArray<T | RegisteredStyle<T> | Falsy>
     | Falsy;
 
-type OpaqueColorValue = symbol & { __TYPE__: 'Color' };
+type OpaqueColorValue = symbol & { __TYPE__: "Color" };
 export type ColorValue = string | OpaqueColorValue;
 
 export namespace StyleSheet {
@@ -116,7 +116,7 @@ export namespace StyleSheet {
     export const hairlineWidth: number;
 
     interface AbsoluteFillStyle {
-        position: 'absolute';
+        position: "absolute";
         left: 0;
         right: 0;
         top: 0;

@@ -5,13 +5,13 @@ export interface AlertButton {
     text?: string | undefined;
     onPress?: ((value?: string) => void) | undefined;
     isPreferred?: boolean | undefined;
-    style?: 'default' | 'cancel' | 'destructive' | undefined;
+    style?: "default" | "cancel" | "destructive" | undefined;
 }
 
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean | undefined;
-    userInterfaceStyle?: 'unspecified' | 'light' | 'dark' | undefined;
+    userInterfaceStyle?: "unspecified" | "light" | "dark" | undefined;
     /** @platform android */
     onDismiss?: (() => void) | undefined;
 }
@@ -73,10 +73,10 @@ export interface AlertStatic {
 }
 
 export type AlertType =
-    | 'default'
-    | 'plain-text'
-    | 'secure-text'
-    | 'login-password';
+    | "default"
+    | "plain-text"
+    | "secure-text"
+    | "login-password";
 
 export const Alert: AlertStatic;
 export type Alert = AlertStatic;

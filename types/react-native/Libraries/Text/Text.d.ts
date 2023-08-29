@@ -1,15 +1,15 @@
-import type * as React from 'react';
-import { Constructor } from '../../private/Utilities';
-import { NativeMethods } from '../../public/ReactNativeTypes';
-import { AccessibilityProps } from '../Components/View/ViewAccessibility';
-import { ColorValue, StyleProp } from '../StyleSheet/StyleSheet';
-import { TextStyle } from '../StyleSheet/StyleSheetTypes';
+import type * as React from "react";
+import { Constructor } from "../../private/Utilities";
+import { NativeMethods } from "../../public/ReactNativeTypes";
+import { AccessibilityProps } from "../Components/View/ViewAccessibility";
+import { ColorValue, StyleProp } from "../StyleSheet/StyleSheet";
+import { TextStyle } from "../StyleSheet/StyleSheetTypes";
 import {
     GestureResponderEvent,
     LayoutChangeEvent,
     NativeSyntheticEvent,
     TextLayoutEventData,
-} from '../Types/CoreEventTypes';
+} from "../Types/CoreEventTypes";
 
 export interface TextPropsIOS {
     /**
@@ -21,17 +21,17 @@ export interface TextPropsIOS {
      * The Dynamic Type scale ramp to apply to this element on iOS.
      */
     dynamicTypeRamp?:
-        | 'caption2'
-        | 'caption1'
-        | 'footnote'
-        | 'subheadline'
-        | 'callout'
-        | 'body'
-        | 'headline'
-        | 'title3'
-        | 'title2'
-        | 'title1'
-        | 'largeTitle'
+        | "caption2"
+        | "caption1"
+        | "footnote"
+        | "subheadline"
+        | "callout"
+        | "body"
+        | "headline"
+        | "title3"
+        | "title2"
+        | "title1"
+        | "largeTitle"
         | undefined;
 
     /**
@@ -49,10 +49,10 @@ export interface TextPropsIOS {
      * Set line break strategy on iOS.
      */
     lineBreakStrategyIOS?:
-        | 'none'
-        | 'standard'
-        | 'hangul-word'
-        | 'push-out'
+        | "none"
+        | "standard"
+        | "hangul-word"
+        | "push-out"
         | undefined;
 }
 
@@ -76,7 +76,7 @@ export interface TextPropsAndroid {
      * Set text break strategy on Android API Level 23+
      * default is `highQuality`.
      */
-    textBreakStrategy?: 'simple' | 'highQuality' | 'balanced' | undefined;
+    textBreakStrategy?: "simple" | "highQuality" | "balanced" | undefined;
 
     /**
      * Determines the types of data converted to clickable URLs in the text element.
@@ -84,17 +84,17 @@ export interface TextPropsAndroid {
      */
     dataDetectorType?:
         | null
-        | 'phoneNumber'
-        | 'link'
-        | 'email'
-        | 'none'
-        | 'all'
+        | "phoneNumber"
+        | "link"
+        | "email"
+        | "none"
+        | "all"
         | undefined;
 
     /**
      * Hyphenation strategy
      */
-    android_hyphenationFrequency?: 'normal' | 'none' | 'full' | undefined;
+    android_hyphenationFrequency?: "normal" | "none" | "full" | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
@@ -124,7 +124,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      *
      * > `clip` is working only for iOS
      */
-    ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip' | undefined;
+    ellipsizeMode?: "head" | "middle" | "tail" | "clip" | undefined;
 
     /**
      * Used to reference react managed views from native code.
@@ -135,7 +135,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Line Break mode. Works only with numberOfLines.
      * clip is working only for iOS
      */
-    lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip' | undefined;
+    lineBreakMode?: "head" | "middle" | "tail" | "clip" | undefined;
 
     /**
      * Used to truncate the text with an ellipsis after computing the text

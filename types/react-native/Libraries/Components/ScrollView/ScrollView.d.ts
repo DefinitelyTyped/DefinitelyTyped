@@ -1,12 +1,12 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { Insets } from '../../../public/Insets';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { NativeSyntheticEvent, NativeTouchEvent } from '../../Types/CoreEventTypes';
-import { RefreshControlProps } from '../RefreshControl/RefreshControl';
-import { Touchable } from '../Touchable/Touchable';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { Insets } from "../../../public/Insets";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { NativeSyntheticEvent, NativeTouchEvent } from "../../Types/CoreEventTypes";
+import { RefreshControlProps } from "../RefreshControl/RefreshControl";
+import { Touchable } from "../Touchable/Touchable";
+import { ViewProps } from "../View/ViewPropTypes";
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointProp {
@@ -394,10 +394,10 @@ export interface ScrollViewPropsIOS {
      * The default value of this property must be 'automatic'. But the default value is 'never' until RN@0.51.
      */
     contentInsetAdjustmentBehavior?:
-        | 'automatic'
-        | 'scrollableAxes'
-        | 'never'
-        | 'always'
+        | "automatic"
+        | "scrollableAxes"
+        | "never"
+        | "always"
         | undefined;
 
     /**
@@ -414,7 +414,7 @@ export interface ScrollViewPropsIOS {
      * - white, scroll indicator is white. This style is good against
      *   a black content background.
      */
-    indicatorStyle?: 'default' | 'black' | 'white' | undefined;
+    indicatorStyle?: "default" | "black" | "white" | undefined;
 
     /**
      * When set, the scroll view will adjust the scroll position so that the first child
@@ -500,7 +500,7 @@ export interface ScrollViewPropsIOS {
      *      - `center` will align the snap in the center
      *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
      */
-    snapToAlignment?: 'start' | 'center' | 'end' | undefined;
+    snapToAlignment?: "start" | "center" | "end" | undefined;
 
     /**
      * Fires when the scroll view scrolls to top after the status bar has been tapped
@@ -543,7 +543,7 @@ export interface ScrollViewPropsAndroid {
         *   - 'always' - Always allow a user to over-scroll this view.
         *   - 'never' - Never allow a user to over-scroll this view.
         */
-    overScrollMode?: 'auto' | 'always' | 'never' | undefined;
+    overScrollMode?: "auto" | "always" | "never" | undefined;
 
     /**
      * Enables nested scrolling for Android API level 21+. Nested scrolling is supported by default on iOS.
@@ -596,7 +596,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *  - `'normal'`: 0.998 on iOS, 0.985 on Android (the default)
      *  - `'fast'`: 0.99 on iOS, 0.9 on Android
      */
-    decelerationRate?: 'fast' | 'normal' | number | undefined;
+    decelerationRate?: "fast" | "normal" | number | undefined;
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -618,7 +618,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      *     and moves in synchrony with the touch; dragging upwards cancels the
      *     dismissal.
      */
-    keyboardDismissMode?: 'none' | 'interactive' | 'on-drag' | undefined;
+    keyboardDismissMode?: "none" | "interactive" | "on-drag" | undefined;
 
     /**
      * Determines when the keyboard should stay visible after a tap.
@@ -630,9 +630,9 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      */
     keyboardShouldPersistTaps?:
         | boolean
-        | 'always'
-        | 'never'
-        | 'handled'
+        | "always"
+        | "never"
+        | "handled"
         | undefined;
 
     /**

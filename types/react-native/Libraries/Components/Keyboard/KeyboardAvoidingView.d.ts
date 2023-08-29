@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import { TimerMixin } from '../../../private/TimerMixin';
-import { Constructor } from '../../../private/Utilities';
-import { StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
@@ -16,7 +16,7 @@ declare const KeyboardAvoidingViewBase:
 export class KeyboardAvoidingView extends KeyboardAvoidingViewBase {}
 
 export interface KeyboardAvoidingViewProps extends ViewProps {
-    behavior?: 'height' | 'position' | 'padding' | undefined;
+    behavior?: "height" | "position" | "padding" | undefined;
 
     /**
      * The style of the content container(View) when behavior is 'position'.

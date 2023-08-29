@@ -1,5 +1,5 @@
-import { ProcessedColorValue } from '../StyleSheet/processColor';
-import { ColorValue } from '../StyleSheet/StyleSheet';
+import { ProcessedColorValue } from "../StyleSheet/processColor";
+import { ColorValue } from "../StyleSheet/StyleSheet";
 
 /**
  * @see https://reactnative.dev/docs/actionsheetios#content
@@ -13,7 +13,7 @@ export interface ActionSheetIOSOptions {
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
     cancelButtonTintColor?: ColorValue | ProcessedColorValue | undefined;
-    userInterfaceStyle?: 'light' | 'dark' | undefined;
+    userInterfaceStyle?: "light" | "dark" | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
 

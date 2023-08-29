@@ -71,27 +71,27 @@ type ScheduleLocalNotificationDetails = {
     fireDate?: number | string | undefined;
     isSilent?: boolean | undefined;
     repeatInterval?:
-        | 'year'
-        | 'month'
-        | 'week'
-        | 'day'
-        | 'hour'
-        | 'minute'
+        | "year"
+        | "month"
+        | "week"
+        | "day"
+        | "hour"
+        | "minute"
         | undefined;
     soundName?: string | undefined;
     userInfo?: Object | undefined;
 };
 
 export type PushNotificationEventName =
-    | 'notification'
-    | 'localNotification'
-    | 'register'
-    | 'registrationError';
+    | "notification"
+    | "localNotification"
+    | "register"
+    | "registrationError";
 
 type FetchResult = {
-    NewData: 'UIBackgroundFetchResultNewData';
-    NoData: 'UIBackgroundFetchResultNoData';
-    ResultFailed: 'UIBackgroundFetchResultFailed';
+    NewData: "UIBackgroundFetchResultNewData";
+    NoData: "UIBackgroundFetchResultNoData";
+    ResultFailed: "UIBackgroundFetchResultFailed";
 };
 
 /**
@@ -178,7 +178,7 @@ export interface PushNotificationIOSStatic {
      * The type MUST be 'notification'
      */
     addEventListener(
-        type: 'notification' | 'localNotification',
+        type: "notification" | "localNotification",
         handler: (notification: PushNotification) => void,
     ): void;
 
@@ -190,7 +190,7 @@ export interface PushNotificationIOSStatic {
      * The type MUST be 'register'
      */
     addEventListener(
-        type: 'register',
+        type: "register",
         handler: (deviceToken: string) => void,
     ): void;
 
@@ -203,7 +203,7 @@ export interface PushNotificationIOSStatic {
      * The type MUST be 'registrationError'
      */
     addEventListener(
-        type: 'registrationError',
+        type: "registrationError",
         handler: (error: { message: string; code: number; details: any }) => void,
     ): void;
 

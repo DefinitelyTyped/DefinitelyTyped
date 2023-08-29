@@ -1,11 +1,11 @@
-import type * as React from 'react';
-import { TimerMixin } from '../../../private/TimerMixin';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { TouchableMixin } from './Touchable';
-import { TouchableWithoutFeedbackProps } from './TouchableWithoutFeedback';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { TouchableMixin } from "./Touchable";
+import { TouchableWithoutFeedbackProps } from "./TouchableWithoutFeedback";
 
 /**
  * @see https://reactnative.dev/docs/touchablehighlight#props

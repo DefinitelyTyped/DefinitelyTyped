@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import { ColorValue } from '../../StyleSheet/StyleSheet';
+import type * as React from "react";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
 
-export type StatusBarStyle = 'default' | 'light-content' | 'dark-content';
+export type StatusBarStyle = "default" | "light-content" | "dark-content";
 
-export type StatusBarAnimation = 'none' | 'fade' | 'slide';
+export type StatusBarAnimation = "none" | "fade" | "slide";
 
 export interface StatusBarPropsIOS {
     /**
@@ -19,7 +19,7 @@ export interface StatusBarPropsIOS {
      *
      * @platform ios
      */
-    showHideTransition?: null | 'fade' | 'slide' | 'none' | undefined;
+    showHideTransition?: null | "fade" | "slide" | "none" | undefined;
 }
 
 export interface StatusBarPropsAndroid {

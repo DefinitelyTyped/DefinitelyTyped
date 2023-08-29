@@ -1,9 +1,9 @@
-import type { ListRenderItem, ViewToken, VirtualizedListProps } from '@react-native/virtualized-lists';
-import type * as React from 'react';
-import type { ScrollViewComponent } from '../Components/ScrollView/ScrollView';
-import type { View } from '../Components/View/View';
-import type { StyleProp } from '../StyleSheet/StyleSheet';
-import type { ViewStyle } from '../StyleSheet/StyleSheetTypes';
+import type { ListRenderItem, ViewToken, VirtualizedListProps } from "@react-native/virtualized-lists";
+import type * as React from "react";
+import type { ScrollViewComponent } from "../Components/ScrollView/ScrollView";
+import type { View } from "../Components/View/View";
+import type { StyleProp } from "../StyleSheet/StyleSheet";
+import type { ViewStyle } from "../StyleSheet/StyleSheetTypes";
 
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
@@ -21,9 +21,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     keyboardShouldPersistTaps?:
         | boolean
-        | 'always'
-        | 'never'
-        | 'handled'
+        | "always"
+        | "never"
+        | "handled"
         | undefined;
 
     /**

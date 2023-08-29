@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import type { ScrollViewComponent } from '../Components/ScrollView/ScrollView';
-import { View } from '../Components/View/View';
-import { StyleProp } from '../StyleSheet/StyleSheet';
-import { ViewStyle } from '../StyleSheet/StyleSheetTypes';
-import type { ListRenderItem, ViewToken, VirtualizedListProps } from './VirtualizedList';
+import type * as React from "react";
+import type { ScrollViewComponent } from "../Components/ScrollView/ScrollView";
+import { View } from "../Components/View/View";
+import { StyleProp } from "../StyleSheet/StyleSheet";
+import { ViewStyle } from "../StyleSheet/StyleSheetTypes";
+import type { ListRenderItem, ViewToken, VirtualizedListProps } from "./VirtualizedList";
 
 export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
@@ -63,9 +63,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     keyboardShouldPersistTaps?:
         | boolean
-        | 'always'
-        | 'never'
-        | 'handled'
+        | "always"
+        | "never"
+        | "handled"
         | undefined;
 
     /**

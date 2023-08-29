@@ -1,4 +1,4 @@
-import { GestureResponderEvent } from '../Libraries/Types/CoreEventTypes';
+import { GestureResponderEvent } from "../Libraries/Types/CoreEventTypes";
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.

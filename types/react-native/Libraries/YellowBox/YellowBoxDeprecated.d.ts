@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type * as React from "react";
 
 /**
  * YellowBox has been replaced with LogBox.

@@ -46,7 +46,7 @@ import {
     ViewPropsAndroid,
     ViewPropsIOS,
     VirtualizedListProps,
-} from 'react-native';
+} from "react-native";
 
 /*
  * Previously, props interfaces where named *Properties

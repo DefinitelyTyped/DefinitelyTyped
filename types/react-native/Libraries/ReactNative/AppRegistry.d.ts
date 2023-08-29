@@ -1,5 +1,5 @@
-import type * as React from 'react';
-import type { IPerformanceLogger } from '../Utilities/IPerformanceLogger';
+import type * as React from "react";
+import type { IPerformanceLogger } from "../Utilities/IPerformanceLogger";
 
 type Task = (taskData: any) => Promise<void>;
 type TaskProvider = () => Task;

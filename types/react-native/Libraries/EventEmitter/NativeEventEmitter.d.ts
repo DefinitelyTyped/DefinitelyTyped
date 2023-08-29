@@ -1,4 +1,4 @@
-import EventEmitter, { EmitterSubscription } from '../vendor/emitter/EventEmitter';
+import EventEmitter, { EmitterSubscription } from "../vendor/emitter/EventEmitter";
 
 /**
  * The React Native implementation of the IOS RCTEventEmitter which is required when creating

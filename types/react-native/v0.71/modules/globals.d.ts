@@ -197,15 +197,15 @@ declare var Response: {
 };
 
 type HeadersInit_ = Headers | string[][] | { [key: string]: string };
-type RequestCredentials_ = 'omit' | 'same-origin' | 'include';
-type RequestMode_ = 'navigate' | 'same-origin' | 'no-cors' | 'cors';
+type RequestCredentials_ = "omit" | "same-origin" | "include";
+type RequestMode_ = "navigate" | "same-origin" | "no-cors" | "cors";
 type ResponseType_ =
-    | 'basic'
-    | 'cors'
-    | 'default'
-    | 'error'
-    | 'opaque'
-    | 'opaqueredirect';
+    | "basic"
+    | "cors"
+    | "default"
+    | "error"
+    | "opaque"
+    | "opaqueredirect";
 
 //
 // XMLHttpRequest
@@ -338,12 +338,12 @@ declare var XMLHttpRequestUpload: {
 };
 
 declare type XMLHttpRequestResponseType =
-    | ''
-    | 'arraybuffer'
-    | 'blob'
-    | 'document'
-    | 'json'
-    | 'text';
+    | ""
+    | "arraybuffer"
+    | "blob"
+    | "document"
+    | "json"
+    | "text";
 
 /**
  * Based on definition from lib.dom but using class syntax.
@@ -411,16 +411,16 @@ interface WebSocketCloseEvent extends Event {
 }
 
 type WebsocketMessageEventListener = (
-    event: 'message',
+    event: "message",
     handler: (e: WebSocketMessageEvent) => void,
 ) => void;
 type WebsocketErrorEventListener = (
-    event: 'error',
+    event: "error",
     handler: (e: WebSocketErrorEvent) => void,
 ) => void;
-type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
+type WebsocketOpenEventListener = (event: "open", handler: () => void) => void;
 type WebsocketCloseEventListener = (
-    event: 'close',
+    event: "close",
     handler: (e: WebSocketCloseEvent) => void,
 ) => void;
 
@@ -463,7 +463,7 @@ declare var WebSocket: {
 //
 
 interface AbortEvent extends Event {
-    type: 'abort';
+    type: "abort";
 }
 
 declare class AbortSignal implements EventTarget {
@@ -479,7 +479,7 @@ declare class AbortSignal implements EventTarget {
     onabort: (event: AbortEvent) => void;
 
     addEventListener: (
-        type: 'abort',
+        type: "abort",
         listener: (this: AbortSignal, event: any) => any,
         options?:
             | boolean
@@ -491,7 +491,7 @@ declare class AbortSignal implements EventTarget {
     ) => void;
 
     removeEventListener: (
-        type: 'abort',
+        type: "abort",
         listener: (this: AbortSignal, event: any) => any,
         options?:
             | boolean

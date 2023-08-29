@@ -1,9 +1,9 @@
-import type * as React from 'react';
+import type * as React from "react";
 import {
     MeasureInWindowOnSuccessCallback,
     MeasureLayoutOnSuccessCallback,
     MeasureOnSuccessCallback,
-} from '../../public/ReactNativeTypes';
+} from "../../public/ReactNativeTypes";
 
 export interface UIManagerStatic {
     /**
@@ -24,11 +24,11 @@ export interface UIManagerStatic {
      * @platform ios
      */
     takeSnapshot: (
-        view?: 'window' | React.ReactElement | number,
+        view?: "window" | React.ReactElement | number,
         options?: {
             width?: number | undefined;
             height?: number | undefined;
-            format?: 'png' | 'jpeg' | undefined;
+            format?: "png" | "jpeg" | undefined;
             quality?: number | undefined;
         },
     ) => Promise<string>;

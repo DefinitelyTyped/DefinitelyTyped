@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Animated, NativeScrollEvent, NativeSyntheticEvent, SectionListData, StyleProp, View } from 'react-native';
+import { Animated, NativeScrollEvent, NativeSyntheticEvent, SectionListData, StyleProp, View } from "react-native";
 
 interface CompProps {
     width: number;
@@ -175,10 +175,10 @@ function TestAnimatedAPI() {
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
             <Animated.Image
                 style={{ transform: position.getTranslateTransform() }}
-                source={{ uri: 'https://picsum.photos/200' }}
+                source={{ uri: "https://picsum.photos/200" }}
             />
             <Animated.View
-                testID='expect-type-animated-view'
+                testID="expect-type-animated-view"
                 style={{ opacity: v1 }}
                 onLayout={event => {
                     const x = event.nativeEvent.layout.x; // $ExpectType number
@@ -189,7 +189,7 @@ function TestAnimatedAPI() {
             />
             ;
             <Animated.FlatList
-                testID='expect-type-animated-flatlist'
+                testID="expect-type-animated-flatlist"
                 style={{ opacity: v1 }}
                 data={[1] as ReadonlyArray<number>}
                 renderItem={info => {
@@ -199,9 +199,9 @@ function TestAnimatedAPI() {
             />
             ;
             <Animated.SectionList
-                testID='expect-type-animated-sectionlist'
+                testID="expect-type-animated-sectionlist"
                 style={{ opacity: v1 }}
-                sections={[{ title: 'test', data: [1] }] as SectionListData<
+                sections={[{ title: "test", data: [1] }] as SectionListData<
                     number,
                     { title: string }
                 >[]}

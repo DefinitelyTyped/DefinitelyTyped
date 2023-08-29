@@ -1,15 +1,15 @@
-import type * as React from 'react';
-import { HostComponent } from '../../../public/ReactNativeTypes';
-import { EmitterSubscription } from '../../vendor/emitter/EventEmitter';
+import type * as React from "react";
+import { HostComponent } from "../../../public/ReactNativeTypes";
+import { EmitterSubscription } from "../../vendor/emitter/EventEmitter";
 
 type AccessibilityChangeEventName =
-    | 'change' // deprecated, maps to screenReaderChanged
-    | 'boldTextChanged' // iOS-only Event
-    | 'grayscaleChanged' // iOS-only Event
-    | 'invertColorsChanged' // iOS-only Event
-    | 'reduceMotionChanged'
-    | 'screenReaderChanged'
-    | 'reduceTransparencyChanged'; // iOS-only Event
+    | "change" // deprecated, maps to screenReaderChanged
+    | "boldTextChanged" // iOS-only Event
+    | "grayscaleChanged" // iOS-only Event
+    | "invertColorsChanged" // iOS-only Event
+    | "reduceMotionChanged"
+    | "screenReaderChanged"
+    | "reduceTransparencyChanged"; // iOS-only Event
 
 type AccessibilityChangeEvent = boolean;
 
@@ -17,7 +17,7 @@ type AccessibilityChangeEventHandler = (
     event: AccessibilityChangeEvent,
 ) => void;
 
-type AccessibilityAnnouncementEventName = 'announcementFinished'; // iOS-only Event
+type AccessibilityAnnouncementEventName = "announcementFinished"; // iOS-only Event
 
 type AccessibilityAnnouncementFinishedEvent = {
     announcement: string;
@@ -28,7 +28,7 @@ type AccessibilityAnnouncementFinishedEventHandler = (
     event: AccessibilityAnnouncementFinishedEvent,
 ) => void;
 
-type AccessibilityEventTypes = 'click' | 'focus';
+type AccessibilityEventTypes = "click" | "focus";
 
 /**
  * @see https://reactnative.dev/docs/accessibilityinfo

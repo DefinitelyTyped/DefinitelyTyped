@@ -1,7 +1,7 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface DatePickerIOSProps extends ViewProps {
     /**
@@ -46,7 +46,7 @@ export interface DatePickerIOSProps extends ViewProps {
      *  enum('date', 'time', 'datetime')
      *  The date picker mode.
      */
-    mode?: 'date' | 'time' | 'datetime' | undefined;
+    mode?: "date" | "time" | "datetime" | undefined;
 
     /**
      * Date change handler.
@@ -67,7 +67,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * This is only available on devices with iOS 14.0 and later.
      * 'spinner' is the default style if this prop isn't set.
      */
-    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined;
+    pickerStyle?: "compact" | "spinner" | "inline" | undefined;
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}

@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ColorValue } from '../../StyleSheet/StyleSheet';
-import { NativeSyntheticEvent, NativeTouchEvent } from '../../Types/CoreEventTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { NativeSyntheticEvent, NativeTouchEvent } from "../../Types/CoreEventTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
@@ -36,14 +36,14 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      *   not respond to gestures. The drawer may still be opened and
      *   closed programmatically (openDrawer/closeDrawer).
      */
-    drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open' | undefined;
+    drawerLockMode?: "unlocked" | "locked-closed" | "locked-open" | undefined;
 
     /**
      * Specifies the side of the screen from which the drawer will slide in.
      * - 'left' (the default)
      * - 'right'
      */
-    drawerPosition?: 'left' | 'right' | undefined;
+    drawerPosition?: "left" | "right" | undefined;
 
     /**
      * Specifies the width of the drawer, more precisely the width of the
@@ -56,7 +56,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      * - 'none' (the default), drags do not dismiss the keyboard.
      * - 'on-drag', the keyboard is dismissed when a drag begins.
      */
-    keyboardDismissMode?: 'none' | 'on-drag' | undefined;
+    keyboardDismissMode?: "none" | "on-drag" | undefined;
 
     /**
      * Function called whenever the navigation view has been closed.
@@ -85,7 +85,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      *   it's closing or opening animation
      */
     onDrawerStateChanged?:
-        | ((event: 'Idle' | 'Dragging' | 'Settling') => void)
+        | ((event: "Idle" | "Dragging" | "Settling") => void)
         | undefined;
 
     /**

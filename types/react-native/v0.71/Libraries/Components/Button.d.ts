@@ -1,23 +1,23 @@
-import type * as React from 'react';
-import { ColorValue } from '../StyleSheet/StyleSheet';
-import { TouchableNativeFeedbackProps } from './Touchable/TouchableNativeFeedback';
-import { TouchableOpacityProps } from './Touchable/TouchableOpacity';
+import type * as React from "react";
+import { ColorValue } from "../StyleSheet/StyleSheet";
+import { TouchableNativeFeedbackProps } from "./Touchable/TouchableNativeFeedback";
+import { TouchableOpacityProps } from "./Touchable/TouchableOpacity";
 
 export interface ButtonProps extends
     Pick<
         TouchableNativeFeedbackProps & TouchableOpacityProps,
-        | 'accessibilityLabel'
-        | 'accessibilityState'
-        | 'hasTVPreferredFocus'
-        | 'nextFocusDown'
-        | 'nextFocusForward'
-        | 'nextFocusLeft'
-        | 'nextFocusRight'
-        | 'nextFocusUp'
-        | 'testID'
-        | 'disabled'
-        | 'onPress'
-        | 'touchSoundDisabled'
+        | "accessibilityLabel"
+        | "accessibilityState"
+        | "hasTVPreferredFocus"
+        | "nextFocusDown"
+        | "nextFocusForward"
+        | "nextFocusLeft"
+        | "nextFocusRight"
+        | "nextFocusUp"
+        | "testID"
+        | "disabled"
+        | "onPress"
+        | "touchSoundDisabled"
     >
 {
     /**

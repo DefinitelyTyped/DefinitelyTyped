@@ -1,4 +1,4 @@
-import { EmitterSubscription } from '../vendor/emitter/EventEmitter';
+import { EmitterSubscription } from "../vendor/emitter/EventEmitter";
 
 export type Handle = number;
 

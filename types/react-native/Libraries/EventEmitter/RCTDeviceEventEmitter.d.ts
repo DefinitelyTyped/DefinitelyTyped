@@ -1,4 +1,4 @@
-import EventEmitter, { EmitterSubscription, EventSubscriptionVendor } from '../vendor/emitter/EventEmitter';
+import EventEmitter, { EmitterSubscription, EventSubscriptionVendor } from "../vendor/emitter/EventEmitter";
 
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of

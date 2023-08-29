@@ -1,8 +1,8 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ColorValue } from '../../StyleSheet/StyleSheet';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
@@ -22,13 +22,13 @@ export interface ProgressBarAndroidProps extends ViewProps {
          LargeInverse
      */
     styleAttr?:
-        | 'Horizontal'
-        | 'Normal'
-        | 'Small'
-        | 'Large'
-        | 'Inverse'
-        | 'SmallInverse'
-        | 'LargeInverse'
+        | "Horizontal"
+        | "Normal"
+        | "Small"
+        | "Large"
+        | "Inverse"
+        | "SmallInverse"
+        | "LargeInverse"
         | undefined;
 
     /**

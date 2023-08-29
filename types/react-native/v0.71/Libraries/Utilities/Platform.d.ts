@@ -2,12 +2,12 @@
  * @see https://reactnative.dev/docs/platform-specific-code#content
  */
 export type PlatformOSType =
-    | 'ios'
-    | 'android'
-    | 'macos'
-    | 'windows'
-    | 'web'
-    | 'native';
+    | "ios"
+    | "android"
+    | "macos"
+    | "windows"
+    | "web"
+    | "native";
 type PlatformConstants = {
     isTesting: boolean;
     reactNativeVersion: {
@@ -41,7 +41,7 @@ interface PlatformIOSStatic extends PlatformStatic {
         osVersion: string;
         systemName: string;
     };
-    OS: 'ios';
+    OS: "ios";
     isPad: boolean;
     isTV: boolean;
     Version: string;
@@ -57,14 +57,14 @@ interface PlatformAndroidStatic extends PlatformStatic {
         Brand: string;
         Manufacturer: string;
         ServerHost?: string | undefined;
-        uiMode: 'car' | 'desk' | 'normal' | 'tv' | 'watch' | 'unknown';
+        uiMode: "car" | "desk" | "normal" | "tv" | "watch" | "unknown";
     };
-    OS: 'android';
+    OS: "android";
     Version: number;
 }
 
 interface PlatformMacOSStatic extends PlatformStatic {
-    OS: 'macos';
+    OS: "macos";
     Version: string;
     constants: PlatformConstants & {
         osVersion: string;
@@ -72,7 +72,7 @@ interface PlatformMacOSStatic extends PlatformStatic {
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
-    OS: 'windows';
+    OS: "windows";
     Version: number;
     constants: PlatformConstants & {
         osVersion: number;
@@ -80,7 +80,7 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
 }
 
 interface PlatformWebStatic extends PlatformStatic {
-    OS: 'web';
+    OS: "web";
 }
 
 export type Platform =

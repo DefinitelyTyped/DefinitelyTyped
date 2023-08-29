@@ -1,7 +1,7 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ViewProps } from './ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ViewProps } from "./ViewPropTypes";
 
 /**
  * The most fundamental component for building UI, View is a container that supports layout with flexbox, style, some touch handling,

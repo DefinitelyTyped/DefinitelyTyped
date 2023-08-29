@@ -1,10 +1,10 @@
-import type * as React from 'react';
-import { TimerMixin } from '../../../private/TimerMixin';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { TVParallaxProperties } from '../View/ViewPropTypes';
-import { TouchableMixin } from './Touchable';
-import { TouchableWithoutFeedbackProps } from './TouchableWithoutFeedback';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { TVParallaxProperties } from "../View/ViewPropTypes";
+import { TouchableMixin } from "./Touchable";
+import { TouchableWithoutFeedbackProps } from "./TouchableWithoutFeedback";
 
 export interface TVProps {
     /**

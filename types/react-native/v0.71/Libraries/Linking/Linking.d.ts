@@ -1,5 +1,5 @@
-import { NativeEventEmitter } from '../EventEmitter/NativeEventEmitter';
-import { EmitterSubscription } from '../vendor/emitter/EventEmitter';
+import { NativeEventEmitter } from "../EventEmitter/NativeEventEmitter";
+import { EmitterSubscription } from "../vendor/emitter/EventEmitter";
 
 export interface LinkingStatic extends NativeEventEmitter {
     /**
@@ -7,7 +7,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * and providing the handler
      */
     addEventListener(
-        type: 'url',
+        type: "url",
         handler: (event: { url: string }) => void,
     ): EmitterSubscription;
 

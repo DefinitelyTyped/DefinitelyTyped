@@ -1,6 +1,6 @@
-import type * as React from 'react';
-import { HostComponent } from '../../public/ReactNativeTypes';
-import { NodeHandle } from '../ReactNative/RendererProxy';
+import type * as React from "react";
+import { HostComponent } from "../../public/ReactNativeTypes";
+import { NodeHandle } from "../ReactNative/RendererProxy";
 
 export interface LayoutRectangle {
     x: number;

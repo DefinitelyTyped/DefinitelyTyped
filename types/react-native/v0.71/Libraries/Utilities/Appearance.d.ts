@@ -1,6 +1,6 @@
-import { NativeEventSubscription } from '../EventEmitter/RCTNativeAppEventEmitter';
+import { NativeEventSubscription } from "../EventEmitter/RCTNativeAppEventEmitter";
 
-type ColorSchemeName = 'light' | 'dark' | null | undefined;
+type ColorSchemeName = "light" | "dark" | null | undefined;
 
 export namespace Appearance {
     type AppearancePreferences = {

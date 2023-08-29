@@ -1,6 +1,6 @@
-import type * as React from 'react';
-import { Insets } from '../../../public/Insets';
-import { GestureResponderEvent } from '../../Types/CoreEventTypes';
+import type * as React from "react";
+import { Insets } from "../../../public/Insets";
+import { GestureResponderEvent } from "../../Types/CoreEventTypes";
 
 /**
  * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface

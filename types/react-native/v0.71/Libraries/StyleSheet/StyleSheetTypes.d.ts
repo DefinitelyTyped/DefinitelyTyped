@@ -1,12 +1,12 @@
-import { ImageResizeMode } from '../Image/ImageResizeMode';
-import { ColorValue } from './StyleSheet';
+import { ImageResizeMode } from "../Image/ImageResizeMode";
+import { ColorValue } from "./StyleSheet";
 
 type FlexAlignType =
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'stretch'
-    | 'baseline';
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "stretch"
+    | "baseline";
 
 /**
  * Flex Prop Types
@@ -15,15 +15,15 @@ type FlexAlignType =
  */
 export interface FlexStyle {
     alignContent?:
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'stretch'
-        | 'space-between'
-        | 'space-around'
+        | "flex-start"
+        | "flex-end"
+        | "center"
+        | "stretch"
+        | "space-between"
+        | "space-around"
         | undefined;
     alignItems?: FlexAlignType | undefined;
-    alignSelf?: 'auto' | FlexAlignType | undefined;
+    alignSelf?: "auto" | FlexAlignType | undefined;
     aspectRatio?: number | string | undefined;
     borderBottomWidth?: number | undefined;
     borderEndWidth?: number | string | undefined;
@@ -33,30 +33,30 @@ export interface FlexStyle {
     borderTopWidth?: number | undefined;
     borderWidth?: number | undefined;
     bottom?: number | string | undefined;
-    display?: 'none' | 'flex' | undefined;
+    display?: "none" | "flex" | undefined;
     end?: number | string | undefined;
     flex?: number | undefined;
     flexBasis?: number | string | undefined;
     flexDirection?:
-        | 'row'
-        | 'column'
-        | 'row-reverse'
-        | 'column-reverse'
+        | "row"
+        | "column"
+        | "row-reverse"
+        | "column-reverse"
         | undefined;
     rowGap?: number | undefined;
     gap?: number | undefined;
     columnGap?: number | undefined;
     flexGrow?: number | undefined;
     flexShrink?: number | undefined;
-    flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined;
+    flexWrap?: "wrap" | "nowrap" | "wrap-reverse" | undefined;
     height?: number | string | undefined;
     justifyContent?:
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'space-evenly'
+        | "flex-start"
+        | "flex-end"
+        | "center"
+        | "space-between"
+        | "space-around"
+        | "space-evenly"
         | undefined;
     left?: number | string | undefined;
     margin?: number | string | undefined;
@@ -72,7 +72,7 @@ export interface FlexStyle {
     maxWidth?: number | string | undefined;
     minHeight?: number | string | undefined;
     minWidth?: number | string | undefined;
-    overflow?: 'visible' | 'hidden' | 'scroll' | undefined;
+    overflow?: "visible" | "hidden" | "scroll" | undefined;
     padding?: number | string | undefined;
     paddingBottom?: number | string | undefined;
     paddingEnd?: number | string | undefined;
@@ -82,7 +82,7 @@ export interface FlexStyle {
     paddingStart?: number | string | undefined;
     paddingTop?: number | string | undefined;
     paddingVertical?: number | string | undefined;
-    position?: 'absolute' | 'relative' | undefined;
+    position?: "absolute" | "relative" | undefined;
     right?: number | string | undefined;
     start?: number | string | undefined;
     top?: number | string | undefined;
@@ -92,7 +92,7 @@ export interface FlexStyle {
     /**
      * @platform ios
      */
-    direction?: 'inherit' | 'ltr' | 'rtl' | undefined;
+    direction?: "inherit" | "ltr" | "rtl" | undefined;
 }
 
 export interface ShadowStyleIOS {
@@ -202,7 +202,7 @@ export interface TransformsStyle {
  * @see https://reactnative.dev/docs/view#style
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
-    backfaceVisibility?: 'visible' | 'hidden' | undefined;
+    backfaceVisibility?: "visible" | "hidden" | undefined;
     backgroundColor?: ColorValue | undefined;
     borderBottomColor?: ColorValue | undefined;
     borderBottomEndRadius?: number | undefined;
@@ -215,7 +215,7 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
      * On iOS 13+, it is possible to change the corner curve of borders.
      * @platform ios
      */
-    borderCurve?: 'circular' | 'continuous' | undefined;
+    borderCurve?: "circular" | "continuous" | undefined;
     borderEndColor?: ColorValue | undefined;
     borderLeftColor?: ColorValue | undefined;
     borderLeftWidth?: number | undefined;
@@ -223,7 +223,7 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     borderRightColor?: ColorValue | undefined;
     borderRightWidth?: number | undefined;
     borderStartColor?: ColorValue | undefined;
-    borderStyle?: 'solid' | 'dotted' | 'dashed' | undefined;
+    borderStyle?: "solid" | "dotted" | "dashed" | undefined;
     borderTopColor?: ColorValue | undefined;
     borderTopEndRadius?: number | undefined;
     borderTopLeftRadius?: number | undefined;
@@ -245,26 +245,26 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     /**
      * Controls whether the View can be the target of touch events.
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
 }
 
 export type FontVariant =
-    | 'small-caps'
-    | 'oldstyle-nums'
-    | 'lining-nums'
-    | 'tabular-nums'
-    | 'proportional-nums';
+    | "small-caps"
+    | "oldstyle-nums"
+    | "lining-nums"
+    | "tabular-nums"
+    | "proportional-nums";
 export interface TextStyleIOS extends ViewStyle {
     fontVariant?: FontVariant[] | undefined;
     letterSpacing?: number | undefined;
     textDecorationColor?: ColorValue | undefined;
-    textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed' | undefined;
-    writingDirection?: 'auto' | 'ltr' | 'rtl' | undefined;
+    textDecorationStyle?: "solid" | "double" | "dotted" | "dashed" | undefined;
+    writingDirection?: "auto" | "ltr" | "rtl" | undefined;
 }
 
 export interface TextStyleAndroid extends ViewStyle {
-    textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center' | undefined;
-    verticalAlign?: 'auto' | 'top' | 'bottom' | 'middle' | undefined;
+    textAlignVertical?: "auto" | "top" | "bottom" | "center" | undefined;
+    verticalAlign?: "auto" | "top" | "bottom" | "middle" | undefined;
     includeFontPadding?: boolean | undefined;
 }
 
@@ -273,40 +273,40 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
     color?: ColorValue | undefined;
     fontFamily?: string | undefined;
     fontSize?: number | undefined;
-    fontStyle?: 'normal' | 'italic' | undefined;
+    fontStyle?: "normal" | "italic" | undefined;
     /**
      * Specifies font weight. The values 'normal' and 'bold' are supported
      * for most fonts. Not all fonts have a variant for each of the numeric
      * values, in that case the closest one is chosen.
      */
     fontWeight?:
-        | 'normal'
-        | 'bold'
-        | '100'
-        | '200'
-        | '300'
-        | '400'
-        | '500'
-        | '600'
-        | '700'
-        | '800'
-        | '900'
+        | "normal"
+        | "bold"
+        | "100"
+        | "200"
+        | "300"
+        | "400"
+        | "500"
+        | "600"
+        | "700"
+        | "800"
+        | "900"
         | undefined;
     letterSpacing?: number | undefined;
     lineHeight?: number | undefined;
-    textAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify' | undefined;
+    textAlign?: "auto" | "left" | "right" | "center" | "justify" | undefined;
     textDecorationLine?:
-        | 'none'
-        | 'underline'
-        | 'line-through'
-        | 'underline line-through'
+        | "none"
+        | "underline"
+        | "line-through"
+        | "underline line-through"
         | undefined;
-    textDecorationStyle?: 'solid' | 'double' | 'dotted' | 'dashed' | undefined;
+    textDecorationStyle?: "solid" | "double" | "dotted" | "dashed" | undefined;
     textDecorationColor?: ColorValue | undefined;
     textShadowColor?: ColorValue | undefined;
     textShadowOffset?: { width: number; height: number } | undefined;
     textShadowRadius?: number | undefined;
-    textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | undefined;
+    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase" | undefined;
     testID?: string | undefined;
 }
 
@@ -316,7 +316,7 @@ export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
  */
 export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     resizeMode?: ImageResizeMode | undefined;
-    backfaceVisibility?: 'visible' | 'hidden' | undefined;
+    backfaceVisibility?: "visible" | "hidden" | undefined;
     borderBottomLeftRadius?: number | undefined;
     borderBottomRightRadius?: number | undefined;
     backgroundColor?: ColorValue | undefined;
@@ -325,7 +325,7 @@ export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     borderRadius?: number | undefined;
     borderTopLeftRadius?: number | undefined;
     borderTopRightRadius?: number | undefined;
-    overflow?: 'visible' | 'hidden' | undefined;
+    overflow?: "visible" | "hidden" | undefined;
     overlayColor?: ColorValue | undefined;
     tintColor?: ColorValue | undefined;
     opacity?: number | undefined;

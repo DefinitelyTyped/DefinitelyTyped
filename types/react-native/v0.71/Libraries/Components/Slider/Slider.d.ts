@@ -1,10 +1,10 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ImageURISource } from '../../Image/ImageSource';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ImageURISource } from "../../Image/ImageSource";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface SliderPropsAndroid extends ViewProps {
     /**

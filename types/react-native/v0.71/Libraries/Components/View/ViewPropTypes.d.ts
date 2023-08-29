@@ -1,11 +1,11 @@
-import type * as React from 'react';
-import { Insets } from '../../../public/Insets';
-import { GestureResponderHandlers } from '../../../public/ReactNativeRenderer';
-import { StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { LayoutChangeEvent, PointerEvents } from '../../Types/CoreEventTypes';
-import { Touchable } from '../Touchable/Touchable';
-import { AccessibilityProps } from './ViewAccessibility';
+import type * as React from "react";
+import { Insets } from "../../../public/Insets";
+import { GestureResponderHandlers } from "../../../public/ReactNativeRenderer";
+import { StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { LayoutChangeEvent, PointerEvents } from "../../Types/CoreEventTypes";
+import { Touchable } from "../Touchable/Touchable";
+import { AccessibilityProps } from "./ViewAccessibility";
 
 export type TVParallaxProperties = {
     /**
@@ -207,7 +207,7 @@ export interface ViewProps
      * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
      * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
 
     /**
      * This is a special performance property exposed by RCTView and is useful for scrolling content when there are many subviews,

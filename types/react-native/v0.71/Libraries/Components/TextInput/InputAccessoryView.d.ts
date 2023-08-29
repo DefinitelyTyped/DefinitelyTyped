@@ -1,6 +1,6 @@
-import type * as React from 'react';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
+import type * as React from "react";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
 
 /**
  * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is

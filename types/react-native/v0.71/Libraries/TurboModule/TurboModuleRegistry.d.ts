@@ -1,4 +1,4 @@
-import { TurboModule } from './RCTExport';
+import { TurboModule } from "./RCTExport";
 
 export const TurboModuleRegistry: {
     get<T extends TurboModule>(name: string): T | null;

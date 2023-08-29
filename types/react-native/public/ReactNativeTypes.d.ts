@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type * as React from "react";
 
 export type MeasureOnSuccessCallback = (
     x: number,
@@ -128,7 +128,7 @@ export type NativeMethodsMixinType = NativeMethods;
 export interface HostComponent<P> extends
     Pick<
         React.ComponentClass<P>,
-        Exclude<keyof React.ComponentClass<P>, 'new'>
+        Exclude<keyof React.ComponentClass<P>, "new">
     >
 {
     new(props: P, context?: any): React.Component<P> & Readonly<NativeMethods>;

@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent } from '../../Types/CoreEventTypes';
+import { NativeSyntheticEvent } from "../../Types/CoreEventTypes";
 
 /**
  * @see https://reactnative.dev/docs/accessibility#accessibility-properties
@@ -25,7 +25,7 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * Alias for accessibilityLabel  https://reactnative.dev/docs/view#accessibilitylabel
      * https://github.com/facebook/react-native/issues/34424
      */
-    'aria-label'?: string | undefined;
+    "aria-label"?: string | undefined;
 
     /**
      * Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.
@@ -41,18 +41,18 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      *
      * see https://reactnative.dev/docs/accessibility#accessibilitystate
      */
-    'aria-busy'?: boolean | undefined;
-    'aria-checked'?: boolean | 'mixed' | undefined;
-    'aria-disabled'?: boolean | undefined;
-    'aria-expanded'?: boolean | undefined;
-    'aria-selected'?: boolean | undefined;
+    "aria-busy"?: boolean | undefined;
+    "aria-checked"?: boolean | "mixed" | undefined;
+    "aria-disabled"?: boolean | undefined;
+    "aria-expanded"?: boolean | undefined;
+    "aria-selected"?: boolean | undefined;
 
     /**
      * Represents the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
      *
      * @platform android
      */
-    'aria-labelledby'?: string | undefined;
+    "aria-labelledby"?: string | undefined;
 
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
@@ -64,10 +64,10 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      */
     accessibilityValue?: AccessibilityValue | undefined;
 
-    'aria-valuemax'?: AccessibilityValue['max'];
-    'aria-valuemin'?: AccessibilityValue['min'];
-    'aria-valuenow'?: AccessibilityValue['now'];
-    'aria-valuetext'?: AccessibilityValue['text'];
+    "aria-valuemax"?: AccessibilityValue["max"];
+    "aria-valuemin"?: AccessibilityValue["min"];
+    "aria-valuenow"?: AccessibilityValue["now"];
+    "aria-valuetext"?: AccessibilityValue["text"];
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.
      */
@@ -79,17 +79,17 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * [Android] Controlling if a view fires accessibility events and if it is reported to accessibility services.
      */
     importantForAccessibility?:
-        | ('auto' | 'yes' | 'no' | 'no-hide-descendants')
+        | ("auto" | "yes" | "no" | "no-hide-descendants")
         | undefined;
 
     /**
      * A value indicating whether the accessibility elements contained within
      * this accessibility element are hidden.
      */
-    'aria-hidden'?: boolean | undefined;
+    "aria-hidden"?: boolean | undefined;
 
-    'aria-live'?: ('polite' | 'assertive' | 'off') | undefined;
-    'aria-modal'?: boolean | undefined;
+    "aria-live"?: ("polite" | "assertive" | "off") | undefined;
+    "aria-modal"?: boolean | undefined;
 
     /**
      * Indicates to accessibility services to treat UI component like a specific role.
@@ -106,30 +106,30 @@ export type AccessibilityActionName =
     /**
      * Generated when a screen reader user double taps the component.
      */
-    | 'activate'
+    | "activate"
     /**
      * Generated when a screen reader user increments an adjustable component.
      */
-    | 'increment'
+    | "increment"
     /**
      * Generated when a screen reader user decrements an adjustable component.
      */
-    | 'decrement'
+    | "decrement"
     /**
      * Generated when a TalkBack user places accessibility focus on the component and double taps and holds one finger on the screen.
      * @platform android
      */
-    | 'longpress'
+    | "longpress"
     /**
      * Generated when a VoiceOver user places focus on or inside the component and double taps with two fingers.
      * @platform ios
      */
-    | 'magicTap'
+    | "magicTap"
     /**
      * Generated when a VoiceOver user places focus on or inside the component and performs a two finger scrub gesture (left, right, left).
      * @platform ios
      */
-    | 'escape';
+    | "escape";
 
 export type AccessibilityActionEvent = NativeSyntheticEvent<
     Readonly<{
@@ -149,7 +149,7 @@ export interface AccessibilityState {
     /**
      * For items like Checkboxes and Toggle switches, reports their state to accessible tools
      */
-    checked?: boolean | 'mixed' | undefined;
+    checked?: boolean | "mixed" | undefined;
     /**
      *  When present, informs accessible tools if the element is busy
      */
@@ -183,36 +183,36 @@ export interface AccessibilityValue {
 }
 
 export type AccessibilityRole =
-    | 'none'
-    | 'button'
-    | 'togglebutton'
-    | 'link'
-    | 'search'
-    | 'image'
-    | 'keyboardkey'
-    | 'text'
-    | 'adjustable'
-    | 'imagebutton'
-    | 'header'
-    | 'summary'
-    | 'alert'
-    | 'checkbox'
-    | 'combobox'
-    | 'menu'
-    | 'menubar'
-    | 'menuitem'
-    | 'progressbar'
-    | 'radio'
-    | 'radiogroup'
-    | 'scrollbar'
-    | 'spinbutton'
-    | 'switch'
-    | 'tab'
-    | 'tabbar'
-    | 'tablist'
-    | 'timer'
-    | 'list'
-    | 'toolbar';
+    | "none"
+    | "button"
+    | "togglebutton"
+    | "link"
+    | "search"
+    | "image"
+    | "keyboardkey"
+    | "text"
+    | "adjustable"
+    | "imagebutton"
+    | "header"
+    | "summary"
+    | "alert"
+    | "checkbox"
+    | "combobox"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "scrollbar"
+    | "spinbutton"
+    | "switch"
+    | "tab"
+    | "tabbar"
+    | "tablist"
+    | "timer"
+    | "list"
+    | "toolbar";
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -221,7 +221,7 @@ export interface AccessibilityPropsAndroid {
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
      * @platform android
      */
-    accessibilityLiveRegion?: 'none' | 'polite' | 'assertive' | undefined;
+    accessibilityLiveRegion?: "none" | "polite" | "assertive" | undefined;
 
     /**
      * Controls how view is important for accessibility which is if it fires accessibility events
@@ -235,10 +235,10 @@ export interface AccessibilityPropsAndroid {
      *      'no-hide-descendants' - The view is not important for accessibility, nor are any of its descendant views.
      */
     importantForAccessibility?:
-        | 'auto'
-        | 'yes'
-        | 'no'
-        | 'no-hide-descendants'
+        | "auto"
+        | "yes"
+        | "no"
+        | "no-hide-descendants"
         | undefined;
 }
 
@@ -282,68 +282,68 @@ export interface AccessibilityPropsIOS {
 }
 
 export type Role =
-    | 'alert'
-    | 'alertdialog'
-    | 'application'
-    | 'article'
-    | 'banner'
-    | 'button'
-    | 'cell'
-    | 'checkbox'
-    | 'columnheader'
-    | 'combobox'
-    | 'complementary'
-    | 'contentinfo'
-    | 'definition'
-    | 'dialog'
-    | 'directory'
-    | 'document'
-    | 'feed'
-    | 'figure'
-    | 'form'
-    | 'grid'
-    | 'group'
-    | 'heading'
-    | 'img'
-    | 'link'
-    | 'list'
-    | 'listitem'
-    | 'log'
-    | 'main'
-    | 'marquee'
-    | 'math'
-    | 'menu'
-    | 'menubar'
-    | 'menuitem'
-    | 'meter'
-    | 'navigation'
-    | 'none'
-    | 'note'
-    | 'option'
-    | 'presentation'
-    | 'progressbar'
-    | 'radio'
-    | 'radiogroup'
-    | 'region'
-    | 'row'
-    | 'rowgroup'
-    | 'rowheader'
-    | 'scrollbar'
-    | 'searchbox'
-    | 'separator'
-    | 'slider'
-    | 'spinbutton'
-    | 'status'
-    | 'summary'
-    | 'switch'
-    | 'tab'
-    | 'table'
-    | 'tablist'
-    | 'tabpanel'
-    | 'term'
-    | 'timer'
-    | 'toolbar'
-    | 'tooltip'
-    | 'tree'
-    | 'treegrid'
-    | 'treeitem';
+    | "alert"
+    | "alertdialog"
+    | "application"
+    | "article"
+    | "banner"
+    | "button"
+    | "cell"
+    | "checkbox"
+    | "columnheader"
+    | "combobox"
+    | "complementary"
+    | "contentinfo"
+    | "definition"
+    | "dialog"
+    | "directory"
+    | "document"
+    | "feed"
+    | "figure"
+    | "form"
+    | "grid"
+    | "group"
+    | "heading"
+    | "img"
+    | "link"
+    | "list"
+    | "listitem"
+    | "log"
+    | "main"
+    | "marquee"
+    | "math"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "meter"
+    | "navigation"
+    | "none"
+    | "note"
+    | "option"
+    | "presentation"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "region"
+    | "row"
+    | "rowgroup"
+    | "rowheader"
+    | "scrollbar"
+    | "searchbox"
+    | "separator"
+    | "slider"
+    | "spinbutton"
+    | "status"
+    | "summary"
+    | "switch"
+    | "tab"
+    | "table"
+    | "tablist"
+    | "tabpanel"
+    | "term"
+    | "timer"
+    | "toolbar"
+    | "tooltip"
+    | "tree"
+    | "treegrid"
+    | "treeitem";

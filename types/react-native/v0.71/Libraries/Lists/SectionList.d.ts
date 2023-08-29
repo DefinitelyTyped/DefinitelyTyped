@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import type { ScrollView, ScrollViewProps } from '../Components/ScrollView/ScrollView';
-import { NodeHandle } from '../ReactNative/RendererProxy';
-import { StyleProp } from '../StyleSheet/StyleSheet';
-import { ViewStyle } from '../StyleSheet/StyleSheetTypes';
-import type { ListRenderItemInfo, VirtualizedListWithoutRenderItemProps } from './VirtualizedList';
+import type * as React from "react";
+import type { ScrollView, ScrollViewProps } from "../Components/ScrollView/ScrollView";
+import { NodeHandle } from "../ReactNative/RendererProxy";
+import { StyleProp } from "../StyleSheet/StyleSheet";
+import { ViewStyle } from "../StyleSheet/StyleSheetTypes";
+import type { ListRenderItemInfo, VirtualizedListWithoutRenderItemProps } from "./VirtualizedList";
 
 /**
  * @see https://reactnative.dev/docs/sectionlist

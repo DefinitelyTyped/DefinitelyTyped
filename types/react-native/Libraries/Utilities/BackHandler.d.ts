@@ -1,6 +1,6 @@
-import { NativeEventSubscription } from '../EventEmitter/RCTNativeAppEventEmitter';
+import { NativeEventSubscription } from "../EventEmitter/RCTNativeAppEventEmitter";
 
-export type BackPressEventName = 'hardwareBackPress';
+export type BackPressEventName = "hardwareBackPress";
 
 /**
  * Detect hardware back button presses, and programmatically invoke the

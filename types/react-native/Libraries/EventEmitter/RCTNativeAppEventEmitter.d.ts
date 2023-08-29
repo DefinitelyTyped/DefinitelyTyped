@@ -1,4 +1,4 @@
-import { DeviceEventEmitterStatic } from './RCTDeviceEventEmitter';
+import { DeviceEventEmitterStatic } from "./RCTDeviceEventEmitter";
 
 export interface NativeEventSubscription {
     /**

@@ -6,41 +6,41 @@ function testInterval() {
 
     handle = setInterval(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
         },
         0,
         100,
-        '200',
+        "200",
     );
     clearInterval(handle);
 
     handle = setInterval(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
             // @ts-expect-error
         },
         0,
-        'wrong-type',
-        '200',
+        "wrong-type",
+        "200",
     );
     clearInterval(handle);
 
     // @ts-expect-error
     handle = setInterval((missingArg: any) => {
-        console.log('missingArg', missingArg);
+        console.log("missingArg", missingArg);
     }, 0);
     clearInterval(handle);
 
     handle = setInterval(
         (arg1: number) => {
-            console.log('arg1', arg1);
+            console.log("arg1", arg1);
             // @ts-expect-error
         },
         0,
         100,
-        'missing-arg',
+        "missing-arg",
     );
     clearInterval(handle);
 }
@@ -51,41 +51,41 @@ function testTimeout() {
 
     handle = setTimeout(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
         },
         0,
         100,
-        '200',
+        "200",
     );
     clearTimeout(handle);
 
     handle = setTimeout(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
             // @ts-expect-error
         },
         0,
-        'wrong-type',
-        '200',
+        "wrong-type",
+        "200",
     );
     clearTimeout(handle);
 
     // @ts-expect-error
     handle = setTimeout((missingArg: any) => {
-        console.log('missingArg', missingArg);
+        console.log("missingArg", missingArg);
     }, 0);
     clearTimeout(handle);
 
     handle = setTimeout(
         (arg1: number) => {
-            console.log('arg1', arg1);
+            console.log("arg1", arg1);
             // @ts-expect-error
         },
         0,
         100,
-        'missing-arg',
+        "missing-arg",
     );
     clearTimeout(handle);
 }
@@ -96,55 +96,55 @@ function testImmediate() {
 
     handle = setImmediate(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
         },
         100,
-        '200',
+        "200",
     );
     clearImmediate(handle);
 
     handle = setImmediate(
         (arg1: number, arg2: string) => {
-            console.log('arg1', arg1);
-            console.log('arg2', arg2);
+            console.log("arg1", arg1);
+            console.log("arg2", arg2);
             // @ts-expect-error
         },
-        'wrong-type',
-        '200',
+        "wrong-type",
+        "200",
     );
     clearImmediate(handle);
 
     // @ts-expect-error
     handle = setImmediate((missingArg: any) => {
-        console.log('missingArg', missingArg);
+        console.log("missingArg", missingArg);
     });
     clearImmediate(handle);
 
     handle = setImmediate(
         (arg1: number) => {
-            console.log('arg1', arg1);
+            console.log("arg1", arg1);
             // @ts-expect-error
         },
         100,
-        'missing-arg',
+        "missing-arg",
     );
     clearImmediate(handle);
 }
 
-const fetchCopy: WindowOrWorkerGlobalScope['fetch'] = fetch;
+const fetchCopy: WindowOrWorkerGlobalScope["fetch"] = fetch;
 
 const myHeaders = new Headers();
-myHeaders.append('Content-Type', 'image/jpeg');
+myHeaders.append("Content-Type", "image/jpeg");
 
 const myInit: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
-    mode: 'cors',
+    mode: "cors",
     signal: new AbortSignal(),
 };
 
-const myRequest = new Request('flowers.jpg');
+const myRequest = new Request("flowers.jpg");
 
 fetch(myRequest, myInit)
     .then(response => {
@@ -158,13 +158,13 @@ fetch(myRequest, myInit)
         return response.blob();
     })
     .then(blob => {
-        const init = { status: 200, statusText: 'SuperSmashingGreat!' };
+        const init = { status: 200, statusText: "SuperSmashingGreat!" };
         const myResponse = new Response(blob, init);
     });
 
 const xmlRequest = new XMLHttpRequest();
 
-xmlRequest.addEventListener('load', ev => {
+xmlRequest.addEventListener("load", ev => {
     console.log(ev.lengthComputable);
     console.log(ev.loaded);
     console.log(ev.total);
@@ -172,10 +172,10 @@ xmlRequest.addEventListener('load', ev => {
 
 const test = new URLSearchParams();
 
-const url = new URL('path', 'http://localhost/');
+const url = new URL("path", "http://localhost/");
 
 const blobA = new Blob();
-const textA = 'i \u2665 dogs';
+const textA = "i \u2665 dogs";
 
 const blob = new Blob([blobA, textA]);
 
@@ -188,21 +188,21 @@ reader.onloadend = ev => {
 
 reader.readAsText(new Blob());
 
-fetch('https://example.org/post-image', {
-    body: { uri: 'file:///data/tmp/qwerad3.jpg' },
+fetch("https://example.org/post-image", {
+    body: { uri: "file:///data/tmp/qwerad3.jpg" },
     headers: {
-        'Content-Type': 'type',
+        "Content-Type": "type",
     },
-    method: 'POST',
+    method: "POST",
 });
 
-const socket = new WebSocket('wss://echo.websocket.org');
-socket.send('hello world');
-socket.addEventListener('open', () => console.log('open'));
-socket.onopen = () => console.log('open');
-socket.addEventListener('close', e => console.log(e.code));
+const socket = new WebSocket("wss://echo.websocket.org");
+socket.send("hello world");
+socket.addEventListener("open", () => console.log("open"));
+socket.onopen = () => console.log("open");
+socket.addEventListener("close", e => console.log(e.code));
 socket.onclose = e => console.log(e.code);
-socket.addEventListener('message', e => console.log(e.data));
+socket.addEventListener("message", e => console.log(e.data));
 socket.onmessage = e => console.log(e.data);
-socket.addEventListener('error', e => console.log(e.message));
+socket.addEventListener("error", e => console.log(e.message));
 socket.onerror = e => console.log(e.message);

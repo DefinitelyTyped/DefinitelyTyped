@@ -1,6 +1,6 @@
-import type * as React from 'react';
-import { ViewProps } from '../Components/View/ViewPropTypes';
-import { NativeSyntheticEvent } from '../Types/CoreEventTypes';
+import type * as React from "react";
+import { ViewProps } from "../Components/View/ViewPropTypes";
+import { NativeSyntheticEvent } from "../Types/CoreEventTypes";
 
 export interface ModalBaseProps {
     /**
@@ -14,7 +14,7 @@ export interface ModalBaseProps {
      * - `fade` fades into view
      * - `none` appears without an animation
      */
-    animationType?: 'none' | 'slide' | 'fade' | undefined;
+    animationType?: "none" | "slide" | "fade" | undefined;
     /**
      * The `transparent` prop determines whether your modal will fill the entire view.
      * Setting this to `true` will render the modal over a transparent background.
@@ -41,10 +41,10 @@ export interface ModalPropsIOS {
      * The `presentationStyle` determines the style of modal to show
      */
     presentationStyle?:
-        | 'fullScreen'
-        | 'pageSheet'
-        | 'formSheet'
-        | 'overFullScreen'
+        | "fullScreen"
+        | "pageSheet"
+        | "formSheet"
+        | "overFullScreen"
         | undefined;
 
     /**
@@ -53,11 +53,11 @@ export interface ModalPropsIOS {
      */
     supportedOrientations?:
         | Array<
-            | 'portrait'
-            | 'portrait-upside-down'
-            | 'landscape'
-            | 'landscape-left'
-            | 'landscape-right'
+            | "portrait"
+            | "portrait-upside-down"
+            | "landscape"
+            | "landscape-left"
+            | "landscape-right"
         >
         | undefined;
 

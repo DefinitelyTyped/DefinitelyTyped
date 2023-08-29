@@ -1,9 +1,9 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ImageURISource } from '../../Image/ImageSource';
-import { ColorValue } from '../../StyleSheet/StyleSheet';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ImageURISource } from "../../Image/ImageSource";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * @see https://reactnative.dev/docs/progressviewios
@@ -13,7 +13,7 @@ export interface ProgressViewIOSProps extends ViewProps {
     /**
      * The progress bar style.
      */
-    progressViewStyle?: 'default' | 'bar' | undefined;
+    progressViewStyle?: "default" | "bar" | undefined;
 
     /**
      * The progress value (between 0 and 1).

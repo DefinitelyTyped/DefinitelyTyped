@@ -1,17 +1,17 @@
-import type * as React from 'react';
-import { TimerMixin } from '../../../private/TimerMixin';
-import { Constructor } from '../../../private/Utilities';
-import { Insets } from '../../../public/Insets';
-import { StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { Insets } from "../../../public/Insets";
+import { StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
 import {
     GestureResponderEvent,
     LayoutChangeEvent,
     NativeSyntheticEvent,
     TargetedEvent,
-} from '../../Types/CoreEventTypes';
-import { AccessibilityProps } from '../View/ViewAccessibility';
-import { TouchableMixin } from './Touchable';
+} from "../../Types/CoreEventTypes";
+import { AccessibilityProps } from "../View/ViewAccessibility";
+import { TouchableMixin } from "./Touchable";
 
 export interface TouchableWithoutFeedbackPropsIOS {}
 

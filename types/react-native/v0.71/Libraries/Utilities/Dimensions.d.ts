@@ -1,4 +1,4 @@
-import { EmitterSubscription } from '../vendor/emitter/EventEmitter';
+import { EmitterSubscription } from "../vendor/emitter/EventEmitter";
 
 // Used by Dimensions below
 export interface ScaledSize {
@@ -39,7 +39,7 @@ export interface Dimensions {
        @param dim Name of dimension as defined when calling set.
        @returns Value for the dimension.
        */
-    get(dim: 'window' | 'screen'): ScaledSize;
+    get(dim: "window" | "screen"): ScaledSize;
 
     /**
      * This should only be called from native code by sending the didUpdateDimensions event.
@@ -54,7 +54,7 @@ export interface Dimensions {
      * @param handler the event handler
      */
     addEventListener(
-        type: 'change',
+        type: "change",
         handler: ({
             window,
             screen,

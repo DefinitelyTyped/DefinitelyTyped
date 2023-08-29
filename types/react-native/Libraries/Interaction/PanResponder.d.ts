@@ -1,5 +1,5 @@
-import { GestureResponderHandlers } from '../../public/ReactNativeRenderer';
-import { GestureResponderEvent } from '../Types/CoreEventTypes';
+import { GestureResponderHandlers } from "../../public/ReactNativeRenderer";
+import { GestureResponderEvent } from "../Types/CoreEventTypes";
 
 export interface PanResponderGestureState {
     /**

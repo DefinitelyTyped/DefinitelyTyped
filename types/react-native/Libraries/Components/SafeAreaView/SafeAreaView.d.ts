@@ -1,7 +1,7 @@
-import type * as React from 'react';
-import { Constructor } from '../../../private/Utilities';
-import { NativeMethods } from '../../../public/ReactNativeTypes';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * Renders nested content and automatically applies paddings reflect the portion of the view

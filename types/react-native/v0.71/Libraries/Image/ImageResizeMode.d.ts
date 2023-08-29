@@ -1,9 +1,9 @@
 export type ImageResizeMode =
-    | 'cover'
-    | 'contain'
-    | 'stretch'
-    | 'repeat'
-    | 'center';
+    | "cover"
+    | "contain"
+    | "stretch"
+    | "repeat"
+    | "center";
 
 /**
  * @see ImageResizeMode.js

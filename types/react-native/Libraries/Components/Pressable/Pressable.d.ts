@@ -1,11 +1,11 @@
-import type * as React from 'react';
-import { Insets } from '../../../public/Insets';
-import { ColorValue, StyleProp } from '../../StyleSheet/StyleSheet';
-import { ViewStyle } from '../../StyleSheet/StyleSheetTypes';
-import { GestureResponderEvent, MouseEvent, NativeSyntheticEvent, TargetedEvent } from '../../Types/CoreEventTypes';
-import { View } from '../View/View';
-import { AccessibilityProps } from '../View/ViewAccessibility';
-import { ViewProps } from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Insets } from "../../../public/Insets";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { GestureResponderEvent, MouseEvent, NativeSyntheticEvent, TargetedEvent } from "../../Types/CoreEventTypes";
+import { View } from "../View/View";
+import { AccessibilityProps } from "../View/ViewAccessibility";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface PressableStateCallbackType {
     readonly pressed: boolean;
@@ -18,7 +18,7 @@ export interface PressableAndroidRippleConfig {
     foreground?: null | boolean | undefined;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, "children" | "style" | "hitSlop"> {
     /**
      * Called when the hover is activated to provide visual feedback.
      */

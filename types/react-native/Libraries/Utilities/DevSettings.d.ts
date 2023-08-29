@@ -1,4 +1,4 @@
-import { NativeEventEmitter } from '../EventEmitter/NativeEventEmitter';
+import { NativeEventEmitter } from "../EventEmitter/NativeEventEmitter";
 
 /**
  * The DevSettings module exposes methods for customizing settings for developers in development.

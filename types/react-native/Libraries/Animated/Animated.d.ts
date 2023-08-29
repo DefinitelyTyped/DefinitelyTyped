@@ -1,12 +1,12 @@
-import type * as React from 'react';
-import { ScrollView } from '../Components/ScrollView/ScrollView';
-import { View } from '../Components/View/View';
-import { Image } from '../Image/Image';
-import { FlatListComponent, FlatListProps } from '../Lists/FlatList';
-import { DefaultSectionT, SectionListComponent, SectionListProps } from '../Lists/SectionList';
-import { ColorValue } from '../StyleSheet/StyleSheet';
-import { Text } from '../Text/Text';
-import { NativeSyntheticEvent } from '../Types/CoreEventTypes';
+import type * as React from "react";
+import { ScrollView } from "../Components/ScrollView/ScrollView";
+import { View } from "../Components/View/View";
+import { Image } from "../Image/Image";
+import { FlatListComponent, FlatListProps } from "../Lists/FlatList";
+import { DefaultSectionT, SectionListComponent, SectionListProps } from "../Lists/SectionList";
+import { ColorValue } from "../StyleSheet/StyleSheet";
+import { Text } from "../Text/Text";
+import { NativeSyntheticEvent } from "../Types/CoreEventTypes";
 
 export namespace Animated {
     type AnimatedValue = Value;
@@ -94,7 +94,7 @@ export namespace Animated {
         ): AnimatedInterpolation<OutputT>;
     }
 
-    type ExtrapolateType = 'extend' | 'identity' | 'clamp';
+    type ExtrapolateType = "extend" | "identity" | "clamp";
 
     type InterpolationConfigType = {
         inputRange: number[];
@@ -543,14 +543,14 @@ export namespace Animated {
         : T extends {} ? WithAnimatedObject<T>
         : T; // in case it's something we don't yet know about (for .e.g bigint)
 
-    type NonAnimatedProps = 'key' | 'ref';
+    type NonAnimatedProps = "key" | "ref";
 
     type TAugmentRef<T> = T extends React.Ref<infer R> ? unknown extends R ? never
         : React.Ref<R | LegacyRef<R>>
         : never;
 
     export type AnimatedProps<T> = {
-        [key in keyof T]: key extends NonAnimatedProps ? key extends 'ref' ? TAugmentRef<T[key]>
+        [key in keyof T]: key extends NonAnimatedProps ? key extends "ref" ? TAugmentRef<T[key]>
             : T[key]
             : WithAnimatedValue<T[key]>;
     };

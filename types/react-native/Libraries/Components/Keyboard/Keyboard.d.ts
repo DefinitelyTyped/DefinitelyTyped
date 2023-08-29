@@ -1,20 +1,20 @@
-import { NativeEventEmitter } from '../../EventEmitter/NativeEventEmitter';
-import { EmitterSubscription } from '../../vendor/emitter/EventEmitter';
+import { NativeEventEmitter } from "../../EventEmitter/NativeEventEmitter";
+import { EmitterSubscription } from "../../vendor/emitter/EventEmitter";
 
 export type KeyboardEventName =
-    | 'keyboardWillShow'
-    | 'keyboardDidShow'
-    | 'keyboardWillHide'
-    | 'keyboardDidHide'
-    | 'keyboardWillChangeFrame'
-    | 'keyboardDidChangeFrame';
+    | "keyboardWillShow"
+    | "keyboardDidShow"
+    | "keyboardWillHide"
+    | "keyboardDidHide"
+    | "keyboardWillChangeFrame"
+    | "keyboardDidChangeFrame";
 
 export type KeyboardEventEasing =
-    | 'easeIn'
-    | 'easeInEaseOut'
-    | 'easeOut'
-    | 'linear'
-    | 'keyboard';
+    | "easeIn"
+    | "easeInEaseOut"
+    | "easeOut"
+    | "linear"
+    | "keyboard";
 
 type KeyboardMetrics = {
     screenX: number;

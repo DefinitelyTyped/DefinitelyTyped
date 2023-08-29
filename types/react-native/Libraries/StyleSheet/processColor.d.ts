@@ -1,4 +1,4 @@
-import { ColorValue, OpaqueColorValue } from './StyleSheet';
+import { ColorValue, OpaqueColorValue } from "./StyleSheet";
 
 export type ProcessedColorValue = number | OpaqueColorValue;
 
