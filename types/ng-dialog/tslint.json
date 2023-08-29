@@ -4,7 +4,6 @@
         "ban-types": false,
         "interface-name": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
         "no-trailing-whitespace": false,

@@ -10,7 +10,6 @@
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-mergeable-namespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,

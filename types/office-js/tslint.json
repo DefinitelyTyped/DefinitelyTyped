@@ -13,7 +13,6 @@
         "no-internal-module": false,
         "no-irregular-whitespace": false,
         "no-mergeable-namespace": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,

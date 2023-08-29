@@ -5,7 +5,6 @@
         "interface-name": false,
         "max-line-length": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "one-line": false,

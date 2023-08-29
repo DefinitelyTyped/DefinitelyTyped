@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "npm-naming": false,
         "semicolon": false,

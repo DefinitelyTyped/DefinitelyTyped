@@ -7,7 +7,6 @@
         "no-duplicate-variable": false,
         "no-misused-new": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "object-literal-key-quotes": false,

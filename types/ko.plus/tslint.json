@@ -5,7 +5,6 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,

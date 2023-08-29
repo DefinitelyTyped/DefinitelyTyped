@@ -6,7 +6,6 @@
         "interface-name": false,
         "no-empty-interface": false,
         "no-namespace": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-const": false,

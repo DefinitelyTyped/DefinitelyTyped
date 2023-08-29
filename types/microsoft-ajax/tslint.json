@@ -10,7 +10,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-initializer": false,

@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-for-in-array": false,
         "no-misused-new": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

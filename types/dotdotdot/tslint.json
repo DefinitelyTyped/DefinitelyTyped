@@ -4,7 +4,6 @@
         "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "no-padding": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false

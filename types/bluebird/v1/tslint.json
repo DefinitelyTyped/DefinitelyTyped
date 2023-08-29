@@ -9,7 +9,6 @@
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "one-line": false,
