@@ -19,7 +19,7 @@
  * When the DSV content is not well-structured and some column-values are missing, `undefined` is used as value.
  */
 export type DSVRowString<Columns extends string = string> = {
-    [key in Columns]: string | undefined;
+    [key in Columns]: string;
 };
 
 /**
