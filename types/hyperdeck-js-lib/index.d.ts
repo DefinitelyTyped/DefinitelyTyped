@@ -125,7 +125,7 @@ export class HyperdeckCore {
      * @return The promise which will resolve/reject when a response has been received
      *         (or connection lost).
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     makeRequest<T>(command: string): Promise<Hyperdeck.Response<T>>;
 
     /**

@@ -167,7 +167,7 @@ declare namespace newrelic {
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-get-context
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getContext<T extends ContextObject = ContextObject>(callback: GetContextCallback<T>): this;
 
         /**
@@ -186,7 +186,7 @@ declare namespace newrelic {
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-on-end
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         onEnd<T extends ContextObject = ContextObject>(callback: GetContextCallback<T>): this;
 
         /**

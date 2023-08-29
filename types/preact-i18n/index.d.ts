@@ -55,10 +55,10 @@ export function useText(
     mapping: { [key: string]: string | JSX.Element } | string | JSX.Element,
 ): { [key: string]: string };
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function withText<Props, Context = IntlContext>(mapping: {}): (
     Child: ComponentChild,
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ) => new (props?: Props, context?: Context) => any;
 
 export function intl(Child: Component, options?: { scope?: string | undefined; definition?: {} | undefined }): VNode;

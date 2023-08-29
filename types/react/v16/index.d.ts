@@ -58,7 +58,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
 export as namespace React;
 

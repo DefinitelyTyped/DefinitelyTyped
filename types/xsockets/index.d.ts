@@ -16,19 +16,19 @@ declare namespace XSockets {
     export interface ConfirmationArgument {
         event: string;
     }
-    export module Events {
+    export namespace Events {
         export var close: string;
         export var onBlob: string;
         export var onError: string;
-        export module bindings {
+        export namespace bindings {
             export var completed: string;
         }
         export var open: string;
-        export module pubSub {
+        export namespace pubSub {
             export var subscribe: string;
             export var unsubscribe: string;
         }
-        export module storage {
+        export namespace storage {
             export var get: string;
             export var getAll: string;
             export var remove: string;

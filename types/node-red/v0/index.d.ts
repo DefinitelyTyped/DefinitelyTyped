@@ -216,6 +216,6 @@ export interface Nodes {
      * @param constructor - the constructor function for this node type
      * @param opts - optional additional options for the node
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     registerType<T extends NodeProperties>(type: string, constructor: (props: T) => any, opts?: any): void;
 }

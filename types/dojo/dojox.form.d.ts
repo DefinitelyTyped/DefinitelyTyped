@@ -1150,7 +1150,7 @@ declare namespace dojox {
              */
             onShow(): void;
         }
-        module _FormSelectWidget {
+        namespace _FormSelectWidget {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/form/_FormSelectWidget.__SelectOption.html
              *

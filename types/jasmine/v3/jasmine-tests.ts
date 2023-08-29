@@ -1302,6 +1302,11 @@ describe("DiffBuilder", () => {
         jasmine.matchersUtil.equals(1, 1, undefined, differ);
     });
 
+    it("can be passed to matchersUtil.equals as the third argument", () => {
+        const differ = jasmine.DiffBuilder();
+        jasmine.matchersUtil.equals(1, 1, differ);
+    });
+
     it("records the actual and expected objects", () => {
         const diffBuilder = jasmine.DiffBuilder();
         diffBuilder.setRoots({ x: "actual" }, { x: "expected" });

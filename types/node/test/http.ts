@@ -35,6 +35,9 @@ import * as dns from 'node:dns';
         keepAliveTimeout: 100
     }, reqListener);
 
+    server.close();
+    server[Symbol.asyncDispose]();
+
     // test public props
     const maxHeadersCount: number | null = server.maxHeadersCount;
     const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;

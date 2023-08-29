@@ -181,7 +181,7 @@ declare namespace PreludeLS {
     export function find<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => A;
     export function find<A>(f: (x: A) => boolean, object: { [key: number]: A }): A;
 
-    export module Obj {
+    export namespace Obj {
         export function empty<A>(object: any): boolean;
         export function each<A>(f: (x: A) => void): (object: { [key: string]: A }) => { [key: string]: A };
         export function each<A>(f: (x: A) => void, object: { [key: string]: A }): { [key: string]: A };
@@ -249,7 +249,7 @@ declare namespace PreludeLS {
     export function breakStr(f: (str: string) => boolean): (str: string) => [string, string];
     export function breakStr(f: (str: string) => boolean, str: string): [string, string];
 
-    export module Str {
+    export namespace Str {
         export function empty(str: string): boolean;
         export function reverse(str: string): string;
         export function slice(x: number): (y: number) => (str: string) => string;
