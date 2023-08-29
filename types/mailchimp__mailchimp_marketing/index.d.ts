@@ -450,38 +450,37 @@ export namespace lists {
     }
 
     interface Category {
-        list_id: string
-        id: string
-        title: string
-        display_order: number
-        type: string
-        _links: Link[]
+        list_id: string;
+        id: string;
+        title: string;
+        display_order: number;
+        type: string;
+        _links: Link[];
     }
 
     interface GetListInterestCategoriesResponse {
-        list_id: string
-        categories: Category[]
-        total_items: number
-        _links: Link[]
+        list_id: string;
+        categories: Category[];
+        total_items: number;
+        _links: Link[];
     }
 
-
     interface Interest {
-        category_id: string
-        list_id: string
-        id: string
-        name: string
-        subscriber_count: string
-        display_order: number
-        _links: Link[]
-      }
+        category_id: string;
+        list_id: string;
+        id: string;
+        name: string;
+        subscriber_count: string;
+        display_order: number;
+        _links: Link[];
+    }
 
     interface ListInterestCategoryInterestsResponse {
-        list_id: string
-        category_id: string
-        interests: Interest[]
-        total_items: number
-        _links: Link[]
+        list_id: string;
+        category_id: string;
+        interests: Interest[];
+        total_items: number;
+        _links: Link[];
     }
 
     /**
