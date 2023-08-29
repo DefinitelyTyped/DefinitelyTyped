@@ -786,7 +786,7 @@ const sheetCellImage = () => {
 // Blob test
 const blob = () => {
     // $ExpectType Blob
-    const blob = Utilities.newBlob('content', 'application/json');
+    const blob = Utilities.newBlob("content", "application/json");
     blob.setContentType(null);
 
     // $ExpectType string
