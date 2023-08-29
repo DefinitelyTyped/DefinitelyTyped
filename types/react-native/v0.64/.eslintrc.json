@@ -1,8 +1,8 @@
 {
     "rules": {
-        "prefer-declare-function": "off",
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off"
     }
 }

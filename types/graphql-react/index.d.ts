@@ -6,7 +6,7 @@
 
 // The no-unnecessary-generics rule is stupid and overrestrictive. It is a
 // perfectly valid and often useful to type-constrain a wrapping object.
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 import { ReactNode, Context } from "react";
 

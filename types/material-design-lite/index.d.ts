@@ -3,7 +3,7 @@
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module MaterialDesignLite {
+declare namespace MaterialDesignLite {
     interface ComponentHandler {
         /**
          * Searches existing DOM for elements of our component type and upgrades them

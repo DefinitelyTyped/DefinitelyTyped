@@ -1,6 +1,6 @@
 // tslint:disable:strict-export-declare-modifiers
 /** Creates an empty stream. */
-declare function Stream<T>(): Stream<T>; // eslint-disable-line no-unnecessary-generics
+declare function Stream<T>(): Stream<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 /** Creates a stream with an initial value. */
 declare function Stream<T>(value: T): Stream<T>; // tslint:disable-line unified-signatures
 

@@ -2,8 +2,7 @@
 
 > The repository for _high quality_ TypeScript type definitions.
 
-_You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!_
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
 
 _Link to [Admin manual](./docs/admin.md)_
 

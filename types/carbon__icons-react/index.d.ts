@@ -1,10 +1,10 @@
-// Type definitions for @carbon/icons-react 11.20
+// Type definitions for @carbon/icons-react 11.25
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 2110 icons total */
+/** 2112 icons total */
 
 export interface CarbonIconProps
   extends Omit<
@@ -589,6 +589,7 @@ export const Db2DataSharingGroup: CarbonIconType;
 export const Db2Database: CarbonIconType;
 export const Debug: CarbonIconType;
 export const DecisionTree: CarbonIconType;
+export const Delete: CarbonIconType;
 export const Delivery: CarbonIconType;
 export const DeliveryAdd: CarbonIconType;
 export const DeliveryParcel: CarbonIconType;
@@ -1555,6 +1556,7 @@ export const ResultDraft: CarbonIconType;
 export const ResultNew: CarbonIconType;
 export const ResultOld: CarbonIconType;
 export const RetryFailed: CarbonIconType;
+export const Return: CarbonIconType;
 export const Review: CarbonIconType;
 export const Rewind_10: CarbonIconType;
 export const Rewind_30: CarbonIconType;

@@ -409,6 +409,10 @@ declare namespace TelegramBot {
         disable_notification?: boolean | undefined;
     }
 
+    interface UnpinChatMessageOptions {
+        message_id?: number | undefined;
+    }
+
     /// TELEGRAM TYPES ///
     interface PassportFile {
         file_id: string;
@@ -1679,7 +1683,7 @@ declare class TelegramBot extends EventEmitter<
 
     pinChatMessage(chatId: TelegramBot.ChatId, messageId: number, options?: TelegramBot.PinChatMessageOptions): Promise<boolean>;
 
-    unpinChatMessage(chatId: TelegramBot.ChatId, messageId?: number): Promise<boolean>;
+    unpinChatMessage(chatId: TelegramBot.ChatId, options?: TelegramBot.UnpinChatMessageOptions): Promise<boolean>;
 
     unpinAllChatMessages(chatId: TelegramBot.ChatId): Promise<boolean>;
 

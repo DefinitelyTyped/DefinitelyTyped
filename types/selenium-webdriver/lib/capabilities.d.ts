@@ -1,5 +1,5 @@
-import Symbols from './symbols';
 import { logging, ProxyConfig } from '../';
+import Symbols from './symbols';
 
 /**
  * Recognized browser names.
@@ -35,7 +35,6 @@ export const Platform: IPlatform;
  * Strategies for waiting for [document readiness] after a navigation event.
  *
  * [document readiness]: https://html.spec.whatwg.org/#current-document-readiness
- *
  */
 export interface IPageLoadStrategy {
     /**
@@ -63,7 +62,6 @@ export const PageLoadStrategy: IPageLoadStrategy;
  * The possible default actions a WebDriver session can take to respond to
  * unhandled user prompts (`window.alert()`, `window.confirm()`, and
  * `window.prompt()`).
- *
  */
 export interface IUserPromptHandler {
     /** All prompts should be silently accepted. */

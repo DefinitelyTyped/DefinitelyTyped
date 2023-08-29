@@ -1,7 +1,7 @@
-import * as firefox from 'selenium-webdriver/firefox';
-import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
+import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
+import * as remote from 'selenium-webdriver/remote';
 
 function TestBinary() {
     let binary: firefox.Binary = new firefox.Binary();
@@ -15,9 +15,16 @@ function TestBinary() {
 function TestFirefoxDriver() {
     let driver: firefox.Driver = firefox.Driver.createSession();
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox());
-    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new http.Executor(new http.HttpClient('http://someurl')));
+    driver = firefox.Driver.createSession(
+        webdriver.Capabilities.firefox(),
+        new http.Executor(new http.HttpClient('http://someurl')),
+    );
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}));
-    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}), new webdriver.promise.ControlFlow());
+    driver = firefox.Driver.createSession(
+        webdriver.Capabilities.firefox(),
+        new remote.DriverService('/dev/null', {}),
+        new webdriver.promise.ControlFlow(),
+    );
 
     let baseDriver: webdriver.WebDriver = driver;
 }

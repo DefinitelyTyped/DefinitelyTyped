@@ -15,7 +15,7 @@ declare module '../../index' {
          *   and corresponds to a transformation matrix of the
          *   form:
          *   @param arr an array of numbers - should be 6 or 16
-         *   length (23 or 44 matrix values)
+         *   length (2×3 or 4×4 matrix values)
          *   @chainable
          */
         applyMatrix(arr: any[]): p5;
@@ -30,17 +30,17 @@ declare module '../../index' {
          *   follows the naming of the  WHATWG specification
          *   and corresponds to a transformation matrix of the
          *   form:
-         *   @param a numbers which define the 2×3 or 4x4
+         *   @param a numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param b numbers which define the 2×3 or 4x4
+         *   @param b numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param c numbers which define the 2×3 or 4x4
+         *   @param c numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param d numbers which define the 2×3 or 4x4
+         *   @param d numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param e numbers which define the 2×3 or 4x4
+         *   @param e numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param f numbers which define the 2×3 or 4x4
+         *   @param f numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
          *   @chainable
          */
@@ -56,37 +56,37 @@ declare module '../../index' {
          *   follows the naming of the  WHATWG specification
          *   and corresponds to a transformation matrix of the
          *   form:
-         *   @param a numbers which define the 2×3 or 4x4
+         *   @param a numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param b numbers which define the 2×3 or 4x4
+         *   @param b numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param c numbers which define the 2×3 or 4x4
+         *   @param c numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param d numbers which define the 2×3 or 4x4
+         *   @param d numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param e numbers which define the 2×3 or 4x4
+         *   @param e numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param f numbers which define the 2×3 or 4x4
+         *   @param f numbers which define the 2×3 or 4×4
          *   matrix to be multiplied
-         *   @param g numbers which define the 4x4 matrix to be
+         *   @param g numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param h numbers which define the 4x4 matrix to be
+         *   @param h numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param i numbers which define the 4x4 matrix to be
+         *   @param i numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param j numbers which define the 4x4 matrix to be
+         *   @param j numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param k numbers which define the 4x4 matrix to be
+         *   @param k numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param l numbers which define the 4x4 matrix to be
+         *   @param l numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param m numbers which define the 4x4 matrix to be
+         *   @param m numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param n numbers which define the 4x4 matrix to be
+         *   @param n numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param o numbers which define the 4x4 matrix to be
+         *   @param o numbers which define the 4×4 matrix to be
          *   multiplied
-         *   @param p numbers which define the 4x4 matrix to be
+         *   @param p numbers which define the 4×4 matrix to be
          *   multiplied
          *   @chainable
          */

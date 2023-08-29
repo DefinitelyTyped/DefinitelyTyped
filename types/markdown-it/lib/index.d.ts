@@ -9,6 +9,8 @@ import Renderer = require('./renderer');
 import Token = require('./token');
 
 declare namespace MarkdownIt {
+    type Token = typeof import('./token');
+
     /**
      * MarkdownIt provides named presets as a convenience to quickly
      * enable/disable active syntax rules and options for common use cases.

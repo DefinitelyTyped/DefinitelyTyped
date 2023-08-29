@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum LangVariant {
     LangBash = 0,
     LangPOSIX = 1,
@@ -14,7 +14,7 @@ declare const enum LangVariant {
     LangBats = 3,
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum Token {
     illegalTok,
 
@@ -159,7 +159,7 @@ declare const enum Token {
     globExcl   // !(
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum RedirOperator {
     RdrOut = Token.rdrOut,
     AppOut,
@@ -175,13 +175,13 @@ declare const enum RedirOperator {
     AppAll
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum ProcOperator {
     CmdIn = Token.cmdIn,
     CmdOut
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum GlobOperator {
     GlobZeroOrOne = Token.globQuest,
     GlobZeroOrMore,
@@ -190,7 +190,7 @@ declare const enum GlobOperator {
     GlobExcept
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum BinCmdOperator {
     AndStmt = Token.andAnd,
     OrStmt,
@@ -198,7 +198,7 @@ declare const enum BinCmdOperator {
     PipeAll
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum CaseOperator {
     Break = Token.dblSemicolon,
     Fallthrough,
@@ -206,13 +206,13 @@ declare const enum CaseOperator {
     ResumeKorn
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum ParNamesOperator {
     NamesPrefix = Token.star,
     NamesPrefixWords = Token.at
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum ParExpOperator {
     AlternateUnset = Token.plus,
     AlternateUnsetOrNull,
@@ -233,7 +233,7 @@ declare const enum ParExpOperator {
     OtherParamOps
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum UnAritOperator {
     Not = Token.exclMark,
     BitNegation,
@@ -243,7 +243,7 @@ declare const enum UnAritOperator {
     Minus = Token.minus
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum BinAritOperator {
     Add = Token.plus,
     Sub = Token.minus,
@@ -282,7 +282,7 @@ declare const enum BinAritOperator {
     ShrAssgn = Token.shrAssgn,
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum UnTestOperator {
     TsExists = Token.tsExists,
     TsRegFile,
@@ -311,7 +311,7 @@ declare const enum UnTestOperator {
     TsNot = Token.exclMark
 }
 
-// eslint-disable-next-line no-const-enum
+// eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum BinTestOperator {
     TsReMatch = Token.tsReMatch,
     TsNewer,

@@ -13,7 +13,9 @@ const config: Pubnub.PubnubConfig = {
     authKey: '',
     useRandomIVs: false,
     subscribeRequestTimeout: 60,
-    uuid: 'myUUID'
+    uuid: 'myUUID',
+    dedupeOnSubscribe: false,
+    enableSubscribeBeta: false
 };
 
 // userId should work
@@ -269,6 +271,8 @@ pubnub.grantToken(grantTokenParameters).then(token => console.log(token));
 pubnub.parseToken('someToken');
 
 pubnub.setToken('someToken');
+
+pubnub.getToken();
 
 pubnub.revokeToken('someToken');
 

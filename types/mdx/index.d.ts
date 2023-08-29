@@ -59,7 +59,7 @@
  * It should now be possible to import both the MDX component and the exported constant `message`.
  */
 declare module '*.mdx' {
-    // eslint-disable-next-line no-self-import
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MDXProps } from 'mdx/types';
 
     /**
