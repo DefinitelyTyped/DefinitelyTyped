@@ -1363,7 +1363,7 @@ declare namespace d3 {
 
     export function nest<T>(): Nest<T>;
 
-    export module random {
+    export namespace random {
         export function normal(mean?: number, deviation?: number): () => number;
         export function logNormal(mean?: number, deviation?: number): () => number;
         export function bates(count: number): () => number;
@@ -1481,7 +1481,7 @@ declare namespace d3 {
         rgb(): Rgb;
     }
 
-    export module ns {
+    export namespace ns {
         interface Qualified {
             space: string;
             local: string;
@@ -1504,7 +1504,7 @@ declare namespace d3 {
         [event: string]: (...args: any[]) => void;
     }
 
-    export module scale {
+    export namespace scale {
         export function identity(): Identity;
 
         interface Identity {
@@ -1754,7 +1754,7 @@ declare namespace d3 {
 
     export var interpolators: Array<(a: any, b: any) => (t: number) => any>;
 
-    export module time {
+    export namespace time {
         export var second: Interval;
         export var minute: Interval;
         export var hour: Interval;
@@ -1824,7 +1824,7 @@ declare namespace d3 {
 
         export function format(specifier: string): Format;
 
-        export module format {
+        export namespace format {
             export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             export function utc(specifier: string): Format;
             namespace utc {
@@ -1843,7 +1843,7 @@ declare namespace d3 {
         export function scale<Output>(): Scale<Output, Output>;
         export function scale<Range, Output>(): Scale<Range, Output>;
 
-        export module scale {
+        export namespace scale {
             export function utc(): Scale<number, number>;
             export function utc<Output>(): Scale<Output, Output>;
             export function utc<Range, Output>(): Scale<Range, Output>;
@@ -1883,7 +1883,7 @@ declare namespace d3 {
         }
     }
 
-    export module behavior {
+    export namespace behavior {
         export function drag<Datum>(): Drag<Datum>;
 
         interface Drag<Datum> {
@@ -1942,7 +1942,7 @@ declare namespace d3 {
         }
     }
 
-    export module geo {
+    export namespace geo {
         export function path(): Path;
 
         interface Path {

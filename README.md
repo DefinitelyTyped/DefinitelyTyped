@@ -2,8 +2,7 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -413,7 +412,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## The history of Definitely Typed
 
-Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).  
+Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).
 
 ## FAQ
 

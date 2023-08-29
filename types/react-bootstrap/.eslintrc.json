@@ -1,6 +1,6 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-self-import": "off"
+        "@definitelytyped/trim-file": "off",
+        "@definitelytyped/no-self-import": "off"
     }
 }

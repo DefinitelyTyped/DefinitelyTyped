@@ -19,31 +19,37 @@ const brickBuilder = mpInstance.bricks({});
 
 brickBuilder.isInitialized();
 
-brickBuilder.create('cardPayment', 'container', {
-    initialization: {
-        amount: 100,
-    },
-    callbacks: {
-        onSubmit: (formData: any, additionalData: any) => {
-            return new Promise(() => {
-                console.log(formData, additionalData);
-            });
+(async () => {
+    const controller = await brickBuilder.create('cardPayment', 'containerCardPayment', {
+        initialization: {
+            amount: 100,
         },
-    },
-});
+        callbacks: {
+            onSubmit: (formData, additionalData) => {
+                return new Promise(() => {
+                    console.log(formData, additionalData);
+                });
+            },
+        },
+    });
+   controller.update({ amount: 100 });
+})();
 
-brickBuilder.create('payment', 'containerPayment', {
-    initialization: {
-        amount: 100,
-    },
-    callbacks: {
-        onSubmit: (formData: any, additionalData: any) => {
-            return new Promise(() => {
-                console.log(formData, additionalData);
-            });
+(async () => {
+    const controller = await brickBuilder.create('payment', 'containerPayment', {
+        initialization: {
+            amount: 100,
         },
-    },
-});
+        callbacks: {
+            onSubmit: (formData: any, additionalData: any) => {
+                return new Promise(() => {
+                    console.log(formData, additionalData);
+                });
+            },
+        },
+    });
+   controller.update({ amount: 100 });
+})();
 
 brickBuilder.create('statusScreen', 'containerStatusScreen', {
     initialization: {

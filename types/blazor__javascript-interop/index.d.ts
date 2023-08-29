@@ -9,7 +9,7 @@
 // high quality JavaScript interop code to be used in Blazor application from your C# .Net code.
 // Could be removed without a notice in case official definition types ships with Blazor itself.
 
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 declare namespace DotNet {
     /**

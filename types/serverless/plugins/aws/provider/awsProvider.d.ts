@@ -534,6 +534,7 @@ declare namespace Aws {
         maximumBatchingWindow?: number | undefined;
         startingPosition?: 'LATEST' | 'TRIM_HORIZON';
         enabled?: boolean | undefined;
+        consumerGroupId?: string;
     }
 
     interface AlexaSkill {

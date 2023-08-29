@@ -1,4 +1,4 @@
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { Dashicon, DropZone } from '@wordpress/components';
 import { ComponentType, MouseEventHandler } from 'react';
 

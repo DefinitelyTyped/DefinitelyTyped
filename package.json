@@ -29,6 +29,7 @@
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/utils": "latest",
+        "@definitelytyped/eslint-plugin": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
         "comment-json": "^4.2.3",

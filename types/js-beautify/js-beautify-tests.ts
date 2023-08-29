@@ -51,6 +51,7 @@ const HTMLoptions: js_beautify.HTMLBeautifyOptions = {
     wrap_attributes: 'auto',
     wrap_attributes_indent_size: 4,
     end_with_newline: false,
+    inline_custom_elements: true
 };
 
 const CSSoptions: js_beautify.CSSBeautifyOptions = {

@@ -1987,7 +1987,7 @@ declare namespace chrome.cookies {
  * Availability: Since Chrome 18.
  * Permissions:  "debugger"
  */
-declare module chrome {
+declare namespace chrome {
     namespace _debugger {
         /** Debuggee identifier. Either tabId or extensionId must be specified */
         export interface Debuggee {
@@ -7308,6 +7308,18 @@ declare namespace chrome.runtime {
             type?: 'module'; // If the service worker uses ES modules
         }
         | undefined;
+        content_scripts?: {
+            matches?: string[] | undefined;
+            exclude_matches?: string[] | undefined;
+            css?: string[] | undefined;
+            js?: string[] | undefined;
+            run_at?: string | undefined;
+            all_frames?: boolean | undefined;
+            match_about_blank?: boolean | undefined;
+            include_globs?: string[] | undefined;
+            exclude_globs?: string[] | undefined;
+            world?: "ISOLATED" | "MAIN" | undefined
+        }[] | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;

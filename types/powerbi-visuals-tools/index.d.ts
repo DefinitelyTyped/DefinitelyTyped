@@ -135,13 +135,13 @@ declare namespace powerbi {
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         defer<T>(): IDeferred<T>;
 
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         defer<TSuccess, TError>(): IDeferred2<TSuccess, TError>;
 
         /**
@@ -177,7 +177,7 @@ declare namespace powerbi {
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          * Does not resolve until all promises finish (success or failure).
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         allSettled<T>(promises: Array<IPromise2<any, any>>): IPromise<Array<IPromiseResult<T>>>;
 
         /**
@@ -232,7 +232,7 @@ declare namespace powerbi {
          * are not supported as property names by ES3, you'll need to invoke
          * the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         finally<T, U>(finallyCallback: () => any): IPromise2<T, U>;
     }
 
@@ -1170,7 +1170,7 @@ declare namespace powerbi.extensibility {
     }
 
     interface IVisualDataViewTransform {
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T>(dataview: DataView[]): T;
     }
 
@@ -1306,7 +1306,7 @@ declare namespace powerbi.extensibility.visual {
      */
     interface IVisual extends extensibility.IVisual {
         /** Notifies the IVisual of an update (data, viewmode, size change). */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         update<T>(options: VisualUpdateOptions, viewModel?: T): void;
 
         /** Gets the set of objects that the visual is currently displaying. */
@@ -1341,5 +1341,5 @@ declare namespace powerbi.extensibility.visual {
         host: IVisualHost;
     }
 }
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = powerbi;
