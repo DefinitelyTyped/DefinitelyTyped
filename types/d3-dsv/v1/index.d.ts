@@ -16,7 +16,6 @@
 
 /**
  * An object representing a DSV parsed row with values represented as strings.
- * When the DSV content is not well-structured and some column-values are missing, `undefined` is used as value.
  */
 export type DSVRowString<Columns extends string = string> = {
     [key in Columns]: string;
