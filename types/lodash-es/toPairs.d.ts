@@ -1,2 +1,2 @@
-import { toPairs } from 'lodash';
+import { toPairs } from "lodash";
 export default toPairs;

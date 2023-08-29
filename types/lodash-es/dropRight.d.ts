@@ -1,2 +1,2 @@
-import { dropRight } from 'lodash';
+import { dropRight } from "lodash";
 export default dropRight;

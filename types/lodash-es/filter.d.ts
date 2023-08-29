@@ -1,2 +1,2 @@
-import { filter } from 'lodash';
+import { filter } from "lodash";
 export default filter;

@@ -1,2 +1,2 @@
-import { tail } from 'lodash';
+import { tail } from "lodash";
 export default tail;

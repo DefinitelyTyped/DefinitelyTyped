@@ -1,2 +1,2 @@
-import { functionsIn } from 'lodash';
+import { functionsIn } from "lodash";
 export default functionsIn;

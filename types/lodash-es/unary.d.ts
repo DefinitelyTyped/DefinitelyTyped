@@ -1,2 +1,2 @@
-import { unary } from 'lodash';
+import { unary } from "lodash";
 export default unary;

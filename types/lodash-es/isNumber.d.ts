@@ -1,2 +1,2 @@
-import { isNumber } from 'lodash';
+import { isNumber } from "lodash";
 export default isNumber;

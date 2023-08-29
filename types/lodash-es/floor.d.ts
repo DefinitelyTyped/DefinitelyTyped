@@ -1,2 +1,2 @@
-import { floor } from 'lodash';
+import { floor } from "lodash";
 export default floor;

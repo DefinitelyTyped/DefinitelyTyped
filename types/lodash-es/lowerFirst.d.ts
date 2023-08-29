@@ -1,2 +1,2 @@
-import { lowerFirst } from 'lodash';
+import { lowerFirst } from "lodash";
 export default lowerFirst;

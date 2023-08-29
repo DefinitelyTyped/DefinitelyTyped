@@ -1,2 +1,2 @@
-import { pad } from 'lodash';
+import { pad } from "lodash";
 export default pad;

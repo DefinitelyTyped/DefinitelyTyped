@@ -1,2 +1,2 @@
-import { toString } from 'lodash';
+import { toString } from "lodash";
 export default toString;

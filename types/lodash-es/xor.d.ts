@@ -1,2 +1,2 @@
-import { xor } from 'lodash';
+import { xor } from "lodash";
 export default xor;

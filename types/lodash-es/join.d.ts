@@ -1,2 +1,2 @@
-import { join } from 'lodash';
+import { join } from "lodash";
 export default join;

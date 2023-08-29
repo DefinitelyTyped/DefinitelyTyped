@@ -1,2 +1,2 @@
-import { lastIndexOf } from 'lodash';
+import { lastIndexOf } from "lodash";
 export default lastIndexOf;

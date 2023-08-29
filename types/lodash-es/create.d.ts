@@ -1,2 +1,2 @@
-import { create } from 'lodash';
+import { create } from "lodash";
 export default create;

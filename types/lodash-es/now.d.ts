@@ -1,2 +1,2 @@
-import { now } from 'lodash';
+import { now } from "lodash";
 export default now;

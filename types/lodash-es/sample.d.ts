@@ -1,2 +1,2 @@
-import { sample } from 'lodash';
+import { sample } from "lodash";
 export default sample;

@@ -1,2 +1,2 @@
-import { extend } from 'lodash';
+import { extend } from "lodash";
 export default extend;

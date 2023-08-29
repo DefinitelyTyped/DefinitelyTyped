@@ -1,2 +1,2 @@
-import { mixin } from 'lodash';
+import { mixin } from "lodash";
 export default mixin;

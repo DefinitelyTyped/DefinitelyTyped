@@ -1,2 +1,2 @@
-import { intersection } from 'lodash';
+import { intersection } from "lodash";
 export default intersection;

@@ -1,2 +1,2 @@
-import { eachRight } from 'lodash';
+import { eachRight } from "lodash";
 export default eachRight;

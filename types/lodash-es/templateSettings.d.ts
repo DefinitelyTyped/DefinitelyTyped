@@ -1,2 +1,2 @@
-import { templateSettings } from 'lodash';
+import { templateSettings } from "lodash";
 export default templateSettings;

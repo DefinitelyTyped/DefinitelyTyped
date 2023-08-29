@@ -1,2 +1,2 @@
-import { entries } from 'lodash';
+import { entries } from "lodash";
 export default entries;

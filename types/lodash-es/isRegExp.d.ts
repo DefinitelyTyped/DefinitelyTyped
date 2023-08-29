@@ -1,2 +1,2 @@
-import { isRegExp } from 'lodash';
+import { isRegExp } from "lodash";
 export default isRegExp;

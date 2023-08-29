@@ -1,2 +1,2 @@
-import { zipObject } from 'lodash';
+import { zipObject } from "lodash";
 export default zipObject;

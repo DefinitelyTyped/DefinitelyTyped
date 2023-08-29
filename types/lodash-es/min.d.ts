@@ -1,2 +1,2 @@
-import { min } from 'lodash';
+import { min } from "lodash";
 export default min;

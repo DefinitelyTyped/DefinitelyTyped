@@ -1,2 +1,2 @@
-import { update } from 'lodash';
+import { update } from "lodash";
 export default update;

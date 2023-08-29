@@ -1,2 +1,2 @@
-import { rest } from 'lodash';
+import { rest } from "lodash";
 export default rest;

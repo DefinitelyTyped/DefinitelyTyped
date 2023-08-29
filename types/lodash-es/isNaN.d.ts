@@ -1,2 +1,2 @@
-import { isNaN } from 'lodash';
+import { isNaN } from "lodash";
 export default isNaN;

@@ -1,2 +1,2 @@
-import { flattenDepth } from 'lodash';
+import { flattenDepth } from "lodash";
 export default flattenDepth;

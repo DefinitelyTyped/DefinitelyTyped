@@ -1,2 +1,2 @@
-import { xorBy } from 'lodash';
+import { xorBy } from "lodash";
 export default xorBy;

@@ -1,2 +1,2 @@
-import { toUpper } from 'lodash';
+import { toUpper } from "lodash";
 export default toUpper;

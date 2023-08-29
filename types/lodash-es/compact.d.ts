@@ -1,2 +1,2 @@
-import { compact } from 'lodash';
+import { compact } from "lodash";
 export default compact;

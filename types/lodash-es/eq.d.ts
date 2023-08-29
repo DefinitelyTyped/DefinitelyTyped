@@ -1,2 +1,2 @@
-import { eq } from 'lodash';
+import { eq } from "lodash";
 export default eq;

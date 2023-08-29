@@ -1,2 +1,2 @@
-import { inRange } from 'lodash';
+import { inRange } from "lodash";
 export default inRange;

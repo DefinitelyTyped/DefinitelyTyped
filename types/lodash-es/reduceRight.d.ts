@@ -1,2 +1,2 @@
-import { reduceRight } from 'lodash';
+import { reduceRight } from "lodash";
 export default reduceRight;

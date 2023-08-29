@@ -1,4 +1,4 @@
-import now from './now';
+import now from "./now";
 
 declare const defaultExport: {
     now: typeof now;

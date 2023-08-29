@@ -1,2 +1,2 @@
-import { curry } from 'lodash';
+import { curry } from "lodash";
 export default curry;

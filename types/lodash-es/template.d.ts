@@ -1,2 +1,2 @@
-import { template } from 'lodash';
+import { template } from "lodash";
 export default template;

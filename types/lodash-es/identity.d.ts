@@ -1,2 +1,2 @@
-import { identity } from 'lodash';
+import { identity } from "lodash";
 export default identity;

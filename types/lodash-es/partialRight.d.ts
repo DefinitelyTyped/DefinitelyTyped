@@ -1,2 +1,2 @@
-import { partialRight } from 'lodash';
+import { partialRight } from "lodash";
 export default partialRight;

@@ -1,2 +1,2 @@
-import { stubString } from 'lodash';
+import { stubString } from "lodash";
 export default stubString;

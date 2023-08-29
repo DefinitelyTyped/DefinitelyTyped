@@ -1,2 +1,2 @@
-import { forEachRight } from 'lodash';
+import { forEachRight } from "lodash";
 export default forEachRight;

@@ -1,2 +1,2 @@
-import { snakeCase } from 'lodash';
+import { snakeCase } from "lodash";
 export default snakeCase;

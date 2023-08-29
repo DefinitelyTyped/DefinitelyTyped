@@ -1,2 +1,2 @@
-import { isSafeInteger } from 'lodash';
+import { isSafeInteger } from "lodash";
 export default isSafeInteger;

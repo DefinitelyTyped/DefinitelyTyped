@@ -1,2 +1,2 @@
-import { wrap } from 'lodash';
+import { wrap } from "lodash";
 export default wrap;

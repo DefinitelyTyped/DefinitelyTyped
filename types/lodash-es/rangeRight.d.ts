@@ -1,2 +1,2 @@
-import { rangeRight } from 'lodash';
+import { rangeRight } from "lodash";
 export default rangeRight;

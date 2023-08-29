@@ -1,2 +1,2 @@
-import { forEach } from 'lodash';
+import { forEach } from "lodash";
 export default forEach;

@@ -1,2 +1,2 @@
-import { flowRight } from 'lodash';
+import { flowRight } from "lodash";
 export default flowRight;

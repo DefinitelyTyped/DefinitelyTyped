@@ -1,2 +1,2 @@
-import { chain } from 'lodash';
+import { chain } from "lodash";
 export default chain;

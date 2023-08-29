@@ -1,2 +1,2 @@
-import { upperCase } from 'lodash';
+import { upperCase } from "lodash";
 export default upperCase;

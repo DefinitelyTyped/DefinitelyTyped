@@ -1,2 +1,2 @@
-import { uniqueId } from 'lodash';
+import { uniqueId } from "lodash";
 export default uniqueId;

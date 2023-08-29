@@ -1,2 +1,2 @@
-import { isMap } from 'lodash';
+import { isMap } from "lodash";
 export default isMap;

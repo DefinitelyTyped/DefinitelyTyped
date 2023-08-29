@@ -1,2 +1,2 @@
-import { zipObjectDeep } from 'lodash';
+import { zipObjectDeep } from "lodash";
 export default zipObjectDeep;

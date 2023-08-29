@@ -1,2 +1,2 @@
-import { countBy } from 'lodash';
+import { countBy } from "lodash";
 export default countBy;

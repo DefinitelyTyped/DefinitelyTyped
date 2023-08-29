@@ -1,2 +1,2 @@
-import { maxBy } from 'lodash';
+import { maxBy } from "lodash";
 export default maxBy;

@@ -1,2 +1,2 @@
-import { lt } from 'lodash';
+import { lt } from "lodash";
 export default lt;

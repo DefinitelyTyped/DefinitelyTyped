@@ -1,2 +1,2 @@
-import { isArrayBuffer } from 'lodash';
+import { isArrayBuffer } from "lodash";
 export default isArrayBuffer;

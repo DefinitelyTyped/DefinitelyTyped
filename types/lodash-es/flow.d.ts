@@ -1,2 +1,2 @@
-import { flow } from 'lodash';
+import { flow } from "lodash";
 export default flow;

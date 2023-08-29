@@ -1,2 +1,2 @@
-import { isFunction } from 'lodash';
+import { isFunction } from "lodash";
 export default isFunction;

@@ -1,2 +1,2 @@
-import { toPath } from 'lodash';
+import { toPath } from "lodash";
 export default toPath;

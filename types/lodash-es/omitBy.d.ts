@@ -1,2 +1,2 @@
-import { omitBy } from 'lodash';
+import { omitBy } from "lodash";
 export default omitBy;

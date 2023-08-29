@@ -1,2 +1,2 @@
-import { endsWith } from 'lodash';
+import { endsWith } from "lodash";
 export default endsWith;

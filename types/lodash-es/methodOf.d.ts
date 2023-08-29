@@ -1,2 +1,2 @@
-import { methodOf } from 'lodash';
+import { methodOf } from "lodash";
 export default methodOf;

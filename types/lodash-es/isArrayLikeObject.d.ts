@@ -1,2 +1,2 @@
-import { isArrayLikeObject } from 'lodash';
+import { isArrayLikeObject } from "lodash";
 export default isArrayLikeObject;

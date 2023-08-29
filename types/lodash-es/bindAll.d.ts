@@ -1,2 +1,2 @@
-import { bindAll } from 'lodash';
+import { bindAll } from "lodash";
 export default bindAll;

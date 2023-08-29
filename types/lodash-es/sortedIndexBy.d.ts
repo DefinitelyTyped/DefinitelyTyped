@@ -1,2 +1,2 @@
-import { sortedIndexBy } from 'lodash';
+import { sortedIndexBy } from "lodash";
 export default sortedIndexBy;

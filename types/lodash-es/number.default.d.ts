@@ -1,6 +1,6 @@
-import clamp from './clamp';
-import inRange from './inRange';
-import random from './random';
+import clamp from "./clamp";
+import inRange from "./inRange";
+import random from "./random";
 
 declare const defaultExport: {
     clamp: typeof clamp;
