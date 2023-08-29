@@ -1,3 +1,3 @@
-import { BostonZakimBridge } from '../../';
+import { BostonZakimBridge } from "../../";
 
 export = BostonZakimBridge;

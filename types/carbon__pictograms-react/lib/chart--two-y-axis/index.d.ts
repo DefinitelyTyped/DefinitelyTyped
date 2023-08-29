@@ -1,3 +1,3 @@
-import { ChartTwoYAxis } from '../../';
+import { ChartTwoYAxis } from "../../";
 
 export = ChartTwoYAxis;

@@ -1,1 +1,1 @@
-export { ConstructionWorkerMask as default } from '../../';
+export { ConstructionWorkerMask as default } from "../../";

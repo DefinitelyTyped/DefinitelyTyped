@@ -1,1 +1,1 @@
-export { WatsonxData as default } from '../../';
+export { WatsonxData as default } from "../../";

@@ -1,1 +1,1 @@
-export { GovernUsersAndIdentities as default } from '../../';
+export { GovernUsersAndIdentities as default } from "../../";

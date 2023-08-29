@@ -1,1 +1,1 @@
-export { Crop as default } from '../../';
+export { Crop as default } from "../../";

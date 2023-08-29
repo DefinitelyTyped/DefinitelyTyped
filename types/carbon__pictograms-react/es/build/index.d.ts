@@ -1,1 +1,1 @@
-export { Build as default } from '../../';
+export { Build as default } from "../../";

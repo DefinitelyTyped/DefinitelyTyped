@@ -1,3 +1,3 @@
-import { Tornado } from '../../';
+import { Tornado } from "../../";
 
 export = Tornado;

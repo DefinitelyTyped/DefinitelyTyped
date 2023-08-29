@@ -1,3 +1,3 @@
-import { BuildLeadershipAndCulture } from '../../';
+import { BuildLeadershipAndCulture } from "../../";
 
 export = BuildLeadershipAndCulture;

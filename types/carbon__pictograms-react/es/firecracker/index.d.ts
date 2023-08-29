@@ -1,1 +1,1 @@
-export { Firecracker as default } from '../../';
+export { Firecracker as default } from "../../";

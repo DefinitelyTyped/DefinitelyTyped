@@ -1,3 +1,3 @@
-import { CustomReports } from '../../';
+import { CustomReports } from "../../";
 
 export = CustomReports;

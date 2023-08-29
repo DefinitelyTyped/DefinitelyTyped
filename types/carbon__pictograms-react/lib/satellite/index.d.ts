@@ -1,3 +1,3 @@
-import { Satellite } from '../../';
+import { Satellite } from "../../";
 
 export = Satellite;

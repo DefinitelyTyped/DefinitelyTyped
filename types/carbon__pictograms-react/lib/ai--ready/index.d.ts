@@ -1,3 +1,3 @@
-import { AiReady } from '../../';
+import { AiReady } from "../../";
 
 export = AiReady;

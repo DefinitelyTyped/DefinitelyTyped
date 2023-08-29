@@ -1,3 +1,3 @@
-import { UserMask } from '../../';
+import { UserMask } from "../../";
 
 export = UserMask;

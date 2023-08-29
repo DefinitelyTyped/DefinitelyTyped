@@ -1,3 +1,3 @@
-import { EaseOfUse } from '../../';
+import { EaseOfUse } from "../../";
 
 export = EaseOfUse;

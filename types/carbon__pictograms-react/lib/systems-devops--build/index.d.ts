@@ -1,3 +1,3 @@
-import { SystemsDevopsBuild } from '../../';
+import { SystemsDevopsBuild } from "../../";
 
 export = SystemsDevopsBuild;

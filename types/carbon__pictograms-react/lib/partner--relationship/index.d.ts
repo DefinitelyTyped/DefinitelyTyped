@@ -1,3 +1,3 @@
-import { PartnerRelationship } from '../../';
+import { PartnerRelationship } from "../../";
 
 export = PartnerRelationship;

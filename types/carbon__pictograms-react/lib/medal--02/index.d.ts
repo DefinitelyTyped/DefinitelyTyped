@@ -1,3 +1,3 @@
-import { Medal_02 } from '../../';
+import { Medal_02 } from "../../";
 
 export = Medal_02;

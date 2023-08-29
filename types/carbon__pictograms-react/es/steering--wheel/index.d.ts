@@ -1,1 +1,1 @@
-export { SteeringWheel as default } from '../../';
+export { SteeringWheel as default } from "../../";

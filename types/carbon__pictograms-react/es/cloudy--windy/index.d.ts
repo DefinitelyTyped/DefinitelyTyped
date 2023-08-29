@@ -1,1 +1,1 @@
-export { CloudyWindy as default } from '../../';
+export { CloudyWindy as default } from "../../";

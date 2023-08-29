@@ -1,1 +1,1 @@
-export { DataTransfer as default } from '../../';
+export { DataTransfer as default } from "../../";

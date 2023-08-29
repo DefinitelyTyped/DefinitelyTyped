@@ -1,3 +1,3 @@
-import { SapHana } from '../../';
+import { SapHana } from "../../";
 
 export = SapHana;

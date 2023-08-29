@@ -1,1 +1,1 @@
-export { BudapestLabSkyline as default } from '../../';
+export { BudapestLabSkyline as default } from "../../";

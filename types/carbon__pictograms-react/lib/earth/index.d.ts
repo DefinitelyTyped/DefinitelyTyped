@@ -1,3 +1,3 @@
-import { Earth } from '../../';
+import { Earth } from "../../";
 
 export = Earth;

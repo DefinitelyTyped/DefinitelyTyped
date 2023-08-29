@@ -1,1 +1,1 @@
-export { AssessmentUsed as default } from '../../';
+export { AssessmentUsed as default } from "../../";

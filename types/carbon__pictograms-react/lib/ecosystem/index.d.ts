@@ -1,3 +1,3 @@
-import { Ecosystem } from '../../';
+import { Ecosystem } from "../../";
 
 export = Ecosystem;

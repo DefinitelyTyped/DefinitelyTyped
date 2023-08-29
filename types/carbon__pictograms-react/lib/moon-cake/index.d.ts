@@ -1,3 +1,3 @@
-import { MoonCake } from '../../';
+import { MoonCake } from "../../";
 
 export = MoonCake;

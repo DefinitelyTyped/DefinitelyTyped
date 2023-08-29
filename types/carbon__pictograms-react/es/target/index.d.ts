@@ -1,1 +1,1 @@
-export { Target as default } from '../../';
+export { Target as default } from "../../";

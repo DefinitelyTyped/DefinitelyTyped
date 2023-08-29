@@ -1,3 +1,3 @@
-import { UserSearch } from '../../';
+import { UserSearch } from "../../";
 
 export = UserSearch;

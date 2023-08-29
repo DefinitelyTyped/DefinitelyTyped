@@ -1,1 +1,1 @@
-export { AutomateModularManagement as default } from '../../';
+export { AutomateModularManagement as default } from "../../";

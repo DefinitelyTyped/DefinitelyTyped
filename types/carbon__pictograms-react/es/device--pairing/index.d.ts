@@ -1,1 +1,1 @@
-export { DevicePairing as default } from '../../';
+export { DevicePairing as default } from "../../";

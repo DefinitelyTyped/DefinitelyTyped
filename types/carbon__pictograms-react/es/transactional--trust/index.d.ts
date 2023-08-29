@@ -1,1 +1,1 @@
-export { TransactionalTrust as default } from '../../';
+export { TransactionalTrust as default } from "../../";

@@ -1,1 +1,1 @@
-export { PopulationDiagram as default } from '../../';
+export { PopulationDiagram as default } from "../../";

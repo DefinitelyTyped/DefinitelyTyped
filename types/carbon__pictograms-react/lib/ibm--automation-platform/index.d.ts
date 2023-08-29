@@ -1,3 +1,3 @@
-import { IbmAutomationPlatform } from '../../';
+import { IbmAutomationPlatform } from "../../";
 
 export = IbmAutomationPlatform;

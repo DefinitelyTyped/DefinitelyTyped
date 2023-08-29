@@ -1,3 +1,3 @@
-import { DigitalId } from '../../';
+import { DigitalId } from "../../";
 
 export = DigitalId;

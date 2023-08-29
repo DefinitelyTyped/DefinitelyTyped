@@ -1,1 +1,1 @@
-export { ChooseHowToGetStarted as default } from '../../';
+export { ChooseHowToGetStarted as default } from "../../";

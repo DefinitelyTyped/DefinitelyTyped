@@ -1,3 +1,3 @@
-import { Teammates } from '../../';
+import { Teammates } from "../../";
 
 export = Teammates;

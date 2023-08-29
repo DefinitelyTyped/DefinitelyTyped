@@ -1,3 +1,3 @@
-import { Analyze } from '../../';
+import { Analyze } from "../../";
 
 export = Analyze;

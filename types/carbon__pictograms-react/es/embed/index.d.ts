@@ -1,1 +1,1 @@
-export { Embed as default } from '../../';
+export { Embed as default } from "../../";

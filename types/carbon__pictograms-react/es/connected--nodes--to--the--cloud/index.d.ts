@@ -1,1 +1,1 @@
-export { ConnectedNodesToTheCloud as default } from '../../';
+export { ConnectedNodesToTheCloud as default } from "../../";

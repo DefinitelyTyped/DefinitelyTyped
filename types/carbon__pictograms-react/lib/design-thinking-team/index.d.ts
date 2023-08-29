@@ -1,3 +1,3 @@
-import { DesignThinkingTeam } from '../../';
+import { DesignThinkingTeam } from "../../";
 
 export = DesignThinkingTeam;

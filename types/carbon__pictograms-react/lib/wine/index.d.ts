@@ -1,3 +1,3 @@
-import { Wine } from '../../';
+import { Wine } from "../../";
 
 export = Wine;

@@ -1,3 +1,3 @@
-import { Faucet } from '../../';
+import { Faucet } from "../../";
 
 export = Faucet;

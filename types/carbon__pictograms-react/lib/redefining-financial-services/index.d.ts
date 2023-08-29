@@ -1,3 +1,3 @@
-import { RedefiningFinancialServices } from '../../';
+import { RedefiningFinancialServices } from "../../";
 
 export = RedefiningFinancialServices;

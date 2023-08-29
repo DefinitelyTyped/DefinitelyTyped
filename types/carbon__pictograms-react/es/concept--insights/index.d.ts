@@ -1,1 +1,1 @@
-export { ConceptInsights as default } from '../../';
+export { ConceptInsights as default } from "../../";

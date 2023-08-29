@@ -1,3 +1,3 @@
-import { BuildApplicationsAnywhere } from '../../';
+import { BuildApplicationsAnywhere } from "../../";
 
 export = BuildApplicationsAnywhere;

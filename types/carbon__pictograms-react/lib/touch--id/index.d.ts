@@ -1,3 +1,3 @@
-import { TouchId } from '../../';
+import { TouchId } from "../../";
 
 export = TouchId;

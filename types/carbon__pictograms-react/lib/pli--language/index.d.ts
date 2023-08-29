@@ -1,3 +1,3 @@
-import { PliLanguage } from '../../';
+import { PliLanguage } from "../../";
 
 export = PliLanguage;

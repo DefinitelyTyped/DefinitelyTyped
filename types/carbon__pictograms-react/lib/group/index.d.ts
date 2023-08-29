@@ -1,3 +1,3 @@
-import { Group } from '../../';
+import { Group } from "../../";
 
 export = Group;

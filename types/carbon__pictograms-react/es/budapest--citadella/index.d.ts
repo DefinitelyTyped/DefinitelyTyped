@@ -1,1 +1,1 @@
-export { BudapestCitadella as default } from '../../';
+export { BudapestCitadella as default } from "../../";

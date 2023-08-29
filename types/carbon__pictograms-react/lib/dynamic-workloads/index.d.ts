@@ -1,3 +1,3 @@
-import { DynamicWorkloads } from '../../';
+import { DynamicWorkloads } from "../../";
 
 export = DynamicWorkloads;

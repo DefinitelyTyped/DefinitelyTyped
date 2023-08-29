@@ -1,3 +1,3 @@
-import { OnPremiseToCloud } from '../../';
+import { OnPremiseToCloud } from "../../";
 
 export = OnPremiseToCloud;

@@ -1,3 +1,3 @@
-import { ExtractText } from '../../';
+import { ExtractText } from "../../";
 
 export = ExtractText;

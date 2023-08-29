@@ -1,3 +1,3 @@
-import { DataCenters } from '../../';
+import { DataCenters } from "../../";
 
 export = DataCenters;

@@ -1,1 +1,1 @@
-export { UnderUtilizedSecurity as default } from '../../';
+export { UnderUtilizedSecurity as default } from "../../";

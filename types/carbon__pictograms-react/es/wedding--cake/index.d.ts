@@ -1,1 +1,1 @@
-export { WeddingCake as default } from '../../';
+export { WeddingCake as default } from "../../";

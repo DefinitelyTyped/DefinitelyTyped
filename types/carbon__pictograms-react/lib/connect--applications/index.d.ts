@@ -1,3 +1,3 @@
-import { ConnectApplications } from '../../';
+import { ConnectApplications } from "../../";
 
 export = ConnectApplications;

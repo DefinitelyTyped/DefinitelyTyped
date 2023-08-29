@@ -1,3 +1,3 @@
-import { Gear } from '../../';
+import { Gear } from "../../";
 
 export = Gear;

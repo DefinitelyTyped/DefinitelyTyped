@@ -1,3 +1,3 @@
-import { HardDriveNetwork } from '../../';
+import { HardDriveNetwork } from "../../";
 
 export = HardDriveNetwork;

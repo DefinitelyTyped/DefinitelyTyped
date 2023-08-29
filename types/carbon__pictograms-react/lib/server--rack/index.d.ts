@@ -1,3 +1,3 @@
-import { ServerRack } from '../../';
+import { ServerRack } from "../../";
 
 export = ServerRack;

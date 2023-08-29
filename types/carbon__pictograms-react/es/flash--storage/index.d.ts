@@ -1,1 +1,1 @@
-export { FlashStorage as default } from '../../';
+export { FlashStorage as default } from "../../";

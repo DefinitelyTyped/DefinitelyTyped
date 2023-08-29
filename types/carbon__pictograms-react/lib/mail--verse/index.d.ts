@@ -1,3 +1,3 @@
-import { MailVerse } from '../../';
+import { MailVerse } from "../../";
 
 export = MailVerse;

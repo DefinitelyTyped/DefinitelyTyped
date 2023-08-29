@@ -1,3 +1,3 @@
-import { Pregnant } from '../../';
+import { Pregnant } from "../../";
 
 export = Pregnant;

@@ -1,3 +1,3 @@
-import { VideoChat } from '../../';
+import { VideoChat } from "../../";
 
 export = VideoChat;

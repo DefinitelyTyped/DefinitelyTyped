@@ -1,3 +1,3 @@
-import { HighlyAvailable } from '../../';
+import { HighlyAvailable } from "../../";
 
 export = HighlyAvailable;

@@ -1,3 +1,3 @@
-import { GlobalExchange } from '../../';
+import { GlobalExchange } from "../../";
 
 export = GlobalExchange;

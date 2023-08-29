@@ -1,3 +1,3 @@
-import { LondonBigBen } from '../../';
+import { LondonBigBen } from "../../";
 
 export = LondonBigBen;

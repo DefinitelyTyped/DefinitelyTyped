@@ -1,1 +1,1 @@
-export { Warning_02 as default } from '../../';
+export { Warning_02 as default } from "../../";

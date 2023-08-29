@@ -1,41 +1,41 @@
+import * as React from "react";
 import {
     AcceleratedComputing,
     AddDocument,
-    AdvancedFraudProtection,
-    AdvocateMask,
-    Ai,
-    AiExplainability,
-    Airplane,
-    AppModernization,
-    AudioData,
-    Backpack,
-    Bluepages,
-    ClientFinancing_01,
-    CloudPakForApplications,
-    ContentDesign,
     Dashboard,
-    DoctorPatient,
-    Download_01,
-    Export_01,
+    Backpack,
+    Airplane,
+    ClientFinancing_01,
     GlobalMarkets,
-    Hpi,
-    IbmCloud,
-    IbmZ,
-    IbmZAndLinuxoneMultiFrame,
-    MovingDolly,
-    RedHatApplications,
     SolarField,
     SystemsDevopsAnalyze,
+    IbmCloud,
+    Download_01,
+    Export_01,
     Upload_01,
-    UserMask,
     Video_01,
-    Visibility,
     WatsonLogo,
-} from '@carbon/pictograms-react';
-import * as React from 'react';
+    AdvancedFraudProtection,
+    DoctorPatient,
+    Hpi,
+    CloudPakForApplications,
+    Bluepages,
+    ContentDesign,
+    AiExplainability,
+    RedHatApplications,
+    AudioData,
+    Visibility,
+    IbmZ,
+    IbmZAndLinuxoneMultiFrame,
+    Ai,
+    AppModernization,
+    MovingDolly,
+    AdvocateMask,
+    UserMask,
+} from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
-<Airplane title='airplane' aria-label='label' tabIndex='0' fill='#fff' className='className' />; // $ExpectType Element
+<Airplane title="airplane" aria-label="label" tabIndex="0" fill="#fff" className="className" />; // $ExpectType Element
 <ClientFinancing_01 />; // $ExpectType Element
 <GlobalMarkets />; // $ExpectType Element
 <SolarField />; // $ExpectType Element

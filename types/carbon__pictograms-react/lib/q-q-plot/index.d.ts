@@ -1,3 +1,3 @@
-import { QQPlot } from '../../';
+import { QQPlot } from "../../";
 
 export = QQPlot;

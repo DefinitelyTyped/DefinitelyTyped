@@ -1,1 +1,1 @@
-export { Conversation as default } from '../../';
+export { Conversation as default } from "../../";

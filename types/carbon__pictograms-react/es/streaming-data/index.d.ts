@@ -1,1 +1,1 @@
-export { StreamingData as default } from '../../';
+export { StreamingData as default } from "../../";

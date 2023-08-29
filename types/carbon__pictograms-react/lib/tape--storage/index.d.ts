@@ -1,3 +1,3 @@
-import { TapeStorage } from '../../';
+import { TapeStorage } from "../../";
 
 export = TapeStorage;

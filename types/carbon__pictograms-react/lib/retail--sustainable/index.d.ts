@@ -1,3 +1,3 @@
-import { RetailSustainable } from '../../';
+import { RetailSustainable } from "../../";
 
 export = RetailSustainable;

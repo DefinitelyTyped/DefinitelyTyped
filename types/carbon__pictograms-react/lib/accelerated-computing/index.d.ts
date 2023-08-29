@@ -1,3 +1,3 @@
-import { AcceleratedComputing } from '../../';
+import { AcceleratedComputing } from "../../";
 
 export = AcceleratedComputing;

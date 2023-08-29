@@ -1,1 +1,1 @@
-export { ParisArcDeTriomphe as default } from '../../';
+export { ParisArcDeTriomphe as default } from "../../";

@@ -1,1 +1,1 @@
-export { DataPrivacyKey as default } from '../../';
+export { DataPrivacyKey as default } from "../../";

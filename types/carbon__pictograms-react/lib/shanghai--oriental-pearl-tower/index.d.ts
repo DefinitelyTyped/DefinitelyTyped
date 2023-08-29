@@ -1,3 +1,3 @@
-import { ShanghaiOrientalPearlTower } from '../../';
+import { ShanghaiOrientalPearlTower } from "../../";
 
 export = ShanghaiOrientalPearlTower;

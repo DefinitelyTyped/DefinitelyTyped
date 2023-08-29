@@ -1,1 +1,1 @@
-export { SecureSearch as default } from '../../';
+export { SecureSearch as default } from "../../";

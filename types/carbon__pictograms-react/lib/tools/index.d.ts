@@ -1,3 +1,3 @@
-import { Tools } from '../../';
+import { Tools } from "../../";
 
 export = Tools;

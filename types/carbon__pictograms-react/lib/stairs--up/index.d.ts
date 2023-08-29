@@ -1,3 +1,3 @@
-import { StairsUp } from '../../';
+import { StairsUp } from "../../";
 
 export = StairsUp;

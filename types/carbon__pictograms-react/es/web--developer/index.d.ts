@@ -1,1 +1,1 @@
-export { WebDeveloper as default } from '../../';
+export { WebDeveloper as default } from "../../";

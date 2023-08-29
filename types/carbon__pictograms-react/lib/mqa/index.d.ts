@@ -1,3 +1,3 @@
-import { Mqa } from '../../';
+import { Mqa } from "../../";
 
 export = Mqa;

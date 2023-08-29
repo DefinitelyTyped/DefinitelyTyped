@@ -1,3 +1,3 @@
-import { Lantern } from '../../';
+import { Lantern } from "../../";
 
 export = Lantern;

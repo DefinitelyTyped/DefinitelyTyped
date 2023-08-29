@@ -1,3 +1,3 @@
-import { AddDocument } from '../../';
+import { AddDocument } from "../../";
 
 export = AddDocument;

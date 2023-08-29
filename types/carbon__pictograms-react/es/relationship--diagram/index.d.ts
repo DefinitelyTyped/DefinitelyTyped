@@ -1,1 +1,1 @@
-export { RelationshipDiagram as default } from '../../';
+export { RelationshipDiagram as default } from "../../";

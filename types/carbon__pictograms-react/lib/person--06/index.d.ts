@@ -1,3 +1,3 @@
-import { Person_06 } from '../../';
+import { Person_06 } from "../../";
 
 export = Person_06;

@@ -1,3 +1,3 @@
-import { CloudManagedServices } from '../../';
+import { CloudManagedServices } from "../../";
 
 export = CloudManagedServices;

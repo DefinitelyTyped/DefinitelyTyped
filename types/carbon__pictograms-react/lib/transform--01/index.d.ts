@@ -1,3 +1,3 @@
-import { Transform_01 } from '../../';
+import { Transform_01 } from "../../";
 
 export = Transform_01;

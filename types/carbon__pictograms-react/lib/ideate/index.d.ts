@@ -1,3 +1,3 @@
-import { Ideate } from '../../';
+import { Ideate } from "../../";
 
 export = Ideate;

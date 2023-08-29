@@ -1,1 +1,1 @@
-export { AdvocateMask as default } from '../../';
+export { AdvocateMask as default } from "../../";

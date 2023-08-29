@@ -1,3 +1,3 @@
-import { DesignResearch } from '../../';
+import { DesignResearch } from "../../";
 
 export = DesignResearch;

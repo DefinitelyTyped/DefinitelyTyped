@@ -1,3 +1,3 @@
-import { Subsecond } from '../../';
+import { Subsecond } from "../../";
 
 export = Subsecond;

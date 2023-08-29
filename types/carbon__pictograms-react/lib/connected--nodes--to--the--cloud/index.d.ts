@@ -1,3 +1,3 @@
-import { ConnectedNodesToTheCloud } from '../../';
+import { ConnectedNodesToTheCloud } from "../../";
 
 export = ConnectedNodesToTheCloud;

@@ -1,1 +1,1 @@
-export { Ecosystem as default } from '../../';
+export { Ecosystem as default } from "../../";

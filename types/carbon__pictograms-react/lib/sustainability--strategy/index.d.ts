@@ -1,3 +1,3 @@
-import { SustainabilityStrategy } from '../../';
+import { SustainabilityStrategy } from "../../";
 
 export = SustainabilityStrategy;

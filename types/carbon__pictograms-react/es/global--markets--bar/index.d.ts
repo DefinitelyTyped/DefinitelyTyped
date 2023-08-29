@@ -1,1 +1,1 @@
-export { GlobalMarketsBar as default } from '../../';
+export { GlobalMarketsBar as default } from "../../";

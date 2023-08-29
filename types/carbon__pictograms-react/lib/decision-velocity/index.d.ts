@@ -1,3 +1,3 @@
-import { DecisionVelocity } from '../../';
+import { DecisionVelocity } from "../../";
 
 export = DecisionVelocity;

@@ -1,3 +1,3 @@
-import { Backpack } from '../../';
+import { Backpack } from "../../";
 
 export = Backpack;

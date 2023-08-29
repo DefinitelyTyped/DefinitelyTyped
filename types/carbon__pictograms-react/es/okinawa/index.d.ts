@@ -1,1 +1,1 @@
-export { Okinawa as default } from '../../';
+export { Okinawa as default } from "../../";

@@ -1,1 +1,1 @@
-export { Vision as default } from '../../';
+export { Vision as default } from "../../";

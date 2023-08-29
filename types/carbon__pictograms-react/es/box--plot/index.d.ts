@@ -1,1 +1,1 @@
-export { BoxPlot as default } from '../../';
+export { BoxPlot as default } from "../../";

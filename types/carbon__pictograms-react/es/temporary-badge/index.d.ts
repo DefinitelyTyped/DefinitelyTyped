@@ -1,1 +1,1 @@
-export { TemporaryBadge as default } from '../../';
+export { TemporaryBadge as default } from "../../";

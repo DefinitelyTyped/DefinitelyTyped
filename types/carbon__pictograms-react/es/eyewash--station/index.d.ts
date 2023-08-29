@@ -1,1 +1,1 @@
-export { EyewashStation as default } from '../../';
+export { EyewashStation as default } from "../../";

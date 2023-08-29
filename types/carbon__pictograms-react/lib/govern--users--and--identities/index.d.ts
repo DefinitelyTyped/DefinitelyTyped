@@ -1,3 +1,3 @@
-import { GovernUsersAndIdentities } from '../../';
+import { GovernUsersAndIdentities } from "../../";
 
 export = GovernUsersAndIdentities;

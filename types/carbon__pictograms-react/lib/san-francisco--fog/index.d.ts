@@ -1,3 +1,3 @@
-import { SanFranciscoFog } from '../../';
+import { SanFranciscoFog } from "../../";
 
 export = SanFranciscoFog;

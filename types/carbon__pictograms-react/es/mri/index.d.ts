@@ -1,1 +1,1 @@
-export { Mri as default } from '../../';
+export { Mri as default } from "../../";

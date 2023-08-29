@@ -1,3 +1,3 @@
-import { VisualRecognition } from '../../';
+import { VisualRecognition } from "../../";
 
 export = VisualRecognition;

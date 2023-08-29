@@ -1,1 +1,1 @@
-export { ProvenTechnology as default } from '../../';
+export { ProvenTechnology as default } from "../../";

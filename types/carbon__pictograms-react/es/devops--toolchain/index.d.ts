@@ -1,1 +1,1 @@
-export { DevopsToolchain as default } from '../../';
+export { DevopsToolchain as default } from "../../";

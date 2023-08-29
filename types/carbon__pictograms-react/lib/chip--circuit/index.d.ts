@@ -1,3 +1,3 @@
-import { ChipCircuit } from '../../';
+import { ChipCircuit } from "../../";
 
 export = ChipCircuit;

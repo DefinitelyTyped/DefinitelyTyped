@@ -1,3 +1,3 @@
-import { AmsterdamWindmill } from '../../';
+import { AmsterdamWindmill } from "../../";
 
 export = AmsterdamWindmill;

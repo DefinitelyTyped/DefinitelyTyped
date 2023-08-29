@@ -1,3 +1,3 @@
-import { Puzzle } from '../../';
+import { Puzzle } from "../../";
 
 export = Puzzle;

@@ -1,3 +1,3 @@
-import { CloudAssets } from '../../';
+import { CloudAssets } from "../../";
 
 export = CloudAssets;

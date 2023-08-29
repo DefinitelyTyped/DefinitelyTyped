@@ -1,1 +1,1 @@
-export { Printer as default } from '../../';
+export { Printer as default } from "../../";

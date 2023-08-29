@@ -1,1 +1,1 @@
-export { Cluster as default } from '../../';
+export { Cluster as default } from "../../";

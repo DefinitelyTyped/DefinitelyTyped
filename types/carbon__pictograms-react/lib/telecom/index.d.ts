@@ -1,3 +1,3 @@
-import { Telecom } from '../../';
+import { Telecom } from "../../";
 
 export = Telecom;

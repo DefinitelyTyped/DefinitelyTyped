@@ -1,3 +1,3 @@
-import { HomeFront } from '../../';
+import { HomeFront } from "../../";
 
 export = HomeFront;

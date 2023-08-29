@@ -1,3 +1,3 @@
-import { Sprout } from '../../';
+import { Sprout } from "../../";
 
 export = Sprout;

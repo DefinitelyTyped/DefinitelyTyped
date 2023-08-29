@@ -1,3 +1,3 @@
-import { CoatHanger } from '../../';
+import { CoatHanger } from "../../";
 
 export = CoatHanger;

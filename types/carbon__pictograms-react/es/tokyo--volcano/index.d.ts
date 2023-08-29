@@ -1,1 +1,1 @@
-export { TokyoVolcano as default } from '../../';
+export { TokyoVolcano as default } from "../../";

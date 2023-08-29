@@ -1,3 +1,3 @@
-import { TextData } from '../../';
+import { TextData } from "../../";
 
 export = TextData;

@@ -1,3 +1,3 @@
-import { CLanguage } from '../../';
+import { CLanguage } from "../../";
 
 export = CLanguage;

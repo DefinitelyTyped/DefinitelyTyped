@@ -1,3 +1,3 @@
-import { PragueDancingHouse_01 } from '../../';
+import { PragueDancingHouse_01 } from "../../";
 
 export = PragueDancingHouse_01;

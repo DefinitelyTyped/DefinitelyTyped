@@ -1,1 +1,1 @@
-export { PhpLanguage as default } from '../../';
+export { PhpLanguage as default } from "../../";

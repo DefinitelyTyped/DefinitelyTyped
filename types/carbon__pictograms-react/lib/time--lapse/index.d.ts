@@ -1,3 +1,3 @@
-import { TimeLapse } from '../../';
+import { TimeLapse } from "../../";
 
 export = TimeLapse;

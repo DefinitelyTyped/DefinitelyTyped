@@ -1,1 +1,1 @@
-export { Rank as default } from '../../';
+export { Rank as default } from "../../";

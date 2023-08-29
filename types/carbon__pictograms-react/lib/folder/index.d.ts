@@ -1,3 +1,3 @@
-import { Folder } from '../../';
+import { Folder } from "../../";
 
 export = Folder;

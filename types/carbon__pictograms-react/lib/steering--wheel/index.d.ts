@@ -1,3 +1,3 @@
-import { SteeringWheel } from '../../';
+import { SteeringWheel } from "../../";
 
 export = SteeringWheel;

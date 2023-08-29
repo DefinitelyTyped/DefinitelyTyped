@@ -1,3 +1,3 @@
-import { CloudStrategy } from '../../';
+import { CloudStrategy } from "../../";
 
 export = CloudStrategy;

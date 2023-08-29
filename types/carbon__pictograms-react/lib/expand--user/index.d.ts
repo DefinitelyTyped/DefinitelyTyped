@@ -1,3 +1,3 @@
-import { ExpandUser } from '../../';
+import { ExpandUser } from "../../";
 
 export = ExpandUser;

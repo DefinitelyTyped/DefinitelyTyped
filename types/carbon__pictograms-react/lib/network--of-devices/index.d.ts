@@ -1,3 +1,3 @@
-import { NetworkOfDevices } from '../../';
+import { NetworkOfDevices } from "../../";
 
 export = NetworkOfDevices;

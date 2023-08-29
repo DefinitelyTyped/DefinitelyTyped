@@ -1,3 +1,3 @@
-import { RotateDevice } from '../../';
+import { RotateDevice } from "../../";
 
 export = RotateDevice;

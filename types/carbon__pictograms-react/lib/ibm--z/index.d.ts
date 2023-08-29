@@ -1,3 +1,3 @@
-import { IbmZ } from '../../';
+import { IbmZ } from "../../";
 
 export = IbmZ;

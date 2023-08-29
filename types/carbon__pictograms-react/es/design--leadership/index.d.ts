@@ -1,1 +1,1 @@
-export { DesignLeadership as default } from '../../';
+export { DesignLeadership as default } from "../../";

@@ -1,3 +1,3 @@
-import { FaultTolerant } from '../../';
+import { FaultTolerant } from "../../";
 
 export = FaultTolerant;

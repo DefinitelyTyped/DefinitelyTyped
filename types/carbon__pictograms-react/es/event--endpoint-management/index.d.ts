@@ -1,1 +1,1 @@
-export { EventEndpointManagement as default } from '../../';
+export { EventEndpointManagement as default } from "../../";

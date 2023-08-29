@@ -1,3 +1,3 @@
-import { Flexibility } from '../../';
+import { Flexibility } from "../../";
 
 export = Flexibility;

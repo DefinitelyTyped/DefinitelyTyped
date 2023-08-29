@@ -1,1 +1,1 @@
-export { ParisPompidouCenter as default } from '../../';
+export { ParisPompidouCenter as default } from "../../";

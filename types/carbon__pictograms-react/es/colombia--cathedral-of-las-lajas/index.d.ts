@@ -1,1 +1,1 @@
-export { ColombiaCathedralOfLasLajas as default } from '../../';
+export { ColombiaCathedralOfLasLajas as default } from "../../";

@@ -1,1 +1,1 @@
-export { GlobalAnalytics as default } from '../../';
+export { GlobalAnalytics as default } from "../../";

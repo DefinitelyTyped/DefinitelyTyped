@@ -1,1 +1,1 @@
-export { DeveloperTools as default } from '../../';
+export { DeveloperTools as default } from "../../";

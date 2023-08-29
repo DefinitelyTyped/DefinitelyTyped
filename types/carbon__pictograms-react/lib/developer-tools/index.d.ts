@@ -1,3 +1,3 @@
-import { DeveloperTools } from '../../';
+import { DeveloperTools } from "../../";
 
 export = DeveloperTools;

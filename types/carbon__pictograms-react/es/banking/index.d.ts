@@ -1,1 +1,1 @@
-export { Banking as default } from '../../';
+export { Banking as default } from "../../";

@@ -1,3 +1,3 @@
-import { AiRobustness } from '../../';
+import { AiRobustness } from "../../";
 
 export = AiRobustness;

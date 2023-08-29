@@ -1,3 +1,3 @@
-import { Coronavirus } from '../../';
+import { Coronavirus } from "../../";
 
 export = Coronavirus;

@@ -1,3 +1,3 @@
-import { Alarm } from '../../';
+import { Alarm } from "../../";
 
 export = Alarm;

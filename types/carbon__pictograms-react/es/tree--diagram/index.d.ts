@@ -1,1 +1,1 @@
-export { TreeDiagram as default } from '../../';
+export { TreeDiagram as default } from "../../";

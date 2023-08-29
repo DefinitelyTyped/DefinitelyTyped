@@ -1,3 +1,3 @@
-import { HardDrive } from '../../';
+import { HardDrive } from "../../";
 
 export = HardDrive;

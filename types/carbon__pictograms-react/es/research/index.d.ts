@@ -1,1 +1,1 @@
-export { Research as default } from '../../';
+export { Research as default } from "../../";

@@ -1,3 +1,3 @@
-import { ChartTSne } from '../../';
+import { ChartTSne } from "../../";
 
 export = ChartTSne;

@@ -1,1 +1,1 @@
-export { Launch as default } from '../../';
+export { Launch as default } from "../../";

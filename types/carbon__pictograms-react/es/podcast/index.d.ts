@@ -1,1 +1,1 @@
-export { Podcast as default } from '../../';
+export { Podcast as default } from "../../";

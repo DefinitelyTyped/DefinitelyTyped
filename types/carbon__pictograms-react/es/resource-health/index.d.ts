@@ -1,1 +1,1 @@
-export { ResourceHealth as default } from '../../';
+export { ResourceHealth as default } from "../../";

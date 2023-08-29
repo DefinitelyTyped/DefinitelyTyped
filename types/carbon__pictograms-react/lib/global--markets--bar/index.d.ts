@@ -1,3 +1,3 @@
-import { GlobalMarketsBar } from '../../';
+import { GlobalMarketsBar } from "../../";
 
 export = GlobalMarketsBar;

@@ -1,3 +1,3 @@
-import { SystemsDevopsCicdPipeline } from '../../';
+import { SystemsDevopsCicdPipeline } from "../../";
 
 export = SystemsDevopsCicdPipeline;

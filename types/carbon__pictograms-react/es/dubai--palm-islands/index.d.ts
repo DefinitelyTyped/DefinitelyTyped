@@ -1,1 +1,1 @@
-export { DubaiPalmIslands as default } from '../../';
+export { DubaiPalmIslands as default } from "../../";

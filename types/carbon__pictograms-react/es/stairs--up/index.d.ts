@@ -1,1 +1,1 @@
-export { StairsUp as default } from '../../';
+export { StairsUp as default } from "../../";

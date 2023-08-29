@@ -1,1 +1,1 @@
-export { UserInterface as default } from '../../';
+export { UserInterface as default } from "../../";

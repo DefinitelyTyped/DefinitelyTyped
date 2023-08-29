@@ -1,3 +1,3 @@
-import { AccessManagement } from '../../';
+import { AccessManagement } from "../../";
 
 export = AccessManagement;

@@ -1,1 +1,1 @@
-export { LockedNetwork_02 as default } from '../../';
+export { LockedNetwork_02 as default } from "../../";

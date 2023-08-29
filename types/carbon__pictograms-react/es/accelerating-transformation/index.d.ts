@@ -1,1 +1,1 @@
-export { AcceleratingTransformation as default } from '../../';
+export { AcceleratingTransformation as default } from "../../";

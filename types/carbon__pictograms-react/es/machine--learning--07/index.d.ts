@@ -1,1 +1,1 @@
-export { MachineLearning_07 as default } from '../../';
+export { MachineLearning_07 as default } from "../../";

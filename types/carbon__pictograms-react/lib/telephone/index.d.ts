@@ -1,3 +1,3 @@
-import { Telephone } from '../../';
+import { Telephone } from "../../";
 
 export = Telephone;

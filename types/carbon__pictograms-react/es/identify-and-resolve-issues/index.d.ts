@@ -1,1 +1,1 @@
-export { IdentifyAndResolveIssues as default } from '../../';
+export { IdentifyAndResolveIssues as default } from "../../";

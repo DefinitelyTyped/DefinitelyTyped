@@ -1,3 +1,3 @@
-import { DevopsToolchain } from '../../';
+import { DevopsToolchain } from "../../";
 
 export = DevopsToolchain;

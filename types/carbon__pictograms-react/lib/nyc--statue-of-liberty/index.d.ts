@@ -1,3 +1,3 @@
-import { NycStatueOfLiberty } from '../../';
+import { NycStatueOfLiberty } from "../../";
 
 export = NycStatueOfLiberty;

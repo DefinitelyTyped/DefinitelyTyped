@@ -1,1 +1,1 @@
-export { SustainabilityStrategy as default } from '../../';
+export { SustainabilityStrategy as default } from "../../";

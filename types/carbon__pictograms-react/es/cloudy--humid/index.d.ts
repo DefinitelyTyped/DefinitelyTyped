@@ -1,1 +1,1 @@
-export { CloudyHumid as default } from '../../';
+export { CloudyHumid as default } from "../../";

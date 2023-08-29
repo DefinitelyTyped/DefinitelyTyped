@@ -1,3 +1,3 @@
-import { VenezuelaNationalPantheonOfVenezuela } from '../../';
+import { VenezuelaNationalPantheonOfVenezuela } from "../../";
 
 export = VenezuelaNationalPantheonOfVenezuela;

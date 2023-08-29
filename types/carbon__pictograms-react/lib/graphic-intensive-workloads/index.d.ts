@@ -1,3 +1,3 @@
-import { GraphicIntensiveWorkloads } from '../../';
+import { GraphicIntensiveWorkloads } from "../../";
 
 export = GraphicIntensiveWorkloads;

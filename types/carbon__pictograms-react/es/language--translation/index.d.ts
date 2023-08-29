@@ -1,1 +1,1 @@
-export { LanguageTranslation as default } from '../../';
+export { LanguageTranslation as default } from "../../";

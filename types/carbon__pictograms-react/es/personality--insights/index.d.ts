@@ -1,1 +1,1 @@
-export { PersonalityInsights as default } from '../../';
+export { PersonalityInsights as default } from "../../";

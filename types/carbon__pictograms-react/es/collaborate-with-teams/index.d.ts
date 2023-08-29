@@ -1,1 +1,1 @@
-export { CollaborateWithTeams as default } from '../../';
+export { CollaborateWithTeams as default } from "../../";

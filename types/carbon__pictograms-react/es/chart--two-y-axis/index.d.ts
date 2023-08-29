@@ -1,1 +1,1 @@
-export { ChartTwoYAxis as default } from '../../';
+export { ChartTwoYAxis as default } from "../../";

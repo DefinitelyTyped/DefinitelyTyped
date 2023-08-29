@@ -1,3 +1,3 @@
-import { Bulldozer } from '../../';
+import { Bulldozer } from "../../";
 
 export = Bulldozer;

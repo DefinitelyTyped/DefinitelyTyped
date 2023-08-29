@@ -1,1 +1,1 @@
-export { CodeSyntax as default } from '../../';
+export { CodeSyntax as default } from "../../";

@@ -1,3 +1,3 @@
-import { CloudGuidelines } from '../../';
+import { CloudGuidelines } from "../../";
 
 export = CloudGuidelines;

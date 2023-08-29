@@ -1,3 +1,3 @@
-import { Invoice } from '../../';
+import { Invoice } from "../../";
 
 export = Invoice;

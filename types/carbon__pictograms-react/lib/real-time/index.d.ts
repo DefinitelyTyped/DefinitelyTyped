@@ -1,3 +1,3 @@
-import { RealTime } from '../../';
+import { RealTime } from "../../";
 
 export = RealTime;

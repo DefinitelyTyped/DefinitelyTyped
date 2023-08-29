@@ -1,3 +1,3 @@
-import { GlobeLocations } from '../../';
+import { GlobeLocations } from "../../";
 
 export = GlobeLocations;

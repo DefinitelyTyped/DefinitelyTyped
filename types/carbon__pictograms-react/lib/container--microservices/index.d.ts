@@ -1,3 +1,3 @@
-import { ContainerMicroservices } from '../../';
+import { ContainerMicroservices } from "../../";
 
 export = ContainerMicroservices;

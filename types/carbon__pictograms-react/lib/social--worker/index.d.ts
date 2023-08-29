@@ -1,3 +1,3 @@
-import { SocialWorker } from '../../';
+import { SocialWorker } from "../../";
 
 export = SocialWorker;

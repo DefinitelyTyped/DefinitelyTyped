@@ -1,1 +1,1 @@
-export { ElectricCar as default } from '../../';
+export { ElectricCar as default } from "../../";

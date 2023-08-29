@@ -1,3 +1,3 @@
-import { FlashingContent } from '../../';
+import { FlashingContent } from "../../";
 
 export = FlashingContent;

@@ -1,1 +1,1 @@
-export { EnergyCrisis as default } from '../../';
+export { EnergyCrisis as default } from "../../";

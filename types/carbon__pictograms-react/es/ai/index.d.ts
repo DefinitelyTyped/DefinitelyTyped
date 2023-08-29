@@ -1,1 +1,1 @@
-export { Ai as default } from '../../';
+export { Ai as default } from "../../";

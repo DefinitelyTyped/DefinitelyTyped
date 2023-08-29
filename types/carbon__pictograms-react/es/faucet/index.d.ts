@@ -1,1 +1,1 @@
-export { Faucet as default } from '../../';
+export { Faucet as default } from "../../";

@@ -1,1 +1,1 @@
-export { ConnectedDevices as default } from '../../';
+export { ConnectedDevices as default } from "../../";

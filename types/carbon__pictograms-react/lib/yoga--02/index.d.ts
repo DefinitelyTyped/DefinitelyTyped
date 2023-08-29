@@ -1,3 +1,3 @@
-import { Yoga_02 } from '../../';
+import { Yoga_02 } from "../../";
 
 export = Yoga_02;

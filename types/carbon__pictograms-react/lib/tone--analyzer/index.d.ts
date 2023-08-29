@@ -1,3 +1,3 @@
-import { ToneAnalyzer } from '../../';
+import { ToneAnalyzer } from "../../";
 
 export = ToneAnalyzer;

@@ -1,3 +1,3 @@
-import { SystemsDevopsAnalyze } from '../../';
+import { SystemsDevopsAnalyze } from "../../";
 
 export = SystemsDevopsAnalyze;

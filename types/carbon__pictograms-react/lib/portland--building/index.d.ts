@@ -1,3 +1,3 @@
-import { PortlandBuilding } from '../../';
+import { PortlandBuilding } from "../../";
 
 export = PortlandBuilding;

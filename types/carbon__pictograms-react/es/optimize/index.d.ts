@@ -1,1 +1,1 @@
-export { Optimize as default } from '../../';
+export { Optimize as default } from "../../";

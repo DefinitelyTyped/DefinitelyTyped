@@ -1,3 +1,3 @@
-import { ExpandHorz } from '../../';
+import { ExpandHorz } from "../../";
 
 export = ExpandHorz;

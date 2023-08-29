@@ -1,3 +1,3 @@
-import { UnauthorizedUserAccess } from '../../';
+import { UnauthorizedUserAccess } from "../../";
 
 export = UnauthorizedUserAccess;

@@ -1,3 +1,3 @@
-import { ContinuousSecurity } from '../../';
+import { ContinuousSecurity } from "../../";
 
 export = ContinuousSecurity;

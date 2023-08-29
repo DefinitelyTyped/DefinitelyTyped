@@ -1,3 +1,3 @@
-import { CloudServicesPricing } from '../../';
+import { CloudServicesPricing } from "../../";
 
 export = CloudServicesPricing;

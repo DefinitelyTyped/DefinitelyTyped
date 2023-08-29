@@ -1,1 +1,1 @@
-export { WashingtonDc as default } from '../../';
+export { WashingtonDc as default } from "../../";

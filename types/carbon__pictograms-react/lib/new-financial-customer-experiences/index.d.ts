@@ -1,3 +1,3 @@
-import { NewFinancialCustomerExperiences } from '../../';
+import { NewFinancialCustomerExperiences } from "../../";
 
 export = NewFinancialCustomerExperiences;

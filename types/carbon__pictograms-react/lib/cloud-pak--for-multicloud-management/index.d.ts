@@ -1,3 +1,3 @@
-import { CloudPakForMulticloudManagement } from '../../';
+import { CloudPakForMulticloudManagement } from "../../";
 
 export = CloudPakForMulticloudManagement;

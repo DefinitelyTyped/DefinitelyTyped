@@ -1,3 +1,3 @@
-import { Teacher } from '../../';
+import { Teacher } from "../../";
 
 export = Teacher;

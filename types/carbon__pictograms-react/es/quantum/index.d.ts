@@ -1,1 +1,1 @@
-export { Quantum as default } from '../../';
+export { Quantum as default } from "../../";

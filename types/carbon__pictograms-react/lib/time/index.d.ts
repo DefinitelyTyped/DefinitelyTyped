@@ -1,3 +1,3 @@
-import { Time } from '../../';
+import { Time } from "../../";
 
 export = Time;

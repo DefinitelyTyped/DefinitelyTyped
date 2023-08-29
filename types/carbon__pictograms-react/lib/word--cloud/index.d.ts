@@ -1,3 +1,3 @@
-import { WordCloud } from '../../';
+import { WordCloud } from "../../";
 
 export = WordCloud;

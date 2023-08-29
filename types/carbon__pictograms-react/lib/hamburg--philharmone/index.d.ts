@@ -1,3 +1,3 @@
-import { HamburgPhilharmone } from '../../';
+import { HamburgPhilharmone } from "../../";
 
 export = HamburgPhilharmone;

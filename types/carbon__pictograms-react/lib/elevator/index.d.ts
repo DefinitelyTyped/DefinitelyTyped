@@ -1,3 +1,3 @@
-import { Elevator } from '../../';
+import { Elevator } from "../../";
 
 export = Elevator;

@@ -1,3 +1,3 @@
-import { Control } from '../../';
+import { Control } from "../../";
 
 export = Control;

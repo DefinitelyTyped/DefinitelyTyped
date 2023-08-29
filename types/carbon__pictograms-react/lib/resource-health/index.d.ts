@@ -1,3 +1,3 @@
-import { ResourceHealth } from '../../';
+import { ResourceHealth } from "../../";
 
 export = ResourceHealth;

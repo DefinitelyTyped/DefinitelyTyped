@@ -1,3 +1,3 @@
-import { RichTextFormat } from '../../';
+import { RichTextFormat } from "../../";
 
 export = RichTextFormat;

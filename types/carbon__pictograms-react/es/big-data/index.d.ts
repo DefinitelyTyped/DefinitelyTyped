@@ -1,1 +1,1 @@
-export { BigData as default } from '../../';
+export { BigData as default } from "../../";

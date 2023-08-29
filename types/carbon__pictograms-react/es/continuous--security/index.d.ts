@@ -1,1 +1,1 @@
-export { ContinuousSecurity as default } from '../../';
+export { ContinuousSecurity as default } from "../../";

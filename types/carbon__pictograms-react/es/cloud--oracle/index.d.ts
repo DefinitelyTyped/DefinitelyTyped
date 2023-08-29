@@ -1,1 +1,1 @@
-export { CloudOracle as default } from '../../';
+export { CloudOracle as default } from "../../";

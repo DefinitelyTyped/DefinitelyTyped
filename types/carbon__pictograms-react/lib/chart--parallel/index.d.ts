@@ -1,3 +1,3 @@
-import { ChartParallel } from '../../';
+import { ChartParallel } from "../../";
 
 export = ChartParallel;

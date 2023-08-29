@@ -1,3 +1,3 @@
-import { ChartEvaluation } from '../../';
+import { ChartEvaluation } from "../../";
 
 export = ChartEvaluation;

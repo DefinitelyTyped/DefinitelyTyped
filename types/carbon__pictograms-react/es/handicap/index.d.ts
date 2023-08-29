@@ -1,1 +1,1 @@
-export { Handicap as default } from '../../';
+export { Handicap as default } from "../../";

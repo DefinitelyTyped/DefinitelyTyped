@@ -1,3 +1,3 @@
-import { CurveLogarithmic } from '../../';
+import { CurveLogarithmic } from "../../";
 
 export = CurveLogarithmic;

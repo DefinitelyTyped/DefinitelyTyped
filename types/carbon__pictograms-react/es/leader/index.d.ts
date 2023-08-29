@@ -1,1 +1,1 @@
-export { Leader as default } from '../../';
+export { Leader as default } from "../../";

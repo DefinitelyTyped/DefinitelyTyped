@@ -1,1 +1,1 @@
-export { Lock_01 as default } from '../../';
+export { Lock_01 as default } from "../../";

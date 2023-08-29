@@ -1,1 +1,1 @@
-export { ConsoleWireless as default } from '../../';
+export { ConsoleWireless as default } from "../../";

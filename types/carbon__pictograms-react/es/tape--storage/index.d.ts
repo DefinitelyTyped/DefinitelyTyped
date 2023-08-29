@@ -1,1 +1,1 @@
-export { TapeStorage as default } from '../../';
+export { TapeStorage as default } from "../../";

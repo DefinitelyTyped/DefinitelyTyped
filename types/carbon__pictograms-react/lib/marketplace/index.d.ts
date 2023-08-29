@@ -1,3 +1,3 @@
-import { Marketplace } from '../../';
+import { Marketplace } from "../../";
 
 export = Marketplace;

@@ -1,1 +1,1 @@
-export { Workday as default } from '../../';
+export { Workday as default } from "../../";

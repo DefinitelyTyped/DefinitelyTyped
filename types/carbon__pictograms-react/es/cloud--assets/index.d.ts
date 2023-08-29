@@ -1,1 +1,1 @@
-export { CloudAssets as default } from '../../';
+export { CloudAssets as default } from "../../";

@@ -1,3 +1,3 @@
-import { SecurityAsAService } from '../../';
+import { SecurityAsAService } from "../../";
 
 export = SecurityAsAService;

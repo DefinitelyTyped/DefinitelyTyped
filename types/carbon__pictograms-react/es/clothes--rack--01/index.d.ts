@@ -1,1 +1,1 @@
-export { ClothesRack_01 as default } from '../../';
+export { ClothesRack_01 as default } from "../../";

@@ -1,3 +1,3 @@
-import { PeruMachuPicchu } from '../../';
+import { PeruMachuPicchu } from "../../";
 
 export = PeruMachuPicchu;

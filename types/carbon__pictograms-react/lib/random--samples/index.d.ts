@@ -1,3 +1,3 @@
-import { RandomSamples } from '../../';
+import { RandomSamples } from "../../";
 
 export = RandomSamples;

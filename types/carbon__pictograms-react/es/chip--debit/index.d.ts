@@ -1,1 +1,1 @@
-export { ChipDebit as default } from '../../';
+export { ChipDebit as default } from "../../";

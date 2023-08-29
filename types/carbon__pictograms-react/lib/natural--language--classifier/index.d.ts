@@ -1,3 +1,3 @@
-import { NaturalLanguageClassifier } from '../../';
+import { NaturalLanguageClassifier } from "../../";
 
 export = NaturalLanguageClassifier;

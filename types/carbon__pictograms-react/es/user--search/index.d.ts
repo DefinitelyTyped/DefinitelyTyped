@@ -1,1 +1,1 @@
-export { UserSearch as default } from '../../';
+export { UserSearch as default } from "../../";

@@ -1,3 +1,3 @@
-import { Intelligence } from '../../';
+import { Intelligence } from "../../";
 
 export = Intelligence;

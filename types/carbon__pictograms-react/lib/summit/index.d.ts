@@ -1,3 +1,3 @@
-import { Summit } from '../../';
+import { Summit } from "../../";
 
 export = Summit;

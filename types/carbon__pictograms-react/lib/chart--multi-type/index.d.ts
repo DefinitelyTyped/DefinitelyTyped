@@ -1,3 +1,3 @@
-import { ChartMultiType } from '../../';
+import { ChartMultiType } from "../../";
 
 export = ChartMultiType;

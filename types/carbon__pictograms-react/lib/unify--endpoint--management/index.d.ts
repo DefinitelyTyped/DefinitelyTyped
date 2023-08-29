@@ -1,3 +1,3 @@
-import { UnifyEndpointManagement } from '../../';
+import { UnifyEndpointManagement } from "../../";
 
 export = UnifyEndpointManagement;

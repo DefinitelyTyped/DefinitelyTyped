@@ -1,3 +1,3 @@
-import { Container } from '../../';
+import { Container } from "../../";
 
 export = Container;

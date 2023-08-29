@@ -1,1 +1,1 @@
-export { ArgentinaObelisk as default } from '../../';
+export { ArgentinaObelisk as default } from "../../";

@@ -1,3 +1,3 @@
-import { HandicapActive } from '../../';
+import { HandicapActive } from "../../";
 
 export = HandicapActive;

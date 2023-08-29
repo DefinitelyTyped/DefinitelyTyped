@@ -1,1 +1,1 @@
-export { Support as default } from '../../';
+export { Support as default } from "../../";

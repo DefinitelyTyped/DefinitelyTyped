@@ -1,1 +1,1 @@
-export { DeliverInsights as default } from '../../';
+export { DeliverInsights as default } from "../../";

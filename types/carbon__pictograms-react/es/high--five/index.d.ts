@@ -1,1 +1,1 @@
-export { HighFive as default } from '../../';
+export { HighFive as default } from "../../";

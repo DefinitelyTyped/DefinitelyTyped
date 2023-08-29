@@ -1,1 +1,1 @@
-export { Customizable as default } from '../../';
+export { Customizable as default } from "../../";

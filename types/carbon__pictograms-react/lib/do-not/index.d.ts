@@ -1,3 +1,3 @@
-import { DoNot } from '../../';
+import { DoNot } from "../../";
 
 export = DoNot;

@@ -1,3 +1,3 @@
-import { CloudyPartial } from '../../';
+import { CloudyPartial } from "../../";
 
 export = CloudyPartial;

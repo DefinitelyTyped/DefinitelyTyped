@@ -1,3 +1,3 @@
-import { IotMunich } from '../../';
+import { IotMunich } from "../../";
 
 export = IotMunich;

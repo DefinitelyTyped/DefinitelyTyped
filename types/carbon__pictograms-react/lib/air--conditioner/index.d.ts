@@ -1,3 +1,3 @@
-import { AirConditioner } from '../../';
+import { AirConditioner } from "../../";
 
 export = AirConditioner;

@@ -1,1 +1,1 @@
-export { Microorganisms as default } from '../../';
+export { Microorganisms as default } from "../../";

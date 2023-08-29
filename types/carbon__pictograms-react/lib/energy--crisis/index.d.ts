@@ -1,3 +1,3 @@
-import { EnergyCrisis } from '../../';
+import { EnergyCrisis } from "../../";
 
 export = EnergyCrisis;

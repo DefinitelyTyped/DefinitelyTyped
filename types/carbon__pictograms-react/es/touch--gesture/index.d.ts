@@ -1,1 +1,1 @@
-export { TouchGesture as default } from '../../';
+export { TouchGesture as default } from "../../";

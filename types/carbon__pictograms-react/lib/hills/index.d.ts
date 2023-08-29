@@ -1,3 +1,3 @@
-import { Hills } from '../../';
+import { Hills } from "../../";
 
 export = Hills;

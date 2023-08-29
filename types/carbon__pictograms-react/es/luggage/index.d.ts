@@ -1,1 +1,1 @@
-export { Luggage as default } from '../../';
+export { Luggage as default } from "../../";

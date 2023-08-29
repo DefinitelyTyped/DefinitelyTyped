@@ -1,3 +1,3 @@
-import { EventDriven } from '../../';
+import { EventDriven } from "../../";
 
 export = EventDriven;

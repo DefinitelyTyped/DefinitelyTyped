@@ -1,3 +1,3 @@
-import { HongKongCityscape } from '../../';
+import { HongKongCityscape } from "../../";
 
 export = HongKongCityscape;

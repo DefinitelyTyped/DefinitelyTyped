@@ -1,3 +1,3 @@
-import { ChipDebit } from '../../';
+import { ChipDebit } from "../../";
 
 export = ChipDebit;

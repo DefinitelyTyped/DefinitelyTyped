@@ -1,1 +1,1 @@
-export { AgilityWithHybridMulticloud as default } from '../../';
+export { AgilityWithHybridMulticloud as default } from "../../";

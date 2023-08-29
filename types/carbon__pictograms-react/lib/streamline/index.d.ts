@@ -1,3 +1,3 @@
-import { Streamline } from '../../';
+import { Streamline } from "../../";
 
 export = Streamline;

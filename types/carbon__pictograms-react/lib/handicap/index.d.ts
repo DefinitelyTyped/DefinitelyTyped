@@ -1,3 +1,3 @@
-import { Handicap } from '../../';
+import { Handicap } from "../../";
 
 export = Handicap;

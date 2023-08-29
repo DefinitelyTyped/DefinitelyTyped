@@ -1,3 +1,3 @@
-import { CurvePower } from '../../';
+import { CurvePower } from "../../";
 
 export = CurvePower;

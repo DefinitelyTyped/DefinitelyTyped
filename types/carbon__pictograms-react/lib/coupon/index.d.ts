@@ -1,3 +1,3 @@
-import { Coupon } from '../../';
+import { Coupon } from "../../";
 
 export = Coupon;

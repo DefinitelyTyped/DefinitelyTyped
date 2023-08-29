@@ -1,3 +1,3 @@
-import { PrivateNetwork_04 } from '../../';
+import { PrivateNetwork_04 } from "../../";
 
 export = PrivateNetwork_04;

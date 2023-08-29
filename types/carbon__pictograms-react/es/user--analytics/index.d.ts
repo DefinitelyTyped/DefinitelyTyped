@@ -1,1 +1,1 @@
-export { UserAnalytics as default } from '../../';
+export { UserAnalytics as default } from "../../";

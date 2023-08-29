@@ -1,1 +1,1 @@
-export { IdentityTrustAssessment as default } from '../../';
+export { IdentityTrustAssessment as default } from "../../";

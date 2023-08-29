@@ -1,1 +1,1 @@
-export { GlobalFootprint as default } from '../../';
+export { GlobalFootprint as default } from "../../";

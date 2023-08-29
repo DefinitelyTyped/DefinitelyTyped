@@ -1,1 +1,1 @@
-export { Telecom as default } from '../../';
+export { Telecom as default } from "../../";

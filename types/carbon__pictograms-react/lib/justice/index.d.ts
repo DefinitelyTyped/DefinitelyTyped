@@ -1,3 +1,3 @@
-import { Justice } from '../../';
+import { Justice } from "../../";
 
 export = Justice;

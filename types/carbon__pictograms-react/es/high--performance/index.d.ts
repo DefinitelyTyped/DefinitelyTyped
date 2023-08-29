@@ -1,1 +1,1 @@
-export { HighPerformance as default } from '../../';
+export { HighPerformance as default } from "../../";

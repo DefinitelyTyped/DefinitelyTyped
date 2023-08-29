@@ -1,3 +1,3 @@
-import { StorageProduct } from '../../';
+import { StorageProduct } from "../../";
 
 export = StorageProduct;

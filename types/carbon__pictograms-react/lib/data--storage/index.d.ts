@@ -1,3 +1,3 @@
-import { DataStorage } from '../../';
+import { DataStorage } from "../../";
 
 export = DataStorage;

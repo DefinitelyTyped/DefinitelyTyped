@@ -1,3 +1,3 @@
-import { VirtualServer } from '../../';
+import { VirtualServer } from "../../";
 
 export = VirtualServer;

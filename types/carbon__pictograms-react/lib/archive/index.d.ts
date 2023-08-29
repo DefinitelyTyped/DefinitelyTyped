@@ -1,3 +1,3 @@
-import { Archive } from '../../';
+import { Archive } from "../../";
 
 export = Archive;

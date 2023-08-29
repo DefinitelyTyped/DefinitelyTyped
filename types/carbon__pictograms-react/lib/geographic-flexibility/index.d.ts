@@ -1,3 +1,3 @@
-import { GeographicFlexibility } from '../../';
+import { GeographicFlexibility } from "../../";
 
 export = GeographicFlexibility;

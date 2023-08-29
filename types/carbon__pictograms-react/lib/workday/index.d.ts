@@ -1,3 +1,3 @@
-import { Workday } from '../../';
+import { Workday } from "../../";
 
 export = Workday;

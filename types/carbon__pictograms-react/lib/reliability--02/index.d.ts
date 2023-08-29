@@ -1,3 +1,3 @@
-import { Reliability_02 } from '../../';
+import { Reliability_02 } from "../../";
 
 export = Reliability_02;

@@ -1,1 +1,1 @@
-export { RecycleBin as default } from '../../';
+export { RecycleBin as default } from "../../";

@@ -1,1 +1,1 @@
-export { IbmIx as default } from '../../';
+export { IbmIx as default } from "../../";

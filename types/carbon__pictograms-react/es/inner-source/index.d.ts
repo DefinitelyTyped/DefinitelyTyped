@@ -1,1 +1,1 @@
-export { InnerSource as default } from '../../';
+export { InnerSource as default } from "../../";

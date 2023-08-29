@@ -1,1 +1,1 @@
-export { GlobalNetwork as default } from '../../';
+export { GlobalNetwork as default } from "../../";

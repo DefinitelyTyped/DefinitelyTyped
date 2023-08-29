@@ -1,3 +1,3 @@
-import { AlchemyDataNews } from '../../';
+import { AlchemyDataNews } from "../../";
 
 export = AlchemyDataNews;

@@ -1,3 +1,3 @@
-import { RelationshipDiagram } from '../../';
+import { RelationshipDiagram } from "../../";
 
 export = RelationshipDiagram;

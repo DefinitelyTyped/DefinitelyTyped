@@ -1,3 +1,3 @@
-import { StrategyMove } from '../../';
+import { StrategyMove } from "../../";
 
 export = StrategyMove;

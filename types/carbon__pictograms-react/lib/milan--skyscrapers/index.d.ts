@@ -1,3 +1,3 @@
-import { MilanSkyscrapers } from '../../';
+import { MilanSkyscrapers } from "../../";
 
 export = MilanSkyscrapers;

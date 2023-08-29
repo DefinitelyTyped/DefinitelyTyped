@@ -1,3 +1,3 @@
-import { IbmZPartition } from '../../';
+import { IbmZPartition } from "../../";
 
 export = IbmZPartition;

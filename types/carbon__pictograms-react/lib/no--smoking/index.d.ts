@@ -1,3 +1,3 @@
-import { NoSmoking } from '../../';
+import { NoSmoking } from "../../";
 
 export = NoSmoking;

@@ -1,1 +1,1 @@
-export { GlobalMarkets as default } from '../../';
+export { GlobalMarkets as default } from "../../";

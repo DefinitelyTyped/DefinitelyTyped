@@ -1,3 +1,3 @@
-import { CurveExponential } from '../../';
+import { CurveExponential } from "../../";
 
 export = CurveExponential;

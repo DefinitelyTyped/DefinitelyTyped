@@ -1,1 +1,1 @@
-export { NaturalLanguageUnderstanding as default } from '../../';
+export { NaturalLanguageUnderstanding as default } from "../../";

@@ -1,1 +1,1 @@
-export { GlobeLocations as default } from '../../';
+export { GlobeLocations as default } from "../../";

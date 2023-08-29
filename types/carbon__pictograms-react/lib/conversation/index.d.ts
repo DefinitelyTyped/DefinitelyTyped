@@ -1,3 +1,3 @@
-import { Conversation } from '../../';
+import { Conversation } from "../../";
 
 export = Conversation;

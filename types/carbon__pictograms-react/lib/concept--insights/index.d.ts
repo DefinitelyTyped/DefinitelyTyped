@@ -1,3 +1,3 @@
-import { ConceptInsights } from '../../';
+import { ConceptInsights } from "../../";
 
 export = ConceptInsights;

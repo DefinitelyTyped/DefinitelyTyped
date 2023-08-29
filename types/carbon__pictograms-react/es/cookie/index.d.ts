@@ -1,1 +1,1 @@
-export { Cookie as default } from '../../';
+export { Cookie as default } from "../../";

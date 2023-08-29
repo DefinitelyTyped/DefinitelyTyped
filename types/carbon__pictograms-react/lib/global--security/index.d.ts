@@ -1,3 +1,3 @@
-import { GlobalSecurity } from '../../';
+import { GlobalSecurity } from "../../";
 
 export = GlobalSecurity;

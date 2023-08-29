@@ -1,1 +1,1 @@
-export { Troubleshooting as default } from '../../';
+export { Troubleshooting as default } from "../../";

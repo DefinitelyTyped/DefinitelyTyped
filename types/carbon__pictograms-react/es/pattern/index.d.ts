@@ -1,1 +1,1 @@
-export { Pattern as default } from '../../';
+export { Pattern as default } from "../../";

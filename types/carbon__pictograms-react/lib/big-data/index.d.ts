@@ -1,3 +1,3 @@
-import { BigData } from '../../';
+import { BigData } from "../../";
 
 export = BigData;

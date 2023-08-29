@@ -1,1 +1,1 @@
-export { AirConditioner as default } from '../../';
+export { AirConditioner as default } from "../../";

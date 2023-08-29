@@ -1,1 +1,1 @@
-export { AnalyzesData as default } from '../../';
+export { AnalyzesData as default } from "../../";

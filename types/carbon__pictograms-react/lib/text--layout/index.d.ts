@@ -1,3 +1,3 @@
-import { TextLayout } from '../../';
+import { TextLayout } from "../../";
 
 export = TextLayout;

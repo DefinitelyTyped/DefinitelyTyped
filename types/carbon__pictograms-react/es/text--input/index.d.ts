@@ -1,1 +1,1 @@
-export { TextInput as default } from '../../';
+export { TextInput as default } from "../../";

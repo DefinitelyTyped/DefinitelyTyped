@@ -1,3 +1,3 @@
-import { ResetSettings } from '../../';
+import { ResetSettings } from "../../";
 
 export = ResetSettings;

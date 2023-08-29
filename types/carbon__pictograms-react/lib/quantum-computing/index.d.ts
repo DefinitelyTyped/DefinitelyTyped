@@ -1,3 +1,3 @@
-import { QuantumComputing } from '../../';
+import { QuantumComputing } from "../../";
 
 export = QuantumComputing;

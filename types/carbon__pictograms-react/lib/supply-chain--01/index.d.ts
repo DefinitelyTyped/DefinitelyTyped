@@ -1,3 +1,3 @@
-import { SupplyChain_01 } from '../../';
+import { SupplyChain_01 } from "../../";
 
 export = SupplyChain_01;

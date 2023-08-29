@@ -1,3 +1,3 @@
-import { DesignLeadership } from '../../';
+import { DesignLeadership } from "../../";
 
 export = DesignLeadership;

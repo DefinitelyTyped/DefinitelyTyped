@@ -1,3 +1,3 @@
-import { AlchemyLanguage } from '../../';
+import { AlchemyLanguage } from "../../";
 
 export = AlchemyLanguage;

@@ -1,1 +1,1 @@
-export { Flexibility_02 as default } from '../../';
+export { Flexibility_02 as default } from "../../";

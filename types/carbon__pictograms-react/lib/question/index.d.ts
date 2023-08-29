@@ -1,3 +1,3 @@
-import { Question } from '../../';
+import { Question } from "../../";
 
 export = Question;

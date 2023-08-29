@@ -1,3 +1,3 @@
-import { ShoppingCart } from '../../';
+import { ShoppingCart } from "../../";
 
 export = ShoppingCart;

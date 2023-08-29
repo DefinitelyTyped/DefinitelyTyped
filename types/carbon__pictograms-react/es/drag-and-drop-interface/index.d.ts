@@ -1,1 +1,1 @@
-export { DragAndDropInterface as default } from '../../';
+export { DragAndDropInterface as default } from "../../";

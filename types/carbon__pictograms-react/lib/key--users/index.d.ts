@@ -1,3 +1,3 @@
-import { KeyUsers } from '../../';
+import { KeyUsers } from "../../";
 
 export = KeyUsers;

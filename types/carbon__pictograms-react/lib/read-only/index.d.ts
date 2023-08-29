@@ -1,3 +1,3 @@
-import { ReadOnly } from '../../';
+import { ReadOnly } from "../../";
 
 export = ReadOnly;

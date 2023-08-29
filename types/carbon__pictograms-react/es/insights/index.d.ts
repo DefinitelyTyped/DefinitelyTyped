@@ -1,1 +1,1 @@
-export { Insights as default } from '../../';
+export { Insights as default } from "../../";

@@ -1,1 +1,1 @@
-export { UseTheLanguageOfYourChoice as default } from '../../';
+export { UseTheLanguageOfYourChoice as default } from "../../";

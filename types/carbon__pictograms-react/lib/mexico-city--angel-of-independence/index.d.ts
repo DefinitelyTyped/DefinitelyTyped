@@ -1,3 +1,3 @@
-import { MexicoCityAngelOfIndependence } from '../../';
+import { MexicoCityAngelOfIndependence } from "../../";
 
 export = MexicoCityAngelOfIndependence;

@@ -1,1 +1,1 @@
-export { EsgReporting_02 as default } from '../../';
+export { EsgReporting_02 as default } from "../../";

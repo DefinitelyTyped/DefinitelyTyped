@@ -1,3 +1,3 @@
-import { WirelessModem } from '../../';
+import { WirelessModem } from "../../";
 
 export = WirelessModem;

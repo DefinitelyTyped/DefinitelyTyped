@@ -1,3 +1,3 @@
-import { HighRiskUsers } from '../../';
+import { HighRiskUsers } from "../../";
 
 export = HighRiskUsers;

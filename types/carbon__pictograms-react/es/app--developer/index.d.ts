@@ -1,1 +1,1 @@
-export { AppDeveloper as default } from '../../';
+export { AppDeveloper as default } from "../../";

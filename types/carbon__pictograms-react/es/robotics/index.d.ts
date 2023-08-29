@@ -1,1 +1,1 @@
-export { Robotics as default } from '../../';
+export { Robotics as default } from "../../";

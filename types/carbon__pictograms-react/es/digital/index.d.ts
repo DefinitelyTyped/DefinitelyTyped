@@ -1,1 +1,1 @@
-export { Digital as default } from '../../';
+export { Digital as default } from "../../";

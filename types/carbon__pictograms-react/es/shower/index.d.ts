@@ -1,1 +1,1 @@
-export { Shower as default } from '../../';
+export { Shower as default } from "../../";

@@ -1,3 +1,3 @@
-import { Microorganisms } from '../../';
+import { Microorganisms } from "../../";
 
 export = Microorganisms;

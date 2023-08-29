@@ -1,3 +1,3 @@
-import { Okinawa } from '../../';
+import { Okinawa } from "../../";
 
 export = Okinawa;

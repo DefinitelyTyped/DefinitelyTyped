@@ -1,1 +1,1 @@
-export { Innovate as default } from '../../';
+export { Innovate as default } from "../../";

@@ -1,1 +1,1 @@
-export { OperationalMetrics as default } from '../../';
+export { OperationalMetrics as default } from "../../";

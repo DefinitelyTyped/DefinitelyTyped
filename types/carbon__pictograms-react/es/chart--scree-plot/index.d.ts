@@ -1,1 +1,1 @@
-export { ChartScreePlot as default } from '../../';
+export { ChartScreePlot as default } from "../../";

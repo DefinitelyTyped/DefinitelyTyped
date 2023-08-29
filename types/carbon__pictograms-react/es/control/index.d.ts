@@ -1,1 +1,1 @@
-export { Control as default } from '../../';
+export { Control as default } from "../../";

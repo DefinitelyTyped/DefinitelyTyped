@@ -1,3 +1,3 @@
-import { ArgentinaObelisk } from '../../';
+import { ArgentinaObelisk } from "../../";
 
 export = ArgentinaObelisk;

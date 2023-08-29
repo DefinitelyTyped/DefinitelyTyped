@@ -1,1 +1,1 @@
-export { FireExtinguisher as default } from '../../';
+export { FireExtinguisher as default } from "../../";

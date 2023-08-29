@@ -1,1 +1,1 @@
-export { WreckingBall as default } from '../../';
+export { WreckingBall as default } from "../../";

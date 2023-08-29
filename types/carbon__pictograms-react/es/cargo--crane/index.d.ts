@@ -1,1 +1,1 @@
-export { CargoCrane as default } from '../../';
+export { CargoCrane as default } from "../../";

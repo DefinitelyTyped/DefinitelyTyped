@@ -1,3 +1,3 @@
-import { DubaiSkyscraper } from '../../';
+import { DubaiSkyscraper } from "../../";
 
 export = DubaiSkyscraper;

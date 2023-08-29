@@ -1,1 +1,1 @@
-export { SelectRange as default } from '../../';
+export { SelectRange as default } from "../../";

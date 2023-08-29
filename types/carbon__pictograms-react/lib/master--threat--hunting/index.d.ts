@@ -1,3 +1,3 @@
-import { MasterThreatHunting } from '../../';
+import { MasterThreatHunting } from "../../";
 
 export = MasterThreatHunting;

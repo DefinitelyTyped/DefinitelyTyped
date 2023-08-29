@@ -1,1 +1,1 @@
-export { AmsterdamCanal as default } from '../../';
+export { AmsterdamCanal as default } from "../../";

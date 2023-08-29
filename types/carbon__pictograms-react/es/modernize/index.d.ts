@@ -1,1 +1,1 @@
-export { Modernize as default } from '../../';
+export { Modernize as default } from "../../";

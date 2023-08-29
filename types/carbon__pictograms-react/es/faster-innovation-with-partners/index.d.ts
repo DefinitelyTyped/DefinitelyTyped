@@ -1,1 +1,1 @@
-export { FasterInnovationWithPartners as default } from '../../';
+export { FasterInnovationWithPartners as default } from "../../";

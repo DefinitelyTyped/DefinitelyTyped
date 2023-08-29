@@ -1,1 +1,1 @@
-export { AmsterdamWindmill as default } from '../../';
+export { AmsterdamWindmill as default } from "../../";

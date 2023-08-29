@@ -1,3 +1,3 @@
-import { SecurityHygiene } from '../../';
+import { SecurityHygiene } from "../../";
 
 export = SecurityHygiene;

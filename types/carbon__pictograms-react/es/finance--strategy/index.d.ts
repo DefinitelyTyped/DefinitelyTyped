@@ -1,1 +1,1 @@
-export { FinanceStrategy as default } from '../../';
+export { FinanceStrategy as default } from "../../";

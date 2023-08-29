@@ -1,1 +1,1 @@
-export { PlayerFlow as default } from '../../';
+export { PlayerFlow as default } from "../../";

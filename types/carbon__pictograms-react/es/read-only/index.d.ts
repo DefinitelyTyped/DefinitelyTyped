@@ -1,1 +1,1 @@
-export { ReadOnly as default } from '../../';
+export { ReadOnly as default } from "../../";

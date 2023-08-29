@@ -1,1 +1,1 @@
-export { Slider as default } from '../../';
+export { Slider as default } from "../../";

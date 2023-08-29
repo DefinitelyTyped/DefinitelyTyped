@@ -1,1 +1,1 @@
-export { Intercom as default } from '../../';
+export { Intercom as default } from "../../";

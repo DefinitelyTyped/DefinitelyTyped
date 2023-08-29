@@ -1,3 +1,3 @@
-import { StackLimitation } from '../../';
+import { StackLimitation } from "../../";
 
 export = StackLimitation;

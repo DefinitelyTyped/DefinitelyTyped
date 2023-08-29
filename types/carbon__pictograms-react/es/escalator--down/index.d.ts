@@ -1,1 +1,1 @@
-export { EscalatorDown as default } from '../../';
+export { EscalatorDown as default } from "../../";

@@ -1,3 +1,3 @@
-import { Advocate } from '../../';
+import { Advocate } from "../../";
 
 export = Advocate;

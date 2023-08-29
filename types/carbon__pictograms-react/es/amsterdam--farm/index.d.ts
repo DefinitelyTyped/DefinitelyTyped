@@ -1,1 +1,1 @@
-export { AmsterdamFarm as default } from '../../';
+export { AmsterdamFarm as default } from "../../";

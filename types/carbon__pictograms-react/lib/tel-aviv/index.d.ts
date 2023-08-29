@@ -1,3 +1,3 @@
-import { TelAviv } from '../../';
+import { TelAviv } from "../../";
 
 export = TelAviv;

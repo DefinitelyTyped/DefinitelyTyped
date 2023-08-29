@@ -1,1 +1,1 @@
-export { Apartment as default } from '../../';
+export { Apartment as default } from "../../";

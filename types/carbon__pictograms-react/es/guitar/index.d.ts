@@ -1,1 +1,1 @@
-export { Guitar as default } from '../../';
+export { Guitar as default } from "../../";

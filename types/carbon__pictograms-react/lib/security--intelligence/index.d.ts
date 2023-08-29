@@ -1,3 +1,3 @@
-import { SecurityIntelligence } from '../../';
+import { SecurityIntelligence } from "../../";
 
 export = SecurityIntelligence;

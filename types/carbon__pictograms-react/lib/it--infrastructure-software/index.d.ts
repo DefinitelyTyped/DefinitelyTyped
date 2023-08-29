@@ -1,3 +1,3 @@
-import { ItInfrastructureSoftware } from '../../';
+import { ItInfrastructureSoftware } from "../../";
 
 export = ItInfrastructureSoftware;

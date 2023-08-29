@@ -1,1 +1,1 @@
-export { Austin as default } from '../../';
+export { Austin as default } from "../../";

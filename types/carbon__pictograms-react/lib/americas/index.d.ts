@@ -1,3 +1,3 @@
-import { Americas } from '../../';
+import { Americas } from "../../";
 
 export = Americas;

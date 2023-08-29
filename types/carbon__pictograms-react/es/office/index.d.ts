@@ -1,1 +1,1 @@
-export { Office as default } from '../../';
+export { Office as default } from "../../";

@@ -1,3 +1,3 @@
-import { AuditTrail } from '../../';
+import { AuditTrail } from "../../";
 
 export = AuditTrail;

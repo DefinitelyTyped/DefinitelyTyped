@@ -1,1 +1,1 @@
-export { TransformData as default } from '../../';
+export { TransformData as default } from "../../";

@@ -1,3 +1,3 @@
-import { ChartCandlestick } from '../../';
+import { ChartCandlestick } from "../../";
 
 export = ChartCandlestick;

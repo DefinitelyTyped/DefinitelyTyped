@@ -1,3 +1,3 @@
-import { Fairness } from '../../';
+import { Fairness } from "../../";
 
 export = Fairness;

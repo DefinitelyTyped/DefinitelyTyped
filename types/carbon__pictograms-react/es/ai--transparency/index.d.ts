@@ -1,1 +1,1 @@
-export { AiTransparency as default } from '../../';
+export { AiTransparency as default } from "../../";

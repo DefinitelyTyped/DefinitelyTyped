@@ -1,1 +1,1 @@
-export { Lantern as default } from '../../';
+export { Lantern as default } from "../../";

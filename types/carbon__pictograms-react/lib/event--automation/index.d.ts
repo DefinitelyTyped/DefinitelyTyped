@@ -1,3 +1,3 @@
-import { EventAutomation } from '../../';
+import { EventAutomation } from "../../";
 
 export = EventAutomation;

@@ -1,1 +1,1 @@
-export { BuildLeadershipAndCulture as default } from '../../';
+export { BuildLeadershipAndCulture as default } from "../../";

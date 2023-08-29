@@ -1,1 +1,1 @@
-export { Integration as default } from '../../';
+export { Integration as default } from "../../";

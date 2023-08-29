@@ -1,1 +1,1 @@
-export { DistributionLedger as default } from '../../';
+export { DistributionLedger as default } from "../../";

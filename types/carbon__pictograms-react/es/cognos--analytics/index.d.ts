@@ -1,1 +1,1 @@
-export { CognosAnalytics as default } from '../../';
+export { CognosAnalytics as default } from "../../";

@@ -1,3 +1,3 @@
-import { ColorContrast } from '../../';
+import { ColorContrast } from "../../";
 
 export = ColorContrast;

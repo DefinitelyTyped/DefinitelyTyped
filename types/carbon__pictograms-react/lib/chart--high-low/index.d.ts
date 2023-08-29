@@ -1,3 +1,3 @@
-import { ChartHighLow } from '../../';
+import { ChartHighLow } from "../../";
 
 export = ChartHighLow;

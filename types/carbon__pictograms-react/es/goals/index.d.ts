@@ -1,1 +1,1 @@
-export { Goals as default } from '../../';
+export { Goals as default } from "../../";

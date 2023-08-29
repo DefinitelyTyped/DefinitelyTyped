@@ -1,1 +1,1 @@
-export { Backpack as default } from '../../';
+export { Backpack as default } from "../../";

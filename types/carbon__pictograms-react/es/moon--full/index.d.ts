@@ -1,1 +1,1 @@
-export { MoonFull as default } from '../../';
+export { MoonFull as default } from "../../";

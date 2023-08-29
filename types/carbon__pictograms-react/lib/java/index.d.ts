@@ -1,3 +1,3 @@
-import { Java } from '../../';
+import { Java } from "../../";
 
 export = Java;

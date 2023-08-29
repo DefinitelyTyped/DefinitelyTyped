@@ -1,3 +1,3 @@
-import { ExtendTheDataCenter } from '../../';
+import { ExtendTheDataCenter } from "../../";
 
 export = ExtendTheDataCenter;

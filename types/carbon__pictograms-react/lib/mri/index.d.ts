@@ -1,3 +1,3 @@
-import { Mri } from '../../';
+import { Mri } from "../../";
 
 export = Mri;

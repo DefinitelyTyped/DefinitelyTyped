@@ -1,1 +1,1 @@
-export { Care as default } from '../../';
+export { Care as default } from "../../";

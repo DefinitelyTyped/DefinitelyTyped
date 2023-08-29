@@ -1,1 +1,1 @@
-export { Availability as default } from '../../';
+export { Availability as default } from "../../";

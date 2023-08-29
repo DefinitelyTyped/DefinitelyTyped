@@ -1,1 +1,1 @@
-export { SystemsDevopsBuild as default } from '../../';
+export { SystemsDevopsBuild as default } from "../../";

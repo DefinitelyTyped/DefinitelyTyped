@@ -1,3 +1,3 @@
-import { SecureProfile } from '../../';
+import { SecureProfile } from "../../";
 
 export = SecureProfile;

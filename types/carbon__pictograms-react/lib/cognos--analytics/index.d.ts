@@ -1,3 +1,3 @@
-import { CognosAnalytics } from '../../';
+import { CognosAnalytics } from "../../";
 
 export = CognosAnalytics;

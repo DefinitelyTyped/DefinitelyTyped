@@ -1,3 +1,3 @@
-import { StorageAreaNetworks } from '../../';
+import { StorageAreaNetworks } from "../../";
 
 export = StorageAreaNetworks;

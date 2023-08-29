@@ -1,3 +1,3 @@
-import { Hospital } from '../../';
+import { Hospital } from "../../";
 
 export = Hospital;

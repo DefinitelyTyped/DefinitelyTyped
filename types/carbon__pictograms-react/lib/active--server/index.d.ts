@@ -1,3 +1,3 @@
-import { ActiveServer } from '../../';
+import { ActiveServer } from "../../";
 
 export = ActiveServer;

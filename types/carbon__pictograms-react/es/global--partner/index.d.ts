@@ -1,1 +1,1 @@
-export { GlobalPartner as default } from '../../';
+export { GlobalPartner as default } from "../../";

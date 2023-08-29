@@ -1,3 +1,3 @@
-import { ListBullet } from '../../';
+import { ListBullet } from "../../";
 
 export = ListBullet;

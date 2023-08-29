@@ -1,3 +1,3 @@
-import { AdvancedThreats } from '../../';
+import { AdvancedThreats } from "../../";
 
 export = AdvancedThreats;

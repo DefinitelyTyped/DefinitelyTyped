@@ -1,3 +1,3 @@
-import { Wifi } from '../../';
+import { Wifi } from "../../";
 
 export = Wifi;

@@ -1,3 +1,3 @@
-import { Networking_06 } from '../../';
+import { Networking_06 } from "../../";
 
 export = Networking_06;

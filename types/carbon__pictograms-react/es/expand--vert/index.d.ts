@@ -1,1 +1,1 @@
-export { ExpandVert as default } from '../../';
+export { ExpandVert as default } from "../../";

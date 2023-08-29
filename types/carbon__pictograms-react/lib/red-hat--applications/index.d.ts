@@ -1,3 +1,3 @@
-import { RedHatApplications } from '../../';
+import { RedHatApplications } from "../../";
 
 export = RedHatApplications;

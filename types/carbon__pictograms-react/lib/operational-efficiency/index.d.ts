@@ -1,3 +1,3 @@
-import { OperationalEfficiency } from '../../';
+import { OperationalEfficiency } from "../../";
 
 export = OperationalEfficiency;

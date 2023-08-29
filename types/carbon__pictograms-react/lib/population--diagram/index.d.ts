@@ -1,3 +1,3 @@
-import { PopulationDiagram } from '../../';
+import { PopulationDiagram } from "../../";
 
 export = PopulationDiagram;

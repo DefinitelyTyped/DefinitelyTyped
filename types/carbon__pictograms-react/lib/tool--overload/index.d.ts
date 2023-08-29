@@ -1,3 +1,3 @@
-import { ToolOverload } from '../../';
+import { ToolOverload } from "../../";
 
 export = ToolOverload;

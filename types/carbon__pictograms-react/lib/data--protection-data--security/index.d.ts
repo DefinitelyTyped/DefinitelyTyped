@@ -1,3 +1,3 @@
-import { DataProtectionDataSecurity } from '../../';
+import { DataProtectionDataSecurity } from "../../";
 
 export = DataProtectionDataSecurity;

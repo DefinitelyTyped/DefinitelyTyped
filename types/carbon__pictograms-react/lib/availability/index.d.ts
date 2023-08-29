@@ -1,3 +1,3 @@
-import { Availability } from '../../';
+import { Availability } from "../../";
 
 export = Availability;

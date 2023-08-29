@@ -1,1 +1,1 @@
-export { Eye as default } from '../../';
+export { Eye as default } from "../../";

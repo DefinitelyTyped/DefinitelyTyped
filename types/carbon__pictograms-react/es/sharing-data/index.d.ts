@@ -1,1 +1,1 @@
-export { SharingData as default } from '../../';
+export { SharingData as default } from "../../";

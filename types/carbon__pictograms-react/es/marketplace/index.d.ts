@@ -1,1 +1,1 @@
-export { Marketplace as default } from '../../';
+export { Marketplace as default } from "../../";

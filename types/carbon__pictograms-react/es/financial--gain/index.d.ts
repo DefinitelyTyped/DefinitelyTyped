@@ -1,1 +1,1 @@
-export { FinancialGain as default } from '../../';
+export { FinancialGain as default } from "../../";

@@ -1,1 +1,1 @@
-export { IbmZ16PlusCloud as default } from '../../';
+export { IbmZ16PlusCloud as default } from "../../";

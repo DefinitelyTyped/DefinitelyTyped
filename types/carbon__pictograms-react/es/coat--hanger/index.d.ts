@@ -1,1 +1,1 @@
-export { CoatHanger as default } from '../../';
+export { CoatHanger as default } from "../../";

@@ -1,1 +1,1 @@
-export { GlobalFinanceSterling as default } from '../../';
+export { GlobalFinanceSterling as default } from "../../";

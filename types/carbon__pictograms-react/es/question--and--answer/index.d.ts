@@ -1,1 +1,1 @@
-export { QuestionAndAnswer as default } from '../../';
+export { QuestionAndAnswer as default } from "../../";

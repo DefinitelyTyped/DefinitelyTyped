@@ -1,3 +1,3 @@
-import { ChartScatterplot } from '../../';
+import { ChartScatterplot } from "../../";
 
 export = ChartScatterplot;

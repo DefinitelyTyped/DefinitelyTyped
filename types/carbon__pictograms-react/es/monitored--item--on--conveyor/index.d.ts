@@ -1,1 +1,1 @@
-export { MonitoredItemOnConveyor as default } from '../../';
+export { MonitoredItemOnConveyor as default } from "../../";

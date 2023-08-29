@@ -1,3 +1,3 @@
-import { DublinBrewery } from '../../';
+import { DublinBrewery } from "../../";
 
 export = DublinBrewery;

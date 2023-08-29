@@ -1,3 +1,3 @@
-import { TwoPersonLift } from '../../';
+import { TwoPersonLift } from "../../";
 
 export = TwoPersonLift;

@@ -1,1 +1,1 @@
-export { StartForFree as default } from '../../';
+export { StartForFree as default } from "../../";

@@ -1,3 +1,3 @@
-import { MilanDuomoDiMilano } from '../../';
+import { MilanDuomoDiMilano } from "../../";
 
 export = MilanDuomoDiMilano;

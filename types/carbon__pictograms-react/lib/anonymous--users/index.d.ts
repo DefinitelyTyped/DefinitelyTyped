@@ -1,3 +1,3 @@
-import { AnonymousUsers } from '../../';
+import { AnonymousUsers } from "../../";
 
 export = AnonymousUsers;

@@ -1,3 +1,3 @@
-import { Flag } from '../../';
+import { Flag } from "../../";
 
 export = Flag;

@@ -1,3 +1,3 @@
-import { TimePlot } from '../../';
+import { TimePlot } from "../../";
 
 export = TimePlot;

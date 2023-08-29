@@ -1,1 +1,1 @@
-export { CloudNative_01 as default } from '../../';
+export { CloudNative_01 as default } from "../../";

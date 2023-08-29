@@ -1,1 +1,1 @@
-export { CloudSap as default } from '../../';
+export { CloudSap as default } from "../../";

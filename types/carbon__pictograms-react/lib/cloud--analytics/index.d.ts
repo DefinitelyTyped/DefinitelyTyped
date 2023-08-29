@@ -1,3 +1,3 @@
-import { CloudAnalytics } from '../../';
+import { CloudAnalytics } from "../../";
 
 export = CloudAnalytics;

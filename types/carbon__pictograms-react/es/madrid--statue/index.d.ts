@@ -1,1 +1,1 @@
-export { MadridStatue as default } from '../../';
+export { MadridStatue as default } from "../../";

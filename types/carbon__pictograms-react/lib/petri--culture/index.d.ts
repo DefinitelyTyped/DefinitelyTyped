@@ -1,3 +1,3 @@
-import { PetriCulture } from '../../';
+import { PetriCulture } from "../../";
 
 export = PetriCulture;

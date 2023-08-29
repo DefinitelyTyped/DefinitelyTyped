@@ -1,1 +1,1 @@
-export { SaasEnablement as default } from '../../';
+export { SaasEnablement as default } from "../../";

@@ -1,1 +1,1 @@
-export { ConsumerEngagementFoodJourney as default } from '../../';
+export { ConsumerEngagementFoodJourney as default } from "../../";

@@ -1,3 +1,3 @@
-import { VisualDesign } from '../../';
+import { VisualDesign } from "../../";
 
 export = VisualDesign;

@@ -1,1 +1,1 @@
-export { Compliant as default } from '../../';
+export { Compliant as default } from "../../";

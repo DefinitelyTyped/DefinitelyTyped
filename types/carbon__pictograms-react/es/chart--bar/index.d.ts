@@ -1,1 +1,1 @@
-export { ChartBar as default } from '../../';
+export { ChartBar as default } from "../../";

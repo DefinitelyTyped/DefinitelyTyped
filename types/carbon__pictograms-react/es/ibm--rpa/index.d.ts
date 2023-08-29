@@ -1,1 +1,1 @@
-export { IbmRpa as default } from '../../';
+export { IbmRpa as default } from "../../";

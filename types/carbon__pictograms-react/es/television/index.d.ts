@@ -1,1 +1,1 @@
-export { Television as default } from '../../';
+export { Television as default } from "../../";

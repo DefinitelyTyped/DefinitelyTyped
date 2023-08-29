@@ -1,3 +1,3 @@
-import { ContainerizedApplications } from '../../';
+import { ContainerizedApplications } from "../../";
 
 export = ContainerizedApplications;

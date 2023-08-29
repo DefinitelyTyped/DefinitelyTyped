@@ -1,3 +1,3 @@
-import { InnerSource } from '../../';
+import { InnerSource } from "../../";
 
 export = InnerSource;

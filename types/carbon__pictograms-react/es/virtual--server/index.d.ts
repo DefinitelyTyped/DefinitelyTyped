@@ -1,1 +1,1 @@
-export { VirtualServer as default } from '../../';
+export { VirtualServer as default } from "../../";

@@ -1,3 +1,3 @@
-import { UnderUtilizedSecurity } from '../../';
+import { UnderUtilizedSecurity } from "../../";
 
 export = UnderUtilizedSecurity;

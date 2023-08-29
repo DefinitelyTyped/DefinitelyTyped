@@ -1,3 +1,3 @@
-import { UruguayPalacioSalvo } from '../../';
+import { UruguayPalacioSalvo } from "../../";
 
 export = UruguayPalacioSalvo;

@@ -1,1 +1,1 @@
-export { OpenSource as default } from '../../';
+export { OpenSource as default } from "../../";

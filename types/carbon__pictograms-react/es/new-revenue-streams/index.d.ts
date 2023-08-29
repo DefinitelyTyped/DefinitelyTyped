@@ -1,1 +1,1 @@
-export { NewRevenueStreams as default } from '../../';
+export { NewRevenueStreams as default } from "../../";

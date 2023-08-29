@@ -1,1 +1,1 @@
-export { FlowChart as default } from '../../';
+export { FlowChart as default } from "../../";

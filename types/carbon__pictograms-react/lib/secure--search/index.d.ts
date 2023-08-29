@@ -1,3 +1,3 @@
-import { SecureSearch } from '../../';
+import { SecureSearch } from "../../";
 
 export = SecureSearch;

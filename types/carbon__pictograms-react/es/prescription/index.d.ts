@@ -1,1 +1,1 @@
-export { Prescription as default } from '../../';
+export { Prescription as default } from "../../";

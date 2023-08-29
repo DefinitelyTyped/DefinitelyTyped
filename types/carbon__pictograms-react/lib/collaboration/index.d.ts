@@ -1,3 +1,3 @@
-import { Collaboration } from '../../';
+import { Collaboration } from "../../";
 
 export = Collaboration;

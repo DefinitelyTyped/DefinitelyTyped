@@ -1,1 +1,1 @@
-export { Bluepages as default } from '../../';
+export { Bluepages as default } from "../../";

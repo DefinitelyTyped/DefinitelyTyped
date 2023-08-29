@@ -1,3 +1,3 @@
-import { Multitask } from '../../';
+import { Multitask } from "../../";
 
 export = Multitask;

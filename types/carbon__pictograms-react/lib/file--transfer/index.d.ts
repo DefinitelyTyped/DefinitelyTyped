@@ -1,3 +1,3 @@
-import { FileTransfer } from '../../';
+import { FileTransfer } from "../../";
 
 export = FileTransfer;

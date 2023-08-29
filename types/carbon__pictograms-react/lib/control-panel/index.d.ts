@@ -1,3 +1,3 @@
-import { ControlPanel } from '../../';
+import { ControlPanel } from "../../";
 
 export = ControlPanel;

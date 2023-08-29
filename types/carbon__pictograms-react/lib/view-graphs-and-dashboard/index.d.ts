@@ -1,3 +1,3 @@
-import { ViewGraphsAndDashboard } from '../../';
+import { ViewGraphsAndDashboard } from "../../";
 
 export = ViewGraphsAndDashboard;

@@ -1,1 +1,1 @@
-export { ConnectToCloud as default } from '../../';
+export { ConnectToCloud as default } from "../../";

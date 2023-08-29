@@ -1,1 +1,1 @@
-export { DevicesAtIbm as default } from '../../';
+export { DevicesAtIbm as default } from "../../";

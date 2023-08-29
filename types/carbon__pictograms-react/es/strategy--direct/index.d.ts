@@ -1,1 +1,1 @@
-export { StrategyDirect as default } from '../../';
+export { StrategyDirect as default } from "../../";

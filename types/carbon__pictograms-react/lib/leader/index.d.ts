@@ -1,3 +1,3 @@
-import { Leader } from '../../';
+import { Leader } from "../../";
 
 export = Leader;

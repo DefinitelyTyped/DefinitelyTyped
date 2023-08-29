@@ -1,1 +1,1 @@
-export { RetailSustainable as default } from '../../';
+export { RetailSustainable as default } from "../../";

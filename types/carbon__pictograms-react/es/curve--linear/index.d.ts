@@ -1,1 +1,1 @@
-export { CurveLinear as default } from '../../';
+export { CurveLinear as default } from "../../";

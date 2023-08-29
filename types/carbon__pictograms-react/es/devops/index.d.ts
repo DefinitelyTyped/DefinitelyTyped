@@ -1,1 +1,1 @@
-export { Devops as default } from '../../';
+export { Devops as default } from "../../";

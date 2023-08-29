@@ -1,3 +1,3 @@
-import { Price } from '../../';
+import { Price } from "../../";
 
 export = Price;

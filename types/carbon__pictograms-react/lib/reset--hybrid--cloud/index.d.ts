@@ -1,3 +1,3 @@
-import { ResetHybridCloud } from '../../';
+import { ResetHybridCloud } from "../../";
 
 export = ResetHybridCloud;

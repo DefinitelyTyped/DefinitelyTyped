@@ -1,3 +1,3 @@
-import { Research } from '../../';
+import { Research } from "../../";
 
 export = Research;

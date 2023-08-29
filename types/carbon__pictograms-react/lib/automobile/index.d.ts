@@ -1,3 +1,3 @@
-import { Automobile } from '../../';
+import { Automobile } from "../../";
 
 export = Automobile;

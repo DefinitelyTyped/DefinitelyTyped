@@ -1,3 +1,3 @@
-import { SharingData } from '../../';
+import { SharingData } from "../../";
 
 export = SharingData;

@@ -1,3 +1,3 @@
-import { OnPremise } from '../../';
+import { OnPremise } from "../../";
 
 export = OnPremise;

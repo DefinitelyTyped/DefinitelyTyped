@@ -1,3 +1,3 @@
-import { Fog } from '../../';
+import { Fog } from "../../";
 
 export = Fog;

@@ -1,1 +1,1 @@
-export { MedicalStaff as default } from '../../';
+export { MedicalStaff as default } from "../../";

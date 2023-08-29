@@ -1,1 +1,1 @@
-export { ChartScatterplot as default } from '../../';
+export { ChartScatterplot as default } from "../../";

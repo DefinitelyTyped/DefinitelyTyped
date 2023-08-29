@@ -1,3 +1,3 @@
-import { ContentDesign } from '../../';
+import { ContentDesign } from "../../";
 
 export = ContentDesign;

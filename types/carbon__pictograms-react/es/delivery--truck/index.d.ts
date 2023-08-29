@@ -1,1 +1,1 @@
-export { DeliveryTruck as default } from '../../';
+export { DeliveryTruck as default } from "../../";

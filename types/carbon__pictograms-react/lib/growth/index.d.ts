@@ -1,3 +1,3 @@
-import { Growth } from '../../';
+import { Growth } from "../../";
 
 export = Growth;

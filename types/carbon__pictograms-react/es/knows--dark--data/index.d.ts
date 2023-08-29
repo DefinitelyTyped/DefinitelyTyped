@@ -1,1 +1,1 @@
-export { KnowsDarkData as default } from '../../';
+export { KnowsDarkData as default } from "../../";

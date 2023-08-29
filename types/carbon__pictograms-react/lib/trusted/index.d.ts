@@ -1,3 +1,3 @@
-import { Trusted } from '../../';
+import { Trusted } from "../../";
 
 export = Trusted;

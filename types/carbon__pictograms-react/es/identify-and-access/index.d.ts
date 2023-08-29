@@ -1,1 +1,1 @@
-export { IdentifyAndAccess as default } from '../../';
+export { IdentifyAndAccess as default } from "../../";

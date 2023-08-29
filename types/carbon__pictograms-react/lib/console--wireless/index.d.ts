@@ -1,3 +1,3 @@
-import { ConsoleWireless } from '../../';
+import { ConsoleWireless } from "../../";
 
 export = ConsoleWireless;

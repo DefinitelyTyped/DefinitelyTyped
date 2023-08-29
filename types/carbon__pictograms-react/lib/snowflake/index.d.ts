@@ -1,3 +1,3 @@
-import { Snowflake } from '../../';
+import { Snowflake } from "../../";
 
 export = Snowflake;

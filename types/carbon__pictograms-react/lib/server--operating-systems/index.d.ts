@@ -1,3 +1,3 @@
-import { ServerOperatingSystems } from '../../';
+import { ServerOperatingSystems } from "../../";
 
 export = ServerOperatingSystems;

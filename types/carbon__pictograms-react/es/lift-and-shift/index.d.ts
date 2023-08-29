@@ -1,1 +1,1 @@
-export { LiftAndShift as default } from '../../';
+export { LiftAndShift as default } from "../../";

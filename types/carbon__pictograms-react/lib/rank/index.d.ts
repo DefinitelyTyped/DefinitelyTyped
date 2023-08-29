@@ -1,3 +1,3 @@
-import { Rank } from '../../';
+import { Rank } from "../../";
 
 export = Rank;

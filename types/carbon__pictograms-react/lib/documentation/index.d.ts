@@ -1,3 +1,3 @@
-import { Documentation } from '../../';
+import { Documentation } from "../../";
 
 export = Documentation;

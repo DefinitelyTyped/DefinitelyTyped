@@ -1,3 +1,3 @@
-import { Cell } from '../../';
+import { Cell } from "../../";
 
 export = Cell;

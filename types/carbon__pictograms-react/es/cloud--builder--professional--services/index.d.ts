@@ -1,1 +1,1 @@
-export { CloudBuilderProfessionalServices as default } from '../../';
+export { CloudBuilderProfessionalServices as default } from "../../";

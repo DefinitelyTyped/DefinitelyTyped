@@ -1,3 +1,3 @@
-import { Overview } from '../../';
+import { Overview } from "../../";
 
 export = Overview;

@@ -1,3 +1,3 @@
-import { EnterpriseDesignThinking_01 } from '../../';
+import { EnterpriseDesignThinking_01 } from "../../";
 
 export = EnterpriseDesignThinking_01;

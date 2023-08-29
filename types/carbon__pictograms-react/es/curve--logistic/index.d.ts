@@ -1,1 +1,1 @@
-export { CurveLogistic as default } from '../../';
+export { CurveLogistic as default } from "../../";

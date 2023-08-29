@@ -1,1 +1,1 @@
-export { NaturalLanguageClassifier as default } from '../../';
+export { NaturalLanguageClassifier as default } from "../../";

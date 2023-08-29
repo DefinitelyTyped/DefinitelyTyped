@@ -1,3 +1,3 @@
-import { FinanceStrategy } from '../../';
+import { FinanceStrategy } from "../../";
 
 export = FinanceStrategy;

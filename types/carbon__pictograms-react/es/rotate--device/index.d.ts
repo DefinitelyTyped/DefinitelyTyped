@@ -1,1 +1,1 @@
-export { RotateDevice as default } from '../../';
+export { RotateDevice as default } from "../../";

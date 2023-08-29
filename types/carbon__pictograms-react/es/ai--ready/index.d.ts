@@ -1,1 +1,1 @@
-export { AiReady as default } from '../../';
+export { AiReady as default } from "../../";

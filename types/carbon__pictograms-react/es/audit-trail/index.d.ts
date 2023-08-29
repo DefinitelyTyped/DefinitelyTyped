@@ -1,1 +1,1 @@
-export { AuditTrail as default } from '../../';
+export { AuditTrail as default } from "../../";

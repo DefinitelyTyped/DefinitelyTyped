@@ -1,1 +1,1 @@
-export { MovementOfItems as default } from '../../';
+export { MovementOfItems as default } from "../../";

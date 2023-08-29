@@ -1,3 +1,3 @@
-import { DocumentSecurity } from '../../';
+import { DocumentSecurity } from "../../";
 
 export = DocumentSecurity;

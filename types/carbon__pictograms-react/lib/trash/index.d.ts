@@ -1,3 +1,3 @@
-import { Trash } from '../../';
+import { Trash } from "../../";
 
 export = Trash;

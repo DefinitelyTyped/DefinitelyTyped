@@ -1,1 +1,1 @@
-export { PetriCulture as default } from '../../';
+export { PetriCulture as default } from "../../";

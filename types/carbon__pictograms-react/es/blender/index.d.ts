@@ -1,1 +1,1 @@
-export { Blender as default } from '../../';
+export { Blender as default } from "../../";

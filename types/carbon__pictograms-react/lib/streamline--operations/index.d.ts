@@ -1,3 +1,3 @@
-import { StreamlineOperations } from '../../';
+import { StreamlineOperations } from "../../";
 
 export = StreamlineOperations;

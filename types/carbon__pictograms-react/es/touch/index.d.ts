@@ -1,1 +1,1 @@
-export { Touch as default } from '../../';
+export { Touch as default } from "../../";

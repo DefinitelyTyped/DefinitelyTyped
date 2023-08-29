@@ -1,1 +1,1 @@
-export { Organization as default } from '../../';
+export { Organization as default } from "../../";

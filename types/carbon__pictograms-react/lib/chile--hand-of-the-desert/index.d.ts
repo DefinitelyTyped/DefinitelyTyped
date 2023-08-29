@@ -1,3 +1,3 @@
-import { ChileHandOfTheDesert } from '../../';
+import { ChileHandOfTheDesert } from "../../";
 
 export = ChileHandOfTheDesert;

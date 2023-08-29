@@ -1,3 +1,3 @@
-import { Efficient } from '../../';
+import { Efficient } from "../../";
 
 export = Efficient;

@@ -1,3 +1,3 @@
-import { FirstAid } from '../../';
+import { FirstAid } from "../../";
 
 export = FirstAid;

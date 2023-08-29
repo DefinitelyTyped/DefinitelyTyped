@@ -1,1 +1,1 @@
-export { OnPremiseToCloud as default } from '../../';
+export { OnPremiseToCloud as default } from "../../";

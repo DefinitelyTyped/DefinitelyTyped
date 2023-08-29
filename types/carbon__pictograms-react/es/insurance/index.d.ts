@@ -1,1 +1,1 @@
-export { Insurance as default } from '../../';
+export { Insurance as default } from "../../";

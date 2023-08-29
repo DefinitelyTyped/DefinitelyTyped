@@ -1,1 +1,1 @@
-export { IdBadge as default } from '../../';
+export { IdBadge as default } from "../../";

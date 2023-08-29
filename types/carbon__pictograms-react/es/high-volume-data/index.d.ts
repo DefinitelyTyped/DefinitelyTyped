@@ -1,1 +1,1 @@
-export { HighVolumeData as default } from '../../';
+export { HighVolumeData as default } from "../../";

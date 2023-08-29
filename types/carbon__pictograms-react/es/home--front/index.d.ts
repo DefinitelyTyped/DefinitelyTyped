@@ -1,1 +1,1 @@
-export { HomeFront as default } from '../../';
+export { HomeFront as default } from "../../";

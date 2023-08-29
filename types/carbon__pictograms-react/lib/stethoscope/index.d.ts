@@ -1,3 +1,3 @@
-import { Stethoscope } from '../../';
+import { Stethoscope } from "../../";
 
 export = Stethoscope;

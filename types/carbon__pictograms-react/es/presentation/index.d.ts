@@ -1,1 +1,1 @@
-export { Presentation as default } from '../../';
+export { Presentation as default } from "../../";

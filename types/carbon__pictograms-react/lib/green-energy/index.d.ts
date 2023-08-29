@@ -1,3 +1,3 @@
-import { GreenEnergy } from '../../';
+import { GreenEnergy } from "../../";
 
 export = GreenEnergy;

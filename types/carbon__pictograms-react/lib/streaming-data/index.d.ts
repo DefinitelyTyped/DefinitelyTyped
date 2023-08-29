@@ -1,3 +1,3 @@
-import { StreamingData } from '../../';
+import { StreamingData } from "../../";
 
 export = StreamingData;

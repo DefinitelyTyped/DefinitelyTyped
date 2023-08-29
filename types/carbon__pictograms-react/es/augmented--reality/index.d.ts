@@ -1,1 +1,1 @@
-export { AugmentedReality as default } from '../../';
+export { AugmentedReality as default } from "../../";

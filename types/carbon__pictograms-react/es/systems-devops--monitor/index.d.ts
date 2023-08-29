@@ -1,1 +1,1 @@
-export { SystemsDevopsMonitor as default } from '../../';
+export { SystemsDevopsMonitor as default } from "../../";

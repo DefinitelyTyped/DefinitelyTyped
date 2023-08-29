@@ -1,1 +1,1 @@
-export { DoorHandle as default } from '../../';
+export { DoorHandle as default } from "../../";

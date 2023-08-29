@@ -1,3 +1,3 @@
-import { Idea } from '../../';
+import { Idea } from "../../";
 
 export = Idea;

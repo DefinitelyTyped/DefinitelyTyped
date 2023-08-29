@@ -1,1 +1,1 @@
-export { CloudStorage as default } from '../../';
+export { CloudStorage as default } from "../../";

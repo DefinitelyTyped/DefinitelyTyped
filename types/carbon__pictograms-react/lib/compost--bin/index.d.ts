@@ -1,3 +1,3 @@
-import { CompostBin } from '../../';
+import { CompostBin } from "../../";
 
 export = CompostBin;

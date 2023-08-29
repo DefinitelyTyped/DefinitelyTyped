@@ -1,3 +1,3 @@
-import { UserInterface } from '../../';
+import { UserInterface } from "../../";
 
 export = UserInterface;

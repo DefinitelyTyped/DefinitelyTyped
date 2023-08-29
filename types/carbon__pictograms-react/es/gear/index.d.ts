@@ -1,1 +1,1 @@
-export { Gear as default } from '../../';
+export { Gear as default } from "../../";

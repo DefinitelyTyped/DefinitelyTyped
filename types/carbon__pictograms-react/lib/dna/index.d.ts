@@ -1,3 +1,3 @@
-import { Dna } from '../../';
+import { Dna } from "../../";
 
 export = Dna;

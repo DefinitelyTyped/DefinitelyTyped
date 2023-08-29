@@ -1,3 +1,3 @@
-import { TouchScreen } from '../../';
+import { TouchScreen } from "../../";
 
 export = TouchScreen;

@@ -1,3 +1,3 @@
-import { IbmZ16PlusCloud } from '../../';
+import { IbmZ16PlusCloud } from "../../";
 
 export = IbmZ16PlusCloud;

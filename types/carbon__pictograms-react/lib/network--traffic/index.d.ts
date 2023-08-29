@@ -1,3 +1,3 @@
-import { NetworkTraffic } from '../../';
+import { NetworkTraffic } from "../../";
 
 export = NetworkTraffic;

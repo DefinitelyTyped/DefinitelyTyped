@@ -1,3 +1,3 @@
-import { Printer } from '../../';
+import { Printer } from "../../";
 
 export = Printer;

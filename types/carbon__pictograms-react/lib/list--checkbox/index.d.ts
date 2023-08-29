@@ -1,3 +1,3 @@
-import { ListCheckbox } from '../../';
+import { ListCheckbox } from "../../";
 
 export = ListCheckbox;

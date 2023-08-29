@@ -1,1 +1,1 @@
-export { Synergy as default } from '../../';
+export { Synergy as default } from "../../";

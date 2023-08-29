@@ -1,3 +1,3 @@
-import { TokyoTemple } from '../../';
+import { TokyoTemple } from "../../";
 
 export = TokyoTemple;

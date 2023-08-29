@@ -1,3 +1,3 @@
-import { DistributionLedger } from '../../';
+import { DistributionLedger } from "../../";
 
 export = DistributionLedger;

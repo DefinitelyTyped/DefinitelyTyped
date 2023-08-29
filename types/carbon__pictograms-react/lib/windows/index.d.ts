@@ -1,3 +1,3 @@
-import { Windows } from '../../';
+import { Windows } from "../../";
 
 export = Windows;

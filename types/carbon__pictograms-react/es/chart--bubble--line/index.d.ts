@@ -1,1 +1,1 @@
-export { ChartBubbleLine as default } from '../../';
+export { ChartBubbleLine as default } from "../../";

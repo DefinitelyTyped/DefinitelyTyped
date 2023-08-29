@@ -1,3 +1,3 @@
-import { StrategyDirect } from '../../';
+import { StrategyDirect } from "../../";
 
 export = StrategyDirect;

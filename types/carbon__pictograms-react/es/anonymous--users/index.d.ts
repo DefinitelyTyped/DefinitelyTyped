@@ -1,1 +1,1 @@
-export { AnonymousUsers as default } from '../../';
+export { AnonymousUsers as default } from "../../";

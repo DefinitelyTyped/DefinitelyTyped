@@ -1,1 +1,1 @@
-export { Cheese as default } from '../../';
+export { Cheese as default } from "../../";

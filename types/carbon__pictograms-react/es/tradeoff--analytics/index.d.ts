@@ -1,1 +1,1 @@
-export { TradeoffAnalytics as default } from '../../';
+export { TradeoffAnalytics as default } from "../../";

@@ -1,1 +1,1 @@
-export { Workflows as default } from '../../';
+export { Workflows as default } from "../../";

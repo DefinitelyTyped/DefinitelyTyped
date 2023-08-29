@@ -1,1 +1,1 @@
-export { Tags as default } from '../../';
+export { Tags as default } from "../../";

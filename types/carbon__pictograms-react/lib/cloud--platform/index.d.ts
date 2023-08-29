@@ -1,3 +1,3 @@
-import { CloudPlatform } from '../../';
+import { CloudPlatform } from "../../";
 
 export = CloudPlatform;

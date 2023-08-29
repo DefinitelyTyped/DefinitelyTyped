@@ -1,1 +1,1 @@
-export { PlanningAnalytics as default } from '../../';
+export { PlanningAnalytics as default } from "../../";

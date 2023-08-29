@@ -1,3 +1,3 @@
-import { WindPower } from '../../';
+import { WindPower } from "../../";
 
 export = WindPower;

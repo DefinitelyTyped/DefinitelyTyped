@@ -1,1 +1,1 @@
-export { GlobalSecurity as default } from '../../';
+export { GlobalSecurity as default } from "../../";

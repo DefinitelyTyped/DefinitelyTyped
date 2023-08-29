@@ -1,1 +1,1 @@
-export { Refresh as default } from '../../';
+export { Refresh as default } from "../../";

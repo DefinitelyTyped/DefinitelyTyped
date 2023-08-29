@@ -1,1 +1,1 @@
-export { SystemsDevopsAnalyze as default } from '../../';
+export { SystemsDevopsAnalyze as default } from "../../";

@@ -1,3 +1,3 @@
-import { AcceleratingTransformation } from '../../';
+import { AcceleratingTransformation } from "../../";
 
 export = AcceleratingTransformation;

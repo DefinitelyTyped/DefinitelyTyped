@@ -1,1 +1,1 @@
-export { LondonBigBen as default } from '../../';
+export { LondonBigBen as default } from "../../";

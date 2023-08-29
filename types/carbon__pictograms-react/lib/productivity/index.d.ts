@@ -1,3 +1,3 @@
-import { Productivity } from '../../';
+import { Productivity } from "../../";
 
 export = Productivity;

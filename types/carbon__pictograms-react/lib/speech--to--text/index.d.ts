@@ -1,3 +1,3 @@
-import { SpeechToText } from '../../';
+import { SpeechToText } from "../../";
 
 export = SpeechToText;

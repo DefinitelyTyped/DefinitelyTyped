@@ -1,3 +1,3 @@
-import { Location } from '../../';
+import { Location } from "../../";
 
 export = Location;

@@ -1,3 +1,3 @@
-import { ControlsFramework } from '../../';
+import { ControlsFramework } from "../../";
 
 export = ControlsFramework;

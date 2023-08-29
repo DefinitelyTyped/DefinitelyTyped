@@ -1,3 +1,3 @@
-import { Minimize } from '../../';
+import { Minimize } from "../../";
 
 export = Minimize;

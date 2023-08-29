@@ -1,3 +1,3 @@
-import { Digital } from '../../';
+import { Digital } from "../../";
 
 export = Digital;

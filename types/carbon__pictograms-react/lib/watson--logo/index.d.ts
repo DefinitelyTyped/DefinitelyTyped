@@ -1,3 +1,3 @@
-import { WatsonLogo } from '../../';
+import { WatsonLogo } from "../../";
 
 export = WatsonLogo;

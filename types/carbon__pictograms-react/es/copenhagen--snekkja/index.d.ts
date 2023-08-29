@@ -1,1 +1,1 @@
-export { CopenhagenSnekkja as default } from '../../';
+export { CopenhagenSnekkja as default } from "../../";

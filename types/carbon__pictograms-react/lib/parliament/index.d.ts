@@ -1,3 +1,3 @@
-import { Parliament } from '../../';
+import { Parliament } from "../../";
 
 export = Parliament;

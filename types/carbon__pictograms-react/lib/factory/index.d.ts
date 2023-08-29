@@ -1,3 +1,3 @@
-import { Factory } from '../../';
+import { Factory } from "../../";
 
 export = Factory;

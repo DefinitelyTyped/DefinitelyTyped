@@ -1,3 +1,3 @@
-import { Pattern } from '../../';
+import { Pattern } from "../../";
 
 export = Pattern;

@@ -1,3 +1,3 @@
-import { Firewall } from '../../';
+import { Firewall } from "../../";
 
 export = Firewall;

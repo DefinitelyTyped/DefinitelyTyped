@@ -1,1 +1,1 @@
-export { HongKong as default } from '../../';
+export { HongKong as default } from "../../";

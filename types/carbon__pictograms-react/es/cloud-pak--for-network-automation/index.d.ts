@@ -1,1 +1,1 @@
-export { CloudPakForNetworkAutomation as default } from '../../';
+export { CloudPakForNetworkAutomation as default } from "../../";

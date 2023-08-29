@@ -1,1 +1,1 @@
-export { VenezuelaNationalPantheonOfVenezuela as default } from '../../';
+export { VenezuelaNationalPantheonOfVenezuela as default } from "../../";

@@ -1,1 +1,1 @@
-export { DynamicWorkloads as default } from '../../';
+export { DynamicWorkloads as default } from "../../";

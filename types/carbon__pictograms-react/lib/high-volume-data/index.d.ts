@@ -1,3 +1,3 @@
-import { HighVolumeData } from '../../';
+import { HighVolumeData } from "../../";
 
 export = HighVolumeData;

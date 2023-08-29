@@ -1,1 +1,1 @@
-export { AutomationDecision as default } from '../../';
+export { AutomationDecision as default } from "../../";

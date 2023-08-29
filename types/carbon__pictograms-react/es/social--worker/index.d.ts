@@ -1,1 +1,1 @@
-export { SocialWorker as default } from '../../';
+export { SocialWorker as default } from "../../";

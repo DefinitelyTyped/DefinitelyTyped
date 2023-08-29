@@ -1,1 +1,1 @@
-export { Train as default } from '../../';
+export { Train as default } from "../../";

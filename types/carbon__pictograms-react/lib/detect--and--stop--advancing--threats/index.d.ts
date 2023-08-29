@@ -1,3 +1,3 @@
-import { DetectAndStopAdvancingThreats } from '../../';
+import { DetectAndStopAdvancingThreats } from "../../";
 
 export = DetectAndStopAdvancingThreats;

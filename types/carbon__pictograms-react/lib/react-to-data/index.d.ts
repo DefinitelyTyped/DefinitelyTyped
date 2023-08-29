@@ -1,3 +1,3 @@
-import { ReactToData } from '../../';
+import { ReactToData } from "../../";
 
 export = ReactToData;

@@ -1,1 +1,1 @@
-export { PrivateNetwork_03 as default } from '../../';
+export { PrivateNetwork_03 as default } from "../../";

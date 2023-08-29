@@ -1,3 +1,3 @@
-import { UniversalExperiences } from '../../';
+import { UniversalExperiences } from "../../";
 
 export = UniversalExperiences;

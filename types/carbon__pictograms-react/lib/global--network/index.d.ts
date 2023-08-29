@@ -1,3 +1,3 @@
-import { GlobalNetwork } from '../../';
+import { GlobalNetwork } from "../../";
 
 export = GlobalNetwork;

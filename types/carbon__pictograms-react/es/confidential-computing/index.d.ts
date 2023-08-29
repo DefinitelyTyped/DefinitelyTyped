@@ -1,1 +1,1 @@
-export { ConfidentialComputing as default } from '../../';
+export { ConfidentialComputing as default } from "../../";

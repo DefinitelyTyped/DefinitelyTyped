@@ -1,3 +1,3 @@
-import { TradeoffAnalytics } from '../../';
+import { TradeoffAnalytics } from "../../";
 
 export = TradeoffAnalytics;

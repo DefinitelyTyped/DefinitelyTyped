@@ -1,3 +1,3 @@
-import { AiPrivacy } from '../../';
+import { AiPrivacy } from "../../";
 
 export = AiPrivacy;

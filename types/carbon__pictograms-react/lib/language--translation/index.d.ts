@@ -1,3 +1,3 @@
-import { LanguageTranslation } from '../../';
+import { LanguageTranslation } from "../../";
 
 export = LanguageTranslation;

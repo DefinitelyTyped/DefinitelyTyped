@@ -1,3 +1,3 @@
-import { Keyboard } from '../../';
+import { Keyboard } from "../../";
 
 export = Keyboard;

@@ -1,1 +1,1 @@
-export { GetAheadOfRiskAndCompliance as default } from '../../';
+export { GetAheadOfRiskAndCompliance as default } from "../../";

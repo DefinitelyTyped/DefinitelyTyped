@@ -1,3 +1,3 @@
-import { ChartHistogram } from '../../';
+import { ChartHistogram } from "../../";
 
 export = ChartHistogram;

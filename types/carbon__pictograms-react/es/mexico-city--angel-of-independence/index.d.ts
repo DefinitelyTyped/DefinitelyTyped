@@ -1,1 +1,1 @@
-export { MexicoCityAngelOfIndependence as default } from '../../';
+export { MexicoCityAngelOfIndependence as default } from "../../";

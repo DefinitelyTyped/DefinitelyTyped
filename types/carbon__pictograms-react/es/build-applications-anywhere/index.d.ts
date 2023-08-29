@@ -1,1 +1,1 @@
-export { BuildApplicationsAnywhere as default } from '../../';
+export { BuildApplicationsAnywhere as default } from "../../";

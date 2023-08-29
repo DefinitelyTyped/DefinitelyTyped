@@ -1,1 +1,1 @@
-export { Feedback_01 as default } from '../../';
+export { Feedback_01 as default } from "../../";

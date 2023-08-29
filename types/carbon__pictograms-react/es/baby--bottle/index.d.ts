@@ -1,1 +1,1 @@
-export { BabyBottle as default } from '../../';
+export { BabyBottle as default } from "../../";

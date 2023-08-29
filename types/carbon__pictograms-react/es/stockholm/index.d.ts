@@ -1,1 +1,1 @@
-export { Stockholm as default } from '../../';
+export { Stockholm as default } from "../../";

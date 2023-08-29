@@ -1,3 +1,3 @@
-import { Watsonx } from '../../';
+import { Watsonx } from "../../";
 
 export = Watsonx;

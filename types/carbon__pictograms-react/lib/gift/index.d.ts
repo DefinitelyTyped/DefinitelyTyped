@@ -1,3 +1,3 @@
-import { Gift } from '../../';
+import { Gift } from "../../";
 
 export = Gift;

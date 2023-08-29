@@ -1,3 +1,3 @@
-import { SecureHybridCloud } from '../../';
+import { SecureHybridCloud } from "../../";
 
 export = SecureHybridCloud;

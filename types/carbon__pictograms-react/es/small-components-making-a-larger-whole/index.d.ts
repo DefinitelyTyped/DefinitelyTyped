@@ -1,1 +1,1 @@
-export { SmallComponentsMakingALargerWhole as default } from '../../';
+export { SmallComponentsMakingALargerWhole as default } from "../../";

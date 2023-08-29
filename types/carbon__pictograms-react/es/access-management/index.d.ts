@@ -1,1 +1,1 @@
-export { AccessManagement as default } from '../../';
+export { AccessManagement as default } from "../../";

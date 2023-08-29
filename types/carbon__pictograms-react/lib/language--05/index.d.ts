@@ -1,3 +1,3 @@
-import { Language_05 } from '../../';
+import { Language_05 } from "../../";
 
 export = Language_05;

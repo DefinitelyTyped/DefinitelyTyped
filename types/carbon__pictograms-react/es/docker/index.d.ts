@@ -1,1 +1,1 @@
-export { Docker as default } from '../../';
+export { Docker as default } from "../../";

@@ -1,3 +1,3 @@
-import { RLanguage } from '../../';
+import { RLanguage } from "../../";
 
 export = RLanguage;

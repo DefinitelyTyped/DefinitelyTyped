@@ -1,3 +1,3 @@
-import { Slack } from '../../';
+import { Slack } from "../../";
 
 export = Slack;

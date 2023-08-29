@@ -1,1 +1,1 @@
-export { Summit as default } from '../../';
+export { Summit as default } from "../../";

@@ -1,3 +1,3 @@
-import { BabyBottle } from '../../';
+import { BabyBottle } from "../../";
 
 export = BabyBottle;

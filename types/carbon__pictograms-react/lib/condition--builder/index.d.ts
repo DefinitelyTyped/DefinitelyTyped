@@ -1,3 +1,3 @@
-import { ConditionBuilder } from '../../';
+import { ConditionBuilder } from "../../";
 
 export = ConditionBuilder;

@@ -1,3 +1,3 @@
-import { CloudVmware } from '../../';
+import { CloudVmware } from "../../";
 
 export = CloudVmware;

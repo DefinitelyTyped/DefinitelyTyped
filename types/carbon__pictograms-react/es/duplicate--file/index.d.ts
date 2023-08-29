@@ -1,1 +1,1 @@
-export { DuplicateFile as default } from '../../';
+export { DuplicateFile as default } from "../../";

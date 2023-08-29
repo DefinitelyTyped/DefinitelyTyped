@@ -1,3 +1,3 @@
-import { Expansion } from '../../';
+import { Expansion } from "../../";
 
 export = Expansion;

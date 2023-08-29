@@ -1,3 +1,3 @@
-import { Embed } from '../../';
+import { Embed } from "../../";
 
 export = Embed;

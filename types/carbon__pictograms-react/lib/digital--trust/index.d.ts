@@ -1,3 +1,3 @@
-import { DigitalTrust } from '../../';
+import { DigitalTrust } from "../../";
 
 export = DigitalTrust;

@@ -1,3 +1,3 @@
-import { Microphone } from '../../';
+import { Microphone } from "../../";
 
 export = Microphone;

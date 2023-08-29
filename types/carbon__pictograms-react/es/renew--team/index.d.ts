@@ -1,1 +1,1 @@
-export { RenewTeam as default } from '../../';
+export { RenewTeam as default } from "../../";

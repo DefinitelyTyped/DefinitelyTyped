@@ -1,3 +1,3 @@
-import { Engine } from '../../';
+import { Engine } from "../../";
 
 export = Engine;

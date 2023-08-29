@@ -1,1 +1,1 @@
-export { Automated as default } from '../../';
+export { Automated as default } from "../../";

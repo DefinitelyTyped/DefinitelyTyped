@@ -1,3 +1,3 @@
-import { AgilityWithHybridMulticloud } from '../../';
+import { AgilityWithHybridMulticloud } from "../../";
 
 export = AgilityWithHybridMulticloud;

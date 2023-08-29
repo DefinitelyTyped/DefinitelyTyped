@@ -1,3 +1,3 @@
-import { DevicePairing } from '../../';
+import { DevicePairing } from "../../";
 
 export = DevicePairing;

@@ -1,3 +1,3 @@
-import { Tags } from '../../';
+import { Tags } from "../../";
 
 export = Tags;

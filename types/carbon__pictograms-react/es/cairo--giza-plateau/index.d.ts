@@ -1,1 +1,1 @@
-export { CairoGizaPlateau as default } from '../../';
+export { CairoGizaPlateau as default } from "../../";

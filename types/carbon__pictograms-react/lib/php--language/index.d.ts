@@ -1,3 +1,3 @@
-import { PhpLanguage } from '../../';
+import { PhpLanguage } from "../../";
 
 export = PhpLanguage;

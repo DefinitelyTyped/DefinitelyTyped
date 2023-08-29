@@ -1,3 +1,3 @@
-import { Heart } from '../../';
+import { Heart } from "../../";
 
 export = Heart;

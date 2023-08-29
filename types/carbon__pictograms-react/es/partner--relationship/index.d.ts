@@ -1,1 +1,1 @@
-export { PartnerRelationship as default } from '../../';
+export { PartnerRelationship as default } from "../../";

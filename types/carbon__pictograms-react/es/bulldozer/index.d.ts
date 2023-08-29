@@ -1,1 +1,1 @@
-export { Bulldozer as default } from '../../';
+export { Bulldozer as default } from "../../";

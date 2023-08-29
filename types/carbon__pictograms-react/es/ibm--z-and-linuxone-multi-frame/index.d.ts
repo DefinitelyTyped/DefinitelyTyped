@@ -1,1 +1,1 @@
-export { IbmZAndLinuxoneMultiFrame as default } from '../../';
+export { IbmZAndLinuxoneMultiFrame as default } from "../../";

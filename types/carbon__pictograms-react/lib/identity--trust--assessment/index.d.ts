@@ -1,3 +1,3 @@
-import { IdentityTrustAssessment } from '../../';
+import { IdentityTrustAssessment } from "../../";
 
 export = IdentityTrustAssessment;

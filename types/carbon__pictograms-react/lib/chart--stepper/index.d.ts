@@ -1,3 +1,3 @@
-import { ChartStepper } from '../../';
+import { ChartStepper } from "../../";
 
 export = ChartStepper;

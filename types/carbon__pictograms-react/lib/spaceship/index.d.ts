@@ -1,3 +1,3 @@
-import { Spaceship } from '../../';
+import { Spaceship } from "../../";
 
 export = Spaceship;

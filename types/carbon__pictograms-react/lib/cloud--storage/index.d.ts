@@ -1,3 +1,3 @@
-import { CloudStorage } from '../../';
+import { CloudStorage } from "../../";
 
 export = CloudStorage;

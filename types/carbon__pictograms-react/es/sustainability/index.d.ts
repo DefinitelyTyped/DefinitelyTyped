@@ -1,1 +1,1 @@
-export { Sustainability as default } from '../../';
+export { Sustainability as default } from "../../";

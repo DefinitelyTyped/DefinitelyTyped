@@ -1,3 +1,3 @@
-import { GoLanguage } from '../../';
+import { GoLanguage } from "../../";
 
 export = GoLanguage;

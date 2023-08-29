@@ -1,1 +1,1 @@
-export { CreditCard as default } from '../../';
+export { CreditCard as default } from "../../";

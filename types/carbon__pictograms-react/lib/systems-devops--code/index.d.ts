@@ -1,3 +1,3 @@
-import { SystemsDevopsCode } from '../../';
+import { SystemsDevopsCode } from "../../";
 
 export = SystemsDevopsCode;

@@ -1,1 +1,1 @@
-export { SecurityAsAService as default } from '../../';
+export { SecurityAsAService as default } from "../../";

@@ -1,1 +1,1 @@
-export { IbmAutomationPlatform as default } from '../../';
+export { IbmAutomationPlatform as default } from "../../";

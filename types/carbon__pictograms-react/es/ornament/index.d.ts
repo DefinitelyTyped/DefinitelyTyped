@@ -1,1 +1,1 @@
-export { Ornament as default } from '../../';
+export { Ornament as default } from "../../";

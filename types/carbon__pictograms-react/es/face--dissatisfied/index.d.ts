@@ -1,1 +1,1 @@
-export { FaceDissatisfied as default } from '../../';
+export { FaceDissatisfied as default } from "../../";

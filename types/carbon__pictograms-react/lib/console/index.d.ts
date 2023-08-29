@@ -1,3 +1,3 @@
-import { Console } from '../../';
+import { Console } from "../../";
 
 export = Console;

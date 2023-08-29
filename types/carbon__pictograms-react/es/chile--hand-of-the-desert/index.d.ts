@@ -1,1 +1,1 @@
-export { ChileHandOfTheDesert as default } from '../../';
+export { ChileHandOfTheDesert as default } from "../../";

@@ -1,1 +1,1 @@
-export { TabletDeviceCheck as default } from '../../';
+export { TabletDeviceCheck as default } from "../../";

@@ -1,3 +1,3 @@
-import { Scale_02 } from '../../';
+import { Scale_02 } from "../../";
 
 export = Scale_02;

@@ -1,1 +1,1 @@
-export { Hpi as default } from '../../';
+export { Hpi as default } from "../../";

@@ -1,3 +1,3 @@
-import { Overcast } from '../../';
+import { Overcast } from "../../";
 
 export = Overcast;

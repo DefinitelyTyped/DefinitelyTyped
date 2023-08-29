@@ -1,3 +1,3 @@
-import { Integration } from '../../';
+import { Integration } from "../../";
 
 export = Integration;

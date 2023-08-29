@@ -1,1 +1,1 @@
-export { SupplyChain_01 as default } from '../../';
+export { SupplyChain_01 as default } from "../../";

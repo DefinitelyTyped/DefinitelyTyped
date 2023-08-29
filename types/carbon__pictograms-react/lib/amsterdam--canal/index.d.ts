@@ -1,3 +1,3 @@
-import { AmsterdamCanal } from '../../';
+import { AmsterdamCanal } from "../../";
 
 export = AmsterdamCanal;

@@ -1,3 +1,3 @@
-import { EmployeeInsights } from '../../';
+import { EmployeeInsights } from "../../";
 
 export = EmployeeInsights;

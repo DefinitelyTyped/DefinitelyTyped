@@ -1,1 +1,1 @@
-export { Snowflake as default } from '../../';
+export { Snowflake as default } from "../../";

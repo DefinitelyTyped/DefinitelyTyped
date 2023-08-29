@@ -1,1 +1,1 @@
-export { Mqa as default } from '../../';
+export { Mqa as default } from "../../";

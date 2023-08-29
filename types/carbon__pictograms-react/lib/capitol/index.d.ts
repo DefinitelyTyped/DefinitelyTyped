@@ -1,3 +1,3 @@
-import { Capitol } from '../../';
+import { Capitol } from "../../";
 
 export = Capitol;

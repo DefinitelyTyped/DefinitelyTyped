@@ -1,3 +1,3 @@
-import { Electric } from '../../';
+import { Electric } from "../../";
 
 export = Electric;

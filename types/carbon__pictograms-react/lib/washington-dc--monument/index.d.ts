@@ -1,3 +1,3 @@
-import { WashingtonDcMonument } from '../../';
+import { WashingtonDcMonument } from "../../";
 
 export = WashingtonDcMonument;

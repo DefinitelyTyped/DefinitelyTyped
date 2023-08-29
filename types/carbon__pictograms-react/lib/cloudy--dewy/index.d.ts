@@ -1,3 +1,3 @@
-import { CloudyDewy } from '../../';
+import { CloudyDewy } from "../../";
 
 export = CloudyDewy;

@@ -1,3 +1,3 @@
-import { IdBadge } from '../../';
+import { IdBadge } from "../../";
 
 export = IdBadge;

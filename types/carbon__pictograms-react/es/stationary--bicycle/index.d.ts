@@ -1,1 +1,1 @@
-export { StationaryBicycle as default } from '../../';
+export { StationaryBicycle as default } from "../../";

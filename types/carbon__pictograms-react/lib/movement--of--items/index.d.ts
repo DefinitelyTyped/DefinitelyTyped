@@ -1,3 +1,3 @@
-import { MovementOfItems } from '../../';
+import { MovementOfItems } from "../../";
 
 export = MovementOfItems;

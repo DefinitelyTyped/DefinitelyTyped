@@ -1,1 +1,1 @@
-export { DigitalId as default } from '../../';
+export { DigitalId as default } from "../../";

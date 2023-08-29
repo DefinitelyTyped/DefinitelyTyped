@@ -1,1 +1,1 @@
-export { ChipCircuit as default } from '../../';
+export { ChipCircuit as default } from "../../";

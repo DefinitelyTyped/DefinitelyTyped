@@ -1,1 +1,1 @@
-export { ContentDesign as default } from '../../';
+export { ContentDesign as default } from "../../";

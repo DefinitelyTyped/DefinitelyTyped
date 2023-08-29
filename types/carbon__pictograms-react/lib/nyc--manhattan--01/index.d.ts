@@ -1,3 +1,3 @@
-import { NycManhattan_01 } from '../../';
+import { NycManhattan_01 } from "../../";
 
 export = NycManhattan_01;

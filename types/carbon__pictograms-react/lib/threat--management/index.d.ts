@@ -1,3 +1,3 @@
-import { ThreatManagement } from '../../';
+import { ThreatManagement } from "../../";
 
 export = ThreatManagement;

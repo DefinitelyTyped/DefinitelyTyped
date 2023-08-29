@@ -1,1 +1,1 @@
-export { Multitask as default } from '../../';
+export { Multitask as default } from "../../";

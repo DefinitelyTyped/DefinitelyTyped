@@ -1,3 +1,3 @@
-import { BeijingMunicipal } from '../../';
+import { BeijingMunicipal } from "../../";
 
 export = BeijingMunicipal;

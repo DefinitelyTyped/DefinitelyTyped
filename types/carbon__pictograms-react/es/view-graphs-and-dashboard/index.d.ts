@@ -1,1 +1,1 @@
-export { ViewGraphsAndDashboard as default } from '../../';
+export { ViewGraphsAndDashboard as default } from "../../";

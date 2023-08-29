@@ -1,3 +1,3 @@
-import { AlchemyVision } from '../../';
+import { AlchemyVision } from "../../";
 
 export = AlchemyVision;

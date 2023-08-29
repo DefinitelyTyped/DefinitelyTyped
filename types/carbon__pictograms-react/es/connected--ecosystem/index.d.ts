@@ -1,1 +1,1 @@
-export { ConnectedEcosystem as default } from '../../';
+export { ConnectedEcosystem as default } from "../../";

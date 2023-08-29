@@ -1,3 +1,3 @@
-import { PlayerFlow } from '../../';
+import { PlayerFlow } from "../../";
 
 export = PlayerFlow;

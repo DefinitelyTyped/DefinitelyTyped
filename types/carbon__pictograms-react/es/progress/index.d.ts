@@ -1,1 +1,1 @@
-export { Progress as default } from '../../';
+export { Progress as default } from "../../";

@@ -1,1 +1,1 @@
-export { TelemedicineMobile as default } from '../../';
+export { TelemedicineMobile as default } from "../../";

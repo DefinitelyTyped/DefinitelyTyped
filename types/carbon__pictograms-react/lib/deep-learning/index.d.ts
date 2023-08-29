@@ -1,3 +1,3 @@
-import { DeepLearning } from '../../';
+import { DeepLearning } from "../../";
 
 export = DeepLearning;

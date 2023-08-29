@@ -1,3 +1,3 @@
-import { ParisPompidouCenter } from '../../';
+import { ParisPompidouCenter } from "../../";
 
 export = ParisPompidouCenter;

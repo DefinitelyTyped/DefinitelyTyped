@@ -1,1 +1,1 @@
-export { CloudVmware as default } from '../../';
+export { CloudVmware as default } from "../../";

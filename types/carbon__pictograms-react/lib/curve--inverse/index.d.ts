@@ -1,3 +1,3 @@
-import { CurveInverse } from '../../';
+import { CurveInverse } from "../../";
 
 export = CurveInverse;

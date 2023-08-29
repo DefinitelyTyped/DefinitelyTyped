@@ -1,3 +1,3 @@
-import { AutomationDecision } from '../../';
+import { AutomationDecision } from "../../";
 
 export = AutomationDecision;

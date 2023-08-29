@@ -1,1 +1,1 @@
-export { WindPower as default } from '../../';
+export { WindPower as default } from "../../";

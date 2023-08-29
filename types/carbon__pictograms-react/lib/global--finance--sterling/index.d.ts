@@ -1,3 +1,3 @@
-import { GlobalFinanceSterling } from '../../';
+import { GlobalFinanceSterling } from "../../";
 
 export = GlobalFinanceSterling;

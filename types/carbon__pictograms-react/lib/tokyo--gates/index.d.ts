@@ -1,3 +1,3 @@
-import { TokyoGates } from '../../';
+import { TokyoGates } from "../../";
 
 export = TokyoGates;
