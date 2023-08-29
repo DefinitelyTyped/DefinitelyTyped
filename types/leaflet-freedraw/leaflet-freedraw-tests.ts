@@ -12,6 +12,18 @@ map.addLayer(freeDraw);
 
 freeDraw.on('markers', event => {
     console.log(event.latLngs);
+
+    if (event.eventType === 'create') {
+        console.log('this is a create event');
+    }
+
+    if (event.eventType === 'remove') {
+        console.log('this is a remove event');
+    }
+
+    if (event.eventType === 'clear') {
+        console.log('this is a clear event');
+    }
 });
 
 document.addEventListener('keydown', event => {

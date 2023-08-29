@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare module XmlPoke { // ghost module
+declare namespace XmlPoke { // ghost module
     interface Transform {
         (node: Node, value: string): Value;
     }

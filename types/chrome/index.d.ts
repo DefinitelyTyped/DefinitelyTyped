@@ -1987,7 +1987,7 @@ declare namespace chrome.cookies {
  * Availability: Since Chrome 18.
  * Permissions:  "debugger"
  */
-declare module chrome {
+declare namespace chrome {
     namespace _debugger {
         /** Debuggee identifier. Either tabId or extensionId must be specified */
         export interface Debuggee {

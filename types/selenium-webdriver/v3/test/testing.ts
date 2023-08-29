@@ -1,5 +1,16 @@
 import { Builder, By, until, WebDriver } from 'selenium-webdriver';
-import { describe, before, after, it, ignore, xdescribe, xit, beforeEach, afterEach, controlFlow } from 'selenium-webdriver/testing';
+import {
+    after,
+    afterEach,
+    before,
+    beforeEach,
+    controlFlow,
+    describe,
+    ignore,
+    it,
+    xdescribe,
+    xit,
+} from 'selenium-webdriver/testing';
 
 describe('Google Search', () => {
     let driver: WebDriver;
@@ -8,13 +19,13 @@ describe('Google Search', () => {
         driver = new Builder().forBrowser('firefox').build();
     });
 
-    beforeEach(() => { });
+    beforeEach(() => {});
 
     after(() => {
         driver.quit();
     });
 
-    afterEach(() => { });
+    afterEach(() => {});
 
     it('should append query to title', () => {
         const flow = controlFlow();
@@ -31,16 +42,18 @@ ignore(maybe).it('is flaky', () => {
     if (Math.random() < 0.5) throw Error();
 });
 
-function maybe() { return Math.random() < 0.5; }
+function maybe() {
+    return Math.random() < 0.5;
+}
 
 describe.only('just this', () => {
-    it.only('just this too', () => { });
+    it.only('just this too', () => {});
 });
 
 describe.skip('not this', () => {
-    it.skip('not this either', () => { });
+    it.skip('not this either', () => {});
 });
 
 xdescribe('not this', () => {
-    xit('not this either', () => { });
+    xit('not this either', () => {});
 });

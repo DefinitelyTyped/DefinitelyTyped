@@ -776,3 +776,15 @@ const sheetCellImage = () => {
     cellImage.getContentUrl();
     cellImage.getUrl();
 };
+
+// Blob test
+const blob = () => {
+    // $ExpectType Blob
+    const blob = Utilities.newBlob('content', 'application/json');
+    blob.setContentType(null);
+
+    // $ExpectType string
+    const contentType = blob.getContentType();
+
+    return contentType;
+};

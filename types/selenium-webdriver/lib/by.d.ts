@@ -118,9 +118,9 @@ export class By {
  */
 export class RelativeBy {
     /**
-    * @param {By} findDetails
-    * @param {Array<Object>} filters
-    */
+     * @param {By} findDetails
+     * @param {Array<Object>} filters
+     */
     constructor(findDetails: By, filters: Object[]);
 
     /**
@@ -179,7 +179,6 @@ export class RelativeBy {
  * Care should be taken when using JavaScript minifiers (such as the
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
- *
  */
 export type ByHash =
     | { className: string }

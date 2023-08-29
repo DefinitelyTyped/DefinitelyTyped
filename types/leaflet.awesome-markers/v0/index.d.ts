@@ -7,7 +7,7 @@
 import * as Leaflet from "leaflet";
 
 declare global { namespace L {
-    module AwesomeMarkers {
+    namespace AwesomeMarkers {
         var version: string;
 
         function icon(options: AwesomeMarkers.IconOptions): AwesomeMarkers.Icon;

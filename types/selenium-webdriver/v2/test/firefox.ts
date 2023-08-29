@@ -1,6 +1,6 @@
+import * as webdriver from 'selenium-webdriver';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as remote from 'selenium-webdriver/remote';
-import * as webdriver from 'selenium-webdriver';
 
 function TestBinary() {
     var binary: firefox.Binary = new firefox.Binary();
