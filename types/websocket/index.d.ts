@@ -222,7 +222,7 @@ export class request extends events.EventEmitter {
     /** `Sec-WebSocket-Key` */
     key: string;
     /** Parsed resource, including the query string parameters */
-    resourceURL: url.Url;
+    resourceURL: url.UrlWithParsedQuery;
 
     /**
      * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
@@ -662,7 +662,7 @@ export interface IRouterRequest extends events.EventEmitter {
     /** A string containing the path that was requested by the client */
     resource: string;
     /** Parsed resource, including the query string parameters */
-    resourceURL: url.Url;
+    resourceURL: url.UrlWithParsedQuery;
 
     /** A reference to the original Node HTTP request object */
     httpRequest: http.IncomingMessage;

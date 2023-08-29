@@ -5,7 +5,7 @@
 
 declare var Lockr: lockr.LockrStatic;
 
-declare module lockr {
+declare namespace lockr {
     interface LockrStatic {
 
         /**

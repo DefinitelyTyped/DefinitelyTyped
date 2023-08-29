@@ -13,7 +13,7 @@ export interface ConfigValues {
 }
 
 // NOTE: A hack to make ConfigValues extensible
-// eslint-disable-next-line no-declare-current-package
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'atom' {
     interface ConfigValues {
         /**

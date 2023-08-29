@@ -1,4 +1,4 @@
-// eslint-disable-next-line dt-header
+// eslint-disable-next-line @definitelytyped/dt-header
 // Type definitions for inspector
 
 // These definitions are auto-generated.

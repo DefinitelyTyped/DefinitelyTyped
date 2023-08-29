@@ -1,30 +1,31 @@
+import * as React from "react";
 import {
-    AccessibilityAlt,
     AccumulationIce,
-    Add,
-    AnalyticsReference,
-    Barcode,
-    BatchJob,
-    BookmarkFilled,
+    Layers,
     BorderLeft,
-    CalculationAlt,
+    AnalyticsReference,
+    Add,
+    AccessibilityAlt,
+    DataBaseAlt,
+    GasStation,
+    Lasso,
+    BookmarkFilled,
     CalendarHeatMap,
     ChartColumn,
-    DataBaseAlt,
-    DataCategorical,
-    GasStation,
-    IbmCloudKubernetesService,
-    IceVision,
-    Lasso,
-    Layers,
     LogoKeybase,
+    Barcode,
+    CalculationAlt,
+    UserAccess,
+    TextClearFormat,
+    IceVision,
+    IbmCloudKubernetesService,
     LogoSvelte,
     Plan,
-    TextClearFormat,
-    UserAccess,
+    BatchJob,
     WhitePaper,
-} from '@carbon/icons-react';
-import * as React from 'react';
+    DataCategorical,
+    Delete,
+} from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
 <TextClearFormat />; // $ExpectType Element
@@ -37,8 +38,8 @@ import * as React from 'react';
 <Add>
     <title>Icon title</title>
 </Add>;
-<Add aria-label='Add' />; // $ExpectType Element
-<Add size={32} title='Add' aria-label='Add' tabIndex='0' className='add-32' />; // $ExpectType Element
+<Add aria-label="Add" />; // $ExpectType Element
+<Add size={32} title="Add" aria-label="Add" tabIndex="0" className="add-32" />; // $ExpectType Element
 <DataBaseAlt />; // $ExpectType Element
 <GasStation />; // $ExpectType Element
 <AnalyticsReference />; // $ExpectType Element
@@ -55,3 +56,4 @@ import * as React from 'react';
 <BatchJob />; // $ExpectType Element
 <WhitePaper />; // $ExpectType Element
 <DataCategorical />; // $ExpectType Element
+<Delete />; // $ExpectType Element

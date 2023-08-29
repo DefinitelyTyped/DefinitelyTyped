@@ -1,6 +1,6 @@
+import * as webdriver from 'selenium-webdriver';
 import * as ie from 'selenium-webdriver/ie';
 import * as remote from 'selenium-webdriver/remote';
-import * as webdriver from 'selenium-webdriver';
 
 function TestIeDriver() {
     let driver: ie.Driver;

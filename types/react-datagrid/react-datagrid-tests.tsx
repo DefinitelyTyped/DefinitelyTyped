@@ -13,7 +13,7 @@ var columns = [
 var selected = {};
 var sortInfo = [ { name: 'country', dir: 'asc'}]
 
-export module X {
+export namespace X {
 export class ExampleBasic extends React.Component {
   render(): React.ReactElement {
       return (

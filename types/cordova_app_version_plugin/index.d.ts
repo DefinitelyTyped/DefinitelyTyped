@@ -15,7 +15,7 @@ interface CordovaPlugins {
 /**
  * Keep the type global namespace clean by using a module
  */
-declare module CordovaAppVersionPlugin {
+declare namespace CordovaAppVersionPlugin {
     interface CordovaAppVersionPlugin {
         /**
          * App version from config.xml's version (e.g. <widget id="my.app.id" version="1.5.0">)

@@ -256,9 +256,18 @@ declare module 'node:test' {
     type TestFn = (t: TestContext, done: (result?: any) => void) => void | Promise<void>;
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
+    interface TestShard {
+        /**
+         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         */
+        index: number;
+        /**
+         * A positive integer that specifies the total number of shards to split the test files to.
+         */
+        total: number;
+    }
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -301,9 +310,15 @@ declare module 'node:test' {
          */
         setup?: (root: Test) => void | Promise<void>;
         /**
-         * Whether to run in watch mode or not. Default: false.
+         * Whether to run in watch mode or not.
+         * @default false
          */
-        watch?: boolean;
+        watch?: boolean | undefined;
+        /**
+         * Running tests in a specific shard.
+         * @default undefined
+         */
+        shard?: TestShard | undefined;
     }
     class Test extends AsyncResource {
         concurrency: number;
@@ -633,7 +648,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
     /**
      * Configuration options for hooks.
      * @since v18.8.0
@@ -1210,6 +1225,10 @@ declare module 'node:test' {
          * @since v20.4.0
          */
         runAll(): void;
+        /**
+         * Calls {@link MockTimers.reset()}.
+         */
+        [Symbol.dispose](): void;
     }
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
 }
@@ -1241,6 +1260,11 @@ interface TestFail {
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
@@ -1276,6 +1300,11 @@ interface TestPass {
          * The duration of the test in milliseconds.
          */
         duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: 'suite';
     };
     /**
      * The test name.
