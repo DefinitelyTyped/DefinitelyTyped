@@ -20,6 +20,7 @@ export type VariableMap = keyof Variables extends never ? Map<string, any> : Typ
 export interface Context {
     logger: Logger;
     variables: VariableMap;
+    basePath: string;
 }
 
 export default class StreamObject {
