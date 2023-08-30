@@ -1,15 +1,15 @@
-import DateRangePicker from './DateRangePicker';
+import DateRangePicker from "./DateRangePicker";
 
 export interface DatepickerOptionsFormat {
     toValue: (date: Date, format: object, locale: object) => string;
     toDisplay: (date: Date, format: object, locale: object) => string;
 }
 
-export type DatepickerOptionsOrientationVertical = 'top' | 'middle' | 'bottom' | 'auto';
-export type DatepickerOptionsOrientationHorizontal = 'left' | 'center' | 'right' | 'auto';
+export type DatepickerOptionsOrientationVertical = "top" | "middle" | "bottom" | "auto";
+export type DatepickerOptionsOrientationHorizontal = "left" | "center" | "right" | "auto";
 export type DatepickerOptionsOrientation =
     | `${DatepickerOptionsOrientationVertical} ${DatepickerOptionsOrientationHorizontal}`
-    | 'auto';
+    | "auto";
 
 export interface DatepickerOptions {
     autohide?: boolean;
@@ -25,8 +25,8 @@ export interface DatepickerOptions {
     datesDisabled?: string[];
     daysOfWeekDisabled?: number[];
     daysOfWeekHighlighted?: number[];
-    defaultViewDate?: string | Date | number ;
-    format?: string | DatepickerOptionsFormat ;
+    defaultViewDate?: string | Date | number;
+    format?: string | DatepickerOptionsFormat;
     language?: string;
     maxDate?: string | Date | number;
     maxNumberOfDates?: number;
@@ -84,7 +84,7 @@ export default class Datepicker {
     update(options?: { clear: boolean; render: boolean }): void;
 
     refresh(forceRender?: boolean): void;
-    refresh(target?: 'picker' | 'input', forceRender?: boolean): void;
+    refresh(target?: "picker" | "input", forceRender?: boolean): void;
 
     enterEditMode(): void;
 

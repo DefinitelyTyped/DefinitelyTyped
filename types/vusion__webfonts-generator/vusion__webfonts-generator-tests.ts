@@ -1,4 +1,4 @@
-import webfontsGenerator = require('vusion__webfonts-generator');
+import webfontsGenerator = require("vusion__webfonts-generator");
 
 // @ts-expect-error
 webfontsGenerator();
@@ -7,19 +7,19 @@ webfontsGenerator({});
 
 // @ts-expect-error
 webfontsGenerator({
-    dest: '',
-    files: '',
-    order: ['eot', 'svg', 'ttf', 'woff', 'woff2'],
-    types: ['eot', 'svg', 'ttf', 'woff', 'woff2'],
+    dest: "",
+    files: "",
+    order: ["eot", "svg", "ttf", "woff", "woff2"],
+    types: ["eot", "svg", "ttf", "woff", "woff2"],
     formatOptions: { eot: {}, svg: {}, ttf: {}, woff: {}, woff2: {} },
 });
 
 // $ExpectType void
 webfontsGenerator({
-    dest: '',
-    files: [''],
-    order: ['eot', 'svg', 'woff', 'woff2'],
-    types: ['eot', 'svg', 'woff', 'woff2'],
+    dest: "",
+    files: [""],
+    order: ["eot", "svg", "woff", "woff2"],
+    types: ["eot", "svg", "woff", "woff2"],
 }, (err, res) => {
     // $ExpectType Error | undefined
     const _err = err;
@@ -37,21 +37,21 @@ webfontsGenerator({
 
 // $ExpectType void
 webfontsGenerator({
-    dest: '',
-    files: [''],
-    order: ['eot', 'svg', 'woff', 'woff2'],
-    types: ['eot', 'svg', 'woff', 'woff2'],
+    dest: "",
+    files: [""],
+    order: ["eot", "svg", "woff", "woff2"],
+    types: ["eot", "svg", "woff", "woff2"],
     centerHorizontally: true,
     codepoints: { ex: 123 },
     css: true,
     cssContext(context, options, handlebars) {},
-    cssDest: '',
-    cssFontsUrl: '',
-    cssTemplate: '',
+    cssDest: "",
+    cssFontsUrl: "",
+    cssTemplate: "",
     descent: 123,
     fixedWidth: true,
     fontHeight: 123,
-    fontName: 'test',
+    fontName: "test",
     formatOptions: {
         eot: {},
         svg: {},
@@ -62,8 +62,8 @@ webfontsGenerator({
     },
     html: true,
     htmlContext(context, options, handlebars) {},
-    htmlDest: '',
-    htmlTemplate: '',
+    htmlDest: "",
+    htmlTemplate: "",
     ligature: false,
     normalize: true,
     rename(name) {
@@ -74,18 +74,18 @@ webfontsGenerator({
     round: 123,
     startCodepoint: 123,
     templateOptions: {
-        baseSelector: '',
-        classPrefix: '',
+        baseSelector: "",
+        classPrefix: "",
     },
     writeFiles: true,
 }, (err, res) => {});
 
 // $ExpectType void
 webfontsGenerator({
-    dest: '',
-    files: [''],
-    order: ['eot'],
-    types: ['eot'],
+    dest: "",
+    files: [""],
+    order: ["eot"],
+    types: ["eot"],
     html: true,
     css: true,
 }, (err, res) => {
@@ -97,10 +97,10 @@ webfontsGenerator({
 
 // $ExpectType void
 webfontsGenerator({
-    dest: '',
-    files: [''],
-    order: ['eot'],
-    types: ['eot'],
+    dest: "",
+    files: [""],
+    order: ["eot"],
+    types: ["eot"],
     html: false,
     css: false,
 }, (err, res) => {
