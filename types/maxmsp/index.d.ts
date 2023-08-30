@@ -43,6 +43,12 @@ declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
 
+type Range = [number, number];
+type Color = [number, number, number, number];
+type Rect = [number, number, number, number];
+type Position = [number, number];
+type Size = [number, number];
+
 type MaxMessage =
     | 'buildcollective'
     | 'checkpreempt'
@@ -1122,6 +1128,13 @@ declare class Max {
     useslowbutcompletesearching(enable: 0 | 1): void;
 }
 
+declare class MaxobjConnection {
+    srcobject: object;
+    dstobject: object;
+    srcoutlet: number;
+    dstinlet: number;
+}
+
 /**
  * A Maxobj is a Javascript representation of a Max object in a patcher. It is returned by various methods of a Javascript Patcher object, such as newobject().One important thing to keep in mind about
  * a Maxobj is that it could eventually refer to an object that no longer exists if the underlying Max object is freed. The valid property can be used to test for this condition.
@@ -1220,6 +1233,101 @@ declare class Maxobj {
      * others.
      */
     understands(message: string): boolean;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object.
+     */
+    getattrnames(): string[];
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     */
+    setattr(attribute_name: string, anything: unknown): void;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object's box.
+     */
+    getboxattrnames(): string[];
+
+    /**
+     * Returns the value of the object's box attribute specified by box_attribute_name. Lists are returned as JS Array objects.
+     */
+    getboxattr(box_attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the object's box attribute specified by box_attribute_name.
+     */
+    setboxattr(box_attribute_name: string, anything: unknown): void;
+}
+
+/**
+ * The MaxobjListener object listens for changes to a Maxobj object's value,
+ * or changes to a specified attribute of a Maxobj object.
+ * When a change occurs, a user-specified function will be called.
+ * The object also provides methods for getting and setting the value of the observed value or attribute.
+ */
+declare class MaxobjListener  {
+    constructor(object: Maxobj, attribute_name: string, callback: (data: MaxobjListenerData<any>) => void);
+
+    /**
+     * The Maxobj to observe.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * An attribute to observe for changes, if desired.
+     */
+    attrname: string;
+
+    /**
+     * Never execute the callback function in response to calling setvalue from this MaxobjListener.
+     */
+    silent: number;
+
+    /**
+     * Report the value of the Maxobj or its specified attribute. List values are reported in a JS Array object.
+     */
+    getvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute.
+     */
+    setvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute, without executing the callback function (also see the silent property).
+     */
+    setvalue_silent(): void;
+}
+
+/**
+ * The MaxobjListenerData object is the argument to your MaxobjListener's function
+ */
+declare class MaxobjListenerData<Tvalue>  {
+    /**
+     * The MaxobjListener which called the function.
+     */
+    listener: MaxobjListener;
+
+    /**
+     * The Maxobj being observed.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * If the MaxobjListener is observing an attribute, the attribute's name, otherwise undefined.
+     */
+    attrname: string;
+
+    /**
+     * The current value of the observed object or attribute. List values are represented by a JS Array object.
+     */
+    value: Tvalue;
 }
 
 /**
