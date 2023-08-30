@@ -81,6 +81,7 @@ es/identical.d.ts
 es/identity.d.ts
 es/ifElse.d.ts
 es/inc.d.ts
+es/index.d.ts
 es/indexBy.d.ts
 es/indexOf.d.ts
 es/init.d.ts
