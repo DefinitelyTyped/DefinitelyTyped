@@ -1,6 +1,4 @@
-import {
-    ContextSession,
-} from "..";
+import { ContextSession } from "..";
 
 declare const c: ContextSession;
 
