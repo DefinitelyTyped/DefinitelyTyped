@@ -187,7 +187,7 @@ interface CustomPayload extends Boom.Payload {
 // tslint:disable-next-line:no-object-literal-type-assertion
 const errorWithData = Boom.badImplementation(
     "",
-    <CustomData1> { custom1: "test", customType: "Custom1", isCustom: true },
+    { custom1: "test", customType: "Custom1", isCustom: true } as CustomData1,
 );
 const errorWithNoExplicitDataType: Boom = errorWithData; // can assign to error without explicit data type
 const errorWithExplicitType: Boom<CustomData> = errorWithData; // can assign to union data type
