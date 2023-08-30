@@ -3,14 +3,14 @@
 // Definitions by: kldzj <https://github.com/kldzj>, Kyle Smith <https://github.com/kjsmita6>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { EventEmitter } from 'events';
-import Steam = require('steam');
-import SteamID = require('steamid');
-import SteamUser = require('steam-user');
-import SteamCommunity = require('steamcommunity');
-import CEconItem = require('steamcommunity/classes/CEconItem');
-import FileManager = require('file-manager');
-import TradeOffer = require('./lib/classes/TradeOffer');
+import type { EventEmitter } from "events";
+import Steam = require("steam");
+import SteamID = require("steamid");
+import SteamUser = require("steam-user");
+import SteamCommunity = require("steamcommunity");
+import CEconItem = require("steamcommunity/classes/CEconItem");
+import FileManager = require("file-manager");
+import TradeOffer = require("./lib/classes/TradeOffer");
 
 export = TradeOfferManager;
 
@@ -74,7 +74,10 @@ declare class TradeOfferManager extends EventEmitter {
      * @param id The ID of the trade offer, as a string or number
      * @param callback Called on completion with an Error on failure (null on success) and the TradeOffer object for the requested offer.
      */
-    getOffer(id: number | string, callback: (err: TradeOfferManager.EResultError | null, offer: TradeOffer) => void): void;
+    getOffer(
+        id: number | string,
+        callback: (err: TradeOfferManager.EResultError | null, offer: TradeOffer) => void,
+    ): void;
 
     /**
      * Retrieves a list of trade offers matching specific criteria. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -83,7 +86,10 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of
      * TradeOffer objects for offers received by you matching the filter.
      */
-    getOffers(filter: number, callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(
+        filter: number,
+        callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void,
+    ): void;
 
     /**
      * Retrieves a list of trade offers matching specific criteria. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -94,7 +100,11 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers sent by you matching the filter, and an array of TradeOffer
      * objects for offers received by you matching the filter.
      */
-    getOffers(filter: number, historicalCutoff: Date | null, callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void): void;
+    getOffers(
+        filter: number,
+        historicalCutoff: Date | null,
+        callback: (err: TradeOfferManager.EResultError | null, sent: TradeOffer[], received: TradeOffer[]) => void,
+    ): void;
 
     /**
      * Gets the contents of your own inventory. This method uses the newer /inventory/SteamID endpoint, which is less rate-limited than the older, deprecated /profiles/SteamID/inventory/json
@@ -107,7 +117,12 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    getInventoryContents(appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
+    getInventoryContents(
+        appid: number,
+        contextid: number,
+        tradableOnly: boolean,
+        callback: TradeOfferManager.InventoryCallback,
+    ): void;
 
     /**
      * Same as getInventoryContents, but can retrieve another user's inventory.
@@ -119,7 +134,13 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    getUserInventoryContents(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
+    getUserInventoryContents(
+        steamID: SteamID | string,
+        appid: number,
+        contextid: number,
+        tradableOnly: boolean,
+        callback: TradeOfferManager.InventoryCallback,
+    ): void;
 
     /**
      * THIS METHOD IS DEPRECATED AS OF v2.5.0; USE getInventoryContents INSTEAD.
@@ -132,7 +153,12 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    loadInventory(appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
+    loadInventory(
+        appid: number,
+        contextid: number,
+        tradableOnly: boolean,
+        callback: TradeOfferManager.InventoryCallback,
+    ): void;
 
     /**
      * HIS METHOD IS DEPRECATED AS OF v2.5.0; USE getUserInventoryContents INSTEAD.
@@ -146,7 +172,13 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Invoked when data is ready, includes an Error on failure (null on success), an array of the user's inventory items as CEconItem objects,
      * and an array of the user's currency items as CEconItem objects
      */
-    loadUserInventory(steamID: SteamID | string, appid: number, contextid: number, tradableOnly: boolean, callback: TradeOfferManager.InventoryCallback): void;
+    loadUserInventory(
+        steamID: SteamID | string,
+        appid: number,
+        contextid: number,
+        tradableOnly: boolean,
+        callback: TradeOfferManager.InventoryCallback,
+    ): void;
 
     /**
      * Retrieves the token part of your account's trade URL.
@@ -164,7 +196,11 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers you sent which contain the item(s),
      * and an array of TradeOffer objects for offers you received which contain the item(s)
      */
-    getOffersContainingItem(items: CEconItem | CEconItem[], includeInactive: boolean, callback: TradeOfferManager.OfferCallback): void;
+    getOffersContainingItem(
+        items: CEconItem | CEconItem[],
+        includeInactive: boolean,
+        callback: TradeOfferManager.OfferCallback,
+    ): void;
 
     /**
      * Finds offers which contain the given item(s). Any offer which contains at least one item you passed in will be returned. Might be useful to avoid sending duplicate offers,
@@ -182,7 +218,10 @@ declare class TradeOfferManager extends EventEmitter {
      */
     doPoll(): void;
 
-    on<T extends keyof TradeOfferManager.TradeOfferManagerEvents>(eventType: T, callback: TradeOfferManager.TradeOfferManagerEvents[T]): this;
+    on<T extends keyof TradeOfferManager.TradeOfferManagerEvents>(
+        eventType: T,
+        callback: TradeOfferManager.TradeOfferManagerEvents[T],
+    ): this;
 
     // Static constants
     static readonly ETradeOfferState: TradeOfferManager.ETradeOfferState;
@@ -229,17 +268,17 @@ declare namespace TradeOfferManager {
         CanceledBySecondFactor: number;
         /** 11 - The trade has been placed on hold. The items involved in the trade have all been removed from both parties' inventories and will be automatically delivered in the future. */
         InEscrow: number;
-        '1': string;
-        '2': string;
-        '3': string;
-        '4': string;
-        '5': string;
-        '6': string;
-        '7': string;
-        '8': string;
-        '9': string;
-        '10': string;
-        '11': string;
+        "1": string;
+        "2": string;
+        "3": string;
+        "4": string;
+        "5": string;
+        "6": string;
+        "7": string;
+        "8": string;
+        "9": string;
+        "10": string;
+        "11": string;
     }
 
     interface EOfferFilter {
@@ -370,127 +409,127 @@ declare namespace TradeOfferManager {
         WGNetworkSendExceeded: number;
         AccountNotFriends: number;
         LimitedUserAccount: number;
-        '0': string;
-        '1': string;
-        '2': string;
-        '3': string;
-        '5': string;
-        '6': string;
-        '7': string;
-        '8': string;
-        '9': string;
-        '10': string;
-        '11': string;
-        '12': string;
-        '13': string;
-        '14': string;
-        '15': string;
-        '16': string;
-        '17': string;
-        '18': string;
-        '19': string;
-        '20': string;
-        '21': string;
-        '22': string;
-        '23': string;
-        '24': string;
-        '25': string;
-        '26': string;
-        '27': string;
-        '28': string;
-        '29': string;
-        '30': string;
-        '31': string;
-        '32': string;
-        '33': string;
-        '34': string;
-        '35': string;
-        '36': string;
-        '37': string;
-        '38': string;
-        '39': string;
-        '40': string;
-        '41': string;
-        '42': string;
-        '43': string;
-        '44': string;
-        '45': string;
-        '46': string;
-        '47': string;
-        '48': string;
-        '49': string;
-        '50': string;
-        '51': string;
-        '52': string;
-        '53': string;
-        '54': string;
-        '55': string;
-        '56': string;
-        '57': string;
-        '58': string;
-        '59': string;
-        '60': string;
-        '61': string;
-        '62': string;
-        '63': string;
-        '64': string;
-        '65': string;
-        '66': string;
-        '67': string;
-        '68': string;
-        '69': string;
-        '70': string;
-        '71': string;
-        '72': string;
-        '73': string;
-        '74': string;
-        '75': string;
-        '76': string;
-        '77': string;
-        '78': string;
-        '79': string;
-        '80': string;
-        '81': string;
-        '82': string;
-        '83': string;
-        '84': string;
-        '85': string;
-        '86': string;
-        '87': string;
-        '88': string;
-        '89': string;
-        '90': string;
-        '91': string;
-        '92': string;
-        '93': string;
-        '94': string;
-        '95': string;
-        '96': string;
-        '97': string;
-        '98': string;
-        '99': string;
-        '100': string;
-        '101': string;
-        '102': string;
-        '103': string;
-        '104': string;
-        '105': string;
-        '106': string;
-        '107': string;
-        '108': string;
-        '109': string;
-        '110': string;
-        '111': string;
-        '112': string;
+        "0": string;
+        "1": string;
+        "2": string;
+        "3": string;
+        "5": string;
+        "6": string;
+        "7": string;
+        "8": string;
+        "9": string;
+        "10": string;
+        "11": string;
+        "12": string;
+        "13": string;
+        "14": string;
+        "15": string;
+        "16": string;
+        "17": string;
+        "18": string;
+        "19": string;
+        "20": string;
+        "21": string;
+        "22": string;
+        "23": string;
+        "24": string;
+        "25": string;
+        "26": string;
+        "27": string;
+        "28": string;
+        "29": string;
+        "30": string;
+        "31": string;
+        "32": string;
+        "33": string;
+        "34": string;
+        "35": string;
+        "36": string;
+        "37": string;
+        "38": string;
+        "39": string;
+        "40": string;
+        "41": string;
+        "42": string;
+        "43": string;
+        "44": string;
+        "45": string;
+        "46": string;
+        "47": string;
+        "48": string;
+        "49": string;
+        "50": string;
+        "51": string;
+        "52": string;
+        "53": string;
+        "54": string;
+        "55": string;
+        "56": string;
+        "57": string;
+        "58": string;
+        "59": string;
+        "60": string;
+        "61": string;
+        "62": string;
+        "63": string;
+        "64": string;
+        "65": string;
+        "66": string;
+        "67": string;
+        "68": string;
+        "69": string;
+        "70": string;
+        "71": string;
+        "72": string;
+        "73": string;
+        "74": string;
+        "75": string;
+        "76": string;
+        "77": string;
+        "78": string;
+        "79": string;
+        "80": string;
+        "81": string;
+        "82": string;
+        "83": string;
+        "84": string;
+        "85": string;
+        "86": string;
+        "87": string;
+        "88": string;
+        "89": string;
+        "90": string;
+        "91": string;
+        "92": string;
+        "93": string;
+        "94": string;
+        "95": string;
+        "96": string;
+        "97": string;
+        "98": string;
+        "99": string;
+        "100": string;
+        "101": string;
+        "102": string;
+        "103": string;
+        "104": string;
+        "105": string;
+        "106": string;
+        "107": string;
+        "108": string;
+        "109": string;
+        "110": string;
+        "111": string;
+        "112": string;
     }
 
     interface EConfirmationMethod extends Record<string | number, string | number> {
         None: number;
         Email: number;
         MobileApp: number;
-        '0': string;
-        '1': string;
-        '2': string;
+        "0": string;
+        "1": string;
+        "2": string;
     }
 
     interface ETradeStatus extends Record<string | number, string | number> {
@@ -518,32 +557,32 @@ declare namespace TradeOfferManager {
         InEscrow: number;
         /** 11 - A trade in escrow was rolled back  */
         EscrowRollback: number;
-        '0': string;
-        '1': string;
-        '2': string;
-        '3': string;
-        '4': string;
-        '5': string;
-        '6': string;
-        '7': string;
-        '8': string;
-        '9': string;
-        '10': string;
-        '11': string;
+        "0": string;
+        "1": string;
+        "2": string;
+        "3": string;
+        "4": string;
+        "5": string;
+        "6": string;
+        "7": string;
+        "8": string;
+        "9": string;
+        "10": string;
+        "11": string;
     }
 
-    type EResultError = Error & { eresult?: EResult; };
+    type EResultError = Error & { eresult?: EResult };
 
     type InventoryCallback = (
         err: Error | null,
         inventory: CEconItem[],
-        currencies: CEconItem[]
+        currencies: CEconItem[],
     ) => void;
 
     type OfferCallback = (
         err: EResultError | null,
         sent: TradeOffer[],
-        received: TradeOffer[]
+        received: TradeOffer[],
     ) => void;
 
     interface TradeOfferManagerEvents {
@@ -570,7 +609,7 @@ declare namespace TradeOfferManager {
          * @param offer TradeOffer object for the canceled offer
          * @param reason A string containing the reason why it was canceled ("cancelTime" - The cancelTime timeout was reached, "cancelOfferCount" - The cancelOfferCount limit was reached)
          */
-        sentOfferCanceled: (offer: TradeOffer, reason: 'cancelTime' | 'cancelOfferCount') => void;
+        sentOfferCanceled: (offer: TradeOffer, reason: "cancelTime" | "cancelOfferCount") => void;
 
         /**
          * Emitted when the manager automatically cancels an offer due to your pendingCancelTime constructor option. sentOfferChanged will also be emitted on next poll.

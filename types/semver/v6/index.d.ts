@@ -54,7 +54,12 @@ export function clean(version: string, optionsOrLoose?: boolean | Options): stri
 /**
  * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
  */
-export function inc(version: string | SemVer, release: ReleaseType, optionsOrLoose?: boolean | Options, identifier?: string): string | null;
+export function inc(
+    version: string | SemVer,
+    release: ReleaseType,
+    optionsOrLoose?: boolean | Options,
+    identifier?: string,
+): string | null;
 export function inc(version: string | SemVer, release: ReleaseType, identifier?: string): string | null;
 
 /**
@@ -108,8 +113,13 @@ export function neq(v1: string | SemVer, v2: string | SemVer, optionsOrLoose?: b
  * "===" and "!==" do simple string comparison, but are included for completeness.
  * Throws if an invalid comparison string is provided.
  */
-export function cmp(v1: string | SemVer, operator: Operator, v2: string | SemVer, optionsOrLoose?: boolean | Options): boolean;
-export type Operator = '===' | '!==' | '' | '=' | '==' | '!=' | '>' | '>=' | '<' | '<=';
+export function cmp(
+    v1: string | SemVer,
+    operator: Operator,
+    v2: string | SemVer,
+    optionsOrLoose?: boolean | Options,
+): boolean;
+export type Operator = "===" | "!==" | "" | "=" | "==" | "!=" | ">" | ">=" | "<" | "<=";
 
 /**
  * Compares two versions excluding build identifiers (the bit after `+` in the semantic version string).
@@ -182,11 +192,19 @@ export function satisfies(version: string | SemVer, range: string | Range, optio
 /**
  * Return the highest version in the list that satisfies the range, or null if none of them do.
  */
-export function maxSatisfying<T extends string | SemVer>(versions: ReadonlyArray<T>, range: string | Range, optionsOrLoose?: boolean | Options): T | null;
+export function maxSatisfying<T extends string | SemVer>(
+    versions: ReadonlyArray<T>,
+    range: string | Range,
+    optionsOrLoose?: boolean | Options,
+): T | null;
 /**
  * Return the lowest version in the list that satisfies the range, or null if none of them do.
  */
-export function minSatisfying<T extends string | SemVer>(versions: ReadonlyArray<T>, range: string | Range, optionsOrLoose?: boolean | Options): T | null;
+export function minSatisfying<T extends string | SemVer>(
+    versions: ReadonlyArray<T>,
+    range: string | Range,
+    optionsOrLoose?: boolean | Options,
+): T | null;
 /**
  * Return the lowest version that can possibly match the given range.
  */
@@ -203,7 +221,12 @@ export function ltr(version: string | SemVer, range: string | Range, optionsOrLo
  * Return true if the version is outside the bounds of the range in either the high or low direction.
  * The hilo argument must be either the string '>' or '<'. (This is the function called by gtr and ltr.)
  */
-export function outside(version: string | SemVer, range: string | Range, hilo: '>' | '<', optionsOrLoose?: boolean | Options): boolean;
+export function outside(
+    version: string | SemVer,
+    range: string | Range,
+    hilo: ">" | "<",
+    optionsOrLoose?: boolean | Options,
+): boolean;
 /**
  * Return true if any of the ranges comparators intersect
  */
@@ -272,7 +295,7 @@ export class Comparator {
     constructor(comp: string | Comparator, optionsOrLoose?: boolean | Options);
 
     semver: SemVer;
-    operator: '' | '=' | '<' | '>' | '<=' | '>=';
+    operator: "" | "=" | "<" | ">" | "<=" | ">=";
     value: string;
     loose: boolean;
     options: Options;

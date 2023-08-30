@@ -202,97 +202,97 @@ declare namespace Smooch {
     /**
      * This event triggers when init completes successfully... Be sure to bind before calling init!
      */
-    function on(event: 'ready', callback: () => void): void;
+    function on(event: "ready", callback: () => void): void;
     /**
      * This event triggers when the widget is destroyed.
      */
-    function on(event: 'destroy', callback: () => void): void;
+    function on(event: "destroy", callback: () => void): void;
     /**
      * This event triggers when a participant is added to a conversation
      */
     function on(
-        event: 'participant:added',
+        event: "participant:added",
         callback: (participant: ConversationParticipant, data: ConversationData) => void,
     ): void;
     /**
      * This event triggers when a participant is removed from a conversation
      */
     function on(
-        event: 'participant:removed',
+        event: "participant:removed",
         callback: (participant: ConversationParticipant, data: ConversationData) => void,
     ): void;
     /**
      * This event triggers when a conversation is added
      */
     function on(
-        event: 'conversation:added',
+        event: "conversation:added",
         callback: (participants: ConversationParticipant[], data: ConversationData) => void,
     ): void;
     /**
      * This event triggers when a participant in a sdkGroup chat reads a message
      */
     function on(
-        event: 'conversation:read',
+        event: "conversation:read",
         callback: (payload: ConversationReadEventPayload, data: ConversationData) => void,
     ): void;
     /**
      * This event triggers when a conversation is removed
      */
-    function on(event: 'conversation:removed', callback: (data: ConversationData) => void): void;
+    function on(event: "conversation:removed", callback: (data: ConversationData) => void): void;
     /**
      * This event triggers when the user receives a message
      */
-    function on(event: 'message:received', callback: (message: Message, data: ConversationData) => void): void;
+    function on(event: "message:received", callback: (message: Message, data: ConversationData) => void): void;
     /**
      * This event triggers when the user sends a message
      */
-    function on(event: 'message:sent', callback: (message: Message, data: ConversationData) => void): void;
+    function on(event: "message:sent", callback: (message: Message, data: ConversationData) => void): void;
     /**
      * This event triggers when a message was added to the conversation
      */
-    function on(event: 'message', callback: (message: Message, data: ConversationData) => void): void;
+    function on(event: "message", callback: (message: Message, data: ConversationData) => void): void;
     /**
      * This event triggers when the number of unread messages changes
      */
-    function on(event: 'unreadCount', callback: (unreadCount: number, data: ConversationData) => void): void;
+    function on(event: "unreadCount", callback: (unreadCount: number, data: ConversationData) => void): void;
     /**
      * This event triggers when the widget is opened
      */
-    function on(event: 'widget:opened', callback: () => void): void;
+    function on(event: "widget:opened", callback: () => void): void;
     /**
      * This event triggers when the widget is closed
      */
-    function on(event: 'widget:closed', callback: () => void): void;
+    function on(event: "widget:closed", callback: () => void): void;
     /**
      * This event triggers when the codes emits debug information
      */
-    function on(event: 'log:debug', callback: (e: DebugLog) => void): void;
+    function on(event: "log:debug", callback: (e: DebugLog) => void): void;
     /**
      * This event triggers when an active connection has been established for the first time,
      * or when the connection has been re-established after a `disconnected` or `reconnecting` event.
      */
-    function on(event: 'connected', callback: (data: ConversationData) => void): void;
+    function on(event: "connected", callback: (data: ConversationData) => void): void;
     /**
      * This event triggers when an active connection is lost
      * While disconnected, the client will not be able to receive messages or load a conversation
      */
-    function on(event: 'disconnected', callback: (data: ConversationData) => void): void;
+    function on(event: "disconnected", callback: (data: ConversationData) => void): void;
     /**
      * This event triggers when an active connection is lost and there is an attempt to reconnect
      * While reconnecting, the client will not be able to receive messages or load a conversation
      */
-    function on(event: 'reconnecting', callback: (data: ConversationData) => void): void;
+    function on(event: "reconnecting", callback: (data: ConversationData) => void): void;
     /**
      * This event triggers when the business starts typing. The associated conversation is passed in the argument.
      */
     function on(
-        event: 'typing:start',
+        event: "typing:start",
         callback: (data: ConversationData & { avatarUrl: string; name: string }) => void,
     ): void;
     /**
      * This event triggers when the business stops typing. The associated conversation is passed in the argument.
      */
-    function on(event: 'typing:stop', callback: (data: ConversationData) => void): void;
+    function on(event: "typing:stop", callback: (data: ConversationData) => void): void;
     // tslint:enable:unified-signatures
 }
 

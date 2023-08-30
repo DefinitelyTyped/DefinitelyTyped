@@ -1,6 +1,6 @@
 import TradeOfferManager = require("../../index");
-import SteamID = require('steamid');
-import CEconItem = require('steamcommunity/classes/CEconItem');
+import SteamID = require("steamid");
+import CEconItem = require("steamcommunity/classes/CEconItem");
 
 export = TradeOffer;
 
@@ -130,7 +130,9 @@ declare class TradeOffer {
      *
      * @param callback Contains an Error on failure (null on success), an object containing your user data, and an object containing the user oither's data
      */
-    getUserDetails(callback: (err: Error | null, me: TradeOffer.UserDetails, them: TradeOffer.UserDetails) => void): void;
+    getUserDetails(
+        callback: (err: Error | null, me: TradeOffer.UserDetails, them: TradeOffer.UserDetails) => void,
+    ): void;
 
     /**
      * Sends a newly-created offer. Only works if this is an offer created with TradeOfferManager#createOffer which hasn't been
@@ -144,7 +146,21 @@ declare class TradeOffer {
      * - OfferLimitExceeded - You have sent too many trade offers (5 per trade partner, 30 total)
      * - ItemServerUnavailable - Steam couldn't contact the item server for a game you're trying to trade items in
      */
-    send(callback: (err: (Error & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade' | 'OfferLimitExceeded' | 'ItemServerUnavailable'; } | null), status: 'pending' | 'sent') => void): void;
+    send(
+        callback: (
+            err:
+                | Error & {
+                    cause?:
+                        | "TradeBan"
+                        | "NewDevice"
+                        | "TargetCannotTrade"
+                        | "OfferLimitExceeded"
+                        | "ItemServerUnavailable";
+                }
+                | null,
+            status: "pending" | "sent",
+        ) => void,
+    ): void;
 
     /**
      * If this trade offer was sent by us, cancels it. If it was sent to us, declines it. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -171,7 +187,10 @@ declare class TradeOffer {
      */
     accept(
         skipStateUpdate?: boolean,
-        callback?: (err: (TradeOfferManager.EResultError & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade'; }) | null, status: 'pending' | 'accepted' | 'escrow') => void,
+        callback?: (
+            err: (TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" }) | null,
+            status: "pending" | "accepted" | "escrow",
+        ) => void,
     ): void;
 
     /**

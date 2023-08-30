@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as chrome from './chrome';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as ie from './ie';
-import * as opera from './opera';
-import * as safari from './safari';
+import * as chrome from "./chrome";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as ie from "./ie";
+import * as opera from "./opera";
+import * as safari from "./safari";
 
 export namespace error {
     class IError extends Error {
