@@ -67,7 +67,6 @@ export function preparse(dateString: string, formatString: string | string[]): P
  * @param formatter - Format string or a compiled object
  * @param utc - Output as UTC?
  * @returns The formatted string
- *
  */
 export function format(dateObj: Date, formatString: string | string[], utc?: boolean): string;
 

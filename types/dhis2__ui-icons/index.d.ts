@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import * as React from 'react';
+import * as React from "react";
 
 // https://github.com/dhis2/ui/blob/master/icons/templates/icon-template.js
 export interface IconProps {

@@ -251,28 +251,28 @@ export namespace worker {
          */
         on(
             event:
-                | 'start'
-                | 'stop'
-                | 'fetchStart'
-                | 'fetchEnd'
-                | 'fetch'
-                | 'fetchError'
-                | 'submitStart'
-                | 'submitEnd'
-                | 'submit'
-                | 'submitError',
+                | "start"
+                | "stop"
+                | "fetchStart"
+                | "fetchEnd"
+                | "fetch"
+                | "fetchError"
+                | "submitStart"
+                | "submitEnd"
+                | "submit"
+                | "submitError",
             listener: () => void,
         ): this;
 
         /**
          * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
          */
-        on(event: 'sandbox', listener: (sandbox: Sandbox) => void): this;
+        on(event: "sandbox", listener: (sandbox: Sandbox) => void): this;
 
         /**
          * Emitted when the worker submits a result. Contains the value of DCC earned.
          */
-        on(event: 'payment', listener: (paymentParams: PaymentParams) => void): this;
+        on(event: "payment", listener: (paymentParams: PaymentParams) => void): this;
 
         /**
          * This boolean indicates the current status of the worker. It should not be set manually.
@@ -336,7 +336,7 @@ export interface AuthKeystoreOptions {
     /**
      * The keystore name.
      */
-    name: string | 'default';
+    name: string | "default";
 
     /**
      * An optional, user-defined identifier used for caching keystores.
@@ -361,19 +361,19 @@ export class Sandbox {
     /**
      * Emitted when the sandbox begins working on a slice. The job description object. Use job.public for accessing the job’s title/description.
      */
-    addEventListener(event: 'sliceStart', listener: (job: object) => void): void;
+    addEventListener(event: "sliceStart", listener: (job: object) => void): void;
 
     /**
      * Emitted when the sandbox completes the slice it was working on.
      */
-    addEventListener(event: 'sliceFinish', listener: (result: any) => void): void;
+    addEventListener(event: "sliceFinish", listener: (result: any) => void): void;
 
     /**
      * sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
      * sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
      * terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
      */
-    addEventListener(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): void;
+    addEventListener(event: "sliceError" | "sliceEnd" | "terminate", listener: () => void): void;
 
     on: typeof Sandbox.prototype.addEventListener;
 }
@@ -700,10 +700,10 @@ export class JobHandle {
      * @event console: Used to collect the console output of the workers.
      * @event result A slice completes and returns.
      */
-    addEventListener(eventName: 'readystatechange' | 'resultsUpdated' | 'cancel', listener: () => void): void;
-    addEventListener(eventName: 'accepted', listener: (event: { job: JobHandle }) => void): void;
+    addEventListener(eventName: "readystatechange" | "resultsUpdated" | "cancel", listener: () => void): void;
+    addEventListener(eventName: "accepted", listener: (event: { job: JobHandle }) => void): void;
     addEventListener(
-        eventName: 'result',
+        eventName: "result",
         listener: (event: {
             /**
              * The address (id) of the the job.
@@ -718,7 +718,7 @@ export class JobHandle {
              */
             sort: number;
             result: {
-                request: 'main';
+                request: "main";
                 /**
                  * The value returned.
                  */
@@ -726,9 +726,9 @@ export class JobHandle {
             };
         }) => void,
     ): void;
-    addEventListener(eventName: 'complete', listener: (event: ResultHandle) => void): void;
+    addEventListener(eventName: "complete", listener: (event: ResultHandle) => void): void;
     addEventListener(
-        eventName: 'status',
+        eventName: "status",
         listener: (event: {
             /**
              * The address (id) of the job.
@@ -749,7 +749,7 @@ export class JobHandle {
         }) => void,
     ): void;
     addEventListener(
-        eventName: 'error',
+        eventName: "error",
         listener: (event: {
             /**
              * The address (id) of the job.
@@ -774,7 +774,7 @@ export class JobHandle {
         }) => void,
     ): void;
     addEventListener(
-        eventName: 'console',
+        eventName: "console",
         listener: (event: {
             /**
              * The address (id) of the job.
@@ -787,7 +787,7 @@ export class JobHandle {
             /**
              * The log level.
              */
-            level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+            level: "debug" | "info" | "log" | "warn" | "error";
             /**
              * The console message.
              */
@@ -795,7 +795,7 @@ export class JobHandle {
         }) => void,
     ): void;
     addEventListener(
-        eventName: 'console',
+        eventName: "console",
         listener: (event: {
             /**
              * The address (id) of the job.
@@ -808,7 +808,7 @@ export class JobHandle {
             /**
              * The log level.
              */
-            level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+            level: "debug" | "info" | "log" | "warn" | "error";
             /**
              * The console message.
              */
@@ -937,7 +937,7 @@ export interface LoadOptions {
     /**
      *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
      */
-    paths?: string[] | LoadOptions['dir'];
+    paths?: string[] | LoadOptions["dir"];
 }
 
 export class Supervisor {}

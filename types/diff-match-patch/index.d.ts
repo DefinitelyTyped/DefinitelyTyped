@@ -24,7 +24,7 @@ export class diff_match_patch {
 
     diff_main(text1: string, text2: string, opt_checklines?: boolean, opt_deadline?: number): Diff[];
     diff_bisect_(text1: string, text2: string, deadline: number): Diff[];
-    diff_linesToChars_(text1: string, text2: string): { chars1: string; chars2: string; lineArray: string[]; };
+    diff_linesToChars_(text1: string, text2: string): { chars1: string; chars2: string; lineArray: string[] };
     diff_charsToLines_(diffs: Diff[], lineArray: string[]): void;
     diff_commonPrefix(text1: string, text2: string): number;
     diff_commonSuffix(text1: string, text2: string): number;
@@ -44,7 +44,7 @@ export class diff_match_patch {
 
     match_main(text: string, pattern: string, loc: number): number;
     match_bitap_(text: string, pattern: string, loc: number): number;
-    match_alphabet_(pattern: string): {[char: string]: number};
+    match_alphabet_(pattern: string): { [char: string]: number };
 
     patch_addContext_(patch: patch_obj, text: string): void;
     patch_make(a: string, opt_b: string | Diff[]): patch_obj[];

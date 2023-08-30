@@ -78,7 +78,7 @@ declare namespace domtagger {
     }
 
     interface SVGOptions extends Options {
-        type: 'svg';
+        type: "svg";
     }
 }
 

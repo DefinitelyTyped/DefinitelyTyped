@@ -1,27 +1,27 @@
-import * as date from 'date-and-time';
-import 'date-and-time/plugin/meridiem';
+import * as date from "date-and-time";
+import "date-and-time/plugin/meridiem";
 
 const now = new Date();
 // $ExpectType string
-date.format(now, 'YYYY/MM/DD HH:mm:ss'); // => '2015/01/02 23:14:05'
+date.format(now, "YYYY/MM/DD HH:mm:ss"); // => '2015/01/02 23:14:05'
 // $ExpectType string
-date.format(now, 'ddd MMM DD YYYY'); // => 'Fri Jan 02 2015'
+date.format(now, "ddd MMM DD YYYY"); // => 'Fri Jan 02 2015'
 // $ExpectType string
-date.format(now, 'hh:mm A [GMT]Z'); // => '11:14 p.m. GMT-0800'
+date.format(now, "hh:mm A [GMT]Z"); // => '11:14 p.m. GMT-0800'
 // $ExpectType string
-date.format(now, 'hh:mm A [GMT]Z', true); // => '07:14 a.m. GMT+0000'
+date.format(now, "hh:mm A [GMT]Z", true); // => '07:14 a.m. GMT+0000'
 
 // $ExpectType Date
-date.parse('2015/01/02 23:14:05', 'YYYY/MM/DD HH:mm:ss'); // => date object
+date.parse("2015/01/02 23:14:05", "YYYY/MM/DD HH:mm:ss"); // => date object
 // $ExpectType Date
-date.parse('02-01-2015', 'DD-MM-YYYY'); // => date object
+date.parse("02-01-2015", "DD-MM-YYYY"); // => date object
 // $ExpectType Date
-date.parse('Jam 1 2017', 'MMM D YYYY'); // => NaN
+date.parse("Jam 1 2017", "MMM D YYYY"); // => NaN
 
 // $ExpectType boolean
-date.isValid('2015/01/02 23:14:05', 'YYYY/MM/DD HH:mm:ss'); // => true
+date.isValid("2015/01/02 23:14:05", "YYYY/MM/DD HH:mm:ss"); // => true
 // $ExpectType boolean
-date.isValid('29-02-2015', 'DD-MM-YYYY'); // => false
+date.isValid("29-02-2015", "DD-MM-YYYY"); // => false
 
 // $ExpectType Date
 date.addYears(now, 1); // => Date object
@@ -77,13 +77,13 @@ date.isSameDay(date1_, date3); // => false
 date.locale();
 
 // $ExpectType PreparseResult
-date.preparse('0000', 'YYYY');
+date.preparse("0000", "YYYY");
 
 // $ExpectType string[]
-date.compile('YYYY');
+date.compile("YYYY");
 
 // $ExpectType void
-date.plugin('meridiem');
+date.plugin("meridiem");
 
 // $ExpectType void
-date.extend({ res: { A: ['am', 'pm'] } });
+date.extend({ res: { A: ["am", "pm"] } });

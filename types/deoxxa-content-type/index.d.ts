@@ -17,7 +17,7 @@ declare namespace ContentType {
     }
 
     interface MediaTypeStatic {
-        new (s: string, p?: any): MediaType;
+        new(s: string, p?: any): MediaType;
         parseMedia(type: string): MediaType;
         splitQuotedString(str: string, delimiter?: string, quote?: string): string[];
         splitContentTypes(str: string): string[];
