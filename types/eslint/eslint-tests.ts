@@ -1064,8 +1064,8 @@ ruleTester.run("simple-valid-test", rule, {
 ((): Linter.FlatConfig => ({ files: [["abc", (path) => false]] }));
 ((): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] }));
 
-// @ts-expect-error // Second level of nesting is not allowed
 ((): Linter.FlatConfig => ({
+    // @ts-expect-error // Second level of nesting is not allowed
     files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]],
 }));
 
@@ -1073,8 +1073,8 @@ ruleTester.run("simple-valid-test", rule, {
 ((): Linter.FlatConfig => ({ ignores: [(path) => false] }));
 ((): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] }));
 
-// @ts-expect-error // No nesting
 ((): Linter.FlatConfig => ({
+    // @ts-expect-error // No nesting
     ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]],
 }));
 
