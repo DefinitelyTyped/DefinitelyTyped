@@ -3,11 +3,11 @@
 // Definitions by: Hector Osuna <https://github.com/FanGoH/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Server as WebSocketServer, WebSocket } from 'ws';
-import { Server as httpServer } from 'http';
-import { Server as httpsServer, ServerOptions } from 'https';
-import { EventEmitter } from 'events';
-import { FSWatcher } from 'fs';
+import { EventEmitter } from "events";
+import { FSWatcher } from "fs";
+import { Server as httpServer } from "http";
+import { Server as httpsServer, ServerOptions } from "https";
+import { Server as WebSocketServer, WebSocket } from "ws";
 
 export interface ServerConfig {
     /** Protocol Version defaults to "7" */

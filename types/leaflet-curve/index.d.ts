@@ -5,25 +5,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     class Curve extends Path {
         /*
-        * Return path
-        */
+         * Return path
+         */
         getPath(): Array<string | Array<[]>>;
         /*
-        * Set path
-        */
+         * Set path
+         */
         setPath(): Curve;
         /*
-        * Get bounds
-        */
+         * Get bounds
+         */
         getBounds(): LatLngBounds;
         /*
-        * Get center
-        */
+         * Get center
+         */
         getCenter(): LatLng;
     }
     /*
