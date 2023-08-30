@@ -1,6 +1,6 @@
-import http = require('http');
-import express = require('express');
-import locale = require('locale');
+import http = require("http");
+import express = require("express");
+import locale = require("locale");
 
 ////// README.md //////
 
@@ -9,15 +9,15 @@ import locale = require('locale');
 
 // ### For the node.js HTTP module
 {
-    const supported = new locale.Locales(['en', 'en_US', 'ja']);
+    const supported = new locale.Locales(["en", "en_US", "ja"]);
 
     http.createServer((req, res) => {
-        const locales = new locale.Locales(req.headers['accept-language']);
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        const locales = new locale.Locales(req.headers["accept-language"]);
+        res.writeHead(200, { "Content-Type": "text/plain" });
         res.end(
-            `You asked for: ${req.headers['accept-language']}
+            `You asked for: ${req.headers["accept-language"]}
 We support: ${supported}
-Our default is: ${locale.Locale['default']}
+Our default is: ${locale.Locale["default"]}
 The best match is: ${locales.best(supported)}
 `,
         );
@@ -29,18 +29,18 @@ The best match is: ${locales.best(supported)}
 
 // ### For Connect/Express
 {
-    const supported = ['en', 'en_US', 'ja'];
-    const dephault = 'en';
+    const supported = ["en", "en_US", "ja"];
+    const dephault = "en";
     const app = express();
 
     app.use(locale(supported, dephault));
 
-    app.get('/', (req, res) => {
-        res.header('Content-Type', 'text/plain');
+    app.get("/", (req, res) => {
+        res.header("Content-Type", "text/plain");
         res.send(
-            `You asked for: ${req.headers['accept-language']}
+            `You asked for: ${req.headers["accept-language"]}
 We support: ${supported}
-Our default is: ${locale.Locale['default']}
+Our default is: ${locale.Locale["default"]}
 The best match is: ${req.locale}
 `,
         );
@@ -51,18 +51,18 @@ The best match is: ${req.locale}
 
 // ### locales.best([supportedLocales])
 {
-    const supported = new locale.Locales(['en', 'en_US'], 'en');
-    new locale.Locales('en').best(supported).toString(); // 'en'
-    new locale.Locales('en_GB').best(supported).toString(); // 'en'
-    new locale.Locales('en_US').best(supported).toString(); // 'en_US'
-    new locale.Locales('jp').best(supported); // supported.default || locale.Locale["default"]
+    const supported = new locale.Locales(["en", "en_US"], "en");
+    new locale.Locales("en").best(supported).toString(); // 'en'
+    new locale.Locales("en_GB").best(supported).toString(); // 'en'
+    new locale.Locales("en_US").best(supported).toString(); // 'en_US'
+    new locale.Locales("jp").best(supported); // supported.default || locale.Locale["default"]
 }
 
 // #### Locale object API
 
 // For example:
 {
-    const l = new locale.Locale('pt-BR');
+    const l = new locale.Locale("pt-BR");
 
     console.log(l);
     // {

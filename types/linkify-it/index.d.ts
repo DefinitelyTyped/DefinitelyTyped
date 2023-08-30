@@ -10,11 +10,11 @@
 declare const LinkifyIt: {
     (
         schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options,
-        options?: LinkifyIt.Options
+        options?: LinkifyIt.Options,
     ): LinkifyIt.LinkifyIt;
-    new (
+    new(
         schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options,
-        options?: LinkifyIt.Options
+        options?: LinkifyIt.Options,
     ): LinkifyIt.LinkifyIt;
 };
 
