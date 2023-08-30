@@ -36,8 +36,8 @@ generator.on("error", error => {
 });
 // @ts-expect-error
 generator.on("bar", () => {});
-// @ts-expect-error
 generator.on("add", error => {
+    // @ts-expect-error
     error.message;
 });
 
