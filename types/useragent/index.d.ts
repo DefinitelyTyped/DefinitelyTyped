@@ -173,13 +173,13 @@ declare namespace useragent {
         obj:
             | string
             | {
-                  family: string;
-                  major: string;
-                  minor: string;
-                  patch: string;
-                  device?: string | undefined;
-                  os?: string | undefined;
-              },
+                family: string;
+                major: string;
+                minor: string;
+                patch: string;
+                device?: string | undefined;
+                os?: string | undefined;
+            },
     ): Agent;
 
     /**

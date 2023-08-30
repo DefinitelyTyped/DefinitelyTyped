@@ -1,4 +1,4 @@
-import * as URI from '../';
+import * as URI from "../";
 
 export = URITemplate;
 export as namespace URITemplate;
@@ -35,7 +35,7 @@ declare namespace URITemplate {
     interface URITemplateStatic {
         (template: string): URITemplate;
 
-        new (template: string): URITemplate;
+        new(template: string): URITemplate;
     }
 
     type URITemplateValue = string | ReadonlyArray<string> | { [key: string]: string } | undefined | null;
