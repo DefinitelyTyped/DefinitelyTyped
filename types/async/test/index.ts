@@ -438,9 +438,10 @@ const cargo = async.cargo<{ name: string }>((tasks, callback) => {
     callback();
 }, 2);
 cargo.drain(); // $ExpectType Promise<void>
+// $ExpectType void
 cargo.drain(() => {
     console.log("done processing queue");
-}); // $ExpectType void
+});
 
 // add some items
 cargo.push({ name: "foo" }, (err: Error) => {
@@ -574,34 +575,42 @@ async.retry<number>(async () => 2); // $ExpectType Promise<number>
 const xx: Promise<number> = async.retry(cb => {
     cb(null, 2);
 });
+// $ExpectType Promise<number>
 async.retry<number>(cb => {
     cb(null, 2);
-}); // $ExpectType Promise<number>
+});
 
 async.retry(1, async () => 2); // $ExpectType Promise<number>
 async.retry<number>(1, async () => 2); // $ExpectType Promise<number>
 
+// $ExpectType Promise<number>
 async.retry<number>(1, cb => {
     cb(null, 2);
-}); // $ExpectType Promise<number>
+});
+// $ExpectType Promise<number>
 async.retry<number>({ times: 3, interval: 200 }, cb => {
     cb(null, 2);
-}); // $ExpectType Promise<number>
+});
+// $ExpectType void
 async.retry<number>(cb => {
     cb(null, 2);
-}, (err: Error, r: number) => {}); // $ExpectType void
+}, (err: Error, r: number) => {});
+// $ExpectType void
 async.retry<number>(1, cb => {
     cb(null, 2);
-}, (err: Error, r: number) => {}); // $ExpectType void
+}, (err: Error, r: number) => {});
+// $ExpectType void
 async.retry<number>({ times: 3, interval: 200 }, cb => {
     cb(null, 2);
-}, (err: Error, r: number) => {}); // $ExpectType void
+}, (err: Error, r: number) => {});
+// $ExpectType void
 async.retry<number>({ interval: rc => 200 * rc }, cb => {
     cb(null, 2);
-}, (err: Error, r: number) => {}); // $ExpectType void
+}, (err: Error, r: number) => {});
+// $ExpectType Promise<number>
 async.retry<number, string>({ errorFilter: (x: string) => true }, cb => {
     cb("oh no");
-}); // $ExpectType Promise<number>
+});
 
 async.retryable(
     (callback) => {},
