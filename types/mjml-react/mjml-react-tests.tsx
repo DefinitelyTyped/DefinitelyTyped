@@ -173,10 +173,9 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
     const childError: React.ReactNode = (
         <MjmlPreview>
+            {/* @ts-expect-error */}
             <p>""</p>
         </MjmlPreview>
     );
@@ -187,10 +186,9 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
     const childError: React.ReactNode = (
         <MjmlStyle>
+        {/* @ts-expect-error */}
             <p>""</p>
         </MjmlStyle>
     );
@@ -201,10 +199,9 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
     const childError: React.ReactNode = (
         <MjmlStyle>
+            {/* @ts-expect-error */}
             <p>""</p>
         </MjmlStyle>
     );
