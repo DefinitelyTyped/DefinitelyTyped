@@ -89,29 +89,6 @@ for (const typeName of typeNames) {
         console.log(`\t${tslintFilePath} has remaining rules.`);
     }
 
-    if (
-        emptyExcept(tslintData, {
-            extends: '@definitelytyped/dtslint/dt.json',
-        })
-    ) {
-        console.log(`\t${tslintFilePath} is now equivalent to empty; deleting it.`);
-        fs.rmSync(tslintFilePath);
-    } else {
-        console.log(`\t${tslintFilePath} still contains data; rewriting it.`);
-        writeFileFormatted(tslintFilePath, tslintData);
-    }
-}
-
-/**
- * @param {Record<string, unknown>} data
- * @param {Record<string, unknown>} ignore
- */
-function emptyExcept(data, ignore) {
-    for (const key in data) {
-        if (!(key in ignore) || ignore[key] !== data[key]) {
-            return false;
-        }
-    }
-
-    return true;
+    writeFileFormatted(tslintFilePath, tslintData);
+    console.log(`\t(Re-)wrote ${tslintFilePath}.`);
 }
