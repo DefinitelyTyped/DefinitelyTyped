@@ -766,6 +766,54 @@ export interface BrowserContext {
 }
 
 /**
+ * {@link ConsoleMessage} objects are dispatched by page via the
+ * `page.on('console')` event. For each console message logged in the page,
+ * k6 browser delivers it to the registered handlers.
+ *
+ * ```js
+ * // Listen for all console log messages in the browser page and output them
+ * // in the test logs
+ * page.on('console', msg => console.log(msg.text()));
+ *
+ * // Listen for all console events and handle errors
+ * page.on('console', msg => {
+ *   if (msg.type() === 'error')
+ *     console.log(`Error text: "${msg.text()}"`);
+ * });
+ *
+ * // Deconstruct console log arguments
+ * await msg.args()[0].jsonValue(); // hello
+ * await msg.args()[1].jsonValue(); // 42
+ * ```
+ *
+ */
+export interface ConsoleMessage {
+    /**
+     * List of arguments passed to a `console` function call. See also
+     * `page.on('console')`.
+     */
+    args(): JSHandle[];
+
+    /**
+     * The page that produced this console message, if any.
+     */
+    page(): null|Page;
+
+    /**
+     * The text of the console message.
+     */
+    text(): string;
+
+    /**
+     * One of the following values: `'log'`, `'debug'`, `'info'`, `'error'`,
+     * `'warning'`, `'dir'`, `'dirxml'`, `'table'`, `'trace'`, `'clear'`,
+     * `'startGroup'`, `'startGroupCollapsed'`, `'endGroup'`, `'assert'`,
+     * `'profile'`, `'profileEnd'`, `'count'`, `'timeEnd'`.
+     */
+    type(): string;
+}
+
+/**
  * ElementHandle represents an in-page DOM element.
  */
 export interface ElementHandle extends JSHandle {
