@@ -5,7 +5,6 @@
         "interface-name": false,
         "member-access": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "object-literal-key-quotes": false,
         "strict-export-declare-modifiers": false,
         "whitespace": false

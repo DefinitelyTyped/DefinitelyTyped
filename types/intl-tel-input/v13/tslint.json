@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "no-const-enum": false,
-        "no-padding": false,
         "no-unnecessary-qualifier": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

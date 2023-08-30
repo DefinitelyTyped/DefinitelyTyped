@@ -12,7 +12,6 @@
         "no-internal-module": false,
         "no-mergeable-namespace": false,
         "no-namespace": false,
-        "no-padding": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

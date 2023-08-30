@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-duplicate-imports": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "semicolon": false
     }

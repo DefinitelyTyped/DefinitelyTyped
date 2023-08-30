@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

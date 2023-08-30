@@ -19,7 +19,6 @@
         "no-irregular-whitespace": false,
         "no-trailing-whitespace": false,
         "typedef-whitespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-consecutive-blank-lines": false,
         "semicolon": false,

@@ -4,7 +4,6 @@
         "comment-format": false,
         "no-duplicate-variable": false,
         "no-misused-new": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "semicolon": false,

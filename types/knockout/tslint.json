@@ -14,7 +14,6 @@
         "no-empty-interface": false,
         "no-eval": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,

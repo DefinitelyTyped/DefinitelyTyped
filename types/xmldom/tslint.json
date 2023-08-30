@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "one-line": false,

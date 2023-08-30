@@ -4,7 +4,6 @@
         "ban-types": false,
         "comment-format": false,
         "jsdoc-format": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

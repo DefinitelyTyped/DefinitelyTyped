@@ -8,7 +8,6 @@
         "member-access": false,
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "one-line": false,

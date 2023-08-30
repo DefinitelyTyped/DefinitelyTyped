@@ -6,7 +6,6 @@
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "no-var-requires": false,

@@ -4,7 +4,6 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "no-internal-module": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "semicolon": false,

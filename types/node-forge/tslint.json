@@ -7,7 +7,6 @@
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,

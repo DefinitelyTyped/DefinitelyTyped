@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "member-access": false,
-        "no-padding": false,
         "no-reference-import": false,
         "semicolon": false
     }

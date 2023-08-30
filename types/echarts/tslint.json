@@ -7,7 +7,6 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "no-irregular-whitespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "semicolon": false,

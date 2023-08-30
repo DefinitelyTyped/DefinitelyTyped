@@ -11,7 +11,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-imports": false,
         "no-namespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

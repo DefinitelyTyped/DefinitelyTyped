@@ -5,7 +5,6 @@
         "comment-format": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-void-expression": false,
         "only-arrow-functions": false,
         "semicolon": false,

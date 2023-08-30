@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,

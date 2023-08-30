@@ -7,7 +7,6 @@
         "comment-format": false,
         "interface-over-type-literal": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "one-line": false,

@@ -6,7 +6,6 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "npm-naming": false,

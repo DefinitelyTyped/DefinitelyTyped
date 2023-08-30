@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-padding": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "semicolon": false,

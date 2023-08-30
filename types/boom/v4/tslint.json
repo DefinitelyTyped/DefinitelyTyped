@@ -3,7 +3,6 @@
     "rules": {
         "max-line-length": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false

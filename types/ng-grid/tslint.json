@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,

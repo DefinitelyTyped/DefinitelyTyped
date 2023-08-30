@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "one-line": false,

@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "no-padding": false,
         "object-literal-shorthand": false,
         "prefer-template": false,
         "semicolon": false,

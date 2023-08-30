@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "interface-name": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

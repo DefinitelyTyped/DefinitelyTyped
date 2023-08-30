@@ -4,7 +4,6 @@
         "array-type": false,
         "comment-format": false,
         "jsdoc-format": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "one-line": false,

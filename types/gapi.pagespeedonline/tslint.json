@@ -4,7 +4,6 @@
         "array-type": false,
         "comment-format": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "npm-naming": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false

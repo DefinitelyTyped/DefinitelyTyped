@@ -11,7 +11,6 @@
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,

@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,

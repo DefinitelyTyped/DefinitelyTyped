@@ -4,7 +4,6 @@
         "comment-format": false,
         "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

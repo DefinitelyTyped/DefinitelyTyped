@@ -3,7 +3,6 @@
     "rules": {
         "arrow-return-shorthand": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-internal-module": false,
         "no-namespace": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-var-keyword": false,
         "prefer-const": false,

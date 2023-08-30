@@ -5,7 +5,6 @@
         "array-type": false,
         "ban-types": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-var-keyword": false,
         "one-line": false,

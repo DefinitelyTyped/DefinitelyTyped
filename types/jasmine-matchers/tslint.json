@@ -4,7 +4,6 @@
         "ban-types": false,
         "comment-format": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

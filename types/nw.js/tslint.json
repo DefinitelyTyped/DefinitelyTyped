@@ -7,7 +7,6 @@
         "max-line-length": false,
         "no-duplicate-variable": false,
         "no-internal-module": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "no-void-expression": false,

@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-irregular-whitespace": false,
         "no-mergeable-namespace": false,
-        "no-padding": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
