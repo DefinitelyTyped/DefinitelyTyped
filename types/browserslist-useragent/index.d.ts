@@ -22,7 +22,7 @@ export interface BrowserslistUseragentOptions {
 
 export function matchesUA(
     uaString: string,
-    opts?: BrowserslistUseragentOptions
+    opts?: BrowserslistUseragentOptions,
 ): boolean;
 export function resolveUserAgent(uaString: string): ResolvedUserAgent;
 export function normalizeQuery(query: string): string;

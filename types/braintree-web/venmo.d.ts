@@ -1,5 +1,5 @@
-import { callback, BraintreeError } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { BraintreeError, callback } from "./core";
 
 export interface VenmoAccountDetails {
     username: string;

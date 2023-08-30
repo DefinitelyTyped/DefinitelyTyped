@@ -27,7 +27,7 @@ SOFTWARE.
 /// <reference path="./bmapgl.control.d.ts" />
 /// <reference path="./bmapgl.overlay.d.ts" />
 declare namespace BMapGL {
-    type DrawingType = 'marker' | 'polyline' | 'polygon' | 'rectangle' | 'circle';
+    type DrawingType = "marker" | "polyline" | "polygon" | "rectangle" | "circle";
     interface DrawingManagerOptions {
         isOpen?: boolean | undefined;
         drawingMode?: DrawingType | undefined;
@@ -64,11 +64,11 @@ declare namespace BMapGL {
     interface DistanceToolOptions {
         tips?: string | undefined;
         followText?: string | undefined;
-        unit?: 'metric' | 'us' | undefined;
+        unit?: "metric" | "us" | undefined;
         lineColor?: string | undefined;
         lineStroke?: number | undefined;
         opacity?: number | undefined;
-        lineStyle?: 'solid' | 'dashed' | 'dotted' | undefined;
+        lineStyle?: "solid" | "dashed" | "dotted" | undefined;
         cursor?: string | undefined;
         secIcon?: Icon | undefined;
         closeIcon?: Icon | undefined;

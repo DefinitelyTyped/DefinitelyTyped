@@ -23,7 +23,7 @@ interface MultiSelectOptionElement {
     selected?: boolean | undefined;
     disabled?: boolean | undefined;
     children?: MultiSelectOptionElement[] | undefined;
-    attributes?: {[name: string]: any} | undefined;
+    attributes?: { [name: string]: any } | undefined;
 }
 
 interface MultiSelectOptions {
@@ -279,7 +279,7 @@ interface MultiSelectOptions {
     /**
      * The options are filtered based on their text. This behavior can be changed to use the value of the options or both the text and the value.
      */
-    filterBehavior?: 'text' | 'value' | 'both' | undefined;
+    filterBehavior?: "text" | "value" | "both" | undefined;
 
     /**
      * The placeholder used for the filter input.
@@ -299,15 +299,15 @@ interface MultiSelectOptions {
 interface JQuery {
     multiselect(options?: MultiSelectOptions): JQuery;
 
-    multiselect(method: 'destroy' | 'refresh' | 'rebuild' | 'updateButtonText'| 'disable' | 'enable'): JQuery;
+    multiselect(method: "destroy" | "refresh" | "rebuild" | "updateButtonText" | "disable" | "enable"): JQuery;
 
-    multiselect(method: 'select' | 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
+    multiselect(method: "select" | "deselect", value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
-    multiselect(method: 'selectAll' | 'deselectAll', justVisible?: boolean): JQuery;
+    multiselect(method: "selectAll" | "deselectAll", justVisible?: boolean): JQuery;
 
-    multiselect(method: 'setOptions', options: MultiSelectOptions): JQuery;
+    multiselect(method: "setOptions", options: MultiSelectOptions): JQuery;
 
-    multiselect(method: 'dataprovider', data: MultiSelectOptionElement[]): JQuery;
+    multiselect(method: "dataprovider", data: MultiSelectOptionElement[]): JQuery;
 
-    multiselect(method: 'setAllSelectedText', value: string): JQuery;
+    multiselect(method: "setAllSelectedText", value: string): JQuery;
 }
