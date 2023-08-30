@@ -3,8 +3,8 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Transform } from 'stream';
-import { Quad_Graph, DataFactory, BaseQuad, Quad, Stream } from 'rdf-js';
+import { BaseQuad, DataFactory, Quad, Quad_Graph, Stream } from "rdf-js";
+import { Transform } from "stream";
 
 declare namespace TripleToQuadTransform {
     interface TripleToQuadTransformOptions {

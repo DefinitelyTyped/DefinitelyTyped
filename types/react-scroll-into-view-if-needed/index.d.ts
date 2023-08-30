@@ -6,11 +6,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
-import * as ScrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+import * as React from "react";
+import * as ScrollIntoViewIfNeeded from "scroll-into-view-if-needed";
 
-export interface ReactScrollIntoViewIfNeededProps
-    extends React.HTMLProps<HTMLElement> {
+export interface ReactScrollIntoViewIfNeededProps extends React.HTMLProps<HTMLElement> {
     options?: ScrollIntoViewIfNeeded.Options | undefined;
     active?: boolean | undefined;
     elementType?: keyof JSX.IntrinsicElements | undefined;

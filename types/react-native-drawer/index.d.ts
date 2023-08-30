@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { ViewStyle, ScaledSize } from 'react-native';
+import * as React from "react";
+import { ScaledSize, ViewStyle } from "react-native";
 
 export interface NestedViewStyles {
     main?: ViewStyle | undefined;
@@ -19,37 +19,38 @@ export interface DrawerStyles extends NestedViewStyles {
     drawer?: ViewStyle | undefined;
 }
 
-export type TweenFunctions = 'linear' |
-    'easeInQuad' |
-    'easeOutQuad' |
-    'easeInOutQuad' |
-    'easeInCubic' |
-    'easeOutCubic' |
-    'easeInOutCubic' |
-    'easeInQuart' |
-    'easeOutQuart' |
-    'easeInOutQuart' |
-    'easeInQuint' |
-    'easeOutQuint' |
-    'easeInOutQuint' |
-    'easeInSine' |
-    'easeOutSine' |
-    'easeInOutSine' |
-    'easeInExpo' |
-    'easeOutExpo' |
-    'easeInOutExpo' |
-    'easeInCirc' |
-    'easeOutCirc' |
-    'easeInOutCirc' |
-    'easeInElastic' |
-    'easeOutElastic' |
-    'easeInOutElastic' |
-    'easeInBack' |
-    'easeOutBack' |
-    'easeInOutBack' |
-    'easeInBounce' |
-    'easeOutBounce' |
-    'easeInOutBounce';
+export type TweenFunctions =
+    | "linear"
+    | "easeInQuad"
+    | "easeOutQuad"
+    | "easeInOutQuad"
+    | "easeInCubic"
+    | "easeOutCubic"
+    | "easeInOutCubic"
+    | "easeInQuart"
+    | "easeOutQuart"
+    | "easeInOutQuart"
+    | "easeInQuint"
+    | "easeOutQuint"
+    | "easeInOutQuint"
+    | "easeInSine"
+    | "easeOutSine"
+    | "easeInOutSine"
+    | "easeInExpo"
+    | "easeOutExpo"
+    | "easeInOutExpo"
+    | "easeInCirc"
+    | "easeOutCirc"
+    | "easeInOutCirc"
+    | "easeInElastic"
+    | "easeOutElastic"
+    | "easeInOutElastic"
+    | "easeInBack"
+    | "easeOutBack"
+    | "easeInOutBack"
+    | "easeInBounce"
+    | "easeOutBounce"
+    | "easeInOutBounce";
 
 export interface DrawerProperties {
     // Important
@@ -63,7 +64,7 @@ export interface DrawerProperties {
     /**
      * Type of drawer
      */
-    type?: 'displace' | 'overlay' | 'static' | undefined;
+    type?: "displace" | "overlay" | "static" | undefined;
     /**
      * If true will trigger drawer open, if false will trigger close.
      */
@@ -131,7 +132,7 @@ export interface DrawerProperties {
      * If true, will capture all gestures inside of the pan mask. If 'open' will
      * only capture when drawer is open
      */
-    captureGestures?: boolean | 'open' | 'closed' | undefined;
+    captureGestures?: boolean | "open" | "closed" | undefined;
     /**
      * Toggle drawer when double tap occurs within pan mask?
      */
@@ -179,7 +180,7 @@ export interface DrawerProperties {
     /**
      * which side the drawer should be on.
      */
-    side?: 'left' | 'right' | 'top' | 'bottom' | undefined;
+    side?: "left" | "right" | "top" | "bottom" | undefined;
     /**
      * if true will run InteractionManager for open/close animations.
      */

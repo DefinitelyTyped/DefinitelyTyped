@@ -20,8 +20,8 @@ export = Reveal;
  * @see {@link https://revealjs.com/api/}
  */
 declare const Reveal: {
-    new (options?: Reveal.Options): Reveal.Api;
-    new (revealElement: Element, options: Reveal.Options): Reveal.Api;
+    new(options?: Reveal.Options): Reveal.Api;
+    new(revealElement: Element, options: Reveal.Options): Reveal.Api;
 } & Reveal.Api;
 
 declare namespace Reveal {
@@ -228,7 +228,7 @@ declare namespace Reveal {
          * @param listener
          * @param useCapture
          */
-        on: HTMLElement['addEventListener'];
+        on: HTMLElement["addEventListener"];
 
         /**
          * Unsubscribes from a reveal.js event.
@@ -237,7 +237,7 @@ declare namespace Reveal {
          * @param listener
          * @param useCapture
          */
-        off: HTMLElement['removeEventListener'];
+        off: HTMLElement["removeEventListener"];
 
         /**
          * Legacy event binding methods left in for backwards compatibility
@@ -245,12 +245,11 @@ declare namespace Reveal {
          * like slidechanged.
          * See: {@link on}
          *
-         *
          * @param type
          * @param listener
          * @param useCapture
          */
-        addEventListener: HTMLElement['addEventListener'];
+        addEventListener: HTMLElement["addEventListener"];
 
         /**
          * Legacy event binding methods left in for backwards compatibility
@@ -261,7 +260,7 @@ declare namespace Reveal {
          * @param listener
          * @param useCapture
          */
-        removeEventListener: HTMLElement['removeEventListener'];
+        removeEventListener: HTMLElement["removeEventListener"];
 
         /**
          * Applies JavaScript-controlled layout rules to the
@@ -846,7 +845,7 @@ declare namespace Reveal {
          *
          * @defaultValue `bottom-right`
          */
-        controlsLayout?: 'edges' | 'bottom-right';
+        controlsLayout?: "edges" | "bottom-right";
 
         /**
          * Visibility rule for backwards navigation arrows; "faded", "hidden"
@@ -854,7 +853,7 @@ declare namespace Reveal {
          *
          * @defaultValue `faded`
          */
-        controlsBackArrows?: 'faded' | 'hidden' | 'visible';
+        controlsBackArrows?: "faded" | "hidden" | "visible";
 
         /**
          * Display a presentation progress bar
@@ -879,7 +878,7 @@ declare namespace Reveal {
          *
          * @defaultValue `false`
          */
-        slideNumber?: boolean | 'h.v' | 'h/v' | 'c' | 'c/t' | ((...args: any) => [string] | [string, string, string]);
+        slideNumber?: boolean | "h.v" | "h/v" | "c" | "c/t" | ((...args: any) => [string] | [string, string, string]);
 
         /**
          * Can be used to limit the contexts in which the slide number appears
@@ -889,7 +888,7 @@ declare namespace Reveal {
          *
          * @defaultValue `all`
          */
-        showSlideNumber?: 'all' | 'print' | 'speaker';
+        showSlideNumber?: "all" | "print" | "speaker";
 
         /**
          * Use 1 based indexing for # links to match slide number (default is zero
@@ -936,7 +935,7 @@ declare namespace Reveal {
          *
          * @defaultValue `null`
          */
-        keyboardCondition?: 'focused' | null;
+        keyboardCondition?: "focused" | null;
 
         /**
          * Disables the default reveal.js slide layout (scaling and centering)
@@ -1009,7 +1008,7 @@ declare namespace Reveal {
          *
          * @defaultValue `default`
          */
-        navigationMode?: 'default' | 'linear' | 'grid';
+        navigationMode?: "default" | "linear" | "grid";
 
         /**
          * Randomizes the order of slides each time the presentation loads
@@ -1142,18 +1141,18 @@ declare namespace Reveal {
          * 'border-color', 'border-radius', 'outline', 'outline-offset']`
          */
         autoAnimateStyles?: Array<
-            | 'opacity'
-            | 'color'
-            | 'background-color'
-            | 'padding'
-            | 'font-size'
-            | 'line-height'
-            | 'letter-spacing'
-            | 'border-width'
-            | 'border-color'
-            | 'border-radius'
-            | 'outline'
-            | 'outline-offset'
+            | "opacity"
+            | "color"
+            | "background-color"
+            | "padding"
+            | "font-size"
+            | "line-height"
+            | "letter-spacing"
+            | "border-width"
+            | "border-color"
+            | "border-radius"
+            | "outline"
+            | "outline-offset"
         >;
 
         /**
@@ -1233,21 +1232,21 @@ declare namespace Reveal {
          *
          * @defaultValue `slide`
          */
-        transition?: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom';
+        transition?: "none" | "fade" | "slide" | "convex" | "concave" | "zoom";
 
         /**
          * Transition speed
          *
          * @defaultValue `default`
          */
-        transitionSpeed?: 'default' | 'fast' | 'slow';
+        transitionSpeed?: "default" | "fast" | "slow";
 
         /**
          * Transition style for full page slide backgrounds
          *
          * @defaultValue `fade`
          */
-        backgroundTransition?: 'none' | 'fade' | 'slide' | 'convex' | 'concave' | 'zoom';
+        backgroundTransition?: "none" | "fade" | "slide" | "convex" | "concave" | "zoom";
 
         // background
         // https://revealjs.com/backgrounds/#parallax-background
@@ -1277,7 +1276,7 @@ declare namespace Reveal {
          *
          * @defaultValue ``
          */
-        parallaxBackgroundRepeat?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat' | 'initial' | 'inherit' | '';
+        parallaxBackgroundRepeat?: "repeat" | "repeat-x" | "repeat-y" | "no-repeat" | "initial" | "inherit" | "";
 
         /**
          * Parallax background position

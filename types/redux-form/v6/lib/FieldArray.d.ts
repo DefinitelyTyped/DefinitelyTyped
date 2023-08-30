@@ -104,7 +104,7 @@ interface FieldsProps<T> {
     /**
      * true if field is field array
      */
-    _isFieldArray: boolean
+    _isFieldArray: boolean;
     /**
      * A method to iterate over each value of the array.
      */
@@ -159,7 +159,7 @@ interface FieldsProps<T> {
      * TODO: Need to figure out what does this do, its taken
      * directly form redux-form repo and flow types
      */
-    reduce(callback: Function): any
+    reduce(callback: Function): any;
 
     /**
      * Removes an item from the array at an arbitrary index.
@@ -169,7 +169,7 @@ interface FieldsProps<T> {
     /**
      * It will remove all fields in field array
      */
-    removeAll(): void
+    removeAll(): void;
 
     /**
      * Removes an item from beginning of the array. Returns the item removed.
@@ -180,7 +180,7 @@ interface FieldsProps<T> {
      * TODO: Need to figure out what does this do, its taken
      * directly form redux-form repo and flow types
      */
-    some(callback: Function): void
+    some(callback: Function): void;
     /**
      * Swaps two items in the array at the given indexes.
      */
@@ -231,7 +231,7 @@ interface FieldArrayMetaProps {
 
     /**
      * true if some field value in the field array fails validation on submit
-    */
+     */
     submitFailed: boolean;
     /**
      * true if any of the fields have been touched.

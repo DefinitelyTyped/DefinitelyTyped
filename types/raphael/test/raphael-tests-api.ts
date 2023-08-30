@@ -3,8 +3,8 @@
 
 import R, { RaphaelStatic } from "raphael";
 
-interface SvgRaphaelStatic extends RaphaelStatic<"SVG"> { }
-interface VmlRaphaelStatic extends RaphaelStatic<"VML"> { }
+interface SvgRaphaelStatic extends RaphaelStatic<"SVG"> {}
+interface VmlRaphaelStatic extends RaphaelStatic<"VML"> {}
 
 function isUsesSvg(raphael: RaphaelStatic<any>): raphael is SvgRaphaelStatic {
     return raphael.type === "SVG";
@@ -14,7 +14,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     return raphael.type === "VML";
 }
 
-() => {
+(() => {
     function assertNever(x: never): never {
         return x;
     }
@@ -66,14 +66,14 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             y: 10,
             width: 25,
             height: 25,
-            stroke: "#f00"
+            stroke: "#f00",
         },
         {
             type: "text",
             x: 30,
             y: 40,
-            text: "Dump"
-        }
+            text: "Dump",
+        },
     ]);
 
     // $ExpectType number
@@ -84,7 +84,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     // $ExpectType RaphaelAnimation
     R.animation({ cursor: "" }, 0, "ease-in");
     // $ExpectType RaphaelAnimation
-    R.animation({ cursor: "", }, 0, "custom", function() {
+    R.animation({ cursor: "" }, 0, "custom", function() {
         this.clone();
     });
 
@@ -107,9 +107,9 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         return this.attr("fill", R.rgb(r, g, b));
     };
     // @ts-expect-error
-    R.el.orange = () => { };
+    R.el.orange = () => {};
     // @ts-expect-error
-    R.el.colored = () => { };
+    R.el.colored = () => {};
     // $ExpectType void
     circle.red();
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
@@ -146,10 +146,12 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         return this.path("Z");
     };
     // @ts-expect-error
-    R.fn.arrow.foo = () => { };
+    R.fn.arrow.foo = () => {};
     R.fn.myStuff = {
-        arrow(flag: boolean) { return flag ? 1 : 0; },
-        star() { },
+        arrow(flag: boolean) {
+            return flag ? 1 : 0;
+        },
+        star() {},
     };
     R.fn.firstLevel = {
         secondLevel: {
@@ -158,15 +160,17 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     };
     R.fn.myStuff = {
         // @ts-expect-error
-        arrow(flag: boolean) { return ""; },
-        star() { },
+        arrow(flag: boolean) {
+            return "";
+        },
+        star() {},
     };
     // @ts-expect-error
-    R.fn.myStuff = () => { };
+    R.fn.myStuff = () => {};
     // @ts-expect-error
-    R.fn.firstLevel = () => { };
+    R.fn.firstLevel = () => {};
     // @ts-expect-error
-    R.fn.firstLevel.secondLevel = () => { };
+    R.fn.firstLevel.secondLevel = () => {};
     // $ExpectType RaphaelPath<"SVG" | "VML">
     path.attr({ fill: "#f00" });
     // @ts-expect-error
@@ -188,7 +192,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         dim: {
             width: 40,
             height: 50,
-            "negative width": -40
+            "negative width": -40,
         },
     }));
 
@@ -351,7 +355,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         return this;
     };
     // @ts-expect-error
-    R.st.yellow = () => { };
+    R.st.yellow = () => {};
     // @ts-expect-error
     R.st.colorized = () => 0;
     set.green();
@@ -367,9 +371,12 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     R.svg;
 
     switch (R.type) {
-        case "SVG": break;
-        case "VML": break;
-        default: assertNever(R.type);
+        case "SVG":
+            break;
+        case "VML":
+            break;
+        default:
+            assertNever(R.type);
     }
 
     // $ExpectType boolean
@@ -513,7 +520,9 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.animate({ cx: 0 }, 0, "back-in");
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
-    circle.animate({ cx: 0 }, 0, "back-in", function() { this.hide(); });
+    circle.animate({ cx: 0 }, 0, "back-in", function() {
+        this.hide();
+    });
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.animateWith(circle, animation, animation);
@@ -522,7 +531,9 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.animateWith(circle, animation, { cx: 0 }, 0, "back-in");
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
-    circle.animateWith(circle, animation, { cx: 0 }, 0, "back-in", function() { this.hide(); });
+    circle.animateWith(circle, animation, { cx: 0 }, 0, "back-in", function() {
+        this.hide();
+    });
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.attr("opacity", 0);
@@ -629,7 +640,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             this;
             // $ExpectType DragEvent
             event;
-        }
+        },
     );
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.drag(
@@ -645,7 +656,9 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             // $ExpectType string
             this;
         },
-        true, 0, ""
+        true,
+        0,
+        "",
     );
     // $ExpectType RaphaelPath<"SVG" | "VML">
     path.drag(
@@ -660,7 +673,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType RaphaelPath<"SVG" | "VML">
             this;
-        }
+        },
     );
     // $ExpectType RaphaelSet<"SVG" | "VML">
     set.drag(
@@ -675,7 +688,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGElement>
             this;
-        }
+        },
     );
 
     // $ExpectType number
@@ -738,7 +751,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             this;
             // $ExpectType MouseEvent
             event;
-        }
+        },
     );
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.hover(
@@ -750,7 +763,8 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             // $ExpectType number
             this;
         },
-        false, 0
+        false,
+        0,
     );
     // $ExpectType RaphaelPath<"SVG" | "VML">
     path.hover(
@@ -761,7 +775,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType RaphaelPath<"SVG" | "VML">
             this;
-        }
+        },
     );
     // $ExpectType RaphaelSet<"SVG" | "VML">
     set.hover(
@@ -772,7 +786,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGElement>
             this;
-        }
+        },
     );
 
     // $ExpectType number
@@ -1117,7 +1131,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
             this;
             // $ExpectType MouseEvent
             event;
-        }
+        },
     );
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
     circle.unhover(
@@ -1128,7 +1142,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function(this: number) {
             // $ExpectType number
             this;
-        }
+        },
     );
     // $ExpectType RaphaelPath<"SVG" | "VML">
     path.unhover(
@@ -1139,7 +1153,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType any
             this;
-        }
+        },
     );
     // $ExpectType RaphaelSet<"SVG" | "VML">
     set.unhover(
@@ -1150,7 +1164,7 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         function() {
             // $ExpectType any
             this;
-        }
+        },
     );
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
@@ -1348,9 +1362,13 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     set.exclude(circle);
 
     // $ExpectType RaphaelSet<"SVG" | "VML">
-    set.forEach(el => { el.hide(); });
+    set.forEach(el => {
+        el.hide();
+    });
     // $ExpectType RaphaelSet<"SVG" | "VML">
-    set.forEach(function() { this.toFixed(); }, 0);
+    set.forEach(function() {
+        this.toFixed();
+    }, 0);
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGElement> | undefined
     set.pop();
@@ -1475,4 +1493,4 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
         // $ExpectType "VML"
         Vml.type;
     }
-};
+});

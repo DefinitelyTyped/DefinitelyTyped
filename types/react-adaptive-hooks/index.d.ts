@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-export * from './hardware-concurrency';
-export * from './media-capabilities';
-export * from './memory';
-export * from './network';
-export * from './save-data';
+export * from "./hardware-concurrency";
+export * from "./media-capabilities";
+export * from "./memory";
+export * from "./network";
+export * from "./save-data";

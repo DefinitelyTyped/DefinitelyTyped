@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { View, Text, TabBarIOS, PlatformColor, Platform } from 'react-native';
-import { createIconSet } from 'react-native-vector-icons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
-import FontAwesome6ProIcon from 'react-native-vector-icons/FontAwesome6Pro';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import * as React from "react";
+import { Platform, PlatformColor, TabBarIOS, Text, View } from "react-native";
+import { createIconSet } from "react-native-vector-icons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import FontAwesome5ProIcon from "react-native-vector-icons/FontAwesome5Pro";
+import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
+import FontAwesome6ProIcon from "react-native-vector-icons/FontAwesome6Pro";
+import Fontisto from "react-native-vector-icons/Fontisto";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
 const glyphMap = {
     custom: 58918,
 };
 
-const CustomIcon = createIconSet(glyphMap, 'FontCustom', 'FontCustom.ttf');
+const CustomIcon = createIconSet(glyphMap, "FontCustom", "FontCustom.ttf");
 
 const CustomIconButton = CustomIcon.Button;
 const CustomIconTabBarItem = CustomIcon.TabBarItem;
@@ -25,7 +25,7 @@ const CustomIcongetImageSourceSync = CustomIcon.getImageSourceSync;
 
 class Example extends React.Component {
     handleButton() {
-        console.log('You pressed me');
+        console.log("You pressed me");
     }
 
     render() {
@@ -44,7 +44,7 @@ class Example extends React.Component {
 
                 {/* Icon button  */}
                 <FontAwesomeIcon.Button backgroundColor="#3b5998" name="facebook" onPress={() => this.handleButton()}>
-                    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>Login with Facebook</Text>
+                    <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Login with Facebook</Text>
                 </FontAwesomeIcon.Button>
 
                 {/* FA5 Icon button with solid  */}
@@ -54,7 +54,7 @@ class Example extends React.Component {
                     onPress={() => this.handleButton()}
                     solid
                 >
-                    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>Login with Facebook</Text>
+                    <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Login with Facebook</Text>
                 </FontAwesome5Icon.Button>
 
                 {/* FA6 Icon button with sharpSolid  */}
@@ -64,7 +64,7 @@ class Example extends React.Component {
                     onPress={() => this.handleButton()}
                     sharpSolid
                 >
-                    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>Login with Facebook</Text>
+                    <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Login with Facebook</Text>
                 </FontAwesome6Icon.Button>
             </View>
         );
@@ -73,7 +73,7 @@ class Example extends React.Component {
 
 class TabTest extends React.Component<{}, { selectedTab: string }> {
     state = {
-        selectedTab: 'tab1',
+        selectedTab: "tab1",
     };
 
     render() {
@@ -85,8 +85,8 @@ class TabTest extends React.Component<{}, { selectedTab: string }> {
                     selectedIconName="ios-keypad"
                     selectedIconColor="pink"
                     renderAsOriginal
-                    selected={this.state.selectedTab === 'tab1'}
-                    onPress={() => this.setState({ selectedTab: 'tab1' })}
+                    selected={this.state.selectedTab === "tab1"}
+                    onPress={() => this.setState({ selectedTab: "tab1" })}
                 >
                     <View />
                 </Ionicon.TabBarItemIOS>
@@ -97,8 +97,8 @@ class TabTest extends React.Component<{}, { selectedTab: string }> {
                     selectedIconName="ios-bookmark"
                     selectedIconColor="pink"
                     renderAsOriginal
-                    selected={this.state.selectedTab === 'tab2'}
-                    onPress={() => this.setState({ selectedTab: 'tab2' })}
+                    selected={this.state.selectedTab === "tab2"}
+                    onPress={() => this.setState({ selectedTab: "tab2" })}
                 >
                     <View />
                 </Ionicon.TabBarItemIOS>
@@ -113,7 +113,7 @@ class TestCustomIcon extends React.Component {
     }
 
     handleButton() {
-        console.log('You pressed me');
+        console.log("You pressed me");
     }
 
     render() {
@@ -124,7 +124,7 @@ class TestCustomIcon extends React.Component {
 
                 {/* Custom Icon button  */}
                 <CustomIcon.Button backgroundColor="#3b5998" name="facebook" onPress={() => this.handleButton()}>
-                    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>Hello CustomIcon!</Text>
+                    <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Hello CustomIcon!</Text>
                 </CustomIcon.Button>
             </View>
         );
@@ -133,11 +133,11 @@ class TestCustomIcon extends React.Component {
 
 class OpaqueColorTest extends React.Component {
     handleButton() {
-        console.log('You pressed me');
+        console.log("You pressed me");
     }
 
     render() {
-        const opaqueColor = PlatformColor(Platform.OS === 'ios' ? 'systemBlue' : '?android:attr/colorBackground');
+        const opaqueColor = PlatformColor(Platform.OS === "ios" ? "systemBlue" : "?android:attr/colorBackground");
 
         return (
             <View>
@@ -164,7 +164,7 @@ class OpaqueColorTest extends React.Component {
                     name="facebook"
                     onPress={() => this.handleButton()}
                 >
-                    <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>Login with Facebook</Text>
+                    <Text style={{ fontFamily: "Arial", fontSize: 15 }}>Login with Facebook</Text>
                 </FontAwesomeIcon.Button>
             </View>
         );

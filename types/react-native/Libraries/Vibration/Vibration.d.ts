@@ -22,12 +22,12 @@
  * V(fixed) --wait(1s)--> V(fixed) --wait(2s)--> V(fixed) --wait(3s)--> V(fixed)
  */
 export interface VibrationStatic {
-  vibrate(pattern?: number | number[], repeat?: boolean): void;
+    vibrate(pattern?: number | number[], repeat?: boolean): void;
 
-  /**
-   * Stop vibration
-   */
-  cancel(): void;
+    /**
+     * Stop vibration
+     */
+    cancel(): void;
 }
 
 export const Vibration: VibrationStatic;

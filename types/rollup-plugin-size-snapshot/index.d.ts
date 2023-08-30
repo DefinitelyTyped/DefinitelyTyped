@@ -5,7 +5,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 export interface PluginSizeSnapshotOptions {
     snapshotPath?: string | undefined;

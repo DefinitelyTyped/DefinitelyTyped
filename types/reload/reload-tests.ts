@@ -1,5 +1,5 @@
-import reload = require('reload');
-import express = require('express');
+import reload = require("reload");
+import express = require("express");
 
 const app = express();
 reload(app).then(result => {

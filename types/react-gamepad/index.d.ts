@@ -4,35 +4,35 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export type Button =
-    | 'A'
-    | 'B'
-    | 'X'
-    | 'Y'
-    | 'Start'
-    | 'Back'
-    | 'LT'
-    | 'RT'
-    | 'LB'
-    | 'RB'
-    | 'LS'
-    | 'RS'
-    | 'DPadUp'
-    | 'DPadDown'
-    | 'DPadLeft'
-    | 'DPadRight';
+    | "A"
+    | "B"
+    | "X"
+    | "Y"
+    | "Start"
+    | "Back"
+    | "LT"
+    | "RT"
+    | "LB"
+    | "RB"
+    | "LS"
+    | "RS"
+    | "DPadUp"
+    | "DPadDown"
+    | "DPadLeft"
+    | "DPadRight";
 
-export type Axis = 'LeftStickX' | 'LeftStickY' | 'RightStickX' | 'RightStickY' | 'LeftTrigger' | 'RightTrigger';
+export type Axis = "LeftStickX" | "LeftStickY" | "RightStickX" | "RightStickY" | "LeftTrigger" | "RightTrigger";
 
 export type InvertedAxis =
-    | '-LeftStickX'
-    | '-LeftStickY'
-    | '-RightStickX'
-    | '-RightStickY'
-    | '-LeftTrigger'
-    | '-RightTrigger';
+    | "-LeftStickX"
+    | "-LeftStickY"
+    | "-RightStickX"
+    | "-RightStickY"
+    | "-LeftTrigger"
+    | "-RightTrigger";
 
 export type InvertibleAxis = Axis | InvertedAxis;
 

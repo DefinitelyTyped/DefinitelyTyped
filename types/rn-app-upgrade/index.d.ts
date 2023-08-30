@@ -3,7 +3,7 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EmitterSubscription } from 'react-native';
+import { EmitterSubscription } from "react-native";
 
 /**
  * IOS检测更新 iOS only

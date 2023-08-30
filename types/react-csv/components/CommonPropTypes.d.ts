@@ -8,7 +8,10 @@ export interface LabelKeyObject {
 export type Data = object[];
 export type Headers = LabelKeyObject[] | string[];
 export type SyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>) => boolean | void;
-export type AsyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => void;
+export type AsyncClickHandler = (
+    event: MouseEventHandler<HTMLAnchorElement>,
+    done: (proceed?: boolean) => void,
+) => void;
 
 export interface CommonPropTypes {
     data: string | Data | (() => string | Data);

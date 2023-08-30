@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace PeerDepsExternalPlugin {
     interface PluginPeerDepsExternalOptions {
@@ -17,7 +17,7 @@ declare namespace PeerDepsExternalPlugin {
 }
 
 declare function PeerDepsExternalPlugin(
-    options?: PeerDepsExternalPlugin.PluginPeerDepsExternalOptions
+    options?: PeerDepsExternalPlugin.PluginPeerDepsExternalOptions,
 ): Plugin;
 
 export = PeerDepsExternalPlugin;

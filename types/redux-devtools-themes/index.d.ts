@@ -3,7 +3,7 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Base16Theme } from 'base16';
+import { Base16Theme } from "base16";
 
-export * from 'base16';
+export * from "base16";
 export const nicinabox: Base16Theme;

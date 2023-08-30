@@ -1,96 +1,95 @@
-import type * as React from 'react';
-import {Constructor} from '../../../private/Utilities';
-import {NativeMethods} from '../../../public/ReactNativeTypes';
-import {ColorValue, StyleProp} from '../../StyleSheet/StyleSheet';
-import {ViewStyle} from '../../StyleSheet/StyleSheetTypes';
-import {ViewProps} from '../View/ViewPropTypes';
-import {NativeSyntheticEvent, TargetedEvent} from '../../Types/CoreEventTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { NativeSyntheticEvent, TargetedEvent } from "../../Types/CoreEventTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface SwitchPropsIOS extends ViewProps {
-  /**
-   * Background color when the switch is turned on.
-   *
-   * @deprecated use trackColor instead
-   */
-  onTintColor?: ColorValue | undefined;
+    /**
+     * Background color when the switch is turned on.
+     *
+     * @deprecated use trackColor instead
+     */
+    onTintColor?: ColorValue | undefined;
 
-  /**
-   * Color of the foreground switch grip.
-   *
-   * @deprecated use thumbColor instead
-   */
-  thumbTintColor?: ColorValue | undefined;
+    /**
+     * Color of the foreground switch grip.
+     *
+     * @deprecated use thumbColor instead
+     */
+    thumbTintColor?: ColorValue | undefined;
 
-  /**
-   * Background color when the switch is turned off.
-   *
-   * @deprecated use trackColor instead
-   */
-  tintColor?: ColorValue | undefined;
+    /**
+     * Background color when the switch is turned off.
+     *
+     * @deprecated use trackColor instead
+     */
+    tintColor?: ColorValue | undefined;
 }
 
 export interface SwitchChangeEventData extends TargetedEvent {
-  value: boolean;
+    value: boolean;
 }
 
-export interface SwitchChangeEvent
-  extends NativeSyntheticEvent<SwitchChangeEventData> {}
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
-  /**
-   * Color of the foreground switch grip.
-   */
-  thumbColor?: ColorValue | undefined;
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbColor?: ColorValue | undefined;
 
-  /**
-   * Custom colors for the switch track
-   *
-   * Color when false and color when true
-   */
-  trackColor?:
-    | {
-        false?: ColorValue | null | undefined;
-        true?: ColorValue | null | undefined;
-      }
-    | undefined;
+    /**
+     * Custom colors for the switch track
+     *
+     * Color when false and color when true
+     */
+    trackColor?:
+        | {
+            false?: ColorValue | null | undefined;
+            true?: ColorValue | null | undefined;
+        }
+        | undefined;
 
-  /**
-   * If true the user won't be able to toggle the switch.
-   * Default value is false.
-   */
-  disabled?: boolean | undefined;
+    /**
+     * If true the user won't be able to toggle the switch.
+     * Default value is false.
+     */
+    disabled?: boolean | undefined;
 
-  /**
-   * Invoked with the change event as an argument when the value changes.
-   */
-  onChange?:
-    | ((event: SwitchChangeEvent) => Promise<void> | void)
-    | null
-    | undefined;
+    /**
+     * Invoked with the change event as an argument when the value changes.
+     */
+    onChange?:
+        | ((event: SwitchChangeEvent) => Promise<void> | void)
+        | null
+        | undefined;
 
-  /**
-   * Invoked with the new value when the value changes.
-   */
-  onValueChange?: ((value: boolean) => Promise<void> | void) | null | undefined;
+    /**
+     * Invoked with the new value when the value changes.
+     */
+    onValueChange?: ((value: boolean) => Promise<void> | void) | null | undefined;
 
-  /**
-   * Used to locate this view in end-to-end tests.
-   */
-  testID?: string | undefined;
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string | undefined;
 
-  /**
-   * The value of the switch. If true the switch will be turned on.
-   * Default value is false.
-   */
-  value?: boolean | undefined;
+    /**
+     * The value of the switch. If true the switch will be turned on.
+     * Default value is false.
+     */
+    value?: boolean | undefined;
 
-  /**
-   * On iOS, custom color for the background.
-   * Can be seen when the switch value is false or when the switch is disabled.
-   */
-  ios_backgroundColor?: ColorValue | undefined;
+    /**
+     * On iOS, custom color for the background.
+     * Can be seen when the switch value is false or when the switch is disabled.
+     */
+    ios_backgroundColor?: ColorValue | undefined;
 
-  style?: StyleProp<ViewStyle> | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 /**

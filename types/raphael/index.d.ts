@@ -93,7 +93,7 @@ export type RaphaelTextAnchorType = "start" | "middle" | "end";
  * {@link RaphaelStatic.easing_formulas} object.
  */
 export type RaphaelBuiltinEasingFormula =
-    "linear"
+    | "linear"
     | "<"
     | ">"
     | "<>"
@@ -124,7 +124,7 @@ export type RaphaelCustomEasingFormula = string & {};
  */
 export type RaphaelPathSegment =
     // move to
-    ["M", number, number]
+    | ["M", number, number]
     | ["m", number, number]
     // line to
     | ["L", number, number]
@@ -167,7 +167,7 @@ export type RaphaelPathSegment =
  */
 export type RaphaelTransformSegment =
     // translate
-    ["t", number, number]
+    | ["t", number, number]
     // scale (scale-x, scale-y, origin-x, origin-y)
     | ["s", number, number, number, number]
     | ["s", number, number]
@@ -175,8 +175,7 @@ export type RaphaelTransformSegment =
     | ["r", number, number, number]
     | ["r", number]
     // general matrix transform
-    | ["m", number, number, number, number, number, number]
-    ;
+    | ["m", number, number, number, number, number, number];
 
 /**
  * Array that can be passed to the {@link RaphaelStatic|Raphael()} constructor. The first three arguments in the
@@ -193,7 +192,7 @@ export type RaphaelConstructionOptionsArray4 = [
     string,
     number,
     number,
-    ...RaphaelShapeDescriptor[]
+    ...RaphaelShapeDescriptor[],
 ];
 
 /**
@@ -213,7 +212,7 @@ export type RaphaelConstructionOptionsArray5 = [
     number,
     number,
     number,
-    ...RaphaelShapeDescriptor[]
+    ...RaphaelShapeDescriptor[],
 ];
 
 /**
@@ -239,8 +238,8 @@ export type RaphaelEasingFormula =
  */
 export type RaphaelUnwrapElement<
     TTechnology extends RaphaelTechnology,
-    TBase extends RaphaelBaseElement<TTechnology>
-    > = TBase extends RaphaelSet<TTechnology> ? RaphaelElement<TTechnology> : TBase;
+    TBase extends RaphaelBaseElement<TTechnology>,
+> = TBase extends RaphaelSet<TTechnology> ? RaphaelElement<TTechnology> : TBase;
 
 /**
  * Callback that is invoked once an animation is complete.
@@ -298,8 +297,8 @@ export type RaphaelDragOnMoveHandler<ThisContext> =
  */
 export type RaphaelDragOnOverHandler<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    ThisContext = RaphaelElement<TTechnology>
-    > =
+    ThisContext = RaphaelElement<TTechnology>,
+> =
     /**
      * @param targetElement The element you are dragging over.
      * @return A value that is returned as the return value of the `document.addEventListener` callback.
@@ -332,8 +331,8 @@ export type RaphaelDragOnEndHandler<ThisContext> =
 export type RaphaelElementPluginMethod<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
     TArgs extends any[] = any,
-    TRetVal = any
-    > =
+    TRetVal = any,
+> =
     /**
      * @param args The arguments, as required by this element plugin. They need to be passed when the plugin method
      * is called on a {@link RaphaelElement}.
@@ -357,8 +356,8 @@ export type RaphaelElementPluginMethod<
 export type RaphaelSetPluginMethod<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
     TArgs extends any[] = any,
-    TRetVal = any
-    > =
+    TRetVal = any,
+> =
     /**
      * @param args The arguments, as required by this set plugin. They need to be passed when the plugin method
      * is called on a {@link RaphaelSet}.
@@ -382,8 +381,8 @@ export type RaphaelSetPluginMethod<
 export type RaphaelPaperPluginMethod<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
     TArgs extends any[] = any,
-    TRetVal = any
-    > =
+    TRetVal = any,
+> =
     /**
      * @param args The arguments, as required by this paper plugin. They need to be passed when the plugin method
      * is called on a {@link RaphaelPaper}.
@@ -400,8 +399,8 @@ export type RaphaelPaperPluginMethod<
  */
 export type RaphaelCustomAttribute<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    TArgs extends number[] = any
-    > =
+    TArgs extends number[] = any,
+> =
     /**
      * @param values Numerical values for this custom attribute.
      * @return The SVG attributes for the given values.
@@ -452,14 +451,15 @@ export type RaphaelPotentialFailure<T extends {}> = T & {
  */
 export type RaphaelPaperPluginRegistry<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    T = RaphaelPaper<TTechnology>> = {
-        /**
-         * Either the paper plugin method or a new namespace with methods.
-         */
-        [P in keyof T]: T[P] extends (...args: any) => any
+    T = RaphaelPaper<TTechnology>,
+> = {
+    /**
+     * Either the paper plugin method or a new namespace with methods.
+     */
+    [P in keyof T]: T[P] extends (...args: any) => any
         ? RaphaelPaperPluginMethod<TTechnology, Parameters<T[P]>, ReturnType<T[P]>>
         : RaphaelPaperPluginRegistry<TTechnology, T[P]>;
-    };
+};
 
 /**
  * You can add your own method to elements. This is useful when you want to hack default functionality or want
@@ -477,16 +477,16 @@ export type RaphaelPaperPluginRegistry<
  * @param TTechnology Type of the technology used by this paper, either `SVG` or `VML`.
  */
 export type RaphaelElementPluginRegistry<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > = {
-        [P in keyof RaphaelElement<TTechnology>]: RaphaelElement<TTechnology>[P] extends (...args: any) => any
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> = {
+    [P in keyof RaphaelElement<TTechnology>]: RaphaelElement<TTechnology>[P] extends (...args: any) => any
         ? RaphaelElementPluginMethod<
             TTechnology,
             Parameters<RaphaelElement<TTechnology>[P]>,
             ReturnType<RaphaelElement<TTechnology>[P]>
         >
         : never;
-    };
+};
 
 /**
  * You can add your own method to elements and sets. It is wise to add a set method for each element method you
@@ -510,15 +510,16 @@ export type RaphaelElementPluginRegistry<
  * @param TTechnology Type of the technology used by this paper, either `SVG` or `VML`.
  */
 export type RaphaelSetPluginRegistry<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > = {
-        [P in keyof RaphaelSet<TTechnology>]: RaphaelSet<TTechnology>[P] extends (...args: any) => any
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> = {
+    [P in keyof RaphaelSet<TTechnology>]: RaphaelSet<TTechnology>[P] extends (...args: any) => any
         ? RaphaelSetPluginMethod<
             TTechnology,
             Parameters<RaphaelSet<TTechnology>[P]>,
-            ReturnType<RaphaelSet<TTechnology>[P]>>
+            ReturnType<RaphaelSet<TTechnology>[P]>
+        >
         : never;
-    };
+};
 
 /**
  * Represents the SVG and VML native elements that implement a particular abstract element, such as circle and paths.
@@ -527,8 +528,8 @@ export type RaphaelSetPluginRegistry<
  */
 export interface RaphaelElementByTechnologyMap<
     TSvg extends SVGElement = SVGElement,
-    TVml extends VMLElement = VMLElement
-    > {
+    TVml extends VMLElement = VMLElement,
+> {
     SVG: TSvg;
     VML: TVml;
     "": never;
@@ -664,7 +665,9 @@ export interface RaphaelHslComponentInfo {
  * Represents the result of a call to {@link RaphaelStatic.color}, i.e. information about the RGB and HSV/L color
  * channels.
  */
-export interface RaphaelFullComponentInfo extends RaphaelRgbComponentInfo, RaphaelHsbComponentInfo, RaphaelHslComponentInfo { }
+export interface RaphaelFullComponentInfo
+    extends RaphaelRgbComponentInfo, RaphaelHsbComponentInfo, RaphaelHslComponentInfo
+{}
 
 /**
  * Represents an axis aligned bounding box, see {@link RaphaelBaseElement.getBBox}.
@@ -1160,8 +1163,8 @@ export interface RaphaelFont {
  * @typeparam TTechnology The target {@link RaphaelTechnology}.
  */
 export interface RaphaelBaseElement<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > {
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> {
     /**
      * Creates and starts animation for given element.
      * @param targetAttributes Final attributes for the element, see also {@link attr}.
@@ -1175,7 +1178,7 @@ export interface RaphaelBaseElement<
         targetAttributes: Partial<RaphaelAttributes>,
         durationMilliseconds: number,
         easing?: RaphaelBuiltinEasingFormula | RaphaelCustomEasingFormula,
-        onAnimationComplete?: RaphaelOnAnimationCompleteHandler<this>
+        onAnimationComplete?: RaphaelOnAnimationCompleteHandler<this>,
     ): this;
 
     /**
@@ -1204,7 +1207,7 @@ export interface RaphaelBaseElement<
         targetAttributes: Partial<RaphaelAttributes>,
         durationMilliseconds: number,
         easing?: RaphaelBuiltinEasingFormula | RaphaelCustomEasingFormula,
-        onAnimationComplete?: RaphaelOnAnimationCompleteHandler<this>
+        onAnimationComplete?: RaphaelOnAnimationCompleteHandler<this>,
     ): this;
 
     /**
@@ -1218,7 +1221,7 @@ export interface RaphaelBaseElement<
     animateWith(
         otherElement: RaphaelElement<TTechnology>,
         otherAnimation: RaphaelAnimation,
-        animation: RaphaelAnimation
+        animation: RaphaelAnimation,
     ): this;
 
     /**
@@ -1247,12 +1250,11 @@ export interface RaphaelBaseElement<
     attr<
         // Trick compiler into inferring a tuple type without the consumer having to specify the tuple type explicitly
         // https://github.com/microsoft/TypeScript/issues/22679
-        K extends (Array<keyof RaphaelReadAttributes> & { "0"?: keyof RaphaelReadAttributes | undefined })
+        K extends (Array<keyof RaphaelReadAttributes> & { "0"?: keyof RaphaelReadAttributes | undefined }),
     >(attributeNames: K): {
-            [P in keyof K]: K[P] extends keyof RaphaelReadAttributes
-            ? RaphaelReadAttributes[K[P]] | undefined
-            : never
-        };
+        [P in keyof K]: K[P] extends keyof RaphaelReadAttributes ? RaphaelReadAttributes[K[P]] | undefined
+            : never;
+    };
 
     /**
      * Writes the given attributes to this element.
@@ -1311,14 +1313,14 @@ export interface RaphaelBaseElement<
     drag<
         MoveThisContext = RaphaelUnwrapElement<TTechnology, this>,
         StartThisContext = RaphaelUnwrapElement<TTechnology, this>,
-        EndThisContext = RaphaelUnwrapElement<TTechnology, this>
+        EndThisContext = RaphaelUnwrapElement<TTechnology, this>,
     >(
         onMoveHandler: RaphaelDragOnMoveHandler<MoveThisContext>,
         onStartHandler: RaphaelDragOnStartHandler<StartThisContext>,
         onEndHandler: RaphaelDragOnEndHandler<EndThisContext>,
         moveThisContext?: MoveThisContext,
         startThisContext?: StartThisContext,
-        endThisContext?: EndThisContext
+        endThisContext?: EndThisContext,
     ): this;
 
     /**
@@ -1365,12 +1367,12 @@ export interface RaphaelBaseElement<
     hover<
         HoverInThisContext = RaphaelUnwrapElement<TTechnology, this>,
         HoverOutThisContext = RaphaelUnwrapElement<TTechnology, this>,
-        >(
-            onHoverInHandler: RaphaelBasicEventHandler<HoverInThisContext, MouseEvent>,
-            onHoverOutHandler: RaphaelBasicEventHandler<HoverOutThisContext, MouseEvent>,
-            hoverInThisContext?: HoverInThisContext,
-            hoverOutThisContext?: HoverOutThisContext
-        ): this;
+    >(
+        onHoverInHandler: RaphaelBasicEventHandler<HoverInThisContext, MouseEvent>,
+        onHoverOutHandler: RaphaelBasicEventHandler<HoverOutThisContext, MouseEvent>,
+        hoverInThisContext?: HoverInThisContext,
+        hoverOutThisContext?: HoverOutThisContext,
+    ): this;
 
     /**
      * Inserts current object after the given one in the DOM.
@@ -1778,8 +1780,8 @@ export interface RaphaelBaseElement<
  */
 export interface RaphaelElement<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    TNode extends RaphaelElementByTechnologyMap[TTechnology] = RaphaelElementByTechnologyMap[TTechnology]
-    > extends RaphaelBaseElement<TTechnology> {
+    TNode extends RaphaelElementByTechnologyMap[TTechnology] = RaphaelElementByTechnologyMap[TTechnology],
+> extends RaphaelBaseElement<TTechnology> {
     /**
      * Unique id of the element. Especially useful when you want to listen to events of the element, because all
      * events are fired in format `<module>.<action>.<id>`. Also useful for the {@link RaphaelPaper.getById} method.
@@ -1815,8 +1817,8 @@ export interface RaphaelElement<
  * @typeparam TTechnology The target {@link RaphaelTechnology}.
  */
 export interface RaphaelPath<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > extends RaphaelElement<TTechnology, RaphaelElementImplementationMap["path"][TTechnology]> {
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> extends RaphaelElement<TTechnology, RaphaelElementImplementationMap["path"][TTechnology]> {
     /**
      * The type of this element, i.e. `path`.
      */
@@ -1849,8 +1851,8 @@ export interface RaphaelPath<
  * @typeparam TTechnology Type of the technology used by this paper, either `SVG` or `VML`.
  */
 export interface RaphaelSet<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > extends ArrayLike<RaphaelElement<TTechnology>>, RaphaelBaseElement<TTechnology> {
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> extends ArrayLike<RaphaelElement<TTechnology>>, RaphaelBaseElement<TTechnology> {
     /**
      * Removes all elements from the set
      */
@@ -1875,7 +1877,7 @@ export interface RaphaelSet<
      */
     forEach<ThisContext = Window>(
         callback: (this: ThisContext, element: RaphaelElement<TTechnology>) => boolean | void,
-        thisArg?: ThisContext
+        thisArg?: ThisContext,
     ): this;
 
     /**
@@ -2048,7 +2050,7 @@ export interface RaphaelMatrix {
  */
 export interface RaphaelPaper<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    > {
+> {
     /**
      * Points to the bottom element on the paper. `null` when there is no element.
      */
@@ -2066,7 +2068,11 @@ export interface RaphaelPaper<
      * @param radius Radius of the circle.
      * @return The newly created element representing the circle.
      */
-    circle(x: number, y: number, radius: number): RaphaelElement<TTechnology, RaphaelElementImplementationMap["circle"][TTechnology]>;
+    circle(
+        x: number,
+        y: number,
+        radius: number,
+    ): RaphaelElement<TTechnology, RaphaelElementImplementationMap["circle"][TTechnology]>;
 
     /**
      * Clears the paper, i.e. removes all the elements.
@@ -2123,7 +2129,12 @@ export interface RaphaelPaper<
      * @param radiusY Vertical half-axis of the ellipse.
      * @return The newly created element representing the ellipse.
      */
-    ellipse(x: number, y: number, radiusX: number, radiusY: number): RaphaelElement<TTechnology, RaphaelElementImplementationMap["ellipse"][TTechnology]>;
+    ellipse(
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+    ): RaphaelElement<TTechnology, RaphaelElementImplementationMap["ellipse"][TTechnology]>;
 
     /**
      * Executes given function for each element on the paper
@@ -2134,7 +2145,10 @@ export interface RaphaelPaper<
      * @param thisContext Optional this context that is passed to the callback.
      * @return this paper for chaining.
      */
-    forEach<T = Window>(callback: (this: T, element: RaphaelElement<TTechnology>) => boolean | void, thisContext?: T): this;
+    forEach<T = Window>(
+        callback: (this: T, element: RaphaelElement<TTechnology>) => boolean | void,
+        thisContext?: T,
+    ): this;
 
     /**
      * Returns an element by its internal ID.
@@ -2191,7 +2205,13 @@ export interface RaphaelPaper<
      * @param height Height of the image
      * @return The newly created element representing the image.
      */
-    image(src: string, x: number, y: number, width: number, height: number): RaphaelElement<TTechnology, RaphaelElementImplementationMap["image"][TTechnology]>;
+    image(
+        src: string,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+    ): RaphaelElement<TTechnology, RaphaelElementImplementationMap["image"][TTechnology]>;
 
     /**
      * Creates a path element by given path data string.
@@ -2234,7 +2254,15 @@ export interface RaphaelPaper<
      * @param letterSpacing Number between `-1` and `1`, default is `0`.
      * @return Each letter as separate {@link RaphaelPath|path object}.
      */
-    print(x: number, y: number, str: string, font: RaphaelFont, size?: number, origin?: RaphaelFontOrigin, letterSpacing?: number): RaphaelSet<TTechnology>;
+    print(
+        x: number,
+        y: number,
+        str: string,
+        font: RaphaelFont,
+        size?: number,
+        origin?: RaphaelFontOrigin,
+        letterSpacing?: number,
+    ): RaphaelSet<TTechnology>;
 
     /**
      * Points to the {@link RaphaelStatic|Raphael} object/function.
@@ -2250,7 +2278,13 @@ export interface RaphaelPaper<
      * @param r Radius for rounded corners, default is `0`.
      * @return The newly created element representing the rectangle.
      */
-    rect(x: number, y: number, width: number, height: number, r?: number): RaphaelElement<TTechnology, RaphaelElementImplementationMap["rect"][TTechnology]>;
+    rect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        r?: number,
+    ): RaphaelElement<TTechnology, RaphaelElementImplementationMap["rect"][TTechnology]>;
 
     /**
      * Removes this paper from the DOM.
@@ -2345,7 +2379,11 @@ export interface RaphaelPaper<
      * @param text The text string to draw.
      * @return The newly created element representing the drawn text.
      */
-    text(x: number, y: number, text: string): RaphaelElement<TTechnology, RaphaelElementImplementationMap["text"][TTechnology]>;
+    text(
+        x: number,
+        y: number,
+        text: string,
+    ): RaphaelElement<TTechnology, RaphaelElementImplementationMap["text"][TTechnology]>;
 
     /**
      * Points to the topmost element on the paper. `null` when there is no element.
@@ -2413,8 +2451,8 @@ export interface RaphaelStaticGetColor {
  * @typeparam TTechnology The target {@link RaphaelTechnology}.
  */
 export interface RaphaelStatic<
-    TTechnology extends RaphaelTechnology = "SVG" | "VML"
-    > {
+    TTechnology extends RaphaelTechnology = "SVG" | "VML",
+> {
     /**
      * Creates a canvas object on which to draw. You must do this first, as all future calls to drawing methods
      * from this instance will be bound to this canvas.
@@ -2425,7 +2463,12 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    (container: HTMLElement | string, width: number, height: number, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelPaper<TTechnology>;
+    (
+        container: HTMLElement | string,
+        width: number,
+        height: number,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelPaper<TTechnology>;
 
     /**
      * Creates a canvas object on which to draw. You must do this first, as all future calls to drawing methods
@@ -2438,7 +2481,13 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    (x: number, y: number, width: number, height: number, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelPaper<TTechnology>;
+    (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelPaper<TTechnology>;
 
     /**
      * Creates a canvas object on which to draw. You must do this first, as all future calls to drawing methods
@@ -2449,7 +2498,10 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    (all: RaphaelConstructionOptionsArray4 | RaphaelConstructionOptionsArray5, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelSet<TTechnology>;
+    (
+        all: RaphaelConstructionOptionsArray4 | RaphaelConstructionOptionsArray5,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelSet<TTechnology>;
 
     /**
      * @param onReadyCallback Function that is going to be called on DOM ready event. You can also subscribe to this
@@ -2468,7 +2520,12 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    new(container: HTMLElement | string, width: number, height: number, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelPaper<TTechnology>;
+    new(
+        container: HTMLElement | string,
+        width: number,
+        height: number,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelPaper<TTechnology>;
 
     /**
      * Creates a canvas object on which to draw. You must do this first, as all future calls to drawing methods
@@ -2481,7 +2538,13 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    new(x: number, y: number, width: number, height: number, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelPaper<TTechnology>;
+    new(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelPaper<TTechnology>;
 
     /**
      * Creates a canvas object on which to draw. You must do this first, as all future calls to drawing methods
@@ -2492,7 +2555,10 @@ export interface RaphaelStatic<
      * @param callback Callback function which is going to be executed in the context of newly created paper.
      * @return A new raphael paper that can be used for drawing shapes to the canvas.
      */
-    new(all: RaphaelConstructionOptionsArray4 | RaphaelConstructionOptionsArray5, callback?: (this: RaphaelPaper<TTechnology>) => void): RaphaelSet<TTechnology>;
+    new(
+        all: RaphaelConstructionOptionsArray4 | RaphaelConstructionOptionsArray5,
+        callback?: (this: RaphaelPaper<TTechnology>) => void,
+    ): RaphaelSet<TTechnology>;
 
     /**
      * @param onReadyCallback Function that is going to be called on DOM ready event. You can also subscribe to this
@@ -2525,8 +2591,9 @@ export interface RaphaelStatic<
      */
     animation(
         params: Partial<RaphaelAttributes>,
-        milliseconds: number, easing?: RaphaelBuiltinEasingFormula | RaphaelCustomEasingFormula,
-        callback?: (this: RaphaelElement<TTechnology>) => void
+        milliseconds: number,
+        easing?: RaphaelBuiltinEasingFormula | RaphaelCustomEasingFormula,
+        callback?: (this: RaphaelElement<TTechnology>) => void,
     ): RaphaelAnimation;
 
     /**
@@ -2592,11 +2659,15 @@ export interface RaphaelStatic<
      * @return The point at the specified cubic bezier curve at the given position.
      */
     findDotsAtSegment(
-        startPointX: number, startPointY: number,
-        anchor1X: number, anchor1Y: number,
-        anchor2X: number, anchor2Y: number,
-        endPointX: number, endPointY: number,
-        positionOnCurve: number
+        startPointX: number,
+        startPointY: number,
+        anchor1X: number,
+        anchor1Y: number,
+        anchor2X: number,
+        anchor2Y: number,
+        endPointX: number,
+        endPointY: number,
+        positionOnCurve: number,
     ): RaphaelCubicBezierCurvePointInfo;
 
     /**
@@ -2895,7 +2966,9 @@ export interface RaphaelStatic<
      * straight away).
      * @return Array of transformations.
      */
-    parseTransformString(transformString: string | RaphaelTransformSegment | ReadonlyArray<RaphaelTransformSegment>): RaphaelTransformSegment[];
+    parseTransformString(
+        transformString: string | RaphaelTransformSegment | ReadonlyArray<RaphaelTransformSegment>,
+    ): RaphaelTransformSegment[];
 
     /**
      * Utility method that converts path to a new path where all segments are cubic bezier curves.

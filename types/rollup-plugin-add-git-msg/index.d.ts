@@ -5,7 +5,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace addGitMsg {
     interface AddGitMsgPluginOptions {

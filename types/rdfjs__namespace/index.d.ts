@@ -5,7 +5,7 @@
 //                 tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, NamedNode } from '@rdfjs/types';
+import { DataFactory, NamedNode } from "@rdfjs/types";
 
 export type NamespaceBuilder<TermNames extends string = any> = Record<TermNames, NamedNode> & {
     (property?: TemplateStringsArray | TermNames): NamedNode;
@@ -16,4 +16,7 @@ export interface BuilderOptions {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-export default function namespace<TermNames extends string = string>(baseIRI: string, options?: BuilderOptions): NamespaceBuilder<TermNames>;
+export default function namespace<TermNames extends string = string>(
+    baseIRI: string,
+    options?: BuilderOptions,
+): NamespaceBuilder<TermNames>;

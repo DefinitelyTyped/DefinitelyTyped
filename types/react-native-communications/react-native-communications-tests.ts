@@ -1,17 +1,17 @@
-import { phonecall, email, text, textWithoutEncoding, web } from 'react-native-communications';
+import { email, phonecall, text, textWithoutEncoding, web } from "react-native-communications";
 
-phonecall('123456789', true);
+phonecall("123456789", true);
 
 email();
-email(['a@example.com'], null, ['a@example.com'], 'subject', null);
+email(["a@example.com"], null, ["a@example.com"], "subject", null);
 
 text();
-text('123456789');
-text('123456789', 'body');
+text("123456789");
+text("123456789", "body");
 
 textWithoutEncoding();
-textWithoutEncoding('123456789');
-textWithoutEncoding('123456789', 'body');
+textWithoutEncoding("123456789");
+textWithoutEncoding("123456789", "body");
 
 web();
-web('https://example.com');
+web("https://example.com");

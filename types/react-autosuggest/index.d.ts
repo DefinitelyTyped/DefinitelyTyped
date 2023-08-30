@@ -11,7 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as React from 'react';
+import * as React from "react";
 
 declare class Autosuggest<T = any, T2 = any> extends React.Component<
     Autosuggest.AutosuggestProps<T, T2>,
@@ -39,20 +39,20 @@ declare namespace Autosuggest {
     >;
 
     type FetchRequestedReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestion-selected';
+        | "input-changed"
+        | "input-focused"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestion-selected";
 
     type ShouldRenderReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'input-blurred'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestions-updated'
-        | 'render';
+        | "input-changed"
+        | "input-focused"
+        | "input-blurred"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestions-updated"
+        | "render";
 
     interface SuggestionsFetchRequestedParams {
         value: string;
@@ -70,7 +70,7 @@ declare namespace Autosuggest {
 
     interface ChangeEvent {
         newValue: string;
-        method: 'down' | 'up' | 'escape' | 'enter' | 'click' | 'type';
+        method: "down" | "up" | "escape" | "enter" | "click" | "type";
     }
 
     interface BlurEvent<TSuggestion> {
@@ -82,7 +82,7 @@ declare namespace Autosuggest {
         ref?: React.Ref<HTMLInputElement> | undefined;
     }
 
-    interface InputProps<TSuggestion> extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
+    interface InputProps<TSuggestion> extends Omit<React.InputHTMLAttributes<HTMLElement>, "onChange" | "onBlur"> {
         onChange: (event: React.FormEvent<HTMLElement>, params: ChangeEvent) => void;
         onBlur?: ((event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>) => void) | undefined;
         value: string;
@@ -96,24 +96,24 @@ declare namespace Autosuggest {
         suggestionValue: string;
         suggestionIndex: number;
         sectionIndex: number | null;
-        method: 'click' | 'enter';
+        method: "click" | "enter";
     }
 
     type ThemeKey =
-        | 'container'
-        | 'containerOpen'
-        | 'input'
-        | 'inputOpen'
-        | 'inputFocused'
-        | 'suggestionsContainer'
-        | 'suggestionsContainerOpen'
-        | 'suggestionsList'
-        | 'suggestion'
-        | 'suggestionFirst'
-        | 'suggestionHighlighted'
-        | 'sectionContainer'
-        | 'sectionContainerFirst'
-        | 'sectionTitle';
+        | "container"
+        | "containerOpen"
+        | "input"
+        | "inputOpen"
+        | "inputFocused"
+        | "suggestionsContainer"
+        | "suggestionsContainerOpen"
+        | "suggestionsList"
+        | "suggestion"
+        | "suggestionFirst"
+        | "suggestionHighlighted"
+        | "sectionContainer"
+        | "sectionContainerFirst"
+        | "sectionTitle";
 
     type Theme = Record<string, string | React.CSSProperties> | Partial<Record<ThemeKey, string | React.CSSProperties>>;
 

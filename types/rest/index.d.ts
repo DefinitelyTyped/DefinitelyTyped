@@ -38,7 +38,7 @@ declare module "rest" {
         }
 
         export interface Headers {
-            [index: string]: any // string or string[]
+            [index: string]: any; // string or string[]
         }
 
         export interface Response {
@@ -84,10 +84,18 @@ declare module "rest/interceptor" {
     namespace interceptor {
         interface Config<T, U> {
             init?: ((config: T) => U) | undefined;
-            request?: ((request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>) | undefined;
-            response?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
-            success?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
-            error?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
+            request?:
+                | ((request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>)
+                | undefined;
+            response?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
+            success?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
+            error?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
         }
     }
 
@@ -302,7 +310,7 @@ declare module "rest/interceptor/jsonp" {
                 param?: string | undefined;
                 prefix?: string | undefined;
                 name?: string | undefined;
-            } | undefined
+            } | undefined;
         }
     }
 

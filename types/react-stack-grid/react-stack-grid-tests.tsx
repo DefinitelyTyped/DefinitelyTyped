@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import StackGrid, { transitions, easings } from 'react-stack-grid';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import StackGrid, { easings, transitions } from "react-stack-grid";
 /** Default Options */
 ReactDOM.render(
     <StackGrid columnWidth={150}>
@@ -8,7 +8,7 @@ ReactDOM.render(
         <div key="key2">Item 2</div>
         <div key="key3">Item 3</div>
     </StackGrid>,
-    document.querySelector('.app'),
+    document.querySelector(".app"),
 );
 /** Transition Options */
 const { scaleDown } = transitions;
@@ -25,7 +25,7 @@ ReactDOM.render(
         <div key="key2">Item 2</div>
         <div key="key3">Item 3</div>
     </StackGrid>,
-    document.querySelector('.app'),
+    document.querySelector(".app"),
 );
 
 /** Easing Options */
@@ -43,7 +43,7 @@ ReactDOM.render(
         <div key="key2">Item 2</div>
         <div key="key3">Item 3</div>
     </StackGrid>,
-    document.querySelector('.app'),
+    document.querySelector(".app"),
 );
 
 /** GridRef Options */
@@ -56,5 +56,5 @@ ReactDOM.render(
         <div key="key2">Item 2</div>
         <div key="key3">Item 3</div>
     </StackGrid>,
-    document.querySelector('.app'),
+    document.querySelector(".app"),
 );
