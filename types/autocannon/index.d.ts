@@ -1,4 +1,4 @@
-// Type definitions for autocannon 7.9
+// Type definitions for autocannon 7.12
 // Project: https://github.com/mcollina/autocannon#readme
 // Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
