@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Tracer } from 'zipkin';
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
+import { Tracer } from "zipkin";
 
 interface Options {
     tracer: Tracer;
