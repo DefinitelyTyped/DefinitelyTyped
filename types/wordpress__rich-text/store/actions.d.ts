@@ -1,4 +1,4 @@
-import { NamedFormatConfiguration } from '@wordpress/rich-text';
+import { NamedFormatConfiguration } from "@wordpress/rich-text";
 
 /**
  * Returns an action object used in signalling that format types have been added.

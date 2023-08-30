@@ -1,9 +1,9 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { Dashicon, DropZone } from '@wordpress/components';
-import { ComponentType, MouseEventHandler } from 'react';
+import { Dashicon, DropZone } from "@wordpress/components";
+import { ComponentType, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {
-    interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {
+    interface Props<T extends boolean> extends Pick<DropZone.Props, "onHTMLDrop"> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
          * to the upload window the browser use e.g: `image#<{(|,video#<{(|`.
@@ -80,7 +80,8 @@ declare namespace MediaPlaceholder {
         multiple?: T | undefined;
         value?: T extends true ? number[] : number | undefined | undefined | undefined | undefined;
         onSelect(
-            value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
+            value: T extends true ? Array<{ id: number } & { [k: string]: any }>
+                : { id: number } & { [k: string]: any },
         ): void;
     }
     // type Props<T extends boolean> = BaseProps<T>;

@@ -1,6 +1,6 @@
-import wif = require('wifgrs');
+import wif = require("wifgrs");
 
-const testString = 'test';
+const testString = "test";
 const testBuffer = Buffer.from(testString);
 
 // $ExpectType WIFReturn
