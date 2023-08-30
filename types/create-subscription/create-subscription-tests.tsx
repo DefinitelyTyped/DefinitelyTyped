@@ -104,14 +104,14 @@ declare const wrongPromise: Promise<number>;
     {value => null}
 </PromiseSubscription>;
 
-// @ts-expect-error
 const MismatchSubscription = createSubscription({
+    // @ts-expect-error
     getCurrentValue: (a: number) => null,
     subscribe: (a: string, callback) => (() => undefined),
 });
 
-// @ts-expect-error
 const NoUnsubscribe = createSubscription({
     getCurrentValue: (a: number) => a,
+    // @ts-expect-error
     subscribe: (a: number, callback) => {/* oops, should've returned a callback here */},
 });
