@@ -143,3 +143,9 @@ mailchimp.lists.getAllLists(getAllListsBody);
 mailchimp.lists.getListMergeFields('test', getListMergeFieldsBody);
 
 mailchimp.lists.createListMemberEvent('test', 'test', createListMemberBody);
+
+// Promise<GetListInterestCategoriesResponse | ErrorResponse>
+mailchimp.lists.getListInterestCategories('test');
+
+// Promise<ListInterestCategoryInterestsResponse | ErrorResponse>
+mailchimp.lists.listInterestCategoryInterests('test', 'test');
