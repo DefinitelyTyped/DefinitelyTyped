@@ -128,8 +128,9 @@ SimpleAudio.lists.add(
     },
 );
 // Using descriptors with sources
+// $ExpectType void
 SimpleAudio.lists.add(
-    "bgm_lacuna", // $ExpectType void
+    "bgm_lacuna",
     // Add a track from the given sources at the default volume (100%)
     {
         sources: ["media/audio/Swamped.mp3"],

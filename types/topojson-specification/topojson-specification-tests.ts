@@ -166,9 +166,16 @@ topology = { type: "Topology", objects: { foo: { type: "hello", arcs: [[0]] } },
 topology = { type: "Topology", objects: { foo: { type: "Point" } }, arcs: [] };
 
 // must fail: Property 'arcs' is missing in type '{ type: "Polygon"; }'
-// @ts-expect-error
 topology = {
     type: "Topology",
-    objects: { foo: { type: "GeometryCollection", geometries: [{ type: "Polygon" }] } },
+    objects: {
+        foo: {
+            type: "GeometryCollection",
+            geometries: [
+                // @ts-expect-error
+                { type: "Polygon" },
+            ],
+        },
+    },
     arcs: [],
 };
