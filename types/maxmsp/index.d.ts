@@ -1212,6 +1212,15 @@ declare class Maxobj {
     js: any;
 
     /**
+     * Whether patchcords are connected to the object's inlets and outlets and, if so,
+     * the connected objects. Returns a generic object with two arrays,
+     * 'inputs' and 'outputs', of MaxobjConnection objects.
+     * These have the properties 'srcobject', 'dstobject', 'srcoutlet' and 'dstinlet'
+     * which can be used to walk the graph from JS.
+     */
+    patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
+
+    /**
      * Returns whether the Maxobj refers to a valid Max object
      */
     valid: boolean;
