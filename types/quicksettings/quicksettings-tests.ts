@@ -129,10 +129,10 @@ qsAnyModel.setGlobalChangeHandler((model: AnyModel) => {}); // $ExpectType Quick
 // @ts-expect-error
 qsAnyModel.setGlobalChangeHandler((model: string) => {});
 qsTestModel.setGlobalChangeHandler((model: TestModel) => {}); // $ExpectType QuickSettingsPanel<TestModel, "testStatic">
-// prettier-ignore
+// $ExpectType QuickSettingsPanel<TestModel, "testStatic">
 qsTestModel.setGlobalChangeHandler(
     (model: { testNumber: number; testBoolean: boolean; testDate: string | Date }) => {},
-); // $ExpectType QuickSettingsPanel<TestModel, "testStatic">
+);
 // @ts-expect-error
 qsTestModel.setGlobalChangeHandler((model: { foo: string }) => {});
 
@@ -694,16 +694,16 @@ qsTestModel.setRangeParameters("foo", 0, 100, 1);
     // @ts-expect-error
     qsDropDown.addDropDown("testString", [1, "two", 3], (value: DropDownSelection<string | number>) => {});
     // prettier-ignore
-    // @ts-expect-error
     qsDropDown.addDropDown(
         "testComplex",
+        // @ts-expect-error
         [{ foo: "one" }, { foo: "two" }, { foo: "three" }],
         (value: DropDownSelection<{ foo: string }>) => {},
     );
     // prettier-ignore
-    // @ts-expect-error
     qsDropDown.addDropDown(
         "testString",
+        // @ts-expect-error
         ["one", { label: "Opt 2", value: 2 }, "three"],
         (value: DropDownSelection<string>) => {},
     );
