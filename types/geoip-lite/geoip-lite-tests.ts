@@ -15,10 +15,13 @@ if (stringLookup) {
 geoip.startWatchingDataUpdate();
 
 geoip.startWatchingDataUpdate(err => {
-    // prettier-ignore
-    err
-        ? err // $ExpectType Error
-        : err; // $ExpectType undefined
+    if (err) {
+        // $ExpectType Error
+        err;
+    } else {
+        // $ExpectType undefined
+        err;
+    }
 });
 
 // stop the data update watcher
