@@ -6,8 +6,4 @@ import { StrictOptions } from "./StrictOptions";
 /**
  * Provides options for the select2-control.
  */
-export interface Select2Options extends
-    Options,
-    ControlOptions,
-    StrictOptions,
-    DefaultValueOptions<string> { }
+export interface Select2Options extends Options, ControlOptions, StrictOptions, DefaultValueOptions<string> {}

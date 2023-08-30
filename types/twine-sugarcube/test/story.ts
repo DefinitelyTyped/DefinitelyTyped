@@ -19,9 +19,15 @@ Story.domId = s;
 testPassage(Story.get("passageName"));
 b = Story.has("passage");
 
-Story.lookup("tags", "forest").forEach(p => {testPassage(p); });
-Story.lookup("tags", 123).forEach(p => { testPassage(p); });
-Story.lookup("tags", "forest", "string").forEach(p => { testPassage(p); });
+Story.lookup("tags", "forest").forEach(p => {
+    testPassage(p);
+});
+Story.lookup("tags", 123).forEach(p => {
+    testPassage(p);
+});
+Story.lookup("tags", "forest", "string").forEach(p => {
+    testPassage(p);
+});
 
 Story.lookupWith(testPassage);
 

@@ -1,6 +1,6 @@
-import { ListenOptions } from 'net';
-import { ConnectConfig } from 'ssh2';
-import { createTunnel, ForwardOptions, TunnelOptions } from 'tunnel-ssh';
+import { ListenOptions } from "net";
+import { ConnectConfig } from "ssh2";
+import { createTunnel, ForwardOptions, TunnelOptions } from "tunnel-ssh";
 
 const tunnelOptions: TunnelOptions = {
     autoClose: true,
@@ -11,16 +11,16 @@ const serverOptions: ListenOptions = {
 };
 
 const sshOptions: ConnectConfig = {
-    host: 'localhost',
+    host: "localhost",
     port: 22,
-    username: 'username',
-    password: 'password',
+    username: "username",
+    password: "password",
 };
 
 const forwardOptions: ForwardOptions = {
-    srcAddr: 'localhost',
+    srcAddr: "localhost",
     srcPort: 5433,
-    dstAddr: 'localhost',
+    dstAddr: "localhost",
     dstPort: 5432,
 };
 

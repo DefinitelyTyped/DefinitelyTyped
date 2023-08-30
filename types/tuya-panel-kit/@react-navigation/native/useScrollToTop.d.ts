@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 declare type ScrollOptions = {
     y?: number | undefined;
