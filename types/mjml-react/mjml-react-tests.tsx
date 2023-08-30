@@ -188,7 +188,7 @@ function renderOutTestEmail() {
     // children cannot be anything other than string
     const childError: React.ReactNode = (
         <MjmlStyle>
-        {/* @ts-expect-error */}
+            {/* @ts-expect-error */}
             <p>""</p>
         </MjmlStyle>
     );
