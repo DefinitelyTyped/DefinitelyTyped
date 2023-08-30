@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Observable } from 'rxjs';
-import request = require('request');
+import { Observable } from "rxjs";
+import request = require("request");
 
 interface ResponseWrapper {
     response: request.Response;

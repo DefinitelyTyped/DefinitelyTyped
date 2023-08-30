@@ -32,12 +32,12 @@ interface Image extends HummerComponent {
      *     gifRepeatCount: number  // Gif图重复次数
      * }
      */
-    load(src: string | import('../interface/info').imageStyle, cb: (srcType: number, isSuccess: boolean) => void): void;
+    load(src: string | import("../interface/info").imageStyle, cb: (srcType: number, isSuccess: boolean) => void): void;
 }
 declare const Image: {
     prototype: Image;
     /**
      * 图片组件。
      */
-    new (): Image;
+    new(): Image;
 };

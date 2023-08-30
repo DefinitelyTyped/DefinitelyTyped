@@ -10,14 +10,10 @@ export type SnakeToCamelCase<S extends string> = S extends `${infer P1}_${infer 
     ? `${P1}${Uppercase<P2>}${SnakeToCamelCase<P3>}`
     : S;
 
-export type CamelizedProperty<T> = T extends any
-    ? T extends Array<infer U>
-        ? U extends {}
-            ? Array<Camelized<U>>
-            : T
-        : T extends {}
-        ? Camelized<T>
+export type CamelizedProperty<T> = T extends any ? T extends Array<infer U> ? U extends {} ? Array<Camelized<U>>
         : T
+    : T extends {} ? Camelized<T>
+    : T
     : never;
 
 export type Camelized<T> = {
@@ -28,14 +24,10 @@ export type SnakeToPascalCase<S extends string> = S extends `${infer P1}_${infer
     ? `${Capitalize<P1>}${Uppercase<P2>}${SnakeToPascalCase<P3>}`
     : S;
 
-export type PascalizedProperty<T> = T extends any
-    ? T extends Array<infer U>
-        ? U extends {}
-            ? Array<Pascalized<U>>
-            : T
-        : T extends {}
-        ? Pascalized<T>
+export type PascalizedProperty<T> = T extends any ? T extends Array<infer U> ? U extends {} ? Array<Pascalized<U>>
         : T
+    : T extends {} ? Pascalized<T>
+    : T
     : never;
 
 export type Pascalized<T> = {
@@ -43,17 +35,13 @@ export type Pascalized<T> = {
 };
 
 export type CamelToSnakeCase<S extends string> = S extends `${infer T}${infer U}`
-    ? `${T extends Capitalize<T> ? '_' : ''}${Lowercase<T>}${CamelToSnakeCase<U>}`
+    ? `${T extends Capitalize<T> ? "_" : ""}${Lowercase<T>}${CamelToSnakeCase<U>}`
     : S;
 
-export type DecamelizedProperty<T> = T extends any
-    ? T extends Array<infer U>
-        ? U extends {}
-            ? Array<Decamelized<U>>
-            : T
-        : T extends {}
-        ? Decamelized<T>
+export type DecamelizedProperty<T> = T extends any ? T extends Array<infer U> ? U extends {} ? Array<Decamelized<U>>
         : T
+    : T extends {} ? Decamelized<T>
+    : T
     : never;
 
 export type Decamelized<T> = {
@@ -61,17 +49,13 @@ export type Decamelized<T> = {
 };
 
 export type PascalToSnakeCase<S extends string> = S extends `${infer T1}${infer T2}${infer U}`
-    ? `${T2 extends Capitalize<T2> ? '_' : ''}${Lowercase<T1>}${Lowercase<T2>}${CamelToSnakeCase<U>}`
+    ? `${T2 extends Capitalize<T2> ? "_" : ""}${Lowercase<T1>}${Lowercase<T2>}${CamelToSnakeCase<U>}`
     : S;
 
-export type DepascalizedProperty<T> = T extends any
-    ? T extends Array<infer U>
-        ? U extends {}
-            ? Array<Decamelized<U>>
-            : T
-        : T extends {}
-        ? Decamelized<T>
+export type DepascalizedProperty<T> = T extends any ? T extends Array<infer U> ? U extends {} ? Array<Decamelized<U>>
         : T
+    : T extends {} ? Decamelized<T>
+    : T
     : never;
 
 export type Depascalized<T> = {

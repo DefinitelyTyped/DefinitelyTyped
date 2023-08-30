@@ -1,5 +1,5 @@
 export interface Visibility {
-    public: 'public';
-    secret: 'secret';
-    private: 'private';
+    public: "public";
+    secret: "secret";
+    private: "private";
 }

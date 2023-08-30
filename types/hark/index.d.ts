@@ -28,8 +28,8 @@ declare namespace hark {
         stop(): void;
         speakingHistory: number[];
 
-        on(event: 'speaking' | 'stopped_speaking', listener: () => void): void;
-        on(event: 'volume_change', listener: (currentVolume: number, threshold: number) => void): void;
-        on(event: 'state_change', listener: (state: AudioContextState) => void): void;
+        on(event: "speaking" | "stopped_speaking", listener: () => void): void;
+        on(event: "volume_change", listener: (currentVolume: number, threshold: number) => void): void;
+        on(event: "state_change", listener: (state: AudioContextState) => void): void;
     }
 }
