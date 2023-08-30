@@ -5,7 +5,9 @@
 
 export = QuickStore;
 
-interface DatabaseContents { [key: string]: Value; }
+interface DatabaseContents {
+    [key: string]: Value;
+}
 type Value = string | number | DatabaseContents | Value[] | boolean | null;
 type Callback<Value> = (data: Value) => void;
 
