@@ -30,13 +30,10 @@ export function TestTagsChildren(): React.ReactElement {
             <Tags>a,b,c</Tags>
             <Tags>{["a", "b", "c"]}</Tags>
             {
-                // @ts-expect-error
-
-
-                    <Tags>
-                        <span>a</span>
-                    </Tags>
-
+                <Tags>
+                    {/* @ts-expect-error */}
+                    <span>a</span>
+                </Tags>
             }
             {
                 // @ts-expect-error
@@ -404,13 +401,10 @@ export function TestMixedTagsChildren(): React.ReactElement {
             <Tags>a,b,c</Tags>
             <Tags>{["a", "b", "c"]}</Tags>
             {
-                // @ts-expect-error
-
-
-                    <Tags>
-                        <span>a</span>
-                    </Tags>
-
+                <Tags>
+                    {/* @ts-expect-error */}
+                    <span>a</span>
+                </Tags>
             }
             {
                 // @ts-expect-error
