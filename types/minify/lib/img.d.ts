@@ -1,4 +1,4 @@
-import type { Options } from './minify';
+import type { Options } from "./minify";
 
 /**
  * minify css data.
@@ -10,4 +10,4 @@ import type { Options } from './minify';
  * @async
  */
 // tslint:disable-next-line:space-before-function-paren
-export default function (name: string, data: string, userOptions?: Pick<Options, 'img'>): Promise<string>;
+export default function(name: string, data: string, userOptions?: Pick<Options, "img">): Promise<string>;

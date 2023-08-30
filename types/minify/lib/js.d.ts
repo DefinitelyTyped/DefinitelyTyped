@@ -1,4 +1,4 @@
-import type { Options } from './minify';
+import type { Options } from "./minify";
 
 /**
  * minify js data.
@@ -8,4 +8,4 @@ import type { Options } from './minify';
  * @async
  */
 // tslint:disable-next-line:space-before-function-paren
-export default function (data: string, userOptions?: Pick<Options, 'js'>): Promise<string>;
+export default function(data: string, userOptions?: Pick<Options, "js">): Promise<string>;

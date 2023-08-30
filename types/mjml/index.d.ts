@@ -5,6 +5,6 @@
 //                 IanEdington        <https://github.com/IanEdington>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import mjml2html from 'mjml-core';
+import mjml2html from "mjml-core";
 
 export = mjml2html;

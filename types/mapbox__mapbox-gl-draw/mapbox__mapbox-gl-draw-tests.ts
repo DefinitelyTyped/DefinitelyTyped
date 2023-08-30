@@ -1,13 +1,13 @@
 import MapboxDraw, {
+    constants,
     DrawCustomMode,
     DrawFeature,
     DrawMode,
     DrawUpdateEvent,
     Lib,
-    MapboxDrawOptions,
-    constants,
     lib,
-} from '@mapbox/mapbox-gl-draw';
+    MapboxDrawOptions,
+} from "@mapbox/mapbox-gl-draw";
 
 const draw = new MapboxDraw({});
 
@@ -16,50 +16,50 @@ const feature: DrawFeature = {};
 
 // $ExpectType string[]
 draw.add({
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [],
 });
 
 // accepts string
 // $ExpectType MapboxDraw
-draw.delete('1');
+draw.delete("1");
 
 // accepts string[]
 // $ExpectType MapboxDraw
-draw.delete(['1', '2']);
+draw.delete(["1", "2"]);
 
 // $ExpectType string[]
 draw.getSelectedIds();
 
 // $ExpectType MapboxDraw
-draw.changeMode('direct_select', { featureId: '1' });
+draw.changeMode("direct_select", { featureId: "1" });
 
 // @ts-expect-error
-draw.changeMode('direct_select');
+draw.changeMode("direct_select");
 
 // $ExpectType MapboxDraw
-draw.changeMode('simple_select');
+draw.changeMode("simple_select");
 
-const drawLineSelect: DrawMode = 'draw_line_string';
+const drawLineSelect: DrawMode = "draw_line_string";
 // $ExpectType MapboxDraw
-draw.changeMode(drawLineSelect, { featureId: '1', from: [1] });
+draw.changeMode(drawLineSelect, { featureId: "1", from: [1] });
 
 // $ExpectType MapboxDraw
-draw.changeMode('draw_point');
+draw.changeMode("draw_point");
 
 // @ts-expect-error
-draw.changeMode('draw_point', {});
+draw.changeMode("draw_point", {});
 
 // $ExpectType MapboxDraw
-draw.changeMode('custom_mode');
+draw.changeMode("custom_mode");
 
 // $ExpectType MapboxDraw
-draw.changeMode('custom_mode', {});
+draw.changeMode("custom_mode", {});
 
-if (draw.getMode() === 'draw_line_string') {
+if (draw.getMode() === "draw_line_string") {
 }
 
-if (draw.getMode() === 'some_custom_mode') {
+if (draw.getMode() === "some_custom_mode") {
 }
 
 // $ExpectType "direct_select"
@@ -95,17 +95,17 @@ const customMode: CustomMode = {
 
         this.setSelectedCoordinates([
             {
-                coord_path: '0',
-                feature_id: '1',
+                coord_path: "0",
+                feature_id: "1",
             },
         ]);
 
         this.setSelected();
-        this.setSelected('1');
-        this.setSelected(['1', '2']);
+        this.setSelected("1");
+        this.setSelected(["1", "2"]);
 
         // $ExpectType DrawFeature
-        this.getFeature('1');
+        this.getFeature("1");
 
         // $ExpectType number
         this.customMethod();
@@ -123,13 +123,13 @@ const customMode: CustomMode = {
         lib.constrainFeatureMovement([feature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
 
         // $ExpectType GeoJSON
-        lib.createMidPoint('1', feature, feature);
+        lib.createMidPoint("1", feature, feature);
 
         // $ExpectType GeoJSON[]
         lib.createSupplementaryPoints(feature, { midpoints: false });
 
         // $ExpectType GeoJSON
-        lib.createVertex('1', [e.lngLat.lng, e.lngLat.lat], '0', true);
+        lib.createVertex("1", [e.lngLat.lng, e.lngLat.lat], "0", true);
 
         // $ExpectType number
         lib.euclideanDistance({ x: 10, y: 20 }, { x: 100, y: 200 });
@@ -159,29 +159,29 @@ const customMode: CustomMode = {
         lib.sortFeatures([feature]);
 
         // $ExpectType boolean
-        lib.stringSetsAreEqual([{ id: 'Feature1' }, { id: 'Feature2' }], [{ id: 'Feature1' }, { id: 'Feature2' }]);
+        lib.stringSetsAreEqual([{ id: "Feature1" }, { id: "Feature2" }], [{ id: "Feature1" }, { id: "Feature2" }]);
 
         // $ExpectType StringSet
-        lib.StringSet(['1', 2]);
+        lib.StringSet(["1", 2]);
 
-        const FabricDrawingManagerStyles: Lib['theme'] = [
+        const FabricDrawingManagerStyles: Lib["theme"] = [
             {
-                id: 'gl-draw-polygon-fill-inactive',
-                type: 'fill',
+                id: "gl-draw-polygon-fill-inactive",
+                type: "fill",
             },
         ];
 
-        const FabricDrawingManagerStylesError: Lib['theme'] = [
+        const FabricDrawingManagerStylesError: Lib["theme"] = [
             {
                 // @ts-expect-error
-                id: 'xxx',
+                id: "xxx",
                 // @ts-expect-error
-                type: 'any-other-type',
+                type: "any-other-type",
             },
         ];
 
         // $ExpectType any[]
-        lib.toDenseArray(['', undefined, 1]);
+        lib.toDenseArray(["", undefined, 1]);
     },
 
     toDisplayFeatures(state, geojson, display) {},
@@ -210,18 +210,18 @@ feature.changed();
 feature.isValid();
 
 // $ExpectType Position
-feature.getCoordinate('');
+feature.getCoordinate("");
 
 // $ExpectType void
-feature.updateCoordinate('', 0, 0);
+feature.updateCoordinate("", 0, 0);
 
 // $ExpectType void
-feature.setProperty('', 0);
+feature.setProperty("", 0);
 
 // $ExpectType GeoJSON
 feature.toGeoJSON();
 
-if (feature.type === 'Point') {
+if (feature.type === "Point") {
     // $ExpectType Position
     feature.coordinates;
 
@@ -232,39 +232,39 @@ if (feature.type === 'Point') {
     feature.updateCoordinate(0, 0);
 }
 
-if (feature.type === 'LineString') {
+if (feature.type === "LineString") {
     // $ExpectType Position[]
     feature.coordinates;
 
     // $ExpectType void
-    feature.addCoordinate('', 0, 0);
+    feature.addCoordinate("", 0, 0);
 
     // $ExpectType void
-    feature.removeCoordinate('');
+    feature.removeCoordinate("");
 }
 
-if (feature.type === 'Polygon') {
+if (feature.type === "Polygon") {
     // $ExpectType Position[][]
     feature.coordinates;
 
     // $ExpectType void
-    feature.addCoordinate('', 0, 0);
+    feature.addCoordinate("", 0, 0);
 
     // $ExpectType void
-    feature.removeCoordinate('');
+    feature.removeCoordinate("");
 }
 
-if (feature.type === 'MultiPoint') {
+if (feature.type === "MultiPoint") {
     // $ExpectType DrawPoint[]
     feature.features;
 }
 
-if (feature.type === 'MultiLineString') {
+if (feature.type === "MultiLineString") {
     // $ExpectType DrawLineString[]
     feature.features;
 }
 
-if (feature.type === 'MultiPolygon') {
+if (feature.type === "MultiPolygon") {
     // $ExpectType DrawPolygon[]
     feature.features;
 }

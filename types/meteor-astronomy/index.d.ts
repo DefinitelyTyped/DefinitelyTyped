@@ -55,13 +55,16 @@ declare namespace MeteorAstronomy {
     interface ClassModel<T> {
         name: string;
         collection?: Mongo.Collection<T> | undefined;
-        fields: Fields<Omit<T, '_id'>>;
+        fields: Fields<Omit<T, "_id">>;
         behaviors?: object | undefined;
-        secured?: {
-            insert: boolean,
-            update: boolean,
-            remove: boolean,
-        } | boolean | undefined;
+        secured?:
+            | {
+                insert: boolean;
+                update: boolean;
+                remove: boolean;
+            }
+            | boolean
+            | undefined;
         helpers?: Helpers<T> | undefined;
         events?: object | undefined;
         meteorMethods?: object | undefined;
@@ -74,13 +77,16 @@ declare namespace MeteorAstronomy {
     }
 
     type Model<T> = T & {
-        set(fields: Partial<T>, options?: {cast?: boolean | undefined; clone?: boolean | undefined; merge?: boolean | undefined}): void;
+        set(
+            fields: Partial<T>,
+            options?: { cast?: boolean | undefined; clone?: boolean | undefined; merge?: boolean | undefined },
+        ): void;
         set(field: string, value: any): void;
         get(field: string): any;
         get(fields: string[]): Partial<T>;
         isModified(field?: string): boolean;
         getModified(): any;
-        getModifiedValues(options?: {old?: boolean | undefined, raw?: boolean | undefined}): Partial<T>;
+        getModifiedValues(options?: { old?: boolean | undefined; raw?: boolean | undefined }): Partial<T>;
         getModifier(): any;
         raw(): T;
         raw(field: string): any;
@@ -124,8 +130,18 @@ declare namespace MeteorAstronomy {
         findOne(selector?: MongoQuery<T>, options?: FindOneOptions): Model<T>;
         find(selector?: MongoQuery<T>, options?: FindOptions): Mongo.Cursor<Model<T>>;
         insert(doc: T, callback?: () => void): string;
-        update(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpdateOptions, callback?: () => void): number;
-        upsert(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpsertOptions, callback?: () => void): number;
+        update(
+            selector: MongoQuery<T>,
+            modifier: Mongo.Modifier<T>,
+            options?: UpdateOptions,
+            callback?: () => void,
+        ): number;
+        upsert(
+            selector: MongoQuery<T>,
+            modifier: Mongo.Modifier<T>,
+            options?: UpsertOptions,
+            callback?: () => void,
+        ): number;
         remove(selector: MongoQuery<T>, callback?: () => void): number;
     }
 
@@ -135,7 +151,7 @@ declare namespace MeteorAstronomy {
     };
 }
 
-declare module 'meteor/jagi:astronomy' { // tslint:disable-line:no-single-declare-module
+declare module "meteor/jagi:astronomy" { // tslint:disable-line:no-single-declare-module
     namespace Class {
         function create<T extends {}>(model: MeteorAstronomy.ClassModel<T>): MeteorAstronomy.Class<T>;
     }

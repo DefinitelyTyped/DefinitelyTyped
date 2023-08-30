@@ -10,7 +10,7 @@ declare namespace Express {
     }
 }
 
-import express = require('express');
+import express = require("express");
 
 declare namespace e {
     export interface MethodOverrideOptions {
@@ -18,6 +18,9 @@ declare namespace e {
     }
 }
 
-declare function e(getter?: string | ((req: express.Request, res: express.Response) => string), options?: e.MethodOverrideOptions): express.RequestHandler;
+declare function e(
+    getter?: string | ((req: express.Request, res: express.Response) => string),
+    options?: e.MethodOverrideOptions,
+): express.RequestHandler;
 
 export = e;

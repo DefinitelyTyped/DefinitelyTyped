@@ -1,10 +1,10 @@
-import mocha = require('mocha-sugar-free');
+import mocha = require("mocha-sugar-free");
 
 // $ExpectType () => void
 mocha.run;
 
 switch (mocha.detectedInterface) {
-    case 'bdd':
+    case "bdd":
         mocha.describe; // $ExpectType SuiteFunction
         mocha.xdescribe; // $ExpectType PendingSuiteFunction
         mocha.context; // $ExpectType SuiteFunction
@@ -18,7 +18,7 @@ switch (mocha.detectedInterface) {
         mocha.beforeEach; // $ExpectType HookFunction
         mocha.afterEach; // $ExpectType HookFunction
         break;
-    case 'tdd':
+    case "tdd":
         mocha.suite; // $ExpectType SuiteFunction
         mocha.test; // $ExpectType TestFunction
         mocha.suiteSetup; // $ExpectType HookFunction
@@ -26,7 +26,7 @@ switch (mocha.detectedInterface) {
         mocha.setup; // $ExpectType HookFunction
         mocha.teardown; // $ExpectType HookFunction
         break;
-    case 'qunit':
+    case "qunit":
         mocha.suite; // $ExpectType SuiteFunction
         mocha.test; // $ExpectType TestFunction
         break;

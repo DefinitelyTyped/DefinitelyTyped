@@ -34,11 +34,22 @@ export interface Config {
     server?: string | undefined;
 }
 
-export type Status = 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional';
+export type Status = "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional";
 
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'HEAD';
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "HEAD";
 
-export type MergeFieldType =  'text'| 'number'| 'address'| 'phone'| 'date'| 'url'| 'imageurl'| 'radio'| 'dropdown'| 'birthday' | 'zip';
+export type MergeFieldType =
+    | "text"
+    | "number"
+    | "address"
+    | "phone"
+    | "date"
+    | "url"
+    | "imageurl"
+    | "radio"
+    | "dropdown"
+    | "birthday"
+    | "zip";
 
 /**
  * Anything with this type must confirm to Mailchimp's only valid time format:
@@ -73,13 +84,13 @@ export interface Body {
         | {
             latitude: number;
             logitude: number;
-            }
+        }
         | undefined;
     marketing_permissions?:
         | Array<{
-                marketing_permission_id: string;
-                enabled: boolean;
-            }>
+            marketing_permission_id: string;
+            enabled: boolean;
+        }>
         | undefined;
     ip_signup?: string | undefined;
     timestamp_signup?: string | undefined;
@@ -112,7 +123,7 @@ export namespace lists {
     /**
      * @deprecated No longer used, according to Mailchimp API documentation: https://mailchimp.com/developer/marketing/api/lists/get-lists-info/
      */
-    type ListVisibility = 'pub' | 'prv';
+    type ListVisibility = "pub" | "prv";
 
     interface Contact {
         company: string;
@@ -267,7 +278,7 @@ export namespace lists {
         _links: Link[];
     }
 
-    type ListStatusTag = 'active' | 'inactive';
+    type ListStatusTag = "active" | "inactive";
 
     interface AddListMemberBody extends Body {
         email_address: string;
@@ -400,46 +411,46 @@ export namespace lists {
     }
 
     interface BatchListMembersOpts {
-      skipMergeValidation?: boolean;
-      skipDuplicateCheck?: boolean;
+        skipMergeValidation?: boolean;
+        skipDuplicateCheck?: boolean;
     }
 
     interface BatchListMembersResponse {
-      new_members?: MembersSuccessResponse[];
-      updated_members?: MembersSuccessResponse[];
-      errors?: Array<{
-        email_address: string;
-        error: string;
-        error_code: string;
-        field: string;
-        field_message: string;
-      }>;
+        new_members?: MembersSuccessResponse[];
+        updated_members?: MembersSuccessResponse[];
+        errors?: Array<{
+            email_address: string;
+            error: string;
+            error_code: string;
+            field: string;
+            field_message: string;
+        }>;
     }
 
-    type EmailType = "text"|"html";
+    type EmailType = "text" | "html";
 
     interface BatchListMembersBodyMembersObject {
-      email_address: string;
-      email_type: EmailType;
-      status: Status;
-      vip?: boolean;
-      location?: {
-        latitude: number;
-        longtitude: number;
-      };
-      tags?: string[]; // non-documented tho still available to use
-      ip_signup?: string;
-      timestamp_signup?: string;
-      ip_opt?: string;
-      timestamp_opt?: string;
-      language?: string; // https://mailchimp.com/help/view-and-edit-contact-languages/
-      merge_fields?: {[k: string]: string}; // https://mailchimp.com/developer/marketing/docs/merge-fields/#structure
+        email_address: string;
+        email_type: EmailType;
+        status: Status;
+        vip?: boolean;
+        location?: {
+            latitude: number;
+            longtitude: number;
+        };
+        tags?: string[]; // non-documented tho still available to use
+        ip_signup?: string;
+        timestamp_signup?: string;
+        ip_opt?: string;
+        timestamp_opt?: string;
+        language?: string; // https://mailchimp.com/help/view-and-edit-contact-languages/
+        merge_fields?: { [k: string]: string }; // https://mailchimp.com/developer/marketing/docs/merge-fields/#structure
     }
 
     interface BatchListMembersBody {
-      members: BatchListMembersBodyMembersObject[];
-      sync_tags?: boolean;
-      update_existing?: boolean;
+        members: BatchListMembersBodyMembersObject[];
+        sync_tags?: boolean;
+        update_existing?: boolean;
     }
 
     interface CreateListMemberEventBody extends Body {
@@ -456,7 +467,11 @@ export namespace lists {
      * @param body
      * @param opts Optional parameters
      */
-    function batchListMembers(listId: string, body: BatchListMembersBody, opts?: BatchListMembersOpts): Promise<BatchListMembersResponse | ErrorResponse>;
+    function batchListMembers(
+        listId: string,
+        body: BatchListMembersBody,
+        opts?: BatchListMembersOpts,
+    ): Promise<BatchListMembersResponse | ErrorResponse>;
 
     /**
      * Add or update a list member.
@@ -467,7 +482,12 @@ export namespace lists {
      * @param opts.skipMergeValidation If skip_merge_validation is true, member data will be accepted without merge field values, even if the merge field is usually required. This defaults to false.
      * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
      */
-    function setListMember(listId: string, subscriberHash: string, body: SetListMemberBody, opts?: ListOptions): Promise<MembersSuccessResponse | ErrorResponse>;
+    function setListMember(
+        listId: string,
+        subscriberHash: string,
+        body: SetListMemberBody,
+        opts?: ListOptions,
+    ): Promise<MembersSuccessResponse | ErrorResponse>;
 
     /**
      * Get information about a specific list member, including a currently subscribed, unsubscribed, or bounced member.
@@ -478,7 +498,11 @@ export namespace lists {
      * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
      * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
      */
-    function getListMember(listId: string, subscriberHash: string, opts?: ListOptions): Promise<MembersSuccessResponse | ErrorResponse>;
+    function getListMember(
+        listId: string,
+        subscriberHash: string,
+        opts?: ListOptions,
+    ): Promise<MembersSuccessResponse | ErrorResponse>;
 
     /**
      * Add a new member to the list.
@@ -488,7 +512,11 @@ export namespace lists {
      * @param opts.skipMergeValidation If skip_merge_validation is true, member data will be accepted without merge field values, even if the merge field is usually required. This defaults to false.
      * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
      */
-    function addListMember(listId: string, body: AddListMemberBody, opts?: ListOptions): Promise<MembersSuccessResponse | ErrorResponse>;
+    function addListMember(
+        listId: string,
+        body: AddListMemberBody,
+        opts?: ListOptions,
+    ): Promise<MembersSuccessResponse | ErrorResponse>;
 
     /**
      * Update information for a specific list member.
@@ -499,7 +527,12 @@ export namespace lists {
      * @param opts.skipMergeValidation If skip_merge_validation is true, member data will be accepted without merge field values, even if the merge field is usually required. This defaults to false.
      * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
      */
-    function updateListMember(listId: string, subscriberHash: string, body: UpdateListMemberBody, opts?: ListOptions): Promise<MembersSuccessResponse | ErrorResponse>;
+    function updateListMember(
+        listId: string,
+        subscriberHash: string,
+        body: UpdateListMemberBody,
+        opts?: ListOptions,
+    ): Promise<MembersSuccessResponse | ErrorResponse>;
 
     /**
      * Archive list member
@@ -576,5 +609,9 @@ export namespace lists {
      * @param body.occurred_at The date and time the event occurred in ISO 8601 format.
      * @return A {@link https://www.promisejs.org/|Promise}, with empty response
      */
-    function createListMemberEvent(listId: string, subscriberHash: string, body: CreateListMemberEventBody): Promise<{} | ErrorResponse>;
+    function createListMemberEvent(
+        listId: string,
+        subscriberHash: string,
+        body: CreateListMemberEventBody,
+    ): Promise<{} | ErrorResponse>;
 }

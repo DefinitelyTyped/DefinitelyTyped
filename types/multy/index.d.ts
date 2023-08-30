@@ -3,10 +3,10 @@
 // Definitions by: Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Koa from 'koa';
-import { BusboyConfig } from 'busboy';
+import { BusboyConfig } from "busboy";
+import * as Koa from "koa";
 
-declare module 'koa' {
+declare module "koa" {
     interface Request {
         body: any;
     }

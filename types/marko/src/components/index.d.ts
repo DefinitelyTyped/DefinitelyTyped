@@ -1,4 +1,4 @@
-import _Component from './Component';
+import _Component from "./Component";
 
 export function writeInitComponentsCode(fromOut: any, targetOut: any, shouldIncludeAll: any): void;
 
