@@ -25,15 +25,15 @@ export interface ModuleConfiguration {
 }
 
 export type PrivateKeyCipher =
-    | 'aes128'
-    | 'aes192'
-    | 'aes256'
-    | 'camellia128'
-    | 'camellia192'
-    | 'camellia256'
-    | 'des'
-    | 'des3'
-    | 'idea'
+    | "aes128"
+    | "aes192"
+    | "aes256"
+    | "camellia128"
+    | "camellia192"
+    | "camellia256"
+    | "des"
+    | "des3"
+    | "idea"
     | string; // allow for additions in future
 
 export interface PrivateKeyCreationOptions {
@@ -52,7 +52,7 @@ export interface Pkcs12ReadOptions {
     clientKeyPassword?: string | undefined;
 }
 
-export type HashFunction = 'md5' | 'sha1' | 'sha256' | string;
+export type HashFunction = "md5" | "sha1" | "sha256" | string;
 export interface CSRCreationOptions {
     /**
      *  Optional client key to use

@@ -4,8 +4,8 @@
  * @see {@link https://github.com/paypal/Checkout-NodeJS-SDK/blob/develop/lib/core/paypal_http_client.js}
  */
 
-import paypalhttp = require('@paypal/paypalhttp');
-import { PayPalEnvironment } from './paypal_environment';
+import paypalhttp = require("@paypal/paypalhttp");
+import { PayPalEnvironment } from "./paypal_environment";
 
 declare class PayPalHttpClient extends paypalhttp.HttpClient {
     readonly refreshToken: string;

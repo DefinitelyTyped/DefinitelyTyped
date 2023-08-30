@@ -3,9 +3,9 @@
 // Definitions by: ytkalan <https://github.com/atomyyyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Request } from 'express';
-import { Strategy } from 'passport';
-import passportOAuth2 = require('passport-oauth2');
+import { Request } from "express";
+import { Strategy } from "passport";
+import passportOAuth2 = require("passport-oauth2");
 
 declare namespace AppleStrategy {
     interface AuthenticateOptionsBase extends Partial<passportOAuth2._StrategyOptionsBase> {
@@ -49,7 +49,7 @@ declare namespace AppleStrategy {
         refreshToken: string,
         decodedIdToken: DecodedIdToken,
         profile: Profile,
-        verified: VerifyCallback
+        verified: VerifyCallback,
     ) => void;
 
     type VerifyFunctionWithRequest = (
@@ -58,7 +58,7 @@ declare namespace AppleStrategy {
         refreshToken: string,
         decodedIdToken: DecodedIdToken,
         profile: Profile,
-        verified: VerifyCallback
+        verified: VerifyCallback,
     ) => void;
 }
 
