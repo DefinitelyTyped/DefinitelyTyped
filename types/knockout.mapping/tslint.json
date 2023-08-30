@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "npm-naming": false,
-        "quotemark": [true, "single", "avoid-escape"],
         "unified-signatures": false
     }
 }

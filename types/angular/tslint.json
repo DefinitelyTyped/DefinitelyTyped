@@ -8,7 +8,6 @@
         "no-empty-interface": false,
         "no-namespace": false,
         "no-unnecessary-qualifier": false,
-        "quotemark": [true, "single"],
         "unified-signatures": false,
         "variable-name": [true, "check-format"],
         "void-return": false

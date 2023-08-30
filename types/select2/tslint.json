@@ -13,12 +13,6 @@
                 "mode": "code"
             }
         ],
-        "quotemark": [
-            true,
-            "double",
-            "avoid-escape",
-            "avoid-template"
-        ],
         "unified-signatures": false
     }
 }
