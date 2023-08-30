@@ -25,7 +25,7 @@ import {
     timePicker,
     tooltip,
     validator,
-} from './js';
+} from "./js";
 
 export {
     accordion,

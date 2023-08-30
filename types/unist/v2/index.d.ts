@@ -97,7 +97,8 @@ export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TDat
  * @typeParam ChildNode Node item of {@link Parent.children}
  */
 export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
-    extends Node<TData> {
+    extends Node<TData>
+{
     /**
      * List representing the children of a node.
      */

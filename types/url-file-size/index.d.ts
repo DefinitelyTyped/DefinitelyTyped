@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { URL } from 'url';
+import { URL } from "url";
 
 /**
  * Get file size from URL (in bytes) without downloading it.

@@ -1,6 +1,6 @@
-import ConfigStore from 'configstore';
+import ConfigStore from "configstore";
 
-import type { Options as BoxenOptions } from 'boxen';
+import type { Options as BoxenOptions } from "boxen";
 
 export default class UpdateNotifier {
     constructor(settings?: Settings);
@@ -62,7 +62,7 @@ interface UpdateInfo {
     /** Current version */
     readonly current: string;
     /** Type of current update */
-    readonly type: 'latest' | 'major' | 'minor' | 'patch' | 'prerelease' | 'build';
+    readonly type: "latest" | "major" | "minor" | "patch" | "prerelease" | "build";
     /** Package name */
     name: string;
 }

@@ -7,8 +7,8 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
+import { Duplex, PassThrough, Readable, Stream, Transform } from "stream";
 
 export interface PullStream extends Duplex {
     stream(eof: number | string, includeEof: boolean): PassThrough;
@@ -55,7 +55,7 @@ export function unzip(
         size: () => Promise<number>;
     },
     offset: number,
-    _password: string
+    _password: string,
 ): Entry;
 
 export namespace Open {
@@ -63,7 +63,7 @@ export namespace Open {
     function file(filename: string): Promise<CentralDirectory>;
     function url(
         request: ClientRequest,
-        opt: string | RequestOptions
+        opt: string | RequestOptions,
     ): Promise<CentralDirectory>;
     function s3(client: any, params: any): Promise<CentralDirectory>;
 }
@@ -106,7 +106,7 @@ export interface File {
     path: string;
     isUnicode: number;
     extra: any;
-    type: 'Directory' | 'File';
+    type: "Directory" | "File";
     comment: string;
     stream: (password?: string) => Entry;
     buffer: (password?: string) => Promise<Buffer>;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { WebpackPluginInstance, Compiler } from 'webpack';
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 export = UnusedWebpackPlugin;
 

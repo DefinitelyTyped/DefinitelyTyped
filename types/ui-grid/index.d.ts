@@ -176,8 +176,7 @@ declare namespace uiGrid {
          * @param [clearFlags=true] Clear flags?
          * @returns If refreshRows is true, returns a promise of the rows refreshing
          */
-        clearAllFilters(refreshRows: boolean, clearConditions: boolean,
-            clearFlags: boolean): ng.IPromise<any>;
+        clearAllFilters(refreshRows: boolean, clearConditions: boolean, clearFlags: boolean): ng.IPromise<any>;
         /**
          * refreshes the grid when a column refresh is notified, which triggers handling of the visible flag.
          * This is called on uiGridConstants.dataChange.COLUMN, and is registered as a dataChangeCallback in grid.js
@@ -192,7 +191,7 @@ declare namespace uiGrid {
          * creates the right render container if it doesn't already exist
          */
         createRightContainer(): void;
-         /**
+        /**
          * returns the first GridRow who has an key that is equal to comparator
          * so for Example if isInEntity == false then it does this check: row[key] === comparator
          * if isInEntity == true then it does this check: row.entity[key] === comparator
@@ -201,7 +200,12 @@ declare namespace uiGrid {
          * @param comparator the value that key should have
          * @param lookInRows the rows to look in - if not provided then looks in grid.rows
          */
-        findRowByKey(isInEntity: boolean, key: string | number, comparator: any, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
+        findRowByKey(
+            isInEntity: boolean,
+            key: string | number,
+            comparator: any,
+            rows?: Array<IGridRowOf<TEntity>>,
+        ): IGridRowOf<TEntity>;
         /**
          * sets isScrollingHorizontally to true and sets it to false in a debounced function
          */
@@ -267,7 +271,12 @@ declare namespace uiGrid {
          * @param comparator the value that key should have
          * @param rows The rows to look in.  if not provided then it looks in grid.rows
          */
-        getRowsByKey(isInEntity: boolean, key: string | number, comparator: any, rows?: Array<IGridRowOf<TEntity>>): IGridRowOf<TEntity>;
+        getRowsByKey(
+            isInEntity: boolean,
+            key: string | number,
+            comparator: any,
+            rows?: Array<IGridRowOf<TEntity>>,
+        ): IGridRowOf<TEntity>;
         /**
          * Triggered when the browser window resizes; automatically resizes the grid
          * @param $event Resize event
@@ -498,8 +507,11 @@ declare namespace uiGrid {
          *        reset any existing sorting and sort by this column only
          * @returns A resolved promise that supplies the column.
          */
-        sortColumn(column: IGridColumnOf<TEntity>, direction?: string, add?: boolean)
-            : ng.IPromise<IGridColumnOf<TEntity>>;
+        sortColumn(
+            column: IGridColumnOf<TEntity>,
+            direction?: string,
+            add?: boolean,
+        ): ng.IPromise<IGridColumnOf<TEntity>>;
         /**
          * flags all render containers to update their canvas height
          */
@@ -516,8 +528,8 @@ declare namespace uiGrid {
          */
         appScope?: ng.IScope | undefined;
         /**
-        * returns an array of columns in the grid
-        */
+         * returns an array of columns in the grid
+         */
         columns: Array<IGridColumn>;
         /**
          * returns the total column footer height
@@ -544,7 +556,7 @@ declare namespace uiGrid {
          * which tells us which direction we are scrolling. Set to NONE via debounced method
          */
         scrollDirection?: number | undefined;
-        
+
         id: number;
     }
     export interface IBuildColumnsOptions {
@@ -560,19 +572,37 @@ declare namespace uiGrid {
         (row: IGridRowOf<TEntity>, gridOptions: IGridOptionsOf<TEntity>): void;
     }
     export interface IRowProcessor<TEntity> {
-        (renderedRowsToProcess: Array<IGridRowOf<TEntity>>, columns: Array<IGridColumnOf<TEntity>>)
-            : Array<IGridRowOf<TEntity>>;
+        (
+            renderedRowsToProcess: Array<IGridRowOf<TEntity>>,
+            columns: Array<IGridColumnOf<TEntity>>,
+        ): Array<IGridRowOf<TEntity>>;
     }
     export interface IColumnProcessor<TEntity> {
-        (renderedColumnsToProcess: Array<IGridColumnOf<TEntity>>, rows: Array<IGridRowOf<TEntity>>)
-            : Array<IGridColumnOf<TEntity>>;
+        (
+            renderedColumnsToProcess: Array<IGridColumnOf<TEntity>>,
+            rows: Array<IGridRowOf<TEntity>>,
+        ): Array<IGridColumnOf<TEntity>>;
     }
     export type IGridOptions = IGridOptionsOf<any>;
-    export interface IGridOptionsOf<TEntity> extends cellNav.IGridOptions, edit.IGridOptions, expandable.IGridOptions,
-        exporter.IGridOptions<TEntity>, grouping.IGridOptions, importer.IGridOptions<TEntity>,
-        infiniteScroll.IGridOptions, moveColumns.IGridOptions, pagination.IGridOptions, pinning.IGridOptions,
-        resizeColumns.IGridOptions, rowEdit.IGridOptions, saveState.IGridOptions, selection.IGridOptions,
-        treeBase.IGridOptions<TEntity>, treeView.IGridOptions {
+    export interface IGridOptionsOf<TEntity>
+        extends
+            cellNav.IGridOptions,
+            edit.IGridOptions,
+            expandable.IGridOptions,
+            exporter.IGridOptions<TEntity>,
+            grouping.IGridOptions,
+            importer.IGridOptions<TEntity>,
+            infiniteScroll.IGridOptions,
+            moveColumns.IGridOptions,
+            pagination.IGridOptions,
+            pinning.IGridOptions,
+            resizeColumns.IGridOptions,
+            rowEdit.IGridOptions,
+            saveState.IGridOptions,
+            selection.IGridOptions,
+            treeBase.IGridOptions<TEntity>,
+            treeView.IGridOptions
+    {
         /**
          * Default time in milliseconds to throttle aggregation calcuations, defaults to 500ms
          */
@@ -644,11 +674,11 @@ declare namespace uiGrid {
          */
         enableFiltering?: boolean | undefined;
         /**
-        * False by default. When enabled, this adds a settings icon in the top right of the grid,
-        * which floats above the column header. The menu by default gives access to show/hide columns,
-        * but can be customized to show additional actions.
-        * @default false
-        */
+         * False by default. When enabled, this adds a settings icon in the top right of the grid,
+         * which floats above the column header. The menu by default gives access to show/hide columns,
+         * but can be customized to show additional actions.
+         * @default false
+         */
         enableGridMenu?: boolean | undefined;
         /**
          * uiGridConstants.scrollbars.ALWAYS by default. This settings controls the horizontal scrollbar for the grid.
@@ -739,7 +769,7 @@ declare namespace uiGrid {
          * total items at the bottom of the grid, and the selected items if selection is enabled.
          * @default 'ui-grid/ui-grid-grid-footer'
          */
-        gridFooterTemplate?: string | undefined
+        gridFooterTemplate?: string | undefined;
         /**
          * Null by default. When provided, this setting uses a custom header
          * template, rather than the default template. Can be set to either the name of a template file:
@@ -924,7 +954,6 @@ declare namespace uiGrid {
          * @param items menu items in the format as described in the tutorial, with
          * the added note that if you want to use remove you must also specify an `id` field,
          * which is provided when you want to remove an item.  The id should be unique.
-
          */
         addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
         /**
@@ -934,8 +963,11 @@ declare namespace uiGrid {
          * @param [clearFlags=false] Defaults to false.
          * @returns If `refreshRows` is true, returns a promise of the rows refreshing.
          */
-        clearAllFilters(refreshRows?: boolean, clearConditions?: boolean,
-            clearFlags?: boolean): ng.IPromise<Array<IGridRowOf<TEntity>>>;
+        clearAllFilters(
+            refreshRows?: boolean,
+            clearConditions?: boolean,
+            clearFlags?: boolean,
+        ): ng.IPromise<Array<IGridRowOf<TEntity>>>;
         /**
          * Clears any override on visibility for the row so that it returns to
          * using normal filtering and other visibility calculations.
@@ -1290,7 +1322,7 @@ declare namespace uiGrid {
         }
 
         export interface IRowColConstructor<TEntity> {
-            new (row: uiGrid.IGridRowOf<TEntity>, col: IGridColumnOf<TEntity>): IRowCol<TEntity>;
+            new(row: uiGrid.IGridRowOf<TEntity>, col: IGridColumnOf<TEntity>): IRowCol<TEntity>;
         }
 
         /**
@@ -1390,9 +1422,9 @@ declare namespace uiGrid {
                reader.readAsText( files[0] );
            }
              */
-            editFileChooserCallback?: ((gridRow: uiGrid.IGridRowOf<TEntity>,
-                                       gridCol: IGridColumnOf<TEntity>,
-                                       files: FileList) => void) | undefined;
+            editFileChooserCallback?:
+                | ((gridRow: uiGrid.IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>, files: FileList) => void)
+                | undefined;
             /**
              * A bindable string value that is used when binding to edit controls instead of colDef.field
              * For example if you have a complex property on an object like:
@@ -1486,7 +1518,7 @@ declare namespace uiGrid {
                  * @param handler Callback
                  */
                 cancelCellEdit: (scope: ng.IScope, handler: cancelCellEditHandler<TEntity>) => void;
-            }
+            };
         }
         export interface afterCellEditHandler<TEntity> {
             /**
@@ -1684,10 +1716,14 @@ declare namespace uiGrid {
              * @param value The cell value
              * @returns Formatted value
              */
-            exporterFieldCallback?: ((grid: IGridInstanceOf<TEntity>,
-                                     row: uiGrid.IGridRowOf<TEntity>,
-                                     col: IGridColumnOf<TEntity>,
-                                     value: any) => any) | undefined;
+            exporterFieldCallback?:
+                | ((
+                    grid: IGridInstanceOf<TEntity>,
+                    row: uiGrid.IGridRowOf<TEntity>,
+                    col: IGridColumnOf<TEntity>,
+                    value: any,
+                ) => any)
+                | undefined;
             /**
              * A function to apply to the header displayNames before exporting. Useful for internationalisation,
              * for example if you were using angular-translate you'd set this to $translate.instant.
@@ -1916,7 +1952,7 @@ declare namespace uiGrid {
                 /**
                  * number, starts at 0, if less than 0 or undefined then we're aggregating in this column
                  */
-                groupPriority: number
+                groupPriority: number;
             } | undefined;
             /**
              * Show the aggregation menu on this column.  Defaults to true
@@ -2108,7 +2144,9 @@ declare namespace uiGrid {
              * @param grid The grid we're importing into, may be useful in some way
              * @param newObjects An array of new objects that you should add to your data
              */
-            importerDataAddCallback?: ((grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void) | undefined;
+            importerDataAddCallback?:
+                | ((grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void)
+                | undefined;
             /**
              * A callback function that provides custom error handling,
              * rather than the standard grid behaviour of an alert box and a console message.
@@ -2125,8 +2163,9 @@ declare namespace uiGrid {
              * @param context the context data that importer would have appended to that console message,
              *        often the file content itself or the element that is in error
              */
-            importerErrorCallback?: ((grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string,
-                context: any) => void) | undefined;
+            importerErrorCallback?:
+                | ((grid: IGridInstanceOf<TEntity>, errorKey: string, consoleMessage: string, context: any) => void)
+                | undefined;
             /**
              * A callback function that will filter (usually translate) a single header.
              * Used when you want to match the passed in column names to the column displayName after the header filter.
@@ -2165,7 +2204,9 @@ declare namespace uiGrid {
              * which you need to match to column.names
              * @returns array of matching column names, in the same order as the headerArray
              */
-            importerProcessHeaders?: ((grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>) | undefined;
+            importerProcessHeaders?:
+                | ((grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>)
+                | undefined;
             /**
              * Whether or not importer is enabled.  Automatically set
              * to false if the user's browser does not support the required fileApi.
@@ -2316,7 +2357,7 @@ declare namespace uiGrid {
                  * This event fires when scroll reaches top percentage of grid and needs to load data
                  */
                 needLoadMoreDataTop: Function;
-            }
+            };
         }
     }
 
@@ -2985,16 +3026,22 @@ declare namespace uiGrid {
              */
             selectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
             /**
-            * selects all GridRows who have an key that is equal to comparator
-            * so for Example if isInEntity == false then it does this check: row[key] === comparator
-            * if isInEntity == true then it does this check: row.entity[key] === comparator
-            * @param isInEntity if true then key is in entity else it's directly in row
-            * @param key the key to look for
-            * @param comparator the value that key should have
-            * @param evt object if raised from an event
-            * @param lookInRows the rows to look in - if not provided then looks in grid.rows
-            */
-            selectRowByKey(isInEntity: boolean, key: string | number, comparator: any, evt?: ng.IAngularEvent, lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>): void
+             * selects all GridRows who have an key that is equal to comparator
+             * so for Example if isInEntity == false then it does this check: row[key] === comparator
+             * if isInEntity == true then it does this check: row.entity[key] === comparator
+             * @param isInEntity if true then key is in entity else it's directly in row
+             * @param key the key to look for
+             * @param comparator the value that key should have
+             * @param evt object if raised from an event
+             * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+             */
+            selectRowByKey(
+                isInEntity: boolean,
+                key: string | number,
+                comparator: any,
+                evt?: ng.IAngularEvent,
+                lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>,
+            ): void;
             /**
              * Select the specified row by visible index
              * (i.e. if you specify row 0 you'll get the first visible row selected).
@@ -3030,22 +3077,28 @@ declare namespace uiGrid {
             unSelectRow(rowEntity: TEntity, event?: ng.IAngularEvent): void;
             /**
              * Unselect the specified row by visible index (i.e. if you specify row 0 you'll get the first visible row unselected).
-			 * In this context visible means of those rows that are theoretically visible (i.e. not filtered), rather than rows currently rendered on the screen.
+             * In this context visible means of those rows that are theoretically visible (i.e. not filtered), rather than rows currently rendered on the screen.
              * @param rowEntity index within the rowsVisible array
              * @param event object if raised from event
              */
-			unSelectRowByVisibleIndex(rowNum: number, event?: ng.IAngularEvent): void;
+            unSelectRowByVisibleIndex(rowNum: number, event?: ng.IAngularEvent): void;
             /**
-            * unselects the GridRows who have an key that is equal to comparator
-            * so for Example if isInEntity == false then it does this check: row[key] === comparator
-            * if isInEntity == true then it does this check: row.entity[key] === comparator
-            * @param isInEntity if true then key is in entity else it's directly in row
-            * @param key the key to look for
-            * @param comparator the value that key should have
-            * @param evt object if raised from an event
-            * @param lookInRows the rows to look in - if not provided then looks in grid.rows
-            */
-            unSelectRowByKey(isInEntity: boolean, key: string | number, comparator: any, evt?: ng.IAngularEvent, lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>): void
+             * unselects the GridRows who have an key that is equal to comparator
+             * so for Example if isInEntity == false then it does this check: row[key] === comparator
+             * if isInEntity == true then it does this check: row.entity[key] === comparator
+             * @param isInEntity if true then key is in entity else it's directly in row
+             * @param key the key to look for
+             * @param comparator the value that key should have
+             * @param evt object if raised from an event
+             * @param lookInRows the rows to look in - if not provided then looks in grid.rows
+             */
+            unSelectRowByKey(
+                isInEntity: boolean,
+                key: string | number,
+                comparator: any,
+                evt?: ng.IAngularEvent,
+                lookInRows?: Array<uiGrid.IGridRowOf<TEntity>>,
+            ): void;
 
             // Events
             on: {
@@ -3114,8 +3167,14 @@ declare namespace uiGrid {
              * @param numValue Numeric value of the field
              * @param row Row objet
              */
-            customTreeAggregationFn?: ((aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
-                row: IGridRowOf<TEntity>) => void) | undefined;
+            customTreeAggregationFn?:
+                | ((
+                    aggregation: IGridTreeBaseAggregationObject,
+                    fieldValue: any,
+                    numValue: number,
+                    row: IGridRowOf<TEntity>,
+                ) => void)
+                | undefined;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n
              */
@@ -3190,7 +3249,7 @@ declare namespace uiGrid {
              * Defaults to {}
              * @default {}
              */
-            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity>; } | undefined;
+            treeCustomAggregations?: { [index: string]: IGridTreeBaseCustomAggregation<TEntity> } | undefined;
             /**
              * Number of pixels of indent for the icon at each tree level, wider indents are visually more pleasing,
              * but will make the tree row header wider
@@ -3215,8 +3274,12 @@ declare namespace uiGrid {
 
         export interface IGridTreeBaseCustomAggregation<TEntity> {
             label: string;
-            aggregationFn: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
-                row?: IGridRowOf<TEntity>) => void;
+            aggregationFn: (
+                aggregation: IGridTreeBaseAggregationObject,
+                fieldValue: any,
+                numValue: number,
+                row?: IGridRowOf<TEntity>,
+            ) => void;
             finalizerFn?: ((aggregation: IGridTreeBaseAggregationObject) => void) | undefined;
         }
         export interface IGridTreeBaseAggregationObject {
@@ -3302,7 +3365,7 @@ declare namespace uiGrid {
 
         export interface ITreeState {
             expandedState: {
-                [index: string]: string
+                [index: string]: string;
             };
         }
 
@@ -3372,7 +3435,7 @@ declare namespace uiGrid {
     // Tree View
 
     export interface IGridApiConstructor<TEntity> {
-        new (grid: IGridInstanceOf<TEntity>): IGridApiOf<TEntity>;
+        new(grid: IGridInstanceOf<TEntity>): IGridApiOf<TEntity>;
     }
     export type IGridApi = IGridApiOf<any>;
     export interface IGridApiOf<TEntity> {
@@ -3520,8 +3583,9 @@ declare namespace uiGrid {
         new(entity: TEntity, index: number, reference: IGridInstanceOf<TEntity>): IGridRowOf<TEntity>;
     }
     export type IGridRow = IGridRowOf<any>;
-    export interface IGridRowOf<TEntity> extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow,
-        selection.IGridRow, expandable.IGridRow {
+    export interface IGridRowOf<TEntity>
+        extends cellNav.IGridRow, edit.IGridRow, exporter.IGridRow, selection.IGridRow, expandable.IGridRow
+    {
         /** A reference to an item in gridOptions.data[] */
         entity: TEntity;
         /** A reference back to the grid */
@@ -3643,7 +3707,9 @@ declare namespace uiGrid {
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
+        sortingAlgorithm?:
+            | ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number)
+            | undefined;
         /** Column width */
         width: number;
         /**
@@ -3708,9 +3774,17 @@ declare namespace uiGrid {
      * gridOptions.columnDefs array
      */
     export type IColumnDef = IColumnDefOf<any>;
-    export interface IColumnDefOf<TEntity> extends cellNav.IColumnDef, edit.IColumnDef<TEntity>, exporter.IColumnDef,
-        grouping.IColumnDef, moveColumns.IColumnDef, pinning.IColumnDef, resizeColumns.IColumnDef,
-        treeBase.IColumnDef<TEntity> {
+    export interface IColumnDefOf<TEntity>
+        extends
+            cellNav.IColumnDef,
+            edit.IColumnDef<TEntity>,
+            exporter.IColumnDef,
+            grouping.IColumnDef,
+            moveColumns.IColumnDef,
+            pinning.IColumnDef,
+            resizeColumns.IColumnDef,
+            treeBase.IColumnDef<TEntity>
+    {
         /**
          * defaults to false
          * if set to true hides the label text in the aggregation footer, so only the value is displayed.
@@ -3871,7 +3945,7 @@ declare namespace uiGrid {
          */
         sortCellFiltered?: boolean | undefined;
         /**
-         *(optional) An array of sort directions, specifying the order that they should cycle through as
+         * (optional) An array of sort directions, specifying the order that they should cycle through as
          * the user repeatedly clicks on the column heading. The default is [null, uiGridConstants.ASC, uiGridConstants.DESC].
          * Null refers to the unsorted state. This does not affect the initial sort direction; use the sort property for that.
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
@@ -3884,7 +3958,9 @@ declare namespace uiGrid {
          * parameters that are the row objects and the current direction of the sort
          * respectively.
          */
-        sortingAlgorithm?: ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number) | undefined;
+        sortingAlgorithm?:
+            | ((a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number)
+            | undefined;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
@@ -3911,7 +3987,13 @@ declare namespace uiGrid {
     }
 
     export interface ICellClassGetter<TEntity> {
-        (grid?: IGridInstanceOf<TEntity>, gridRow?: IGridRowOf<TEntity>, gridCol?: IGridColumnOf<TEntity>, rowRenderIndex?: number, colRenderIndex?: number): string;
+        (
+            grid?: IGridInstanceOf<TEntity>,
+            gridRow?: IGridRowOf<TEntity>,
+            gridCol?: IGridColumnOf<TEntity>,
+            rowRenderIndex?: number,
+            colRenderIndex?: number,
+        ): string;
     }
 
     export interface ICellTooltipGetter<TEntity> {
@@ -3921,8 +4003,13 @@ declare namespace uiGrid {
         (gridCol: IGridColumnOf<TEntity>): string;
     }
     export interface IHeaderFooterCellClassGetter<TEntity> {
-        (grid: IGridInstanceOf<TEntity>, gridRow: IGridRowOf<TEntity>, gridCol: IGridColumnOf<TEntity>, rowRenderIndex: number, colRenderIndex: number)
-            : string;
+        (
+            grid: IGridInstanceOf<TEntity>,
+            gridRow: IGridRowOf<TEntity>,
+            gridCol: IGridColumnOf<TEntity>,
+            rowRenderIndex: number,
+            colRenderIndex: number,
+        ): string;
     }
     export interface IMenuItem {
         /** controls the title that is displayed in the menu */
@@ -3953,7 +4040,10 @@ declare namespace uiGrid {
          * or you can supply a custom filter function that gets passed the
          * following arguments: [searchTerm, cellValue, row, column].
          */
-        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean) | undefined;
+        condition?:
+            | number
+            | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean)
+            | undefined;
         /**
          * If set, the filter field will be pre-populated with this value
          */

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export type Direction = 'N' | 'S' | 'E' | 'W';
+export type Direction = "N" | "S" | "E" | "W";
 
-export type ElevationType = 'floor' | 'heightincm';
+export type ElevationType = "floor" | "heightincm";
 
 export interface Neighbours {
     n: string;

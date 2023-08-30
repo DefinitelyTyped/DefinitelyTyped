@@ -7,6 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import UIkit from './dist/js/uikit';
+import UIkit from "./dist/js/uikit";
 
 export default UIkit;

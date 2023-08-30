@@ -1,4 +1,4 @@
-import util = require('util');
+import util = require("util");
 
 // tslint:disable-next-line: ban-types
 declare function promisify<TCustom extends Function>(fn: util.CustomPromisify<TCustom>): TCustom;

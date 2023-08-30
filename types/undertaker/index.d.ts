@@ -6,9 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import * as Registry from "undertaker-registry";
 import { AsyncTask } from "async-done";
 import { EventEmitter } from "events";
+import * as Registry from "undertaker-registry";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {

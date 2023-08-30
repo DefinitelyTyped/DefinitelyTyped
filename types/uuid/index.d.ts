@@ -48,7 +48,12 @@ type v4Buffer = <T extends OutputBuffer>(options: V4Options | null | undefined, 
 type v4 = v4Buffer & v4String;
 
 type v3String = (name: string | InputBuffer, namespace: string | InputBuffer) => string;
-type v3Buffer = <T extends OutputBuffer>(name: string | InputBuffer, namespace: string | InputBuffer, buffer: T, offset?: number) => T;
+type v3Buffer = <T extends OutputBuffer>(
+    name: string | InputBuffer,
+    namespace: string | InputBuffer,
+    buffer: T,
+    offset?: number,
+) => T;
 interface v3Static {
     // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
     DNS: string;
@@ -58,7 +63,12 @@ interface v3Static {
 type v3 = v3Buffer & v3String & v3Static;
 
 type v5String = (name: string | InputBuffer, namespace: string | InputBuffer) => string;
-type v5Buffer = <T extends OutputBuffer>(name: string | InputBuffer, namespace: string | InputBuffer, buffer: T, offset?: number) => T;
+type v5Buffer = <T extends OutputBuffer>(
+    name: string | InputBuffer,
+    namespace: string | InputBuffer,
+    buffer: T,
+    offset?: number,
+) => T;
 interface v5Static {
     // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
     DNS: string;

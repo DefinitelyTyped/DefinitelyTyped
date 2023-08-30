@@ -20,7 +20,7 @@ const tasks = registryInstance.tasks();
 const taskFromTasks = tasks["task"] as typeof ArgTask;
 taskFromTasks("string", 123);
 
-class MyRegistry extends UndertakerRegistry { }
+class MyRegistry extends UndertakerRegistry {}
 
 registryInstance.init(MyRegistry);
 

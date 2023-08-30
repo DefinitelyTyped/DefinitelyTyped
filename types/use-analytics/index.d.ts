@@ -3,14 +3,14 @@
 // Definitions by: Harry Cruse <https://github.com/CruseCtrl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { AnalyticsInstance } from 'analytics';
+import { AnalyticsInstance } from "analytics";
+import * as React from "react";
 
 export function useAnalytics(): AnalyticsInstance;
 
-export function useTrack(): AnalyticsInstance['track'];
-export function usePage(): AnalyticsInstance['page'];
-export function useIdentify(): AnalyticsInstance['identify'];
+export function useTrack(): AnalyticsInstance["track"];
+export function usePage(): AnalyticsInstance["page"];
+export function useIdentify(): AnalyticsInstance["identify"];
 
 export const AnalyticsContext: React.Context<AnalyticsInstance>;
 
@@ -29,4 +29,4 @@ export interface WithAnalyticsProps {
 
 export function withAnalytics<T extends WithAnalyticsProps>(
     Component: React.ComponentType<T>,
-): React.ComponentType<Omit<T, 'analytics'>>;
+): React.ComponentType<Omit<T, "analytics">>;

@@ -13,7 +13,12 @@ export as namespace uint32;
  *  @param lowByte the low byte
  *  @returns highByte concat secondHighByte concat thirdHighByte concat lowByte
  */
-export function fromBytesBigEndian(highByte: number, secondHighByte: number, thirdHighByte: number, lowByte: number): number;
+export function fromBytesBigEndian(
+    highByte: number,
+    secondHighByte: number,
+    thirdHighByte: number,
+    lowByte: number,
+): number;
 
 /**
  *  Returns the byte.

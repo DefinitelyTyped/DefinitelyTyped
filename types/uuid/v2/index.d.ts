@@ -13,7 +13,7 @@ declare namespace uuid {
         nsecs?: number | undefined;
     }
 
-    type V4Options = { random: number[] } | { rng: () => number[]; }
+    type V4Options = { random: number[] } | { rng: () => number[] };
 
     interface UuidStatic {
         (options?: V4Options): string;
@@ -31,5 +31,5 @@ declare namespace uuid {
     }
 }
 
-declare const uuid: uuid.UuidStatic
-export = uuid
+declare const uuid: uuid.UuidStatic;
+export = uuid;

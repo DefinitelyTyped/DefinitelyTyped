@@ -1,4 +1,4 @@
-import { v5 } from './interfaces';
+import { v5 } from "./interfaces";
 
 interface v5Static {
     // https://github.com/kelektiv/node-uuid/blob/master/v5.js#L47

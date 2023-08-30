@@ -25,7 +25,7 @@ declare namespace UMA {
         debug?: boolean | undefined;
     }
 
-    type EventParams = string | {[key: string]: string};
+    type EventParams = string | { [key: string]: string };
 
     interface UMAStatic {
         init(_: InitParams): void;

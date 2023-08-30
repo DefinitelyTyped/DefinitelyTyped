@@ -36,11 +36,11 @@ export interface PositionOptions {
  * @param settings  Settings to be forwarded to the navigator.geolocation browser object.
  */
 export function usePosition(watch: boolean, settings?: PositionOptions): {
-    latitude: number | undefined,
-    longitude: number | undefined,
-    timestamp: number | undefined,
-    accuracy: number | undefined,
-    speed: number | undefined,
-    heading: number | undefined,
-    error: string | undefined
+    latitude: number | undefined;
+    longitude: number | undefined;
+    timestamp: number | undefined;
+    accuracy: number | undefined;
+    speed: number | undefined;
+    heading: number | undefined;
+    error: string | undefined;
 };

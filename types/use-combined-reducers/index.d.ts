@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
-export default function useCombinedReducers<T, A>(combinedReducers: Record<keyof T, [T[keyof T], React.Dispatch<A>]>): [T, (action: A) => void];
+export default function useCombinedReducers<T, A>(
+    combinedReducers: Record<keyof T, [T[keyof T], React.Dispatch<A>]>,
+): [T, (action: A) => void];

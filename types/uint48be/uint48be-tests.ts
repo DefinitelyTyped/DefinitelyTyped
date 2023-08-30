@@ -1,4 +1,4 @@
-import * as uint48be from 'uint48be';
+import * as uint48be from "uint48be";
 
 uint48be.encode(42); // $ExpectType Buffer
 uint48be.encode(42, Buffer.alloc(10)); // $ExpectType Buffer

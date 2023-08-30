@@ -4,5 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-export function useSyncedLocalStorage<T = any>(key: string, initialValue?: T):
-    [storage: T, setStorage: (newValue: T) => boolean];
+export function useSyncedLocalStorage<T = any>(
+    key: string,
+    initialValue?: T,
+): [storage: T, setStorage: (newValue: T) => boolean];

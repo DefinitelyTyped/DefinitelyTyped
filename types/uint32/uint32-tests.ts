@@ -1,4 +1,4 @@
-import * as uint32 from 'uint32';
+import * as uint32 from "uint32";
 
 // Creating and Extracting
 uint32.fromBytesBigEndian(1, 2, 3, 4); // $ExpectType number

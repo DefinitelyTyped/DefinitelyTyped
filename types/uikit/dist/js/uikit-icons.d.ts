@@ -1,4 +1,4 @@
-import UIkit from './uikit';
+import UIkit from "./uikit";
 
 export const Icons: {
     installed: boolean;

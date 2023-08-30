@@ -1,65 +1,65 @@
 /// <reference lib="DOM" />
-import URI = require('urijs');
-import * as URITemplate from 'urijs/src/URITemplate';
+import URI = require("urijs");
+import * as URITemplate from "urijs/src/URITemplate";
 declare var $: (arg?: any) => JQuery;
 
 // Scope it so doesn't name conflict with other tests.
 {
     URI();
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
-    URI('/foo.html', 'https://example.org');
+    URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag");
+    URI("/foo.html", "https://example.org");
     URI({
-        protocol: 'http',
-        username: 'user',
-        password: 'pass',
-        hostname: 'example.org',
-        port: '80',
-        path: '/foo/bar.html',
-        query: 'foo=bar&bar=baz',
-        fragment: 'frag'
+        protocol: "http",
+        username: "user",
+        password: "pass",
+        hostname: "example.org",
+        port: "80",
+        path: "/foo/bar.html",
+        query: "foo=bar&bar=baz",
+        fragment: "frag",
     });
-    URI(document.createElement('a'));
+    URI(document.createElement("a"));
 
     new URI();
-    new URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
-    new URI('/foo.html', 'https://example.org');
+    new URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag");
+    new URI("/foo.html", "https://example.org");
     new URI({
-        protocol: 'http',
-        username: 'user',
-        password: 'pass',
-        hostname: 'example.org',
-        port: '80',
-        path: '/foo/bar.html',
-        query: 'foo=bar&bar=baz',
-        fragment: 'frag'
+        protocol: "http",
+        username: "user",
+        password: "pass",
+        hostname: "example.org",
+        port: "80",
+        path: "/foo/bar.html",
+        query: "foo=bar&bar=baz",
+        fragment: "frag",
     });
-    new URI(document.createElement('a'));
+    new URI(document.createElement("a"));
 
     URI.preventInvalidHostname = false;
 
-    URI('').setQuery('foo', 'bar');
-    URI('').setQuery({ foo: 'bar' });
-    URI('').setSearch('foo', 'bar');
-    URI('').setSearch({ foo: 'bar' });
-    URI('http://example.org/foo/hello.html').addQuery('foo');
-    URI('http://example.org/foo/hello.html').addQuery('foo', 'bar');
-    URI('http://example.org/foo/hello.html').addQuery({ foo: 'bar' });
-    URI('http://example.org/foo/hello.html').addSearch('foo');
-    URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
-    URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
+    URI("").setQuery("foo", "bar");
+    URI("").setQuery({ foo: "bar" });
+    URI("").setSearch("foo", "bar");
+    URI("").setSearch({ foo: "bar" });
+    URI("http://example.org/foo/hello.html").addQuery("foo");
+    URI("http://example.org/foo/hello.html").addQuery("foo", "bar");
+    URI("http://example.org/foo/hello.html").addQuery({ foo: "bar" });
+    URI("http://example.org/foo/hello.html").addSearch("foo");
+    URI("http://example.org/foo/hello.html").addSearch("foo", "bar");
+    URI("http://example.org/foo/hello.html").addSearch({ foo: "bar" });
 
-    let uri: URI = $('a').uri();
+    let uri: URI = $("a").uri();
 
-    URI('http://example.org/foo/hello.html').segment('bar');
-    URI('http://example.org/foo/hello.html').segment(0, 'bar');
-    URI('http://example.org/foo/hello.html').segment(['foo', 'bar', 'foobar.html']);
+    URI("http://example.org/foo/hello.html").segment("bar");
+    URI("http://example.org/foo/hello.html").segment(0, "bar");
+    URI("http://example.org/foo/hello.html").segment(["foo", "bar", "foobar.html"]);
 
-    URI('http://example.org/foo/hello.html').segment(0);
-    URI('http://example.org/foo/hello.html').segment(100);
+    URI("http://example.org/foo/hello.html").segment(0);
+    URI("http://example.org/foo/hello.html").segment(100);
 
-    URI('http://example.org/foo/hello.html').segmentCoded('foo bar');
-    URI('http://example.org/foo/hello.html').segmentCoded(0, 'foo bar');
-    URI('http://example.org/foo/hello.html').segmentCoded(['foo bar', 'bar foo', 'foo bar.html']);
+    URI("http://example.org/foo/hello.html").segmentCoded("foo bar");
+    URI("http://example.org/foo/hello.html").segmentCoded(0, "foo bar");
+    URI("http://example.org/foo/hello.html").segmentCoded(["foo bar", "bar foo", "foo bar.html"]);
 
     const withDuplicates = URI("?bar=1&bar=1")
         .duplicateQueryParameters(true)
@@ -74,53 +74,56 @@ declare var $: (arg?: any) => JQuery;
      void URITemplate;
      ```
      */
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-            p: ['foo', 'bar.html'],
-            q: { foo: 'bar', bar: 'baz' },
-            h: 'frag',
+    URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag").equals(
+        URI.expand!("http://user:pass@example.org:80{/p*}{?q*}{#h}", {
+            p: ["foo", "bar.html"],
+            q: { foo: "bar", bar: "baz" },
+            h: "frag",
         }),
     );
 
     // Basic URITemplate type usage
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+    URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag").equals(
+        URITemplate("http://user:pass@example.org:80{/p*}{?q*}{#h}").expand({
             p: ["foo", "bar.html"],
             q: { foo: "bar", bar: "baz" },
-            h: "frag"
-        })
+            h: "frag",
+        }),
     );
 
     // Using a callback for a specific key value.
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+    URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag").equals(
+        URITemplate("http://user:pass@example.org:80{/p*}{?q*}{#h}").expand({
             p: (key) => ["foo", "bar.html"],
             q: { foo: "bar", bar: "baz" },
-            h: "frag"
-        })
+            h: "frag",
+        }),
     );
 
     // Using a callback for entire data parameter.
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand((key) => {
+    URI("http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag").equals(
+        URITemplate("http://user:pass@example.org:80{/p*}{?q*}{#h}").expand((key) => {
             switch (key) {
-                case 'p': return ["foo", "bar.html"];
-                case '1': return { foo: "bar", bar: "baz" };
-                case 'h': return "frag";
+                case "p":
+                    return ["foo", "bar.html"];
+                case "1":
+                    return { foo: "bar", bar: "baz" };
+                case "h":
+                    return "frag";
             }
-        })
+        }),
     );
 
     // Supports null/undefined values for certain keys
-    URI('http://user:pass@example.org:80/foo/bar.html').equals(
-        URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
+    URI("http://user:pass@example.org:80/foo/bar.html").equals(
+        URITemplate("http://user:pass@example.org:80{/p*}{?q*}{#h}").expand({
             p: ["foo", "bar.html"],
             q: null,
-            h: undefined
-        })
+            h: undefined,
+        }),
     );
 
-    const template = URITemplate('/items/{?page,count}');
+    const template = URITemplate("/items/{?page,count}");
     template.parse() === template;
 
     const test = <T>(a: T, b: T): boolean => {
@@ -153,9 +156,12 @@ declare var $: (arg?: any) => JQuery;
     test(uri.hasQuery(/^str/), true);
     test(uri.hasQuery(/^li/, "two"), true);
 
-    test(uri.hasQuery("string", (value: string, name: string, data: string) => {
-        return true;
-    }), true);
+    test(
+        uri.hasQuery("string", (value: string, name: string, data: string) => {
+            return true;
+        }),
+        true,
+    );
 
     /*
     Tests for removeSearch()
@@ -200,16 +206,16 @@ declare var $: (arg?: any) => JQuery;
     From: https://medialize.github.io/URI.js/docs.html#static-build
     */
     URI.build({
-        protocol: 'mailto',
-        path: 'mail@example.org',
-        urn: true
-    }) === 'mailto:mail@example.org';
+        protocol: "mailto",
+        path: "mail@example.org",
+        urn: true,
+    }) === "mailto:mail@example.org";
 
     /*
     Tests for URI.parse()
     From: https://medialize.github.io/URI.js/docs.html#static-parse
     */
-    const parts = URI.parse('mailto:mail@example.org');
+    const parts = URI.parse("mailto:mail@example.org");
     parts.path === "mail@example.org";
     parts.preventInvalidHostname = false;
     parts.protocol === "mailto";
@@ -220,46 +226,46 @@ declare var $: (arg?: any) => JQuery;
     From: https://medialize.github.io/URI.js/docs.html#static-buildQuery
     */
     const buildQueryData: URI.QueryDataMap = {
-      foo: 'bar',
-      hello: ['world', 'mars', 'mars'],
-      bam: '',
-      yup: null,
-      removed: undefined,
-      removedList: [undefined, undefined, undefined]
+        foo: "bar",
+        hello: ["world", "mars", "mars"],
+        bam: "",
+        yup: null,
+        removed: undefined,
+        removedList: [undefined, undefined, undefined],
     };
-    test(URI.buildQuery(buildQueryData), 'foo=bar&hello=world&hello=mars&bam=&yup');
-    test(URI.buildQuery(buildQueryData, true), 'foo=bar&hello=world&hello=mars&hello=mars&bam=&yup');
-    test(URI.buildQuery({ space: 'hello space' }, false), 'space=hello+space');
-    test(URI.buildQuery({ space: 'hello space' }, false, false), 'space=hello%20space');
-    test(URI.buildQuery({ habitable: false }), 'habitable=false');
-    test(URI.buildQuery({ orbit: 687 }), 'orbit=687');
-    test(URI.buildQuery({ gas: [96, 1.9,  1.8, 0.146, 0.0] }), 'gas=96&gas=1.9&gas=1.8&gas=0.146&gas=0');
-    test(URI.buildQuery({ prediction: [true, false, true] }), 'prediction=true&prediction=false');
+    test(URI.buildQuery(buildQueryData), "foo=bar&hello=world&hello=mars&bam=&yup");
+    test(URI.buildQuery(buildQueryData, true), "foo=bar&hello=world&hello=mars&hello=mars&bam=&yup");
+    test(URI.buildQuery({ space: "hello space" }, false), "space=hello+space");
+    test(URI.buildQuery({ space: "hello space" }, false, false), "space=hello%20space");
+    test(URI.buildQuery({ habitable: false }), "habitable=false");
+    test(URI.buildQuery({ orbit: 687 }), "orbit=687");
+    test(URI.buildQuery({ gas: [96, 1.9, 1.8, 0.146, 0.0] }), "gas=96&gas=1.9&gas=1.8&gas=0.146&gas=0");
+    test(URI.buildQuery({ prediction: [true, false, true] }), "prediction=true&prediction=false");
     test(
-        URI.buildQuery({ silly: [Infinity, NaN, { a: 1 }, new RegExp('')] }),
-        'silly=Infinity&silly=NaN&silly=%5Bobject+Object%5D&silly=%2F%28%3F%3A%29%2F'
+        URI.buildQuery({ silly: [Infinity, NaN, { a: 1 }, new RegExp("")] }),
+        "silly=Infinity&silly=NaN&silly=%5Bobject+Object%5D&silly=%2F%28%3F%3A%29%2F",
     );
 
     /*
     Tests for URI.parseQuery()
     From: https://medialize.github.io/URI.js/docs.html#static-parseQuery
     */
-    test(URI.parseQuery('?foo=bar&hello=world&hello=mars&bam=&yup'), {
-      foo: 'bar',
-      hello: ['world', 'mars'],
-      bam: '',
-      yup: null,
+    test(URI.parseQuery("?foo=bar&hello=world&hello=mars&bam=&yup"), {
+        foo: "bar",
+        hello: ["world", "mars"],
+        bam: "",
+        yup: null,
     });
-    test(URI.parseQuery('akey=1&v=alue&akey=two&akey=&akey'), {
-      v: 'alue',
-      akey: ['1', 'two', '', null],
+    test(URI.parseQuery("akey=1&v=alue&akey=two&akey=&akey"), {
+        v: "alue",
+        akey: ["1", "two", "", null],
     });
 
     /*
     Tests for URI.search(), URI.query()
     From: https://medialize.github.io/URI.js/docs.html#accessors-search
     */
-    const u = new URI('mailto:mail@example.org');
+    const u = new URI("mailto:mail@example.org");
     u.query(qs => qs);
     u.search(qs => qs);
     u.query(() => undefined);

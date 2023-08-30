@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as _ from 'underscore';
+import * as _ from "underscore";
 
 declare var self: _.UnderscoreStringStatic;
 export = self;
 
-declare module 'underscore' {
+declare module "underscore" {
     interface UnderscoreStatic extends UnderscoreStringStatic {
         str: UnderscoreStringStatic;
         string: UnderscoreStringStatic;
@@ -48,7 +48,6 @@ declare module 'underscore' {
      *   interface UnderscoreStatic extends UnderscoreStringStaticExports { }
      */
     export interface UnderscoreStringStaticExports {
-
         exports(): UnderscoreStringStaticExports;
 
         /**
@@ -581,7 +580,6 @@ declare module 'underscore' {
          * @param falseValues
          */
         toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
-
     }
 }
 

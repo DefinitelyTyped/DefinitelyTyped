@@ -62,7 +62,7 @@ export function encode(
     w: number,
     h: number,
     cnum: number,
-    dels?: number[]
+    dels?: number[],
 ): ArrayBuffer;
 
 export function encodeLL(
@@ -72,7 +72,7 @@ export function encodeLL(
     cc: number,
     ac: number,
     depth: number,
-    dels?: number[]
+    dels?: number[],
 ): ArrayBuffer;
 
 export function decode(buffer: ArrayBuffer): Image;

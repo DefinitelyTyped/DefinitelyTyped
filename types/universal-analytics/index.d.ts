@@ -183,7 +183,6 @@ declare namespace ua {
          *
          * **Required for transaction hit type.**
          *
-         *
          * A unique identifier for the transaction. This value should be the same for both the Transaction
          * hit and Items hits associated to the particular transaction.
          *

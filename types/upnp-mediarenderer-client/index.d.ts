@@ -16,7 +16,7 @@ declare class MediaRendererClient {
     getDuration(callback: (err: Error, result: any) => void): void;
 
     on(
-        event: 'status' | 'loading' | 'playing' | 'paused' | 'stopped' | 'speedChanged',
+        event: "status" | "loading" | "playing" | "paused" | "stopped" | "speedChanged",
         callback: (value: any) => void,
     ): void;
 }

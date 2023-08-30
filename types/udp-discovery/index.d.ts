@@ -3,7 +3,7 @@
 // Definitions by: Scott Page <https://github.com/scottpage>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Discovery constructor options
@@ -28,7 +28,7 @@ export interface DiscoveryConstructorOptions {
 /**
  * Reason for available or unavailable event to be fired.
  */
-export type ReasonType = 'new' | 'availabilityChange' | 'timedOut';
+export type ReasonType = "new" | "availabilityChange" | "timedOut";
 
 /**
  * Discovery events

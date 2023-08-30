@@ -6,9 +6,9 @@
 type Preference = typeof PREFERENCES[keyof typeof PREFERENCES];
 
 export const PREFERENCES: {
-    DARK: 'dark';
-    LIGHT: 'light';
-    NONE: 'no-preference';
+    DARK: "dark";
+    LIGHT: "light";
+    NONE: "no-preference";
 };
 
 export const values: Array<typeof PREFERENCES[keyof typeof PREFERENCES]>;

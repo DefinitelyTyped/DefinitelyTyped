@@ -1,30 +1,30 @@
 /// <reference types="node" />
 
-import { OutputQuoteStyle, minify, CompressOptions } from 'uglify-js';
+import { CompressOptions, minify, OutputQuoteStyle } from "uglify-js";
 
 let code: any;
 
 code = {
-    'file1.js': 'function add(first, second) { return first + second; }',
-    'file2.js': 'console.log(add(1 + 2, 3 + 4));',
+    "file1.js": "function add(first, second) { return first + second; }",
+    "file2.js": "console.log(add(1 + 2, 3 + 4));",
 };
 
 minify(code);
 
-code = 'function add(first, second) { return first + second; }';
+code = "function add(first, second) { return first + second; }";
 minify(code, { toplevel: true });
 
 minify(code, {
     warnings: true,
     output: {
         beautify: true,
-        preamble: '/* uglified */',
+        preamble: "/* uglified */",
         quote_style: OutputQuoteStyle.AlwaysDouble,
     },
 });
 
 const output = minify(code, {
-    warnings: 'verbose',
+    warnings: "verbose",
     mangle: {
         properties: {
             regex: /reg/,
@@ -32,13 +32,13 @@ const output = minify(code, {
         toplevel: true,
     },
     sourceMap: {
-        filename: 'foo.map',
+        filename: "foo.map",
         names: false,
     },
     compress: {
         arguments: true,
         global_defs: {
-            '@console.log': 'alert',
+            "@console.log": "alert",
         },
         passes: 2,
     },
@@ -47,7 +47,7 @@ const output = minify(code, {
     expression: true,
 });
 if (output.warnings) {
-    output.warnings.filter(x => x === 'Dropping unused variable');
+    output.warnings.filter(x => x === "Dropping unused variable");
 }
 
 const compressOptions: CompressOptions = {
@@ -78,6 +78,6 @@ minify(code, {
 
 minify(code, {
     sourceMap: {
-        content: 'inline',
+        content: "inline",
     },
 });

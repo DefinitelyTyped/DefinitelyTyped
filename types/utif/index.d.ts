@@ -5,7 +5,7 @@
 //                 Massimiliano Caniparoli <https://github.com/massic80>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import 'node';
+import "node";
 
 export as namespace UTIF;
 

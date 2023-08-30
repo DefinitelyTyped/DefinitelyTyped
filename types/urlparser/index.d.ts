@@ -11,7 +11,7 @@ interface UrlData {
         username: string;
         password: string;
         hostname: string;
-        port: string|number;
+        port: string | number;
     };
     path: {
         base: string;
@@ -26,10 +26,10 @@ interface UrlData {
 }
 
 interface UrlParser {
-    url: (o: UrlData|undefined) => string;
-    host: (o: UrlData|undefined) => string;
-    path: (o: UrlData|undefined) => string;
-    query: (o: UrlData|undefined) => string;
+    url: (o: UrlData | undefined) => string;
+    host: (o: UrlData | undefined) => string;
+    path: (o: UrlData | undefined) => string;
+    query: (o: UrlData | undefined) => string;
     parse: (parse: string) => UrlData;
 }
 
