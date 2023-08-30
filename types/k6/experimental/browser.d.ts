@@ -2503,6 +2503,29 @@ export interface Page {
     mouse: Mouse;
 
     /**
+     * Emitted when JavaScript within the page calls one of console API methods
+     * , e.g. `console.log` or `console.dir`. Also emitted if the page throws
+     * an error or a warning.
+     *
+     * The arguments passed into `console.log` are available on the
+     * {@link ConsoleMessage} event handler argument.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('console', msg => {
+     *   const values = [];
+     *   for (const arg of msg.args())
+     *     values.push(arg.jsonValue());
+     *   console.log(...values);
+     * });
+     * page.evaluate(() => console.log('hello', 5, { foo: 'bar' }));
+     * ```
+     *
+     */
+    on(event: 'console', listener: (consoleMessage: ConsoleMessage) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
