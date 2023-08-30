@@ -17,22 +17,22 @@ declare function loadjs(
 declare function loadjs(
     files: string | string[],
     bundleId: string,
-    optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn
+    optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn,
 ): void;
 
 declare function loadjs(
     files: string | string[],
     options: loadjs.LoadOptions & {
-        returnPromise: true
-    }
+        returnPromise: true;
+    },
 ): Promise<void>;
 
 declare function loadjs(
     files: string | string[],
     bundleId: string,
     options: loadjs.LoadOptions & {
-        returnPromise: true
-    }
+        returnPromise: true;
+    },
 ): Promise<void>;
 
 declare namespace loadjs {

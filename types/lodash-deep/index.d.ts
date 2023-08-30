@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
-declare module 'lodash' {
+declare module "lodash" {
     interface LoDashStatic {
         deepMapValues(
             object: any,
             callback: any,
-            propertyPath?: any
+            propertyPath?: any,
         ): any;
     }
 }
@@ -19,5 +19,5 @@ declare module 'lodash' {
 export function deepMapValues(
     object: any,
     callback: any,
-    propertyPath?: any
+    propertyPath?: any,
 ): any;

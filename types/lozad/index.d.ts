@@ -24,8 +24,7 @@ declare namespace lozad {
 
     type Selector = string | Element | HTMLCollectionOf<Element> | NodeListOf<Element>;
 
-    const prototype: {
-    };
+    const prototype: {};
 }
 
 declare function lozad(selector?: lozad.Selector, options?: lozad.Options): lozad.Observer;

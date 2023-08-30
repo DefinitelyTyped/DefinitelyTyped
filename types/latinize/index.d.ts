@@ -10,7 +10,6 @@ declare namespace LatinizeModule {
     }
 }
 
-
 declare var latinize: LatinizeModule.Latinize;
 export = latinize;
 export as namespace latinize;

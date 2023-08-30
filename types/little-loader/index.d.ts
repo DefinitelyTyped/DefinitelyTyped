@@ -12,12 +12,12 @@ interface Options {
 declare function loader(
     module: string,
     callback?: (this: any, err: string) => void,
-    context?: any
+    context?: any,
 ): void;
 
 declare function loader(
     module: string,
-    options?: Options
+    options?: Options,
 ): void;
 
 export = loader;

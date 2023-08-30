@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
 import { Observable } from "rxjs";
+import * as stream from "stream";
 
 declare namespace Listr {
     type ListrContext = any;

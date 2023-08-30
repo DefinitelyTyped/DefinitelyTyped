@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Map, LatLng, Point, LatLngExpression, PointExpression, LatLngBounds } from 'leaflet';
+import { LatLng, LatLngBounds, LatLngExpression, Map, Point, PointExpression } from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     class RasterCoords {
         constructor(map: Map, imgsize: number[], tilesize?: number, setmaxbounds?: boolean);
 

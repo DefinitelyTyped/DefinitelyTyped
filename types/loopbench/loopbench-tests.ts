@@ -1,4 +1,4 @@
-import loopbench = require('loopbench');
+import loopbench = require("loopbench");
 
 const inst = loopbench();
 inst; // $ExpectType LoopBench

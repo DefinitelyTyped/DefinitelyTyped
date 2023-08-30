@@ -5,7 +5,7 @@
 
 export function createLogger(logFilePath?: string): Logger;
 
-export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug';
+export type LogLevel = "fatal" | "error" | "warn" | "info" | "debug";
 export type Args = (...args: string[]) => string | false;
 
 export class Logger {
@@ -21,5 +21,5 @@ export class Logger {
 }
 
 export namespace Logger {
-    const levels: ['fatal', 'error', 'warn', 'info', 'debug'];
+    const levels: ["fatal", "error", "warn", "info", "debug"];
 }

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import sharp = require('sharp');
+import sharp = require("sharp");
 
 declare namespace lqip {
     interface LqipResult {
@@ -21,7 +21,7 @@ declare namespace lqip {
         };
     }
 
-    type OutputFormat = WebpOptions['outputFormat'] | JpegOptions['outputFormat'] | JpgOptions['outputFormat'];
+    type OutputFormat = WebpOptions["outputFormat"] | JpegOptions["outputFormat"] | JpgOptions["outputFormat"];
 
     type LqipOptions = WebpOptions | JpegOptions | JpgOptions | DefaultOptions;
 
@@ -31,15 +31,15 @@ declare namespace lqip {
     }
 
     interface WebpOptions extends DefaultOptions {
-        readonly outputFormat?: 'webp' | undefined;
+        readonly outputFormat?: "webp" | undefined;
         readonly outputOptions?: sharp.WebpOptions | undefined;
     }
     interface JpegOptions extends DefaultOptions {
-        readonly outputFormat: 'jpeg';
+        readonly outputFormat: "jpeg";
         readonly outputOptions?: sharp.JpegOptions | undefined;
     }
     interface JpgOptions extends DefaultOptions {
-        readonly outputFormat: 'jpg';
+        readonly outputFormat: "jpg";
         readonly outputOptions?: sharp.JpegOptions | undefined;
     }
 }

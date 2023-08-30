@@ -4,15 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace ImageOverlay {
         interface Rotated extends ImageOverlay {
             reposition(
                 topleft: LatLngExpression,
                 topright: LatLngExpression,
-                bottomleft: LatLngExpression): void;
+                bottomleft: LatLngExpression,
+            ): void;
         }
     }
 
@@ -22,6 +23,7 @@ declare module 'leaflet' {
             topleft: LatLngExpression,
             topright: LatLngExpression,
             bottomleft: LatLngExpression,
-            options?: ImageOverlayOptions): ImageOverlay.Rotated;
+            options?: ImageOverlayOptions,
+        ): ImageOverlay.Rotated;
     }
 }

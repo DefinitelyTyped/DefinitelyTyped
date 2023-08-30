@@ -7,24 +7,36 @@
 declare class Lyricist {
     constructor(accessToken: string);
 
-    album(id: number, opts?: { fetchTracklist?: boolean | undefined, textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Album>;
+    album(
+        id: number,
+        opts?: { fetchTracklist?: boolean | undefined; textFormat?: Lyricist.LyricistTextFormat | undefined },
+    ): Promise<Lyricist.Album>;
 
     artist(id: number, opts: { textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Artist>;
 
-    artistByName(name: string, opts: { textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Artist>;
+    artistByName(
+        name: string,
+        opts: { textFormat?: Lyricist.LyricistTextFormat | undefined },
+    ): Promise<Lyricist.Artist>;
 
     search(query: string): Promise<Lyricist.SearchResult[]>;
 
-    song(id: number, opts?: { fetchLyrics?: boolean | undefined, textFormat?: Lyricist.LyricistTextFormat | undefined }): Promise<Lyricist.Song>;
+    song(
+        id: number,
+        opts?: { fetchLyrics?: boolean | undefined; textFormat?: Lyricist.LyricistTextFormat | undefined },
+    ): Promise<Lyricist.Song>;
 
-    songsByArtist(id: number, opts?: { page?: number | undefined, perPage?: number | undefined, sort?: 'asc' | 'desc' | undefined }): Promise<Lyricist.SongByArtist[]>;
+    songsByArtist(
+        id: number,
+        opts?: { page?: number | undefined; perPage?: number | undefined; sort?: "asc" | "desc" | undefined },
+    ): Promise<Lyricist.SongByArtist[]>;
 }
 
 declare namespace Lyricist {
     enum LyricistTextFormat {
-        DOM = 'dom',
-        PLAIN = 'plain',
-        HTML = 'html',
+        DOM = "dom",
+        PLAIN = "plain",
+        HTML = "html",
     }
 
     interface Description {
@@ -250,7 +262,7 @@ declare namespace Lyricist {
         user?: any;
     }
 
-// Search ================================================
+    // Search ================================================
     interface SearchResult {
         annotation_count: number;
         api_path: string;

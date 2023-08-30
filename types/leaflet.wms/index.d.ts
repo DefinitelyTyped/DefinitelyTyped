@@ -5,7 +5,7 @@
 
 //// <reference types="leaflet" />
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
 export interface WmsParamsOptions extends L.WMSParams {
     crs?: string;

@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ControlOptions, Control as LControl } from 'leaflet';
+import { Control as LControl, ControlOptions } from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MapOptions {
         positionControl?: boolean | undefined;
     }

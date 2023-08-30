@@ -259,7 +259,7 @@ declare var Localize: {
      * @param fn Required. Event handler.
      */
     on(
-        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary",
         fn: (event: Event) => void,
     ): void;
 
@@ -269,7 +269,7 @@ declare var Localize: {
      * @param fn Optional. The function to unbind from the event.
      */
     off(
-        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary",
         fn?: (event: Event) => void,
     ): void;
 

@@ -1,4 +1,4 @@
-import LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+import LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 new LodashModuleReplacementPlugin();
 

@@ -6,14 +6,14 @@ import {
     ToISOFormat,
     ToISOTimeDurationOptions,
     ZoneOptions,
-} from '../index';
-import { Zone } from './zone';
-import { Duration, DurationLike, DurationUnits } from './duration';
-import { Interval } from './interval';
-import { CanBeInvalid, IfInvalid } from './_util';
+} from "../index";
+import { CanBeInvalid, IfInvalid } from "./_util";
+import { Duration, DurationLike, DurationUnits } from "./duration";
+import { Interval } from "./interval";
+import { Zone } from "./zone";
 
-export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
-export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
+export type DateTimeUnit = "year" | "quarter" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
+export type ToRelativeUnit = "years" | "quarters" | "months" | "weeks" | "days" | "hours" | "minutes" | "seconds";
 
 export type MonthNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type WeekdayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -202,16 +202,15 @@ export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
 export type PossibleDaysInYear = 365 | 366;
 export type PossibleWeeksInYear = 52 | 53;
 
-export type ToObjectOutput<IncludeConfig extends boolean | undefined = undefined> =
-    CanBeInvalid extends true
-        ? Partial<_ToObjectOutput<IncludeConfig>>
-        : _ToObjectOutput<IncludeConfig>;
+export type ToObjectOutput<IncludeConfig extends boolean | undefined = undefined> = CanBeInvalid extends true
+    ? Partial<_ToObjectOutput<IncludeConfig>>
+    : _ToObjectOutput<IncludeConfig>;
 /** @internal */
 export type _ToObjectOutput<IncludeConfig extends boolean | undefined = undefined> =
-    & Record<Exclude<DateTimeUnit, 'quarter' | 'week'>, number>
+    & Record<Exclude<DateTimeUnit, "quarter" | "week">, number>
     & (IncludeConfig extends true ? LocaleOptions : unknown);
 
-export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit'> {
+export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, "unit"> {
     /**
      * @default long
      */
@@ -317,7 +316,7 @@ export interface DateTimeOptions extends LocaleOptions {
     setZone?: boolean | undefined;
 }
 
-export type DateTimeJSOptions = Omit<DateTimeOptions, 'setZone'>;
+export type DateTimeJSOptions = Omit<DateTimeOptions, "setZone">;
 
 export interface DateObjectUnits {
     // a year, such as 1987
@@ -344,12 +343,12 @@ export interface DateObjectUnits {
     millisecond?: number | undefined;
 }
 
-export type ConversionAccuracy = 'casual' | 'longterm';
+export type ConversionAccuracy = "casual" | "longterm";
 
 /**
  * @deprecated You should use `Intl.DateTimeFormatOptions` fields and values instead.
  */
-export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+export type DateTimeFormatPresetValue = "numeric" | "short" | "long";
 /**
  * @deprecated Use `Intl.DateTimeFormatOptions` instead.
  */
@@ -1191,7 +1190,7 @@ export class DateTime {
      * @example
      * DateTime.now().toFormat("HH 'hours and' mm 'minutes'") //=> '20 hours and 55 minutes'
      */
-    toFormat(fmt: string, opts?: LocaleOptions): string | IfInvalid<'Invalid DateTime'>;
+    toFormat(fmt: string, opts?: LocaleOptions): string | IfInvalid<"Invalid DateTime">;
 
     /**
      * Returns a localized string representing this date. Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon,
@@ -1221,7 +1220,7 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); //=> '11:32'
      */
-    toLocaleString(formatOpts?: DateTimeFormatOptions, opts?: LocaleOptions): string | IfInvalid<'Invalid DateTime'>;
+    toLocaleString(formatOpts?: DateTimeFormatOptions, opts?: LocaleOptions): string | IfInvalid<"Invalid DateTime">;
 
     /**
      * Returns an array of format "parts", meaning individual tokens along with metadata. This is allows callers to post-process individual sections of the formatted output.
@@ -1356,7 +1355,7 @@ export class DateTime {
     /**
      * Returns a string representation of this DateTime appropriate for debugging
      */
-    toString(): string | IfInvalid<'Invalid DateTime'>;
+    toString(): string | IfInvalid<"Invalid DateTime">;
 
     /**
      * Returns the epoch milliseconds of this DateTime. Alias of {@link DateTime.toMillis}

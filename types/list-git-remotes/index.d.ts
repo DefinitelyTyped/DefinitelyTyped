@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { ExecException, ExecSyncOptions } from 'child_process';
+import { ExecException, ExecSyncOptions } from "child_process";
 
 export = listGitRemotes;
 

@@ -1,6 +1,6 @@
 // Default logger (writes at 'info' level)
 // const log = require("log");
-import * as log from 'log';
+import * as log from "log";
 
 // Log 'info' level message:
 log.info("some info message %s", "injected string");

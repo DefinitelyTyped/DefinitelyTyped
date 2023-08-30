@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export type MimeWordEncoding = 'Q' | 'B';
+export type MimeWordEncoding = "Q" | "B";
 
 /**
  * Encodes a string into mime [encoded word](http://en.wikipedia.org/wiki/MIME#Encoded-Word) format.

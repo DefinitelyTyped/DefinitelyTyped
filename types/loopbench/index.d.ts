@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = loopbench;
 
@@ -54,18 +54,18 @@ declare namespace loopbench {
          */
         stop(): void;
 
-        addListener(event: 'load' | 'unload', listener: () => void): this;
-        on(event: 'load' | 'unload', listener: () => void): this;
-        once(event: 'load' | 'unload', listener: () => void): this;
-        removeListener(event: 'load' | 'unload', listener: () => void): this;
-        off(event: 'load' | 'unload', listener: () => void): this;
-        removeAllListeners(event?: 'load' | 'unload'): this;
-        listeners(event: 'load' | 'unload'): Array<() => void>;
-        rawListeners(event: 'load' | 'unload'): Array<() => void>;
-        emit(event: 'load' | 'unload'): boolean;
-        listenerCount(type: 'load' | 'unload'): number;
-        prependListener(event: 'load' | 'unload', listener: () => void): this;
-        prependOnceListener(event: 'load' | 'unload', listener: () => void): this;
-        eventNames(): Array<'load' | 'unload'>;
+        addListener(event: "load" | "unload", listener: () => void): this;
+        on(event: "load" | "unload", listener: () => void): this;
+        once(event: "load" | "unload", listener: () => void): this;
+        removeListener(event: "load" | "unload", listener: () => void): this;
+        off(event: "load" | "unload", listener: () => void): this;
+        removeAllListeners(event?: "load" | "unload"): this;
+        listeners(event: "load" | "unload"): Array<() => void>;
+        rawListeners(event: "load" | "unload"): Array<() => void>;
+        emit(event: "load" | "unload"): boolean;
+        listenerCount(type: "load" | "unload"): number;
+        prependListener(event: "load" | "unload", listener: () => void): this;
+        prependOnceListener(event: "load" | "unload", listener: () => void): this;
+        eventNames(): Array<"load" | "unload">;
     }
 }

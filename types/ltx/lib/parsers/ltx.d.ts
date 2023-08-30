@@ -1,3 +1,3 @@
-import SaxLtx from '../../src/parsers/ltx';
+import SaxLtx from "../../src/parsers/ltx";
 
 export = SaxLtx;

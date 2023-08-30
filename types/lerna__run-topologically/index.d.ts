@@ -3,8 +3,8 @@
 // Definitions by: donmahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Package } from '@lerna/package';
-import { QueryGraphConfig } from '@lerna/query-graph';
+import { Package } from "@lerna/package";
+import { QueryGraphConfig } from "@lerna/query-graph";
 
 export type TopologicalConfig = QueryGraphConfig & { concurrency: number };
 export function runTopologically<T>(

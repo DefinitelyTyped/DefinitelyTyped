@@ -1,6 +1,6 @@
-import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from './datetime';
-import { Duration, DurationLike, DurationUnit } from './duration';
-import { IfInvalid } from './_util';
+import { IfInvalid } from "./_util";
+import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from "./datetime";
+import { Duration, DurationLike, DurationUnit } from "./duration";
 
 export interface IntervalObject {
     start?: DateTime | undefined;
@@ -240,7 +240,7 @@ export class Interval {
     /**
      * Returns a string representation of this Interval appropriate for debugging.
      */
-    toString(): string | IfInvalid<'Invalid Interval'>;
+    toString(): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Returns a localized string representing this Interval. Accepts the same options as the
@@ -270,7 +270,10 @@ export class Interval {
      *   minute: "2-digit",
      * }); //=> Mon, Nov 07, 6:00 – 8:00 p
      */
-    toLocaleString(formatOpts?: Intl.DateTimeFormatOptions, opts?: LocaleOptions): string | IfInvalid<'Invalid Interval'>;
+    toLocaleString(
+        formatOpts?: Intl.DateTimeFormatOptions,
+        opts?: LocaleOptions,
+    ): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Returns an ISO 8601-compliant string representation of this Interval.
@@ -278,14 +281,14 @@ export class Interval {
      *
      * @param opts - The same options as {@link DateTime#toISO}
      */
-    toISO(opts?: ToISOTimeOptions): string | IfInvalid<'Invalid Interval'>;
+    toISO(opts?: ToISOTimeOptions): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Returns an ISO 8601-compliant string representation of the dates in this Interval.
      * The time components are ignored.
      * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
      */
-    toISODate(): string | IfInvalid<'Invalid Interval'>;
+    toISODate(): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Returns an ISO 8601-compliant string representation of the times in this Interval.
@@ -294,7 +297,7 @@ export class Interval {
      *
      * @param opts - The same options as {@link DateTime.toISO}
      */
-    toISOTime(opts?: ToISOTimeOptions): string | IfInvalid<'Invalid Interval'>;
+    toISOTime(opts?: ToISOTimeOptions): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Returns a string representation of this Interval formatted according to the specified format string.
@@ -308,7 +311,7 @@ export class Interval {
         opts?: {
             separator?: string | undefined;
         },
-    ): string | IfInvalid<'Invalid Interval'>;
+    ): string | IfInvalid<"Invalid Interval">;
 
     /**
      * Return a Duration representing the time spanned by this interval.

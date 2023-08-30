@@ -1,6 +1,6 @@
-import middy from '@middy/core';
-import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
-import { HttpMiddlewareOptions } from './httpMiddleware';
+import middy from "@middy/core";
+import { HttpMiddlewareOptions } from "./httpMiddleware";
+import { HttpGatewayEvent } from "./normalizeHttpRequestMiddleware";
 
 export interface ErrorHttpMiddlewareOptions extends HttpMiddlewareOptions {
     logger?: (message: any) => void;

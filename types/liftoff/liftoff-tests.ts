@@ -1,72 +1,72 @@
-import Liftoff = require('liftoff');
-import v8flags = require('v8flags');
+import Liftoff = require("liftoff");
+import v8flags = require("v8flags");
 
 new Liftoff({
-    name: 'hacker',
-    processTitle: 'hacker',
-    moduleName: 'hacker',
-    configName: 'hackerfile',
+    name: "hacker",
+    processTitle: "hacker",
+    moduleName: "hacker",
+    configName: "hackerfile",
     extensions: {
-        '.js': null,
-        '.json': null,
-        '.coffee': 'coffee-script/register',
+        ".js": null,
+        ".json": null,
+        ".coffee": "coffee-script/register",
     },
-    v8flags: ['--harmony'],
+    v8flags: ["--harmony"],
 });
 new Liftoff({
-    name: 'hacker',
-    processTitle: 'hacker',
-    moduleName: 'hacker',
-    configName: 'hackerfile',
+    name: "hacker",
+    processTitle: "hacker",
+    moduleName: "hacker",
+    configName: "hackerfile",
     extensions: {
-        '.js': null,
-        '.json': null,
-        '.coffee': 'coffee-script/register',
+        ".js": null,
+        ".json": null,
+        ".coffee": "coffee-script/register",
     },
     v8flags,
 });
-new Liftoff({ name: 'hacker' });
+new Liftoff({ name: "hacker" });
 new Liftoff({
-    name: 'myapp',
+    name: "myapp",
     extensions: {
-        '.js': null,
-        '.json': null,
-        '.coffee': 'coffee-script/register',
+        ".js": null,
+        ".json": null,
+        ".coffee": "coffee-script/register",
     },
 });
 new Liftoff({
-    name: 'myapp',
-    configName: '.myapp',
+    name: "myapp",
+    configName: ".myapp",
     extensions: {
         rc: null,
     },
 });
 new Liftoff({
-    name: 'myapp',
-    extensions: require('interpret').jsVariants,
+    name: "myapp",
+    extensions: require("interpret").jsVariants,
 });
 new Liftoff({
-    v8flags: ['--trace-deprecation'],
+    v8flags: ["--trace-deprecation"],
 });
 new Liftoff({
     v8flags(cb) {
-        cb(null, ['--trace-deprecation']);
+        cb(null, ["--trace-deprecation"]);
     },
 });
 new Liftoff({
-    name: 'hacker',
+    name: "hacker",
     configFiles: {
-        '.hacker': {
-            cwd: '.',
+        ".hacker": {
+            cwd: ".",
         },
     },
 });
 new Liftoff({
-    name: 'hacker',
+    name: "hacker",
     configFiles: {
-        '.hacker': {
+        ".hacker": {
             home: {
-                path: '~',
+                path: "~",
                 extensions: {
                     rc: null,
                 },
@@ -75,50 +75,50 @@ new Liftoff({
     },
 });
 new Liftoff({
-    name: 'hacker',
+    name: "hacker",
     configFiles: {
-        '.hacker': {
+        ".hacker": {
             up: {
-                path: '.',
+                path: ".",
                 findUp: true,
             },
         },
     },
 });
 new Liftoff({
-    name: 'hacker',
+    name: "hacker",
     configFiles: {
         hacker: {
             override: {
-                path: '.',
-                name: '.override',
+                path: ".",
+                name: ".override",
             },
         },
     },
 });
 new Liftoff({
-    name: 'hacker',
+    name: "hacker",
     configFiles: {
-        '.hacker': {
+        ".hacker": {
             home: {
-                path: '.',
-                cwd: '~',
+                path: ".",
+                cwd: "~",
             },
         },
     },
 });
 
 const Hacker = new Liftoff({
-    name: 'hacker',
-    processTitle: 'hacker',
-    moduleName: 'hacker',
-    configName: 'hackerfile',
+    name: "hacker",
+    processTitle: "hacker",
+    moduleName: "hacker",
+    configName: "hackerfile",
     extensions: {
-        '.js': null,
-        '.json': null,
-        '.coffee': 'coffee-script/register',
+        ".js": null,
+        ".json": null,
+        ".coffee": "coffee-script/register",
     },
-    v8flags: ['--harmony'], // or v8flags: require('v8flags')
+    v8flags: ["--harmony"], // or v8flags: require('v8flags')
 });
 
 Hacker.prepare({}, env => {
@@ -139,7 +139,7 @@ Hacker.prepare({}, env => {
         env; // $ExpectType LiftoffEnv
         argv; // $ExpectType string[]
     });
-    Hacker.execute(env, ['--foo'], function(env, argv) {
+    Hacker.execute(env, ["--foo"], function(env, argv) {
         this; // $ExpectType Liftoff
         env; // $ExpectType LiftoffEnv
         argv; // $ExpectType string[]
@@ -148,215 +148,215 @@ Hacker.prepare({}, env => {
 
 const liftoff = new Liftoff();
 
-liftoff.addListener('preload:before', name => {
+liftoff.addListener("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.addListener('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.addListener('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.addListener('loader:success', (name, module) => {
+liftoff.addListener("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.addListener('loader:failure', (name, err) => {
+liftoff.addListener("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.addListener('respawn', (flags, child) => {
+liftoff.addListener("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.addListener("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.addListener("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.addListener('foo', (...args) => {
+liftoff.addListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.on('preload:before', name => {
+liftoff.on("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.on('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.on('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.on('loader:success', (name, module) => {
+liftoff.on("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.on('loader:failure', (name, err) => {
+liftoff.on("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.on('respawn', (flags, child) => {
+liftoff.on("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.on("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.on("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.on('foo', (...args) => {
+liftoff.on("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.once('preload:before', name => {
+liftoff.once("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.once('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.once('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.once('loader:success', (name, module) => {
+liftoff.once("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.once('loader:failure', (name, err) => {
+liftoff.once("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.once('respawn', (flags, child) => {
+liftoff.once("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.once("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.once("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.once('foo', (...args) => {
+liftoff.once("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.prependListener('preload:before', name => {
+liftoff.prependListener("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.prependListener('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.prependListener('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.prependListener('loader:success', (name, module) => {
+liftoff.prependListener("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.prependListener('loader:failure', (name, err) => {
+liftoff.prependListener("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.prependListener('respawn', (flags, child) => {
+liftoff.prependListener("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.prependListener("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.prependListener("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.prependListener('foo', (...args) => {
+liftoff.prependListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.prependOnceListener('preload:before', name => {
+liftoff.prependOnceListener("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.prependOnceListener('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.prependOnceListener('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.prependOnceListener('loader:success', (name, module) => {
+liftoff.prependOnceListener("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.prependOnceListener('loader:failure', (name, err) => {
+liftoff.prependOnceListener("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.prependOnceListener('respawn', (flags, child) => {
+liftoff.prependOnceListener("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.prependOnceListener("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.prependOnceListener("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.prependOnceListener('foo', (...args) => {
+liftoff.prependOnceListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.removeListener('preload:before', name => {
+liftoff.removeListener("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.removeListener('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.removeListener('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.removeListener('loader:success', (name, module) => {
+liftoff.removeListener("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.removeListener('loader:failure', (name, err) => {
+liftoff.removeListener("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.removeListener('respawn', (flags, child) => {
+liftoff.removeListener("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.removeListener("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.removeListener("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.removeListener('foo', (...args) => {
+liftoff.removeListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.off('preload:before', name => {
+liftoff.off("preload:before", name => {
     name; // $ExpectType string
 });
-liftoff.off('preload:success', (name, module) => {
-    name; // $ExpectType string
-    module; // $ExpectType unknown
-});
-liftoff.off('preload:failure', (name, err) => {
-    name; // $ExpectType string
-    err; // $ExpectType Error
-});
-liftoff.off('loader:success', (name, module) => {
+liftoff.off("preload:success", (name, module) => {
     name; // $ExpectType string
     module; // $ExpectType unknown
 });
-liftoff.off('loader:failure', (name, err) => {
+liftoff.off("preload:failure", (name, err) => {
     name; // $ExpectType string
     err; // $ExpectType Error
 });
-liftoff.off('respawn', (flags, child) => {
+liftoff.off("loader:success", (name, module) => {
+    name; // $ExpectType string
+    module; // $ExpectType unknown
+});
+liftoff.off("loader:failure", (name, err) => {
+    name; // $ExpectType string
+    err; // $ExpectType Error
+});
+liftoff.off("respawn", (flags, child) => {
     flags; // $ExpectType string[]
     child; // $ExpectType Process
 });
-liftoff.off('foo', (...args) => {
+liftoff.off("foo", (...args) => {
     args; // $ExpectType any[]
 });
 
-liftoff.listeners('preload:before'); // $ExpectType ((name: string) => void)[]
-liftoff.listeners('preload:success'); // $ExpectType ((name: string, module: unknown) => void)[]
-liftoff.listeners('preload:failure'); // $ExpectType ((name: string, err: Error) => void)[]
-liftoff.listeners('loader:success'); // $ExpectType ((name: string, module: unknown) => void)[]
-liftoff.listeners('loader:failure'); // $ExpectType ((name: string, err: Error) => void)[]
-liftoff.listeners('respawn'); // $ExpectType ((flags: string[], child: Process) => void)[]
-liftoff.listeners('foo'); // $ExpectType ((...args: any[]) => void)[]
+liftoff.listeners("preload:before"); // $ExpectType ((name: string) => void)[]
+liftoff.listeners("preload:success"); // $ExpectType ((name: string, module: unknown) => void)[]
+liftoff.listeners("preload:failure"); // $ExpectType ((name: string, err: Error) => void)[]
+liftoff.listeners("loader:success"); // $ExpectType ((name: string, module: unknown) => void)[]
+liftoff.listeners("loader:failure"); // $ExpectType ((name: string, err: Error) => void)[]
+liftoff.listeners("respawn"); // $ExpectType ((flags: string[], child: Process) => void)[]
+liftoff.listeners("foo"); // $ExpectType ((...args: any[]) => void)[]
 
-liftoff.rawListeners('preload:before'); // $ExpectType ((name: string) => void)[]
-liftoff.rawListeners('preload:success'); // $ExpectType ((name: string, module: unknown) => void)[]
-liftoff.rawListeners('preload:failure'); // $ExpectType ((name: string, err: Error) => void)[]
-liftoff.rawListeners('loader:success'); // $ExpectType ((name: string, module: unknown) => void)[]
-liftoff.rawListeners('loader:failure'); // $ExpectType ((name: string, err: Error) => void)[]
-liftoff.rawListeners('respawn'); // $ExpectType ((flags: string[], child: Process) => void)[]
-liftoff.rawListeners('foo'); // $ExpectType ((...args: any[]) => void)[]
+liftoff.rawListeners("preload:before"); // $ExpectType ((name: string) => void)[]
+liftoff.rawListeners("preload:success"); // $ExpectType ((name: string, module: unknown) => void)[]
+liftoff.rawListeners("preload:failure"); // $ExpectType ((name: string, err: Error) => void)[]
+liftoff.rawListeners("loader:success"); // $ExpectType ((name: string, module: unknown) => void)[]
+liftoff.rawListeners("loader:failure"); // $ExpectType ((name: string, err: Error) => void)[]
+liftoff.rawListeners("respawn"); // $ExpectType ((flags: string[], child: Process) => void)[]
+liftoff.rawListeners("foo"); // $ExpectType ((...args: any[]) => void)[]
 
-liftoff.emit<'preload:before'>('preload:before', 'foo'); // $ExpectType boolean
-liftoff.emit<'preload:success'>('preload:success', 'foo', 'bar'); // $ExpectType boolean
-liftoff.emit<'preload:failure'>('preload:failure', 'foo', new Error('foo')); // $ExpectType boolean
-liftoff.emit<'loader:success'>('loader:success', 'foo', 'bar'); // $ExpectType boolean
-liftoff.emit<'loader:failure'>('loader:failure', 'foo', new Error('foo')); // $ExpectType boolean
-liftoff.emit<'respawn'>('respawn', ['foo'], null as any as NodeJS.Process); // $ExpectType boolean
-liftoff.emit('foo', 'bar'); // $ExpectType boolean
+liftoff.emit<"preload:before">("preload:before", "foo"); // $ExpectType boolean
+liftoff.emit<"preload:success">("preload:success", "foo", "bar"); // $ExpectType boolean
+liftoff.emit<"preload:failure">("preload:failure", "foo", new Error("foo")); // $ExpectType boolean
+liftoff.emit<"loader:success">("loader:success", "foo", "bar"); // $ExpectType boolean
+liftoff.emit<"loader:failure">("loader:failure", "foo", new Error("foo")); // $ExpectType boolean
+liftoff.emit<"respawn">("respawn", ["foo"], null as any as NodeJS.Process); // $ExpectType boolean
+liftoff.emit("foo", "bar"); // $ExpectType boolean

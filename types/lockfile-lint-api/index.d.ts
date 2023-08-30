@@ -24,12 +24,12 @@ export interface Error {
 }
 
 export interface ValidationError {
-    type: 'error';
+    type: "error";
     errors: Error[];
 }
 
 export interface ValidationSuccess {
-    type: 'success';
+    type: "success";
     object: Packages;
 }
 
@@ -63,7 +63,7 @@ export interface ParseLockfileOptions {
 }
 
 export interface ParseLockfileResult {
-    type: 'success';
+    type: "success";
     object: Packages;
 }
 

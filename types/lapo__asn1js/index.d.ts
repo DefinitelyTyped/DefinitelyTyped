@@ -14,7 +14,7 @@ declare namespace ASN1 {
 }
 
 declare class Stream {
-    static hexDigits: '0123456789ABCDEF';
+    static hexDigits: "0123456789ABCDEF";
 
     constructor(enc: ASN1.StreamOrBinary, pos: number);
 

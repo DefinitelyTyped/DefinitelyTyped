@@ -1,4 +1,4 @@
-import limit = require('limit-number');
+import limit = require("limit-number");
 
 // $ExpectType number
 limit(0, 10, 5);

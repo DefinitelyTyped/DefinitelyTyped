@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Leaflet from 'leaflet';
+import * as Leaflet from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     /**
      * Make geometries editable in Leaflet.
      *
@@ -14,7 +14,7 @@ declare module 'leaflet' {
      * control editing of geometries. So you can easily build your own UI with your own needs and choices.
      */
     interface EditableStatic {
-        new (map: Map, options: EditOptions): Editable;
+        new(map: Map, options: EditOptions): Editable;
     }
 
     /**

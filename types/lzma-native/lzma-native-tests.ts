@@ -1,5 +1,5 @@
-import * as lzma from "lzma-native";
 import * as fs from "fs";
+import * as lzma from "lzma-native";
 
 const compressor = lzma.createCompressor();
 const input = fs.createReadStream("tsconfig.json");

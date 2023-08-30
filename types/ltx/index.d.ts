@@ -3,4 +3,4 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/ltx';
+export * from "./lib/ltx";

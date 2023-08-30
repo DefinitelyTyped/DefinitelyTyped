@@ -41,7 +41,6 @@ declare class Levenshtein {
 
 // Required to make import as syntax work
 declare namespace Levenshtein {
-
 }
 
 export = Levenshtein;

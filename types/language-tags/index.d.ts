@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import SubtagClass = require('./Subtag');
-import TagClass = require('./Tag');
+import SubtagClass = require("./Subtag");
+import TagClass = require("./Tag");
 
 /**
  * Note that all lookups and checks for tags and subtags are case insensitive. For formatting according to common

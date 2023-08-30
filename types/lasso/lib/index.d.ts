@@ -1,9 +1,13 @@
-import Lasso, { LassoConfig, LassoPage, LassoResource } from './Lasso';
-import LassoContext from './LassoContext';
-import * as _writers from './writers';
+import Lasso, { LassoConfig, LassoPage, LassoResource } from "./Lasso";
+import LassoContext from "./LassoContext";
+import * as _writers from "./writers";
 
 export namespace transforms {
-  function createTransformer(unfilteredTransforms: any[], lassoContext: LassoContext, callback: (err: Error | null, result?: any) => any): void;
+    function createTransformer(
+        unfilteredTransforms: any[],
+        lassoContext: LassoContext,
+        callback: (err: Error | null, result?: any) => any,
+    ): void;
 }
 
 export { _writers as writers };

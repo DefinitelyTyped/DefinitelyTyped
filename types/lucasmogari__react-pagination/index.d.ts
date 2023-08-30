@@ -3,7 +3,7 @@
 // Definitions by: Laura Beatris <https://github.com/LauraBeatris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface UseNavigationParameters {
     page?: number | undefined;
@@ -16,14 +16,14 @@ export interface UseNavigationParameters {
 }
 
 export enum PageVariant {
-    'before' = 'before',
-    'next' = 'next',
-    'gap' = 'gap',
+    "before" = "before",
+    "next" = "next",
+    "gap" = "gap",
 }
 
 export interface PageItemProps {
     disabled?: boolean | undefined;
-    'aria-current'?: boolean | undefined;
+    "aria-current"?: boolean | undefined;
     onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 

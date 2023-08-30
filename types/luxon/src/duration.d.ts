@@ -1,6 +1,6 @@
-import { NumberingSystem } from './misc';
-import { ConversionAccuracy } from './datetime';
-import { IfInvalid } from './_util';
+import { IfInvalid } from "./_util";
+import { ConversionAccuracy } from "./datetime";
+import { NumberingSystem } from "./misc";
 
 export interface DurationOptions {
     locale?: string | undefined;
@@ -35,7 +35,7 @@ export interface DurationLikeObject extends DurationObjectUnits {
 export type DurationUnit = keyof DurationLikeObject;
 export type DurationUnits = DurationUnit | DurationUnit[];
 
-export type ToISOFormat = 'basic' | 'extended';
+export type ToISOFormat = "basic" | "extended";
 
 export interface ToISOTimeDurationOptions {
     /**
@@ -61,7 +61,7 @@ export interface ToISOTimeDurationOptions {
 }
 
 export interface ToHumanDurationOptions extends Intl.NumberFormatOptions {
-    listStyle?: 'long' | 'short' | 'narrow' | undefined;
+    listStyle?: "long" | "short" | "narrow" | undefined;
 }
 
 /**
@@ -227,7 +227,7 @@ export class Duration {
      * @example
      * Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
      */
-    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string | IfInvalid<'Invalid Duration'>;
+    toFormat(fmt: string, opts?: { floor?: boolean | undefined }): string | IfInvalid<"Invalid Duration">;
 
     /**
      * Returns a string representation of a Duration with all units included

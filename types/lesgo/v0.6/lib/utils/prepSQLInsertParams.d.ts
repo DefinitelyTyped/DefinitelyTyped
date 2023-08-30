@@ -1,4 +1,4 @@
-import { SQLValue } from './prepSQLParams';
+import { SQLValue } from "./prepSQLParams";
 
 export interface SQLInsertParams {
     insertColumns: string;

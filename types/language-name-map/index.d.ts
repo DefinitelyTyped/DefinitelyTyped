@@ -3,7 +3,7 @@
 // Definitions by: Hakan Güçlü <https://github.com/CreatorX64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function getLangNameFromCode(langCode: string): { name: string; native: string; dir: 'ltr' | 'rtl' } | undefined;
+export function getLangNameFromCode(langCode: string): { name: string; native: string; dir: "ltr" | "rtl" } | undefined;
 
 export function getLangCodeList(): string[];
 

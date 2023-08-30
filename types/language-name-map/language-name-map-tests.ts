@@ -1,10 +1,10 @@
-import { getLangNameFromCode, getLangCodeList, languageNameMap } from 'language-name-map';
+import { getLangCodeList, getLangNameFromCode, languageNameMap } from "language-name-map";
 
 // $ExpectType { name: string; native: string; dir: "ltr" | "rtl"; } | undefined
-getLangNameFromCode('uk');
+getLangNameFromCode("uk");
 
 // $ExpectType { name: string; native: string; dir: "ltr" | "rtl"; } | undefined
-getLangNameFromCode('thiscountrydoesntexist');
+getLangNameFromCode("thiscountrydoesntexist");
 
 // $ExpectType string[]
 getLangCodeList();

@@ -11,10 +11,7 @@
 
  =============================================== */
 
-
-
-
-import express = require('express');
+import express = require("express");
 
 /**
  * Middleware created to allow processing of Less files for Connect JS framework
@@ -22,13 +19,13 @@ import express = require('express');
  */
 declare function lessMiddleware(source: string, options?: {
     /**
-    * Show more verbose logging?
-    */
+     * Show more verbose logging?
+     */
     debug?: boolean | undefined;
 
     /**
-    * Destination directory to output the compiled .css files.
-    */
+     * Destination directory to output the compiled .css files.
+     */
     dest?: string | undefined;
 
     /**
@@ -52,7 +49,6 @@ declare function lessMiddleware(source: string, options?: {
      * Object containing functions relevant to preprocessing data.
      */
     postprocess?: {
-
         /**
          * Function that modifies the compiled css output before being stored.
          */
@@ -63,7 +59,6 @@ declare function lessMiddleware(source: string, options?: {
      * Object containing functions relevant to preprocessing data.
      */
     preprocess?: {
-
         /**
          * Function that modifies the raw less output before being parsed and compiled.
          */
@@ -84,7 +79,6 @@ declare function lessMiddleware(source: string, options?: {
      * Options for the less render.
      */
     render?: {
-
         compress?: string | boolean | undefined;
         yuicompress?: boolean | undefined;
         paths?: string[] | undefined;
@@ -102,7 +96,6 @@ declare function lessMiddleware(source: string, options?: {
      * mean that the less files don't need to be recompiled after a server restart.
      */
     cacheFile?: string | undefined;
-
 }): express.RequestHandler;
 
 export = lessMiddleware;
