@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
         "no-object-literal-type-assertion": false,
         "no-redundant-jsdoc-2": false,

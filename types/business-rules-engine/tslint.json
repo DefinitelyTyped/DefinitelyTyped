@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "interface-name": false,
         "member-access": false,
         "no-unnecessary-class": false,

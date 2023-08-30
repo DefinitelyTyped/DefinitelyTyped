@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
         "no-boolean-literal-compare": false,
         "no-duplicate-variable": false,

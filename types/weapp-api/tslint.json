@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
         "no-irregular-whitespace": false,
         "no-redundant-jsdoc-2": false,

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "no-unnecessary-callback-wrapper": false,
         "no-var-keyword": false,
         "no-void-expression": false,

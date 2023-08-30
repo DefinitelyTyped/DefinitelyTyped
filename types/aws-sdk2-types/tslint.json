@@ -13,7 +13,6 @@
         "no-duplicate-imports": false,
         "no-mergeable-namespace": false,
         "jsdoc-format": false,
-        "comment-format": false,
         "no-irregular-whitespace": false,
         "no-redundant-jsdoc-2": false,
         "eofline": false

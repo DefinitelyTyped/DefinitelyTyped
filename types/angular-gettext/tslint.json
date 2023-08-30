@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "jsdoc-format": false,
         "no-reference-import": false,
         "no-unnecessary-qualifier": false,

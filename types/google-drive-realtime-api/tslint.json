@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "member-access": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,

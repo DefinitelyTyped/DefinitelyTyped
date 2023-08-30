@@ -5,7 +5,6 @@
         "array-type": false,
         "arrow-return-shorthand": false,
         "ban-types": false,
-        "comment-format": false,
         "no-duplicate-variable": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

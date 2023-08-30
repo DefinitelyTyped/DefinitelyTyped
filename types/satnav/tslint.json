@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "interface-name": false,
         "only-arrow-functions": false,
         "strict-export-declare-modifiers": false

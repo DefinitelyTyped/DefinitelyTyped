@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "file-name-casing": [true, "kebab-case"],
         "no-empty-interface": false,
         "no-unnecessary-type-assertion": false,

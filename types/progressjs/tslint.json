@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "npm-naming": false,
         "only-arrow-functions": false,
         "unified-signatures": false

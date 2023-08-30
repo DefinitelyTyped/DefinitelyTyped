@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
         "no-conditional-assignment": false,
         "no-duplicate-variable": false,

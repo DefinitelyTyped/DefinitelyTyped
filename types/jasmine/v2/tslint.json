@@ -4,7 +4,6 @@
         "array-type": false,
         "arrow-return-shorthand": false,
         "ban-types": false,
-        "comment-format": false,
         "file-name-casing": [true, "kebab-case"],
         "jsdoc-format": false,
         "no-empty-interface": false,

@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "interface-name": false,
         "no-internal-module": false,
         "no-redundant-jsdoc-2": false,

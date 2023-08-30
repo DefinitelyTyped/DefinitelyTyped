@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
-        "comment-format": false,
         "no-redundant-jsdoc-2": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false

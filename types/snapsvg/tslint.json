@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "no-duplicate-variable": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
