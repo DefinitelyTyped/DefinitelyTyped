@@ -11270,7 +11270,6 @@ export interface Tizen {
     readonly TZDate: TZDateConstructor;
     readonly TimeDuration: TimeDurationConstructor;
     readonly VoiceControlCommand: VoiceControlCommandConstructor;
-    /* tslint:disable:no-irregular-whitespace */
     /**
      * The Account API provides functionality for using existing configured
      * online accounts and providers, and for creating accounts of known types.
@@ -11309,7 +11308,6 @@ export interface Tizen {
      * @defApiFeature http://tizen.org/feature/account
      * To guarantee the running of the application on a device with Account feature.
      */
-    /* tslint:enable:no-irregular-whitespace */
     readonly account: AccountManager;
     /**
      * The Alarm API provides functionality for scheduling the system alarm.
@@ -13115,7 +13113,6 @@ export interface WriteStringSuccessCallback {
     (bytesCount: number): void;
 }
 export const Query: Query;
-/* tslint:disable:no-irregular-whitespace */
 /**
  * The Account API provides functionality for using existing configured
  * online accounts and providers, and for creating accounts of known types.
@@ -13154,7 +13151,6 @@ export const Query: Query;
  * @defApiFeature http://tizen.org/feature/account
  * To guarantee the running of the application on a device with Account feature.
  */
-/* tslint:enable:no-irregular-whitespace */
 export const account: AccountManager;
 /**
  * The Alarm API provides functionality for scheduling the system alarm.

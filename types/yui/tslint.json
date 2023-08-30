@@ -5,8 +5,6 @@
         "comment-format": false,
         "interface-name": false,
         "no-misused-new": false,
-        "one-line": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

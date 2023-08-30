@@ -4,7 +4,6 @@
         "comment-format": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

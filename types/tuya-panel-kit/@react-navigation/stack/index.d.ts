@@ -32,5 +32,4 @@ export { default as useGestureHandlerRef } from './utils/useGestureHandlerRef';
 /**
  * Types
  */
-// tslint:disable-next-line max-line-length
 export type { StackNavigationOptions, StackNavigationProp, StackScreenProps, StackHeaderProps, StackHeaderLeftButtonProps, StackHeaderTitleProps, StackCardInterpolatedStyle, StackCardInterpolationProps, StackCardStyleInterpolator, StackHeaderInterpolatedStyle, StackHeaderInterpolationProps, StackHeaderStyleInterpolator, } from './types';

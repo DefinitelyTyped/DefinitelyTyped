@@ -6,7 +6,6 @@
         "new-parens": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "typedef-whitespace": false,
         "unified-signatures": false
     }
 }

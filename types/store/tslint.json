@@ -8,8 +8,6 @@
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

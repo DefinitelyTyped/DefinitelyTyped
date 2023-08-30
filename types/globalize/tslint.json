@@ -4,11 +4,8 @@
         "ban-types": false,
         "comment-format": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
-        "semicolon": false,
-        "space-within-parens": false,
         "unified-signatures": false
     }
 }

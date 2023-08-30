@@ -5,7 +5,6 @@
 // Please see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19330
 // for more information.
 
-// tslint:disable:max-line-length
 
 /**
  * The `node:inspector` module provides an API for interacting with the V8

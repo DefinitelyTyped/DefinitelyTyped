@@ -12,7 +12,6 @@
                 "mode": "code"
             }
         ],
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }

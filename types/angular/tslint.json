@@ -3,10 +3,8 @@
     "rules": {
         "ban-types": false,
         "class-name": true,
-        "indent": [true, "spaces"],
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-namespace": false,
         "no-unnecessary-qualifier": false,

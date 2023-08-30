@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/trim-file": "off",
         "@definitelytyped/prefer-declare-function": "off"
     }
 }

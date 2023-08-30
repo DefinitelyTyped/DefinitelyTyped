@@ -4,8 +4,6 @@
         "array-type": false,
         "comment-format": false,
         "no-object-literal-type-assertion": false,
-        "no-trailing-whitespace": false,
-        "object-literal-key-quotes": false,
         "prefer-const": false
     }
 }

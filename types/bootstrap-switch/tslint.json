@@ -4,7 +4,6 @@
         "comment-format": false,
         "no-boolean-literal-compare": false,
         "no-empty-interface": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

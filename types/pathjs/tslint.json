@@ -4,14 +4,8 @@
         "ban-types": false,
         "comment-format": false,
         "interface-name": false,
-        "no-padding": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "one-line": false,
         "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

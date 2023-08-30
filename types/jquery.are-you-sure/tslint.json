@@ -4,13 +4,8 @@
         "ban-types": false,
         "comment-format": false,
         "jsdoc-format": false,
-        "no-padding": false,
-        "no-trailing-whitespace": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

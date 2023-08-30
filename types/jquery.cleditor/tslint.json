@@ -3,10 +3,7 @@
     "rules": {
         "ban-types": false,
         "comment-format": false,
-        "no-trailing-whitespace": false,
         "npm-naming": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "whitespace": false
+        "only-arrow-functions": false
     }
 }

@@ -8,9 +8,6 @@
         "no-reference-import": false,
         "no-var-keyword": false,
         "no-void-expression": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

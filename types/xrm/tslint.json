@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "class-name": true,
-        "indent": [true, "spaces"],
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-const-enum": false,
         "no-empty-interface": false,
         "no-unnecessary-type-assertion": false,

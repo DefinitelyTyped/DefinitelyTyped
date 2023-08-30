@@ -13,10 +13,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
-        "whitespace": false
+        "prefer-template": false
     }
 }

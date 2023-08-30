@@ -4,9 +4,7 @@
         "comment-format": false,
         "interface-name": false,
         "member-access": false,
-        "no-padding": false,
         "no-var-keyword": false,
-        "npm-naming": false,
-        "semicolon": false
+        "npm-naming": false
     }
 }

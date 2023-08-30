@@ -4,13 +4,8 @@
         "array-type": false,
         "comment-format": false,
         "no-boolean-literal-compare": false,
-        "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

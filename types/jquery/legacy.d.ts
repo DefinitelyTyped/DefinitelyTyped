@@ -1,5 +1,3 @@
-// tslint:disable:no-irregular-whitespace
-
 // tslint:disable-next-line:no-empty-interface
 interface JQueryCallback extends JQuery.Callbacks { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
