@@ -24,12 +24,23 @@ declare namespace I18n {
     // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let missingTranslation: (scope: string, options?: TranslateOptions) => string | null | undefined;
     // eslint-disable-next-line @definitelytyped/prefer-declare-function
-    let missingPlaceholder: (placeholder: string, message: string, options?: InterpolateOptions) => string | null | undefined;
+    let missingPlaceholder: (
+        placeholder: string,
+        message: string,
+        options?: InterpolateOptions,
+    ) => string | null | undefined;
     // eslint-disable-next-line @definitelytyped/prefer-declare-function
-    let nullPlaceholder: (placeholder: string, message: string, options?: InterpolateOptions) => string | null | undefined;
+    let nullPlaceholder: (
+        placeholder: string,
+        message: string,
+        options?: InterpolateOptions,
+    ) => string | null | undefined;
 
     let translations: { [locale: string]: object };
-    let locales: { [key: string]: string | string[] | ((locale: string) => string | string[]), get: (locale: string) => string[] };
+    let locales: {
+        [key: string]: string | string[] | ((locale: string) => string | string[]);
+        get: (locale: string) => string[];
+    };
     let pluralization: { [locale: string]: (count: number) => string[] };
 
     function reset(): void;

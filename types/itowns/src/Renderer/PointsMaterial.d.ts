@@ -14,7 +14,7 @@ interface Classification {
     opacity: number;
 }
 
-type ClassificationScheme = Record<number | 'DEFAULT', Classification>;
+type ClassificationScheme = Record<number | "DEFAULT", Classification>;
 
 export const ClassificationScheme: ClassificationScheme;
 

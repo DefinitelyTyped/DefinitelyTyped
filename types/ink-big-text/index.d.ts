@@ -3,7 +3,7 @@
 // Definitions by: aaronleopold <https://github.com/aaronleopold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 // note: BigTextProps.colors are based on cfonts (https://github.com/dominikwilkowski/cfonts). I will have commented out
 // some of the accepted inputs. Becuase it also allows for hex colors, I decided to not narrow it down
@@ -35,21 +35,32 @@ import * as React from 'react';
 interface BigTextProps {
     text: string;
     font?:
-        | 'block'
-        | 'slick'
-        | 'tiny'
-        | 'grid'
-        | 'pallet'
-        | 'shade'
-        | 'simple'
-        | 'simpleBlock'
-        | '3d'
-        | 'simple3d'
-        | 'chrome'
-        | 'huge' | undefined;
-    align?: 'left' | 'center' | 'right' | undefined;
+        | "block"
+        | "slick"
+        | "tiny"
+        | "grid"
+        | "pallet"
+        | "shade"
+        | "simple"
+        | "simpleBlock"
+        | "3d"
+        | "simple3d"
+        | "chrome"
+        | "huge"
+        | undefined;
+    align?: "left" | "center" | "right" | undefined;
     colors?: string[] | undefined;
-    backgroundColor?: 'transparent' | 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | undefined;
+    backgroundColor?:
+        | "transparent"
+        | "black"
+        | "red"
+        | "green"
+        | "yellow"
+        | "blue"
+        | "magenta"
+        | "cyan"
+        | "white"
+        | undefined;
     letterSpacing?: number | undefined;
     lineHeight?: number | undefined;
     space?: boolean | undefined;

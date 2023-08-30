@@ -11,7 +11,7 @@ export function boxBox(
     x2: number,
     y2: number,
     w2: number,
-    h2: number
+    h2: number,
 ): boolean;
 
 export function boxCircle(
@@ -21,7 +21,7 @@ export function boxCircle(
     hb: number,
     xc: number,
     yc: number,
-    rc: number
+    rc: number,
 ): boolean;
 
 export function boxEllipse(
@@ -32,7 +32,7 @@ export function boxEllipse(
     xe: number,
     ye: number,
     rex: number,
-    rey: number
+    rey: number,
 ): boolean;
 
 export function boxLine(
@@ -43,7 +43,7 @@ export function boxLine(
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function boxPoint(
@@ -52,7 +52,7 @@ export function boxPoint(
     w1: number,
     h1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function boxPolygon(
@@ -60,7 +60,7 @@ export function boxPolygon(
     yb: number,
     wb: number,
     hb: number,
-    points: number[]
+    points: number[],
 ): boolean;
 
 export function circleBox(
@@ -70,7 +70,7 @@ export function circleBox(
     xb: number,
     yb: number,
     wb: number,
-    hb: number
+    hb: number,
 ): boolean;
 
 export function circleCircle(
@@ -79,7 +79,7 @@ export function circleCircle(
     r1: number,
     x2: number,
     y2: number,
-    r2: number
+    r2: number,
 ): boolean;
 
 export function circleEllipse(
@@ -89,7 +89,7 @@ export function circleEllipse(
     xe: number,
     ye: number,
     rex: number,
-    rey: number
+    rey: number,
 ): boolean;
 
 export function circleLine(
@@ -99,7 +99,7 @@ export function circleLine(
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function circlePoint(
@@ -107,14 +107,14 @@ export function circlePoint(
     y1: number,
     r1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function circlePolygon(
     xc: number,
     yc: number,
     rc: number,
-    points: number[]
+    points: number[],
 ): boolean;
 
 export function ellipseBox(
@@ -125,7 +125,7 @@ export function ellipseBox(
     xb: number,
     yb: number,
     wb: number,
-    hb: number
+    hb: number,
 ): boolean;
 
 export function ellipseCircle(
@@ -135,7 +135,7 @@ export function ellipseCircle(
     rey: number,
     xc: number,
     yc: number,
-    rc: number
+    rc: number,
 ): boolean;
 
 export function ellipseEllipse(
@@ -146,7 +146,7 @@ export function ellipseEllipse(
     x2: number,
     y2: number,
     r2x: number,
-    r2y: number
+    r2y: number,
 ): boolean;
 
 export function ellipseLine(
@@ -157,7 +157,7 @@ export function ellipseLine(
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function ellipsePoint(
@@ -166,7 +166,7 @@ export function ellipsePoint(
     rex: number,
     rey: number,
     x1: number,
-    y1: number
+    y1: number,
 ): boolean;
 
 export function ellipsePolygon(
@@ -174,7 +174,7 @@ export function ellipsePolygon(
     ye: number,
     rex: number,
     rey: number,
-    points: number[]
+    points: number[],
 ): boolean;
 
 export function lineBox(
@@ -185,7 +185,7 @@ export function lineBox(
     xb: number,
     yb: number,
     wb: number,
-    hb: number
+    hb: number,
 ): boolean;
 
 export function lineCircle(
@@ -195,7 +195,7 @@ export function lineCircle(
     y2: number,
     xc: number,
     yc: number,
-    rc: number
+    rc: number,
 ): boolean;
 
 export function lineEllipse(
@@ -206,7 +206,7 @@ export function lineEllipse(
     xe: number,
     ye: number,
     rex: number,
-    rey: number
+    rey: number,
 ): boolean;
 
 export function lineLine(
@@ -217,7 +217,7 @@ export function lineLine(
     x3: number,
     y3: number,
     x4: number,
-    y4: number
+    y4: number,
 ): boolean;
 
 export function linePoint(
@@ -227,7 +227,7 @@ export function linePoint(
     y2: number,
     xp: number,
     yp: number,
-    tolerance: number
+    tolerance: number,
 ): boolean;
 
 export function linePolygon(
@@ -236,7 +236,7 @@ export function linePolygon(
     x2: number,
     y2: number,
     points: number[],
-    tolerance: number
+    tolerance: number,
 ): boolean;
 
 export function pointBox(
@@ -245,7 +245,7 @@ export function pointBox(
     xb: number,
     yb: number,
     wb: number,
-    hb: number
+    hb: number,
 ): boolean;
 
 export function pointCircle(
@@ -253,7 +253,7 @@ export function pointCircle(
     y1: number,
     xc: number,
     yc: number,
-    rc: number
+    rc: number,
 ): boolean;
 
 export function pointEllipse(
@@ -262,7 +262,7 @@ export function pointEllipse(
     xe: number,
     ye: number,
     rex: number,
-    rey: number
+    rey: number,
 ): boolean;
 
 export function pointLine(
@@ -271,14 +271,14 @@ export function pointLine(
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): boolean;
 
 export function pointPolygon(
     x1: number,
     y1: number,
     points: number[],
-    tolerance: number
+    tolerance: number,
 ): boolean;
 
 export function polygonBox(
@@ -286,14 +286,14 @@ export function polygonBox(
     x: number,
     y: number,
     w: number,
-    h: number
+    h: number,
 ): boolean;
 
 export function polygonCircle(
     points: number[],
     xc: number,
     yc: number,
-    rc: number
+    rc: number,
 ): boolean;
 
 export function polygonEllipse(
@@ -301,7 +301,7 @@ export function polygonEllipse(
     xe: number,
     ye: number,
     rex: number,
-    rey: number
+    rey: number,
 ): boolean;
 
 export function polygonLine(
@@ -310,14 +310,14 @@ export function polygonLine(
     y1: number,
     x2: number,
     y2: number,
-    tolerance: number
+    tolerance: number,
 ): boolean;
 
 export function polygonPoint(
     points: number[],
     x: number,
     y: number,
-    tolerance: number
+    tolerance: number,
 ): boolean;
 
 export function polygonPolygon(points1: number[], points2: number[]): boolean;
