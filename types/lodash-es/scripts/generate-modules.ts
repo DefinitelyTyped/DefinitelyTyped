@@ -47,7 +47,7 @@ async function main() {
         console.log(group);
 
         // output per file per module
-        extractedResults[index].forEach((module) => {
+        extractedResults[index].forEach(module => {
             console.log(`    ${module}`);
             // Generate local module
             const moduleFilename = `${module}.d.ts`;
@@ -129,6 +129,7 @@ function extractDefaults(source) {
 async function getDefaultsDefinitions(fullVersion) {
     return Promise.all(GROUP_WITH_DEFAULTS.map(
         (group) => loadString(`https://unpkg.com/lodash-es@${fullVersion}/${group}.default.js`),
+        group => loadString(`https://unpkg.com/lodash-es@${fullVersion}/${group}.default.js`),
     ));
 }
 
@@ -190,7 +191,7 @@ function tslint() {
 
 function loadString(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        get(url, (res) => {
+        get(url, res => {
             if (res.statusCode !== 200) {
                 return reject(
                     new Error(`HTTP Error ${res.statusCode}: ${STATUS_CODES[res.statusCode || 500]} for ${url}`),
