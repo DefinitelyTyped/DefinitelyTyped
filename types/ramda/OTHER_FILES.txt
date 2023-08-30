@@ -152,6 +152,7 @@ es/once.d.ts
 es/or.d.ts
 es/over.d.ts
 es/otherwise.d.ts
+es/package.json
 es/pair.d.ts
 es/partial.d.ts
 es/partialObject.d.ts
