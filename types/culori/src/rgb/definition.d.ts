@@ -1,15 +1,15 @@
-import parseHex from './parseHex';
-import parseNamed from './parseNamed';
-import parseRgb from './parseRgb';
-import parseTransparent from './parseTransparent';
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
+import { fixupAlpha } from "../fixup/alpha";
+import { interpolatorLinear } from "../interpolate/linear";
+import parseHex from "./parseHex";
+import parseNamed from "./parseNamed";
+import parseRgb from "./parseRgb";
+import parseTransparent from "./parseTransparent";
 
 declare const definition: {
-    mode: 'rgb';
-    channels: ['r', 'g', 'b', 'alpha'];
-    parse: [typeof parseHex, typeof parseRgb, typeof parseNamed, typeof parseTransparent, 'srgb'];
-    serialize: 'srgb';
+    mode: "rgb";
+    channels: ["r", "g", "b", "alpha"];
+    parse: [typeof parseHex, typeof parseRgb, typeof parseNamed, typeof parseTransparent, "srgb"];
+    serialize: "srgb";
 
     interpolate: {
         r: typeof interpolatorLinear;

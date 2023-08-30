@@ -63,7 +63,7 @@ export interface Options {
     barsize?: number | undefined;
 
     /**  position of the progress bar - 'left' (default), 'right' or 'center  */
-    align?: 'left' | 'right' | 'center' | undefined;
+    align?: "left" | "right" | "center" | undefined;
 
     /** character to use as "complete" indicator in the bar (default: "=") */
     barCompleteString?: string | undefined;
@@ -149,7 +149,6 @@ export interface Preset {
      * {eta_formatted} - expected time of accomplishment formatted into appropriate units
      *
      * {duration_formatted} - elapsed time formatted into appropriate units
-     *
      */
     format: string;
 }
@@ -254,7 +253,7 @@ export interface BarFormatter {
     (progress: number, options: Options): string;
 }
 
-export type ValueType = 'percentage' | 'total' | 'value' | 'eta' | 'duration';
+export type ValueType = "percentage" | "total" | "value" | "eta" | "duration";
 
 declare const defaultFormatter: GenericFormatter;
 declare const formatBar: BarFormatter;

@@ -53,12 +53,12 @@ app.use((req, res) => {
 // Infer arguments for next handler usage
 app.use((req, res, next) => {
     console.log(req.originalUrl);
-    res.setHeader('foo', 'bar');
+    res.setHeader("foo", "bar");
     next();
 });
 
-//create node.js http server and listen on port
+// create node.js http server and listen on port
 http.createServer(app).listen(3000);
 
-//create node.js http server and listen on port using connect shortcut
+// create node.js http server and listen on port using connect shortcut
 app.listen(3000);

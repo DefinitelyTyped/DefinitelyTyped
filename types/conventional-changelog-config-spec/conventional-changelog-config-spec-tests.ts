@@ -1,7 +1,7 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-'use strict';
+"use strict";
 
-import ConventionalChangelogConfigSpec from 'conventional-changelog-config-spec';
+import ConventionalChangelogConfigSpec from "conventional-changelog-config-spec";
 
 namespace Module {
     // tslint:disable-next-line:max-line-length

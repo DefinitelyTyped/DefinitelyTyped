@@ -10,13 +10,13 @@ declare namespace Core {
     type Source =
         | string
         | {
-              toString(): string;
-          };
+            toString(): string;
+        };
 
     type PathFetcher = (
         file: string,
         relativeTo: string,
-        depTrace: string
+        depTrace: string,
     ) => void;
 
     interface ExportTokens {
@@ -42,7 +42,7 @@ declare class Core {
         source: Core.Source,
         sourcePath?: string,
         trace?: string,
-        pathFetcher?: Core.PathFetcher
+        pathFetcher?: Core.PathFetcher,
     ): Promise<Core.Result>;
 }
 
