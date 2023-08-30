@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace gridLayer {
         interface GoogleMutant extends GridLayer {
             setElementSize(e: HTMLElement, size: Point): void;
@@ -32,7 +32,7 @@ declare module 'leaflet' {
             removeGoogleLayer(googleLayerName: string): void;
         }
 
-        type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
+        type GoogleMutantType = "roadmap" | "satellite" | "terrain" | "hybrid";
 
         interface GoogleMutantStyler {
             hue?: string | undefined;

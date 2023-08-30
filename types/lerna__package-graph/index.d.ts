@@ -3,12 +3,12 @@
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Package } from '@lerna/package';
-import { CyclicPackageGraphNode } from './lib/cyclic-package-graph-node';
-import { PackageGraphNode } from './lib/package-graph-node';
+import { Package } from "@lerna/package";
+import { CyclicPackageGraphNode } from "./lib/cyclic-package-graph-node";
+import { PackageGraphNode } from "./lib/package-graph-node";
 
-export type GraphType = 'allDependencies' | 'dependencies';
-export type NodeProperties = 'localDependencies' | 'localDependents';
+export type GraphType = "allDependencies" | "dependencies";
+export type NodeProperties = "localDependencies" | "localDependents";
 declare class PackageGraph extends Map {
     constructor(packages: Package[], graphType?: GraphType, forceLocal?: boolean);
     get rawPackageList(): Package[];
