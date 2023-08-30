@@ -1,15 +1,15 @@
-import RFB from '@novnc/novnc/core/rfb';
-import * as BrowserUtil from '@novnc/novnc/core/util/browser';
-import * as InputUtil from '@novnc/novnc/core/input/util';
+import * as InputUtil from "@novnc/novnc/core/input/util";
+import RFB from "@novnc/novnc/core/rfb";
+import * as BrowserUtil from "@novnc/novnc/core/util/browser";
 
 /* @novnc/novnc/core/rfb */
 
 // $ExpectType NoVncClient
-const rfb = new RFB(window.document.body, 'wss://example.local', {
+const rfb = new RFB(window.document.body, "wss://example.local", {
     shared: true,
-    credentials: { username: 'user', password: 'pass', target: 'test' },
-    repeaterID: 'test',
-    wsProtocols: ['test1', 'test2'],
+    credentials: { username: "user", password: "pass", target: "test" },
+    repeaterID: "test",
+    wsProtocols: ["test1", "test2"],
 });
 rfb.viewOnly; // $ExpectType boolean
 rfb.focusOnClick; // $ExpectType boolean
@@ -23,7 +23,7 @@ rfb.qualityLevel; // $ExpectType number
 rfb.compressionLevel; // $ExpectType number
 rfb.capabilities.power; // $ExpectType boolean
 rfb.disconnect(); // $ExpectType void
-rfb.sendCredentials({ username: 'user', password: 'pass', target: 'test' }); // $ExpectType void
+rfb.sendCredentials({ username: "user", password: "pass", target: "test" }); // $ExpectType void
 rfb.sendKey(99, null); // $ExpectType void
 rfb.sendCtrlAltDel(); // $ExpectType void
 rfb.focus(); // $ExpectType void
@@ -32,7 +32,7 @@ rfb.blur(); // $ExpectType void
 rfb.machineShutdown(); // $ExpectType void
 rfb.machineReboot(); // $ExpectType void
 rfb.machineReset(); // $ExpectType void
-rfb.clipboardPasteFrom('test'); // $ExpectType void
+rfb.clipboardPasteFrom("test"); // $ExpectType void
 
 /* @novnc/novnc/core/util/browser */
 
@@ -49,13 +49,13 @@ BrowserUtil.isFirefox(); // $ExpectType boolean
 /* @novnc/novnc/core/input/util */
 
 const keyboardEvent = {
-    char: 'test',
+    char: "test",
     charCode: 123,
-    code: 'test',
-    key: 'test',
+    code: "test",
+    key: "test",
     keyCode: 456,
     location: 789,
-    type: 'test',
+    type: "test",
 };
 InputUtil.getKeycode(keyboardEvent); // $ExpectType string
 InputUtil.getKey(keyboardEvent); // $ExpectType string

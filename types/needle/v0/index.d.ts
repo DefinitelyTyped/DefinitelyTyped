@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 declare module "needle" {
-    import * as http from 'http';
-    import * as Buffer from 'buffer';
+    import * as http from "http";
+    import * as Buffer from "buffer";
     namespace Needle {
         interface NeedleResponse extends http.IncomingMessage {
             body: any;
@@ -32,7 +32,7 @@ declare module "needle" {
 
             // These properties are overwritten by those in the 'headers' field
             compressed?: boolean | undefined;
-            cookies?: { [name: string]: any; } | undefined;
+            cookies?: { [name: string]: any } | undefined;
             // Overwritten if present in the URI
             username?: string | undefined;
             password?: string | undefined;
@@ -74,7 +74,13 @@ declare module "needle" {
             delete(url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
 
             request(method: string, url: string, data: any, callback?: NeedleCallback): ReadableStream;
-            request(method: string, url: string, data: any, options?: RequestOptions, callback?: NeedleCallback): ReadableStream;
+            request(
+                method: string,
+                url: string,
+                data: any,
+                options?: RequestOptions,
+                callback?: NeedleCallback,
+            ): ReadableStream;
         }
     }
 

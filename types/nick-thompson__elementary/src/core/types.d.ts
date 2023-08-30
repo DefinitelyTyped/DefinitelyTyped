@@ -1,14 +1,10 @@
-import { Node } from './node';
-import { Props } from './props';
-import {
-    ChildrenArray,
-    ChildrenArraySizeRange,
-    SizedChildrenArray
-} from './children';
+import { ChildrenArray, ChildrenArraySizeRange, SizedChildrenArray } from "./children";
+import { Node } from "./node";
+import { Props } from "./props";
 
 // for docs
 // noinspection ES6UnusedImports
-import { core } from './';
+import { core } from "./";
 
 /**
  * Internal types of {@link Node}.
@@ -17,47 +13,47 @@ import { core } from './';
  * @see Node
  */
 export type NativeNodeType =
-    'sin' |
-    'cos' |
-    'tan' |
-    'tanh' |
-    'asinh' |
-    'ln' |
-    'log' |
-    'log2' |
-    'ceil' |
-    'floor' |
-    'sqrt' |
-    'exp' |
-    'abs' |
-    'le' |
-    'leq' |
-    'ge' |
-    'geq' |
-    'pow' |
-    'add' |
-    'sub' |
-    'mul' |
-    'div' |
-    'mod' |
-    'min' |
-    'max' |
-    'root' |
-    'in' |
-    'sr' |
-    'const' |
-    'phasor' |
-    'rand' |
-    'counter' |
-    'latch' |
-    'sample' |
-    'table' |
-    'seq' |
-    'delay' |
-    'z' |
-    'pole' |
-    'biquad' |
-    'convolve';
+    | "sin"
+    | "cos"
+    | "tan"
+    | "tanh"
+    | "asinh"
+    | "ln"
+    | "log"
+    | "log2"
+    | "ceil"
+    | "floor"
+    | "sqrt"
+    | "exp"
+    | "abs"
+    | "le"
+    | "leq"
+    | "ge"
+    | "geq"
+    | "pow"
+    | "add"
+    | "sub"
+    | "mul"
+    | "div"
+    | "mod"
+    | "min"
+    | "max"
+    | "root"
+    | "in"
+    | "sr"
+    | "const"
+    | "phasor"
+    | "rand"
+    | "counter"
+    | "latch"
+    | "sample"
+    | "table"
+    | "seq"
+    | "delay"
+    | "z"
+    | "pole"
+    | "biquad"
+    | "convolve";
 
 /**
  * Composites of native {@link Node}s.
@@ -67,12 +63,11 @@ export type NativeNodeType =
  * @see Props
  * @see ChildrenArray
  */
-export type CompositeNodeType =
-    ({
-        [key in ChildrenArraySizeRange]:
-        ((...children: SizedChildrenArray<key>) => Node) |
-        ((props: Props, ...children: SizedChildrenArray<key>) => Node)
-    }[ChildrenArraySizeRange]);
+export type CompositeNodeType = {
+    [key in ChildrenArraySizeRange]:
+        | ((...children: SizedChildrenArray<key>) => Node)
+        | ((props: Props, ...children: SizedChildrenArray<key>) => Node);
+}[ChildrenArraySizeRange];
 
 /**
  * Types of {@link Node}.

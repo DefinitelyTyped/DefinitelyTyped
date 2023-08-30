@@ -9,7 +9,7 @@ declare class Environment {
         options: any[],
         verticalAlign?: boolean,
         defaultOptionIndex?: number,
-        escapeIndex?: number
+        escapeIndex?: number,
     ): any;
     confirm(msg: string, negativeDefaultAnswer?: boolean): boolean;
     exit(uri?: string): void;

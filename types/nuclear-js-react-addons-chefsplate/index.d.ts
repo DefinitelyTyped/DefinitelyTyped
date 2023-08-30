@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
+import * as React from "react";
 
 // Disable automatic exports.
 export {};
@@ -123,4 +123,4 @@ declare const provideReactor: any;
  */
 declare const nuclearComponent: any;
 
-export { connect, Provider, nuclearMixin, provideReactor, nuclearComponent };
+export { connect, nuclearComponent, nuclearMixin, Provider, provideReactor };

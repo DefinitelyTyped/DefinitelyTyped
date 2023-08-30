@@ -65,7 +65,7 @@ declare class Column {
     showTotal: boolean;
     private cssExtractor_;
     setCssExtractor(value: CssExtractor): void;
-    columnGroup: import('./ColumnGroup');
+    columnGroup: import("./ColumnGroup");
     private getHtmlForLinks_;
     private getAccumulatorLength;
     private resizeAccumulators;
@@ -88,25 +88,17 @@ declare class Column {
     private writeTotal;
 }
 declare namespace Column {
-    export {
-        VerticalAligns,
-        TextAligns,
-        LatitudeFormat,
-        LongitudeFormat,
-        AngleFormat,
-        DateFormat,
-        Link,
-    };
+    export { AngleFormat, DateFormat, LatitudeFormat, Link, LongitudeFormat, TextAligns, VerticalAligns };
 }
-import SimpleLayout = require('./SimpleLayout.js');
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
-import AnchorCollection = require('../anchor/AnchorCollection.js');
-type Link = import('../anchor/Link');
-import DateFormat = require('@nginstack/engine/lib/date/DateFormat.js');
-type LatitudeFormat = typeof import('@nginstack/engine/lib/geo/LatitudeFormat');
-type LongitudeFormat = typeof import('@nginstack/engine/lib/geo/LongitudeFormat');
-type AngleFormat = typeof import('@nginstack/engine/lib/geo/AngleFormat');
-import CssExtractor = require('../css/CssExtractor.js');
+import SimpleLayout = require("./SimpleLayout.js");
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import AnchorCollection = require("../anchor/AnchorCollection.js");
+type Link = import("../anchor/Link");
+import DateFormat = require("@nginstack/engine/lib/date/DateFormat.js");
+type LatitudeFormat = typeof import("@nginstack/engine/lib/geo/LatitudeFormat");
+type LongitudeFormat = typeof import("@nginstack/engine/lib/geo/LongitudeFormat");
+type AngleFormat = typeof import("@nginstack/engine/lib/geo/AngleFormat");
+import CssExtractor = require("../css/CssExtractor.js");
 declare namespace VerticalAligns {
     const TOP: string;
     const MIDDLE: string;
