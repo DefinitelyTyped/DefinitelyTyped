@@ -12,7 +12,7 @@ export interface ZdfInfoMeta {
 export interface ZdfInfo {
     readonly info: ZdfInfoMeta;
 
-    readonly files: Array<{ uri: string, quality: string }>;
+    readonly files: Array<{ uri: string; quality: string }>;
     readonly stream: string[];
 }
 
@@ -34,7 +34,7 @@ export interface ZdfProgress {
 export function getSources(
     url: string,
     handle: (result: ZdfInfo) => void,
-    handleInfo?: (result: ZdfInfoMeta) => void
+    handleInfo?: (result: ZdfInfoMeta) => void,
 ): void;
 
 /**
@@ -50,5 +50,5 @@ export function downloadStream(
     url: string | undefined,
     output: string | undefined,
     handle: (progress: ZdfProgress) => void,
-    streamInfo?: ZdfInfo
+    streamInfo?: ZdfInfo,
 ): void;

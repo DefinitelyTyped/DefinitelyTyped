@@ -16,7 +16,12 @@ declare namespace zip {
     export class Reader {
         public size: number;
         public init(callback: () => void, onerror: (error: any) => void): void;
-        public readUint8Array(index: number, length: number, callback: (result: Uint8Array) => void, onerror?: (error: any) => void): void;
+        public readUint8Array(
+            index: number,
+            length: number,
+            callback: (result: Uint8Array) => void,
+            onerror?: (error: any) => void,
+        ): void;
     }
 
     export class TextReader extends Reader {
@@ -35,7 +40,11 @@ declare namespace zip {
         constructor(url: string);
     }
 
-    export function createReader(reader: zip.Reader, callback: (zipReader: ZipReader) => void, onerror?: (error: any) => void): void;
+    export function createReader(
+        reader: zip.Reader,
+        callback: (zipReader: ZipReader) => void,
+        onerror?: (error: any) => void,
+    ): void;
 
     export class ZipReader {
         getEntries(callback: (entries: zip.Entry[]) => void): void;
@@ -52,13 +61,18 @@ declare namespace zip {
         comment: string;
         crc32: number;
 
-        getData(writer: zip.Writer, onend: (result: any) => void, onprogress?: (progress: number, total: number) => void, checkCrc32?: boolean): void;
+        getData(
+            writer: zip.Writer,
+            onend: (result: any) => void,
+            onprogress?: (progress: number, total: number) => void,
+            checkCrc32?: boolean,
+        ): void;
     }
 
     export class Writer {
         public init(callback: () => void, onerror?: (error: any) => void): void;
         public writeUint8Array(array: Uint8Array, callback: () => void, onerror?: (error: any) => void): void;
-        public getData(callback: (data: any) => void, onerror?: (error: any) => void) : void;
+        public getData(callback: (data: any) => void, onerror?: (error: any) => void): void;
     }
 
     export class TextWriter extends Writer {
@@ -77,7 +91,12 @@ declare namespace zip {
         constructor(mimeString?: string);
     }
 
-    export function createWriter(writer: zip.Writer, callback: (zipWriter: zip.ZipWriter) => void, onerror?: (error: any) => void, dontDeflate?: boolean): void;
+    export function createWriter(
+        writer: zip.Writer,
+        callback: (zipWriter: zip.ZipWriter) => void,
+        onerror?: (error: any) => void,
+        dontDeflate?: boolean,
+    ): void;
 
     export interface WriteOptions {
         directory?: boolean | undefined;
@@ -88,7 +107,13 @@ declare namespace zip {
     }
 
     export class ZipWriter {
-        public add(name: string, reader: zip.Reader, onend: () => void, onprogress?: (progress: number, total: number) => void, options?: WriteOptions): void;
+        public add(
+            name: string,
+            reader: zip.Reader,
+            onend: () => void,
+            onprogress?: (progress: number, total: number) => void,
+            options?: WriteOptions,
+        ): void;
         public close(callback: (result: any) => void): void;
     }
 }

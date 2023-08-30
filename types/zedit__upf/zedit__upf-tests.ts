@@ -1,4 +1,4 @@
-import { SortMode, GameMode } from 'xelib';
+import { GameMode, SortMode } from "xelib";
 
 // Check for UPF gloabls
 registerPatcher;
@@ -10,7 +10,7 @@ xelib; // $ExpectType XELibModule
 
 // Check for xelib functions disallowed in modules
 // @ts-expect-error
-xelib.Initialize('');
+xelib.Initialize("");
 // @ts-expect-error
 xelib.Finalize();
 // @ts-expect-error
@@ -20,9 +20,9 @@ xelib.ClearMessages();
 // @ts-expect-error
 xelib.GetExceptionMessage();
 // @ts-expect-error
-xelib.SetGamePath('');
+xelib.SetGamePath("");
 // @ts-expect-error
-xelib.SetLanguage('');
+xelib.SetLanguage("");
 // @ts-expect-error
 xelib.SetGameMode(GameMode.gmSSE);
 // @ts-expect-error
@@ -37,21 +37,21 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         hide: true,
         templateUrl: patcherUrl,
         controller($scope) {
             $scope;
         },
         defaultSettings: {
-            patchFileName: 'zTest.esp',
+            patchFileName: "zTest.esp",
         },
     },
     requiredFiles() {
-        return ['foo.esp', 'bar.esp'];
+        return ["foo.esp", "bar.esp"];
     },
     getFilesToPatch(filenames) {
-        return filenames.filter(f => f !== 'baz.esp');
+        return filenames.filter(f => f !== "baz.esp");
     },
     execute(patchFile, helpers) {
         // Check types
@@ -67,7 +67,7 @@ registerPatcher({
             process: [
                 {
                     load: {
-                        signature: 'ARMA',
+                        signature: "ARMA",
                         overrides: true,
                         filter(record) {
                             record; // $ExpectType RecordHandle
@@ -100,7 +100,7 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {
             a: 1,
@@ -155,7 +155,7 @@ registerPatcher<{ a: number; b: string }>({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
@@ -175,7 +175,7 @@ registerPatcher<{ a: number; b: string }>({
                 locals; // $ExpectType { a: number; b: string; }
 
                 locals.a = 2;
-                locals.b = 'foo';
+                locals.b = "foo";
             },
             process: [
                 {
@@ -211,17 +211,17 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
-    requiredFiles: ['foo.esp'],
+    requiredFiles: ["foo.esp"],
     execute() {
         return {
             process: [
                 {
                     load: {
-                        signature: 'ARMA',
+                        signature: "ARMA",
                     },
                     patch() {},
                 },
@@ -235,7 +235,7 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
@@ -243,7 +243,7 @@ registerPatcher({
         process: [
             {
                 load: {
-                    signature: 'ARMA',
+                    signature: "ARMA",
                 },
                 patch() {},
             },

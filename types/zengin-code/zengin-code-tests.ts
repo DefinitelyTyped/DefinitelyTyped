@@ -1,23 +1,23 @@
-import zenginCode = require('zengin-code');
+import zenginCode = require("zengin-code");
 
 // $ExpectType string
-zenginCode['1000'].code;
+zenginCode["1000"].code;
 // $ExpectType string
-zenginCode['1000'].name;
+zenginCode["1000"].name;
 // $ExpectType string
-zenginCode['1000'].kana;
+zenginCode["1000"].kana;
 // $ExpectType string
-zenginCode['1000'].hira;
+zenginCode["1000"].hira;
 // $ExpectType string
-zenginCode['1000'].roma;
+zenginCode["1000"].roma;
 
 // $ExpectType string
-zenginCode['1000'].branches['001'].code;
+zenginCode["1000"].branches["001"].code;
 // $ExpectType string
-zenginCode['1000'].branches['001'].name;
+zenginCode["1000"].branches["001"].name;
 // $ExpectType string
-zenginCode['1000'].branches['001'].kana;
+zenginCode["1000"].branches["001"].kana;
 // $ExpectType string
-zenginCode['1000'].branches['001'].hira;
+zenginCode["1000"].branches["001"].hira;
 // $ExpectType string
-zenginCode['1000'].branches['001'].roma;
+zenginCode["1000"].branches["001"].roma;

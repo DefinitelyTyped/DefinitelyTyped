@@ -55,4 +55,4 @@ export interface ZipCelXConfig {
     };
 }
 
-export default function zipcelx(config: ZipCelXConfig, target: 'export' | 'blob'): Promise<Blob> | void;
+export default function zipcelx(config: ZipCelXConfig, target: "export" | "blob"): Promise<Blob> | void;

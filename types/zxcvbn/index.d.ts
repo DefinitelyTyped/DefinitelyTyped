@@ -110,8 +110,8 @@ declare namespace zxcvbn {
         | "Straight rows of keys are easy to guess"
         | "Short keyboard patterns are easy to guess"
         | "Use a longer keyboard pattern with more turns"
-        | 'Repeats like "aaa" are easy to guess'
-        | 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"'
+        | "Repeats like \"aaa\" are easy to guess"
+        | "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\""
         | "Sequences like abc or 6543 are easy to guess"
         | "Recent years are easy to guess"
         | "Dates are often easy to guess"

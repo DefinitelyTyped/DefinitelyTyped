@@ -26,5 +26,5 @@ new ZipPlugin({
     },
     zipOptions: {
         forceZip64Format: true,
-    }
+    },
 });

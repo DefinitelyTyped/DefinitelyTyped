@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-interface EventEmitter { }
+interface EventEmitter {}
 
 interface SocketTypes {
     pub: number;
@@ -83,7 +83,7 @@ export class Socket implements EventEmitter {
      * @param addr Socket address
      * @param cb Bind callback
      */
-    bind(addr: string, callback?: (error: string) => void ): Socket;
+    bind(addr: string, callback?: (error: string) => void): Socket;
 
     /**
      * Sync bind.
@@ -100,7 +100,7 @@ export class Socket implements EventEmitter {
      * @param addr Socket address
      * @param cb Unind callback
      */
-    unbind(addr: string, callback?: (error: string) => void ): Socket;
+    unbind(addr: string, callback?: (error: string) => void): Socket;
 
     /**
      * Sync unbind.
@@ -154,24 +154,23 @@ export class Socket implements EventEmitter {
     send(msg: Buffer, flags?: number): Socket;
 
     /**
-    * Send the given `msg`.
-    *
-    * @param msg The message
-    * @param flags Message flags
-    */
+     * Send the given `msg`.
+     *
+     * @param msg The message
+     * @param flags Message flags
+     */
     send(msg: any[], flags?: number): Socket;
 
     /**
-    * Enable monitoring of a Socket
-    *
-    * @param {Number} timer interval in ms > 0 or Undefined for default
-    * @return {Socket} for chaining
-    */
+     * Enable monitoring of a Socket
+     *
+     * @param {Number} timer interval in ms > 0 or Undefined for default
+     * @return {Socket} for chaining
+     */
     monitor(interval?: number): Socket;
 
     /**
      * Close the socket.
-     *
      */
     close(): Socket;
 

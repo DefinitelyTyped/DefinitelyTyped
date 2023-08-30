@@ -1,27 +1,27 @@
 import {
     Anchor,
-    Shape,
-    Group,
-    Dragger,
-    Illustration,
-    Vector,
-    TAU,
-    easeInOut,
-    lerp,
-    modulo,
-    Rect,
-    RoundedRect,
-    Ellipse,
-    Polygon,
+    Box,
     Cone,
     Cylinder,
-    Box,
-} from 'zdog';
+    Dragger,
+    easeInOut,
+    Ellipse,
+    Group,
+    Illustration,
+    lerp,
+    modulo,
+    Polygon,
+    Rect,
+    RoundedRect,
+    Shape,
+    TAU,
+    Vector,
+} from "zdog";
 
-const canvas = document.createElement('canvas');
-const ctx = canvas.getContext('2d')!;
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d")!;
 
-const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
 const anchor = new Anchor();
 
@@ -72,14 +72,14 @@ anchor.normalizeRotate();
 const shape = new Shape();
 
 new Shape({});
-new Shape({ color: '#000000' });
+new Shape({ color: "#000000" });
 new Shape({ stroke: 1 });
 new Shape({ stroke: false });
 new Shape({ fill: false });
 new Shape({ closed: false });
 new Shape({ visible: false });
 new Shape({ backface: false });
-new Shape({ backface: '#000' });
+new Shape({ backface: "#000" });
 new Shape({ front: {} });
 new Shape({ front: { x: 1, y: 1, z: 1 } });
 new Shape({
@@ -103,7 +103,7 @@ new Group({ updateSort: false });
 const dragger = new Dragger();
 
 new Dragger({});
-new Dragger({ startElement: '.foo' });
+new Dragger({ startElement: ".foo" });
 new Dragger({ startElement: canvas });
 new Dragger({ startElement: svg });
 new Dragger({
@@ -126,7 +126,7 @@ new Dragger({
     },
 });
 
-const illustration = new Illustration({ element: '.foo' });
+const illustration = new Illustration({ element: ".foo" });
 
 // @ts-expect-error
 new Illustration();
@@ -256,7 +256,7 @@ new Cylinder({ diameter: 1 });
 new Cylinder({ length: 1 });
 new Cylinder({ frontFace: false });
 new Cylinder({ frontFace: true });
-new Cylinder({ frontFace: '#000000' });
+new Cylinder({ frontFace: "#000000" });
 
 const box = new Box();
 
@@ -264,19 +264,19 @@ new Box({});
 new Box({ depth: 1 });
 new Box({ frontFace: false });
 new Box({ frontFace: true });
-new Box({ frontFace: '#000000' });
+new Box({ frontFace: "#000000" });
 new Box({ rearFace: false });
 new Box({ rearFace: true });
-new Box({ rearFace: '#000000' });
+new Box({ rearFace: "#000000" });
 new Box({ leftFace: false });
 new Box({ leftFace: true });
-new Box({ leftFace: '#000000' });
+new Box({ leftFace: "#000000" });
 new Box({ rightFace: false });
 new Box({ rightFace: true });
-new Box({ rightFace: '#000000' });
+new Box({ rightFace: "#000000" });
 new Box({ topFace: false });
 new Box({ topFace: true });
-new Box({ topFace: '#000000' });
+new Box({ topFace: "#000000" });
 new Box({ bottomFace: false });
 new Box({ bottomFace: true });
-new Box({ bottomFace: '#000000' });
+new Box({ bottomFace: "#000000" });

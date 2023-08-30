@@ -27,7 +27,7 @@ declare namespace ZenScroll {
     }
 }
 
-declare  global {
+declare global {
     interface Window {
         noZensmooth: boolean;
     }

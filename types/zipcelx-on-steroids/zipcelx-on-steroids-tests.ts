@@ -4,15 +4,15 @@ const config: ZipCelXConfig = {
     filename: "general-ledger-Q1",
     sheet: {
         data: [
-            [ {
+            [{
                 value: "Income - Webshop",
-                type: "string"
+                type: "string",
             }, {
                 value: 1000,
-                type: "number"
-            } ]
-        ]
-    }
+                type: "number",
+            }],
+        ],
+    },
 };
 
-zipcelx(config, 'export');
+zipcelx(config, "export");
