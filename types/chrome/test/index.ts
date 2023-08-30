@@ -2087,4 +2087,12 @@ function testSidePanelAPI() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
         console.log('Behavior set successfully.');
     });
+
+    let openOption: chrome.sidePanel.OpenOption = {
+        tabId: 123,
+    }
+
+    chrome.sidePanel.open(openOption, () => {
+        console.log('SidePanel opened successfully');
+    })
 }

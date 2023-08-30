@@ -12396,6 +12396,11 @@ declare namespace chrome.sidePanel {
         default_path: string;
     }
 
+    export interface OpenOption {
+        tabId?: number;
+        windowId?: number;
+    }
+
     export function getOptions(options: GetPanelOptions, callback?: (options: PanelOptions) => void): Promise<PanelOptions>;
 
     export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
@@ -12403,4 +12408,6 @@ declare namespace chrome.sidePanel {
     export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
 
     export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
+
+    export function open(options: OpenOption, callback?: () => void): Promise<void>;
 }
