@@ -5,13 +5,13 @@
 
 /// <reference types="node" />
 
-import * as events from 'events';
+import * as events from "events";
 
 export const EventEmitter: typeof events.EventEmitter;
 export type EventEmitter = events.EventEmitter;
 
 export class TimeoutError extends Error {
-    readonly name: 'TimeoutError';
+    readonly name: "TimeoutError";
 }
 
 export function delay(ms: number): Promise<void> & { timeout: NodeJS.Timeout | number };

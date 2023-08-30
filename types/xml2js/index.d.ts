@@ -11,8 +11,8 @@
 // Minimum TypeScript Version: 3.5
 
 /// <reference types="node"/>
-import { EventEmitter } from 'events';
-import * as processors from './lib/processors';
+import { EventEmitter } from "events";
+import * as processors from "./lib/processors";
 
 export function parseString(str: convertableToString, callback: (err: Error | null, result: any) => void): void;
 export function parseString(
@@ -23,8 +23,8 @@ export function parseString(
 export function parseStringPromise(str: convertableToString, options?: ParserOptions): Promise<any>;
 
 export const defaults: {
-    '0.1': Options;
-    '0.2': OptionsV2;
+    "0.1": Options;
+    "0.2": OptionsV2;
 };
 
 export interface XmlDeclarationAttributes {

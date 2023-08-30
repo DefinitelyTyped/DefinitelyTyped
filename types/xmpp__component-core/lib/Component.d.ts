@@ -1,9 +1,9 @@
-import ConnectionTCP = require('@xmpp/connection-tcp');
+import ConnectionTCP = require("@xmpp/connection-tcp");
 
 export = Component;
 
 declare class Component extends ConnectionTCP {
-    static readonly NS: 'jabber:component:accept';
+    static readonly NS: "jabber:component:accept";
 
     socketParameters(service: string): Component.SocketParameters;
     authenticate(id: string, password: string): Promise<void>;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as parse5 from 'parse5';
+import * as parse5 from "parse5";
 
 export as namespace xmlserializer;
 

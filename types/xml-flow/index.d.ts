@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { Readable } from "stream";
 import { EventEmitter } from "events";
+import { Readable } from "stream";
 
 declare function flow(infile: Readable, options?: flow.parserOptions): EventEmitter;
 

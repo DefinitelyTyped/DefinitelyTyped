@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } from 'unist';
+import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 export { UnistNode as Node };
 export { UnistParent as Parent };
@@ -54,7 +54,7 @@ export interface RootChildMap {
  * whole document.
  */
 export interface Root extends UnistParent {
-    type: 'root';
+    type: "root";
     children: Array<RootChildMap[keyof RootChildMap]>;
 }
 
@@ -87,7 +87,7 @@ export interface ElementChildMap {
  * An XML element.
  */
 export interface Element extends UnistParent {
-    type: 'element';
+    type: "element";
     /**
      * The element's qualified name.
      */
@@ -110,21 +110,21 @@ export interface Attributes {
  * XML character data.
  */
 export interface Text extends Literal {
-    type: 'text';
+    type: "text";
 }
 
 /**
  * XML comment.
  */
 export interface Comment extends Literal {
-    type: 'comment';
+    type: "comment";
 }
 
 /**
  * XML doctype.
  */
 export interface Doctype extends UnistNode {
-    type: 'doctype';
+    type: "doctype";
     name: string;
     /**
      * The document’s public identifier.
@@ -140,7 +140,7 @@ export interface Doctype extends UnistNode {
  * XML processing instruction.
  */
 export interface Instruction extends Literal {
-    type: 'instruction';
+    type: "instruction";
     name: string;
 }
 
@@ -148,5 +148,5 @@ export interface Instruction extends Literal {
  * XML CDATA section.
  */
 export interface Cdata extends Literal {
-    type: 'cdata';
+    type: "cdata";
 }

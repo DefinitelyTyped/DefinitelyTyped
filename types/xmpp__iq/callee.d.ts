@@ -1,5 +1,5 @@
-import { Entity, IncomingContext, Middleware } from '@xmpp/middleware';
-import * as koaCompose from 'koa-compose';
+import { Entity, IncomingContext, Middleware } from "@xmpp/middleware";
+import * as koaCompose from "koa-compose";
 
 export = iqCallee;
 

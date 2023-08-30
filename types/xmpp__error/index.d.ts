@@ -3,11 +3,11 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Element } from '@xmpp/xml';
+import { Element } from "@xmpp/xml";
 
 export = XMPPError;
 
-declare class XMPPError<TName extends string = 'XMPPError'> extends Error {
+declare class XMPPError<TName extends string = "XMPPError"> extends Error {
     readonly name: TName;
     readonly condition: string;
     readonly text: string | undefined;

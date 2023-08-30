@@ -3,9 +3,9 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ClientCls = require('./lib/Client');
-import xmppXml = require('@xmpp/xml');
-import xmppJid = require('@xmpp/jid');
+import ClientCls = require("./lib/Client");
+import xmppXml = require("@xmpp/xml");
+import xmppJid = require("@xmpp/jid");
 
 export const Client: typeof ClientCls;
 export type Client = ClientCls;

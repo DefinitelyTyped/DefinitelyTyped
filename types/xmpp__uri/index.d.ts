@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { JID } from '@xmpp/jid';
-import { ParsedUrlQuery } from 'querystring';
+import { JID } from "@xmpp/jid";
+import { ParsedUrlQuery } from "querystring";
 
 /**
  * Parse XMPP URIs.

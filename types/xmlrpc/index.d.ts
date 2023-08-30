@@ -5,11 +5,11 @@
 
 /// <reference types="node" />
 
-declare module 'xmlrpc' {
-    import { EventEmitter } from 'events';
-    import { Server as HttpServer } from 'http';
-    import { Server as HttpsServer } from 'https';
-    import { TlsOptions } from 'tls';
+declare module "xmlrpc" {
+    import { EventEmitter } from "events";
+    import { Server as HttpServer } from "http";
+    import { Server as HttpsServer } from "https";
+    import { TlsOptions } from "tls";
 
     interface ClientOptions {
         host?: string | undefined;
@@ -18,7 +18,7 @@ declare module 'xmlrpc' {
         url?: string | undefined;
         cookies?: boolean | undefined;
         headers?: { [header: string]: string } | undefined;
-        basic_auth?: { user: string, pass: string } | undefined;
+        basic_auth?: { user: string; pass: string } | undefined;
         method?: string | undefined;
     }
 
@@ -38,7 +38,7 @@ declare module 'xmlrpc' {
 
     class Cookies {
         get(name: string): string;
-        set(name: string, value: string, options?: { secure: boolean, expires: Date }): void;
+        set(name: string, value: string, options?: { secure: boolean; expires: Date }): void;
         toString(): string;
     }
 
@@ -67,7 +67,7 @@ declare module 'xmlrpc' {
         interface Server extends EventEmitter {
             httpServer: HttpServer | HttpsServer;
 
-            on(eventName: 'NotFound', callback: ServerNotFoundFunction): this;
+            on(eventName: "NotFound", callback: ServerNotFoundFunction): this;
             on(eventName: string, callback: ServerFunction): this;
         }
 
@@ -83,7 +83,7 @@ declare module 'xmlrpc' {
 
             decodeIso8601(time: string): Date;
             encodeIso8601(date: Date): string;
-        }
+        };
 
         export class CustomType {
             tagName: string;

@@ -3,10 +3,10 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Connection = require('@xmpp/connection');
-import { Element } from '@xmpp/xml';
-import { Socket } from 'net';
-import { URL } from 'url';
+import Connection = require("@xmpp/connection");
+import { Element } from "@xmpp/xml";
+import { Socket } from "net";
+import { URL } from "url";
 
 export = ConnectionTCP;
 
@@ -25,6 +25,6 @@ declare namespace ConnectionTCP {
     }
 
     interface SocketConstructor extends Connection.SocketConstructor {
-        new (): Socket;
+        new(): Socket;
     }
 }

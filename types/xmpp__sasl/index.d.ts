@@ -3,9 +3,9 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Entity } from '@xmpp/middleware';
-import streamFeatures = require('@xmpp/stream-features');
-import SASLFactory = require('saslmechanisms');
+import { Entity } from "@xmpp/middleware";
+import streamFeatures = require("@xmpp/stream-features");
+import SASLFactory = require("saslmechanisms");
 
 export = sasl;
 

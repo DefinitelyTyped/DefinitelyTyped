@@ -35,7 +35,7 @@ declare namespace XSalsa20 {
          * @param nonce Should be 24 bytes.
          * @param key Should be 32 bytes.
          */
-        new (nonce: Uint8Array | Buffer, key: Uint8Array | Buffer): Xor;
+        new(nonce: Uint8Array | Buffer, key: Uint8Array | Buffer): Xor;
     }
 
     interface Xor {

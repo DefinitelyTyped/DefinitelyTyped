@@ -3,8 +3,6 @@
 // Definitions by: Matt Frantz <https://github.com/mhfrantz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare function parse(xml: string): parse.Document;
 
 declare namespace parse {

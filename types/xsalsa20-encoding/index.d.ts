@@ -120,7 +120,7 @@ declare namespace createCodec {
     type ValueToEncode = Buffer | string | readonly number[] | JSONParsedBuffer;
 
     interface JSONParsedBuffer {
-        type: 'Buffer';
+        type: "Buffer";
         data: readonly number[];
     }
 

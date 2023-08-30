@@ -88,7 +88,7 @@ export const NodeTypeKeys: [
     "NOTATION_NODE",
     "CLOSE_ELEMENT",
     "JSX_ATTRIBUTE",
-    "JSX"
+    "JSX",
 ];
 
 declare namespace Lexx {
@@ -128,4 +128,9 @@ export function onElement(xml: string, i: number, inElement: boolean): [number, 
 export function onExclamation(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
 export function onShorthandCDATA(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
 export function onText(xml: string, i: number, jsx?: boolean): [number, boolean, Lexx.Token];
-export function onBlackhole(xml: string, i: number, inElement: boolean, untilToken: Lexx.Token): [number, boolean, Lexx.Token];
+export function onBlackhole(
+    xml: string,
+    i: number,
+    inElement: boolean,
+    untilToken: Lexx.Token,
+): [number, boolean, Lexx.Token];

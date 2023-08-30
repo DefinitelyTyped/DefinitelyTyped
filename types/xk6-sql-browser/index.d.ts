@@ -7,7 +7,7 @@
  * xk6-sql: k6 extension that allows connection to RDBMSs: mysql, postgres, sqlite3, sqlserver
  * https://github.com/grafana/xk6-sql
  */
-declare module 'k6/x/sql' {
+declare module "k6/x/sql" {
     namespace sql {
         /**
          * Opens a database connection.
@@ -18,7 +18,7 @@ declare module 'k6/x/sql' {
          * const db = sql.open("sqlserver", "Server=127.0.0.1;Database=myDB;User Id=myUser;Password=myPassword;")
          */
         function open(
-            type: 'mysql' | 'postgres' | 'sqlite3' | 'sqlserver',
+            type: "mysql" | "postgres" | "sqlite3" | "sqlserver",
             connectionString: string,
         ): DatabaseConnection;
 
@@ -57,7 +57,7 @@ declare module 'k6/x/sql' {
     export default sql;
 }
 
-declare module 'xk6-sql' {
+declare module "xk6-sql" {
     namespace sql {
         /**
          * Opens a database connection.
@@ -68,7 +68,7 @@ declare module 'xk6-sql' {
          * const db = sql.open("sqlserver", "Server=127.0.0.1;Database=myDB;User Id=myUser;Password=myPassword;")
          */
         function open(
-            type: 'mysql' | 'postgres' | 'sqlite3' | 'sqlserver',
+            type: "mysql" | "postgres" | "sqlite3" | "sqlserver",
             connectionString: string,
         ): DatabaseConnection;
 

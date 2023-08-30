@@ -3,7 +3,7 @@
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import HttpContext = require('http-context');
+import HttpContext = require("http-context");
 
 export = XRayCrawler;
 

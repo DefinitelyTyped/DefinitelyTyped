@@ -1,6 +1,6 @@
-import { Deferred } from '@xmpp/events';
-import { Entity, Middleware } from '@xmpp/middleware';
-import { Element } from '@xmpp/xml';
+import { Deferred } from "@xmpp/events";
+import { Entity, Middleware } from "@xmpp/middleware";
+import { Element } from "@xmpp/xml";
 
 export = iqCaller;
 

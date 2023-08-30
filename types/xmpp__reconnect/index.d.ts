@@ -3,8 +3,8 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from '@xmpp/events';
-import Connection = require('@xmpp/connection');
+import { EventEmitter } from "@xmpp/events";
+import Connection = require("@xmpp/connection");
 
 export = reconnect;
 

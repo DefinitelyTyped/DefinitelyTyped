@@ -1,4 +1,4 @@
-import xtend = require('xtend');
+import xtend = require("xtend");
 
 interface Target {
     hellow: string;
@@ -26,48 +26,48 @@ type Result4 = Result3 & Source4;
 type Result5 = Result4 & Source5;
 
 function assign1(): Result1 {
-    return xtend({ hellow: 'world' }, { source1: 'U' });
+    return xtend({ hellow: "world" }, { source1: "U" });
 }
 
 function assign2(): Result2 {
-    return xtend({ hellow: 'world' }, { source1: 'U' }, { source2: 'V' });
+    return xtend({ hellow: "world" }, { source1: "U" }, { source2: "V" });
 }
 
 function assign3(): Result3 {
-    return xtend({ hellow: 'world' }, { source1: 'U' }, { source2: 'V' }, { source3: 'W' });
+    return xtend({ hellow: "world" }, { source1: "U" }, { source2: "V" }, { source3: "W" });
 }
 
 function assign4(): Result4 {
-    return xtend({ hellow: 'world' }, { source1: 'U' }, { source2: 'V' }, { source3: 'W' }, { source4: 'Q' });
+    return xtend({ hellow: "world" }, { source1: "U" }, { source2: "V" }, { source3: "W" }, { source4: "Q" });
 }
 
 function assign5(): Result5 {
     return xtend(
-        { hellow: 'world' },
-        { source1: 'U' },
-        { source2: 'V' },
-        { source3: 'W' },
-        { source4: 'Q' },
-        { source5: 'R' },
+        { hellow: "world" },
+        { source1: "U" },
+        { source2: "V" },
+        { source3: "W" },
+        { source4: "Q" },
+        { source5: "R" },
     );
 }
 
 function assign(): object {
     return xtend(
-        { hellow: 'world' },
-        { source1: 'U' },
-        { source2: 'V' },
-        { source3: 'W' },
-        { source4: 'Q' },
-        { source5: 'R' },
+        { hellow: "world" },
+        { source1: "U" },
+        { source2: "V" },
+        { source3: "W" },
+        { source4: "Q" },
+        { source5: "R" },
         {
-            hellow: 'hellow',
-            source1: 'source1',
-            source2: 'source2',
-            source3: 'source3',
-            source4: 'source4',
-            source5: 'source5',
-            generic: 'any',
+            hellow: "hellow",
+            source1: "source1",
+            source2: "source2",
+            source3: "source3",
+            source4: "source4",
+            source5: "source5",
+            generic: "any",
         },
     );
 }
