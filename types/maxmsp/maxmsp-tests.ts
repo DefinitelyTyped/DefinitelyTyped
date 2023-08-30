@@ -10,6 +10,8 @@ cpost('This is cpost.');
 post('This is a post.');
 // Catcher must be bound to a global object, so use an [r]
 messnamed('catcher', 'bang');
+messnamed('catcher', 'amessage', 'myarg');
+messnamed('catcher', 'anothremessage', 1);
 
 // Buffer usage example
 const myBuffer = new Buffer('audio_buffer');
@@ -185,7 +187,8 @@ post(myMaxobj.valid);
 // Use methods on Maxobj
 myMaxobj.message('set', 'myMaxObj set this');
 myMaxobj.help();
-const mySubpatcher = myMaxobj.subpatcher(0);
+let mySubpatcher = myMaxobj.subpatcher(0);
+mySubpatcher = myMaxobj.subpatcher();
 post(mySubpatcher);
 const understandsResult = myMaxobj.understands('testMessage');
 post(understandsResult);
@@ -233,6 +236,7 @@ post(myPatcher.scrollorigin);
 post(myPatcher.wind);
 
 // Use methods on Patcher
+myPatcher.message("window", "size", 200, 200, 200, 200);
 const myNewObject = myPatcher.newobject('message');
 const myNewDefaultObject = myPatcher.newdefault(100, 100, 'toggle');
 
