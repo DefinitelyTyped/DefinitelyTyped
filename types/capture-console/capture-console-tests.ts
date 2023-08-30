@@ -22,11 +22,12 @@ captureconsole.captureStdout({ quiet: true }, () => {}); // $ExpectType string
 
 captureconsole.hook(process.stdout, (string: string, encoding?: string, fd?: (error?: any) => void) => {}); // $ExpectType () => boolean
 captureconsole.hook(process.stdout, {}, (string: string, encoding?: string, fd?: (error?: any) => void) => {}); // $ExpectType () => boolean
+// $ExpectType () => boolean
 captureconsole.hook(
     process.stdout,
     { quiet: true },
     (string: string, encoding?: string, fd?: (error?: any) => void) => {},
-); // $ExpectType () => boolean
+);
 
 captureconsole.intercept(process.stdout, () => {}); // $ExpectType string[]
 captureconsole.intercept(process.stdout, {}, () => {}); // $ExpectType string[]
@@ -46,11 +47,12 @@ captureconsole.interceptStdout({ quiet: true }, () => {}); // $ExpectType string
 
 captureconsole.startCapture(process.stdout, (string: string, encoding?: string, fd?: (error?: any) => void) => {}); // $ExpectType boolean
 captureconsole.startCapture(process.stdout, {}, (string: string, encoding?: string, fd?: (error?: any) => void) => {}); // $ExpectType boolean
+// $ExpectType boolean
 captureconsole.startCapture(
     process.stdout,
     { quiet: true },
     (string: string, encoding?: string, fd?: (error?: any) => void) => {},
-); // $ExpectType boolean
+);
 
 captureconsole.startIntercept(process.stdout, () => {}); // $ExpectType boolean
 captureconsole.startIntercept(process.stdout, {}, () => {}); // $ExpectType boolean

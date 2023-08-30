@@ -1319,21 +1319,24 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => {} }); // $ExpectType InjectionResult<void>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => 0 }); // $ExpectType InjectionResult<number>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => "" }); // $ExpectType InjectionResult<string>[]
+    // $ExpectType InjectionResult<void>[]
     await chrome.scripting.executeScript({
         target: { tabId: 0 },
         func: async (str: string, n: number) => {},
         args: ["", 0],
-    }); // $ExpectType InjectionResult<void>[]
+    });
+    // $ExpectType InjectionResult<number>[]
     await chrome.scripting.executeScript({
         target: { tabId: 0 },
         func: async (str: string, n: number) => 0,
         args: ["", 0],
-    }); // $ExpectType InjectionResult<number>[]
+    });
+    // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({
         target: { tabId: 0 },
         func: async (str: string, n: number) => "",
         args: ["", 0],
-    }); // $ExpectType InjectionResult<string>[]
+    });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: "ISOLATED", func: () => {} });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: true, func: () => {} }); // $ExpectType InjectionResult<void>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: false, func: () => {} }); // $ExpectType InjectionResult<void>[]
