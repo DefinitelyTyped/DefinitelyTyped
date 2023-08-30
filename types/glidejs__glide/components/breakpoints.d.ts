@@ -1,4 +1,4 @@
-import { Options } from '../index';
+import { Options } from "../index";
 
 export interface Breakpoints {
     /**

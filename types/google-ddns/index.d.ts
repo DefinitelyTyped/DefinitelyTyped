@@ -74,11 +74,11 @@ export interface SuccessResponse {
     /**
      * The response status
      */
-    status: 'success';
+    status: "success";
     /**
      * The response code
      */
-    response: 'good' | 'nochg';
+    response: "good" | "nochg";
     /**
      * A human-readable response message
      */
@@ -96,20 +96,20 @@ export interface ErrorResponse {
     /**
      * The response status
      */
-    status: 'error';
+    status: "error";
     /**
      * The response code (may include `good` or `nochg` in edge cases)
      */
     response:
-        | 'nohost'
-        | 'badauth'
-        | 'notfqdn'
-        | 'badagent'
-        | 'abuse'
-        | '911'
+        | "nohost"
+        | "badauth"
+        | "notfqdn"
+        | "badagent"
+        | "abuse"
+        | "911"
         // Error status is possible for these in certain edge cases
-        | 'good'
-        | 'nochg';
+        | "good"
+        | "nochg";
     /**
      * A human-readable response message
      */

@@ -12,7 +12,7 @@ declare namespace GorillaEngine.UI {
         itemSelectedBackgroundColor: string;
         itemHighlightedTextColor: string;
         itemHighlightedBackgroundColor: string;
-        checkmarkFloat: 'left' | 'right';
+        checkmarkFloat: "left" | "right";
         cornerRadius: number;
         padding: ComboBoxPadding | number;
         checkmarkPadding: ComboBoxPadding;

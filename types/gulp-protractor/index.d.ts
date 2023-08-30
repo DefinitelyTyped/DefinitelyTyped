@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import gulp = require('gulp');
+import gulp = require("gulp");
 
 interface IOptions {
     configFile?: string | undefined;
