@@ -6,13 +6,12 @@ import * as path from 'path';
 
 /**
  * @param {string} filePath
- * @returns {any}
  */
 const parseAndReadFileContents = filePath => {
     try {
-        return parse(fs.readFileSync(filePath).toString());
+        return parse(fs.readFileSync(filePath).toString()) ?? {};
     } catch {
-        return undefined;
+        return {};
     }
 };
 
@@ -61,7 +60,7 @@ for (const typeName of typeNames) {
 
     const tslintFilePath = path.join(typeDirectory, 'tslint.json');
 
-    /** @type {{ extends: string; rules?: { [s:string]: boolean }}} */
+    /** @type {Partial<{ extends: string; rules?: { [s:string]: boolean }}>} */
     const tslintData = parseAndReadFileContents(tslintFilePath);
     if (!tslintData?.rules) {
         continue;
