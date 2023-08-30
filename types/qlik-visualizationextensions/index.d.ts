@@ -2233,8 +2233,19 @@ declare namespace VariableAPI {
 }
 
 declare namespace VisualizationAPI {
-    type VisualizationType = "barchart" | "combochart" | "gauge" | "kpi" | "linechart" | "piechart" | "pivot-table" |
-        "scatterplot" | "table" | "treemap" | "extension" | "listbox";
+    type VisualizationType =
+        | "barchart"
+        | "combochart"
+        | "gauge"
+        | "kpi"
+        | "linechart"
+        | "piechart"
+        | "pivot-table"
+        | "scatterplot"
+        | "table"
+        | "treemap"
+        | "extension"
+        | "listbox";
 
     interface IVisualization {
         /**
@@ -2361,13 +2372,13 @@ declare namespace ExtensionAPI {
         // [""]:
     }
 
-    //#region IDefinition
+    // #region IDefinition
     type ExpressionType = "always" | "optional" | "";
 
     type func<T> = () => T;
     type valueOrfunc<T> = T | func<T>;
 
-    //#region Controls
+    // #region Controls
     interface ICustomControlOption {
         value: string;
         label: string;
@@ -2484,7 +2495,7 @@ declare namespace ExtensionAPI {
         defaultValue: string;
         show: valueOrfunc<boolean>;
     }
-    //#endregion
+    // #endregion
 
     interface IDefinition {
         type: "items";
@@ -2535,7 +2546,7 @@ declare namespace ExtensionAPI {
         max?: number | undefined;
     }
 
-    //#endregion
+    // #endregion
 }
 
 declare module "qlik" {

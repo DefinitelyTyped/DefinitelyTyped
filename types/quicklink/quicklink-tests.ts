@@ -1,62 +1,62 @@
-import { listen, prefetch, prerender } from 'quicklink';
+import { listen, prefetch, prerender } from "quicklink";
 
 // $ExpectType () => void
 listen();
 
 listen({
-    timeout: 4000
+    timeout: 4000,
 });
 
 listen({
-    el: document.getElementById('carousel')!
+    el: document.getElementById("carousel")!,
 });
 
-prefetch('2.html');
+prefetch("2.html");
 
-prefetch(['2.html', '3.html', '4.js']);
+prefetch(["2.html", "3.html", "4.js"]);
 
-prefetch(['2.html', '3.html', '4.js'], true);
+prefetch(["2.html", "3.html", "4.js"], true);
 
-prerender('2.html');
+prerender("2.html");
 
-prerender(['2.html', '3.html', '4.js']);
+prerender(["2.html", "3.html", "4.js"]);
 
 listen({ priority: true });
 
 listen({
     origins: [
         // add mine
-        'my-website.com',
-        'api.my-website.com',
+        "my-website.com",
+        "api.my-website.com",
         // add third-parties
-        'other-website.com',
-        'example.com',
+        "other-website.com",
+        "example.com",
         // ...
-    ]
+    ],
 });
 
 listen({
-    origins: true
+    origins: true,
 });
 
 listen({
-    origins: []
+    origins: [],
 });
 
 listen({
     ignores: [
         /\/api\/?/,
-        uri => uri.includes('.zip'),
-        (uri, elem) => elem.hasAttribute('noprefetch')
-    ]
+        uri => uri.includes(".zip"),
+        (uri, elem) => elem.hasAttribute("noprefetch"),
+    ],
 });
 
 listen({
     ignores: [
-        uri => uri.includes('#')
-    ]
+        uri => uri.includes("#"),
+    ],
 });
 
-prefetch(['1.html', '2.html']).catch(err => {
+prefetch(["1.html", "2.html"]).catch(err => {
     // Handle own errors
 });

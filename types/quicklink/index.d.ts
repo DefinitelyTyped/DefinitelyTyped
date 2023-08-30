@@ -97,7 +97,10 @@ interface ListenOptions {
      *
      * Defaults to `[]`.
      */
-    ignores: RegExp | ((url: string, el: Element) => boolean) | ReadonlyArray<string | RegExp | ((url: string, el: Element) => boolean)>;
+    ignores:
+        | RegExp
+        | ((url: string, el: Element) => boolean)
+        | ReadonlyArray<string | RegExp | ((url: string, el: Element) => boolean)>;
     /**
      * An optional error handler that will receive any errors from prefetched requests.
      *

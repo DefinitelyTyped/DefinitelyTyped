@@ -176,7 +176,7 @@ export interface QuickSettingsPanel<M = AnyModel, S = string> {
     addPassword(title: KeyWhereType<M, string>, text: string, callback?: ChangeHandler<string>): this;
     bindPassword<K extends KeyWhereType<M, string>>(title: K, text: string, object: Record<K, string>): this;
 
-    addProgressBar(title: string, max: number, value: number, valueDisplay?: 'numbers' | 'percent'): this;
+    addProgressBar(title: string, max: number, value: number, valueDisplay?: "numbers" | "percent"): this;
     setProgressMax(title: string, max: number): this;
 
     addText(title: KeyWhereType<M, string>, text: string, callback?: ChangeHandler<string>): this;

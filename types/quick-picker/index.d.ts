@@ -3,8 +3,8 @@
 // Definitions by: Tamas Illes <https://github.com/illestomas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { TextStyle, ViewStyle } from 'react-native';
+import * as React from "react";
+import { TextStyle, ViewStyle } from "react-native";
 
 export default class QuickPicker extends React.Component {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -13,7 +13,7 @@ export default class QuickPicker extends React.Component {
 }
 
 // tslint:disable-next-line
-type PickerType = 'normal' | 'time';
+type PickerType = "normal" | "time";
 
 // tslint:disable-next-line
 type ItemType = {
@@ -21,10 +21,10 @@ type ItemType = {
     readonly label: string;
 };
 
-type PickerMode = 'date' | 'time' | 'datetime' | 'countdown';
+type PickerMode = "date" | "time" | "datetime" | "countdown";
 
 // tslint:disable-next-line
-type PickerDisplayType = 'default' | 'spinner' | 'calendar' | 'clock';
+type PickerDisplayType = "default" | "spinner" | "calendar" | "clock";
 interface QuickPickerOpenOptions<T = ItemType> {
     /**
      * Picker's selected item
@@ -197,4 +197,4 @@ interface QuickPickerOpenOptions<T = ItemType> {
     readonly useNativeDriver?: boolean;
 }
 
-export { QuickPickerOpenOptions, ItemType };
+export { ItemType, QuickPickerOpenOptions };

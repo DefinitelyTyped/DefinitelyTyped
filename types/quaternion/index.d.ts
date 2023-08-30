@@ -31,12 +31,14 @@ type Matrix4 = [
 type Matrix3_2D = [[number, number, number], [number, number, number], [number, number, number]];
 type Matrix3 = [number, number, number, number, number, number, number, number, number];
 
-type QuaternionRecord = { w?: number; x?: number; y?: number; z?: number } & (
-    | { w: number }
-    | { x: number }
-    | { y: number }
-    | { z: number }
-);
+type QuaternionRecord =
+    & { w?: number; x?: number; y?: number; z?: number }
+    & (
+        | { w: number }
+        | { x: number }
+        | { y: number }
+        | { z: number }
+    );
 interface QuaternionComplexRecord {
     re: number;
     im: number;

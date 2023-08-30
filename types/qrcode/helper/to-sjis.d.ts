@@ -1,4 +1,4 @@
-import { QRCodeToSJISFunc } from '..';
+import { QRCodeToSJISFunc } from "..";
 
 declare const toSJISFunc: QRCodeToSJISFunc;
 

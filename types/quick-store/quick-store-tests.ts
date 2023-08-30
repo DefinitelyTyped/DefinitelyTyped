@@ -1,8 +1,8 @@
 import * as database from "quick-store";
 
 // valid database creations
-database();                                // $ExpectType Database
-database("./testdb.json");                 // $ExpectType Database
+database(); // $ExpectType Database
+database("./testdb.json"); // $ExpectType Database
 database("./testdb.json", { foo: "bar" }); // $ExpectType Database
 
 // invalid database creations
@@ -14,30 +14,30 @@ database("./testdb.json", 123);
 const db = database();
 
 // valid functions
-db.put({ foo: "bar" });             // $ExpectType void
-db.put({ foo: { foo: "bar" }});     // $ExpectType void
-db.put({ foo: "bar" }, () => {});   // $ExpectType void
+db.put({ foo: "bar" }); // $ExpectType void
+db.put({ foo: { foo: "bar" } }); // $ExpectType void
+db.put({ foo: "bar" }, () => {}); // $ExpectType void
 
-db.setItem("foo", "bar");           // $ExpectType void
-db.setItem("foo", 123);             // $ExpectType void
-db.setItem("foo", { foo: "bar" });  // $ExpectType void
-db.setItem("foo", [ "bar" ]);       // $ExpectType void
-db.setItem("foo", true);            // $ExpectType void
-db.setItem("foo", null);            // $ExpectType void
+db.setItem("foo", "bar"); // $ExpectType void
+db.setItem("foo", 123); // $ExpectType void
+db.setItem("foo", { foo: "bar" }); // $ExpectType void
+db.setItem("foo", ["bar"]); // $ExpectType void
+db.setItem("foo", true); // $ExpectType void
+db.setItem("foo", null); // $ExpectType void
 db.setItem("foo", "bar", () => {}); // $ExpectType void
 
-db.getItem("foo", data => {});      // $ExpectType void
+db.getItem("foo", data => {}); // $ExpectType void
 
-db.removeItem("foo");               // $ExpectType void
-db.removeItem("foo", () => {});     // $ExpectType void
+db.removeItem("foo"); // $ExpectType void
+db.removeItem("foo", () => {}); // $ExpectType void
 
-db.clear();                         // $ExpectType void
-db.clear(() => {});                 // $ExpectType void
+db.clear(); // $ExpectType void
+db.clear(() => {}); // $ExpectType void
 
-db.get();                           // $ExpectedType dbContents
-db.get(() => {});                   // $ExpectedType void
+db.get(); // $ExpectedType dbContents
+db.get(() => {}); // $ExpectedType void
 
-db.change("./testdb.json");         // $ExpectedType void
+db.change("./testdb.json"); // $ExpectedType void
 
 // invalid functions
 // @ts-expect-error
@@ -58,7 +58,7 @@ db.setItem("foo", new Date());
 // @ts-expect-error
 db.setItem("foo", { foo: new Date() });
 // @ts-expect-error
-db.setItem("foo", [ new Date() ]);
+db.setItem("foo", [new Date()]);
 // @ts-expect-error
 db.setItem("foo", "bar", null);
 // @ts-expect-error
