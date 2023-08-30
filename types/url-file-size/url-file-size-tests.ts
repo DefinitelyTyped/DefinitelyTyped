@@ -1,4 +1,4 @@
-import ufs = require('url-file-size');
+import ufs = require("url-file-size");
 
 // $ExpectType Promise<number>
 ufs("https://dimden.dev/logo.png");
