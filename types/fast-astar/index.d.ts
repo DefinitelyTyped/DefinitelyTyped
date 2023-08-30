@@ -5,7 +5,7 @@
 
 export class Grid {
     constructor(grid: { col: number; row: number });
-    set(coords: [x: number, y: number], value: 'value', passable: 0 | 1): void;
+    set(coords: [x: number, y: number], value: "value", passable: 0 | 1): void;
 }
 
 export class Astar {
@@ -13,6 +13,6 @@ export class Astar {
     search(
         originCoords: [x: number, y: number],
         destinationCoords: [x: number, y: number],
-        options?: { rightAngle: boolean, optimalResult?: boolean }
+        options?: { rightAngle: boolean; optimalResult?: boolean },
     ): undefined | Array<[x: number, y: number]>;
 }

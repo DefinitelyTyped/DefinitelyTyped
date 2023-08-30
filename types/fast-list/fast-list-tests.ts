@@ -1,6 +1,6 @@
-import FastList = require('fast-list');
+import FastList = require("fast-list");
 
-const thisArg = {foo: 'bar'};
+const thisArg = { foo: "bar" };
 
 const list = new FastList<string>();
 list; // $ExpectType List<string>
@@ -10,9 +10,9 @@ list.length; // $ExpectType number
 // @ts-expect-error
 list.length = 1;
 
-list.push('foo');
+list.push("foo");
 list.pop(); // $ExpectType string | undefined
-list.unshift('bar');
+list.unshift("bar");
 list.shift(); // $ExpectType string | undefined
 list.drop();
 list.item(2); // $ExpectType string | undefined
@@ -48,14 +48,18 @@ list.reduce(function(prevVal, value, index, list) { // $ExpectType number
     list; // $ExpectType List<string>
     return prevVal;
 }, 1);
-list.reduce(function(prevVal, value, index, list) { // $ExpectType number
-    this; // $ExpectType { foo: string; }
-    prevVal; // $ExpectType number
-    value; // $ExpectType string
-    index; // $ExpectType number
-    list; // $ExpectType List<string>
-    return prevVal;
-}, 1, thisArg);
+list.reduce(
+    function(prevVal, value, index, list) { // $ExpectType number
+        this; // $ExpectType { foo: string; }
+        prevVal; // $ExpectType number
+        value; // $ExpectType string
+        index; // $ExpectType number
+        list; // $ExpectType List<string>
+        return prevVal;
+    },
+    1,
+    thisArg,
+);
 
 list.forEach(function(value, index, list) {
     this; // $ExpectType List<string>
