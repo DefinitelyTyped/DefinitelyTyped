@@ -78,7 +78,6 @@ declare class JSONSchemaMarkdown {
      */
     typeGeneric(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -86,7 +85,6 @@ declare class JSONSchemaMarkdown {
      */
     typeArray(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -94,7 +92,6 @@ declare class JSONSchemaMarkdown {
      */
     typeBoolean(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -102,7 +99,6 @@ declare class JSONSchemaMarkdown {
      */
     typeNull(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -110,7 +106,6 @@ declare class JSONSchemaMarkdown {
      */
     typeNumber(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -118,7 +113,6 @@ declare class JSONSchemaMarkdown {
      */
     typeString(name: string, data: any, level: number, path: string): void;
     /**
-     *
      * @param name The JSON property name
      * @param data The JS data for the schema
      * @param level Indentation level
@@ -148,7 +142,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/object.html#property-names
      * @param bool
      * @param level Indentation level
-     *
      */
     writeAdditionalProperties(bool: boolean, level: number): void;
     /**
@@ -157,7 +150,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html#comments
      * @param comment The comment
      * @param level Indentation level
-     *
      */
     writeComment(comment: string, level: number): void;
     /**
@@ -166,7 +158,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param value The default value
      * @param level Indentation level
-     *
      */
     writeDefault(value: any, level: number): void;
     /**
@@ -175,7 +166,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param description The description may include markdown
      * @param level Indentation level
-     *
      */
     writeDescription(description: string, level: number): void;
     /**
@@ -183,14 +173,12 @@ declare class JSONSchemaMarkdown {
      *
      * @param list Enumerated values
      * @param level Indentation level
-     *
      */
     writeEnum(list: any[], level: number): void;
     /**
      * @see https://json-schema.org/understanding-json-schema/reference/string.html#format
      * @param format Format of string
      * @param level Indentation level
-     *
      */
     writeFormat(format: string, level: number): void;
     /**
@@ -199,13 +187,11 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param list Examples
      * @param level Indentation level
-     *
      */
     writeExamples(list: any[], level: number): void;
     /**
      * @param header The header to be written
      * @param level Header level [H1, H2, H3, H4, H5]
-     *
      */
     writeHeader(header: string, level?: number): void;
     /**
@@ -214,7 +200,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/structuring.html#the-id-property
      * @param id the schema's $id
      * @param level Indentation level
-     *
      */
     writeId(id: string, level: number): void;
     /**
@@ -222,7 +207,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param list Mixed array to list
      * @param level Indentation level
-     *
      */
     publicwriteList(list: any[], level?: number): void;
     /**
@@ -230,7 +214,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param min Inclusive minimum
      * @param max Inclusive maximum
-     *
      */
     publicwriteMinMax(min: number, max: number): void;
     /**
@@ -238,21 +221,18 @@ declare class JSONSchemaMarkdown {
      *
      * @param min Exclusive minimum
      * @param max Exclusive maximum
-     *
      */
     writeMinMaxExclusive(min: number, max: number): void;
     /**
      * @see https://json-schema.org/understanding-json-schema/reference/numeric.html#multiples
      * @param number Regular Expression that string must match.
      * @param level Indentation level
-     *
      */
     writeMultipleOf(number: number, level: number): void;
     /**
      * @see https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions
      * @param pattern Regular Expression that string must match.
      * @param level Indentation level
-     *
      */
     writePattern(pattern: string, level: number): void;
     /**
@@ -261,7 +241,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/object.html#property-names
      * @param data Schema object
      * @param level Indentation level
-     *
      */
     writePropertyNames(data: string, level: number): void;
     /**
@@ -269,7 +248,6 @@ declare class JSONSchemaMarkdown {
      * @param level Indentation level
      * @param path String describing the path of the property
      * @param required Property is required (True or False [default])
-     *
      */
     writePropertyName(prop: string, level: number, path: string, required?: boolean): void;
     /**
@@ -278,7 +256,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/structuring.html#reuse
      * @param ref $ID, path, or URI
      * @param level Indentation level
-     *
      */
     writeRef(ref: string, level: number): void;
     /**
@@ -286,7 +263,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param level Indentation level
      * @param path String describing the path of the property
-     *
      */
     writePath(level: number, path: string): void;
     /**
@@ -295,7 +271,6 @@ declare class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/basics.html#declaring-a-json-schema
      * @param uri
      * @param level Indentation level
-     *
      */
     writeSchema(uri: string, level: number): void;
     /**
@@ -303,7 +278,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param name
      * @param level Indentation level
-     *
      */
     writeSectionName(name: string, level?: number): void;
     /**
@@ -311,21 +285,18 @@ declare class JSONSchemaMarkdown {
      *
      * @param term
      * @param level Indentation level
-     *
      */
     writeTerm(term: string, level: number): void;
     /**
      * @see https://json-schema.org/understanding-json-schema/basics.html#the-type-keyword
      * @param type
      * @param level Indentation level
-     *
      */
     writeType(type: string, level: number): void;
     /**
      * @see https://json-schema.org/understanding-json-schema/reference/array.html#uniqueness
      * @param bool
      * @param level Indentation level
-     *
      */
     writeUniqueItems(bool: boolean, level: number): void;
 
@@ -346,7 +317,6 @@ declare class JSONSchemaMarkdown {
      * @param level Indentation level
      * @param indentChar Character to use for indentation. Defaults to this.indentChar
      * @param listChar Character to use for list
-     *
      */
     indent(level: number, indentChar?: string, listChar?: string): void;
     /**
@@ -354,7 +324,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param bool
      * @returns
-     *
      */
     valueBool(bool: boolean): string;
     /**
@@ -362,7 +331,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param value
      * @returns
-     *
      */
     valueFormat(value: any): string;
     /**
@@ -371,7 +339,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param text
      * @param level Indentation level
-     *
      */
     writeLine(text?: string, level?: number): void;
     /**
@@ -393,7 +360,6 @@ declare class JSONSchemaMarkdown {
      *
      * @param value
      * @returns
-     *
      */
     empty(value: any): boolean;
     /**
@@ -401,14 +367,12 @@ declare class JSONSchemaMarkdown {
      *
      * @param value
      * @returns
-     *
      */
     notEmpty(value: any): boolean;
     /**
      * Append error to errors array
      *
      * @param error Error message
-     *
      */
     error(error: string): void;
     /**

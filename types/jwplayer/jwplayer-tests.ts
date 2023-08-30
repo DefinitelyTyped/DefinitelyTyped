@@ -5,12 +5,12 @@ jwplayer.key;
 
 const sliderCue: jwplayer.SliderCue = {
     begin: new Date().getTime(),
-    cueType: 'type',
-    text: 'Label',
+    cueType: "type",
+    text: "Label",
 };
 
 // $ExpectType JWPlayer
-const player = jwplayer('id');
+const player = jwplayer("id");
 
 // $ExpectType SliderCue[]
 player.getCues();
@@ -22,10 +22,10 @@ player.getFloating();
 player.setFloating(true);
 
 // $ExpectType any
-player.getPlugin('pluginName');
+player.getPlugin("pluginName");
 
 // $ExpectType void
-player.addPlugin('pluginName', {});
+player.addPlugin("pluginName", {});
 
 // $ExpectType boolean
 player.getAdBlock();
@@ -39,8 +39,8 @@ player.skipAd();
 // $ExpectType JWPlayer
 player
     .addCues([sliderCue])
-    .on('userActive', () => {})
-    .on('userInactive', () => {})
-    .resize('50%', 100)
+    .on("userActive", () => {})
+    .on("userInactive", () => {})
+    .resize("50%", 100)
     .resize(40, 40)
     .setCues([sliderCue]);

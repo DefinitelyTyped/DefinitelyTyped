@@ -51,10 +51,10 @@ declare namespace jsrsasign {
         algparam:
             | string
             | {
-                  p: string | null;
-                  q: string | null;
-                  g: string | null;
-              }
+                p: string | null;
+                q: string | null;
+                g: string | null;
+            }
             | null;
         /** hexadecimal string of public key */
         key: string;
@@ -67,48 +67,48 @@ declare namespace jsrsasign {
 
     type JwkObject =
         | {
-              kty: 'RSA';
-              n: string;
-              e: string;
-              d: string;
-              p: string;
-              q: string;
-              dp: string;
-              dq: string;
-              qi: string;
-              x5c?: string[];
-              x5t?: string;
-              'x5t#S256'?: string;
-          }
+            kty: "RSA";
+            n: string;
+            e: string;
+            d: string;
+            p: string;
+            q: string;
+            dp: string;
+            dq: string;
+            qi: string;
+            x5c?: string[];
+            x5t?: string;
+            "x5t#S256"?: string;
+        }
         | {
-              kty: 'RSA';
-              n: string;
-              e: string;
-              kid?: string;
-              x5c?: string[];
-              x5t?: string;
-              'x5t#S256'?: string;
-          }
+            kty: "RSA";
+            n: string;
+            e: string;
+            kid?: string;
+            x5c?: string[];
+            x5t?: string;
+            "x5t#S256"?: string;
+        }
         | {
-              kty: 'EC';
-              crv: string;
-              x: string;
-              y: string;
-              d: string;
-              x5c?: string[];
-              x5t?: string;
-              'x5t#S256'?: string;
-          }
+            kty: "EC";
+            crv: string;
+            x: string;
+            y: string;
+            d: string;
+            x5c?: string[];
+            x5t?: string;
+            "x5t#S256"?: string;
+        }
         | {
-              kty: 'EC';
-              crv: string;
-              x: string;
-              y: string;
-              kid?: string;
-              x5c?: string[];
-              x5t?: string;
-              'x5t#S256'?: string;
-          };
+            kty: "EC";
+            crv: string;
+            x: string;
+            y: string;
+            kid?: string;
+            x5c?: string[];
+            x5t?: string;
+            "x5t#S256"?: string;
+        };
 
     interface HashOfKeyAndUnusedIV {
         keyhex: string;
@@ -122,7 +122,7 @@ declare namespace jsrsasign {
         data?: string;
     }
 
-    type EncryptionAlgorithm = 'DES-CBC' | 'DES-EDE3-CBC' | 'AES-128-CBC' | 'AES-192-CBC' | 'AES-256-CBC';
+    type EncryptionAlgorithm = "DES-CBC" | "DES-EDE3-CBC" | "AES-128-CBC" | "AES-192-CBC" | "AES-256-CBC";
 
     /**
      * class for RSA/ECC/DSA key utility
@@ -132,7 +132,6 @@ declare namespace jsrsasign {
      * `KEYUTIL` class has following features:
      *
      * __key loading - `KEYUTIL.getKey`__
-     *
      *
      * - supports RSAKey and KJUR.crypto.{ECDSA,DSA} key object
      * - supports private key and public key
@@ -154,14 +153,12 @@ declare namespace jsrsasign {
      * - PKCS#8 plain RSA/EC/DSA private key
      * - PKCS#8 encrypted RSA/EC/DSA private key with PBKDF2_HmacSHA1_3DES
      *
-     *
      * __keypair generation - `KEYUTIL.generateKeypair`__
      *
      * - generate key pair of `RSAKey` or `KJUR.crypto.ECDSA`.
      * - generate private key and convert it to PKCS#5 encrypted private key.
      *
      * NOTE: `KJUR.crypto.DSA` is not yet supported.
-     *
      *
      * @example
      * // 1. loading PEM private key
@@ -198,7 +195,6 @@ declare namespace jsrsasign {
          * <li>type - asymmetric key algorithm name of private key described in PEM header.</li>
          * <li>data - base64 encoded encrypted private key.</li>
          * </ul>
-         *
          */
         parsePKCS5PEM(sEncryptedPEM: string): HashOfKeyInformation;
 
@@ -457,10 +453,9 @@ declare namespace jsrsasign {
          * @example
          * var rsaKeypair = KEYUTIL.generateKeypair("RSA", 1024);
          * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
-         *
          */
         static generateKeypair(
-            alg: 'RSA',
+            alg: "RSA",
             keylen: number,
         ): { prvKeyObj: RSAKey; pubKeyObj: RSAKey };
 
@@ -481,11 +476,10 @@ declare namespace jsrsasign {
          * NOTE2: DSA algorithm is not supported yet.
          * @example
          * var ecKeypair = KEYUTIL.generateKeypair("EC", "secp256r1");
-         *
          */
         static generateKeypair(
-            alg: 'EC',
-            curve: 'secp256r1' | 'secp256k1' | 'secp384r1',
+            alg: "EC",
+            curve: "secp256r1" | "secp256k1" | "secp384r1",
         ): { prvKeyObj: KJUR.crypto.ECDSA; pubKeyObj: KJUR.crypto.ECDSA };
 
         /**
@@ -500,7 +494,6 @@ declare namespace jsrsasign {
          * convert from certificate, public/private key object to RFC 7517 JSON Web Key(JWK)<br/>
          * name getJWK
          * memberOf KEYUTIL
-         *
          *
          * @param keyinfo public/private key object, PEM key or PEM certificate
          * @param nokid set true if you don't need kid (OPTION, DEFAULT=undefined)
@@ -732,7 +725,6 @@ declare namespace jsrsasign {
          * name getKeyID
          * memberOf KEYUTIL
          *
-         *
          * @param obj RSAKey/KJUR.crypto.ECDSA,DSA public key object or public key PEM string
          * @return hexadecimal string of public key identifier
          * @since keyutil 1.2.2 jsrsasign 5.0.16
@@ -812,7 +804,6 @@ declare namespace jsrsasign {
          * Resulted associative array has following properties:
          *
          * - p8pubkeyhex - hexadecimal string of subject public key in PKCS#8
-         *
          */
         static parseCSRHex(csrHex: string): CSRHexResult;
 
@@ -865,7 +856,6 @@ declare namespace jsrsasign {
          * - algoid - hexadecimal string of OID of asymmetric key algorithm
          * - algparam - hexadecimal string of OID of ECC curve name or null
          * - keyidx - string starting index of key in pkcs8PrvHex
-         *
          */
         static parsePlainPrivatePKCS8Hex(pkcs8PrvHex: string): PrivatePKCS8HexResult;
 
@@ -879,7 +869,6 @@ declare namespace jsrsasign {
          * - algoid - hexadecimal string of OID of asymmetric key algorithm
          * - algparam - hexadecimal string of OID of ECC curve name, parameter SEQUENCE of DSA or null
          * - key - hexadecimal string of public key
-         *
          */
         static parsePublicPKCS8Hex(pkcs8PubHex: string): PublicPKCS8HexResult;
 
@@ -892,7 +881,6 @@ declare namespace jsrsasign {
          *
          * - n - hexadecimal string of public key
          * - e - hexadecimal string of public exponent
-         *
          */
         static parsePublicRawRSAKeyHex(pubRawRSAHex: string): PublicRawRSAKeyHexResult;
     }

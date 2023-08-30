@@ -20,9 +20,9 @@ declare namespace jspreadsheet {
     type SourceValue =
         | CellValue
         | {
-              id: CellValue;
-              name: CellValue;
-          };
+            id: CellValue;
+            name: CellValue;
+        };
 
     interface SourceValueElement<T extends CellValue> {
         id: T;
@@ -96,7 +96,7 @@ declare namespace jspreadsheet {
         /**
          * Default: "center"
          */
-        align?: 'center' | 'left' | 'right' | undefined;
+        align?: "center" | "left" | "right" | undefined;
         autocomplete?: boolean | undefined;
         decimal?: string | undefined;
         editor?: ColumnEditor | undefined;
@@ -113,17 +113,17 @@ declare namespace jspreadsheet {
          * @see https://bossanova.uk/jexcel/v4/examples/column-types
          */
         type?:
-            | 'autocomplete'
-            | 'calendar'
-            | 'checkbox'
-            | 'color'
-            | 'dropdown'
-            | 'hidden'
-            | 'html'
-            | 'image'
-            | 'numeric'
-            | 'radio'
-            | 'text'
+            | "autocomplete"
+            | "calendar"
+            | "checkbox"
+            | "color"
+            | "dropdown"
+            | "hidden"
+            | "html"
+            | "image"
+            | "numeric"
+            | "radio"
+            | "text"
             | undefined;
         url?: string | undefined;
         width?: number | undefined;
@@ -403,12 +403,12 @@ declare namespace jspreadsheet {
         /** Before a column value is changed. NOTE: It is possible to overwrite the original value, by return a new value on this method. v3.4.0+ */
         onbeforechange?:
             | ((
-                  instance: HTMLElement,
-                  cell: HTMLTableCellElement,
-                  columnIndex: number,
-                  rowIndex: number,
-                  value: CellValue,
-              ) => CellValue | void)
+                instance: HTMLElement,
+                cell: HTMLTableCellElement,
+                columnIndex: number,
+                rowIndex: number,
+                value: CellValue,
+            ) => CellValue | void)
             | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
         onbeforedeletecolumn?: ((instance: HTMLElement, startColumnIndex: number, count: number) => void) | undefined;
@@ -430,14 +430,14 @@ declare namespace jspreadsheet {
         /** After a column value is changed. */
         onchange?:
             | ((
-                  instance: HTMLElement,
-                  cell: HTMLTableCellElement,
-                  /** (e.g.) "0", "1" ... */
-                  columnIndex: string,
-                  /** (e.g.) "0", "1" ... */
-                  rowIndex: string,
-                  value: CellValue,
-              ) => void)
+                instance: HTMLElement,
+                cell: HTMLTableCellElement,
+                /** (e.g.) "0", "1" ... */
+                columnIndex: string,
+                /** (e.g.) "0", "1" ... */
+                rowIndex: string,
+                value: CellValue,
+            ) => void)
             | undefined;
         /** On header change */
         // tslint:disable-next-line ban-types
@@ -454,11 +454,11 @@ declare namespace jspreadsheet {
         /** After a column is excluded. */
         ondeletecolumn?:
             | ((
-                  instance: HTMLElement,
-                  startColumnIndex: number,
-                  count: number,
-                  cells: HTMLTableCellElement[][],
-              ) => void)
+                instance: HTMLElement,
+                startColumnIndex: number,
+                count: number,
+                cells: HTMLTableCellElement[][],
+            ) => void)
             | undefined;
         /** After a row is excluded. */
         ondeleterow?:
@@ -467,12 +467,12 @@ declare namespace jspreadsheet {
         /** When a closeEditor is called. */
         oneditionend?:
             | ((
-                  instance: HTMLElement,
-                  cell: HTMLTableCellElement,
-                  columnIndex: string,
-                  rowIndex: string,
-                  value: CellValue,
-              ) => void)
+                instance: HTMLElement,
+                cell: HTMLTableCellElement,
+                columnIndex: string,
+                rowIndex: string,
+                value: CellValue,
+            ) => void)
             | undefined;
         /** When a openEditor is called. */
         oneditionstart?:
@@ -483,11 +483,11 @@ declare namespace jspreadsheet {
         /** After a new column is inserted. */
         oninsertcolumn?:
             | ((
-                  instance: HTMLElement,
-                  startColumnIndex: number,
-                  count: number,
-                  cells: HTMLTableCellElement[][],
-              ) => void)
+                instance: HTMLElement,
+                startColumnIndex: number,
+                count: number,
+                cells: HTMLTableCellElement[][],
+            ) => void)
             | undefined;
         /** After a new row is inserted. */
         oninsertrow?:
@@ -518,12 +518,12 @@ declare namespace jspreadsheet {
         /** On the selection is changed. */
         onselection?:
             | ((
-                  instance: HTMLElement,
-                  startColumnIndex: number,
-                  startRowIndex: number,
-                  endColumnIndex: number,
-                  endRowIndex: number,
-              ) => void)
+                instance: HTMLElement,
+                startColumnIndex: number,
+                startRowIndex: number,
+                endColumnIndex: number,
+                endRowIndex: number,
+            ) => void)
             | undefined;
         /** After a colum is sorted. */
         // tslint:disable-next-line ban-types
@@ -578,7 +578,7 @@ declare namespace jspreadsheet {
         /** Load this data into the javascript table: array */
         data?: CellValue[][] | Array<{ [title in string | number]: CellValue }> | undefined;
         /** Default align for a new column: [center, left, right] */
-        defaultColAlign?: 'center' | 'left' | 'right' | undefined;
+        defaultColAlign?: "center" | "left" | "right" | undefined;
         /** Default width for a new column: integer */
         defaultColWidth?: number | undefined;
         /** Allow table edition: bool */
@@ -604,11 +604,11 @@ declare namespace jspreadsheet {
         /** Define the nested headers, including title, colspan, etc: object */
         nestedHeaders?:
             | Array<
-                  Array<{
-                      colspan?: number | undefined;
-                      title?: CellValue | undefined;
-                  }>
-              >
+                Array<{
+                    colspan?: number | undefined;
+                    title?: CellValue | undefined;
+                }>
+            >
             | undefined;
         /** Break the table by pages */
         pagination?: number | undefined;
@@ -718,12 +718,13 @@ declare namespace jspreadsheet {
     /**
      * @see https://bossanova.uk/jspreadsheet/v4/docs/quick-reference
      */
-    type Options = SharedMethodsInitializationOptions &
-        MethodsOptions &
-        EventsOptions &
-        InitializationOptions &
-        TranslationsOptions &
-        UnDocumentOptions;
+    type Options =
+        & SharedMethodsInitializationOptions
+        & MethodsOptions
+        & EventsOptions
+        & InitializationOptions
+        & TranslationsOptions
+        & UnDocumentOptions;
 
     type TabOptions = Options & { sheetName: string };
 

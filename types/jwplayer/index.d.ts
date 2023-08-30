@@ -56,7 +56,7 @@ declare namespace jwplayer {
     }
 
     interface AdProgressParam {
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         tag: string;
     }
@@ -72,18 +72,18 @@ declare namespace jwplayer {
     }
 
     interface AdRequestParam {
-        adposition: 'pre' | 'mid' | 'post';
-        client: 'vast' | 'googima';
-        offset: 'pre' | 'mid' | 'post';
+        adposition: "pre" | "mid" | "post";
+        client: "vast" | "googima";
+        offset: "pre" | "mid" | "post";
         tag: string;
     }
 
     interface AdImpressionParam {
-        adposition: 'pre' | 'mid' | 'post';
+        adposition: "pre" | "mid" | "post";
         adsystem: string;
         adtitle: string;
         clickThroughUrl: string;
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         linear: string;
         mediafile: any;
@@ -113,7 +113,7 @@ declare namespace jwplayer {
     interface BufferParam {
         newstate: string;
         oldstate: string;
-        reason: 'loading' | 'complete' | 'stalled' | 'error';
+        reason: "loading" | "complete" | "stalled" | "error";
     }
 
     interface BufferChangeParam {
@@ -124,7 +124,7 @@ declare namespace jwplayer {
     }
 
     interface AdTimeParam {
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         duration: number;
         position: number;
@@ -160,7 +160,7 @@ declare namespace jwplayer {
         code: number;
         message: string;
         sourceError: object | null;
-        type: 'error';
+        type: "error";
     }
 
     interface FullscreenParam {
@@ -168,7 +168,7 @@ declare namespace jwplayer {
     }
 
     interface IdleParam {
-        oldstate: 'buffering' | 'playing' | 'paused';
+        oldstate: "buffering" | "playing" | "paused";
     }
 
     interface LevelsChangedParam {
@@ -184,7 +184,7 @@ declare namespace jwplayer {
     }
 
     interface PlayParam {
-        oldstate: 'buffering' | 'playing';
+        oldstate: "buffering" | "playing";
         viewable: 0 | 1;
     }
 
@@ -268,23 +268,23 @@ declare namespace jwplayer {
     }
 
     interface QualityLevel {
-        mode: 'auto' | 'manual';
+        mode: "auto" | "manual";
         level: Level;
-        reason: 'auto' | 'api' | 'initial choice';
+        reason: "auto" | "api" | "initial choice";
     }
 
     interface CastParam {
         available: boolean;
         active: boolean;
         deviceName: string;
-        type: 'cast';
+        type: "cast";
     }
 
     interface WarningParam {
         code: number;
         message: string;
         sourceError: object | null;
-        type: 'warning';
+        type: "warning";
     }
 
     interface EventParams {
@@ -333,16 +333,16 @@ declare namespace jwplayer {
     }
 
     type NoParamEvent =
-        | 'adBlock'
-        | 'beforeComplete'
-        | 'beforePlay'
-        | 'complete'
-        | 'displayClick'
-        | 'playlistComplete'
-        | 'remove'
-        | 'seeked'
-        | 'userActive'
-        | 'userInactive';
+        | "adBlock"
+        | "beforeComplete"
+        | "beforePlay"
+        | "complete"
+        | "displayClick"
+        | "playlistComplete"
+        | "remove"
+        | "seeked"
+        | "userActive"
+        | "userInactive";
 
     interface SliderCue {
         begin: number;
