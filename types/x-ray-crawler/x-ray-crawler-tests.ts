@@ -1,5 +1,5 @@
-import HttpContext = require('http-context');
-import XRayCrawler = require('x-ray-crawler');
+import HttpContext = require("http-context");
+import XRayCrawler = require("x-ray-crawler");
 
 const xRayCrawler: XRayCrawler.Instance = XRayCrawler();
 
@@ -8,17 +8,17 @@ xRayCrawler.driver(driver);
 
 const throttle: number = xRayCrawler.throttle();
 xRayCrawler.throttle(5, 4);
-xRayCrawler.throttle(5, '4ms');
+xRayCrawler.throttle(5, "4ms");
 
 const randomDelay: XRayCrawler.RandomDelay = xRayCrawler.delay();
 const delay: number = randomDelay();
 xRayCrawler.delay(0, 2);
 xRayCrawler.delay(0);
-xRayCrawler.delay('0s', '5s');
+xRayCrawler.delay("0s", "5s");
 
 const timeout: number = xRayCrawler.timeout();
 xRayCrawler.timeout(timeout);
-xRayCrawler.timeout('5s');
+xRayCrawler.timeout("5s");
 
 const concurrency: number = xRayCrawler.concurrency();
 xRayCrawler.concurrency(5);
@@ -39,9 +39,9 @@ const limit: number = xRayCrawler.limit();
 xRayCrawler.limit(limit);
 
 const xRayCrawler2: XRayCrawler.Instance = XRayCrawler()
-    .throttle(5, '10s')
-    .delay('5s', '10s')
-    .timeout('20s')
+    .throttle(5, "10s")
+    .delay("5s", "10s")
+    .timeout("20s")
     .concurrency(4)
     .request((request: HttpContext.Request) => {
         console.log(request);

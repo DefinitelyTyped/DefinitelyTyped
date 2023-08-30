@@ -35,7 +35,7 @@ interface LogFunction {
     /** Dynamically disable log output at runtime */
     disable: () => {
         /** Restore previous logs visibility state */
-        restore: () => void
+        restore: () => void;
     };
 }
 

@@ -1,5 +1,5 @@
-import { MiddlewareFunction } from 'middy';
-import { APIGatewayEvent } from 'aws-lambda';
+import { APIGatewayEvent } from "aws-lambda";
+import { MiddlewareFunction } from "middy";
 
 export interface JwtGatewayEvent extends APIGatewayEvent {
     decodedJwt?: {
