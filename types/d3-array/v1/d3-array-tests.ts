@@ -211,8 +211,8 @@ strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
     return l.str;
 });
 
-// @ts-expect-error
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => {
+    // @ts-expect-error
     a.push(3);
     return 0;
 });

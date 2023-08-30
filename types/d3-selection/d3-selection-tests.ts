@@ -111,11 +111,13 @@ maybeSVG2 = d3Selection.select<SVGSVGElement, any>(maybeSVG1.node()); // fails w
 maybeSVG2 = d3Selection.select<SVGSVGElement | null, any>(maybeSVG1.node());
 
 // fails, as node type mismatches selection type
-// @ts-expect-error
 const body7: d3Selection.Selection<HTMLBodyElement | null, any, HTMLElement, undefined> = d3Selection.select<
     HTMLBodyElement | null,
     any
->(maybeSVG1.node());
+>(
+    // @ts-expect-error
+    maybeSVG1.node(),
+);
 
 // test "special case DOM objects"
 

@@ -238,14 +238,16 @@ Desmos.supportedLanguages; // ['es', 'fr']
 calculator.updateSettings({ language: "fr" });
 
 // All features enabled
+// $ExpectType boolean
 Desmos.enabledFeatures.GraphingCalculator
     && Desmos.enabledFeatures.FourFunctionCalculator
-    && Desmos.enabledFeatures.ScientificCalculator; // $ExpectType boolean
+    && Desmos.enabledFeatures.ScientificCalculator;
 
 // Only graphing calculator enabled
+// $ExpectType boolean
 Desmos.enabledFeatures.GraphingCalculator
     && !Desmos.enabledFeatures.FourFunctionCalculator
-    && !Desmos.enabledFeatures.ScientificCalculator; // $ExpectType boolean
+    && !Desmos.enabledFeatures.ScientificCalculator;
 
 const elt1 = document.getElementById("four-function-calculator") as HTMLDivElement;
 const calculator1 = Desmos.FourFunctionCalculator(elt1);

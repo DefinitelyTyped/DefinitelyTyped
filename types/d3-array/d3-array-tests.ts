@@ -215,8 +215,8 @@ let maxIndex: number = d3Array.maxIndex([3, 3, 1, 1]); // 0
 maxIndex = d3Array.maxIndex(["20", "3"]); // 1
 maxIndex = d3Array.maxIndex([{ name: "Alice", age: 23 }, { name: "Bob", age: 32 }], d => d.age); // 1
 
-// @ts-expect-error
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => {
+    // @ts-expect-error
     a.push(3);
     return 0;
 });
