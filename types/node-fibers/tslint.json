@@ -5,7 +5,6 @@
         "new-parens": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "one-variable-per-declaration": false,

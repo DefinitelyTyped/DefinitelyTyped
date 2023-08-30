@@ -4,7 +4,6 @@
         "ban-types": false,
         "interface-name": false,
         "no-internal-module": false,
-        "no-padding": false,
         "no-unnecessary-qualifier": false,
         "npm-naming": false,
         "one-line": false,

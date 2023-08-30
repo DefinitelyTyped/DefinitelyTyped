@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "interface-over-type-literal": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "one-line": false,
         "typedef-whitespace": false,

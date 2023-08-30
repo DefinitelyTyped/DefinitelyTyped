@@ -6,7 +6,6 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "member-access": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,

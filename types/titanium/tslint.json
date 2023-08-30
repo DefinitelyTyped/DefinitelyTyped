@@ -3,7 +3,6 @@
     "rules": {
         "max-line-length": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "unified-signatures": false

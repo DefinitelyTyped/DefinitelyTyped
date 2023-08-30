@@ -6,7 +6,6 @@
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-internal-module": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "prefer-const": false,

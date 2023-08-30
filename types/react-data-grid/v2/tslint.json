@@ -5,7 +5,6 @@
         "ban-types": false,
         "interface-name": false,
         "interface-over-type-literal": false,
-        "no-padding": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

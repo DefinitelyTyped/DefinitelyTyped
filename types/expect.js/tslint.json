@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

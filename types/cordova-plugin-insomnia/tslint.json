@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-padding": false,
         "strict-export-declare-modifiers": false
     }
 }

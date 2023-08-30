@@ -8,7 +8,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "one-line": false,
         "prefer-const": false,
         "semicolon": false,
