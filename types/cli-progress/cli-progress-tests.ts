@@ -150,19 +150,20 @@ function test8() {
     const singleBar = new progress.SingleBar({
         stopOnComplete: true,
         format: (options, params, payload) => {
-            const elapsedTime = Math.round((Date.now() - params.startTime) / 1000);
+            const stopTime = params.stopTime || Date.now();
+            const elapsedTime = Math.round((stopTime - params.startTime) / 1000);
             const speed = params.value / elapsedTime;
             payload.speed = isFinite(speed) ? speed.toFixed(2) : 0;
 
             return progress.Format.Formatter(
                 {
                     ...options,
-                    format: '{bar} {percentage}% | Remaining: {eta_formatted} | Speed: {speed}/s | {value}/{total}'
+                    format: '{bar} {percentage}% | Remaining: {eta_formatted} | Speed: {speed}/s | {value}/{total}',
                 },
                 params,
-                payload
+                payload,
             );
-        }
+        },
     });
 
     singleBar.start(1000, 0);
