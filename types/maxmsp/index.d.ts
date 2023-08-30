@@ -28,7 +28,13 @@ declare var patcher: Patcher;
 declare function error(message: any): void;
 declare function cpost(message?: any): void;
 declare function post(message?: any): void;
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string): void;
+/**
+ * Sends a message to the named Max object.
+ * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
+ * For example, Max receive objects are bound to global symbols.
+ * The following code would send the message bang to the named object flower.
+ */
+declare function messnamed(object_name: string, message_name: string, message_arguments?: string | number): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -1222,10 +1228,11 @@ declare class Maxobj {
     help(): void;
 
     /**
-     * If the object contains a patcher, this function returns a (Javascript) Patcher object. The optional index is used for specifying an instance number, which only applies to poly~ objects. If the
-     * object does not contain a subpatcher, a nil value is returned.
+     * If the object contains a patcher, this function returns a (Javascript) Patcher object.
+     * The optional index is used for specifying an instance number, which only applies to poly~ objects.
+     * If the object does not contain a subpatcher, a nil value is returned.
      */
-    subpatcher(index: number): Patcher;
+    subpatcher(index?: number): Patcher;
 
     /**
      * Returns a Boolean value if the object has an entry in its message list for the message specified by the string. If the entry is not a message that can be sent by a user within Max (i.e., it's a
@@ -1404,6 +1411,13 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Sends message to the patcher followed by any additional arguments (..anything) provided.
+     * This is useful for manupulating patchers which dynamically can do things like: creating new buttons,
+     * resizing it's window, switching to presentation mode, ...
+     */
+    message(message: string, ...anything: any[]): void;
 
     /**
      * Creates a new object of Max class classname in a patcher using the specified parameters and returns a Maxobj (see below) that represents it.
