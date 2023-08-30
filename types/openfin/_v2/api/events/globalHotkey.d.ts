@@ -1,7 +1,7 @@
-import { RuntimeEvent, BaseEventMap } from './base';
-import { Identity } from '../../identity';
-import { nonHotkeyEvents } from '../global-hotkey';
-export interface GlobalHotkeyEvent<Type> extends RuntimeEvent<'global-hotkey', Type> {
+import { Identity } from "../../identity";
+import { nonHotkeyEvents } from "../global-hotkey";
+import { BaseEventMap, RuntimeEvent } from "./base";
+export interface GlobalHotkeyEvent<Type> extends RuntimeEvent<"global-hotkey", Type> {
     identity: Identity;
     hotkey: string;
 }
