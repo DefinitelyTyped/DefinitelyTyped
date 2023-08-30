@@ -853,13 +853,16 @@ VK.Widgets.CommunityMessages("test", 123, {
 VK.Widgets.CommunityMessages(
     "test",
     123,
-    // prettier-ignore
-    // @ts-expect-error
     {
+        // @ts-expect-error
         expanded: 0,
+        // @ts-expect-error
         disableButtonTooltip: 0,
+        // @ts-expect-error
         disableNewMessagesSound: 0,
+        // @ts-expect-error
         disableExpandChatSound: 0,
+        // @ts-expect-error
         disableTitleChange: 0,
     },
 );
