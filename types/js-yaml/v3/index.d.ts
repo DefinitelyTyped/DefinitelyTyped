@@ -13,7 +13,7 @@ export function load(str: string, opts?: LoadOptions): any;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
-    kind: 'sequence' | 'scalar' | 'mapping' | null;
+    kind: "sequence" | "scalar" | "mapping" | null;
     resolve(data: any): boolean;
     construct(data: any): any;
     instanceOf: object | null;
@@ -52,7 +52,7 @@ export interface LoadOptions {
     listener?(this: State, eventType: EventType, state: State): void;
 }
 
-export type EventType = 'open' | 'close';
+export type EventType = "open" | "close";
 
 export interface State {
     input: string;
@@ -101,7 +101,7 @@ export interface DumpOptions {
 }
 
 export interface TypeConstructorOptions {
-    kind?: 'sequence' | 'scalar' | 'mapping' | undefined;
+    kind?: "sequence" | "scalar" | "mapping" | undefined;
     resolve?: ((data: any) => boolean) | undefined;
     construct?: ((data: any) => any) | undefined;
     instanceOf?: object | undefined;

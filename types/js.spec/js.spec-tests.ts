@@ -10,13 +10,13 @@ const options: object = spec.options;
 const isValid: boolean = S.valid(S.spec.boolean, true);
 S.valid((value) => true, "a value");
 
-const result = S.conform(S.spec.map("dancing", {field: S.spec.string}), "not a map");
+const result = S.conform(S.spec.map("dancing", { field: S.spec.string }), "not a map");
 S.conform((value) => true, "a value");
 
 const problems: S.Problem[] = S.explainData(S.spec.int, "not a number");
 S.explainData((value) => true, "a value");
 
-const {path, via, value, predicate}: {path: string[], via: string[], value: any, predicate: S.PredFn} = problems[0];
+const { path, via, value, predicate }: { path: string[]; via: string[]; value: any; predicate: S.PredFn } = problems[0];
 
 const problemStr: string = S.problemStr(problems[0]);
 
@@ -41,7 +41,7 @@ const nilableSpec: S.Spec = S.spec.nilable("nilable test", (value: any) => false
 
 const collectionSpec: S.Spec = S.spec.collection("collection test", S.spec.positive);
 
-const collection2Spec: S.Spec = S.spec.collection("collection test", S.spec.string, {[S.symbol.count]: 3});
+const collection2Spec: S.Spec = S.spec.collection("collection test", S.spec.string, { [S.symbol.count]: 3 });
 
 const tupleSpec: S.Spec = S.spec.tuple("tuple test", S.spec.bool, S.spec.date, S.spec.array);
 

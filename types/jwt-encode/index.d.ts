@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BaseOptions {
-    alg: 'HS256';
-    typ: 'JWT';
+    alg: "HS256";
+    typ: "JWT";
 }
 
 type Options = Partial<BaseOptions> & {
