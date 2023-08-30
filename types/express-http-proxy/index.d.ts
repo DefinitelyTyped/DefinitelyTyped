@@ -9,8 +9,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { RequestHandler, Request, Response, NextFunction } from "express";
-import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders, ClientRequest, IncomingMessage } from "http";
+import { NextFunction, Request, RequestHandler, Response } from "express";
+import { ClientRequest, IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, RequestOptions } from "http";
 
 declare namespace proxy {
     interface ProxyOptions {
@@ -20,29 +20,37 @@ declare namespace proxy {
          * See https://github.com/stream-utils/raw-body/blob/master/index.d.ts
          */
         limit?: number | string | undefined;
-        proxyErrorHandler?: ((
-            err: any,
-            res: Response,
-            next: NextFunction
-        ) => any) | undefined;
+        proxyErrorHandler?:
+            | ((
+                err: any,
+                res: Response,
+                next: NextFunction,
+            ) => any)
+            | undefined;
         proxyReqPathResolver?: ((req: Request) => string | Promise<string>) | undefined;
-        proxyReqOptDecorator?: ((
-            proxyReqOpts: RequestOptions,
-            srcReq: Request
-        ) => RequestOptions | Promise<RequestOptions>) | undefined;
-        userResHeaderDecorator?: ((
-            headers: IncomingHttpHeaders,
-            userReq: Request,
-            userRes: Response,
-            proxyReq: ClientRequest,
-            proxyRes: IncomingMessage
-        ) => OutgoingHttpHeaders) | undefined;
-        userResDecorator?: ((
-            proxyRes: IncomingMessage,
-            proxyResData: any,
-            userReq: Request,
-            userRes: Response
-        ) => Buffer | string | Promise<Buffer | string>) | undefined;
+        proxyReqOptDecorator?:
+            | ((
+                proxyReqOpts: RequestOptions,
+                srcReq: Request,
+            ) => RequestOptions | Promise<RequestOptions>)
+            | undefined;
+        userResHeaderDecorator?:
+            | ((
+                headers: IncomingHttpHeaders,
+                userReq: Request,
+                userRes: Response,
+                proxyReq: ClientRequest,
+                proxyRes: IncomingMessage,
+            ) => OutgoingHttpHeaders)
+            | undefined;
+        userResDecorator?:
+            | ((
+                proxyRes: IncomingMessage,
+                proxyResData: any,
+                userReq: Request,
+                userRes: Response,
+            ) => Buffer | string | Promise<Buffer | string>)
+            | undefined;
         /**
          * The filter option can be used to limit what requests are proxied.
          * Return true to continue to execute proxy; return false-y to skip proxy for this request.
@@ -62,7 +70,7 @@ declare namespace proxy {
 
 declare function proxy(
     host: string | ((req: Request) => string),
-    options?: proxy.ProxyOptions
+    options?: proxy.ProxyOptions,
 ): RequestHandler;
 
 export = proxy;

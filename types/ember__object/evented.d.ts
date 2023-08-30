@@ -1,5 +1,5 @@
-import Mixin from '@ember/object/mixin';
-import { AnyFn, EmberMethod, MethodNamesOf, MethodParams, MethodsOf } from 'ember/-private/type-utils';
+import Mixin from "@ember/object/mixin";
+import { AnyFn, EmberMethod, MethodNamesOf, MethodParams, MethodsOf } from "ember/-private/type-utils";
 
 /**
  * This mixin allows for Ember objects to subscribe to and emit events.
@@ -11,7 +11,7 @@ interface Evented {
     on<T>(
         name: string,
         target: T,
-        method: EmberMethod<T>
+        method: EmberMethod<T>,
     ): this;
     on(name: string, method: EmberMethod<this>): this;
     /**
@@ -22,7 +22,7 @@ interface Evented {
     one<T>(
         name: string,
         target: T,
-        method: EmberMethod<T>
+        method: EmberMethod<T>,
     ): this;
     one(name: string, method: EmberMethod<this>): this;
     /**
@@ -37,7 +37,7 @@ interface Evented {
     off<T>(
         name: string,
         target: T,
-        method: EmberMethod<T>
+        method: EmberMethod<T>,
     ): this;
     off(name: string, method: EmberMethod<this>): this;
     /**
@@ -55,6 +55,6 @@ export default Evented;
 export function on<F extends AnyFn>(
     ...args: [
         ...eventNames: string[],
-        func: F
+        func: F,
     ]
 ): F;

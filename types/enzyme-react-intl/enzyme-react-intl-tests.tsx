@@ -1,111 +1,111 @@
-import * as intl from 'enzyme-react-intl';
-import * as React from 'react';
+import * as intl from "enzyme-react-intl";
+import * as React from "react";
 
 class SampleComponent extends React.Component {
-  render() {
-    return <div>Sample</div>;
-  }
+    render() {
+        return <div>Sample</div>;
+    }
 }
 
 interface Props {
-  id: number;
+    id: number;
 }
 
 interface State {
-  constructed: boolean;
+    constructed: boolean;
 }
 
 class PropsComponent extends React.Component<Props> {
-  render() {
-    return <div>{this.props.id}</div>;
-  }
+    render() {
+        return <div>{this.props.id}</div>;
+    }
 }
 
 class StateComponent extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
+    constructor(props: {}) {
+        super(props);
 
-    this.state = {
-      constructed: true
-    };
-  }
+        this.state = {
+            constructed: true,
+        };
+    }
 
-  render() {
-    return <div>{this.state.constructed ? 'Constructed' : 'Not constructed'}</div>;
-  }
+    render() {
+        return <div>{this.state.constructed ? "Constructed" : "Not constructed"}</div>;
+    }
 }
 
 class StatePropsComponent extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+    constructor(props: Props) {
+        super(props);
 
-    this.state = {
-      constructed: true
-    };
-  }
+        this.state = {
+            constructed: true,
+        };
+    }
 
-  render() {
-    return (
-      <div>
-        <div>{this.state.constructed ? 'Constructed' : 'Not constructed'}</div>
-        <div>{this.props.id}</div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <div>{this.state.constructed ? "Constructed" : "Not constructed"}</div>
+                <div>{this.props.id}</div>
+            </div>
+        );
+    }
 }
 
 intl.getLocale();
-intl.loadTranslation('en');
+intl.loadTranslation("en");
 
 function mountWithIntlTests() {
-  intl.mountWithIntl(<SampleComponent />);
+    intl.mountWithIntl(<SampleComponent />);
 
-  const propsComponentWrapper = intl.mountWithIntl<Props>(
-    <PropsComponent id={4} />,
-  );
+    const propsComponentWrapper = intl.mountWithIntl<Props>(
+        <PropsComponent id={4} />,
+    );
 
-  propsComponentWrapper.props().id; // $ExpectType number
+    propsComponentWrapper.props().id; // $ExpectType number
 
-  const stateComponentWrapper = intl.mountWithIntl<{}, State>(
-    <StateComponent />,
-  );
+    const stateComponentWrapper = intl.mountWithIntl<{}, State>(
+        <StateComponent />,
+    );
 
-  stateComponentWrapper.state().constructed; // $ExpectType boolean
+    stateComponentWrapper.state().constructed; // $ExpectType boolean
 }
 
 function renderWithIntlTests() {
-  intl.renderWithIntl(<SampleComponent />);
+    intl.renderWithIntl(<SampleComponent />);
 
-  const wrapper = intl.renderWithIntl<Props, State>(
-    <StatePropsComponent id={1} />,
-  );
+    const wrapper = intl.renderWithIntl<Props, State>(
+        <StatePropsComponent id={1} />,
+    );
 
-  wrapper.toggleClass('toggle');
+    wrapper.toggleClass("toggle");
 }
 
 function shallowWithIntlTests() {
-  intl.shallowWithIntl(<SampleComponent />);
+    intl.shallowWithIntl(<SampleComponent />);
 
-  const propsComponentWrapper = intl.shallowWithIntl<Props>(
-    <PropsComponent id={4} />,
-  );
+    const propsComponentWrapper = intl.shallowWithIntl<Props>(
+        <PropsComponent id={4} />,
+    );
 
-  propsComponentWrapper.props().id; // $ExpectType number
+    propsComponentWrapper.props().id; // $ExpectType number
 
-  const stateComponentWrapper = intl.shallowWithIntl<{}, State>(
-    <StateComponent />,
-  );
+    const stateComponentWrapper = intl.shallowWithIntl<{}, State>(
+        <StateComponent />,
+    );
 
-  stateComponentWrapper.state().constructed; // $ExpectType boolean
+    stateComponentWrapper.state().constructed; // $ExpectType boolean
 }
 
 function getIntlTests() {
-  intl.getIntl(); // $ExpectType IntlProvider
+    intl.getIntl(); // $ExpectType IntlProvider
 }
 
 function loadTranslationObjectTests() {
-  intl.loadTranslationObject({ A: 'aaaa', C: 'cccc' }).A; // $ExpectType string
-  intl.loadTranslationObject({ C: 'cccc', B: 'bbbb' }).B; // $ExpectType string
+    intl.loadTranslationObject({ A: "aaaa", C: "cccc" }).A; // $ExpectType string
+    intl.loadTranslationObject({ C: "cccc", B: "bbbb" }).B; // $ExpectType string
 }
 
-intl.setLocale('pl');
+intl.setLocale("pl");

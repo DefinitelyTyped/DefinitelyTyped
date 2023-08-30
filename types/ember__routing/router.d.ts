@@ -1,8 +1,8 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
 import RouterDSL from "@ember/routing/-private/router-dsl";
-import Transition from "@ember/routing/transition";
 import RouterService from "@ember/routing/router-service";
+import Transition from "@ember/routing/transition";
 
 /**
  * The `Ember.Router` class manages the application state and URLs. Refer to
@@ -21,7 +21,7 @@ export default class Router extends EmberObject {
      *
      * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: 'history' | 'hash' | 'none' | 'auto';
+    location: "history" | "hash" | "none" | "auto";
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.
@@ -39,8 +39,8 @@ export default class Router extends EmberObject {
 // tslint:disable-next-line:no-empty-interface -- used for declaration merge
 export default interface Router extends Evented {}
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
-        'router': RouterService;
+        "router": RouterService;
     }
 }

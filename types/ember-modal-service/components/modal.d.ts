@@ -1,6 +1,6 @@
-import Component from '@ember/component';
-import EmberModalService from '../services/modal';
+import Component from "@ember/component";
 import ModalModel from "../models/modal";
+import EmberModalService from "../services/modal";
 
 export default class ModalComponent extends Component {
     declare model: ModalModel;
@@ -28,12 +28,12 @@ export default class ModalComponent extends Component {
     /**
      * `data-id` attribute of wrapper element
      */
-    'data-id': string;
+    "data-id": string;
 
     /**
      * Modal is visible/hidden.
      */
-    'data-modal-show': string;
+    "data-modal-show": string;
 
     /**
      * Resolve current promise and close modal.

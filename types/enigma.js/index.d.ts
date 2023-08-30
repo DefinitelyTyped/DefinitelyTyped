@@ -23,7 +23,7 @@ interface IEnigmaClass {
 }
 
 declare namespace enigmaJS {
-    type MixinType = "Doc"| "GenericObject"| "GenericBookmark" | string;
+    type MixinType = "Doc" | "GenericObject" | "GenericBookmark" | string;
 
     interface IMixin {
         /**
@@ -33,7 +33,7 @@ declare namespace enigmaJS {
          */
         types: MixinType[];
 
-        init(args: {config: any, api: IGeneratedAPI}): void;
+        init(args: { config: any; api: IGeneratedAPI }): void;
 
         /**
          * mixin.extend is an object containing methods to extend the generated API with. These method names cannot already exist or enigma.js will throw an error.

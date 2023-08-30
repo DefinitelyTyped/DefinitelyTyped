@@ -8,11 +8,11 @@
 // Minimum TypeScript Version: 4.4
 
 // import Ember from 'ember';
-import EmberObject from '@ember/object';
-import RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
-import Initializer from '@ember/engine/-private/types/initializer';
-import EngineInstance from '@ember/engine/instance';
-import { Resolver } from '@ember/owner';
+import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
+import Initializer from "@ember/engine/-private/types/initializer";
+import EngineInstance from "@ember/engine/instance";
+import EmberObject from "@ember/object";
+import { Resolver } from "@ember/owner";
 
 /**
  * The `Engine` class contains core functionality for both applications and

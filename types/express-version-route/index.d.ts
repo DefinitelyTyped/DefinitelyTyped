@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Handler } from 'express';
+import { Handler } from "express";
 
 export function route(versionsMap: Map<string, Handler>): Handler;

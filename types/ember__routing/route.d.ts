@@ -1,9 +1,9 @@
-import EmberObject from '@ember/object';
-import ActionHandler from '@ember/object/-private/action-handler';
-import Transition from '@ember/routing/transition';
-import Evented from '@ember/object/evented';
-import { RouteQueryParam } from '@ember/routing/types';
-import Controller from '@ember/controller';
+import Controller from "@ember/controller";
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+import Evented from "@ember/object/evented";
+import Transition from "@ember/routing/transition";
+import { RouteQueryParam } from "@ember/routing/types";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 type RouteModel = object | string | number;

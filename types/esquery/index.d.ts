@@ -5,7 +5,7 @@
 //                 Brett Zamir <https://github.com/brettz9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Node } from 'estree';
+import { Node } from "estree";
 
 export as namespace esquery;
 
@@ -78,7 +78,7 @@ declare namespace query {
         index: NumericLiteral;
     }
     interface BinarySelectorAtom extends SubjectSelectorAtom {
-        type: 'child' | 'sibling' | 'adjacent' | 'descendant';
+        type: "child" | "sibling" | "adjacent" | "descendant";
         left: SubjectSelector;
         right: SubjectSelector;
     }
@@ -86,7 +86,7 @@ declare namespace query {
         selectors: SubjectSelector[];
     }
     interface LiteralAtom extends Atom {
-        type: 'literal';
+        type: "literal";
         value: string | number;
     }
 
@@ -100,7 +100,7 @@ declare namespace query {
         value: number;
     }
     interface RegExpLiteral extends Atom {
-        type: 'regexp';
+        type: "regexp";
         value: RegExp;
     }
 
@@ -108,59 +108,59 @@ declare namespace query {
     // Atoms
     //
     interface Field extends Atom {
-        type: 'field';
+        type: "field";
         name: string;
     }
     interface Type extends Atom {
-        type: 'type';
+        type: "type";
         value: string;
     }
     interface Sequence extends MultiSelectorAtom {
-        type: 'compound';
+        type: "compound";
     }
     interface Identifier extends SubjectSelectorAtom {
-        type: 'identifier';
+        type: "identifier";
         value: string;
     }
     interface Wildcard extends SubjectSelectorAtom {
-        type: 'wildcard';
-        value: '*';
+        type: "wildcard";
+        value: "*";
     }
     interface Attribute extends SubjectSelectorAtom {
-        type: 'attribute';
+        type: "attribute";
         name: string;
-        operator?: '=' | '!=' | '>' | '<' | '>=' | '<=' | undefined;
+        operator?: "=" | "!=" | ">" | "<" | ">=" | "<=" | undefined;
         value?: Literal | RegExpLiteral | Type | undefined;
     }
     interface NthChild extends NthSelectorAtom {
-        type: 'nth-child';
+        type: "nth-child";
     }
     interface NthLastChild extends NthSelectorAtom {
-        type: 'nth-last-child';
+        type: "nth-last-child";
     }
     interface Descendant extends BinarySelectorAtom {
-        type: 'descendant';
+        type: "descendant";
     }
     interface Child extends BinarySelectorAtom {
-        type: 'child';
+        type: "child";
     }
     interface Sibling extends BinarySelectorAtom {
-        type: 'sibling';
+        type: "sibling";
     }
     interface Adjacent extends BinarySelectorAtom {
-        type: 'adjacent';
+        type: "adjacent";
     }
     interface Negation extends MultiSelectorAtom {
-        type: 'not';
+        type: "not";
     }
     interface Matches extends MultiSelectorAtom {
-        type: 'matches';
+        type: "matches";
     }
     interface Has extends MultiSelectorAtom {
-        type: 'has';
+        type: "has";
     }
     interface Class extends Atom {
-        type: 'class';
-        name: 'declaration' | 'expression' | 'function' | 'pattern' | 'statement';
+        type: "class";
+        name: "declaration" | "expression" | "function" | "pattern" | "statement";
     }
 }

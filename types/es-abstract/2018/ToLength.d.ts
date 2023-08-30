@@ -1,2 +1,2 @@
-import ToLength = require('../2017/ToLength');
+import ToLength = require("../2017/ToLength");
 export = ToLength;

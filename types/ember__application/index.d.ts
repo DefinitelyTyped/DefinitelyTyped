@@ -7,16 +7,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Engine from '@ember/engine';
-import ApplicationInstance from '@ember/application/instance';
-import EventDispatcher from '@ember/application/-private/event-dispatcher';
-import { EventDispatcherEvents } from '@ember/application/types';
-import Router from '@ember/routing/router';
-import Registry from '@ember/application/-private/registry';
-import { AnyFn } from 'ember/-private/type-utils';
-import Owner, { Resolver } from '@ember/owner';
-import type GlimmerComponent from '@glimmer/component';
-import EmberObject from '@ember/object';
+import EventDispatcher from "@ember/application/-private/event-dispatcher";
+import Registry from "@ember/application/-private/registry";
+import ApplicationInstance from "@ember/application/instance";
+import { EventDispatcherEvents } from "@ember/application/types";
+import Engine from "@ember/engine";
+import EmberObject from "@ember/object";
+import Owner, { Resolver } from "@ember/owner";
+import Router from "@ember/routing/router";
+import type GlimmerComponent from "@glimmer/component";
+import { AnyFn } from "ember/-private/type-utils";
 
 // Shut off default exporting; we don't want anything but the *intended*
 // public API present.

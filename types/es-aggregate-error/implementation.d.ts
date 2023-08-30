@@ -2,7 +2,7 @@
 
 declare class AggregateError extends Error implements NodeJS.ErrnoException {
     readonly errors: ReadonlyArray<any>;
-    readonly name: 'AggregateError';
+    readonly name: "AggregateError";
     readonly message: string;
 
     // Using `any` here, to match Node's own typings:

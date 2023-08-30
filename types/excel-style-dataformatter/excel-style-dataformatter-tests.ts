@@ -4,16 +4,29 @@ import * as ruLocales from "excel-style-dataformatter/lib/locales/ru";
 
 const localesOptions: DataFormatter.LocalesOptions = {
     name: "test",
-    months: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
-    monthsShort: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-    days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
-    daysShort: ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'],
-    thousandSeparator: ',',
-    decimalSeparator: '.',
+    months: [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+    ],
+    monthsShort: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
+    days: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+    daysShort: ["su", "mo", "tu", "we", "th", "fr", "sa"],
+    thousandSeparator: ",",
+    decimalSeparator: ".",
     formats: {
-        'Test format 1': '#.#',
-        'Test format 2': '$ #,##0.00;[Red]$ -#,##0.00',
-    }
+        "Test format 1": "#.#",
+        "Test format 2": "$ #,##0.00;[Red]$ -#,##0.00",
+    },
 };
 const formatterOptions: DataFormatter.FormatterOptions = {
     debug: true,
@@ -22,7 +35,7 @@ const formatterOptions: DataFormatter.FormatterOptions = {
     transformCode: (code: string): string => {
         return code + "string";
     },
-    locales: [localesOptions, ruLocales]
+    locales: [localesOptions, ruLocales],
 };
 const dataFormatter1 = new DataFormatter(formatterOptions);
 const dataFormatter2 = new DataFormatter();

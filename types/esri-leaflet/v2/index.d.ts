@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace esri {
         type CallbackHandler = (error: any, metadata: any) => void;
 
@@ -30,24 +30,24 @@ declare module 'leaflet' {
         }
 
         type Basemaps =
-            'Streets'
-            | 'Topographic'
-            | 'NationalGeographic'
-            | 'Oceans'
-            | 'Gray'
-            | 'DarkGray'
-            | 'Imagery'
-            | 'ShadedRelief'
-            | 'Terrain'
-            | 'USATopo'
-            | 'OceansLabels'
-            | 'GrayLabels'
-            | 'DarkGrayLabels'
-            | 'ImageryLabels'
-            | 'ImageryClarity'
-            | 'ImageryTransportation'
-            | 'ShadedReliefLabels'
-            | 'TerrainLabels';
+            | "Streets"
+            | "Topographic"
+            | "NationalGeographic"
+            | "Oceans"
+            | "Gray"
+            | "DarkGray"
+            | "Imagery"
+            | "ShadedRelief"
+            | "Terrain"
+            | "USATopo"
+            | "OceansLabels"
+            | "GrayLabels"
+            | "DarkGrayLabels"
+            | "ImageryLabels"
+            | "ImageryClarity"
+            | "ImageryTransportation"
+            | "ShadedReliefLabels"
+            | "TerrainLabels";
 
         type LeafletGeometry = L.Marker | L.Polygon | L.Polyline | L.LatLngExpression | L.LatLngBounds | L.GeoJSON;
         type GeoJSONGeometry = GeoJSON.Point | GeoJSON.Polygon | GeoJSON.LineString;
@@ -65,7 +65,6 @@ declare module 'leaflet' {
         interface BasemapLayerOptions extends L.TileLayerOptions {
             /**
              *     Will use this token to authenticate all calls to the service.
-             *
              */
             token?: string | undefined;
         }
@@ -387,7 +386,7 @@ declare module 'leaflet' {
              * Determines where features are filtered by time. By default features will be filtered by the server. If
              * set to 'client' all features are requested and filtered by the app before display.
              */
-            timeFilterMode?: 'server' | 'client' | undefined;
+            timeFilterMode?: "server" | "client" | undefined;
             /**
              *     How much to simplify polygons and polylines. A higher value gives better performance, a lower value
              *     gives a more accurate representation.
@@ -619,7 +618,7 @@ declare module 'leaflet' {
             /**
              * Will include credentials for CORS requests
              */
-             withCredentials?: boolean | undefined;
+            withCredentials?: boolean | undefined;
         }
 
         /**
@@ -650,7 +649,7 @@ declare module 'leaflet' {
         /**
          * Options for MapService
          */
-        interface MapServiceOptions extends ServiceOptions { }
+        interface MapServiceOptions extends ServiceOptions {}
 
         /**
          * `L.esri.MapService` is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS
@@ -683,7 +682,7 @@ declare module 'leaflet' {
         /**
          * Options for Task
          */
-        interface TaskOptions extends ServiceOptions { }
+        interface TaskOptions extends ServiceOptions {}
 
         /**
          * `L.esri.Task` is a generic class that provides the foundation for calling operations on ArcGIS Online and
@@ -739,7 +738,7 @@ declare module 'leaflet' {
         /**
          * Options for FeatureLayerService
          */
-        interface FeatureLayerServiceOptions extends ServiceOptions { }
+        interface FeatureLayerServiceOptions extends ServiceOptions {}
 
         /**
          * `L.esri.FeatureLayerService` is an abstraction for interacting with Feature Layers running on ArcGIS Online
@@ -808,7 +807,7 @@ declare module 'leaflet' {
         /**
          * Options for Query
          */
-        interface QueryOptions extends TaskOptions { }
+        interface QueryOptions extends TaskOptions {}
 
         /**
          * `L.esri.Query` is an abstraction for the query API included in Feature Layers and Image Services. It provides
@@ -968,7 +967,7 @@ declare module 'leaflet' {
         /**
          * Options for IdentifyFeatures
          */
-        interface IdentifyFeaturesOptions extends ServiceOptions { }
+        interface IdentifyFeaturesOptions extends ServiceOptions {}
 
         /**
          * `L.esri.IdentifyFeatures` is an abstraction for the Identify API found in Map Services. It provides a
@@ -1034,7 +1033,7 @@ declare module 'leaflet' {
         /**
          * Options for Find Task
          */
-        interface FindOptions extends ServiceOptions { }
+        interface FindOptions extends ServiceOptions {}
 
         /**
          * `L.esri.Find` is an abstraction for the find API included in Map Services. It provides a chainable API for

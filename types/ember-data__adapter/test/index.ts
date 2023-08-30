@@ -1,9 +1,9 @@
-import Service, { inject as service } from '@ember/service';
-import Adapter, { BuildURLMixin } from '@ember-data/adapter';
-import Model from '@ember-data/model';
+import Adapter, { BuildURLMixin } from "@ember-data/adapter";
+import Model from "@ember-data/model";
+import Service, { inject as service } from "@ember/service";
 
-import Store from '@ember-data/store';
-import DS, { ModelSchema } from 'ember-data';
+import Store from "@ember-data/store";
+import DS, { ModelSchema } from "ember-data";
 
 class Session extends Service {
     login(userName: string, password: string): Promise<void> {
@@ -11,40 +11,41 @@ class Session extends Service {
     }
 }
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
         session: Session;
     }
 }
 
-declare module 'ember-data/types/registries/model' {
+declare module "ember-data/types/registries/model" {
     export default interface ModelRegistry {
         rootModel: any;
-        'super-user': any;
+        "super-user": any;
     }
 }
 
-declare module 'ember-data/types/registries/adapter' {
+declare module "ember-data/types/registries/adapter" {
     export default interface AdapterRegistry {
         customized: Customized;
     }
 }
 
 class Customized extends Adapter {
-    @service session!: Session;
+    @service
+    session!: Session;
 
     async someMethod(): Promise<void> {
-        this.defaultSerializer = 'a string';
+        this.defaultSerializer = "a string";
         // @ts-expect-error
         this.defaultSerializer = 12;
 
-        return this.session.login('hi@example.com', 'password');
+        return this.session.login("hi@example.com", "password");
     }
 }
 
 const MixedIn = Adapter.extend(BuildURLMixin, {
     findRecord(store: Store, type: ModelSchema, id: string, snapshot: DS.Snapshot) {
-        let url = this.buildURL(type.modelName, id, snapshot, 'findRecord');
-        return $.ajax(url, { method: 'GET' });
+        let url = this.buildURL(type.modelName, id, snapshot, "findRecord");
+        return $.ajax(url, { method: "GET" });
     },
 });

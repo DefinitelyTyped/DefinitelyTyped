@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import EmberObject from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import EmberObject from "@ember/object";
+import ComputedProperty from "@ember/object/computed";
 
 export default class Service extends EmberObject {}
 /**

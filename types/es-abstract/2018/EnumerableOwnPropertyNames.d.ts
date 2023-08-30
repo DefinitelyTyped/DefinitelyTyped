@@ -1,2 +1,2 @@
-import EnumerableOwnPropertyNames = require('../2017/EnumerableOwnProperties');
+import EnumerableOwnPropertyNames = require("../2017/EnumerableOwnProperties");
 export = EnumerableOwnPropertyNames;

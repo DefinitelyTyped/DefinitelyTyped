@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import EmberObject from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import EmberObject from "@ember/object";
+import ComputedProperty from "@ember/object/computed";
 
 export default class Service extends EmberObject {}
 /**
@@ -32,7 +32,7 @@ export function service<K extends keyof Registry>(name: K): ComputedProperty<Reg
 // tslint:disable-next-line no-empty-interface strict-export-declare-modifiers
 interface Registry extends Record<string, Service> {}
 
-declare module '@ember/owner' {
+declare module "@ember/owner" {
     interface DIRegistry {
         service: Registry;
     }

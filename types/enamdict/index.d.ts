@@ -86,4 +86,4 @@ export interface Entry {
 /**
  * the type of the name.
  */
-export type NameType = 'unknown' | 'surname' | 'given';
+export type NameType = "unknown" | "surname" | "given";

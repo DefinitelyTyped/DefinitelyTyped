@@ -7,10 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { EmberMethod, EmberMethodParams, AnyFn, EmberMethodReturn } from 'ember/-private/type-utils';
-import { EmberRunQueues } from './-private/types';
-import { EmberRunTimer } from '@ember/runloop/types';
-import '@ember/runloop/-private/backburner';
+import { EmberRunTimer } from "@ember/runloop/types";
+import { AnyFn, EmberMethod, EmberMethodParams, EmberMethodReturn } from "ember/-private/type-utils";
+import { EmberRunQueues } from "./-private/types";
+import "@ember/runloop/-private/backburner";
 
 /**
  * Runs the passed target and method inside of a RunLoop, ensuring any
