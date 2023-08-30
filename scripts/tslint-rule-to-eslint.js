@@ -35,11 +35,11 @@ const writeFileFormatted = (filePath, contents) => {
     );
 };
 
-const [, , tslintRuleName, eslintRuleName = tslintRuleName] = process.argv;
+const [, , tslintRuleName, eslintRuleName = "@definitelytyped/" + tslintRuleName] = process.argv;
 
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-next-line[: ]${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-next-line[: ] ${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-line[: ]${tslintRuleName}/eslint-disable-line ${eslintRuleName}/'`);
+sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-next-line[: ]${tslintRuleName}_eslint-disable-next-line ${eslintRuleName}_'`);
+sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-next-line[: ] ${tslintRuleName}_eslint-disable-next-line ${eslintRuleName}_'`);
+sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-line[: ]${tslintRuleName}_eslint-disable-line ${eslintRuleName}_'`);
 
 const typeNames = fs.readdirSync('types');
 for (const typeName of typeNames) {
