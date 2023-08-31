@@ -10,7 +10,7 @@ export type callback<T = any> = (err?: BraintreeError, data?: T) => void;
  */
 export type BraintreeErrorTypes = 'CUSTOMER' | 'MERCHANT' | 'NETWORK' | 'INTERNAL' | 'UNKNOWN';
 
-export interface BraintreeError {
+export interface BraintreeError extends Error {
     /**
      * @description A code that corresponds to specific errors.
      */
