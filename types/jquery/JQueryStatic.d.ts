@@ -1,4 +1,5 @@
 // tslint:disable:jsdoc-format
+// tslint:disable:no-irregular-whitespace
 
 interface JQueryStatic {
     /**

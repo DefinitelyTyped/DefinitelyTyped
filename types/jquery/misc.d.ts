@@ -1,4 +1,5 @@
 // tslint:disable:jsdoc-format
+// tslint:disable:no-irregular-whitespace
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
