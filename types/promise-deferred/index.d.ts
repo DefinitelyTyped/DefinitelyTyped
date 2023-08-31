@@ -22,7 +22,7 @@ export = DeferredCtor;
 declare const DeferredCtor: {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <T>(): DeferredCtor.Deferred<T>;
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+     
     new <T>(): DeferredCtor.Deferred<T>;
 
     Promise: typeof Promise;
