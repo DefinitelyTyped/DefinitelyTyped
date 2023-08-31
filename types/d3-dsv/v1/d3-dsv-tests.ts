@@ -37,7 +37,6 @@ let parsedTestObject: ParsedTestObject;
 
 let num: number;
 let str: string;
-let strMaybe: string | undefined;
 
 let columns: string[];
 let headers: Headers[];
@@ -56,9 +55,9 @@ str = row2.Make;
 str = row2.Property;
 
 declare let raw: d3Dsv.DSVRaw<ParsedTestObject>;
-strMaybe = raw.make;
+str = raw.make;
 // @ts-expect-error
-strMaybe = raw.property;
+str = raw.property;
 
 declare let rowArray: d3Dsv.DSVRowArray;
 str = rowArray[0].property;

@@ -26,7 +26,7 @@ export type DSVRowString<Columns extends string = string> = {
  * When the DSV content is not well-structured and some column-values are missing, `undefined` is used as value.
  */
 export type DSVRaw<T extends object> = {
-    [key in keyof T]: string | undefined;
+    [key in keyof T]: string;
 };
 
 /**
