@@ -92,5 +92,6 @@ export * from './trigger/self-managed-kafka';
 export * from './trigger/secretsmanager';
 export * from './trigger/s3-event-notification';
 export * from './trigger/amplify-resolver';
+export * from "./trigger/step-functions";
 
 export as namespace AWSLambda;

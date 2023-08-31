@@ -42,6 +42,7 @@
         "test/ses-tests.ts",
         "test/sns-tests.ts",
         "test/sqs-tests.ts",
+        "test/step-functions-tests.ts",
         "test/msk-tests.ts",
         "test/self-managed-kafka-tests.ts",
         "test/secretsmanager-tests.ts",
