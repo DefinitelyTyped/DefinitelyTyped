@@ -694,10 +694,10 @@ export interface PolygonOptions extends ShapeOptions {
  */
 export class Polygon extends Shape {
     /** @see {@link PolygonOptions#radius} */
-    readonly radius?: number | undefined;
+    radius?: number | undefined;
 
     /** @see {@link PolygonOptions#sides} */
-    readonly sides?: number | undefined;
+    sides?: number | undefined;
 
     constructor(options?: PolygonOptions);
 
