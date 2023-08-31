@@ -746,7 +746,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
         update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+     
     ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
 
     /**

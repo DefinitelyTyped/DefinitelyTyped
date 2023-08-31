@@ -16,7 +16,7 @@ app.use(
         prefix: "app_prefix_",
         customLabels: ["contentType"],
         transformLabels(labels, req) {
-            // eslint-disable-next-line no-param-reassign
+             
             labels.contentType = req.headers["content-type"] as string;
         },
         normalizeStatus: true,

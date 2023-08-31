@@ -50,7 +50,7 @@ declare namespace EncodingDown {
   interface Constructor {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <K = any, V = any>(db: AbstractLevelDOWN, options?: CodecOptions): EncodingDown<K, V>;
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+     
     new <K = any, V = any>(db: AbstractLevelDOWN, options?: CodecOptions): EncodingDown<K, V>;
   }
 }

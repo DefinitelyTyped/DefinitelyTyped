@@ -3,7 +3,7 @@
 // Definitions by: Jonathan Ehman <https://github.com/jpehman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* eslint-disable @typescript-eslint/naming-convention */
+ 
 export const VERSION: string;
 
 export namespace BASE64 {
