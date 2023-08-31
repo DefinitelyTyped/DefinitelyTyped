@@ -128,7 +128,9 @@ const executionAbortedEvent: StepFunctionsExecutionStatusChangeEvent = {
     },
 };
 
-type SFNEventHandlerTestResult = { msg: string };
+interface SFNEventHandlerTestResult {
+    msg: string;
+}
 const sfnEventHandler: SFNEventHandler<SFNEventHandlerTestResult> = async (event, context, callback) => {
     type EventTypeTest = AssertExtends<typeof event, StepFunctionsExecutionStatusChangeEvent>;
     type ContextTypeTest = AssertExtends<typeof context, Context>;
