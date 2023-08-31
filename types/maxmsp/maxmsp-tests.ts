@@ -2,6 +2,7 @@
 
 // Examples working with global variables
 inlets = 2;
+inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);

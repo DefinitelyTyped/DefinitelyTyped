@@ -13,6 +13,7 @@
  * Max globals
  * https://docs.cycling74.com/max7/vignettes/jsglobal
  */
+declare var inspector: number;
 declare var inlets: number;
 declare var outlets: number;
 declare var autowatch: number;
