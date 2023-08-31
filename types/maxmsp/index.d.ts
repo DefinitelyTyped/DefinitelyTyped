@@ -187,7 +187,7 @@ declare class Dict {
      * If no name is provided as an argument then a unique name will be generated for the dictionary.
      * The following properties mirror the attributes of the same name from the Max dict object. See the dict reference for more details.
      */
-    constructor(name: string);
+    constructor(name?: string);
 
     /**
      * Access or set the name of a dict object as a property of the dict object
