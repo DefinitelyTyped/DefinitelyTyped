@@ -24,7 +24,7 @@ export interface PlatformContext {
         id: string;
         label: string;
         title: string;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         type: any[];
     };
     resource: {
@@ -45,7 +45,7 @@ export interface PlatformContext {
     createdAt: Date;
     __v: number;
     __id: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     custom: any;
 }
 
