@@ -2,6 +2,7 @@ import moji = require('moji');
 
 moji('ＡＢＣＤ０１２３４').convert('ZE', 'HE').toString();
 moji('ABCD01234').convert('HE', 'ZE').toString();
+// tslint:disable-next-line:no-irregular-whitespace
 moji('　').convert('ZS', 'HS').toString();
 moji('あいうえお').convert('HG', 'KK').toString();
 moji('アイウエオ').convert('KK', 'HG').toString();
