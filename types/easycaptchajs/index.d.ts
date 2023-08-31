@@ -5,7 +5,7 @@
 
 export as namespace EasyCaptchaJs;
 
-export type EasyCaptchaSettings = {
+export interface EasyCaptchaSettings {
     ReCAPTCHA_API_KEY_CLIENT?: string;
     ReCaptchaSubmit?: {
         success?: () => void;
@@ -23,7 +23,7 @@ export type EasyCaptchaSettings = {
     };
     theme?: 'light' | 'dark';
     failure?: (error: string) => void;
-};
+}
 
 export type EasyCaptchaMethod = 'getTarget' | 'verify' | 'response' | 'reset' | 'destroy';
 
@@ -38,7 +38,7 @@ export interface EasyCaptchaInstance {
 // noinspection JSUnusedGlobalSymbols
 export const EasyCaptcha: EasyCaptchaInstance;
 
-interface EasyCaptchaJQuery extends JQuery {
+export interface EasyCaptchaJQuery extends JQuery {
     EasyCaptcha: EasyCaptchaInstance;
 }
 
