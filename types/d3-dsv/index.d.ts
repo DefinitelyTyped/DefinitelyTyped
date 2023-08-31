@@ -22,7 +22,6 @@ export type DSVRowString<Columns extends string = string> = {
 
 /**
  * An object in raw format before parsing, that is with only string values.
- * When the DSV content is not well-structured and some column-values are missing, `undefined` is used as value.
  */
 export type DSVRaw<T extends object> = {
     [key in keyof T]: string;
