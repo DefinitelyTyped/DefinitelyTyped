@@ -3,9 +3,13 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Options {
+    caseSensitive: boolean;
+}
+
 /**
  * Takes two strings and compares them. Returns a value from 0 to 1, 0 meaning that
  * the strings are not at all similar.
  */
-declare function distance(x: string, y: string): number;
+declare function distance(x: string, y: string, options?: Partial<Options>): number;
 export = distance;
