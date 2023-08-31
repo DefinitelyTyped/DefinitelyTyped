@@ -44,12 +44,12 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+         
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
             constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                credentials?: NodeCredentials<TCreds> | undefined;  
                 settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
             },
         ): void;
@@ -123,7 +123,7 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @param definition - the definition object of the plugin
          */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+         
         registerPlugin<TPluginDef extends PluginDef = PluginDef>(
             id: string,
             definition: PluginDefinition<TPluginDef>, // eslint-disable-line @definitelytyped/no-unnecessary-generics

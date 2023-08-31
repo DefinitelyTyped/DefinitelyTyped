@@ -559,7 +559,7 @@ export function queue<T, R, E = Error>(worker: AsyncResultIterator<T, R, E>, con
 export function priorityQueue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): AsyncPriorityQueue<T>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function cargo<T, E = Error>(worker: AsyncWorker<T[], E>, payload?: number): QueueObject<T>;
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+ 
 export function cargoQueue<T, E = Error>(
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     worker: AsyncWorker<T[], E>,
