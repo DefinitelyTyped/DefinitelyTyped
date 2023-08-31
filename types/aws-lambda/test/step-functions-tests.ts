@@ -1,4 +1,5 @@
-import { StepFunctionsExecutionStatusChangeEvent } from 'aws-lambda';
+import type { StepFunctionsExecutionStatusChangeEvent, SFNEventHandler, Context, Callback } from 'aws-lambda';
+import type { AssertExtends } from './util';
 
 const executionStartedEvent: StepFunctionsExecutionStatusChangeEvent = {
     version: '0',
@@ -125,4 +126,12 @@ const executionAbortedEvent: StepFunctionsExecutionStatusChangeEvent = {
         output: null,
         outputDetails: null,
     },
+};
+
+type SFNEventHandlerTestResult = { msg: string };
+const sfnEventHandler: SFNEventHandler<SFNEventHandlerTestResult> = async (event, context, callback) => {
+    type EventTypeTest = AssertExtends<typeof event, StepFunctionsExecutionStatusChangeEvent>;
+    type ContextTypeTest = AssertExtends<typeof context, Context>;
+    type CallbackTypeTest = AssertExtends<typeof callback, Callback>;
+    return { msg: 'test' };
 };

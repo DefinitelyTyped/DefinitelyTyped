@@ -1,4 +1,7 @@
-import { EventBridgeEvent } from './eventbridge';
+import type { EventBridgeEvent } from './eventbridge';
+import type { Handler } from '../handler';
+
+export type SFNEventHandler<Result = any> = Handler<StepFunctionsExecutionStatusChangeEvent, Result>;
 
 export type StepFunctionsExecutionStatus = 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'TIMED_OUT' | 'ABORTED';
 
