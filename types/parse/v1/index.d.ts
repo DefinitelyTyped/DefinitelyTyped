@@ -1153,16 +1153,21 @@ declare namespace Parse {
     function setAsyncStorage(AsyncStorage: any): void;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'parse/node' {
     export = Parse;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'parse' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import * as parse from 'parse/node';
     export = parse;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'parse/react-native' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import * as parse from 'parse/node';
     export = parse;
 }

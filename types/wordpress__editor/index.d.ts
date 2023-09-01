@@ -17,6 +17,7 @@ export interface EditorStoreDescriptor extends StoreDescriptor {
     name: 'core/editor';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@wordpress/editor' {
     const store: EditorStoreDescriptor;
 }

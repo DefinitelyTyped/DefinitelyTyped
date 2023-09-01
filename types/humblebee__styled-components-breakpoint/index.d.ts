@@ -3,6 +3,7 @@
 // Definitions by: Carl Ribbegårdh <https://github.com/CarlRibbegaardh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* eslint-disable @definitelytyped/no-declare-current-package */
 // tslint:disable-next-line:no-single-declare-module
 declare module "@humblebee/styled-components-breakpoint" {
     import { CSSObject, SimpleInterpolation } from "styled-components";

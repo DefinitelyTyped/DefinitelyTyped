@@ -290,6 +290,7 @@ declare namespace stampit {
     export function convertConstructor(Constructor:any): Stamp;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "stampit" {
     export = stampit;
 }

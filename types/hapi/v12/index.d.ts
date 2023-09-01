@@ -10,6 +10,7 @@
 
 /// <reference types="node" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "hapi" {
     import http = require("http");
     import stream = require("stream");

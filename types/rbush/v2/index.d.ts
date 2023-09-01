@@ -104,6 +104,7 @@ declare namespace rbush {
   }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'rbush' {
   const temp: rbush.IRBush;
   export = temp;

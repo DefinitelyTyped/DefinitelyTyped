@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+/* eslint-disable @definitelytyped/no-declare-current-package */
 // tslint:disable-next-line:no-single-declare-module
 declare module '@hapi/catbox-redis' {
     import { Redis, Cluster } from 'ioredis';

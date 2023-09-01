@@ -26,6 +26,7 @@ export interface BlocksStoreDescriptor extends StoreDescriptor {
     name: 'core/blocks';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@wordpress/blocks' {
     const store: BlocksStoreDescriptor;
 }

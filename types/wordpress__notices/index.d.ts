@@ -121,6 +121,7 @@ export interface NoticesStoreDescriptor extends StoreDescriptor {
     name: 'core/notices';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@wordpress/notices' {
     const store: NoticesStoreDescriptor;
 }

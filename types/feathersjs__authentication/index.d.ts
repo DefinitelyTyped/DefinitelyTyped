@@ -7,6 +7,7 @@
 // TypeScript Version: 2.3
 
 import { Hook, Params } from '@feathersjs/feathers';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import * as self from '@feathersjs/authentication';
 import { RequestHandler, Application } from 'express';
 import { create } from 'domain';

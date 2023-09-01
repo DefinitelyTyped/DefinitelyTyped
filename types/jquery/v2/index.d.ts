@@ -3808,6 +3808,7 @@ interface JQuery {
      */
     extend(object: { [method: string]: (...args: any[]) => any; }): JQuery;
 }
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "jquery" {
     export = $;
 }
