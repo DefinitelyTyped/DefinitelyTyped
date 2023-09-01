@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-import * as zdog from 'zdog';
+import * as zdog from "zdog";
 
 export as namespace Zfont;
 
 export function init(x: typeof zdog): typeof zdog;
 
-declare module 'zdog' {
+declare module "zdog" {
     /** @see {@link https://github.com/jaames/zfont#multiline-text Zfont API} */
     type MultilineText = string | ReadonlyArray<string>;
 
@@ -19,14 +19,14 @@ declare module 'zdog' {
      * @see {@link https://github.com/jaames/zfont#textalign Zfont API} (Text)
      * @see {@link https://github.com/jaames/zfont#textalign-1 Zfont API} (TextGroup)
      */
-    type TextAlign = 'left' | 'center' | 'right';
+    type TextAlign = "left" | "center" | "right";
 
     /**
      * Vertical text alignment, equivalent to the HTML5 canvas' {@link CanvasRenderingContext2D.textBaseline textBaseline} property.
      * @see {@link https://github.com/jaames/zfont#textbaseline Zfont API} (Text)
      * @see {@link https://github.com/jaames/zfont#textbaseline-1 Zfont API} (TextGroup)
      */
-    type TextBaseline = 'top' | 'middle' | 'bottom';
+    type TextBaseline = "top" | "middle" | "bottom";
 
     /**
      * @see {@link Font}

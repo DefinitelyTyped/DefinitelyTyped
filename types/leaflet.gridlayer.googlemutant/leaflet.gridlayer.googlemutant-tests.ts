@@ -1,24 +1,24 @@
-import * as L from 'leaflet';
-import 'leaflet.gridlayer.googlemutant';
+import * as L from "leaflet";
+import "leaflet.gridlayer.googlemutant";
 
-const map = L.map('foo');
+const map = L.map("foo");
 
 const roads = L.gridLayer
     .googleMutant({
-        type: 'roadmap',
+        type: "roadmap",
     })
     .addTo(map);
 
 const styled = L.gridLayer
     .googleMutant({
-        type: 'satellite',
+        type: "satellite",
         styles: [
-            { elementType: 'labels', stylers: [{ visibility: 'off' }] },
-            { featureType: 'water', stylers: [{ color: '#444444' }] },
+            { elementType: "labels", stylers: [{ visibility: "off" }] },
+            { featureType: "water", stylers: [{ color: "#444444" }] },
         ],
     })
     .addTo(map);
 
-styled.addGoogleLayer('TrafficLayer').then(nativeTrafficLayer => {
-    styled.removeGoogleLayer('TrafficLayer');
+styled.addGoogleLayer("TrafficLayer").then(nativeTrafficLayer => {
+    styled.removeGoogleLayer("TrafficLayer");
 });

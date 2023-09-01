@@ -1,4 +1,4 @@
-import { Zone } from './zone';
+import { Zone } from "./zone";
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.

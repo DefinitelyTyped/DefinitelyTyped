@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import LogRocket = require('logrocket');
+import LogRocket = require("logrocket");
 
 type LR = typeof LogRocket;
 

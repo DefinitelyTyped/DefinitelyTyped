@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-single-declare-module": false,
-        "one-line": false
+        "no-single-declare-module": false
     }
 }

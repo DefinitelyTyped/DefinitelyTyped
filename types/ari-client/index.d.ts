@@ -355,9 +355,9 @@ export interface Event extends Message {
     application: string;
 
     /**
-     * Time at which this event was created.
+     * ISO 8601 date/time at which this event was created.
      */
-    timestamp: Date;
+    timestamp: string;
 }
 export interface ContactInfo {
     /**
@@ -1801,10 +1801,10 @@ export interface Resource {
     removeListener(event: AnyEventType, handler: (...args: any[]) => void): void;
 
     /**
-     *  Removes all listeners, or those of the specified event type.
+     *  Removes all listeners of the specified event type.
      *  @param [event] - The event type.
      */
-    removeAllListeners(event?: AnyEventType): void;
+    removeAllListeners(event: AnyEventType): void;
 }
 export interface Applications {
     /**
@@ -2383,14 +2383,14 @@ export interface ConfigInfo {
 }
 export interface StatusInfo {
     /**
-     * Time when Asterisk was started.
+     * ISO 8601 date/time when Asterisk was started.
      */
-    startup_time: Date;
+    startup_time: string;
 
     /**
-     * Time when Asterisk was last reloaded.
+     * ISO 8601 date/time when Asterisk was last reloaded.
      */
-    last_reload_time: Date;
+    last_reload_time: string;
 }
 export interface AsteriskInfo {
     /**
@@ -2885,9 +2885,9 @@ export interface Bridge extends Resource {
     video_source_id?: string | undefined;
 
     /**
-     * Timestamp when bridge was created.
+     * ISO 8601 date/time when the bridge was created.
      */
-    creationtime: Date;
+    creationtime: string;
 
     /**
      * List all active bridges in Asterisk.
@@ -4286,9 +4286,9 @@ export interface Channel extends Resource {
     dialplan: DialplanCEP;
 
     /**
-     * Timestamp when channel was created.
+     * ISO 8601 date/time when the channel was created.
      */
-    creationtime: Date;
+    creationtime: string;
 
     /**
      * The default spoken language.

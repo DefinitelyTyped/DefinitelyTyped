@@ -6,7 +6,7 @@
 
 declare namespace LdapClient {
     interface Change {
-        operation: 'add' | 'delete' | 'replace';
+        operation: "add" | "delete" | "replace";
         modification: {
             [key: string]: any;
         };
@@ -79,7 +79,6 @@ declare class LdapClient {
 
     /**
      * Unbinds this client from the LDAP server.
-     *
      */
     unbind(): Promise<any>;
 }

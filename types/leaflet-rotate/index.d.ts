@@ -3,9 +3,9 @@
 // Definitions by: Brian Jubelirer <https://github.com/bjubes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MapOptions {
         rotate?: boolean;
         bearing?: number;
