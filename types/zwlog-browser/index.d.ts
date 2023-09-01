@@ -36,31 +36,31 @@ interface ZwLogInitOptions {
 }
 
 type EventParamsKey =
-    | 'uidaplus'
-    | 'spm-url'
-    | 'spmpre'
-    | 'spm_cnt'
-    | 'pvid'
-    | '_dev_id'
-    | '_anony_id'
-    | '_user_id'
-    | '_user_nick'
-    | '_session_id';
+    | "uidaplus"
+    | "spm-url"
+    | "spmpre"
+    | "spm_cnt"
+    | "pvid"
+    | "_dev_id"
+    | "_anony_id"
+    | "_user_id"
+    | "_user_nick"
+    | "_session_id";
 
 interface zwlog {
     cbQueue: any[];
     metaInfo: {
-        'aplus-cpvdata': {
+        "aplus-cpvdata": {
             sdk_info: string;
             sdk_version: string;
         };
-        'aplus-exdata': {
+        "aplus-exdata": {
             sdk_info: string;
             sdk_version: string;
         };
-        'aplus-rhost-g': string;
-        'aplus-rhost-v': string;
-        'aplus-waiting': string;
+        "aplus-rhost-g": string;
+        "aplus-rhost-v": string;
+        "aplus-waiting": string;
         appId: string;
     } & ZwLogInitOptions;
     readyFlag: boolean;
@@ -106,7 +106,7 @@ interface zwlog {
         /**
          * 用户登录状态（01:未登录/ 02:单点登录）
          */
-        log_status: '01' | '02';
+        log_status: "01" | "02";
     }) => void;
     /**
      * 令箭日志
@@ -121,7 +121,7 @@ interface zwlog {
         /**
          * 时间类型 取值为'EXP':⾃定义曝光事件/'CLK':⾃定义点击事件/'OTHER': 其他⾃定义事件
          */
-        eventType: 'EXP' | 'CLK' | 'OTHER' | string,
+        eventType: "EXP" | "CLK" | "OTHER" | string,
         /**
          * 本次事件中上报的事件参数. 其取值为⼀个 JSON 对象（平铺的简单对象，不能多层嵌套）
          * JSON 中的 key 不能是以下保留属性：uidaplus,spm-url,spmpre,spm_cnt,pvid,_dev_id,_anony_id,_user_id,_user_nick,_session_id
@@ -136,60 +136,60 @@ interface zwlog {
     sendAliMonitor: (
         data:
             | {
-                  /**
-                   * 固定值，针对涉及“拆解”业务；
-                   */
-                  name: 'cj';
-                  /**
-                   * 业务数据
-                   */
-                  obj: {
-                      /**
-                       * 填写具体业务名称，如“余额查询”
-                       */
-                      title: string;
-                      /**
-                       * 常规业务：taSR；医疗或医保业务：taSR_YL
-                       */
-                      c1: string;
-                      /**
-                       * H5 服务 url
-                       */
-                      url: string;
-                  };
-              }
+                /**
+                 * 固定值，针对涉及“拆解”业务；
+                 */
+                name: "cj";
+                /**
+                 * 业务数据
+                 */
+                obj: {
+                    /**
+                     * 填写具体业务名称，如“余额查询”
+                     */
+                    title: string;
+                    /**
+                     * 常规业务：taSR；医疗或医保业务：taSR_YL
+                     */
+                    c1: string;
+                    /**
+                     * H5 服务 url
+                     */
+                    url: string;
+                };
+            }
             | {
-                  /**
-                   * 固定值，针对涉及“办结”业务
-                   */
-                  name: 'bj';
-                  /**
-                   * 业务数据
-                   */
-                  obj: {
-                      /**
-                       * 填写具体业务名称，如“余额查询”
-                       */
-                      title: string;
-                      /**
-                       * 常规业务：taSR；医疗或医保业务：taSR_YL
-                       */
-                      c1: string;
-                      /**
-                       * 服务耗时，无法统计填写 0
-                       */
-                      time: number;
-                      /**
-                       * 办结成功或失败
-                       */
-                      success: boolean;
-                  };
-              },
+                /**
+                 * 固定值，针对涉及“办结”业务
+                 */
+                name: "bj";
+                /**
+                 * 业务数据
+                 */
+                obj: {
+                    /**
+                     * 填写具体业务名称，如“余额查询”
+                     */
+                    title: string;
+                    /**
+                     * 常规业务：taSR；医疗或医保业务：taSR_YL
+                     */
+                    c1: string;
+                    /**
+                     * 服务耗时，无法统计填写 0
+                     */
+                    time: number;
+                    /**
+                     * 办结成功或失败
+                     */
+                    success: boolean;
+                };
+            },
     ) => void;
 }
 
 interface ZwLog {
-    new (initOptions: ZwLogInitOptions): zwlog;
+    new(initOptions: ZwLogInitOptions): zwlog;
 }
 
 declare var ZwLog: ZwLog;

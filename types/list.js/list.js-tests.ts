@@ -4,21 +4,21 @@ const list = new List(new HTMLElement(), {
     page: 3,
     searchClass: "class",
     fuzzySearch: {
-        distance: 200
+        distance: 200,
     },
     pagination: {
         innerWindow: 3,
         outerWindow: 1,
-        item: "<li><a class='page' href='#'></a></li>"
+        item: "<li><a class='page' href='#'></a></li>",
     },
     valueNames: [
-      'name', // class
-      'born', // class
-      { data: ['id'] }, // data-id
-      { name: 'timestamp', attr: 'data-timestamp' }, // data-timestamp
-      { name: 'link', attr: 'href' }, // .link href attribute
-      { name: 'image', attr: 'src' } // .image src attribute
-    ]
+        "name", // class
+        "born", // class
+        { data: ["id"] }, // data-id
+        { name: "timestamp", attr: "data-timestamp" }, // data-timestamp
+        { name: "link", attr: "href" }, // .link href attribute
+        { name: "image", attr: "src" }, // .image src attribute
+    ],
 });
 
 list.list; // $ExpectType HTMLElement
@@ -32,14 +32,14 @@ list.alphabet; // $ExpectType string
 
 list.add([{ // $ExpectType void
     name: "value",
-    value: true
+    value: true,
 }], (item) => {}); // $ExpectType (item: ListItem) => void
 
 list.remove("name", "value"); // $ExpectType number
 list.get("name", "value"); // $ExpectType ListItem[]
 list.sort("name", { // $ExpectType void
     order: "asec",
-    alphabet: "ABCD1234EFGH"
+    alphabet: "ABCD1234EFGH",
 });
 list.search("name", ["col1", "col2"]); // $ExpectType void
 list.clear(); // $ExpectType void
@@ -52,16 +52,16 @@ list.show(0, 0); // $ExpectType void
 list.update(); // $ExpectType void
 list.reIndex(); // $ExpectType void
 list.fuzzySearch("search", ["col1", "col2"]); // $ExpectType void
-list.on('updated', list => {});
-list.on('filterStart', list => {});
-list.on('filterComplete', list => {});
-list.on('searchStart', list => {});
-list.on('searchComplete', list => {});
-list.on('sortStart', list => {});
-list.on('sortComplete', list => {});
-list.on('updated', list => {}).clear();
+list.on("updated", list => {});
+list.on("filterStart", list => {});
+list.on("filterComplete", list => {});
+list.on("searchStart", list => {});
+list.on("searchComplete", list => {});
+list.on("sortStart", list => {});
+list.on("sortComplete", list => {});
+list.on("updated", list => {}).clear();
 // @ts-expect-error
-list.on('invalid', list => {});
+list.on("invalid", list => {});
 
 const item = list.get("name", "value")[0];
 

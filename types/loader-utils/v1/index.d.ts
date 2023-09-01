@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { loader } from 'webpack';
+import { loader } from "webpack";
 
 export interface InterpolateOption {
     context?: string | undefined;

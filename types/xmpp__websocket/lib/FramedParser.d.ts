@@ -1,4 +1,4 @@
-import { Parser } from '@xmpp/xml';
+import { Parser } from "@xmpp/xml";
 
 export = FramedParser;
 

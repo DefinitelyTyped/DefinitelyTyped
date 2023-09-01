@@ -1,9 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-trailing-whitespace": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
-        "whitespace": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

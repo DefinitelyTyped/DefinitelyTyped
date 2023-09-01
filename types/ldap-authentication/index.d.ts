@@ -3,7 +3,7 @@
 // Definitions by: Simone Corsi <https://github.com/simonecorsi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ClientOptions } from 'ldapjs';
+import { ClientOptions } from "ldapjs";
 
 export interface AuthenticationOptions {
     ldapOpts: ClientOptions;

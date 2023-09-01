@@ -172,5 +172,5 @@ export interface ModuleInfos {
  */
 export function init(
     opts: InitOpts,
-    callback: (err: Error, ret: ModuleInfos) => void
+    callback: (err: Error, ret: ModuleInfos) => void,
 ): void;

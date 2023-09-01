@@ -15,12 +15,12 @@ declare namespace xmldom {
     }
 
     interface DOMParserStatic {
-        new (): DOMParser;
-        new (options: Options): DOMParser;
+        new(): DOMParser;
+        new(options: Options): DOMParser;
     }
 
     interface XMLSerializerStatic {
-        new (): XMLSerializer;
+        new(): XMLSerializer;
     }
 
     interface DOMParser {

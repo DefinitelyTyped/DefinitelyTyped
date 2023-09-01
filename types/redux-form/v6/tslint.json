@@ -5,7 +5,6 @@
         "ban-types": false,
         "jsdoc-format": false,
         "no-object-literal-type-assertion": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }
