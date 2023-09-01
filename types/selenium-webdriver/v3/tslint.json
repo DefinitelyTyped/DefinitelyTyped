@@ -10,7 +10,6 @@
         "no-redundant-undefined": false,
         "no-unnecessary-class": false,
         "prefer-const": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

@@ -3,12 +3,16 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'lowlight' {
-    export { highlight, highlightAuto, registerLanguage } from 'lowlight/lib/core';
+declare module "lowlight" {
+    export { highlight, highlightAuto, registerLanguage } from "lowlight/lib/core";
 }
 
-declare module 'lowlight/lib/core' {
-    export function highlight(language: string, value: string, options?: lowlight.HighlightOptions): lowlight.HighlightResult;
+declare module "lowlight/lib/core" {
+    export function highlight(
+        language: string,
+        value: string,
+        options?: lowlight.HighlightOptions,
+    ): lowlight.HighlightResult;
     export function highlightAuto(value: string, options?: lowlight.HighlightAutoOptions): lowlight.HighlightAutoResult;
     export function registerLanguage(name: string, syntax: Function): void;
     export function listLanguages(): string[];
@@ -53,35 +57,35 @@ declare namespace lowlight {
         }
 
         export interface Root extends Unist.Parent {
-            type: 'root';
+            type: "root";
         }
 
         export interface Element extends Unist.Parent {
-            type: 'element';
+            type: "element";
             tagName: string;
             properties: Properties;
         }
 
         export interface Doctype extends Unist.Node {
-            type: 'doctype';
+            type: "doctype";
             name: string;
             public?: string | undefined;
             system?: string | undefined;
         }
 
         export interface Comment extends Unist.Text {
-                type: 'comment';
+            type: "comment";
         }
 
         export interface Text extends Unist.Text {
-            type: 'text';
+            type: "text";
         }
     }
 
     type HastNode = AST.Root | AST.Element | AST.Doctype | AST.Comment | AST.Text;
 
     interface HighlightOptions {
-            prefix?: string | undefined;
+        prefix?: string | undefined;
     }
 
     interface HighlightAutoOptions extends HighlightOptions {

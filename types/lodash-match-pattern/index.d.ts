@@ -3,9 +3,9 @@
 // Definitions by: Daniel Kneip <https://github.com/daedal-knickerbockers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
-declare module 'lodash' {
+declare module "lodash" {
     interface LoDashStatic {
         isDateString(s: any): boolean;
         isSize(s: any, n: any): boolean;

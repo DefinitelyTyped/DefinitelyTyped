@@ -1,4 +1,4 @@
-import { PackageGraphNode } from '@lerna/package-graph/lib/package-graph-node';
+import { PackageGraphNode } from "@lerna/package-graph/lib/package-graph-node";
 
 export interface PackageCollectorOptions {
     /**

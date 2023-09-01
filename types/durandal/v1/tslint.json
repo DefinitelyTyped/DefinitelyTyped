@@ -4,11 +4,7 @@
         "ban-types": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "one-line": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

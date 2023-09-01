@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
+import * as React from "react";
 
 export interface StyleFunc {
     (...args: any[]): any;
@@ -165,7 +165,8 @@ export interface PaddingYProps<TLength = StyledSystemLength> {
 }
 
 export interface SpaceProps
-    extends MarginProps,
+    extends
+        MarginProps,
         MarginTopProps,
         MarginRightProps,
         MarginBottomProps,
@@ -178,7 +179,8 @@ export interface SpaceProps
         PaddingBottomProps,
         PaddingLeftProps,
         PaddingXProps,
-        PaddingYProps {}
+        PaddingYProps
+{}
 
 // ----- LAYOUT -----
 
@@ -230,7 +232,8 @@ export interface VerticalAlignProps<TLength = StyledSystemLength> {
 }
 
 export interface LayoutProps
-    extends DisplayProps,
+    extends
+        DisplayProps,
         WidthProps,
         HeightProps,
         MaxWidthProps,
@@ -238,7 +241,8 @@ export interface LayoutProps
         MinWidthProps,
         MinHeightProps,
         SizeProps,
-        VerticalAlignProps {}
+        VerticalAlignProps
+{}
 
 // ----- XGRID -----
 
@@ -301,7 +305,8 @@ export interface TextTransformProps {
 }
 
 export interface TypographyProps
-    extends FontFamilyProps,
+    extends
+        FontFamilyProps,
         FontSizeProps,
         LineHeightProps,
         FontWeightProps,
@@ -309,7 +314,8 @@ export interface TypographyProps
         TextAlignProps,
         LetterSpacingProps,
         ColorProps,
-        TextTransformProps {}
+        TextTransformProps
+{}
 
 // ----- FLEXBOXES -----
 
@@ -381,7 +387,8 @@ export interface OrderProps {
 }
 
 export interface FlexboxesProps
-    extends DisplayProps,
+    extends
+        DisplayProps,
         AlignItemsProps,
         AlignContentProps,
         JustifyContentProps,
@@ -394,7 +401,8 @@ export interface FlexboxesProps
         FlexProps,
         JustifySelfProps,
         AlignSelfProps,
-        OrderProps {}
+        OrderProps
+{}
 
 // ----- GRIDS -----
 
@@ -463,7 +471,8 @@ export interface GridAreaProps {
 }
 
 export interface GridsProps
-    extends GridGapProps,
+    extends
+        GridGapProps,
         GridColumnGapProps,
         GridRowGapProps,
         GridColumnProps,
@@ -474,7 +483,8 @@ export interface GridsProps
         GridTemplateColumnsProps,
         GridTemplateRowsProps,
         GridTemplateAreasProps,
-        GridAreaProps {}
+        GridAreaProps
+{}
 
 // ----- BACKGROUNDS -----
 
@@ -512,12 +522,14 @@ export interface BackgroundRepeatProps {
 }
 
 export interface BackgroundsProps
-    extends BackgroundProps,
+    extends
+        BackgroundProps,
         BackgroundColorProps,
         BackgroundImageProps,
         BackgroundSizeProps,
         BackgroundPositionProps,
-        BackgroundRepeatProps {}
+        BackgroundRepeatProps
+{}
 
 // ----- POSITIONING -----
 
@@ -625,7 +637,8 @@ export interface BorderRadiusProps<TLength = StyledSystemLength> {
 }
 
 export interface BordersProps
-    extends BorderProps,
+    extends
+        BorderProps,
         BorderTopProps,
         BorderTopColorProps,
         BorderRightProps,
@@ -637,7 +650,8 @@ export interface BordersProps
         BorderColorProps,
         BorderWidthProps,
         BorderStyleProps,
-        BorderRadiusProps {}
+        BorderRadiusProps
+{}
 
 // ----- SHADOWS -----
 
@@ -660,7 +674,8 @@ export interface ShadowsProps extends BoxShadowProps, TextShadowProps {}
 export const system: StyleFunc;
 
 export interface SystemProps
-    extends BackgroundsProps,
+    extends
+        BackgroundsProps,
         BasicsProps,
         BordersProps,
         FlexboxesProps,
@@ -670,7 +685,8 @@ export interface SystemProps
         ShadowsProps,
         SpaceProps,
         TypographyProps,
-        XGridProps {}
+        XGridProps
+{}
 
 // ----- COMPOSE -----
 
