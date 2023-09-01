@@ -14,7 +14,13 @@ export enum ArcballControlsMouseActionKeys {
     CTRL = 'CTRL',
 }
 
-export class ArcballControls extends EventDispatcher {
+export interface ArcballControlsEventMap {
+    change: {};
+    start: {};
+    end: {};
+}
+
+export class ArcballControls extends EventDispatcher<ArcballControlsEventMap> {
     camera: Camera | null;
     domElement: HTMLElement;
     scene?: Scene | null | undefined;
