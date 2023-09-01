@@ -27,7 +27,29 @@ export interface EasyCaptchaSettings {
 
 export type EasyCaptchaMethod = 'getTarget' | 'verify' | 'response' | 'reset' | 'destroy';
 
-export type EasyCaptchaResults = any[] | any | null;
+export interface EasyCaptchaElementData{
+    [key: string]: [value: any]
+}
+
+export interface EasyCaptchaResultBaseTarget {
+    parentElement?: JQuery,
+}
+
+export interface EasyCaptchaResultTarget extends EasyCaptchaResultBaseTarget {
+    data: EasyCaptchaElementData
+}
+
+export interface EasyCaptchaResultVerify extends EasyCaptchaResultBaseTarget {
+    verified: boolean
+}
+
+export interface EasyCaptchaResultResponse extends EasyCaptchaResultBaseTarget {
+    token: string
+}
+
+export type EasyCaptchaResult = EasyCaptchaResultTarget | EasyCaptchaResultVerify | EasyCaptchaResultResponse;
+
+export type EasyCaptchaResults = EasyCaptchaResult[] | EasyCaptchaResult | null;
 
 export interface EasyCaptchaInstance {
     (options?: EasyCaptchaSettings, ...args: string[]): EasyCaptchaResults;
