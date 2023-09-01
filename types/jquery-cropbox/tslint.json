@@ -1,12 +1,8 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-unnecessary-qualifier": false,
-        "no-var-keyword": false,
-        "semicolon": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

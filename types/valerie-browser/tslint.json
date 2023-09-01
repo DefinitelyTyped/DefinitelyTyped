@@ -2,10 +2,8 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "arrow-return-shorthand": false,
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-mergeable-namespace": false,
         "no-object-literal-type-assertion": false,
@@ -15,10 +13,6 @@
         "no-void-expression": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

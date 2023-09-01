@@ -5,10 +5,7 @@
         "interface-name": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

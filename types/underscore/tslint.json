@@ -3,16 +3,11 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-unnecessary-qualifier": false,
-        "object-literal-key-quotes": false,
         "only-arrow-functions": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }

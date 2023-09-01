@@ -3,16 +3,12 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-for-in-array": false,
         "no-namespace": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-for-of": false,
-        "prefer-template": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-template": false
     }
 }

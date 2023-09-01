@@ -10,8 +10,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

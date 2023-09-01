@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "strict-export-declare-modifiers": false
     }
 }

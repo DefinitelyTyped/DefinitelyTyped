@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "one-line": false,
-        "one-variable-per-declaration": false,
-        "semicolon": false
+        "one-variable-per-declaration": false
     }
 }

@@ -2,12 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-internal-module": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

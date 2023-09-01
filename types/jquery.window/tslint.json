@@ -7,7 +7,6 @@
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

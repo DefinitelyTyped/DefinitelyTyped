@@ -1,15 +1,11 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "no-duplicate-variable": false,
         "no-empty-interface": false,
         "no-var-keyword": false,
         "no-var-requires": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

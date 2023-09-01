@@ -6,11 +6,8 @@
         "interface-name": false,
         "jsdoc-format": false,
         "member-access": false,
-        "no-consecutive-blank-lines": false,
         "no-redundant-jsdoc-2": false,
         "no-void-expression": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false
+        "prefer-const": false
     }
 }

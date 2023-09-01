@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
         "no-reference-import": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

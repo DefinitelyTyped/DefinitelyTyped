@@ -6,7 +6,6 @@
         "no-reference-import": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

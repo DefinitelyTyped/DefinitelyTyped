@@ -6,14 +6,11 @@
         "ban-types": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "member-access": false,
-        "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-irregular-whitespace": false,
         "no-mergeable-namespace": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
@@ -23,11 +20,7 @@
         "prefer-const": false,
         "prefer-for-of": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

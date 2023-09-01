@@ -2,11 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
