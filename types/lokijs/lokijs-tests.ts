@@ -1,6 +1,4 @@
-
 import Loki = require("lokijs");
-
 
 interface EarthLocation {
     longitude: number;
@@ -11,7 +9,6 @@ interface User {
     name: string;
     age: number;
 }
-
 
 class Ant {
     static uniqueId = 1;
@@ -29,9 +26,7 @@ class Ant {
     static createAnt() {
         return new Ant(Ant.uniqueId++);
     }
-
 }
-
 
 class QueenAnt extends Ant {
     eggsBirthed: number;
@@ -43,9 +38,7 @@ class QueenAnt extends Ant {
     static createQueenAnt() {
         return new QueenAnt(Ant.uniqueId++);
     }
-
 }
-
 
 class AntColony {
     location: EarthLocation;
@@ -59,9 +52,7 @@ class AntColony {
     }
 }
 
-
 class Test {
-
     static runAllTests() {
         var lokiInst = new Loki("ant-colony", { autosave: false });
         var colony = Test.createAntColony(lokiInst, 250);
@@ -81,7 +72,7 @@ class Test {
             throw new Error("collections [" + collNames + "] does not equal expected ['ants', 'queenAnts']");
         }
 
-        var firstQueenId = (<any>colony.queens.findOne({}))["$loki"];
+        var firstQueenId = (<any> colony.queens.findOne({}))["$loki"];
         if (firstQueenId == null || colony.queens.get(firstQueenId) == null) {
             throw new Error("queen object's '.$loki' property lookup failed");
         }
@@ -92,16 +83,18 @@ class Test {
         Test.transform(lokiInst);
     }
 
-
     static events(lokiInst: Loki) {
         var coll = new Loki.Collection<Ant>("anotherCollection", {});
         var onUpdate: (t: any) => void;
 
-        coll.on("update", onUpdate = function (target) {
-            console.log("update", target);
-        });
+        coll.on(
+            "update",
+            onUpdate = function(target) {
+                console.log("update", target);
+            },
+        );
 
-        coll.on("error", function (target) {
+        coll.on("error", function(target) {
             console.log("error", target);
         });
 
@@ -110,12 +103,11 @@ class Test {
         coll.removeListener("update", onUpdate);
     }
 
-
     static insertUpdateRemove(lokiInst: Loki) {
         var coll = new Loki.Collection<Ant>("anotherCollection", {
-            unique: <["id"]>["id"],
-            indices: <["dob"]>["dob"],
-            autoupdate: true
+            unique: <["id"]> ["id"],
+            indices: <["dob"]> ["dob"],
+            autoupdate: true,
         });
 
         coll.insert({
@@ -139,12 +131,11 @@ class Test {
 
         tmpColl.removeWhere({ id: 127 });
 
-        if(doc) coll.add(doc);
+        if (doc) coll.add(doc);
 
         coll.remove(1);
         coll.removeDataOnly();
     }
-
 
     static dynamicViews(lokiInst: Loki) {
         var users = lokiInst.addCollection<User>("users");
@@ -155,30 +146,28 @@ class Test {
         users.insert([
             { name: "dave", age: 33 },
             { name: "eric", age: 29 },
-            { name: "dave", age: 21 }
+            { name: "dave", age: 21 },
         ]);
 
         var dv = users.addDynamicView("testview");
-        dv.applyWhere(function (obj) {
+        dv.applyWhere(function(obj) {
             return obj.name.length > 3;
         });
 
         console.log("expect 2 == " + dv.data().length);
 
-        users.removeWhere(function (obj: User) {
+        users.removeWhere(function(obj: User) {
             return obj.age > 35;
         });
 
         console.log("expect 0 == " + dv.data().length);
     }
 
-
     static transform(lokiInst: Loki) {
         var ants = lokiInst.addCollection<Ant>("tmpAnts");
-        var len = ants.chain().transform(<Transform[]>[{ property: "id" }]).data().length;
+        var len = ants.chain().transform(<Transform[]> [{ property: "id" }]).data().length;
         ants.addTransform("tmpAnts", [{ type: "map", mapFun: (a: any) => a, desc: true }]);
     }
-
 
     static createAntColony(lokiInst: Loki, antCount: number, queenCount: number = 1) {
         var ants = lokiInst.addCollection<Ant>("ants", { indices: "id" });
@@ -195,5 +184,4 @@ class Test {
 
         return antColony;
     }
-
 }

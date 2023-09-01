@@ -1,6 +1,5 @@
 import * as JSPath from 'jspath';
 
-// tslint:disable:object-literal-key-quotes
 
 JSPath.apply(
     '.automobiles{.maker === "Honda" && .year > 2009}.model',

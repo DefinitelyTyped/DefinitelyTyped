@@ -1,4 +1,4 @@
-import { untar } from 'untar.js';
+import { untar } from "untar.js";
 
 const buffer = new ArrayBuffer(0);
 const files = untar(buffer);

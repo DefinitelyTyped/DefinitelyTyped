@@ -39,6 +39,6 @@ declare class LogStub {
 
     child(
         ...args: any[]
-    ): Pick<this, 'debug'| 'info' | 'warn' | 'error' | 'child' | 'level'>;
+    ): Pick<this, "debug" | "info" | "warn" | "error" | "child" | "level">;
     level(...args: any[]): number;
 }
