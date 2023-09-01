@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "only-arrow-functions": false,
-        "prefer-template": false,
-        "semicolon": false
+        "prefer-template": false
     }
 }

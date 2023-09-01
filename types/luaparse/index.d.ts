@@ -47,7 +47,7 @@ export interface Options {
      * and how Lua escape sequences in JavaScript strings should be interpreted.
      * See the Encoding modes section https://github.com/fstirlitz/luaparse#encoding-modes for more information.
      */
-    encodingMode: "pseudo-latin1" |  "x-user-defined" | "none";
+    encodingMode: "pseudo-latin1" | "x-user-defined" | "none";
 }
 
 export interface Token {

@@ -1,4 +1,4 @@
-import ElasticsearchService from '../services/ElasticsearchService';
+import ElasticsearchService from "../services/ElasticsearchService";
 
 declare function es(conn: string): ElasticsearchService;
 

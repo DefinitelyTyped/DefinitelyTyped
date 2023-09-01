@@ -9,7 +9,7 @@ declare namespace Geohash {
         North = "N",
         South = "S",
         East = "E",
-        West = "W"
+        West = "W",
     }
 
     interface Neighbours {
@@ -49,7 +49,7 @@ declare namespace Geohash {
     function encode(
         latitude: number,
         longitude: number,
-        precision?: number
+        precision?: number,
     ): string;
 
     /**

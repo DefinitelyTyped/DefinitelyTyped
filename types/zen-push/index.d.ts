@@ -3,7 +3,7 @@
 // Definitions by: daprahamian <https://github.com/daprahamian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Observable from 'zen-observable';
+import * as Observable from "zen-observable";
 
 declare class PushStream<T> {
     readonly observable: Observable<T>;

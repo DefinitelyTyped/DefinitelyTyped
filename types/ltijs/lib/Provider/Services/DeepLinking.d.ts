@@ -1,4 +1,4 @@
-import { IdToken } from '../../IdToken';
+import { IdToken } from "../../IdToken";
 
 export interface DeepLinkingMessageOptions {
     message?: string | undefined;
