@@ -1,3 +1,3 @@
-import Parser from '../src/Parser';
+import Parser from "../src/Parser";
 
 export = Parser;

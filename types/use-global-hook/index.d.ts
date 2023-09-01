@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
-import Immer from 'immer';
+import Immer from "immer";
 
 // to ignore strict-export-declare-modifiers error
 export {};
@@ -25,10 +25,11 @@ export interface Options<S, A> {
     initializer?: InitializerFunction<S, A> | undefined;
 }
 
-type UseGlobal<S, A> = (() => [S, A]) &
-    (<NS>(stateFunc: (state: S) => NS) => [NS, A]) &
-    (<NS, NA>(stateFunc: (state: S) => NS, actionsFunc: (state: A) => NA) => [NS, NA]) &
-    (<NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [S, NA]);
+type UseGlobal<S, A> =
+    & (() => [S, A])
+    & (<NS>(stateFunc: (state: S) => NS) => [NS, A])
+    & (<NS, NA>(stateFunc: (state: S) => NS, actionsFunc: (state: A) => NA) => [NS, NA])
+    & (<NA>(stateFunc: undefined, actionsFunc: (state: A) => NA) => [S, NA]);
 
 // The option property also has an initializer function type for backward compatibility with 0.1.2
 // see https://github.com/andregardi/use-global-hook/pull/51/files#diff-5330e30faa98f2945d75901849861a10R4

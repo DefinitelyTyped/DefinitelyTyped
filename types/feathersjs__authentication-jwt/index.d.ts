@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as self from "@feathersjs/authentication-jwt";
-import { Application } from "@feathersjs/feathers";
-import { Request } from "express";
+import { Application } from '@feathersjs/feathers';
+import { Request } from 'express';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from '@feathersjs/authentication-jwt';
 
 declare const feathersAuthenticationJwt:
     & ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void)

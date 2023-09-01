@@ -504,7 +504,6 @@ const PlaylistResponse: AppleMusicApi.PlaylistResponse = {
                 playParams: { id: 'pl.faeb447ec5a341ef83e7e65189bd1c63', kind: 'playlist' },
                 description: {
                     standard:
-                        // tslint:disable-next-line:max-line-length
                         'Reflective indie, dreamlike folk, sophisticated jazz funk, muted electronics—take a journey through late-night sounds and understated grooves, current and past, with this distraction-free soundtrack tailor-made for reading relaxing, or just getting your work done. Our editors regularly update this playlist with new music. If you hear something you like, add it to your library.',
                     short: 'A journey through late-night sounds and understated grooves.',
                 },

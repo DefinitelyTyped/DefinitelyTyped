@@ -5,10 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as self from "@feathersjs/express";
-import { Application as FeathersApplication, ServiceMethods, SetupMethod } from "@feathersjs/feathers";
-import * as express from "express";
-import { IRouterHandler, PathParams, RequestHandler, RequestHandlerParams } from "express-serve-static-core";
+import { Application as FeathersApplication, ServiceMethods, SetupMethod } from '@feathersjs/feathers';
+import * as express from 'express';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from '@feathersjs/express';
+import { IRouterHandler, PathParams, RequestHandler, RequestHandlerParams } from 'express-serve-static-core';
 
 declare const feathersExpress: (<T>(app: FeathersApplication<T>) => Application<T>) & typeof self;
 export default feathersExpress;

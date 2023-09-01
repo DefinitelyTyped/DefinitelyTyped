@@ -4,9 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as self from "@feathersjs/authentication-oauth1";
-import { Application, Paginated } from "@feathersjs/feathers";
-import { Request } from "express";
+import {
+    Application,
+    Paginated
+} from '@feathersjs/feathers';
+import { Request } from 'express';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from '@feathersjs/authentication-oauth1';
 
 declare const feathersAuthenticationOAuth1:
     & ((options?: FeathersAuthenticationOAuth1Options) => () => void)

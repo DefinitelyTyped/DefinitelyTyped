@@ -14,7 +14,6 @@ callBind(Object.prototype.hasOwnProperty, unknown);
 applyBind(() => {}); // $ExpectType (thisArg: unknown, args: readonly []) => void
 applyBind((a: string, b: number) => {}, null, 'foo'); // $ExpectType (args: readonly [number]) => void || (args: readonly [b: number]) => void
 
-// tslint:disable-next-line: max-line-length
 // $ExpectType (thisArg: unknown, args: readonly [string | number | symbol]) => boolean || (thisArg: unknown, args: readonly [v: string | number | symbol]) => boolean || (thisArg: unknown, args: readonly [v: PropertyKey]) => boolean
 applyBind(Object.prototype.hasOwnProperty);
 // $ExpectType (args: readonly [string | number | symbol]) => boolean || (args: readonly [v: string | number | symbol]) => boolean || (args: readonly [v: PropertyKey]) => boolean
