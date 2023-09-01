@@ -155,7 +155,7 @@ export interface QBittorrentApiEndpoint {
 
     deleteSearch(id: number): Promise<void>;
 
-    searchCategories(pluginName?: string | 'all' | 'enabled'): Promise<string[]>;
+    searchCategories(pluginName?: string | "all" | "enabled"): Promise<string[]>;
 
     searchPlugins(): Promise<SearchPlugin[]>;
 
@@ -289,7 +289,7 @@ export interface Log {
 
 export type LogTypesInt = 1 | 2 | 4 | 8;
 
-export type LogTypesString = 'normal' | 'info' | 'warning' | 'critical';
+export type LogTypesString = "normal" | "info" | "warning" | "critical";
 
 export interface PeerLog {
     id: number;
@@ -454,7 +454,7 @@ export interface SearchResults {
     total: number;
 }
 
-export interface SearchPlugin  {
+export interface SearchPlugin {
     enabled: boolean;
     fullName: string;
     name: string;
@@ -463,7 +463,7 @@ export interface SearchPlugin  {
     version: string;
 }
 
-export type filterString = 'all' | 'downloading' | 'completed' | 'paused' | 'active' | 'inactive' | 'resumed';
+export type filterString = "all" | "downloading" | "completed" | "paused" | "active" | "inactive" | "resumed";
 
 export type Categories = object;
 

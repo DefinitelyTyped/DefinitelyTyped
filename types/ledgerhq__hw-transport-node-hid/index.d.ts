@@ -12,7 +12,7 @@ declare class TransportNodeHid extends Transport {
     constructor(
         device: HID.HID,
         ledgerTransport?: boolean,
-        timeout?: number
+        timeout?: number,
     );
     static open(path: string): Promise<TransportNodeHid>;
     setScrambleKey(): void;

@@ -2,12 +2,10 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }

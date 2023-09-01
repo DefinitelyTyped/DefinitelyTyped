@@ -8,51 +8,51 @@
 import * as fs from "fs";
 
 export interface SetupOptions {
-  EV_KEY: any[];
+    EV_KEY: any[];
 }
 
 export interface CreateOptions {
-  name: string;
-  id: CreateID;
+    name: string;
+    id: CreateID;
 }
 
 export interface CreateID {
-  bustype: number;
-  vendor: number;
-  product: number;
-  version: number;
-  ff_effects_max?: number | undefined;
-  absmax?: number[] | undefined;
-  absmin?: number[] | undefined;
-  absfuzz?: number[] | undefined;
-  absflat?: number[] | undefined;
+    bustype: number;
+    vendor: number;
+    product: number;
+    version: number;
+    ff_effects_max?: number | undefined;
+    absmax?: number[] | undefined;
+    absmin?: number[] | undefined;
+    absfuzz?: number[] | undefined;
+    absflat?: number[] | undefined;
 }
 
 export function setup(
-  options: SetupOptions,
-  callback: (err: Error, stream: fs.WriteStream) => void
+    options: SetupOptions,
+    callback: (err: Error, stream: fs.WriteStream) => void,
 ): void;
 export function create(
-  stream: fs.WriteStream,
-  options: CreateOptions,
-  callback: (err: Error) => void
+    stream: fs.WriteStream,
+    options: CreateOptions,
+    callback: (err: Error) => void,
 ): void;
 export function send_event(
-  stream: fs.WriteStream,
-  typeParam: number,
-  code: number,
-  value: number,
-  callback: (err: Error) => void
+    stream: fs.WriteStream,
+    typeParam: number,
+    code: number,
+    value: number,
+    callback: (err: Error) => void,
 ): void;
 export function key_event(
-  stream: fs.WriteStream,
-  code: number,
-  callback: (err: Error) => void
+    stream: fs.WriteStream,
+    code: number,
+    callback: (err: Error) => void,
 ): void;
 export function emit_combo(
-  stream: fs.WriteStream,
-  codes: number[],
-  callback: (err: Error) => void
+    stream: fs.WriteStream,
+    codes: number[],
+    callback: (err: Error) => void,
 ): void;
 
 export const BUS_PCI: number;
