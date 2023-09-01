@@ -201,7 +201,7 @@ declare namespace uri {
      * Map of query string keys and values
      */
     interface QueryString {
-        [key: string]: string|string[];
+        [key: string]: string | string[];
     }
 
     /**

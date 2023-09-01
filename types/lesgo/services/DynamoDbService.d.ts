@@ -1,4 +1,4 @@
-import { DocumentClient } from 'aws-sdk2-types/clients/dynamodb';
+import { DocumentClient } from "aws-sdk2-types/clients/dynamodb";
 
 export interface DynamoDbParams {
     region: DocumentClient.RegionName;
@@ -56,7 +56,7 @@ export default class DynamoDb {
         TableName: DocumentClient.TableName;
         KeyConditionExpression: DocumentClient.KeyExpression;
         ExpressionAttributeValues: DocumentClient.ExpressionAttributeValueMap;
-        Select: 'COUNT';
+        Select: "COUNT";
     };
 
     protected preparePutPayload(

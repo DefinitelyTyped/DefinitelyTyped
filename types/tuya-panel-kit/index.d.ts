@@ -4,7 +4,6 @@
 //                 ShinyLeee <https://github.com/ShinyLeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
-// tslint:disable:max-line-length
 import * as React from 'react';
 import {
     StyleProp,

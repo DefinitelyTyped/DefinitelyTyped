@@ -20,7 +20,9 @@ import Delta = require("quill-delta");
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any; delete?: number | undefined; retain?: number | undefined } & OptionalAttributes;
+export type DeltaOperation =
+    & { insert?: any; delete?: number | undefined; retain?: number | undefined }
+    & OptionalAttributes;
 interface SourceMap {
     API: "api";
     SILENT: "silent";

@@ -3,7 +3,6 @@
     "rules": {
         "no-single-declare-module": false,
         "no-unnecessary-type-assertion": false,
-        "object-literal-shorthand": false,
-        "semicolon": false
+        "object-literal-shorthand": false
     }
 }

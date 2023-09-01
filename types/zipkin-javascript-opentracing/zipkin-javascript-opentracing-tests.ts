@@ -5,5 +5,5 @@ const zipkinBaseUrl = "http://zipkin.danielmschmidt.de";
 const tracer = new ZipkinOpentracing({
     serviceName: "zipkin-opentracing-service",
     endpoint: zipkinBaseUrl,
-    kind: "client"
+    kind: "client",
 });

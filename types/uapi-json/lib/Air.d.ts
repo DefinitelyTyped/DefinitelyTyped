@@ -1,4 +1,4 @@
-import { Settings } from './Settings';
+import { Settings } from "./Settings";
 
 export interface Pricing {
     currency: string;
@@ -15,7 +15,7 @@ export interface SearchPassengers {
     [x: string]: number;
 }
 
-export type Cabins = ['Economy'] | ['Business'] | ['Economy', 'Business'];
+export type Cabins = ["Economy"] | ["Business"] | ["Economy", "Business"];
 
 export interface ShopParams {
     legs: Leg[];
@@ -60,9 +60,9 @@ export interface SSR {
 export interface BookPassengers {
     lastName: string;
     firstName: string;
-    title: 'MR' | 'MS' | 'MSTR' | 'MISS';
+    title: "MR" | "MS" | "MSTR" | "MISS";
     birthDate: string;
-    gender: 'M' | 'F';
+    gender: "M" | "F";
     ageCategory: string;
     passNumber: string;
     passCountry: string;
@@ -125,8 +125,8 @@ export type GetUniversalRecordParams = GetBookingParams;
 export type GetUniversalRecordByPNRParams = GetBookingParams;
 
 export interface TicketParams {
-    commission: { type: 'ZA' | 'Z'; value: number };
-    fop: { type: 'Cash' };
+    commission: { type: "ZA" | "Z"; value: number };
+    fop: { type: "Cash" };
     pnr: string;
 }
 
