@@ -127,9 +127,9 @@ export class GUI {
      * Adds a color controller to the GUI.
      * @example
      * params = {
-     * 	cssColor: '#ff00ff',
-     * 	rgbColor: { r: 0, g: 0.2, b: 0.4 },
-     * 	customRange: [ 0, 127, 255 ],
+     *   cssColor: '#ff00ff',
+     *   rgbColor: { r: 0, g: 0.2, b: 0.4 },
+     *   customRange: [ 0, 127, 255 ],
      * };
      *
      * gui.addColor( params, 'cssColor' );
@@ -165,16 +165,16 @@ export class GUI {
      * recall these values.
      * @example
      * {
-     * 	controllers: {
-     * 		prop1: 1,
-     * 		prop2: 'value',
-     * 		...
-     * 	},
-     * 	folders: {
-     * 		folderName1: { controllers, folders },
-     * 		folderName2: { controllers, folders }
-     * 		...
-     * 	}
+     *   controllers: {
+     *     prop1: 1,
+     *     prop2: 'value',
+     *     ...
+     *   },
+     *   folders: {
+     *     folderName1: { controllers, folders },
+     *     folderName2: { controllers, folders }
+     *     ...
+     *   }
      * }
      *
      * @param recursive Pass false to exclude folders descending from this GUI.
@@ -226,10 +226,10 @@ export class GUI {
      * @param callback
      * @example
      * gui.onChange( event => {
-     * 	event.object     // object that was modified
-     * 	event.property   // string, name of property
-     * 	event.value      // new value of controller
-     * 	event.controller // controller that was modified
+     *   event.object     // object that was modified
+     *   event.property   // string, name of property
+     *   event.value      // new value of controller
+     *   event.controller // controller that was modified
      * } );
      */
     onChange(
@@ -246,10 +246,10 @@ export class GUI {
      * @param callback
      * @example
      * gui.onFinishChange( event => {
-     * 	event.object     // object that was modified
-     * 	event.property   // string, name of property
-     * 	event.value      // new value of controller
-     * 	event.controller // controller that was modified
+     *   event.object     // object that was modified
+     *   event.property   // string, name of property
+     *   event.value      // new value of controller
+     *   event.controller // controller that was modified
      * } );
      */
     onFinishChange(
@@ -394,8 +394,8 @@ export class Controller<T = Record<string, unknown>, K extends keyof T = keyof T
      * const controller = gui.add( object, 'property' );
      *
      * controller.onChange( function( v ) {
-     * 	console.log( 'The value is now ' + v );
-     * 	console.assert( this === controller );
+     *   console.log( 'The value is now ' + v );
+     *   console.assert( this === controller );
      * } );
      */
     onChange(callback: (value: T[K]) => void): this;
@@ -416,8 +416,8 @@ export class Controller<T = Record<string, unknown>, K extends keyof T = keyof T
      * const controller = gui.add( object, 'property' );
      *
      * controller.onFinishChange( function( v ) {
-     * 	console.log( 'Changes complete: ' + v );
-     * 	console.assert( this === controller );
+     *   console.log( 'Changes complete: ' + v );
+     *   console.assert( this === controller );
      * } );
      */
     onFinishChange(callback: (value: T[K]) => void): this;
