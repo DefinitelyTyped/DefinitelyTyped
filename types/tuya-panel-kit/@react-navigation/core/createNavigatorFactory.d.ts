@@ -9,7 +9,6 @@ import type { EventMapBase, TypedNavigator } from "./types";
  * @returns Factory method to create a `Navigator` and `Screen` pair.
  */
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-// tslint:disable-next-line max-line-length
 export default function createNavigatorFactory<
     State extends NavigationState,
     ScreenOptions extends {},

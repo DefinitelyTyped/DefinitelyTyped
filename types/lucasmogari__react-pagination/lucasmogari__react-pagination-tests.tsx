@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { useNavigation } from '@lucasmogari/react-pagination';
+import { useNavigation } from "@lucasmogari/react-pagination";
 
 const PaginationComponent = () => {
     const paginationData = useNavigation({

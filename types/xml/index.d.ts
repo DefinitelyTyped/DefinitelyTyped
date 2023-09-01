@@ -22,9 +22,10 @@ declare namespace xml {
         declaration?:
             | boolean
             | {
-                  encoding?: string | undefined;
-                  standalone?: string | undefined;
-              } | undefined;
+                encoding?: string | undefined;
+                standalone?: string | undefined;
+            }
+            | undefined;
     }
 
     interface XmlAttrs {

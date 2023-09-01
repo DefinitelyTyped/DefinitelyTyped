@@ -32,7 +32,6 @@ export { default as useHeaderHeight } from "./utils/useHeaderHeight";
 /**
  * Types
  */
-// tslint:disable-next-line max-line-length
 export type {
     StackCardInterpolatedStyle,
     StackCardInterpolationProps,

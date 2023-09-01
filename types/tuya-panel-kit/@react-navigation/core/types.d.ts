@@ -83,7 +83,7 @@ export declare type EventArg<
         : {
             readonly data: Readonly<Data>;
         });
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type EventListenerCallback<EventMap extends EventMapBase, EventName extends keyof EventMap> = (
     e: EventArg<Extract<EventName, string>, EventMap[EventName]["canPreventDefault"], EventMap[EventName]["data"]>,
 ) => void;
@@ -261,7 +261,7 @@ export declare type NavigationContainerProps = {
      */
     children: React.ReactNode;
 };
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type NavigationProp<
     ParamList extends ParamListBase,
     RouteName extends keyof ParamList = string,
@@ -293,7 +293,7 @@ export declare type RouteProp<ParamList extends ParamListBase, RouteName extends
     Extract<RouteName, string>,
     ParamList[RouteName]
 >;
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type CompositeNavigationProp<
     A extends NavigationProp<ParamListBase, string, any, any>,
     B extends NavigationHelpersCommon<ParamListBase, any>,
@@ -327,7 +327,7 @@ export declare type CompositeNavigationProp<
          */
         A extends NavigationProp<any, any, any, any, infer E> ? E : {}
     >;
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length interface-over-type-literal
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type Descriptor<
     ParamList extends ParamListBase,
     RouteName extends keyof ParamList = string,
@@ -480,7 +480,7 @@ export declare type NavigationContainerRef =
          */
         getCurrentOptions(): object | undefined;
     };
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length interface-over-type-literal
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type TypedNavigator<
     ParamList extends ParamListBase,
     State extends NavigationState,

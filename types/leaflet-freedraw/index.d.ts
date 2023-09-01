@@ -3,7 +3,7 @@
 // Definitions by: Jean-Baptiste Zeller <https://github.com/Esurnir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FeatureGroup, LatLng, Polygon, LeafletEvent } from 'leaflet';
+import { FeatureGroup, LatLng, LeafletEvent, Polygon } from "leaflet";
 
 export as namespace LeafletFreeDraw;
 
@@ -59,7 +59,6 @@ declare class FreeDraw extends FeatureGroup {
     constructor(options?: FreeDrawOptions);
 
     /**
-     *
      * @param latlngs Pre-made polygon to add to the map
      * @param [options={concavePolgygons: false}] FreeDraw options, by default concavePolygons : false
      * @returns Polygon added to the FreeDraw instance
@@ -175,9 +174,9 @@ export interface FreeDrawOptions {
  * Event payload sent by markers
  */
 export interface MarkerEvent extends LeafletEvent {
-    type: 'markers';
+    type: "markers";
 
-    eventType: 'create' | 'remove' | 'clear';
+    eventType: "create" | "remove" | "clear";
 
     /**
      * Polygons currently stored in the FreeDraw Instance being listened to
@@ -192,8 +191,8 @@ export type MarkerEventHandler = (event: MarkerEvent) => void;
 
 declare module "leaflet" {
     interface Evented {
-        on(type: 'markers', fn: MarkerEventHandler, context?: any): this;
-        off(type: 'markers', fn?: MarkerEventHandler, context?: any): this;
+        on(type: "markers", fn: MarkerEventHandler, context?: any): this;
+        off(type: "markers", fn?: MarkerEventHandler, context?: any): this;
     }
 }
 

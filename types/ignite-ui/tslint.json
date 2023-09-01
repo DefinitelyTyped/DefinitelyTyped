@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
         "unified-signatures": false

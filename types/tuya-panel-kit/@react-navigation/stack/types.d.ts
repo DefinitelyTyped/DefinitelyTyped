@@ -52,7 +52,7 @@ export declare type StackNavigationEventMap = {
 export declare type StackNavigationHelpers =
     & NavigationHelpers<ParamListBase, StackNavigationEventMap>
     & StackActionHelpers<ParamListBase>;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> =
     & NavigationProp<
         ParamList,
