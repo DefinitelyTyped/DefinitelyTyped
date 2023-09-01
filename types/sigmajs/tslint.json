@@ -7,10 +7,7 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "object-literal-shorthand": false,
-        "one-line": false,
         "only-arrow-functions": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }
