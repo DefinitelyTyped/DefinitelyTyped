@@ -329,7 +329,6 @@ const JSXSimpleExampleWithParams = (
         Hello
     </fbt>
 );
-/* tslint:disable:whitespace */
 const JSXParamExample = (
     <fbt desc="JSX Param example">
         Hello, <fbt:param name="name">{person.getName()}</fbt:param>

@@ -3,9 +3,7 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "void-return": false,
         "npm-naming": [

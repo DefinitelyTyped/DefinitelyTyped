@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
         "no-empty-interface": false,
@@ -13,10 +12,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
-        "whitespace": false
+        "prefer-template": false
     }
 }

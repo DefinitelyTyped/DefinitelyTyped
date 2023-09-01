@@ -7,12 +7,9 @@
         "no-internal-module": false,
         "no-object-literal-type-assertion": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false
     }
 }

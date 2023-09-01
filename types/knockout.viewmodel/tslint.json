@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-trailing-whitespace": false,
         "npm-naming": false
     }
 }

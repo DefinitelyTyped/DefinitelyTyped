@@ -1,13 +1,9 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "jsdoc-format": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "triple-equals": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "triple-equals": false
     }
 }

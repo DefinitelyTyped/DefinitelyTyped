@@ -4,12 +4,9 @@
         "ban-types": false,
         "no-boolean-literal-compare": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

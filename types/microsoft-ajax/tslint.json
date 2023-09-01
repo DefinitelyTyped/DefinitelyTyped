@@ -2,15 +2,11 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "new-parens": false,
-        "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-inferrable-types": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-initializer": false,
         "no-unnecessary-qualifier": false,
@@ -18,17 +14,13 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "object-literal-shorthand": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-for-of": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "unified-signatures": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }

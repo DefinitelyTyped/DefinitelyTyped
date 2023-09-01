@@ -5,7 +5,6 @@
         "no-duplicate-imports": false,
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
-        "no-trailing-whitespace": false,
         "strict-export-declare-modifiers": false
     }
 }

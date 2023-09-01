@@ -22,7 +22,6 @@
  */
 import { Transform, VariableDeclarator, ObjectPattern, Identifier } from "jscodeshift";
 
-// tslint:disable-next-line max-line-length
 const keywordsStr = 'this function if return var else for new in typeof while case break try catch delete throw switch continue default instanceof do void finally with debugger implements interface package private protected public static class enum export extends import super true false null abstract boolean byte char const double final float goto int long native short synchronized throws transient volatile';
 const keywords = keywordsStr.split(' ').reduce<{ [key: string]: boolean }>((f, k) => {
   f[k] = true;

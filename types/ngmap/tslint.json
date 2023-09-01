@@ -9,7 +9,6 @@
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "semicolon": false
+        "only-arrow-functions": false
     }
 }

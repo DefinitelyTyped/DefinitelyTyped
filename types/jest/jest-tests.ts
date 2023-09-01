@@ -826,20 +826,16 @@ mocked.test1.mockResolvedValueOnce({ a: 1 });
 mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
 mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
@@ -2013,7 +2009,6 @@ test('import.meta.jest replaces the global jest in ESM', () => {
     // @ts-expect-error
     // ts(1343): The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.
 
-    // tslint:disable-next-line: whitespace
     const importMetaJest = import.meta.jest;
 
     importMetaJest.fn();

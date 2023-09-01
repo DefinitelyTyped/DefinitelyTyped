@@ -8,10 +8,8 @@
         "no-var-keyword": false,
         "no-void-expression": false,
         "npm-naming": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

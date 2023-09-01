@@ -5,7 +5,6 @@
         "array-type": false,
         "ban-types": false,
         "interface-name": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-irregular-whitespace": false,
         "no-unnecessary-qualifier": false,

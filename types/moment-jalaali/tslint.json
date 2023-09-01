@@ -1,6 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-padding": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

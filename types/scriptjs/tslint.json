@@ -2,10 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
-        "no-var-keyword": false,
-        "one-line": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

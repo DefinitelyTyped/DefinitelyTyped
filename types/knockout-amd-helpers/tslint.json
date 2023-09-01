@@ -1,10 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
-        "no-consecutive-blank-lines": false,
-        "no-single-declare-module": false,
-        "semicolon": false,
-        "whitespace": false
+        "no-single-declare-module": false
     }
 }

@@ -1,11 +1,8 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": false,
         "no-const-enum": false,
         "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

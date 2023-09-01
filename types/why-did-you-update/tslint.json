@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "strict-export-declare-modifiers": false
     }
 }

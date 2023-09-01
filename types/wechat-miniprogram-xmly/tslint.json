@@ -1,8 +1,7 @@
-{ 
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "semicolon": false,
-    "strict-export-declare-modifiers" : false,
-    "npm-naming": false
-  }
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "strict-export-declare-modifiers": false,
+        "npm-naming": false
+    }
 }

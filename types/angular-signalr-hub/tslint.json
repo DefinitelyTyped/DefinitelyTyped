@@ -5,10 +5,7 @@
         "member-access": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "prefer-const": false,
-        "prefer-for-of": false,
-        "semicolon": false,
-        "whitespace": false
+        "prefer-for-of": false
     }
 }

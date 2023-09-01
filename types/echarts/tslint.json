@@ -5,14 +5,9 @@
         "ban-types": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-irregular-whitespace": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
-        "semicolon": false,
-        "space-within-parens": false,
-        "typedef-whitespace": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }

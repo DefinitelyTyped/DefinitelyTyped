@@ -1,4 +1,4 @@
-/* tslint:disable:comment-format no-namespace */
+/* tslint:disable:no-namespace */
 
 'use strict';
 

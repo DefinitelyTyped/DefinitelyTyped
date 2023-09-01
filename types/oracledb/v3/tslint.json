@@ -2,8 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "comment-format": false,
-        "max-line-length": false,
         "no-void-expression": false,
         "unified-signatures": false
     }

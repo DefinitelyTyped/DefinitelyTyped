@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "prefer-const": false,
-        "space-before-function-paren": false
+        "prefer-const": false
     }
 }

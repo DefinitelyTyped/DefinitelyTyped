@@ -6,7 +6,6 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
@@ -14,7 +13,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
         "triple-equals": false
     }

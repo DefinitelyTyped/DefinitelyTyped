@@ -38,7 +38,6 @@ export declare type TabActionHelpers<ParamList extends ParamListBase> = {
      * @param name Name of the route for the tab.
      * @param [params] Params object for the route.
      */
-    // tslint:disable-next-line max-line-length
     jumpTo<RouteName extends Extract<keyof ParamList, string>>(...args: undefined extends ParamList[RouteName] ? [RouteName] | [RouteName, ParamList[RouteName]] : [RouteName, ParamList[RouteName]]): void;
 };
 // tslint:disable-next-line strict-export-declare-modifiers

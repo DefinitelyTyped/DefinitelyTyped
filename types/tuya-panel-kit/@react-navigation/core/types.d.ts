@@ -61,7 +61,7 @@ export declare type EventArg<EventName extends string, CanPreventDefault extends
 } : {
     readonly data: Readonly<Data>;
 });
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type EventListenerCallback<EventMap extends EventMapBase, EventName extends keyof EventMap> = (e: EventArg<Extract<EventName, string>, EventMap[EventName]['canPreventDefault'], EventMap[EventName]['data']>) => void;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type EventConsumer<EventMap extends EventMapBase> = {
@@ -214,7 +214,7 @@ export declare type NavigationContainerProps = {
      */
     children: React.ReactNode;
 };
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type NavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string, State extends NavigationState = NavigationState<ParamList>, ScreenOptions extends {} = {}, EventMap extends EventMapBase = {}> = NavigationHelpersCommon<ParamList, State> & {
     /**
      * Update the param object for the route.
@@ -233,7 +233,7 @@ export declare type NavigationProp<ParamList extends ParamListBase, RouteName ex
 } & EventConsumer<EventMap & EventMapCore<State>> & PrivateValueStore<ParamList, RouteName, EventMap>;
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type RouteProp<ParamList extends ParamListBase, RouteName extends keyof ParamList> = Route<Extract<RouteName, string>, ParamList[RouteName]>;
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length
+// tslint:disable-next-line strict-export-declare-modifiers
 export declare type CompositeNavigationProp<A extends NavigationProp<ParamListBase, string, any, any>, B extends NavigationHelpersCommon<ParamListBase, any>> = Omit<A & B, keyof NavigationProp<any>> & NavigationProp<
 /**
  * Param list from both navigation objects needs to be combined
@@ -259,7 +259,7 @@ A extends NavigationProp<any, any, infer S> ? S : NavigationState,
  * This allows typechecking `addListener`/`removeListener`
  */
 A extends NavigationProp<any, any, any, any, infer E> ? E : {}>;
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length interface-over-type-literal
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type Descriptor<ParamList extends ParamListBase, RouteName extends keyof ParamList = string, State extends NavigationState = NavigationState, ScreenOptions extends {} = {}, EventMap extends EventMapBase = {}> = {
     /**
      * Render the component associated with this route.
@@ -387,7 +387,7 @@ export declare type NavigationContainerRef = NavigationHelpers<ParamListBase> & 
      */
     getCurrentOptions(): object | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers max-line-length interface-over-type-literal
+// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type TypedNavigator<ParamList extends ParamListBase, State extends NavigationState, ScreenOptions extends {}, EventMap extends EventMapBase, Navigator extends React.ComponentType<any>> = {
     /**
      * Navigator component which manages the child screens.

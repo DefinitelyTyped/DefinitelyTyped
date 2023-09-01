@@ -3,8 +3,6 @@
     "rules": {
         "ban-types": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
@@ -13,8 +11,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

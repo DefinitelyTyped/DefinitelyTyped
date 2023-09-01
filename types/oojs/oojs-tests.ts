@@ -1,4 +1,4 @@
-/* tslint:disable:space-before-function-paren only-arrow-functions prefer-const no-unnecessary-class */
+/* tslint:disable:only-arrow-functions prefer-const no-unnecessary-class */
 
 // #region OO globals
 function SubClass() {}
@@ -111,7 +111,6 @@ OO.getObjectValues(objectWithMultipleValueTypes); // $ExpectType (string | numbe
             leaf; // $ExpectType string | number | HTMLAnchorElement | (() => string) | { clone: () => string; }
         },
         node => {
-            // tslint:disable-next-line:max-line-length
             // $ExpectType string | number | string[] | HTMLAnchorElement | (() => string) | { baz: number; } | { bar: { baz: number; }; } | { clone: () => string; } | { foo: { bar: { baz: number; }; }; bar: string[]; baz: { clone: () => string; }; fooBar: HTMLAnchorElement; fooBaz: () => string; }
             node;
         },

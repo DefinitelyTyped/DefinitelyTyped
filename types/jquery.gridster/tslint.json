@@ -3,12 +3,9 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-const": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

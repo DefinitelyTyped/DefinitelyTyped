@@ -3,8 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-var-keyword": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

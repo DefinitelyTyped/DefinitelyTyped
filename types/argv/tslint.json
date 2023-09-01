@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
-        "space-within-parens": false
+        "interface-over-type-literal": false
     }
 }

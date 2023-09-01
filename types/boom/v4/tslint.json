@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
         "no-object-literal-type-assertion": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

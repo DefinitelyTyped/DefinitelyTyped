@@ -9,6 +9,5 @@ import type { TypedNavigator, EventMapBase } from './types';
  * @returns Factory method to create a `Navigator` and `Screen` pair.
  */
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-// tslint:disable-next-line max-line-length
 export default function createNavigatorFactory<State extends NavigationState, ScreenOptions extends {}, EventMap extends EventMapBase, NavigatorComponent extends React.ComponentType<any>>(Navigator: NavigatorComponent): <ParamList extends Record<string, object | undefined>>() => TypedNavigator<ParamList, State, ScreenOptions, EventMap, NavigatorComponent>;
 /* eslist-enable @definitelytyped/no-unnecessary-generics */

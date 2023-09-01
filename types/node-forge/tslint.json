@@ -5,7 +5,6 @@
         "array-type": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
@@ -15,9 +14,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

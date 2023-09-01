@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "max-line-length": false,
         "no-redundant-undefined": false,
         "npm-naming": false,
         "unified-signatures": false

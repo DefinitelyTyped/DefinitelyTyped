@@ -143,7 +143,6 @@ dt.toSQLTime(); // $ExpectType string
 dt.toSQLTime({ includeOffset: false, includeZone: true }); // $ExpectType string
 dt.toSQLTime({ includeOffsetSpace: false, includeZone: true }); // $ExpectType string
 dt.valueOf(); // $ExpectType number
-// tslint:disable-next-line max-line-length
 dt.toObject(); // $ExpectType Record<"day" | "hour" | "minute" | "month" | "second" | "year" | "millisecond", number> || Record<"year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond", number>
 // @ts-expect-error
 dt.toObject().locale;

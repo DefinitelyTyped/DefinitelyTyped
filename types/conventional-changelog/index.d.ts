@@ -27,7 +27,6 @@ import { Commit } from "conventional-commits-parser";
  * @param parserOpts
  * @param writerOpts
  */
-// tslint:disable-next-line max-line-length
 declare function conventionalChangelog<TCommit extends Commit = Commit, TContext extends WriterContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>): Stream.Readable;
 
 declare namespace conventionalChangelog {

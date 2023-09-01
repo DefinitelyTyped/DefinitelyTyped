@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-var-keyword": false,
         "prefer-const": false
     }

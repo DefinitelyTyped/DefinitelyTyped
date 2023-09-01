@@ -5,9 +5,6 @@
         "ban-types": false,
         "interface-over-type-literal": false,
         "no-var-keyword": false,
-        "one-line": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

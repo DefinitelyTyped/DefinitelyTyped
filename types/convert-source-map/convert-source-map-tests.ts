@@ -1,7 +1,6 @@
 import convert = require('convert-source-map');
 
 const comment =
-    // tslint:disable-next-line max-line-length
     '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZm9vLmpzIiwic291cmNlcyI6WyJjb25zb2xlLmxvZyhcImhpXCIpOyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIvIn0=';
 
 // $ExpectType string

@@ -3,8 +3,6 @@
     "rules": {
         "array-type": false,
         "no-single-declare-module": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "whitespace": false
+        "only-arrow-functions": false
     }
 }

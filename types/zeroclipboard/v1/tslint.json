@@ -1,12 +1,9 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false
+        "only-arrow-functions": false
     }
 }

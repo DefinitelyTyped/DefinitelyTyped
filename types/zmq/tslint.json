@@ -7,8 +7,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

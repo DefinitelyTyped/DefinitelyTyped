@@ -30,7 +30,6 @@ import { Package } from "normalize-package-data";
  * @param parserOpts
  * @param writerOpts
  */
-// tslint:disable-next-line max-line-length
 declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>, execOpts?: GitRawExecOptions): Stream.Readable;
 
 declare namespace conventionalChangelogCore {
@@ -258,7 +257,6 @@ declare namespace conventionalChangelogCore {
     }
 
     namespace Options {
-        // tslint:disable-next-line max-line-length
         type Config<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = Promise<Config.Object<TCommit, TContext>> | Config.Function<TCommit, TContext> | Config.Object<TCommit, TContext>;
 
         namespace Config {

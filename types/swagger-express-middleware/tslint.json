@@ -4,17 +4,10 @@
         "array-type": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
-        "object-literal-key-quotes": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

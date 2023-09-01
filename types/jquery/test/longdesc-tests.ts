@@ -1,13 +1,11 @@
 // tslint:disable:ban-types
 // tslint:disable:no-var-keyword
-// tslint:disable:object-literal-key-quotes
 // tslint:disable:object-literal-shorthand
 // tslint:disable:one-variable-per-declaration
 // tslint:disable:only-arrow-functions
 // tslint:disable:prefer-const
 // tslint:disable:prefer-for-of
 // tslint:disable:prefer-template
-// tslint:disable:space-within-parens
 // tslint:disable:triple-equals
 
 function longdesc() {

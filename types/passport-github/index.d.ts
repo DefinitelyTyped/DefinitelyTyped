@@ -18,7 +18,7 @@ declare class Strategy extends oauth2.Strategy {
     constructor(options: github.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: github.Profile, done: oauth2.VerifyCallback) => void);
     constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
     // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures max-line-length
+    // tslint:disable-next-line:unified-signatures
     constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
 }
 

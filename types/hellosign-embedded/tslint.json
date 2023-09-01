@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-internal-module": false,
-        "object-literal-key-quotes": false,
         "strict-export-declare-modifiers": false
     }
 }

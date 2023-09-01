@@ -1,9 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": false,
-        "object-literal-key-quotes": false,
-        "only-arrow-functions": false,
-        "typedef-whitespace": false
+        "only-arrow-functions": false
     }
 }

@@ -4,20 +4,9 @@
         "npm-naming": [
             true,
             {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
+                "errors": [["NeedsExportEquals", false]],
                 "mode": "code"
             }
-        ],
-        "quotemark": [
-            true,
-            "double",
-            "avoid-escape",
-            "avoid-template"
         ],
         "unified-signatures": false
     }

@@ -5,11 +5,7 @@
         "new-parens": false,
         "no-var-keyword": false,
         "no-void-expression": false,
-        "one-line": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

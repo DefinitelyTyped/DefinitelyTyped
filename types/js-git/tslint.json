@@ -2,10 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
-        "no-var-keyword": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

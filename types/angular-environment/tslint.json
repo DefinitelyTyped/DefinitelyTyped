@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
-        "no-var-keyword": false,
-        "semicolon": false
+        "no-var-keyword": false
     }
 }

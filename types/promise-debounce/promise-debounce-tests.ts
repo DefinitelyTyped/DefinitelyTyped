@@ -1,4 +1,4 @@
-// tslint:disable: no-async-without-await space-before-function-paren
+// tslint:disable: no-async-without-await
 import debounce = require('promise-debounce');
 
 debounce(() => Promise.resolve()); // $ExpectType () => Promise<void>

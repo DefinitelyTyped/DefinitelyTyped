@@ -1,4 +1,3 @@
-/* tslint:disable:no-consecutive-blank-lines comment-format */
 
 import { Options } from '@babel/preset-env';
 

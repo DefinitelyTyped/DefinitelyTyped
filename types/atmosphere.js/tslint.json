@@ -2,15 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "only-arrow-functions": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "only-arrow-functions": false
     }
 }

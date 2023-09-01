@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "indent": [true, "spaces", 4],
-        "quotemark": [true, "double", "avoid-escape"]
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

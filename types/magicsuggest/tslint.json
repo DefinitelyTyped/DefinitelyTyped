@@ -4,10 +4,8 @@
         "array-type": false,
         "ban-types": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

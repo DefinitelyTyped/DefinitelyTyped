@@ -5,7 +5,6 @@
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "npm-naming": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

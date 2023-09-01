@@ -8,7 +8,6 @@
 // tslint:disable:prefer-for-of
 // tslint:disable:prefer-switch
 // tslint:disable:prefer-template
-// tslint:disable:space-within-parens
 // tslint:disable:triple-equals
 
 function examples() {

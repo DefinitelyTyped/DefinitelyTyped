@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
@@ -12,7 +11,6 @@
                 "mode": "code"
             }
         ],
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }

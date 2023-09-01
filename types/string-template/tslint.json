@@ -2,10 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "no-consecutive-blank-lines": false,
-        "no-trailing-whitespace": false,
         "prefer-const": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

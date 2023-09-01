@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
-        "no-single-declare-module": false,
-        "semicolon": false
+        "no-single-declare-module": false
     }
 }

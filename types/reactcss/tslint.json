@@ -4,7 +4,6 @@
         "array-type": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

@@ -56,7 +56,6 @@ export class Server {
         finish: Finish
     ) => void;
     parseByteRange: (req: http.IncomingMessage, stat: fs.Stats) => ByteRange;
-    // tslint:disable-next-line max-line-length
     respondNoGzip: (pathname: string, status: number, contentType: string, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
     respond: (pathname: string, status: number, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
     stream: (pathname: string, files: string[], length: number, startByte: number, res: http.ServerResponse, callback: Callback) => void;

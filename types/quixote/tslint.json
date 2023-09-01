@@ -2,10 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

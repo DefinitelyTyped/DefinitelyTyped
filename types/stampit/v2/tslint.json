@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
@@ -11,10 +10,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

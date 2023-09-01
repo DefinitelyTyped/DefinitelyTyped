@@ -6,7 +6,6 @@
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

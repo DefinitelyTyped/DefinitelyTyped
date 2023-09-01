@@ -5,7 +5,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "semicolon": false
+        "prefer-template": false
     }
 }

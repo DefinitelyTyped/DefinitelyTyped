@@ -3,11 +3,8 @@
     "rules": {
         "ban-types": false,
         "interface-name": false,
-        "max-line-length": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

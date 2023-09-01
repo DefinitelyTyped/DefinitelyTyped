@@ -4,7 +4,6 @@
         "no-misused-new": false,
         "no-single-declare-module": false,
         "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "typedef-whitespace": false
+        "only-arrow-functions": false
     }
 }

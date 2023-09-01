@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/export-just-namespace": "off",
-        "@definitelytyped/trim-file": "off"
+        "@definitelytyped/export-just-namespace": "off"
     }
 }

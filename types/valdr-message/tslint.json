@@ -4,9 +4,6 @@
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "prefer-const": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

@@ -1,11 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "one-line": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

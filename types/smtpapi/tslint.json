@@ -3,10 +3,7 @@
     "rules": {
         "ban-types": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "prefer-const": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

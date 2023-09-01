@@ -5,9 +5,6 @@
         "jsdoc-format": false,
         "no-reference-import": false,
         "no-single-declare-module": false,
-        "no-var-keyword": false,
-        "one-line": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

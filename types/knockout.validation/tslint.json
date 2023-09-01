@@ -3,8 +3,6 @@
     "rules": {
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
-        "one-line": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

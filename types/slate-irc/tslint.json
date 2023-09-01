@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
         "prefer-const": false,
         "unified-signatures": false
     }

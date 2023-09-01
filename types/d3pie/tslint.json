@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "interface-name": false,
-        "semicolon": false,
         "void-return": false
     }
 }

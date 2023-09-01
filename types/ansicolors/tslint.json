@@ -6,7 +6,6 @@
             {
                 "mode": "name-only"
             }
-        ],
-        "semicolon": false
+        ]
     }
 }

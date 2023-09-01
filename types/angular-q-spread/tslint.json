@@ -3,9 +3,6 @@
     "rules": {
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "one-line": false,
-        "prefer-template": false,
-        "semicolon": false
+        "prefer-template": false
     }
 }

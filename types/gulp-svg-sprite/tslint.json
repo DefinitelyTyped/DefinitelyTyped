@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-consecutive-blank-lines": false,
-        "semicolon": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

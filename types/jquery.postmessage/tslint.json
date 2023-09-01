@@ -1,10 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "max-line-length": false,
         "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

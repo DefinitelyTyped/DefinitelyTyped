@@ -1,11 +1,9 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
         "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false
+        "only-arrow-functions": false
     }
 }

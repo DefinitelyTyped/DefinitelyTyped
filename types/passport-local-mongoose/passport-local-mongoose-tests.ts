@@ -122,7 +122,7 @@ type _User = User;
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line:no-padding no-empty-interface
+        // tslint:disable-next-line:no-empty-interface
         interface User extends _User {}
     }
 }

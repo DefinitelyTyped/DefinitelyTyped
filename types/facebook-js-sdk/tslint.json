@@ -4,7 +4,6 @@
         "no-empty-interface": false,
         "npm-naming": false,
         "only-arrow-functions": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

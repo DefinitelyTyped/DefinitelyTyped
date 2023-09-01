@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/trim-file": "off",
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-declare-current-package": "off",

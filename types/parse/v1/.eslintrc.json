@@ -2,7 +2,6 @@
     "rules": {
         "@definitelytyped/no-const-enum": "off",
         "@definitelytyped/dt-header": "off",
-        "@definitelytyped/trim-file": "off",
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-unnecessary-generics": "off"
     }

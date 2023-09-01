@@ -5,10 +5,7 @@
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "semicolon": false,
-        "typedef-whitespace": false,
         "unified-signatures": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }

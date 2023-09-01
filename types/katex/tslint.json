@@ -2,11 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "prefer-const": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }
