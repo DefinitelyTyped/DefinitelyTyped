@@ -352,7 +352,7 @@ declare module "../index" {
          * _.sum([4, 2, 8, 6]);
          * // => 20
          */
-        sum(collection: List<any> | null | undefined): number;
+        sum(collection: List<number> | null | undefined): number;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
