@@ -20,10 +20,10 @@ declare class Strategy extends oauth2.Strategy {
             done: oauth2.VerifyCallback,
         ) => void,
     );
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
     constructor(
         options: streamlabs.StrategyOptions,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
         verify: (
             accessToken: string,
             refreshToken: string,
@@ -42,10 +42,10 @@ declare class Strategy extends oauth2.Strategy {
             done: oauth2.VerifyCallback,
         ) => void,
     );
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
     constructor(
         options: streamlabs.StrategyOptionsWithRequest,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
         verify: (
             req: express.Request,
             accessToken: string,

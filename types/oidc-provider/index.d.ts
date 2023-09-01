@@ -155,12 +155,16 @@ export interface ClaimsParameterMember {
 }
 
 export interface ClaimsParameter {
-    id_token?: {
-        [key: string]: null | ClaimsParameterMember;
-    } | undefined;
-    userinfo?: {
-        [key: string]: null | ClaimsParameterMember;
-    } | undefined;
+    id_token?:
+        | {
+            [key: string]: null | ClaimsParameterMember;
+        }
+        | undefined;
+    userinfo?:
+        | {
+            [key: string]: null | ClaimsParameterMember;
+        }
+        | undefined;
 }
 
 export interface ClientAuthorizationState {
@@ -179,13 +183,15 @@ declare class Interaction extends BaseModel {
     readonly kind: "Interaction";
     iat: number;
     exp: number;
-    session?: {
-        accountId: string;
-        uid: string;
-        cookie: string;
-        acr?: string | undefined;
-        amr?: string[] | undefined;
-    } | undefined;
+    session?:
+        | {
+            accountId: string;
+            uid: string;
+            cookie: string;
+            acr?: string | undefined;
+            amr?: string[] | undefined;
+        }
+        | undefined;
     params: UnknownObject;
     prompt: PromptDetail;
     result?: InteractionResults | undefined;
@@ -214,9 +220,11 @@ declare class Session extends BaseModel {
     loginTs?: number | undefined;
     transient?: boolean | undefined;
     state?: UnknownObject | undefined;
-    authorizations?: {
-        [clientId: string]: ClientAuthorizationState;
-    } | undefined;
+    authorizations?:
+        | {
+            [clientId: string]: ClientAuthorizationState;
+        }
+        | undefined;
 
     authTime(): string | void;
     past(age: number): boolean;
@@ -249,13 +257,17 @@ declare class Grant extends BaseModel {
 
     accountId?: string | undefined;
     clientId?: string | undefined;
-    openid?: {
-        scope?: string | undefined;
-        claims?: string[] | undefined;
-    } | undefined;
-    resources?: {
-        [resource: string]: string;
-    } | undefined;
+    openid?:
+        | {
+            scope?: string | undefined;
+            claims?: string[] | undefined;
+        }
+        | undefined;
+    resources?:
+        | {
+            [resource: string]: string;
+        }
+        | undefined;
     rejected?: Pick<Grant, "openid" | "resources"> | undefined;
 
     addOIDCScope(scope: string): undefined;
@@ -504,14 +516,12 @@ declare class BackchannelAuthenticationRequest extends BaseToken {
 }
 
 declare class ClientCredentials extends BaseToken {
-    constructor(
-        properties: {
-            client: Client;
-            resourceServer?: ResourceServer | undefined;
-            scope: string;
-            [key: string]: unknown;
-        },
-    );
+    constructor(properties: {
+        client: Client;
+        resourceServer?: ResourceServer | undefined;
+        scope: string;
+        [key: string]: unknown;
+    });
     readonly kind: "ClientCredentials";
     scope?: string | undefined;
     extra?: UnknownObject | undefined;
@@ -525,9 +535,11 @@ declare class ClientCredentials extends BaseToken {
 }
 
 declare class InitialAccessToken extends BaseToken {
-    constructor(
-        properties?: { expiresIn?: number | undefined; policies?: string[] | undefined; [key: string]: unknown },
-    );
+    constructor(properties?: {
+        expiresIn?: number | undefined;
+        policies?: string[] | undefined;
+        [key: string]: unknown;
+    });
     readonly kind: "InitialAccessToken";
     clientId: undefined;
     policies?: string[] | undefined;
@@ -679,25 +691,29 @@ export interface ResourceServer {
     audience?: string | undefined;
     accessTokenTTL?: number | undefined;
     accessTokenFormat?: TokenFormat | undefined;
-    jwt?: {
-        sign?:
-            | {
-                alg?: AsymmetricSigningAlgorithm | undefined;
-                kid?: string | undefined;
-            }
-            | {
-                alg: SymmetricSigningAlgorithm;
-                key: crypto.KeyObject | Buffer;
-                kid?: string | undefined;
-            }
-            | undefined;
-        encrypt?: {
-            alg: EncryptionAlgValues;
-            enc: EncryptionEncValues;
-            key: crypto.KeyObject | Buffer;
-            kid?: string | undefined;
-        } | undefined;
-    } | undefined;
+    jwt?:
+        | {
+            sign?:
+                | {
+                    alg?: AsymmetricSigningAlgorithm | undefined;
+                    kid?: string | undefined;
+                }
+                | {
+                    alg: SymmetricSigningAlgorithm;
+                    key: crypto.KeyObject | Buffer;
+                    kid?: string | undefined;
+                }
+                | undefined;
+            encrypt?:
+                | {
+                    alg: EncryptionAlgValues;
+                    enc: EncryptionEncValues;
+                    key: crypto.KeyObject | Buffer;
+                    kid?: string | undefined;
+                }
+                | undefined;
+        }
+        | undefined;
 }
 
 declare class OIDCContext {
@@ -808,9 +824,11 @@ export interface AdapterPayload extends AllClientMetadata {
     acr?: string | undefined;
     amr?: string[] | undefined;
     aud?: string[] | undefined;
-    authorizations?: {
-        [clientId: string]: ClientAuthorizationState;
-    } | undefined;
+    authorizations?:
+        | {
+            [clientId: string]: ClientAuthorizationState;
+        }
+        | undefined;
     authTime?: number | undefined;
     claims?: ClaimsParameter | undefined;
     clientId?: string | undefined;
@@ -843,13 +861,15 @@ export interface AdapterPayload extends AllClientMetadata {
     returnTo?: string | undefined;
     rotations?: number | undefined;
     scope?: string | undefined;
-    session?: {
-        accountId?: string | undefined;
-        acr?: string | undefined;
-        amr?: string[] | undefined;
-        cookie?: string | undefined;
-        uid?: string | undefined;
-    } | undefined;
+    session?:
+        | {
+            accountId?: string | undefined;
+            acr?: string | undefined;
+            amr?: string[] | undefined;
+            cookie?: string | undefined;
+            uid?: string | undefined;
+        }
+        | undefined;
     sessionUid?: string | undefined;
     sid?: string | undefined;
     trusted?: string[] | undefined;
@@ -898,26 +918,32 @@ export interface Configuration {
 
     adapter?: AdapterConstructor | AdapterFactory | undefined;
 
-    claims?: {
-        [key: string]: null | string[];
-    } | undefined;
+    claims?:
+        | {
+            [key: string]: null | string[];
+        }
+        | undefined;
 
     clientBasedCORS?: ((ctx: KoaContextWithOIDC, origin: string, client: Client) => boolean) | undefined;
 
     clients?: ClientMetadata[] | undefined;
 
-    formats?: {
-        bitsOfOpaqueRandomness?: number | ((ctx: KoaContextWithOIDC, model: BaseModel) => number) | undefined;
-        customizers?: {
-            jwt?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    token: AccessToken | ClientCredentials,
-                    parts: JWTStructured,
-                ) => CanBePromise<JWTStructured>)
+    formats?:
+        | {
+            bitsOfOpaqueRandomness?: number | ((ctx: KoaContextWithOIDC, model: BaseModel) => number) | undefined;
+            customizers?:
+                | {
+                    jwt?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            token: AccessToken | ClientCredentials,
+                            parts: JWTStructured,
+                        ) => CanBePromise<JWTStructured>)
+                        | undefined;
+                }
                 | undefined;
-        } | undefined;
-    } | undefined;
+        }
+        | undefined;
 
     clientDefaults?: AllClientMetadata | undefined;
 
@@ -925,227 +951,286 @@ export interface Configuration {
 
     conformIdTokenClaims?: boolean | undefined;
 
-    cookies?: {
-        names?: {
-            session?: string | undefined;
-            interaction?: string | undefined;
-            resume?: string | undefined;
-            state?: string | undefined;
-        } | undefined;
-        long?: CookiesSetOptions | undefined;
-        short?: CookiesSetOptions | undefined;
-        keys?: Array<string | Buffer> | undefined;
-    } | undefined;
+    cookies?:
+        | {
+            names?:
+                | {
+                    session?: string | undefined;
+                    interaction?: string | undefined;
+                    resume?: string | undefined;
+                    state?: string | undefined;
+                }
+                | undefined;
+            long?: CookiesSetOptions | undefined;
+            short?: CookiesSetOptions | undefined;
+            keys?: Array<string | Buffer> | undefined;
+        }
+        | undefined;
 
     discovery?: UnknownObject | undefined;
 
     extraParams?: string[] | undefined;
 
-    features?: {
-        devInteractions?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        claimsParameter?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        clientCredentials?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        introspection?: {
-            enabled?: boolean | undefined;
-            allowedPolicy?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    client: Client,
-                    token: AccessToken | ClientCredentials | RefreshToken,
-                ) => CanBePromise<boolean>)
+    features?:
+        | {
+            devInteractions?:
+                | {
+                    enabled?: boolean | undefined;
+                }
                 | undefined;
-        } | undefined;
 
-        revocation?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        userinfo?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        jwtUserinfo?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        encryption?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        registration?: {
-            enabled?: boolean | undefined;
-            initialAccessToken?: boolean | string | undefined;
-            policies?: {
-                [key: string]: (ctx: KoaContextWithOIDC, metadata: ClientMetadata) => CanBePromise<undefined | void>; // tslint:disable-line:void-return
-            } | undefined;
-            idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
-            secretFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
-        } | undefined;
-
-        registrationManagement?: {
-            enabled?: boolean | undefined;
-            rotateRegistrationAccessToken?: RotateRegistrationAccessTokenFunction | boolean | undefined;
-            issueRegistrationAccessToken?: IssueRegistrationAccessTokenFunction | boolean | undefined;
-        } | undefined;
-
-        deviceFlow?: {
-            enabled?: boolean | undefined;
-            charset?: "base-20" | "digits" | undefined;
-            mask?: string | undefined;
-            deviceInfo?: ((ctx: KoaContextWithOIDC) => UnknownObject) | undefined;
-            userCodeInputSource?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    form: string,
-                    out?: ErrorOut,
-                    err?: errors.OIDCProviderError | Error,
-                ) => CanBePromise<undefined | void>)
-                | undefined; // tslint:disable-line:void-return
-            userCodeConfirmSource?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    form: string,
-                    client: Client,
-                    deviceInfo: UnknownObject,
-                    userCode: string,
-                ) => CanBePromise<undefined | void>)
-                | undefined; // tslint:disable-line:void-return
-            successSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined; // tslint:disable-line:void-return
-        } | undefined;
-
-        requestObjects?: {
-            request?: boolean | undefined;
-            requestUri?: boolean | undefined;
-            requireUriRegistration?: boolean | undefined;
-            requireSignedRequestObject?: boolean | undefined;
-            mode?: "lax" | "strict" | undefined;
-        } | undefined;
-
-        dPoP?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-            nonceSecret?: Buffer | undefined;
-            requireNonce?: (ctx: KoaContextWithOIDC) => boolean;
-        } | undefined;
-
-        backchannelLogout?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        fapi?: {
-            enabled?: boolean | undefined;
-            profile: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined;
-        } | undefined;
-
-        ciba?: {
-            enabled?: boolean | undefined;
-            deliveryModes: CIBADeliveryMode[];
-            triggerAuthenticationDevice?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    request: BackchannelAuthenticationRequest,
-                    account: Account,
-                    client: Client,
-                ) => CanBePromise<void>)
+            claimsParameter?:
+                | {
+                    enabled?: boolean | undefined;
+                }
                 | undefined;
-            validateBindingMessage?:
-                | ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>)
-                | undefined;
-            validateRequestContext?:
-                | ((ctx: KoaContextWithOIDC, requestContext?: string) => CanBePromise<void>)
-                | undefined;
-            processLoginHintToken?:
-                | ((ctx: KoaContextWithOIDC, loginHintToken?: string) => CanBePromise<string | undefined>)
-                | undefined;
-            processLoginHint?:
-                | ((ctx: KoaContextWithOIDC, loginHint?: string) => CanBePromise<string | undefined>)
-                | undefined;
-            verifyUserCode?: ((ctx: KoaContextWithOIDC, userCode?: string) => CanBePromise<void>) | undefined;
-        } | undefined;
 
-        webMessageResponseMode?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-        } | undefined;
-
-        jwtIntrospection?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-        } | undefined;
-
-        jwtResponseModes?: {
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        pushedAuthorizationRequests?: {
-            requirePushedAuthorizationRequests?: boolean | undefined;
-            enabled?: boolean | undefined;
-        } | undefined;
-
-        rpInitiatedLogout?: {
-            enabled?: boolean | undefined;
-            postLogoutSuccessSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined; // tslint:disable-line:void-return
-            logoutSource?: ((ctx: KoaContextWithOIDC, form: string) => CanBePromise<undefined | void>) | undefined; // tslint:disable-line:void-return
-        } | undefined;
-
-        mTLS?: {
-            enabled?: boolean | undefined;
-            certificateBoundAccessTokens?: boolean | undefined;
-            selfSignedTlsClientAuth?: boolean | undefined;
-            tlsClientAuth?: boolean | undefined;
-            getCertificate?: ((ctx: KoaContextWithOIDC) => crypto.X509Certificate | string | undefined) | undefined;
-            certificateAuthorized?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
-            certificateSubjectMatches?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    property: TLSClientAuthProperty,
-                    expected: string,
-                ) => boolean)
+            clientCredentials?:
+                | {
+                    enabled?: boolean | undefined;
+                }
                 | undefined;
-        } | undefined;
 
-        resourceIndicators?: {
-            enabled?: boolean | undefined;
-            getResourceServerInfo?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    resourceIndicator: string,
-                    client: Client,
-                ) => CanBePromise<ResourceServer>)
+            introspection?:
+                | {
+                    enabled?: boolean | undefined;
+                    allowedPolicy?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                            token: AccessToken | ClientCredentials | RefreshToken,
+                        ) => CanBePromise<boolean>)
+                        | undefined;
+                }
                 | undefined;
-            defaultResource?: ((ctx: KoaContextWithOIDC) => CanBePromise<string | string[]>) | undefined;
-            useGrantedResource?:
-                | ((
-                    ctx: KoaContextWithOIDC,
-                    model: AuthorizationCode | RefreshToken | DeviceCode | BackchannelAuthenticationRequest,
-                ) => CanBePromise<boolean>)
+
+            revocation?:
+                | {
+                    enabled?: boolean | undefined;
+                }
                 | undefined;
-        } | undefined;
-    } | undefined;
+
+            userinfo?:
+                | {
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            jwtUserinfo?:
+                | {
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            encryption?:
+                | {
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            registration?:
+                | {
+                    enabled?: boolean | undefined;
+                    initialAccessToken?: boolean | string | undefined;
+                    policies?:
+                        | {
+                            [key: string]: (
+                                ctx: KoaContextWithOIDC,
+                                metadata: ClientMetadata,
+                            ) => CanBePromise<undefined | void>; // tslint:disable-line:void-return
+                        }
+                        | undefined;
+                    idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+                    secretFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+                }
+                | undefined;
+
+            registrationManagement?:
+                | {
+                    enabled?: boolean | undefined;
+                    rotateRegistrationAccessToken?: RotateRegistrationAccessTokenFunction | boolean | undefined;
+                    issueRegistrationAccessToken?: IssueRegistrationAccessTokenFunction | boolean | undefined;
+                }
+                | undefined;
+
+            deviceFlow?:
+                | {
+                    enabled?: boolean | undefined;
+                    charset?: "base-20" | "digits" | undefined;
+                    mask?: string | undefined;
+                    deviceInfo?: ((ctx: KoaContextWithOIDC) => UnknownObject) | undefined;
+                    userCodeInputSource?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            form: string,
+                            out?: ErrorOut,
+                            err?: errors.OIDCProviderError | Error,
+                        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | undefined;
+                    userCodeConfirmSource?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            form: string,
+                            client: Client,
+                            deviceInfo: UnknownObject,
+                            userCode: string,
+                        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | undefined;
+                    successSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined; // tslint:disable-line:void-return
+                }
+                | undefined;
+
+            requestObjects?:
+                | {
+                    request?: boolean | undefined;
+                    requestUri?: boolean | undefined;
+                    requireUriRegistration?: boolean | undefined;
+                    requireSignedRequestObject?: boolean | undefined;
+                    mode?: "lax" | "strict" | undefined;
+                }
+                | undefined;
+
+            dPoP?:
+                | {
+                    enabled?: boolean | undefined;
+                    ack?: string | undefined;
+                    nonceSecret?: Buffer | undefined;
+                    requireNonce?: (ctx: KoaContextWithOIDC) => boolean;
+                }
+                | undefined;
+
+            backchannelLogout?:
+                | {
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            fapi?:
+                | {
+                    enabled?: boolean | undefined;
+                    profile: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined;
+                }
+                | undefined;
+
+            ciba?:
+                | {
+                    enabled?: boolean | undefined;
+                    deliveryModes: CIBADeliveryMode[];
+                    triggerAuthenticationDevice?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            request: BackchannelAuthenticationRequest,
+                            account: Account,
+                            client: Client,
+                        ) => CanBePromise<void>)
+                        | undefined;
+                    validateBindingMessage?:
+                        | ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>)
+                        | undefined;
+                    validateRequestContext?:
+                        | ((ctx: KoaContextWithOIDC, requestContext?: string) => CanBePromise<void>)
+                        | undefined;
+                    processLoginHintToken?:
+                        | ((ctx: KoaContextWithOIDC, loginHintToken?: string) => CanBePromise<string | undefined>)
+                        | undefined;
+                    processLoginHint?:
+                        | ((ctx: KoaContextWithOIDC, loginHint?: string) => CanBePromise<string | undefined>)
+                        | undefined;
+                    verifyUserCode?:
+                        | ((ctx: KoaContextWithOIDC, userCode?: string) => CanBePromise<void>)
+                        | undefined;
+                }
+                | undefined;
+
+            webMessageResponseMode?:
+                | {
+                    enabled?: boolean | undefined;
+                    ack?: string | undefined;
+                }
+                | undefined;
+
+            jwtIntrospection?:
+                | {
+                    enabled?: boolean | undefined;
+                    ack?: string | undefined;
+                }
+                | undefined;
+
+            jwtResponseModes?:
+                | {
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            pushedAuthorizationRequests?:
+                | {
+                    requirePushedAuthorizationRequests?: boolean | undefined;
+                    enabled?: boolean | undefined;
+                }
+                | undefined;
+
+            rpInitiatedLogout?:
+                | {
+                    enabled?: boolean | undefined;
+                    postLogoutSuccessSource?:
+                        | ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | undefined;
+                    logoutSource?:
+                        | ((ctx: KoaContextWithOIDC, form: string) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | undefined;
+                }
+                | undefined;
+
+            mTLS?:
+                | {
+                    enabled?: boolean | undefined;
+                    certificateBoundAccessTokens?: boolean | undefined;
+                    selfSignedTlsClientAuth?: boolean | undefined;
+                    tlsClientAuth?: boolean | undefined;
+                    getCertificate?:
+                        | ((ctx: KoaContextWithOIDC) => crypto.X509Certificate | string | undefined)
+                        | undefined;
+                    certificateAuthorized?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
+                    certificateSubjectMatches?:
+                        | ((ctx: KoaContextWithOIDC, property: TLSClientAuthProperty, expected: string) => boolean)
+                        | undefined;
+                }
+                | undefined;
+
+            resourceIndicators?:
+                | {
+                    enabled?: boolean | undefined;
+                    getResourceServerInfo?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            resourceIndicator: string,
+                            client: Client,
+                        ) => CanBePromise<ResourceServer>)
+                        | undefined;
+                    defaultResource?: ((ctx: KoaContextWithOIDC) => CanBePromise<string | string[]>) | undefined;
+                    useGrantedResource?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            model:
+                                | AuthorizationCode
+                                | RefreshToken
+                                | DeviceCode
+                                | BackchannelAuthenticationRequest,
+                        ) => CanBePromise<boolean>)
+                        | undefined;
+                }
+                | undefined;
+        }
+        | undefined;
 
     extraTokenClaims?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            token: AccessToken | ClientCredentials,
-        ) => CanBePromise<UnknownObject | undefined>)
+        | ((ctx: KoaContextWithOIDC, token: AccessToken | ClientCredentials) => CanBePromise<UnknownObject | undefined>)
         | undefined;
 
     httpOptions?: ((url: url.URL) => HttpOptions) | undefined;
 
     expiresWithSession?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            token: AccessToken | AuthorizationCode | DeviceCode,
-        ) => CanBePromise<boolean>)
+        | ((ctx: KoaContextWithOIDC, token: AccessToken | AuthorizationCode | DeviceCode) => CanBePromise<boolean>)
         | undefined;
 
     issueRefreshToken?:
@@ -1162,25 +1247,29 @@ export interface Configuration {
 
     revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
 
-    pkce?: {
-        methods?: PKCEMethods[] | undefined;
-        required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;
-    } | undefined;
+    pkce?:
+        | {
+            methods?: PKCEMethods[] | undefined;
+            required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;
+        }
+        | undefined;
 
-    routes?: {
-        authorization?: string | undefined;
-        code_verification?: string | undefined;
-        device_authorization?: string | undefined;
-        end_session?: string | undefined;
-        introspection?: string | undefined;
-        jwks?: string | undefined;
-        registration?: string | undefined;
-        revocation?: string | undefined;
-        token?: string | undefined;
-        userinfo?: string | undefined;
-        backchannel_authentication?: string | undefined;
-        pushed_authorization_request?: string | undefined;
-    } | undefined;
+    routes?:
+        | {
+            authorization?: string | undefined;
+            code_verification?: string | undefined;
+            device_authorization?: string | undefined;
+            end_session?: string | undefined;
+            introspection?: string | undefined;
+            jwks?: string | undefined;
+            registration?: string | undefined;
+            revocation?: string | undefined;
+            token?: string | undefined;
+            userinfo?: string | undefined;
+            backchannel_authentication?: string | undefined;
+            pushed_authorization_request?: string | undefined;
+        }
+        | undefined;
 
     scopes?: string[] | undefined;
 
@@ -1192,35 +1281,39 @@ export interface Configuration {
 
     clientAuthMethods?: ClientAuthMethod[] | undefined;
 
-    ttl?: {
-        AccessToken?: TTLFunction<AccessToken> | number | undefined;
-        AuthorizationCode?: TTLFunction<AuthorizationCode> | number | undefined;
-        ClientCredentials?: TTLFunction<ClientCredentials> | number | undefined;
-        DeviceCode?: TTLFunction<DeviceCode> | number | undefined;
-        BackchannelAuthenticationRequest?: TTLFunction<BackchannelAuthenticationRequest> | number | undefined;
-        IdToken?: TTLFunction<IdToken> | number | undefined;
-        RefreshToken?: TTLFunction<RefreshToken> | number | undefined;
-        Interaction?: TTLFunction<Interaction> | number | undefined;
-        Session?: TTLFunction<Session> | number | undefined;
-        Grant?: TTLFunction<Grant> | number | undefined;
+    ttl?:
+        | {
+            AccessToken?: TTLFunction<AccessToken> | number | undefined;
+            AuthorizationCode?: TTLFunction<AuthorizationCode> | number | undefined;
+            ClientCredentials?: TTLFunction<ClientCredentials> | number | undefined;
+            DeviceCode?: TTLFunction<DeviceCode> | number | undefined;
+            BackchannelAuthenticationRequest?: TTLFunction<BackchannelAuthenticationRequest> | number | undefined;
+            IdToken?: TTLFunction<IdToken> | number | undefined;
+            RefreshToken?: TTLFunction<RefreshToken> | number | undefined;
+            Interaction?: TTLFunction<Interaction> | number | undefined;
+            Session?: TTLFunction<Session> | number | undefined;
+            Grant?: TTLFunction<Grant> | number | undefined;
 
-        [key: string]: unknown;
-    } | undefined;
+            [key: string]: unknown;
+        }
+        | undefined;
 
     loadExistingGrant?: ((ctx: KoaContextWithOIDC) => CanBePromise<Grant | undefined>) | undefined;
 
-    extraClientMetadata?: {
-        properties?: string[] | undefined;
+    extraClientMetadata?:
+        | {
+            properties?: string[] | undefined;
 
-        validator?:
-            | ((
-                ctx: KoaContextWithOIDC,
-                key: string,
-                value: unknown,
-                metadata: ClientMetadata,
-            ) => void | undefined)
-            | undefined;
-    } | undefined;
+            validator?:
+                | ((
+                    ctx: KoaContextWithOIDC,
+                    key: string,
+                    value: unknown,
+                    metadata: ClientMetadata,
+                ) => void | undefined)
+                | undefined;
+        }
+        | undefined;
 
     rotateRefreshToken?: ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>) | boolean | undefined;
 
@@ -1229,39 +1322,43 @@ export interface Configuration {
             ctx: KoaContextWithOIDC,
             out: ErrorOut,
             error: errors.OIDCProviderError | Error,
-        ) => CanBePromise<undefined | void>)
-        | undefined; // tslint:disable-line:void-return
+        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+        | undefined;
 
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;
 
     acceptQueryParamAccessTokens?: boolean | undefined;
 
-    interactions?: {
-        policy?: interactionPolicy.Prompt[] | undefined;
-        url?: ((ctx: KoaContextWithOIDC, interaction: Interaction) => CanBePromise<string>) | undefined;
-    } | undefined;
+    interactions?:
+        | {
+            policy?: interactionPolicy.Prompt[] | undefined;
+            url?: ((ctx: KoaContextWithOIDC, interaction: Interaction) => CanBePromise<string>) | undefined;
+        }
+        | undefined;
 
     findAccount?: FindAccount | undefined;
 
-    enabledJWA?: {
-        authorizationEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-        authorizationEncryptionEncValues?: EncryptionEncValues[] | undefined;
-        authorizationSigningAlgValues?: SigningAlgorithm[] | undefined;
-        dPoPSigningAlgValues?: AsymmetricSigningAlgorithm[] | undefined;
-        idTokenEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-        idTokenEncryptionEncValues?: EncryptionEncValues[] | undefined;
-        idTokenSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-        introspectionEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-        introspectionEncryptionEncValues?: EncryptionEncValues[] | undefined;
-        introspectionSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-        requestObjectEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-        requestObjectEncryptionEncValues?: EncryptionEncValues[] | undefined;
-        requestObjectSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-        clientAuthSigningAlgValues?: SigningAlgorithm[] | undefined;
-        userinfoEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-        userinfoEncryptionEncValues?: EncryptionEncValues[] | undefined;
-        userinfoSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-    } | undefined;
+    enabledJWA?:
+        | {
+            authorizationEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
+            authorizationEncryptionEncValues?: EncryptionEncValues[] | undefined;
+            authorizationSigningAlgValues?: SigningAlgorithm[] | undefined;
+            dPoPSigningAlgValues?: AsymmetricSigningAlgorithm[] | undefined;
+            idTokenEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
+            idTokenEncryptionEncValues?: EncryptionEncValues[] | undefined;
+            idTokenSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
+            introspectionEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
+            introspectionEncryptionEncValues?: EncryptionEncValues[] | undefined;
+            introspectionSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
+            requestObjectEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
+            requestObjectEncryptionEncValues?: EncryptionEncValues[] | undefined;
+            requestObjectSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
+            clientAuthSigningAlgValues?: SigningAlgorithm[] | undefined;
+            userinfoEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
+            userinfoEncryptionEncValues?: EncryptionEncValues[] | undefined;
+            userinfoSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
+        }
+        | undefined;
 }
 
 export interface HttpOptions {
@@ -1309,19 +1406,23 @@ export type EncryptionEncValues =
     | "A256GCM";
 
 export interface InteractionResults {
-    login?: {
-        remember?: boolean | undefined;
-        accountId: string;
-        ts?: number | undefined;
-        amr?: string[] | undefined;
-        acr?: string | undefined;
-        [key: string]: unknown;
-    } | undefined;
+    login?:
+        | {
+            remember?: boolean | undefined;
+            accountId: string;
+            ts?: number | undefined;
+            amr?: string[] | undefined;
+            acr?: string | undefined;
+            [key: string]: unknown;
+        }
+        | undefined;
 
-    consent?: {
-        grantId?: string | undefined;
-        [key: string]: unknown;
-    } | undefined;
+    consent?:
+        | {
+            grantId?: string | undefined;
+            [key: string]: unknown;
+        }
+        | undefined;
 
     [key: string]: unknown;
 }
