@@ -26,16 +26,19 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(message: any): void;
-declare function cpost(message?: any): void;
+declare function error(message?: any): void;
+declare function error(...messages: any[]): void;
+declare function cpost(message?: any[]): void;
+declare function cpost(...message: any[]): void;
 declare function post(message?: any): void;
+declare function post(...message: any[]): void;
 /**
  * Sends a message to the named Max object.
  * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
  * For example, Max receive objects are bound to global symbols.
  * The following code would send the message bang to the named object flower.
  */
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string | number): void;
+declare function messnamed(object_name: string, message_name: string, ...message_arguments: any[]): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -1280,6 +1283,7 @@ declare class Maxobj {
      * Sets the value of the object's box attribute specified by box_attribute_name.
      */
     setboxattr(box_attribute_name: string, anything: unknown): void;
+    setboxattr(box_attribute_name: string, ...anything: unknown[]): void;
 }
 
 /**
@@ -1421,6 +1425,11 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.
