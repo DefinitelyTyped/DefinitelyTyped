@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Socket } from 'node:dgram';
-import { Transform } from 'node:stream';
+import { Socket } from "node:dgram";
+import { Transform } from "node:stream";
 type HRTime = [number, number];
 interface LynxOptions {
     socket?: Socket;
@@ -29,9 +29,9 @@ declare class Lynx extends Transform {
     constructor(host?: string, port?: number, options?: LynxOptions);
 
     createTimer(stat: string, sample_rate?: number): Timer;
-    increment(stats: string|string[], sample_rate?: number): void;
-    decrement(stats: string|string[], sample_rate?: number): void;
-    count(stats: string|string[], delta: number, sample_rate?: number): void;
+    increment(stats: string | string[], sample_rate?: number): void;
+    decrement(stats: string | string[], sample_rate?: number): void;
+    count(stats: string | string[], delta: number, sample_rate?: number): void;
     timing(stat: string, duration: number, sample_rate?: number): void;
     set(stat: string, value: number, sample_rate?: number): void;
     gauge(stat: string, value: number, sample_rate?: number): void;

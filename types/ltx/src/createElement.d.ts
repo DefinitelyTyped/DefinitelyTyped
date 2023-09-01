@@ -1,4 +1,4 @@
-import Element, { Node } from './Element';
+import Element, { Node } from "./Element";
 
 export default function createElement(
     name: string,

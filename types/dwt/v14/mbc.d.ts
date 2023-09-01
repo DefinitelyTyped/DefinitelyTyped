@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 
 /*!
 * Product: Dynamsoft Web Twain

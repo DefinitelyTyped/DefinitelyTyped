@@ -1,4 +1,4 @@
-import uri = require('lil-uri');
+import uri = require("lil-uri");
 
 //
 // Tests are based on code samples on https://github.com/lil-js/uri#readme
@@ -8,7 +8,7 @@ import uri = require('lil-uri');
 // Parser
 //
 
-const url = uri('http://user:pass@example.com:8080/bar/foo.xml?foo=bar&hello=world&#hash=1');
+const url = uri("http://user:pass@example.com:8080/bar/foo.xml?foo=bar&hello=world&#hash=1");
 
 // $ExpectType string
 url.protocol(); // -> http
@@ -49,11 +49,11 @@ url.hash(); // -> hash=1
 
 // $ExpectType string
 uri()
-    .protocol('https')
-    .host('example.com')
-    .port('8080')
-    .auth('user:pass')
-    .path('/bar/foo.xml')
-    .query({ foo: 'bar', hello: 'world' })
-    .hash('hash=1')
+    .protocol("https")
+    .host("example.com")
+    .port("8080")
+    .auth("user:pass")
+    .path("/bar/foo.xml")
+    .query({ foo: "bar", hello: "world" })
+    .hash("hash=1")
     .build(); // -> http://@example.com:8080/bar/foo.xml?foo=bar&hello=world&#frament=1
