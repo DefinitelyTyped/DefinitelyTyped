@@ -10,7 +10,6 @@ export as namespace Lime;
 export = Lime;
 
 declare namespace Lime {
-
     interface Envelope {
         id?: string | undefined;
         from?: string | undefined;
@@ -142,7 +141,15 @@ declare namespace Lime {
     }
 
     class ClientChannelExtensions {
-        static establishSession(clientChannel: ClientChannel, compression: string, encryption: string, identity: string, authentication: Authentication, instance: string, callback: (error: Error, session: Session) => any): void;
+        static establishSession(
+            clientChannel: ClientChannel,
+            compression: string,
+            encryption: string,
+            identity: string,
+            authentication: Authentication,
+            instance: string,
+            callback: (error: Error, session: Session) => any,
+        ): void;
     }
 
     interface IMessageChannel {

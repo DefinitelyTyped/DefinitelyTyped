@@ -1,4 +1,4 @@
-import xhook = require('xhook');
+import xhook = require("xhook");
 
 xhook.disable();
 xhook.enable();
@@ -17,8 +17,8 @@ xhook.before((request, callback) => {
         status: 200,
         data: new Document(),
         headers: {},
-        statusText: '',
-        text: '',
+        statusText: "",
+        text: "",
         xml: new XMLDocument(),
     });
 });

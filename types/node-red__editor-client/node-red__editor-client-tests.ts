@@ -1,5 +1,3 @@
-// tslint:disable:space-before-function-paren
-
 import editorClient = require("@node-red/editor-client");
 import { TrayResizeOptions } from "@node-red/editor-client/index";
 import { NodeMessage } from "@node-red/registry";

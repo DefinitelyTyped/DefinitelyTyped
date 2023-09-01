@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier" {
     import NotificationCenter = require("node-notifier/notifiers/notificationcenter");
     import NotifySend = require("node-notifier/notifiers/notifysend");
@@ -76,6 +77,7 @@ declare module "node-notifier" {
     export = nodeNotifier;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier/notifiers/notificationcenter" {
     import notifier = require("node-notifier");
 
@@ -120,6 +122,7 @@ declare module "node-notifier/notifiers/notificationcenter" {
     export = NotificationCenter;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier/notifiers/notifysend" {
     import notifier = require("node-notifier");
 
@@ -147,6 +150,7 @@ declare module "node-notifier/notifiers/notifysend" {
     export = NotifySend;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier/notifiers/toaster" {
     import notifier = require("node-notifier");
 
@@ -178,6 +182,7 @@ declare module "node-notifier/notifiers/toaster" {
     export = WindowsToaster;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier/notifiers/growl" {
     import notifier = require("node-notifier");
 
@@ -206,6 +211,7 @@ declare module "node-notifier/notifiers/growl" {
     export = Growl;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "node-notifier/notifiers/balloon" {
     import notifier = require("node-notifier");
 

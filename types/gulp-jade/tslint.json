@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
-        "semicolon": false
+        "jsdoc-format": false
     }
 }

@@ -245,7 +245,7 @@ declare namespace layer {
          * @description 如果设定了yes回调，需进行手工关闭，`close(index)`
          */
         yes?(index: Index, layero: JQuery): void;
-        //#region 按钮1的回调是yes，而从按钮2开始，则回调为btn2: function(){}，以此类推。
+        // #region 按钮1的回调是yes，而从按钮2开始，则回调为btn2: function(){}，以此类推。
         btn2?(index: Index, layero: JQuery): false | void;
         btn3?(index: Index, layero: JQuery): false | void;
         btn4?(index: Index, layero: JQuery): false | void;
@@ -254,7 +254,7 @@ declare namespace layer {
         btn7?(index: Index, layero: JQuery): false | void;
         btn8?(index: Index, layero: JQuery): false | void;
         btn9?(index: Index, layero: JQuery): false | void;
-        //#endregion
+        // #endregion
         /**
          * 右上角关闭按钮触发的回调
          * @param index 当前层索引

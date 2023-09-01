@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
-        "@definitelytyped/trim-file": "off"
+        "@definitelytyped/dt-header": "off"
     }
 }
