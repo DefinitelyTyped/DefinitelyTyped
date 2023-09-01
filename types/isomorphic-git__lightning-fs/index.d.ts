@@ -3,10 +3,11 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "@isomorphic-git/lightning-fs" {
-    /**
-     * You can procrastinate initializing the FS object until later. And, if you're really adventurous, you can re-initialize it with a different name to switch between IndexedDb databases.
-     */
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module '@isomorphic-git/lightning-fs' {
+  /**
+   * You can procrastinate initializing the FS object until later. And, if you're really adventurous, you can re-initialize it with a different name to switch between IndexedDb databases.
+   */
     class FS {
         /**
          * First, create or open a "filesystem".
@@ -308,7 +309,8 @@ declare module "@isomorphic-git/lightning-fs" {
     export = FS;
 }
 
-declare module "@isomorphic-git/lightning-fs/src/path" {
+  // eslint-disable-next-line @definitelytyped/no-declare-current-package
+  declare module '@isomorphic-git/lightning-fs/src/path' {
     namespace Path {
         function join(...parts: string[]): string;
         function normalize(path: string): string;

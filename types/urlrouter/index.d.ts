@@ -5,20 +5,16 @@
 
 /// <reference types="node" />
 
-
 import http = require("http");
 
 declare function UrlRouterInternal(handler: (app: UrlRouterInternal.App) => void): UrlRouterInternal.HttpHandler;
 
 declare namespace UrlRouterInternal {
-
-
     interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 
     interface ServerResponse extends http.ServerResponse {
-
     }
 
     interface App {

@@ -1,4 +1,4 @@
-import WeakMap = require('@ungap/weakmap');
+import WeakMap = require("@ungap/weakmap");
 
 WeakMap; // $ExpectType typeof WeakMap
 

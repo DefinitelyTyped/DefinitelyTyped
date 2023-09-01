@@ -6,7 +6,14 @@
 export = uuid;
 declare class uuid {
     equals(uuid: uuid): boolean;
-    fromParts(timeLow: any, timeMid: any, timeHiAndVersion: any, clockSeqHiAndReserved: any, clockSeqLow: any, node: any): uuid;
+    fromParts(
+        timeLow: any,
+        timeMid: any,
+        timeHiAndVersion: any,
+        clockSeqHiAndReserved: any,
+        clockSeqLow: any,
+        node: any,
+    ): uuid;
     toBytes(): any[];
     toString(): string;
     toURN(): string;

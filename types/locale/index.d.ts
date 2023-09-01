@@ -33,7 +33,7 @@ declare namespace locale {
          * language is calculated from the intersection of requested and
          * supported locales and supported languages has not default.
          */
-        static ['default']: Locale;
+        static ["default"]: Locale;
 
         /**
          * returns user-generated input used to construct the Locale. Eg, `en-US`

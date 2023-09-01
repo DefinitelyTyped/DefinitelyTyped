@@ -5,19 +5,19 @@
 
 /// <reference types="node" />
 
-import buffer = require('node:buffer');
-import stream = require('stream');
+import buffer = require("node:buffer");
+import stream = require("stream");
 
 export interface listDirOptions {
     limit?: number;
-    order?: 'asc' | 'desc';
+    order?: "asc" | "desc";
     iter?: string;
 }
 
 export interface listDirResponse {
     files: Array<{
         name: string;
-        type: 'N' | 'F';
+        type: "N" | "F";
         size: number;
         time: number;
     }>;
@@ -26,28 +26,28 @@ export interface listDirResponse {
 
 export interface putFileOptions {
     Date?: string;
-    'Content-Length'?: string;
-    'Content-MD5'?: string;
-    'Content-Type'?: string;
-    'Content-Secret'?: string;
-    'x-upyun-meta-x'?: string;
-    'x-upyun-meta-ttl'?: number;
+    "Content-Length"?: string;
+    "Content-MD5"?: string;
+    "Content-Type"?: string;
+    "Content-Secret"?: string;
+    "x-upyun-meta-x"?: string;
+    "x-upyun-meta-ttl"?: number;
 }
 
 export interface putFilePictureResponse {
     width: number;
     height: number;
-    'file-type': string;
+    "file-type": string;
     frames: number;
 }
 
 export interface initMultipartUploadOptions {
-    'Content-Length'?: string;
-    'x-upyun-multi-stage'?: string;
-    'x-upyun-multi-length'?: string;
-    'x-upyun-multi-type'?: string;
-    'x-upyun-meta-x'?: string;
-    'x-upyun-meta-ttl'?: number;
+    "Content-Length"?: string;
+    "x-upyun-multi-stage"?: string;
+    "x-upyun-multi-length"?: string;
+    "x-upyun-multi-type"?: string;
+    "x-upyun-meta-x"?: string;
+    "x-upyun-meta-ttl"?: number;
 }
 
 export interface initMultipartUploadResponse {
@@ -60,7 +60,7 @@ export interface headFileResponse {
     type: string;
     size: number;
     date: number;
-    'Content-Md5': string;
+    "Content-Md5": string;
 }
 
 export interface formPutFileOptions {
@@ -73,18 +73,18 @@ export interface formPutFileResponse {
     url: string;
     time: string | number;
     sign?: any;
-    'no-sign'?: any;
-    'image-width'?: string | number;
-    'image-height'?: string | number;
-    'image-type'?: string | number;
-    'image-frames'?: string | number;
+    "no-sign"?: any;
+    "image-width"?: string | number;
+    "image-height"?: string | number;
+    "image-type"?: string | number;
+    "image-frames"?: string | number;
     task_ids?: any;
 }
 
 export interface copyOrMoveOptions {
-    'x-upyun-metadata-directive': any;
-    'content-md5': any;
-    'content-length': any;
+    "x-upyun-metadata-directive": any;
+    "content-md5": any;
+    "content-length": any;
 }
 
 // tslint:disable-next-line:no-unnecessary-class
@@ -251,7 +251,6 @@ export class Client {
     copy(targetPath: string, sourcePath: string, options?: copyOrMoveOptions): Promise<boolean>;
 
     /**
-     *
      * @param targetPath 目标文件地址
      * @param sourcePath 原文件地址
      * @param options 其他可选参数
@@ -264,7 +263,7 @@ export class Client {
 
 export interface GetHeaderSignReturnType {
     Authorization: string;
-    'X-Date': string;
+    "X-Date": string;
 }
 
 export interface GenSignOptionType {
@@ -280,7 +279,7 @@ export interface GetPolicyAndAuthorizationReturnType {
 export interface GetPurgeHeaderSignReturnType {
     Authorization: string;
     Date: string;
-    'User-Agent': string;
+    "User-Agent": string;
 }
 
 export namespace sign {
@@ -326,7 +325,6 @@ export namespace sign {
      * @link http://docs.upyun.com/api/purge/#_1
      * @param service service Instance
      * @param urls url
-     *
      */
     function getPurgeHeaderSign(service: Service, urls: string[]): GetPurgeHeaderSignReturnType;
 }
