@@ -39,22 +39,22 @@ declare namespace Uploadcare {
             upload: (
                 readStream: ReadStream,
                 options: { store?: boolean | undefined },
-                callback: (err: Error, res: { file: string }) => void
+                callback: (err: Error, res: { file: string }) => void,
             ) => void;
             fromUrl: (
                 url: string,
                 options: { store?: boolean | undefined },
-                callback: (err: Error, res: File) => void
+                callback: (err: Error, res: File) => void,
             ) => void;
         };
         files: {
             store: (
                 uuid: string,
-                callback: (err: Error, res: File) => void
+                callback: (err: Error, res: File) => void,
             ) => void;
             remove: (
                 uuid: string,
-                callback: (err: Error, res: File) => void
+                callback: (err: Error, res: File) => void,
             ) => void;
         };
     }
@@ -62,7 +62,7 @@ declare namespace Uploadcare {
 
 declare function Uploadcare(
     publicKey: string,
-    privateKey: string
+    privateKey: string,
 ): Uploadcare.Instance;
 
 export = Uploadcare;

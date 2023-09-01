@@ -1,4 +1,4 @@
-import * as lt from 'long-timeout';
+import * as lt from "long-timeout";
 
 const interval = lt.setInterval(() => {
     // Do things

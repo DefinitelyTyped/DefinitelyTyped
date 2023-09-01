@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "interface-name": false,
-        "no-padding": false,
         "no-var-keyword": false,
-        "no-var-requires": false,
-        "one-line": false
+        "no-var-requires": false
     }
 }

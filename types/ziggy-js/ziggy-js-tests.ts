@@ -1,4 +1,4 @@
-import ziggy = require('ziggy-js');
+import ziggy = require("ziggy-js");
 
 new ziggy.Router();
 
@@ -9,24 +9,24 @@ ziggy.default();
 ziggy.default("test");
 
 const Ziggy = {
-    routes:  {
-        'posts.show': {
-            uri: 'posts/{post}',
-            methods:  [
-                'GET' as const,
-                'HEAD' as const
-            ]
-        }
+    routes: {
+        "posts.show": {
+            uri: "posts/{post}",
+            methods: [
+                "GET" as const,
+                "HEAD" as const,
+            ],
+        },
     },
     defaults: {},
-    url: 'https://ziggy.test',
+    url: "https://ziggy.test",
 };
 
 // $ExpectType string
-ziggy.default("posts.show", 1, undefined, Ziggy);           // 'https://ziggy.test/posts/1'
+ziggy.default("posts.show", 1, undefined, Ziggy); // 'https://ziggy.test/posts/1'
 
 // $ExpectType string
-ziggy.default("posts.show", [1], undefined, Ziggy);         // 'https://ziggy.test/posts/1'
+ziggy.default("posts.show", [1], undefined, Ziggy); // 'https://ziggy.test/posts/1'
 
 // $ExpectType string
 ziggy.default("posts.show", { post: 1 }, undefined, Ziggy); // 'https://ziggy.test/posts/1'

@@ -1,10 +1,10 @@
-import { IfInvalid } from './_util';
+import { IfInvalid } from "./_util";
 
 export interface ZoneOffsetOptions {
     /**
      * What style of offset to return.
      */
-    format?: 'short' | 'long' | undefined;
+    format?: "short" | "long" | undefined;
     /**
      * What locale to return the offset name in.
      */
@@ -15,13 +15,13 @@ export interface ZoneOffsetOptions {
  * What style of offset to return.
  * Returning '+6', '+06:00', or '+0600' respectively
  */
-export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+export type ZoneOffsetFormat = "narrow" | "short" | "techie";
 
 export abstract class Zone {
     /**
      * The type of zone
      */
-    get type(): string | IfInvalid<'invalid'>;
+    get type(): string | IfInvalid<"invalid">;
 
     /**
      * The name of this zone.
@@ -50,7 +50,7 @@ export abstract class Zone {
      * @param format - What style of offset to return.
      *                 Accepts 'narrow', 'short', or 'techie'. Returning '+6', '+06:00', or '+0600' respectively
      */
-    formatOffset(ts: number, format: ZoneOffsetFormat): string | IfInvalid<''>;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string | IfInvalid<"">;
 
     /**
      * Return the offset in minutes for this zone at the specified timestamp.
@@ -158,9 +158,9 @@ export class FixedOffsetZone extends Zone {
  * A zone that failed to parse. You should never need to instantiate this.
  */
 export class InvalidZone extends Zone {
-    get type(): 'invalid';
+    get type(): "invalid";
     get isUniversal(): false;
-    get offsetFormat(): '';
+    get offsetFormat(): "";
     get isValid(): false;
 }
 

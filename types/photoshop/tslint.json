@@ -1,4 +1,4 @@
-{ 
+{
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "strict-export-declare-modifiers": false,
@@ -7,7 +7,6 @@
         "array-type": false,
         "npm-naming": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-unnecessary-class": false,
         "unified-signatures": false
     }

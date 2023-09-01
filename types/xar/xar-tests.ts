@@ -1,4 +1,4 @@
-import * as xar from 'xar';
+import * as xar from "xar";
 
 const buffer = Buffer.from([]);
 
@@ -21,6 +21,6 @@ xar.extract(buffer, (error, file, content) => {
     content; // $ExpectType string | undefined
 });
 
-xar.pack('dir');
-xar.pack('dir', { compression: 'gzip' });
-xar.create('dir', { compression: 'gzip' });
+xar.pack("dir");
+xar.pack("dir", { compression: "gzip" });
+xar.create("dir", { compression: "gzip" });

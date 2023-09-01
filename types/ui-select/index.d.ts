@@ -7,9 +7,9 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui.select {
         interface ISelectConfig {
             appendToBody: boolean;
