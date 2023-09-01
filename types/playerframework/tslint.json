@@ -8,7 +8,6 @@
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-mergeable-namespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,

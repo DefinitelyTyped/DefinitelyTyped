@@ -5,7 +5,6 @@
         "interface-name": false,
         "max-line-length": false,
         "no-misused-new": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "semicolon": false,

@@ -5,7 +5,6 @@
         "no-duplicate-imports": false,
         "no-duplicate-variable": false,
         "no-misused-new": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "prefer-const": false,

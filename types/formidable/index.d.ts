@@ -2,6 +2,7 @@
 // Project: https://github.com/node-formidable/formidable
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 devLana <https://github.com/devLana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -204,12 +205,12 @@ declare namespace formidable {
         filter?: (part: Part) => boolean;
     }
 
-    interface Fields {
-        [field: string]: string[];
-    }
-    interface Files {
-        [file: string]: File[];
-    }
+    type Fields<T extends string = string> = {
+        readonly [Prop in T]?: string[];
+    };
+    type Files<U extends string = string> = {
+        readonly [Prop in U]?: File[];
+    };
 
     interface Part extends Stream {
         name: string | null;

@@ -4,7 +4,6 @@
         "no-consecutive-blank-lines": false,
         "no-namespace": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-var-keyword": false,
         "one-line": false,
         "prefer-const": false,

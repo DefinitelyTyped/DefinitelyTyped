@@ -11,7 +11,6 @@
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
         "no-namespace": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,

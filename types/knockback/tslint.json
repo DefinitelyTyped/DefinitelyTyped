@@ -6,7 +6,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-padding": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
         "typedef-whitespace": false,

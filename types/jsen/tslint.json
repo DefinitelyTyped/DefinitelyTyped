@@ -5,7 +5,6 @@
         "comment-format": false,
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "object-literal-shorthand": false,
         "one-line": false,
         "one-variable-per-declaration": false,

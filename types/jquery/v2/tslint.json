@@ -10,7 +10,6 @@
         "no-boolean-literal-compare": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-string-throw": false,

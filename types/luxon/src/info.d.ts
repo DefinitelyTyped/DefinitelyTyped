@@ -1,5 +1,5 @@
-import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from './misc';
-import { Zone } from './zone';
+import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from "./misc";
+import { Zone } from "./zone";
 
 export interface InfoOptions {
     locale?: string | undefined;

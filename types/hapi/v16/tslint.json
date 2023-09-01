@@ -11,7 +11,6 @@
         "no-duplicate-variable": false,
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,

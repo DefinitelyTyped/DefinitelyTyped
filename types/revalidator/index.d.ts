@@ -3,7 +3,7 @@
 // Definitions by: Jason Turner <https://github.com/brewsoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Revalidator {
+declare namespace Revalidator {
 
     interface IOptions {
         /** Enforce format constraints (default true) */

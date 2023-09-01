@@ -19,7 +19,7 @@ const myOptions = {
     trim: false,
     normalize: true,
     cdataAsText: true,
-    strict: true
+    strict: true,
 };
 
 // $ExpectType EventEmitter
@@ -29,8 +29,8 @@ const myFlowWithOptions = flow(readStreamTwo, myOptions);
 const xmlTarget = {
     head: {
         childOne: "text",
-        childTwo: "text"
-    }
+        childTwo: "text",
+    },
 };
 
 // $ExpectType string
@@ -39,7 +39,7 @@ const xmlString = flow.toXml(xmlTarget);
 const xmlOptions = {
     indent: "\t",
     selfClosing: true,
-    escape: (s: string) => s
+    escape: (s: string) => s,
 };
 
 // $ExpectType string

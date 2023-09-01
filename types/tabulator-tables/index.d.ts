@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.4
+// Type definitions for tabulator-tables 5.5
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,6 +89,11 @@ export interface OptionsDataTree {
     dataTreeSelectPropagate?: boolean | undefined;
     dataTreeFilter?: boolean | undefined;
     dataTreeSort?: boolean | undefined;
+    /**
+     * When you are using the dataTree option with your table, the column calculations will by default only use the data for the top level rows and will ignore any children.
+     * To include child rows in the column calculations set the dataTreeChildColumnCalcs option to true in the table constructor.
+     */
+    dataTreeChildColumnCalcs?: boolean | undefined;
 }
 
 export interface OptionsClipboard {
@@ -203,6 +208,7 @@ export interface PersistenceOptions {
     group?: boolean | PersistenceGroupOptions | undefined;
     page?: boolean | PersistencePageOptions | undefined;
     columns?: boolean | string[] | undefined;
+    headerFilter?: boolean | undefined;
 }
 
 export interface PersistenceGroupOptions {
@@ -443,7 +449,9 @@ export interface OptionsData {
 
     /** Array to hold data that should be loaded on table creation. */
     data?: any[] | undefined;
-    importFormat?: 'array';
+    importFormat?: 'array' | 'csv' | 'json' | ((fileContents: string) => unknown[]);
+    /** By default Tabulator will read in the file as plain text, which is the format used by all the built in importers. If you need to read the file data in a different format then you can use the importReader option to instruct the file reader to read in the file in a different format. */
+    importReader?: 'binary' | 'buffer' | 'text' | 'url' | undefined;
     autoTables?: boolean;
 
     /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
@@ -862,7 +870,9 @@ export interface OptionsColumns {
     /** The headerSort option can now be set in the table options to affect all columns as well as in column definitions. */
     headerSort?: boolean | undefined;
     headerSortElement?: string | undefined | ((column: ColumnComponent, dir: 'asc' | 'desc' | 'none') => any);
-    columnDefaults?: ColumnDefinition;
+    columnDefaults?: Partial<ColumnDefinition>;
+    /** If the resizableColumnFit table definition option is set to true, then when you resize a column its neighbouring column has the opposite resize applied to keep to total width of columns the same. */
+    resizableColumnFit?: boolean | undefined;
 }
 
 export interface OptionsCell {
@@ -900,7 +910,8 @@ export interface OptionsGeneral {
     renderVerticalBuffer?: boolean | number | undefined;
 
     /** placeholder element to display on empty table. */
-    placeholder?: string | HTMLElement | undefined;
+    placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
+    placeholderHeaderFilter?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
 
     /** Footer  element to display for the table. */
     footerElement?: string | HTMLElement | undefined;
@@ -994,8 +1005,13 @@ export interface OptionsMenu {
     groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
     popupContainer?: boolean | string | HTMLElement;
-    rowDblClickPopup?: string;
+    groupClickPopup?: string;
+    groupContextPopup?: string;
+    groupDblPopup?: string;
     groupDblClickPopup?: string;
+    rowClickPopup?: string;
+    rowContextPopup?: string;
+    rowDblClickPopup?: string;
 }
 
 export type RowContextMenuSignature =
@@ -1039,6 +1055,8 @@ export interface DownloadXLXS {
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
     compress?: boolean;
+    writeOptions?: Record<string, unknown>;
+    test?: {};
 }
 
 export interface DownloadPDF {
@@ -1610,6 +1628,7 @@ export type ColumnCalc =
     | 'sum'
     | 'concat'
     | 'count'
+    | 'unique'
     | ((values: any[], data: any[], calcParams: {}) => any);
 
 export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
@@ -1698,6 +1717,7 @@ export interface MoneyParams {
     symbol?: string | undefined;
     symbolAfter?: boolean | undefined;
     precision?: boolean | number | undefined;
+    negativeSign?: string | true;
 }
 
 export interface ImageParams {
@@ -1819,6 +1839,8 @@ export interface TextAreaParams extends SharedEditorParams {
     selectContents?: boolean | undefined;
 }
 
+type VerticalNavigationOptions = 'editor' | 'table';
+
 export interface CheckboxParams extends SharedEditorParams {
     // tick
     tristate?: boolean | undefined;
@@ -1834,14 +1856,17 @@ export interface DateParams extends SharedEditorParams {
     min?: string;
     max?: string;
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface TimeParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface DateTimeEditorParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface LabelValue {
@@ -1980,7 +2005,7 @@ export interface RowComponent extends CalculationComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the row if it passes the current filters. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: 'top' | 'center' | 'bottom' | 'nearest', scrollIfVisible?: boolean) => Promise<void>;
 
     /** The pageTo function will load the page for the row if it passes the current filters. */
     pageTo: () => Promise<void>;
@@ -2095,6 +2120,9 @@ export interface GroupComponent {
     /** The toggle function toggles the visibility of the group, switching between hidden and visible. */
     toggle: () => void;
     popup: (contents: string, position: PopupPosition) => void;
+
+    /** The scrollTo function will scroll the table to the group header if it passes the current filters. */
+    scrollTo: (position?: 'top' | 'center' | 'bottom' | 'nearest', scrollIfVisible?: boolean) => Promise<void>;
 }
 
 export interface ColumnComponent {
@@ -2138,7 +2166,7 @@ export interface ColumnComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the column if it is visible. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: 'left' | 'middle' | 'right', scrollIfVisible?: boolean) => Promise<void>;
 
     /** The getSubColumns function returns an array of ColumnComponent objects, one for each sub column of this column. */
     getSubColumns: () => ColumnComponent[];
@@ -2203,10 +2231,13 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: () => {};
+    getData: (transformType?: 'data' | 'download' | 'clipboard') => {};
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
+
+    /** The getType function can be used to determine if the cell is being used as a cell or a header element. */
+    getType: () => 'cell' | 'header';
 
     /** You can change the value of the cell using the setValue function. The first parameter should be the new value for the cell, the second optional parameter will apply the column mutators to the value when set to true (default = true). */
     setValue: (value: any, mutate?: boolean) => void;
@@ -2267,7 +2298,12 @@ export interface EventCallBackMethods {
     rowMoved: (row: RowComponent) => void;
     rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
+    rowSelectionChanged: (
+        data: any[],
+        rows: RowComponent[],
+        selectedRows: RowComponent[],
+        deselectedRows: RowComponent[],
+    ) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;

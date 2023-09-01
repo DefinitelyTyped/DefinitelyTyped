@@ -9,7 +9,7 @@ declare type GlobalObject = Object;
 /**
  * @namespace ol
  */
-declare module ol {
+declare namespace ol {
     /**
      * The animation static methods are designed to be used with the
      * {@link ol.Map#beforeRender} method.  For example:
@@ -23,7 +23,7 @@ declare module ol {
      *
      * @namespace ol.animation
      */
-    module animation {
+    namespace animation {
         /**
          * Generate an animated transition that will "bounce" the resolution as it
          * approaches the final value.
@@ -269,7 +269,7 @@ declare module ol {
 
     }
 
-    module Collection {
+    namespace Collection {
 
         type EventType = string;
 
@@ -309,7 +309,7 @@ declare module ol {
      *
      * @namespace ol.color
      */
-    module color {
+    namespace color {
         /**
          * Return the color as an array. This function maintains a cache of calculated
          * arrays which means the result should not be modified.
@@ -334,7 +334,7 @@ declare module ol {
      * [CanvasRenderingContext2D.fillStyle](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillStyle).
      * @namespace ol.colorlike
      */
-    module colorlike {
+    namespace colorlike {
         /**
          * @param {ol.Color|ol.ColorLike} color Color.
          * @return {ol.ColorLike} The color as an ol.ColorLike
@@ -347,7 +347,7 @@ declare module ol {
     /**
      * @namespace ol.control
      */
-    module control {
+    namespace control {
         /**
          * @classdesc
          * Control to show all the attributions associated with the layer sources
@@ -760,7 +760,7 @@ declare module ol {
             setUnits(units: ol.control.ScaleLine.Units): void;
         }
 
-        module ScaleLine {
+        namespace ScaleLine {
             /**
              * @api
              */
@@ -856,7 +856,7 @@ declare module ol {
     /**
      * @namespace ol.coordinate
      */
-    module coordinate {
+    namespace coordinate {
         /**
          * Add `delta` to `coordinate`. `coordinate` is modified in place and returned
          * by the function.
@@ -1174,7 +1174,7 @@ declare module ol {
      * Easing functions for {@link ol.animation}.
      * @namespace ol.easing
      */
-    module easing {
+    namespace easing {
         /**
          * Start slow and speed up.
          * @param {number} t Input between 0 and 1.
@@ -1233,11 +1233,11 @@ declare module ol {
      *
      * @namespace ol.events
      */
-    module events {
+    namespace events {
         /**
          * @namespace ol.events.condition
          */
-        module condition {
+        namespace condition {
             /**
              * Return `true` if only the alt-key is pressed, `false` otherwise (e.g. when
              * additionally the shift-key is pressed).
@@ -1475,7 +1475,7 @@ declare module ol {
     /**
      * @namespace ol.extent
      */
-    module extent {
+    namespace extent {
         /**
          * Build an extent that includes all given coordinates.
          *
@@ -1849,7 +1849,7 @@ declare module ol {
      * Loading mechanisms for vector data.
      * @namespace ol.featureloader
      */
-    module featureloader {
+    namespace featureloader {
         /**
          * Create an XHR feature loader for a `url` and `format`. The feature loader
          * loads features (with XHR), parses the features, and adds them to the
@@ -1877,7 +1877,7 @@ declare module ol {
     /**
      * @namespace ol.format
      */
-    module format {
+    namespace format {
 
         /**
          * @classdesc
@@ -2627,7 +2627,7 @@ declare module ol {
 
         }
 
-        module filter {
+        namespace filter {
             interface Filter { }
         }
 
@@ -3332,7 +3332,7 @@ declare module ol {
     /**
      * @namespace ol.geom
      */
-    module geom {
+    namespace geom {
         /**
          * @classdesc
          * Circle geometry.
@@ -4354,7 +4354,7 @@ declare module ol {
     /**
      * @namespace ol.has
      */
-    module has {
+    namespace has {
         /**
          * The ratio between physical pixels and device-independent pixels
          * (dips) on the device (`window.devicePixelRatio`).
@@ -4515,7 +4515,7 @@ declare module ol {
     /**
      * @namespace ol.interaction
      */
-    module interaction {
+    namespace interaction {
         /**
          * @classdesc
          * Allows the user to zoom by double-clicking on the map.
@@ -4577,7 +4577,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.DragAndDrop
          */
-        module DragAndDrop {
+        namespace DragAndDrop {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
@@ -4670,7 +4670,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.DragBox
          */
-        module DragBox {
+        namespace DragBox {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragBox} instances are instances of
@@ -4820,7 +4820,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.Draw
          */
-        module Draw {
+        namespace Draw {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Draw} instances are instances of
@@ -5087,7 +5087,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.Modify
          */
-        module Modify {
+        namespace Modify {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Modify} instances are instances of
@@ -5277,7 +5277,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.Select
          */
-        module Select {
+        namespace Select {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Select} instances are instances of
@@ -5467,7 +5467,7 @@ declare module ol {
         /**
          * @namespace ol.interaction.Translate
          */
-        module Translate {
+        namespace Translate {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Translate} instances are instances of
@@ -5565,7 +5565,7 @@ declare module ol {
     /**
      * @namespace ol.layer
      */
-    module layer {
+    namespace layer {
         /**
          * @classdesc
          * Abstract base class; normally only used for creating subclasses and not
@@ -6114,7 +6114,7 @@ declare module ol {
      * Strategies for loading vector data.
      * @namespace ol.loadingstrategy
      */
-    module loadingstrategy {
+    namespace loadingstrategy {
         /**
          * Strategy function for loading all features with a single request.
          * @param {ol.Extent} extent Extent.
@@ -7113,7 +7113,7 @@ declare module ol {
 
     }
 
-    module pointer {
+    namespace pointer {
 
         /**
          * @classdesc
@@ -7185,7 +7185,7 @@ declare module ol {
      *
      * @namespace ol.proj
      */
-    module proj {
+    namespace proj {
 
         /**
          * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
@@ -7511,11 +7511,11 @@ declare module ol {
     /**
      * @namespace ol.render
      */
-    module render {
+    namespace render {
         /**
          * @namespace ol.render.canvas
          */
-        module canvas {
+        namespace canvas {
             /**
              * @classdesc
              * A concrete subclass of {@link ol.render.VectorContext} that implements
@@ -7758,7 +7758,7 @@ declare module ol {
     /**
      * @namespace ol.source
      */
-    module source {
+    namespace source {
         /**
          * @classdesc
          * Layer source for Bing Maps tile data.
@@ -9047,7 +9047,7 @@ declare module ol {
         /**
          * @namespace ol.source.wms
          */
-        module wms {
+        namespace wms {
             /**
              * Available server types: `'carmentaserver'`, `'geoserver'`, `'mapserver'`,
              *     `'qgis'`. These are servers that have vendor parameters beyond the WMS
@@ -9371,7 +9371,7 @@ declare module ol {
      *
      * @namespace ol.style
      */
-    module style {
+    namespace style {
         /**
          * Manages the creation of image atlases.
          *
@@ -10198,14 +10198,14 @@ declare module ol {
 
     }
 
-    module Tile {
+    namespace Tile {
         type State = number;
     }
 
     /**
      * @namespace ol.tilegrid
      */
-    module tilegrid {
+    namespace tilegrid {
         /**
          * Creates a tile grid with a standard XYZ tiling scheme.
          * @param {olx.tilegrid.XYZOptions=} opt_options Tile grid options.
@@ -11022,12 +11022,12 @@ declare module ol {
 /**
  * @namespace olx
  */
-declare module olx {
+declare namespace olx {
 
     /**
      * @namespace olx.animation
      */
-    module animation {
+    namespace animation {
         /**
          */
         interface BounceOptions {
@@ -11091,7 +11091,7 @@ declare module olx {
     /**
      * @namespace olx.control
      */
-    module control {
+    namespace control {
         /**
          */
         interface AttributionOptions {
@@ -11233,7 +11233,7 @@ declare module olx {
     /**
      * @namespace olx.format
      */
-    module format {
+    namespace format {
         /**
          */
         interface ReadOptions {
@@ -11392,7 +11392,7 @@ declare module olx {
     /**
      * @namespace olx.interaction
      */
-    module interaction {
+    namespace interaction {
         /**
          * Object literal with config options for interactions.
          */
@@ -11604,7 +11604,7 @@ declare module olx {
     /**
      * @namespace olx.layer
      */
-    module layer {
+    namespace layer {
         /**
          */
         interface BaseOptions {
@@ -11730,13 +11730,13 @@ declare module olx {
     /**
      * @namespace olx.parser
      */
-    module parser {
+    namespace parser {
     }
 
     /**
      * @namespace olx.render
      */
-    module render {
+    namespace render {
         /**
          */
         interface ToContextOptions {
@@ -11750,7 +11750,7 @@ declare module olx {
     /**
      * @namespace olx.source
      */
-    module source {
+    namespace source {
         /**
          */
         interface BingMapsOptions {
@@ -12138,7 +12138,7 @@ declare module olx {
     /**
      * @namespace olx.style
      */
-    module style {
+    namespace style {
         /**
          */
         interface CircleOptions {
@@ -12249,7 +12249,7 @@ declare module olx {
     /**
      * @namespace olx.tilegrid
      */
-    module tilegrid {
+    namespace tilegrid {
         /**
          */
         interface TileGridOptions {
@@ -12381,7 +12381,7 @@ declare module olx {
         getPointResolution?: ((resolution: number, coords: ol.Coordinate) => number) | undefined;
     }
 
-    module view {
+    namespace view {
         /**
          */
         interface FitOptions {

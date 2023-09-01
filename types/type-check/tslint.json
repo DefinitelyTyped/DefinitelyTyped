@@ -5,7 +5,6 @@
         "new-parens": false,
         "no-consecutive-blank-lines": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

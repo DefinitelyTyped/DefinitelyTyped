@@ -129,4 +129,6 @@ function testStep() {
         operation,
         loaderRegistry
     } = step);
+
+    basePath = context.basePath;
 }

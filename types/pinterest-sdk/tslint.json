@@ -4,7 +4,6 @@
         "ban-types": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "no-padding": false,
         "npm-naming": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false

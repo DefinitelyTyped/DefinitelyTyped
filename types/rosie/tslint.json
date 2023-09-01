@@ -7,7 +7,6 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "no-duplicate-variable": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,

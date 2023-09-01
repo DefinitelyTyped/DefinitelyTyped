@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "max-line-length": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,

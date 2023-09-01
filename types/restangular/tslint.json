@@ -6,7 +6,6 @@
         "interface-name": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
