@@ -7,7 +7,6 @@ import { DefaultNavigatorOptions, PrivateValueStore } from './types';
  * @param options Options object containing `children` and additional options for the router.
  * @returns An object containing `state`, `navigation`, `descriptors` objects.
  */
-// tslint:disable-next-line max-line-length
 export default function useNavigationBuilder<State extends NavigationState, RouterOptions extends DefaultRouterOptions, ActionHelpers extends Record<string, () => void>, ScreenOptions extends {}, EventMap extends Record<string, any>>(createRouter: RouterFactory<State, any, RouterOptions>, options: DefaultNavigatorOptions<ScreenOptions> & RouterOptions): {
     state: State;
     navigation: {

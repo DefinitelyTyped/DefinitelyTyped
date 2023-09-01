@@ -6,7 +6,6 @@ declare type Props = DefaultNavigatorOptions<StackNavigationOptions> & StackRout
 declare function StackNavigator({ initialRouteName, children, screenOptions, ...rest }: Props): JSX.Element;
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 /* eslint-disable @definitelytyped/prefer-declare-function */
-// tslint:disable-next-line max-line-length
 declare const _default: <ParamList extends Record<string, object | undefined>>() => import("../../native").TypedNavigator<ParamList, StackNavigationState<Record<string, object | undefined>>, StackNavigationOptions, StackNavigationEventMap, typeof StackNavigator>;
 /* eslist-enable @definitelytyped/prefer-declare-function */
 /* eslist-enable @definitelytyped/no-unnecessary-generics */

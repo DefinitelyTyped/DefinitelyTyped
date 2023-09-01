@@ -1,7 +1,7 @@
-import Connection = require('@xmpp/connection');
-import { Element } from '@xmpp/xml';
-import FramedParser = require('./FramedParser');
-import Socket = require('./Socket');
+import Connection = require("@xmpp/connection");
+import { Element } from "@xmpp/xml";
+import FramedParser = require("./FramedParser");
+import Socket = require("./Socket");
 
 export = ConnectionWebSocket;
 

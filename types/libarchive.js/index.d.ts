@@ -3,4 +3,4 @@
 // Definitions by: Denis Malykh <https://github.com/finesunes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './main';
+export * from "./main";

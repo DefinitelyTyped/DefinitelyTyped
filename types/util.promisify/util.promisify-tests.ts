@@ -1,8 +1,8 @@
-import * as util from 'util';
-import * as fs from 'fs';
-import promisify = require('util.promisify');
+import * as fs from "fs";
+import * as util from "util";
+import promisify = require("util.promisify");
 
-import 'util.promisify/auto';
+import "util.promisify/auto";
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -21,10 +21,10 @@ implementation = promisify.shim();
 const polyfillImpl = promisify.implementation;
 implementation = polyfillImpl;
 
-import getPolyfill = require('util.promisify/polyfill');
+import getPolyfill = require("util.promisify/polyfill");
 implementation = getPolyfill();
 
-import shimUtilPromisify = require('util.promisify/shim');
+import shimUtilPromisify = require("util.promisify/shim");
 implementation = shimUtilPromisify();
 
 // The `promisify.custom` symbols are considered equal by the type system:

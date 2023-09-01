@@ -322,7 +322,6 @@ declare namespace conventionalChangelogWriter {
              * @param commits   Filtered commits from your git metadata.
              * @param keyCommit The commit that triggers to generate the log.
              */
-            // tslint:disable-next-line max-line-length
             (
                 context: GeneratedContext<TCommit, TContext>,
                 options: Options<TCommit, TContext>,

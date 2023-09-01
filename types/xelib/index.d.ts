@@ -335,7 +335,8 @@ export type I<T> = T;
  * API for xelib wrapper
  */
 export interface XELib
-    extends I<typeof LoaderState>,
+    extends
+        I<typeof LoaderState>,
         I<typeof GameMode>,
         I<typeof ArchiveType>,
         I<typeof ElementType>,
@@ -343,7 +344,8 @@ export interface XELib
         I<typeof SmashType>,
         I<typeof ValueType>,
         I<typeof ConflictThis>,
-        I<typeof ConflictAll> {
+        I<typeof ConflictAll>
+{
     /**
      * Meta functions
      * @see {@link https://z-edit.github.io#/docs?t=Development%2FAPIs%2Fxelib%2FMeta}

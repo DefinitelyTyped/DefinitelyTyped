@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-import * as H from 'history';
+import * as H from "history";
 
 export interface Routable {
     id: number | string;
@@ -21,12 +21,12 @@ export interface QueryParams {
 export type RouteParamsWithQueryOverload =
     | RouteParams
     | {
-          _query: QueryParams;
-      };
+        _query: QueryParams;
+    };
 
 export interface Route {
     uri: string;
-    methods: Array<'GET' | 'HEAD' | 'POST' | 'PATCH' | 'PUT' | 'OPTIONS' | 'DELETE'>;
+    methods: Array<"GET" | "HEAD" | "POST" | "PATCH" | "PUT" | "OPTIONS" | "DELETE">;
     domain?: null | string | undefined;
 }
 
@@ -38,7 +38,7 @@ export interface Config {
     port?: number | null | undefined;
     location?: H.Location;
     defaults: {
-        [key: string]: string | number
+        [key: string]: string | number;
     };
 }
 

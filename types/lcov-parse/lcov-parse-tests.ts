@@ -1,4 +1,4 @@
-import parse = require('lcov-parse');
+import parse = require("lcov-parse");
 
 const sample = `TN:
 SF:src/most.js
@@ -17,7 +17,7 @@ BRF:0
 BRH:0
 end_of_record`;
 
-parse('', (err, data) => {
+parse("", (err, data) => {
     err; // $ExpectedType string
     data; // $ExpectedType undefined
 });
@@ -27,7 +27,7 @@ parse(sample, (err, data) => {
     data; // $ExpectedType LcovFile[]
 });
 
-parse.source('', (err, data) => {
+parse.source("", (err, data) => {
     err; // $ExpectedType string
     data; // $ExpectedType undefined
 });

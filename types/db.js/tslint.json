@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "max-line-length": false,
         "no-internal-module": false,
         "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
@@ -11,7 +10,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }
