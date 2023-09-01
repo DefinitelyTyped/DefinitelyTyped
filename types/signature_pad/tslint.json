@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "array-type": false,
-        "max-line-length": false,
-        "semicolon": false
+        "array-type": false
     }
 }

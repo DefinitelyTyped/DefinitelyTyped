@@ -3,9 +3,6 @@
     "rules": {
         "ban-types": false,
         "member-access": false,
-        "no-consecutive-blank-lines": false,
-        "no-padding": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

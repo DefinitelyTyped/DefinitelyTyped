@@ -1,5 +1,5 @@
 import UnicodeTrie = require("unicode-trie");
-import UnicodeTrieBuilder = require('unicode-trie/builder');
+import UnicodeTrieBuilder = require("unicode-trie/builder");
 
 const data = { data: Uint32Array.from([0, 0]), highStart: 0, errorValue: 0 };
 const trie = new UnicodeTrie(data);

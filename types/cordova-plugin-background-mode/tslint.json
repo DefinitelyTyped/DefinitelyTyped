@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "no-padding": false,
-        "semicolon": false
+        "interface-name": false
     }
 }

@@ -10,6 +10,8 @@ cpost('This is cpost.');
 post('This is a post.');
 // Catcher must be bound to a global object, so use an [r]
 messnamed('catcher', 'bang');
+messnamed('catcher', 'amessage', 'myarg');
+messnamed('catcher', 'anothremessage', 1);
 
 // Buffer usage example
 const myBuffer = new Buffer('audio_buffer');
@@ -185,10 +187,34 @@ post(myMaxobj.valid);
 // Use methods on Maxobj
 myMaxobj.message('set', 'myMaxObj set this');
 myMaxobj.help();
-const mySubpatcher = myMaxobj.subpatcher(0);
+let mySubpatcher = myMaxobj.subpatcher(0);
+mySubpatcher = myMaxobj.subpatcher();
 post(mySubpatcher);
 const understandsResult = myMaxobj.understands('testMessage');
 post(understandsResult);
+let [r1, r2, r3, r4] = [0, 0, 0, 0];
+const attrnames = myMaxobj.getattrnames();
+[r1, r2, r3, r4] = myMaxobj.getattr("openrect") as Rect;
+myMaxobj.setattr("openrect", [0, 0, 0, 0]);
+
+const boxattrnames = myMaxobj.getboxattrnames();
+[r1, r2, r3, r4] = myMaxobj.getboxattr("presentation_rect") as Rect;
+myMaxobj.setboxattr("presentation_rect", [0, 0, 0, 0]);
+
+// MaxobjListener
+function onWorkspaceDisabled(rectData: MaxobjListenerData<number>) {
+    const workspacedisabled = rectData.value;
+    if (workspacedisabled === 0) {
+        post("workspace disabled");
+    } else {
+        post("workspace enabled");
+    }
+}
+
+const maxobjListener = new MaxobjListener(myMaxobj, "workspacedisabled", onWorkspaceDisabled);
+post(maxobjListener.maxobject);
+post(maxobjListener.attrname);
+post(maxobjListener.silent);
 
 // ------------- Patcher usage examples -------------
 
@@ -210,6 +236,7 @@ post(myPatcher.scrollorigin);
 post(myPatcher.wind);
 
 // Use methods on Patcher
+myPatcher.message("window", "size", 200, 200, 200, 200);
 const myNewObject = myPatcher.newobject('message');
 const myNewDefaultObject = myPatcher.newdefault(100, 100, 'toggle');
 

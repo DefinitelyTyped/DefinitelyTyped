@@ -4,11 +4,7 @@
         "ban-types": false,
         "interface-name": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "one-variable-per-declaration": false,
-        "prefer-const": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

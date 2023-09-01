@@ -4,7 +4,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "object-literal-shorthand": false,
         "prefer-template": false
     }

@@ -12,7 +12,7 @@ declare namespace XmlPoke { // ghost module
     type Value = string | boolean | number | XmlValue | CDataValue | PathToValueMap | Transform;
     type PathToValueMap = {
         [xpath: string]: Value;
-    }
+    };
     interface API {
         add(xpath: string, value: Value): API;
         add(map: PathToValueMap): API;
@@ -35,11 +35,11 @@ declare namespace XmlPoke { // ghost module
     }
 }
 
-declare module 'xmlpoke' {
+declare module "xmlpoke" {
     const xmlpoke: {
         (xml: string, modify: (api: XmlPoke.API) => void): string;
-        CDataValue: new (value: string) => XmlPoke.CDataValue;
-        XmlString: new (value: string) => XmlPoke.XmlValue;
+        CDataValue: new(value: string) => XmlPoke.CDataValue;
+        XmlString: new(value: string) => XmlPoke.XmlValue;
     };
     namespace xmlpoke {}
     export = xmlpoke;
