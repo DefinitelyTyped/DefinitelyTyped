@@ -5,8 +5,8 @@
 // TypeScript Version: 4.1
 
 interface PriceData {
-  price: number;
-  updated: Date;
+    price: number;
+    updated: Date;
 }
 
 /**

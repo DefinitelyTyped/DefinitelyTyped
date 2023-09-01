@@ -1,4 +1,4 @@
-import { Archive } from './libarchive';
+import { Archive } from "./libarchive";
 
 export class CompressedFile {
     _name: string;
@@ -6,7 +6,7 @@ export class CompressedFile {
     _path: string;
     _archiveRef: Archive;
 
-    constructor(name: string, size: number, path: string, archiveRef: Archive)
+    constructor(name: string, size: number, path: string, archiveRef: Archive);
 
     get name(): string;
 

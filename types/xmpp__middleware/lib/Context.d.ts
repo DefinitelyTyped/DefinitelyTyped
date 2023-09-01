@@ -1,6 +1,6 @@
-import { JID } from '@xmpp/jid';
-import { Element } from '@xmpp/xml';
-import { Entity } from '../index';
+import { JID } from "@xmpp/jid";
+import { Element } from "@xmpp/xml";
+import { Entity } from "../index";
 
 export = Context;
 

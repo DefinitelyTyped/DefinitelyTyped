@@ -449,6 +449,40 @@ export namespace lists {
         occurred_at?: string | undefined;
     }
 
+    interface Category {
+        list_id: string;
+        id: string;
+        title: string;
+        display_order: number;
+        type: string;
+        _links: Link[];
+    }
+
+    interface GetListInterestCategoriesResponse {
+        list_id: string;
+        categories: Category[];
+        total_items: number;
+        _links: Link[];
+    }
+
+    interface Interest {
+        category_id: string;
+        list_id: string;
+        id: string;
+        name: string;
+        subscriber_count: string;
+        display_order: number;
+        _links: Link[];
+    }
+
+    interface ListInterestCategoryInterestsResponse {
+        list_id: string;
+        category_id: string;
+        interests: Interest[];
+        total_items: number;
+        _links: Link[];
+    }
+
     /**
      * Batch subscribe or unsubscribe
      * https://mailchimp.com/developer/marketing/api/lists/batch-subscribe-or-unsubscribe//
@@ -577,4 +611,19 @@ export namespace lists {
      * @return A {@link https://www.promisejs.org/|Promise}, with empty response
      */
     function createListMemberEvent(listId: string, subscriberHash: string, body: CreateListMemberEventBody): Promise<{} | ErrorResponse>;
+
+    /**
+     * Get a list of interest categories.
+     * @param listId The unique ID for the list.
+     * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/GetListInterestCategoriesResponse}
+     */
+    function getListInterestCategories(listId: string): Promise<GetListInterestCategoriesResponse | ErrorResponse>;
+
+    /**
+     * Get a list of interests in a specific interest category.
+     * @param listId The unique ID for the list.
+     * @param interestCategoryId The unique ID for the interest category.
+     * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInterestCategoryInterestsResponse}
+     */
+    function listInterestCategoryInterests(listId: string, interestCategoryId: string): Promise<ListInterestCategoryInterestsResponse | ErrorResponse>;
 }

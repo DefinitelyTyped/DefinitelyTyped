@@ -15,7 +15,7 @@ import TradeOffer = require('./lib/classes/TradeOffer');
 export = TradeOfferManager;
 
 declare class TradeOfferManager extends EventEmitter {
-    constructor(options: TradeOfferManager.TradeOfferManagerOptions);
+    constructor(options?: TradeOfferManager.TradeOfferManagerOptions);
 
     pollInterval: number;
     cancelTime: number | null;

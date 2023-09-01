@@ -1,10 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "one-line": false,
-        "only-arrow-functions": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "whitespace": false
+        "only-arrow-functions": false
     }
 }
