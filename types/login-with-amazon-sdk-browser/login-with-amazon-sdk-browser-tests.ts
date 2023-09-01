@@ -22,7 +22,7 @@ amazon.Login.authorize(
             return;
         }
         amazon.Login.retrieveProfile(req.access_token, onRetrieveProfile);
-    }
+    },
 );
 
 const request = amazon.Login.authorize({

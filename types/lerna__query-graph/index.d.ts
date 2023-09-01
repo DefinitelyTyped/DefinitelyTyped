@@ -3,14 +3,14 @@
 // Definitions by: DonMahallem <https://github.com/donmahallem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Package } from '@lerna/package';
-import { PackageGraphNode } from '@lerna/package-graph';
+import { Package } from "@lerna/package";
+import { PackageGraphNode } from "@lerna/package-graph";
 
 export interface QueryGraphConfig {
     /**
      * "dependencies" excludes devDependencies from graph
      */
-    graphType?: 'allDependencies' | 'dependencies';
+    graphType?: "allDependencies" | "dependencies";
     /**
      * Whether or not to reject dependency cycles
      */

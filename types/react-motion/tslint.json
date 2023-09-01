@@ -4,10 +4,7 @@
         "array-type": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "object-literal-shorthand": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

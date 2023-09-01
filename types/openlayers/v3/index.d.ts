@@ -12291,6 +12291,7 @@ declare namespace olx {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "openlayers" {
     export = ol;
 }

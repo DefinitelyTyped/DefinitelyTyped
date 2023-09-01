@@ -1,4 +1,3 @@
-/* tslint:disable:object-literal-key-quotes only-arrow-functions space-before-function-paren */
 // #region OO.ui
 {
     OO.ui.theme; // $ExpectType Theme

@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "interface-name": false,
-        "semicolon": false
+        "interface-name": false
     }
 }

@@ -43,7 +43,7 @@ declare class Strategy extends oauth2.Strategy {
         ) => void,
     );
     // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures max-line-length
+    // tslint:disable-next-line:unified-signatures
     constructor(
         options: twitch.StrategyOptionsWithRequest,
         verify: (

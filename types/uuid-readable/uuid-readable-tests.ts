@@ -1,9 +1,9 @@
-import * as id from 'uuid-readable';
+import * as id from "uuid-readable";
 
 id.generate(); // $ExpectType string
 
 // Pass your own UUID
-const uuid = '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed';
+const uuid = "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed";
 
 id.generate(uuid); // $ExpectType string
 

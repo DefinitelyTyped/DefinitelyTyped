@@ -38,7 +38,6 @@ export type Importer = AsyncImporter | SyncImporter;
 // ** Sync Sass functions receiving fixed # of arguments ***
 export type SyncSassFn = (this: SyncContext, ...$args: types.Value[]) => types.ReturnValue;
 
-/* tslint:disable:max-line-length */
 // ** Sync Sass functions receiving variable # of arguments ***
 export type SyncSassVarArgFn1 = (this: SyncContext, $arg1: types.Value[]) => types.ReturnValue;
 export type SyncSassVarArgFn2 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value[]) => types.ReturnValue;
@@ -65,7 +64,6 @@ export type AsyncSassVarArgFn3 = (this: AsyncContext, $arg1: types.Value, $arg2:
 export type AsyncSassVarArgFn4 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value[], cb: SassFunctionCallback) => void;
 export type AsyncSassVarArgFn5 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value[], cb: SassFunctionCallback) => void;
 export type AsyncSassVarArgFn6 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value, $arg6: types.Value[], cb: SassFunctionCallback) => void;
-/* tslint:enable:max-line-length */
 
 export type SyncSassFunction = SyncSassFn | SyncSassVarArgFn1 | SyncSassVarArgFn2 | SyncSassVarArgFn3 | SyncSassVarArgFn4 | SyncSassVarArgFn5 | SyncSassVarArgFn6;
 

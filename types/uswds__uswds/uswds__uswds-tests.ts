@@ -20,11 +20,11 @@ import {
     timePicker,
     tooltip,
     validator,
-} from '@uswds/uswds/js';
+} from "@uswds/uswds/js";
 
-const element = document.createElement('div');
-const button = document.createElement('button');
-const input = document.createElement('input');
+const element = document.createElement("div");
+const button = document.createElement("button");
+const input = document.createElement("input");
 
 // Accordion
 accordion.ACCORDION; // $ExpectType string
@@ -77,7 +77,7 @@ $ExpectType {
 */
 comboBox.getComboBoxContext(element);
 comboBox.enhanceComboBox(element); // $ExpectType void
-comboBox.generateDynamicRegExp('string'); // $ExpectType RegExp
+comboBox.generateDynamicRegExp("string"); // $ExpectType RegExp
 comboBox.disable(input); // $ExpectType void
 comboBox.enable(input); // $ExpectType void
 comboBox.displayList(input); // $ExpectType void
@@ -107,7 +107,7 @@ datePicker.getDatePickerContext(element);
 datePicker.disable(input); // $ExpectType void
 datePicker.enable(input); // $ExpectType void
 datePicker.isDateInputInvalid(input); // $ExpectType boolean
-datePicker.setCalendarValue(button, '2022-01-01'); // $ExpectType void
+datePicker.setCalendarValue(button, "2022-01-01"); // $ExpectType void
 datePicker.validateDateInput(element); // $ExpectType void
 datePicker.renderCalendar(element, new Date()); // $ExpectType HTMLElement
 datePicker.updateCalendarIfVisible(element); // $ExpectType void
@@ -167,7 +167,7 @@ modal.init(element); // $ExpectType void
 modal.teardown(element); // $ExpectType void
 modal.on(element); // $ExpectType void
 modal.off(element); // $ExpectType void
-modal.toggleModal(new KeyboardEvent('keydown')); // $ExpectType boolean
+modal.toggleModal(new KeyboardEvent("keydown")); // $ExpectType boolean
 
 // Navigation
 navigation.focusTrap; // $ExpectType null

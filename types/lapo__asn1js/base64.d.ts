@@ -1,4 +1,4 @@
-import ASN1 = require('.');
+import ASN1 = require(".");
 
 declare namespace Base64 {
     function decode(a: ASN1.Binary): Uint8Array;
