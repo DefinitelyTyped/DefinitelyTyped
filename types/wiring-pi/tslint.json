@@ -3,7 +3,6 @@
     "rules": {
         "no-single-declare-module": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

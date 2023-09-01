@@ -21,7 +21,7 @@
 
 // Compatability with node.js
 // tslint:disable-next-line:no-empty-interface
-interface HTMLElement { }
+interface HTMLElement {}
 
 export = URI;
 export as namespace URI;
@@ -35,7 +35,14 @@ declare const URI: {
     addQuery(data: URI.QueryDataMap, qryObj: object): object;
 
     build(parts: URI.URIOptions): string;
-    buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
+    buildAuthority(
+        parts: {
+            username?: string | undefined;
+            password?: string | undefined;
+            hostname?: string | undefined;
+            port?: string | undefined;
+        },
+    ): string;
     buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
     buildQuery(data: URI.QueryDataMap, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
     buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
@@ -159,22 +166,22 @@ declare namespace URI {
         equals(url?: string | ReadonlyURI | URI): boolean;
         is(
             qry:
-                | 'relative'
-                | 'absolute'
-                | 'urn'
-                | 'url'
-                | 'domain'
-                | 'name'
-                | 'sld'
-                | 'idn'
-                | 'punycode'
-                | 'ip'
-                | 'ip4'
-                | 'ipv4'
-                | 'inet4'
-                | 'ip6'
-                | 'ipv6'
-                | 'inet6',
+                | "relative"
+                | "absolute"
+                | "urn"
+                | "url"
+                | "domain"
+                | "name"
+                | "sld"
+                | "idn"
+                | "punycode"
+                | "ip"
+                | "ip4"
+                | "ipv4"
+                | "inet4"
+                | "ip6"
+                | "ipv6"
+                | "inet6",
         ): boolean;
 
         hasQuery(
@@ -230,22 +237,22 @@ interface URI {
 
     is(
         qry:
-            | 'relative'
-            | 'absolute'
-            | 'urn'
-            | 'url'
-            | 'domain'
-            | 'name'
-            | 'sld'
-            | 'idn'
-            | 'punycode'
-            | 'ip'
-            | 'ip4'
-            | 'ipv4'
-            | 'inet4'
-            | 'ip6'
-            | 'ipv6'
-            | 'inet6',
+            | "relative"
+            | "absolute"
+            | "urn"
+            | "url"
+            | "domain"
+            | "name"
+            | "sld"
+            | "idn"
+            | "punycode"
+            | "ip"
+            | "ip4"
+            | "ipv4"
+            | "inet4"
+            | "ip6"
+            | "ipv6"
+            | "inet6",
     ): boolean;
     iso8859(): URI;
 
@@ -278,7 +285,7 @@ interface URI {
 
     query(): string;
     // tslint:disable-next-line void-return
-    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     query(v: boolean): URI.QueryDataMap;
 
     readable(): string;
@@ -294,7 +301,7 @@ interface URI {
     scheme(protocol: string): URI;
     search(): string;
     // tslint:disable-next-line void-return
-    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     search(v: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
@@ -341,6 +348,6 @@ declare global {
     }
 }
 
-declare module 'URI' {
+declare module "URI" {
     export = URI;
 }

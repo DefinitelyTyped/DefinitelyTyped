@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-internal-module": false,
-        "no-unnecessary-qualifier": false,
-        "semicolon": false
+        "no-unnecessary-qualifier": false
     }
 }

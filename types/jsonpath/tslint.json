@@ -6,7 +6,6 @@
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

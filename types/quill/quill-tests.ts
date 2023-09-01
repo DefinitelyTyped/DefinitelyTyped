@@ -1,5 +1,5 @@
-import { Quill, RangeStatic, StringMap } from "quill";
 import { Blot } from "parchment/src/blot/abstract/blot";
+import { Quill, RangeStatic, StringMap } from "quill";
 import Delta = require("quill-delta");
 
 function test_quill() {
@@ -406,9 +406,9 @@ function test_KeyboardBool() {
 }
 
 function test_history() {
-  const quillEditor = new Quill("#editor");
-  quillEditor.history.undo();
-  quillEditor.history.redo();
-  quillEditor.history.cutoff();
-  quillEditor.history.clear();
+    const quillEditor = new Quill("#editor");
+    quillEditor.history.undo();
+    quillEditor.history.redo();
+    quillEditor.history.cutoff();
+    quillEditor.history.clear();
 }

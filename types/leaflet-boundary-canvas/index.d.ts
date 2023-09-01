@@ -3,10 +3,10 @@
 // Definitions by: TurtIeSocks <https://github.com/TurtIeSocks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as L from 'leaflet';
-import type { FeatureCollection } from 'geojson';
+import type { FeatureCollection } from "geojson";
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace TileLayer {
         interface BoundaryCanvasOptions extends TileLayerOptions {
             boundary?: FeatureCollection | undefined;

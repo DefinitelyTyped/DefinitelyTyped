@@ -6,13 +6,9 @@
         "interface-name": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

@@ -1,4 +1,4 @@
-import * as UnlCore from 'unl-core';
+import * as UnlCore from "unl-core";
 
 // Encoding
 const atx_locationId: string = UnlCore.encode(30.2672, -97.7431);
@@ -11,7 +11,7 @@ const atx_latlong: UnlCore.PointWithElevation = UnlCore.decode(atx_locationId);
 const atx_bounds: UnlCore.Bounds = UnlCore.bounds(atx_locationId);
 
 // Adjacent
-const atx_adj_cell1: string = UnlCore.adjacent(atx_locationId, 'N');
+const atx_adj_cell1: string = UnlCore.adjacent(atx_locationId, "N");
 
 // Neighbors
 const atx_neighbors: UnlCore.Neighbours = UnlCore.neighbours(atx_locationId);

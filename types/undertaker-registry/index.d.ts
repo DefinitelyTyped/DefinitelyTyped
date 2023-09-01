@@ -38,6 +38,6 @@ declare class UndertakerRegistry {
     tasks(): { [taskName: string]: (...args: any[]) => any };
 }
 
-declare namespace UndertakerRegistry { }
+declare namespace UndertakerRegistry {}
 
 export = UndertakerRegistry;

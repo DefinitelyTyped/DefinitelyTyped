@@ -1,16 +1,16 @@
 // Official exampeles, lightly adapted
-import lambdaWrapper = require('lambda-wrapper');
-import { Handler } from 'aws-lambda';
+import lambdaWrapper = require("lambda-wrapper");
+import { Handler } from "aws-lambda";
 
 declare const handler: Handler<{ key1: string; key2: string }, { resultProp: any }>;
 let lambda = lambdaWrapper.wrap({ handler });
 
 lambda = lambdaWrapper.wrap({
-    region: 'eu-west-1',
-    lambdaFunction: 'myFunctionName',
+    region: "eu-west-1",
+    lambdaFunction: "myFunctionName",
 });
 
-const event = { key1: 'val1', key2: 'val2' };
+const event = { key1: "val1", key2: "val2" };
 lambda.run(event, (err, data) => {
     if (err) {
         // ... handle error
@@ -18,7 +18,7 @@ lambda.run(event, (err, data) => {
     data && data.resultProp;
 });
 
-lambda.runHandler(event, { memoryLimitInMB: '1000' }, (err, data) => {
+lambda.runHandler(event, { memoryLimitInMB: "1000" }, (err, data) => {
     if (err) {
         // ... handle error
     }
@@ -28,5 +28,5 @@ lambda.runHandler(event, { memoryLimitInMB: '1000' }, (err, data) => {
 
 // Other tests
 
-lambda = lambdaWrapper.wrap({ fooHandler: handler }, { handler: 'fooHandler' });
+lambda = lambdaWrapper.wrap({ fooHandler: handler }, { handler: "fooHandler" });
 lambda.run(event).then(data => data.resultProp);
