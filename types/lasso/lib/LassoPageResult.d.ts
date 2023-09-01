@@ -1,4 +1,4 @@
-import LassoContext from './LassoContext';
+import LassoContext from "./LassoContext";
 
 export default interface LassoPageResult {
     addFile(filePath: string, contentType: string, isAsync: boolean, slot: any): void;

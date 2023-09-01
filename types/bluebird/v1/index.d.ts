@@ -662,6 +662,7 @@ declare namespace Promise {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'bluebird' {
     export = Promise;
 }

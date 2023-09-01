@@ -1,3 +1,3 @@
-import SaxLibxmljs from '../../src/parsers/libxmljs';
+import SaxLibxmljs from "../../src/parsers/libxmljs";
 
 export = SaxLibxmljs;

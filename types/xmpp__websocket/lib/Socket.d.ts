@@ -1,7 +1,7 @@
-import { SocketBase } from '@xmpp/connection';
-import { EventEmitter } from 'events';
-import { URL } from 'url';
-import WebSocket = require('ws');
+import { SocketBase } from "@xmpp/connection";
+import { EventEmitter } from "events";
+import { URL } from "url";
+import WebSocket = require("ws");
 
 export = Socket;
 
@@ -43,8 +43,8 @@ declare namespace Socket {
     }
 
     interface WebSocketError extends Error {
-        readonly errno?: 'ECONNERROR';
-        readonly code?: 'ECONNERROR';
+        readonly errno?: "ECONNERROR";
+        readonly code?: "ECONNERROR";
         readonly event: WebSocket.ErrorEvent;
         readonly url: string | URL;
     }

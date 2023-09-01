@@ -52,9 +52,9 @@ export function parse(text: string, reviver?: (key: string, value: any) => any):
  * @returns String representation of the JSON object.
  */
 export function stringify(
-  value: any,
-  replacer?: ((key: string, value: any) => any) | Array<string | number>,
-  space?: string | number,
+    value: any,
+    replacer?: ((key: string, value: any) => any) | Array<string | number>,
+    space?: string | number,
 ): string;
 
 /**
@@ -62,20 +62,20 @@ export function stringify(
  * @param  value
  */
 export class LosslessNumber {
-  // value as string
-  value: string;
-  type: 'LosslessNumber';
-  isLosslessNumber: true;
-  constructor(value: string | number);
-  /**
-   * Get the value of the LosslessNumber as number.
-   * Will throw an error when this conversion would result in a truncation of the number.
-   * @return Number
-   */
-  valueOf(): number;
-  /**
-   * Get the value of the LosslessNumber as string.
-   * @return string
-   */
-  toString(): string;
+    // value as string
+    value: string;
+    type: "LosslessNumber";
+    isLosslessNumber: true;
+    constructor(value: string | number);
+    /**
+     * Get the value of the LosslessNumber as number.
+     * Will throw an error when this conversion would result in a truncation of the number.
+     * @return Number
+     */
+    valueOf(): number;
+    /**
+     * Get the value of the LosslessNumber as string.
+     * @return string
+     */
+    toString(): string;
 }

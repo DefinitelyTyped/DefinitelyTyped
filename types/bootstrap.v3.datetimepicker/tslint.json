@@ -1,6 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "quotemark": [true, "double", "avoid-escape"]
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

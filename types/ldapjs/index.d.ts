@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export import DN = dn.DN;
 export import RDN = dn.RDN;
@@ -42,10 +42,10 @@ export interface ClientOptions {
     reconnect?:
         | boolean
         | {
-              initialDelay?: number | undefined;
-              maxDelay?: number | undefined;
-              failAfter?: number | undefined;
-          }
+            initialDelay?: number | undefined;
+            maxDelay?: number | undefined;
+            failAfter?: number | undefined;
+        }
         | undefined;
     strictDN?: boolean | undefined;
     queueSize?: number | undefined;
@@ -57,7 +57,7 @@ export interface ClientOptions {
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: 'base' | 'one' | 'sub' | undefined;
+    scope?: "base" | "one" | "sub" | undefined;
     /**  Defaults to (objectclass=*) */
     filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
@@ -71,9 +71,9 @@ export interface SearchOptions {
     paged?:
         | boolean
         | {
-              pageSize?: number | undefined;
-              pagePause?: boolean | undefined;
-          }
+            pageSize?: number | undefined;
+            pagePause?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -85,17 +85,17 @@ export interface Change {
 }
 
 export var Change: {
-    new (change: Change): Change;
+    new(change: Change): Change;
 };
 
 export type SearchReference = any;
 
 export interface SearchCallbackResponse extends EventEmitter {
-    on(event: 'searchEntry', listener: (entry: SearchEntry) => void): this;
-    on(event: 'searchReference', listener: (referral: SearchReference) => void): this;
-    on(event: 'page', listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (res: SearchResultDone | null) => void): this;
+    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
+    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
+    on(event: "page", listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (res: SearchResultDone | null) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -358,7 +358,7 @@ export interface Server extends EventEmitter {
 }
 export class SearchRequest {
     baseObject: string;
-    scope: 'base' | 'one' | 'sub';
+    scope: "base" | "one" | "sub";
     derefAliases: number;
     sizeLimit: number;
     timeLimit: number;
@@ -613,21 +613,21 @@ declare class BaseLDAPResult extends LDAPMessage {
 }
 
 export class LDAPResult extends BaseLDAPResult {
-    readonly type: 'LDAPResult';
+    readonly type: "LDAPResult";
 }
 
 export class SearchResultDone extends BaseLDAPResult {
-    readonly type: 'SearchResultDone';
+    readonly type: "SearchResultDone";
 }
 
 export type SearchEntryObject = LDAPMessageJsonObject & {
-    type: 'SearchResultEntry';
+    type: "SearchResultEntry";
     objectName: string;
     attributes: AttributeJson[];
 };
 
 export class SearchEntry extends LDAPMessage {
-    readonly type: 'SearchResultEntry';
+    readonly type: "SearchResultEntry";
     objectName: string | null;
     attributes: Attribute[];
 

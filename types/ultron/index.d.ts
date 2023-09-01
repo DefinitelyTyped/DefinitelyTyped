@@ -61,11 +61,11 @@ declare const Ultron: {
     /**
      * @param ee EventEmitter instance we need to wrap.
      */
-    new (ee: EventEmitter): Ultron;
+    new(ee: EventEmitter): Ultron;
 };
 
 declare namespace Ultron {
-    export { Listener, EventEmitter };
+    export { EventEmitter, Listener };
 }
 
 export = Ultron;
