@@ -27,9 +27,7 @@ export interface EasyCaptchaSettings {
 
 export type EasyCaptchaMethod = 'getTarget' | 'verify' | 'response' | 'reset' | 'destroy';
 
-export interface EasyCaptchaElementData{
-    [key: string]: [value: any]
-}
+export type EasyCaptchaElementData = Record<string, any>;
 
 export interface EasyCaptchaResultBaseTarget {
     parentElement?: JQuery,
