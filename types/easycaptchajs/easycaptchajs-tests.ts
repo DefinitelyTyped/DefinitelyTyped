@@ -1,6 +1,6 @@
 // noinspection JSUnusedLocalSymbols
 
-import {EasyCaptcha} from "./index";
+import {EasyCaptcha} from "easycaptchajs";
 
 // Calling EasyCaptcha function without arguments
 // $ExpectType EasyCaptchaResults
