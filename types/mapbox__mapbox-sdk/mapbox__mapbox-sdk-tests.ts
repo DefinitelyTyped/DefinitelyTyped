@@ -37,7 +37,7 @@ mapiRequest.send().then((response: MapiResponse) => {
 
 const mapiRequestGeoJSON: MapiRequest = directionsService.getDirections({
     profile: 'walking',
-    geometries: "geojson",
+    geometries: 'geojson',
     waypoints: [
         {
             coordinates: [1, 3],
@@ -177,11 +177,18 @@ staticMapService.getStaticImage({
 });
 
 const geocodeService: GeocodeService = Geocoding(config);
-geocodeService.forwardGeocode({
-    bbox: [1, 2, 3, 4],
-    query: 'Paris, France',
-    mode: 'mapbox.places',
-});
+geocodeService
+    .forwardGeocode({
+        bbox: [1, 2, 3, 4],
+        query: 'Paris, France',
+        mode: 'mapbox.places',
+    })
+    .send()
+    .then(({ body }) => {
+        body.features.forEach(feature => {
+            const shortCode = feature.short_code;
+        });
+    });
 
 const optimizationService: OptimizationService = Optimization(config);
 optimizationService.getOptimization({
