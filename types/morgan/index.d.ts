@@ -139,10 +139,10 @@ declare namespace morgan {
      * Define a named custom format by specifying a format string in token
      * notation.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function format<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     >(name: string, fmt: string): Morgan<Request, Response>;
 
     /**
@@ -159,10 +159,10 @@ declare namespace morgan {
     /**
      * Compile a format string in token notation into a format function.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function compile<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     >(format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
