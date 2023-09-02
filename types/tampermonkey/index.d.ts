@@ -759,6 +759,11 @@ declare function GM_registerMenuCommand(
          * has no effect on the menu command section that is added to the page's context menu.
          */
         autoClose?: boolean;
+        /**
+         * An optional string that specifies the title of the menu item. This is displayed
+         * as a tooltip when the user hovers the mouse over the menu item.
+         */
+        title?: string;
     }
 ): number;
 
