@@ -199,6 +199,7 @@ declare module 'async_hooks' {
          * stacktrace will not be impacted by this call and the context will be exited.
          */
         // TODO: Apply generic vararg once available
+        run<R>(store: T, callback: () => R): R;
         run<R>(store: T, callback: (...args: any[]) => R, ...args: any[]): R;
 
         /**
