@@ -936,6 +936,10 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          */
         text: string;
         /**
+         * The ISO 3166-1 country and ISO 3166-2 region code for the feature.
+         */
+        short_code?: string;
+        /**
          * A string representing the feature in the requested language, if specified, and its full result hierarchy.
          */
         place_name: string;
