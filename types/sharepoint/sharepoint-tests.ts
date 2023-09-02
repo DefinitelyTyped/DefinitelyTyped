@@ -1616,8 +1616,8 @@ namespace CSR {
         /** Override View rendering template.
             @param template New view template.
         */
-        // tslint:disable-next-line: unified-signatures
-        view(
+       view(
+            // tslint:disable-next-line: unified-signatures
             template: (ctx: SPClientTemplates.RenderContext_InView | SPClientTemplates.RenderContext_Form) => string,
         ): CSR;
 
@@ -1629,9 +1629,9 @@ namespace CSR {
         /** Override Item rendering template.
             @param template New item template.
         */
-        // tslint:disable-next-line: unified-signatures
-        item(
-            template: (
+       item(
+           template: (
+                // tslint:disable-next-line: unified-signatures
                 ctx: SPClientTemplates.RenderContext_ItemInView | SPClientTemplates.RenderContext_Form,
             ) => string,
         ): CSR;
