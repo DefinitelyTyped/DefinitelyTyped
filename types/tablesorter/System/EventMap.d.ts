@@ -6,24 +6,31 @@ export type EventMap =
      * Indicates the `tablesorter-initialized`-event.
      */
     | "tablesorter-initialized"
-    | /**
+    /**
      * Indicates the `tablesorter-ready`-event.
-     */ "tablesorter-ready"
-    | /**
+     */
+    | "tablesorter-ready"
+    /**
      * Indicates the `refreshComplete`-event.
-     */ "refreshComplete"
-    | /**
+     */
+    | "refreshComplete"
+    /**
      * Indicates the `updateComplete`-event.
-     */ "updateComplete"
-    | /**
+     */
+    | "updateComplete"
+    /**
      * Indicates the `widgetRemoveEnd`-event.
-     */ "widgetRemoveEnd"
-    | /**
+     */
+    | "widgetRemoveEnd"
+    /**
      * Indicates the `sortStart`-event.
-     */ "sortStart"
-    | /**
+     */
+    | "sortStart"
+    /**
      * Indicates the `sortBegin`-event.
-     */ "sortBegin"
-    | /**
+     */
+    | "sortBegin"
+    /**
      * Indicates the `sortEnd`-event.
-     */ "sortEnd";
+     */
+    | "sortEnd";

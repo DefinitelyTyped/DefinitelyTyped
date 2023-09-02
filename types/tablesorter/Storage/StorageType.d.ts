@@ -6,9 +6,11 @@ export type StorageType =
      * Indicates the default local storage.
      */
     | "d"
-    | /**
+    /**
      * Indicates the session-storage.
-     */ "s"
-    | /**
+     */
+    | "s"
+    /**
      * Indicates cookies.
-     */ "c";
+     */
+    | "c";

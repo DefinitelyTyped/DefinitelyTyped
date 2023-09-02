@@ -6,15 +6,19 @@ export type SortInitiator =
      * Indicates the user.
      */
     | "user"
-    | /**
+    /**
      * Indicates the `sort`-event.
-     */ "sort"
-    | /**
+     */
+    | "sort"
+    /**
      * Indicates the `sorton`-method.
-     */ "sorton"
-    | /**
+     */
+    | "sorton"
+    /**
      * Indicates the `sortAppend`-configuration.
-     */ "sortAppend"
-    | /**
+     */
+    | "sortAppend"
+    /**
      * Indicates the `sortForce`-configuration.
-     */ "sortForce";
+     */
+    | "sortForce";
