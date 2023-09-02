@@ -15,7 +15,15 @@ import type Compute from 'dcp/compute';
 import type Wallet from 'dcp/wallet';
 import type Worker from 'dcp/worker';
 
+/**
+ * Asynchronously initialize the dcp-client bundle for use by the compute API, etc.
+ */
 export function init(): Promise<DCPClient>;
+
+/**
+ * Synchronously initialize the dcp-client bundle for use by the compute API, etc.
+ */
+export function initSync(): DCPClient;
 
 declare global {
     /**

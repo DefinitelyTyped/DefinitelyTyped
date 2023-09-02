@@ -2,7 +2,7 @@
  * @file Tests using the UMD module as a module.
  */
 
-import { init, type PaymentParams } from 'dcp-client';
+import { init, initSync, type PaymentParams } from 'dcp-client';
 import { RangeObject, ResultHandle, SuperRangeObject, MultiRangeObject } from 'dcp/compute';
 import { AuthKeystoreOptions, LoadOptions, Keystore } from 'dcp/wallet';
 import { Sandbox } from 'dcp/worker';
@@ -23,7 +23,21 @@ export const loadOptions: LoadOptions = {
 //#endregion
 
 (async () => {
-    const { compute, wallet, worker } = await init();
+    let { compute, wallet, worker } = await init();
+    // $ExpectType Compute
+    compute;
+    // $ExpectType Wallet
+    wallet;
+    // $ExpectType Worker
+    worker;
+
+    ({ compute, wallet, worker } = initSync());
+    // $ExpectType Compute
+    compute;
+    // $ExpectType Wallet
+    wallet;
+    // $ExpectType Worker
+    worker;
 
     //#region RangeObject Tests
     const rangeObject = new RangeObject(0, 10);
