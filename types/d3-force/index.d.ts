@@ -323,10 +323,10 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum>(
  *
  * @param nodesData Optional array of nodes data, defaults to empty array.
  */
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forceSimulation<
     NodeDatum extends SimulationNodeDatum,
     LinkDatum extends SimulationLinkDatum<NodeDatum>,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 >(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
 
 // ----------------------------------------------------------------------
