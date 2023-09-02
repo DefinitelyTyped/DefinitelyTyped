@@ -1,15 +1,14 @@
-import {
-    AuthKeystoreOptions,
-    init,
-    Keystore,
-    LoadOptions,
-    MultiRangeObject,
-    PaymentParams,
-    RangeObject,
-    ResultHandle,
-    Sandbox,
-    SuperRangeObject,
-} from 'dcp-client';
+/**
+ * @file Tests using the UMD module as a module.
+ */
+
+import { init, type PaymentParams } from 'dcp-client';
+import { RangeObject, ResultHandle, SuperRangeObject, MultiRangeObject } from 'dcp/compute';
+import { AuthKeystoreOptions, LoadOptions, Keystore } from 'dcp/wallet';
+import { Sandbox } from 'dcp/worker';
+
+// @ts-expect-error
+dcp;
 
 //#region Models
 export const authKeystoreOptions: AuthKeystoreOptions = {
@@ -66,6 +65,7 @@ export const loadOptions: LoadOptions = {
 
     //#region Job Tests
     const initialSliceProfile = {};
+    // $ExpectType Keystore
     const keystore = new Keystore();
     const iterable = [1, 2, 3, 4, 5];
     const MY_RESEARCH_URL = 'https://localhost:8080/someURL';
@@ -91,7 +91,7 @@ export const loadOptions: LoadOptions = {
     job.addEventListener('complete', () => 'job complete');
     job.addEventListener('readystatechange', () => 'job readystatechange');
     job.addEventListener('console', () => 'job console');
-    job.addEventListener('result', (_event) => 'job result');
+    job.addEventListener('result', _event => 'job result');
     //#endregion
 
     //#region Compute API Tests
@@ -142,7 +142,9 @@ export const loadOptions: LoadOptions = {
 
     worker.on('sandbox', (sandbox: Sandbox) => {
         sandbox.addEventListener('sliceStart', (job: object) => job);
-        sandbox.addEventListener('sliceFinish', () => { return; });
+        sandbox.addEventListener('sliceFinish', () => {
+            return;
+        });
         sandbox.addEventListener('sliceError', () => 'sliceError event triggered');
         sandbox.addEventListener('sliceEnd', () => 'sliceEnd event triggered');
         sandbox.addEventListener('terminate', () => 'terminate event triggered');
