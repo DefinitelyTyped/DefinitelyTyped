@@ -184,9 +184,9 @@ interface CustomPayload extends Boom.Payload {
 /**
  * Test assignment of custom error data:
  */
-// tslint:disable-next-line:no-object-literal-type-assertion
 const errorWithData = Boom.badImplementation(
     "",
+    // tslint:disable-next-line:no-object-literal-type-assertion
     { custom1: "test", customType: "Custom1", isCustom: true } as CustomData1,
 );
 const errorWithNoExplicitDataType: Boom = errorWithData; // can assign to error without explicit data type
