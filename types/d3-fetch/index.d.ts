@@ -190,10 +190,10 @@ export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HT
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function json<ParsedJSONObject extends any>(
     url: string,
     init?: RequestInit,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<ParsedJSONObject | undefined>;
 
 /**

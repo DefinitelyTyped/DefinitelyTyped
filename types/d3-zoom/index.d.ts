@@ -365,10 +365,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     interpolate<
         InterpolationFactory extends (a: ZoomView, b: ZoomView) => (t: number) => ZoomView,
-    >(): InterpolationFactory;
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (): InterpolationFactory;
 
     /**
      * Sets the interpolation factory for zoom transitions to the specified function.
