@@ -10,7 +10,7 @@ declare namespace Tagify {
      * - `select`: Single-value dropdown-like select box.
      * - `mix`: Allow mixed-content. Requires the `pattern` setting to be set.
      */
-    type TagifyMode = "select" | "mix";
+    type TagifyMode = 'select' | 'mix';
 
     /**
      * Where the dropdown menu will appear:
@@ -20,7 +20,7 @@ declare namespace Tagify {
      * - `input` - will place the dropdown next to the input
      * - `all` - normal, full-width design
      */
-    type DropDownPosition = "manual" | "text" | "input" | "all";
+    type DropDownPosition = 'manual' | 'text' | 'input' | 'all';
 
     /**
      * Settings for the autocomplete feature at runtime.
@@ -131,10 +131,11 @@ declare namespace Tagify {
          */
         mapValueTo?:
             | string
-            | /**
+            /**
              * @param data The tag data to map.
              * @return The value that will be shown in the dropdown menu.
-             */ ((data: T) => string)
+             */
+            | ((data: T) => string)
             | undefined;
 
         /**
@@ -427,104 +428,88 @@ declare namespace Tagify {
     interface TemplatesRuntime<T extends BaseTagData = TagData> {
         /**
          * Template for wrapper element for the tags.
+         *
+         * @param input Original input DOM element.
+         * @param settings Tagify instance settings object.
+         * @returns HTML string with the wrapper for the tags. Defaults to a
+         * `TAGS` DOM element.
          */
-        wrapper:
-            /**
-             * @param input Original input DOM element.
-             * @param settings Tagify instance settings object.
-             * @returns HTML string with the wrapper for the tags. Defaults to a
-             * `TAGS` DOM element.
-             */
-            (
-                this: Tagify<T>,
-                input: HTMLInputElement | HTMLTextAreaElement,
-                settings: TagifyRuntimeSettings<T>,
-            ) => string;
+        wrapper: (
+            this: Tagify<T>,
+            input: HTMLInputElement | HTMLTextAreaElement,
+            settings: TagifyRuntimeSettings<T>,
+        ) => string;
 
         /**
          * Template for the rendered tags.
+         *
+         * @param tagData Data of the tag to render.
+         * @param tagify Tagify instance to access, e.g., settings.
+         * @returns HTML string with the rendered tag. Defaults to a `TAG` DOM
+         * element.
          */
-        tag:
-            /**
-             * @param tagData Data of the tag to render.
-             * @param tagify Tagify instance to access, e.g., settings.
-             * @returns HTML string with the rendered tag. Defaults to a `TAG` DOM
-             * element.
-             */
-            (this: Tagify<T>, tagData: T, tagify: Tagify<T>) => string;
+        tag: (this: Tagify<T>, tagData: T, tagify: Tagify<T>) => string;
 
         /**
          * This callback is called when the dropdown menu is about to be shown.
          * It receives the current settings and should return the HTML for the
          * dropdown menu container.
+         *
+         * @param settings Current settings for the dropdown instance.
+         * @returns HTML string with the dropdown menu container to use for the
+         * dropdown menu.
          */
-        dropdown:
-            /**
-             * @param settings Current settings for the dropdown instance.
-             * @returns HTML string with the dropdown menu container to use for the
-             * dropdown menu.
-             */
-            (this: Tagify<T>, settings: TagifyRuntimeSettings<T>) => string;
+        dropdown: (this: Tagify<T>, settings: TagifyRuntimeSettings<T>) => string;
 
         /**
          * This callback is called to prepend the {@link dropdownHeader} template and
          * append {@link dropdownFooter} template to the generated HTML string of the
          * list of dropdown items.
+         *
+         * @param htmlContent List of dropdown items as HTML string.
+         * @returns `htmlContent` wrapped into {@link dropdownHeader} and {@link dropdownFooter}.
          */
-        dropdownContent:
-            /**
-             * @param htmlContent List of dropdown items as HTML string.
-             * @returns `htmlContent` wrapped into {@link dropdownHeader} and {@link dropdownFooter}.
-             */
-            (this: Tagify<T>, htmlContent: string) => string;
+        dropdownContent: (this: Tagify<T>, htmlContent: string) => string;
 
         /**
          * This callback is called once for each item in the dropdown list. It
          * is given an item and should return the HTML markup for that item.
+         *
+         * @param Data of the item to render in the dropdown menu.
+         * @returns HTML string with the rendered dropdown item that will be
+         * shown in the dropdown menu.
          */
-        dropdownItem:
-            /**
-             * @param Data of the item to render in the dropdown menu.
-             * @returns HTML string with the rendered dropdown item that will be
-             * shown in the dropdown menu.
-             */
-            (this: Tagify<T>, item: T) => string;
+        dropdownItem: (this: Tagify<T>, item: T) => string;
 
         /**
          * Template for a header that is rendered above the list of dropdown items.
+         *
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the top of the dropdown list.
          */
-        dropdownHeader:
-            /**
-             * @param suggestions An array of all the matched suggested items,
-             * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
-             * @returns HTML string that is displayed at the top of the dropdown list.
-             */
-            (this: Tagify<T>, suggestions: T[]) => string;
+        dropdownHeader: (this: Tagify<T>, suggestions: T[]) => string;
 
         /**
          * Template for a footer that is rendered beneath the list of dropdown items.
+         *
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the bottom of the dropdown list.
          */
-        dropdownFooter:
-            /**
-             * @param suggestions An array of all the matched suggested items,
-             * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
-             * @returns HTML string that is displayed at the bottom of the dropdown list.
-             */
-            (this: Tagify<T>, suggestions: T[]) => string;
+        dropdownFooter: (this: Tagify<T>, suggestions: T[]) => string;
 
         /**
          * Callback invoked when no matching dropdown item was found. If there
          * is no match for the typed text, a special dropdown item will be
          * rendered using the value returned by this callback.
+         *
+         * @param data Dropdown request data. The `value` is the value by
+         * which the whitelist should be filtered.
+         * @returns HTML string that is displayed in the dropdown suggestions
+         * list when no matching suggestions are found.
          */
-        dropdownItemNoMatch:
-            /**
-             * @param data Dropdown request data. The `value` is the value by
-             * which the whitelist should be filtered.
-             * @returns HTML string that is displayed in the dropdown suggestions
-             * list when no matching suggestions are found.
-             */
-            ((this: Tagify<T>, data: { value: string }) => string) | null;
+        dropdownItemNoMatch: ((this: Tagify<T>, data: { value: string }) => string) | null;
     }
 
     /**
@@ -581,15 +566,12 @@ declare namespace Tagify {
          * Hook invoked before a tag is removed. Can be used to perform a custom
          * action. The tag is removed only when the promise is fulfilled. When
          * the promise is rejected, the tag is not removed.
+         * @param tags Tag or tags that are schedule to be removed.
+         * @return Promise that controls whether the tags are removed. When the
+         * promise resolves, the tags are removed if the promise was fulfilled,
+         * or kept when the promise was rejected.
          */
-        beforeRemoveTag:
-            /**
-             * @param tags Tag or tags that are schedule to be removed.
-             * @return Promise that controls whether the tags are removed. When the
-             * promise resolves, the tags are removed if the promise was fulfilled,
-             * or kept when the promise was rejected.
-             */
-            (tags: T[]) => Promise<void>;
+        beforeRemoveTag: (tags: T[]) => Promise<void>;
 
         /**
          * Hook invoked when the user clicks on (or selects via Enter key) a suggestion in the dropdown
@@ -598,16 +580,14 @@ declare namespace Tagify {
          * suggestion is accepted and a new tag is added only when the promise
          * is fulfilled. When the promise is rejected, the suggestion is not
          * accepted and no tag is added.
+         *
+         * @param event Click or keyboard event that occurred on a suggestion item.
+         * @param data Data and element of selected suggestion item.
+         * @return Promise that controls whether the suggestion is accepted.
+         * When the promise resolves, the suggestion is accepted if the promise
+         * was fulfilled, and declined when the promise was rejected.
          */
-        suggestionClick:
-            /**
-             * @param event Click or keyboard event that occurred on a suggestion item.
-             * @param data Data and element of selected suggestion item.
-             * @return Promise that controls whether the suggestion is accepted.
-             * When the promise resolves, the suggestion is accepted if the promise
-             * was fulfilled, and declined when the promise was rejected.
-             */
-            (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
+        suggestionClick: (event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>;
 
         /**
          * Hook invoked when the user pastes a string into Tagify. It can be used to change
@@ -763,8 +743,8 @@ declare namespace Tagify {
          */
         callbacks?:
             | {
-                [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
-            }
+                  [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
+              }
             | undefined;
 
         /**
@@ -783,27 +763,23 @@ declare namespace Tagify {
         /**
          * If the `pattern` setting does not meet your needs, use this function
          * to implement a custom validation.
+         *
+         * @param tagData The tag to validate.
+         * @returns `true` if the tag is valid. `false` if the tag is invalid.
+         * When a string is returned, the tag is considered invalid and the
+         * string will be used as an error message.
          */
-        validate?:
-            /**
-             * @param tagData The tag to validate.
-             * @returns `true` if the tag is valid. `false` if the tag is invalid.
-             * When a string is returned, the tag is considered invalid and the
-             * string will be used as an error message.
-             */
-            ((tagData: T) => boolean | string) | undefined;
+        validate?: ((tagData: T) => boolean | string) | undefined;
 
         /**
          * Takes a tag data as an argument and allows mutating it before a tag
          * is created or edited and also before validation.
          *
          * Should not return anything, only mutate the argument.
+         *
+         * @param tagData The tag to transform. May be mutated by this method.
          */
-        transformTag:
-            /**
-             * @param tagData The tag to transform. May be mutated by this method.
-             */
-            (tagData: T) => void;
+        transformTag: (tagData: T) => void;
 
         /**
          * If `true`, do not remove tags which did not pass validation.
@@ -832,20 +808,18 @@ declare namespace Tagify {
          * `false` - do nothing (useful for outside style)
          * @default true
          */
-        backspace: boolean | "edit";
+        backspace: boolean | 'edit';
 
         /**
          * If you wish your original input / textarea `value` property format to
          * be anything other than the default (which I recommend keeping), you
          * may use this and make sure it returns a string.
+         *
+         * @param value Currently selected tags.
+         * @returns The stringified value representing all tags. This value is
+         * set on the hidden input or textarea element.
          */
-        originalInputValueFormat?:
-            /**
-             * @param value Currently selected tags.
-             * @returns The stringified value representing all tags. This value is
-             * set on the hidden input or textarea element.
-             */
-            ((value: T[]) => string) | undefined;
+        originalInputValueFormat?: ((value: T[]) => string) | undefined;
     }
 
     /**
@@ -1138,7 +1112,7 @@ declare namespace Tagify {
      */
     interface DropDownSelectEventData<T extends BaseTagData = TagData> extends EventData<T> {
         data: T;
-        elm: DomReference["dropdown"];
+        elm: DomReference['dropdown'];
         event: MouseEvent | {};
     }
 
@@ -1271,115 +1245,115 @@ declare namespace Tagify {
         /**
          * A tag has been added.
          */
-        "add": AddEventData<T>;
+        add: AddEventData<T>;
 
         /**
          * The component lost focus.
          */
-        "blur": BlurEventData<T>;
+        blur: BlurEventData<T>;
 
         /**
          * Any change to the value has occurred.
          */
-        "change": ChangeEventData<T>;
+        change: ChangeEventData<T>;
 
         /**
          * Clicking a tag.
          */
-        "click": ClickEventData<T>;
+        click: ClickEventData<T>;
 
         /**
          * Double-clicking a tag.
          */
-        "dblclick": DoubleClickEventData<T>;
+        dblclick: DoubleClickEventData<T>;
 
         /**
          * Suggestions dropdown has been removed from the DOM.
          */
-        "dropdown:hide": DropDownHideEventData<T>;
+        'dropdown:hide': DropDownHideEventData<T>;
 
         /**
          * No whitelist suggestion item matched for the typed input. At this
          * point it is possible to manually set `suggestedListItems` to any
          * possible custom value, for example: `[{ value:"default" }]`.
          */
-        "dropdown:noMatch": DropDownNoMatchEventData<T>;
+        'dropdown:noMatch': DropDownNoMatchEventData<T>;
 
         /**
          * The dropdown was scrolled by the user. Use `event.detail.percentage`
          * to get the percentage scrolled.
          */
-        "dropdown:scroll": DropDownScrollEventData<T>;
+        'dropdown:scroll': DropDownScrollEventData<T>;
 
         /**
          * A suggestions dropdown item got selected (by mouse / keyboard /
          * touch).
          */
-        "dropdown:select": DropDownSelectEventData<T>;
+        'dropdown:select': DropDownSelectEventData<T>;
 
         /**
          * Suggestions dropdown is about to be rendered. The dropdown DOM node
          * is passed to the callback.
          */
-        "dropdown:show": DropDownShowEventData<T>;
+        'dropdown:show': DropDownShowEventData<T>;
 
         /**
          * When the dropdown menu is open and its items were recomputed via
          * `Tagify.refilter`.
          */
-        "dropdown:updated": DropDownUpdatedEventData<T>;
+        'dropdown:updated': DropDownUpdatedEventData<T>;
 
         /**
          * Just before a tag has been updated, while still in "edit" mode.
          */
-        "edit:beforeUpdate": EditBeforeUpdateEventData<T>;
+        'edit:beforeUpdate': EditBeforeUpdateEventData<T>;
 
         /**
          * Typing inside an edited tag.
          */
-        "edit:input": EditInputEventData<T>;
+        'edit:input': EditInputEventData<T>;
 
         /**
          * Keydown event while an edited tag is in focus
          */
-        "edit:keydown": EditKeydownEventData<T>;
+        'edit:keydown': EditKeydownEventData<T>;
 
         /**
          * A tag is now in "edit mode".
          */
-        "edit:start": EditStartEventData<T>;
+        'edit:start': EditStartEventData<T>;
 
         /**
          * A tag has been updated (changed view editing or by directly calling
          * the `replaceTag` method).
          */
-        "edit:updated": EditUpdatedEventData<T>;
+        'edit:updated': EditUpdatedEventData<T>;
 
         /**
          * The component has received focus.
          */
-        "focus": FocusEventData<T>;
+        focus: FocusEventData<T>;
 
         /**
          * Input event, when a tag is being typed / edited.
          */
-        "input": InputEventData<T>;
+        input: InputEventData<T>;
 
         /**
          * A tag has been added but did not pass validation.
          */
-        "invalid": InvalidTagEventData<T>;
+        invalid: InvalidTagEventData<T>;
 
         /**
          * When the tagify input element (for adding new tags or editing
          * existing tags) has focus and a key was pressed.
          */
-        "keydown": KeydownEventData<T>;
+        keydown: KeydownEventData<T>;
 
         /**
          * A tag has been removed (use `removeTag` instead with jQuery).
          */
-        "remove": RemoveEventData<T>;
+        remove: RemoveEventData<T>;
     }
 
     // types for the tagify instance
@@ -1523,10 +1497,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @param settings Optional settings to configure the tagify
      * editor.
      */
-    constructor(
-        inputElement: HTMLInputElement | HTMLTextAreaElement,
-        settings?: Tagify.TagifySettings<T>,
-    );
+    constructor(inputElement: HTMLInputElement | HTMLTextAreaElement, settings?: Tagify.TagifySettings<T>);
 
     /**
      * @param tagData Tag for which to retrieve its HTML attributes.

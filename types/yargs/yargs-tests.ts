@@ -1071,34 +1071,34 @@ async function Argv$inferOptionTypes() {
 
     // $ExpectType { [x: string]: unknown; p: ("x" | "y")[] | undefined; q: string[] | undefined; r: "x" | "y" | undefined; s: ("x" | "y")[] | undefined; _: (string | number)[]; $0: string; }
     yargs()
-        // tslint:disable-next-line:no-object-literal-type-assertion
-        .option(
-            "p",
+    .option(
+        "p",
+            // tslint:disable-next-line:no-object-literal-type-assertion
             {
                 array: true,
                 choices: ["x", "y"],
                 type: "string",
             } as const,
         )
-        // tslint:disable-next-line:no-object-literal-type-assertion
         .option(
             "q",
+            // tslint:disable-next-line:no-object-literal-type-assertion
             {
                 array: true,
                 type: "string",
             } as const,
         )
-        // tslint:disable-next-line:no-object-literal-type-assertion
         .option(
             "r",
+            // tslint:disable-next-line:no-object-literal-type-assertion
             {
                 choices: ["x", "y"],
                 type: "string",
             } as const,
         )
-        // tslint:disable-next-line:no-object-literal-type-assertion
         .option(
             "s",
+            // tslint:disable-next-line:no-object-literal-type-assertion
             {
                 choices: ["x", "y"],
                 type: "array",
