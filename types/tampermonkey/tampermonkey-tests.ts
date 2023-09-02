@@ -116,6 +116,7 @@ GM_registerMenuCommand(
     {
         accessKey: "a",
         autoClose: true,
+        title: "Tooltip text",
     },
 );
 
