@@ -78,7 +78,7 @@ encryptionResult.cipherText;
 //  getVapidHeaders()
 // ===================
 
-// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+// $ExpectType { Authorization: string; "Crypto-Key": string; }
 getVapidHeaders("audience", "https://subject.com", "publicKey", "privateKey", supportedContentEncodings.AES_GCM, 150);
 // $ExpectType { Authorization: string; }
 getVapidHeaders(
@@ -90,7 +90,7 @@ getVapidHeaders(
     150,
 );
 
-// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+// $ExpectType { Authorization: string; "Crypto-Key": string; }
 getVapidHeaders(
     "audience",
     "mailto:subject@subject.com",
@@ -110,13 +110,13 @@ getVapidHeaders(
 );
 
 // expiration is optional
-// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+// $ExpectType { Authorization: string; "Crypto-Key": string; }
 getVapidHeaders("audience", "https://subject.com", "publicKey", "privateKey", supportedContentEncodings.AES_GCM);
 // $ExpectType { Authorization: string; }
 getVapidHeaders("audience", "https://subject.com", "publicKey", "privateKey", supportedContentEncodings.AES_128_GCM);
 
 // Allow "string" subjects since we can't verify what they start with
-// $ExpectType { Authorization: string; 'Crypto-Key': string; }
+// $ExpectType { Authorization: string; "Crypto-Key": string; }
 getVapidHeaders("audience", stringValue, "publicKey", "privateKey", supportedContentEncodings.AES_GCM);
 
 // Buffers are not supported here
