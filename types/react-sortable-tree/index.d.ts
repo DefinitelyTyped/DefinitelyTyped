@@ -214,8 +214,8 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function SortableTreeWithoutDndContext<T>(
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     props: React.PropsWithChildren<ReactSortableTreeProps<T>>,
 ): JSX.Element;
 
