@@ -51,7 +51,7 @@ export type EasyCaptchaResults = EasyCaptchaResult[] | EasyCaptchaResult | null;
 
 export interface EasyCaptchaInstance {
     (options?: EasyCaptchaSettings, ...args: string[]): EasyCaptchaResults;
-    (method: EasyCaptchaMethod, results: any[], data: any, args: string[]): EasyCaptchaResults;
+    (method: EasyCaptchaMethod, results: EasyCaptchaResult[], data: EasyCaptchaElementData, args: string[]): EasyCaptchaResults;
 }
 
 
