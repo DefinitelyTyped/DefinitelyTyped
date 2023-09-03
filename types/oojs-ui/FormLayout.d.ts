@@ -128,7 +128,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): FormLayout;
+            new(config?: ConfigOptions): FormLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

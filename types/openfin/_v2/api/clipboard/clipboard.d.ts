@@ -1,5 +1,5 @@
-import { Base } from '../base';
-import { WriteRequestType, WriteAnyRequestType } from './write-request';
+import { Base } from "../base";
+import { WriteAnyRequestType, WriteRequestType } from "./write-request";
 /**
  * The Clipboard API allows reading and writing to the clipboard in multiple formats.
  * @namespace

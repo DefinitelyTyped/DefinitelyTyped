@@ -30,7 +30,7 @@ declare namespace Oidc {
     }
 
     interface OidcClient_Static {
-        new (settings: OidcClientSettings): OidcTokenManager;
+        new(settings: OidcClientSettings): OidcTokenManager;
     }
 
     interface OidcClient {
@@ -79,7 +79,7 @@ declare namespace Oidc {
     }
 
     interface OidcTokenManager_Static {
-        new (settings?: OidcTokenManagerSettings): OidcTokenManager;
+        new(settings?: OidcTokenManagerSettings): OidcTokenManager;
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
         setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }

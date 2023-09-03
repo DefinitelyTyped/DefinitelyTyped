@@ -33,15 +33,15 @@ declare namespace oboe {
 
         start(callback: (status: number, headers: Object) => void): Oboe;
 
-        abort():void;
+        abort(): void;
 
-        emit(message: 'data' | 'end', data?: string): void;
+        emit(message: "data" | "end", data?: string): void;
 
         source: string;
     }
 
     interface CallbackSignature {
-          (node: any, pathOrHeaders: any, ancestors: Object[]): any;
+        (node: any, pathOrHeaders: any, ancestors: Object[]): any;
     }
 
     interface Options {
@@ -61,7 +61,7 @@ declare namespace oboe {
     }
 
     interface PatternMap {
-      [pattern: string]: CallbackSignature
+        [pattern: string]: CallbackSignature;
     }
 }
 

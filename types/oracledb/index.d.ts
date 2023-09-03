@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { Duplex, Readable } from 'stream';
+import { Duplex, Readable } from "stream";
 
 declare namespace OracleDB {
     /** Deprecated */
@@ -570,18 +570,18 @@ declare namespace OracleDB {
      */
     let errorOnConcurrentExecute: boolean;
     /**
-     * This property can be set to throw an error if concurrent operations are attempted 
+     * This property can be set to throw an error if concurrent operations are attempted
      * on a single connection.
      *
      * The default value for errorOnConcurrentExecute is false.
      *
-     * Each Oracle connection can only interact with the database for one operation at a time. 
-     * Attempting to do more than one operation concurrently may be a sign of an incorrectly coded application, 
-     * for example an await may be missing. 
+     * Each Oracle connection can only interact with the database for one operation at a time.
+     * Attempting to do more than one operation concurrently may be a sign of an incorrectly coded application,
+     * for example an await may be missing.
      * Examples of operations that cannot be executed in parallel on a single connection include connection.execute(),
      *  connection.executeMany(), connection.queryStream(), connection.getDbObjectClass(), connection.commit(),
      *  connection.close(), SODA calls, and streaming from Lobs.
-     */ 
+     */
     let queueRequests: number;
     /**
      * The number of statements that are cached in the statement cache of each connection.
@@ -1511,12 +1511,14 @@ declare namespace OracleDB {
          *          "HIRE_DETAILS": { type: oracledb.DEFAULT }  // override fetchAsString or fetchAsBuffer
          *      }
          */
-        fetchInfo?: Record<
-            string,
-            {
-                type: number;
-            }
-        > | undefined;
+        fetchInfo?:
+            | Record<
+                string,
+                {
+                    type: number;
+                }
+            >
+            | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1771,7 +1773,7 @@ declare namespace OracleDB {
     }
 
     /**
-     * Statistics 
+     * Statistics
      */
     interface Statistics {
         gatheredDate: Date;
@@ -1981,10 +1983,10 @@ declare namespace OracleDB {
         getStatistics(): Statistics;
 
         /**
-         * Allows a subset of pool creation properties to be changed without needing to restart the pool or restart the application. 
-         * Properties such as the maximum number of connections in the pool, or the statement cache size used by connections can be changed. 
-         * Properties are optional. 
-         * Unspecified properties will leave those pool properties unchanged. The properties are processed in two stages. 
+         * Allows a subset of pool creation properties to be changed without needing to restart the pool or restart the application.
+         * Properties such as the maximum number of connections in the pool, or the statement cache size used by connections can be changed.
+         * Properties are optional.
+         * Unspecified properties will leave those pool properties unchanged. The properties are processed in two stages.
          * After any size change has been processed, reconfiguration on the other properties is done sequentially.
          * If an error such as an invalid value occurs when changing one property, then an error will be thrown but any already changed properties will retain their new values.
          */
@@ -2167,7 +2169,8 @@ declare namespace OracleDB {
          */
         sessionCallback?:
             | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void) | undefined;
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
+            | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -2249,47 +2252,49 @@ declare namespace OracleDB {
         | Buffer
         | DBObject_IN<T>
         | {
-              /** Correlation that was used during enqueue. */
-              correlation: string;
-              /** Number of seconds the message was delayed before it could be dequeued. */
-              delay: number;
-              /** Name of the exception queue defined when the message was enqueued. */
-              exceptionQueue: string;
-              /** Number of seconds until expiration defined when the message was enqueued. */
-              expiration: number;
-              /** Contains the payload of the message, with type depending on the value of queue.payloadType.
-               * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
-               */
-              payload: string | Buffer | DBObject_IN<T>;
-              /** Priority of the message when it was enqueued. */
-              priority: number;
-          };
+            /** Correlation that was used during enqueue. */
+            correlation: string;
+            /** Number of seconds the message was delayed before it could be dequeued. */
+            delay: number;
+            /** Name of the exception queue defined when the message was enqueued. */
+            exceptionQueue: string;
+            /** Number of seconds until expiration defined when the message was enqueued. */
+            expiration: number;
+            /** Contains the payload of the message, with type depending on the value of queue.payloadType.
+             * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
+             */
+            payload: string | Buffer | DBObject_IN<T>;
+            /** Priority of the message when it was enqueued. */
+            priority: number;
+        };
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
     interface DBObjectClass<T> {
-        new (data?: T): DBObject_IN<T>;
+        new(data?: T): DBObject_IN<T>;
     }
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    type DBObject_IN<T> = {
-        [P in keyof T]: T[P];
-    } &
-        BaseDBObject<T>;
+    type DBObject_IN<T> =
+        & {
+            [P in keyof T]: T[P];
+        }
+        & BaseDBObject<T>;
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    type DBObject_OUT<T> = {
-        [P in keyof T]: DBObject_OUT<T[P]>;
-    } &
-        BaseDBObject<T>;
+    type DBObject_OUT<T> =
+        & {
+            [P in keyof T]: DBObject_OUT<T[P]>;
+        }
+        & BaseDBObject<T>;
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
@@ -2455,19 +2460,19 @@ declare namespace OracleDB {
     type QueryStream<T> = Readable & QueryStreamEvents<T>;
 
     interface QueryStreamEvents<T> {
-        addListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        addListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
 
-        emit(event: 'metadata', metadata: Metadata<T>[]): boolean;
+        emit(event: "metadata", metadata: Metadata<T>[]): boolean;
 
-        on(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        on(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
 
-        once(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        once(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
 
-        prependListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        prependListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
 
-        prependOnceListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        prependOnceListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
 
-        removeListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        removeListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
     }
 
     /**
@@ -2611,7 +2616,7 @@ declare namespace OracleDB {
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
-         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched. 
+         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched.
          *
          * At the end of fetching, the ResultSet should be freed by calling close().
          *
@@ -2905,12 +2910,15 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocument: SodaDocument | Record<string, any>, options?: { hint: string }): Promise<SodaDocument>;
+        insertOneAndGet(
+            newDocument: SodaDocument | Record<string, any>,
+            options?: { hint: string },
+        ): Promise<SodaDocument>;
 
         insertOneAndGet(
             newDocument: SodaDocument | Record<string, any>,
             callback: (error: DBError, document: SodaDocument) => void,
-            options?: { hint: string }
+            options?: { hint: string },
         ): void;
 
         /**
@@ -2943,11 +2951,14 @@ declare namespace OracleDB {
          * @required Oracle Client 18.5 or higher
          * @since 4.0
          */
-        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[], options?: { hint: string }): Promise<SodaDocument[]>;
+        insertManyAndGet(
+            documents: (SodaDocument | Record<string, any>)[],
+            options?: { hint: string },
+        ): Promise<SodaDocument[]>;
         insertManyAndGet(
             documents: (SodaDocument | Record<string, any>)[],
             callback: (error: DBError, documents: SodaDocument[]) => void,
-            options?: { hint: string }
+            options?: { hint: string },
         ): void;
 
         /**
@@ -2970,7 +2981,11 @@ declare namespace OracleDB {
          * @since 5.0
          */
         saveAndGet(document: SodaDocument, options?: { hint: string }): Promise<SodaDocument>;
-        saveAndGet(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void, options?: { hint: string }): void;
+        saveAndGet(
+            document: SodaDocument,
+            cb: (err: DBError, doc: SodaDocument) => void,
+            options?: { hint: string },
+        ): void;
 
         /**
          * This method truncates a collection, removing all documents. The collection will not be deleted.
@@ -3093,8 +3108,8 @@ declare namespace OracleDB {
          */
         filter(filterSpec: Record<string, any>): SodaOperation;
         /**
-         * The hint() value can be used to pass an Oracle hint to terminal SodaOperation Methods. 
-         * It is string in the same format as a SQL hint but without any comment characters, for example hint("MONITOR"). 
+         * The hint() value can be used to pass an Oracle hint to terminal SodaOperation Methods.
+         * It is string in the same format as a SQL hint but without any comment characters, for example hint("MONITOR").
          * Pass only the hint "MONITOR" (turn on monitoring) or "NO_MONITOR" (turn off monitoring).
          * See the Oracle Database SQL Tuning Guide documentation MONITOR and NO_MONITOR Hints and Monitoring Database Operations for more information.
          */
@@ -3725,17 +3740,17 @@ declare namespace OracleDB {
 
     type DBCredentials =
         | {
-              user: string;
-              password: string;
-              connectionString: string;
-              externalAuth?: boolean | undefined;
-          }
+            user: string;
+            password: string;
+            connectionString: string;
+            externalAuth?: boolean | undefined;
+        }
         | {
-              user: string;
-              password: string;
-              connectString: string;
-              externalAuth?: boolean | undefined;
-          };
+            user: string;
+            password: string;
+            connectString: string;
+            externalAuth?: boolean | undefined;
+        };
 
     /**
      * This is the simplified form of connection.shutdown() used for shutting down a database instance. It accepts connection

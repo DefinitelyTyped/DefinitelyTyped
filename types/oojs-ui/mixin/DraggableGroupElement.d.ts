@@ -26,7 +26,7 @@ declare namespace OO.ui.mixin {
              * or in several rows should use horizontal orientation. The vertical orientation should
              * only be used when the items are displayed in a single column.
              */
-            orientation?: 'horizontal' | 'vertical';
+            orientation?: "horizontal" | "vertical";
 
             /**
              * The items are draggable. This can change with
@@ -88,7 +88,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): DraggableGroupElement;
+            new(config?: ConfigOptions): DraggableGroupElement;
             prototype: Prototype;
             static: {};
         }

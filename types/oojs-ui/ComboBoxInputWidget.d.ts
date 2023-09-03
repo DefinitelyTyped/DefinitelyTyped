@@ -109,7 +109,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ComboBoxInputWidget;
+            new(config?: ConfigOptions): ComboBoxInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

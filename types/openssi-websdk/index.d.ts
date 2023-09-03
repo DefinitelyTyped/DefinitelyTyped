@@ -18,7 +18,7 @@ export class Agent {
         agent_name: string,
         agent_password: string,
         friendly_name: string,
-        log_level?: string
+        log_level?: string,
     );
 
     /**
@@ -50,13 +50,13 @@ export class Agent {
      */
     setLoggingLevel(
         log_level:
-        | string
-        | 'trace'
-        | 'debug'
-        | 'info'
-        | 'warn'
-        | 'error'
-        | 'fatal'
+            | string
+            | "trace"
+            | "debug"
+            | "info"
+            | "warn"
+            | "error"
+            | "fatal",
     ): void;
 
     /**
@@ -75,7 +75,7 @@ export class Agent {
      */
     createIdentity(
         account_admin_agent_name: string,
-        account_admin_agent_password: string
+        account_admin_agent_password: string,
     ): Promise<AgentInfo>;
 
     /**
@@ -89,7 +89,7 @@ export class Agent {
     onboardAsTrustAnchor(
         account_admin_agent_name: string,
         account_admin_agent_password: string,
-        seed?: string
+        seed?: string,
     ): Promise<AgentInfo>;
 
     /**
@@ -128,7 +128,7 @@ export class Agent {
     createCredentialSchema(
         name: string,
         version: string,
-        attributes: string[]
+        attributes: string[],
     ): Promise<CredentialSchema>;
 
     /**
@@ -148,7 +148,7 @@ export class Agent {
      */
     getCredentialSchemas(
         opts?: CredentialSchemaQueryParams | null,
-        route?: QueryRoute
+        route?: QueryRoute,
     ): Promise<CredentialSchema[]>;
 
     /**
@@ -157,7 +157,7 @@ export class Agent {
      * Returns {Promise<CredentialDefinition>} The created credential definition.
      */
     createCredentialDefinition(
-        schemaId: CredentialSchemaID
+        schemaId: CredentialSchemaID,
     ): Promise<CredentialDefinition>;
 
     /**
@@ -166,7 +166,7 @@ export class Agent {
      * Returns {Promise<CredentialDefinition>} A promise that resolves with the credential definition.
      */
     getCredentialDefinition(
-        id: CredentialDefinitionID
+        id: CredentialDefinitionID,
     ): Promise<CredentialDefinition>;
 
     /**
@@ -178,7 +178,7 @@ export class Agent {
      */
     getCredentialDefinitions(
         opts?: CredentialDefinitionQueryParams,
-        route?: QueryRoute
+        route?: QueryRoute,
     ): Promise<CredentialDefinition[]>;
 
     /**
@@ -193,7 +193,7 @@ export class Agent {
         name: string,
         version: string,
         requestedAttributes?: any,
-        requestedPredicates?: any
+        requestedPredicates?: any,
     ): Promise<ProofSchema>;
 
     /**
@@ -202,7 +202,7 @@ export class Agent {
      * Returns {Promise<ProofSchema[]>} A promise that resolves with a list of proof schemas
      */
     verifierGetProofSchemas(
-        opts?: ProofSchemaQueryParams
+        opts?: ProofSchemaQueryParams,
     ): Promise<ProofSchema[]>;
 
     /**
@@ -245,7 +245,7 @@ export class Agent {
      */
     createConnection(
         to?: ConnectionRecipient | null,
-        properties?: Properties
+        properties?: Properties,
     ): Promise<Connection>;
 
     /**
@@ -258,7 +258,7 @@ export class Agent {
      */
     acceptConnection(
         connection: string | Connection,
-        properties?: Properties
+        properties?: Properties,
     ): Promise<Connection>;
 
     /**
@@ -271,7 +271,7 @@ export class Agent {
     waitForConnection(
         id: string,
         retries?: number,
-        retry_interval?: number
+        retry_interval?: number,
     ): Promise<Connection>;
 
     /**
@@ -306,7 +306,7 @@ export class Agent {
     requestCredential(
         to: RequestRecipient,
         source: SchemaIDObj,
-        properties?: Properties
+        properties?: Properties,
     ): Promise<Credential>;
 
     /**
@@ -322,7 +322,7 @@ export class Agent {
         to: RequestRecipient,
         source: CredentialDefinitionID | SchemaIDObj,
         attributes: any,
-        properties?: Properties
+        properties?: Properties,
     ): any;
 
     /**
@@ -344,7 +344,7 @@ export class Agent {
     updateCredential(
         id: string,
         state: CredentialState,
-        attributes?: Promise<Credential>
+        attributes?: Promise<Credential>,
     ): any;
 
     /**
@@ -357,7 +357,7 @@ export class Agent {
     waitForCredential(
         id: string,
         retries?: number,
-        retry_interval?: number
+        retry_interval?: number,
     ): Promise<Credential>;
 
     /**
@@ -395,7 +395,7 @@ export class Agent {
         to: RequestRecipient,
         proof_schema_id: string,
         state: VerificationState,
-        properties?: Properties
+        properties?: Properties,
     ): Promise<Verification>;
 
     /**
@@ -413,7 +413,7 @@ export class Agent {
         id: string,
         state: VerificationState,
         choices?: ProofSelection,
-        self_attested_attributes?: any
+        self_attested_attributes?: any,
     ): Promise<Verification>;
 
     /**
@@ -426,7 +426,7 @@ export class Agent {
     waitForVerification(
         id: string,
         retries?: number,
-        retry_interval?: number
+        retry_interval?: number,
     ): Promise<Verification>;
 
     /**
@@ -520,7 +520,9 @@ export interface CredentialSchema {
  * {string} [id] The ID of the schema
  * {string} [name] The name of the schema
  */
-export interface CredentialSchemaQueryParams { [key: string]: any; }
+export interface CredentialSchemaQueryParams {
+    [key: string]: any;
+}
 
 /**
  * A set of parameters that cause the agent to collect a set of responses from other agents that it has connections
@@ -595,7 +597,9 @@ export interface CredentialDefinition {
  * {string} [id] The ID of the credential definition
  * {string} [schema_name] The name of the schema for the credential definition
  */
-export interface CredentialDefinitionQueryParams { [key: string]: any; }
+export interface CredentialDefinitionQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Criteria which must be true pertaining to an attribute or predicate in a {ProofSchema}.  There is a logical
@@ -706,7 +710,9 @@ export interface ProofSchema {
  * {string} [name] The name of the proof schema
  * {string} [version] The version of the proof schema
  */
-export interface ProofSchemaQueryParams { [key: string]: any; }
+export interface ProofSchemaQueryParams {
+    [key: string]: any;
+}
 
 /**
  * A unique identifier use in communication on the Hyperledger Indy ledger.  They represent users, agents, issuers, verifiers, etc.
@@ -755,10 +761,10 @@ export interface ConnectionAgent {
  * Represents the state of a {Connection}.
  */
 export type ConnectionState =
-    | 'inbound_offer'
-    | 'outbound_offer'
-    | 'connected'
-    | 'rejected';
+    | "inbound_offer"
+    | "outbound_offer"
+    | "connected"
+    | "rejected";
 
 /**
  * Connections represent a channel for communication between two agents.
@@ -794,7 +800,9 @@ export interface Connection {
  *     'remote.pairwise.did': 'A4DXofjbeC97WZAHU5MVGK'
  * }
  */
-export interface ConnectionQueryParams { [key: string]: any; }
+export interface ConnectionQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Describes the recipient of a {Connection}.  You must specify either the name of an agent in your agent's
@@ -826,14 +834,14 @@ export interface Properties {
  * see the state of the credential as 'outbound_request', while the issuer will see 'inbound_request'.
  */
 export type CredentialState =
-    | 'outbound_request'
-    | 'inbound_request'
-    | 'outbound_offer'
-    | 'inbound_offer'
-    | 'accepted'
-    | 'rejected'
-    | 'issued'
-    | 'stored';
+    | "outbound_request"
+    | "inbound_request"
+    | "outbound_offer"
+    | "inbound_offer"
+    | "accepted"
+    | "rejected"
+    | "issued"
+    | "stored";
 
 /**
  * A Credential starts out as either an outbound_request, if created by a holder, or an outbound_offer, if created by
@@ -869,7 +877,7 @@ export type CredentialState =
  */
 export interface Credential {
     offer?: {
-        attributes: {[key: string]: string};
+        attributes: { [key: string]: string };
         data: string;
     } | undefined;
     schema_name: string;
@@ -899,7 +907,9 @@ export interface Credential {
  *     'to.name': 'test-holder'
  * }
  */
-export interface CredentialQueryParams { [key: string]: any; }
+export interface CredentialQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Contains fields necessary to lookup a {CredentialSchema}.
@@ -930,14 +940,14 @@ export interface RequestRecipient {
  * 'inbound_verification_request'.
  */
 export type VerificationState =
-    | 'outbound_verification_request'
-    | 'inbound_verification_request'
-    | 'outbound_proof_request'
-    | 'inbound_proof_request'
-    | 'proof_generated'
-    | 'proof_shared'
-    | 'passed'
-    | 'failed';
+    | "outbound_verification_request"
+    | "inbound_verification_request"
+    | "outbound_proof_request"
+    | "inbound_proof_request"
+    | "proof_generated"
+    | "proof_shared"
+    | "passed"
+    | "failed";
 
 /**
  * Represents all verification and proof requests between a prover and a verifier.  If created by the prover, the
@@ -980,7 +990,9 @@ export interface Verification {
  *     'to.name': { $ne: 'test-holder'}
  * }
  */
-export interface VerificationQueryParams { [key: string]: any; }
+export interface VerificationQueryParams {
+    [key: string]: any;
+}
 
 /**
  * Describes data that could be used to fill out a requested attribute in a proof request.  It's data describes
@@ -1096,4 +1108,4 @@ export interface ProofSelection {
  * connections in that they require the user to post the invitation to their agent, but invitations can be accepted
  * by multiple users.
  */
-export type ConnectionMethod = 'out_of_band' | 'in_band' | 'invitation';
+export type ConnectionMethod = "out_of_band" | "in_band" | "invitation";

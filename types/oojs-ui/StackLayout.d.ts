@@ -164,7 +164,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): StackLayout;
+            new(config?: ConfigOptions): StackLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;

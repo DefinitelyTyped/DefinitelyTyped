@@ -23,7 +23,7 @@ declare namespace OO.ui {
     interface TagMultiselectWidget extends TagMultiselectWidget.Props, TagMultiselectWidget.Prototype {}
 
     namespace TagMultiselectWidget {
-        type Direction = 'forwards' | 'backwards';
+        type Direction = "forwards" | "backwards";
 
         interface TagInfo {
             data: string;
@@ -36,20 +36,24 @@ declare namespace OO.ui {
         }
 
         interface EventMap
-            extends Widget.EventMap,
+            extends
+                Widget.EventMap,
                 mixin.GroupElement.EventMap,
                 mixin.DraggableGroupElement.EventMap,
-                mixin.FlaggedElement.EventMap {}
+                mixin.FlaggedElement.EventMap
+        {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.GroupElement.ConfigOptions,
                 mixin.DraggableGroupElement.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.TabIndexedElement.ConfigOptions,
                 mixin.FlaggedElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+                mixin.TitledElement.ConfigOptions
+        {
             /** Configuration options for the input widget */
             input?: TextInputWidget.ConfigOptions;
 
@@ -67,7 +71,7 @@ declare namespace OO.ui {
              * - outline: The input is underneath the tag area.
              * - none: No input supplied
              */
-            inputPosition?: 'inline' | 'outline' | 'none';
+            inputPosition?: "inline" | "outline" | "none";
 
             /**
              * Placeholder text for the input box
@@ -114,11 +118,13 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends Widget.Static,
+            extends
+                Widget.Static,
                 mixin.IndicatorElement.Static,
                 mixin.IconElement.Static,
                 mixin.FlaggedElement.Static,
-                mixin.TitledElement.Static {
+                mixin.TitledElement.Static
+        {
             /**
              * Allowed input positions.
              * - inline: The input is inside the tag list
@@ -129,27 +135,31 @@ declare namespace OO.ui {
         }
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.GroupElement.Props,
                 mixin.DraggableGroupElement.Props,
                 mixin.IndicatorElement.Props,
                 mixin.IconElement.Props,
                 mixin.TabIndexedElement.Props,
                 mixin.FlaggedElement.Props,
-                mixin.TitledElement.Props {
+                mixin.TitledElement.Props
+        {
             $content: JQuery;
             $handle: JQuery;
         }
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.GroupElement.Prototype,
                 mixin.DraggableGroupElement.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.TabIndexedElement.Prototype,
                 mixin.FlaggedElement.Prototype,
-                mixin.TitledElement.Prototype {
+                mixin.TitledElement.Prototype
+        {
             /**
              * Respond to input focus event
              */
@@ -409,7 +419,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TagMultiselectWidget;
+            new(config?: ConfigOptions): TagMultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

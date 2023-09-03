@@ -26,32 +26,40 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
-                mixin.FlaggedElement.ConfigOptions {}
+                mixin.FlaggedElement.ConfigOptions
+        {}
 
         interface Static
-            extends Widget.Static,
+            extends
+                Widget.Static,
                 mixin.IconElement.Static,
                 mixin.TitledElement.Static,
                 mixin.LabelElement.Static,
-                mixin.FlaggedElement.Static {}
+                mixin.FlaggedElement.Static
+        {}
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.IconElement.Props,
                 mixin.TitledElement.Props,
                 mixin.LabelElement.Props,
-                mixin.FlaggedElement.Props {}
+                mixin.FlaggedElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.TitledElement.Prototype,
                 mixin.LabelElement.Prototype,
-                mixin.FlaggedElement.Prototype {
+                mixin.FlaggedElement.Prototype
+        {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -103,7 +111,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): IconWidget;
+            new(config?: ConfigOptions): IconWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

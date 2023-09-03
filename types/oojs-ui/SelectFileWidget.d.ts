@@ -53,12 +53,13 @@ declare namespace OO.ui {
         interface Props extends SelectFileInputWidget.Props, mixin.PendingElement.Props {}
 
         // HACK: Fix LSP violation
-        interface Prototype
-            extends Omit<
-                    SelectFileInputWidget.Prototype,
-                    'getValue' | 'setValue' | 'on' | 'once' | 'off' | 'connect' | 'disconnect'
-                >,
-                mixin.PendingElement.Prototype {
+        interface Prototype extends
+            Omit<
+                SelectFileInputWidget.Prototype,
+                "getValue" | "setValue" | "on" | "once" | "off" | "connect" | "disconnect"
+            >,
+            mixin.PendingElement.Prototype
+        {
             /**
              * Get the current value of the field
              *
@@ -135,7 +136,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): SelectFileWidget;
+            new(config?: ConfigOptions): SelectFileWidget;
             prototype: Prototype;
             static: Static;
             super: SelectFileInputWidget.Constructor;

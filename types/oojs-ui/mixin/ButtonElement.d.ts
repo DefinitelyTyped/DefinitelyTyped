@@ -15,7 +15,7 @@ declare namespace OO.ui.mixin {
         /**
          * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#ButtonElement_and_Tool
          */
-        type Flag = 'progressive' | 'destructive' | 'primary';
+        type Flag = "progressive" | "destructive" | "primary";
 
         interface EventMap {
             click: [];
@@ -102,7 +102,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ButtonElement;
+            new(config?: ConfigOptions): ButtonElement;
             prototype: Prototype;
             static: Static;
         }

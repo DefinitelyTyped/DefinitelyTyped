@@ -4,14 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace OAuth {
-
     /** An Array of name-value pairs [[name, value], [name2, value2]]. */
     type ParameterList = [string, string][];
 
     /** A map {name: value, name2: value2}. */
-    type ParameterMap = { [name: string]: string; };
+    type ParameterMap = { [name: string]: string };
 
-    type ParameterListOrMap = ParameterList|ParameterMap;
+    type ParameterListOrMap = ParameterList | ParameterMap;
 
     /**
      * An OAuth message is represented as an object like this:
@@ -149,7 +148,7 @@ declare namespace OAuth {
         newMethod(name: string, accessor: Accessor): SignatureMethod;
 
         /** A map from signature method name to constructor. */
-        REGISTERED: { [name: string]: { new (): SignatureMethod }; };
+        REGISTERED: { [name: string]: { new(): SignatureMethod } };
 
         /**
          * Subsequently, the given constructor will be used for the named methods.
@@ -192,6 +191,4 @@ declare namespace OAuth {
     }
 
     var SignatureMethod: SignatureMethodStatic;
-
 }
-

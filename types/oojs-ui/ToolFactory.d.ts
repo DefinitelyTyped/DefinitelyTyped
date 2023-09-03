@@ -38,7 +38,7 @@ declare namespace OO.ui {
     }
 
     const ToolFactory: {
-        new (): ToolFactory;
+        new(): ToolFactory;
         prototype: ToolFactory;
         static: {};
         super: FactoryConstructor;

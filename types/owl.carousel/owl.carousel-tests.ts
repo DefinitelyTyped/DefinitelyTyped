@@ -1,5 +1,5 @@
-$('#first').owlCarousel();
+$("#first").owlCarousel();
 
-$('#second').owlCarousel({});
+$("#second").owlCarousel({});
 
-$('#third').owlCarousel('destroy');
+$("#third").owlCarousel("destroy");

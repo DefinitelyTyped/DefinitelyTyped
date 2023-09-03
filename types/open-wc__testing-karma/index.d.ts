@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import karma = require('karma');
+import karma = require("karma");
 
 /**
  * Our configuration sets up karma to run tests based on es modules with the necessary polyfills

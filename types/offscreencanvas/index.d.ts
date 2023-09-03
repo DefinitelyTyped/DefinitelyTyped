@@ -13,7 +13,8 @@ interface HTMLCanvasElement {
 
 // https://html.spec.whatwg.org/multipage/canvas.html#offscreencanvasrenderingcontext2d
 interface OffscreenCanvasRenderingContext2D
-    extends CanvasState,
+    extends
+        CanvasState,
         CanvasTransform,
         CanvasCompositing,
         CanvasImageSmoothing,
@@ -27,7 +28,8 @@ interface OffscreenCanvasRenderingContext2D
         CanvasImageData,
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
-        CanvasPath {
+        CanvasPath
+{
     readonly canvas: OffscreenCanvas;
 }
 
@@ -44,18 +46,18 @@ interface OffscreenCanvas extends EventTarget {
     height: number;
 
     getContext(
-        contextId: '2d',
+        contextId: "2d",
         contextAttributes?: CanvasRenderingContext2DSettings,
     ): OffscreenCanvasRenderingContext2D | null;
 
     getContext(
-        contextId: 'bitmaprenderer',
+        contextId: "bitmaprenderer",
         contextAttributes?: WebGLContextAttributes,
     ): ImageBitmapRenderingContext | null;
 
-    getContext(contextId: 'webgl', contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
 
-    getContext(contextId: 'webgl2', contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
+    getContext(contextId: "webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
 
     convertToBlob(options?: { type?: string | undefined; quality?: number | undefined }): Promise<Blob>;
 
@@ -120,7 +122,7 @@ declare function postMessage(
 
 declare var OffscreenCanvas: {
     prototype: OffscreenCanvas;
-    new (width: number, height: number): OffscreenCanvas;
+    new(width: number, height: number): OffscreenCanvas;
 };
 
 interface WebGL2RenderingContextBase {

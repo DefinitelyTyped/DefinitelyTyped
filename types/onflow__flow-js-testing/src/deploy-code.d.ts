@@ -1,5 +1,5 @@
-import { Address, AddressMap } from './account';
-import { TransactionResponse } from './interaction';
+import { Address, AddressMap } from "./account";
+import { TransactionResponse } from "./interaction";
 
 export function deployContractByName(props: {
     name: string;

@@ -1,4 +1,4 @@
-import { Converter, Validator, Validation } from '../ojvalidation-base';
+import { Converter, Validation, Validator } from "../ojvalidation-base";
 export class DateRestrictionValidator implements Validator<string> {
     constructor(options?: DateRestrictionValidator.ValidatorOptions);
     getHint(): string | null;
@@ -19,7 +19,7 @@ export namespace DateRestrictionValidator {
     };
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | 'all') | undefined;
+        dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | "all") | undefined;
         messageSummary?: string | undefined;
         messageDetail?: string | undefined;
     };
@@ -106,25 +106,25 @@ export class IntlDateTimeConverter extends DateTimeConverter {
 export namespace IntlDateTimeConverter {
     // tslint:disable-next-line interface-over-type-literal
     type ConverterOptions = {
-        year?: '2-digit' | 'numeric' | undefined;
-        'two-digit-year-start'?: number | undefined;
-        month?: '2-digit' | 'numeric' | 'narrow' | 'short' | 'long' | undefined;
-        day?: '2-digit' | 'numeric' | undefined;
-        hour?: '2-digit' | 'numeric' | undefined;
-        minute?: '2-digit' | 'numeric' | undefined;
-        second?: '2-digit' | 'numeric' | undefined;
-        millisecond?: 'numeric' | undefined;
-        weekday?: 'narrow' | 'short' | 'long' | undefined;
-        era?: 'narrow' | 'short' | 'long' | undefined;
-        timeZoneName?: 'short' | 'long' | undefined;
+        year?: "2-digit" | "numeric" | undefined;
+        "two-digit-year-start"?: number | undefined;
+        month?: "2-digit" | "numeric" | "narrow" | "short" | "long" | undefined;
+        day?: "2-digit" | "numeric" | undefined;
+        hour?: "2-digit" | "numeric" | undefined;
+        minute?: "2-digit" | "numeric" | undefined;
+        second?: "2-digit" | "numeric" | undefined;
+        millisecond?: "numeric" | undefined;
+        weekday?: "narrow" | "short" | "long" | undefined;
+        era?: "narrow" | "short" | "long" | undefined;
+        timeZoneName?: "short" | "long" | undefined;
         timeZone?: string | undefined;
-        isoStrFormat?: 'offset' | 'zulu' | 'local' | 'auto' | undefined;
+        isoStrFormat?: "offset" | "zulu" | "local" | "auto" | undefined;
         dst?: boolean | undefined;
         hour12?: boolean | undefined;
         pattern?: string | undefined;
-        formatType?: 'date' | 'time' | 'datetime' | undefined;
-        dateFormat?: 'short' | 'medium' | 'long' | 'full' | undefined;
-        timeFormat?: 'short' | 'medium' | 'long' | 'full' | undefined;
-        lenientParse?: 'full' | 'none' | undefined;
+        formatType?: "date" | "time" | "datetime" | undefined;
+        dateFormat?: "short" | "medium" | "long" | "full" | undefined;
+        timeFormat?: "short" | "medium" | "long" | "full" | undefined;
+        lenientParse?: "full" | "none" | undefined;
     };
 }

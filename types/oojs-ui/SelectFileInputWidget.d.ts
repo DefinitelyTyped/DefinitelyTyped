@@ -47,7 +47,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): SelectFileInputWidget;
+            new(config?: ConfigOptions): SelectFileInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

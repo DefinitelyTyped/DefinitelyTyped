@@ -26,7 +26,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): PopupElement;
+            new(config?: ConfigOptions): PopupElement;
             prototype: PopupElement;
             static: {};
         }

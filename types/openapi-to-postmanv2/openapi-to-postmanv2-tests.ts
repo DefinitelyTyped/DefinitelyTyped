@@ -1,12 +1,12 @@
-import { convert, getMetaData, getOptions, mergeAndValidate, Input, validate, SchemaPack } from 'openapi-to-postmanv2';
+import { convert, getMetaData, getOptions, Input, mergeAndValidate, SchemaPack, validate } from "openapi-to-postmanv2";
 
-const input: Input = {type: 'string', data: ''};
+const input: Input = { type: "string", data: "" };
 
 {
     const schemaPack = new SchemaPack(input);
 
     schemaPack.convert(
-         (err, result) => {
+        (err, result) => {
             if (result.result) {
                 result.output[0].type; // $ExpectType "collection"
                 result.output[0].data; // $ExpectType CollectionDefinition
@@ -14,7 +14,7 @@ const input: Input = {type: 'string', data: ''};
                 // @ts-expect-error
                 result.output;
             }
-        }
+        },
     );
 
     schemaPack.getMetaData((err, result) => {
@@ -55,17 +55,15 @@ const input: Input = {type: 'string', data: ''};
     }
 }
 
-convert(input,
-    undefined, (err, result) => {
-        if (result.result) {
-            result.output[0].type; // $ExpectType "collection"
-            result.output[0].data; // $ExpectType CollectionDefinition
-        } else {
-            // @ts-expect-error
-            result.output;
-        }
+convert(input, undefined, (err, result) => {
+    if (result.result) {
+        result.output[0].type; // $ExpectType "collection"
+        result.output[0].data; // $ExpectType CollectionDefinition
+    } else {
+        // @ts-expect-error
+        result.output;
     }
-);
+});
 
 getMetaData(input, (err, result) => {
     if (result.result) {

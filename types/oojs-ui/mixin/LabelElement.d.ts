@@ -142,7 +142,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): LabelElement;
+            new(config?: ConfigOptions): LabelElement;
             prototype: Prototype;
             static: Static;
         }

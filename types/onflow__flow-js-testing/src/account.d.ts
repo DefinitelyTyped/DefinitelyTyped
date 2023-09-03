@@ -1,4 +1,4 @@
-import { HashAlgorithm, SignatureAlgorithm } from './crypto';
+import { HashAlgorithm, SignatureAlgorithm } from "./crypto";
 
 export type ValueOf<T> = T[keyof T];
 

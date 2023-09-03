@@ -22,7 +22,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): RadioOptionWidget;
+            new(config?: ConfigOptions): RadioOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

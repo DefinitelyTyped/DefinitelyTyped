@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import createWorker = require('./create-worker');
-import insideWorker = require('./inside-worker');
+import createWorker = require("./create-worker");
+import insideWorker = require("./inside-worker");
 
 export { createWorker, insideWorker };

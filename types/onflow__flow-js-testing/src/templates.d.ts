@@ -1,4 +1,4 @@
-import { AddressMap } from './account';
+import { AddressMap } from "./account";
 
 export function getTemplate(file: string, addressMap?: AddressMap, byAddress?: boolean): Promise<string>;
 

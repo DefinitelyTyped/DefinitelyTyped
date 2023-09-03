@@ -79,7 +79,7 @@ declare namespace OO.ui {
              * @param context Execution context of the function. The context is ignored if the step
              * is a number or promise.
              */
-            new <C = null>(step: Step<C>, context?: C): Process;
+            new<C = null>(step: Step<C>, context?: C): Process;
             prototype: Process;
             static: {};
         }

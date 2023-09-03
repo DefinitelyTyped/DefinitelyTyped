@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 export = originalUrl;
 

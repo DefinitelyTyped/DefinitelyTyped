@@ -1,25 +1,25 @@
-import { load, loadSync, parse, Glyph, Font, Path, PathCommand } from 'opentype.js';
+import { Font, Glyph, load, loadSync, parse, Path, PathCommand } from "opentype.js";
 
 const x = 0;
 const y = 0;
 const fontSize = 72;
-const canvas: HTMLCanvasElement = document.createElement('canvas');
-const ctx = canvas.getContext('2d')!;
+const canvas: HTMLCanvasElement = document.createElement("canvas");
+const ctx = canvas.getContext("2d")!;
 
-load('fonts/Roboto-Black.ttf', (err, font) => {
+load("fonts/Roboto-Black.ttf", (err, font) => {
     if (err) {
-        alert('Font could not be loaded: ' + err);
+        alert("Font could not be loaded: " + err);
     } else {
-        const path = font!.getPath('Hello, World!', 0, 150, 72);
+        const path = font!.getPath("Hello, World!", 0, 150, 72);
         path.draw(ctx);
     }
 });
 
 let font = parse(new ArrayBuffer(0));
-font = loadSync('fonts/Roboto-Black.ttf', { lowMemory: true });
+font = loadSync("fonts/Roboto-Black.ttf", { lowMemory: true });
 
 const notdefGlyph = new Glyph({
-    name: '.notdef',
+    name: ".notdef",
     unicode: 0,
     advanceWidth: 650,
     path: new Path(),
@@ -28,7 +28,7 @@ const notdefGlyph = new Glyph({
 const aPath = new Path();
 // more drawing instructions...
 const aGlyph = new Glyph({
-    name: 'A',
+    name: "A",
     unicode: 65,
     advanceWidth: 650,
     path: aPath,
@@ -36,8 +36,8 @@ const aGlyph = new Glyph({
 
 const glyphs = [notdefGlyph, aGlyph];
 const fontGenerated = new Font({
-    familyName: 'OpenTypeSans',
-    styleName: 'Medium',
+    familyName: "OpenTypeSans",
+    styleName: "Medium",
     unitsPerEm: 1000,
     ascender: 800,
     descender: -200,
@@ -46,19 +46,19 @@ const fontGenerated = new Font({
 });
 font.download();
 
-const hasChar: boolean = font.hasChar('a');
-const charIndex: number = font.charToGlyphIndex('a');
-const charGlyph: opentype.Glyph = font.charToGlyph('a');
-const charGlyphs: opentype.Glyph[] = font.stringToGlyphs('abc');
-const nameIndex: number = font.nameToGlyphIndex('a');
-const nameGlyph: opentype.Glyph = font.nameToGlyph('a');
+const hasChar: boolean = font.hasChar("a");
+const charIndex: number = font.charToGlyphIndex("a");
+const charGlyph: opentype.Glyph = font.charToGlyph("a");
+const charGlyphs: opentype.Glyph[] = font.stringToGlyphs("abc");
+const nameIndex: number = font.nameToGlyphIndex("a");
+const nameGlyph: opentype.Glyph = font.nameToGlyph("a");
 const indexName: string = font.glyphIndexToName(1);
 const kerning: number = font.getKerningValue(notdefGlyph, aGlyph);
 font.defaultRenderOptions.kerning = false;
 font.defaultRenderOptions.letterSpacing = 0;
 font.defaultRenderOptions.tracking = 0;
 const forEachWidth: number = font.forEachGlyph(
-    'text',
+    "text",
     x,
     y,
     fontSize,
@@ -74,18 +74,18 @@ const forEachWidth: number = font.forEachGlyph(
         });
     },
 );
-const fontPath: opentype.Path = font.getPath('text', x, y, fontSize, {});
-const fontPaths: opentype.Path[] = font.getPaths('text', x, y, fontSize, {});
-const fontWidth: number = font.getAdvanceWidth('text', fontSize, { yScale: 0.5 });
-font.draw(ctx, 'text');
-font.drawPoints(ctx, 'text', x, y, fontSize, { yScale: 0.5 });
-font.drawMetrics(ctx, 'text', x, y, fontSize, { xScale: 1.1, yScale: 0.5 });
-const engName: string = font.getEnglishName('a');
+const fontPath: opentype.Path = font.getPath("text", x, y, fontSize, {});
+const fontPaths: opentype.Path[] = font.getPaths("text", x, y, fontSize, {});
+const fontWidth: number = font.getAdvanceWidth("text", fontSize, { yScale: 0.5 });
+font.draw(ctx, "text");
+font.drawPoints(ctx, "text", x, y, fontSize, { yScale: 0.5 });
+font.drawMetrics(ctx, "text", x, y, fontSize, { xScale: 1.1, yScale: 0.5 });
+const engName: string = font.getEnglishName("a");
 font.validate();
 const tables: opentype.Table = font.toTables();
 const ab: ArrayBuffer = font.toArrayBuffer();
 font.download();
-font.download('fileName.ttf');
+font.download("fileName.ttf");
 
 aGlyph.addUnicode(42);
 const glyphBBox: opentype.BoundingBox = aGlyph.getBoundingBox();
@@ -121,8 +121,8 @@ const pathStroke: string | null = aPath.stroke;
 const pathStrokeWidth: number = aPath.strokeWidth;
 
 async function make() {
-    const font = await load('fonts/Roboto-Black.ttf');
-    const path = font.getPath('Hello, World!', 0, 150, 72);
+    const font = await load("fonts/Roboto-Black.ttf");
+    const path = font.getPath("Hello, World!", 0, 150, 72);
     console.log(path);
 }
 
@@ -131,14 +131,13 @@ const defaultGlyph = new Glyph({});
 defaultGlyph.name = undefined;
 let num: number = defaultGlyph.index + Math.min(...defaultGlyph.unicodes);
 // @ts-expect-error
-num =
-    defaultGlyph.unicode ??
-    defaultGlyph.xMin ??
-    defaultGlyph.xMax ??
-    defaultGlyph.yMin ??
-    defaultGlyph.yMax ??
-    defaultGlyph.advanceWidth ??
-    defaultGlyph.leftSideBearing;
+num = defaultGlyph.unicode
+    ?? defaultGlyph.xMin
+    ?? defaultGlyph.xMax
+    ?? defaultGlyph.yMin
+    ?? defaultGlyph.yMax
+    ?? defaultGlyph.advanceWidth
+    ?? defaultGlyph.leftSideBearing;
 const path: Path = defaultGlyph.path;
 // @ts-expect-error
 Glyph.bindConstructorValues({});

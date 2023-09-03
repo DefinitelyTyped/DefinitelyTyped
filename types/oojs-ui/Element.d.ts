@@ -11,7 +11,7 @@ declare namespace OO.ui {
     interface Element extends Element.Props, Element.Prototype {}
 
     namespace Element {
-        type ScrollDirection = 'x' | 'y';
+        type ScrollDirection = "x" | "y";
 
         interface Dimension {
             border: Rectangle;
@@ -414,7 +414,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Element;
+            new(config?: ConfigOptions): Element;
             prototype: Prototype;
             static: Static;
         }

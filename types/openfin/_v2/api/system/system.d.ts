@@ -1,27 +1,33 @@
-import { EmitterBase } from '../base';
-import { ApplicationInfo } from './application';
-import { WindowInfo } from './window';
-import { Identity } from '../../identity';
-import { MonitorInfo } from './monitor';
-import { PointTopLeft } from './point';
-import { GetLogRequestType, LogInfo, LogLevel } from './log';
-import { ProxyInfo, ProxyConfig } from './proxy';
-import { ProcessInfo } from './process';
-import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './download-asset';
-import { RVMInfo } from './rvm';
-import { RuntimeInfo } from './runtime-info';
-import { Entity, EntityInfo } from './entity';
-import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo, ServiceConfiguration } from './external-process';
-import Transport from '../../transport/transport';
-import { CookieInfo, CookieOption } from './cookie';
-import { RegistryInfo } from './registry-info';
-import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
-import { ClearCacheOption } from './clearCacheOption';
-import { CrashReporterOption } from './crashReporterOption';
-import { SystemEvents } from '../events/system';
-import { InstalledApps } from './installedApps';
-import { CertifiedAppInfo } from './certifiedAppInfo';
+import { Identity } from "../../identity";
+import Transport from "../../transport/transport";
+import { EmitterBase } from "../base";
+import { SystemEvents } from "../events/system";
+import { ApplicationInfo } from "./application";
+import { CertifiedAppInfo } from "./certifiedAppInfo";
+import { ClearCacheOption } from "./clearCacheOption";
+import { CookieInfo, CookieOption } from "./cookie";
+import { CrashReporterOption } from "./crashReporterOption";
+import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from "./download-asset";
+import { DownloadPreloadInfo, DownloadPreloadOption } from "./download-preload";
+import { Entity, EntityInfo } from "./entity";
+import {
+    ExternalConnection,
+    ExternalProcessInfo,
+    ExternalProcessRequestType,
+    ServiceConfiguration,
+    TerminateExternalRequestType,
+} from "./external-process";
+import { HostSpecs } from "./host-specs";
+import { InstalledApps } from "./installedApps";
+import { GetLogRequestType, LogInfo, LogLevel } from "./log";
+import { MonitorInfo } from "./monitor";
+import { PointTopLeft } from "./point";
+import { ProcessInfo } from "./process";
+import { ProxyConfig, ProxyInfo } from "./proxy";
+import { RegistryInfo } from "./registry-info";
+import { RuntimeInfo } from "./runtime-info";
+import { RVMInfo } from "./rvm";
+import { WindowInfo } from "./window";
 export interface ServiceIdentifier {
     name: string;
 }
@@ -718,7 +724,10 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.<void>}
      * @tutorial System.downloadRuntime
      */
-    downloadRuntime(options: RuntimeDownloadOptions, progressListener: (progress: RuntimeDownloadProgress) => void): Promise<void>;
+    downloadRuntime(
+        options: RuntimeDownloadOptions,
+        progressListener: (progress: RuntimeDownloadProgress) => void,
+    ): Promise<void>;
     /**
      * Download preload scripts from given URLs
      * @param {DownloadPreloadOption[]} scripts - URLs of preload scripts. See tutorial for more details.

@@ -10,7 +10,7 @@
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     interface IAngularStatic {
         /**
          * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.

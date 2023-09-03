@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace protect {
-    type KoaFrameworkSelection = 'koa';
-    type HttpFrameworkSelection = 'express' | 'http' | 'restify';
+    type KoaFrameworkSelection = "koa";
+    type HttpFrameworkSelection = "express" | "http" | "restify";
 
     interface ProtectionConfig {
         production?: boolean | undefined;

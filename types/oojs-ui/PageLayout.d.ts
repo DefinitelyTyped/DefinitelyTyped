@@ -134,7 +134,7 @@ declare namespace OO.ui {
              * @param name Unique symbolic name of page
              * @param config Configuration options
              */
-            new (name: string, config?: ConfigOptions): PageLayout;
+            new(name: string, config?: ConfigOptions): PageLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;

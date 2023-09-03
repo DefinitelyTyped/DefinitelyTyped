@@ -25,7 +25,7 @@ interface Options {
      * If set 'beforeend', the template will be injected into the end of body
      * @default 'afterbegin'
      */
-    position?: 'afterbeing' | 'beforened' | undefined;
+    position?: "afterbeing" | "beforened" | undefined;
     /**
      * If the current browser useragent doesn't match one of the target browsers, it's considered as unsupported.
      * Thus, the prompt will be shown.

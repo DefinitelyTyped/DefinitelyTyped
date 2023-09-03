@@ -119,7 +119,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultilineTextInputWidget;
+            new(config?: ConfigOptions): MultilineTextInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

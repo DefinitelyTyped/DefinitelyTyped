@@ -1,14 +1,14 @@
-import { EmitterBase, Base, Reply } from '../base';
-import { Identity } from '../../identity';
-import { _Window } from '../window/window';
-import { Point } from '../system/point';
-import { MonitorInfo } from '../system/monitor';
-import Transport from '../../transport/transport';
-import { Bounds } from '../../shapes/shapes';
-import { ApplicationEvents } from '../events/application';
-import { ApplicationOption } from './applicationOption';
-import { View } from '../view/view';
-export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
+import { Identity } from "../../identity";
+import { Bounds } from "../../shapes/shapes";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase, Reply } from "../base";
+import { ApplicationEvents } from "../events/application";
+import { MonitorInfo } from "../system/monitor";
+import { Point } from "../system/point";
+import { View } from "../view/view";
+import { _Window } from "../window/window";
+import { ApplicationOption } from "./applicationOption";
+export interface TrayIconClickReply extends Point, Reply<"application", "tray-icon-clicked"> {
     button: number;
     monitorInfo: MonitorInfo;
 }
@@ -25,7 +25,7 @@ export interface ApplicationInfo {
 export interface LogInfo {
     logId: string;
 }
-export declare class NavigationRejectedReply extends Reply<'window-navigation-rejected', void> {
+export declare class NavigationRejectedReply extends Reply<"window-navigation-rejected", void> {
     sourceName: string;
     url: string;
 }

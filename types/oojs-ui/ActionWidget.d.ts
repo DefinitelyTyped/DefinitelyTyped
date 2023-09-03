@@ -18,7 +18,7 @@ declare namespace OO.ui {
         /**
          * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#ProcessDialog
          */
-        type Flag = mixin.ButtonElement.Flag | 'safe' | 'back' | 'close';
+        type Flag = mixin.ButtonElement.Flag | "safe" | "back" | "close";
 
         interface ConfigOptions extends ButtonWidget.ConfigOptions, mixin.PendingElement.ConfigOptions {
             /** Symbolic name of the action (e.g., ‘continue’ or ‘cancel’). */
@@ -73,7 +73,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ActionWidget;
+            new(config?: ConfigOptions): ActionWidget;
             prototype: Prototype;
             static: Static;
             super: ButtonWidget.Constructor;

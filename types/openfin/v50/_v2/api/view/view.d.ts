@@ -1,11 +1,11 @@
-import { WebContents } from '../webcontents/webcontents';
-import Transport from '../../transport/transport';
-import { Identity } from '../../identity';
-import { Base } from '../base';
-import { ViewEvents } from '../events/view';
-import { _Window } from '../window/window';
-import { WindowOption, CustomRequestHeaders, Api, ContentNavigation } from '../window/windowOption';
-import { ViewBounds, ContextMenuSettings, Hotkey, PreloadScript } from '../../shapes';
+import { Identity } from "../../identity";
+import { ContextMenuSettings, Hotkey, PreloadScript, ViewBounds } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Base } from "../base";
+import { ViewEvents } from "../events/view";
+import { WebContents } from "../webcontents/webcontents";
+import { _Window } from "../window/window";
+import { Api, ContentNavigation, CustomRequestHeaders, WindowOption } from "../window/windowOption";
 
 /**
  * @lends View
@@ -23,13 +23,13 @@ export default class ViewModule extends Base {
     create(options: ViewCreationOptions): Promise<View>;
     private onmessage;
     /**
-         * Asynchronously returns a View object that represents an existing view.
-         * @param { Identity } identity
-         * @return {Promise.<View>}
-         * @tutorial View.wrap
-         * @experimental
-         * @static
-         */
+     * Asynchronously returns a View object that represents an existing view.
+     * @param { Identity } identity
+     * @return {Promise.<View>}
+     * @tutorial View.wrap
+     * @experimental
+     * @static
+     */
     wrap(identity: Identity): Promise<View>;
     /**
      * Synchronously returns a View object that represents an existing view.
@@ -178,15 +178,15 @@ export declare class View extends WebContents<ViewEvents> {
      * @instance
      * @tutorial View.focus
      * @experimental
-    */
+     */
     /**
-    * Returns the zoom level of the view.
-    * @function getZoomLevel
-    * @memberOf View
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial View.getZoomLevel
-    */
+     * Returns the zoom level of the view.
+     * @function getZoomLevel
+     * @memberOf View
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial View.getZoomLevel
+     */
     /**
      * Sets the zoom level of the view.
      * @param { number } level The zoom level
@@ -254,126 +254,129 @@ export declare class View extends WebContents<ViewEvents> {
      * @tutorial View.stopNavigation
      */
     /**
-    * Reloads the view current page
-    * @function reload
-    * @memberOf View
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial View.reload
-    */
+     * Reloads the view current page
+     * @function reload
+     * @memberOf View
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial View.reload
+     */
     /**
-    * Prints the view's web page
-    * @param { PrintOptions } [options] Printer Options
-    * @function print
-    * @memberOf View
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial View.print
-    */
+     * Prints the view's web page
+     * @param { PrintOptions } [options] Printer Options
+     * @function print
+     * @memberOf View
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial View.print
+     */
     /**
-    * Returns an array with all system printers
-    * @function getPrinters
-    * @memberOf View
-    * @instance
-    * @return { Promise.Array.<PrinterInfo> }
-    * @tutorial View.getPrinters
-    */
+     * Returns an array with all system printers
+     * @function getPrinters
+     * @memberOf View
+     * @instance
+     * @return { Promise.Array.<PrinterInfo> }
+     * @tutorial View.getPrinters
+     */
     /**
-    * Shows the Chromium Developer Tools
-    * @function showDeveloperTools
-    * @memberOf View
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial View.showDeveloperTools
-    */
+     * Shows the Chromium Developer Tools
+     * @function showDeveloperTools
+     * @memberOf View
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial View.showDeveloperTools
+     */
     /**
-    * Attaches the current view to a the given window identity.
-    * Identity must be the identity of a window in the same application.
-    * This detaches the view from its current window, and sets the view to be destroyed when its new window closes.
-    * @param target {Identity}
-    * @return {Promise.<void>}
-    * @tutorial View.attach
-    * @experimental
-    */
+     * Attaches the current view to a the given window identity.
+     * Identity must be the identity of a window in the same application.
+     * This detaches the view from its current window, and sets the view to be destroyed when its new window closes.
+     * @param target {Identity}
+     * @return {Promise.<void>}
+     * @tutorial View.attach
+     * @experimental
+     */
     attach: (target: Identity) => Promise<void>;
     /**
-    * Destroys the current view
-    * @return {Promise.<void>}
-    * @tutorial View.destroy
-    * @experimental
-    */
+     * Destroys the current view
+     * @return {Promise.<void>}
+     * @tutorial View.destroy
+     * @experimental
+     */
     destroy: () => Promise<void>;
     /**
-    * Shows the current view if it is currently hidden.
-    * @return {Promise.<void>}
-    * @tutorial View.show
-    * @experimental
-    */
+     * Shows the current view if it is currently hidden.
+     * @return {Promise.<void>}
+     * @tutorial View.show
+     * @experimental
+     */
     show: () => Promise<void>;
     /**
-    * Hides the current view if it is currently visible.
-    * @return {Promise.<void>}
-    * @tutorial View.hide
-    * @experimental
-    */
+     * Hides the current view if it is currently visible.
+     * @return {Promise.<void>}
+     * @tutorial View.hide
+     * @experimental
+     */
     hide: () => Promise<void>;
     /**
-    * Sets the bounds (top, left, width, height) of the view relative to its window.
-    * @param bounds {Bounds}
-    * @return {Promise.<void>}
-    * @tutorial View.setBounds
-    * @experimental
-    */
+     * Sets the bounds (top, left, width, height) of the view relative to its window.
+     * @param bounds {Bounds}
+     * @return {Promise.<void>}
+     * @tutorial View.setBounds
+     * @experimental
+     */
     setBounds: (bounds: Pick<import("../../shapes").Bounds, "height" | "width" | "top" | "left">) => Promise<void>;
     /**
-    * Gets the bounds (top, left, width, height) of the view relative to its window.
-    * @return {Promise.<Bounds>}
-    * @tutorial View.getBounds
-    * @experimental
-    */
+     * Gets the bounds (top, left, width, height) of the view relative to its window.
+     * @return {Promise.<Bounds>}
+     * @tutorial View.getBounds
+     * @experimental
+     */
     getBounds: () => Promise<any>;
     /**
-    * Gets the View's info.
-    * @return {Promise.<ViewInfo>}
-    * @tutorial View.getInfo
-    * @experimental
-    */
+     * Gets the View's info.
+     * @return {Promise.<ViewInfo>}
+     * @tutorial View.getInfo
+     * @experimental
+     */
     getInfo: () => Promise<any>;
     /**
-    * Gets the View's options.
-    * @return {Promise<ViewCreationOptions>}
-    * @tutorial View.getOptions
-    * @experimental
-    */
+     * Gets the View's options.
+     * @return {Promise<ViewCreationOptions>}
+     * @tutorial View.getOptions
+     * @experimental
+     */
     getOptions: () => Promise<ViewCreationOptions>;
     /**
-    * Gets the view's info.
-    * @param { Partial<ViewOptions> } options
-    * @return {Promise.<void>}
-    * @tutorial View.updateOptions
-    * @experimental
-    */
+     * Gets the view's info.
+     * @param { Partial<ViewOptions> } options
+     * @return {Promise.<void>}
+     * @tutorial View.updateOptions
+     * @experimental
+     */
     updateOptions: (options: Partial<ViewOptions>) => Promise<any>;
     /**
-    * Retrieves the window the view is currently attached to.
-    * @return {Promise.<_Window>}
-    * @experimental
-    */
+     * Retrieves the window the view is currently attached to.
+     * @return {Promise.<_Window>}
+     * @experimental
+     */
     getCurrentWindow: () => Promise<_Window>;
     /**
-    * Sets a custom window handler. Only works if experimental child windows are enabled for the view.
-    * Takes a match pattern or array of match patterns for which to call the handler.
-    * If multiple handlers are set that match a url, only the first set one will be called.
-    * This can be used to "cascade" listeners.
-    * Returns a function to unsubscribe this handler.
-    * @tutorial View.setCustomWindowHandler
-    * @param { string | string[] } urls Url match pattern or array of match patterns
-    * see (https://developer.chrome.com/extensions/match_patterns)
-    * @param {Function} handler function that will be called with the window options that match the url.
-    * @return {Function}
-    * @experimental
-    */
-    setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => Promise<void>>;
+     * Sets a custom window handler. Only works if experimental child windows are enabled for the view.
+     * Takes a match pattern or array of match patterns for which to call the handler.
+     * If multiple handlers are set that match a url, only the first set one will be called.
+     * This can be used to "cascade" listeners.
+     * Returns a function to unsubscribe this handler.
+     * @tutorial View.setCustomWindowHandler
+     * @param { string | string[] } urls Url match pattern or array of match patterns
+     * see (https://developer.chrome.com/extensions/match_patterns)
+     * @param {Function} handler function that will be called with the window options that match the url.
+     * @return {Function}
+     * @experimental
+     */
+    setCustomWindowHandler: (
+        urls: string | string[],
+        handler: (options: WindowOption) => void,
+    ) => Promise<() => Promise<void>>;
 }
 export interface AutoResizeOptions {
     /**

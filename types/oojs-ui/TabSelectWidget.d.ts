@@ -39,7 +39,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TabSelectWidget;
+            new(config?: ConfigOptions): TabSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

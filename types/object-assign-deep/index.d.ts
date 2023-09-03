@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare const objectAssignDeep: ObjectConstructor['assign'];
+declare const objectAssignDeep: ObjectConstructor["assign"];
 
 interface Options {
     arrayBehaviour: "replace" | "merge";
 }
 
 interface objectAssignDeep {
-    noMutate: ObjectConstructor['assign'];
+    noMutate: ObjectConstructor["assign"];
 
     withOptions<T, U>(target: T, objects: [U], options: Options): T & U;
     withOptions<T, U, V>(target: T, objects: [U, V], options: Options): T & U & V;

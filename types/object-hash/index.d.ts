@@ -32,16 +32,16 @@ declare namespace objectHash {
     function writeToStream(value: any, options: Options, stream: Stream): void;
 
     type BufferEncoding =
-        | 'ascii'
-        | 'base64'
-        | 'binary'
-        | 'hex'
-        | 'latin1'
-        | 'ucs-2'
-        | 'ucs2'
-        | 'utf-8'
-        | 'utf16le'
-        | 'utf8';
+        | "ascii"
+        | "base64"
+        | "binary"
+        | "hex"
+        | "latin1"
+        | "ucs-2"
+        | "ucs2"
+        | "utf-8"
+        | "utf16le"
+        | "utf8";
 
     interface Stream {
         update?(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
@@ -49,47 +49,47 @@ declare namespace objectHash {
     }
 
     type HashName =
-        | 'md4'
-        | 'md4WithRSAEncryption'
-        | 'md5'
-        | 'md5WithRSAEncryption'
-        | 'ripemd'
-        | 'ripemd160'
-        | 'ripemd160WithRSA'
-        | 'rmd160'
-        | 'rsa-md4'
-        | 'rsa-md5'
-        | 'rsa-ripemd160'
-        | 'rsa-sha1'
-        | 'rsa-sha1-2'
-        | 'rsa-sha224'
-        | 'rsa-sha256'
-        | 'rsa-sha3-224'
-        | 'rsa-sha3-256'
-        | 'rsa-sha3-384'
-        | 'rsa-sha3-512'
-        | 'rsa-sha384'
-        | 'rsa-sha512'
-        | 'sha1'
-        | 'sha1WithRSAEncryption'
-        | 'sha224'
-        | 'sha224WithRSAEncryption'
-        | 'sha256'
-        | 'sha256WithRSAEncryption'
-        | 'sha3-224'
-        | 'sha3-256'
-        | 'sha3-384'
-        | 'sha3-512'
-        | 'sha384'
-        | 'sha384WithRSAEncryption'
-        | 'sha512'
-        | 'sha512WithRSAEncryption';
+        | "md4"
+        | "md4WithRSAEncryption"
+        | "md5"
+        | "md5WithRSAEncryption"
+        | "ripemd"
+        | "ripemd160"
+        | "ripemd160WithRSA"
+        | "rmd160"
+        | "rsa-md4"
+        | "rsa-md5"
+        | "rsa-ripemd160"
+        | "rsa-sha1"
+        | "rsa-sha1-2"
+        | "rsa-sha224"
+        | "rsa-sha256"
+        | "rsa-sha3-224"
+        | "rsa-sha3-256"
+        | "rsa-sha3-384"
+        | "rsa-sha3-512"
+        | "rsa-sha384"
+        | "rsa-sha512"
+        | "sha1"
+        | "sha1WithRSAEncryption"
+        | "sha224"
+        | "sha224WithRSAEncryption"
+        | "sha256"
+        | "sha256WithRSAEncryption"
+        | "sha3-224"
+        | "sha3-256"
+        | "sha3-384"
+        | "sha3-512"
+        | "sha384"
+        | "sha384WithRSAEncryption"
+        | "sha512"
+        | "sha512WithRSAEncryption";
 
     interface BaseOptions {
         /**
          * @default 'sha1'
          */
-        algorithm?: HashName | 'passthrough' | undefined;
+        algorithm?: HashName | "passthrough" | undefined;
 
         excludeKeys?: ((key: string) => boolean) | undefined;
         /**
@@ -132,11 +132,11 @@ declare namespace objectHash {
         /**
          * @default 'hex'
          */
-        encoding?: 'hex' | 'binary' | 'base64' | undefined;
+        encoding?: "hex" | "binary" | "base64" | undefined;
     }
 
     interface WithBufferOption extends BaseOptions {
-        encoding: 'buffer';
+        encoding: "buffer";
     }
 
     type Options = NormalOption | WithBufferOption;

@@ -8,4 +8,4 @@ export interface LogInfo {
     size: number;
     date: string;
 }
-export declare type LogLevel = 'verbose' | 'info' | 'warning' | 'error' | 'fatal';
+export declare type LogLevel = "verbose" | "info" | "warning" | "error" | "fatal";

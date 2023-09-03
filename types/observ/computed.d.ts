@@ -1,4 +1,4 @@
-import { ObservableValue } from './';
+import { ObservableValue } from "./";
 
 type ValueOfObservable<T> = T extends ObservableValue<infer U> ? U : never;
 

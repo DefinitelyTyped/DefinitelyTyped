@@ -17,9 +17,8 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.GroupElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.GroupElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** An array of options to add to the multiselect. */
             items?: MultioptionWidget[];
         }
@@ -117,7 +116,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultiselectWidget;
+            new(config?: ConfigOptions): MultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

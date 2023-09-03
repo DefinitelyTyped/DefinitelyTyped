@@ -85,7 +85,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): HorizontalLayout;
+            new(config?: ConfigOptions): HorizontalLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

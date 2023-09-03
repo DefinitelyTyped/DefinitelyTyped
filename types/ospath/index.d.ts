@@ -16,7 +16,7 @@ export function desktop(): string;
 /**
  * Returns the user's home directory.
  */
-export function  home(): string;
+export function home(): string;
 
 /**
  * Returns a temporary directory.

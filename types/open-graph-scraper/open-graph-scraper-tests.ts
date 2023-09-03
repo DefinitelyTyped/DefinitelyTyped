@@ -1,8 +1,8 @@
-import openGraphScraper = require('open-graph-scraper');
+import openGraphScraper = require("open-graph-scraper");
 
 const options: openGraphScraper.Options = {
     encoding: null,
-    url: 'http://ogp.me/',
+    url: "http://ogp.me/",
     timeout: 200,
 };
 

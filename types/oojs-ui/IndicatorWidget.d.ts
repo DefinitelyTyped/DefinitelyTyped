@@ -27,28 +27,28 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
-                mixin.LabelElement.ConfigOptions {}
+                mixin.LabelElement.ConfigOptions
+        {}
 
         interface Static
-            extends Widget.Static,
-                mixin.IndicatorElement.Static,
-                mixin.TitledElement.Static,
-                mixin.LabelElement.Static {}
+            extends Widget.Static, mixin.IndicatorElement.Static, mixin.TitledElement.Static, mixin.LabelElement.Static
+        {}
 
         interface Props
-            extends Widget.Props,
-                mixin.IndicatorElement.Props,
-                mixin.TitledElement.Props,
-                mixin.LabelElement.Props {}
+            extends Widget.Props, mixin.IndicatorElement.Props, mixin.TitledElement.Props, mixin.LabelElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.TitledElement.Prototype,
-                mixin.LabelElement.Prototype {
+                mixin.LabelElement.Prototype
+        {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -100,7 +100,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): IndicatorWidget;
+            new(config?: ConfigOptions): IndicatorWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

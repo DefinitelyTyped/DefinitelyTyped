@@ -5,7 +5,7 @@
 // TypeScript Version: 3.2
 /// <reference types="karma-browserstack-launcher" />
 
-import karma = require('karma');
+import karma = require("karma");
 
 declare function testingKarma(): karma.ConfigOptions;
 

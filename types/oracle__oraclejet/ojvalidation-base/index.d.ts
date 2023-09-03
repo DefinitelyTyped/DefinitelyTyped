@@ -1,5 +1,5 @@
-import Message = require('../ojmessaging');
-import Color = require('../ojcolor');
+import Message = require("../ojmessaging");
+import Color = require("../ojcolor");
 export interface AsyncValidator<V> {
     hint: Promise<(string | null)>;
     validate(value: V): Promise<boolean>;
@@ -14,7 +14,7 @@ export class ColorConverter implements Converter<Color> {
 export namespace ColorConverter {
     // tslint:disable-next-line interface-over-type-literal
     type ConverterOptions = {
-        format?: 'rgb' | 'hsl' | 'hsv' | 'hex' | 'hex3' | undefined;
+        format?: "rgb" | "hsl" | "hsv" | "hex" | "hex3" | undefined;
     };
 }
 export interface ColorConverterFactory {
@@ -39,7 +39,9 @@ export interface ConverterFactory<V> {
 }
 export namespace IntlConverterUtils {
     function dateToLocalIso(date: Date): string;
-    function getConverterInstance<T>(converterOption: string | Validation.RegisteredConverter | Converter<T>): Converter<T> | null;
+    function getConverterInstance<T>(
+        converterOption: string | Validation.RegisteredConverter | Converter<T>,
+    ): Converter<T> | null;
     function getInitials(firstName?: string, lastName?: string): string | undefined;
     function getLocalTimeZoneOffset(): string;
     function isoToDate(isoString: string): Date;
@@ -56,7 +58,7 @@ export class LengthValidator implements Validator<number | string> {
 export namespace LengthValidator {
     // tslint:disable-next-line interface-over-type-literal
     type ValidatorOptions = {
-        countBy?: 'codeUnit' | 'codePoint' | undefined;
+        countBy?: "codeUnit" | "codePoint" | undefined;
         min?: number | undefined;
         max?: number | undefined;
         hint?: {
@@ -112,8 +114,14 @@ export interface RequiredValidatorFactory {
     createValidator(options?: RequiredValidator.ValidatorOptions): RequiredValidator;
 }
 export namespace Validation {
-    function converterFactory<CF extends ConverterFactory<any>>(type: 'number' | 'color' | 'datetime' | string, instance?: CF): CF | null;
-    function validatorFactory<VF extends ValidatorFactory<any>>(type: 'required' | 'regexp' | 'numberRange' | 'length' | 'dateTimeRange' | 'dateRestriction' | string, instance?: VF): VF | null;
+    function converterFactory<CF extends ConverterFactory<any>>(
+        type: "number" | "color" | "datetime" | string,
+        instance?: CF,
+    ): CF | null;
+    function validatorFactory<VF extends ValidatorFactory<any>>(
+        type: "required" | "regexp" | "numberRange" | "length" | "dateTimeRange" | "dateRestriction" | string,
+        instance?: VF,
+    ): VF | null;
     // tslint:disable-next-line interface-over-type-literal
     type RegisteredConverter = {
         type: string;

@@ -1,5 +1,3 @@
-
-
 var encoded1: string = OAuth.percentEncode("abcあいう");
 var encoded2: string = OAuth.percentEncode(["abc", "あいう"]);
 var decoded1: string = OAuth.decodePercent("abc%E3%81%82%E3%81%84%E3%81%86");
@@ -54,8 +52,14 @@ var url2: string = OAuth.addToURL("http://example.org/?name1=value1", [["name1",
 var url3: string = OAuth.addToURL("http://example.org/", { name1: "value1" });
 var url4: string = OAuth.addToURL("http://example.org/?name1=value1", { name1: "value1" });
 
-var authorizationHeader1: string = OAuth.getAuthorizationHeader("realm", [["name1", "value1"], ["oauth_param1", "oauth_value1"]]);
-var authorizationHeader2: string = OAuth.getAuthorizationHeader("realm", { name1: "value1", oauth_param1: "oauth_value1" });
+var authorizationHeader1: string = OAuth.getAuthorizationHeader("realm", [["name1", "value1"], [
+    "oauth_param1",
+    "oauth_value1",
+]]);
+var authorizationHeader2: string = OAuth.getAuthorizationHeader("realm", {
+    name1: "value1",
+    oauth_param1: "oauth_value1",
+});
 var authorizationHeader3: string = OAuth.getAuthorizationHeader("realm", "name1=value1&oauth_param1=oauth_value1");
 
 OAuth.correctTimestampFromSrc();
@@ -69,7 +73,6 @@ var timestamp: number = OAuth.timestamp();
 
 var nonce: string = OAuth.nonce(16);
 
-
 var message9: OAuth.Message = { method: "GET", action: "http://example.org/1", parameters: [] };
 var baseString: string = OAuth.SignatureMethod.getBaseString(message9);
 
@@ -77,14 +80,20 @@ var normalizedUrl: string = OAuth.SignatureMethod.normalizeUrl("http://example.o
 
 var uri: OAuth.Uri = OAuth.SignatureMethod.parseUri("http://example.org:80/3?name1=value1&name2=value2");
 
-var normalizedParameters1: string = OAuth.SignatureMethod.normalizeParameters([["name1", "value1"], ["name2", "value2"]]);
+var normalizedParameters1: string = OAuth.SignatureMethod.normalizeParameters([["name1", "value1"], [
+    "name2",
+    "value2",
+]]);
 var normalizedParameters2: string = OAuth.SignatureMethod.normalizeParameters({ name1: "value1", name2: "value2" });
 
 var message10: OAuth.Message = { action: "http://example.org/", method: "GET", parameters: [["name1", "value1"]] };
 OAuth.SignatureMethod.sign(message9, accessor);
 
-var signatureMethodConstructor: { new (): OAuth.SignatureMethod; } =
-        OAuth.SignatureMethod.makeSubclass(function getSignature(baseString) { return this.key });
+var signatureMethodConstructor: { new(): OAuth.SignatureMethod } = OAuth.SignatureMethod.makeSubclass(
+    function getSignature(baseString) {
+        return this.key;
+    },
+);
 OAuth.SignatureMethod.registerMethodClass(["PLAINTEXT"], signatureMethodConstructor);
 
 var signatureMethod1: OAuth.SignatureMethod = OAuth.SignatureMethod.newMethod("PLAINTEXT", accessor);
@@ -92,4 +101,3 @@ var message11: OAuth.Message = { action: "http://example.org/", method: "GET", p
 var signature: string = signatureMethod1.sign(message11);
 var signatureMethod2: OAuth.SignatureMethod = new signatureMethodConstructor();
 signatureMethod2.initialize("PLAINTEXT", accessor);
-

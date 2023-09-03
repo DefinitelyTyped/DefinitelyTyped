@@ -209,7 +209,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): BookletLayout;
+            new(config?: ConfigOptions): BookletLayout;
             prototype: Prototype;
             static: Static;
             super: MenuLayout.Constructor;

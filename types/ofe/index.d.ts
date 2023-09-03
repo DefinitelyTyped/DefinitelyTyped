@@ -3,4 +3,4 @@
 // Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function call(): 'done';
+export function call(): "done";

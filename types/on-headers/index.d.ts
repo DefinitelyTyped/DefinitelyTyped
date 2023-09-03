@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { ServerResponse } from 'http';
+import { ServerResponse } from "http";
 
 /**
  * This will add the listener to fire when headers are emitted for res.

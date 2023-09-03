@@ -7,7 +7,6 @@
 /// <reference types="jquery" />
 
 interface IOwlCarouselOptions {
-
     // options
     items?: number | undefined;
     itemsDesktop?: number[] | undefined;
