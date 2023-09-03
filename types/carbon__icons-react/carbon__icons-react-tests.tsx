@@ -9,6 +9,7 @@ import {
     BorderLeft,
     CalculationAlt,
     CalendarHeatMap,
+    CarbonForMobile,
     ChartColumn,
     DataBaseAlt,
     DataCategorical,
@@ -57,3 +58,4 @@ import * as React from "react";
 <WhitePaper />; // $ExpectType Element
 <DataCategorical />; // $ExpectType Element
 <Delete />; // $ExpectType Element
+<CarbonForMobile />; // $ExpectType Element
