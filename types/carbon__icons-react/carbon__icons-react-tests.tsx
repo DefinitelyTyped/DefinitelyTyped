@@ -25,6 +25,7 @@ import {
     WhitePaper,
     DataCategorical,
     Delete,
+    CarbonForMobile,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -57,3 +58,4 @@ import {
 <WhitePaper />; // $ExpectType Element
 <DataCategorical />; // $ExpectType Element
 <Delete />; // $ExpectType Element
+<CarbonForMobile />; // $ExpectType Element
