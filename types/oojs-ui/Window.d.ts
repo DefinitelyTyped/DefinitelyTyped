@@ -441,7 +441,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Window;
+            new(config?: ConfigOptions): Window;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

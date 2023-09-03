@@ -156,7 +156,7 @@ declare namespace OO.ui {
              * @param name Unique symbolic name of tab panel
              * @param config Configuration options
              */
-            new (name: string, config?: ConfigOptions): TabPanelLayout;
+            new(name: string, config?: ConfigOptions): TabPanelLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;
