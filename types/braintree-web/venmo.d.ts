@@ -98,6 +98,10 @@ export function create(options: {
     ignoreHistoryChanges?: boolean | undefined;
     profileId?: string | undefined;
     deepLinkReturnUrl?: string | undefined;
+    allowDesktopWebLogin?: boolean | undefined;
+    allowDesktop?: boolean | undefined;
+    mobileWebFallBack?: boolean | undefined;
+    paymentMethodUsage?: string | undefined;
 }): Promise<Venmo>;
 
 export function create(
@@ -108,6 +112,10 @@ export function create(
         ignoreHistoryChanges?: boolean | undefined;
         profileId?: string | undefined;
         deepLinkReturnUrl?: string | undefined;
+        allowDesktopWebLogin?: boolean | undefined;
+        allowDesktop?: boolean | undefined;
+        mobileWebFallBack?: boolean | undefined;
+        paymentMethodUsage?: string | undefined;
     },
     callback?: callback<Venmo>,
 ): void;
