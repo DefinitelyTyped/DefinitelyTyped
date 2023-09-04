@@ -122,7 +122,7 @@ export function create(
         allowDesktopWebLogin?: boolean;
         allowDesktop?: boolean;
         mobileWebFallBack?: boolean;
-        paymentMethodUsage?: VenmoPaymentUsage;
+        paymentMethodUsage?: VenmoPaymentMethodUsage;
     },
     callback?: callback<Venmo>,
 ): void;
