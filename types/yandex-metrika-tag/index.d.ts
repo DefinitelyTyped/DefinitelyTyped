@@ -9,12 +9,12 @@ declare namespace ym {
     interface Event {
         (counterId: number, eventName: 'init', parameters: InitParameters): void;
         (counterId: number, eventName: 'addFileExtension', extensions: string | string[]): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <CTX>(counterId: number, eventName: 'extLink', url: string, options?: ExtLinkOptions<CTX>): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <CTX>(counterId: number, eventName: 'file', url: string, options?: FileOptions<CTX>): void;
         (counterId: number, eventName: 'getClientID', cb: (clientID: string) => void): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <CTX>(counterId: number, eventName: 'hit', url: string, options?: HitOptions<CTX>): void;
         /** @deprecated */
         (
@@ -25,7 +25,7 @@ declare namespace ym {
             referer?: string,
             params?: VisitParameters,
         ): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <CTX>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
         (counterId: number, eventName: 'params', parameters: VisitParameters | VisitParameters[]): void;
         <CTX>(

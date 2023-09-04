@@ -1,11 +1,9 @@
-
-
 xdomain.masters({
-  'http://abc.example.com': '/api/*'
+    "http://abc.example.com": "/api/*",
 });
 
 xdomain.slaves({
-  "http://xyz.example.com": "/proxy.html"
+    "http://xyz.example.com": "/proxy.html",
 });
 
 xdomain.debug = true;

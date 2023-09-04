@@ -3,14 +3,10 @@
     "rules": {
         "interface-name": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "triple-equals": false,
-        "whitespace": false
+        "triple-equals": false
     }
 }

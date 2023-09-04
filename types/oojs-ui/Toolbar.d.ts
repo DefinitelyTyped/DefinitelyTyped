@@ -302,7 +302,7 @@ declare namespace OO.ui {
              */
             actions?: boolean;
             /** Whether the toolbar is positioned above ('top') or below ('bottom') content. */
-            position?: 'top' | 'bottom';
+            position?: "top" | "bottom";
             /**
              * An overlay for the popup.
              * See <https://www.mediawiki.org/wiki/OOUI/Concepts#Overlays>.
@@ -474,12 +474,12 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
@@ -490,7 +490,7 @@ declare namespace OO.ui {
              * @param toolGroupFactory Factory for creating toolgroups
              * @param config Configuration options
              */
-            new (toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
+            new(toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

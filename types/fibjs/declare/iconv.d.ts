@@ -194,7 +194,7 @@
 
 
 
-declare module __iconv {
+declare namespace __iconv {
     /**
      *
      * @brief 用 iconv 将文本转换为二进制数据

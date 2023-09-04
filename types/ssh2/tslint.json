@@ -3,11 +3,8 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-conditional-assignment": false,
-        "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "no-var-requires": false,
@@ -21,10 +18,6 @@
         "one-variable-per-declaration": false,
         "prefer-const": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
-        "unified-signatures": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

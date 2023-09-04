@@ -1,5 +1,5 @@
 {
     "rules": {
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off"
     }
 }

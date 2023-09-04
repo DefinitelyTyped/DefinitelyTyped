@@ -202,7 +202,7 @@
 declare module "crypto" {
     
 
-    module crypto {
+    namespace crypto {
         
         /**
          * 

@@ -8,4 +8,4 @@ export interface UploadOptions {
 
 export default function graphqlUploadKoa<StateT = DefaultState, ContextT = DefaultContext>(
     uploadOptions?: UploadOptions,
-): Middleware<StateT, ContextT>; // eslint-disable-line no-unnecessary-generics
+): Middleware<StateT, ContextT>; // eslint-disable-line @definitelytyped/no-unnecessary-generics

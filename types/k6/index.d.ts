@@ -1,14 +1,14 @@
-// Type definitions for k6 0.45
+// Type definitions for k6 0.46
 // Project: https://k6.io/docs/
-// Definitions by: na-- <https://github.com/na-->
-//                 Mihail Stoykov <https://github.com/MStoykov>
+// Definitions by: Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
-//                 Ivan Mirić <https://github.com/imiric>
 //                 Théo Crevon <https://github.com/oleiade>
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 //                 Ankur Agarwal <https://github.com/ankur22>
+//                 İnanç Gümüş <https://github.com/inancgumus>
+//                 Daniel Jiménez <https://github.com/ka3de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 

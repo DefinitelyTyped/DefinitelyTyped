@@ -1,11 +1,10 @@
-// eslint-disable-next-line dt-header
+// eslint-disable-next-line @definitelytyped/dt-header
 // Type definitions for inspector
 
 // These definitions are auto-generated.
 // Please see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19330
 // for more information.
 
-// tslint:disable:max-line-length
 
 /**
  * The `node:inspector` module provides an API for interacting with the V8

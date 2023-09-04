@@ -7,7 +7,6 @@ import { DefaultNavigatorOptions, PrivateValueStore } from './types';
  * @param options Options object containing `children` and additional options for the router.
  * @returns An object containing `state`, `navigation`, `descriptors` objects.
  */
-// tslint:disable-next-line max-line-length
 export default function useNavigationBuilder<State extends NavigationState, RouterOptions extends DefaultRouterOptions, ActionHelpers extends Record<string, () => void>, ScreenOptions extends {}, EventMap extends Record<string, any>>(createRouter: RouterFactory<State, any, RouterOptions>, options: DefaultNavigatorOptions<ScreenOptions> & RouterOptions): {
     state: State;
     navigation: {
@@ -53,7 +52,7 @@ export default function useNavigationBuilder<State extends NavigationState, Rout
             // tslint:disable-next-line no-redundant-undefined
             params?: object | undefined;
         } | {
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             name: RouteName_1;
             // tslint:disable-next-line no-redundant-undefined
             key?: string | undefined;
@@ -120,7 +119,7 @@ export default function useNavigationBuilder<State extends NavigationState, Rout
             })[];
             type: string;
             stale: false;
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         }>, {}, {}> | undefined>(): T;
         dangerouslyGetState(): Readonly<{
             key: string;
@@ -142,9 +141,9 @@ export default function useNavigationBuilder<State extends NavigationState, Rout
             type: string;
             stale: false;
         }>;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     } & PrivateValueStore<Record<string, object | undefined>, string, {}> & import("./types").EventEmitter<EventMap> & {
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         setParams<RouteName_2 extends string>(params: object | undefined): void;
     } & {
         dispatch(action: Readonly<{
@@ -170,7 +169,7 @@ export default function useNavigationBuilder<State extends NavigationState, Rout
             // tslint:disable-next-line no-redundant-undefined
             params?: object | undefined;
         } | {
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             name: RouteName_4;
             // tslint:disable-next-line no-redundant-undefined
             key?: string | undefined;
@@ -199,13 +198,13 @@ export default function useNavigationBuilder<State extends NavigationState, Rout
             })[];
             type: string;
             stale: false;
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         }>, {}, {}> | undefined>(): T_1;
         dangerouslyGetState(): any;
     } & {
         setParams(params: object | undefined): void;
         setOptions(options: Partial<any>): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     } & import("./types").EventConsumer<any> & PrivateValueStore<Record<string, object | undefined>, string, any> & ActionHelpers;
     descriptors: Record<string, import("./types").Descriptor<Record<string, object | undefined>, string, State, ScreenOptions, {}>>;
 };
