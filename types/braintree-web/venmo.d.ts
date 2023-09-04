@@ -82,7 +82,7 @@ export interface Venmo {
     teardown(): Promise<void>;
 }
 
-export Type VenmoPaymentUsage = 'single_use' | 'multi_use';
+export type VenmoPaymentUsage = 'single_use' | 'multi_use';
 
 /**
  * braintree.venmo.create({
