@@ -373,6 +373,9 @@ var imageSourceObj = new mapboxgl.ImageSource({
         [-76.54520273208618, 39.17876344106642],
     ],
 });
+var width: number | undefined = imageSourceObj.width;
+var height: number | undefined = imageSourceObj.height;
+
 map.addSource('some id', imageSourceObj); // add
 map.removeSource('some id'); // remove
 

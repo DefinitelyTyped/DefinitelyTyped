@@ -1500,6 +1500,10 @@ declare namespace mapboxgl {
 
         constructor(options?: mapboxgl.ImageSourceOptions);
 
+        width?: number | undefined;
+
+        height?: number | undefined;
+
         updateImage(options: ImageSourceOptions): this;
 
         setCoordinates(coordinates: number[][]): this;
