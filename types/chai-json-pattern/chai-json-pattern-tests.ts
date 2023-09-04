@@ -1,5 +1,5 @@
-import { expect, use } from 'chai';
-import chaiJsonPattern, { extend } from 'chai-json-pattern';
+import { expect, use } from "chai";
+import chaiJsonPattern, { extend } from "chai-json-pattern";
 
 use(chaiJsonPattern);
 

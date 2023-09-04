@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import File = require('vinyl');
+import File = require("vinyl");
 
 declare namespace copy {
     /**

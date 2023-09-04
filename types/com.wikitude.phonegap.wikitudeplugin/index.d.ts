@@ -16,7 +16,7 @@ interface WikitudePlugin {
     isDeviceSupported(
         successCallback: (success: string) => void,
         errorCallback: (message: string) => void,
-        requiredFeatures: [string]
+        requiredFeatures: [string],
     ): void;
 
     loadARchitectWorld(
@@ -24,7 +24,7 @@ interface WikitudePlugin {
         errorCallback: (message: string) => void,
         architectWorldPath: string,
         requiredFeatures: [string],
-        startupConfiguration: JSON | object
+        startupConfiguration: JSON | object,
     ): void;
 
     close(): void;
@@ -44,17 +44,17 @@ interface WikitudePlugin {
         successCallback: (success: string) => void,
         errorCallback: (message: string) => void,
         includeWebView: boolean,
-        imagePathInBundleOrNullForPhotoLibrary: string | null
+        imagePathInBundleOrNullForPhotoLibrary: string | null,
     ): void;
 
     setErrorHandler(errorHandler: (message: string) => void): void;
 
     setDeviceSensorsNeedCalibrationHandler(
-        startCalibrationHandler: (message: string) => void
+        startCalibrationHandler: (message: string) => void,
     ): void;
 
     setDeviceSensorsFinishedCalibrationHandler(
-        finishedCalibrationHandler: (message: string) => void
+        finishedCalibrationHandler: (message: string) => void,
     ): void;
 
     setBackButtonCallback(onBackButtonCallback: (message: string) => void): void;

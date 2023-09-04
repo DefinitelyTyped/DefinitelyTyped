@@ -7,7 +7,6 @@
  * CSS parser / stringifier for Node.js
  */
 
-
 /**
  * css.parse options
  */
@@ -26,16 +25,16 @@ export interface StringifyOptions {
     indent?: string | undefined;
     /** Omit comments and extraneous whitespace. */
     compress?: boolean | undefined;
-    /** Return a sourcemap along with the CSS output. 
-     * Using the source option of css.parse is strongly recommended 
-     * when creating a source map. Specify sourcemap: 'generator' 
-     * to return the SourceMapGenerator object instead of serializing the source map. 
+    /** Return a sourcemap along with the CSS output.
+     * Using the source option of css.parse is strongly recommended
+     * when creating a source map. Specify sourcemap: 'generator'
+     * to return the SourceMapGenerator object instead of serializing the source map.
      */
     sourcemap?: string | undefined;
     /** (enabled by default, specify false to disable)
-     *  Reads any source maps referenced by the input files 
-     * when generating the output source map. When enabled, 
-     * file system access may be required for reading the referenced source maps. 
+     *  Reads any source maps referenced by the input files
+     * when generating the output source map. When enabled,
+     * file system access may be required for reading the referenced source maps.
      */
     inputSourcemaps?: boolean | undefined;
 }
@@ -102,15 +101,15 @@ export interface Declaration extends Node {
     value?: string | undefined;
 }
 
-/** 
+/**
  * A rule-level or declaration-level comment. Comments inside selectors, properties and values etc. are lost.
  */
 export interface Comment extends Node {
     comment?: string | undefined;
 }
 
-/** 
- * The @charset at-rule. 
+/**
+ * The @charset at-rule.
  */
 export interface Charset extends Node {
     /** The part following @charset. */
@@ -118,7 +117,7 @@ export interface Charset extends Node {
 }
 
 /**
- * The @custom-media at-rule 
+ * The @custom-media at-rule
  */
 export interface CustomMedia extends Node {
     /** The ---prefixed name. */
@@ -221,7 +220,18 @@ export interface Supports extends Node {
 }
 
 /** All at-rules. */
-export type AtRule = Charset | CustomMedia | Document | FontFace | Host | Import | KeyFrames | Media | Namespace | Page | Supports;
+export type AtRule =
+    | Charset
+    | CustomMedia
+    | Document
+    | FontFace
+    | Host
+    | Import
+    | KeyFrames
+    | Media
+    | Namespace
+    | Page
+    | Supports;
 
 /**
  * A collection of rules
@@ -230,11 +240,11 @@ export interface StyleRules {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules: Array<Rule | Comment | AtRule>;
     /** Array of Errors. Errors collected during parsing when option silent is true. */
-    parsingErrors?: Array<ParserError> | undefined
+    parsingErrors?: Array<ParserError> | undefined;
 }
 
-/** 
- * The root node returned by css.parse. 
+/**
+ * The root node returned by css.parse.
  */
 export interface Stylesheet extends Node {
     stylesheet?: StyleRules | undefined;
@@ -244,7 +254,7 @@ export interface Stylesheet extends Node {
 
 /**
  * Accepts a CSS string and returns an AST object.
- * 
+ *
  * @param {string} code - CSS code.
  * @param {ParserOptions} options - CSS parser options.
  * @return {Stylesheet} AST object built using provides CSS code.
@@ -253,7 +263,7 @@ export function parse(code: string, options?: ParserOptions): Stylesheet;
 
 /**
  * Accepts an AST object (as css.parse produces) and returns a CSS string.
- * 
+ *
  * @param {Stylesheet} stylesheet - AST tree.
  * @param {StringifyOptions} options - AST tree to string serializaiton options.
  * @return {string} CSS code.

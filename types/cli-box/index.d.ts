@@ -17,7 +17,7 @@
  */
 export = Box;
 
-type MarksKeys = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'b';
+type MarksKeys = "nw" | "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "b";
 type Marks = Record<MarksKeys, string>;
 
 interface Options {
@@ -34,8 +34,8 @@ interface Text {
     text?: string | undefined;
     stretch?: boolean | undefined;
     autoEOL?: boolean | undefined;
-    hAlign?: 'left' | 'middle' | 'right' | undefined;
-    vAlign?: 'top' | 'center' | 'bottom' | undefined;
+    hAlign?: "left" | "middle" | "right" | undefined;
+    vAlign?: "top" | "center" | "bottom" | undefined;
 }
 
 interface Box {
@@ -48,8 +48,8 @@ interface Box {
             text: string;
             offset: {
                 y: number;
-            }
-        }>
+            };
+        }>;
     };
     options: {
         width: number;
@@ -62,7 +62,7 @@ interface Box {
 
 interface BoxConstructor {
     new(options: Options | string, text?: Text | string): Box;
-    (options: (Exclude<Options, 'stringify'> & { stringify: true }), text?: Text | string): string;
+    (options: Exclude<Options, "stringify"> & { stringify: true }, text?: Text | string): string;
     (options: Options | string, text?: Text | string): Box;
     defaults: { marks: Marks };
 }

@@ -1,5 +1,5 @@
-import List from '../List';
-import Pair from '../Pair';
+import List from "../List";
+import Pair from "../Pair";
 
 /**
  * fromPairs :: Foldable f => f (Pair String a) -> Object

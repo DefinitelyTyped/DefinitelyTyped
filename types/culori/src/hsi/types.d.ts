@@ -1,5 +1,5 @@
 export interface Hsi {
-    mode: 'hsi';
+    mode: "hsi";
     h?: number;
     s: number;
     i: number;

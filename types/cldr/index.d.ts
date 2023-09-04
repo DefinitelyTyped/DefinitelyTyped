@@ -34,7 +34,7 @@ export interface KeyType {
     types: PartialStringRecord;
 }
 
-type CardinalOrOrdinal = 'cardinal' | 'ordinal';
+type CardinalOrOrdinal = "cardinal" | "ordinal";
 
 export interface NumberingSystem {
     type: string;
@@ -136,7 +136,11 @@ declare class Cldr {
 
     extractDateTimePatterns(localeId: string, calendarId?: string): object;
 
-    extractDateOrTimeFormats(localeId: string, calendarId: string | undefined, dateOrTime: 'date' | 'time'): PartialStringRecord;
+    extractDateOrTimeFormats(
+        localeId: string,
+        calendarId: string | undefined,
+        dateOrTime: "date" | "time",
+    ): PartialStringRecord;
 
     extractDateFormats(localeId: string, calendarId?: string): PartialStringRecord;
 

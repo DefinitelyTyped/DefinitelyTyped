@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 export = CPK;
 

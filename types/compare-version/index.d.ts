@@ -3,8 +3,6 @@
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare function compare(a: string, b: string): number;
 
 export = compare;

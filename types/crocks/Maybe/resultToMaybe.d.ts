@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Result from '../Result';
-import Maybe from './Maybe';
+import { UnaryFunction } from "../internal/types";
+import Result from "../Result";
+import Maybe from "./Maybe";
 
 /**
  * resultToMaybe :: Result e a -> Maybe a

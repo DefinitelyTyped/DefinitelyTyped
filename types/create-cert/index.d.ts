@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import { CertificateCreationOptions } from 'pem';
+import { CertificateCreationOptions } from "pem";
 
 declare function createCert(opts?: createCert.Options | string): Promise<createCert.CertificateData>;
 

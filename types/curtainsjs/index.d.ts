@@ -22,37 +22,37 @@ export interface BasicUniform extends BaseUniform {
 }
 
 export interface SingleValueUniform extends BaseUniform {
-    type: '1i' | '1f' | '1iv' | '1fv';
+    type: "1i" | "1f" | "1iv" | "1fv";
     value: number;
 }
 
 export interface DoubleValueUniform extends BaseUniform {
-    type: '2i' | '2f' | '2iv' | '2fv';
+    type: "2i" | "2f" | "2iv" | "2fv";
     value: Vec2 | [number, number];
 }
 
 export interface TripleValueUniform extends BaseUniform {
-    type: '3i' | '3f' | '3iv' | '3fv';
+    type: "3i" | "3f" | "3iv" | "3fv";
     value: Vec3 | [number, number, number];
 }
 
 export interface QuadrupleValueUniform extends BaseUniform {
-    type: '4i' | '4f' | '4iv' | '4fv';
+    type: "4i" | "4f" | "4iv" | "4fv";
     value: Quat | [number, number, number, number];
 }
 
 export interface Matrix2Uniform extends BaseUniform {
-    type: 'mat2';
+    type: "mat2";
     value: number[];
 }
 
 export interface Matrix3Uniform extends BaseUniform {
-    type: 'mat3';
+    type: "mat3";
     value: number[];
 }
 
 export interface Matrix4Uniform extends BaseUniform {
-    type: 'mat4';
+    type: "mat4";
     value: Mat4 | number[];
 }
 
@@ -1062,7 +1062,7 @@ export interface PlaneParams {
      * "front" or "none".
      * @default "back"
      */
-    cullFace?: 'back' | 'front' | 'none';
+    cullFace?: "back" | "front" | "none";
 
     /**
      * Whether to use frustum culling: defines if the plane should always
@@ -1814,7 +1814,7 @@ export interface TextureParams {
      * "half-float" and "float".
      * @default "none"
      */
-    floatingPoint?: 'none' | 'half-float' | 'float';
+    floatingPoint?: "none" | "half-float" | "float";
 
     /**
      * texture anisotropy value
@@ -1927,7 +1927,7 @@ export class Texture {
      * A "fboTexture" is a RenderTarget texture onto which your plane or scene
      * is drawn.
      */
-    sourceType: 'empty' | 'image' | 'canvas' | 'video' | 'fboTexture';
+    sourceType: "empty" | "image" | "canvas" | "video" | "fboTexture";
 
     /**
      * Class object type: "Texture".
@@ -3177,7 +3177,7 @@ export class Vec3 {
     onChange(callback: () => void): Vec3;
 }
 
-export type AxisOrder = 'XYZ' | 'YXZ' | 'ZXY' | 'ZYX' | 'YZX' | 'XZY';
+export type AxisOrder = "XYZ" | "YXZ" | "ZXY" | "ZYX" | "YZX" | "XZY";
 
 export class Mat4 {
     /** A Float32Array of length 16 representing that matrix. */

@@ -11,9 +11,9 @@ import * as Stream from "stream";
 import {
     Context,
     GitRawCommitsOptions,
+    Options as BaseOptions,
     ParserOptions,
     WriterOptions,
-    Options as BaseOptions,
 } from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit } from "conventional-commits-parser";
@@ -27,14 +27,22 @@ import { Commit } from "conventional-commits-parser";
  * @param parserOpts
  * @param writerOpts
  */
-declare function conventionalChangelog<TCommit extends Commit = Commit, TContext extends WriterContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>): Stream.Readable;
+declare function conventionalChangelog<TCommit extends Commit = Commit, TContext extends WriterContext = Context>(
+    options?: Options<TCommit, TContext>,
+    context?: Partial<TContext>,
+    gitRawCommitsOpts?: GitRawCommitsOptions,
+    parserOpts?: ParserOptions,
+    writerOpts?: WriterOptions<TCommit, TContext>,
+): Stream.Readable;
 
 declare namespace conventionalChangelog {
     /**
      * See the [conventional-changelog-core](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core)
      * docs. The API is the same with the following changes or additions:
      */
-    interface Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext> extends BaseOptions<TCommit, TContext> {
+    interface Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext>
+        extends BaseOptions<TCommit, TContext>
+    {
         /**
          * It's recommended to use a preset so you don't have to define everything
          * yourself. Presets are names of built-in `config`.
@@ -50,6 +58,7 @@ declare namespace conventionalChangelog {
     }
 }
 
-type Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext> = conventionalChangelog.Options<TCommit, TContext>;
+type Options<TCommit extends Commit = Commit, TContext extends WriterContext = WriterContext> =
+    conventionalChangelog.Options<TCommit, TContext>;
 
 export = conventionalChangelog;

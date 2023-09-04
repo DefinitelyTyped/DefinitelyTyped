@@ -1,13 +1,13 @@
-import cssEscape = require('css.escape');
+import cssEscape = require("css.escape");
 
 // $ExpectType string
-cssEscape('--string');
+cssEscape("--string");
 
 // @ts-expect-error
 cssEscape({});
 
 // $ExpectType string
-CSS.escape('');
+CSS.escape("");
 
 // @ts-expect-error
 CSS.escape({});

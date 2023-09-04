@@ -1,4 +1,4 @@
-import Commerce = require('@chec/commerce.js');
+import Commerce = require("@chec/commerce.js");
 
 export interface LocaleListCountriesResponse {
     countries: { [name: string]: string };

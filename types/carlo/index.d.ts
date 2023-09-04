@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Serializable, Browser, Page } from "puppeteer";
+import { Browser, Page, Serializable } from "puppeteer";
 
 export type Channel = string;
 
@@ -21,7 +21,10 @@ export type Channel = string;
  * If the function passed to the Window.evaluate returns a non-Serializable value,
  * then Window.evaluate resolves to undefined.
  */
-export type EvaluateFunction = (pageFunction: ((...args: any[]) => any) | string, ...args: Serializable[]) => Promise<Serializable>;
+export type EvaluateFunction = (
+    pageFunction: ((...args: any[]) => any) | string,
+    ...args: Serializable[]
+) => Promise<Serializable>;
 
 export interface WindowOptions {
     /**
@@ -95,8 +98,8 @@ export interface LaunchOptions extends WindowOptions {
     args?: string[] | undefined;
 }
 
-export type AppEvent = 'exit' | 'window';
-export type WindowEvent = 'close';
+export type AppEvent = "exit" | "window";
+export type WindowEvent = "close";
 
 export interface Bounds {
     /**

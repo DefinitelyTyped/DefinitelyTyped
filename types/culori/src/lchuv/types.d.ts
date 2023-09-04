@@ -1,5 +1,5 @@
 export interface Lchuv {
-    mode: 'lchuv';
+    mode: "lchuv";
     l: number;
     c: number;
     h?: number;

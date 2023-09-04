@@ -21,7 +21,7 @@ export = cypressDark;
 declare global {
     namespace Cypress {
         interface ResolvedConfigOptions {
-            theme?: 'dark' | 'halloween' | string;
+            theme?: "dark" | "halloween" | string;
         }
     }
 }

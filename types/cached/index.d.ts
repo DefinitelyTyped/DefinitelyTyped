@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import Memcached = require('memcached');
+import Memcached = require("memcached");
 
 export = cached;
 
@@ -39,7 +39,7 @@ interface CacheDefaults {
 }
 
 interface BackendOptions {
-    type: 'memcached' | 'memory' | 'noop';
+    type: "memcached" | "memory" | "noop";
     client?: Memcached;
     hosts?: string;
     poolSize?: number;

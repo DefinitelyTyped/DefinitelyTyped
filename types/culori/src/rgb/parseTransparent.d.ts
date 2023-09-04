@@ -1,7 +1,7 @@
 export default parseTransparent;
 
-declare function parseTransparent(str: 'transparent'): {
-    mode: 'rgb';
+declare function parseTransparent(str: "transparent"): {
+    mode: "rgb";
     r: 0;
     g: 0;
     b: 0;

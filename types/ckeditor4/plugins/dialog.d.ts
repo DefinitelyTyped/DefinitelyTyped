@@ -1,7 +1,7 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
         readonly dialog?: {
-            new (editor: editor, dialogName: string): dialog;
+            new(editor: editor, dialogName: string): dialog;
 
             add(name: string, dialogDefinition: string | dialog.definitionFn): void;
 
@@ -25,7 +25,7 @@ declare namespace CKEDITOR {
 
             okButton(): void;
         };
-        readonly dialogCommand?: { new (dialogName: string, ext?: { tabId?: string | undefined }): dialogCommand };
+        readonly dialogCommand?: { new(dialogName: string, ext?: { tabId?: string | undefined }): dialogCommand };
     }
 
     interface CKEditorUIStatic {
@@ -256,7 +256,7 @@ declare namespace CKEDITOR {
     namespace ui {
         namespace dialog {
             interface uiElementConstructor<T extends uiElement, U extends CKEDITOR.dialog.definition.uiElement> {
-                new (
+                new(
                     dialog: dialog,
                     htmlList: unknown,
                     elementDefinition: U,
@@ -267,7 +267,7 @@ declare namespace CKEDITOR {
                 ): T;
             }
             interface uiParentConstructor<T extends uiElement, U extends CKEDITOR.dialog.definition.uiElement> {
-                new (
+                new(
                     dialog: dialog,
                     childObjList: uiElement[],
                     childHtmlList: unknown[],

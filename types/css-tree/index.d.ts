@@ -10,12 +10,12 @@ export interface CssLocation {
     start: {
         offset: number;
         line: number;
-        column: number
+        column: number;
     };
     end: {
         offset: number;
         line: number;
-        column: number
+        column: number;
     };
 }
 
@@ -25,16 +25,26 @@ export interface ListItem<TData> {
     data: TData;
 }
 
-export type IteratorFn<TData, TResult, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => TResult;
-export type FilterFn<TData, TResult extends TData, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => item is TResult;
+export type IteratorFn<TData, TResult, TContext = List<TData>> = (
+    this: TContext,
+    item: TData,
+    node: ListItem<TData>,
+    list: List<TData>,
+) => TResult;
+export type FilterFn<TData, TResult extends TData, TContext = List<TData>> = (
+    this: TContext,
+    item: TData,
+    node: ListItem<TData>,
+    list: List<TData>,
+) => item is TResult;
 export type ReduceFn<TData, TValue, TContext = List<TData>> = (this: TContext, accum: TValue, data: TData) => TValue;
 
 export class List<TData> {
     constructor();
     get size(): number;
     get isEmpty(): boolean;
-    get first(): TData|null;
-    get last(): TData|null;
+    get first(): TData | null;
+    get last(): TData | null;
     [Symbol.iterator](): IterableIterator<TData>;
     fromArray(array: TData[]): List<TData>;
     createItem(data: TData): ListItem<TData>;
@@ -50,7 +60,11 @@ export class List<TData> {
     prevUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
     reduce<TValue, TContext>(fn: ReduceFn<TData, TValue, TContext>, initialValue: TValue, context: TContext): TValue;
     reduce<TValue>(fn: ReduceFn<TData, TValue>, initialValue: TValue): TValue;
-    reduceRight<TValue, TContext>(fn: ReduceFn<TData, TValue, TContext>, initialValue: TValue, context: TContext): TValue;
+    reduceRight<TValue, TContext>(
+        fn: ReduceFn<TData, TValue, TContext>,
+        initialValue: TValue,
+        context: TContext,
+    ): TValue;
     reduceRight<TValue>(fn: ReduceFn<TData, TValue>, initialValue: TValue): TValue;
     some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): boolean;
     some(fn: IteratorFn<TData, boolean>): boolean;
@@ -85,37 +99,37 @@ export interface CssNodeCommon {
 }
 
 export interface AnPlusB extends CssNodeCommon {
-    type: 'AnPlusB';
+    type: "AnPlusB";
     a: string | null;
     b: string | null;
 }
 
 export interface Atrule extends CssNodeCommon {
-    type: 'Atrule';
+    type: "Atrule";
     name: string;
     prelude: AtrulePrelude | Raw | null;
     block: Block | null;
 }
 
 export interface AtrulePlain extends CssNodeCommon {
-    type: 'Atrule';
+    type: "Atrule";
     name: string;
     prelude: AtrulePreludePlain | Raw | null;
     block: BlockPlain | null;
 }
 
 export interface AtrulePrelude extends CssNodeCommon {
-    type: 'AtrulePrelude';
+    type: "AtrulePrelude";
     children: List<CssNode>;
 }
 
 export interface AtrulePreludePlain extends CssNodeCommon {
-    type: 'AtrulePrelude';
+    type: "AtrulePrelude";
     children: CssNodePlain[];
 }
 
 export interface AttributeSelector extends CssNodeCommon {
-    type: 'AttributeSelector';
+    type: "AttributeSelector";
     name: Identifier;
     matcher: string | null;
     value: StringNode | Identifier | null;
@@ -123,282 +137,282 @@ export interface AttributeSelector extends CssNodeCommon {
 }
 
 export interface Block extends CssNodeCommon {
-    type: 'Block';
+    type: "Block";
     children: List<CssNode>;
 }
 
 export interface BlockPlain extends CssNodeCommon {
-    type: 'Block';
+    type: "Block";
     children: CssNodePlain[];
 }
 
 export interface Brackets extends CssNodeCommon {
-    type: 'Brackets';
+    type: "Brackets";
     children: List<CssNode>;
 }
 
 export interface BracketsPlain extends CssNodeCommon {
-    type: 'Brackets';
+    type: "Brackets";
     children: CssNodePlain[];
 }
 
 export interface CDC extends CssNodeCommon {
-    type: 'CDC';
+    type: "CDC";
 }
 
 export interface CDO extends CssNodeCommon {
-    type: 'CDO';
+    type: "CDO";
 }
 
 export interface ClassSelector extends CssNodeCommon {
-    type: 'ClassSelector';
+    type: "ClassSelector";
     name: string;
 }
 
 export interface Combinator extends CssNodeCommon {
-    type: 'Combinator';
+    type: "Combinator";
     name: string;
 }
 
 export interface Comment extends CssNodeCommon {
-    type: 'Comment';
+    type: "Comment";
     value: string;
 }
 
 export interface Declaration extends CssNodeCommon {
-    type: 'Declaration';
+    type: "Declaration";
     important: boolean | string;
     property: string;
     value: Value | Raw;
 }
 
 export interface DeclarationPlain extends CssNodeCommon {
-    type: 'Declaration';
+    type: "Declaration";
     important: boolean | string;
     property: string;
     value: ValuePlain | Raw;
 }
 
 export interface DeclarationList extends CssNodeCommon {
-    type: 'DeclarationList';
+    type: "DeclarationList";
     children: List<CssNode>;
 }
 
 export interface DeclarationListPlain extends CssNodeCommon {
-    type: 'DeclarationList';
+    type: "DeclarationList";
     children: CssNodePlain[];
 }
 
 export interface Dimension extends CssNodeCommon {
-    type: 'Dimension';
+    type: "Dimension";
     value: string;
     unit: string;
 }
 
 export interface FunctionNode extends CssNodeCommon {
-    type: 'Function';
+    type: "Function";
     name: string;
     children: List<CssNode>;
 }
 
 export interface FunctionNodePlain extends CssNodeCommon {
-    type: 'Function';
+    type: "Function";
     name: string;
     children: CssNodePlain[];
 }
 
 export interface Hash extends CssNodeCommon {
-    type: 'Hash';
+    type: "Hash";
     value: string;
 }
 
 export interface IdSelector extends CssNodeCommon {
-    type: 'IdSelector';
+    type: "IdSelector";
     name: string;
 }
 
 export interface Identifier extends CssNodeCommon {
-    type: 'Identifier';
+    type: "Identifier";
     name: string;
 }
 
 export interface MediaFeature extends CssNodeCommon {
-    type: 'MediaFeature';
+    type: "MediaFeature";
     name: string;
     value: Identifier | NumberNode | Dimension | Ratio | null;
 }
 
 export interface MediaQuery extends CssNodeCommon {
-    type: 'MediaQuery';
+    type: "MediaQuery";
     children: List<CssNode>;
 }
 
 export interface MediaQueryPlain extends CssNodeCommon {
-    type: 'MediaQuery';
+    type: "MediaQuery";
     children: CssNodePlain[];
 }
 
 export interface MediaQueryList extends CssNodeCommon {
-    type: 'MediaQueryList';
+    type: "MediaQueryList";
     children: List<CssNode>;
 }
 
 export interface MediaQueryListPlain extends CssNodeCommon {
-    type: 'MediaQueryList';
+    type: "MediaQueryList";
     children: CssNodePlain[];
 }
 
 export interface Nth extends CssNodeCommon {
-    type: 'Nth';
+    type: "Nth";
     nth: AnPlusB | Identifier;
     selector: SelectorList | null;
 }
 
 export interface NthPlain extends CssNodeCommon {
-    type: 'Nth';
+    type: "Nth";
     nth: AnPlusB | Identifier;
     selector: SelectorListPlain | null;
 }
 
 export interface NumberNode extends CssNodeCommon {
-    type: 'Number';
+    type: "Number";
     value: string;
 }
 
 export interface Operator extends CssNodeCommon {
-    type: 'Operator';
+    type: "Operator";
     value: string;
 }
 
 export interface Parentheses extends CssNodeCommon {
-    type: 'Parentheses';
+    type: "Parentheses";
     children: List<CssNode>;
 }
 
 export interface ParenthesesPlain extends CssNodeCommon {
-    type: 'Parentheses';
+    type: "Parentheses";
     children: CssNodePlain[];
 }
 
 export interface Percentage extends CssNodeCommon {
-    type: 'Percentage';
+    type: "Percentage";
     value: string;
 }
 
 export interface PseudoClassSelector extends CssNodeCommon {
-    type: 'PseudoClassSelector';
+    type: "PseudoClassSelector";
     name: string;
     children: List<CssNode> | null;
 }
 
 export interface PseudoClassSelectorPlain extends CssNodeCommon {
-    type: 'PseudoClassSelector';
+    type: "PseudoClassSelector";
     name: string;
     children: CssNodePlain[] | null;
 }
 
 export interface PseudoElementSelector extends CssNodeCommon {
-    type: 'PseudoElementSelector';
+    type: "PseudoElementSelector";
     name: string;
     children: List<CssNode> | null;
 }
 
 export interface PseudoElementSelectorPlain extends CssNodeCommon {
-    type: 'PseudoElementSelector';
+    type: "PseudoElementSelector";
     name: string;
     children: CssNodePlain[] | null;
 }
 
 export interface Ratio extends CssNodeCommon {
-    type: 'Ratio';
+    type: "Ratio";
     left: string;
     right: string;
 }
 
 export interface Raw extends CssNodeCommon {
-    type: 'Raw';
+    type: "Raw";
     value: string;
 }
 
 export interface Rule extends CssNodeCommon {
-    type: 'Rule';
+    type: "Rule";
     prelude: SelectorList | Raw;
     block: Block;
 }
 
 export interface RulePlain extends CssNodeCommon {
-    type: 'Rule';
+    type: "Rule";
     prelude: SelectorListPlain | Raw;
     block: BlockPlain;
 }
 
 export interface Selector extends CssNodeCommon {
-    type: 'Selector';
+    type: "Selector";
     children: List<CssNode>;
 }
 
 export interface SelectorPlain extends CssNodeCommon {
-    type: 'Selector';
+    type: "Selector";
     children: CssNodePlain[];
 }
 
 export interface SelectorList extends CssNodeCommon {
-    type: 'SelectorList';
+    type: "SelectorList";
     children: List<CssNode>;
 }
 
 export interface SelectorListPlain extends CssNodeCommon {
-    type: 'SelectorList';
+    type: "SelectorList";
     children: CssNodePlain[];
 }
 
 export interface StringNode extends CssNodeCommon {
-    type: 'String';
+    type: "String";
     value: string;
 }
 
 export interface StyleSheet extends CssNodeCommon {
-    type: 'StyleSheet';
+    type: "StyleSheet";
     children: List<CssNode>;
 }
 
 export interface StyleSheetPlain extends CssNodeCommon {
-    type: 'StyleSheet';
+    type: "StyleSheet";
     children: CssNodePlain[];
 }
 
 export interface TypeSelector extends CssNodeCommon {
-    type: 'TypeSelector';
+    type: "TypeSelector";
     name: string;
 }
 
 export interface UnicodeRange extends CssNodeCommon {
-    type: 'UnicodeRange';
+    type: "UnicodeRange";
     value: string;
 }
 
 export interface Url extends CssNodeCommon {
-    type: 'Url';
+    type: "Url";
     value: string;
 }
 
 export interface Value extends CssNodeCommon {
-    type: 'Value';
+    type: "Value";
     children: List<CssNode>;
 }
 
 export interface ValuePlain extends CssNodeCommon {
-    type: 'Value';
+    type: "Value";
     children: CssNodePlain[];
 }
 
 export interface WhiteSpace extends CssNodeCommon {
-    type: 'WhiteSpace';
+    type: "WhiteSpace";
     value: string;
 }
 
 export type CssNode =
-    AnPlusB
+    | AnPlusB
     | Atrule
     | AtrulePrelude
     | AttributeSelector
@@ -440,7 +454,7 @@ export type CssNode =
     | WhiteSpace;
 
 export type CssNodePlain =
-    AnPlusB
+    | AnPlusB
     | AtrulePlain
     | AtrulePreludePlain
     | AttributeSelector
@@ -531,7 +545,12 @@ export interface WalkContext {
     function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
 }
 
-export type EnterOrLeaveFn<NodeType = CssNode> = (this: WalkContext, node: NodeType, item: ListItem<CssNode>, list: List<CssNode>) => void;
+export type EnterOrLeaveFn<NodeType = CssNode> = (
+    this: WalkContext,
+    node: NodeType,
+    item: ListItem<CssNode>,
+    list: List<CssNode>,
+) => void;
 
 export interface WalkOptionsNoVisit {
     enter?: EnterOrLeaveFn | undefined;
@@ -540,14 +559,14 @@ export interface WalkOptionsNoVisit {
 }
 
 export interface WalkOptionsVisit<NodeType extends CssNode = CssNode> {
-    visit: NodeType['type'];
+    visit: NodeType["type"];
     enter?: EnterOrLeaveFn<NodeType> | undefined;
     leave?: EnterOrLeaveFn<NodeType> | undefined;
     reverse?: boolean | undefined;
 }
 
 export type WalkOptions =
-    WalkOptionsVisit<AnPlusB>
+    | WalkOptionsVisit<AnPlusB>
     | WalkOptionsVisit<Atrule>
     | WalkOptionsVisit<AtrulePrelude>
     | WalkOptionsVisit<AttributeSelector>
@@ -627,7 +646,7 @@ export function toPlainObject(node: CssNode): CssNodePlain;
  * Definition syntax AtWord node
  */
 export interface DSNodeAtWord {
-    type: 'AtKeyword';
+    type: "AtKeyword";
     name: string;
 }
 
@@ -635,24 +654,24 @@ export interface DSNodeAtWord {
  * Definition syntax Comma node
  */
 export interface DSNodeComma {
-    type: 'Comma';
+    type: "Comma";
 }
 
 /**
  * Definition syntax Function node
  */
 export interface DSNodeFunction {
-    type: 'Function';
+    type: "Function";
     name: string;
 }
 
-export type DSNodeCombinator = '|' | '||' | '&&' | ' ';
+export type DSNodeCombinator = "|" | "||" | "&&" | " ";
 
 /**
  * Definition syntax Group node
  */
 export interface DSNodeGroup {
-    type: 'Group';
+    type: "Group";
     terms: DSNode[];
     combinator: DSNodeCombinator;
     disallowEmpty: boolean;
@@ -663,7 +682,7 @@ export interface DSNodeGroup {
  * Definition syntax Keyword node
  */
 export interface DSNodeKeyword {
-    type: 'Keyword';
+    type: "Keyword";
     name: string;
 }
 
@@ -671,7 +690,7 @@ export interface DSNodeKeyword {
  * Definition syntax Multiplier node
  */
 export interface DSNodeMultiplier {
-    type: 'Multiplier';
+    type: "Multiplier";
     comma: boolean;
     min: number;
     max: number;
@@ -682,7 +701,7 @@ export interface DSNodeMultiplier {
  * Definition syntax Property node
  */
 export interface DSNodeProperty {
-    type: 'Property';
+    type: "Property";
     name: string;
 }
 
@@ -690,7 +709,7 @@ export interface DSNodeProperty {
  * Definition syntax String node
  */
 export interface DSNodeString {
-    type: 'String';
+    type: "String";
     value: string;
 }
 
@@ -698,7 +717,7 @@ export interface DSNodeString {
  * Definition syntax Token node
  */
 export interface DSNodeToken {
-    type: 'Token';
+    type: "Token";
     value: string;
 }
 
@@ -706,7 +725,7 @@ export interface DSNodeToken {
  * Definition syntax Type node options
  */
 export interface DSNodeTypeOpts {
-    type: 'Range';
+    type: "Range";
     min: number | null;
     max: number | null;
 }
@@ -715,7 +734,7 @@ export interface DSNodeTypeOpts {
  * Definition syntax Type node
  */
 export interface DSNodeType {
-    type: 'Type';
+    type: "Type";
     name: string;
     opts: DSNodeTypeOpts | null;
 }
@@ -724,7 +743,7 @@ export interface DSNodeType {
  * Definition syntax node
  */
 export type DSNode =
-    DSNodeAtWord
+    | DSNodeAtWord
     | DSNodeComma
     | DSNodeFunction
     | DSNodeGroup
@@ -739,7 +758,7 @@ export type DSNode =
  * Definition syntax node compatible with a multiplier
  */
 export type DSNodeMultiplied =
-    DSNodeFunction
+    | DSNodeFunction
     | DSNodeGroup
     | DSNodeKeyword
     | DSNodeProperty
@@ -865,7 +884,7 @@ export class Lexer {
 }
 
 export function fork(extension: {
-    atrules?: Record<string, string> | undefined,
-    properties?: Record<string, string> | undefined,
-    types?: Record<string, string> | undefined,
+    atrules?: Record<string, string> | undefined;
+    properties?: Record<string, string> | undefined;
+    types?: Record<string, string> | undefined;
 }): { lexer: Lexer };

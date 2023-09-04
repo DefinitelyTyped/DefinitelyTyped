@@ -11,7 +11,7 @@ const hasAcceptedNecessaryFromWindow: boolean = !!window.Cookiebot?.consent.nece
 Cookiebot.show();
 Cookiebot.hide();
 Cookiebot.renew();
-Cookiebot.getScript('', true, () => {});
+Cookiebot.getScript("", true, () => {});
 Cookiebot.runScripts();
 Cookiebot.withdraw();
 Cookiebot.submitCustomConsent(true, true, true);
@@ -19,35 +19,35 @@ Cookiebot.submitCustomConsent(true, true, true);
 window.Cookiebot?.show();
 window.Cookiebot?.hide();
 window.Cookiebot?.renew();
-window.Cookiebot?.getScript('', true, () => {});
+window.Cookiebot?.getScript("", true, () => {});
 window.Cookiebot?.runScripts();
 window.Cookiebot?.withdraw();
 window.Cookiebot?.submitCustomConsent(true, true, true);
 
-window.addEventListener('CookiebotOnAccept', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnAccept", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnLoad', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnLoad", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnAccept', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnAccept", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnDecline', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnDecline", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnDialogInit', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnDialogInit", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnDialogDisplay', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnDialogDisplay", (event) => {
+    event; // $ExpectType Event
 });
 
-window.addEventListener('CookiebotOnTagsExecuted', (event) => {
-  event; // $ExpectType Event
+window.addEventListener("CookiebotOnTagsExecuted", (event) => {
+    event; // $ExpectType Event
 });

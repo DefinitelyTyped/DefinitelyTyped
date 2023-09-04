@@ -97,4 +97,6 @@ export type ReducersMapObject<S = any, A extends Action = Action> = {
  *   object, and builds a state object with the same shape.
  */
 export default function combineReducers<S>(reducers: ReducersMapObject<S, any>): Reducer<S>;
-export default function combineReducers<S, A extends Action = AnyAction>(reducers: ReducersMapObject<S, A>): Reducer<S, A>;
+export default function combineReducers<S, A extends Action = AnyAction>(
+    reducers: ReducersMapObject<S, A>,
+): Reducer<S, A>;

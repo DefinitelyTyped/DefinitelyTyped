@@ -6,7 +6,7 @@
 
 // <reference types="node"/>
 // <reference types="chai" />
-import tv4 = require('tv4');
+import tv4 = require("tv4");
 
 declare global {
     namespace Chai {
@@ -26,5 +26,5 @@ declare global {
 }
 
 declare const chaiJsonSchema: Chai.ChaiPlugin;
-declare namespace chaiJsonSchema { }
+declare namespace chaiJsonSchema {}
 export = chaiJsonSchema;

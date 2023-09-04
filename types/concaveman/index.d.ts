@@ -3,7 +3,6 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare module "concaveman" {
     /**
      * A very fast 2D concave hull algorithm in JavaScript (generates a general outline of a point set).

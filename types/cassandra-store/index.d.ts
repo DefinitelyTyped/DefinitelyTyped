@@ -6,8 +6,8 @@
 
 /// <reference types="express" />
 
-import { Store, SessionData } from 'express-session';
-import { ClientOptions, Client, EmptyCallback } from 'cassandra-driver';
+import { Client, ClientOptions, EmptyCallback } from "cassandra-driver";
+import { SessionData, Store } from "express-session";
 
 interface CassandraStoreOptions {
     table: string;
@@ -39,7 +39,7 @@ declare class CassandraStore extends Store {
     set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
     destroy(sid: string, callback?: (err?: any) => void): void;
 
-    all(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData; } | null) => void): void;
+    all(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData } | null) => void): void;
     length(callback: (err: any, length: number) => void): void;
     clear(callback?: (err?: any) => void): void;
     touch(sid: string, session: SessionData, callback?: () => void): void;

@@ -5,34 +5,34 @@ export as namespace system;
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.EventType
  */
 export enum EventType {
-    ALLOW_GROUP_CHANGE = 'allowgroupchange',
+    ALLOW_GROUP_CHANGE = "allowgroupchange",
     /**
      * Fired when there is a system error.
      */
-    ERROR = 'error',
+    ERROR = "error",
     /**
      * Fired when system starts to create feedback report.
      */
-    FEEDBACK_STARTED = 'feedbackstarted',
-    GROUP_CAPABILITIES = 'groupcapabilities',
-    MAX_VIDEO_RESOLUTION_CHANGED = 'maxvideoresolutionchanged',
-    PROXIMITY_CHANGED = 'proximitychanged',
+    FEEDBACK_STARTED = "feedbackstarted",
+    GROUP_CAPABILITIES = "groupcapabilities",
+    MAX_VIDEO_RESOLUTION_CHANGED = "maxvideoresolutionchanged",
+    PROXIMITY_CHANGED = "proximitychanged",
     /**
      * Fired when the system is ready.
      */
-    READY = 'ready',
+    READY = "ready",
     /**
      * Fired when a new sender has connected.
      */
-    SENDER_CONNECTED = 'senderconnected',
+    SENDER_CONNECTED = "senderconnected",
     /**
      * Fired when a sender has disconnected.
      */
-    SENDER_DISCONNECTED = 'senderdisconnected',
+    SENDER_DISCONNECTED = "senderdisconnected",
     /**
      * Fired when the application is terminated
      */
-    SHUTDOWN = 'shutdown',
+    SHUTDOWN = "shutdown",
     /**
      * Fired when the standby state of the TV has changed.
      * This event is related to the visibility chnaged event, as if the TV is in standby
@@ -41,11 +41,11 @@ export enum EventType {
      * but it is not reliably detected in all TVs,
      * standby can be used in those cases as most TVs implement it.
      */
-    STANDBY_CHANGED = 'standbychanged',
+    STANDBY_CHANGED = "standbychanged",
     /**
      * Fired when the system volume has changed.
      */
-    SYSTEM_VOLUME_CHANGED = 'systemvolumechanged',
+    SYSTEM_VOLUME_CHANGED = "systemvolumechanged",
     /**
      * Fired when the visibility of the application has changed
      * (for example after a HDMI Input change or when the TV is turned
@@ -54,7 +54,7 @@ export enum EventType {
      * by your document, we provided it as {@link framework.CastReceiverContext}
      * API for convenience and to avoid a dependency on a webkit-prefixed event.
      */
-    VISIBILITY_CHANGED = 'visibilitychanged',
+    VISIBILITY_CHANGED = "visibilitychanged",
 }
 
 /**
@@ -65,27 +65,27 @@ export enum SystemState {
     /**
      * The application has not been requested to start yet.
      */
-    NOT_STARTED = 'notstarted',
+    NOT_STARTED = "notstarted",
     /**
      * Application is ready to send and receive messages and it is in foreground.
      */
-    READY = 'ready',
+    READY = "ready",
     /**
      * Application is starting.
      */
-    STARTING = 'starting',
+    STARTING = "starting",
     /**
      * Application is starting but it is in background.
      */
-    STARTING_IN_BACKGROUND = 'startinginbackground',
+    STARTING_IN_BACKGROUND = "startinginbackground",
     /**
      * Application is stopping.
      */
-    STOPPING = 'stopping',
+    STOPPING = "stopping",
     /**
      * Application is stopping but it is in background.
      */
-    STOPPING_IN_BACKGROUND = 'stoppinginbackground',
+    STOPPING_IN_BACKGROUND = "stoppinginbackground",
 }
 
 /**
@@ -96,11 +96,11 @@ export enum MessageType {
     /**
      * Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
      */
-    STRING = 'string',
+    STRING = "string",
     /**
      * Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
      */
-    JSON = 'json',
+    JSON = "json",
 }
 
 /**
@@ -109,9 +109,9 @@ export enum MessageType {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.StandbyState
  */
 export enum StandbyState {
-    NOT_STANDBY = 'notstandby',
-    STANDBY = 'standby',
-    UNKNOWN = 'unknown',
+    NOT_STANDBY = "notstandby",
+    STANDBY = "standby",
+    UNKNOWN = "unknown",
 }
 
 /**
@@ -122,19 +122,19 @@ export enum DisconnectReason {
     /**
      * There was a protocol error.
      */
-    ERROR = 'error',
+    ERROR = "error",
     /**
      * Connection close was actively requested by the sender application (usually
      * triggered by the user).
      */
-    REQUESTED_BY_SENDER = 'requested_by_sender',
+    REQUESTED_BY_SENDER = "requested_by_sender",
     /**
      * It is unknown if the sender requested to disconnect gracefully calling close
      * (most likely it didn't, but the close message could have been lost). This
      * normally happens when there is a network timeout or if the sender application
      *  crashes or if the sender OS closes the socket.
      */
-    UNKNOWN = 'unknown',
+    UNKNOWN = "unknown",
 }
 
 /**
@@ -145,19 +145,19 @@ export enum LaunchedFrom {
     /**
      * App was launched by Cast V2 request.
      */
-    CAST = 'CAST',
+    CAST = "CAST",
     /**
      * App was launched by assistant request (e.g. voice command).
      */
-    CLOUD = 'CLOUD',
+    CLOUD = "CLOUD",
     /**
      * App was launched by DIAL request.
      */
-    DIAL = 'DIAL',
+    DIAL = "DIAL",
     /**
      * The launch owner could not be determined.
      */
-    UNKNOWN = 'UNKNOWN',
+    UNKNOWN = "UNKNOWN",
 }
 
 /**
@@ -165,52 +165,52 @@ export enum LaunchedFrom {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilities
  */
 export enum DeviceCapabilities {
-    APP_FOREGROUND = 'app_foreground',
+    APP_FOREGROUND = "app_foreground",
     /**
      * Audio Assistant support. For example, Google Home and Google Home Mini.
      */
-    AUDIO_ASSISTANT = 'audio_assistant',
+    AUDIO_ASSISTANT = "audio_assistant",
     /**
      * Bluetooth support.
      */
-    BLUETOOTH_SUPPORTED = 'bluetooth_supported',
+    BLUETOOTH_SUPPORTED = "bluetooth_supported",
     /**
      * Display output support. For example, Chromecast and Cast TVs have display
      * support, Chromecast Audio and Google Home have not.
      */
-    DISPLAY_SUPPORTED = 'display_supported',
+    DISPLAY_SUPPORTED = "display_supported",
     /**
      * Hi-res audio (up to 24-bit / 96KHz) support.
      */
-    HI_RES_AUDIO_SUPPORTED = 'hi_res_audio_supported',
+    HI_RES_AUDIO_SUPPORTED = "hi_res_audio_supported",
     /**
      * Flag to know if CBCS scheme (SAMPLE-AES) is supported.
      */
-    IS_CBCS_SUPPORTED = 'is_cbcs_supported',
+    IS_CBCS_SUPPORTED = "is_cbcs_supported",
     /**
      * Flag to know if the cast device is registered in cast developer console
      */
-    IS_DEVICE_REGISTERED = 'is_device_registered',
-    IS_DOLBY_ATMOS_SUPPORTED = 'is_dolby_atmos_supported',
+    IS_DEVICE_REGISTERED = "is_device_registered",
+    IS_DOLBY_ATMOS_SUPPORTED = "is_dolby_atmos_supported",
     /**
      * Dolby Vision support of the current setup (that is, Chromecast and the TV it is connected to).
      */
-    IS_DV_SUPPORTED = 'is_dv_supported',
+    IS_DV_SUPPORTED = "is_dv_supported",
     /**
      * If the device is a virtual device and represents a group target rather than standalone.
      */
-    IS_GROUP = 'is_group',
+    IS_GROUP = "is_group",
     /**
      * HDR video support of the current setup (that is, Chromecast and the TV it is connected to).
      */
-    IS_HDR_SUPPORTED = 'is_hdr_supported',
-    REMOTE_CONTROL_OVERLAY_SUPPORTED = 'remote_control_overlay_supported',
-    SLEEP_TIMER_OVERLAY_SUPPORTED = 'sleep_timer_overlay_supported',
+    IS_HDR_SUPPORTED = "is_hdr_supported",
+    REMOTE_CONTROL_OVERLAY_SUPPORTED = "remote_control_overlay_supported",
+    SLEEP_TIMER_OVERLAY_SUPPORTED = "sleep_timer_overlay_supported",
     /**
      * Touch input support, that is, the devices have a touchable display. For
      * example, Google Nest Hub and Google Nest Hub Max.
      */
-    TOUCH_INPUT_SUPPORTED = 'touch_input_supported',
+    TOUCH_INPUT_SUPPORTED = "touch_input_supported",
 }
 
 /**
@@ -219,9 +219,9 @@ export enum DeviceCapabilities {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
  */
 export enum VisibilityState {
-    NOT_VISIBLE = 'notvisible',
-    UNKNOWN = 'unknown',
-    VISIBLE = 'visible',
+    NOT_VISIBLE = "notvisible",
+    UNKNOWN = "unknown",
+    VISIBLE = "visible",
 }
 
 /**

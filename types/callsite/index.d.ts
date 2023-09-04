@@ -3,10 +3,7 @@
 // Definitions by: newclear <https://github.com/newclear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace Callsite {
-
     interface CallSite {
         getThis(): any;
         getTypeName(): string;

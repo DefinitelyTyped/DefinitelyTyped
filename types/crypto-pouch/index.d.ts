@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import PouchDB = require('pouchdb');
+import PouchDB = require("pouchdb");
 
 declare global {
     namespace PouchDB {
@@ -18,18 +18,15 @@ declare global {
 
         interface Database {
             /**
-             *
              * @param options see CryptoPouch.Options
              */
             crypto(options: CryptoPouch.Options): Promise<void>;
             /**
-             *
              * @param password A string password, used to encrypt documents.
              * @param ignore Array of strings of properties that will not be encrypted.
              */
             crypto(password: string, ignore?: string[]): Promise<void>;
             /**
-             *
              * Disables encryption on the database and forgets your password.
              */
             removeCrypto(): void;

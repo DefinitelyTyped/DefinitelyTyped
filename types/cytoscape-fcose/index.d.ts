@@ -3,7 +3,7 @@
 // Definitions by: Paul Paulsen <https://github.com/Phpaulsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeFcose: cytoscape.Ext;
 
@@ -38,7 +38,7 @@ declare namespace cytoscapeFcose {
         | FcoseRelativeHorizontalPlacementConstraint;
 
     interface FcoseLayoutOptions extends cytoscape.BaseLayoutOptions {
-        name: 'fcose';
+        name: "fcose";
 
         // 'draft', 'default' or 'proof'
         // - "draft" only applies spectral layout

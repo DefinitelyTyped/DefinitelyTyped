@@ -151,9 +151,9 @@ export const TemplateTag: {
      * New Tag Constructor
      * @deprecated
      */
-    new (transformers?: Array<TemplateTransformer<any>>): TemplateTag;
-    new (...transformers: Array<TemplateTransformer<any>>): TemplateTag;
-    new (...pluginFunctions: PluginFunction[]): TemplateTag;
+    new(transformers?: Array<TemplateTransformer<any>>): TemplateTag;
+    new(...transformers: Array<TemplateTransformer<any>>): TemplateTag;
+    new(...pluginFunctions: PluginFunction[]): TemplateTag;
 };
 
 /**
@@ -162,7 +162,7 @@ export const TemplateTag: {
  * @return a TemplateTag transformer
  */
 export function trimResultTransformer(
-    side?: 'start' | 'end' | 'left' | 'right' | ''
+    side?: "start" | "end" | "left" | "right" | "",
 ): TemplateTransformer;
 
 /**
@@ -170,7 +170,7 @@ export function trimResultTransformer(
  * @param  [type='initial'] whether to remove all indentation or just leading indentation. can be 'all' or 'initial'
  * @return a TemplateTag transformer
  */
-export function stripIndentTransformer(type?: 'initial' | 'all'): TemplateTransformer;
+export function stripIndentTransformer(type?: "initial" | "all"): TemplateTransformer;
 
 /**
  * Replaces a value or pattern in the end result with a new value.
@@ -180,7 +180,7 @@ export function stripIndentTransformer(type?: 'initial' | 'all'): TemplateTransf
  */
 export function replaceResultTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**
@@ -189,7 +189,7 @@ export function replaceResultTransformer(
  */
 export function replaceSubstitutionTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**
@@ -198,7 +198,7 @@ export function replaceSubstitutionTransformer(
  */
 export function replaceStringTransformer(
     replaceWhat: string | RegExp,
-    replaceWith: string | ((substring: string, ...args: any[]) => string)
+    replaceWith: string | ((substring: string, ...args: any[]) => string),
 ): TemplateTransformer;
 
 /**

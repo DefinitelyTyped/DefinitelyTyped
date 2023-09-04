@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit } from "conventional-commits-parser";
 import { Context as WriterContext } from "conventional-changelog-writer";
+import { Commit } from "conventional-commits-parser";
 
 /**
  * The string that is passed to the preset loader is manipulated by prepending

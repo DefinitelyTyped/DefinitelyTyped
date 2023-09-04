@@ -1,10 +1,10 @@
-import { Literal } from 'rdf-js';
-import { FilterCallback } from './index.js';
+import { Literal } from "rdf-js";
+import { FilterCallback } from "./index.js";
 
 declare function taggedLiteral(language: string | string[]): FilterCallback<any, any, Literal | Literal[]>;
 
 declare const filters: {
-    taggedLiteral: typeof taggedLiteral
+    taggedLiteral: typeof taggedLiteral;
 };
 
 export default filters;

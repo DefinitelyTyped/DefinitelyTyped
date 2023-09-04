@@ -20,7 +20,11 @@ interface CordovaPluginsFileOpener2 {
     /**
      * Open a system modal to open document with one of the already installed app and optional callback object
      */
-    showOpenWithDialog(fileName: string, contentType: string, callbackContext?: CordovaPluginsFileOpener2CallbackContext): void;
+    showOpenWithDialog(
+        fileName: string,
+        contentType: string,
+        callbackContext?: CordovaPluginsFileOpener2CallbackContext,
+    ): void;
 
     /**
      * Uninstall a package with its id. Android platform only.

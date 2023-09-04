@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Worker } from 'cluster';
-import { EventEmitter } from 'events';
+import { Worker } from "cluster";
+import { EventEmitter } from "events";
 
 export = Hub;
 

@@ -1,32 +1,32 @@
-import 'cypress';
-import 'cypress-cdp';
+import "cypress";
+import "cypress-cdp";
 
-//#region CDP
+// #region CDP
 // $ExpectType Chainable<void>
-cy.CDP('Console.enable', {});
+cy.CDP("Console.enable", {});
 
 // $ExpectType Chainable<EnableResponse>
-cy.CDP('Debugger.enable', {});
+cy.CDP("Debugger.enable", {});
 
 // @ts-expect-error
-cy.CDP('Debugger.enable');
+cy.CDP("Debugger.enable");
 
 // @ts-expect-error
-cy.CDP('Non-existent.command', {});
-//#endregion
+cy.CDP("Non-existent.command", {});
+// #endregion
 
-//#region getCDPNodeId
+// #region getCDPNodeId
 // $ExpectType Chainable<number>
-cy.getCDPNodeId('body');
+cy.getCDPNodeId("body");
 
 // @ts-expect-error
 cy.getCDPNodeId(1);
-//#endregion
+// #endregion
 
-//#region hasEventListeners
+// #region hasEventListeners
 // $ExpectType Chainable<GetEventListenersResponse>
-cy.hasEventListeners('button#one');
+cy.hasEventListeners("button#one");
 
 // @ts-expect-error
 cy.hasEventListeners(1);
-//#endregion
+// #endregion

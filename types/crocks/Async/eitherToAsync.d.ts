@@ -1,6 +1,6 @@
-import Either from '../Either';
-import { UnaryFunction } from '../internal/types';
-import Async from './Async';
+import Either from "../Either";
+import { UnaryFunction } from "../internal/types";
+import Async from "./Async";
 
 /**
  * eitherToAsync :: Either b a -> Async b a

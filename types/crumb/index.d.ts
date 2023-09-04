@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Request, Plugin, ResponseToolkit, ServerStateCookieOptions } from 'hapi';
+import { Plugin, Request, ResponseToolkit, ServerStateCookieOptions } from "hapi";
 
-declare module 'hapi' {
+declare module "hapi" {
     interface PluginSpecificConfiguration {
         crumb?: boolean | {
             /**
@@ -20,7 +20,7 @@ declare module 'hapi' {
              *
              * @default 'payload'
              */
-            source?: 'payload' | 'query' | undefined;
+            source?: "payload" | "query" | undefined;
 
             /**
              * Override for the server's 'restful' setting

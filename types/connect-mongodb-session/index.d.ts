@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import session = require('express-session');
-import { MongoClient, MongoClientOptions } from 'mongodb';
+import session = require("express-session");
+import { MongoClient, MongoClientOptions } from "mongodb";
 
 export = ConnectMongoDBSession;
 
@@ -20,7 +20,9 @@ declare namespace ConnectMongoDBSession {
         get(sid: string, callback: (err: any, session?: session.SessionData | null) => void): void;
         set(sid: string, session: session.SessionData, callback?: (err?: any) => void): void;
         destroy(sid: string, callback?: (err?: any) => void): void;
-        all(callback: (err: any, obj?: session.SessionData[] | { [sid: string]: session.SessionData; } | null) => void): void;
+        all(
+            callback: (err: any, obj?: session.SessionData[] | { [sid: string]: session.SessionData } | null) => void,
+        ): void;
         clear(callback?: (err?: any) => void): void;
     }
 

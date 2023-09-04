@@ -7,12 +7,9 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare var c: c.IConfig;
 
 declare namespace c {
-
     // see https://github.com/lorenwest/node-config/wiki/Using-Config-Utilities
     interface IUtil {
         // Extend an object (and any object it contains) with one or more objects (and objects contained in them).
@@ -51,7 +48,7 @@ declare namespace c {
          * This allows module developers to attach their configurations onto the default configuration object
          * so they can be configured by the consumers of the module.
          */
-        setModuleDefaults(moduleName:string, defaults:any): any;
+        setModuleDefaults(moduleName: string, defaults: any): any;
     }
 
     interface IConfig {

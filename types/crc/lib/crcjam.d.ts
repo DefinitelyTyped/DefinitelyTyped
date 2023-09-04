@@ -1,2 +1,2 @@
-import crcjam from '../crcjam';
+import crcjam from "../crcjam";
 export = crcjam;

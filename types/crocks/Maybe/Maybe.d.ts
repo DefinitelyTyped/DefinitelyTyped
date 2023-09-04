@@ -1,4 +1,4 @@
-import { NullaryFunction, UnaryFunction } from '../internal/types';
+import { NullaryFunction, UnaryFunction } from "../internal/types";
 
 interface Nothing extends Maybe {
     (): Nothing;

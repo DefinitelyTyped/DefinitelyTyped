@@ -53,8 +53,8 @@ client.isSilverlight(); // $ExpectType boolean
 client.getSilverlightVersion(); // $ExpectType string
 client.isMimeTypes(); // $ExpectType boolean
 client.getMimeTypes(); // $ExpectType string
-client.isFont('Times New Roman'); // $ExpectType boolean
-client.isFont('Nonexistent Random Font'); // $ExpectType boolean
+client.isFont("Times New Roman"); // $ExpectType boolean
+client.isFont("Nonexistent Random Font"); // $ExpectType boolean
 client.getFonts(); // $ExpectType string
 client.isLocalStorage(); // $ExpectType boolean
 client.isSessionStorage(); // $ExpectType boolean

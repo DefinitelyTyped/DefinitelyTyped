@@ -8,7 +8,7 @@ export = containsPath;
 declare function containsPath(
     filepath: string,
     substr: string,
-    options?: containsPath.Options
+    options?: containsPath.Options,
 ): boolean;
 
 declare namespace containsPath {

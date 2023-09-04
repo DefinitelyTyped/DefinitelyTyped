@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import { BusboyConfig, Busboy } from 'busboy';
-import { RequestHandler } from 'express';
-import * as http from 'http';
+import { Busboy, BusboyConfig } from "busboy";
+import { RequestHandler } from "express";
+import * as http from "http";
 
 declare function connectBusboy(options?: connectBusboy.ConnectBusboyOptions): RequestHandler;
 

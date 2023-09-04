@@ -1,4 +1,4 @@
-import canAutoPlay = require('can-autoplay');
+import canAutoPlay = require("can-autoplay");
 
 function logNull(error: null): void {}
 

@@ -1,4 +1,4 @@
-import { EventType } from './cast.framework.events';
+import { EventType } from "./cast.framework.events";
 
 export as namespace category;
 

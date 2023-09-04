@@ -1,7 +1,7 @@
-import { Configuration as WebpackConfig, RuleSetRule, Options, Plugin } from 'webpack';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { GenerateSWOptions } from 'workbox-webpack-plugin';
-import { OverrideFunc } from './core';
+import { Configuration as WebpackConfig, Options, Plugin, RuleSetRule } from "webpack";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import { GenerateSWOptions } from "workbox-webpack-plugin";
+import { OverrideFunc } from "./core";
 
 /**
  * Disables `eslint-loader`. This will not work with CRA 4.0,
@@ -45,7 +45,7 @@ export function removeModuleScopePlugin(): OverrideFunc;
  * to be used to ignore replace packages with global variable
  * Useful when trying to offload libs to CDN
  */
-export function addWebpackExternals(options: WebpackConfig['externals']): OverrideFunc;
+export function addWebpackExternals(options: WebpackConfig["externals"]): OverrideFunc;
 
 /**
  * Add the provided module to the webpack module rules array.
@@ -55,7 +55,7 @@ export function addWebpackExternals(options: WebpackConfig['externals']): Overri
  */
 export function addWebpackModuleRule(rule: RuleSetRule): OverrideFunc;
 
-export function addWebpackResolve(resolve: WebpackConfig['resolve']): OverrideFunc;
+export function addWebpackResolve(resolve: WebpackConfig["resolve"]): OverrideFunc;
 
 export function addWebpackPlugin(plugin: Plugin): OverrideFunc;
 
@@ -74,7 +74,7 @@ export function adjustStyleLoaders(callback: (loader: Required<RuleSetRule>) => 
  *
  * @see https://webpack.js.org/configuration/target/
  */
-export function setWebpackTarget(target: WebpackConfig['target']): OverrideFunc;
+export function setWebpackTarget(target: WebpackConfig["target"]): OverrideFunc;
 
 /**
  * override the webpack publicPath
@@ -90,7 +90,7 @@ export function setWebpackPublicPath(path: string): OverrideFunc;
  * @param splitChunks of optimization.splitChunks
  * @see https://webpack.js.org/plugins/split-chunks-plugin/
  */
-export function setWebpackOptimizationSplitChunks(splitChunks: Options.Optimization['splitChunks']): OverrideFunc;
+export function setWebpackOptimizationSplitChunks(splitChunks: Options.Optimization["splitChunks"]): OverrideFunc;
 
 /**
  * Sets the `stats` object in Webpack config
@@ -99,7 +99,7 @@ export function setWebpackOptimizationSplitChunks(splitChunks: Options.Optimizat
  * @param stats Stats configuration in Webpack
  * @see https://webpack.js.org/configuration/stats/
  */
-export function setWebpackStats(stats: WebpackConfig['stats']): OverrideFunc;
+export function setWebpackStats(stats: WebpackConfig["stats"]): OverrideFunc;
 
 /**
  * to be used inside `overrideDevServer`, makes CRA watch all the folders

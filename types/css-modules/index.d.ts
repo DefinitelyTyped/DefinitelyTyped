@@ -12,7 +12,7 @@ interface CSSModule {
     [key: string]: string;
 }
 
-declare module '*.css' {
+declare module "*.css" {
     /**
      * A CSS module.
      */
@@ -20,7 +20,7 @@ declare module '*.css' {
     export default styles;
 }
 
-declare module '*.scss' {
+declare module "*.scss" {
     /**
      * An SCSS based CSS module.
      *
@@ -30,7 +30,7 @@ declare module '*.scss' {
     export default styles;
 }
 
-declare module '*.sass' {
+declare module "*.sass" {
     /**
      * A Sass based CSS module.
      *
@@ -40,7 +40,7 @@ declare module '*.sass' {
     export default styles;
 }
 
-declare module '*.less' {
+declare module "*.less" {
     /**
      * A Less based CSS module.
      *
@@ -50,7 +50,7 @@ declare module '*.less' {
     export default styles;
 }
 
-declare module '*.styl' {
+declare module "*.styl" {
     /**
      * A Stylus based CSS module.
      *

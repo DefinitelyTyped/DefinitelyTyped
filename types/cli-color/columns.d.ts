@@ -3,7 +3,7 @@ declare namespace columns {
         /**
          * align: Possible options: `'left'`, `'right'` (defaults to `'left'`)
          */
-        align?: 'left' | 'right' | undefined;
+        align?: "left" | "right" | undefined;
     }
 
     export interface ColumnsOptions {

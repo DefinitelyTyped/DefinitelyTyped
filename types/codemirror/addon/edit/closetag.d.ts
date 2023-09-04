@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         closeTag(cm: Editor): void;
     }

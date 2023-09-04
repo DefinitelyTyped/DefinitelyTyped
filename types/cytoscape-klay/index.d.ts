@@ -3,7 +3,7 @@
 // Definitions by: Roger Dubbs <https://github.com/rogerdubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeKlay: cytoscape.Ext;
 export = cytoscapeKlay;
@@ -16,7 +16,7 @@ declare namespace cytoscapeKlay {
      * @see <a href='https://github.com/cytoscape/cytoscape.js-klay'>cytoscape-klay package Documentation</a>
      */
     interface KlayLayoutOptions extends cytoscape.BaseLayoutOptions {
-        name: 'klay';
+        name: "klay";
         /**
          * Boolean which changes whether label dimensions are included when calculating node dimensions
          * @default false
@@ -113,7 +113,7 @@ declare namespace cytoscapeKlay {
          *   determine which reference point of nodes are used to compare positions.
          * @default 'LAYER_SWEEP'
          */
-        crossingMinimization?: 'LAYER_SWEEP' | 'INTERACTIVE';
+        crossingMinimization?: "LAYER_SWEEP" | "INTERACTIVE";
 
         /**
          * Strategy for cycle breaking. Cycle breaking looks for cycles in the graph and determines which edges to
@@ -125,20 +125,20 @@ declare namespace cytoscapeKlay {
          *    graph. This requires node and port coordinates to have been set to sensible values.
          * @default 'GREEDY'
          */
-        cycleBreaking?: 'GREEDY' | 'INTERACTIVE';
+        cycleBreaking?: "GREEDY" | "INTERACTIVE";
 
         /**
          * Overall direction of edges: horizontal (right / left) or vertical (down / up)
          * UNDEFINED, RIGHT, LEFT, DOWN, UP
          * @default 'UNDEFINED'
          */
-        direction?: 'UNDEFINED' | 'RIGHT' | 'LEFT' | 'DOWN' | 'UP';
+        direction?: "UNDEFINED" | "RIGHT" | "LEFT" | "DOWN" | "UP";
 
         /**
          * Defines how edges are routed (POLYLINE, ORTHOGONAL, SPLINES)
          * @default 'ORTHOGONAL'
          */
-        edgeRouting?: 'ORTHOGONAL' | 'POLYLINE' | 'SPLINES';
+        edgeRouting?: "ORTHOGONAL" | "POLYLINE" | "SPLINES";
 
         /**
          * Factor by which the object spacing is multiplied to arrive at the minimal spacing between edges.
@@ -163,7 +163,7 @@ declare namespace cytoscapeKlay {
          * - BALANCED Creates a balanced layout from the four possible candidates.
          * @default 'NONE'
          */
-        fixedAlignment?: 'NONE' | 'LEFTUP' | 'RIGHTUP' | 'LEFTDOWN' | 'RIGHTDOWN' | 'BALANCED';
+        fixedAlignment?: "NONE" | "LEFTUP" | "RIGHTUP" | "LEFTDOWN" | "RIGHTDOWN" | "BALANCED";
 
         /**
          * Factor by which the usual spacing is multiplied to determine the in-layer spacing between objects.
@@ -204,7 +204,7 @@ declare namespace cytoscapeKlay {
          *     Reference Point option to determine which reference point of nodes are used to compare positions.
          * @default NETWORK_SIMPLEX
          */
-        nodeLayering?: 'NETWORK_SIMPLEX' | 'LONGEST_PATH' | 'INTERACTIVE';
+        nodeLayering?: "NETWORK_SIMPLEX" | "LONGEST_PATH" | "INTERACTIVE";
 
         /**
          * Strategy for Node Placement
@@ -217,7 +217,7 @@ declare namespace cytoscapeKlay {
          * - SIMPLE Minimizes the area at the expense of... well, pretty much everything else.
          * @default 'BRANDES_KOEPF'
          */
-        nodePlacement?: 'BRANDES_KOEPF' | 'LINEAR_SEGMENTS' | 'INTERACTIVE' | 'SIMPLE';
+        nodePlacement?: "BRANDES_KOEPF" | "LINEAR_SEGMENTS" | "INTERACTIVE" | "SIMPLE";
 
         /**
          * Seed used for pseudo-random number generators to control the layout algorithm; 0 means a new seed is generated

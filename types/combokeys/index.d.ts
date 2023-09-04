@@ -5,7 +5,7 @@
 
 declare namespace Combokeys {
     interface CombokeysStatic {
-        new (element: Element): Combokeys;
+        new(element: Element): Combokeys;
 
         /**
          * all instances of Combokeys
@@ -36,7 +36,6 @@ declare namespace Combokeys {
          * @returns void
          */
         bind(keys: string | string[], callback: (event: KeyboardEvent) => void, action?: string): void;
-
 
         /**
          * binds multiple combinations to the same callback

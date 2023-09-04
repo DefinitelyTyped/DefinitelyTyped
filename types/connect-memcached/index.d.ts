@@ -3,8 +3,8 @@
 // Definitions by: Daniel Sousa <https://github.com/danielb7390>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import session = require('express-session');
-import Memcached = require('memcached');
+import session = require("express-session");
+import Memcached = require("memcached");
 
 export = ConnectMemcachedSession;
 

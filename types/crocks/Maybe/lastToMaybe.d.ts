@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Last from '../Last';
-import Maybe from './Maybe';
+import { UnaryFunction } from "../internal/types";
+import Last from "../Last";
+import Maybe from "./Maybe";
 
 /**
  * lastToMaybe :: Last a -> Maybe a

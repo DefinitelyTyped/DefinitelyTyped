@@ -3,7 +3,7 @@
 // Definitions by: Cedric van Putten <https://bycedric.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'css-modules-require-hook' {
+declare module "css-modules-require-hook" {
     interface Options {
         /** Helps you to invalidate cache of all require calls. */
         devMode?: boolean | undefined;

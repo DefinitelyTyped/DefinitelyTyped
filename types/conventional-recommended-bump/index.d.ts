@@ -5,8 +5,8 @@
 // TypeScript Version: 2.9
 
 import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 import { Context as WriterContext } from "conventional-changelog-writer";
+import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 
 /**
  * @param options  `options` is an object with the following properties:
@@ -20,7 +20,6 @@ import { Context as WriterContext } from "conventional-changelog-writer";
 declare function conventionalRecommendedBump(options: Options, callback: Callback): void;
 
 /**
- *
  * @param options    `options` is an object with the following properties:
  *
  *                   * `ignoreReverted`
@@ -157,7 +156,7 @@ declare namespace conventionalRecommendedBump {
          * repository, path should be use along with lernaPackage for each of the package.
          */
         path?: string | undefined;
-     }
+    }
 
     namespace Options {
         type WhatBump = (commits: Commit[]) => WhatBump.Result;

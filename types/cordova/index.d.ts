@@ -6,8 +6,6 @@
 // Copyright (c) Microsoft Open Technologies Inc
 // Licensed under the MIT license.
 
-
-
 interface Cordova {
     /** Invokes native functionality by specifying corresponding service name, action and optional parameters.
      * @param success A success callback function.
@@ -26,7 +24,7 @@ interface Cordova {
     /** Access a Cordova module by name. */
     require(moduleName: string): any;
     /** Namespace for Cordova plugin functionality */
-    plugins:CordovaPlugins;
+    plugins: CordovaPlugins;
 }
 
 interface CordovaPlugins {}
@@ -59,7 +57,7 @@ interface Document {
 }
 
 interface Window {
-  cordova:Cordova;
+    cordova: Cordova;
 }
 
 // cordova/argscheck module
@@ -71,13 +69,13 @@ interface ArgsCheck {
 
 // cordova/urlutil module
 interface UrlUtil {
-    makeAbsolute(url: string): string
+    makeAbsolute(url: string): string;
 }
 
 /** Apache Cordova instance */
 declare var cordova: Cordova;
 
-declare module 'cordova' {
+declare module "cordova" {
     export = cordova;
 }
 
@@ -88,5 +86,5 @@ interface Navigator {
         hide(): void;
         /** Displays the splash screen. */
         show(): void;
-    }
+    };
 }

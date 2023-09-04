@@ -1,17 +1,17 @@
-import convertXyz65ToJab from './convertXyz65ToJab';
-import convertJabToXyz65 from './convertJabToXyz65';
-import convertRgbToJab from './convertRgbToJab';
-import convertJabToRgb from './convertJabToRgb';
+import convertJabToRgb from "./convertJabToRgb";
+import convertJabToXyz65 from "./convertJabToXyz65";
+import convertRgbToJab from "./convertRgbToJab";
+import convertXyz65ToJab from "./convertXyz65ToJab";
 
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
+import { fixupAlpha } from "../fixup/alpha";
+import { interpolatorLinear } from "../interpolate/linear";
 
 declare const definition: {
-    mode: 'jab';
-    channels: ['j', 'a', 'b', 'alpha'];
+    mode: "jab";
+    channels: ["j", "a", "b", "alpha"];
 
-    parse: ['--jzazbz'];
-    serialize: '--jzazbz';
+    parse: ["--jzazbz"];
+    serialize: "--jzazbz";
 
     fromMode: {
         rgb: typeof convertRgbToJab;

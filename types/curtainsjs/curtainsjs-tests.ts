@@ -12,21 +12,21 @@ import {
     Uniform,
     Vec2,
     Vec3,
-} from 'curtainsjs';
+} from "curtainsjs";
 
 // * Example 1: ajax nav
 
 // set up our WebGL context and append the canvas to our wrapper
 const curtains = new Curtains({
-    container: 'canvas',
+    container: "canvas",
     pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
 });
 
 const images = [
-    '../medias/plane-small-texture-1.jpg',
-    '../medias/plane-small-texture-2.jpg',
-    '../medias/plane-small-texture-3.jpg',
-    '../medias/plane-small-texture-4.jpg',
+    "../medias/plane-small-texture-1.jpg",
+    "../medias/plane-small-texture-2.jpg",
+    "../medias/plane-small-texture-3.jpg",
+    "../medias/plane-small-texture-4.jpg",
 ];
 
 const textures: Texture[] = [];
@@ -34,7 +34,7 @@ const textures: Texture[] = [];
 curtains
     .onError(() => {
         // we will add a class to the document body to display original images
-        document.body.classList.add('no-curtains', 'site-loaded');
+        document.body.classList.add("no-curtains", "site-loaded");
     })
     .onContextLost(() => {
         // on context lost, try to restore the context
@@ -54,7 +54,7 @@ curtains
 function preloadTextures() {
     let percentLoaded = 0;
 
-    const loaderEl = document.getElementById('loader-inner')!;
+    const loaderEl = document.getElementById("loader-inner")!;
 
     const loader = new TextureLoader(curtains);
 
@@ -69,26 +69,26 @@ function preloadTextures() {
                 .onSourceUploaded(() => {
                     percentLoaded++;
 
-                    loaderEl.innerText = (percentLoaded / images.length) * 100 + '%';
+                    loaderEl.innerText = (percentLoaded / images.length) * 100 + "%";
 
                     // we have finished loading our textures
                     if (percentLoaded === images.length) {
-                        document.body.classList.add('site-loaded');
+                        document.body.classList.add("site-loaded");
                     }
                 });
         },
         (image, error) => {
-            console.warn('there has been an error', error, ' while loading this image', image);
+            console.warn("there has been an error", error, " while loading this image", image);
 
             // display site anyway
-            document.body.classList.add('site-loaded');
+            document.body.classList.add("site-loaded");
         },
     );
 }
 
 preloadTextures();
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     // resize our curtainsjs container because we instanced it before any dom load event
     curtains.resize();
 
@@ -156,8 +156,8 @@ window.addEventListener('load', () => {
         fov: 35,
         uniforms: {
             time: {
-                name: 'uTime', // uniform name that will be passed to our shaders
-                type: '1f', // this means our uniform is a float
+                name: "uTime", // uniform name that will be passed to our shaders
+                type: "1f", // this means our uniform is a float
                 value: 0,
             },
         },
@@ -166,7 +166,7 @@ window.addEventListener('load', () => {
     // add the right texture to the plane
     function assignTexture(plane: Plane) {
         // set the right texture
-        const planeImage = plane.htmlElement.querySelector('img');
+        const planeImage = plane.htmlElement.querySelector("img");
         const planeTexture = textures.find(
             element => element.source && (element.source as HTMLImageElement).src === planeImage?.src,
         );
@@ -207,12 +207,12 @@ window.addEventListener('load', () => {
             })
             .onError(() => {
                 // display original HTML image element
-                plane.htmlElement.classList.add('no-plane');
+                plane.htmlElement.classList.add("no-plane");
             });
     }
 
     function addPlanes() {
-        planeElements = document.getElementsByClassName('plane');
+        planeElements = document.getElementsByClassName("plane");
 
         // if we got planes to add
         if (planeElements.length > 0) {
@@ -245,21 +245,21 @@ window.addEventListener('load', () => {
     // handle all the navigation process
     function handleNavigation() {
         // button navigation
-        const navButtons = document.getElementsByClassName('navigation-button');
+        const navButtons = document.getElementsByClassName("navigation-button");
 
         function buttonNavigation(this: HTMLElement, e: Event) {
             // get button index
             let index = 0;
             for (let i = 0; i < navButtons.length; i++) {
-                navButtons[i].classList.remove('active');
+                navButtons[i].classList.remove("active");
                 if (this === navButtons[i]) {
                     index = i;
-                    navButtons[i].classList.add('active');
+                    navButtons[i].classList.add("active");
                 }
             }
 
             // ajax call
-            handleAjaxCall(navButtons[index].getAttribute('href')!, appendContent);
+            handleAjaxCall(navButtons[index].getAttribute("href")!, appendContent);
 
             // prevent link default behaviour
             e.preventDefault();
@@ -267,11 +267,11 @@ window.addEventListener('load', () => {
 
         // listen to the navigation buttons click event
         for (const navButton of Array.from(navButtons)) {
-            navButton.addEventListener('click', buttonNavigation, false);
+            navButton.addEventListener("click", buttonNavigation, false);
         }
 
         // this function will execute our AJAX call and run a callback function
-        function handleAjaxCall(href: string, callback: (href: string, response: XMLHttpRequest['response']) => void) {
+        function handleAjaxCall(href: string, callback: (href: string, response: XMLHttpRequest["response"]) => void) {
             // set our transition flag
             isTransitioning = true;
 
@@ -285,18 +285,18 @@ window.addEventListener('load', () => {
                 }
             };
 
-            xhr.open('GET', href, true);
-            xhr.setRequestHeader('Accept', 'text/html');
+            xhr.open("GET", href, true);
+            xhr.setRequestHeader("Accept", "text/html");
             xhr.send(null);
 
             // start page transition
-            document.getElementById('page-wrap')!.classList.add('page-transition');
+            document.getElementById("page-wrap")!.classList.add("page-transition");
         }
 
-        function appendContent(href: string, response: XMLHttpRequest['response']) {
+        function appendContent(href: string, response: XMLHttpRequest["response"]) {
             // append our response to a div
-            const tempHtml = document.createElement('div');
-            tempHtml.insertAdjacentHTML('beforeend', response);
+            const tempHtml = document.createElement("div");
+            tempHtml.insertAdjacentHTML("beforeend", response);
 
             // let the css animation run
             setTimeout(() => {
@@ -305,9 +305,9 @@ window.addEventListener('load', () => {
                 let content: Element | null = null;
                 // manual filtering to get our content
                 for (const child of Array.from(tempHtml.children)) {
-                    if (child.getAttribute('id') === 'page-wrap') {
+                    if (child.getAttribute("id") === "page-wrap") {
                         for (const subChild of Array.from(child.children)) {
-                            if (subChild.getAttribute('id') === 'content') {
+                            if (subChild.getAttribute("id") === "content") {
                                 content = subChild;
                             }
                         }
@@ -315,19 +315,19 @@ window.addEventListener('load', () => {
                 }
 
                 // empty our content div and append our new content
-                document.getElementById('content')!.innerHTML = '';
+                document.getElementById("content")!.innerHTML = "";
                 if (content) {
-                    document.getElementById('content')!.appendChild(content.children[0]);
+                    document.getElementById("content")!.appendChild(content.children[0]);
                 }
 
-                document.getElementById('page-wrap')!.classList.remove('page-transition');
+                document.getElementById("page-wrap")!.classList.remove("page-transition");
 
                 addPlanes();
 
                 // reset our transition flag
                 isTransitioning = false;
 
-                history.pushState(null, '', href);
+                history.pushState(null, "", href);
             }, 750);
         }
     }
@@ -337,14 +337,14 @@ window.addEventListener('load', () => {
 
 // * Example 2 : Async textures
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     // here we will handle which texture is visible and the timer to transition between images
     let activeTexture = 1;
     let transitionTimer = 0;
 
     // set up our WebGL context and append the canvas to our wrapper
     const curtains = new Curtains({
-        container: 'canvas',
+        container: "canvas",
         watchScroll: false, // no need to listen for the scroll in this example
         pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
@@ -355,10 +355,10 @@ window.addEventListener('load', () => {
     curtains
         .onError(() => {
             // we will add a class to the document body to display original images
-            document.body.classList.add('no-curtains');
+            document.body.classList.add("no-curtains");
             // display an error message
-            document.getElementById('load-images')!.innerHTML =
-                'There has been an error while initiating the WebGL context.';
+            document.getElementById("load-images")!.innerHTML =
+                "There has been an error while initiating the WebGL context.";
         })
         .onContextLost(() => {
             // on context lost, try to restore the context
@@ -366,7 +366,7 @@ window.addEventListener('load', () => {
         });
 
     // get our plane element
-    const planeElements = document.getElementsByClassName('async-textures');
+    const planeElements = document.getElementsByClassName("async-textures");
 
     const vs = `
         precision mediump float;
@@ -450,8 +450,8 @@ window.addEventListener('load', () => {
         visible: false, // hide the plane while its empty
         uniforms: {
             transitionTimer: {
-                name: 'uTransitionTimer',
-                type: '1f',
+                name: "uTransitionTimer",
+                type: "1f",
                 value: 0,
             },
         },
@@ -464,7 +464,7 @@ window.addEventListener('load', () => {
     asyncTexturesPlane
         .onReady(() => {
             // images are loaded, we are ready to attach event listener and do stuff
-            planeElements[0].addEventListener('click', () => {
+            planeElements[0].addEventListener("click", () => {
                 // enable drawing to display transitions
                 curtains.enableDrawing();
 
@@ -472,11 +472,11 @@ window.addEventListener('load', () => {
                 if (activeTexture === 1) {
                     activeTexture = 2;
 
-                    document.getElementById('async-textures-wrapper')!.classList.add('second-image-shown');
+                    document.getElementById("async-textures-wrapper")!.classList.add("second-image-shown");
                 } else {
                     activeTexture = 1;
 
-                    document.getElementById('async-textures-wrapper')!.classList.remove('second-image-shown');
+                    document.getElementById("async-textures-wrapper")!.classList.remove("second-image-shown");
                 }
             });
         })
@@ -494,18 +494,18 @@ window.addEventListener('load', () => {
         })
         .onError(() => {
             // we will add a class to the document body to display original images
-            document.body.classList.add('no-curtains');
+            document.body.classList.add("no-curtains");
             // display an error message
-            document.getElementById('load-images')!.innerHTML =
-                'There has been an error while initiating the WebGL context.';
+            document.getElementById("load-images")!.innerHTML =
+                "There has been an error while initiating the WebGL context.";
         });
 
     // then we add images to it, could be after an event or an AJAX call
-    document.getElementById('load-images')!.addEventListener('click', () => {
-        document.getElementById('page-wrap')!.classList.add('load-images');
+    document.getElementById("load-images")!.addEventListener("click", () => {
+        document.getElementById("page-wrap")!.classList.add("load-images");
 
         // get our images in the HTML, but it could be inside an AJAX response
-        const asyncImgElements = document.getElementById('async-textures-wrapper')!.getElementsByTagName('img');
+        const asyncImgElements = document.getElementById("async-textures-wrapper")!.getElementsByTagName("img");
 
         // track image loading
         let imagesLoaded = 0;
@@ -549,17 +549,17 @@ class LocomotiveScroll {
     ): void {}
 }
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     // we will keep track of all our planes in an array
     const planes: Plane[] = [];
     let scrollEffect = 0;
 
     // get our planes elements
-    const planeElements = document.getElementsByClassName('plane');
+    const planeElements = document.getElementsByClassName("plane");
 
     // handle smooth scroll and update planes positions
     const smoothScroll = new LocomotiveScroll({
-        el: document.getElementById('page-content'),
+        el: document.getElementById("page-content"),
         smooth: true,
         inertia: 0.5,
         passive: true,
@@ -569,7 +569,7 @@ window.addEventListener('load', () => {
 
     // set up our WebGL context and append the canvas to our wrapper
     const curtains = new Curtains({
-        container: 'canvas',
+        container: "canvas",
         watchScroll: useNativeScroll, // watch scroll on mobile not on desktop since we're using locomotive scroll
         pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
@@ -596,10 +596,9 @@ window.addEventListener('load', () => {
                 delta.y = -60;
             }
 
-            scrollEffect =
-                useNativeScroll && Math.abs(delta.y) > Math.abs(scrollEffect)
-                    ? curtains.lerp(scrollEffect, delta.y, 0.5)
-                    : curtains.lerp(scrollEffect, delta.y * 1.5, 0.5);
+            scrollEffect = useNativeScroll && Math.abs(delta.y) > Math.abs(scrollEffect)
+                ? curtains.lerp(scrollEffect, delta.y, 0.5)
+                : curtains.lerp(scrollEffect, delta.y * 1.5, 0.5);
 
             // manually update planes positions
             for (let i = 0; i < planes.length; i++) {
@@ -612,7 +611,7 @@ window.addEventListener('load', () => {
         })
         .onError(() => {
             // we will add a class to the document body to display original images
-            document.body.classList.add('no-curtains', 'planes-loaded');
+            document.body.classList.add("no-curtains", "planes-loaded");
         })
         .onContextLost(() => {
             // on context lost, try to restore the context
@@ -628,7 +627,7 @@ window.addEventListener('load', () => {
     if (!useNativeScroll) {
         // we'll render only while lerping the scroll
         curtains.disableDrawing();
-        smoothScroll.on('scroll', obj => {
+        smoothScroll.on("scroll", obj => {
             updateScroll(obj.scroll.x, obj.scroll.y);
 
             // render scene
@@ -637,7 +636,7 @@ window.addEventListener('load', () => {
     }
 
     // keep track of the number of plane we're currently drawing
-    const debugElement = document.getElementById('debug-value')!;
+    const debugElement = document.getElementById("debug-value")!;
     // we need to fill the counter with all our planes
     let planeDrawn = planeElements.length;
 
@@ -694,8 +693,8 @@ window.addEventListener('load', () => {
         heightSegments: 10,
         uniforms: {
             scrollEffect: {
-                name: 'uScrollEffect',
-                type: '1f',
+                name: "uScrollEffect",
+                type: "1f",
                 value: 0,
             },
         },
@@ -722,7 +721,7 @@ window.addEventListener('load', () => {
 
                 // once everything is ready, display everything
                 if (index === planes.length - 1) {
-                    document.body.classList.add('planes-loaded');
+                    document.body.classList.add("planes-loaded");
                 }
             })
             .onAfterResize(() => {
@@ -777,13 +776,13 @@ window.addEventListener('load', () => {
 
 // * Example 4 - Render passes with render targets
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     // we will keep track of all our planes in an array
     let scrollEffect = 0;
 
     // set up our WebGL context and append the canvas to our wrapper
     const curtains = new Curtains({
-        container: 'canvas',
+        container: "canvas",
         antialias: false, // render targets will disable default antialiasing anyway
         pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
@@ -814,7 +813,7 @@ window.addEventListener('load', () => {
         })
         .onError(() => {
             // we will add a class to the document body to display original images
-            document.body.classList.add('no-curtains');
+            document.body.classList.add("no-curtains");
         })
         .onContextLost(() => {
             // on context lost, try to restore the context
@@ -822,8 +821,8 @@ window.addEventListener('load', () => {
         });
 
     // get our planes elements
-    const planeElements = document.getElementsByClassName('plane');
-    const smallPlaneElements = document.getElementsByClassName('small-plane');
+    const planeElements = document.getElementsByClassName("plane");
+    const smallPlaneElements = document.getElementsByClassName("small-plane");
 
     const distortionTarget = new RenderTarget(curtains);
     const rgbTarget = new RenderTarget(curtains);
@@ -920,8 +919,8 @@ window.addEventListener('load', () => {
         renderTarget: distortionTarget,
         uniforms: {
             scrollEffect: {
-                name: 'uScrollEffect',
-                type: '1f',
+                name: "uScrollEffect",
+                type: "1f",
                 value: 0,
             },
         },
@@ -963,8 +962,8 @@ window.addEventListener('load', () => {
         renderTarget: rgbTarget,
         uniforms: {
             scrollEffect: {
-                name: 'uScrollEffect',
-                type: '1f',
+                name: "uScrollEffect",
+                type: "1f",
                 value: 0,
             },
         },
@@ -1011,13 +1010,13 @@ window.addEventListener('load', () => {
         fragmentShader: blurFs,
         uniforms: {
             scrollEffect: {
-                name: 'uScrollEffect',
-                type: '1f',
+                name: "uScrollEffect",
+                type: "1f",
                 value: 0,
             },
             resolution: {
-                name: 'uResolution',
-                type: '2f',
+                name: "uResolution",
+                type: "2f",
                 value: [curtainsBBox.width, curtainsBBox.height],
             },
         },
@@ -1037,71 +1036,71 @@ window.addEventListener('load', () => {
 // * Example 5 - Uniform types
 
 const uniform1v: Uniform = {
-    name: 'uUniform1v',
-    type: '1f',
+    name: "uUniform1v",
+    type: "1f",
     value: 0.5,
 };
 
 const uniform2v: Uniform = {
-    name: 'uUniform2v',
-    type: '2f',
+    name: "uUniform2v",
+    type: "2f",
     value: [0.5, 0.5],
 };
 
 const uniform2vVec: Uniform = {
-    name: 'uUniform2v',
-    type: '2f',
+    name: "uUniform2v",
+    type: "2f",
     value: new Vec2(0.5, 0.5),
 };
 
 const uniform3v: Uniform = {
-    name: 'uUniform3v',
-    type: '3f',
+    name: "uUniform3v",
+    type: "3f",
     value: [0.5, 0.5, 0.5],
 };
 
 const uniform3vVec: Uniform = {
-    name: 'uUniform3v',
-    type: '3f',
+    name: "uUniform3v",
+    type: "3f",
     value: new Vec3(0.5, 0.5, 0.5),
 };
 
 const uniform4v: Uniform = {
-    name: 'uUniform4v',
-    type: '4f',
+    name: "uUniform4v",
+    type: "4f",
     value: [0.5, 0.5, 0.5, 0.5],
 };
 
 const uniform4vQuat: Uniform = {
-    name: 'uUniform4v',
-    type: '4f',
+    name: "uUniform4v",
+    type: "4f",
     value: new Quat([0.5, 0.5, 0.5, 0.5]),
 };
 
 // @ts-expect-error
 const uniform1i: Uniform = {
-    name: 'uUniform1i',
-    type: '1i',
+    name: "uUniform1i",
+    type: "1i",
     value: [1],
 };
 
 // @ts-expect-error
 const uniform2i: Uniform = {
-    name: 'uUniform2i',
-    type: '2i',
+    name: "uUniform2i",
+    type: "2i",
     value: [1, 1, 1],
 };
 
 // @ts-expect-error
 const uniform3i: Uniform = {
-    name: 'uUniform3i',
-    type: '3i',
+    name: "uUniform3i",
+    type: "3i",
     value: 1,
 };
 
 // @ts-expect-error
 const uniform4i: Uniform = {
-    name: 'uUniform4i',
-    type: '4i',
+    name: "uUniform4i",
+    type: "4i",
     value: new Mat4(),
 };

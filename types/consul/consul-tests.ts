@@ -21,7 +21,6 @@ let consul: Consul.Consul;
 consul = Consul();
 consul = new Consul();
 
-
 // Consul.Acl
 {
     let acl: Consul.Acl = consul.acl;
@@ -108,7 +107,6 @@ consul = new Consul();
         result = acl.list<any>();
     }
 }
-
 
 // Consul.Agent
 {
@@ -204,7 +202,6 @@ consul = new Consul();
         result = agent.forceLeave<any>(opts);
     }
 
-
     // Consul.Agent.Check
     {
         let check: Consul.Agent.Check = consul.agent.check;
@@ -287,7 +284,6 @@ consul = new Consul();
             result = check.fail<any>(opts);
         }
     }
-
 
     // Consul.Agent.Service
     {
@@ -395,7 +391,6 @@ consul = new Consul();
         result = catalog.services<any>();
     }
 
-
     // Consul.Catalog.Node
     {
         let node: Consul.Catalog.Node = consul.catalog.node;
@@ -478,7 +473,7 @@ consul = new Consul();
 
     {
         let name: string;
-        let payload: string|Buffer;
+        let payload: string | Buffer;
         let opts: Consul.Event.FireOptions;
         let callback: Consul.Callback<any>;
         let result: Promise<any>;
@@ -569,7 +564,6 @@ consul = new Consul();
     }
 }
 
-
 // Consul.Kv
 {
     let kv: Consul.Kv = consul.kv;
@@ -607,7 +601,7 @@ consul = new Consul();
 
     {
         let key: string;
-        let value: string|Buffer;
+        let value: string | Buffer;
         let opts: Consul.Kv.SetOptions;
         let callback: Consul.Callback<any>;
         let result: Promise<any>;
@@ -641,7 +635,6 @@ consul = new Consul();
     }
 }
 
-
 // Consul.Lock
 {
     let lock: Consul.Lock;
@@ -655,7 +648,6 @@ consul = new Consul();
 
     lock.release();
 }
-
 
 // Consul.Session
 {
@@ -747,7 +739,6 @@ consul = new Consul();
     }
 }
 
-
 // Consul.Status
 {
     let status: Consul.Status = consul.status;
@@ -779,7 +770,6 @@ consul = new Consul();
         result = status.peers<any>();
     }
 }
-
 
 // Consul.Watch
 {

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export class CRC32Stream extends Transform {
     constructor();

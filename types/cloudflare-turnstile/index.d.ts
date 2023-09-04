@@ -33,7 +33,7 @@ declare namespace Turnstile {
      * The theme of the Turnstile widget.
      * The default is "auto", which respects the user preference. This can be forced to "light" or "dark" by setting the theme accordingly.
      */
-    type Theme = 'auto' | 'light' | 'dark';
+    type Theme = "auto" | "light" | "dark";
 
     /**
      * Parameters for the turnstile.render() method.
@@ -63,12 +63,12 @@ declare namespace Turnstile {
         /**
          * Optional. A JavaScript callback that is invoked when a challenge expires.
          */
-        'expired-callback'?: VoidFunction;
+        "expired-callback"?: VoidFunction;
 
         /**
          * Optional. A JavaScript callback that is invoked when there is a network error.
          */
-        'error-callback'?: VoidFunction;
+        "error-callback"?: VoidFunction;
 
         /**
          * Optional. The widget theme.

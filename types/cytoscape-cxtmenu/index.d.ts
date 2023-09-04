@@ -3,7 +3,7 @@
 // Definitions by: Felix Barczewicz <https://github.com/DieserFelix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeCxtmenu: cytoscape.Ext;
 

@@ -3,7 +3,7 @@
 // Definitions by: Jan Zak <https://github.com/zakjan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as GeoJSON from 'geojson';
+import * as GeoJSON from "geojson";
 
 interface PolygonConfig {
     earthRadius?: number;

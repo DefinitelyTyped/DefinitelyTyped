@@ -4,7 +4,7 @@
 //                 Felix Barczewicz <https://github.com/DieserFelix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cy = require('cytoscape');
+import cy = require("cytoscape");
 
 declare const cytoscapeEdgehandles: cy.Ext;
 export = cytoscapeEdgehandles;

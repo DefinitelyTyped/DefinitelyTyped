@@ -1,4 +1,4 @@
-import { JSONSchema7 } from 'json-schema';
+import { JSONSchema7 } from "json-schema";
 
 declare const ConventionalChangelogConfigSpec: JSONSchema7;
 

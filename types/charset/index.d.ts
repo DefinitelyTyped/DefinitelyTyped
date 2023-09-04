@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { IncomingMessage, IncomingHttpHeaders } from 'http';
+import { IncomingHttpHeaders, IncomingMessage } from "http";
 
 /**
  * guess data charset from req.headers, xml, html content-type meta tag
@@ -26,6 +26,10 @@ import { IncomingMessage, IncomingHttpHeaders } from 'http';
  * @param peekSize max content peek size, default is 512
  * @return charset, lower case, e.g.: utf8, gbk, gb2312, .... If can\'t guess, return null
  */
-declare function charset(obj: string | IncomingHttpHeaders | IncomingMessage, data?: Buffer, peekSize?: number): string | null;
+declare function charset(
+    obj: string | IncomingHttpHeaders | IncomingMessage,
+    data?: Buffer,
+    peekSize?: number,
+): string | null;
 
 export = charset;

@@ -9,4 +9,4 @@ toStyle({});
 // @ts-expect-error
 toStyle(1);
 
-toStyle(''); // $ExpectType CSSStyleDeclaration
+toStyle(""); // $ExpectType CSSStyleDeclaration

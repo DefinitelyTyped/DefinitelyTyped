@@ -322,10 +322,10 @@ export interface Price {
     };
     warnings?: [
         {
-            id: string
-            message: string
-            url: string
-        }
+            id: string;
+            message: string;
+            url: string;
+        },
     ] | undefined;
 }
 
@@ -340,12 +340,21 @@ export interface Pagination {
     previous_ending_before?: string | undefined;
     next_starting_after?: string | undefined;
     limit?: number | undefined;
-    order?: 'asc' | 'desc' | undefined;
+    order?: "asc" | "desc" | undefined;
     previous_uri?: string | undefined;
     next_uri?: string | undefined;
 }
 
-export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
+export type ResourceType =
+    | "account"
+    | "transaction"
+    | "address"
+    | "user"
+    | "buy"
+    | "sell"
+    | "deposit"
+    | "withdrawal"
+    | "payment_method";
 
 /**
  * Base interface for all resources
@@ -361,9 +370,9 @@ export interface Resource {
      */
     created_at?: string | undefined;
 
-     /**
-      * ISO timestamp (sometimes needs additional permissions)
-      */
+    /**
+     * ISO timestamp (sometimes needs additional permissions)
+     */
     updated_at?: string | undefined;
 }
 
@@ -500,7 +509,7 @@ export class Address implements Resource {
      */
     getTransactions(
         pagination: Pagination | null,
-        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void,
     ): void;
 }
 
@@ -629,7 +638,7 @@ export class Account implements Resource {
      */
     getTransactions(
         pagination: Pagination | null,
-        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void
+        cb: (error: Error | null, result: Transaction[], pagination: Pagination) => void,
     ): void;
 
     /**
@@ -677,7 +686,7 @@ export class Account implements Resource {
      */
     getBuys(
         pagination: Pagination | null,
-        cb: (error: Error | null, result: Buy[], pagination: Pagination) => void
+        cb: (error: Error | null, result: Buy[], pagination: Pagination) => void,
     ): void;
 
     /**
@@ -713,7 +722,7 @@ export class Account implements Resource {
      */
     getSells(
         pagination: Pagination | null,
-        cb: (error: Error | null, result: Sell[], pagination: Pagination) => void
+        cb: (error: Error | null, result: Sell[], pagination: Pagination) => void,
     ): void;
 
     /**
@@ -791,10 +800,27 @@ export interface ResourceRef {
     resource_path: string;
 }
 
-export type TransactionType = "send" | "request" | "transfer" | "buy" | "sell" | "fiat_deposit" | "fiat_withdrawal" | "exchange_deposit"
-    | "exchange_withdrawal" | "vault_withdrawal" | "trade";
+export type TransactionType =
+    | "send"
+    | "request"
+    | "transfer"
+    | "buy"
+    | "sell"
+    | "fiat_deposit"
+    | "fiat_withdrawal"
+    | "exchange_deposit"
+    | "exchange_withdrawal"
+    | "vault_withdrawal"
+    | "trade";
 
-export type TransactionStatus = "pending" | "completed" | "failed" | "expired" | "canceled" | "waiting_for_signature" | "waiting_for_clearing";
+export type TransactionStatus =
+    | "pending"
+    | "completed"
+    | "failed"
+    | "expired"
+    | "canceled"
+    | "waiting_for_signature"
+    | "waiting_for_clearing";
 
 export class Transaction implements Resource {
     /**
@@ -1325,8 +1351,16 @@ export class Withdrawal implements Resource {
     commit(cb: (error: Error | null, result: Withdrawal) => void): void;
 }
 
-export type PaymentMethodType = "ach_bank_account" | "sepa_bank_account" | "ideal_bank_account" | "fiat_account" | "bank_wire"
-    | "credit_card" | "secure3d_card" | "eft_bank_account" | "interac";
+export type PaymentMethodType =
+    | "ach_bank_account"
+    | "sepa_bank_account"
+    | "ideal_bank_account"
+    | "fiat_account"
+    | "bank_wire"
+    | "credit_card"
+    | "secure3d_card"
+    | "eft_bank_account"
+    | "interac";
 
 /**
  * Payment method resource represents the different kinds of payment methods that can be used when buying and selling bitcoin, litecoin or

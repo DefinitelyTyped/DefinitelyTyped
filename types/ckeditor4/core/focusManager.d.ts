@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly focusManager: { new (editor: editor): focusManager };
+        readonly focusManager: { new(editor: editor): focusManager };
     }
 
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_focusManager.html */

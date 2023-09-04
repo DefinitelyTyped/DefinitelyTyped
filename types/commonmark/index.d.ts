@@ -5,8 +5,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type NodeType =
-    'text' |'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
-    'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+    | "text"
+    | "softbreak"
+    | "linebreak"
+    | "emph"
+    | "strong"
+    | "html_inline"
+    | "link"
+    | "image"
+    | "code"
+    | "document"
+    | "paragraph"
+    | "block_quote"
+    | "item"
+    | "list"
+    | "heading"
+    | "code_block"
+    | "html_block"
+    | "thematic_break"
+    | "custom_inline"
+    | "custom_block";
 
 export class Node {
     constructor(nodeType: NodeType, sourcepos?: Position);
@@ -67,7 +85,7 @@ export class Node {
     /**
      * either Bullet or Ordered (or undefined).
      */
-    listType: 'bullet' | 'ordered';
+    listType: "bullet" | "ordered";
     /**
      * true if list is tight
      */
@@ -79,7 +97,7 @@ export class Node {
     /**
      * a String, either ) or . for an ordered list.
      */
-    listDelimiter: ')' | '.';
+    listDelimiter: ")" | ".";
     /**
      * used only for CustomBlock or CustomInline.
      */
@@ -141,7 +159,7 @@ export class Parser {
 }
 
 export class HtmlRenderer {
-    constructor(options?: HtmlRenderingOptions)
+    constructor(options?: HtmlRenderingOptions);
 
     render(root: Node): string;
 
@@ -159,7 +177,7 @@ export class HtmlRenderer {
 }
 
 export class XmlRenderer {
-    constructor(options?: XmlRenderingOptions)
+    constructor(options?: XmlRenderingOptions);
 
     render(root: Node): string;
 }

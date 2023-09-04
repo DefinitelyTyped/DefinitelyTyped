@@ -22,7 +22,7 @@ declare namespace Chai {
     }
 }
 
-declare module 'chai-oequal' {
+declare module "chai-oequal" {
     const chaiOequal: Chai.ChaiPlugin;
     namespace chaiOequal {}
     export = chaiOequal;

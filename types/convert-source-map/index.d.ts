@@ -29,7 +29,7 @@ export interface SourceMapConverter {
      * When `options.encoding == 'uri'`, the data will be uri encoded, otherwise they will be base64 encoded.
      * When `options.multiline == true`, the comment is formatted like: /*# sourceMappingURL=... *\/, which you would find in a CSS source file
      */
-    toComment(options?: { multiline?: boolean | undefined; encoding?: 'uri' | undefined }): string;
+    toComment(options?: { multiline?: boolean | undefined; encoding?: "uri" | undefined }): string;
 
     /** Adds given property to the source map. Throws an error if property already exists */
     addProperty(key: string, value: any): SourceMapConverter;

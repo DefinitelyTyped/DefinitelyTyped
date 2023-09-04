@@ -37,12 +37,12 @@ export function getCodes(): string[];
 /**
  * Returns a key-value object of all countries using the name as key.
  */
-export function getNameList(): {[name: string]: string};
+export function getNameList(): { [name: string]: string };
 
 /**
  * Returns a key-value object of all countries using the code as key.
  */
-export function getCodeList(): {[code: string]: string};
+export function getCodeList(): { [code: string]: string };
 
 /**
  * Returns an array of all country information, in the same format as it gets imported.

@@ -1,5 +1,5 @@
-import { WebServer, ServerContext } from "@cyberblast/webserver";
 import { Logger } from "@cyberblast/logger";
+import { ServerContext, WebServer } from "@cyberblast/webserver";
 import * as Http from "http";
 import * as Net from "net";
 
@@ -12,18 +12,18 @@ const request = new Http.IncomingMessage(new Net.Socket());
 const response = new Http.ServerResponse(request);
 
 const minContext: ServerContext = {
-  server: server1,
-  request,
-  response
+    server: server1,
+    request,
+    response,
 };
 const maxContext: ServerContext = {
-  server: server2,
-  request,
-  response,
-  client: "",
-  data: "",
-  logger: new Logger(),
-  route: {}
+    server: server2,
+    request,
+    response,
+    client: "",
+    data: "",
+    logger: new Logger(),
+    route: {},
 };
 
 server1.respondError("", minContext); // $ExpectType Promise<void>

@@ -8,10 +8,8 @@
 // Generator<T, TReturn, TNext> => TReturn
 // Function => ReturnType<Function>
 // others => others
-type ExtractType<I> = I extends { [Symbol.iterator]: () => Iterator<any, infer TReturn, any> }
-    ? TReturn
-    : I extends (...args: any[]) => any
-    ? ReturnType<I>
+type ExtractType<I> = I extends { [Symbol.iterator]: () => Iterator<any, infer TReturn, any> } ? TReturn
+    : I extends (...args: any[]) => any ? ReturnType<I>
     : I;
 
 interface Co {

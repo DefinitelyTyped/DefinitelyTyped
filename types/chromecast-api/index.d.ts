@@ -4,5 +4,5 @@
 //                 daniel0611 <https://github.com/daniel0611>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Client = require('./lib/client');
+import Client = require("./lib/client");
 export = Client;

@@ -10,18 +10,18 @@
 /// <reference types="express-session" />
 /// <reference types="redis" />
 
-declare module 'connect-redis' {
-    import * as express from 'express';
-    import * as session from 'express-session';
-    import * as ioRedis from 'ioredis';
-    import * as redis from 'redis';
+declare module "connect-redis" {
+    import * as express from "express";
+    import * as session from "express-session";
+    import * as ioRedis from "ioredis";
+    import * as redis from "redis";
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
     namespace s {
         type Client = redis.RedisClient | ioRedis.Redis | ioRedis.Cluster;
         interface RedisStore extends session.Store {
-            new (options: RedisStoreOptions): RedisStore;
+            new(options: RedisStoreOptions): RedisStore;
             client: Client;
         }
         interface RedisStoreOptions {

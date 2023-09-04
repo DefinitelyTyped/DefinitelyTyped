@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as child_process from 'child_process';
+import * as child_process from "child_process";
 
 declare namespace spawn {
     /**

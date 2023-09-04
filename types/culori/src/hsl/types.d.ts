@@ -1,5 +1,5 @@
 export interface Hsl {
-    mode: 'hsl';
+    mode: "hsl";
     h?: number;
     s: number;
     l: number;

@@ -1,16 +1,16 @@
 import {
-    prompt,
-    showHelp,
-    executeCommander,
-    showConfig,
-    initialize,
     destroy,
-    printName,
-    notImplemented,
-    handleError,
-    setWriter,
+    executeCommander,
     getWriter,
-} from 'command-shell-lib';
+    handleError,
+    initialize,
+    notImplemented,
+    printName,
+    prompt,
+    setWriter,
+    showConfig,
+    showHelp,
+} from "command-shell-lib";
 
 // $ExpectType void
 prompt();
@@ -20,34 +20,34 @@ showHelp({});
 // @ts-expect-error
 showHelp({ invalid: {} });
 // @ts-expect-error
-showHelp({ invalid: { description: 'This command is invalid, parameters missing', handler: () => {} } });
+showHelp({ invalid: { description: "This command is invalid, parameters missing", handler: () => {} } });
 // @ts-expect-error
-showHelp({ invalid: { parameters: ['missing', 'description'], handler: () => {} } });
+showHelp({ invalid: { parameters: ["missing", "description"], handler: () => {} } });
 // @ts-expect-error
-showHelp({ invalid: { parameters: ['missing', 'handler'], description: '' } });
+showHelp({ invalid: { parameters: ["missing", "handler"], description: "" } });
 // $ExpectType void
-showHelp({ valid: { parameters: ['valid'], description: 'This command is valid', handler: () => {} } });
+showHelp({ valid: { parameters: ["valid"], description: "This command is valid", handler: () => {} } });
 
 // $ExpectType void
-executeCommander(['some', 'command'], {});
+executeCommander(["some", "command"], {});
 
 // $ExpectType () => void
-showConfig({}, '');
+showConfig({}, "");
 // @ts-expect-error
 showConfig({}, null);
 
 // $ExpectType void
-initialize({}, 'This is a prompt string');
+initialize({}, "This is a prompt string");
 // @ts-expect-error
 initialize({}, null);
 // @ts-expect-error
-initialize({ invalid: { parameters: ['missing', 'description'], handler: () => {} } }, 'invalid');
+initialize({ invalid: { parameters: ["missing", "description"], handler: () => {} } }, "invalid");
 
 // $ExpectType void
 destroy();
 
 // $ExpectType () => void
-printName('someName');
+printName("someName");
 // @ts-expect-error
 printName(0);
 
@@ -57,7 +57,7 @@ notImplemented();
 // $ExpectType void
 handleError(new Error());
 // @ts-expect-error
-handleError('Only a message');
+handleError("Only a message");
 
 // $ExpectType void
 setWriter({ log: (message?: any, ...optionalParams: any[]) => {} });

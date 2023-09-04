@@ -4,10 +4,10 @@ declare namespace CKEDITOR {
     }
 
     interface CKEditorUIStatic {
-        balloonPanel: { new (editor: editor, definition: ui.balloonPanel.definition): ui.balloonPanel };
+        balloonPanel: { new(editor: editor, definition: ui.balloonPanel.definition): ui.balloonPanel };
         button: ui.buttonConstructor<ui.button>;
         floatPanel: {
-            new (
+            new(
                 editor: editor,
                 parentElement: dom.element,
                 definition: { [key: string]: unknown },
@@ -16,13 +16,13 @@ declare namespace CKEDITOR {
         };
         handlerDefinition: ui.handlerDefinition;
         menuButton: ui.buttonConstructor<ui.menuButton>;
-        panel: { new (document: dom.document, definition: ui.uiDefinition): ui.panel };
+        panel: { new(document: dom.document, definition: ui.uiDefinition): ui.panel };
         panelButton: ui.buttonConstructor<ui.panelButton>;
-        richCombo: { new (): ui.richCombo };
+        richCombo: { new(): ui.richCombo };
     }
 
     interface uiConstructor extends eventConstructor<ui> {
-        new (editor: editor): ui;
+        new(editor: editor): ui;
     }
 
     interface ui extends event {
@@ -82,9 +82,9 @@ declare namespace CKEDITOR {
                     | dom.element
                     | boolean
                     | {
-                          focusElement?: dom.element | boolean;
-                          show?: boolean;
-                      },
+                        focusElement?: dom.element | boolean;
+                        show?: boolean;
+                    },
             ): void;
 
             blur(): void;
@@ -113,7 +113,7 @@ declare namespace CKEDITOR {
 
             setTitle(title: string): void;
 
-            setTriangle(side: 'left' | 'right' | 'top' | 'bottom'): void;
+            setTriangle(side: "left" | "right" | "top" | "bottom"): void;
 
             show(): void;
         }
@@ -164,7 +164,7 @@ declare namespace CKEDITOR {
         }
 
         interface buttonConstructor<T extends button> {
-            new (definition: button.definition): T;
+            new(definition: button.definition): T;
         }
 
         interface button extends _uiElement {

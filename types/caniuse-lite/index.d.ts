@@ -14,7 +14,7 @@ export const agents: AgentsByID;
  * associated value is a packed version of information about the feature that
  * can be unpacked using the function `feature(packed)`
  */
-export const features: { [featureID: string]: PackedFeature; };
+export const features: { [featureID: string]: PackedFeature };
 
 /**
  * @param packedFeature a packed feature obtained from `features[key]` for some valid key.
@@ -73,7 +73,7 @@ export type FeatureStatus = "ls" | "rec" | "pr" | "cr" | "wd" | "other" | "unoff
  * The support status can additionally have one or more footnote references as `#<n>`, f.e.
  * `a x #1 #3`.
  */
-export type SupportStatus = 'n' | 'p' | 'u' | "a x" | 'a' | "y x" | 'y' | string;
+export type SupportStatus = "n" | "p" | "u" | "a x" | "a" | "y x" | "y" | string;
 
 /**
  * Provides information about the Agent.
@@ -93,20 +93,77 @@ export interface Agent {
      * Version matrix. See [caniuse](https://caniuse.com)
      */
     versions: [ // Tuple of 70 version slots:
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null,
-        string|null, string|null, string|null, string|null, string|null ];
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+    ];
 
     /**
      * The agent's name

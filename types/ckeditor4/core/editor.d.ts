@@ -4,7 +4,7 @@ declare namespace CKEDITOR {
     }
 
     interface editorConstructor extends eventConstructor<editor> {
-        new (instanceConfig?: config, element?: dom.element, mode?: number): editor;
+        new(instanceConfig?: config, element?: dom.element, mode?: number): editor;
     }
 
     /** https://com/docs/ckeditor4/latest/api/CKEDITOR_editor.html */

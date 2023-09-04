@@ -61,6 +61,6 @@ interface Array<T> {
 
 declare module "chai-things" {
     const chaiThings: Chai.ChaiPlugin;
-    namespace chaiThings { }
+    namespace chaiThings {}
     export = chaiThings;
 }

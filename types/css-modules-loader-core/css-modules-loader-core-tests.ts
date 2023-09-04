@@ -8,7 +8,7 @@ const withPlugins = new Core([
     Core.values,
     Core.localByDefault,
     Core.extractImports,
-    Core.scope
+    Core.scope,
 ]);
 const withDefaultPlugins = new Core(Core.defaultPlugins);
 

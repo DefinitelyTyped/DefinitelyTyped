@@ -1,13 +1,13 @@
-import * as views from 'co-views';
+import * as views from "co-views";
 
-const render = views('views', {
+const render = views("views", {
     map: {
-        html: 'swig',
+        html: "swig",
     },
-    default: 'jade',
+    default: "jade",
 });
 
-const fileName = 'xxx'; // template file name
+const fileName = "xxx"; // template file name
 const locals = {}; // template locals data
 
 async function test() {

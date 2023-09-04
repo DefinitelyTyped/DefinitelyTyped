@@ -1,7 +1,7 @@
-import Arrow from '../Arrow';
-import { UnaryFunction } from '../internal/types';
-import Star from '../Star';
-import Pair from './Pair';
+import Arrow from "../Arrow";
+import { UnaryFunction } from "../internal/types";
+import Star from "../Star";
+import Pair from "./Pair";
 
 /**
  * fanout :: (a -> b) -> (a -> c) -> (a -> Pair b c)

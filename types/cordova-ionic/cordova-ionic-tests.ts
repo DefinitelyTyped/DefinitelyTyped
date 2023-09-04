@@ -1,6 +1,5 @@
 /// <reference types="cordova" />
 
-
 // Keyboard
 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);

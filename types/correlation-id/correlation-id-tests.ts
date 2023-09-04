@@ -1,4 +1,4 @@
-import { withId, bindId, getId } from "correlation-id";
+import { bindId, getId, withId } from "correlation-id";
 
 withId("my-id", () => {
     const id: string = getId() || "";

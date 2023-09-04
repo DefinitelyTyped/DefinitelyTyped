@@ -1,4 +1,4 @@
-import { UnaryFunction } from '../internal/types';
+import { UnaryFunction } from "../internal/types";
 
 /**
  * mreduceMap :: Monoid m, Foldable f => m -> (b -> a) -> f b -> a

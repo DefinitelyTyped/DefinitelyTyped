@@ -6,7 +6,7 @@
 
 /// <reference types="jquery" />
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 export as namespace Clndr;
 
@@ -224,7 +224,6 @@ export interface ClickEvents {
     /**
      * Fired when a user goes back a month. Returns a moment.js object set
      * to the correct month.
-     *
      */
     previousMonth?(month: moment.Moment): void;
     /**
@@ -331,7 +330,6 @@ export interface LengthOfTime {
     /**
      * Set to an integer if you want to render one or more days, otherwise
      * leave this null. Setting this to 14 would render a 2-week calendar.
-     *
      */
     days?: number | null | undefined;
     /**

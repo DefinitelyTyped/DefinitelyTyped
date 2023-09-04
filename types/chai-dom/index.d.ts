@@ -60,7 +60,7 @@ declare namespace Chai {
     }
 }
 
-declare module 'chai-dom' {
+declare module "chai-dom" {
     const chaiDom: Chai.ChaiPlugin;
     export = chaiDom;
 }

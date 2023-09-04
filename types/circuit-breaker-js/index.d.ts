@@ -35,7 +35,7 @@ declare class CircuitBreaker {
             success: () => void,
             failure: () => void,
         ) => void,
-        fallback?: () => void
+        fallback?: () => void,
     ): void;
     forceClose(): void;
     forceOpen(): void;

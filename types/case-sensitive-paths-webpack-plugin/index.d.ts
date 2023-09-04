@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Compiler } from 'webpack';
+import { Compiler, Plugin } from "webpack";
 
 export = CaseSensitivePathsWebpackPlugin;
 

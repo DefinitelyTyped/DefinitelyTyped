@@ -25,5 +25,5 @@ declare global {
 }
 
 declare const chaiRoughly: Chai.ChaiPlugin;
-declare namespace chaiRoughly { }
+declare namespace chaiRoughly {}
 export = chaiRoughly;

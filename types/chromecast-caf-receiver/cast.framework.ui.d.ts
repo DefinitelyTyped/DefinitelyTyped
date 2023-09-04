@@ -1,32 +1,32 @@
 import {
-    MediaMetadata,
-    LiveSeekableRange,
-    MediaInformation,
-    MediaCategory,
-    QueueData,
-    Image,
+    AudiobookChapterMediaMetadata,
     GenericMediaMetadata,
+    Image,
+    LiveSeekableRange,
+    MediaCategory,
+    MediaInformation,
+    MediaMetadata,
     MovieMediaMetadata,
     MusicTrackMediaMetadata,
     PhotoMediaMetadata,
+    QueueData,
     TvShowMediaMetadata,
-    AudiobookChapterMediaMetadata,
-} from './cast.framework.messages';
+} from "./cast.framework.messages";
 
 export as namespace ui;
-export type ContentType = 'video' | 'audio' | 'image';
+export type ContentType = "video" | "audio" | "image";
 
 /**
  * UI state of receiver application.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.State
  */
 export enum State {
-    LAUNCHING = 'launching',
-    IDLE = 'idle',
-    LOADING = 'loading',
-    BUFFERING = 'buffering',
-    PAUSED = 'paused',
-    PLAYING = 'playing',
+    LAUNCHING = "launching",
+    IDLE = "idle",
+    LOADING = "loading",
+    BUFFERING = "buffering",
+    PAUSED = "paused",
+    PLAYING = "playing",
 }
 
 /**
@@ -34,45 +34,45 @@ export enum State {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.PlayerDataEventType
  */
 export enum PlayerDataEventType {
-    ACTIVE_TRACK_IDS_CHANGED = 'activeTrackIdsChanged',
-    ANY_CHANGE = '*',
-    APPLICATION_DATA_CHANGED = 'applicationDataChanged',
-    BREAK_PERCENTAGE_POSITIONS_CHANGED = 'breakPercentagePositionsChanged',
-    BREAK_TITLE_CHANGED = 'breakTitleChanged',
-    CONTENT_TYPE_CHANGED = 'contentTypeChanged',
-    CURRENT_BREAK_CLIP_NUMBER_CHANGED = 'currentBreakClipNumberChanged',
-    CURRENT_TIME_CHANGED = 'currentTimeChanged',
-    CUSTOM_STATE_CHANGED = 'customStateChanged',
-    DISPLAY_STATUS_CHANGED = 'displayStatusChanged',
-    DISPLAY_TYPE_CHANGED = 'displayTypeChanged',
-    DURATION_CHANGED = 'durationChanged',
-    IS_AT_LIVE_EDGE_CHANGED = 'isAtLiveEdgeChanged',
-    IS_BREAK_SKIPPABLE_CHANGED = 'isBreakSkippableChanged',
-    IS_LIVE_CHANGED = 'isLiveChanged',
-    IS_PLAYING_BREAK_CHANGED = 'isPlayingBreakChanged',
-    IS_SEEKING_CHANGED = 'isSeekingChanged',
-    LIVE_SEEKABLE_RANGE_CHANGED = 'liveSeekableRangeChanged',
-    MEDIA_CATEGORY_CHANGED = 'mediaCategoryChanged',
-    MEDIA_CHANGED = 'mediaChanged',
-    MEDIA_SESSION_ID_CHANGED = 'mediaSessionIdChanged',
-    MEDIA_START_ABSOLUTE_TIME_CHANGED = 'mediaStartAbsoluteTimeChanged',
-    METADATA_CHANGED = 'metadataChanged',
-    NEXT_SUBTITLE_CHANGED = 'nextSubtitleChanged',
-    NEXT_THUMBNAIL_URL_CHANGED = 'nextThumbnailUrlChanged',
-    NEXT_TITLE_CHANGED = 'nextTitleChanged',
-    NUMBER_BREAK_CLIPS_CHANGED = 'numberBreakClipsChanged',
-    PLAYBACK_RATE_CHANGED = 'playbackRateChanged',
-    PRELOADING_NEXT_CHANGED = 'preloadingNextChanged',
-    PRESENTATION_CHANGED = 'presentationChanged',
-    QUEUE_DATA_CHANGED = 'queueDataChanged',
-    SECTION_DURATION_CHANGED = 'sectionDurationChanged',
-    SECTION_START_TIME_IN_MEDIA_CHANGED = 'sectionStartTimeInMediaChanged',
-    STATE_CHANGED = 'stateChanged',
-    SUBTITLE_CHANGED = 'subtitleChanged',
-    SUPPORTED_MEDIA_COMMANDS_CHANGED = 'supportedMediaCommandsChanged',
-    THUMBNAIL_URL_CHANGED = 'thumbnailUrlChanged',
-    TITLE_CHANGED = 'titleChanged',
-    WHEN_SKIPPABLE_CHANGED = 'whenSkippableChanged',
+    ACTIVE_TRACK_IDS_CHANGED = "activeTrackIdsChanged",
+    ANY_CHANGE = "*",
+    APPLICATION_DATA_CHANGED = "applicationDataChanged",
+    BREAK_PERCENTAGE_POSITIONS_CHANGED = "breakPercentagePositionsChanged",
+    BREAK_TITLE_CHANGED = "breakTitleChanged",
+    CONTENT_TYPE_CHANGED = "contentTypeChanged",
+    CURRENT_BREAK_CLIP_NUMBER_CHANGED = "currentBreakClipNumberChanged",
+    CURRENT_TIME_CHANGED = "currentTimeChanged",
+    CUSTOM_STATE_CHANGED = "customStateChanged",
+    DISPLAY_STATUS_CHANGED = "displayStatusChanged",
+    DISPLAY_TYPE_CHANGED = "displayTypeChanged",
+    DURATION_CHANGED = "durationChanged",
+    IS_AT_LIVE_EDGE_CHANGED = "isAtLiveEdgeChanged",
+    IS_BREAK_SKIPPABLE_CHANGED = "isBreakSkippableChanged",
+    IS_LIVE_CHANGED = "isLiveChanged",
+    IS_PLAYING_BREAK_CHANGED = "isPlayingBreakChanged",
+    IS_SEEKING_CHANGED = "isSeekingChanged",
+    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRangeChanged",
+    MEDIA_CATEGORY_CHANGED = "mediaCategoryChanged",
+    MEDIA_CHANGED = "mediaChanged",
+    MEDIA_SESSION_ID_CHANGED = "mediaSessionIdChanged",
+    MEDIA_START_ABSOLUTE_TIME_CHANGED = "mediaStartAbsoluteTimeChanged",
+    METADATA_CHANGED = "metadataChanged",
+    NEXT_SUBTITLE_CHANGED = "nextSubtitleChanged",
+    NEXT_THUMBNAIL_URL_CHANGED = "nextThumbnailUrlChanged",
+    NEXT_TITLE_CHANGED = "nextTitleChanged",
+    NUMBER_BREAK_CLIPS_CHANGED = "numberBreakClipsChanged",
+    PLAYBACK_RATE_CHANGED = "playbackRateChanged",
+    PRELOADING_NEXT_CHANGED = "preloadingNextChanged",
+    PRESENTATION_CHANGED = "presentationChanged",
+    QUEUE_DATA_CHANGED = "queueDataChanged",
+    SECTION_DURATION_CHANGED = "sectionDurationChanged",
+    SECTION_START_TIME_IN_MEDIA_CHANGED = "sectionStartTimeInMediaChanged",
+    STATE_CHANGED = "stateChanged",
+    SUBTITLE_CHANGED = "subtitleChanged",
+    SUPPORTED_MEDIA_COMMANDS_CHANGED = "supportedMediaCommandsChanged",
+    THUMBNAIL_URL_CHANGED = "thumbnailUrlChanged",
+    TITLE_CHANGED = "titleChanged",
+    WHEN_SKIPPABLE_CHANGED = "whenSkippableChanged",
 }
 
 /**
@@ -521,19 +521,19 @@ export enum BrowseImageAspectRatio {
     /**
      * Square images.
      */
-    SQUARE_1_TO_1 = 'SQUARE_1_TO_1',
+    SQUARE_1_TO_1 = "SQUARE_1_TO_1",
 
     /**
      * Portrait orientation images with 2:3 aspect ratio. UI
      * for portrait orientation is not final and is a subject
      * to change.
      */
-    PORTRAIT_2_TO_3 = 'PORTRAIT_2_TO_3',
+    PORTRAIT_2_TO_3 = "PORTRAIT_2_TO_3",
 
     /**
      * Landscape orientation images with 16:9 aspect ratio.
      */
-    LANDSCAPE_16_TO_9 = 'LANDSCAPE_16_TO_9',
+    LANDSCAPE_16_TO_9 = "LANDSCAPE_16_TO_9",
 }
 
 /**
@@ -547,80 +547,80 @@ export enum BrowseImageType {
      * music artist or band, or radio seeded by an artist
      * or band.
      */
-    ARTIST = 'ARTIST',
+    ARTIST = "ARTIST",
 
     /**
      * An audio book.
      */
-    AUDIO_BOOK = 'AUDIO_BOOK',
+    AUDIO_BOOK = "AUDIO_BOOK",
 
     /**
      * Episode of a TV show.
      */
-    EPISODE = 'EPISODE',
+    EPISODE = "EPISODE",
 
     /**
      * A movie.
      */
-    MOVIE = 'MOVIE',
+    MOVIE = "MOVIE",
 
     /**
      * A playlist that consists of songs from a specific
      * music album or radio seeded by album.
      */
-    MUSIC_ALBUM = 'MUSIC_ALBUM',
+    MUSIC_ALBUM = "MUSIC_ALBUM",
 
     /**
      * A music genre.
      */
-    MUSIC_GENRE = 'MUSIC_GENRE',
+    MUSIC_GENRE = "MUSIC_GENRE",
 
     /**
      * A music mix seeded by genre.
      */
-    MUSIC_MIX = 'MUSIC_MIX',
+    MUSIC_MIX = "MUSIC_MIX",
 
     /**
      * A song track or radio seeded by the track.
      */
-    MUSIC_TRACK = 'MUSIC_TRACK',
+    MUSIC_TRACK = "MUSIC_TRACK",
 
     /**
      * News audio or video.
      */
-    NEWS = 'NEWS',
+    NEWS = "NEWS",
 
     /**
      * An image.
      */
-    PHOTO = 'PHOTO',
+    PHOTO = "PHOTO",
 
     /**
      * A playlist publicly available or radio seeded by playlist.
      * Playlists always contain a finite and defined set of songs.
      */
-    PLAYLIST = 'PLAYLIST',
+    PLAYLIST = "PLAYLIST",
 
     /**
      * A podcast series.
      */
-    PODCAST = 'PODCAST',
+    PODCAST = "PODCAST",
 
     /**
      * A radio station. This could be a terrestrial or an internet
      * radio station.
      */
-    RADIO_STATION = 'RADIO_STATION',
+    RADIO_STATION = "RADIO_STATION",
 
     /**
      * A TV show.
      */
-    TV_SHOW = 'TV_SHOW',
+    TV_SHOW = "TV_SHOW",
 
     /**
      * A single video.
      */
-    VIDEO = 'VIDEO',
+    VIDEO = "VIDEO",
 }
 
 /**
@@ -632,7 +632,7 @@ export enum BrowseMediaBadge {
      * LIVE indicator badge. Should be used if stream is a live
      * content.
      */
-    LIVE = 'LIVE',
+    LIVE = "LIVE",
 }
 
 /**
@@ -643,77 +643,77 @@ export enum ControlsButton {
     /**
      * Turn on/off closed captions.
      */
-    CAPTIONS = 'captions',
+    CAPTIONS = "captions",
 
     /**
      * Dislike butoon.
      */
-    DISLIKE = 'dislike',
+    DISLIKE = "dislike",
 
     /**
      * Like button.
      */
-    LIKE = 'like',
+    LIKE = "like",
 
     /**
      * Clear slot from any buttons.
      */
-    NO_BUTTON = 'no-button',
+    NO_BUTTON = "no-button",
 
     /**
      * Go to the next item in queue.
      */
-    QUEUE_NEXT = 'queue-next',
+    QUEUE_NEXT = "queue-next",
 
     /**
      * Go to the previous item in queue.
      */
-    QUEUE_PREV = 'queue-prev',
+    QUEUE_PREV = "queue-prev",
 
     /**
      * Toggle repeat mode.
      */
-    REPEAT = 'repeat',
+    REPEAT = "repeat",
 
     /**
      * Seek 10 seconds backward.
      */
-    SEEK_BACKWARD_10 = 'seek-backward-10',
+    SEEK_BACKWARD_10 = "seek-backward-10",
 
     /**
      * Seek 15 seconds backward.
      */
-    SEEK_BACKWARD_15 = 'seek-backward-15',
+    SEEK_BACKWARD_15 = "seek-backward-15",
 
     /**
      * Seek 30 seconds backward.
      */
-    SEEK_BACKWARD_30 = 'seek-backward-30',
+    SEEK_BACKWARD_30 = "seek-backward-30",
 
     /**
      * Seek 10 seconds forward.
      */
-    SEEK_FORWARD_10 = 'seek-forward-10',
+    SEEK_FORWARD_10 = "seek-forward-10",
 
     /**
      * Seek 15 seconds forward.
      */
-    SEEK_FORWARD_15 = 'seek-forward-15',
+    SEEK_FORWARD_15 = "seek-forward-15",
 
     /**
      * Seek 30 seconds forward.
      */
-    SEEK_FORWARD_30 = 'seek-forward-30',
+    SEEK_FORWARD_30 = "seek-forward-30",
 
     /**
      * Toggle shuffle mode.
      */
-    SHUFFLE = 'shuffle',
+    SHUFFLE = "shuffle",
 
     /**
      * Undocumented
      */
-    SLEEP_TIMER = 'sleep-timer',
+    SLEEP_TIMER = "sleep-timer",
 }
 
 /**
@@ -726,48 +726,48 @@ export enum ControlsSlot {
      *
      * @deprecated
      */
-    SLOT_1 = 'slot-1',
+    SLOT_1 = "slot-1",
 
     /**
      * Center left slot. Deprecated, use SLOT_PRIMARY_1 instead.
      *
      * @deprecated
      */
-    SLOT_2 = 'slot-2',
+    SLOT_2 = "slot-2",
 
     /**
      * Center right slot. Deprecated, use SLOT_PRIMARY_2 instead.
      *
      * @deprecated
      */
-    SLOT_3 = 'slot-3',
+    SLOT_3 = "slot-3",
 
     /**
      * Side right slot. Deprecated, use SLOT_SECONDARY_2 instead.
      *
      * @deprecated
      */
-    SLOT_4 = 'slot-4',
+    SLOT_4 = "slot-4",
 
     /**
      * Center left slot. Placed to the left of the play/pause button.
      */
-    SLOT_PRIMARY_1 = 'slot-primary-1',
+    SLOT_PRIMARY_1 = "slot-primary-1",
 
     /**
      * Center right slot. Placed to the right of the play/pause button.
      */
-    SLOT_PRIMARY_2 = 'slot-primary-2',
+    SLOT_PRIMARY_2 = "slot-primary-2",
 
     /**
      * Side left slot. Aligned to the left edge of the screen.
      */
-    SLOT_SECONDARY_1 = 'slot-secondary-1',
+    SLOT_SECONDARY_1 = "slot-secondary-1",
 
     /**
      * Side right slot. Aligned to the right edge of the screen.
      */
-    SLOT_SECONDARY_2 = 'slot-secondary-2',
+    SLOT_SECONDARY_2 = "slot-secondary-2",
 }
 
 /**
@@ -775,6 +775,6 @@ export enum ControlsSlot {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.DisplayType
  */
 export enum DisplayType {
-    TV = 'tv',
-    TOUCH = 'touch',
+    TV = "tv",
+    TOUCH = "touch",
 }

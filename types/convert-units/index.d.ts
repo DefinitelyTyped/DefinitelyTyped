@@ -10,7 +10,24 @@ declare namespace convert {
     type Distance = "mm" | "cm" | "m" | "km" | "in" | "ft-us" | "ft" | "yd" | "mi"; // Distance
     type Area = "mm2" | "cm2" | "m2" | "ha" | "km2" | "in2" | "ft2" | "ac" | "mi2"; // Area
     type Mass = "mcg" | "mg" | "g" | "kg" | "oz" | "lb" | "mt" | "t"; // Mass
-    type Volume = "mm3" | "cm3" | "ml" | "l" | "kl" | "m3" | "km3" | "tsp" | "Tbs" | "in3" | "fl-oz" | "cup" | "pnt" | "qt" | "gal" | "ft3" | "yd3"; // Volume
+    type Volume =
+        | "mm3"
+        | "cm3"
+        | "ml"
+        | "l"
+        | "kl"
+        | "m3"
+        | "km3"
+        | "tsp"
+        | "Tbs"
+        | "in3"
+        | "fl-oz"
+        | "cup"
+        | "pnt"
+        | "qt"
+        | "gal"
+        | "ft3"
+        | "yd3"; // Volume
     type VolumeFlowRate =
         | "mm3/s"
         | "cm3/s"
@@ -67,7 +84,8 @@ declare namespace convert {
     type ReactiveEnergy = "VARh" | "mVARh" | "kVARh" | "MVARh" | "GVARH"; // Reactive Energy
     type Angle = "deg" | "rad" | "grad" | "arcmin" | "arcsec"; // Angle
 
-    type Unit = Distance
+    type Unit =
+        | Distance
         | Area
         | Mass
         | Volume
@@ -90,7 +108,8 @@ declare namespace convert {
         | ReactiveEnergy
         | Angle;
 
-    type Measure = "length"
+    type Measure =
+        | "length"
         | "area"
         | "mass"
         | "volume"
@@ -113,7 +132,8 @@ declare namespace convert {
         | "reactiveEnergy"
         | "angle";
 
-    type System = "metric"
+    type System =
+        | "metric"
         | "imperial"
         | "bits"
         | "bytes";
@@ -122,10 +142,23 @@ declare namespace convert {
         constructor(numerator: number, denominator: number);
         from(from: Unit): this;
         to(to: Unit): number;
-        toBest(options?: { exclude?: Unit[] | undefined, cutOffNumber?: number | undefined }): { val: number, unit: string, singular: string, plural: string };
-        getUnit<T extends Unit>(abbr: T): { abbr: T, measure: Measure, system: System, unit: { name: { singular: string, plural: string }, to_anchor: number } };
-        describe<T extends Unit>(abbr: T): { abbr: T, measure: Measure, system: System, singular: string, plural: string };
-        list(measure?: Measure): Array<{ abbr: Unit, measure: Measure, system: System, singular: string, plural: string }>;
+        toBest(
+            options?: { exclude?: Unit[] | undefined; cutOffNumber?: number | undefined },
+        ): { val: number; unit: string; singular: string; plural: string };
+        getUnit<T extends Unit>(
+            abbr: T,
+        ): {
+            abbr: T;
+            measure: Measure;
+            system: System;
+            unit: { name: { singular: string; plural: string }; to_anchor: number };
+        };
+        describe<T extends Unit>(
+            abbr: T,
+        ): { abbr: T; measure: Measure; system: System; singular: string; plural: string };
+        list(
+            measure?: Measure,
+        ): Array<{ abbr: Unit; measure: Measure; system: System; singular: string; plural: string }>;
         private throwUnsupportedUnitError(what: string): void;
         possibilities(measure?: Measure): Unit[];
         measures(): Measure[];

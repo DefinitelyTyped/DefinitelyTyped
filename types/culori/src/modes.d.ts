@@ -1,38 +1,38 @@
-import { ConvertFn } from './converter.js';
-import { Color, FindColorByMode, Mode } from './common';
+import { Color, FindColorByMode, Mode } from "./common";
+import { ConvertFn } from "./converter.js";
 
-import modeA98 from './a98/definition';
-import modeCubehelix from './cubehelix/definition';
-import modeDlab from './dlab/definition';
-import modeDlch from './dlch/definition';
-import modeHsi from './hsi/definition';
-import modeHsl from './hsl/definition';
-import modeHsv from './hsv/definition';
-import modeHwb from './hwb/definition';
-import modeJab from './jab/definition';
-import modeJch from './jch/definition';
-import modeLab from './lab/definition';
-import modeLab65 from './lab65/definition';
-import modeLch from './lch/definition';
-import modeLch65 from './lch65/definition';
-import modeLchuv from './lchuv/definition';
-import modeLrgb from './lrgb/definition';
-import modeLuv from './luv/definition';
-import modeOkhsl from './okhsl/modeOkhsl';
-import modeOkhsv from './okhsv/modeOkhsv';
-import modeOklab from './oklab/definition';
-import modeOklch from './oklch/definition';
-import modeP3 from './p3/definition';
-import modeProphoto from './prophoto/definition';
-import modeRec2020 from './rec2020/definition';
-import modeRgb from './rgb/definition';
-import modeXyz50 from './xyz50/definition';
-import modeXyz65 from './xyz65/definition';
-import modeYiq from './yiq/definition';
+import modeA98 from "./a98/definition";
+import modeCubehelix from "./cubehelix/definition";
+import modeDlab from "./dlab/definition";
+import modeDlch from "./dlch/definition";
+import modeHsi from "./hsi/definition";
+import modeHsl from "./hsl/definition";
+import modeHsv from "./hsv/definition";
+import modeHwb from "./hwb/definition";
+import modeJab from "./jab/definition";
+import modeJch from "./jch/definition";
+import modeLab from "./lab/definition";
+import modeLab65 from "./lab65/definition";
+import modeLch from "./lch/definition";
+import modeLch65 from "./lch65/definition";
+import modeLchuv from "./lchuv/definition";
+import modeLrgb from "./lrgb/definition";
+import modeLuv from "./luv/definition";
+import modeOkhsl from "./okhsl/modeOkhsl";
+import modeOkhsv from "./okhsv/modeOkhsv";
+import modeOklab from "./oklab/definition";
+import modeOklch from "./oklch/definition";
+import modeP3 from "./p3/definition";
+import modeProphoto from "./prophoto/definition";
+import modeRec2020 from "./rec2020/definition";
+import modeRgb from "./rgb/definition";
+import modeXyz50 from "./xyz50/definition";
+import modeXyz65 from "./xyz65/definition";
+import modeYiq from "./yiq/definition";
 
 type Converters = {
     [K1 in Mode]: {
-        [K2 in Mode]: ((c: Omit<FindColorByMode<K1>, 'mode'>) => FindColorByMode<K2>) | undefined;
+        [K2 in Mode]: ((c: Omit<FindColorByMode<K1>, "mode">) => FindColorByMode<K2>) | undefined;
     };
 };
 
@@ -73,7 +73,7 @@ type Definition =
 
 type FindDefinitionByMode<M extends Mode, D extends Definition = Definition> = D extends { mode: M } ? D : never;
 
-declare function useMode<D extends Definition>(_definition: D): ConvertFn<D['mode']>;
+declare function useMode<D extends Definition>(_definition: D): ConvertFn<D["mode"]>;
 
 declare function getMode<M extends Mode>(mode: M): FindDefinitionByMode<M>;
 
@@ -83,4 +83,4 @@ declare function useParser(_parser: Parser): undefined;
 
 declare function removeParser(_parser: Parser): undefined;
 
-export { useMode, getMode, useParser, removeParser, converters, parsers, colorProfiles };
+export { colorProfiles, converters, getMode, parsers, removeParser, useMode, useParser };

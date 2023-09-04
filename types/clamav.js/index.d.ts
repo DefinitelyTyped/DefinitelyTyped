@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
-import { ReadStream } from 'fs';
-import { Stream } from 'stream';
+import { ReadStream } from "fs";
+import { Stream } from "stream";
 
 export interface ClamScanner {
     port: 3310 | number;
-    host: string | 'localhost';
+    host: string | "localhost";
     scan: (object: ReadStream | Stream | string, callback: (error: Error, object: any, result: string) => any) => void;
 }
 export function createScanner(port: number, host: string): ClamScanner;

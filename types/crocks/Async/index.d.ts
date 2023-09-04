@@ -1,2 +1,2 @@
-import Async from './Async';
+import Async from "./Async";
 export default Async;

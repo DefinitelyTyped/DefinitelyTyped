@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-export * from './src/core';
-export * from './src/babel';
-export * from './src/webpack';
+export * from "./src/babel";
+export * from "./src/core";
+export * from "./src/webpack";

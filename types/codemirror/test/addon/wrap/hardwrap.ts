@@ -1,5 +1,5 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/wrap/hardwrap';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/wrap/hardwrap";
 
 const editor = CodeMirror(document.body);
 const position = CodeMirror.Pos(12);
@@ -25,5 +25,5 @@ editor.wrapParagraphsInRange(position, position2, {
 });
 
 const myKeyMap: CodeMirror.KeyMap = {
-    test: CodeMirror.commands.wrapLines
+    test: CodeMirror.commands.wrapLines,
 };

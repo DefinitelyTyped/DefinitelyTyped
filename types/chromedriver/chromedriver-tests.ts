@@ -1,5 +1,5 @@
-import * as chromeDriver from 'chromedriver';
-import { ChildProcess } from 'child_process';
+import { ChildProcess } from "child_process";
+import * as chromeDriver from "chromedriver";
 
 const chromeDriverPath: string = chromeDriver.path;
 const chromeDriverVersion: string = chromeDriver.version;
@@ -7,21 +7,21 @@ const chromeDriverVersion: string = chromeDriver.version;
 chromeDriver.start();
 chromeDriver.stop();
 
-const driverProcess: ChildProcess = chromeDriver.start(['a', 'b', 'c']);
+const driverProcess: ChildProcess = chromeDriver.start(["a", "b", "c"]);
 const chromeDriverDefaultInstance: ChildProcess | undefined = chromeDriver.defaultInstance;
 
-const promise = chromeDriver.start(['a', 'b', 'c'], true);
+const promise = chromeDriver.start(["a", "b", "c"], true);
 
 promise
     .then(() => {
-        console.log('started chrome driver');
+        console.log("started chrome driver");
         chromeDriver.stop();
     })
     .catch(() => {
-        console.log('could not start the chrome driver');
+        console.log("could not start the chrome driver");
     });
 
-chromeDriver.start(['a', 'b', 'c'], false);
+chromeDriver.start(["a", "b", "c"], false);
 chromeDriver.stop();
 
 const promiseWithNoArgs = chromeDriver.start([], true);

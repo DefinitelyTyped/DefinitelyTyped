@@ -6,8 +6,7 @@
 type PrefixFunction = (level: string) => string;
 
 declare namespace consoleLogLevel {
-    type LogLevelNames =
-        "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+    type LogLevelNames = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
     type Logger = Record<LogLevelNames, (...args: any[]) => void>;
 }
 

@@ -45,16 +45,36 @@ export function checkNumberType(value: any, callback?: ErrorCallback<InvalidType
 export function checkNotNumberType(value: any, message?: string, callback?: ErrorCallback<InvalidTypeError>): void;
 export function checkNotNumberType(value: any, callback?: ErrorCallback<InvalidTypeError>): void;
 
-export function checkContains(value: any, object: any, message?: string, callback?: ErrorCallback<UnknownValueError>): void;
+export function checkContains(
+    value: any,
+    object: any,
+    message?: string,
+    callback?: ErrorCallback<UnknownValueError>,
+): void;
 export function checkContains(value: any, object: any, callback?: ErrorCallback<UnknownValueError>): void;
 
-export function checkDoesNotContain(value: any, object: any, message?: string, callback?: ErrorCallback<UnknownValueError>): void;
+export function checkDoesNotContain(
+    value: any,
+    object: any,
+    message?: string,
+    callback?: ErrorCallback<UnknownValueError>,
+): void;
 export function checkDoesNotContain(value: any, object: any, callback?: ErrorCallback<UnknownValueError>): void;
 
-export function checkEquals(actual: any, expected: any, message?: string, callback?: ErrorCallback<UnknownValueError>): void;
+export function checkEquals(
+    actual: any,
+    expected: any,
+    message?: string,
+    callback?: ErrorCallback<UnknownValueError>,
+): void;
 export function checkEquals(actual: any, expected: any, callback?: ErrorCallback<UnknownValueError>): void;
 
-export function checkDoesNotEqual(actual: any, expected: any, message?: string, callback?: ErrorCallback<UnknownValueError>): void;
+export function checkDoesNotEqual(
+    actual: any,
+    expected: any,
+    message?: string,
+    callback?: ErrorCallback<UnknownValueError>,
+): void;
 export function checkDoesNotEqual(actual: any, expected: any, callback?: ErrorCallback<UnknownValueError>): void;
 
 export function checkDefined(value: any, message?: string, callback?: ErrorCallback<UndefinedValueError>): void;

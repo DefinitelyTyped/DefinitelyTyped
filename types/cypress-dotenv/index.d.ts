@@ -3,7 +3,7 @@
 // Definitions by: Daiki Ojima <https://github.com/daikiojm>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { DotenvConfigOptions } from 'dotenv';
+import { DotenvConfigOptions } from "dotenv";
 
 // Cypress type
 interface CypressConfig {

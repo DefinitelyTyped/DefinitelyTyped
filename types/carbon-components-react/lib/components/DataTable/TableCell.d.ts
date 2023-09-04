@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableDataCellElement> { }
+export interface TableCellProps extends React.TdHTMLAttributes<HTMLTableDataCellElement> {}
 
 declare const TableCell: React.FC<TableCellProps>;
 

@@ -8,7 +8,7 @@ interface NativeKeyboard {
      * the onSubmit callback
      */
     showMessenger(
-        options: NativeKeyboardShowOptions
+        options: NativeKeyboardShowOptions,
     ): void;
 
     /**
@@ -19,7 +19,7 @@ interface NativeKeyboard {
     hideMessenger(
         options?: NativeKeyboardHideOptions,
         onSuccess?: () => void,
-        onError?: (err: any) => void
+        onError?: (err: any) => void,
     ): void;
 
     /**
@@ -46,7 +46,7 @@ interface NativeKeyboard {
     updateMessenger(
         options: NativeKeyboardUpdateOptions,
         onSuccess?: () => void,
-        onError?: (err: any) => void
+        onError?: (err: any) => void,
     ): void;
 }
 

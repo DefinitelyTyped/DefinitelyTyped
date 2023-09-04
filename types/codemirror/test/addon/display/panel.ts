@@ -1,12 +1,12 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/display/panel';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/display/panel";
 
 const cm: CodeMirror.Editor = CodeMirror(document.body);
 
 const panel1 = cm.addPanel(document.body);
 
 const panel2: CodeMirror.Panel = cm.addPanel(document.body, {
-    position: 'top',
+    position: "top",
     after: panel1,
     before: panel1,
     replace: panel1,

@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CleaveOptions } from './options';
+import { CleaveOptions } from "./options";
 
 interface Properties extends CleaveOptions {
     result: string;

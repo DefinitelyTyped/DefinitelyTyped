@@ -1,6 +1,6 @@
 import { DatePickerEvent } from "chenfengyuan__datepicker";
 
-$('[data-toggle="datepicker"]').datepicker();
+$("[data-toggle=\"datepicker\"]").datepicker();
 
 $().datepicker({
     autoShow: false,
@@ -19,35 +19,35 @@ $().datepicker({
 });
 
 $().datepicker({
-    container: '.my-container',
+    container: ".my-container",
 });
 
 $().datepicker({
-    container: document.querySelector('.my-container'),
+    container: document.querySelector(".my-container"),
 });
 
 $().datepicker({
-    container: $('.my-container'),
+    container: $(".my-container"),
 });
 
 $().datepicker({
-    trigger: '.my-container',
+    trigger: ".my-container",
 });
 
 $().datepicker({
-    trigger: document.querySelector('.my-container'),
+    trigger: document.querySelector(".my-container"),
 });
 
 $().datepicker({
-    trigger: $('.my-container'),
+    trigger: $(".my-container"),
 });
 
 $().datepicker({
-    language: 'en-GB',
+    language: "en-GB",
 });
 
 $().datepicker({
-    format: 'yyyy-mm-dd',
+    format: "yyyy-mm-dd",
 });
 
 $().datepicker({
@@ -55,7 +55,7 @@ $().datepicker({
 });
 
 $().datepicker({
-    date: '02/14/2014',
+    date: "02/14/2014",
 });
 
 $().datepicker({
@@ -63,7 +63,7 @@ $().datepicker({
 });
 
 $().datepicker({
-    startDate: '02/14/2014',
+    startDate: "02/14/2014",
 });
 
 $().datepicker({
@@ -71,7 +71,7 @@ $().datepicker({
 });
 
 $().datepicker({
-    endDate: '02/14/2014',
+    endDate: "02/14/2014",
 });
 
 $().datepicker({
@@ -95,60 +95,60 @@ $().datepicker({
 });
 
 $().datepicker({
-    yearSuffix: '年',
+    yearSuffix: "年",
 });
 
 $().datepicker({
-    days: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
 });
 
 $().datepicker({
-    daysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+    daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"],
 });
 
 $().datepicker({
-    daysMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
 });
 
 $().datepicker({
     months: [
-        'Jänner',
-        'Februar',
-        'März',
-        'April',
-        'Mai',
-        'Juni',
-        'Juli',
-        'August',
-        'September',
-        'Oktober',
-        'November',
-        'Dezember',
+        "Jänner",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni",
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Dezember",
     ],
 });
 
 $().datepicker({
-    monthsShort: ['Jän', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    monthsShort: ["Jän", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
 });
 
 $().datepicker({
-    template: '<div class="invalid-template">See documentation</div>',
+    template: "<div class=\"invalid-template\">See documentation</div>",
 });
 
 $().datepicker({
-    itemTag: 'span',
+    itemTag: "span",
 });
 
 $().datepicker({
-    pickedClass: 'chosen',
+    pickedClass: "chosen",
 });
 
 $().datepicker({
-    disabledClass: 'inactive',
+    disabledClass: "inactive",
 });
 
 $().datepicker({
-    highlightedClass: 'emphasized',
+    highlightedClass: "emphasized",
 });
 
 $().datepicker({
@@ -162,7 +162,7 @@ $().datepicker({
 const now = Date.now();
 $().datepicker({
     filter: (date, view) => {
-        if (date.getDay() === 0 && view === 'day') {
+        if (date.getDay() === 0 && view === "day") {
             return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
         }
     },
@@ -200,26 +200,26 @@ $().datepicker({
     },
 });
 
-$().datepicker('show');
+$().datepicker("show");
 
-$().datepicker('getMonthName'); // 'January'
-$().datepicker('getMonthName', true); // 'Jan'
-$().datepicker('getMonthName', 11); // 'December'
-$().datepicker('getMonthName', 11, true); // 'Dec'
+$().datepicker("getMonthName"); // 'January'
+$().datepicker("getMonthName", true); // 'Jan'
+$().datepicker("getMonthName", 11); // 'December'
+$().datepicker("getMonthName", 11, true); // 'Dec'
 
-$().datepicker('getDayName'); // 'Sunday'
-$().datepicker('getDayName', true); // 'Sun'
-$().datepicker('getDayName', true, true); // 'Su'
-$().datepicker('getDayName', 6); // 'Saturday'
-$().datepicker('getDayName', 6, true); // 'Sat'
-$().datepicker('getDayName', 6, true, true); // 'Sa'
+$().datepicker("getDayName"); // 'Sunday'
+$().datepicker("getDayName", true); // 'Sun'
+$().datepicker("getDayName", true, true); // 'Su'
+$().datepicker("getDayName", 6); // 'Saturday'
+$().datepicker("getDayName", 6, true); // 'Sat'
+$().datepicker("getDayName", 6, true, true); // 'Sa'
 
-$().datepicker('getDate'); // date object
-$().datepicker('getDate', true); // '02/14/2014'
+$().datepicker("getDate"); // date object
+$().datepicker("getDate", true); // '02/14/2014'
 
-$().datepicker('setDate', new Date(2014, 1, 14));
-$().datepicker('setDate', '02/14/2014');
+$().datepicker("setDate", new Date(2014, 1, 14));
+$().datepicker("setDate", "02/14/2014");
 
-$().datepicker('parseDate', '02/14/2014'); // date object
+$().datepicker("parseDate", "02/14/2014"); // date object
 
-$().datepicker('formatDate', new Date(2014, 1, 14)); // '02/14/2014'
+$().datepicker("formatDate", new Date(2014, 1, 14)); // '02/14/2014'

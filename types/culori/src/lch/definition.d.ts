@@ -1,28 +1,28 @@
-import convertLabToLch from './convertLabToLch';
-import convertLchToLab from './convertLchToLab';
-import parseLch from './parseLch';
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueChroma } from '../difference';
-import { averageAngle } from '../average';
-import { Lch } from './types';
-import { Rgb } from '../rgb/types';
+import { averageAngle } from "../average";
+import { differenceHueChroma } from "../difference";
+import { fixupAlpha } from "../fixup/alpha";
+import { fixupHueShorter } from "../fixup/hue";
+import { interpolatorLinear } from "../interpolate/linear";
+import { Rgb } from "../rgb/types";
+import convertLabToLch from "./convertLabToLch";
+import convertLchToLab from "./convertLchToLab";
+import parseLch from "./parseLch";
+import { Lch } from "./types";
 
 declare const definition: {
-    mode: 'lch';
+    mode: "lch";
 
     toMode: {
         lab: typeof convertLchToLab;
-        rgb: (c: Omit<Lch, 'mode'>) => Rgb;
+        rgb: (c: Omit<Lch, "mode">) => Rgb;
     };
 
     fromMode: {
-        rgb: (c: Omit<Rgb, 'mode'>) => Lch;
+        rgb: (c: Omit<Rgb, "mode">) => Lch;
         lab: typeof convertLabToLch;
     };
 
-    channels: ['l', 'c', 'h', 'alpha'];
+    channels: ["l", "c", "h", "alpha"];
 
     ranges: {
         l: [0, 100];
@@ -31,7 +31,7 @@ declare const definition: {
     };
 
     parse: [typeof parseLch];
-    serialize: (c: Omit<Lch, 'mode'>) => string;
+    serialize: (c: Omit<Lch, "mode">) => string;
 
     interpolate: {
         h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };

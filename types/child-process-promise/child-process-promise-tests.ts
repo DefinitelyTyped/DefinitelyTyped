@@ -1,8 +1,6 @@
 import * as cpp from "child-process-promise";
 
-import {
-    ChildProcess
-} from 'child_process';
+import { ChildProcess } from "child_process";
 
 const a = cpp.exec("echo \"Hello world!\"");
 a.childProcess; // $ExpectType ChildProcess

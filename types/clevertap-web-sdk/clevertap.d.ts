@@ -1,4 +1,4 @@
-type Region = 'sg1' | 'in1' | 'us1' | 'aps3' | 'mec1';
+type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1";
 
 interface PrivacyData {
     optOut?: boolean;
@@ -23,10 +23,10 @@ interface EventHandler extends Array<any> {
 interface SiteData {
     Name?: string;
     Identity?: string | number;
-    Gender?: 'M' | 'F';
-    Employed?: 'Y' | 'N';
-    Married?: 'Y' | 'N';
-    Education?: 'School' | 'College' | 'Graduate';
+    Gender?: "M" | "F";
+    Employed?: "Y" | "N";
+    Married?: "Y" | "N";
+    Education?: "School" | "College" | "Graduate";
     Age?: string | number;
     DOB?: string | number | Date;
     Phone?: string | number;
@@ -35,7 +35,7 @@ interface SiteData {
 interface ProfileData {
     Site?: SiteData;
     Facebook?: object;
-    'Google Plus'?: object;
+    "Google Plus"?: object;
 }
 interface ProfileHandler extends Array<any> {
     push(...profileData: ProfileData[]): 0;

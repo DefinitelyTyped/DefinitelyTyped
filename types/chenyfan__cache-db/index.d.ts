@@ -28,7 +28,7 @@ declare class CacheDB {
     write(
         key: string | number | boolean,
         value: CacheDB.WriteValue,
-        config?: CacheDB.Config
+        config?: CacheDB.Config,
     ): Promise<boolean>;
     delete(key: string): Promise<boolean>;
 }

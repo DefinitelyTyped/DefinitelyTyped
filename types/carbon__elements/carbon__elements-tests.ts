@@ -1,34 +1,34 @@
 import {
-    expressiveParagraph01,
-    white,
-    g10,
-    g90,
-    g100,
-    rgba,
-    caption01,
-    breakpointUp,
     breakpoint,
-    miniUnit,
-    motion,
-    fontFamily,
-    slow01,
-    spacing13,
+    breakpointUp,
+    caption01,
     caption02,
+    colors,
+    expressiveParagraph01,
+    fontFamily,
+    g10,
+    g100,
+    g90,
     helperText02,
     label02,
+    miniUnit,
+    motion,
+    rgba,
+    slow01,
+    spacing13,
     toggleOff,
-    colors,
-} from '@carbon/elements';
+    white,
+} from "@carbon/elements";
 
 g10;
 g10.backgroundActive;
-rgba('#ff0', 0.6);
+rgba("#ff0", 0.6);
 caption01.fontWeight;
-breakpointUp('lg');
+breakpointUp("lg");
 breakpoint();
 miniUnit;
-motion('standard', 'productive');
-fontFamily('mono')?.fontFamily;
+motion("standard", "productive");
+fontFamily("mono")?.fontFamily;
 expressiveParagraph01.breakpoints.max;
 slow01;
 g90.linkPrimary;
@@ -41,4 +41,4 @@ caption02;
 helperText02;
 label02;
 toggleOff;
-colors.magenta['10'];
+colors.magenta["10"];

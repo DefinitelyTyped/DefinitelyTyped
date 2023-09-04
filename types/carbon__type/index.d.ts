@@ -694,13 +694,13 @@ export const styles: {
 };
 
 export function fontFamily(
-    name: string
+    name: string,
 ): {
     fontFamily: string;
 };
 
 export function fontWeight(
-    weight: string
+    weight: string,
 ): {
     fontWeight: number;
 };

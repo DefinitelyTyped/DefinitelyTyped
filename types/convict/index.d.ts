@@ -15,7 +15,7 @@ declare namespace convict {
     // Taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
     type Overwrite<T, U> = { [P in Exclude<keyof T, keyof U>]: T[P] } & U;
 
-    type ValidationMethod = 'strict' | 'warn';
+    type ValidationMethod = "strict" | "warn";
 
     interface ValidateOptions {
         /**
@@ -48,17 +48,17 @@ declare namespace convict {
     }
 
     type PredefinedFormat =
-        | '*'
-        | 'int'
-        | 'port'
-        | 'windows_named_pipe'
-        | 'port_or_windows_named_pipe'
-        | 'url'
-        | 'email'
-        | 'ipaddress'
-        | 'duration'
-        | 'timestamp'
-        | 'nat'
+        | "*"
+        | "int"
+        | "port"
+        | "windows_named_pipe"
+        | "port_or_windows_named_pipe"
+        | "url"
+        | "email"
+        | "ipaddress"
+        | "duration"
+        | "timestamp"
+        | "nat"
         | String
         | Object
         | Number
@@ -110,22 +110,18 @@ declare namespace convict {
     // Taken from https://twitter.com/diegohaz/status/1309489079378219009
     type PathImpl<T, K extends keyof T> = K extends string
         ? T[K] extends Record<string, any>
-            ? T[K] extends ArrayLike<any>
-                ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
-                : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
-            : K
+            ? T[K] extends ArrayLike<any> ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
+            : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
+        : K
         : never;
 
     type Path<T> = PathImpl<T, keyof T> | keyof T;
 
     type PathValue<T, P extends Path<T>> = P extends `${infer K}.${infer Rest}`
-        ? K extends keyof T
-            ? Rest extends Path<T[K]>
-                ? PathValue<T[K], Rest>
-                : never
+        ? K extends keyof T ? Rest extends Path<T[K]> ? PathValue<T[K], Rest>
             : never
-        : P extends keyof T
-        ? T[P]
+        : never
+        : P extends keyof T ? T[P]
         : never;
 
     interface Config<T> {

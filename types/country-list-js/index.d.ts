@@ -45,14 +45,14 @@ export interface Cache {
 }
 
 export type CountryRecordMember =
-    | 'name'
-    | 'region'
-    | 'capital'
-    | 'continent'
-    | 'dialing_code'
-    | 'code'
-    | 'currency'
-    | 'provinces';
+    | "name"
+    | "region"
+    | "capital"
+    | "continent"
+    | "dialing_code"
+    | "code"
+    | "currency"
+    | "provinces";
 
 export function names(): string[];
 

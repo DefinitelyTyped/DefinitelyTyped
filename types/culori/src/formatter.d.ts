@@ -1,12 +1,12 @@
-import { Color } from './common';
-import { Rgb } from './rgb/types';
-import { Hsl } from './hsl/types';
+import { Color } from "./common";
+import { Hsl } from "./hsl/types";
+import { Rgb } from "./rgb/types";
 
 export function serializeHex(color: undefined): undefined;
-export function serializeHex(color: Omit<Rgb, 'alpha'>): string;
+export function serializeHex(color: Omit<Rgb, "alpha">): string;
 
 export function serializeHex8(color: undefined): undefined;
-export function serializeHex8(color: Omit<Rgb, 'mode'>): string;
+export function serializeHex8(color: Omit<Rgb, "mode">): string;
 
 export function serializeRgb(color: undefined): undefined;
 export function serializeRgb(color: Partial<Rgb>): string | undefined;

@@ -1,11 +1,11 @@
-import React = require('react');
-import enzyme = require('enzyme');
-import configureExtensions = require('@commercetools/enzyme-extensions');
+import React = require("react");
+import enzyme = require("enzyme");
+import configureExtensions = require("@commercetools/enzyme-extensions");
 
 configureExtensions(enzyme.ShallowWrapper);
 
 function App() {
-    return <Child cb={() => 'Hello world'} />;
+    return <Child cb={() => "Hello world"} />;
 }
 
 interface ChildProps {
