@@ -77,7 +77,7 @@ declare namespace MediaPlaceholder {
          */
         onError?(message: string): void;
         onSelectURL?(src: string): void;
-        multiple?: T | undefined;
+        multiple?: T | string | undefined;
         value?: T extends true ? number[] : number | undefined | undefined | undefined | undefined;
         onSelect(
             value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
