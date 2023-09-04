@@ -82,6 +82,8 @@ export interface Venmo {
     teardown(): Promise<void>;
 }
 
+export Type VenmoPaymentUsage = 'single_use' | 'multi_use';
+
 /**
  * braintree.venmo.create({
  *   client: clientInstance
@@ -98,10 +100,10 @@ export function create(options: {
     ignoreHistoryChanges?: boolean | undefined;
     profileId?: string | undefined;
     deepLinkReturnUrl?: string | undefined;
-    allowDesktopWebLogin?: boolean | undefined;
-    allowDesktop?: boolean | undefined;
-    mobileWebFallBack?: boolean | undefined;
-    paymentMethodUsage?: string | undefined;
+    allowDesktopWebLogin?: boolean;
+    allowDesktop?: boolean;
+    mobileWebFallBack?: boolean;
+    paymentMethodUsage?: VenmoPaymentUsage;
 }): Promise<Venmo>;
 
 export function create(
@@ -112,10 +114,10 @@ export function create(
         ignoreHistoryChanges?: boolean | undefined;
         profileId?: string | undefined;
         deepLinkReturnUrl?: string | undefined;
-        allowDesktopWebLogin?: boolean | undefined;
-        allowDesktop?: boolean | undefined;
-        mobileWebFallBack?: boolean | undefined;
-        paymentMethodUsage?: string | undefined;
+        allowDesktopWebLogin?: boolean;
+        allowDesktop?: boolean;
+        mobileWebFallBack?: boolean;
+        paymentMethodUsage?: VenmoPaymentUsage;
     },
     callback?: callback<Venmo>,
 ): void;
