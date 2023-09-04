@@ -1,8 +1,8 @@
-import * as breaks from './cast.framework.breaks';
-import * as events from './cast.framework.events';
-import * as messages from './cast.framework.messages';
-import * as system from './cast.framework.system';
-import * as ui from './cast.framework.ui';
+import * as breaks from "./cast.framework.breaks";
+import * as events from "./cast.framework.events";
+import * as messages from "./cast.framework.messages";
+import * as system from "./cast.framework.system";
+import * as ui from "./cast.framework.ui";
 
 export import breaks = breaks;
 export import events = events;
@@ -25,12 +25,12 @@ export enum LoggerLevel {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
 export enum ContentProtection {
-    NONE = 'none',
-    CLEARKEY = 'clearkey',
-    PLAYREADY = 'playready',
-    WIDEVINE = 'widevine',
-    AES_128 = 'aes_128',
-    AES_128_CKP = 'aes_128_ckp',
+    NONE = "none",
+    CLEARKEY = "clearkey",
+    PLAYREADY = "playready",
+    WIDEVINE = "widevine",
+    AES_128 = "aes_128",
+    AES_128_CKP = "aes_128_ckp",
 }
 
 /**
@@ -556,7 +556,7 @@ export class PlayerManager {
             | events.EventType.TIMED_METADATA_CHANGED
             | events.EventType.TIMED_METADATA_ENTER
             | events.EventType.TIMED_METADATA_EXIT,
-        eventListener: TimedMetadataEventHandler
+        eventListener: TimedMetadataEventHandler,
     ): void;
 
     /**
@@ -1059,7 +1059,7 @@ export class CastReceiverOptions {
      * force the use of a version other than what you specify here. This flag should be used only as a temporary measure,
      * and under guidance from the Cast support team. (https://developers.google.com/cast/support) Use at your own risk.
      */
-    shakaVersion?: string |undefined;
+    shakaVersion?: string | undefined;
 
     /**
      * Indicate the receiver should not load the MPL player.
@@ -1105,7 +1105,7 @@ export class CastReceiverOptions {
     /**
      * If true, use Shaka Player for HLS content. Defaults to false.
      */
-    useShakaForHls?: boolean |undefined;
+    useShakaForHls?: boolean | undefined;
 
     /**
      * An integer used as an internal version number to represent your receiver version.

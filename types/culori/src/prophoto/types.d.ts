@@ -1,5 +1,5 @@
 export interface Prophoto {
-    mode: 'prophoto';
+    mode: "prophoto";
     r: number;
     g: number;
     b: number;

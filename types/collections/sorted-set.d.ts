@@ -14,7 +14,7 @@ declare namespace internal {
             compare?: (a: T, b: T) => number,
             getDefault?: any,
         ): SortedSet<T>;
-        new <T>(
+        new<T>(
             values?: T[],
             equals?: (a: T, b: T) => boolean,
             compare?: (a: T, b: T) => number,

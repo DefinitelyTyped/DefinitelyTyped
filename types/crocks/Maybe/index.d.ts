@@ -1,2 +1,2 @@
-import Maybe from './Maybe';
+import Maybe from "./Maybe";
 export default Maybe;

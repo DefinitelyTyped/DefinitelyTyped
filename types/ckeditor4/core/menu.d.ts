@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        menu: { new (): menu };
+        menu: { new(): menu };
     }
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_menu.html */
     interface menu {

@@ -1,23 +1,23 @@
-import * as React from 'react';
-import cxsComponent = require('cxs/component');
-import cxs = require('cxs');
+import * as React from "react";
+import cxsComponent = require("cxs/component");
+import cxs = require("cxs");
 
 /**
  * Standard calls to cxs to generate classNames
  */
 cxs({
-    color: 'red',
-    ':hover': {
-        color: 'green',
+    color: "red",
+    ":hover": {
+        color: "green",
     },
 });
 
-cxsComponent('div')({
+cxsComponent("div")({
     fontSize: 24,
 });
 
 /** React component composition */
-const ComponentA = () => React.createElement('div');
+const ComponentA = () => React.createElement("div");
 
 cxsComponent(ComponentA)({
     fontSize: 72,
@@ -28,8 +28,8 @@ interface Props {
     isActive: boolean;
 }
 
-const ComponentB = (props: Props) => React.createElement('div');
+const ComponentB = (props: Props) => React.createElement("div");
 
 cxsComponent(ComponentB)((props: Props) => ({
-    color: props.isActive ? 'blue' : 'purple',
+    color: props.isActive ? "blue" : "purple",
 }));

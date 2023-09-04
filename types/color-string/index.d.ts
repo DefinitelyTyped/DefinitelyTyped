@@ -8,7 +8,7 @@
 export type Color = [number, number, number, number];
 
 export interface ColorDescriptor {
-    model: 'rgb' | 'hsl' | 'hwb';
+    model: "rgb" | "hsl" | "hwb";
     value: Color;
 }
 
