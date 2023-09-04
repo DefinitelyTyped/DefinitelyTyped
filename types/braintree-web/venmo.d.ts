@@ -86,7 +86,7 @@ export interface Venmo {
  * Venmo Payment Method Usage
  * multi_use: Request authorization for future payments (vaulting allowed)
  * single_use: Request authorization for a one-time payment (vaulting not allowed)
-*/
+ */
 export type VenmoPaymentMethodUsage = 'single_use' | 'multi_use';
 
 /**
