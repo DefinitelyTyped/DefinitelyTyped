@@ -1,7 +1,7 @@
 import { assert, expect, use, should } from 'chai';
 import ChaiArrays = require('chai-arrays');
 
-//use(ChaiArrays);
+use(ChaiArrays);
 should();
 
 const arr: any[] = [1, 2, 3];
@@ -97,7 +97,7 @@ const strArr = ['a', 'b', 'c'];
 const strArrNot = ['a', 'z', 'c'];
 const compareFn = (a: string, b: string) => a.localeCompare(b);
 
-strArr.should.be.sorted<string>(compareFn);
+strArr.should.be.sorted(compareFn);
 strArrNot.should.not.be.sorted(compareFn);
 
 expect(strArr).to.be.sorted(compareFn);
