@@ -1,4 +1,4 @@
-import animals from 'animals';
+import animals = require('animals');
 
 
 
