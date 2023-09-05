@@ -2,6 +2,8 @@ import {
     AuthToken,
     AuthClientTwoLegged,
     AuthClientThreeLegged,
+    AuthClientTwoLeggedV2,
+    AuthClientThreeLeggedV2,
     BucketsApi,
     DerivativesApi,
     FoldersApi,
@@ -39,6 +41,27 @@ authClientThreeLegged.generateAuthUrl('');
 authClientThreeLegged.getToken('');
 // $ExpectType Promise<AuthToken>
 authClientThreeLegged.refreshToken(authToken);
+
+
+// $ExpectType AuthClientTwoLeggedV2
+const authClientTwoLeggedV2 = new AuthClientTwoLeggedV2('', '', [], true);
+// $ExpectType Promise<AuthToken>
+authClientTwoLeggedV2.authenticate();
+// $ExpectType AuthToken
+authClientTwoLeggedV2.getCredentials();
+// $ExpectType void
+authClientTwoLeggedV2.setCredentials(authToken);
+// $ExpectType boolean
+authClientTwoLeggedV2.isAuthorized();
+
+// $ExpectType AuthClientThreeLeggedV2
+const authClientThreeLeggedV2 = new AuthClientThreeLeggedV2('', '', '', [], true);
+// $ExpectType string
+authClientThreeLeggedV2.generateAuthUrl('');
+// $ExpectType Promise<AuthToken>
+authClientThreeLeggedV2.getToken('');
+// $ExpectType Promise<AuthToken>
+authClientThreeLeggedV2.refreshToken(authToken);
 
 // $ExpectType BucketsApi
 const bucketsApi = new BucketsApi();
