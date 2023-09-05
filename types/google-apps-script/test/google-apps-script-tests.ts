@@ -489,18 +489,35 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         const formattedTime = Utilities.formatDate(now, timeZone.id, 'hh:mm a');
 
         Object.keys(formInputs).forEach(id => {
-            const { dateInput, dateTimeInput, stringInputs, timeInput } = formInputs[id][''];
+            const {
+                // V8
+                dateInput,
+                dateTimeInput,
+                stringInputs,
+                timeInput,
+                // Rhino
+                '': {
+                    dateInput: dateInputRhino,
+                    dateTimeInput: dateTimeInputRhino, 
+                    stringInputs: stringInputsRhino,
+                    timeInput: timeInputRhino
+                }
+            } = formInputs[id];
 
-            if (dateInput || dateTimeInput) {
-                parameters.modifiedAt = dateInput.msSinceEpoch;
+            if (dateInput || dateInputRhino) {
+                parameters.modifiedAt = dateInput?.msSinceEpoch || dateInputRhino?.msSinceEpoch;
             }
 
-            if (stringInputs) {
-                parameters.emails = JSON.stringify(stringInputs.value);
+            if (dateTimeInput || dateTimeInputRhino) {
+                parameters.modifiedAt = dateTimeInput?.msSinceEpoch || dateTimeInputRhino?.msSinceEpoch;
             }
 
-            if (timeInput) {
-                const { hours, minutes } = timeInput;
+            if (stringInputs || stringInputsRhino) {
+                parameters.emails = JSON.stringify(stringInputs?.value || stringInputsRhino?.value);
+            }
+
+            if (timeInput || timeInputRhino) {
+                const { hours, minutes } = timeInput || timeInputRhino;
                 parameters.startsAt = `${hours}:${minutes}`;
             }
         });
