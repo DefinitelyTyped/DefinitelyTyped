@@ -7,6 +7,8 @@
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 //                 Ankur Agarwal <https://github.com/ankur22>
+//                 İnanç Gümüş <https://github.com/inancgumus>
+//                 Daniel Jiménez <https://github.com/ka3de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 

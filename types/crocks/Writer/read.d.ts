@@ -1,4 +1,4 @@
-import Writer from './Writer';
+import Writer from "./Writer";
 
 declare function read(val: Writer): any;
 

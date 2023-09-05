@@ -1,5 +1,3 @@
-
-
 var traceLevel: number = OuralabsPlugin.LogLevel.TRACE;
 var debugLevel: number = OuralabsPlugin.LogLevel.DEBUG;
 var infoLevel: number = OuralabsPlugin.LogLevel.INFO;

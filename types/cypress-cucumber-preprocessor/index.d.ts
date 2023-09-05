@@ -22,8 +22,8 @@ export interface TableDefinition {
     rows(): string[][];
 
     /** Returns an object where each row corresponds to an entry (first column is the key, second column is the value). */
-    rowsHash(): { [firstCol: string]: string; };
+    rowsHash(): { [firstCol: string]: string };
 
     /** Returns an array of objects where each row is converted to an object (column header is the key). */
-    hashes(): Array<{ [colName: string]: string; }>;
+    hashes(): Array<{ [colName: string]: string }>;
 }

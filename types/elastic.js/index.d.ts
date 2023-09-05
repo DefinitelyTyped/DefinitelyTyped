@@ -7,7 +7,7 @@ export = elasticjs;
 
 export as namespace elasticjs;
 
-declare module elasticjs {
+declare namespace elasticjs {
 
   export interface Facet {}
   export interface Geo {}

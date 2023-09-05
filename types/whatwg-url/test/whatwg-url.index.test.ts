@@ -113,7 +113,6 @@ searchParams.forEach((value, name, self) => {
     self; // $ExpectType URLSearchParams
 });
 
-// tslint:disable-next-line: space-before-function-paren
 searchParams.forEach(function (value, name, self) {
     this; // $ExpectType null
     value; // $ExpectType string

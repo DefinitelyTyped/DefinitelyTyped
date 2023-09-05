@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "strict-export-declare-modifiers": false,

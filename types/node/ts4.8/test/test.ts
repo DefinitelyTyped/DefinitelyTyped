@@ -289,7 +289,7 @@ it.only('only shorthand', {
     timeout: Infinity,
 });
 
-// Test callback mode
+// Test with suite context
 describe(s => {
     // $ExpectType SuiteContext
     s;
@@ -320,31 +320,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before(cb => {
+before((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-beforeEach(cb => {
+beforeEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-after(cb => {
+after((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-afterEach(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
-});
-beforeEach(cb => {
+afterEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void

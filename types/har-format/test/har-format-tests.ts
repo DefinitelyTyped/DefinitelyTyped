@@ -122,8 +122,23 @@ const testEntry: harFormat.Entry = {
     connection: '26487',
     pageref: 'page_1',
     _gzip_total: null,
+    _resourceType: 'websocket',
     _server_rtt: null,
     _chunks: [{ ts: 1, bytes: 4 }],
+    _webSocketMessages: [
+        {
+            type: 'send',
+            time: 12.34,
+            opcode: 1,
+            data: 'Ping!',
+        },
+        {
+            type: 'receive',
+            time: 56.78,
+            opcode: 1,
+            data: 'Pong!',
+        },
+    ],
     // TS >= v4.4 only
     _iAmSomeCustomField: 'some value',
 };

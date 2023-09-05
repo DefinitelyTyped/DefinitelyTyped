@@ -256,7 +256,6 @@ declare module 'node:test' {
     type TestFn = (t: TestContext, done: (result?: any) => void) => void | Promise<void>;
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
     interface TestShard {
@@ -649,7 +648,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
     /**
      * Configuration options for hooks.
      * @since v18.8.0

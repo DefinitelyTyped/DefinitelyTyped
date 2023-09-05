@@ -37,6 +37,6 @@ export interface MutationConfig<TOperation extends MutationParameters> {
  */
 export function commitMutation<TOperation extends MutationParameters = MutationParameters>(
     environment: Environment,
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     config: MutationConfig<TOperation>,
 ): Disposable;

@@ -11,8 +11,8 @@ function test_application() {
             defaultWidth: 800,
             defaultTop: 300,
             defaultLeft: 300,
-            autoShow: true
-        }
+            autoShow: true,
+        },
     }, (successObj) => {
         console.log("Application successfully created, HTTP response code:", successObj);
         application.run();
@@ -78,8 +78,15 @@ function test_application() {
     });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
-        console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
-                    info.monitorInfo.reason);
+        console.log(
+            info.x,
+            info.y,
+            info.bounds.left,
+            info.bounds.top,
+            info.bounds.height,
+            info.bounds.width,
+            info.monitorInfo.reason,
+        );
     });
     // getZoomLevel
     application.getZoomLevel(level => {
@@ -139,7 +146,7 @@ function test_application() {
     application.setShortcuts({
         desktop: true,
         startMenu: false,
-        systemStartup: true
+        systemStartup: true,
     }, () => {
         console.log("Successfully set new shortcut states");
     }, error => {
@@ -169,19 +176,19 @@ function test_application() {
 function test_external_application() {
     let externalApp: fin.OpenFinExternalApplication;
     // wrap
-    externalApp = fin.desktop.ExternalApp.wrap('my-uuid');
+    externalApp = fin.desktop.ExternalApp.wrap("my-uuid");
     // addEventListener
-    externalApp.addEventListener('connected', () => {
-        console.log('external app connected');
+    externalApp.addEventListener("connected", () => {
+        console.log("external app connected");
     }, () => {
-        console.log('The registration was successful');
+        console.log("The registration was successful");
     }, (reason, err) => {
         console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
     });
     // removeEventListener
-    const previousCallback = () => { };
-    externalApp.removeEventListener('connected', previousCallback, () => {
-        console.log('The unregistration was successful');
+    const previousCallback = () => {};
+    externalApp.removeEventListener("connected", previousCallback, () => {
+        console.log("The unregistration was successful");
     }, (reason, err) => {
         console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
     });
@@ -194,46 +201,46 @@ function test_external_application() {
 
 function test_global_hot_key() {
     // addEventListener
-    fin.desktop.GlobalHotkey.addEventListener('registered', (event) => {
+    fin.desktop.GlobalHotkey.addEventListener("registered", (event) => {
         console.log(` window ${event.identity.name} has registered ${event.hotkey}`, event);
     }, () => {
-        console.log('The registration was successful');
+        console.log("The registration was successful");
     }, (reason, err) => {
         console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
     });
     // isRegister
-    const hotkey = 'CommandOrControl+X';
+    const hotkey = "CommandOrControl+X";
     fin.desktop.GlobalHotkey.isRegistered(hotkey, registered => {
         console.log(`hotkey ${hotkey} is registered ? ${registered}`);
     }, (reason, err) => {
-        console.log('Error unregistering the hotkey', err);
+        console.log("Error unregistering the hotkey", err);
     });
     // register
     fin.desktop.GlobalHotkey.register(hotkey, () => {
         console.log(`${hotkey} pressed`);
     }, () => {
-        console.log('Success');
+        console.log("Success");
     }, (reason, err) => {
-        console.log('Error registering the hotkey', err);
+        console.log("Error registering the hotkey", err);
     });
     // removeEventListener
-    const previousCallback = () => { };
-    fin.desktop.GlobalHotkey.removeEventListener('registered', previousCallback, () => {
-        console.log('The unregistration was successful');
+    const previousCallback = () => {};
+    fin.desktop.GlobalHotkey.removeEventListener("registered", previousCallback, () => {
+        console.log("The unregistration was successful");
     }, (reason, err) => {
         console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
     });
     // unregister
     fin.desktop.GlobalHotkey.unregister(hotkey, () => {
-        console.log('Success');
+        console.log("Success");
     }, (reason, err) => {
-        console.log('Error unregistering the hotkey', err);
+        console.log("Error unregistering the hotkey", err);
     });
     // unregisterAll
     fin.desktop.GlobalHotkey.unregisterAll(() => {
-        console.log('Success');
+        console.log("Success");
     }, (reason, err) => {
-        console.log('Error unregistering all hotkeys for this application', err);
+        console.log("Error unregistering all hotkeys for this application", err);
     });
 }
 
@@ -247,19 +254,19 @@ function test_inter_application_bus() {
         console.log(`The application ${uuid} has unsubscribed to ${topic}`);
     });
     // removeSubscribeListener
-    const aRegisteredListener = (uuid: string, topic: string, name: string) => { };
+    const aRegisteredListener = (uuid: string, topic: string, name: string) => {};
     fin.desktop.InterApplicationBus.removeSubscribeListener(aRegisteredListener);
     // removeUnsubscribeListener
     fin.desktop.InterApplicationBus.removeUnsubscribeListener(aRegisteredListener);
     // publish
     fin.desktop.InterApplicationBus.publish("a topic", {
         field1: "value1",
-        field2: "value2"
+        field2: "value2",
     });
     // send
     fin.desktop.InterApplicationBus.send("an application's uuid", "a topic", {
         field1: "value1",
-        field2: "value2"
+        field2: "value2",
     });
     // subscribe
     fin.desktop.InterApplicationBus.subscribe("*", "a topic", (message, uuid, name) => {
@@ -283,12 +290,12 @@ function test_notification() {
         timeout: 10,
         url: "http://localhost:5000/Account/Register",
         message: "Hello",
-        onShow: () => { },
+        onShow: () => {},
         // onClose: () => { },
-        onDismiss: () => { },
+        onDismiss: () => {},
         // onClick: () => { },
-        onMessage: () => { },
-        onError: () => { }
+        onMessage: () => {},
+        onError: () => {},
     });
     // sendMessageToApplication
     notification.sendMessageToApplication("some message");
@@ -296,7 +303,7 @@ function test_notification() {
 
 function test_system() {
     // addEventListener
-    fin.desktop.System.addEventListener('monitor-info-changed', event => {
+    fin.desktop.System.addEventListener("monitor-info-changed", event => {
         console.log("The monitor information has changed to: ", event);
     }, () => {
         console.log("The registration was successful");
@@ -308,7 +315,7 @@ function test_system() {
         cache: true,
         cookies: true,
         localStorage: true,
-        appcache: true
+        appcache: true,
     });
     // deleteCacheOnExit
     fin.desktop.System.deleteCacheOnExit(() => {
@@ -318,11 +325,11 @@ function test_system() {
     });
     // downloadAsset
     const dirAppAsset = {
-        src: 'http://local:8000/dir.zip',
-        alias: 'dirApp',
-        version: '1.23.24',
-        target: 'dir.bat',
-        args: ''
+        src: "http://local:8000/dir.zip",
+        alias: "dirApp",
+        version: "1.23.24",
+        target: "dir.bat",
+        args: "",
     };
     fin.desktop.System.downloadAsset(dirAppAsset, progress => {
         const downloadedPercent = Math.floor((progress.downloadedBytes / progress.totalBytes) * 100);
@@ -335,12 +342,17 @@ function test_system() {
         console.log(reason, err);
     });
     // downloadRuntime
-    fin.desktop.System.downloadRuntime({ version: '9.61.31.56' }, progress => {
-        console.log(progress.downloadedBytes, progress.downloadedBytes);
-    }, () => console.log('download complete'), err => console.error(err));
+    fin.desktop.System.downloadRuntime(
+        { version: "9.61.31.56" },
+        progress => {
+            console.log(progress.downloadedBytes, progress.downloadedBytes);
+        },
+        () => console.log("download complete"),
+        err => console.error(err),
+    );
     // downloadPreloadScript
     const preloadScripts = [
-        { url: 'http://whatever.com/script.js' }
+        { url: "http://whatever.com/script.js" },
     ];
     fin.desktop.System.downloadPreloadScripts(preloadScripts, info => {
         const downloadInfo = info[0];
@@ -356,15 +368,17 @@ function test_system() {
     });
     // flushCookieStore
     fin.desktop.System.flushCookieStore(() => {
-        console.log('successful');
+        console.log("successful");
     }, err => {
-        console.log('failure', err);
+        console.log("failure", err);
     });
     // getAllApplications
     fin.desktop.System.getAllApplications(applicationInfoList => {
         applicationInfoList.forEach(applicationInfo => {
-            console.log("Showing information for application with uuid: "
-                + applicationInfo.uuid);
+            console.log(
+                "Showing information for application with uuid: "
+                    + applicationInfo.uuid,
+            );
             console.log("isRunning: ", applicationInfo.isRunning);
         });
     });
@@ -383,7 +397,7 @@ function test_system() {
         });
     });
     // getAppAssetInfo
-    fin.desktop.System.getAppAssetInfo({ alias: 'myAppAsset' }, info => {
+    fin.desktop.System.getAppAssetInfo({ alias: "myAppAsset" }, info => {
         console.log(info.alias, info.args, info.mandatory, info.src, info.target, info.version);
     }, err => console.log(err));
     // getCommandLineArguments
@@ -391,7 +405,7 @@ function test_system() {
         console.log("The command line arguments are " + args);
     });
     // getCookieInfo
-    fin.desktop.System.getCookies({ name: 'myCookie1'}, cookies => {
+    fin.desktop.System.getCookies({ name: "myCookie1" }, cookies => {
         const cookie1 = cookies[0];
         console.log(cookie1.name, cookie1.domain, cookie1.path);
     }, err => console.log(err));
@@ -404,7 +418,7 @@ function test_system() {
     // getDeviceUserId
     fin.desktop.System.getDeviceUserId(id => console.log(id), err => console.error(err));
     // getEntityInfo
-    fin.desktop.System.getEntityInfo('uuid', 'name', info => {
+    fin.desktop.System.getEntityInfo("uuid", "name", info => {
         console.log(info.entityType, info.name, info.uuid, info.parent.name, info.parent.uuid);
     }, err => console.log(err));
     // getEnvironmentVariable
@@ -419,18 +433,20 @@ function test_system() {
     fin.desktop.System.getHostSpecs(info => {
         console.log(info);
     }, error => {
-        console.log('There was an error:', error);
+        console.log("There was an error:", error);
     });
     // getInstalledRuntimes
     fin.desktop.System.getInstalledRuntimes().then(runtimes => console.log(runtimes)).catch(err => console.log(err));
     // getLog
-    fin.desktop.System.getLog('debug-2015-01-08-22-27-53.log', log => {
+    fin.desktop.System.getLog("debug-2015-01-08-22-27-53.log", log => {
         console.log(log);
     });
     // getLogList
     fin.desktop.System.getLogList(logList => {
         logList.forEach(logInfo => {
-            console.log(`The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`);
+            console.log(
+                `The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`,
+            );
         });
     });
     // getMachineId
@@ -478,12 +494,12 @@ function test_system() {
         path: "notepad",
         arguments: "",
         listener(result) {
-            console.log('the exit code', result.exitCode);
-        }
+            console.log("the exit code", result.exitCode);
+        },
     }, payload => {
-        console.log('Success:', payload.uuid);
+        console.log("Success:", payload.uuid);
     }, error => {
-        console.log('Error:', error);
+        console.log("Error:", error);
     });
     // launch external process with an alias
     fin.desktop.System.launchExternalProcess({
@@ -492,24 +508,24 @@ function test_system() {
         // If the the path below refers to a specific path it will override this default
         alias: "myApp",
         listener(result) {
-            console.log('the exit code', result.exitCode);
-        }
+            console.log("the exit code", result.exitCode);
+        },
     }, payload => {
-        console.log('Success:', payload.uuid);
+        console.log("Success:", payload.uuid);
     }, error => {
-        console.log('Error:', error);
+        console.log("Error:", error);
     });
     //
     fin.desktop.System.launchExternalProcess({
         alias: "myApp",
         arguments: "e f g",
         listener(result) {
-            console.log('the exit code', result.exitCode);
-        }
+            console.log("the exit code", result.exitCode);
+        },
     }, payload => {
-        console.log('Success:', payload.uuid);
+        console.log("Success:", payload.uuid);
     }, error => {
-        console.log('Error:', error);
+        console.log("Error:", error);
     });
     //
     fin.desktop.System.launchExternalProcess({
@@ -517,16 +533,16 @@ function test_system() {
         arguments: "--version",
         certificate: {
             trusted: true,
-            subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
-            thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
+            subject: "O=OpenFin INC., L=New York, S=NY, C=US",
+            thumbprint: "3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b",
         },
         listener(result) {
-            console.log('the exit code', result.exitCode);
-        }
+            console.log("the exit code", result.exitCode);
+        },
     }, payload => {
-        console.log('Success:', payload.uuid);
+        console.log("Success:", payload.uuid);
     }, error => {
-        console.log('Error:', error);
+        console.log("Error:", error);
     });
     // log
     fin.desktop.System.log("info", "An example log message", () => {
@@ -538,8 +554,8 @@ function test_system() {
     fin.desktop.System.monitorExternalProcess({
         pid: 2508,
         listener(result) {
-            console.log('the exit code', result.exitCode);
-        }
+            console.log("the exit code", result.exitCode);
+        },
     }, payload => {
         console.log("The process is now being monitored: ", payload.uuid);
     }, error => {
@@ -552,7 +568,7 @@ function test_system() {
         console.log("failure: " + err);
     });
     // readRegistryValue
-    fin.desktop.System.readRegistryValue('HKEY_SOMETHING', 'HARDWARE\\SOMETHING', 'BootSomething', info => {
+    fin.desktop.System.readRegistryValue("HKEY_SOMETHING", "HARDWARE\\SOMETHING", "BootSomething", info => {
         console.log(info.data, info.rootKey, info.subkey, info.type, info.value);
     }, err => console.log(err));
     // registerExternalConnection
@@ -565,7 +581,7 @@ function test_system() {
         arguments: "",
         listener(result) {
             console.log("The exit code", result.exitCode);
-        }
+        },
     }, result => {
         console.log("Result UUID is " + result.uuid);
 
@@ -585,7 +601,7 @@ function test_system() {
         console.log("failure: " + err);
     });
     // setMinLogLevel
-    fin.desktop.System.setMinLogLevel("log level", () => console.log('Success'), (err: any) => console.error(err));
+    fin.desktop.System.setMinLogLevel("log level", () => console.log("Success"), (err: any) => console.error(err));
     // showDeveloperTools
     fin.desktop.System.showDeveloperTools("uuid", "name", () => {
         console.log("successful");
@@ -593,8 +609,8 @@ function test_system() {
         console.log("failure: " + err);
     });
     // startCrashReporter
-    fin.desktop.System.startCrashReporter({diagnosticMode: true}, () => {
-        console.log('success');
+    fin.desktop.System.startCrashReporter({ diagnosticMode: true }, () => {
+        console.log("success");
     }, err => {
         console.log(err);
     });
@@ -605,7 +621,7 @@ function test_system() {
         arguments: "",
         listener(result) {
             console.log("The exit code", result.exitCode);
-        }
+        },
     }, result => {
         console.log("Result UUID is " + result.uuid);
 
@@ -619,7 +635,7 @@ function test_system() {
     });
     // updateProxySettings
     fin.desktop.System.updateProxySettings("type", "proxyAddress", 8080, () => {
-        console.log('success');
+        console.log("success");
     }, err => {
         console.log(err);
     });
@@ -651,30 +667,35 @@ function test_system_clipboard() {
         console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
     });
     // write
-    fin.desktop.System.Clipboard.write({
-        text: 'Hello Text!',
-        html: '<h1>Hello Html</h1>',
-        rtf: 'Hello Rtf'
-    }, null, () => {
-        console.log('Success!!');
-    }, (reason, err) => {
-        console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
-    });
+    fin.desktop.System.Clipboard.write(
+        {
+            text: "Hello Text!",
+            html: "<h1>Hello Html</h1>",
+            rtf: "Hello Rtf",
+        },
+        null,
+        () => {
+            console.log("Success!!");
+        },
+        (reason, err) => {
+            console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
+        },
+    );
     // writeHtml
-    fin.desktop.System.Clipboard.writeHtml('<h1>Hello World</h1>', null, () => {
-        console.log('Success!!');
+    fin.desktop.System.Clipboard.writeHtml("<h1>Hello World</h1>", null, () => {
+        console.log("Success!!");
     }, (reason, err) => {
         console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
     });
     // writeRtf
-    fin.desktop.System.Clipboard.writeRtf('Hello World!', null, () => {
-        console.log('Success!!');
+    fin.desktop.System.Clipboard.writeRtf("Hello World!", null, () => {
+        console.log("Success!!");
     }, (reason, err) => {
         console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
     });
     // writeText
-    fin.desktop.System.Clipboard.writeText('Hello World', null, () => {
-        console.log('Success!!');
+    fin.desktop.System.Clipboard.writeText("Hello World", null, () => {
+        console.log("Success!!");
     }, (reason, err) => {
         console.log(`Error while reading the clipboard Message: ${err.message}, Stack: ${err.stack}`);
     });
@@ -692,10 +713,12 @@ function test_window() {
         defaultLeft: 300,
         frame: false,
         resizable: false,
-        state: "normal"
+        state: "normal",
     }, () => {
         const _win = finWindow.getNativeWindow();
-        _win.addEventListener("DOMContentLoaded", () => { finWindow.show(); });
+        _win.addEventListener("DOMContentLoaded", () => {
+            finWindow.show();
+        });
     }, error => {
         console.log("Error creating window:", error);
     });
@@ -724,21 +747,21 @@ function test_window() {
     finWindow.animate({
         opacity: {
             opacity: 0.15,
-            duration: 1000
+            duration: 1000,
         },
         position: {
             left: 10,
             top: 10,
-            duration: 3000
-        }
+            duration: 3000,
+        },
     }, {
-            interrupt: false
-        }, evt => {
-            // Callback will only fire after both "opacity" and "position" have finished animating.
-        });
+        interrupt: false,
+    }, evt => {
+        // Callback will only fire after both "opacity" and "position" have finished animating.
+    });
     // authenticate
-    finWindow.addEventListener('auth-requested', evt => {
-        finWindow.authenticate('userName', 'P@assw0rd', () => { }, (reason, err) => {
+    finWindow.addEventListener("auth-requested", evt => {
+        finWindow.authenticate("userName", "P@assw0rd", () => {}, (reason, err) => {
             console.log("failure:", err);
         });
     });
@@ -790,7 +813,7 @@ function test_window() {
     finWindow.getZoomLevel(level => {
         console.log("zoom level: " + level);
     }, error => {
-        console.log('error:', error);
+        console.log("error:", error);
     });
     // hide
     finWindow.hide();
@@ -802,7 +825,7 @@ function test_window() {
     let secondWindow = new fin.desktop.Window({
         url: "http://www.openfin.co",
         name: "secondWindow",
-        autoShow: true
+        autoShow: true,
     }, () => {
         // When mainWindow moves or is moved, secondWindow moves by the same amount
         secondWindow.joinGroup(finWindow);
@@ -811,7 +834,7 @@ function test_window() {
     secondWindow = new fin.desktop.Window({
         url: "http://www.openfin.co",
         name: "secondWindow",
-        autoShow: true
+        autoShow: true,
     }, () => {
         // When finWindow moves or is moved, secondWindow moves by the same amount
         secondWindow.joinGroup(finWindow, () => {
@@ -826,22 +849,22 @@ function test_window() {
         const finWindowOne = new fin.desktop.Window({
             url: "http://www.openfin.co",
             name: "finWindowOne",
-            autoShow: true
+            autoShow: true,
         });
         const finWindowTwo = new fin.desktop.Window({
             url: "http://www.openfin.co",
             name: "finWindowTwo",
-            autoShow: true
+            autoShow: true,
         });
         const finWindowThree = new fin.desktop.Window({
             url: "http://www.openfin.co",
             name: "finWindowThree",
-            autoShow: true
+            autoShow: true,
         });
         const finWindowFour = new fin.desktop.Window({
             url: "http://www.openfin.co",
             name: "finWindowFour",
-            autoShow: true
+            autoShow: true,
         });
         // When finWindowOne moves or is moved, finWindowTwo moves by the same amount
         finWindowOne.joinGroup(finWindowTwo);
@@ -891,13 +914,13 @@ function test_window() {
     // updateOptions
     finWindow.updateOptions({
         frame: false,
-        maxWidth: 500
+        maxWidth: 500,
     });
 }
 
 async function test_external_window() {
     // wrap
-    const externalWin = await fin.ExternalWindow.wrap({uuid: 'uuid', name: 'name'});
+    const externalWin = await fin.ExternalWindow.wrap({ uuid: "uuid", name: "name" });
 
     // getCurrent
     fin.System.getFocusedExternalWindow();
@@ -905,10 +928,10 @@ async function test_external_window() {
     // getAllExternalWindows
     fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
     // addEventListener
-    externalWin.addListener('some-event', event => console.log(event.message));
+    externalWin.addListener("some-event", event => console.log(event.message));
 
     // removeEventListener
-    externalWin.removeListener('some-event', () => {});
+    externalWin.removeListener("some-event", () => {});
 
     // getInfo
     externalWin.getInfo().then(console.log);
@@ -916,13 +939,23 @@ async function test_external_window() {
 
 function test_frame() {
     // wrap
-    const frame = fin.desktop.Frame.wrap('uuid', 'name');
+    const frame = fin.desktop.Frame.wrap("uuid", "name");
     // getCurrent
     const currentFrame = fin.desktop.Frame.getCurrent();
     // addEventlistener
-    frame.addEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
+    frame.addEventListener(
+        "event",
+        () => console.log("on event"),
+        () => console.log("success"),
+        err => console.error(err),
+    );
     // removeEventListener
-    frame.removeEventListener('event', () => console.log('on event'), () => console.log('success'), err => console.error(err));
+    frame.removeEventListener(
+        "event",
+        () => console.log("on event"),
+        () => console.log("success"),
+        err => console.error(err),
+    );
     // getInfo
     frame.getInfo(info => {
         console.log(info.uuid, info.name, info.entityType, info.parent.uuid, info.parent.name);
@@ -936,33 +969,37 @@ function test_frame() {
 async function testPlatform() {
     // ** Class Methods ** //
     // wrap
-    const platform = await fin.desktop.Platform.wrap({uuid: 'uuid',name: 'name'});
+    const platform = await fin.desktop.Platform.wrap({ uuid: "uuid", name: "name" });
     // getCurrent
     const currentPlatform = await fin.desktop.Platform.getCurrent();
     // getCurrentSync
     const anotherCurrentPlatform = fin.desktop.Platform.getCurrentSync();
     // start
-    fin.desktop.Platform.start({uuid: 'uuid', name: 'name'});
+    fin.desktop.Platform.start({ uuid: "uuid", name: "name" });
     // start from manifest
-    fin.desktop.Platform.startFromManifest('some manifest url');
+    fin.desktop.Platform.startFromManifest("some manifest url");
 
     // ** Instance Methods ** //
     // getSnapshot & applySnapshot
     const snapshop = await platform.getSnapshot();
     platform.applySnapshot(snapshop);
     // create, reparent & close Views
-    const {identity: newViewIdentity} = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
-    platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
+    const { identity: newViewIdentity } = await platform.createView({
+        url: "some url",
+        name: "some name",
+        target: { uuid: "uuid", name: "window name" },
+    });
+    platform.reparentView({ uuid: "uuid", name: "view_name" }, { uuid: "uuid", name: "target_name" });
     platform.closeView(newViewIdentity);
     // createWindow
-    platform.createWindow({uuid: 'uuid', name: 'name'});
+    platform.createWindow({ uuid: "uuid", name: "name" });
     // get and set context
     const context = await platform.getContext();
     platform.setContext(context);
     // launchLegacyManifest
-    platform.launchLegacyManifest('some_manifest_url.html');
+    platform.launchLegacyManifest("some_manifest_url.html");
     // onWindowContextUpdate
-    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
+    platform.onWindowContextUpdate((newContext, oldContext) => ({ ...oldContext, ...newContext }));
     // quit
     platform.quit();
 }
@@ -970,31 +1007,31 @@ async function testPlatform() {
 async function testView() {
     // ** Class Methods ** //
     // wrap
-    const view = await fin.desktop.View.wrap({uuid: 'uuid',name: 'name'});
+    const view = await fin.desktop.View.wrap({ uuid: "uuid", name: "name" });
     // getCurrent
     const currentView = await fin.desktop.View.getCurrent();
     // getCurrentSync
     const anotherCurrentView = fin.desktop.View.getCurrentSync();
     // create
-    fin.desktop.View.create({name: 'name', url: 'some_url.html', target: {uuid: 'uuid', name: 'window name'}});
+    fin.desktop.View.create({ name: "name", url: "some_url.html", target: { uuid: "uuid", name: "window name" } });
     // start from manifest
-    fin.desktop.Platform.startFromManifest('some manifest url');
+    fin.desktop.Platform.startFromManifest("some manifest url");
 
     // ** Instance Methods ** //
     // attach
-    view.attach({uuid: 'uuid', name: 'target window name'});
+    view.attach({ uuid: "uuid", name: "target window name" });
     // show and hide
     view.show().then(() => view.hide());
     // setBounds
-    view.setBounds({height: 320, width: 320, top: 20, left: 20});
+    view.setBounds({ height: 320, width: 320, top: 20, left: 20 });
     // getInfo
     const info = await view.getInfo();
     // get and update options
-    view.getOptions().then(() => view.updateOptions({autoResize: {width: true}}));
+    view.getOptions().then(() => view.updateOptions({ autoResize: { width: true } }));
     // getCurrentWindow
     const currentWin = await view.getCurrentWindow();
     // setCustomWindowHandler
-    view.setCustomWindowHandler(['url1.html, url2.html'], () => null);
+    view.setCustomWindowHandler(["url1.html, url2.html"], () => null);
     // destroy
     view.destroy();
 }
@@ -1007,14 +1044,14 @@ async function testLayout() {
 
     const config = await layout.getConfig();
 
-    fin.desktop.Platform.Layout.init({layout: config});
+    fin.desktop.Platform.Layout.init({ layout: config });
 
     const wrappedLayout = await fin.desktop.Platform.Layout.wrap(layout.identity);
     const anotherWrappedLayout = fin.desktop.Platform.Layout.wrapSync(layout.identity);
 
     // ** Instance Methods ** //
     layout.replace(config);
-    layout.applyPreset({presetType: "columns"});
+    layout.applyPreset({ presetType: "columns" });
     layout.getConfig().then(config => config.settings && config.settings.hasHeaders);
     layout.identity.uuid;
 }
@@ -1023,36 +1060,36 @@ async function testFDC3() {
     const contextListener: fdc3.ContextListener = fdc3.addContextListener((context: fdc3.Context) => {});
     contextListener.unsubscribe();
 
-    fdc3.addEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+    fdc3.addEventListener("channel-changed", (event: fdc3.ChannelChangedEvent) => {});
 
-    const intentListener: fdc3.IntentListener = fdc3.addIntentListener('test-intent', (context: fdc3.Context) => {});
+    const intentListener: fdc3.IntentListener = fdc3.addIntentListener("test-intent", (context: fdc3.Context) => {});
     intentListener.unsubscribe();
 
-    await fdc3.broadcast({type: 'test-context'});
+    await fdc3.broadcast({ type: "test-context" });
 
-    const appIntent: fdc3.AppIntent = await fdc3.findIntent('test-intent');
+    const appIntent: fdc3.AppIntent = await fdc3.findIntent("test-intent");
 
-    const appIntents: fdc3.AppIntent[] = await fdc3.findIntentsByContext({type: 'test-context'});
+    const appIntents: fdc3.AppIntent[] = await fdc3.findIntentsByContext({ type: "test-context" });
 
-    const channelById: fdc3.Channel = await fdc3.getChannelById('test-channel-id');
+    const channelById: fdc3.Channel = await fdc3.getChannelById("test-channel-id");
     await channelById.join();
 
     const currentChannel: fdc3.Channel = await fdc3.getCurrentChannel();
     await currentChannel.join();
 
-    const appChannel: fdc3.Channel = await fdc3.getOrCreateAppChannel('test-app-channel-name');
+    const appChannel: fdc3.Channel = await fdc3.getOrCreateAppChannel("test-app-channel-name");
     await appChannel.join();
 
     const systemChannels: fdc3.Channel[] = await fdc3.getSystemChannels();
 
-    await fdc3.open('test-app');
-    await fdc3.open('test-app', {type: 'test-context'});
+    await fdc3.open("test-app");
+    await fdc3.open("test-app", { type: "test-context" });
 
-    await fdc3.raiseIntent('test-intent', {type: 'test-context'});
-    await fdc3.raiseIntent('test-intent', {type: 'test-context'}, 'test-target');
+    await fdc3.raiseIntent("test-intent", { type: "test-context" });
+    await fdc3.raiseIntent("test-intent", { type: "test-context" }, "test-target");
 
-    fdc3.removeEventListener('channel-changed', (event: fdc3.ChannelChangedEvent) => {});
+    fdc3.removeEventListener("channel-changed", (event: fdc3.ChannelChangedEvent) => {});
 
     await fdc3.defaultChannel.join();
-    await fdc3.defaultChannel.broadcast({type: 'test-context'});
+    await fdc3.defaultChannel.broadcast({ type: "test-context" });
 }

@@ -566,7 +566,6 @@ export interface Request extends Podium {
      * @return ResponseObject
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestgenerateresponsesource-options)
      */
-    /* tslint:disable-next-line:max-line-length */
     generateResponse(source: string | object | null, options?: { variety?: string | undefined; prepare?: ((response: ResponseObject) => Promise<ResponseObject>) | undefined; marshal?: ((response: ResponseObject) => Promise<ResponseValue>) | undefined; close?: ((response: ResponseObject) => void) | undefined; }): ResponseObject;
 
     /**
@@ -3803,9 +3802,9 @@ export class Server {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverregisterplugins-options)
      */
-     /* eslint-disable-next-line no-unnecessary-generics */
+     /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     register<T>(plugin: ServerRegisterPluginObject<T>, options?: ServerRegisterOptions): Promise<void>;
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z>, options?: ServerRegisterOptions): Promise<void>;
     register(plugins: Array<ServerRegisterPluginObject<any>>, options?: ServerRegisterOptions): Promise<void>;
     /* tslint:disable-next-line:unified-signatures */

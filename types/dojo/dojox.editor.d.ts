@@ -4234,7 +4234,7 @@ declare namespace dojox {
                  */
                 onShow(): void;
             }
-            module _SmileyPalette {
+            namespace _SmileyPalette {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/editor/plugins/_SmileyPalette.Emoticon.html
                  *

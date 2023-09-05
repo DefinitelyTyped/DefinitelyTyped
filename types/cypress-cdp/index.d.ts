@@ -6,23 +6,22 @@
 
 /// <reference types="cypress" />
 
-import type Protocol from 'devtools-protocol/types/protocol';
-import type ProtocolMapping from 'devtools-protocol/types/protocol-mapping';
+import type Protocol from "devtools-protocol/types/protocol";
+import type ProtocolMapping from "devtools-protocol/types/protocol-mapping";
 
 declare global {
     // Augment the Cypress namespace to include type definitions for cypress-cdp.
     namespace Cypress {
         namespace CDP {
-            //#region CDP
+            // #region CDP
             type RdpCommands = ProtocolMapping.Commands;
             type RdpCommandNames = keyof RdpCommands;
 
             type CdpCommandFnParams<RdpCommandName extends RdpCommandNames> =
-                RdpCommands[RdpCommandName]['paramsType'][number] extends never
-                    ? Record<string, never>
-                    : RdpCommands[RdpCommandName]['paramsType'][number];
+                RdpCommands[RdpCommandName]["paramsType"][number] extends never ? Record<string, never>
+                    : RdpCommands[RdpCommandName]["paramsType"][number];
             type CdpCommandFnReturnType<RdpCommandName extends RdpCommandNames> =
-                RdpCommands[RdpCommandName]['returnType'];
+                RdpCommands[RdpCommandName]["returnType"];
             interface CdpCommandFnOptions {
                 log: LogConfig;
             }
@@ -31,13 +30,13 @@ declare global {
                 params: CdpCommandFnParams<RdpCommandName>,
                 options?: CdpCommandFnOptions,
             ) => Chainable<CdpCommandFnReturnType<RdpCommandName>>;
-            //#endregion
+            // #endregion
 
-            //#region getCDPNodeId
+            // #region getCDPNodeId
             type getCDPNodeIdFn = (selector: string) => Chainable<number>;
-            //#endregion
+            // #endregion
 
-            //#region hasEventListeners
+            // #region hasEventListeners
             interface hasEventListenersFnOptions {
                 log: LogConfig;
                 type: string;
@@ -46,7 +45,7 @@ declare global {
                 selector: string,
                 options?: hasEventListenersFnOptions,
             ) => Chainable<Protocol.DOMDebugger.GetEventListenersResponse>;
-            //#endregion
+            // #endregion
         }
 
         interface Chainable<Subject = any> {

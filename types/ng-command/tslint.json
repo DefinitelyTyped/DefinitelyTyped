@@ -4,11 +4,9 @@
         "interface-name": false,
         "jsdoc-format": false,
         "no-boolean-literal-compare": false,
-        "no-padding": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

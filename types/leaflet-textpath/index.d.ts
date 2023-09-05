@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Needed to access the leaflet module, to extend it.
-import * as Leaflet from 'leaflet';
+import * as Leaflet from "leaflet";
 
 // Needed to access JSX.IntrinsicElements.
-import * as React from 'react';
+import * as React from "react";
 
 /*
  * Add new properties to existing types in the leaflet module.
  */
-declare module 'leaflet' {
+declare module "leaflet" {
     /**
      * <number> rotates the text by the specified angle, in degrees.
      * 'flip' rotates the text by 180 degrees.
      * 'perpendicular' rotates the text by 90 degrees.
      */
-    type TextPathOrientation = 'flip' | 'perpendicular' | number;
+    type TextPathOrientation = "flip" | "perpendicular" | number;
 
     interface TextPathOptions {
         /**
