@@ -237,6 +237,12 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     allowedTypes={['image']}
     labels={{ title: 'The Image' }}
 />;
+<be.MediaPlaceholder
+    multiple={"add"}
+    onSelect={items => console.log(items.map((i: { id: string; }) => i.id).join())}
+    allowedTypes={['image']}
+    labels={{ title: 'The Image' }}
+/>;
 
 //
 // media-upload

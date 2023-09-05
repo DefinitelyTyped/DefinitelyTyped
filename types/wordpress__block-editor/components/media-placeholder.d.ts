@@ -3,6 +3,8 @@ import { Dashicon, DropZone } from '@wordpress/components';
 import { ComponentType, MouseEventHandler } from 'react';
 
 declare namespace MediaPlaceholder {
+    type MediaPlaceholderMultipleAction = 'add';
+
     interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
@@ -77,7 +79,7 @@ declare namespace MediaPlaceholder {
          */
         onError?(message: string): void;
         onSelectURL?(src: string): void;
-        multiple?: T | undefined;
+        multiple?: T | MediaPlaceholderMultipleAction | undefined;
         value?: T extends true ? number[] : number | undefined | undefined | undefined | undefined;
         onSelect(
             value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
