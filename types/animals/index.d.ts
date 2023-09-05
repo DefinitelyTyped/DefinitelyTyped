@@ -5,6 +5,6 @@
 
 declare function main(): string;
 declare namespace main {
-    var words: string[];
+    const words: string[];
 }
 export = main;
