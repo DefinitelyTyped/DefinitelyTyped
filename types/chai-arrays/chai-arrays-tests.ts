@@ -1,7 +1,7 @@
 import { assert, expect, use, should } from 'chai';
 import ChaiArrays = require('chai-arrays');
 
-use(ChaiArrays);
+//use(ChaiArrays);
 should();
 
 const arr: any[] = [1, 2, 3];
