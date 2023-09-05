@@ -2996,12 +2996,15 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     const list: _.List<string> | null | undefined = anything;
     const dictionary: _.Dictionary<string> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<string>  | null | undefined = anything;
+    const tuple: [string, string, string] = anything;
 
     _.sample("abc"); // $ExpectType string | undefined
     _.sample(list); // $ExpectType string | undefined
     _.sample(dictionary); // $ExpectType string | undefined
     _.sample(numericDictionary); // $ExpectType string | undefined
     _.sample({ a: "foo" }); // $ExpectType string | undefined
+    _.sample(tuple); // $ExpectType string
+    _.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _("abc").sample(); // $ExpectType string | undefined
     _(list).sample(); // $ExpectType string | undefined
@@ -3018,6 +3021,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.sample("abc"); // $ExpectType string | undefined
     fp.sample(list); // $ExpectType string | undefined
     fp.sample({ a: "foo" }); // $ExpectType string | undefined
+    fp.sample(tuple); // $ExpectType string
+    fp.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _.sampleSize("abc"); // $ExpectType string[]
     _.sampleSize("abc", 3); // $ExpectType string[]

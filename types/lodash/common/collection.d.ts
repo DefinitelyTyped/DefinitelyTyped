@@ -1645,6 +1645,10 @@ declare module "../index" {
          * @param collection The collection to sample.
          * @return Returns the random element.
          */
+        sample<T>(collection: readonly [T, ...T[]]): T;
+        /**
+         * @see _.sample
+         */
         sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
         /**
          * @see _.sample

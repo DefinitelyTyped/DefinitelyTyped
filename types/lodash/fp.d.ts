@@ -3793,6 +3793,7 @@ declare namespace _ {
     type LodashRound = (n: number) => number;
     type LodashRunInContext = (context: object) => lodash.LoDashStatic;
     interface LodashSample {
+        <T>(collection: readonly [T, ...T[]]): T;
         <T>(collection: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): T | undefined;
         <T extends object>(collection: T | null | undefined): T[keyof T] | undefined;
     }
