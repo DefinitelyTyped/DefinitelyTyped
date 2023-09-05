@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface DefaultImportedComponent<Props> {
     default: React.ComponentType<Props>;
@@ -51,25 +51,28 @@ export interface ExtraComponentProps {
     fallback?: JSX.Element | undefined;
 }
 
-export type LoadableComponent<Props> = React.ComponentType<Props & ExtraComponentProps> &
-    LoadableComponentMethods<Props>;
+export type LoadableComponent<Props> =
+    & React.ComponentType<Props & ExtraComponentProps>
+    & LoadableComponentMethods<Props>;
 
 export interface ExtraClassComponentProps<Component extends React.ComponentClass> extends ExtraComponentProps {
     ref?: React.LegacyRef<InstanceType<Component>> | undefined;
 }
 
-export type LoadableClassComponent<Component extends React.ComponentClass> = React.ComponentType<
-    React.ComponentProps<Component> & ExtraClassComponentProps<Component>
-> &
-    LoadableComponentMethods<React.ComponentProps<Component>>;
+export type LoadableClassComponent<Component extends React.ComponentClass> =
+    & React.ComponentType<
+        React.ComponentProps<Component> & ExtraClassComponentProps<Component>
+    >
+    & LoadableComponentMethods<React.ComponentProps<Component>>;
 
-export type LoadableLibrary<Module> = React.ComponentType<{
-    fallback?: JSX.Element | undefined;
-    children?: ((module: Module) => React.ReactNode) | undefined;
-    ref?: React.Ref<Module> | undefined;
-}> &
-    Module &
-    LoadableComponentMethods<object>;
+export type LoadableLibrary<Module> =
+    & React.ComponentType<{
+        fallback?: JSX.Element | undefined;
+        children?: ((module: Module) => React.ReactNode) | undefined;
+        ref?: React.Ref<Module> | undefined;
+    }>
+    & Module
+    & LoadableComponentMethods<object>;
 
 declare function lib<Props, Module>(
     loadFn: (props: Props) => Promise<Module>,

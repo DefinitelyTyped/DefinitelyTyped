@@ -1,5 +1,5 @@
-import { ResolvedTxtRecord } from './dns';
-import { ResolvedEndpoint } from './http';
+import { ResolvedTxtRecord } from "./dns";
+import { ResolvedEndpoint } from "./http";
 
 export function compare(
     a: ResolvedEndpoint | ResolvedTxtRecord,

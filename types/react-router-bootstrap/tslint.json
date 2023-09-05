@@ -1,10 +1,8 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "member-access": false,
         "no-duplicate-imports": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

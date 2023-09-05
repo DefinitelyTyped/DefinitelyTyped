@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface Panel {
         /** Removes the panel from the editor */
         clear(): void;
@@ -16,7 +16,7 @@ declare module '../../' {
          * `bottom`: Adds the panel at the very bottom.
          * `before-bottom`: Adds the panel at the top of the bottom panels.
          */
-        position?: 'top' | 'after-top' | 'bottom' | 'before-bottom' | undefined;
+        position?: "top" | "after-top" | "bottom" | "before-bottom" | undefined;
         /** The new panel will be added before the given panel. */
         before?: Panel | undefined;
         /** The new panel will be added after the given panel. */

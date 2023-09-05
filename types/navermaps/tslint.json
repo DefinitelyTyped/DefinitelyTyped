@@ -3,7 +3,6 @@
     "rules": {
         "no-unnecessary-class": false,
         "only-arrow-functions": false,
-        "space-before-function-paren": false,
         "object-literal-shorthand": false
     }
 }

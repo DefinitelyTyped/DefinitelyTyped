@@ -3,13 +3,13 @@
 // Definitions by: Tomas Schier <https://github.com/tom-schier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as banking from './banking';
-import * as dcr1 from './dcr';
-import * as energy from './energy';
-import * as admin from './admin';
-import * as common from './common';
-import * as register from './register';
-import * as energy_sdh from './energy_sdh';
-import * as telco from './telco';
+import * as admin from "./admin";
+import * as banking from "./banking";
+import * as common from "./common";
+import * as dcr1 from "./dcr";
+import * as energy from "./energy";
+import * as energy_sdh from "./energy_sdh";
+import * as register from "./register";
+import * as telco from "./telco";
 
-export { banking, dcr1, energy, common, admin, energy_sdh, register, telco };
+export { admin, banking, common, dcr1, energy, energy_sdh, register, telco };

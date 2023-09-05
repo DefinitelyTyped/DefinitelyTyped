@@ -8,9 +8,9 @@ export interface ContentSwitcherProps extends Omit<ReactDivAttr, "onChange" | "r
     /**
      * @deprecated
      */
-    light?: boolean | undefined,
-    onChange?(data: ContentSwitcherOnChangeData): void,
-    selectedIndex?: number | undefined,
+    light?: boolean | undefined;
+    onChange?(data: ContentSwitcherOnChangeData): void;
+    selectedIndex?: number | undefined;
     selectionMode?: "automatic" | "manual" | undefined;
     size?: "sm" | "md" | "lg" | "xl" | undefined;
 }

@@ -3,10 +3,10 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Entity, Middleware, IncomingContext } from '@xmpp/middleware';
-import { Element } from '@xmpp/xml';
-import * as Koa from 'koa';
-import * as koaCompose from 'koa-compose';
+import { Entity, IncomingContext, Middleware } from "@xmpp/middleware";
+import { Element } from "@xmpp/xml";
+import * as Koa from "koa";
+import * as koaCompose from "koa-compose";
 
 export = streamFeatures;
 

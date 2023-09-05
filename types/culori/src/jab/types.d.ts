@@ -1,5 +1,5 @@
 export interface Jab {
-    mode: 'jab';
+    mode: "jab";
     j: number;
     a: number;
     b: number;

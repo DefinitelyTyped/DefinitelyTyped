@@ -1,16 +1,16 @@
-import 'leaflet.vectorgrid';
-import * as L from 'leaflet';
-import * as GJ from 'geojson';
+import "leaflet.vectorgrid";
+import * as GJ from "geojson";
+import * as L from "leaflet";
 
 const data: GJ.FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
-            id: '20',
-            properties: { name: 'Kansas', density: 35.09 },
+            type: "Feature",
+            id: "20",
+            properties: { name: "Kansas", density: 35.09 },
             geometry: {
-                type: 'Polygon',
+                type: "Polygon",
                 coordinates: [
                     [
                         [-101.90605, 40.001626],
@@ -47,17 +47,17 @@ new slicerClass(data, slicerOptions); // $ExpectType Slicer
 
 const protobufOptions: L.VectorGrid.ProtobufOptions = null!;
 const protobuf = L.vectorGrid.protobuf;
-protobuf('', protobufOptions); // $ExpectType Protobuf
+protobuf("", protobufOptions); // $ExpectType Protobuf
 // test leaflet extend worked correctly
-protobuf('', protobufOptions).bindTooltip(null!); // $ExpectType Protobuf
+protobuf("", protobufOptions).bindTooltip(null!); // $ExpectType Protobuf
 
 const protobufClass = L.VectorGrid.Protobuf;
-new protobufClass('', protobufOptions); // $ExpectType Protobuf
+new protobufClass("", protobufOptions); // $ExpectType Protobuf
 
 let vectorgridOptions: L.VectorGridOptions;
 vectorgridOptions = {
     // L.GridLayer options
-    attribution: '',
+    attribution: "",
     tileSize: 256,
     opacity: 1.0,
     updateWhenIdle: true,
@@ -70,8 +70,8 @@ vectorgridOptions = {
     maxNativeZoom: undefined,
     minNativeZoom: undefined,
     noWrap: false,
-    pane: 'tilePane',
-    className: '',
+    pane: "tilePane",
+    className: "",
     keepBuffer: 2,
     // geojsonvt.options
     tolerance: undefined,

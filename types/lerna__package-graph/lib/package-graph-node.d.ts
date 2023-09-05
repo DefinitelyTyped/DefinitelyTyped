@@ -1,5 +1,5 @@
-import { Package } from '@lerna/package';
-import { Result } from 'npm-package-arg';
+import { Package } from "@lerna/package";
+import { Result } from "npm-package-arg";
 
 export class PackageGraphNode {
     constructor(pkg: Package);
@@ -17,7 +17,7 @@ export class PackageGraphNode {
      *
      * @param resolved npm-package-arg Result object
      */
-    satisfies(result: Pick<Result, 'gitCommittish' | 'gitRange' | 'fetchSpec'>): boolean;
+    satisfies(result: Pick<Result, "gitCommittish" | "gitRange" | "fetchSpec">): boolean;
 
     /**
      * Returns a string representation of this node (its name)

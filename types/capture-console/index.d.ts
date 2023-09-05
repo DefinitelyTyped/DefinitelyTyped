@@ -21,7 +21,7 @@ export interface CaptureOptions {
  */
 export function capture(
     streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
-    exec: () => void
+    exec: () => void,
 ): string[];
 
 /**
@@ -32,7 +32,7 @@ export function capture(
 export function capture(
     streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
     opts: CaptureOptions,
-    exec: () => void
+    exec: () => void,
 ): string[];
 
 /**
@@ -49,13 +49,13 @@ export function captureStderr(opts: CaptureOptions, exec: () => void): string;
  * Captures stdout and stderr into an object for
  * the provided execution scope.
  */
-export function captureStdio(exec: () => void): { stdout: string; stderr: string; };
+export function captureStdio(exec: () => void): { stdout: string; stderr: string };
 
 /**
  * Captures stdout and stderr into an object for
  * the provided execution scope.
  */
-export function captureStdio(opts: CaptureOptions, exec: () => void): { stdout: string; stderr: string; };
+export function captureStdio(opts: CaptureOptions, exec: () => void): { stdout: string; stderr: string };
 
 /**
  * Captures stdout for the provided execution scope.
@@ -80,8 +80,8 @@ export function hook(
     exec: (
         string: string,
         encoding?: string,
-        fd?: (error?: any) => void
-    ) => void
+        fd?: (error?: any) => void,
+    ) => void,
 ): () => boolean;
 
 /**
@@ -98,8 +98,8 @@ export function hook(
     exec: (
         string: string,
         encoding?: string,
-        fd?: (error?: any) => void
-    ) => void
+        fd?: (error?: any) => void,
+    ) => void,
 ): () => boolean;
 
 /**
@@ -125,12 +125,12 @@ export function interceptStderr(opts: CaptureOptions, exec: () => void): string;
 /**
  * Delegate to #captureStdio with a quiet passthrough.
  */
-export function interceptStdio(exec: () => void): { stdout: string; stderr: string; };
+export function interceptStdio(exec: () => void): { stdout: string; stderr: string };
 
 /**
  * Delegate to #captureStdio with a quiet passthrough.
  */
-export function interceptStdio(opts: CaptureOptions, exec: () => void): { stdout: string; stderr: string; };
+export function interceptStdio(opts: CaptureOptions, exec: () => void): { stdout: string; stderr: string };
 
 /**
  * Delegate to #captureStdout with a quiet passthrough.
@@ -151,8 +151,8 @@ export function startCapture(
     exec: (
         string: string,
         encoding?: string,
-        fd?: (error?: any) => void
-    ) => void
+        fd?: (error?: any) => void,
+    ) => void,
 ): boolean;
 
 /**
@@ -165,8 +165,8 @@ export function startCapture(
     exec: (
         string: string,
         encoding?: string,
-        fd?: (error?: any) => void
-    ) => void
+        fd?: (error?: any) => void,
+    ) => void,
 ): boolean;
 
 /**

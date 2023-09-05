@@ -4,17 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Control {
         class GroupedLayers extends Control {
-            constructor(baseLayers: { [index: string]: Layer }, groupedOverlays: { [index: string]: { [index: string]: LayerGroup } }, options: GroupedLayersOptions);
+            constructor(
+                baseLayers: { [index: string]: Layer },
+                groupedOverlays: { [index: string]: { [index: string]: LayerGroup } },
+                options: GroupedLayersOptions,
+            );
         }
     }
 
     namespace control {
-        function groupedLayers(baseLayers: { [index: string]: Layer }, groupedOverlays: { [index: string]: { [index: string]: LayerGroup } }, options: GroupedLayersOptions): Control;
+        function groupedLayers(
+            baseLayers: { [index: string]: Layer },
+            groupedOverlays: { [index: string]: { [index: string]: LayerGroup } },
+            options: GroupedLayersOptions,
+        ): Control;
     }
 
     interface GroupedLayersOptions extends ControlOptions {

@@ -24,7 +24,6 @@ function registryTests() {
         // @ts-expect-error
         RED.settings.wrongKey;
 
-        // tslint:disable-next-line:space-before-function-paren
         const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function (nodeDef) {
             RED.nodes.createNode(this, nodeDef);
 

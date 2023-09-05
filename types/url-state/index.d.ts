@@ -3,7 +3,7 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { parse } from 'qs';
+import { parse } from "qs";
 
 interface ReplaceHref {
     pathname?: string;
@@ -16,7 +16,9 @@ interface PushHref extends ReplaceHref {
     replace?: boolean;
 }
 
-interface UrlState extends Pick<URL, 'href'|'protocol'|'hostname'|'port'|'pathname'|'search'|'hash'|'host'|'origin'> {
+interface UrlState
+    extends Pick<URL, "href" | "protocol" | "hostname" | "port" | "pathname" | "search" | "hash" | "host" | "origin">
+{
     readonly back: boolean;
     readonly params: ReturnType<typeof parse>;
 

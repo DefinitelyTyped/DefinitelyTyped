@@ -25,14 +25,12 @@ declare class ZeroClipboard {
     clip(elements: Element | { [index: number]: Element }): void;
     unclip(elements: Element | { [index: number]: Element }): void;
 
-
     static config(options: ZeroClipboardOptions): void;
     static destroy(): void;
     static emit(eventName: string, args: any): void;
 }
 
 interface ZeroClipboardOptions {
-
     /** Setting this to false would allow users to handle calling ZeroClipboard.activate(...); themselves instead of relying on our per-element mouseover handler */
     autoActivate?: boolean | undefined;
 
@@ -77,4 +75,6 @@ interface ZeroClipboardOptions {
 }
 
 // Support AMD.
-declare module "zeroclipboard" { export = ZeroClipboard; }
+declare module "zeroclipboard" {
+    export = ZeroClipboard;
+}

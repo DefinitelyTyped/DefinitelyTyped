@@ -1,10 +1,10 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/merge/merge';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/merge/merge";
 
 const mergeView = new CodeMirror.MergeView(document.body, {
-    value: 'text',
-    origLeft: 'old',
-    origRight: 'alternate',
+    value: "text",
+    origLeft: "old",
+    origRight: "alternate",
     showDifferences: true,
     allowEditingOriginals: false,
     collapseIdentical: true,
@@ -12,8 +12,8 @@ const mergeView = new CodeMirror.MergeView(document.body, {
 const editor: CodeMirror.Editor = mergeView.editor();
 
 const mergeViewWithoutNew = CodeMirror.MergeView(document.body, {
-    value: 'text',
-    orig: 'old',
+    value: "text",
+    orig: "old",
 });
 mergeViewWithoutNew.setShowDifferences(false);
 

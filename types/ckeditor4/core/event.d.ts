@@ -27,7 +27,7 @@ declare namespace CKEDITOR {
     }
 
     interface eventConstructor<T extends event = event> {
-        new (): T;
+        new(): T;
 
         useCapture: boolean;
 
