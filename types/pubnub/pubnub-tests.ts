@@ -526,7 +526,11 @@ Pubnub.notificationPayload('Chat invitation', "You have been invited to 'quiz' c
 
 // Objects v2 (examples taken from docs https://www.pubnub.com/docs/web-javascript/api-reference-objects)
 
-pubnub.objects.getAllUUIDMetadata();
+pubnub.objects.getAllUUIDMetadata({
+    include: {
+        totalCount: true,
+    },
+});
 
 // using UUID from the config
 pubnub.objects.getUUIDMetadata();
