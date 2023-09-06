@@ -150,7 +150,8 @@ function test8() {
     const singleBar = new progress.SingleBar({
         stopOnComplete: true,
         format: (options, params, payload) => {
-            const elapsedTime = Math.round((Date.now() - params.startTime) / 1000);
+            const stopTime = params.stopTime || Date.now();
+            const elapsedTime = Math.round((stopTime - params.startTime) / 1000);
             const speed = params.value / elapsedTime;
             payload.speed = isFinite(speed) ? speed.toFixed(2) : 0;
 
