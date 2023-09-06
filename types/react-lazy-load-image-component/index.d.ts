@@ -1,4 +1,4 @@
-// Type definitions for react-lazy-load-image-component 1.5
+// Type definitions for react-lazy-load-image-component 1.6
 // Project: https://github.com/Aljullu/react-lazy-load-image-component#readme
 // Definitions by: Dan Vanderkam <https://github.com/danvk>
 //                 Diego Chavez <https://github.com/diegochavez>
@@ -25,8 +25,10 @@ export interface ScrollPosition {
 }
 
 export interface CommonProps {
-    /** Function called after the image has been completely loaded. */
+    /** @deprecated Use onLoad instead. This prop is only for backward compatibility. */
     afterLoad?: (() => any) | undefined;
+    /** Function called when the image has been loaded. This is the same function as the onLoad of an <img> which contains an event object. */
+    onLoad?: (() => any) | undefined;
     /** Function called right before the placeholder is replaced with the image element. */
     beforeLoad?: (() => any) | undefined;
     /* Method from lodash to use to delay the scroll/resize events. */
