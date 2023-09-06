@@ -3,8 +3,9 @@
 // Definitions by: Ben Cooper <https://github.com/bencooper222>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function main(): string;
-declare namespace main {
-    const words: string[];
+declare const animals: {
+    (): string;
+    readonly words: string[];
 }
-export = main;
+
+export = animals;
