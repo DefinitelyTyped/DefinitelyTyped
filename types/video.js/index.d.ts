@@ -6259,7 +6259,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * Get the remote {@link TextTrackList}
      * @return The current remote text track list
      */
-    textTracks(): TextTrackList;
+    textTracks(): videojs.TextTrackList;
 
     /**
      * Get the remote {@link videojs.AudioTrackList}
@@ -6271,7 +6271,7 @@ export interface VideoJsPlayer extends videojs.Component {
      * Get the remote {@link TextTrackList}
      * @return The current remote text track list
      */
-    remoteTextTracks(): TextTrackList;
+    remoteTextTracks(): videojs.TextTrackList;
 
     /**
      * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
