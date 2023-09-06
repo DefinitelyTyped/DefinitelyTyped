@@ -239,6 +239,10 @@ declare namespace editorClient {
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
          */
         onpaletteremove?: ((this: NodeInstance<TInstProps>) => void) | undefined;
+        /**
+         * Called when the node type is dragged into workspace.
+         */
+        onadd?: ((this: NodeInstance<TInstProps>) => void) | undefined;
     }
 
     interface CommSubscriber {
@@ -619,7 +623,7 @@ declare namespace editorClient {
         add(name: string, handler: () => void): void;
         remove(name: string): void;
         get(name: string): () => void;
-        invoke(name: string, args: any): void;
+        invoke(name: string, ...args: any): void;
         list(): Array<{ id: string; scope?: string | undefined; key?: string | undefined; user?: boolean | undefined }>;
     }
 

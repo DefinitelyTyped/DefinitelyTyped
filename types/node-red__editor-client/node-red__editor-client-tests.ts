@@ -98,7 +98,7 @@ function redTests(RED: editorClient.RED) {
         icon: 'icon.svg',
         inputLabels: true
             ? 'label'
-            : function () {
+            : function() {
                   // $ExpectType string
                   this.key;
                   // $ExpectType string
@@ -110,7 +110,7 @@ function redTests(RED: editorClient.RED) {
         inputs: 0,
         label: true
             ? 'label'
-            : function () {
+            : function() {
                   // $ExpectType string
                   this.key;
                   // $ExpectType string
@@ -121,7 +121,7 @@ function redTests(RED: editorClient.RED) {
               },
         labelStyle: true
             ? 'italic'
-            : function () {
+            : function() {
                   // $ExpectType string
                   this.key;
                   // $ExpectType string
@@ -190,11 +190,19 @@ function redTests(RED: editorClient.RED) {
             // @ts-expect-error
             this.wrongKey;
         },
+        onadd() {
+            // $ExpectType string
+            this.key;
+            // $ExpectType string
+            this.instanceProp;
+            // @ts-expect-error
+            this.wrongKey;
+        },
         outputLabels: true
             ? true
                 ? 'label'
                 : ['label1', 'label2']
-            : function (idx) {
+            : function(idx) {
                   // $ExpectType number
                   idx;
                   // $ExpectType string
@@ -208,7 +216,7 @@ function redTests(RED: editorClient.RED) {
         outputs: 2,
         paletteLabel: true
             ? 'label'
-            : function () {
+            : function() {
                   // $ExpectType string
                   this.key;
                   // $ExpectType string
@@ -246,6 +254,8 @@ function redTests(RED: editorClient.RED) {
             },
         },
     });
+
+    RED.actions.invoke('core:generate-node-names', myNodeDef, { generateHistory: false });
 }
 
 function widgetEditableListTests() {
