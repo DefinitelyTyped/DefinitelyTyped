@@ -11258,11 +11258,11 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestBodyEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
-            (details: WebRequestBodyDetails) => BlockingResponse | void
+            (details: WebRequestBodyDetails) => BlockingResponse | void | Promise<BlockingResponse | void>
         >
     {
         addListener(
-            callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
+            callback: (details: WebRequestBodyDetails) => BlockingResponse | void | Promise<BlockingResponse | void>,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
         ): void;

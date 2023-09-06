@@ -2131,3 +2131,9 @@ function testSidePanelAPI() {
         console.log("Behavior set successfully.");
     });
 }
+
+function testAddRemoveWebRequestListeners() {
+    async function handleOnBeforeRequest() {}
+    chrome.webRequest.onBeforeRequest.addListener(handleOnBeforeRequest, { urls: ["<all_urls>"] });
+    chrome.webRequest.onBeforeRequest.removeListener(handleOnBeforeRequest);
+}
