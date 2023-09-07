@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -256,6 +256,18 @@ declare module "sap/ui/table/AnalyticalColumn" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @since 1.118
+     *
+     * Gets current value of property {@link #getGrouped grouped}.
+     *
+     * Indicates if the column is grouped.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `grouped`
+     */
+    getGrouped(): boolean;
+    /**
      * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
      * If the column is grouped, this formatter is used to format the value in the group header
@@ -304,6 +316,25 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * @returns Value of property `summed`
      */
     getSummed(): boolean;
+    /**
+     * @since 1.118
+     *
+     * Sets a new value for property {@link #getGrouped grouped}.
+     *
+     * Indicates if the column is grouped.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setGrouped(
+      /**
+       * New value for property `grouped`
+       */
+      bGrouped?: boolean
+    ): this;
     /**
      * Sets a new value for property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
@@ -418,6 +449,13 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * If the column is grouped, this formatter is used to format the value in the group header
      */
     groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.118
+     *
+     * Indicates if the column is grouped.
+     */
+    grouped?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -508,9 +546,11 @@ declare module "sap/ui/table/AnalyticalColumnMenu" {
 }
 
 declare module "sap/ui/table/AnalyticalTable" {
-  import { default as Table, $TableSettings } from "sap/ui/table/Table";
-
-  import Context from "sap/ui/model/Context";
+  import {
+    default as Table,
+    $TableSettings,
+    Table$GroupEventParameters,
+  } from "sap/ui/table/Table";
 
   import { ID } from "sap/ui/core/library";
 
@@ -519,6 +559,8 @@ declare module "sap/ui/table/AnalyticalTable" {
   import Column from "sap/ui/table/Column";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * Table which handles analytical OData backends. The AnalyticalTable only works with an AnalyticalBinding
@@ -616,6 +658,55 @@ declare module "sap/ui/table/AnalyticalTable" {
       iToIndex: int
     ): this;
     /**
+     * @since 1.118
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.AnalyticalTable` itself.
+     *
+     * Fired when the table is grouped.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachGroup(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.AnalyticalTable` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @since 1.118
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.AnalyticalTable` itself.
+     *
+     * Fired when the table is grouped.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachGroup(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.AnalyticalTable` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Collapses one or more rows.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -632,6 +723,25 @@ declare module "sap/ui/table/AnalyticalTable" {
      * @returns Reference to `this` in order to allow method chaining
      */
     collapseAll(): this;
+    /**
+     * @since 1.118
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:group group} event of this `sap.ui.table.AnalyticalTable`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachGroup(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: AnalyticalTable$GroupEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Expands one or more rows.
      *
@@ -653,6 +763,23 @@ declare module "sap/ui/table/AnalyticalTable" {
      * @returns Reference to `this` in order to allow method chaining
      */
     expandAll(): this;
+    /**
+     * @since 1.118
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:group group} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireGroup(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: AnalyticalTable$GroupEventParameters
+    ): boolean;
     /**
      * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
      *
@@ -721,17 +848,6 @@ declare module "sap/ui/table/AnalyticalTable" {
      * @returns Value of property `columnVisibilityMenuSorter`
      */
     getColumnVisibilityMenuSorter(): any;
-    /**
-     * Returns the context of a row by its index.
-     *
-     * @returns The context of a row by its index
-     */
-    getContextByIndex(
-      /**
-       * Index of the row to return the context from.
-       */
-      iIndex: int
-    ): Context;
     /**
      * @deprecated (since 1.21.2) - replaced by {@link sap.ui.table.Table#setShowOverlay}
      *
@@ -1241,7 +1357,22 @@ declare module "sap/ui/table/AnalyticalTable" {
      * If dirty the content of the Table will be overlayed.
      */
     dirty?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.118
+     *
+     * Fired when the table is grouped.
+     */
+    group?: (oEvent: AnalyticalTable$GroupEvent) => void;
   }
+
+  export interface AnalyticalTable$GroupEventParameters
+    extends Table$GroupEventParameters {}
+
+  export type AnalyticalTable$GroupEvent = Event<
+    AnalyticalTable$GroupEventParameters,
+    AnalyticalTable
+  >;
 }
 
 declare module "sap/ui/table/Column" {
@@ -1581,6 +1712,8 @@ declare module "sap/ui/table/Column" {
      */
     getFlexible(): boolean;
     /**
+     * @deprecated (since 1.118)
+     *
      * Gets current value of property {@link #getGrouped grouped}.
      *
      * Indicates if the column is grouped.
@@ -1629,6 +1762,8 @@ declare module "sap/ui/table/Column" {
      * Label of the column which is displayed in the column header. This aggregation is for the standard behavior,
      * where you only want to display one single row header. If a string is supplied, a default label control
      * will be created. Which control this is depends on the loaded libraries.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     getLabel(): Control | string;
     /**
@@ -1761,6 +1896,8 @@ declare module "sap/ui/table/Column" {
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     getTemplate(): Control | string;
     /**
@@ -2015,6 +2152,8 @@ declare module "sap/ui/table/Column" {
       bFlexible?: boolean
     ): this;
     /**
+     * @deprecated (since 1.118)
+     *
      * Sets a new value for property {@link #getGrouped grouped}.
      *
      * Indicates if the column is grouped.
@@ -2471,6 +2610,8 @@ declare module "sap/ui/table/Column" {
     filterType?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @deprecated (since 1.118)
+     *
      * Indicates if the column is grouped.
      */
     grouped?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -2528,6 +2669,8 @@ declare module "sap/ui/table/Column" {
      * Label of the column which is displayed in the column header. This aggregation is for the standard behavior,
      * where you only want to display one single row header. If a string is supplied, a default label control
      * will be created. Which control this is depends on the loaded libraries.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     label?: string | Control | PropertyBindingInfo;
 
@@ -2549,6 +2692,8 @@ declare module "sap/ui/table/Column" {
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     template?: string | Control | PropertyBindingInfo;
 
@@ -5053,6 +5198,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.118)
+     *
      * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5078,6 +5225,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.118)
+     *
      * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.Table`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5654,6 +5803,8 @@ declare module "sap/ui/table/Table" {
       oListener?: object
     ): this;
     /**
+     * @deprecated (since 1.118)
+     *
      * Detaches event handler `fnFunction` from the {@link #event:group group} event of this `sap.ui.table.Table`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -5969,6 +6120,7 @@ declare module "sap/ui/table/Table" {
       mParameters?: Table$FirstVisibleRowChangedEventParameters
     ): this;
     /**
+     * @deprecated (since 1.118)
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:group group} to attached listeners.
@@ -6128,14 +6280,14 @@ declare module "sap/ui/table/Table" {
     getColumns(): Column[];
     /**
      * Returns the context of a row by its index. Please note that for server-based models like OData, the supplied
-     * index might not have been loaded yet. If the context is not available at the client, the binding will
+     * index might not have been loaded yet. If the context is not available at the client, the binding may
      * trigger a backend request and request this single context. Although this API looks synchronous it may
      * not return a context but load it and fire a change event on the binding.
      *
      * For server-based models you should consider to only make this API call when the index is within the currently
      * visible scroll area.
      *
-     * @returns The context at this index or `null`
+     * @returns The context at this index if available
      */
     getContextByIndex(
       /**
@@ -6317,8 +6469,6 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * Default value is `0`.
      *
      * @returns Value of property `fixedBottomRowCount`
@@ -6346,8 +6496,6 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * Default value is `0`.
      *
      * @returns Value of property `fixedRowCount`
@@ -6356,10 +6504,13 @@ declare module "sap/ui/table/Table" {
     /**
      * Gets content of aggregation {@link #getFooter footer}.
      *
-     * Control or text of footer section of the Table (if not set it will be hidden)
+     * Control or text of footer section of the Table (if not set it will be hidden).
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     getFooter(): Control | string;
     /**
+     * @deprecated (since 1.110)
      * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
@@ -7173,8 +7324,6 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
@@ -7216,8 +7365,6 @@ declare module "sap/ui/table/Table" {
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
@@ -7242,6 +7389,7 @@ declare module "sap/ui/table/Table" {
       vFooter: Control | string
     ): this;
     /**
+     * @deprecated (since 1.110)
      * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * Sets the associated {@link #getGroupBy groupBy}.
@@ -7844,8 +7992,6 @@ declare module "sap/ui/table/Table" {
     /**
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
-     *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
      */
     fixedRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7854,8 +8000,6 @@ declare module "sap/ui/table/Table" {
      *
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
-     *
-     * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel client model}.
      */
     fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -7931,7 +8075,9 @@ declare module "sap/ui/table/Table" {
     title?: string | Control | PropertyBindingInfo;
 
     /**
-     * Control or text of footer section of the Table (if not set it will be hidden)
+     * Control or text of footer section of the Table (if not set it will be hidden).
+     *
+     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
      */
     footer?: string | Control | PropertyBindingInfo;
 
@@ -8029,6 +8175,7 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
+     * @deprecated (since 1.110)
      * @experimental (since 1.28) - This feature has a limited functionality.
      *
      * The column by which the table is grouped. Grouping will only be performed if `enableGrouping` is set
@@ -8082,6 +8229,8 @@ declare module "sap/ui/table/Table" {
     filter?: (oEvent: Table$FilterEvent) => void;
 
     /**
+     * @deprecated (since 1.118)
+     *
      * fired when the table is grouped (experimental!).
      */
     group?: (oEvent: Table$GroupEvent) => void;
@@ -9547,14 +9696,6 @@ declare namespace sap {
     "sap/ui/table/RowAction": undefined;
 
     "sap/ui/table/RowActionItem": undefined;
-
-    "sap/ui/table/rowmodes/AutoRowMode": undefined;
-
-    "sap/ui/table/rowmodes/FixedRowMode": undefined;
-
-    "sap/ui/table/rowmodes/InteractiveRowMode": undefined;
-
-    "sap/ui/table/rowmodes/RowMode": undefined;
 
     "sap/ui/table/RowSettings": undefined;
 

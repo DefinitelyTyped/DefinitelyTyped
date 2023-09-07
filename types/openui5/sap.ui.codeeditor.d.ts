@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -392,7 +392,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * @since 1.54.1
      *
-     * Pretty-prints the content of the editor
+     * Pretty-prints the content of the editor.
+     *
+     * **Note:** Works well only for PHP. For other programming languages, the content might not be formatted
+     * well. In such cases it is recommended to use your own formatting.
      */
     prettyPrint(): void;
     /**

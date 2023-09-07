@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -7165,25 +7165,6 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * New value for property `secondaryCalendarType`
        */
       sSecondaryCalendarType: CalendarType
-    ): this;
-    /**
-     * @deprecated (since 1.34.0) - replaced by `date` property
-     *
-     * Sets a new value for property {@link #getYear year}.
-     *
-     * The year is initial focused and selected The value must be between 0 and 9999
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `2000`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setYear(
-      /**
-       * New value for property `year`
-       */
-      iYear?: int
     ): this;
     /**
      * @since 1.30.0
