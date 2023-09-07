@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "stylelint": "10 - 15"
-    }
-}

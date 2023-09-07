@@ -1,9 +1,0 @@
-{
-    "compilerOptions": {
-        "strict": true,
-        "types": [],
-        "typeRoots": [
-            "../.."
-        ]
-    }
-}

@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "redux": "^4.0.0",
-        "immutable": "^4.0.0-rc.1"
-    }
-}

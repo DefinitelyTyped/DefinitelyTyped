@@ -1,7 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-duplicate-imports": false,
-        "use-default-type-parameter": false
-    }
-}

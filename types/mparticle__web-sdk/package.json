@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@mparticle/event-models": "^1.1.3"
-    }
-}

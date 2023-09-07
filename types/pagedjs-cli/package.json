@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "type": "module",
-    "dependencies": {
-        "@types/puppeteer": "^5.4.7"
-    }
-}

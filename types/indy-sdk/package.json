@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "buffer": "^6.0.0"
-    }
-}

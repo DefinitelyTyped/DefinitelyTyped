@@ -1,3 +1,0 @@
-/// <reference types="cypress" />
-
-export {};

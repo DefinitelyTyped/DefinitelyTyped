@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/glob": "~8.1.0"
-    }
-}

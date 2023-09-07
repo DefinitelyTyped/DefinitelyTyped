@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "jimp": "0.16.1"
-    }
-}

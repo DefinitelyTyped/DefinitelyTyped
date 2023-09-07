@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "jointjs": "^3.5.5"
-    }
-}

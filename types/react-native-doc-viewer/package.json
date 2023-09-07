@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "react-native-fs": "^2.13.0"
-    }
-}

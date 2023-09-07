@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "arweave": "^1.10.0"
-  }
-}

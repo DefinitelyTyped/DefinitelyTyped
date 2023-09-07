@@ -1,9 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@elastic/elasticsearch": "~7.4.0",
-        "firebase-admin": "^11.5.0",
-        "middy": "^0.29.0",
-        "mysql2": "^2.2.5"
-    }
-}

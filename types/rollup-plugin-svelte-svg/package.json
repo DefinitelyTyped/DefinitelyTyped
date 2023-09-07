@@ -1,8 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/svgo": "2",
-        "rollup": "^2",
-        "svelte": "^3"
-    }
-}

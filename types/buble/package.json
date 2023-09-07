@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "magic-string": "^0.25.0"
-  }
-}

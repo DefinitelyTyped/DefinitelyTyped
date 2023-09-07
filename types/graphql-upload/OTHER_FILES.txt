@@ -1,2 +1,0 @@
-GraphQLUpload.d.mts
-processRequest.d.mts

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/lru-cache": "^4.1.3"
-    }
-}

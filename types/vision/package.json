@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "handlebars": "^4.1.0"
-    }
-}

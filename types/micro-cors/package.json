@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/micro": "^7.3.7"
-    }
-}

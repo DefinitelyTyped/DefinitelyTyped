@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/puppeteer": "^5.4.0"
-    }
-}

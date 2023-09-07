@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "flatbush": "^4.2.0"
-    }
-}

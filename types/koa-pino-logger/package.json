@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/pino": "6.3"
-    }
-}

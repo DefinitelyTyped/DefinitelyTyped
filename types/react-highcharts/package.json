@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/highcharts": "^5.0.44"
-    }
-}

@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "rollup": "^3.22.0"
-  }
-}

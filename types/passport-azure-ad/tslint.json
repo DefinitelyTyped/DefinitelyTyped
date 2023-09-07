@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "ban-types": false,
-        "interface-name": false,
-        "jsdoc-format": false
-    }
-}

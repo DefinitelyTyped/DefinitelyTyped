@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "ioredis": "^5.2.3"
-    }
-}

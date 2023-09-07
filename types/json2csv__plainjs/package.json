@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@streamparser/json": "^0.0.12"
-    }
-}

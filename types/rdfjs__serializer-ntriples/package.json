@@ -1,7 +1,0 @@
-{
-    "type": "module",
-    "private": true,
-    "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }

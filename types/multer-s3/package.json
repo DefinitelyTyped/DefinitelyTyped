@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@aws-sdk/client-s3": "^3.0.0"
-    }
-}

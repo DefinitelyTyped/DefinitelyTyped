@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "ssim.js": "^3.1.1"
-    }
-}

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "protractor": "7.0.0"
-    }
-}
