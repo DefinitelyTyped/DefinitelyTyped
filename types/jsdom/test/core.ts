@@ -240,3 +240,39 @@ function test_supported_contenttypes() {
     // @ts-expect-error Only the supported types are possible
     new JSDOM('', { contentType: 'somethingelse' });
 }
+
+function test_jsdomError_types() {
+    const virtualConsole = new VirtualConsole();
+
+    // How do I check that a switch block is exhaustive in TypeScript?
+    // https://stackoverflow.com/questions/39419170
+    function assertUnreachable(x: never): never {
+        throw new Error("Didn't expect to get here");
+    }
+
+    virtualConsole.on("jsdomError", error => {
+        error; // $ExpectType JsdomError
+        switch (error.type) {
+            case "not implemented":
+                // @ts-expect-error
+                error.detail;
+                break;
+            case "XMLHttpRequest":
+                // @ts-expect-error
+                error.detail;
+                break;
+            case "css @import URL parsing":
+                // @ts-expect-error
+                error.detail;
+                break;
+            case "resource loading":
+                error.detail; // $ExpectType Error
+                break;
+            case "unhandled exception":
+                error.detail; // $ExpectType Error
+                break;
+            default:
+                assertUnreachable(error);
+        }
+    });
+}

@@ -63,9 +63,18 @@ declare module "jsdom" {
         constructor(obj?: ResourceLoaderConstructorOptions);
     }
 
+    // jsdom creates a new Error and extends it ad-hoc.
+    // There is no single enumeration of error type strings.
+    // It is not clear if jsdom considers this part of a stable API surface.
+    type JsdomError =
+        | (Error & { type: "not implemented" })
+        | (Error & { type: "css @import URL parsing" })
+        | (Error & { type: "unhandled exception"; detail: Error })
+        | (Error & { type: "resource loading"; detail: Error })
+        | (Error & { type: "XMLHttpRequest" });
     class VirtualConsole extends EventEmitter {
         on<K extends keyof Console>(method: K, callback: Console[K]): this;
-        on(event: "jsdomError", callback: (e: Error) => void): this;
+        on(event: "jsdomError", callback: (e: JsdomError) => void): this;
 
         sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
     }
