@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "broccoli-plugin": "^4.0.7"
+    }
+}
