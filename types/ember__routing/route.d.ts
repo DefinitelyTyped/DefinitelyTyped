@@ -1,7 +1,9 @@
 import EmberObject from '@ember/object';
 import ActionHandler from '@ember/object/-private/action-handler';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Transition from '@ember/routing/transition';
 import Evented from '@ember/object/evented';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { RouteQueryParam } from '@ember/routing/types';
 import Controller from '@ember/controller';
 

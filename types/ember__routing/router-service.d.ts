@@ -1,4 +1,6 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouteInfo, { RouteInfoWithAttributes } from '@ember/routing/route-info';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Transition from '@ember/routing/transition';
 import Service from '@ember/service';
 

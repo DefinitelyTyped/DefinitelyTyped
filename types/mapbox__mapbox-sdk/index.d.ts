@@ -10,7 +10,9 @@
 
 /// <reference types="node" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, MapiRequestOptions } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
     export default class MapiClient {
         constructor(config: SdkConfig);
@@ -25,9 +27,13 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiError } from '@mapbox/mapbox-sdk/lib/classes/mapi-error';
 
     interface EventEmitter<T> {
@@ -127,7 +133,9 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
     type DirectionsApproach = 'unrestricted' | 'curb';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
     interface MapiResponse<T = any> {
@@ -160,7 +168,9 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
 
     interface MapiError<T = any> {
@@ -188,8 +198,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/datasets' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -298,10 +311,13 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/directions' {
     import * as GeoJSON from 'geojson';
     import { LngLatLike } from 'mapbox-gl';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
         MapiRequest,
         MapboxProfile,
@@ -804,9 +820,12 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/geocoding' {
     import { LngLatLike } from 'mapbox-gl';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, Coordinates } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1023,19 +1042,23 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/map-matching' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
         DirectionsAnnotation,
         DirectionsGeometry,
         DirectionsOverview,
         Leg,
     } from '@mapbox/mapbox-sdk/services/directions';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
         MapiRequest,
         MapboxProfile,
         DirectionsApproach,
         Coordinates,
     } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1159,10 +1182,15 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/matrix' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { DirectionsAnnotation } from '@mapbox/mapbox-sdk/services/directions';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { Point } from '@mapbox/mapbox-sdk/services/map-matching';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, MapboxProfile } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1200,9 +1228,13 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/optimization' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { Waypoint } from '@mapbox/mapbox-sdk/services/directions';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, MapboxProfile, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1282,9 +1314,12 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
     type OptimizationAnnotation = 'duration' | 'speed' | 'distance';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/static' {
     import { LngLatLike, LngLatBoundsLike, AnyLayer } from 'mapbox-gl';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1374,8 +1409,11 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/styles' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1532,9 +1570,12 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/tilequery' {
     import * as mapboxgl from 'mapbox-gl';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, Coordinates } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1581,8 +1622,11 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
     type GeometryType = 'polygon' | 'linestring' | 'point';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/tilesets' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1652,8 +1696,11 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/tokens' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
@@ -1763,8 +1810,11 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@mapbox/mapbox-sdk/services/uploads' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
 
     /*********************************************************************************************************************
