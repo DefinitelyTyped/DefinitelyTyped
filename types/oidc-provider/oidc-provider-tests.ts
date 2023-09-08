@@ -213,7 +213,7 @@ const provider = new Provider("https://op.example.com", {
     httpOptions(url) {
         url.searchParams.keys();
         const c = new AbortController();
-        return { signal: c.signal };
+        return { signal: c.signal, "user-agent": "foo" };
     },
     async expiresWithSession(ctx, token) {
         ctx.oidc.issuer.substring(0);
@@ -458,7 +458,7 @@ const provider = new Provider("https://op.example.com", {
         },
         clientCredentials: { enabled: false },
         backchannelLogout: { enabled: false },
-        dPoP: { enabled: false, ack: "draft" },
+        dPoP: { enabled: false },
         deviceFlow: {
             enabled: false,
             charset: "digits",
