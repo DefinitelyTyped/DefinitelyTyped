@@ -26,11 +26,8 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(message?: any): void;
 declare function error(...messages: any[]): void;
-declare function cpost(message?: any[]): void;
 declare function cpost(...message: any[]): void;
-declare function post(message?: any): void;
 declare function post(...message: any[]): void;
 /**
  * Sends a message to the named Max object.
@@ -1282,7 +1279,6 @@ declare class Maxobj {
     /**
      * Sets the value of the object's box attribute specified by box_attribute_name.
      */
-    setboxattr(box_attribute_name: string, anything: unknown): void;
     setboxattr(box_attribute_name: string, ...anything: unknown[]): void;
 }
 
