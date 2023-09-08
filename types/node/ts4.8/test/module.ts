@@ -132,7 +132,7 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
         parentURL,
         data: { number: 1 },
     });
-    registerResult2; // $ExpectType "ok" | "fail"
+    registerResult2; // $ExpectType "ok" | "fail" || "fail" | "ok"
 
     type MyInitializeHook = Module.InitializeHook<TransferableData, "ok" | "fail">;
     const initializeHook: MyInitializeHook = ({ number }) => {
