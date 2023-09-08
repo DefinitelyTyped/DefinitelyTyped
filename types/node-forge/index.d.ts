@@ -1003,10 +1003,58 @@ declare module 'node-forge' {
 
         function createSignedData(): PkcsSignedData;
 
+        interface Recipient {
+            version: number;
+            issuer: pki.CertificateField[];
+            serialNumber: Hex;
+            encryptedContent: {
+                algorithm: OID;
+                parameter: Bytes;
+                content: Bytes;
+            };
+        }
+
         interface PkcsEnvelopedData {
             content?: string | util.ByteBuffer | undefined;
+            recipients: Recipient[];
+
+            /**
+             * Add (another) entity to list of recipients.
+             *
+             * @param certificate The certificate of the entity to add.
+             */
             addRecipient(certificate: pki.Certificate): void;
-            encrypt(): void;
+            /**
+             * Encrypt enveloped content.
+             *
+             * This function supports two optional arguments, cipher and key, which
+             * can be used to influence symmetric encryption.  Unless cipher is
+             * provided, the cipher specified in encryptedContent.algorithm is used
+             * (defaults to AES-256-CBC).  If no key is provided, encryptedContent.key
+             * is (re-)used.  If that one's not set, a random key will be generated
+             * automatically.
+             *
+             * @param [key] The key to be used for symmetric encryption.
+             * @param [cipher] The OID of the symmetric cipher to use.
+             */
+            encrypt(key?: util.ByteBuffer, cipher?: OID): void;
+
+            /**
+             * Find recipient by X.509 certificate's issuer and serialNumber.
+             *
+             * @param cert the certificate with the issuer to look for.
+             *
+             * @return the recipient object, or `null` if no match.
+             */
+            findRecipient(cert: pki.Certificate): Recipient | null;
+            /**
+             * Decrypt enveloped content
+             *
+             * @param recipient The recipient object related to the private key
+             * @param privKey The (RSA) private key object
+             */
+            decrypt(recipient: Recipient, privKey: pki.rsa.PrivateKey): void;
+
             toAsn1(): asn1.Asn1;
         }
 
