@@ -24,6 +24,7 @@ examples/jsm/effects/AsciiEffect.d.ts
 examples/jsm/effects/ParallaxBarrierEffect.d.ts
 examples/jsm/effects/PeppersGhostEffect.d.ts
 examples/jsm/effects/StereoEffect.d.ts
+examples/jsm/environments/DebugEnvironment.d.ts
 examples/jsm/exporters/DRACOExporter.d.ts
 examples/jsm/exporters/EXRExporter.d.ts
 examples/jsm/exporters/GLTFExporter.d.ts
@@ -55,7 +56,6 @@ examples/jsm/lines/WireframeGeometry2.d.ts
 examples/jsm/loaders/3DMLoader.d.ts
 examples/jsm/loaders/3MFLoader.d.ts
 examples/jsm/loaders/AMFLoader.d.ts
-examples/jsm/loaders/BasisTextureLoader.d.ts
 examples/jsm/loaders/BVHLoader.d.ts
 examples/jsm/loaders/ColladaLoader.d.ts
 examples/jsm/loaders/EXRLoader.d.ts

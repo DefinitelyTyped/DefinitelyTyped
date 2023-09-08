@@ -12,15 +12,8 @@ export interface LWOLoaderParameters {
     resourcePath?: string;
 }
 
-export class LWOLoader extends Loader {
+export class LWOLoader extends Loader<LWO> {
     constructor(manager?: LoadingManager, parameters?: LWOLoaderParameters);
 
-    load(
-        url: string,
-        onLoad: (lwo: LWO) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<LWO>;
     parse(data: ArrayBuffer, path: string, modelName: string): LWO;
 }

@@ -6,7 +6,6 @@ export const SSAOShader: {
         KERNEL_SIZE: number;
     };
     uniforms: {
-        tDiffuse: IUniform;
         tNormal: IUniform;
         tDepth: IUniform;
         tNoise: IUniform;

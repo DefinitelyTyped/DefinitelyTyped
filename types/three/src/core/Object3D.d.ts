@@ -1,18 +1,23 @@
-import { Vector3 } from './../math/Vector3.js';
-import { Euler } from './../math/Euler.js';
-import { Quaternion } from './../math/Quaternion.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Matrix3 } from './../math/Matrix3.js';
+import { Vector3 } from '../math/Vector3.js';
+import { Euler } from '../math/Euler.js';
+import { Quaternion } from '../math/Quaternion.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Matrix3 } from '../math/Matrix3.js';
 import { Layers } from './Layers.js';
-import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
-import { Scene } from './../scenes/Scene.js';
-import { Camera } from './../cameras/Camera.js';
-import { Material } from './../materials/Material.js';
-import { Group } from './../objects/Group.js';
+import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
+import { Scene } from '../scenes/Scene.js';
+import { Camera } from '../cameras/Camera.js';
+import { Material } from '../materials/Material.js';
+import { Group } from '../objects/Group.js';
 import { Intersection, Raycaster } from './Raycaster.js';
-import { EventDispatcher, BaseEvent, Event } from './EventDispatcher.js';
+import { EventDispatcher } from './EventDispatcher.js';
 import { BufferGeometry } from './BufferGeometry.js';
 import { AnimationClip } from '../animation/AnimationClip.js';
+
+export interface Object3DEventMap {
+    added: {};
+    removed: {};
+}
 
 /**
  * This is the base class for most objects in three.js and provides a set of properties and methods for manipulating objects in 3D space.
@@ -21,7 +26,7 @@ import { AnimationClip } from '../animation/AnimationClip.js';
  * @see {@link https://threejs.org/docs/index.html#api/en/core/Object3D | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/Object3D.js | Source}
  */
-export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
+export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> extends EventDispatcher<TEventMap> {
     /**
      * This creates a new {@link Object3D} object.
      */

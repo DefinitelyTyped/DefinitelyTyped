@@ -9,15 +9,8 @@ export interface LUTCubeResult {
     texture3D: Data3DTexture;
 }
 
-export class LUTCubeLoader extends Loader {
+export class LUTCubeLoader extends Loader<LUTCubeResult> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (result: LUTCubeResult) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: Error) => void,
-    ): any;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<LUTCubeResult>;
     parse(data: string): LUTCubeResult;
 }

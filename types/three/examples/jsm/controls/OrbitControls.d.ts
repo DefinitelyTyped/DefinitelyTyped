@@ -1,4 +1,10 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
+import { Camera, EventDispatcher, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
+
+export interface OrbitControlsEventMap {
+    change: {};
+    start: {};
+    end: {};
+}
 
 /**
  * Orbit controls allow the camera to orbit around a target.
@@ -7,7 +13,7 @@ import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three.js';
  * @param domElement - The HTML element used for
  * event listeners.
  */
-export class OrbitControls {
+export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
     constructor(object: Camera, domElement?: HTMLElement);
 
     /**
@@ -175,8 +181,9 @@ export class OrbitControls {
 
     /**
      * Set to true to automatically rotate around the target.
-     * Note that if this is enabled, you must call
-     * .update () in your animation loop.
+     * Note that if this is enabled, you must call .update() in your animation loop. If you want the auto-rotate speed
+     * to be independent of the frame rate (the refresh rate of the display), you must pass the time `deltaTime`, in
+     * seconds, to .update().
      */
     autoRotate: boolean;
 
@@ -223,11 +230,11 @@ export class OrbitControls {
     zoom0: number;
 
     /**
-     * Update the controls. Must be called after any manual changes
-     * to the camera's transform, or in the update loop if .autoRotate
-     * or .enableDamping are set.
+     * Update the controls. Must be called after any manual changes to the camera's transform, or in the update loop if
+     * .autoRotate or .enableDamping are set. `deltaTime`, in seconds, is optional, and is only required if you want the
+     * auto-rotate speed to be independent of the frame rate (the refresh rate of the display).
      */
-    update(): boolean;
+    update(deltaTime?: number): boolean;
 
     /**
      * Adds key event listeners to the given DOM element. `window`
@@ -272,13 +279,4 @@ export class OrbitControls {
      * Returns the distance from the camera to the target.
      */
     getDistance(): number;
-
-    // EventDispatcher mixins
-    addEventListener(type: string, listener: (event: any) => void): void;
-
-    hasEventListener(type: string, listener: (event: any) => void): boolean;
-
-    removeEventListener(type: string, listener: (event: any) => void): void;
-
-    dispatchEvent(event: { type: string; target: any }): void;
 }

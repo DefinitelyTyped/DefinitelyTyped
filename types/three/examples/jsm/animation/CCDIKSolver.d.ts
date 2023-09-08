@@ -3,16 +3,16 @@ import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three.js';
 // tslint:disable-next-line:interface-name
 export interface IKS {
     effector: number;
-    iteration: number;
+    iteration?: number | undefined;
     links: Array<{
-        enabled: boolean;
+        enabled?: boolean | undefined;
         index: number;
-        limitation?: Vector3;
-        rotationMin?: Vector3;
-        rotationMax?: Vector3;
+        limitation?: Vector3 | undefined;
+        rotationMin?: Vector3 | undefined;
+        rotationMax?: Vector3 | undefined;
     }>;
-    minAngle: number;
-    maxAngle: number;
+    minAngle?: number | undefined;
+    maxAngle?: number | undefined;
     target: number;
 }
 
