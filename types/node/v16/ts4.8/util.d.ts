@@ -317,7 +317,7 @@ declare module 'util' {
      * @return The representation of `object`.
      */
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
         let colors: NodeJS.Dict<[number, number]>;
         let styles: {
