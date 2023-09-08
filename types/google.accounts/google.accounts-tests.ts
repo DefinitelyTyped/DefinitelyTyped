@@ -26,10 +26,46 @@ google.accounts.oauth2.initCodeClient({
     },
 });
 
+// all options
+// $ExpectType CodeClient
+google.accounts.oauth2.initCodeClient({
+    client_id: '',
+    scope: '',
+    include_granted_scopes: true,
+    redirect_uri: '',
+    callback: response => {
+        // $ExpectType string
+        response.code;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    },
+    state: '',
+    enable_granular_consent: true,
+    login_hint: '',
+    hd: '',
+    ux_mode: 'popup',
+    select_account: false,
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    },
+});
+
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
     client_id: '',
-    scope: '',
     callback: response => {
         // $ExpectType string
         response.access_token;
@@ -52,6 +88,49 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
+    scope: '',
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    },
+});
+
+// all options
+// $ExpectType TokenClient
+google.accounts.oauth2.initTokenClient({
+    client_id: '',
+    callback: response => {
+        // $ExpectType string
+        response.access_token;
+        // $ExpectType string
+        response.expires_in;
+        // $ExpectType string
+        response.hd;
+        // $ExpectType string
+        response.prompt;
+        // $ExpectType string
+        response.token_type;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    },
+    scope: '',
+    include_granted_scopes: true,
+    prompt: '',
+    enable_granular_consent: true,
+    login_hint: '',
+    hd: '',
     error_callback: error => {
         // $ExpectType string
         error.message;

@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
         "npm-naming": false,
-        "typedef-whitespace": false,
         "unified-signatures": false
     }
 }

@@ -1,7 +1,6 @@
 // Type definitions for dotenv-flow 2.0
 // Project: https://github.com/kerimdzhanov/dotenv-flow
-// Definitions by: Vincent Langlet <https://github.com/vincentlanglet>
-//                 Dan Kerimdzhanov <https://github.com/kerimdzhanov>
+// Definitions by: Dan Kerimdzhanov <https://github.com/kerimdzhanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

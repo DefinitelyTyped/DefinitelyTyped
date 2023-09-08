@@ -170,10 +170,10 @@
     [Hammer.STATE_BEGAN]: 2 as 2,
     [Hammer.STATE_CHANGED]: 4 as 4,
     [Hammer.STATE_ENDED]: 8 as 8,
-    [Hammer.STATE_RECOGNIZED]: Hammer.STATE_ENDED as typeof Hammer.STATE_ENDED,
     [Hammer.STATE_CANCELLED]: 16 as 16,
     [Hammer.STATE_FAILED]: 32 as 32,
   }
+  input[Hammer.STATE_RECOGNIZED] = Hammer.STATE_ENDED as typeof Hammer.STATE_ENDED;
 
   var direction = {
     [Hammer.INPUT_START]: 1 as 1,

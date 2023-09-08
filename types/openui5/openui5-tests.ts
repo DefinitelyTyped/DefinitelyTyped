@@ -210,3 +210,5 @@ sap.ui.require(["sap/m/Button", "sap/m/Input"], (B: typeof Button, I: typeof Inp
 odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedEvent) => {
     const contect = evt.getParameter("context");
 });
+
+// 1.117.0: it's just an update of the types!

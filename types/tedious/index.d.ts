@@ -115,7 +115,7 @@ export interface TediousTypes {
     Numeric: TediousType;
     Real: TediousType;
     SmallDateTime: TediousType;
-    SmallInt        : TediousType;
+    SmallInt: TediousType;
     SmallMoney: TediousType;
     TVP: TediousType;
     Text: TediousType;
@@ -125,6 +125,7 @@ export interface TediousTypes {
     UniqueIdentifier: TediousType;
     VarBinary: TediousType;
     VarChar: TediousType;
+    Variant: TediousType;
     Xml: TediousType;
 }
 
@@ -338,6 +339,12 @@ export interface ConnectionOptions {
      * Number of retries on transient error (default: 3)
      */
     maxRetriesOnTransientErrors?: number | undefined;
+
+    /**
+     * Sets the MultiSubnetFailover = True parameter, which can help minimize the client recovery latency when failovers occur.
+     * (default: `false`).
+     */
+    multiSubnetFailover?: boolean | undefined;
 
     /**
      * Size of data to be returned by SELECT statement for varchar(max), nvarchar(max), varbinary(max), text, ntext, and image type. (default: 2147483647)

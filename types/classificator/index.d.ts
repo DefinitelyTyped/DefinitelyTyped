@@ -10,10 +10,10 @@ declare function Classificator(options?: Classificator.Options): Classificator.N
 declare namespace Classificator {
     interface ClassificationResults {
         likelihoods: Array<{
-            category: string,
-            logLikelihood: number,
-            logProba: number,
-            proba: number,
+            category: string;
+            logLikelihood: number;
+            logProba: number;
+            proba: number;
         }>;
         predictedCategory: string;
     }
@@ -100,17 +100,17 @@ declare namespace Classificator {
      */
     function fromJson(jsonStrOrObject: string | { [key: string]: any }): NaiveBayes;
 
-	/**
-	 * Used to serialize a classifier's state.
-	 */
-	const STATE_KEYS: readonly [
-		'categories',
-		'docCount',
-		'totalDocuments',
-		'vocabulary',
-		'vocabularySize',
-		'wordCount',
-		'wordFrequencyCount',
-		'options',
-	];
+    /**
+     * Used to serialize a classifier's state.
+     */
+    const STATE_KEYS: readonly [
+        "categories",
+        "docCount",
+        "totalDocuments",
+        "vocabulary",
+        "vocabularySize",
+        "wordCount",
+        "wordFrequencyCount",
+        "options",
+    ];
 }

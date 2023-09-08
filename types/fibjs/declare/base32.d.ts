@@ -202,7 +202,7 @@
 declare module "base32" {
     
 
-    module base32 {
+    namespace base32 {
         
         
         

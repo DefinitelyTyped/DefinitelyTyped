@@ -8,11 +8,11 @@
 
 /// <reference types="node" />
 
-import util = require('util');
+import util = require("util");
 
-import polyfill = require('./implementation');
-import getUtilPromisify = require('./polyfill');
-import shimUtilPromisify = require('./shim');
+import polyfill = require("./implementation");
+import getUtilPromisify = require("./polyfill");
+import shimUtilPromisify = require("./shim");
 
 // tslint:disable-next-line: ban-types
 declare function promisify<TCustom extends Function>(fn: util.CustomPromisify<TCustom>): TCustom;

@@ -80,7 +80,7 @@ declare namespace createjs {
         canLoadItem(item: Object): boolean;
         }
 
-    export module DataUtils
+    export namespace DataUtils
         {
         export function parseJSON(value: string): Object;
         export function parseXML(text: string, type: string): XMLDocument;

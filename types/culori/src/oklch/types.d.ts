@@ -1,5 +1,5 @@
 export interface Oklch {
-    mode: 'oklch';
+    mode: "oklch";
     l: number;
     c: number;
     h?: number;

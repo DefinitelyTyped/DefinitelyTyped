@@ -16,7 +16,7 @@ import ES2019 = require('es-abstract/es2019');
  */
 export declare function expectType<T>(value: T): T;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export declare function newType<T>(): T;
 
 expectType<typeof ES5>(ESAbstract.ES5); // $ExpectType ES5

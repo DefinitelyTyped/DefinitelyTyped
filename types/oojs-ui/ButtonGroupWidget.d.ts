@@ -32,9 +32,8 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.GroupElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.GroupElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.GroupElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** Buttons to add */
             items?: ButtonWidget[];
         }
@@ -90,19 +89,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ButtonGroupWidget;
+            new(config?: ConfigOptions): ButtonGroupWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

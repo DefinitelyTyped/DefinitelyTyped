@@ -1,6 +1,6 @@
-import { NewConnectConfig } from '../transport/wire';
-import { Identity } from '../identity';
-import { EntityType } from '../api/frame/frame';
+import { EntityType } from "../api/frame/frame";
+import { Identity } from "../identity";
+import { NewConnectConfig } from "../transport/wire";
 export interface Environment {
     writeToken(path: string, token: string): Promise<string>;
     retrievePort(config: NewConnectConfig): Promise<number>;

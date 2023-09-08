@@ -47,6 +47,6 @@ declare module 'gulp-insert' {
 
     }
 
-    module Insert { }
+    namespace Insert { }
     export = Insert;
 }

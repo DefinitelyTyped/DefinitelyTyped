@@ -1,6 +1,6 @@
 export interface Validation<T> {
     key: T;
-    type: 'string' | 'object' | 'number' | 'decimal' | 'email' | 'array' | 'enum' | string;
+    type: "string" | "object" | "number" | "decimal" | "email" | "array" | "enum" | string;
     required?: boolean;
 }
 

@@ -5,5 +5,5 @@ export interface Filter<T> {
     (this: Context, chunk: T, encoding: string): boolean | Promise<boolean>;
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default function filter<T>(func: Filter<T>): stream.Transform;
