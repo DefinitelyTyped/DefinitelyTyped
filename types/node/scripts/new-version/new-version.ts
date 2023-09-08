@@ -55,17 +55,3 @@ oldTSConfig.compilerOptions.paths = {
 }
 
 writeFileSync(tsConfigPath, JSON.stringify(oldTSConfig, null, '  '), 'utf8')
-
-const tsConfigPath2 = join(folderName, 'ts4.8', 'tsconfig.json');
-
-const oldTSConfig2 = JSON.parse(readFileSync(tsConfigPath2, 'utf-8'));
-
-oldTSConfig2.compilerOptions.baseUrl = '../../../';
-oldTSConfig2.compilerOptions.typeRoots = ['../../../'];
-oldTSConfig2.compilerOptions.paths = {
-    "node": [
-        `node/v${currentVersion}`
-    ]
-}
-
-writeFileSync(tsConfigPath2, JSON.stringify(oldTSConfig2, null, '  '), 'utf8')

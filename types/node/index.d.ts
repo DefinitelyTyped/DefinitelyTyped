@@ -90,7 +90,6 @@
 /// <reference path="diagnostics_channel.d.ts" />
 /// <reference path="dns.d.ts" />
 /// <reference path="dns/promises.d.ts" />
-/// <reference path="dns/promises.d.ts" />
 /// <reference path="domain.d.ts" />
 /// <reference path="dom-events.d.ts" />
 /// <reference path="events.d.ts" />
