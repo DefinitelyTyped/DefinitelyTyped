@@ -4,7 +4,8 @@ const b: inspector.Console.ConsoleMessage = { source: 'test', text: 'test', leve
 inspector.open();
 inspector.open(0);
 inspector.open(0, 'localhost');
-inspector.open(0, 'localhost', true);
+const disposable = inspector.open(0, 'localhost', true);
+disposable[Symbol.dispose]();
 inspector.close();
 const inspectorUrl: string | undefined = inspector.url();
 

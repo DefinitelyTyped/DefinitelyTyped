@@ -546,7 +546,8 @@ declare module 'process' {
                  * parent thread's `process.env`, or whatever was specified as the `env` option
                  * to the `Worker` constructor. Changes to `process.env` will not be visible
                  * across `Worker` threads, and only the main thread can make changes that
-                 * are visible to the operating system or to native add-ons.
+                 * are visible to the operating system or to native add-ons. On Windows, a copy of`process.env` on a `Worker` instance operates in a case-sensitive manner
+                 * unlike the main thread.
                  * @since v0.1.27
                  */
                 env: ProcessEnv;
@@ -1275,7 +1276,7 @@ declare module 'process' {
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
                  *
-                 * If Node.js was not spawned with an IPC channel, `process.send` will be`undefined`.
+                 * If Node.js was not spawned with an IPC channel, `process.send` will be `undefined`.
                  *
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.
