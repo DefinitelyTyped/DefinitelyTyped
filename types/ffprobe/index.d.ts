@@ -301,8 +301,8 @@ declare namespace getInfo {
         time_base: string;
         start_pts?: number | undefined;
         start_time?: number | undefined;
-        duration_ts?: string | undefined;
-        duration?: number | undefined;
+        duration_ts?: number | undefined;
+        duration?: string | undefined;
         bit_rate?: number | undefined;
         max_bit_rate?: number | undefined;
         bits_per_raw_sample?: number | undefined;
