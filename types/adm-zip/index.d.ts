@@ -47,7 +47,7 @@ declare class AdmZip {
     readAsTextAsync(
         fileName: string | AdmZip.IZipEntry,
         callback: (data: string, err: string) => void,
-        encoding?: string
+        encoding?: string,
     ): void;
     /**
      * Remove the entry from the file or the entry and all its nested directories
@@ -115,7 +115,7 @@ declare class AdmZip {
         localPath: string,
         callback: (success?: boolean, err?: string) => void,
         zipPath?: string,
-        filter?: RegExp | ((filename: string) => boolean)
+        filter?: RegExp | ((filename: string) => boolean),
     ): void;
     /**
      *
@@ -126,7 +126,7 @@ declare class AdmZip {
      */
     addLocalFolderPromise(
         localPath: string,
-        props: { zipPath?: string, filter?: RegExp | ((filename: string) => boolean) }
+        props: { zipPath?: string; filter?: RegExp | ((filename: string) => boolean) },
     ): Promise<void>;
     /**
      * Allows you to create a entry (file or directory) in the zip file.
@@ -203,7 +203,7 @@ declare class AdmZip {
         targetPath: string,
         overwrite?: boolean,
         keepOriginalPermission?: boolean,
-        password?: string | Buffer
+        password?: string | Buffer,
     ): void;
     /**
      * Extracts the entire archive to the given location.
@@ -231,10 +231,7 @@ declare class AdmZip {
      * if a zip was opened and no `targetFileName` is provided, it will
      * overwrite the opened zip.
      */
-    writeZipPromise(
-        targetFileName?: string,
-        props?: { overwrite?: boolean, perm?: number }
-    ): Promise<boolean>;
+    writeZipPromise(targetFileName?: string, props?: { overwrite?: boolean; perm?: number }): Promise<boolean>;
     /**
      * Returns the content of the entire zip file.
      */
@@ -371,7 +368,7 @@ declare namespace AdmZip {
         /* Read entries during load (initial loading may be slower) */
         readEntries: boolean;
         /* Read method */
-        method: typeof Constants[keyof typeof Constants] | number;
+        method: (typeof Constants)[keyof typeof Constants] | number;
         /* file system */
         fs: null | typeof FS;
     }
