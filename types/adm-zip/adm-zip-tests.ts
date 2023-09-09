@@ -3,6 +3,21 @@ import util = require('adm-zip/util');
 const { Constants } = util;
 
 // reading archives
+// reading archive causes error
+try {
+    const zip = new AdmZip('./my_file.zip');
+} catch (e: unknown) {
+    const error = e as Error;
+    switch (error.message) {
+        case util.Errors.INVALID_FORMAT:
+            // handle specific error
+            throw new Error('Invalid zip format');
+        default:
+            // handle other errors
+            throw error;
+    }
+}
+// reading archive successfully
 const zip = new AdmZip('./my_file.zip');
 if (!zip.test()) {
     throw new Error('invalid zip?');
@@ -25,7 +40,12 @@ zip.extractEntryTo(/*entry name*/ 'some_folder/my_file.txt', /*target path*/ '/h
 // extracts everything
 zip.extractAllTo(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true);
 // extracts everything and calls callback -> async extracction
-zip.extractAllToAsync(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true, /*keepOriginalPermission*/ false, /*callback*/ (error?: Error) => {});
+zip.extractAllToAsync(
+    /*target path*/ '/home/me/zipcontent/',
+    /*overwrite*/ true,
+    /*keepOriginalPermission*/ false,
+    /*callback*/ (error?: Error) => {},
+);
 
 // creating archives
 new AdmZip();
