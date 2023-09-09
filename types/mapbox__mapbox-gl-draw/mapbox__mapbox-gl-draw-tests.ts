@@ -116,6 +116,9 @@ const customMode: CustomMode = {
         // $ExpectType void
         this.changeMode(constants.modes.SIMPLE_SELECT);
 
+        // $ExpectType (e: MapMouseEvent | MapTouchEvent) => boolean
+        lib.CommonSelectors.isOfMetaType('feature');
+
         // $ExpectType boolean
         lib.CommonSelectors.isVertex(e);
 

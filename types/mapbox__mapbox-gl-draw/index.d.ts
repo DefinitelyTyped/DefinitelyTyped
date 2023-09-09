@@ -390,10 +390,9 @@ declare namespace MapboxDraw {
         values(): string | number[];
         clear(): StringSet;
     }
-
     interface Lib {
         CommonSelectors: {
-            isOfMetaType: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isOfMetaType: (type: Constants['meta'][keyof Constants['meta']]) => (e: MapMouseEvent | MapTouchEvent) => boolean;
             isShiftMousedown: (e: MapboxEvent) => boolean;
             isActiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
             isInactiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
