@@ -25,3 +25,6 @@ const points = entities.filter(entity => entity.type === 'POINT') as Entities.Po
 
 // $ExpectType PolylineEntityData[]
 const polylines = entities.filter(entity => entity.type === 'POLYLINE') as Entities.Polyline[];
+
+// $ExpectType LineEntityData[]
+const lines = entities.filter(entity => entity.type === 'LINE') as Entities.Line[];
