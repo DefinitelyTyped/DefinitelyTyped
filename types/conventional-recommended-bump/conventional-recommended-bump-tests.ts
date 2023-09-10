@@ -1,16 +1,16 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
 "use strict";
 
-import conventionalCommitsParser from "conventional-commits-parser";
-import conventionalRecommendedBump from "conventional-recommended-bump";
+import type conventionalCommitsParser from "conventional-commits-parser";
+import conventionalRecommendedBump, { type Recommendation } from "conventional-recommended-bump";
 
 namespace Module {
     declare const options: conventionalRecommendedBump.Options;
     declare const parserOpts: conventionalCommitsParser.Options;
 
-    // $ExpectType Promise<void>
+    // $ExpectType Promise<Recommendation>
     conventionalRecommendedBump(options);
-    // $ExpectType Promise<void>
+    // $ExpectType Promise<Recommendation>
     conventionalRecommendedBump(options, parserOpts);
 
     // @ts-expect-error
