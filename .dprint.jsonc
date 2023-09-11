@@ -23,6 +23,7 @@
     "./types/oibackoff",
     "./types/openui5",
     "./types/p5",
+    "./types/react-native",
     "./types/sawtooth-sdk",
     "./types/three",
     "./types/winrt-uwp",
