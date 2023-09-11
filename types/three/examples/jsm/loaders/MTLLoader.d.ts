@@ -39,20 +39,12 @@ export interface MaterialCreatorOptions {
     invertTrProperty?: boolean | undefined;
 }
 
-export class MTLLoader extends Loader {
+export class MTLLoader extends Loader<MTLLoader.MaterialCreator> {
     constructor(manager?: LoadingManager);
     materialOptions: MaterialCreatorOptions;
 
-    load(
-        url: string,
-        onLoad: (materialCreator: MTLLoader.MaterialCreator) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
     parse(text: string, path: string): MTLLoader.MaterialCreator;
     setMaterialOptions(value: MaterialCreatorOptions): void;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<MTLLoader.MaterialCreator>;
 }
 
 export interface MaterialInfo {
