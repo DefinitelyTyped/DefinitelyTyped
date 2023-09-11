@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// eslint-disable-next-line @definitelytyped/no-self-import
 import * as self from '@feathersjs/authentication-oauth2';
 import { Application, Paginated, Service } from '@feathersjs/feathers';
 import { Request, RequestHandler } from 'express';

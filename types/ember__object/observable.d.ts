@@ -1,5 +1,8 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { UnwrapComputedPropertyGetter, UnwrapComputedPropertyGetters, UnwrapComputedPropertySetters, ObserverMethod } from "@ember/object/-private/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import CoreObject from "@ember/object/core";
 
 /**

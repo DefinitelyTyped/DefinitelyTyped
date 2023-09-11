@@ -18,6 +18,7 @@ export function loc(template: string, args?: string[]): string;
 export function underscore(str: string): string;
 export function w(str: string): string[];
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@ember/string' {
     function htmlSafe(...args: Parameters<typeof templateHtmlSafe>): ReturnType<typeof templateHtmlSafe>;
     function isHTMLSafe(...args: Parameters<typeof templateIsHTMLSafe>): ReturnType<typeof templateIsHTMLSafe>;

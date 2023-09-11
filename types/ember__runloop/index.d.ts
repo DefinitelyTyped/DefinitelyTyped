@@ -9,7 +9,9 @@
 
 import { EmberMethod, EmberMethodParams, AnyFn, EmberMethodReturn } from 'ember/-private/type-utils';
 import { EmberRunQueues } from './-private/types';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { EmberRunTimer } from '@ember/runloop/types';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import '@ember/runloop/-private/backburner';
 
 /**

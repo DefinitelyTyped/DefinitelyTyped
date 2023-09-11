@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
 
 /**

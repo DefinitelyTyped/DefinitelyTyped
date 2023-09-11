@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Mixin from '@ember/object/mixin';
 import { AnyFn, EmberMethod, MethodNamesOf, MethodParams, MethodsOf } from 'ember/-private/type-utils';
 

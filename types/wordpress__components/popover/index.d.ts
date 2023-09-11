@@ -1,4 +1,5 @@
 import { ComponentType, HTMLProps, ReactNode, ReactElement, FocusEvent } from 'react';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { Slot } from '@wordpress/components';
 
 declare namespace Popover {

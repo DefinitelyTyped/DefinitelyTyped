@@ -34,14 +34,17 @@ interface GdprConsentInterface {
 
 declare const GdprConsent: GdprConsentInterface;
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@beyonk/gdpr-cookie-consent-banner' {
     const attachBanner: GdprConsentInterface['attachBanner'];
     export default attachBanner;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@beyonk/gdpr-cookie-consent-banner/dist/esm/bundle.js' {
     const attachBanner: GdprConsentInterface['attachBanner'];
     export default attachBanner;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@beyonk/gdpr-cookie-consent-banner/dist/style.css' {}

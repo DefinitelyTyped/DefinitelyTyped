@@ -20,6 +20,7 @@ export interface RichTextStoreDescriptor extends StoreDescriptor {
     name: 'core/rich-text';
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@wordpress/rich-text' {
     const store: RichTextStoreDescriptor;
 }

@@ -3,6 +3,7 @@
 // Definitions by: Sebastian Vera <https://github.com/sebastianvera>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* eslint-disable @definitelytyped/no-declare-current-package */
 // tslint:disable-next-line no-single-declare-module
 declare module "@mapbox/s3urls" {
     function fromUrl(

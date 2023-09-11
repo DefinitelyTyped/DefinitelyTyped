@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     EmberInstanceArguments,
     UnwrapComputedPropertySetters,

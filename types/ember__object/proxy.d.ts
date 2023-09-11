@@ -1,4 +1,6 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import EmberObject from "@ember/object";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     UnwrapComputedPropertyGetter,
     UnwrapComputedPropertyGetters,

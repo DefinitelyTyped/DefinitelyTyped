@@ -3,6 +3,7 @@
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+// eslint-disable-next-line @definitelytyped/no-self-import
 import * as self from '@feathersjs/authentication-client';
 
 declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => void) & typeof self;
