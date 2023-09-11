@@ -5,6 +5,11 @@
 
 export type Poseidon = (arr: any[], state?: any, nOut?: any) => any;
 
+export interface Signature {
+    R8: any;
+    S: any;
+}
+
 export class SMT {
     constructor(
         db: SMTMemDb,
@@ -90,13 +95,13 @@ export interface Eddsa {
 
     prv2pub(prv: any): any;
 
-    signPedersen(prv: any, msg: any): any;
+    signPedersen(prv: any, msg: any): Signature;
 
-    signMiMC(prv: any, msg: any): any;
+    signMiMC(prv: any, msg: any): Signature;
 
-    signMiMCSponge(prv: any, msg: any): any;
+    signMiMCSponge(prv: any, msg: any): Signature;
 
-    signPoseidon(prv: any, msg: any): any;
+    signPoseidon(prv: any, msg: any): Signature;
 
     verifyPedersen(msg: any, sig: any, A: any): boolean;
 
