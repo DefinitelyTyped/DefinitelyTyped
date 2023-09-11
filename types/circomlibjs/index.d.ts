@@ -3,7 +3,7 @@
 // Definitions by: cedoor <https://github.com/cedoor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Poseidon = (arr: any[], state?: any, nOut?: any) => any;
+export type Poseidon = (arr: any[], state?: any, nOut?: any) => any;
 
 export class SMT {
     constructor(
@@ -39,7 +39,7 @@ export class SMTMemDb {
     setRoot(root: any): void;
 }
 
-interface BabyJub {
+export interface BabyJub {
     addPoint(a: any, b: any): any;
 
     mulPointEscalar(base: any, e: any): any;
@@ -53,7 +53,7 @@ interface BabyJub {
     unpackPoint(buff: any): any;
 }
 
-interface Mimc7 {
+export interface Mimc7 {
     getIV(seed?: any): any;
 
     getConstants(seed?: any, nRounds?: any): any;
@@ -63,7 +63,7 @@ interface Mimc7 {
     multiHash(arr: any[], key?: any): any;
 }
 
-interface MimcSponge {
+export interface MimcSponge {
     getIV(seed?: any): any;
 
     getConstants(seed?: any, nRounds?: any): any;
@@ -73,7 +73,7 @@ interface MimcSponge {
     multiHash(arr: any[], key?: any, numOutputs?: any): any;
 }
 
-interface PedersenHash {
+export interface PedersenHash {
     baseHash(type: any, S: any): any;
 
     hash(msg: any, options?: any): any;
@@ -85,7 +85,7 @@ interface PedersenHash {
     buffer2bits(buff: any): any;
 }
 
-interface Eddsa {
+export interface Eddsa {
     pruneBuffer(buff: any): any;
 
     prv2pub(prv: any): any;
