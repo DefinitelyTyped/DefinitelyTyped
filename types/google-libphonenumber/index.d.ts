@@ -27,7 +27,7 @@ declare namespace libphonenumber {
         UNKNOWN = -1,
     }
 
-    export module PhoneNumber {
+    export namespace PhoneNumber {
         export enum CountryCodeSource {
             FROM_NUMBER_WITH_PLUS_SIGN = 1,
             FROM_NUMBER_WITH_IDD = 5,
@@ -93,7 +93,7 @@ declare namespace libphonenumber {
         clearPreferredDomesticCarrierCode(): void;
     }
 
-    export module PhoneNumberUtil {
+    export namespace PhoneNumberUtil {
         export enum ValidationResult {
             /** The number length matches that of valid numbers for this region. =0 */
             IS_POSSIBLE,
@@ -148,7 +148,7 @@ declare namespace libphonenumber {
         getCountryCodeForRegion(supportedRegion: string): number;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
-        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode;
+        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode | RegionCodeUnknown;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): RegionCode | undefined;
         getSupportedRegions(): RegionCode[];
         isAlphaNumber(number: string): boolean;
@@ -177,7 +177,7 @@ declare namespace libphonenumber {
         clear(): void;
     }
 
-    export module ShortNumberInfo {
+    export namespace ShortNumberInfo {
         /** Cost categories of short numbers. */
         export enum ShortNumberCost {
             TOLL_FREE = 0,
@@ -359,6 +359,7 @@ declare namespace libphonenumber {
         isSmsServiceForRegion(number: PhoneNumber, regionDialingFrom: string): boolean;
     }
 
+    export type RegionCodeUnknown = 'ZZ';
     export type RegionCode =
         | 'AC'
         | 'AD'

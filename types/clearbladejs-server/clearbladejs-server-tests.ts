@@ -11,21 +11,23 @@ const genericCallback = (error: boolean, response: CbServer.Resp) => {};
 ClearBlade.init({
     systemKey: "abcdef",
     systemSecret: "abcdefg",
-    callback: genericCallback
+    callback: genericCallback,
 });
 
-ClearBlade.init({request: {
-    isLogging: false,
-    params: {
-      param1: "1",
-      param2: 2
+ClearBlade.init({
+    request: {
+        isLogging: false,
+        params: {
+            param1: "1",
+            param2: 2,
+        },
+        systemKey: "abcdef",
+        systemSecret: "abcdef",
+        userEmail: "test@test.com",
+        userToken: "abcdef",
+        userid: "abcdef",
     },
-    systemKey: "abcdef",
-    systemSecret: "abcdef",
-    userEmail: "test@test.com",
-    userToken: "abcdef",
-    userid: "abcdef",
-}});
+});
 
 const about = ClearBlade.about();
 ClearBlade.setUser("test@test.com", "authtoken", "userId");
@@ -38,7 +40,7 @@ ClearBlade.loginUser("test@test.com", "password", genericCallback);
 ClearBlade.getAllCollections(genericCallback);
 const edgeID = ClearBlade.edgeId();
 const isEdge = ClearBlade.isEdge(genericCallback);
-if (ClearBlade.isObjectEmpty({test: "test"})) {
+if (ClearBlade.isObjectEmpty({ test: "test" })) {
     ClearBlade.logger("Object is empty");
 }
 const kvPair = ClearBlade.makeKVPair("key", "value");
@@ -67,13 +69,13 @@ ClearBlade.addToQuery(query1, "key", "value");
 ClearBlade.addSortToQuery(
     query1,
     CbServer.QuerySortDirections.QUERY_SORT_ASCENDING,
-    "column1"
+    "column1",
 );
 ClearBlade.addFilterToQuery(
     query1,
     CbServer.QueryConditions.QUERY_GREATERTHAN,
     "key",
-    "value"
+    "value",
 );
 
 ClearBlade.newCollection("collectionName", genericCallback);
@@ -82,9 +84,9 @@ const parseOperation = ClearBlade.parseOperationQuery(query1.query);
 const parseQuery1 = ClearBlade.parseQuery(query1);
 const parseQuery2 = ClearBlade.parseQuery(query1.query);
 
-ClearBlade.createDevice("devicename", {type: "devicetype"}, false, genericCallback);
+ClearBlade.createDevice("devicename", { type: "devicetype" }, false, genericCallback);
 ClearBlade.deleteDevice("devicename", true, genericCallback);
-ClearBlade.updateDevice("devicename", {type: "devicetype"}, true, genericCallback);
+ClearBlade.updateDevice("devicename", { type: "devicetype" }, true, genericCallback);
 ClearBlade.getDeviceByName("devicename", genericCallback);
 ClearBlade.getAllDevicesForSystem(genericCallback);
 ClearBlade.validateEmailPassword("test@test.com", "password");
@@ -92,7 +94,7 @@ ClearBlade.validateEmailPassword("test@test.com", "password");
 ///////////////////////////////////////
 // Collection API invocations
 ///////////////////////////////////////
-coll1.addColumn({name: "column1"}, genericCallback);
+coll1.addColumn({ name: "column1" }, genericCallback);
 coll1.dropColumn("column1", genericCallback);
 coll1.deleteCollection(genericCallback);
 coll1.fetch(query1.query, genericCallback);
@@ -148,7 +150,7 @@ deployment.readAll(query1, genericCallback);
 ///////////////////////////////////////
 user.getUser(genericCallback);
 user.setUser({}, genericCallback);
-user.setUsers(query2, {name: "Fred"}, genericCallback);
+user.setUsers(query2, { name: "Fred" }, genericCallback);
 user.allUsers(query1, genericCallback);
 user.count(query1, genericCallback);
 
@@ -180,9 +182,10 @@ ClearBlade.Trigger.Create(
         def_module: CbServer.TriggerModule.DEVICE,
         def_name: "someName",
         key_value_pairs: [],
-        service_name: "ServiceName"
+        service_name: "ServiceName",
     },
-    genericCallback);
+    genericCallback,
+);
 ClearBlade.Trigger.Fetch("triggername", genericCallback);
 
 ///////////////////////////////////////

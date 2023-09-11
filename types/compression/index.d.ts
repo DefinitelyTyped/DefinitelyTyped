@@ -6,7 +6,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
+import express = require("express");
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.
 

@@ -24,7 +24,7 @@ declare namespace Icon {
         {};
     type Props<P> = BaseProps<P> & AdditionalProps<IconType<P>>;
 }
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Icon<P>(props: Icon.Props<P>): JSX.Element;
 
 export default Icon;

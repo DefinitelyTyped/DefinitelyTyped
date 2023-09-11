@@ -2,13 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "one-line": false,
-        "only-arrow-functions": false,
-        "semicolon": false
+        "only-arrow-functions": false
     }
 }

@@ -1,10 +1,10 @@
-import { Data, Point, Position, Node, Literal, Parent, NodeData } from 'unist';
+import { Data, Literal, Node, NodeData, Parent, Point, Position } from "unist";
 
 const data: Data = {
-    string: 'string',
+    string: "string",
     number: 1,
     object: {
-        key: 'value',
+        key: "value",
     },
     array: [],
     boolean: true,
@@ -24,60 +24,60 @@ const position: Position = {
 };
 
 const node: Node = {
-    type: 'node',
+    type: "node",
     data,
     position,
 };
 
 const text: Literal = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const parent: Parent = {
-    type: 'parent',
+    type: "parent",
     data,
     position,
     children: [node, text],
 };
 
 const noExtraKeysInNode: Node = {
-    type: 'noExtraKeysInNode',
+    type: "noExtraKeysInNode",
     // @ts-expect-error
-    extra: 'extra',
+    extra: "extra",
 };
 
 const noChildrenInNode: Node = {
-    type: 'noChildrenInNode',
+    type: "noChildrenInNode",
     // @ts-expect-error
     children: [],
 };
 
 const stringLiteral: Literal<string> = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const literalParent: Parent<Literal<string>> = {
-    type: 'literalParent',
+    type: "literalParent",
     data,
     position,
     children: [stringLiteral],
 };
 
 const nodeData: Node<{ key: string }> = {
-    type: 'nodeData',
+    type: "nodeData",
     data: {
-        key: 'value',
+        key: "value",
     },
 };
 
 const nodeData2: Node<{ key: string }> = {
-    type: 'nodeData',
+    type: "nodeData",
     // @ts-expect-error
     data: {},
 };
@@ -86,30 +86,30 @@ const nodeData2: Node<{ key: string }> = {
 type DataType = NodeData<Node<string>>;
 
 const literalData: Literal<string, { key: string }> = {
-    type: 'literalData',
+    type: "literalData",
     data: {
-        key: 'value',
+        key: "value",
     },
-    value: 'value',
+    value: "value",
 };
 
 const literalParentData: Parent<Literal<string>, Data> = {
-    type: 'literalParent',
+    type: "literalParent",
     data,
     position,
     children: [stringLiteral],
 };
 
 const data1 = {
-    key1: 'value1',
+    key1: "value1",
 };
 
 const data2 = {
-    key2: 'value2',
+    key2: "value2",
 };
 
 const nestedliteralParentData: Parent<Literal<string, typeof data1>, typeof data2> = {
-    type: 'literalParent',
+    type: "literalParent",
     data: data2,
     position,
     children: [
@@ -122,8 +122,8 @@ const nestedliteralParentData: Parent<Literal<string, typeof data1>, typeof data
 
 function exampleNodeUtil(node: Node) {}
 
-const inferredNode = { type: 'example' };
-const inferredNotNode = { notType: 'whoops' };
+const inferredNode = { type: "example" };
+const inferredNotNode = { notType: "whoops" };
 
 exampleNodeUtil(inferredNode);
 // @ts-expect-error
@@ -131,8 +131,8 @@ exampleNodeUtil(inferredNotNode);
 
 function exampleLiteralUtil(node: Literal) {}
 
-const inferredLiteral = { type: 'example', value: 'value' };
-const inferredNotLiteral = { type: 'example' };
+const inferredLiteral = { type: "example", value: "value" };
+const inferredNotLiteral = { type: "example" };
 
 exampleLiteralUtil(inferredLiteral);
 // @ts-expect-error
@@ -140,8 +140,8 @@ exampleLiteralUtil(inferredNotLiteral);
 
 function exampleParentUtil(node: Parent) {}
 
-const inferredParent = { type: 'example', children: [inferredNode] };
-const inferredNotParent = { type: 'example', children1: [] };
+const inferredParent = { type: "example", children: [inferredNode] };
+const inferredNotParent = { type: "example", children1: [] };
 
 exampleParentUtil(inferredParent);
 // @ts-expect-error

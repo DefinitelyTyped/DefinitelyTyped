@@ -7,7 +7,6 @@
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
-
     export interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
@@ -311,7 +310,6 @@ declare namespace Chroma {
          */
         range(colors: string[]): Scale;
     }
-
 }
 
 declare var chroma: Chroma.ChromaStatic;

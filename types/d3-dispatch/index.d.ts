@@ -62,5 +62,5 @@ export interface Dispatch<T extends object> {
  * @param types The event types.
  * @throws "illegal type" on empty string or duplicated event types.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function dispatch<T extends object>(...types: string[]): Dispatch<T>;

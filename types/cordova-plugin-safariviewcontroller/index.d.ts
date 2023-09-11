@@ -35,7 +35,7 @@ interface SafariViewControllerShowOptions {
      *
      * @default 'slide'
      */
-    transition?: 'curl' | 'flip' | 'fade' | 'slide';
+    transition?: "curl" | "flip" | "fade" | "slide";
 
     /**
      * Whether reader mode should be used for `SafariViewController`.
@@ -93,7 +93,7 @@ interface SafariViewControllerShowResult {
      * The event that describes what happened in the `SafariViewController`/custom tab view.
      * Only `'loaded'` and `'closed'` events will be dispatched on Android.
      */
-    event: 'opened' | 'loaded' | 'closed';
+    event: "opened" | "loaded" | "closed";
 }
 
 /**

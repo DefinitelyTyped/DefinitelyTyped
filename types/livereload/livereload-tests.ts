@@ -1,6 +1,6 @@
-import { createServer } from 'livereload';
+import { createServer } from "livereload";
 
-const extensionsToWatch = ['md', 'text'];
+const extensionsToWatch = ["md", "text"];
 
 const liveReloadServer = createServer({
     port: 35729,
@@ -9,9 +9,9 @@ const liveReloadServer = createServer({
 });
 
 // Listen for errors
-liveReloadServer.on('error', (err: NodeJS.ErrnoException) => {
-    if (err.code === 'EADDRINUSE') {
-        console.log('The port LiveReload wants to use is used by something else.');
+liveReloadServer.on("error", (err: NodeJS.ErrnoException) => {
+    if (err.code === "EADDRINUSE") {
+        console.log("The port LiveReload wants to use is used by something else.");
         process.exit(1);
     }
 });

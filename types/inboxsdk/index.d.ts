@@ -12,7 +12,7 @@
  * Copyright (c) 2018 https://propelmypr.com
  */
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = InboxSDK;
 export as namespace InboxSDK;
 

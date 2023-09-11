@@ -114,6 +114,7 @@ AP.history.pushState(1); // $ExpectType void
 AP.history.pushState('page2'); // $ExpectType void
 AP.history.pushState({ state: 'state' }, 'title', 'https://example.com'); // $ExpectType void
 AP.history.replaceState('https://example.com'); // $ExpectType void
+AP.history.popState(e => console.log(e)); // $ExpectType void
 
 AP.host.getSelectedText(selection => console.log(selection)); // $ExpectType void
 

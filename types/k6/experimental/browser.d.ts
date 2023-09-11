@@ -152,7 +152,7 @@ export type MouseMultiClickOptions = MouseClickOptions & {
     clickCount?: number;
 };
 
- export interface MouseDownUpOptions {
+export interface MouseDownUpOptions {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
@@ -530,10 +530,15 @@ export interface NewBrowserContextOptions {
 }
 
 /**
- * The `Browser` class is the entry point for all your tests, it interacts
- * with the actual web browser via Chrome DevTools Protocol (CDP).
+ * The `browser` named export is the entry point for all your tests,
+ * it interacts with the actual web browser via Chrome DevTools Protocol (CDP).
  */
-export class Browser {
+export const browser: Browser;
+
+/**
+ * `Browser` represents the main web browser instance.
+ */
+export interface Browser {
     /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
@@ -585,7 +590,7 @@ export class Browser {
  * `BrowserContext` provides a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
-export class BrowserContext {
+export interface BrowserContext {
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
@@ -763,7 +768,7 @@ export class BrowserContext {
 /**
  * ElementHandle represents an in-page DOM element.
  */
-export class ElementHandle extends JSHandle {
+export interface ElementHandle extends JSHandle {
     /**
      * Finds an element matching the specified selector in the `ElementHandle`'s subtree.
      * @param selector A selector to query element for.
@@ -959,7 +964,7 @@ export class ElementHandle extends JSHandle {
 /**
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.
  */
-export class Frame {
+export interface Frame {
     /**
      * Finds an element matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
@@ -1306,7 +1311,7 @@ export class Frame {
 /**
  * JSHandle represents an in-page JavaScript object.
  */
-export class JSHandle<T = any> {
+export interface JSHandle<T = any> {
     /**
      * Returns either `null` or the object handle itself, if the object handle is
      * an instance of `ElementHandle`.
@@ -1326,7 +1331,7 @@ export class JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns The return value of `pageFunction`.
      */
-    evaluate<R, Arg>(pageFunction: PageFunction<R, Arg>, ...args: any): any;
+    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 
     /**
      * Evaluates the page function and returns a `JSHandle`.
@@ -1336,7 +1341,7 @@ export class JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns A JSHandle of the return value of `pageFunction`.
      */
-    evaluateHandle<R, Arg>(pageFunction: PageFunction<R, Arg>, ...args: any): JSHandle<R>;
+    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
      * Fethes a map with own property names of of the `JSHandle` with their values as
@@ -1355,7 +1360,7 @@ export class JSHandle<T = any> {
 /**
  * Keyboard provides an API for managing a virtual keyboard.
  */
-export class Keyboard {
+export interface Keyboard {
     /**
      * Sends a key down message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
@@ -1406,7 +1411,7 @@ export class Keyboard {
  * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
  * React, Vue, etc.
  */
-export class Locator {
+export interface Locator {
     /**
      * Mouse click on the chosen element.
      * @param options Options to use.
@@ -1580,7 +1585,7 @@ export class Locator {
 /**
  * Mouse provides an API for managing a virtual mouse.
  */
-export class Mouse {
+export interface Mouse {
     /**
      * Shortcut for `mouse.move(x, y)`, `mouse.down()`, `mouse.up()`.
      * @param x The x position.
@@ -1623,7 +1628,7 @@ export class Mouse {
  * Page provides methods to interact with a single tab in a running web browser
  * instance. One instance of the browser can have many page instances.
  */
-export class Page {
+export interface Page {
     /**
      * Activates the browser tab so that it comes into focus and actions can be
      * performed against it.
@@ -3125,9 +3130,9 @@ export class Page {
 }
 
 /**
- * Request class represents requests which are sent by a page.
+ * Request represents requests which are sent by a page.
  */
-export class Request {
+export interface Request {
     /**
      * An object with HTTP headers associated with the request. All header names are
      * lower-case.
@@ -3223,9 +3228,9 @@ export class Request {
 }
 
 /**
- * Response class represents responses which are received by page.
+ * Response represents responses which are received by page.
  */
-export class Response {
+export interface Response {
     /**
      * An object with HTTP headers associated with the response. All header names are
      * lower-case.
@@ -3339,7 +3344,7 @@ export class Response {
  * operates in main-frame CSS pixels relative to the top-left corner of the
  * viewport.
  */
-export class Touchscreen {
+export interface Touchscreen {
     /**
      * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
      * @param x The x position.
@@ -3349,9 +3354,9 @@ export class Touchscreen {
 }
 
 /**
- * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+ * The Worker represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
  */
-export class Worker {
+export interface Worker {
     /**
      * Get the URL of the web worker.
      * @return The URL of the web worker.

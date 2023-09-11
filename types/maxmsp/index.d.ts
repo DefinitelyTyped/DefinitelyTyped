@@ -1,6 +1,7 @@
 // Type definitions for non-npm package maxmsp 1.0
 // Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
 // Definitions by: TomW <https://github.com/twhiston>
+//                 FrancescElies <https://github.com/FrancescElies>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
 // Documentation is property of Cycling '74 and published with permission.
@@ -27,7 +28,13 @@ declare var patcher: Patcher;
 declare function error(message: any): void;
 declare function cpost(message?: any): void;
 declare function post(message?: any): void;
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string): void;
+/**
+ * Sends a message to the named Max object.
+ * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
+ * For example, Max receive objects are bound to global symbols.
+ * The following code would send the message bang to the named object flower.
+ */
+declare function messnamed(object_name: string, message_name: string, message_arguments?: string | number): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -41,6 +48,12 @@ declare function notifyclients(): void;
 declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
+
+type Range = [number, number];
+type Color = [number, number, number, number];
+type Rect = [number, number, number, number];
+type Position = [number, number];
+type Size = [number, number];
 
 type MaxMessage =
     | 'buildcollective'
@@ -1121,6 +1134,13 @@ declare class Max {
     useslowbutcompletesearching(enable: 0 | 1): void;
 }
 
+declare class MaxobjConnection {
+    srcobject: object;
+    dstobject: object;
+    srcoutlet: number;
+    dstinlet: number;
+}
+
 /**
  * A Maxobj is a Javascript representation of a Max object in a patcher. It is returned by various methods of a Javascript Patcher object, such as newobject().One important thing to keep in mind about
  * a Maxobj is that it could eventually refer to an object that no longer exists if the underlying Max object is freed. The valid property can be used to test for this condition.
@@ -1208,10 +1228,11 @@ declare class Maxobj {
     help(): void;
 
     /**
-     * If the object contains a patcher, this function returns a (Javascript) Patcher object. The optional index is used for specifying an instance number, which only applies to poly~ objects. If the
-     * object does not contain a subpatcher, a nil value is returned.
+     * If the object contains a patcher, this function returns a (Javascript) Patcher object.
+     * The optional index is used for specifying an instance number, which only applies to poly~ objects.
+     * If the object does not contain a subpatcher, a nil value is returned.
      */
-    subpatcher(index: number): Patcher;
+    subpatcher(index?: number): Patcher;
 
     /**
      * Returns a Boolean value if the object has an entry in its message list for the message specified by the string. If the entry is not a message that can be sent by a user within Max (i.e., it's a
@@ -1219,6 +1240,101 @@ declare class Maxobj {
      * others.
      */
     understands(message: string): boolean;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object.
+     */
+    getattrnames(): string[];
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     */
+    setattr(attribute_name: string, anything: unknown): void;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object's box.
+     */
+    getboxattrnames(): string[];
+
+    /**
+     * Returns the value of the object's box attribute specified by box_attribute_name. Lists are returned as JS Array objects.
+     */
+    getboxattr(box_attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the object's box attribute specified by box_attribute_name.
+     */
+    setboxattr(box_attribute_name: string, anything: unknown): void;
+}
+
+/**
+ * The MaxobjListener object listens for changes to a Maxobj object's value,
+ * or changes to a specified attribute of a Maxobj object.
+ * When a change occurs, a user-specified function will be called.
+ * The object also provides methods for getting and setting the value of the observed value or attribute.
+ */
+declare class MaxobjListener  {
+    constructor(object: Maxobj, attribute_name: string, callback: (data: MaxobjListenerData<any>) => void);
+
+    /**
+     * The Maxobj to observe.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * An attribute to observe for changes, if desired.
+     */
+    attrname: string;
+
+    /**
+     * Never execute the callback function in response to calling setvalue from this MaxobjListener.
+     */
+    silent: number;
+
+    /**
+     * Report the value of the Maxobj or its specified attribute. List values are reported in a JS Array object.
+     */
+    getvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute.
+     */
+    setvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute, without executing the callback function (also see the silent property).
+     */
+    setvalue_silent(): void;
+}
+
+/**
+ * The MaxobjListenerData object is the argument to your MaxobjListener's function
+ */
+declare class MaxobjListenerData<Tvalue>  {
+    /**
+     * The MaxobjListener which called the function.
+     */
+    listener: MaxobjListener;
+
+    /**
+     * The Maxobj being observed.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * If the MaxobjListener is observing an attribute, the attribute's name, otherwise undefined.
+     */
+    attrname: string;
+
+    /**
+     * The current value of the observed object or attribute. List values are represented by a JS Array object.
+     */
+    value: Tvalue;
 }
 
 /**
@@ -1295,6 +1411,13 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Sends message to the patcher followed by any additional arguments (..anything) provided.
+     * This is useful for manupulating patchers which dynamically can do things like: creating new buttons,
+     * resizing it's window, switching to presentation mode, ...
+     */
+    message(message: string, ...anything: any[]): void;
 
     /**
      * Creates a new object of Max class classname in a patcher using the specified parameters and returns a Maxobj (see below) that represents it.
@@ -1681,6 +1804,11 @@ declare class MGraphics {
      * to 0.
      */
     autofill: number;
+
+    /**
+     * Array of two values width and height of the jsui object in the maxpat
+     */
+    size: [number, number];
 
     /**
      * The init routine is the first thing that an mgraphics-based Javascript program needs to call. It initializes the library, sets up the internal mgraphics variables and prepares the jsui object

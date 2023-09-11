@@ -1,3 +1,3 @@
-import urix = require('urix');
+import urix = require("urix");
 
-urix('c:\\users\\you\\foo'); // $ExpectType string
+urix("c:\\users\\you\\foo"); // $ExpectType string

@@ -1,15 +1,15 @@
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
+import { HttpResponse } from 'selenium-webdriver/devtools/networkinterceptor';
 import * as edge from 'selenium-webdriver/edge';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
 import * as ie from 'selenium-webdriver/ie';
-import * as safari from 'selenium-webdriver/safari';
-import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdriver/lib/capabilities';
+import { PageLoadStrategy, Platform, UserPromptHandler } from 'selenium-webdriver/lib/capabilities';
 import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
 import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver';
-import { HttpResponse } from 'selenium-webdriver/devtools/networkinterceptor';
+import * as safari from 'selenium-webdriver/safari';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -262,10 +262,10 @@ function TestBy() {
     webdriver.By.js('script', 1, 2, 3)(driver).then((abc: number) => {});
 
     let cssEscape = webdriver.escapeCss('css');
-    let check  = webdriver.checkedLocator(locatorHash);
+    let check = webdriver.checkedLocator(locatorHash);
     let fromTagName = webdriver.withTagName(webdriver.By.tagName('tag'));
     let fromLocateWith = webdriver.locateWith(webdriver.By.tagName('tag'))
-                            .above(webdriver.By.tagName('tag'));
+        .above(webdriver.By.tagName('tag'));
 
     let relativeLocator: webdriver.RelativeBy = new webdriver.RelativeBy(locator, []);
     relativeLocator = relativeLocator.above(By.tagName('tag'));
@@ -276,7 +276,7 @@ function TestBy() {
     let relativeLocatorStr = relativeLocator.toString();
     let relativeLocatorObject = relativeLocator.marshall();
 
-    webdriver.WebElement
+    webdriver.WebElement;
 }
 
 function TestSession() {
@@ -466,20 +466,20 @@ async function TestWebDriver() {
     voidPromise = driver.wait(webElementCondition).click();
 
     const connection = await driver.createCDPConnection('page');
-    let url = "http://localhost:4444/cheese";
+    let url = 'http://localhost:4444/cheese';
     let callback = async () => {
         // do something
     };
     let httpResponse = new HttpResponse(url);
-    httpResponse.addHeaders("Content-Type", "UTF-8");
-    httpResponse.body = "sausages";
+    httpResponse.addHeaders('Content-Type', 'UTF-8');
+    httpResponse.body = 'sausages';
     await driver.onIntercept(connection, httpResponse, callback);
 
     await driver.register('random', 'random', connection);
-    await driver.onLogEvent(connection, (event: any) => {})
-    await driver.onLogException(connection, (event: any) => {})
-    await driver.logMutationEvents(connection, (event: any) => {})
-    let wsUrl: string = await driver.getWsUrl("TargetAddress", "target", await driver.getCapabilities());
+    await driver.onLogEvent(connection, (event: any) => {});
+    await driver.onLogException(connection, (event: any) => {});
+    await driver.logMutationEvents(connection, (event: any) => {});
+    let wsUrl: string = await driver.getWsUrl('TargetAddress', 'target', await driver.getCapabilities());
 
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());
 }
@@ -551,8 +551,9 @@ function TestWebElementPromise() {
 
 function testCondition() {
     const conditionString = new webdriver.Condition<string>('message', () => (Math.random() > 0.5 ? 'foo' : null));
-    const conditionStringPromise = new webdriver.Condition<string>('message', async () =>
-        Math.random() > 0.5 ? 'foo' : null,
+    const conditionStringPromise = new webdriver.Condition<string>(
+        'message',
+        async () => Math.random() > 0.5 ? 'foo' : null,
     );
 }
 
