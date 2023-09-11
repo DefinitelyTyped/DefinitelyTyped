@@ -1,6 +1,8 @@
 import ComputedProperty from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import NativeArray from '@ember/array/-private/native-array';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import EmberArray from '@ember/array';
 import { AnyFn, MethodNamesOf, MethodParams, MethodReturns, MethodsOf } from 'ember/-private/type-utils';
 
