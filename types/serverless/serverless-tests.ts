@@ -688,7 +688,8 @@ const awsServerless: Aws.Serverless = {
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        functionResponseType: "ReportBatchItemFailures"
                     }
                 }, {
                     msk: {
