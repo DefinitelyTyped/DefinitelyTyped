@@ -668,6 +668,7 @@
 /types/bristol/                                           @eheikes @ElliottCampbellJHA
 /types/bristol-sentry/                                    @ElliottCampbellJHA
 /types/bro-fs/                                            @ffflorian
+/types/broccoli-merge-trees/                              @KonradPerlicki
 /types/broken-link-checker/                               @Haizzz
 /types/brorand/                                           @chrootsu
 /types/brotli/                                            @arturovt
@@ -1701,6 +1702,7 @@
 /types/easy-speech/                                       @RJWadley
 /types/easy-xapi/                                         @DeadAlready
 /types/easy-xapi-utils/                                   @DeadAlready
+/types/easycaptchajs/                                     @HichemTab-tech
 /types/easydate/                                          @satyarohith
 /types/ebay-oauth-nodejs-client/                          @JeremyMoeglich
 /types/ebml/                                              @AppLover69
@@ -4014,7 +4016,7 @@
 /types/jwa/                                               @dhritzkiv
 /types/jweixin/                                           @taoqf @gomydodo
 /types/jwk-to-pem/                                        @esilkensen
-/types/jwplayer/                                          @martinduparc @kutomer @philippguertler @danielmcgraw @bebebebebe @djcsdy @drewwyatt @zetagame @esetnik
+/types/jwplayer/                                          @martinduparc @kutomer @philippguertler @danielmcgraw @bebebebebe @djcsdy @drewwyatt @zetagame @esetnik @nlhiorth
 /types/jws/                                               @JustinBeckwith @dolsem
 /types/jwt-client/                                        @timoteoponce
 /types/jwt-encode/                                        @turisap
@@ -4914,7 +4916,7 @@
 /types/merge2/                                            @tkrotoff @smac89 @winston01
 /types/mergerino/                                         @fivitti
 /types/merkle/                                            @kerol2r20
-/types/mersenne-twister/                                  @KentarouTakeda
+/types/mersenne-twister/                                  @KentarouTakeda @Shinigami92
 /types/mersennetwister/                                   @krofdrakula
 /types/mertasan__tailwindcss-variables/                   @LiamMartens
 /types/meshblu/                                           @fnipo
@@ -7852,7 +7854,7 @@
 /types/stubby/                                            @dex4er
 /types/style-inject/                                      @leonzalion
 /types/style-search/                                      @peterblazejewicz
-/types/styled-components/                                 @Igorbek @Igmat @Jessidhia @jkillian @eps1lon @wagerfield @Lazyuki @lifeiscontent
+/types/styled-components/                                 @Igorbek @Igmat @Jessidhia @jkillian @eps1lon @wagerfield @Lazyuki @lifeiscontent @acdr
 /types/styled-components/v3/                              @Igorbek @Igmat
 /types/styled-components-react-native/                    @Methuselah96
 /types/styled-react-modal/                                @gperl27
