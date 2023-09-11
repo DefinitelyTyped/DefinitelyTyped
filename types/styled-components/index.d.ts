@@ -8,6 +8,7 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
+//                 Aaron Rose <https://github.com/acdr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -385,6 +386,7 @@ export class ServerStyleSheet {
     interleaveWithNodeStream(readableStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
     readonly instance: this;
     seal(): void;
+    clearTag(): void;
 }
 
 export type StylisPlugin = (
