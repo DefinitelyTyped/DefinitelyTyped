@@ -1,4 +1,4 @@
-export default function linePolygon(
+declare function linePolygon(
     x1: number,
     y1: number,
     x2: number,
@@ -6,3 +6,5 @@ export default function linePolygon(
     points: ReadonlyArray<number>,
     tolerance: number,
 ): boolean;
+
+export = linePolygon;

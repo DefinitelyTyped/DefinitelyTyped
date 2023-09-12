@@ -1,4 +1,4 @@
-export default function ellipseLine(
+declare function ellipseLine(
     xe: number,
     ye: number,
     rex: number,
@@ -8,3 +8,5 @@ export default function ellipseLine(
     x2: number,
     y2: number,
 ): boolean;
+
+export = ellipseLine;

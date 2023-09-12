@@ -1,4 +1,4 @@
-export default function lineBox(
+declare function lineBox(
     x1: number,
     y1: number,
     x2: number,
@@ -8,3 +8,5 @@ export default function lineBox(
     wb: number,
     hb: number,
 ): boolean;
+
+export = lineBox;

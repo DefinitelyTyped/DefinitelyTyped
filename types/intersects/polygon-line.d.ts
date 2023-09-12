@@ -1,4 +1,4 @@
-export default function polygonLine(
+declare function polygonLine(
     points: ReadonlyArray<number>,
     x1: number,
     y1: number,
@@ -6,3 +6,5 @@ export default function polygonLine(
     y2: number,
     tolerance: number,
 ): boolean;
+
+export = polygonLine;

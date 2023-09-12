@@ -1,4 +1,4 @@
-export default function boxBox(
+declare function boxBox(
     x1: number,
     y1: number,
     w1: number,
@@ -8,3 +8,5 @@ export default function boxBox(
     w2: number,
     h2: number,
 ): boolean;
+
+export = boxBox;

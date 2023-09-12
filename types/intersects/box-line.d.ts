@@ -1,4 +1,4 @@
-export default function boxLine(
+declare function boxLine(
     xb: number,
     yb: number,
     wb: number,
@@ -8,3 +8,5 @@ export default function boxLine(
     x2: number,
     y2: number,
 ): boolean;
+
+export = boxLine;

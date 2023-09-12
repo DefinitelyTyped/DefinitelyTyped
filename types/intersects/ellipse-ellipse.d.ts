@@ -1,4 +1,4 @@
-export default function ellipseEllipse(
+declare function ellipseEllipse(
     x1: number,
     y1: number,
     r1x: number,
@@ -8,3 +8,5 @@ export default function ellipseEllipse(
     r2x: number,
     r2y: number,
 ): boolean;
+
+export = ellipseEllipse;

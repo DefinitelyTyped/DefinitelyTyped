@@ -1,4 +1,4 @@
-export default function lineEllipse(
+declare function lineEllipse(
     x1: number,
     y1: number,
     x2: number,
@@ -8,3 +8,5 @@ export default function lineEllipse(
     rex: number,
     rey: number,
 ): boolean;
+
+export = lineEllipse;

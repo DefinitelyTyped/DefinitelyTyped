@@ -1,4 +1,4 @@
-export default function lineCircle(
+declare function lineCircle(
     x1: number,
     y1: number,
     x2: number,
@@ -7,3 +7,5 @@ export default function lineCircle(
     yc: number,
     rc: number,
 ): boolean;
+
+export = lineCircle;

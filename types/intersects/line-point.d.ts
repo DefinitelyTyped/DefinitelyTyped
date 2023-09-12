@@ -1,4 +1,4 @@
-export default function linePoint(
+declare function linePoint(
     x1: number,
     y1: number,
     x2: number,
@@ -7,3 +7,5 @@ export default function linePoint(
     yp: number,
     tolerance: number,
 ): boolean;
+
+export = linePoint;

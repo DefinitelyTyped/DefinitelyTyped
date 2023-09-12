@@ -1,4 +1,4 @@
-export default function circleEllipse(
+declare function circleEllipse(
     xc: number,
     yc: number,
     rc: number,
@@ -7,3 +7,5 @@ export default function circleEllipse(
     rex: number,
     rey: number,
 ): boolean;
+
+export = circleEllipse;

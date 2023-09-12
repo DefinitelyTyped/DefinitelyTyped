@@ -1,4 +1,4 @@
-export default function boxCircleOutline(
+declare function boxCircleOutline(
     x: number,
     y: number,
     width: number,
@@ -8,3 +8,5 @@ export default function boxCircleOutline(
     rc: number,
     thickness: number,
 ): boolean;
+
+export = boxCircleOutline;

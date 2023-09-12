@@ -1,4 +1,4 @@
-export default function circleOutlinePoint(
+declare function circleOutlinePoint(
     xc: number,
     yc: number,
     rc: number,
@@ -6,3 +6,5 @@ export default function circleOutlinePoint(
     y: number,
     thickness: number,
 ): boolean;
+
+export = circleOutlinePoint;

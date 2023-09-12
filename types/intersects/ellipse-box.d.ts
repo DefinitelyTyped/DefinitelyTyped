@@ -1,4 +1,4 @@
-export default function ellipseBox(
+declare function ellipseBox(
     xe: number,
     ye: number,
     rex: number,
@@ -8,3 +8,5 @@ export default function ellipseBox(
     wb: number,
     hb: number,
 ): boolean;
+
+export = ellipseBox;

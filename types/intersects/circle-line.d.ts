@@ -1,4 +1,4 @@
-export default function circleLine(
+declare function circleLine(
     xc: number,
     yc: number,
     rc: number,
@@ -7,3 +7,5 @@ export default function circleLine(
     x2: number,
     y2: number,
 ): boolean;
+
+export = circleLine;

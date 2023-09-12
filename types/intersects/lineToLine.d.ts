@@ -1,4 +1,4 @@
-export default function lineToLine(
+declare function lineToLine(
     x1: number,
     y1: number,
     x2: number,
@@ -8,3 +8,5 @@ export default function lineToLine(
     x4: number,
     y4: number,
 ): boolean;
+
+export = lineToLine;
