@@ -171,8 +171,8 @@ declare namespace DevExpress.AspNetCore {
         off<K extends keyof ControlEventMap>(eventName: K): this; // tslint:disable-line:unified-signatures no-unnecessary-generics
         off<K extends keyof ControlEventMap>(
             eventName: K,
-            callback: (this: Control, args?: ControlEventMap[K]) => void,
-        ): this; // tslint:disable-line:unified-signatures
+            callback: (this: Control, args?: ControlEventMap[K]) => void, // tslint:disable-line:unified-signatures
+        ): this;
     }
     interface ControlEventMap {
         "init": EventArgs;
