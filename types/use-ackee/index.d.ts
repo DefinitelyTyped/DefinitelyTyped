@@ -4,7 +4,7 @@
 //                 Pablo Sáez <https://github.com/PabloSzx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { TrackingOptions } from 'ackee-tracker';
+import { TrackingOptions } from "ackee-tracker";
 
 interface ServerDetails {
     server: string;

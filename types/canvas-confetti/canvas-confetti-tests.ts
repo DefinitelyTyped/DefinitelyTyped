@@ -5,11 +5,11 @@ confetti.Promise = null;
 confetti();
 
 confetti({
-    particleCount: 150
+    particleCount: 150,
 });
 
 confetti({
-    spread: 180
+    spread: 180,
 });
 
 confetti({
@@ -19,8 +19,8 @@ confetti({
     origin: {
         x: Math.random(),
         // since they fall down, start a bit higher than random
-        y: Math.random() - 0.2
-    }
+        y: Math.random() - 0.2,
+    },
 });
 
 confetti({
@@ -28,8 +28,8 @@ confetti({
     spread: 70,
     drift: 1,
     origin: {
-        y: 0.6
-    }
+        y: 0.6,
+    },
 });
 
 function r(min: number, max: number) {
@@ -42,12 +42,12 @@ confetti({
     particleCount: r(50, 100),
     drift: 0,
     origin: {
-        y: 0.6
+        y: 0.6,
     },
-    shapes: ['square', 'circle', 'square', 'star']
+    shapes: ["square", "circle", "square", "star"],
 });
 
-const canvas = document.createElement('canvas');
+const canvas = document.createElement("canvas");
 const myConfetti = confetti.create(canvas);
 
 myConfetti();

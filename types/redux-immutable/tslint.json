@@ -3,8 +3,6 @@
     "rules": {
         "arrow-return-shorthand": false,
         "no-empty-interface": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

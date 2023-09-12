@@ -33,7 +33,7 @@ export function update(opts: CryptexOpts): void;
 
 // but you can still create individual instances
 export class Cryptex {
-    constructor(opts: CryptexOpts)
+    constructor(opts: CryptexOpts);
     decrypt(data: string, encoding?: string): string;
     encrypt(data: string, encoding?: string): string;
     getSecret(secret: string, optional?: boolean): Promise<string>;

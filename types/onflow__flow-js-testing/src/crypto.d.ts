@@ -1,4 +1,4 @@
-import { KeyObject } from './account';
+import { KeyObject } from "./account";
 
 export interface HashAlgorithm {
     SHA2_256: 1;

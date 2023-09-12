@@ -116,7 +116,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new (toolbar: Toolbar, config?: ConfigOptions): MenuToolGroup;
+            new(toolbar: Toolbar, config?: ConfigOptions): MenuToolGroup;
             prototype: Prototype;
             static: Static;
             super: PopupToolGroup.Constructor;

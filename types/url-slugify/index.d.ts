@@ -3,7 +3,7 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Separator = '-' | '_' | '~' | "''";
+type Separator = "-" | "_" | "~" | "''";
 
 declare class URLSlugify {
     slugify(title: string, separator?: Separator): string;

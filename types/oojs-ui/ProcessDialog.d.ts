@@ -71,7 +71,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ProcessDialog;
+            new(config?: ConfigOptions): ProcessDialog;
             prototype: Prototype;
             static: Static;
             super: Dialog.Constructor;

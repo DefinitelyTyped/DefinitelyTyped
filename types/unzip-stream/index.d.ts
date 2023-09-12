@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 export function Extract(options: {
     path: string;
@@ -20,7 +20,7 @@ export function Parse(options?: {
 
 export interface Entry extends PassThrough {
     path: string;
-    type: 'Directory' | 'File';
+    type: "Directory" | "File";
     size: number;
     autodrain: () => void;
 }

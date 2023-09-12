@@ -3,7 +3,7 @@
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Container, PluginCreator, Result } from 'postcss';
+import { Container, PluginCreator, Result } from "postcss";
 
 declare namespace lost {
     interface Settings {
@@ -20,7 +20,7 @@ declare namespace lost {
         /** @default '%' */
         gridUnit?: string | undefined;
         /** @default 'ltr' */
-        direction?: 'ltr' | 'rtl' | undefined;
+        direction?: "ltr" | "rtl" | undefined;
     }
 
     // These are used in the files under `lib/`

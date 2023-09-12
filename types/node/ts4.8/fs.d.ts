@@ -3924,17 +3924,22 @@ declare module 'fs' {
     }
 
     /**
-     * Returns a Blob whose data is backed by the given file.
+     * Returns a `Blob` whose data is backed by the given file.
      *
-     * The file must not be modified after the `Blob` is created.
-     * Any modifications will cause reading the `Blob` data to fail with a `DOMException` error.
-     * Synchronous stat operations on the file when the `Blob` is created, and before each read in order to detect whether the file data has been modified on disk.
+     * The file must not be modified after the `Blob` is created. Any modifications
+     * will cause reading the `Blob` data to fail with a `DOMException` error.
+     * Synchronous stat operations on the file when the `Blob` is created, and before
+     * each read in order to detect whether the file data has been modified on disk.
      *
-     * @param path
-     * @param [options]
+     * ```js
+     * import { openAsBlob } from 'node:fs';
      *
-     * @experimental
+     * const blob = await openAsBlob('the.file.txt');
+     * const ab = await blob.arrayBuffer();
+     * blob.stream();
+     * ```
      * @since v19.8.0
+     * @experimental
      */
     export function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
 

@@ -14,11 +14,11 @@
 declare function uslug(value: string, options?: uslug.UslugOptions): string;
 
 declare namespace uslug {
-  interface UslugOptions {
-    allowedChars?: string | undefined;
-    lower?: boolean | undefined;
-    spaces?: boolean | undefined;
-  }
+    interface UslugOptions {
+        allowedChars?: string | undefined;
+        lower?: boolean | undefined;
+        spaces?: boolean | undefined;
+    }
 }
 
 export = uslug;

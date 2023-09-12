@@ -71,6 +71,6 @@ declare namespace ColorBrewer {
     }
 }
 
-declare module 'colorbrewer' {
+declare module "colorbrewer" {
     export = colorbrewer;
 }

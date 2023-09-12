@@ -2,12 +2,16 @@
 
 // Examples working with global variables
 inlets = 2;
+inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);
-error('This is a test error.');
-cpost('This is cpost.');
-post('This is a post.');
+error('This is a test error.\n');
+error('This is a', 'multiple string', 'error\n');
+cpost('This is cpost.\n');
+cpost('This is a', 'multiple string', 'cpost\n');
+post('This is a post.\n');
+post('This is a', 'multiple string', 'post\n');
 // Catcher must be bound to a global object, so use an [r]
 messnamed('catcher', 'bang');
 messnamed('catcher', 'amessage', 'myarg');
@@ -200,6 +204,7 @@ myMaxobj.setattr("openrect", [0, 0, 0, 0]);
 const boxattrnames = myMaxobj.getboxattrnames();
 [r1, r2, r3, r4] = myMaxobj.getboxattr("presentation_rect") as Rect;
 myMaxobj.setboxattr("presentation_rect", [0, 0, 0, 0]);
+myMaxobj.setboxattr("presentation_rect", 0, 0, 0, 0);
 
 // MaxobjListener
 function onWorkspaceDisabled(rectData: MaxobjListenerData<number>) {

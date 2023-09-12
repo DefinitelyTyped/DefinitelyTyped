@@ -230,10 +230,7 @@ declare class AdmZip {
      * if a zip was opened and no `targetFileName` is provided, it will
      * overwrite the opened zip.
      */
-    writeZipPromise(
-        targetFileName?: string,
-        props?: { overwrite?: boolean; perm?: number },
-    ): Promise<boolean>;
+    writeZipPromise(targetFileName?: string, props?: { overwrite?: boolean; perm?: number }): Promise<boolean>;
     /**
      * Returns the content of the entire zip file.
      */
@@ -370,7 +367,7 @@ declare namespace AdmZip {
         /* Read entries during load (initial loading may be slower) */
         readEntries: boolean;
         /* Read method */
-        method: typeof Constants[keyof typeof Constants] | number;
+        method: (typeof Constants)[keyof typeof Constants] | number;
         /* file system */
         fs: null | typeof FS;
     }
