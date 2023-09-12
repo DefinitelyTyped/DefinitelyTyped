@@ -226,6 +226,11 @@ declare namespace PDFKit.Mixins {
         textIndent?: number | undefined;
         destination?: string | undefined;
         goTo?: string | undefined;
+
+        /** The structure element to add each paragraph to */
+        structParent?: PDFStructureElement | undefined;
+        /** The types used by items of list() */
+        structTypes?: [string | null, string | null, string | null] | undefined;
     }
 
     interface PDFText {
@@ -332,6 +337,7 @@ declare namespace PDFKit.Mixins {
         alt?: string;
         expanded?: string;
         actual?: string;
+        title?: string;
     }
     interface PageMarking {
         tag: string;

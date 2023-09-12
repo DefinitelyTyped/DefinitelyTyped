@@ -304,6 +304,10 @@ doc.endMarkings();
 // structure content methods
 const structureContent2 = doc.markStructureContent('H1');
 structureContent.push(structureContent2);
+// automatic marking and structure construction for text
+const section = doc.struct('Sect', { title: 'Test' });
+doc.addStructure(section);
+doc.text('Foo. \nBar. ', { structParent: section });
 // structure element methods
 structureElement.add(structureContent);
 structureElement.setAttached();
