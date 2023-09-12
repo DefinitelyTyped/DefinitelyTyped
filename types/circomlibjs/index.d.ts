@@ -3,7 +3,9 @@
 // Definitions by: cedoor <https://github.com/cedoor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Poseidon = (arr: any[], state?: any, nOut?: any) => any;
+export type Poseidon = (arr: any[], state?: any, nOut?: number) => any;
+
+export type Point = [any, any];
 
 export interface Signature {
     R8: any;
@@ -45,23 +47,23 @@ export class SMTMemDb {
 }
 
 export interface BabyJub {
-    addPoint(a: any, b: any): any;
+    addPoint(a: any, b: any): Point;
 
-    mulPointEscalar(base: any, e: any): any;
+    mulPointEscalar(base: any, e: any): Point;
 
-    inSubgroup(P: any): boolean;
+    inSubgroup(point: Point): boolean;
 
-    inCurve(P: any): boolean;
+    inCurve(point: Point): boolean;
 
-    packPoint(P: any): any;
+    packPoint(point: Point): Uint8Array;
 
-    unpackPoint(buff: any): any;
+    unpackPoint(buff: Uint8Array): Point;
 }
 
 export interface Mimc7 {
-    getIV(seed?: any): any;
+    getIV(seed?: string): any;
 
-    getConstants(seed?: any, nRounds?: any): any;
+    getConstants(seed?: string, nRounds?: number): any[];
 
     hash(_x_in: any, _k: any): any;
 
@@ -69,51 +71,51 @@ export interface Mimc7 {
 }
 
 export interface MimcSponge {
-    getIV(seed?: any): any;
+    getIV(seed?: string): any;
 
-    getConstants(seed?: any, nRounds?: any): any;
+    getConstants(seed?: string, nRounds?: number): any[];
 
     hash(_xL_in: any, _xR_in: any, _k: any): any;
 
-    multiHash(arr: any[], key?: any, numOutputs?: any): any;
+    multiHash(arr: any[], key?: any, numOutputs?: number): any;
 }
 
 export interface PedersenHash {
-    baseHash(type: any, S: any): any;
+    baseHash(type: 'blake' | 'blake2b', S: any): any;
 
-    hash(msg: any, options?: any): any;
+    hash(msg: Uint8Array, options?: { baseHash?: 'blake' | 'blake2b' }): Uint8Array;
 
-    getBasePoint(baseHashType: any, pointIdx: any): any;
+    getBasePoint(baseHashType: 'blake' | 'blake2b', pointIdx: number): Point;
 
-    padLeftZeros(idx: any, n: any): any;
+    padLeftZeros(idx: number, n: number): string;
 
-    buffer2bits(buff: any): any;
+    buffer2bits(buff: Uint8Array): boolean[];
 }
 
 export interface Eddsa {
-    pruneBuffer(buff: any): any;
+    pruneBuffer(buff: Uint8Array): Uint8Array;
 
-    prv2pub(prv: any): any;
+    prv2pub(prv: any): Point;
 
-    signPedersen(prv: any, msg: any): Signature;
+    signPedersen(prv: any, msg: ArrayLike<number>): Signature;
 
-    signMiMC(prv: any, msg: any): Signature;
+    signMiMC(prv: any, msg: ArrayLike<number>): Signature;
 
-    signMiMCSponge(prv: any, msg: any): Signature;
+    signMiMCSponge(prv: any, msg: ArrayLike<number>): Signature;
 
-    signPoseidon(prv: any, msg: any): Signature;
+    signPoseidon(prv: any, msg: ArrayLike<number>): Signature;
 
-    verifyPedersen(msg: any, sig: any, A: any): boolean;
+    verifyPedersen(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
 
-    verifyMiMC(msg: any, sig: any, A: any): boolean;
+    verifyMiMC(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
 
-    verifyMiMCSponge(msg: any, sig: any, A: any): boolean;
+    verifyMiMCSponge(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
 
-    verifyPoseidon(msg: any, sig: any, A: any): boolean;
+    verifyPoseidon(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
 
-    packSignature(sig: any): any;
+    packSignature(sig: Signature): Uint8Array;
 
-    unpackSignature(sigBuff: any): any;
+    unpackSignature(sigBuff: Uint8Array): Signature;
 }
 
 export class evmasm {
@@ -292,7 +294,7 @@ export function buildPoseidonWasm(module: any): void;
 
 export function buildSMT(db: SMTMemDb, root: any): Promise<SMT>;
 
-export function newMemEmptyTrie(): any;
+export function newMemEmptyTrie(): Promise<SMT>;
 
 export namespace mimc7Contract {
     const abi: Array<{
@@ -311,7 +313,7 @@ export namespace mimc7Contract {
         type: string;
     }>;
 
-    function createCode(seed: any, n: any): any;
+    function createCode(seed: string, n: number): any;
 }
 
 export namespace mimcSpongecontract {
@@ -331,11 +333,11 @@ export namespace mimcSpongecontract {
         type: string;
     }>;
 
-    function createCode(seed: any, n: any): any;
+    function createCode(seed: string, n: number): any;
 }
 
 export namespace poseidonContract {
-    function createCode(nInputs: any): any;
+    function createCode(nInputs: number): any;
 
-    function generateABI(nInputs: any): any;
+    function generateABI(nInputs: number): any;
 }
