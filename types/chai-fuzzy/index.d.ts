@@ -74,4 +74,3 @@ declare global {
 
 declare const chaiFuzzy: Chai.ChaiPlugin;
 export = chaiFuzzy;
-

@@ -234,3 +234,7 @@ export * from './textures/DepthTexture.js';
 export * from './textures/FramebufferTexture.js';
 export * from './textures/Source.js';
 export * from './textures/Texture.js';
+/**
+ * Utils
+ */
+export { createCanvasElement } from './utils.js';

@@ -3,8 +3,7 @@
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'change-emitter' {
-
+declare module "change-emitter" {
     type Unlisten = () => void;
     type Listener = (...args: any[]) => void;
     type ListenerOf0 = () => void;

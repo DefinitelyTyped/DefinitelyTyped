@@ -34,7 +34,6 @@
         "test/integration/three-examples/webgl_lights_spotlight.ts",
         "test/integration/three-examples/webgl_lines_fat.ts",
         "test/integration/three-examples/webgl_loader_gltf.ts",
-        "test/integration/three-examples/webgl_loader_ifc.ts",
         "test/integration/three-examples/webgl_loader_ldraw.ts",
         "test/integration/three-examples/webgl_loader_mmd.ts",
         "test/integration/three-examples/webgl_loader_obj_mtl.ts",

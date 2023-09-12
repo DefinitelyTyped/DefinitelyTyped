@@ -20,7 +20,7 @@ export function getSupport(feature: string): BrowserSupport;
 
 export function isSupported(
     feature: string,
-    browsers: string | ReadonlyArray<string>
+    browsers: string | ReadonlyArray<string>,
 ): boolean;
 
 export function find(query: string): string[];
@@ -28,7 +28,7 @@ export function find(query: string): string[];
 export function getLatestStableBrowsers(): string[];
 
 export function setBrowserScope(
-    browserscope: string | ReadonlyArray<string>
+    browserscope: string | ReadonlyArray<string>,
 ): void;
 
 export function getBrowserScope(): string[];

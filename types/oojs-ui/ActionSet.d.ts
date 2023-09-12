@@ -279,7 +279,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: {}): ActionSet;
+            new(config?: {}): ActionSet;
             prototype: ActionSet;
             static: Static;
         }

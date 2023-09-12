@@ -1,9 +1,9 @@
-import NodeClam = require('clamscan');
-import { PassThrough, Readable } from 'stream';
+import NodeClam = require("clamscan");
+import { PassThrough, Readable } from "stream";
 
-import axios from 'axios';
+import axios from "axios";
 
-const fakeVirusUrl = 'https://secure.eicar.org/eicar.com.txt';
+const fakeVirusUrl = "https://secure.eicar.org/eicar.com.txt";
 
 (async () => {
     try {
@@ -11,25 +11,27 @@ const fakeVirusUrl = 'https://secure.eicar.org/eicar.com.txt';
             debugMode: false,
             clamdscan: {
                 bypassTest: true,
-                host: 'localhost',
+                host: "localhost",
                 port: 3310,
             },
         });
 
         const version = await clamscan.getVersion();
-        console.log('Version: ', version);
+        console.log("Version: ", version);
 
         const { data } = await axios.get<Readable>(fakeVirusUrl, {
-            responseType: 'stream',
+            responseType: "stream",
         });
 
         const { isInfected, viruses } = await clamscan.scanStream(data.pipe(new PassThrough()));
 
         if (isInfected) {
             console.log(
-                `You've downloaded a virus (${viruses.join(
-                    '',
-                )})! Don't worry, it's only a test one and is not malicious...`,
+                `You've downloaded a virus (${
+                    viruses.join(
+                        "",
+                    )
+                })! Don't worry, it's only a test one and is not malicious...`,
             );
         } else if (isInfected === null) {
             console.log("Something didn't work right...");

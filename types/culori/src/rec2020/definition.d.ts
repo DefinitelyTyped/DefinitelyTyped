@@ -1,13 +1,13 @@
-import rgb from '../rgb/definition';
+import rgb from "../rgb/definition";
 
-import convertXyz65ToRec2020 from './convertXyz65ToRec2020';
-import convertRec2020ToXyz65 from './convertRec2020ToXyz65';
+import convertRec2020ToXyz65 from "./convertRec2020ToXyz65";
+import convertXyz65ToRec2020 from "./convertXyz65ToRec2020";
 
-import { Rec2020 } from './types';
-import { Rgb } from '../rgb/types';
+import { Rgb } from "../rgb/types";
+import { Rec2020 } from "./types";
 
 interface Rec2020DefinitionMixin {
-    mode: 'rec2020';
+    mode: "rec2020";
 
     fromMode: {
         xyz65: typeof convertXyz65ToRec2020;
@@ -16,11 +16,11 @@ interface Rec2020DefinitionMixin {
 
     toMode: {
         xyz65: typeof convertRec2020ToXyz65;
-        rgb: (color: Omit<Rec2020, 'mode'>) => Rgb;
+        rgb: (color: Omit<Rec2020, "mode">) => Rgb;
     };
 
-    parse: ['rec2020'];
-    serialize: 'rec2020';
+    parse: ["rec2020"];
+    serialize: "rec2020";
 }
 
 declare const definition: Omit<typeof rgb, keyof Rec2020DefinitionMixin> & Rec2020DefinitionMixin;

@@ -1,6 +1,6 @@
 import { Color, Group, Loader, LoadingManager, Material, Mesh, Texture } from '../../../src/Three.js';
 
-export class TDSLoader extends Loader {
+export class TDSLoader extends Loader<Group> {
     constructor(manager?: LoadingManager);
     debug: boolean;
     group: Group;
@@ -9,13 +9,6 @@ export class TDSLoader extends Loader {
     meshes: Mesh[];
     position: number;
 
-    load(
-        url: string,
-        onLoad: (object: Group) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Group>;
     parse(arraybuffer: ArrayBuffer, path: string): Group;
 
     debugMessage(message: object): void;

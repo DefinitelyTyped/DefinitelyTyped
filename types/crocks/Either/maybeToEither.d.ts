@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Maybe from '../Maybe';
-import Either from './Either';
+import { UnaryFunction } from "../internal/types";
+import Maybe from "../Maybe";
+import Either from "./Either";
 
 /**
  * maybeToEither :: c -> Maybe a -> Either c a

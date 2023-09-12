@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { IncomingMessage, ServerResponse } from "http";
 import { Logger } from "@cyberblast/logger";
+import { IncomingMessage, ServerResponse } from "http";
 
 export interface ServerContext {
     server: WebServer;
@@ -21,5 +21,5 @@ export class WebServer {
     constructor(webConfigFile?: string, logConfigFile?: string);
     start(): Promise<void>;
     stop(): void;
-    respondError(error: string|Error, context: ServerContext, code?: number, message?: string): Promise<void>;
+    respondError(error: string | Error, context: ServerContext, code?: number, message?: string): Promise<void>;
 }
