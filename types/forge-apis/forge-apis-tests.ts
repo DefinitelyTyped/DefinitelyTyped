@@ -1,7 +1,9 @@
 import {
     AuthClientThreeLegged,
     AuthClientThreeLeggedV2,
+    AuthClientTwoLegged,
     AuthClientTwoLeggedV2,
+    AuthToken,
     BucketsApi,
     DerivativesApi,
     FoldersApi,
