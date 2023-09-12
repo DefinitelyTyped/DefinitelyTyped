@@ -21,3 +21,16 @@ const component = React.createElement(TestComponent);
 const shallowRenderer = createRenderer();
 shallowRenderer.render(component);
 shallowRenderer.getRenderOutput();
+
+[undefined, null, true, false, 0, 1, "", "test"].forEach((children) => {
+    const renderer = create(React.createElement("div", { children }), {
+        createNodeMock: (el: React.ReactElement) => {
+            return {};
+        }
+    });
+    const json = renderer.toJSON();
+
+    if (!json || typeof json !== "object" || Array.isArray(json) || json.children !== children) {
+        throw(new Error(`Type of children ${children} doesn't match!`));
+    }
+});

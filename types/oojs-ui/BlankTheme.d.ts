@@ -2,7 +2,7 @@ declare namespace OO.ui {
     type BlankTheme = Theme;
 
     interface BlankThemeConstructor {
-        new (): BlankTheme;
+        new(): BlankTheme;
         prototype: BlankTheme;
         super: ThemeConstructor;
         /** @deprecated Use `super` instead */

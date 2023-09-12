@@ -1,6 +1,6 @@
-import express = require('express');
-import session = require('express-session');
-import connectAzureTables = require('connect-azuretables');
+import express = require("express");
+import session = require("express-session");
+import connectAzureTables = require("connect-azuretables");
 
 const app = express();
 
@@ -13,7 +13,7 @@ const AzureTablesStoreFactory = connectAzureTables(session);
 // Default settings
 app.use(
     session({
-        secret: 'secret',
+        secret: "secret",
         store: AzureTablesStoreFactory.create({}),
     }),
 );
@@ -21,7 +21,7 @@ app.use(
 // Loggers
 app.use(
     session({
-        secret: 'secret',
+        secret: "secret",
         store: AzureTablesStoreFactory.create({
             logger: console.log,
             errorLogger: console.error,
@@ -32,11 +32,11 @@ app.use(
 // Override Azure Table keys
 app.use(
     session({
-        secret: 'secret',
+        secret: "secret",
         store: AzureTablesStoreFactory.create({
-            accessKey: '',
-            storageAccount: '',
-            table: '',
+            accessKey: "",
+            storageAccount: "",
+            table: "",
         }),
     }),
 );
@@ -44,9 +44,9 @@ app.use(
 // Override cron settings and timeout
 app.use(
     session({
-        secret: 'secret',
+        secret: "secret",
         store: AzureTablesStoreFactory.create({
-            overrideCron: '',
+            overrideCron: "",
             sessionTimeOut: 30,
         }),
     }),
@@ -57,7 +57,7 @@ app.use(
 const store = AzureTablesStoreFactory.create({});
 app.use(
     session({
-        secret: 'secret',
+        secret: "secret",
         store,
     }),
 );

@@ -115,7 +115,7 @@ export interface ModelConfig {
             fieldType?: StringField | BooleanField | NumberField; // only used when ArrayField
             required: boolean;
             pattern?: string;
-        }
+        };
     };
 }
 

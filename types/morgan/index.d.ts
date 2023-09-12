@@ -142,8 +142,8 @@ declare namespace morgan {
     function format<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    >(name: string, fmt: string): Morgan<Request, Response>;
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (name: string, fmt: string): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format function.
@@ -162,8 +162,8 @@ declare namespace morgan {
     function compile<
         Request extends http.IncomingMessage = http.IncomingMessage,
         Response extends http.ServerResponse = http.ServerResponse,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    >(format: string): FormatFn<Request, Response>;
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
         /**

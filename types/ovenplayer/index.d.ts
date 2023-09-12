@@ -33,7 +33,7 @@ interface OvenPlayerConfig {
     tracks?: object[];
     volume?: number;
     adTagUrl?: string;
-    adClient?: 'googleima' | 'vast';
+    adClient?: "googleima" | "vast";
     playlist?: OvenPlayerPlayList;
     hidePlaylistIcon?: boolean;
     webrtcConfig?: object;
@@ -53,7 +53,7 @@ interface OvenPlayerWebRTCStream {
 type OvenPlayerPlayList = OvenPlayerSource[][];
 
 interface OvenPlayerSource {
-    type: 'webrtc' | 'llhls' | 'hls' | 'lldash' | 'dash' | 'mp4';
+    type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
     file: string;
     label?: string;
     framerate?: number;

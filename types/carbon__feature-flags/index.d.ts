@@ -5,10 +5,10 @@
 // TypeScript Version: 4.0
 
 export type FeatureFlagName =
-    | 'enable-css-custom-properties'
-    | 'enable-use-controlled-state-with-value'
-    | 'enable-css-grid'
-    | 'enable-v11-release';
+    | "enable-css-custom-properties"
+    | "enable-use-controlled-state-with-value"
+    | "enable-css-grid"
+    | "enable-v11-release";
 
 export type FeatureFlags = Partial<Record<FeatureFlagName, boolean>> | Record<string, boolean>;
 
