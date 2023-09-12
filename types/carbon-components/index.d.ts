@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-export * from './globals/js/components';
-export { default as settings } from './globals/js/settings';
+export * from "./globals/js/components";
+export { default as settings } from "./globals/js/settings";

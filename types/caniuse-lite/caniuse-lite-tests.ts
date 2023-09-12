@@ -1,5 +1,13 @@
 import {
-    agents, features, feature, Agent, Feature, PackedFeature, StatsByAgentID, SupportStatusByVersion, SupportStatus
+    Agent,
+    agents,
+    Feature,
+    feature,
+    features,
+    PackedFeature,
+    StatsByAgentID,
+    SupportStatus,
+    SupportStatusByVersion,
 } from "caniuse-lite";
 
 const chrome: Agent | undefined = agents.chrome;
@@ -36,9 +44,9 @@ const unpackedFeatures = Object.keys(features).map((id: string) => {
                 return {
                     version,
                     releaseDate: agent.release_date[version],
-                    [`feature_${id}`]: supportStatusByVersion[version]
+                    [`feature_${id}`]: supportStatusByVersion[version],
                 };
-            })
+            }),
         };
     });
 });

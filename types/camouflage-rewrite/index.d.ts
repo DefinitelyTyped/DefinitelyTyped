@@ -3,7 +3,7 @@
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 declare namespace CamouflageRewrite {
     interface Options {

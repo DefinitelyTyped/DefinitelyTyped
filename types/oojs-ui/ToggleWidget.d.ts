@@ -90,7 +90,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ToggleWidget;
+            new(config?: ConfigOptions): ToggleWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

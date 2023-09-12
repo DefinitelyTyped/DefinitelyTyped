@@ -33,7 +33,7 @@ export interface RenderTargetOptions {
     encoding?: TextureEncoding | undefined;
 }
 
-export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extends EventDispatcher {
+export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extends EventDispatcher<{ dispose: {} }> {
     constructor(width?: number, height?: number, options?: RenderTargetOptions);
 
     readonly isRenderTarget: true;
