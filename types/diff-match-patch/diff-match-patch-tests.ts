@@ -1,4 +1,4 @@
-import * as DiffMatchPatch from 'diff-match-patch';
+import DiffMatchPatch = require('diff-match-patch');
 
 function testDiffMainEach() {
     const oldValue = "hello world, how are you?";
