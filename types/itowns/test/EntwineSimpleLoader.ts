@@ -68,8 +68,8 @@ function loadEPT(url: string) {
         const pick = view.pickObjectsAt(event, 5, eptLayer);
 
         for (const p of pick) {
-            // tslint:disable-next-line:prefer-template
             console.info(
+                // tslint:disable-next-line:prefer-template
                 "Selected point #" + p.index + " in position ("
                     + p.object.position.x + ", "
                     + p.object.position.y + ", "
