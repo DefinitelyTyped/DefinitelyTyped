@@ -3,7 +3,7 @@
  * and modified for Titanium
  */
 
-declare module 'console' {
+declare module "console" {
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         /**
@@ -93,7 +93,7 @@ declare module 'console' {
                 stdout: object;
                 stderr?: object | undefined;
                 ignoreErrors?: boolean | undefined;
-                colorMode?: boolean | 'auto' | undefined;
+                colorMode?: boolean | "auto" | undefined;
                 inspectOptions?: object | undefined;
             }
 

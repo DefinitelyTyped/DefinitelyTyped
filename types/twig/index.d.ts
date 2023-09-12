@@ -41,7 +41,7 @@ export interface CompileOptions {
     filename: string;
     settings: {
         views: any;
-        'twig options': any;
+        "twig options": any;
     };
 }
 
@@ -50,9 +50,9 @@ export interface RenderOptions {
     allowAsync?: boolean | undefined;
     settings?:
         | {
-              views: any;
-              'twig options': any;
-          }
+            views: any;
+            "twig options": any;
+        }
         | undefined;
 }
 
@@ -63,7 +63,7 @@ export interface TagToken {
 }
 
 export interface RawOutput {
-    type: 'raw';
+    type: "raw";
     value: string;
 }
 
@@ -113,7 +113,7 @@ export interface Twig {
          *
          * @return The compiled token
          */
-        compile<T>(rawToken: { value: unknown } & T): { stack: CompiledToken[] } & Omit<T, 'value'>;
+        compile<T>(rawToken: { value: unknown } & T): { stack: CompiledToken[] } & Omit<T, "value">;
         /**
          * Parse an RPN expression stack within a context.
          *
@@ -126,41 +126,41 @@ export interface Twig {
          */
         parse(tokens: CompiledToken[], context: ParseContext): unknown;
         type: {
-            comma: 'Twig.expression.type.comma';
+            comma: "Twig.expression.type.comma";
             operator: {
-                unary: 'Twig.expression.type.operator.unary';
-                binary: 'Twig.expression.type.operator.binary';
+                unary: "Twig.expression.type.operator.unary";
+                binary: "Twig.expression.type.operator.binary";
             };
-            string: 'Twig.expression.type.string';
-            bool: 'Twig.expression.type.bool';
-            slice: 'Twig.expression.type.slice';
+            string: "Twig.expression.type.string";
+            bool: "Twig.expression.type.bool";
+            slice: "Twig.expression.type.slice";
             array: {
-                start: 'Twig.expression.type.array.start';
-                end: 'Twig.expression.type.array.end';
+                start: "Twig.expression.type.array.start";
+                end: "Twig.expression.type.array.end";
             };
             object: {
-                start: 'Twig.expression.type.object.start';
-                end: 'Twig.expression.type.object.end';
+                start: "Twig.expression.type.object.start";
+                end: "Twig.expression.type.object.end";
             };
             parameter: {
-                start: 'Twig.expression.type.parameter.start';
-                end: 'Twig.expression.type.parameter.end';
+                start: "Twig.expression.type.parameter.start";
+                end: "Twig.expression.type.parameter.end";
             };
             subexpression: {
-                start: 'Twig.expression.type.subexpression.start';
-                end: 'Twig.expression.type.subexpression.end';
+                start: "Twig.expression.type.subexpression.start";
+                end: "Twig.expression.type.subexpression.end";
             };
             key: {
-                period: 'Twig.expression.type.key.period';
-                brackets: 'Twig.expression.type.key.brackets';
+                period: "Twig.expression.type.key.period";
+                brackets: "Twig.expression.type.key.brackets";
             };
-            filter: 'Twig.expression.type.filter';
-            _function: 'Twig.expression.type._function';
-            variable: 'Twig.expression.type.variable';
-            number: 'Twig.expression.type.number';
-            _null: 'Twig.expression.type.null';
-            context: 'Twig.expression.type.context';
-            test: 'Twig.expression.type.test';
+            filter: "Twig.expression.type.filter";
+            _function: "Twig.expression.type._function";
+            variable: "Twig.expression.type.variable";
+            number: "Twig.expression.type.number";
+            _null: "Twig.expression.type.null";
+            context: "Twig.expression.type.context";
+            test: "Twig.expression.type.test";
         };
     };
 }
@@ -175,33 +175,35 @@ export interface CompiledGenericTokenWithMatch<TType, TValue> extends CompiledGe
 }
 
 export interface CompiledSubexpressionToken
-    extends CompiledGenericTokenWithMatch<'Twig.expression.type.subexpression.end', ')'> {
+    extends CompiledGenericTokenWithMatch<"Twig.expression.type.subexpression.end", ")">
+{
     expression: boolean;
     params: CompiledToken[];
 }
 
-export type BinaryOperator = '*' | '**' | '%' | '+' | '-' | '/' | '<' | '>' | '==' | '!=' | '>=' | '<=';
+export type BinaryOperator = "*" | "**" | "%" | "+" | "-" | "/" | "<" | ">" | "==" | "!=" | ">=" | "<=";
 
 export interface CompiledBinaryOperatorToken<TOperator extends BinaryOperator = BinaryOperator>
-    extends CompiledGenericTokenWithMatch<'Twig.expression.type.operator.binary', TOperator> {
+    extends CompiledGenericTokenWithMatch<"Twig.expression.type.operator.binary", TOperator>
+{
     precidence: number;
-    associativity: 'leftToRight' | string;
+    associativity: "leftToRight" | string;
     operator: TOperator;
 }
 
 export interface CompiledTokenTypesWithoutMatchMap {
-    'Twig.expression.type.bool': boolean;
-    'Twig.expression.type.string': string;
-    'Twig.expression.type.null': null;
+    "Twig.expression.type.bool": boolean;
+    "Twig.expression.type.string": string;
+    "Twig.expression.type.null": null;
 }
 
 export interface CompiledTokenTypesWithMatchMap {
-    'Twig.expression.type.number': number;
-    'Twig.expression.type.variable': string;
-    'Twig.expression.type.array.start': '[';
-    'Twig.expression.type.array.end': ']';
-    'Twig.expression.type.object.start': '{';
-    'Twig.expression.type.object.end': '}';
+    "Twig.expression.type.number": number;
+    "Twig.expression.type.variable": string;
+    "Twig.expression.type.array.start": "[";
+    "Twig.expression.type.array.end": "]";
+    "Twig.expression.type.object.start": "{";
+    "Twig.expression.type.object.end": "}";
 }
 
 export type CompiledTokenWithoutMatch<
