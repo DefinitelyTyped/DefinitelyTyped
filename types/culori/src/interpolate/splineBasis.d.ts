@@ -1,4 +1,4 @@
-import { Interpolator } from './Interpolator';
+import { Interpolator } from "./Interpolator";
 
 export const interpolatorSplineBasis: Interpolator;
 

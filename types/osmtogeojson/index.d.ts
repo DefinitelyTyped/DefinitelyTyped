@@ -3,7 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface OsmToGeoJSON {
     (data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
     toGeojson(data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
@@ -18,11 +17,11 @@ export interface Options {
     /**
      * Either a blacklist of tag keys or a callback function. Will be used to decide if a feature is interesting enough for its own GeoJSON feature.
      */
-    uninterestingTags?: { [tag: string]: boolean; } | Function | undefined; //TODO: type function
+    uninterestingTags?: { [tag: string]: boolean } | Function | undefined; // TODO: type function
     /**
      * Either a json object or callback function that is used to determine if a closed way should be treated as a Polygon or LineString.
      */
-    polygonFeatures?: any | Function | undefined; //TODO: type this
+    polygonFeatures?: any | Function | undefined; // TODO: type this
 }
 
 export declare namespace GeoJSON {
@@ -33,7 +32,7 @@ export declare namespace GeoJSON {
     export interface Feature extends GeoJSONObject {
         id?: string | undefined;
         geometry: Geometry;
-        properties: any; //TODO: type this
+        properties: any; // TODO: type this
     }
 
     export interface FeatureCollection extends GeoJSONObject {
@@ -61,7 +60,7 @@ export declare namespace OsmJSON {
     export interface Element {
         type: string;
         id: number;
-        tags?: { [name: string]: string; } | undefined
+        tags?: { [name: string]: string } | undefined;
         timestamp?: string | undefined;
         version?: number | undefined;
         changeset?: number | undefined;

@@ -1,16 +1,16 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
         readonly htmlParser: {
-            new (): htmlParser;
-            basicWriter: { new (): htmlParser.basicWriter };
-            cdata: { new (value: string): htmlParser.cdata };
-            comment: { new (value: string): htmlParser.comment };
-            cssStyle: { new (elementOrStyleText: htmlParser.element | string): htmlParser.cssStyle };
-            element: { new (name: string, attributes?: { [name: string]: string } | null): htmlParser.element };
-            filter: { new (rules?: htmlParser.filterRulesDefinition): htmlParser.filter };
-            filterRulesGroup: { new (): htmlParser.filterRulesGroup };
+            new(): htmlParser;
+            basicWriter: { new(): htmlParser.basicWriter };
+            cdata: { new(value: string): htmlParser.cdata };
+            comment: { new(value: string): htmlParser.comment };
+            cssStyle: { new(elementOrStyleText: htmlParser.element | string): htmlParser.cssStyle };
+            element: { new(name: string, attributes?: { [name: string]: string } | null): htmlParser.element };
+            filter: { new(rules?: htmlParser.filterRulesDefinition): htmlParser.filter };
+            filterRulesGroup: { new(): htmlParser.filterRulesGroup };
             fragment: {
-                new (): htmlParser.fragment;
+                new(): htmlParser.fragment;
 
                 fromBBCode(source: string): htmlParser.fragment;
 
@@ -20,8 +20,8 @@ declare namespace CKEDITOR {
                     fixingBlock?: string | boolean,
                 ): htmlParser.fragment | htmlParser.element;
             };
-            node: { new (): htmlParser.node };
-            text: { new (value: string): htmlParser.text };
+            node: { new(): htmlParser.node };
+            text: { new(value: string): htmlParser.text };
         };
     }
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlParser.html */
@@ -135,9 +135,9 @@ declare namespace CKEDITOR {
                 options?:
                     | number
                     | {
-                          priority?: number | undefined;
-                          applyToAll?: boolean | undefined;
-                      },
+                        priority?: number | undefined;
+                        applyToAll?: boolean | undefined;
+                    },
             ): void;
 
             applyTo(node: node): void;

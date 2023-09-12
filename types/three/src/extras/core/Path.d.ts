@@ -75,7 +75,7 @@ export class Path extends CurvePath<Vector2> {
         aStartAngle: number,
         aEndAngle: number,
         aClockwise: boolean,
-        aRotation: number,
+        aRotation?: number,
     ): this;
 
     /**

@@ -28,6 +28,20 @@ parsedNameWithSuffixIgnored.middleName;
 // $ExpectType string | undefined
 parsedNameWithSuffixIgnored.salutation;
 
+let parsedNameWithParseOptions = human.parseName("Mr. William R. Hearst, III", { ignoreSuffix: ['III'] });
+// $ExpectType string | undefined
+parsedNameWithParseOptions.firstName;
+// $ExpectType string
+parsedNameWithParseOptions.lastName;
+// $ExpectType string
+parsedNameWithParseOptions.fullName;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.suffix;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.middleName;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.salutation;
+
 let parsedNameWithNoFirstName = human.parseName("Master Yoda");
 // $ExpectType string | undefined
 parsedNameWithSuffixIgnored.firstName;

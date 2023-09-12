@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface StyleActiveLine {
         /**
          * Controls whether single-line selections, or just cursor selections, are styled. Defaults to false (only cursor selections).
