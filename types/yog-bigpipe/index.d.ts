@@ -30,6 +30,7 @@ export = yogBigpipe;
 declare namespace yogBigpipe {
     class BigPipe extends Readable {
         constructor(option?: BigPipeOption)
+        // @ts-ignore conflicts with built-in Readable.map
         map: { [key: string]: Pagelet };
         pagelets: Pagelet[];
         pipelines: Pagelet[];
