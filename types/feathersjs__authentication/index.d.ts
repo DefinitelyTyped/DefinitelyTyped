@@ -6,11 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Hook, Params } from '@feathersjs/feathers';
+import { Hook, Params } from "@feathersjs/feathers";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import * as self from '@feathersjs/authentication';
-import { RequestHandler, Application } from 'express';
-import { create } from 'domain';
+import * as self from "@feathersjs/authentication";
+import { create } from "domain";
+import { Application, RequestHandler } from "express";
 
 declare const feathersAuthentication: ((config?: FeathersAuthenticationOptions) => () => void) & typeof self;
 export default feathersAuthentication;

@@ -83,6 +83,7 @@ declare namespace SESTransport {
         accepted: Array<string | Mail.Address>;
         rejected: Array<string | Mail.Address>;
         pending: Array<string | Mail.Address>;
+        raw: Buffer;
     }
 }
 

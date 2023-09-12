@@ -4,9 +4,7 @@ export const FilmShader: {
     uniforms: {
         tDiffuse: IUniform;
         time: IUniform;
-        nIntensity: IUniform;
-        sIntensity: IUniform;
-        sCount: IUniform;
+        intensity: IUniform;
         grayscale: IUniform;
     };
     vertexShader: string;

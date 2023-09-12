@@ -81,8 +81,8 @@ declare class ContentSecurityPolicy {
      * parser.share('html');
      * // "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-2726c7f26c' *.test.com; style-src data:\">"
      */
-    share(format: 'json'): ContentSecurityPolicy.DirectiveDescriptor;
-    share(format: Exclude<ContentSecurityPolicy.ShareFormat, 'json'>): string;
+    share(format: "json"): ContentSecurityPolicy.DirectiveDescriptor;
+    share(format: Exclude<ContentSecurityPolicy.ShareFormat, "json">): string;
 
     /**
      * Validate parsed data.
@@ -103,27 +103,27 @@ declare class ContentSecurityPolicy {
 }
 
 declare namespace ContentSecurityPolicy {
-    type ShareFormat = 'json' | 'string' | 'html';
+    type ShareFormat = "json" | "string" | "html";
 
     type Directive =
-        | 'child-src'
-        | 'connect-src'
-        | 'default-src'
-        | 'font-src'
-        | 'frame-src'
-        | 'img-src'
-        | 'manifest-src'
-        | 'media-src'
-        | 'object-src'
-        | 'script-src'
-        | 'style-src'
-        | 'base-uri'
-        | 'plugin-types'
-        | 'sandbox'
-        | 'form-action'
-        | 'frame-ancestors'
-        | 'block-all-mixed-content'
-        | 'upgrade-insecure-requests';
+        | "child-src"
+        | "connect-src"
+        | "default-src"
+        | "font-src"
+        | "frame-src"
+        | "img-src"
+        | "manifest-src"
+        | "media-src"
+        | "object-src"
+        | "script-src"
+        | "style-src"
+        | "base-uri"
+        | "plugin-types"
+        | "sandbox"
+        | "form-action"
+        | "frame-ancestors"
+        | "block-all-mixed-content"
+        | "upgrade-insecure-requests";
 
     type DirectiveDescriptor = Partial<Record<Directive, string[]>>;
 }

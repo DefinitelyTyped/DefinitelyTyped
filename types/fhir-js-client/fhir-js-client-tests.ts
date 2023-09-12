@@ -159,13 +159,15 @@ class Component {
                         "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=10&_count=10&_pretty=true&_bundletype=searchset",
                 },
                 {
-                    'relation': 'next',
-                    'url': 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset'
+                    "relation": "next",
+                    "url":
+                        "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset",
                 },
                 {
-                    'relation': 'prev',
-                    'url': 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=0&_count=10&_format=json&_pretty=true&_bundletype=searchset'
-                }
+                    "relation": "prev",
+                    "url":
+                        "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=0&_count=10&_format=json&_pretty=true&_bundletype=searchset",
+                },
             ],
             "entry": [
                 {
@@ -296,13 +298,15 @@ class Component {
                         "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=10&_count=10&_pretty=true&_bundletype=searchset",
                 },
                 {
-                    'relation': 'next',
-                    'url': 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset'
+                    "relation": "next",
+                    "url":
+                        "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset",
                 },
                 {
-                    'relation': 'prev',
-                    'url': 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=0&_count=10&_format=json&_pretty=true&_bundletype=searchset'
-                }
+                    "relation": "prev",
+                    "url":
+                        "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open?_getpages=8bbd1c3c-a90f-49c6-8394-ca7524b46774&_getpagesoffset=0&_count=10&_format=json&_pretty=true&_bundletype=searchset",
+                },
             ],
             "entry": [
                 {

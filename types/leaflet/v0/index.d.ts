@@ -4229,6 +4229,7 @@ declare var L_NO_TOUCH: boolean;
  */
 declare var L_DISABLE_3D: boolean;
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "leaflet" {
     export = L;
 }

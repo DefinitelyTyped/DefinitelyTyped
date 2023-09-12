@@ -7,10 +7,10 @@ function main() {
 
 // $ExpectType void
 registerPlugin({
-    name: 'DevTools',
-    version: '1.0',
-    authors: ['OpenRCT2'],
-    type: 'local',
-    licence: 'MIT',
-    main
+    name: "DevTools",
+    version: "1.0",
+    authors: ["OpenRCT2"],
+    type: "local",
+    licence: "MIT",
+    main,
 });

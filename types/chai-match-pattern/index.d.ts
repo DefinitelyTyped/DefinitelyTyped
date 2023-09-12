@@ -5,7 +5,7 @@
 
 /// <reference types="chai" />
 
-import * as matchPattern from 'lodash-match-pattern';
+import * as matchPattern from "lodash-match-pattern";
 
 declare global {
     namespace Chai {

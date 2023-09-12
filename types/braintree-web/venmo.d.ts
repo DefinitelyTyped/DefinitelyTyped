@@ -83,6 +83,13 @@ export interface Venmo {
 }
 
 /**
+ * Venmo Payment Method Usage
+ * multi_use: Request authorization for future payments (vaulting allowed)
+ * single_use: Request authorization for a one-time payment (vaulting not allowed)
+ */
+export type VenmoPaymentMethodUsage = 'single_use' | 'multi_use';
+
+/**
  * braintree.venmo.create({
  *   client: clientInstance
  * }).then(function (venmoInstance) {
@@ -98,6 +105,10 @@ export function create(options: {
     ignoreHistoryChanges?: boolean | undefined;
     profileId?: string | undefined;
     deepLinkReturnUrl?: string | undefined;
+    allowDesktopWebLogin?: boolean;
+    allowDesktop?: boolean;
+    mobileWebFallBack?: boolean;
+    paymentMethodUsage?: VenmoPaymentMethodUsage;
 }): Promise<Venmo>;
 
 export function create(
@@ -108,6 +119,10 @@ export function create(
         ignoreHistoryChanges?: boolean | undefined;
         profileId?: string | undefined;
         deepLinkReturnUrl?: string | undefined;
+        allowDesktopWebLogin?: boolean;
+        allowDesktop?: boolean;
+        mobileWebFallBack?: boolean;
+        paymentMethodUsage?: VenmoPaymentMethodUsage;
     },
     callback?: callback<Venmo>,
 ): void;

@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as self from "@feathersjs/authentication-local";
 import { Application, Hook, Paginated } from "@feathersjs/feathers";
 import { Request } from "express";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from "@feathersjs/authentication-local";
 
 declare const feathersAuthenticationLocal:
     & ((options?: Partial<FeathersAuthenticationLocalOptions>) => () => void)

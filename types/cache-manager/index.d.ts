@@ -30,12 +30,12 @@ export interface Store {
 
 export interface StoreConfig extends CachingConfig {
     store:
-        | 'memory'
-        | 'none'
+        | "memory"
+        | "none"
         | Store
         | {
-              create(...args: any[]): Store;
-          };
+            create(...args: any[]): Store;
+        };
     max?: number;
     maxSize?: number;
     sizeCalculation?: (value: any, key: any) => number;
