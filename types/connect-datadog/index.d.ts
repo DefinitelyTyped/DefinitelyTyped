@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require('express');
-import hotShots = require('hot-shots');
+import express = require("express");
+import hotShots = require("hot-shots");
 
 export = Factory;
 

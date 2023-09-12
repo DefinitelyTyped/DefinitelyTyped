@@ -69,7 +69,7 @@ declare global {
 
         export interface Region {
             identifier: string;
-            new (identifier: string): Region;
+            new(identifier: string): Region;
         }
 
         export interface BeaconRegion extends Region {
@@ -77,14 +77,20 @@ declare global {
             major: string;
             minor: string;
             notifyEntryStateOnDisplay: boolean;
-            new (identifier: string, uuid: string, major?: number, minor?: number, notifyEntryStateOnDisplay?: boolean): BeaconRegion;
+            new(
+                identifier: string,
+                uuid: string,
+                major?: number,
+                minor?: number,
+                notifyEntryStateOnDisplay?: boolean,
+            ): BeaconRegion;
         }
 
         export interface CircularRegion extends Region {
             latitude: number;
             longitude: number;
             radius: number;
-            new (identifier: string, latitude: number, longitude: number, radius: number): CircularRegion;
+            new(identifier: string, latitude: number, longitude: number, radius: number): CircularRegion;
         }
 
         export interface Beacon {

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-trailing-whitespace": false,
         "unified-signatures": false
     }
 }

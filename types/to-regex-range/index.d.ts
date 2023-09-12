@@ -14,7 +14,7 @@ declare namespace toRegexRange {
 declare function toRegexRange(
     min: number | string,
     max?: number | string,
-    options?: toRegexRange.Options
+    options?: toRegexRange.Options,
 ): string;
 
 export = toRegexRange;

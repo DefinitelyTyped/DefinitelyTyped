@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "no-consecutive-blank-lines": false,
-        "no-trailing-whitespace": false
+        "ban-types": false
     }
 }

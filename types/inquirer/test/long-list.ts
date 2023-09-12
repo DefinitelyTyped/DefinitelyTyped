@@ -7,7 +7,6 @@ const choices: ChoiceCollection = new Array(26).fill(undefined).map((x, y) => St
 choices.push('Multiline option \n  super cool feature');
 choices.push({
     name:
-        // tslint:disable-next-line: max-line-length
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.',
     value: 'foo',
     short: 'The long option',

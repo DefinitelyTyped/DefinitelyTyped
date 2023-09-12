@@ -1,101 +1,103 @@
-import * as angular from 'angular';
-import * as ng from 'angular';
-import ocLazyLoad = require('oclazyload');
+import * as angular from "angular";
+import * as ng from "angular";
+import ocLazyLoad = require("oclazyload");
 
-angular.module('app', [ocLazyLoad]).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {
+angular.module("app", [ocLazyLoad]).config(["$ocLazyLoadProvider", function($ocLazyLoadProvider: oc.ILazyLoadProvider) {
     $ocLazyLoadProvider.config({
         debug: true,
         events: true,
         modules: [{
-            name: 'TestModule',
-            files: ['js/TestModule.js']
-        }]
-    })
+            name: "TestModule",
+            files: ["js/TestModule.js"],
+        }],
+    });
 }]);
 
-angular.module('app').controller('FooCtrl', ['$ocLazyLoad', function ($ocLazyLoad: oc.ILazyLoad) {
-    $ocLazyLoad.load('testModule.js');
+angular.module("app").controller("FooCtrl", ["$ocLazyLoad", function($ocLazyLoad: oc.ILazyLoad) {
+    $ocLazyLoad.load("testModule.js");
 
-    $ocLazyLoad.load(['testModule.js', 'testModuleCtrl.js', 'testModuleService.js']);
+    $ocLazyLoad.load(["testModule.js", "testModuleCtrl.js", "testModuleService.js"]);
 
     $ocLazyLoad.load([
-        'testModule.js',
+        "testModule.js",
         {
-            type: 'css',
-            path: 'testModuleCtrl'
+            type: "css",
+            path: "testModuleCtrl",
         },
         {
-            type: 'html',
-            path: 'testModuleCtrl.html'
+            type: "html",
+            path: "testModuleCtrl.html",
         },
         {
-            type: 'js',
-            path: 'testModuleCtrl'
+            type: "js",
+            path: "testModuleCtrl",
         },
-        'js!testModuleService',
-        'less!testModuleLessFile'
+        "js!testModuleService",
+        "less!testModuleLessFile",
     ]);
 
     $ocLazyLoad.load([
         {
             files: [
-                'testModule.js',
-                'bower_components/bootstrap/dist/js/bootstrap.js'
+                "testModule.js",
+                "bower_components/bootstrap/dist/js/bootstrap.js",
             ],
             cache: false,
             // kjdf: false
         },
         {
-            files: ['anotherModule.js'],
-            cache: true
-        }
+            files: ["anotherModule.js"],
+            cache: true,
+        },
     ]);
 
     $ocLazyLoad.load(
         [
-            'testModule.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js',
-            'anotherModule.js'
+            "testModule.js",
+            "bower_components/bootstrap/dist/js/bootstrap.js",
+            "anotherModule.js",
         ],
         {
-            cache: false
-        });
+            cache: false,
+        },
+    );
 
     $ocLazyLoad.load(
         [
-            'partials/template1.html',
-            'partials/template2.html'
+            "partials/template1.html",
+            "partials/template2.html",
         ],
         {
             cache: false,
             reconfig: true,
             rerun: true,
             serie: true,
-            insertBefore: '#load_css_before',
-            timeout: 5000
-        });
+            insertBefore: "#load_css_before",
+            timeout: 5000,
+        },
+    );
 
     $ocLazyLoad.load({
-        name: 'testModule'
+        name: "testModule",
     });
 
     $ocLazyLoad.setModuleConfig({
         files: [
-            'testModule.js'
+            "testModule.js",
         ],
-        cache: true
+        cache: true,
     });
 
-    var getConfig: oc.IModuleConfig = $ocLazyLoad.getModuleConfig('testModule');
+    var getConfig: oc.IModuleConfig = $ocLazyLoad.getModuleConfig("testModule");
 
     var getModules: string[] = $ocLazyLoad.getModules();
 
     var isLoaded: boolean = $ocLazyLoad.isLoaded([
-        'testModule1.js',
-        'testModule2.js'
+        "testModule1.js",
+        "testModule2.js",
     ]);
 
-    var promise: ng.IPromise<any> = $ocLazyLoad.inject('testModule');
+    var promise: ng.IPromise<any> = $ocLazyLoad.inject("testModule");
 
     $ocLazyLoad.toggleWatch(true);
 }]);

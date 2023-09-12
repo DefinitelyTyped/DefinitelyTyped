@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "one-line": false,
         "prefer-const": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

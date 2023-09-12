@@ -2,8 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false
+        "only-arrow-functions": false
     }
 }

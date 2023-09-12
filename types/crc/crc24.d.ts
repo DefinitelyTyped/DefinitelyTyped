@@ -1,12 +1,12 @@
-import type { CRCBufferSource } from '.';
+import type { CRCBufferSource } from ".";
 export type { CRCBufferSource };
 
-export const model: 'crc-24';
+export const model: "crc-24";
 export function signed(buf: CRCBufferSource, previous?: number): number;
 
 declare function crc24(buf: CRCBufferSource, previous?: number): number;
 declare namespace crc24 {
-    export { model, signed, crc24 as unsigned };
+    export { crc24 as unsigned, model, signed };
     export type { CRCBufferSource };
 }
 

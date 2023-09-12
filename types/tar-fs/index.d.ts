@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import { ReadStream } from 'fs';
-import * as tarStream from 'tar-stream';
+import { ReadStream } from "fs";
+import * as tarStream from "tar-stream";
 
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
@@ -48,7 +48,7 @@ export interface Headers {
     mode: number;
     mtime: Date;
     size: number;
-    type: 'file' | 'directory' | 'link' | 'symlink';
+    type: "file" | "directory" | "link" | "symlink";
     uid: number;
     gid: number;
 }

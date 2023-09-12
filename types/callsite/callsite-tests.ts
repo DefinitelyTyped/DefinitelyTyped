@@ -1,5 +1,3 @@
-
-
 import callsite = require("callsite");
 
 var stack = callsite();

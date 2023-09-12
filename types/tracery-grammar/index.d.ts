@@ -65,9 +65,11 @@ declare class TracerySymbol {
     rawRules: ConstructorParameters<typeof TraceryRuleSet>[1];
     baseRules: TraceryRuleSet;
     stack?: TraceryRuleSet[] | undefined;
-    uses?: Array<{
-        node?: TraceryNode | undefined;
-    }> | undefined;
+    uses?:
+        | Array<{
+            node?: TraceryNode | undefined;
+        }>
+        | undefined;
     isDynamic?: boolean | undefined;
     constructor(grammar: TraceryGrammar, key: string, rawRules: ConstructorParameters<typeof TraceryRuleSet>[1]);
     clearState(): void;

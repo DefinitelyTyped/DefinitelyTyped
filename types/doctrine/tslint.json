@@ -3,7 +3,6 @@
     "rules": {
         "no-inferrable-types": false,
         "no-internal-module": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false
     }
 }

@@ -1,4 +1,4 @@
-import { Configuration as WebpackConfig } from 'webpack';
+import { Configuration as WebpackConfig } from "webpack";
 
 /**
  * An override function is supplied a webpack config, which it modifies
@@ -30,7 +30,6 @@ export function overrideDevServer(...args: OverrideFunc[]): OverrideFunc;
 export function tap(options?: { message?: string | undefined; dest?: string | undefined }): OverrideFunc;
 
 /**
- *
  * Returns the `babel` loader from the provided `config`.
  *
  * `create-react-app` defines two `babel` configurations, one for js files

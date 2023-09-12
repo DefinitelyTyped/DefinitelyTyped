@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import MutableArray from '@ember/array/mutable';
 import Observable from '@ember/object/observable';
 import Mixin from '@ember/object/mixin';

@@ -3,11 +3,11 @@
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RSA_JWK } from 'pem-jwk';
-import { RequestInit, Response } from 'node-fetch';
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from "jsonwebtoken";
+import { RequestInit, Response } from "node-fetch";
+import { RSA_JWK } from "pem-jwk";
 
-import customErrors = require('./errors');
+import customErrors = require("./errors");
 
 type Fetch = (url: string, options: RequestInit) => Promise<Response>;
 
@@ -80,7 +80,7 @@ declare namespace tokenIntrospect {
     }
 
     interface IntrospectResult extends JwtPayload {
-        active: true | 'true';
+        active: true | "true";
     }
 
     /** @async */

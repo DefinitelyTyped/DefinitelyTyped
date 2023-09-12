@@ -15,6 +15,7 @@ export interface ScrollerChildProps {
 
 export interface ScrollerProps {
     children: ComponentType<ScrollerChildProps>;
+    isGrid?: boolean;
 }
 
 export const ReactWindowScroller: ComponentType<ScrollerProps>;

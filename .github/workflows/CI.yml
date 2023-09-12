@@ -24,6 +24,7 @@ jobs:
 
       # Get local dependencies
       - run: npm install
+      - run: npm ls --all || true
 
       # Run tests
       - run: npm run test-all

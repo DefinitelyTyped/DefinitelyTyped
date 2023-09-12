@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import LassoContext from './LassoContext';
-import { Bundle, DependencyConfig, DependencyRegistry } from './dependencies';
-import { writers } from '../index';
-import LassoPageResult from './LassoPageResult';
+import { EventEmitter } from "events";
+import { writers } from "../index";
+import { Bundle, DependencyConfig, DependencyRegistry } from "./dependencies";
+import LassoContext from "./LassoContext";
+import LassoPageResult from "./LassoPageResult";
 
 export interface PageConfig {
     name?: string | undefined;
@@ -21,7 +21,10 @@ export interface PageConfig {
 }
 
 export type Callback = (err: Error | null, result?: any) => any;
-export type LassoPage = (options: PageConfig, callback?: (err: Error | null, result: LassoPageResult) => void) => Promise<any>;
+export type LassoPage = (
+    options: PageConfig,
+    callback?: (err: Error | null, result: LassoPageResult) => void,
+) => Promise<any>;
 export type LassoResource = (path: string, options?: any, callback?: Callback) => void;
 
 export interface CustomPlugin {
@@ -65,7 +68,7 @@ export default class Lasso extends EventEmitter {
     createAppBundleMappings(bundleSetConfig: any, lassoContext: LassoContext, callback: Callback): any;
     buildPageBundles(options: any, lassoContext: LassoContext, callback: Callback): void;
     getAppBundleMappingsCached(bundleSetConfig: any, lassoContext: LassoContext, callback: Callback): void;
-    buildLassoCacheKey(lassoContext: LassoContext): { value: string; parts: string[]; };
+    buildLassoCacheKey(lassoContext: LassoContext): { value: string; parts: string[] };
     getLassoCache(lassoContext: LassoContext): any;
     getConfig(): LassoConfig;
     getJavaScriptDependencyHtml(url: string, attributes?: any): string;
