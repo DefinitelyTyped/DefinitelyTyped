@@ -44,7 +44,7 @@ declare namespace OO.ui {
     }
 
     interface ThemeConstructor {
-        new (): Theme;
+        new(): Theme;
         prototype: Theme;
         static: {};
     }

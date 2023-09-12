@@ -17,9 +17,8 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.LabelElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.LabelElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** Whether the option is initially selected */
             selected?: boolean;
         }
@@ -98,7 +97,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultioptionWidget;
+            new(config?: ConfigOptions): MultioptionWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

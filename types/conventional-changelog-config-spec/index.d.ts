@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as ConventionalChangelogConfigSpec from './versions/2.2.0/schema.json';
+import * as ConventionalChangelogConfigSpec from "./versions/2.2.0/schema.json";
 
 export = ConventionalChangelogConfigSpec;

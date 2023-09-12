@@ -2,7 +2,7 @@ declare namespace CKEDITOR {
     interface CKEditorPluginsCore extends resourceManager {
         codesnippet?: {
             highlighter: {
-                new (
+                new(
                     init?: (ready: () => void) => void,
                     highlighter?: (code: string, language: string, callback: (highlightedCode: string) => void) => void,
                 ): plugins.codesnippet.highlighter;

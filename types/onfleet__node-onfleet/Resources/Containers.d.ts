@@ -1,5 +1,5 @@
 declare class Container {
-    get(id: string, group: 'organizations' | 'teams' | 'workers'): Promise<Container.OnfleetContainer>;
+    get(id: string, group: "organizations" | "teams" | "workers"): Promise<Container.OnfleetContainer>;
 }
 
 declare namespace Container {
@@ -8,7 +8,7 @@ declare namespace Container {
         timeCreated: number;
         timeLastModified: number;
         organization: string;
-        type: 'ORGANIZATION' | 'TEAM' | 'WORKER';
+        type: "ORGANIZATION" | "TEAM" | "WORKER";
         activeTask: string | null;
         tasks: string[];
         worker: string;

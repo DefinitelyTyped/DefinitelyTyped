@@ -1,44 +1,44 @@
-import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
-import moment = require('moment');
+import { BorderWidth, Chart, ChartColor, Point } from "chart.js";
+import moment = require("moment");
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => { },
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {},
 };
 
 const ctx = new CanvasRenderingContext2D();
 
 const chart: Chart = new Chart(ctx, {
-    type: 'bar',
+    type: "bar",
     plugins: [plugin, plugin],
     data: {
-        labels: ['group 1', 'group 2'],
+        labels: ["group 1", "group 2"],
         datasets: [
             {
-                backgroundColor: '#000000',
+                backgroundColor: "#000000",
                 hoverBackgroundColor: ctx.createLinearGradient(0, 0, 0, 100),
                 hoverBorderColor: ctx.createLinearGradient(0, 0, 0, 100),
                 borderWidth: 1,
-                label: 'test',
+                label: "test",
                 data: [1, null, 3],
             },
             {
-                backgroundColor: '#ff0000',
+                backgroundColor: "#ff0000",
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
-                label: 'test',
+                label: "test",
                 data: [1, 3, 5],
-                barThickness: 'flex',
+                barThickness: "flex",
                 minBarLength: 2,
-            }
+            },
         ],
     },
     options: {
         hover: {
-            axis: 'xy',
-            mode: 'nearest',
+            axis: "xy",
+            mode: "nearest",
             animationDuration: 400,
             intersect: true,
         },
@@ -46,22 +46,22 @@ const chart: Chart = new Chart(ctx, {
             return;
         },
         title: {
-            text: ['foo', 'bar'],
+            text: ["foo", "bar"],
         },
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
-            mode: 'index',
-            axis: 'x',
+            mode: "index",
+            axis: "x",
             itemSort: (a, b, data) => Math.random() - 0.5,
-            position: 'average',
+            position: "average",
             caretPadding: 2,
             displayColors: true,
-            borderColor: 'rgba(0,0,0,0)',
+            borderColor: "rgba(0,0,0,0)",
             borderWidth: 1,
-            titleAlign: 'center',
+            titleAlign: "center",
             callbacks: {
-                title: ([point]) => (point.label ? point.label.substring(0, 2) : 'title'),
+                title: ([point]) => (point.label ? point.label.substring(0, 2) : "title"),
                 label(tooltipItem) {
                     const { value, x, y, label } = tooltipItem;
                     return `${label}(${x}, ${y}) = ${value}`;
@@ -116,11 +116,11 @@ const chart: Chart = new Chart(ctx, {
                     }
 
                     return (ctx.dataset.backgroundColor as ChartColor | string) || "red";
-                }
-            }
+                },
+            },
         },
         legend: {
-            align: 'center',
+            align: "center",
             display: true,
             labels: {
                 usePointStyle: true,
@@ -134,7 +134,7 @@ const chart: Chart = new Chart(ctx, {
         },
     },
 });
-chart.update({ duration: 500, lazy: false, easing: 'linear' });
+chart.update({ duration: 500, lazy: false, easing: "linear" });
 
 console.log(chart.getDatasetMeta(0));
 
@@ -159,11 +159,11 @@ chart.config.options = {
     legend: {
         display: false,
     },
-    legendCallback: () => 'legend replacement',
+    legendCallback: () => "legend replacement",
 };
 chart.update();
 const customLegend = chart.generateLegend();
-console.log(customLegend === 'legend replacement');
+console.log(customLegend === "legend replacement");
 
 // Testing radial chart
 const tickOptions: Chart.LinearTickOptions = {
@@ -174,28 +174,28 @@ const tickOptions: Chart.LinearTickOptions = {
 };
 const scaleOptions: Chart.RadialLinearScale = {
     animate: false,
-    position: 'chartArea',
+    position: "chartArea",
     angleLines: {
         display: true,
-        color: 'rgba(0, 0, 0, 0.1)',
+        color: "rgba(0, 0, 0, 0.1)",
         lineWidth: 1,
         borderDash: [],
-        borderDashOffset: 0.0
+        borderDashOffset: 0.0,
     },
     pointLabels: {
-        callback: () => 'pointLabels callback',
-        fontColor: '#666',
+        callback: () => "pointLabels callback",
+        fontColor: "#666",
         fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
         fontSize: 10,
-        fontStyle: 'normal',
-        lineHeight: 1.2
+        fontStyle: "normal",
+        lineHeight: 1.2,
     },
     ticks: tickOptions,
     display: false,
     gridLines: {
         display: true,
         circular: false,
-        color: 'rgba(0, 0, 0, 0.1)',
+        color: "rgba(0, 0, 0, 0.1)",
         borderDash: [],
         borderDashOffset: 0.0,
         lineWidth: 1,
@@ -204,12 +204,12 @@ const scaleOptions: Chart.RadialLinearScale = {
         drawTicks: true,
         tickMarkLength: 10,
         zeroLineWidth: 1,
-        zeroLineColor: 'rgba(0, 0, 0, 0.25)',
+        zeroLineColor: "rgba(0, 0, 0, 0.25)",
         zeroLineBorderDash: [],
         zeroLineBorderDashOffset: 0.0,
         offsetGridLines: false,
-        z: 9
-    }
+        z: 9,
+    },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
     legend: { display: false },
@@ -217,18 +217,18 @@ const radarChartOptions: Chart.RadialChartOptions = {
     responsive: true,
 };
 const chartConfig: Chart.ChartConfiguration = {
-    type: 'radar',
+    type: "radar",
     data: {
-        labels: ['#apples', '#pears', '#apricots', '#acorns', '#amigas', '#orics'],
+        labels: ["#apples", "#pears", "#apricots", "#acorns", "#amigas", "#orics"],
         datasets: [
             {
-                label: 'test',
+                label: "test",
                 lineTension: 0.15,
                 data: [1, 1, 2, 3, 5],
-                backgroundColor: '#37738353',
-                borderColor: '#37738353',
+                backgroundColor: "#37738353",
+                borderColor: "#37738353",
                 borderWidth: 3,
-                borderCapStyle: 'round',
+                borderCapStyle: "round",
                 fill: true,
             },
         ],
@@ -237,9 +237,9 @@ const chartConfig: Chart.ChartConfiguration = {
         ...radarChartOptions,
         elements: {
             line: {
-                borderDash: [1, 2, 3, 4]
-            }
-        }
+                borderDash: [1, 2, 3, 4],
+            },
+        },
     },
 };
 const radialChart: Chart = new Chart(new CanvasRenderingContext2D(), chartConfig);
@@ -263,7 +263,7 @@ Chart.Tooltip.positioners.custom = (elements: any[], eventPosition: Point) => {
 };
 
 if (radialChart.width !== null && radialChart.height !== null) {
-    console.log('area', radialChart.width * radialChart.height);
+    console.log("area", radialChart.width * radialChart.height);
 }
 if (radialChart.aspectRatio !== null) {
     console.log(radialChart.aspectRatio * 2);
@@ -292,61 +292,61 @@ const chartWithScriptedOptions = new Chart(new CanvasRenderingContext2D(), {
                     return 1;
                 }
                 return { top: 1, right: 1, bottom: 0, left: 1 };
-            }
+            },
         }],
-    }
+    },
 });
 
 // linear scale
 const linearScaleChart: Chart = new Chart(ctx, {
-    type: 'bar',
+    type: "bar",
     data: {
         datasets: [{
-            backgroundColor: '#000',
-            borderColor: '#f00',
+            backgroundColor: "#000",
+            borderColor: "#f00",
             data: [],
-            type: 'line',
-        }]
+            type: "line",
+        }],
     },
     options: {
         scales: {
             displayFormats: {
-                month: 'MMM YYYY',
+                month: "MMM YYYY",
             },
             xAxes: [{
-                type: 'time',
+                type: "time",
                 adapters: {
                     date: {
-                        locale: 'de'
-                    }
+                        locale: "de",
+                    },
                 },
-                distribution: 'series',
+                distribution: "series",
                 ticks: {
-                    source: 'data',
+                    source: "data",
                     autoSkip: true,
                     sampleSize: 1,
-                }
+                },
             }],
             yAxes: [{
                 scaleLabel: {
                     display: true,
-                    labelString: 'Closing price ($)'
+                    labelString: "Closing price ($)",
                 },
                 afterBuildTicks: (scale, ticks) => {
                     return [Math.max(...ticks), 10, Math.min(...ticks)];
-                }
-            }]
+                },
+            }],
         },
         tooltips: {
             intersect: false,
-            mode: 'index',
-        }
-    }
+            mode: "index",
+        },
+    },
 });
 
 // custom tooltips
 const customTooltipsPieChart = new Chart(ctx, {
-    type: 'pie',
+    type: "pie",
     data: {},
     options: {
         tooltips: {
@@ -362,16 +362,16 @@ const customTooltipsPieChart = new Chart(ctx, {
 
 // chart with right-to-left (rtl) legend and tooltip
 const rtlTooltipsLegendsLineChart = new Chart(ctx, {
-    type: 'line',
+    type: "line",
     data: {},
     options: {
         legend: {
             rtl: true,
-            textDirection: 'rtl',
+            textDirection: "rtl",
         },
         tooltips: {
             rtl: true,
-            textDirection: 'rtl',
+            textDirection: "rtl",
         },
     },
 });
@@ -385,15 +385,15 @@ for (const id in Chart.instances) {
 }
 
 // default global static values
-Chart.defaults.global.defaultFontColor = '#544615';
-Chart.defaults.global.defaultFontFamily = 'Arial';
-Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
+Chart.defaults.global.defaultFontColor = "#544615";
+Chart.defaults.global.defaultFontFamily = "Arial";
+Chart.defaults.global.tooltips.backgroundColor = "#0a2c54";
 Chart.defaults.global.tooltips.cornerRadius = 2;
 Chart.defaults.global.tooltips.displayColors = false;
 Chart.defaults.global.defaultColor = ctx.createLinearGradient(0, 0, 0, 100);
 
 // Update Chart defaults using scaleService
-Chart.scaleService.updateScaleDefaults('time', {
+Chart.scaleService.updateScaleDefaults("time", {
     gridLines: {
         drawBorder: false,
         drawOnChartArea: false,
@@ -405,17 +405,17 @@ Chart.scaleService.updateScaleDefaults('time', {
 });
 
 const doughnutChart = new Chart(ctx, {
-    type: 'doughnut',
+    type: "doughnut",
     data: {
         datasets: [
             {
-                backgroundColor: '#ff0000',
-                borderColor: '#000000',
+                backgroundColor: "#ff0000",
+                borderColor: "#000000",
                 borderWidth: 3,
-                data: [1, 3, 5]
-            }
-        ]
-    }
+                data: [1, 3, 5],
+            },
+        ],
+    },
 });
 
 // Testing Model properties
@@ -510,84 +510,92 @@ const timeAxisChartData: Chart.ChartData = {
             { x: moment(), y: 1 },
             { y: moment(), t: 1 },
             { t: moment(), y: 1 },
-        ]
-    }]
+        ],
+    }],
 };
 
 // Labels
 const timeLabelsChartData: Chart.ChartData = {
     labels: [
-        'a', 'b', 'c',
-        1, 2, 3,
-        new Date(), new Date(), new Date(),
-        moment(), moment(), moment(),
+        "a",
+        "b",
+        "c",
+        1,
+        2,
+        3,
+        new Date(),
+        new Date(),
+        new Date(),
+        moment(),
+        moment(),
+        moment(),
     ],
 };
 
-const event = new MouseEvent('click');
+const event = new MouseEvent("click");
 chart.getElementsAtEvent(event);
 chart.getElementsAtXAxis(event);
 
 // Number array chart data
 const chartWithNumberArrayData: Chart = new Chart(ctx, {
-    type: 'bar',
+    type: "bar",
     data: {
         datasets: [{
-            backgroundColor: '#000',
-            borderColor: '#f00',
+            backgroundColor: "#000",
+            borderColor: "#f00",
             data: [
                 [1, 2],
                 [3, 4],
-                [5, 6]
+                [5, 6],
             ],
-            type: 'line',
-        }]
+            type: "line",
+        }],
     },
     options: {
         scales: {
             displayFormats: {
-                month: 'MMM YYYY',
+                month: "MMM YYYY",
             },
             xAxes: [{
-                type: 'time',
-                distribution: 'series',
+                type: "time",
+                distribution: "series",
                 ticks: {
-                    source: 'data',
+                    source: "data",
                     autoSkip: true,
                     sampleSize: 1,
-                }
+                },
             }],
             yAxes: [{
                 scaleLabel: {
                     display: true,
-                    labelString: 'Closing price ($)'
+                    labelString: "Closing price ($)",
                 },
                 afterBuildTicks: (scale, ticks) => {
                     return [Math.max(...ticks), 10, Math.min(...ticks)];
-                }
-            }]
+                },
+            }],
         },
         tooltips: {
             intersect: false,
-            mode: 'index',
-        }
-    }
+            mode: "index",
+        },
+    },
 });
 
 // Category axes
 const categoryXAxe: Chart.ChartXAxe = {
-    type: 'category',
-    labels: ['label1', 'label2'],
+    type: "category",
+    labels: ["label1", "label2"],
 };
 
 // Testing plugin service static methods
 const plugins = Chart.plugins.getAll();
 console.log(plugins);
-const foo = plugins.find(plugin => plugin.id === 'foo');
+const foo = plugins.find(plugin => plugin.id === "foo");
 console.log(foo);
 const pluginCount = Chart.plugins.count();
 console.log(pluginCount);
-const notify = Chart.plugins.notify(chart, 'beforeInit', []);
+const notify = Chart.plugins.notify(chart, "beforeInit", []);
 console.log(notify);
 const pluginDescriptors = Chart.plugins.descriptors(chart);
 console.log(pluginDescriptors);

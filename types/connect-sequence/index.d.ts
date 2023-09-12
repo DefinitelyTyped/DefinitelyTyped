@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from "express";
 
 declare class ConnectSequence {
     constructor(req: Request, res: Response, next: NextFunction);

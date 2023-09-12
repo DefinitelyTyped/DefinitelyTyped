@@ -727,12 +727,35 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // create an EnvelopedData with encrypted content (3DES with RSA)
     let p7 = forge.pkcs7.createEnvelopedData();
-    let cert = forge.pki.certificateFromPem(certPem);
+    let symmetricCipher = forge.pki.oids['des-EDE3-CBC'];
     p7.addRecipient(cert);
     p7.content = forge.util.createBuffer('content');
-    p7.encrypt();
+    p7.encrypt(undefined, symmetricCipher);
     let asn1: forge.asn1.Asn1 = p7.toAsn1();
+
+    // parse and decrypt the result
+    let encP7 = forge.pkcs7.messageFromAsn1(asn1) as forge.pkcs7.PkcsEnvelopedData;
+    let recipient = encP7.findRecipient(cert);
+    encP7.decrypt(recipient, privateKeyRsa);
+    if (p7.content !== encP7.content) {
+        throw new Error('decrypted result does not match');
+    }
+}
+
+{
+    // alternatively, EnvelopedData can be encrypted with a predefined symmetric key
+    let p7 = forge.pkcs7.createEnvelopedData();
+    p7.addRecipient(cert);
+    p7.content = forge.util.createBuffer('cleartext');
+    // let's define a key suitable for AES-128 (key length: 16 bytes)
+    let symmetricCipher = forge.pki.oids['aes128-CBC'];
+    let predefinedKey = forge.util.hexToBytes('b5d36c67837faa95d02455ec162588ed');
+    p7.encrypt(forge.util.createBuffer(predefinedKey), symmetricCipher);
+
+    let recipient = p7.findRecipient(cert);
+    p7.decrypt(recipient, privateKeyRsa);
 }
 
 {

@@ -1,4 +1,4 @@
-import createGlobe = require('cobe');
+import createGlobe = require("cobe");
 
 let phi = 0;
 

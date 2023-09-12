@@ -1,8 +1,8 @@
 // See docs https://codemirror.net/doc/manual.html#addon_match-highlighter
 
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface HighlightSelectionMatches {
         /**
          * Minimum amount of selected characters that triggers a highlight (default 2).

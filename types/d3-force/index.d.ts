@@ -326,8 +326,8 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum>(
 export function forceSimulation<
     NodeDatum extends SimulationNodeDatum,
     LinkDatum extends SimulationLinkDatum<NodeDatum>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
->(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
+> // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
 
 // ----------------------------------------------------------------------
 // Forces
