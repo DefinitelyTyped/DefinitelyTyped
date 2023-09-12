@@ -3,7 +3,6 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Maik Tizziani <https://github.com/mtizziani>
-//                 Daniel Melcer <https://github.com/dmelcer9>
 //                 Chris Frewin <https://github.com/princefishthrower>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
