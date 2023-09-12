@@ -5375,6 +5375,10 @@
             "libraryName": "@sentry/webpack-plugin",
             "asOfVersion": "1.10.0"
         },
+        "sequelize-cursor-pagination": {
+            "libraryName": "sequelize-cursor-pagination",
+            "asOfVersion": "3.0.0"
+        },
         "serialize-error": {
             "libraryName": "serialize-error",
             "asOfVersion": "4.0.0"
