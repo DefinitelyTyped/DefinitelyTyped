@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { EventDispatcherEvents } from '@ember/application/types';
 
 /**

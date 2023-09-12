@@ -8,7 +8,7 @@ declare function columnify(data: Record<string, any> | any[], options?: columnif
 
 declare namespace columnify {
     interface Options {
-        align?: 'left' | 'center' | 'centre' | 'right' | undefined;
+        align?: "left" | "center" | "centre" | "right" | undefined;
         dataTransform?: ((data: string) => string) | undefined;
         headingTransform?: ((data: string) => string) | undefined;
         minWidth?: number | undefined;
@@ -28,7 +28,7 @@ declare namespace columnify {
         maxLineWidth?: number | undefined;
         truncate?: boolean | undefined;
         widths?: {
-            [columnName: string]: Pick<Options, 'minWidth' | 'maxWidth'>;
+            [columnName: string]: Pick<Options, "minWidth" | "maxWidth">;
         } | undefined;
     }
 }

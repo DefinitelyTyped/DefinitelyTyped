@@ -806,6 +806,46 @@ braintree.client.create(
             });
         });
 
+        //Venmo Create With Desktop, Mobile , Payment Method Options
+        braintree.venmo.create({ 
+            client: clientInstance, 
+            allowDesktop: true, 
+            mobileWebFallBack:true, 
+            allowDesktopWebLogin: true, 
+            paymentMethodUsage: 'multi_use' 
+        }, (createErr, venmoInstance) => {
+            const button = new HTMLButtonElement();
+
+            button.addEventListener('click', () => {
+                // Disable the button so that we don't attempt to open multiple popups.
+                button.setAttribute('disabled', 'disabled');
+
+                // Because tokenize opens a new window, this must be called
+                // as a result of a user action, such as a button click.
+                venmoInstance
+                    .tokenize()
+                    .then((payload: braintree.VenmoTokenizePayload) => {
+                        console.log(payload.nonce);
+                    })
+                    .catch((tokenizeError: braintree.BraintreeError) => {
+                        // Handle flow errors or premature flow closure
+                        switch (tokenizeError.code) {
+                            case 'VENMO_APP_CANCELED':
+                                console.log('User canceled Venmo flow.');
+                                break;
+                            case 'VENMO_CANCELED':
+                                console.log('User canceled Venmo, or Venmo app is not available.');
+                                break;
+                            default:
+                                console.error('Error!', tokenizeError);
+                        }
+                    })
+                    .then(() => {
+                        button.removeAttribute('disabled');
+                    });
+            });
+        });   
+
         // Vault Manager
         braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
             vaultManagerInstance

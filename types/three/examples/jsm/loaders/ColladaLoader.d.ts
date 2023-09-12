@@ -6,15 +6,8 @@ export interface Collada {
     scene: Scene;
 }
 
-export class ColladaLoader extends Loader {
+export class ColladaLoader extends Loader<Collada> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (collada: Collada) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Collada>;
     parse(text: string, path: string): Collada;
 }

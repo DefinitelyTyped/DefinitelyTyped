@@ -21,6 +21,7 @@ declare module 'async_hooks' {
      * import fs from 'node:fs';
      *
      * console.log(executionAsyncId());  // 1 - bootstrap
+     * const path = '.';
      * fs.open(path, 'r', (err, fd) => {
      *   console.log(executionAsyncId());  // 6 - open()
      * });
@@ -452,6 +453,7 @@ declare module 'async_hooks' {
          * ```
          * @since v13.10.0, v12.17.0
          */
+        run<R>(store: T, callback: () => R): R;
         run<R, TArgs extends any[]>(store: T, callback: (...args: TArgs) => R, ...args: TArgs): R;
         /**
          * Runs a function synchronously outside of a context and returns its

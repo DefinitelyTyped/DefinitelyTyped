@@ -47,7 +47,7 @@ declare namespace objectPath {
             object: object,
             path: Path,
             value: TResult,
-            doNotReplace?: boolean
+            doNotReplace?: boolean,
         ): TResult | undefined;
 
         /**
@@ -62,7 +62,7 @@ declare namespace objectPath {
         coalesce<TResult = any>(
             object: object,
             paths: Path | Path[],
-            defaultValue?: TResult
+            defaultValue?: TResult,
         ): TResult | undefined;
 
         /**
@@ -78,7 +78,7 @@ declare namespace objectPath {
         ensureExists<TResult = any>(
             object: object,
             path: Path,
-            defaultValue?: TResult
+            defaultValue?: TResult,
         ): TResult | undefined;
 
         /**

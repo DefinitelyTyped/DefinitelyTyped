@@ -1,4 +1,4 @@
-import { merge } from 'object-mapper';
+import { merge } from "object-mapper";
 
 interface FlatPerson {
     name: string;
@@ -19,26 +19,26 @@ interface NestedPerson {
 }
 
 const mapping = {
-    name: 'name',
-    age: 'age',
-    mother: 'family.mother',
-    father: 'family.father',
+    name: "name",
+    age: "age",
+    mother: "family.mother",
+    father: "family.father",
 };
 
 const nestedPerson: NestedPerson = {
-    name: 'Jack Bauer',
+    name: "Jack Bauer",
     age: 29,
     family: {
-        father: 'Mike',
-        mother: 'Christina',
+        father: "Mike",
+        mother: "Christina",
     },
 };
 
 const flatPerson: FlatPerson = {
-    name: 'Value that will be replaced',
+    name: "Value that will be replaced",
     age: -2,
-    father: 'Value that will be replaced',
-    mother: 'Value that will be replaced',
+    father: "Value that will be replaced",
+    mother: "Value that will be replaced",
 };
 
 merge(nestedPerson, mapping);
