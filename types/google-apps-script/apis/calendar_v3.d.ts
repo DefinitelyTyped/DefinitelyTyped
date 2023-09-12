@@ -388,6 +388,7 @@ declare namespace GoogleAppsScript {
         transparency?: string | undefined;
         updated?: string | undefined;
         visibility?: string | undefined;
+        workingLocationProperties?: Calendar.Schema.WorkingLocationProperties | undefined;
       }
       interface EventAttachment {
         fileId?: string | undefined;
@@ -506,6 +507,21 @@ declare namespace GoogleAppsScript {
       interface TimePeriod {
         end?: string | undefined;
         start?: string | undefined;
+      }
+      interface WorkingLocationProperties {
+        type?: string|undefined;
+        // The documentation LITERALLY has type = "Any value"
+        // tslint:disable-next-line:no-any
+        homeOffice?: any|undefined;
+        customLocation?: {label: string};
+        officeLocation?: OfficeLocation|undefined;
+      }
+      interface OfficeLocation {
+        buildingId?: string|undefined;
+        floorId?: string|undefined;
+        floorSectionId?: string|undefined;
+        deskId?: string|undefined;
+        label?: string|undefined;
       }
     }
   }
