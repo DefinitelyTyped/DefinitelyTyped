@@ -1,4 +1,4 @@
-import { createResponse } from 'create-response';
+import { Headers, createResponse } from 'create-response';
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -8,6 +8,9 @@ export function onClientRequest(request: EW.IngressClientRequest) {
 
     // Exercise EW.ClientRequest.removeHeader()
     request.removeHeader("to-remove-1");
+
+    // EW.IngressClientRequest.getHeaders()
+    testHeaders(request.getHeaders());
 
     // Exercise EW.ClientRequest.getVariable()
     request.respondWith(505, [], "Missing get-variable-present");
@@ -38,6 +41,9 @@ export function onOriginRequest(request: EW.IngressOriginRequest) {
     // removeHeader
     request.getHeader("onOriginRequest-removeHeader-bye");
     request.removeHeader("onOriginRequest-removeHeader-bye");
+
+    // EW.IngressOriginRequest.getHeaders()
+    testHeaders(request.getHeaders());
 
     // getVariable
     const v = request.getVariable("var") || [];
@@ -85,6 +91,9 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
     }
     response.removeHeader("onOriginResponse-removeHeader-resp-bye");
 
+    // EW.EgressOriginRequest.getHeaders()
+    testHeaders(request.getHeaders());
+    
     // Verify we set status
     response.status = 189;
     // respondWith
@@ -134,6 +143,9 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
     }
     response.removeHeader("onClientResponse-removeHeader-resp-bye");
 
+    // EW.EgressClientRequest.getHeaders()
+    testHeaders(request.getHeaders());
+
     // Verify we set status
     response.status = 123;
     // respondWith
@@ -144,14 +156,8 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
-    const headers = request.getHeaders();
-    Object.keys(headers).forEach(key => {
-        key.toUpperCase();
-    });
-
-    // get a specific header and do string operations
-    const acceptHeader = headers["accept-encoding"];
-    acceptHeader.forEach(val => val.toUpperCase());
+    // EW.ResponseProviderRequest.getHeaders()
+    testHeaders(request.getHeaders());
 
     // EW.ResponseProviderRequest.text()
     const stringBody = request.text();
@@ -164,4 +170,16 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
     // EW.ResponseProviderRequest.arrayBuffer()
     const arrayBufferBody = request.arrayBuffer();
+}
+
+function testHeaders(headers: EW.Headers) {
+    Object.keys(headers).forEach(key => {
+        key.toUpperCase();
+        headers[key].length;
+        headers[key][0].toUpperCase();
+    });
+
+    // get a specific header and do string operations
+    const acceptHeader = headers["accept-encoding"];
+    acceptHeader.forEach(val => val.toUpperCase());
 }
