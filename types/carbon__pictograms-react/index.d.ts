@@ -6,25 +6,26 @@
 
 /** 1024 pictograms in total */
 
-export interface CarbonPictogramProps
-  extends Omit<
-    React.SVGProps<React.ReactSVGElement>,
-    "ref" | "tabIndex" | "aria-hidden"
-  > {
-  "aria-hidden"?: string;
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
-  height?: number;
-  preserveAspectRatio?: string;
-  tabIndex?: string;
-  title?: string;
-  viewBox?: string;
-  width?: number;
-  xmlns?: string;
+export interface CarbonPictogramProps extends
+    Omit<
+        React.SVGProps<React.ReactSVGElement>,
+        "ref" | "tabIndex" | "aria-hidden"
+    >
+{
+    "aria-hidden"?: string;
+    "aria-label"?: string;
+    "aria-labelledby"?: string;
+    height?: number;
+    preserveAspectRatio?: string;
+    tabIndex?: string;
+    title?: string;
+    viewBox?: string;
+    width?: number;
+    xmlns?: string;
 }
 
 export type CarbonPictogramType = React.ForwardRefExoticComponent<
-  CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
+    CarbonPictogramProps & React.RefAttributes<SVGSVGElement>
 >;
 
 export const AcceleratedComputing: CarbonPictogramType;

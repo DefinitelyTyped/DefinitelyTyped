@@ -1,4 +1,4 @@
-import { EntityType } from './EntityType';
+import { EntityType } from "./EntityType";
 export interface Identity {
     uuid: string;
     name?: string | undefined;

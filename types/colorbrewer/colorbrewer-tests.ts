@@ -1,5 +1,3 @@
-
-
 var accent3: string[] = colorbrewer.Accent[3];
 var accent4: string[] = colorbrewer.Accent[4];
 var accent5: string[] = colorbrewer.Accent[5];

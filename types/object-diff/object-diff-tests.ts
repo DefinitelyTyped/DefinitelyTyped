@@ -1,4 +1,4 @@
-import diff = require('object-diff');
+import diff = require("object-diff");
 
 // from the package README.md, typescriptified:
 
@@ -34,7 +34,7 @@ var g = {
     speed: 5, // changed
     power: 54, // unchanged
     level: 100, // changed
-    material: 'steel', // added
+    material: "steel", // added
     location: undefined, // added but undefined
 };
 

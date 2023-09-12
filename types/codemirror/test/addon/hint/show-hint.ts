@@ -1,13 +1,13 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/hint/show-hint';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/hint/show-hint";
 
-const cm = CodeMirror(document.body, { value: 'text' });
+const cm = CodeMirror(document.body, { value: "text" });
 const pos = new CodeMirror.Pos(2, 3);
 CodeMirror.showHint(cm);
 CodeMirror.showHint(cm, cm => {
     return {
         from: pos,
-        list: ['one', 'two'],
+        list: ["one", "two"],
         to: pos,
     };
 });
@@ -16,15 +16,15 @@ CodeMirror.showHint(cm, cm => {
         from: pos,
         list: [
             {
-                text: 'disp1',
+                text: "disp1",
                 render(el, self, data) {},
             },
             {
-                className: 'class2',
-                displayText: 'disp2',
+                className: "class2",
+                displayText: "disp2",
                 from: pos,
                 to: pos,
-                text: 'sometext',
+                text: "sometext",
             },
         ],
         to: pos,
@@ -36,7 +36,7 @@ const asyncHintFunc: CodeMirror.AsyncHintFunction = (
 ) => {
     callback({
         from: pos,
-        list: ['one', 'two'],
+        list: ["one", "two"],
         to: pos,
     });
 };
@@ -60,7 +60,7 @@ cm.showHint({
 
 cm.showHint({
     hint: CodeMirror.hint.fromList,
-    words: ['hello', 'world'],
+    words: ["hello", "world"],
 });
 
 const hintOptions: CodeMirror.ShowHintOptions = { scrollMargin: 5 };
@@ -69,6 +69,6 @@ const hintOptions: CodeMirror.ShowHintOptions = { scrollMargin: 5 };
 hintOptions.scrolMargn = 5;
 
 // @ts-expect-error
-hintOptions.scrollMargin = '5';
+hintOptions.scrollMargin = "5";
 
 CodeMirror(document.body, { hintOptions });

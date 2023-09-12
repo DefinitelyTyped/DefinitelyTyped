@@ -1,12 +1,12 @@
-import { WebContents } from '../webcontents/webcontents';
-import Transport from '../../transport/transport';
-import { Identity } from '../../identity';
-import { Base } from '../base';
-import { ViewEvents } from '../events/view';
-import { _Window } from '../window/window';
-import { WindowOption, CustomRequestHeaders, Api, ContentNavigation } from '../window/windowOption';
-import { ViewBounds, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
-import { PreloadScript } from '../../shapes/PreloadScript';
+import { Identity } from "../../identity";
+import { PreloadScript } from "../../shapes/PreloadScript";
+import { ContextMenuSettings, Hotkey, ViewBounds } from "../../shapes/shapes";
+import Transport from "../../transport/transport";
+import { Base } from "../base";
+import { ViewEvents } from "../events/view";
+import { WebContents } from "../webcontents/webcontents";
+import { _Window } from "../window/window";
+import { Api, ContentNavigation, CustomRequestHeaders, WindowOption } from "../window/windowOption";
 /**
  * @lends View
  */
@@ -381,7 +381,10 @@ export declare class View extends WebContents<ViewEvents> {
      * @return {Function}
      * @experimental
      */
-    setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => Promise<void>>;
+    setCustomWindowHandler: (
+        urls: string | string[],
+        handler: (options: WindowOption) => void,
+    ) => Promise<() => Promise<void>>;
 }
 export interface AutoResizeOptions {
     /**

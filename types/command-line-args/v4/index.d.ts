@@ -7,7 +7,10 @@
 /**
  * Returns an object containing option values parsed from the command line. By default it parses the global `process.argv` array.
  */
-declare function commandLineArgs(optionDefinitions: commandLineArgs.OptionDefinition[], options?: commandLineArgs.ParseOptions): commandLineArgs.CommandLineOptions;
+declare function commandLineArgs(
+    optionDefinitions: commandLineArgs.OptionDefinition[],
+    options?: commandLineArgs.ParseOptions,
+): commandLineArgs.CommandLineOptions;
 
 declare namespace commandLineArgs {
     interface CommandLineOptions {

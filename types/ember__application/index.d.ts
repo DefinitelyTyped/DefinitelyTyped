@@ -8,10 +8,14 @@
 // Minimum TypeScript Version: 4.4
 
 import Engine from '@ember/engine';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ApplicationInstance from '@ember/application/instance';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import EventDispatcher from '@ember/application/-private/event-dispatcher';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { EventDispatcherEvents } from '@ember/application/types';
 import Router from '@ember/routing/router';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Registry from '@ember/application/-private/registry';
 import { AnyFn } from 'ember/-private/type-utils';
 import Owner, { Resolver } from '@ember/owner';

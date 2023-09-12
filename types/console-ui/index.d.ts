@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { QuestionCollection, Answers } from 'inquirer';
+import { Answers, QuestionCollection } from "inquirer";
 
-type WriteLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
+type WriteLevel = "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
 export = UI;
 

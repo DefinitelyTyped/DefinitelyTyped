@@ -3,15 +3,16 @@
 // Definitions by: Nasreddine Bac Ali <https://github.com/bacali95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Platform = 'aix'
-    | 'android'
-    | 'darwin'
-    | 'freebsd'
-    | 'linux'
-    | 'openbsd'
-    | 'sunos'
-    | 'win32'
-    | 'cygwin';
+type Platform =
+    | "aix"
+    | "android"
+    | "darwin"
+    | "freebsd"
+    | "linux"
+    | "openbsd"
+    | "sunos"
+    | "win32"
+    | "cygwin";
 
 /**
  * returns platform.

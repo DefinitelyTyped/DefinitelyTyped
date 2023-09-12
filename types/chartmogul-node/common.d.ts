@@ -20,7 +20,7 @@ export interface Entries<T> extends Cursor {
 export interface Summary {
     current: number;
     previous: number;
-    ['percentage-change']: number;
+    ["percentage-change"]: number;
 }
 export interface EntriesSummary<T> {
     entries: T[];

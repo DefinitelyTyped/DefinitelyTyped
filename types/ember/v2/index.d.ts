@@ -12,6 +12,7 @@
 
 /// <reference types="jquery" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module 'ember' {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
@@ -3413,6 +3414,7 @@ declare module 'ember' {
 }
 
 declare module '@ember/application' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Application extends Ember.Application {}
     export const getOwner: typeof Ember.getOwner;
@@ -3422,27 +3424,32 @@ declare module '@ember/application' {
 }
 
 declare module '@ember/application/deprecations' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const deprecate: typeof Ember.deprecate;
     export const deprecateFunc: typeof Ember.deprecateFunc;
 }
 
 declare module '@ember/application/globals-resolver' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class GlobalsResolver extends Ember.DefaultResolver {}
 }
 
 declare module '@ember/application/instance' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class ApplicationInstance extends Ember.ApplicationInstance {}
 }
 
 declare module '@ember/application/resolver' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Resolver extends Ember.Resolver {}
 }
 
 declare module '@ember/array' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type EmberArray<T> = Ember.Array<T>;
     const EmberArray: typeof Ember.Array;
@@ -3453,6 +3460,7 @@ declare module '@ember/array' {
 }
 
 declare module '@ember/array/mutable' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type MutableArray<T> = Ember.MutableArray<T>;
     const MutableArray: typeof Ember.MutableArray;
@@ -3460,21 +3468,25 @@ declare module '@ember/array/mutable' {
 }
 
 declare module '@ember/array/proxy' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class ArrayProxy<T> extends Ember.ArrayProxy<T> {}
 }
 
 declare module '@ember/component' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Component extends Ember.Component {}
 }
 
 declare module '@ember/component/checkbox' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Checkbox extends Ember.Checkbox {}
 }
 
 declare module '@ember/component/helper' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Helper extends Ember.Helper {}
     /**
@@ -3494,16 +3506,19 @@ declare module '@ember/component/helper' {
 }
 
 declare module '@ember/component/text-area' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class TextArea extends Ember.TextArea {}
 }
 
 declare module '@ember/component/text-field' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class TextField extends Ember.TextField {}
 }
 
 declare module '@ember/controller' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Controller extends Ember.Controller {}
     export const inject: typeof Ember.inject.controller;
@@ -3514,6 +3529,7 @@ declare module '@ember/controller' {
 }
 
 declare module '@ember/debug' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const assert: typeof Ember.assert;
     export const debug: typeof Ember.debug;
@@ -3525,27 +3541,32 @@ declare module '@ember/debug' {
 }
 
 declare module '@ember/debug/container-debug-adapter' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter {}
 }
 
 declare module '@ember/debug/data-adapter' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class DataAdapter extends Ember.DataAdapter {}
 }
 
 declare module '@ember/engine' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Engine extends Ember.Engine {}
     export const getEngineParent: typeof Ember.getEngineParent;
 }
 
 declare module '@ember/engine/instance' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class EngineInstance extends Ember.EngineInstance {}
 }
 
 declare module '@ember/enumerable' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type Enumerable<T> = Ember.Enumerable<T>;
     const Enumerable: typeof Ember.Enumerable;
@@ -3553,12 +3574,14 @@ declare module '@ember/enumerable' {
 }
 
 declare module '@ember/error' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     const Error: typeof Ember.Error;
     export default Error;
 }
 
 declare module '@ember/instrumentation' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const instrument: typeof Ember.instrument;
     export const reset: typeof Ember.reset;
@@ -3567,16 +3590,19 @@ declare module '@ember/instrumentation' {
 }
 
 declare module '@ember/map' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class EmberMap extends Ember.Map {}
 }
 
 declare module '@ember/map/with-default' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class MapWithDefault extends Ember.MapWithDefault {}
 }
 
 declare module '@ember/object' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class EmberObject extends Ember.Object {}
     export const aliasMethod: typeof Ember.aliasMethod;
@@ -3592,6 +3618,7 @@ declare module '@ember/object' {
 }
 
 declare module '@ember/object/computed' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class ComputedProperty<Get, Set = Get> extends Ember.ComputedProperty<Get, Set> {}
     export const alias: typeof Ember.computed.alias;
@@ -3630,11 +3657,13 @@ declare module '@ember/object/computed' {
 }
 
 declare module '@ember/object/core' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class CoreObject extends Ember.CoreObject {}
 }
 
 declare module '@ember/object/evented' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type Evented = Ember.Evented;
     const Evented: typeof Ember.Evented;
@@ -3643,6 +3672,7 @@ declare module '@ember/object/evented' {
 }
 
 declare module '@ember/object/events' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const addListener: typeof Ember.addListener;
     export const removeListener: typeof Ember.removeListener;
@@ -3650,6 +3680,7 @@ declare module '@ember/object/events' {
 }
 
 declare module '@ember/object/internals' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const cacheFor: typeof Ember.cacheFor;
     export const copy: typeof Ember.copy;
@@ -3657,11 +3688,13 @@ declare module '@ember/object/internals' {
 }
 
 declare module '@ember/object/mixin' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
 }
 
 declare module '@ember/object/observable' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type Observable = Ember.Observable;
     const Observable: typeof Ember.Observable;
@@ -3669,12 +3702,14 @@ declare module '@ember/object/observable' {
 }
 
 declare module '@ember/object/observers' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const addObserver: typeof Ember.addObserver;
     export const removeObserver: typeof Ember.removeObserver;
 }
 
 declare module '@ember/object/promise-proxy-mixin' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     type PromiseProxyMixin<T> = Ember.PromiseProxyMixin<T>;
     const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
@@ -3682,11 +3717,13 @@ declare module '@ember/object/promise-proxy-mixin' {
 }
 
 declare module '@ember/object/proxy' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class ObjectProxy extends Ember.ObjectProxy {}
 }
 
 declare module '@ember/polyfills' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const assign: typeof Ember.assign;
     export const create: typeof Ember.create;
@@ -3696,52 +3733,62 @@ declare module '@ember/polyfills' {
 }
 
 declare module '@ember/routing/auto-location' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class AutoLocation extends Ember.AutoLocation {}
 }
 
 declare module '@ember/routing/hash-location' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class HashLocation extends Ember.HashLocation {}
 }
 
 declare module '@ember/routing/history-location' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class HistoryLocation extends Ember.HistoryLocation {}
 }
 
 declare module '@ember/routing/link-component' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class LinkComponent extends Ember.LinkComponent {}
 }
 
 declare module '@ember/routing/location' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     const Location: typeof Ember.Location;
     export default Location;
 }
 
 declare module '@ember/routing/none-location' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class NoneLocation extends Ember.NoneLocation {}
 }
 
 declare module '@ember/routing/route' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Route extends Ember.Route {}
 }
 
 declare module '@ember/routing/router' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class EmberRouter extends Ember.Router {}
 }
 
 declare module '@ember/routing/router-service' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { RouterService } from 'ember';
     export default class extends RouterService {}
 }
 
 declare module '@ember/runloop' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const begin: typeof Ember.run.begin;
     export const bind: typeof Ember.run.bind;
@@ -3759,6 +3806,7 @@ declare module '@ember/runloop' {
 }
 
 declare module '@ember/service' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class Service extends Ember.Service {}
     export const inject: typeof Ember.inject.service;
@@ -3769,6 +3817,7 @@ declare module '@ember/service' {
 }
 
 declare module '@ember/string' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const camelize: typeof Ember.String.camelize;
     export const capitalize: typeof Ember.String.capitalize;
@@ -3784,6 +3833,7 @@ declare module '@ember/string' {
 }
 
 declare module '@ember/test' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const registerAsyncHelper: typeof Ember.Test.registerAsyncHelper;
     export const registerHelper: typeof Ember.Test.registerHelper;
@@ -3793,11 +3843,13 @@ declare module '@ember/test' {
 }
 
 declare module '@ember/test/adapter' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export default class TestAdapter extends Ember.Test.Adapter {}
 }
 
 declare module '@ember/utils' {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import Ember from 'ember';
     export const compare: typeof Ember.compare;
     export const isBlank: typeof Ember.isBlank;

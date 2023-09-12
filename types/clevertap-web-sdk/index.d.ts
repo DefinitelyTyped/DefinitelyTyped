@@ -4,7 +4,7 @@
 //                 Sonam <https://github.com/KambleSonam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import CleverTap from './clevertap';
+import CleverTap from "./clevertap";
 
 declare const clevertap: CleverTap;
 export = clevertap;

@@ -9,7 +9,12 @@
 /// <reference types="jquery"/>
 
 declare namespace Chosen {
-    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results";
+    type OnEvent =
+        | "chosen:ready"
+        | "chosen:maxselected"
+        | "chosen:showing_dropdown"
+        | "chosen:hiding_dropdown"
+        | "chosen:no_results";
     type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close";
 
     interface Options {

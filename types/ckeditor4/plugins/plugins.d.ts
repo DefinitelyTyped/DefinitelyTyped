@@ -26,22 +26,22 @@ declare namespace CKEDITOR {
     interface CKEditorPluginsCore {
         autoEmbed?: plugins.autoEmbed;
         clipboard?: {
-            dataTransfer: { new (nativeDataTransfer?: DataTransfer, editor?: editor): plugins.clipboard.dataTransfer };
+            dataTransfer: { new(nativeDataTransfer?: DataTransfer, editor?: editor): plugins.clipboard.dataTransfer };
             fallbackDataTransfer: {
-                new (dataTransfer: plugins.clipboard.dataTransfer): plugins.clipboard.fallbackDataTransfer;
+                new(dataTransfer: plugins.clipboard.dataTransfer): plugins.clipboard.fallbackDataTransfer;
             };
         } & plugins.clipboard;
-        contextMenu?: { new (editor: editor): plugins.contextMenu };
+        contextMenu?: { new(editor: editor): plugins.contextMenu };
         copyformatting?: {
-            state: plugins.copyformatting.stateConstructor
+            state: plugins.copyformatting.stateConstructor;
         } & plugins.copyformatting;
         embedBase?: {
             createWidgetBaseDefinition(editor: editor): plugins.embedBase.baseDefinition;
         };
         image2: plugins.image2;
         imagebase?: {
-            progressBar: { new (): plugins.imagebase.progressBar };
-            progressReporter: { new (wrapperHtml?: string): plugins.imagebase.progressReporter };
+            progressBar: { new(): plugins.imagebase.progressBar };
+            progressReporter: { new(wrapperHtml?: string): plugins.imagebase.progressReporter };
         } & plugins.imagebase;
         indent?: {
             registerCommands(editor: editor, commands: { [key: string]: command }): void;
@@ -50,18 +50,18 @@ declare namespace CKEDITOR {
         };
         indentList?: plugins.indentList;
         link?: plugins.link;
-        list?: { new (): plugins.list };
+        list?: { new(): plugins.list };
         notification?: {
-            new (editor: editor, options: plugins.notification.options): plugins.notification;
+            new(editor: editor, options: plugins.notification.options): plugins.notification;
         };
         notificationAggregator?: {
-            task: plugins.notificationAggregator.taskConstructor ;
+            task: plugins.notificationAggregator.taskConstructor;
         } & plugins.notificationAggregatorConstructor;
         pastetools?: plugins.pastetools;
         tableselection?: plugins.tableselection;
         widget?: {
             nestedEditable: {
-                new (
+                new(
                     editor: editor,
                     element: dom.element,
                     config: { filter?: filter | undefined },
@@ -158,7 +158,7 @@ declare namespace CKEDITOR {
 
         namespace copyformatting {
             interface stateConstructor extends eventConstructor<state> {
-                new (editor: editor): state;
+                new(editor: editor): state;
             }
             interface state extends event {
                 editor: editor;
@@ -375,11 +375,11 @@ declare namespace CKEDITOR {
                 important?: boolean | undefined;
             }
 
-            type type = 'info' | 'warning' | 'success' | 'progress';
+            type type = "info" | "warning" | "success" | "progress";
         }
 
         interface notificationAggregatorConstructor extends eventConstructor<notificationAggregator> {
-            new (editor: editor, message: string, singularMessage?: string): notificationAggregator;
+            new(editor: editor, message: string, singularMessage?: string): notificationAggregator;
         }
 
         interface notificationAggregator extends event {
@@ -401,7 +401,7 @@ declare namespace CKEDITOR {
 
         namespace notificationAggregator {
             interface taskConstructor extends eventConstructor<task> {
-                new (weight?: number): task;
+                new(weight?: number): task;
             }
 
             interface task extends event {
@@ -473,7 +473,7 @@ declare namespace CKEDITOR {
 
             isParserWidgetWrapper(node: dom.node): boolean;
 
-            new (
+            new(
                 widgetsRepo: widget.repository,
                 id: number,
                 element: dom.element,

@@ -1,28 +1,28 @@
+import { GraphQLSchema } from "graphql";
 import OpticsAgent, {
-  configureAgent,
-  instrumentSchema,
-  koaMiddleware,
-  middleware,
-  instrumentHapiServer,
-  context,
-  Options,
-  Agent,
-} from 'optics-agent';
-import { GraphQLSchema } from 'graphql';
-import express = require('express');
-import * as hapi from 'hapi';
-import KoaServer = require('koa');
+    Agent,
+    configureAgent,
+    context,
+    instrumentHapiServer,
+    instrumentSchema,
+    koaMiddleware,
+    middleware,
+    Options,
+} from "optics-agent";
+import express = require("express");
+import * as hapi from "hapi";
+import KoaServer = require("koa");
 
 const configOptions: Options = {
-  apiKey: "",
-  reportTraces: false,
-  reportVariables: false,
-  printReports: false,
-  normalizeQuery: (info: any) => "",
-  endpointUrl: "",
-  proxyUrl: "",
-  reportIntervalMs: 1,
-  shutdownGracefully: false,
+    apiKey: "",
+    reportTraces: false,
+    reportVariables: false,
+    printReports: false,
+    normalizeQuery: (info: any) => "",
+    endpointUrl: "",
+    proxyUrl: "",
+    reportIntervalMs: 1,
+    shutdownGracefully: false,
 };
 OpticsAgent.configureAgent(configOptions);
 
@@ -42,10 +42,10 @@ declare const req: express.Request;
 OpticsAgent.context(req);
 context(req);
 
-let agent = new OpticsAgent.Agent({ apiKey: '1234' });
+let agent = new OpticsAgent.Agent({ apiKey: "1234" });
 
 declare const schema: GraphQLSchema;
 agent.instrumentSchema(schema);
 
-agent = new Agent({ apiKey: '1234' });
+agent = new Agent({ apiKey: "1234" });
 instrumentSchema(schema);

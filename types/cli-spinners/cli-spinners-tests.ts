@@ -1,3 +1,3 @@
-import cliSpinners = require('cli-spinners');
+import cliSpinners = require("cli-spinners");
 
 cliSpinners.dots; // $ExpectType Spinner
