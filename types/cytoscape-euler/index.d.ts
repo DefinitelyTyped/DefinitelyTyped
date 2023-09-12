@@ -3,7 +3,7 @@
 // Definitions by: Roger Dubbs <https://github.com/RogerDubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeEuler: cytoscape.Ext;
 export = cytoscapeEuler;
@@ -15,7 +15,7 @@ declare namespace cytoscapeEuler {
      * @see {@link https://github.com/cytoscape/cytoscape.js-euler}
      */
     interface EulerLayoutOptions extends cytoscape.BaseLayoutOptions {
-        name: 'euler';
+        name: "euler";
 
         /**
          * The ideal length of a spring
@@ -101,7 +101,7 @@ declare namespace cytoscapeEuler {
          * - 'end' : Animate directly to the end result
          * @default true
          */
-        animate?: boolean | 'end';
+        animate?: boolean | "end";
 
         /**
          * Animation duration used for animate:'end'

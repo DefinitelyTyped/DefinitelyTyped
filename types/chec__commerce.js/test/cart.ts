@@ -1,11 +1,11 @@
-import Commerce = require('@chec/commerce.js');
+import Commerce = require("@chec/commerce.js");
 
-const commerce = new Commerce('{your_public_key}');
+const commerce = new Commerce("{your_public_key}");
 
-const cartId = 'cart_2Jwr9yJAeN4VlP';
-const productId = 'prod_R4OANwRqklvYL8';
+const cartId = "cart_2Jwr9yJAeN4VlP";
+const productId = "prod_R4OANwRqklvYL8";
 const quantity = 5;
-const lineItemId = 'item_7RyWOwmK5nEa2V';
+const lineItemId = "item_7RyWOwmK5nEa2V";
 const newQuantity = 3;
 
 // $ExpectType string | null

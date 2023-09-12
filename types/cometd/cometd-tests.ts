@@ -1,7 +1,7 @@
 import {
     BaseMessage,
-    ConnectionType,
     CometD,
+    ConnectionType,
     HandshakeListener,
     HandshakeMessage,
     Listener,
@@ -10,14 +10,14 @@ import {
     Status,
     SubscribeListener,
     SubscribeMessage,
-    SuccessfulHandshakeMessage,
     SubscriptionHandle,
+    SuccessfulHandshakeMessage,
     UnsuccessfulHandshakeMessage,
 } from "cometd";
-import TimeSyncExtension from 'cometd/TimeSyncExtension';
-import AckExtension from 'cometd/AckExtension';
-import BinaryExtension from 'cometd/BinaryExtension';
-import ReloadExtension from 'cometd/ReloadExtension';
+import AckExtension from "cometd/AckExtension";
+import BinaryExtension from "cometd/BinaryExtension";
+import ReloadExtension from "cometd/ReloadExtension";
+import TimeSyncExtension from "cometd/TimeSyncExtension";
 
 const cometd = new CometD();
 
@@ -26,12 +26,18 @@ function assertNever(value: never): never {
 }
 function validateStatus(status: Status) {
     switch (status) {
-        case 'connected': return true;
-        case 'connecting': return true;
-        case 'disconnected': return true;
-        case 'disconnecting': return true;
-        case 'handshaking': return true;
-        default: return assertNever(status);
+        case "connected":
+            return true;
+        case "connecting":
+            return true;
+        case "disconnected":
+            return true;
+        case "disconnecting":
+            return true;
+        case "handshaking":
+            return true;
+        default:
+            return assertNever(status);
     }
 }
 
@@ -43,7 +49,7 @@ validateStatus(cometd.getStatus());
 cometd.configure("http://localhost:8080/cometd");
 
 cometd.configure({
-    url: "http://localhost:8080/cometd"
+    url: "http://localhost:8080/cometd",
 });
 
 cometd.registerExtension("ack", new AckExtension());
@@ -55,13 +61,14 @@ cometd.registerExtension("timesync", timesync);
 
 const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
     if (timesync.getNetworkLag() > 1000) {
-        cometd.publish("/mychannel", { timesyncStats: {
+        cometd.publish("/mychannel", {
+            timesyncStats: {
                 lag: timesync.getNetworkLag(),
                 serverTime: timesync.getServerTime(),
                 serverDate: timesync.getServerDate(),
                 timeOffset: timesync.getTimeOffset(),
-                timeOffsetSamples: timesync.getTimeOffsetSamples()
-            }
+                timeOffsetSamples: timesync.getTimeOffsetSamples(),
+            },
         });
     }
 });
@@ -93,13 +100,13 @@ cometd.handshake(handshakeReply => {
 
         const { advice, supportedConnectionTypes } = handshakeReply;
 
-        const callbackPollingType: ConnectionType = 'callback-polling';
+        const callbackPollingType: ConnectionType = "callback-polling";
 
         if (supportedConnectionTypes.indexOf(callbackPollingType) > -1) {
             // Callback polling is supported by the server.
         }
 
-        if (advice && advice.reconnect === 'none') {
+        if (advice && advice.reconnect === "none") {
             // Server advises not to reconnect, CometD will stop attempting to connect or handshake.
         }
     }
@@ -112,8 +119,8 @@ cometd.handshake(handshakeReply => {
 const additionalInfoHandshake = {
     "com.acme.credentials": {
         user: "cometd",
-        token: "xyzsecretabc"
-    }
+        token: "xyzsecretabc",
+    },
 };
 cometd.handshake(additionalInfoHandshake, handshakeReply => {
     if (handshakeReply.successful) {
@@ -134,11 +141,11 @@ cometd.subscribe(
         if (subscribeReply.successful) {
             // The server successfully subscribed this client to the "/foo" channel.
         }
-    }
+    },
 );
 
 const additionalInfoSubscribe = {
-    "com.acme.priority": 10
+    "com.acme.priority": 10,
 };
 cometd.subscribe("/foo", message => {}, additionalInfoSubscribe, subscribeReply => {
     if (subscribeReply.successful) {
@@ -155,7 +162,7 @@ cometd.removeListener(subscription1);
 const subscription3 = cometd.subscribe("/foo/bar/", () => {});
 
 const additionalInfoUnsubscribe = {
-    "com.acme.discard": true
+    "com.acme.discard": true,
 };
 cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply => {
     const { subscription } = unsubscribeReply;
@@ -201,20 +208,20 @@ let _subscription: SubscriptionHandle | undefined;
 class Controller {
     dynamicSubscribe = () => {
         _subscription = cometd.subscribe("/dynamic", this.onEvent);
-    }
+    };
 
     onEvent = (message: Message) => {
         if (message.successful) {
             // Your logic here.
         }
-    }
+    };
 
     dynamicUnsubscribe = () => {
         if (_subscription) {
             cometd.unsubscribe(_subscription);
             _subscription = undefined;
         }
-    }
+    };
 }
 
 cometd.addListener("/meta/handshake", message => {
@@ -316,7 +323,7 @@ cometd.disconnect(disconnectReply => {
 });
 
 const additionalInfoDisconnect = {
-    "com.acme.reset": false
+    "com.acme.reset": false,
 };
 cometd.disconnect(additionalInfoDisconnect, disconnectReply => {
     if (disconnectReply.successful) {

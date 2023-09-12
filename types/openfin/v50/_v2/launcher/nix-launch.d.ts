@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { ChildProcess } from 'child_process';
-import { ConfigWithRuntime } from '../transport/wire';
+import { ChildProcess } from "child_process";
+import { ConfigWithRuntime } from "../transport/wire";
 export declare function getUrl(version: string, urlPath: string): string;
 export declare function download(version: string, folder: string, osConfig: OsConfig): Promise<string>;
 export declare function getRuntimePath(version: string): Promise<string>;

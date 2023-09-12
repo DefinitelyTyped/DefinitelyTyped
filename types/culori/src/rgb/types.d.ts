@@ -1,5 +1,5 @@
 export interface Rgb {
-    mode: 'rgb';
+    mode: "rgb";
     r: number;
     g: number;
     b: number;

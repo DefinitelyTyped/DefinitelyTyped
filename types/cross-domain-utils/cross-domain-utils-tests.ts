@@ -1,4 +1,4 @@
-import * as crossDomainUtils from 'cross-domain-utils';
+import * as crossDomainUtils from "cross-domain-utils";
 
 // $ExpectType SameDomainWindowType
 crossDomainUtils.assertSameDomain(window);
@@ -7,7 +7,7 @@ crossDomainUtils.assertSameDomain(window);
 crossDomainUtils.getDomain(window);
 
 // $ExpectType string
-crossDomainUtils.getDomainFromUrl('<url>');
+crossDomainUtils.getDomainFromUrl("<url>");
 
 // $ExpectType string
 crossDomainUtils.getActualDomain(window);
@@ -46,7 +46,7 @@ crossDomainUtils.getAllFramesInWindow(window);
 crossDomainUtils.isTop(window);
 
 // $ExpectType boolean
-crossDomainUtils.isFrameWindowClosed(document.createElement('iframe'));
+crossDomainUtils.isFrameWindowClosed(document.createElement("iframe"));
 
 // $ExpectType boolean
 crossDomainUtils.isWindowClosed(window);
@@ -55,13 +55,13 @@ crossDomainUtils.isWindowClosed(window);
 crossDomainUtils.getUserAgent(window);
 
 // $ExpectType CrossDomainWindowType | undefined
-crossDomainUtils.getFrameByName(window, '<name>');
+crossDomainUtils.getFrameByName(window, "<name>");
 
 // $ExpectType CrossDomainWindowType | undefined
-crossDomainUtils.findChildFrameByName(window, '<name>');
+crossDomainUtils.findChildFrameByName(window, "<name>");
 
 // $ExpectType CrossDomainWindowType | undefined
-crossDomainUtils.findFrameByName(window, '<name>');
+crossDomainUtils.findFrameByName(window, "<name>");
 
 // $ExpectType boolean
 crossDomainUtils.isParent(window, window);
@@ -100,4 +100,4 @@ crossDomainUtils.isWindow(window);
 crossDomainUtils.onCloseWindow(window, () => 0, 1);
 
 // $ExpectType boolean
-crossDomainUtils.matchDomain('<pattern>', '<domain>');
+crossDomainUtils.matchDomain("<pattern>", "<domain>");

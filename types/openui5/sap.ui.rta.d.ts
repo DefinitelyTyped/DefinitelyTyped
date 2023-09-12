@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -7,7 +7,6 @@ declare module "sap/ui/rta/api/startAdaptation" {
 
   /**
    * @since 1.83
-   * @experimental (since 1.83)
    *
    * Starts UI adaptation, initiated for an application at the passed root control instance. With this API
    * you are also able to modify the UI adaptation plugins list and or add some event handler functions to
@@ -65,7 +64,6 @@ declare module "sap/ui/rta/api/startKeyUserAdaptation" {
 
   /**
    * @since 1.71
-   * @experimental (since 1.71)
    *
    * Starts key user adaptation, initiated for an application at the passed root control instance. It subsequently
    * extends to all valid child controls.
@@ -88,7 +86,6 @@ declare module "sap/ui/rta/api/startKeyUserAdaptation" {
 declare module "sap/ui/rta/enablement/TestDelegate" {
   /**
    * @since 1.77
-   * @experimental (since 1.77)
    *
    * sap.ui.fl Delegate to be used in elementActionTests.
    */

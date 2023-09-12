@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import MutableArray from "@ember/array/mutable";
 import ComputedProperty from "@ember/object/computed";
 import EmberObject from "@ember/object";

@@ -1,6 +1,10 @@
 import { Camera, EventDispatcher } from '../../../src/Three.js';
 
-export class FlyControls extends EventDispatcher {
+export interface FlyControlsEventMap {
+    change: {};
+}
+
+export class FlyControls extends EventDispatcher<FlyControlsEventMap> {
     constructor(object: Camera, domElement?: HTMLElement);
 
     autoForward: boolean;

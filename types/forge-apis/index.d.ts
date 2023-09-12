@@ -102,6 +102,34 @@ export class AuthClientThreeLegged {
     ): Promise<AuthToken>;
 }
 
+export class AuthClientTwoLeggedV2 {
+    constructor(clientId: string, clientSecret: string, scopes: Scope[], autoRefresh: boolean);
+
+    authenticate(): Promise<AuthToken>;
+    getCredentials(): AuthToken;
+    setCredentials(
+        credentials: AuthToken
+    ): void;
+    isAuthorized(): boolean;
+}
+
+export class AuthClientThreeLeggedV2 {
+    constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
+
+    generateAuthUrl(
+        state: string
+    ): string;
+
+    getToken(
+        code: string
+    ): Promise<AuthToken>;
+
+    refreshToken(
+        credentials: { refresh_token?: string | undefined },
+        scope?: Scope[]
+    ): Promise<AuthToken>;
+}
+
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
 
 export interface PostBucketsPayloadAllow {
