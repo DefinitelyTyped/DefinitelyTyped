@@ -11,7 +11,7 @@
  * when compatibility with browser code is desirable.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/querystring.js)
  */
-declare module 'querystring' {
+declare module 'node:querystring' {
     interface StringifyOptions {
         encodeURIComponent?: ((str: string) => string) | undefined;
     }
@@ -126,6 +126,6 @@ declare module 'querystring' {
      */
     function unescape(str: string): string;
 }
-declare module 'node:querystring' {
-    export * from 'querystring';
+declare module 'querystring' {
+    export * from 'node:querystring';
 }
