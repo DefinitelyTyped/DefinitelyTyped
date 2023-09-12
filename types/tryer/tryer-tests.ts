@@ -53,5 +53,5 @@ tryer({
     until: () => true,
     when: () => false,
     limit: 1,
-    pass: () => {}
+    pass: () => {},
 });

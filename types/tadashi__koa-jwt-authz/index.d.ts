@@ -3,7 +3,7 @@
 // Definitions by: Andrea Giurgola <https://github.com/Shqrp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Middleware } from 'koa';
+import { Middleware } from "koa";
 
 declare namespace koaJwtAuthz {
     interface Options {
