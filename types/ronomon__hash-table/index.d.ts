@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 
+/* eslint-disable @definitelytyped/no-declare-current-package */
 // tslint:disable-next-line no-single-declare-module
 declare module "@ronomon/hash-table" {
     class HashTable {

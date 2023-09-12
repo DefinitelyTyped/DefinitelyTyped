@@ -25,15 +25,15 @@ aO = {
     test: "test",
     nest: {
         test: "nestTest",
-        num: 1
-    }
+        num: 1,
+    },
 };
 bO = {
     somethingElse: "se",
     nest: {
         somethingElse: "nestSe",
-        notNaN: 0
-    }
+        notNaN: 0,
+    },
 };
 
 aN = cloner.deep.copy(aO);

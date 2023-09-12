@@ -1,4 +1,4 @@
-import camelcaseKeysDeep = require('camelcase-keys-deep');
+import camelcaseKeysDeep = require("camelcase-keys-deep");
 
 interface Point {
     point_x: number;

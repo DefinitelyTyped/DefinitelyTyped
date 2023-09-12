@@ -6,16 +6,9 @@ export interface Chunk {
     data: Uint8Array;
 }
 
-export class VOXLoader extends Loader {
+export class VOXLoader extends Loader<Chunk[]> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (chunks: Chunk[]) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Chunk[]>;
     parse(data: ArrayBuffer): object[];
 }
 

@@ -12,7 +12,7 @@ export const _ = () => (
         <CustomScroll
             heightRelativeToParent="50%"
             allowOuterScroll={false}
-            flex={2}
+            flex="2"
             onScroll={onScrollStub}
             addScrolledClass={true}
             freezePosition={false}
@@ -20,6 +20,7 @@ export const _ = () => (
             rtl={false}
             scrollTo={20}
             keepAtBottom={false}
+            handleClass="my-handle-class"
             className="my-class"
         >
             <div>Test content</div>

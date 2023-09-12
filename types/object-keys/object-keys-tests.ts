@@ -1,4 +1,4 @@
-import keys = require('object-keys');
+import keys = require("object-keys");
 
 keys({ A: 1, B: 2, C: 3 });
 // => string[]
@@ -6,7 +6,7 @@ keys({ A: 1, B: 2, C: 3 });
 keys.shim();
 // typeof keys
 
-keys([ 0, 1, 2, 3 ]);
+keys([0, 1, 2, 3]);
 // => string[]
 
 keys(() => 0);

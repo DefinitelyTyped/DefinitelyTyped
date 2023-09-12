@@ -1,2 +1,2 @@
-import Any from './Any';
+import Any from "./Any";
 export default Any;
