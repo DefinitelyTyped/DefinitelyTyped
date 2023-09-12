@@ -1,6 +1,1 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "unnecessary-bind": false
-    }
-}
+{ "extends": "@definitelytyped/dtslint/dt.json" }
