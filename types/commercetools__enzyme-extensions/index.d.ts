@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as enzyme from 'enzyme';
+import * as enzyme from "enzyme";
 
-declare module 'enzyme' {
+declare module "enzyme" {
     interface UntilOptions {
         maxDepth: number;
     }

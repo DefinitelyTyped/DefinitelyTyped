@@ -1,8 +1,8 @@
 import * as React from "react";
-import { SideNavSharedProps, RequiresChildrenProps } from "../../../typings/shared";
+import { RequiresChildrenProps, SideNavSharedProps } from "../../../typings/shared";
 
 export interface SideNavItemsProps extends SideNavSharedProps, RequiresChildrenProps {
-    className?: string | undefined,
+    className?: string | undefined;
 }
 
 declare const SideNavItems: React.FC<SideNavItemsProps>;

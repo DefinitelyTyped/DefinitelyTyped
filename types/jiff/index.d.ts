@@ -13,6 +13,7 @@ declare namespace jiff {
         path: string;
         value?: any;
         from?: string;
+        context?: any;
     }>;
 
     type HashFunction = (value: any) => string | number;
@@ -27,7 +28,7 @@ declare namespace jiff {
 
     interface PatchOptions {
         /** function used adjust array indexes for smarty/fuzzy patching, for patches containing context */
-        findContext?: (index: number, array: any[]) => any;
+        findContext?: (index: number, array: any[], context: any) => any;
     }
 }
 

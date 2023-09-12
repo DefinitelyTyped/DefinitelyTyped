@@ -117,6 +117,6 @@ export function load(
     options?:
         | boolean
         | {
-              [key: string]: string;
-          },
+            [key: string]: string;
+        },
 ): any;

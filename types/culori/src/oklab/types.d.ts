@@ -1,5 +1,5 @@
 export interface Oklab {
-    mode: 'oklab';
+    mode: "oklab";
     l: number;
     a: number;
     b: number;

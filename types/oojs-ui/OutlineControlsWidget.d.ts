@@ -102,7 +102,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): OutlineControlsWidget;
+            new(config?: ConfigOptions): OutlineControlsWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

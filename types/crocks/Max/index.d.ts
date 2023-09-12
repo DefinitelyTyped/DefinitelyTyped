@@ -1,2 +1,2 @@
-import Max from './Max';
+import Max from "./Max";
 export default Max;

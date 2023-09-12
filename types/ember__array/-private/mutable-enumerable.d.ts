@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Enumerable from '@ember/array/-private/enumerable';
 
 /**

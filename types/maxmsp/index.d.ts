@@ -13,6 +13,7 @@
  * Max globals
  * https://docs.cycling74.com/max7/vignettes/jsglobal
  */
+declare var inspector: number;
 declare var inlets: number;
 declare var outlets: number;
 declare var autowatch: number;
@@ -25,16 +26,16 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(message: any): void;
-declare function cpost(message?: any): void;
-declare function post(message?: any): void;
+declare function error(...messages: any[]): void;
+declare function cpost(...message: any[]): void;
+declare function post(...message: any[]): void;
 /**
  * Sends a message to the named Max object.
  * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
  * For example, Max receive objects are bound to global symbols.
  * The following code would send the message bang to the named object flower.
  */
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string | number): void;
+declare function messnamed(object_name: string, message_name: string, ...message_arguments: any[]): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -187,7 +188,7 @@ declare class Dict {
      * If no name is provided as an argument then a unique name will be generated for the dictionary.
      * The following properties mirror the attributes of the same name from the Max dict object. See the dict reference for more details.
      */
-    constructor(name: string);
+    constructor(name?: string);
 
     /**
      * Access or set the name of a dict object as a property of the dict object
@@ -1212,6 +1213,15 @@ declare class Maxobj {
     js: any;
 
     /**
+     * Whether patchcords are connected to the object's inlets and outlets and, if so,
+     * the connected objects. Returns a generic object with two arrays,
+     * 'inputs' and 'outputs', of MaxobjConnection objects.
+     * These have the properties 'srcobject', 'dstobject', 'srcoutlet' and 'dstinlet'
+     * which can be used to walk the graph from JS.
+     */
+    patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
+
+    /**
      * Returns whether the Maxobj refers to a valid Max object
      */
     valid: boolean;
@@ -1269,7 +1279,7 @@ declare class Maxobj {
     /**
      * Sets the value of the object's box attribute specified by box_attribute_name.
      */
-    setboxattr(box_attribute_name: string, anything: unknown): void;
+    setboxattr(box_attribute_name: string, ...anything: unknown[]): void;
 }
 
 /**
@@ -1411,6 +1421,11 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.

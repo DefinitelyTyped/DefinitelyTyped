@@ -5,41 +5,41 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
+import * as http from "http";
 export enum CollectionFormatEnum {
     /**
      * Comma-separated values. Value: <code>csv</code>
      */
-    CSV = ',',
+    CSV = ",",
     /**
      * Space-separated values. Value: <code>ssv</code>
      */
-    SSV = ' ',
+    SSV = " ",
     /**
      * Tab-separated values. Value: <code>tsv</code>
      */
-    TSV = '\t',
+    TSV = "\t",
     /**
      * Pipe(|)-separated values. Value: <code>pipes</code>
      */
-    PIPES = '|',
+    PIPES = "|",
     /**
      * Native array. Value: <code>multi</code>
      */
-    MULTI = 'multi',
+    MULTI = "multi",
 }
 
 export enum WebsiteThreatType {
-    None = 'None',
-    Malware = 'Malware',
-    Phising = 'Phishing',
-    ForcedDownload = 'ForcedDownload',
-    UnableToConnect = 'UnableToConnect',
+    None = "None",
+    Malware = "Malware",
+    Phising = "Phishing",
+    ForcedDownload = "ForcedDownload",
+    UnableToConnect = "UnableToConnect",
 }
 export interface ApiInstanceAuthentications {
-    type: 'apiKey';
-    in: 'header';
-    name: 'Apikey';
+    type: "apiKey";
+    in: "header";
+    name: "Apikey";
     apiKey: string;
 }
 

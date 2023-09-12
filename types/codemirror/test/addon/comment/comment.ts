@@ -1,17 +1,17 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/comment/comment';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/comment/comment";
 
 const editor = CodeMirror(document.body);
 const position: CodeMirror.Position = { ch: 0, line: 0 };
 const opt: CodeMirror.CommentOptions = {
-    blockCommentEnd: '*/',
-    blockCommentStart: '/*',
-    blockCommentLead: '*',
+    blockCommentEnd: "*/",
+    blockCommentStart: "/*",
+    blockCommentLead: "*",
     commentBlankLines: true,
     fullLines: true,
     indent: true,
-    lineComment: '//',
-    padding: ' ',
+    lineComment: "//",
+    padding: " ",
 };
 editor.toggleComment(opt);
 editor.blockComment(position, position, opt);
@@ -19,5 +19,5 @@ editor.lineComment(position, position, opt);
 const b: boolean = editor.uncomment(position, position, opt);
 
 const myKeyMap: CodeMirror.KeyMap = {
-    test: CodeMirror.commands.toggleComment
+    test: CodeMirror.commands.toggleComment,
 };

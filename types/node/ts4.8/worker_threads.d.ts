@@ -303,7 +303,8 @@ declare module 'worker_threads' {
      * are not available.
      * * `process.env` is a copy of the parent thread's environment variables,
      * unless otherwise specified. Changes to one copy are not visible in other
-     * threads, and are not visible to native add-ons (unless `worker.SHARE_ENV` is passed as the `env` option to the `Worker` constructor).
+     * threads, and are not visible to native add-ons (unless `worker.SHARE_ENV` is passed as the `env` option to the `Worker` constructor). On Windows, unlike the main thread, a copy of the
+     * environment variables operates in a case-sensitive manner.
      * * `process.title` cannot be modified.
      * * Signals are not delivered through `process.on('...')`.
      * * Execution may stop at any point as a result of `worker.terminate()` being invoked.

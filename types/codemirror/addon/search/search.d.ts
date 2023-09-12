@@ -1,8 +1,8 @@
-import '../../';
-import './searchcursor';
-import '../dialog/dialog';
+import "../../";
+import "./searchcursor";
+import "../dialog/dialog";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         find(cm: Editor): void;
         findPersistent(cm: Editor): void;
