@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         /**
          * You can bind a key to in order to jump to the tag matching the one under the cursor.

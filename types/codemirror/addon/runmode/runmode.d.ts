@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     /**
      * Runs a CodeMirror mode over text without opening an editor instance.
      *

@@ -15,7 +15,13 @@
  * @param prototype Sets the prototype to be used when cloning an Object (optional, defaults to __proto__)
  * @param includeNonEnumerable Set to true if the non-enumerable properties should be cloned as well (optional, defaults to false)
  */
-declare function clone<T>(val: T, circular?: boolean, depth?: number, prototype?: any, includeNonEnumerable?: boolean): T;
+declare function clone<T>(
+    val: T,
+    circular?: boolean,
+    depth?: number,
+    prototype?: any,
+    includeNonEnumerable?: boolean,
+): T;
 
 /**
  * @param val the value that you want to clone, any type allowed
@@ -28,10 +34,10 @@ declare function clone<T>(val: T, circular?: boolean, depth?: number, prototype?
 declare function clone<T>(val: T, opts: CloneOpts): T;
 
 interface CloneOpts {
-    circular?: boolean | undefined,
-    depth?: number | undefined,
-    prototype?: any,
-    includeNonEnumerable?: boolean | undefined
+    circular?: boolean | undefined;
+    depth?: number | undefined;
+    prototype?: any;
+    includeNonEnumerable?: boolean | undefined;
 }
 
 declare namespace clone {
@@ -41,4 +47,4 @@ declare namespace clone {
     function clonePrototype<T>(obj: T): T;
 }
 
-export = clone
+export = clone;

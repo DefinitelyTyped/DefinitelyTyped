@@ -1,4 +1,4 @@
-import getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
+import getOwnPropertyDescriptors = require("object.getownpropertydescriptors");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -30,11 +30,11 @@ let implementation = getOwnPropertyDescriptors.getPolyfill();
 implementation = getOwnPropertyDescriptors.shim();
 implementation = getOwnPropertyDescriptors.implementation;
 
-import polyfillImpl = require('object.getownpropertydescriptors/implementation');
+import polyfillImpl = require("object.getownpropertydescriptors/implementation");
 implementation = polyfillImpl;
 
-import getPolyfill = require('object.getownpropertydescriptors/polyfill');
+import getPolyfill = require("object.getownpropertydescriptors/polyfill");
 implementation = getPolyfill();
 
-import shimGetOwnPropertyDescriptors = require('object.getownpropertydescriptors/shim');
+import shimGetOwnPropertyDescriptors = require("object.getownpropertydescriptors/shim");
 implementation = shimGetOwnPropertyDescriptors();

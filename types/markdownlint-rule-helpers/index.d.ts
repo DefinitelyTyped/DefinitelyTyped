@@ -165,7 +165,7 @@ export type FilterTokensHandler = (token: MarkdownIt.Token) => void;
 export function filterTokens(params: markdownlint.RuleParams, type: string, handler: FilterTokensHandler): void;
 
 export type LineMetadata = [
-    line: number,
+    line: string,
     lineIndex: number,
     inCode: boolean,
     onFence: boolean,

@@ -1,5 +1,7 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Tagify = require('@yaireo/tagify');
 
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     AddEventData,
     BaseTagData,

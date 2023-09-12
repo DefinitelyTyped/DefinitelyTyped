@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { WebpackPluginInstance as Plugin, Compiler } from 'webpack';
+import { Compiler, WebpackPluginInstance as Plugin } from "webpack";
 
 export = OptimizeCssAssetsPlugin;
 

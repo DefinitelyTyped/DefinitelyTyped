@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 /**
  * A Node.js module and PostCSS plugin to sort CSS, SCSS or Less declarations based on their property names.
@@ -13,7 +13,7 @@ declare namespace cssDeclarationSorter {
     /**
      * Default, order in a simple alphabetical manner from a - z.
      */
-    type Alphabetical = 'alphabetical';
+    type Alphabetical = "alphabetical";
 
     /**
      * Order from most important, flow affecting properties, to least important properties.
@@ -25,7 +25,7 @@ declare namespace cssDeclarationSorter {
      * 5. Other
      * ```
      */
-    type SMACSS = 'smacss';
+    type SMACSS = "smacss";
 
     /**
      * Order properties applying outside the box model, moving inward to intrinsic changes.
@@ -37,7 +37,7 @@ declare namespace cssDeclarationSorter {
      * 5. Text
      * ```
      */
-    type ConcentricCSS = 'concentric-css';
+    type ConcentricCSS = "concentric-css";
 
     type SortOrder = Alphabetical | SMACSS | ConcentricCSS;
 
