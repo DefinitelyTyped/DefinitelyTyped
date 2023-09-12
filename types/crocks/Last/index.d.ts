@@ -1,2 +1,2 @@
-import Last from './Last';
+import Last from "./Last";
 export default Last;

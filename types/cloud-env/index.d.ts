@@ -29,7 +29,7 @@ declare type MaybeNum = number | void;
 declare type MaybeStr = string | void;
 
 export const get: (key: string, default_key?: string) => MaybeStr;
-export const defaults: { [key: string]: DefaultSettings; };
+export const defaults: { [key: string]: DefaultSettings };
 export const PORT: MaybeNum;
 export const IP: MaybeStr;
 export const HOSTNAME: MaybeStr;

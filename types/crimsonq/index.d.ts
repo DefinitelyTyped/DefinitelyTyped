@@ -3,8 +3,8 @@
 // Definitions by: AsharDweedar <https://github.com/AsharDweedar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as IORedis from 'ioredis';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import * as IORedis from "ioredis";
 
 declare class CrimsonQClient {
     constructor(ConnectionSettings: IORedis.RedisOptions);
@@ -19,7 +19,10 @@ declare class CrimsonQClient {
 // declare var CrimsonQ: CrimsonQClient;
 export = CrimsonQClient;
 
-interface CommandResult { value: string | string[]; error: typeof Error; }
+interface CommandResult {
+    value: string | string[];
+    error: typeof Error;
+}
 
 declare class Producer {
     constructor(cqClient: CrimsonQClient);
@@ -42,7 +45,7 @@ declare class Consumer {
     messageCountByStatus(): Promise<CommandResult | typeof Error>;
     pull(): Promise<RecievedMessage | string | Error>;
     completeMessage(messageId: string): Promise<CommandResult | typeof Error>;
-    flushMessages(status: 'failed' | 'completed'): Promise<CommandResult | typeof Error>;
+    flushMessages(status: "failed" | "completed"): Promise<CommandResult | typeof Error>;
     retryMessages(messageId?: string): Promise<CommandResult | typeof Error>;
     failMessage(messageId: string, errorMessage: string): Promise<CommandResult | typeof Error>;
     updateConcurrency(concurrency: number): Promise<CommandResult | typeof Error>;
@@ -56,11 +59,11 @@ declare class RecievedMessage {
     consumer: Consumer;
     key: string;
     message: {
-      key: string;
-      topic: string;
-      value: string;
-      status: string;
-      statusHistory: object[];
+        key: string;
+        topic: string;
+        value: string;
+        status: string;
+        statusHistory: object[];
     };
     done(): Promise<CommandResult | typeof Error | undefined>;
     fail(errorMessage: string): Promise<CommandResult | typeof Error | undefined>;
@@ -70,7 +73,11 @@ interface Command {
     msg_push_consumer(consumerId: string, message: {}): Promise<CommandResult | typeof Error>;
     msg_push_topic(topic: string, message: {}): Promise<CommandResult | typeof Error>;
     consumer_exists(consumerId: string): Promise<CommandResult | typeof Error>;
-    consumer_create(consumerId: string, topics: ReadonlyArray<string>, concurrency: number): Promise<CommandResult | typeof Error>;
+    consumer_create(
+        consumerId: string,
+        topics: ReadonlyArray<string>,
+        concurrency: number,
+    ): Promise<CommandResult | typeof Error>;
     consumer_topics_set(consumerId: string, topics: ReadonlyArray<string>): Promise<CommandResult | typeof Error>;
     consumer_concurrency_set(consumerId: string, concurrency: number): Promise<CommandResult | typeof Error>;
     consumer_topics_get(consumerId: string): Promise<CommandResult | typeof Error>;

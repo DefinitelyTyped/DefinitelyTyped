@@ -1,5 +1,5 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/display/rulers';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/display/rulers";
 
 const cm1 = CodeMirror(document.body, {
     rulers: false,
@@ -10,11 +10,11 @@ const cm2 = CodeMirror(document.body, {
         25,
         {
             column: 43,
-            className: 'test',
-            color: 'green',
-            lineStyle: 'dotted',
-            width: '3px',
-        }
+            className: "test",
+            color: "green",
+            lineStyle: "dotted",
+            width: "3px",
+        },
     ],
 });
 
@@ -33,6 +33,6 @@ const cm4 = CodeMirror(document.body, {
 const cm5 = CodeMirror(document.body, {
     // @ts-expect-error
     rulers: [{
-        color: 'green',
+        color: "green",
     }],
 });
