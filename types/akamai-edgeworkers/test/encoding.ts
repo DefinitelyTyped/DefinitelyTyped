@@ -1,7 +1,7 @@
 import {atob, base16, base64, base64url, btoa, TextDecoder, TextEncoder} from "encoding";
 
 export function onClientRequest(request: EW.IngressClientRequest) {
-    let str = "Hello, world!";
+    const str = "Hello, world!";
     const enc1 = base64.encode(toBytesArray(str)); // "Hello, world!"
     const dec1 = base64.decode(enc1, "String"); // decode to "Hello, world!"
     if (str !== dec1) {
