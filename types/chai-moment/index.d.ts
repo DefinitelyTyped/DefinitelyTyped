@@ -8,7 +8,7 @@
 
 declare global {
     namespace ChaiMoment {
-        type Granularity = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+        type Granularity = "year" | "month" | "week" | "day" | "hour" | "minute" | "second";
     }
 
     namespace Chai {

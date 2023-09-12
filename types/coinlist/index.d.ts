@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import coinsJson = require('./src/coins.json');
+import coinsJson = require("./src/coins.json");
 
 export = coins;
 
@@ -14,6 +14,6 @@ declare namespace coins {
 
     interface CoinsAPI {
         get(symbol: string): Coin | undefined;
-        get(symbol: string, property: 'id' | 'symbol' | 'name'): string | undefined;
+        get(symbol: string, property: "id" | "symbol" | "name"): string | undefined;
     }
 }

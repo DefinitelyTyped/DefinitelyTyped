@@ -1,5 +1,5 @@
 export interface Okhsv {
-    mode: 'okhsv';
+    mode: "okhsv";
     h?: number;
     s: number;
     v: number;

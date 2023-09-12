@@ -1,3 +1,3 @@
-import changelogFilenameRegex from 'changelog-filename-regex';
+import changelogFilenameRegex from "changelog-filename-regex";
 
-changelogFilenameRegex.test('CHANGELOG'); // $ExpectType boolean
+changelogFilenameRegex.test("CHANGELOG"); // $ExpectType boolean

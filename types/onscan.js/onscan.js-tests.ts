@@ -1,4 +1,4 @@
-import onScan, { ScanError, ScanErrorEvent, ScanEvent, ScanOptions } from 'onscan.js';
+import onScan, { ScanError, ScanErrorEvent, ScanEvent, ScanOptions } from "onscan.js";
 
 const options: ScanOptions = {
     onScan: (code, quantity) => {
@@ -44,7 +44,7 @@ onScan.attachTo(document, {
     },
     onKeyDetect: iKeyCode => {
         // output all potentially relevant key events - great for debugging!
-        console.log('Pressed: ' + iKeyCode);
+        console.log("Pressed: " + iKeyCode);
     },
 });
 
@@ -53,11 +53,11 @@ onScan.attachTo(document, {});
 onScan.detachFrom(document);
 
 // Simulate a scan
-onScan.simulate(document, '1234567890123');
+onScan.simulate(document, "1234567890123");
 onScan.simulate(document, [48, 49, 50]);
 onScan.simulate(document, [
-    { keyCode: 80, key: 'P', shiftKey: true },
-    { keyCode: 49, key: '1' },
+    { keyCode: 80, key: "P", shiftKey: true },
+    { keyCode: 49, key: "1" },
 ]);
 
 // Change options on-the-fly
@@ -72,8 +72,8 @@ onScan.attachTo(document, {
     keyCodeMapper: oEvent => {
         // Look for special keycodes or other event properties specific to
         // your scanner
-        if (oEvent.which === 'your_special_key_code') {
-            return 'xxx';
+        if (oEvent.which === "your_special_key_code") {
+            return "xxx";
         }
         // Fall back to the default decoder in all other cases
         return onScan.decodeKeyEvent(oEvent);
@@ -81,7 +81,7 @@ onScan.attachTo(document, {
 });
 
 // Scan Event
-window.document.addEventListener('scan', onScanSuccess);
+window.document.addEventListener("scan", onScanSuccess);
 
 function onScanSuccess(scan: ScanEvent) {
     scan.detail.qty;
@@ -89,7 +89,7 @@ function onScanSuccess(scan: ScanEvent) {
 }
 
 // ScanError Event
-window.document.addEventListener('scanError', onScanError);
+window.document.addEventListener("scanError", onScanError);
 
 function onScanError(scanError: ScanErrorEvent) {
     scanError.detail.message;

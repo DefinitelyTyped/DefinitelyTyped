@@ -1047,6 +1047,8 @@ declare namespace Pubnub {
         externalId: string;
         profileUrl: string;
         email: string;
+        status: string;
+        type: string;
     }
 
     interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> {}
@@ -1101,6 +1103,8 @@ declare namespace Pubnub {
     interface ChannelMetadataFields {
         name: string;
         description: string;
+        status: string;
+        type: string;
     }
 
     interface ChannelMetadata<Custom extends ObjectCustom>
@@ -1145,13 +1149,13 @@ declare namespace Pubnub {
     interface UUIDMembershipObject<MembershipCustom extends ObjectCustom, UUIDCustom extends ObjectCustom>
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
-        uuid: UUIDMetadataObject<UUIDCustom> | { id: string };
+        uuid: (UUIDMetadataObject<UUIDCustom> & { status?: string }) | { id: string };
     }
 
     interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom>
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
-        channel: ChannelMetadataObject<ChannelCustom> | { id: string };
+        channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
     }
 
     interface UUIDMembersParameters {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ProgressBarProps {
     className?: string | null | undefined;
@@ -6,7 +6,7 @@ export interface ProgressBarProps {
     hideLabel?: boolean | null | undefined;
     label: string;
     max?: number | null | undefined;
-    size?: 'small' | 'big' | undefined;
+    size?: "small" | "big" | undefined;
     value?: number | null | undefined;
 }
 

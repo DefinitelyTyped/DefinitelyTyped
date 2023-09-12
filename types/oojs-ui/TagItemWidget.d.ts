@@ -11,10 +11,12 @@ declare namespace OO.ui {
 
     namespace TagItemWidget {
         interface EventMap
-            extends Widget.EventMap,
+            extends
+                Widget.EventMap,
                 mixin.LabelElement.EventMap,
                 mixin.FlaggedElement.EventMap,
-                mixin.DraggableElement.EventMap {
+                mixin.DraggableElement.EventMap
+        {
             remove: [];
             navigate: [direction: TagMultiselectWidget.Direction];
             select: [];
@@ -23,11 +25,13 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.FlaggedElement.ConfigOptions,
                 mixin.TabIndexedElement.ConfigOptions,
-                mixin.DraggableElement.ConfigOptions {
+                mixin.DraggableElement.ConfigOptions
+        {
             /** Item is valid */
             valid?: boolean;
             /** Item is fixed. This means the item is always included in the values and cannot be removed. */
@@ -35,24 +39,26 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends Widget.Static,
-                mixin.LabelElement.Static,
-                mixin.FlaggedElement.Static,
-                mixin.DraggableElement.Static {}
+            extends Widget.Static, mixin.LabelElement.Static, mixin.FlaggedElement.Static, mixin.DraggableElement.Static
+        {}
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.LabelElement.Props,
                 mixin.FlaggedElement.Props,
                 mixin.TabIndexedElement.Props,
-                mixin.DraggableElement.Props {}
+                mixin.DraggableElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.FlaggedElement.Prototype,
                 mixin.TabIndexedElement.Prototype,
-                mixin.DraggableElement.Prototype {
+                mixin.DraggableElement.Prototype
+        {
             /**
              * Set this item as fixed, meaning it cannot be removed
              *
@@ -156,7 +162,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TagItemWidget;
+            new(config?: ConfigOptions): TagItemWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;
