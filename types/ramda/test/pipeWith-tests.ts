@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     interface User {
         followers: string[];
         name: string;
@@ -9,8 +9,8 @@ import * as R from 'ramda';
     const db = {
         getUserById(userId: string): Promise<User> {
             return Promise.resolve({
-                name: 'Jon',
-                followers: ['Samwell', 'Edd', 'Grenn'],
+                name: "Jon",
+                followers: ["Samwell", "Edd", "Grenn"],
             });
         },
         getFollowers(user: User): Promise<string[]> {
@@ -30,4 +30,4 @@ import * as R from 'ramda';
     // Should pipe at least on function.
     // @ts-expect-error
     R.pipeWith((f: (value: any) => any, res: Promise<unknown>) => res.then(f), []);
-};
+});

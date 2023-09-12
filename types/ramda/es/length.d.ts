@@ -1,2 +1,2 @@
-import { length } from '../index';
+import { length } from "../index";
 export default length;

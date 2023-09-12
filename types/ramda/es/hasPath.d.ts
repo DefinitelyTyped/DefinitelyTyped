@@ -1,2 +1,2 @@
-import { hasPath } from '../index';
+import { hasPath } from "../index";
 export default hasPath;

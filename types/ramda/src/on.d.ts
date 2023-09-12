@@ -1,2 +1,2 @@
-import { on } from '../index';
+import { on } from "../index";
 export default on;

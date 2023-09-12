@@ -1,2 +1,2 @@
-import { without } from '../index';
+import { without } from "../index";
 export default without;

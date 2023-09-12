@@ -1,2 +1,2 @@
-import { sortWith } from '../index';
+import { sortWith } from "../index";
 export default sortWith;

@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function takesNoArg() {
         return true;
     }
@@ -20,4 +20,4 @@ import * as R from 'ramda';
     R.nAry(1, takesTwoArgs); // $ExpectType (arg_0: number) => number[]
     R.nAry(1, takesThreeArgs); // $ExpectType (arg_0: number) => number[]
     R.nAry(2, takesOneArg); // $ExpectType (arg_0: number, arg_1: undefined) => number[]
-};
+});

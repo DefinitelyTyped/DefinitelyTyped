@@ -1,2 +1,2 @@
-import { reduced } from '../index';
+import { reduced } from "../index";
 export default reduced;

@@ -1,2 +1,2 @@
-import { takeLastWhile } from '../index';
+import { takeLastWhile } from "../index";
 export default takeLastWhile;

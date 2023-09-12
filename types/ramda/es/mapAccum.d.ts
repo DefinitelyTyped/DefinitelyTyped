@@ -1,2 +1,2 @@
-import { mapAccum } from '../index';
+import { mapAccum } from "../index";
 export default mapAccum;

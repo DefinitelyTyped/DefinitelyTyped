@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     const isOdd = (acc: number, x: number) => x % 2 === 1;
 
     const xs: number[] = [1, 3, 5, 60, 777, 800];
@@ -22,4 +22,4 @@ import * as R from 'ramda';
     R.reduceWhile(isOdd, R.add)(111, ys); // => 111
     R.reduceWhile(isOdd, R.add)(111)(ys); // => 111
     R.reduceWhile(isOdd, R.add, 111)(ys); // => 111
-};
+});

@@ -1,2 +1,2 @@
-import { o } from '../index';
+import { o } from "../index";
 export default o;

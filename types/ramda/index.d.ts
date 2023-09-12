@@ -7,4 +7,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 5.0
 
-export * from 'types-ramda';
+export * from "types-ramda";

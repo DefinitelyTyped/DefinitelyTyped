@@ -1,2 +1,2 @@
-import { modifyPath } from '../index';
+import { modifyPath } from "../index";
 export default modifyPath;

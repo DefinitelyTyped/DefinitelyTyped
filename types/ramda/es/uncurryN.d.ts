@@ -1,2 +1,2 @@
-import { uncurryN } from '../index';
+import { uncurryN } from "../index";
 export default uncurryN;

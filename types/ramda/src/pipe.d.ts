@@ -1,2 +1,2 @@
-import { pipe } from '../index';
+import { pipe } from "../index";
 export default pipe;
