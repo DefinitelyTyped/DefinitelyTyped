@@ -10,7 +10,7 @@ declare namespace Tagify {
      * - `select`: Single-value dropdown-like select box.
      * - `mix`: Allow mixed-content. Requires the `pattern` setting to be set.
      */
-    type TagifyMode = 'select' | 'mix';
+    type TagifyMode = "select" | "mix";
 
     /**
      * Where the dropdown menu will appear:
@@ -20,7 +20,7 @@ declare namespace Tagify {
      * - `input` - will place the dropdown next to the input
      * - `all` - normal, full-width design
      */
-    type DropDownPosition = 'manual' | 'text' | 'input' | 'all';
+    type DropDownPosition = "manual" | "text" | "input" | "all";
 
     /**
      * Settings for the autocomplete feature at runtime.
@@ -743,8 +743,8 @@ declare namespace Tagify {
          */
         callbacks?:
             | {
-                  [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
-              }
+                [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
+            }
             | undefined;
 
         /**
@@ -808,7 +808,7 @@ declare namespace Tagify {
          * `false` - do nothing (useful for outside style)
          * @default true
          */
-        backspace: boolean | 'edit';
+        backspace: boolean | "edit";
 
         /**
          * If you wish your original input / textarea `value` property format to
@@ -1112,7 +1112,7 @@ declare namespace Tagify {
      */
     interface DropDownSelectEventData<T extends BaseTagData = TagData> extends EventData<T> {
         data: T;
-        elm: DomReference['dropdown'];
+        elm: DomReference["dropdown"];
         event: MouseEvent | {};
     }
 
@@ -1270,64 +1270,64 @@ declare namespace Tagify {
         /**
          * Suggestions dropdown has been removed from the DOM.
          */
-        'dropdown:hide': DropDownHideEventData<T>;
+        "dropdown:hide": DropDownHideEventData<T>;
 
         /**
          * No whitelist suggestion item matched for the typed input. At this
          * point it is possible to manually set `suggestedListItems` to any
          * possible custom value, for example: `[{ value:"default" }]`.
          */
-        'dropdown:noMatch': DropDownNoMatchEventData<T>;
+        "dropdown:noMatch": DropDownNoMatchEventData<T>;
 
         /**
          * The dropdown was scrolled by the user. Use `event.detail.percentage`
          * to get the percentage scrolled.
          */
-        'dropdown:scroll': DropDownScrollEventData<T>;
+        "dropdown:scroll": DropDownScrollEventData<T>;
 
         /**
          * A suggestions dropdown item got selected (by mouse / keyboard /
          * touch).
          */
-        'dropdown:select': DropDownSelectEventData<T>;
+        "dropdown:select": DropDownSelectEventData<T>;
 
         /**
          * Suggestions dropdown is about to be rendered. The dropdown DOM node
          * is passed to the callback.
          */
-        'dropdown:show': DropDownShowEventData<T>;
+        "dropdown:show": DropDownShowEventData<T>;
 
         /**
          * When the dropdown menu is open and its items were recomputed via
          * `Tagify.refilter`.
          */
-        'dropdown:updated': DropDownUpdatedEventData<T>;
+        "dropdown:updated": DropDownUpdatedEventData<T>;
 
         /**
          * Just before a tag has been updated, while still in "edit" mode.
          */
-        'edit:beforeUpdate': EditBeforeUpdateEventData<T>;
+        "edit:beforeUpdate": EditBeforeUpdateEventData<T>;
 
         /**
          * Typing inside an edited tag.
          */
-        'edit:input': EditInputEventData<T>;
+        "edit:input": EditInputEventData<T>;
 
         /**
          * Keydown event while an edited tag is in focus
          */
-        'edit:keydown': EditKeydownEventData<T>;
+        "edit:keydown": EditKeydownEventData<T>;
 
         /**
          * A tag is now in "edit mode".
          */
-        'edit:start': EditStartEventData<T>;
+        "edit:start": EditStartEventData<T>;
 
         /**
          * A tag has been updated (changed view editing or by directly calling
          * the `replaceTag` method).
          */
-        'edit:updated': EditUpdatedEventData<T>;
+        "edit:updated": EditUpdatedEventData<T>;
 
         /**
          * The component has received focus.

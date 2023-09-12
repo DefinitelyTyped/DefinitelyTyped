@@ -1,4 +1,4 @@
-import { CrossDomainWindowType, SameDomainWindowType, DomainMatcher } from './types';
+import { CrossDomainWindowType, DomainMatcher, SameDomainWindowType } from "./types";
 
 export function isFileProtocol(win: SameDomainWindowType): boolean;
 
@@ -227,7 +227,12 @@ export function getDomainFromUrl(url: string): string;
  *
  *  - Returns a listener object with a `.cancel()` method, to stop the loop
  */
-export function onCloseWindow(win: CrossDomainWindowType, callback: (...args: any[]) => any, delay?: number, maxtime?: number): { cancel: () => void };
+export function onCloseWindow(
+    win: CrossDomainWindowType,
+    callback: (...args: any[]) => any,
+    delay?: number,
+    maxtime?: number,
+): { cancel: () => void };
 
 /**
  *  Returns true if the specified object is a window instance

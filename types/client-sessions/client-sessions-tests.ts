@@ -10,16 +10,16 @@ middleware = session({ secret, cookieName: "_s" });
 middleware = session({ secret, duration: 600000 });
 middleware = session({ secret, activeDuration: 42 });
 middleware = session({
-  secret,
-  cookie: {
-    httpOnly: false,
-    ephemeral: true
-  }
+    secret,
+    cookie: {
+        httpOnly: false,
+        ephemeral: true,
+    },
 });
 
 app.use(middleware);
 app.use((req: any, res: any) => {
-  req.session = { test: true };
+    req.session = { test: true };
 });
 
 const encoded = session.util.encode(options, { test: true });

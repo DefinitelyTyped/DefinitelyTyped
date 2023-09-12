@@ -1,4 +1,4 @@
-import Complex, { ComplexLike } from 'complex.js';
+import Complex, { ComplexLike } from "complex.js";
 
 Complex.ZERO;
 Complex.PI;
@@ -12,7 +12,7 @@ Complex.NAN;
 const complexLikes: ComplexLike[] = [
     [1, 0],
     Complex.I,
-    '99.3+8i',
+    "99.3+8i",
     56,
     { re: 0, im: 1 },
     { arg: 1.5, abs: 5 },

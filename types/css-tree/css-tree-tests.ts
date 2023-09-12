@@ -1,10 +1,10 @@
-import * as csstree from 'css-tree';
+import * as csstree from "css-tree";
 
-const ast = csstree.parse('.a { color: red; }');
+const ast = csstree.parse(".a { color: red; }");
 ast; // $ExpectType CssNode
 
-csstree.parse('.a { color: red; }', {}); // $ExpectType CssNode
-csstree.parse('.a { color: red; }', {context: 'selector', positions: true}); // $ExpectType CssNode
+csstree.parse(".a { color: red; }", {}); // $ExpectType CssNode
+csstree.parse(".a { color: red; }", { context: "selector", positions: true }); // $ExpectType CssNode
 
 csstree.walk(ast, (node, item, list) => {
     node; // $ExpectType CssNode
@@ -31,7 +31,7 @@ csstree.walk(ast, {
         list; // $ExpectType List<CssNode>
         this.atrule; // $ExpectType Atrule | null
     },
-    visit: 'ClassSelector',
+    visit: "ClassSelector",
     reverse: false,
 });
 
@@ -81,24 +81,24 @@ csstree.generate(ast, {
         },
         result() {
             return handlers.result.call(handlers);
-        }
+        },
     }),
 });
 
-const property = csstree.property('*-vendor-property'); // $ExpectType Property
+const property = csstree.property("*-vendor-property"); // $ExpectType Property
 
-const keyword = csstree.keyword('-vendor-keyword'); // $ExpectType Keyword
+const keyword = csstree.keyword("-vendor-keyword"); // $ExpectType Keyword
 
 csstree.clone(ast); // $ExpectType CssNode
 
 const fromPlain = csstree.fromPlainObject({
-    type: 'SelectorList',
-    children: []
+    type: "SelectorList",
+    children: [],
 });
 fromPlain; // $ExpectType CssNode
 
 const toPlain = csstree.toPlainObject({
-    type: 'SelectorList',
+    type: "SelectorList",
     children: new csstree.List<csstree.CssNode>(),
 });
 toPlain; // $ExpectType CssNodePlain
@@ -109,10 +109,10 @@ interface Test {
 
 const list = new csstree.List<Test>();
 
-const anItem = list.createItem({a: 'c'});
+const anItem = list.createItem({ a: "c" });
 anItem; // $ExpectType ListItem<Test>
 
-list.fromArray([{a: 'b'}]);
+list.fromArray([{ a: "b" }]);
 list.toArray(); // $ExpectType Test[]
 list.size; // $ExpectType number
 list.isEmpty; // $ExpectType boolean
@@ -123,7 +123,7 @@ list.forEach(function(item, node, list) {
     item; // $ExpectType Test
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
-}, {b: 'c'});
+}, { b: "c" });
 list.forEach(function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
@@ -135,7 +135,7 @@ list.forEachRight(function(item, node, list) {
     item; // $ExpectType Test
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
-}, {b: 'c'});
+}, { b: "c" });
 list.forEachRight(function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
@@ -148,7 +148,7 @@ list.nextUntil(anItem, function(item, node, list) {
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
     return true;
-}, {b: 'c'});
+}, { b: "c" });
 list.nextUntil(anItem, function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
@@ -162,7 +162,7 @@ list.prevUntil(anItem, function(item, node, list) {
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
     return true;
-}, {b: 'c'});
+}, { b: "c" });
 list.prevUntil(anItem, function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
@@ -176,7 +176,7 @@ list.some(function(item, node, list) {
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
     return true;
-}, {b: 'c'});
+}, { b: "c" });
 list.some(function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
@@ -201,15 +201,15 @@ const map1 = list.map(function(item, node, list) {
     item; // $ExpectType Test
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
-    return { c: 'd' };
-}, {b: 'c'});
+    return { c: "d" };
+}, { b: "c" });
 map1; // $ExpectType List<{ c: string; }>
 const map2 = list.map(function(item, node, list) {
     this; // $ExpectType List<Test>
     item; // $ExpectType Test
     node; // $ExpectType ListItem<Test>
     list; // $ExpectType List<Test>
-    return { c: 'd' };
+    return { c: "d" };
 });
 map2; // $ExpectType List<{ c: string; }>
 
@@ -221,7 +221,7 @@ const filter1 = list2.filter(function(item, node, list): item is Test {
     node; // $ExpectType ListItem<Test | null>
     list; // $ExpectType List<Test | null>
     return !!item;
-}, {b: 'c'});
+}, { b: "c" });
 filter1; // $ExpectType List<Test>
 const filter2 = list2.filter(function(item, node, list): item is Test {
     this; // $ExpectType List<Test | null>
@@ -237,7 +237,7 @@ const filter3 = list2.filter(function(item, node, list) {
     node; // $ExpectType ListItem<Test | null>
     list; // $ExpectType List<Test | null>
     return true;
-}, {b: 'c'});
+}, { b: "c" });
 filter3; // $ExpectType List<Test | null>
 const filter4 = list2.filter(function(item, node, list) {
     this; // $ExpectType List<Test | null>
@@ -251,15 +251,15 @@ filter4; // $ExpectType List<Test | null>
 list.clear();
 list.copy(); // $ExpectType List<Test>
 list.prepend(anItem); // $ExpectType List<Test>
-list.prependData({a: 'b'}); // $ExpectType List<Test>
+list.prependData({ a: "b" }); // $ExpectType List<Test>
 list.append(anItem); // $ExpectType List<Test>
-list.appendData({a: 'b'}); // $ExpectType List<Test>
+list.appendData({ a: "b" }); // $ExpectType List<Test>
 list.insert(anItem, anItem); // $ExpectType List<Test>
-list.insertData({a: 'b'}, anItem); // $ExpectType List<Test>
+list.insertData({ a: "b" }, anItem); // $ExpectType List<Test>
 list.remove(anItem); // $ExpectType ListItem<Test>
-list.push({a: 'b'}); // $ExpectType void
+list.push({ a: "b" }); // $ExpectType void
 list.pop(); // $ExpectType ListItem<Test> | undefined
-list.unshift({a: 'b'}); // $ExpectType void
+list.unshift({ a: "b" }); // $ExpectType void
 list.shift(); // $ExpectType ListItem<Test> | undefined
 list.prependList(list); // $ExpectType List<Test>
 list.appendList(list); // $ExpectType List<Test>
@@ -268,177 +268,177 @@ list.replace(anItem, list); // $ExpectType List<Test>
 list.replace(anItem, anItem); // $ExpectType List<Test>
 
 switch (ast.type) {
-    case 'AnPlusB':
+    case "AnPlusB":
         ast.a; // $ExpectType string | null
         ast.b; // $ExpectType string | null
         break;
 
-    case 'Atrule':
+    case "Atrule":
         ast.name; // $ExpectType string
         ast.prelude; // $ExpectType AtrulePrelude | Raw | null
         ast.block; // $ExpectType Block | null
         break;
 
-    case 'AtrulePrelude':
+    case "AtrulePrelude":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'AttributeSelector':
+    case "AttributeSelector":
         ast.name; // $ExpectType Identifier
         ast.matcher; // $ExpectType string | null
         ast.value; // $ExpectType Identifier | StringNode | null
         ast.flags; // $ExpectType string | null
         break;
 
-    case 'Block':
+    case "Block":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'Brackets':
+    case "Brackets":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'CDC':
+    case "CDC":
         break;
 
-    case 'CDO':
+    case "CDO":
         break;
 
-    case 'ClassSelector':
+    case "ClassSelector":
         ast.name; // $ExpectType string
         break;
 
-    case 'Combinator':
+    case "Combinator":
         ast.name; // $ExpectType string
         break;
 
-    case 'Comment':
+    case "Comment":
         ast.value; // $ExpectType string
         break;
 
-    case 'Declaration':
+    case "Declaration":
         ast.important; // $ExpectType string | boolean
         ast.property; // $ExpectType string
         ast.value; // $ExpectType Raw | Value
         break;
 
-    case 'DeclarationList':
+    case "DeclarationList":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'Dimension':
+    case "Dimension":
         ast.value; // $ExpectType string
         ast.unit; // $ExpectType string
         break;
 
-    case 'Function':
+    case "Function":
         ast.name; // $ExpectType string
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'Hash':
+    case "Hash":
         ast.value; // $ExpectType string
         break;
 
-    case 'IdSelector':
+    case "IdSelector":
         ast.name; // $ExpectType string
         break;
 
-    case 'Identifier':
+    case "Identifier":
         ast.name; // $ExpectType string
         break;
 
-    case 'MediaFeature':
+    case "MediaFeature":
         ast.name; // $ExpectType string
         ast.value; // $ExpectType Dimension | Identifier | NumberNode | Ratio | null
         break;
 
-    case 'MediaQuery':
+    case "MediaQuery":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'MediaQueryList':
+    case "MediaQueryList":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'Nth':
+    case "Nth":
         ast.nth; // $ExpectType AnPlusB | Identifier
         ast.selector; // $ExpectType SelectorList | null
         break;
 
-    case 'Number':
+    case "Number":
         ast.value; // $ExpectType string
         break;
 
-    case 'Operator':
+    case "Operator":
         ast.value; // $ExpectType string
         break;
 
-    case 'Parentheses':
+    case "Parentheses":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'Percentage':
+    case "Percentage":
         ast.value; // $ExpectType string
         break;
 
-    case 'PseudoClassSelector':
+    case "PseudoClassSelector":
         ast.name; // $ExpectType string
         ast.children; // $ExpectType List<CssNode> | null
         break;
 
-    case 'PseudoElementSelector':
+    case "PseudoElementSelector":
         ast.name; // $ExpectType string
         ast.children; // $ExpectType List<CssNode> | null
         break;
 
-    case 'Ratio':
+    case "Ratio":
         ast.left; // $ExpectType string
         ast.right; // $ExpectType string
         break;
 
-    case 'Raw':
+    case "Raw":
         ast.value; // $ExpectType string
         break;
 
-    case 'Rule':
+    case "Rule":
         ast.prelude; // $ExpectType Raw | SelectorList
         ast.block; // $ExpectType Block
         break;
 
-    case 'Selector':
+    case "Selector":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'SelectorList':
+    case "SelectorList":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'String':
+    case "String":
         ast.value; // $ExpectType string
         break;
 
-    case 'StyleSheet':
+    case "StyleSheet":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'TypeSelector':
+    case "TypeSelector":
         ast.name; // $ExpectType string
         break;
 
-    case 'UnicodeRange':
+    case "UnicodeRange":
         ast.value; // $ExpectType string
         break;
 
-    case 'Url':
+    case "Url":
         ast.value; // $ExpectType string
         break;
 
-    case 'Value':
+    case "Value":
         ast.children; // $ExpectType List<CssNode>
         break;
 
-    case 'WhiteSpace':
+    case "WhiteSpace":
         ast.value; // $ExpectType string
         break;
 
@@ -447,177 +447,177 @@ switch (ast.type) {
 }
 
 switch (toPlain.type) {
-    case 'AnPlusB':
+    case "AnPlusB":
         toPlain.a; // $ExpectType string | null
         toPlain.b; // $ExpectType string | null
         break;
 
-    case 'Atrule':
+    case "Atrule":
         toPlain.name; // $ExpectType string
         toPlain.prelude; // $ExpectType Raw | AtrulePreludePlain | null
         toPlain.block; // $ExpectType BlockPlain | null
         break;
 
-    case 'AtrulePrelude':
+    case "AtrulePrelude":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'AttributeSelector':
+    case "AttributeSelector":
         toPlain.name; // $ExpectType Identifier
         toPlain.matcher; // $ExpectType string | null
         toPlain.value; // $ExpectType Identifier | StringNode | null
         toPlain.flags; // $ExpectType string | null
         break;
 
-    case 'Block':
+    case "Block":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'Brackets':
+    case "Brackets":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'CDC':
+    case "CDC":
         break;
 
-    case 'CDO':
+    case "CDO":
         break;
 
-    case 'ClassSelector':
+    case "ClassSelector":
         toPlain.name; // $ExpectType string
         break;
 
-    case 'Combinator':
+    case "Combinator":
         toPlain.name; // $ExpectType string
         break;
 
-    case 'Comment':
+    case "Comment":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Declaration':
+    case "Declaration":
         toPlain.important; // $ExpectType string | boolean
         toPlain.property; // $ExpectType string
         toPlain.value; // $ExpectType Raw | ValuePlain
         break;
 
-    case 'DeclarationList':
+    case "DeclarationList":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'Dimension':
+    case "Dimension":
         toPlain.value; // $ExpectType string
         toPlain.unit; // $ExpectType string
         break;
 
-    case 'Function':
+    case "Function":
         toPlain.name; // $ExpectType string
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'Hash':
+    case "Hash":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'IdSelector':
+    case "IdSelector":
         toPlain.name; // $ExpectType string
         break;
 
-    case 'Identifier':
+    case "Identifier":
         toPlain.name; // $ExpectType string
         break;
 
-    case 'MediaFeature':
+    case "MediaFeature":
         toPlain.name; // $ExpectType string
         toPlain.value; // $ExpectType Dimension | Identifier | NumberNode | Ratio | null
         break;
 
-    case 'MediaQuery':
+    case "MediaQuery":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'MediaQueryList':
+    case "MediaQueryList":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'Nth':
+    case "Nth":
         toPlain.nth; // $ExpectType AnPlusB | Identifier
         toPlain.selector; // $ExpectType SelectorListPlain | null
         break;
 
-    case 'Number':
+    case "Number":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Operator':
+    case "Operator":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Parentheses':
+    case "Parentheses":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'Percentage':
+    case "Percentage":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'PseudoClassSelector':
+    case "PseudoClassSelector":
         toPlain.name; // $ExpectType string
         toPlain.children; // $ExpectType CssNodePlain[] | null
         break;
 
-    case 'PseudoElementSelector':
+    case "PseudoElementSelector":
         toPlain.name; // $ExpectType string
         toPlain.children; // $ExpectType CssNodePlain[] | null
         break;
 
-    case 'Ratio':
+    case "Ratio":
         toPlain.left; // $ExpectType string
         toPlain.right; // $ExpectType string
         break;
 
-    case 'Raw':
+    case "Raw":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Rule':
+    case "Rule":
         toPlain.prelude; // $ExpectType Raw | SelectorListPlain
         toPlain.block; // $ExpectType BlockPlain
         break;
 
-    case 'Selector':
+    case "Selector":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'SelectorList':
+    case "SelectorList":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'String':
+    case "String":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'StyleSheet':
+    case "StyleSheet":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'TypeSelector':
+    case "TypeSelector":
         toPlain.name; // $ExpectType string
         break;
 
-    case 'UnicodeRange':
+    case "UnicodeRange":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Url':
+    case "Url":
         toPlain.value; // $ExpectType string
         break;
 
-    case 'Value':
+    case "Value":
         toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
-    case 'WhiteSpace':
+    case "WhiteSpace":
         toPlain.value; // $ExpectType string
         break;
 
@@ -626,51 +626,51 @@ switch (toPlain.type) {
 }
 
 csstree.definitionSyntax.syntaxError; // $ExpectType SyntaxError
-const syntax = csstree.definitionSyntax.parse('foo | bar'); // $ExpectType DSNodeGroup
+const syntax = csstree.definitionSyntax.parse("foo | bar"); // $ExpectType DSNodeGroup
 const node = syntax.terms[0]; // $ExpectType DSNode
 switch (node.type) {
-    case 'AtKeyword':
+    case "AtKeyword":
         node; // $ExpectType DSNodeAtWord
         node.name; // $ExpectType string
         break;
-    case 'Comma':
+    case "Comma":
         node; // $ExpectType DSNodeComma
         break;
-    case 'Function':
+    case "Function":
         node; // $ExpectType DSNodeFunction
         node.name; // $ExpectType string
         break;
-    case 'Group':
+    case "Group":
         node; // $ExpectType DSNodeGroup
         node.terms; // $ExpectType DSNode[]
         node.combinator; // $ExpectType DSNodeCombinator
         node.disallowEmpty; // $ExpectType boolean
         node.explicit; // $ExpectType boolean
         break;
-    case 'Keyword':
+    case "Keyword":
         node; // $ExpectType DSNodeKeyword
         node.name; // $ExpectType string
         break;
-    case 'Multiplier':
+    case "Multiplier":
         node; // $ExpectType DSNodeMultiplier
         node.comma; // $ExpectType boolean
         node.min; // $ExpectType number
         node.max; // $ExpectType number
         node.term; // $ExpectType DSNodeMultiplied
         break;
-    case 'Property':
+    case "Property":
         node; // $ExpectType DSNodeProperty
         node.name; // $ExpectType string
         break;
-    case 'String':
+    case "String":
         node; // $ExpectType DSNodeString
         node.value; // $ExpectType string
         break;
-    case 'Token':
+    case "Token":
         node; // $ExpectType DSNodeToken
         node.value; // $ExpectType string
         break;
-    case 'Type':
+    case "Type":
         node; // $ExpectType DSNodeType
         node.name; // $ExpectType string
         node.opts; // $ExpectType DSNodeTypeOpts | null
@@ -680,11 +680,13 @@ switch (node.type) {
 csstree.definitionSyntax.generate(syntax); // $ExpectType string
 csstree.definitionSyntax.generate(syntax, { forceBraces: true }); // $ExpectType string
 csstree.definitionSyntax.generate(syntax, { compact: true }); // $ExpectType string
-csstree.definitionSyntax.generate(syntax, { decorate: (result: string, node) => {
-    result; // $ExpectType string
-    node; // $ExpectType DSNode
-    return result;
-}});
+csstree.definitionSyntax.generate(syntax, {
+    decorate: (result: string, node) => {
+        result; // $ExpectType string
+        node; // $ExpectType DSNode
+        return result;
+    },
+});
 
 csstree.definitionSyntax.walk(syntax, (node) => {
     node; // $ExpectType DSNode
@@ -693,34 +695,34 @@ csstree.definitionSyntax.walk(syntax, (node) => {
     node; // $ExpectType DSNode
 }, undefined);
 
-csstree.parse('.selector { /* comment */ }', {
-  onComment(value, loc) {
-    value; // $ExpectType string
-    loc; // $ExpectType CssLocation
-  }
+csstree.parse(".selector { /* comment */ }", {
+    onComment(value, loc) {
+        value; // $ExpectType string
+        loc; // $ExpectType CssLocation
+    },
 });
 
-csstree.ident.decode('foo'); // $ExpectType string
-csstree.ident.encode('foo'); // $ExpectType string
-csstree.string.decode('foo'); // $ExpectType string
-csstree.string.encode('foo'); // $ExpectType string
-csstree.string.encode('foo', true); // $ExpectType string
-csstree.url.decode('foo'); // $ExpectType string
-csstree.url.encode('foo'); // $ExpectType string
+csstree.ident.decode("foo"); // $ExpectType string
+csstree.ident.encode("foo"); // $ExpectType string
+csstree.string.decode("foo"); // $ExpectType string
+csstree.string.encode("foo"); // $ExpectType string
+csstree.string.encode("foo", true); // $ExpectType string
+csstree.url.decode("foo"); // $ExpectType string
+csstree.url.encode("foo"); // $ExpectType string
 
 csstree.fork({}); // $ExpectType { lexer: Lexer; }
-const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: '<length>' } });
+const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: "<length>" } });
 lexer; // $ExpectType Lexer
-lexer.matchAtruleDescriptor('foo', 'bar', ast); // $ExpectType LexerMatchResult
-lexer.matchAtruleDescriptor('foo', 'bar', 'baz'); // $ExpectType LexerMatchResult
-lexer.matchAtrulePrelude('foo', ast); // $ExpectType LexerMatchResult
-lexer.matchAtrulePrelude('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchAtruleDescriptor("foo", "bar", ast); // $ExpectType LexerMatchResult
+lexer.matchAtruleDescriptor("foo", "bar", "baz"); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude("foo", ast); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude("foo", "bar"); // $ExpectType LexerMatchResult
 lexer.matchDeclaration(ast); // $ExpectType LexerMatchResult
-lexer.matchProperty('foo', ast); // $ExpectType LexerMatchResult
-lexer.matchProperty('foo', 'bar'); // $ExpectType LexerMatchResult
-lexer.matchType('foo', ast); // $ExpectType LexerMatchResult
-lexer.matchType('foo', 'bar'); // $ExpectType LexerMatchResult
-lexer.match('foo', ast); // $ExpectType LexerMatchResult
-lexer.match('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchProperty("foo", ast); // $ExpectType LexerMatchResult
+lexer.matchProperty("foo", "bar"); // $ExpectType LexerMatchResult
+lexer.matchType("foo", ast); // $ExpectType LexerMatchResult
+lexer.matchType("foo", "bar"); // $ExpectType LexerMatchResult
+lexer.match("foo", ast); // $ExpectType LexerMatchResult
+lexer.match("foo", "bar"); // $ExpectType LexerMatchResult
 lexer.match(syntax, ast); // $ExpectType LexerMatchResult
-lexer.match(syntax, 'bar'); // $ExpectType LexerMatchResult
+lexer.match(syntax, "bar"); // $ExpectType LexerMatchResult

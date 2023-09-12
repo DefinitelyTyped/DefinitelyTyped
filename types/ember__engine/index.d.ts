@@ -9,8 +9,11 @@
 
 // import Ember from 'ember';
 import EmberObject from '@ember/object';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Initializer from '@ember/engine/-private/types/initializer';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import EngineInstance from '@ember/engine/instance';
 import { Resolver } from '@ember/owner';
 

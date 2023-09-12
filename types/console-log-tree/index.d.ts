@@ -6,8 +6,8 @@
 export as namespace library;
 
 export interface Tree {
-  name: string;
-  children?: readonly Tree[];
+    name: string;
+    children?: readonly Tree[];
 }
 
 export function parse(tree: Tree | readonly Tree[], parentPre?: string, treeStr?: string): string;

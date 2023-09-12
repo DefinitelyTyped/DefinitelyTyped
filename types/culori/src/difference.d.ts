@@ -1,4 +1,4 @@
-import { Color, Mode } from './common';
+import { Color, Mode } from "./common";
 
 declare function differenceHueChroma(colorA: { h: number; c: number }, colorB: { h: number; c: number }): number;
 
@@ -23,14 +23,14 @@ declare function differenceHyab(): DiffFn;
 declare function differenceKotsarenkoRamos(): DiffFn;
 
 export {
-    differenceHueChroma,
-    differenceHueSaturation,
-    differenceHueNaive,
-    differenceEuclidean,
     differenceCie76,
     differenceCie94,
     differenceCiede2000,
     differenceCmc,
+    differenceEuclidean,
+    differenceHueChroma,
+    differenceHueNaive,
+    differenceHueSaturation,
     differenceHyab,
     differenceKotsarenkoRamos,
 };

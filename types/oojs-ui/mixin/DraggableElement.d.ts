@@ -66,7 +66,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): DraggableElement;
+            new(config?: ConfigOptions): DraggableElement;
             prototype: Prototype;
             static: Static;
         }
