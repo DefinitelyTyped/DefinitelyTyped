@@ -2,7 +2,7 @@ import * as cpx from "cpx";
 
 const SRC = "**/.js";
 const DEST = ".tmp/";
-const callback = (error: Error | null) => { };
+const callback = (error: Error | null) => {};
 const ASYNC_OPTIONS: cpx.AsyncOptions = { includeEmptyDirs: true };
 const SYNC_OPTIONS: cpx.SyncOptions = { preserve: true };
 const WATCH_OPTIONS: cpx.WatchOptions = { initialCopy: true };

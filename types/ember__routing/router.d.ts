@@ -1,7 +1,10 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterDSL from "@ember/routing/-private/router-dsl";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Transition from "@ember/routing/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterService from "@ember/routing/router-service";
 
 /**

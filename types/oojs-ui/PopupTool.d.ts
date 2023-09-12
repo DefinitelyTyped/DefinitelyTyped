@@ -52,7 +52,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new (toolGroup: ToolGroup, config?: ConfigOptions): PopupTool;
+            new(toolGroup: ToolGroup, config?: ConfigOptions): PopupTool;
             prototype: Prototype;
             static: Static;
             super: Tool.Constructor;

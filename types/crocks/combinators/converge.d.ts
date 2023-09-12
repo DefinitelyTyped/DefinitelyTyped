@@ -1,4 +1,4 @@
-import type { BinaryFunction, UnaryFunction } from '../internal/types';
+import type { BinaryFunction, UnaryFunction } from "../internal/types";
 
 /**
  * The Phoenix or Starling Prime

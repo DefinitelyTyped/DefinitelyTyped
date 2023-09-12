@@ -1,10 +1,10 @@
-const WINDOW_CLASS = 'devtools.window.entityviewer';
-const TOOL_ID = 'devtools.tool.entityviewer';
+const WINDOW_CLASS = "devtools.window.entityviewer";
+const TOOL_ID = "devtools.tool.entityviewer";
 
 let entityId: number;
 
 function register() {
-    ui.registerMenuItem('Entity Viewer', () => {
+    ui.registerMenuItem("Entity Viewer", () => {
         ui.activateTool({
             id: TOOL_ID,
             cursor: "cross_hair",
@@ -12,7 +12,7 @@ function register() {
                 if (e.entityId) {
                     getOrOpen(e.entityId);
                 }
-            }
+            },
         });
     });
 }
@@ -30,7 +30,7 @@ function getOrOpen(id: number) {
 function open() {
     const window = ui.openWindow({
         classification: WINDOW_CLASS,
-        title: '',
+        title: "",
         width: 300,
         height: 500,
         minWidth: 300,
@@ -44,10 +44,9 @@ function open() {
                 scrollbars: "both",
                 columns: [
                     {
-                        width: 130
+                        width: 130,
                     },
-                    {
-                    }
+                    {},
                 ],
                 isStriped: true,
                 canSelect: true,
@@ -55,8 +54,8 @@ function open() {
                 y: 20,
                 width: 290,
                 height: 575,
-                onClick: (i, c) => console.log(`Clicked item ${i} in column ${c}`)
-            }
+                onClick: (i, c) => console.log(`Clicked item ${i} in column ${c}`),
+            },
         ],
         onClose: () => {
             const tool = ui.tool;
@@ -66,7 +65,7 @@ function open() {
         },
         onUpdate: () => {
             updateInfo();
-        }
+        },
     });
 
     function set(items: ListViewItem[]) {
@@ -85,13 +84,13 @@ function open() {
             return;
         }
 
-        const sep = (text: string) => ({ type: 'seperator', text } as any as ListViewItemSeperator);
+        const sep = (text: string) => ({ type: "seperator", text } as any as ListViewItemSeperator);
 
         let data: ListViewItem[] = [
-            sep('Entity'),
+            sep("Entity"),
             ["Id:", entity.id.toString()],
             ["Type:", entity.type.toString()],
-            ["Position:", `${entity.x}, ${entity.y}, ${entity.z}`]
+            ["Position:", `${entity.x}, ${entity.y}, ${entity.z}`],
         ];
 
         switch (entity.type) {
@@ -99,7 +98,7 @@ function open() {
                 const car = entity as Car;
                 data = data.concat([
                     ["", ""],
-                    sep('Car'),
+                    sep("Car"),
                     ["Ride id", car.ride.toString()],
                     ["Ride object id", car.rideObject.toString()],
                     ["Vehicle object id", car.vehicleObject.toString()],
@@ -113,13 +112,19 @@ function open() {
                     ["Mass:", car.mass.toString()],
                     ["Acceleration:", car.acceleration.toString()],
                     ["Banking rotation:", car.bankRotation.toString()],
-                    ["Colours", `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.ternary}`],
+                    [
+                        "Colours",
+                        `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.ternary}`,
+                    ],
                     ["Powered acceleration:", car.poweredAcceleration.toString()],
                     ["Powered max. speed:", car.poweredMaxSpeed.toString()],
                     ["Status:", car.status.toString()],
                     ["Peeps:", car.peeps.map(p => (p == null) ? "null" : p.toString()).toString()],
                     ["", ""],
-                    ["Track location", `${car.trackLocation.x}, ${car.trackLocation.y}, ${car.trackLocation.z}, dir: ${car.trackLocation.direction}`],
+                    [
+                        "Track location",
+                        `${car.trackLocation.x}, ${car.trackLocation.y}, ${car.trackLocation.z}, dir: ${car.trackLocation.direction}`,
+                    ],
                     ["Track progress", car.trackProgress.toString()],
                     ["Remaining distance", car.remainingDistance.toString()],
                 ]);
@@ -129,7 +134,7 @@ function open() {
 
                 data = data.concat([
                     ["", ""],
-                    sep('VehicleObject'),
+                    sep("VehicleObject"),
                     ["Rotation frame mask:", vehicleObject.rotationFrameMask.toString()],
                     ["Num. of vertical frames:", vehicleObject.numVerticalFrames.toString()],
                     ["Num. of horizontal frames:", vehicleObject.numHorizontalFrames.toString()],
@@ -163,7 +168,7 @@ function open() {
 
                 data = data.concat([
                     ["", ""],
-                    sep('RideObject'),
+                    sep("RideObject"),
                     ["Type:", rideObject.type.toString()],
                     ["Index:", rideObject.index.toString()],
                     ["Identifier:", rideObject.identifier.toString()],

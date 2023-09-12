@@ -35,13 +35,13 @@ describe("CloudflareApps methods", () => {
     it("createElement", () => {
         const element: Element = CloudflareApps.createElement({
             method: "replace",
-            selector: "body > *"
+            selector: "body > *",
         });
 
         const div: HTMLDivElement = document.createElement("div");
         const divElement: HTMLDivElement = CloudflareApps.createElement({
             method: "replace",
-            selector: "body > *"
+            selector: "body > *",
         }, div);
     });
 

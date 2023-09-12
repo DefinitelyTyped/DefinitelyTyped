@@ -3,22 +3,58 @@
 // Definitions by: Ottomated <https://github.com/ottomated>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as passport from 'passport';
-import * as express from 'express';
-import * as oauth2 from 'passport-oauth2';
-import { OutgoingHttpHeaders } from 'http';
+import * as express from "express";
+import { OutgoingHttpHeaders } from "http";
+import * as passport from "passport";
+import * as oauth2 from "passport-oauth2";
 
 import twitch = Strategy;
 
 declare class Strategy extends oauth2.Strategy {
-    constructor(options: twitch.StrategyOptions, verify: (accessToken: string, refreshToken: string, profile: twitch.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
-    constructor(options: twitch.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: twitch.Profile, done: oauth2.VerifyCallback) => void);
-    constructor(options: twitch.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: twitch.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
-    constructor(options: twitch.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: twitch.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: twitch.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: twitch.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: twitch.StrategyOptions,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: twitch.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: twitch.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: twitch.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: twitch.StrategyOptionsWithRequest,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            params: any,
+            refreshToken: string,
+            profile: twitch.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     checkScope(scope: string, accessToken: string, cb: (err?: Error | null, value?: any) => void): void;
 }
 

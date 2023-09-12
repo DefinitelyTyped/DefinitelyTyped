@@ -1,4 +1,4 @@
-import { NullaryFunction, UnaryFunction, VariadicFunction } from '../internal/types';
+import { NullaryFunction, UnaryFunction, VariadicFunction } from "../internal/types";
 
 declare function Async(fn: (reject: UnaryFunction, resolve: UnaryFunction) => any): Async;
 

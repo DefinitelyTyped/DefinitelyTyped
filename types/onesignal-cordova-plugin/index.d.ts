@@ -318,7 +318,7 @@ declare namespace OneSignalCordovaPlugin {
     }
 
     interface OSNotificationAction {
-        type: 'Opened' | 'ActionTaken';
+        type: "Opened" | "ActionTaken";
         actionID: string;
     }
 

@@ -19,5 +19,5 @@ declare global {
 }
 
 declare const chaiSorted: Chai.ChaiPlugin;
-declare namespace chaiSorted { }
+declare namespace chaiSorted {}
 export = chaiSorted;

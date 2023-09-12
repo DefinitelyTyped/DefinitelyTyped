@@ -7,11 +7,11 @@
 export type ErrorInstanceOrConstructor =
     | Error
     | {
-          new (...args: any[]): Error;
-      }
+        new(...args: any[]): Error;
+    }
     | {
-          (...args: any[]): Error;
-      };
+        (...args: any[]): Error;
+    };
 
 /**
  * Checks if two instances are compatible (strict equal).

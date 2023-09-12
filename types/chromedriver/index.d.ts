@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { ChildProcess } from 'child_process';
+import { ChildProcess } from "child_process";
 
 export const path: string;
 export const version: string;

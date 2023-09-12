@@ -5,8 +5,8 @@
 // TypeScript Version: 2.7
 
 declare function cloneDeep<T>(
-  val: T,
-  instanceClone?: true | ((val: T) => T)
+    val: T,
+    instanceClone?: true | ((val: T) => T),
 ): T;
 
 export = cloneDeep;

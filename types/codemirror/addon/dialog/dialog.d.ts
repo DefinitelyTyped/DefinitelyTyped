@@ -1,4 +1,4 @@
-import '../../';
+import "../../";
 
 export type DialogCloseFunction = () => void;
 
@@ -25,11 +25,19 @@ export interface OpenNotificationOptions extends DialogOptions {
     duration?: number | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     interface Editor {
         /** Provides a very simple way to query users for text input. */
-         openDialog(template: string | Node, callback: (value: string, e: Event) => void, options?: OpenDialogOptions): DialogCloseFunction;
-         openNotification(template: string | Node, options?: OpenNotificationOptions): DialogCloseFunction;
-         openConfirm(template: string | Node, callbacks: ReadonlyArray<(editor: Editor) => void>, options?: DialogOptions): DialogCloseFunction;
+        openDialog(
+            template: string | Node,
+            callback: (value: string, e: Event) => void,
+            options?: OpenDialogOptions,
+        ): DialogCloseFunction;
+        openNotification(template: string | Node, options?: OpenNotificationOptions): DialogCloseFunction;
+        openConfirm(
+            template: string | Node,
+            callbacks: ReadonlyArray<(editor: Editor) => void>,
+            options?: DialogOptions,
+        ): DialogCloseFunction;
     }
 }
