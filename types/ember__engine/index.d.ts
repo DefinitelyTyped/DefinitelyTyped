@@ -8,10 +8,13 @@
 // Minimum TypeScript Version: 4.4
 
 // import Ember from 'ember';
-import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
-import Initializer from "@ember/engine/-private/types/initializer";
-import EngineInstance from "@ember/engine/instance";
 import EmberObject from "@ember/object";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Initializer from "@ember/engine/-private/types/initializer";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import EngineInstance from "@ember/engine/instance";
 import { Resolver } from "@ember/owner";
 
 /**

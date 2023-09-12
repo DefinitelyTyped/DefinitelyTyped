@@ -1,5 +1,7 @@
-import ComputedProperty from "@ember/object/computed";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * Map type `T` to a plain object hash with the identity mapping.

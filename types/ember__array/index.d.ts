@@ -7,10 +7,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Enumerable from "@ember/array/-private/enumerable";
-import NativeArray from "@ember/array/-private/native-array";
 import ComputedProperty from "@ember/object/computed";
 import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Enumerable from "@ember/array/-private/enumerable";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import NativeArray from "@ember/array/-private/native-array";
 
 /**
  * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the

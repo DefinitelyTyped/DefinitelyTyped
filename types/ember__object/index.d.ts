@@ -7,6 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
+// eslint-disable-next-line @definitelytyped/no-self-import
+import CoreObject from "@ember/object/core";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Observable from "@ember/object/observable";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     ComputedPropertyCallback,
     UnwrapComputedPropertyGetter,
@@ -14,9 +19,8 @@ import {
     UnwrapComputedPropertySetter,
     UnwrapComputedPropertySetters,
 } from "@ember/object/-private/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ComputedProperty from "@ember/object/computed";
-import CoreObject from "@ember/object/core";
-import Observable from "@ember/object/observable";
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass

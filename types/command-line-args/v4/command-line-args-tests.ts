@@ -1,20 +1,20 @@
-import commandLineArgs = require('command-line-args');
+import commandLineArgs = require("command-line-args");
 
 const optionDefinitions: commandLineArgs.OptionDefinition[] = [
     {
-        name: 'something',
-        alias: 's',
+        name: "something",
+        alias: "s",
         type: String,
-        defaultValue: '1',
+        defaultValue: "1",
         multiple: true,
         defaultOption: true,
-        group: 'one'
-    }
+        group: "one",
+    },
 ];
 
 const options = commandLineArgs(optionDefinitions, {
-    argv: [ '--one', '1' ],
-    partial: true
+    argv: ["--one", "1"],
+    partial: true,
 });
 
 const unknown = options._unknown;

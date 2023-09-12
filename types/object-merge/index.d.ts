@@ -6,7 +6,7 @@
 // TypeScript Version: 2.2
 
 interface ObjectMergeOptions {
-    depth: number|boolean;
+    depth: number | boolean;
     throwOnCircularRef: boolean;
 }
 

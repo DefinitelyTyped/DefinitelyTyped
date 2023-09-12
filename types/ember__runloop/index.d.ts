@@ -7,9 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { EmberRunTimer } from "@ember/runloop/types";
 import { AnyFn, EmberMethod, EmberMethodParams, EmberMethodReturn } from "ember/-private/type-utils";
 import { EmberRunQueues } from "./-private/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { EmberRunTimer } from "@ember/runloop/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import "@ember/runloop/-private/backburner";
 
 /**

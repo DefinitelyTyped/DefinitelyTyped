@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as Chart from 'chart.js';
+import * as Chart from "chart.js";
 
-declare module 'chart.js' {
+declare module "chart.js" {
     interface ChartPluginsOptions {
         colorschemes?: ColorSchemesOptions | undefined;
     }

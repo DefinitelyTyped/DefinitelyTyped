@@ -1,38 +1,38 @@
-import * as cacheManager from 'cache-manager';
+import * as cacheManager from "cache-manager";
 
 // Args should all be optional
 const memoryCacheWithNoArgs: cacheManager.Cache = cacheManager.caching({
-    store: 'memory',
+    store: "memory",
 });
 
 const memoryCache: cacheManager.Cache = cacheManager.caching({
-    store: 'memory',
+    store: "memory",
     max: 20,
     maxSize: 100,
     sizeCalculation: (value: any, key: any) => JSON.stringify(value).length,
-    ttl: 10 /*seconds*/,
+    ttl: 10, /*seconds*/
 });
 const ttl = 5;
 
-memoryCache.set('foo', 'bar', { ttl: ttl }, err => {
+memoryCache.set("foo", "bar", { ttl: ttl }, err => {
     if (err) {
         throw err;
     }
 
-    memoryCache.get('foo', (err, result) => {
+    memoryCache.get("foo", (err, result) => {
         // console.log(result);
 
-        memoryCache.del('foo', err => {});
+        memoryCache.del("foo", err => {});
     });
 });
 
 function getUser(id: number, cb: Function) {
-    cb(null, { id: id, name: 'Bob' });
+    cb(null, { id: id, name: "Bob" });
 }
 
 const userId = 123;
-const key = 'user_' + userId;
-const key2 = 'user_' + userId + '4';
+const key = "user_" + userId;
+const key2 = "user_" + userId + "4";
 
 // Note: ttl is optional in wrap()
 memoryCache.wrap<{ id: number; name: string }>(
@@ -42,7 +42,7 @@ memoryCache.wrap<{ id: number; name: string }>(
     },
     { ttl: ttl },
     (err: any, user: { id: number; name: string }) => {
-        //console.log(user);
+        // console.log(user);
 
         // Second time fetches user from memoryCache
         memoryCache.wrap<{ id: number; name: string }>(
@@ -52,7 +52,7 @@ memoryCache.wrap<{ id: number; name: string }>(
                 getUser(userId, cb);
             },
             (err: any, user: { id: number; name: string }) => {
-                //console.log(user);
+                // console.log(user);
             },
         );
     },
@@ -60,7 +60,7 @@ memoryCache.wrap<{ id: number; name: string }>(
 
 if (memoryCache.store.keys) {
     memoryCache.store.keys().then(result => {
-        //console.log(result);
+        // console.log(result);
     });
 }
 
@@ -72,8 +72,8 @@ memoryCache.reset(() => {
 });
 
 async function promiseMemoryCache(cache: cacheManager.Cache) {
-    const KEY = 'Key';
-    const VALUE = 'string';
+    const KEY = "Key";
+    const VALUE = "string";
 
     const numberWrap: number = await cache.wrap(KEY, () => 1);
     const numberWrapAsync: number = await cache.wrap(KEY, async () => 1);
@@ -105,15 +105,15 @@ async function promiseMemoryCache(cache: cacheManager.Cache) {
 
 const multiCache = cacheManager.multiCaching([memoryCache]);
 
-multiCache.set('foo', 'bar', { ttl: ttl }, err => {
+multiCache.set("foo", "bar", { ttl: ttl }, err => {
     if (err) {
         throw err;
     }
 
-    multiCache.get('foo', (err, result) => {
+    multiCache.get("foo", (err, result) => {
         // console.log(result);
 
-        multiCache.del('foo', err => {});
+        multiCache.del("foo", err => {});
     });
 });
 

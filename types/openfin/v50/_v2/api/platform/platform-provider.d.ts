@@ -1,3 +1,5 @@
-import { OverrideCallback } from './platform';
-import { Environment } from '../../environment/environment';
-export default function initConstructor(environment: Environment): (userOverrideFn: OverrideCallback<any>) => Promise<void>;
+import { Environment } from "../../environment/environment";
+import { OverrideCallback } from "./platform";
+export default function initConstructor(
+    environment: Environment,
+): (userOverrideFn: OverrideCallback<any>) => Promise<void>;

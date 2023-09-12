@@ -32,7 +32,7 @@ declare const Cookiebot: {
 };
 
 interface Window {
-  Cookiebot?: typeof Cookiebot;
+    Cookiebot?: typeof Cookiebot;
 }
 
 interface WindowEventMap {

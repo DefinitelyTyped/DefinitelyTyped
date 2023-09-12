@@ -7,8 +7,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import ClassNamesSupport from "@ember/component/-private/class-names-support";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import CoreView from "@ember/component/-private/core-view";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ClassNamesSupport from "@ember/component/-private/class-names-support";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ViewMixin from "@ember/component/-private/view-mixin";
 import { Opaque } from "ember/-private/type-utils";
 import { Capabilities, ComponentManager } from "./-private/glimmer-interfaces";
