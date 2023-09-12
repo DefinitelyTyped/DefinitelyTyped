@@ -190,6 +190,14 @@ function redTests(RED: editorClient.RED) {
             // @ts-expect-error
             this.wrongKey;
         },
+        onadd() {
+            // $ExpectType string
+            this.key;
+            // $ExpectType string
+            this.instanceProp;
+            // @ts-expect-error
+            this.wrongKey;
+        },
         outputLabels: true
             ? true
                 ? "label"
@@ -246,6 +254,8 @@ function redTests(RED: editorClient.RED) {
             },
         },
     });
+
+    RED.actions.invoke("core:generate-node-names", myNodeDef, { generateHistory: false });
 }
 
 function widgetEditableListTests() {

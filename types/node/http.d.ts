@@ -833,7 +833,7 @@ declare module "http" {
          * may run into a 'ECONNRESET' error.
          *
          * ```js
-         * const http = require('node:http');
+         * import http from 'node:http';
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -857,7 +857,7 @@ declare module "http" {
          * automatic error retry base on it.
          *
          * ```js
-         * const http = require('node:http');
+         * import http from 'node:http';
          * const agent = new http.Agent({ keepAlive: true });
          *
          * function retriableRequest() {
@@ -1423,6 +1423,37 @@ declare module "http" {
      *
      * The `requestListener` is a function which is automatically
      * added to the `'request'` event.
+     *
+     * ```js
+     * import http from 'node:http';
+     *
+     * // Create a local server to receive data from
+     * const server = http.createServer((req, res) => {
+     *   res.writeHead(200, { 'Content-Type': 'application/json' });
+     *   res.end(JSON.stringify({
+     *     data: 'Hello World!',
+     *   }));
+     * });
+     *
+     * server.listen(8000);
+     * ```
+     *
+     * ```js
+     * import http from 'node:http';
+     *
+     * // Create a local server to receive data from
+     * const server = http.createServer();
+     *
+     * // Listen to the request event
+     * server.on('request', (request, res) => {
+     *   res.writeHead(200, { 'Content-Type': 'application/json' });
+     *   res.end(JSON.stringify({
+     *     data: 'Hello World!',
+     *   }));
+     * });
+     *
+     * server.listen(8000);
+     * ```
      * @since v0.1.13
      */
     function createServer<
@@ -1457,7 +1488,8 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('node:http');
+     * import http from 'node:http';
+     * import { Buffer } from 'node:buffer';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!',
@@ -1634,8 +1666,8 @@ declare module "http" {
     ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
-     * convenience method. The only difference between this method and {@link request} is that it sets the method to GET and calls `req.end()`automatically. The callback must take care to consume the
-     * response
+     * convenience method. The only difference between this method and {@link request} is that it sets the method to GET by default and calls `req.end()`automatically. The callback must take care to
+     * consume the response
      * data for reasons stated in {@link ClientRequest} section.
      *
      * The `callback` is invoked with a single argument that is an instance of {@link IncomingMessage}.
@@ -1690,7 +1722,7 @@ declare module "http" {
      * server.listen(8000);
      * ```
      * @since v0.3.6
-     * @param options Accepts the same `options` as {@link request}, with the `method` always set to `GET`. Properties that are inherited from the prototype are ignored.
+     * @param options Accepts the same `options` as {@link request}, with the method set to GET by default.
      */
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
@@ -1707,7 +1739,7 @@ declare module "http" {
      * Example:
      *
      * ```js
-     * const { validateHeaderName } = require('node:http');
+     * import { validateHeaderName } from 'node:http';
      *
      * try {
      *   validateHeaderName('');
@@ -1735,7 +1767,7 @@ declare module "http" {
      * Examples:
      *
      * ```js
-     * const { validateHeaderValue } = require('node:http');
+     * import { validateHeaderValue } from 'node:http';
      *
      * try {
      *   validateHeaderValue('x-my-header', undefined);

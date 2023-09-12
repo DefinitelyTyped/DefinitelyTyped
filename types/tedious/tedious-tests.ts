@@ -8,7 +8,8 @@ var config: tedious.ConnectionConfig = {
         cryptoCredentialsDetails: {
             minVersion: "TLSv1"
         },
-        useColumnNames: true
+        useColumnNames: true,
+        multiSubnetFailover: false
     },
     authentication: {
         type: "default",

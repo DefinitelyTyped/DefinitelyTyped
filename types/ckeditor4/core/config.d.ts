@@ -18,7 +18,7 @@ declare namespace CKEDITOR {
         bodyId?: string | undefined;
         browserContextMenuOnCtrl?: boolean | undefined;
 
-        clipboard_defaultContentType?: 'html' | 'text' | undefined;
+        clipboard_defaultContentType?: "html" | "text" | undefined;
         clipboard_notificationDuration?: number | undefined;
         cloudServices_tokenUrl?: string | undefined;
         cloudServices_uploadUrl?: string | undefined;
@@ -258,14 +258,14 @@ declare namespace CKEDITOR {
         toolbar?:
             | string
             | Array<
-                  | string
-                  | string[]
-                  | {
-                        name: string;
-                        items?: string[] | undefined;
-                        groups?: string[] | undefined;
-                    }
-              >
+                | string
+                | string[]
+                | {
+                    name: string;
+                    items?: string[] | undefined;
+                    groups?: string[] | undefined;
+                }
+            >
             | null
             | undefined;
         toolbarCanCollapse?: boolean | undefined;

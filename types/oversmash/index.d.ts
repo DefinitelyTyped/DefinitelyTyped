@@ -5,8 +5,8 @@
 // TypeScript Version: 3.9
 
 export enum NormalizeNamesAs {
-    snake = 'snake',
-    camel = 'camel'
+    snake = "snake",
+    camel = "camel",
 }
 
 export interface Header {

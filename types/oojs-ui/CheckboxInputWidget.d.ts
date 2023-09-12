@@ -137,7 +137,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): CheckboxInputWidget;
+            new(config?: ConfigOptions): CheckboxInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

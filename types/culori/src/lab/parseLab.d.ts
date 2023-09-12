@@ -1,4 +1,4 @@
-import { Lab } from './types';
+import { Lab } from "./types";
 
 declare function parseLab(color: string): Lab;
 

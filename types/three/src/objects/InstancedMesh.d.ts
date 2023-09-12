@@ -1,11 +1,16 @@
 import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Material } from './../materials/Material.js';
-import { BufferAttribute } from './../core/BufferAttribute.js';
+import { Material } from '../materials/Material.js';
 import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute.js';
 import { Mesh } from './Mesh.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Color } from './../math/Color.js';
-import { Box3, Sphere } from '../Three.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Color } from '../math/Color.js';
+import { Object3DEventMap } from '../core/Object3D.js';
+import { Box3 } from '../math/Box3.js';
+import { Sphere } from '../math/Sphere.js';
+
+export interface InstancedMeshEventMap extends Object3DEventMap {
+    dispose: {};
+}
 
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
@@ -23,7 +28,7 @@ import { Box3, Sphere } from '../Three.js';
 export class InstancedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Mesh<TGeometry, TMaterial> {
+> extends Mesh<TGeometry, TMaterial, InstancedMeshEventMap> {
     /**
      * Create a new instance of {@link InstancedMesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}.

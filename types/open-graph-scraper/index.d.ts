@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 declare namespace run {
     interface OpenGraphImage {

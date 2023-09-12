@@ -7,7 +7,7 @@
 
 /// <reference types="node"/>
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 declare namespace cloneable {
     type Cloneable<T extends Readable> = T & { clone(): Cloneable<T> };

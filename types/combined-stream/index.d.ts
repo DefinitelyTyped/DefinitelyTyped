@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string | NextFunction;
 type NextFunction = (next: (stream: Appendable) => any) => any;
@@ -42,12 +42,12 @@ declare class CombinedStream extends Stream implements Options {
     _emitError(error: Error): void;
 
     // events
-    on(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
-    on(event: 'error', cb: (err: Error) => void): this;
-    on(event: 'data', cb: (data: any) => void): this;
-    once(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
-    once(event: 'error', cb: (err: Error) => void): this;
-    once(event: 'data', cb: (data: any) => void): this;
+    on(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
+    on(event: "error", cb: (err: Error) => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    once(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
+    once(event: "error", cb: (err: Error) => void): this;
+    once(event: "data", cb: (data: any) => void): this;
 
     static create(options?: Options): CombinedStream;
     static isStreamLike(stream: any): stream is Stream;

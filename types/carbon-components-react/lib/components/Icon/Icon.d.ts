@@ -14,10 +14,10 @@ export interface IconData {
 }
 
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-    description: string,
-    icon?: IconData | undefined,
-    iconRef?: React.Ref<HTMLElement> | undefined,
-    iconTitle?: string | undefined,
+    description: string;
+    icon?: IconData | undefined;
+    iconRef?: React.Ref<HTMLElement> | undefined;
+    iconTitle?: string | undefined;
 }
 
 declare const Icon: React.FC<IconProps>;

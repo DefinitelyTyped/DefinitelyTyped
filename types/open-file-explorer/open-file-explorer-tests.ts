@@ -1,7 +1,7 @@
-import openExplorer = require('open-file-explorer');
+import openExplorer = require("open-file-explorer");
 
 // $ExpectType void
-openExplorer('.', (err) => {
+openExplorer(".", (err) => {
     if (err) {
         err; // $ExpectType Error
     } else {
