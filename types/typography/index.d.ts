@@ -39,16 +39,20 @@ export interface TypographyOptions {
     boldWeight?: number | string | undefined;
     blockMarginBottom?: number | undefined;
     includeNormalize?: boolean | undefined;
-    overrideStyles?: ((
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object) | undefined;
-    overrideThemeStyles?: ((
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object) | undefined;
+    overrideStyles?:
+        | ((
+            VerticalRhythm: VerticalRhythm,
+            options: TypographyOptions,
+            styles: any,
+        ) => object)
+        | undefined;
+    overrideThemeStyles?:
+        | ((
+            VerticalRhythm: VerticalRhythm,
+            options: TypographyOptions,
+            styles: any,
+        ) => object)
+        | undefined;
     plugins?: any[] | undefined;
 }
 

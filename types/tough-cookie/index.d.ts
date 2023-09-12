@@ -86,8 +86,8 @@ export class Cookie {
 
     key: string;
     value: string;
-    expires: Date | 'Infinity';
-    maxAge: number | 'Infinity' | '-Infinity';
+    expires: Date | "Infinity";
+    maxAge: number | "Infinity" | "-Infinity";
     domain: string | null;
     path: string | null;
     secure: boolean;
@@ -123,7 +123,7 @@ export class Cookie {
 
     inspect(): string;
 
-    toJSON(): { [key: string]: any; };
+    toJSON(): { [key: string]: any };
 
     clone(): Cookie;
 
@@ -138,8 +138,8 @@ export namespace Cookie {
     interface Properties {
         key?: string | undefined;
         value?: string | undefined;
-        expires?: Date | 'Infinity' | undefined;
-        maxAge?: number | 'Infinity' | '-Infinity' | undefined;
+        expires?: Date | "Infinity" | undefined;
+        maxAge?: number | "Infinity" | "-Infinity" | undefined;
         domain?: string | undefined;
         path?: string | undefined;
         secure?: boolean | undefined;
@@ -161,8 +161,15 @@ export namespace Cookie {
 
 export class CookieJar {
     static deserialize(serialized: CookieJar.Serialized | string, store?: Store): Promise<CookieJar>;
-    static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
-    static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
+    static deserialize(
+        serialized: CookieJar.Serialized | string,
+        store: Store,
+        cb: (err: Error | null, object: CookieJar) => void,
+    ): void;
+    static deserialize(
+        serialized: CookieJar.Serialized | string,
+        cb: (err: Error | null, object: CookieJar) => void,
+    ): void;
 
     static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
@@ -170,26 +177,51 @@ export class CookieJar {
 
     constructor(store?: Store, options?: CookieJar.Options);
 
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): Promise<Cookie>;
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error | null, cookie: Cookie) => void): void;
+    setCookie(
+        cookieOrString: Cookie | string,
+        currentUrl: string,
+        options?: CookieJar.SetCookieOptions,
+    ): Promise<Cookie>;
+    setCookie(
+        cookieOrString: Cookie | string,
+        currentUrl: string,
+        options: CookieJar.SetCookieOptions,
+        cb: (err: Error | null, cookie: Cookie) => void,
+    ): void;
+    setCookie(
+        cookieOrString: Cookie | string,
+        currentUrl: string,
+        cb: (err: Error | null, cookie: Cookie) => void,
+    ): void;
 
     setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): Cookie;
 
     getCookies(currentUrl: string, options?: CookieJar.GetCookiesOptions): Promise<Cookie[]>;
-    getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: Cookie[]) => void): void;
+    getCookies(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: Cookie[]) => void,
+    ): void;
     getCookies(currentUrl: string, cb: (err: Error | null, cookies: Cookie[]) => void): void;
 
     getCookiesSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): Cookie[];
 
     getCookieString(currentUrl: string, options?: CookieJar.GetCookiesOptions): Promise<string>;
-    getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
+    getCookieString(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: string) => void,
+    ): void;
     getCookieString(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
 
     getCookieStringSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
     getSetCookieStrings(currentUrl: string, options?: CookieJar.GetCookiesOptions): Promise<string[]>;
-    getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string[]) => void): void;
+    getSetCookieStrings(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: string[]) => void,
+    ): void;
     getSetCookieStrings(currentUrl: string, cb: (err: Error | null, cookies: string[]) => void): void;
 
     getSetCookieStringsSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string[];
@@ -249,7 +281,12 @@ export abstract class Store {
 
     findCookie(domain: string, path: string, key: string, cb: (err: Error | null, cookie: Cookie | null) => void): void;
 
-    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(
+        domain: string,
+        path: string,
+        allowSpecialUseDomain: boolean,
+        cb: (err: Error | null, cookie: Cookie[]) => void,
+    ): void;
 
     putCookie(cookie: Cookie, cb: (err: Error | null) => void): void;
 
@@ -266,7 +303,12 @@ export class MemoryCookieStore extends Store {
     findCookie(domain: string, path: string, key: string, cb: (err: Error | null, cookie: Cookie | null) => void): void;
     findCookie(domain: string, path: string, key: string): Promise<Cookie | null>;
 
-    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(
+        domain: string,
+        path: string,
+        allowSpecialUseDomain: boolean,
+        cb: (err: Error | null, cookie: Cookie[]) => void,
+    ): void;
     findCookies(domain: string, path: string, cb: (err: Error | null, cookie: Cookie[]) => void): void;
     findCookies(domain: string, path: string, allowSpecialUseDomain?: boolean): Promise<Cookie[]>;
 

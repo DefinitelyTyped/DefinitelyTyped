@@ -1,13 +1,12 @@
-import Particle from '../core/Particle';
-import { EasingFunction } from '../ease';
-import { JSONObject } from '../initializer/Rate';
-import Zone from '../zone/Zone';
-import Behaviour from './Behaviour';
+import Particle from "../core/Particle";
+import { EasingFunction } from "../ease";
+import { JSONObject } from "../initializer/Rate";
+import Zone from "../zone/Zone";
+import Behaviour from "./Behaviour";
 
 /**
  * Behaviour that allows for specific functions to be called on particles when
  * they interact with a zone.
- *
  */
 export default class CrossZone extends Behaviour {
     /**
@@ -30,7 +29,6 @@ export default class CrossZone extends Behaviour {
 
     /**
      * Creates a CrossZone initializer from JSON.
-     *
      */
     static fromJSON(json: JSONObject): CrossZone;
 }

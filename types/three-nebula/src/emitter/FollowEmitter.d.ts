@@ -1,11 +1,10 @@
-import Emitter from './Emitter';
+import Emitter from "./Emitter";
 
 export default class FollowEmitter extends Emitter {
     /**
      * The FollowEmitter class inherits from System.Emitter
      *
      * use the FollowEmitter will emit particle when mousemoving
-     *
      */
     constructor(mouseTarget?: MouseTarget, ease?: number, pObj?: object);
 

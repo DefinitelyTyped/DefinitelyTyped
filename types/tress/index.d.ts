@@ -8,7 +8,9 @@ declare namespace tress {
     export type TressJobCallback = (this: TressJobData, ...args: any[]) => void;
     export type TressWorkerDoneCallback = (err: boolean | Error | null | undefined, ...args: any[]) => void;
 
-    export interface TressJobData { [name: string]: {}; }
+    export interface TressJobData {
+        [name: string]: {};
+    }
 
     export interface TressJob {
         data: TressJobData;
@@ -173,6 +175,7 @@ declare namespace tress {
  */
 declare function tress(
     worker: (job: tress.TressJobData, done: tress.TressWorkerDoneCallback) => void,
-    concurrency?: number): tress.TressStatic;
+    concurrency?: number,
+): tress.TressStatic;
 
 export = tress;

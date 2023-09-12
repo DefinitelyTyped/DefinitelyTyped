@@ -20,7 +20,7 @@ declare namespace Twitch.ext {
     /**
      * This encodes the environment. For external users, this is always production.
      */
-    const environment: 'production';
+    const environment: "production";
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#helper-actions
@@ -89,14 +89,14 @@ declare namespace Twitch.ext {
          * @param version The version of configuration with which the segment is stored.
          * @param content The string-encoded configuration.
          */
-        function set(segment: 'broadcaster', version: string, content: string): void;
+        function set(segment: "broadcaster", version: string, content: string): void;
     }
 
     /**
      * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-feature-flags
      */
     namespace features {
-        type ChangedKey = 'isBitsEnabled' | 'isChatEnabled' | 'isSubscriptionStatusAvailable';
+        type ChangedKey = "isBitsEnabled" | "isChatEnabled" | "isSubscriptionStatusAvailable";
 
         /**
          * If this flag is true, Bits in Extensions features will work in your extension on the current channel.
@@ -299,7 +299,7 @@ declare namespace Twitch.ext {
         /**
          * Always the string "bits". Reserved for future use.
          */
-        type: 'bits';
+        type: "bits";
     }
 
     interface BitsProduct {
@@ -330,7 +330,7 @@ declare namespace Twitch.ext {
          */
         displayName: string;
 
-        initiator: 'CURRENT_USER' | 'OTHER';
+        initiator: "CURRENT_USER" | "OTHER";
 
         /**
          * Full product object from getProducts call
@@ -507,16 +507,16 @@ declare namespace Twitch.ext {
          */
         hostingInfo?:
             | {
-                  /**
-                   * Numeric ID of the channel being hosted by the currently visible channel
-                   */
-                  hostedChannelId: string;
+                /**
+                 * Numeric ID of the channel being hosted by the currently visible channel
+                 */
+                hostedChannelId: string;
 
-                  /**
-                   * Numeric ID of the host channel
-                   */
-                  hostingChannelId: string;
-              }
+                /**
+                 * Numeric ID of the host channel
+                 */
+                hostingChannelId: string;
+            }
             | undefined;
 
         /**
@@ -549,17 +549,17 @@ declare namespace Twitch.ext {
         /**
          * The mode the extension is currently run in.
          */
-        mode: 'viewer' | 'dashboard' | 'config';
+        mode: "viewer" | "dashboard" | "config";
 
         /**
          * Indicates how the stream is being played.
          */
-        playbackMode: 'video' | 'audio' | 'remote' | 'chat-only';
+        playbackMode: "video" | "audio" | "remote" | "chat-only";
 
         /**
          * The user’s theme setting on the Twitch website.
          */
-        theme: 'light' | 'dark';
+        theme: "light" | "dark";
 
         /**
          * Resolution of the broadcast.
@@ -584,7 +584,7 @@ declare namespace Twitch.ext {
         /**
          * The type of the anchor in which the extension is activated.
          */
-        anchor: 'component' | 'panel' | 'video_overlay';
+        anchor: "component" | "panel" | "video_overlay";
 
         /**
          * The user’s language setting.
@@ -603,29 +603,29 @@ declare namespace Twitch.ext {
         /**
          * The extension’s mode.
          */
-        mode: 'config' | 'dashboard' | 'viewer';
+        mode: "config" | "dashboard" | "viewer";
 
         /**
          * The platform on which the Twitch client is running.
          */
-        platform: 'mobile' | 'web';
+        platform: "mobile" | "web";
 
         /**
          * Indicates whether the extension is popped out.
          */
-        popout: 'true' | 'false';
+        popout: "true" | "false";
 
         /**
          * The release state of the extension.
          */
         state:
-            | 'testing'
-            | 'hosted_test'
-            | 'approved'
-            | 'released'
-            | 'ready_for_review'
-            | 'in_review'
-            | 'pending_action'
-            | 'uploading';
+            | "testing"
+            | "hosted_test"
+            | "approved"
+            | "released"
+            | "ready_for_review"
+            | "in_review"
+            | "pending_action"
+            | "uploading";
     }
 }

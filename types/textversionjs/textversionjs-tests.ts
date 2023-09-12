@@ -1,4 +1,4 @@
-import textVersion = require('textversionjs');
+import textVersion = require("textversionjs");
 
 // $ExpectType string
 textVersion("<h1>Hello World</h1><p>Hello World</p>");

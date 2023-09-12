@@ -22,7 +22,7 @@ export as namespace ttiPolyfill;
  * the polyfill
  * @return a promise that resolves to TTI
  */
-export function getFirstConsistentlyInteractive(opts?: GetFirstConsistentlyInteractiveOpts): Promise<number|null>;
+export function getFirstConsistentlyInteractive(opts?: GetFirstConsistentlyInteractiveOpts): Promise<number | null>;
 
 export interface GetFirstConsistentlyInteractiveOpts {
     /**

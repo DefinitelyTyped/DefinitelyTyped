@@ -174,10 +174,10 @@ export interface ParseTweetOptions {
     transformedURLLength?: number | undefined;
     ranges?:
         | Array<{
-              start: number;
-              end: number;
-              weight: number;
-          }>
+            start: number;
+            end: number;
+            weight: number;
+        }>
         | undefined;
     emojiParsingEnabled?: boolean | undefined;
 }

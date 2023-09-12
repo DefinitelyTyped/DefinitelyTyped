@@ -11,7 +11,7 @@ tap.test("all-assertions", t => {
     const found: any = 1;
     const wanted: any = 1;
     const notWanted: any = 1;
-    const fn: (stuff: any) => void = () => { };
+    const fn: (stuff: any) => void = () => {};
     const expectedError: Error = new Error();
     const eventEmitter: EventEmitter = new EventEmitter();
     const pattern: any = "pattern";
@@ -301,7 +301,7 @@ tap.test("autoend", t => {
 });
 
 tap.test("mocha", t => {
-    tap.mocha.it('should work', () => {});
-    tap.mocha.it.skip('should work', () => {});
-    tap.mocha.it.todo('should work', () => {});
+    tap.mocha.it("should work", () => {});
+    tap.mocha.it.skip("should work", () => {});
+    tap.mocha.it.todo("should work", () => {});
 });

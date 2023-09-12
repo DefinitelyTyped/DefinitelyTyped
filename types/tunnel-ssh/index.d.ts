@@ -3,8 +3,8 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as net from 'net';
-import * as ssh2 from 'ssh2';
+import * as net from "net";
+import * as ssh2 from "ssh2";
 
 export interface TunnelOptions {
     autoClose?: boolean;

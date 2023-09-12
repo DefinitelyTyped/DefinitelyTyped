@@ -60,11 +60,14 @@ export interface GeometryObjectA<P extends Properties = {}> extends TopoJSON {
 }
 
 export type GeometryObject<P extends Properties = {}> =
-    Point<P> | MultiPoint<P> |
-    LineString<P> | MultiLineString<P> |
-    Polygon<P> | MultiPolygon<P> |
-    GeometryCollection<P> |
-    NullObject;
+    | Point<P>
+    | MultiPoint<P>
+    | LineString<P>
+    | MultiLineString<P>
+    | Polygon<P>
+    | MultiPolygon<P>
+    | GeometryCollection<P>
+    | NullObject;
 
 // 2.2.1. Point
 export interface Point<P extends Properties = {}> extends GeometryObjectA<P> {

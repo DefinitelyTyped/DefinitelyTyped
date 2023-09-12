@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import tough = require('tough-cookie');
+import tough = require("tough-cookie");
 
 export class FileCookieStore extends tough.Store {
     idx: {
         [domain: string]: {
             [path: string]: {
-                [key: string]: tough.Cookie
-            }
-        }
+                [key: string]: tough.Cookie;
+            };
+        };
     };
     filePath: string;
     synchronous: boolean;
@@ -23,19 +23,19 @@ export class FileCookieStore extends tough.Store {
         domain: string,
         path: string,
         key: string,
-        cb: (err: null, cookie: tough.Cookie | null) => void
+        cb: (err: null, cookie: tough.Cookie | null) => void,
     ): void;
 
     findCookies(
         domain: string,
         path: string,
-        cb: (err: Error | null, cookie: tough.Cookie[]) => void
+        cb: (err: Error | null, cookie: tough.Cookie[]) => void,
     ): void;
     findCookies(
         domain: string,
         path: string,
         allowSpecialUseDomain: boolean,
-        cb: (err: Error | null, cookie: tough.Cookie[]) => void
+        cb: (err: Error | null, cookie: tough.Cookie[]) => void,
     ): void;
 
     getAllCookies(cb: (err: Error | null, cookies: tough.Cookie[]) => void): void;
@@ -48,18 +48,18 @@ export class FileCookieStore extends tough.Store {
         domain: string,
         path: string,
         key: string,
-        cb: (err: Error | null) => void
+        cb: (err: Error | null) => void,
     ): void;
 
     removeCookies(
         domain: string,
         path: string,
-        cb: (err: Error | null) => void
+        cb: (err: Error | null) => void,
     ): void;
 
     updateCookie(
         oldCookie: tough.Cookie,
         newCookie: tough.Cookie,
-        cb: (err: Error | null) => void
+        cb: (err: Error | null) => void,
     ): void;
 }

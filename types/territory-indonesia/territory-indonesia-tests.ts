@@ -1,4 +1,4 @@
-import * as indonesia from 'territory-indonesia';
+import * as indonesia from "territory-indonesia";
 
 // $ExpectType Promise<District[]>
 indonesia.getAllDistricts();
@@ -7,7 +7,7 @@ indonesia.getAllDistricts();
 indonesia.getAllRegencies();
 
 // $ExpectType Promise<Regency[]>
-indonesia.getRegenciesOfProvinceName('DKI Jakarta');
+indonesia.getRegenciesOfProvinceName("DKI Jakarta");
 
 // @ts-expect-error
 getDistrictsOfRegency(22);

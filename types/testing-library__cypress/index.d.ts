@@ -11,12 +11,12 @@
 // TypeScript Version: 3.8
 
 import {
+    ByRoleOptions as DTLByRoleOptions,
     configure,
     Matcher,
     MatcherOptions as DTLMatcherOptions,
-    ByRoleOptions as DTLByRoleOptions,
     SelectorMatcherOptions as DTLSelectorMatcherOptions,
-} from '@testing-library/dom';
+} from "@testing-library/dom";
 
 export interface CTLMatcherOptions {
     timeout?: number | undefined;

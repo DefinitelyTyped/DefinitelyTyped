@@ -1,15 +1,15 @@
 import {
     adinfo,
     appcommon,
-    avplay,
     avinfo,
+    avplay,
     billing,
     network,
     productinfo,
     sso,
     tvinfo,
-    widgetdata
-} from 'tizen-tv-webapis';
+    widgetdata,
+} from "tizen-tv-webapis";
 
 adinfo.getVersion(); // $ExpectType string
 appcommon.getVersion(); // $ExpectType string

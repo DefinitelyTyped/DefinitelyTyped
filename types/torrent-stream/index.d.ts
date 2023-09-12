@@ -21,7 +21,7 @@ declare namespace TorrentStream {
         on(event: "ready" | "torrent" | "idle", callback: Function): void;
         on(event: "download", callback: (pieceIndex: number) => void): void;
         on(event: "upload", callback: (pieceIndex: number, offset: number, length: number) => void): void;
-        on(event: string,callback: Function): void;
+        on(event: string, callback: Function): void;
     }
     interface TorrentEngineOptions {
         connections?: number | undefined; // Max amount of peers to be connected to.

@@ -108,7 +108,7 @@ export interface FileResult {
     removeCallback: () => void;
 }
 
-export type FileResultNoFd = Omit<FileResult, 'fd'>;
+export type FileResultNoFd = Omit<FileResult, "fd">;
 
 export interface DirResult {
     name: string;

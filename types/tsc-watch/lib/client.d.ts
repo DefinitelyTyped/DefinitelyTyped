@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class TscWatchClient extends EventEmitter {
     start(...args: any[]): void;
@@ -10,15 +10,15 @@ declare class TscWatchClient extends EventEmitter {
     /**
      * Emitted upon first successful compilation
      */
-    on(event: 'first_success', cb: () => any): this;
+    on(event: "first_success", cb: () => any): this;
     /**
      * Emitted upon first successful compilation
      */
-    on(event: 'success', cb: () => any): this;
+    on(event: "success", cb: () => any): this;
     /**
      * Emitted upon every failing compilation
      */
-    on(event: 'compile_errors', cb: () => any): this;
+    on(event: "compile_errors", cb: () => any): this;
     // tslint:enable:unified-signatures
 }
 

@@ -1,8 +1,8 @@
-import Particle from '../core/Particle';
-import { Easing, EasingFunction } from '../ease';
-import { Emitter } from '../emitter';
-import { JSONObject } from '../initializer/Rate';
-import Behaviour from './Behaviour';
+import Particle from "../core/Particle";
+import { Easing, EasingFunction } from "../ease";
+import { Emitter } from "../emitter";
+import { JSONObject } from "../initializer/Rate";
+import Behaviour from "./Behaviour";
 
 /**
  * Behaviour that causes particles to move away from other particles they collide with.
@@ -10,7 +10,6 @@ import Behaviour from './Behaviour';
 export default class Collision extends Behaviour {
     /**
      * Constructs a Collision behaviour instance.
-     *
      */
     constructor(
         emitter: Emitter,
@@ -23,7 +22,6 @@ export default class Collision extends Behaviour {
 
     /**
      * Resets the behaviour properties.
-     *
      */
     reset(life?: number, easing?: EasingFunction): void;
     reset(
@@ -37,13 +35,11 @@ export default class Collision extends Behaviour {
     /**
      * Detects collisions with other particles and calls the
      * onCollide function on colliding particles.
-     *
      */
     mutate(particle: Particle, time: number, index: number): void;
 
     /**
      * Gets the average mass of both particles.
-     *
      */
     _getAverageMass(particleA: Particle, particleB: Particle): number;
 

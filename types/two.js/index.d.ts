@@ -35,34 +35,34 @@ declare class Two {
         x: number,
         y: number,
         width: number,
-        height: number
+        height: number,
     ): Two.Rectangle;
     makeRoundedRectangle(
         x: number,
         y: number,
         width: number,
         height: number,
-        radius: number
+        radius: number,
     ): Two.RoundedRectangle;
     makeCircle(x: number, y: number, radius: number): Two.Circle;
     makeEllipse(
         x: number,
         y: number,
         width: number,
-        height: number
+        height: number,
     ): Two.Ellipse;
     makeStar(
         ox: number,
         oy: number,
         or: number,
         ir: number,
-        sides: number
+        sides: number,
     ): Two.Star;
     makePolygon(
         x: number,
         y: number,
         radius: number,
-        sides: number
+        sides: number,
     ): Two.Polygon;
     makeArcSegment(
         ox: number,
@@ -71,7 +71,7 @@ declare class Two {
         or: number,
         sa: number,
         ea: number,
-        res?: number
+        res?: number,
     ): Two.ArcSegment;
     makeCurve(...coords: Array<number | boolean>): Two.Path;
     makeCurve(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
@@ -84,7 +84,7 @@ declare class Two {
     bind(event: string, callback: (...args: any[]) => void): this;
     unbind(
         event: string | null,
-        callback: ((...args: any[]) => void) | null
+        callback: ((...args: any[]) => void) | null,
     ): this;
 
     static Array: typeof Float32Array | typeof Array;
@@ -107,7 +107,7 @@ declare namespace Two {
     enum Types {
         svg,
         webgl,
-        canvas
+        canvas,
     }
 
     const Properties: any[];
@@ -122,7 +122,7 @@ declare namespace Two {
         remove,
         render,
         resize,
-        update
+        update,
     }
 
     enum Commands {
@@ -130,7 +130,7 @@ declare namespace Two {
         line,
         curve,
         arc,
-        close
+        close,
     }
 
     const Resolution: number;
@@ -150,7 +150,7 @@ declare namespace Two {
             vertices: ReadonlyArray<Vector>,
             closed: boolean,
             curved: boolean,
-            manual?: boolean
+            manual?: boolean,
         );
 
         id: number;
@@ -201,7 +201,7 @@ declare namespace Two {
             y: number,
             width: number,
             height: number,
-            radius?: number
+            radius?: number,
         );
     }
 
@@ -215,7 +215,7 @@ declare namespace Two {
             oy: number,
             or: number,
             ir?: number,
-            sides?: number
+            sides?: number,
         );
     }
 
@@ -235,7 +235,7 @@ declare namespace Two {
             or: number,
             sa: number,
             ea: number,
-            res?: number
+            res?: number,
         );
     }
 
@@ -271,11 +271,12 @@ declare namespace Two {
         static MakeObservable(obj: any): any;
     }
 
-    interface BoundingClientRect
-        extends Record<
+    interface BoundingClientRect extends
+        Record<
             "top" | "left" | "right" | "bottom" | "width" | "height",
             number
-        > {}
+        >
+    {}
 
     type Object = Path | Group | Text;
 
@@ -317,7 +318,7 @@ declare namespace Two {
             ly: number,
             rx: number,
             ry: number,
-            command: Commands | string
+            command: Commands | string,
         );
 
         command: Commands | string;
@@ -347,7 +348,7 @@ declare namespace Two {
             y1: number,
             x2: number,
             y2: number,
-            stops: ReadonlyArray<Stop>
+            stops: ReadonlyArray<Stop>,
         );
 
         left: Vector;
@@ -365,7 +366,7 @@ declare namespace Two {
             radius: number,
             stops: ReadonlyArray<Stop>,
             fx?: number,
-            fy?: number
+            fy?: number,
         );
 
         center: Vector;

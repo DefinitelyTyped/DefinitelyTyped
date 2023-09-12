@@ -1,16 +1,14 @@
-import Particle from '../core/Particle';
-import { EasingFunction } from '../ease';
-import { JSONObject } from '../initializer/Rate';
-import Behaviour from './Behaviour';
+import Particle from "../core/Particle";
+import { EasingFunction } from "../ease";
+import { JSONObject } from "../initializer/Rate";
+import Behaviour from "./Behaviour";
 
 /**
  * Behaviour that causes particles to drift to random coordinates in 3D space.
- *
  */
 export default class RandomDrift extends Behaviour {
     /**
      * Constructs a RandomDrift behaviour instance.
-     *
      */
     constructor(
         driftX?: number,
@@ -27,7 +25,6 @@ export default class RandomDrift extends Behaviour {
     time: number;
     /**
      * Resets the behaviour properties.
-     *
      */
     reset(
         life?: number,
@@ -40,7 +37,6 @@ export default class RandomDrift extends Behaviour {
 
     /**
      * Mutates the particle.acceleration property.
-     *
      */
     mutate(particle: Particle, time: number, index: number): void;
 

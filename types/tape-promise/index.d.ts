@@ -3,9 +3,9 @@
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import tape = require('tape');
-import { TestOptions, StreamOptions } from 'tape';
-export { TestOptions, StreamOptions };
+import tape = require("tape");
+import { StreamOptions, TestOptions } from "tape";
+export { StreamOptions, TestOptions };
 
 export interface TestCase {
     (test: Test): void | PromiseLike<void>;

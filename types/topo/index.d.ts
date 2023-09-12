@@ -33,7 +33,7 @@ declare class Topo<TNode = any, TGroup = string> {
             before?: TGroup | TGroup[] | undefined;
             after?: TGroup | TGroup[] | undefined;
             sort?: number | undefined;
-        }
+        },
     ): TNode[];
 
     /**

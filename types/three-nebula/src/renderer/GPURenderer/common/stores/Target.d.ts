@@ -1,7 +1,6 @@
-import { Three } from '../../../../core/three';
+import { Three } from "../../../../core/three";
 /**
  * Simple class that stores the particle's "target" or "next" state.
- *
  */
 export class Target {
     constructor(THREE: Three);

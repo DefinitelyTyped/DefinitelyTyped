@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 declare function through(
     write?: (data: any) => void,

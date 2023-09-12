@@ -3,7 +3,7 @@
 // Definitions by: Moritz Mahringer <https://github.com/mormahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Font } from 'opentype.js';
+import { Font } from "opentype.js";
 
 export = TextToSVG;
 
@@ -96,25 +96,25 @@ declare namespace TextToSVG {
      * If vertical component is omitted, it defaults to baseline.
      */
     type Anchor =
-        | 'left baseline'
-        | 'left top'
-        | 'left bottom'
-        | 'left middle'
-        | 'center baseline'
-        | 'center top'
-        | 'center bottom'
-        | 'center middle'
-        | 'right baseline'
-        | 'right top'
-        | 'right bottom'
-        | 'right middle'
-        | 'baseline'
-        | 'top'
-        | 'bottom'
-        | 'middle'
-        | 'left'
-        | 'center'
-        | 'right';
+        | "left baseline"
+        | "left top"
+        | "left bottom"
+        | "left middle"
+        | "center baseline"
+        | "center top"
+        | "center bottom"
+        | "center middle"
+        | "right baseline"
+        | "right top"
+        | "right bottom"
+        | "right middle"
+        | "baseline"
+        | "top"
+        | "bottom"
+        | "middle"
+        | "left"
+        | "center"
+        | "right";
 
     interface Metrics {
         x: number;

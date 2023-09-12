@@ -17,7 +17,7 @@ declare namespace throng {
         master?: MasterCallback | undefined;
         count?: number | undefined;
         workers?: WorkerCount | undefined;
-    } & ({start: WorkerCallback} | {worker: WorkerCallback});
+    } & ({ start: WorkerCallback } | { worker: WorkerCallback });
 }
 
 export = throng;

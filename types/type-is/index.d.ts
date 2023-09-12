@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 export = typeIs;
 

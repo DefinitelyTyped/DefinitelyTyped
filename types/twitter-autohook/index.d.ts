@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import EventEmitter = require("events");
 
 export class Autohook extends EventEmitter {
     constructor(configuration?: {

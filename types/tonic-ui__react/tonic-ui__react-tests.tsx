@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
     DarkMode,
     DrawerContent,
@@ -8,35 +7,36 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    TonicProvider,
     theme,
+    TonicProvider,
     useColorMode,
     useColorStyle,
     usePortalManager,
-} from '@tonic-ui/react';
+} from "@tonic-ui/react";
+import * as React from "react";
 
-const customTheme = { ...theme, box: { color: 'grey' } };
+const customTheme = { ...theme, box: { color: "grey" } };
 
 const Container = (): JSX.Element => {
     const [colorMode, setColorMode] = useColorMode();
-    setColorMode('light');
+    setColorMode("light");
     useColorStyle({ colorMode });
     const portal = usePortalManager();
-    portal.remove('fds');
+    portal.remove("fds");
     portal(close => <div onClick={close} />, { appendToParentPortal: true });
 
     return (
-        <TonicProvider colorMode={{ defaultValue: 'light', value: 'dark' }} theme={customTheme} useCSSBaseline={true}>
+        <TonicProvider colorMode={{ defaultValue: "light", value: "dark" }} theme={customTheme} useCSSBaseline={true}>
             <DarkMode>
                 <Modal autoFocus={true} size="md">
                     <ModalContent>
                         <ModalHeader
                             // Generic prop
                             css={{
-                                ':not(:first-of-type)': {
-                                    ':before': {
-                                        content: '',
-                                        paddingRight: '1x',
+                                ":not(:first-of-type)": {
+                                    ":before": {
+                                        content: "",
+                                        paddingRight: "1x",
                                     },
                                 },
                             }}
@@ -44,7 +44,7 @@ const Container = (): JSX.Element => {
                             display="flex"
                             flex={1}
                             paddingX={4}
-                            style={{ padding: 4, background: 'red' }}
+                            style={{ padding: 4, background: "red" }}
                             px={0}
                             py={0}
                             p={0}
@@ -61,7 +61,7 @@ const Container = (): JSX.Element => {
                             mr={0}
                         />
                         {/* Responsive properties */}
-                        <ModalBody paddingY={{ sm: 4, md: 4 }} padding={{ sm: 1, lg: '4rem' }} />
+                        <ModalBody paddingY={{ sm: 4, md: 4 }} padding={{ sm: 1, lg: "4rem" }} />
                         <ModalFooter />
                     </ModalContent>
                 </Modal>
@@ -75,4 +75,4 @@ const Container = (): JSX.Element => {
 
 const [_, setColorMode] = useColorMode();
 // @ts-expect-error
-setColorMode('blue');
+setColorMode("blue");

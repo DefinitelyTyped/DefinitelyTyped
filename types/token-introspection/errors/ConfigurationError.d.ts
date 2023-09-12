@@ -1,4 +1,4 @@
-import IntrospectionError = require('./IntrospectionError');
+import IntrospectionError = require("./IntrospectionError");
 
 declare class ConfigurationError extends IntrospectionError {
 }

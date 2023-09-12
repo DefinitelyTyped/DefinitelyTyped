@@ -1,4 +1,4 @@
-import { TrustedTypeConfig, trustedTypes as importedTrustedTypes, TrustedTypesEnforcer } from 'trusted-types';
+import { TrustedTypeConfig, trustedTypes as importedTrustedTypes, TrustedTypesEnforcer } from "trusted-types";
 
 // $ExpectType InternalTrustedTypePolicyFactory
 importedTrustedTypes;
@@ -9,18 +9,18 @@ const rules = {
     createScriptURL: (s: string) => s,
 };
 
-const policy = importedTrustedTypes.createPolicy('test', rules);
+const policy = importedTrustedTypes.createPolicy("test", rules);
 
 // $ExpectType string
 policy.name;
 // $ExpectType TrustedHTML
-policy.createHTML('');
+policy.createHTML("");
 // $ExpectType TrustedScript
-policy.createScript('');
+policy.createScript("");
 // $ExpectType TrustedScriptURL
-policy.createScriptURL('');
+policy.createScriptURL("");
 
-const htmlOnlyPolicy = importedTrustedTypes.createPolicy('htmlOnly', {
+const htmlOnlyPolicy = importedTrustedTypes.createPolicy("htmlOnly", {
     createHTML: (html: string) => {
         return html;
     },
@@ -29,9 +29,9 @@ const htmlOnlyPolicy = importedTrustedTypes.createPolicy('htmlOnly', {
 // $ExpectType string
 htmlOnlyPolicy.name;
 // $ExpectType TrustedHTML
-const html = htmlOnlyPolicy.createHTML('');
+const html = htmlOnlyPolicy.createHTML("");
 // @ts-expect-error
-htmlOnlyPolicy.createScript('');
+htmlOnlyPolicy.createScript("");
 
 // $ExpectType boolean
 importedTrustedTypes.isHTML(html);
@@ -40,55 +40,55 @@ importedTrustedTypes.isScript(html);
 // $ExpectType boolean
 importedTrustedTypes.isScriptURL(html);
 
-const policyWithArgs = importedTrustedTypes.createPolicy('withArgs', {
+const policyWithArgs = importedTrustedTypes.createPolicy("withArgs", {
     createHTML: (val: string, option1: number, option2: boolean) => val,
     createScriptURL: (val: string) => val,
 });
 
 // $ExpectType TrustedHTML
-policyWithArgs.createHTML('', 1, true);
+policyWithArgs.createHTML("", 1, true);
 // $ExpectType TrustedScriptURL
-policyWithArgs.createScriptURL('');
+policyWithArgs.createScriptURL("");
 // @ts-expect-error
-policyWithArgs.createHTML('', '', true);
+policyWithArgs.createHTML("", "", true);
 // @ts-expect-error
-policyWithArgs.createHTML('');
+policyWithArgs.createHTML("");
 // @ts-expect-error
-policyWithArgs.createScript('');
+policyWithArgs.createScript("");
 // @ts-expect-error
-policyWithArgs.createScriptURL('', 1, true);
+policyWithArgs.createScriptURL("", 1, true);
 
 const genericPolicy = importedTrustedTypes.defaultPolicy!;
 
 // $ExpectType TrustedHTML
-genericPolicy.createHTML('', true, {});
+genericPolicy.createHTML("", true, {});
 // $ExpectType TrustedScript
-genericPolicy.createScript('', true, {});
+genericPolicy.createScript("", true, {});
 // $ExpectType TrustedScriptURL
-genericPolicy.createScriptURL('', true, {});
+genericPolicy.createScriptURL("", true, {});
 
 const genericOptions: TrustedTypePolicyOptions = {};
-const genericPolicy2 = importedTrustedTypes.createPolicy('generic', genericOptions);
+const genericPolicy2 = importedTrustedTypes.createPolicy("generic", genericOptions);
 
 // $ExpectType TrustedHTML
-genericPolicy2.createHTML('', true, {});
+genericPolicy2.createHTML("", true, {});
 // $ExpectType TrustedScript
-genericPolicy2.createScript('', true, {});
+genericPolicy2.createScript("", true, {});
 // $ExpectType TrustedScriptURL
-genericPolicy2.createScriptURL('', true, {});
+genericPolicy2.createScriptURL("", true, {});
 
-const castedAsGenericPolicy: TrustedTypePolicy = importedTrustedTypes.createPolicy('castedAsGeneric', {
+const castedAsGenericPolicy: TrustedTypePolicy = importedTrustedTypes.createPolicy("castedAsGeneric", {
     createHTML: (val: string, option1: number, option2: boolean) => val,
     createScriptURL: (val: string) => val,
     createScript: (val: string) => val,
 });
 
 // $ExpectType TrustedHTML
-castedAsGenericPolicy.createHTML('', true, {});
+castedAsGenericPolicy.createHTML("", true, {});
 // $ExpectType TrustedScript
-castedAsGenericPolicy.createScript('', true, {});
+castedAsGenericPolicy.createScript("", true, {});
 // $ExpectType TrustedScriptURL
-castedAsGenericPolicy.createScriptURL('', true, {});
+castedAsGenericPolicy.createScriptURL("", true, {});
 
 // Ensure the types are globally available
 let trustedHTML: TrustedHTML = null as any;
@@ -107,10 +107,10 @@ importedTrustedTypes.TrustedScript;
 // $ExpectType typeof TrustedScriptURL
 importedTrustedTypes.TrustedScriptURL;
 
-const config = new TrustedTypeConfig(false, false, ['foo'], false);
+const config = new TrustedTypeConfig(false, false, ["foo"], false);
 // $ExpectType TrustedTypesEnforcer
 new TrustedTypesEnforcer(config);
 
-const config2 = new TrustedTypeConfig(false, false, ['foo'], false, null, window);
+const config2 = new TrustedTypeConfig(false, false, ["foo"], false, null, window);
 // $ExpectType TrustedTypesEnforcer
 new TrustedTypesEnforcer(config);

@@ -1,4 +1,4 @@
-import tapePromise = require('./index');
+import tapePromise = require("./index");
 
 declare const tape: ReturnType<typeof tapePromise.default>;
 declare namespace tape {

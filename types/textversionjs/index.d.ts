@@ -17,8 +17,8 @@ declare namespace textversionjs {
     interface styleConfig {
         linkProcess?: linkProcess | undefined;
         imgProcess?: imgProcess | undefined;
-        headingStyle?: 'underline' | 'linebreak' |  'hashify' | undefined;
-        listStyle?: 'indentation' | 'linebreak' | undefined;
+        headingStyle?: "underline" | "linebreak" | "hashify" | undefined;
+        listStyle?: "indentation" | "linebreak" | undefined;
         uIndentionChar?: string | undefined;
         oIndentionChar?: string | undefined;
         listIndentionTabs?: number | undefined;

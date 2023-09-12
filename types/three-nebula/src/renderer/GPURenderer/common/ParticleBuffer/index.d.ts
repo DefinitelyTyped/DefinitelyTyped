@@ -1,5 +1,5 @@
-import { Three } from '../../../../core/three';
-import { DEFAULT_MAX_PARTICLES } from './constants';
+import { Three } from "../../../../core/three";
+import { DEFAULT_MAX_PARTICLES } from "./constants";
 /**
  * Creates and provides performant buffers for mapping particle properties to geometry vertices.
  *
@@ -20,13 +20,11 @@ export default class ParticleBuffer {
      *
      * NOTE Each attribute needs to be set at the right index in the buffer right after the previous
      * attribute that occupies a set amount of size in the buffer.
-     *
      */
     createBufferGeometry(): ParticleBuffer;
 
     /**
      * Gets the publicly accessible interleaved buffer.
-     *
      */
     get buffer(): THREE.InterleavedBuffer;
 

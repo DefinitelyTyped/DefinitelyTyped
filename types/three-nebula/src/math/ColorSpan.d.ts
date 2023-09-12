@@ -1,13 +1,11 @@
-import Span from './Span';
+import Span from "./Span";
 
 /**
  * Class for storing and interacting with an array of colours.
- *
  */
 export default class ColorSpan extends Span {
     /**
      * Constructs a ColorSpan instance.
-     *
      */
     constructor(colors?: string | string[]);
     /**
@@ -25,7 +23,6 @@ export default class ColorSpan extends Span {
     /**
      * Gets a color from the color array
      * or a random color if this.shouldRandomize is true.
-     *
      */
     getValue(INT?: number): number;
     getValue(): string;
@@ -33,6 +30,5 @@ export default class ColorSpan extends Span {
 
 /**
  * Attempts to create an ArraySpan from the colors provided.
- *
  */
 export function createColorSpan(colors: string | string[]): ColorSpan;

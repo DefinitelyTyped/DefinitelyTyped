@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function search(query?: string, options?: SearchOptions): Promise<TorrentSearchResult[]>;
-export function getTorrent(id: string | number | { link: string; [propName: string]: any; }): Promise<TorrentDetails>;
+export function getTorrent(id: string | number | { link: string; [propName: string]: any }): Promise<TorrentDetails>;
 export function getComments(id: string | number): Promise<Comment[]>;
 export function topTorrents(category?: number): Promise<TorrentSearchResult[]>;
 export function recentTorrents(): Promise<TorrentSearchResult[]>;

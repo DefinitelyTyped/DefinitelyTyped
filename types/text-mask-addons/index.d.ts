@@ -4,7 +4,7 @@
 //                 Aerophite <https://github.com/Aerophite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Mask, Pipe } from 'text-mask-core';
+import { Mask, Pipe } from "text-mask-core";
 
 export interface DatePipeYears {
     minYear: number;

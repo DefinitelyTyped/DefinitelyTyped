@@ -1,4 +1,4 @@
-import type { TransitionPreset } from '../types';
+import type { TransitionPreset } from "../types";
 /**
  * Standard iOS navigation transition.
  */

@@ -1,4 +1,4 @@
-import type { NavigationState } from '../routers';
+import type { NavigationState } from "../routers";
 // tslint:disable-next-line strict-export-declare-modifiers
 declare type Selector<T> = (state: NavigationState) => T;
 /**

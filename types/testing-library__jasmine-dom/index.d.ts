@@ -391,7 +391,6 @@ declare namespace jasmine {
          *   Invalid time: the time must be between 9:00 AM and 5:00 PM"
          * </span>
          *
-         *
          * const timeInput = getByLabel('startTime')
          *
          * expect(timeInput).toHaveErrorMessage(

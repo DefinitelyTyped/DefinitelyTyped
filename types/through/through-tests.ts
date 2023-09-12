@@ -1,4 +1,4 @@
-import through = require('through');
+import through = require("through");
 
 var i = 0;
 through(

@@ -63,26 +63,26 @@ export function isProviderActive(name: string): boolean;
 export function search(
     query: string,
     category: string,
-    limit: number
+    limit: number,
 ): Promise<Torrent[]>;
 
 export function search(
     providers: string[],
     query: string,
     category: string,
-    limit: number
+    limit: number,
 ): Promise<Torrent[]>;
 
 export function getTorrentDetails(torrent: Torrent): Promise<string>;
 
 export function downloadTorrent(
     torrent: Torrent,
-    filenamePath?: string
+    filenamePath?: string,
 ): Promise<string>;
 
 export function overrideConfig(
     providerName: string,
-    newConfig: TorrentProvider
+    newConfig: TorrentProvider,
 ): Promise<string>;
 
 export function getMagnet(torrent: Torrent): Promise<string>;

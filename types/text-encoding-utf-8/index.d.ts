@@ -35,12 +35,12 @@ export namespace TextEncoding {
 
     interface TextEncoderStatic {
         (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
-        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        new(utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
     }
 
     interface TextDecoderStatic {
         (label?: string, options?: TextDecoderOptions): TextDecoder;
-        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new(label?: string, options?: TextDecoderOptions): TextDecoder;
     }
 
     interface TextEncodingStatic {

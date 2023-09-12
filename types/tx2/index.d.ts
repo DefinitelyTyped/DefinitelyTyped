@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import EventEmitter = require('node:events');
+import EventEmitter = require("node:events");
 
 interface ErrorObject {
     name: string;

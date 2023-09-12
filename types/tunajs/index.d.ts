@@ -91,7 +91,7 @@ declare abstract class Super implements Tuna.TunaAudioNode {
 }
 
 declare class Bitcrusher extends Super {
-    readonly name: 'Bitcrusher';
+    readonly name: "Bitcrusher";
     constructor(properties?: Partial<BitcrusherProperties>);
     getDefaults(): BitcrusherProperties;
     automate(property: keyof BitcrusherProperties, value: number, duration?: number, startTime?: number): void;
@@ -120,7 +120,7 @@ interface BitcrusherProperties {
 }
 
 declare class Cabinet extends Super {
-    readonly name: 'Cabinet';
+    readonly name: "Cabinet";
     constructor(
         properties?: Partial<
             CabinetProperties & {
@@ -160,7 +160,7 @@ interface CabinetProperties {
 }
 
 declare class Chorus extends Super {
-    readonly name: 'Chorus';
+    readonly name: "Chorus";
     constructor(properties?: Partial<ChorusProperties>);
     getDefaults(): ChorusProperties;
     automate(property: keyof ChorusProperties, value: number, duration?: number, startTime?: number): void;
@@ -176,8 +176,8 @@ declare class Chorus extends Super {
     readonly merger: ChannelMergerNode;
     readonly output: GainNode;
 
-    readonly lfoL: LFO<(typeof this)['delayL']['delayTime']>;
-    readonly lfoR: LFO<(typeof this)['delayR']['delayTime']>;
+    readonly lfoL: LFO<(typeof this)["delayL"]["delayTime"]>;
+    readonly lfoR: LFO<(typeof this)["delayR"]["delayTime"]>;
 
     delay: number;
     depth: number;
@@ -199,7 +199,7 @@ interface ChorusProperties {
 }
 
 declare class Compressor extends Super {
-    name: 'Compressor';
+    name: "Compressor";
     constructor(properties?: Partial<CompressorProperties>);
     getDefaults(): CompressorProperties;
     automate(property: keyof CompressorProperties, value: number, duration?: number, startTime?: number): void;
@@ -259,7 +259,7 @@ interface CompressorProperties {
 }
 
 declare class Convolver extends Super {
-    readonly name: 'Convolver';
+    readonly name: "Convolver";
     constructor(
         properties?: Partial<
             ConvolverProperties & {
@@ -336,7 +336,7 @@ interface ConvolverProperties {
 }
 
 declare class Delay extends Super {
-    readonly name: 'Delay';
+    readonly name: "Delay";
     constructor(properties?: Partial<DelayProperties>);
     getDefaults(): DelayProperties;
     automate(property: keyof DelayProperties, value: number, duration?: number, startTime?: number): void;
@@ -397,7 +397,7 @@ interface DelayProperties {
 }
 
 declare class EnvelopeFollower<T extends object = object> extends Super {
-    readonly name: 'EnvelopeFollower';
+    readonly name: "EnvelopeFollower";
     constructor(
         properties?: Partial<
             EnvelopeFollowerProperties & {
@@ -452,7 +452,7 @@ interface EnvelopeFollowerProperties {
 type EnvelopeFollowerCallback<T> = (target: T, envelope: number) => void;
 
 declare class Filter extends Super {
-    readonly name: 'Filter';
+    readonly name: "Filter";
     constructor(properties?: Partial<FilterProperties>);
     getDefaults(): FilterProperties;
     automate(property: keyof FilterProperties, value: number, duration?: number, startTime?: number): void;
@@ -463,7 +463,7 @@ declare class Filter extends Super {
     readonly output: GainNode;
 
     /** Getter/setter for {@linkcode filter this.filter.type} */
-    filterType: BiquadFilterNode['type'];
+    filterType: BiquadFilterNode["type"];
     /** Getter/setter for {@linkcode filter this.filter.Q} */
     Q: number;
     /**
@@ -490,11 +490,11 @@ interface FilterProperties {
     /** default: false */
     bypass: boolean;
     /** Default: `"lowpass"` */
-    filterType: BiquadFilterNode['type'];
+    filterType: BiquadFilterNode["type"];
 }
 
 declare class Gain extends Super {
-    readonly name: 'Gain';
+    readonly name: "Gain";
     constructor(properties?: Partial<GainProperties>);
     getDefaults(): GainProperties;
     automate(property: keyof GainProperties, value: number, duration?: number, startTime?: number): void;
@@ -520,7 +520,7 @@ interface GainProperties {
 }
 
 declare class LFO<T extends object = object> extends Super {
-    readonly name: 'LFO';
+    readonly name: "LFO";
     constructor(
         properties?: Partial<
             LFOProperties & {
@@ -542,7 +542,7 @@ declare class LFO<T extends object = object> extends Super {
 
     readonly input: GainNode;
     readonly output: ScriptProcessorNode;
-    readonly activateNode: AudioContext['destination'];
+    readonly activateNode: AudioContext["destination"];
 
     /** Value: 256 */
     readonly bufferSize: number;
@@ -577,7 +577,7 @@ interface LFOProperties {
 type LFOCallback<T> = (target: T, value: number) => void;
 
 declare class MoogFilter extends Super {
-    readonly name: 'MoogFilter';
+    readonly name: "MoogFilter";
     constructor(properties?: Partial<MoogFilterProperties>);
     getDefaults(): MoogFilterProperties;
     automate(property: keyof MoogFilterProperties, value: number, duration?: number, startTime?: number): void;
@@ -606,7 +606,7 @@ interface MoogFilterProperties {
 }
 
 declare class Overdrive extends Super {
-    readonly name: 'Overdrive';
+    readonly name: "Overdrive";
     constructor(properties?: Partial<OverdriveProperties>);
     getDefaults(): OverdriveProperties;
     automate(property: keyof OverdriveProperties, value: number, duration?: number, startTime?: number): void;
@@ -653,7 +653,7 @@ type OverdriveAlgorithmIndex = 0 | 1 | 2 | 3 | 4 | 5;
 type OverdriveWaveshaperCallback = (amount: number, n_samples: number, ws_table: Float32Array) => void;
 
 declare class Panner extends Super {
-    readonly name: 'Panner';
+    readonly name: "Panner";
     constructor(properties?: Partial<PannerProperties>);
     getDefaults(): PannerProperties;
     automate(property: keyof PannerProperties, value: number, duration?: number, startTime?: number): void;
@@ -675,7 +675,7 @@ interface PannerProperties {
 }
 
 declare class Phaser extends Super {
-    readonly name: 'Phaser';
+    readonly name: "Phaser";
     constructor(properties?: Partial<PhaserProperties>);
     getDefaults(): PhaserProperties;
     automate(property: keyof PhaserProperties, value: number, duration?: number, startTime?: number): void;
@@ -720,7 +720,7 @@ interface PhaserProperties {
 }
 
 declare class PingPongDelay extends Super {
-    readonly name: 'PingPongDelay';
+    readonly name: "PingPongDelay";
     constructor(properties?: Partial<PingPongDelayProperties>);
     getDefaults(): PingPongDelayProperties;
     automate(property: keyof PingPongDelayProperties, value: number, duration?: number, startTime?: number): void;
@@ -766,7 +766,7 @@ interface PingPongDelayProperties {
 }
 
 declare class Tremolo extends Super {
-    readonly name: 'Tremolo';
+    readonly name: "Tremolo";
     constructor(properties?: Partial<TremoloProperties>);
     getDefaults(): TremoloProperties;
     automate(property: keyof TremoloProperties, value: number, duration?: number, startTime?: number): void;
@@ -797,7 +797,7 @@ interface TremoloProperties {
 }
 
 declare class WahWah extends Super {
-    readonly name: 'WahWah';
+    readonly name: "WahWah";
     constructor(properties?: Partial<WahWahProperties>);
     getDefaults(): WahWahProperties;
     automate(property: keyof WahWahProperties, value: number, duration?: number, startTime?: number): void;

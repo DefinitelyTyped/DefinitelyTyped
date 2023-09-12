@@ -68,7 +68,6 @@ export interface ArchiveFileEntryOptions {
      * The virtual root is always removed.
      * To omit all the remaining directory names, set _stripSourceDirectory_ to true.
      *
-     *
      * \* Target file name when _destination_ is "mypackage"
      *
      * | Source file name |stripSourceDirectory: true|stripSourceDirectory: false|
@@ -88,10 +87,8 @@ export interface ArchiveFileOptions {
     /**
      * Indicates whether opening an archive file for writing can overwrite the contents of the existing file.
      *
-     *
      * *   true - The archive file is overwritten if an archive file with a same name exists in the same location. The previous contents are lost.
      * *   false - The archive file is not overwritten if an archive file with a same name exists in the same location.
-     *
      *
      * The default value is false
      *
@@ -161,14 +158,12 @@ export interface ExifInit {
  * An attribute of the file entry matches the _FileFilter_ attribute value in accordance with the
  * following rules:
  *
- *
  * *   For _FileFilter_ attributes of type DOMString, an entry matches this value only if its corresponding attribute is an exact match. If the filter contains U+0025 "PERCENT SIGN" it is interpreted as a wildcard character and "%" matches any string of any length, including no length. If wildcards are used, the behavior is similar to the LIKE condition in SQL. To specify that a "PERCENT SIGN" character is to be considered literally instead of interpreting it as a wildcard, developers can escape it with the backslash character (\\\\). Please, remember that the backslash character has to be escaped itself, to not to be removed from the string - proper escaping of the "PERCENT SIGN" in JavaScript string requires preceding it with double backslash ("\\\\\\\\%").
  * The matching is not case sensitive, such as "FOO" matches a "foo" or an "f%" filter.
  * *   For File entry attributes of type Date, attributes start and end are included to allow filtering of File entries between two supplied dates. If either or both of these attributes are specified, the following rules apply:
  * A) If both start and end dates are specified (that is, other than null), a File entry matches the filter if its corresponding attribute is the same as either start or end or between the two supplied dates (that is, after start and before end).
  * B) If only the start attribute contains a value (other than null), a File entry matches the filter if its corresponding attribute is later than or equal to the start one.
  * C) If only the end date contains a value (other than null), a file matches the filter if its corresponding attribute is earlier than or equal to the end date.
- *
  */
 export interface FileFilter {
     /**
@@ -423,7 +418,6 @@ export interface AccountChangeCallback {
  * *   _onsuccess()_ - Invoked if the callee application calls _RequestedApplicationControl.replyResult()_.
  * *   _onfailure()_ - Invoked if the callee application calls _RequestedApplicationControl.replyFailure()_.
  *
- *
  * @since 2.0
  */
 export interface ApplicationControlDataArrayReplyCallback {
@@ -562,14 +556,20 @@ export interface MediaControllerAbilityChangeCallback {
      * @param server Server which triggered the event.
      * @param abilities Object with current state of display mode abilities on the media controller server.
      */
-    ondisplaymodeabilitychanged(server: MediaControllerServerInfo, abilities: MediaControllerDisplayModeAbilitiesInfo): void;
+    ondisplaymodeabilitychanged(
+        server: MediaControllerServerInfo,
+        abilities: MediaControllerDisplayModeAbilitiesInfo,
+    ): void;
     /**
      * Event triggered when server's display rotation is updated.
      *
      * @param server Server which triggered the event.
      * @param abilities Object with current state of display mode abilities on the media controller server.
      */
-    ondisplayrotationabilitychanged(server: MediaControllerServerInfo, abilities: MediaControllerDisplayRotationAbilitiesInfo): void;
+    ondisplayrotationabilitychanged(
+        server: MediaControllerServerInfo,
+        abilities: MediaControllerDisplayRotationAbilitiesInfo,
+    ): void;
     /**
      * Event triggered when server's playback ability is updated.
      *
@@ -584,7 +584,11 @@ export interface MediaControllerAbilityChangeCallback {
      * @param type Type of simple ability.
      * @param support Ability value which was set on the media controller server.
      */
-    onsimpleabilitychanged(server: MediaControllerServerInfo, type: MediaControllerSimpleAbility, support: MediaControllerAbilitySupport): void;
+    onsimpleabilitychanged(
+        server: MediaControllerServerInfo,
+        type: MediaControllerSimpleAbility,
+        support: MediaControllerAbilitySupport,
+    ): void;
 }
 /**
  * The MediaControllerChangeRequestPlaybackInfoCallback interface that defines the listeners
@@ -602,7 +606,13 @@ export interface MediaControllerChangeRequestPlaybackInfoCallback {
      * @param position Playback position.
      * @param clientName Id of client application, which sent a command.
      */
-    onplaybackitemrequest(playlistName: string, index: string, state: MediaControllerPlaybackState, position: number, clientName: ApplicationId): void;
+    onplaybackitemrequest(
+        playlistName: string,
+        index: string,
+        state: MediaControllerPlaybackState,
+        position: number,
+        clientName: ApplicationId,
+    ): void;
     /**
      * Called when client requested playback position changes.
      *
@@ -859,7 +869,10 @@ export class Account {
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
     getExtendedData(key: string): string;
-    getExtendedData(successCallback: AccountExtendedDataArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getExtendedData(
+        successCallback: AccountExtendedDataArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Adds the specified key and value to the extended data.
      *
@@ -962,7 +975,11 @@ export interface AccountManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    getAccounts(successCallback: AccountArraySuccessCallback, errorCallback?: ErrorCallback | null, applicationId?: string | null): void;
+    getAccounts(
+        successCallback: AccountArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        applicationId?: string | null,
+    ): void;
     /**
      * Gets the account provider with the given application identifier.
      *
@@ -995,7 +1012,11 @@ export interface AccountManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    getProviders(successCallback: AccountProviderArraySuccessCallback, errorCallback?: ErrorCallback | null, capability?: string | null): void;
+    getProviders(
+        successCallback: AccountProviderArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        capability?: string | null,
+    ): void;
     /**
      * Removes an account from the account database.
      *
@@ -1055,10 +1076,8 @@ export interface AccountProvider {
      *
      * The following predefined capabilities can be used.
      *
-     *
      * *   http://tizen.org/account/capability/contact - Used when the account is related to contacts
      * *   http://tizen.org/account/capability/calendar - Used when the account is related to calendar
-     *
      */
     readonly capabilities: ReadonlyArray<string>;
     /**
@@ -1439,7 +1458,14 @@ export interface ApplicationContext {
  * @since 2.0
  */
 export class ApplicationControl {
-    constructor(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null);
+    constructor(
+        operation: string,
+        uri?: string | null,
+        mime?: string | null,
+        category?: string | null,
+        data?: ApplicationControlData[] | null,
+        launchMode?: ApplicationControlLaunchMode | null,
+    );
     /**
      * An attribute to store the category of the application to be launched.
      */
@@ -1470,7 +1496,14 @@ export class ApplicationControl {
 }
 export interface ApplicationControlConstructor {
     prototype: ApplicationControl;
-    new(operation: string, uri?: string | null, mime?: string | null, category?: string | null, data?: ApplicationControlData[] | null, launchMode?: ApplicationControlLaunchMode | null): ApplicationControl;
+    new(
+        operation: string,
+        uri?: string | null,
+        mime?: string | null,
+        category?: string | null,
+        data?: ApplicationControlData[] | null,
+        launchMode?: ApplicationControlLaunchMode | null,
+    ): ApplicationControl;
 }
 /**
  * This interface defines a key/value pair used to pass data
@@ -1609,21 +1642,23 @@ export interface ApplicationManager {
      * *   NotFoundError - If the application is not found with the given Appcontrol.
      * *   UnknownError - If any other error occurs.
      *
-     *
      * @param appControl A data structure describing application control details.
      * @param successCallback The method to call that returns a list of application information.
      * @param errorCallback The method to call when an error occurs.
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
-    findAppControl(appControl: ApplicationControl, successCallback: FindAppControlSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findAppControl(
+        appControl: ApplicationControl,
+        successCallback: FindAppControlSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets application certificates for a specified application ID.
      *
      * If the ID is set to null or not set at all, it returns application certificates for the current application.
      *
      * The certificate types are listed below:
-     *
      *
      * *   AUTHOR\_ROOT - Author Root Certificate
      * *   AUTHOR\_INTERMEDIATE - Author Intermediate Certificate
@@ -1634,7 +1669,6 @@ export interface ApplicationManager {
      * *   DISTRIBUTOR2\_ROOT - Distributor2 Root Certificate
      * *   DISTRIBUTOR2\_INTERMEDIATE - Distributor2 Intermediate Certificate
      * *   DISTRIBUTOR2\_SIGNER - Distributor2 Signer Certificate
-     *
      *
      * @privilegeLevel partner
      * @privilegeName http://tizen.org/privilege/appmanager.certificate
@@ -1726,7 +1760,6 @@ export interface ApplicationManager {
      *
      * *   UnknownError - If an unknown error occurs.
      *
-     *
      * @param successCallback The method to call when the invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
@@ -1741,13 +1774,15 @@ export interface ApplicationManager {
      *
      * *   UnknownError - If an unknown error occurs.
      *
-     *
      * @param successCallback The method to call when the invocation ends successfully.
      * @param errorCallback The method to call when an error occurs.
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
-    getAppsInfo(successCallback: ApplicationInformationArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getAppsInfo(
+        successCallback: ApplicationInformationArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the _Application_ object defining the current application.
      *
@@ -1768,7 +1803,6 @@ export interface ApplicationManager {
      * or if the specified context ID matches the context ID of the calling application.
      * *   UnknownError - If any other error occurs.
      *
-     *
      * @privilegeLevel partner
      * @privilegeName http://tizen.org/privilege/appmanager.kill
      *
@@ -1779,7 +1813,11 @@ export interface ApplicationManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    kill(contextId: ApplicationContextId, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    kill(
+        contextId: ApplicationContextId,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Launches an application with the given application ID.
      *
@@ -1787,7 +1825,6 @@ export interface ApplicationManager {
      *
      * *   NotFoundError - If the application is not found with the specified ID.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/application.launch
@@ -1828,7 +1865,6 @@ export interface ApplicationManager {
      * *   SecurityError - If the application does not have the privilege to call the specified application control operation.
      * *   UnknownError: If any other error occurs.
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/application.launch
      *
@@ -1845,7 +1881,13 @@ export interface ApplicationManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    launchAppControl(appControl: ApplicationControl, id?: ApplicationId | null, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null, replyCallback?: ApplicationControlDataArrayReplyCallback | null): void;
+    launchAppControl(
+        appControl: ApplicationControl,
+        id?: ApplicationId | null,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+        replyCallback?: ApplicationControlDataArrayReplyCallback | null,
+    ): void;
     /**
      * Removes the listener to stop receiving notifications for changes on the list of installed applications on a device.
      *
@@ -1937,7 +1979,6 @@ export class ArchiveFile {
      * i.e. two entries in the archive with the same name (including directory names).
      * *   UnknownError: In any case of any other error
      *
-     *
      * Name stored for new entries is constructed from _sourceFile_ according to the
      * [stripSourceDirectory](#ArchiveFileEntryOptions::stripSourceDirectory) and [destination](#ArchiveFileEntryOptions::destination) options. Names are constructed as follows:
      *
@@ -1966,7 +2007,13 @@ export class ArchiveFile {
      * @throws WebAPIException with error type InvalidAccessError, if the file mode is "r".
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    add(sourceFile: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, options?: ArchiveFileEntryOptions | null): number;
+    add(
+        sourceFile: FileReference,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        onprogress?: ArchiveFileProgressCallback | null,
+        options?: ArchiveFileEntryOptions | null,
+    ): number;
     /**
      * Closes the _ArchiveFile_.
      *
@@ -1991,7 +2038,6 @@ export class ArchiveFile {
      * have to be overwritten and the _overwrite_ argument is false
      * *   UnknownError: In any other error case
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.write
      *
@@ -2011,14 +2057,19 @@ export class ArchiveFile {
      * @throws WebAPIException with error type InvalidAccessError, if the file mode is "w" or "a".
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    extractAll(destinationDirectory: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, overwrite?: boolean | null): number;
+    extractAll(
+        destinationDirectory: FileReference,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        onprogress?: ArchiveFileProgressCallback | null,
+        overwrite?: boolean | null,
+    ): number;
     /**
      * Retrieves information about the member files in _ArchiveFile_.
      *
      * The errorCallback is launched with these error types:
      *
      * *   UnknownError: In case of any error
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.read
@@ -2041,7 +2092,6 @@ export class ArchiveFile {
      *
      * *   NotFoundError: If _ArchiveFileEntry_ with the specific name does not exist
      * *   UnknownError: In case of any other error
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.read
@@ -2102,7 +2152,6 @@ export class ArchiveFileEntry {
      * *   IOError: If destinationDirectory can not be written to
      * *   UnknownError: In case of any other error
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.write
      *
@@ -2123,7 +2172,14 @@ export class ArchiveFileEntry {
      * @throws WebAPIException with error type InvalidValuesError, if directory parameter does not represent a directory.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    extract(destinationDirectory: FileReference, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null, onprogress?: ArchiveFileProgressCallback | null, stripName?: boolean | null, overwrite?: boolean | null): number;
+    extract(
+        destinationDirectory: FileReference,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        onprogress?: ArchiveFileProgressCallback | null,
+        stripName?: boolean | null,
+        overwrite?: boolean | null,
+    ): number;
 }
 export interface ArchiveFileEntryConstructor {
     prototype: ArchiveFileEntry;
@@ -2151,9 +2207,7 @@ export interface ArchiveManager {
      * *   IOError: If the access is denied due to insufficient permissions
      * *   UnknownError: In case of any other error
      *
-     *
      * Use _mode_ depending on which operation are intended:
-     *
      *
      * | Mode | Description |
      * | ----- | ----- |
@@ -2176,7 +2230,13 @@ export interface ArchiveManager {
      * @throws WebAPIException with error type TypeMismatchError, if parameter type does not match.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    open(file: FileReference, mode: FileMode, onsuccess: ArchiveFileSuccessCallback, onerror?: ErrorCallback | null, options?: ArchiveFileOptions | null): number;
+    open(
+        file: FileReference,
+        mode: FileMode,
+        onsuccess: ArchiveFileSuccessCallback,
+        onerror?: ErrorCallback | null,
+        options?: ArchiveFileOptions | null,
+    ): number;
 }
 /**
  * This interface represents a set of filters.
@@ -2564,7 +2624,12 @@ export interface Client {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
-    addPresenceEventListener(hostAddress: string | null, resourceType: ResourceType | null, connectivityType: ConnectivityType, successCallback: PresenceEventCallback): number;
+    addPresenceEventListener(
+        hostAddress: string | null,
+        resourceType: ResourceType | null,
+        connectivityType: ConnectivityType,
+        successCallback: PresenceEventCallback,
+    ): number;
     /**
      * Gets the device information of remote server.
      *
@@ -2575,7 +2640,6 @@ export interface Client {
      *
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: If any system error is invoked
-     *
      *
      * @remark hostAddress should be in the format coap://Address:port. For example "coaps://\[fe80::ae5a:14ff:fe24:b8fe\]:12345" or "coaps://192.168.1.10:12345".
      *
@@ -2589,7 +2653,13 @@ export interface Client {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
-    findDeviceInfo(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundDeviceInfoSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findDeviceInfo(
+        hostAddress: string | null,
+        query: Query | null,
+        connectivityType: ConnectivityType,
+        successCallback: FoundDeviceInfoSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the platform information of remote server.
      *
@@ -2600,7 +2670,6 @@ export interface Client {
      *
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: In any system error is invoked
-     *
      *
      * @remark hostAddress should be in the format coap://Address:port. For example "coaps://\[fe80::ae5a:14ff:fe24:b8fe\]:12345" or "coaps://192.168.1.10:12345".
      *
@@ -2614,7 +2683,13 @@ export interface Client {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
-    findPlatformInfo(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundPlatformInfoSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findPlatformInfo(
+        hostAddress: string | null,
+        query: Query | null,
+        connectivityType: ConnectivityType,
+        successCallback: FoundPlatformInfoSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Finds resources using host address and resource type.
      *
@@ -2625,7 +2700,6 @@ export interface Client {
      *
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: If any system error is invoked
-     *
      *
      * @remark hostAddress should be in the format coap://Address:port. For example "coaps://\[fe80::ae5a:14ff:fe24:b8fe\]:12345" or "coaps://192.168.1.10:12345".
      *
@@ -2639,7 +2713,13 @@ export interface Client {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
-    findResource(hostAddress: string | null, query: Query | null, connectivityType: ConnectivityType, successCallback: FoundResourceSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findResource(
+        hostAddress: string | null,
+        query: Query | null,
+        connectivityType: ConnectivityType,
+        successCallback: FoundResourceSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Unregisters a presence event listener.
      *
@@ -2663,7 +2743,6 @@ export interface Client {
  *
  * *   The union - used to filter objects that match any of the filters it includes.
  * *   The intersection - used to filter objects that match all the filters it includes.
- *
  */
 export class CompositeFilter extends AbstractFilter {
     constructor(type: CompositeFilterType, filters?: AbstractFilter[] | null);
@@ -2820,7 +2899,6 @@ export interface ContentManager {
      * *   InvalidValuesError: If name is empty or is same as the name of an existing playlist
      * *   UnknownError: In case of any other error
      *
-     *
      * @since 2.3
      *
      * @privilegeLevel public
@@ -2834,7 +2912,12 @@ export interface ContentManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    createPlaylist(name: string, successCallback: PlaylistSuccessCallback, errorCallback?: ErrorCallback | null, sourcePlaylist?: Playlist | null): void;
+    createPlaylist(
+        name: string,
+        successCallback: PlaylistSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        sourcePlaylist?: Playlist | null,
+    ): void;
     /**
      * Creates a content's thumbnail.
      *
@@ -2842,7 +2925,6 @@ export interface ContentManager {
      *
      * *   InvalidValuesError: In case of invalid content object.
      * *   AbortError: In case of any error.
-     *
      *
      * @since 3.0
      *
@@ -2856,7 +2938,11 @@ export interface ContentManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    createThumbnail(content: Content, successCallback: ThumbnailSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    createThumbnail(
+        content: Content,
+        successCallback: ThumbnailSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Finds contents that satisfy the conditions set by a filter.
      *
@@ -2868,7 +2954,6 @@ export interface ContentManager {
      *
      * *   InvalidValuesError: If any of the input parameters contain an invalid value.
      * *   UnknownError: In any other error case.
-     *
      *
      * @privilegeLevel public
      *
@@ -2889,7 +2974,15 @@ export interface ContentManager {
      * is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    find(successCallback: ContentArraySuccessCallback, errorCallback?: ErrorCallback | null, directoryId?: ContentDirectoryId | null, filter?: AbstractFilter | null, sortMode?: SortMode | null, count?: number | null, offset?: number | null): void;
+    find(
+        successCallback: ContentArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        directoryId?: ContentDirectoryId | null,
+        filter?: AbstractFilter | null,
+        sortMode?: SortMode | null,
+        count?: number | null,
+        offset?: number | null,
+    ): void;
     /**
      * Gets a list of content directories.
      *
@@ -2899,7 +2992,6 @@ export interface ContentManager {
      * The errorCallback is launched with this error type:
      *
      * *   UnknownError: In any other error case.
-     *
      *
      * @param successCallback Callback method to be invoked when content directories have been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error has occurred.
@@ -2914,7 +3006,6 @@ export interface ContentManager {
      * The errorCallback is launched with these error types:
      *
      * *   UnknownError: In case of any error
-     *
      *
      * @since 2.3
      *
@@ -2948,7 +3039,6 @@ export interface ContentManager {
      *
      * *   UnknownError: In case of any error
      *
-     *
      * @since 2.3
      *
      * @privilegeLevel public
@@ -2961,7 +3051,11 @@ export interface ContentManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    removePlaylist(id: PlaylistId, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    removePlaylist(
+        id: PlaylistId,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Scans a content directory to create or update content in the content database.
      *
@@ -2972,7 +3066,6 @@ export interface ContentManager {
      * The errorCallback is launched with these error types:
      *
      * *   UnknownError: In case of any error detected asynchronously
-     *
      *
      * @since 2.4
      * @privilegeLevel public
@@ -2992,7 +3085,12 @@ export interface ContentManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    scanDirectory(contentDirURI: string, recursive: boolean, successCallback?: ContentScanSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    scanDirectory(
+        contentDirURI: string,
+        recursive: boolean,
+        successCallback?: ContentScanSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Scans a file to create or update content in the content database.
      *
@@ -3003,7 +3101,6 @@ export interface ContentManager {
      *
      * *   UnknownError: In case of any error detected asynchronously
      * *   NotSupportedError: In case of trying to scan content of not supported type (since 4.0)
-     *
      *
      * @since 2.1
      * @privilegeLevel public
@@ -3020,7 +3117,11 @@ export interface ContentManager {
      * contain an invalid value (e.g. given _contentURI_ is an empty string).
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    scanFile(contentURI: string, successCallback?: ContentScanSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    scanFile(
+        contentURI: string,
+        successCallback?: ContentScanSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sets a listener to receive notifications of content changes.
      *
@@ -3090,7 +3191,6 @@ export interface ContentManager {
      * *   InvalidValuesError: If any of the input parameters contain an invalid value.
      * *   UnknownError: In any other error case.
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
      *
@@ -3106,7 +3206,11 @@ export interface ContentManager {
      * is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    updateBatch(contents: Content[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    updateBatch(
+        contents: Content[],
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * This interface provides common attributes and methods for other derived DataControlConsumerObject.
@@ -3132,7 +3236,6 @@ export interface DataControlConsumerObject {
      * The _ErrorCallback_ method is launched with these error types:
      *
      * *   IOError - If a DB operation has failed.
-     *
      *
      * @since 4.0
      *
@@ -3252,7 +3355,10 @@ export interface DisplayControlManager {
      * @privilegeName 5.0 http://tizen.org/privilege/tv.display
      * @warning 5.0 http://tizen.org/privilege/tv.display (public level) has been deprecated since 5.0.
      */
-    getSupported3DEffectModeList(successCallback: Mode3DEffectListSupportCallback, errorCallback?: ErrorCallback | null): void;
+    getSupported3DEffectModeList(
+        successCallback: Mode3DEffectListSupportCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Checks whether playing 3D mode is available or not.
      *
@@ -3413,7 +3519,13 @@ export interface DownloadManager {
  * The DownloadRequest interface defines the download request object.
  */
 export class DownloadRequest {
-    constructor(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null);
+    constructor(
+        url: string,
+        destination?: string | null,
+        fileName?: string | null,
+        networkType?: DownloadNetworkType | null,
+        httpHeader?: DownloadHTTPHeaderFields | null,
+    );
     /**
      * An attribute to store the folder path of the destination folder to which a requested file object will be downloaded.
      *
@@ -3457,7 +3569,13 @@ export class DownloadRequest {
 }
 export interface DownloadRequestConstructor {
     prototype: DownloadRequest;
-    new(url: string, destination?: string | null, fileName?: string | null, networkType?: DownloadNetworkType | null, httpHeader?: DownloadHTTPHeaderFields | null): DownloadRequest;
+    new(
+        url: string,
+        destination?: string | null,
+        fileName?: string | null,
+        networkType?: DownloadNetworkType | null,
+        httpHeader?: DownloadHTTPHeaderFields | null,
+    ): DownloadRequest;
 }
 /**
  * The ExifInformation interface implements the _ExifInformation_ object.
@@ -3590,7 +3708,6 @@ export interface ExifManager {
      * *   InvalidValuesError: If any input parameter contains invalid values
      * *   UnknownError: In any other error case
      *
-     *
      * @param uri URI of the JPEG file, as available in ImageContent::contentURI or returned by File::toURI().
      * @param successCallback Callback method to be invoked when Exif information has been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
@@ -3598,7 +3715,11 @@ export interface ExifManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    getExifInfo(uri: string, successCallback: ExifInformationSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getExifInfo(
+        uri: string,
+        successCallback: ExifInformationSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the thumbnail of the specified JPEG file. If there is no thumbnail in the JPEG file, null is returned.
      *
@@ -3613,7 +3734,6 @@ export interface ExifManager {
      * *   InvalidValuesError: If any of the input parameters contains an invalid value
      * *   UnknownError: In any other error case
      *
-     *
      * @param uri URI of the JPEG file.
      * @param successCallback Callback method to be invoked when thumbnail data has been retrieved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
@@ -3621,7 +3741,11 @@ export interface ExifManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    getThumbnail(uri: string, successCallback: ExifThumbnailSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getThumbnail(
+        uri: string,
+        successCallback: ExifThumbnailSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Saves the Exif data of the _ExifInformation_ object into the JPEG file.
      *
@@ -3631,7 +3755,6 @@ export interface ExifManager {
      * *   InvalidValuesError: If any input parameter contains invalid values
      * *   UnknownError: In any other error case
      *
-     *
      * @param exifInfo Exif information object that contains the Exif data in the JPEG file.
      * @param successCallback Callback method to be invoked when Exif data has been saved successfully.
      * @param errorCallback Callback method to be invoked when an error occurs.
@@ -3639,7 +3762,11 @@ export interface ExifManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    saveExifInfo(exifInfo: ExifInformation, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    saveExifInfo(
+        exifInfo: ExifInformation,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * The File interface represents the file abstraction in use.
@@ -3717,7 +3844,6 @@ export interface File {
      * *   true if this handle is a directory
      * *   false if this handle is a file
      *
-     *
      * @note _deprecated_ 5.0 Since 5.0
      */
     readonly isDirectory: boolean;
@@ -3728,7 +3854,6 @@ export interface File {
      *
      * *   true if this handle is a file
      * *   false if this handle is a directory
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      */
@@ -3806,7 +3931,6 @@ export interface File {
      * *   true - if object has read-only access at its location.
      * *   false - if object has write access at its location.
      *
-     *
      * This attribute represents the actual state of a file or directory in the filesystem. Its value is not affected by the mode used in FileSystemManager.resolve() that was used to create the _File_ object from which this _File_ object was obtained.
      *
      * @note _deprecated_ 5.0 Since 5.0
@@ -3829,7 +3953,6 @@ export interface File {
      * *   IOError - If the file in which the copyTo() method is invoked is a file (and not a directory), _originFilePath_ corresponds to a file or directory in use by another process, _overwrite_ parameter is false and _destinationFilePath_ corresponds to an existing file or directory.
      * *   UnknownError - If any other error occurs.
      *
-     *
      * @note _deprecated_ 5.0 Since 5.0
      *
      * @privilegeLevel public
@@ -3845,7 +3968,13 @@ export interface File {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    copyTo(originFilePath: string, destinationFilePath: string, overwrite: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
+    copyTo(
+        originFilePath: string,
+        destinationFilePath: string,
+        overwrite: boolean,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+    ): void;
     /**
      * Creates a new directory.
      *
@@ -3921,7 +4050,6 @@ export interface File {
      * This code is also used if a recursive deletion partially fails and any data deleted so far cannot be recovered. This may occur due to the lack of filesystem permissions or if any directories or files are already opened by other processes.
      * *   UnknownError - If any other error occurs.
      *
-     *
      * @note _deprecated_ 5.0 Since 5.0
      *
      * @privilegeLevel public
@@ -3937,7 +4065,12 @@ export interface File {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    deleteDirectory(directoryPath: string, recursive: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
+    deleteDirectory(
+        directoryPath: string,
+        recursive: boolean,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+    ): void;
     /**
      * Deletes a specified file.
      * This function attempts to asynchronously delete a file under the current directory.
@@ -3950,7 +4083,6 @@ export interface File {
      * *   NotFoundError - If the file does not correspond to a valid file.
      * *   IOError - If the file in which the delete() method is invoked is a file (not a directory), the file is in use by another process, or there is no permission in the file system.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      *
@@ -3979,7 +4111,6 @@ export interface File {
      * *   IOError - If the operation is launched on a file (not a directory).
      * *   InvalidValuesError - If any of the input parameters contain an invalid value.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      *
@@ -4011,7 +4142,6 @@ export interface File {
      * *   IOError - If the _File_ in which the moveTo() method is invoked is a file (not a directory), _originFilePath_ corresponds to a file or directory in use by another process, overwrite parameter is false and _destinationFilePath_ corresponds to an existing file or directory.
      * *   UnknownError - If any other error occurs.
      *
-     *
      * @note _deprecated_ 5.0 Since 5.0
      *
      * @privilegeLevel public
@@ -4027,7 +4157,13 @@ export interface File {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    moveTo(originFilePath: string, destinationFilePath: string, overwrite: boolean, onsuccess?: SuccessCallback | null, onerror?: ErrorCallback | null): void;
+    moveTo(
+        originFilePath: string,
+        destinationFilePath: string,
+        overwrite: boolean,
+        onsuccess?: SuccessCallback | null,
+        onerror?: ErrorCallback | null,
+    ): void;
     /**
      * Opens the file in the given mode supporting a specified encoding.
      *
@@ -4038,7 +4174,6 @@ export interface File {
      * *   InvalidValuesError - If any of the input parameters contains an invalid value.
      * *   IOError - The operation is launched on a directory (not a file), the file is not valid or it does not exist.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      *
@@ -4060,7 +4195,12 @@ export interface File {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    openStream(mode: FileMode, onsuccess: FileStreamSuccessCallback, onerror?: ErrorCallback | null, encoding?: string | null): void;
+    openStream(
+        mode: FileMode,
+        onsuccess: FileStreamSuccessCallback,
+        onerror?: ErrorCallback | null,
+        encoding?: string | null,
+    ): void;
     /**
      * Reads the content of a file as a DOMString.
      *
@@ -4071,7 +4211,6 @@ export interface File {
      * *   InvalidValuesError - If any of the input parameters contains an invalid value.
      * *   IOError - If the operation is launched on a directory (not a file), the file is not valid, or the file does not exist.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      *
@@ -4176,7 +4315,6 @@ export interface FileHandle {
      *
      * *   IOError, if close fails or any error related to file handle occurs.
      *
-     *
      * This method is asynchronous. Its execution will occur in background and after all previously commissioned background jobs will finish.
      *
      * @param onsuccess Callback function to be invoked on success.
@@ -4209,7 +4347,6 @@ export interface FileHandle {
      * The _ErrorCallback_ is launched with these error types:
      *
      * *   IOError, if flush fails or any error related to file handle occurs.
-     *
      *
      * This method is asynchronous. Its execution will occur in background and after all previously commissioned background jobs will finish.
      *
@@ -4244,7 +4381,6 @@ export interface FileHandle {
      *
      * *   IOError, if read fails or any error related to file handle occurs.
      *
-     *
      * @param onsuccess Callback function with [Blob](#Blob) object to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
@@ -4252,7 +4388,11 @@ export interface FileHandle {
      * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
-    readBlobNonBlocking(onsuccess?: ReadBlobSuccessCallback | null, onerror?: ErrorCallback | null, size?: number | null): void;
+    readBlobNonBlocking(
+        onsuccess?: ReadBlobSuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        size?: number | null,
+    ): void;
     /**
      * Reads file content as binary data.
      *
@@ -4280,7 +4420,6 @@ export interface FileHandle {
      *
      * *   IOError, if read fails or any error related to file handle occurs.
      *
-     *
      * @param onsuccess Callback function with read data from file to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      * @param size Size in bytes of data to read from file. If none is given, method attempts to read whole file.
@@ -4288,7 +4427,11 @@ export interface FileHandle {
      * @throws WebAPIException with error type InvalidValuesError if given _size_ exceeds maximum value supported by the device.
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
-    readDataNonBlocking(onsuccess?: ReadDataSuccessCallback | null, onerror?: ErrorCallback | null, size?: number | null): void;
+    readDataNonBlocking(
+        onsuccess?: ReadDataSuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        size?: number | null,
+    ): void;
     /**
      * Reads file content as string.
      *
@@ -4323,7 +4466,6 @@ export interface FileHandle {
      *
      * *   IOError, if read fails or any error related to file handle occurs.
      *
-     *
      * @param onsuccess Callback function with read data from file to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
      * @param count Number of characters to read from file. If none is given, method attempts to read whole file.
@@ -4335,7 +4477,12 @@ export interface FileHandle {
      * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
-    readStringNonBlocking(onsuccess?: ReadStringSuccessCallback | null, onerror?: ErrorCallback | null, count?: number, inputEncoding?: string): void;
+    readStringNonBlocking(
+        onsuccess?: ReadStringSuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        count?: number,
+        inputEncoding?: string,
+    ): void;
     /**
      * Sets position indicator in file stream to offset.
      *
@@ -4359,7 +4506,6 @@ export interface FileHandle {
      *
      * *   IOError, if any error related to file handle occurs.
      *
-     *
      * Note, that current position indicator value, can be obtained in SeekSuccessCallback by calling seekNonBlocking(0, "CURRENT").
      * seekNonBlocking is executed in background and does not block further instructions.
      *
@@ -4370,7 +4516,12 @@ export interface FileHandle {
      *
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
-    seekNonBlocking(offset: number, onsuccess?: SeekSuccessCallback | null, onerror?: ErrorCallback | null, whence?: BaseSeekPosition): void;
+    seekNonBlocking(
+        offset: number,
+        onsuccess?: SeekSuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        whence?: BaseSeekPosition,
+    ): void;
     /**
      * Synchronizes data to storage device.
      *
@@ -4389,7 +4540,6 @@ export interface FileHandle {
      * The _ErrorCallback_ is launched with these error types:
      *
      * *   IOError, if sync fails or any error related to file handle occurs.
-     *
      *
      * This method is asynchronous. Its execution will occur in background and after all previously commissioned background jobs will finish.
      *
@@ -4422,7 +4572,6 @@ export interface FileHandle {
      *
      * *   IOError, if write fails or any error related to file handle occurs.
      *
-     *
      * @param blob Object of type Blob, which content will be written to a file.
      * @param onsuccess Callback function to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
@@ -4454,7 +4603,6 @@ export interface FileHandle {
      * The _ErrorCallback_ is launched with these error types:
      *
      * *   IOError, if write fails or any error related to file handle occurs.
-     *
      *
      * @param data An array of type Uint8Array, which content will be written to file as binary data.
      * @param onsuccess Callback function to be invoked on success.
@@ -4491,7 +4639,6 @@ export interface FileHandle {
      *
      * *   IOError, if write fails or any error related to file handle occurs.
      *
-     *
      * @param inputString String value to be written to a file.
      * @param onsuccess Callback function with a number of bytes written as parameter to be invoked on success.
      * @param onerror Callback function to be invoked when an error occurs.
@@ -4502,7 +4649,12 @@ export interface FileHandle {
      * @throws WebAPIException with error type NotSupportedError, if the given encoding is not supported.
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      */
-    writeStringNonBlocking(inputString: string, onsuccess?: WriteStringSuccessCallback | null, onerror?: ErrorCallback | null, outputEncoding?: string): void;
+    writeStringNonBlocking(
+        inputString: string,
+        onsuccess?: WriteStringSuccessCallback | null,
+        onerror?: ErrorCallback | null,
+        outputEncoding?: string,
+    ): void;
 }
 /**
  * The FileStream interface represents a handle to a File opened for read and/or write operations.
@@ -4711,7 +4863,6 @@ export interface FileSystemManager {
      * *   IOError, if a directory with conflicting name already exists and _overwrite_ is equal to false or any of the input/output error occurs.
      * *   NotFoundError, if the _sourcePath_ does not point to an existing directory.
      *
-     *
      * @since 5.0
      *
      * @privilegeLevel public
@@ -4730,7 +4881,13 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    copyDirectory(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    copyDirectory(
+        sourcePath: Path,
+        destinationPath: Path,
+        overwrite?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Copies file from location pointed by _sourcePath_ to _destinationPath_.
      *
@@ -4740,7 +4897,6 @@ export interface FileSystemManager {
      *
      * *   IOError, if any of the input/output error occurs.
      * *   NotFoundError, if the _sourcePath_ does not point to an existing file.
-     *
      *
      * @since 5.0
      *
@@ -4760,7 +4916,13 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    copyFile(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    copyFile(
+        sourcePath: Path,
+        destinationPath: Path,
+        overwrite?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Creates directory pointed by _path_.
      *
@@ -4770,7 +4932,6 @@ export interface FileSystemManager {
      *
      * *   IOError, if any of the input/output error occurs.
      * *   NotFoundError, if directory given in _path_ does not exist and _makeParents_ is set to false.
-     *
      *
      * @since 5.0
      *
@@ -4789,7 +4950,12 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    createDirectory(path: Path, makeParents?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    createDirectory(
+        path: Path,
+        makeParents?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Deletes directory or directory tree under the current directory pointed by _path_.
      *
@@ -4799,7 +4965,6 @@ export interface FileSystemManager {
      *
      * *   IOError, if a directory is not empty and _recursive_ is equal to false.
      * *   NotFoundError, if the _path_ does not point to an existing directory.
-     *
      *
      * @since 5.0
      *
@@ -4817,7 +4982,12 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    deleteDirectory(path: Path, recursive?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    deleteDirectory(
+        path: Path,
+        recursive?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Deletes file pointed by _path_.
      *
@@ -4827,7 +4997,6 @@ export interface FileSystemManager {
      *
      * *   IOError, if any of the input/output error occurs.
      * *   NotFoundError, if the _path_ does not point to an existing file.
-     *
      *
      * @since 5.0
      *
@@ -4868,7 +5037,6 @@ export interface FileSystemManager {
      * *   InvalidValuesError - If any of the input parameters contains an invalid value.
      * *   NotFoundError - If no drive was found with the given label.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.read
@@ -4932,7 +5100,6 @@ export interface FileSystemManager {
      * *   IOError, if any of the input/output error occurs.
      * *   NotFoundError, if the _path_ does not point to an existing directory.
      *
-     *
      * @since 5.0
      *
      * @privilegeLevel public
@@ -4947,7 +5114,12 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    listDirectory(path: Path, successCallback: ListDirectorySuccessCallback, errorCallback?: ErrorCallback | null, filter?: FileFilter | null): void;
+    listDirectory(
+        path: Path,
+        successCallback: ListDirectorySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        filter?: FileFilter | null,
+    ): void;
     /**
      * Lists the available storages (both internal and external) on a device.
      * The onsuccess method receives a list of the data structures as input argument containing additional information about each drive found.
@@ -4962,7 +5134,6 @@ export interface FileSystemManager {
      *
      * *   InvalidValuesError - If any of the input parameters contains an invalid value.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/filesystem.read
@@ -4986,7 +5157,6 @@ export interface FileSystemManager {
      * *   IOError, if a directory with conflicting name already exists and _overwrite_ is equal to false or any of the input/output error occurs.
      * *   NotFoundError, if the _sourcePath_ or _destinationPath_ does not point to an existing directory.
      *
-     *
      * @since 5.0
      *
      * @privilegeLevel public
@@ -5005,7 +5175,13 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    moveDirectory(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    moveDirectory(
+        sourcePath: Path,
+        destinationPath: Path,
+        overwrite?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Moves file pointed by _sourcePath_ to _destinationPath_.
      *
@@ -5015,7 +5191,6 @@ export interface FileSystemManager {
      *
      * *   IOError, if a file with conflicting name already exists and _overwrite_ is equal to false or any of the input/output error occurs.
      * *   NotFoundError, if the _sourcePath_ or _destinationPath_ does not point to an existing file or directory.
-     *
      *
      * @since 5.0
      *
@@ -5035,7 +5210,13 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    moveFile(sourcePath: Path, destinationPath: Path, overwrite?: boolean, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    moveFile(
+        sourcePath: Path,
+        destinationPath: Path,
+        overwrite?: boolean,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Opens a file or creates a file pointed by _path_.
      *
@@ -5048,7 +5229,6 @@ export interface FileSystemManager {
      * *   rw - read and write mode. File position indicator is initially set to the beginning of the file and may be changed with seek operations. Original file content may be read or modified in this mode. If the file does not exist, NotFoundError will be thrown.
      * *   rwo - read and write mode, overwriting existing file content. File position indicator is initially set to the beginning of the file. Read and write operations may be performed. Original file content are deleted before opening the file. If the file does not exist, it is created.
      * *   w - write mode. File position indicator is initially set to the beginning of the file and may be changed with seek operations. Read operations cannot be performed. Original file content are deleted before opening the file. If the file does not exist, it is created.
-     *
      *
      * @since 5.0
      *
@@ -5115,7 +5295,6 @@ export interface FileSystemManager {
      * *   IOError, if a file or a directory with conflicting name already exists or any of the input/output error occurs.
      * *   NotFoundError, if the _path_ does not point to an existing file or directory.
      *
-     *
      * @since 5.0
      *
      * @privilegeLevel public
@@ -5130,7 +5309,12 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    rename(path: Path, newName: string, successCallback?: PathSuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    rename(
+        path: Path,
+        newName: string,
+        successCallback?: PathSuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Resolves a location to a file handle after validating it.
      *
@@ -5151,7 +5335,6 @@ export interface FileSystemManager {
      * *   wgt-private - The private folder in which a widget stores its information. This folder must be accessible only to the same widget and other widgets or applications must not be able to access the stored information.
      * *   wgt-private-tmp - Temporary, the private folder in which a widget can store data that is available during a widget execution cycle. Content of this folder can be removed from this directory when the widget is closed or the Web Runtime is restarted. This folder must be accessible only to the same widget and other widgets or applications must not be able to access it.
      *
-     *
      * The _mode_ parameter specifies whether the resulting _File_ object has read-only access (r access), read and write access (rw access), append access (a access), or write access (w access) to the root location containing directory tree.
      * Permission for the requested access is obtained from the security framework. Once the resulting _File_ object has access, access is inherited by any other _File_ objects that are derived from this instance without any further reference to the security framework, as noted in descriptions of certain methods of _File_.
      *
@@ -5161,7 +5344,6 @@ export interface FileSystemManager {
      * For example, the mode is w for the read-only virtual roots (wgt-package and ringtones).
      * *   NotFoundError - If the location input argument does not correspond to a valid location.
      * *   UnknownError - If any other error occurs.
-     *
      *
      * @note _deprecated_ 5.0 Since 5.0
      * @privilegeLevel public
@@ -5179,7 +5361,12 @@ export interface FileSystemManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      * @throws WebAPIException with error type TypeMismatchError, if any of the input parameters is not compatible with the expected type for that parameter.
      */
-    resolve(location: string, onsuccess: FileSuccessCallback, onerror?: ErrorCallback | null, mode?: FileMode | null): void;
+    resolve(
+        location: string,
+        onsuccess: FileSuccessCallback,
+        onerror?: ErrorCallback | null,
+        mode?: FileMode | null,
+    ): void;
     /**
      * Converts _path_ to file URI.
      *
@@ -5452,7 +5639,6 @@ export interface KeyManager {
      *
      * *   UnknownError - If the method cannot be completed because of an unknown error.
      *
-     *
      * @warning http://tizen.org/privilege/keymanager (public level privilege) MUST NOT be declared to use this API since 3.0.
      *
      * @param name Name to identify the data - this will be the _name_ attribute of the [KeyManagerAlias](#KeyManagerAlias) which this method adds, on success, into the KeyManager.
@@ -5463,7 +5649,13 @@ export interface KeyManager {
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
-    saveData(name: string, rawData: RawData, password?: string | null, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    saveData(
+        name: string,
+        rawData: RawData,
+        password?: string | null,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sets permissions that another application has for accessing an application's data.
      *
@@ -5473,7 +5665,6 @@ export interface KeyManager {
      *
      * *   NotFoundError - If the dataAlias cannot be found.
      * *   UnknownError - If the method cannot be completed because of an unknown error.
-     *
      *
      * @warning http://tizen.org/privilege/keymanager (public level privilege) MUST NOT be declared to use this API since 3.0.
      *
@@ -5485,7 +5676,13 @@ export interface KeyManager {
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
-    setPermission(dataAlias: KeyManagerAlias, packageId: PackageId, permissionType: PermissionType, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    setPermission(
+        dataAlias: KeyManagerAlias,
+        packageId: PackageId,
+        permissionType: PermissionType,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * The _LocalMessagePort_ interface provides methods to receive data.
@@ -5545,7 +5742,13 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    addValue(reqId: number, key: string, value: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
+    addValue(
+        reqId: number,
+        key: string,
+        value: string,
+        successCallback?: DataControlSuccessCallback | null,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
     /**
      * Gets the value associated with the specified key, from a key-values map owned by a MAP-type data control provider.
      *
@@ -5564,7 +5767,12 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    getValue(reqId: number, key: string, successCallback: DataControlGetValueSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
+    getValue(
+        reqId: number,
+        key: string,
+        successCallback: DataControlGetValueSuccessCallback,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
     /**
      * Removes the value associated with the specified key from a key-values map owned by a MAP-type data control provider.
      *
@@ -5584,7 +5792,13 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    removeValue(reqId: number, key: string, value: string, successCallback: DataControlSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
+    removeValue(
+        reqId: number,
+        key: string,
+        value: string,
+        successCallback: DataControlSuccessCallback,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
     /**
      * Sets the value associated with the specified key to a new value.
      *
@@ -5605,7 +5819,14 @@ export interface MappedDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    updateValue(reqId: number, key: string, oldValue: string, newValue: string, successCallback: DataControlSuccessCallback, errorCallback?: DataControlErrorCallback | null): void;
+    updateValue(
+        reqId: number,
+        key: string,
+        oldValue: string,
+        newValue: string,
+        successCallback: DataControlSuccessCallback,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
 }
 /**
  * Server-side object representing abilities of the media controller server.
@@ -5819,7 +6040,10 @@ export interface MediaControllerClient {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    findServers(successCallback: MediaControllerServerInfoArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findServers(
+        successCallback: MediaControllerServerInfoArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Retrieves all subscribed media controller servers.
      *
@@ -5829,14 +6053,16 @@ export interface MediaControllerClient {
      *
      * *   UnknownError: if any error prevents function from successful completion.
      *
-     *
      * @param successCallback The method to invoke when all of subscribed media controller servers have been found.
      * @param errorCallback The method to invoke on failure of retrieving servers list.
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    findSubscribedServers(successCallback: MediaControllerServerInfoArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    findSubscribedServers(
+        successCallback: MediaControllerServerInfoArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the latest activated media controller server info.
      *
@@ -6241,7 +6467,10 @@ export interface MediaControllerDisplayRotationInfo {
      * @throws WebAPIException with error type NotSupportedError, if related ability is not supported by server.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendRequest(displayRotation: MediaControllerDisplayRotationType, replyCallback: MediaControllerSendCommandSuccessCallback): void;
+    sendRequest(
+        displayRotation: MediaControllerDisplayRotationType,
+        replyCallback: MediaControllerSendCommandSuccessCallback,
+    ): void;
 }
 /**
  * This interface provides access to the _MediaControllerObject_ object.
@@ -6700,7 +6929,6 @@ export interface MediaControllerPlaylist {
      *
      * *   _UnknownError_: if any error prevents function from successful completion.
      *
-     *
      * @param successCallback Function to be called when _getItems_ is finished without error.
      * @param errorCallback Function to be called when _getItems_ fails.
      *
@@ -6821,7 +7049,6 @@ export interface MediaControllerServer {
      * *   _InvalidValuesError_: if playlist with given name does not exist.
      * *   _UnknownError_: if any other error prevents the function from successful completion.
      *
-     *
      * @since 5.5
      *
      * @param playlistName Name of the playlist to remove.
@@ -6831,7 +7058,11 @@ export interface MediaControllerServer {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    deletePlaylist(playlistName: string, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    deletePlaylist(
+        playlistName: string,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Returns all existing clients info.
      *
@@ -6851,7 +7082,6 @@ export interface MediaControllerServer {
      *
      * *   _UnknownError_: if any error prevents function from successful completion.
      *
-     *
      * @since 5.5
      *
      * @param successCallback Function to be called on _getAllPlaylists_ success.
@@ -6860,7 +7090,10 @@ export interface MediaControllerServer {
      * @throws WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    getAllPlaylists(successCallback: MediaControllerGetAllPlaylistsSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getAllPlaylists(
+        successCallback: MediaControllerGetAllPlaylistsSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Removes the listener, so stop receiving playback state requests from clients.
      *
@@ -6889,7 +7122,6 @@ export interface MediaControllerServer {
      * *   _InvalidValuesError_: if playlist with given name does not exist.
      * *   _UnknownError_: if any other error prevents the function from successful completion.
      *
-     *
      * @since 5.5
      *
      * @remark All playlists will be deleted after the application is closed.
@@ -6901,7 +7133,11 @@ export interface MediaControllerServer {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    savePlaylist(playlist: MediaControllerPlaylist, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    savePlaylist(
+        playlist: MediaControllerPlaylist,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sets the listener for receiving search requests from a client.
      *
@@ -7124,7 +7360,6 @@ export interface MediaControllerServerInfo {
      *
      * *   _UnknownError_: if any other error prevents function from successful completion.
      *
-     *
      * @since 5.5
      *
      * @param successCallback Function to be called upon success.
@@ -7133,7 +7368,10 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any parameter has invalid type.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    getAllPlaylists(successCallback: MediaControllerGetAllPlaylistsSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getAllPlaylists(
+        successCallback: MediaControllerGetAllPlaylistsSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Removes the listener, so stop receiving notifications about media playback info changes.
      *
@@ -7180,7 +7418,12 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendCommand(command: string, data: Bundle | null, successCallback: MediaControllerSendCommandSuccessCallback, errorCallback?: ErrorCallback | null): void;
+    sendCommand(
+        command: string,
+        data: Bundle | null,
+        successCallback: MediaControllerSendCommandSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Requests setting new playback item to server.
      *
@@ -7207,7 +7450,11 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendPlaybackPosition(position: number, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    sendPlaybackPosition(
+        position: number,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Allows to change playback state of media controller server.
      *
@@ -7218,7 +7465,11 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendPlaybackState(state: MediaControllerPlaybackState, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    sendPlaybackState(
+        state: MediaControllerPlaybackState,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Allows to change repeat mode of media controller server.
      *
@@ -7244,14 +7495,17 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendRepeatState(state: MediaControllerRepeatState, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    sendRepeatState(
+        state: MediaControllerRepeatState,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sends a search request to the media controller server.
      *
      * The _errorCallback_ may be triggered for one of the following errors:
      *
      * *   _UnknownError_: if any error prevents function from successful completion.
-     *
      *
      * @since 5.5
      *
@@ -7266,7 +7520,11 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendSearchRequest(request: SearchFilter[], replyCallback: MediaControllerSearchRequestReplyCallback, errorCallback?: ErrorCallback | null): void;
+    sendSearchRequest(
+        request: SearchFilter[],
+        replyCallback: MediaControllerSearchRequestReplyCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Allows to change shuffle mode of media controller server.
      *
@@ -7277,7 +7535,11 @@ export interface MediaControllerServerInfo {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    sendShuffleMode(mode: boolean, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    sendShuffleMode(
+        mode: boolean,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * Server-side object representing subtitles mode of a media controller server.
@@ -7512,7 +7774,6 @@ export interface PackageManager {
      *
      * *   UnknownError - If any other platform error occurs.
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/package.info
      *
@@ -7522,7 +7783,10 @@ export interface PackageManager {
      * @throws WebAPIException with error type TypeMismatchError, if an input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    getPackagesInfo(successCallback: PackageInformationArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getPackagesInfo(
+        successCallback: PackageInformationArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Installs a package with a specified file on a device.
      *
@@ -7532,7 +7796,6 @@ export interface PackageManager {
      *
      * *   NotFoundError - If the package is not found at the specified location.
      * *   UnknownError - If it is not allowed to install the package by the platform or any other platform error occurs.
-     *
      *
      * @privilegeLevel platform
      * @privilegeName http://tizen.org/privilege/packagemanager.install
@@ -7546,7 +7809,11 @@ export interface PackageManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method or the application does not have privilege to access the storage. For more information, see [Storage privileges](#StorageRemark).
      */
-    install(packageFileURI: string, progressCallback: PackageProgressCallback, errorCallback?: ErrorCallback | null): void;
+    install(
+        packageFileURI: string,
+        progressCallback: PackageProgressCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sets a listener to receive notifications for any changes made to the list of installed packages.
      *
@@ -7573,7 +7840,6 @@ export interface PackageManager {
      *
      * *   NotFoundError - If the package is not found with the specified ID.
      * *   UnknownError - If it is not allowed to uninstall the package from the platform or any other platform error occurs.
-     *
      *
      * @privilegeLevel platform
      * @privilegeName http://tizen.org/privilege/packagemanager.install
@@ -7711,7 +7977,6 @@ export interface Playlist {
      *
      * *   UnknownError: In case of any error
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
      *
@@ -7731,7 +7996,6 @@ export interface Playlist {
      * *   InvalidValuesError: If any of the input parameters contain an invalid value (e.g _count_ or _offset_ is a negative number)
      * *   UnknownError: In case of any error
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.read
      *
@@ -7746,7 +8010,12 @@ export interface Playlist {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    get(successCallback: PlaylistItemArraySuccessCallback, errorCallback?: ErrorCallback | null, count?: number | null, offset?: number | null): void;
+    get(
+        successCallback: PlaylistItemArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        count?: number | null,
+        offset?: number | null,
+    ): void;
     /**
      * Moves the specified item up or down a specified amount in the play order.
      *
@@ -7755,12 +8024,10 @@ export interface Playlist {
      * *   < 0 then the item is moved to the first position in the playlist
      * *   ≥ number of tracks then the item is moved to the last position in the playlist
      *
-     *
      * The errorCallback is launched with these error types:
      *
      * *   InvalidValuesError: In case the item in the passed _items_ array is not inside this playlist or some item of this playlist is not included in _items_
      * *   UnknownError: In case of any other error
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
@@ -7773,7 +8040,12 @@ export interface Playlist {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    move(item: PlaylistItem, delta: number, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    move(
+        item: PlaylistItem,
+        delta: number,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Removes a track from a playlist.
      *
@@ -7794,7 +8066,6 @@ export interface Playlist {
      *
      * *   UnknownError: In case of any other error
      *
-     *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
      *
@@ -7806,7 +8077,11 @@ export interface Playlist {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    removeBatch(items: PlaylistItem[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    removeBatch(
+        items: PlaylistItem[],
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Changes the play order of all playlist items in the playlist.
      *
@@ -7814,7 +8089,6 @@ export interface Playlist {
      *
      * *   InvalidValuesError: In case the item in the passed _items_ array is not inside this playlist, or the _items_ array does not contain all items from the playlist
      * *   UnknownError: In case of any other error
-     *
      *
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/content.write
@@ -7828,7 +8102,11 @@ export interface Playlist {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      */
-    setOrder(items: PlaylistItem[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    setOrder(
+        items: PlaylistItem[],
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * The PlaylistItem interface represents a playlist item.
@@ -7877,7 +8155,6 @@ export interface PushManager {
      *
      * *   AbortError - If the operation cannot be finished properly.
      *
-     *
      * @since 3.0
      *
      * @privilegeLevel public
@@ -7892,7 +8169,11 @@ export interface PushManager {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation cannot be finished properly.
      */
-    connect(stateChangeCallback: PushRegistrationStateChangeCallback, notificationCallback: PushNotificationCallback, errorCallback?: ErrorCallback | null): void;
+    connect(
+        stateChangeCallback: PushRegistrationStateChangeCallback,
+        notificationCallback: PushNotificationCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Disconnects the push service and stops receiving push notifications.
      *
@@ -7965,7 +8246,6 @@ export interface PushManager {
      * *   TimeoutError - If the operation timed out.
      * *   AbortError - If the operation cannot be finished properly.
      *
-     *
      * The _connect()_ method must be called before calling the _register()_ method.
      *
      * @since 3.0
@@ -7991,7 +8271,6 @@ export interface PushManager {
      *
      * *   TimeoutError - If the operation timed out.
      * *   AbortError - If the operation cannot be finished properly.
-     *
      *
      * @since 3.0
      *
@@ -8167,7 +8446,6 @@ export class RemoteResource {
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: In any system error is invoked
      *
-     *
      * @param responseCallback The method to invoked when a client receive get response.
      * @param errorCallback The method to invoke on failure of getting response.
      *
@@ -8187,7 +8465,6 @@ export class RemoteResource {
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: In any system error is invoked
      *
-     *
      * @param responseCallback The method to invoked when a client receive get response.
      * @param query The query to send to server. The resource request handler should handle this value.
      * @param errorCallback The method to invoke on failure of getting response.
@@ -8196,7 +8473,11 @@ export class RemoteResource {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
-    methodGet(responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
+    methodGet(
+        responseCallback: RemoteResourceResponseCallback,
+        query?: Query | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Posts the representation of a resource for create.
      *
@@ -8208,7 +8489,6 @@ export class RemoteResource {
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: In any system error is invoked
      *
-     *
      * @param representation The payload of a request or a response.
      * @param responseCallback The method to invoked when a client receive get response.
      * @param query The query to send to server. The resource request handler should handle this value.
@@ -8218,7 +8498,12 @@ export class RemoteResource {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
-    methodPost(representation: Representation, responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
+    methodPost(
+        representation: Representation,
+        responseCallback: RemoteResourceResponseCallback,
+        query?: Query | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Puts the representation of a resource for update.
      *
@@ -8230,7 +8515,6 @@ export class RemoteResource {
      * *   TimeoutError: If there is no resource or response within timeout value.
      * *   AbortError: In any system error is invoked
      *
-     *
      * @param representation The payload of a request or a response.
      * @param responseCallback The method to invoked when a client receive get response.
      * @param query The query to send to server. The resource request handler should handle this value.
@@ -8240,7 +8524,12 @@ export class RemoteResource {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
-    methodPut(representation: Representation, responseCallback: RemoteResourceResponseCallback, query?: Query | null, errorCallback?: ErrorCallback | null): void;
+    methodPut(
+        representation: Representation,
+        responseCallback: RemoteResourceResponseCallback,
+        query?: Query | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Sets a listener to monitor the state of the remote resource.
      *
@@ -8281,7 +8570,11 @@ export class RemoteResource {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, If the operation has been stopped.
      */
-    startObserving(observePolicy: ObservePolicy, successCallback: RemoteResourceResponseCallback, query?: Query | null): void;
+    startObserving(
+        observePolicy: ObservePolicy,
+        successCallback: RemoteResourceResponseCallback,
+        query?: Query | null,
+    ): void;
     /**
      * Stops caching of a remote resource.
      *
@@ -8655,7 +8948,12 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    insert(reqId: number, insertionData: RowData, successCallback?: DataControlInsertSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
+    insert(
+        reqId: number,
+        insertionData: RowData,
+        successCallback?: DataControlInsertSuccessCallback | null,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
     /**
      * Delete rows from a table that is owned by an SQL-type data control provider.
      *
@@ -8674,7 +8972,12 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    remove(reqId: number, where: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
+    remove(
+        reqId: number,
+        where: string,
+        successCallback?: DataControlSuccessCallback | null,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
     /**
      * Selects the specified columns to be queried. The result set of the specified columns is retrieved from a table owned by an SQL-type data control provider.
      *
@@ -8702,7 +9005,16 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    select(reqId: number, columns: string[], where: string, successCallback: DataControlSelectSuccessCallback, errorCallback?: DataControlErrorCallback | null, page?: number | null, maxNumberPerPage?: number | null, order?: string | null): void;
+    select(
+        reqId: number,
+        columns: string[],
+        where: string,
+        successCallback: DataControlSelectSuccessCallback,
+        errorCallback?: DataControlErrorCallback | null,
+        page?: number | null,
+        maxNumberPerPage?: number | null,
+        order?: string | null,
+    ): void;
     /**
      * Updates values of a table owned by an SQL-type data control provider.
      *
@@ -8722,7 +9034,13 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type UnknownError, if any other error occurs.
      */
-    update(reqId: number, updateData: RowData, where: string, successCallback?: DataControlSuccessCallback | null, errorCallback?: DataControlErrorCallback | null): void;
+    update(
+        reqId: number,
+        updateData: RowData,
+        where: string,
+        successCallback?: DataControlSuccessCallback | null,
+        errorCallback?: DataControlErrorCallback | null,
+    ): void;
 }
 /**
  * Search filter representation.
@@ -8733,7 +9051,12 @@ export interface SQLDataControlConsumer extends DataControlConsumerObject {
  * @since 5.5
  */
 export class SearchFilter {
-    constructor(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null);
+    constructor(
+        contentType: MediaControllerContentType,
+        category?: MediaControllerSearchCategory,
+        keyword?: string | null,
+        extraData?: Bundle | null,
+    );
     /**
      * Specifies filter's search category parameter.
      *
@@ -8762,7 +9085,12 @@ export class SearchFilter {
 }
 export interface SearchFilterConstructor {
     prototype: SearchFilter;
-    new(contentType: MediaControllerContentType, category?: MediaControllerSearchCategory, keyword?: string | null, extraData?: Bundle | null): SearchFilter;
+    new(
+        contentType: MediaControllerContentType,
+        category?: MediaControllerSearchCategory,
+        keyword?: string | null,
+        extraData?: Bundle | null,
+    ): SearchFilter;
 }
 /**
  * Provides functions for creating resource, registering a resource, handling request from client.
@@ -8789,7 +9117,13 @@ export interface Server {
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
      * @throws WebAPIException with error type AbortError, if the operation has been stopped.
      */
-    createResource(uriPath: string, resourceTypes: ResourceType[], resourceInterfaces: ResourceInterface[], listener: RequestCallback, policy?: ResourcePolicy): Resource;
+    createResource(
+        uriPath: string,
+        resourceTypes: ResourceType[],
+        resourceInterfaces: ResourceInterface[],
+        listener: RequestCallback,
+        policy?: ResourcePolicy,
+    ): Resource;
     /**
      * Returns an array of resources which are registered on the server.
      *
@@ -8918,8 +9252,6 @@ export interface SystemInfo {
      * *   NotSupportedError - If the given property is not supported (since Tizen 2.3).
      * For example, monitoring CELLULAR\_NETWORK changes is not supported on a device which does not support the telephony feature.
      *
-     *
-     *
      * There are device properties which never change (for example "BUILD") and properties which do not change on the current platform
      * (for example "DEVICE\_ORIENTATION" for some platforms). The [addPropertyValueChangeListener()](#SystemInfo::addPropertyValueChangeListener) method accepts
      * any identifier of these properties, but the listener added for them will not be invoked.
@@ -8939,7 +9271,12 @@ export interface SystemInfo {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      * @throws WebAPIException with error type UnknownError in any other error case.
      */
-    addPropertyValueArrayChangeListener(property: SystemInfoPropertyId, successCallback: SystemInfoPropertyArraySuccessCallback, options?: SystemInfoOptions | null, errorCallback?: ErrorCallback | null): number;
+    addPropertyValueArrayChangeListener(
+        property: SystemInfoPropertyId,
+        successCallback: SystemInfoPropertyArraySuccessCallback,
+        options?: SystemInfoOptions | null,
+        errorCallback?: ErrorCallback | null,
+    ): number;
     /**
      * Adds a listener to allow tracking changes in one or more system properties.
      *
@@ -8961,8 +9298,6 @@ export interface SystemInfo {
      * *   NotSupportedError - If the given property is not supported (since Tizen 2.3).
      * For example, monitoring CELLULAR\_NETWORK changes is not supported on a device which does not support the telephony feature.
      *
-     *
-     *
      * @remark The _errorCallback()_ is newly added as an optional parameter since Tizen 2.3.
      *
      * @param property The name of the property to retrieve.
@@ -8978,7 +9313,12 @@ export interface SystemInfo {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      * @throws WebAPIException with error type UnknownError in any other error case.
      */
-    addPropertyValueChangeListener(property: SystemInfoPropertyId, successCallback: SystemInfoPropertySuccessCallback, options?: SystemInfoOptions | null, errorCallback?: ErrorCallback | null): number;
+    addPropertyValueChangeListener(
+        property: SystemInfoPropertyId,
+        successCallback: SystemInfoPropertySuccessCallback,
+        options?: SystemInfoOptions | null,
+        errorCallback?: ErrorCallback | null,
+    ): number;
     /**
      * Gets the amount of memory that is not in use (in bytes).
      *
@@ -9042,7 +9382,6 @@ export interface SystemInfo {
      *
      * *   NotSupportedError - If the given property is not supported (since Tizen 2.3).
      *
-     *
      * @remark If the given property is not supported, _NotSupportedError_ would be passed through a _ErrorCallback()_ since Tizen 2.3.
      * @remark If system provides more than one value for the system property, the primary (first) system property is returned through SystemInfoSuccessCallback.
      *
@@ -9055,7 +9394,11 @@ export interface SystemInfo {
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      * @throws WebAPIException with error type UnknownError in any other error case.
      */
-    getPropertyValue(property: SystemInfoPropertyId, successCallback: SystemInfoPropertySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getPropertyValue(
+        property: SystemInfoPropertyId,
+        successCallback: SystemInfoPropertySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the current values of a specified system property.
      *
@@ -9067,7 +9410,6 @@ export interface SystemInfo {
      * The _ErrorCallback_ function can be launched with these error types:
      *
      * *   NotSupportedError - If the given property is not supported.
-     *
      *
      * @since 2.3
      *
@@ -9081,7 +9423,11 @@ export interface SystemInfo {
      * @throws WebAPIException with error type SecurityError, this error is only thrown for CELLULAR\_NETWORK property when an application does not declare _http://tizen.org/privilege/telephony_ privilege in _config.xml_.
      * @throws WebAPIException with error type TypeMismatchError, if the input parameter is not compatible with the expected type.
      */
-    getPropertyValueArray(property: SystemInfoPropertyId, successCallback: SystemInfoPropertyArraySuccessCallback, errorCallback?: ErrorCallback | null): void;
+    getPropertyValueArray(
+        property: SystemInfoPropertyId,
+        successCallback: SystemInfoPropertyArraySuccessCallback,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Gets the total amount of system memory (in bytes).
      *
@@ -9213,12 +9559,10 @@ export interface SystemInfoCameraFlash extends SystemInfoProperty {
      * /\*\*\*
      * Specifies camera to which this flash belongs.
      *
-     *
      * *   BACK - back camera flash
      * *   FRONT - front camera flash
      * *   EXTERNAL - external camera flash
      * *   OTHER - a flash attached to any other camera
-     *
      *
      * @since 2.4
      *
@@ -10108,7 +10452,6 @@ export interface SystemInfoStorageUnit extends SystemInfoProperty {
      * *   USB\_DEVICE
      * *   USB\_HOST
      * *   MMC
-     *
      */
     readonly type: string;
 }
@@ -10342,7 +10685,6 @@ export interface TVInputDeviceManager {
      * *   InvalidValuesError: If any of the given keyNames is invalid or not supported.
      * *   UnknownError: In case of any other error.
      *
-     *
      * @since 2.4
      *
      * @privilegeLevel public
@@ -10357,7 +10699,11 @@ export interface TVInputDeviceManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError in any other error case.
      */
-    registerKeyBatch(keyNames: InputDeviceKeyName[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    registerKeyBatch(
+        keyNames: InputDeviceKeyName[],
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
     /**
      * Unregisters an input device key.
      *
@@ -10379,7 +10725,6 @@ export interface TVInputDeviceManager {
      * *   InvalidValuesError: If any of the given keyNames is invalid or not supported.
      * *   UnknownError: In case of any other error.
      *
-     *
      * @param keyNames The array with the names of the keys to unregister.
      * @param successCallback Callback method to be invoked when keys are unregistered.
      * @param errorCallback Callback method to be invoked when an error has occurred.
@@ -10394,7 +10739,11 @@ export interface TVInputDeviceManager {
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      * @throws WebAPIException with error type UnknownError in any error case.
      */
-    unregisterKeyBatch(keyNames: InputDeviceKeyName[], successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    unregisterKeyBatch(
+        keyNames: InputDeviceKeyName[],
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 /**
  * This interface provides access to the API funtionalities through the _tizen.tvwindow_ interface.
@@ -10453,7 +10802,12 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    getRect(successCallback: WindowRectangleSuccessCallback, errorCallback?: ErrorCallback | null, unit?: MeasurementUnit | null, type?: WindowType | null): void;
+    getRect(
+        successCallback: WindowRectangleSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        unit?: MeasurementUnit | null,
+        type?: WindowType | null,
+    ): void;
     /**
      * Gets information about the current source of a specified TV window.
      *
@@ -10534,7 +10888,12 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    setSource(videoSource: SystemInfoVideoSourceInfo, successCallback: SourceChangedSuccessCallback, errorCallback?: ErrorCallback | null, type?: WindowType | null): void;
+    setSource(
+        videoSource: SystemInfoVideoSourceInfo,
+        successCallback: SourceChangedSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        type?: WindowType | null,
+    ): void;
     /**
      * Sets the display area of a TV window and shows it on the display.
      *
@@ -10545,7 +10904,6 @@ export interface TVWindowManager {
      * *   The third element indicates the width of the TV window.
      * *   The fourth element indicates the height of the TV window.
      *
-     *
      * Each element of _rectangle_ can be described in either absolute value by using pixel units "px"
      * or relative value by using percentage units "%". If you do not specify any unit after a value then it will be taken as an absolute value.
      *
@@ -10554,7 +10912,6 @@ export interface TVWindowManager {
      * *   _InvalidValuesError_ will be thrown if _rectangle_ has any element with invalid format (e.g. "10p") or it does not have 4 elements.
      * *   _NotSupportedError_ will be thrown if you set _rectangle_ which is not within the boundary of the display area or when the TV window is not supported in the current screen orientation.
      * *   _TypeMismatchError_ will be thrown if _rectangle_ is not an array.
-     *
      *
      * @param successCallback The method which will be invoked when the position and size of the TV window has been changed successfully.
      * @param errorCallback The method which will be invoked when an error occurs.
@@ -10575,7 +10932,13 @@ export interface TVWindowManager {
      * @privilegeLevel public
      * @privilegeName http://tizen.org/privilege/tv.window
      */
-    show(successCallback: WindowRectangleSuccessCallback, errorCallback?: ErrorCallback | null, rectangle?: string[] | null, type?: WindowType | null, zPosition?: ZPosition | null): void;
+    show(
+        successCallback: WindowRectangleSuccessCallback,
+        errorCallback?: ErrorCallback | null,
+        rectangle?: string[] | null,
+        type?: WindowType | null,
+        zPosition?: ZPosition | null,
+    ): void;
 }
 /**
  * The TZDate interface represents information regarding a given date/time in a predefined timezone.
@@ -10583,7 +10946,16 @@ export interface TVWindowManager {
  */
 export class TZDate {
     constructor(datetime?: Date | null, timezone?: string | null);
-    constructor(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null);
+    constructor(
+        year: number,
+        month: number,
+        day: number,
+        hours?: number | null,
+        minutes?: number | null,
+        seconds?: number | null,
+        milliseconds?: number | null,
+        timezone?: string | null,
+    );
     /**
      * Gets a new date by adding a duration to the current TZDate object.
      *
@@ -10614,7 +10986,6 @@ export class TZDate {
      * *   Negative, if other is in the future
      * *   0 if the two date/times are equal
      * *   Positive, if other is in the past
-     *
      *
      * @param other The other Date/Time to compare to.
      *
@@ -11021,7 +11392,16 @@ export class TZDate {
 export interface TZDateConstructor {
     prototype: TZDate;
     new(datetime?: Date | null, timezone?: string | null): TZDate;
-    new(year: number, month: number, day: number, hours?: number | null, minutes?: number | null, seconds?: number | null, milliseconds?: number | null, timezone?: string | null): TZDate;
+    new(
+        year: number,
+        month: number,
+        day: number,
+        hours?: number | null,
+        minutes?: number | null,
+        seconds?: number | null,
+        milliseconds?: number | null,
+        timezone?: string | null,
+    ): TZDate;
 }
 /**
  * The TimeDuration interface that contains the length and its associated time unit.
@@ -11112,7 +11492,6 @@ export interface TimeDurationConstructor {
  *
  * *   Get the current date/time using getCurrentDateTime().
  * *   Get timezones using getLocalTimezone() and getAvailableTimezones().
- *
  */
 export interface TimeUtil {
     /**
@@ -11145,7 +11524,6 @@ export interface TimeUtil {
      * *   "M" = month name
      * *   "y" = year
      *
-     *
      * Examples of string formats include: "d/m/y", "y-d-m", "D, M d y".
      *
      * @param shortformat The flag indicating whether the user is interested in the short.
@@ -11173,7 +11551,6 @@ export interface TimeUtil {
      * *   "m" = minutes (0 to 59)
      * *   "s" = seconds (0 to 59)
      * *   "ap" = AM/PM display
-     *
      *
      * Examples of string formats include: "h:m:s ap", "h:m:s".
      *
@@ -11289,7 +11666,6 @@ export interface Tizen {
      * gmail, gtalk, Picasa, and Youtube with each service having a separate service
      * instance bound to the account.
      *
-     *
      * To use _add(), remove(), and update()_ methods of AccountManager can be invoked only
      * by account provider application. A web application is an account provider when its _config.xml_
      * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
@@ -11326,7 +11702,6 @@ export interface Tizen {
      * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
-     *
      *
      * For more information on the Alarm features, see [Alarm Guide](/application/web/guides/alarm/alarms).
      *
@@ -11369,7 +11744,6 @@ export interface Tizen {
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
      *
-     *
      * For more information about how to use Archive API, see [File Archiving Guide](/application/web/guides/data/file-archiving).
      *
      * @since 2.3
@@ -11386,7 +11760,6 @@ export interface Tizen {
      * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
-     *
      *
      * For more information on the Content features, see [Stored Content Management](/application/web/guides/data/stored-content).
      *
@@ -11413,7 +11786,6 @@ export interface Tizen {
      * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
-     *
      *
      * For more information on the Download features, see [Download Guide](/application/web/guides/connectivity/download).
      *
@@ -11442,7 +11814,6 @@ export interface Tizen {
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
      *
-     *
      * For more information about how to use Exif API, see [Exif Guide](/application/web/guides/multimedia/jpeg-exif).
      *
      * @since 2.3
@@ -11464,7 +11835,6 @@ export interface Tizen {
      *
      * The following virtual roots must be supported:
      *
-     *
      * *   images - the location for images
      * *   videos - the location for videos
      * *   music - the location for sounds
@@ -11477,7 +11847,6 @@ export interface Tizen {
      * *   removable\__..._ - the location for external storages. The _"..."_ suffix is a unique identifier of an external storage.
      * To obtain list of available external storages use [listStorages](#FileSystemManager::listStorages).
      *
-     *
      * The file URI path is also supported. To access paths out of virtual root, for example "file:///tmp" can be used as location parameter.
      *
      * The implementation must support the use of the following characters in file names:
@@ -11488,7 +11857,6 @@ export interface Tizen {
      * *   Underscore ("\_")
      * *   Hyphen ("-")
      * *   Period (".")
-     *
      *
      * The implementation may support additional characters in file names, depending on platform support.
      *
@@ -11508,7 +11876,6 @@ export interface Tizen {
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
      *
-     *
      * **Remark:** Methods, which names end with NonBlocking are asynchronous and are executed in background in the order in which they were called. Corresponding methods without NonBlocking at the end are synchronous and will block further instructions execution, until they are finished.
      *
      * For more information on the Filesystem features, see [File System Guide](/application/web/guides/data/file-system).
@@ -11526,7 +11893,6 @@ export interface Tizen {
      * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
-     *
      *
      * For more information on the IoT features, see [IoT Guide](/application/web/guides/connectivity/iotcon).
      *
@@ -11576,7 +11942,6 @@ export interface Tizen {
      * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
      * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
      *
-     *
      * For more information on the Package features, see [Package Guide](/application/web/guides/app-management/packages).
      * @since 2.1
      */
@@ -11594,7 +11959,6 @@ export interface Tizen {
      * *   Registering your application, if the application has not been registered yet
      * *   Getting notification data
      *
-     *
      * For more information on the Push features, see [Push Guide](/application/web/guides/messaging/push).
      *
      * To use Push features the application needs the permission to access the Tizen Push servers.
@@ -11603,7 +11967,6 @@ export interface Tizen {
      *
      * *   Size of a push message is limited: _alertMessage_ up to 127 bytes, and _appData_ (payload data) less than 1 KB.
      * *   Push service does not guarantee delivery and order of push messages.
-     *
      *
      * @since 3.0
      * @defApiFeature http://tizen.org/feature/network.push
@@ -11637,10 +12000,8 @@ export interface Tizen {
      * *   VIDEOSOURCE (**Since**: 2.3)
      * *   WIFI\_NETWORK
      *
-     *
      * Not all above properties may be available on every Tizen device. For instance, a device may not support the telephony feature. In that case, CELLULAR\_NETWORK and SIM are not available.
      * To check the available [SystemInfoPropertyId](#SystemInfoPropertyId), [getCapability()](#SystemInfo::getCapability) method can be used.
-     *
      *
      * *   BATTERY - tizen.systeminfo.getCapability(_"http://tizen.org/feature/battery"_)
      * *   CAMERA\_FLASH - tizen.systeminfo.getCapability(_"http://tizen.org/feature/camera.back.flash"_)
@@ -11650,7 +12011,6 @@ export interface Tizen {
      * *   NET\_PROXY\_NETWORK - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.net\_proxy"_)
      * *   SIM - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.telephony"_)
      * *   WIFI\_NETWORK - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.wifi"_)
-     *
      *
      * For more information on the System Information features, see [System Information Guide](/application/web/guides/device/system-information).
      * @since 1.0
@@ -11735,7 +12095,6 @@ export interface Tizen {
      * belongs to the right image, and so on.
      * *   Frame-sequence: Left and right images are interlaced by frames.
      *
-     *
      * Advanced devices are able to computationally generate depth
      * data by processing non-stereoscopic images. Depth data is used
      * to render left and right stereoscopic images from a source image which lacks
@@ -11772,7 +12131,6 @@ export interface Tizen {
      * *   Enter
      * *   Back
      *
-     *
      * The Tizen TV may provide additional keys depending on a particular input device.
      * An application can handle device dependent key events after registration.
      *
@@ -11791,8 +12149,6 @@ export interface Tizen {
      * A TV source is controlled by the user or
      * by you with the Tizen Web Device APIs. You do not have to implement any routines if you
      * do not want to interact with the TV image.
-     *
-     *
      *
      * @since 2.3
      *
@@ -11818,10 +12174,8 @@ export interface Tizen {
      *
      * A Tizen Web application includes a web view and the properties below of the web view can be managed via the Web Setting API:
      *
-     *
      * *   Delete all the cookies saved for the web view in the Web application.
      * *   Set a custom user agent string of the web view in the Web application.
-     *
      *
      * Note that all the settings using the Web Setting API is bound to your application; thus, no other applications are affected via the Web Setting API calls within your application.
      *
@@ -12329,7 +12683,6 @@ export interface WebSettingManager {
      *
      * *   UnknownError - If any error occurs while deleting the cookies.
      *
-     *
      * @param successCallback To be invoked if the requested delete operation succeeds.
      * @param errorCallback To be invoked if the requested delete operation fails.
      *
@@ -12349,14 +12702,17 @@ export interface WebSettingManager {
      * *   UnknownError - If any error occurs while setting the user agent string.
      * *   InvalidValuesError - If any of the input parameters contain an invalid value.
      *
-     *
      * @param userAgent User agent to set for the Web view in your Web application.
      * @param successCallback To be invoked if the requested setting operation succeeds.
      * @param errorCallback To be invoked if the requested setting operation fails.
      *
      * @throws WebAPIException with error type TypeMismatchError, if any input parameter is not compatible with the expected type for that parameter.
      */
-    setUserAgentString(userAgent: string, successCallback?: SuccessCallback | null, errorCallback?: ErrorCallback | null): void;
+    setUserAgentString(
+        userAgent: string,
+        successCallback?: SuccessCallback | null,
+        errorCallback?: ErrorCallback | null,
+    ): void;
 }
 declare global {
     /**
@@ -12364,7 +12720,7 @@ declare global {
      *
      * The _Tizen_ interface is always available within the _Window_ object in the ECMAScript hierarchy.
      */
-     interface Window {
+    interface Window {
         readonly WebAPIError: WebAPIException;
         readonly WebAPIException: WebAPIExceptionConstructor;
         /**
@@ -13134,7 +13490,6 @@ export const Query: Query;
  * gmail, gtalk, Picasa, and Youtube with each service having a separate service
  * instance bound to the account.
  *
- *
  * To use _add(), remove(), and update()_ methods of AccountManager can be invoked only
  * by account provider application. A web application is an account provider when its _config.xml_
  * contains [Account provider section](/application/tizen-studio/web-tools/config-editor#mw_account). For example:
@@ -13171,7 +13526,6 @@ export const account: AccountManager;
  * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
- *
  *
  * For more information on the Alarm features, see [Alarm Guide](/application/web/guides/alarm/alarms).
  *
@@ -13214,7 +13568,6 @@ export const application: ApplicationManager;
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
  *
- *
  * For more information about how to use Archive API, see [File Archiving Guide](/application/web/guides/data/file-archiving).
  *
  * @since 2.3
@@ -13231,7 +13584,6 @@ export const archive: ArchiveManager;
  * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
- *
  *
  * For more information on the Content features, see [Stored Content Management](/application/web/guides/data/stored-content).
  *
@@ -13258,7 +13610,6 @@ export const datacontrol: DataControlManager;
  * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
- *
  *
  * For more information on the Download features, see [Download Guide](/application/web/guides/connectivity/download).
  *
@@ -13287,7 +13638,6 @@ export const download: DownloadManager;
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
  *
- *
  * For more information about how to use Exif API, see [Exif Guide](/application/web/guides/multimedia/jpeg-exif).
  *
  * @since 2.3
@@ -13309,7 +13659,6 @@ export const exif: ExifManager;
  *
  * The following virtual roots must be supported:
  *
- *
  * *   images - the location for images
  * *   videos - the location for videos
  * *   music - the location for sounds
@@ -13322,7 +13671,6 @@ export const exif: ExifManager;
  * *   removable\__..._ - the location for external storages. The _"..."_ suffix is a unique identifier of an external storage.
  * To obtain list of available external storages use [listStorages](#FileSystemManager::listStorages).
  *
- *
  * The file URI path is also supported. To access paths out of virtual root, for example "file:///tmp" can be used as location parameter.
  *
  * The implementation must support the use of the following characters in file names:
@@ -13333,7 +13681,6 @@ export const exif: ExifManager;
  * *   Underscore ("\_")
  * *   Hyphen ("-")
  * *   Period (".")
- *
  *
  * The implementation may support additional characters in file names, depending on platform support.
  *
@@ -13353,7 +13700,6 @@ export const exif: ExifManager;
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
  *
- *
  * **Remark:** Methods, which names end with NonBlocking are asynchronous and are executed in background in the order in which they were called. Corresponding methods without NonBlocking at the end are synchronous and will block further instructions execution, until they are finished.
  *
  * For more information on the Filesystem features, see [File System Guide](/application/web/guides/data/file-system).
@@ -13371,7 +13717,6 @@ export const filesystem: FileSystemManager;
  * *   for accessing only internal storage using this API, a privilege [http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) must be provided,
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
- *
  *
  * For more information on the IoT features, see [IoT Guide](/application/web/guides/connectivity/iotcon).
  *
@@ -13421,7 +13766,6 @@ export const messageport: MessagePortManager;
  * *   for accessing only external storage using this API, a privilege [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage) must be provided,
  * *   for accessing internal and external storage using this API, privileges ([http://tizen.org/privilege/mediastorage](http://tizen.org/privilege/mediastorage) and [http://tizen.org/privilege/externalstorage](http://tizen.org/privilege/externalstorage)) must be provided.
  *
- *
  * For more information on the Package features, see [Package Guide](/application/web/guides/app-management/packages).
  * @since 2.1
  */
@@ -13439,7 +13783,6 @@ export const package: PackageManager;
  * *   Registering your application, if the application has not been registered yet
  * *   Getting notification data
  *
- *
  * For more information on the Push features, see [Push Guide](/application/web/guides/messaging/push).
  *
  * To use Push features the application needs the permission to access the Tizen Push servers.
@@ -13448,7 +13791,6 @@ export const package: PackageManager;
  *
  * *   Size of a push message is limited: _alertMessage_ up to 127 bytes, and _appData_ (payload data) less than 1 KB.
  * *   Push service does not guarantee delivery and order of push messages.
- *
  *
  * @since 3.0
  * @defApiFeature http://tizen.org/feature/network.push
@@ -13482,10 +13824,8 @@ export const push: PushManager;
  * *   VIDEOSOURCE (**Since**: 2.3)
  * *   WIFI\_NETWORK
  *
- *
  * Not all above properties may be available on every Tizen device. For instance, a device may not support the telephony feature. In that case, CELLULAR\_NETWORK and SIM are not available.
  * To check the available [SystemInfoPropertyId](#SystemInfoPropertyId), [getCapability()](#SystemInfo::getCapability) method can be used.
- *
  *
  * *   BATTERY - tizen.systeminfo.getCapability(_"http://tizen.org/feature/battery"_)
  * *   CAMERA\_FLASH - tizen.systeminfo.getCapability(_"http://tizen.org/feature/camera.back.flash"_)
@@ -13495,7 +13835,6 @@ export const push: PushManager;
  * *   NET\_PROXY\_NETWORK - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.net\_proxy"_)
  * *   SIM - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.telephony"_)
  * *   WIFI\_NETWORK - tizen.systeminfo.getCapability(_"http://tizen.org/feature/network.wifi"_)
- *
  *
  * For more information on the System Information features, see [System Information Guide](/application/web/guides/device/system-information).
  * @since 1.0
@@ -13580,7 +13919,6 @@ export const tvaudiocontrol: AudioControlManager;
  * belongs to the right image, and so on.
  * *   Frame-sequence: Left and right images are interlaced by frames.
  *
- *
  * Advanced devices are able to computationally generate depth
  * data by processing non-stereoscopic images. Depth data is used
  * to render left and right stereoscopic images from a source image which lacks
@@ -13617,7 +13955,6 @@ export const tvinfo: TVInfoManager;
  * *   Enter
  * *   Back
  *
- *
  * The Tizen TV may provide additional keys depending on a particular input device.
  * An application can handle device dependent key events after registration.
  *
@@ -13636,8 +13973,6 @@ export const tvinputdevice: TVInputDeviceManager;
  * A TV source is controlled by the user or
  * by you with the Tizen Web Device APIs. You do not have to implement any routines if you
  * do not want to interact with the TV image.
- *
- *
  *
  * @since 2.3
  *
@@ -13663,10 +13998,8 @@ export const voicecontrol: VoiceControlClientManager;
  *
  * A Tizen Web application includes a web view and the properties below of the web view can be managed via the Web Setting API:
  *
- *
  * *   Delete all the cookies saved for the web view in the Web application.
  * *   Set a custom user agent string of the web view in the Web application.
- *
  *
  * Note that all the settings using the Web Setting API is bound to your application; thus, no other applications are affected via the Web Setting API calls within your application.
  *
@@ -13763,7 +14096,6 @@ export type ResourceType = string;
  * *   "oic.if.b" - Interface which is used to manipulate (GET, PUT, POST, DELETE) a collection of sub-resources at the same time.
  * *   "oic.mi.grp" - Interface which is used to manipulate (GET, PUT, POST) a group of remote resources.
  * *   "oic.if.r" - Interface which is used to limit the methods that can be applied to a resource to GET only.
- *
  */
 export type ResourceInterface = string;
 /**
@@ -13799,7 +14131,14 @@ export type PushRegistrationId = string;
 /**
  * All available values for the caption menu.
  */
-export type CaptionValue = CaptionState | CaptionMode | CaptionFontSize | CaptionFontStyle | CaptionColor | CaptionOpacity | CaptionEdge;
+export type CaptionValue =
+    | CaptionState
+    | CaptionMode
+    | CaptionFontSize
+    | CaptionFontStyle
+    | CaptionColor
+    | CaptionOpacity
+    | CaptionEdge;
 /**
  * Name which identifies the key
  *
@@ -13810,11 +14149,27 @@ export type CaptionValue = CaptionState | CaptionMode | CaptionFontSize | Captio
  * *   ChannelUp
  * *   ChannelDown
  *
- *
  * The actual list of supported keys depends on the platform.
  */
 export type InputDeviceKeyName = string;
-export type SystemInfoPropertyType = SystemInfoBattery & SystemInfoCpu & SystemInfoStorage & SystemInfoStorageUnit & SystemInfoDisplay & SystemInfoPanel & SystemInfoDeviceOrientation & SystemInfoBuild & SystemInfoLocale & SystemInfoNetwork & SystemInfoWifiNetwork & SystemInfoEthernetNetwork & SystemInfoCellularNetwork & SystemInfoNetProxyNetwork & SystemInfoPeripheral & SystemInfoMemory & SystemInfoVideoSource ;
+export type SystemInfoPropertyType =
+    & SystemInfoBattery
+    & SystemInfoCpu
+    & SystemInfoStorage
+    & SystemInfoStorageUnit
+    & SystemInfoDisplay
+    & SystemInfoPanel
+    & SystemInfoDeviceOrientation
+    & SystemInfoBuild
+    & SystemInfoLocale
+    & SystemInfoNetwork
+    & SystemInfoWifiNetwork
+    & SystemInfoEthernetNetwork
+    & SystemInfoCellularNetwork
+    & SystemInfoNetProxyNetwork
+    & SystemInfoPeripheral
+    & SystemInfoMemory
+    & SystemInfoVideoSource;
 /**
  * Specifies the application launch mode when it is launched by _launchAppControl()_. This value may be overriden if application launched by _launchAppControl()_ has value _SINGLE_ configured in application manifest.
  *
@@ -13822,7 +14177,6 @@ export type SystemInfoPropertyType = SystemInfoBattery & SystemInfoCpu & SystemI
  *
  * *   SINGLE - Launch application as standalone instance.
  * *   GROUP - Launch application in subgroup.
- *
  *
  * @since 2.4
  */
@@ -13835,24 +14189,20 @@ export type ApplicationControlLaunchMode = "GROUP" | "SINGLE";
  * *   RECENTLY - Indicates most recently used applications, in a descending order of the application use counts.
  * *   FREQUENTLY - Indicates most frequently used applications, in a descending order of the application use counts.
  *
- *
  * @since 4.0
  */
 export type ApplicationUsageMode = "FREQUENTLY" | "RECENTLY";
 /**
  * Enumeration for the compression level.
  *
- *
  * *   STORE - No compression. The file is stored unchanged.
  * *   FAST - Choose the fastest compression method, compression savings will be less.
  * *   NORMAL - Default compression level.
  * *   BEST - Choose the best compression method, compression may be slow.
- *
  */
 export type ArchiveCompressionLevel = "BEST" | "FAST" | "NORMAL" | "STORE";
 /**
  * An enumerator to indicate the aspect ratio of the video source.
- *
  *
  * *   ASPECT\_RATIO\_1x1 - 1:1
  * *   ASPECT\_RATIO\_4x3 - 4:3
@@ -13860,15 +14210,18 @@ export type ArchiveCompressionLevel = "BEST" | "FAST" | "NORMAL" | "STORE";
  * *   ASPECT\_RATIO\_221x100 - 2.21:1
  * *   ASPECT\_RATIO\_UNKNOWN - Unknown aspect ratio
  *
- *
  * @remark _ASPECT\_RATIO\_UNKNOWN_ is supported since Tizen 3.0
  *
  * @since 2.4
  */
-export type AspectRatio = "ASPECT_RATIO_16x9" | "ASPECT_RATIO_1x1" | "ASPECT_RATIO_221x100" | "ASPECT_RATIO_4x3" | "ASPECT_RATIO_UNKNOWN";
+export type AspectRatio =
+    | "ASPECT_RATIO_16x9"
+    | "ASPECT_RATIO_1x1"
+    | "ASPECT_RATIO_221x100"
+    | "ASPECT_RATIO_4x3"
+    | "ASPECT_RATIO_UNKNOWN";
 /**
  * An enumerator to indicate the beep type.
- *
  *
  * *   UP - The UP sound
  * *   DOWN - The DOWN sound
@@ -13885,21 +14238,32 @@ export type AspectRatio = "ASPECT_RATIO_16x9" | "ASPECT_RATIO_1x1" | "ASPECT_RAT
  * *   KEYPAD\_DEL - The KEYPAD DEL sound
  * *   MOVE - The MOVE sound
  * *   PREPARING - The PREPARING sound
- *
  */
-export type AudioBeepType = "BACK" | "CANCEL" | "DOWN" | "KEYPAD" | "KEYPAD_DEL" | "KEYPAD_ENTER" | "LEFT" | "MOVE" | "PAGE_LEFT" | "PAGE_RIGHT" | "PREPARING" | "RIGHT" | "SELECT" | "UP" | "WARNING";
+export type AudioBeepType =
+    | "BACK"
+    | "CANCEL"
+    | "DOWN"
+    | "KEYPAD"
+    | "KEYPAD_DEL"
+    | "KEYPAD_ENTER"
+    | "LEFT"
+    | "MOVE"
+    | "PAGE_LEFT"
+    | "PAGE_RIGHT"
+    | "PREPARING"
+    | "RIGHT"
+    | "SELECT"
+    | "UP"
+    | "WARNING";
 /**
  * Defines whether the lyrics supplied with an audio file is time-synchronized.
  *
- *
  * *   SYNCHRONIZED - corresponds to synchronized audio content lyrics.
  * *   UNSYNCHRONIZED - corresponds to unsynchronized audio content lyrics.
- *
  */
 export type AudioContentLyricsType = "SYNCHRONIZED" | "UNSYNCHRONIZED";
 /**
  * An enumerator to indicate the audio output mode.
- *
  *
  * *   PCM - PCM(Pulse-code modulation) audio output mode
  * *   DOLBY - Dolby audio output mode
@@ -13913,11 +14277,9 @@ export type AudioOutputMode = "AAC" | "DOLBY" | "DOLBY_DIGITAL_PLUS" | "DTS" | "
 /**
  * Specifies starting point for seek operation.
  *
- *
  * *   BEGIN - Beginning of the file.
  * *   CURRENT - Current position of file indicator.
  * *   END - End of the file.
- *
  *
  * @since 5.0
  */
@@ -13932,7 +14294,6 @@ export type BaseSeekPosition = "BEGIN" | "CURRENT" | "END";
  * *   BYTES - [ByteStream](#ByteStream)
  * *   BYTES\_ARRAY - array of [ByteStream](#ByteStream)
  *
- *
  * @since 5.5
  *
  * @remark Empty array will be assigned STRING\_ARRAY type.
@@ -13941,7 +14302,6 @@ export type BundleValueType = "BYTES" | "BYTES_ARRAY" | "STRING" | "STRING_ARRAY
 /**
  * Specifies the values for the [daysOfTheWeek](#AlarmAbsolute::daysOfTheWeek) attribute.
  *
- *
  * *   "MO" corresponds to "Monday"
  * *   "TU" corresponds to "Tuesday"
  * *   "WE" corresponds to "Wednesday"
@@ -13949,7 +14309,6 @@ export type BundleValueType = "BYTES" | "BYTES_ARRAY" | "STRING" | "STRING_ARRAY
  * *   "FR" corresponds to "Friday"
  * *   "SA" corresponds to "Saturday"
  * *   "SU" corresponds to "Sunday"
- *
  */
 export type ByDayValue = "FR" | "MO" | "SA" | "SU" | "TH" | "TU" | "WE";
 /**
@@ -13957,40 +14316,54 @@ export type ByDayValue = "FR" | "MO" | "SA" | "SU" | "TH" | "TU" | "WE";
  *
  * These values may be returned for keys CAPTION\_FONT\_COLOR\_KEY, CAPTION\_BG\_COLOR\_KEY, CAPTION\_EDGE\_COLOR\_KEY and CAPTION\_WINDOW\_COLOR\_KEY.
  */
-export type CaptionColor = "CAPTION_COLOR_BLACK" | "CAPTION_COLOR_BLUE" | "CAPTION_COLOR_CYAN" | "CAPTION_COLOR_DEFAULT" | "CAPTION_COLOR_GREEN" | "CAPTION_COLOR_MAGENTA" | "CAPTION_COLOR_RED" | "CAPTION_COLOR_WHITE" | "CAPTION_COLOR_YELLOW";
+export type CaptionColor =
+    | "CAPTION_COLOR_BLACK"
+    | "CAPTION_COLOR_BLUE"
+    | "CAPTION_COLOR_CYAN"
+    | "CAPTION_COLOR_DEFAULT"
+    | "CAPTION_COLOR_GREEN"
+    | "CAPTION_COLOR_MAGENTA"
+    | "CAPTION_COLOR_RED"
+    | "CAPTION_COLOR_WHITE"
+    | "CAPTION_COLOR_YELLOW";
 /**
  * Available values for the caption menu edge type.
  *
  * These values may be returned for key CAPTION\_EDGE\_TYPE\_KEY.
- *
  *
  * *   CAPTION\_EDGE\_NONE - no edge
  * *   CAPTION\_EDGE\_RAISED - raised edge
  * *   CAPTION\_EDGE\_DEPRESSED - depressed edge
  * *   CAPTION\_EDGE\_UNIFORM - uniform edge
  * *   CAPTION\_EDGE\_DROP\_SHADOWED - drop shadowed edge
- *
  */
-export type CaptionEdge = "CAPTION_EDGE_DEPRESSED" | "CAPTION_EDGE_DROP_SHADOWED" | "CAPTION_EDGE_NONE" | "CAPTION_EDGE_RAISED" | "CAPTION_EDGE_UNIFORM";
+export type CaptionEdge =
+    | "CAPTION_EDGE_DEPRESSED"
+    | "CAPTION_EDGE_DROP_SHADOWED"
+    | "CAPTION_EDGE_NONE"
+    | "CAPTION_EDGE_RAISED"
+    | "CAPTION_EDGE_UNIFORM";
 /**
  * Available values for the caption menu font size.
  *
  * These values may be returned for key CAPTION\_FONT\_SIZE\_KEY.
- *
  *
  * *   CAPTION\_SIZE\_DEFAULT - default font size
  * *   CAPTION\_SIZE\_SMALL - small font size
  * *   CAPTION\_SIZE\_STANDARD - standard font size
  * *   CAPTION\_SIZE\_LARGE - large font size
  * *   CAPTION\_SIZE\_EXTRA\_LARGE - extra large font size
- *
  */
-export type CaptionFontSize = "CAPTION_SIZE_DEFAULT" | "CAPTION_SIZE_EXTRA_LARGE" | "CAPTION_SIZE_LARGE" | "CAPTION_SIZE_SMALL" | "CAPTION_SIZE_STANDARD";
+export type CaptionFontSize =
+    | "CAPTION_SIZE_DEFAULT"
+    | "CAPTION_SIZE_EXTRA_LARGE"
+    | "CAPTION_SIZE_LARGE"
+    | "CAPTION_SIZE_SMALL"
+    | "CAPTION_SIZE_STANDARD";
 /**
  * Available values for the caption menu font style.
  *
  * These values may be returned for key CAPTION\_FONT\_STYLE\_KEY.
- *
  *
  * *   CAPTION\_FONT\_DEFAULT - default font style
  * *   CAPTION\_FONT\_STYLE1 - Monospaced with serifs (similar to Courier)
@@ -14000,12 +14373,19 @@ export type CaptionFontSize = "CAPTION_SIZE_DEFAULT" | "CAPTION_SIZE_EXTRA_LARGE
  * *   CAPTION\_FONT\_STYLE5 - Casual font type (similar to Dom and Impress)
  * *   CAPTION\_FONT\_STYLE6 - Cursive font type (similar to Coronet and Marigold)
  * *   CAPTION\_FONT\_STYLE7 - Small capitals (similar to Engravers Gothic)
- *
  */
-export type CaptionFontStyle = "CAPTION_FONT_DEFAULT" | "CAPTION_FONT_STYLE0" | "CAPTION_FONT_STYLE1" | "CAPTION_FONT_STYLE2" | "CAPTION_FONT_STYLE3" | "CAPTION_FONT_STYLE4" | "CAPTION_FONT_STYLE5" | "CAPTION_FONT_STYLE6" | "CAPTION_FONT_STYLE7";
+export type CaptionFontStyle =
+    | "CAPTION_FONT_DEFAULT"
+    | "CAPTION_FONT_STYLE0"
+    | "CAPTION_FONT_STYLE1"
+    | "CAPTION_FONT_STYLE2"
+    | "CAPTION_FONT_STYLE3"
+    | "CAPTION_FONT_STYLE4"
+    | "CAPTION_FONT_STYLE5"
+    | "CAPTION_FONT_STYLE6"
+    | "CAPTION_FONT_STYLE7";
 /**
  * Available keys for the caption menu.
- *
  *
  * *   CAPTION\_ONOFF\_KEY - caption state
  * *   CAPTION\_MODE\_KEY - caption mode
@@ -14019,14 +14399,24 @@ export type CaptionFontStyle = "CAPTION_FONT_DEFAULT" | "CAPTION_FONT_STYLE0" | 
  * *   CAPTION\_EDGE\_COLOR\_KEY - caption edge color
  * *   CAPTION\_WINDOW\_COLOR\_KEY - caption window color (only US)
  * *   CAPTION\_WINDOW\_OPACITY\_KEY - caption window opacity mode (only US)
- *
  */
-export type CaptionInfoKey = "CAPTION_BG_COLOR_KEY" | "CAPTION_BG_OPACITY_KEY" | "CAPTION_EDGE_COLOR_KEY" | "CAPTION_EDGE_TYPE_KEY" | "CAPTION_FONT_COLOR_KEY" | "CAPTION_FONT_OPACITY_KEY" | "CAPTION_FONT_SIZE_KEY" | "CAPTION_FONT_STYLE_KEY" | "CAPTION_MODE_KEY" | "CAPTION_ONOFF_KEY" | "CAPTION_WINDOW_COLOR_KEY" | "CAPTION_WINDOW_OPACITY_KEY";
+export type CaptionInfoKey =
+    | "CAPTION_BG_COLOR_KEY"
+    | "CAPTION_BG_OPACITY_KEY"
+    | "CAPTION_EDGE_COLOR_KEY"
+    | "CAPTION_EDGE_TYPE_KEY"
+    | "CAPTION_FONT_COLOR_KEY"
+    | "CAPTION_FONT_OPACITY_KEY"
+    | "CAPTION_FONT_SIZE_KEY"
+    | "CAPTION_FONT_STYLE_KEY"
+    | "CAPTION_MODE_KEY"
+    | "CAPTION_ONOFF_KEY"
+    | "CAPTION_WINDOW_COLOR_KEY"
+    | "CAPTION_WINDOW_OPACITY_KEY";
 /**
  * Available values for the caption menu mode.
  *
  * These values may be returned for key CAPTION\_MODE\_KEY.
- *
  *
  * *   CAPTION\_MODE\_DEFAULT - default mode
  * *   CAPTION\_MODE\_SERVICE1 - standard service 1 (Primary Caption Service)
@@ -14043,24 +14433,41 @@ export type CaptionInfoKey = "CAPTION_BG_COLOR_KEY" | "CAPTION_BG_OPACITY_KEY" |
  * *   CAPTION\_MODE\_TEXT2 - Text Service 2
  * *   CAPTION\_MODE\_TEXT3 - Text Service 3
  * *   CAPTION\_MODE\_TEXT4 - Text Service 4
- *
  */
-export type CaptionMode = "CAPTION_MODE_CC1" | "CAPTION_MODE_CC2" | "CAPTION_MODE_CC3" | "CAPTION_MODE_CC4" | "CAPTION_MODE_DEFAULT" | "CAPTION_MODE_SERVICE1" | "CAPTION_MODE_SERVICE2" | "CAPTION_MODE_SERVICE3" | "CAPTION_MODE_SERVICE4" | "CAPTION_MODE_SERVICE5" | "CAPTION_MODE_SERVICE6" | "CAPTION_MODE_TEXT1" | "CAPTION_MODE_TEXT2" | "CAPTION_MODE_TEXT3" | "CAPTION_MODE_TEXT4";
+export type CaptionMode =
+    | "CAPTION_MODE_CC1"
+    | "CAPTION_MODE_CC2"
+    | "CAPTION_MODE_CC3"
+    | "CAPTION_MODE_CC4"
+    | "CAPTION_MODE_DEFAULT"
+    | "CAPTION_MODE_SERVICE1"
+    | "CAPTION_MODE_SERVICE2"
+    | "CAPTION_MODE_SERVICE3"
+    | "CAPTION_MODE_SERVICE4"
+    | "CAPTION_MODE_SERVICE5"
+    | "CAPTION_MODE_SERVICE6"
+    | "CAPTION_MODE_TEXT1"
+    | "CAPTION_MODE_TEXT2"
+    | "CAPTION_MODE_TEXT3"
+    | "CAPTION_MODE_TEXT4";
 /**
  * Available values for the caption menu opacity.
  *
  * These values may be returned for keys CAPTION\_FONT\_OPACITY\_KEY, CAPTION\_BG\_OPACITY\_KEY and CAPTION\_WINDOW\_OPACITY\_KEY.
  */
-export type CaptionOpacity = "CAPTION_OPACITY_DEFAULT" | "CAPTION_OPACITY_FLASHING" | "CAPTION_OPACITY_SOLID" | "CAPTION_OPACITY_TRANSLUCENT" | "CAPTION_OPACITY_TRANSPARENT";
+export type CaptionOpacity =
+    | "CAPTION_OPACITY_DEFAULT"
+    | "CAPTION_OPACITY_FLASHING"
+    | "CAPTION_OPACITY_SOLID"
+    | "CAPTION_OPACITY_TRANSLUCENT"
+    | "CAPTION_OPACITY_TRANSPARENT";
 /**
  * Available values for the caption state.
  *
  * These values may be returned for key CAPTION\_ONOFF\_KEY.
  *
- *
  * *   CAPTION\_OFF - caption menu is turned off
  * *   CAPTION\_ON - caption menu is turned on
- *
  */
 export type CaptionState = "CAPTION_OFF" | "CAPTION_ON";
 /**
@@ -14070,7 +14477,6 @@ export type CaptionState = "CAPTION_OFF" | "CAPTION_ON";
  *
  * *   UNION - Indicates that the composite is a union of filters ("OR" operator)
  * *   INTERSECTION - Indicates that the composite is an intersection of filters ("AND" operator)
- *
  */
 export type CompositeFilterType = "INTERSECTION" | "UNION";
 /**
@@ -14084,16 +14490,13 @@ export type CompositeFilterType = "INTERSECTION" | "UNION";
  * *   IPV4\_ONLY - Internet Protocol version 4 connectivity only
  * *   IPV6\_ONLY - Internet Protocol version 6 connectivity only
  * *   ALL - All connectivities
- *
  */
 export type ConnectivityType = "ALL" | "IP" | "IPV4_ONLY" | "IPV6_ONLY" | "PREFER_TCP" | "PREFER_UDP";
 /**
  * Defines whether a content directory is stored on internal or external storage (such as a removable memory card).
  *
- *
  * *   INTERNAL - corresponds to internal content directory storage.
  * *   EXTERNAL - corresponds to external content directory storage.
- *
  *
  * @note _deprecated_ 5.5 Deprecated since 5.5.
  */
@@ -14101,12 +14504,10 @@ export type ContentDirectoryStorageType = "EXTERNAL" | "INTERNAL";
 /**
  * Defines the type of content such as an image, video, audio, or any other.
  *
- *
  * *   IMAGE - corresponds to image content.
  * *   VIDEO - corresponds to video content.
  * *   AUDIO - corresponds to audio content.
  * *   OTHER - corresponds to other content.
- *
  *
  * @remark "OTHER" type is added since Tizen 2.1 and since 4.0 it is optional type, related to [http://tizen.org/feature/content.scanning.others](http://tizen.org/feature/content.scanning.others) feature.
  * One can check "OTHER" type support using systeminfo API with tizen.systeminfo.getCapability(_"http://tizen.org/feature/content.scanning.others"_).
@@ -14115,10 +14516,8 @@ export type ContentType = "AUDIO" | "IMAGE" | "OTHER" | "VIDEO";
 /**
  * Data types.
  *
- *
  * *   MAP - corresponds to map data type
  * *   SQL - corresponds to SQL data type
- *
  */
 export type DataType = "MAP" | "SQL";
 /**
@@ -14136,16 +14535,22 @@ export type DataType = "MAP" | "SQL";
  * *   CHECKER\_BD - Checkerboard (only for PC or game console sources)
  * *   FROM\_2D\_TO\_3D - Left and right image computed from
  * non-stereoscopic image
- *
  */
-export type Display3DEffectMode = "CHECKER_BD" | "FRAME_SEQUENCE" | "FROM_2D_TO_3D" | "LINE_BY_LINE" | "OFF" | "SIDE_BY_SIDE" | "TOP_BOTTOM" | "VERTICAL_STRIPE";
+export type Display3DEffectMode =
+    | "CHECKER_BD"
+    | "FRAME_SEQUENCE"
+    | "FROM_2D_TO_3D"
+    | "LINE_BY_LINE"
+    | "OFF"
+    | "SIDE_BY_SIDE"
+    | "TOP_BOTTOM"
+    | "VERTICAL_STRIPE";
 /**
  * An enumerator to indicate 3D mode state.
  *
  * *   NOT\_CONNECTED - The device (e.g. Blu-ray player) supports 3D mode but a 3D display is not connected.
  * *   NOT\_SUPPORTED - The device does not support 3D mode.
  * *   READY - The device supports 3D mode and it can display 3D mode.
- *
  */
 export type Display3DModeState = "NOT_CONNECTED" | "NOT_SUPPORTED" | "READY";
 /**
@@ -14156,7 +14561,6 @@ export type Display3DModeState = "NOT_CONNECTED" | "NOT_SUPPORTED" | "READY";
  * *   CELLULAR - Indicates that the download operation is allowed in the cellular network only.
  * *   WIFI - Indicates that the download operation is allowed in the Wi-Fi network only.
  * *   ALL - Indicates that the download operation is allowed in all network types.
- *
  *
  * @since 2.1
  */
@@ -14173,12 +14577,10 @@ export type DownloadNetworkType = "ALL" | "CELLULAR" | "WIFI";
  * *   COMPLETED - Indicates that the download operation is in a completed state.
  * *   FAILED - Indicates that the download operation has failed due to some reasons.
  * *   ABANDONED - Indicates that the download operation has been abandoned.
- *
  */
 export type DownloadState = "ABANDONED" | "CANCELED" | "COMPLETED" | "DOWNLOADING" | "FAILED" | "PAUSED" | "QUEUED";
 /**
  * Specifies the data change event types. The possible values are:
- *
  *
  * *   SQL\_UPDATE - SQL update event
  * *   SQL\_INSERT - SQL insert event
@@ -14187,7 +14589,6 @@ export type DownloadState = "ABANDONED" | "CANCELED" | "COMPLETED" | "DOWNLOADIN
  * *   MAP\_ADD - Map add event
  * *   MAP\_REMOVE - Map remove event
  *
- *
  * @since 4.0
  */
 export type EventType = "MAP_ADD" | "MAP_REMOVE" | "MAP_SET" | "SQL_DELETE" | "SQL_INSERT" | "SQL_UPDATE";
@@ -14195,7 +14596,6 @@ export type EventType = "MAP_ADD" | "MAP_REMOVE" | "MAP_SET" | "SQL_DELETE" | "S
  * Specifies an exposure balance program for an image.
  *
  * Some additional information can be found in the [List of digital camera modes](http://en.wikipedia.org/wiki/List_of_digital_camera_modes) article.
- *
  *
  * *   NOT\_DEFINED - Exposure program info is not present or is unknown
  * *   MANUAL - In the manual mode both shutter speed and aperture are independently set manually (with ISO sensitivity also set manually)
@@ -14206,9 +14606,17 @@ export type EventType = "MAP_ADD" | "MAP_REMOVE" | "MAP_SET" | "SQL_DELETE" | "S
  * *   ACTION\_PROGRAM - Action or sports modes increase ISO and use a faster shutter speed to capture an action
  * *   PORTRAIT\_MODE - Portrait mode widens the aperture to throw the background out of focus. The camera may recognize and focus on a human face
  * *   LANDSCAPE\_MODE - Landscape modes use a small aperture to gain depth of a field
- *
  */
-export type ExposureProgram = "ACTION_PROGRAM" | "APERTURE_PRIORITY" | "CREATIVE_PROGRAM" | "LANDSCAPE_MODE" | "MANUAL" | "NORMAL" | "NOT_DEFINED" | "PORTRAIT_MODE" | "SHUTTER_PRIORITY";
+export type ExposureProgram =
+    | "ACTION_PROGRAM"
+    | "APERTURE_PRIORITY"
+    | "CREATIVE_PROGRAM"
+    | "LANDSCAPE_MODE"
+    | "MANUAL"
+    | "NORMAL"
+    | "NOT_DEFINED"
+    | "PORTRAIT_MODE"
+    | "SHUTTER_PRIORITY";
 /**
  * Specifies the file mode when it is opened.
  *
@@ -14220,27 +14628,22 @@ export type ExposureProgram = "ACTION_PROGRAM" | "APERTURE_PRIORITY" | "CREATIVE
  * *   rwo - read and write access. Original file content are deleted.
  * *   w - write access.
  *
- *
  * @remark _rwo_ mode is supported since Tizen 5.0. It will not be recognized by deprecated functions.
  */
 export type FileMode = "a" | "r" | "rw" | "rwo" | "w";
 /**
  * Specifies the state of the storage.
  *
- *
  * *   MOUNTED - The device is mounted and can be browsed.
  * *   REMOVED - The device has been removed. This states applies only to external drives.
  * *   UNMOUNTABLE - The device cannot be mounted due to an error.
- *
  */
 export type FileSystemStorageState = "MOUNTED" | "REMOVED" | "UNMOUNTABLE";
 /**
  * Specifies the type of storage.
  *
- *
  * *   INTERNAL - Internal storage is a storage that cannot be removed, such as a flash memory.
  * *   EXTERNAL - External storage is removable storage, such as a USB drive or a memory card.
- *
  */
 export type FileSystemStorageType = "EXTERNAL" | "INTERNAL";
 /**
@@ -14256,12 +14659,10 @@ export type FileSystemStorageType = "EXTERNAL" | "INTERNAL";
  * This type of comparison works only on strings and is case insensitive.
  * *   ENDSWITH - Indicates that an attribute value should end with the specified string. This type of comparison works only on strings and is case insensitive.
  * *   EXISTS - Indicates that a filter comparison should match if the specified attribute exists.
- *
  */
 export type FilterMatchFlag = "CONTAINS" | "ENDSWITH" | "EXACTLY" | "EXISTS" | "FULLSTRING" | "STARTSWITH";
 /**
  * Defines the orientation of an image.
- *
  *
  * *   NORMAL - corresponds to normal image content orientation.
  * *   FLIP\_HORIZONTAL - corresponds to horizontal flip image content orientation.
@@ -14271,26 +14672,29 @@ export type FilterMatchFlag = "CONTAINS" | "ENDSWITH" | "EXACTLY" | "EXISTS" | "
  * *   ROTATE\_90 - corresponds to rotate 90 degrees image content orientation.
  * *   TRANSVERSE - corresponds to transverse image content orientation.
  * *   ROTATE\_270 - corresponds to rotate 270 degrees image content orientation.
- *
  */
-export type ImageContentOrientation = "FLIP_HORIZONTAL" | "FLIP_VERTICAL" | "NORMAL" | "ROTATE_180" | "ROTATE_270" | "ROTATE_90" | "TRANSPOSE" | "TRANSVERSE";
+export type ImageContentOrientation =
+    | "FLIP_HORIZONTAL"
+    | "FLIP_VERTICAL"
+    | "NORMAL"
+    | "ROTATE_180"
+    | "ROTATE_270"
+    | "ROTATE_90"
+    | "TRANSPOSE"
+    | "TRANSVERSE";
 /**
  * An enumerator to indicate the units of measurement for specifying the measurement unit when calling **getRect()**.
  *
- *
  * *   px - pixel unit
  * *   % - percentage unit for specifying relative size
- *
  */
 export type MeasurementUnit = "%" | "px";
 /**
  * The media controller ability support values.
  *
- *
  * *   YES - Ability is supported.
  * *   NO - Ability is not supported.
  * *   UNDECIDED - The support of ability is not set.
- *
  *
  * @since 5.5
  */
@@ -14302,10 +14706,29 @@ export type MediaControllerAbilitySupport = "NO" | "UNDECIDED" | "YES";
  *
  * @since 5.5
  */
-export type MediaControllerContentAgeRating = "1" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "ALL";
+export type MediaControllerContentAgeRating =
+    | "1"
+    | "10"
+    | "11"
+    | "12"
+    | "13"
+    | "14"
+    | "15"
+    | "16"
+    | "17"
+    | "18"
+    | "19"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "ALL";
 /**
  * Content type.
- *
  *
  * *   IMAGE - content type for images.
  * *   MUSIC - content type for music.
@@ -14313,19 +14736,16 @@ export type MediaControllerContentAgeRating = "1" | "10" | "11" | "12" | "13" | 
  * *   OTHER - content type for other media.
  * *   UNDECIDED - content type for unspecified media types.
  *
- *
  * @since 5.5
  */
 export type MediaControllerContentType = "IMAGE" | "MUSIC" | "OTHER" | "UNDECIDED" | "VIDEO";
 /**
  * Types of supported media controller display modes.
  *
- *
  * *   LETTER\_BOX - Letter box display mode type.
  * *   ORIGIN\_SIZE - Origin size display mode type.
  * *   FULL\_SCREEN - Full screen display mode type.
  * *   CROPPED\_FULL - Cropped full screen display mode type.
- *
  *
  * @since 5.5
  */
@@ -14333,19 +14753,16 @@ export type MediaControllerDisplayModeType = "CROPPED_FULL" | "FULL_SCREEN" | "L
 /**
  * The media controller rotation values.
  *
- *
  * *   ROTATION\_NONE - Display is not rotated.
  * *   ROTATION\_90 - Display is rotated by 90°.
  * *   ROTATION\_180 - Display is rotated by 180°.
  * *   ROTATION\_270 - Display is rotated by 270°.
- *
  *
  * @since 5.5
  */
 export type MediaControllerDisplayRotationType = "ROTATION_180" | "ROTATION_270" | "ROTATION_90" | "ROTATION_NONE";
 /**
  * Defines media playback state.
- *
  *
  * *   PLAY - Corresponds to the "playing" media controller playback state.
  * *   PAUSE - Corresponds to the "paused" media controller playback state.
@@ -14354,7 +14771,6 @@ export type MediaControllerDisplayRotationType = "ROTATION_180" | "ROTATION_270"
  * *   PREV - Corresponds to the "moving to previous" media controller playback state.
  * *   FORWARD - Corresponds to the "forwarding" media controller playback state.
  * *   REWIND - Corresponds to the "rewinding" media controller playback state.
- *
  */
 export type MediaControllerPlaybackState = "FORWARD" | "NEXT" | "PAUSE" | "PLAY" | "PREV" | "REWIND" | "STOP";
 /**
@@ -14366,13 +14782,11 @@ export type MediaControllerPlaybackState = "FORWARD" | "NEXT" | "PAUSE" | "PLAY"
  * *   REPEAT\_ONE - repeating one media.
  * *   REPEAT\_ALL - repeating all media.
  *
- *
  * @since 5.5
  */
 export type MediaControllerRepeatState = "REPEAT_ALL" | "REPEAT_OFF" | "REPEAT_ONE";
 /**
  * Search category.
- *
  *
  * *   NO\_CATEGORY - No search category.
  * *   TITLE - Search by title.
@@ -14381,22 +14795,18 @@ export type MediaControllerRepeatState = "REPEAT_ALL" | "REPEAT_OFF" | "REPEAT_O
  * *   GENRE - Search by genre.
  * *   TPO - Search by Time Place Occasion.
  *
- *
  * @since 5.5
  */
 export type MediaControllerSearchCategory = "ALBUM" | "ARTIST" | "GENRE" | "NO_CATEGORY" | "TITLE" | "TPO";
 /**
  * The media controller server state.
  *
- *
  * *   ACTIVE - Corresponds to active server state.
  * *   INACTIVE - Corresponds to inactive server state.
- *
  */
 export type MediaControllerServerState = "ACTIVE" | "INACTIVE";
 /**
  * The media controller simple ability types. Simple means, that each ability is described by a single [MediaControllerAbilitySupport](#MediaControllerAbilitySupport) value and is not a part of a complex ability structure.
- *
  *
  * *   PLAYBACK\_POSITION - Ability to change playback position.
  * *   SHUFFLE - Ability to change shuffle mode.
@@ -14407,10 +14817,17 @@ export type MediaControllerServerState = "ACTIVE" | "INACTIVE";
  * *   SUBTITLES - Ability to receive requests for subtitles mode change from media controller clients.
  * *   MODE\_360 - Ability to receive requests for spherical (360°) mode change from media controller clients.
  *
- *
  * @since 5.5
  */
-export type MediaControllerSimpleAbility = "CLIENT_CUSTOM" | "MODE_360" | "PLAYBACK_POSITION" | "PLAYLIST" | "REPEAT" | "SEARCH" | "SHUFFLE" | "SUBTITLES";
+export type MediaControllerSimpleAbility =
+    | "CLIENT_CUSTOM"
+    | "MODE_360"
+    | "PLAYBACK_POSITION"
+    | "PLAYLIST"
+    | "REPEAT"
+    | "SEARCH"
+    | "SHUFFLE"
+    | "SUBTITLES";
 /**
  * Enumeration for policy of observation.
  *
@@ -14418,7 +14835,6 @@ export type MediaControllerSimpleAbility = "CLIENT_CUSTOM" | "MODE_360" | "PLAYB
  *
  * *   IGNORE\_OUT\_OF\_ORDER - observation request for most up-to-date notifications only
  * *   ACCEPT\_OUT\_OF\_ORDER - observation request for all notifications including stale notifications
- *
  */
 export type ObservePolicy = "ACCEPT_OUT_OF_ORDER" | "IGNORE_OUT_OF_ORDER";
 /**
@@ -14429,18 +14845,15 @@ export type ObservePolicy = "ACCEPT_OUT_OF_ORDER" | "IGNORE_OUT_OF_ORDER";
  * *   NO\_TYPE - no action of observation
  * *   REGISTER - action of registering observation
  * *   DEREGISTER - action of unregistering observation
- *
  */
 export type ObserveType = "DEREGISTER" | "NO_TYPE" | "REGISTER";
 /**
  * An enumerator to indicate permissions.
  *
- *
  * *   NONE - Clears or removes permissions
  * *   READ - Permission to read data
  * *   REMOVE - Permission to remove data
  * *   READ\_REMOVE - Permission to read and remove data
- *
  */
 export type PermissionType = "NONE" | "READ" | "READ_REMOVE" | "REMOVE";
 /**
@@ -14451,7 +14864,6 @@ export type PermissionType = "NONE" | "READ" | "READ_REMOVE" | "REMOVE";
  * *   OK - successful action of presence
  * *   STOPPED - stopped action of presence
  * *   TIMEOUT - no response of presence for some time
- *
  */
 export type PresenceResponseResultType = "OK" | "STOPPED" | "TIMEOUT";
 /**
@@ -14462,16 +14874,13 @@ export type PresenceResponseResultType = "OK" | "STOPPED" | "TIMEOUT";
  * *   CREATED - resource creation operation of server
  * *   UPDATED - resource update operation of server
  * *   DESTROYED - resource destruction operation of server
- *
  */
 export type PresenceTriggerType = "CREATED" | "DESTROYED" | "UPDATED";
 /**
  * A push registration state.
  *
- *
  * *   REGISTERED - The application is registered to the push server.
  * *   UNREGISTERED - The application is not registered to the push server.
- *
  *
  * @since 3.0
  */
@@ -14483,7 +14892,6 @@ export type PushRegistrationState = "REGISTERED" | "UNREGISTERED";
  *
  * *   HIGH - for a high quality of service. acknowledgments are used to confirm delivery.
  * *   LOW - for a low quality of service. packet delivery is best effort
- *
  */
 export type QosLevel = "HIGH" | "LOW";
 /**
@@ -14498,9 +14906,15 @@ export type QosLevel = "HIGH" | "LOW";
  * *   RESOURCE\_CHANGED - result of response for resource has changed
  * *   SLOW - result of response for slow resource
  * *   FORBIDDEN - result of response for accessing unauthorized resource
- *
  */
-export type ResponseResult = "ERROR" | "FORBIDDEN" | "RESOURCE_CHANGED" | "RESOURCE_CREATED" | "RESOURCE_DELETED" | "SLOW" | "SUCCESS";
+export type ResponseResult =
+    | "ERROR"
+    | "FORBIDDEN"
+    | "RESOURCE_CHANGED"
+    | "RESOURCE_CREATED"
+    | "RESOURCE_DELETED"
+    | "SLOW"
+    | "SUCCESS";
 /**
  * An enumerator that indicates the sorting order.
  *
@@ -14508,7 +14922,6 @@ export type ResponseResult = "ERROR" | "FORBIDDEN" | "RESOURCE_CHANGED" | "RESOU
  *
  * *   ASC - Indicates that the sorting order is ascending
  * *   DESC - Indicates that the sorting order is descending
- *
  */
 export type SortModeOrder = "ASC" | "DESC";
 /**
@@ -14527,10 +14940,13 @@ export type SortModeOrder = "ASC" | "DESC";
  *
  * @since 2.0
  */
-export type SystemInfoDeviceOrientationStatus = "LANDSCAPE_PRIMARY" | "LANDSCAPE_SECONDARY" | "PORTRAIT_PRIMARY" | "PORTRAIT_SECONDARY";
+export type SystemInfoDeviceOrientationStatus =
+    | "LANDSCAPE_PRIMARY"
+    | "LANDSCAPE_SECONDARY"
+    | "PORTRAIT_PRIMARY"
+    | "PORTRAIT_SECONDARY";
 /**
  * The low memory state of a device.
- *
  *
  * *   NORMAL - indicating the remaining memory is sufficient for an application to run
  * *   WARNING - indicating the remaining memory is insufficient. Low memory warnings may happen differently according to the system
@@ -14541,13 +14957,11 @@ export type SystemInfoLowMemoryStatus = "NORMAL" | "WARNING";
 /**
  * IP configuration types.
  *
- *
  * *   NONE - Default value when network connection is not available
  * *   STATIC - Manual IP configuration
  * *   DYNAMIC - Configured IP using DHCP client
  * *   AUTO - Configured IP from Auto IP pool (169.254/16). Later with DHCP client, if available
  * *   FIXED - IP cannot be modified
- *
  *
  * @since 2.4
  */
@@ -14557,7 +14971,16 @@ export type SystemInfoNetworkIpMode = "AUTO" | "DYNAMIC" | "FIXED" | "NONE" | "S
  * @since 2.0
  * @remark NET\_PROXY is supported since Tizen 3.0
  */
-export type SystemInfoNetworkType = "2.5G" | "2G" | "3G" | "4G" | "ETHERNET" | "NET_PROXY" | "NONE" | "UNKNOWN" | "WIFI";
+export type SystemInfoNetworkType =
+    | "2.5G"
+    | "2G"
+    | "3G"
+    | "4G"
+    | "ETHERNET"
+    | "NET_PROXY"
+    | "NONE"
+    | "UNKNOWN"
+    | "WIFI";
 /**
  * Device profile.
  *
@@ -14581,15 +15004,43 @@ export type SystemInfoProfile = "MOBILE" | "MOBILE_FULL" | "MOBILE_WEB" | "TV" |
  * @remark ADS is supported since Tizen 3.0
  * @remark SERVICE\_COUNTRY, SOURCE\_INFO and PANEL are supported since Tizen 5.5
  */
-export type SystemInfoPropertyId = "ADS" | "BATTERY" | "BUILD" | "CAMERA_FLASH" | "CELLULAR_NETWORK" | "CPU" | "DEVICE_ORIENTATION" | "DISPLAY" | "ETHERNET_NETWORK" | "LOCALE" | "MEMORY" | "NETWORK" | "NET_PROXY_NETWORK" | "PANEL" | "PERIPHERAL" | "SERVICE_COUNTRY" | "SIM" | "SOURCE_INFO" | "STORAGE" | "VIDEOSOURCE" | "WIFI_NETWORK";
+export type SystemInfoPropertyId =
+    | "ADS"
+    | "BATTERY"
+    | "BUILD"
+    | "CAMERA_FLASH"
+    | "CELLULAR_NETWORK"
+    | "CPU"
+    | "DEVICE_ORIENTATION"
+    | "DISPLAY"
+    | "ETHERNET_NETWORK"
+    | "LOCALE"
+    | "MEMORY"
+    | "NETWORK"
+    | "NET_PROXY_NETWORK"
+    | "PANEL"
+    | "PERIPHERAL"
+    | "SERVICE_COUNTRY"
+    | "SIM"
+    | "SOURCE_INFO"
+    | "STORAGE"
+    | "VIDEOSOURCE"
+    | "WIFI_NETWORK";
 /**
  * SIM State.
  * @since 2.1
  */
-export type SystemInfoSimState = "ABSENT" | "INITIALIZING" | "NETWORK_LOCKED" | "PIN_REQUIRED" | "PUK_REQUIRED" | "READY" | "SIM_LOCKED" | "UNKNOWN";
+export type SystemInfoSimState =
+    | "ABSENT"
+    | "INITIALIZING"
+    | "NETWORK_LOCKED"
+    | "PIN_REQUIRED"
+    | "PUK_REQUIRED"
+    | "READY"
+    | "SIM_LOCKED"
+    | "UNKNOWN";
 /**
  * An enumerator to indicate the type of video source.
- *
  *
  * *   TV - The input source from TV
  * *   AV - The input source from Component video, three cables, each with RCA plugs (3 or more channels)
@@ -14601,13 +15052,11 @@ export type SystemInfoSimState = "ABSENT" | "INITIALIZING" | "NETWORK_LOCKED" | 
  * *   DVI - The input source from DVI(Digital Visual Interface)
  * *   MEDIA - The input source from media
  *
- *
  * @since 2.3
  */
 export type SystemInfoVideoSourceType = "AV" | "COMP" | "DVI" | "HDMI" | "MEDIA" | "PC" | "SCART" | "SVIDEO" | "TV";
 /**
  * Wi-Fi Encryption Type.
- *
  *
  * *   NONE - No encryption
  * *   WEP - Wired Equivalent Privacy encryption
@@ -14615,20 +15064,17 @@ export type SystemInfoVideoSourceType = "AV" | "COMP" | "DVI" | "HDMI" | "MEDIA"
  * *   AES - Advanced Encryption Standard
  * *   TKIP\_AES\_MIXED - TKIP and AES are both supported
  *
- *
  * @since 2.4
  */
 export type SystemInfoWifiEncryptionType = "AES" | "NONE" | "TKIP" | "TKIP_AES_MIXED" | "WEP";
 /**
  * Wi-Fi Security Mode.
  *
- *
  * *   NONE - Open security type
  * *   WEP - Wired Equivalent Privacy
  * *   WPA\_PSK - Wi-Fi Protected Access with Pre-Shared Key (PSK)
  * *   WPA2\_PSK - Wi-Fi Protected Access version 2 with Pre-Shared Key (PSK)
  * *   EAP - Extensible Authentication Protocol
- *
  *
  * @since 2.4
  */
@@ -14643,7 +15089,6 @@ export type SystemInfoWifiSecurityMode = "EAP" | "NONE" | "WEP" | "WPA2_PSK" | "
  * *   MINS - Indicates a duration in minutes
  * *   HOURS - Indicates a duration in hours
  * *   DAYS - Indicates a duration in days
- *
  */
 export type TimeDurationUnit = "DAYS" | "HOURS" | "MINS" | "MSECS" | "SECS";
 /**
@@ -14652,7 +15097,6 @@ export type TimeDurationUnit = "DAYS" | "HOURS" | "MINS" | "MSECS" | "SECS";
  * The command type defined by this enumeration is:
  *
  * *   FOREGROUND - command type used when application is foreground
- *
  */
 export type VoiceControlCommandType = "FOREGROUND";
 /**
@@ -14662,33 +15106,26 @@ export type VoiceControlCommandType = "FOREGROUND";
  *
  * *   SUCCESS - Successful result
  * *   FAILURE - Rejected result by voice control service
- *
  */
 export type VoiceControlResultEvent = "FAILURE" | "SUCCESS";
 /**
  * Specifies a white balance mode for an image.
  *
- *
  * *   AUTO - Automatic White Balance mode
  * *   MANUAL - Manual White Balance mode
- *
  */
 export type WhiteBalanceMode = "AUTO" | "MANUAL";
 /**
  * An enumerator to indicate the window type.
  *
- *
  * *   MAIN - The main video window, which can be show anywhere
- *
  */
 export type WindowType = "MAIN";
 /**
  * An enumerator to indicate the z position of the TV window or the relative position of the TV window and the Web Application.
  *
- *
  * *   FRONT - Displays the TV window in front of the Web Application
  * *   BEHIND - Displays the TV window behind the Web Application
- *
  *
  * @since 2.4
  */

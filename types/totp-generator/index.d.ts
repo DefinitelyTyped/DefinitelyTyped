@@ -7,25 +7,25 @@
  * Possible SHA variants taken from [jsSHA](https://github.com/Caligatio/jsSHA).
  */
 type TotpAlgorithm =
-  | 'SHA-1'
-  | 'SHA-224'
-  | 'SHA-256'
-  | 'SHA-384'
-  | 'SHA-512'
-  | 'SHA3-224'
-  | 'SHA3-256'
-  | 'SHA3-384'
-  | 'SHA3-512';
+    | "SHA-1"
+    | "SHA-224"
+    | "SHA-256"
+    | "SHA-384"
+    | "SHA-512"
+    | "SHA3-224"
+    | "SHA3-256"
+    | "SHA3-384"
+    | "SHA3-512";
 
 interface TotpOptions {
-  period?: number | undefined;
-  /**
-   * The desired SHA variant (SHA-1, SHA-224, SHA-256, SHA-384, SHA-512,
-   * SHA3-224, SHA3-256, SHA3-384, SHA3-512).
-   */
-  algorithm?: TotpAlgorithm | undefined;
-  digits?: number | undefined;
-  timestamp?: number | undefined;
+    period?: number | undefined;
+    /**
+     * The desired SHA variant (SHA-1, SHA-224, SHA-256, SHA-384, SHA-512,
+     * SHA3-224, SHA3-256, SHA3-384, SHA3-512).
+     */
+    algorithm?: TotpAlgorithm | undefined;
+    digits?: number | undefined;
+    timestamp?: number | undefined;
 }
 
 /**

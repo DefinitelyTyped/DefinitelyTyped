@@ -1,6 +1,6 @@
-import { Particle, Pool } from '../core';
-import { Three } from '../core/three';
-import BaseRenderer from './BaseRenderer';
+import { Particle, Pool } from "../core";
+import { Three } from "../core/three";
+import BaseRenderer from "./BaseRenderer";
 
 export default class MeshRenderer extends BaseRenderer {
     constructor(container: THREE.Object3D, THREE: Three);

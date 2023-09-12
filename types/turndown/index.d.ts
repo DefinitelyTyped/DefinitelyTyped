@@ -5,7 +5,7 @@
 // TypeScript Version: 2.7
 
 declare class TurndownService {
-    constructor(options?: TurndownService.Options)
+    constructor(options?: TurndownService.Options);
 
     addRule(key: string, rule: TurndownService.Rule): this;
     keep(filter: TurndownService.Filter): this;

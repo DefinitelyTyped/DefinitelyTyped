@@ -24,7 +24,7 @@ declare namespace Tether {
     interface ITetherOptions {
         attachment: string;
         bodyElement?: HTMLElement | undefined;
-        classes?: {[className: string]: boolean | string} | undefined;
+        classes?: { [className: string]: boolean | string } | undefined;
         classPrefix?: string | undefined;
         constraints?: ITetherConstraint[] | undefined;
         element?: HTMLElement | string | any | undefined /* JQuery */;

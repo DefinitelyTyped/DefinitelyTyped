@@ -4,5 +4,5 @@
 //                 Kyle Berkley <https://github.com/Berkyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/ThemeContext';
-export { default } from './lib/ThemeContext';
+export * from "./lib/ThemeContext";
+export { default } from "./lib/ThemeContext";

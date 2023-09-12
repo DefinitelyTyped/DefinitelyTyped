@@ -116,7 +116,7 @@ interface ToastrOptions {
      * @default undefined
      */
     onHidden?: (() => void) | undefined;
-     /**
+    /**
      * Time in milliseconds the toast should be displayed after leaving mouse over.
      * Set timeOut and extendedTimeOut to 0 to make it sticky.
      * @default 1000
@@ -230,13 +230,13 @@ interface ToastrDisplayMethod {
     (message: string | JQuery, title?: string, overrides?: ToastrOptions): JQuery;
 }
 
-type ToastrType = 'error'|'info'|'success'|'warning';
+type ToastrType = "error" | "info" | "success" | "warning";
 
 interface ToastMap {
     /**
      * The toast type.
      */
-        type: ToastrType;
+    type: ToastrType;
     /**
      * The toast message.
      */
@@ -263,7 +263,7 @@ interface ToastrResponse {
     /**
      * The current state of the toast.
      */
-    state: 'visible'|'hidden';
+    state: "visible" | "hidden";
     /**
      * The datetime the toast was opened.
      */
@@ -293,7 +293,7 @@ interface Toastr {
          * @param toast Toast to clear
          * @param clearOptions force clearing a toast, ignoring focus
          */
-        (toast?: JQuery, clearOptions?: {force: boolean}): void;
+        (toast?: JQuery, clearOptions?: { force: boolean }): void;
     };
     /**
      * Removes toasts (without animation)
@@ -343,7 +343,7 @@ interface Toastr {
          *
          * @param options Option values for the container
          */
-        (options?: ToastrOptions): JQuery,
+        (options?: ToastrOptions): JQuery;
         /**
          * Get the container by options.containerId.
          * If it doesn't exist, it will be created according to options.
@@ -351,7 +351,7 @@ interface Toastr {
          * @param options Option values for the container
          * @param create Use true to create a container, if it doesn't exist
          */
-        (options: ToastrOptions, create: boolean): JQuery,
+        (options: ToastrOptions, create: boolean): JQuery;
     };
     /**
      * Register a callback to be called when a toast gets created or hidden.

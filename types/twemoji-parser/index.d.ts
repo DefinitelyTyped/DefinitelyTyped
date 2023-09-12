@@ -8,7 +8,7 @@
  * For example, this parser is used within the rendering flow for Tweets and other text on mobile.twitter.com
  */
 
-export const TypeName = 'emoji';
+export const TypeName = "emoji";
 
 export interface EmojiEntity {
     /**
@@ -34,7 +34,7 @@ export interface ParsingOptions {
     assetType?: AssetType | undefined;
 }
 
-export type AssetType = 'png' | 'svg';
+export type AssetType = "png" | "svg";
 /**
  * Parser takes a string and returns an array of the emoji entities it finds.
  */

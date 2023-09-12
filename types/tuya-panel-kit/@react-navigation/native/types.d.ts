@@ -1,4 +1,9 @@
-import type { getStateFromPath as getStateFromPathDefault, getPathFromState as getPathFromStateDefault, PathConfigMap, Route } from '../core';
+import type {
+    getPathFromState as getPathFromStateDefault,
+    getStateFromPath as getStateFromPathDefault,
+    PathConfigMap,
+    Route,
+} from "../core";
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type Theme = {
     dark: boolean;

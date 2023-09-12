@@ -63,7 +63,6 @@ export const widgetdata: WidgetDataManager;
  * @privilegeName http://developer.samsung.com/privilege/adinfo
  *
  * @since 2.4
- *
  */
 export interface AdInfoManager {
     /**
@@ -148,7 +147,7 @@ export enum AppCommonScreenSaverState {
      *
      * @since 2.3
      */
-    SCREEN_SAVER_ON = 1
+    SCREEN_SAVER_ON = 1,
 }
 
 /**
@@ -159,7 +158,6 @@ export enum AppCommonScreenSaverState {
  * @privilegeName None
  *
  * @since 2.3
- *
  */
 export interface AppCommonManager {
     /**
@@ -198,7 +196,6 @@ export interface AppCommonManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -222,12 +219,11 @@ export interface AppCommonManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     setScreenSaver: (
         state: AppCommonScreenSaverState,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 }
 /**
@@ -247,7 +243,7 @@ export enum AvInfoDigitalCompMode {
      *
      * @since 2.3
      */
-    DOLBY_DIGITAL_COMP_MODE_RF = 1
+    DOLBY_DIGITAL_COMP_MODE_RF = 1,
 }
 
 /**
@@ -258,7 +254,6 @@ export enum AvInfoDigitalCompMode {
  * @privilegeName None
  *
  * @since 2.3
- *
  */
 export interface AvInfoManager {
     /**
@@ -297,7 +292,6 @@ export interface AvInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -313,7 +307,6 @@ export interface AvInfoManager {
      * @version 1.0
      *
      * @note `deprecated` 4.0
-     *
      */
     getDolbyDigitalCompMode: () => AvInfoDigitalCompMode;
 
@@ -329,7 +322,6 @@ export interface AvInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     isHdrTvSupport: () => boolean;
 }
@@ -342,7 +334,6 @@ export interface AvInfoManager {
  * @privilegeName None
  *
  * @since 2.3
- *
  */
 export interface AVPlayStoreManager {
     /**
@@ -373,11 +364,11 @@ export interface AVPlayStoreManager {
  * @since 2.3
  */
 export type AVPlayPlayerState =
-    | 'NONE'
-    | 'IDLE'
-    | 'READY'
-    | 'PLAYING'
-    | 'PAUSED';
+    | "NONE"
+    | "IDLE"
+    | "READY"
+    | "PLAYING"
+    | "PAUSED";
 
 /**
  * Specifies display modes.
@@ -388,9 +379,9 @@ export type AVPlayPlayerState =
  * @since 2.3
  */
 export type AVPlayDisplayMode =
-    | 'PLAYER_DISPLAY_MODE_LETTER_BOX'
-    | 'PLAYER_DISPLAY_MODE_FULL_SCREEN'
-    | 'PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO';
+    | "PLAYER_DISPLAY_MODE_LETTER_BOX"
+    | "PLAYER_DISPLAY_MODE_FULL_SCREEN"
+    | "PLAYER_DISPLAY_MODE_AUTO_ASPECT_RATIO";
 
 /**
  * Specifies buffering scenarios.
@@ -400,8 +391,8 @@ export type AVPlayDisplayMode =
  * @since 2.3
  */
 export type AVPlayBufferOption =
-    | 'PLAYER_BUFFER_FOR_PLAY'
-    | 'PLAYER_BUFFER_FOR_RESUME';
+    | "PLAYER_BUFFER_FOR_PLAY"
+    | "PLAYER_BUFFER_FOR_RESUME";
 
 /**
  * Specifies buffer size units.
@@ -410,8 +401,8 @@ export type AVPlayBufferOption =
  * @since 2.3
  */
 export type AVPlayBufferSizeUnit =
-    | 'PLAYER_BUFFER_SIZE_IN_BYTE'
-    | 'PLAYER_BUFFER_SIZE_IN_SECOND';
+    | "PLAYER_BUFFER_SIZE_IN_BYTE"
+    | "PLAYER_BUFFER_SIZE_IN_SECOND";
 
 /**
  * Specifies parameters for various streaming protocols, such as HTTP, MMS, and adaptive streaming (Smooth Streaming, HLS, and MPEG-DASH).
@@ -437,22 +428,22 @@ export type AVPlayBufferSizeUnit =
  * @since 2.3
  */
 export type AVPlayStreamingPropertyType =
-    | 'COOKIE'
-    | 'USER_AGENT'
-    | 'PREBUFFER_MODE'
-    | 'ADAPTIVE_INFO'
-    | 'SET_MODE_4K'
-    | 'PROPERTY_HD_AUDIO'
-    | 'LISTEN_SPARSE_TRACK'
-    | 'IS_LIVE'
-    | 'AVAILABLE_BITRATE'
-    | 'GET_LIVE_DURATION'
-    | 'CURRENT_BANDWIDTH'
-    | 'WIDEVINE'
-    | 'SET_VR360_MODE'
-    | 'USE_VIDEOMIXER'
-    | 'SET_MIXEDFRAME'
-    | 'PORTRAIT_MODE';
+    | "COOKIE"
+    | "USER_AGENT"
+    | "PREBUFFER_MODE"
+    | "ADAPTIVE_INFO"
+    | "SET_MODE_4K"
+    | "PROPERTY_HD_AUDIO"
+    | "LISTEN_SPARSE_TRACK"
+    | "IS_LIVE"
+    | "AVAILABLE_BITRATE"
+    | "GET_LIVE_DURATION"
+    | "CURRENT_BANDWIDTH"
+    | "WIDEVINE"
+    | "SET_VR360_MODE"
+    | "USE_VIDEOMIXER"
+    | "SET_MIXEDFRAME"
+    | "PORTRAIT_MODE";
 
 /**
  * Specifies DRM systems supported by the player.
@@ -465,11 +456,11 @@ export type AVPlayStreamingPropertyType =
  * @since 2.3
  */
 export type AVPlayDrmType =
-    | 'PLAYREADY'
-    | 'EME_PLAYREADY'
-    | 'VERIMATRIX'
-    | 'WIDEVINE_CDM'
-    | 'EME_WIDEVINE_CDM';
+    | "PLAYREADY"
+    | "EME_PLAYREADY"
+    | "VERIMATRIX"
+    | "WIDEVINE_CDM"
+    | "EME_WIDEVINE_CDM";
 
 /**
  * Specifies various DRM operations.
@@ -484,15 +475,15 @@ export type AVPlayDrmType =
  * @since 2.3
  */
 export type AVPlayDrmOperation =
-    | 'SetProperties'
-    | 'InstallLicense'
-    | 'ProcessInitiator'
-    | 'GetUID'
-    | 'Initialize'
-    | 'Finalize'
-    | 'widevine_license_data'
-    | 'widevine_app_session'
-    | 'widevine_data_type';
+    | "SetProperties"
+    | "InstallLicense"
+    | "ProcessInitiator"
+    | "GetUID"
+    | "Initialize"
+    | "Finalize"
+    | "widevine_license_data"
+    | "widevine_app_session"
+    | "widevine_data_type";
 
 /**
  * Specifies stream types supported by the player.
@@ -502,7 +493,7 @@ export type AVPlayDrmOperation =
  * - `TEXT`- Subtitle track
  * @since 2.3
  */
-export type AVPlayStreamType = 'VIDEO' | 'AUDIO' | 'TEXT';
+export type AVPlayStreamType = "VIDEO" | "AUDIO" | "TEXT";
 
 /**
  * Specifies the player error messages.
@@ -521,17 +512,17 @@ export type AVPlayStreamType = 'VIDEO' | 'AUDIO' | 'TEXT';
  * @since 2.3
  */
 export type AVPlayError =
-    | 'PLAYER_ERROR_NONE'
-    | 'PLAYER_ERROR_INVALID_PARAMETER'
-    | 'PLAYER_ERROR_NO_SUCH_FILE'
-    | 'PLAYER_ERROR_INVALID_OPERATION'
-    | 'PLAYER_ERROR_SEEK_FAILED'
-    | 'PLAYER_ERROR_INVALID_STATE'
-    | 'PLAYER_ERROR_NOT_SUPPORTED_FILE'
-    | 'PLAYER_ERROR_NOT_SUPPORTED_FORMAT'
-    | 'PLAYER_ERROR_INVALID_URI'
-    | 'PLAYER_ERROR_CONNECTION_FAILED'
-    | 'PLAYER_ERROR_GENEREIC';
+    | "PLAYER_ERROR_NONE"
+    | "PLAYER_ERROR_INVALID_PARAMETER"
+    | "PLAYER_ERROR_NO_SUCH_FILE"
+    | "PLAYER_ERROR_INVALID_OPERATION"
+    | "PLAYER_ERROR_SEEK_FAILED"
+    | "PLAYER_ERROR_INVALID_STATE"
+    | "PLAYER_ERROR_NOT_SUPPORTED_FILE"
+    | "PLAYER_ERROR_NOT_SUPPORTED_FORMAT"
+    | "PLAYER_ERROR_INVALID_URI"
+    | "PLAYER_ERROR_CONNECTION_FAILED"
+    | "PLAYER_ERROR_GENEREIC";
 
 /**
  * Specifies player events.
@@ -547,14 +538,14 @@ export type AVPlayError =
  * @since 2.3
  */
 export type AVPlayEvent =
-    | 'PLAYER_MSG_NONE'
-    | 'PLAYER_MSG_RESOLUTION_CHANGED'
-    | 'PLAYER_MSG_BITRATE_CHANGE'
-    | 'PLAYER_MSG_FRAGMENT_INFO'
-    | 'PLAYER_SPARSE_TRACK_DETECT'
-    | 'PLAYER_STREAMING_EVENT'
-    | 'PLAYER_MSG_HTTP_ERROR_CODE'
-    | 'PLAYER_MSG_DRM_CHALLENGE_DATA';
+    | "PLAYER_MSG_NONE"
+    | "PLAYER_MSG_RESOLUTION_CHANGED"
+    | "PLAYER_MSG_BITRATE_CHANGE"
+    | "PLAYER_MSG_FRAGMENT_INFO"
+    | "PLAYER_SPARSE_TRACK_DETECT"
+    | "PLAYER_STREAMING_EVENT"
+    | "PLAYER_MSG_HTTP_ERROR_CODE"
+    | "PLAYER_MSG_DRM_CHALLENGE_DATA";
 
 /**
  * Defines a dictionary for streaming video, audio and subtitle information for various streaming scenarios.
@@ -599,7 +590,6 @@ export interface AVPlayPlaybackCallback {
     /**
      * Callback method for asynchronous buffering started notifications.
      *
-     *
      * @returns void
      *
      * @throws WebAPIException with error type NotSupportedError, if this feature is not supported.
@@ -614,7 +604,6 @@ export interface AVPlayPlaybackCallback {
 
     /**
      * Callback method for asynchronous buffering progress notifications.
-     *
      *
      * @param percent unsigned long
      *
@@ -632,7 +621,6 @@ export interface AVPlayPlaybackCallback {
 
     /**
      * Callback method for asynchronous buffering complete notifications.
-     *
      *
      * @returns void
      *
@@ -665,7 +653,6 @@ export interface AVPlayPlaybackCallback {
 
     /**
      * Callback method for asynchronous playback finished notifications.
-     *
      *
      * @returns void
      *
@@ -759,7 +746,7 @@ export interface AVPlayPlaybackCallback {
         duration: number,
         subtitles: string,
         type: number,
-        attributes: AVPlaySubtitleAttribute
+        attributes: AVPlaySubtitleAttribute,
     ): void;
 }
 
@@ -821,7 +808,6 @@ export interface AVPlaySoundAnalysisCallback {
  * @privilegeName None
  *
  * @since 2.3
- *
  */
 export interface AVPlayManager {
     /**
@@ -920,7 +906,7 @@ export interface AVPlayManager {
      */
     prepareAsync: (
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -957,7 +943,7 @@ export interface AVPlayManager {
         x: number,
         y: number,
         width: number,
-        height: number
+        height: number,
     ) => void;
 
     /**
@@ -1014,7 +1000,7 @@ export interface AVPlayManager {
     seekTo: (
         milliseconds: number,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -1105,7 +1091,7 @@ export interface AVPlayManager {
     jumpForward: (
         milliseconds: number,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -1140,7 +1126,7 @@ export interface AVPlayManager {
     jumpBackward: (
         milliseconds: number,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 
     /**
@@ -1238,7 +1224,7 @@ export interface AVPlayManager {
     setBufferingParam: (
         option: AVPlayBufferOption,
         unit: AVPlayBufferSizeUnit,
-        amount: number
+        amount: number,
     ) => void;
 
     /**
@@ -1323,7 +1309,6 @@ export interface AVPlayManager {
      * @throws WebAPIException with error type UnknownError, for any other error.
      * Examples of exception scenarios include an invalid DRM session, or failure to create the underlying DRM module or configuration. In these scenarios, an exception is thrown and the method call returns FALSE.
      *
-     *
      * @version 4.0
      *
      * @note 'GetUID' operation has been deprecated from Tizen version 5.0, rather application should use getUID() API.
@@ -1339,7 +1324,7 @@ export interface AVPlayManager {
     setDrm: (
         drmType: AVPlayDrmType,
         drmOperation: AVPlayDrmOperation,
-        jsonParam: string
+        jsonParam: string,
     ) => string;
 
     /**
@@ -1399,7 +1384,7 @@ export interface AVPlayManager {
      * @since 2.3
      */
     setSoundAnalysisListener: (
-        soundAnalysisCallback: AVPlaySoundAnalysisCallback
+        soundAnalysisCallback: AVPlaySoundAnalysisCallback,
     ) => void;
 
     /**
@@ -1429,8 +1414,6 @@ export interface AVPlayManager {
      * @param onoff Boolean value:
      * - true: Subtitles are hidden
      * - false: Subtitles are shown. The application does not receive any subtitle-related events.
-     *
-     *
      *
      * @returns void
      *
@@ -1634,7 +1617,7 @@ export interface AVPlayManager {
      */
     setStreamingProperty: (
         propertyType: AVPlayStreamingPropertyType,
-        propertyParam: string
+        propertyParam: string,
     ) => void;
 
     /**
@@ -1676,7 +1659,6 @@ export interface AVPlayManager {
      * @version 3.0
      *
      * @constraint Can be called in the following states: "NONE", "IDLE", "READY", "PLAYING", "PAUSED"
-     *
      *
      * @since 2.3
      */
@@ -1782,7 +1764,7 @@ export interface AVPlayManager {
         resumeTime?: number,
         bPrepare?: boolean,
         successCallback?: SuccessCallback,
-        errorCallback?: ErrorCallback
+        errorCallback?: ErrorCallback,
     ) => void;
 }
 /**
@@ -1792,7 +1774,7 @@ export interface AVPlayManager {
  * - `PRD`- Operating server
  * @since 2.4
  */
-export type TVServerType = 'DEV' | 'PRD';
+export type TVServerType = "DEV" | "PRD";
 
 /**
  * Specifies product types for the purchase history.
@@ -1802,7 +1784,7 @@ export type TVServerType = 'DEV' | 'PRD';
  * - `NON-SUBSCRIPTION`- Non-subscription products only
  * @since 2.4
  */
-export type HistoryType = 'ALL' | 'SUBSCRIPTION' | 'NON-SUBSCRIPTION';
+export type HistoryType = "ALL" | "SUBSCRIPTION" | "NON-SUBSCRIPTION";
 
 /**
  * Defines the payment result and information.
@@ -2532,7 +2514,6 @@ export interface BillingIsServiceAvailableCallback {
  * @privilegeName http://developer.samsung.com/privilege/billing
  *
  * @since 2.4
- *
  */
 export interface BillingManager {
     /**
@@ -2570,14 +2551,13 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     buyItem: (
         appId: string,
         serverType: TVServerType,
         paymentDetails: string,
         onsuccess: BillingBuyDataSuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2623,7 +2603,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     getProductsList: (
         appId: string,
@@ -2633,7 +2612,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingProductsListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2674,7 +2653,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     applyInvoice: (
         appId: string,
@@ -2683,7 +2661,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingApplyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2724,7 +2702,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     verifyInvoice: (
         appId: string,
@@ -2733,7 +2710,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingVerifyInvoiceCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2775,7 +2752,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     getServiceCountryAvailability: (
         appId: string,
@@ -2783,7 +2759,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingGetServiceCountryAvailabilityCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2830,7 +2806,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     getUserPurchaseList: (
         appId: string,
@@ -2840,7 +2815,7 @@ export interface BillingManager {
         checkValue: string,
         serverType: TVServerType,
         onsuccess: BillingGetUserPurchaseListCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2881,7 +2856,6 @@ export interface BillingManager {
      * @note Since tizen version 6.0, if serverType contains an invalid value, TypeMismatchError is thrown instead of InvalidValuesError.
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     cancelSubscription: (
         appId: string,
@@ -2890,7 +2864,7 @@ export interface BillingManager {
         countryCode: string,
         serverType: TVServerType,
         onsuccess: BillingCancelSubscriptionCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2921,12 +2895,11 @@ export interface BillingManager {
      * @note `deprecated` 5.5
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     isServiceAvailable: (
         serverType: TVServerType,
         onsuccess: BillingIsServiceAvailableCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -2947,7 +2920,6 @@ export interface BillingManager {
      * @version 3.0
      *
      * @note 서버 통신 시 필요한 Secret Key가 노출되면 안됨. (SDK제약사항)
-     *
      */
     getVersion: () => string;
 }
@@ -2990,7 +2962,7 @@ export enum NetworkIpMode {
      *
      * @since 2.3
      */
-    UNKNOWN = 5
+    UNKNOWN = 5,
 }
 /**
  * Defines constants for network connection types.
@@ -3021,7 +2993,7 @@ export enum NetworkActiveConnectionType {
      *
      * @since 2.3
      */
-    ETHERNET = 3
+    ETHERNET = 3,
 }
 /**
  * Defines constants for network states.
@@ -3076,7 +3048,7 @@ export enum NetworkState {
      *
      * @since 2.3
      */
-    WIFI_MODULE_STATE_UNKNOWN = 8
+    WIFI_MODULE_STATE_UNKNOWN = 8,
 }
 /**
  * Defines constants for Wi-Fi network security modes.
@@ -3119,7 +3091,7 @@ export enum NetworkWiFiSecurityMode {
      *
      * @since 2.3
      */
-    UNKNOWN = 6
+    UNKNOWN = 6,
 }
 /**
  * Defines constants for Wi-fi network encryption types.
@@ -3162,7 +3134,7 @@ export enum NetworkWiFiEncryptionType {
      *
      * @since 2.3
      */
-    UNKNOWN = 6
+    UNKNOWN = 6,
 }
 
 /**
@@ -3185,7 +3157,6 @@ export interface NetworkStateChangedCallback {
      * @since 3.0
      *
      * @version 1.0
-     *
      */
     (state: NetworkState): void;
 }
@@ -3198,7 +3169,6 @@ export interface NetworkStateChangedCallback {
  * @privilegeName http://developer.samsung.com/privilege/network.public
  *
  * @since 2.3
- *
  */
 export interface NetworkManager {
     /**
@@ -3501,7 +3471,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, the NotSupportedError exception has been removed.
-     *
      */
     getVersion: () => string;
 
@@ -3523,7 +3492,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     isConnectedToGateway: () => boolean;
 
@@ -3549,7 +3517,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, the NotSupportedError exception has been removed.
-     *
      */
     getIpMode: () => NetworkIpMode;
 
@@ -3572,7 +3539,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getSubnetMask: () => string;
 
@@ -3596,7 +3562,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getGateway: () => string;
 
@@ -3619,7 +3584,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getMac: () => string;
 
@@ -3642,7 +3606,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getDns: () => string;
 
@@ -3665,7 +3628,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getIp: () => string;
 
@@ -3679,9 +3641,7 @@ export interface NetworkManager {
      *
      * @privilegeName http://developer.samsung.com/privilege/network.public
      *
-     *
      * @throws WebAPIException with error type SecurityError, if the application does not have the privilege to call this method.
-     *
      *
      * @throws WebAPIException with error type InvalidStateError, if a network connection is not available. (Since plugin version 3.0)
      *
@@ -3690,7 +3650,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getTVName: () => string;
 
@@ -3712,7 +3671,6 @@ export interface NetworkManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getActiveConnectionType: () => NetworkActiveConnectionType;
 
@@ -3738,10 +3696,9 @@ export interface NetworkManager {
      * @note Since plugin version 3.0, if an input parameter is not compatible with its expected type, TypeMismatchError is thrown instead of NotSupportedError.
      *
      * @note Since plugin version 3.0, the NotSupportedError exception has been removed.
-     *
      */
     addNetworkStateChangeListener: (
-        listener: NetworkStateChangedCallback
+        listener: NetworkStateChangedCallback,
     ) => number;
 
     /**
@@ -3766,7 +3723,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if the listenerId value is not the same as the value generated by addNetworkStateChangeListener, InvalidValuesError is thrown instead of NotSupportedError.
-     *
      */
     removeNetworkStateChangeListener: (listenerId: number) => void;
 
@@ -3789,7 +3745,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getWiFiSsid: () => string;
 
@@ -3816,7 +3771,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getWiFiSignalStrengthLevel: () => number;
 
@@ -3844,7 +3798,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getWiFiSecurityMode: () => NetworkWiFiSecurityMode;
 
@@ -3872,7 +3825,6 @@ export interface NetworkManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getWiFiEncryptionType: () => NetworkWiFiEncryptionType;
 
@@ -3895,7 +3847,6 @@ export interface NetworkManager {
      * @version 1.1
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getSecondaryDns: () => string;
 
@@ -3925,7 +3876,6 @@ export interface NetworkManager {
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
      *
      * @note Since plugin version 3.0, if an input parameter is not compatible with its expected type, TypeMismatchError is thrown instead of NotSupportedError.
-     *
      */
     setDhcpOption60Field: (vendorName: string) => void;
 
@@ -3949,7 +3899,6 @@ export interface NetworkManager {
      * @version 1.1
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     removeDhcpOption60Field: () => void;
 
@@ -3974,7 +3923,6 @@ export interface NetworkManager {
      * @version 1.1
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     getCurrentDhcpOption60Field: () => string;
 
@@ -3999,7 +3947,6 @@ export interface NetworkManager {
      * @version 1.1
      *
      * @note Since plugin version 3.0, if a network connection is not available, InvalidStateError is thrown instead of NotSupportedError.
-     *
      */
     checkCurrentIpWith60Field: () => string;
 }
@@ -4007,74 +3954,64 @@ export interface NetworkManager {
  * Defines constants for product info configuration keys.
  *
  * @since 2.3
- *
  */
 export enum ProductInfoConfigKey {
     /**
      * Data service configuration, it can be setted as string ype with numbers
      *
      * @since 2.3
-     *
      */
     CONFIG_KEY_DATA_SERVICE = 0,
     /**
      * Service country, readonly
      *
      * @since 2.3
-     *
      */
-    CONFIG_KEY_SERVICE_COUNTRY = 1
+    CONFIG_KEY_SERVICE_COUNTRY = 1,
 }
 /**
  * Defines constants for glasses-free 3D support.
  *
  * @since 2.3
- *
  */
 export enum ProductInfoNoGlass3dSupport {
     /**
      * Glasses-free 3D is not supported
      *
      * @since 2.3
-     *
      */
     NO_GLASS_3D_NOT_SUPPORTED = 0,
     /**
      * Glasses-free 3D is supported
      *
      * @since 2.3
-     *
      */
-    NO_GLASS_3D_SUPPORTED = 1
+    NO_GLASS_3D_SUPPORTED = 1,
 }
 /**
  * Defines constants for infolink server types.
  *
  * @since 2.3
- *
  */
 export enum ProductInfoSiServerType {
     /**
      * Operating
      *
      * @since 2.3
-     *
      */
     SI_TYPE_OPERATIING_SERVER = 0,
     /**
      * Development
      *
      * @since 2.3
-     *
      */
     SI_TYPE_DEVELOPMENT_SERVER = 1,
     /**
      * Developing
      *
      * @since 2.3
-     *
      */
-    SI_TYPE_DEVELOPING_SERVER = 2
+    SI_TYPE_DEVELOPING_SERVER = 2,
 }
 
 /**
@@ -4095,7 +4032,6 @@ export interface ProductInfoConfigChangeCallback {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     (key: ProductInfoConfigKey): void;
 }
@@ -4108,7 +4044,6 @@ export interface ProductInfoConfigChangeCallback {
  * @privilegeName http://developer.samsung.com/privilege/productinfo
  *
  * @since 2.3
- *
  */
 export interface ProductInfoManager {
     /**
@@ -4117,7 +4052,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     ProductInfoConfigKey: {
         /**
@@ -4126,7 +4060,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         CONFIG_KEY_DATA_SERVICE: 0;
         /**
@@ -4135,7 +4068,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         CONFIG_KEY_SERVICE_COUNTRY: 1;
     };
@@ -4145,7 +4077,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     ProductInfoNoGlass3dSupport: {
         /**
@@ -4154,7 +4085,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         NO_GLASS_3D_NOT_SUPPORTED: 0;
         /**
@@ -4163,7 +4093,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         NO_GLASS_3D_SUPPORTED: 1;
     };
@@ -4173,7 +4102,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     ProductInfoSiServerType: {
         /**
@@ -4182,7 +4110,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         SI_TYPE_OPERATIING_SERVER: 0;
         /**
@@ -4191,7 +4118,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         SI_TYPE_DEVELOPMENT_SERVER: 1;
         /**
@@ -4200,7 +4126,6 @@ export interface ProductInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         SI_TYPE_DEVELOPING_SERVER: 2;
     };
@@ -4219,7 +4144,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -4237,7 +4161,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getFirmware: () => string;
 
@@ -4255,7 +4178,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getDuid: () => string;
 
@@ -4273,7 +4195,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getModelCode: () => string;
 
@@ -4291,7 +4212,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getModel: () => string;
 
@@ -4309,7 +4229,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getSmartTVServerType: () => ProductInfoSiServerType;
 
@@ -4327,7 +4246,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getSmartTVServerVersion: () => string;
 
@@ -4347,7 +4265,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getTunerEpop: () => string;
 
@@ -4369,7 +4286,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     isSoccerModeEnabled: () => boolean;
 
@@ -4389,7 +4305,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     isTtvSupported: () => boolean;
 
@@ -4409,7 +4324,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     isUdPanelSupported: () => boolean;
 
@@ -4429,7 +4343,6 @@ export interface ProductInfoManager {
      * @since 4.0
      *
      * @version 3.2
-     *
      */
     is8KPanelSupported: () => boolean;
 
@@ -4447,7 +4360,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getRealModel: () => string;
 
@@ -4467,7 +4379,6 @@ export interface ProductInfoManager {
      * @since 5.0
      *
      * @version 3.1
-     *
      */
     isWallModel: () => boolean;
 
@@ -4487,7 +4398,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getNoGlass3dSupport: () => ProductInfoNoGlass3dSupport;
 
@@ -4505,7 +4415,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getLocalSet: () => string;
 
@@ -4531,7 +4440,6 @@ export interface ProductInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     getSystemConfig: (key: ProductInfoConfigKey) => string;
 
@@ -4567,13 +4475,12 @@ export interface ProductInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     setSystemConfig: (
         key: ProductInfoConfigKey,
         value: string,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -4600,11 +4507,10 @@ export interface ProductInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     addSystemConfigChangeListener: (
         key: ProductInfoConfigKey,
-        listener: ProductInfoConfigChangeCallback
+        listener: ProductInfoConfigChangeCallback,
     ) => number;
 
     /**
@@ -4627,7 +4533,6 @@ export interface ProductInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     removeSystemConfigChangeListener: (listenerId: number) => void;
 
@@ -4647,7 +4552,6 @@ export interface ProductInfoManager {
      * @since 3.0
      *
      * @version 1.3
-     *
      */
     isUHDAModel: () => boolean;
 
@@ -4665,7 +4569,6 @@ export interface ProductInfoManager {
      * @since 5.5
      *
      * @version 3.3
-     *
      */
     isDisplayRotatorSupported: () => boolean;
 }
@@ -4686,7 +4589,7 @@ export enum SsoLoginState {
      *
      * @since 2.3
      */
-    SSO_LOGIN = 1
+    SSO_LOGIN = 1,
 }
 /**
  * Defines a dictionary for login data.
@@ -4788,7 +4691,6 @@ export interface SsoNumSuccessCallback {
  * @privilegeName http://developer.samsung.com/privilege/sso.partner
  *
  * @since 2.3
- *
  */
 export interface SsoManager {
     /**
@@ -4840,12 +4742,11 @@ export interface SsoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     showAccountView: (
         widgetName: string,
         onsuccess: SsoCallDataSuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -4870,7 +4771,6 @@ export interface SsoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -4902,7 +4802,6 @@ export interface SsoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getLoginUid: () => string;
 
@@ -4928,7 +4827,6 @@ export interface SsoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getLoginStatus: () => SsoLoginState;
 
@@ -4957,11 +4855,10 @@ export interface SsoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     showCreateAccountView: (
         onsuccess: SsoNumSuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 }
 /**
@@ -4971,7 +4868,6 @@ export interface SsoManager {
  * - In other words, if width and height is returned as '1920' and '1088' then it means the application is allowed to decode a content up to 19201088
  *
  * @since 6.0
- *
  */
 export type SystemInfoMaxVideoResolution = {
     /**
@@ -5002,7 +4898,6 @@ export type SystemInfoMaxVideoResolution = {
  * @privilegeName None
  *
  * @since 6.0
- *
  */
 export interface SystemInfoManager {
     /**
@@ -5015,7 +4910,6 @@ export interface SystemInfoManager {
      * @since 6.0
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -5047,7 +4941,6 @@ export interface SystemInfoManager {
      * @since 6.0
      *
      * @version 1.0
-     *
      */
     isSupportedAudioCodec: (audiocodec: string) => boolean;
 
@@ -5088,7 +4981,6 @@ export interface SystemInfoManager {
      * @since 6.0
      *
      * @version 1.0
-     *
      */
     isSupportedVideoCodec: (videocodec: string) => boolean;
 }
@@ -5298,7 +5190,6 @@ export enum TvInfoMenuKey {
      * "OFF", "ON"
      *
      * @since 2.3
-     *
      */
     SMARTHUB_CHANNEL_BOUND_APPS_TICKER = 14,
     /**
@@ -5535,7 +5426,7 @@ export enum TvInfoMenuKey {
      *
      * @since 2.3
      */
-    CAPTION_STYLE_KEY = 21
+    CAPTION_STYLE_KEY = 21,
 }
 /**
  * Defines constants for TV menu settings values.
@@ -5878,541 +5769,539 @@ export enum TvInfoMenuValue {
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_AFR = 'AFR',
+    AUDIO_LANGUAGE_CODE_AFR = "AFR",
     /**
      * Akan voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_AKA = 'AKA',
+    AUDIO_LANGUAGE_CODE_AKA = "AKA",
     /**
      * Amharic voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_AMH = 'AMH',
+    AUDIO_LANGUAGE_CODE_AMH = "AMH",
     /**
      * Arab voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ARA = 'ARA',
+    AUDIO_LANGUAGE_CODE_ARA = "ARA",
     /**
      * India-Assamese voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ASM = 'ASM',
+    AUDIO_LANGUAGE_CODE_ASM = "ASM",
     /**
      * India-Bengali voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_BEN = 'BEN',
+    AUDIO_LANGUAGE_CODE_BEN = "BEN",
     /**
      * Bulgarian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_BUL = 'BUL',
+    AUDIO_LANGUAGE_CODE_BUL = "BUL",
     /**
      * catala voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_CAT = 'CAT',
+    AUDIO_LANGUAGE_CODE_CAT = "CAT",
     /**
      * Chinese voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_CHI = 'CHI',
+    AUDIO_LANGUAGE_CODE_CHI = "CHI",
     /**
      * Chinese (Mandarin) voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_CMN = 'CMN',
+    AUDIO_LANGUAGE_CODE_CMN = "CMN",
     /**
      * Czech voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_CZE = 'CZE',
+    AUDIO_LANGUAGE_CODE_CZE = "CZE",
     /**
      * Ghana-Dagbani voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_DAG = 'DAG',
+    AUDIO_LANGUAGE_CODE_DAG = "DAG",
     /**
      * Danish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_DAN = 'DAN',
+    AUDIO_LANGUAGE_CODE_DAN = "DAN",
     /**
      * Dutch voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_DUT = 'DUT',
+    AUDIO_LANGUAGE_CODE_DUT = "DUT",
     /**
      * English voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ENG = 'ENG',
+    AUDIO_LANGUAGE_CODE_ENG = "ENG",
     /**
      * Estonia voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_EST = 'EST',
+    AUDIO_LANGUAGE_CODE_EST = "EST",
     /**
      * basque voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_EUS = 'EUS',
+    AUDIO_LANGUAGE_CODE_EUS = "EUS",
     /**
      * Ewe voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_EWE = 'EWE',
+    AUDIO_LANGUAGE_CODE_EWE = "EWE",
     /**
      * Finnish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_FIN = 'FIN',
+    AUDIO_LANGUAGE_CODE_FIN = "FIN",
     /**
      * French voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_FRE = 'FRE',
+    AUDIO_LANGUAGE_CODE_FRE = "FRE",
     /**
      * Gaa voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GAA = 'GAA',
+    AUDIO_LANGUAGE_CODE_GAA = "GAA",
     /**
      * German voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GER = 'GER',
+    AUDIO_LANGUAGE_CODE_GER = "GER",
     /**
      * Gaelic voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GLA = 'GLA',
+    AUDIO_LANGUAGE_CODE_GLA = "GLA",
     /**
      * Galician voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GLG = 'GLG',
+    AUDIO_LANGUAGE_CODE_GLG = "GLG",
     /**
      * Netherlands private code
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GOS = 'GOS',
+    AUDIO_LANGUAGE_CODE_GOS = "GOS",
     /**
      * Greek voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GRE = 'GRE',
+    AUDIO_LANGUAGE_CODE_GRE = "GRE",
     /**
      * India-Gujarati voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_GUJ = 'GUJ',
+    AUDIO_LANGUAGE_CODE_GUJ = "GUJ",
     /**
      * Hausa voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_HAU = 'HAU',
+    AUDIO_LANGUAGE_CODE_HAU = "HAU",
     /**
      * Hebrew voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_HEB = 'HEB',
+    AUDIO_LANGUAGE_CODE_HEB = "HEB",
     /**
      * Hindi voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_HIN = 'HIN',
+    AUDIO_LANGUAGE_CODE_HIN = "HIN",
     /**
      * Croatian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_HRV = 'HRV',
+    AUDIO_LANGUAGE_CODE_HRV = "HRV",
     /**
      * Hungarian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_HUN = 'HUN',
+    AUDIO_LANGUAGE_CODE_HUN = "HUN",
     /**
      * Igbo voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_IGB = 'IGB',
+    AUDIO_LANGUAGE_CODE_IGB = "IGB",
     /**
      * Indonesia voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_IND = 'IND',
+    AUDIO_LANGUAGE_CODE_IND = "IND",
     /**
      * Irish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_IRI = 'IRI',
+    AUDIO_LANGUAGE_CODE_IRI = "IRI",
     /**
      * Italian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ITA = 'ITA',
+    AUDIO_LANGUAGE_CODE_ITA = "ITA",
     /**
      * Japanes voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_JPN = 'JPN',
+    AUDIO_LANGUAGE_CODE_JPN = "JPN",
     /**
      * India-Kannada voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_KAN = 'KAN',
+    AUDIO_LANGUAGE_CODE_KAN = "KAN",
     /**
      * India-Kokani voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_KOK = 'KOK',
+    AUDIO_LANGUAGE_CODE_KOK = "KOK",
     /**
      * Korean voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_KOR = 'KOR',
+    AUDIO_LANGUAGE_CODE_KOR = "KOR",
     /**
      * Latvian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_LAV = 'LAV',
+    AUDIO_LANGUAGE_CODE_LAV = "LAV",
     /**
      * Lithuanian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_LIT = 'LIT',
+    AUDIO_LANGUAGE_CODE_LIT = "LIT",
     /**
      * India-Malayalam voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_MAL = 'MAL',
+    AUDIO_LANGUAGE_CODE_MAL = "MAL",
     /**
      * Maori voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_MAO = 'MAO',
+    AUDIO_LANGUAGE_CODE_MAO = "MAO",
     /**
-     *
-     *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_MAR = 'MAR',
+    AUDIO_LANGUAGE_CODE_MAR = "MAR",
     /**
      * India-Marathi voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_MSA = 'MSA',
+    AUDIO_LANGUAGE_CODE_MSA = "MSA",
     /**
      * Ndebele voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_NBL = 'NBL',
+    AUDIO_LANGUAGE_CODE_NBL = "NBL",
     /**
      * Norwegian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_NOR = 'NOR',
+    AUDIO_LANGUAGE_CODE_NOR = "NOR",
     /**
      * Sotho, Northern voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_NSO = 'NSO',
+    AUDIO_LANGUAGE_CODE_NSO = "NSO",
     /**
      * Nzema voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_NZI = 'NZI',
+    AUDIO_LANGUAGE_CODE_NZI = "NZI",
     /**
      * India-Oriya voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ORI = 'ORI',
+    AUDIO_LANGUAGE_CODE_ORI = "ORI",
     /**
      * India-Punjabi voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_PAN = 'PAN',
+    AUDIO_LANGUAGE_CODE_PAN = "PAN",
     /**
      * Persisian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_PER = 'PER',
+    AUDIO_LANGUAGE_CODE_PER = "PER",
     /**
      * Polish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_POL = 'POL',
+    AUDIO_LANGUAGE_CODE_POL = "POL",
     /**
      * Portuguese voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_POR = 'POR',
+    AUDIO_LANGUAGE_CODE_POR = "POR",
     /**
      * Singapore preffered audio.
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_QAA = 'QAA',
+    AUDIO_LANGUAGE_CODE_QAA = "QAA",
     /**
      * Singapore secondary audio.
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_QAB = 'QAB',
+    AUDIO_LANGUAGE_CODE_QAB = "QAB",
     /**
      * Singapore third audio
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_QAC = 'QAC',
+    AUDIO_LANGUAGE_CODE_QAC = "QAC",
     /**
      * Rumanian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ROM = 'ROM',
+    AUDIO_LANGUAGE_CODE_ROM = "ROM",
     /**
      * Russian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_RUS = 'RUS',
+    AUDIO_LANGUAGE_CODE_RUS = "RUS",
     /**
      * Slovakia voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SLK = 'SLK',
+    AUDIO_LANGUAGE_CODE_SLK = "SLK",
     /**
      * Sotho, Southern voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SOT = 'SOT',
+    AUDIO_LANGUAGE_CODE_SOT = "SOT",
     /**
      * Spanish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SPA = 'SPA',
+    AUDIO_LANGUAGE_CODE_SPA = "SPA",
     /**
      * Serbian voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SRP = 'SRP',
+    AUDIO_LANGUAGE_CODE_SRP = "SRP",
     /**
      * Swati voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SSW = 'SSW',
+    AUDIO_LANGUAGE_CODE_SSW = "SSW",
     /**
      * Swahili voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SWA = 'SWA',
+    AUDIO_LANGUAGE_CODE_SWA = "SWA",
     /**
      * Swedish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_SWE = 'SWE',
+    AUDIO_LANGUAGE_CODE_SWE = "SWE",
     /**
      * tamil voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TAM = 'TAM',
+    AUDIO_LANGUAGE_CODE_TAM = "TAM",
     /**
      * India-Telugu voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TEL = 'TEL',
+    AUDIO_LANGUAGE_CODE_TEL = "TEL",
     /**
      * Thai voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_THA = 'THA',
+    AUDIO_LANGUAGE_CODE_THA = "THA",
     /**
      * Thai voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TSN = 'TSN',
+    AUDIO_LANGUAGE_CODE_TSN = "TSN",
     /**
      * Tsonga voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TSO = 'TSO',
+    AUDIO_LANGUAGE_CODE_TSO = "TSO",
     /**
      * Turkish voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TUR = 'TUR',
+    AUDIO_LANGUAGE_CODE_TUR = "TUR",
     /**
      * Twi voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_TWI = 'TWI',
+    AUDIO_LANGUAGE_CODE_TWI = "TWI",
     /**
      * Ukraine voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_UKR = 'UKR',
+    AUDIO_LANGUAGE_CODE_UKR = "UKR",
     /**
      * valencia voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_VAL = 'VAL',
+    AUDIO_LANGUAGE_CODE_VAL = "VAL",
     /**
      * Venda voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_VEN = 'VEN',
+    AUDIO_LANGUAGE_CODE_VEN = "VEN",
     /**
      * Vietnamese voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_VIE = 'VIE',
+    AUDIO_LANGUAGE_CODE_VIE = "VIE",
     /**
      * Welsh voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_WEL = 'WEL',
+    AUDIO_LANGUAGE_CODE_WEL = "WEL",
     /**
      * Xhosa voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_XHO = 'XHO',
+    AUDIO_LANGUAGE_CODE_XHO = "XHO",
     /**
      * Ghana-Kasem voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_XSM = 'XSM',
+    AUDIO_LANGUAGE_CODE_XSM = "XSM",
     /**
      * Yoruba voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_YOR = 'YOR',
+    AUDIO_LANGUAGE_CODE_YOR = "YOR",
     /**
      * Chinese (Cantonese) voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_YUE = 'YUE',
+    AUDIO_LANGUAGE_CODE_YUE = "YUE",
     /**
      * Malaysia-Chinense voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ZHO = 'ZHO',
+    AUDIO_LANGUAGE_CODE_ZHO = "ZHO",
     /**
      * Zulu voice mode
      *
      * @since 2.3
      */
-    AUDIO_LANGUAGE_CODE_ZUL = 'ZUL',
+    AUDIO_LANGUAGE_CODE_ZUL = "ZUL",
     /**
      * voice guide speed
      *
      * @since 2.3
      */
-    VOICEGUIDE_SPEED_VERY_FAST = 'VERY_FAST',
+    VOICEGUIDE_SPEED_VERY_FAST = "VERY_FAST",
     /**
      * voice guide speed
      *
      * @since 2.3
      */
-    VOICEGUIDE_SPEED_FAST = 'FAST',
+    VOICEGUIDE_SPEED_FAST = "FAST",
     /**
      * voice guide speed
      *
      * @since 2.3
      */
-    VOICEGUIDE_SPEED_NORMAL = 'NORMAL',
+    VOICEGUIDE_SPEED_NORMAL = "NORMAL",
     /**
      * voice guide speed
      *
      * @since 2.3
      */
-    VOICEGUIDE_SPEED_SLOW = 'SLOW',
+    VOICEGUIDE_SPEED_SLOW = "SLOW",
     /**
      * voice guide speed
      *
      * @since 2.3
      */
-    VOICEGUIDE_SPEED_VERY_SLOW = 'VERY_SLOW',
+    VOICEGUIDE_SPEED_VERY_SLOW = "VERY_SLOW",
     /**
      * caption style
      *
@@ -6430,7 +6319,7 @@ export enum TvInfoMenuValue {
      *
      * @since 2.3
      */
-    CAPTION_STYLE_ITALIC = 2
+    CAPTION_STYLE_ITALIC = 2,
 }
 /**
  * Defines constants for TV information keys.
@@ -6443,7 +6332,7 @@ export enum TvInfoKey {
      *
      * @since 2.3
      */
-    TV_VIEWER_BG_EXECUTABLE = 0
+    TV_VIEWER_BG_EXECUTABLE = 0,
 }
 /**
  * Defines constants for TV information values.
@@ -6462,7 +6351,7 @@ export enum TvInfoValue {
      *
      * @since 2.3
      */
-    TV_VIEWER_BG_EXECUTABLE = 1
+    TV_VIEWER_BG_EXECUTABLE = 1,
 }
 
 /**
@@ -6483,7 +6372,6 @@ export interface TvInfoCaptionChangeCallback {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     (key: TvInfoMenuKey): void;
 }
@@ -6506,7 +6394,6 @@ export interface TvInfoChangeCallback {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     (key: TvInfoKey): void;
 }
@@ -6519,7 +6406,6 @@ export interface TvInfoChangeCallback {
  * @privilegeName None
  *
  * @since 2.3
- *
  */
 export interface TvInfoManager {
     /**
@@ -6760,7 +6646,6 @@ export interface TvInfoManager {
          * @since 2.3
          *
          * @version 1.0
-         *
          */
         SMARTHUB_CHANNEL_BOUND_APPS_TICKER: 14;
         /**
@@ -7468,7 +7353,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_AFR: 'AFR';
+        AUDIO_LANGUAGE_CODE_AFR: "AFR";
         /**
          * Akan voice mode
          *
@@ -7476,7 +7361,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_AKA: 'AKA';
+        AUDIO_LANGUAGE_CODE_AKA: "AKA";
         /**
          * Amharic voice mode
          *
@@ -7484,7 +7369,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_AMH: 'AMH';
+        AUDIO_LANGUAGE_CODE_AMH: "AMH";
         /**
          * Arab voice mode
          *
@@ -7492,7 +7377,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ARA: 'ARA';
+        AUDIO_LANGUAGE_CODE_ARA: "ARA";
         /**
          * India-Assamese voice mode
          *
@@ -7500,7 +7385,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ASM: 'ASM';
+        AUDIO_LANGUAGE_CODE_ASM: "ASM";
         /**
          * India-Bengali voice mode
          *
@@ -7508,7 +7393,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_BEN: 'BEN';
+        AUDIO_LANGUAGE_CODE_BEN: "BEN";
         /**
          * Bulgarian voice mode
          *
@@ -7516,7 +7401,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_BUL: 'BUL';
+        AUDIO_LANGUAGE_CODE_BUL: "BUL";
         /**
          * catala voice mode
          *
@@ -7524,7 +7409,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_CAT: 'CAT';
+        AUDIO_LANGUAGE_CODE_CAT: "CAT";
         /**
          * Chinese voice mode
          *
@@ -7532,7 +7417,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_CHI: 'CHI';
+        AUDIO_LANGUAGE_CODE_CHI: "CHI";
         /**
          * Chinese (Mandarin) voice mode
          *
@@ -7540,7 +7425,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_CMN: 'CMN';
+        AUDIO_LANGUAGE_CODE_CMN: "CMN";
         /**
          * Czech voice mode
          *
@@ -7548,7 +7433,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_CZE: 'CZE';
+        AUDIO_LANGUAGE_CODE_CZE: "CZE";
         /**
          * Ghana-Dagbani voice mode
          *
@@ -7556,7 +7441,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_DAG: 'DAG';
+        AUDIO_LANGUAGE_CODE_DAG: "DAG";
         /**
          * Danish voice mode
          *
@@ -7564,7 +7449,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_DAN: 'DAN';
+        AUDIO_LANGUAGE_CODE_DAN: "DAN";
         /**
          * Dutch voice mode
          *
@@ -7572,7 +7457,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_DUT: 'DUT';
+        AUDIO_LANGUAGE_CODE_DUT: "DUT";
         /**
          * English voice mode
          *
@@ -7580,7 +7465,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ENG: 'ENG';
+        AUDIO_LANGUAGE_CODE_ENG: "ENG";
         /**
          * Estonia voice mode
          *
@@ -7588,7 +7473,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_EST: 'EST';
+        AUDIO_LANGUAGE_CODE_EST: "EST";
         /**
          * basque voice mode
          *
@@ -7596,7 +7481,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_EUS: 'EUS';
+        AUDIO_LANGUAGE_CODE_EUS: "EUS";
         /**
          * Ewe voice mode
          *
@@ -7604,7 +7489,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_EWE: 'EWE';
+        AUDIO_LANGUAGE_CODE_EWE: "EWE";
         /**
          * Finnish voice mode
          *
@@ -7612,7 +7497,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_FIN: 'FIN';
+        AUDIO_LANGUAGE_CODE_FIN: "FIN";
         /**
          * French voice mode
          *
@@ -7620,7 +7505,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_FRE: 'FRE';
+        AUDIO_LANGUAGE_CODE_FRE: "FRE";
         /**
          * Gaa voice mode
          *
@@ -7628,7 +7513,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GAA: 'GAA';
+        AUDIO_LANGUAGE_CODE_GAA: "GAA";
         /**
          * German voice mode
          *
@@ -7636,7 +7521,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GER: 'GER';
+        AUDIO_LANGUAGE_CODE_GER: "GER";
         /**
          * Gaelic voice mode
          *
@@ -7644,7 +7529,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GLA: 'GLA';
+        AUDIO_LANGUAGE_CODE_GLA: "GLA";
         /**
          * Galician voice mode
          *
@@ -7652,7 +7537,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GLG: 'GLG';
+        AUDIO_LANGUAGE_CODE_GLG: "GLG";
         /**
          * Netherlands private code
          *
@@ -7660,7 +7545,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GOS: 'GOS';
+        AUDIO_LANGUAGE_CODE_GOS: "GOS";
         /**
          * Greek voice mode
          *
@@ -7668,7 +7553,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GRE: 'GRE';
+        AUDIO_LANGUAGE_CODE_GRE: "GRE";
         /**
          * India-Gujarati voice mode
          *
@@ -7676,7 +7561,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_GUJ: 'GUJ';
+        AUDIO_LANGUAGE_CODE_GUJ: "GUJ";
         /**
          * Hausa voice mode
          *
@@ -7684,7 +7569,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_HAU: 'HAU';
+        AUDIO_LANGUAGE_CODE_HAU: "HAU";
         /**
          * Hebrew voice mode
          *
@@ -7692,7 +7577,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_HEB: 'HEB';
+        AUDIO_LANGUAGE_CODE_HEB: "HEB";
         /**
          * Hindi voice mode
          *
@@ -7700,7 +7585,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_HIN: 'HIN';
+        AUDIO_LANGUAGE_CODE_HIN: "HIN";
         /**
          * Croatian voice mode
          *
@@ -7708,7 +7593,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_HRV: 'HRV';
+        AUDIO_LANGUAGE_CODE_HRV: "HRV";
         /**
          * Hungarian voice mode
          *
@@ -7716,7 +7601,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_HUN: 'HUN';
+        AUDIO_LANGUAGE_CODE_HUN: "HUN";
         /**
          * Igbo voice mode
          *
@@ -7724,7 +7609,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_IGB: 'IGB';
+        AUDIO_LANGUAGE_CODE_IGB: "IGB";
         /**
          * Indonesia voice mode
          *
@@ -7732,7 +7617,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_IND: 'IND';
+        AUDIO_LANGUAGE_CODE_IND: "IND";
         /**
          * Irish voice mode
          *
@@ -7740,7 +7625,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_IRI: 'IRI';
+        AUDIO_LANGUAGE_CODE_IRI: "IRI";
         /**
          * Italian voice mode
          *
@@ -7748,7 +7633,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ITA: 'ITA';
+        AUDIO_LANGUAGE_CODE_ITA: "ITA";
         /**
          * Japanes voice mode
          *
@@ -7756,7 +7641,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_JPN: 'JPN';
+        AUDIO_LANGUAGE_CODE_JPN: "JPN";
         /**
          * India-Kannada voice mode
          *
@@ -7764,7 +7649,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_KAN: 'KAN';
+        AUDIO_LANGUAGE_CODE_KAN: "KAN";
         /**
          * India-Kokani voice mode
          *
@@ -7772,7 +7657,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_KOK: 'KOK';
+        AUDIO_LANGUAGE_CODE_KOK: "KOK";
         /**
          * Korean voice mode
          *
@@ -7780,7 +7665,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_KOR: 'KOR';
+        AUDIO_LANGUAGE_CODE_KOR: "KOR";
         /**
          * Latvian voice mode
          *
@@ -7788,7 +7673,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_LAV: 'LAV';
+        AUDIO_LANGUAGE_CODE_LAV: "LAV";
         /**
          * Lithuanian voice mode
          *
@@ -7796,7 +7681,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_LIT: 'LIT';
+        AUDIO_LANGUAGE_CODE_LIT: "LIT";
         /**
          * India-Malayalam voice mode
          *
@@ -7804,7 +7689,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_MAL: 'MAL';
+        AUDIO_LANGUAGE_CODE_MAL: "MAL";
         /**
          * Maori voice mode
          *
@@ -7812,15 +7697,13 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_MAO: 'MAO';
+        AUDIO_LANGUAGE_CODE_MAO: "MAO";
         /**
-         *
-         *
          * @version 3.1
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_MAR: 'MAR';
+        AUDIO_LANGUAGE_CODE_MAR: "MAR";
         /**
          * India-Marathi voice mode
          *
@@ -7828,7 +7711,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_MSA: 'MSA';
+        AUDIO_LANGUAGE_CODE_MSA: "MSA";
         /**
          * Ndebele voice mode
          *
@@ -7836,7 +7719,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_NBL: 'NBL';
+        AUDIO_LANGUAGE_CODE_NBL: "NBL";
         /**
          * Norwegian voice mode
          *
@@ -7844,7 +7727,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_NOR: 'NOR';
+        AUDIO_LANGUAGE_CODE_NOR: "NOR";
         /**
          * Sotho, Northern voice mode
          *
@@ -7852,7 +7735,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_NSO: 'NSO';
+        AUDIO_LANGUAGE_CODE_NSO: "NSO";
         /**
          * Nzema voice mode
          *
@@ -7860,7 +7743,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_NZI: 'NZI';
+        AUDIO_LANGUAGE_CODE_NZI: "NZI";
         /**
          * India-Oriya voice mode
          *
@@ -7868,7 +7751,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ORI: 'ORI';
+        AUDIO_LANGUAGE_CODE_ORI: "ORI";
         /**
          * India-Punjabi voice mode
          *
@@ -7876,7 +7759,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_PAN: 'PAN';
+        AUDIO_LANGUAGE_CODE_PAN: "PAN";
         /**
          * Persisian voice mode
          *
@@ -7884,7 +7767,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_PER: 'PER';
+        AUDIO_LANGUAGE_CODE_PER: "PER";
         /**
          * Polish voice mode
          *
@@ -7892,7 +7775,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_POL: 'POL';
+        AUDIO_LANGUAGE_CODE_POL: "POL";
         /**
          * Portuguese voice mode
          *
@@ -7900,7 +7783,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_POR: 'POR';
+        AUDIO_LANGUAGE_CODE_POR: "POR";
         /**
          * Singapore preffered audio.
          *
@@ -7908,7 +7791,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_QAA: 'QAA';
+        AUDIO_LANGUAGE_CODE_QAA: "QAA";
         /**
          * Singapore secondary audio.
          *
@@ -7916,7 +7799,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_QAB: 'QAB';
+        AUDIO_LANGUAGE_CODE_QAB: "QAB";
         /**
          * Singapore third audio
          *
@@ -7924,7 +7807,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_QAC: 'QAC';
+        AUDIO_LANGUAGE_CODE_QAC: "QAC";
         /**
          * Rumanian voice mode
          *
@@ -7932,7 +7815,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ROM: 'ROM';
+        AUDIO_LANGUAGE_CODE_ROM: "ROM";
         /**
          * Russian voice mode
          *
@@ -7940,7 +7823,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_RUS: 'RUS';
+        AUDIO_LANGUAGE_CODE_RUS: "RUS";
         /**
          * Slovakia voice mode
          *
@@ -7948,7 +7831,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SLK: 'SLK';
+        AUDIO_LANGUAGE_CODE_SLK: "SLK";
         /**
          * Sotho, Southern voice mode
          *
@@ -7956,7 +7839,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SOT: 'SOT';
+        AUDIO_LANGUAGE_CODE_SOT: "SOT";
         /**
          * Spanish voice mode
          *
@@ -7964,7 +7847,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SPA: 'SPA';
+        AUDIO_LANGUAGE_CODE_SPA: "SPA";
         /**
          * Serbian voice mode
          *
@@ -7972,7 +7855,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SRP: 'SRP';
+        AUDIO_LANGUAGE_CODE_SRP: "SRP";
         /**
          * Swati voice mode
          *
@@ -7980,7 +7863,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SSW: 'SSW';
+        AUDIO_LANGUAGE_CODE_SSW: "SSW";
         /**
          * Swahili voice mode
          *
@@ -7988,7 +7871,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SWA: 'SWA';
+        AUDIO_LANGUAGE_CODE_SWA: "SWA";
         /**
          * Swedish voice mode
          *
@@ -7996,7 +7879,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_SWE: 'SWE';
+        AUDIO_LANGUAGE_CODE_SWE: "SWE";
         /**
          * tamil voice mode
          *
@@ -8004,7 +7887,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TAM: 'TAM';
+        AUDIO_LANGUAGE_CODE_TAM: "TAM";
         /**
          * India-Telugu voice mode
          *
@@ -8012,7 +7895,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TEL: 'TEL';
+        AUDIO_LANGUAGE_CODE_TEL: "TEL";
         /**
          * Thai voice mode
          *
@@ -8020,7 +7903,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_THA: 'THA';
+        AUDIO_LANGUAGE_CODE_THA: "THA";
         /**
          * Thai voice mode
          *
@@ -8028,7 +7911,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TSN: 'TSN';
+        AUDIO_LANGUAGE_CODE_TSN: "TSN";
         /**
          * Tsonga voice mode
          *
@@ -8036,7 +7919,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TSO: 'TSO';
+        AUDIO_LANGUAGE_CODE_TSO: "TSO";
         /**
          * Turkish voice mode
          *
@@ -8044,7 +7927,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TUR: 'TUR';
+        AUDIO_LANGUAGE_CODE_TUR: "TUR";
         /**
          * Twi voice mode
          *
@@ -8052,7 +7935,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_TWI: 'TWI';
+        AUDIO_LANGUAGE_CODE_TWI: "TWI";
         /**
          * Ukraine voice mode
          *
@@ -8060,7 +7943,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_UKR: 'UKR';
+        AUDIO_LANGUAGE_CODE_UKR: "UKR";
         /**
          * valencia voice mode
          *
@@ -8068,7 +7951,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_VAL: 'VAL';
+        AUDIO_LANGUAGE_CODE_VAL: "VAL";
         /**
          * Venda voice mode
          *
@@ -8076,7 +7959,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_VEN: 'VEN';
+        AUDIO_LANGUAGE_CODE_VEN: "VEN";
         /**
          * Vietnamese voice mode
          *
@@ -8084,7 +7967,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_VIE: 'VIE';
+        AUDIO_LANGUAGE_CODE_VIE: "VIE";
         /**
          * Welsh voice mode
          *
@@ -8092,7 +7975,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_WEL: 'WEL';
+        AUDIO_LANGUAGE_CODE_WEL: "WEL";
         /**
          * Xhosa voice mode
          *
@@ -8100,7 +7983,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_XHO: 'XHO';
+        AUDIO_LANGUAGE_CODE_XHO: "XHO";
         /**
          * Ghana-Kasem voice mode
          *
@@ -8108,7 +7991,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_XSM: 'XSM';
+        AUDIO_LANGUAGE_CODE_XSM: "XSM";
         /**
          * Yoruba voice mode
          *
@@ -8116,7 +7999,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_YOR: 'YOR';
+        AUDIO_LANGUAGE_CODE_YOR: "YOR";
         /**
          * Chinese (Cantonese) voice mode
          *
@@ -8124,7 +8007,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_YUE: 'YUE';
+        AUDIO_LANGUAGE_CODE_YUE: "YUE";
         /**
          * Malaysia-Chinense voice mode
          *
@@ -8132,7 +8015,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ZHO: 'ZHO';
+        AUDIO_LANGUAGE_CODE_ZHO: "ZHO";
         /**
          * Zulu voice mode
          *
@@ -8140,7 +8023,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        AUDIO_LANGUAGE_CODE_ZUL: 'ZUL';
+        AUDIO_LANGUAGE_CODE_ZUL: "ZUL";
         /**
          * voice guide speed
          *
@@ -8148,7 +8031,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        VOICEGUIDE_SPEED_VERY_FAST: 'VERY_FAST';
+        VOICEGUIDE_SPEED_VERY_FAST: "VERY_FAST";
         /**
          * voice guide speed
          *
@@ -8156,7 +8039,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        VOICEGUIDE_SPEED_FAST: 'FAST';
+        VOICEGUIDE_SPEED_FAST: "FAST";
         /**
          * voice guide speed
          *
@@ -8164,7 +8047,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        VOICEGUIDE_SPEED_NORMAL: 'NORMAL';
+        VOICEGUIDE_SPEED_NORMAL: "NORMAL";
         /**
          * voice guide speed
          *
@@ -8172,7 +8055,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        VOICEGUIDE_SPEED_SLOW: 'SLOW';
+        VOICEGUIDE_SPEED_SLOW: "SLOW";
         /**
          * voice guide speed
          *
@@ -8180,7 +8063,7 @@ export interface TvInfoManager {
          *
          * @since 2.3
          */
-        VOICEGUIDE_SPEED_VERY_SLOW: 'VERY_SLOW';
+        VOICEGUIDE_SPEED_VERY_SLOW: "VERY_SLOW";
         /**
          * caption style
          *
@@ -8259,7 +8142,6 @@ export interface TvInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -8279,7 +8161,6 @@ export interface TvInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     getMenuValue: (key: TvInfoMenuKey) => TvInfoMenuValue;
 
@@ -8301,11 +8182,10 @@ export interface TvInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     addCaptionChangeListener: (
         key: TvInfoMenuKey,
-        listener: TvInfoCaptionChangeCallback
+        listener: TvInfoCaptionChangeCallback,
     ) => number;
 
     /**
@@ -8324,7 +8204,6 @@ export interface TvInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     removeCaptionChangeListener: (listenerId: number) => void;
 
@@ -8342,7 +8221,6 @@ export interface TvInfoManager {
      * @version 1.0
      *
      * @note Since plugin version 3.0, if a parameter value is out of range, InvalidValuesError is thrown instead of TypeMismatchError.
-     *
      */
     isTvsPicSizeResized: () => boolean;
 
@@ -8359,7 +8237,6 @@ export interface TvInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     showCaption: (show: boolean) => void;
 
@@ -8378,7 +8255,6 @@ export interface TvInfoManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     registerInAppCaptionControl: (status: boolean) => void;
 }
@@ -8606,7 +8482,6 @@ export interface SuccessCallback {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     (): void;
 }
@@ -8621,7 +8496,6 @@ export interface ErrorCallback {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     (error: WebAPIError): void;
 }
@@ -8634,7 +8508,6 @@ export interface ErrorCallback {
  * @privilegeName http://developer.samsung.com/privilege/widgetdata
  *
  * @since 2.3
- *
  */
 export interface WidgetDataManager {
     /**
@@ -8651,7 +8524,6 @@ export interface WidgetDataManager {
      * @since 2.3
      *
      * @version 1.0
-     *
      */
     getVersion: () => string;
 
@@ -8678,7 +8550,6 @@ export interface WidgetDataManager {
      * @version 3.0
      *
      * @note If you need to share a file created by the widgetdata api with another c or c# app, you need to use one more privilege(http://tizen.org/privilege/appdir.shareddata)
-     *
      */
     read: (onsuccess: SuccessCallback, onerror?: ErrorCallback) => void;
 
@@ -8707,12 +8578,11 @@ export interface WidgetDataManager {
      * @version 3.0
      *
      * @note If you need to share a file created by the widgetdata api with another c or c# app, you need to use one more privilege(http://tizen.org/privilege/appdir.shareddata)
-     *
      */
     write: (
         data: string,
         onsuccess?: SuccessCallback,
-        onerror?: ErrorCallback
+        onerror?: ErrorCallback,
     ) => void;
 
     /**
@@ -8738,7 +8608,6 @@ export interface WidgetDataManager {
      * @version 3.0
      *
      * @note If you need to share a file created by the widgetdata api with another c or c# app, you need to use one more privilege(http://tizen.org/privilege/appdir.shareddata)
-     *
      */
     remove: (onsuccess?: SuccessCallback, onerror?: ErrorCallback) => void;
 }

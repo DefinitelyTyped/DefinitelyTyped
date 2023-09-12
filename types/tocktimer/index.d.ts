@@ -32,7 +32,7 @@ declare namespace t {
         /**
          * Create a Tock instance
          */
-        constructor(opts?: TockOptions)
+        constructor(opts?: TockOptions);
 
         /**
          * Start the timer

@@ -1,156 +1,155 @@
-
 // $ExpectType Player
-new Twitch.Player('id', {
+new Twitch.Player("id", {
     width: 100,
     height: 100,
-    parent: ['yourUrl.com']
-})
+    parent: ["yourUrl.com"],
+});
 // $ExpectType Player
 new Twitch.Player("id", {
     width: "100%",
     height: "100%",
     video: "videoId",
-    parent: ['yourUrl.com'],
-})
+    parent: ["yourUrl.com"],
+});
 // @ts-expect-error
 new Twitch.Player("id", {
     width: "100%",
     height: "100%",
-})
+});
 // $ExpectType Player
 new Twitch.Player("id", {
     width: "100%",
     height: "100%",
     video: "videoId",
-    parent: ['yourUrl.com'],
+    parent: ["yourUrl.com"],
     autoplay: true,
     muted: true,
-    time: "1h1m1s"
-})
+    time: "1h1m1s",
+});
 // $ExpectType Player
 new Twitch.Player("id", {
     width: "100%",
     height: "100%",
     collection: "videoId",
-    parent: ['yourUrl.com'],
+    parent: ["yourUrl.com"],
     autoplay: true,
     muted: true,
-    time: "1h1m1s"
-})
+    time: "1h1m1s",
+});
 // $ExpectType Player
 new Twitch.Player("id", {
     width: "100%",
     height: "100%",
     channel: "videoId",
-    parent: ['yourUrl.com'],
+    parent: ["yourUrl.com"],
     autoplay: true,
     muted: true,
-    time: "1h1m1s"
-})
+    time: "1h1m1s",
+});
 // $ExpectType Player
 const player = new Twitch.Player("id", {
     width: "100%",
     height: "100%",
     channel: "videoId",
-    parent: ['yourUrl.com'],
+    parent: ["yourUrl.com"],
     autoplay: true,
     muted: true,
-    time: "1h1m1s"
-})
+    time: "1h1m1s",
+});
 // $ExpectType void
-player.addEventListener(Twitch.Player.READY, () => { })
+player.addEventListener(Twitch.Player.READY, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.CAPTIONS, () => { })
+player.addEventListener(Twitch.Player.CAPTIONS, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.ENDED, () => { })
+player.addEventListener(Twitch.Player.ENDED, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.PLAY, () => { })
+player.addEventListener(Twitch.Player.PLAY, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.PLAYBACK_BLOCKED, () => { })
+player.addEventListener(Twitch.Player.PLAYBACK_BLOCKED, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.VIDEO_PAUSE, () => { })
+player.addEventListener(Twitch.Player.VIDEO_PAUSE, () => {});
 // $ExpectType void
-player.addEventListener(Twitch.Player.VIDEO_READY, () => { })
+player.addEventListener(Twitch.Player.VIDEO_READY, () => {});
 
 // $ExpectType string
-player.getChannel()
+player.getChannel();
 // $ExpectType void
-player.pause()
+player.pause();
 // $ExpectType void
-player.play()
+player.play();
 // $ExpectType void
-player.setMuted(true)
+player.setMuted(true);
 // @ts-expect-error
-player.setMuted()
+player.setMuted();
 // $ExpectType void
-player.setMuted(false)
+player.setMuted(false);
 // $ExpectType void
-player.disableCaptions()
+player.disableCaptions();
 // $ExpectType void
-player.enableCaptions()
+player.enableCaptions();
 // $ExpectType number
-player.getCurrentTime()
+player.getCurrentTime();
 // $ExpectType number
-player.getDuration()
+player.getDuration();
 // $ExpectType boolean
-player.getEnded()
+player.getEnded();
 // $ExpectType boolean
-player.getMuted()
-player.getPlaybackStats()
+player.getMuted();
+player.getPlaybackStats();
 // $ExpectType string[]
-player.getQualities()
+player.getQualities();
 // $ExpectType string
-player.getQuality()
+player.getQuality();
 // $ExpectType string
-player.getVideo()
+player.getVideo();
 // $ExpectType number
-player.getVolume()
+player.getVolume();
 // $ExpectType boolean
-player.isPaused()
+player.isPaused();
 // $ExpectType void
-player.seek(1.0)
+player.seek(1.0);
 // $ExpectType void
-player.setChannel('channel')
+player.setChannel("channel");
 // $ExpectType void
-player.setCollection('collection', 'video')
+player.setCollection("collection", "video");
 // @ts-expect-error
-player.setCollection('collection')
+player.setCollection("collection");
 // $ExpectType void
-player.setQuality('')
+player.setQuality("");
 // $ExpectType void
-player.setVideo('new video', 200)
+player.setVideo("new video", 200);
 // @ts-expect-error
-player.setVideo('new video', '1h1m1s')
+player.setVideo("new video", "1h1m1s");
 // $ExpectType void
-player.setVolume(50)
+player.setVolume(50);
 // @ts-expect-error
-player.setVolume('50%')
+player.setVolume("50%");
 
 // $ExpectType string
-Twitch.Player.VIDEO_READY
+Twitch.Player.VIDEO_READY;
 // $ExpectType string
-Twitch.Player.VIDEO_PLAY
+Twitch.Player.VIDEO_PLAY;
 // $ExpectType string
-Twitch.Player.VIDEO_PAUSE
+Twitch.Player.VIDEO_PAUSE;
 // $ExpectType string
-Twitch.Player.CAPTIONS
+Twitch.Player.CAPTIONS;
 // $ExpectType string
-Twitch.Player.ENDED
+Twitch.Player.ENDED;
 // $ExpectType string
-Twitch.Player.ERROR
+Twitch.Player.ERROR;
 // $ExpectType string
-Twitch.Player.ONLINE
+Twitch.Player.ONLINE;
 // $ExpectType string
-Twitch.Player.OFFLINE
+Twitch.Player.OFFLINE;
 // $ExpectType string
-Twitch.Player.PAUSE
+Twitch.Player.PAUSE;
 // $ExpectType string
-Twitch.Player.PLAY
+Twitch.Player.PLAY;
 // $ExpectType string
-Twitch.Player.PLAYBACK_BLOCKED
+Twitch.Player.PLAYBACK_BLOCKED;
 // $ExpectType string
-Twitch.Player.PLAYING
+Twitch.Player.PLAYING;
 // $ExpectType string
-Twitch.Player.READY
+Twitch.Player.READY;
 // $ExpectType string
-Twitch.Player.SEEK
+Twitch.Player.SEEK;

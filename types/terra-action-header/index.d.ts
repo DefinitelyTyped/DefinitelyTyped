@@ -3,5 +3,5 @@
 // Definitions by: Juzer Zarif <https://github.com/juzerzarif>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { ActionHeaderProps } from './lib/ActionHeader';
-export { default } from './lib/ActionHeader';
+export { ActionHeaderProps } from "./lib/ActionHeader";
+export { default } from "./lib/ActionHeader";
