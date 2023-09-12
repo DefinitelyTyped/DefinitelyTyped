@@ -164,12 +164,12 @@ export default function useNavigationBuilder<
                             )[];
                             type: string;
                             stale: false;
-                            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                         }>,
                         {},
                         {}
                     >
                     | undefined,
+                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             >(): T;
             dangerouslyGetState(): Readonly<{
                 key: string;
@@ -195,9 +195,9 @@ export default function useNavigationBuilder<
                 type: string;
                 stale: false;
             }>;
-            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         }
         & PrivateValueStore<Record<string, object | undefined>, string, {}>
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         & import("./types").EventEmitter<EventMap>
         & {
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -271,22 +271,22 @@ export default function useNavigationBuilder<
                             )[];
                             type: string;
                             stale: false;
-                            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                         }>,
                         {},
                         {}
                     >
                     | undefined,
+                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             >(): T_1;
             dangerouslyGetState(): any;
         }
         & {
             setParams(params: object | undefined): void;
             setOptions(options: Partial<any>): void;
-            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         }
         & import("./types").EventConsumer<any>
         & PrivateValueStore<Record<string, object | undefined>, string, any>
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         & ActionHelpers;
     descriptors: Record<
         string,
