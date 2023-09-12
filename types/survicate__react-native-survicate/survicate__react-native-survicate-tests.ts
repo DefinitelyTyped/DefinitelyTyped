@@ -1,6 +1,7 @@
 import Survicate from '@survicate/react-native-survicate';
 
 Survicate.initialize();
+Survicate.initializeSdk();
 Survicate.invokeEvent('test');
 Survicate.enterScreen('test');
 Survicate.leaveScreen('test');
