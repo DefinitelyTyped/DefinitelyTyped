@@ -82,6 +82,7 @@ const options: CircuitBreaker.Options = {
     resetTimeout: 30000, // After 30 seconds, try again.
 };
 options.enableSnapshots; // $ExpectType boolean | undefined
+options.rotateBucketController; // $ExpectType EventEmitter | undefined
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker
