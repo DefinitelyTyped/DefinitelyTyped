@@ -349,7 +349,7 @@ declare namespace PDFKit.Mixins {
     interface PageMarking {
         tag: string;
         structContent?: PDFStructureContent;
-        options?: MarkingOptions;
+        options?: StructureElementOptions;
     }
 }
 
