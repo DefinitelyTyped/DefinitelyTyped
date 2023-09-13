@@ -2036,8 +2036,17 @@ function testFileSystemProvider() {
             if (options.size) {
                 entryMetadata.size = 42;
             }
+            if (options.modificationTime) {
+                entryMetadata.modificationTime = new Date();
+            }
             if (options.mimeType) {
                 entryMetadata.mimeType = "text/plain";
+            }
+            if(options.thumbnail) {
+                entryMetadata.thumbnail = "DaTa:ImAgE/pNg;base64";
+            }
+            if(options.cloudIdentifier) {
+                entryMetadata.cloudIdentifier = {providerName: 'provider-name', id: 'id'};
             }
         },
     );

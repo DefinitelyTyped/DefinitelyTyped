@@ -3716,6 +3716,13 @@ declare namespace chrome.fileSystemProvider {
         lastTag?: string | undefined;
     }
 
+    export interface CloudIdentifier {
+        /** Identifier for the cloud storage provider (e.g. 'drive.google.com'). */
+        providerName: string;
+        /** The provider's identifier for the given file/directory. */
+        id: string;
+    }
+
     export interface EntryMetadata {
         /** True if it is a directory. Must be provided if requested in `options`. */
         isDirectory?: boolean;
@@ -3729,6 +3736,8 @@ declare namespace chrome.fileSystemProvider {
         mimeType?: string | undefined;
         /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
         thumbnail?: string | undefined;
+        /** Optional. Cloud storage representation of this entry. Must be provided if requested in `options` and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested. */
+        cloudIdentifier?: CloudIdentifier | undefined;
     }
 
     export interface FileSystemInfo {
@@ -3852,34 +3861,36 @@ declare namespace chrome.fileSystemProvider {
     }
 
     export interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
-        /** Set to true if the thumbnail is requested. */
-        thumbnail: boolean;
-        /** Set to true if is_directory value is requested. */
+        /** Set to true if `is_directory` value is requested. */
         isDirectory: boolean;
-        /** Set to true if name value is requested. */
+        /** Set to true if `name` value is requested. */
         name: boolean;
-        /** Set to true if size value is requested. */
+        /** Set to true if `size` value is requested. */
         size: boolean;
-        /** Set to true if modificationTime value is requested. */
+        /** Set to true if `modificationTime` value is requested. */
         modificationTime: boolean;
-        /** Set to true if mimeType value is requested. */
+        /** Set to true if `mimeType` value is requested. */
         mimeType: boolean;
+        /** Set to true if `thumbnail` is requested. */
+        thumbnail: boolean;
+        /** Set to true if `cloudIdentifier` is requested. */
+        cloudIdentifier: boolean;
     }
 
     export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
         /** The path of the directory which is to be operated on. */
         directoryPath: string;
-        /** Set to true if is_directory value is requested. */
+        /** Set to true if `is_directory` value is requested. */
         isDirectory: boolean;
-        /** Set to true if name value is requested. */
+        /** Set to true if `name` value is requested. */
         name: boolean;
-        /** Set to true if size value is requested. */
+        /** Set to true if `size` value is requested. */
         size: boolean;
-        /** Set to true if modificationTime value is requested. */
+        /** Set to true if `modificationTime` value is requested. */
         modificationTime: boolean;
-        /** Set to true if mimeType value is requested. */
+        /** Set to true if `mimeType` value is requested. */
         mimeType: boolean;
-        /** Set to true if the thumbnail is requested. */
+        /** Set to true if `thumbnail` is requested. */
         thumbnail: boolean;
     }
 
