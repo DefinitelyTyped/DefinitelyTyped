@@ -3,9 +3,12 @@
 // Definitions by: cedoor <https://github.com/cedoor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Poseidon = (arr: any[], state?: any, nOut?: number) => any;
-
 export type Point = [any, any];
+
+export interface Poseidon {
+    (arr: any[], state?: any, nOut?: number): any;
+    F: any;
+}
 
 export interface Signature {
     R8: any;
