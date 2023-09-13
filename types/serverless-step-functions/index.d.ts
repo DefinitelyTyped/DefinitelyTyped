@@ -3,16 +3,6 @@
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 
-// declare module '@serverless/typescript' {
-//   interface AWS {
-//     stepFunctions?: {
-//       stateMachines: StateMachines;
-//       validate?: boolean;
-//       noOutput?: boolean;
-//     };
-//   }
-// }
-
 /**
  * Types for serverless-step-functions plugin for Serverless Framework.
  *
@@ -34,11 +24,13 @@
  * @see https://github.com/serverless-operations/serverless-step-functions
  * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
-export type StepFunctions = {
-    stateMachines: StateMachines;
-    validate?: boolean;
-    noOutput?: boolean;
-};
+declare module 'serverless-step-functions' {
+    interface StepFunctions {
+        stateMachines: StateMachines;
+        validate?: boolean;
+        noOutput?: boolean;
+    }
+}
 
 type StateMachines = {
     [stateMachine: string]: StateMachine;
