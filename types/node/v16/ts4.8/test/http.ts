@@ -239,6 +239,22 @@ import * as dns from 'node:dns';
     res.req; // $ExpectType IncomingMessage
 }
 
+// http IncomingMessage properties specific to Server
+{
+    http.createServer(req => {
+        req.url; // $ExpectType string
+        req.method; // $ExpectType string
+    });
+}
+
+// http IncomingMessage properties specific to ClientRequest
+{
+    new http.ClientRequest('http://somewhere', res => {
+        res.statusCode; // $ExpectType number
+        res.statusMessage; // $ExpectType string
+    });
+}
+
 // http ClientRequest
 {
     let req: http.ClientRequest = new http.ClientRequest("https://www.google.com");

@@ -128,7 +128,10 @@ declare module 'http' {
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
-    > = (req: InstanceType<Request>, res: InstanceType<Response>) => void;
+    > = (
+        req: InstanceType<Request> & { method: string; url: string },
+        res: InstanceType<Response> & { req: InstanceType<Request> },
+    ) => void;
 
     class Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -320,7 +323,10 @@ declare module 'http' {
         reusedSocket: boolean;
         maxHeadersCount: number;
 
-        constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
+        constructor(
+            url: string | URL | ClientRequestArgs,
+            cb?: (res: IncomingMessage & { statusCode: number; statusMessage: string }) => void,
+        );
 
         method: string;
         path: string;

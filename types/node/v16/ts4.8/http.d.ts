@@ -183,7 +183,10 @@ declare module 'http' {
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
-    > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
+    > = (
+        req: InstanceType<Request> & { method: string; url: string },
+        res: InstanceType<Response> & { req: InstanceType<Request> },
+    ) => void;
     /**
      * @since v0.1.17
      */
@@ -700,7 +703,10 @@ declare module 'http' {
          * @default 2000
          */
         maxHeadersCount: number;
-        constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
+        constructor(
+            url: string | URL | ClientRequestArgs,
+            cb?: (res: IncomingMessage & { statusCode: number; statusMessage: string }) => void,
+        );
         /**
          * The request method.
          * @since v0.1.97
