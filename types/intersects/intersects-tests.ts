@@ -1,6 +1,6 @@
 import { polygonBox, pointLine, circleEllipse } from 'intersects';
 import * as box from 'intersects/box';
-import circleOutlineCircle from 'intersects/circleOutline-circle';
+import circleOutlineCircle = require('intersects/circleOutline-circle');
 
 const res = polygonBox([2, 0, 4, 2, 0, 2], 1, 1, 2, 2);
 if (res) {

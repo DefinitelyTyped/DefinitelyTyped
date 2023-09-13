@@ -3,50 +3,94 @@
 // Definitions by: Voxylu <https://github.com/voxylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { default as circlePoint } from './circle-point';
-export { default as circleCircle } from './circle-circle';
-export { default as circleLine } from './circle-line';
-export { default as circleBox } from './circle-box';
-export { default as circlePolygon } from './circle-polygon';
-export { default as circleEllipse } from './circle-ellipse';
+import circlePoint = require('./circle-point');
+import circleCircle = require('./circle-circle');
+import circleLine = require('./circle-line');
+import circleBox = require('./circle-box');
+import circlePolygon = require('./circle-polygon');
+import circleEllipse = require('./circle-ellipse');
 
-export { default as circleOutlineBox } from './circleOutline-box';
-export { default as circleOutlineLine } from './circleOutline-line';
-export { default as circleOutlinePoint } from './circleOutline-point';
+import circleOutlineBox = require('./circleOutline-box');
+import circleOutlineLine = require('./circleOutline-line');
+import circleOutlinePoint = require('./circleOutline-point');
 
-export { default as polygonPoint } from './polygon-point';
-export { default as polygonLine } from './polygon-line';
-export { default as polygonPolygon } from './polygon-polygon';
-export { default as polygonBox } from './polygon-box';
-export { default as polygonCircle } from './polygon-circle';
-export { default as polygonEllipse } from './polygon-ellipse';
+import polygonPoint = require('./polygon-point');
+import polygonLine = require('./polygon-line');
+import polygonPolygon = require('./polygon-polygon');
+import polygonBox = require('./polygon-box');
+import polygonCircle = require('./polygon-circle');
+import polygonEllipse = require('./polygon-ellipse');
 
-export { default as boxPoint } from './box-point';
-export { default as boxBox } from './box-box';
-export { default as boxLine } from './box-line';
-export { default as boxPolygon } from './box-polygon';
-export { default as boxCircle } from './box-circle';
-export { default as boxEllipse } from './box-ellipse';
-export { default as boxCircleOutline } from './box-circleOutline';
+import boxPoint = require('./box-point');
+import boxBox = require('./box-box');
+import boxLine = require('./box-line');
+import boxPolygon = require('./box-polygon');
+import boxCircle = require('./box-circle');
+import boxEllipse = require('./box-ellipse');
+import boxCircleOutline = require('./box-circleOutline');
 
-export { default as pointBox } from './point-box';
-export { default as pointPolygon } from './point-polygon';
-export { default as pointCircle } from './point-circle';
-export { default as pointLine } from './point-line';
-export { default as pointEllipse } from './point-ellipse';
-export { default as pointCircleOutline } from './point-circleOutline';
+import pointBox = require('./point-box');
+import pointPolygon = require('./point-polygon');
+import pointCircle = require('./point-circle');
+import pointLine = require('./point-line');
+import pointEllipse = require('./point-ellipse');
+import pointCircleOutline = require('./point-circleOutline');
 
-export { default as lineLine } from './line-line';
-export { default as lineBox } from './line-box';
-export { default as linePolygon } from './line-polygon';
-export { default as lineCircle } from './line-circle';
-export { default as linePoint } from './line-point';
-export { default as lineEllipse } from './line-ellipse';
-export { default as lineCircleOutline } from './line-circleOutline';
+import lineLine = require('./line-line');
+import lineBox = require('./line-box');
+import linePolygon = require('./line-polygon');
+import lineCircle = require('./line-circle');
+import linePoint = require('./line-point');
+import lineEllipse = require('./line-ellipse');
+import lineCircleOutline = require('./line-circleOutline');
 
-export { default as ellipsePoint } from './ellipse-point';
-export { default as ellipseLine } from './ellipse-line';
-export { default as ellipseBox } from './ellipse-box';
-export { default as ellipseCircle } from './ellipse-circle';
-export { default as ellipseEllipse } from './ellipse-ellipse';
-export { default as ellipsePolygon } from './ellipse-polygon';
+import ellipsePoint = require('./ellipse-point');
+import ellipseLine = require('./ellipse-line');
+import ellipseBox = require('./ellipse-box');
+import ellipseCircle = require('./ellipse-circle');
+import ellipseEllipse = require('./ellipse-ellipse');
+import ellipsePolygon = require('./ellipse-polygon');
+
+export {
+    circlePoint,
+    circleCircle,
+    circleLine,
+    circleBox,
+    circlePolygon,
+    circleEllipse,
+    circleOutlineBox,
+    circleOutlineLine,
+    circleOutlinePoint,
+    polygonPoint,
+    polygonLine,
+    polygonPolygon,
+    polygonBox,
+    polygonCircle,
+    polygonEllipse,
+    boxPoint,
+    boxBox,
+    boxLine,
+    boxPolygon,
+    boxCircle,
+    boxEllipse,
+    boxCircleOutline,
+    pointBox,
+    pointPolygon,
+    pointCircle,
+    pointLine,
+    pointEllipse,
+    pointCircleOutline,
+    lineLine,
+    lineBox,
+    linePolygon,
+    lineCircle,
+    linePoint,
+    lineEllipse,
+    lineCircleOutline,
+    ellipsePoint,
+    ellipseLine,
+    ellipseBox,
+    ellipseCircle,
+    ellipseEllipse,
+    ellipsePolygon,
+};

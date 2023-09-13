@@ -1,6 +1,8 @@
-export { default as point } from './circle-point';
-export { default as circle } from './circle-circle';
-export { default as ellipse } from './circle-ellipse';
-export { default as line } from './circle-line';
-export { default as box } from './circle-box';
-export { default as polygon } from './circle-polygon';
+import point = require('./circle-point');
+import circle = require('./circle-circle');
+import ellipse = require('./circle-ellipse');
+import line = require('./circle-line');
+import box = require('./circle-box');
+import polygon = require('./circle-polygon');
+
+export { point, circle, ellipse, line, box, polygon };
