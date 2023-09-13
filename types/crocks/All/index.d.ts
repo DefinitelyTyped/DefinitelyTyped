@@ -1,2 +1,2 @@
-import All from './All';
+import All from "./All";
 export default All;

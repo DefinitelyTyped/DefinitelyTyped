@@ -1,7 +1,7 @@
-import { ceddl, ModelConfig } from '@ceddl/ceddl-polyfill';
+import { ceddl, ModelConfig } from "@ceddl/ceddl-polyfill";
 
 const myModel: ModelConfig = {
-    key: 'product',
+    key: "product",
     root: true,
     fields: {
         name: {
@@ -23,8 +23,8 @@ const myModel: ModelConfig = {
         priceMonth: {
             type: ceddl.modelFactory.fields.NumberField,
             required: true,
-        }
-    }
+        },
+    },
 };
 
 ceddl.modelFactory.create(myModel);
@@ -32,33 +32,33 @@ ceddl.modelFactory.create(myModel);
 ceddl.initialize();
 
 const callback = (data: any) => {
- // receive message
+    // receive message
 };
 
-ceddl.eventbus.on('jproduct', callback);
+ceddl.eventbus.on("jproduct", callback);
 
-ceddl.eventbus.emit('jproduct', {
-	name: "Pencil words - Orange",
-	sale: false,
-	shortName: "Paper",
-	priceOnce: 27,
-	priceMonth: 39,
+ceddl.eventbus.emit("jproduct", {
+    name: "Pencil words - Orange",
+    sale: false,
+    shortName: "Paper",
+    priceOnce: 27,
+    priceMonth: 39,
 });
 
-ceddl.emitModel('jproduct', {
-	name: "Pencil words - Orange",
-	sale: false,
-	shortName: "Paper",
-	priceOnce: 25,
-	priceMonth: 34,
+ceddl.emitModel("jproduct", {
+    name: "Pencil words - Orange",
+    sale: false,
+    shortName: "Paper",
+    priceOnce: 25,
+    priceMonth: 34,
 });
 
-ceddl.emitEvent('jproduct:click', {
-	name: "klick trigger"
+ceddl.emitEvent("jproduct:click", {
+    name: "klick trigger",
 });
 
-ceddl.eventbus.off('jproduct', callback);
-ceddl.eventbus.once('jproduct', callback);
+ceddl.eventbus.off("jproduct", callback);
+ceddl.eventbus.once("jproduct", callback);
 
 const models = ceddl.getModels();
 const events = ceddl.getEvents();

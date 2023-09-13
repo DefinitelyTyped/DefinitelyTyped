@@ -2,10 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "only-arrow-functions": false
     }
 }

@@ -41,7 +41,6 @@ import { parseArgs } from '@pkgjs/parseargs';
         },
     } as const;
 
-    // tslint:disable-next-line:max-line-length
     // $ExpectType { kind: "positional"; index: number; value: string; } | { kind: "option-terminator"; index: number; } | { kind: "option"; index: number; name: "foo"; rawName: string; value: string; inlineValue: boolean; } | { kind: "option"; index: number; name: "bar"; rawName: string; value: undefined; inlineValue: undefined; }
     parseArgs(config).tokens[0];
 }

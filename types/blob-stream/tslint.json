@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-var-keyword": false,
-        "no-var-requires": false,
-        "one-line": false
+        "no-var-requires": false
     }
 }

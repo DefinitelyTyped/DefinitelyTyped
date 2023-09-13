@@ -1,18 +1,25 @@
-import { DataProvider } from '../ojdataprovider';
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
+import { DataProvider } from "../ojdataprovider";
 export interface ojProgressList extends JetElement<ojProgressListSettableProperties> {
     data: DataProvider<any, any> | null;
     onDataChanged: ((event: JetElementCustomEvent<ojProgressList["data"]>) => any) | null;
-    addEventListener<T extends keyof ojProgressListEventMap>(type: T, listener: (this: HTMLElement, ev: ojProgressListEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojProgressListEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojProgressListEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojProgressListSettableProperties>(property: T): ojProgressList[T];
     getProperty(property: string): any;
-    setProperty<T extends keyof ojProgressListSettableProperties>(property: T, value: ojProgressListSettableProperties[T]): void;
+    setProperty<T extends keyof ojProgressListSettableProperties>(
+        property: T,
+        value: ojProgressListSettableProperties[T],
+    ): void;
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, ojProgressListSettableProperties>): void;
     setProperties(properties: ojProgressListSettablePropertiesLenient): void;
 }
 export interface ojProgressListEventMap extends HTMLElementEventMap {
-    'dataChanged': JetElementCustomEvent<ojProgressList["data"]>;
+    "dataChanged": JetElementCustomEvent<ojProgressList["data"]>;
 }
 export interface ojProgressListSettableProperties extends JetSettableProperties {
     data: DataProvider<any, any> | null;

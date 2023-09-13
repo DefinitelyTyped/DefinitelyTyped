@@ -6,15 +6,12 @@
         "ban-types": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-mergeable-namespace": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "npm-naming": false,
-        "semicolon": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }

@@ -1,4 +1,4 @@
-import { Options } from './options';
+import { Options } from "./options";
 
 /*
  * The execution module provides information about the current test execution state.
@@ -114,7 +114,7 @@ declare namespace execution {
              * 	Map to set or get VU metadata.
              */
             metadata: Record<string, number | string | boolean>;
-        }
+        };
     };
 }
 

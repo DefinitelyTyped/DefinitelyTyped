@@ -4,8 +4,6 @@
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

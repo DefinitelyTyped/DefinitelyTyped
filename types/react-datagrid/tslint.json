@@ -8,8 +8,6 @@
         "no-reference-import": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

@@ -1,10 +1,10 @@
-import toBoolean = require('to-boolean');
+import toBoolean = require("to-boolean");
 
 // $ExpectType boolean
-toBoolean('yes');
+toBoolean("yes");
 
 // $ExpectType boolean
-globalThis.toBoolean('');
+globalThis.toBoolean("");
 
 // @ts-expect-error
 toBoolean();

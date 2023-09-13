@@ -3,15 +3,9 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "interface-over-type-literal": false,
-        "max-line-length": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

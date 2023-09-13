@@ -1,5 +1,5 @@
-import { DownloadPreloadOption } from '../system/download-preload';
-import { RGB, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
+import { ContextMenuSettings, Hotkey, RGB } from "../../shapes/shapes";
+import { DownloadPreloadOption } from "../system/download-preload";
 export interface WindowOption {
     accelerator?: Accelerator | undefined;
     alphaMask?: RGB | undefined;

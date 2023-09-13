@@ -75,7 +75,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): PopupTagMultiselectWidget;
+            new(config?: ConfigOptions): PopupTagMultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: TagMultiselectWidget.Constructor;

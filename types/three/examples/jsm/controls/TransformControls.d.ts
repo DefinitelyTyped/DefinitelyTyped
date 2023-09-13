@@ -1,6 +1,38 @@
-import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion } from '../../../src/Three.js';
+import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion, Object3DEventMap } from '../../../src/Three.js';
 
-export class TransformControls extends Object3D {
+export interface TransformControlsEventMap extends Object3DEventMap {
+    change: {};
+    mouseDown: {};
+    mouseUp: {};
+    objectChange: {};
+    'camera-changed': { value: unknown };
+    'object-changed': { value: unknown };
+    'enabled-changed': { value: unknown };
+    'axis-changed': { value: unknown };
+    'mode-changed': { value: unknown };
+    'translationSnap-changed': { value: unknown };
+    'rotationSnap-changed': { value: unknown };
+    'scaleSnap-changed': { value: unknown };
+    'space-changed': { value: unknown };
+    'size-changed': { value: unknown };
+    'dragging-changed': { value: unknown };
+    'showX-changed': { value: unknown };
+    'showY-changed': { value: unknown };
+    'showZ-changed': { value: unknown };
+    'worldPosition-changed': { value: unknown };
+    'worldPositionStart-changed': { value: unknown };
+    'worldQuaternion-changed': { value: unknown };
+    'worldQuaternionStart-changed': { value: unknown };
+    'cameraPosition-changed': { value: unknown };
+    'cameraQuaternion-changed': { value: unknown };
+    'pointStart-changed': { value: unknown };
+    'pointEnd-changed': { value: unknown };
+    'rotationAxis-changed': { value: unknown };
+    'rotationAngle-changed': { value: unknown };
+    'eye-changed': { value: unknown };
+}
+
+export class TransformControls extends Object3D<TransformControlsEventMap> {
     constructor(object: Camera, domElement?: HTMLElement);
 
     domElement: HTMLElement;
@@ -20,6 +52,7 @@ export class TransformControls extends Object3D {
     showX: boolean;
     showY: boolean;
     showZ: boolean;
+
     readonly isTransformControls: true;
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
 

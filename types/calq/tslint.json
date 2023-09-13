@@ -1,10 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "object-literal-key-quotes": false,
-        "one-line": false,
-        "space-within-parens": false,
-        "typedef-whitespace": false,
-        "whitespace": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

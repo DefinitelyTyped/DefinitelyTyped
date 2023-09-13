@@ -3,8 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-conditional-assignment": false,
-        "no-trailing-whitespace": false,
-        "no-var-keyword": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

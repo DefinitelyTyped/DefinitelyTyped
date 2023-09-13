@@ -93,7 +93,7 @@ declare namespace OO {
     }
 
     interface RegistryConstructor {
-        new (): Registry;
+        new(): Registry;
         prototype: Registry;
         static: {};
     }

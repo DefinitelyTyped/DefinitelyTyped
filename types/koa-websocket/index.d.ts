@@ -9,11 +9,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Koa = require('koa');
-import compose = require('koa-compose');
-import * as ws from 'ws';
-import * as http from 'http';
-import * as https from 'https';
+import Koa = require("koa");
+import compose = require("koa-compose");
+import * as http from "http";
+import * as https from "https";
+import * as ws from "ws";
 
 declare module "koa" {
     interface Context {
@@ -23,7 +23,9 @@ declare module "koa" {
 }
 
 declare namespace KoaWebsocket {
-    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<MiddlewareContext<StateT> & ContextT>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<
+        MiddlewareContext<StateT> & ContextT
+    >;
 
     interface MiddlewareContext<StateT> extends Koa.Context {
         // Limitation: Declaration merging cannot overwrap existing properties.
@@ -50,12 +52,12 @@ declare namespace KoaWebsocket {
 }
 
 declare function KoaWebsocket<
-  StateT = Koa.DefaultState,
-  ContextT = Koa.DefaultContext
+    StateT = Koa.DefaultState,
+    ContextT = Koa.DefaultContext,
 >(
-  app: Koa<StateT, ContextT>,
-  wsOptions?: ws.ServerOptions,
-  httpsOptions?: https.ServerOptions
+    app: Koa<StateT, ContextT>,
+    wsOptions?: ws.ServerOptions,
+    httpsOptions?: https.ServerOptions,
 ): KoaWebsocket.App<StateT, ContextT>;
 
 export = KoaWebsocket;

@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "@types/mongoose": "5.10.5"
+        "@types/mongoose": "5.10.5",
+        "@types/mongodb": "3.6.20",
+        "bson": "4.7.2"
     }
 }

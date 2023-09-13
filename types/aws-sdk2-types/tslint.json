@@ -13,17 +13,8 @@
         "no-duplicate-imports": false,
         "no-mergeable-namespace": false,
         "jsdoc-format": false,
-        "comment-format": false,
-        "max-line-length": false,
-        "whitespace": false,
         "no-irregular-whitespace": false,
-        "no-trailing-whitespace": false,
-        "typedef-whitespace": false,
         "no-redundant-jsdoc-2": false,
-        "no-consecutive-blank-lines": false,
-        "semicolon": false,
-        "trim-file": false,
-        "one-line": false,
         "eofline": false
     }
 }

@@ -44,7 +44,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): PopupButtonWidget;
+            new(config?: ConfigOptions): PopupButtonWidget;
             prototype: Prototype;
             static: Static;
             super: ButtonWidget.Constructor;

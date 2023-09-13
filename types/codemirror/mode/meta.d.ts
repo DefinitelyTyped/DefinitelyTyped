@@ -1,4 +1,4 @@
-import '../';
+import "../";
 
 export interface ModeInfo {
     name: string;
@@ -10,7 +10,7 @@ export interface ModeInfo {
     alias?: string[] | undefined;
 }
 
-declare module '../' {
+declare module "../" {
     const modeInfo: ModeInfo[];
     function findModeByMIME(mime: string): ModeInfo | undefined;
     function findModeByExtension(ext: string): ModeInfo | undefined;

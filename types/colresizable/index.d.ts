@@ -20,7 +20,7 @@ declare namespace colResizable {
          * - 'overflow': allows to resize columns with overflow of parent container.
          * [version: 1.6]
          */
-        resizeMode?: 'fit' | 'flex' | 'overflow' | undefined;
+        resizeMode?: "fit" | "flex" | "overflow" | undefined;
 
         /**
          * [default: false] When set to true the table layout is updated while dragging column anchors.

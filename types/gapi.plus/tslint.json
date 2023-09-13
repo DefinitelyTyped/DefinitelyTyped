@@ -4,11 +4,8 @@
         "array-type": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

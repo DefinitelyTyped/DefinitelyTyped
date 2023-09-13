@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -139,6 +139,26 @@ declare module "sap/ui/integration/library" {
      * When in this mode, the card background is transparent.
      */
     Transparent = "Transparent",
+  }
+  /**
+   * @since 1.118
+   * @experimental (since 1.118) - For usage only by Work Zone.
+   *
+   * Possible variants for `{@link sap.ui.integration.widgets.Card}` rendering and behavior.
+   */
+  export enum CardDisplayVariant {
+    /**
+     * The standard card variant.
+     */
+    Standard = "Standard",
+    /**
+     * Card renders and behaves like a tile of size 2x2.
+     */
+    TileStandard = "TileStandard",
+    /**
+     * Card renders and behaves like a tile of size 4x2.
+     */
+    TileStandardWide = "TileStandardWide",
   }
   /**
    * @experimental (since 1.79)
@@ -611,6 +631,7 @@ declare module "sap/ui/integration/widgets/Card" {
     CardBlockingMessageType,
     CardDataMode,
     CardDesign,
+    CardDisplayVariant,
     CardPreviewMode,
     CardArea,
     CardActionType,
@@ -1311,6 +1332,19 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getDesign(): CardDesign | keyof typeof CardDesign;
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getDisplayVariant displayVariant}.
+     *
+     * Defines the display variant for card rendering and behavior.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Value of property `displayVariant`
+     */
+    getDisplayVariant(): CardDisplayVariant | keyof typeof CardDisplayVariant;
+    /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
@@ -1681,6 +1715,26 @@ declare module "sap/ui/integration/widgets/Card" {
       sDesign?: CardDesign | keyof typeof CardDesign
     ): this;
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getDisplayVariant displayVariant}.
+     *
+     * Defines the display variant for card rendering and behavior.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDisplayVariant(
+      /**
+       * New value for property `displayVariant`
+       */
+      sDisplayVariant?: CardDisplayVariant | keyof typeof CardDisplayVariant
+    ): this;
+    /**
      * Sets the associated {@link #getHost host}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1844,7 +1898,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType | keyof typeof MessageType
+      sType: MessageType
     ): void;
     /**
      * @experimental (since 1.84)
@@ -2181,7 +2235,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType | keyof typeof MessageType
+      sType: MessageType
     ): void;
     /**
      * @experimental (since 1.84)
@@ -2321,6 +2375,17 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     design?:
       | (CardDesign | keyof typeof CardDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines the display variant for card rendering and behavior.
+     */
+    displayVariant?:
+      | (CardDisplayVariant | keyof typeof CardDisplayVariant)
       | PropertyBindingInfo
       | `{${string}}`;
 

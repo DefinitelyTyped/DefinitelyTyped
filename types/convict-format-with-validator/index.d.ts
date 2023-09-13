@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-import * as convict from 'convict';
+import * as convict from "convict";
 
 declare var validators: {
     email: convict.Format;

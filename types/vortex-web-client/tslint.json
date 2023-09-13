@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
         "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
@@ -9,9 +8,6 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

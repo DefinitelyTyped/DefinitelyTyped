@@ -4,13 +4,8 @@
         "ban-types": false,
         "interface-name": false,
         "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
-        "one-line": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

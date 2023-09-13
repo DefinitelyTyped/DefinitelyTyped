@@ -7,89 +7,89 @@ declare namespace chrome.cast {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.AutoJoinPolicy
      */
     export enum AutoJoinPolicy {
-        CUSTOM_CONTROLLER_SCOPED = 'custom_controller_scoped',
-        TAB_AND_ORIGIN_SCOPED = 'tab_and_origin_scoped',
-        ORIGIN_SCOPED = 'origin_scoped',
-        PAGE_SCOPED = 'page_scoped',
+        CUSTOM_CONTROLLER_SCOPED = "custom_controller_scoped",
+        TAB_AND_ORIGIN_SCOPED = "tab_and_origin_scoped",
+        ORIGIN_SCOPED = "origin_scoped",
+        PAGE_SCOPED = "page_scoped",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.DefaultActionPolicy
      */
     export enum DefaultActionPolicy {
-        CREATE_SESSION = 'create_session',
-        CAST_THIS_TAB = 'cast_this_tab',
+        CREATE_SESSION = "create_session",
+        CAST_THIS_TAB = "cast_this_tab",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.Capability
      */
     export enum Capability {
-        VIDEO_OUT = 'video_out',
-        AUDIO_OUT = 'audio_out',
-        VIDEO_IN = 'video_in',
-        AUDIO_IN = 'audio_in',
-        MULTIZONE_GROUP = 'multizone_group',
+        VIDEO_OUT = "video_out",
+        AUDIO_OUT = "audio_out",
+        VIDEO_IN = "video_in",
+        AUDIO_IN = "audio_in",
+        MULTIZONE_GROUP = "multizone_group",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ErrorCode
      */
     export enum ErrorCode {
-        CANCEL = 'cancel',
-        TIMEOUT = 'timeout',
-        API_NOT_INITIALIZED = 'api_not_initialized',
-        INVALID_PARAMETER = 'invalid_parameter',
-        EXTENSION_NOT_COMPATIBLE = 'extension_not_compatible',
-        EXTENSION_MISSING = 'extension_missing',
-        RECEIVER_UNAVAILABLE = 'receiver_unavailable',
-        SESSION_ERROR = 'session_error',
-        CHANNEL_ERROR = 'channel_error',
-        LOAD_MEDIA_FAILED = 'load_media_failed',
+        CANCEL = "cancel",
+        TIMEOUT = "timeout",
+        API_NOT_INITIALIZED = "api_not_initialized",
+        INVALID_PARAMETER = "invalid_parameter",
+        EXTENSION_NOT_COMPATIBLE = "extension_not_compatible",
+        EXTENSION_MISSING = "extension_missing",
+        RECEIVER_UNAVAILABLE = "receiver_unavailable",
+        SESSION_ERROR = "session_error",
+        CHANNEL_ERROR = "channel_error",
+        LOAD_MEDIA_FAILED = "load_media_failed",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAvailability
      */
     export enum ReceiverAvailability {
-        AVAILABLE = 'available',
-        UNAVAILABLE = 'unavailable',
+        AVAILABLE = "available",
+        UNAVAILABLE = "unavailable",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SenderPlatform
      */
     export enum SenderPlatform {
-        CHROME = 'chrome',
-        IOS = 'ios',
-        ANDROID = 'android',
+        CHROME = "chrome",
+        IOS = "ios",
+        ANDROID = "android",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverType
      */
     export enum ReceiverType {
-        CAST = 'cast',
-        DIAL = 'dial',
-        HANGOUT = 'hangout',
-        CUSTOM = 'custom',
+        CAST = "cast",
+        DIAL = "dial",
+        HANGOUT = "hangout",
+        CUSTOM = "custom",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.ReceiverAction
      */
     export enum ReceiverAction {
-        CAST = 'cast',
-        STOP = 'stop',
+        CAST = "cast",
+        STOP = "stop",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.SessionStatus
      */
     export enum SessionStatus {
-        CONNECTED = 'connected',
-        DISCONNECTED = 'disconnected',
-        STOPPED = 'stopped',
+        CONNECTED = "connected",
+        DISCONNECTED = "disconnected",
+        STOPPED = "stopped",
     }
 
     /**
@@ -441,10 +441,10 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.MediaCommand
      */
     export enum MediaCommand {
-        PAUSE = 'pause',
-        SEEK = 'seek',
-        STREAM_VOLUME = 'stream_volume',
-        STREAM_MUTE = 'stream_mute',
+        PAUSE = "pause",
+        SEEK = "seek",
+        STREAM_VOLUME = "stream_volume",
+        STREAM_MUTE = "stream_mute",
     }
 
     /**
@@ -462,47 +462,47 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.PlayerState
      */
     export enum PlayerState {
-        IDLE = 'IDLE',
-        PLAYING = 'PLAYING',
-        PAUSED = 'PAUSED',
-        BUFFERING = 'BUFFERING',
+        IDLE = "IDLE",
+        PLAYING = "PLAYING",
+        PAUSED = "PAUSED",
+        BUFFERING = "BUFFERING",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.ResumeState
      */
     export enum ResumeState {
-        PLAYBACK_START = 'PLAYBACK_START',
-        PLAYBACK_PAUSE = 'PLAYBACK_PAUSE',
+        PLAYBACK_START = "PLAYBACK_START",
+        PLAYBACK_PAUSE = "PLAYBACK_PAUSE",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.StreamType
      */
     export enum StreamType {
-        BUFFERED = 'BUFFERED',
-        LIVE = 'LIVE',
-        OTHER = 'OTHER',
+        BUFFERED = "BUFFERED",
+        LIVE = "LIVE",
+        OTHER = "OTHER",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.IdleReason
      */
     export enum IdleReason {
-        CANCELLED = 'CANCELLED',
-        INTERRUPTED = 'INTERRUPTED',
-        FINISHED = 'FINISHED',
-        ERROR = 'ERROR',
+        CANCELLED = "CANCELLED",
+        INTERRUPTED = "INTERRUPTED",
+        FINISHED = "FINISHED",
+        ERROR = "ERROR",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.RepeatMode
      */
     export enum RepeatMode {
-        OFF = 'REPEAT_OFF',
-        ALL = 'REPEAT_ALL',
-        SINGLE = 'REPEAT_SINGLE',
-        ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
+        OFF = "REPEAT_OFF",
+        ALL = "REPEAT_ALL",
+        SINGLE = "REPEAT_SINGLE",
+        ALL_AND_SHUFFLE = "REPEAT_ALL_AND_SHUFFLE",
     }
 
     export class QueueItem {
@@ -584,63 +584,63 @@ declare namespace chrome.cast.media {
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TrackType
      */
     export enum TrackType {
-        TEXT = 'TEXT',
-        AUDIO = 'AUDIO',
-        VIDEO = 'VIDEO',
+        TEXT = "TEXT",
+        AUDIO = "AUDIO",
+        VIDEO = "VIDEO",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackType
      */
     export enum TextTrackType {
-        SUBTITLES = 'SUBTITLES',
-        CAPTIONS = 'CAPTIONS',
-        DESCRIPTIONS = 'DESCRIPTIONS',
-        CHAPTERS = 'CHAPTERS',
-        METADATA = 'METADATA',
+        SUBTITLES = "SUBTITLES",
+        CAPTIONS = "CAPTIONS",
+        DESCRIPTIONS = "DESCRIPTIONS",
+        CHAPTERS = "CHAPTERS",
+        METADATA = "METADATA",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackEdgeType
      */
     export enum TextTrackEdgeType {
-        NONE = 'NONE',
-        OUTLINE = 'OUTLINE',
-        DROP_SHADOW = 'DROP_SHADOW',
-        RAISED = 'RAISED',
-        DEPRESSED = 'DEPRESSED',
+        NONE = "NONE",
+        OUTLINE = "OUTLINE",
+        DROP_SHADOW = "DROP_SHADOW",
+        RAISED = "RAISED",
+        DEPRESSED = "DEPRESSED",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackWindowType
      */
     export enum TextTrackWindowType {
-        NONE = 'NONE',
-        NORMAL = 'NORMAL',
-        ROUNDED_CORNERS = 'ROUNDED_CORNERS',
+        NONE = "NONE",
+        NORMAL = "NORMAL",
+        ROUNDED_CORNERS = "ROUNDED_CORNERS",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontGenericFamily
      */
     export enum TextTrackFontGenericFamily {
-        SANS_SERIF = 'SANS_SERIF',
-        MONOSPACED_SANS_SERIF = 'MONOSPACED_SANS_SERIF',
-        SERIF = 'SERIF',
-        MONOSPACED_SERIF = 'MONOSPACED_SERIF',
-        CASUAL = 'CASUAL',
-        CURSIVE = 'CURSIVE',
-        SMALL_CAPITALS = 'SMALL_CAPITALS',
+        SANS_SERIF = "SANS_SERIF",
+        MONOSPACED_SANS_SERIF = "MONOSPACED_SANS_SERIF",
+        SERIF = "SERIF",
+        MONOSPACED_SERIF = "MONOSPACED_SERIF",
+        CASUAL = "CASUAL",
+        CURSIVE = "CURSIVE",
+        SMALL_CAPITALS = "SMALL_CAPITALS",
     }
 
     /**
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.TextTrackFontStyle
      */
     export enum TextTrackFontStyle {
-        NORMAL = 'NORMAL',
-        BOLD = 'BOLD',
-        BOLD_ITALIC = 'BOLD_ITALIC',
-        ITALIC = 'ITALIC',
+        NORMAL = "NORMAL",
+        BOLD = "BOLD",
+        BOLD_ITALIC = "BOLD_ITALIC",
+        ITALIC = "ITALIC",
     }
 
     export class GetStatusRequest {

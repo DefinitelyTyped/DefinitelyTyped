@@ -3,10 +3,8 @@
     "rules": {
         "array-type": false,
         "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "semicolon": false,
         "unified-signatures": false
     }
 }

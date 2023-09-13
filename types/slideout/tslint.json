@@ -5,9 +5,7 @@
         "jsdoc-format": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
-        "object-literal-key-quotes": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "space-before-function-paren": false
+        "prefer-const": false
     }
 }

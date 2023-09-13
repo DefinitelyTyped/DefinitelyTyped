@@ -1,7 +1,5 @@
 import * as React from "react";
-import {
-    ReactAttr,
-} from "../../../typings/shared";
+import { ReactAttr } from "../../../typings/shared";
 import { FileStatus, FileUploaderSize } from "./shared";
 
 export interface FileUploaderItemProps extends ReactAttr<HTMLSpanElement> {
@@ -35,7 +33,9 @@ export interface FileUploaderItemProps extends ReactAttr<HTMLSpanElement> {
      * Event handler that is called after removing a file from the file uploader
      * The event handler signature looks like `onDelete(evt, { uuid })`
      */
-    onDelete?: ((event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, content: { uuid: string }) => void) | undefined;
+    onDelete?:
+        | ((event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, content: { uuid: string }) => void)
+        | undefined;
 
     /**
      * Error message subject for an invalid file upload

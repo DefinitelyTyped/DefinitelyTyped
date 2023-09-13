@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Languages } from 'prismjs';
+import { Languages } from "prismjs";
 
 declare class CodeFlask {
     constructor(selectorOrElement: string | HTMLElement, opts: CodeFlask.options);

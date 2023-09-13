@@ -5,7 +5,7 @@ declare namespace GorillaEngine.UI {
         right: number;
         bottom: number;
     }
-    interface ComboBoxPopupStyles {
+    interface ComboBoxPopupStyles extends Font {
         backgroundColor: string;
         itemTextColor: string;
         itemSelectedTextColor: string;
@@ -16,7 +16,6 @@ declare namespace GorillaEngine.UI {
         cornerRadius: number;
         padding: ComboBoxPadding | number;
         checkmarkPadding: ComboBoxPadding;
-        textAlign: string;
     }
 
     interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font {

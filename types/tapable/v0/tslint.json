@@ -2,11 +2,8 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "unified-signatures": false
     }
 }

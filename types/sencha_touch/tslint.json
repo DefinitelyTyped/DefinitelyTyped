@@ -4,11 +4,9 @@
         "ban-types": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
         "no-object-literal-type-assertion": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
@@ -16,9 +14,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "space-within-parens": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

@@ -3,10 +3,7 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-consecutive-blank-lines": false,
         "no-internal-module": false,
-        "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
-        "object-literal-key-quotes": false
+        "no-single-declare-module": false
     }
 }

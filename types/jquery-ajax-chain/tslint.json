@@ -7,8 +7,6 @@
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false
+        "prefer-const": false
     }
 }

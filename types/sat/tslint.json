@@ -5,11 +5,8 @@
         "new-parens": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
-        "one-line": false,
         "prefer-const": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

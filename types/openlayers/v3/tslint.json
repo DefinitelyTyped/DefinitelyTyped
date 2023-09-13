@@ -3,11 +3,8 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-redundant-undefined": false,
@@ -18,11 +15,7 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }
