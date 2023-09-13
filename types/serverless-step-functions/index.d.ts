@@ -25,8 +25,9 @@
  * import type { StepFunctions } from 'serverless-step-functions';
  *
  * declare module '@serverless/typescript' {
- *  interface AWS {
- *   stepFunctions?: StepFunctions;
+ *   interface AWS {
+ *     stepFunctions?: StepFunctions;
+ *   }
  * }
  * ```
  * @see https://github.com/serverless/typescript
@@ -59,6 +60,11 @@ type LoggingConfig = {
   includeExecutionData: boolean;
   destinations: Resource | Resource[]
 };
+
+type JSONPrimitive = string | number | boolean | null;
+type JSONObject = { [member: string]: JSONValue };
+interface JSONArray extends Array<JSONValue> {}
+type JSONValue = JSONPrimitive | JSONObject | JSONArray;
 
 type Selector = string | Record<string, unknown>;
 
@@ -170,7 +176,7 @@ type ChoiceRuleOr = {
 
 type ChoiceRuleSimple = ChoiceRuleComparison & {
   Next: string;
-    Comment?: string;
+  Comment?: string;
 };
 
 type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
@@ -242,12 +248,8 @@ interface Task extends StateBase {
 
 interface Pass extends StateBase {
   Type: 'Pass';
-  Parameters?: {
-    [key: string]: string | Array<unknown> | { [key: string]: string };
-  };
-  Result?: {
-    [key: string]: string | Array<unknown> | { [key: string]: string };
-  };
+  Parameters?: JSONObject;
+  Result?: JSONValue;
   ResultPath?: string;
 }
 
