@@ -3,7 +3,7 @@ import { Store } from './index';
 
 export = LruStore;
 
-declare class LruStore extends Store {
+declare class LruStore implements Store {
     lru: LRUCache;
 
     constructor(defaults: DefaultOptions<string, any>);

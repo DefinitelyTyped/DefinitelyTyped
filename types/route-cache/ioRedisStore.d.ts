@@ -3,7 +3,7 @@ import { Store } from './index';
 
 export = IoRedisStore;
 
-declare class IoRedisStore extends Store {
+declare class IoRedisStore implements Store {
     client: Redis;
 
     constructor(redisClient: Redis);

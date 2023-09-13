@@ -27,7 +27,7 @@ export interface ConfigOptions {
     cacheStore?: Store;
 }
 
-export class Store {
+export interface Store {
     get(key: string): Promise<any>;
     set(key: string, value: any, ttlMillis: number): Promise<'OK'> | Promise<boolean>;
     del(key: string): Promise<number> | Promise<void>;
