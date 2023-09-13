@@ -6,5 +6,5 @@
 
 import * as Koa from "koa";
 declare const KoaRange: Koa.Middleware;
-declare namespace KoaRange { }
+declare namespace KoaRange {}
 export = KoaRange;

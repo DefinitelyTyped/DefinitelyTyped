@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { createCipheriv, createDecipheriv, getCiphers, pbkdf2, pbkdf2Sync, randomBytes } from 'crypto';
+import { createCipheriv, createDecipheriv, getCiphers, pbkdf2, pbkdf2Sync, randomBytes } from "crypto";
 
 declare namespace KeyStore {
     interface Type {
@@ -26,12 +26,12 @@ declare namespace KeyStore {
     type KeyDeriveOptions = SCryptParams | PBKDF2Params;
 
     interface PBKDF2Params {
-        kdf: 'pbkdf2';
+        kdf: "pbkdf2";
         kdfparams: { c: number; dklen: number; hash: string; prf: string };
     }
 
     interface SCryptParams {
-        kdf: 'scrypt';
+        kdf: "scrypt";
         kdfparams: { memory: number; dklen: number; n: number; r: number; p: number };
     }
 }
@@ -47,10 +47,10 @@ interface EncryptOptions {
 
 interface Constants {
     cipher: string;
-    ivBytes: EncryptOptions['ivBytes'];
-    keyBytes: EncryptOptions['keyBytes'];
-    pbkdf2: KeyStore.PBKDF2Params['kdfparams'];
-    scrypt: KeyStore.SCryptParams['kdfparams'];
+    ivBytes: EncryptOptions["ivBytes"];
+    keyBytes: EncryptOptions["keyBytes"];
+    pbkdf2: KeyStore.PBKDF2Params["kdfparams"];
+    scrypt: KeyStore.SCryptParams["kdfparams"];
 }
 
 type MarshalOptions = Partial<CryptoOptions & EncryptOptions & KeyStore.KeyDeriveOptions>;
