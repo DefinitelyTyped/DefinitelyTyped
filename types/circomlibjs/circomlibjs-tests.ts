@@ -9,15 +9,23 @@ import {
     buildMimcSponge,
     buildPedersenHash,
     evmasm,
+    Point,
 } from 'circomlibjs';
+
+const bigNumber = new Uint8Array([1]);
+const point = [bigNumber, bigNumber] as Point;
+const signature = {
+    R8: point,
+    S: BigInt(3),
+};
 
 const db = new SMTMemDb('F');
 
 new SMT(
     db,
     1,
-    (left, right) => right + left,
-    (key, value) => key + value,
+    (left, right) => bigNumber,
+    (key, value) => bigNumber,
     'F',
 );
 
@@ -39,17 +47,17 @@ new evmasm();
     const babyJub = await buildBabyjub();
 
     // $ExpectType Point
-    babyJub.addPoint(1, 2);
+    babyJub.addPoint(point, point);
     // $ExpectType Point
-    babyJub.mulPointEscalar(2, 3);
+    babyJub.mulPointEscalar(point, 3);
     // $ExpectType boolean
-    babyJub.inCurve([0, 1]);
+    babyJub.inCurve(point);
     // $ExpectType boolean
-    babyJub.inSubgroup([1, 2]);
+    babyJub.inSubgroup(point);
     // $ExpectType Uint8Array
-    const buff1 = babyJub.packPoint([1, 3]);
+    babyJub.packPoint(point);
     // $ExpectType Point
-    babyJub.unpackPoint(buff1);
+    babyJub.unpackPoint(bigNumber);
 
     // $ExpectType Eddsa
     const eddsa = await buildEddsa();
@@ -57,57 +65,57 @@ new evmasm();
     // $ExpectType Uint8Array
     eddsa.pruneBuffer(new Uint8Array([0]));
     // $ExpectType Point
-    eddsa.prv2pub(3);
+    eddsa.prv2pub('sk');
     // $ExpectType Signature
-    eddsa.signPedersen(3, [1]);
+    eddsa.signPedersen('sk', bigNumber);
     // $ExpectType Signature
-    eddsa.signPoseidon(3, [1]);
+    eddsa.signPoseidon('sk', bigNumber);
     // $ExpectType Signature
-    eddsa.signMiMC(3, [1]);
+    eddsa.signMiMC('sk', bigNumber);
     // $ExpectType Signature
-    eddsa.signMiMCSponge(3, [1]);
+    eddsa.signMiMCSponge('sk', bigNumber);
     // $ExpectType boolean
-    eddsa.verifyPedersen([1], { R8: 1, S: 2 }, [1, 2]);
+    eddsa.verifyPedersen(bigNumber, signature, point);
     // $ExpectType boolean
-    eddsa.verifyPoseidon([1], { R8: 1, S: 2 }, [1, 2]);
+    eddsa.verifyPoseidon(bigNumber, signature, point);
     // $ExpectType boolean
-    eddsa.verifyMiMC([1], { R8: 1, S: 2 }, [1, 2]);
+    eddsa.verifyMiMC(bigNumber, signature, point);
     // $ExpectType boolean
-    eddsa.verifyMiMCSponge([1], { R8: 1, S: 2 }, [1, 2]);
+    eddsa.verifyMiMCSponge(bigNumber, signature, point);
     // $ExpectType Uint8Array
-    const buff2 = eddsa.packSignature({ R8: 9, S: 3 });
+    const buff2 = eddsa.packSignature(signature);
     // $ExpectType Signature
     eddsa.unpackSignature(buff2);
 
     // $ExpectType Mimc7
     const mimc7 = await buildMimc7();
 
-    // $ExpectType any
+    // $ExpectType bigint
     mimc7.getIV('mimc');
     mimc7.getIV();
-    // $ExpectType any[]
+    // $ExpectType Uint8Array[]
     mimc7.getConstants('mimc', 3);
     mimc7.getConstants('mimc');
     mimc7.getConstants();
-    // $ExpectType any
+    // $ExpectType Uint8Array
     mimc7.hash(3, 2);
-    // $ExpectType any
+    // $ExpectType Uint8Array
     mimc7.multiHash([1, 3], 3);
     mimc7.multiHash([1, 3]);
 
     // $ExpectType MimcSponge
     const mimcSponge = await buildMimcSponge();
 
-    // $ExpectType any
+    // $ExpectType bigint
     mimcSponge.getIV('mimcsponge');
     mimcSponge.getIV();
-    // $ExpectType any[]
+    // $ExpectType Uint8Array[]
     mimcSponge.getConstants('mimcsponge', 3);
     mimcSponge.getConstants('mimcsponge');
     mimcSponge.getConstants();
-    // $ExpectType any
+    // $ExpectType Uint8Array
     mimcSponge.hash(3, 3, 2);
-    // $ExpectType any
+    // $ExpectType Uint8Array
     mimcSponge.multiHash([1, 3], 3, 3);
     mimcSponge.multiHash([1, 3], 3);
     mimcSponge.multiHash([1, 3]);
@@ -117,7 +125,7 @@ new evmasm();
 
     // $ExpectType any
     poseidon.F;
-    // $ExpectType any
+    // $ExpectType Uint8Array
     poseidon([1, 3], 3, 4);
     poseidon([1, 3], 3);
     poseidon([1, 3]);

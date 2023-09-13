@@ -1,53 +1,55 @@
-export type Point = [any, any];
+export type BigNumberish = string | bigint | number | Uint8Array
+
+export type Point = [Uint8Array, Uint8Array];
 
 export interface Poseidon {
-    (arr: any[], state?: any, nOut?: number): any;
+    (arr: BigNumberish[], state?: BigNumberish, nOut?: number): Uint8Array;
     F: any;
 }
 
 export interface Signature {
-    R8: any;
-    S: any;
+    R8: Point;
+    S: bigint;
 }
 
 export class SMT {
     constructor(
         db: SMTMemDb,
-        root: any,
-        hash0: (left: any, right: any) => any,
-        hash1: (key: any, value: any) => any,
+        root: BigNumberish,
+        hash0: (left: BigNumberish, right: BigNumberish) => Uint8Array,
+        hash1: (key: BigNumberish, value: BigNumberish) => Uint8Array,
         F: any,
     );
 
-    delete(key: any): any;
+    delete(key: BigNumberish): any;
 
-    find(key: any): any;
+    find(key: BigNumberish): any;
 
-    insert(key: any, value: any): any;
+    insert(key: BigNumberish, value: BigNumberish): any;
 
-    update(key: any, newValue: any): any;
+    update(key: BigNumberish, newValue: BigNumberish): any;
 }
 
 export class SMTMemDb {
     constructor(F: any);
 
-    get(key: any): any;
+    get(key: BigNumberish): any;
 
     getRoot(): any;
 
-    multiDel(dels: any[]): void;
+    multiDel(dels: BigNumberish[]): void;
 
-    multiGet(keys: any[]): any;
+    multiGet(keys: BigNumberish[]): any;
 
-    multiIns(inserts: any[]): void;
+    multiIns(inserts: BigNumberish[]): void;
 
-    setRoot(root: any): void;
+    setRoot(root: BigNumberish): void;
 }
 
 export interface BabyJub {
-    addPoint(a: any, b: any): Point;
+    addPoint(a: Point, b: Point): Point;
 
-    mulPointEscalar(base: any, e: any): Point;
+    mulPointEscalar(base: Point, e: BigNumberish): Point;
 
     inSubgroup(point: Point): boolean;
 
@@ -59,23 +61,23 @@ export interface BabyJub {
 }
 
 export interface Mimc7 {
-    getIV(seed?: string): any;
+    getIV(seed?: string): bigint;
 
-    getConstants(seed?: string, nRounds?: number): any[];
+    getConstants(seed?: string, nRounds?: number): Uint8Array[];
 
-    hash(_x_in: any, _k: any): any;
+    hash(_x_in: BigNumberish, _k: BigNumberish): Uint8Array;
 
-    multiHash(arr: any[], key?: any): any;
+    multiHash(arr: BigNumberish[], key?: BigNumberish): Uint8Array;
 }
 
 export interface MimcSponge {
-    getIV(seed?: string): any;
+    getIV(seed?: string): bigint;
 
-    getConstants(seed?: string, nRounds?: number): any[];
+    getConstants(seed?: string, nRounds?: number): Uint8Array[];
 
-    hash(_xL_in: any, _xR_in: any, _k: any): any;
+    hash(_xL_in: BigNumberish, _xR_in: BigNumberish, _k: BigNumberish): Uint8Array;
 
-    multiHash(arr: any[], key?: any, numOutputs?: number): any;
+    multiHash(arr: BigNumberish[], key?: BigNumberish, numOutputs?: number): Uint8Array;
 }
 
 export interface PedersenHash {
@@ -95,21 +97,21 @@ export interface Eddsa {
 
     prv2pub(prv: any): Point;
 
-    signPedersen(prv: any, msg: ArrayLike<number>): Signature;
+    signPedersen(prv: any, msg: Uint8Array): Signature;
 
-    signMiMC(prv: any, msg: ArrayLike<number>): Signature;
+    signMiMC(prv: any, msg: Uint8Array): Signature;
 
-    signMiMCSponge(prv: any, msg: ArrayLike<number>): Signature;
+    signMiMCSponge(prv: any, msg: Uint8Array): Signature;
 
-    signPoseidon(prv: any, msg: ArrayLike<number>): Signature;
+    signPoseidon(prv: any, msg: Uint8Array): Signature;
 
-    verifyPedersen(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
+    verifyPedersen(msg: Uint8Array, sig: Signature, A: Point): boolean;
 
-    verifyMiMC(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
+    verifyMiMC(msg: Uint8Array, sig: Signature, A: Point): boolean;
 
-    verifyMiMCSponge(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
+    verifyMiMCSponge(msg: Uint8Array, sig: Signature, A: Point): boolean;
 
-    verifyPoseidon(msg: ArrayLike<number>, sig: Signature, A: Point): boolean;
+    verifyPoseidon(msg: Uint8Array, sig: Signature, A: Point): boolean;
 
     packSignature(sig: Signature): Uint8Array;
 
