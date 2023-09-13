@@ -304,10 +304,15 @@ doc.endMarkings();
 // structure content methods
 const structureContent2 = doc.markStructureContent('H1');
 structureContent.push(structureContent2);
-// automatic marking and structure construction for text
+// marking and structure construction for text
 const section = doc.struct('Sect', { title: 'Test' });
 doc.addStructure(section);
-doc.text('Foo. \nBar. ', { structParent: section });
+doc.text('Foo. \nBar. ', { structParent: section, structType: 'H' });
+// marking and structure for list
+const list = doc.struct('L');
+section.add(list);
+doc.list(['A ','B ','C '], 100, 100, { structParent: list, structTypes: ['LI', 'Lbl', 'Lbody']});
+
 // structure element methods
 structureElement.add(structureContent);
 structureElement.setAttached();

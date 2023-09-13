@@ -226,10 +226,11 @@ declare namespace PDFKit.Mixins {
         textIndent?: number | undefined;
         destination?: string | undefined;
         goTo?: string | undefined;
-
-        /** The structure element to add each paragraph to */
+        /** The parent structure element to add this child element to, for usage with text() and list() */
         structParent?: PDFStructureElement | undefined;
-        /** The types used by items of list() */
+        /** The marking type used by text(), defaults to 'P' */
+        structType?: string | undefined;
+        /** The marking types used by items of list(), defaults to [ 'LI', 'Lbl', 'LBody' ] */
         structTypes?: [string | null, string | null, string | null] | undefined;
     }
 
@@ -318,12 +319,12 @@ declare namespace PDFKit.Mixins {
     interface PDFMarking {
         markContent(tag: string, options?: MarkingOptions): this;
         endMarkedContent(): this;
-        struct(tag: string, options?: MarkingOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
+        struct(tag: string, options?: StructureElementOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
         addStructure(structElem: PDFStructureElement): this;
         initMarkings(options?: { tagged?: boolean }): void;
         initPageMarkings(pageMarkings: PageMarking[]): void;
         endPageMarkings(page: PDFPage): PageMarking[];
-        markStructureContent(tag: string, options?: MarkingOptions): PDFStructureContent;
+        markStructureContent(tag: string, options?: StructureElementOptions): PDFStructureContent;
         getMarkingsDictionary(): PDFKitReference;
         getStructTreeRoot(): PDFKitReference;
         createStructParentTreeNextKey(): number;
@@ -337,7 +338,13 @@ declare namespace PDFKit.Mixins {
         alt?: string;
         expanded?: string;
         actual?: string;
+    }
+    interface StructureElementOptions {
         title?: string;
+        lang?: string;
+        alt?: string;
+        expanded?: string;
+        actual?: string;
     }
     interface PageMarking {
         tag: string;
