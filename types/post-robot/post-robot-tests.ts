@@ -19,6 +19,13 @@ const listener = postRobot.on('getUser', event => {
 });
 listener.cancel();
 
+const onceListener = postRobot.on('getUser', event => {
+    return new Promise(resolve => {
+        resolve(event);
+    });
+});
+onceListener.cancel();
+
 const someWindow = window.open('url', 'windowName');
 postRobot
     .send(someWindow, 'getUser', { id: 1337 })
