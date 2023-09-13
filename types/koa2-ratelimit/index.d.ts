@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-import { Context } from 'koa';
-import MemoryStore = require('./src/MemoryStore');
-import MongodbStore = require('./src/MongodbStore');
-import RateLimit = require('./src/RateLimit');
-import RedisStore = require('./src/RedisStore');
-import SequelizeStore = require('./src/SequelizeStore');
-import Store = require('./src/Store');
+import { Context } from "koa";
+import MemoryStore = require("./src/MemoryStore");
+import MongodbStore = require("./src/MongodbStore");
+import RateLimit = require("./src/RateLimit");
+import RedisStore = require("./src/RedisStore");
+import SequelizeStore = require("./src/SequelizeStore");
+import Store = require("./src/Store");
 
 export = Koa2Ratelimit;
 
@@ -26,7 +26,7 @@ declare const Koa2Ratelimit: {
 };
 
 declare namespace Koa2Ratelimit {
-    type TimeKey = 'ms' | 'sec' | 'min' | 'hour' | 'day' | 'week' | 'month' | 'year';
+    type TimeKey = "ms" | "sec" | "min" | "hour" | "day" | "week" | "month" | "year";
     type TimeKeyObject = {
         [key in TimeKey]?: number;
     };

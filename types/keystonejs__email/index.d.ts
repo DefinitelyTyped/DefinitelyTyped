@@ -9,9 +9,9 @@
 // types with the right package.
 /* eslint-disable @definitelytyped/no-declare-current-package */
 // tslint:disable-next-line:no-single-declare-module
-declare module '@keystonejs/email' {
+declare module "@keystonejs/email" {
     type Sender = (
-        fileName: string
+        fileName: string,
     ) => {
         send: (rendererOpts: any, transportOptions: any) => any;
     };

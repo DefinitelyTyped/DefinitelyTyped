@@ -25,7 +25,9 @@ declare namespace KnockoutTransformations {
 interface KnockoutObservableArrayFunctions<T> {
     map<TResult>(mapping: KnockoutTransformations.Mapping<T, TResult>): KnockoutObservableArray<TResult>;
     map<TResult>(mapping: KnockoutTransformations.MappingOption<T, TResult>): KnockoutObservableArray<TResult>;
-    map<TResult>(mapping: KnockoutTransformations.MappingWithDisposeCallbackOption<T, TResult>): KnockoutObservableArray<TResult>;
+    map<TResult>(
+        mapping: KnockoutTransformations.MappingWithDisposeCallbackOption<T, TResult>,
+    ): KnockoutObservableArray<TResult>;
 
     filter(predicate: (value: T) => boolean): KnockoutObservableArray<T>;
     sortBy(sorter: (value: T, descending: (sorter: any) => any) => any): KnockoutObservableArray<T>;

@@ -1,5 +1,5 @@
-import * as kdbush from 'kdbush';
-import { KDBush } from 'kdbush';
+import * as kdbush from "kdbush";
+import { KDBush } from "kdbush";
 
 // API
 const points = [[110, 60], [130, 40]];

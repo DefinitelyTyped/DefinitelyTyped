@@ -347,7 +347,6 @@ export class Client {
     hsetnx(key: string, field: string, value: string): Promise<boolean>;
 
     /**
-     *
      * Returns the value of the specified hash field.
      *
      * https://k6.io/docs/javascript-api/k6-experimental/redis/client/client-hget

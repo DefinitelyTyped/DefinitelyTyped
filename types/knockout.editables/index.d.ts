@@ -23,8 +23,8 @@ interface KnockoutEditableStatic {
     hasChanges(scope: string): boolean;
 
     // INTERNAL
-    //getHasChangesFlag(scope: string): any;
-    //enable(object: any, scope: string); void;
+    // getHasChangesFlag(scope: string): any;
+    // enable(object: any, scope: string); void;
 }
 
 // extend ko global

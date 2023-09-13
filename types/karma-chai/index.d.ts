@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import chai = require('chai');
+import chai = require("chai");
 
 declare global {
     var assert: Chai.AssertStatic;

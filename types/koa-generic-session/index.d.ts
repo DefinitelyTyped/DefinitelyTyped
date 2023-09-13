@@ -4,15 +4,15 @@
 //                 Javier Garcia <https://github.com/javiertury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Koa from 'koa';
-import * as Cookies from 'cookies';
+import * as Cookies from "cookies";
+import * as Koa from "koa";
 
 declare namespace koaSession {
     interface Session {
         cookie: Cookies.SetOption;
     }
 
-    interface SessionIdStore <Ctx = Koa.Context> {
+    interface SessionIdStore<Ctx = Koa.Context> {
         get(this: Ctx): string | undefined;
         set(this: Ctx, sid: string, session: Session): void;
         reset(this: Ctx): void;
@@ -48,7 +48,7 @@ declare namespace koaSession {
     }
 }
 
-declare module 'koa' {
+declare module "koa" {
     interface Context {
         sessionId: string;
         session: koaSession.Session | null;

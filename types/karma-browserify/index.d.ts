@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karma';
-import watchify = require('watchify');
-import browserify = require('browserify');
+import "karma";
+import watchify = require("watchify");
+import browserify = require("browserify");
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Config entry to configure how the bundle gets created

@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { Stats } from "fs";
-import { Readable, ReadableOptions } from 'stream';
+import { Readable, ReadableOptions } from "stream";
 
 declare function K(root: string, options?: K.Options): K.Walker;
 

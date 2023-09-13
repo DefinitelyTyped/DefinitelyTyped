@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karma';
+import "karma";
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * See https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md

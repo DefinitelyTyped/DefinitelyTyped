@@ -1,4 +1,4 @@
-import { kdTree } from 'kd-tree-javascript';
+import { kdTree } from "kd-tree-javascript";
 
 const points = [
     { x: 1, y: 2 },
@@ -11,7 +11,7 @@ const distance = (a: { x: number; y: number }, b: { x: number; y: number }) => {
     return Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2);
 };
 
-const tree = new kdTree(points, distance, ['x', 'y']); // $ExpectType kdTree<{ x: number; y: number; }>
+const tree = new kdTree(points, distance, ["x", "y"]); // $ExpectType kdTree<{ x: number; y: number; }>
 
 tree.nearest({ x: 5, y: 5 }, 2); // $ExpectType [{ x: number; y: number; }, number][]
 
@@ -22,7 +22,7 @@ tree.insert({ x: 1, y: 2 }); // $ExpectType void
 tree.remove({ x: 1, y: 2 }); // $ExpectType void
 
 // @ts-expect-error
-new kdTree(points, distance, ['x', 'wrongField']);
+new kdTree(points, distance, ["x", "wrongField"]);
 
 // @ts-expect-error
 tree.nearest({ x: 5, notY: 5 }, 2);
@@ -32,4 +32,4 @@ const wrongDistanceComparison = (a: { notX: number; notY: number }, b: { notX: n
 };
 
 // @ts-expect-error
-new kdTree(points, wrongDistanceComparison, ['x', 'y']);
+new kdTree(points, wrongDistanceComparison, ["x", "y"]);

@@ -10,7 +10,7 @@ interface Keygrip {
 }
 
 interface KeygripFunction {
-    new (keys: ReadonlyArray<string>, algorithm?: string, encoding?: string): Keygrip;
+    new(keys: ReadonlyArray<string>, algorithm?: string, encoding?: string): Keygrip;
     (keys: ReadonlyArray<string>, algorithm?: string, encoding?: string): Keygrip;
 }
 

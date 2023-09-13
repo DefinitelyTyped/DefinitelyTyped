@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karma';
+import "karma";
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * The reporter provides a dashboard detailing specification runs
@@ -64,8 +64,8 @@ declare module 'karma' {
 }
 
 declare const exp: {
-    'preprocessor:htmlDetailed': ['factory', any];
-    'reporter:htmlDetailed': ['type', any];
+    "preprocessor:htmlDetailed": ["factory", any];
+    "reporter:htmlDetailed": ["type", any];
 };
 
 export = exp;

@@ -1,5 +1,3 @@
-
-
 // knockout-secure-binding
 // The MIT License(MIT)
 // Copyright(c) 2013 Brian M Hunt
@@ -7,15 +5,15 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import ksp = require('knockout-secure-binding');
+import ksp = require("knockout-secure-binding");
 
 function testt(): void {
     // https://github.com/brianmhunt/knockout-secure-binding
     var options = {
-        attribute: "data-bind",        // default "data-sbind"
-        globals: window,               // default {}
-        bindings: ko.bindingHandlers,  // default ko.bindingHandlers
-        noVirtualElements: false       // default true
+        attribute: "data-bind", // default "data-sbind"
+        globals: window, // default {}
+        bindings: ko.bindingHandlers, // default ko.bindingHandlers
+        noVirtualElements: false, // default true
     };
 
     ko.bindingProvider.instance = new ko.secureBindingsProvider(options);

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karma';
+import "karma";
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Reports test progress statistics and lists failures at the end of a Karma test run.

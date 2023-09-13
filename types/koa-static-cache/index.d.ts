@@ -8,7 +8,7 @@
  * Static server for koa.
  */
 
-import { Middleware } from 'koa';
+import { Middleware } from "koa";
 
 declare namespace staticCache {
     interface Files {
@@ -34,7 +34,7 @@ declare namespace staticCache {
 declare function staticCache(
     dir: string | staticCache.Options,
     options?: staticCache.Options | staticCache.Files,
-    files?: staticCache.Files
+    files?: staticCache.Files,
 ): Middleware;
 
 export = staticCache;

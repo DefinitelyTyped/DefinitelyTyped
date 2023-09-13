@@ -31,26 +31,26 @@
  * @packageDocumentation
  */
 
-import './global'; // Type global environment
+import "./global"; // Type global environment
 
 // Expose everything to autoimport
-import './crypto';
-import './data';
-import './encoding';
-import './execution';
-import './html';
-import './http';
-import './metrics';
-import './options';
-import './experimental/browser';
-import './experimental/redis';
-import './experimental/timers';
-import './experimental/tracing';
-import './experimental/webcrypto';
-import './experimental/websockets';
-import './experimental/grpc';
-import './ws';
-import './net/grpc';
+import "./crypto";
+import "./data";
+import "./encoding";
+import "./execution";
+import "./html";
+import "./http";
+import "./metrics";
+import "./options";
+import "./experimental/browser";
+import "./experimental/redis";
+import "./experimental/timers";
+import "./experimental/tracing";
+import "./experimental/webcrypto";
+import "./experimental/websockets";
+import "./experimental/grpc";
+import "./ws";
+import "./net/grpc";
 
 // === Main ===
 // ------------

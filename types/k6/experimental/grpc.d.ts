@@ -128,17 +128,15 @@ declare namespace grpc {
         /**
          * Event fired when data has been received from the server.
          */
-        | 'data'
-
+        | "data"
         /**
          * Event fired when a stream has been closed due to an error.
          */
-        | 'error'
-
+        | "error"
         /**
          * Event fired when the stream closes.
          */
-        | 'end';
+        | "end";
 
     /**
      * Stream allows you to use streaming RPCs.

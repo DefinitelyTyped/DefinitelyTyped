@@ -6,28 +6,28 @@ const app = new Koa();
 app.use(bouncer.middleware());
 
 app.use(async ctx => {
-    ctx.validateBody('uname')
-        .required('Username required')
+    ctx.validateBody("uname")
+        .required("Username required")
         .isString()
         .trim();
 
-    ctx.validateBody('email')
+    ctx.validateBody("email")
         .optional()
         .isString()
         .trim()
-        .isEmail('Invalid email format');
+        .isEmail("Invalid email format");
 
-    ctx.validateBody('password1')
-        .required('Password required')
+    ctx.validateBody("password1")
+        .required("Password required")
         .isString()
-        .isLength(6, 100, 'Password must be 6-100 chars');
+        .isLength(6, 100, "Password must be 6-100 chars");
 
-    ctx.validateBody('password2')
-        .required('Password confirmation required')
+    ctx.validateBody("password2")
+        .required("Password confirmation required")
         .isString()
-        .eq(ctx.vals.password1, 'Passwords must match');
+        .eq(ctx.vals.password1, "Passwords must match");
 
-    ctx.validateBody('age').gte(18, 'Must be 18 or older');
+    ctx.validateBody("age").gte(18, "Must be 18 or older");
 
     ctx.body = ctx.vals;
 });

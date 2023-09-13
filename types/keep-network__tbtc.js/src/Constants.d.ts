@@ -1,5 +1,5 @@
 import BN = require("bn.js");
-import type { TBTCConfig, Contract } from './CommonTypes';
+import type { Contract, TBTCConfig } from "./CommonTypes";
 declare class Constants {
     contract: Contract;
     static withConfig(config: TBTCConfig): Promise<Constants>;

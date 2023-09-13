@@ -7,15 +7,15 @@
 type Points = number[][];
 type Get<T> = (point: T) => number;
 type ArrayType =
-  typeof Int8Array
-  | typeof Int16Array
-  | typeof Int32Array
-  | typeof Float32Array
-  | typeof Float64Array
-  | typeof Uint8Array
-  | typeof Uint16Array
-  | typeof Uint32Array
-  | typeof Array;
+    | typeof Int8Array
+    | typeof Int16Array
+    | typeof Int32Array
+    | typeof Float32Array
+    | typeof Float64Array
+    | typeof Uint8Array
+    | typeof Uint16Array
+    | typeof Uint32Array
+    | typeof Array;
 
 declare class KDBush<T> {
     constructor(points: Points);

@@ -1,4 +1,4 @@
-import { KatexOptions } from '../index.js';
+import { KatexOptions } from "../index.js";
 
 declare namespace renderMathInElement {
     interface RenderMathInElementSpecificOptionsDelimiters {

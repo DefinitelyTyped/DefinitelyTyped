@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import 'karma';
+import "karma";
 
 // A plugin for karma-jasmine which helps to filter tests (specs) by tags.
 
-declare module 'karma' {
+declare module "karma" {
     /**
      * Default values can be configured using client map in Karma configuration
      */

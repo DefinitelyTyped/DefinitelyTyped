@@ -14,19 +14,16 @@
 
  =============================================== */
 
-
 import * as Koa from "koa";
 
 /**
  * Returns a middleware serving the favicon found on the given path.
  */
 declare function favicon(path: string, options?: {
-
     /**
      * cache-control max-age directive in ms, defaulting to 1 day.
      */
     maxage?: number | undefined;
-
 }): Koa.Middleware;
 
 declare namespace favicon {}

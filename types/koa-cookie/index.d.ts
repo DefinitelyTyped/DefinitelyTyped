@@ -14,9 +14,9 @@
 
  =============================================== */
 
-import { Middleware } from 'koa';
+import { Middleware } from "koa";
 
-declare module 'koa' {
+declare module "koa" {
     interface BaseContext {
         cookie: Record<string, any>;
     }

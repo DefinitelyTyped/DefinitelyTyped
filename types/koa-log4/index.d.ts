@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import * as Koa from 'koa';
-import * as Log4js from 'log4js';
+import * as Koa from "koa";
+import * as Log4js from "log4js";
 
 export function koaLogger(logger4js: Log4js.Logger, optionsOrFormat?: Options | string): Koa.Middleware;
 
 export interface Options {
     format?: string | undefined;
-    level?: Log4js.Level | 'auto' | undefined;
+    level?: Log4js.Level | "auto" | undefined;
 }
 
-export * from 'log4js';
+export * from "log4js";

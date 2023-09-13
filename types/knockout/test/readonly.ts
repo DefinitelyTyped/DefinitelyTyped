@@ -4,15 +4,14 @@ function testReadonlyObservable() {
     const read = write as KnockoutReadonlyObservable<string>;
 
     read(); // $ExpectType string
-    read.subscribe(() => {});  // Can still subscribe
+    read.subscribe(() => {}); // Can still subscribe
     // But can't write to it
     // @ts-expect-error
     read("foo");
 
-    const writeAgain = read as KnockoutObservable<string>
+    const writeAgain = read as KnockoutObservable<string>;
     writeAgain("bar");
-};
-
+}
 
 function testReadonlyObservableArray() {
     // Normal observable array behavior
@@ -22,15 +21,15 @@ function testReadonlyObservableArray() {
 
     // Readonly observable array
     const read = write as KnockoutReadonlyObservableArray<string>;
-    read(); //$ExpectType ReadonlyArray<string>
-    read.slice(0, 1); //$ExpectType string[]
+    read(); // $ExpectType ReadonlyArray<string>
+    read.slice(0, 1); // $ExpectType string[]
     // @ts-expect-error
     read(["foo"]);
     // @ts-expect-error
     read.push;
 
     // Can cast back to a writeable
-    const writeAgain = read as KnockoutObservableArray<string>
+    const writeAgain = read as KnockoutObservableArray<string>;
     writeAgain(["foo"]);
 }
 

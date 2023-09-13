@@ -122,7 +122,9 @@ declare namespace session {
         hash(sess: any): string;
     }
 
-    interface opts<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any> extends Omit<Cookies.SetOption, 'maxAge'> {
+    interface opts<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any>
+        extends Omit<Cookies.SetOption, "maxAge">
+    {
         /**
          * cookie key (default is koa:sess)
          */
@@ -208,7 +210,12 @@ declare namespace session {
         /**
          * set session object for key, with a maxAge (in ms)
          */
-        set(key: string, sess: Partial<Session> & { _expire?: number | undefined, _maxAge?: number | undefined }, maxAge: opts["maxAge"], data: { changed: boolean; rolling: opts["rolling"] }): any;
+        set(
+            key: string,
+            sess: Partial<Session> & { _expire?: number | undefined; _maxAge?: number | undefined },
+            maxAge: opts["maxAge"],
+            data: { changed: boolean; rolling: opts["rolling"] },
+        ): any;
 
         /**
          * destroy session for key
@@ -230,10 +237,13 @@ declare namespace session {
 }
 
 declare function session<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any>(
-    CONFIG: Partial<session.opts<StateT, ContextT, ResponseBodyT>>, app: Koa<StateT, ContextT>
+    CONFIG: Partial<session.opts<StateT, ContextT, ResponseBodyT>>,
+    app: Koa<StateT, ContextT>,
 ): Koa.Middleware<StateT, ContextT, ResponseBodyT>;
 
-declare function session<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext>(app: Koa<StateT, ContextT>): Koa.Middleware<StateT, ContextT>;
+declare function session<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext>(
+    app: Koa<StateT, ContextT>,
+): Koa.Middleware<StateT, ContextT>;
 
 declare module "koa" {
     interface BaseContext {

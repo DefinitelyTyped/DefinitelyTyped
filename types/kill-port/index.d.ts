@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import type { SuccessfulExec } from 'shell-exec';
+import type { SuccessfulExec } from "shell-exec";
 
 export = killPort;
 
@@ -40,5 +40,5 @@ export = killPort;
 declare function killPort(
     port: number,
     /** @default 'tcp' */
-    protocol?: 'tcp' | 'udp',
+    protocol?: "tcp" | "udp",
 ): Promise<SuccessfulExec>;

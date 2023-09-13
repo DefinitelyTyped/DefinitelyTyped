@@ -23,8 +23,7 @@ interface KnockoutBindingHandlers {
     module: KnockoutAMDModule;
 }
 interface KnockoutStatic {
-
-    amdTemplateEngine: KnockoutAMDTemplate
+    amdTemplateEngine: KnockoutAMDTemplate;
 }
 
 declare module "knockout-amd-helpers" {

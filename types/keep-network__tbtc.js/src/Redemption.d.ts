@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
-import type { DepositBaseClass, RedemptionDetails } from './CommonTypes';
+import type { DepositBaseClass, RedemptionDetails } from "./CommonTypes";
 export interface AutoSubmitState {
     broadcastTransactionID: Promise<string>;
     confirmations: Promise<{

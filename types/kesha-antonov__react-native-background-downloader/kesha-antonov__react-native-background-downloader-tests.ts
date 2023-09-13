@@ -2,20 +2,20 @@ import RNBackgroundDownloader, {
     checkForExistingDownloads,
     DownloadTask,
     ensureDownloadsAreRunning,
-} from '@kesha-antonov/react-native-background-downloader';
+} from "@kesha-antonov/react-native-background-downloader";
 
 // Set global headers for downloader
 RNBackgroundDownloader.setHeaders({
-    'x-custom': 'Custom Header',
-    'x-custom-2': 'Another Custom Header',
+    "x-custom": "Custom Header",
+    "x-custom-2": "Another Custom Header",
 });
 
 const task = RNBackgroundDownloader.download({
-    id: 'file123',
-    url: 'https://link-to-very.large/file.zip',
+    id: "file123",
+    url: "https://link-to-very.large/file.zip",
     destination: `${RNBackgroundDownloader.directories.documents}/file.zip`,
     headers: {
-        'x-custom-3': 'a-third-header',
+        "x-custom-3": "a-third-header",
     },
 })
     .begin(({ expectedBytes }) => {})
@@ -26,11 +26,11 @@ const task = RNBackgroundDownloader.download({
 const taskFuncTest = (task: DownloadTask) => {
     // Check task state
     switch (task.state) {
-        case 'DONE':
-        case 'DOWNLOADING':
-        case 'PAUSED':
-        case 'FAILED':
-        case 'STOPPED':
+        case "DONE":
+        case "DOWNLOADING":
+        case "PAUSED":
+        case "FAILED":
+        case "STOPPED":
             break;
     }
 

@@ -14,18 +14,18 @@ interface KnockoutSecureBindingOptions {
 }
 
 interface KnockoutSecureBindingProvider extends KnockoutBindingProvider {
-    new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
+    new(options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
 }
 
 interface KnockoutStatic {
     secureBindingsProvider: {
-        new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
+        new(options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
     };
 }
 
 declare module "knockout-secure-binding" {
     var klass: {
-        new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
+        new(options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
     };
 
     export = klass;

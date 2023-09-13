@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 export interface KnexDbManager {
     createDbOwnerIfNotExist(): Promise<void>;

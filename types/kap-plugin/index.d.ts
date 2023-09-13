@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-import * as got from 'got';
-import * as ElectronStore from 'electron-store';
-import { JSONSchema7 } from 'json-schema';
+import * as ElectronStore from "electron-store";
+import * as got from "got";
+import { JSONSchema7 } from "json-schema";
 
 export interface KapContext<T extends Record<string, any>> {
     /**
@@ -84,10 +84,10 @@ export interface KapContext<T extends Record<string, any>> {
     waitForDeepLink(): Promise<string>;
 }
 
-export type Format = 'gif' | 'mp4' | 'webm' | 'apng';
+export type Format = "gif" | "mp4" | "webm" | "apng";
 
 // TS-3.4 compatible Omit<>:
-export type ConfigSchema<TValue> = Pick<JSONSchema7, Exclude<keyof JSONSchema7, 'required' | 'default'>> & {
+export type ConfigSchema<TValue> = Pick<JSONSchema7, Exclude<keyof JSONSchema7, "required" | "default">> & {
     required?: boolean | undefined;
     default?: TValue | undefined;
 };

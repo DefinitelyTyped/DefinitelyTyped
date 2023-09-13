@@ -6,7 +6,7 @@
  * others in both contexts. Comments note availability.
  */
 
-import { bytes } from '.';
+import { bytes } from ".";
 
 export {};
 
@@ -49,7 +49,7 @@ declare global {
      *  sleep(3);
      * }
      */
-    function open(filePath: string, mode: 'b'): ArrayBuffer;
+    function open(filePath: string, mode: "b"): ArrayBuffer;
 
     // === Init context and VU logic ===
     // ---------------------------------

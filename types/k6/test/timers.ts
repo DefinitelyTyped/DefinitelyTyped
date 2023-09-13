@@ -1,4 +1,4 @@
-import { setTimeout, clearTimeout, setInterval, clearInterval } from 'k6/experimental/timers';
+import { clearInterval, clearTimeout, setInterval, setTimeout } from "k6/experimental/timers";
 
 // setTimeout
 
@@ -9,10 +9,10 @@ setTimeout();
 setTimeout(5);
 
 // @ts-expect-error
-setTimeout('functionRef', 5);
+setTimeout("functionRef", 5);
 
 // @ts-expect-error
-setTimeout('functionRef', 5, 'arg');
+setTimeout("functionRef", 5, "arg");
 
 // clearTimeout
 
@@ -28,10 +28,10 @@ setInterval();
 setInterval(5);
 
 // @ts-expect-error
-setInterval('functionRef', 5);
+setInterval("functionRef", 5);
 
 // @ts-expect-error
-setInterval('functionRef', 5, 'arg');
+setInterval("functionRef", 5, "arg");
 
 const intervalId = setInterval(() => {}, 5);
 

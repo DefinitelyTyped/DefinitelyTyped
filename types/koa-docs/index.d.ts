@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Middleware } from 'koa';
-import { Spec } from 'koa-joi-router';
+import { Middleware } from "koa";
+import { Spec } from "koa-joi-router";
 
 export {};
 

@@ -9,9 +9,9 @@
 
 /// <reference types="node" />
 
-import events = require('events');
-import express = require('express');
-export import redisClientFactory = require('redis');
+import events = require("events");
+import express = require("express");
+export import redisClientFactory = require("redis");
 
 export declare class Queue extends events.EventEmitter {
     name: string;

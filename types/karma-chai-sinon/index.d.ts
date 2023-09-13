@@ -5,7 +5,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="chai" />
-import Sinon = require('sinon');
+import Sinon = require("sinon");
 
 declare global {
     var should: Chai.Should;

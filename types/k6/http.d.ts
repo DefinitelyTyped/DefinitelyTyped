@@ -1,5 +1,5 @@
-import { bytes, JSONValue } from '.';
-import { Selection } from './html';
+import { bytes, JSONValue } from ".";
+import { Selection } from "./html";
 
 /**
  * Make DELETE  request.
@@ -212,49 +212,49 @@ export function setResponseCallback(responseCallback: ExpectedStatusesCallback):
 // === SSL/TLS versions ===
 // ------------------------
 
-export const SSL_3_0 = 'ssl3.0';
+export const SSL_3_0 = "ssl3.0";
 
-export const TLS_1_0 = 'tls1.0';
+export const TLS_1_0 = "tls1.0";
 
-export const TLS_1_1 = 'tls1.1';
+export const TLS_1_1 = "tls1.1";
 
-export const TLS_1_2 = 'tls1.2';
+export const TLS_1_2 = "tls1.2";
 
-export const TLS_1_3 = 'tls1.3';
+export const TLS_1_3 = "tls1.3";
 
 // === OCSP statuses ===
 // ---------------------
 
-export const OCSP_STATUS_GOOD = 'good';
+export const OCSP_STATUS_GOOD = "good";
 
-export const OCSP_STATUS_REVOKED = 'revoked';
+export const OCSP_STATUS_REVOKED = "revoked";
 
-export const OCSP_STATUS_SERVER_FAILED = 'server_failed';
+export const OCSP_STATUS_SERVER_FAILED = "server_failed";
 
-export const OCSP_STATUS_UNKNOWN = 'unknown';
+export const OCSP_STATUS_UNKNOWN = "unknown";
 
 // === OCSP revocation reasons ===
 // -------------------------------
 
-export const OCSP_REASON_AA_COMPROMISE = 'aa_compromise';
+export const OCSP_REASON_AA_COMPROMISE = "aa_compromise";
 
-export const OCSP_REASON_AFFILIATION_CHANGED = 'affiliation_changed';
+export const OCSP_REASON_AFFILIATION_CHANGED = "affiliation_changed";
 
-export const OCSP_REASON_CA_COMPROMISE = 'ca_compromise';
+export const OCSP_REASON_CA_COMPROMISE = "ca_compromise";
 
-export const OCSP_REASON_CERTIFICATE_HOLD = 'certificate_hold';
+export const OCSP_REASON_CERTIFICATE_HOLD = "certificate_hold";
 
-export const OCSP_REASON_CESSATION_OF_OPERATION = 'cessation_of_operation';
+export const OCSP_REASON_CESSATION_OF_OPERATION = "cessation_of_operation";
 
-export const OCSP_REASON_KEY_COMPROMISE = 'key_compromise';
+export const OCSP_REASON_KEY_COMPROMISE = "key_compromise";
 
-export const OCSP_REASON_PRIVILEGE_WITHDRAWN = 'privilege_withdrawn';
+export const OCSP_REASON_PRIVILEGE_WITHDRAWN = "privilege_withdrawn";
 
-export const OCSP_REASON_REMOVE_FROM_CRL = 'remove_from_crl';
+export const OCSP_REASON_REMOVE_FROM_CRL = "remove_from_crl";
 
-export const OCSP_REASON_SUPERSEDED = 'superseded';
+export const OCSP_REASON_SUPERSEDED = "superseded";
 
-export const OCSP_REASON_UNSPECIFIED = 'unspecified';
+export const OCSP_REASON_UNSPECIFIED = "unspecified";
 
 // === Params ===
 // --------------
@@ -306,12 +306,12 @@ export interface RefinedParams<RT extends ResponseType | undefined> extends Para
 /**
  * Request authentication method.
  */
-export type AuthMethod = 'basic' | 'digest' | 'ntlm';
+export type AuthMethod = "basic" | "digest" | "ntlm";
 
 /**
  * Response type.
  */
-export type ResponseType = 'binary' | 'none' | 'text';
+export type ResponseType = "binary" | "none" | "text";
 
 /**
  * Cookie value in request parameters.
@@ -577,37 +577,37 @@ export interface Response {
 /**
  * HTTP protocol.
  */
-export type Protocol = 'HTTP/1.0' | 'HTTP/1.1' | 'HTTP/2.0';
+export type Protocol = "HTTP/1.0" | "HTTP/1.1" | "HTTP/2.0";
 
 /**
  * TLS cipher suite.
  */
 export type CipherSuite =
-    | 'TLS_RSA_WITH_RC4_128_SHA'
-    | 'TLS_RSA_WITH_3DES_EDE_CBC_SHA'
-    | 'TLS_RSA_WITH_AES_128_CBC_SHA'
-    | 'TLS_RSA_WITH_AES_128_CBC_SHA256'
-    | 'TLS_RSA_WITH_AES_256_CBC_SHA'
-    | 'TLS_RSA_WITH_AES_128_GCM_SHA256'
-    | 'TLS_RSA_WITH_AES_256_GCM_SHA384'
-    | 'TLS_ECDHE_RSA_WITH_RC4_128_SHA'
-    | 'TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA'
-    | 'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA'
-    | 'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256'
-    | 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA'
-    | 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'
-    | 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
-    | 'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305'
-    | 'TLS_ECDHE_ECDSA_WITH_RC4_128_SHA'
-    | 'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA'
-    | 'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256'
-    | 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA'
-    | 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256'
-    | 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384'
-    | 'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305'
-    | 'TLS_AES_128_GCM_SHA256'
-    | 'TLS_AES_256_GCM_SHA384'
-    | 'TLS_CHACHA20_POLY1305_SHA256';
+    | "TLS_RSA_WITH_RC4_128_SHA"
+    | "TLS_RSA_WITH_3DES_EDE_CBC_SHA"
+    | "TLS_RSA_WITH_AES_128_CBC_SHA"
+    | "TLS_RSA_WITH_AES_128_CBC_SHA256"
+    | "TLS_RSA_WITH_AES_256_CBC_SHA"
+    | "TLS_RSA_WITH_AES_128_GCM_SHA256"
+    | "TLS_RSA_WITH_AES_256_GCM_SHA384"
+    | "TLS_ECDHE_RSA_WITH_RC4_128_SHA"
+    | "TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA"
+    | "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+    | "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+    | "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+    | "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+    | "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    | "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
+    | "TLS_ECDHE_ECDSA_WITH_RC4_128_SHA"
+    | "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA"
+    | "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256"
+    | "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA"
+    | "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+    | "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+    | "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305"
+    | "TLS_AES_128_GCM_SHA256"
+    | "TLS_AES_256_GCM_SHA384"
+    | "TLS_CHACHA20_POLY1305_SHA256";
 
 /**
  * Refined response.
@@ -628,14 +628,10 @@ export type ResponseBody = string | bytes | null;
  * @template RT - `Params.responseType` value.
  * @privateRemarks Default type is a union due to depending on program options.
  */
-export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
-    ? bytes
-    : RT extends 'none'
-    ? null
-    : RT extends 'text'
-    ? string
-    : RT extends undefined
-    ? string | null
+export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends "binary" ? bytes
+    : RT extends "none" ? null
+    : RT extends "text" ? string
+    : RT extends undefined ? string | null
     : never;
 
 /**
@@ -793,7 +789,7 @@ export interface ExpectedStatusesObject {
  * Returned value from http.url method.
  */
 interface HttpURL {
-    __brand: 'http-url';
+    __brand: "http-url";
 }
 
 /**

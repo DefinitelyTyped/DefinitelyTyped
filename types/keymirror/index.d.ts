@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare function KeyMirror<T>(obj: T): {[K in keyof T]: K};
+declare function KeyMirror<T>(obj: T): { [K in keyof T]: K };
 export = KeyMirror;

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Redis from 'redis';
-import * as session from 'koa-session';
+import * as session from "koa-session";
+import * as Redis from "redis";
 
 export = RedisStore;
 
@@ -20,7 +20,11 @@ declare class RedisStore implements session.stores {
     /**
      * set session object for key, with a maxAge (in ms)
      */
-    set(key: string, sess: Partial<session.Session> & { _expire?: number | undefined, _maxAge?: number | undefined }, maxAge: session.opts["maxAge"]): any;
+    set(
+        key: string,
+        sess: Partial<session.Session> & { _expire?: number | undefined; _maxAge?: number | undefined },
+        maxAge: session.opts["maxAge"],
+    ): any;
 
     /**
      * destroy session for key

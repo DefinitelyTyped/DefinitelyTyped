@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Context, Middleware, Request } from 'koa';
+import { Context, Middleware, Request } from "koa";
 
 declare function koaCors(options?: koaCors.Options): Middleware;
 

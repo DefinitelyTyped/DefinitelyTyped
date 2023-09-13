@@ -20,7 +20,7 @@ declare function kind_of(thing: any[]): "array";
 declare function kind_of(thing: RegExp): "regexp";
 declare function kind_of(thing: Error): "error";
 declare function kind_of(
-    thing: Iterator<any>
+    thing: Iterator<any>,
 ):
     | "generator"
     | "stringiterator"
@@ -28,7 +28,7 @@ declare function kind_of(
     | "mapiterator"
     | "setiterator";
 declare function kind_of(
-    thing: (...args: any[]) => any
+    thing: (...args: any[]) => any,
 ): "function" | "generatorfunction";
 declare function kind_of(thing: symbol): "symbol";
 declare function kind_of(thing: Promise<any>): "promise";

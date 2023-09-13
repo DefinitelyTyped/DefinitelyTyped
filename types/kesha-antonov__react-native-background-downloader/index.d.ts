@@ -28,7 +28,7 @@ export type BeginHandler = ({ expectedBytes, headers }: BeginHandlerObject) => a
 export type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
 export type DoneHandler = () => any;
 export type ErrorHandler = (error: any, errorCode: any) => any;
-export type DownloadTaskState = 'DOWNLOADING' | 'PAUSED' | 'DONE' | 'FAILED' | 'STOPPED';
+export type DownloadTaskState = "DOWNLOADING" | "PAUSED" | "DONE" | "FAILED" | "STOPPED";
 
 export interface DownloadTask {
     constructor: (taskInfo: TaskInfo) => DownloadTask;
