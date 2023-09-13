@@ -9,14 +9,16 @@
 export {};
 // Warning: This is not actually a Promise, but the interface is the same.
 type ZalgoPromise<T> = Promise<T>;
+
+type CancelableZalgoPromise<T> = ZalgoPromise<T> & CancelableType;
+
 // For the purposes of using the library on it's own Window is CrossDomain enough
 type CrossDomainWindowType = Window | null;
+
 type DomainMatcher = string | RegExp | string[];
-type HandlerType = (event: {
-    source: CrossDomainWindowType,
-    origin: string,
-    data: any
-}) => ZalgoPromise<any>;
+
+type HandlerType = (event: { source: CrossDomainWindowType; origin: string; data: any }) => ZalgoPromise<any> | void;
+
 type ErrorHandlerType = (err: any) => void;
 
 interface ServerOptionsType {
@@ -40,7 +42,7 @@ export function once(
     name: string,
     options?: ServerOptionsType | HandlerType,
     handler?: HandlerType,
-): ZalgoPromise<{ source: any; origin: string; data: object }>;
+): CancelableZalgoPromise<{ source: any; origin: string; data: object }>;
 
 interface RegularRequestOptionsType {
     domain?: DomainMatcher | undefined;
