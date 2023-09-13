@@ -116,6 +116,8 @@ new evmasm();
     const poseidon = await buildPoseidon();
 
     // $ExpectType any
+    poseidon.F;
+    // $ExpectType any
     poseidon([1, 3], 3, 4);
     poseidon([1, 3], 3);
     poseidon([1, 3]);
