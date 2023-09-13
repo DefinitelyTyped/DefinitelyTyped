@@ -41,6 +41,7 @@ export interface Defaults extends ClientConfig {
     reapIntervalMillis?: number | undefined;
     binary?: boolean | undefined;
     parseInt8?: boolean | undefined;
+    parseInputDatesAsUTC?: boolean | undefined;
 }
 
 export interface PoolConfig extends ClientConfig {
