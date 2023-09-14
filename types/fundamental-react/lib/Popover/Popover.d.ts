@@ -23,7 +23,7 @@ export type PopoverTypes =
     | "tree";
 
 export type PopperSizingTypes =
-    | 'none'
+    | "none"
     | "matchTarget"
     | "minTarget"
     | "maxTarget";
@@ -41,7 +41,7 @@ export type PopoverProps = {
     /** The bounding container to use when determining if the popover is out of bounds */
     flipContainer?: Element[];
     /** If Popover is to be rendered in a modal, the parent modal manager can be passed as a prop */
-    modalManager?: object,
+    modalManager?: object;
     noArrow?: boolean | undefined;
     placement?: PopperPlacement | undefined;
     popperClassName?: string | undefined;

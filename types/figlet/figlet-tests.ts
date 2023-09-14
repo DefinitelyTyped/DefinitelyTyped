@@ -128,4 +128,4 @@ figlet.textSync("test3", { whitespaceBreak: false, width: 100 });
 // $ExpectType string
 figlet.textSync("test3", { width: 69 });
 // $ExpectType string
-figlet.textSync("test4", { font: "Pagga"});
+figlet.textSync("test4", { font: "Pagga" });

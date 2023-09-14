@@ -19,5 +19,5 @@ declare namespace flushable {
 export = flushable;
 declare function flushable(
     onComplete: flushable.FlushableOnCompleteHandler,
-    delay: number
+    delay: number,
 ): flushable.FlushableOperation;
