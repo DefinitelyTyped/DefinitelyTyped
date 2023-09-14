@@ -28,6 +28,24 @@ const tests = {
         });
     },
 
+    'Create default ecparam key': (test: any) => {
+        pem.createEcparam((error: any, data: any) => {
+            const ecparam = ((data && data.ecparam) || '').toString();
+            test.ifError(error);
+            test.ok(ecparam);
+            test.done();
+        });
+    },
+
+    'Create ecparam key': (test: any) => {
+        pem.createEcparam('secp256k1', 'explicit', false, (error: any, data: any) => {
+            const ecparam = ((data && data.ecparam) || '').toString();
+            test.ifError(error);
+            test.ok(ecparam);
+            test.done();
+        });
+    },
+
     'Create default sized Private key': (test: any) => {
         pem.createPrivateKey((error: any, data: any) => {
             const key = ((data && data.key) || '').toString();
@@ -812,6 +830,31 @@ const tests = {
             },
         );
     },
+    'Check a certificate': (test: any) => {
+        pem.checkCertificate('certificate', (_error: any, _result: boolean) => {
+            test.done();
+        });
+    },
+    'Check a certificate with a password': (test: any) => {
+        pem.checkCertificate('certificate', 'password', (_error: any, _result: boolean) => {
+            test.done();
+        });
+    },
+    'Check PKCS12 keystore': (test: any) => {
+        pem.checkPkcs12(Buffer.from('contents'), (_error: any, _result: boolean) => {
+            test.done();
+        });
+    },
+    'Check PKCS12 keystore with a path': (test: any) => {
+        pem.checkPkcs12('/dev/null', (_error: any, _result: boolean) => {
+            test.done();
+        });
+    },
+    'Check PKCS12 keystore with a passphrase': (test: any) => {
+        pem.checkPkcs12(Buffer.from('contents'), 'passphrase', (_error: any, _result: boolean) => {
+            test.done();
+        });
+    },
 };
 
 pem.promisified.createPrivateKey(); // $ExpectType Promise<{ key: string; }>
@@ -819,6 +862,10 @@ pem.promisified.createPrivateKey(2048, { cipher: 'foo', password: 'bar' }); // $
 pem.promisified.createPrivateKey({ cipher: 'foo', password: 'bar' }); // $ExpectType Promise<{ key: string; }>
 pem.promisified.createDhparam(2048); // $ExpectType Promise<{ dhparam: any; }>
 pem.promisified.createDhparam(); // $ExpectType Promise<{ dhparam: any; }>
+pem.promisified.createEcparam('keyName', 'paramEnc', false); // $ExpectType Promise<{ ecparam: any; }>
+pem.promisified.createEcparam('keyName', 'paramEnc'); // $ExpectType Promise<{ ecparam: any; }>
+pem.promisified.createEcparam('keyName'); // $ExpectType Promise<{ ecparam: any; }>
+pem.promisified.createEcparam(); // $ExpectType Promise<{ ecparam: any; }>
 pem.promisified.createCSR({ country: 'US' }); // $ExpectType Promise<{ csr: string; clientKey: string; }>
 pem.promisified.createCSR(); // $ExpectType Promise<{ csr: string; clientKey: string; }>
 pem.promisified.createCertificate({ commonName: 'foo.bar' }); // $ExpectType Promise<CertificateCreationResult>
@@ -841,3 +888,8 @@ pem.promisified.readPkcs12('blarg'); // $ExpectType Promise<Pkcs12ReadResult>
 pem.promisified.readPkcs12(Buffer.from('blarg'), { clientKeyPassword: 'foo' }); // $ExpectType Promise<Pkcs12ReadResult>
 pem.promisified.readPkcs12(Buffer.from('blarg')); // $ExpectType Promise<Pkcs12ReadResult>
 pem.promisified.verifySigningChain('blarg', ['ca1', 'ca2']); // $ExpectType Promise<boolean>
+pem.promisified.checkCertificate('cert', 'password'); // $ExpectType Promise<boolean>
+pem.promisified.checkCertificate('cert'); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12('path'); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12(Buffer.from('cert')); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12(Buffer.from('cert'), 'passphrase'); // $ExpectType Promise<boolean>
