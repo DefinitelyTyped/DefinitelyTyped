@@ -635,6 +635,14 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
         cookies_path?: string;
+        /**
+         * Used to not wait Audit response before displaying the paywall. If true, you must initialize the paywall after the Audit event ìdentityAvailable` has been triggered
+         *
+         * Default: `false`
+         *
+         * More infos: https://www.poool.dev/fr/docs/access/javascript/audit/installation
+         */
+        skip_audit_loader?: boolean;
     }
 
     type EventsList =
