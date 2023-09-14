@@ -510,9 +510,8 @@ declare namespace GoogleAppsScript {
       }
       interface WorkingLocationProperties {
         type?: string|undefined;
-        // The documentation LITERALLY has type = "Any value"
-        // tslint:disable-next-line:no-any
-        homeOffice?: any|undefined;
+        // The documentation does not specify a type. It gives "any value"
+        homeOffice?: unknown|undefined;
         customLocation?: {label: string};
         officeLocation?: OfficeLocation|undefined;
       }
