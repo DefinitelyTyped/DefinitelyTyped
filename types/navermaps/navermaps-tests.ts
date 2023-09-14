@@ -43,8 +43,8 @@ map.panBy(new naver.maps.Point(10, 10));
  * Event Basic Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-event-simple.example.html
  */
-naver.maps.Event.addListener(map, 'click', function (e) {});
-naver.maps.Event.addListener(map, 'keydown', function (e) {});
+naver.maps.Event.addListener(map, 'click', function(e) {});
+naver.maps.Event.addListener(map, 'keydown', function(e) {});
 
 /**
  * Layer Example
@@ -53,7 +53,7 @@ naver.maps.Event.addListener(map, 'keydown', function (e) {});
 const street = new naver.maps.StreetLayer();
 const cadastral = new naver.maps.CadastralLayer();
 
-naver.maps.Event.once(map, 'init', function () {
+naver.maps.Event.once(map, 'init', function() {
     street.setMap(map);
     cadastral.setMap(map);
 });
@@ -320,7 +320,7 @@ naver.maps.Service.reverseGeocode(
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-drawing-restore.example.html
  */
 let drawingManager: naver.maps.drawing.DrawingManager | undefined;
-naver.maps.Event.once(map, 'init', function () {
+naver.maps.Event.once(map, 'init', function() {
     drawingManager = new naver.maps.drawing.DrawingManager({
         map: map,
         rectangleOptions: {
@@ -351,9 +351,9 @@ naver.maps.Event.once(map, 'init', function () {
         }
     });
 
-    drawingManager.addListener(naver.maps.drawing.DrawingEvents.ADD, function (e) {});
-    drawingManager.addListener(naver.maps.drawing.DrawingEvents.REMOVE, function (e) {});
-    drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function (e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.ADD, function(e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.REMOVE, function(e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function(e) {});
 });
 
 /**
