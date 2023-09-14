@@ -324,7 +324,7 @@ declare namespace PDFKit.Mixins {
         initMarkings(options?: { tagged?: boolean }): void;
         initPageMarkings(pageMarkings: PageMarking[]): void;
         endPageMarkings(page: PDFPage): PageMarking[];
-        markStructureContent(tag: string, options?: StructureElementOptions): PDFStructureContent;
+        markStructureContent(tag: string, options?: MarkingOptions): PDFStructureContent;
         getMarkingsDictionary(): PDFKitReference;
         getStructTreeRoot(): PDFKitReference;
         createStructParentTreeNextKey(): number;
@@ -349,7 +349,7 @@ declare namespace PDFKit.Mixins {
     interface PageMarking {
         tag: string;
         structContent?: PDFStructureContent;
-        options?: StructureElementOptions;
+        options?: MarkingOptions;
     }
 }
 
