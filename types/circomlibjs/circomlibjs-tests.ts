@@ -46,6 +46,24 @@ new evmasm();
     // $ExpectType BabyJub
     const babyJub = await buildBabyjub();
 
+    // $ExpectType any
+    babyJub.F;
+    // $ExpectType bigint
+    babyJub.p;
+    // $ExpectType bigint
+    babyJub.pm1d2;
+    // $ExpectType Point
+    babyJub.Generator;
+    // $ExpectType Point
+    babyJub.Base8;
+    // $ExpectType bigint
+    babyJub.order;
+    // $ExpectType bigint
+    babyJub.subOrder;
+    // $ExpectType Uint8Array
+    babyJub.A;
+    // $ExpectType Uint8Array
+    babyJub.D;
     // $ExpectType Point
     babyJub.addPoint(point, point);
     // $ExpectType Point
