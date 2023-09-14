@@ -1,4 +1,4 @@
-import freeport = require('freeport');
+import freeport = require("freeport");
 
 let num: number;
 let aNull: null;
@@ -10,7 +10,7 @@ freeport((err, made) => {
     } else {
         aNull = err;
     }
-    if (typeof made === 'number') {
+    if (typeof made === "number") {
         num = made;
     } else {
         aNull = made;

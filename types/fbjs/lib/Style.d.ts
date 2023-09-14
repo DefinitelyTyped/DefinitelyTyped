@@ -1,4 +1,4 @@
-import { DOMWindow } from 'jsdom';
+import { DOMWindow } from "jsdom";
 /**
  * Utilities for querying and mutating style properties.
  */

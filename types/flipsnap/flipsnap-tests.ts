@@ -2,11 +2,10 @@
  * Created by kubosho_ on 6/16/2014.
  */
 
-Flipsnap('', {
+Flipsnap("", {
     maxPoint: 3,
     distance: 230,
     transitionDuration: 500,
     disableTouch: true,
-    disable3d: false
+    disable3d: false,
 });
-

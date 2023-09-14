@@ -2,16 +2,16 @@ import formidable = require("formidable");
 import {
     defaultOptions,
     enabledPlugins,
-    plugins,
     File,
-    formidable as formidableAlias,
     Formidable,
+    formidable as formidableAlias,
     IncomingForm,
     MultipartParser,
     Options,
-    PersistentFile,
-    VolatileFile,
     Part,
+    PersistentFile,
+    plugins,
+    VolatileFile,
 } from "formidable";
 import * as http from "http";
 
@@ -98,7 +98,7 @@ MultipartParser.stateToString;
 MultipartParser.STATES;
 
 const form = new Formidable(options);
-form.on('data', data => {
+form.on("data", data => {
     // $ExpectType EventData
     data;
 
@@ -119,41 +119,41 @@ form.on('data', data => {
     // $ExpectType string
     formname;
 })
-    .on('fileBegin', (formname, file) => {
+    .on("fileBegin", (formname, file) => {
         // $ExpectType string
         formname;
         // $ExpectType File
         file;
 
-        form.emit('data', { name: 'fileBegin', formname, value: file });
+        form.emit("data", { name: "fileBegin", formname, value: file });
     })
-    .on('file', (formname, file) => {
+    .on("file", (formname, file) => {
         // $ExpectType string
         formname;
         // $ExpectType File
         file;
 
-        form.emit('data', { name: 'file', formname, value: file });
+        form.emit("data", { name: "file", formname, value: file });
     })
-    .on('progress', (bytesReceived, bytesExpected) => {
+    .on("progress", (bytesReceived, bytesExpected) => {
         // $ExpectType number
         bytesReceived;
         // $ExpectType number
         bytesExpected;
     })
-    .on('field', (name, value) => {
+    .on("field", (name, value) => {
         // $ExpectType string
         name;
         // $ExpectType string
         value;
     })
-    .on('error', err => {
+    .on("error", err => {
         // $ExpectType any
         err;
     })
-    .on('aborted', () => {})
-    .once('end', () => {})
-    .once('error', err => {
+    .on("aborted", () => {})
+    .once("end", () => {})
+    .once("error", err => {
         // $ExpectType any
         err;
     });

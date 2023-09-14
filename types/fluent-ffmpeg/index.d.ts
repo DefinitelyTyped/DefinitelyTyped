@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import * as events from 'events';
-import * as stream from 'stream';
+import * as events from "events";
+import * as stream from "stream";
 
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {

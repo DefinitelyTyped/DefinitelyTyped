@@ -14,70 +14,65 @@ const fd = 0;
 const modeNum = 0;
 const modeStr = "";
 const object = {};
-const errorCallback = (err: Error) => { };
+const errorCallback = (err: Error) => {};
 const ensureNum = 0o700;
 const ensureObj: fs.EnsureOptions = {
-   mode: 0o700
+    mode: 0o700,
 };
 const readOptions: fs.ReadOptions = {
-	reviver: {}
+    reviver: {},
 };
 const writeOptions: fs.WriteOptions = {
-	replacer: {}
+    replacer: {},
 };
 
 fs.moveSync(src, dest, {});
 fs.move(src, dest, {}).then(() => {
-	// stub
+    // stub
 });
 fs.move(src, dest).then(() => {
-	// stub
+    // stub
 });
 fs.move(src, dest, {}, () => {
-	// stub
+    // stub
 });
 fs.move(src, dest, () => {
-	// stub
+    // stub
 });
 
 fs.copy(src, dest).then(() => {
-	// stub
+    // stub
 });
 fs.copy(src, dest, { overwrite: true }).then(() => {
-	// stub
+    // stub
 });
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
-fs.copy(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: (src: string, dest: string) => Promise.resolve(false)
-	},
-	errorCallback
-);
+fs.copy(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: (src: string, dest: string) => Promise.resolve(false),
+}, errorCallback);
 
 fs.copySync(src, dest);
 fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
-fs.copySync(src, dest,
-	{
-		overwrite: true,
-		preserveTimestamps: true,
-		filter: (src: string, dest: string) => false
-	}
-);
+fs.copySync(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: (src: string, dest: string) => false,
+});
 
 fs.createFile(file).then(() => {
-	// stub
+    // stub
 });
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
 fs.mkdirs(dir).then(() => {
-	// stub
+    // stub
 });
 fs.mkdirp(dir).then(() => {
-	// stub
+    // stub
 });
 fs.mkdirs(dir, errorCallback);
 fs.mkdirsSync(dir);
@@ -85,75 +80,75 @@ fs.mkdirp(dir, errorCallback);
 fs.mkdirpSync(dir);
 
 fs.outputFile(file, data).then(() => {
-	// stub
+    // stub
 });
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
 
 fs.outputJson(file, data, {
-	spaces: 2
+    spaces: 2,
 }).then(() => {
-	// stub
+    // stub
 });
 fs.outputJson(file, data, {
-	spaces: 2
+    spaces: 2,
 }, errorCallback);
 fs.outputJSON(file, data, errorCallback);
 fs.outputJSON(file, data).then(() => {
-	// stub
+    // stub
 });
 
 fs.outputJsonSync(file, data);
 fs.outputJSONSync(file, data);
 
 fs.readJson(file).then(() => {
-	// stub
+    // stub
 });
 
 fs.readJson(file, readOptions).then(() => {
-	// stub
+    // stub
 });
-fs.readJson(file, (error: Error, jsonObject: any) => { });
-fs.readJson(file, readOptions, (error: Error, jsonObject: any) => { });
-fs.readJSON(file, (error: Error, jsonObject: any) => { });
-fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => { });
+fs.readJson(file, (error: Error, jsonObject: any) => {});
+fs.readJson(file, readOptions, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => {});
 
 fs.readJsonSync(file, readOptions);
 fs.readJSONSync(file, readOptions);
 
 fs.remove(dir, errorCallback);
 fs.remove(dir).then(() => {
-	// stub
+    // stub
 });
 fs.removeSync(dir);
 
 fs.writeJson(file, object).then(() => {
-	// stub
+    // stub
 });
 fs.writeJSON(file, object).then(() => {
-	// stub
+    // stub
 });
 fs.writeJson(file, object, errorCallback);
 fs.writeJson(file, object, writeOptions, errorCallback);
 fs.writeJSON(file, object, errorCallback);
 fs.writeJSON(file, object, writeOptions, errorCallback);
 fs.writeJson(file, object, writeOptions).then(() => {
-	// stub
+    // stub
 });
 fs.writeJSON(file, object, writeOptions).then(() => {
-	// stub
+    // stub
 });
 fs.writeJsonSync(file, object, writeOptions);
 fs.writeJSONSync(file, object, writeOptions);
 
 fs.ensureDir(path).then(() => {
-	// stub
+    // stub
 });
 fs.ensureDir(path, ensureObj).then(() => {
-	// stub
+    // stub
 });
 fs.ensureDir(path, ensureNum).then(() => {
-	// stub
+    // stub
 });
 fs.ensureDir(path, ensureObj, errorCallback);
 fs.ensureDir(path, ensureNum, errorCallback);
@@ -162,29 +157,29 @@ fs.ensureDirSync(path, ensureObj);
 fs.ensureDirSync(path, ensureNum);
 
 fs.ensureFile(path).then(() => {
-	// stub
+    // stub
 });
 fs.ensureFile(path, errorCallback);
 fs.ensureFileSync(path);
 fs.ensureLink(path, path).then(() => {
-	// stub
+    // stub
 });
 fs.ensureLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
 fs.ensureSymlink(path, path, "file").then(() => {
-	// stub
+    // stub
 });
 fs.ensureSymlink(path, path, errorCallback);
 fs.ensureSymlinkSync(path, path);
 fs.emptyDir(path).then(() => {
-	// stub
+    // stub
 });
 fs.emptyDir(path, errorCallback);
 fs.emptyDirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
-	// stub
+    // stub
 });
-fs.pathExists(path, (_err: Error, _exists: boolean) => { });
+fs.pathExists(path, (_err: Error, _exists: boolean) => {});
 const x: boolean = fs.pathExistsSync(path);
 
 fs.rename(src, dest, errorCallback);
@@ -213,17 +208,17 @@ fs.statSync(path);
 fs.lstatSync(path);
 
 fs.read(0, new Buffer(""), 0, 0, null).then(x => {
-	const a = x.buffer;
-	const b = x.bytesRead;
+    const a = x.buffer;
+    const b = x.bytesRead;
 });
 
 fs.write(0, new Buffer(""), 0, 0, null).then(x => {
-	const a = x.buffer;
-	const b = x.bytesWritten;
+    const a = x.buffer;
+    const b = x.bytesWritten;
 });
 fs.write(0, new Buffer("")).then(x => {
-	const a = x.buffer;
-	const b = x.bytesWritten;
+    const a = x.buffer;
+    const b = x.bytesWritten;
 });
 
 // $ExpectType Promise<void>

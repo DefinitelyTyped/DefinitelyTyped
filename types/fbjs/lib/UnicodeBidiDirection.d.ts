@@ -12,14 +12,14 @@
  * http://www.unicode.org/reports/tr9/
  */
 declare namespace UnicodeBidiDirection {
-    type BidiDirection = 'LTR' | 'RTL' | 'NEUTRAL';
-    type HTMLDir = 'ltr' | 'rtl';
+    type BidiDirection = "LTR" | "RTL" | "NEUTRAL";
+    type HTMLDir = "ltr" | "rtl";
     // Values
-    const NEUTRAL: 'NEUTRAL'; // No strong direction
+    const NEUTRAL: "NEUTRAL"; // No strong direction
 
-    const LTR: 'LTR'; // Left-to-Right direction
+    const LTR: "LTR"; // Left-to-Right direction
 
-    const RTL: 'RTL'; // Right-to-Left direction
+    const RTL: "RTL"; // Right-to-Left direction
     /**
      * Check if a directionality value is a Strong one
      */

@@ -18,7 +18,12 @@ interface FuzzySet {
     values(): string[];
 }
 
-declare function FuzzySet(source?: string[], useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number): FuzzySet;
+declare function FuzzySet(
+    source?: string[],
+    useLevenshtein?: boolean,
+    gramSizeLower?: number,
+    gramSizeUpper?: number,
+): FuzzySet;
 
 export = FuzzySet;
 export as namespace FuzzySet;

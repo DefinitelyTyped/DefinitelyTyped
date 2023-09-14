@@ -17,7 +17,7 @@
 // This gets changed manually during development in the project, rule would require changes when updating DT's definitions since resolution is different.
 // tslint:disable:no-single-declare-module
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'flashpoint-launcher' {
+declare module "flashpoint-launcher" {
     /** Version of the Flashpoint Launcher */
     const version: string;
 
@@ -71,7 +71,7 @@ declare module 'flashpoint-launcher' {
     /**
      * Fires when an extension configuration value changes
      */
-    const onExtConfigChange: Event<{key: string, value: any}>;
+    const onExtConfigChange: Event<{ key: string; value: any }>;
 
     /**
      * Log functions to properly pass messages to the Logs Page.
@@ -362,7 +362,12 @@ declare module 'flashpoint-launcher' {
          * @param basePath Override for directory to start in (info is relative to this), Extension path if none given
          * @returns A managed process.
          */
-        function createProcess(name: string, info: ProcessInfo, opts: ProcessOpts, basePath?: string): DisposableChildProcess;
+        function createProcess(
+            name: string,
+            info: ProcessInfo,
+            opts: ProcessOpts,
+            basePath?: string,
+        ): DisposableChildProcess;
         /**
          * Kills and removes a service process started by runService
          * @param process Service process to remove
@@ -438,17 +443,19 @@ declare module 'flashpoint-launcher' {
         defaultPath?: string | undefined;
         buttonLabel?: string | undefined;
         filters: FileFilter[];
-        properties?: Array<
-            | 'openFile'
-            | 'openDirectory'
-            | 'multiSelections'
-            | 'showHiddenFiles'
-            | 'createDirectory'
-            | 'promptToCreate'
-            | 'noResolveAliases'
-            | 'treatPackageAsDirectory'
-            | 'dontAddToRecent'
-        > | undefined;
+        properties?:
+            | Array<
+                | "openFile"
+                | "openDirectory"
+                | "multiSelections"
+                | "showHiddenFiles"
+                | "createDirectory"
+                | "promptToCreate"
+                | "noResolveAliases"
+                | "treatPackageAsDirectory"
+                | "dontAddToRecent"
+            >
+            | undefined;
         message?: string | undefined;
     };
 
@@ -705,7 +712,7 @@ declare module 'flashpoint-launcher' {
     /** Game field to order the results by */
     type GameOrderBy = keyof Game;
     /** Direction to return the results in (ascending or descending) */
-    type GameOrderDirection = 'ASC' | 'DESC';
+    type GameOrderDirection = "ASC" | "DESC";
 
     type RequestGameRange = {
         /** Index of the first game. */
@@ -901,12 +908,12 @@ declare module 'flashpoint-launcher' {
         browserModeProxy: string;
         /** Sources to show/hide in the log page. */
         showLogSource: {
-          [key: string]: boolean;
-        }
+            [key: string]: boolean;
+        };
         /** Levels to show/hide in the log page. */
         showLogLevel: {
-          [key in LogLevel]: boolean;
-        }
+            [key in LogLevel]: boolean;
+        };
         /** Libraries that should be excluded from random picks. */
         excludedRandomLibraries: string[];
         /** Application path overrides to check during app launches */
@@ -978,11 +985,11 @@ declare module 'flashpoint-launcher' {
 
     interface ManagedChildProcess {
         /** Fires whenever the status of a process changes. */
-        on(event: 'change', listener: (newState: ProcessState) => void): this;
+        on(event: "change", listener: (newState: ProcessState) => void): this;
         /** Fires whenever the process exits */
-        on(event: 'exit', listener: (code: number | null, signal: string | null) => void): this;
-        emit(event: 'change', newState: ProcessState): boolean;
-        emit(event: 'exit', code: number | null, signal: string | null): boolean;
+        on(event: "exit", listener: (code: number | null, signal: string | null) => void): this;
+        emit(event: "change", newState: ProcessState): boolean;
+        emit(event: "exit", code: number | null, signal: string | null): boolean;
     }
 
     class ManagedChildProcess {

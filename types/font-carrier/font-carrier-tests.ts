@@ -1,1 +1,1 @@
-import FontCarrier = require('font-carrier');
+import FontCarrier = require("font-carrier");

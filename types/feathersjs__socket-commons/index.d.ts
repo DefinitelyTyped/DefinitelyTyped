@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { HookContext } from '@feathersjs/feathers';
+import { HookContext } from "@feathersjs/feathers";
 
 export type Connection = any; // todo: spec connection
 
@@ -19,7 +19,7 @@ export interface Channel {
     send(data: any): this;
 }
 
-declare module '@feathersjs/feathers' {
+declare module "@feathersjs/feathers" {
     interface ServiceAddons<T> {
         publish(callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): this;
 
@@ -34,6 +34,9 @@ declare module '@feathersjs/feathers' {
 
         publish<T>(callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
 
-        publish<T>(event: string, callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void): Application<ServiceTypes>;
+        publish<T>(
+            event: string,
+            callback: (data: T, hook: HookContext<T>) => Channel | Channel[] | void,
+        ): Application<ServiceTypes>;
     }
 }

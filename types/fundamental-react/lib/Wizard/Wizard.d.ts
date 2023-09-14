@@ -1,13 +1,13 @@
-import * as React from 'react';
-import WizardContainer from './WizardContainer';
-import WizardContent from './WizardContent';
-import WizardFooter from './WizardFooter';
-import WizardNavigation from './WizardNavigation';
-import WizardStep, { WizardStepProps } from './WizardStep';
+import * as React from "react";
+import WizardContainer from "./WizardContainer";
+import WizardContent from "./WizardContent";
+import WizardFooter from "./WizardFooter";
+import WizardNavigation from "./WizardNavigation";
+import WizardStep, { WizardStepProps } from "./WizardStep";
 
 export interface WizardProps {
     /** Content background styling. */
-    background?: 'solid' | 'list' | 'transparent';
+    background?: "solid" | "list" | "transparent";
     /** Label to use for the cancel button., default is 'Cancel' */
     cancelLabel?: string;
     /** Wizard.Step nodes to render as steps. */
@@ -17,19 +17,19 @@ export interface WizardProps {
     /** Props to be spread to the WizardContent component. */
     contentProps?: object;
     /** By default wizard body has no horizontal paddings. Add a size to modify the padding. */
-    contentSize?: 'sm' | 'md' | 'lg' | 'xl';
+    contentSize?: "sm" | "md" | "lg" | "xl";
     /** Props to be spread to the WizardFooter component. */
     footerProps?: object;
     /** Props to be spread to the WizardNavigation component. */
     headerProps?: object;
     /** By default wizard header has no horizontal paddings. Add a size to modify the padding. */
-    headerSize?: 'sm' | 'md' | 'lg' | 'xl';
+    headerSize?: "sm" | "md" | "lg" | "xl";
     /**
      * Navigation type. `anchors` mode Displays all steps in one scrolling
      * page, while `tabs` shows one page at a time with navigation buttons in
      * the footer. default is 'anchors'
      */
-    navigationType?: 'anchors' | 'tabs';
+    navigationType?: "anchors" | "tabs";
     /**
      * Default label for next step buttons. Can be overriden by setting
      * `nextLabel` on specific steps. default is 'Next Step'
@@ -40,7 +40,7 @@ export interface WizardProps {
      * a condensed form with a pop-up menu, while `no-labels` hides all text
      * from steps, only displaying the indicators.
      */
-    option?: 'stacked' | 'no-labels';
+    option?: "stacked" | "no-labels";
     /**
      * Default label for previous step buttons. Can be overriden by setting
      * `previousLabel` on specific steps. default is 'Previous Step'

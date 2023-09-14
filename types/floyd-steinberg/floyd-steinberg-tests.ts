@@ -1,4 +1,4 @@
-import floydSteinberg = require('floyd-steinberg');
+import floydSteinberg = require("floyd-steinberg");
 
 const imageData = new ImageData(new Uint8ClampedArray([]), 1280, 720);
 

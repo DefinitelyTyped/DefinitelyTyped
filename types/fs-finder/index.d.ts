@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace FsFinder {
-
-    type AsyncFunction = (paths: string|string[]) => void;
+    type AsyncFunction = (paths: string | string[]) => void;
     type Type = string; // 'all'|'directories'|'files'
     type Mask = string;
     type Directory = string;
@@ -30,7 +29,7 @@ declare namespace FsFinder {
 
     export class Base {
         recursively(recursive?: boolean): Finder;
-        exclude(excludes: string|string[], exactly?: boolean): Finder;
+        exclude(excludes: string | string[], exactly?: boolean): Finder;
         showSystemFiles(systemFiles?: boolean): Finder;
         lookUp(up?: boolean): Finder;
         findFirst(findFirst?: boolean): Finder;

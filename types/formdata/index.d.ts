@@ -3,7 +3,7 @@
 // Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class FormData {
     nodeChunkedEncoding: boolean;

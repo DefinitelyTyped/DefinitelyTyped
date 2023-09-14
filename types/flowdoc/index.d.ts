@@ -14,42 +14,42 @@ declare namespace Flow {
     interface Document {
         id: string;
         name: string;
-        type: Types['DOCUMENT'];
+        type: Types["DOCUMENT"];
         children: Page[];
     }
 
     interface Page extends Node {
-        type: Types['PAGE'];
+        type: Types["PAGE"];
         children: Array<Screen | Image | Rectangle | Ellipse | Diamond>;
         backgroundColor: Color;
         startNodeID?: string | undefined;
     }
 
     interface Screen extends Graphic {
-        type: Types['SCREEN'];
+        type: Types["SCREEN"];
         children: Layer[];
         connections?: Connection[] | undefined;
     }
 
     interface Image extends Graphic {
-        type: Types['IMAGE'];
+        type: Types["IMAGE"];
         connections?: Connection[] | undefined;
     }
 
     interface Rectangle extends Shape {
-        type: Types['RECTANGLE'];
+        type: Types["RECTANGLE"];
     }
 
     interface Ellipse extends Shape {
-        type: Types['ELLIPSE'];
+        type: Types["ELLIPSE"];
     }
 
     interface Diamond extends Shape {
-        type: Types['DIAMOND'];
+        type: Types["DIAMOND"];
     }
 
     interface Layer extends Node {
-        type: Types['LAYER'] | Types['HOTSPOT'];
+        type: Types["LAYER"] | Types["HOTSPOT"];
         position: Point;
         size: Size;
         connections?: Connection[] | undefined;
@@ -88,21 +88,21 @@ declare namespace Flow {
     }
 
     interface Types {
-        DOCUMENT: 'DOCUMENT';
-        PAGE: 'PAGE';
-        SCREEN: 'SCREEN';
-        IMAGE: 'IMAGE';
-        RECTANGLE: 'RECT';
-        ELLIPSE: 'ELLIPSE';
-        DIAMOND: 'DIAMOND';
-        HOTSPOT: 'HOTSPOT';
-        LAYER: 'LAYER';
+        DOCUMENT: "DOCUMENT";
+        PAGE: "PAGE";
+        SCREEN: "SCREEN";
+        IMAGE: "IMAGE";
+        RECTANGLE: "RECT";
+        ELLIPSE: "ELLIPSE";
+        DIAMOND: "DIAMOND";
+        HOTSPOT: "HOTSPOT";
+        LAYER: "LAYER";
     }
 
     type SchemaVersion = 1;
 }
 
-type NodeType = 'DOCUMENT' | 'PAGE' | 'SCREEN' | 'IMAGE' | 'RECT' | 'ELLIPSE' | 'DIAMOND' | 'HOTSPOT' | 'LAYER';
+type NodeType = "DOCUMENT" | "PAGE" | "SCREEN" | "IMAGE" | "RECT" | "ELLIPSE" | "DIAMOND" | "HOTSPOT" | "LAYER";
 
 interface Node {
     id: string;

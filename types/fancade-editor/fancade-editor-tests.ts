@@ -1,5 +1,5 @@
 // $ExpectType number
-let prefabIndex = findPrefab('MyPrefab');
+let prefabIndex = findPrefab("MyPrefab");
 
 // $ExpectType void
 setBlock(0, 0, 0, prefabIndex);
@@ -17,7 +17,7 @@ prefabIndex = getBlock(0, 0, 0);
 setBlockValue(0, 0, 0, 0, 15);
 
 // $ExpectType void
-setBlockValue(0, 0, 0, 0, 'Text');
+setBlockValue(0, 0, 0, 0, "Text");
 
 // $ExpectType void
 setBlockValue(0, 0, 0, 0, [1, 2, 3]);
@@ -32,7 +32,7 @@ getTerminalName(0, 0, 0, 0);
 getTerminalType(0, 0, 0, 0);
 
 // $ExpectType void
-log('Found a prefab ' + prefabIndex);
+log("Found a prefab " + prefabIndex);
 
 // $ExpectType void
 clearLog();
@@ -57,16 +57,16 @@ let version = getVersion();
 ///////////////////////////////////////////////////////////
 
 // $ExpectType void
-setEventListener('block-placed', (x, y, z) => {});
+setEventListener("block-placed", (x, y, z) => {});
 
 // $ExpectType void
-setEventListener('update', () => {});
+setEventListener("update", () => {});
 
 // $ExpectType void
-setEventListener('keydown', key => {});
+setEventListener("keydown", key => {});
 
 // $ExpectType void
-setEventListener('keyup', key => {});
+setEventListener("keyup", key => {});
 
 // $ExpectType void
 selectAt(0, 0, 0);

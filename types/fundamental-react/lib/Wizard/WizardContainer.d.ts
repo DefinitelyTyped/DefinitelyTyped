@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface WizardContainerProps {
     /** Wizard contents to render (should be Wizard.Navigation, Wizard.Content and Wizard.Footer respectively) */

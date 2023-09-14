@@ -5,8 +5,8 @@
 //                 Andy Dam <https://github.com/andydam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FusebitContext } from '@fusebit/add-on-sdk';
-import * as express from 'express';
+import { FusebitContext } from "@fusebit/add-on-sdk";
+import * as express from "express";
 
 /**
  * Model for persisted user data.
@@ -27,8 +27,8 @@ export interface UserContext<TVendorUserProfile = object> {
     };
     foreignOAuthIdentities: {
         [key: string]: {
-        userId: string;
-        connectorBaseUrl: string;
+            userId: string;
+            connectorBaseUrl: string;
         };
     };
 }
@@ -89,7 +89,7 @@ export class OAuthConnector {
      */
     onNewUser(
         fusebitContext: FusebitContext,
-        userContext: UserContext
+        userContext: UserContext,
     ): Promise<void>;
 
     /**
@@ -104,7 +104,7 @@ export class OAuthConnector {
     getUser(
         fusebitContext: FusebitContext,
         vendorUserId: string,
-        foreignVendorId?: string
+        foreignVendorId?: string,
     ): Promise<UserContext>;
 
     /**
@@ -128,7 +128,7 @@ export class OAuthConnector {
      */
     saveUser(
         fusebitContext: FusebitContext,
-        userContext: UserContext
+        userContext: UserContext,
     ): Promise<UserContext>;
 
     /**
@@ -143,7 +143,7 @@ export class OAuthConnector {
     deleteUser(
         fusebitContext: FusebitContext,
         vendorUserId: string,
-        vendorId?: string
+        vendorId?: string,
     ): Promise<void>;
 
     /**
@@ -161,7 +161,7 @@ export class OAuthConnector {
     ensureAccessToken(
         fusebitContext: FusebitContext,
         userContext: UserContext,
-        foreignVendorId?: string
+        foreignVendorId?: string,
     ): Promise<OAuthTokenResponse>;
 }
 

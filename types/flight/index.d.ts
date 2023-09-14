@@ -7,9 +7,7 @@
 /// <reference types="jquery" />
 
 declare namespace Flight {
-
     export interface Base {
-
         /**
          * Most Components and Mixins need to define attributes. In Flight,
          * default values are assigned by passing an object to the attributes
@@ -148,7 +146,6 @@ declare namespace Flight {
          * It's a good idea to teardown components after each unit test - and
          * teardown is also good for unbinding event listeners when, for example,
          * the user navigates away from a page.
-         *
          */
         teardown(): void;
     }
@@ -219,7 +216,7 @@ declare namespace Flight {
             logByAction(action: string): void;
             logByName(name: string): void;
             logNone(): void;
-        }
+        };
     }
 
     export interface UtilsStatic {

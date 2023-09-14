@@ -38,7 +38,7 @@ interface Options {
      *
      * Most of the time you'll want the default.
      */
-    portionMode?: 'retain' | 'first' | undefined;
+    portionMode?: "retain" | "first" | undefined;
     /**
      * A function to be called on every element encountered by findAndReplaceDOMText.
      * If the function returns false the element will be altogether ignored.
@@ -52,7 +52,7 @@ interface Options {
     /**
      * Currently there's only one preset: prose. https://github.com/padolsey/findAndReplaceDOMText#presetprose
      */
-    preset?: 'prose' | string | undefined;
+    preset?: "prose" | string | undefined;
 }
 
 interface Portion {

@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-export import nodeFetch = require('node-fetch');
-export import Joi = require('joi');
+export import nodeFetch = require("node-fetch");
+export import Joi = require("joi");
 
 export class FrisbySpec<TResult = FrisbyResponse> {
     constructor(...args: any[]);
@@ -44,9 +44,9 @@ export class FrisbySpec<TResult = FrisbyResponse> {
 }
 
 export interface FrisbyResponse {
-    readonly status: nodeFetch.Response['status'];
-    readonly body: nodeFetch.Response['body'];
-    readonly headers: nodeFetch.Response['headers'];
+    readonly status: nodeFetch.Response["status"];
+    readonly body: nodeFetch.Response["body"];
+    readonly headers: nodeFetch.Response["headers"];
     readonly json: any;
     readonly responseTime: number;
 }

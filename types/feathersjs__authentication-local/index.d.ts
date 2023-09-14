@@ -4,16 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Application,
-    Hook,
-    Paginated
-} from '@feathersjs/feathers';
-import { Request } from 'express';
+import { Application, Hook, Paginated } from "@feathersjs/feathers";
+import { Request } from "express";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import * as self from '@feathersjs/authentication-local';
+import * as self from "@feathersjs/authentication-local";
 
-declare const feathersAuthenticationLocal: ((options?: Partial<FeathersAuthenticationLocalOptions>) => () => void) & typeof self;
+declare const feathersAuthenticationLocal:
+    & ((options?: Partial<FeathersAuthenticationLocalOptions>) => () => void)
+    & typeof self;
 export default feathersAuthenticationLocal;
 
 export interface FeathersAuthenticationLocalOptions {
@@ -64,7 +62,12 @@ export class LocalVerifier {
 
     _comparePassword<T>(entity: T, password: string): Promise<T>; // compares password using bcrypt
     _normalizeResult<T>(results: T[] | Paginated<T>): Promise<T>; // normalizes result from service to account for pagination
-    verify(req: Request, username: string, password: string, done: (error: any, user?: any, options?: { message: string }) => void): void;
+    verify(
+        req: Request,
+        username: string,
+        password: string,
+        done: (error: any, user?: any, options?: { message: string }) => void,
+    ): void;
 }
 
 export namespace hooks {

@@ -33,15 +33,15 @@ declare namespace FoundationDatepicker {
         keyboardNavigation?: boolean;
         language?: string;
         leftArrow?: string;
-        maxView?: 'decade' | 'year' | 'month' | 'day' | 'hour' | number;
-        minView?: 'decade' | 'year' | 'month' | 'day' | 'hour' | number;
+        maxView?: "decade" | "year" | "month" | "day" | "hour" | number;
+        minView?: "decade" | "year" | "month" | "day" | "hour" | number;
         minuteStep?: number;
         nonMilitaryTime?: boolean;
         onRender?: (date: Date) => string;
         pickTime?: boolean;
         rightArrow?: string;
         startDate?: Date;
-        startView?: 'decade' | 'year' | 'month' | 'day' | 'hour' | number;
+        startView?: "decade" | "year" | "month" | "day" | "hour" | number;
         todayBtn?: boolean;
         todayHighlight?: boolean;
         weekStart?: number;
@@ -49,8 +49,8 @@ declare namespace FoundationDatepicker {
 }
 
 interface JQuery<TElement = HTMLElement> {
-    fdatepicker(option?: FoundationDatepicker.Settings | 'show' | 'hide' | 'place'): JQuery;
-    fdatepicker(option: 'update', value: string | Date): JQuery;
-    on(events: 'show' | 'hide' | 'changeDate', handler: (eventObject: FoundationDatepicker.Event) => void): JQuery;
-    on(events: 'outOfRange', handler: (eventObject: FoundationDatepicker.OutOfRangeEvent) => void): JQuery;
+    fdatepicker(option?: FoundationDatepicker.Settings | "show" | "hide" | "place"): JQuery;
+    fdatepicker(option: "update", value: string | Date): JQuery;
+    on(events: "show" | "hide" | "changeDate", handler: (eventObject: FoundationDatepicker.Event) => void): JQuery;
+    on(events: "outOfRange", handler: (eventObject: FoundationDatepicker.OutOfRangeEvent) => void): JQuery;
 }

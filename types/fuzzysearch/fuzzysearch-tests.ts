@@ -1,4 +1,4 @@
-import fuzzysearch = require('fuzzysearch');
+import fuzzysearch = require("fuzzysearch");
 
 // $ExpectType boolean
-fuzzysearch('twl', 'cartwheel');
+fuzzysearch("twl", "cartwheel");

@@ -10,7 +10,7 @@ declare function findImports(
         packageImports?: boolean;
         absoluteImports?: boolean;
         relativeImports?: boolean;
-    }
+    },
 ): Record<string, string[]>;
 
 export = findImports;

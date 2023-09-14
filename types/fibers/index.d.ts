@@ -17,7 +17,7 @@ interface FiberConstructor {
      * After the function returns the fiber is reset to original state and
      * may be restarted with another call to run().
      */
-    new (fn: Function): Fiber;
+    new(fn: Function): Fiber;
     (fn: Function): Fiber;
 
     /**

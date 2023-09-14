@@ -1,4 +1,4 @@
-import { DOMWindow } from 'jsdom';
+import { DOMWindow } from "jsdom";
 
 /**
  * The CSSCore module specifies the API (and implements most of the methods)

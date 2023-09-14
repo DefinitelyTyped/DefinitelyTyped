@@ -11,7 +11,7 @@ export type FormInputProps = {
     readOnly?: boolean | undefined;
     type?: string | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
+        state?: "error" | "warning" | "information" | "success" | undefined;
         text?: string | undefined;
     } | undefined;
     value?: string | number | undefined;

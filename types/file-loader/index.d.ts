@@ -3,7 +3,7 @@
 // Definitions by: Gareth Jones <https://github.com/g-rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
-import { loader } from 'webpack';
+import { loader } from "webpack";
 
 declare namespace FileLoader {
     interface Options {

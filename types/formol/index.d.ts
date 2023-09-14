@@ -30,7 +30,7 @@ interface FormolProps<V = any> {
     extra?: React.ReactNode | undefined;
     classes?: any;
     onSubmit?: ((e: Event) => void) | undefined;
-    validator?: ((v: V) => {[K in keyof V]?: string | null}) | undefined;
+    validator?: ((v: V) => { [K in keyof V]?: string | null }) | undefined;
 }
 
 declare const Formol: React.ComponentType<FormolProps>;
@@ -56,7 +56,7 @@ export const FieldSet: React.ComponentType<FieldSetProps>;
 
 interface SwitchButtonProps {
     type?: string | undefined;
-    i18n?: { yes: React.ReactNode, no: React.ReactNode } & { [k: string]: any } | undefined;
+    i18n?: { yes: React.ReactNode; no: React.ReactNode } & { [k: string]: any } | undefined;
     leftLabel?: React.ReactNode | undefined;
     rightLabel?: React.ReactNode | undefined;
     className?: string | undefined;

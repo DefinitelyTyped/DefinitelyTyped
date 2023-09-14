@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface RowProps {
     children: React.ReactNode;
@@ -6,7 +6,7 @@ export interface RowProps {
 }
 
 declare const Row: React.FunctionComponent<RowProps> & {
-    displayName: 'Row';
+    displayName: "Row";
 };
 
 export default Row;

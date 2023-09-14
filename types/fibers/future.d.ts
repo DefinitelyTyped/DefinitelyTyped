@@ -30,7 +30,7 @@ declare global {
 }
 
 interface FutureConstructor {
-    new <T> (): Future<T>;
+    new<T>(): Future<T>;
     /**
      * Wrap a node-style async function to return a future in place of using a callback.
      * A node-style async function is usually in the form (...args: any, cb: (err?: Error, ...cbArgs: any) => any) => any

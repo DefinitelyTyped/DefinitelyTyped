@@ -334,7 +334,7 @@ interface FancyBoxOptions {
      * }
      */
     media?: FancyBoxPlainObject | undefined;
-    slideShow?: { autoStart?: boolean | undefined; speed?: number | undefined; } | undefined;
+    slideShow?: { autoStart?: boolean | undefined; speed?: number | undefined } | undefined;
     thumbs?: FancyThumbsOptions | undefined;
     /**
      * Use mousewheel to navigate gallery
@@ -770,15 +770,25 @@ interface FancyBoxGetFitPosResults {
 }
 
 interface FancyBoxJQueryMethods {
-    animate($el: JQuery, to: FancyBoxThumbPos, duration: number, callback: () => void, leaveAnimationName: boolean): void;
+    animate(
+        $el: JQuery,
+        to: FancyBoxThumbPos,
+        duration: number,
+        callback: () => void,
+        leaveAnimationName: boolean,
+    ): void;
     close(all?: boolean): void;
     defaults: FancyBoxOptions;
     destroy(): void;
     getInstance(command?: string | (() => void)): FancyBoxInstance;
     getTranslate($el: JQuery): void;
     isMobile: boolean;
-    open(items: JQuery | string | FancyBoxGroupItem[] | FancyBoxGroupItem, opts?: FancyBoxOptions, index?: number): FancyBoxInstance;
-    setTranslate($el: JQuery, props: { left?: number | undefined; top?: number | undefined; }): void;
+    open(
+        items: JQuery | string | FancyBoxGroupItem[] | FancyBoxGroupItem,
+        opts?: FancyBoxOptions,
+        index?: number,
+    ): FancyBoxInstance;
+    setTranslate($el: JQuery, props: { left?: number | undefined; top?: number | undefined }): void;
     stop($el: JQuery, callCallback: boolean): void;
     use3d: string;
     version: string;

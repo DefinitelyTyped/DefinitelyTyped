@@ -9,7 +9,7 @@ interface Window {
         PerformScriptWithOption: (
             name: string,
             parameter: string,
-            option: '0' | '1' | '2' | '3' | '4' | '5',
+            option: "0" | "1" | "2" | "3" | "4" | "5",
         ) => void;
     };
 }

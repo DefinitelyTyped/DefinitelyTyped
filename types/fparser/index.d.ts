@@ -4,7 +4,7 @@
 //                 andrew0687 <https://github.com/andrew0687>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Formula from './src/fparser';
+import Formula from "./src/fparser";
 
 export = Formula;
 

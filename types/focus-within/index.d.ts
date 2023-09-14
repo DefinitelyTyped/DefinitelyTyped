@@ -5,8 +5,8 @@
 
 declare namespace focusWithin {
     interface FocusWithinOpts {
-      attr?: boolean | undefined;
-      className?: string | undefined;
+        attr?: boolean | undefined;
+        className?: string | undefined;
     }
 }
 

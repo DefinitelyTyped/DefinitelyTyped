@@ -5,6 +5,6 @@
 focusWithin(document);
 
 focusWithin(document, {
-  attr: false,
-  className: 'foo'
+    attr: false,
+    className: "foo",
 });

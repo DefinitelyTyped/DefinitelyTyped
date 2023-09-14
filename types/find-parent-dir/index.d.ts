@@ -9,7 +9,7 @@
 declare function findParentDir(
     currentFullPath: string,
     clue: string,
-    cb: (err: any, dir: string | null) => void
+    cb: (err: any, dir: string | null) => void,
 ): void;
 
 declare namespace findParentDir {

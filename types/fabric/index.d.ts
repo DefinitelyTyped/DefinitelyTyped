@@ -15,4 +15,4 @@
 //                 Cody Brooks <https://github.com/buzzyboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
-export import fabric = require('./fabric-impl');
+export import fabric = require("./fabric-impl");

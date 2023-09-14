@@ -17,7 +17,7 @@ declare namespace findConfig {
         flag?: string | undefined;
     }
 
-    function obj(filename?: string, options?: Options): { cwd: string; dir: string; path: string; } | null;
+    function obj(filename?: string, options?: Options): { cwd: string; dir: string; path: string } | null;
     function read(filename?: string, options?: ReadOptions): string | null;
     function require(filename?: string, options?: Options): any;
 }

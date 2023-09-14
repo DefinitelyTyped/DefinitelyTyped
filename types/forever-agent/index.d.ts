@@ -24,5 +24,5 @@ declare class ForeverAgentSSL extends ForeverAgent {
 }
 
 declare const ForeverAgentModule: typeof ForeverAgent & {
-    SSL: typeof ForeverAgentSSL,
+    SSL: typeof ForeverAgentSSL;
 };

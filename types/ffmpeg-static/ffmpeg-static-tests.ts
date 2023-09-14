@@ -1,3 +1,3 @@
-import * as pathToFfmpeg from 'ffmpeg-static';
+import * as pathToFfmpeg from "ffmpeg-static";
 
 pathToFfmpeg; // $ExpectType string

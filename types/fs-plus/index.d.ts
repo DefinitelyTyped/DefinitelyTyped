@@ -59,7 +59,7 @@ export function isDirectorySync(directoryPath: string): boolean;
  */
 export function isDirectory(
     directoryPath: string,
-    callback: (result: boolean) => void
+    callback: (result: boolean) => void,
 ): void;
 
 /**
@@ -77,7 +77,7 @@ export function isSymbolicLinkSync(symlinkPath: string): boolean;
  */
 export function isSymbolicLink(
     symlinkPath: string,
-    callback: (result: boolean) => void
+    callback: (result: boolean) => void,
 ): void;
 
 /**
@@ -100,7 +100,7 @@ export function listSync(rootPath: string, extensions?: string[]): string[];
  */
 export function list(
     rootPath: string,
-    callback: (err: Error, result: string[]) => void
+    callback: (err: Error, result: string[]) => void,
 ): void;
 
 /**
@@ -109,7 +109,7 @@ export function list(
 export function list(
     rootPath: string,
     extensions: string[],
-    callback: (err: Error, result: string[]) => void
+    callback: (err: Error, result: string[]) => void,
 ): void;
 
 /**
@@ -128,7 +128,7 @@ export function moveSync(source: string, target: string): void;
 export function move(
     source: string,
     target: string,
-    callback: (err: Error) => void
+    callback: (err: Error) => void,
 ): void;
 
 /**
@@ -141,7 +141,7 @@ export function removeSync(pathToRemove: string): void;
  */
 export function remove(
     pathToRemove: string,
-    callback: (err: Error) => void
+    callback: (err: Error) => void,
 ): void;
 
 /**
@@ -153,7 +153,7 @@ export function writeFileSync(
     options?:
         | { encoding?: string | null | undefined; mode?: number | string | undefined; flag?: string | undefined }
         | string
-        | null
+        | null,
 ): void;
 
 /**
@@ -162,7 +162,7 @@ export function writeFileSync(
 export function writeFile(
     filePath: string,
     content: any,
-    callback: (err: any) => void
+    callback: (err: any) => void,
 ): void;
 
 /**
@@ -176,7 +176,7 @@ export function writeFile(
         | string
         | undefined
         | null,
-    callback: (err: any) => void
+    callback: (err: any) => void,
 ): void;
 
 /**
@@ -190,7 +190,7 @@ export function copySync(source: string, target: string): void;
 export function copy(
     source: string,
     target: string,
-    callback: (err: any) => void
+    callback: (err: any) => void,
 ): void;
 
 /**
@@ -199,7 +199,7 @@ export function copy(
 export function copyFileSync(
     source: string,
     target: string,
-    bufferSize?: number
+    bufferSize?: number,
 ): void;
 
 /**
@@ -212,7 +212,7 @@ export function makeTreeSync(directoryPath: string): void;
  */
 export function makeTree(
     directoryPath: string,
-    callback: (err: any) => void
+    callback: (err: any) => void,
 ): void;
 
 /**
@@ -221,7 +221,7 @@ export function makeTree(
 export function traverseTreeSync(
     rootPath: string,
     onFile: (file: string) => void,
-    onDirectory: (dir: string) => boolean | void
+    onDirectory: (dir: string) => boolean | void,
 ): void;
 
 /**
@@ -231,7 +231,7 @@ export function traverseTree(
     rootPath: string,
     onFile: (file: string) => void,
     onDirectory: (dir: string) => boolean | void,
-    onDone: (err: any) => void
+    onDone: (err: any) => void,
 ): void;
 
 /**
@@ -245,7 +245,7 @@ export function md5ForPath(pathToDigest: string): string;
 export function resolve(
     loadPath: string,
     pathToResolve: string,
-    extensions?: string[]
+    extensions?: string[],
 ): string | undefined;
 
 /**
@@ -253,7 +253,7 @@ export function resolve(
  */
 export function resolveOnLoadPath(
     pathToResolve: string,
-    extensions?: string[]
+    extensions?: string[],
 ): string | undefined;
 
 /**
@@ -261,7 +261,7 @@ export function resolveOnLoadPath(
  */
 export function resolveExtension(
     pathToResolve: string,
-    extensions: string[]
+    extensions: string[],
 ): string | undefined;
 
 /**

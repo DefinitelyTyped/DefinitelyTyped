@@ -19,7 +19,7 @@ declare namespace FlatTypes {
     interface Flatten {
         <TTarget, TResult>(
             target: TTarget,
-            options?: FlattenOptions
+            options?: FlattenOptions,
         ): TResult;
 
         flatten: Flatten;
@@ -36,7 +36,7 @@ declare namespace FlatTypes {
     interface Unflatten {
         <TTarget, TResult>(
             target: TTarget,
-            options?: UnflattenOptions
+            options?: UnflattenOptions,
         ): TResult;
     }
 }

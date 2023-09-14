@@ -3,9 +3,9 @@
 // Definitions by: Kirill Nikitin <https://github.com/locke23rus>, Piotr Zdziarski <https://github.com/piotrzdziarski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
-export type SourceType = 'image' | 'video' | 'youtube' | null;
+export type SourceType = "image" | "video" | "youtube" | null;
 
 export interface VideoDimensions {
     width: number;

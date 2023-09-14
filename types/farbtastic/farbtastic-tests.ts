@@ -1,5 +1,3 @@
-
-
 var callback = () => {};
 var domNode = document.createElement("div");
 
@@ -17,7 +15,7 @@ $("#colorpicker").farbtastic();
 
 // Optional callback using a callback function
 $("#colorpicker").farbtastic(callback);
-$("#colourpicker").farbtastic(function (color) {
+$("#colourpicker").farbtastic(function(color) {
     console.log(typeof color === "string");
 });
 
@@ -61,13 +59,13 @@ $.farbtastic("#color", "#color");
 $("#colorpicker").farbtastic({
     callback: (color) => {
         console.log(color);
-    }
+    },
 });
 $.farbtastic(domNode, {
-    width: 500
+    width: 500,
 });
 $.farbtastic($("#color"), {
-    wheelWidth: 300
+    wheelWidth: 300,
 });
 $.farbtastic("#color", {});
 
@@ -99,4 +97,3 @@ $.farbtastic("#colorpicker")
     .linkTo(domNode)
     .setColor("#000000")
     .setHSL([0, 0, 0]);
-

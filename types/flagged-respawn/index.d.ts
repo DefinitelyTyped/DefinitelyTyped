@@ -10,13 +10,13 @@ export = flaggedRespawn;
 declare function flaggedRespawn(
     flags: string[],
     argv: string[],
-    callback: flaggedRespawn.Callback
+    callback: flaggedRespawn.Callback,
 ): void;
 declare function flaggedRespawn(
     flags: string[],
     argv: string[],
     forcedFlags: string | string[],
-    callback: flaggedRespawn.Callback
+    callback: flaggedRespawn.Callback,
 ): void;
 
 declare namespace flaggedRespawn {

@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Decorator } from 'final-form';
+import { Decorator } from "final-form";
 
 export interface FocusableInput {
-  name: string;
-  focus: () => void;
+    name: string;
+    focus: () => void;
 }
 
 export type GetInputs = () => FocusableInput[];
@@ -17,8 +17,8 @@ export type FindInput = (inputs: FocusableInput[], errors: object) => FocusableI
 
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 export default function createDecorator<FormValues = object, InitialFormValues = object>(
-  getInputs?: GetInputs,
-  findInput?: FindInput,
+    getInputs?: GetInputs,
+    findInput?: FindInput,
 ): Decorator<FormValues, InitialFormValues>;
 /* eslint-enable @definitelytyped/no-unnecessary-generics */
 

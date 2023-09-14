@@ -1,26 +1,27 @@
 let viewer: Autodesk.Viewing.GuiViewer3D;
 const options = {
-    env: 'AutodeskProduction',
-    api: 'derivativeV2',  // for models uploaded to EMEA change this option to 'derivativeV2_EU'
-    accessToken: ''
+    env: "AutodeskProduction",
+    api: "derivativeV2", // for models uploaded to EMEA change this option to 'derivativeV2_EU'
+    accessToken: "",
 };
 
 Autodesk.Viewing.Initializer(options, async () => {
-    const htmlDiv = document.getElementById('forgeViewer');
-    if (!htmlDiv)
+    const htmlDiv = document.getElementById("forgeViewer");
+    if (!htmlDiv) {
         return;
+    }
 
     viewer = new Autodesk.Viewing.GuiViewer3D(htmlDiv);
     const startedCode = viewer.start();
     if (startedCode > 0) {
-        console.error('Failed to create a Viewer: WebGL not supported.');
+        console.error("Failed to create a Viewer: WebGL not supported.");
         return;
     }
     if (!viewer.running) {
-        console.error('Failed to run a Viewer');
+        console.error("Failed to run a Viewer");
         return;
     }
-    const documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ';
+    const documentId = "urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ";
     const doc = await loadDocument(documentId);
 
     await doc.downloadAecModelData();
@@ -65,7 +66,7 @@ Autodesk.Viewing.Initializer(options, async () => {
 });
 
 function globalTests(): void {
-    const urn = 'urn:adsk.wipdm:fs.file:vf.vSenZnaYQAOAZqzHB54kLQ?version=1';
+    const urn = "urn:adsk.wipdm:fs.file:vf.vSenZnaYQAOAZqzHB54kLQ?version=1";
     const urnBase64 = Autodesk.Viewing.toUrlSafeBase64(urn);
 
     // $ExpectType string
@@ -74,7 +75,9 @@ function globalTests(): void {
 
 function bubbleNodeTests(model: Autodesk.Viewing.Model): void {
     // $ExpectType string
-    const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn('dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI');
+    const lineageUrn = Autodesk.Viewing.BubbleNode.parseLineageUrnFromEncodedUrn(
+        "dXJuOmFkc2sud2lwc3RnOmZzLmZpbGU6dmYuM3Q4QlBZQXJSSkNpZkFZUnhOSnM0QT92ZXJzaW9uPTI",
+    );
     const node: Autodesk.Viewing.BubbleNode = model.getDocumentNode();
 
     // $ExpectType string
@@ -139,12 +142,10 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
         });
 
         model.getBulkProperties(ids, {
-            propFilter: ["Name"]
-        },
-            (propResults) => {
-                resolve(propResults);
-            }
-        );
+            propFilter: ["Name"],
+        }, (propResults) => {
+            resolve(propResults);
+        });
     });
     // $ExpectType string | null
     propResults[0].properties[0].units;
@@ -153,7 +154,7 @@ async function bulkPropertiesTests(model: Autodesk.Viewing.Model): Promise<void>
 }
 
 async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    await viewer.loadExtension('Autodesk.CompGeom');
+    await viewer.loadExtension("Autodesk.CompGeom");
     const pln = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
     Autodesk.Extensions.CompGeom.makePlaneBasis(pln);
@@ -166,7 +167,7 @@ async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void
         dx,
         dy,
         length,
-        length2: length * length
+        length2: length * length,
     };
 
     // $ExpectType boolean
@@ -174,22 +175,26 @@ async function compGeomTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void
 }
 
 async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
+    const ext = await viewer.loadExtension("Autodesk.DataVisualization") as Autodesk.Extensions.DataVisualization;
     const heatmapData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
-    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('level');
-    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room1', 2120);
+    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup("level");
+    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode("room1", 2120);
 
-    room1.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
+    room1.addPoint(
+        new Autodesk.DataVisualization.Core.SurfaceShadingPoint("sensor1", { x: 10, y: 10, z: 0 }, ["temperature"]),
+    );
     level.addChild(room1);
-    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room2', 2121);
+    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode("room2", 2121);
 
-    room2.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
+    room2.addPoint(
+        new Autodesk.DataVisualization.Core.SurfaceShadingPoint("sensor2", { x: 20, y: 20, z: 0 }, ["temperature"]),
+    );
     level.addChild(room2);
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData);
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
-        alpha: 0.7
+    ext.registerSurfaceShadingColors("temperature", [0xff0000, 0x0000ff], {
+        alpha: 0.7,
     });
 
     const getSensorValue = (device: any, sensorType: any) => {
@@ -198,28 +203,32 @@ async function dataVizTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
         return value;
     };
 
-    ext.renderSurfaceShading('level', 'temperature', getSensorValue);
+    ext.renderSurfaceShading("level", "temperature", getSensorValue);
 }
 
 async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
+    const ext = await viewer.loadExtension("Autodesk.DataVisualization") as Autodesk.Extensions.DataVisualization;
     const heatmapData = new Autodesk.DataVisualization.Core.SurfaceShadingData();
-    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup('level');
-    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room1', 2120);
+    const level = new Autodesk.DataVisualization.Core.SurfaceShadingGroup("level");
+    const room1 = new Autodesk.DataVisualization.Core.SurfaceShadingNode("room1", 2120);
 
-    room1.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor1', { x: 10, y: 10, z: 0 }, [ 'temperature' ]));
+    room1.addPoint(
+        new Autodesk.DataVisualization.Core.SurfaceShadingPoint("sensor1", { x: 10, y: 10, z: 0 }, ["temperature"]),
+    );
     level.addChild(room1);
-    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode('room2', 2121);
+    const room2 = new Autodesk.DataVisualization.Core.SurfaceShadingNode("room2", 2121);
 
-    room2.addPoint(new Autodesk.DataVisualization.Core.SurfaceShadingPoint('sensor2', { x: 20, y: 20, z: 0 }, [ 'temperature' ]));
+    room2.addPoint(
+        new Autodesk.DataVisualization.Core.SurfaceShadingPoint("sensor2", { x: 20, y: 20, z: 0 }, ["temperature"]),
+    );
     level.addChild(room2);
     heatmapData.addChild(level);
     heatmapData.initialize(viewer.model);
     await ext.setupSurfaceShading(viewer.model, heatmapData, {
-        type: 'PlanarHeatmap'
+        type: "PlanarHeatmap",
     });
-    ext.registerSurfaceShadingColors('temperature', [ 0xff0000, 0x0000ff ], {
-        alpha: 0.7
+    ext.registerSurfaceShadingColors("temperature", [0xff0000, 0x0000ff], {
+        alpha: 0.7,
     });
 
     const getSensorValue = (device: any, sensorType: any) => {
@@ -228,7 +237,7 @@ async function dataVizPlanarTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise
         return value;
     };
 
-    ext.renderSurfaceShading('level', 'temperature', getSensorValue);
+    ext.renderSurfaceShading("level", "temperature", getSensorValue);
 }
 
 function instanceTreeTests(model: Autodesk.Viewing.Model): void {
@@ -267,8 +276,12 @@ function modelStructurePanelTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 }
 
 async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Viewing.PixelCompare') as Autodesk.Extensions.PixelCompare.PixelCompare;
-    const secondDoc = await loadDocument('urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0');
+    const ext = await viewer.loadExtension(
+        "Autodesk.Viewing.PixelCompare",
+    ) as Autodesk.Extensions.PixelCompare.PixelCompare;
+    const secondDoc = await loadDocument(
+        "urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LW90aGVyLWZvcmdlLWZpbGUucnZ0",
+    );
     const viewable = secondDoc.getRoot().getDefaultGeometry();
     const secondaryModel = await viewer.loadDocumentNode(secondDoc, viewable, { keepCurrentModels: true });
     const mainModel = viewer.model;
@@ -395,7 +408,7 @@ function propertyDbTests(model: Autodesk.Viewing.Model): Promise<void> {
 
 async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        viewer.model.getProperties2([ 2120, 2121 ], (results) => {
+        viewer.model.getProperties2([2120, 2121], (results) => {
             resolve();
         }, (err) => {
             reject(err);
@@ -404,7 +417,7 @@ async function propertyTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void
 }
 
 async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Edit2D') as Autodesk.Extensions.Edit2D;
+    const ext = await viewer.loadExtension("Autodesk.Edit2D") as Autodesk.Extensions.Edit2D;
 
     ext.registerDefaultTools();
     // activate polygon tool
@@ -427,9 +440,17 @@ async function edit2DTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> 
     rectOne.addPoint(1, -2);
     rectOne.addPoint(1, 2);
     // calculate results
-    const resIntersect = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Intersect);
+    const resIntersect = Autodesk.Edit2D.BooleanOps.apply(
+        rectOne,
+        rectTwo,
+        Autodesk.Edit2D.BooleanOps.Operator.Intersect,
+    );
     const resUnion = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Union);
-    const resDifference = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Difference);
+    const resDifference = Autodesk.Edit2D.BooleanOps.apply(
+        rectOne,
+        rectTwo,
+        Autodesk.Edit2D.BooleanOps.Operator.Difference,
+    );
     const resXor = Autodesk.Edit2D.BooleanOps.apply(rectOne, rectTwo, Autodesk.Edit2D.BooleanOps.Operator.Xor);
 }
 
@@ -460,7 +481,7 @@ function formattingTests(): void {
 }
 
 async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Measure') as Autodesk.Extensions.Measure.MeasureExtension;
+    const ext = await viewer.loadExtension("Autodesk.Measure") as Autodesk.Extensions.Measure.MeasureExtension;
 
     // $ExpectType string
     ext.getName();
@@ -470,8 +491,8 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
         // $ExpectType boolean
         ext.isActive(m);
     });
-    ext.sharedMeasureConfig.units = 'in';
-    ext.calibrateByScale('in', 0.0254);
+    ext.sharedMeasureConfig.units = "in";
+    ext.calibrateByScale("in", 0.0254);
     const m = ext.getMeasurementList();
 
     ext.deleteMeasurements();
@@ -479,7 +500,9 @@ async function measureTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void>
 }
 
 async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.Multipage') as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
+    const ext = await viewer.loadExtension(
+        "Autodesk.Multipage",
+    ) as Autodesk.Viewing.Extensions.Multipage.MultipageExtension;
 
     // $ExpectType any[]
     ext.getAllPages();
@@ -495,7 +518,7 @@ async function multipageTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<voi
 
 async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number[]> {
     return new Promise<number[]>((resolve, reject) => {
-        viewer.model.search('text', (dbIds) => {
+        viewer.model.search("text", (dbIds) => {
             resolve(dbIds);
         }, (err) => {
             reject(err);
@@ -509,16 +532,16 @@ function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
 }
 
 async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.DataVisualization') as Autodesk.Extensions.DataVisualization;
-    const points = [ 10, 10, 10, 20, 20, 20, 30, 30, 30 ];
+    const ext = await viewer.loadExtension("Autodesk.DataVisualization") as Autodesk.Extensions.DataVisualization;
+    const points = [10, 10, 10, 20, 20, 20, 30, 30, 30];
     const builder = ext.streamLineBuilder;
     const streamLine = builder.createStreamLine({
         lineWidth: 8.0,
         lineColor: new THREE.Color(0xff0080),
         opacity: 1.0,
         lineData: {
-            points: new Float32Array(points)
-        }
+            points: new Float32Array(points),
+        },
     });
 
     streamLine.advance({ x: 10.0, y: 10.0, z: 10.0 });
@@ -526,13 +549,13 @@ async function streamLineTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<vo
 }
 
 async function stringExtractorTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.StringExtractor') as Autodesk.Extensions.StringExtractor;
+    const ext = await viewer.loadExtension("Autodesk.StringExtractor") as Autodesk.Extensions.StringExtractor;
 
     const strings = await ext.getDocumentStrings();
 }
 
 async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
-    const ext = await viewer.loadExtension('Autodesk.VisualClusters') as Autodesk.Extensions.VisualClusters;
+    const ext = await viewer.loadExtension("Autodesk.VisualClusters") as Autodesk.Extensions.VisualClusters;
 
     await ext.setLayoutActive(true);
     ext.reset();
@@ -562,11 +585,13 @@ function checkColorEquals() {
 
     color1.equals(color2); // $ExpectType boolean
 
-    if (!color1.equals(color2))
+    if (!color1.equals(color2)) {
         throw new Error("Colors must be equal");
+    }
 
-    if (color1.equals(color3))
+    if (color1.equals(color3)) {
         throw new Error("Colors must not be equal");
+    }
 }
 
 function checkColorGetHexString() {
@@ -574,8 +599,9 @@ function checkColorGetHexString() {
 
     color.getHexString(); // $ExpectType string
 
-    if (color.getHexString() !== "805827")
+    if (color.getHexString() !== "805827") {
         throw new Error("Failed to get color hex string");
+    }
 }
 
 function checkColorAsMaterialCreationParameter() {
@@ -587,12 +613,13 @@ function checkColorAsMaterialCreationParameter() {
         new THREE.LineDashedMaterial({ color }),
         new THREE.MeshLambertMaterial({ color }),
         new THREE.MeshPhongMaterial({ color }),
-        new THREE.MeshStandardMaterial({ color })
+        new THREE.MeshStandardMaterial({ color }),
     ];
 
     for (const material of materials) {
-        if (!material.color.equals(color))
+        if (!material.color.equals(color)) {
             throw new Error("Failed to instantiate material with color object");
+        }
     }
 }
 
@@ -601,8 +628,9 @@ function checkMeshAllowsBufferGeometry() {
     const boxMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000" });
     const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
 
-    if (!(boxMesh.geometry instanceof THREE.BufferGeometry))
+    if (!(boxMesh.geometry instanceof THREE.BufferGeometry)) {
         throw new Error("Mesh geometry is not a BufferGeometry!");
+    }
 }
 
 function matrixSetPositionTest(): void {
@@ -618,16 +646,19 @@ function selectionTests(viewer: Autodesk.Viewing.GuiViewer3D) {
 
     const aggregateSelection = viewer.getAggregateSelection();
 
-    if (aggregateSelection.length !== 1)
+    if (aggregateSelection.length !== 1) {
         throw new Error("Should return exactly one object");
+    }
 
     const selection = aggregateSelection[0];
 
-    if (selection.model !== viewer.model)
+    if (selection.model !== viewer.model) {
         throw new Error("Selection model differs from viewer model");
+    }
 
-    if (selection.selection.length !== 1 || selection.selection[0] !== rootId)
+    if (selection.selection.length !== 1 || selection.selection[0] !== rootId) {
         throw new Error("Something is wron with aggregate selection!");
+    }
 
     viewer.select([]);
 }

@@ -19,5 +19,5 @@ interface FakeDiffOptions {
 declare function fakeDiff(
     previous: string,
     next: string,
-    options?: FakeDiffOptions
+    options?: FakeDiffOptions,
 ): string;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace getInfo {
-    type FFProbeBoolean = '0' | '1';
+    type FFProbeBoolean = "0" | "1";
 
     interface BaseSideData {
         side_data_type: string;
@@ -15,7 +15,7 @@ declare namespace getInfo {
          * Based on the C code related to the default side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2298}
          */
-        side_data_type: 'unknown';
+        side_data_type: "unknown";
     }
 
     interface DisplayMatrixSideData extends BaseSideData {
@@ -23,7 +23,7 @@ declare namespace getInfo {
          * Based on the C code related to Display Matrix side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2300-L2304}
          */
-        side_data_type: 'Display Matrix';
+        side_data_type: "Display Matrix";
         /**
          * Mismatches the type linked earlier because ffprobe JSON output
          * reads the printed integers for the display matrix as a string
@@ -37,21 +37,21 @@ declare namespace getInfo {
          * Based on the C code related to Stereo 3D side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2306-L2308}
          */
-        side_data_type: 'Stereo 3D';
+        side_data_type: "Stereo 3D";
         /**
          * Based on the C code of the libauvutil stereo3d file
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/libavutil/stereo3d.c#L47-L56}
          */
         type:
-            | 'unknown'
-            | '2D'
-            | 'side by side'
-            | 'top and bottom'
-            | 'frame alternate'
-            | 'checkerboard'
-            | 'side by side (quincunx subsampling)'
-            | 'interleaved lines'
-            | 'interleaved columns';
+            | "unknown"
+            | "2D"
+            | "side by side"
+            | "top and bottom"
+            | "frame alternate"
+            | "checkerboard"
+            | "side by side (quincunx subsampling)"
+            | "interleaved lines"
+            | "interleaved columns";
         inverted: number;
     }
 
@@ -60,7 +60,7 @@ declare namespace getInfo {
          * Based on the C code related to Spherical Mapping side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2310-L2326}
          */
-        side_data_type: 'Spherical Mapping';
+        side_data_type: "Spherical Mapping";
         /**
          * Based on the C code of the libauvutil spherical file
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/libavutil/spherical.c#L55-L59}
@@ -72,15 +72,15 @@ declare namespace getInfo {
     }
 
     interface UnknownSphericalMappingSideData extends BaseSphericalMappingSideData {
-        projection: 'unknown';
+        projection: "unknown";
     }
 
     interface EquirectangularSphericalMappingSideData extends BaseSphericalMappingSideData {
-        projection: 'equirectangular';
+        projection: "equirectangular";
     }
 
     interface CubeMapSphericalMappingSideData extends BaseSphericalMappingSideData {
-        projection: 'cubemap';
+        projection: "cubemap";
         /**
          * Based on the C code related to Cube Map Spherical Mapping side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2313}
@@ -89,7 +89,7 @@ declare namespace getInfo {
     }
 
     interface TiltedEquirectangularSphericalMappingSideData extends BaseSphericalMappingSideData {
-        projection: 'tiled equirectangular';
+        projection: "tiled equirectangular";
         /**
          * Based on the C code related to Cube Map Spherical Mapping side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2315-L2321}
@@ -111,7 +111,7 @@ declare namespace getInfo {
          * Based on the C code related to Skip Samples side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2328-L2331}
          */
-        side_data_type: 'Skip Samples';
+        side_data_type: "Skip Samples";
         skip_samples: number;
         discard_padding: number;
         skip_reason: number;
@@ -123,7 +123,7 @@ declare namespace getInfo {
          * Based on the C code related to Mastering display metadata side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2333-L2350}
          */
-        side_data_type: 'Mastering display metadata';
+        side_data_type: "Mastering display metadata";
     }
 
     interface PrimariesMasteringDisplayMetadataSideData extends BaseMasteringDisplayMetadataSideData {
@@ -161,7 +161,7 @@ declare namespace getInfo {
          * Based on the C code related to Content light level metadata side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2352-L2354}
          */
-        side_data_type: 'Content light level metadata';
+        side_data_type: "Content light level metadata";
         max_content: number;
         max_average: number;
     }
@@ -171,7 +171,7 @@ declare namespace getInfo {
          * Based on the C code related to DOVI configuration record side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2356-L2364}
          */
-        side_data_type: 'DOVI configuration record';
+        side_data_type: "DOVI configuration record";
         dv_version_major: number;
         dv_version_minor: number;
         dv_profile: number;
@@ -187,7 +187,7 @@ declare namespace getInfo {
          * Based on the C code related to Audio Service Type side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2366-L2367}
          */
-        side_data_type: 'Audio Service Type';
+        side_data_type: "Audio Service Type";
         service_type: number;
     }
 
@@ -196,7 +196,7 @@ declare namespace getInfo {
          * Based on the C code related to MPEGTS Stream ID side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2369}
          */
-        side_data_type: 'MPEGTS Stream ID';
+        side_data_type: "MPEGTS Stream ID";
         id: number;
     }
 
@@ -205,7 +205,7 @@ declare namespace getInfo {
          * Based on the C code related to CPB properties side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2371-L2376}
          */
-        side_data_type: 'CPB properties';
+        side_data_type: "CPB properties";
         max_bitrate: number;
         min_bitrate: number;
         avg_bitrate: number;
@@ -218,7 +218,7 @@ declare namespace getInfo {
          * Based on the C code related to Webvtt side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2379-L2381}
          */
-        side_data_type: 'WebVTT ID' | 'WebVTT Settings';
+        side_data_type: "WebVTT ID" | "WebVTT Settings";
         data?: string | undefined;
         data_hash: string;
     }
@@ -228,7 +228,7 @@ declare namespace getInfo {
          * Based on the C code related to Active format description side data section
          * {@see https://github.com/FFmpeg/FFmpeg/blob/b37795688a9bfa6d5a2e9b2535c4b10ebc14ac5d/fftools/ffprobe.c#L2383}
          */
-        side_data_type: 'Active format description';
+        side_data_type: "Active format description";
         active_format?: number;
     }
 
@@ -262,7 +262,7 @@ declare namespace getInfo {
         codec_name?: string | undefined;
         codec_long_name?: string | undefined;
         profile?: string | undefined;
-        codec_type?: 'video' | 'audio' | 'images' | undefined;
+        codec_type?: "video" | "audio" | "images" | undefined;
         codec_time_base: string;
         codec_tag_string: string;
         codec_tag: string;

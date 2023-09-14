@@ -9,13 +9,13 @@
 
 declare namespace GM {
     interface PlatformInfo {
-        os: 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd' | 'fuchsia';
-        arch: 'arm' | 'x86-32' | 'x86-64';
+        os: "mac" | "win" | "android" | "cros" | "linux" | "openbsd" | "fuchsia";
+        arch: "arm" | "x86-32" | "x86-64";
     }
 
     interface BrowserInfo {
-        name: 'Firefox';
-        vendor: 'Mozilla';
+        name: "Firefox";
+        vendor: "Mozilla";
         version: string;
         buildID: string;
     }
@@ -29,7 +29,7 @@ declare namespace GM {
         excludes: string[];
         includeGlobs: string[];
         excludeGlobs: string[];
-        'run-at': 'document_start' | 'document_end' | 'document_idle';
+        "run-at": "document_start" | "document_end" | "document_idle";
         namespace: string | null;
         /**
          * An object keyed by resource name.
@@ -45,7 +45,7 @@ declare namespace GM {
         };
     }
     type Value = string | boolean | number | object;
-    type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'TRACE' | 'OPTIONS' | 'CONNECT';
+    type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "TRACE" | "OPTIONS" | "CONNECT";
     interface Headers {
         [header: string]: string;
     }
@@ -124,7 +124,7 @@ declare namespace GM {
         /** The redirect mode */
         redirect?: RequestRedirect;
         /** A USVString */
-        referrer?: 'no-referrer' | 'client' | URL;
+        referrer?: "no-referrer" | "client" | URL;
         /** Specifies the value of the referer HTTP header */
         referrerPolicy?: ReferrerPolicy;
         /** Contains the subresource integrity value of the request */
@@ -145,8 +145,8 @@ declare namespace GM {
         readonly ok: boolean;
         readonly redirected: boolean;
         readonly status: number;
-        readonly statusText: 'OK';
-        readonly type: 'basic';
+        readonly statusText: "OK";
+        readonly type: "basic";
         readonly url: URL;
 
         // plus one of the following properties based on responseType, if method is not HEAD
@@ -204,7 +204,7 @@ declare function cloneInto<T>(
     options?: { cloneFunctions?: boolean; wrapReflectors?: boolean },
 ): T;
 
-//#region GM3 style APIs
+// #region GM3 style APIs
 
 declare var GM: {
     /**
@@ -356,15 +356,15 @@ declare var GM: {
      */
     popup(options?: {
         type?:
-            | 'center'
-            | 'slide-left'
-            | 'slide-right'
-            | 'slide-top'
-            | 'slide-bottom'
-            | 'panel-left'
-            | 'panel-right'
-            | 'panel-top'
-            | 'panel-bottom';
+            | "center"
+            | "slide-left"
+            | "slide-right"
+            | "slide-top"
+            | "slide-bottom"
+            | "panel-left"
+            | "panel-right"
+            | "panel-top"
+            | "panel-bottom";
         modal?: boolean;
     }): {
         /** Can be used to add style to the popup */
@@ -427,9 +427,9 @@ declare var GM: {
     xmlHttpRequest(init: GM.XMLRequest): Promise<void>;
 };
 
-//#endregion
+// #endregion
 
-//#region GM4 style APIs
+// #region GM4 style APIs
 
 declare var GM_addElement: typeof GM.addElement;
 declare var GM_addScript: typeof GM.addScript;
@@ -487,4 +487,4 @@ declare function GM_getResourceText(resourceName: string): string | void;
  */
 declare function GM_getResourceUrl(resourceName: string): string | void;
 
-//#endregion
+// #endregion

@@ -1,13 +1,13 @@
-import { Index, Document } from 'flexsearch';
+import { Document, Index } from "flexsearch";
 
 import {
+    DOCUMENT_DATA,
+    DOCUMENT_REPLACE_DATA,
     INDEX_EN_DATA,
     INDEX_JA_DATA,
     INDEX_REPLACE_EN_DATA,
-    DOCUMENT_DATA,
-    DOCUMENT_REPLACE_DATA,
     TestDocument,
-} from './data';
+} from "./data";
 
 // 1. Index search
 
@@ -16,7 +16,7 @@ import {
 // 1.1.1 Build index
 // Document:
 // * https://github.com/nextapps-de/flexsearch#create-a-new-index
-const indexForSyncTest = new Index('performance');
+const indexForSyncTest = new Index("performance");
 
 // 1.1.2 Add or append data
 // Document:
@@ -28,14 +28,14 @@ INDEX_JA_DATA.map((x, id) => indexForSyncTest.append(id, x));
 // 1.1.3 Search items
 // Document:
 // * https://github.com/nextapps-de/flexsearch#search-items
-indexForSyncTest.search('no');
-indexForSyncTest.search('no', 1);
-indexForSyncTest.search('no', {
-    limit: 1
+indexForSyncTest.search("no");
+indexForSyncTest.search("no", 1);
+indexForSyncTest.search("no", {
+    limit: 1,
 });
 indexForSyncTest.search({
-    query: 'no',
-    limit: 1
+    query: "no",
+    limit: 1,
 });
 
 // 1.1.4 Contains index
@@ -56,8 +56,8 @@ indexForSyncTest.remove(1);
 // Document:
 // * https://github.com/nextapps-de/flexsearch#create-a-new-index
 const indexForAsyncTest = new Index({
-    preset: 'memory',
-    tokenize: 'forward',
+    preset: "memory",
+    tokenize: "forward",
     resolution: 5,
 });
 
@@ -71,14 +71,14 @@ INDEX_JA_DATA.map((x, id) => indexForAsyncTest.appendAsync(id, x));
 // 1.2.2 Search items
 // Document:
 // * https://github.com/nextapps-de/flexsearch#async
-indexForSyncTest.searchAsync('no');
-indexForSyncTest.searchAsync('no', 1);
-indexForSyncTest.searchAsync('no', {
-    limit: 1
+indexForSyncTest.searchAsync("no");
+indexForSyncTest.searchAsync("no", 1);
+indexForSyncTest.searchAsync("no", {
+    limit: 1,
 });
 indexForSyncTest.searchAsync({
-    query: 'no',
-    limit: 1
+    query: "no",
+    limit: 1,
 });
 
 // 1.2.3 Update and remove
@@ -97,8 +97,8 @@ indexForSyncTest.removeAsync(1);
 const documentForSyncTest = new Document(
     {
         document: {
-            id: 'id',
-            index: ['title', 'performer'],
+            id: "id",
+            index: ["title", "performer"],
         },
     },
     {} as unknown as TestDocument,
@@ -114,10 +114,10 @@ documentForSyncTest.remove(0);
 // 2.1.3 Search items
 // Document:
 // * https://github.com/nextapps-de/flexsearch#search-items
-documentForSyncTest.search('no');
-documentForSyncTest.search('no', 1);
-documentForSyncTest.search('no', ['title']);
-documentForSyncTest.search('no', { index: 'title' });
+documentForSyncTest.search("no");
+documentForSyncTest.search("no", 1);
+documentForSyncTest.search("no", ["title"]);
+documentForSyncTest.search("no", { index: "title" });
 
 // 2.2 ASync Operation
 
@@ -127,8 +127,8 @@ documentForSyncTest.search('no', { index: 'title' });
 const documentForAsyncTest = new Document(
     {
         document: {
-            id: 'id',
-            index: ['title', 'performer'],
+            id: "id",
+            index: ["title", "performer"],
         },
     },
     {} as unknown as TestDocument,
@@ -144,7 +144,7 @@ documentForAsyncTest.removeAsync(0);
 // 2.2.3 Search items
 // Document:
 // * https://github.com/nextapps-de/flexsearch#async
-documentForAsyncTest.searchAsync('no');
-documentForAsyncTest.searchAsync('no', 1);
-documentForAsyncTest.searchAsync('no', ['title']);
-documentForAsyncTest.searchAsync('no', { index: 'title' });
+documentForAsyncTest.searchAsync("no");
+documentForAsyncTest.searchAsync("no", 1);
+documentForAsyncTest.searchAsync("no", ["title"]);
+documentForAsyncTest.searchAsync("no", { index: "title" });
