@@ -28,6 +28,9 @@ declare namespace bindings {
         version?: string | undefined;
         /** @default 'bindings.node' */
         bindings?: string | undefined;
+        /* @default exports.getRoot(exports.getFileName()) */
+        module_root?: string | undefined;
+        /* @default (build/|out/)?(Debug|Release|default) and others */
         try?: ReadonlyArray<ReadonlyArray<string>> | undefined;
     }
 
