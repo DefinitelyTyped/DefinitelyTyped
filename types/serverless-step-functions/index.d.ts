@@ -3,27 +3,49 @@
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 
+import { AwsResourceDependsOn, AwsResourceTags } from "@serverless/typescript";
+
 /**
  * Types for serverless-step-functions plugin for Serverless Framework.
- *
- * To make this type available in your serverless.ts file, you can use
- * module augmentation to extend existing types from @serverless/typescript.
- * Add the following to your serverless.ts file:
+ * This package uses module augmentation to extend the existing types
+ * from @serverless/typescript.
  *
  * ```
  * import type { AWS } from '@serverless/typescript';
- * import type { StepFunctions } from 'serverless-step-functions';
  *
- * declare module '@serverless/typescript' {
- *   interface AWS {
- *     stepFunctions?: StepFunctions;
+ * const serverlessConfiguration: AWS = {
+ *   service: 'aws-nodejs-typescript',
+ *   frameworkVersion: '*',
+ *   provider: {
+ *     name: 'aws',
+ *     runtime: 'nodejs12.x',
+ *   },
+ *   stepFunctions: {
+ *     stateMachines: {
+ *       helloWorldStepFunction: {
+ *         name: '${self:service}-helloWorldStepFunction-${sls:stage}',
+ *         definition: {
+ *           // <your definition>
+ *         }
+ *       }
+ *     }
  *   }
  * }
  * ```
  * @see https://github.com/serverless/typescript
  * @see https://github.com/serverless-operations/serverless-step-functions
- * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
+
+declare module '@serverless/typescript' {
+    interface AWS {
+        stepFunctions?: {
+            stateMachines: StateMachines;
+            validate?: boolean;
+            noOutput?: boolean;
+        };
+    }
+}
+
 declare module 'serverless-step-functions' {
     interface StepFunctions {
         stateMachines: StateMachines;
@@ -44,7 +66,8 @@ export type StateMachine = {
     tracingConfig?: TracingConfig;
     loggingConfig?: LoggingConfig;
     events?: any[];
-    dependsOn?: string | string[];
+    dependsOn?: AwsResourceDependsOn;
+    tags?: AwsResourceTags;
 };
 
 type LoggingConfig = {
