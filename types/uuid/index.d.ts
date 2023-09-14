@@ -55,9 +55,9 @@ type v3Buffer = <T extends OutputBuffer>(
     offset?: number,
 ) => T;
 interface v3Static {
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L16
     DNS: string;
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L23
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L17
     URL: string;
 }
 type v3 = v3Buffer & v3String & v3Static;
@@ -70,9 +70,9 @@ type v5Buffer = <T extends OutputBuffer>(
     offset?: number,
 ) => T;
 interface v5Static {
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L16
     DNS: string;
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L23
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L17
     URL: string;
 }
 type v5 = v5Buffer & v5String & v5Static;
