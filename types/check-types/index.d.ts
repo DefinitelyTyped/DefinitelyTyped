@@ -50,6 +50,7 @@ type CheckTypePredicates = Pick<
     | "date"
     | "function"
     | "hasLength"
+    | "containsKey"
 >;
 
 interface ArrayFunction {
@@ -95,6 +96,7 @@ interface CheckType {
     assigned(a: any): boolean;
     primitive(a: any): a is number | string | boolean | null | undefined | symbol;
     hasLength(a: any, length: number): boolean;
+    containsKey(a: any, key: any): boolean;
 
     /* String predicates */
 
