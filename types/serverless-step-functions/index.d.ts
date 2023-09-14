@@ -2,6 +2,7 @@
 // Project: https://github.com/serverless-operations/serverless-step-functions
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import type { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
 
 /**
