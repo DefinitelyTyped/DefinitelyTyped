@@ -3,7 +3,7 @@
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 
-import { AwsResourceDependsOn, AwsResourceTags } from "@serverless/typescript";
+import { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
 
 /**
  * Types for serverless-step-functions plugin for Serverless Framework.
