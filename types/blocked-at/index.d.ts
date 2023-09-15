@@ -15,22 +15,25 @@
 
 export = blockedAt;
 
-declare function blockedAt(fn: (time: number, stack: string[], resource: blockedAt.Resource) => unknown, options?: blockedAt.Options): blockedAt.Return;
+declare function blockedAt(
+    fn: (time: number, stack: string[], resource: blockedAt.Resource) => unknown,
+    options?: blockedAt.Options,
+): blockedAt.Return;
 
 declare namespace blockedAt {
-  interface Options {
-    trimFalsePositives?: boolean | undefined;
-    threshold?: number | undefined;
-    resourcesCap?: number | undefined;
-    debug?: boolean | undefined;
-  }
+    interface Options {
+        trimFalsePositives?: boolean | undefined;
+        threshold?: number | undefined;
+        resourcesCap?: number | undefined;
+        debug?: boolean | undefined;
+    }
 
-  interface Resource {
-    type: string;
-    resource?: any;
-  }
+    interface Resource {
+        type: string;
+        resource?: any;
+    }
 
-  interface Return {
-    stop: () => void;
-  }
+    interface Return {
+        stop: () => void;
+    }
 }

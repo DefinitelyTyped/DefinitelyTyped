@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
-import { Readable, Writable } from 'stream';
+import { IncomingHttpHeaders } from "http";
+import { Readable, Writable } from "stream";
 
 declare namespace busboy {
     interface Limits {

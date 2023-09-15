@@ -37,7 +37,11 @@ declare class BeanstalkdWorker {
      * @param payload The message payload.
      * @param options The options for the new job.
      */
-    spawn(tube: string, payload: object, options?: BeanstalkdWorker.BeanstalkdSpawnOptions): Promise<BeanstalkdWorker.Job>;
+    spawn(
+        tube: string,
+        payload: object,
+        options?: BeanstalkdWorker.BeanstalkdSpawnOptions,
+    ): Promise<BeanstalkdWorker.Job>;
 
     /**
      * Handle jobs from given Tube.
@@ -46,7 +50,11 @@ declare class BeanstalkdWorker {
      * @param handler The callback for handling jobs.
      * @param options The options for the handler.
      */
-    handle(tube: string, handler: BeanstalkdWorker.TubeHandler, options?: BeanstalkdWorker.BeanstalkdHandleOptions): void;
+    handle(
+        tube: string,
+        handler: BeanstalkdWorker.TubeHandler,
+        options?: BeanstalkdWorker.BeanstalkdHandleOptions,
+    ): void;
 
     /**
      * Creates a new Job representation.
