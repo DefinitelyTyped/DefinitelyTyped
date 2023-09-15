@@ -96,7 +96,7 @@ const createWorkingLocationEvent = (): void => {
             date: "2023-09-25"
         },
         end: {
-            date: "2023 -09 - 26"
+            date: "2023-09-26"
         },
     };
     event = Calendar.Events.insert(event, calendarId);
