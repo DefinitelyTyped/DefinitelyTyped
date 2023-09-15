@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "target": "es2020",
+        "lib": ["es2020"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
