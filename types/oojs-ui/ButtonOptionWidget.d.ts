@@ -16,30 +16,34 @@ declare namespace OO.ui {
         interface EventMap extends OptionWidget.EventMap, mixin.ButtonElement.EventMap {}
 
         interface ConfigOptions
-            extends OptionWidget.ConfigOptions,
+            extends
+                OptionWidget.ConfigOptions,
                 mixin.ButtonElement.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
-                mixin.IndicatorElement.ConfigOptions {
+                mixin.IndicatorElement.ConfigOptions
+        {
             flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
         }
 
         interface Static
-            extends OptionWidget.Static,
+            extends
+                OptionWidget.Static,
                 mixin.ButtonElement.Static,
                 mixin.IconElement.Static,
-                mixin.IndicatorElement.Static {}
+                mixin.IndicatorElement.Static
+        {}
 
         interface Props
-            extends OptionWidget.Props,
-                mixin.ButtonElement.Props,
-                mixin.IconElement.Props,
-                mixin.IndicatorElement.Props {}
+            extends OptionWidget.Props, mixin.ButtonElement.Props, mixin.IconElement.Props, mixin.IndicatorElement.Props
+        {}
 
         interface Prototype
-            extends OptionWidget.Prototype,
+            extends
+                OptionWidget.Prototype,
                 mixin.ButtonElement.Prototype,
                 mixin.IconElement.Prototype,
-                mixin.IndicatorElement.Prototype {
+                mixin.IndicatorElement.Prototype
+        {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -79,19 +83,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ButtonOptionWidget;
+            new(config?: ConfigOptions): ButtonOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

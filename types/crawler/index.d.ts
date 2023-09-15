@@ -8,16 +8,16 @@
 
 /// <reference types="cheerio" />
 
-import { EventEmitter } from 'events';
-import { Url } from 'url';
+import { EventEmitter } from "events";
+import { Url } from "url";
 
 declare class Crawler extends EventEmitter {
     constructor(options: Crawler.CreateCrawlerOptions);
     readonly queueSize: number;
 
-    on(channel: 'schedule' | 'request', listener: (options: Crawler.CrawlerRequestOptions) => void): this;
-    on(channel: 'limiterChange', listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
-    on(channel: 'drain', listener: () => void): this;
+    on(channel: "schedule" | "request", listener: (options: Crawler.CrawlerRequestOptions) => void): this;
+    on(channel: "limiterChange", listener: (options: Crawler.CrawlerRequestOptions, limiter: string) => void): this;
+    on(channel: "drain", listener: () => void): this;
 
     queue(
         urisOrOptions:
@@ -28,7 +28,7 @@ declare class Crawler extends EventEmitter {
     ): void;
 
     direct(
-        options: Omit<Crawler.CrawlerRequestOptions, 'callback'> & {
+        options: Omit<Crawler.CrawlerRequestOptions, "callback"> & {
             callback: (error: Error, response: Crawler.CrawlerRequestResponse) => void;
         },
     ): void;

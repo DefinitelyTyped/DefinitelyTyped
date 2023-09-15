@@ -4,4 +4,4 @@ import tableCellStyle = require('@mapbox/hast-util-table-cell-style');
 tableCellStyle({ type: 'root', children: [] });
 
 // $ExpectType Element
-tableCellStyle({ type: 'element', tagName: 'div', children: [] });
+tableCellStyle({ type: 'element', tagName: 'div', properties: {}, children: [] });

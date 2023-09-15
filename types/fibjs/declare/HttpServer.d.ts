@@ -31,7 +31,6 @@ declare class Class_HttpServer extends Class_TcpServer {
      * @brief 查询和设置是否允强制使用 gzip 压缩输出，缺省为 false
      *
      *
-     * @type Boolean
      */
 
     forceGZIP: boolean
@@ -93,8 +92,6 @@ declare class Class_HttpServer extends Class_TcpServer {
      * ```
      *
      *
-     * @readonly
-     * @type Stats
      */
 
     httpStats: Class_Stats

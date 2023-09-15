@@ -7,18 +7,18 @@ import {
     Texture,
     TextureEncoding,
     WebGLRenderTarget,
-} from '../../../../src/Three';
-import FogNode from '../fog/FogNode';
-import LightsNode from '../lighting/LightsNode';
-import { nodeObject } from '../Nodes';
-import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants';
-import Node from './Node';
-import NodeAttribute from './NodeAttribute';
-import NodeCache from './NodeCache';
-import NodeParser from './NodeParser';
-import NodeUniform from './NodeUniform';
-import NodeVar from './NodeVar';
-import NodeVarying from './NodeVarying';
+} from '../../../../src/Three.js';
+import FogNode from '../fog/FogNode.js';
+import LightsNode from '../lighting/LightsNode.js';
+import { nodeObject } from '../Nodes.js';
+import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants.js';
+import Node from './Node.js';
+import NodeAttribute from './NodeAttribute.js';
+import NodeCache from './NodeCache.js';
+import NodeParser from './NodeParser.js';
+import NodeUniform from './NodeUniform.js';
+import NodeVar from './NodeVar.js';
+import NodeVarying from './NodeVarying.js';
 
 export type BuildStageOption = 'construct' | 'analyze' | 'generate';
 
@@ -106,7 +106,7 @@ export default abstract class NodeBuilder {
     getVectorFromMatrix(type: NodeTypeOption): NodeTypeOption;
     getDataFromNode(node: Node, shaderStage?: NodeShaderStageOption): NodeData;
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
-    getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
+    getUniformFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeUniform;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
     getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;

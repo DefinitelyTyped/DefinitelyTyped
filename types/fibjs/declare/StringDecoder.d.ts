@@ -55,7 +55,6 @@ declare class Class_StringDecoder extends Class__object {
      * @brief 内部使用。
      *
      *
-     * @type Buffer
      */
 
     lastChar: Class_Buffer

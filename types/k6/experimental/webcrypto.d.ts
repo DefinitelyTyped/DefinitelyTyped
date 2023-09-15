@@ -17,7 +17,6 @@ export interface Crypto extends SubtleCrypto {
     /**
      * Fills the passed TypedArray with cryptographically sound random values.
      *
-     *
      * @param typedArray - The TypedArray to fill with random values.
      * @throws {QuotaExceededError} - thrown if the `byteLength` of `typedArray` exceeds 65536.
      * @returns The typedArray argument.
@@ -46,7 +45,7 @@ export interface SubtleCrypto {
     decrypt(
         algorithm: AesCtrParams | AesCbcParams | AesGcmParams,
         key: CryptoKey,
-        data: ArrayBuffer | ArrayBufferView | DataView
+        data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
 
     /**
@@ -67,7 +66,7 @@ export interface SubtleCrypto {
      */
     digest(
         algorithm: HashAlgorithmIdentifier | Algorithm<HashAlgorithmIdentifier>,
-        data: ArrayBuffer | ArrayBufferView | DataView
+        data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
 
     /**
@@ -83,7 +82,7 @@ export interface SubtleCrypto {
     encrypt(
         algorithm: AesCtrParams | AesCbcParams | AesGcmParams,
         key: CryptoKey,
-        data: ArrayBuffer | ArrayBufferView | DataView
+        data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
 
     /**
@@ -99,10 +98,7 @@ export interface SubtleCrypto {
      * @throws {TypeError} - when trying to use an invalid format.
      * @returns A promise that resolves with the exported key.
      */
-    exportKey(
-        format: "raw",
-        key: CryptoKey
-    ): Promise<ArrayBuffer>;
+    exportKey(format: "raw", key: CryptoKey): Promise<ArrayBuffer>;
 
     /**
      * Use the `generateKey()` method to generate a new key (for symmetric
@@ -117,7 +113,7 @@ export interface SubtleCrypto {
     generateKey(
         algorithm: AesKeyGenParams | HmacKeyGenParams,
         extractable: boolean,
-        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">
+        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">,
     ): Promise<CryptoKey>;
 
     /**
@@ -139,7 +135,7 @@ export interface SubtleCrypto {
         keyData: ArrayBuffer | ArrayBufferView | DataView,
         algorithm: "AES-CBC" | "AES-CTR" | "AES-GCM" | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM"> | HmacImportParams,
         extractable: boolean,
-        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">
+        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">,
     ): Promise<CryptoKey>;
 
     /**
@@ -157,7 +153,7 @@ export interface SubtleCrypto {
     sign(
         algorithm: "HMAC" | Algorithm<"HMAC">,
         key: CryptoKey,
-        data: ArrayBuffer | ArrayBufferView | DataView
+        data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
 
     /**
@@ -174,7 +170,7 @@ export interface SubtleCrypto {
         algorithm: "HMAC" | Algorithm<"HMAC">,
         key: CryptoKey,
         signature: ArrayBuffer | ArrayBufferView | DataView,
-        data: ArrayBuffer | ArrayBufferView | DataView
+        data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<boolean>;
 }
 

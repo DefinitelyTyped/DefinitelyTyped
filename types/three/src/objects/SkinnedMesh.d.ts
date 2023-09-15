@@ -1,11 +1,11 @@
-import { Material } from './../materials/Material';
-import { Box3 } from '../math/Box3';
-import { Matrix4 } from './../math/Matrix4';
-import { Vector3 } from './../math/Vector3';
-import { Skeleton } from './Skeleton';
-import { Mesh } from './Mesh';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Sphere } from '../math/Sphere';
+import { Material } from './../materials/Material.js';
+import { Box3 } from '../math/Box3.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Vector3 } from './../math/Vector3.js';
+import { Skeleton } from './Skeleton.js';
+import { Mesh } from './Mesh.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Sphere } from '../math/Sphere.js';
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.

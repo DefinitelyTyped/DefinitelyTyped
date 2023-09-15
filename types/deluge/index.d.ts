@@ -115,7 +115,6 @@ declare namespace deluge {
         /**
          * Set cookies in COOKIE_JAR, cookies is an object with urls as keys, example:
          * {'http://example.org/': 'uid=1234;pass=xxxx;'}
-         * @object cookies
          */
         setCookies(cookies: { [key: string]: string }, callback: (error: string, result: boolean, response: http.ServerResponse) => void): void;
     }

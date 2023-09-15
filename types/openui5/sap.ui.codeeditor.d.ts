@@ -1,11 +1,9 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/codeeditor/library" {}
 
 declare module "sap/ui/codeeditor/CodeEditor" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -13,8 +11,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.46
+   * @since 1.46
    *
    * Allows to visualize source code of various types with syntax highlighting, line numbers in editable and
    * read only mode. Use this control in scenarios where the user should be able to inspect and edit source
@@ -82,7 +82,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Defines custom completer - object implementing a getCompletions method. The method has two parameters
      * - fnCallback method and context object. Context object provides details about oPos and sPrefix as provided
@@ -115,7 +115,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -135,7 +135,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -160,7 +160,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -180,7 +180,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -197,7 +197,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -214,14 +214,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -231,19 +231,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The old value of the code editor.
-         */
-        oldValue?: string;
-      }
+      mParameters?: CodeEditor$ChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -253,16 +244,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The underlying change event of the third-party code editor.
-         */
-        editorEvent?: object;
-      }
+      mParameters?: CodeEditor$LiveChangeEventParameters
     ): this;
     /**
      * Sets the focus to the code editor
@@ -330,7 +312,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     getLineNumbers(): boolean;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Gets current value of property {@link #getMaxLines maxLines}.
      *
@@ -408,9 +390,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      */
     getWidth(): CSSSize;
     /**
-     * @SINCE 1.54.1
+     * @since 1.54.1
      *
-     * Pretty-prints the content of the editor
+     * Pretty-prints the content of the editor.
+     *
+     * **Note:** Works well only for PHP. For other programming languages, the content might not be formatted
+     * well. In such cases it is recommended to use your own formatting.
      */
     prettyPrint(): void;
     /**
@@ -477,7 +462,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       bLineNumbers?: boolean
     ): this;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets a new value for property {@link #getMaxLines maxLines}.
      *
@@ -648,7 +633,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     valueSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets whether the editor height should auto expand to a maximum number of lines. After reaching the maximum
      * number of lines specified, the content of the `CodeEditor` will become scrollable.
@@ -675,13 +660,47 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: CodeEditor$LiveChangeEvent) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: CodeEditor$ChangeEvent) => void;
   }
+
+  export interface CodeEditor$ChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The old value of the code editor.
+     */
+    oldValue?: string;
+  }
+
+  export type CodeEditor$ChangeEvent = Event<
+    CodeEditor$ChangeEventParameters,
+    CodeEditor
+  >;
+
+  export interface CodeEditor$LiveChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The underlying change event of the third-party code editor.
+     */
+    editorEvent?: object;
+  }
+
+  export type CodeEditor$LiveChangeEvent = Event<
+    CodeEditor$LiveChangeEventParameters,
+    CodeEditor
+  >;
 }
 
 declare namespace sap {

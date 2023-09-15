@@ -1,7 +1,7 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
-    const list = ['foo', 'bar', 'baz', 'quux'];
+(() => {
+    const list = ["foo", "bar", "baz", "quux"];
 
     // $ExpectType <T extends string | readonly any[]>(list: T) => (T extends (infer E)[] ? E : string) | undefined
     R.nth(1); // => 'b'
@@ -20,10 +20,10 @@ import * as R from 'ramda';
 
     // $ExpectType string | undefined
     R.nth(-99)(list); // => undefined
-};
+});
 
-() => {
-    const str = 'abcd';
+(() => {
+    const str = "abcd";
 
     // $ExpectType string
     R.nth(1, str); // => 'b'
@@ -39,9 +39,9 @@ import * as R from 'ramda';
 
     // $ExpectType string | undefined
     R.nth(-99)(str); // => ''
-};
+});
 
-() => {
+(() => {
     // @ts-expect-error
     R.nth();
 
@@ -49,12 +49,12 @@ import * as R from 'ramda';
     R.nth(1, {});
 
     // @ts-expect-error
-    R.nth(1, '', 1);
-};
+    R.nth(1, "", 1);
+});
 
-async () => {
+(async () => {
     const promise = Promise.resolve([1, 2, 3]);
 
     // $ExpectType number | undefined
     const el = await promise.then(R.nth(0));
-};
+});

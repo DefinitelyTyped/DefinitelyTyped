@@ -1,4 +1,4 @@
-import createTestServer = require('create-test-server');
+import createTestServer = require("create-test-server");
 
 const server = createTestServer().then((server) => {
     // $ExpectType string | undefined
@@ -14,13 +14,13 @@ const server = createTestServer().then((server) => {
 
     // This is just an Express route
     // You could use any Express middleware too
-    server.get('/foo', (req, res) => {
-      res.send('bar');
+    server.get("/foo", (req, res) => {
+        res.send("bar");
     });
 
     // You can return a body directly too
-    server.get('/foo', () => 'bar');
-    server.get('/foo', 'bar');
+    server.get("/foo", () => "bar");
+    server.get("/foo", "bar");
 
     return server;
 });
@@ -31,4 +31,4 @@ server.then((s) => {
     });
 });
 
-createTestServer({certificate: 'example.com', bodyParser: false});
+createTestServer({ certificate: "example.com", bodyParser: false });

@@ -5,20 +5,20 @@
 // TypeScript Version: 3.0
 
 export type MediaValues = Record<
-    | 'orientation'
-    | 'scan'
-    | 'width'
-    | 'height'
-    | 'device-width'
-    | 'device-height'
-    | 'resolution'
-    | 'aspect-ratio'
-    | 'device-aspect-ratio'
-    | 'grid'
-    | 'color'
-    | 'color-index'
-    | 'monochrome'
-    | 'prefers-color-scheme',
+    | "orientation"
+    | "scan"
+    | "width"
+    | "height"
+    | "device-width"
+    | "device-height"
+    | "resolution"
+    | "aspect-ratio"
+    | "device-aspect-ratio"
+    | "grid"
+    | "color"
+    | "color-index"
+    | "monochrome"
+    | "prefers-color-scheme",
     unknown
 >;
 

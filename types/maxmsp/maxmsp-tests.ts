@@ -2,14 +2,20 @@
 
 // Examples working with global variables
 inlets = 2;
+inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);
-error('This is a test error.');
-cpost('This is cpost.');
-post('This is a post.');
+error('This is a test error.\n');
+error('This is a', 'multiple string', 'error\n');
+cpost('This is cpost.\n');
+cpost('This is a', 'multiple string', 'cpost\n');
+post('This is a post.\n');
+post('This is a', 'multiple string', 'post\n');
 // Catcher must be bound to a global object, so use an [r]
 messnamed('catcher', 'bang');
+messnamed('catcher', 'amessage', 'myarg');
+messnamed('catcher', 'anothremessage', 1);
 
 // Buffer usage example
 const myBuffer = new Buffer('audio_buffer');
@@ -24,9 +30,14 @@ const colorValue = myDict.get('color');
 const keys = myDict.getkeys();
 
 // File usage example
-const file = new File('test.txt', 'write', 'TEXT');
+let file = new File('test.txt', 'write', 'TEXT');
 file.writeline('This is a test.');
 file.writestring('Some random text.');
+file.close();
+
+file = new File('test.txt');
+file.readline();
+file.readline(2);
 file.close();
 
 // Folder usage example
@@ -156,6 +167,7 @@ testmax.showcursor();
 testmax.showmenubar();
 testmax.size();
 testmax.system('windows', 'my_message');
+testmax.message("hidecursor");
 testmax.useslowbutcompletesearching(1);
 
 // Create a new Maxobj
@@ -179,10 +191,35 @@ post(myMaxobj.valid);
 // Use methods on Maxobj
 myMaxobj.message('set', 'myMaxObj set this');
 myMaxobj.help();
-const mySubpatcher = myMaxobj.subpatcher(0);
+let mySubpatcher = myMaxobj.subpatcher(0);
+mySubpatcher = myMaxobj.subpatcher();
 post(mySubpatcher);
 const understandsResult = myMaxobj.understands('testMessage');
 post(understandsResult);
+let [r1, r2, r3, r4] = [0, 0, 0, 0];
+const attrnames = myMaxobj.getattrnames();
+[r1, r2, r3, r4] = myMaxobj.getattr("openrect") as Rect;
+myMaxobj.setattr("openrect", [0, 0, 0, 0]);
+
+const boxattrnames = myMaxobj.getboxattrnames();
+[r1, r2, r3, r4] = myMaxobj.getboxattr("presentation_rect") as Rect;
+myMaxobj.setboxattr("presentation_rect", [0, 0, 0, 0]);
+myMaxobj.setboxattr("presentation_rect", 0, 0, 0, 0);
+
+// MaxobjListener
+function onWorkspaceDisabled(rectData: MaxobjListenerData<number>) {
+    const workspacedisabled = rectData.value;
+    if (workspacedisabled === 0) {
+        post("workspace disabled");
+    } else {
+        post("workspace enabled");
+    }
+}
+
+const maxobjListener = new MaxobjListener(myMaxobj, "workspacedisabled", onWorkspaceDisabled);
+post(maxobjListener.maxobject);
+post(maxobjListener.attrname);
+post(maxobjListener.silent);
 
 // ------------- Patcher usage examples -------------
 
@@ -204,6 +241,7 @@ post(myPatcher.scrollorigin);
 post(myPatcher.wind);
 
 // Use methods on Patcher
+myPatcher.message("window", "size", 200, 200, 200, 200);
 const myNewObject = myPatcher.newobject('message');
 const myNewDefaultObject = myPatcher.newdefault(100, 100, 'toggle');
 
@@ -325,8 +363,12 @@ myMGraphics.autosketch = 1;
 myMGraphics.relative_coords = 1;
 myMGraphics.autofill = 1;
 
+let width = 0;
+let height = 0;
+
 myMGraphics.init();
 myMGraphics.redraw();
+[width, height] = myMGraphics.size;
 myMGraphics.copy_path();
 myMGraphics.append_path('pathToAppend');
 myMGraphics.close_path();
@@ -353,7 +395,8 @@ myMGraphics.show_text('Hello');
 myMGraphics.text_path('Hello');
 const fontExtents = myMGraphics.font_extents();
 post(fontExtents);
-const textMeasure = myMGraphics.text_measure();
+const textMeasure = myMGraphics.text_measure("my-string");
+[width, height] = textMeasure;
 post(textMeasure);
 const fontlist = myMGraphics.getfontlist();
 post(fontlist);

@@ -1,8 +1,7 @@
-
 import * as config from "config";
-import { asyncConfig, resolveAsyncConfigs } from 'config/async';
-import { deferConfig } from 'config/defer';
-import { raw } from 'config/raw';
+import { asyncConfig, resolveAsyncConfigs } from "config/async";
+import { deferConfig } from "config/defer";
+import { raw } from "config/raw";
 
 var class1: config.IConfig = config;
 
@@ -45,13 +44,13 @@ asyncConfig(Promise.resolve());
 resolveAsyncConfigs(config);
 
 var deferredValueConfig = {
-  firstName: 'Foo',
-  lastName: 'Bar',
-  fullName: deferConfig(function() {
-    return this.firstName + ' ' + this.lastName;
-  }),
+    firstName: "Foo",
+    lastName: "Bar",
+    fullName: deferConfig(function() {
+        return this.firstName + " " + this.lastName;
+    }),
 };
 
 var rawValueConfig = {
-  outputFile: raw(Promise.resolve('foo')),
+    outputFile: raw(Promise.resolve("foo")),
 };

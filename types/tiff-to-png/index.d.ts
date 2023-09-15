@@ -67,13 +67,13 @@ declare namespace TiffConverter {
     }
 
     interface Options {
-        page?: 'A4' | 'A3' | undefined;
+        page?: "A4" | "A3" | undefined;
 
         /**
          * The file type of the converted files
          * @default 'png'
          */
-        type?: 'png' | 'jpg' | undefined;
+        type?: "png" | "jpg" | undefined;
 
         /**
          * The level of the logs required. 0: Errors only, 1: Information

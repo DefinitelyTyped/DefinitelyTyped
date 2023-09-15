@@ -16,7 +16,7 @@ declare namespace processImage {
     interface Options {
         allowedImageSourceContentTypes?: string[] | undefined;
         allowOperation?: ((operationName: string, ...args: any[]) => boolean) | undefined;
-        /** @debug false */
+        /** @default false */
         debug?: boolean | undefined;
         filters?: Record<string, boolean> | undefined;
         maxInputPixels?: number | undefined;
@@ -24,7 +24,7 @@ declare namespace processImage {
         onPipeline?: ((pipeline: object) => void) | undefined;
         root?: string | undefined;
         sharpCache?: number | undefined;
-        /** @defult false */
+        /** @default false */
         secondGuessSourceContentType?: boolean | undefined;
     }
 }

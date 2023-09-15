@@ -21,8 +21,8 @@ function constructorTests() {
 function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
-    Big.RM = RoundingMode.RoundUp;
     Big.RM = Big.roundUp;
+    const roundUp: RoundingMode = Big.roundUp;
 }
 
 function staticReadonlyPropertiesTests() {

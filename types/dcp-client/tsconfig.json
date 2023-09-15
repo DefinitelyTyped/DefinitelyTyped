@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "dcp-client-tests.ts"
+        "test/dcp-client-module.tests.ts",
+        "test/dcp-client-global.tests.ts"
     ]
 }

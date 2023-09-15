@@ -42,8 +42,6 @@ declare class Class_SslSocket extends Class_Stream {
      *
      * @brief 证书链，客户端模式 connect 时自动引用 ssl.ca，服务器模式 accept 生成 SslSocket 自动引用当前 SslSocket 的 ca
      *
-     * @readonly
-     * @type X509Cert
      */
 
     ca: Class_X509Cert
@@ -54,8 +52,6 @@ declare class Class_SslSocket extends Class_Stream {
      *
      * @brief 连接对方的证书
      *
-     * @readonly
-     * @type X509Cert
      */
 
     peerCert: Class_X509Cert
@@ -66,7 +62,6 @@ declare class Class_SslSocket extends Class_Stream {
      *
      * @brief 查询消息 ssl 建立时的下层流对象
      *
-     * @readonly
      */
 
     stream: Class_Stream

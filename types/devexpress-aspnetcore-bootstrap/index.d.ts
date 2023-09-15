@@ -158,7 +158,7 @@ declare namespace DevExpress.AspNetCore {
         setWidth(width: number): void;
         on<K extends keyof ControlEventMap>(eventName: K, callback: (this: Control, args?: ControlEventMap[K]) => void): this;
         once<K extends keyof ControlEventMap>(eventName: K, callback: (this: Control, args?: ControlEventMap[K]) => void): this;
-        off<K extends keyof ControlEventMap>(): this; // eslint-disable-line no-unnecessary-generics
+        off<K extends keyof ControlEventMap>(): this; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         off<K extends keyof ControlEventMap>(eventName: K): this; // tslint:disable-line:unified-signatures no-unnecessary-generics
         off<K extends keyof ControlEventMap>(eventName: K, callback: (this: Control, args?: ControlEventMap[K]) => void): this; // tslint:disable-line:unified-signatures
     }

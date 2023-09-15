@@ -1,14 +1,17 @@
 // Type definitions for non-npm package @ember/object 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fobject
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
+// eslint-disable-next-line @definitelytyped/no-self-import
 import CoreObject from '@ember/object/core';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Observable from '@ember/object/observable';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     ComputedPropertyCallback,
     UnwrapComputedPropertyGetter,
@@ -16,6 +19,7 @@ import {
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertySetters,
 } from '@ember/object/-private/types';
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ComputedProperty from '@ember/object/computed';
 
 /**

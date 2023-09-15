@@ -8,16 +8,16 @@ declare namespace keychainTypes {
         account: string;
         service: string;
         password: string;
-        type?: 'generic' | 'internet';
+        type?: "generic" | "internet";
     }
 
     type KeychainErrorCodes =
-        | 'UnsupportedPlatform'
-        | 'NoAccountProvided'
-        | 'NoServiceProvided'
-        | 'NoPasswordProvided'
-        | 'ServiceFailure'
-        | 'PasswordNotFound';
+        | "UnsupportedPlatform"
+        | "NoAccountProvided"
+        | "NoServiceProvided"
+        | "NoPasswordProvided"
+        | "ServiceFailure"
+        | "PasswordNotFound";
 
     type KeychainErrorType = `${KeychainErrorCodes}Error`;
 
@@ -28,17 +28,17 @@ declare namespace keychainTypes {
 }
 
 declare function getPassword(
-    options: Pick<keychainTypes.KeyChainBaseOptions, 'account' | 'service'>,
+    options: Pick<keychainTypes.KeyChainBaseOptions, "account" | "service">,
     callback: (err: keychainTypes.KeychainError, password: string) => void,
 ): void;
 
 declare function setPassword(
     options: keychainTypes.KeyChainBaseOptions,
-    callback: (err: keychainTypes.KeychainError) => void,
+    callback?: (err: keychainTypes.KeychainError) => void,
 ): void;
 
 declare function deletePassword(
-    options: Pick<keychainTypes.KeyChainBaseOptions, 'account' | 'service'>,
+    options: Pick<keychainTypes.KeyChainBaseOptions, "account" | "service">,
     callback: (err: keychainTypes.KeychainError) => void,
 ): void;
 

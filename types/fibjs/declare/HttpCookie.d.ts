@@ -79,7 +79,6 @@ declare class Class_HttpCookie extends Class__object {
      * @brief 查询和设置 cookie 的过期时间
      *
      *
-     * @type Date
      */
 
     expires: Date
@@ -91,7 +90,6 @@ declare class Class_HttpCookie extends Class__object {
      * @brief 查询和设置 cookie 是否仅允许 http 请求，缺省 false
      *
      *
-     * @type Boolean
      */
 
     httpOnly: boolean
@@ -103,7 +101,6 @@ declare class Class_HttpCookie extends Class__object {
      * @brief 查询和设置 cookie 是否仅通过 https 传递，缺省 false
      *
      *
-     * @type Boolean
      */
 
     secure: boolean

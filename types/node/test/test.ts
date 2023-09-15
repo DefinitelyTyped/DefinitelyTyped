@@ -1,4 +1,6 @@
 import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { dot, spec, tap, TestEvent } from 'node:test/reporters';
+import { Transform, TransformOptions, TransformCallback } from 'node:stream';
 
 // run without options
 // $ExpectType TestsStream
@@ -19,6 +21,12 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ['executed'],
+    setup: (root) => {},
+    watch: true,
+    shard: {
+        index: 1,
+        total: 3,
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -27,6 +35,16 @@ run().pipe(process.stdout);
 test('foo', t => {
     // $ExpectType TestContext
     t;
+});
+
+test('foo', (t) => {
+    // $ExpectType Promise<void>
+    t.test();
+});
+
+test('foo', async (t) => {
+    // $ExpectType void
+    await t.test();
 });
 
 test('blank options', {});
@@ -121,6 +139,26 @@ test.only('only', () => {});
 describe('foo', () => {
     it('it', () => {});
 });
+
+describe('foo', () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+});
+
+describe('foo', async () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+    // $ExpectType void
+    await d;
+});
+
+{
+    const ret = describe();
+    // $ExpectType Promise<void>
+    ret;
+}
 
 describe('blank options', {});
 it('blank options', {});
@@ -251,12 +289,12 @@ it.only('only shorthand', {
     timeout: Infinity,
 });
 
-// Test callback mode
-describe(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
+// Test with suite context
+describe(s => {
+    // $ExpectType SuiteContext
+    s;
+    // $ExpectType string
+    s.name;
 });
 
 // Test callback mode
@@ -282,31 +320,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before(cb => {
+before((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-beforeEach(cb => {
+beforeEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-after(cb => {
+after((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: 'anything' });
 });
-afterEach(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
-});
-beforeEach(cb => {
+afterEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -601,3 +641,76 @@ test('mocks a setter', (t) => {
         call.this;
     }
 });
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot('' as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap('' as any);
+// $ExpectType Spec
+new spec();
+
+describe('Mock Timers Test Suite', () => {
+    it((t) => {
+        t.mock.timers.enable(['setTimeout']);
+        // @ts-expect-error
+        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
+});
+
+class TestReporter extends Transform {
+    constructor(options: TransformOptions) {
+        super(options);
+    }
+    _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
+        switch (event.type) {
+            case 'test:diagnostic':
+                callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:fail':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
+                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:pass':
+                callback(
+                    null,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
+                    ${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                );
+                break;
+            case 'test:plan':
+                callback(null, `${event.data.count}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:start':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:stderr':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:stdout':
+                callback(null, `${event.data.message}/${event.data.file}`);
+                break;
+            case 'test:enqueue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:dequeue':
+                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+                break;
+            case 'test:watch:drained':
+                // event doesn't have any data
+                callback(null);
+                break;
+            default:
+                callback(null);
+        }
+    }
+}

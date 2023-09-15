@@ -24,7 +24,7 @@ declare namespace echarts {
              * Axes will be linked when they are refered
              * in the same link group.
              *
-             * @example:
+             * @example
              * link: [
              *     {
              *         // All axes with xAxisIndex 0, 3, 4 and yAxisName 'sameName' will be linked.

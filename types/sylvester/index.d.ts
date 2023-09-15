@@ -7,7 +7,7 @@
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
 
-declare module Sylvester {
+declare namespace Sylvester {
     interface VectorStatic {
         /**
          * Constructor function.
@@ -225,7 +225,7 @@ interface Vector {
     /**
      * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
      *
-     * @param: {Vector|Array<number>} vector The other vector.
+     * @param {Vector|Array<number>} vector The other vector.
      */
     dot(vector: Vector|Array<number>): number;
 
@@ -702,7 +702,7 @@ interface Plane {
     /**
      * Returns the plane's distance from the given object (point, line or plane).
      *
-     * @parm {Vector|Line|Plane} obj The object.
+     * @param {Vector|Line|Plane} obj The object.
      */
     distanceFrom(obj: Vector|Line|Plane): number;
 
@@ -775,7 +775,7 @@ interface Plane {
     setVectors(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
 }
 
-declare module Sylvester {
+declare namespace Sylvester {
     export var version: string;
     export var precision: number;
 }

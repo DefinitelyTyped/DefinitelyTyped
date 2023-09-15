@@ -19,8 +19,8 @@ declare namespace PouchDB {
     }
 }
 
-// eslint-disable-next-line no-declare-current-package
-declare module 'transform-pouch' {
-    const plugin: PouchDB.Plugin & {transform: () => void, filter: () => void};
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "transform-pouch" {
+    const plugin: PouchDB.Plugin & { transform: () => void; filter: () => void };
     export = plugin;
 }

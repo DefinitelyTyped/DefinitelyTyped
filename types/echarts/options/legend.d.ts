@@ -43,7 +43,7 @@ declare namespace echarts {
              * Components with smaller z values may be overwritten by those with larger z values.
              * z has a lower priority to zlevel, and will not create new Canvas.
              *
-             * @deafult 2
+             * @default 2
              */
             z?: number | undefined;
             /**

@@ -1,4 +1,4 @@
-import { ConstNode, Node, NodeBuilder, NodeTypeOption, SwizzleOption } from '../Nodes';
+import { ConstNode, Node, NodeBuilder, NodeTypeOption, SwizzleOption } from '../Nodes.js';
 // lot of private typescript magic here
 export {};
 export type Swizzable<T extends Node = Node> = T & {

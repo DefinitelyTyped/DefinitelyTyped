@@ -123,7 +123,6 @@ declare module "vitalsigns" {
     class VitalSigns {
         /**
          * Constructor.
-         * @constructors
          * @param {Options} [options] Options.
          */
         constructor (options?: vitalsigns.Options);

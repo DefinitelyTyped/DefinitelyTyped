@@ -2,8 +2,7 @@
 
 > The repository for *high quality* TypeScript type definitions.
 
-*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
 
 *Link to [Admin manual](./docs/admin.md)*
 
@@ -366,7 +365,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 #### Common mistakes
 
 * First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write path/to/package/**/*.ts`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
+* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write 'path/to/package/**/*.ts'`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -413,7 +412,7 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## The history of Definitely Typed
 
-Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).  
+Definitely Typed is one of the most active repositories on GitHub. You might have wondered how the project came to be. A history of Definitely Typed exists, that was put together by @johnnyreilly. It tells the story of the early days of Definitely Typed, from a repository created by @borisyankov, to the point where it became a pivotal part of the TypeScript ecosystem. [You can read the story of Definitely Typed here](https://johnnyreilly.com/definitely-typed-the-movie).
 
 ## FAQ
 
@@ -462,6 +461,16 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 #### What about type definitions for the DOM?
 
 If types are part of a web standard, they should be contributed to [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
+
+#### What about type definitions with no matching package?
+
+If there's no source Javascript code at all, for example if you're writing helper types or types for a spec, you should publish the types yourself, not on Definitely Typed.
+Because they're meant to provide types for existing Javascript code, `@types` packages are not meant to be imported directly.
+That is, you shouldn't create a Definitely Typed package that's meant to used like `import type { ... } from "@types/foo"`.
+Nor should you expect to write `import type { ... } from "foo"` when there's no `foo` installed.
+
+This is different from providing types for a browser-only Javascript library or types for an entire environment like node, bun, et al.
+There, the types are either resolved implicitly or using `/// <references types="foo" />`.
 
 #### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
 

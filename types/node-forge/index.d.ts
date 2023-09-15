@@ -679,11 +679,11 @@ declare module 'node-forge' {
 
         function encryptRsaPrivateKey(privateKey: PrivateKey, password: string, options?: EncryptionOptions): PEM;
 
-        function privateKeyFromAsn1(privateKey: asn1.Asn1): PrivateKey;
+        function privateKeyFromAsn1(privateKey: asn1.Asn1): rsa.PrivateKey;
 
         function privateKeyToAsn1(privateKey: PrivateKey): asn1.Asn1;
 
-        function publicKeyFromAsn1(publicKey: asn1.Asn1): PublicKey;
+        function publicKeyFromAsn1(publicKey: asn1.Asn1): rsa.PublicKey;
 
         function publicKeyToAsn1(publicKey: PublicKey): asn1.Asn1;
 
@@ -797,8 +797,36 @@ declare module 'node-forge' {
         function create(tagClass: Class, type: Type, constructed: boolean, value: Bytes | Asn1[]): Asn1;
         function fromDer(bytes: Bytes | util.ByteBuffer, strict?: boolean): Asn1;
         function toDer(obj: Asn1): util.ByteBuffer;
-        function oidToDer(oid: OID): util.ByteStringBuffer;
-        function derToOid(der: util.ByteStringBuffer): OID;
+
+        /**
+         * Converts an OID dot-separated string to a byte buffer. The byte buffer
+         * contains only the DER-encoded value, not any tag or length bytes.
+         *
+         * @param oid the OID dot-separated string.
+         *
+         * @return the byte buffer.
+         */
+        function oidToDer(oid: OID): util.ByteBuffer;
+
+        /**
+         * Converts a DER-encoded byte buffer to an OID dot-separated string. The
+         * byte buffer should contain only the DER-encoded value, not any tag or
+         * length bytes.
+         *
+         * @param bytes the byte buffer.
+         *
+         * @return the OID dot-separated string.
+         */
+        function derToOid(bytes: Bytes | util.ByteBuffer): OID;
+
+        function integerToDer(int: number): util.ByteBuffer;
+        function derToInteger(bytes: Bytes | util.ByteBuffer): number;
+
+        function dateToUtcTime(date: Date | string): Bytes;
+        function utcTimeToDate(bytes: Bytes): Date;
+
+        function dateToGeneralizedTime(date: Date | string): Bytes;
+        function generalizedTimeToDate(bytes: Bytes): Date;
     }
 
     namespace util {
@@ -975,10 +1003,58 @@ declare module 'node-forge' {
 
         function createSignedData(): PkcsSignedData;
 
+        interface Recipient {
+            version: number;
+            issuer: pki.CertificateField[];
+            serialNumber: Hex;
+            encryptedContent: {
+                algorithm: OID;
+                parameter: Bytes;
+                content: Bytes;
+            };
+        }
+
         interface PkcsEnvelopedData {
             content?: string | util.ByteBuffer | undefined;
+            recipients: Recipient[];
+
+            /**
+             * Add (another) entity to list of recipients.
+             *
+             * @param certificate The certificate of the entity to add.
+             */
             addRecipient(certificate: pki.Certificate): void;
-            encrypt(): void;
+            /**
+             * Encrypt enveloped content.
+             *
+             * This function supports two optional arguments, cipher and key, which
+             * can be used to influence symmetric encryption.  Unless cipher is
+             * provided, the cipher specified in encryptedContent.algorithm is used
+             * (defaults to AES-256-CBC).  If no key is provided, encryptedContent.key
+             * is (re-)used.  If that one's not set, a random key will be generated
+             * automatically.
+             *
+             * @param [key] The key to be used for symmetric encryption.
+             * @param [cipher] The OID of the symmetric cipher to use.
+             */
+            encrypt(key?: util.ByteBuffer, cipher?: OID): void;
+
+            /**
+             * Find recipient by X.509 certificate's issuer and serialNumber.
+             *
+             * @param cert the certificate with the issuer to look for.
+             *
+             * @return the recipient object, or `null` if no match.
+             */
+            findRecipient(cert: pki.Certificate): Recipient | null;
+            /**
+             * Decrypt enveloped content
+             *
+             * @param recipient The recipient object related to the private key
+             * @param privKey The (RSA) private key object
+             */
+            decrypt(recipient: Recipient, privKey: pki.rsa.PrivateKey): void;
+
             toAsn1(): asn1.Asn1;
         }
 
@@ -1086,8 +1162,8 @@ declare module 'node-forge' {
             sha256: typeof md.sha256;
             sha384: typeof md.sha384;
             sha512: typeof md.sha512;
-            'sha512/224': typeof md['sha512/224'];
-            'sha512/256': typeof md['sha512/256'];
+            'sha512/224': (typeof md)['sha512/224'];
+            'sha512/256': (typeof md)['sha512/256'];
         };
     };
 

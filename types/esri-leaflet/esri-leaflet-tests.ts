@@ -55,6 +55,45 @@ basemapLayer = new L.esri.BasemapLayer('TerrainLabels');
 
 basemapLayer = L.esri.basemapLayer('Streets', { token: 'token' });
 basemapLayer = new L.esri.BasemapLayer('Streets', { token: 'token' });
+basemapLayer = new L.esri.BasemapLayer('Streets', { token: 'token', ignoreDeprecationWarning: true });
+
+let imageMapLayer: L.esri.ImageMapLayer;
+let imageMapLayerOptions: L.esri.ImageMapLayerOptions;
+
+imageMapLayerOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer',
+};
+imageMapLayerOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer',
+    bandIds: '1',
+    noData: 0,
+    noDataInterpretation: 'no-data',
+    maxZoom: 15,
+    minZoom: 1,
+    opacity: 0.5,
+    position: 'front',
+    f: 'json',
+    format: 'jpgpng',
+    attribution: 'MIT',
+    useCors: true,
+    proxy: '//localhost/proxy',
+    pane: 'imagePane',
+};
+
+imageMapLayer = L.esri.imageMapLayer(imageMapLayerOptions);
+
+imageMapLayer.bindPopup((error, layer) => {
+    return 'Pixel value: ' + layer.pixel.properties.value;
+});
+
+imageMapLayer.getMosaicRule();
+imageMapLayer.getRenderingRule();
+imageMapLayer.query();
+imageMapLayer.getBandIds();
+imageMapLayer.getNoDataInterpretation();
+imageMapLayer.getPixelType();
+imageMapLayer.setPixelType('U8');
+imageMapLayer.bringToBack().bringToFront().unbindPopup().setOpacity(0.5).setZIndex(1).authenticate('secret');
 
 let tiledMapLayer: L.esri.TiledMapLayer;
 
@@ -68,7 +107,7 @@ tiledMapLayerOptions = {
     zoomOffsetAllowance: 0.5,
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 };
 
 tiledMapLayer = L.esri.tiledMapLayer(tiledMapLayerOptions);
@@ -81,7 +120,7 @@ tiledMapLayer = L.esri.tiledMapLayer({
     zoomOffsetAllowance: 0.5,
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 });
 
 tiledMapLayer = new L.esri.TiledMapLayer(tiledMapLayerOptions);
@@ -94,20 +133,23 @@ tiledMapLayer = new L.esri.TiledMapLayer({
     zoomOffsetAllowance: 0.5,
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 });
 
 tiledMapLayer.authenticate('secret');
-tiledMapLayer.metadata((err, metadata) => { });
+tiledMapLayer.metadata((err, metadata) => {});
 
-tiledMapLayer.identify()
+tiledMapLayer
+    .identify()
     .at(latlng)
     .run((error, featureCollection) => {});
-tiledMapLayer.find()
+tiledMapLayer
+    .find()
     .layers('18')
     .text('Colorado')
     .run((error, featureCollection) => {});
-tiledMapLayer.query()
+tiledMapLayer
+    .query()
     .layer(0)
     .within(latlngbounds)
     .run((error, featureCollection, response) => {});
@@ -126,27 +168,29 @@ dynamicMapLayerOptions = {
     f: 'html',
     attribution: 'MIT',
     layers: [1, 2, 3],
-    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: 'POP2007>25000' },
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
     disableCache: true,
-    dynamicLayers: [{
-        id: 501,
-        source: {
-            type: 'mapLayer',
-            mapLayerId: 0
+    dynamicLayers: [
+        {
+            id: 501,
+            source: {
+                type: 'mapLayer',
+                mapLayerId: 0,
+            },
+            drawingInfo: {
+                showLabels: false,
+            },
+            layerTimeOptions: {
+                useTime: false,
+            },
         },
-        drawingInfo: {
-            showLabels: false
-        },
-        layerTimeOptions: {
-            useTime: false
-        }
-    }],
+    ],
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 };
 
 dynamicMapLayer = L.esri.dynamicMapLayer(dynamicMapLayerOptions);
@@ -161,27 +205,29 @@ dynamicMapLayer = L.esri.dynamicMapLayer({
     f: 'html',
     attribution: 'MIT',
     layers: [1, 2, 3],
-    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: 'POP2007>25000' },
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
     disableCache: true,
-    dynamicLayers: [{
-        id: 501,
-        source: {
-            type: 'mapLayer',
-            mapLayerId: 0
+    dynamicLayers: [
+        {
+            id: 501,
+            source: {
+                type: 'mapLayer',
+                mapLayerId: 0,
+            },
+            drawingInfo: {
+                showLabels: false,
+            },
+            layerTimeOptions: {
+                useTime: false,
+            },
         },
-        drawingInfo: {
-            showLabels: false
-        },
-        layerTimeOptions: {
-            useTime: false
-        }
-    }],
+    ],
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 });
 
 dynamicMapLayer = new L.esri.DynamicMapLayer(dynamicMapLayerOptions);
@@ -196,44 +242,49 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
     f: 'html',
     attribution: 'MIT',
     layers: [1, 2, 3],
-    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: 'POP2007>25000' },
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
     disableCache: true,
-    dynamicLayers: [{
-        id: 501,
-        source: {
-            type: 'mapLayer',
-            mapLayerId: 0
+    dynamicLayers: [
+        {
+            id: 501,
+            source: {
+                type: 'mapLayer',
+                mapLayerId: 0,
+            },
+            drawingInfo: {
+                showLabels: false,
+            },
+            layerTimeOptions: {
+                useTime: false,
+            },
         },
-        drawingInfo: {
-            showLabels: false
-        },
-        layerTimeOptions: {
-            useTime: false
-        }
-    }],
+    ],
     proxy: '//localhost/proxy',
     useCors: true,
-    token: 'token'
+    token: 'token',
 });
 
 dynamicMapLayer.bindPopup((err, featureCollection, response) => {
     const count = featureCollection.features.length;
-    return (count) ? count + ' features' : false;
+    return count ? count + ' features' : false;
 });
 
 dynamicMapLayer.metadata((error, metadata) => {});
 
-dynamicMapLayer.identify()
+dynamicMapLayer
+    .identify()
     .at(latlng)
     .run((error, featureCollection) => {});
-dynamicMapLayer.find()
+dynamicMapLayer
+    .find()
     .layers('18')
     .text('Colorado')
     .run((error, featureCollection) => {});
-dynamicMapLayer.query()
+dynamicMapLayer
+    .query()
     .layer(0)
     .within(latlngbounds)
     .run((error, featureCollection, response) => {});
@@ -242,13 +293,13 @@ let featureLayerOptions: L.esri.FeatureLayerOptions;
 let featureLayer: L.esri.FeatureLayer;
 
 featureLayerOptions = {
-    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
 };
 featureLayerOptions = {
     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
-    pointToLayer: (feature, latLng) => { },
-    style: (feature, layer) => { },
-    onEachFeature: (feature, layer) => { },
+    pointToLayer: (feature, latLng) => {},
+    style: (feature, layer) => {},
+    onEachFeature: (feature, layer) => {},
     where: '1=1',
     maxZoom: 19,
     minZoom: 3,
@@ -267,13 +318,13 @@ featureLayerOptions = {
 
 featureLayer = L.esri.featureLayer(featureLayerOptions);
 featureLayer = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
 });
 featureLayer = L.esri.featureLayer({
     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
-    pointToLayer: (feature, latLng) => { },
-    style: (feature, layer) => { },
-    onEachFeature: (feature, layer) => { },
+    pointToLayer: (feature, latLng) => {},
+    style: (feature, layer) => {},
+    onEachFeature: (feature, layer) => {},
     where: '1=1',
     maxZoom: 19,
     minZoom: 3,
@@ -292,13 +343,13 @@ featureLayer = L.esri.featureLayer({
 
 featureLayer = new L.esri.FeatureLayer(featureLayerOptions);
 featureLayer = new L.esri.FeatureLayer({
-    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
 });
 featureLayer = new L.esri.FeatureLayer({
     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
-    pointToLayer: (feature, latLng) => { },
-    style: (feature, layer) => { },
-    onEachFeature: (feature, layer) => { },
+    pointToLayer: (feature, latLng) => {},
+    style: (feature, layer) => {},
+    onEachFeature: (feature, layer) => {},
     where: '1=1',
     maxZoom: 19,
     minZoom: 3,
@@ -316,33 +367,33 @@ featureLayer = new L.esri.FeatureLayer({
 });
 
 featureLayer.setStyle({
-    color: 'white'
+    color: 'white',
 });
 featureLayer.setStyle(feature => {
     return {
-        weight: feature.properties.pixelWidth
+        weight: feature.properties.pixelWidth,
     };
 });
 
 featureLayer.eachFeature(layer => {});
 
-featureLayer.query()
+featureLayer
+    .query()
     .within(latlngbounds)
     .where("Direction = 'WEST'")
     .run((error, featureCollection) => {});
 
 featureLayer.metadata((error, metadata) => {});
 
-let mapServiceOptions: L.esri.MapServiceOptions;
+let mapServiceOptions: L.esri.ServiceOptions;
 let mapService: L.esri.MapService;
 
-mapServiceOptions = {
-};
+mapServiceOptions = {};
 mapServiceOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 mapService = L.esri.mapService(mapServiceOptions);
@@ -351,7 +402,7 @@ mapService = L.esri.mapService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 mapService = new L.esri.MapService(mapServiceOptions);
@@ -360,44 +411,48 @@ mapService = new L.esri.MapService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
-mapService.query()
+mapService
+    .query()
     .layer(0)
     .within(latlngbounds)
     .run((error, featureCollection, response) => {});
-mapService.identify()
+mapService
+    .identify()
     .on(map)
     .at(latlng)
     .run((error, featureCollection, response) => {});
-mapService.find()
+mapService
+    .find()
     .layers('18')
     .text('Colorado')
     .fields('name')
     .run((error, featureCollection, response) => {});
 
-mapService.identify()
+mapService
+    .identify()
     .on(map)
     .at([45.543, -122.621])
     .layers('visible:1')
     .run((error, featureCollection, response) => {});
-mapService.find()
+mapService
+    .find()
     .layers('18')
     .text('Colorado')
     .fields('GNIS_NAME')
     .run((error, featureCollection, response) => {});
 
-let imageServiceOptions: L.esri.ImageServiceOptions;
+let imageServiceOptions: L.esri.ServiceOptions;
 let imageService: L.esri.ImageService;
 
-imageServiceOptions = {
-};
+imageServiceOptions = {};
 imageServiceOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 imageService = L.esri.imageService(imageServiceOptions);
@@ -406,7 +461,7 @@ imageService = L.esri.imageService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 imageService = new L.esri.ImageService(imageServiceOptions);
@@ -415,19 +470,18 @@ imageService = new L.esri.ImageService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
-let featureLayerServiceOptions: L.esri.FeatureLayerServiceOptions;
+let featureLayerServiceOptions: L.esri.ServiceOptions;
 let featureLayerService: L.esri.FeatureLayerService;
 
-featureLayerServiceOptions = {
-};
+featureLayerServiceOptions = {};
 featureLayerServiceOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 featureLayerService = L.esri.featureLayerService(featureLayerServiceOptions);
@@ -436,7 +490,7 @@ featureLayerService = L.esri.featureLayerService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 featureLayerService = new L.esri.FeatureLayerService(featureLayerServiceOptions);
@@ -445,10 +499,11 @@ featureLayerService = new L.esri.FeatureLayerService({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
-featureLayerService.query()
+featureLayerService
+    .query()
     .within(latlngbounds)
     .where("Direction = 'WEST'")
     .run((error, featureCollection, response) => {});
@@ -457,11 +512,11 @@ const feature = {
     type: 'Feature',
     geometry: {
         type: 'Point',
-        coordinates: [-122, 45]
+        coordinates: [-122, 45],
     },
     properties: {
-        name: 'Hello World'
-    }
+        name: 'Hello World',
+    },
 };
 featureLayerService.addFeature(feature, (error, response) => {});
 
@@ -470,11 +525,11 @@ const feature2 = {
     id: 2,
     geometry: {
         type: 'Point',
-        coordinates: [-122, 45]
+        coordinates: [-122, 45],
     },
     properties: {
-        name: 'Hi I\'m Feature 2'
-    }
+        name: "Hi I'm Feature 2",
+    },
 };
 featureLayerService.updateFeature(feature2, (error, response) => {});
 
@@ -485,16 +540,15 @@ featureLayerService
     .where("name='Hello World'")
     .run((error, featureCollection, response) => {});
 
-let queryOptions: L.esri.QueryOptions;
+let queryOptions: L.esri.ServiceOptions;
 let query: L.esri.Query;
 
-queryOptions = {
-};
+queryOptions = {};
 queryOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 query = L.esri.query(queryOptions);
@@ -503,7 +557,7 @@ query = L.esri.query({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 query = new L.esri.Query(queryOptions);
@@ -512,7 +566,7 @@ query = new L.esri.Query({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 query.within(latlngbounds);
@@ -529,8 +583,8 @@ query.ids((error, ids, response) => {});
 query.where("zone_id='B'").bounds((error, latLngBounds, response) => {});
 
 query.transform(15851);
-query.transform({wkid: 15851 });
-query.transform({wkt: "GEOGTRAN[\..."});
+query.transform({ wkid: 15851 });
+query.transform({ wkt: 'GEOGTRAN[...' });
 
 query.format(false);
 
@@ -541,21 +595,20 @@ query = L.esri.query({
     proxy: '//localhost/proxy',
     useCors: true,
     timeout: 1000,
-    withCredentials: true
+    withCredentials: true,
 });
 query.nearby(latlng, 500);
 query.run((error, featureCollection, response) => {});
 
-let identifyFeaturesOptions: L.esri.IdentifyFeaturesOptions;
+let identifyFeaturesOptions: L.esri.ServiceOptions;
 let identifyFeatures: L.esri.IdentifyFeatures;
 
-identifyFeaturesOptions = {
-};
+identifyFeaturesOptions = {};
 identifyFeaturesOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 identifyFeatures = L.esri.identifyFeatures(identifyFeaturesOptions);
@@ -564,7 +617,7 @@ identifyFeatures = L.esri.identifyFeatures({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 identifyFeatures = new L.esri.IdentifyFeatures(identifyFeaturesOptions);
@@ -573,7 +626,7 @@ identifyFeatures = new L.esri.IdentifyFeatures({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 identifyFeatures
@@ -588,16 +641,15 @@ identifyFeatures.at(polyline);
 identifyFeatures.at(latlngbounds);
 identifyFeatures.at(geojson);
 
-let findOptions: L.esri.FindOptions;
+let findOptions: L.esri.ServiceOptions;
 let find: L.esri.Find;
 
-findOptions = {
-};
+findOptions = {};
 findOptions = {
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 };
 
 find = L.esri.find(findOptions);
@@ -606,7 +658,7 @@ find = L.esri.find({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
 find = new L.esri.Find(findOptions);
@@ -615,14 +667,44 @@ find = new L.esri.Find({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
     proxy: '//localhost/proxy',
     useCors: true,
-    timeout: 1000
+    timeout: 1000,
 });
 
-find.layers('18')
-    .text('Colorado');
+find.layers('18').text('Colorado');
 find.run((error, featureCollection, response) => {});
 
-find.layers('13')
-    .text('198133')
-    .fields('GNIS_ID');
+find.layers('13').text('198133').fields('GNIS_ID');
 find.run((error, featureCollection, response) => {});
+
+let identifyImageOptions: L.esri.ServiceOptions;
+identifyImageOptions = {};
+
+let identifyImage: L.esri.IdentifyImage;
+identifyImage = L.esri.identifyImage(identifyImageOptions);
+identifyImage = L.esri.identifyImage({});
+identifyImage = L.esri.identifyImage({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000,
+});
+identifyImage.at(latlng);
+identifyImage.between(new Date(), new Date());
+identifyImage.getRenderingRule();
+identifyImage.setRenderingRule({ rasterFunction: 'Hillshade' });
+identifyImage.getMosaicRule();
+identifyImage.setMosaicRule({ mosaicMethod: 'esriMosaicLockRaster', lockRasterIds: [1, 2, 3] });
+identifyImage.getPixelSize();
+identifyImage.setPixelSize('500,500');
+identifyImage.setPixelSize(['500', '500']);
+identifyImage.returnCatalogItems(true);
+identifyImage.returnGeometry(true);
+identifyImage.token('token');
+
+identifyImage.at(latlng).run((error, identifyImageResponse, rawResponse) => {
+    if (error) {
+        console.log(error);
+        return;
+    }
+    console.log(identifyImageResponse.pixel.properties.value);
+});

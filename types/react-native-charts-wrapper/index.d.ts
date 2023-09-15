@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from 'react';
-import { ViewProps, NativeSyntheticEvent, processColor } from 'react-native';
+import { ViewProps, NativeSyntheticEvent, processColor, ImageResolvedAssetSource } from 'react-native';
 
 export type EasingType =
     | 'Linear'
@@ -99,7 +99,7 @@ export interface AxisLimitLine {
 export interface Axis {
     enabled?: boolean | undefined;
     drawLabels?: boolean | undefined;
-    drawAxisLines?: boolean | undefined;
+    drawAxisLine?: boolean | undefined;
     drawGridLines?: boolean | undefined;
 
     textColor?: Color | undefined;
@@ -304,6 +304,13 @@ export interface LineValue {
     x?: number | undefined;
     y: number;
     marker?: string | undefined;
+    icon?: LineIcon | undefined;
+}
+
+export interface LineIcon {
+    height: number;
+    width: number;
+    bundle: ImageResolvedAssetSource;
 }
 
 export interface CommonDatasetConfig {

@@ -2,7 +2,7 @@ import {ProcessedColorValue} from '../StyleSheet/processColor';
 import {ColorValue} from '../StyleSheet/StyleSheet';
 
 /**
- * @see: https://reactnative.dev/docs/actionsheetios#content
+ * @see https://reactnative.dev/docs/actionsheetios#content
  */
 export interface ActionSheetIOSOptions {
   title?: string | undefined;

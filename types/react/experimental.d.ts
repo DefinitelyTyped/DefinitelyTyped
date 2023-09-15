@@ -34,7 +34,7 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./next');
+import React = require('./canary');
 
 export {};
 
@@ -110,7 +110,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    export const SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
     // tslint:disable-next-line ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;

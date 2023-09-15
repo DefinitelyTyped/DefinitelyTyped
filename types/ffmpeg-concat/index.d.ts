@@ -13,7 +13,7 @@ interface ConcatOptions {
     audio?: string | undefined;
     cleanupFrames?: boolean | undefined;
     concurrency?: number | undefined;
-    frameFormat?: 'jpg' | 'png' | 'raw' | undefined;
+    frameFormat?: "jpg" | "png" | "raw" | undefined;
     log?: ((stdout: string) => void) | undefined;
     output: string;
     tempDir?: string | undefined;

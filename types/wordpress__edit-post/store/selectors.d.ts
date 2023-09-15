@@ -40,7 +40,7 @@ export function getMetaBoxesPerLocation(location: MetaboxLocation): MetaboxDescr
  * @param preferenceKey - Preference Key.
  * @param [defaultValue] - Default Value.
  */
-export function getPreference<T = unknown>(preferenceKey: string): T | undefined; // eslint-disable-line no-unnecessary-generics
+export function getPreference<T = unknown>(preferenceKey: string): T | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 export function getPreference<T>(
     preferenceKey: string,
     defaultValue: T

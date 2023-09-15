@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../../../src/Three';
+import { BufferGeometry } from '../../../src/Three.js';
 
 export class TeapotGeometry extends BufferGeometry {
     constructor(
@@ -8,6 +8,6 @@ export class TeapotGeometry extends BufferGeometry {
         lid?: boolean,
         body?: boolean,
         fitLid?: boolean,
-        blinn?: number,
+        blinn?: boolean,
     );
 }

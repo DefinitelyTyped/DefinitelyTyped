@@ -216,7 +216,7 @@ export interface PageSet {
     GetPageCount(): number;
     /**
      * Return the content of the specified page.
-     * @index Specify the page.
+     * @param index Specify the page.
      */
     GetPageContent(index: number): Page;
 }
@@ -227,7 +227,7 @@ export interface Page {
     GetLineCount(): number;
     /**
      * Return the content of the specified line.
-     * @index Specify the line.
+     * @param index Specify the line.
      */
     GetLineContent(index: number): Line;
 }
@@ -242,7 +242,7 @@ export interface Line {
     GetLineRect(): string;
     /**
      * Return the content of the specified word.
-     * @index Specify the word.
+     * @param index Specify the word.
      */
     GetWordContent(index: number): Word;
 }
@@ -258,7 +258,7 @@ export interface Word {
     GetText(): string;
     /**
      * Return the coordinates for the rectangle that contains the specified word. The coordinates are in the sequence of "left,top,right,bottom" like "121,126,157,139".
-     * @index Specify the word.
+     * @param index Specify the word.
      */
     GetWordRect(index: number): string;
 }

@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
 declare namespace JQuery {
@@ -718,10 +717,10 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        /* eslint-disable no-unnecessary-generics */
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
         // tslint:disable-next-line:ban-types
         <T extends Function>(flags?: string): Callbacks<T>;
-        /* eslint-enable no-unnecessary-generics */
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
     }
 
     // tslint:disable-next-line:ban-types

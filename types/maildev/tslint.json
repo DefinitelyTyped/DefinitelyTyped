@@ -6,7 +6,6 @@
         "jsdoc-format": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "semicolon": false
+        "prefer-const": false
     }
 }

@@ -5,9 +5,9 @@
 // TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { Context, Request, Response, Middleware } from 'koa';
-import { GraphQLError, GraphQLSchema, GraphQLFieldResolver, ValidationContext, ASTVisitor } from 'graphql';
-import { RequestInfo } from 'express-graphql';
+import { RequestInfo } from "express-graphql";
+import { ASTVisitor, GraphQLError, GraphQLFieldResolver, GraphQLSchema, ValidationContext } from "graphql";
+import { Context, Middleware, Request, Response } from "koa";
 
 export = graphqlHTTP;
 

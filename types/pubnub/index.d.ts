@@ -1,4 +1,4 @@
-// Type definitions for pubnub 7.2
+// Type definitions for pubnub 7.3
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -138,6 +138,8 @@ declare class Pubnub {
     grantToken(params: Pubnub.GrantTokenParameters): Promise<string>;
 
     setToken(params: string): void;
+
+    getToken(): string | undefined;
 
     parseToken(params: string): Pubnub.ParsedGrantToken;
 
@@ -365,6 +367,8 @@ declare namespace Pubnub {
         autoNetworkDetection?: boolean | undefined;
         listenToBrowserNetworkEvents?: boolean | undefined;
         useRandomIVs?: boolean | undefined;
+        dedupeOnSubscribe?: boolean | undefined;
+        enableSubscribeBeta?: boolean | undefined;
     };
 
     interface MessageEvent {
@@ -397,6 +401,7 @@ declare namespace Pubnub {
         affectedChannelGroups: string[];
         lastTimetoken: number | string;
         currentTimetoken: number | string;
+        statusCode: number | undefined;
     }
 
     interface PresenceEvent {
@@ -620,6 +625,11 @@ declare namespace Pubnub {
                     };
                 };
             }>;
+        };
+        more?: {
+            url: string;
+            start: string;
+            max: number;
         };
     }
 
@@ -1037,6 +1047,8 @@ declare namespace Pubnub {
         externalId: string;
         profileUrl: string;
         email: string;
+        status: string;
+        type: string;        
     }
 
     interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> { }
@@ -1089,6 +1101,8 @@ declare namespace Pubnub {
     interface ChannelMetadataFields {
         name: string;
         description: string;
+        status: string;
+        type: string;
     }
 
     interface ChannelMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<ChannelMetadataFields> { }
@@ -1127,11 +1141,11 @@ declare namespace Pubnub {
     // Memberships
 
     interface UUIDMembershipObject<MembershipCustom extends ObjectCustom, UUIDCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
-        uuid: UUIDMetadataObject<UUIDCustom> | { id: string };
+        uuid: (UUIDMetadataObject<UUIDCustom> & { status?: string }) | { id: string };
     }
 
     interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
-        channel: ChannelMetadataObject<ChannelCustom> | { id: string };
+        channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
     }
 
     interface UUIDMembersParameters {

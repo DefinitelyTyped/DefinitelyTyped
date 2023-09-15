@@ -1,4 +1,4 @@
-import AttributeNode from '../core/AttributeNode';
+import AttributeNode from '../core/AttributeNode.js';
 
 export default class UVNode extends AttributeNode {
     isUVNode: true;

@@ -21,7 +21,7 @@ interface Dummy {
 // $ExpectType FlextreeLayout<Dummy>
 const f = flextree<Dummy>({});
 
-// $ExpectType (data: HierarchyNode<Dummy>) => FlextreeNode<Dummy>[] | undefined
+// $ExpectType (data: Dummy) => Dummy[] | undefined
 f.children();
 
 // $ExpectType [number, number] | ((node: HierarchyNode<Dummy>) => [number, number])

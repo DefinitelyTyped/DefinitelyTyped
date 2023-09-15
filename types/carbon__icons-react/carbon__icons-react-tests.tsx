@@ -1,29 +1,32 @@
-import * as React from "react";
 import {
-    AccumulationIce,
-    Layers,
-    BorderLeft,
-    AnalyticsReference,
-    Add,
     AccessibilityAlt,
-    DataBaseAlt,
-    GasStation,
-    Lasso,
-    BookmarkFilled,
-    CalendarHeatMap,
-    ChartColumn,
-    LogoKeybase,
+    AccumulationIce,
+    Add,
+    AnalyticsReference,
     Barcode,
+    BatchJob,
+    BookmarkFilled,
+    BorderLeft,
     CalculationAlt,
-    UserAccess,
-    TextClearFormat,
-    IceVision,
+    CalendarHeatMap,
+    CarbonForMobile,
+    ChartColumn,
+    DataBaseAlt,
+    DataCategorical,
+    Delete,
+    GasStation,
     IbmCloudKubernetesService,
+    IceVision,
+    Lasso,
+    Layers,
+    LogoKeybase,
     LogoSvelte,
     Plan,
-    BatchJob,
+    TextClearFormat,
+    UserAccess,
     WhitePaper,
 } from "@carbon/icons-react";
+import * as React from "react";
 
 <UserAccess />; // $ExpectType Element
 <TextClearFormat />; // $ExpectType Element
@@ -53,3 +56,6 @@ import {
 <Plan />; // $ExpectType Element
 <BatchJob />; // $ExpectType Element
 <WhitePaper />; // $ExpectType Element
+<DataCategorical />; // $ExpectType Element
+<Delete />; // $ExpectType Element
+<CarbonForMobile />; // $ExpectType Element

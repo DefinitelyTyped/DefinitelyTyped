@@ -229,7 +229,6 @@ export declare namespace imaging {
     function encodeImageData(options: EncodeImageDataOptions): Promise<number[] | string>;
     /**
      * Image data is represented by a PhotoshopImageData instance.
-     * @returnobject
      * @targetfolder objects/returnobjects
      */
     interface PhotoshopImageData {
@@ -364,7 +363,6 @@ export declare namespace imaging {
         applyAlpha?: boolean;
     }
     /**
-     * @returnobject
      * @targetfolder objects/returnobjects
      * @minVersion 24.4
      */

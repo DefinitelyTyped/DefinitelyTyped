@@ -1,9 +1,7 @@
-import { Material } from './../materials/Material';
-import { Raycaster } from './../core/Raycaster';
-import { Object3D } from './../core/Object3D';
-import { BufferGeometry } from '../core/BufferGeometry';
-import { Intersection } from '../core/Raycaster';
-import { Vector3 } from '../math/Vector3';
+import { Material } from '../materials/Material.js';
+import { Object3D, Object3DEventMap } from '../core/Object3D.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Vector3 } from '../math/Vector3.js';
 
 /**
  * Class representing triangular {@link https://en.wikipedia.org/wiki/Polygon_mesh | polygon mesh} based objects.
@@ -24,7 +22,8 @@ import { Vector3 } from '../math/Vector3';
 export class Mesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Object3D {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Object3D<TEventMap> {
     /**
      * Create a new instance of {@link Mesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}. Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.

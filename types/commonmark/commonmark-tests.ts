@@ -1,4 +1,4 @@
-import commonmark = require('commonmark');
+import commonmark = require("commonmark");
 
 function logNode(node: commonmark.Node) {
     console.log(
@@ -20,11 +20,12 @@ function logNode(node: commonmark.Node) {
         node.prev,
         node.sourcepos,
         node.title,
-        node.type);
+        node.type,
+    );
 }
 
 const parser = new commonmark.Parser({ smart: true, time: true });
-const node = parser.parse('# a piece of _markdown_');
+const node = parser.parse("# a piece of _markdown_");
 
 const w = node.walker();
 const step = w.next();
@@ -42,14 +43,14 @@ const htmlRenderer = new commonmark.HtmlRenderer({
     sourcepos: true,
     time: true,
     softbreak: "<br/>",
- });
+});
 const html = htmlRenderer.render(node);
 console.log(html);
 
 function basic_usage() {
     const reader = new commonmark.Parser();
     const writer = new commonmark.HtmlRenderer();
-    const parsed = reader.parse('Hello *world*'); // parsed is a 'Node' tree
+    const parsed = reader.parse("Hello *world*"); // parsed is a 'Node' tree
     // transform parsed if you like...
     const result = writer.render(parsed); // result is a String
 }
@@ -60,12 +61,12 @@ function constructor_optional_options() {
 
 function soft_breaks_as_hard_breaks() {
     const writer = new commonmark.HtmlRenderer();
-    writer.softbreak = '<br />';
+    writer.softbreak = "<br />";
 }
 
 function soft_breaks_as_spaces() {
     const writer = new commonmark.HtmlRenderer();
-    writer.softbreak = ' ';
+    writer.softbreak = " ";
 }
 
 function text_to_ALL_CAPS(parsed: commonmark.Node) {
@@ -76,7 +77,7 @@ function text_to_ALL_CAPS(parsed: commonmark.Node) {
     event = walker.next();
     while (event) {
         node = event.node;
-        if (event.entering && node.type === 'text') {
+        if (event.entering && node.type === "text") {
             node.literal = node.literal!.toUpperCase();
         }
         event = walker.next();
@@ -92,7 +93,7 @@ function emphasis_to_ALL_CAPS(parsed: commonmark.Node) {
     event = walker.next();
     while (event) {
         node = event.node;
-        if (node.type === 'emph') {
+        if (node.type === "emph") {
             if (event.entering) {
                 inEmph = true;
             } else {
@@ -104,7 +105,7 @@ function emphasis_to_ALL_CAPS(parsed: commonmark.Node) {
                 // remove the empty Emph node
                 node.unlink();
             }
-        } else if (inEmph && node.type === 'text') {
+        } else if (inEmph && node.type === "text") {
             node.literal = node.literal!.toUpperCase();
         }
         event = walker.next();

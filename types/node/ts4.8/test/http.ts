@@ -623,7 +623,7 @@ import * as dns from 'node:dns';
 {
   http.request({ lookup: undefined });
   http.request({ lookup: dns.lookup });
-  http.request({ lookup: (hostname, options, cb) => { cb(null, '', 1); } });
+  http.request({ lookup: (hostname, options, cb) => { cb(null, [{ address: '', family: 1 }]); } });
 }
 
 {

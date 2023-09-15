@@ -1,14 +1,14 @@
-import { FeatureCollection } from 'geojson';
-import * as L from 'leaflet';
-import 'leaflet-textpath';
+import { FeatureCollection } from "geojson";
+import * as L from "leaflet";
+import "leaflet-textpath";
 
 // Tests copied directly from demo code from https://github.com/makinacorpus/Leaflet.TextPath
 
-const osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; 2013 OpenStreetMap contributors',
+const osm = L.tileLayer("//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "Map data &copy; 2013 OpenStreetMap contributors",
 });
 
-const map = L.map('map').fitWorld().addLayer(osm);
+const map = L.map("map").fitWorld().addLayer(osm);
 
 const wind = L.polyline(
     [
@@ -31,13 +31,13 @@ const wind = L.polyline(
     ],
     {
         weight: 15,
-        color: '#8EE9FF',
+        color: "#8EE9FF",
     },
 ).addTo(map);
-wind.setText(') ', {
+wind.setText(") ", {
     repeat: true,
     offset: 7,
-    attributes: { fill: '#007DEF', 'font-weight': 'bold', 'font-size': '24' },
+    attributes: { fill: "#007DEF", "font-weight": "bold", "font-size": "24" },
 });
 
 const danger = L.polyline(
@@ -47,11 +47,11 @@ const danger = L.polyline(
     ],
     {
         weight: 10,
-        color: 'orange',
+        color: "orange",
         opacity: 0.8,
     },
 ).addTo(map);
-danger.setText('\u25BA', { repeat: true, offset: 6, attributes: { fill: 'red' } });
+danger.setText("\u25BA", { repeat: true, offset: 6, attributes: { fill: "red" } });
 
 const plane = L.polyline(
     [
@@ -61,23 +61,23 @@ const plane = L.polyline(
     ],
     {
         weight: 1,
-        color: 'black',
-        dashArray: '2, 2',
+        color: "black",
+        dashArray: "2, 2",
     },
 ).addTo(map);
-plane.setText('\u2708     ', { repeat: true, offset: 8, attributes: { 'font-weight': 'bold', 'font-size': '24' } });
+plane.setText("\u2708     ", { repeat: true, offset: 8, attributes: { "font-weight": "bold", "font-size": "24" } });
 
 // We have to explicitly cast this value.
 const flightsWE: FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
+            type: "Feature",
             properties: {
-                flight: 'To New Delhi',
+                flight: "To New Delhi",
             },
             geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                     [3.33984375, 46.6795944656402],
                     [29.53125, 46.55886030311719],
@@ -88,12 +88,12 @@ const flightsWE: FeatureCollection = {
             },
         },
         {
-            type: 'Feature',
+            type: "Feature",
             properties: {
-                flight: 'To Hanoi',
+                flight: "To Hanoi",
             },
             geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                     [77.607421875, 28.767659105691255],
                     [88.72558593749999, 27.839076094777816],
@@ -107,15 +107,15 @@ const flightsWE: FeatureCollection = {
 
 // We have to explicitly cast this value.
 const flightsEW: FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
+            type: "Feature",
             properties: {
-                flight: 'To Bangkok',
+                flight: "To Bangkok",
             },
             geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                     [106.67724609375, 10.790140750321738],
                     [104.08447265624999, 11.523087506868514],
@@ -136,8 +136,8 @@ L.geoJSON(flightsWE, {
     },
     style: {
         weight: 3,
-        color: 'purple',
-        dashArray: '4, 4',
+        color: "purple",
+        dashArray: "4, 4",
     },
 }).addTo(map);
 
@@ -145,18 +145,18 @@ L.geoJSON(flightsEW, {
     onEachFeature: (feature, layer) => {
         // We have to add a check here. This is why TypeScript is useful!
         if (layer instanceof L.Polyline) {
-            layer.setText(feature.properties.flight, { offset: -5, orientation: 'flip' });
+            layer.setText(feature.properties.flight, { offset: -5, orientation: "flip" });
         }
     },
     style: {
         weight: 3,
-        color: 'purple',
-        dashArray: '4, 4',
+        color: "purple",
+        dashArray: "4, 4",
     },
 }).addTo(map);
 
 const pos1: L.LatLngTuple = [40.418075, -3.704643];
 const pos2: L.LatLngTuple = [40.413119, -3.702369];
 const line = L.polyline([pos1, pos2]);
-line.setText('HOLA', { center: true, attributes: { fill: 'red' } });
+line.setText("HOLA", { center: true, attributes: { fill: "red" } });
 line.addTo(map);

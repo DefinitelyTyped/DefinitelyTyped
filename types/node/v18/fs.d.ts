@@ -220,6 +220,11 @@ declare module 'fs' {
          * @since v10.10.0
          */
         name: string;
+        /**
+         * The base path that this `fs.Dirent` object refers to.
+         * @since v18.17.0
+         */
+        path: string;
     }
     /**
      * A class representing a directory stream.
@@ -1881,6 +1886,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | undefined
@@ -1898,6 +1904,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer',
         callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void
@@ -1912,6 +1919,7 @@ declare module 'fs' {
         options:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | undefined
@@ -1932,6 +1940,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void
     ): void;
@@ -1947,6 +1956,7 @@ declare module 'fs' {
                 | {
                       encoding: BufferEncoding | null;
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
                 | BufferEncoding
                 | null
@@ -1963,6 +1973,7 @@ declare module 'fs' {
                 | {
                       encoding: 'buffer';
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   }
         ): Promise<Buffer[]>;
         /**
@@ -1975,6 +1986,7 @@ declare module 'fs' {
             options?:
                 | (ObjectEncodingOptions & {
                       withFileTypes?: false | undefined;
+                      recursive?: boolean | undefined;
                   })
                 | BufferEncoding
                 | null
@@ -1988,6 +2000,7 @@ declare module 'fs' {
             path: PathLike,
             options: ObjectEncodingOptions & {
                 withFileTypes: true;
+                recursive?: boolean | undefined;
             }
         ): Promise<Dirent[]>;
     }
@@ -2010,6 +2023,7 @@ declare module 'fs' {
             | {
                   encoding: BufferEncoding | null;
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | BufferEncoding
             | null
@@ -2025,6 +2039,7 @@ declare module 'fs' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Buffer[];
@@ -2038,6 +2053,7 @@ declare module 'fs' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -2051,6 +2067,7 @@ declare module 'fs' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Dirent[];
     /**
@@ -3036,7 +3053,7 @@ declare module 'fs' {
         recursive?: boolean | undefined;
     }
     export type WatchEventType = 'rename' | 'change';
-    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
+    export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
     export type StatsListener = (curr: Stats, prev: Stats) => void;
     export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
     /**
@@ -3565,15 +3582,27 @@ declare module 'fs' {
         fd?: number | promises.FileHandle | undefined;
         mode?: number | undefined;
         autoClose?: boolean | undefined;
-        /**
-         * @default false
-         */
         emitClose?: boolean | undefined;
         start?: number | undefined;
         highWaterMark?: number | undefined;
     }
+    interface FSImplementation {
+        open?: (...args: any[]) => any;
+        close?: (...args: any[]) => any;
+    }
+    interface CreateReadStreamFSImplementation extends FSImplementation {
+        read: (...args: any[]) => any;
+    }
+    interface CreateWriteStreamFSImplementation extends FSImplementation {
+        write: (...args: any[]) => any;
+        writev?: (...args: any[]) => any;
+    }
     interface ReadStreamOptions extends StreamOptions {
+        fs?: CreateReadStreamFSImplementation | null | undefined;
         end?: number | undefined;
+    }
+    interface WriteStreamOptions extends StreamOptions {
+        fs?: CreateWriteStreamFSImplementation | null | undefined;
     }
     /**
      * Unlike the 16 kb default `highWaterMark` for a `stream.Readable`, the stream
@@ -3667,7 +3696,7 @@ declare module 'fs' {
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
      */
-    export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
+    export function createWriteStream(path: PathLike, options?: BufferEncoding | WriteStreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
      * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
@@ -3914,6 +3943,10 @@ declare module 'fs' {
          * @default true
          */
         force?: boolean;
+        /**
+         * Modifiers for copy operation. See `mode` flag of {@link copyFileSync()}
+         */
+        mode?: number;
         /**
          * When `true` timestamps from `src` will
          * be preserved.

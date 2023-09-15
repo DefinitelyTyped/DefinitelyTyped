@@ -12,7 +12,7 @@ export namespace Cabinet {
         NONE = 0x0000,
         MSZIP = 0x0100,
         QUANTUM = 0x0200,
-        LZX = 0x0300
+        LZX = 0x0300,
     }
 }
 

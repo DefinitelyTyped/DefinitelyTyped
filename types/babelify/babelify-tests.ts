@@ -1,6 +1,6 @@
 import babelify = require("babelify");
 
-module BabelifyTest {
+namespace BabelifyTest {
 
     export function whatDidTheEs6Say(srcPath: string, opts?: babelify.BabelifyOptions) {
         opts.extensions = opts.extensions || undefined;

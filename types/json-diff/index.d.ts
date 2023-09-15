@@ -1,4 +1,4 @@
-// Type definitions for json-diff 0.9
+// Type definitions for json-diff 1.0
 // Project: https://github.com/andreyvit/json-diff
 // Definitions by: Tommy Wong <https://github.com/wchtommy20013/>
 //                 Jerryh001 <https://github.com/Jerryh001>
@@ -12,6 +12,7 @@ export interface DiffOptions {
     full?: boolean;
     sort?: boolean;
     outputKeys?: string[];
+    excludeKeys?: string[];
     keepUnchangedValues?: boolean;
     outputNewOnly?: boolean;
     maxElisions?: number;

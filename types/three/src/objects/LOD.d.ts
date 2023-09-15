@@ -1,7 +1,7 @@
-import { Object3D } from './../core/Object3D';
-import { Raycaster } from './../core/Raycaster';
-import { Camera } from './../cameras/Camera';
-import { Intersection } from '../core/Raycaster';
+import { Object3D } from './../core/Object3D.js';
+import { Raycaster } from './../core/Raycaster.js';
+import { Camera } from './../cameras/Camera.js';
+import { Intersection } from '../core/Raycaster.js';
 
 /**
  * Every level is associated with an object, and rendering can be switched between them at the distances specified

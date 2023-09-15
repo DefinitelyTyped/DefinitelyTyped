@@ -324,17 +324,14 @@ export interface Messages {
     noEventsInRange?: string | undefined;
 }
 
-/**
- * @resourceId For "TimeGrid" views
- * @bounds For "select" action
- * @box For "click" or "doubleClick" actions
- */
 export interface SlotInfo {
     start: Date;
     end: Date;
     slots: Date[];
     action: 'select' | 'click' | 'doubleClick';
+    /** For "TimeGrid" views */
     resourceId?: number | string | undefined;
+    /** For "select" action */
     bounds?:
         | {
               x: number;
@@ -345,6 +342,7 @@ export interface SlotInfo {
               right: number;
           }
         | undefined;
+    /** For "click" or "doubleClick" actions */
     box?:
         | {
               x: number;

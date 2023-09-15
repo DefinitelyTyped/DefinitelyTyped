@@ -713,6 +713,7 @@ let marker = new mapboxgl.Marker(undefined, {
     rotationAlignment: 'map',
     pitchAlignment: 'viewport',
     scale: 5.5,
+    occludedOpacity: 0.5
 })
     .setLngLat([-50, 50])
     .setPitchAlignment('map')
@@ -728,6 +729,12 @@ marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
+
+// $ExpectType number
+marker.getOccludedOpacity();
+
+// $ExpectType Marker
+marker.setOccludedOpacity(1);
 
 marker.remove();
 
@@ -1005,6 +1012,23 @@ map.resetNorthPitch(animOpts);
 map.getMinPitch();
 // $ExpectType number
 map.getMaxPitch();
+
+// $ExpectType Map
+map.setFog({
+    color: 'blue',
+    'horizon-blend': 0.5,
+    range: [4, 15],
+    'high-color': 'red',
+    'space-color': 'black',
+    'star-intensity': 0.5,
+});
+// $ExpectType Map
+map.setFog(null);
+// $ExpectType Map
+map.setFog(undefined);
+
+// $ExpectType Fog | null
+map.getFog();
 
 /*
  * Map Events

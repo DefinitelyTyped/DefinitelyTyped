@@ -14,7 +14,7 @@ import {
     LCH,
     RGB,
     XYZ,
-} from './conversions';
+} from "./conversions";
 
 declare namespace route {
     interface rgb {
@@ -275,20 +275,20 @@ declare namespace route {
     }
 }
 
-declare function route(fromModel: 'rgb'): route.rgb;
-declare function route(fromModel: 'hsl'): route.hsl;
-declare function route(fromModel: 'hsv'): route.hsv;
-declare function route(fromModel: 'hwb'): route.hwb;
-declare function route(fromModel: 'cmyk'): route.cmyk;
-declare function route(fromModel: 'xyz'): route.xyz;
-declare function route(fromModel: 'lab'): route.lab;
-declare function route(fromModel: 'lch'): route.lch;
-declare function route(fromModel: 'hex'): route.hex;
-declare function route(fromModel: 'keyword'): route.keyword;
-declare function route(fromModel: 'ansi16'): route.ansi16;
-declare function route(fromModel: 'ansi256'): route.ansi256;
-declare function route(fromModel: 'hcg'): route.hcg;
-declare function route(fromModel: 'apple'): route.apple;
-declare function route(fromModel: 'gray'): route.gray;
+declare function route(fromModel: "rgb"): route.rgb;
+declare function route(fromModel: "hsl"): route.hsl;
+declare function route(fromModel: "hsv"): route.hsv;
+declare function route(fromModel: "hwb"): route.hwb;
+declare function route(fromModel: "cmyk"): route.cmyk;
+declare function route(fromModel: "xyz"): route.xyz;
+declare function route(fromModel: "lab"): route.lab;
+declare function route(fromModel: "lch"): route.lch;
+declare function route(fromModel: "hex"): route.hex;
+declare function route(fromModel: "keyword"): route.keyword;
+declare function route(fromModel: "ansi16"): route.ansi16;
+declare function route(fromModel: "ansi256"): route.ansi256;
+declare function route(fromModel: "hcg"): route.hcg;
+declare function route(fromModel: "apple"): route.apple;
+declare function route(fromModel: "gray"): route.gray;
 
 export = route;

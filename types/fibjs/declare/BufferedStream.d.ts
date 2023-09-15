@@ -30,7 +30,6 @@ declare class Class_BufferedStream extends Class_Stream {
      *
      * @brief 查询创建缓存对象时的流对象
      *
-     * @readonly
      */
 
     stream: Class_Stream

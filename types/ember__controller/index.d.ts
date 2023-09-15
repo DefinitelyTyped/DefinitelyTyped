@@ -1,7 +1,7 @@
 // Type definitions for non-npm package @ember/controller 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcontroller
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,7 +56,13 @@ export function inject(target: object, propertyKey: string | symbol): void;
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.
 // tslint:disable-next-line no-empty-interface
-export interface Registry {}
+export interface Registry extends Record<string, Controller | undefined> {}
+
+declare module '@ember/owner' {
+    interface DIRegistry {
+        controller: Registry;
+    }
+}
 
 // We need to define the `ControllerMixin` type above, but it is not public API
 // and should not be importable, so shut off auto-importing.

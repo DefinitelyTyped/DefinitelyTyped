@@ -1,7 +1,7 @@
-import FIFO = require('fast-fifo');
+import FIFO = require("fast-fifo");
 
 const stringQueue = new FIFO<string>();
-stringQueue.push('hello');
+stringQueue.push("hello");
 stringQueue.shift(); // $ExpectType string | undefined
 stringQueue.isEmpty(); // $ExpectType boolean
 stringQueue.hwm; // $ExpectType number
@@ -12,7 +12,7 @@ stringQueue.head.mask; // $ExpectType number
 stringQueue.head.top; // $ExpectType number
 stringQueue.head.btm; // $ExpectType number
 stringQueue.head.next; // $ExpectType FixedFIFO<string> | null
-stringQueue.head.push('hello');
+stringQueue.head.push("hello");
 stringQueue.head.shift(); // $ExpectType string | undefined
 stringQueue.head.isEmpty(); // $ExpectType boolean
 

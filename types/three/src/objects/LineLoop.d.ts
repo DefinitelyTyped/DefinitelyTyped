@@ -1,6 +1,6 @@
-import { Line } from './Line';
-import { Material } from './../materials/Material';
-import { BufferGeometry } from '../core/BufferGeometry';
+import { Line } from './Line.js';
+import { Material } from './../materials/Material.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * A continuous line that connects back to the start.

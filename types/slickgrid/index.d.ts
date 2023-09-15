@@ -909,7 +909,7 @@ declare namespace Slick {
 
         /**
         * Unregisters a current selection model and registers a new one. See the definition of SelectionModel for more information.
-        * @selectionModel A SelectionModel.
+        * @param selectionModel A SelectionModel.
         **/
         public setSelectionModel(selectionModel: SelectionModel<T, any>): void;        // todo: don't know the type of the event data type
 
@@ -1562,14 +1562,14 @@ declare namespace Slick {
         (row: number, cell: number, value: any, columnDef: Column<T>, dataContext: SlickData): string;
     }
 
-    export module Formatters {
+    export namespace Formatters {
         var PercentComplete: Formatter<Slick.SlickData>;
         var PercentCompleteBar: Formatter<Slick.SlickData>;
         var YesNo: Formatter<Slick.SlickData>;
         var Checkmark: Formatter<Slick.SlickData>;
     }
 
-    export module Data {
+    export namespace Data {
 
         export interface DataViewOptions<T extends Slick.SlickData> {
             groupItemMetadataProvider?: GroupItemMetadataProvider<T> | undefined;
@@ -1696,7 +1696,7 @@ declare namespace Slick {
 
         }
 
-        export module Aggregators {
+        export namespace Aggregators {
             export class Aggregator<T extends Slick.SlickData> {
                 public field: string;
                 public init(): void;

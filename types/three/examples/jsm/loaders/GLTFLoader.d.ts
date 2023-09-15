@@ -17,10 +17,10 @@ import {
     FileLoader,
     ImageBitmapLoader,
     Skeleton,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { DRACOLoader } from './DRACOLoader';
-import { KTX2Loader } from './KTX2Loader';
+import { DRACOLoader } from './DRACOLoader.js';
+import { KTX2Loader } from './KTX2Loader.js';
 
 export interface GLTF {
     animations: AnimationClip[];
@@ -39,17 +39,9 @@ export interface GLTF {
     userData: any;
 }
 
-export class GLTFLoader extends Loader {
+export class GLTFLoader extends Loader<GLTF> {
     constructor(manager?: LoadingManager);
     dracoLoader: DRACOLoader | null;
-
-    load(
-        url: string,
-        onLoad: (gltf: GLTF) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<GLTF>;
 
     setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
 

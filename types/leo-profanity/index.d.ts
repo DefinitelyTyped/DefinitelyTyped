@@ -3,7 +3,7 @@
 // Definitions by: Jack Humphries <https://github.com/jackhumphries9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function loadDictionary(lang: 'en' | 'fr'): void;
+export function loadDictionary(lang: "en" | "fr"): void;
 export function list(): string[];
 export function check(text: string): boolean;
 export function clean(text: string, replaceKey?: string): string;

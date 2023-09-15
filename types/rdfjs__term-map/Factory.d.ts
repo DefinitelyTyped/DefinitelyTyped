@@ -1,8 +1,8 @@
-import TermMap from '.';
+import TermMap from './index.js';
 import { Term } from '@rdfjs/types';
 
 export interface TermMapFactory {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     termMap<T extends Term = Term, V = any>(entries?: Array<[T, V]>): TermMap<T, V>;
 }
 

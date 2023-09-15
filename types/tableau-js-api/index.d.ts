@@ -25,5 +25,5 @@
 
 export as namespace tableau;
 
-export * from './enums';
-export * from './viz';
+export * from "./enums";
+export * from "./viz";
