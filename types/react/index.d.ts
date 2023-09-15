@@ -135,14 +135,14 @@ declare namespace React {
 
     type ComponentState = any;
 
-    type Key = string | number;
+    type Key = string | number | bigint;
 
     /**
      * @internal You shouldn't need to use this type since you never see these attributes
      * inside your component or have to validate them.
      */
     interface Attributes {
-        key?: Key | null | undefined;
+        key?: Key | null | undefined | bigint;
     }
     interface RefAttributes<T> extends Attributes {
         /**
