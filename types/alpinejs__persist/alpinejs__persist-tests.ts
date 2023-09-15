@@ -14,14 +14,22 @@ Alpine.plugin(persistPlugin);
             // $ExpectType $persist
             this.$persist;
 
-            // $ExpectType number & persistInterceptor<number>
-            let interceptor = this.$persist(0 as number);
+            // $ExpectType persistInterceptor<number>
+            const interceptor = this.$persist(0 as number);
 
-            // $ExpectType number & persistInterceptor<number>
+            // $ExpectType persistInterceptor<number>
             interceptor.as('test');
 
-            // $ExpectType number & persistInterceptor<number>
+            // $ExpectType persistInterceptor<number>
             interceptor.using(sessionStorage);
         },
     };
+
+    Alpine.data('test', () => ({
+        persisted: Alpine.$persist('foo' as const),
+        init() {
+            // $ExpectType "foo"
+            this.persisted;
+        },
+    }));
 }

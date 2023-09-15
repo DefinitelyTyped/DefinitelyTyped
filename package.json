@@ -19,7 +19,7 @@
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
         "clean": "node scripts/remove-empty.js",
-        "test": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types/alpinejs__persist",
+        "test": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
         "lint": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
         "prettier": "prettier"
     },
