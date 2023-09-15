@@ -76,12 +76,15 @@ declare namespace BetterSqlite3 {
         pragma(source: string, options?: Database.PragmaOptions): unknown;
         function(name: string, cb: (...params: unknown[]) => unknown): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
-        aggregate<T>(name: string, options: Database.RegistrationOptions & {
-            start?: T | (() => T);
-            step: (total: T, next: ElementOf<T>) => T | void;
-            inverse?: ((total: T, dropped: T) => T) | undefined;
-            result?: ((total: T) => unknown) | undefined;
-        }): this;
+        aggregate<T>(
+            name: string,
+            options: Database.RegistrationOptions & {
+                start?: T | (() => T);
+                step: (total: T, next: ElementOf<T>) => T | void;
+                inverse?: ((total: T, dropped: T) => T) | undefined;
+                result?: ((total: T) => unknown) | undefined;
+            },
+        ): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
@@ -92,7 +95,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string | Buffer, options?: Database.Options): Database;
+        new(filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 

@@ -50,6 +50,6 @@ export namespace Rectangle {
     const __cache: Rectangle;
     const pool: ObjectPool;
 }
-import { Vector } from './Vector';
-import { Line } from './Line';
-import { ObjectPool } from '../utils/ObjectPool';
+import { ObjectPool } from "../utils/ObjectPool";
+import { Line } from "./Line";
+import { Vector } from "./Vector";

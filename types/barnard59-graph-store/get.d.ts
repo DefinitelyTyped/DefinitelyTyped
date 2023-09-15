@@ -1,4 +1,4 @@
-import { DefaultGraph, NamedNode, Stream } from 'rdf-js';
+import { DefaultGraph, NamedNode, Stream } from "rdf-js";
 
 interface Options {
     user?: string;

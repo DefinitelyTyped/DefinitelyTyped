@@ -1,4 +1,4 @@
-import { Writable } from 'readable-stream';
+import { Writable } from "readable-stream";
 
 interface Options {
     user?: string;

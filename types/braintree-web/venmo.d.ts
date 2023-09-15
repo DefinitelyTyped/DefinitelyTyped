@@ -1,5 +1,5 @@
-import { callback, BraintreeError } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { BraintreeError, callback } from "./core";
 
 export interface VenmoAccountDetails {
     username: string;
@@ -87,7 +87,7 @@ export interface Venmo {
  * multi_use: Request authorization for future payments (vaulting allowed)
  * single_use: Request authorization for a one-time payment (vaulting not allowed)
  */
-export type VenmoPaymentMethodUsage = 'single_use' | 'multi_use';
+export type VenmoPaymentMethodUsage = "single_use" | "multi_use";
 
 /**
  * braintree.venmo.create({

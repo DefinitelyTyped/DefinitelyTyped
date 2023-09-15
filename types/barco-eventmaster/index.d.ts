@@ -6,20 +6,20 @@
 declare namespace EventMaster {
     type Callback<T = unknown> = (err: true | null, data: T) => void;
 
-    type UserType = 'operator' | 'super_user';
+    type UserType = "operator" | "super_user";
 
     type NotificationType =
-        | 'ScreenDestChanged'
-        | 'AUXDestChanged'
-        | 'FrameChanged'
-        | 'NativeRateChanged'
-        | 'InputCfgChanged'
-        | 'SourceChanged'
-        | 'BGSourceChanged'
-        | 'PresetChanged'
-        | 'StillChanged'
-        | 'OutputCfgChanged'
-        | 'CueChanged';
+        | "ScreenDestChanged"
+        | "AUXDestChanged"
+        | "FrameChanged"
+        | "NativeRateChanged"
+        | "InputCfgChanged"
+        | "SourceChanged"
+        | "BGSourceChanged"
+        | "PresetChanged"
+        | "StillChanged"
+        | "OutputCfgChanged"
+        | "CueChanged";
 }
 declare class EventMaster {
     constructor(ip: string);
@@ -172,7 +172,7 @@ declare class EventMaster {
     changeAuxContentTestPattern(id: number, testPattern: number, cb?: EventMaster.Callback): void;
     changeContentTestPattern(id: number, testPattern: number, cb?: EventMaster.Callback): void;
     listDestGroups(cb?: EventMaster.Callback): void;
-    listDestGroupsPerType(type: 'destGroupId' | 'destGroupSno' | 'destGroupName', cb?: EventMaster.Callback): void;
+    listDestGroupsPerType(type: "destGroupId" | "destGroupSno" | "destGroupName", cb?: EventMaster.Callback): void;
 }
 
 export = EventMaster;

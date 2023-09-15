@@ -1,3 +1,3 @@
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export default function limit(limit: number): stream.Transform;

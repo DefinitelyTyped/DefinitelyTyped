@@ -1,4 +1,4 @@
-import later = require('@breejs/later');
+import later = require("@breejs/later");
 
 const now = new Date();
 
@@ -114,7 +114,7 @@ later.year.prev(now, 1); // $ExpectType Date
 
 later.parse.recur().on(1).minute(); // $ExpectType RecurrenceBuilder
 later.parse.recur().on(1).hour(); // $ExpectType RecurrenceBuilder
-later.parse.recur().on('08:00:00').time(); // $ExpectType RecurrenceBuilder
+later.parse.recur().on("08:00:00").time(); // $ExpectType RecurrenceBuilder
 later.parse.recur().first().minute(); // $ExpectType RecurrenceBuilder
 later.parse.recur().on(5).hour().last().dayOfMonth(); // $ExpectType RecurrenceBuilder
 later.parse.recur().on(5).minute().onWeekend(); // $ExpectType RecurrenceBuilder
@@ -122,16 +122,16 @@ later.parse.recur().on(5).minute().onWeekday(); // $ExpectType RecurrenceBuilder
 later.parse.recur().every(10).minute(); // $ExpectType RecurrenceBuilder
 later.parse.recur().every(3).month(); // $ExpectType RecurrenceBuilder
 later.parse.recur().after(55).minute(); // $ExpectType RecurrenceBuilder
-later.parse.recur().every(6).hour().after('09:00').time(); // $ExpectType RecurrenceBuilder
+later.parse.recur().every(6).hour().after("09:00").time(); // $ExpectType RecurrenceBuilder
 later.parse.recur().before(3).month(); // $ExpectType RecurrenceBuilder
-later.parse.recur().every(6).hour().before('09:00').time(); // $ExpectType RecurrenceBuilder
-later.parse.recur().after('09:00').time().before('18:00').time(); // $ExpectType RecurrenceBuilder
+later.parse.recur().every(6).hour().before("09:00").time(); // $ExpectType RecurrenceBuilder
+later.parse.recur().after("09:00").time().before("18:00").time(); // $ExpectType RecurrenceBuilder
 later.parse.recur().after(9).hour().before(18).hour(); // $ExpectType RecurrenceBuilder
 later.parse.recur().every(15).minute().startingOn(10); // $ExpectType RecurrenceBuilder
 later.parse.recur().every(2).hour().first().dayOfMonth().and().on(8, 20).hour().last().dayOfMonth(); // $ExpectType RecurrenceBuilder
 later.parse.recur().every().minute().except().every(2).minute().between(2, 59).and().every(3).minute().between(3, 59); // $ExpectType RecurrenceBuilder
 
-const schedule = later.parse.text('every 5 min'); // $ExpectType ScheduleData
+const schedule = later.parse.text("every 5 min"); // $ExpectType ScheduleData
 
 const timer = later.setTimeout(() => {}, schedule); // $ExpectType Timer
 const timer2 = later.setInterval(() => {}, schedule); // $ExpectType Timer

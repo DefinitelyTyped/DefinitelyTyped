@@ -1,9 +1,9 @@
 /// <reference types="googlepay" />
 
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
-export type GooglePaymentTokenizeValues = 'Yes' | 'No' | 'Unknown';
+export type GooglePaymentTokenizeValues = "Yes" | "No" | "Unknown";
 
 export interface GooglePaymentDetails {
     cardType: string;
@@ -109,8 +109,8 @@ export interface GooglePayment {
         emailRequired?: boolean | undefined;
         merchantInfo?:
             | {
-                  merchantId: string;
-              }
+                merchantId: string;
+            }
             | undefined;
         transactionInfo: {
             currencyCode: string;
@@ -251,7 +251,6 @@ export interface GooglePayment {
  * }).catch(function (err) {
  *   // handle setup errors
  * });
- *
  */
 export function create(options: {
     client?: Client | undefined;

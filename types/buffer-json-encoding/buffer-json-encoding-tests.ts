@@ -1,4 +1,4 @@
-import { encode, decode, encodingLength } from 'buffer-json-encoding';
+import { decode, encode, encodingLength } from "buffer-json-encoding";
 
 encode(Buffer.of(1)); // $ExpectType Buffer
 encode(Buffer.of(1), 5); // $ExpectType Buffer

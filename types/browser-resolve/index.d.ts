@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as resv from 'resolve';
+import * as resv from "resolve";
 
 /**
  * Resolve a module path and call cb(err, path)

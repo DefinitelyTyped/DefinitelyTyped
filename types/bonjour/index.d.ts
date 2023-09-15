@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { RemoteInfo } from 'dgram';
+import { RemoteInfo } from "dgram";
 
 declare function bonjour(opts?: bonjour.BonjourOptions): bonjour.Bonjour;
 export = bonjour;
@@ -29,10 +29,10 @@ declare namespace bonjour {
         start(): void;
         update(): void;
         stop(): void;
-        on(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
-        once(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
-        removeListener(event: 'up' | 'down', listener: (service: RemoteService) => void): this;
-        removeAllListeners(event?: 'up' | 'down'): this;
+        on(event: "up" | "down", listener: (service: RemoteService) => void): this;
+        once(event: "up" | "down", listener: (service: RemoteService) => void): this;
+        removeListener(event: "up" | "down", listener: (service: RemoteService) => void): this;
+        removeAllListeners(event?: "up" | "down"): this;
     }
     interface BrowserOptions {
         type?: string | undefined;
@@ -47,7 +47,7 @@ declare namespace bonjour {
         port: number;
         type: string;
         subtypes?: string[] | undefined;
-        protocol?: 'udp'|'tcp' | undefined;
+        protocol?: "udp" | "tcp" | undefined;
         txt?: { [key: string]: string } | undefined;
         probe?: boolean | undefined;
     }
@@ -75,7 +75,7 @@ declare namespace bonjour {
         start(): void;
     }
     interface BonjourOptions {
-        type?: 'udp4' | 'udp6' | undefined;
+        type?: "udp4" | "udp6" | undefined;
         multicast?: boolean | undefined;
         interface?: string | undefined;
         port?: number | undefined;

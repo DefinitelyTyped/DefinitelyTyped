@@ -1,4 +1,4 @@
-import * as stream from 'stream';
+import * as stream from "stream";
 
 type FirstOrDuplex<First, T extends stream[]> = T[1] extends never ? stream.Duplex : First;
 

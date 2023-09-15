@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 export class Base64Decode extends Transform {}
 export class Base64Encode extends Transform {
     constructor(

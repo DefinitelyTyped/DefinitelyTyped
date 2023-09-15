@@ -1,4 +1,4 @@
-import { BeginDataType, ReadonlyBeginDataType, get, set, destroy, count, incr, decr, page } from '@begin/data';
+import { BeginDataType, count, decr, destroy, get, incr, page, ReadonlyBeginDataType, set } from "@begin/data";
 
 interface TestData {
     key: string;
@@ -6,21 +6,21 @@ interface TestData {
     age?: number;
 }
 
-const table = 'test-table';
-const key = 'test-key';
+const table = "test-table";
+const key = "test-key";
 
 const obj: BeginDataType = {
-    propString: 'data',
+    propString: "data",
     propNumber: 1.23,
     propBoolean: false,
     propArrayEmpty: [],
     propObjectEmpty: {},
-    propArray: ['value', 0, true],
+    propArray: ["value", 0, true],
     propObject: {
         propNestedObject: {
             propNestedArray: [{}, 1],
         },
-        propNestedString: 'value',
+        propNestedString: "value",
     },
 };
 // $ExpectType ReadonlyBeginDataType
@@ -33,7 +33,7 @@ obj as ReadonlyBeginDataType;
     res;
     // $ExpectType string
     res[0].table;
-    res[0].table = 'another-table';
+    res[0].table = "another-table";
     // $ExpectType string
     res[0].key;
     // $ExpectType TestData
@@ -67,7 +67,7 @@ get({ table }, (err, res) => {
     if (res) {
         // $ExpectType string
         res.table;
-        res.table = 'another-table';
+        res.table = "another-table";
         // $ExpectType string
         res.key;
         // $ExpectType TestData
@@ -98,7 +98,7 @@ get({ table, key }, (err, res) => {
     res;
     // $ExpectType string
     res[0].table;
-    res[0].table = 'another-table';
+    res[0].table = "another-table";
     // $ExpectType string
     res[0].key;
     // $ExpectType TestData
@@ -127,7 +127,7 @@ get(
 
 // Error: Get with unnecessary property.
 // @ts-expect-error
-get({ table, key, propUnknown: 'value' });
+get({ table, key, propUnknown: "value" });
 
 // Set without key.
 (async () => {
@@ -139,7 +139,7 @@ get({ table, key, propUnknown: 'value' });
     res;
     // $ExpectType string
     res.table;
-    res.table = 'another-table';
+    res.table = "another-table";
     // $ExpectType string
     res.key;
     // $ExpectType TestData
@@ -182,7 +182,7 @@ set({
 // Set with ttl prop with invalid TTL value.
 set({
     table,
-    ttl: 'invalid',
+    ttl: "invalid",
     ...obj,
 });
 
@@ -206,7 +206,7 @@ set({
     res;
     // $ExpectType string
     res[0].table;
-    res[0].table = 'another-table';
+    res[0].table = "another-table";
     // $ExpectType string
     res[0].key;
     // $ExpectType TestData
@@ -270,7 +270,7 @@ destroy(
 
 // Error: Destroy with unnecessary props.
 // @ts-expect-error
-destroy({ table, key, propsUnknown: 'value' });
+destroy({ table, key, propsUnknown: "value" });
 
 // Error: Destroy without key.
 // @ts-expect-error
@@ -293,25 +293,25 @@ count({ table }, (err, res) => {
 
 // Error: Count with unnecessary props.
 // @ts-expect-error
-count({ table, propsUnknown: 'value' });
+count({ table, propsUnknown: "value" });
 // @ts-expect-error
 count({ table, key });
 
 // Increment.
 (async () => {
-    const res = await incr({ table, key, prop: 'propNumber' });
+    const res = await incr({ table, key, prop: "propNumber" });
     // $ExpectType DataIncrementResult
     res;
     // $ExpectType string
     res.table;
-    res.table = 'another-table';
+    res.table = "another-table";
     // $ExpectType string
     res.key;
     // $ExpectType TestData
     res as TestData;
 })();
 
-incr({ table, key, prop: 'propNumber' }, (err, res) => {
+incr({ table, key, prop: "propNumber" }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataIncrementResult
@@ -320,7 +320,7 @@ incr({ table, key, prop: 'propNumber' }, (err, res) => {
 
 // Error: Increment with list.
 // @ts-expect-error
-incr([{ table, key, prop: 'propNumber' }]);
+incr([{ table, key, prop: "propNumber" }]);
 
 // Error: Increment without prop.
 // @ts-expect-error
@@ -328,19 +328,19 @@ incr({ table, key });
 
 // Decrement.
 (async () => {
-    const res = await decr({ table, key, prop: 'propNumber' });
+    const res = await decr({ table, key, prop: "propNumber" });
     // $ExpectType DataDecrementResult
     res;
     // $ExpectType string
     res.table;
-    res.table = 'another-table';
+    res.table = "another-table";
     // $ExpectType string
     res.key;
     // $ExpectType TestData
     res as TestData;
 })();
 
-decr({ table, key, prop: 'propNumber' }, (err, res) => {
+decr({ table, key, prop: "propNumber" }, (err, res) => {
     // $ExpectType Error | null | undefined
     err;
     // $ExpectType DataDecrementResult
@@ -351,7 +351,7 @@ decr({ table, key, prop: 'propNumber' }, (err, res) => {
 
 // Error: Decrement with list.
 // @ts-expect-error
-decr([{ table, key, prop: 'propNumber' }]);
+decr([{ table, key, prop: "propNumber" }]);
 
 // Error: Decrement without prop.
 // @ts-expect-error

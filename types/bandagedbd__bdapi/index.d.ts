@@ -5,9 +5,9 @@
 // TypeScript Version: 4.9
 // Documentation: https://docs.betterdiscord.app/api/
 
-import * as ReactInstance from 'react';
-import * as ReactDOMInstance from 'react-dom';
-import * as _ from 'lodash';
+import * as _ from "lodash";
+import * as ReactInstance from "react";
+import * as ReactDOMInstance from "react-dom";
 
 export {};
 
@@ -443,14 +443,20 @@ declare namespace BdApiModule {
 }
 
 declare namespace ContextMenuModule {
-    type ContextMenuEntry = ContextMenuItem | ContextMenuToggle | ContextMenuRadio | ContextMenuSubmenu
-        | ContextMenuCustom | ContextMenuSeparator | ContextMenuGroup;
+    type ContextMenuEntry =
+        | ContextMenuItem
+        | ContextMenuToggle
+        | ContextMenuRadio
+        | ContextMenuSubmenu
+        | ContextMenuCustom
+        | ContextMenuSeparator
+        | ContextMenuGroup;
 
     interface ContextMenuControl {
         /**
          * Type of the item. Defaults to "text".
          */
-        type?: 'text' | 'toggle' | 'radio' | 'submenu' | 'custom' | 'separator' | 'group';
+        type?: "text" | "toggle" | "radio" | "submenu" | "custom" | "separator" | "group";
 
         label: string;
         id?: string;
@@ -460,34 +466,34 @@ declare namespace ContextMenuModule {
     }
 
     interface ContextMenuItem extends ContextMenuControl {
-        type?: 'text';
+        type?: "text";
     }
 
     interface ContextMenuToggle extends ContextMenuControl {
-        type: 'toggle';
+        type: "toggle";
         checked: boolean;
     }
 
     interface ContextMenuRadio extends ContextMenuControl {
-        type: 'radio';
+        type: "radio";
         active: boolean;
     }
 
     interface ContextMenuSubmenu extends ContextMenuControl {
-        type: 'submenu';
+        type: "submenu";
         children: ContextMenuEntry[];
     }
 
     interface ContextMenuCustom extends ContextMenuControl {
-        type: 'custom';
+        type: "custom";
     }
 
     interface ContextMenuSeparator {
-        type: 'separator';
+        type: "separator";
     }
 
     interface ContextMenuGroup {
-        type: 'group';
+        type: "group";
         items: ContextMenuEntry[];
     }
 
@@ -495,11 +501,11 @@ declare namespace ContextMenuModule {
         /**
          * Default position for the menu. Defaults to "right".
          */
-        position?: 'left' | 'right';
+        position?: "left" | "right";
         /**
          * Default alignment for the menu. Defaults to "top".
          */
-        align?: 'bottom' | 'top';
+        align?: "bottom" | "top";
         /**
          * Function to run when the menu is closed. Defaults to {@code null}.
          */
@@ -967,11 +973,11 @@ declare namespace UIModule {
         /**
          * Correlates to the discord styling/colors. Defaults to "primary".
          */
-        style?: 'primary' | 'info' | 'success' | 'warn' | 'danger';
+        style?: "primary" | "info" | "success" | "warn" | "danger";
         /**
          * The side of the element where the tooltip is rendered. Defaults to "top".
          */
-        side?: 'top' | 'right' | 'bottom' | 'left';
+        side?: "top" | "right" | "bottom" | "left";
         /**
          * Prevents moving the tooltip to the opposite side if it is too big or goes offscreen. Defaults to false.
          */
@@ -990,8 +996,8 @@ declare namespace UIModule {
         labelElement: HTMLElement;
         node: HTMLElement;
         preventFlip: boolean;
-        side: 'top' | 'right' | 'bottom' | 'left';
-        style: 'primary' | 'info' | 'success' | 'warn' | 'danger';
+        side: "top" | "right" | "bottom" | "left";
+        style: "primary" | "info" | "success" | "warn" | "danger";
         tooltipElement: HTMLElement;
         readonly canShowAbove: boolean;
         readonly canShowBelow: boolean;
@@ -1004,7 +1010,7 @@ declare namespace UIModule {
         /**
          * Determines whether the dialog should open or save files. Defaults to "open".
          */
-        mode?: 'open' | 'save';
+        mode?: "open" | "save";
         /**
          * Path the dialog should show on launch. Defaults to "~", the user home.
          */
@@ -1095,7 +1101,7 @@ declare namespace UIModule {
         /**
          * The notice type. Defaults to "info".
          */
-        type?: 'info' | 'error';
+        type?: "info" | "error";
         /**
          * Buttons that should be added next to the notice text.
          */
@@ -1111,7 +1117,7 @@ declare namespace UIModule {
         /**
          * The type of the toast stylistically and semantically. Defaults to "" (no type).
          */
-        type?: '' | 'info' | 'success' | 'error' | 'warning';
+        type?: "" | "info" | "success" | "error" | "warning";
         /**
          * Determines whether the icon should show corresponding to the type. A toast without type will always have
          * no icon. Defaults to true.

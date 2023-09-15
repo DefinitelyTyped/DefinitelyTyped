@@ -5,11 +5,10 @@
 
 /// <reference types="node" />
 
-
 type rand = { getByte: () => number };
 
 interface RandStatic {
-    new (rand: rand): RandInstance;
+    new(rand: rand): RandInstance;
 }
 
 interface RandInstance {
@@ -22,7 +21,7 @@ interface BrorandStatic {
     Rand: RandStatic;
 }
 
-declare namespace Brorand { }
+declare namespace Brorand {}
 
 declare let Brorand: BrorandStatic;
 

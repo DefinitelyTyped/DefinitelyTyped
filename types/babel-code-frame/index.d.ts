@@ -32,7 +32,7 @@ declare function codeFrame(
     rawLines: string,
     lineNumber: number,
     colNumber: number,
-    options?: BabelCodeFrameOptions
+    options?: BabelCodeFrameOptions,
 ): string;
 
 export = codeFrame;

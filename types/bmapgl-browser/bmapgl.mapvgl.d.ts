@@ -35,7 +35,7 @@ declare namespace MapVGL {
     }
     interface ViewOptions {
         map?: object | undefined;
-        mapType?: 'bmap' | 'blank' | 'cesium' | undefined;
+        mapType?: "bmap" | "blank" | "cesium" | undefined;
         effects?: Effects[] | undefined;
     }
 
@@ -55,11 +55,11 @@ declare namespace MapVGL {
     }
     interface GeoJSON {
         geometry: {
-            type: 'Point' | 'LineString' | 'Polygon',
+            type: "Point" | "LineString" | "Polygon";
             coordinates: any[];
         };
         properties?: {
-            [x: string]: any
+            [x: string]: any;
         } | undefined;
         [x: string]: any;
     }

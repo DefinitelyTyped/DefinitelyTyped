@@ -176,7 +176,7 @@ export interface Datetimepicker {
     /** Returns a boolean or array with the options.extraFormats option configuration */
     extraFormats(): boolean | Array<string | moment.MomentBuiltinFormat>;
     /** Takes an array of valid input moment format options, or boolean:false */
-    extraFormats(formats: boolean | Array<string  | moment.MomentBuiltinFormat>): void;
+    extraFormats(formats: boolean | Array<string | moment.MomentBuiltinFormat>): void;
     /** Returns the options.focusOnShow option. */
     focusOnShow(): boolean;
     /** If false, the textbox will not be given focus when the picker is shown */
@@ -660,7 +660,7 @@ declare global {
         on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;
         on(events: "dp.update", selector: string, data: any, handler?: (eventobject: UpdateEvent) => any): JQuery;
 
-        on(events: EventName , handler: (eventObject: Event) => any): JQuery;
+        on(events: EventName, handler: (eventObject: Event) => any): JQuery;
         on(events: EventName, selector: string, handler: (eventobject: Event) => any): JQuery;
         on(events: EventName, selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
 

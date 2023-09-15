@@ -1,8 +1,8 @@
+import { VariableMap } from "barnard59-core";
+import Pipeline from "barnard59-core/lib/Pipeline";
 import { GraphPointer } from "clownface";
 import { Writable } from "stream";
-import { Logger } from 'winston';
-import Pipeline from 'barnard59-core/lib/Pipeline';
-import { VariableMap } from 'barnard59-core';
+import { Logger } from "winston";
 
 interface Runner {
     finished: Promise<any>;
@@ -14,8 +14,8 @@ interface Create {
     outputStream: Writable;
     variables?: VariableMap;
     logger?: Logger;
-    level?: 'error' | 'info' | 'debug';
+    level?: "error" | "info" | "debug";
 }
 
-export default  function create(ptr: GraphPointer, args?: Create): Promise<Runner>;
+export default function create(ptr: GraphPointer, args?: Create): Promise<Runner>;
 export {};

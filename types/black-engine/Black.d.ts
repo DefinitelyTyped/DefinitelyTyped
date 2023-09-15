@@ -24,12 +24,12 @@ export class Black {
     private mAssets;
     private mCamera;
 }
-import { AssetManager } from './assets/AssetManager';
-import { MasterAudio } from './audio/MasterAudio';
-import { Time } from './core/Time';
-import { Camera } from './display/Camera';
-import { Stage } from './display/Stage';
-import { VideoNullDriver } from './drivers/VideoNullDriver';
-import { Engine } from './Engine';
-import { Input } from './input/Input';
-import { Device } from './system/Device';
+import { AssetManager } from "./assets/AssetManager";
+import { MasterAudio } from "./audio/MasterAudio";
+import { Time } from "./core/Time";
+import { Camera } from "./display/Camera";
+import { Stage } from "./display/Stage";
+import { VideoNullDriver } from "./drivers/VideoNullDriver";
+import { Engine } from "./Engine";
+import { Input } from "./input/Input";
+import { Device } from "./system/Device";

@@ -5,4 +5,4 @@
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './validate';
+export * from "./validate";

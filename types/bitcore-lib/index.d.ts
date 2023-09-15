@@ -8,11 +8,11 @@
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN { }
+    class BN {}
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
-        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: 'little'): boolean;
+        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: "little"): boolean;
     }
 
     namespace Hash {
@@ -28,7 +28,7 @@ export namespace crypto {
     }
 
     namespace Random {
-       function getRandomBuffer(size: number): Buffer;
+        function getRandomBuffer(size: number): Buffer;
     }
 
     namespace Point {}

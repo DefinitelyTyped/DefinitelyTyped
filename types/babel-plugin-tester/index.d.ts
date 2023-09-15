@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-import * as Babel from '@babel/core';
-import { Options } from 'prettier';
+import * as Babel from "@babel/core";
+import { Options } from "prettier";
 
 export type BabelType = typeof Babel;
 
@@ -102,11 +102,13 @@ export interface TestObject {
      * also return a promise. If that promise resolves to a function, that will
      * be treated as a teardown function.
      */
-    setup?: (() =>
-        | void
-        | NonNullable<TestObject['teardown']>
-        | Promise<void>
-        | Promise<NonNullable<TestObject['teardown']>>) | undefined;
+    setup?:
+        | (() =>
+            | void
+            | NonNullable<TestObject["teardown"]>
+            | Promise<void>
+            | Promise<NonNullable<TestObject["teardown"]>>)
+        | undefined;
 
     /**
      * If you set up some state, it's quite possible you want to tear it down.
@@ -150,20 +152,18 @@ export interface TestObject {
      *   },
      * });
      * ```
-     *
      */
     babelOptions?: Babel.TransformOptions | undefined;
 
     /**
      * This can be used to pass options into your plugin at transform time.
-     *
      */
     pluginOptions?: Babel.PluginOptions | undefined;
 }
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOptions, 'code' | 'only'> {
+export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOptions, "code" | "only"> {
     /**
      * Your babel plugin. For example:
      *
@@ -197,7 +197,6 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
     /**
      * This can be used to pass options into your plugin at transform time. This
      * option can be overwritten using the test object.
-     *
      */
     pluginOptions?: Babel.PluginOptions | undefined;
 
@@ -228,7 +227,7 @@ export interface PluginTesterOptions extends TestObject, Omit<Babel.TransformOpt
      *
      * @default 'lf'
      */
-    endOfLine?: 'lf' | 'crlf' | 'auto' | 'preserve' | undefined;
+    endOfLine?: "lf" | "crlf" | "auto" | "preserve" | undefined;
 
     /**
      * This is a path to a directory with this format:

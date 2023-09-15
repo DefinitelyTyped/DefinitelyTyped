@@ -12,4 +12,4 @@ export class SoundClip {
     get duration(): number;
     get isSubClip(): boolean;
 }
-import { SoundInstance } from './SoundInstance';
+import { SoundInstance } from "./SoundInstance";

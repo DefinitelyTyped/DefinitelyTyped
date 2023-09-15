@@ -1,5 +1,5 @@
-import { Toast } from 'bootstrap';
-import * as $ from 'jquery';
+import { Toast } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -36,10 +36,10 @@ element.addEventListener(Toast.Events.shown, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').toast();
+$(".alert").toast();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').toast({ animation: false });
+$(".alert").toast({ animation: false });
 
-$('.alert').toast('hide'); // $ExpectType JQuery<HTMLElement>
-$('.alert').toast('show'); // $ExpectType JQuery<HTMLElement>
+$(".alert").toast("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").toast("show"); // $ExpectType JQuery<HTMLElement>

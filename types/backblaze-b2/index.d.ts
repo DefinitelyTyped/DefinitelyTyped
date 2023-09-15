@@ -29,7 +29,7 @@ interface StandardApiResponse {
     request: any;
     data: any;
 }
-type BucketType = 'allPublic' | 'allPrivate';
+type BucketType = "allPublic" | "allPrivate";
 
 interface CreateBucketOpts extends CommonArgs {
     bucketName: string;
@@ -113,7 +113,7 @@ interface GetDownloadAuthorizationOpts extends CommonArgs {
 }
 
 interface DownloadFileOpts extends CommonArgs {
-    responseType: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream';
+    responseType: "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
     onDownloadProgress?: UploadProgressFn | null | undefined;
 }
 

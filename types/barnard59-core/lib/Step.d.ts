@@ -1,5 +1,5 @@
-import * as stream from 'readable-stream';
-import StreamObject from './StreamObject';
+import * as stream from "readable-stream";
+import StreamObject from "./StreamObject";
 
 export default class Step extends StreamObject {
     args: unknown[] | Record<string, any>;

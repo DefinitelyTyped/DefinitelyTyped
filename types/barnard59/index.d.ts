@@ -4,5 +4,5 @@
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { default as runner } from './runner';
-export { default as findPipeline } from './findPipeline';
+export { default as findPipeline } from "./findPipeline";
+export { default as runner } from "./runner";

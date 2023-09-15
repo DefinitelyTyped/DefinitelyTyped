@@ -13,7 +13,7 @@ interface BootstrapSelectOptions {
     container: string | false;
     countSelectedText: string | ((numSelected: number, numTotal: number) => string);
     deselectAllText: string;
-    dropdownAlignRight: 'auto' | boolean;
+    dropdownAlignRight: "auto" | boolean;
     dropupAuto: boolean;
     header: string;
     hideDisabled: boolean;
@@ -37,7 +37,7 @@ interface BootstrapSelectOptions {
     showIcon: boolean;
     showSubtext: boolean;
     showTick: boolean;
-    size: 'auto' | number | false;
+    size: "auto" | number | false;
     style: string | null;
     styleBase: string | null;
     tickIcon: string;
@@ -60,14 +60,14 @@ interface BootstrapSelectDefaults extends BootstrapSelectOptions {
 }
 
 interface BootstrapSelectEvents {
-    'show.bs.select': (e: JQuery.Event) => void;
-    'shown.bs.select': (e: JQuery.Event) => void;
-    'hide.bs.select': (e: JQuery.Event) => void;
-    'hidden.bs.select': (e: JQuery.Event) => void;
-    'loaded.bs.select': (e: JQuery.Event) => void;
-    'rendered.bs.select': (e: JQuery.Event) => void;
-    'refreshed.bs.select': (e: JQuery.Event) => void;
-    'changed.bs.select': (
+    "show.bs.select": (e: JQuery.Event) => void;
+    "shown.bs.select": (e: JQuery.Event) => void;
+    "hide.bs.select": (e: JQuery.Event) => void;
+    "hidden.bs.select": (e: JQuery.Event) => void;
+    "loaded.bs.select": (e: JQuery.Event) => void;
+    "rendered.bs.select": (e: JQuery.Event) => void;
+    "refreshed.bs.select": (e: JQuery.Event) => void;
+    "changed.bs.select": (
         e: JQuery.Event,
         clickedIndex: number | null,
         isSelected: boolean | null,
@@ -92,10 +92,10 @@ interface BootstrapSelect<T = HTMLElement> {
      * Methods
      * @see {@link https://developer.snapappointments.com/bootstrap-select/methods/}
      */
-    (method: 'val', value: string | string[]): JQuery<T>;
-    (method: 'setStyle', className?: string, action?: 'add' | 'remove'): JQuery<T>;
+    (method: "val", value: string | string[]): JQuery<T>;
+    (method: "setStyle", className?: string, action?: "add" | "remove"): JQuery<T>;
     (
-        method: 'selectAll' | 'deselectAll' | 'render' | 'mobile' | 'refresh' | 'toggle' | 'hide' | 'show' | 'destroy',
+        method: "selectAll" | "deselectAll" | "render" | "mobile" | "refresh" | "toggle" | "hide" | "show" | "destroy",
     ): JQuery<T>;
 }
 

@@ -17,9 +17,15 @@ export as namespace Bootstrap;
 
 export type Placement = "auto" | "top" | "bottom" | "left" | "right";
 
-export type Trigger = "click" | "hover" | "focus" | "manual" |
-    "click hover" | "click focus" | "hover focus" |
-    "click hover focus";
+export type Trigger =
+    | "click"
+    | "hover"
+    | "focus"
+    | "manual"
+    | "click hover"
+    | "click focus"
+    | "hover focus"
+    | "click hover focus";
 
 export interface Delay {
     show: number;
@@ -80,7 +86,7 @@ export interface CarouselOption {
      * If `carousel`, autoplays the carousel on load.
      * @default false
      */
-    ride?: 'carousel' | boolean | undefined;
+    ride?: "carousel" | boolean | undefined;
 
     /**
      * Whether the carousel should cycle continuously or have hard stops.
@@ -296,7 +302,10 @@ export interface TooltipOption {
      *
      * @default tooltip: "top", popover: "right"
      */
-    placement?: Placement | ((this: TooltipInstance<this>, node: HTMLElement, trigger: Element) => Placement) | undefined;
+    placement?:
+        | Placement
+        | ((this: TooltipInstance<this>, node: HTMLElement, trigger: Element) => Placement)
+        | undefined;
 
     /**
      * If a selector is provided, tooltip or popover objects will be delegated to the specified targets.
@@ -379,7 +388,7 @@ export interface TooltipOption {
     /**
      * Object which contains allowed attributes and tags.
      */
-    whiteList?: {[key: string]: string[]} | undefined;
+    whiteList?: { [key: string]: string[] } | undefined;
 
     /**
      * Here you can supply your own sanitize function. This can be useful if you prefer to use a dedicated library to perform sanitization.
@@ -399,7 +408,9 @@ export interface TooltipOption {
 // Events
 // --------------------------------------------------------------------------------------
 
-export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+export interface CarouselEventHandler<TElement>
+    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement>
+{
     /**
      * The carousel dom element.
      */
@@ -426,7 +437,9 @@ export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TE
     to: number;
 }
 
-export interface DropdownsEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+export interface DropdownsEventHandler<TElement>
+    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement>
+{
     /**
      * The the dropdown's toggle and the dropdown menu container (the `.dropdown` element).
      */
@@ -438,7 +451,9 @@ export interface DropdownsEventHandler<TElement> extends JQuery.TriggeredEvent<T
     relatedTarget: HTMLElement;
 }
 
-export interface ModalEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+export interface ModalEventHandler<TElement>
+    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement>
+{
     /**
      * The modal dom element.
      */
@@ -451,7 +466,9 @@ export interface ModalEventHandler<TElement> extends JQuery.TriggeredEvent<TElem
     relatedTarget: HTMLElement | undefined;
 }
 
-export interface TapEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+export interface TapEventHandler<TElement>
+    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement>
+{
     /**
      * * For `show.bs.tab` and `shown.bs.tab`, is the newly activated tab.
      * * For `hide.bs.tab`, is the current active tab.
@@ -471,12 +488,27 @@ export type AlertEvent = "close.bs.alert" | "closed.bs.alert";
 export type CarouselEvent = "slide.bs.carousel" | "slid.bs.carousel";
 export type CollapseEvent = "show.bs.collapse" | "shown.bs.collapse" | "hide.bs.collapse" | "hidden.bs.collapse";
 export type DropdownEvent = "show.bs.dropdown" | "shown.bs.dropdown" | "hide.bs.dropdown" | "hidden.bs.dropdown";
-export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" | "hidden.bs.modal" | "hidePrevented.bs.modal";
-export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
+export type ModalEvent =
+    | "show.bs.modal"
+    | "shown.bs.modal"
+    | "hide.bs.modal"
+    | "hidden.bs.modal"
+    | "hidePrevented.bs.modal";
+export type PopoverEvent =
+    | "show.bs.popover"
+    | "shown.bs.popover"
+    | "hide.bs.popover"
+    | "hidden.bs.popover"
+    | "inserted.bs.popover";
 export type ScrollspyEvent = "activate.bs.scrollspy";
 export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
 export type ToastEvent = "show.bs.toast" | "shown.bs.toast" | "hide.bs.toast" | "hidden.bs.toast";
-export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
+export type TooltipEvent =
+    | "show.bs.tooltip"
+    | "shown.bs.tooltip"
+    | "hide.bs.tooltip"
+    | "hidden.bs.tooltip"
+    | "inserted.bs.tooltip";
 
 // --------------------------------------------------------------------------------------
 // jQuery
@@ -579,13 +611,15 @@ declare global {
          * Returns to the caller before the popover has actually been shown or hidden (i.e. before the `shown.bs.popover` or `hidden.bs.popover` event occurs).
          * This is considered a "manual" triggering of the popover.
          */
-        popover(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
+        popover(
+            action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update",
+        ): this;
         /**
          * Initializes popovers for an element collection.
          */
         popover(options?: PopoverOption): this;
 
-// tslint:disable:jsdoc-format
+        // tslint:disable:jsdoc-format
         /**
          * Call a method on the scrollspy element:
          * * `refresh` – When using scrollspy in conjunction with adding or removing of elements from the DOM, you'll need to call the refresh, see example.
@@ -598,7 +632,7 @@ $('[data-spy="scroll"]').each(function () {
 })
 ```
          */
-// tslint:enable:jsdoc-format
+        // tslint:enable:jsdoc-format
         scrollspy(action: "refresh" | "dispose"): this;
         /**
          * Add scrollspy behavior to a topbar navigation.
@@ -644,7 +678,9 @@ $('[data-spy="scroll"]').each(function () {
          * Returns to the caller before the tooltip has actually been shown or hidden (i.e. before the `shown.bs.tooltip` or `hidden.bs.tooltip` event occurs).
          * This is considered a "manual" triggering of the tooltip.
          */
-        tooltip(action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update"): this;
+        tooltip(
+            action: "show" | "hide" | "toggle" | "dispose" | "enable" | "disable" | "toggleEnabled" | "update",
+        ): this;
         /**
          * Attaches a tooltip handler to an element collection.
          */
@@ -656,7 +692,7 @@ $('[data-spy="scroll"]').each(function () {
         on(events: TapEvent, handler: JQuery.EventHandlerBase<TElement, TapEventHandler<TElement>>): this;
         on(
             events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | ToastEvent | TooltipEvent,
-            handler: JQuery.EventHandler<TElement>
+            handler: JQuery.EventHandler<TElement>,
         ): this;
     }
 }

@@ -1,21 +1,21 @@
 function BootstrapDialogOptionsTests() {
-    const options1: BootstrapDialog.DialogOptions = { };
+    const options1: BootstrapDialog.DialogOptions = {};
     const options2: BootstrapDialog.DialogOptions = {
         animate: false,
-        buttons: [{id: "btn-1"}],
-        callback: (result: boolean) => { },
+        buttons: [{ id: "btn-1" }],
+        callback: (result: boolean) => {},
         closable: false,
         closeByBackdrop: false,
         closeByKeyboard: false,
-        data: {name: "value"},
+        data: { name: "value" },
         draggable: false,
         description: "",
         buttonLabel: "",
         message: "",
-        onhide: (dialog: BootstrapDialog.DialogContext) => { },
-        onhidden: (dialog: BootstrapDialog.DialogContext) => { },
-        onshow: (dialog: BootstrapDialog.DialogContext) => { },
-        onshown: (dialog: BootstrapDialog.DialogContext) => { },
+        onhide: (dialog: BootstrapDialog.DialogContext) => {},
+        onhidden: (dialog: BootstrapDialog.DialogContext) => {},
+        onshow: (dialog: BootstrapDialog.DialogContext) => {},
+        onshown: (dialog: BootstrapDialog.DialogContext) => {},
         size: BootstrapDialog.SIZE_LARGE,
         title: "",
         type: BootstrapDialog.TYPE_DEFAULT,
@@ -27,7 +27,7 @@ function BootstrapDialogOptionsTests() {
         autodestroy: false,
         nl2br: false,
     };
-    options2.onhide = (dialog: BootstrapDialog.DialogContext): void => { };
+    options2.onhide = (dialog: BootstrapDialog.DialogContext): void => {};
     options2.onhide = (dialog: BootstrapDialog.DialogContext): boolean => false;
     options2.message = "";
     options2.message = $("#element");
@@ -55,18 +55,18 @@ function BootstrapDialogOptionsTests() {
 
 function BootstrapDialogStaticTests() {
     BootstrapDialog.alert("");
-    BootstrapDialog.alert("", () => { });
+    BootstrapDialog.alert("", () => {});
     BootstrapDialog.confirm("");
-    BootstrapDialog.confirm("", (result: boolean) => { });
+    BootstrapDialog.confirm("", (result: boolean) => {});
     const instance1: BootstrapDialog.DialogInstance = BootstrapDialog.show({});
     // BUTTON_SIZES
-    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL] = '';
+    BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL] = "";
     const buttonSize: string = BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL];
     // Buttons order
     BootstrapDialog.BUTTONS_ORDER_CANCEL_OK = "";
     BootstrapDialog.BUTTONS_ORDER_OK_CANCEL = "";
     // DEFAULT_TEXTS
-    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Information';
+    BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = "Information";
     const defaultText: string = BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT];
     // Miscellaneous
     BootstrapDialog.ICON_SPINNER = "";
@@ -109,15 +109,15 @@ function BootstrapDialogInstanceTests() {
 }
 
 function BootstrapDialogButtonTests() {
-    const button1: BootstrapDialog.DialogButton = { };
+    const button1: BootstrapDialog.DialogButton = {};
     const button2: BootstrapDialog.DialogButton = {
         id: "",
         label: "",
         hotkey: 0,
         icon: "",
         cssClass: "",
-        data: {name: "value"},
+        data: { name: "value" },
         autospin: false,
-        action: (dialog: BootstrapDialog.DialogContext) => { },
+        action: (dialog: BootstrapDialog.DialogContext) => {},
     };
 }

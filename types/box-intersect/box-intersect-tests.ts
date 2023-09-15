@@ -1,4 +1,4 @@
-import boxIntersect from 'box-intersect';
+import boxIntersect from "box-intersect";
 
 type Box2D = [number, number, number, number];
 type Box3D = [number, number, number, number, number, number];

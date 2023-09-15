@@ -12,9 +12,9 @@ export type Resolver = (node: any, parser: any, importer: Importer) => any;
 
 export interface Options {
     resolver?:
-        | 'findAllComponentDefinitions'
-        | 'findAllExportedComponentDefinitions'
-        | 'findExportedComponentDefinition'
+        | "findAllComponentDefinitions"
+        | "findAllExportedComponentDefinitions"
+        | "findExportedComponentDefinition"
         | Resolver;
     handlers?: Array<string | Handler>;
     removeMethods?: boolean;

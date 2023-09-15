@@ -4,7 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BaseConverter } from 'base-x';
+import { BaseConverter } from "base-x";
 
 declare const base58: BaseConverter;
 

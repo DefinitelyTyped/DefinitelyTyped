@@ -23,4 +23,4 @@ export namespace MessageDispatcher {
         [x: string]: any[];
     };
 }
-import { MessageBinding } from './MessageBinding';
+import { MessageBinding } from "./MessageBinding";

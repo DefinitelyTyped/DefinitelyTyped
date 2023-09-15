@@ -11,8 +11,8 @@
 
 /// <reference types="node" />
 
-import { NextHandleFunction } from 'connect';
-import * as http from 'http';
+import { NextHandleFunction } from "connect";
+import * as http from "http";
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
 
@@ -67,7 +67,6 @@ declare namespace bodyParser {
 
     interface OptionsJson extends Options {
         /**
-         *
          * The reviver option is passed directly to JSON.parse as the second argument.
          */
         reviver?(key: string, value: any): any;

@@ -3,6 +3,6 @@
 // Definitions by: Saiichi Hashimoto <https://github.com/saiichihashimoto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import badwords = require('./array');
+import badwords = require("./array");
 
 export = badwords;

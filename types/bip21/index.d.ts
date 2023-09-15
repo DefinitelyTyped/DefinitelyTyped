@@ -5,8 +5,8 @@
 
 type Options =
     | {
-          amount?: number;
-      }
+        amount?: number;
+    }
     | { [key: string]: string };
 
 declare namespace bip21 {

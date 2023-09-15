@@ -1,4 +1,4 @@
-import BufferReader from 'buffer-reader';
+import BufferReader from "buffer-reader";
 
 const buffer = new Buffer(1000);
 const reader = new BufferReader(buffer);
@@ -9,9 +9,9 @@ reader.move(2);
 reader.restAll();
 reader.nextBuffer(2);
 reader.nextString(5);
-reader.nextString(5, 'utf8');
+reader.nextString(5, "utf8");
 reader.nextStringZero();
-reader.nextStringZero('utf8');
+reader.nextStringZero("utf8");
 reader.nextInt8();
 reader.nextUInt8();
 reader.nextInt16LE();

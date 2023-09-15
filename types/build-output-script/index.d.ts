@@ -16,7 +16,7 @@ export = buildOutputScript;
  * @returns A (hex string) P2PKH transaction output script.
  */
 declare function buildOutputScript(
-    outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]]
+    outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]],
 ): string;
 
 declare namespace buildOutputScript {

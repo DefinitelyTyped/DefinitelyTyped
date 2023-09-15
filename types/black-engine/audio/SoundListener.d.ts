@@ -3,4 +3,4 @@ export class SoundListener extends Component {
     listen(): void;
     loose(): void;
 }
-import { Component } from '../core/Component';
+import { Component } from "../core/Component";

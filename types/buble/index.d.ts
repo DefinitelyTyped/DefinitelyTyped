@@ -10,8 +10,56 @@ import { SourceMap } from "magic-string";
 export interface TransformOptions {
     // source: https://github.com/Rich-Harris/buble/blob/master/src/support.js
     target?: {
-        chrome?: 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | undefined;
-        firefox?: 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | undefined;
+        chrome?:
+            | 48
+            | 49
+            | 50
+            | 51
+            | 52
+            | 53
+            | 54
+            | 55
+            | 56
+            | 57
+            | 58
+            | 59
+            | 60
+            | 61
+            | 62
+            | 63
+            | 64
+            | 65
+            | 66
+            | 67
+            | 68
+            | 69
+            | 70
+            | 71
+            | undefined;
+        firefox?:
+            | 43
+            | 44
+            | 45
+            | 46
+            | 47
+            | 48
+            | 49
+            | 50
+            | 51
+            | 52
+            | 53
+            | 54
+            | 55
+            | 56
+            | 57
+            | 58
+            | 59
+            | 60
+            | 61
+            | 62
+            | 63
+            | 64
+            | undefined;
         safari?: 8 | 9 | 10 | 10.1 | 11 | 11.1 | 12 | undefined;
         ie?: 8 | 9 | 10 | 11 | undefined;
         edge?: 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | undefined;
@@ -20,7 +68,7 @@ export interface TransformOptions {
 
     // used for sourcemaps
     source?: string | undefined; // input
-    file?: string | undefined;   // output
+    file?: string | undefined; // output
     includeContent?: boolean | undefined;
 
     // custom JSX pragma (https://buble.surge.sh/guide/#jsx)

@@ -1,4 +1,4 @@
-import * as bigUintLE from 'biguintle';
+import * as bigUintLE from "biguintle";
 
 const bigUint = BigInt(1);
 

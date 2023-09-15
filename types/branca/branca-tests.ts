@@ -1,5 +1,5 @@
-const key = '7ed049e344f73f399ba1f7868cf9494f4b13347ecce02a8e463feb32507b73a5';
-import Branca = require('branca');
+const key = "7ed049e344f73f399ba1f7868cf9494f4b13347ecce02a8e463feb32507b73a5";
+import Branca = require("branca");
 
 /*
  * Encode/Decode Arbitrary data
@@ -7,7 +7,7 @@ import Branca = require('branca');
  * Example from https://github.com/tuupola/branca-js
  */
 const branca = Branca(key);
-const token = branca.encode('tuupola@appelsiini.net'); // $ExpectType string
+const token = branca.encode("tuupola@appelsiini.net"); // $ExpectType string
 console.log(token);
 
 /*
@@ -27,7 +27,7 @@ try {
  *
  * Example from https://github.com/tuupola/branca-js
  */
-const json = JSON.stringify({ scope: ['read', 'write', 'delete'] });
+const json = JSON.stringify({ scope: ["read", "write", "delete"] });
 
 const token2 = branca.encode(json); // $ExpectType string
 console.log(token);

@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "bit-array" {
-
     class BitArray {
         /**
          * Creates a new empty BitArray with the given length or initialises the BitArray with the given hex representation.

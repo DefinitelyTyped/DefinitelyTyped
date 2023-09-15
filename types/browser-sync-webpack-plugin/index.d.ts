@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import BrowserSync = require('browser-sync');
-import { Plugin } from 'webpack';
+import BrowserSync = require("browser-sync");
+import { Plugin } from "webpack";
 
 declare namespace BrowserSyncPlugin {
     interface Options {

@@ -396,7 +396,11 @@ declare namespace browserSync {
     }
 
     interface ProxyResponseMiddleware {
-        (proxyRes: http.ServerResponse | http.IncomingMessage, res: http.ServerResponse, req: http.IncomingMessage): void;
+        (
+            proxyRes: http.ServerResponse | http.IncomingMessage,
+            res: http.ServerResponse,
+            req: http.IncomingMessage,
+        ): void;
     }
 
     interface HttpsOptions {
@@ -405,8 +409,8 @@ declare namespace browserSync {
     }
 
     interface StaticOptions {
-        route: string | string[],
-        dir: string | string[]
+        route: string | string[];
+        dir: string | string[];
     }
 
     interface MiddlewareHandler {
@@ -430,18 +434,18 @@ declare namespace browserSync {
     }
 
     interface FormsOptions {
-        inputs: boolean,
-        submit: boolean,
-        toggles: boolean
+        inputs: boolean;
+        submit: boolean;
+        toggles: boolean;
     }
 
     interface SnippetOptions {
         async?: boolean | undefined;
-        whitelist?: string[] | undefined,
-        blacklist?: string[] | undefined,
+        whitelist?: string[] | undefined;
+        blacklist?: string[] | undefined;
         rule?: {
             match?: RegExp | undefined;
-            fn?: ((snippet: string, match: string) => any) | undefined
+            fn?: ((snippet: string, match: string) => any) | undefined;
         } | undefined;
     }
 
@@ -451,7 +455,7 @@ declare namespace browserSync {
         namespace?: string | undefined;
         domain?: string | undefined;
         port?: number | undefined;
-        clients?: { heartbeatTimeout?: number | undefined; } | undefined;
+        clients?: { heartbeatTimeout?: number | undefined } | undefined;
     }
 
     interface ScriptOptions {
@@ -487,9 +491,7 @@ declare namespace browserSync {
          * depending on your use-case.
          */
         (config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
-        /**
-         *
-         */
+        /** */
         instances: Array<BrowserSyncInstance>;
         /**
          * Create a Browsersync instance
@@ -581,7 +583,11 @@ declare namespace browserSync {
          * @param {object} options The
          * @param {any} cb A callback function that will return any errors.
          */
-        use(module: { "plugin:name"?: string | undefined, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
+        use(
+            module: { "plugin:name"?: string | undefined; plugin: (opts: object, bs: BrowserSyncInstance) => any },
+            options?: object,
+            cb?: any,
+        ): void;
         /**
          * Callback helper to examine what options have been set.
          * @param {string} name The key to search options map for.
@@ -590,8 +596,11 @@ declare namespace browserSync {
         /**
          * Stand alone file-watcher. Use this along with Browsersync to create your own, minimal build system
          */
-        watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
-            : NodeJS.EventEmitter;
+        watch(
+            patterns: string,
+            opts?: chokidar.WatchOptions,
+            fn?: (event: string, file: fs.Stats) => any,
+        ): NodeJS.EventEmitter;
         /**
          * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use
          * this to emit your own events, such as changed files, logging etc.

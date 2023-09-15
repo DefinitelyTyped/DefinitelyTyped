@@ -1,10 +1,10 @@
 import {
-    createInterpolator,
     createGridInterpolator,
-    createMultiInterpolator,
+    createInterpolator,
     createMultiGridInterpolator,
+    createMultiInterpolator,
     type Options,
-} from 'bicubic-interpolate';
+} from "bicubic-interpolate";
 
 // Initialize test data
 const options: Options = {

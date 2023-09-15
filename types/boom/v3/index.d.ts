@@ -8,7 +8,6 @@
 export = Boom;
 
 declare namespace Boom {
-
     export interface BoomError {
         data: any;
         reformat: () => void;

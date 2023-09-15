@@ -1,10 +1,8 @@
+import { Options } from "@babel/plugin-transform-runtime";
 
-import { Options } from '@babel/plugin-transform-runtime';
-
-
-//========//
+// ========//
 // COREJS //
-//========//
+// ========//
 
 let options: Options = {
     corejs: 2,
@@ -28,10 +26,9 @@ options = {
     },
 };
 
-
-//=========//
+// =========//
 // HELPERS //
-//=========//
+// =========//
 
 options = {
     helpers: true,
@@ -41,10 +38,9 @@ options = {
     helpers: false,
 };
 
-
-//=============//
+// =============//
 // REGENERATOR //
-//=============//
+// =============//
 
 options = {
     regenerator: true,
@@ -54,10 +50,9 @@ options = {
     regenerator: false,
 };
 
-
-//================//
+// ================//
 // USE ES MODULES //
-//================//
+// ================//
 
 options = {
     useESModules: true,
@@ -67,10 +62,9 @@ options = {
     useESModules: false,
 };
 
-
-//==================//
+// ==================//
 // ABSOLUTE RUNTIME //
-//==================//
+// ==================//
 
 options = {
     absoluteRuntime: true,
@@ -81,14 +75,13 @@ options = {
 };
 
 options = {
-    absoluteRuntime: '/some/path/here',
+    absoluteRuntime: "/some/path/here",
 };
 
-
-//=========//
+// =========//
 // VERSION //
-//=========//
+// =========//
 
 options = {
-    version: '^1.2.3',
+    version: "^1.2.3",
 };

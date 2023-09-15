@@ -3,8 +3,7 @@
 // Definitions by: Cayle Sharrock <https://github.com/CjS77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'bintrees' {
-
+declare module "bintrees" {
     type Callback<T> = (item: T) => void;
     type Comparator<T> = (a: T, b: T) => number;
 
@@ -41,7 +40,6 @@ declare module 'bintrees' {
 
         reach(cb: Callback<T>): void;
     }
-
 
     export class RBTree<T> extends TreeBase<T> {
         constructor(comparator: Comparator<T>);

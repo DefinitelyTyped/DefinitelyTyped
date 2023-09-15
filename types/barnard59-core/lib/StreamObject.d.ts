@@ -1,7 +1,7 @@
-import * as stream from 'readable-stream';
-import { GraphPointer } from 'clownface';
-import { LoaderRegistry } from 'rdf-loaders-registry';
-import { Logger } from 'winston';
+import { GraphPointer } from "clownface";
+import { LoaderRegistry } from "rdf-loaders-registry";
+import * as stream from "readable-stream";
+import { Logger } from "winston";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Variables {}

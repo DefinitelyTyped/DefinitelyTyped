@@ -16,7 +16,9 @@ interface Attribute {
     name: string;
     value: any;
     typedValue: {
-        value: number; type: string; rawType: number;
+        value: number;
+        type: string;
+        rawType: number;
     };
 }
 

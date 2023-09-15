@@ -27,9 +27,9 @@ export interface BasicLightBox {
      * Returns the DOM element/node associated with the instance.
      */
     element: () => Element;
-  }
+}
 
-  export interface BasicLightBoxOptions {
+export interface BasicLightBoxOptions {
     /*
      * Prevents the lightbox from closing when clicking its background.
      */
@@ -48,17 +48,17 @@ export interface BasicLightBox {
      * Returning false will prevent the lightbox from closing.
      */
     onClose?: ((instance: BasicLightBox) => boolean) | undefined;
-  }
+}
 
-  /**
-   * Creates a new BasicLightbox instance.
-   *
-   * @param content Content of the lightbox.
-   * @param options An object of options.
-   */
-  export function create(content: string | Element, options?: BasicLightBoxOptions): BasicLightBox;
+/**
+ * Creates a new BasicLightbox instance.
+ *
+ * @param content Content of the lightbox.
+ * @param options An object of options.
+ */
+export function create(content: string | Element, options?: BasicLightBoxOptions): BasicLightBox;
 
-  /**
-   * Returns `true` when a lightbox is visible. Also returns true when a lightbox is currently in the process of showing/hiding and not fully visible/hidden, yet.
-   */
-  export function visible(): boolean;
+/**
+ * Returns `true` when a lightbox is visible. Also returns true when a lightbox is currently in the process of showing/hiding and not fully visible/hidden, yet.
+ */
+export function visible(): boolean;

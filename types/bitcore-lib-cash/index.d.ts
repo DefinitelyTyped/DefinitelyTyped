@@ -19,7 +19,7 @@ export namespace crypto {
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
-        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: 'little'): boolean;
+        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: "little"): boolean;
     }
 
     namespace Hash {
@@ -274,7 +274,7 @@ export namespace Transaction {
             subscript: Script,
             inputSatoshis: crypto.BN,
             flags: number,
-            signingMethod: 'ecdsa' | 'schnorr'
+            signingMethod: "ecdsa" | "schnorr",
         ): crypto.Signature;
     }
 }
@@ -311,7 +311,11 @@ export class Transaction {
     fee(amount: number): this;
     feePerKb(amount: number): this;
     feePerByte(amount: number): this;
-    sign(privateKey: Array<PrivateKey | string> | PrivateKey | string, sigtype?: number | null, signingMethod?: string): this;
+    sign(
+        privateKey: Array<PrivateKey | string> | PrivateKey | string,
+        sigtype?: number | null,
+        signingMethod?: string,
+    ): this;
     getSignatures(
         privKey: PrivateKey | string,
         sigtype?: number,

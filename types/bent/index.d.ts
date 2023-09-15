@@ -7,9 +7,9 @@
 /// <reference types="node" />
 /// <reference lib="dom" />
 
-import { PassThrough, Stream } from 'stream';
+import { PassThrough, Stream } from "stream";
 
-type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH' | 'HEAD' | 'OPTIONS' | 'CONNECT' | 'TRACE';
+type HttpMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH" | "HEAD" | "OPTIONS" | "CONNECT" | "TRACE";
 type StatusCode = number;
 type BaseUrl = string;
 interface Headers {
@@ -17,21 +17,21 @@ interface Headers {
 }
 
 // Type first
-declare function bent(type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
-declare function bent(type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
+declare function bent(type: "string", ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(type: "buffer", ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function bent<T extends bent.Json = any>(type: 'json', ...args: bent.Options[]): bent.RequestFunction<T>;
+declare function bent<T extends bent.Json = any>(type: "json", ...args: bent.Options[]): bent.RequestFunction<T>;
 
 // Method or url first
-declare function bent(baseUrl: string, type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(baseUrl: string, type: "string", ...args: bent.Options[]): bent.RequestFunction<string>;
 declare function bent(
     baseUrl: string,
-    type: 'buffer',
+    type: "buffer",
     ...args: bent.Options[]
 ): bent.RequestFunction<Buffer | ArrayBuffer>;
 declare function bent<T extends bent.Json = any>(
     baseUrl: string,
-    type: 'json',
+    type: "json",
     ...args: bent.Options[]
 ): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 bent.RequestFunction<T>;

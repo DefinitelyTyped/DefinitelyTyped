@@ -480,7 +480,7 @@ export interface Modifier extends TimePeriod {
      *
      * @param constraint: The constraint to be modified
      * @param value: The starting value of the after constraint
-     */(constraint: TimePeriod, value: number): TimePeriod;
+     */ (constraint: TimePeriod, value: number): TimePeriod;
 }
 
 /**

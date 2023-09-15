@@ -1,4 +1,4 @@
-import BinaryParseStream = require('binary-parse-stream');
+import BinaryParseStream = require("binary-parse-stream");
 
 class Decoder extends BinaryParseStream {}
 

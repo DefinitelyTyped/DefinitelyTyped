@@ -13,12 +13,13 @@ interface RangeHighlight {
     end?: number | undefined;
 }
 
-type SliderEventType =  'slide' |
-                        'slideStart' |
-                        'slideStop' |
-                        'change' |
-                        'slideEnabled' |
-                        'slideDisabled';
+type SliderEventType =
+    | "slide"
+    | "slideStart"
+    | "slideStop"
+    | "change"
+    | "slideEnabled"
+    | "slideDisabled";
 
 interface SliderOptions {
     /**
@@ -83,7 +84,7 @@ interface SliderOptions {
      * Default positions are 'top' for horizontal and 'right' for vertical
      * slider.
      */
-    tooltip_position?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+    tooltip_position?: "top" | "bottom" | "left" | "right" | undefined;
     /**
      * Default: 'round'
      * handle shape. Accepts: 'round', 'square', 'triangle' or 'custom'
@@ -97,7 +98,7 @@ interface SliderOptions {
     /**
      * Default: 'auto'
      */
-    rtl?: boolean | 'auto' | undefined;
+    rtl?: boolean | "auto" | undefined;
     /**
      * Default: true
      * whether or not the slider is initially enabled
@@ -146,7 +147,7 @@ interface SliderOptions {
      * Default: 'linear'
      * Set to 'logarithmic' to use a logarithmic scale.
      */
-    scale?: 'linear' | 'logarithmic' | undefined;
+    scale?: "linear" | "logarithmic" | undefined;
     /**
      * Default: false
      * Focus the appropriate slider handle after a value change.
@@ -176,7 +177,7 @@ declare global {
         slider: SliderPlugin<this>;
         bootstrapSlider: SliderPlugin<this>;
 
-        on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
+        on(event: "slide", handler: (slideEvt: SliderEvent) => false | void): this;
     }
 }
 

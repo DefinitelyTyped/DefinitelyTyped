@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 declare namespace BufferHelper {
-    type encoding = 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex';
+    type encoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "binary" | "hex";
 }
 
 declare class BufferHelper {

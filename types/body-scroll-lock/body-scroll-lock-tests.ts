@@ -1,4 +1,4 @@
-import { enableBodyScroll, disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const dom: HTMLDivElement = new HTMLDivElement();
 
@@ -7,7 +7,7 @@ disableBodyScroll(dom, {
 });
 
 disableBodyScroll(dom, {
-    allowTouchMove: el => el.tagName === 'TEXTAREA',
+    allowTouchMove: el => el.tagName === "TEXTAREA",
 });
 
 enableBodyScroll(dom);

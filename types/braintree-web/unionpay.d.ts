@@ -1,6 +1,6 @@
-import { callback } from './core';
-import { Client } from './client';
-import { HostedFields } from './hosted-fields';
+import { Client } from "./client";
+import { callback } from "./core";
+import { HostedFields } from "./hosted-fields";
 
 export interface UnionPayAccountDetails {
     cardType: string;
@@ -208,10 +208,10 @@ export interface UnionPay {
         options:
             | { card: any; enrollmentId: string; smsCode: string }
             | {
-                  hostedFields: HostedFields;
-                  enrollmentId: string;
-                  smsCode: string;
-              },
+                hostedFields: HostedFields;
+                enrollmentId: string;
+                smsCode: string;
+            },
     ): Promise<UnionPayTokenizePayload>;
 
     /**

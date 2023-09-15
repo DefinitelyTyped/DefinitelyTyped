@@ -1,5 +1,5 @@
-import { Readable } from 'readable-stream';
-import { Stream } from 'stream';
+import { Readable } from "readable-stream";
+import { Stream } from "stream";
 
 declare class ConcatStream extends Readable {
     streams: Stream[];

@@ -3,8 +3,8 @@
 // Definitions by: Justin Langston <https://github.com/nitsujlangston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BinaryLike } from 'crypto';
-import { RequestHandler } from 'express';
+import { BinaryLike } from "crypto";
+import { RequestHandler } from "express";
 
 export as namespace bitauth;
 

@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import { ThemedStyle } from 'glaze';
-import {} from 'react';
+import { ThemedStyle } from "glaze";
+import {} from "react";
 
-declare module 'react' {
+declare module "react" {
     interface Attributes {
         sx?: ThemedStyle | undefined;
     }

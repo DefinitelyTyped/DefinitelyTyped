@@ -21,7 +21,7 @@ declare namespace loadImage {
     interface Exif {
         [tag: number]: ExifTagValue;
         map: Record<string, number>;
-        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
+        get: (tagName: "Orientation" | "Thumbnail" | "Exif" | "GPSInfo" | "Interoperability") => ExifTagValue;
     }
 
     interface Iptc {
@@ -41,7 +41,7 @@ declare namespace loadImage {
     }
 
     interface WriteExifData {
-        exif: Pick<Exif, 'map'>;
+        exif: Pick<Exif, "map">;
         exifOffsets: ExifMap;
     }
 
@@ -76,7 +76,7 @@ declare namespace loadImage {
         orientation?: Orientation | undefined;
         crop?: boolean | undefined;
         imageSmoothingEnabled?: boolean | undefined;
-        imageSmoothingQuality?: 'low' | 'medium' | 'high' | undefined;
+        imageSmoothingQuality?: "low" | "medium" | "high" | undefined;
     }
     interface CanvasFalseOptions {
         canvas?: false | undefined;

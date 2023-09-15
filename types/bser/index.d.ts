@@ -68,7 +68,7 @@ export class BunserBuf extends EventEmitter {
 
     append(
         buf: InputWrapper,
-        synchronous?: false
+        synchronous?: false,
     ): AnyWrapper | AnyWrapper[] | undefined;
     append(buf: InputWrapper, synchronous: true): void;
 

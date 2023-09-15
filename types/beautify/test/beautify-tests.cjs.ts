@@ -1,3 +1,3 @@
-import beautify from 'beautify';
+import beautify from "beautify";
 
-beautify(`{"a":1}`, {format: 'json'}); // $ExpectType string
+beautify(`{"a":1}`, { format: "json" }); // $ExpectType string

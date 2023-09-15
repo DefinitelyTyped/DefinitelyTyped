@@ -6,7 +6,7 @@
 // Definitions by: Marek Urbanowicz <https://github.com/murbanowicz>
 
 /// <reference types="node" />
-import Long = require('long');
+import Long = require("long");
 
 declare namespace ByteBuffer {}
 export = ByteBuffer;
@@ -510,7 +510,7 @@ declare class ByteBuffer {
     toBuffer(forceCopy?: boolean): Buffer;
 
     /**
-     *Encodes this ByteBuffer to a hex encoded string with marked offsets. Offset symbols are:
+     * Encodes this ByteBuffer to a hex encoded string with marked offsets. Offset symbols are:
      *  < : offset,
      *  ' : markedOffset,
      *  > : limit,

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import blake2b = require('blake2b');
+import blake2b = require("blake2b");
 
 // test type exports
 type Blake2b = blake2b.Blake2b;
@@ -52,7 +52,7 @@ b2b.update(new Uint8Array()); // $ExpectType Blake2b
 b2b.update(Buffer.alloc(0)); // $ExpectType Blake2b
 
 b2b.digest(); // $ExpectType Uint8Array
-b2b.digest('binary'); // $ExpectType Uint8Array
+b2b.digest("binary"); // $ExpectType Uint8Array
 b2b.digest(new Uint8Array()); // $ExpectType Uint8Array
 b2b.digest(Buffer.alloc(0)); // $ExpectType Buffer
-b2b.digest('hex'); // $ExpectType string
+b2b.digest("hex"); // $ExpectType string

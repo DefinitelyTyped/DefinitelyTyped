@@ -63,7 +63,7 @@ declare global {
              *
              * @see https://github.com/bigbite/wp-cypress/wiki/Cypress-Commands
              */
-            resetWP(version?: string|false): Chainable<Exec>;
+            resetWP(version?: string | false): Chainable<Exec>;
 
             /**
              * Install a theme.

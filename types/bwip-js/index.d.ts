@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage as Request, ServerResponse as Response } from 'http';
+import { IncomingMessage as Request, ServerResponse as Response } from "http";
 
 declare namespace BwipJs {
     export interface BwippOptions {
@@ -31,8 +31,8 @@ declare namespace BwipJs {
         textgaps?: number | undefined;
         alttext?: string | undefined;
 
-        textxalign?: 'offleft' | 'left' | 'center' | 'right' | 'offright' | 'justify' | undefined;
-        textyalign?: 'below' | 'center' | 'above' | undefined;
+        textxalign?: "offleft" | "left" | "center" | "right" | "offright" | "justify" | undefined;
+        textyalign?: "below" | "center" | "above" | undefined;
         textxoffset?: number | undefined;
         textyoffset?: number | undefined;
 
@@ -69,7 +69,7 @@ declare namespace BwipJs {
         scaleY?: number | undefined;
         scale?: number | undefined;
 
-        rotate?: 'N' | 'R' | 'L' | 'I' | undefined;
+        rotate?: "N" | "R" | "L" | "I" | undefined;
 
         paddingwidth?: number | undefined;
         paddingheight?: number | undefined;
@@ -144,13 +144,14 @@ declare namespace BwipJs {
     export function request(req: Request, res: Response, opts?: RenderOptions): void;
 
     export namespace FontLib {
-        export interface PathData
-            extends Array<
-                | { type: 'M'; x: number; y: number }
-                | { type: 'L'; x: number; y: number }
-                | { type: 'Q'; x: number; y: number; cx: number; cy: number }
-                | { type: 'C'; x: number; y: number; cx1: number; cy1: number; cx2: number; cy2: number }
-            > {
+        export interface PathData extends
+            Array<
+                | { type: "M"; x: number; y: number }
+                | { type: "L"; x: number; y: number }
+                | { type: "Q"; x: number; y: number; cx: number; cy: number }
+                | { type: "C"; x: number; y: number; cx1: number; cy1: number; cx2: number; cy2: number }
+            >
+        {
             ascent: number;
             descent: number;
             advance: number;

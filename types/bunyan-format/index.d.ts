@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { Writable } from 'stream';
+import { Writable } from "stream";
 
 declare namespace BunyanFormatWritable {
     interface ColorFromLevel {
@@ -15,7 +15,7 @@ declare namespace BunyanFormatWritable {
     }
 
     interface Options {
-        outputMode?: 'short' | 'long' | 'simple' | 'json' | 'bunyan' | 'inspect' | undefined;
+        outputMode?: "short" | "long" | "simple" | "json" | "bunyan" | "inspect" | undefined;
         color?: boolean | undefined;
         colorFromLevel?: ColorFromLevel | undefined;
         levelInString?: boolean | undefined;
@@ -26,7 +26,7 @@ declare namespace BunyanFormatWritable {
 /** Creates a writable stream that formats bunyan records written to it. */
 interface BunyanFormatWritable extends Writable {
     // tslint:disable-next-line no-misused-new
-    new (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
+    new(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
     (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
 }
 

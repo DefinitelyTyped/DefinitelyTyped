@@ -27,7 +27,6 @@ interface Output {
 }
 
 /**
- *
  * For the first non-nested matching pair of a and b in str, return an object with those keys:
  * start the index of the first match of
  * `end` the index of the matching b

@@ -17,7 +17,7 @@
 export = Backbone;
 export as namespace Backbone;
 
-import * as _ from 'underscore';
+import * as _ from "underscore";
 
 declare namespace Backbone {
     type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -69,7 +69,7 @@ declare namespace Backbone {
         parse?: boolean | undefined;
     }
 
-    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, 'success' | 'error'>> {
+    interface PersistenceOptions extends Partial<_Omit<JQueryAjaxSettings, "success" | "error">> {
         // TODO: Generalize modelOrCollection
         success?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
         error?: ((modelOrCollection: any, response: any, options: any) => void) | undefined;
@@ -326,7 +326,7 @@ declare namespace Backbone {
          */
         static extend(properties: any, classProperties?: any): any;
 
-        model: new (...args: any[]) => TModel;
+        model: new(...args: any[]) => TModel;
         models: TModel[];
         length: number;
 
@@ -348,8 +348,8 @@ declare namespace Backbone {
          */
         comparator:
             | string
-            | { bivarianceHack(element: TModel): number | string }['bivarianceHack']
-            | { bivarianceHack(compare: TModel, to?: TModel): number }['bivarianceHack'];
+            | { bivarianceHack(element: TModel): number | string }["bivarianceHack"]
+            | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
         add(model: {} | TModel, options?: AddOptions): TModel;
         add(models: Array<{} | TModel>, options?: AddOptions): TModel[];
@@ -369,7 +369,6 @@ declare namespace Backbone {
         reset(models?: Array<{} | TModel>, options?: Silenceable): TModel[];
 
         /**
-         *
          * The set method performs a "smart" update of the collection with the passed list of models.
          * If a model in the list isn't yet in the collection it will be added; if the model is already in the
          * collection its attributes will be merged; and if the collection contains any models that aren't present
@@ -546,7 +545,9 @@ declare namespace Backbone {
 
     type ViewEventListener = (event: JQuery.Event) => void;
 
-    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin implements Events {
+    class View<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> extends EventsMixin
+        implements Events
+    {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */

@@ -9,6 +9,6 @@ export class AnimationController extends Component {
     pause(): void;
     get currentAnimation(): AnimationInfo;
 }
-import { Texture } from '../textures/Texture';
-import { Component } from '../core/Component';
-import { AnimationInfo } from './AnimationInfo';
+import { Component } from "../core/Component";
+import { Texture } from "../textures/Texture";
+import { AnimationInfo } from "./AnimationInfo";

@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 export = BufferStream;
 
@@ -85,5 +85,5 @@ declare namespace BufferStream {
         // String or Buffer
         split?: any;
     }
-    const fn: {warn: boolean};
+    const fn: { warn: boolean };
 }

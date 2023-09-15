@@ -11,5 +11,5 @@ export class BVGParser extends ParserBase {
     private __getArcCenter;
     private __arcToBezier;
 }
-import { ParserBase } from './ParserBase';
-import { GraphicsData } from '../display/GraphicsData';
+import { GraphicsData } from "../display/GraphicsData";
+import { ParserBase } from "./ParserBase";

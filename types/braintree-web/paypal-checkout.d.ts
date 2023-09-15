@@ -1,7 +1,7 @@
 /// <reference types="paypal-checkout-components" />
 
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
 export interface PayPalCheckoutCreatePaymentOptions {
     flow: paypal.FlowType;
@@ -35,7 +35,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * Braintree component. When used in conjunction with passing authorization when creating the
      * PayPal Checkout component, you can speed up the loading of the PayPal SDK.
      */
-    'client-id'?: string | undefined;
+    "client-id"?: string | undefined;
 
     /**
      * By default, the PayPal SDK defaults to an intent of capture. Since the default intent when
@@ -46,7 +46,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'authorize'
      */
-    intent?: 'authorize' | 'capture' | 'sale' | 'tokenize' | undefined;
+    intent?: "authorize" | "capture" | "sale" | "tokenize" | undefined;
 
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
@@ -67,7 +67,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      *
      * @default 'buttons'
      */
-    components?: 'buttons' | 'messages' | 'buttons,messages' | undefined;
+    components?: "buttons" | "messages" | "buttons,messages" | undefined;
 
     /**
      * The data attributes to apply to the script. Any data attribute can be passed. A subset of the
@@ -75,31 +75,31 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      */
     dataAttributes?:
         | {
-              /**
-               * CSP nonce used for rendering the button.
-               */
-              'csp-nonce'?: string | undefined;
+            /**
+             * CSP nonce used for rendering the button.
+             */
+            "csp-nonce"?: string | undefined;
 
-              /**
-               * Client token used for identifying your buyers.
-               */
-              'data-client-token'?: string | undefined;
+            /**
+             * Client token used for identifying your buyers.
+             */
+            "data-client-token"?: string | undefined;
 
-              /**
-               * Order ID used for optimizing the funding that displays.
-               */
-              'data-order-id'?: string | undefined;
+            /**
+             * Order ID used for optimizing the funding that displays.
+             */
+            "data-order-id"?: string | undefined;
 
-              /**
-               * Log page type and interactions for the JavaScript SDK.
-               */
-              'data-page-type'?: string | undefined;
+            /**
+             * Log page type and interactions for the JavaScript SDK.
+             */
+            "data-page-type"?: string | undefined;
 
-              /**
-               * Partner attribution ID used for revenue attribution.
-               */
-              'data-partner-attribution-id'?: string | undefined;
-          }
+            /**
+             * Partner attribution ID used for revenue attribution.
+             */
+            "data-partner-attribution-id"?: string | undefined;
+        }
         | undefined;
     /**
      * Funding sources to disallow from showing in the checkout buttons.
@@ -107,13 +107,13 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * e.g. card, credit, bancontact
      * The full list is available in the PayPal SDK docs.
      */
-    'disable-funding'?: string;
+    "disable-funding"?: string;
     /**
      * Funding sources to allow in the checkout buttons.
      * e.g. venmo, paylater
      * The full list is available in the PayPal SDK docs.
      */
-    'enable-funding'?: string;
+    "enable-funding"?: string;
     /**
      * The locale used to localize any components.
      * PayPal recommends not setting this parameter, as the buyer's locale is automatically set by PayPal.
@@ -134,16 +134,16 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
     /**
      * The buyer country. Available in Sandbox for testing.
      */
-    'buyer-country'?: string;
+    "buyer-country"?: string;
     /**
      * The date of integration. Used to ensure backwards compatibility.
      * Format: YYYY-MM-DD
      */
-    'integration-date'?: string;
+    "integration-date"?: string;
     /**
      * The merchant for whom you are facilitating a transaction.
      */
-    'merchant-id'?: string;
+    "merchant-id"?: string;
 }
 
 export interface PayPalCheckout {
@@ -268,7 +268,6 @@ export interface PayPalCheckout {
      *  console.error('Error!', err);
      * });
      * ```
-     *
      */
     createPayment(options: PayPalCheckoutCreatePaymentOptions, callback?: callback): Promise<string>;
 
@@ -292,7 +291,6 @@ export interface PayPalCheckout {
      *   },
      *   // Add other options, e.g. onCancel, onError
      * }).render('#paypal-button');
-     *
      */
     tokenizePayment(tokenizeOptions: PayPalCheckoutTokenizationOptions): Promise<paypal.TokenizePayload>;
     tokenizePayment(tokenizeOptions: PayPalCheckoutTokenizationOptions, callback?: callback): void;
@@ -335,7 +333,6 @@ export interface PayPalCheckout {
      *
      *   // handle other errors
      * });
-     *
      */
     startVaultInitiatedCheckout(options: { optOutOfModalBackdrop: boolean }): Promise<void>;
     startVaultInitiatedCheckout(options: { optOutOfModalBackdrop: boolean }, callback: callback): void;

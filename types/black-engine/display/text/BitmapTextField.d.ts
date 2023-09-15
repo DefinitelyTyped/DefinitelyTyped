@@ -22,5 +22,5 @@ export class BitmapTextField extends DisplayObject {
     set autoSize(arg: boolean);
     get autoSize(): boolean;
 }
-import { DisplayObject } from '../DisplayObject';
-import { BitmapFontData } from '../../assets/BitmapFontAsset';
+import { BitmapFontData } from "../../assets/BitmapFontAsset";
+import { DisplayObject } from "../DisplayObject";

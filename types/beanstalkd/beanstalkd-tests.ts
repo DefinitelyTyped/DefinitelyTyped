@@ -1,8 +1,8 @@
-import Beanstalkd from 'beanstalkd';
+import Beanstalkd from "beanstalkd";
 
-const host = '127.0.0.1';
+const host = "127.0.0.1";
 const port = 11300;
-const tube = 'TestTube';
+const tube = "TestTube";
 
 const beanstalkd = new Beanstalkd(host, port);
 
@@ -15,7 +15,7 @@ beanstalkd.connect().then(beanstalkd => {
     beanstalkd.use(tube).then(() => beanstalkd.put(priority, delay, ttr));
 
     // Or use fancy bluebird features
-    beanstalkd.call('use', tube).call('put', priority, delay, ttr);
+    beanstalkd.call("use", tube).call("put", priority, delay, ttr);
 
     // Close when done
     beanstalkd.quit();

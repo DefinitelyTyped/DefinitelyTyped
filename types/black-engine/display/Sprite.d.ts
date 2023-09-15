@@ -15,6 +15,6 @@ export class Sprite extends DisplayObject {
     set tiling(arg: any);
     get tiling(): any;
 }
-import { DisplayObject } from './DisplayObject';
-import { Texture } from '../textures/Texture';
-import { Rectangle } from '../geom/Rectangle';
+import { Rectangle } from "../geom/Rectangle";
+import { Texture } from "../textures/Texture";
+import { DisplayObject } from "./DisplayObject";

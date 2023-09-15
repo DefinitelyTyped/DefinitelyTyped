@@ -9,18 +9,18 @@
 declare module "bunyan-config" {
     import * as bunyan from "bunyan";
     interface StreamConfiguration {
-        name: string,
+        name: string;
         params?: {
-            host: string,
-            port: number
-        } | undefined
+            host: string;
+            port: number;
+        } | undefined;
     }
 
     interface Stream {
         type?: string | undefined;
         level?: bunyan.LogLevel | undefined;
         path?: string | undefined;
-        stream?: string | StreamConfiguration | undefined
+        stream?: string | StreamConfiguration | undefined;
         closeOnExit?: boolean | undefined;
         period?: string | undefined;
         count?: number | undefined;

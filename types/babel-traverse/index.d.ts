@@ -6,11 +6,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as t from 'babel-types';
+import * as t from "babel-types";
 export type Node = t.Node;
 
-export default function traverse<S>(parent: Node | Node[], opts: TraverseOptions<S>, scope: Scope, state: S, parentPath?: NodePath): void;
-export default function traverse(parent: Node | Node[], opts: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
+export default function traverse<S>(
+    parent: Node | Node[],
+    opts: TraverseOptions<S>,
+    scope: Scope,
+    state: S,
+    parentPath?: NodePath,
+): void;
+export default function traverse(
+    parent: Node | Node[],
+    opts: TraverseOptions,
+    scope?: Scope,
+    state?: any,
+    parentPath?: NodePath,
+): void;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope | undefined;
@@ -24,7 +36,7 @@ export class Scope {
     parentBlock: Node;
     parent: Scope;
     hub: Hub;
-    bindings: { [name: string]: Binding; };
+    bindings: { [name: string]: Binding };
 
     /** Traverse node with current scope and path. */
     traverse<S>(node: Node | Node[], opts: TraverseOptions<S>, state: S): void;
@@ -124,11 +136,19 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: 'var' | 'let' | 'const'; });
+    constructor(
+        opts: {
+            existing: Binding;
+            identifier: t.Identifier;
+            scope: Scope;
+            path: NodePath;
+            kind: "var" | "let" | "const";
+        },
+    );
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: 'var' | 'let' | 'const' | 'module';
+    kind: "var" | "let" | "const" | "module";
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
@@ -354,7 +374,7 @@ export class NodePath<T = Node> {
 
     getData(key: string, def?: any): any;
 
-    buildCodeFrameError<TError extends Error>(msg: string, Error?: new (msg: string) => TError): TError;
+    buildCodeFrameError<TError extends Error>(msg: string, Error?: new(msg: string) => TError): TError;
 
     traverse<T>(visitor: Visitor<T>, state: T): void;
     traverse(visitor: Visitor): void;
@@ -393,7 +413,7 @@ export class NodePath<T = Node> {
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
         paths: NodePath[],
-        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath,
     ): NodePath;
 
     /**
@@ -595,10 +615,12 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(key: K, context?: boolean | TraversalContext):
-        T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>> :
-        T[K] extends Node | null | undefined ? NodePath<T[K]> :
-        never;
+    get<K extends keyof T>(
+        key: K,
+        context?: boolean | TraversalContext,
+    ): T[K] extends Array<Node | null | undefined> ? Array<NodePath<T[K][number]>>
+        : T[K] extends Node | null | undefined ? NodePath<T[K]>
+        : never;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
@@ -615,7 +637,7 @@ export class NodePath<T = Node> {
     addComments(type: string, comments: any[]): void;
 
     // ------------------------- isXXX -------------------------
-    isArrayExpression(opts?: object): this is NodePath<t.ArrayExpression> ;
+    isArrayExpression(opts?: object): this is NodePath<t.ArrayExpression>;
     isAssignmentExpression(opts?: object): this is NodePath<t.AssignmentExpression>;
     isBinaryExpression(opts?: object): this is NodePath<t.BinaryExpression>;
     isDirective(opts?: object): this is NodePath<t.Directive>;

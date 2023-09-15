@@ -1,5 +1,5 @@
-import { Popover } from 'bootstrap';
-import * as $ from 'jquery';
+import { Popover } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -71,16 +71,16 @@ element.addEventListener(Popover.Events.inserted, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').popover();
+$(".alert").popover();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').popover({ delay: 0.5, animation: true });
+$(".alert").popover({ delay: 0.5, animation: true });
 
-$('.alert').popover('show'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('hide'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('toggle'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('enable'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('disable'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('update'); // $ExpectType JQuery<HTMLElement>
-$('.alert').popover('setContent'); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("enable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("disable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("toggleEnabled"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("update"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("setContent"); // $ExpectType JQuery<HTMLElement>
