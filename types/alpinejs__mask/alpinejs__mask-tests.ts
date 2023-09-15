@@ -1,4 +1,4 @@
 import maskPlugin from '@alpinejs/mask';
-import Alpine, { AlpineComponent } from 'alpinejs';
+import Alpine from 'alpinejs';
 
 Alpine.plugin(maskPlugin);
