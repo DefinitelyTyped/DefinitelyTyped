@@ -388,7 +388,7 @@ declare namespace GoogleAppsScript {
         transparency?: string | undefined;
         updated?: string | undefined;
         visibility?: string | undefined;
-        workingLocationProperties?: Calendar.Schema.WorkingLocationProperties | undefined;
+        workingLocationProperties?: Calendar.Schema.EventWorkingLocationProperties | undefined;
       }
       interface EventAttachment {
         fileId?: string | undefined;
@@ -508,19 +508,21 @@ declare namespace GoogleAppsScript {
         end?: string | undefined;
         start?: string | undefined;
       }
-      interface WorkingLocationProperties {
-        type?: string|undefined;
-        // The documentation does not specify a type. It gives "any value"
-        homeOffice?: unknown|undefined;
-        customLocation?: {label: string};
-        officeLocation?: OfficeLocation|undefined;
+      interface EventWorkingLocationPropertiesOfficeLocation {
+        buildingId?: string | undefined;
+        floorId?: string | undefined;
+        floorSectionId?: string | undefined;
+        deskId?: string | undefined;
+        label?: string | undefined;
       }
-      interface OfficeLocation {
-        buildingId?: string|undefined;
-        floorId?: string|undefined;
-        floorSectionId?: string|undefined;
-        deskId?: string|undefined;
-        label?: string|undefined;
+      interface EventWorkingLocationPropertiesCustomLocation {
+        label: string;
+      }
+      interface EventWorkingLocationProperties {
+        type?: string | undefined;
+        homeOffice?: object | undefined;
+        customLocation?: EventWorkingLocationPropertiesCustomLocation | undefined;
+        officeLocation?: EventWorkingLocationPropertiesOfficeLocation | undefined;
       }
     }
   }
@@ -591,6 +593,12 @@ declare namespace GoogleAppsScript {
     newFreeBusyRequest(): Calendar.Schema.FreeBusyRequest;
     // Create a new instance of FreeBusyRequestItem
     newFreeBusyRequestItem(): Calendar.Schema.FreeBusyRequestItem;
+    // Create a new instance of EventWorkingLocationProperties
+    newEventWorkingLocationProperties(): Calendar.Schema.EventWorkingLocationProperties;
+    // Create a new instance of EventWorkingLocationPropertiesCustomLocation
+    newEventWorkingLocationPropertiesCustomLocation(): Calendar.Schema.EventWorkingLocationPropertiesCustomLocation;
+    // Create a new instance of EventWorkingLocationPropertiesOfficeLocation
+    newEventWorkingLocationPropertiesOfficeLocation(): Calendar.Schema.EventWorkingLocationPropertiesOfficeLocation;
   }
 }
 
