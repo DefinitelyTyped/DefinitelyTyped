@@ -39,11 +39,12 @@ npm install --save-dev @types/node
 更多信息请参见[手册](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)。
 
 例如，若 npm 软件包名为“foo”，其类型声明的包名应为“@types/foo”。
-若你无法找到相应的软件包，请在 [TypeSearch](https://microsoft.github.io/TypeSearch/) 中查询。
 
-若仍然无法找到，请检查此软件包是否自我[捆绑](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)了类型声明。
-你通常可以在 `package.json` 文件中的 `"types"` 或 `"typings"` 字段中找到这些文件，
-或直接在软件包目录中寻找“.d.ts”文件，并通过 `/// <reference path="" />` 手动引入。
+如果你的软件包使用 ``package.json`` 中的 ``types`` 或 ``typings`` 关键字指定了类型，那么 npm 注册表就会像这样显示该软件包有可用的绑定：
+
+![image](https://user-images.githubusercontent.com/30049719/228748963-56fabfd1-9101-42c2-9891-b586b775b01e.png)
+
+如果还是找不到类型，只需查找软件包中的任何".d.ts "文件，然后用 `/// <reference path="" />` 手动将其包含在内即可
 
 #### 支持周期
 
@@ -353,7 +354,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 #### 常见错误
 
 * 首先，请遵循[手册](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)的建议。
-* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `npm run prettier -- --write 'path/to/package/**/*.ts'`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -396,6 +397,10 @@ Definitely Typed 有“类型定义所有者”的概念——即愿意维护特
   ```
 
 类型定义所有者会被同步到文件 [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS)，每周更新一次。此文件就是我们的事实来源（Source of Truth）。
+
+## The history of Definitely Typed
+
+Definitely Typed 是 GitHub 上最活跃的软件源之一。你可能想知道这个项目是如何诞生的。@johnnyreilly 整理了 Definitely Typed 的历史。它讲述了 Definitely Typed 早期的故事，从 @borisyankov 创建仓库到成为 TypeScript 生态系统的关键部分。您可以在这里[阅读 Definitely Typed 的故事](https://johnnyreilly.com/definitely-typed-the-movie)。
 
 ## 常见问题（FAQ）
 
@@ -442,6 +447,17 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 #### DOM 的类型定义应该包含于此吗？
 
 如果类型是 Web 标准的一部分，它们应该贡献给 [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator)，以便其成为默认 `lib.dom.d.ts` 的一部分。
+
+#### 没有匹配软件包的类型定义怎么办?
+
+如果完全没有 Javascript 源代码，例如您正在编写辅助类型或规范类型，则应自行发布这些类型，而不是在 Definitely Typed 上发布。
+因为 `@types` 包的目的是为现有 Javascript 代码提供类型，所以不能直接导入。
+也就是说，你不应该创建一个类似于 `import type { ... } from "@types/foo"` 的 Definitely Typed 包。
+当 `foo` 未安装时，也不要指望写出 `import type { ... } from "foo"`。
+
+这不同于为浏览器专用 Javascript 库提供类型，也不同于为整个环境（如 node、bun 等）提供类型。
+在那种情况下，要么隐式地解析类型，要么使用  `/// <references types="foo" />` 来解析。
+
 
 #### 如果一个软件包导出的不是模块对象，为了能使用 ES6 风格的导入语法，我应该向软件包中添加一个空命名空间吗？
 

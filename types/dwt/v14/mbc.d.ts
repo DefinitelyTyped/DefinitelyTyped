@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -119,7 +118,8 @@ document.getElementById('painter-container').appendChild(painterDom);
 
     /**
      *
-@example```javascript
+@example
+```javascript
 // A way to access to inner data. Don't modify it if you are not sure.
 var imgOri = painter.getImage(true);
 // This image can be used in any place and free to modify it.
@@ -134,7 +134,8 @@ document.getElementById('image-container').appendChild(imgCopyed);
     /**
      * Binding a function that would be called when starting an expensive operation.    
     * Syntax:* `function(){}`    
-@example```javascript
+@example
+```javascript
 painter.onStartLoading = function(){
     document.getElementById('animation').show();
 };
@@ -147,7 +148,8 @@ painter.onStartLoading = function(){
     
     * Syntax:* `function(){}`
     
-    @example```javascript
+    @example
+    ```javascript
     painter.onFinishLoading = function(){
         document.getElementById('animation').hide();
     };

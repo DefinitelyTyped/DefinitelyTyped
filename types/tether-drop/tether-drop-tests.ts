@@ -9,11 +9,11 @@ var d = new Drop({
     constrainToWindow: true,
     constrainToScrollParent: true,
     classes: "",
-    tetherOptions: {attachment: "bottom left"},
+    tetherOptions: { attachment: "bottom left" },
     remove: true,
     target: yellowBox,
     beforeClose: () => true,
-    content: greenBox
+    content: greenBox,
 });
 
 d.open();
@@ -33,14 +33,14 @@ d.off("open");
 
 var e = new Drop({
     target: yellowBox,
-    content: () => greenBox
+    content: () => greenBox,
 });
 
 var Tooltip = Drop.createContext({
-    classPrefix: 'tooltip'
+    classPrefix: "tooltip",
 });
 
 var t = new Tooltip({
     target: yellowBox,
-    content: () => greenBox
+    content: () => greenBox,
 });

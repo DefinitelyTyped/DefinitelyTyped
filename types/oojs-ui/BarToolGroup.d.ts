@@ -106,7 +106,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): BarToolGroup;
+            new(config?: ConfigOptions): BarToolGroup;
             prototype: Prototype;
             static: Static;
             super: ToolGroup.Constructor;

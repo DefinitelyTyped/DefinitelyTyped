@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 
-import DataFactory from './Factory';
+import DataFactory from './Factory.js';
 
 declare const factory: DataFactory;
 export default factory;

@@ -152,3 +152,9 @@ gtag('consent', 'default', {
 gtag('consent', 'default', {
     analytics_storage: 'denied',
 });
+
+gtag('consent', 'default', {
+    functionality_storage: 'denied',
+    personalization_storage: 'granted',
+    security_storage: 'denied',
+});

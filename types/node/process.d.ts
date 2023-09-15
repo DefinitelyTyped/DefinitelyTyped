@@ -307,8 +307,8 @@ declare module 'process' {
                  *
                  * Launching the Node.js process as:
                  *
-                 * ```console
-                 * $ node process-args.js one two=three four
+                 * ```bash
+                 * node process-args.js one two=three four
                  * ```
                  *
                  * Would generate the output:
@@ -344,8 +344,8 @@ declare module 'process' {
                  * the script name. These options are useful in order to spawn child processes with
                  * the same execution environment as the parent.
                  *
-                 * ```console
-                 * $ node --harmony script.js --version
+                 * ```bash
+                 * node --harmony script.js --version
                  * ```
                  *
                  * Results in `process.execArgv`:
@@ -492,8 +492,8 @@ declare module 'process' {
                  * to other `Worker` threads.
                  * In other words, the following example would not work:
                  *
-                 * ```console
-                 * $ node -e 'process.env.foo = "bar"' &#x26;&#x26; echo $foo
+                 * ```bash
+                 * node -e 'process.env.foo = "bar"' &#x26;&#x26; echo $foo
                  * ```
                  *
                  * While the following will:
@@ -546,7 +546,8 @@ declare module 'process' {
                  * parent thread's `process.env`, or whatever was specified as the `env` option
                  * to the `Worker` constructor. Changes to `process.env` will not be visible
                  * across `Worker` threads, and only the main thread can make changes that
-                 * are visible to the operating system or to native add-ons.
+                 * are visible to the operating system or to native add-ons. On Windows, a copy of`process.env` on a `Worker` instance operates in a case-sensitive manner
+                 * unlike the main thread.
                  * @since v0.1.27
                  */
                 env: ProcessEnv;
@@ -898,21 +899,30 @@ declare module 'process' {
                  * Will generate an object similar to:
                  *
                  * ```console
-                 * { node: '11.13.0',
-                 *   v8: '7.0.276.38-node.18',
-                 *   uv: '1.27.0',
-                 *   zlib: '1.2.11',
-                 *   brotli: '1.0.7',
-                 *   ares: '1.15.0',
-                 *   modules: '67',
-                 *   nghttp2: '1.34.0',
-                 *   napi: '4',
-                 *   llhttp: '1.1.1',
-                 *   openssl: '1.1.1b',
-                 *   cldr: '34.0',
-                 *   icu: '63.1',
-                 *   tz: '2018e',
-                 *   unicode: '11.0' }
+                 * { node: '20.2.0',
+                 *   acorn: '8.8.2',
+                 *   ada: '2.4.0',
+                 *   ares: '1.19.0',
+                 *   base64: '0.5.0',
+                 *   brotli: '1.0.9',
+                 *   cjs_module_lexer: '1.2.2',
+                 *   cldr: '43.0',
+                 *   icu: '73.1',
+                 *   llhttp: '8.1.0',
+                 *   modules: '115',
+                 *   napi: '8',
+                 *   nghttp2: '1.52.0',
+                 *   nghttp3: '0.7.0',
+                 *   ngtcp2: '0.8.1',
+                 *   openssl: '3.0.8+quic',
+                 *   simdutf: '3.2.9',
+                 *   tz: '2023c',
+                 *   undici: '5.22.0',
+                 *   unicode: '15.0',
+                 *   uv: '1.44.2',
+                 *   uvwasi: '0.0.16',
+                 *   v8: '11.3.244.8-node.9',
+                 *   zlib: '1.2.13' }
                  * ```
                  * @since v0.2.0
                  */
@@ -1266,7 +1276,7 @@ declare module 'process' {
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
                  *
-                 * If Node.js was not spawned with an IPC channel, `process.send` will be`undefined`.
+                 * If Node.js was not spawned with an IPC channel, `process.send` will be `undefined`.
                  *
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.

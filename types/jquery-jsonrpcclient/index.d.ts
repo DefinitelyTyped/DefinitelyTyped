@@ -25,9 +25,6 @@ interface JsonRpcClientOptions extends JQueryAjaxSettings {
 
 interface JsonRpcClient {
     /**
-    * @fn call
-    * @memberof JsonRpcClient
-    *
     * @param {string}       method     The method to run on JSON-RPC server.
     * @param {object|array} params     The params; an array or object.
     * @param {function}     successCb  A callback for successful request.
@@ -43,9 +40,6 @@ interface JsonRpcClient {
     *
     * This is very similar to call, but has no id and no handling of callbacks.
     *
-    * @fn notify
-    * @memberof JsonRpcClient
-    *
     * @param {string} method       The method to run on JSON-RPC server.
     * @param {object|array} params The params; an array or object.
     *
@@ -60,9 +54,6 @@ interface JsonRpcClient {
     * "call" and "notify" just as if it was a normal JsonRpcClient object, and all calls will be
     * sent as a batch call then the callback is done.
     *
-    * @fn batch
-    * @memberof JsonRpcClient
-    *
     * @param {function} callback   This function will get a batch handler to run call and notify on.
     * @param {function} allDoneCb  A callback function to call after all results have been handled.
     * @param {function} errorCb    A callback function to call if there is an error from the server.
@@ -74,9 +65,6 @@ interface JsonRpcClient {
 
 interface JsonRpcClientFactory {
     /**
-    * @fn new
-    * @memberof JsonRpcClient
-    *
     * @param {object} options An object stating the backends:
     *                ajaxUrl    A url (relative or absolute) to a http(s) backend.
     *                headers    An object that will be passed along to $.ajax in options.headers

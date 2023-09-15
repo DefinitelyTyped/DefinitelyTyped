@@ -688,7 +688,8 @@ const awsServerless: Aws.Serverless = {
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        functionResponseType: "ReportBatchItemFailures"
                     }
                 }, {
                     msk: {
@@ -787,6 +788,21 @@ const awsServerless: Aws.Serverless = {
                                 OriginProtocolPolicy: 'testOriginProtocolPolicy',
                             }
                         }
+                    }
+                }, {
+                    kafka: {
+                        accessConfigurations: {
+                            saslPlainAuth: 'mySecretManagerARN',
+                        },
+                        bootstrapServers: [
+                            'abc3.xyz.com:9092',
+                            'abc2.xyz.com:9092',
+                        ],
+                        topic: 'MySelfManagedKafkaTopic',
+                        batchSize: 100,
+                        maximumBatchingWindow: 30,
+                        enabled: true,
+                        consumerGroupId: 'MyConsumerGroupId',
                     }
                 }
             ],

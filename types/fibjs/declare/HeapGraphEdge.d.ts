@@ -38,7 +38,6 @@ declare class Class_HeapGraphEdge extends Class__object {
      * - profiler.Edge_Weak,             一个弱引用（被GC忽视）
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -50,8 +49,6 @@ declare class Class_HeapGraphEdge extends Class__object {
      *
      * @brief 链接名称
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -61,8 +58,6 @@ declare class Class_HeapGraphEdge extends Class__object {
      *
      *
      * @brief 链接的描述
-     *
-     * @readonly
      *
      */
 

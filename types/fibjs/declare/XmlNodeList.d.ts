@@ -31,7 +31,6 @@ declare class Class_XmlNodeList extends Class__object {
      * @brief 返回节点列表中的节点数目
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

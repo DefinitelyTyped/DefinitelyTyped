@@ -201,7 +201,7 @@ export interface BrushBehavior<Datum> {
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brush<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the x-dimension.
@@ -209,7 +209,7 @@ export function brush<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brushX<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the y-dimension.
@@ -217,7 +217,7 @@ export function brushX<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brushY<Datum>(): BrushBehavior<Datum>;
 
 /**

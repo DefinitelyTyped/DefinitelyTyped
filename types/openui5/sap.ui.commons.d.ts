@@ -1,4 +1,4 @@
-// For Library Version: 1.113.0
+// For Library Version: 1.118.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -287,7 +287,7 @@ declare module "sap/ui/commons/library" {
     Underline = "Underline",
   }
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - Use {@link sap.ui.core.TitleLevel} instead.
    *
    * Level of a title.
@@ -369,7 +369,7 @@ declare module "sap/ui/commons/library" {
     Single = "Single",
   }
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * States for TriStateCheckBox
@@ -637,8 +637,6 @@ declare module "sap/ui/commons/Accordion" {
 
   import AccordionSection from "sap/ui/commons/AccordionSection";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -647,6 +645,8 @@ declare module "sap/ui/commons/Accordion" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -744,7 +744,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -764,7 +764,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -789,7 +789,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -809,7 +809,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -835,7 +835,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -856,7 +856,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -888,7 +888,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -905,7 +905,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -923,14 +923,14 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionClose sectionClose} to attached listeners.
      *
@@ -940,15 +940,10 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the closed section
-         */
-        closeSectionId?: string;
-      }
+      mParameters?: Accordion$SectionCloseEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionOpen sectionOpen} to attached listeners.
      *
@@ -958,19 +953,10 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the opened section
-         */
-        openSectionId?: string;
-        /**
-         * IDs of the sections to be closed. Can be initial in the case of no previously opened section.
-         */
-        closeSectionIds?: string[];
-      }
+      mParameters?: Accordion$SectionOpenEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sectionsReorder sectionsReorder} to attached listeners.
      *
@@ -980,16 +966,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the moved section
-         */
-        movedSectionId?: string;
-        /**
-         * New index of the moved section
-         */
-        newIndex?: int;
-      }
+      mParameters?: Accordion$SectionsReorderEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getOpenedSectionsId openedSectionsId}.
@@ -1125,26 +1102,70 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * Event is triggered when the user opens a section.
      */
-    sectionOpen?: (oEvent: Event) => void;
+    sectionOpen?: (oEvent: Accordion$SectionOpenEvent) => void;
 
     /**
      * Event is triggered when the user closes a section.
      */
-    sectionClose?: (oEvent: Event) => void;
+    sectionClose?: (oEvent: Accordion$SectionCloseEvent) => void;
 
     /**
      * Event is triggered when the user changes the position of a section.
      */
-    sectionsReorder?: (oEvent: Event) => void;
+    sectionsReorder?: (oEvent: Accordion$SectionsReorderEvent) => void;
   }
+
+  export interface Accordion$SectionCloseEventParameters {
+    /**
+     * ID of the closed section
+     */
+    closeSectionId?: string;
+  }
+
+  export type Accordion$SectionCloseEvent = Event<
+    Accordion$SectionCloseEventParameters,
+    Accordion
+  >;
+
+  export interface Accordion$SectionOpenEventParameters {
+    /**
+     * ID of the opened section
+     */
+    openSectionId?: string;
+
+    /**
+     * IDs of the sections to be closed. Can be initial in the case of no previously opened section.
+     */
+    closeSectionIds?: string[];
+  }
+
+  export type Accordion$SectionOpenEvent = Event<
+    Accordion$SectionOpenEventParameters,
+    Accordion
+  >;
+
+  export interface Accordion$SectionsReorderEventParameters {
+    /**
+     * ID of the moved section
+     */
+    movedSectionId?: string;
+
+    /**
+     * New index of the moved section
+     */
+    newIndex?: int;
+  }
+
+  export type Accordion$SectionsReorderEvent = Event<
+    Accordion$SectionsReorderEventParameters,
+    Accordion
+  >;
 }
 
 declare module "sap/ui/commons/AccordionSection" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Control from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1154,6 +1175,8 @@ declare module "sap/ui/commons/AccordionSection" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -1251,7 +1274,7 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1271,7 +1294,7 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1294,14 +1317,14 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:scroll scroll} to attached listeners.
      *
@@ -1311,16 +1334,7 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Horizontal scroll position
-         */
-        left?: int;
-        /**
-         * Vertical scroll position
-         */
-        top?: int;
-      }
+      mParameters?: AccordionSection$ScrollEventParameters
     ): this;
     /**
      * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
@@ -1505,8 +1519,25 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * Event is fired when the user scrolls the panel
      */
-    scroll?: (oEvent: Event) => void;
+    scroll?: (oEvent: AccordionSection$ScrollEvent) => void;
   }
+
+  export interface AccordionSection$ScrollEventParameters {
+    /**
+     * Horizontal scroll position
+     */
+    left?: int;
+
+    /**
+     * Vertical scroll position
+     */
+    top?: int;
+  }
+
+  export type AccordionSection$ScrollEvent = Event<
+    AccordionSection$ScrollEventParameters,
+    AccordionSection
+  >;
 }
 
 declare module "sap/ui/commons/ApplicationHeader" {
@@ -1650,7 +1681,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:logoff logoff} to attached listeners.
      *
@@ -1818,6 +1849,13 @@ declare module "sap/ui/commons/ApplicationHeader" {
      */
     logoff?: (oEvent: Event) => void;
   }
+
+  export interface ApplicationHeader$LogoffEventParameters {}
+
+  export type ApplicationHeader$LogoffEvent = Event<
+    ApplicationHeader$LogoffEventParameters,
+    ApplicationHeader
+  >;
 }
 
 declare module "sap/ui/commons/Area" {
@@ -2021,16 +2059,16 @@ declare module "sap/ui/commons/AutoComplete" {
 
   import { ToolbarItem } from "sap/ui/commons/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.38)
    *
    * Textfield with list based text completion.
@@ -2116,7 +2154,7 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
        */
@@ -2136,7 +2174,7 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
        */
@@ -2153,14 +2191,14 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -2170,12 +2208,7 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value which was typed in.
-         */
-        suggestValue?: string;
-      }
+      mParameters?: AutoComplete$SuggestEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnableScrolling enableScrolling}.
@@ -2255,8 +2288,20 @@ declare module "sap/ui/commons/AutoComplete" {
     /**
      * Fired when the user has changed the value and a suggestion list update should occur.
      */
-    suggest?: (oEvent: Event) => void;
+    suggest?: (oEvent: AutoComplete$SuggestEvent) => void;
   }
+
+  export interface AutoComplete$SuggestEventParameters {
+    /**
+     * The current value which was typed in.
+     */
+    suggestValue?: string;
+  }
+
+  export type AutoComplete$SuggestEvent = Event<
+    AutoComplete$SuggestEventParameters,
+    AutoComplete
+  >;
 }
 
 declare module "sap/ui/commons/layout/BorderLayout" {
@@ -2273,7 +2318,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.110
+   * @since 1.110
    *
    * The object contains the available parameters for BorderLayout's Area.
    */
@@ -2975,7 +3020,7 @@ declare module "sap/ui/commons/Button" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -2992,7 +3037,7 @@ declare module "sap/ui/commons/Button" {
      */
     focus(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -3001,13 +3046,11 @@ declare module "sap/ui/commons/Button" {
      */
     getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -3465,6 +3508,10 @@ declare module "sap/ui/commons/Button" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Button$PressEventParameters {}
+
+  export type Button$PressEvent = Event<Button$PressEventParameters, Button>;
 }
 
 declare module "sap/ui/commons/Callout" {
@@ -3636,11 +3683,11 @@ declare module "sap/ui/commons/CalloutBase" {
 
   import Event from "sap/ui/base/Event";
 
-  import Control from "sap/ui/core/Control";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { Dock } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
 
   /**
    * @deprecated (since 1.38)
@@ -3733,7 +3780,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -3754,7 +3801,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -3824,7 +3871,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -3844,14 +3891,14 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3878,7 +3925,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3914,7 +3961,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3948,14 +3995,14 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Detaches event handler `fnFunction` from the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3974,7 +4021,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
@@ -3987,15 +4034,10 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Parent control that has this Callout as a tooltip
-         */
-        parent?: Control;
-      }
+      mParameters?: CalloutBase$BeforeOpenEventParameters
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -4008,7 +4050,7 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:open open} to attached listeners.
      *
@@ -4018,16 +4060,11 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Parent control that has this Callout as a tooltip
-         */
-        parent?: Control;
-      }
+      mParameters?: CalloutBase$OpenEventParameters
     ): this;
     /**
-     * @SINCE 1.11.0
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.11.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
      *
@@ -4061,7 +4098,7 @@ declare module "sap/ui/commons/CalloutBase" {
     /**
      * The event is fired when the popup is opened.
      */
-    open?: (oEvent: Event) => void;
+    open?: (oEvent: CalloutBase$OpenEvent) => void;
 
     /**
      * Event is fired when the Callout window is closed.
@@ -4072,15 +4109,53 @@ declare module "sap/ui/commons/CalloutBase" {
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
      */
-    beforeOpen?: (oEvent: Event) => void;
+    beforeOpen?: (oEvent: CalloutBase$BeforeOpenEvent) => void;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Is fired when the Callout has been opened
      */
     opened?: (oEvent: Event) => void;
   }
+
+  export interface CalloutBase$BeforeOpenEventParameters {
+    /**
+     * Parent control that has this Callout as a tooltip
+     */
+    parent?: Control;
+  }
+
+  export type CalloutBase$BeforeOpenEvent = Event<
+    CalloutBase$BeforeOpenEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$CloseEventParameters {}
+
+  export type CalloutBase$CloseEvent = Event<
+    CalloutBase$CloseEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$OpenEventParameters {
+    /**
+     * Parent control that has this Callout as a tooltip
+     */
+    parent?: Control;
+  }
+
+  export type CalloutBase$OpenEvent = Event<
+    CalloutBase$OpenEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$OpenedEventParameters {}
+
+  export type CalloutBase$OpenedEvent = Event<
+    CalloutBase$OpenedEventParameters,
+    CalloutBase
+  >;
 }
 
 declare module "sap/ui/commons/Carousel" {
@@ -4098,7 +4173,7 @@ declare module "sap/ui/commons/Carousel" {
   import { enums } from "sap/ui/commons/library";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - Instead, use the `sap.m.Carousel` control.
    *
    * Carousel holds multiple controls and displays them vertically or horizontally next to each other. You
@@ -4238,7 +4313,7 @@ declare module "sap/ui/commons/Carousel" {
      */
     getDefaultItemWidth(): int;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getFirstVisibleIndex firstVisibleIndex}.
      *
@@ -4250,7 +4325,7 @@ declare module "sap/ui/commons/Carousel" {
      */
     getFirstVisibleIndex(): int;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -4411,7 +4486,7 @@ declare module "sap/ui/commons/Carousel" {
       iDefaultItemWidth?: int
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `firstVisibleIndex`.
      *
@@ -4574,7 +4649,7 @@ declare module "sap/ui/commons/Carousel" {
     handleSize?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * The index of the element in the content aggreation which is displayed first on rendering
      */
@@ -4599,11 +4674,11 @@ declare module "sap/ui/commons/CheckBox" {
     CSSSize,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.CheckBox` control.
@@ -4714,7 +4789,7 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -4734,7 +4809,7 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -4765,14 +4840,14 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -4782,15 +4857,10 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Checks whether the box is flagged or not flagged.
-         */
-        checked?: boolean;
-      }
+      mParameters?: CheckBox$ChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -4799,13 +4869,11 @@ declare module "sap/ui/commons/CheckBox" {
      */
     getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -5127,8 +5195,20 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: CheckBox$ChangeEvent) => void;
   }
+
+  export interface CheckBox$ChangeEventParameters {
+    /**
+     * Checks whether the box is flagged or not flagged.
+     */
+    checked?: boolean;
+  }
+
+  export type CheckBox$ChangeEvent = Event<
+    CheckBox$ChangeEventParameters,
+    CheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ColorPicker" {
@@ -5153,8 +5233,8 @@ declare module "sap/ui/commons/ColorPicker" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
-     * sap.ui.unified.ColorPicker} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor sap.ui.unified.ColorPicker }
+     * can be used.
      */
     constructor(
       /**
@@ -5169,8 +5249,8 @@ declare module "sap/ui/commons/ColorPicker" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
-     * sap.ui.unified.ColorPicker} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor sap.ui.unified.ColorPicker }
+     * can be used.
      */
     constructor(
       /**
@@ -5221,6 +5301,7 @@ declare module "sap/ui/commons/ComboBox" {
   import {
     default as TextField,
     $TextFieldSettings,
+    TextField$ChangeEventParameters,
   } from "sap/ui/commons/TextField";
 
   import { ToolbarItem } from "sap/ui/commons/library";
@@ -5237,6 +5318,8 @@ declare module "sap/ui/commons/ComboBox" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
@@ -5308,7 +5391,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Compares the previous value with the current value and fires the "Change" event if the ComboBox is editable
      * and the value has changed or whether the value has been changed e.g. via up/down or auto-complete feature
@@ -5356,7 +5439,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     destroyItems(): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fire event change to attached listeners.
      *
@@ -5373,7 +5456,7 @@ declare module "sap/ui/commons/ComboBox" {
       mArguments?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -5393,7 +5476,7 @@ declare module "sap/ui/commons/ComboBox" {
      */
     getDisplaySecondaryValues(): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM element which represents the icon for value help. Could be overwritten in child-classes.
      *
@@ -5475,7 +5558,7 @@ declare module "sap/ui/commons/ComboBox" {
       iIndex: int
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapenter pseudo events on the control
      */
@@ -5486,7 +5569,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapescape pseudo events on the control
      */
@@ -5497,7 +5580,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle saphide pseudo events on the control
      */
@@ -5508,7 +5591,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapnextmodifiers pseudo events on the control if in toolbar prevent item navigation if popup is
      * opened.
@@ -5520,7 +5603,7 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapshow pseudo events on the control
      */
@@ -5690,6 +5773,19 @@ declare module "sap/ui/commons/ComboBox" {
      */
     listBox?: ListBox | string;
   }
+
+  export interface ComboBox$ChangeEventParameters
+    extends TextField$ChangeEventParameters {
+    /**
+     * The new / changed item of the ComboBox.
+     */
+    selectedItem?: ListItem;
+  }
+
+  export type ComboBox$ChangeEvent = Event<
+    ComboBox$ChangeEventParameters,
+    ComboBox
+  >;
 }
 
 declare module "sap/ui/commons/DatePicker" {
@@ -5776,7 +5872,7 @@ declare module "sap/ui/commons/DatePicker" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fire event change to attached listeners.
      *
@@ -5799,7 +5895,7 @@ declare module "sap/ui/commons/DatePicker" {
       bInvalidValue?: boolean
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -5888,8 +5984,6 @@ declare module "sap/ui/commons/Dialog" {
     OpenState,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { enums } from "sap/ui/commons/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -5900,6 +5994,8 @@ declare module "sap/ui/commons/Dialog" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.Dialog` control.
@@ -6012,7 +6108,7 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -6033,7 +6129,7 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -6066,14 +6162,14 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -6083,24 +6179,7 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The width of the dialog when closed
-         */
-        width?: int;
-        /**
-         * The height of the dialog when closed
-         */
-        height?: int;
-        /**
-         * The top position of the dialog when closed
-         */
-        top?: int;
-        /**
-         * The left position of the dialog when closed
-         */
-        left?: int;
-      }
+      mParameters?: Dialog$ClosedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
@@ -6123,7 +6202,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getApplyContentPadding(): boolean;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Gets current value of property {@link #getAutoClose autoClose}.
      *
@@ -6168,7 +6247,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getDefaultButton(): ID;
     /**
-     * @EXPERIMENTAL - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
+     * @experimental - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
      * is not fully decided. Currently, it is enabled during the OPENING phase and disabled during the CLOSING
      * phase. The only potential change would be to treat the OPENING phase as disabled as well. Applications
      * should be prepared to receive events from "enabled" controls after they called open() on the dialog until
@@ -6204,7 +6283,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getInitialFocus(): ID;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getKeepInWindow keepInWindow}.
      *
@@ -6468,7 +6547,7 @@ declare module "sap/ui/commons/Dialog" {
       bApplyContentPadding?: boolean
     ): this;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Sets a new value for property {@link #getAutoClose autoClose}.
      *
@@ -6546,7 +6625,7 @@ declare module "sap/ui/commons/Dialog" {
       oInitialFocus: ID | Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getKeepInWindow keepInWindow}.
      *
@@ -6843,7 +6922,7 @@ declare module "sap/ui/commons/Dialog" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Specifies whether Dialog movement should be restricted to the visible area of the window. This only affects
      * drag&drop movements by the user. This doesn't affect modal dialogs -> modal dialogs always stay in the
@@ -6852,7 +6931,7 @@ declare module "sap/ui/commons/Dialog" {
     keepInWindow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * If this property is set to true the Dialog will close if the Dialog loses its focus
      */
@@ -6889,8 +6968,32 @@ declare module "sap/ui/commons/Dialog" {
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
      */
-    closed?: (oEvent: Event) => void;
+    closed?: (oEvent: Dialog$ClosedEvent) => void;
   }
+
+  export interface Dialog$ClosedEventParameters {
+    /**
+     * The width of the dialog when closed
+     */
+    width?: int;
+
+    /**
+     * The height of the dialog when closed
+     */
+    height?: int;
+
+    /**
+     * The top position of the dialog when closed
+     */
+    top?: int;
+
+    /**
+     * The left position of the dialog when closed
+     */
+    left?: int;
+  }
+
+  export type Dialog$ClosedEvent = Event<Dialog$ClosedEventParameters, Dialog>;
 }
 
 declare module "sap/ui/commons/DropdownBox" {
@@ -6899,13 +7002,13 @@ declare module "sap/ui/commons/DropdownBox" {
     $ComboBoxSettings,
   } from "sap/ui/commons/ComboBox";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { URI } from "sap/ui/core/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
@@ -6994,7 +7097,7 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
        */
@@ -7015,7 +7118,7 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
        */
@@ -7037,14 +7140,14 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:searchHelp searchHelp} to attached listeners.
      *
@@ -7054,12 +7157,7 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the DropdownBox.
-         */
-        value?: string;
-      }
+      mParameters?: DropdownBox$SearchHelpEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getMaxHistoryItems maxHistoryItems}.
@@ -7116,7 +7214,7 @@ declare module "sap/ui/commons/DropdownBox" {
      */
     getTooltip_AsString(): string | undefined;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Ensure that handed in ListBoxes are taken from the visible UI immediately.
      */
@@ -7127,7 +7225,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle the click event happening in the DropdownBox
      */
@@ -7138,7 +7236,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle focusin event Ensures the text gets selected when focus gets into the field
      */
@@ -7149,7 +7247,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keydown event
      */
@@ -7160,7 +7258,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keypress event
      */
@@ -7171,7 +7269,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle keyup event This must only be considered if it is from Backspace-key in IE or after paste. In
      * case there is a keyup with a tab this results from being entered via tabbing and can be ignored, too.
@@ -7183,7 +7281,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle paste event
      */
@@ -7194,7 +7292,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle pseudo event onsapdelete. If triggered with open dropdown and current item provided by history
      * feature, removes the selected item from this instance's history.
@@ -7206,7 +7304,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle pseudo event onsaphome
      */
@@ -7217,7 +7315,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Move the cursor one step to the left (and adapt selection)
      */
@@ -7228,7 +7326,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Move the cursor one step to the right (and adapt selection)
      */
@@ -7239,7 +7337,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle sapshow pseudo events on the control
      */
@@ -7250,7 +7348,7 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle the select event happening in the DropdownBox
      */
@@ -7380,8 +7478,20 @@ declare module "sap/ui/commons/DropdownBox" {
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
      */
-    searchHelp?: (oEvent: Event) => void;
+    searchHelp?: (oEvent: DropdownBox$SearchHelpEvent) => void;
   }
+
+  export interface DropdownBox$SearchHelpEventParameters {
+    /**
+     * The current value of the DropdownBox.
+     */
+    value?: string;
+  }
+
+  export type DropdownBox$SearchHelpEvent = Event<
+    DropdownBox$SearchHelpEventParameters,
+    DropdownBox
+  >;
 }
 
 declare module "sap/ui/commons/FileUploader" {
@@ -7409,8 +7519,8 @@ declare module "sap/ui/commons/FileUploader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
-     * sap.ui.unified.FileUploader} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
+     * can be used.
      */
     constructor(
       /**
@@ -7425,8 +7535,8 @@ declare module "sap/ui/commons/FileUploader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
-     * sap.ui.unified.FileUploader} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
+     * can be used.
      */
     constructor(
       /**
@@ -7495,8 +7605,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
-     * sap.ui.unified.FileUploaderParameter} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
+     * can be used.
      */
     constructor(
       /**
@@ -7511,8 +7621,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
-     * sap.ui.unified.FileUploaderParameter} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
+     * can be used.
      */
     constructor(
       /**
@@ -7578,26 +7688,26 @@ declare module "sap/ui/commons/TextField" {
     CSSSize,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    *
    * The object representing the serialized focus information.
    */
   export type FocusInfo = {
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * ID of the component
      */
     id?: string;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      *
      * User input
      */
@@ -7675,7 +7785,7 @@ declare module "sap/ui/commons/TextField" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Compares the previous value with the current value and fires the change event if the TextField is editable
      * and the value has changed.
@@ -7728,7 +7838,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -7749,7 +7859,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -7776,7 +7886,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -7798,7 +7908,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
        */
@@ -7829,7 +7939,7 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7846,14 +7956,14 @@ declare module "sap/ui/commons/TextField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -7863,15 +7973,10 @@ declare module "sap/ui/commons/TextField" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The new / changed value of the `TextField`.
-         */
-        newValue?: string;
-      }
+      mParameters?: TextField$ChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -7881,15 +7986,10 @@ declare module "sap/ui/commons/TextField" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current visible value of the `TextField`.
-         */
-        liveValue?: string;
-      }
+      mParameters?: TextField$LiveChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -7908,13 +8008,11 @@ declare module "sap/ui/commons/TextField" {
      */
     getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -7948,7 +8046,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getEnabled(): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information
      *
@@ -7976,7 +8074,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getImeMode(): ImeMode | keyof typeof ImeMode;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Method for accessing the DOM Ref of the input element.
      *
@@ -8010,7 +8108,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getName(): string;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -8080,7 +8178,7 @@ declare module "sap/ui/commons/TextField" {
      */
     getWidth(): CSSSize;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when control is receiving the focus
      */
@@ -8091,7 +8189,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler for keyup. fire the liveChange event
      */
@@ -8102,7 +8200,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when enter key is pressed.
      * See:
@@ -8115,7 +8213,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when control is losing the focus
      */
@@ -8126,7 +8224,7 @@ declare module "sap/ui/commons/TextField" {
       oEvent: jQuery.Event
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Event handler called when text selection starts. When the text field is disabled, the text should not
      * be selectable, so cancel the event.
@@ -8307,7 +8405,7 @@ declare module "sap/ui/commons/TextField" {
       sName?: string
     ): this;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Sets a new value for property {@link #getPlaceholder placeholder}.
      *
@@ -8526,7 +8624,7 @@ declare module "sap/ui/commons/TextField" {
     name?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Placeholder for the text field.
      */
@@ -8546,15 +8644,39 @@ declare module "sap/ui/commons/TextField" {
      * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
      * key is pressed.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: TextField$ChangeEvent) => void;
 
     /**
      * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
      * This is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: TextField$LiveChangeEvent) => void;
   }
+
+  export interface TextField$ChangeEventParameters {
+    /**
+     * The new / changed value of the `TextField`.
+     */
+    newValue?: string;
+  }
+
+  export type TextField$ChangeEvent = Event<
+    TextField$ChangeEventParameters,
+    TextField
+  >;
+
+  export interface TextField$LiveChangeEventParameters {
+    /**
+     * Current visible value of the `TextField`.
+     */
+    liveValue?: string;
+  }
+
+  export type TextField$LiveChangeEvent = Event<
+    TextField$LiveChangeEventParameters,
+    TextField
+  >;
 }
 
 declare module "sap/ui/commons/form/Form" {
@@ -8566,7 +8688,7 @@ declare module "sap/ui/commons/form/Form" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Form control. Holder for form control to be rendered in a specific form layout. A Form supports VariantLayoutData
@@ -8580,8 +8702,8 @@ declare module "sap/ui/commons/form/Form" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
-     * sap.ui.layout.form.Form} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor sap.ui.layout.form.Form }
+     * can be used.
      */
     constructor(
       /**
@@ -8596,8 +8718,8 @@ declare module "sap/ui/commons/form/Form" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
-     * sap.ui.layout.form.Form} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor sap.ui.layout.form.Form }
+     * can be used.
      */
     constructor(
       /**
@@ -8640,7 +8762,7 @@ declare module "sap/ui/commons/form/Form" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible Forms are not rendered.
      *
@@ -8650,7 +8772,7 @@ declare module "sap/ui/commons/form/Form" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -8678,7 +8800,7 @@ declare module "sap/ui/commons/form/FormContainer" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Used to group form elements.
@@ -8691,8 +8813,8 @@ declare module "sap/ui/commons/form/FormContainer" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
-     * sap.ui.layout.form.FormContainer} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor sap.ui.layout.form.FormContainer }
+     * can be used.
      */
     constructor(
       /**
@@ -8707,8 +8829,8 @@ declare module "sap/ui/commons/form/FormContainer" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
-     * sap.ui.layout.form.FormContainer} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor sap.ui.layout.form.FormContainer }
+     * can be used.
      */
     constructor(
       /**
@@ -8751,7 +8873,7 @@ declare module "sap/ui/commons/form/FormContainer" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormContainers are not rendered.
      *
@@ -8761,7 +8883,7 @@ declare module "sap/ui/commons/form/FormContainer" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -8789,7 +8911,7 @@ declare module "sap/ui/commons/form/FormElement" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * A form element is a combination of one label and different controls associated to this label.
@@ -8802,8 +8924,8 @@ declare module "sap/ui/commons/form/FormElement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
-     * sap.ui.layout.form.FormElement} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor sap.ui.layout.form.FormElement }
+     * can be used.
      */
     constructor(
       /**
@@ -8818,8 +8940,8 @@ declare module "sap/ui/commons/form/FormElement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
-     * sap.ui.layout.form.FormElement} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor sap.ui.layout.form.FormElement }
+     * can be used.
      */
     constructor(
       /**
@@ -8862,7 +8984,7 @@ declare module "sap/ui/commons/form/FormElement" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormElements are not rendered.
      *
@@ -8872,7 +8994,7 @@ declare module "sap/ui/commons/form/FormElement" {
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
@@ -8900,7 +9022,7 @@ declare module "sap/ui/commons/form/FormLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Base layout for Forms. Other Layouts must inherit from this one.
@@ -8913,8 +9035,8 @@ declare module "sap/ui/commons/form/FormLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
-     * sap.ui.layout.form.FormLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor sap.ui.layout.form.FormLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -8929,8 +9051,8 @@ declare module "sap/ui/commons/form/FormLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
-     * sap.ui.layout.form.FormLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor sap.ui.layout.form.FormLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -8986,7 +9108,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Grid layout specific properties for FormContainers. The width and height properties of the elements are
@@ -9000,8 +9122,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
-     * sap.ui.layout.form.GridContainerData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor sap.ui.layout.form.GridContainerData }
+     * can be used.
      */
     constructor(
       /**
@@ -9016,8 +9138,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
-     * sap.ui.layout.form.GridContainerData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor sap.ui.layout.form.GridContainerData }
+     * can be used.
      */
     constructor(
       /**
@@ -9074,7 +9196,7 @@ declare module "sap/ui/commons/form/GridElementData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * The grid specific layout data for FormElement fields. The width property of the elements is ignored since
@@ -9088,8 +9210,8 @@ declare module "sap/ui/commons/form/GridElementData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
-     * sap.ui.layout.form.GridElementData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor sap.ui.layout.form.GridElementData }
+     * can be used.
      */
     constructor(
       /**
@@ -9104,8 +9226,8 @@ declare module "sap/ui/commons/form/GridElementData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
-     * sap.ui.layout.form.GridElementData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor sap.ui.layout.form.GridElementData }
+     * can be used.
      */
     constructor(
       /**
@@ -9161,7 +9283,7 @@ declare module "sap/ui/commons/form/GridLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This Layout implements a guideline 2.0 grid. This can be a 16 column grid or an 8 column grid.
@@ -9176,8 +9298,8 @@ declare module "sap/ui/commons/form/GridLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
-     * sap.ui.layout.form.GridLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor sap.ui.layout.form.GridLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -9192,8 +9314,8 @@ declare module "sap/ui/commons/form/GridLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
-     * sap.ui.layout.form.GridLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor sap.ui.layout.form.GridLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -9249,7 +9371,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Renders a form with responsive layout. Internally the ResponsiveFlowLayout is used.
@@ -9262,8 +9384,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
-     * sap.ui.layout.form.ResponsiveLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor sap.ui.layout.form.ResponsiveLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -9278,8 +9400,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
-     * sap.ui.layout.form.ResponsiveLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor sap.ui.layout.form.ResponsiveLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -9333,12 +9455,14 @@ declare module "sap/ui/commons/form/SimpleForm" {
     $SimpleFormSettings as $SimpleFormSettings1,
   } from "sap/ui/layout/form/SimpleForm";
 
-  import { form } from "sap/ui/commons/library";
+  import { form } from "sap/ui/layout/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
   /**
-   * @SINCE 1.12
+   * @since 1.12
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Use the SimpleForm to create a form based on title, label and fields that are stacked in the content
@@ -9353,9 +9477,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
-     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -9369,9 +9490,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
-     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -9414,33 +9532,73 @@ declare module "sap/ui/commons/form/SimpleForm" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
-     * Getter for property `layout`. The FormLayout that is used to render the SimpleForm
+     * Gets current value of property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
      *
-     * @returns the value of property `layout`
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
-     * Setter for property `layout`.
+     * Sets a new value for property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
      *
-     * @returns `this` to allow method chaining
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayout(
       /**
-       * new value for property `layout`
+       * New value for property `layout`
        */
-      oLayout: form.SimpleFormLayout
+      sLayout?: form.SimpleFormLayout | keyof typeof form.SimpleFormLayout
     ): this;
   }
 
-  export interface $SimpleFormSettings extends $SimpleFormSettings1 {}
+  export interface $SimpleFormSettings extends $SimpleFormSettings1 {
+    /**
+     * @since 1.14
+     *
+     * The `FormLayout` that is used to render the `SimpleForm`.
+     *
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     */
+    layout?:
+      | (form.SimpleFormLayout | keyof typeof form.SimpleFormLayout)
+      | PropertyBindingInfo
+      | `{${string}}`;
+  }
 }
 
 declare module "sap/ui/commons/FormattedTextView" {
@@ -9458,7 +9616,7 @@ declare module "sap/ui/commons/FormattedTextView" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
+   * @since 1.9.0
    * @deprecated (since 1.38) - Instead, use the `sap.ui.core.HTML` control.
    *
    * The FormattedTextView control allows the usage of a limited set of HTML tags for display.
@@ -10019,7 +10177,7 @@ declare module "sap/ui/commons/Image" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -10229,6 +10387,10 @@ declare module "sap/ui/commons/Image" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Image$PressEventParameters {}
+
+  export type Image$PressEvent = Event<Image$PressEventParameters, Image>;
 }
 
 declare module "sap/ui/commons/ImageMap" {
@@ -10236,14 +10398,14 @@ declare module "sap/ui/commons/ImageMap" {
 
   import Area from "sap/ui/commons/Area";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - There's not replacement because of the archaic design pattern.
@@ -10341,7 +10503,7 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -10361,7 +10523,7 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -10397,14 +10559,14 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -10414,12 +10576,7 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of clicked Area.
-         */
-        areaId?: string;
-      }
+      mParameters?: ImageMap$PressEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getAreas areas}.
@@ -10514,14 +10671,24 @@ declare module "sap/ui/commons/ImageMap" {
     /**
      * Event for the areas that can be clicked in an ImageMap
      */
-    press?: (oEvent: Event) => void;
+    press?: (oEvent: ImageMap$PressEvent) => void;
   }
+
+  export interface ImageMap$PressEventParameters {
+    /**
+     * Id of clicked Area.
+     */
+    areaId?: string;
+  }
+
+  export type ImageMap$PressEvent = Event<
+    ImageMap$PressEventParameters,
+    ImageMap
+  >;
 }
 
 declare module "sap/ui/commons/InPlaceEdit" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { AccessibilityInfo, ValueState } from "sap/ui/core/library";
 
@@ -10533,8 +10700,10 @@ declare module "sap/ui/commons/InPlaceEdit" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
    *
    * The InPlaceEdit is a functionality to have text in display mode that can be changed in place.
@@ -10620,7 +10789,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -10641,14 +10810,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -10670,14 +10839,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -10694,7 +10863,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -10722,14 +10891,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -10741,14 +10910,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -10758,16 +10927,11 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The new / changed value of the InPlaceEdit.
-         */
-        newValue?: string;
-      }
+      mParameters?: InPlaceEdit$ChangeEventParameters
     ): this;
     /**
-     * @SINCE 1.16.5
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @since 1.16.5
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -10777,15 +10941,10 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the Textfield.
-         */
-        liveValue?: string;
-      }
+      mParameters?: InPlaceEdit$LiveChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -10801,7 +10960,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      */
     getContent(): Control;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getDesign design}.
      *
@@ -10860,7 +11019,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oContent: Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -10948,7 +11107,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
     undoEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Defines the visual appearance of the control. Currently this is not supported for Labels.
      */
@@ -10967,17 +11126,41 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: InPlaceEdit$ChangeEvent) => void;
 
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: InPlaceEdit$LiveChangeEvent) => void;
   }
+
+  export interface InPlaceEdit$ChangeEventParameters {
+    /**
+     * The new / changed value of the InPlaceEdit.
+     */
+    newValue?: string;
+  }
+
+  export type InPlaceEdit$ChangeEvent = Event<
+    InPlaceEdit$ChangeEventParameters,
+    InPlaceEdit
+  >;
+
+  export interface InPlaceEdit$LiveChangeEventParameters {
+    /**
+     * Current value of the Textfield.
+     */
+    liveValue?: string;
+  }
+
+  export type InPlaceEdit$LiveChangeEvent = Event<
+    InPlaceEdit$LiveChangeEventParameters,
+    InPlaceEdit
+  >;
 }
 
 declare module "sap/ui/commons/Label" {
@@ -11069,7 +11252,7 @@ declare module "sap/ui/commons/Label" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -11100,7 +11283,7 @@ declare module "sap/ui/commons/Label" {
      */
     getLabelFor(): ID;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getRequired required}.
      *
@@ -11115,7 +11298,7 @@ declare module "sap/ui/commons/Label" {
      */
     getRequired(): boolean;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Gets current value of property {@link #getRequiredAtBegin requiredAtBegin}.
      *
@@ -11221,7 +11404,7 @@ declare module "sap/ui/commons/Label" {
       oLabelFor: ID | Control
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Sets a new value for property {@link #getRequired required}.
      *
@@ -11243,7 +11426,7 @@ declare module "sap/ui/commons/Label" {
       bRequired?: boolean
     ): this;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Sets a new value for property {@link #getRequiredAtBegin requiredAtBegin}.
      *
@@ -11395,7 +11578,7 @@ declare module "sap/ui/commons/Label" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Allows to enforce the required indicator even when the associated control doesn't have a getRequired
      * method (a required property) or when the flag is not set. If the associated control has a required property,
@@ -11405,7 +11588,7 @@ declare module "sap/ui/commons/Label" {
     required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Determines whether the required indicator is at the beginning of the label (if set) or at the end (if
      * not set).
@@ -11603,8 +11786,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       oContent: Control
     ): int;
     /**
-     * Checks for the provided `sap.ui.commons.layout.PositionContainer` in the aggregation {@link #getPositions
-     * positions}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.layout.PositionContainer` in the aggregation {@link #getPositions positions}.
+     * and returns its index if found or -1 otherwise.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -12181,8 +12364,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
-     * sap.ui.layout.HorizontalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor sap.ui.layout.HorizontalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -12197,8 +12380,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
-     * sap.ui.layout.HorizontalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor sap.ui.layout.HorizontalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -13229,8 +13412,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
       sStyleClass: string
     ): boolean;
     /**
-     * Checks for the provided `sap.ui.commons.layout.MatrixLayoutCell` in the aggregation {@link #getCells
-     * cells}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.layout.MatrixLayoutCell` in the aggregation {@link #getCells cells}.
+     * and returns its index if found or -1 otherwise.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -13634,7 +13817,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a layout where several controls can be added. These controls are blown up to fit a whole line.
@@ -13648,8 +13831,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
-     * sap.ui.layout.ResponsiveFlowLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor sap.ui.layout.ResponsiveFlowLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -13664,8 +13847,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
-     * sap.ui.layout.ResponsiveFlowLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor sap.ui.layout.ResponsiveFlowLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -13722,7 +13905,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a LayoutData Element that can be added to a control if this control is used within a ResponsiveFlowLayout
@@ -13735,8 +13918,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
-     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor sap.ui.layout.ResponsiveFlowLayoutData }
+     * can be used.
      */
     constructor(
       /**
@@ -13751,8 +13934,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
-     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor sap.ui.layout.ResponsiveFlowLayoutData }
+     * can be used.
      */
     constructor(
       /**
@@ -13795,7 +13978,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Getter for property `margin`. This property prevents any margin of the element if set to false
      *
@@ -13805,7 +13988,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      */
     getMargin(): boolean;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `margin`.
      *
@@ -13846,8 +14029,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
-     * sap.ui.layout.VerticalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor sap.ui.layout.VerticalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -13862,8 +14045,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
-     * sap.ui.layout.VerticalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor sap.ui.layout.VerticalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -14090,7 +14273,7 @@ declare module "sap/ui/commons/Link" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -14110,7 +14293,7 @@ declare module "sap/ui/commons/Link" {
      */
     focus(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -14119,13 +14302,11 @@ declare module "sap/ui/commons/Link" {
      */
     getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -14176,7 +14357,7 @@ declare module "sap/ui/commons/Link" {
      */
     getText(): string;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Gets current value of property {@link #getWidth width}.
      *
@@ -14303,7 +14484,7 @@ declare module "sap/ui/commons/Link" {
       sText?: string
     ): this;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Sets a new value for property {@link #getWidth width}.
      *
@@ -14350,7 +14531,7 @@ declare module "sap/ui/commons/Link" {
     target?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Width of text link. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text defines the size.
@@ -14372,6 +14553,10 @@ declare module "sap/ui/commons/Link" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Link$PressEventParameters {}
+
+  export type Link$PressEvent = Event<Link$PressEventParameters, Link>;
 }
 
 declare module "sap/ui/commons/ListBox" {
@@ -14381,8 +14566,6 @@ declare module "sap/ui/commons/ListBox" {
 
   import Item from "sap/ui/core/Item";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListItem from "sap/ui/core/ListItem";
@@ -14391,6 +14574,8 @@ declare module "sap/ui/commons/ListBox" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.List` control.
@@ -14535,7 +14720,7 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -14555,7 +14740,7 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -14584,14 +14769,14 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -14601,27 +14786,7 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the ListBox which triggered the event.
-         */
-        id?: string;
-        /**
-         * The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of
-         * the selected indices - the one whose selection has triggered the selection change. To get all currently
-         * selected indices, use selectedIndices.
-         */
-        selectedIndex?: int;
-        /**
-         * The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of
-         * the selected items - the one whose selection has triggered the selection change.
-         */
-        selectedItem?: Item;
-        /**
-         * Array containing the indices which are selected.
-         */
-        selectedIndices?: int[];
-      }
+      mParameters?: ListBox$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAllowMultiSelect allowMultiSelect}.
@@ -14634,13 +14799,11 @@ declare module "sap/ui/commons/ListBox" {
      */
     getAllowMultiSelect(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -15281,8 +15444,38 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Event is fired when selection is changed by user interaction.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: ListBox$SelectEvent) => void;
   }
+
+  export interface ListBox$SelectEventParameters {
+    /**
+     * ID of the ListBox which triggered the event.
+     */
+    id?: string;
+
+    /**
+     * The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of
+     * the selected indices - the one whose selection has triggered the selection change. To get all currently
+     * selected indices, use selectedIndices.
+     */
+    selectedIndex?: int;
+
+    /**
+     * The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of
+     * the selected items - the one whose selection has triggered the selection change.
+     */
+    selectedItem?: Item;
+
+    /**
+     * Array containing the indices which are selected.
+     */
+    selectedIndices?: int[];
+  }
+
+  export type ListBox$SelectEvent = Event<
+    ListBox$SelectEventParameters,
+    ListBox
+  >;
 }
 
 declare module "sap/ui/commons/Menu" {
@@ -15294,7 +15487,7 @@ declare module "sap/ui/commons/Menu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.Menu}
    *
    * A menu is an interactive element which provides a choice of different actions to the user. These actions
@@ -15309,8 +15502,8 @@ declare module "sap/ui/commons/Menu" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
-     * sap.ui.unified.Menu} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor sap.ui.unified.Menu }
+     * can be used.
      */
     constructor(
       /**
@@ -15325,8 +15518,8 @@ declare module "sap/ui/commons/Menu" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
-     * sap.ui.unified.Menu} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor sap.ui.unified.Menu }
+     * can be used.
      */
     constructor(
       /**
@@ -15641,17 +15834,23 @@ declare module "sap/ui/commons/MenuBar" {
 }
 
 declare module "sap/ui/commons/MenuButton" {
-  import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
-
-  import Event from "sap/ui/base/Event";
-
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+  import {
+    default as Button,
+    $ButtonSettings,
+    Button$PressEventParameters,
+  } from "sap/ui/commons/Button";
 
   import Menu from "sap/ui/unified/Menu";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
+  import Event from "sap/ui/base/Event";
+
+  import MenuItemBase1 from "sap/ui/commons/MenuItemBase";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.MenuButton` control.
@@ -15739,7 +15938,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -15759,7 +15958,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -15786,7 +15985,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -15808,7 +16007,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -15831,7 +16030,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15850,14 +16049,14 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelected itemSelected} to attached listeners.
      *
@@ -15867,19 +16066,10 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the selected item
-         */
-        itemId?: string;
-        /**
-         * The selected item
-         */
-        item?: MenuItemBase;
-      }
+      mParameters?: MenuButton$ItemSelectedEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:press press} to attached listeners.
      * See:
@@ -15891,7 +16081,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: MenuButton$PressEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getDockButton dockButton}.
@@ -15983,8 +16173,43 @@ declare module "sap/ui/commons/MenuButton" {
     /**
      * Event that is fired when a menu item is selected by the user
      */
-    itemSelected?: (oEvent: Event) => void;
+    itemSelected?: (oEvent: MenuButton$ItemSelectedEvent) => void;
   }
+
+  export interface MenuButton$ItemSelectedEventParameters {
+    /**
+     * The ID of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase;
+  }
+
+  export type MenuButton$ItemSelectedEvent = Event<
+    MenuButton$ItemSelectedEventParameters,
+    MenuButton
+  >;
+
+  export interface MenuButton$PressEventParameters
+    extends Button$PressEventParameters {
+    /**
+     * The id of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase1;
+  }
+
+  export type MenuButton$PressEvent = Event<
+    MenuButton$PressEventParameters,
+    MenuButton
+  >;
 }
 
 declare module "sap/ui/commons/MenuItem" {
@@ -15996,7 +16221,7 @@ declare module "sap/ui/commons/MenuItem" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItem}
    *
    * Standard item to be used inside a menu. A menu item represents an action which can be selected by the
@@ -16010,8 +16235,8 @@ declare module "sap/ui/commons/MenuItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
-     * sap.ui.unified.MenuItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor sap.ui.unified.MenuItem }
+     * can be used.
      */
     constructor(
       /**
@@ -16026,8 +16251,8 @@ declare module "sap/ui/commons/MenuItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
-     * sap.ui.unified.MenuItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor sap.ui.unified.MenuItem }
+     * can be used.
      */
     constructor(
       /**
@@ -16081,7 +16306,7 @@ declare module "sap/ui/commons/MenuItemBase" {
   } from "sap/ui/unified/MenuItemBase";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItemBase}
    *
    * Abstract base class for menu item which provides common properties and events for all concrete item implementations.
@@ -16138,8 +16363,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
-     * sap.ui.unified.MenuTextFieldItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor sap.ui.unified.MenuTextFieldItem }
+     * can be used.
      */
     constructor(
       /**
@@ -16154,8 +16379,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
-     * sap.ui.unified.MenuTextFieldItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor sap.ui.unified.MenuTextFieldItem }
+     * can be used.
      */
     constructor(
       /**
@@ -16695,7 +16920,7 @@ declare module "sap/ui/commons/MessageBox" {
   import Control from "sap/ui/core/Control";
 
   /**
-   * @SINCE 0.8.8
+   * @since 0.8.8
    * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox` control.
    *
    * Provides methods to create standard alerts, confirmation dialogs, or arbitrary message boxes.
@@ -16715,6 +16940,23 @@ declare module "sap/ui/commons/MessageBox" {
    * ```
    */
   interface MessageBox {
+    /**
+     * @deprecated (since 1.38)
+     *
+     * Enumeration of supported actions in a MessageBox.
+     *
+     * Each action is represented as a button in the message box. The values of this enumeration are used for
+     * both, specifying the set of allowed actions as well as reporting back the user choice.
+     */
+    Action: typeof Action;
+
+    /**
+     * @deprecated (since 1.38)
+     *
+     * Enumeration of the pre-defined icons that can be used in a MessageBox.
+     */
+    Icon: typeof Icon;
+
     /**
      * Displays an alert box with the given message and an OK button (no icons). If a callback is given, it
      * is called after the alert box has been closed by the user via the OK button or via the Close icon. The
@@ -16850,7 +17092,7 @@ declare module "sap/ui/commons/MessageBox" {
    * Each action is represented as a button in the message box. The values of this enumeration are used for
    * both, specifying the set of allowed actions as well as reporting back the user choice.
    */
-  export enum Action {
+  enum Action {
     /**
      * Adds an "Abort" button to the message box.
      */
@@ -16889,7 +17131,7 @@ declare module "sap/ui/commons/MessageBox" {
    *
    * Enumeration of the pre-defined icons that can be used in a MessageBox.
    */
-  export enum Icon {
+  enum Icon {
     /**
      * @deprecated (since 1.9.1) - The error icon is used instead
      *
@@ -17244,7 +17486,7 @@ declare module "sap/ui/commons/MessageToast" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:next next} to attached listeners.
      *
@@ -17312,18 +17554,25 @@ declare module "sap/ui/commons/MessageToast" {
      */
     next?: (oEvent: Event) => void;
   }
+
+  export interface MessageToast$NextEventParameters {}
+
+  export type MessageToast$NextEvent = Event<
+    MessageToast$NextEventParameters,
+    MessageToast
+  >;
 }
 
 declare module "sap/ui/commons/Paginator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
-  import { PaginatorEvent } from "sap/ui/commons/library";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import { PaginatorEvent } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -17410,7 +17659,7 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
        */
@@ -17430,7 +17679,7 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
        */
@@ -17447,14 +17696,14 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:page page} to attached listeners.
      *
@@ -17464,24 +17713,7 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The page which is the current one before the page event is fired (and another page is displayed)
-         */
-        srcPage?: int;
-        /**
-         * The page that shall be displayed next after the page event is fired.
-         *
-         * The page number is 1-based: the first page has index 1, not 0, to match the number visible in the UI.
-         */
-        targetPage?: int;
-        /**
-         * Provides the values 'First', 'Last', 'Next', 'Previous', 'Goto'. The event parameter informs the application
-         * how the user navigated to the new page: Whether the 'Next' button was used, or another button, or whether
-         * the page was directly selected
-         */
-        type?: PaginatorEvent | keyof typeof PaginatorEvent;
-      }
+      mParameters?: Paginator$PageEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCurrentPage currentPage}.
@@ -17549,8 +17781,34 @@ declare module "sap/ui/commons/Paginator" {
     /**
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
      */
-    page?: (oEvent: Event) => void;
+    page?: (oEvent: Paginator$PageEvent) => void;
   }
+
+  export interface Paginator$PageEventParameters {
+    /**
+     * The page which is the current one before the page event is fired (and another page is displayed)
+     */
+    srcPage?: int;
+
+    /**
+     * The page that shall be displayed next after the page event is fired.
+     *
+     * The page number is 1-based: the first page has index 1, not 0, to match the number visible in the UI.
+     */
+    targetPage?: int;
+
+    /**
+     * Provides the values 'First', 'Last', 'Next', 'Previous', 'Goto'. The event parameter informs the application
+     * how the user navigated to the new page: Whether the 'Next' button was used, or another button, or whether
+     * the page was directly selected
+     */
+    type?: PaginatorEvent | keyof typeof PaginatorEvent;
+  }
+
+  export type Paginator$PageEvent = Event<
+    Paginator$PageEventParameters,
+    Paginator
+  >;
 }
 
 declare module "sap/ui/commons/Panel" {
@@ -17744,7 +18002,7 @@ declare module "sap/ui/commons/Panel" {
      */
     getEnabled(): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns an object representing the serialized focus information.
      *
@@ -18177,8 +18435,8 @@ declare module "sap/ui/commons/PasswordField" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
-     * sap.ui.commons.TextField} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor sap.ui.commons.TextField }
+     * can be used.
      */
     constructor(
       /**
@@ -18193,8 +18451,8 @@ declare module "sap/ui/commons/PasswordField" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
-     * sap.ui.commons.TextField} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor sap.ui.commons.TextField }
+     * can be used.
      */
     constructor(
       /**
@@ -18319,7 +18577,7 @@ declare module "sap/ui/commons/ProgressIndicator" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -18705,7 +18963,7 @@ declare module "sap/ui/commons/RadioButton" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -18718,13 +18976,11 @@ declare module "sap/ui/commons/RadioButton" {
       mParameters?: object
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -19073,6 +19329,13 @@ declare module "sap/ui/commons/RadioButton" {
      */
     select?: (oEvent: Event) => void;
   }
+
+  export interface RadioButton$SelectEventParameters {}
+
+  export type RadioButton$SelectEvent = Event<
+    RadioButton$SelectEventParameters,
+    RadioButton
+  >;
 }
 
 declare module "sap/ui/commons/RadioButtonGroup" {
@@ -19082,14 +19345,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
 
   import Item from "sap/ui/core/Item";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButtonGroup` control.
@@ -19215,7 +19478,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -19235,7 +19498,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -19279,14 +19542,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -19296,21 +19559,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Index of the selected RadioButton.
-         */
-        selectedIndex?: int;
-      }
+      mParameters?: RadioButtonGroup$SelectEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -19336,7 +19592,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -19511,7 +19767,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -19635,7 +19891,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     selectedIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Enables/disables the RadioButtonGroup. If it is disabled all RadioButtons will be displayed as disabled.
      * The enabled property of the Item will not be used in this case. If the RadioButtonGroup is enabled, the
@@ -19661,8 +19917,20 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: RadioButtonGroup$SelectEvent) => void;
   }
+
+  export interface RadioButtonGroup$SelectEventParameters {
+    /**
+     * Index of the selected RadioButton.
+     */
+    selectedIndex?: int;
+  }
+
+  export type RadioButtonGroup$SelectEvent = Event<
+    RadioButtonGroup$SelectEventParameters,
+    RadioButtonGroup
+  >;
 }
 
 declare module "sap/ui/commons/RangeSlider" {
@@ -19673,7 +19941,7 @@ declare module "sap/ui/commons/RangeSlider" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.RangeSlider}
    *
    * The interactive control is displayed either as a horizontal or a vertical line with two pointers and
@@ -19791,13 +20059,13 @@ declare module "sap/ui/commons/RatingIndicator" {
 
   import { ID, URI } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { RatingIndicatorVisualMode } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.RatingIndicator` control.
@@ -19908,7 +20176,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -19928,7 +20196,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -19959,14 +20227,14 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -19976,15 +20244,10 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the user rating
-         */
-        value?: int;
-      }
+      mParameters?: RatingIndicator$ChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -19993,13 +20256,11 @@ declare module "sap/ui/commons/RatingIndicator" {
      */
     getAccessibilityInfo(): object;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -20326,16 +20587,26 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: RatingIndicator$ChangeEvent) => void;
   }
+
+  export interface RatingIndicator$ChangeEventParameters {
+    /**
+     * The value of the user rating
+     */
+    value?: int;
+  }
+
+  export type RatingIndicator$ChangeEvent = Event<
+    RatingIndicator$ChangeEventParameters,
+    RatingIndicator
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ResponsiveContainerRange from "sap/ui/commons/ResponsiveContainerRange";
-
-  import Event from "sap/ui/base/Event";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -20345,6 +20616,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
@@ -20444,7 +20717,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -20465,7 +20738,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -20489,14 +20762,14 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:rangeSwitch rangeSwitch} to attached listeners.
      *
@@ -20506,12 +20779,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current range
-         */
-        currentRange?: ResponsiveContainerRange;
-      }
+      mParameters?: ResponsiveContainer$RangeSwitchEventParameters
     ): this;
     /**
      * ID of the element which is the current target of the association {@link #getDefaultContent defaultContent},
@@ -20545,8 +20813,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      */
     getWidth(): CSSSize;
     /**
-     * Checks for the provided `sap.ui.commons.ResponsiveContainerRange` in the aggregation {@link #getRanges
-     * ranges}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.ResponsiveContainerRange` in the aggregation {@link #getRanges ranges}.
+     * and returns its index if found or -1 otherwise.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -20668,8 +20936,20 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The event is fired the width of the container reaches a new range.
      */
-    rangeSwitch?: (oEvent: Event) => void;
+    rangeSwitch?: (oEvent: ResponsiveContainer$RangeSwitchEvent) => void;
   }
+
+  export interface ResponsiveContainer$RangeSwitchEventParameters {
+    /**
+     * The current range
+     */
+    currentRange?: ResponsiveContainerRange;
+  }
+
+  export type ResponsiveContainer$RangeSwitchEvent = Event<
+    ResponsiveContainer$RangeSwitchEventParameters,
+    ResponsiveContainer
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainerRange" {
@@ -20951,7 +21231,7 @@ declare module "sap/ui/commons/RichTooltip" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Gets current value of property {@link #getImageAltText imageAltText}.
      *
@@ -20985,14 +21265,14 @@ declare module "sap/ui/commons/RichTooltip" {
      */
     getValueStateText(): string;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Calculates the height of the RichTooltip to set a proper min-height. Additionally the ARIA attributes
      * are set to the corresponding elements.
      */
     onAfterRendering(): void;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Sets a new value for property {@link #getImageAltText imageAltText}.
      *
@@ -21063,14 +21343,14 @@ declare module "sap/ui/commons/RichTooltip" {
     imageSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This property is an individual text that will be used instead of the default ValueState text
      */
     valueStateText?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This is the alt text for the image
      */
@@ -21083,8 +21363,6 @@ declare module "sap/ui/commons/RoadMap" {
 
   import RoadMapStep from "sap/ui/commons/RoadMapStep";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -21093,6 +21371,8 @@ declare module "sap/ui/commons/RoadMap" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
@@ -21190,7 +21470,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -21210,7 +21490,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -21235,7 +21515,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -21255,7 +21535,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -21278,7 +21558,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21295,14 +21575,14 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stepExpanded stepExpanded} to attached listeners.
      *
@@ -21312,15 +21592,10 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the expanded/collapsed step
-         */
-        stepId?: string;
-      }
+      mParameters?: RoadMap$StepExpandedEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:stepSelected stepSelected} to attached listeners.
      *
@@ -21330,12 +21605,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the selected step
-         */
-        stepId?: string;
-      }
+      mParameters?: RoadMap$StepSelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getFirstVisibleStep firstVisibleStep}.
@@ -21522,13 +21792,37 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Event is fired when the user selects a step.
      */
-    stepSelected?: (oEvent: Event) => void;
+    stepSelected?: (oEvent: RoadMap$StepSelectedEvent) => void;
 
     /**
      * Event is fired when a given step is expanded or collapsed by user.
      */
-    stepExpanded?: (oEvent: Event) => void;
+    stepExpanded?: (oEvent: RoadMap$StepExpandedEvent) => void;
   }
+
+  export interface RoadMap$StepExpandedEventParameters {
+    /**
+     * ID of the expanded/collapsed step
+     */
+    stepId?: string;
+  }
+
+  export type RoadMap$StepExpandedEvent = Event<
+    RoadMap$StepExpandedEventParameters,
+    RoadMap
+  >;
+
+  export interface RoadMap$StepSelectedEventParameters {
+    /**
+     * ID of the selected step
+     */
+    stepId?: string;
+  }
+
+  export type RoadMap$StepSelectedEvent = Event<
+    RoadMap$StepSelectedEventParameters,
+    RoadMap
+  >;
 }
 
 declare module "sap/ui/commons/RoadMapStep" {
@@ -21858,8 +22152,6 @@ declare module "sap/ui/commons/RowRepeater" {
 
   import RowRepeaterSorter from "sap/ui/commons/RowRepeaterSorter";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -21872,6 +22164,8 @@ declare module "sap/ui/commons/RowRepeater" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Title from "sap/ui/core/Title";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
@@ -22001,7 +22295,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22021,7 +22315,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22046,7 +22340,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22066,7 +22360,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22091,7 +22385,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22111,7 +22405,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22136,7 +22430,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22156,7 +22450,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -22217,7 +22511,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22234,7 +22528,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22251,7 +22545,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22268,14 +22562,14 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:filter filter} to attached listeners.
      *
@@ -22285,15 +22579,10 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the filter that has just been applied.
-         */
-        filterId?: string;
-      }
+      mParameters?: RowRepeater$FilterEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:page page} to attached listeners.
      *
@@ -22303,19 +22592,10 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the currentPage property after the change.
-         */
-        currentPage?: int;
-        /**
-         * The value of the currentPage property before the change.
-         */
-        previousPage?: int;
-      }
+      mParameters?: RowRepeater$PageEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:resize resize} to attached listeners.
      *
@@ -22325,19 +22605,10 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the numberOfRows property after the change.
-         */
-        numberOfRows?: int;
-        /**
-         * The value of the numberOfRows property before the change.
-         */
-        previousNumberOfRows?: int;
-      }
+      mParameters?: RowRepeater$ResizeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:sort sort} to attached listeners.
      *
@@ -22347,12 +22618,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the sorter that has just been applied.
-         */
-        sorterId?: string;
-      }
+      mParameters?: RowRepeater$SortEventParameters
     ): this;
     /**
      * Switch to first page.
@@ -22828,23 +23094,81 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * This event is triggered when a filter is set.
      */
-    filter?: (oEvent: Event) => void;
+    filter?: (oEvent: RowRepeater$FilterEvent) => void;
 
     /**
      * This event is triggered when a sorting is applied.
      */
-    sort?: (oEvent: Event) => void;
+    sort?: (oEvent: RowRepeater$SortEvent) => void;
 
     /**
      * This event is triggered when paging was executed.
      */
-    page?: (oEvent: Event) => void;
+    page?: (oEvent: RowRepeater$PageEvent) => void;
 
     /**
      * This event is triggered when the number of rows was changed.
      */
-    resize?: (oEvent: Event) => void;
+    resize?: (oEvent: RowRepeater$ResizeEvent) => void;
   }
+
+  export interface RowRepeater$FilterEventParameters {
+    /**
+     * The ID of the filter that has just been applied.
+     */
+    filterId?: string;
+  }
+
+  export type RowRepeater$FilterEvent = Event<
+    RowRepeater$FilterEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$PageEventParameters {
+    /**
+     * The value of the currentPage property after the change.
+     */
+    currentPage?: int;
+
+    /**
+     * The value of the currentPage property before the change.
+     */
+    previousPage?: int;
+  }
+
+  export type RowRepeater$PageEvent = Event<
+    RowRepeater$PageEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$ResizeEventParameters {
+    /**
+     * The value of the numberOfRows property after the change.
+     */
+    numberOfRows?: int;
+
+    /**
+     * The value of the numberOfRows property before the change.
+     */
+    previousNumberOfRows?: int;
+  }
+
+  export type RowRepeater$ResizeEvent = Event<
+    RowRepeater$ResizeEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$SortEventParameters {
+    /**
+     * The ID of the sorter that has just been applied.
+     */
+    sorterId?: string;
+  }
+
+  export type RowRepeater$SortEvent = Event<
+    RowRepeater$SortEventParameters,
+    RowRepeater
+  >;
 }
 
 declare module "sap/ui/commons/RowRepeaterFilter" {
@@ -23180,13 +23504,13 @@ declare module "sap/ui/commons/SearchField" {
 
   import { ID, TextAlign, ValueState, CSSSize } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SearchProvider from "sap/ui/core/search/SearchProvider";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.SearchField` control.
@@ -23296,7 +23620,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -23316,7 +23640,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -23341,7 +23665,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -23361,7 +23685,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -23388,7 +23712,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23405,14 +23729,14 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:search search} to attached listeners.
      *
@@ -23422,15 +23746,10 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The search query
-         */
-        query?: string;
-      }
+      mParameters?: SearchField$SearchEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:suggest suggest} to attached listeners.
      *
@@ -23440,21 +23759,14 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value for which suggestions are required.
-         */
-        value?: string;
-      }
+      mParameters?: SearchField$SuggestEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -23468,7 +23780,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnableCache enableCache}.
      *
@@ -23553,7 +23865,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getMaxSuggestionItems(): int;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -23622,7 +23934,7 @@ declare module "sap/ui/commons/SearchField" {
      */
     getValue(): string;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -23704,7 +24016,7 @@ declare module "sap/ui/commons/SearchField" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnableCache enableCache}.
      *
@@ -23845,7 +24157,7 @@ declare module "sap/ui/commons/SearchField" {
       iMaxSuggestionItems?: int
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getPlaceholder placeholder}.
      *
@@ -23961,7 +24273,7 @@ declare module "sap/ui/commons/SearchField" {
       sValue?: string
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getValueState valueState}.
      *
@@ -24051,7 +24363,7 @@ declare module "sap/ui/commons/SearchField" {
     showExternalButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * When list suggestion is enabled all suggestions are cached and no suggest event is fired.
      */
@@ -24089,7 +24401,7 @@ declare module "sap/ui/commons/SearchField" {
     maxLength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Visualizes warnings or errors related to the input field. Possible values: Warning, Error, Success, None.
      */
@@ -24099,7 +24411,7 @@ declare module "sap/ui/commons/SearchField" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Placeholder for the input field.
      */
@@ -24154,13 +24466,37 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: SearchField$SearchEvent) => void;
 
     /**
      * Event which is fired when new suggest values are required.
      */
-    suggest?: (oEvent: Event) => void;
+    suggest?: (oEvent: SearchField$SuggestEvent) => void;
   }
+
+  export interface SearchField$SearchEventParameters {
+    /**
+     * The search query
+     */
+    query?: string;
+  }
+
+  export type SearchField$SearchEvent = Event<
+    SearchField$SearchEventParameters,
+    SearchField
+  >;
+
+  export interface SearchField$SuggestEventParameters {
+    /**
+     * The value for which suggestions are required.
+     */
+    value?: string;
+  }
+
+  export type SearchField$SuggestEvent = Event<
+    SearchField$SuggestEventParameters,
+    SearchField
+  >;
 }
 
 declare module "sap/ui/commons/SearchProvider" {
@@ -24184,8 +24520,8 @@ declare module "sap/ui/commons/SearchProvider" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
-     * sap.ui.core.search.OpenSearchProvider} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor sap.ui.core.search.OpenSearchProvider }
+     * can be used.
      */
     constructor(
       /**
@@ -24200,8 +24536,8 @@ declare module "sap/ui/commons/SearchProvider" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
-     * sap.ui.core.search.OpenSearchProvider} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor sap.ui.core.search.OpenSearchProvider }
+     * can be used.
      */
     constructor(
       /**
@@ -24258,14 +24594,14 @@ declare module "sap/ui/commons/SegmentedButton" {
 
   import Button from "sap/ui/commons/Button";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.SegmentedButton}
@@ -24339,7 +24675,7 @@ declare module "sap/ui/commons/SegmentedButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Rerendering of the Buttons
      */
@@ -24374,7 +24710,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -24394,7 +24730,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -24417,14 +24753,14 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -24434,12 +24770,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected ToggleButton
-         */
-        selectedButtonId?: string;
-      }
+      mParameters?: SegmentedButton$SelectEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getButtons buttons}.
@@ -24560,8 +24891,20 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * Event fired when button selected
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: SegmentedButton$SelectEvent) => void;
   }
+
+  export interface SegmentedButton$SelectEventParameters {
+    /**
+     * Id of selected ToggleButton
+     */
+    selectedButtonId?: string;
+  }
+
+  export type SegmentedButton$SelectEvent = Event<
+    SegmentedButton$SelectEventParameters,
+    SegmentedButton
+  >;
 }
 
 declare module "sap/ui/commons/Slider" {
@@ -24569,11 +24912,11 @@ declare module "sap/ui/commons/Slider" {
 
   import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.Slider}
@@ -24684,7 +25027,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -24704,7 +25047,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -24730,7 +25073,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -24751,7 +25094,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -24768,7 +25111,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -24785,14 +25128,14 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -24802,15 +25145,10 @@ declare module "sap/ui/commons/Slider" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the slider after a change.
-         */
-        value?: float;
-      }
+      mParameters?: Slider$ChangeEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      *
@@ -24820,21 +25158,14 @@ declare module "sap/ui/commons/Slider" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the slider after a change.
-         */
-        value?: float;
-      }
+      mParameters?: Slider$LiveChangeEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -24858,7 +25189,7 @@ declare module "sap/ui/commons/Slider" {
      */
     getEnabled(): boolean;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getHeight height}.
      *
@@ -24944,7 +25275,7 @@ declare module "sap/ui/commons/Slider" {
      */
     getValue(): float;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getVertical vertical}.
      *
@@ -25034,7 +25365,7 @@ declare module "sap/ui/commons/Slider" {
       bEnabled?: boolean
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -25176,7 +25507,7 @@ declare module "sap/ui/commons/Slider" {
       fValue?: float
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getVertical vertical}.
      *
@@ -25275,14 +25606,14 @@ declare module "sap/ui/commons/Slider" {
     labels?: string[] | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Orientation of slider
      */
     vertical?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Height of the vertical slider.
      */
@@ -25301,14 +25632,35 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Value was changed. This event is fired if the value has changed by a user action.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Slider$ChangeEvent) => void;
 
     /**
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: Slider$LiveChangeEvent) => void;
   }
+
+  export interface Slider$ChangeEventParameters {
+    /**
+     * Current value of the slider after a change.
+     */
+    value?: float;
+  }
+
+  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters, Slider>;
+
+  export interface Slider$LiveChangeEventParameters {
+    /**
+     * Current value of the slider after a change.
+     */
+    value?: float;
+  }
+
+  export type Slider$LiveChangeEvent = Event<
+    Slider$LiveChangeEventParameters,
+    Slider
+  >;
 }
 
 declare module "sap/ui/commons/Splitter" {
@@ -26055,8 +26407,6 @@ declare module "sap/ui/commons/TabStrip" {
 
   import Tab from "sap/ui/commons/Tab";
 
-  import Event from "sap/ui/base/Event";
-
   import { CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -26065,6 +26415,8 @@ declare module "sap/ui/commons/TabStrip" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
@@ -26163,7 +26515,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -26183,7 +26535,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -26208,7 +26560,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -26228,7 +26580,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -26279,7 +26631,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -26296,14 +26648,14 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:close close} to attached listeners.
      *
@@ -26313,15 +26665,10 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The index of the closed tab.
-         */
-        index?: int;
-      }
+      mParameters?: TabStrip$CloseEventParameters
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -26331,12 +26678,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The index of the selected tab.
-         */
-        index?: int;
-      }
+      mParameters?: TabStrip$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnableTabReordering enableTabReordering}.
@@ -26521,13 +26863,37 @@ declare module "sap/ui/commons/TabStrip" {
     /**
      * Fires when the user selects a tab.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: TabStrip$SelectEvent) => void;
 
     /**
      * Fires when the user closes a tab.
      */
-    close?: (oEvent: Event) => void;
+    close?: (oEvent: TabStrip$CloseEvent) => void;
   }
+
+  export interface TabStrip$CloseEventParameters {
+    /**
+     * The index of the closed tab.
+     */
+    index?: int;
+  }
+
+  export type TabStrip$CloseEvent = Event<
+    TabStrip$CloseEventParameters,
+    TabStrip
+  >;
+
+  export interface TabStrip$SelectEventParameters {
+    /**
+     * The index of the selected tab.
+     */
+    index?: int;
+  }
+
+  export type TabStrip$SelectEvent = Event<
+    TabStrip$SelectEventParameters,
+    TabStrip
+  >;
 }
 
 declare module "sap/ui/commons/TextArea" {
@@ -26958,7 +27324,7 @@ declare module "sap/ui/commons/TextView" {
       oBindingInfo: PropertyBindingInfo
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -26975,13 +27341,11 @@ declare module "sap/ui/commons/TextView" {
      */
     getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -27387,8 +27751,8 @@ declare module "sap/ui/commons/Title" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
-     * sap.ui.core.Title} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor sap.ui.core.Title }
+     * can be used.
      */
     constructor(
       /**
@@ -27403,8 +27767,8 @@ declare module "sap/ui/commons/Title" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
-     * sap.ui.core.Title} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor sap.ui.core.Title }
+     * can be used.
      */
     constructor(
       /**
@@ -27447,7 +27811,7 @@ declare module "sap/ui/commons/Title" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Getter for property `level`. Defines the level of the title. If set to auto the level of the title is
      * chosen by the control rendering the title.
@@ -27460,7 +27824,7 @@ declare module "sap/ui/commons/Title" {
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Setter for property `level`.
      *
@@ -27555,7 +27919,7 @@ declare module "sap/ui/commons/ToggleButton" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
@@ -28105,8 +28469,6 @@ declare module "sap/ui/commons/Tree" {
 
   import TreeNode from "sap/ui/commons/TreeNode";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -28119,6 +28481,8 @@ declare module "sap/ui/commons/Tree" {
   import Context from "sap/ui/model/Context";
 
   import { TreeSelectionMode } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
@@ -28216,7 +28580,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -28236,7 +28600,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -28262,7 +28626,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -28283,7 +28647,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -28324,7 +28688,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -28342,7 +28706,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -28353,7 +28717,7 @@ declare module "sap/ui/commons/Tree" {
      */
     expandAll(): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -28366,19 +28730,10 @@ declare module "sap/ui/commons/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The node which has been selected.
-         */
-        node?: TreeNode;
-        /**
-         * The binding context of the selected node.
-         */
-        nodeContext?: object;
-      }
+      mParameters?: Tree$SelectEventParameters
     ): boolean;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      *
@@ -28388,16 +28743,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The nodes which has been selected.
-         */
-        nodes?: TreeNode[];
-        /**
-         * The binding context of the selected nodes.
-         */
-        nodeContexts?: object[];
-      }
+      mParameters?: Tree$SelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getHeight height}.
@@ -28419,7 +28765,7 @@ declare module "sap/ui/commons/Tree" {
      */
     getMinWidth(): CSSSize;
     /**
-     * @SINCE 1.19
+     * @since 1.19
      *
      * Returns the node with the given context, or null if no such node currently exists.
      *
@@ -28737,13 +29083,44 @@ declare module "sap/ui/commons/Tree" {
     /**
      * Event is fired when a tree node is selected.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: Tree$SelectEvent) => void;
 
     /**
      * fired when the selection of the tree has been changed
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (oEvent: Tree$SelectionChangeEvent) => void;
   }
+
+  export interface Tree$SelectEventParameters {
+    /**
+     * The node which has been selected.
+     */
+    node?: TreeNode;
+
+    /**
+     * The binding context of the selected node.
+     */
+    nodeContext?: object;
+  }
+
+  export type Tree$SelectEvent = Event<Tree$SelectEventParameters, Tree>;
+
+  export interface Tree$SelectionChangeEventParameters {
+    /**
+     * The nodes which has been selected.
+     */
+    nodes?: TreeNode[];
+
+    /**
+     * The binding context of the selected nodes.
+     */
+    nodeContexts?: object[];
+  }
+
+  export type Tree$SelectionChangeEvent = Event<
+    Tree$SelectionChangeEventParameters,
+    Tree
+  >;
 }
 
 declare module "sap/ui/commons/TreeNode" {
@@ -28926,7 +29303,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -28947,7 +29324,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -29001,7 +29378,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -29021,7 +29398,7 @@ declare module "sap/ui/commons/TreeNode" {
       bDisableExpandFinishedHandler: boolean
     ): void;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:selected selected} to attached listeners.
      *
@@ -29034,7 +29411,7 @@ declare module "sap/ui/commons/TreeNode" {
       mParameters?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      *
@@ -29044,21 +29421,14 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Node has been opened if true
-         */
-        opened?: boolean;
-      }
+      mParameters?: TreeNode$ToggleOpenStateEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -29350,19 +29720,36 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node state has changed.
      */
-    toggleOpenState?: (oEvent: Event) => void;
+    toggleOpenState?: (oEvent: TreeNode$ToggleOpenStateEvent) => void;
 
     /**
      * Node is selected
      */
     selected?: (oEvent: Event) => void;
   }
+
+  export interface TreeNode$SelectedEventParameters {}
+
+  export type TreeNode$SelectedEvent = Event<
+    TreeNode$SelectedEventParameters,
+    TreeNode
+  >;
+
+  export interface TreeNode$ToggleOpenStateEventParameters {
+    /**
+     * Node has been opened if true
+     */
+    opened?: boolean;
+  }
+
+  export type TreeNode$ToggleOpenStateEvent = Event<
+    TreeNode$ToggleOpenStateEventParameters,
+    TreeNode
+  >;
 }
 
 declare module "sap/ui/commons/TriStateCheckBox" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -29372,8 +29759,10 @@ declare module "sap/ui/commons/TriStateCheckBox" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * TriStateCheckBox to reflect mixed state for checkboxes. The control can display three states, namely
@@ -29461,7 +29850,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
        */
@@ -29481,7 +29870,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
        */
@@ -29498,14 +29887,14 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:change change} to attached listeners.
      *
@@ -29515,12 +29904,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Checks whether the box is flagged or not flagged.
-         */
-        selectionState?: string;
-      }
+      mParameters?: TriStateCheckBox$ChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEditable editable}.
@@ -29772,8 +30156,20 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: TriStateCheckBox$ChangeEvent) => void;
   }
+
+  export interface TriStateCheckBox$ChangeEventParameters {
+    /**
+     * Checks whether the box is flagged or not flagged.
+     */
+    selectionState?: string;
+  }
+
+  export type TriStateCheckBox$ChangeEvent = Event<
+    TriStateCheckBox$ChangeEventParameters,
+    TriStateCheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ValueHelpField" {
@@ -29922,7 +30318,7 @@ declare module "sap/ui/commons/ValueHelpField" {
       oListener?: object
     ): this;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:valueHelpRequest valueHelpRequest} to attached listeners.
      *
@@ -29962,7 +30358,7 @@ declare module "sap/ui/commons/ValueHelpField" {
      */
     getIconURL(): URI;
     /**
-     * @PROTECTED - DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Handle F4 event
      */
@@ -30046,6 +30442,13 @@ declare module "sap/ui/commons/ValueHelpField" {
      */
     valueHelpRequest?: (oEvent: Event) => void;
   }
+
+  export interface ValueHelpField$ValueHelpRequestEventParameters {}
+
+  export type ValueHelpField$ValueHelpRequestEvent = Event<
+    ValueHelpField$ValueHelpRequestEventParameters,
+    ValueHelpField
+  >;
 }
 
 declare namespace sap {

@@ -1,6 +1,6 @@
-import { Color } from '../../math/Color';
-import { Vector2 } from '../../math/Vector2';
-import { Matrix3 } from '../../math/Matrix3';
+import { Color } from '../../math/Color.js';
+import { Vector2 } from '../../math/Vector2.js';
+import { Matrix3 } from '../../math/Matrix3.js';
 
 // tslint:disable-next-line:interface-name
 export interface IUniform<TValue = any> {

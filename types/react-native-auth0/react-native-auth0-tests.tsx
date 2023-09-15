@@ -285,8 +285,16 @@ auth0.credentialsManager.hasValidCredentials();
 auth0.credentialsManager.hasValidCredentials(123);
 
 function Test() {
-    const { isLoading, error, authorize, clearSession, getCredentials, clearCredentials, requireLocalAuthentication } =
-        useAuth0();
+    const {
+        user,
+        isLoading,
+        error,
+        authorize,
+        clearSession,
+        getCredentials,
+        clearCredentials,
+        requireLocalAuthentication,
+    } = useAuth0();
 
     // can be used without args
     authorize();
@@ -297,6 +305,7 @@ function Test() {
 
     return (
         <Auth0Provider domain={'type'} clientId={'type'}>
+            {!!user && user.sub}
             {!!isLoading && 'Loading'}
             {!!error && error.message}
         </Auth0Provider>

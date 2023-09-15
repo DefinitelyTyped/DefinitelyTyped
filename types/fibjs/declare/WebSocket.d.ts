@@ -30,8 +30,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      *
      * @brief 查询当前对象连接的服务器
      *
-     * @readonly
-     *
      */
 
     url: string
@@ -41,8 +39,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      *
      *
      * @brief 查询当前对象连接时的协议
-     *
-     * @readonly
      *
      */
 
@@ -54,8 +50,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      *
      * @brief 查询当前对象连接的源
      *
-     * @readonly
-     *
      */
 
     origin: string
@@ -66,7 +60,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      *
      * @brief 查询当前对象的连接状态，参见 ws
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -79,7 +72,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      * @brief 查询和绑定连接成功事件，相当于 on("open", func);
      *
      *
-     * @type Function
      */
 
     onopen: Function
@@ -91,7 +83,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      * @brief 查询和绑定接受到对方消息的事件，相当于 on("message", func);
      *
      *
-     * @type Function
      */
 
     onmessage: Function
@@ -103,7 +94,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      * @brief 查询和绑定连接关闭的事件，相当于 on("close", func);
      *
      *
-     * @type Function
      */
 
     onclose: Function
@@ -115,7 +105,6 @@ declare class Class_WebSocket extends Class_EventEmitter {
      * @brief 查询和绑定错误发生的事件，相当于 on("error", func);
      *
      *
-     * @type Function
      */
 
     onerror: Function

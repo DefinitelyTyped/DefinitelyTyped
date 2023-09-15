@@ -15,13 +15,17 @@ forge.pki.setRsaPrivateKey(
 );
 let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
+let privateKeyAsn1 = forge.pki.privateKeyToAsn1(keypair.privateKey);
+let publicKeyAsn1 = forge.pki.publicKeyToAsn1(keypair.publicKey);
 let publicKeyRSAPem: forge.pki.PEM = forge.pki.publicKeyToRSAPublicKeyPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let publicKeyFromRsaPem = forge.pki.publicKeyFromPem(publicKeyRSAPem);
+let publicKeyFromAsn1 = forge.pki.publicKeyFromAsn1(publicKeyAsn1);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
+let privateKeyFromAsn1 = forge.pki.privateKeyFromAsn1(privateKeyAsn1);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
@@ -134,6 +138,32 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
     let derOidBuffer = forge.asn1.oidToDer(oidSrc);
     let oidResult = forge.asn1.derToOid(derOidBuffer);
     if (oidSrc !== oidResult) throw Error('forge.asn1.oidToDer / derToOid fail');
+    // "derToOid" can also be given the bytes as a string
+    let derOidString = derOidBuffer.data;
+    let oidFromString = forge.asn1.derToOid(derOidString);
+    if (oidSrc !== oidFromString) throw Error('forge.asn1.oidToDer / derToOid fail (from string)');
+}
+
+{
+    let intSrc = 42;
+    let derIntBuffer = forge.asn1.integerToDer(intSrc);
+    let intResult = forge.asn1.derToInteger(derIntBuffer);
+    if (intSrc !== intResult) throw Error('forge.asn1.integerToDer / derToInteger fail');
+    // "derToInteger" can also be given the bytes as a string
+    let fromString = forge.asn1.derToInteger(derIntBuffer.data);
+    if (intSrc !== fromString) throw Error('forge.asn1.integerToDer / derToInteger (from string)');
+}
+
+{
+    // dates, both in UtcTime and GeneralizedTime
+    let dateSrc = new Date('1995-12-04T12:30:00Z');
+    let derUtcTimeBuffer = forge.asn1.dateToUtcTime(dateSrc);
+    let fromUtc = forge.asn1.utcTimeToDate(derUtcTimeBuffer);
+    if (dateSrc !== fromUtc) throw Error('forge.asn1.dateToUtcTime / utcTimeToDate fail');
+    // also in GeneralizedTime
+    let derGeneralizedTimeBuffer = forge.asn1.dateToGeneralizedTime(dateSrc);
+    let fromGeneralized = forge.asn1.generalizedTimeToDate(derGeneralizedTimeBuffer);
+    if (dateSrc !== fromGeneralized) throw Error('forge.asn1.dateToGeneralizedTime / generalizedTimeToDate fail');
 }
 
 if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString fail');
@@ -697,12 +727,35 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // create an EnvelopedData with encrypted content (3DES with RSA)
     let p7 = forge.pkcs7.createEnvelopedData();
-    let cert = forge.pki.certificateFromPem(certPem);
+    let symmetricCipher = forge.pki.oids['des-EDE3-CBC'];
     p7.addRecipient(cert);
     p7.content = forge.util.createBuffer('content');
-    p7.encrypt();
+    p7.encrypt(undefined, symmetricCipher);
     let asn1: forge.asn1.Asn1 = p7.toAsn1();
+
+    // parse and decrypt the result
+    let encP7 = forge.pkcs7.messageFromAsn1(asn1) as forge.pkcs7.PkcsEnvelopedData;
+    let recipient = encP7.findRecipient(cert);
+    encP7.decrypt(recipient, privateKeyRsa);
+    if (p7.content !== encP7.content) {
+        throw new Error('decrypted result does not match');
+    }
+}
+
+{
+    // alternatively, EnvelopedData can be encrypted with a predefined symmetric key
+    let p7 = forge.pkcs7.createEnvelopedData();
+    p7.addRecipient(cert);
+    p7.content = forge.util.createBuffer('cleartext');
+    // let's define a key suitable for AES-128 (key length: 16 bytes)
+    let symmetricCipher = forge.pki.oids['aes128-CBC'];
+    let predefinedKey = forge.util.hexToBytes('b5d36c67837faa95d02455ec162588ed');
+    p7.encrypt(forge.util.createBuffer(predefinedKey), symmetricCipher);
+
+    let recipient = p7.findRecipient(cert);
+    p7.decrypt(recipient, privateKeyRsa);
 }
 
 {
@@ -753,6 +806,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let plainText = 'content';
     let cipher = publicKeyRsa.encrypt(plainText);
     let result = privateKeyRsa.decrypt(cipher);
+    if (result !== plainText) {
+        throw new Error('decrypt result not match');
+    }
+}
+{
+    let plainText = 'content';
+    let cipher = publicKeyFromAsn1.encrypt(plainText);
+    let result = privateKeyFromAsn1.decrypt(cipher);
     if (result !== plainText) {
         throw new Error('decrypt result not match');
     }

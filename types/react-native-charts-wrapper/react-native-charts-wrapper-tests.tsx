@@ -67,6 +67,7 @@ class AxisLineChartScreen extends React.Component {
                         }}
                         chartDescription={{ text: '' }}
                         xAxis={{
+                            drawAxisLine: true,
                             textColor: processColor('red'),
                             textSize: 16,
                             gridColor: processColor('red'),
@@ -82,6 +83,7 @@ class AxisLineChartScreen extends React.Component {
                         }}
                         yAxis={{
                             left: {
+                                drawAxisLine: false,
                                 drawGridLines: false,
                             },
                             right: {
@@ -324,6 +326,7 @@ class CandleStickChartScreen extends React.Component {
                         }}
                         xAxis={{
                             drawLabels: true,
+                            drawAxisLine: true,
                             drawGridLines: true,
                             position: 'BOTTOM',
                             yOffset: 5,

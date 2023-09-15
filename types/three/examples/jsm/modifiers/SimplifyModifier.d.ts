@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../../../src/Three';
+import { BufferGeometry } from '../../../src/Three.js';
 
 export class SimplifyModifier {
     constructor();

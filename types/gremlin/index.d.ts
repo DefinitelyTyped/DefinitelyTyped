@@ -1,6 +1,6 @@
 // Type definitions for gremlin 3.6
 // Project: https://tinkerpop.apache.org/
-// Definitions by: Paulo Soares <https://github.com/7jpsan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { driver, process, structure };
@@ -497,10 +497,10 @@ declare namespace process {
     const statics: Statics;
 
     class Translator {
-        constructor(traversalSource: AnonymousTraversalSource | GraphTraversalSource);
-        getTraversalSource(): Translator;
+        constructor(traversalSource: AnonymousTraversalSource | GraphTraversalSource | string);
+        getTraversalSource(): AnonymousTraversalSource | GraphTraversalSource | string;
         of(traversalSource: AnonymousTraversalSource | GraphTraversalSource | string): void;
-        translate(bytecode: Bytecode, child?: boolean): string;
+        translate(bytecodeOrTraversal: Bytecode | Traversal, child?: boolean): string;
         convert(anyObject: any): string;
     }
 

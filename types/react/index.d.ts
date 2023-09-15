@@ -53,13 +53,14 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 type Booleanish = boolean | 'true' | 'false';
+type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
 export as namespace React;
 
@@ -82,8 +83,14 @@ declare namespace React {
                * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components
                */
               deprecatedLegacyContext?: any,
-          ) => ReactElement<any, any> | null)
-        | (new (props: P) => Component<any, any>);
+          ) => ReactNode)
+        | (new (
+              props: P,
+              /**
+               * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods
+               */
+              deprecatedLegacyContext?: any,
+          ) => Component<any, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
@@ -113,7 +120,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new (props: any): Component<any> }
-            | ((props: any, context?: any) => ReactElement | null)
+            | ((props: any, context?: any) => ReactNode)
             | keyof JSX.IntrinsicElements
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
@@ -243,6 +250,9 @@ declare namespace React {
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
     type ReactFragment = Iterable<ReactNode>;
 
     /**
@@ -255,7 +265,7 @@ declare namespace React {
         | ReactElement
         | string
         | number
-        | ReactFragment
+        | Iterable<ReactNode>
         | ReactPortal
         | boolean
         | null
@@ -380,7 +390,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement|null);
+        (props: P): ReactNode;
         readonly $$typeof: symbol;
     }
 
@@ -550,7 +560,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (props: P, context?: any): ReactNode;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -566,7 +576,7 @@ declare namespace React {
      * @deprecated - Equivalent with `React.FunctionComponent`.
      */
     interface VoidFunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (props: P, context?: any): ReactNode;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -576,7 +586,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: P, ref: ForwardedRef<T>): ReactElement | null;
+        (props: P, ref: ForwardedRef<T>): ReactNode;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -1633,6 +1643,16 @@ declare namespace React {
          */
         'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
+        /**
+         * Defines a string value that labels the current element, which is intended to be converted into Braille.
+         * @see aria-label.
+         */
+        'aria-braillelabel'?: string | undefined;
+        /**
+         * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
+         * @see aria-roledescription.
+         */
+        'aria-brailleroledescription'?: string | undefined;
         'aria-busy'?: Booleanish | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
@@ -1650,6 +1670,11 @@ declare namespace React {
          */
         'aria-colindex'?: number | undefined;
         /**
+         * Defines a human readable text alternative of aria-colindex.
+         * @see aria-rowindextext.
+         */
+        'aria-colindextext'?: string | undefined;
+        /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
@@ -1666,6 +1691,11 @@ declare namespace React {
          * @see aria-labelledby
          */
         'aria-describedby'?: string | undefined;
+        /**
+         * Defines a string value that describes or annotates the current element.
+         * @see related aria-describedby.
+         */
+        'aria-description'?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
@@ -1779,6 +1809,11 @@ declare namespace React {
          * @see aria-rowcount @see aria-rowspan.
          */
         'aria-rowindex'?: number | undefined;
+        /**
+         * Defines a human readable text alternative of aria-rowindex.
+         * @see aria-colindextext.
+         */
+        'aria-rowindextext'?: string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
@@ -1989,7 +2024,7 @@ declare namespace React {
         colSpan?: number | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -2232,7 +2267,7 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         decoding?: "async" | "auto" | "sync" | undefined;
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
@@ -2280,7 +2315,6 @@ declare namespace React {
         autoComplete?: string | undefined;
         capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
         form?: string | undefined;
@@ -2334,7 +2368,8 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
+        fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2359,7 +2394,7 @@ declare namespace React {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
         controlsList?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -2373,6 +2408,7 @@ declare namespace React {
         httpEquiv?: string | undefined;
         name?: string | undefined;
         media?: string | undefined;
+        content?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2443,7 +2479,7 @@ declare namespace React {
         async?: boolean | undefined;
         /** @deprecated */
         charSet?: string | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
@@ -2562,6 +2598,9 @@ declare namespace React {
     //   - "string"
     //   - union of string literals
     interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        // React-specific Attributes
+        suppressHydrationWarning?: boolean | undefined;
+
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string | undefined;
@@ -2582,7 +2621,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: AriaRole | undefined;
         tabIndex?: number | undefined;
-        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossOrigin?: CrossOrigin;
 
         // SVG Specific attributes
         accentHeight?: number | string | undefined;
@@ -2941,6 +2980,7 @@ declare namespace React {
         ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        search: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
         script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
         section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3125,7 +3165,9 @@ declare namespace React {
         componentStack: string;
     }
 
+    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
+        type ElementType = GlobalJSXElementType;
         interface Element extends GlobalJSXElement {}
         interface ElementClass extends GlobalJSXElementClass {}
         interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
@@ -3188,6 +3230,18 @@ declare global {
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
      */
     namespace JSX {
+        // We don't just alias React.ElementType because React.ElementType
+        // historically does more than we need it to.
+        // E.g. it also contains .propTypes and so TS also verifies the declared
+        // props type does match the declared .propTypes.
+        // But if libraries declared their .propTypes but not props type,
+        // or they mismatch, you won't be able to use the class component
+        // as a JSX.ElementType.
+        // We could fix this everywhere but we're ultimately not interested in
+        // .propTypes assignability so we might as well drop it entirely here to
+        //  reduce the work of the type-checker.
+        // TODO: Check impact of making React.ElementType<P = any> = React.JSXElementConstructor<P>
+        type ElementType = string | React.JSXElementConstructor<any>;
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
@@ -3296,6 +3350,7 @@ declare global {
             ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            search: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             slot: React.DetailedHTMLProps<React.SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
             script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
             section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -3394,6 +3449,7 @@ declare global {
 // React.JSX needs to point to global.JSX to keep global module augmentations intact.
 // But we can't access global.JSX so we need to create these aliases instead.
 // Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
+type GlobalJSXElementType = JSX.ElementType;
 interface GlobalJSXElement extends JSX.Element {}
 interface GlobalJSXElementClass extends JSX.ElementClass {}
 interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}

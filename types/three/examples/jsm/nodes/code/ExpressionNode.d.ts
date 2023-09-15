@@ -1,5 +1,5 @@
-import { NodeTypeOption } from '../core/constants';
-import TempNode from '../core/TempNode';
+import { NodeTypeOption } from '../core/constants.js';
+import TempNode from '../core/TempNode.js';
 
 export default class ExpressionNode extends TempNode {
     snipped: string; /* sic */

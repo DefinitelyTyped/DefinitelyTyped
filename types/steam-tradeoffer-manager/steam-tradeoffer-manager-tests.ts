@@ -1,157 +1,187 @@
-import TradeOfferManager = require('steam-tradeoffer-manager');
-import SteamUser = require('steam-user');
-import SteamCommunity = require('steamcommunity');
-import SteamTotp = require('steam-totp');
-import FS = require('fs');
-import { SteamClient } from 'steam';
+import TradeOfferManager = require("steam-tradeoffer-manager");
 import TradeOffer = require("steam-tradeoffer-manager/lib/classes/TradeOffer");
+import SteamCommunity = require('steamcommunity');
+import SteamUser = require('steam-user');
+import Steam = require('steam');
+import CEconItem = require("steamcommunity/classes/CEconItem");
 
+// ----- Common Definitions -----
 const community = new SteamCommunity();
-const client = new SteamUser();
-const manager = new TradeOfferManager({
-    steam: client, // Polling every 30 seconds is fine since we get notifications from Steam
-    domain: 'example.com', // Our domain is example.com
-    language: 'en', // We want English item descriptions
-});
+let manager = new TradeOfferManager();
+const user = new SteamUser();
+const steam = new Steam.SteamClient();
+const offer = manager.createOffer('123');
+const item = new CEconItem('a', 'b', 'c');
 
-const client2 = new SteamClient();
-const manager2 = new TradeOfferManager({
-    steam: client2,
-    domain: 'example.com',
+// ----- TradeOfferManager -----
+
+manager = new TradeOfferManager({
+    community,
+    steam: user,
+    domain: 'localhost',
     language: 'en',
+    pollInterval: 60000,
+    cancelTime: 60000,
+    pendingCancelTime: 60000,
+    cancelOfferCount: 5,
+    cancelOfferCountMinAge: 60000,
+    globalAssetCache: false,
+    assetCacheMaxItems: 500,
+    assetCacheGcInterval: 120000,
+    pollData: 'poll_data_object',
+    dataDirectory: '/tmp',
+    gzipData: true,
+    savePollData: true,
+});
+manager = new TradeOfferManager({
+    steam
 });
 
-// Steam logon options
-const logOnOptions = {
-    accountName: 'username',
-    password: 'password',
-    twoFactorCode: SteamTotp.getAuthCode('sharedSecret'),
-};
-
-if (FS.existsSync('polldata.json')) {
-    manager.pollData = JSON.parse(FS.readFileSync('polldata.json').toString('utf8'));
-}
-client.logOn(logOnOptions);
-
-client.on('loggedOn', () => {
-    console.log('Logged into Steam');
-});
-
-client.on('webSession', (sessionID, cookies) => {
-    manager.setCookies(cookies, err => {
-        if (err) {
-            console.log(err);
-            process.exit(1); // Fatal error since we couldn't get our API key
-        }
-
-        console.log('Got API key: ' + manager.apiKey);
-
-        // Get our inventory
-        manager.getInventoryContents(730, 2, true, (err, inventory) => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            if (inventory.length === 0) {
-                // Inventory empty
-                console.log('CS:GO inventory is empty');
-                return;
-            }
-
-            console.log(`Found ${inventory.length} CS:GO items`);
-
-            // Create and send the offer
-            const offer = manager.createOffer(
-                'https://steamcommunity.com/tradeoffer/new/?partner=12345678&token=xxxxxxxx',
-            );
-
-            offer.addMyItems(inventory);
-            offer.setMessage('Here, have some items!');
-            offer.send((err, status) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-
-                if (status === 'pending') {
-                    // We need to confirm it
-                    console.log(`Offer #${offer.id} sent, but requires confirmation`);
-                    community.acceptConfirmationForObject('identitySecret', offer.id, err => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log('Offer confirmed');
-                        }
-                    });
-                } else {
-                    console.log(`Offer #${offer.id} sent successfully`);
-                }
-            });
-        });
-    });
-
-    community.setCookies(cookies);
-});
-
-manager.on('sentOfferChanged', (offer, oldState) => {
-    console.log(
-        `Offer #${offer.id} changed: ${TradeOfferManager.ETradeOfferState[oldState]} -> ${
-            TradeOfferManager.ETradeOfferState[offer.state]
-        }`,
-    );
-});
-
-manager.on('pollData', pollData => {
-    FS.writeFileSync('polldata.json', JSON.stringify(pollData));
-});
-
-/*
- * Example output:
- *
- * Logged into Steam
- * Got API key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
- * Found 117 CS:GO items
- * Offer #1601569319 sent, but requires confirmation
- * Offer confirmed
- */
-
-manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, (err, sent, received) => {
-    if (err) {
-        console.log(err);
-        return;
+manager.setCookies(['a=b']);
+manager.setCookies(['a=b'], '123');
+manager.setCookies(['a=b'], e => {
+    if (e) {
+        throw e;
     }
-
-    console.log(`Got ${sent.length} sent and ${received.length} received offers`);
 });
 
-console.log(new TradeOfferManager.SteamID('[U:1:46143802]').getBigIntID());
+manager.shutdown();
 
-manager.getInventoryContents(440, 2, true, (err, inv, currencies) => {
+manager.parentalUnlock('123');
+manager.parentalUnlock('123', e => {
+    if (e) {
+        throw e;
+    }
+});
+
+// $ExpectType TradeOffer
+manager.createOffer('123');
+manager.createOffer(new TradeOfferManager.SteamID('123'));
+manager.createOffer('123', '456');
+
+manager.getOffer('123', (err, offer: TradeOffer) => {
     if (err) {
         throw err;
     }
-    const offer = manager.createOffer('[U:1:46143802]');
-    inv.forEach(offer.addMyItem);
-    offer.send(err => {
-        if (err) {
-            throw err;
-        }
-        setTimeout(() => {
-            offer.cancel(err => {
-                if (err) {
-                    throw err;
-                }
-                console.log('Offer cancelled after 30 seconds');
-            });
-        }, 1000 * 30);
-    });
 });
 
-manager.on('realTimeTradeConfirmationRequired', offer => {
-    if (offer.state === TradeOfferManager.ETradeOfferState.Active) {
-        console.log(`Offer #${offer.id} requires confirmation`);
-    }
+manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, (err, sent: TradeOffer[], received: TradeOffer[]) => {
 });
 
-class PromisifiedTradeOffer extends TradeOffer {}
+manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, new Date(), (err, sent, received) => {
+});
+
+manager.getInventoryContents(440, 2, true, (err, inventory: CEconItem[], currencies: CEconItem[]) => {
+});
+
+manager.getUserInventoryContents('123', 440, 2, true, (err, inventory: CEconItem[], currencies: CEconItem[]) => {
+});
+
+manager.loadInventory(440, 2, true, (err, inventory, currencies) => {
+});
+
+manager.loadUserInventory('123', 440, 2, true, (err, inventory, currencies) => {
+});
+
+manager.getOfferToken((err, token: string) => {
+});
+
+manager.getOffersContainingItem(item, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
+});
+
+manager.getOffersContainingItem(item, (err, sent, received) => {
+});
+
+manager.doPoll();
+
+// ----- TradeOffer -----
+
+// $ExpectType boolean
+offer.isGlitched();
+
+offer.data('a');
+offer.data('a', 'b');
+
+offer.getPartnerInventoryContents(440, 2, (err, inventory, currencies) => {
+});
+
+offer.loadPartnerInventory(440, 2, (err, inventory, currencies) => {
+});
+
+// $ExpectType boolean
+offer.addMyItem(item);
+
+// $ExpectType number
+offer.addMyItems([item, item]);
+
+// $ExpectType boolean
+offer.removeMyItem(item);
+
+// $ExpectType number
+offer.removeMyItems([item, item]);
+
+// $ExpectType boolean
+offer.addTheirItem(item);
+
+// $ExpectType number
+offer.addTheirItems([item, item]);
+
+// $ExpectType boolean
+offer.removeTheirItem(item);
+
+// $ExpectType number
+offer.removeTheirItems([item, item]);
+
+// $ExpectType boolean
+offer.containsItem(item);
+
+offer.setMessage('a');
+
+offer.setToken('a');
+
+offer.getUserDetails((err, me, them) => {
+});
+
+offer.send((err, status) => {
+});
+
+offer.send();
+
+offer.cancel(err => {
+});
+
+offer.cancel();
+
+offer.decline(err => {
+});
+
+offer.decline();
+
+offer.accept(true, (err, status) => {
+});
+
+offer.accept((err, status) => {
+});
+
+offer.accept();
+
+// $ExpectType TradeOffer
+offer.duplicate();
+
+// $ExpectType TradeOffer
+offer.counter();
+
+offer.update(err => {
+});
+
+offer.getReceivedItems(true, (err, items) => {
+});
+
+offer.getReceivedItems((err, items) => {
+});
+
+offer.getExchangeDetails(false, (err, status, tradeInitTime, receivedItems, sentItems) => {
+});
+
+offer.getExchangeDetails((err, status, tradeInitTime, receivedItems, sentItems) => {
+});

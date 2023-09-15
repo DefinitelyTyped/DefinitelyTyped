@@ -30,8 +30,6 @@ declare class Class_HttpClient extends Class__object {
      *
      * @brief 返回http客户端的 HttpCookie 对象列表
      *
-     * @readonly
-     * @type NArray
      */
 
     cookies: any[]
@@ -67,7 +65,6 @@ declare class Class_HttpClient extends Class__object {
      * @brief cookie功能开关，默认开启
      *
      *
-     * @type Boolean
      */
 
     enableCookie: boolean
@@ -79,7 +76,6 @@ declare class Class_HttpClient extends Class__object {
      * @brief 自动redirect功能开关，默认开启
      *
      *
-     * @type Boolean
      */
 
     autoRedirect: boolean

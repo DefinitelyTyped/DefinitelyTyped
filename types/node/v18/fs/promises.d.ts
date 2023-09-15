@@ -44,7 +44,7 @@ declare module 'fs/promises' {
 
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
-        filename: T;
+        filename: T | null;
     }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
@@ -82,6 +82,14 @@ declare module 'fs/promises' {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+        highWaterMark?: number | undefined;
+    }
+    interface ReadableWebStreamOptions {
+        /**
+         * Whether to open a normal or a `'bytes'` stream.
+         * @since v18.17.0
+         */
+        type?: 'bytes' | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -239,7 +247,7 @@ declare module 'fs/promises' {
          * @since v17.0.0
          * @experimental
          */
-        readableWebStream(): ReadableStream;
+        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -633,6 +641,7 @@ declare module 'fs/promises' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -648,6 +657,7 @@ declare module 'fs/promises' {
             | {
                   encoding: 'buffer';
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               }
             | 'buffer'
     ): Promise<Buffer[]>;
@@ -661,6 +671,7 @@ declare module 'fs/promises' {
         options?:
             | (ObjectEncodingOptions & {
                   withFileTypes?: false | undefined;
+                  recursive?: boolean | undefined;
               })
             | BufferEncoding
             | null
@@ -674,6 +685,7 @@ declare module 'fs/promises' {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
+            recursive?: boolean | undefined;
         }
     ): Promise<Dirent[]>;
     /**

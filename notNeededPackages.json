@@ -40,6 +40,10 @@
             "libraryName": "@adobe/node-fetch-retry",
             "asOfVersion": "2.1.0"
         },
+        "aero__sanitizer": {
+            "libraryName": "@aero/sanitizer",
+            "asOfVersion": "1.3.2"
+        },
         "ag-grid": {
             "libraryName": "ag-grid",
             "asOfVersion": "3.2.0"
@@ -1084,6 +1088,10 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron": {
+            "libraryName": "cron",
+            "asOfVersion": "2.4.0"
+        },
         "cron-converter": {
             "libraryName": "cron-converter",
             "asOfVersion": "2.0.0"
@@ -1765,6 +1773,14 @@
             "libraryName": "filter-console",
             "asOfVersion": "0.1.1"
         },
+        "filter-invalid-dom-props": {
+            "libraryName": "filter-invalid-dom-props",
+            "asOfVersion": "3.0.0"
+        },
+        "find-cache-dir": {
+            "libraryName": "find-cache-dir",
+            "asOfVersion": "5.0.0"
+        },
         "find-java-home": {
             "libraryName": "find-java-home",
             "asOfVersion": "1.0.0"
@@ -1800,6 +1816,10 @@
         "fkill": {
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
+        },
+        "flatbush": {
+            "libraryName": "flatbush",
+            "asOfVersion": "4.2.0"
         },
         "flatpickr": {
             "libraryName": "flatpickr",
@@ -2004,6 +2024,10 @@
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
+        },
+        "google-spreadsheet": {
+            "libraryName": "google-spreadsheet",
+            "asOfVersion": "4.0.0"
         },
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
@@ -2380,6 +2404,10 @@
         "inversify-restify-utils": {
             "libraryName": "inversify-restify-utils",
             "asOfVersion": "2.0.0"
+        },
+        "iobroker": {
+            "libraryName": "@iobroker/types",
+            "asOfVersion": "5.0.6"
         },
         "ionic": {
             "libraryName": "ionic",
@@ -3285,6 +3313,10 @@
             "libraryName": "mermaid",
             "asOfVersion": "9.2.0"
         },
+        "metalsmith": {
+            "libraryName": "metalsmith",
+            "asOfVersion": "2.6.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -3340,6 +3372,10 @@
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
+        },
+        "minio": {
+            "libraryName": "minio",
+            "asOfVersion": "7.1.1"
         },
         "minipass": {
             "libraryName": "minipass",
@@ -3572,6 +3608,10 @@
         "node-downloader-helper": {
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
+        },
+        "node-emoji": {
+            "libraryName": "node-emoji",
+            "asOfVersion": "2.1.0"
         },
         "node-json-db": {
             "libraryName": "node-json-db",
@@ -4201,6 +4241,10 @@
         },
         "preferred-pm": {
             "libraryName": "preferred-pm",
+            "asOfVersion": "3.0.0"
+        },
+        "prettier": {
+            "libraryName": "prettier",
             "asOfVersion": "3.0.0"
         },
         "prettier-package-json": {
@@ -4887,6 +4931,10 @@
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
         },
+        "react-pdf": {
+            "libraryName": "react-pdf",
+            "asOfVersion": "7.0.0"
+        },
         "react-plaid-link": {
             "libraryName": "react-plaid-link",
             "asOfVersion": "2.0.0"
@@ -5326,6 +5374,10 @@
         "sentry__webpack-plugin": {
             "libraryName": "@sentry/webpack-plugin",
             "asOfVersion": "1.10.0"
+        },
+        "sequelize-cursor-pagination": {
+            "libraryName": "sequelize-cursor-pagination",
+            "asOfVersion": "3.0.0"
         },
         "serialize-error": {
             "libraryName": "serialize-error",
@@ -5842,6 +5894,10 @@
         "testing-library__dom": {
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
+        },
+        "testing-library__jest-dom": {
+            "libraryName": "@testing-library/jest-dom",
+            "asOfVersion": "6.0.0"
         },
         "testing-library__react": {
             "libraryName": "@testing-library/react",

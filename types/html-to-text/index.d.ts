@@ -88,19 +88,19 @@ export interface HtmlToTextOptions {
      */
 
     /**
-     * @deprecated. Use baseElements.selectors instead.
+     * @deprecated Use baseElements.selectors instead.
      */
     baseElement?: string | string[] | undefined;
     /**
-     * @deprecated. Use baseElements instead.
+     * @deprecated Use baseElements instead.
      */
     returnDomByDefault?: boolean | undefined;
     /**
-     * @deprecated. Use selectors with `format: 'dataTable'` instead.
+     * @deprecated Use selectors with `format: 'dataTable'` instead.
      */
     tables?: string[] | boolean | undefined;
     /**
-     * @deprecated. Use selectors instead.
+     * @deprecated Use selectors instead.
      */
     tags?: TagDefinitions | undefined;
  }
@@ -326,7 +326,7 @@ export interface FormatOptions {
      */
     [key: string]: any;
     /**
-     * @deprecated. Use linkBrackets instead.
+     * @deprecated Use linkBrackets instead.
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
      noLinkBrackets?: boolean | undefined;

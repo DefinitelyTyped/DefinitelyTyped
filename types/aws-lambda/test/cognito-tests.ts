@@ -1,16 +1,27 @@
 import {
     Handler,
-    PreSignUpTriggerEvent, PreSignUpTriggerHandler,
-    PostConfirmationTriggerEvent, PostConfirmationTriggerHandler,
-    PreAuthenticationTriggerEvent, PreAuthenticationTriggerHandler,
-    PostAuthenticationTriggerEvent, PostAuthenticationTriggerHandler,
-    CreateAuthChallengeTriggerEvent, CreateAuthChallengeTriggerHandler,
-    DefineAuthChallengeTriggerEvent, DefineAuthChallengeTriggerHandler,
-    VerifyAuthChallengeResponseTriggerEvent, VerifyAuthChallengeResponseTriggerHandler,
-    PreTokenGenerationTriggerEvent, PreTokenGenerationTriggerHandler,
-    UserMigrationTriggerEvent, UserMigrationTriggerHandler,
-    CustomMessageTriggerEvent, CustomMessageTriggerHandler,
-    CustomEmailSenderTriggerEvent, CustomEmailSenderTriggerHandler,
+    PreSignUpTriggerEvent,
+    PreSignUpTriggerHandler,
+    PostConfirmationTriggerEvent,
+    PostConfirmationTriggerHandler,
+    PreAuthenticationTriggerEvent,
+    PreAuthenticationTriggerHandler,
+    PostAuthenticationTriggerEvent,
+    PostAuthenticationTriggerHandler,
+    CreateAuthChallengeTriggerEvent,
+    CreateAuthChallengeTriggerHandler,
+    DefineAuthChallengeTriggerEvent,
+    DefineAuthChallengeTriggerHandler,
+    VerifyAuthChallengeResponseTriggerEvent,
+    VerifyAuthChallengeResponseTriggerHandler,
+    PreTokenGenerationTriggerEvent,
+    PreTokenGenerationTriggerHandler,
+    UserMigrationTriggerEvent,
+    UserMigrationTriggerHandler,
+    CustomMessageTriggerEvent,
+    CustomMessageTriggerHandler,
+    CustomEmailSenderTriggerEvent,
+    CustomEmailSenderTriggerHandler,
     CustomSMSSenderTriggerHandler,
 } from 'aws-lambda';
 
@@ -118,6 +129,8 @@ const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, 
 
     // @ts-expect-error
     nullOrUndefined = request.userAttributes;
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const createAuthChallenge: CreateAuthChallengeTriggerHandler = async (event, _, callback) => {
@@ -140,6 +153,8 @@ const createAuthChallenge: CreateAuthChallengeTriggerHandler = async (event, _, 
 
     triggerSource === 'CreateAuthChallenge_Authentication';
 
+    objectOrUndefined = request.clientMetadata;
+
     // @ts-expect-error
     nullOrUndefined = request.userAttributes;
 };
@@ -157,6 +172,8 @@ const validateAuthChallengeResponse: VerifyAuthChallengeResponseTriggerHandler =
     bool = response.answerCorrect;
 
     triggerSource === 'VerifyAuthChallengeResponse_Authentication';
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const preAuthentication: PreAuthenticationTriggerHandler = async (event, _, callback) => {
@@ -181,6 +198,8 @@ const postAuthentication: PostAuthenticationTriggerHandler = async (event, _, ca
     objectOrUndefined = response;
 
     triggerSource === 'PostAuthentication_Authentication';
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const preTokenGeneration: PreTokenGenerationTriggerHandler = async (event, _, callback) => {
@@ -207,6 +226,8 @@ const preTokenGeneration: PreTokenGenerationTriggerHandler = async (event, _, ca
     triggerSource === 'TokenGeneration_HostedAuth';
     triggerSource === 'TokenGeneration_NewPasswordChallenge';
     triggerSource === 'TokenGeneration_RefreshTokens';
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const userMigration: UserMigrationTriggerHandler = async (event, _, callback) => {
@@ -234,6 +255,8 @@ const userMigration: UserMigrationTriggerHandler = async (event, _, callback) =>
 
     triggerSource === 'UserMigration_Authentication';
     triggerSource === 'UserMigration_ForgotPassword';
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const customMessage: CustomMessageTriggerHandler = async (event, _, callback) => {
@@ -256,6 +279,8 @@ const customMessage: CustomMessageTriggerHandler = async (event, _, callback) =>
     triggerSource === 'CustomMessage_SignUp';
     triggerSource === 'CustomMessage_UpdateUserAttribute';
     triggerSource === 'CustomMessage_VerifyUserAttribute';
+
+    objectOrUndefined = request.clientMetadata;
 };
 
 const customEmailSender: CustomEmailSenderTriggerHandler = async (event, _, callback) => {

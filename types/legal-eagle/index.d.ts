@@ -5,7 +5,7 @@
 
 declare function legalEagle(
     options: legalEagle.Options,
-    cb: (err: Error | null, licenseSummary: legalEagle.LicenseLookup) => void
+    cb: (err: Error | null, licenseSummary: legalEagle.LicenseLookup) => void,
 ): void;
 
 declare namespace legalEagle {

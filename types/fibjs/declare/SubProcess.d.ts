@@ -31,7 +31,6 @@ declare class Class_SubProcess extends Class_BufferedStream {
      * @brief 读取当前对象指向的进程的 id
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -44,8 +43,6 @@ declare class Class_SubProcess extends Class_BufferedStream {
      * @brief 读取当前对象指向的进程的标准输入对象
      *
      *
-     * @readonly
-     * @type BufferedStream
      */
 
     stdin: Class_BufferedStream
@@ -57,8 +54,6 @@ declare class Class_SubProcess extends Class_BufferedStream {
      * @brief 读取当前对象指向的进程的标准输出对象
      *
      *
-     * @readonly
-     * @type BufferedStream
      */
 
     stdout: Class_BufferedStream

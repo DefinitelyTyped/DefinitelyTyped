@@ -1309,7 +1309,7 @@ declare module "../index" {
          * @param collection The collection to iterate over.
          * @param [iteratees=[_.identity]] The iteratees to sort by.
          * @param [orders] The sort orders of `iteratees`.
-         * @param- {Object} [guard] Enables use as an iteratee for functions like `_.reduce`.
+         * @param [guard] Enables use as an iteratee for functions like `_.reduce`.
          * @returns Returns the new sorted array.
          * @example
          *
@@ -1644,6 +1644,10 @@ declare module "../index" {
          *
          * @param collection The collection to sample.
          * @return Returns the random element.
+         */
+        sample<T>(collection: readonly [T, ...T[]]): T;
+        /**
+         * @see _.sample
          */
         sample<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined): T | undefined;
         /**

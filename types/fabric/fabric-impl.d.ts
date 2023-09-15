@@ -14,8 +14,8 @@ export let charWidthsCache: {
     [key: string]: { // example: montserrat
         [key: string]: { // example: normal_normal
             [key: string]: number; // example: A: 286
-        }
-    }
+        };
+    };
 };
 
 /////////////////////////////////////////////////////////////
@@ -53,7 +53,6 @@ export function loadSVGFromString(
  * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  * @param {Object} [options] options for crossOrigin
  * @param {String} [options.crossOrigin] crossOrigin settings
- *
  */
 export function loadSVGFromURL(
     url: string,
@@ -325,12 +324,62 @@ interface ICollection<T> {
     complexity(): number;
 }
 
-type EventName = 'object:modified' | 'object:moving' | 'object:scaling' | 'object:rotating' | 'object:skewing' | 'object:resizing' | 'object:selected' | 'object:added' | 'object:removed'
-    | 'group:selected' | 'before:transform' | 'before:selection:cleared' | 'selection:cleared' | 'selection:created' | 'selection:updated'
-    | 'mouse:up' | 'mouse:down' | 'mouse:move' | 'mouse:up:before' | 'mouse:down:before' | 'mouse:move:before' | 'mouse:dblclick' | 'mouse:wheel' | 'mouse:over' | 'mouse:out'
-    | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave' | 'before:render' | 'after:render' | 'before:path:created' | 'path:created' | 'canvas:cleared'
-    | 'moving' | 'scaling' | 'rotating' | 'skewing' | 'resizing' | 'mouseup' | 'mousedown' | 'mousemove' | 'mouseup:before' | 'mousedown:before' | 'mousemove:before'
-    | 'mousedblclick' | 'mousewheel' | 'mouseover' | 'mouseout' | 'drop:before' | 'drop' | 'dragover' | 'dragenter' | 'dragleave';
+type EventName =
+    | "object:modified"
+    | "object:moving"
+    | "object:scaling"
+    | "object:rotating"
+    | "object:skewing"
+    | "object:resizing"
+    | "object:selected"
+    | "object:added"
+    | "object:removed"
+    | "group:selected"
+    | "before:transform"
+    | "before:selection:cleared"
+    | "selection:cleared"
+    | "selection:created"
+    | "selection:updated"
+    | "mouse:up"
+    | "mouse:down"
+    | "mouse:move"
+    | "mouse:up:before"
+    | "mouse:down:before"
+    | "mouse:move:before"
+    | "mouse:dblclick"
+    | "mouse:wheel"
+    | "mouse:over"
+    | "mouse:out"
+    | "drop:before"
+    | "drop"
+    | "dragover"
+    | "dragenter"
+    | "dragleave"
+    | "before:render"
+    | "after:render"
+    | "before:path:created"
+    | "path:created"
+    | "canvas:cleared"
+    | "moving"
+    | "scaling"
+    | "rotating"
+    | "skewing"
+    | "resizing"
+    | "mouseup"
+    | "mousedown"
+    | "mousemove"
+    | "mouseup:before"
+    | "mousedown:before"
+    | "mousemove:before"
+    | "mousedblclick"
+    | "mousewheel"
+    | "mouseover"
+    | "mouseout"
+    | "drop:before"
+    | "drop"
+    | "dragover"
+    | "dragenter"
+    | "dragleave";
 
 interface IObservable<T> {
     /**
@@ -339,7 +388,7 @@ interface IObservable<T> {
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
     on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
-    on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
+    on(eventName: "mouse:wheel", handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
     /**
@@ -352,7 +401,6 @@ interface IObservable<T> {
 
     /**
      * Fires event with an optional options object
-     * @memberOf fabric.Observable
      * @param {String} eventName Event name to fire
      * @param {Object} [options] Options object
      * @return {Self} thisArg
@@ -570,21 +618,18 @@ export class Color {
      * Regex matching color in HEX format (ex: #FF5544CC, #FF5555, 010155, aff)
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHex: RegExp;
     /**
      * Regex matching color in HSL or HSLA formats (ex: hsl(200, 80%, 10%), hsla(300, 50%, 80%, 0.5), hsla( 300 , 50% , 80% , 0.5 ))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHSLa: RegExp;
     /**
      * Regex matching color in RGB or RGBA formats (ex: rgb(0, 0, 0), rgba(255, 100, 10, 0.5), rgba( 255 , 100 , 10 , 0.5 ), rgb(1,1,1), rgba(100%, 60%, 10%, 0.5))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reRGBa: RegExp;
 }
@@ -685,7 +730,6 @@ export class Gradient {
     /**
      * Returns {@link fabric.Gradient} instance from an SVG element
      * @static
-     * @memberOf fabric.Gradient
      * @param {SVGGradientElement} el SVG gradient element
      * @param {fabric.Object} instance
      * @return {fabric.Gradient} Gradient instance
@@ -746,7 +790,7 @@ interface IPatternOptions {
      * crossOrigin value (one of "", "anonymous", "use-credentials")
      * @see https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes
      */
-    crossOrigin?: '' | 'anonymous' | 'use-credentials' | undefined;
+    crossOrigin?: "" | "anonymous" | "use-credentials" | undefined;
     /**
      * Transform matrix to change the pattern, imported from svgs
      */
@@ -1031,7 +1075,6 @@ export class Shadow {
      * Regex matching shadow offsetX, offsetY and blur (ex: "2px 2px 10px rgba(0,0,0,0.2)", "rgb(0,255,0) 2px 2px")
      * @static
      * @field
-     * @memberOf fabric.Shadow
      */
     static reOffsetsAndBlur: RegExp;
 }
@@ -1149,7 +1192,6 @@ interface IStaticCanvasOptions {
      * if canvas is viewportTransformed you those points indicate the extension
      * of canvas element in plain untrasformed coordinates
      * The coordinates get updated with @method calcViewportBoundaries.
-     * @memberOf fabric.StaticCanvas.prototype
      */
     vptCoords?: {
         tl: { x: number; y: number };
@@ -1163,7 +1205,6 @@ interface IStaticCanvasOptions {
      * May greatly help in applications with crowded canvas and use of zoom/pan
      * If One of the corner of the bounding box of the object is on the canvas
      * the objects get rendered.
-     * @memberOf fabric.StaticCanvas.prototype
      */
     skipOffscreen?: boolean | undefined;
     /**
@@ -1181,14 +1222,12 @@ interface IStaticCanvasOptions {
 }
 
 export interface StaticCanvas
-    extends IObservable<StaticCanvas>,
-        IStaticCanvasOptions,
-        ICollection<StaticCanvas>,
-        ICanvasAnimation<StaticCanvas> {
-    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
-    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
-    toObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
-    toDatalessObject(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas>
+{
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toObject(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toDatalessObject(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 }
 export class StaticCanvas {
     /**
@@ -1476,14 +1515,14 @@ export class StaticCanvas {
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} json string
      */
-    toDatalessJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Returns JSON representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} JSON string
      */
-    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Returns object representation of canvas
@@ -1587,7 +1626,7 @@ export class StaticCanvas {
      * @return {Boolean | null} `true` if method is supported (or at least exists),
      *                          `null` if canvas element or context can not be initialized
      */
-    static supports(methodName: 'getImageData' | 'toDataURL' | 'toDataURLWithQuality' | 'setLineDash'): boolean;
+    static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
     /**
      * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
@@ -1599,7 +1638,7 @@ export class StaticCanvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    static toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Clones canvas instance
@@ -1629,12 +1668,15 @@ export class StaticCanvas {
      * @param {Number} [cropping.width] Cropping width.
      * @param {Number} [cropping.height] Cropping height.
      */
-    toCanvasElement(multiplier?: number, cropping?: Readonly<{
-      left?: number;
-      top?: number;
-      width?: number;
-      height?: number;
-    }>): HTMLCanvasElement;
+    toCanvasElement(
+        multiplier?: number,
+        cropping?: Readonly<{
+            left?: number;
+            top?: number;
+            width?: number;
+            height?: number;
+        }>,
+    ): HTMLCanvasElement;
 
     /**
      * Populates canvas with data from the specified JSON.
@@ -2079,7 +2121,7 @@ export class Canvas {
         transform: any,
         lockScalingX: boolean,
         lockScalingY: boolean,
-        by: 'x' | 'y' | 'equally' | undefined,
+        by: "x" | "y" | "equally" | undefined,
         lockScalingFlip: boolean,
         _dim: Point,
     ): boolean;
@@ -2091,7 +2133,7 @@ export class Canvas {
      *                    When not provided, an object is scaled by both dimensions equally
      * @return {Boolean} true if the scaling occurred
      */
-    _scaleObject(x: number, y: number, by?: 'x' | 'y' | 'equally'): boolean;
+    _scaleObject(x: number, y: number, by?: "x" | "y" | "equally"): boolean;
     /**
      * @param {fabric.Object} obj Object that was removed
      */
@@ -2148,12 +2190,12 @@ export class Canvas {
      * (either those of HTMLCanvasElement itself, or rendering context)
      * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
      */
-    static supports(methodName: 'getImageData' | 'toDataURL' | 'toDataURLWithQuality' | 'setLineDash'): boolean;
+    static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
     /**
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    static toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
     /**
      * Removes all event listeners
      */
@@ -2385,8 +2427,7 @@ export class Group {
      * @chainable
      */
     _restoreObjectsState(): Group;
-    /**
-     */
+    /** */
     _calcBounds(onlyWidthHeight?: boolean): void;
     /**
      * @param {Boolean} [skipCoordsChange] if true, coordinates of objects enclosed in a group do not change
@@ -2398,8 +2439,7 @@ export class Group {
      * @chainable
      */
     _restoreObjectsState(): Group;
-    /**
-     */
+    /** */
     _onObjectRemoved(object: Object): void;
     /**
      * Returns {@link fabric.Group} instance from an object representation
@@ -2435,7 +2475,6 @@ export class ActiveSelection {
     toGroup(): Group;
     /**
      * Returns {@link fabric.ActiveSelection} instance from an object representation
-     * @memberOf fabric.ActiveSelection
      * @param object Object to create a group from
      * @param [callback] Callback to invoke when an ActiveSelection instance is created
      */
@@ -2609,7 +2648,6 @@ export class Line {
     /**
      * Returns fabric.Line instance from an SVG element
      * @static
-     * @memberOf fabric.Line
      * @param {SVGElement} element Element to parse
      * @param {Object} [options] Options object
      * @param {Function} [callback] callback function invoked after parsing
@@ -2760,7 +2798,7 @@ interface IObjectOptions {
     /**
      * Specify style of control, 'rect' or 'circle'
      */
-    cornerStyle?: 'rect' | 'circle' | undefined;
+    cornerStyle?: "rect" | "circle" | undefined;
 
     /**
      * Array specifying dash pattern of an object's control (hasBorder must be true)
@@ -3068,9 +3106,10 @@ interface IObjectOptions {
      * skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords;
-     * @memberOf fabric.Object.prototype
      */
-    oCoords?: { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point } | undefined;
+    oCoords?:
+        | { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point }
+        | undefined;
     /**
      * Describe object's corner position in canvas object absolute coordinates
      * properties are tl,tr,bl,br and describe the four main corner.
@@ -3081,7 +3120,6 @@ interface IObjectOptions {
      * with oCoords but they do not need to be updated when zoom or panning change.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords(true);
-     * @memberOf fabric.Object.prototype
      */
     aCoords?: { bl: Point; br: Point; tl: Point; tr: Point } | undefined;
     /**
@@ -3295,7 +3333,7 @@ export class Object {
      * Returns a JSON representation of an instance
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    toJSON(propertiesToInclude?: string[]): { version: string, objects: Object[] };
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Sets "angle" of an instance
@@ -3907,7 +3945,7 @@ export class Object {
     _findTargetCorner(pointer: {
         x: number;
         y: number;
-    }): boolean | 'bl' | 'br' | 'mb' | 'ml' | 'mr' | 'mt' | 'tl' | 'tr' | 'mtr';
+    }): boolean | "bl" | "br" | "mb" | "ml" | "mr" | "mt" | "tl" | "tr" | "mtr";
     /**
      * @param {String} key
      * @param {*} value
@@ -4109,7 +4147,7 @@ interface TextOptions extends IObjectOptions {
     /**
      * Font style . Possible values: "", "normal", "italic" or "oblique".
      */
-    fontStyle?: '' | 'normal' | 'italic' | 'oblique' | undefined;
+    fontStyle?: "" | "normal" | "italic" | "oblique" | undefined;
     /**
      * Line height
      */
@@ -4153,7 +4191,7 @@ interface TextOptions extends IObjectOptions {
     /**
      * Text input direction. supporting RTL languages.
      */
-    direction?: 'ltr' | 'rtl' | undefined;
+    direction?: "ltr" | "rtl" | undefined;
     text?: string | undefined;
     /**
      * List of properties to consider when checking if cache needs refresh
@@ -4208,18 +4246,26 @@ export class Text extends Object {
      * Contains characters bounding boxes for each line and char
      * Array of char grapheme bounding boxes
      */
-    __charBounds?: Array<
-        Array<{ width: number; left: number; height?: number | undefined; kernedWidth?: number | undefined; deltaY?: number | undefined }>
-    > | undefined;
+    __charBounds?:
+        | Array<
+            Array<
+                {
+                    width: number;
+                    left: number;
+                    height?: number | undefined;
+                    kernedWidth?: number | undefined;
+                    deltaY?: number | undefined;
+                }
+            >
+        >
+        | undefined;
     /**
      * Text Line proportion to font Size (in pixels)
      */
     _fontSizeMult: number;
-    /**
-     */
+    /** */
     _fontSizeFraction: number;
-    /**
-     */
+    /** */
     __skipDimension: boolean;
     /**
      * use this size when measuring text. To avoid IE11 rounding errors
@@ -4325,7 +4371,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an SVG element (<b>not yet implemented</b>)
      * @static
-     * @memberOf fabric.Text
      * @param {SVGElement} element Element to parse
      * @param {Function} callback callback function invoked after parsing
      * @param {Object} [options] Options object
@@ -4335,7 +4380,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an object representation
      * @static
-     * @memberOf fabric.Text
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Text instance is created
      */
@@ -4552,8 +4596,7 @@ export class Text extends Object {
      */
     _renderText(ctx: CanvasRenderingContext2D): void;
 
-    /**
-     */
+    /** */
     _clearCache(): void;
 
     /**
@@ -4600,8 +4643,7 @@ export class Text extends Object {
         lineIndex: number,
     ): void;
 
-    /**
-     */
+    /** */
     _shouldClearDimensionCache(): boolean;
 }
 interface ITextOptions extends TextOptions {
@@ -4688,11 +4730,9 @@ interface ITextOptions extends TextOptions {
 export interface IText extends ITextOptions {}
 export class IText extends Text {
     fromPaste: boolean;
-    /**
-     */
+    /** */
     _currentCursorOpacity: number;
-    /**
-     */
+    /** */
     _reSpace: RegExp;
     /**
      * Constructor
@@ -4747,7 +4787,6 @@ export class IText extends Text {
     /**
      * Returns fabric.IText instance from an object representation
      * @static
-     * @memberOf fabric.IText
      * @param {Object} object Object to create an instance from
      * @param {function} [callback] invoked with new instance as argument
      */
@@ -5046,8 +5085,7 @@ export class IText extends Text {
      * @param {Event} e Event object
      */
     setCursorByClick(e: Event): void;
-    /**
-     */
+    /** */
     _getNewSelectionStartFromOffset(
         mouseOffset: { x: number; y: number },
         prevWidth: number,
@@ -5059,11 +5097,9 @@ export class IText extends Text {
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _render(ctx: CanvasRenderingContext2D): void;
-    /**
-     */
+    /** */
     _updateTextarea(): void;
-    /**
-     */
+    /** */
     updateFromTextArea(): void;
     /**
      * Default event handler for the basic functionalities needed on _mouseDown
@@ -5176,7 +5212,6 @@ export class Textbox extends IText {
     /**
      * Returns fabric.Textbox instance from an object representation
      * @static
-     * @memberOf fabric.Textbox
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Textbox instance is created
      */
@@ -5211,14 +5246,16 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: any): IBaseFilter;
+        new(options?: any): IBaseFilter;
     };
     BlendColor: {
         /**
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { color?: string | undefined; mode?: string | undefined; alpha?: number | undefined }): IBlendColorFilter;
+        new(
+            options?: { color?: string | undefined; mode?: string | undefined; alpha?: number | undefined },
+        ): IBlendColorFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5230,7 +5267,9 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { image?: Image | undefined; mode?: string | undefined; alpha?: number | undefined }): IBlendImageFilter;
+        new(
+            options?: { image?: Image | undefined; mode?: string | undefined; alpha?: number | undefined },
+        ): IBlendImageFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5238,7 +5277,7 @@ interface IAllFilters {
         fromObject(object: any): IBlendImageFilter;
     };
     Blur: {
-        new (options?: { blur?: number | undefined }): IBlurFilter;
+        new(options?: { blur?: number | undefined }): IBlurFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5246,7 +5285,7 @@ interface IAllFilters {
         fromObject(object: any): IBlurFilter;
     };
     Brightness: {
-        new (options?: {
+        new(options?: {
             /**
              * Value to brighten the image up (0..255)
              * @default 0
@@ -5260,7 +5299,7 @@ interface IAllFilters {
         fromObject(object: any): IBrightnessFilter;
     };
     ColorMatrix: {
-        new (options?: {
+        new(options?: {
             /** Filter matrix */
             matrix?: number[] | undefined;
         }): IColorMatrix;
@@ -5275,7 +5314,7 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { contrast?: number | undefined }): IContrastFilter;
+        new(options?: { contrast?: number | undefined }): IContrastFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5283,7 +5322,7 @@ interface IAllFilters {
         fromObject(object: any): IContrastFilter;
     };
     Convolute: {
-        new (options?: {
+        new(options?: {
             opaque?: boolean | undefined;
             /** Filter matrix */
             matrix?: number[] | undefined;
@@ -5295,7 +5334,7 @@ interface IAllFilters {
         fromObject(object: any): IConvoluteFilter;
     };
     GradientTransparency: {
-        new (options?: {
+        new(options?: {
             /** @default 100 */
             threshold?: number | undefined;
         }): IGradientTransparencyFilter;
@@ -5306,7 +5345,7 @@ interface IAllFilters {
         fromObject(object: any): IGradientTransparencyFilter;
     };
     Grayscale: {
-        new (options?: any): IGrayscaleFilter;
+        new(options?: any): IGrayscaleFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5314,7 +5353,7 @@ interface IAllFilters {
         fromObject(object: any): IGrayscaleFilter;
     };
     HueRotation: {
-        new (options?: { rotation?: number | undefined }): IHueRotationFilter;
+        new(options?: { rotation?: number | undefined }): IHueRotationFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5326,7 +5365,7 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: any): IInvertFilter;
+        new(options?: any): IInvertFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5334,7 +5373,7 @@ interface IAllFilters {
         fromObject(object: any): IInvertFilter;
     };
     Mask: {
-        new (options?: {
+        new(options?: {
             /** Mask image object */
             mask?: Image | undefined;
             /**
@@ -5350,7 +5389,7 @@ interface IAllFilters {
         fromObject(object: any): IMaskFilter;
     };
     Multiply: {
-        new (options?: {
+        new(options?: {
             /**
              * Color to multiply the image pixels with
              * @default #000000
@@ -5364,7 +5403,7 @@ interface IAllFilters {
         fromObject(object: any): IMultiplyFilter;
     };
     Noise: {
-        new (options?: {
+        new(options?: {
             /** @default 0 */
             noise: number;
         }): INoiseFilter;
@@ -5375,7 +5414,7 @@ interface IAllFilters {
         fromObject(object: any): INoiseFilter;
     };
     Pixelate: {
-        new (options?: {
+        new(options?: {
             /**
              * Blocksize for pixelate
              * @default 4
@@ -5389,7 +5428,7 @@ interface IAllFilters {
         fromObject(object: any): IPixelateFilter;
     };
     RemoveWhite: {
-        new (options?: {
+        new(options?: {
             /** @default 30 */
             threshold?: number | undefined;
             /** @default 20 */
@@ -5402,7 +5441,7 @@ interface IAllFilters {
         fromObject(object: any): IRemoveWhiteFilter;
     };
     Resize: {
-        new (options?: any): IResizeFilter;
+        new(options?: any): IResizeFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5414,7 +5453,7 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { saturation?: number | undefined }): ISaturationFilter;
+        new(options?: { saturation?: number | undefined }): ISaturationFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5422,7 +5461,7 @@ interface IAllFilters {
         fromObject(object: any): ISaturationFilter;
     };
     Sepia2: {
-        new (options?: any): ISepia2Filter;
+        new(options?: any): ISepia2Filter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5430,7 +5469,7 @@ interface IAllFilters {
         fromObject(object: any): ISepia2Filter;
     };
     Sepia: {
-        new (options?: any): ISepiaFilter;
+        new(options?: any): ISepiaFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5438,7 +5477,7 @@ interface IAllFilters {
         fromObject(object: any): ISepiaFilter;
     };
     Tint: {
-        new (options?: {
+        new(options?: {
             /**
              * Color to tint the image with
              * @default #000000
@@ -5467,7 +5506,7 @@ interface IBaseFilter {
     /**
      * Returns a JSON representation of an instance
      */
-    toJSON(): { version: string, objects: Object[] };
+    toJSON(): { version: string; objects: Object[] };
     /**
      * Apply the operation to a Uint8Array representing the pixels of an image.
      *
@@ -5751,13 +5790,13 @@ export class PencilBrush extends BaseBrush {
     /**
      * Constructor
      * @param {Canvas} canvas
-    */
+     */
     constructor(canvas: Canvas);
     /**
      * Constructor
      * @param {Canvas} canvas
      * @return {PencilBrush} Instance of a pencil brush
-    */
+     */
     initialize(canvas: Canvas): PencilBrush;
 
     /**
@@ -6212,7 +6251,6 @@ interface IUtilMisc {
      * measurement and so wrong bounding boxes.
      * After the font cache is cleared, either change the textObject text content or call
      * initDimensions() to trigger a recalculation
-     * @memberOf fabric.util
      * @param {String} [fontFamily] font family to clear
      */
     clearFabricFontCache(fontFamily?: string): void;
@@ -6308,7 +6346,6 @@ interface IUtilMisc {
      * the one returned from qrDecompose, useful also if you want to calculate some
      * transformations from an object that is not enlived yet
      * @static
-     * @memberOf fabric.util
      * @param  {Object} options
      * @param  {Number} [options.angle]
      * @param  {Number} [options.scaleX]
@@ -6352,7 +6389,6 @@ interface IUtilMisc {
     /**
      * reset an object transform state to neutral. Top and left are not accounted for
      * @static
-     * @memberOf fabric.util
      * @param  {fabric.Object} target object to transform
      */
     resetObjectTransform(target: Object): void;
@@ -6360,7 +6396,8 @@ interface IUtilMisc {
 
 export const util: IUtil;
 interface IUtil
-    extends IUtilImage,
+    extends
+        IUtilImage,
         IUtilAnimation,
         IUtilArc,
         IObservable<IUtil>,
@@ -6369,7 +6406,8 @@ interface IUtil
         IUtilDomRequest,
         IUtilDomStyle,
         IUtilClass,
-        IUtilMisc {
+        IUtilMisc
+{
     ease: IUtilAnimEase;
     array: IUtilArray;
     object: IUtilObject;
@@ -6608,12 +6646,23 @@ export class Control {
      */
     setVisibility(visibility: boolean): void;
 
-    positionHandler(dim: { x: number, y: number }, finalMatrix: any, fabricObject: Object, currentControl: Control): Point;
+    positionHandler(
+        dim: { x: number; y: number },
+        finalMatrix: any,
+        fabricObject: Object,
+        currentControl: Control,
+    ): Point;
 
     /**
      * Returns the coords for this control based on object values.
      */
-    calcCornerCoords(objectAngle: number, objectCornerSize: number, centerX: number, centerY: number, isTouch: boolean): void;
+    calcCornerCoords(
+        objectAngle: number,
+        objectCornerSize: number,
+        centerX: number,
+        centerY: number,
+        isTouch: boolean,
+    ): void;
 
     /**
      * Render function for the control.

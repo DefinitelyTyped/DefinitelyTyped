@@ -11,7 +11,6 @@ export interface ActionDescriptor {
     [prop: string]: any;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 22.5
  */
@@ -54,10 +53,14 @@ export interface BatchPlayCommandOptions {
      * @minVersion 23.0
      */
     suppressPlayLevelIncrease?: boolean;
+    /**
+     * Do not stop a batchPlay when a descriptor fails and continue with remaining descriptors in batch.
+     * @minVersion 24.5
+     */
+    continueOnError?: boolean;
 }
 export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -84,7 +87,6 @@ export interface CPUInfo {
     emulationMode?: "rosetta2";
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -119,7 +121,6 @@ export interface OpenGLDeviceInfo {
     glDriver: string;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -166,7 +167,6 @@ export interface OpenCLDeviceInfo {
     clPlatformVersion: string;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -181,7 +181,6 @@ export interface GPUInfo {
     clgpuInfoList?: OpenCLDeviceInfo[];
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -576,7 +575,6 @@ export declare namespace photoshopCore {
     function getUserIdleTime(): Promise<number>;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface GetPluginInfoResult {
@@ -596,7 +594,6 @@ export interface GetPluginInfoResult {
     version?: string;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface LayerTreeList {
@@ -625,7 +622,6 @@ interface GetLayerParentOptions {
     layerID: number;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export declare type GetLayerParentResult = {} | {
@@ -638,7 +634,6 @@ export interface DisplayConfigurationOptions {
     physicalResolution?: boolean;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface PerformMenuCommandResult {
@@ -648,7 +643,6 @@ export interface PerformMenuCommandResult {
     userCancelled: boolean;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface DisplayConfiguration {
@@ -659,7 +653,6 @@ export interface DisplayConfiguration {
     physicalResolution: DisplayConfigurationPhysical;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface DisplayConfigurationBounds {
@@ -669,7 +662,6 @@ export interface DisplayConfigurationBounds {
     top: number;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface GetActiveToolResult {
@@ -679,7 +671,6 @@ export interface GetActiveToolResult {
     classId: string;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface DisplayConfigurationPhysical {
@@ -710,7 +701,6 @@ export declare type DeleteTemporaryDocumentOptions = DocumentCoreOptions;
  */
 export declare type CreateTemporaryDocumentOptions = DocumentCoreOptions;
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export declare type CreateTemporaryDocumentResult = DocumentCoreOptions;
@@ -747,7 +737,6 @@ export interface MenuCommandMenuIDOptions {
     scheduling?: Scheduling;
 }
 /**
- * @returnobject
  * @targetfolder objects/returnobjects
  */
 export interface ExecuteAsModalOptions {
@@ -789,7 +778,6 @@ export interface HistoryStateInfo {
 /**
  * This object is provided by the `suspendHistory` API when a document's history state is suspended, and is
  * needed to `resumeHistory`.
- * @returnobject
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */

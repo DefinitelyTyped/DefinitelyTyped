@@ -1,4 +1,4 @@
-import { AnimationClip } from './AnimationClip';
+import { AnimationClip } from './AnimationClip.js';
 
 export function arraySlice(array: any, from: number, to: number): any;
 export function convertArray(array: any, type: any, forceClone: boolean): any;

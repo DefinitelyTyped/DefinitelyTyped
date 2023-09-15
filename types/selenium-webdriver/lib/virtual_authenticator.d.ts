@@ -1,9 +1,9 @@
 /**
  * Protocol for virtual authenticators
  */
- export enum Protocol {
+export enum Protocol {
     CTAP2 = 'ctap2',
-    U2F = 'ctap1/u2f'
+    U2F = 'ctap1/u2f',
 }
 
 /**
@@ -61,8 +61,8 @@ export class Credential {
         rpId: string,
         userHandle: Uint8Array | null,
         privateKey: string,
-        signCount: number
-    )
+        signCount: number,
+    );
 
     id(): Uint8Array;
 
@@ -85,7 +85,13 @@ export class Credential {
      * @param signCount initial value for a signature counter.
      * @returns A resident credential
      */
-    static createResidentCredential(id: Uint8Array, rpId: string, userHandle: Uint8Array, privateKey: string, signCount: number): Credential;
+    static createResidentCredential(
+        id: Uint8Array,
+        rpId: string,
+        userHandle: Uint8Array,
+        privateKey: string,
+        signCount: number,
+    ): Credential;
 
     /**
      * Creates a non-resident (i.e. stateless) credential.

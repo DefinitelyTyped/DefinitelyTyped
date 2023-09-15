@@ -28,7 +28,7 @@
 // but confirm with published source code (e.g. https://unpkg.com/react-dom@experimental) that these exports end up in the published code
 
 import React = require('react');
-import ReactDOM = require('./next');
+import ReactDOM = require('./canary');
 
 export {};
 

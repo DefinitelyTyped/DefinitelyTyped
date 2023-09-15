@@ -826,20 +826,16 @@ mocked.test1.mockResolvedValueOnce({ a: 1 });
 mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
-// tslint:disable-next-line:max-line-length
 // $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>], unknown> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
 mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
@@ -1290,6 +1286,8 @@ describe('', () => {
         expect({}).toHaveProperty(['property'], {});
         expect({}).toHaveProperty(['property', 'deep']);
         expect({}).toHaveProperty(['property', 'deep'], {});
+        expect({}).toHaveProperty(['property', 'deep'] as const);
+        expect({}).toHaveProperty(['property', 'deep'] as const, {});
 
         expect(jest.fn()).toHaveReturned();
 
@@ -1432,6 +1430,9 @@ describe('', () => {
         expect({}).toBe(expect.arrayContaining(['a', 'b']));
         expect(['abc']).toBe(expect.arrayContaining(['a', 'b']));
 
+        expect({}).toBe(expect.arrayContaining(['a', 'b'] as const));
+        expect(['abc']).toBe(expect.arrayContaining(['a', 'b'] as const));
+
         expect.objectContaining({});
         expect.stringMatching('foo');
         expect.stringMatching(/foo/);
@@ -1453,6 +1454,7 @@ describe('', () => {
         expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
         expect({ bar: 'baz' }).toEqual(expect.not.objectContaining({ foo: 'bar' }));
         expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha'] as const));
 
         /* Miscellaneous */
 
@@ -1599,6 +1601,9 @@ expect(7).toBe(jasmine.any(Number));
 
 expect({}).toBe(jasmine.arrayContaining(['a', 'b']));
 expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b']));
+
+expect({}).toBe(jasmine.arrayContaining(['a', 'b'] as const));
+expect(['abc']).toBe(jasmine.arrayContaining(['a', 'b'] as const));
 
 jasmine.arrayContaining([]);
 new (jasmine.arrayContaining([]))([]);
@@ -2004,7 +2009,6 @@ test('import.meta.jest replaces the global jest in ESM', () => {
     // @ts-expect-error
     // ts(1343): The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.
 
-    // tslint:disable-next-line: whitespace
     const importMetaJest = import.meta.jest;
 
     importMetaJest.fn();

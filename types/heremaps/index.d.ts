@@ -289,9 +289,9 @@ declare namespace H {
          * autoColor {boolean=} - Indicates whether the UI's colors should automatically adjusted to the base layer, default is true. Up to now only the copyright style will be adjusted.
          * See H.map.layer.Layer.Options#dark
          * margin {number=} - The size in pixel of the supplemental area to render for each side of the map
-         * @property padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
-         * @property fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
-         * @property noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
+         * padding {H.map.ViewPort.Padding=} - The padding in pixels for each side of the map
+         * fixedCenter {boolean=} - Indicates whether the center of the map should remain unchanged if the viewport's size or padding has been changed, default is true
+         * noWrap {boolean=} - Indicates whether to wrap the world on longitude axes. When set to true, only one world will be rendered. Default is false, multiple worlds are rendered.
          */
         interface Options {
             center?: H.geo.IPoint | undefined;

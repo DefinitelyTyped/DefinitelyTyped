@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import Font = require('./class/font');
-import Glyph = require('./class/glyph');
-import FontFace = require('./class/fontface');
+import Font = require("./class/font");
+import Glyph = require("./class/glyph");
+import FontFace = require("./class/fontface");
 
 /**
  * 生成一个空白字体对像

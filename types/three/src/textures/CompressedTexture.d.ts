@@ -1,4 +1,4 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Mapping,
     Wrapping,
@@ -7,7 +7,7 @@ import {
     MagnificationTextureFilter,
     MinificationTextureFilter,
     ColorSpace,
-} from '../constants';
+} from '../constants.js';
 
 /**
  * Creates a texture based on data in compressed form, for example from a {@link https://en.wikipedia.org/wiki/DirectDraw_Surface | DDS} file.

@@ -1,5 +1,7 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Tagify = require('@yaireo/tagify');
 
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     AddEventData,
     BaseTagData,
@@ -409,7 +411,7 @@ declare namespace Tags {
      * @returns The rendered React tagify element.
      */
     // Type parameter is used more than once within the TagifyMixedTagsReactProps interface
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
 }
 
@@ -422,7 +424,7 @@ declare namespace Tags {
  * @returns The rendered React tagify element.
  */
 // Type parameter is used more than once within the TagifyTagsReactProps interface
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Tags<T extends BaseTagData = TagData>(props: Tags.TagifyTagsReactProps<T>): ReactElement;
 
 export = Tags;

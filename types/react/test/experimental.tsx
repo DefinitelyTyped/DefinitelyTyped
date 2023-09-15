@@ -24,24 +24,24 @@ function suspenseTest() {
 
 // Unsupported `revealOrder` triggers a runtime warning
 // @ts-expect-error
-<React.SuspenseList revealOrder="something">
+<React.unstable_SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="backwards">
+<React.unstable_SuspenseList revealOrder="backwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="forwards">
+<React.unstable_SuspenseList revealOrder="forwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="together">
+<React.unstable_SuspenseList revealOrder="together">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
 function useEvent() {
     // Implicit any
@@ -176,7 +176,6 @@ function Optimistic() {
 
 function elementTypeTests() {
     const ReturnPromise = () => Promise.resolve('React');
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
@@ -184,9 +183,7 @@ function elementTypeTests() {
         }
     }
 
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     <ReturnPromise />;
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     React.createElement(ReturnPromise);
     <RenderPromise />;
     React.createElement(RenderPromise);

@@ -1228,7 +1228,6 @@ declare function nlapiGetLineItemDateTimeValue(type:string, fldnam:string, linen
  * @param {string}    fldnam sublist field name
  * @param {int}    linenum line number (1-based)
  * @param {string} value
- * @retun {void}
  *
  * @since 2005.0
  * @param type
@@ -1246,7 +1245,6 @@ declare function nlapiSetLineItemValue(type:string, fldnam:string, linenum:any, 
  * @param {int}    linenum line number (1-based)
  * @param {string} datetime value
  * @param {string} timezone value
- * @retun {void}
  *
  * @since 2013.2
  * @param type
@@ -1338,7 +1336,6 @@ declare function nlapiGetLineItemCount(type:string):string|number;
  *
  * @param {string} type sublist name
  * @param {int} [line] line number at which to insert a new line.
- * @return{void}
  *
  * @since 2005.0
  * @param type
@@ -1612,7 +1609,6 @@ declare function nlapiSelectNewLineItem(type:string):any;
  * @restriction Client SuiteScript only.
  *
  * @param {string} type sublist name
- * @return{void}
  *
  * @since 2005.0
  * @param type
@@ -2274,7 +2270,6 @@ declare function nlapiTriggerWorkflow(recordtype:string, id:any, workflowid:any,
  * @restriction supported in client and user event scripts only.
  * @param {string}    type sublist name
  * @param {string}    fldnam sublist field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param type
@@ -2287,7 +2282,6 @@ declare function nlapiCreateCurrentLineSubrecord(type:string, fldnam:string):voi
  * @restriction supported in client and user event scripts only.
  * @param {string}    type sublist name
  * @param {string}    fldnam sublist field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param type
@@ -2300,7 +2294,6 @@ declare function nlapiEditCurrentLineItemSubrecord(type:string, fldnam:string):v
  * @restriction supported in client and user event scripts only.
  * @param {string}    type sublist name
  * @param {string}    fldnam sublist field name
- * @retun {void}
  *
  * @since 2011.2
  * @param type
@@ -2313,7 +2306,6 @@ declare function nlapiRemoveCurrentLineItemSubrecord(type:string, fldnam:string)
  * @restriction supported in client and user event scripts only.
  * @param {string}    type sublist name
  * @param {string}    fldnam sublist field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param type
@@ -2326,7 +2318,6 @@ declare function nlapiViewCurrentLineItemSubrecord(type:string, fldnam:string):v
  * @restriction supported in client and user event scripts only.
  * @param {string}    type sublist name
  * @param {string}    fldnam sublist field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param type
@@ -2350,7 +2341,6 @@ declare function nlapiGetCache(name:string):any;
  * create a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @param {string}    fldnam body field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param fldnam
@@ -2361,7 +2351,6 @@ declare function createSubrecord(fldnam:string):void;
  * edit a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @param {string}    fldnam body field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param fldnam
@@ -2372,7 +2361,6 @@ declare function editSubrecord(fldnam:string):void;
  * remove a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @param {string}    fldnam body field name
- * @retun {void}
  *
  * @since 2011.2
  * @param fldnam
@@ -2383,7 +2371,6 @@ declare function removeSubrecord(fldnam:string):void;
  * view a subrecord on body field on the current record on a page.
  * @restriction supported in client and user event scripts only.
  * @param {string}    fldnam body field name
- * @retun {nlobjSubrecord}
  *
  * @since 2011.2
  * @param fldnam
@@ -2456,7 +2443,6 @@ declare interface nlobjRecord {
      * @return {int} Return the integer value of the record ID.
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @return
@@ -2469,7 +2455,6 @@ declare interface nlobjRecord {
      * @return {string} The string value of the record name internal ID
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @return
@@ -2483,7 +2468,6 @@ declare interface nlobjRecord {
      * @return    {nlobjField}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.1
      * @param fldnam
@@ -2498,7 +2482,6 @@ declare interface nlobjRecord {
      * @return {nlobjSubList}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2515,7 +2498,6 @@ declare interface nlobjRecord {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2534,7 +2516,6 @@ declare interface nlobjRecord {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2554,7 +2535,6 @@ declare interface nlobjRecord {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2573,7 +2553,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param name
@@ -2589,7 +2568,6 @@ declare interface nlobjRecord {
      * @param {string[]} values string array containing field values
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param name
@@ -2604,7 +2582,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param name
@@ -2619,7 +2596,6 @@ declare interface nlobjRecord {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param name
@@ -2635,7 +2611,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param name
@@ -2653,7 +2628,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param name
@@ -2670,7 +2644,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param name
@@ -2686,7 +2659,6 @@ declare interface nlobjRecord {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param name
@@ -2702,7 +2674,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2722,7 +2693,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param type
@@ -2739,7 +2709,6 @@ declare interface nlobjRecord {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      */
@@ -2752,7 +2721,6 @@ declare interface nlobjRecord {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param group
@@ -2768,7 +2736,6 @@ declare interface nlobjRecord {
      * @param {string}    value sublist field value
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param group
@@ -2788,7 +2755,6 @@ declare interface nlobjRecord {
      * @param {string}    timezone value
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2013.2
      * @param group
@@ -2807,7 +2773,6 @@ declare interface nlobjRecord {
      * @param {int}    line line number (1-based)
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.1
      * @param group
@@ -2825,7 +2790,6 @@ declare interface nlobjRecord {
      * @param {string}    timezone value
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2013.2
      * @param group
@@ -2844,7 +2808,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2008.2
      * @param group
@@ -2862,7 +2825,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -2883,7 +2845,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2013.2
      * @param group
@@ -2902,7 +2863,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -2920,7 +2880,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2013.2
      * @param group
@@ -2938,7 +2897,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -2957,7 +2915,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -2977,7 +2934,6 @@ declare interface nlobjRecord {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -2995,7 +2951,6 @@ declare interface nlobjRecord {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3010,7 +2965,6 @@ declare interface nlobjRecord {
      * @param {string} group sublist name
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3026,7 +2980,6 @@ declare interface nlobjRecord {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3046,7 +2999,6 @@ declare interface nlobjRecord {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3064,7 +3016,6 @@ declare interface nlobjRecord {
      * @param {int}    [line] line index at which to insert line
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3079,7 +3030,6 @@ declare interface nlobjRecord {
      * @param {int}    [line] line number to remove
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3094,7 +3044,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3110,7 +3059,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3126,7 +3074,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 2009.2
      * @param group
@@ -3142,7 +3089,6 @@ declare interface nlobjRecord {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjRecord
      *
      * @since 20013.2
      * @param name
@@ -3188,7 +3134,6 @@ declare interface nlobjConfiguration {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @return
@@ -3202,7 +3147,6 @@ declare interface nlobjConfiguration {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param fldnam
@@ -3218,7 +3162,6 @@ declare interface nlobjConfiguration {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3236,7 +3179,6 @@ declare interface nlobjConfiguration {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3252,7 +3194,6 @@ declare interface nlobjConfiguration {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3268,7 +3209,6 @@ declare interface nlobjConfiguration {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3284,7 +3224,6 @@ declare interface nlobjConfiguration {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3302,7 +3241,6 @@ declare interface nlobjConfiguration {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3319,7 +3257,6 @@ declare interface nlobjConfiguration {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3333,7 +3270,6 @@ declare interface nlobjConfiguration {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      * @param name
@@ -3345,7 +3281,6 @@ declare interface nlobjConfiguration {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjConfiguration
      *
      * @since 2009.2
      */
@@ -3372,7 +3307,6 @@ declare interface nlobjFile {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3385,7 +3319,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @param name
@@ -3398,7 +3331,6 @@ declare interface nlobjFile {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3411,7 +3343,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @param folder
@@ -3425,7 +3356,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2010.2
      * @param encoding
@@ -3438,7 +3368,6 @@ declare interface nlobjFile {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3451,7 +3380,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @param online
@@ -3464,7 +3392,6 @@ declare interface nlobjFile {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3477,7 +3404,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @param inactive
@@ -3490,7 +3416,6 @@ declare interface nlobjFile {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3503,7 +3428,6 @@ declare interface nlobjFile {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @param descr
@@ -3516,7 +3440,6 @@ declare interface nlobjFile {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3528,7 +3451,6 @@ declare interface nlobjFile {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3540,7 +3462,6 @@ declare interface nlobjFile {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3552,7 +3473,6 @@ declare interface nlobjFile {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3564,7 +3484,6 @@ declare interface nlobjFile {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjFile
      *
      * @since 2009.1
      * @return
@@ -3603,7 +3522,6 @@ declare interface nlobjSearchFilter {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchFilter
      *
      * @since 2007.0
      * @return
@@ -3615,7 +3533,6 @@ declare interface nlobjSearchFilter {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchFilter
      *
      * @since 2008.1
      * @return
@@ -3627,7 +3544,6 @@ declare interface nlobjSearchFilter {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchFilter
      *
      * @since 2008.2
      * @return
@@ -3662,7 +3578,6 @@ declare interface nlobjSearchColumn {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchColumn
      * @since 2008.1
      * @return
      */
@@ -3673,7 +3588,6 @@ declare interface nlobjSearchColumn {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchColumn
      * @since 2008.1
      * @return
      */
@@ -3684,7 +3598,6 @@ declare interface nlobjSearchColumn {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchColumn
      *
      * @since 2009.1
      * @return
@@ -3696,7 +3609,6 @@ declare interface nlobjSearchColumn {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchColumn
      * @since 2008.1
      * @return
      */
@@ -3707,7 +3619,6 @@ declare interface nlobjSearchColumn {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchColumn
      *
      * @since 2009.2
      * @return
@@ -3720,7 +3631,6 @@ declare interface nlobjSearchColumn {
      * @param {boolean} sort if not set, defaults to false, which returns column data in ascending order.
      *
      * @method
-     * @memberOf nlobjSearchColumn
      *
      * @since 2010.1
      * @param order
@@ -3752,7 +3662,6 @@ declare interface nlobjSearchResult {
     /**
      * return the internalId for the record returned in this row.
      * @method
-     * @memberOf nlobjSearchResult
      * @return {int}
      * @return
      */
@@ -3761,7 +3670,6 @@ declare interface nlobjSearchResult {
     /**
      * return the recordtype for the record returned in this row.
      * @method
-     * @memberOf nlobjSearchResult
      * @return {string}
      * @return
      */
@@ -3775,7 +3683,6 @@ declare interface nlobjSearchResult {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchResult
      *
      * @since 2008.1
      * @param name
@@ -3793,7 +3700,6 @@ declare interface nlobjSearchResult {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSearchResult
      *
      * @since 2008.1
      * @param name
@@ -3808,7 +3714,6 @@ declare interface nlobjSearchResult {
      * @return {nlobjSearchColumn[]}
      *
      * @method
-     * @memberOf nlobjSearchResult
      *
      * @since 2009.2
      */
@@ -3834,7 +3739,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3846,7 +3750,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3858,7 +3761,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3870,7 +3772,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2008.2
      * @return
@@ -3882,7 +3783,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2008.2
      * @return
@@ -3894,7 +3794,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3906,7 +3805,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.1
      * @return
@@ -3918,7 +3816,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3930,7 +3827,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3942,7 +3838,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3954,7 +3849,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3966,7 +3860,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3978,7 +3871,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2007.0
      * @return
@@ -3991,7 +3883,6 @@ declare interface nlobjContext {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param name
@@ -4005,7 +3896,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param name
@@ -4019,7 +3909,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param name
@@ -4033,7 +3922,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param name
@@ -4048,7 +3936,6 @@ declare interface nlobjContext {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param name
@@ -4062,7 +3949,6 @@ declare interface nlobjContext {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      */
@@ -4073,7 +3959,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @return
@@ -4097,7 +3982,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @return
@@ -4109,7 +3993,6 @@ declare interface nlobjContext {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @return
@@ -4121,7 +4004,6 @@ declare interface nlobjContext {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @return
@@ -4134,7 +4016,6 @@ declare interface nlobjContext {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2009.2
      * @param pct
@@ -4173,7 +4054,6 @@ declare interface nlobjContext {
      * @return {Object}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2010.1
      * @return
@@ -4185,7 +4065,6 @@ declare interface nlobjContext {
      * @return {Object}
      *
      * @method
-     * @memberOf nlobjContext
      *
      * @since 2014.1
      * @return
@@ -4212,7 +4091,6 @@ declare interface nlobjError {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      * @return
@@ -4224,7 +4102,6 @@ declare interface nlobjError {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      * @return
@@ -4236,7 +4113,6 @@ declare interface nlobjError {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      * @return
@@ -4248,7 +4124,6 @@ declare interface nlobjError {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      */
@@ -4259,7 +4134,6 @@ declare interface nlobjError {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      * @return
@@ -4271,7 +4145,6 @@ declare interface nlobjError {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjError
      *
      * @since 2008.2
      * @return
@@ -4303,7 +4176,6 @@ declare interface nlobjServerResponse {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @return
@@ -4316,7 +4188,6 @@ declare interface nlobjServerResponse {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @param name
@@ -4330,7 +4201,6 @@ declare interface nlobjServerResponse {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @param name
@@ -4342,7 +4212,6 @@ declare interface nlobjServerResponse {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      */
@@ -4353,7 +4222,6 @@ declare interface nlobjServerResponse {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @return
@@ -4365,7 +4233,6 @@ declare interface nlobjServerResponse {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @return
@@ -4377,7 +4244,6 @@ declare interface nlobjServerResponse {
      * @return {nlobjError}
      *
      * @method
-     * @memberOf nlobjServerResponse
      *
      * @since 2008.1
      * @return
@@ -4408,7 +4274,6 @@ declare interface nlobjResponse {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param name
@@ -4424,7 +4289,6 @@ declare interface nlobjResponse {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param name
@@ -4439,7 +4303,6 @@ declare interface nlobjResponse {
      * @return  {string}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @return
@@ -4452,7 +4315,6 @@ declare interface nlobjResponse {
      * @return  {string[]}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param name
@@ -4464,7 +4326,6 @@ declare interface nlobjResponse {
      * @return  {Object}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @return
@@ -4476,7 +4337,6 @@ declare interface nlobjResponse {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2009.1
      * @return
@@ -4491,7 +4351,6 @@ declare interface nlobjResponse {
      * @param {string} disposition Content Disposition used for streaming attachments: inline|attachment
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param type
@@ -4512,7 +4371,6 @@ declare interface nlobjResponse {
      * @param {Object} [parameters] Object used to specify additional URL parameters as name/value pairs
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param type
@@ -4530,7 +4388,6 @@ declare interface nlobjResponse {
      * @param {string} output
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param output
@@ -4544,7 +4401,6 @@ declare interface nlobjResponse {
      * @param {string} output
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param output
@@ -4558,7 +4414,6 @@ declare interface nlobjResponse {
      * @param {Object} pageobject page UI object: nlobjList|nlobjAssistant|nlobjForm|nlobjDashboard
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2008.2
      * @param pageobject
@@ -4571,7 +4426,6 @@ declare interface nlobjResponse {
      * @param {String} encoding
      * @return {void}
      * @method
-     * @memberOf nlobjResponse
      *
      * @since 2012.2
      * @param encoding
@@ -4602,7 +4456,6 @@ declare interface nlobjRequest {
      * @param {string} name parameter name
      * @return {string}
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @param name
@@ -4616,7 +4469,6 @@ declare interface nlobjRequest {
      * @param {string} name parameter name
      * @return {string[]}
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @param name
@@ -4627,7 +4479,6 @@ declare interface nlobjRequest {
      * return an Object containing all the request parameters and their values.
      * @return {Object}
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @return
@@ -4642,7 +4493,6 @@ declare interface nlobjRequest {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @param group
@@ -4658,7 +4508,6 @@ declare interface nlobjRequest {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @param group
@@ -4672,7 +4521,6 @@ declare interface nlobjRequest {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @param name
@@ -4685,7 +4533,6 @@ declare interface nlobjRequest {
      * @return {Object}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2008.2
      * @return
@@ -4698,7 +4545,6 @@ declare interface nlobjRequest {
      * @return {nlobjFile}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2009.1
      * @param name
@@ -4711,7 +4557,6 @@ declare interface nlobjRequest {
      * @return {Object}
      *
      * @method
-     * @memberOf nlobjRequest
      *
      * @since 2009.1
      * @return
@@ -4723,7 +4568,6 @@ declare interface nlobjRequest {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRequest
      * @since 2008.1
      * @return
      */
@@ -4734,7 +4578,6 @@ declare interface nlobjRequest {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRequest
      * @since 2008.1
      * @return
      */
@@ -4745,7 +4588,6 @@ declare interface nlobjRequest {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjRequest
      * @since 2008.1
      * @return
      */
@@ -5081,7 +4923,6 @@ declare interface nlobjForm {
      * @return {nlobjButton}
      *
      * @method
-     * @memberOf nlobjForm
      *
      * @since 2009.2                                                                           add
      * @param name
@@ -5305,7 +5146,6 @@ declare interface nlobjForm {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjForm
      *
      * @since 2011.1
      * @param name
@@ -5320,7 +5160,6 @@ declare interface nlobjForm {
      * @return an array with names of all tabs
      *
      * @method
-     * @memberOf nlobjForm
      *
      * @since 2012.2
      */
@@ -5350,7 +5189,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param title
@@ -5364,7 +5202,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param script
@@ -5380,7 +5217,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param title
@@ -5396,7 +5232,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param show
@@ -5410,7 +5245,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param values
@@ -5425,7 +5259,6 @@ declare interface nlobjAssistant {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param ordered
@@ -5439,7 +5272,6 @@ declare interface nlobjAssistant {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param numbered
@@ -5452,7 +5284,6 @@ declare interface nlobjAssistant {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5465,7 +5296,6 @@ declare interface nlobjAssistant {
      * @return  {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param html
@@ -5478,7 +5308,6 @@ declare interface nlobjAssistant {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5491,7 +5320,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param html
@@ -5505,7 +5333,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param step
@@ -5520,7 +5347,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5539,7 +5365,6 @@ declare interface nlobjAssistant {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5559,7 +5384,6 @@ declare interface nlobjAssistant {
      * @return {nlobjSubList}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5576,7 +5400,6 @@ declare interface nlobjAssistant {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5591,7 +5414,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5605,7 +5427,6 @@ declare interface nlobjAssistant {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5619,7 +5440,6 @@ declare interface nlobjAssistant {
      * @return {nlobjSubList}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5633,7 +5453,6 @@ declare interface nlobjAssistant {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param name
@@ -5646,7 +5465,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep[]}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      */
@@ -5657,7 +5475,6 @@ declare interface nlobjAssistant {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      */
@@ -5668,7 +5485,6 @@ declare interface nlobjAssistant {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      */
@@ -5679,7 +5495,6 @@ declare interface nlobjAssistant {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      */
@@ -5690,7 +5505,6 @@ declare interface nlobjAssistant {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5702,7 +5516,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5717,7 +5530,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5729,7 +5541,6 @@ declare interface nlobjAssistant {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5741,7 +5552,6 @@ declare interface nlobjAssistant {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @return
@@ -5754,7 +5564,6 @@ declare interface nlobjAssistant {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistant
      *
      * @since 2009.2
      * @param response
@@ -5783,7 +5592,6 @@ declare interface nlobjField {
      *  @return {string}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5795,7 +5603,6 @@ declare interface nlobjField {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5807,7 +5614,6 @@ declare interface nlobjField {
      *  @return {string}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5819,7 +5625,6 @@ declare interface nlobjField {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5831,7 +5636,6 @@ declare interface nlobjField {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5843,7 +5647,6 @@ declare interface nlobjField {
      * @return {boolean}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @return
@@ -5896,7 +5699,6 @@ declare interface nlobjField {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @param disabled
@@ -5951,7 +5753,6 @@ declare interface nlobjField {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @param breaktype
@@ -6023,7 +5824,6 @@ declare interface nlobjField {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjField
      *
      * @since 2009.2
      * @param help
@@ -6100,7 +5900,6 @@ declare interface nlobjSubList {
      * @param {string}    value sublist value
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2008.2
      * @param field
@@ -6118,7 +5917,6 @@ declare interface nlobjSubList {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2009.2
      * @param field
@@ -6145,7 +5943,6 @@ declare interface nlobjSubList {
      * @param {string} group sublist name
      *
      * @method
-     * @memberOf nlobjSubList
      * @since 2010.1
      * @param group
      */
@@ -6161,7 +5958,6 @@ declare interface nlobjSubList {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2008.2
      * @param name
@@ -6178,7 +5974,6 @@ declare interface nlobjSubList {
      * @return {nlobjField}
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2009.2
      * @param fldnam
@@ -6195,7 +5990,6 @@ declare interface nlobjSubList {
      * @return {nlobjButton}
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2008.2
      * @param name
@@ -6210,7 +6004,6 @@ declare interface nlobjSubList {
      * @return {nlobjButton}
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2009.2
      * @return
@@ -6221,7 +6014,6 @@ declare interface nlobjSubList {
      * add "Mark All" and "Unmark All" buttons to this sublist of type "list".
      *
      * @method
-     * @memberOf nlobjSubList
      *
      * @since 2008.2
      */
@@ -6248,7 +6040,6 @@ declare interface nlobjColumn {
      * @param {string} label the label for this column
      *
      * @method
-     * @memberOf nlobjColumn
      *
      * @since 2008.2
      * @param label
@@ -6262,7 +6053,6 @@ declare interface nlobjColumn {
      * @param {boolean} perRow if true then the 1st arg is expected to be a column in the datasource
      *
      * @method
-     * @memberOf nlobjColumn
      *
      * @since 2008.2
      * @param value
@@ -6278,7 +6068,6 @@ declare interface nlobjColumn {
      * @param {boolean} [perRow] if true then the 2nd arg is expected to be a column in the datasource
      *
      * @method
-     * @memberOf nlobjColumn
      *
      * @since 2008.2
      * @param param
@@ -6348,7 +6137,6 @@ declare interface nlobjAssistantStep {
      * @return {void}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param label
@@ -6362,7 +6150,6 @@ declare interface nlobjAssistantStep {
      * @return {nlobjAssistantStep}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param help
@@ -6375,7 +6162,6 @@ declare interface nlobjAssistantStep {
      * @return  {int} the index of this step in the assistant (1-based) based on the order in which the steps were added.
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @return
@@ -6388,7 +6174,6 @@ declare interface nlobjAssistantStep {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param name
@@ -6402,7 +6187,6 @@ declare interface nlobjAssistantStep {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param name
@@ -6415,7 +6199,6 @@ declare interface nlobjAssistantStep {
      * @return {int}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param group
@@ -6431,7 +6214,6 @@ declare interface nlobjAssistantStep {
      * @return  {string}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param group
@@ -6446,7 +6228,6 @@ declare interface nlobjAssistantStep {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      */
@@ -6457,7 +6238,6 @@ declare interface nlobjAssistantStep {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      */
@@ -6469,7 +6249,6 @@ declare interface nlobjAssistantStep {
      * @return {string[]}
      *
      * @method
-     * @memberOf nlobjAssistantStep
      *
      * @since 2009.2
      * @param group
@@ -6498,7 +6277,6 @@ declare interface nlobjFieldGroup {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjFieldGroup
      *
      * @since 2009.2
      * @param label
@@ -6514,7 +6292,6 @@ declare interface nlobjFieldGroup {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjFieldGroup
      *
      * @since 2009.2
      * @param collapsible
@@ -6530,7 +6307,6 @@ declare interface nlobjFieldGroup {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjFieldGroup
      *
      * @since 2011.1
      * @param singleColumn
@@ -6545,7 +6321,6 @@ declare interface nlobjFieldGroup {
      * @return {nlobjFieldGroup}
      *
      * @method
-     * @memberOf nlobjFieldGroup
      *
      * @since 2011.1
      * @param showBorder
@@ -6575,7 +6350,6 @@ declare interface nlobjButton {
      * @return {nlobjButton}
      *
      * @method
-     * @memberOf nlobjButton
      *
      * @since 2008.2
      * @param label
@@ -6589,7 +6363,6 @@ declare interface nlobjButton {
      * @return {nlobjButton}
      *
      * @method
-     * @memberOf nlobjButton
      *
      * @since 2008.2
      * @param disabled
@@ -6620,7 +6393,6 @@ declare interface nlobjSelectOption {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSelectOption
      *
      * @since 2009.2
      * @return
@@ -6632,7 +6404,6 @@ declare interface nlobjSelectOption {
      * @return {string}
      *
      * @method
-     * @memberOf nlobjSelectOption
      *
      * @since 2009.2
      * @return

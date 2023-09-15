@@ -153,6 +153,8 @@ declare namespace SMTPConnection {
         greetingTimeout?: ms | undefined;
         /** how many milliseconds of inactivity to allow */
         socketTimeout?: ms | undefined;
+        /** how many milliseconds to wait for the DNS requests to be resolved */
+        dnsTimeout?: ms | undefined;
         /** optional bunyan compatible logger instance. If set to true then logs to console. If value is not set or is false then nothing is logged */
         logger?: shared.Logger | boolean | undefined;
         /** if set to true, then logs SMTP traffic without message content */

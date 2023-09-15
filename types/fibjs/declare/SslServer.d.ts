@@ -42,8 +42,6 @@ declare class Class_SslServer extends Class_TcpServer {
      *
      * @brief 客户端证书验证证书链
      *
-     * @readonly
-     * @type X509Cert
      */
 
     ca: Class_X509Cert

@@ -37,7 +37,7 @@ interface SchedulerInteraction {
     timestamp: number;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
 export as namespace React;
 
@@ -1318,7 +1318,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     /**
-     * @deprecated. This was used to allow clients to pass `ref` and `key`
+     * @deprecated This was used to allow clients to pass `ref` and `key`
      * to `createElement`, which is no longer necessary due to intersection
      * types. If you need to declare a props object before passing it to
      * `createElement` or a factory, use `ClassAttributes<T>`:

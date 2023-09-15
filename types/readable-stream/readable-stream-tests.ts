@@ -1,19 +1,22 @@
 import stream = require("stream");
 import RStream = require("readable-stream");
+import { dot, spec, tap } from "node:test/reporters";
 
 function testTypes() {
     const ANY: any = undefined;
-    const _readableOpts: stream.ReadableOptions = ANY as RStream.ReadableOptions;
+    const _readableOpts = ANY as RStream.ReadableOptions;
     const _writableOpts: stream.WritableOptions = ANY as RStream.WritableOptions;
-    const _transformOpts: stream.TransformOptions = ANY as RStream.TransformOptions;
-    const _duplexOpts: stream.DuplexOptions = ANY as RStream.DuplexOptions;
+    const _transformOpts = ANY as RStream.TransformOptions;
+    const _duplexOpts = ANY as RStream.DuplexOptions;
 
     const _readable: stream.Readable = new RStream.Readable(_readableOpts);
     const _writable: stream.Writable = new RStream.Writable(_writableOpts);
     const _transform: stream.Transform = new RStream.Transform(_transformOpts);
     const _duplex: stream.Duplex = new RStream.Duplex(_duplexOpts);
 
-    _readable.pipe(_duplex).pipe(_transform).pipe(_writable);
+    _readable.compose(tap).pipe(_duplex).pipe(_transform).pipe(_writable);
+    _readable.compose(dot);
+    _readable.compose(new spec());
 }
 
 function test() {

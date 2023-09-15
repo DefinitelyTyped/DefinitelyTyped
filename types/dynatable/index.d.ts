@@ -107,7 +107,7 @@ declare namespace JQueryDynatable {
          * Detected internally by dynatable.
          * Possible values are:
          *
-         * @enum('left', 'right', 'center', 'justify', 'initial', 'inherit')
+         * ('left', 'right', 'center', 'justify', 'initial', 'inherit')
          */
         textAlign: string;
     }
@@ -115,7 +115,7 @@ declare namespace JQueryDynatable {
         /**
          * By default, dynatable converts headings to JSON attribute names using:
          *
-         * @enum('camelCase', 'trimDash', 'dashed', 'underscore', 'lowercase')
+         * ('camelCase', 'trimDash', 'dashed', 'underscore', 'lowercase')
          * @default 'camelCase'
          * @see http://www.dynatable.com/#converting-attribute-names
          *
@@ -199,7 +199,7 @@ declare namespace JQueryDynatable {
         /**
          * Determines where the recordCount is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -214,7 +214,7 @@ declare namespace JQueryDynatable {
         /**
          * Determines where the pagination links are inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -283,7 +283,7 @@ declare namespace JQueryDynatable {
         /**
          * Determines where the search field is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -304,7 +304,7 @@ declare namespace JQueryDynatable {
         /**
          * Determines where the perPage menu is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -401,7 +401,7 @@ declare namespace JQueryDynatable {
          * Defining the `method` setting for the jQuery's ajax call...
          * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
          *
-         * @enum('GET', 'POST')
+         * ('GET', 'POST')
          * @default 'GET'
          * @todo Check if other methods could be used... ('GET', 'PUT', 'HEAD', 'POST', 'PATCH', 'TRACE', 'DELETE', 'CONNECT', 'OPTIONS', 'IS_AWARE', 'IS_EAGER', 'PROPFIND', 'IS_OPTIONAL', 'IS_REQUIRED', 'IS_CONSTRUCTOR', 'IS_INSTANTIATOR')
          */
@@ -410,7 +410,7 @@ declare namespace JQueryDynatable {
          * The type of data that you're expecting back from the server.
          * If none is specified, jQuery will try to infer it based on the MIME type of the response...
          *
-         * @enum('xml', 'html', 'script', 'json', 'jsonp', 'text')
+         * ('xml', 'html', 'script', 'json', 'jsonp', 'text')
          * @default 'json'
          * @see http://api.jquery.com/jQuery.ajax
          */

@@ -8690,12 +8690,12 @@ declare namespace SP.WorkflowServices {
             @param listId Unique identifier (GUID) for the specified list. */
         publishSubscriptionForList(subscription: WorkflowSubscription, listId: string): SP.GuidResult;
         /** Ensures that an event receiver will monitor a list for the specified event.
-            @param listId Unique identifier (GUID) for the specified list.
-            @eventName eventName The name of the event to be monitored. */
+          * @param listId Unique identifier (GUID) for the specified list.
+          * @param eventName eventName The name of the event to be monitored. */
         registerInterestInList(listId: string, eventName: string): void;
         /** Removes monitoring for an event receiver on the specified list with the specified event.
-            @param listId GUID of the list containing the event receiver to be unregistered.
-            @eventName eventName The name of the event to be removed. */
+          * @param listId GUID of the list containing the event receiver to be unregistered.
+          * @param eventName eventName The name of the event to be removed. */
         unregisterInterestInList(listId: string, eventName: string): void;
         getSubscription(subscriptionId: SP.Guid): WorkflowSubscription;
         deleteSubscription(subscriptionId: SP.Guid): WorkflowSubscription;
@@ -10059,7 +10059,7 @@ declare namespace SP {
             AnyUncomittedProvisionalRecords(): boolean;
 
             /** Gets record based on the recordKey
-                @recordKey internal unique id of a row. You can get recordKey from view index via GetRecordKeyByViewIndex method. */
+             * @param recordKey internal unique id of a row. You can get recordKey from view index via GetRecordKeyByViewIndex method. */
             GetRecord(recordKey: number): IRecord;
             /** Get entry record with the specified key.
                 Entry record is a special type of record because it represents a new record that doesn't exist yet. */
@@ -10159,7 +10159,7 @@ declare namespace SP {
             UpdateColumns(columnInfoCollection: ColumnInfoCollection): void;
             GetColumns(optPaneId?: string): ColumnInfo[];
             /** Get ColumnInfo object by fieldKey
-                @fieldKey when working with SharePoint data sources, fieldKey corresponds to field internal name */
+             * @param fieldKey when working with SharePoint data sources, fieldKey corresponds to field internal name */
             GetColumnByFieldKey(fieldKey: string, optPaneId?: any): ColumnInfo;
             /** Adds a column, based on the specified grid field */
             AddColumn(columnInfo: ColumnInfo, gridField: GridField): void;

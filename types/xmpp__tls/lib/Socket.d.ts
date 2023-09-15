@@ -1,6 +1,6 @@
-import { SocketBase } from '@xmpp/connection';
-import { ConnectionOptions, TLSSocket } from 'tls';
-import { EventEmitter } from 'events';
+import { SocketBase } from "@xmpp/connection";
+import { EventEmitter } from "events";
+import { ConnectionOptions, TLSSocket } from "tls";
 
 export = Socket;
 

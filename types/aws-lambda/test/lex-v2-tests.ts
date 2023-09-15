@@ -83,16 +83,16 @@ const handler: LexV2Handler = async (event, context, callback) => {
                 state: 'Fulfilled',
                 name: 'MyIntent',
                 slots: {
-                    str: slot
-                }
+                    str: slot,
+                },
             },
         },
         messages: [
             {
                 contentType: 'PlainText',
-                content: 'Hello!'
-            }
-        ]
+                content: 'Hello!',
+            },
+        ],
     };
     result.messages = [
         {
@@ -104,14 +104,14 @@ const handler: LexV2Handler = async (event, context, callback) => {
                 buttons: [
                     {
                         text: 'text',
-                        value: 'value'
-                    }
-                ]
-            }
-        }
+                        value: 'value',
+                    },
+                ],
+            },
+        },
     ];
     result.sessionState.sessionAttributes = {
-        key: 'value'
+        key: 'value',
     };
 
     callback(new Error());
@@ -120,8 +120,8 @@ const handler: LexV2Handler = async (event, context, callback) => {
 };
 
 const event1: LexV2Event = {
-    sessionId: "111111111111111",
-    inputTranscript: "7",
+    sessionId: '111111111111111',
+    inputTranscript: '7',
     interpretations: [
         {
             intent: {
@@ -129,30 +129,28 @@ const event1: LexV2Event = {
                     Slot1: null,
                     Slot2: null,
                     Slot3: {
-                        shape: "Scalar",
+                        shape: 'Scalar',
                         value: {
-                            originalValue: "7",
-                            resolvedValues: [
-                                "7"
-                            ],
-                            interpretedValue: "7"
-                        }
-                    }
+                            originalValue: '7',
+                            resolvedValues: ['7'],
+                            interpretedValue: '7',
+                        },
+                    },
                 },
-                confirmationState: "None",
-                name: "IntentName",
-                state: "InProgress"
+                confirmationState: 'None',
+                name: 'IntentName',
+                state: 'InProgress',
             },
-            nluConfidence: 1
+            nluConfidence: 1,
         },
         {
             intent: {
                 slots: {},
-                confirmationState: "None",
-                name: "FallbackIntent",
-                state: "InProgress"
-            }
-        }
+                confirmationState: 'None',
+                name: 'FallbackIntent',
+                state: 'InProgress',
+            },
+        },
     ],
     proposedNextState: {
         intent: {
@@ -160,51 +158,47 @@ const event1: LexV2Event = {
                 Slot1: null,
                 Slot2: null,
                 Slot3: {
-                    shape: "Scalar",
+                    shape: 'Scalar',
                     value: {
-                        originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ],
-                        interpretedValue: "7"
-                    }
-                }
+                        originalValue: '7',
+                        resolvedValues: ['7'],
+                        interpretedValue: '7',
+                    },
+                },
             },
-            confirmationState: "None",
-            name: "IntentName",
-            state: "InProgress"
+            confirmationState: 'None',
+            name: 'IntentName',
+            state: 'InProgress',
         },
         dialogAction: {
-            slotToElicit: "Slot1",
-            type: "ElicitSlot"
-        }
+            slotToElicit: 'Slot1',
+            type: 'ElicitSlot',
+        },
     },
-    responseContentType: "text/plain; charset=utf-8",
-    invocationSource: "DialogCodeHook",
-    messageVersion: "1.0",
+    responseContentType: 'text/plain; charset=utf-8',
+    invocationSource: 'DialogCodeHook',
+    messageVersion: '1.0',
     transcriptions: [
         {
             resolvedSlots: {
                 Slot3: {
-                    shape: "Scalar",
+                    shape: 'Scalar',
                     value: {
-                        originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ]
-                    }
-                }
+                        originalValue: '7',
+                        resolvedValues: ['7'],
+                    },
+                },
             },
             resolvedContext: {
-                intent: "IntentName"
+                intent: 'IntentName',
             },
-            transcription: "7",
-            transcriptionConfidence: 1
-        }
+            transcription: '7',
+            transcriptionConfidence: 1,
+        },
     ],
     sessionState: {
         sessionAttributes: {
-            attribute1: "1"
+            attribute1: '1',
         },
         activeContexts: [],
         intent: {
@@ -212,29 +206,27 @@ const event1: LexV2Event = {
                 Slot1: null,
                 Slot2: null,
                 Slot3: {
-                    shape: "Scalar",
+                    shape: 'Scalar',
                     value: {
-                        originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ],
-                        interpretedValue: "7"
-                    }
-                }
+                        originalValue: '7',
+                        resolvedValues: ['7'],
+                        interpretedValue: '7',
+                    },
+                },
             },
-            confirmationState: "None",
-            name: "IntentName",
-            state: "InProgress"
+            confirmationState: 'None',
+            name: 'IntentName',
+            state: 'InProgress',
         },
-        originatingRequestId: "11111111-1111-1111-1111-111111111111"
+        originatingRequestId: '11111111-1111-1111-1111-111111111111',
     },
-    inputMode: "Text",
+    inputMode: 'Text',
     bot: {
-        aliasName: "string",
-        aliasId: "string",
-        name: "string",
-        version: "DRAFT",
-        localeId: "en_US",
-        id: "string"
-    }
+        aliasName: 'string',
+        aliasId: 'string',
+        name: 'string',
+        version: 'DRAFT',
+        localeId: 'en_US',
+        id: 'string',
+    },
 };

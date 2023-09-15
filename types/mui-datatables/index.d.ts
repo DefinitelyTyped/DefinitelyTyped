@@ -816,7 +816,6 @@ export type MUIDataTableOptions = Partial<{
      * The object options are the column name and the direction.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js)
-     * @shape { name: string, direction: 'asc' | 'desc' }
      */
     sortOrder: MUISortOptions;
     /**

@@ -1,4 +1,4 @@
-import cpuFeatures = require('cpu-features');
+import cpuFeatures = require("cpu-features");
 
 // test type exports
 type CpuFeatures = cpuFeatures.CpuFeatures;
@@ -18,7 +18,7 @@ type UnknownCpuFeatures = cpuFeatures.UnknownCpuFeatures;
 const features = cpuFeatures(); // $ExpectType CpuFeatures
 
 switch (features.arch) {
-    case 'x86':
+    case "x86":
         features; // $ExpectType X86CpuFeatures
         features.brand; // $ExpectType string
         features.family; // $ExpectType number
@@ -27,7 +27,7 @@ switch (features.arch) {
         features.uarch; // $ExpectType X86UArch
         features.flags; // $ExpectType X86CpuFlags
         break;
-    case 'arm':
+    case "arm":
         features; // $ExpectType ArmCpuFeatures
         features.implementer; // $ExpectType number
         features.architecture; // $ExpectType number
@@ -36,7 +36,7 @@ switch (features.arch) {
         features.revision; // $ExpectType number
         features.flags; // $ExpectType ArmCpuFlags
         break;
-    case 'aarch64':
+    case "aarch64":
         features; // $ExpectType Aarch64CpuFeatures
         features.implementer; // $ExpectType number
         features.variant; // $ExpectType number
@@ -44,17 +44,17 @@ switch (features.arch) {
         features.revision; // $ExpectType number
         features.flags; // $ExpectType Aarch64CpuFlags
         break;
-    case 'mips':
+    case "mips":
         features; // $ExpectType MipsCpuFeatures
         features.flags; // $ExpectType MipsCpuFlags
         break;
-    case 'ppc':
+    case "ppc":
         features; // $ExpectType PPCCpuFeatures
         features.platform; // $ExpectType string
         features.model; // $ExpectType string
         features.machine; // $ExpectType string
         features.cpu; // $ExpectType string
-        features['instruction set']; // $ExpectType string
+        features["instruction set"]; // $ExpectType string
         features.microarchitecture; // $ExpectType string
         features.flags; // $ExpectType PPCCpuFlags
         break;

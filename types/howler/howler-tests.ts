@@ -1,3 +1,5 @@
+import './test/globals';
+
 import { Howl, Howler } from 'howler';
 
 // Set global volume

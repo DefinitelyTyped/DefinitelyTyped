@@ -46,7 +46,7 @@ declare namespace AMap {
          * @param context 事件上下文
          */
         function addDomListener<N extends keyof HTMLElementTagNameMap, E extends keyof HTMLElementEventMap, C = HTMLElementTagNameMap[N]>(
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             instance: HTMLElementTagNameMap[N],
             eventName: E,
             handler: (this: C, event: HTMLElementEventMap[E]) => void,
@@ -60,7 +60,7 @@ declare namespace AMap {
          * @param context 事件上下文
          */
         function addListener<I extends EventEmitter, C = I>(
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             instance: I,
             eventName: string,
             handler: (this: C, event: any) => void,
@@ -74,7 +74,7 @@ declare namespace AMap {
          * @param context 事件上下文
          */
         function addListenerOnce<I extends EventEmitter, C = I>(
-            // eslint-disable-next-line no-unnecessary-generics
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             instance: I,
             eventName: string,
             handler: (this: C, event: any) => void,

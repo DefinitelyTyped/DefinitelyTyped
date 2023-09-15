@@ -259,7 +259,7 @@ declare namespace OO.ui {
              * methods of OO.ui.Process.
              *
              * @param data Window opening data
-             * @return} Ready process
+             * @return Ready process
              */
             getReadyProcess(data?: any): Process;
 
@@ -441,7 +441,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Window;
+            new(config?: ConfigOptions): Window;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

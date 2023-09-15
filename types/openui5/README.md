@@ -3,11 +3,6 @@
 The type definitions for OpenUI5 - please make sure to read the important notes below!<br>
 The central entry point for everything about using TypeScript with UI5 is at [https://sap.github.io/ui5-typescript](https://sap.github.io/ui5-typescript).
 
-## Work in Progress
-
-These definition files are <b>work in progress</b> and will be improved further.<br>
-<b>Significant changes may occur in future versions, including potential breaking changes</b>.
-
 
 ## Release Notes
 
@@ -30,13 +25,13 @@ When spotting weaknesses in the definition files, consider that it's not trivial
 ## Versioning
 
 There are two npm package names under which the OpenUI5 type definitions are released:
-1. [`@openui5/ts-types-esm`](https://www.npmjs.com/package/@openui5/ts-types-esm) (published directly by the UI5 development team)
+1. [`@openui5/types`](https://www.npmjs.com/package/@openui5/types) (published directly by the UI5 development team; this replaces the prior package `@openui5/ts-types-esm`)
 1. [`@types/openui5`](https://www.npmjs.com/package/@types/openui5) (the ones maintained here at DefinitelyTyped)
 
 
 They are created the same way, from the same sources, <b>but there is a difference regarding the versioning</b>:
 
-* For the ones over at [`@openui5/ts-types-esm`](https://www.npmjs.com/package/@openui5/ts-types-esm), there is a new patch version published whenever a new patch version of OpenUI5 is published. Even when there is no change in the type definitions. This means code and type definitions are exactly in sync when using exactly the same version.
+* For the ones over at [`@openui5/types`](https://www.npmjs.com/package/@openui5/types), there is a new patch version published whenever a new patch version of OpenUI5 is published. Even when there is no change in the type definitions. This means code and type definitions are exactly in sync when using exactly the same version.
 
 * For [`@types/openui5`](https://www.npmjs.com/package/@types/openui5) here at DefinitelyTyped, however, we adopted the [versioning approach of DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#how-do-definitely-typed-package-versions-relate-to-versions-of-the-corresponding-library): 
 
@@ -44,11 +39,11 @@ They are created the same way, from the same sources, <b>but there is a differen
 > The patch version of the type declaration package is unrelated to the library patch version
 
 The reasoning behind this is that with semantic versioning, the API will remain the same for all patch releases of the same major/minor version. As an example: there is no API change between OpenUI5 1.90.0 and OpenUI5 1.90.8. Therefore there is no need to publish new type definitions for OpenUI5 1.90.8 (and 1.90.7, 1.90.6 and so on).<br>
-The only exception when we might still create new patch releases at DefinitelyTyped is when there are significant improvements or fixes in the documentation or in the definition generator. 
+The only exception when we might still create new patch releases at DefinitelyTyped is when there are significant improvements or fixes in the documentation or in the definition generator. Release 1.115.1 is the first time this has happened since the first new and improved release 1.90.0. 
 
 Long story short:
 * For ease of consumption and most probably matching definitions, use the latest major/minor-matching version of `@types/openui5`. Also see the section below about the referenced jQuery and QUnit types. 
-* For perfectly matching definitions, use the version of [`@openui5/ts-types-esm`](https://www.npmjs.com/package/@openui5/ts-types-esm) which is identical to the used OpenUI5 version.
+* Only in case of problems (also see potential jQuery-related problems in the section below), for perfectly matching definitions, use the version of [`@openui5/types`](https://www.npmjs.com/package/@openui5/types) which is identical to the used OpenUI5 version.
 
 
 ## jQuery and QUnit References and their Versions
@@ -67,7 +62,7 @@ The versions actually included with OpenUI5 1.100, however, are:
 
 You see: the versions do not match. As a result, your code editor may suggest new APIs from QUnit 2.11 which are not present in 2.3 yet. On the other hand, the TypeScript compiler might complain about jQuery 3.6 APIs being used - although this works fine at runtime.
 
-In contrast, in the packages released by ourselves (e.g. `@openui5/ts-types-esm`), we try to reference the best-matching versions of the jQuery and QUnit types. Often it's not possible to have an exactly matching version of the types, though! E.g. right now there is still no 3.6 version of the jQuery types released at all. And for QUnit 2.3 the types have never been released. Hence OpenUI5 currently references:
+In contrast, in the packages released by ourselves (e.g. `@openui5/types`), we try to reference the best-matching versions of the jQuery and QUnit types. Often it's not possible to have an exactly matching version of the types, though! E.g. right now there is still no 3.6 version of the jQuery types released at all. And for QUnit 2.3 the types have never been released. Hence OpenUI5 currently references:
 * jQuery: 3.5.13
 * QUnit: 2.5.4
 
@@ -80,7 +75,6 @@ The take-away is that there's nothing to do immediately, but one should keep in 
 Our goal is to reduce the number of disabled tslint rules, but due to years of UI5 development before trying to conform to TypeScript rules, this is not possible for all of them. For the rules which are not aimed to be re-enabled, the reasoning is explained here:
 
  * `"interface-name": false` - for compatibility reasons, the existing interface names with "I" prefix cannot be changed
- * `"max-line-length": false` - we do not want to enforce a specific max line length - it also breaks e.g. long links
  * `"no-any-union": false` - for documentation purposes, it is useful to also see the alternatives which are more specific than "any"
  * `"no-single-declare-module": false` - these modules do exist and we want TypeScript to know about them
  * `"interface-over-type-literal": false` - this rule is considered debatable (see e.g. https://github.com/palantir/tslint/issues/3248)
@@ -89,4 +83,4 @@ Our goal is to reduce the number of disabled tslint rules, but due to years of U
 
 ## Copyright
 
-Copyright (c) 2022 SAP SE or an SAP affiliate company and OpenUI5 contributors.
+Copyright (c) 2023 SAP SE or an SAP affiliate company and OpenUI5 contributors.

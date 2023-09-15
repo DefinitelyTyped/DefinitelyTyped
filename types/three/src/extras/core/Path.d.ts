@@ -1,5 +1,5 @@
-import { Vector2 } from './../../math/Vector2';
-import { CurvePath } from './CurvePath';
+import { Vector2 } from './../../math/Vector2.js';
+import { CurvePath } from './CurvePath.js';
 
 /**
  * A 2D {@link Path} representation.
@@ -75,7 +75,7 @@ export class Path extends CurvePath<Vector2> {
         aStartAngle: number,
         aEndAngle: number,
         aClockwise: boolean,
-        aRotation: number,
+        aRotation?: number,
     ): this;
 
     /**

@@ -130,6 +130,7 @@ export interface BuyTrade {
     minCrypto?: number | undefined;
     maxCrypto?: number | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
+    paymentMethodName?: string | undefined;
     infoNote?: string | undefined;
     country?: string | undefined; // CZ
     wantCrypto?: boolean | undefined;
@@ -434,6 +435,7 @@ export interface SellFiatTrade {
     minCrypto?: number | undefined;
     maxCrypto?: number | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
+    paymentMethodName?: string | undefined;
     infoNote?: string | undefined;
     country?: string | undefined; // CZ
     bankAccount?: BankAccount | undefined; // selected bank account
@@ -922,6 +924,7 @@ export interface SavingsTradeItem {
     receiveStringAmount: string;
     receiveCurrency: string;
     paymentMethod: SavingsPaymentMethod;
+    paymentMethodName?: string | undefined;
     created: string;
 }
 

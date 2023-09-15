@@ -295,6 +295,35 @@ declare module 'events' {
          */
         static getEventListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
+         * Returns the currently set max amount of listeners.
+         *
+         * For `EventEmitter`s this behaves exactly the same as calling `.getMaxListeners` on
+         * the emitter.
+         *
+         * For `EventTarget`s this is the only way to get the max event listeners for the
+         * event target. If the number of event handlers on a single EventTarget exceeds
+         * the max set, the EventTarget will print a warning.
+         *
+         * ```js
+         * import { getMaxListeners, setMaxListeners, EventEmitter } from 'node:events';
+         *
+         * {
+         *   const ee = new EventEmitter();
+         *   console.log(getMaxListeners(ee)); // 10
+         *   setMaxListeners(11, ee);
+         *   console.log(getMaxListeners(ee)); // 11
+         * }
+         * {
+         *   const et = new EventTarget();
+         *   console.log(getMaxListeners(et)); // 10
+         *   setMaxListeners(11, et);
+         *   console.log(getMaxListeners(et)); // 11
+         * }
+         * ```
+         * @since v19.9.0
+         */
+        static getMaxListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter): number;
+        /**
          * ```js
          * import { setMaxListeners, EventEmitter } from 'node:events';
          *
@@ -309,6 +338,41 @@ declare module 'events' {
          * objects.
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
+        /**
+         * Listens once to the `abort` event on the provided `signal`.
+         *
+         * Listening to the `abort` event on abort signals is unsafe and may
+         * lead to resource leaks since another third party with the signal can
+         * call `e.stopImmediatePropagation()`. Unfortunately Node.js cannot change
+         * this since it would violate the web standard. Additionally, the original
+         * API makes it easy to forget to remove listeners.
+         *
+         * This API allows safely using `AbortSignal`s in Node.js APIs by solving these
+         * two issues by listening to the event such that `stopImmediatePropagation` does
+         * not prevent the listener from running.
+         *
+         * Returns a disposable so that it may be unsubscribed from more easily.
+         *
+         * ```js
+         * import { addAbortListener } from 'node:events';
+         *
+         * function example(signal) {
+         *   let disposable;
+         *   try {
+         *     signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+         *     disposable = addAbortListener(signal, (e) => {
+         *       // Do something when signal is aborted.
+         *     });
+         *   } finally {
+         *     disposable?.[Symbol.dispose]();
+         *   }
+         * }
+         * ```
+         * @since v20.5.0
+         * @experimental
+         * @return that removes the `abort` listener.
+         */
+        static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`events. Listeners installed using this symbol are called before the regular`'error'` listeners are called.
          *

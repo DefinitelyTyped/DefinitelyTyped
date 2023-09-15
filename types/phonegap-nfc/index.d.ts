@@ -140,7 +140,7 @@ declare namespace PhoneGapNfc {
          * Helper that creates an NdefRecord containing plain text.
          *
          * @param text String of text to encode
-         * @paramlanguageCode ISO/IANA language code. Examples: “fi”, “en-US”, “fr- CA”, “jp”. (optional)
+         * @param languageCode ISO/IANA language code. Examples: “fi”, “en-US”, “fr- CA”, “jp”. (optional)
          * @param id byte[] (optional)
          *
          * @return NdefRecord

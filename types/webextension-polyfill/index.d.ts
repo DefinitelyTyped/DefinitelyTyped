@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Generated using https://github.com/Lusito/webextension-polyfill-ts
 
-// Generated from Mozilla sources. Do not manually edit!
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
 
 import { ActivityLog as ImportedActivityLog } from "./namespaces/activityLog";
 import { Alarms as ImportedAlarms } from "./namespaces/alarms";
@@ -236,5 +238,5 @@ declare namespace Browser {
     /* tslint:enable:strict-export-declare-modifiers */
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Browser;

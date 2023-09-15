@@ -59,7 +59,7 @@ function pcdLoaderLoad(
     url: string,
     onLoad: (points: THREE.Points) => void,
     onProgress?: (event: ProgressEvent) => void,
-    onError?: (event: ErrorEvent) => void,
+    onError?: (event: unknown) => void,
 ) {
     const scope = pcdLoader;
 

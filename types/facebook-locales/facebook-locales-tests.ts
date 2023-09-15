@@ -1,3 +1,3 @@
-import { bestFacebookLocaleFor } from 'facebook-locales';
+import { bestFacebookLocaleFor } from "facebook-locales";
 
-bestFacebookLocaleFor('en_US'); // $ExpectType string
+bestFacebookLocaleFor("en_US"); // $ExpectType string
