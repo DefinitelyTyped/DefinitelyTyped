@@ -98,3 +98,12 @@ const k: webpack.Configuration = {
         }),
     ],
 };
+
+const l: webpack.Configuration = {
+    entry: 'test.js',
+    externals: [
+        webpackNodeExternals({
+            importType: 'module'
+        }),
+    ],
+};

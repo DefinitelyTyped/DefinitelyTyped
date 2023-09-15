@@ -47,7 +47,7 @@ declare namespace webpackNodeExternals {
          * 'commonjs' for node modules.
          * @default 'commonjs'
          */
-        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | ImportTypeCallback | undefined;
+        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | 'module' | ImportTypeCallback | undefined;
         /**
          * The folder in which to search for the node modules.
          * @default 'node_modules'
