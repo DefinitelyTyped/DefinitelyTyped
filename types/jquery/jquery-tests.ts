@@ -7166,7 +7166,7 @@ function JQuery_Promise3() {
                 q.then((a) => {
                     a; // $ExpectType J1 | J2
                 }, (a) => {
-                    a; // $ExpectType never
+                    a; // $ExpectType any || never
                 }, (a, b, c) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
@@ -7294,7 +7294,7 @@ function JQuery_Promise3() {
                     b; // $ExpectType J5
                     c; // $ExpectType J8
                 }, (a, b, c) => {
-                    a; // $ExpectType J3
+                    a; // $ExpectType J3 || any
                     b; // $ExpectType J6
                     c; // $ExpectType J9
                 }, (a, b, c) => {
@@ -7317,7 +7317,7 @@ function JQuery_Promise3() {
                     b; // $ExpectType J4
                     c; // $ExpectType J7
                 }, (a, b, c) => {
-                    a; // $ExpectType J2
+                    a; // $ExpectType J2 || any
                     b; // $ExpectType J5
                     c; // $ExpectType J8
                 }, (a, b, c) => {
@@ -7342,9 +7342,9 @@ function JQuery_Promise3() {
             const a = $.ajax('/echo/json').catch(() => {
                 return t1;
             });
-            // $ExpectType PromiseBase<J1, never, never, never, never, never, never, never, never, never, never, never>
+            // $ExpectType PromiseBase<J1, never, never, never, never, never, never, never, never, never, never, never> || PromiseBase<J1, any, never, never, never, never, never, never, never, never, never, never>
             a;
-            const b: JQuery.Promise3<J1, never, never, never, never, never, never, never, never> = a;
+            const b: JQuery.Promise3<J1, any, never, never, never, never, never, never, never> = a;
         }
         {
             const a = $.ajax('/echo/json').catch(() => {
