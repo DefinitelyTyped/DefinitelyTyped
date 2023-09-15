@@ -353,6 +353,13 @@ declare namespace google.maps {
    * the encapsulating {@link google.maps.WebGLOverlayView.onDraw} call.
    */
   export interface CoordinateTransformer {
+    /**
+     * @param latLngAltitude Latitude, longitude, and altitude.
+     * @param rotations An array that contains an Euler rotation angle in
+     *     degrees, in the XYZ convention.
+     * @param scale Array that contains an XYZ scalar array to apply to the
+     *     cardinal axis.
+     */
     fromLatLngAltitude(
         latLngAltitude: google.maps.LatLngAltitude|
         google.maps.LatLngAltitudeLiteral,
@@ -940,6 +947,10 @@ declare namespace google.maps {
      */
     geocoded_waypoints?: google.maps.DirectionsGeocodedWaypoint[];
     /**
+     * The DirectionsRequest that yielded this result.
+     */
+    request: google.maps.DirectionsRequest;
+    /**
      * An array of <code>DirectionsRoute</code>s, each of which contains
      * information about the legs and steps of which it is composed. There will
      * only be one route unless the <code>DirectionsRequest</code> was made with
@@ -1176,7 +1187,15 @@ declare namespace google.maps {
      */
     travel_mode: google.maps.TravelMode;
   }
+  /**
+   * @deprecated Deprecated as of 2011. Use {@link google.maps.TravelMode}
+   *     instead.
+   */
   export enum DirectionsTravelMode {}
+  /**
+   * @deprecated Deprecated as of 2011. Use {@link google.maps.UnitSystem}
+   *     instead.
+   */
   export enum DirectionsUnitSystem {}
   /**
    * A <code>DirectionsWaypoint</code> represents a location between origin and
@@ -2210,6 +2229,11 @@ declare namespace google.maps {
      * <code>1.0</code>) of the <code>ImageMapType</code> tiles.
      */
     getOpacity(): number;
+    /**
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
+     */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
         ownerDocument: Document|null): Element|null;
@@ -2218,6 +2242,9 @@ declare namespace google.maps {
     name: string|null;
     projection: google.maps.Projection|null;
     radius: number;
+    /**
+     * @param tileDiv Tile to release.
+     */
     releaseTile(tileDiv: Element|null): void;
     /**
      * Sets the opacity level (<code>0</code> (transparent) to <code>1.0</code>)
@@ -2320,10 +2347,21 @@ declare namespace google.maps {
         google.maps.StreetViewPanorama,
         anchor?: google.maps.MVCObject|null|
         google.maps.marker.AdvancedMarkerElement): void;
+    /**
+     * @param content The content to be displayed by this InfoWindow.
+     */
     setContent(content?: string|Element|null|Text): void;
     setOptions(options?: google.maps.InfoWindowOptions|null): void;
+    /**
+     * @param position The LatLng position at which to display this InfoWindow.
+     */
     setPosition(position?: google.maps.LatLng|null|
                 google.maps.LatLngLiteral): void;
+    /**
+     * @param zIndex The z-index for this InfoWindow. An InfoWindow with a
+     *     greater z-index will be displayed in front of all other InfoWindows
+     *     with a lower z-index.
+     */
     setZIndex(zIndex: number): void;
   }
   /**
@@ -3149,7 +3187,7 @@ declare namespace google.maps {
     /**
      * Sets a value.
      */
-    set(key: string, value: any): void;
+    set(key: string, value: unknown): void;
     /**
      * Sets a collection of key-value pairs.
      */
@@ -3510,13 +3548,24 @@ declare namespace google.maps {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor();
+    /**
+     * The center latitude/longitude of the map.
+     */
     center: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
+    /**
+     * The Map ID of the map. See the <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map ID
+     * documentation</a> for more information.
+     */
     mapId: string|null;
+    /**
+     * The zoom level of the map.
+     */
     zoom: number|null;
   }
   /**
@@ -4020,7 +4069,7 @@ declare namespace google.maps {
      * @param id Identifier of the MapType to add to the registry.
      * @param mapType MapType object to add to the registry.
      */
-    set(id: string, mapType: any): void;
+    set(id: string, mapType: unknown): void;
   }
   /**
    * The <code>MapTypeStyle</code> is a collection of selectors and stylers that
@@ -6165,6 +6214,11 @@ declare namespace google.maps {
         styles: (google.maps.MapTypeStyle|null)[]|null,
         options?: google.maps.StyledMapTypeOptions|null);
     alt: string;
+    /**
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
+     */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
         ownerDocument: Document|null): Element|null;
@@ -6173,6 +6227,9 @@ declare namespace google.maps {
     name: string;
     projection: google.maps.Projection|null;
     radius: number;
+    /**
+     * @param tile Tile to release.
+     */
     releaseTile(tile: Element|null): void;
     tileSize: google.maps.Size|null;
   }
@@ -7098,7 +7155,7 @@ declare namespace google.maps.Data {
      * on each invocation. The order of iteration through the properties is
      * undefined.
      */
-    forEachProperty(callback: (a: any, b: string) => void): void;
+    forEachProperty(callback: (a: unknown, b: string) => void): void;
     /**
      * Returns the feature&#39;s geometry.
      */
@@ -7111,7 +7168,7 @@ declare namespace google.maps.Data {
      * Returns the value of the requested property, or <code>undefined</code> if
      * the property does not exist.
      */
-    getProperty(name: string): any;
+    getProperty(name: string): unknown;
     /**
      * Removes the property with the given name.
      */
@@ -7126,7 +7183,7 @@ declare namespace google.maps.Data {
      * <code>undefined</code> this is equivalent to calling
      * <code>removeProperty</code>.
      */
-    setProperty(name: string, newValue: any): void;
+    setProperty(name: string, newValue: unknown): void;
     /**
      * Exports the feature to a GeoJSON object.
      */
@@ -7507,7 +7564,7 @@ declare namespace google.maps.Data {
     /**
      * The previous value.
      */
-    oldValue: any;
+    oldValue: unknown;
   }
   /**
    * The properties of a <code>setgeometry</code> event.
@@ -7541,12 +7598,12 @@ declare namespace google.maps.Data {
     /**
      * The new value.
      */
-    newValue: any;
+    newValue: unknown;
     /**
      * The previous value. Will be <code>undefined</code> if the property was
      * added.
      */
-    oldValue: any;
+    oldValue: unknown;
   }
   /**
    * These options specify the way a Feature should appear when displayed on a
@@ -9667,6 +9724,11 @@ declare namespace google.maps.journeySharing {
      */
     marker: google.maps.Marker;
   }
+  /**
+   * @deprecated Marker setup is deprecated. Use the
+   *     <code>MarkerCustomizationFunction</code> methods for your location
+   *     provider instead.
+   */
   export type MarkerSetup = google.maps.journeySharing.MarkerSetupOptions|(
       (a: google.maps.journeySharing.DefaultMarkerSetupOptions) =>
           google.maps.journeySharing.MarkerSetupOptions);
@@ -9770,7 +9832,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Attributes assigned to the task.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The timestamp of the estimated completion time of the task.
      */
@@ -9875,7 +9937,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Attributes assigned to the task.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The estimated arrival time to the stop location.
      */
@@ -10117,7 +10179,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Custom vehicle attributes.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The waypoint where current route segment ends.
      */
