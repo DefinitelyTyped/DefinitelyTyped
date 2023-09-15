@@ -7,7 +7,11 @@ import { Http2ServerResponse } from 'node:http2';
 import { text, json, buffer, arrayBuffer, blob } from 'node:stream/consumers';
 import { pipeline as pipelinePromise } from 'node:stream/promises';
 import { stdout } from 'node:process';
-import { ReadableStream, WritableStream, TransformStream } from 'node:stream/web';
+import {
+    ReadableStream as ReadableStreamMod,
+    TransformStream as TransformStreamMod,
+    WritableStream as WritableStreamMod,
+} from 'node:stream/web';
 import { setInterval as every } from 'node:timers/promises';
 import { MessageChannel as NodeMC } from 'node:worker_threads';
 import { performance } from 'node:perf_hooks';
@@ -623,8 +627,39 @@ async function testReadableStream() {
     // }
 }
 
+async function testReadableStreamFromModuleScope() {
+    const SECOND = 1000;
+
+    const stream = new ReadableStreamMod<number>({
+        async start(controller) {
+            for await (const _ of every(SECOND)) controller.enqueue(performance.now());
+        },
+    });
+
+    for await (const value of stream.values()) {
+      // $ExpectType number
+      value;
+    }
+
+    // ERROR: 538:31  await-promise  Invalid 'for-await-of' of a non-AsyncIterable value.
+    // for await (const value of stream) {
+    //     // $ExpectType number
+    //     value;
+    // }
+}
+
 async function testWritableStream() {
     const stream = new WritableStream({
+        write(chunk) {
+            console.log(chunk);
+        },
+    });
+
+    await stream.getWriter().write('Hello World');
+}
+
+async function testWritableStreamFromModuleScope() {
+    const stream = new WritableStreamMod({
         write(chunk) {
             console.log(chunk);
         },
@@ -641,6 +676,25 @@ async function testTransformStream() {
     });
 
     const transform = new TransformStream({
+        transform(chunk, controller) {
+            controller.enqueue(chunk.toUpperCase());
+        },
+    });
+
+    const transformedStream = stream.pipeThrough(transform);
+
+    // ERROR: 570:31  await-promise  Invalid 'for-await-of' of a non-AsyncIterable value.
+    // for await (const chunk of transformedStream) console.log(chunk);
+}
+
+async function testTransformStreamFromModuleScope() {
+    const stream = new ReadableStreamMod({
+        start(controller) {
+            controller.enqueue('a');
+        },
+    });
+
+    const transform = new TransformStreamMod({
         transform(chunk, controller) {
             controller.enqueue(chunk.toUpperCase());
         },

@@ -65,16 +65,17 @@ declare module 'stream/web' {
         readonly closed: Promise<undefined>;
         cancel(reason?: any): Promise<void>;
     }
-    interface ReadableStreamDefaultReadValueResult<T> {
+    interface ReadableStreamReadValueResult<T> {
         done: false;
         value: T;
     }
-    interface ReadableStreamDefaultReadDoneResult {
+    interface ReadableStreamReadDoneResult<T> {
         done: true;
-        value?: undefined;
+        value?: T;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
-    type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
+    type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
+
     interface ReadableByteStreamControllerCallback {
         (controller: ReadableByteStreamController): void | PromiseLike<void>;
     }
@@ -131,11 +132,18 @@ declare module 'stream/web' {
     interface ReadableStreamErrorCallback {
         (reason: any): void | PromiseLike<void>;
     }
-    /** This Streams API interface represents a readable stream of byte data. */
+    /**
+     * This Streams API interface represents a readable stream of byte data.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-readablestream
+     * @since v16.5.0
+     */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
         cancel(reason?: any): Promise<void>;
         getReader(): ReadableStreamDefaultReader<R>;
+        getReader(options: { mode: 'byob' }): ReadableStreamBYOBReader;
+        getReader(options?: { mode?: 'byob' }): ReadableStreamReader<R>;
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -144,19 +152,60 @@ declare module 'stream/web' {
     }
     const ReadableStream: {
         prototype: ReadableStream;
-        new (underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
+        new (
+            underlyingSource: UnderlyingByteSource,
+            strategy?: QueuingStrategy<Uint8Array>,
+        ): ReadableStream<Uint8Array>;
         new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
     interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
-        read(): Promise<ReadableStreamDefaultReadResult<R>>;
+        read(): Promise<ReadableStreamReadResult<R>>;
         releaseLock(): void;
     }
     const ReadableStreamDefaultReader: {
         prototype: ReadableStreamDefaultReader;
         new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
-    const ReadableStreamBYOBReader: any;
-    const ReadableStreamBYOBRequest: any;
+    /**
+     * The `ReadableStreamBYOBReader` is an alternative consumer for
+     * byte-oriented {@link ReadableStream}s (those that are created with
+     * `underlyingSource.type` set equal to 'bytes' when the `ReadableStream`
+     * was created).
+     *
+     * The BYOB is short for "bring your own buffer". This is a pattern that
+     * allows for more efficient reading of byte-oriented data that avoids
+     * extraneous copying.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-readablestreambyobreader
+     * @since v16.5.0
+     */
+    interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        releaseLock(): void;
+    }
+    const ReadableStreamBYOBReader: {
+        prototype: ReadableStreamBYOBReader;
+        new (stream: ReadableStream): ReadableStreamBYOBReader;
+    };
+    type ReadableStreamReader<T> = ReadableStreamDefaultReader<T> | ReadableStreamBYOBReader;
+    /**
+     * When using {@link ReadableByteStreamController} in byte-oriented streams, and when using the {@link ReadableStreamBYOBReader},
+     * the `readableByteStreamController.byobRequest` property provides access to a `ReadableStreamBYOBRequest` instance
+     * that represents the current read request. The object is used to gain access to the `Buffer`/`ArrayBuffer`/`TypedArray`
+     * that has been provided for the read request to fill, and provides methods for signaling that the data has been provided.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-readablestreambyobrequest
+     * @since v16.5.0
+     */
+    interface ReadableStreamBYOBRequest {
+        readonly view: ArrayBufferView | null;
+        respond(bytesWritten: number): void;
+        respondWithNewView(view: ArrayBufferView): void;
+    }
+    const ReadableStreamBYOBRequest: {
+        prototype: ReadableStreamBYOBRequest;
+        new (): ReadableStreamBYOBRequest;
+    };
     interface ReadableByteStreamController {
         readonly byobRequest: undefined;
         readonly desiredSize: number | null;
@@ -185,14 +234,33 @@ declare module 'stream/web' {
         transform?: TransformerTransformCallback<I, O>;
         writableType?: undefined;
     }
+    /**
+     * A TransformStream consists of a {@link ReadableStream} and a
+     * {@link WritableStream} that are connected such that the data written to
+     * the `WritableStream` is received, and potentially transformed, before
+     * being pushed into the `ReadableStream`'s queue.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-transformstream
+     * @since v16.5.0
+     */
     interface TransformStream<I = any, O = any> {
         readonly readable: ReadableStream<O>;
         readonly writable: WritableStream<I>;
     }
     const TransformStream: {
         prototype: TransformStream;
-        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+        new <I = any, O = any>(
+            transformer?: Transformer<I, O>,
+            writableStrategy?: QueuingStrategy<I>,
+            readableStrategy?: QueuingStrategy<O>,
+        ): TransformStream<I, O>;
     };
+    /**
+     * The `TransformStreamDefaultController` manages the internal state of the {@link TransformStream}.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-transformstreamdefaultcontroller
+     * @since v16.5.0
+     */
     interface TransformStreamDefaultController<O = any> {
         readonly desiredSize: number | null;
         enqueue(chunk?: O): void;
@@ -207,6 +275,9 @@ declare module 'stream/web' {
      * This Streams API interface provides a standard abstraction for writing
      * streaming data to a destination, known as a sink. This object comes with
      * built-in back pressure and queuing.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-writablestream
+     * @since v16.5.0
      */
     interface WritableStream<W = any> {
         readonly locked: boolean;
@@ -242,6 +313,9 @@ declare module 'stream/web' {
      * WritableStream's state. When constructing a WritableStream, the
      * underlying sink is given a corresponding WritableStreamDefaultController
      * instance to manipulate.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-writablestreamdefaultcontroller
+     * @since v18.0.0
      */
     interface WritableStreamDefaultController {
         error(e?: any): void;
@@ -272,6 +346,9 @@ declare module 'stream/web' {
     /**
      * This Streams API interface provides a built-in byte length queuing
      * strategy that can be used when constructing streams.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-bytelengthqueuingstrategy
+     * @since v16.5.0
      */
     interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
         readonly highWaterMark: number;
@@ -284,6 +361,9 @@ declare module 'stream/web' {
     /**
      * This Streams API interface provides a built-in byte length queuing
      * strategy that can be used when constructing streams.
+     *
+     * @see https://nodejs.org/api/webstreams.html#class-countqueuingstrategy
+     * @since v16.5.0
      */
     interface CountQueuingStrategy extends QueuingStrategy {
         readonly highWaterMark: number;
@@ -293,6 +373,10 @@ declare module 'stream/web' {
         prototype: CountQueuingStrategy;
         new (init: QueuingStrategyInit): CountQueuingStrategy;
     };
+    /**
+     * @see https://nodejs.org/api/webstreams.html#class-textencoderstream
+     * @since v16.6.0
+     */
     interface TextEncoderStream {
         /** Returns "utf-8". */
         readonly encoding: 'utf-8';
@@ -309,6 +393,10 @@ declare module 'stream/web' {
         ignoreBOM?: boolean;
     }
     type BufferSource = ArrayBufferView | ArrayBuffer;
+    /**
+     * @see https://nodejs.org/api/webstreams.html#class-textdecoderstream
+     * @since v16.6.0
+     */
     interface TextDecoderStream {
         /** Returns encoding's name, lower cased. */
         readonly encoding: string;
@@ -324,6 +412,206 @@ declare module 'stream/web' {
         prototype: TextDecoderStream;
         new (label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
+    /**
+     * @see https://nodejs.org/api/webstreams.html#class-compressionstream
+     * @since v17.0.0
+     */
+    interface CompressionStream<R = any, W = any> {
+        readable: ReadableStream<R>;
+        writable: WritableStream<W>;
+    }
+    const CompressionStream: {
+        prototype: CompressionStream;
+        new (format: 'deflate' | 'gzip'): CompressionStream;
+    };
+    /**
+     * @see https://nodejs.org/api/webstreams.html#class-decompressionstream
+     * @since v17.0.0
+     */
+    interface DecompressionStream<R = any, W = any> {
+        readable: ReadableStream<R>;
+        writable: WritableStream<W>;
+    }
+    const DecompressionStream: {
+        prototype: DecompressionStream;
+        new (format: 'deflate' | 'gzip'): DecompressionStream;
+    };
+
+    import {
+        ReadableStream as _ReadableStream,
+        ReadableStreamDefaultReader as _ReadableStreamDefaultReader,
+        ReadableStreamBYOBReader as _ReadableStreamBYOBReader,
+        ReadableStreamBYOBRequest as _ReadableStreamBYOBRequest,
+        WritableStream as _WritableStream,
+        WritableStreamDefaultWriter as _WritableStreamDefaultWriter,
+        WritableStreamDefaultController as _WritableStreamDefaultController,
+        TransformStream as _TransformStream,
+        TransformStreamDefaultController as _TransformStreamDefaultController,
+        ByteLengthQueuingStrategy as _ByteLengthQueuingStrategy,
+        CountQueuingStrategy as _CountQueuingStrategy,
+        TextEncoderStream as _TextEncoderStream,
+        TextDecoderStream as _TextDecoderStream,
+        CompressionStream as _CompressionStream,
+        DecompressionStream as _DecompressionStream,
+    } from 'stream/web';
+
+    global {
+        /**
+         * `ReadableStream` class is a global reference for `require('node:stream/web').ReadableStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-readablestream
+         * @since v18.0.0
+         */
+        interface ReadableStream<R = any> extends _ReadableStream<R> {}
+        var ReadableStream: typeof globalThis extends { onmessage: any; ReadableStream: infer T }
+            ? T
+            : typeof _ReadableStream;
+        /**
+         * `ReadableStreamDefaultReader` class is a global reference for `require('node:stream/web').ReadableStreamDefaultReader`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-readablestreamdefaultreader
+         * @since v18.0.0
+         */
+        interface ReadableStreamDefaultReader<R = any> extends _ReadableStreamDefaultReader<R> {}
+        var ReadableStreamDefaultReader: typeof globalThis extends {
+            onmessage: any;
+            ReadableStreamDefaultReader: infer T;
+        }
+            ? T
+            : typeof _ReadableStreamDefaultReader;
+        /**
+         * `ReadableStreamBYOBReader` class is a global reference for `require('node:stream/web').ReadableStreamBYOBReader`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-readablestreambyobreader
+         * @since v18.0.0
+         */
+        var ReadableStreamBYOBReader: typeof globalThis extends { onmessage: any; ReadableStreamBYOBReader: infer T }
+            ? T
+            : typeof _ReadableStreamBYOBReader;
+        /**
+         * `ReadableStreamBYOBRequest` class is a global reference for `require('node:stream/web').ReadableStreamBYOBRequest`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-readablestreambyobrequest
+         * @since v18.0.0
+         */
+        var ReadableStreamBYOBRequest: typeof globalThis extends { onmessage: any; ReadableStreamBYOBRequest: infer T }
+            ? T
+            : typeof _ReadableStreamBYOBRequest;
+        /**
+         * `WritableStream` class is a global reference for `require('node:stream/web').WritableStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-writablestream
+         * @since v18.0.0
+         */
+        interface WritableStream<W = any> extends _WritableStream<W> {}
+        var WritableStream: typeof globalThis extends { onmessage: any; WritableStream: infer T }
+            ? T
+            : typeof _WritableStream;
+        /**
+         * `WritableStreamDefaultWriter` class is a global reference for `require('node:stream/web').WritableStreamDefaultWriter`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-writablestreamdefaultwriter
+         * @since v18.0.0
+         */
+        interface WritableStreamDefaultWriter<W = any> extends _WritableStreamDefaultWriter<W> {}
+        var WritableStreamDefaultWriter: typeof globalThis extends {
+            onmessage: any;
+            WritableStreamDefaultWriter: infer T;
+        }
+            ? T
+            : typeof _WritableStreamDefaultWriter;
+        /**
+         * `WritableStreamDefaultController` class is a global reference for `require('node:stream/web').WritableStreamDefaultController`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-writablestreamdefaultcontroller
+         * @since v18.0.0
+         */
+        var WritableStreamDefaultController: typeof globalThis extends {
+            onmessage: any;
+            WritableStreamDefaultController: infer T;
+        }
+            ? T
+            : typeof _WritableStreamDefaultController;
+        /**
+         * `TransformStream` class is a global reference for `require('node:stream/web').TransformStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-transformstream
+         * @since v18.0.0
+         */
+        interface TransformStream<I = any, O = any> extends _TransformStream<I, O> {}
+        var TransformStream: typeof globalThis extends { onmessage: any; TransformStream: infer T }
+            ? T
+            : typeof _TransformStream;
+        /**
+         * `TransformStreamDefaultController` class is a global reference for `require('node:stream/web').TransformStreamDefaultController`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-transformstreamdefaultcontroller
+         * @since v18.0.0
+         */
+        interface TransformStreamDefaultController<O = any> extends _TransformStreamDefaultController<O> {}
+        var TransformStreamDefaultController: typeof globalThis extends {
+            onmessage: any;
+            TransformStreamDefaultController: infer T;
+        }
+            ? T
+            : typeof _TransformStreamDefaultController;
+        /**
+         * `ByteLengthQueuingStrategy` class is a global reference for `require('node:stream/web').ByteLengthQueuingStrategy`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-bytelengthqueuingstrategy
+         * @since v18.0.0
+         */
+        var ByteLengthQueuingStrategy: typeof globalThis extends { onmessage: any; ByteLengthQueuingStrategy: infer T }
+            ? T
+            : typeof _ByteLengthQueuingStrategy;
+        /**
+         * `CountQueuingStrategy` class is a global reference for `require('node:stream/web').CountQueuingStrategy`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-countqueuingstrategy
+         * @since v18.0.0
+         */
+        var CountQueuingStrategy: typeof globalThis extends { onmessage: any; CountQueuingStrategy: infer T }
+            ? T
+            : typeof _CountQueuingStrategy;
+        /**
+         * `TextEncoderStream` class is a global reference for `require('node:stream/web').TextEncoderStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-textencoderstream
+         * @since v18.0.0
+         */
+        var TextEncoderStream: typeof globalThis extends { onmessage: any; TextEncoderStream: infer T }
+            ? T
+            : typeof _TextEncoderStream;
+        /**
+         * `TextDecoderStream` class is a global reference for `require('node:stream/web').TextDecoderStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-textdecoderstream
+         * @since v18.0.0
+         */
+        var TextDecoderStream: typeof globalThis extends { onmessage: any; TextDecoderStream: infer T }
+            ? T
+            : typeof _TextDecoderStream;
+        /**
+         * `CompressionStream` class is a global reference for `require('node:stream/web').CompressionStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-compressionstream
+         * @since v18.0.0
+         */
+        interface CompressionStream<R = any, W = any> extends _CompressionStream<R, W> {}
+        var CompressionStream: typeof globalThis extends { onmessage: any; CompressionStream: infer T }
+            ? T
+            : typeof _CompressionStream;
+        /**
+         * `DecompressionStream` class is a global reference for `require('node:stream/web').DecompressionStream`
+         *
+         * @see https://nodejs.org/api/webstreams.html#class-decompressionstream
+         * @since v18.0.0
+         */
+        interface DecompressionStream<R = any, W = any> extends _DecompressionStream<R, W> {}
+        var DecompressionStream: typeof globalThis extends { onmessage: any; DecompressionStream: infer T }
+            ? T
+            : typeof _DecompressionStream;
+    }
 }
 declare module 'node:stream/web' {
     export * from 'stream/web';
