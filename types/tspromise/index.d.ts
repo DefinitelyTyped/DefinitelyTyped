@@ -26,8 +26,12 @@ declare module "tspromise" {
         static async<TR>(callback: () => TR): () => Thenable<TR>;
         static async<T1, TR>(callback: (p1: T1) => TR): (p1: T1) => Thenable<TR>;
         static async<T1, T2, TR>(callback: (p1: T1, p2: T2) => TR): (p1: T1, p2: T2) => Thenable<TR>;
-        static async<T1, T2, T3, TR>(callback: (p1: T1, p2: T2, p3: T3) => TR): (p1: T1, p2: T2, p3: T3) => Thenable<TR>;
-        static async<T1, T2, T3, T4, TR>(callback: (p1: T1, p2: T2, p3: T3, p4: T4) => TR): (p1: T1, p2: T2, p3: T3, p4: T4) => Thenable<TR>;
+        static async<T1, T2, T3, TR>(
+            callback: (p1: T1, p2: T2, p3: T3) => TR,
+        ): (p1: T1, p2: T2, p3: T3) => Thenable<TR>;
+        static async<T1, T2, T3, T4, TR>(
+            callback: (p1: T1, p2: T2, p3: T3, p4: T4) => TR,
+        ): (p1: T1, p2: T2, p3: T3, p4: T4) => Thenable<TR>;
         static spawn<TR>(generatorFunction: () => TR): Thenable<TR>;
         static rewriteFolderSync(path: string): void;
         static waitAsync(time: number): Thenable<{}>;

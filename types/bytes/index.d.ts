@@ -16,7 +16,7 @@ declare function bytes(value: number, options?: bytes.BytesOptions): string;
 declare function bytes(value: string): number;
 
 declare namespace bytes {
-    type Unit = 'b' | 'gb' | 'kb' | 'mb' | 'pb' | 'tb' | 'B' | 'GB' | 'KB' | 'MB' | 'PB' | 'TB';
+    type Unit = "b" | "gb" | "kb" | "mb" | "pb" | "tb" | "B" | "GB" | "KB" | "MB" | "PB" | "TB";
 
     interface BytesOptions {
         decimalPlaces?: number | undefined;

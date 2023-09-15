@@ -7,14 +7,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import Koa = require('koa');
-import webpack = require('webpack');
-import webpackDevMiddleware = require('webpack-dev-middleware');
-import webpackHotClient = require('webpack-hot-client');
+import Koa = require("koa");
+import webpack = require("webpack");
+import webpackDevMiddleware = require("webpack-dev-middleware");
+import webpackHotClient = require("webpack-hot-client");
 
-declare module 'koa' {
+declare module "koa" {
     interface DefaultState {
-        fs: webpackDevMiddleware.Options['fs'];
+        fs: webpackDevMiddleware.Options["fs"];
         stats: webpack.Stats;
     }
 }

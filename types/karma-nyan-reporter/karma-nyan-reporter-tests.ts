@@ -1,8 +1,8 @@
-import karma = require('karma');
+import karma = require("karma");
 
 module.exports = (config: karma.Config) => {
     config.set({
-        reporters: ['nyan'],
+        reporters: ["nyan"],
         nyanReporter: {
             suppressErrorReport: true,
             suppressErrorHighlighting: true,

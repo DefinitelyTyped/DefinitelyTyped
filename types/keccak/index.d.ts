@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 export class Keccak extends Transform {
     constructor(
         rate: number,
@@ -26,9 +26,9 @@ export class Shake extends Transform {
     squeeze(dataByteLength: number, encoding: BufferEncoding): string;
 }
 
-export type KeccakAlgorithm = 'keccak224' | 'keccak256' | 'keccak384' | 'keccak512';
-export type Sha3Algorithm = 'sha3-224' | 'sha3-256' | 'sha3-384' | 'sha3-512';
-export type ShakeAlgorithm = 'shake128' | 'shake256';
+export type KeccakAlgorithm = "keccak224" | "keccak256" | "keccak384" | "keccak512";
+export type Sha3Algorithm = "sha3-224" | "sha3-256" | "sha3-384" | "sha3-512";
+export type ShakeAlgorithm = "shake128" | "shake256";
 
 declare function create(algorithm: KeccakAlgorithm | Sha3Algorithm, options?: TransformOptions): Keccak;
 

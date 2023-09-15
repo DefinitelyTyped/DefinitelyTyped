@@ -1,4 +1,4 @@
-import { bytes } from '.';
+import { bytes } from ".";
 
 /**
  * Generate random bytes.
@@ -151,25 +151,25 @@ export function createHMAC(algorithm: Algorithm, secret: string | ArrayBuffer): 
  * Hash algorithm.
  */
 export type Algorithm =
-    | 'md4'
-    | 'md5'
-    | 'sha1'
-    | 'sha256'
-    | 'sha384'
-    | 'sha512'
-    | 'sha512_224'
-    | 'sha512_256'
-    | 'ripemd160';
+    | "md4"
+    | "md5"
+    | "sha1"
+    | "sha256"
+    | "sha384"
+    | "sha512"
+    | "sha512_224"
+    | "sha512_256"
+    | "ripemd160";
 
 /**
  * String output encoding.
  */
-export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+export type StringEncoding = "hex" | "base64" | "base64url" | "base64rawurl";
 
 /**
  * Binary output encoding.
  */
-export type BinaryEncoding = 'binary';
+export type BinaryEncoding = "binary";
 
 /**
  * Output encoding.
@@ -180,10 +180,8 @@ export type OutputEncoding = StringEncoding | BinaryEncoding;
  * Output type. Varies with output encoding.
  * @template OE - Output encoding.
  */
-export type Output<OE extends OutputEncoding> = OE extends StringEncoding
-    ? string
-    : OE extends BinaryEncoding
-    ? bytes
+export type Output<OE extends OutputEncoding> = OE extends StringEncoding ? string
+    : OE extends BinaryEncoding ? bytes
     : never;
 
 /**

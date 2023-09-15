@@ -7,9 +7,9 @@
 /// <reference types="sinon" />
 /// <reference types="sinon-chai" />
 
-import 'karma';
+import "karma";
 
-declare module 'karma' {
+declare module "karma" {
     interface ClientOptions {
         /**
          * chai config

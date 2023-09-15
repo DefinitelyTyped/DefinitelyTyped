@@ -73,7 +73,7 @@ interface Blake2bCtor {
      *   console.log('Blake2b hash of "hello world" is %s', hash)
      * })
      */
-    new (
+    new(
         digestLength?: number,
         key?: Uint8Array,
         salt?: Uint8Array,
@@ -109,14 +109,14 @@ declare namespace Blake2b {
         /**
          * Digest the hash.
          */
-        digest(enc?: 'binary'): Uint8Array;
+        digest(enc?: "binary"): Uint8Array;
         digest(enc: string): string;
         digest<T extends Uint8Array>(enc: T): T;
         /**
          * Digest the hash.
          */
-        final: Blake2b['digest'];
-        ready: Blake2bCtor['ready'];
+        final: Blake2b["digest"];
+        ready: Blake2bCtor["ready"];
         /**
          * @returns The current partial hash.
          */

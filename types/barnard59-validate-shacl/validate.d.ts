@@ -1,7 +1,7 @@
-import { DatasetCore } from '@rdfjs/types';
-import ValidationReport = require('rdf-validate-shacl/src/validation-report');
-import { Context } from 'barnard59-core/lib/Pipeline';
-import { Duplex, Readable } from 'stream';
+import { DatasetCore } from "@rdfjs/types";
+import ValidationReport = require("rdf-validate-shacl/src/validation-report");
+import { Context } from "barnard59-core/lib/Pipeline";
+import { Duplex, Readable } from "stream";
 
 export interface OnViolation {
     context: Context;
