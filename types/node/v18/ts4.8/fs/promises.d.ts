@@ -82,6 +82,7 @@ declare module 'fs/promises' {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+        highWaterMark?: number | undefined;
     }
     interface ReadableWebStreamOptions {
         /**
