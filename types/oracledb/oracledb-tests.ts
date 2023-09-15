@@ -538,7 +538,7 @@ const aqTests = async () => {
 export const thinTests = async () => {
     const c = await oracledb.getConnection();
 
-    const thin = await oracledb.thin;
+    const thin =  oracledb.thin;
 
     assert(thin === true);
 };
