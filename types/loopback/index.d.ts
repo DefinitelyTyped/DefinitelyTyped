@@ -43,7 +43,7 @@ declare namespace l {
      * @header var app = loopback();
      */
 
-    // interface ILoopbackAplication extends express.Application { };
+    // interface ILoopbackApplication extends express.Application { };
 
     interface LoopBackApplication extends core.Application {
         start(): void;
@@ -2480,7 +2480,7 @@ declare namespace l {
         permission: "ALARM" | "ALLOW" | "AUDIT" | "DENY";
 
         /** principalType Type of the principal; one of: Application, Use, Role. */
-        principalType: "Aplication" | "User" | "Role" | string;
+        principalType: "Application" | "User" | "Role" | string;
 
         /** principalId ID of the principal - such as appId, userId or roleId. */
         principalId: string;
