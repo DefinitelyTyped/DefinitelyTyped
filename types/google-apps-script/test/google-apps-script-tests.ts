@@ -83,6 +83,8 @@ const listAllUsers = () => {
         if (users) {
             for (const user of users) {
                 Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
+                // Test UserOrganization response as well.
+                Logger.log('%s - %s)', user.organizations[0].location, user.organizations[0].department);
             }
         } else {
             Logger.log('No users found.');
@@ -498,7 +500,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
                 // Rhino
                 '': {
                     dateInput: dateInputRhino,
-                    dateTimeInput: dateTimeInputRhino, 
+                    dateTimeInput: dateTimeInputRhino,
                     stringInputs: stringInputsRhino,
                     timeInput: timeInputRhino
                 }
@@ -771,7 +773,7 @@ const sheetFontColorObjects = () => {
 };
 
 const utilitiesParseDate = () => {
-  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
+    Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
 };
 
 // Spreadsheet Cell Image test
