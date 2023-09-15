@@ -63,7 +63,7 @@ export interface Hexbin<T> {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    x(x: (d: T) => number): this;
+    x(x: (d: T, i: number, a: T[]) => number): this;
 
     /**
      * Returns the current x-coordinate accessor, which defaults to: `x(d) => d[0]`.
@@ -72,7 +72,7 @@ export interface Hexbin<T> {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    x(): (d: T) => number;
+    x(): (d: T, i: number, a: T[]) => number;
 
     /**
      * Sets the y-coordinate accessor to the specified function and returns this hexbin generator.
@@ -81,7 +81,7 @@ export interface Hexbin<T> {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(y: (d: T) => number): this;
+    y(y: (d: T, i: number, a: T[]) => number): this;
 
     /**
      * Returns the current y-coordinate accessor, which defaults to: `y(d) => d[1]`.
@@ -90,7 +90,7 @@ export interface Hexbin<T> {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    y(): (d: T) => number;
+    y(): (d: T, i: number, a: T[]) => number;
 
     /**
      * Sets the radius of the hexagon to the specified number.
