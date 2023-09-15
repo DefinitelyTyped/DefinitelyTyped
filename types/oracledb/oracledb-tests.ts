@@ -540,7 +540,7 @@ export const thinTests = async () => {
 
     const thin =  oracledb.thin;
 
-    assert(thin === true);
+    assert(thin);
 };
 
 interface MyTableRow {
