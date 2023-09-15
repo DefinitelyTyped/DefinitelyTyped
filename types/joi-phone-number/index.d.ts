@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { StringSchema, Extension, Root, Reference } from 'joi';
+import { Extension, Reference, Root, StringSchema } from "joi";
 
-declare module 'joi' {
+declare module "joi" {
     interface PhoneNumberOptions {
         defaultCountry?: string[] | string | Reference | undefined;
         strict?: boolean | Reference | undefined;
-        format?: 'e164' | 'international' | 'national' | 'rfc3966' | Reference | undefined;
+        format?: "e164" | "international" | "national" | "rfc3966" | Reference | undefined;
     }
 
     interface StringSchema {
@@ -20,7 +20,7 @@ declare module 'joi' {
 }
 
 interface StringExtension extends Extension {
-    type: 'string';
+    type: "string";
     base: StringSchema;
 }
 

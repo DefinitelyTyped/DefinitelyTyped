@@ -74,7 +74,7 @@ interface JustifiedLayoutOptions {
      * If widows are visible, how should they be laid out?
      * @default "left"
      */
-    widowLayoutStyle?: 'left' | 'justify' | 'center' | undefined;
+    widowLayoutStyle?: "left" | "justify" | "center" | undefined;
 }
 
 /**
