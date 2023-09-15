@@ -83,8 +83,6 @@ const listAllUsers = () => {
         if (users) {
             for (const user of users) {
                 Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
-                // Test UserOrganization response as well.
-                Logger.log('%s - %s)', user.organizations[0].location, user.organizations[0].department);
             }
         } else {
             Logger.log('No users found.');
@@ -92,6 +90,31 @@ const listAllUsers = () => {
         pageToken = page.nextPageToken;
     } while (pageToken);
 };
+
+// Admin Directory - User Organization
+const listAllUserOrganizations = () => {
+    let pageToken: string;
+    let page: GoogleAppsScript.AdminDirectory.Schema.Users;
+    do {
+        page = AdminDirectory.Users.list({
+            domain: 'example.com',
+            orderBy: 'givenName',
+            maxResults: 100,
+            pageToken: pageToken,
+            viewType: 'domain_public',
+        });
+        const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
+        if (users) {
+            for (const user of users) {
+                Logger.log('%s: %s - %s)', user.name.fullName, user.organizations[0].location, user.organizations[0].department);
+            }
+        } else {
+            Logger.log('No users found.');
+        }
+        pageToken = page.nextPageToken;
+    } while (pageToken);
+};
+
 
 // doPost function
 function doPost(e: GoogleAppsScript.Events.DoPost) {
