@@ -1,6 +1,6 @@
 var color = $.Color("rgba(255, 255, 255, 0.4)");
-var color1 = $.Color({red: 255, green: 255, blue: 255});
-var color2 = $.Color({hue: 359, saturation: 0.5, lightness: 0.5});
+var color1 = $.Color({ red: 255, green: 255, blue: 255 });
+var color2 = $.Color({ hue: 359, saturation: 0.5, lightness: 0.5 });
 
 // getters
 var red = color.red();
@@ -23,13 +23,13 @@ var newLightness = color.lightness(0.5);
 // rgba methods
 var rgba = color.rgba();
 var newRgba1 = color.rgba(255, 255, 255, 0.5);
-var newRgba2 = color.rgba({red: 255, green: 255, blue: 255});
+var newRgba2 = color.rgba({ red: 255, green: 255, blue: 255 });
 var newRgba3 = color.rgba(rgba);
 
 // hsla methods
 var hsla = color.hsla();
 var newHsla1 = color.hsla(359, 0.5, 0.5, 0.5);
-var newHsla2 = color.hsla({hue: 359, saturation: 0.5, lightness: 0.5});
+var newHsla2 = color.hsla({ hue: 359, saturation: 0.5, lightness: 0.5 });
 var newHsla3 = color.hsla(hsla);
 
 // string methods

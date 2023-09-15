@@ -9,7 +9,7 @@ declare namespace jiff {
     type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
 
     type JSONPatch = Array<{
-        op: 'add' | 'remove' | 'replace' | 'move' | 'copy' | 'test';
+        op: "add" | "remove" | "replace" | "move" | "copy" | "test";
         path: string;
         value?: any;
         from?: string;
@@ -33,9 +33,9 @@ declare namespace jiff {
 }
 
 declare var jiff: {
-    InvalidPatchOperationError: new (message: string) => Error & { name: 'InvalidPatchOperationError' };
-    TestFailedError: new (message: string) => Error & { name: 'TestFailedError' };
-    PatchNotInvertibleError: new (message: string) => Error & { name: 'PatchNotInvertibleError' };
+    InvalidPatchOperationError: new(message: string) => Error & { name: "InvalidPatchOperationError" };
+    TestFailedError: new(message: string) => Error & { name: "TestFailedError" };
+    PatchNotInvertibleError: new(message: string) => Error & { name: "PatchNotInvertibleError" };
     /**
      * Create a deep copy of x which must be a legal JSON object/array/value
      * @param x object/array/value to clone

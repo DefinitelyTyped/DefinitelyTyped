@@ -1,45 +1,45 @@
-import jsonQuery = require('json-query');
+import jsonQuery = require("json-query");
 
 // API
 let data: jsonQuery.Context = {
     people: [
-        {name: 'Matt', country: 'NZ'},
-        {name: 'Pete', country: 'AU'},
-        {name: 'Mikey', country: 'NZ'}
-    ]
+        { name: "Matt", country: "NZ" },
+        { name: "Pete", country: "AU" },
+        { name: "Mikey", country: "NZ" },
+    ],
 };
-jsonQuery('people[country=NZ].name', {data}); // => {value: 'Matt', parents: [...], key: 0} ... etc
+jsonQuery("people[country=NZ].name", { data }); // => {value: 'Matt', parents: [...], key: 0} ... etc
 
 // Deep Queries
 data = {
     grouped_people: {
         friends: [
-            {name: 'Steve', country: 'NZ'},
-            {name: 'Jane', country: 'US'},
-            {name: 'Mike', country: 'AU'},
-            {name: 'Mary', country: 'NZ'}
+            { name: "Steve", country: "NZ" },
+            { name: "Jane", country: "US" },
+            { name: "Mike", country: "AU" },
+            { name: "Mary", country: "NZ" },
         ],
         enemies: [
-            {name: 'Evil Steve', country: 'AU'},
-            {name: 'Betty', country: 'NZ'}
-        ]
-    }
+            { name: "Evil Steve", country: "AU" },
+            { name: "Betty", country: "NZ" },
+        ],
+    },
 };
-const result: any = jsonQuery('grouped_people[**][*country=NZ]', {data}).value;
+const result: any = jsonQuery("grouped_people[**][*country=NZ]", { data }).value;
 
 // Inner Queries
 data = {
     page: {
-        id: 'page_1',
-        title: 'Test'
+        id: "page_1",
+        title: "Test",
     },
     comments_lookup: {
         page_1: [
-            {id: 'comment_1', parent_id: 'page_1', content: "I am a comment"}
-        ]
-    }
+            { id: "comment_1", parent_id: "page_1", content: "I am a comment" },
+        ],
+    },
 };
-jsonQuery('comments_lookup[{page.id}]', {data});
+jsonQuery("comments_lookup[{page.id}]", { data });
 
 // Local functions (helpers)
 const locals: jsonQuery.Locals = {
@@ -62,26 +62,26 @@ const locals: jsonQuery.Locals = {
         } else {
             return elseValue;
         }
-    }
+    },
 };
 data = {
     is_fullscreen: true,
     is_playing: false,
     user: {
         name: "Matthew McKegg",
-        known_as: "Matt"
-    }
+        known_as: "Matt",
+    },
 };
-jsonQuery('user:greetingName', {data, locals}).value; // => "Matt"
-jsonQuery(['is_fullscreen:and({is_playing}):then(?, ?)', "Playing big!", "Not so much"], {data, locals}).value; // => "Not so much"
-jsonQuery(':text(This displays text cos we made it so)', {locals}).value; // => "This displays text cos we made it so"
-jsonQuery('people:select(name, country)', {
+jsonQuery("user:greetingName", { data, locals }).value; // => "Matt"
+jsonQuery(["is_fullscreen:and({is_playing}):then(?, ?)", "Playing big!", "Not so much"], { data, locals }).value; // => "Not so much"
+jsonQuery(":text(This displays text cos we made it so)", { locals }).value; // => "This displays text cos we made it so"
+jsonQuery("people:select(name, country)", {
     data,
     locals: {
         select: (input: jsonQuery.Context, ...keys: string[]) => {
             if (Array.isArray(input)) {
                 return input.map((item: any) => {
-                    return Object.keys(item).reduce((result: {[p: string]: any}, key: string) => {
+                    return Object.keys(item).reduce((result: { [p: string]: any }, key: string) => {
                         if (~keys.indexOf(key)) {
                             result[key] = item[key];
                         }
@@ -89,51 +89,51 @@ jsonQuery('people:select(name, country)', {
                     }, {});
                 });
             }
-        }
-    }
+        },
+    },
 });
-jsonQuery('people[*:recentlyUpdated]', {
+jsonQuery("people[*:recentlyUpdated]", {
     data,
     locals: {
-        recentlyUpdated: (item: {updatedAt: number}) => {
+        recentlyUpdated: (item: { updatedAt: number }) => {
             return item.updatedAt < Date.now() - (30 * 24 * 60 * 60 * 1000);
-        }
-    }
+        },
+    },
 });
 
-jsonQuery('people[*:recentlyUpdated]', {
+jsonQuery("people[*:recentlyUpdated]", {
     data,
     filters: {
         uppercase: (item: any) => {
-		if (item.toUpperCase) {
-			return item.toUpperCase();
-		}
-        }
+            if (item.toUpperCase) {
+                return item.toUpperCase();
+            }
+        },
     },
     locals: {
-        recentlyUpdated: (item: {updatedAt: number}) => {
+        recentlyUpdated: (item: { updatedAt: number }) => {
             return item.updatedAt < Date.now() - (30 * 24 * 60 * 60 * 1000);
-        }
-    }
+        },
+    },
 });
 
 // Context
 data = {
     styles: {
-        bold: 'font-weight:strong',
-        red: 'color: red'
+        bold: "font-weight:strong",
+        red: "color: red",
     },
     paragraphs: [
-        {content: "I am a red paragraph", style: 'red'},
-        {content: "I am a bold paragraph", style: 'bold'},
+        { content: "I am a red paragraph", style: "red" },
+        { content: "I am a bold paragraph", style: "bold" },
     ],
 };
-let pageHtml = '';
-data.paragraphs.forEach((paragraph: {content: string, style: string}) => {
-    const style = jsonQuery('styles[{.style}]', {data, source: paragraph}).value;
-    const content = jsonQuery('.content', {data, source: paragraph}).value; // pretty pointless :)
+let pageHtml = "";
+data.paragraphs.forEach((paragraph: { content: string; style: string }) => {
+    const style = jsonQuery("styles[{.style}]", { data, source: paragraph }).value;
+    const content = jsonQuery(".content", { data, source: paragraph }).value; // pretty pointless :)
     pageHtml += `<p style='${style}'>${content}</p>`;
 });
 
 // Query Params
-jsonQuery(['people[country=?]', 'NZ'], {data});
+jsonQuery(["people[country=?]", "NZ"], { data });

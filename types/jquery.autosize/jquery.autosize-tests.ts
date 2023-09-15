@@ -1,13 +1,11 @@
-
-
 // from a NodeList
-autosize(document.querySelectorAll('textarea'));
+autosize(document.querySelectorAll("textarea"));
 
 // from a single Node
-autosize(document.querySelector('textarea'));
+autosize(document.querySelector("textarea"));
 
 // from a jQuery collection
-autosize($('textarea'));
+autosize($("textarea"));
 
 // from a single element
-autosize(document.getElementById('my-textarea'));
+autosize(document.getElementById("my-textarea"));
