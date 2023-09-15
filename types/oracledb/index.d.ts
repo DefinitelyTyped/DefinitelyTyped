@@ -1,4 +1,4 @@
-// Type definitions for oracledb 5.2
+// Type definitions for oracledb 6.0
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 //                 Dan Beglin <https://github.com/dannyb648>
