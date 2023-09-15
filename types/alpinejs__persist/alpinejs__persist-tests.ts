@@ -8,9 +8,9 @@ Alpine.plugin(persistPlugin);
     Alpine.$persist;
 
     const testObject: AlpineComponent<{
-        canFocus(): void;
+        canPersist(): void;
     }> = {
-        canFocus() {
+        canPersist() {
             // $ExpectType $persist
             this.$persist;
 
