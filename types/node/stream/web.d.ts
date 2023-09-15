@@ -141,9 +141,10 @@ declare module 'stream/web' {
     interface ReadableStream<R = any> {
         readonly locked: boolean;
         cancel(reason?: any): Promise<void>;
-        getReader(): ReadableStreamDefaultReader<R>;
-        getReader(options: { mode: 'byob' }): ReadableStreamBYOBReader;
-        getReader(options?: { mode?: 'byob' }): ReadableStreamReader<R>;
+        // FIXME error TS2430: Interface 'ReadableStream<R>' incorrectly extends interface 'import("stream/web").ReadableStream<R>'
+        // getReader(): ReadableStreamDefaultReader<R>;
+        // getReader(options: { mode: 'byob' }): ReadableStreamBYOBReader;
+        // getReader(options?: { mode?: 'byob' }): ReadableStreamReader<R>;
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -597,20 +598,21 @@ declare module 'stream/web' {
          * @see https://nodejs.org/api/webstreams.html#class-compressionstream
          * @since v18.0.0
          */
-        interface CompressionStream<R = any, W = any> extends _CompressionStream<R, W> {}
-        var CompressionStream: typeof globalThis extends { onmessage: any; CompressionStream: infer T }
-            ? T
-            : typeof _CompressionStream;
+        // FIXME error TS2320: Interface 'CompressionStream<R, W>' cannot simultaneously extend types 'GenericTransformStream' and 'CompressionStream<R, W>'
+        // interface CompressionStream<R = any, W = any> extends _CompressionStream<R, W> {}
+        // var CompressionStream: typeof globalThis extends { onmessage: any; CompressionStream: infer T }
+        //     ? T
+        //     : typeof _CompressionStream;
         /**
          * `DecompressionStream` class is a global reference for `require('node:stream/web').DecompressionStream`
          *
          * @see https://nodejs.org/api/webstreams.html#class-decompressionstream
          * @since v18.0.0
          */
-        interface DecompressionStream<R = any, W = any> extends _DecompressionStream<R, W> {}
-        var DecompressionStream: typeof globalThis extends { onmessage: any; DecompressionStream: infer T }
-            ? T
-            : typeof _DecompressionStream;
+        // interface DecompressionStream<R = any, W = any> extends _DecompressionStream<R, W> {}
+        // var DecompressionStream: typeof globalThis extends { onmessage: any; DecompressionStream: infer T }
+        //     ? T
+        //     : typeof _DecompressionStream;
     }
 }
 declare module 'node:stream/web' {
