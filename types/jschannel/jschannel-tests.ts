@@ -1,3 +1,3 @@
-import { build } from 'jschannel';
+import { build } from "jschannel";
 
-build({ window, origin: "*", scope: "testScope"});
+build({ window, origin: "*", scope: "testScope" });

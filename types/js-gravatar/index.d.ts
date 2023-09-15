@@ -18,7 +18,16 @@ declare namespace jsGravatar {
         /**
          *  What image should be used if email does not have a gravatar
          */
-        defaultImage?: '404' | 'mp' | 'identicon' | 'monsterid' | 'wavatar' | 'retro' | 'robohash' | 'blank' | undefined;
+        defaultImage?:
+            | "404"
+            | "mp"
+            | "identicon"
+            | "monsterid"
+            | "wavatar"
+            | "retro"
+            | "robohash"
+            | "blank"
+            | undefined;
         /**
          * Email address of the user to generate gravatar for
          */

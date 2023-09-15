@@ -7,7 +7,7 @@
 
 /// <reference types="jasmine"/>
 
-import * as React from 'react';
+import * as React from "react";
 
 declare global {
     namespace jasmine {

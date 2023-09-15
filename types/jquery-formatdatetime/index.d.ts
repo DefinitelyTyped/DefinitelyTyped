@@ -35,7 +35,7 @@ export type Options = Partial<{
     /**
      * Callback to convert number to ordinal suffix, e.g. 1 to st
      */
-    getSuffix: ((num: number) => string);
+    getSuffix: (num: number) => string;
 
     /**
      * Attribute which contains the datetime

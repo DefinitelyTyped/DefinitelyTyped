@@ -12,7 +12,11 @@ import * as React from "react";
  * This will normally be the React object but could be something else
  */
 interface ReactLikeObject {
-    createElement<P>(type: React.ComponentClass<P> | string, props: P, children: React.ReactNode): React.ReactElement<P>;
+    createElement<P>(
+        type: React.ComponentClass<P> | string,
+        props: P,
+        children: React.ReactNode,
+    ): React.ReactElement<P>;
 }
 
 type Module = (reactObj: ReactLikeObject) => CreateElement;

@@ -1,23 +1,23 @@
-import { AsyncParser, AsyncOptions, TransformStream, StreamOptions } from '@json2csv/whatwg';
-import { flatten, unwind } from '@json2csv/transforms';
-import defaultFormatter from '@json2csv/formatters';
+import defaultFormatter from "@json2csv/formatters";
+import { flatten, unwind } from "@json2csv/transforms";
+import { AsyncOptions, AsyncParser, StreamOptions, TransformStream } from "@json2csv/whatwg";
 
 const streamOptions: StreamOptions = {
     fields: [
-        'foo',
-        () => 'foo',
-        { value: 'foo' },
+        "foo",
+        () => "foo",
+        { value: "foo" },
         {
-            label: 'Foo',
-            value: 'foo',
-            default: 'bar',
+            label: "Foo",
+            value: "foo",
+            default: "bar",
         },
     ],
     transforms: [flatten(), unwind()],
     formatters: { object: defaultFormatter },
-    defaultValue: 'bar',
-    delimiter: '\t',
-    eol: '\r\n',
+    defaultValue: "bar",
+    delimiter: "\t",
+    eol: "\r\n",
     header: true,
     includeEmptyRows: true,
     withBOM: true,
@@ -27,7 +27,7 @@ const streamOptions: StreamOptions = {
 const asyncOptions: AsyncOptions = {
     stringBufferSize: 123,
     numberBufferSize: 123,
-    separator: '\t',
+    separator: "\t",
     objectMode: true,
 };
 
@@ -44,7 +44,7 @@ parser.asyncOpts; // $ExpectType AsyncOptions
 parser.readableStrategy; // $ExpectType QueuingStrategy<any> | undefined
 parser.writableStrategy; // $ExpectType QueuingStrategy<any> | undefined
 
-parser.parse('foo');
+parser.parse("foo");
 parser.parse(readableStream);
 parser.parse([]);
 parser.parse({});

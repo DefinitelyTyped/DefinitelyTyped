@@ -126,40 +126,40 @@ export interface Field {
 }
 
 export type ExtraTypeInfo =
-    | 'imageurl'
-    | 'personname'
-    | 'plaintextarea'
-    | 'richtextarea'
-    | 'switchablepersonname'
-    | 'externallookup'
-    | 'indirectlookup';
+    | "imageurl"
+    | "personname"
+    | "plaintextarea"
+    | "richtextarea"
+    | "switchablepersonname"
+    | "externallookup"
+    | "indirectlookup";
 
 export type FieldType =
-    | 'string'
-    | 'boolean'
-    | 'int'
-    | 'double'
-    | 'date'
-    | 'datetime'
-    | 'base64'
-    | 'id'
-    | 'reference'
-    | 'currency'
-    | 'textarea'
-    | 'percent'
-    | 'phone'
-    | 'url'
-    | 'email'
-    | 'combobox'
-    | 'picklist'
-    | 'multipicklist'
-    | 'anyType'
-    | 'location'
+    | "string"
+    | "boolean"
+    | "int"
+    | "double"
+    | "date"
+    | "datetime"
+    | "base64"
+    | "id"
+    | "reference"
+    | "currency"
+    | "textarea"
+    | "percent"
+    | "phone"
+    | "url"
+    | "email"
+    | "combobox"
+    | "picklist"
+    | "multipicklist"
+    | "anyType"
+    | "location"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'time'
-    | 'encryptedstring'
-    | 'address'
-    | 'complexvalue';
+    | "time"
+    | "encryptedstring"
+    | "address"
+    | "complexvalue";
 
 export interface FilteredLookupInfo {
     controllingFields: string[];
@@ -168,24 +168,24 @@ export interface FilteredLookupInfo {
 }
 
 export type SOAPType =
-    | 'tns:ID'
-    | 'xsd:anyType'
-    | 'xsd:base64Binary'
-    | 'xsd:boolean'
-    | 'xsd:date'
-    | 'xsd:dateTime'
-    | 'xsd:double'
-    | 'xsd:int'
-    | 'xsd:string'
+    | "tns:ID"
+    | "xsd:anyType"
+    | "xsd:base64Binary"
+    | "xsd:boolean"
+    | "xsd:date"
+    | "xsd:dateTime"
+    | "xsd:double"
+    | "xsd:int"
+    | "xsd:string"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'xsd:time'
-    | 'urn:address'
-    | 'urn:JunctionIdListNames'
-    | 'urn:location'
-    | 'urn:RecordTypesSupported'
-    | 'urn:RelationshipReferenceTo'
-    | 'urn:SearchLayoutButtonsDisplayed'
-    | 'urn:SearchLayoutFieldsDisplayed';
+    | "xsd:time"
+    | "urn:address"
+    | "urn:JunctionIdListNames"
+    | "urn:location"
+    | "urn:RecordTypesSupported"
+    | "urn:RelationshipReferenceTo"
+    | "urn:SearchLayoutButtonsDisplayed"
+    | "urn:SearchLayoutFieldsDisplayed";
 
 export interface PicklistEntry {
     active: boolean;

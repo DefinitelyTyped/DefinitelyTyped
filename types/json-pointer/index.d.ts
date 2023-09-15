@@ -162,13 +162,15 @@ declare namespace JsonPointer {
         compile(tokens: string[]): string;
     }
 
-    type BoundApi = {
-        [key in "get" | "remove" | "dict" | "walk" | "has"]: (
-            ...params: DropFirst<Parameters<Api[key]>>
-        ) => ReturnType<Api[key]>;
-    } & {
-        set: (...params: DropFirst<Parameters<Api["set"]>>) => BoundApi;
-    };
+    type BoundApi =
+        & {
+            [key in "get" | "remove" | "dict" | "walk" | "has"]: (
+                ...params: DropFirst<Parameters<Api[key]>>
+            ) => ReturnType<Api[key]>;
+        }
+        & {
+            set: (...params: DropFirst<Parameters<Api["set"]>>) => BoundApi;
+        };
 }
 
 type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;

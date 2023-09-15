@@ -42,8 +42,8 @@ declare namespace Qty {
     interface Type {
         (value: Source): Qty;
         (value: number, unit: string): Qty;
-        new (value: Source): Qty;
-        new (value: number, unit: string): Qty;
+        new(value: Source): Qty;
+        new(value: number, unit: string): Qty;
         parse(value: string): Qty;
         getKinds(): string[];
         getUnits(kind?: string): string[];

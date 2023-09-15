@@ -83,7 +83,7 @@ interface JSTreeStatic {
      * @param {Object} options options for this instance (extends `$.jstree.defaults`)
      * @return {jsTree} the new instance
      */
-    create(el: HTMLElement|JQuery|string, options?: JSTreeStaticDefaults): JSTree;
+    create(el: HTMLElement | JQuery | string, options?: JSTreeStaticDefaults): JSTree;
 
     /**
      * remove all traces of jstree from the DOM and destroy all instances
@@ -118,7 +118,7 @@ interface JSTreeStatic {
      * @param {DOMElement|jQuery|String} needle
      * @return {jsTree|null} the instance or `null` if not found
      */
-    reference(needle: HTMLElement|JQuery|string): JSTree;
+    reference(needle: HTMLElement | JQuery | string): JSTree;
 }
 
 interface JSTreeStaticDefaults {
@@ -453,16 +453,16 @@ interface JSTreeStaticDefaultsCoreThemes {
 }
 
 interface JSTreeStaticDefaultsCoreKeyboard {
-    'ctrl-space': (e: Event) => void;
-    'enter': (e: Event) => void;
-    'left': (e: Event) => void;
-    'up': (e: Event) => void;
-    'right': (e: Event) => void;
-    'down': (e: Event) => void;
-    '*': (e: Event) => void;
-    'home': (e: Event) => void;
-    'end': (e: Event) => void;
-    'f2': (e: Event) => void;
+    "ctrl-space": (e: Event) => void;
+    "enter": (e: Event) => void;
+    "left": (e: Event) => void;
+    "up": (e: Event) => void;
+    "right": (e: Event) => void;
+    "down": (e: Event) => void;
+    "*": (e: Event) => void;
+    "home": (e: Event) => void;
+    "end": (e: Event) => void;
+    "f2": (e: Event) => void;
 }
 
 interface JSTreeStaticDefaultsCheckbox {
@@ -880,7 +880,7 @@ interface JSTree extends JQuery {
      * @param {Object} options options for this instance
      * @trigger init.jstree, loading.jstree, loaded.jstree, ready.jstree, changed.jstree
      */
-    init: (el: HTMLElement|JQuery|string, options: any) => void;
+    init: (el: HTMLElement | JQuery | string, options: any) => void;
 
     /**
      * destroy an instance
@@ -908,7 +908,7 @@ interface JSTree extends JQuery {
      */
     bind: () => any;
 
-    _kbevent_to_func: (e: Event) => ((e: Event) => void);
+    _kbevent_to_func: (e: Event) => (e: Event) => void;
 
     /**
      * part of the destroying of an instance. Used internally.
@@ -1024,7 +1024,7 @@ interface JSTree extends JQuery {
      * @param  {mixed} obj
      * @return {jQuery}
      */
-    get_children_dom: (obj: any) => JQuery|boolean;
+    get_children_dom: (obj: any) => JQuery | boolean;
 
     /**
      * checks if a node has children
@@ -1093,7 +1093,12 @@ interface JSTree extends JQuery {
      * @param  {Boolean} is_callback - if false reloads node (AP - original comment missing in source code)
      * @param  {Boolean} force_reload - if true force reloads node (AP - original comment missing in source code)
      */
-    _load_nodes: (nodes: any[], callback?: (nodes: any[]) => void, is_callback?: boolean, force_reload?: boolean) => void;
+    _load_nodes: (
+        nodes: any[],
+        callback?: (nodes: any[]) => void,
+        is_callback?: boolean,
+        force_reload?: boolean,
+    ) => void;
 
     /**
      * loads all unloaded nodes
@@ -1177,7 +1182,7 @@ interface JSTree extends JQuery {
      * @name _redraw()
      * @trigger redraw.jstree
      */
-    _redraw: () => void ;
+    _redraw: () => void;
 
     /**
      * redraws all nodes that need to be redrawn or optionally - the whole tree
@@ -1552,7 +1557,15 @@ interface JSTree extends JQuery {
      * @param  {Boolean} instance internal parameter indicating if the node comes from another instance
      * @trigger move_node.jstree
      */
-    move_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean, origin?: boolean) => void;
+    move_node: (
+        obj: any,
+        par: any,
+        pos?: any,
+        callback?: (node: any, new_par: any, pos: any) => void,
+        is_loaded?: boolean,
+        skip_redraw?: boolean,
+        origin?: boolean,
+    ) => void;
 
     /**
      * copy a node to a new parent
@@ -1566,7 +1579,15 @@ interface JSTree extends JQuery {
      * @param  {Boolean} instance internal parameter indicating if the node comes from another instance
      * @trigger model.jstree copy_node.jstree
      */
-    copy_node: (obj: any, par: any, pos?: any, callback?: (node: any, new_par: any, pos: any) => void, is_loaded?: boolean, skip_redraw?: boolean, origin?: boolean) => void;
+    copy_node: (
+        obj: any,
+        par: any,
+        pos?: any,
+        callback?: (node: any, new_par: any, pos: any) => void,
+        is_loaded?: boolean,
+        skip_redraw?: boolean,
+        origin?: boolean,
+    ) => void;
 
     /**
      * cut a node (a later call to `paste(obj)` would move the node)
@@ -1967,7 +1988,14 @@ interface JSTree extends JQuery {
      * @plugin search
      * @trigger search.jstree
      */
-    search: (str: string, skip_async?: boolean, show_only_matches?: boolean, inside?: any, append?: boolean, show_only_matches_children?: boolean) => void;
+    search: (
+        str: string,
+        skip_async?: boolean,
+        show_only_matches?: boolean,
+        inside?: any,
+        append?: boolean,
+        show_only_matches_children?: boolean,
+    ) => void;
 
     /**
      * used to clear the last search (removes classes and shows all nodes if filtering is on)

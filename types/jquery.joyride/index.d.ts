@@ -3,7 +3,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import $ = require('jquery');
+import $ = require("jquery");
 
 declare global {
     /**

@@ -53,7 +53,7 @@ declare namespace core {
 
         match(
             path: ASTNode | ASTPath,
-            filter: ((path: ASTNode) => boolean) | ASTNode
+            filter: ((path: ASTNode) => boolean) | ASTNode,
         ): boolean;
 
         /** template, bound to default parser */

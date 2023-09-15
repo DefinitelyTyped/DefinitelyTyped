@@ -4,15 +4,8 @@
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 //                 Luis Felipe Zaguini <https://github.com/zaguiini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import {
-    DefaultFormats,
-    Duration,
-    Formats,
-    Locale,
-    RTFFormatter,
-    TimeUnit
-} from './locale';
-import { FormatStyle } from './style';
+import { DefaultFormats, Duration, Formats, Locale, RTFFormatter, TimeUnit } from "./locale";
+import { FormatStyle } from "./style";
 
 export = TimeAgo;
 

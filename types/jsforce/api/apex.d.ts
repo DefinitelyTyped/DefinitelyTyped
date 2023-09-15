@@ -1,4 +1,4 @@
-import { Connection, Callback, RestApiOptions } from '../connection';
+import { Callback, Connection, RestApiOptions } from "../connection";
 
 export class Apex {
     constructor(conn: Connection);

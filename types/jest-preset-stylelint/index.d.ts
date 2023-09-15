@@ -21,7 +21,8 @@ declare namespace JestPresetStylelint {
         reject?: RejectCase[] | undefined;
     }
 
-    type Syntax = "css-in-js"
+    type Syntax =
+        | "css-in-js"
         | "html"
         | "less"
         | "markdown"

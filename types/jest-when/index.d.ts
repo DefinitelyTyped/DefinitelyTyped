@@ -46,7 +46,7 @@ export interface WhenMockWithMatchers<T = any, Y extends any[] = any> {
 }
 
 export interface AllArgsMatcher<Y> {
-    (args: Y, equals: jest.MatcherUtils['equals']): boolean;
+    (args: Y, equals: jest.MatcherUtils["equals"]): boolean;
     // Internal, but needed to distinguish from normal callables
     _isAllArgsFunctionMatcher: true;
     _isFunctionMatcher: true;
@@ -55,7 +55,7 @@ export interface AllArgsMatcher<Y> {
 export interface When {
     <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>): WhenMock<T, Y>;
 
-    allArgs<Y extends any[]>(matcher: (args: Y, equals: jest.MatcherUtils['equals']) => boolean): AllArgsMatcher<Y>;
+    allArgs<Y extends any[]>(matcher: (args: Y, equals: jest.MatcherUtils["equals"]) => boolean): AllArgsMatcher<Y>;
 }
 
 export const when: When;

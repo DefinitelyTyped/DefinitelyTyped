@@ -22,10 +22,10 @@ export function stringify(
     value: unknown,
     replacer?: (key: string, value: unknown) => unknown | Array<number | string> | null,
     space?: string | number,
-    _options?: Options | boolean
+    _options?: Options | boolean,
 ): string;
 
 export function parse(
     text: string,
-    reviver?: (key: string, value: unknown) => unknown
+    reviver?: (key: string, value: unknown) => unknown,
 ): unknown;

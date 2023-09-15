@@ -3,4 +3,4 @@
 // Definitions by: Juansecu <https://github.com/Juansecu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './mcrypt';
+export * from "./mcrypt";

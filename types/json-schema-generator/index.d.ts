@@ -3,7 +3,7 @@
 // Definitions by: Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { JSONSchema4 } from 'json-schema';
+import { JSONSchema4 } from "json-schema";
 
 export = jsonToSchema;
 

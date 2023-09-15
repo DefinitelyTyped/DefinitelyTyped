@@ -1,4 +1,4 @@
-import toProtobuf from 'jsonschema-protobuf';
+import toProtobuf from "jsonschema-protobuf";
 
 // $ExpectType string
 toProtobuf(`

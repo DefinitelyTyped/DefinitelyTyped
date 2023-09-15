@@ -14,7 +14,7 @@ declare namespace JustifiedGallery {
         maxRowsCount?: number;
         margins?: number;
         border?: number;
-        lastRow?: 'justify' | 'nojustify' | 'left' | 'right' | 'center' | 'hide';
+        lastRow?: "justify" | "nojustify" | "left" | "right" | "center" | "hide";
         justifyThreshold?: number;
         waitThumbnailsLoad?: boolean;
         captions?: boolean;
@@ -32,7 +32,7 @@ declare namespace JustifiedGallery {
         filter?: false | string | ((value: HTMLElement, index: number, array: HTMLElement[]) => boolean);
         selector?: string;
         imgSelector?: string;
-        triggerEvent?: ((event: string | JQuery.Event) => void);
+        triggerEvent?: (event: string | JQuery.Event) => void;
     }
 
     interface CaptionSettings {

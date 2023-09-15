@@ -8,7 +8,7 @@ declare global {
 }
 
 export interface CssJsConstructor {
-    new (): CssJs;
+    new(): CssJs;
 }
 
 export const cssjs: CssJsConstructor;

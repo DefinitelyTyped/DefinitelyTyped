@@ -56,17 +56,17 @@ declare namespace JQueryNiceScroll {
             top?: number | undefined;
             left?: number | undefined;
         } | undefined;
-        railhoffset?: boolean  | {
+        railhoffset?: boolean | {
             top?: number | undefined;
             left?: number | undefined;
         } | undefined;
         bouncescroll?: boolean | undefined;
         spacebarenabled?: boolean | undefined;
         railpadding?: {
-          top: number;
-          right: number;
-          left: number;
-          bottom: number;
+            top: number;
+            right: number;
+            left: number;
+            bottom: number;
         } | undefined;
         disableoutline?: boolean | undefined;
         horizrailenabled?: boolean | undefined;

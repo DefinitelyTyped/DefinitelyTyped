@@ -1,8 +1,8 @@
-import jph = require('json-parse-helpfulerror');
-import { parse } from 'json-parse-helpfulerror';
+import jph = require("json-parse-helpfulerror");
+import { parse } from "json-parse-helpfulerror";
 
 const invalidJSON = "{'foo': 3}";
-const validJSON = '{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}';
+const validJSON = "{\"1\": 1, \"2\": 2, \"3\": {\"4\": 4, \"5\": {\"6\": 6}}}";
 
 try {
     JSON.parse(invalidJSON);

@@ -3,11 +3,11 @@
 // Definitions by: Vichyssoise <https://github.com/vichyssoise>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Topic = '은' | '는';
-export type Subject = '이' | '가';
-export type Objective = '을' | '를';
-export type Conjunction = '와' | '과';
-export type Means = '으로' | '로';
+export type Topic = "은" | "는";
+export type Subject = "이" | "가";
+export type Objective = "을" | "를";
+export type Conjunction = "와" | "과";
+export type Means = "으로" | "로";
 export type Josa = Topic | Subject | Objective | Conjunction | Means;
 
 /** 조사 플레이스홀더(ex. #{은})가 포함된 문자열을 입력받아 완성된 문자열을 반환합니다. */

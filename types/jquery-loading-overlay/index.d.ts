@@ -41,6 +41,6 @@ export type Options = Partial<{
 declare global {
     interface JQuery {
         loadingOverlay(options?: Options): JQuery;
-        loadingOverlay(method: 'remove', options?: Options): JQuery;
+        loadingOverlay(method: "remove", options?: Options): JQuery;
     }
 }

@@ -73,7 +73,7 @@ interface JQuery {
     /**
      * Recalculates the element's position.
      */
-    sticky(method: 'update'): JQuery;
+    sticky(method: "update"): JQuery;
 
     /**
      * To unstick an object.

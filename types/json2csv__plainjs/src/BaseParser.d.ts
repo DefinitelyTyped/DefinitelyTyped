@@ -1,4 +1,4 @@
-import { Field, FieldObject, Formatters } from '.';
+import { Field, FieldObject, Formatters } from ".";
 
 export interface Options {
     fields?: Field[] | undefined;

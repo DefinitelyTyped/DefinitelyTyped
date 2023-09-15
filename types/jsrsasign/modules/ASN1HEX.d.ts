@@ -4,89 +4,89 @@ declare namespace jsrsasign {
 
     type ASN1HEXParseResult =
         | {
-              bool: boolean;
-          }
+            bool: boolean;
+        }
         | {
-              int: {
-                  hex: string;
-              };
-          }
+            int: {
+                hex: string;
+            };
+        }
         | {
-              bitstr: {
-                  obj: ASN1HEXParseResult;
-              };
-          }
+            bitstr: {
+                obj: ASN1HEXParseResult;
+            };
+        }
         | {
-              bitstr: {
-                  hex: string;
-              };
-          }
+            bitstr: {
+                hex: string;
+            };
+        }
         | {
-              bitstr: {
-                  bin: string;
-              };
-          }
+            bitstr: {
+                bin: string;
+            };
+        }
         | {
-              octstr: {
-                  obj: ASN1HEXParseResult;
-              };
-          }
+            octstr: {
+                obj: ASN1HEXParseResult;
+            };
+        }
         | {
-              octstr: {
-                  hex: string;
-              };
-          }
+            octstr: {
+                hex: string;
+            };
+        }
         | {
-              null: '';
-          }
+            null: "";
+        }
         | {
-              oid: string;
-          }
+            oid: string;
+        }
         | {
-              oid: string;
-          }
+            oid: string;
+        }
         | {
-              enum: {
-                  hex: string;
-              };
-          }
+            enum: {
+                hex: string;
+            };
+        }
         | {
-              enum: number;
-          }
+            enum: number;
+        }
         | {
-              [tagName: string]: ASN1HEXParseResult[];
-          }
+            [tagName: string]: ASN1HEXParseResult[];
+        }
         | {
-              [tagName: string]: {
-                  str: string;
-              };
-          }
+            [tagName: string]: {
+                str: string;
+            };
+        }
         | {
-              tag: {
-                  tag: string;
-                  explicit: boolean;
-                  hex: string;
-              };
-          }
+            tag: {
+                tag: string;
+                explicit: boolean;
+                hex: string;
+            };
+        }
         | {
-              tag: {
-                  tag: string;
-                  explicit: false;
-                  str: string;
-              };
-          }
+            tag: {
+                tag: string;
+                explicit: false;
+                str: string;
+            };
+        }
         | {
-              tag: {
-                  tag: string;
-                  explicit: true;
-                  obj: ASN1HEXParseResult;
-              };
-          }
+            tag: {
+                tag: string;
+                explicit: true;
+                obj: ASN1HEXParseResult;
+            };
+        }
         | {
-              asn1: {
-                  tlv: string;
-              };
-          }
+            asn1: {
+                tlv: string;
+            };
+        }
         | ASN1HEXParseResult[];
 
     type ErrorReturn = any;

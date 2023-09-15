@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { ChildProcess } from 'child_process';
-import { WaitOnOptions } from 'wait-on';
+import { ChildProcess } from "child_process";
+import { WaitOnOptions } from "wait-on";
 
 export interface JestDevServerOptions {
     /**
@@ -86,7 +86,7 @@ export interface JestDevServerOptions {
      * }
      * ```
      */
-    protocol?: 'https' | 'http' | 'tcp' | 'socket' | undefined;
+    protocol?: "https" | "http" | "tcp" | "socket" | undefined;
 
     /**
      * Port to wait for activity on before considering the server running. If not provided, the server is assumed to immediately be running.
@@ -117,7 +117,7 @@ export interface JestDevServerOptions {
      *   usedPortAction: 'kill',
      * }
      */
-    usedPortAction?: 'ask' | 'error' | 'ignore' | 'kill' | undefined;
+    usedPortAction?: "ask" | "error" | "ignore" | "kill" | undefined;
 
     /**
      * jest-dev-server uses the wait-on npm package to wait for resources to become available before calling callback.
@@ -136,9 +136,9 @@ export interface JestDevServerOptions {
     waitOnScheme?: Partial<WaitOnOptions> | undefined;
 }
 
-export const ERROR_TIMEOUT: 'ERROR_TIMEOUT';
-export const ERROR_PORT_USED: 'ERROR_PORT_USED';
-export const ERROR_NO_COMMAND: 'ERROR_NO_COMMAND';
+export const ERROR_TIMEOUT: "ERROR_TIMEOUT";
+export const ERROR_PORT_USED: "ERROR_PORT_USED";
+export const ERROR_NO_COMMAND: "ERROR_NO_COMMAND";
 
 export function setup(
     options: JestDevServerOptions | JestDevServerOptions[],

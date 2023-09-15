@@ -1,45 +1,45 @@
-import { KJUR, ASN1HEX, KEYUTIL, b64toBA, b64tohex, RSAKey, X509, X509CRL } from 'jsrsasign';
+import { ASN1HEX, b64toBA, b64tohex, KEYUTIL, KJUR, RSAKey, X509, X509CRL } from "jsrsasign";
 
-const ec = new KJUR.crypto.ECDSA({ curve: 'secp256r1', pub: '1a2b3c', prv: '1a2b3c' });
+const ec = new KJUR.crypto.ECDSA({ curve: "secp256r1", pub: "1a2b3c", prv: "1a2b3c" });
 ec.generateKeyPairHex();
 ec.getPublicKeyXYHex();
 ec.generatePublicKeyHex();
-ec.parseSigHex('30...');
-ec.parseSigHexInHexRS('30...');
+ec.parseSigHex("30...");
+ec.parseSigHexInHexRS("30...");
 
-const mac = new KJUR.crypto.Mac({ alg: 'HS256', pass: { hex: '1a2b3c' } });
-mac.setPassword('123-abc');
-mac.setPassword({ rstr: '\x61\x61' });
+const mac = new KJUR.crypto.Mac({ alg: "HS256", pass: { hex: "1a2b3c" } });
+mac.setPassword("123-abc");
+mac.setPassword({ rstr: "\x61\x61" });
 
-KJUR.crypto.ECDSA.getName('2b8104000a');
+KJUR.crypto.ECDSA.getName("2b8104000a");
 
-new KJUR.asn1.cades.OtherHash('1234');
-new KJUR.asn1.cades.OtherHash({ alg: 'sha256', hash: '1234' });
-new KJUR.asn1.cades.OtherHash({ alg: 'sha256', cert: '' });
-new KJUR.asn1.cades.OtherHash({ cert: '' });
+new KJUR.asn1.cades.OtherHash("1234");
+new KJUR.asn1.cades.OtherHash({ alg: "sha256", hash: "1234" });
+new KJUR.asn1.cades.OtherHash({ alg: "sha256", cert: "" });
+new KJUR.asn1.cades.OtherHash({ cert: "" });
 
 new KJUR.asn1.x509.AuthorityKeyIdentifier({
     critical: true,
-    kid: { hex: '89ab' },
-    issuer: { str: '/C=US/CN=a' },
-    sn: { hex: '1234' },
+    kid: { hex: "89ab" },
+    issuer: { str: "/C=US/CN=a" },
+    sn: { hex: "1234" },
 });
 
-KEYUTIL.getKey('pemPKCS1PrivateKey');
+KEYUTIL.getKey("pemPKCS1PrivateKey");
 
-KEYUTIL.generateKeypair('RSA', 2048); // $ExpectType { prvKeyObj: RSAKey; pubKeyObj: RSAKey; }
-KEYUTIL.generateKeypair('EC', 'secp256r1'); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
+KEYUTIL.generateKeypair("RSA", 2048); // $ExpectType { prvKeyObj: RSAKey; pubKeyObj: RSAKey; }
+KEYUTIL.generateKeypair("EC", "secp256r1"); // $ExpectType { prvKeyObj: ECDSA; pubKeyObj: ECDSA; }
 
 const key = new RSAKey();
-const sig = key.signWithMessageHash('1234', 'sha256');
+const sig = key.signWithMessageHash("1234", "sha256");
 
-key.verifyWithMessageHash('1234', sig); // $ExpectType boolean
+key.verifyWithMessageHash("1234", sig); // $ExpectType boolean
 
-b64toBA('ZXhhbXBsZQ=='); // $ExpectType number[]
-b64tohex('ZXhhbXBsZQ=='); // $ExpectType string
+b64toBA("ZXhhbXBsZQ=="); // $ExpectType number[]
+b64tohex("ZXhhbXBsZQ=="); // $ExpectType string
 
-const pemPublicKey = '74657374206365727469666963617465';
-const pemCert = 'A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE';
+const pemPublicKey = "74657374206365727469666963617465";
+const pemCert = "A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE";
 const PEM_CERTIFICATE = `-----BEGIN CERTIFICATE-----
 MIIFtTCCA52gAwIBAgIJAO0cq2lJPZZJMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
 BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
@@ -75,24 +75,24 @@ R5M5azDV1CIhIeOTiPA/mq5fL1UrgVbB+IATIsUAQfuWivDyoeu96LB/QswyHAWG
 -----END CERTIFICATE-----
 `;
 
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, { utf8: '123abc' });
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', undefined, '123abc');
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', pemPublicKey, '123abc');
-KJUR.jws.JWS.sign(null, { alg: 'HS256' }, 'payload', { b64: 'ZXhhbXBsZQ==' }, '123abc');
+KJUR.jws.JWS.sign(null, { alg: "HS256" }, "payload", undefined, { utf8: "123abc" });
+KJUR.jws.JWS.sign(null, { alg: "HS256" }, "payload", undefined, "123abc");
+KJUR.jws.JWS.sign(null, { alg: "HS256" }, "payload", pemPublicKey, "123abc");
+KJUR.jws.JWS.sign(null, { alg: "HS256" }, "payload", { b64: "ZXhhbXBsZQ==" }, "123abc");
 
-KJUR.jws.JWS.verifyJWT('', new RSAKey(), {});
-KJUR.jws.JWS.verifyJWT('', '', {});
-KJUR.jws.JWS.verifyJWT('', '', { gracePeriod: 1 });
+KJUR.jws.JWS.verifyJWT("", new RSAKey(), {});
+KJUR.jws.JWS.verifyJWT("", "", {});
+KJUR.jws.JWS.verifyJWT("", "", { gracePeriod: 1 });
 
 const pubKey = KEYUTIL.getKey(pemPublicKey); // or certificate
 const x509 = new X509();
 x509.readCertPEM(pemCert);
 x509.verifySignature(pubKey); // $ExpectType boolean
 x509.verifySignature(pemCert); // $ExpectType boolean
-x509.getExtSubjectKeyIdentifier('sampleExt', true); // $ExpectType { extname: string; kid: Hex; critical?: boolean | undefined; }
+x509.getExtSubjectKeyIdentifier("sampleExt", true); // $ExpectType { extname: string; kid: Hex; critical?: boolean | undefined; }
 x509.getSubject(); // $ExpectType IdentityResponse
 x509.getIssuer(); // $ExpectType IdentityResponse
-x509.getExtAuthorityKeyIdentifier('sampleExt', true); // $ExpectType AuthorityKeyIdentifierResult
+x509.getExtAuthorityKeyIdentifier("sampleExt", true); // $ExpectType AuthorityKeyIdentifierResult
 
 const params = KJUR.asn1.csr.CSRUtil.getParam(pemCert); // $ExpectType ParamResponse
 const crq = new KJUR.asn1.csr.CertificationRequest(params);
@@ -105,40 +105,40 @@ crqi2.getEncodedHex(); // $ExpectType string
 
 const tbscert = new KJUR.asn1.x509.TBSCertificate({
     version: 3, // this can be omitted, the default is 3.
-    serial: { hex: '1234...' }, // DERInteger parameter
-    sigalg: 'SHA256withRSA',
-    issuer: { array: [[{ type: 'O', value: 'Test', ds: 'prn' }]] }, // X500Name parameter
-    notbefore: '151231235959Z', // string, passed to Time
-    notafter: '251231235959Z', // string, passed to Time
-    subject: { array: [[{ type: 'O', value: 'Test', ds: 'prn' }]] }, // X500Name parameter
-    sbjpubkey: '-----BEGIN...', // KEYUTIL.getKey pubkey parameter
+    serial: { hex: "1234..." }, // DERInteger parameter
+    sigalg: "SHA256withRSA",
+    issuer: { array: [[{ type: "O", value: "Test", ds: "prn" }]] }, // X500Name parameter
+    notbefore: "151231235959Z", // string, passed to Time
+    notafter: "251231235959Z", // string, passed to Time
+    subject: { array: [[{ type: "O", value: "Test", ds: "prn" }]] }, // X500Name parameter
+    sbjpubkey: "-----BEGIN...", // KEYUTIL.getKey pubkey parameter
     // As for extension parameters, please see extension class
     // All extension parameters need to have "extname" parameter additionaly.
     ext: [
         {
-            extname: 'keyUsage',
+            extname: "keyUsage",
             critical: true,
-            names: ['digitalSignature', 'keyEncipherment'],
+            names: ["digitalSignature", "keyEncipherment"],
         },
         {
-            extname: 'authorityKeyIdentifier',
+            extname: "authorityKeyIdentifier",
             critical: true,
-            kid: { hex: '01020304' },
-            issuer: { str: '/C=US/CN=TEST' },
-            sn: { hex: '01020304' },
+            kid: { hex: "01020304" },
+            issuer: { str: "/C=US/CN=TEST" },
+            sn: { hex: "01020304" },
         },
         {
-            extname: 'cRLDistributionPoints',
-            array: [{ dpname: { full: [{ uri: 'http://example.com/a1.crl' }] } }],
+            extname: "cRLDistributionPoints",
+            array: [{ dpname: { full: [{ uri: "http://example.com/a1.crl" }] } }],
         },
     ],
 });
-new KJUR.asn1.x509.Certificate({ tbsobj: tbscert, sigalg: 'SHA256withRSA', cakey: '------BEGIN...' });
+new KJUR.asn1.x509.Certificate({ tbsobj: tbscert, sigalg: "SHA256withRSA", cakey: "------BEGIN..." });
 
 // ASN1HEX
-ASN1HEX.checkStrictDER('0203012345');
-ASN1HEX.oidname('551d25');
-ASN1HEX.getString('01020304', 0);
+ASN1HEX.checkStrictDER("0203012345");
+ASN1HEX.oidname("551d25");
+ASN1HEX.getString("01020304", 0);
 
 // X509CRL
 const x509crl = new X509CRL(`-----BEGIN X509 CRL-----
@@ -151,5 +151,5 @@ uZLFeYZPNVXgF217YOCtJtKDT+16bR5kgk0p/1xIbgReshjMNTmXPqARNjE=
 x509crl.getIssuer();
 x509crl.getRevCertArray();
 x509crl.findRevCert(PEM_CERTIFICATE);
-x509crl.findRevCertBySN('0000');
+x509crl.findRevCertBySN("0000");
 x509crl.getParam();

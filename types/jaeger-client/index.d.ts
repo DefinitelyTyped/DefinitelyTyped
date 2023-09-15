@@ -106,12 +106,12 @@ export class JaegerTracer extends opentracing.Tracer {
 
 export function initTracer(
     tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
+    tracingOptions: TracingOptions,
 ): JaegerTracer;
 
 export function initTracerFromEnv(
     tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
+    tracingOptions: TracingOptions,
 ): JaegerTracer;
 
 export class PrometheusMetricsFactory {

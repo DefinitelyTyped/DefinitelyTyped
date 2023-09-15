@@ -3,7 +3,7 @@
 // Definitions by: Adam Golan <https://github.com/Tismas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { LaunchOptions, ScreenshotOptions, Viewport, Page } from 'puppeteer';
+import { LaunchOptions, Page, ScreenshotOptions, Viewport } from "puppeteer";
 
 export interface GenerateImageOptions {
     launch?: LaunchOptions | undefined;
@@ -16,6 +16,6 @@ export interface GenerateImageOptions {
 }
 
 export function debug(element?: Element | Document): void;
-export function generateImage(options?: GenerateImageOptions): ReturnType<Page['screenshot']>;
+export function generateImage(options?: GenerateImageOptions): ReturnType<Page["screenshot"]>;
 export function restoreDefaultOptions(): void;
 export function setDefaultOptions(options: GenerateImageOptions): void;

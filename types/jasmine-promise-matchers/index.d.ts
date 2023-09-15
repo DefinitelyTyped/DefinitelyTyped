@@ -9,12 +9,11 @@
 declare function installPromiseMatchers(): void;
 
 declare namespace jasmine {
-
-    interface Matchers <T>{
+    interface Matchers<T> {
         /**
          * Verifies that a value is a $q Promise.
          */
-        toBePromise(): boolean
+        toBePromise(): boolean;
 
         /**
          * Verifies that a Promise is (or has been) rejected.

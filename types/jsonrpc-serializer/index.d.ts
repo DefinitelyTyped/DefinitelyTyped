@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
-export type PayloadType = 'request' | 'notification' | 'success' | 'error';
+export type PayloadType = "request" | "notification" | "success" | "error";
 // export const PayloadType = {
 //    request: 'request' as PayloadType,
 //    notification: 'notification' as PayloadType,
@@ -67,7 +67,12 @@ export function deserializeObject(msg: PayloadObject): DeserializeObject;
 export type errorHandler = (errors: string[] | null) => void;
 
 export namespace err {
-    type ErrorName = 'JsonRpcError' | 'ParseError' | 'InvalidRequestError' | 'MethodNotFoundError' | 'InvalidParamsError';
+    type ErrorName =
+        | "JsonRpcError"
+        | "ParseError"
+        | "InvalidRequestError"
+        | "MethodNotFoundError"
+        | "InvalidParamsError";
     // const ErrorName = {
     //    JsonRpcError: 'JsonRpcError' as ErrorName,
     //    ParseError: 'ParseError' as ErrorName,

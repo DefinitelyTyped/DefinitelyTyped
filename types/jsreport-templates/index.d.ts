@@ -3,7 +3,7 @@
 // Definitions by: pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition, TemplateBase } from 'jsreport-core';
+import { ExtensionDefinition, TemplateBase } from "jsreport-core";
 
 declare namespace JsReportTemplates {
     interface NamedTemplate extends TemplateBase {
@@ -11,7 +11,7 @@ declare namespace JsReportTemplates {
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         NamedTemplate: JsReportTemplates.NamedTemplate;
     }

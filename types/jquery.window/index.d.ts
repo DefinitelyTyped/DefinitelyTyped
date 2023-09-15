@@ -96,11 +96,11 @@ declare namespace JQueryWindow {
         /**
         change frame content
         **/
-        setContent(content: string|JQuery|HTMLElement): void;
+        setContent(content: string | JQuery | HTMLElement): void;
         /**
         change footer content
         **/
-        setFooterContent(content: string|JQuery|HTMLElement): void;
+        setFooterContent(content: string | JQuery | HTMLElement): void;
         /**
         get window title text
         **/
@@ -185,7 +185,7 @@ declare namespace JQueryWindow {
         /**
         the area which the windows will dock at
         **/
-        dockArea?: JQuery|HTMLElement | undefined;
+        dockArea?: JQuery | HTMLElement | undefined;
         /**
         the speed of animations: maximize, minimize, restore, shift, in milliseconds
         **/
@@ -225,11 +225,11 @@ declare namespace JQueryWindow {
         /**
         this attribute only works when url is null. when passing a jquery object or a element, it will clone the original one to append.
         **/
-        content?: string|JQuery|HTMLElement | undefined;
+        content?: string | JQuery | HTMLElement | undefined;
         /**
         same as content attribute, but it's put on footer panel.
         **/
-        footerContent?: string|JQuery|HTMLElement | undefined;
+        footerContent?: string | JQuery | HTMLElement | undefined;
         /**
         container extra class
         **/
@@ -447,7 +447,6 @@ declare namespace JQueryWindow {
         **/
         callback: (btn: JQueryWindow.Button, wnd: JQueryWindow.Window) => void;
     }
-
 }
 
 // Register with JQuery instance

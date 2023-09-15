@@ -3,8 +3,8 @@
 // Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { JSONSchema4, JSONSchema6, JSONSchema7, ValidationError } from 'json-schema';
-import { WError } from 'verror';
+import { JSONSchema4, JSONSchema6, JSONSchema7, ValidationError } from "json-schema";
+import { WError } from "verror";
 
 /**
  * Creates a deep copy of a primitive type, object, or array of primitive types.
@@ -162,7 +162,11 @@ export function iso8601(d: Readonly<Date | number>): string;
  *
  *  returns: { 'objectMode': true, 'highWaterMark': 16 }
  */
-export function mergeObjects(provided?: Readonly<object>, overrides?: Readonly<object>, defaults?: Readonly<object>): { [key: string]: unknown };
+export function mergeObjects(
+    provided?: Readonly<object>,
+    overrides?: Readonly<object>,
+    defaults?: Readonly<object>,
+): { [key: string]: unknown };
 
 /**
  * Parses a date expressed as a string, as either a number of milliseconds since the epoch or any string format that
@@ -288,4 +292,7 @@ export function validateJsonObject(schema: JSONSchema4 | JSONSchema6 | JSONSchem
  *
  * On failure, returns (does not throw) a useful Error object.
  */
-export function validateJsonObjectJS(schema: JSONSchema4 | JSONSchema6 | JSONSchema7, input: object): JsPrimError | null;
+export function validateJsonObjectJS(
+    schema: JSONSchema4 | JSONSchema6 | JSONSchema7,
+    input: object,
+): JsPrimError | null;

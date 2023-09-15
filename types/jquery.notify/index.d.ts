@@ -28,5 +28,5 @@ interface JQueryNotifyInstance {
     close(): void;
     open(): void;
 }
-interface JQueryNotifyWidget extends JQuery  {
+interface JQueryNotifyWidget extends JQuery {
 }

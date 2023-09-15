@@ -16,16 +16,16 @@ declare namespace JQueryToastmessage {
         /* shows a toast message of the specified type */
         (command: ShowToastCommand, message: string): JQuery;
         /** shows a custom toast */
-        (command: 'showToast', toastOpts: ToastOptions): JQuery;
+        (command: "showToast", toastOpts: ToastOptions): JQuery;
         /** removes the specified toast and returns it */
-        (command: 'removeToast', toast: JQuery, closeOpts?: ToastOptions): void;
+        (command: "removeToast", toast: JQuery, closeOpts?: ToastOptions): void;
         /** configures the default toast options */
         (toastOpts: ToastOptions): void;
     }
 
-    type ShowToastCommand = 'showNoticeToast' | 'showSuccessToast' | 'showWarningToast' | 'showErrorToast';
-    type ToastType = 'notice' | 'warning' | 'error' | 'success';
-    type ToastPosition = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'middle-center' | 'middle-right';
+    type ShowToastCommand = "showNoticeToast" | "showSuccessToast" | "showWarningToast" | "showErrorToast";
+    type ToastType = "notice" | "warning" | "error" | "success";
+    type ToastPosition = "top-left" | "top-center" | "top-right" | "middle-left" | "middle-center" | "middle-right";
 
     interface ToastOptions {
         /** in effect duration in miliseconds @default 600 */

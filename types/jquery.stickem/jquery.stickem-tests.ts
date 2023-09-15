@@ -1,19 +1,19 @@
 // without options
-$('div').stickem();
+$("div").stickem();
 
-jQuery('div').stickem();
+jQuery("div").stickem();
 
 // with options
-$('div').stickem({item:
-    '.stickem',
-    container: '.stickem-container',
-    stickClass: 'stickit',
-    endStickClass: 'stickit-end'
+$("div").stickem({
+    item: ".stickem",
+    container: ".stickem-container",
+    stickClass: "stickit",
+    endStickClass: "stickit-end",
 });
 
-jQuery('div').stickem({
-    item: '.stickem',
-    container: '.stickem-container',
-    stickClass: 'stickit',
-    endStickClass: 'stickit-end'
+jQuery("div").stickem({
+    item: ".stickem",
+    container: ".stickem-container",
+    stickClass: "stickit",
+    endStickClass: "stickit-end",
 });

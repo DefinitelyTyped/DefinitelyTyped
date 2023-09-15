@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ExtensionDefinition, Template } from 'jsreport-core';
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportPhantomPdf {
     interface Margin {
@@ -23,7 +23,7 @@ declare namespace JsReportPhantomPdf {
         headerHeight: string;
         footerHeight: string;
         format: string;
-        orientation: 'portrait' | 'landscape';
+        orientation: "portrait" | "landscape";
         blockJavaScript: boolean;
         resourceTimeout: number;
         waitForJS: boolean;
@@ -41,7 +41,7 @@ declare namespace JsReportPhantomPdf {
         allowLocalFilesAccess: boolean;
         // appDirectory: string;
         defaultPhantomjsVersion: string;
-        strategy: 'dedicated-process' | 'phantom-server';
+        strategy: "dedicated-process" | "phantom-server";
         timeout: number;
     }
 
@@ -51,11 +51,11 @@ declare namespace JsReportPhantomPdf {
 
     interface PhantomPDFTemplate extends Template {
         phantom?: Partial<Phantom> | undefined;
-        recipe: 'phantom-pdf' | string;
+        recipe: "phantom-pdf" | string;
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         PhantomPDFTemplate: JsReportPhantomPdf.PhantomPDFTemplate;
     }

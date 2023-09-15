@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FacingModes {
-    USER: 'user';
-    ENVIRONMENT: 'environment';
+    USER: "user";
+    ENVIRONMENT: "environment";
 }
 
 interface ImageTypes {
-    PNG: 'png';
-    JPG: 'jpg';
+    PNG: "png";
+    JPG: "jpg";
 }
 
-type FacingMode = 'user' | 'environment';
-type ImageType = 'png' | 'jpg';
+type FacingMode = "user" | "environment";
+type ImageType = "png" | "jpg";
 
 interface Resolution {
-    height?: MediaTrackConstraints['height'] | undefined;
-    width?: MediaTrackConstraints['width'] | undefined;
+    height?: MediaTrackConstraints["height"] | undefined;
+    width?: MediaTrackConstraints["width"] | undefined;
 }
 
 export const FACING_MODES: FacingModes;

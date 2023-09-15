@@ -12,13 +12,13 @@ declare namespace JsonFileStore {
     }
 
     interface Options {
-        type?: 'single' | 'memory' | undefined;
+        type?: "single" | "memory" | undefined;
         pretty?: boolean | undefined;
         saveId?: boolean | string | undefined;
     }
 
     interface JsonFileStore {
-        new <T extends Storable>(name?: string, opts?: Options): Instance<T>;
+        new<T extends Storable>(name?: string, opts?: Options): Instance<T>;
     }
 
     interface Instance<T> {

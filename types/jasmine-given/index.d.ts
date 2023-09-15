@@ -7,10 +7,10 @@
 
 /** Action method that should be called when the async work is complete */
 interface DoneFn {
-  (): void;
+    (): void;
 
-  /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
-  fail: (message?: Error | string) => void;
+    /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
+    fail: (message?: Error | string) => void;
 }
 
 declare function Given(func: (done: DoneFn) => void): void;

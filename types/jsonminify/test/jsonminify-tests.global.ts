@@ -1,1 +1,1 @@
-JSON.minify('{ "foo": "bar" }'); // $ExpectType string
+JSON.minify("{ \"foo\": \"bar\" }"); // $ExpectType string

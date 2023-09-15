@@ -18,6 +18,6 @@ export type Options = Partial<{
 declare global {
     interface JQuery {
         gray(options?: Options): JQuery;
-        toggleClass(className: 'grayscale-off'): JQuery;
+        toggleClass(className: "grayscale-off"): JQuery;
     }
 }

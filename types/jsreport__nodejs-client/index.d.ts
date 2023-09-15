@@ -3,8 +3,8 @@
 // Definitions by: reediculous456 <https://github.com/reediculous456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import JsReport = require('jsreport');
-import { ServerResponse } from 'http';
+import JsReport = require("jsreport");
+import { ServerResponse } from "http";
 
 declare namespace createJsReportClient {
     interface ClientRenderResponse extends ServerResponse {

@@ -23,7 +23,7 @@ export interface Matchs {
     kindle?: boolean | undefined;
     playbook?: boolean | undefined;
     silk?: boolean | undefined;
-    ['windows phone']?: boolean | undefined;
+    ["windows phone"]?: boolean | undefined;
     cros?: boolean | undefined;
     mac?: boolean | undefined;
     linux?: boolean | undefined;
@@ -35,7 +35,7 @@ export interface Matchs {
     iemobile?: boolean | undefined;
     msie?: boolean | undefined;
     msedge?: boolean | undefined;
-    uaMatch: ((ua?: string) => Matchs);
+    uaMatch: (ua?: string) => Matchs;
 }
 declare global {
     interface Window {

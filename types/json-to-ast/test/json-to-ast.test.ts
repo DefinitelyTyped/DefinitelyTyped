@@ -4,7 +4,7 @@ import parse = require("json-to-ast");
 jsonToAst;
 
 // $ExpectType ValueNode
-const ast = parse('{"a": 1}');
+const ast = parse("{\"a\": 1}");
 processValueNode(ast);
 
 function logPos(node: parse.ASTNode) {

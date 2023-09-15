@@ -1,4 +1,4 @@
-import { crc32, crc16 } from "js-crc";
+import { crc16, crc32 } from "js-crc";
 
 // $ExpectType string
 const crc32value = crc32("test");

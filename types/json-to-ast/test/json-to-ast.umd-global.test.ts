@@ -1,5 +1,5 @@
 // $ExpectType ValueNode
-const ast = jsonToAst('{"a": 1}');
+const ast = jsonToAst("{\"a\": 1}");
 processValueNode(ast);
 
 function logPos(node: jsonToAst.ASTNode) {

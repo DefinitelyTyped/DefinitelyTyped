@@ -112,35 +112,28 @@ declare namespace jsts {
          * in a context where envelope overlap is already known to occur (or be likely).
          */
         export class LineIntersector {
-            /**
-             */
+            /** */
             static COLLINEAR: number;
             /**
              * Indicates that line segments intersect in a line segment
-             *
              */
             static COLLINEAR_INTERSECTION: number;
-            /**
-             */
+            /** */
             static DO_INTERSECT: number;
             /**
              * These are deprecated, due to ambiguous naming
-             *
              */
             static DONT_INTERSECT: number;
             /**
              * Indicates that line segments do not intersect
-             *
              */
             static NO_INTERSECTION: number;
             /**
              * Indicates that line segments intersect in a single point
-             *
              */
             static POINT_INTERSECTION: number;
 
-            /**
-             */
+            /** */
             constructor();
 
             /**
@@ -204,7 +197,6 @@ declare namespace jsts {
             getIntersectionNum(): number;
 
             /**
-             *
              * @param {int} intIndex is 0 or 1
              * @returns the intIndex'th intersection point
              */
@@ -286,8 +278,7 @@ declare namespace jsts {
          * A robust version of {@link LineIntersector}.
          */
         export class RobustLineIntersector extends LineIntersector {
-            /**
-             */
+            /** */
             constructor();
 
             /**
@@ -448,7 +439,6 @@ declare namespace jsts {
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
          *
          * JSTS methods currently do not handle inputs with different precision models.
-         *
          */
         export class PrecisionModel {
             static FIXED: string;
@@ -456,7 +446,6 @@ declare namespace jsts {
             static FLOATING_SINGLE: string;
 
             /**
-             *
              * @param modelType
              */
             constructor(modelType?: number | string);
@@ -737,20 +726,16 @@ declare namespace jsts {
          * coordinate values and accessor methods.
          */
         export class Coordinate {
-            /**
-             */
+            /** */
             constructor(x: number, y: number);
 
-            /**
-             */
+            /** */
             constructor(c: Coordinate);
 
-            /**
-             */
+            /** */
             constructor();
 
-            /**
-             */
+            /** */
             constructor(x: number, y: number, z: number);
 
             /**
@@ -1406,7 +1391,7 @@ declare namespace jsts {
             getGeometryType(): string;
 
             /**
-             *Returns the number of {@link Geometry}s in a {@link GeometryCollection}
+             * Returns the number of {@link Geometry}s in a {@link GeometryCollection}
              * (or 1, if the geometry is not a collection).
              *
              * @return {number} the number of geometries contained in this geometry.
@@ -2001,22 +1986,22 @@ declare namespace jsts {
 
             /**
              * Computes a buffer area around this geometry having the given width and
-             * with a specified accuracy of approximation for circular arcs. 
+             * with a specified accuracy of approximation for circular arcs.
              * Mathematically-exact buffer area boundaries can contain circular arcs.
              * To represent these arcs using linear geometry they must be approximated with line segments.
              * The quadrantSegments argument allows controlling the accuracy of the approximation
-             * by specifying the number of line segments used to represent a quadrant of a circle. 
+             * by specifying the number of line segments used to represent a quadrant of a circle.
              * The buffer operation always returns a polygonal result.
              * The negative or zero-distance buffer of lines and points is always an empty Polygon.
              * This is also the result for the buffers of degenerate (zero-area) polygons.
-        
+
              * @param {double} distance the width of the buffer (may be positive, negative or 0)
              * @param {int} quadrantSegments the number of line segments used to represent a quadrant of a circle
-             * 
+             *
              * @returns a polygonal geometry representing the buffer region (which may be empty)
-             * 
+             *
              * @throws {TopologyException} if a robustness error occurs
-             * 
+             *
              * @see #buffer(double)
              * @see #buffer(double, int, int)
              */
@@ -2340,13 +2325,11 @@ declare namespace jsts {
             checkNotGeometryCollection(g: Geometry): void;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection.
              */
             isGeometryCollection(): boolean;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection but not subclass.
              */
             isGeometryCollectionBase(): boolean;
@@ -2490,8 +2473,7 @@ declare namespace jsts {
         export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
-            /**
-             */
+            /** */
             constructor(points: Array<Coordinate>, factory?: any);
 
             /**
@@ -2567,8 +2549,7 @@ declare namespace jsts {
         }
 
         export class Point extends Geometry {
-            /**
-             */
+            /** */
             constructor(coordinate: Coordinate, factory?: any);
 
             /**
@@ -2588,8 +2569,7 @@ declare namespace jsts {
         }
 
         export class MultiPoint extends GeometryCollection {
-            /**
-             */
+            /** */
             constructor(points: Point[], factory: GeometryFactory);
             /**
              * @deprecated Use GeometryFactory instead
@@ -2633,8 +2613,7 @@ declare namespace jsts {
          * Specification for SQL</A>.
          */
         export class Polygon extends Geometry {
-            /**
-             */
+            /** */
             constructor(shell: LinearRing, holes?: Array<LinearRing>, factory?: any);
 
             /**
@@ -3093,9 +3072,9 @@ declare namespace jsts {
              *  Compares this object with the specified object for order.
              *  Uses the standard lexicographic ordering for the points in the LineSegment.
              *
-             *@param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
+             * @param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
              *      is being compared
-             *@return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
+             * @return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
              *      is less than, equal to, or greater than the specified <code>LineSegment</code>
              */
             compareTo(o: LineSegment): number;
@@ -3178,8 +3157,7 @@ declare namespace jsts {
          * <P>
          */
         export class WKTReader {
-            /**
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3197,8 +3175,7 @@ declare namespace jsts {
         }
 
         export class WKTWriter {
-            /**
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3261,22 +3238,18 @@ declare namespace jsts {
             export class BufferParameters {
                 /**
                  * Specifies a round line buffer end cap style.
-                 *
                  */
                 static CAP_ROUND: number;
                 /**
                  * Specifies a flat line buffer end cap style.
-                 *
                  */
                 static CAP_FLAT: number;
                 /**
                  * Specifies a square line buffer end cap style.
-                 *
                  */
                 static CAP_SQUARE: number;
                 /**
                  * Specifies a round join style.
-                 *
                  */
                 static JOIN_ROUND: number;
                 /**
@@ -3285,7 +3258,6 @@ declare namespace jsts {
                 static JOIN_MITRE: number;
                 /**
                  * Specifies a bevel join style.
-                 *
                  */
                 static JOIN_BEVEL: number;
 
@@ -3293,18 +3265,15 @@ declare namespace jsts {
                  * The default number of facets into which to divide a fillet of 90 degrees. A
                  * value of 8 gives less than 2% max error in the buffer distance. For a max
                  * error of < 1%, use QS = 12. For a max error of < 0.1%, use QS = 18.
-                 *
                  */
                 static DEFAULT_QUADRANT_SEGMENTS: number;
                 /**
                  * The default mitre limit Allows fairly pointy mitres.
-                 *
                  */
                 static DEFAULT_MITRE_LIMIT: number;
 
                 /**
                  * Contains the parameters which describe how a buffer should be constructed.
-                 *
                  */
                 constructor(quadrantSegments?: number, endCapStyle?: number, joinStyle?: number, mitreLimit?: number);
 
@@ -3474,7 +3443,6 @@ declare namespace jsts {
              * <li>{@link #CAP_SQUARE} - end caps are squared off at the buffer distance
              * beyond the line ends
              * </ul>
-             *
              */
             export class BufferOp {
                 /**
@@ -3483,7 +3451,6 @@ declare namespace jsts {
                  *
                  * This value should be less than the decimal precision of double-precision
                  * values (16).
-                 *
                  */
                 static MAX_PRECISION_DIGITS: number;
 
@@ -3538,7 +3505,6 @@ declare namespace jsts {
                  * @param {BufferParameters}
                  *          params the buffer parameters to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp2(g: Geometry, distance: number, params: BufferParameters): Geometry;
 
@@ -3554,7 +3520,6 @@ declare namespace jsts {
                  *          quadrantSegments the number of segments used to approximate a
                  *          quarter circle.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp3(g: Geometry, distance: number, quadrantSegments: number): Geometry;
 
@@ -3572,7 +3537,6 @@ declare namespace jsts {
                  * @param {int}
                  *          endCapStyle the end cap style to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp4(
                     g: Geometry,
@@ -3716,7 +3680,6 @@ declare namespace jsts {
             export class GeometryLocation {
                 /**
                  * A special value of segmentIndex used for locations inside area geometries.
-                 *
                  */
                 static INSIDE_AREA: number;
 
@@ -3881,7 +3844,6 @@ declare namespace jsts {
                 add(geometry: Geometry): void;
 
                 /**
-                 *
                  * Adds a collection of Geometries to be processed. May be called multiple times.
                  * Any dimension of Geometry may be added; the constituent linework will be extracted.
                  *
@@ -4195,6 +4157,6 @@ declare namespace java {
     }
 }
 
-declare module 'jsts' {
+declare module "jsts" {
     export = jsts;
 }

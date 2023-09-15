@@ -5,7 +5,7 @@
 
 declare class Graph {
     grid: Array<Array<GridNode>>;
-    constructor(grid: Array<Array<number>>, options?: {diagonal?: boolean | undefined});
+    constructor(grid: Array<Array<number>>, options?: { diagonal?: boolean | undefined });
 }
 
 declare class GridNode {
@@ -14,7 +14,7 @@ declare class GridNode {
 }
 
 interface Heuristic {
-    (pos0: {x: number, y: number}, pos1: {x: number, y: number}): number;
+    (pos0: { x: number; y: number }, pos1: { x: number; y: number }): number;
 }
 
 interface Heuristics {
@@ -25,13 +25,12 @@ interface Heuristics {
 declare namespace astar {
     function search(
         graph: Graph,
-        start: {x: number, y: number},
-        end: {x: number, y: number},
+        start: { x: number; y: number },
+        end: { x: number; y: number },
         options?: {
-            closest?: boolean | undefined,
-            heuristic?: Heuristic | undefined
-        }
+            closest?: boolean | undefined;
+            heuristic?: Heuristic | undefined;
+        },
     ): Array<GridNode>;
     var heuristics: Heuristics;
 }
-

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.5
 
-import { ConstructorOptions } from 'jsdom';
+import { ConstructorOptions } from "jsdom";
 
 export = jsdomGlobal;
 

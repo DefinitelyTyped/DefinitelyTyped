@@ -320,7 +320,7 @@ describe("Included matchers:", () => {
 
 describe("toThrowMatching", () => {
     expect(() => {
-        (({} as any).doSomething());
+        ({} as any).doSomething();
     }).toThrowMatching(error => error !== undefined);
 });
 
@@ -1340,8 +1340,8 @@ describe("custom asymmetry", () => {
             return matchersUtil.equals(secondValue, "bar");
         },
         jasmineToString(pp) {
-            return 'an asymmetric tester for ' + pp('bar');
-        }
+            return "an asymmetric tester for " + pp("bar");
+        },
     };
 
     it("dives in deep", () => {
@@ -1440,10 +1440,10 @@ describe("jasmine.objectContaining", () => {
         );
     });
 
-    describe('stringContaining', () => {
-        it('passes', () => {
-            expect('foot').toEqual(jasmine.stringContaining('foo'));
-            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+    describe("stringContaining", () => {
+        it("passes", () => {
+            expect("foot").toEqual(jasmine.stringContaining("foo"));
+            expect("foot").toEqual(jasmine.stringContaining(/foo/));
         });
     });
 
@@ -2042,7 +2042,7 @@ describe("better typed spys", () => {
     });
     describe("spyOnProperty", () => {
         it("works", () => {
-            const obj = {prop: "test", otherProp: 1};
+            const obj = { prop: "test", otherProp: 1 };
             const getSpy = spyOnProperty(obj, "prop");
             getSpy.and.returnValue("spy");
             // @ts-expect-error
@@ -2080,10 +2080,10 @@ describe("better typed spys", () => {
                 return 0;
             }
             toString(): string {
-                return '';
+                return "";
             }
             toLocaleString(): string {
-                return '';
+                return "";
             }
             // Also make sure we don't throw type errors when using a more specific return type.
             valueOf(): boolean {
@@ -2091,10 +2091,10 @@ describe("better typed spys", () => {
             }
         }
         it("works for classes that override Object prototype methods", () => {
-            jasmine.createSpyObj<TestOverride>("TestOverride", {method: 1});
+            jasmine.createSpyObj<TestOverride>("TestOverride", { method: 1 });
         });
         it("allows spying on Object prototype methods", () => {
-            jasmine.createSpyObj<TestOverride>("TestOverride", {toString: '', toLocaleString: '', valueOf: false});
+            jasmine.createSpyObj<TestOverride>("TestOverride", { toString: "", toLocaleString: "", valueOf: false });
         });
     });
 });
@@ -2273,7 +2273,7 @@ describe("Randomize Tests", () => {
         }).not.toThrow();
         const env = jasmine.getEnv();
         const seed1 = env.seed(42); // $ExpectType string | number
-        const seed2 = env.seed('42'); // $ExpectType string | number
+        const seed2 = env.seed("42"); // $ExpectType string | number
     });
 });
 
@@ -2487,7 +2487,7 @@ describe("Jasmine constructor", () => {
 
     it("creates new Jasmine instance with args", () => {
         const instance = new JasmineClass({
-            projectBaseDir: 'foo',
+            projectBaseDir: "foo",
         });
         expect(instance).toBeInstanceOf(JasmineClass);
     });

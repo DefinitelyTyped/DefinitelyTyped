@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 interface JQueryCustomSelectOption {
     customClass?: string | undefined;
@@ -13,5 +13,5 @@ interface JQueryCustomSelectOption {
 }
 
 interface JQuery {
-    customSelect(val:JQueryCustomSelectOption): JQuery;
+    customSelect(val: JQueryCustomSelectOption): JQuery;
 }

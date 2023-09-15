@@ -33,11 +33,11 @@ interface JQRangeSliderDateSteps {
 }
 
 interface jQRangeSliderScale {
-    first?: ((min:number, max:number) => number) | undefined; // compute the ruler first value.
-    next: (value:any) => any; // compute the next value.
-    label?: ((value:any, nextValue:any) => string) | undefined; // compute displayed text for a given internal
-    stop?: ((value:any) => boolean) | undefined; // 'true' to stop scale generating ticks from a given value
-    format?: ((tickContainer:any, tickStartValue:any, tickEndValue:any) => void) | undefined; // customise the tick container DOM element (passed as jQuery object)
+    first?: ((min: number, max: number) => number) | undefined; // compute the ruler first value.
+    next: (value: any) => any; // compute the next value.
+    label?: ((value: any, nextValue: any) => string) | undefined; // compute displayed text for a given internal
+    stop?: ((value: any) => boolean) | undefined; // 'true' to stop scale generating ticks from a given value
+    format?: ((tickContainer: any, tickStartValue: any, tickEndValue: any) => void) | undefined; // customise the tick container DOM element (passed as jQuery object)
     // doco example mentions 'end' function in example but it's not supported: https://github.com/ghusse/jQRangeSlider/blob/master/jQRuler.js#L12
 }
 
@@ -81,11 +81,11 @@ interface JQuery {
 
     editRangeSlider(method: string): any;
     editRangeSlider(method: string, value: number): JQuery;
-    editRangeSlider(method: string, min: number, max: number): JQuery
+    editRangeSlider(method: string, min: number, max: number): JQuery;
     editRangeSlider(options?: JQEditRangeSliderOptions): JQuery;
 
     dateRangeSlider(method: string): any;
     dateRangeSlider(method: string, value: Date): JQuery;
-    dateRangeSlider(method: string, min: Date, max: Date): JQuery
+    dateRangeSlider(method: string, min: Date, max: Date): JQuery;
     dateRangeSlider(options?: JQDateRangeSliderOptions): JQuery;
 }

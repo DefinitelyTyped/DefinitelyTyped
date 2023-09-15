@@ -23,12 +23,9 @@ type Mapped<
     Tuple extends unknown[],
     Result extends unknown[] = [],
     Count extends ReadonlyArray<number> = [],
-> = Count['length'] extends MAXIMUM_ALLOWED_BOUNDARY
-    ? Result
-    : Tuple extends []
-    ? []
-    : Result extends []
-    ? Mapped<Tuple, Tuple, [...Count, 1]>
+> = Count["length"] extends MAXIMUM_ALLOWED_BOUNDARY ? Result
+    : Tuple extends [] ? []
+    : Result extends [] ? Mapped<Tuple, Tuple, [...Count, 1]>
     : Mapped<Tuple, Result | [...Result, ...Tuple], [...Count, 1]>;
 /**
  * Used for the "if" operation, which takes an array of odd length
@@ -37,40 +34,40 @@ type Mapped<
 type AnyArrayOfOddLengthMin3 = [any, ...Mapped<[any, any]>];
 
 export type ReservedOperations =
-    | 'var'
-    | 'missing'
-    | 'missing_some'
-    | 'if'
-    | '=='
-    | '==='
-    | '!='
-    | '!=='
-    | '!'
-    | '!!'
-    | 'or'
-    | 'and'
-    | '>'
-    | '>='
-    | '<'
-    | '<='
-    | 'max'
-    | 'min'
-    | '+'
-    | '-'
-    | '*'
-    | '/'
-    | '%'
-    | 'map'
-    | 'filter'
-    | 'reduce'
-    | 'all'
-    | 'none'
-    | 'some'
-    | 'merge'
-    | 'in'
-    | 'cat'
-    | 'substr'
-    | 'log';
+    | "var"
+    | "missing"
+    | "missing_some"
+    | "if"
+    | "=="
+    | "==="
+    | "!="
+    | "!=="
+    | "!"
+    | "!!"
+    | "or"
+    | "and"
+    | ">"
+    | ">="
+    | "<"
+    | "<="
+    | "max"
+    | "min"
+    | "+"
+    | "-"
+    | "*"
+    | "/"
+    | "%"
+    | "map"
+    | "filter"
+    | "reduce"
+    | "all"
+    | "none"
+    | "some"
+    | "merge"
+    | "in"
+    | "cat"
+    | "substr"
+    | "log";
 
 /**
  * This can be an object with any key except the reserved keys.
@@ -85,25 +82,25 @@ interface AllReservedOperationsInterface<AddOps extends AdditionalOperation = ne
     missing: RulesLogic<AddOps> | any[];
     missing_some: [RulesLogic<AddOps>, RulesLogic<AddOps> | any[]];
     if: AnyArrayOfOddLengthMin3;
-    '==': [any, any];
-    '===': [any, any];
-    '!=': [any, any];
-    '!==': [any, any];
-    '!': any;
-    '!!': any;
+    "==": [any, any];
+    "===": [any, any];
+    "!=": [any, any];
+    "!==": [any, any];
+    "!": any;
+    "!!": any;
     or: Array<RulesLogic<AddOps>>;
     and: Array<RulesLogic<AddOps>>;
-    '>': [RulesLogic<AddOps>, RulesLogic<AddOps>];
-    '>=': [RulesLogic<AddOps>, RulesLogic<AddOps>];
-    '<': [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
-    '<=': [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
+    ">": [RulesLogic<AddOps>, RulesLogic<AddOps>];
+    ">=": [RulesLogic<AddOps>, RulesLogic<AddOps>];
+    "<": [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
+    "<=": [RulesLogic<AddOps>, RulesLogic<AddOps>] | [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
     max: Array<RulesLogic<AddOps>>;
     min: Array<RulesLogic<AddOps>>;
-    '+': Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
-    '-': Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
-    '*': Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
-    '/': Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
-    '%': [RulesLogic<AddOps>, RulesLogic<AddOps>];
+    "+": Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
+    "-": Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
+    "*": Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
+    "/": Array<RulesLogic<AddOps>> | RulesLogic<AddOps>;
+    "%": [RulesLogic<AddOps>, RulesLogic<AddOps>];
     map: [RulesLogic<AddOps>, RulesLogic<AddOps>];
     filter: [RulesLogic<AddOps>, RulesLogic<AddOps>];
     reduce: [RulesLogic<AddOps>, RulesLogic<AddOps>, RulesLogic<AddOps>];
@@ -120,132 +117,130 @@ interface AllReservedOperationsInterface<AddOps extends AdditionalOperation = ne
 
 export type JsonLogicVar<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'var'
+    "var"
 >;
 export type JsonLogicMissing<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'missing'
+    "missing"
 >;
 export type JsonLogicMissingSome<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'missing_some'
+    "missing_some"
 >;
-export type JsonLogicIf = Pick<AllReservedOperationsInterface, 'if'>;
-export type JsonLogicEqual = Pick<AllReservedOperationsInterface, '=='>;
-export type JsonLogicStrictEqual = Pick<AllReservedOperationsInterface, '==='>;
-export type JsonLogicNotEqual = Pick<AllReservedOperationsInterface, '!='>;
-export type JsonLogicStrictNotEqual = Pick<AllReservedOperationsInterface, '!=='>;
-export type JsonLogicNegation = Pick<AllReservedOperationsInterface, '!'>;
-export type JsonLogicDoubleNegation = Pick<AllReservedOperationsInterface, '!!'>;
+export type JsonLogicIf = Pick<AllReservedOperationsInterface, "if">;
+export type JsonLogicEqual = Pick<AllReservedOperationsInterface, "==">;
+export type JsonLogicStrictEqual = Pick<AllReservedOperationsInterface, "===">;
+export type JsonLogicNotEqual = Pick<AllReservedOperationsInterface, "!=">;
+export type JsonLogicStrictNotEqual = Pick<AllReservedOperationsInterface, "!==">;
+export type JsonLogicNegation = Pick<AllReservedOperationsInterface, "!">;
+export type JsonLogicDoubleNegation = Pick<AllReservedOperationsInterface, "!!">;
 export type JsonLogicOr<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'or'
+    "or"
 >;
 export type JsonLogicAnd<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'and'
+    "and"
 >;
 export type JsonLogicGreaterThan<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '>'
+    ">"
 >;
 export type JsonLogicGreaterThanOrEqual<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '>='
+    ">="
 >;
 export type JsonLogicLessThan<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '<'
+    "<"
 >;
 export type JsonLogicLessThanOrEqual<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '<='
+    "<="
 >;
 export type JsonLogicMax<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'max'
+    "max"
 >;
 export type JsonLogicMin<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'min'
+    "min"
 >;
 export type JsonLogicSum<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '+'
+    "+"
 >;
 export type JsonLogicDifference<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '-'
+    "-"
 >;
 export type JsonLogicProduct<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '*'
+    "*"
 >;
 export type JsonLogicQuotient<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '/'
+    "/"
 >;
 export type JsonLogicRemainder<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    '%'
+    "%"
 >;
 export type JsonLogicMap<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'map'
+    "map"
 >;
 export type JsonLogicFilter<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'filter'
+    "filter"
 >;
 export type JsonLogicReduce<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'reduce'
+    "reduce"
 >;
 export type JsonLogicAll<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'all'
+    "all"
 >;
 export type JsonLogicNone<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'none'
+    "none"
 >;
 export type JsonLogicSome<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'some'
+    "some"
 >;
 export type JsonLogicMerge<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'merge'
+    "merge"
 >;
 export type JsonLogicInArray<AddOps extends AdditionalOperation = never> = RenameToIn<
-    Pick<AllReservedOperationsInterface<AddOps>, 'inArray'>
+    Pick<AllReservedOperationsInterface<AddOps>, "inArray">
 >;
 export type JsonLogicInString<AddOps extends AdditionalOperation = never> = RenameToIn<
-    Pick<AllReservedOperationsInterface<AddOps>, 'inString'>
+    Pick<AllReservedOperationsInterface<AddOps>, "inString">
 >;
 export type JsonLogicCat<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'cat'
+    "cat"
 >;
 export type JsonLogicSubstr<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'substr'
+    "substr"
 >;
 export type JsonLogicLog<AddOps extends AdditionalOperation = never> = Pick<
     AllReservedOperationsInterface<AddOps>,
-    'log'
+    "log"
 >;
 
 export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | boolean
     | string
     | number
-
     // Accessing Data - https://jsonlogic.com/operations.html#accessing-data
     | JsonLogicVar<AddOps>
     | JsonLogicMissing<AddOps>
     | JsonLogicMissingSome<AddOps>
-
     // Logic and Boolean Operations - https://jsonlogic.com/operations.html#logic-and-boolean-operations
     | JsonLogicIf
     | JsonLogicEqual
@@ -256,7 +251,6 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | JsonLogicDoubleNegation
     | JsonLogicOr<AddOps>
     | JsonLogicAnd<AddOps>
-
     // Numeric Operations - https://jsonlogic.com/operations.html#numeric-operations
     | JsonLogicGreaterThan<AddOps>
     | JsonLogicGreaterThanOrEqual<AddOps>
@@ -269,7 +263,6 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | JsonLogicProduct<AddOps>
     | JsonLogicQuotient<AddOps>
     | JsonLogicRemainder<AddOps>
-
     // Array Operations - https://jsonlogic.com/operations.html#array-operations
     | JsonLogicMap<AddOps>
     | JsonLogicFilter<AddOps>
@@ -279,15 +272,12 @@ export type RulesLogic<AddOps extends AdditionalOperation = never> =
     | JsonLogicSome<AddOps>
     | JsonLogicMerge<AddOps>
     | JsonLogicInArray<AddOps>
-
     // String Operations - https://jsonlogic.com/operations.html#string-operations
     | JsonLogicInString<AddOps>
     | JsonLogicCat<AddOps>
     | JsonLogicSubstr<AddOps>
-
     // Miscellaneous - https://jsonlogic.com/operations.html#miscellaneous
     | JsonLogicLog<AddOps>
-
     // Adding Operations (https://jsonlogic.com/add_operation.html)
     | AddOps;
 

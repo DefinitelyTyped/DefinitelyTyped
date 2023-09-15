@@ -12,12 +12,12 @@ $(() => {
 
 // 3. Style a DIV and change cursor color:
 $(() => {
-    $("#thisdiv").niceScroll({cursorcolor: "#00F"});
+    $("#thisdiv").niceScroll({ cursorcolor: "#00F" });
 });
 
 // 4. DIV with "wrapper", formed by two divs, the first is the vieport, the latter is the content:
 $(() => {
-    $("#viewportdiv").niceScroll("#wrapperdiv", {cursorcolor: "#00F"});
+    $("#viewportdiv").niceScroll("#wrapperdiv", { cursorcolor: "#00F" });
 });
 
 // 5. Get nicescroll object:
@@ -37,5 +37,5 @@ $("#mydiv").getNiceScroll(0).doScrollTop(1, 14); // Scroll Y Axis
 $(".ui-grid-viewport").niceScroll({
     cursorcolor: "#fff",
     cursorwidth: "8px",
-    autohidemode: "leave"
+    autohidemode: "leave",
 });

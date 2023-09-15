@@ -1,4 +1,4 @@
-import { Gradation, Unit } from '.';
+import { Gradation, Unit } from ".";
 
 export const minute: number;
 export const hour: number;

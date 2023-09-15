@@ -6,7 +6,6 @@ declare namespace jsrsasign.KJUR.crypto {
      * CAUTION: Most of the case, you don't need to use this class.
      * Please use `KJUR.crypto.Signature` class instead.
      *
-     *
      * NOTE: Until jsrsasign 6.2.3, DSA class have used codes from openpgpjs library 1.0.0
      * licenced under LGPL licence. To avoid license issue dsa-2.0.js was re-written with
      * my own codes in jsrsasign 7.0.0.

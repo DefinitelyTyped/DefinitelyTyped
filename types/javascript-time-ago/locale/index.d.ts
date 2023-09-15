@@ -46,7 +46,7 @@ export interface RTFFormatter {
     numberFormat: { [key: string]: any };
 }
 
-export type TimeUnit = 'now' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
+export type TimeUnit = "now" | "second" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year";
 export type DefaultFormats = "long" | "short" | "narrow";
 export type ExtendedFormats = "tiny" | "short-time" | "short-convenient" | "long-time" | "long-convenient";
 export type Formats = DefaultFormats | ExtendedFormats;
