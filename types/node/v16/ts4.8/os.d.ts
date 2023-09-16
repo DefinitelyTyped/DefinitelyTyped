@@ -7,7 +7,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
  */
-declare module 'os' {
+declare module 'node:os' {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -451,6 +451,6 @@ declare module 'os' {
     function setPriority(priority: number): void;
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module 'os' {
+    export * from 'node:os';
 }

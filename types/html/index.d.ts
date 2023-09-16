@@ -9,9 +9,9 @@ export interface PrintOptions {
      * or put braces on own line (Allman / ANSI style, `expand`),
      * or just put end braces on own line (`end-expand`). Default: `collapse`.
      */
-    brace_style?: 'collapse' | 'expand' | 'end-expand' | undefined;
+    brace_style?: "collapse" | "expand" | "end-expand" | undefined;
     /** Default: `normal`. */
-    indent_scripts?: 'keep' | 'separate' | 'normal' | undefined;
+    indent_scripts?: "keep" | "separate" | "normal" | undefined;
     /** indentation size. Default: 4. */
     indent_size?: number | undefined;
     /** character to indent with. Default: " " (space). */

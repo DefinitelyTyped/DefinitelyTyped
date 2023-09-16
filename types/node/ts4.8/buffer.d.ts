@@ -43,7 +43,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/buffer.js)
  */
-declare module 'buffer' {
+declare module 'node:buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
     /**
@@ -2349,6 +2349,6 @@ declare module 'buffer' {
             : typeof NodeBlob;
     }
 }
-declare module 'node:buffer' {
-    export * from 'buffer';
+declare module 'buffer' {
+    export * from 'node:buffer';
 }

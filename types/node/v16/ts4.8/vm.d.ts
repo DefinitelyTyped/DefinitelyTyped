@@ -34,7 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/vm.js)
  */
-declare module 'vm' {
+declare module 'node:vm' {
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -502,6 +502,6 @@ declare module 'vm' {
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
 }
-declare module 'node:vm' {
-    export * from 'vm';
+declare module 'vm' {
+    export * from 'node:vm';
 }

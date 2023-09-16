@@ -1,16 +1,16 @@
-import { Data, Point, Position } from 'unist';
-import { Parent, Properties, Literal, Root, Element, DocType, Comment, Text } from 'hast';
+import { Comment, DocType, Element, Literal, Parent, Properties, Root, Text } from "hast";
+import { Data, Point, Position } from "unist";
 
 // Augmentations
 
-declare module 'hast' {
+declare module "hast" {
     interface RootContentMap {
         raw: Raw;
     }
 }
 
 interface Raw extends Literal {
-    type: 'raw';
+    type: "raw";
 }
 
 // Tests
@@ -18,10 +18,10 @@ interface Raw extends Literal {
 declare var raw: Raw;
 
 const data: Data = {
-    string: 'string',
+    string: "string",
     number: 1,
     object: {
-        key: 'value',
+        key: "value",
     },
     array: [],
     boolean: true,
@@ -41,61 +41,61 @@ const position: Position = {
 };
 
 const literal: Literal = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const comment: Comment = {
-    type: 'comment',
+    type: "comment",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const text: Text = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const docType: DocType = {
-    type: 'doctype',
-    name: 'name',
+    type: "doctype",
+    name: "name",
 };
 
 const element: Element = getElement();
 
 const parent: Parent = {
-    type: 'parent',
+    type: "parent",
     data,
     position,
     children: [getElement(), docType, comment, text],
 };
 
 const root: Root = {
-    type: 'root',
+    type: "root",
     data,
     position,
     children: [getElement(), docType, comment, text, raw],
 };
 
 const properties: Properties = {
-    propertyName1: 'propertyValue1',
-    propertyName2: ['propertyValue2', 'propertyValue3'],
+    propertyName1: "propertyValue1",
+    propertyName2: ["propertyValue2", "propertyValue3"],
     propertyName3: true,
     propertyName4: 47,
-    propertyName5: [4, '4'],
+    propertyName5: [4, "4"],
     propertyName6: null,
     propertyName7: undefined,
 };
 
 function getElement(): Element {
     return {
-        type: 'element',
-        tagName: 'tagName',
+        type: "element",
+        tagName: "tagName",
         properties,
         content: root,
         children: [element, comment, text],

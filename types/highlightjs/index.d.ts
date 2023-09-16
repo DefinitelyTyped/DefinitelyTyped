@@ -6,16 +6,18 @@
 
 declare namespace hljs {
     // tslint:disable-next-line:no-empty-interface
-    interface Node { }
+    interface Node {}
 
     export function highlight(
         name: string,
         value: string,
         ignore_illegals?: boolean,
-        continuation?: ICompiledMode): IHighlightResult;
+        continuation?: ICompiledMode,
+    ): IHighlightResult;
     export function highlightAuto(
         value: string,
-        languageSubset?: string[]): IAutoHighlightResult;
+        languageSubset?: string[],
+    ): IAutoHighlightResult;
 
     export function fixMarkup(value: string): string;
 
@@ -28,16 +30,18 @@ declare namespace hljs {
 
     export function registerLanguage(
         name: string,
-        language: (hljs?: HLJSStatic) => IModeBase): void;
+        language: (hljs?: HLJSStatic) => IModeBase,
+    ): void;
     export function listLanguages(): string[];
     export function getLanguage(name: string): IMode;
 
     export function inherit(parent: object, obj: object): object;
 
     export function COMMENT(
-        begin: (string | RegExp),
-        end: (string | RegExp),
-        inherits: IModeBase): IMode;
+        begin: string | RegExp,
+        end: string | RegExp,
+        inherits: IModeBase,
+    ): IMode;
 
     // Common regexps
     export const IDENT_RE: string;

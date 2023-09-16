@@ -1,5 +1,5 @@
-declare module 'http2' {
-    import EventEmitter = require('events');
+declare module 'node:http2' {
+    import EventEmitter = require('node:events');
     import * as fs from 'fs';
     import * as net from 'net';
     import * as stream from 'stream';
@@ -956,6 +956,6 @@ declare module 'http2' {
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
 }
-declare module 'node:http2' {
-    export * from 'http2';
+declare module 'http2' {
+    export * from 'node:http2';
 }

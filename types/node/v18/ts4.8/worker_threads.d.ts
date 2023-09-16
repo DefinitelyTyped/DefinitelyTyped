@@ -51,7 +51,7 @@
  * specifically `argv` and `execArgv` options.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/worker_threads.js)
  */
-declare module 'worker_threads' {
+declare module 'node:worker_threads' {
     import { Blob } from 'node:buffer';
     import { Context } from 'node:vm';
     import { EventEmitter } from 'node:events';
@@ -690,6 +690,6 @@ declare module 'worker_threads' {
             : typeof _MessagePort;
     }
 }
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
+declare module 'worker_threads' {
+    export * from 'node:worker_threads';
 }
