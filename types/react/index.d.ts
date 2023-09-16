@@ -142,7 +142,7 @@ declare namespace React {
      * inside your component or have to validate them.
      */
     interface Attributes {
-        key?: Key | null | undefined | bigint;
+        key?: Key | null | undefined;
     }
     interface RefAttributes<T> extends Attributes {
         /**
