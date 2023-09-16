@@ -5,9 +5,9 @@
 declare function enumerate(o: any, kind?: any): any;
 
 declare namespace enumerate {
-    const KIND_KEYS: 'keys';
-    const KIND_VALUES: 'values';
-    const KIND_ENTRIES: 'entries';
+    const KIND_KEYS: "keys";
+    const KIND_VALUES: "values";
+    const KIND_ENTRIES: "entries";
 
     /**
      * Convenient explicit iterators for special kinds.

@@ -23,4 +23,4 @@ export = splitter;
  * pieces.jsons[1]; // '{"more":"json"}'
  * pieces.remainder; // '{"partial":"json"'
  */
-declare function splitter(string: string): { jsons: string[], remainder: string };
+declare function splitter(string: string): { jsons: string[]; remainder: string };

@@ -8,9 +8,9 @@ export type InlineHelpPlacement =
     | "bottom-center";
 
 export type InlineHelpProps = {
-    className?: string | undefined,
-    contentClassName?: string | undefined,
-    disableStyles?: boolean | undefined,
+    className?: string | undefined;
+    contentClassName?: string | undefined;
+    disableStyles?: boolean | undefined;
     placement: InlineHelpPlacement;
 } & { [x: string]: any };
 

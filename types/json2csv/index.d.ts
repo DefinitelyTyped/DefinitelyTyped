@@ -16,7 +16,7 @@ import unwind = require("./transforms/unwind");
 
 export as namespace json2csv;
 
-export { JSON2CSVParser as Parser, JSON2CSVAsyncParser as AsyncParser, JSON2CSVTransform as Transform };
+export { JSON2CSVAsyncParser as AsyncParser, JSON2CSVParser as Parser, JSON2CSVTransform as Transform };
 
 // Convenience method to keep the API similar to version 3.X
 export function parse<T>(data: Readonly<T> | ReadonlyArray<T>, opts?: json2csv.Options<T>): string;

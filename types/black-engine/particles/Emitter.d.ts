@@ -56,9 +56,9 @@ export class Emitter extends DisplayObject {
     set sortOrder(arg: string);
     get sortOrder(): string;
 }
-import { DisplayObject } from '../display/DisplayObject';
-import { Modifier } from './Modifier';
-import { FloatScatter } from '../scatters/FloatScatter';
-import { GameObject } from '../core/GameObject';
-import { Texture } from '../textures/Texture';
-import { Component } from '../core/Component';
+import { Component } from "../core/Component";
+import { GameObject } from "../core/GameObject";
+import { DisplayObject } from "../display/DisplayObject";
+import { FloatScatter } from "../scatters/FloatScatter";
+import { Texture } from "../textures/Texture";
+import { Modifier } from "./Modifier";

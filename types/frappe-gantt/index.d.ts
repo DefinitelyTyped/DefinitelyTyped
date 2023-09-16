@@ -50,9 +50,9 @@ declare namespace Gantt {
         on_view_change?: ((mode: viewMode) => void) | undefined;
     }
 
-    type viewMode = 'Quarter Day' | 'Half Day' | 'Day' | 'Week' | 'Month' | 'Year';
+    type viewMode = "Quarter Day" | "Half Day" | "Day" | "Week" | "Month" | "Year";
 
-    type viewModeKey = 'QUARTER_DAY' | 'HALF_DAY' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
+    type viewModeKey = "QUARTER_DAY" | "HALF_DAY" | "DAY" | "WEEK" | "MONTH" | "YEAR";
 
     const VIEW_MODE: Record<viewModeKey, viewMode>;
 }

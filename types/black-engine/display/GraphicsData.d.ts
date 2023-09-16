@@ -43,9 +43,9 @@ export class GraphicsData {
     set name(arg: string);
     get name(): string;
 }
-import { Matrix } from '../geom/Matrix';
-import { Rectangle } from '../geom/Rectangle';
-import { CapsStyle } from './CapsStyle';
-import { GraphicsGradient } from './GraphicsGradient';
-import { GraphicsPattern } from './GraphicsPattern';
-import { JointStyle } from './JointStyle';
+import { Matrix } from "../geom/Matrix";
+import { Rectangle } from "../geom/Rectangle";
+import { CapsStyle } from "./CapsStyle";
+import { GraphicsGradient } from "./GraphicsGradient";
+import { GraphicsPattern } from "./GraphicsPattern";
+import { JointStyle } from "./JointStyle";

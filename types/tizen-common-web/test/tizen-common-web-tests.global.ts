@@ -1,1 +1,1 @@
-tizen.filesystem.isFile('path'); // $ExpectType boolean
+tizen.filesystem.isFile("path"); // $ExpectType boolean

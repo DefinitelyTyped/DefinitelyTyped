@@ -4,5 +4,5 @@
 //                 Kyle Berkley <https://github.com/Berkyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/Spacer';
-export { default } from './lib/Spacer';
+export * from "./lib/Spacer";
+export { default } from "./lib/Spacer";

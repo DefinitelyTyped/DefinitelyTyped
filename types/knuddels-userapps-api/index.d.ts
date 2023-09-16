@@ -1005,7 +1005,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_Dice
          */
-        constructor(count: number /* optional */, value: number);
+        constructor(count: number, /* optional */ value: number);
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_getAmount
          */
@@ -1143,8 +1143,12 @@ declare global {
         getURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
+                onSuccess?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
+                onFailure?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
             },
         ): void;
         /**
@@ -1153,8 +1157,12 @@ declare global {
         postURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
+                onSuccess?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
+                onFailure?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
                 data?: Json | undefined;
             },
         ): void;
@@ -1164,8 +1172,12 @@ declare global {
         touchURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
+                onSuccess?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
+                onFailure?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
             },
         ): void;
         /**
@@ -1174,9 +1186,13 @@ declare global {
         callURL(
             urlString: string,
             parameters?: {
-                onSuccess?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                onFailure?: ((responseData: string, externalServerResponse: ExternalServerResponse) => void) | undefined;
-                method?: 'GET' | 'POST' | undefined;
+                onSuccess?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
+                onFailure?:
+                    | ((responseData: string, externalServerResponse: ExternalServerResponse) => void)
+                    | undefined;
+                method?: "GET" | "POST" | undefined;
                 data?: Json | undefined;
             },
         ): void;
@@ -1839,12 +1855,12 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInt
          */
-        static nextInt(minValue: number /* optional */, maxValue: number): number;
+        static nextInt(minValue: number, /* optional */ maxValue: number): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInts
          */
         static nextInts(
-            minValue: number /* optional */,
+            minValue: number, /* optional */
             maxValue: number,
             count: number,
             onlyDifferentNumbers: boolean,
@@ -1883,7 +1899,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_updateApp
          */
-        updateApp(message: string /* optional */, logMessage?: string): number;
+        updateApp(message: string, /* optional */ logMessage?: string): number;
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_cancelUpdateApp
          * @since AppServer 98117
@@ -1892,7 +1908,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_stopApp
          */
-        stopApp(message: string /* optional */, logMessage?: string): void;
+        stopApp(message: string, /* optional */ logMessage?: string): void;
     }
 
     /**

@@ -18,7 +18,7 @@
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/fs.js)
  */
-declare module 'fs' {
+declare module 'node:fs' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import { URL } from 'node:url';
@@ -3621,6 +3621,7 @@ declare module 'fs' {
         emitClose?: boolean | undefined;
         start?: number | undefined;
         signal?: AbortSignal | null | undefined;
+        highWaterMark?: number | undefined;
     }
     interface FSImplementation {
         open?: (...args: any[]) => any;
@@ -3636,7 +3637,6 @@ declare module 'fs' {
     interface ReadStreamOptions extends StreamOptions {
         fs?: CreateReadStreamFSImplementation | null | undefined;
         end?: number | undefined;
-        highWaterMark?: number | undefined;
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;
@@ -4082,6 +4082,6 @@ declare module 'fs' {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 }
-declare module 'node:fs' {
-    export * from 'fs';
+declare module 'fs' {
+    export * from 'node:fs';
 }

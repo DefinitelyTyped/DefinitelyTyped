@@ -6,10 +6,16 @@
  * are not intended as functional tests.
  */
 
-import Alpine, { AlpineComponent, DirectiveParameters, DirectiveUtilities } from 'alpinejs';
-import { reactive, effect, stop, toRaw } from '@vue/reactivity';
+import Alpine, {
+    AlpineComponent,
+    DirectiveData,
+    DirectiveUtilities,
+    DirectiveCallback,
+    ElementWithXAttributes,
+} from 'alpinejs';
 
-{ // Alpine.reactive
+{
+    // Alpine.reactive
     // example usage from docs:
     // https://alpinejs.dev/advanced/reactivity#alpine-reactive
     const data = { count: 1 };
@@ -22,76 +28,90 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     reactiveData.count;
 }
 
-{ // Alpine.release
+{
+    // Alpine.release
     const effectRunner = Alpine.effect(() => {});
     // $ExpectType void
     Alpine.release(effectRunner);
 }
 
-{ // Alpine.effect
+{
+    // Alpine.effect
     // example usage from docs:
     // https://alpinejs.dev/advanced/reactivity#alpine-effect
     const data = Alpine.reactive({ count: 1 });
 
-    // $ExpectType ReactiveEffectRunner<any>
+    // $ExpectType ReactiveEffect<void>
     Alpine.effect(() => {
         console.log(data.count);
     });
 }
 
-{ // Alpine.raw
+{
+    // Alpine.raw
     const data = Alpine.reactive({ count: 1 });
     // $ExpectType { count: number; }
     Alpine.raw(data);
 }
 
-{ // Alpine.version
+{
+    // Alpine.version
     // $ExpectType string
     Alpine.version;
 }
 
-{ // Alpine.flushAndStopDeferringMutations
+{
+    // Alpine.flushAndStopDeferringMutations
     // $ExpectType void
     Alpine.flushAndStopDeferringMutations();
 }
 
-{ // Alpine.disableEffectScheduling
+{
+    // Alpine.disableEffectScheduling
     // $ExpectType void
     Alpine.disableEffectScheduling(() => {
         // do something
     });
 }
 
-{ // Alpine.setReactivityEngine
+{
+    // Alpine.setReactivityEngine
     // $ExpectType void
-    Alpine.setReactivityEngine({ reactive, effect, release: stop, raw: toRaw });
+    Alpine.setReactivityEngine({
+        reactive: val => val,
+        effect: cb => 1,
+        release: (id: number) => undefined,
+        raw: val => val,
+    });
 }
 
-{ // Alpine.closestDataStack
+{
+    // Alpine.closestDataStack
     const someNode = document.body;
-    // $ExpectType object[]
+    // $ExpectType Record<string | symbol, unknown>[]
     Alpine.closestDataStack(someNode);
 }
 
-{ // Alpine.skipDuringClone
+{
+    // Alpine.skipDuringClone
     // inspired by
     // https://github.com/alpinejs/alpine/blob/688200e1a4a2631c48894484f0fea9c4d409701d/packages/trap/src/index.js
 
-    // $ExpectType (el: Node, params: DirectiveParameters, utils: DirectiveUtilities) => void
+    // $ExpectType (el: ElementWithXAttributes<HTMLElement>, { expression, modifiers }: DirectiveData, { evaluate }: DirectiveUtilities) => void
     const directiveHandler = Alpine.skipDuringClone(
-        (el, { expression, modifiers}, { effect, evaluateLater}) => {
+        ((el, { expression, modifiers }, { effect, evaluateLater }) => {
             // do something
-            // $ExpectType Node
+            // $ExpectType ElementWithXAttributes<HTMLElement>
             el;
             // $ExpectType string
             expression;
             // $ExpectType string[]
             modifiers;
-            // $ExpectType (cb: () => void) => void
+            // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
             effect;
-            // $ExpectType (expression: string) => (result: unknown) => void
+            // $ExpectType <T>(expression: string) => (callback?: ((value: T) => void) | undefined, extras?: {} | undefined) => void
             evaluateLater;
-        },
+        }) as DirectiveCallback,
         (el, { expression, modifiers }, { evaluate }) => {
             // do something
         },
@@ -99,7 +119,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.directive('trap', directiveHandler);
 }
 
-{ // Alpine.addRootSelector
+{
+    // Alpine.addRootSelector
     // inspired by
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
 
@@ -107,7 +128,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.addRootSelector(() => `[${Alpine.prefixed('data')}]`);
 }
 
-{ // Alpine.addInitSelector
+{
+    // Alpine.addInitSelector
     // inspired by
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/portal/src/index.js
 
@@ -115,13 +137,14 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.addInitSelector(() => `[${Alpine.prefixed('portal-target')}]`);
 }
 
-{ // Alpine.addScopeToNode
+{
+    // Alpine.addScopeToNode
     // inspired by
     // https://github.com/alpinejs/alpine/blob/e75587e61dfa7913aa03886c84aea084b595383f/packages/alpinejs/src/directives/x-if.js
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
 
-    const target = document.querySelector('target')!;
-    const clone = document.querySelector('clone')!;
+    const target = document.querySelector<ElementWithXAttributes>('target')!;
+    const clone = document.querySelector<ElementWithXAttributes>('clone')!;
 
     // $ExpectType () => void
     Alpine.addScopeToNode(clone, {}, target);
@@ -133,29 +156,42 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     undo;
 }
 
-{ // Alpine.deferMutations
-
+{
+    // Alpine.deferMutations
     // $ExpectType void
     Alpine.deferMutations();
 }
 
-{ // Alpine.mapAttributes
+{
+    // Alpine.mapAttributes
     // inspired by
     // https://github.com/alpinejs/alpine/blob/8d4f1266b25a550d9bd777b8aeb632a6857e89d1/packages/alpinejs/src/directives/x-bind.js
 
-    const startingWith = (s: string, r: string) => ({ name, value }: { name: string, value: unknown }) => ({ name: name.replace(s, r), value });
+    const startingWith =
+        (s: string, r: string) =>
+        <T>(attribute: {
+            name: string;
+            value: T;
+        }): {
+            name: string;
+            value: T;
+        } => ({
+            name: attribute.name.replace(s, r),
+            value: attribute.value,
+        });
     const into = (i: string) => i;
 
     // $ExpectType void
     Alpine.mapAttributes(startingWith(':', into(Alpine.prefixed('bind:'))));
 }
 
-{ // Alpine.evaluateLater
+{
+    // Alpine.evaluateLater
     // example usage from docs:
     // https://alpinejs.dev/advanced/extending#introducing-reactivity
 
     const el = document.body;
-    const expression = "2 < 5";
+    const expression = '2 < 5';
     // $resultType (resultCallback: (result: unknown) => void) => void
     const getThingToLog = Alpine.evaluateLater(el, expression);
 
@@ -164,68 +200,82 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     });
 }
 
-{ // Alpine.setEvaluator
+{
+    // Alpine.setEvaluator
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
 
-    const justExpressionEvaluator = (el: Node, expression: string) => (resultCallback: (result: unknown) => void) => resultCallback(expression);
+    const justExpressionEvaluator =
+        <T>(
+            el: ElementWithXAttributes,
+            expression?: string | (() => T), // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ) =>
+        (resultCallback: (result: T) => void) =>
+            resultCallback(typeof expression === 'function' ? expression() : Alpine.evaluate<T>(el, expression ?? ''));
 
     Alpine.setEvaluator(justExpressionEvaluator);
 }
 
-{ // Alpine.mergeProxies
+{
+    // Alpine.mergeProxies
     const el = document.body;
 
-    // $ExpectType any
+    // $ExpectType Record<string, unknown>
     const data = Alpine.mergeProxies(Alpine.closestDataStack(el));
 
     const one = { one: 1 };
     const two = { two: '2' };
     const three = { three: [3] };
     const four = { four: true };
-    // $ExpectType { one: number; } & { two: string; } & { three: number[]; } & { four: boolean; }
+    // $ExpectType Record<string, unknown>
     const mergedFour = Alpine.mergeProxies([one, two, three, four]);
-
-    // $ExpectType string
-    const mergedTwo = Alpine.mergeProxies(['hello', 'world']);
-
-    // $ExpectType never
-    const mergedTwoNever = Alpine.mergeProxies(['hello', 123]);
 }
 
-{ // Alpine.closestRoot
+{
+    // Alpine.closestRoot
     const el = document.body;
 
-    // $ExpectType Node | undefined
+    // $ExpectType ElementWithXAttributes<HTMLElement> | undefined
     Alpine.closestRoot(el);
-    // $ExpectType Node | undefined
+    // $ExpectType ElementWithXAttributes<HTMLElement> | undefined
     Alpine.closestRoot(el, true);
 }
 
-{ // Alpine.interceptor
+{
+    // Alpine.interceptor
     // inspired by
     // https://github.com/alpinejs/alpine/blob/1ff2f77077acc4e9221b78572097e4045b67db5e/packages/persist/src/index.js
 
     let alias: string;
     let storage: Storage;
 
-    // $ExpectType (initialValue: string) => string
-    const persist = Alpine.interceptor<string>((initialValue, getter, setter, path, key) => {
-        const lookup = alias || `_x_${path}`;
-        setter(initialValue);
-        Alpine.effect(() => {
-            const value = getter();
-            storage.setItem(lookup, JSON.stringify(value));
-            setter(value);
-        });
-        return initialValue;
-    }, (func: any) => {
-        func.as = (key: string) => { alias = key; return func; };
-        func.using = (target: Storage) => { storage = target; return func; };
-    });
+    // $ExpectType (initialValue: any) => { initialValue: unknown; _x_interceptor: true; initialize: (data: Record<string, unknown>, path: string, key: string) => void; }
+    const persist = Alpine.interceptor<string>(
+        (initialValue, getter, setter, path, key) => {
+            const lookup = alias || `_x_${path}`;
+            setter(initialValue);
+            Alpine.effect(() => {
+                const value = getter();
+                storage.setItem(lookup, JSON.stringify(value));
+                setter(value);
+            });
+            return initialValue;
+        },
+        (func: any) => {
+            func.as = (key: string) => {
+                alias = key;
+                return func;
+            };
+            func.using = (target: Storage) => {
+                storage = target;
+                return func;
+            };
+        },
+    );
 }
 
-{ // Alpine.transition
+{
+    // Alpine.transition
     // inspired by
     // https://github.com/alpinejs/alpine/blob/286ac9914ac0f4c0bea1da16ea3782b15d407824/packages/collapse/src/index.js
 
@@ -234,14 +284,21 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     let transitioning = false;
 
     // $ExpectType void
-    Alpine.transition(el, setFunction, {
-        during: { overflow: 'hidden' },
-        start: { height: '100px' },
-        end: { height: '200px' },
-    }, () => transitioning = true, () => transitioning = false);
+    Alpine.transition(
+        el,
+        setFunction,
+        {
+            during: { overflow: 'hidden' },
+            start: { height: '100px' },
+            end: { height: '200px' },
+        },
+        () => (transitioning = true),
+        () => (transitioning = false),
+    );
 }
 
-{ // Alpine.setStyles
+{
+    // Alpine.setStyles
 
     const el = document.body;
 
@@ -251,12 +308,13 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.setStyles(el, { visibility: 'hidden' });
 }
 
-{ // Alpine.mutateDom
+{
+    // Alpine.mutateDom
     // inspired by
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/portal/src/index.js
 
-    const target = document.querySelector('target')!;
-    const clone = document.querySelector('clone')!;
+    const target = document.querySelector<ElementWithXAttributes>('target')!;
+    const clone = document.querySelector<ElementWithXAttributes>('clone')!;
 
     // $ExpectType void
     Alpine.mutateDom(() => {
@@ -265,12 +323,30 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     });
 }
 
-{ // Alpine.directive
+{
+    // Alpine.directive
     // example usage from docs:
     // https://alpinejs.dev/advanced/extending#method-signature
 
-    // $ExpectType void
+    // $ExpectType { before(directive: string): void; }
     Alpine.directive('[name]', (el, { value, modifiers, expression }, { Alpine, effect, cleanup }) => {
+        // $ExpectType ElementWithXAttributes<HTMLElement>
+        el;
+        // $ExpectType string
+        value;
+        // $ExpectType string[]
+        modifiers;
+        // $ExpectType string
+        expression;
+        // $ExpectType Alpine
+        Alpine;
+        // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
+        effect;
+        // $ExpectType (callback: () => void) => void
+        cleanup;
+    });
+
+    (el: Node, { value, modifiers, expression }: DirectiveData, { Alpine, effect, cleanup }: DirectiveUtilities) => {
         // $ExpectType Node
         el;
         // $ExpectType string
@@ -281,33 +357,19 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         expression;
         // $ExpectType Alpine
         Alpine;
-        // $ExpectType (cb: () => void) => void
+        // $ExpectType <T>(callback: () => T) => ReactiveEffect<T>
         effect;
-        // $ExpectType (cb: () => void) => void
+        // $ExpectType (callback: () => void) => void
         cleanup;
-    });
-
-    (el: Node, { value, modifiers, expression }: DirectiveParameters, { Alpine, effect, cleanup }: DirectiveUtilities) => {
-      // $ExpectType Node
-      el;
-      // $ExpectType string
-      value;
-      // $ExpectType string[]
-      modifiers;
-      // $ExpectType string
-      expression;
-      // $ExpectType Alpine
-      Alpine;
-      // $ExpectType (cb: () => void) => void
-      effect;
-      // $ExpectType (cb: () => void) => void
-      cleanup;
-  };
+    };
 }
 
-{ // Alpine.throttle
+{
+    // Alpine.throttle
     const limit = 200;
-    const handler1 = () => { /* do something */ };
+    const handler1 = () => {
+        /* do something */
+    };
 
     // $ExpectType () => void
     Alpine.throttle(handler1, limit);
@@ -318,9 +380,12 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.throttle(handler2);
 }
 
-{ // Alpine.debounce
+{
+    // Alpine.debounce
     const wait = 200;
-    const handler1 = () => { /* do something */ };
+    const handler1 = () => {
+        /* do something */
+    };
 
     // $ExpectType () => void
     Alpine.debounce(handler1, wait);
@@ -331,18 +396,20 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.debounce(handler2);
 }
 
-{ // Alpine.evaluate
+{
+    // Alpine.evaluate
     // inspired by
     // https://github.com/alpinejs/alpine/blob/98805c323d42f74189540716c693b5dc66f0c05c/packages/alpinejs/src/directives/x-data.js
     const el = document.body;
-    const expression = "2 < 5";
+    const expression = '2 < 5';
     const dataProviderContext = {};
 
     // $ExpectType unknown
     const data = Alpine.evaluate(el, expression, { scope: dataProviderContext });
 }
 
-{ // Alpine.initTree
+{
+    // Alpine.initTree
     // inspired by
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/portal/src/index.js
     // https://github.com/alpinejs/alpine/blob/09951d6b5893fe99158299794fea184876e16f74/packages/alpinejs/src/clone.js
@@ -351,23 +418,30 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     // $ExpectType void
     Alpine.initTree(clone);
 
-    const shallowWalker = (el: Node, callback: (el: Node, skip: () => void) => void) => {
+    const shallowWalker = (
+        el: ElementWithXAttributes,
+        callback: (el: ElementWithXAttributes, skip: () => void) => void,
+    ) => {
         // do walking
     };
     // $ExpectType void
     Alpine.initTree(clone, shallowWalker);
 }
 
-{ // Alpine.nextTick
+{
+    // Alpine.nextTick
     // example usage from docs:
     // https://alpinejs.dev/magics/nextTick
 
     const $el = document.body;
-    // $ExpectType void
-    Alpine.nextTick(() => { console.log($el.innerText); });
+    // $ExpectType Promise<unknown>
+    Alpine.nextTick(() => {
+        console.log($el.innerText);
+    });
 }
 
-{ // Alpine.prefixed
+{
+    // Alpine.prefixed
     // inspired by
     // https://github.com/alpinejs/alpine/blob/34b86216a51b3d67018d51b96daf970d4e9b5150/packages/alpinejs/src/directives/x-cloak.js
 
@@ -379,7 +453,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     el.removeAttribute(Alpine.prefixed('cloak'));
 }
 
-{ // Alpine.prefix
+{
+    // Alpine.prefix
     // inspired by
     // https://github.com/alpinejs/alpine/blob/7922e7fb8d54de64ebfc4814c2115293a5518ebd/tests/cypress/integration/custom-prefix.spec.js
 
@@ -387,7 +462,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.prefix('data-x-');
 }
 
-{ // Alpine.plugin
+{
+    // Alpine.plugin
     // example usage from docs:
     // https://alpinejs.dev/advanced/extending#bundle-module
 
@@ -400,13 +476,14 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.plugin(MyAlpinePlugin);
 }
 
-{ // Alpine.magic
+{
+    // Alpine.magic
     // example usage from docs:
     // https://alpinejs.dev/advanced/extending#custom-magics
 
     // $ExpectType void
     Alpine.magic('now', () => {
-        return (new Date()).toLocaleTimeString();
+        return new Date().toLocaleTimeString();
     });
     // $ExpectType void
     Alpine.magic('clipboard', () => {
@@ -418,7 +495,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     });
 }
 
-{ // Alpine.store
+{
+    // Alpine.store
     // example usage from docs:
     // https://alpinejs.dev/essentials/state#global-state
     // https://alpinejs.dev/globals/alpine-store
@@ -427,18 +505,18 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         on: false,
 
         toggle() {
-            this.on = ! this.on;
-        }
+            this.on = !this.on;
+        },
     };
 
     // $ExpectType void
     Alpine.store('darkMode', darkModeDataContext);
 
     // $ExpectType void
-    (Alpine.store('darkMode') as typeof darkModeDataContext).toggle();
+    Alpine.store('darkMode').toggle();
 
     // $ExpectType void
-    Alpine.store('darkMode', false);
+    Alpine.store('darkModeState', false);
 
     // $ExpectType void
     Alpine.store('tabs', {
@@ -446,9 +524,16 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
         items: ['first', 'second', 'third'],
     });
+    // @ts-expect-error
+    Alpine.store('tabs', 'hello');
+
+    Alpine.store('untypedKey', {
+        foo: 'bar',
+    });
 }
 
-{ // Alpine.start
+{
+    // Alpine.start
     // example usage from docs:
     // https://alpinejs.dev/upgrade-guide#need-to-call-alpine-start
     // https://alpinejs.dev/essentials/installation#as-a-module
@@ -457,7 +542,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.start();
 }
 
-{ // Alpine.clone
+{
+    // Alpine.clone
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/tests/cypress/integration/clone.spec.js
 
@@ -468,7 +554,8 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
     Alpine.clone(original, copy);
 }
 
-{ // Alpine.data
+{
+    // Alpine.data
     // example usage from docs:
     // https://alpinejs.dev/essentials/state#re-usable-data
     // https://alpinejs.dev/essentials/lifecycle#element-initialization
@@ -483,13 +570,13 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         open: false,
 
         toggle() {
-            this.open = ! this.open;
-        }
+            this.open = !this.open;
+        },
     }));
 
     // $ExpectType void
     Alpine.data('dropdown', (initialOpenState = false) => ({
-        open: initialOpenState
+        open: initialOpenState,
     }));
 
     // $ExpectType void
@@ -497,7 +584,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         init() {
             // This code will be executed before Alpine
             // initializes the rest of the component.
-        }
+        },
     }));
 
     // $ExpectType void
@@ -506,7 +593,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
         init() {
             this.$watch('open', () => {});
-        }
+        },
     }));
 
     // $ExpectType void
@@ -515,7 +602,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
 
         trigger: {
             ['@click']() {
-                this.open = ! this.open;
+                this.open = !this.open;
             },
         },
 
@@ -531,10 +618,10 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
         user: { id: 1, name: 'John Doe' },
 
         init() {
-            // $ExpectType Record<string, any> & XDataContext & AlpineMagics<Record<string, any>>
+            // $ExpectType { user: { id: number; name: string; }; init(): void; } & XDataContext & Magics<{ user: { id: number; name: string; }; init(): void; }>
             this;
 
-            // $ExpectType Record<string, any>
+            // $ExpectType { user: { id: number; name: string; }; init(): void; }
             this.$data;
 
             // $ExpectType HTMLElement
@@ -543,7 +630,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             // $ExpectType HTMLElement
             this.$refs.fooElement;
 
-            // $ExpectType XData
+            // $ExpectType Stores
             this.$store;
 
             // $ExpectType void
@@ -570,7 +657,7 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             this.$watch(
                 'user',
                 (
-                    // $ExpectType any
+                    // $ExpectType { id: number; name: string; }
                     newValue,
                 ) => {},
             );
@@ -611,4 +698,18 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             },
         }),
     );
+}
+
+declare module 'alpinejs' {
+    interface Stores {
+        darkMode: {
+            on: boolean;
+            toggle(): void;
+        };
+        darkModeState: boolean;
+        tabs: {
+            current: string;
+            items: string[];
+        };
+    }
 }

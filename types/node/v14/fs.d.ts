@@ -1,4 +1,4 @@
-declare module 'fs' {
+declare module 'node:fs' {
     import * as stream from 'stream';
     import EventEmitter = require('events');
     import { URL } from 'url';
@@ -2079,6 +2079,7 @@ declare module 'fs' {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+        highWaterMark?: number | undefined;
     }
     interface FSImplementation {
         open: (...args: any[]) => any;
@@ -2094,7 +2095,6 @@ declare module 'fs' {
     interface ReadStreamOptions extends StreamOptions {
         fs?: CreateReadStreamFSImplementation | null | undefined;
         end?: number | undefined;
-        highWaterMark?: number | undefined;
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;
@@ -2282,6 +2282,6 @@ declare module 'fs' {
         bigint?: boolean | undefined;
     }
 }
-declare module 'node:fs' {
-    export * from 'fs';
+declare module 'fs' {
+    export * from 'node:fs';
 }

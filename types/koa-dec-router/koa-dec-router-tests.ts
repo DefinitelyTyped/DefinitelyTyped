@@ -1,4 +1,4 @@
-import DecRouter, { controller, get, post } from 'koa-dec-router';
+import DecRouter, { controller, get, post } from "koa-dec-router";
 
 class Ctx {
     body: any;
@@ -9,32 +9,32 @@ const bazHandler = (ctx: Ctx, next: () => void) => {
     next();
 };
 
-@controller('/foo')
+@controller("/foo")
 export class FooController {
-    @get('/baz')
+    @get("/baz")
     async fooBaz(ctx: Ctx) {
-        ctx.body = '/foo/baz';
+        ctx.body = "/foo/baz";
     }
 
     @get()
     async foo(ctx: Ctx) {
-        ctx.body = '/foo';
+        ctx.body = "/foo";
     }
 
-    @get('/:code', { priority: -1 })
+    @get("/:code", { priority: -1 })
     async fooCode(ctx: Ctx) {
-        ctx.body = '/foo/' + ctx.params.code;
+        ctx.body = "/foo/" + ctx.params.code;
     }
 }
 
-@controller('/baz', bazHandler)
+@controller("/baz", bazHandler)
 export class BazController {
-    @get('/foo')
+    @get("/foo")
     async fooBaz(ctx: Ctx) {
-        ctx.body = '/foo/baz';
+        ctx.body = "/foo/baz";
     }
 }
 
 const decRouter = DecRouter({
-    controllersDir: './'
+    controllersDir: "./",
 });

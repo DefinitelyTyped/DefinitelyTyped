@@ -39,7 +39,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
-declare module 'http' {
+declare module 'node:http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
@@ -1498,6 +1498,6 @@ declare module 'http' {
      */
     const maxHeaderSize: number;
 }
-declare module 'node:http' {
-    export * from 'http';
+declare module 'http' {
+    export * from 'node:http';
 }

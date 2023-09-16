@@ -1,16 +1,16 @@
-import bindArgs = require('bind-args');
+import bindArgs = require("bind-args");
 
 // $ExpectType number
 bindArgs(() => 3)();
 
 // @ts-expect-error
-bindArgs(() => 3, 'arg')();
+bindArgs(() => 3, "arg")();
 
 // $ExpectType boolean
-bindArgs((a: string, b: number) => false, '')(2);
+bindArgs((a: string, b: number) => false, "")(2);
 
 // @ts-expect-error
 bindArgs((a: string, b: number) => false, true);
 
 // @ts-expect-error
-bindArgs((a: string, b: number) => false, '')({});
+bindArgs((a: string, b: number) => false, "")({});

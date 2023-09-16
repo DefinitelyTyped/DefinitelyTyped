@@ -8,7 +8,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tls.js)
  */
-declare module 'tls' {
+declare module 'node:tls' {
     import { X509Certificate } from 'node:crypto';
     import * as net from 'node:net';
     import * as stream from 'stream';
@@ -1125,6 +1125,6 @@ declare module 'tls' {
      */
     const rootCertificates: ReadonlyArray<string>;
 }
-declare module 'node:tls' {
-    export * from 'tls';
+declare module 'tls' {
+    export * from 'node:tls';
 }
