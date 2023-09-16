@@ -1,14 +1,15 @@
-import { trust, parseQueryString, buildQueryString } from 'mithril';
+import { trust, parseQueryString, buildQueryString, censor } from 'mithril';
 import * as h from 'mithril/hyperscript';
 import { render } from 'mithril/render';
 import { redraw } from 'mithril/redraw';
-import { censor } from 'mithril/censor';
 
 const vnode = trust('Some <strong>bold</strong> text.');
 
 const params = parseQueryString('?id=123');
 
 const qstr = buildQueryString({ id: 123 });
+
+const censored = censor({one: "two", enabled: false, oninit: () => {}}, ["enabled"]);
 
 render(document.body, 'Hello');
 render(document.body, h('h1', 'Test'));
@@ -25,5 +26,3 @@ render(document.body, [
 redraw();
 
 redraw.sync();
-
-const censored = m.censor({one: "two", enabled: false, oninit: function() {}}, ["enabled"])
