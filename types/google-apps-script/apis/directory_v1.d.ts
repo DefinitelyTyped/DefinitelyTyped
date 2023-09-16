@@ -866,7 +866,7 @@ declare namespace GoogleAppsScript {
         nonEditableAliases?: string[] | undefined;
         notes?: object[] | undefined;
         orgUnitPath?: string | undefined;
-        organizations?: object[] | undefined;
+        organizations?: UserOrganization[] | undefined;
         password?: string | undefined;
         phones?: object[] | undefined;
         posixAccounts?: object[] | undefined;

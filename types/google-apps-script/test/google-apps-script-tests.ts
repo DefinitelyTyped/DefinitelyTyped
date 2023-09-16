@@ -91,6 +91,31 @@ const listAllUsers = () => {
     } while (pageToken);
 };
 
+// Admin Directory - User Organization
+const listAllUserOrganizations = () => {
+    let pageToken: string;
+    let page: GoogleAppsScript.AdminDirectory.Schema.Users;
+    do {
+        page = AdminDirectory.Users.list({
+            domain: 'example.com',
+            orderBy: 'givenName',
+            maxResults: 100,
+            pageToken: pageToken,
+            viewType: 'domain_public',
+        });
+        const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
+        if (users) {
+            for (const user of users) {
+                Logger.log('%s: %s - %s)', user.name.fullName, user.organizations[0].location, user.organizations[0].department);
+            }
+        } else {
+            Logger.log('No users found.');
+        }
+        pageToken = page.nextPageToken;
+    } while (pageToken);
+};
+
+
 // doPost function
 function doPost(e: GoogleAppsScript.Events.DoPost) {
     const path: string = e.pathInfo;
@@ -498,7 +523,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
                 // Rhino
                 '': {
                     dateInput: dateInputRhino,
-                    dateTimeInput: dateTimeInputRhino, 
+                    dateTimeInput: dateTimeInputRhino,
                     stringInputs: stringInputsRhino,
                     timeInput: timeInputRhino
                 }
@@ -771,7 +796,7 @@ const sheetFontColorObjects = () => {
 };
 
 const utilitiesParseDate = () => {
-  Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
+    Utilities.parseDate("2022/01/01", "GMT", "yyyy/MM/dd");
 };
 
 // Spreadsheet Cell Image test
