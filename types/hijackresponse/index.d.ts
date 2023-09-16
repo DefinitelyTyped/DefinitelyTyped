@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import express = require('express');
-import { Readable } from 'stream';
+import express = require("express");
+import { Readable } from "stream";
 
 declare namespace e {
     interface HijackedResponse<ResBody = any>
-        extends express.Response<ResBody>,
-            Omit<Readable, keyof express.Response> {
+        extends express.Response<ResBody>, Omit<Readable, keyof express.Response>
+    {
         destroyHijacked: () => boolean;
         unhijack: () => express.Response;
     }

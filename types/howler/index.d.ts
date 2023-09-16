@@ -21,9 +21,9 @@ export interface PannerAttributes {
     coneInnerAngle?: number | undefined;
     coneOuterAngle?: number | undefined;
     coneOuterGain?: number | undefined;
-    distanceModel?: 'inverse' | 'linear';
+    distanceModel?: "inverse" | "linear";
     maxDistance?: number;
-    panningModel?: 'HRTF' | 'equalpower';
+    panningModel?: "HRTF" | "equalpower";
     refDistance?: number;
     rolloffFactor?: number;
 }
@@ -112,7 +112,7 @@ export interface HowlOptions extends HowlListeners {
      * download the entire file, for example).
      * @default true
      */
-    preload?: boolean | 'metadata' | undefined;
+    preload?: boolean | "metadata" | undefined;
 
     /**
      * Set to true to automatically start playback when sound is loaded.
@@ -163,10 +163,10 @@ export interface HowlOptions extends HowlListeners {
      */
     xhr?:
         | {
-              method?: string | undefined;
-              headers?: Record<string, string> | undefined;
-              withCredentials?: boolean | undefined;
-          }
+            method?: string | undefined;
+            headers?: Record<string, string> | undefined;
+            withCredentials?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -197,51 +197,51 @@ export class Howl {
 
     playing(id?: number): boolean;
     duration(id?: number): number;
-    state(): 'unloaded' | 'loading' | 'loaded';
+    state(): "unloaded" | "loading" | "loaded";
     load(): this;
     unload(): null;
 
-    on(event: 'load', callback: () => void, id?: number): this;
-    on(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
+    on(event: "load", callback: () => void, id?: number): this;
+    on(event: "loaderror" | "playerror", callback: HowlErrorCallback, id?: number): this;
     on(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback: HowlCallback,
         id?: number,
     ): this;
     on(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    once(event: 'load', callback: () => void, id?: number): this;
-    once(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
+    once(event: "load", callback: () => void, id?: number): this;
+    once(event: "loaderror" | "playerror", callback: HowlErrorCallback, id?: number): this;
     once(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback: HowlCallback,
         id?: number,
     ): this;
     once(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    off(event: 'load', callback?: () => void, id?: number): this;
-    off(event: 'loaderror' | 'playerror', callback?: HowlErrorCallback, id?: number): this;
+    off(event: "load", callback?: () => void, id?: number): this;
+    off(event: "loaderror" | "playerror", callback?: HowlErrorCallback, id?: number): this;
     off(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback?: HowlCallback,
         id?: number,
     ): this;
     // off() also supports passing id as second argument: internally it is type checked and treated as an id if it is a number
     off(
         event:
-            | 'load'
-            | 'loaderror'
-            | 'playerror'
-            | 'play'
-            | 'end'
-            | 'pause'
-            | 'stop'
-            | 'mute'
-            | 'volume'
-            | 'rate'
-            | 'seek'
-            | 'fade'
-            | 'unlock',
+            | "load"
+            | "loaderror"
+            | "playerror"
+            | "play"
+            | "end"
+            | "pause"
+            | "stop"
+            | "mute"
+            | "volume"
+            | "rate"
+            | "seek"
+            | "fade"
+            | "unlock",
         id: number,
     ): this;
     off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
@@ -285,7 +285,7 @@ export interface HowlerGlobal {
     orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
 }
 
-import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from '.';
+import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from ".";
 export { Howler };
 
 declare global {
@@ -295,7 +295,7 @@ declare global {
     var Howl: typeof _Howl;
     var HowlerGlobal: {
         prototype: _HowlerGlobal;
-        new (): _HowlerGlobal;
+        new(): _HowlerGlobal;
     };
     var Howler: HowlerGlobal;
 }

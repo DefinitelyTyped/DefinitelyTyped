@@ -46,15 +46,15 @@ declare namespace hifo {
         TKeyPrimary extends ObjectKey,
         TObject extends ObjectWithNumericValue<TKeyPrimary | TKeySecondary>,
         TKeySecondary extends ObjectKey = never,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    >(primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
     function lowest(): CompareFn<number>;
     function highest<
         TKeyPrimary extends ObjectKey,
         TObject extends ObjectWithNumericValue<TKeyPrimary | TKeySecondary>,
         TKeySecondary extends ObjectKey = never,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    >(primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
     function highest(): CompareFn<number>;
     const Hifo: Hifo<unknown>;
 

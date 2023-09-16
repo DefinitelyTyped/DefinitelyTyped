@@ -1,5 +1,5 @@
-import * as Crypto from 'crypto';
-import * as Client from './client';
+import * as Crypto from "crypto";
+import * as Client from "./client";
 
 export interface Artifacts {
     app?: string | undefined;

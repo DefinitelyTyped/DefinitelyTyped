@@ -1,11 +1,11 @@
-import Joi = require('@hapi/joi');
+import Joi = require("@hapi/joi");
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 const x: any = null;
 declare const value: any;
 const num = 0;
-const str = '';
+const str = "";
 declare const bool: boolean;
 declare const exp: RegExp;
 declare const obj: object;
@@ -34,7 +34,7 @@ let objSchema: Joi.ObjectSchema = Joi.object();
 
 declare const schemaArr: Joi.Schema[];
 
-let ref: Joi.Reference = Joi.ref('test');
+let ref: Joi.Reference = Joi.ref("test");
 let description: Joi.Description = {};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -49,22 +49,22 @@ validOpts = { stripUnknown: bool };
 validOpts = { stripUnknown: { arrays: bool } };
 validOpts = { stripUnknown: { objects: bool } };
 validOpts = { stripUnknown: { arrays: bool, objects: bool } };
-validOpts = { presence: 'optional' || 'required' || 'forbidden' };
+validOpts = { presence: "optional" || "required" || "forbidden" };
 validOpts = { context: obj };
 validOpts = { noDefaults: bool };
 validOpts = {
     abortEarly: true,
     messages: {
-        'any.ref': str,
-        'string.email': str
+        "any.ref": str,
+        "string.email": str,
     },
-    dateFormat: 'iso'
+    dateFormat: "iso",
 };
 // Test various permutations of string, `false`, or `undefined` for both parameters:
-validOpts = { errors: { wrap: { label: str, array: str }}};
-validOpts = { errors: { wrap: { label: false, array: false }}};
-validOpts = { errors: { wrap: { label: str }}};
-validOpts = { errors: { wrap: { array: str }}};
+validOpts = { errors: { wrap: { label: str, array: str } } };
+validOpts = { errors: { wrap: { label: false, array: false } } };
+validOpts = { errors: { wrap: { label: str } } };
+validOpts = { errors: { wrap: { array: str } } };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -104,7 +104,7 @@ let ipOpts: Joi.IpOptions = {};
 
 ipOpts = { version: str };
 ipOpts = { version: strArr };
-ipOpts = { cidr: 'forbidden' };
+ipOpts = { cidr: "forbidden" };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -173,14 +173,14 @@ let validErrFunc: Joi.ValidationErrorFunction;
 validErrItem = {
     message: str,
     type: str,
-    path: [str]
+    path: [str],
 };
 
 validErrItem = {
     message: str,
     type: str,
     path: [str],
-    context: obj
+    context: obj,
 };
 
 validErrItem = {
@@ -191,7 +191,7 @@ validErrItem = {
 };
 
 validErrFunc = errs => errs[0];
-validErrFunc = errs => 'Some error';
+validErrFunc = errs => "Some error";
 validErrFunc = errs => err;
 
 // error() can take function with ErrorReport argument
@@ -200,7 +200,7 @@ validErrFunc = errors => {
     const code: string = errors[0].code;
     const messages = errors[0].prefs.messages;
 
-    const message: string = messages ? messages[code].rendered : 'Error';
+    const message: string = messages ? messages[code].rendered : "Error";
 
     const validationErr = new Error();
     validationErr.message = `[${path}]: ${message}`;
@@ -245,34 +245,34 @@ let schemaMap: Joi.SchemaMap = {};
 
 schemaMap = {
     a: numSchema,
-    b: strSchema
+    b: strSchema,
 };
 schemaMap = {
     a: numSchema,
     b: {
         b1: strSchema,
-        b2: anySchema
-    }
+        b2: anySchema,
+    },
 };
 schemaMap = {
     a: numSchema,
     b: [
         { b1: strSchema },
-        { b2: anySchema }
+        { b2: anySchema },
     ],
     c: arrSchema,
-    d: schemaLike
+    d: schemaLike,
 };
 schemaMap = {
     a: 1,
     b: {
-        b1: '1',
-        b2: 2
+        b1: "1",
+        b2: 2,
     },
     c: [
         { c1: true },
-        { c2: null }
-    ]
+        { c2: null },
+    ],
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -356,12 +356,23 @@ arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.sort();
-arrSchema = arrSchema.sort({ order: 'descending' });
-arrSchema = arrSchema.sort({ by: 'n' });
+arrSchema = arrSchema.sort({ order: "descending" });
+arrSchema = arrSchema.sort({ by: "n" });
 arrSchema = arrSchema.sort({ by: ref });
 arrSchema = arrSchema.sort();
 arrSchema = arrSchema.ordered(anySchema);
-arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema, schemaLike);
+arrSchema = arrSchema.ordered(
+    anySchema,
+    numSchema,
+    strSchema,
+    arrSchema,
+    boolSchema,
+    binSchema,
+    dateSchema,
+    funcSchema,
+    objSchema,
+    schemaLike,
+);
 arrSchema = arrSchema.ordered(schemaMap);
 arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
@@ -370,7 +381,7 @@ arrSchema = arrSchema.length(num);
 arrSchema = arrSchema.length(ref);
 arrSchema = arrSchema.unique();
 arrSchema = arrSchema.unique((a, b) => a.test === b.test);
-arrSchema = arrSchema.unique('customer.id');
+arrSchema = arrSchema.unique("customer.id");
 
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema, schemaLike);
@@ -548,10 +559,10 @@ binSchema = binSchema.length(num);
 
 dateSchema = Joi.date();
 
-dateSchema = dateSchema.greater('now');
-dateSchema = dateSchema.less('now');
-dateSchema = dateSchema.min('now');
-dateSchema = dateSchema.max('now');
+dateSchema = dateSchema.greater("now");
+dateSchema = dateSchema.less("now");
+dateSchema = dateSchema.min("now");
+dateSchema = dateSchema.max("now");
 
 dateSchema = dateSchema.greater(date);
 dateSchema = dateSchema.less(date);
@@ -576,8 +587,8 @@ dateSchema = dateSchema.max(ref);
 dateSchema = dateSchema.iso();
 
 dateSchema = dateSchema.timestamp();
-dateSchema = dateSchema.timestamp('javascript');
-dateSchema = dateSchema.timestamp('unix');
+dateSchema = dateSchema.timestamp("javascript");
+dateSchema = dateSchema.timestamp("unix");
 
 { // common
     dateSchema = dateSchema.allow(x);
@@ -720,25 +731,25 @@ objSchema = objSchema.pattern(exp, schemaLike);
 
 objSchema = objSchema.and(str);
 objSchema = objSchema.and(str, str);
-objSchema = objSchema.and(str, str, { separator: ',' });
+objSchema = objSchema.and(str, str, { separator: "," });
 
 objSchema = objSchema.nand(str);
 objSchema = objSchema.nand(str, str);
-objSchema = objSchema.nand(str, str, { separator: ',' });
+objSchema = objSchema.nand(str, str, { separator: "," });
 
 objSchema = objSchema.schema();
 
 objSchema = objSchema.or(str);
 objSchema = objSchema.or(str, str);
-objSchema = objSchema.or(str, str, { separator: ',' });
+objSchema = objSchema.or(str, str, { separator: "," });
 
 objSchema = objSchema.oxor(str);
 objSchema = objSchema.oxor(str, str);
-objSchema = objSchema.oxor(str, str, { separator: ',' });
+objSchema = objSchema.oxor(str, str, { separator: "," });
 
 objSchema = objSchema.xor(str);
 objSchema = objSchema.xor(str, str);
-objSchema = objSchema.xor(str, str, { separator: ',' });
+objSchema = objSchema.xor(str, str, { separator: "," });
 
 objSchema = objSchema.with(str, str);
 objSchema = objSchema.with(str, strArr);
@@ -849,14 +860,14 @@ strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
 strSchema = strSchema.guid({
-    version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5']
+    version: ["uuidv1", "uuidv2", "uuidv3", "uuidv4", "uuidv5"],
 });
-strSchema = strSchema.guid({ version: 'uuidv4' });
+strSchema = strSchema.guid({ version: "uuidv4" });
 strSchema = strSchema.uuid();
 strSchema = strSchema.uuid({
-    version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'],
+    version: ["uuidv1", "uuidv2", "uuidv3", "uuidv4", "uuidv5"],
 });
-strSchema = strSchema.uuid({ version: 'uuidv4' });
+strSchema = strSchema.uuid({ version: "uuidv4" });
 strSchema = strSchema.hex();
 strSchema = strSchema.hex(hexOpts);
 strSchema = strSchema.hostname();
@@ -867,7 +878,7 @@ strSchema = strSchema.trim();
 strSchema = strSchema.truncate();
 strSchema = strSchema.truncate(false);
 strSchema = strSchema.normalize();
-strSchema = strSchema.normalize('NFKC');
+strSchema = strSchema.normalize("NFKC");
 strSchema = strSchema.base64();
 strSchema = strSchema.base64(base64Opts);
 strSchema = strSchema.dataUri();
@@ -927,23 +938,23 @@ Joi.checkPreferences(validOpts);
 
 let expr;
 
-expr = Joi.expression('{{foo}}');
-expr = Joi.expression('{{foo}}', { adjust: (value) => value });
-expr = Joi.expression('{{foo}}', { ancestor: 3 });
-expr = Joi.expression('{{foo}}', { in: true });
-expr = Joi.expression('{{foo}}', { iterables: true });
-expr = Joi.expression('{{foo}}', { map: [['key', 'value']] });
-expr = Joi.expression('{{foo}}', { prefix: { local: '%' } });
-expr = Joi.expression('{{foo}}', { separator: '_' });
+expr = Joi.expression("{{foo}}");
+expr = Joi.expression("{{foo}}", { adjust: (value) => value });
+expr = Joi.expression("{{foo}}", { ancestor: 3 });
+expr = Joi.expression("{{foo}}", { in: true });
+expr = Joi.expression("{{foo}}", { iterables: true });
+expr = Joi.expression("{{foo}}", { map: [["key", "value"]] });
+expr = Joi.expression("{{foo}}", { prefix: { local: "%" } });
+expr = Joi.expression("{{foo}}", { separator: "_" });
 
-expr = Joi.x('{{foo}}');
-expr = Joi.x('{{foo}}', { adjust: (value) => value });
-expr = Joi.x('{{foo}}', { ancestor: 3 });
-expr = Joi.x('{{foo}}', { in: true });
-expr = Joi.x('{{foo}}', { iterables: true });
-expr = Joi.x('{{foo}}', { map: [['key', 'value']] });
-expr = Joi.x('{{foo}}', { prefix: { local: '%' } });
-expr = Joi.x('{{foo}}', { separator: '_' });
+expr = Joi.x("{{foo}}");
+expr = Joi.x("{{foo}}", { adjust: (value) => value });
+expr = Joi.x("{{foo}}", { ancestor: 3 });
+expr = Joi.x("{{foo}}", { in: true });
+expr = Joi.x("{{foo}}", { iterables: true });
+expr = Joi.x("{{foo}}", { map: [["key", "value"]] });
+expr = Joi.x("{{foo}}", { prefix: { local: "%" } });
+expr = Joi.x("{{foo}}", { separator: "_" });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -973,7 +984,7 @@ schema = Joi.link(str);
 
 { // validate tests
     {
-        let value = { username: 'example', password: 'example' };
+        let value = { username: "example", password: "example" };
         const schema = Joi.object().keys({
             username: Joi.string().max(255).required(),
             password: Joi.string().pattern(/^[a-zA-Z0-9]{3,255}$/).required(),
@@ -985,7 +996,7 @@ schema = Joi.link(str);
 
         result = schema.validate(value);
         if (result.error) {
-            throw Error('error should not be set');
+            throw Error("error should not be set");
         }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
@@ -993,13 +1004,15 @@ schema = Joi.link(str);
 
         asyncResult
             .then(val => JSON.stringify(val, null, 2))
-            .then(val => { throw new Error('one error'); })
-            .catch(e => { });
+            .then(val => {
+                throw new Error("one error");
+            })
+            .catch(e => {});
 
-        const falsyValue = { username: 'example' };
+        const falsyValue = { username: "example" };
         result = schema.validate(falsyValue);
         if (!result.error) {
-            throw Error('error should be set');
+            throw Error("error should be set");
         }
     }
 }
@@ -1018,7 +1031,7 @@ Joi.assert(obj, schema, validOpts);
 Joi.assert(obj, schemaLike);
 
 {
-    let value = { username: 'example', password: 'example' };
+    let value = { username: "example", password: "example" };
     value = Joi.attempt(obj, schema);
     value = Joi.attempt(obj, schema, str);
     value = Joi.attempt(obj, schema, str, validOpts);
@@ -1037,13 +1050,13 @@ Joi.isSchema(schema);
 
 description = schema.describe();
 
-const Joi2 = Joi.extend({ type: '', base: schema });
+const Joi2 = Joi.extend({ type: "", base: schema });
 
 const Joi3 = Joi.extend({
-    type: 'string',
+    type: "string",
     base: Joi.string(),
     messages: {
-        asd: 'must be exactly asd(f)'
+        asd: "must be exactly asd(f)",
     },
     coerce(schema, value) {
         return { value };
@@ -1052,17 +1065,17 @@ const Joi3 = Joi.extend({
         asd: {
             args: [
                 {
-                    name: 'allowFalse',
+                    name: "allowFalse",
                     ref: true,
                     assert: Joi.boolean(),
-                }
+                },
             ],
             method(allowFalse: boolean) {
                 return this.$_addRule({
-                    name: 'asd',
+                    name: "asd",
                     args: {
                         allowFalse,
-                    }
+                    },
                 });
             },
             validate(value: boolean, helpers, params, options) {
@@ -1070,23 +1083,23 @@ const Joi3 = Joi.extend({
                     return value;
                 }
 
-                return helpers.error('asd', { v: value }, options);
-            }
-        }
-    }
+                return helpers.error("asd", { v: value }, options);
+            },
+        },
+    },
 });
 
-const Joi4 = Joi.extend({ type: '', base: schema }, { type: '', base: schema });
+const Joi4 = Joi.extend({ type: "", base: schema }, { type: "", base: schema });
 
-const Joi5 = Joi.extend({ type: '', base: schema }, { type: '', base: schema }, { type: '', base: schema });
+const Joi5 = Joi.extend({ type: "", base: schema }, { type: "", base: schema }, { type: "", base: schema });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 const defaultsJoi = Joi.defaults((schema) => {
     switch (schema.type) {
-        case 'string':
-            return schema.allow('');
-        case 'object':
+        case "string":
+            return schema.allow("");
+        case "object":
             return (schema as Joi.ObjectSchema).min(1);
         default:
             return schema;
@@ -1154,12 +1167,12 @@ ref = Joi.in(str, refOpts);
 schema = Joi.symbol();
 schema = Joi.symbol().map(new Map<string, symbol>());
 schema = Joi.symbol().map({
-    key: Symbol('asd'),
+    key: Symbol("asd"),
 });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-const rule = Joi.string().case('upper').$_getRule('case');
+const rule = Joi.string().case("upper").$_getRule("case");
 if (rule && rule.args) {
     const direction = rule.args.direction;
 }
@@ -1185,7 +1198,7 @@ anyObject = anyObject.append({
 });
 
 anyObject = anyObject.keys({
-    length: Joi.string()
+    length: Joi.string(),
 });
 
 // test with keys
@@ -1197,7 +1210,7 @@ Joi.object().keys({
 }).append({
     height: Joi.number(),
 }).keys({
-    length: Joi.string()
+    length: Joi.string(),
 });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

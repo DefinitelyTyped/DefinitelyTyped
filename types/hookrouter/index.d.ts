@@ -4,7 +4,7 @@
 //                 Sam Calvert <https://github.com/sam-outschool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
-import * as React from 'react';
+import * as React from "react";
 export namespace HookRouter {
     type InterceptedPath = string | null;
     interface AProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {

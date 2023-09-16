@@ -1,4 +1,4 @@
-import { asBlob } from 'html-docx-js';
+import { asBlob } from "html-docx-js";
 
 const html = `
 <!DOCTYPE html>
@@ -20,16 +20,16 @@ asBlob(1234);
 // @ts-expect-error
 asBlob(html, null);
 // @ts-expect-error
-asBlob(html, { orientation: 'invalid' });
+asBlob(html, { orientation: "invalid" });
 // @ts-expect-error
-asBlob(html, { foo: ['bar'] });
+asBlob(html, { foo: ["bar"] });
 
 // Valid ways to call
 asBlob(html); // $ExpectType Blob | Buffer
 asBlob(html, {}); // $ExpectType Blob | Buffer
 
 const result1 = asBlob(html, {
-    orientation: 'landscape',
+    orientation: "landscape",
     margins: {
         top: 100,
         right: 100,

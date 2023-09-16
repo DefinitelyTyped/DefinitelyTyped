@@ -5,16 +5,16 @@
 
 /// <reference types="node" />
 
-import * as server from './lib/server';
-import * as client from './lib/client';
-import * as crypto from './lib/crypto';
-import * as utils from './lib/utils';
+import * as client from "./lib/client";
+import * as crypto from "./lib/crypto";
+import * as server from "./lib/server";
+import * as utils from "./lib/utils";
 
 export namespace uri {
     const authenticate: typeof server.authenticateBewit;
     const getBewit: typeof client.getBewit;
 }
 
-export { server, client, crypto, utils };
+export { client, crypto, server, utils };
 
 export as namespace hawk;

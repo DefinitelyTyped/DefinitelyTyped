@@ -8,66 +8,66 @@ import {
     RouteOptionsCors,
     RouteOptionsPayload,
     RouteOptionsResponse,
+    RouteOptionsSecureObject,
     RouteOptionsValidate,
     Server,
-    RouteOptionsSecureObject
 } from "hapi";
 
 const routeOptionsAccess: RouteOptionsAccess = {
     access: [
         {
-            scope: false
+            scope: false,
         },
         {
-            entity: 'user'
-        }
+            entity: "user",
+        },
     ],
     scope: false,
-    entity: 'user',
-    mode: 'optional',
-    payload: 'optional',
-    strategies: ['', ''],
-    strategy: ''
+    entity: "user",
+    mode: "optional",
+    payload: "optional",
+    strategies: ["", ""],
+    strategy: "",
 };
 
 const corsOption: RouteOptionsCors = {
-    origin: 'ignore',
+    origin: "ignore",
     maxAge: 5000,
-    headers: ['test', 'test', 'test'],
-    additionalHeaders: ['test', 'test', 'test'],
-    exposedHeaders: ['test', 'test', 'test'],
-    additionalExposedHeaders: ['test', 'test', 'test'],
-    credentials: false
+    headers: ["test", "test", "test"],
+    additionalHeaders: ["test", "test", "test"],
+    exposedHeaders: ["test", "test", "test"],
+    additionalExposedHeaders: ["test", "test", "test"],
+    credentials: false,
 };
 
 const payloadOptions: RouteOptionsPayload = {
-    allow: 'string',
+    allow: "string",
     compression: {
         test1: {
-            test: 2
-        }
+            test: 2,
+        },
     },
-    defaultContentType: 'application/json',
+    defaultContentType: "application/json",
     failAction(request, h) {
-        return 'ok: ' + request.path;
+        return "ok: " + request.path;
     },
     maxBytes: 1048576,
     multipart: {
-        output: 'annotated'
+        output: "annotated",
     },
-    output: 'stream',
-    override: '',
-    parse: 'gunzip',
+    output: "stream",
+    override: "",
+    parse: "gunzip",
     timeout: 5000,
-    uploads: 'dir/'
+    uploads: "dir/",
 };
 
 const pre1: Lifecycle.Method = (request, h) => {
-    return 'Hello';
+    return "Hello";
 };
 
 const pre2: Lifecycle.Method = (request, h) => {
-    return 'World';
+    return "World";
 };
 
 const pre3: Lifecycle.Method = (request, h) => {
@@ -77,7 +77,7 @@ const pre3: Lifecycle.Method = (request, h) => {
 const routeOptionsResponse: RouteOptionsResponse = {
     emptyStatusCode: 200,
     failAction(request, h) {
-        return 'ok: ' + request.path;
+        return "ok: " + request.path;
     },
     modify: false,
     options: undefined,
@@ -92,7 +92,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
 };
 
 const routeOptionSecure: RouteOptionsSecureObject = {
-    referrer: 'origin',
+    referrer: "origin",
     noSniff: true,
     xframe: "deny",
     hsts: {
@@ -107,7 +107,7 @@ const routeOptionSecure: RouteOptionsSecureObject = {
 const routeOptionsValidate: RouteOptionsValidate = {
     errorFields: {},
     failAction(request, h) {
-        return 'ok: ' + request.path;
+        return "ok: " + request.path;
     },
     headers: false,
     options: {},
@@ -116,7 +116,7 @@ const routeOptionsValidate: RouteOptionsValidate = {
     query: true,
 };
 
-declare module 'hapi' {
+declare module "hapi" {
     interface RouteOptionsApp {
         one: number;
         two: string;
@@ -126,33 +126,33 @@ declare module 'hapi' {
 const routeOptions: RouteOptions = {
     app: {
         one: 1,
-        two: "2"
+        two: "2",
     },
     auth: routeOptionsAccess,
     bind: null,
     cache: {
-        privacy: 'default',
+        privacy: "default",
         statuses: [200],
-        otherwise: 'no-cache'
+        otherwise: "no-cache",
     },
     compression: {
         test1: {
-            test: 2
-        }
+            test: 2,
+        },
     },
     cors: corsOption,
-    description: 'description here',
+    description: "description here",
     ext: undefined,
-    files: { relativeTo: '.' },
+    files: { relativeTo: "." },
     handler(request, h) {
-        return 'ok: ' + request.path;
+        return "ok: " + request.path;
     },
-    id: 'test',
+    id: "test",
     isInternal: false,
     json: undefined,
-    jsonp: 'callback',
+    jsonp: "callback",
     log: { collect: false },
-    notes:  ['test', 'test', 'test'],
+    notes: ["test", "test", "test"],
     payload: payloadOptions,
     plugins: {
         plugin1: {},
@@ -161,33 +161,33 @@ const routeOptions: RouteOptions = {
     pre: [
         [
             // m1 and m2 executed in parallel
-            { method: pre1, assign: 'm1' },
-            { method: pre2, assign: 'm2' }
+            { method: pre1, assign: "m1" },
+            { method: pre2, assign: "m2" },
         ],
-        { method: pre3, assign: 'm3' },
+        { method: pre3, assign: "m3" },
     ],
     response: routeOptionsResponse,
     security: false,
     state: {
         parse: true,
         failAction(request, h) {
-            return 'ok: ' + request.path;
+            return "ok: " + request.path;
         },
     },
-    tags: ['test', 'test', 'test'],
+    tags: ["test", "test", "test"],
     timeout: {
         server: 10000,
-        socket: false
+        socket: false,
     },
-    validate: routeOptionsValidate
+    validate: routeOptionsValidate,
 };
 
 const server = new Server({
     port: 8000,
-    routes: routeOptions
+    routes: routeOptions,
 });
 server.start();
 
-server.events.on('start', () => {
-    console.log('Server started at: ' + server.info.uri);
+server.events.on("start", () => {
+    console.log("Server started at: " + server.info.uri);
 });

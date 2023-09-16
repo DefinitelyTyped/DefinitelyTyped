@@ -12,40 +12,40 @@ const routeOptions: RouteOptions = {
             id: Joi.string().uuid().required(),
             name: Joi.object({
                 firstName: Joi.string().required(),
-                lastName: Joi.string().allow(null)
+                lastName: Joi.string().allow(null),
             }),
-            firstName: Joi.ref("name.firstName")
+            firstName: Joi.ref("name.firstName"),
         },
         params: {
             name: Joi.string().min(3).max(10),
-            nameRef: Joi.ref("name")
+            nameRef: Joi.ref("name"),
         },
         state: {
-            woop: Joi.string().allow('doop'),
+            woop: Joi.string().allow("doop"),
         },
     },
     response: {
         schema: Joi.object({
             a: Joi.string(),
             b: Joi.object({
-                c: Joi.number()
+                c: Joi.number(),
             }),
-            d: Joi.ref("b.c")
-        })
-    }
+            d: Joi.ref("b.c"),
+        }),
+    },
 };
 
 const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
+    path: "/",
+    method: "GET",
     handler(request, h) {
-        return 'ok: ' + request.path;
+        return "ok: " + request.path;
     },
-    options: routeOptions
+    options: routeOptions,
 };
 
 const server = new Server(options);
 server.route(serverRoute);
 
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

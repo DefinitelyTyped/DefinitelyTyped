@@ -10,7 +10,7 @@
  */
 export interface ProductType {
     id: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     name: string;
     short: string;
     bitmasks: number[];
@@ -40,7 +40,7 @@ export interface Profile {
  * A location object is used by other items to indicate their locations.
  */
 export interface Location {
-    type: 'location';
+    type: "location";
     id?: string;
     name?: string;
     poi?: boolean;
@@ -73,7 +73,7 @@ export interface ReisezentrumOpeningHours {
  * that may span across multiple levels or buildings.
  */
 export interface Station {
-    type: 'station';
+    type: "station";
     id?: string;
     name?: string;
     station?: Station;
@@ -101,7 +101,7 @@ export interface Ids {
  * A stop always belongs to a station. It may for example be a sign, a basic shelter or a railway platform.
  */
 export interface Stop {
-    type: 'stop';
+    type: "stop";
     id?: string;
     name?: string;
     location?: Location;
@@ -120,14 +120,14 @@ export interface Stop {
  * A region is a group of stations, for example a metropolitan area or a geographical or cultural region.
  */
 export interface Region {
-    type: 'region';
+    type: "region";
     id: string;
     name: string;
     /** station ids */
     stations: ReadonlyArray<string>;
 }
 export interface Line {
-    type: 'line';
+    type: "line";
     id?: string;
     name?: string;
     adminCode?: string;
@@ -135,7 +135,7 @@ export interface Line {
     additionalName?: string;
     product?: string;
     public?: boolean;
-    mode?: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode?: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     /** routes ids */
     routes?: ReadonlyArray<string>;
     operator?: Operator;
@@ -154,10 +154,10 @@ export interface RealtimeDataUpdatedAt {
  * A route represents a single set of stations, of a single line.
  */
 export interface Route {
-    type: 'route';
+    type: "route";
     id: string;
     line: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     /** stop ids */
     stops: ReadonlyArray<string>;
 }
@@ -176,28 +176,28 @@ export interface ArrivalDeparture {
  * It is specifically geared towards urban public transport, with frequent trains and homogenous travels.
  */
 export interface Schedule {
-    type: 'schedule';
+    type: "schedule";
     id: string;
     route: string;
-    mode: 'train' | 'bus' | 'watercraft' | 'taxi' | 'gondola' | 'aircraft' | 'car' | 'bicycle' | 'walking';
+    mode: "train" | "bus" | "watercraft" | "taxi" | "gondola" | "aircraft" | "car" | "bicycle" | "walking";
     sequence: ReadonlyArray<ArrivalDeparture>;
     /** array of Unix timestamps */
     starts: ReadonlyArray<string>;
 }
 export interface Operator {
-    type: 'operator';
+    type: "operator";
     id: string;
     name: string;
 }
 export interface Hint {
-    type: 'hint' | 'status' | 'foreign-id' | 'local-fare-zone' | 'stop-website' | 'stop-dhid' | 'transit-authority';
+    type: "hint" | "status" | "foreign-id" | "local-fare-zone" | "stop-website" | "stop-dhid" | "transit-authority";
     code?: string;
     summary?: string;
     text: string;
     tripId?: string;
 }
 export interface Status {
-    type: 'hint' | 'status' | 'foreign-id' | 'local-fare-zone' | 'stop-website' | 'stop-dhid' | 'transit-authority';
+    type: "hint" | "status" | "foreign-id" | "local-fare-zone" | "stop-website" | "stop-dhid" | "transit-authority";
     code?: string;
     summary?: string;
     text: string;
@@ -223,7 +223,7 @@ export interface Event {
     sections?: string[];
 }
 export interface Warning {
-    type: 'status' | 'warning';
+    type: "status" | "warning";
     id?: string;
     icon?: object;
     summary?: string;
@@ -243,19 +243,19 @@ export interface Warning {
     toStops?: ReadonlyArray<Station | Stop | Location>;
 }
 export interface Geometry {
-    type: 'Point';
+    type: "Point";
     coordinates: number[];
 }
 export interface Feature {
-    type: 'Feature';
+    type: "Feature";
     properties: Station | Stop | Location | object;
     geometry: Geometry;
 }
 export interface FeatureCollection {
-    type: 'FeatureCollection';
+    type: "FeatureCollection";
     features: ReadonlyArray<Feature>;
 }
-export type PrognosisType = 'prognosed' | 'calculated';
+export type PrognosisType = "prognosed" | "calculated";
 /**
  * A stopover represents a vehicle stopping at a stop/station at a specific time.
  */
@@ -423,7 +423,7 @@ export interface ScheduledDays {
  * It would typically be the result of a route planning algorithm.
  */
 export interface Journey {
-    type: 'journey';
+    type: "journey";
     legs: ReadonlyArray<Leg>;
     refreshToken?: string;
     remarks?: ReadonlyArray<Hint | Status | Warning>;
@@ -581,8 +581,8 @@ export interface LoyaltyCard {
     discount?: number;
     class?: number;
 }
-export type AgeGroup = 'B' | 'K' | 'Y' | 'E' | 'S';
-export type RoutingMode = 'OFF' | 'INFOS' | 'FULL' | 'REALTIME' | 'SERVER_DEFAULT' | 'HYBRID';
+export type AgeGroup = "B" | "K" | "Y" | "E" | "S";
+export type RoutingMode = "OFF" | "INFOS" | "FULL" | "REALTIME" | "SERVER_DEFAULT" | "HYBRID";
 /**
  * JourneysOptions specific to Db Profile
  */
@@ -1083,13 +1083,20 @@ export interface HafasClient {
      * @param to uid of station
      * @param options options
      */
-    journeys: (from: string | Station | Stop | Location, to: string | Station | Stop | Location, options: JourneysOptions | undefined) => Promise<Journeys>;
+    journeys: (
+        from: string | Station | Stop | Location,
+        to: string | Station | Stop | Location,
+        options: JourneysOptions | undefined,
+    ) => Promise<Journeys>;
     /**
      * refreshes a Journey
      * @param refreshToken refreshToken must be a string, taken from {@link journey#refreshToken}
      * @param options options
      */
-    refreshJourney?: (refreshToken: string, options: RefreshJourneyOptions | undefined) => Promise<JourneyWithRealtimeData>;
+    refreshJourney?: (
+        refreshToken: string,
+        options: RefreshJourneyOptions | undefined,
+    ) => Promise<JourneyWithRealtimeData>;
     /**
      * Refetch information about a trip
      * @param id trip id, see {@link Leg#tripId}
@@ -1102,13 +1109,19 @@ export interface HafasClient {
      * @param station uid of station
      * @param options options
      */
-    departures: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<Departures>;
+    departures: (
+        station: string | Station | Stop | Location,
+        options: DeparturesArrivalsOptions | undefined,
+    ) => Promise<Departures>;
     /**
      * Retrieves arrivals
      * @param station uid of station
      * @param options options
      */
-    arrivals: (station: string | Station | Stop | Location, options: DeparturesArrivalsOptions | undefined) => Promise<Arrivals>;
+    arrivals: (
+        station: string | Station | Stop | Location,
+        options: DeparturesArrivalsOptions | undefined,
+    ) => Promise<Arrivals>;
     /**
      * Retrieves journeys from trip id to station
      * @param fromTripId id of trip
@@ -1116,13 +1129,21 @@ export interface HafasClient {
      * @param to uid of station or Station or Stop
      * @param options options
      */
-    journeysFromTrip?: (fromTripId: string, previousStopover: StopOver, to: string | Station | Stop | Location, opt: JourneysFromTripOptions | undefined) => Promise<Journeys>;
+    journeysFromTrip?: (
+        fromTripId: string,
+        previousStopover: StopOver,
+        to: string | Station | Stop | Location,
+        opt: JourneysFromTripOptions | undefined,
+    ) => Promise<Journeys>;
     /**
      * Retrieves locations or stops
      * @param name name of station
      * @param options options for search
      */
-    locations: (name: string, options: LocationsOptions | undefined) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    locations: (
+        name: string,
+        options: LocationsOptions | undefined,
+    ) => Promise<ReadonlyArray<Station | Stop | Location>>;
     /**
      * Retrieves information about a stop
      * @param id uid of station
@@ -1134,13 +1155,19 @@ export interface HafasClient {
      * @param location location
      * @param options options for search
      */
-    nearby: (location: Location, options: NearByOptions | undefined) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    nearby: (
+        location: Location,
+        options: NearByOptions | undefined,
+    ) => Promise<ReadonlyArray<Station | Stop | Location>>;
     /**
      * Retrieves stations reachable within a certain time from a location
      * @param address location
      * @param options options for search
      */
-    reachableFrom?: (address: Location, options: ReachableFromOptions | undefined) => Promise<DurationsWithRealtimeData>;
+    reachableFrom?: (
+        address: Location,
+        options: ReachableFromOptions | undefined,
+    ) => Promise<DurationsWithRealtimeData>;
     /**
      * Retrieves all vehicles currently in an area.
      * @param box area
@@ -1152,7 +1179,10 @@ export interface HafasClient {
      * @param lineNameOrFahrtNr string
      * @param options options for search
      */
-    tripsByName?: (lineNameOrFahrtNr: string, options: TripsByNameOptions | undefined) => Promise<TripsWithRealtimeData>;
+    tripsByName?: (
+        lineNameOrFahrtNr: string,
+        options: TripsByNameOptions | undefined,
+    ) => Promise<TripsWithRealtimeData>;
     /**
      * Fetches all remarks known to the HAFAS endpoint
      * @param opt RemarksOptions

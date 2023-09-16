@@ -15,7 +15,7 @@
 declare function tableify<T extends keyof any>(data: Array<tableify.Datum<T>>, config?: tableify.Config<T>): string;
 
 declare namespace tableify {
-    type Alignment = 'center' | 'left' | 'right';
+    type Alignment = "center" | "left" | "right";
 
     /** Object of optional values for each key `T`. */
     type Datum<T extends keyof any> = {

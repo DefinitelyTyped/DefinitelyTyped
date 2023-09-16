@@ -1,7 +1,5 @@
-
-
 pace.start({
-    document: false
+    document: false,
 });
 
 pace.start();
@@ -18,44 +16,44 @@ paceOptions = {
 
     // Only show the progress on regular and ajax-y page navigation,
     // not every request
-    restartOnRequestAfter: false
-}
+    restartOnRequestAfter: false,
+};
 
 paceOptions = {
     ajax: false, // disabled
     document: false, // disabled
     eventLag: false, // disabled
     elements: {
-        selectors: ['.my-page']
-    }
+        selectors: [".my-page"],
+    },
 };
 
 paceOptions = {
     elements: {
-        selectors: ['.timeline,.timeline-error', '.user-profile,.profile-error']
-    }
-}
+        selectors: [".timeline,.timeline-error", ".user-profile,.profile-error"],
+    },
+};
 
 paceOptions = {
-    restartOnPushState: false
-}
+    restartOnPushState: false,
+};
 
 paceOptions = {
-    restartOnRequestAfter: false
-}
+    restartOnRequestAfter: false,
+};
 
 pace.options = {
-  restartOnRequestAfter: false
-}
+    restartOnRequestAfter: false,
+};
 
-pace.ignore(function(){
+pace.ignore(function() {
 });
 
-pace.track(function(){
+pace.track(function() {
 });
 
 pace.options = {
-  ajax: {
-    ignoreURLs: ['some-substring', /some-regexp/]
-  }
+    ajax: {
+        ignoreURLs: ["some-substring", /some-regexp/],
+    },
 };

@@ -14,7 +14,7 @@ declare const hello: hello.HelloJSStatic;
 declare namespace hello {
     interface HelloJSUtils {
         extend(r: object, ...a: any[]): any;
-        error(code: number, message: string): { code: number, message: string };
+        error(code: number, message: string): { code: number; message: string };
         qs(url: string, params?: object, formatFunction?: (param: any) => string): string;
         param(o: object, formatFunction?: (param: any) => string): string;
         param(s: string, formatFunction?: (param: string) => any): any;
@@ -43,7 +43,14 @@ declare namespace hello {
         clone<T>(obj: T): T;
         xhr(method: string, url: string, headers: object, data: any, callback: HelloJSResponseCallback): XMLHttpRequest;
         jsonp(url: string, callback: () => void, callbackID?: string, timeout?: number): void;
-        post(url: string, data: any, options: object, callback: HelloJSResponseCallback, callbackID?: string, timeout?: number): void;
+        post(
+            url: string,
+            data: any,
+            options: object,
+            callback: HelloJSResponseCallback,
+            callbackID?: string,
+            timeout?: number,
+        ): void;
         hasBinary(data: any): boolean;
         isBinary(data: any): boolean;
         toBlob(dataURI: string): Blob | string;
@@ -54,7 +61,7 @@ declare namespace hello {
     type HelloJSResponseCallback = (r: any, headers: any) => void;
 
     type HelloJSTokenResponseType =
-        "code"
+        | "code"
         | "code id_token"
         | "code id_token token"
         | "code token"
@@ -124,10 +131,14 @@ declare namespace hello {
     }
 
     interface HelloJSStatic extends HelloJSEvent {
-        init(serviceAppIdsOrDefs: { [id: string]: string | HelloJSServiceDef; }, options?: HelloJSLoginOptions): void;
+        init(serviceAppIdsOrDefs: { [id: string]: string | HelloJSServiceDef }, options?: HelloJSLoginOptions): void;
         login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
-        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
+        login(
+            network?: string,
+            options?: HelloJSLoginOptions,
+            callback?: () => void,
+        ): PromiseLike<HelloJSLoginEventArguement>;
         logout(callback?: () => void): PromiseLike<any>;
         logout(options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
         logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
@@ -137,7 +148,14 @@ declare namespace hello {
         utils: HelloJSUtils;
         api(options: object): PromiseLike<any>;
         api(path?: string, method?: string, data?: object, callback?: (json: any) => void): PromiseLike<any>;
-        api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): PromiseLike<any>;
+        api(
+            path?: string,
+            query?: object,
+            method?: string,
+            data?: object,
+            timeout?: number,
+            callback?: (json: any) => void,
+        ): PromiseLike<any>;
     }
 
     interface HelloJSOAuthDef {
@@ -162,7 +180,7 @@ declare namespace hello {
         id?: string | undefined;
         name?: string | undefined;
         oauth: HelloJSOAuth2Def | HelloJSOAuth1Def;
-        scope?: { [id: string]: string; } | undefined;
+        scope?: { [id: string]: string } | undefined;
         scope_delim?: string | undefined;
         refresh?: boolean | undefined;
         base?: string | undefined;
@@ -172,7 +190,7 @@ declare namespace hello {
         del?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
         put?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
         patch?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
-        wrap?: { [id: string]: (r: any, headers: any, p: any) => void; } | undefined;
+        wrap?: { [id: string]: (r: any, headers: any, p: any) => void } | undefined;
         xhr?(p: any, query: any): void;
         jsonp?: ((p: any, query: any) => void) | boolean | undefined;
         form?: ((p: any, query: any) => void) | boolean | undefined;

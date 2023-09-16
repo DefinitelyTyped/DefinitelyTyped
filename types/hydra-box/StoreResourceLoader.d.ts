@@ -1,5 +1,5 @@
-import { Term, Store } from '@rdfjs/types';
-import { ResourceLoader, Resource } from '.';
+import { Store, Term } from "@rdfjs/types";
+import { Resource, ResourceLoader } from ".";
 
 // tslint:disable-next-line no-empty-interface
 interface StoreResourceLoader extends ResourceLoader {

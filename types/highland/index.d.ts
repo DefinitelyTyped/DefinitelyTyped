@@ -19,14 +19,14 @@
 // Uses trick described in https://github.com/microsoft/TypeScript/pull/33050#issuecomment-552218239
 // with string keys to support TS 2.8
 type Flattened<R> = {
-    value: R,
-    stream: R extends Highland.Stream<infer U> ? Flattened<U> : never,
+    value: R;
+    stream: R extends Highland.Stream<infer U> ? Flattened<U> : never;
     array: R extends Array<infer U> ? Flattened<U> : never;
-}[R extends Array<any> ? 'array' : R extends Highland.Stream<any> ? 'stream' : 'value'];
+}[R extends Array<any> ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {
-    new(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
+    new(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P;
 }
 /**
  * Highland: the high-level streams library
@@ -34,7 +34,6 @@ interface PConstructor<T, P extends PromiseLike<T>> {
  * Highland may be freely distributed under the Apache 2.0 license.
  * https://github.com/caolan/highland
  * Copyright (c) Caolan McMahon
- *
  */
 interface HighlandStatic {
     /**
@@ -132,7 +131,9 @@ interface HighlandStatic {
      */
     <R>(): Highland.Stream<R>;
     <R>(source: R[]): Highland.Stream<R>;
-    <R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
+    <R>(
+        source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void,
+    ): Highland.Stream<R>;
 
     <R>(source: Highland.Stream<R>): Highland.Stream<R>;
     <R>(source: NodeJS.ReadableStream, onFinished?: Highland.OnFinished): Highland.Stream<R>;
@@ -438,7 +439,6 @@ interface HighlandStatic {
 }
 
 declare namespace Highland {
-
     // hacky unique
     // TODO do we need this?
     interface Nil {
@@ -460,9 +460,9 @@ declare namespace Highland {
     /**
      * Used as a Redirect marker when writing to a Stream's incoming buffer
      */
-        // TODO is this public?
+    // TODO is this public?
     class StreamRedirect<R> {
-        constructor(to: Stream<R>)
+        constructor(to: Stream<R>);
 
         to: Stream<R>;
     }
@@ -472,7 +472,6 @@ declare namespace Highland {
      * Actual Stream constructor wrapped the the main exported function
      */
     interface Stream<R> extends NodeJS.EventEmitter {
-
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // STREAM OBJECTS
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -628,7 +627,14 @@ declare namespace Highland {
          * @param {Function} f - the function to handle errors and values
          * @api public
          */
-        consume<U>(f: (err: Error, x: R | Highland.Nil, push: (err: Error | null, value?: U | Highland.Nil) => void, next: () => void) => void): Stream<U>;
+        consume<U>(
+            f: (
+                err: Error,
+                x: R | Highland.Nil,
+                push: (err: Error | null, value?: U | Highland.Nil) => void,
+                next: () => void,
+            ) => void,
+        ): Stream<U>;
 
         /**
          * Holds off pushing data events downstream until there has been no more
@@ -757,8 +763,8 @@ declare namespace Highland {
          * @api public
          */
         // TODO verify this
-        group(f: (x: R) => string): Stream<{[prop:string]:R[]}>;
-        group(prop: string): Stream<{[prop:string]:R[]}>;
+        group(f: (x: R) => string): Stream<{ [prop: string]: R[] }>;
+        group(prop: string): Stream<{ [prop: string]: R[] }>;
 
         /**
          * Creates a new Stream with only the first value from the source.
@@ -836,7 +842,6 @@ declare namespace Highland {
         map<U>(f: (x: R) => U): Stream<U>;
 
         /**
-         *
          * Retrieves copies of all elements in the collection,
          * with only the whitelisted keys. If one of the whitelisted
          * keys does not exist, it will be ignored.
@@ -849,7 +854,6 @@ declare namespace Highland {
          */
         pick<Prop extends keyof R>(props: Prop[]): Stream<Pick<R, Prop>>;
         /**
-         *
          * Retrieves copies of all the elements in the collection
          * that satisfy a given predicate. Note: When using ES3,
          * only enumerable elements are selected. Both enumerable
@@ -861,7 +865,7 @@ declare namespace Highland {
          * @param {Function} f - the predicate function
          * @api public
          */
-        pickBy<Prop extends keyof R>(f: (key: Prop, value: R[Prop]) => boolean): Stream<Partial<R>>
+        pickBy<Prop extends keyof R>(f: (key: Prop, value: R[Prop]) => boolean): Stream<Partial<R>>;
 
         /**
          * Retrieves values associated with a given property from all elements in
@@ -1285,7 +1289,7 @@ declare namespace Highland {
          * @param {Number} n - the maximum number of concurrent reads/buffers
          * @api public
          */
-        parallel<U>(this: Stream<Stream<U>>, n: number): Stream<U>
+        parallel<U>(this: Stream<Stream<U>>, n: number): Stream<U>;
 
         /**
          * Reads values from a Stream of Streams, emitting them on a Single output
@@ -1373,7 +1377,6 @@ declare namespace Highland {
          */
         through<U>(f: (x: Stream<R>) => U): U;
         through(thru: NodeJS.ReadWriteStream): Stream<any>;
-
 
         /**
          * Takes two Streams and returns a Stream of corresponding pairs.
@@ -1475,7 +1478,7 @@ declare namespace Highland {
          * @param {Function} f - the iterator function
          * @api public
          */
-        each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
+        each(f: (x: R) => void): Pick<Stream<R>, "done">;
 
         /**
          * Pipes a Highland Stream to a [Node Writable
@@ -1511,7 +1514,7 @@ declare namespace Highland {
          * @api public
          */
         pipe<U>(dest: Stream<U>): Stream<U>;
-        pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean | undefined }): U
+        pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean | undefined }): U;
 
         /**
          * Consumes a single item from the Stream. Unlike consume, this function will
@@ -1614,7 +1617,7 @@ declare namespace Highland {
     interface PipeableStream<T, R> extends Stream<R> {}
 
     interface PipeOptions {
-        end: boolean
+        end: boolean;
     }
 
     type MappingHint = number | string[] | Function;
@@ -1626,9 +1629,8 @@ declare namespace Highland {
     type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 
-declare var highland:HighlandStatic;
+declare var highland: HighlandStatic;
 
-declare module 'highland' {
+declare module "highland" {
     export = highland;
 }
-

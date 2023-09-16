@@ -1,4 +1,4 @@
-import { Rule } from './types';
+import { Rule } from "./types";
 
 declare const Rules: Rule[];
 

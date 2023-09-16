@@ -7,7 +7,7 @@ export const pageWrapper: Element;
 export const stickyAlerts: Element;
 
 /** The value of the `darkModeOn` cookie. */
-export let darkModeOn: 'yes' | 'no';
+export let darkModeOn: "yes" | "no";
 
 /**
  * Create a cookie.

@@ -55,11 +55,11 @@ export { HoganTemplate as Template, HoganTemplate as template };
 
 export function compile(
     text: string,
-    options?: HoganOptions & { asString: false }
+    options?: HoganOptions & { asString: false },
 ): HoganTemplate;
 export function compile(
     text: string,
-    options?: HoganOptions & { asString: true }
+    options?: HoganOptions & { asString: true },
 ): string;
 /**
  * Compiles templates to HoganTemplate objects, which have a render method.
@@ -70,7 +70,7 @@ export function compile(
  */
 export function compile(
     text: string,
-    options?: HoganOptions
+    options?: HoganOptions,
 ): HoganTemplate | string;
 /**
  * Scans templates returning an array of found tokens.
@@ -91,5 +91,5 @@ export function scan(text: string, delimiters?: string): Token[];
 export function parse(
     tokens: ReadonlyArray<Token>,
     text?: undefined,
-    options?: HoganOptions
+    options?: HoganOptions,
 ): Tree;

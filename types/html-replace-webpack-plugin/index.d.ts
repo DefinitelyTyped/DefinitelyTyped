@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 // Cannot have varargs in the middle of a type, so we need to unfortunately make the rest `any[]`
 // https://github.com/microsoft/TypeScript/issues/1360

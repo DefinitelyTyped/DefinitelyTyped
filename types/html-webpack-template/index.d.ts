@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Options as HtmlWebpackPluginOptions } from 'html-webpack-plugin';
+import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
 
 export = HtmlWebpackTemplate;
 

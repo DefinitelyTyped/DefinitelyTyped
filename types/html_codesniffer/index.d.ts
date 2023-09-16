@@ -488,5 +488,5 @@ export namespace Util {
         headers: string;
     }
 
-    type DocumentType = 'html5' | 'xhtml5' | 'xhtml11' | 'xhtml10' | 'html401' | 'html40' | '';
+    type DocumentType = "html5" | "xhtml5" | "xhtml11" | "xhtml10" | "html401" | "html40" | "";
 }

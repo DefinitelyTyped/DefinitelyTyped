@@ -9,53 +9,53 @@
 
 declare namespace Recipe {
     type CommentOptionsFlag =
-        | 'invisible'
-        | 'hidden'
-        | 'print'
-        | 'nozoom'
-        | 'norotate'
-        | 'noview'
-        | 'readonly'
-        | 'locked'
-        | 'togglenoview';
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
 
     type AnnotSubtype =
-        | 'Text'
-        | 'FreeText'
-        | 'Line'
-        | 'Square'
-        | 'Circle'
-        | 'Polygon'
-        | 'PolyLine'
-        | 'Highlight'
-        | 'Underline'
-        | 'Squiggly'
-        | 'StrikeOut'
-        | 'Stamp'
-        | 'Caret'
-        | 'Ink'
-        | 'FileAttachment'
-        | 'Sound';
+        | "Text"
+        | "FreeText"
+        | "Line"
+        | "Square"
+        | "Circle"
+        | "Polygon"
+        | "PolyLine"
+        | "Highlight"
+        | "Underline"
+        | "Squiggly"
+        | "StrikeOut"
+        | "Stamp"
+        | "Caret"
+        | "Ink"
+        | "FileAttachment"
+        | "Sound";
 
     type AnnotOptionsFlag =
-        | 'invisible'
-        | 'hidden'
-        | 'print'
-        | 'nozoom'
-        | 'norotate'
-        | 'noview'
-        | 'readonly'
-        | 'locked'
-        | 'togglenoview';
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
 
-    type AnnotOptionsIcon = 'Comment' | 'Key' | 'Note' | 'Help' | 'NewParagraph' | 'Paragraph' | 'Insert';
+    type AnnotOptionsIcon = "Comment" | "Key" | "Note" | "Help" | "NewParagraph" | "Paragraph" | "Insert";
 
     interface RecipeOptions {
         version?: number | undefined;
         author?: string | undefined;
         title?: string | undefined;
         subject?: string | undefined;
-        colorspace?: 'rgb' | 'cmyk' | 'grey' | undefined;
+        colorspace?: "rgb" | "cmyk" | "grey" | undefined;
         keywords?: string[] | undefined;
         password?: string | undefined;
         userPassword?: string | undefined;

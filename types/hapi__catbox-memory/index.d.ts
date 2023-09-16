@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ClientApi, ClientOptions } from '@hapi/catbox';
+import { ClientApi, ClientOptions } from "@hapi/catbox";
 
 interface Engine<T> extends ClientApi<T> {}
 

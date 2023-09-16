@@ -6,7 +6,7 @@
 //                 Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from 'unist';
+import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces
 
@@ -176,7 +176,7 @@ export interface Comment extends Literal {
     /**
      * Node type of HTML comments in hast.
      */
-    type: 'comment';
+    type: "comment";
     /**
      * Data associated with the comment.
      */
@@ -195,7 +195,7 @@ export interface Doctype extends UnistNode {
     /**
      * Node type of HTML document types in hast.
      */
-    type: 'doctype';
+    type: "doctype";
     /**
      * Data associated with the doctype.
      */
@@ -214,7 +214,7 @@ export interface Element extends Parent {
     /**
      * Node type of elements.
      */
-    type: 'element';
+    type: "element";
     /**
      * Tag name (such as `'body'`) of the element.
      */
@@ -254,7 +254,7 @@ export interface Root extends Parent {
     /**
      * Node type of hast root.
      */
-    type: 'root';
+    type: "root";
     /**
      * Children of root.
      */
@@ -277,7 +277,7 @@ export interface Text extends Literal {
     /**
      * Node type of HTML character data (plain text) in hast.
      */
-    type: 'text';
+    type: "text";
     /**
      * Data associated with the text.
      */

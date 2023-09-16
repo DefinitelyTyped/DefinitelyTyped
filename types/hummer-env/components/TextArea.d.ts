@@ -18,5 +18,5 @@ declare const TextArea: {
     /**
      * 多行文本输入组件。
      */
-    new (): TextArea;
+    new(): TextArea;
 };

@@ -16,7 +16,7 @@ const inputHistory = [
     "山田たろ",
     "山田たろう",
     "山田太郎",
-    "山田太郎"
+    "山田太郎",
 ];
 
 const result = historykana(inputHistory);

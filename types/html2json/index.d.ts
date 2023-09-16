@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Node {
-    node: 'root' | 'element' | 'text' | 'comment';
+    node: "root" | "element" | "text" | "comment";
     tag?: string;
     child?: Node[] | Node;
     text?: string;

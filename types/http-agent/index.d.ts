@@ -3,8 +3,8 @@
 // Definitions by: Ivan Ergunov <https://github.com/hozblok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import EventEmitter = require('events');
-import request = require('request');
+import EventEmitter = require("events");
+import request = require("request");
 
 export type HttpAgentUrl = string | request.OptionsWithUri;
 

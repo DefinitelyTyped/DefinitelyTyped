@@ -22,7 +22,7 @@ export function asBlob(
         /**
          * Page orientation. Must be `landscape` or `portrait` (default).
          */
-        orientation?: 'landscape' | 'portrait' | undefined;
+        orientation?: "landscape" | "portrait" | undefined;
         /**
          * A map of margin sizes (expressed in twentieths of point, see
          * [WordprocessingML documentation](http://officeopenxml.com/WPsectionPgMar.php)

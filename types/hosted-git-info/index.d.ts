@@ -77,21 +77,21 @@ declare namespace GitHost {
         treepath?: string | undefined;
     }
 
-    type Hosts = 'github' | 'bitbucket' | 'gitlab' | 'gist';
+    type Hosts = "github" | "bitbucket" | "gitlab" | "gist";
 
     type Representation =
-        | 'hash'
-        | 'ssh'
-        | 'sshurl'
-        | 'browse'
-        | 'docs'
-        | 'bugs'
-        | 'https'
-        | 'git'
-        | 'shortcut'
-        | 'path'
-        | 'tarball'
-        | 'file';
+        | "hash"
+        | "ssh"
+        | "sshurl"
+        | "browse"
+        | "docs"
+        | "bugs"
+        | "https"
+        | "git"
+        | "shortcut"
+        | "path"
+        | "tarball"
+        | "file";
 }
 
 export = GitHost;

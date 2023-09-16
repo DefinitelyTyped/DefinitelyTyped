@@ -7,13 +7,13 @@
 /// <reference types="absolute-url" />
 /// <reference types="set-link" />
 
-import { Readable } from 'stream';
-import express = require('express');
-import * as RDF from '@rdfjs/types';
-import DatasetExt from 'rdf-ext/lib/Dataset';
-import { GraphPointer } from 'clownface';
-import middleware = require('./middleware');
-import { Api } from './Api';
+import { Readable } from "stream";
+import express = require("express");
+import * as RDF from "@rdfjs/types";
+import { GraphPointer } from "clownface";
+import DatasetExt from "rdf-ext/lib/Dataset";
+import middleware = require("./middleware");
+import { Api } from "./Api";
 
 declare namespace HydraBox {
     interface PotentialOperation {
@@ -48,7 +48,7 @@ declare namespace HydraBox {
     }
 }
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         hydra: HydraBox.HydraBox;
     }

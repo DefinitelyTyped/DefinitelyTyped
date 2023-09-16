@@ -6,15 +6,15 @@ const server = new Server({
 });
 
 server.route({
-    path: '/',
-    method: 'GET',
+    path: "/",
+    method: "GET",
     options: {
-        id: 'root',
-        handler: () => 'ok'
-    }
+        id: "root",
+        handler: () => "ok",
+    },
 });
 
-const route: RequestRoute | null = server.match('get', '/');
+const route: RequestRoute | null = server.match("get", "/");
 
 if (route !== null) {
     console.log(route.path);

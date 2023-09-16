@@ -7,28 +7,28 @@
 // Turn off automatic exporting
 export {};
 
-import * as React from 'react';
+import * as React from "react";
 
 type Callback = () => void;
 
 export interface Targets {
-    SELF: '_self';
-    BLANK: '_blank';
-    PARENT: '_parent';
-    TOP: '_top';
+    SELF: "_self";
+    BLANK: "_blank";
+    PARENT: "_parent";
+    TOP: "_top";
 }
 export interface Types {
-    FLAT: 'flat';
-    OUTLINE: 'outline';
-    SOLID: 'solid';
+    FLAT: "flat";
+    OUTLINE: "outline";
+    SOLID: "solid";
     /** @deprecated */
-    PRIMARY: 'primary';
+    PRIMARY: "primary";
     /** @deprecated */
-    SECONDARY: 'secondary';
+    SECONDARY: "secondary";
 }
 export interface Widths {
-    SHRINK: 'shrink';
-    GROW: 'grow';
+    SHRINK: "shrink";
+    GROW: "grow";
 }
 export type AvailableTargets = Targets[keyof Targets];
 export type AvailableTypes = Types[keyof Types];

@@ -3,8 +3,8 @@
 // Definitions by: _TrueLecter_ <https://github.com/TrueLecter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Writable } from 'stream';
-import cheerio = require('cheerio');
+import { Writable } from "stream";
+import cheerio = require("cheerio");
 
 /**
  * Key and certificate to be passed to https.createServer()
@@ -85,12 +85,12 @@ export function createServer(opts?: CreateServerOptions): Proxy;
 /**
  * Request phase
  */
-export type Phase = 'request' | 'request-sent' | 'response' | 'response-sent';
+export type Phase = "request" | "request-sent" | "response" | "response-sent";
 
 /**
  * Body parsers
  */
-export type BodyParser = '$' | 'json' | 'params' | 'buffer' | 'string';
+export type BodyParser = "$" | "json" | "params" | "buffer" | "string";
 
 export type TesterFunction<T> = (arg: T) => boolean;
 
@@ -176,7 +176,7 @@ export interface InterceptOptions {
 /**
  * Request method
  */
-export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
+export type HttpMethod = "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
 
 export class Request {
     private constructor();
@@ -333,7 +333,7 @@ export class Response {
     tee(stream: Writable): void;
 }
 
-export type ServeStrategy = 'replace' | 'overlay' | 'mirror';
+export type ServeStrategy = "replace" | "overlay" | "mirror";
 
 export interface ServeOptions {
     /**
@@ -399,7 +399,7 @@ export class Cycle {
 
 export type InterceptionHandler = (this: Proxy, req: Request, res: Response, cycle: Cycle) => Promise<void> | void;
 
-export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
+export type LogLevel = "error" | "warn" | "info" | "debug";
 
 export interface Log {
     level: LogLevel;

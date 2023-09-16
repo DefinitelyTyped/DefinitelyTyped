@@ -7,10 +7,10 @@
  * Options for formatting and parsing
  */
 interface FormatOptions {
-    maxDecimals?: number | 'auto';
+    maxDecimals?: number | "auto";
     separator?: string;
     unit?: string;
-    scale?: 'SI' | 'binary' | humanFormat.Scale;
+    scale?: "SI" | "binary" | humanFormat.Scale;
     strict?: boolean;
     decimals?: number;
     prefix?: string;

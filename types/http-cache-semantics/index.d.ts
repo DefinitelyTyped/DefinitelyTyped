@@ -74,7 +74,7 @@ declare class CachePolicy {
      */
     revalidatedPolicy(
         revalidationRequest: CachePolicy.Request,
-        revalidationResponse: CachePolicy.Response
+        revalidationResponse: CachePolicy.Response,
     ): CachePolicy.RevalidationPolicy;
 }
 

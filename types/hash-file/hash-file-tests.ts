@@ -1,7 +1,7 @@
-import hashFile = require('hash-file');
+import hashFile = require("hash-file");
 
-hashFile('tsconfig.json')
+hashFile("tsconfig.json")
     .then((hash: string) => {
     });
 
-const hash = hashFile.sync('tsconfig.json');
+const hash = hashFile.sync("tsconfig.json");

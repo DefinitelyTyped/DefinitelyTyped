@@ -22,24 +22,24 @@ interface HummerComponent {
      * @param rect.windowTop number 控件上边框相对于屏幕上边缘的坐标
      * @param rect.windowBottom number 控件下边框相对于屏幕上边缘的坐标
      */
-    getRect: (cb: (rect: import('../interface/info').viewRect) => void) => void;
+    getRect: (cb: (rect: import("../interface/info").viewRect) => void) => void;
     /**
      * @summary 为组件绑定事件
      * @param type 事件类型
      * @param listener 触发事件后的回调
      */
-    addEventListener<K extends keyof import('../interface/event').EventHandlersEventMap>(
+    addEventListener<K extends keyof import("../interface/event").EventHandlersEventMap>(
         type: K,
-        listener: (ev: import('../interface/event').EventHandlersEventMap[K]) => void,
+        listener: (ev: import("../interface/event").EventHandlersEventMap[K]) => void,
     ): void;
     /**
      * @summary 移除组件事件
      * @param type 事件类型
      * @param listener 移除的事件
      */
-    removeEventListener<K extends keyof import('../interface/event').EventHandlersEventMap>(
+    removeEventListener<K extends keyof import("../interface/event").EventHandlersEventMap>(
         type: K,
-        listener: (ev: import('../interface/event').EventHandlersEventMap[K]) => void,
+        listener: (ev: import("../interface/event").EventHandlersEventMap[K]) => void,
     ): void;
     /**
      * @summary 为组件添加动画

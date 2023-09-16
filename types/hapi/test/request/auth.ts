@@ -1,6 +1,6 @@
-import { Request } from 'hapi';
+import { Request } from "hapi";
 
-declare module 'hapi' {
+declare module "hapi" {
     interface UserCredentials {
         a: number;
     }

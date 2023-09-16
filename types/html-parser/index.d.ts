@@ -6,7 +6,7 @@
 // TypeScript Version: 2.4
 
 export type Callback = (arg: any) => any;
-export type Token = '>' | '/>' | '?>';
+export type Token = ">" | "/>" | "?>";
 
 export interface CallbacksOption {
     attribute?(name: string, value: any): void;
@@ -34,6 +34,11 @@ export interface RemovalCallback {
 
 export function parse(htmlString: string, callbacks?: CallbacksOption, regex?: RegExpOptions): void;
 
-export function parseFile(fileName: string, encoding: string | undefined, callbacks: CallbacksOption, callback: Callback): void;
+export function parseFile(
+    fileName: string,
+    encoding: string | undefined,
+    callbacks: CallbacksOption,
+    callback: Callback,
+): void;
 
 export function sanitize(htmlString: string, removalCallbacks?: RemovalCallback): string;

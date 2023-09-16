@@ -11,7 +11,7 @@ import {
     send_feature_report,
     set_nonblocking,
     write,
-} from 'hid';
+} from "hid";
 
 enumerate(); // $ExpectType DeviceDescriptor[]
 
@@ -21,7 +21,7 @@ get_feature_report(device, Buffer.from([])); // $ExpectType number
 
 get_feature_report_async(device, Buffer.from([]), () => {}); // $ExpectType void
 
-open_path('foo'); // $ExpectType OpaqueDevice
+open_path("foo"); // $ExpectType OpaqueDevice
 
 read(device, Buffer.from([])); // $ExpectType number
 
