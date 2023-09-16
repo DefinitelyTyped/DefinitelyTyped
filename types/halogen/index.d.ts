@@ -6,29 +6,40 @@
 
 import * as react from "react";
 
-export type VerticalAlign = "baseline" | "length" | "sub" | "super" | "top" | "text-top" | "middle" | "bottom" | "text-bottom" | "initial" | "inherit";
+export type VerticalAlign =
+    | "baseline"
+    | "length"
+    | "sub"
+    | "super"
+    | "top"
+    | "text-top"
+    | "middle"
+    | "bottom"
+    | "text-bottom"
+    | "initial"
+    | "inherit";
 
 export interface HalogenCommonProps {
-  loading?: boolean | undefined;
-  color?: string | undefined;
-  id?: string | undefined;
-  className?: string | undefined;
-  verticalAlign?: VerticalAlign | undefined;
+    loading?: boolean | undefined;
+    color?: string | undefined;
+    id?: string | undefined;
+    className?: string | undefined;
+    verticalAlign?: VerticalAlign | undefined;
 }
 
 export interface SizeLoaderProps extends HalogenCommonProps {
-  size?: string | undefined;
+    size?: string | undefined;
 }
 
 export interface MarginLoaderProps<T> extends HalogenCommonProps {
-  margin?: T | undefined;
-  size?: T | undefined;
+    margin?: T | undefined;
+    size?: T | undefined;
 }
 
 export interface RadiusLoaderProps extends MarginLoaderProps<string> {
-  height?: string | undefined;
-  width?: string | undefined;
-  radius?: string | undefined;
+    height?: string | undefined;
+    width?: string | undefined;
+    radius?: string | undefined;
 }
 
 /**

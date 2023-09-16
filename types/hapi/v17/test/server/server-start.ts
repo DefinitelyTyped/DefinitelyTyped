@@ -6,6 +6,6 @@ const server = new Server({
 });
 server.start();
 
-server.events.on('start', () => {
-    console.log('Server started at: ' + server.info.uri);
+server.events.on("start", () => {
+    console.log("Server started at: " + server.info.uri);
 });

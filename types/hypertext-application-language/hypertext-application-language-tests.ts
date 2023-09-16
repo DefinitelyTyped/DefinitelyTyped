@@ -1,7 +1,7 @@
 // Link object
 
 // Fields format:
-var link:Hal.Link = {
+var link: Hal.Link = {
     "deprecation": "",
     "href": "",
     "hreflang": "",
@@ -13,6 +13,6 @@ var link:Hal.Link = {
 };
 
 // Required fields:
-var link:Hal.Link = {
+var link: Hal.Link = {
     "href": "",
 };
