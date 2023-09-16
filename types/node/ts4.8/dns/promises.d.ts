@@ -4,7 +4,7 @@
  * via `require('node:dns').promises` or `require('node:dns/promises')`.
  * @since v10.6.0
  */
-declare module 'dns/promises' {
+declare module 'node:dns/promises' {
     import {
         LookupAddress,
         LookupOneOptions,
@@ -409,6 +409,6 @@ declare module 'dns/promises' {
         setServers: typeof setServers;
     }
 }
-declare module 'node:dns/promises' {
-    export * from 'dns/promises';
+declare module 'dns/promises' {
+    export * from 'node:dns/promises';
 }

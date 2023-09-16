@@ -32,7 +32,7 @@
  * received on the `input` stream.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline.js)
  */
-declare module 'readline' {
+declare module 'node:readline' {
     import { Abortable, EventEmitter } from 'node:events';
     import * as promises from 'node:readline/promises';
 
@@ -648,6 +648,6 @@ declare module 'readline' {
      */
     export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
-declare module 'node:readline' {
-    export * from 'readline';
+declare module 'readline' {
+    export * from 'node:readline';
 }
