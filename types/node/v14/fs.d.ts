@@ -143,6 +143,7 @@ declare module 'fs' {
     }
 
     export class ReadStream extends stream.Readable {
+        constructor(path: PathLike, options?: BufferEncoding | ReadStreamOptions);
         close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesRead: number;
         path: string | Buffer;

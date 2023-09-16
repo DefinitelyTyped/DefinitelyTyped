@@ -365,6 +365,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
+        constructor(path: PathLike, options?: BufferEncoding | ReadStreamOptions);
         close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes that have been read so far.
