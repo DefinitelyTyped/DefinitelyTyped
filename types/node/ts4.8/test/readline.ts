@@ -7,7 +7,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream()
+        input: new fs.ReadStream('/dev/null')
     };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
@@ -322,7 +322,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
 
 {
     const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream(),
+        input: new fs.ReadStream('/dev/null'),
     };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
