@@ -28,7 +28,7 @@ declare namespace cytoscapeCxtmenu {
          * Alternatively, a function that returns an array of commands
          * depending on the selected element.
          */
-        commands?: Command[] | ((element: cytoscape.SingularData) => Command[]) | undefined;
+        commands?: Command[] | ((element: cytoscape.Singular) => Command[]) | undefined;
         /*
          * The background color of the menu.
          * Can be any valid [CSS color definition](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
@@ -121,7 +121,7 @@ declare namespace cytoscapeCxtmenu {
     }
 
     // function(ele){ return 100; }
-    type MenuRadiusFunction = (element: cytoscape.SingularData) => number;
+    type MenuRadiusFunction = (element: cytoscape.Singular) => number;
 
     interface Command {
         /*
@@ -140,7 +140,7 @@ declare namespace cytoscapeCxtmenu {
         /*
          * A function to execute when the command is selected.
          */
-        select?: ((element: cytoscape.SingularData) => void) | undefined;
+        select?: ((element: cytoscape.Singular) => void) | undefined;
         /*
          * Whether or not the command is selectable.
          *
