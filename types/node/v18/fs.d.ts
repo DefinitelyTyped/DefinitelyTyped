@@ -448,6 +448,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class WriteStream extends stream.Writable {
+        constructor(path: PathLike, options?: BufferEncoding | WriteStreamOptions);
         /**
          * Closes `writeStream`. Optionally accepts a
          * callback that will be executed once the `writeStream`is closed.

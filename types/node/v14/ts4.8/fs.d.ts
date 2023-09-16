@@ -211,6 +211,7 @@ declare module 'fs' {
     }
 
     export class WriteStream extends stream.Writable {
+        constructor(path: PathLike, options?: BufferEncoding | WriteStreamOptions);
         close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         bytesWritten: number;
         path: string | Buffer;
