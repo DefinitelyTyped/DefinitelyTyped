@@ -50,4 +50,10 @@ declare module "." {
     type FormStatus = FormStatusPending | FormStatusNotPending;
 
     function experimental_useFormStatus(): FormStatus;
+
+    function experimental_useFormState<State>(
+        action: (state: State, formData: FormData) => Promise<State>,
+        initialState: State,
+        permalink?: string,
+    ): [state: State, dispatch: (formData: FormData) => void];
 }

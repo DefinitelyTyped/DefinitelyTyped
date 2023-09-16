@@ -2,6 +2,7 @@ import ReactDOM = require("react-dom");
 import "react/experimental";
 import "react-dom/experimental";
 
+const useFormState = ReactDOM.experimental_useFormState;
 const useFormStatus = ReactDOM.experimental_useFormStatus;
 
 function Status() {
@@ -17,6 +18,50 @@ function Status() {
                     typeof action === "string" ? action : action.name
                 }: foo is ${foo}, method is ${method}`}
             </div>
+        );
+    }
+}
+
+function formTest() {
+    function Page1() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [state, dispatch] = useFormState(action, 1);
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
+        );
+    }
+
+    function Page2() {
+        async function action(state: number, formData: FormData) {
+            return state + 1;
+        }
+
+        const [state, dispatch] = useFormState(action, 1);
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
+        );
+    }
+
+    function Page3() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [state, dispatch] = useFormState(action, 1, '/permalink');
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
         );
     }
 }
