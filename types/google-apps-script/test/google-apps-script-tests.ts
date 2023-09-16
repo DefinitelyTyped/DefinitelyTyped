@@ -68,6 +68,41 @@ const createEvent = (): void => {
     Logger.log('Event ID: ' + event.id);
 };
 
+// Calendar Working Locations (Advanced Service)
+const createWorkingLocationEvent = (): void => {
+    const calendarId = 'primary';
+    const start = new Date();
+    const end = new Date();
+    start.setHours(10);
+    end.setHours(11);
+    let event: GoogleAppsScript.Calendar.Schema.Event = {
+        creator: { "self": true, "email": "alice@example.com" },
+        workingLocationProperties: {
+            officeLocation: {
+                buildingId: "The-Office",
+                label: "The-Office"
+            },
+            type: "officeLocation"
+        },
+        kind: "calendar#event",
+        summary: "The-Office (Office)",
+        visibility: "public",
+        transparency: "transparent",
+        created: "2023-05-30T14:47:58.000Z",
+        originalStartTime: { "date": "2023-09-25" },
+        eventType: "workingLocation",
+        organizer: { "email": "bob@example.com", "self": true },
+        start: {
+            date: "2023-09-25"
+        },
+        end: {
+            date: "2023-09-26"
+        },
+    };
+    event = Calendar.Events.insert(event, calendarId);
+    Logger.log('Event ID: ' + event.id);
+};
+
 // Admin Directory (Advanced service)
 const listAllUsers = () => {
     let pageToken: string;
