@@ -47,6 +47,16 @@ export class SMTMemDb {
 }
 
 export interface BabyJub {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    p: bigint;
+    pm1d2: bigint;
+    Generator: Point;
+    Base8: Point;
+    order: bigint;
+    subOrder: bigint;
+    A: Uint8Array;
+    D: Uint8Array;
+
     addPoint(a: Point, b: Point): Point;
 
     mulPointEscalar(base: Point, e: BigNumberish): Point;
