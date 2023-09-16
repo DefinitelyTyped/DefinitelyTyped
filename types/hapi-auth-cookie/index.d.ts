@@ -3,7 +3,7 @@
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.9
 
 import { AuthCredentials, Plugin, Request, ResponseObject, ResponseToolkit, ServerStateCookieOptions } from "hapi";
 

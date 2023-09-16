@@ -2,7 +2,7 @@
 // Project: https://github.com/johnbrett/hapi-auth-bearer-token
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.9
 
 import { AuthenticationData, Plugin, Request, ResponseToolkit } from "@hapi/hapi";
 

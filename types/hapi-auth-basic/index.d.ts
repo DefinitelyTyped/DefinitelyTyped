@@ -3,7 +3,7 @@
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.9
 
 import { Plugin, Request, ResponseToolkit } from "hapi";
 

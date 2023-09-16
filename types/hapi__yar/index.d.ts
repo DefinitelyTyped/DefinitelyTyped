@@ -3,7 +3,7 @@
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.9
 // From https://github.com/hapijs/yar/blob/master/API.md
 
 import { Id, PolicyOptions } from "@hapi/catbox";

@@ -4,7 +4,7 @@
 //                 Alexander James Phillips <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.9
 
 import { Plugin, Request, ResponseObject } from "@hapi/hapi";
 

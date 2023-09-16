@@ -3,7 +3,7 @@
 // Definitions by: Tim Costa <https://github.com/timcosta>
 //                 Danilo Alonso <https://github.com/damusix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
+// Minimum TypeScript Version: 4.9
 
 import { Plugin, Server, ServerMethodOptions, ServerOptionsCache } from "@hapi/hapi";
 
