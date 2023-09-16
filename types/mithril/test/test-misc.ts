@@ -2,6 +2,7 @@ import { trust, parseQueryString, buildQueryString } from 'mithril';
 import * as h from 'mithril/hyperscript';
 import { render } from 'mithril/render';
 import { redraw } from 'mithril/redraw';
+import { censor } from 'mithril/censor';
 
 const vnode = trust('Some <strong>bold</strong> text.');
 
@@ -24,3 +25,5 @@ render(document.body, [
 redraw();
 
 redraw.sync();
+
+const censored = m.censor({one: "two", enabled: false, oninit: function() {}}, ["enabled"])
