@@ -1,5 +1,5 @@
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 export interface PayPalTokenizeReturn {
     close: () => any;
 }

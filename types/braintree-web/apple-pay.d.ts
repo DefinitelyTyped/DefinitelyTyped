@@ -1,14 +1,14 @@
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitemtype
-export type ApplePayLineItemType = 'final' | 'pending';
+export type ApplePayLineItemType = "final" | "pending";
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttiming
-export type ApplePayPaymentTiming = 'immediate' | 'recurring' | 'deferred' | 'automaticReload';
+export type ApplePayPaymentTiming = "immediate" | "recurring" | "deferred" | "automaticReload";
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepayrecurringpaymentdateunit
-export type ApplePayRecurringPaymentDateUnit = 'year' | 'month' | 'day' | 'hour' | 'minute';
+export type ApplePayRecurringPaymentDateUnit = "year" | "month" | "day" | "hour" | "minute";
 
 // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitem
 export interface ApplePayLineItem {
@@ -95,7 +95,7 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
-export type ApplePayTokenizeValues = 'Yes' | 'No' | 'Unknown';
+export type ApplePayTokenizeValues = "Yes" | "No" | "Unknown";
 
 export interface ApplePayDetails {
     cardType: string;
@@ -232,17 +232,17 @@ export interface ApplePay {
      *
      *   console.log(paymentRequest);
      *   // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
-     *
      */
     createPaymentRequest(
-        paymentRequest: Omit<
-            ApplePayPaymentRequest,
-            'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
-        > &
-            Partial<
+        paymentRequest:
+            & Omit<
+                ApplePayPaymentRequest,
+                "countryCode" | "currencyCode" | "merchantCapabilities" | "supportedNetworks"
+            >
+            & Partial<
                 Pick<
                     ApplePayPaymentRequest,
-                    'countryCode' | 'currencyCode' | 'merchantCapabilities' | 'supportedNetworks'
+                    "countryCode" | "currencyCode" | "merchantCapabilities" | "supportedNetworks"
                 >
             >,
     ): ApplePayPaymentRequest;

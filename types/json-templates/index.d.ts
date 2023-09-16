@@ -3,5 +3,7 @@
 // Definitions by: Nicolas Witczak <https://github.com/nicolas800>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function parse(atemplate: string | object): { parameters: [{ key: string; defaultValue: string }] } & ((parameters?: object) => string) ;
-export = parse ;
+declare function parse(
+    atemplate: string | object,
+): { parameters: [{ key: string; defaultValue: string }] } & ((parameters?: object) => string);
+export = parse;

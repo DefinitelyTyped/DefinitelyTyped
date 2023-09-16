@@ -191,7 +191,10 @@ export function create(secret: string | ((payload: any) => string), payload: any
  * @param options The options of jwt-express.
  * @return Express middleware
  */
-export function init(secret: string | ((req: express.Request) => string), options?: JWTExpressOptions): express.RequestHandler;
+export function init(
+    secret: string | ((req: express.Request) => string),
+    options?: JWTExpressOptions,
+): express.RequestHandler;
 
 /**
  * Returns a middleware function that requires the payload to contain / match certain data.

@@ -41,7 +41,7 @@ declare namespace JsBarcode {
 declare function JsBarcode(
     svg: string | HTMLCanvasElement | HTMLImageElement | SVGElement,
     barcodeText: string,
-    barcodeOptions?: JsBarcode.JsBarcodeOptions
+    barcodeOptions?: JsBarcode.JsBarcodeOptions,
 ): void;
 
 export = JsBarcode;

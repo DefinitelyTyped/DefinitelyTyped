@@ -1,27 +1,25 @@
+import { Options } from "@babel/preset-env";
 
-import { Options } from '@babel/preset-env';
-
-
-//=========//
+// =========//
 // TARGETS //
-//=========//
+// =========//
 
 let options: Options = {
-    targets: '> 0.25%, not dead',
+    targets: "> 0.25%, not dead",
 };
 
 options = {
     targets: [
-        '> 0.25%',
-        'not dead',
+        "> 0.25%",
+        "not dead",
     ],
 };
 
 options = {
     targets: {
-        OperaMini: '80',
-        Edge: '22',
-        ie: '11',
+        OperaMini: "80",
+        Edge: "22",
+        ie: "11",
     },
 };
 
@@ -33,13 +31,13 @@ options = {
 
 options = {
     targets: {
-        node: '12',
+        node: "12",
     },
 };
 
 options = {
     targets: {
-        node: 'current',
+        node: "current",
     },
 };
 
@@ -51,35 +49,34 @@ options = {
 
 options = {
     targets: {
-        safari: '20',
+        safari: "20",
     },
 };
 
 options = {
     targets: {
-        safari: 'tp',
+        safari: "tp",
     },
 };
 
 options = {
     targets: {
-        browsers: '> 0.25%, not dead',
+        browsers: "> 0.25%, not dead",
     },
 };
 
 options = {
     targets: {
         browsers: [
-            '> 0.25%',
-            'not dead',
+            "> 0.25%",
+            "not dead",
         ],
     },
 };
 
-
-//==========//
+// ==========//
 // BUGFIXES //
-//==========//
+// ==========//
 
 options = {
     bugfixes: true,
@@ -89,10 +86,9 @@ options = {
     bugfixes: false,
 };
 
-
-//======//
+// ======//
 // SPEC //
-//======//
+// ======//
 
 options = {
     spec: true,
@@ -102,10 +98,9 @@ options = {
     spec: false,
 };
 
-
-//=======//
+// =======//
 // LOOSE //
-//=======//
+// =======//
 
 options = {
     loose: true,
@@ -115,31 +110,29 @@ options = {
     loose: false,
 };
 
-
-//=========//
+// =========//
 // MODULES //
-//=========//
+// =========//
 
 options = {
-    modules: 'amd',
+    modules: "amd",
 };
 
 options = {
-    modules: 'cjs',
+    modules: "cjs",
 };
 
 options = {
-    modules: 'commonjs',
+    modules: "commonjs",
 };
 
 options = {
     modules: false,
 };
 
-
-//=======//
+// =======//
 // DEBUG //
-//=======//
+// =======//
 
 options = {
     debug: true,
@@ -149,61 +142,57 @@ options = {
     debug: false,
 };
 
-
-//=========//
+// =========//
 // INCLUDE //
-//=========//
+// =========//
 
 options = {
     include: [],
 };
 
 options = {
-    include: ['foo', 'bar'],
+    include: ["foo", "bar"],
 };
 
 options = {
     include: [/foo/, /bar/],
 };
 
-
-//=========//
+// =========//
 // EXCLUDE //
-//=========//
+// =========//
 
 options = {
     exclude: [],
 };
 
 options = {
-    exclude: ['foo', 'bar'],
+    exclude: ["foo", "bar"],
 };
 
 options = {
     exclude: [/foo/, /bar/],
 };
 
-
-//===============//
+// ===============//
 // USE BUILT INS //
-//===============//
+// ===============//
 
 options = {
-    useBuiltIns: 'usage',
+    useBuiltIns: "usage",
 };
 
 options = {
-    useBuiltIns: 'entry',
+    useBuiltIns: "entry",
 };
 
 options = {
     useBuiltIns: false,
 };
 
-
-//========//
+// ========//
 // COREJS //
-//========//
+// ========//
 
 options = {
     corejs: 2,
@@ -227,10 +216,9 @@ options = {
     },
 };
 
-
-//======================//
+// ======================//
 // FORCE ALL TRANSFORMS //
-//======================//
+// ======================//
 
 options = {
     forceAllTransforms: true,
@@ -240,19 +228,17 @@ options = {
     forceAllTransforms: false,
 };
 
-
-//======================//
+// ======================//
 // FORCE ALL TRANSFORMS //
-//======================//
+// ======================//
 
 options = {
-    configPath: '/etc/babel-config.json',
+    configPath: "/etc/babel-config.json",
 };
 
-
-//============================//
+// ============================//
 // IGNORE BROWSERSLIST CONFIG //
-//============================//
+// ============================//
 
 options = {
     ignoreBrowserslistConfig: true,
@@ -262,10 +248,9 @@ options = {
     ignoreBrowserslistConfig: false,
 };
 
-
-//===================//
+// ===================//
 // SHIPPED PROPOSALS //
-//===================//
+// ===================//
 
 options = {
     shippedProposals: true,

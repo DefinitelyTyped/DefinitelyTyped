@@ -1,5 +1,5 @@
-import { callback, BraintreeError } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { BraintreeError, callback } from "./core";
 
 export interface ThreeDSecureAccountDetails {
     cardType: string;
@@ -160,14 +160,13 @@ export interface ThreeDSecureVerificationData {
  * types of 3DS events to listen to.
  * See https://braintree.github.io/braintree-web/current/ThreeDSecure.html#event
  * for an explanation of each event type.
- *
  */
 export type ThreeDSecureEvent =
-    | 'lookup-complete'
-    | 'customer-canceled'
-    | 'authentication-iframe-available'
-    | 'authentication-modal-render'
-    | 'authentication-modal-close';
+    | "lookup-complete"
+    | "customer-canceled"
+    | "authentication-iframe-available"
+    | "authentication-modal-render"
+    | "authentication-modal-close";
 
 export interface ThreeDSecureCreateOptions {
     authorization?: string | undefined;
@@ -182,9 +181,8 @@ export interface ThreeDSecureCreateOptions {
      * to host the 3D Secure iframe. Requires having the Bootstrap 3 script files and stylesheets on your page.
      *
      * 2-inline-iframe - A 3D Secure v2.0 integration that provides the authentication iframe directly to the merchant.
-     *
      */
-    version?: 1 | '1' | 2 | '2' | '2-bootstrap3-modal' | '2-inline-iframe' | undefined;
+    version?: 1 | "1" | 2 | "2" | "2-bootstrap3-modal" | "2-inline-iframe" | undefined;
     client?: Client | undefined;
 }
 
@@ -288,7 +286,7 @@ export interface ThreeDSecure {
      * See https://braintree.github.io/braintree-web/current/ThreeDSecure.html#event:lookup-complete,
      * and https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#hosted-fields.
      */
-    on(event: 'lookup-complete', handler: (data?: ThreeDSecureVerificationData, next?: () => void) => void): void;
+    on(event: "lookup-complete", handler: (data?: ThreeDSecureVerificationData, next?: () => void) => void): void;
 
     /**
      * Unsubscribes the handler function to a named event.
