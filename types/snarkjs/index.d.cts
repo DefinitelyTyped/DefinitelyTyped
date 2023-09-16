@@ -41,7 +41,24 @@ export interface FflonkProof {
         W1: NumericString[];
         W2: NumericString[];
     };
-    evaluations: object;
+    evaluations: {
+        ql: NumericString,
+        qr: NumericString,
+        qm: NumericString,
+        qo: NumericString,
+        qc: NumericString,
+        s1: NumericString,
+        s2: NumericString,
+        s3: NumericString,
+        a: NumericString,
+        b: NumericString,
+        c: NumericString,
+        z: NumericString,
+        zw: NumericString,
+        t1w: NumericString,
+        t2w: NumericString,
+        inv: NumericString,
+    };
     protocol: string;
     curve: string;
 }
