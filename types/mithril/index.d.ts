@@ -13,6 +13,9 @@ declare function mount(element: Element, component: Mithril.ComponentTypes<any, 
 /** Unmounts a component from a DOM element. */
 declare function mount(element: Element, component: null): void; // tslint:disable-line unified-signatures
 
+/** Returns a shallow-cloned object with lifecycle attributes and any given custom attributes omitted. */
+declare function censor<O extends Object, const E extends string[]>(object: O, extra: E): Omit<Mithril._NoLifecycle<O>, E[number]>;
+
 /** Makes an XHR request and returns a promise. */
 declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
 /** Makes an XHR request and returns a promise. */
@@ -184,6 +187,7 @@ declare namespace Mithril {
     }
 
     interface Static extends Hyperscript {
+        censor: typeof censor;
         route: Route;
         mount: typeof mount;
         render: typeof render;
@@ -328,7 +332,9 @@ declare global {
         interface Element extends Mithril.Vnode {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends Mithril.Attributes {}
+        interface IntrinsicAttributes extends Mithril.Attributes {
+            children?: Mithril.Children | HTMLCollection;
+        }
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes extends Mithril.Attributes {}
 
