@@ -1,4 +1,4 @@
-declare module 'http' {
+declare module 'node:http' {
     import * as stream from 'stream';
     import { URL } from 'url';
     import { EventEmitter } from 'events';
@@ -576,6 +576,6 @@ declare module 'http' {
      */
     const maxHeaderSize: number;
 }
-declare module 'node:http' {
-    export * from 'http';
+declare module 'http' {
+    export * from 'node:http';
 }

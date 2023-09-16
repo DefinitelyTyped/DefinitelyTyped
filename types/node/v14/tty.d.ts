@@ -1,4 +1,4 @@
-declare module 'tty' {
+declare module 'node:tty' {
     import * as net from 'net';
 
     function isatty(fd: number): boolean;
@@ -64,6 +64,6 @@ declare module 'tty' {
         isTTY: boolean;
     }
 }
-declare module 'node:tty' {
-    export * from 'tty';
+declare module 'tty' {
+    export * from 'node:tty';
 }

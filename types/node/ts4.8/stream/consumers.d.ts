@@ -1,4 +1,4 @@
-declare module 'stream/consumers' {
+declare module 'node:stream/consumers' {
     import { Blob as NodeBlob } from 'node:buffer';
     import { Readable } from 'node:stream';
     function buffer(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<Buffer>;
@@ -7,6 +7,6 @@ declare module 'stream/consumers' {
     function blob(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<NodeBlob>;
     function json(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<unknown>;
 }
-declare module 'node:stream/consumers' {
-    export * from 'stream/consumers';
+declare module 'stream/consumers' {
+    export * from 'node:stream/consumers';
 }

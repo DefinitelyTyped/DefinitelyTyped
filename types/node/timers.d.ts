@@ -8,7 +8,7 @@
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/timers.js)
  */
-declare module 'timers' {
+declare module 'node:timers' {
     import { Abortable } from 'node:events';
     import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'node:timers/promises';
     interface TimerOptions extends Abortable {
@@ -220,6 +220,6 @@ declare module 'timers' {
         function queueMicrotask(callback: () => void): void;
     }
 }
-declare module 'node:timers' {
-    export * from 'timers';
+declare module 'timers' {
+    export * from 'node:timers';
 }

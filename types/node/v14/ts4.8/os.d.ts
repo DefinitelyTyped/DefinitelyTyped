@@ -1,4 +1,4 @@
-declare module 'os' {
+declare module 'node:os' {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -238,6 +238,6 @@ declare module 'os' {
      */
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module 'os' {
+    export * from 'node:os';
 }

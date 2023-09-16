@@ -12,7 +12,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
  */
-declare module 'net' {
+declare module 'node:net' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import * as dns from 'node:dns';
@@ -878,6 +878,6 @@ declare module 'net' {
         readonly flowlabel: number;
     }
 }
-declare module 'node:net' {
-    export * from 'net';
+declare module 'net' {
+    export * from 'node:net';
 }

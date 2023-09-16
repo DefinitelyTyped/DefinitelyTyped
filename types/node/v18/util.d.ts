@@ -8,7 +8,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/util.js)
  */
-declare module 'util' {
+declare module 'node:util' {
     import * as types from 'node:util/types';
     export interface InspectOptions {
         /**
@@ -2009,8 +2009,8 @@ declare module 'util/types' {
      */
     function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;
 }
-declare module 'node:util' {
-    export * from 'util';
+declare module 'util' {
+    export * from 'node:util';
 }
 declare module 'node:util/types' {
     export * from 'util/types';

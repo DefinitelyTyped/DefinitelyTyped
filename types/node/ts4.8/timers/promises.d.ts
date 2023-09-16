@@ -11,7 +11,7 @@
  * ```
  * @since v15.0.0
  */
-declare module 'timers/promises' {
+declare module 'node:timers/promises' {
     import { TimerOptions } from 'node:timers';
     /**
      * ```js
@@ -88,6 +88,6 @@ declare module 'timers/promises' {
     }
     const scheduler: Scheduler;
 }
-declare module 'node:timers/promises' {
-    export * from 'timers/promises';
+declare module 'timers/promises' {
+    export * from 'node:timers/promises';
 }

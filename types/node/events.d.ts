@@ -34,7 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/events.js)
  */
-declare module 'events' {
+declare module 'node:events' {
     // NOTE: This class is in the docs but is **not actually exported** by Node.
     // If https://github.com/nodejs/node/issues/39903 gets resolved and Node
     // actually starts exporting the class, uncomment below.
@@ -782,7 +782,7 @@ declare module 'events' {
     }
     export = EventEmitter;
 }
-declare module 'node:events' {
-    import events = require('events');
+declare module 'events' {
+    import events = require('node:events');
     export = events;
 }

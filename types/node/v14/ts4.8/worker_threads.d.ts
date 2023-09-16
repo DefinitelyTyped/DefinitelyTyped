@@ -1,4 +1,4 @@
-declare module 'worker_threads' {
+declare module 'node:worker_threads' {
     import { Context } from 'vm';
     import EventEmitter = require('events');
     import { Readable, Writable } from 'stream';
@@ -236,6 +236,6 @@ declare module 'worker_threads' {
      */
     function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
 }
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
+declare module 'worker_threads' {
+    export * from 'node:worker_threads';
 }

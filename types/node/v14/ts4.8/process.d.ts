@@ -1,4 +1,4 @@
-declare module 'process' {
+declare module 'node:process' {
     import * as tty from 'tty';
 
     global {
@@ -407,7 +407,7 @@ declare module 'process' {
 
     export = process;
 }
-declare module 'node:process' {
-    import process = require('process');
+declare module 'process' {
+    import process = require('node:process');
     export = process;
 }

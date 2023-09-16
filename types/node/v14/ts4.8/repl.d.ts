@@ -1,4 +1,4 @@
-declare module 'repl' {
+declare module 'node:repl' {
     import { Interface, Completer, AsyncCompleter } from 'readline';
     import { Context } from 'vm';
     import { InspectOptions } from 'util';
@@ -393,6 +393,6 @@ declare module 'repl' {
         constructor(err: Error);
     }
 }
-declare module 'node:repl' {
-    export * from 'repl';
+declare module 'repl' {
+    export * from 'node:repl';
 }

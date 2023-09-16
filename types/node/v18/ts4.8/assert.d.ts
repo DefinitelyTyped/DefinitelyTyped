@@ -3,7 +3,7 @@
  * invariants.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/assert.js)
  */
-declare module 'assert' {
+declare module 'node:assert' {
     /**
      * An alias of {@link ok}.
      * @since v0.5.9
@@ -955,7 +955,7 @@ declare module 'assert' {
     }
     export = assert;
 }
-declare module 'node:assert' {
-    import assert = require('assert');
+declare module 'assert' {
+    import assert = require('node:assert');
     export = assert;
 }

@@ -39,7 +39,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/http.js)
  */
-declare module 'http' {
+declare module 'node:http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { LookupOptions } from 'node:dns';
@@ -1751,6 +1751,6 @@ declare module 'http' {
      */
     const maxHeaderSize: number;
 }
-declare module 'node:http' {
-    export * from 'http';
+declare module 'http' {
+    export * from 'node:http';
 }

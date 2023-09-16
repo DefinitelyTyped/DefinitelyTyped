@@ -1,4 +1,4 @@
-declare module 'stream/web' {
+declare module 'node:stream/web' {
     // stub module, pending copy&paste from .d.ts or manual impl
     // copy from lib.dom.d.ts
     interface ReadableWritablePair<R = any, W = any> {
@@ -325,6 +325,6 @@ declare module 'stream/web' {
         new (label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
 }
-declare module 'node:stream/web' {
-    export * from 'stream/web';
+declare module 'stream/web' {
+    export * from 'node:stream/web';
 }

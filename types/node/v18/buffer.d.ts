@@ -43,7 +43,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/buffer.js)
  */
-declare module 'buffer' {
+declare module 'node:buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
@@ -2318,6 +2318,6 @@ declare module 'buffer' {
             : typeof NodeBlob;
     }
 }
-declare module 'node:buffer' {
-    export * from 'buffer';
+declare module 'buffer' {
+    export * from 'node:buffer';
 }

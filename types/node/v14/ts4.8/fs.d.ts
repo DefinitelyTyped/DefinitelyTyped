@@ -1,4 +1,4 @@
-declare module 'fs' {
+declare module 'node:fs' {
     import * as stream from 'stream';
     import EventEmitter = require('events');
     import { URL } from 'url';
@@ -2282,6 +2282,6 @@ declare module 'fs' {
         bigint?: boolean | undefined;
     }
 }
-declare module 'node:fs' {
-    export * from 'fs';
+declare module 'fs' {
+    export * from 'node:fs';
 }

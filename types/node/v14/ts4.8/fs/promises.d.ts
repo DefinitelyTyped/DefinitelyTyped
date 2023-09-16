@@ -1,4 +1,4 @@
-declare module 'fs/promises' {
+declare module 'node:fs/promises' {
     import {
         BaseEncodingOptions,
         BigIntStats,
@@ -567,6 +567,6 @@ declare module 'fs/promises' {
 
     function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
 }
-declare module 'node:fs/promises' {
-    export * from 'fs/promises';
+declare module 'fs/promises' {
+    export * from 'node:fs/promises';
 }

@@ -44,7 +44,7 @@
  * See the `Implementation considerations section` for more information.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/dns.js)
  */
-declare module 'dns' {
+declare module 'node:dns' {
     import * as dnsPromises from 'node:dns/promises';
     // Supported getaddrinfo flags.
     export const ADDRCONFIG: number;
@@ -663,6 +663,6 @@ declare module 'dns' {
     }
     export { dnsPromises as promises };
 }
-declare module 'node:dns' {
-    export * from 'dns';
+declare module 'dns' {
+    export * from 'node:dns';
 }
