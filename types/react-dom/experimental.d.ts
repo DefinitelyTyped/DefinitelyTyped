@@ -57,3 +57,16 @@ declare module "." {
         permalink?: string,
     ): [state: State, dispatch: (formData: FormData) => void];
 }
+
+declare module './client' {
+    type ReactFormState<State, ReferenceId> = [
+        state: State,
+        keyPath: string,
+        serverReferenceId: ReferenceId,
+        boundArguments: number,
+    ];
+
+    interface HydrationOptions {
+        experimental_formState?: ReactFormState<any, any> | null;
+    }
+}

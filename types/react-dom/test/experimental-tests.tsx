@@ -1,4 +1,5 @@
 import ReactDOM = require("react-dom");
+import ReactDOMClient = require("react-dom/client");
 import "react/experimental";
 import "react-dom/experimental";
 
@@ -64,4 +65,6 @@ function formTest() {
             </form>
         );
     }
+
+    ReactDOMClient.hydrateRoot(document.body, <Page1 />, { experimental_formState: [2, '', '', 0] });
 }
