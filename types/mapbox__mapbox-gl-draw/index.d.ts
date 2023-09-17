@@ -407,13 +407,13 @@ declare namespace MapboxDraw {
 
         constrainFeatureMovement(geojsonFeatures: DrawFeature[], delta: { lng: number; lat: number }): number;
 
-        createMidPoint(parent: string, startVertex: DrawFeature, endVertex: DrawFeature): GeoJSON;
+        createMidPoint(parent: string, startVertex: Feature, endVertex: Feature): Feature<Point> | null;
 
         createSupplementaryPoints(
-            geojson: DrawFeature,
+            geojson: Feature,
             options?: { midpoints?: boolean; selectedPaths?: string[] },
             basePath?: string,
-        ): GeoJSON[];
+        ): Array<Feature<Point>>;
 
         /**
          * Returns GeoJSON for a Point representing the
@@ -426,7 +426,7 @@ declare namespace MapboxDraw {
          * @param selected
          * @return GeoJSON Point
          */
-        createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): GeoJSON;
+        createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): Feature<Point>;
 
         // TODO: define a proper type for ctx since is not exposed correctly
         // https://github.com/mapbox/mapbox-gl-draw/issues/1156

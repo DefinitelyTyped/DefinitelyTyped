@@ -12,7 +12,9 @@ import MapboxDraw, {
 const draw = new MapboxDraw({});
 
 // @ts-expect-error
-const feature: DrawFeature = {};
+const drawFeature: DrawFeature = {};
+// @ts-expect-error
+const feature: Feature = {}
 
 // $ExpectType string[]
 draw.add({
@@ -123,15 +125,15 @@ const customMode: CustomMode = {
         lib.CommonSelectors.isVertex(e);
 
         // $ExpectType number
-        lib.constrainFeatureMovement([feature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
+        lib.constrainFeatureMovement([drawFeature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
 
-        // $ExpectType GeoJSON
+        // $ExpectType Feature<Point, GeoJsonProperties> | null
         lib.createMidPoint('1', feature, feature);
 
-        // $ExpectType GeoJSON[]
+        // $ExpectType Feature<Point, GeoJsonProperties>[]
         lib.createSupplementaryPoints(feature, { midpoints: false });
 
-        // $ExpectType GeoJSON
+        // $ExpectType Feature<Point, GeoJsonProperties>
         lib.createVertex('1', [e.lngLat.lng, e.lngLat.lat], '0', true);
 
         // $ExpectType number
@@ -156,10 +158,10 @@ const customMode: CustomMode = {
         // TODO: add tests to ModeHandler
 
         // $ExpectType void
-        lib.moveFeatures([feature], { lng: 12, lat: 13 });
+        lib.moveFeatures([drawFeature], { lng: 12, lat: 13 });
 
         // $ExpectType DrawFeature[]
-        lib.sortFeatures([feature]);
+        lib.sortFeatures([drawFeature]);
 
         // $ExpectType boolean
         lib.stringSetsAreEqual([{ id: 'Feature1' }, { id: 'Feature2' }], [{ id: 'Feature1' }, { id: 'Feature2' }]);
@@ -207,67 +209,67 @@ const options: MapboxDrawOptions = {
 const drawWithCustomMode = new MapboxDraw(options);
 
 // $ExpectType void
-feature.changed();
+drawFeature.changed();
 
 // $ExpectType boolean
-feature.isValid();
+drawFeature.isValid();
 
 // $ExpectType Position
-feature.getCoordinate('');
+drawFeature.getCoordinate('');
 
 // $ExpectType void
-feature.updateCoordinate('', 0, 0);
+drawFeature.updateCoordinate('', 0, 0);
 
 // $ExpectType void
-feature.setProperty('', 0);
+drawFeature.setProperty('', 0);
 
 // $ExpectType GeoJSON
-feature.toGeoJSON();
+drawFeature.toGeoJSON();
 
-if (feature.type === 'Point') {
+if (drawFeature.type === 'Point') {
     // $ExpectType Position
-    feature.coordinates;
+    drawFeature.coordinates;
 
     // $ExpectType Position
-    feature.getCoordinate();
+    drawFeature.getCoordinate();
 
     // $ExpectType void
-    feature.updateCoordinate(0, 0);
+    drawFeature.updateCoordinate(0, 0);
 }
 
-if (feature.type === 'LineString') {
+if (drawFeature.type === 'LineString') {
     // $ExpectType Position[]
-    feature.coordinates;
+    drawFeature.coordinates;
 
     // $ExpectType void
-    feature.addCoordinate('', 0, 0);
+    drawFeature.addCoordinate('', 0, 0);
 
     // $ExpectType void
-    feature.removeCoordinate('');
+    drawFeature.removeCoordinate('');
 }
 
-if (feature.type === 'Polygon') {
+if (drawFeature.type === 'Polygon') {
     // $ExpectType Position[][]
-    feature.coordinates;
+    drawFeature.coordinates;
 
     // $ExpectType void
-    feature.addCoordinate('', 0, 0);
+    drawFeature.addCoordinate('', 0, 0);
 
     // $ExpectType void
-    feature.removeCoordinate('');
+    drawFeature.removeCoordinate('');
 }
 
-if (feature.type === 'MultiPoint') {
+if (drawFeature.type === 'MultiPoint') {
     // $ExpectType DrawPoint[]
-    feature.features;
+    drawFeature.features;
 }
 
-if (feature.type === 'MultiLineString') {
+if (drawFeature.type === 'MultiLineString') {
     // $ExpectType DrawLineString[]
-    feature.features;
+    drawFeature.features;
 }
 
-if (feature.type === 'MultiPolygon') {
+if (drawFeature.type === 'MultiPolygon') {
     // $ExpectType DrawPolygon[]
-    feature.features;
+    drawFeature.features;
 }
