@@ -3,7 +3,6 @@
 // Definitions by: Mike Linkovich <https://github.com/spacejack>
 //                 Claudia Meadows <https://github.com/dead-claudia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.3
 
 /** Renders a vnode structure into a DOM element. */
 declare function render(el: Element, vnodes: Mithril.Children): void;
@@ -16,7 +15,7 @@ declare function mount(element: Element, component: null): void; // tslint:disab
 /** Returns a shallow-cloned object with lifecycle attributes and any given custom attributes omitted. */
 declare function censor<
     O extends Record<string, any>,
-    const E extends string[]
+    E extends Readonly<string[]>
 >(object: O, extra: E): Omit<Mithril._NoLifecycle<O>, E[number]>;
 
 /** Makes an XHR request and returns a promise. */
