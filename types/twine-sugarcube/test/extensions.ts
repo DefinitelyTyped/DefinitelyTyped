@@ -74,7 +74,8 @@ JSON.reviveWrapper("new Character($ReviveData$)", {});
 n = Math.clamp(23, 0, 20);
 n = Math.clamp("23", 0, 20);
 
-n = Math.trunc(1.23);
+n = Math.easeInOut(23);
+n = Math.easeInOut("23");
 
 n = n.clamp(1, 20);
 
