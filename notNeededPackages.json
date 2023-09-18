@@ -1185,6 +1185,10 @@
             "libraryName": "datastore-level",
             "asOfVersion": "3.0.0"
         },
+        "date-and-time": {
+            "libraryName": "date-and-time",
+            "asOfVersion": "3.0.3"
+        },
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
