@@ -122,9 +122,30 @@ export interface ClientOptions {
     engine?: string;
 }
 
+// Query is a REST call to v1/statements, the `columns` returned is set as the `columns` callback
+// https://github.com/tagomoris/presto-client-node/blob/84f76d981482c5dd710a147ebfe89efa1731d85f/lib/presto-client/index.js#L228
+// Column
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/Column.java#L43
 export interface Column {
     name: string;
-    type:
+    typeSignature: ClientTypeSignature;
+    type: string;
+}
+
+// ClientTypeSignatureParameter
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignatureParameter.java#L41
+export interface ClientTypeSignatureParameter {
+    kind: any;
+    value: any;
+}
+
+// ClientTypeSignature
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignature.java#L63
+export interface ClientTypeSignature {
+    arguments: ClientTypeSignatureParameter[];
+    literalArguments: any[];
+    // https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-common/src/main/java/com/facebook/presto/common/type/StandardTypes.java#L22
+    rawType:
         // boolean
         | 'boolean'
         // integer
@@ -169,6 +190,7 @@ export interface Column {
         // T-Digest
         | 'tdigest'
         | string;
+    typeArguments: ClientTypeSignature[];
 }
 
 export interface RuntimeStats {
