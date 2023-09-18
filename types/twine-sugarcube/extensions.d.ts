@@ -395,15 +395,17 @@ declare global {
         clamp(num: number | string, min: number, max: number): number;
 
         /**
-         * Returns the whole(integer) part of the given number by removing its fractional part, if any. Does not modify the
-         * original.
-         * @param num The number to truncate to an integer.
+         * Returns a decimal number eased from 0 to 1. The magnitude of the returned value decreases if num < 0.5 or increases if num > 0.5.
+         * @param num The number to ease. May be an actual number or a numerical string.
          * @since 2.0.0
          * @example
-         * Math.trunc(12.7) // Returns 12
-         * Math.trunc(-12.7) // Returns -12
+         * Math.easeInOut("0") // returns 0
+         * Math.easeInOut(.5) // returns 0.5
+         * Math.easeInOut(.25) // returns 0.14644660940672627
+         * Math.easeInOut("1") // returns 1
+         * Math.easeInOut(1.5) // returns 0.5000000000000001
          */
-        trunc(num: number): number;
+        easeInOut(num: number | string): number;
     }
 
     interface Number {
