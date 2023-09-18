@@ -2,8 +2,10 @@ export as namespace snarkjs;
 
 // Some types borrowed from https://github.com/erhant/circomkit.
 
+export type NumericString = `${number}`;
+
 // A signal value is a number, or an array of numbers (recursively).
-export type SignalValueType = `${number}` | number | bigint | SignalValueType[];
+export type SignalValueType = NumericString | number | bigint | SignalValueType[];
 
 // An object with string keys and array of numerical values.
 // Each key represents a signal name as it appears in the circuit.
@@ -25,41 +27,58 @@ export interface R1CSInfoType {
 }
 
 export interface Groth16Proof {
-    pi_a: string[];
-    pi_b: string[][];
-    pi_c: string[];
+    pi_a: NumericString[];
+    pi_b: NumericString[][];
+    pi_c: NumericString[];
     protocol: string;
     curve: string;
 }
 
 export interface FflonkProof {
     polynomials: {
-        C1: string[];
-        C2: string[];
-        W1: string[];
-        W2: string[];
+        C1: NumericString[];
+        C2: NumericString[];
+        W1: NumericString[];
+        W2: NumericString[];
     };
-    evaluations: object;
+    evaluations: {
+        ql: NumericString,
+        qr: NumericString,
+        qm: NumericString,
+        qo: NumericString,
+        qc: NumericString,
+        s1: NumericString,
+        s2: NumericString,
+        s3: NumericString,
+        a: NumericString,
+        b: NumericString,
+        c: NumericString,
+        z: NumericString,
+        zw: NumericString,
+        t1w: NumericString,
+        t2w: NumericString,
+        inv: NumericString,
+    };
     protocol: string;
     curve: string;
 }
 
 export interface PlonkProof {
-    A: string[];
-    B: string[];
-    C: string[];
-    Z: string[];
-    T1: string[];
-    T2: string[];
-    T3: string[];
-    Wxi: string[];
-    Wxiw: string[];
-    eval_a: string;
-    eval_b: string;
-    eval_c: string;
-    eval_s1: string;
-    eval_s2: string;
-    eval_zw: string;
+    A: NumericString[];
+    B: NumericString[];
+    C: NumericString[];
+    Z: NumericString[];
+    T1: NumericString[];
+    T2: NumericString[];
+    T3: NumericString[];
+    Wxi: NumericString[];
+    Wxiw: NumericString[];
+    eval_a: NumericString;
+    eval_b: NumericString;
+    eval_c: NumericString;
+    eval_s1: NumericString;
+    eval_s2: NumericString;
+    eval_zw: NumericString;
     protocol: string;
     curve: string;
 }
