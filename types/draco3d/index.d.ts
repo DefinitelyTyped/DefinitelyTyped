@@ -20,12 +20,12 @@ export interface BaseModule {
     DracoUInt16Array: new () => DracoUInt16Array;
     DracoUInt32Array: new () => DracoUInt32Array;
 
-    POSITION: number;
-    NORMAL: number;
-    TEX_COORD: number;
-    COLOR: number;
-    GENERIC: number;
-    INVALID: number;
+    POSITION: GeometryAttributeType;
+    NORMAL: GeometryAttributeType;
+    TEX_COORD: GeometryAttributeType;
+    COLOR: GeometryAttributeType;
+    GENERIC: GeometryAttributeType;
+    INVALID: GeometryAttributeType;
 
     _malloc: (ptr: number) => number;
     _free: (ptr: number) => void;
@@ -43,6 +43,7 @@ export interface BaseModule {
 
 export interface EncoderModule extends BaseModule {
     Encoder: new () => Encoder;
+    ExpertEncoder: new (pc: PointCloud) => ExpertEncoder;
     MeshBuilder: new () => MeshBuilder;
 
     MESH_SEQUENTIAL_ENCODING: number;
@@ -75,21 +76,36 @@ export interface DecoderModule extends BaseModule {
     DT_UINT32: DataType;
 }
 
-export interface Encoder {
-    SetAttributeQuantization(attribute: number, bits: number): void;
+interface EncoderBase {
+    SetSpeedOptions(encodeSpeed: number, decodeSpeed: number): void;
+    SetEncodingMethod(method: number): void;
+    SetTrackEncodedProperties(track: boolean): void;
+    GetNumberOfEncodedPoints(): number;
+    GetNumberOfEncodedFaces(): number;
+}
+
+export interface Encoder extends EncoderBase {
+    SetAttributeQuantization(attributeType: GeometryAttributeType, bits: number): void;
     SetAttributeExplicitQuantization(
-        attribute: number,
+        attributeType: GeometryAttributeType,
         bits: number,
         itemSize: number,
         origin: [number, number, number],
         range: number,
     ): void;
-    SetSpeedOptions(encodeSpeed: number, decodeSpeed: number): void;
-    SetEncodingMethod(method: number): void;
-    SetTrackEncodedProperties(track: boolean): void;
     EncodeMeshToDracoBuffer(mesh: Mesh, array: DracoInt8Array): number;
-    GetNumberOfEncodedPoints(): number;
-    GetNumberOfEncodedFaces(): number;
+}
+
+export interface ExpertEncoder extends EncoderBase {
+    SetAttributeQuantization(attributeId: number, bits: number): void;
+    SetAttributeExplicitQuantization(
+        attributeId: number,
+        bits: number,
+        itemSize: number,
+        origin: [number, number, number],
+        range: number,
+    ): void;
+    EncodeToDracoBuffer(deduplicateValues: boolean, array: DracoInt8Array): number;
 }
 
 export interface Decoder {
@@ -152,6 +168,9 @@ export interface Attribute {
 
 // tslint:disable-next-line:no-empty-interface
 export enum GeometryType {}
+
+// tslint:disable-next-line:no-empty-interface
+export enum GeometryAttributeType {}
 
 // tslint:disable-next-line:no-empty-interface
 export enum DataType {}
