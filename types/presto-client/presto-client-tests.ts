@@ -18,6 +18,8 @@ client.execute({
             console.log(column.type);
             console.log(column.typeSignature.arguments);
             console.log(column.typeSignature.rawType);
+            console.log(column.typeSignature.literalArguments);
+            console.log(column.typeSignature.typeArguments);
         }
     },
     data: (error, data, columns, stats) => {
