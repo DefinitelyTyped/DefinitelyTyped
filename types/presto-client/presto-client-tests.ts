@@ -12,8 +12,13 @@ client.execute({
     state: (error, query_id, stats) => {
         // do something with query stats
     },
-    columns: (error, data) => {
+    columns: (error, columns) => {
         // do something with data
+        for (const column of columns) {
+            console.log(column.type);
+            console.log(column.typeSignature.arguments);
+            console.log(column.typeSignature.rawType);
+        }
     },
     data: (error, data, columns, stats) => {
         // do something with data

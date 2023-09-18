@@ -132,10 +132,18 @@ export interface Column {
     type: string;
 }
 
+// ClientTypeSignatureParameter
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignatureParameter.java#L41
+export interface ClientTypeSignatureParameter {
+    kind: any;
+    value: any;
+}
+
 // ClientTypeSignature
 // https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignature.java#L63
 export interface ClientTypeSignature {
-    arguments: any[];
+    arguments: ClientTypeSignatureParameter[];
+    literalArguments: any[];
     // https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-common/src/main/java/com/facebook/presto/common/type/StandardTypes.java#L22
     rawType:
         // boolean
@@ -182,6 +190,7 @@ export interface ClientTypeSignature {
         // T-Digest
         | 'tdigest'
         | string;
+    typeArguments: ClientTypeSignature[];
 }
 
 export interface RuntimeStats {
