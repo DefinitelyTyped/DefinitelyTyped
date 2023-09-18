@@ -122,7 +122,7 @@ interface WebApp {
      * Telegram.WebApp.themeParams.secondary_bg_colo as a color or you can use
      * keywords bg_color, secondary_bg_color instead.
      */
-    setHeaderColor(color: "bg_color" | "secondary_bg_color"): void;
+    setHeaderColor(color: "bg_color" | "secondary_bg_color" | string): void;
     /**
      * A method that sets the app background color in the #RRGGBB format or you
      * can use keywords bg_color, secondary_bg_color instead.
