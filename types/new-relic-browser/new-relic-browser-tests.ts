@@ -39,6 +39,7 @@ newrelic.noticeError('bar', { foo: 'bar', baz: 1 });
 // setCustomAttribute()
 newrelic.setCustomAttribute('nodeId', '123');
 newrelic.setCustomAttribute('nodeId', 123);
+newrelic.setCustomAttribute('nodeId', 123, true);
 
 // setErrorHandler()
 newrelic.setErrorHandler(err => {
