@@ -72,5 +72,6 @@ function formTest() {
         );
     }
 
-    ReactDOMClient.hydrateRoot(document.body, <Page1 />, { experimental_formState: [2, '', '', 0] });
+    const formState = [1, '', '', 0] as unknown as ReactDOMClient.ReactFormState;
+    ReactDOMClient.hydrateRoot(document.body, <Page1 />, { experimental_formState: formState });
 }

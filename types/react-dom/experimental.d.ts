@@ -32,6 +32,8 @@ import ReactDOM = require("./canary");
 
 export {};
 
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+
 declare module "." {
     interface FormStatusNotPending {
         pending: false;
@@ -64,14 +66,11 @@ declare module "." {
 }
 
 declare module './client' {
-    type ReactFormState<State, ReferenceId> = [
-        state: State,
-        keyPath: string,
-        serverReferenceId: ReferenceId,
-        boundArguments: number,
-    ];
+    interface ReactFormState {
+        [REACT_FORM_STATE_SIGIL]: never;
+    }
 
     interface HydrationOptions {
-        experimental_formState?: ReactFormState<any, any> | null;
+        experimental_formState?: ReactFormState | null;
     }
 }
