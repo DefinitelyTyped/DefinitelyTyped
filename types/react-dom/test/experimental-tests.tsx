@@ -31,28 +31,17 @@ function formTest() {
 
         const [state, dispatch] = useFormState(action, 1);
         return (
-            <form action={dispatch}>
-                <span>Count: {state}</span>
-                <input type="text" name="incrementAmount" defaultValue="5" />
-            </form>
+            <button
+                onClick={() => {
+                    dispatch();
+                }}
+            >
+                count: {state}
+            </button>
         );
     }
 
     function Page2() {
-        async function action(state: number, formData: FormData) {
-            return state + 1;
-        }
-
-        const [state, dispatch] = useFormState(action, 1);
-        return (
-            <form action={dispatch}>
-                <span>Count: {state}</span>
-                <input type="text" name="incrementAmount" defaultValue="5" />
-            </form>
-        );
-    }
-
-    function Page3() {
         async function action(state: number) {
             return state + 1;
         }
@@ -63,6 +52,23 @@ function formTest() {
                 <span>Count: {state}</span>
                 <input type="text" name="incrementAmount" defaultValue="5" />
             </form>
+        );
+    }
+
+    function Page4() {
+        async function action(state: number, type: 'increment' | 'decrement') {
+            return state + (type === 'increment' ? 1 : -1);
+        }
+
+        const [state, dispatch] = useFormState(action, 1, '/permalink');
+        return (
+            <button
+                onClick={() => {
+                    dispatch('decrement');
+                }}
+            >
+                count: {state}
+            </button>
         );
     }
 
