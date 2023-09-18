@@ -71,10 +71,10 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
         const attributeId = decoder.GetAttributeId(mesh, decoderModule.POSITION);
         const attribute2 = decoder.GetAttribute(mesh, attributeId);
 
-        const pointCloudstatus = decoder.DecodeBufferToPointCloud(buffer, pointCloud);
+        const pointCloudStatus = decoder.DecodeBufferToPointCloud(buffer, pointCloud);
 
-        if (!pointCloudstatus.ok()) {
-            throw new Error('Decoding failure.' + pointCloudstatus.error_msg());
+        if (!pointCloudStatus.ok() || pointCloud.ptr === 0) {
+            throw new Error('Decoding failure.' + pointCloudStatus.error_msg());
         }
 
         const numAttributes = pointCloud.num_attributes();
