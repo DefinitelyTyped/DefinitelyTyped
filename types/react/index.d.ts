@@ -135,7 +135,7 @@ declare namespace React {
 
     type ComponentState = any;
 
-    type Key = string | number;
+    type Key = string | number | bigint;
 
     /**
      * @internal You shouldn't need to use this type since you never see these attributes
