@@ -4,7 +4,7 @@
 
 import { init, initSync, type PaymentParams } from 'dcp-client';
 import { RangeObject, ResultHandle, SuperRangeObject, MultiRangeObject } from 'dcp/compute';
-import { AuthKeystoreOptions, LoadOptions, Keystore } from 'dcp/wallet';
+import { AuthKeystoreOptions, LoadOptions, Keystore, Address, AuthKeystore } from 'dcp/wallet';
 import { Sandbox } from 'dcp/worker';
 
 // @ts-expect-error
@@ -77,10 +77,20 @@ export const loadOptions: LoadOptions = {
 
     //#endregion
 
+    // #region Wallet Tests
+
+    // $ExpectType Keystore
+    await new Keystore(null, '');
+    // $ExpectType Address
+    new Address('');
+
+    // #endregion
+
     //#region Job Tests
     const initialSliceProfile = {};
     // $ExpectType Keystore
-    const keystore = new Keystore();
+    const keystore = await new Keystore();
+
     const iterable = [1, 2, 3, 4, 5];
     const MY_RESEARCH_URL = 'https://localhost:8080/someURL';
 
