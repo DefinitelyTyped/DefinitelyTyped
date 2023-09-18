@@ -161,7 +161,7 @@ declare namespace SwaggerUI {
                   /**
                    * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
                    */
-                  theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
+                  theme?: "agate" | "arta" | "idea" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
               } | undefined;
         /**
          * Controls whether the "Try it out" section should be enabled by default.
