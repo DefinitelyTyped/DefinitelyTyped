@@ -175,7 +175,8 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        command<U = any>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         command<U = any>(module: CommandModule<T, U>): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
