@@ -6,6 +6,7 @@ wp.pool({ minWorkers: 'max' });
 wp.pool({ minWorkers: 'max', maxWorkers: 1 });
 wp.pool({ minWorkers: 1, maxWorkers: 1 });
 wp.pool({ maxWorkers: 1 });
+wp.pool({ maxQueueSize: 5 });
 wp.pool({ workerType: 'process' });
 wp.pool({ workerType: 'thread' });
 wp.pool({ workerType: 'web' });
