@@ -1,4 +1,4 @@
-import { Block, BlockInstance, Transform } from '../';
+import { Block, BlockInstance, Transform, InnerBlockTemplate } from '../';
 
 /**
  * Given a `BlockInstance`, returns a copy of `BlockInstance`, optionally merging
@@ -26,6 +26,18 @@ export function createBlock<T extends Record<string, any>>(
     attributes?: Partial<T>,
     innerBlocks?: BlockInstance[]
 ): BlockInstance<T>;
+
+/**
+ * Given an array of InnerBlocks templates or Block Objects,
+ * returns an array of created Blocks from them.
+ * It handles the case of having InnerBlocks as Blocks by
+ * converting them to the proper format to continue recursively.
+ * 
+ * @param innerBlocksOrTemplate - Nested blocks or InnerBlocks templates.
+ */
+export function createBlocksFromInnerBlocksTemplate(
+    innerBlocksOrTemplate: InnerBlockTemplate[]
+): BlockInstance[]
 
 /**
  * Given an array of transforms, returns the highest-priority transform where
