@@ -123,7 +123,6 @@ export type InferInterceptors<T> = {
 
 type interceptor = <T>(
     callback: InterceptorCallback<T>,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     mutateObj?: (obj: InterceptorObject<T>) => void,
 ) => (initialValue: T) => InterceptorObject<T>;
 
