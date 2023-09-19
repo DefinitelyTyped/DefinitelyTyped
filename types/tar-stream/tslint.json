@@ -1,6 +1,1 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "await-promise": false
-    }
-}
+{ "extends": "@definitelytyped/dtslint/dt.json" }
