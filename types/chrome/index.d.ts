@@ -2782,6 +2782,22 @@ declare namespace chrome.documentScan {
 }
 
 ////////////////////
+// DOM
+////////////////////
+/**
+ * Use the chrome.dom API to programmatically access shadow root in an HTMLElement.
+ * Availability: Since Chrome 88+.
+ */
+declare namespace chrome.dom {
+    /**
+     * Since Chrome 88+.
+     * Requests chrome to return the open/closed shadow roots else return null.
+     * @param element reference of HTMLElement.
+     */
+    export function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot;
+}
+
+////////////////////
 // Dev Tools - Downloads
 ////////////////////
 /**
