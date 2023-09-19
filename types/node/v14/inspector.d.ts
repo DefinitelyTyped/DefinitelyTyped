@@ -3045,6 +3045,5 @@ declare module 'node:inspector' {
     function waitForDebugger(): void;
 }
 declare module 'inspector' {
-    import EventEmitter = require('node:inspector');
-    export = EventEmitter;
+    export * from 'node:inspector';
 }
