@@ -191,8 +191,8 @@ export function createPrivateKey(callback: Callback<{ key: string }>): void;
  * @param [keyBitsize=512] Size of the key, defaults to 512bit
  * @param callback Callback function with an error object and {dhparam}
  */
-export function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: any }>): void;
-export function createDhparam(callback: Callback<{ dhparam: any }>): void;
+export function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: string }>): void;
+export function createDhparam(callback: Callback<{ dhparam: string }>): void;
 
 /**
  * Creates a ecparam key
@@ -202,8 +202,8 @@ export function createDhparam(callback: Callback<{ dhparam: any }>): void;
  * @param [noOut=false] This option inhibits the output of the encoded version of the parameters.
  * @param callback Callback function with an error object and {ecparam}
  */
-export function createEcparam(keyName: string, paramEnc: string, noOut: boolean, callback: Callback<{ ecparam: any }>): void;
-export function createEcparam(callback: Callback<{ ecparam: any }>): void;
+export function createEcparam(keyName: string, paramEnc: string, noOut: boolean, callback: Callback<{ ecparam: string }>): void;
+export function createEcparam(callback: Callback<{ ecparam: string }>): void;
 
 /**
  * Creates a Certificate Signing Request
@@ -368,7 +368,7 @@ export namespace promisified {
      * @param [keyBitsize=512] Size of the key, defaults to 512bit
      * @returns
      */
-    function createDhparam(keyBitsize?: number): Promise<{ dhparam: any }>;
+    function createDhparam(keyBitsize?: number): Promise<{ dhparam: string }>;
 
     /**
      * Creates a ecparam key
@@ -378,7 +378,7 @@ export namespace promisified {
      * @param [noOut=false] This option inhibits the output of the encoded version of the parameters.
      * @returns
      */
-    function createEcparam(keyName?: string, paramEnc?: string, noOut?: boolean): Promise<{ ecparam: any }>;
+    function createEcparam(keyName?: string, paramEnc?: string, noOut?: boolean): Promise<{ ecparam: string }>;
 
     /**
      * Creates a Certificate Signing Request

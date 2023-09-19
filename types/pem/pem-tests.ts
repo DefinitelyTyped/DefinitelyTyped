@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 const tests = {
     'Create default sized dhparam key': (test: any) => {
-        pem.createDhparam((error: any, data: any) => {
+        pem.createDhparam((error: any, data: { dhparam: string }) => {
             const dhparam = ((data && data.dhparam) || '').toString();
             test.ifError(error);
             test.ok(dhparam);
@@ -16,7 +16,7 @@ const tests = {
     },
 
     'Create 2048bit dhparam key': (test: any) => {
-        pem.createDhparam(2048, (error: any, data: any) => {
+        pem.createDhparam(2048, (error: any, data: { dhparam: string }) => {
             const dhparam = ((data && data.dhparam) || '').toString();
             test.ifError(error);
             test.ok(dhparam);
@@ -29,7 +29,7 @@ const tests = {
     },
 
     'Create default ecparam key': (test: any) => {
-        pem.createEcparam((error: any, data: any) => {
+        pem.createEcparam((error: any, data: { ecparam: string }) => {
             const ecparam = ((data && data.ecparam) || '').toString();
             test.ifError(error);
             test.ok(ecparam);
@@ -860,12 +860,12 @@ const tests = {
 pem.promisified.createPrivateKey(); // $ExpectType Promise<{ key: string; }>
 pem.promisified.createPrivateKey(2048, { cipher: 'foo', password: 'bar' }); // $ExpectType Promise<{ key: string; }>
 pem.promisified.createPrivateKey({ cipher: 'foo', password: 'bar' }); // $ExpectType Promise<{ key: string; }>
-pem.promisified.createDhparam(2048); // $ExpectType Promise<{ dhparam: any; }>
-pem.promisified.createDhparam(); // $ExpectType Promise<{ dhparam: any; }>
-pem.promisified.createEcparam('keyName', 'paramEnc', false); // $ExpectType Promise<{ ecparam: any; }>
-pem.promisified.createEcparam('keyName', 'paramEnc'); // $ExpectType Promise<{ ecparam: any; }>
-pem.promisified.createEcparam('keyName'); // $ExpectType Promise<{ ecparam: any; }>
-pem.promisified.createEcparam(); // $ExpectType Promise<{ ecparam: any; }>
+pem.promisified.createDhparam(2048); // $ExpectType Promise<{ dhparam: string; }>
+pem.promisified.createDhparam(); // $ExpectType Promise<{ dhparam: string; }>
+pem.promisified.createEcparam('keyName', 'paramEnc', false); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam('keyName', 'paramEnc'); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam('keyName'); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam(); // $ExpectType Promise<{ ecparam: string; }>
 pem.promisified.createCSR({ country: 'US' }); // $ExpectType Promise<{ csr: string; clientKey: string; }>
 pem.promisified.createCSR(); // $ExpectType Promise<{ csr: string; clientKey: string; }>
 pem.promisified.createCertificate({ commonName: 'foo.bar' }); // $ExpectType Promise<CertificateCreationResult>
