@@ -1210,7 +1210,11 @@ declare namespace Chai {
          * @param length   Potential expected length of object.
          * @param message   Message to display on error.
          */
-        lengthOf<T extends { readonly length?: number | undefined }>(object: T, length: number, message?: string): void;
+        lengthOf<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(
+            object: T,
+            length: number,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.
