@@ -53,7 +53,7 @@ declare namespace Chai {
         addMethod(ctx: object, name: string, method: Function): void;
         addProperty(ctx: object, name: string, getter: () => any): void;
         overwriteMethod(ctx: object, name: string, method: Function): void;
-        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        overwriteProperty(ctx: object, name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         compareByInspect(a: object, b: object): -1 | 1;
         expectTypes(obj: object, types: string[]): void;
         flag(obj: object, key: string, value?: any): any;
@@ -144,7 +144,7 @@ declare namespace Chai {
             method: (this: AssertionStatic, ...args: any[]) => void,
             chainingBehavior?: () => void,
         ): void;
-        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
         overwriteChainableMethod(
             name: string,
