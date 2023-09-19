@@ -1809,6 +1809,8 @@ suite("assert", () => {
         assert.lengthOf("foobar", 6);
         assert.lengthOf("foobar", 5);
         assert.lengthOf({ length: 1 }, 5);
+        assert.lengthOf(new Set([1, 2, 3]), 3);
+        assert.lengthOf(new Map([['a', 1], ['b', 2], ['c', 3]]), 3);
     });
 
     test("match", () => {
