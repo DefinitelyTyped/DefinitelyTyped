@@ -12,7 +12,7 @@ declare namespace mapStream {
          *
          * On error `map-stream` will emit `failure` event.
          *
-         * Default: `false`
+         * @default false
          */
         failures?: boolean;
     }
