@@ -33,9 +33,7 @@ export function createBlock<T extends Record<string, any>>(
  * It handles the case of having InnerBlocks as Blocks by
  * converting them to the proper format to continue recursively.
  * 
- * @param {Array} innerBlocksOrTemplate Nested blocks or InnerBlocks templates.
- * 
- * @return {Object[]} Array of Block objects.
+ * @param innerBlocksOrTemplate - Nested blocks or InnerBlocks templates.
  */
 export function createBlocksFromInnerBlocksTemplate(
     innerBlocksOrTemplate: InnerBlockTemplate[]
