@@ -191,8 +191,19 @@ export function createPrivateKey(callback: Callback<{ key: string }>): void;
  * @param [keyBitsize=512] Size of the key, defaults to 512bit
  * @param callback Callback function with an error object and {dhparam}
  */
-export function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: any }>): void;
-export function createDhparam(callback: Callback<{ dhparam: any }>): void;
+export function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: string }>): void;
+export function createDhparam(callback: Callback<{ dhparam: string }>): void;
+
+/**
+ * Creates a ecparam key
+ *
+ * @param [keyName=secp256k1] Name of the key, defaults to secp256k1
+ * @param [paramEnc=explicit] Encoding of the elliptic curve parameters, defaults to explicit
+ * @param [noOut=false] This option inhibits the output of the encoded version of the parameters.
+ * @param callback Callback function with an error object and {ecparam}
+ */
+export function createEcparam(keyName: string, paramEnc: string, noOut: boolean, callback: Callback<{ ecparam: string }>): void;
+export function createEcparam(callback: Callback<{ ecparam: string }>): void;
 
 /**
  * Creates a Certificate Signing Request
@@ -316,6 +327,26 @@ export function readPkcs12(bufferOrPath: Buffer | string, callback: Callback<Pkc
 export function verifySigningChain(certificate: string, ca: string[], callback: Callback<boolean>): void;
 
 /**
+ * Check a certificate
+ *
+ * @param certificate PEM encoded certificate
+ * @param [passphrase] password for the certificate
+ * @param callback Callback function with an error object and a boolean valid
+ */
+export function checkCertificate(certificate: string, passphrase: string, callback: Callback<boolean>): void;
+export function checkCertificate(certificate: string, callback: Callback<boolean>): void;
+
+/**
+ * check a PKCS#12 file (.pfx or.p12)
+ *
+ * @param bufferOrPath PKCS#12 certificate
+ * @param [passphrase] optional passphrase which will be used to open the keystore
+ * @param callback Callback function with an error object and a boolean valid
+ */
+export function checkPkcs12(bufferOrPath: Buffer | string, passphrase: string, callback: Callback<boolean>): void;
+export function checkPkcs12(bufferOrPath: Buffer | string, callback: Callback<boolean>): void;
+
+/**
  * config the pem module
  */
 export function config(options: ModuleConfiguration): void;
@@ -337,7 +368,17 @@ export namespace promisified {
      * @param [keyBitsize=512] Size of the key, defaults to 512bit
      * @returns
      */
-    function createDhparam(keyBitsize?: number): Promise<{ dhparam: any }>;
+    function createDhparam(keyBitsize?: number): Promise<{ dhparam: string }>;
+
+    /**
+     * Creates a ecparam key
+     *
+     * @param [keyName=secp256k1] Name of the key, defaults to secp256k1
+     * @param [paramEnc=explicit] Encoding of the elliptic curve parameters, defaults to explicit
+     * @param [noOut=false] This option inhibits the output of the encoded version of the parameters.
+     * @returns
+     */
+    function createEcparam(keyName?: string, paramEnc?: string, noOut?: boolean): Promise<{ ecparam: string }>;
 
     /**
      * Creates a Certificate Signing Request
@@ -426,6 +467,24 @@ export namespace promisified {
      * @returns
      */
     function readPkcs12(bufferOrPath: Buffer | string, options?: Pkcs12ReadOptions): Promise<Pkcs12ReadResult>;
+
+    /**
+     * Check a certificate
+     *
+     * @param certificate PEM encoded certificate
+     * @param [passphrase] password for the certificate
+     * @returns
+     */
+    function checkCertificate(certificate: string, passphrase?: string): Promise<boolean>;
+
+    /**
+     * check a PKCS#12 file (.pfx or.p12)
+     *
+     * @param bufferOrPath PKCS#12 certificate
+     * @param [passphrase] optional passphrase which will be used to open the keystore
+     * @param callback Callback function with an error object and a boolean valid
+     */
+    function checkPkcs12(bufferOrPath: Buffer | string, passphrase?: string): Promise<boolean>;
 
     /**
      * Verifies the signing chain of the passed certificate
