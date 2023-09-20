@@ -246,10 +246,22 @@ import Alpine, {
     // inspired by
     // https://github.com/alpinejs/alpine/blob/1ff2f77077acc4e9221b78572097e4045b67db5e/packages/persist/src/index.js
 
+    // checks interceptors
+    // $ExpectType interceptor
+    Alpine.interceptor;
+
+    Alpine.data('user', () => ({
+        intercepted: Alpine.interceptor((initialValue: 'foo') => initialValue)('foo'),
+        init() {
+            // $ExpectType "foo"
+            this.intercepted;
+        },
+    }));
+
     let alias: string;
     let storage: Storage;
 
-    // $ExpectType (initialValue: any) => { initialValue: unknown; _x_interceptor: true; initialize: (data: Record<string, unknown>, path: string, key: string) => void; }
+    // $ExpectType (initialValue: string) => InterceptorObject<string>
     const persist = Alpine.interceptor<string>(
         (initialValue, getter, setter, path, key) => {
             const lookup = alias || `_x_${path}`;
@@ -618,10 +630,10 @@ import Alpine, {
         user: { id: 1, name: 'John Doe' },
 
         init() {
-            // $ExpectType { user: { id: number; name: string; }; init(): void; } & XDataContext & Magics<{ user: { id: number; name: string; }; init(): void; }>
+            // $ExpectType InferInterceptors<{ user: { id: number; name: string; }; init(): void; }> & XDataContext & Magics<{ user: { id: number; name: string; }; init(): void; }>
             this;
 
-            // $ExpectType { user: { id: number; name: string; }; init(): void; }
+            // $ExpectType InferInterceptors<{ user: { id: number; name: string; }; init(): void; }>
             this.$data;
 
             // $ExpectType HTMLElement
@@ -673,7 +685,7 @@ import Alpine, {
             user: { id: 1, name: 'John Doe' },
 
             init() {
-                // $ExpectType { user: { id: number; name: string; }; }
+                // $ExpectType InferInterceptors<{ user: { id: number; name: string; }; }>
                 this.$data;
 
                 // $ExpectType void
