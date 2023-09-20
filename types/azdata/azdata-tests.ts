@@ -145,3 +145,7 @@ const connectionProfile: azdata.connection.ConnectionProfile = {
 azdata.nb.showNotebookDocument(<any> {}, {
     defaultKernel: { name: 'MSSQL' }
 });
+
+const splitViewLayout: azdata.SplitViewLayout = {
+    orientation: 'vertical'
+};

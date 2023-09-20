@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.45
+// Type definitions for Azure Data Studio 1.46
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.45 Extension API
+ * Type Definition for Azure Data Studio 1.46 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -3401,8 +3401,9 @@ declare module 'azdata' {
 
         /**
          * SplitView height
+         * @deprecated use splitViewSize instead
          */
-        splitViewHeight: number | string;
+        splitViewHeight?: number | string;
     }
 
     export interface FlexItemLayout {
@@ -4908,6 +4909,9 @@ declare module 'azdata' {
             /**
              * Register model view content for the dialog.
              * Doesn't do anything if model view is already registered
+             *
+             * IMPORTANT: Model View is a disposable, all components created in the model view
+             * MUST be registered for disposal using the 'vscode.Disposable._register' API on ModelView.
              */
             registerContent(handler: (view: ModelView) => Thenable<void>): void;
 
