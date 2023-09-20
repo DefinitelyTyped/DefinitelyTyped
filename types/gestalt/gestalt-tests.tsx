@@ -285,8 +285,7 @@ const CheckUseReducedMotion = () => {
         ]}
         expandedIndex={1}
         onExpandedChange={index => {}}
-    >
-    </Module.Expandable>
+    />
 </Module>;
 <NumberField
     id="number"
