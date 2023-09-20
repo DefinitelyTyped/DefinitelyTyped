@@ -617,7 +617,15 @@ export interface BrowserContext {
     addCookies(cookies: Cookie[]): void;
 
     /**
-     * Clear the `BrowserContext`'s cookies.
+     * Clears the {@link Cookie | cookies} in this {@link BrowserContext}.
+     *
+     * @example
+     * ```js
+     * context.addCookies([{ name: 'foo', value: 'bar', url: 'https://k6.io' }]);
+     * context.cookies().length; // 1
+     * context.clearCookies();
+     * context.cookies().length; // 0
+     * ```
      */
     clearCookies(): void;
 
