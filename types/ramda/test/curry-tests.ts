@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function addFourNumbers(a: number, b: number, c: number, d: number): number {
         return a + b + c + d;
     }
@@ -38,9 +38,9 @@ import * as R from 'ramda';
     const inc = addTwoNumbersCurried(1);
     const z1: number = inc(2);
     const z2: number = addTwoNumbersCurried(2, 3);
-};
+});
 
-() => {
+(() => {
     interface Car {
         speed?: number | undefined;
     }
@@ -64,4 +64,4 @@ import * as R from 'ramda';
             // Generic Curry solved a previously non reported issue
         }
     }
-};
+});

@@ -291,14 +291,14 @@ toXML(
 toXML(
     {
         foo: "<a>",
-        bar: '"b"',
+        bar: "\"b\"",
         baz: "'&whee'",
     },
     {
         filter: {
             "<": "&lt;",
             ">": "&gt;",
-            '"': "&quot;",
+            "\"": "&quot;",
             "'": "&apos;",
             "&": "&amp;",
         },
@@ -309,13 +309,13 @@ toXML(
 toXML(
     {
         _name: "foo",
-        _attrs: { a: '<"\'&"foo>' },
+        _attrs: { a: "<\"'&\"foo>" },
     },
     {
         attributesFilter: {
             "<": "&lt;",
             ">": "&gt;",
-            '"': "&quot;",
+            "\"": "&quot;",
             "'": "&apos;",
             "&": "&amp;",
         },
@@ -339,7 +339,7 @@ toXML(
         foo: "bar",
     },
     {
-        header: '<?xml version="1.0" encoding="UTF-16" standalone="yes"?>',
+        header: "<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"yes\"?>",
     },
 );
 

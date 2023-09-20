@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import Minipass = require('minipass');
-import { Encoding } from 'minipass';
-import type { Mode } from 'fs';
+import Minipass = require("minipass");
+import type { Mode } from "fs";
+import { Encoding } from "minipass";
 /**
  * Path string is required, but somewhat irrelevant if an open file descriptor is passed in as an option.
  */

@@ -4,5 +4,5 @@
 //                 Kyle Berkley <https://github.com/Berkyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/ActionFooter';
-export { default } from './lib/ActionFooter';
+export * from "./lib/ActionFooter";
+export { default } from "./lib/ActionFooter";

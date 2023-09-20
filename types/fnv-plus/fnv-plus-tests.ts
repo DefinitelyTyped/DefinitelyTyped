@@ -1,6 +1,6 @@
-import * as fnv from 'fnv-plus';
+import * as fnv from "fnv-plus";
 
-const astring = 'hello world';
+const astring = "hello world";
 
 {
     const ahash52 = fnv.hash(astring);

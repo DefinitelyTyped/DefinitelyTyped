@@ -1,5 +1,5 @@
-import { Callback } from '../connection';
-import { ExplainInfo } from '../query';
+import { Callback } from "../connection";
+import { ExplainInfo } from "../query";
 
 export class Dashboard {
     describe(callback?: Callback<object>): Promise<any>;
@@ -44,7 +44,10 @@ export class Report {
 
     execute(options: object | Callback<ReportResult>, callback?: Callback<ReportResult>): Promise<ReportResult>;
 
-    executeAsync(options: object | Callback<ReportInstanceAttrs>, callback?: Callback<ReportInstanceAttrs>): Promise<ReportInstanceAttrs>;
+    executeAsync(
+        options: object | Callback<ReportInstanceAttrs>,
+        callback?: Callback<ReportInstanceAttrs>,
+    ): Promise<ReportInstanceAttrs>;
 
     instance(id: string): ReportInstance;
 

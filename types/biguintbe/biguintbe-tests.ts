@@ -1,4 +1,4 @@
-import * as bigUintBE from 'biguintbe';
+import * as bigUintBE from "biguintbe";
 
 const bigUint = BigInt(1);
 

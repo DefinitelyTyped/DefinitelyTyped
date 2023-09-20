@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Server as HttpServer } from 'http';
-import { Server as HttpsServer } from 'https';
+import { Server as HttpServer } from "http";
+import { Server as HttpsServer } from "https";
 
 /**
  * Terminator configuration interface.

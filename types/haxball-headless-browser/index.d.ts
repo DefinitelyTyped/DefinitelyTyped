@@ -11,7 +11,7 @@ interface RoomConfigObject {
     password?: string;
     maxPlayers?: number;
     public?: boolean;
-    geo?: {"code": string, "lat": number, "lon": number};
+    geo?: { "code": string; "lat": number; "lon": number };
     token?: string;
     noPlayer?: boolean;
 }
@@ -35,7 +35,7 @@ declare class RoomObject {
     getPlayer(playerId: number): PlayerObject;
     getPlayerList(): PlayerObject[];
     getScores(): ScoresObject;
-    getBallPosition(): {"x": number, "y": number};
+    getBallPosition(): { "x": number; "y": number };
     startRecording(): void;
     stopRecording(): Uint8Array;
     setPassword(pass: string): void;
@@ -76,7 +76,7 @@ declare class PlayerObject {
     name: string;
     team: TeamID;
     admin: boolean;
-    position: {"x": number, "y": number};
+    position: { "x": number; "y": number };
     auth: string;
     conn: string;
 }

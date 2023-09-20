@@ -7,7 +7,6 @@
 /// <reference types="jquery" />
 
 declare namespace JQueryNotifyBar {
-
     interface NotifyBarOptions {
         /**
          * What text will be inside bar. Can be HTML or just text.

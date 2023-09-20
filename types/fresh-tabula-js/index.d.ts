@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import Highland = require('highland');
+import Highland = require("highland");
 
 export = Tabula;
 

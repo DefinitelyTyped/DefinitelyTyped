@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function gt10(x: number) {
         return x > 10;
     }
@@ -17,4 +17,4 @@ import * as R from 'ramda';
     f(101); // => true
     // $ExpectType boolean
     f(8); // => true
-};
+});

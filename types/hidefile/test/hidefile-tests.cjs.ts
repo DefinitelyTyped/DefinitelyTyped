@@ -1,4 +1,4 @@
-import hidefile = require('hidefile');
+import hidefile = require("hidefile");
 
 hidefile.hide("./", () => {}); // $ExpectType void
 hidefile.hideSync("./"); // $ExpectType string | Buffer | URL

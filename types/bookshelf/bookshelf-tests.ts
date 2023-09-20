@@ -1,7 +1,7 @@
-import Knex = require('knex');
-import Bookshelf = require('bookshelf');
-import assert = require('assert');
-import * as express from 'express';
+import Knex = require("knex");
+import Bookshelf = require("bookshelf");
+import assert = require("assert");
+import * as express from "express";
 import * as _ from "lodash";
 
 /**
@@ -11,21 +11,23 @@ import * as _ from "lodash";
 /* Installation, see http://bookshelfjs.org/#installation */
 
 var knex = Knex({
-    client: 'mysql',
+    client: "mysql",
     connection: {
-        host     : '127.0.0.1',
-        user     : 'your_database_user',
-        password : 'your_database_password',
-        database : 'myapp_test',
-        charset  : 'utf8'
-    }
+        host: "127.0.0.1",
+        user: "your_database_user",
+        password: "your_database_password",
+        database: "myapp_test",
+        charset: "utf8",
+    },
 });
 
 var bookshelf = Bookshelf(knex);
 
 {
     class User extends bookshelf.Model<User> {
-        get tableName() { return 'users'; }
+        get tableName() {
+            return "users";
+        }
     }
 
     // In a file named something like bookshelf.js
@@ -44,40 +46,46 @@ var bookshelf = Bookshelf(knex);
 
 var bookshelf = Bookshelf(knex);
 
-bookshelf.plugin('registry');
-bookshelf.plugin(['virtuals']);
+bookshelf.plugin("registry");
+bookshelf.plugin(["virtuals"]);
 
 class User extends bookshelf.Model<User> {
-    get tableName() { return 'users'; }
+    get tableName() {
+        return "users";
+    }
     messages(): Bookshelf.Collection<Post> {
         return this.hasMany(Post);
     }
 }
 
 class Post extends bookshelf.Model<Post> {
-    get tableName() { return 'messages'; }
+    get tableName() {
+        return "messages";
+    }
     tags(): Bookshelf.Collection<Tag> {
         return this.belongsToMany(Tag);
     }
 }
 
 class Tag extends bookshelf.Model<Tag> {
-    get tableName() { return 'tags'; }
+    get tableName() {
+        return "tags";
+    }
 }
 
-User.where<User>('id', 1).fetch({withRelated: ['posts.tags']}).then(function(user) {
-  console.log(user.related('posts').toJSON());
+User.where<User>("id", 1).fetch({ withRelated: ["posts.tags"] }).then(function(user) {
+    console.log(user.related("posts").toJSON());
 }).catch(function(err) {
-  console.error(err);
-});
-
-new User().where('id', 1).fetch({withRelated: ['posts.tags']})
-.then(user => {
-    const posts = user.related<Post>('posts');
-    console.log(posts.toJSON());
-}).catch(err => {
     console.error(err);
 });
+
+new User().where("id", 1).fetch({ withRelated: ["posts.tags"] })
+    .then(user => {
+        const posts = user.related<Post>("posts");
+        console.log(posts.toJSON());
+    }).catch(err => {
+        console.error(err);
+    });
 
 /* Plugins, see http://bookshelfjs.org/#plugins */
 
@@ -90,7 +98,9 @@ new User().where('id', 1).fetch({withRelated: ['posts.tags']})
 /* One-to-one, see http://bookshelfjs.org/#one-to-one */
 
 class Book extends bookshelf.Model<Book> {
-    get tableName() { return 'books'; }
+    get tableName() {
+        return "books";
+    }
     summary(): Summary {
         return this.hasOne(Summary);
     }
@@ -103,102 +113,114 @@ class Book extends bookshelf.Model<Book> {
 }
 
 class Summary extends bookshelf.Model<Summary> {
-    get tableName() { return 'summaries'; }
+    get tableName() {
+        return "summaries";
+    }
     book(): Book {
         return this.belongsTo(Book);
     }
 }
 
 exports.up = (knex: Knex) => {
-    return knex.schema.createTable('books', table => {
-        table.increments('id').primary();
-        table.string('name');
-    }).createTable('summaries', table => {
-        table.increments('id').primary();
-        table.string('details');
-        table.integer('book_id').unique().references('books.id');
+    return knex.schema.createTable("books", table => {
+        table.increments("id").primary();
+        table.string("name");
+    }).createTable("summaries", table => {
+        table.increments("id").primary();
+        table.string("details");
+        table.integer("book_id").unique().references("books.id");
     });
 };
 
 exports.down = (knex: Knex) => {
-    return knex.schema.dropTable('books')
-        .dropTable('summaries');
+    return knex.schema.dropTable("books")
+        .dropTable("summaries");
 };
 
 /* One-to-many, see http://bookshelfjs.org/#one-to-many */
 
 class Page extends bookshelf.Model<Page> {
-    get tableName() { return 'pages'; }
+    get tableName() {
+        return "pages";
+    }
     book(): Book {
         return this.belongsTo(Book);
     }
 }
 
 exports.up = (knex: Knex) => {
-    return knex.schema.createTable('books', table => {
-        table.increments('id').primary();
-        table.string('name');
-    }).createTable('pages', table => {
-        table.increments('id').primary();
-        table.string('content');
-        table.integer('book_id').references('books.id')
+    return knex.schema.createTable("books", table => {
+        table.increments("id").primary();
+        table.string("name");
+    }).createTable("pages", table => {
+        table.increments("id").primary();
+        table.string("content");
+        table.integer("book_id").references("books.id");
     });
 };
 
 exports.down = (knex: Knex) => {
-    return knex.schema.dropTable('books')
-        .dropTable('pages');
+    return knex.schema.dropTable("books")
+        .dropTable("pages");
 };
 
 /* Many-to-many, see http://bookshelfjs.org/#many-to-many */
 
 class Author extends bookshelf.Model<Author> {
-    get tableName() { return 'authors'; }
+    get tableName() {
+        return "authors";
+    }
     books() {
         return this.belongsToMany(Book);
     }
 }
 
 exports.up = (knex: Knex) => {
-    return knex.schema.createTable('books', table => {
-        table.increments('id').primary();
-        table.string('name');
-    }).createTable('authors', table => {
-        table.increments('id').primary();
-        table.string('name');
-    }).createTable('authors_books', table => {
-        table.integer('author_id').references('authors.id');
-        table.integer('book_id').references('books.id');
+    return knex.schema.createTable("books", table => {
+        table.increments("id").primary();
+        table.string("name");
+    }).createTable("authors", table => {
+        table.increments("id").primary();
+        table.string("name");
+    }).createTable("authors_books", table => {
+        table.integer("author_id").references("authors.id");
+        table.integer("book_id").references("books.id");
     });
 };
 
 exports.down = (knex: Knex) => {
-    return knex.schema.dropTable('books')
-        .dropTable('authors')
-        .dropTable('authors_books');
+    return knex.schema.dropTable("books")
+        .dropTable("authors")
+        .dropTable("authors_books");
 };
 
 /* Polymorphic, see http://bookshelfjs.org/#polymorphic */
 
 {
     class Site extends bookshelf.Model<Site> {
-        get tableName() { return 'sites'; }
-            photo(): Photo {
-            return this.morphOne(Photo, 'imageable');
+        get tableName() {
+            return "sites";
+        }
+        photo(): Photo {
+            return this.morphOne(Photo, "imageable");
         }
     }
 
     class Post extends bookshelf.Model<Post> {
-        get tableName() { return 'posts'; }
+        get tableName() {
+            return "posts";
+        }
         photos(): Bookshelf.Collection<Photo> {
-            return this.morphMany(Photo, 'imageable');
+            return this.morphMany(Photo, "imageable");
         }
     }
 
     class Photo extends bookshelf.Model<Photo> {
-        get tableName() { return 'photos'; }
+        get tableName() {
+            return "photos";
+        }
         imageable(): Photo {
-            return this.morphTo('imageable', Site, Post);
+            return this.morphTo("imageable", Site, Post);
         }
     }
 }
@@ -218,13 +240,14 @@ exports.down = (knex: Knex) => {
 /* bookshelf.transaction(), see http://bookshelfjs.org/#Bookshelf-instance-transaction */
 
 class Library extends bookshelf.Model<Library> {
-    get tableName() { return 'libraries'; }
+    get tableName() {
+        return "libraries";
+    }
 
     relatedBooks(): Bookshelf.Collection<Book> {
-        return <Bookshelf.Collection<Book>> this.related('books');
+        return <Bookshelf.Collection<Book>> this.related("books");
     }
 }
-
 
 // todo: update to make sure this works with BlueBird 3.0
 // bookshelf.transaction(t => {
@@ -258,20 +281,22 @@ class Library extends bookshelf.Model<Library> {
 
 {
     class Book extends bookshelf.Model<Book> {
-        get tableName() { return 'documents'; }
+        get tableName() {
+            return "documents";
+        }
 
         constructor(json: Object) {
             super(json);
 
-            this.on('saving', (model, attrs, options) => {
-                options.query.where('type', '=', 'book');
+            this.on("saving", (model, attrs, options) => {
+                options.query.where("type", "=", "book");
             });
         }
     }
 
     new Book({
         title: "One Thousand and One Nights",
-        author: "Scheherazade"
+        author: "Scheherazade",
     });
 }
 
@@ -282,7 +307,9 @@ class Library extends bookshelf.Model<Library> {
 /* Model.collection(), see http://bookshelfjs.org/#Model-static-collection */
 
 class Customer extends bookshelf.Model<Customer> {
-    get tableName() { return 'customers'; }
+    get tableName() {
+        return "customers";
+    }
 }
 Customer.collection().fetch().then(collection => {
     return collection.models;
@@ -293,19 +320,23 @@ Customer.collection().fetch().then(collection => {
 /* Model.extend(), see http://bookshelfjs.org/#Model-static-extend */
 
 class Account extends bookshelf.Model<Account> {
-    get tableName() { return 'accounts'; }
+    get tableName() {
+        return "accounts";
+    }
 }
 {
-    var checkit  = require('checkit');
+    var checkit = require("checkit");
 
-    //todo: make sure this works with BlueBird 3.0
-    var bcrypt:any; //   = Promise.promisifyAll(require('bcrypt'));
+    // todo: make sure this works with BlueBird 3.0
+    var bcrypt: any; //   = Promise.promisifyAll(require('bcrypt'));
 
     class Customer extends bookshelf.Model<Customer> {
-        get tableName() { return 'customers'; }
+        get tableName() {
+            return "customers";
+        }
 
         initialize() {
-            this.on('saving', this.validateSave);
+            this.on("saving", this.validateSave);
         }
 
         validateSave() {
@@ -317,7 +348,7 @@ class Account extends bookshelf.Model<Account> {
             return this.belongsTo(Account);
         }
 
-        //todo: make sure this works with BlueBird 3.0
+        // todo: make sure this works with BlueBird 3.0
         // static login(email: string, password: string): Promise<Customer> {
         //     if (!email || !password) throw new Error('Email and password are both required');
         //     return new this({email: email.toLowerCase().trim()}).fetch({require: true}).tap(customer => {
@@ -354,7 +385,9 @@ class Account extends bookshelf.Model<Account> {
 /* model.tableName, see http://bookshelfjs.org/#Model-instance-tableName */
 
 class Television extends bookshelf.Model<Television> {
-    get tableName() { return 'televisions'; }
+    get tableName() {
+        return "televisions";
+    }
 }
 
 /* Methods, see http://bookshelfjs.org/#Model-subsection-methods */
@@ -363,7 +396,9 @@ class Television extends bookshelf.Model<Television> {
 
 {
     class Book extends bookshelf.Model<Book> {
-        get tableName() { return 'books'; }
+        get tableName() {
+            return "books";
+        }
         author(): Author {
             return this.belongsTo(Author);
         }
@@ -371,8 +406,8 @@ class Television extends bookshelf.Model<Television> {
 
     // select * from `books` where id = 1
     // select * from `authors` where id = book.author_id
-    new Book().where({id: 1}).fetch({withRelated: ['author']}).then(book => {
-        console.log(JSON.stringify(book.related('author')));
+    new Book().where({ id: 1 }).fetch({ withRelated: ["author"] }).then(book => {
+        console.log(JSON.stringify(book.related("author")));
     });
 }
 
@@ -380,19 +415,23 @@ class Television extends bookshelf.Model<Television> {
 
 {
     class Account extends bookshelf.Model<Account> {
-        get tableName() { return 'accounts'; }
+        get tableName() {
+            return "accounts";
+        }
     }
 
     class User extends bookshelf.Model<User> {
-        get tableName() { return 'users'; }
+        get tableName() {
+            return "users";
+        }
         allAccounts() {
             return this.belongsToMany(Account);
         }
         adminAccounts() {
-            return this.belongsToMany(Account).query({where: {access: 'admin'}});
+            return this.belongsToMany(Account).query({ where: { access: "admin" } });
         }
         viewAccounts() {
-            return this.belongsToMany(Account).query({where: {access: 'readonly'}});
+            return this.belongsToMany(Account).query({ where: { access: "readonly" } });
         }
     }
 
@@ -426,13 +465,13 @@ class Television extends bookshelf.Model<Television> {
 
 class Duck extends bookshelf.Model<Duck> {
 }
-new Duck().where('color', 'blue').count('name')
+new Duck().where("color", "blue").count("name")
     .then(count => {
-        //...
+        // ...
     });
 
 /* model.destroy(), see http://bookshelfjs.org/#Model-instance-destroy */
-new User({id: 1})
+new User({ id: 1 })
     .destroy()
     .then(model => {
         // ...
@@ -443,11 +482,11 @@ new User({id: 1})
 /* model.fetch(), see http://bookshelfjs.org/#Model-instance-fetch */
 
 // select * from `books` where `ISBN-13` = '9780440180296'
-new Book({'ISBN-13': '9780440180296'})
+new Book({ "ISBN-13": "9780440180296" })
     .fetch()
     .then(model => {
         // outputs 'Slaughterhouse Five'
-        console.log(model.get('title'));
+        console.log(model.get("title"));
     });
 {
     class Edition extends bookshelf.Model<Edition> {}
@@ -455,7 +494,9 @@ new Book({'ISBN-13': '9780440180296'})
     class Genre extends bookshelf.Model<Genre> {}
 
     class Book extends bookshelf.Model<Book> {
-        get tableName() { return 'books'; }
+        get tableName() {
+            return "books";
+        }
         editions() {
             return this.hasMany(Edition);
         }
@@ -467,14 +508,15 @@ new Book({'ISBN-13': '9780440180296'})
         }
     }
 
-    new Book({'ISBN-13': '9780440180296'}).fetch({
+    new Book({ "ISBN-13": "9780440180296" }).fetch({
         withRelated: [
-            'genre', 'editions',
-            { chapters: query => query.orderBy('chapter_number') }
-        ]
+            "genre",
+            "editions",
+            { chapters: query => query.orderBy("chapter_number") },
+        ],
     }).then(book => {
-        console.log(book.related('genre').toJSON());
-        console.log(book.related('editions').toJSON());
+        console.log(book.related("genre").toJSON());
+        console.log(book.related("editions").toJSON());
         console.log(book.toJSON());
     });
 }
@@ -482,25 +524,25 @@ new Book({'ISBN-13': '9780440180296'})
 /* model.fetchAll(), see http://bookshelfjs.org/#Model-instance-fetchAll */
 
 {
-    (new User).fetchAll({
-        columns: ['id', 'name'],
-        withRelated: ['posts.tags']
+    (new User()).fetchAll({
+        columns: ["id", "name"],
+        withRelated: ["posts.tags"],
     }).then((user: any) => {
         console.log(user);
-    })
+    });
 }
 
 /* model.fetchPage(), see https://bookshelfjs.org/api.html#Model-instance-fetchPage */
 {
-    (new User).fetchPage({
-        columns: ['id', 'name'],
-        withRelated: ['posts.tags'],
+    (new User()).fetchPage({
+        columns: ["id", "name"],
+        withRelated: ["posts.tags"],
         pageSize: 3,
         page: 5,
         limit: 10,
     }).then((user) => {
         console.log(user.pagination);
-    })
+    });
 }
 
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
@@ -517,7 +559,9 @@ note.get("title");
 
 {
     class Author extends bookshelf.Model<Author> {
-        get tableName() { return 'authors';    }
+        get tableName() {
+            return "authors";
+        }
 
         books() {
             return this.hasMany(Book);
@@ -526,8 +570,8 @@ note.get("title");
 
     // select * from `authors` where id = 1
     // select * from `books` where author_id = 1
-    new Author().where({id: 1}).fetch({withRelated: ['books']}).then(author => {
-        console.log(JSON.stringify(author.related('books')));
+    new Author().where({ id: 1 }).fetch({ withRelated: ["books"] }).then(author => {
+        console.log(JSON.stringify(author.related("books")));
     });
 }
 
@@ -535,24 +579,28 @@ note.get("title");
 
 {
     class Record extends bookshelf.Model<Record> {
-        get tableName() { return 'health_records'; }
+        get tableName() {
+            return "health_records";
+        }
     }
 
     class Patient extends bookshelf.Model<Patient> {
-        get tableName() { return 'patients'; }
+        get tableName() {
+            return "patients";
+        }
         record(): Record {
             return this.hasOne(Record);
         }
     }
 
     // select * from `health_records` where `patient_id` = 1;
-    const record = <Record> new Patient({id: 1}).related('record');
+    const record = <Record> new Patient({ id: 1 }).related("record");
     record.fetch().then(model => {
         // ...
     });
 
     // alternatively, if you don't need the relation loaded on the patient's relations hash:
-    new Patient({id: 1}).record().fetch().then(model => {
+    new Patient({ id: 1 }).record().fetch().then(model => {
         // ...
     });
 }
@@ -562,7 +610,7 @@ note.get("title");
 var modelA = new bookshelf.Model();
 modelA.isNew(); // true
 
-var modelB = new bookshelf.Model({id: 1});
+var modelB = new bookshelf.Model({ id: 1 });
 modelB.isNew(); // false
 
 /* model.load(), see http://bookshelfjs.org/#Model-instance-load */
@@ -570,22 +618,26 @@ class Posts extends bookshelf.Collection<Post> {}
 new Posts().fetch().then(collection => {
     collection.at(0)
         .load([
-            'author',
-            'content',
-            'comments.tags',
-            { comments(qb) {
-                qb.where('comments.is_approved', '=', true)
-            }}
+            "author",
+            "content",
+            "comments.tags",
+            {
+                comments(qb) {
+                    qb.where("comments.is_approved", "=", true);
+                },
+            },
         ])
         .then(model => {
             JSON.stringify(model);
         });
     // withRelated is not a valid option in model.load()
     // @ts-expect-error
-    collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
-    collection.at(2).load({ comments(qb) {
-        qb.where('comments.is_approved', '=', true)
-    }})
+    collection.at(1).load(["author", "content"], { withRelated: ["comments.tags"] });
+    collection.at(2).load({
+        comments(qb) {
+            qb.where("comments.is_approved", "=", true);
+        },
+    });
 });
 /*
 {
@@ -603,17 +655,21 @@ new Posts().fetch().then(collection => {
 class Photo extends bookshelf.Model<Post> {}
 {
     class Post extends bookshelf.Model<Post> {
-    get tableName() { return 'posts'; }
-    photos() {
-        return this.morphMany(Photo, 'imageable');
-    }
+        get tableName() {
+            return "posts";
+        }
+        photos() {
+            return this.morphMany(Photo, "imageable");
+        }
     }
 }
 {
     class Post extends bookshelf.Model<Post> {
-        get tableName() { return 'posts'; }
+        get tableName() {
+            return "posts";
+        }
         photos() {
-            return this.morphMany(Photo, 'imageable', ["ImageableType", "ImageableId"]);
+            return this.morphMany(Photo, "imageable", ["ImageableType", "ImageableId"]);
         }
     }
 }
@@ -622,17 +678,21 @@ class Photo extends bookshelf.Model<Post> {}
 
 {
     class Site extends bookshelf.Model<Site> {
-        get tableName() { return 'sites'; }
+        get tableName() {
+            return "sites";
+        }
         photo() {
-            return this.morphOne(Photo, 'imageable');
+            return this.morphOne(Photo, "imageable");
         }
     }
 }
 {
     class Site extends bookshelf.Model<Site> {
-        get tableName() { return 'sites'; }
+        get tableName() {
+            return "sites";
+        }
         photo() {
-            return this.morphOne(Photo, 'imageable', ["ImageableType", "ImageableId"]);
+            return this.morphOne(Photo, "imageable", ["ImageableType", "ImageableId"]);
         }
     }
 }
@@ -642,17 +702,21 @@ class Photo extends bookshelf.Model<Post> {}
 class Site extends bookshelf.Model<Site> {}
 {
     class Photo extends bookshelf.Model<Photo> {
-    get tableName() { return 'photos'; }
-    imageable() {
-        return this.morphTo('imageable', Site, Post);
-    }
+        get tableName() {
+            return "photos";
+        }
+        imageable() {
+            return this.morphTo("imageable", Site, Post);
+        }
     }
 }
 {
     class Photo extends bookshelf.Model<Photo> {
-        get tableName() { return 'photos'; }
+        get tableName() {
+            return "photos";
+        }
         imageable() {
-            return this.morphTo('imageable', ["ImageableType", "ImageableId"], Site, Post);
+            return this.morphTo("imageable", ["ImageableType", "ImageableId"], Site, Post);
         }
     }
 }
@@ -661,12 +725,12 @@ class Site extends bookshelf.Model<Site> {}
 
 const customer = new Customer();
 const ship = new bookshelf.Model();
-customer.off('fetched fetching');
+customer.off("fetched fetching");
 ship.off(); // This will remove all event listeners
 
 /* model.on(), see http://bookshelfjs.org/#Model-instance-on */
 
-customer.on('fetching', (model, columns) => {
+customer.on("fetching", (model, columns) => {
     // Do something before the data is fetched from the database
 });
 
@@ -674,11 +738,11 @@ customer.on('fetching', (model, columns) => {
 
 /* model.orderBy(), see http://bookshelfjs.org/#Model-instance-orderBy */
 {
-    (new User)
-        .orderBy('name', 'ASC')
+    (new User())
+        .orderBy("name", "ASC")
         .fetchAll()
         .then((users: Bookshelf.Collection<User>) => {
-            console.log(users)
+            console.log(users);
         });
 }
 
@@ -700,28 +764,28 @@ customer.parse = attrs => {
 
 const model = new bookshelf.Model();
 model
-    .query('where', 'other_id', '=', '5')
+    .query("where", "other_id", "=", "5")
     .fetch()
     .then(model => {
         // ...
     });
 
 model
-    .query({where: {other_id: '5'}, orWhere: {key: 'value'}})
+    .query({ where: { other_id: "5" }, orWhere: { key: "value" } })
     .fetch()
     .then(model => {
         // ...
     });
 
 model.query(qb => {
-    qb.where('other_person', 'LIKE', '%Demo').orWhere('other_id', '>', 10);
+    qb.where("other_person", "LIKE", "%Demo").orWhere("other_id", ">", 10);
 }).fetch()
     .then(model => {
         // ...
     });
 
 let qb = model.query();
-qb.where({id: 1}).select().then(resp => {
+qb.where({ id: 1 }).select().then(resp => {
     // ...
 });
 
@@ -730,12 +794,12 @@ qb.where({id: 1}).select().then(resp => {
 /* model.related(), see https://bookshelfjs.org/api.html#Model-instance-related */
 class Trip extends bookshelf.Model<Trip> {}
 class Trips extends bookshelf.Collection<Trip> {}
-new Photo({id: 1}).fetch({
-    withRelated: ['account']
+new Photo({ id: 1 }).fetch({
+    withRelated: ["account"],
 }).then(photo => {
-    var account = photo.related('account') as Account;
+    var account = photo.related("account") as Account;
     if (account.id) {
-        return (account.related('trips') as Trips).fetch();
+        return (account.related("trips") as Trips).fetch();
     }
 });
 
@@ -743,53 +807,55 @@ new Photo({id: 1}).fetch({
 
 /* model.save(), see http://bookshelfjs.org/#Model-instance-save */
 
-new Post({name: 'New Article'}).save().then(model => {
+new Post({ name: "New Article" }).save().then(model => {
     // ...
 });
 // update authors set "bio" = 'Short user bio' where "id" = 1
-new Author({id: 1, first_name: 'User'})
-    .save({bio: 'Short user bio'}, {patch: true})
+new Author({ id: 1, first_name: "User" })
+    .save({ bio: "Short user bio" }, { patch: true })
     .then(model => {
         // ...
     });
 
 // Save with no arguments
-bookshelf.Model.forge<Author>({id: 5, firstName: "John", lastName: "Smith"}).save().then(() => {
-    //...
+bookshelf.Model.forge<Author>({ id: 5, firstName: "John", lastName: "Smith" }).save().then(() => {
+    // ...
 });
 
 // Or add attributes during save
-bookshelf.Model.forge<Author>({id: 5}).save({firstName: "John", lastName: "Smith"}).then(() => {
-    //...
+bookshelf.Model.forge<Author>({ id: 5 }).save({ firstName: "John", lastName: "Smith" }).then(() => {
+    // ...
 });
 
 // Or, if you prefer, for a single attribute
-bookshelf.Model.forge<Author>({id: 5}).save('name', 'John Smith').then(() => {
-    //...
+bookshelf.Model.forge<Author>({ id: 5 }).save("name", "John Smith").then(() => {
+    // ...
 });
 
 /* model.serialize(), see http://bookshelfjs.org/#Model-instance-serialize */
 
 var artist = new bookshelf.Model({
     firstName: "Wassily",
-    lastName: "Kandinsky"
+    lastName: "Kandinsky",
 });
 
-artist.set({birthday: "December 16, 1866"});
+artist.set({ birthday: "December 16, 1866" });
 
 console.log(JSON.stringify(artist));
 // {firstName: "Wassily", lastName: "Kandinsky", birthday: "December 16, 1866"}
 
 /* model.set(), see http://bookshelfjs.org/#Model-instance-set */
 
-customer.set({first_name: "Joe", last_name: "Customer"});
+customer.set({ first_name: "Joe", last_name: "Customer" });
 customer.set("telephone", "555-555-1212");
 
 /* model.through(), see http://bookshelfjs.org/#Model-instance-through */
 
 {
     class Book extends bookshelf.Model<Book> {
-        get tableName() { return 'books'; }
+        get tableName() {
+            return "books";
+        }
 
         // Find all paragraphs associated with this book, by
         // passing through the "Chapter" model.
@@ -803,7 +869,9 @@ customer.set("telephone", "555-555-1212");
     }
 
     class Chapter extends bookshelf.Model<Chapter> {
-        get tableName() { return 'chapters'; }
+        get tableName() {
+            return "chapters";
+        }
 
         paragraphs(): Bookshelf.Collection<Paragraph> {
             return this.hasMany(Paragraph);
@@ -814,7 +882,9 @@ customer.set("telephone", "555-555-1212");
     }
 
     class Paragraph extends bookshelf.Model<Paragraph> {
-        get tableName() { return 'paragraphs'; }
+        get tableName() {
+            return "paragraphs";
+        }
 
         chapter(): Chapter {
             return this.belongsTo(Chapter);
@@ -842,7 +912,9 @@ customer.set("telephone", "555-555-1212");
     }
 
     class User extends bookshelf.Model<User> {
-        get tableName() { return 'users'; }
+        get tableName() {
+            return "users";
+        }
 
         toJSON(): UserJson {
             return super.toJSON();
@@ -859,20 +931,20 @@ customer.set("telephone", "555-555-1212");
         }
     }
 
-    new User({id: 1}).fetch().then(user => {
+    new User({ id: 1 }).fetch().then(user => {
         const userJson = user.toJSON();
-        console.log('User name:', userJson.name);
+        console.log("User name:", userJson.name);
     });
 
-    new User({name: 'John'}).fetchAll().then(users => {
+    new User({ name: "John" }).fetchAll().then(users => {
         const usersJson = users.toJSON();
-        console.log('First user name:', usersJson[0].name);
+        console.log("First user name:", usersJson[0].name);
     });
 }
 
 /* model.trigger(), see http://bookshelfjs.org/#Model-instance-trigger */
 
-ship.trigger('fetched');
+ship.trigger("fetched");
 
 /* model.triggerThen(), see http://bookshelfjs.org/#Model-instance-triggerThen */
 
@@ -880,19 +952,19 @@ ship.trigger('fetched');
 
 /* model.where(), see http://bookshelfjs.org/#Model-instance-where */
 
-model.where('favorite_color', '<>', 'green').fetch().then(() => {
-    //...
+model.where("favorite_color", "<>", "green").fetch().then(() => {
+    // ...
 });
 // or
-model.where('favorite_color', 'red').fetch().then(() => {
-    //...
+model.where("favorite_color", "red").fetch().then(() => {
+    // ...
 });
 // or
-model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(() => {
-    //...
+model.where({ favorite_color: "red", shoe_size: 12 }).fetch().then(() => {
+    // ...
 });
 // or
-model.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+model.where("favorite_color", "in", ["red", "green"]).fetch().then(() => {
     // ...
 });
 
@@ -936,46 +1008,46 @@ model.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
 
 // TODO No example provided on Bookshelf website
 
-new User({id: 1}).destroy({require: true})
-.then(user => {
-    console.log(user.toJSON());
-})
-.catch(User.NoRowsDeletedError, () => {
-    console.log('User not found');
-})
-.catch(error => {
-    console.log('Internal error:', error);
-});
+new User({ id: 1 }).destroy({ require: true })
+    .then(user => {
+        console.log(user.toJSON());
+    })
+    .catch(User.NoRowsDeletedError, () => {
+        console.log("User not found");
+    })
+    .catch(error => {
+        console.log("Internal error:", error);
+    });
 
 /* new Model.NoRowsUpdatedError(), see http://bookshelfjs.org/#Model-static-NoRowsUpdatedError */
 
 // TODO No example provided on Bookshelf website
 
-new User({id: 1}).save({}, {patch: true, require: true, autoRefresh: true})
-.then(user => {
-    console.log(user.toJSON());
-})
-.catch(User.NoRowsUpdatedError, () => {
-    console.log('User not updated');
-})
-.catch(error => {
-    console.log('Internal error:', error);
-});
+new User({ id: 1 }).save({}, { patch: true, require: true, autoRefresh: true })
+    .then(user => {
+        console.log(user.toJSON());
+    })
+    .catch(User.NoRowsUpdatedError, () => {
+        console.log("User not updated");
+    })
+    .catch(error => {
+        console.log("Internal error:", error);
+    });
 
 /* new Model.NotFoundError(), see http://bookshelfjs.org/#Model-static-NotFoundError */
 
 // TODO No example provided on Bookshelf website
 
-new User({id: 1}).fetch({require: true})
-.then(user => {
-    console.log(user.toJSON());
-})
-.catch(User.NotFoundError, () => {
-    console.log('User not found');
-})
-.catch(error => {
-    console.log('Internal error:', error);
-});
+new User({ id: 1 }).fetch({ require: true })
+    .then(user => {
+        console.log(user.toJSON());
+    })
+    .catch(User.NotFoundError, () => {
+        console.log("User not found");
+    })
+    .catch(error => {
+        console.log("Internal error:", error);
+    });
 
 /* Collection, see http://bookshelfjs.org/#section-Collection */
 
@@ -1002,16 +1074,16 @@ let tabs = new TabSet([tab1, tab2, tab3]);
 
 class Accounts extends bookshelf.Collection<Account> {
     get model() {
-        return Account
+        return Account;
     }
 }
 
 var accounts = Accounts.forge<Accounts>([
-    {name: 'Person1'},
-    {name: 'Person2'}
+    { name: "Person1" },
+    { name: "Person2" },
 ]);
 
-Promise.all(accounts.invokeMap('save')).then(() => {
+Promise.all(accounts.invokeMap("save")).then(() => {
     // collection models should now be saved...
 });
 
@@ -1019,11 +1091,11 @@ Promise.all(accounts.invokeMap('save')).then(() => {
 
 /* collection.add(), see http://bookshelfjs.org/#Collection-instance-add */
 
-const ships = new bookshelf.Collection;
+const ships = new bookshelf.Collection();
 
 ships.add([
-    {name: "Flying Dutchman"},
-    {name: "Black Pearl"}
+    { name: "Flying Dutchman" },
+    { name: "Black Pearl" },
 ]);
 
 /* collection.at(), see http://bookshelfjs.org/#Collection-instance-at */
@@ -1038,16 +1110,16 @@ ships.add([
             return this.hasMany(Admin);
         }
     }
-    var admin1 = new Admin({username: 'user1', password: 'test'});
-    var admin2 = new Admin({username: 'user2', password: 'test'});
+    var admin1 = new Admin({ username: "user1", password: "test" });
+    var admin2 = new Admin({ username: "user2", password: "test" });
 
     Promise.all([admin1.save(), admin2.save()])
         .then(() => {
             return Promise.all([
-            new Site({id: 1}).admins().attach([admin1, admin2]),
-            new Site({id: 2}).admins().attach(admin2)
-        ]);
-    });
+                new Site({ id: 1 }).admins().attach([admin1, admin2]),
+                new Site({ id: 2 }).admins().attach(admin2),
+            ]);
+        });
 }
 
 /* collection.clone(), see http://bookshelfjs.org/#Collection-instance-clone */
@@ -1062,9 +1134,9 @@ class Company extends bookshelf.Model<Company> {
 }
 
 // select count(*) from shareholders where company_id = 1 and share &gt; 0.1;
-Company.forge<Company>({id:1})
+Company.forge<Company>({ id: 1 })
     .shareholders()
-    .query('where', 'share', '>', '0.1')
+    .query("where", "share", ">", "0.1")
     .count()
     .then(count => {
         assert(count === 3);
@@ -1076,10 +1148,10 @@ class Student extends bookshelf.Model<Student> {}
 
 function get(req: express.Request, res: express.Response) {
     // FIXME Support proposed ES Rest/Spread properties https://github.com/Microsoft/TypeScript/issues/2103
-    //const { courses, ...attributes } = req.body;
+    // const { courses, ...attributes } = req.body;
     const { courses, attributes } = req.body;
 
-    //todo: make sure this works with BlueBird 3.0
+    // todo: make sure this works with BlueBird 3.0
     // Student.forge<Student>(attributes).save().tap(student =>
     //     Promise.map(courses, course => (<Bookshelf.Collection<Student>> student.related('courses')).create(course))
     // ).then(student =>
@@ -1103,9 +1175,9 @@ function get(req: express.Request, res: express.Response) {
     }
 
     // select * from authors where site_id = 1 and id = 2 limit 1;
-    new Site({id: 1})
+    new Site({ id: 1 })
         .authors()
-        .query({where: {id: 2}})
+        .query({ where: { id: 2 } })
         .fetchOne()
         .then(model => {
             // ...
@@ -1123,11 +1195,11 @@ const book = library.get(110);
 
 const options = {};
 const collection = new bookshelf.Collection();
-collection.invokeThen('save', null, options).then(() => {
+collection.invokeThen("save", null, options).then(() => {
     // ... all models in the collection have been saved
 });
 
-collection.invokeThen('destroy', options).then(() => {
+collection.invokeThen("destroy", options).then(() => {
     // ... all models in the collection have been destroyed
 });
 
@@ -1135,24 +1207,24 @@ collection.invokeThen('destroy', options).then(() => {
 
 /* collection.off(), see http://bookshelfjs.org/#Collection-instance-off */
 
-ships.off('fetched') // Remove the 'fetched' event listener
+ships.off("fetched"); // Remove the 'fetched' event listener
 
 /* collection.on(), see http://bookshelfjs.org/#Collection-instance-on */
 
-ships.on('fetched', (collection, response) => {
+ships.on("fetched", (collection, response) => {
     // Do something after the data has been fetched from the database
-})
+});
 
 /* collection.once(), see http://bookshelfjs.org/#Collection-instance-once */
 
 /* collection.orderBy(), see http://bookshelfjs.org/#Collection-instance-orderBy */
 {
     User.collection()
-        .orderBy('-name')
+        .orderBy("-name")
         .fetch()
         .then((users: Bookshelf.Collection<Bookshelf.Model<User>>) => {
             console.log(users);
-        })
+        });
 }
 
 /* collection.parse(), see http://bookshelfjs.org/#Collection-instance-parse */
@@ -1167,19 +1239,19 @@ ships.on('fetched', (collection, response) => {
 
 {
     let qb = collection.query();
-            qb.where({id: 1}).select().then(resp => {
-                // ...
-            });
+    qb.where({ id: 1 }).select().then(resp => {
+        // ...
+    });
 
     collection.query(qb => {
-        qb.where('id', '>', 5).andWhere('first_name', '=', 'Test');
+        qb.where("id", ">", 5).andWhere("first_name", "=", "Test");
     }).fetch()
         .then(collection => {
             // ...
         });
 
     collection
-        .query('where', 'other_id', '=', '5')
+        .query("where", "other_id", "=", "5")
         .fetch()
         .then(collection => {
             // ...
@@ -1217,7 +1289,7 @@ vanHalen.set([eddie, alex, stone, hagar]);
 
 /* collection.trigger(), see http://bookshelfjs.org/#Collection-instance-trigger */
 
-ships.trigger('fetched');
+ships.trigger("fetched");
 
 /* collection.triggerThen(), see http://bookshelfjs.org/#Collection-instance-triggerThen */
 
@@ -1227,19 +1299,19 @@ ships.trigger('fetched');
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
 
-collection.where('favorite_color', '<>', 'green').fetch().then(() => {
-    //...
+collection.where("favorite_color", "<>", "green").fetch().then(() => {
+    // ...
 });
 // or
-collection.where('favorite_color', 'red').fetch().then(() => {
-    //...
+collection.where("favorite_color", "red").fetch().then(() => {
+    // ...
 });
 // or
-collection.where({ favorite_color: 'red', shoe_size: 12 }).fetch().then(() => {
-    //...
+collection.where({ favorite_color: "red", shoe_size: 12 }).fetch().then(() => {
+    // ...
 });
 // or
-collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+collection.where("favorite_color", "in", ["red", "green"]).fetch().then(() => {
     // ...
 });
 
@@ -1249,7 +1321,7 @@ collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
     class Comment extends bookshelf.Model<Comment> {}
     class Tag extends bookshelf.Model<Tag> {
         comments() {
-            return this.belongsToMany(Comment).withPivot(['created_at', 'order']);
+            return this.belongsToMany(Comment).withPivot(["created_at", "order"]);
         }
     }
 }
@@ -1279,29 +1351,31 @@ collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
 
 {
     class Author extends bookshelf.Model<Author> {
-        get tableName() { return 'author'; }
+        get tableName() {
+            return "author";
+        }
         books() {
             return this.belongsToMany(Book);
         }
         relatedBooks() {
-            return <Bookshelf.Collection<Book>> this.related<Book>('books');
+            return <Bookshelf.Collection<Book>> this.related<Book>("books");
         }
     }
-    new Author({id: 1}).fetch({require: true, withRelated: ['books']})
-    .then(author => {
-        const books = author.relatedBooks();
-        const booksJson = books.map(book => book.toJSON());
-    });
+    new Author({ id: 1 }).fetch({ require: true, withRelated: ["books"] })
+        .then(author => {
+            const books = author.relatedBooks();
+            const booksJson = books.map(book => book.toJSON());
+        });
 
     class AuthorOutput {
         constructor(bookJson: Object) {}
     }
 
-    new Author({id: 1}).fetch({require: true, withRelated: ['books']})
-    .then(author => {
-        const books = author.relatedBooks();
-        const booksOutput = books.map(book => new AuthorOutput(book.toJSON()));
-    });
+    new Author({ id: 1 }).fetch({ require: true, withRelated: ["books"] })
+        .then(author => {
+            const books = author.relatedBooks();
+            const booksOutput = books.map(book => new AuthorOutput(book.toJSON()));
+        });
 }
 
 /* max(), see http://lodash.com/docs/#max */
@@ -1344,16 +1418,16 @@ collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
 
 class Users extends bookshelf.Collection<User> {
 }
-new User({name: 'John'}).fetchAll({require: true})
-.then(users => {
-    console.log(users.toJSON());
-})
-.catch(Users.EmptyError, () => {
-    console.log('No user found');
-})
-.catch(error => {
-    console.log('Internal error:', error);
-});
+new User({ name: "John" }).fetchAll({ require: true })
+    .then(users => {
+        console.log(users.toJSON());
+    })
+    .catch(Users.EmptyError, () => {
+        console.log("No user found");
+    })
+    .catch(error => {
+        console.log("Internal error:", error);
+    });
 
 /* Events, see http://bookshelfjs.org/#section-Events */
 
@@ -1369,49 +1443,56 @@ new User({name: 'John'}).fetchAll({require: true})
 
 /* events.triggerThen(), see http://bookshelfjs.org/#Events-instance-triggerThen */
 
-
 /* model - foreignKey and foreignKeyTarget, see http://bookshelfjs.org/#Model-instance-hasOne */
 
 {
     class Capital extends bookshelf.Model<Capital> {
-        get tableName() { return 'capitals'; }
+        get tableName() {
+            return "capitals";
+        }
     }
 
     class City extends bookshelf.Model<City> {
-        get tableName() { return 'cities'; }
+        get tableName() {
+            return "cities";
+        }
 
         country(): Country {
-            return this.belongsTo(Country, 'key1', 'key2');
+            return this.belongsTo(Country, "key1", "key2");
         }
     }
 
     class Language extends bookshelf.Model<Language> {
-        get tableName() { return 'languages'; }
+        get tableName() {
+            return "languages";
+        }
 
         countries(): Bookshelf.Collection<Country> {
-            return this.belongsToMany(Country, 'languages_countries', 'lang_id', 'country_id');
+            return this.belongsToMany(Country, "languages_countries", "lang_id", "country_id");
         }
     }
 
     class Country extends bookshelf.Model<Country> {
-        get tableName() { return 'countries'; }
+        get tableName() {
+            return "countries";
+        }
         capital(): Capital {
-            return this.hasOne(Capital, 'id', 'capital_id');
+            return this.hasOne(Capital, "id", "capital_id");
         }
 
         cities(): Bookshelf.Collection<City> {
-            return this.hasMany(City, 'key2', 'key1');
+            return this.hasMany(City, "key2", "key1");
         }
     }
 
     // select * from `health_records` where `patient_id` = 1;
-    const capital = <Capital> new Country({id: 1}).related('capital');
+    const capital = <Capital> new Country({ id: 1 }).related("capital");
     capital.fetch().then(model => {
         // ...
     });
 
     // alternatively, if you don't need the relation loaded on the patient's relations hash:
-    new Country({id: 1}).capital().fetch().then(model => {
+    new Country({ id: 1 }).capital().fetch().then(model => {
         // ...
     });
 }

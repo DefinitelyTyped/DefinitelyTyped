@@ -10,9 +10,9 @@ const pattern = Trianglify({
     y_colors: ["#6441a4", "#000000"],
     color_space: "lab",
     color_function: null,
-    stroke_width: 1.51
+    stroke_width: 1.51,
 });
 
 const svg = pattern.svg({ includeNamespace: true });
-const result = '<?xml version="1.0" encoding="UTF-8"?>\n' + svg.outerHTML;
+const result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + svg.outerHTML;
 console.log(result);

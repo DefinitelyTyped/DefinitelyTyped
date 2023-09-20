@@ -1,3 +1,3 @@
-import { Transform } from 'readable-stream';
+import { Transform } from "readable-stream";
 
 export default function factor(): Transform;

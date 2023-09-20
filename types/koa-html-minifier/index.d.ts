@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Options as HtmlMinifierOptions } from 'html-minifier';
-import { Middleware } from 'koa';
+import { Options as HtmlMinifierOptions } from "html-minifier";
+import { Middleware } from "koa";
 
 declare function koaHtmlMinifier(options?: koaHtmlMinifier.Options): Middleware;
 

@@ -46,7 +46,7 @@ declare namespace Twitch {
          * @param divId The id of the div that will contain the cideo player iframe
          * @param options The options for the new player
          */
-        constructor(divId: string, options: TwitchPlayerContructorOptions)
+        constructor(divId: string, options: TwitchPlayerContructorOptions);
         disableCaptions(): void;
         enableCaptions(): void;
         pause(): void;
@@ -70,19 +70,19 @@ declare namespace Twitch {
         getVideo(): string;
         isPaused(): boolean;
         addEventListener(event: string, callback: () => void): void;
-        static VIDEO_READY: string
-        static VIDEO_PLAY: string
-        static VIDEO_PAUSE: string
-        static CAPTIONS: string
-        static ENDED: string
-        static ERROR: string
-        static ONLINE: string
-        static OFFLINE: string
-        static PAUSE: string
-        static PLAY: string
-        static PLAYBACK_BLOCKED: string
-        static PLAYING: string
-        static READY: string
-        static SEEK: string
+        static VIDEO_READY: string;
+        static VIDEO_PLAY: string;
+        static VIDEO_PAUSE: string;
+        static CAPTIONS: string;
+        static ENDED: string;
+        static ERROR: string;
+        static ONLINE: string;
+        static OFFLINE: string;
+        static PAUSE: string;
+        static PLAY: string;
+        static PLAYBACK_BLOCKED: string;
+        static PLAYING: string;
+        static READY: string;
+        static SEEK: string;
     }
 }
