@@ -603,41 +603,18 @@ export interface BrowserContext {
     browser(): Browser;
 
     /**
-     * Adds cookies into the `BrowserContext`.
+     * Adds {@link Cookie | cookies} into this {@link BrowserContext}.
+     *
+     * @param cookies The {@link Cookie | cookies} to add to this {@link BrowserContext}.
+     * @example
+     * ```js
+     * context.addCookies([
+     *   { name: 'foo', value: 'foovalue', sameSite: 'Lax', url: 'https://k6.io' },
+     *   { name: 'bar', value: 'barvalue', sameSite: 'Strict', domain: 'test.k6.io', path: '/bar' },
+     * ]);
+     * ```
      */
-    addCookies(
-        cookies: Array<{
-            name: string;
-
-            value: string;
-
-            /**
-             * either url or domain / path are required.
-             */
-            url?: string;
-
-            /**
-             * either url or domain / path are required.
-             */
-            domain?: string;
-
-            /**
-             * either url or domain / path are required.
-             */
-            path?: string;
-
-            /**
-             * Unix time in seconds.
-             */
-            expires?: number;
-
-            httpOnly?: boolean;
-
-            secure?: boolean;
-
-            sameSite?: "Strict" | "Lax" | "None";
-        }>,
-    ): void;
+    addCookies(cookies: Cookie[]): void;
 
     /**
      * Clear the `BrowserContext`'s cookies.
