@@ -2735,6 +2735,5 @@ declare module 'node:inspector' {
  * The inspector module provides an API for interacting with the V8 inspector.
  */
 declare module 'inspector' {
-    import inspector = require('node:inspector');
-    export = inspector;
+    export * from 'node:inspector';
 }
