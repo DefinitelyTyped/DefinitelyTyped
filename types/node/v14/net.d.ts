@@ -1,4 +1,4 @@
-declare module 'node:net' {
+declare module 'net' {
     import * as stream from 'stream';
     import EventEmitter = require('events');
     import * as dns from 'dns';
@@ -304,6 +304,6 @@ declare module 'node:net' {
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
 }
-declare module 'net' {
-    export * from 'node:net';
+declare module 'node:net' {
+    export * from 'net';
 }

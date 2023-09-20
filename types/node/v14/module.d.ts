@@ -1,4 +1,4 @@
-declare module 'node:module' {
+declare module 'module' {
     import { URL } from 'url';
     namespace Module {
         /**
@@ -50,7 +50,7 @@ declare module 'node:module' {
     }
     export = Module;
 }
-declare module 'module' {
-    import module = require('node:module');
+declare module 'node:module' {
+    import module = require('module');
     export = module;
 }

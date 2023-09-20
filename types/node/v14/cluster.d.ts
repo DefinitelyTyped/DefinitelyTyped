@@ -1,4 +1,4 @@
-declare module 'node:cluster' {
+declare module 'cluster' {
     import * as child from 'child_process';
     import EventEmitter = require('events');
     import * as net from 'net';
@@ -264,6 +264,6 @@ declare module 'node:cluster' {
 
     function eventNames(): string[];
 }
-declare module 'cluster' {
-    export * from 'node:cluster';
+declare module 'node:cluster' {
+    export * from 'cluster';
 }

@@ -1,4 +1,4 @@
-declare module 'node:v8' {
+declare module 'v8' {
     import { Readable } from 'stream';
 
     interface HeapSpaceInfo {
@@ -185,6 +185,6 @@ declare module 'node:v8' {
      */
     function deserialize(data: NodeJS.TypedArray): any;
 }
-declare module 'v8' {
-    export * from 'node:v8';
+declare module 'node:v8' {
+    export * from 'v8';
 }

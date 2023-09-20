@@ -8,7 +8,7 @@
  * @since v8.4.0
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/http2.js)
  */
-declare module 'node:http2' {
+declare module 'http2' {
     import EventEmitter = require('node:events');
     import * as fs from 'node:fs';
     import * as net from 'node:net';
@@ -2124,6 +2124,6 @@ declare module 'node:http2' {
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
 }
-declare module 'http2' {
-    export * from 'node:http2';
+declare module 'node:http2' {
+    export * from 'http2';
 }

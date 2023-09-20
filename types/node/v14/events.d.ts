@@ -1,4 +1,4 @@
-declare module 'node:events' {
+declare module 'events' {
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -76,7 +76,7 @@ declare module 'node:events' {
 
     export = EventEmitter;
 }
-declare module 'events' {
-    import events = require('node:events');
+declare module 'node:events' {
+    import events = require('events');
     export = events;
 }

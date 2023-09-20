@@ -18,7 +18,7 @@
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/fs.js)
  */
-declare module 'node:fs' {
+declare module 'fs' {
     import * as stream from 'node:stream';
     import { Abortable, EventEmitter } from 'node:events';
     import { URL } from 'node:url';
@@ -3810,6 +3810,6 @@ declare module 'node:fs' {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 }
-declare module 'fs' {
-    export * from 'node:fs';
+declare module 'node:fs' {
+    export * from 'fs';
 }

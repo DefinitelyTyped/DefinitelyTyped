@@ -1,4 +1,4 @@
-declare module 'node:buffer' {
+declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
@@ -84,6 +84,6 @@ declare module 'node:buffer' {
 
     export { BuffType as Buffer };
 }
-declare module 'buffer' {
-    export * from 'node:buffer';
+declare module 'node:buffer' {
+    export * from 'buffer';
 }

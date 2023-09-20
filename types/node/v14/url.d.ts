@@ -1,4 +1,4 @@
-declare module 'node:url' {
+declare module 'url' {
     import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
 
@@ -173,6 +173,6 @@ declare module 'node:url' {
                 : typeof _URLSearchParams;
     }
 }
-declare module 'url' {
-    export * from 'node:url';
+declare module 'node:url' {
+    export * from 'url';
 }

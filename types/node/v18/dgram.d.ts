@@ -25,7 +25,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dgram.js)
  */
-declare module 'node:dgram' {
+declare module 'dgram' {
     import { AddressInfo } from 'node:net';
     import * as dns from 'node:dns';
     import { EventEmitter, Abortable } from 'node:events';
@@ -540,6 +540,6 @@ declare module 'node:dgram' {
         prependOnceListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
 }
-declare module 'dgram' {
-    export * from 'node:dgram';
+declare module 'node:dgram' {
+    export * from 'dgram';
 }

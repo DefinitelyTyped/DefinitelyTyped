@@ -1,5 +1,5 @@
-declare module 'node:readline' {
-    import EventEmitter = require('node:events');
+declare module 'readline' {
+    import EventEmitter = require('events');
 
     interface Key {
         sequence?: string | undefined;
@@ -169,6 +169,6 @@ declare module 'node:readline' {
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
-declare module 'readline' {
-    export * from 'node:readline';
+declare module 'node:readline' {
+    export * from 'readline';
 }

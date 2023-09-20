@@ -1,4 +1,4 @@
-declare module 'node:child_process' {
+declare module 'child_process' {
     import { BaseEncodingOptions } from 'fs';
     import * as events from 'events';
     import * as net from 'net';
@@ -548,6 +548,6 @@ declare module 'node:child_process' {
     function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
 }
-declare module 'child_process' {
-    export * from 'node:child_process';
+declare module 'node:child_process' {
+    export * from 'child_process';
 }
