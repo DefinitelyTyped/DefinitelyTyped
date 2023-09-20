@@ -135,8 +135,8 @@ management
             .catch(err => console.error('Cannot create SMS user', err))
             .then(smsUser => {
                 if (!smsUser) return;
-                const userId = emailUser.user_id;
-                const params = { user_id: smsUser.user_id, provider: 'sms' };
+                const userId = emailUser.user_id!;
+                const params = { user_id: smsUser.user_id!, provider: 'sms' };
                 management
                     .linkUsers(userId, params)
                     .catch(err => console.error('Cannot link E-mail and SMS users', err))
@@ -1142,9 +1142,9 @@ async () => {
 
 async function signupTest(): Promise<void> {
     const signupResult = await authentication.database.signUp({ email: 'email', password: 'password' });
-    signupResult._id; // $ExpectType string
-    signupResult.email; // $ExpectType string
-    signupResult.email_verified; // $ExpectType boolean
+    signupResult._id; // $ExpectType string | undefined
+    signupResult.email; // $ExpectType string | undefined
+    signupResult.email_verified; // $ExpectType boolean | undefined
 
     authentication.database.signUp({ email: 'email', password: 'password' }, (err, data) => {
         err; // $ExpectType Error
