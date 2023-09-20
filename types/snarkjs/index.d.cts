@@ -5,7 +5,7 @@ export as namespace snarkjs;
 export type NumericString = `${number}`;
 
 // A signal value is a number, or an array of numbers (recursively).
-export type SignalValueType = NumericString | number | bigint | SignalValueType[];
+export type SignalValueType = NumericString | string | number | bigint | SignalValueType[];
 
 // An object with string keys and array of numerical values.
 // Each key represents a signal name as it appears in the circuit.
@@ -83,7 +83,7 @@ export interface PlonkProof {
     curve: string;
 }
 
-export type PublicSignals = string[];
+export type PublicSignals = NumericString[];
 
 export namespace groth16 {
     function exportSolidityCallData(_proof: Groth16Proof, _pub: PublicSignals): Promise<string>;
