@@ -1230,7 +1230,7 @@ declare module 'node:test' {
          */
         [Symbol.dispose](): void;
     }
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo, Mock };
 }
 
 interface DiagnosticData {
