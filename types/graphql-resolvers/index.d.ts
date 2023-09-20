@@ -6,6 +6,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+// This is a *broken* type definition due to external failures
+// It is excluded from nightly runs here:
+// https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint-runner/expectedFailures.txt
+
 import { GraphQLResolveInfo } from "graphql";
 import { MergeInfo } from "graphql-tools";
 
