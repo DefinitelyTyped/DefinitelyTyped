@@ -1,41 +1,41 @@
-import * as gulp from 'gulp';
-import * as Vinyl from 'vinyl';
-import postcss = require('gulp-postcss');
+import * as gulp from "gulp";
+import * as Vinyl from "vinyl";
+import postcss = require("gulp-postcss");
 
 const postCssPlugins: any[] = [];
-declare const sass: {stringify: unknown, parse: unknown};
+declare const sass: { stringify: unknown; parse: unknown };
 
-gulp.task('postCss1', () => {
-    return gulp.src('./src/*.css')
+gulp.task("postCss1", () => {
+    return gulp.src("./src/*.css")
         .pipe(postcss())
-        .pipe(gulp.dest('./dest'));
+        .pipe(gulp.dest("./dest"));
 });
 
-gulp.task('postCss2', () => {
-    return gulp.src('./src/*.css')
+gulp.task("postCss2", () => {
+    return gulp.src("./src/*.css")
         .pipe(postcss(postCssPlugins))
-        .pipe(gulp.dest('./dest'));
+        .pipe(gulp.dest("./dest"));
 });
 
-gulp.task('postCss3', () => {
-    return gulp.src('in.sss')
+gulp.task("postCss3", () => {
+    return gulp.src("in.sss")
         .pipe(postcss(postCssPlugins, { parser: sass }))
-        .pipe(gulp.dest('out'));
+        .pipe(gulp.dest("out"));
 });
 
-gulp.task('postCss4', () => {
+gulp.task("postCss4", () => {
     function callback(file: Vinyl) {
         return {
             plugins: [
-                require('postcss-import')({ root: file.dirname }),
-                require('postcss-modules')
+                require("postcss-import")({ root: file.dirname }),
+                require("postcss-modules"),
             ],
             options: {
-                parser: file.extname === '.sss' ? require('sugarss') : false
-            }
+                parser: file.extname === ".sss" ? require("sugarss") : false,
+            },
         };
     }
-    return gulp.src('./src/*.css')
+    return gulp.src("./src/*.css")
         .pipe(postcss(callback))
-        .pipe(gulp.dest('./dest'));
+        .pipe(gulp.dest("./dest"));
 });

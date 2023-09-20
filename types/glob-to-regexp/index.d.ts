@@ -13,6 +13,6 @@ declare namespace GlobToRegExp {
     interface Options {
         extended?: boolean | undefined;
         globstar?: boolean | undefined;
-        flags   ?: string | undefined;
+        flags?: string | undefined;
     }
 }

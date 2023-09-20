@@ -14,8 +14,8 @@ export const isProxying: boolean;
 export interface Options {
     host: string;
     port: number;
-    connect?: 'neither' | 'https' | 'both' | undefined;
-    protocol?: 'http:' | 'https:' | undefined;
+    connect?: "neither" | "https" | "both" | undefined;
+    protocol?: "http:" | "https:" | undefined;
     proxyAuth?: string | undefined;
     sockets?: number | undefined;
     proxyHttpsOptions?: { [key: string]: any } | undefined;

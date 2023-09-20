@@ -8,7 +8,7 @@
 declare function GitDiffParser(input: string | Buffer): GitDiffParser.Result;
 declare namespace GitDiffParser {
     /** Represents prefix in `git diff` output: '+', '-', or space */
-    type LineType = 'deleted' | 'added' | 'normal';
+    type LineType = "deleted" | "added" | "normal";
 
     interface Line {
         type: LineType;

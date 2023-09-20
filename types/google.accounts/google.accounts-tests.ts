@@ -1,7 +1,7 @@
 // $ExpectType CodeClient
 google.accounts.oauth2.initCodeClient({
-    client_id: '',
-    scope: '',
+    client_id: "",
+    scope: "",
     callback: response => {
         // $ExpectType string
         response.code;
@@ -29,10 +29,10 @@ google.accounts.oauth2.initCodeClient({
 // all options
 // $ExpectType CodeClient
 google.accounts.oauth2.initCodeClient({
-    client_id: '',
-    scope: '',
+    client_id: "",
+    scope: "",
     include_granted_scopes: true,
-    redirect_uri: '',
+    redirect_uri: "",
     callback: response => {
         // $ExpectType string
         response.code;
@@ -47,11 +47,11 @@ google.accounts.oauth2.initCodeClient({
         // $ExpectType string
         response.error_uri;
     },
-    state: '',
+    state: "",
     enable_granular_consent: true,
-    login_hint: '',
-    hd: '',
-    ux_mode: 'popup',
+    login_hint: "",
+    hd: "",
+    ux_mode: "popup",
     select_account: false,
     error_callback: error => {
         // $ExpectType string
@@ -65,7 +65,7 @@ google.accounts.oauth2.initCodeClient({
 
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
-    client_id: '',
+    client_id: "",
     callback: response => {
         // $ExpectType string
         response.access_token;
@@ -88,7 +88,7 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
-    scope: '',
+    scope: "",
     error_callback: error => {
         // $ExpectType string
         error.message;
@@ -102,7 +102,7 @@ google.accounts.oauth2.initTokenClient({
 // all options
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
-    client_id: '',
+    client_id: "",
     callback: response => {
         // $ExpectType string
         response.access_token;
@@ -125,12 +125,12 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
-    scope: '',
+    scope: "",
     include_granted_scopes: true,
-    prompt: '',
+    prompt: "",
     enable_granular_consent: true,
-    login_hint: '',
-    hd: '',
+    login_hint: "",
+    hd: "",
     error_callback: error => {
         // $ExpectType string
         error.message;
@@ -144,47 +144,47 @@ google.accounts.oauth2.initTokenClient({
 // $ExpectType boolean
 google.accounts.oauth2.hasGrantedAllScopes(
     {
-        access_token: '',
-        expires_in: '',
-        hd: '',
-        prompt: '',
-        token_type: '',
-        scope: '',
-        state: '',
-        error: '',
-        error_description: '',
-        error_uri: '',
+        access_token: "",
+        expires_in: "",
+        hd: "",
+        prompt: "",
+        token_type: "",
+        scope: "",
+        state: "",
+        error: "",
+        error_description: "",
+        error_uri: "",
     },
-    '',
-    '...',
+    "",
+    "...",
 );
 
 // $ExpectType boolean
 google.accounts.oauth2.hasGrantedAnyScope(
     {
-        access_token: '',
-        expires_in: '',
-        hd: '',
-        prompt: '',
-        token_type: '',
-        scope: '',
-        state: '',
-        error: '',
-        error_description: '',
-        error_uri: '',
+        access_token: "",
+        expires_in: "",
+        hd: "",
+        prompt: "",
+        token_type: "",
+        scope: "",
+        state: "",
+        error: "",
+        error_description: "",
+        error_uri: "",
     },
-    '',
-    '...',
+    "",
+    "...",
 );
 
-google.accounts.oauth2.revoke('', () => {});
+google.accounts.oauth2.revoke("", () => {});
 
 // required options
-google.accounts.id.initialize({ client_id: 'YOUR_GOOGLE_CLIENT_ID' });
+google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID" });
 
 // all options
 google.accounts.id.initialize({
-    client_id: 'YOUR_GOOGLE_CLIENT_ID',
+    client_id: "YOUR_GOOGLE_CLIENT_ID",
     callback: response => {
         // $ExpectType string
         response.credential;
@@ -192,7 +192,7 @@ google.accounts.id.initialize({
         response.select_by;
     },
     auto_select: true,
-    login_uri: '',
+    login_uri: "",
     native_callback: response => {
         // $ExpectType string
         response.credential;
@@ -200,12 +200,12 @@ google.accounts.id.initialize({
         response.select_by;
     },
     cancel_on_tap_outside: true,
-    prompt_parent_id: '',
-    nonce: '',
-    context: 'signin',
-    state_cookie_domain: '',
-    ux_mode: 'popup',
-    allowed_parent_origin: '',
+    prompt_parent_id: "",
+    nonce: "",
+    context: "signin",
+    state_cookie_domain: "",
+    ux_mode: "popup",
+    allowed_parent_origin: "",
     intermediate_iframe_close_callback: () => {},
     itp_support: true,
 });
@@ -235,37 +235,35 @@ google.accounts.id.prompt(notification => {
 
 // required options
 google.accounts.id.renderButton(
-    document.getElementById('buttonDiv')!,
-
+    document.getElementById("buttonDiv")!,
     {
-        type: 'standard',
+        type: "standard",
     },
 );
 
 // all options
 google.accounts.id.renderButton(
-    document.getElementById('buttonDiv')!,
-
+    document.getElementById("buttonDiv")!,
     {
-        type: 'standard',
-        theme: 'outline',
-        size: 'small',
-        text: 'signin_with',
-        shape: 'rectangular',
-        logo_alignment: 'left',
+        type: "standard",
+        theme: "outline",
+        size: "small",
+        text: "signin_with",
+        shape: "rectangular",
+        logo_alignment: "left",
         width: undefined,
-        locale: '',
+        locale: "",
         click_listener: () => {},
     },
 );
 
 google.accounts.id.disableAutoSelect();
 
-google.accounts.id.storeCredential({ id: '...', password: '...' });
+google.accounts.id.storeCredential({ id: "...", password: "..." });
 
 google.accounts.id.cancel();
 
-google.accounts.id.revoke('1618033988749895', done => {
+google.accounts.id.revoke("1618033988749895", done => {
     // $ExpectType boolean
     done.successful;
     if (done.error) {

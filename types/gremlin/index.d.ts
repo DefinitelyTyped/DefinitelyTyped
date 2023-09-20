@@ -18,7 +18,7 @@ import Graph = structure.Graph;
 
 type Nullable<T> = T | null;
 interface Newable<T> {
-    new (...args: any[]): T;
+    new(...args: any[]): T;
 }
 
 declare namespace driver {
@@ -202,10 +202,10 @@ declare namespace process {
     };
 
     interface Merge {
-      onCreate: EnumValue;
-      onMatch: EnumValue;
-      outV: EnumValue;
-      inV: EnumValue;
+        onCreate: EnumValue;
+        onMatch: EnumValue;
+        outV: EnumValue;
+        inV: EnumValue;
     }
 
     const merge: Merge;

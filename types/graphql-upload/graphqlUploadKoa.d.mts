@@ -1,4 +1,4 @@
-import { DefaultContext, DefaultState, Middleware } from 'koa';
+import { DefaultContext, DefaultState, Middleware } from "koa";
 
 export interface UploadOptions {
     maxFieldSize?: number | undefined;

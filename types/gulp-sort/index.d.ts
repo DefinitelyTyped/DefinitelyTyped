@@ -7,7 +7,7 @@
 
 /** Sort files in stream by path or any custom sort comparator */
 
-import gulpUtil = require('gulp-util');
+import gulpUtil = require("gulp-util");
 
 interface IOptions {
     /**

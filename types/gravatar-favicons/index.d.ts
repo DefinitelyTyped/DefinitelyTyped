@@ -2,7 +2,7 @@
 // Project: https://github.com/bcomnes/gravatar-favicons#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { FaviconOptions } from 'favicons';
+import { FaviconOptions } from "favicons";
 
 /**
  * Generate favicons from a gravatar email.

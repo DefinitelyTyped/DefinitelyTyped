@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import File = require('vinyl');
-import * as Minimatch from 'minimatch';
+import File = require("vinyl");
+import * as Minimatch from "minimatch";
 
 declare namespace filter {
     interface FileFunction {
@@ -21,7 +21,7 @@ declare namespace filter {
 
     // A transform stream with a .restore object
     interface Filter extends NodeJS.ReadWriteStream {
-        restore: NodeJS.ReadWriteStream
+        restore: NodeJS.ReadWriteStream;
     }
 }
 

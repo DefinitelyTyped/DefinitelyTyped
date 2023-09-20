@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface ICacheStore {
     [name: string]: {};
 }

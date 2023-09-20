@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import gulpMatch = require('gulp-match');
+import gulpMatch = require("gulp-match");
 import minimatch = require("minimatch");
 
 /**
@@ -18,6 +18,11 @@ import minimatch = require("minimatch");
  * @param elseStream (optional) the stream to pipe to if condition is false
  * @param minimatchOptions (optional) the minimatch options when matching glob conditions
  */
-declare function gulpIf(condition: gulpMatch.MatchCondition, stream: NodeJS.ReadWriteStream, elseStream?: NodeJS.ReadWriteStream, minimatchOptions?: minimatch.IOptions): NodeJS.ReadWriteStream;
+declare function gulpIf(
+    condition: gulpMatch.MatchCondition,
+    stream: NodeJS.ReadWriteStream,
+    elseStream?: NodeJS.ReadWriteStream,
+    minimatchOptions?: minimatch.IOptions,
+): NodeJS.ReadWriteStream;
 
 export = gulpIf;

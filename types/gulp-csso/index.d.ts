@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 declare function csso(options?: boolean | csso.Options): NodeJS.ReadWriteStream;
 
 declare namespace csso {

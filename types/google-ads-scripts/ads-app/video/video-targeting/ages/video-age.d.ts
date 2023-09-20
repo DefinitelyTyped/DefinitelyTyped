@@ -66,11 +66,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface VideoAgeSelector
-            extends Base.Selector<VideoAgeIterator>,
+            extends
+                Base.Selector<VideoAgeIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

@@ -1,9 +1,9 @@
-import gitUp = require('git-up');
+import gitUp = require("git-up");
 
 // test type exports
 type PU = gitUp.ParsedUrl;
 
-const parsedUrl = gitUp('git@github.com:IonicaBizau/node-parse-url.git'); // $ExpectType ParsedUrl
+const parsedUrl = gitUp("git@github.com:IonicaBizau/node-parse-url.git"); // $ExpectType ParsedUrl
 
 parsedUrl.protocols; // $ExpectType string[]
 parsedUrl.port; // $ExpectType string

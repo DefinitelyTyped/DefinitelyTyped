@@ -20,8 +20,10 @@ declare namespace GulpMustache {
     }
 }
 
-declare function GulpMustache(view: GulpMustache.View,
-                              options?: GulpMustache.Options,
-                              partials?: GulpMustache.Hash): Transform;
+declare function GulpMustache(
+    view: GulpMustache.View,
+    options?: GulpMustache.Options,
+    partials?: GulpMustache.Hash,
+): Transform;
 
 export = GulpMustache;

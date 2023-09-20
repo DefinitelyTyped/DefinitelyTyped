@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { AppHelper, Job } from './index';
+import { AppHelper, Job } from "./index";
 
 interface connectionObject {
     clientKey: string;

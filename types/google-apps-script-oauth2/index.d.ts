@@ -229,11 +229,11 @@ declare namespace GoogleAppsScriptOAuth2 {
         /**
          * JSON format, for example `{"access_token": "..."}`.
          */
-        JSON = 'application/json',
+        JSON = "application/json",
         /**
          * Form URL-encoded, for example `access_token=...`.
          */
-        FORM_URL_ENCODED = 'application/x-www-form-urlencoded',
+        FORM_URL_ENCODED = "application/x-www-form-urlencoded",
     }
 
     interface TokenPayload {

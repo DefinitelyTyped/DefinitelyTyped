@@ -23,6 +23,10 @@ declare namespace createContext {
     };
 }
 
-declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext & createContext.StackGLExtension;
+declare function createContext(
+    width: number,
+    height: number,
+    options?: WebGLContextAttributes,
+): WebGLRenderingContext & createContext.StackGLExtension;
 
 export = createContext;

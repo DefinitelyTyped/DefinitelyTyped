@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 interface IOptions {
     newLine: string;
 }

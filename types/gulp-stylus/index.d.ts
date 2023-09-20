@@ -14,7 +14,7 @@ declare namespace gulpStylus {
     interface Options {
         compress?: boolean | undefined;
         linenos?: boolean | undefined;
-        'include css'?: boolean | undefined;
+        "include css"?: boolean | undefined;
         rawDefine?: VariableDefinitions | undefined;
     }
 }

@@ -2,11 +2,11 @@
  * @format
  */
 
-import { Datum } from '.';
+import { Datum } from ".";
 
-import LatLonEllipsoidal, { Dms } from './latlon-ellipsoidal-datum';
+import LatLonEllipsoidal, { Dms } from "./latlon-ellipsoidal-datum";
 
-type Hemisphere = 'N' | 'S';
+type Hemisphere = "N" | "S";
 
 declare class Utm {
     zone: number;
@@ -34,4 +34,4 @@ declare class LatLon_Utm extends LatLonEllipsoidal {
     toUtm(zoneOverride?: number): Utm;
 }
 
-export { Utm as default, LatLon_Utm as LatLon, Dms };
+export { Dms, LatLon_Utm as LatLon, Utm as default };

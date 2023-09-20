@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Options as PugOptions } from 'pug';
-import { Transform } from 'stream';
+import { Options as PugOptions } from "pug";
+import { Transform } from "stream";
 
 declare function gulpPugI18n(options: gulpPugI18n.Options): Transform;
 

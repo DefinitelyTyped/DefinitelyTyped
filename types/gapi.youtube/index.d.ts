@@ -7,9 +7,7 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.youtube {
-
     export interface activities {
-
         /**
          * Posts a bulletin for a specific channel.
          */
@@ -65,11 +63,9 @@ declare namespace gapi.client.youtube {
              */
             regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeActivityResource>>;
-
     }
 
     export interface channelBanners {
-
         /**
          * Uploads a channel banner to YouTube.
          */
@@ -86,7 +82,6 @@ declare namespace gapi.client.youtube {
     }
 
     export interface channels {
-
         /**
          * Returns a collection of zero or more channel resources that match the request criteria.
          */
@@ -150,11 +145,9 @@ declare namespace gapi.client.youtube {
              */
             RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeChannelResource>;
-
     }
 
     export interface guideCategories {
-
         /**
          * Returns a list of categories that can be associated with YouTube channels.
          */
@@ -176,11 +169,9 @@ declare namespace gapi.client.youtube {
              */
             regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePageInfo<GoogleApiYouTubeGuideCategoryResource>>;
-
     }
 
     export interface playlistItems {
-
         /**
          * Deletes a playlist item.
          */
@@ -251,14 +242,12 @@ declare namespace gapi.client.youtube {
     }
 
     export interface playlists {
-
         /**
          * Deletes a playlist.
          */
         delete(object: {
             /**
              * The id parameter specifies the YouTube playlist ID for the playlist that is being deleted. In a playlist resource, the id property specifies the playlist's ID.
-
              */
             id: string;
         }): HttpRequest<GoogleApiYouTubePlaylistResource>;
@@ -320,11 +309,9 @@ declare namespace gapi.client.youtube {
              */
             RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePlaylistResource>;
-
     }
 
     export interface search {
-
         /**
          * Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.
          */
@@ -434,11 +421,9 @@ declare namespace gapi.client.youtube {
              */
             videoType?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSearchResource>>;
-
     }
 
     export interface subscriptions {
-
         /**
          * Deletes a subscription.
          */
@@ -507,7 +492,6 @@ declare namespace gapi.client.youtube {
     }
 
     export interface thumbnails {
-
         /**
          * Uploads a custom video thumbnail to YouTube and sets it for a video.
          */
@@ -517,11 +501,9 @@ declare namespace gapi.client.youtube {
              */
             videoId: string;
         }): HttpRequest<GoogleApiYouTubePageInfo<GoogleApiYouTubeThumbnailResource>>;
-
     }
 
     export interface videoCategories {
-
         /**
          * Returns a list of categories that can be associated with YouTube videos.
          */
@@ -543,18 +525,15 @@ declare namespace gapi.client.youtube {
              */
             regionCode?: string | undefined;
         }): HttpRequest<GoogleApiYouTubePageInfo<GoogleApiYouTubeVideoCategoryResource>>;
-
     }
 
     export interface videos {
-
         /**
          * Deletes a YouTube video.
          */
         delete(object: {
             /**
              * The id parameter specifies the YouTube video ID for the resource that is being deleted. In a video resource, the id property specifies the video's ID.
-
              */
             id: string;
             /**
@@ -684,9 +663,7 @@ declare namespace gapi.client.youtube {
              */
             RequestBody?: string | undefined;
         }): HttpRequest<GoogleApiYouTubeVideoResource>;
-
     }
-
 }
 
 interface GoogleApiYouTubePageInfo<T> {
@@ -705,7 +682,6 @@ interface GoogleApiYouTubePageInfo<T> {
 }
 
 interface GoogleApiYouTubePaginationInfo<T> {
-
     /**
      * The type of the API response. For this operation, the value will be youtube#activityListResponse.
      */
@@ -739,7 +715,6 @@ interface GoogleApiYouTubePaginationInfo<T> {
      * A list of activities, or events, that match the request criteria.
      */
     items: T[];
-
 }
 
 interface GoogleApiYouTubeActivityResource {
@@ -791,7 +766,7 @@ interface GoogleApiYouTubeActivityResource {
          * The group ID associated with the activity.
          */
         groupId: string;
-    }
+    };
     /**
      * The contentDetails object contains information about the content associated with the activity.
      */
@@ -804,7 +779,7 @@ interface GoogleApiYouTubeActivityResource {
              * The ID that YouTube uses to uniquely identify the uploaded video.
              */
             videoId: string;
-        }
+        };
         /**
          * The like object contains information about a resource that received a positive (like) rating. This property is only present if the snippet.type is like.
          */
@@ -821,8 +796,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the video, if the rated resource is a video. This property is only present if the resourceId.kind is youtube#video
                  */
                 videoId: string;
-            }
-        }
+            };
+        };
         /**
          * The favorite object contains information about a video that was marked as a favorite video. This property is only present if the snippet.type is favorite.
          */
@@ -839,8 +814,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the favorite video. This property is only present if the resourceId.kind is youtube#video.
                  */
                 videoId: string;
-            }
-        }
+            };
+        };
         /**
          * The comment object contains information about a resource that received a comment. This property is only present if the snippet.type is comment.
          */
@@ -861,8 +836,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the channel associated with a comment. This property is only present if the resourceId.kind is youtube#channel.
                  */
                 channelId: string;
-            }
-        }
+            };
+        };
         /**
          * The subscription object contains information about a channel that a user subscribed to. This property is only present if the snippet.type is subscription.
          */
@@ -879,8 +854,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the channel that the user subscribed to. This property is only present if the resourceId.kind is youtube#channel.
                  */
                 channelId: string;
-            }
-        }
+            };
+        };
         /**
          * The playlistItem object contains information about an item that was added to a playlist. This property is only present if the snippet.type is playlistItem.
          */
@@ -897,7 +872,7 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the video that was added to the playlist. This property is only present if the resourceId.kind is youtube#video.
                  */
                 videoId: string;
-            }
+            };
             /**
              * The value that YouTube uses to uniquely identify the playlist.
              */
@@ -906,7 +881,7 @@ interface GoogleApiYouTubeActivityResource {
              * The value that YouTube uses to uniquely identify the item in the playlist.
              */
             playlistItemId: string;
-        }
+        };
         /**
          * The recommendation object contains information about a recommended resource. This property is only present if the snippet.type is recommendation.
          */
@@ -927,7 +902,7 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the channel, if the recommended resource is a channel. This property is only present if the resourceId.kind is youtube#channel.
                  */
                 channelId: string;
-            }
+            };
             /**
              * The reason that the resource is recommended to the user.
              */
@@ -952,8 +927,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the playlist, if the recommendation was caused by a particular playlist. This property is only present if the seedResourceId.kind is youtube#playlist.
                  */
                 playlistId: string;
-            }
-        }
+            };
+        };
         /**
          * The bulletin object contains details about a channel bulletin post. This object is only present if the snippet.type is bulletin.
          */
@@ -978,8 +953,8 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the playlist featured in a bulletin post, if the post refers to a playlist. This property will only be present if the value of the bulletin.resourceId.kind property is youtube#playlist.
                  */
                 playlistId: string;
-            }
-        }
+            };
+        };
         /**
          * The social object contains details about a social network post. This property is only present if the snippet.type is social.
          */
@@ -1008,7 +983,7 @@ interface GoogleApiYouTubeActivityResource {
                  * The ID that YouTube uses to uniquely identify the playlist featured in a social network post, if the post refers to a playlist. This property will only be present if the value of the social.resourceId.kind property is youtube#playlist.
                  */
                 playlistId: string;
-            }
+            };
             /**
              * The author of the social network post.
              */
@@ -1021,7 +996,7 @@ interface GoogleApiYouTubeActivityResource {
              * An image of the posts author.
              */
             imageUrl: string;
-        }
+        };
         /**
          * The channelItem object contains details about a resource that was added to a channel. This property is only present if the snippet.type is channelItem.
          */
@@ -1029,10 +1004,9 @@ interface GoogleApiYouTubeActivityResource {
             /**
              * The resourceId object contains information that identifies the resource that was added to the channel.
              */
-            resourceId: {
-            }
-        }
-    }
+            resourceId: {};
+        };
+    };
 }
 
 interface GoogleApiYouTubeChannelBannerResource {
@@ -1083,7 +1057,7 @@ interface GoogleApiYouTubeChannelResource {
          * A map of thumbnail images associated with the channel. For each object in the map, the key is the name of the thumbnail image, and the value is an object that contains other information about the thumbnail.
          */
         thumbnails: GoogleApiYouTubeThumbnailResource;
-    }
+    };
     /**
      * The contentDetails object encapsulates information about the channels content.
      */
@@ -1112,12 +1086,12 @@ interface GoogleApiYouTubeChannelResource {
              * The ID of the channels watch later playlist.
              */
             watchLater: string;
-        }
+        };
         /**
          * The googlePlusUserId object identifies the Google+ profile ID associated with this channel.
          */
         googlePlusUserId: string;
-    }
+    };
     /**
      * The statistics object encapsulates statistics for the channel.
      */
@@ -1138,7 +1112,7 @@ interface GoogleApiYouTubeChannelResource {
          * The number of videos uploaded to the channel.
          */
         videoCount: number;
-    }
+    };
     /**
      * The topicDetails object encapsulates information about Freebase topics associated with the channel.
      */
@@ -1147,7 +1121,7 @@ interface GoogleApiYouTubeChannelResource {
          * A list of Freebase topic IDs associated with the channel. You can retrieve information about each topic using the Freebase Topic API.
          */
         topicIds: string[];
-    }
+    };
     /**
      * The status object encapsulates information about the privacy status of the channel.
      */
@@ -1160,7 +1134,7 @@ interface GoogleApiYouTubeChannelResource {
          * Indicates whether the channel data identifies a user that is already linked to either a YouTube username or a Google+ account. A user that has one of these links already has a public YouTube identity, which is a prerequisite for several actions, such as uploading videos.
          */
         isLinked: boolean;
-    }
+    };
     /**
      * The brandingSettings object encapsulates information about the branding of the channel.
      */
@@ -1213,7 +1187,7 @@ interface GoogleApiYouTubeChannelResource {
              * The video that should play in the featured video module in the channel pages browse view for unsubscribed viewers. Subscribed viewers may see a different view that highlights more recent channel activity.
              */
             unsubscribedTrailer: string;
-        }
+        };
         /**
          * The watch object encapsulates branding properties of the watch pages for the channels videos.
          */
@@ -1230,7 +1204,7 @@ interface GoogleApiYouTubeChannelResource {
              * An ID that uniquely identifies a playlist that displays next to the video player on the video watch page.
              */
             featuredPlaylistId: string;
-        }
+        };
         /**
          * The image object encapsulates information about images that display on the channels channel page or video watch pages.
          */
@@ -1264,7 +1238,7 @@ interface GoogleApiYouTubeChannelResource {
                      */
                     language: string;
                 }[];
-            }
+            };
             /**
              * The largeBrandedBannerImageImapScript object encapsulates information about the image map script for the banner image shown on the channel page.
              */
@@ -1286,7 +1260,7 @@ interface GoogleApiYouTubeChannelResource {
                      */
                     language: string;
                 }[];
-            }
+            };
             /**
              * The URL for the 854px by 70px image that appears below the video player in the expanded video view of the video watch page.
              */
@@ -1308,7 +1282,7 @@ interface GoogleApiYouTubeChannelResource {
                      */
                     language: string;
                 }[];
-            }
+            };
             /**
              * The image map script for the small banner image. The largeBrandedBannerImageImapScript object encapsulates information about the image map script for the banner image shown on the channel page in mobile applications.
              */
@@ -1330,7 +1304,7 @@ interface GoogleApiYouTubeChannelResource {
                      */
                     language: string;
                 }[];
-            }
+            };
             /**
              * The URL for the 640px by 70px banner image that appears below the video player in the default view of the video watch page.
              */
@@ -1352,7 +1326,7 @@ interface GoogleApiYouTubeChannelResource {
                      */
                     language: string;
                 }[];
-            }
+            };
             /**
              * The URL for the image that appears above the video player. This is a 25-pixel-high image with a flexible width that cannot exceed 170 pixels. If you do not provide this image, your channel name will appear instead of an image.
              */
@@ -1401,7 +1375,7 @@ interface GoogleApiYouTubeChannelResource {
              * This property specifies the location of the banner image that YouTube will use to generate the various banner image sizes for a channel. To obtain the URL banner images external URL, you must first upload the channel banner image that you want to use by calling the channelBanners.insert method.
              */
             bannerExternalUrl: string;
-        }
+        };
         /**
          * The hints object encapsulates additional branding properties
          */
@@ -1415,7 +1389,7 @@ interface GoogleApiYouTubeChannelResource {
              */
             value: string;
         }[];
-    }
+    };
     /**
      * The invideoPromotion object encapsulates information about a promotional campaign associated with the channel. A channel can use an in-video promotional campaign to display the thumbnail image of a promoted video in the video player during playback of the channels videos
      */
@@ -1432,7 +1406,7 @@ interface GoogleApiYouTubeChannelResource {
              * The time offset, specified in milliseconds, that determines when the promoted item appears during video playbacks. The type propertys value determines whether the offset is measured from the start or end of the video.
              */
             offsetMs: number;
-        }
+        };
         /**
          * The position object encapsulates information about the spatial position within the video where the promoted item will be displayed.
          */
@@ -1445,7 +1419,7 @@ interface GoogleApiYouTubeChannelResource {
              * The corner of the player where the promoted item will appear.
              */
             cornerPosition: string;
-        }
+        };
         /**
          * The list of promoted items in the order that they will display across different playbacks to the same viewer.
          */
@@ -1459,7 +1433,7 @@ interface GoogleApiYouTubeChannelResource {
              */
             videoId: string;
         }[];
-    }
+    };
 }
 
 interface GoogleApiYouTubeGuideCategoryResource {
@@ -1487,7 +1461,7 @@ interface GoogleApiYouTubeGuideCategoryResource {
          * The categorys title.
          */
         title: string;
-    }
+    };
 }
 
 interface GoogleApiYouTubePlaylistItemResource {
@@ -1551,8 +1525,8 @@ interface GoogleApiYouTubePlaylistItemResource {
              * If the snippet.resourceId.kind propertys value is youtube#video, then this property will be present and its value will contain the ID that YouTube uses to uniquely identify the video in the playlist.
              */
             videoId: string;
-        }
-    }
+        };
+    };
     /**
      * The contentDetails object is included in the resource if the included item is a YouTube video. The object contains additional information about the video.
      */
@@ -1573,7 +1547,7 @@ interface GoogleApiYouTubePlaylistItemResource {
          * A user-generated note for this item.
          */
         note: string;
-    }
+    };
     /**
      * The status object contains information about the playlist items privacy status.
      */
@@ -1582,7 +1556,7 @@ interface GoogleApiYouTubePlaylistItemResource {
          * The playlist items privacy status. The channel that uploaded the video that the playlist item represents can set this value using either the videos.insert or videos.update method.
          */
         privacyStatus: string;
-    }
+    };
 }
 
 interface GoogleApiYouTubePlaylistResource {
@@ -1630,7 +1604,7 @@ interface GoogleApiYouTubePlaylistResource {
          * Keyword tags associated with the playlist.
          */
         tags: string[];
-    }
+    };
     /**
      * The status object contains status information for the playlist.
      */
@@ -1639,7 +1613,7 @@ interface GoogleApiYouTubePlaylistResource {
          * The playlists privacy status.
          */
         privacyStatus: string;
-    }
+    };
     /**
      * The contentDetails object contains information about the playlist content, including the number of videos in the playlist.
      */
@@ -1648,7 +1622,7 @@ interface GoogleApiYouTubePlaylistResource {
          * The number of videos in the playlist.
          */
         itemCount: number;
-    }
+    };
     /**
      * The player object contains information that you would use to play the playlist in an embedded player.
      */
@@ -1657,7 +1631,7 @@ interface GoogleApiYouTubePlaylistResource {
          * An <iframe> tag that embeds a player that will play the playlist.
          */
         embedHtml: string;
-    }
+    };
 }
 
 interface GoogleApiYouTubeSearchResource {
@@ -1689,7 +1663,7 @@ interface GoogleApiYouTubeSearchResource {
          * If the id.type propertys value is youtube#playlist, then this property will be present and its value will contain the ID that YouTube uses to uniquely identify a playlist that matches the search query.
          */
         playlistId: string;
-    }
+    };
     /**
      * The snippet object contains basic details about a search result, such as its title or description.
      */
@@ -1718,7 +1692,7 @@ interface GoogleApiYouTubeSearchResource {
          * The title of the channel that published the resource that the search result identifies.
          */
         channelTitle: string;
-    }
+    };
 }
 
 interface GoogleApiYouTubeSubscriptionResource {
@@ -1766,7 +1740,7 @@ interface GoogleApiYouTubeSubscriptionResource {
              * The value that YouTube uses to uniquely identify the channel that the user subscribed to.
              */
             channelId: string;
-        }
+        };
         /**
          * The ID that YouTube uses to uniquely identify the subscribers channel. The resource_id object identifies the channel that the user subscribed to.
          */
@@ -1775,29 +1749,21 @@ interface GoogleApiYouTubeSubscriptionResource {
          * A map of thumbnail images associated with the subscription. For each object in the map, the key is the name of the thumbnail image, and the value is an object that contains other information about the thumbnail.
          */
         thumbnails: GoogleApiYouTubeThumbnailResource;
-    }
-    /**
-     *
-     */
+    };
+    /** */
     contentDetails: {
-        /**
-         *
-         */
+        /** */
         totalItemCount: number;
-        /**
-         *
-         */
+        /** */
         newItemCount: number;
-    }
-    /**
-     *
-     */
+    };
+    /** */
     subscriberSnippet: {
         title: string;
         description: string;
         channelId: string;
         thumbnails: GoogleApiYouTubeThumbnailResource;
-    }
+    };
 }
 
 interface GoogleApiYouTubeThumbnailResource {
@@ -1863,7 +1829,7 @@ interface GoogleApiYouTubeVideoCategoryResource {
          * The video categorys title.
          */
         title: string;
-    }
+    };
 }
 
 interface GoogleApiYouTubeVideoResource {
@@ -1915,7 +1881,7 @@ interface GoogleApiYouTubeVideoResource {
          * The YouTube video category associated with the video.
          */
         categoryId: string;
-    }
+    };
     /**
      * The contentDetails object contains information about the video content, including the length of the video and its aspect ratio.
      */
@@ -1950,10 +1916,9 @@ interface GoogleApiYouTubeVideoResource {
             allowed: string[];
             /**
              * A list of region codes that identify countries where the video is blocked. If this property is present and a country is not listed in its value, then the video is viewable in that country. If this property is present and contains an empty list, the video is viewable in all countries.
-
              */
             blocked: string[];
-        }
+        };
         /**
          * Specifies the ratings that the video received under various rating schemes.
          */
@@ -2018,8 +1983,8 @@ interface GoogleApiYouTubeVideoResource {
              * The videos General Directorate of Radio, Television and Cinematography (Mexico) rating.
              */
             rtcRating: string;
-        }
-    }
+        };
+    };
     /**
      * The player object contains information that you would use to play the video in an embedded player.
      */
@@ -2028,7 +1993,7 @@ interface GoogleApiYouTubeVideoResource {
          * An <iframe> tag that embeds a player that will play the video.
          */
         embedHtml: string;
-    }
+    };
     /**
      * The statistics object contains statistics about the video.
      */
@@ -2053,7 +2018,7 @@ interface GoogleApiYouTubeVideoResource {
          * The number of comments for the video.
          */
         commentCount: number;
-    }
+    };
     /**
      * The status object contains information about the videos uploading, processing, and privacy statuses.
      */
@@ -2080,14 +2045,13 @@ interface GoogleApiYouTubeVideoResource {
         license: string;
         /**
          * This value indicates whether the video can be embedded on another website.
-
          */
         embeddable: boolean;
         /**
          * This value indicates whether the extended video statistics on the videos watch page are publicly viewable. By default, those statistics are viewable, and statistics like a videos viewcount and ratings will still be publicly visible even if this propertys value is set to false.
          */
         publicStatsViewable: boolean;
-    }
+    };
     /**
      * The topicDetails object encapsulates information about Freebase topics associated with the video.
      */
@@ -2096,7 +2060,7 @@ interface GoogleApiYouTubeVideoResource {
          * A list of Freebase topic IDs associated with the video. You can retrieve information about each topic using the Freebase Topic API.
          */
         topicIds: string[];
-    }
+    };
     /**
      * The recordingDetails object encapsulates information about the location, date and address where the video was recorded. This object will only be returned for a video if the videos geolocation data or recording time has been set.
      */
@@ -2117,7 +2081,7 @@ interface GoogleApiYouTubeVideoResource {
              * Altitude above the WGS 84 reference ellipsoid, in meters.
              */
             elevation: number;
-        }
+        };
         /**
          * The text description of the location where the video was recorded.
          */
@@ -2126,7 +2090,7 @@ interface GoogleApiYouTubeVideoResource {
          * The date and time when the video was recorded. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
          */
         recordingDate: string;
-    }
+    };
     /**
      * The fileDetails object encapsulates information about the video file that was uploaded to YouTube, including the files resolution, duration, audio and video codecs, stream bitrates, and more. This data can only be retrieved by the video owner.
      */
@@ -2229,12 +2193,12 @@ interface GoogleApiYouTubeVideoResource {
              * Altitude above the WGS 84 reference ellipsoid, in meters.
              */
             elevation: number;
-        }
+        };
         /**
          * The date and time when the uploaded video file was created. The value is specified in ISO 8601 format. Currently, the following ISO 8601 formats are supported:
          */
         creationTime: string;
-    }
+    };
     /**
      * The processingProgress object encapsulates information about YouTubes progress in processing the uploaded video file. The properties in the object identify the current processing status and an estimate of the time remaining until YouTube finishes processing the video. This part also indicates whether different types of data or content, such as file details or thumbnail images, are available for the video.
      * The processingProgress object is designed to be polled so that the video uploaded can track the progress that YouTube has made in processing the uploaded video file. This data can only be retrieved by the video owner.
@@ -2260,7 +2224,7 @@ interface GoogleApiYouTubeVideoResource {
              * An estimate of the amount of time, in millseconds, that YouTube needs to finish processing the video.
              */
             timeLeftMs: number;
-        }
+        };
         processingFailureReason: string;
         /**
          * The reason that YouTube failed to process the video. This property will only have a value if the processingStatus propertys value is failed.
@@ -2282,7 +2246,7 @@ interface GoogleApiYouTubeVideoResource {
          * This value indicates whether thumbnail images have been generated for the video.
          */
         thumbnailsAvailability: string;
-    }
+    };
     /**
      * The suggestions object encapsulates suggestions that identify opportunities to improve the video quality or the metadata for the uploaded video. This data can only be retrieved by the video owner.
      */
@@ -2316,8 +2280,7 @@ interface GoogleApiYouTubeVideoResource {
          * A list of video editing operations that might improve the video quality or playback experience of the uploaded video.
          */
         editorSuggestions: string[];
-    }
-
+    };
 }
 
 interface GoogleApiYouTubeVideoGetRatingResponse {

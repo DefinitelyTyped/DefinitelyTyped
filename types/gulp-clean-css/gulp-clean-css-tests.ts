@@ -1,13 +1,13 @@
-import * as gulpCleanCSS from 'gulp-clean-css';
-import * as gulp from 'gulp';
+import * as gulp from "gulp";
+import * as gulpCleanCSS from "gulp-clean-css";
 
 // gulp
-gulp.src('/foo').pipe(gulpCleanCSS());
+gulp.src("/foo").pipe(gulpCleanCSS());
 
 // default
 gulpCleanCSS();
 
-const pathToOutputDirectory = 'path';
+const pathToOutputDirectory = "path";
 
 // with props
 gulpCleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory });

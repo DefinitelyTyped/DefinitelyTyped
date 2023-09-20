@@ -14,7 +14,10 @@ import * as Stream from "stream";
  * @param gitOpts
  * @param execOpts Options to pass to `git` `childProcess`.
  */
-declare function gitRawCommits(gitOptions: gitRawCommits.GitOptions, execOptions?: gitRawCommits.ExecOptions): Stream.Readable;
+declare function gitRawCommits(
+    gitOptions: gitRawCommits.GitOptions,
+    execOptions?: gitRawCommits.ExecOptions,
+): Stream.Readable;
 
 declare namespace gitRawCommits {
     /**

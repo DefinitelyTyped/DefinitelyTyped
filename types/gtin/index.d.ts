@@ -5,7 +5,7 @@
 
 export as namespace gtin;
 
-export type GtinFormat = 'GTIN-8' | 'GTIN-12' | 'GTIN-13' | 'GTIN-14';
+export type GtinFormat = "GTIN-8" | "GTIN-12" | "GTIN-13" | "GTIN-14";
 
 export function isGTIN(gtin: string): boolean;
 export function validate(gtin: string): boolean;

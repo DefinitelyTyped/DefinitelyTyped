@@ -3,7 +3,10 @@
 // Definitions by: Leko <https://github.com/Leko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function ghauth(authOptions: ghauth.AuthOptions, callback: (err: Error, tokenData: ghauth.TokenData) => void): void;
+declare function ghauth(
+    authOptions: ghauth.AuthOptions,
+    callback: (err: Error, tokenData: ghauth.TokenData) => void,
+): void;
 
 declare namespace ghauth {
     interface AuthOptions {

@@ -1,11 +1,11 @@
-import Gamedig = require('gamedig');
-import GameResolver = require('gamedig/lib/GameResolver');
+import Gamedig = require("gamedig");
+import GameResolver = require("gamedig/lib/GameResolver");
 
 // direct usage from import
 Gamedig.query(
     {
-        type: 'tf2',
-        host: '127.0.0.1',
+        type: "tf2",
+        host: "127.0.0.1",
         port: 27015,
         maxAttempts: 1,
         socketTimeout: 2000,
@@ -26,8 +26,8 @@ Gamedig.query(
 const gamedig = new Gamedig();
 gamedig.query(
     {
-        type: 'tf2',
-        host: '127.0.0.1',
+        type: "tf2",
+        host: "127.0.0.1",
         port: 27015,
         maxAttempts: 1,
         socketTimeout: 2000,
@@ -77,5 +77,5 @@ const games: [
         };
     },
 ] = gameResolver.games;
-gameResolver.lookup('tf2');
+gameResolver.lookup("tf2");
 gameResolver.printReadme();

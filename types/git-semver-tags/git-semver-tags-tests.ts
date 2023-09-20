@@ -6,7 +6,7 @@ declare const options: gitSemverTags.Options;
 // $ExpectType void
 gitSemverTags(callback);
 
-gitSemverTags({ tagPrefix: 'skip/', skipUnstable: true }, (err, tags) => {
+gitSemverTags({ tagPrefix: "skip/", skipUnstable: true }, (err, tags) => {
     if (err) {
         //
     }

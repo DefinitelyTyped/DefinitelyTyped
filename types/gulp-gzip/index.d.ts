@@ -5,8 +5,7 @@
 
 /// <reference types="node" />
 
-
-import zlib = require('zlib');
+import zlib = require("zlib");
 
 declare namespace gzip {
     interface Gzip {

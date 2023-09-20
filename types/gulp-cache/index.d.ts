@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 import File = require("vinyl");
-import { Transform } from "stream";
 import { PluginError } from "gulp-util";
+import { Transform } from "stream";
 
 declare namespace gc {
     type Predicate<T> = (arg: T) => boolean;
@@ -22,7 +22,7 @@ declare namespace gc {
          * The name of the bucket which stores the cached objects.
          * Default value = 'default'
          */
-        name?: string | undefined,
+        name?: string | undefined;
 
         /**
          * The hash generator to use.
@@ -82,7 +82,7 @@ declare namespace gc {
      * Represents a cach store.
      */
     interface IGulpCache {
-        new (options: ICacheOptions): any;
+        new(options: ICacheOptions): any;
     }
 }
 

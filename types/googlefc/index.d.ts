@@ -29,7 +29,7 @@ declare namespace googlefc {
      */
     let controlledMessagingFunction: undefined | ((message: { proceed(shouldProceed: boolean): void }) => any);
 
-    type CallbackQueueType = 'CONSENT_DATA_READY' | 'AD_BLOCK_DATA_READY' | 'INITIAL_CCPA_DATA_READY';
+    type CallbackQueueType = "CONSENT_DATA_READY" | "AD_BLOCK_DATA_READY" | "INITIAL_CCPA_DATA_READY";
 
     type CallbackQueueArray = Array<(() => any) | Partial<Record<CallbackQueueType, () => any>>>;
 

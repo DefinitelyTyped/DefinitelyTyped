@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 export interface UploadOptions {
     maxFieldSize?: number | undefined;

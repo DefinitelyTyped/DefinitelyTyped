@@ -22,7 +22,7 @@ declare module "../globalize" {
          * @param variables Variables can be Objects, where each property can be referenced by name inside a message; or Arrays, where each entry of the Array can be used inside a message, using numeric indices. When passing one or more arguments of other types, they're converted to an Array and used as such.
          * @returns {string} Return a user-readable string.
          */
-        formatMessage(path: string | string[], variables?: string | string[] | Object): string
+        formatMessage(path: string | string[], variables?: string | string[] | Object): string;
     }
 }
 

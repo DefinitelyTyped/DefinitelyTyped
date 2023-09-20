@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 declare namespace coffeeify {
     interface Coffeeify {
         (option?: Option): NodeJS.ReadWriteStream;
@@ -15,7 +14,7 @@ declare namespace coffeeify {
         options?: {
             debug?: boolean | undefined;
             paths?: string[] | undefined;
-        } | undefined,
+        } | undefined;
         /**
          * [DEPRECATED]: You should use a 'paths' options of browserify.
          */

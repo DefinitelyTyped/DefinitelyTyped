@@ -7,7 +7,7 @@
 
 /// <reference types="node"/>
 
-import { Options } from 'node-sass';
+import { Options } from "node-sass";
 
 interface SassResults {
     css: string;
@@ -18,7 +18,7 @@ interface SassResults {
         end: Date;
         duration: number;
         includedFiles: string[];
-    }
+    };
 }
 
 interface SassOptions extends Options {
@@ -43,7 +43,7 @@ interface GulpSass {
 type Compiler = any;
 
 interface GulpSassFactory {
-    (compiler: Compiler): GulpSass
+    (compiler: Compiler): GulpSass;
 }
 
 declare var _tmp: GulpSassFactory;

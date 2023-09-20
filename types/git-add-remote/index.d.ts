@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { ExecException } from 'child_process';
+import { ExecException } from "child_process";
 
 export = prepare;
 
@@ -16,7 +16,7 @@ declare namespace prepare {
         (
             name: string,
             url: string,
-            callback: (error: ExecException | null, stdout: string, stderr: string) => void
+            callback: (error: ExecException | null, stdout: string, stderr: string) => void,
         ): void;
 
         sync(name: string, url: string): void;

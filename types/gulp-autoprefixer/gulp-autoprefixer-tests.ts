@@ -6,13 +6,13 @@ gulp.src("test.css")
     .pipe(gulp.dest("build"));
 
 gulp.src("test.css")
-    .pipe(autoprefixer({ browsers: ["Chrome"]}))
+    .pipe(autoprefixer({ browsers: ["Chrome"] }))
     .pipe(gulp.dest("build"));
 
 gulp.src("test.css")
-    .pipe(autoprefixer({cascade: false}))
+    .pipe(autoprefixer({ cascade: false }))
     .pipe(gulp.dest("build"));
 
 gulp.src("test.css")
-    .pipe(autoprefixer({remove: false}))
+    .pipe(autoprefixer({ remove: false }))
     .pipe(gulp.dest("build"));

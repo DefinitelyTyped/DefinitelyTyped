@@ -85,12 +85,14 @@ declare namespace gapi {
              * Executes the request and runs the supplied callback on response.
              * @param callback The callback function which executes when the request succeeds or fails.
              */
-            execute(callback: (
-                /**
-                 * contains the response parsed as JSON. If the response is not JSON, this field will be false.
-                 */
-                response: Response<T>
-            ) => any): void;
+            execute(
+                callback: (
+                    /**
+                     * contains the response parsed as JSON. If the response is not JSON, this field will be false.
+                     */
+                    response: Response<T>,
+                ) => any,
+            ): void;
         }
 
         interface ResponseMap<T> {
@@ -119,23 +121,25 @@ declare namespace gapi {
                     /**
                      * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
                      */
-                    rawBatchResponse: string
-                ): any
+                    rawBatchResponse: string,
+                ): any;
             }): void;
             /**
              * Executes all requests in the batch. The supplied callback is executed on success or failure.
              * @param callback The callback to execute when the batch returns.
              */
-            execute(callback: (
-                /**
-                 * is an ID-response map of each requests response.
-                 */
-                responseMap: ResponseMap<T>,
-                /**
-                 * is the same response, but as an unparsed JSON-string.
-                 */
-                rawBatchResponse: string
-            ) => any): void;
+            execute(
+                callback: (
+                    /**
+                     * is an ID-response map of each requests response.
+                     */
+                    responseMap: ResponseMap<T>,
+                    /**
+                     * is the same response, but as an unparsed JSON-string.
+                     */
+                    rawBatchResponse: string,
+                ) => any,
+            ): void;
         }
 
         /**
@@ -193,7 +197,8 @@ declare namespace gapi {
                  */
                 scope?: string | string[] | undefined;
             },
-            callback: (authResult: GoogleApiOAuth2TokenObject) => void): void;
+            callback: (authResult: GoogleApiOAuth2TokenObject) => void,
+        ): void;
 
         /**
          * Initializes the authorization feature. Call this when the client loads to prevent popup blockers from blocking the auth window on gapi.auth.authorize calls.

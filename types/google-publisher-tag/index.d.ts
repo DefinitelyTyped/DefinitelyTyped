@@ -1656,7 +1656,7 @@ declare namespace googletag {
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
      */
-    type NamedSize = 'fluid' | ['fluid'];
+    type NamedSize = "fluid" | ["fluid"];
 
     /**
      * A single valid size for a slot.

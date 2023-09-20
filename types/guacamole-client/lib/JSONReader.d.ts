@@ -1,4 +1,4 @@
-import { InputStream } from './InputStream';
+import { InputStream } from "./InputStream";
 
 /**
  * A reader which automatically handles the given input stream, assembling all

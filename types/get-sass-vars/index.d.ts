@@ -22,7 +22,7 @@ declare namespace sassVars {
         /**
          * The options to pass to `sass`.
          */
-        sassOptions?: Options<'sync'> | undefined;
+        sassOptions?: Options<"sync"> | undefined;
     }
 }
 

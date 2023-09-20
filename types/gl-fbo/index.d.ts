@@ -3,7 +3,7 @@
 // Definitions by: Nick Krichevsky <https://github.com/ollien>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import texture2D = require('gl-texture2d');
+import texture2D = require("gl-texture2d");
 
 type Texture = ReturnType<typeof texture2D>;
 
@@ -12,7 +12,7 @@ declare class FrameBuffer {
     gl: WebGLRenderingContext;
     handle: WebGLFramebuffer;
     color: Texture[];
-    depth: Texture|null;
+    depth: Texture | null;
 
     bind(): void;
     dispose(): void;
@@ -26,10 +26,10 @@ interface FrameBufferOptions {
     stencil?: boolean | undefined;
 }
 
- declare function glFBO(
-     gl: WebGLRenderingContext,
-     shape: [number, number],
-     options?: FrameBufferOptions
- ): FrameBuffer;
+declare function glFBO(
+    gl: WebGLRenderingContext,
+    shape: [number, number],
+    options?: FrameBufferOptions,
+): FrameBuffer;
 
- export = glFBO;
+export = glFBO;

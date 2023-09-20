@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { PeerCertificate } from 'tls';
+import { PeerCertificate } from "tls";
 
 /**
  * @async

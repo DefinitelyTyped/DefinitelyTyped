@@ -1,17 +1,17 @@
-import { createClient } from 'graphqurl';
+import { createClient } from "graphqurl";
 
 // $ExpectType Client
 createClient({
-    endpoint: 'https://my-graphql-endpoint/graphql',
+    endpoint: "https://my-graphql-endpoint/graphql",
     headers: {
-        Authorization: 'Bearer <token>'
+        Authorization: "Bearer <token>",
     },
     websocket: {
-        endpoint: 'https://my-graphql-endpoint/graphql',
+        endpoint: "https://my-graphql-endpoint/graphql",
         shouldRetry: false,
-        parameters: { someData: 'abc123' },
-        onConnectionSuccess: () => {  },
-        onConnectionError: err => {  },
-        onConnectionKeepAlive: () => {  }
-    }
+        parameters: { someData: "abc123" },
+        onConnectionSuccess: () => {},
+        onConnectionError: err => {},
+        onConnectionKeepAlive: () => {},
+    },
 });

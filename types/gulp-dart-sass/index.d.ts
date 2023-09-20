@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { LegacySharedOptions as Options } from 'sass';
+import { LegacySharedOptions as Options } from "sass";
 
 interface SassResults {
     css: string;
@@ -19,7 +19,7 @@ interface SassResults {
     };
 }
 
-type SassOptions = Options<'sync'> & {
+type SassOptions = Options<"sync"> & {
     success?: ((results: SassResults) => any) | undefined;
     error?: ((err: Error) => any) | undefined;
     imagePaths?: string[] | undefined;

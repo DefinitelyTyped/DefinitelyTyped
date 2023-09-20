@@ -1,4 +1,4 @@
-export type RunEvents = 'run.after' | 'run.before' | 'run.end' | 'run.offset' | 'run.start' | 'run';
+export type RunEvents = "run.after" | "run.before" | "run.end" | "run.offset" | "run.start" | "run";
 
 export interface RunEventsBus {
     on(event: RunEvents, handler: (move: string) => void): { remove(): void };

@@ -1,4 +1,4 @@
-export type SwipeEvents = 'swipe.start' | 'swipe.move' | 'swipe.end';
+export type SwipeEvents = "swipe.start" | "swipe.move" | "swipe.end";
 
 export interface SwipeEventsBus {
     on(event: SwipeEvents, handler: () => void): { remove(): void };
@@ -15,7 +15,6 @@ export interface Swipe {
 
     /**
      * Handler for `swipestart` event. Calculates entry points of the user's tap.
-     *
      */
     start(event: Event): void;
 

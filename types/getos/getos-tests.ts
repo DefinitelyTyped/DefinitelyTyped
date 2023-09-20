@@ -1,4 +1,4 @@
-import getos = require('getos');
+import getos = require("getos");
 
 getos((e, os) => {
     if (e) {
@@ -7,7 +7,7 @@ getos((e, os) => {
 
     const thisOs: getos.Os = os;
 
-    if (os.os === 'linux') {
+    if (os.os === "linux") {
         let str: string;
         let strn: string | undefined;
 

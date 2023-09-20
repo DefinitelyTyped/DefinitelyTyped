@@ -1,7 +1,7 @@
 // Tests copied from examples on https://developers.google.com/identity/gsi/web/reference/js-reference
 
 google.accounts.id.initialize({
-    client_id: 'YOUR_GOOGLE_CLIENT_ID',
+    client_id: "YOUR_GOOGLE_CLIENT_ID",
     callback: () => {},
 });
 
@@ -17,7 +17,7 @@ google.accounts.id.prompt(notification => {
 /**
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.renderButton
  */
-google.accounts.id.renderButton('#parent-element', { type: 'standard' });
+google.accounts.id.renderButton("#parent-element", { type: "standard" });
 
 /**
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.disableAutoSelect
@@ -28,7 +28,7 @@ google.accounts.id.disableAutoSelect();
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.storeCredential
  */
 function onSignIn() {
-    const cred: GsiCredential = { id: '...', password: '...' };
+    const cred: GsiCredential = { id: "...", password: "..." };
     google.accounts.id.storeCredential(cred);
 }
 
@@ -42,7 +42,7 @@ function onNextButtonClicked() {
 /**
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.revoke
  */
-google.accounts.id.revoke('1618033988749895', done => {
+google.accounts.id.revoke("1618033988749895", done => {
     if (done.successful) {
         // ...
     } else {
@@ -54,6 +54,6 @@ google.accounts.id.revoke('1618033988749895', done => {
  * @see https://developers.google.com/identity/gsi/web/reference/js-reference#onGoogleLibraryLoad
  */
 window.onGoogleLibraryLoad = () => {
-    google.accounts.id.initialize({ client_id: 'YOUR_CLIENT_ID' });
+    google.accounts.id.initialize({ client_id: "YOUR_CLIENT_ID" });
     google.accounts.id.prompt(() => {});
 };

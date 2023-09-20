@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 // Console
-console.log('log');
-console.info('info');
-console.warn('warn');
-console.error('error');
-console.log('Console can use %s and %d format string.', 'hello', 2);
+console.log("log");
+console.info("info");
+console.warn("warn");
+console.error("error");
+console.log("Console can use %s and %d format string.", "hello", 2);

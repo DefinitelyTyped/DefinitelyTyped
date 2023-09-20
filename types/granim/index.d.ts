@@ -27,7 +27,7 @@ declare namespace Granim {
         element: string | HTMLCanvasElement;
         name?: string;
         elToSetClassOn?: string;
-        direction?: 'diagonal' | 'left-right' | 'top-bottom' | 'radial' | 'custom';
+        direction?: "diagonal" | "left-right" | "top-bottom" | "radial" | "custom";
         customDirection?: { x0: string; y0: string; x1: string; y1: string };
         isPausedWhenNotInView?: boolean;
         scrollDebounceThreshold?: number;
@@ -51,11 +51,11 @@ declare namespace Granim {
         loop?: boolean;
     }
 
-    type StretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
+    type StretchMode = "none" | "stretch" | "stretch-if-smaller" | "stretch-if-bigger";
 
     interface Image {
         source: string;
-        position?: ['left' | 'center' | 'right', 'top' | 'center' | 'bottom'];
+        position?: ["left" | "center" | "right", "top" | "center" | "bottom"];
         stretchMode?: [StretchMode, StretchMode];
         blendingMode?: string;
     }

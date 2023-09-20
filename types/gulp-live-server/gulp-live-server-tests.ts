@@ -1,10 +1,10 @@
-import * as gls from 'gulp-live-server';
+import * as gls from "gulp-live-server";
 
 // $ExpectType GLSStatic
-gls(['command']);
+gls(["command"]);
 
 // $ExpectType GLSStatic
-gls.static('folder', 123);
+gls.static("folder", 123);
 
 // $ExpectType GLSStatic
-gls.new('script.js');
+gls.new("script.js");

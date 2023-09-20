@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import PluginError = require('plugin-error');
+import PluginError = require("plugin-error");
 
 declare namespace ttf2woff2 {
     interface Options {

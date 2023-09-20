@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import Vinyl = require('vinyl');
+import Vinyl = require("vinyl");
 
 declare namespace intercept {
     interface Intercept {

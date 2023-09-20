@@ -242,7 +242,7 @@ declare namespace google {
 
             // Whether Shared team Drive items should be included in results.
             /** @deprecated - use google.picker.Feature.SUPPORT_DRIVES instead */
-            SUPPORT_TEAM_DRIVES = 'std'
+            SUPPORT_TEAM_DRIVES = "std",
         }
 
         /**

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import tinycolor = require('tinycolor2');
+import tinycolor = require("tinycolor2");
 
 declare namespace gradient {
     interface PositionedColorInput {

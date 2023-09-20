@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { ExecException } from 'node:child_process';
+import { ExecException } from "node:child_process";
 
 /**
  * Checks if the given `path` contains a git repository.

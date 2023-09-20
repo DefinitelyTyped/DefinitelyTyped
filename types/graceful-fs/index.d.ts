@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export * from 'fs';
+export * from "fs";
 
 /**
  * Use this method to patch the global fs module (or any other fs-like module).

@@ -28,6 +28,6 @@ function test_bubble() {
     bubble.open(map, marker);
     var isOpen = bubble.isOpen();
     bubble.close();
-    
+
     position = bubble.getPosition();
 }

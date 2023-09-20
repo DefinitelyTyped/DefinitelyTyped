@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import spriter = require('svg-sprite');
+import spriter = require("svg-sprite");
 
 declare namespace svgSprite {
     interface SvgSprite {

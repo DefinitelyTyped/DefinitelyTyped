@@ -1,5 +1,5 @@
-import { Status } from './Status';
-import { Client } from './Client';
+import { Client } from "./Client";
+import { Status } from "./Status";
 
 /**
  * Abstract stream which can receive data.

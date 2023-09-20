@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import type { ExecException } from 'node:child_process';
+import type { ExecException } from "node:child_process";
 
 type ExecCallback = (error: ExecException | null, stdout: string, stderr: string) => void;
 /**

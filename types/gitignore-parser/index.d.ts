@@ -9,7 +9,6 @@
  * and return an object with `accepts`, `denies` and `maybe` methods.
  * These methods each accepts a single filename and determines whether
  * they are acceptable or unacceptable according to the `.gitignore` definition.
- *
  */
 export function compile(
     content: string,

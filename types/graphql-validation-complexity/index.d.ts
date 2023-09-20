@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-import type { ASTNode, GraphQLError, ValidationContext } from 'graphql';
+import type { ASTNode, GraphQLError, ValidationContext } from "graphql";
 
 export interface Options {
     onCost?: (cost: number, context: ValidationContext) => void;
@@ -25,7 +25,7 @@ export function createComplexityLimitRule(
 export function complexityLimitExceededErrorMessage(): string;
 
 declare class ComplexityVisitor {
-    constructor(context: any, { scalarCost, objectCost, listFactor, introspectionListFactor, }: {
+    constructor(context: any, { scalarCost, objectCost, listFactor, introspectionListFactor }: {
         scalarCost?: number;
         objectCost?: number;
         listFactor?: number;

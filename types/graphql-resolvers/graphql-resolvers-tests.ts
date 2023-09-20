@@ -1,11 +1,11 @@
 import {
-    combineResolvers,
-    pipeResolvers,
     allResolvers,
+    combineResolvers,
+    isDependee,
+    pipeResolvers,
     resolveDependee,
     resolveDependees,
-    isDependee,
-    skip
+    skip,
 } from "graphql-resolvers";
 
 const resolverOne = () => skip;

@@ -14,7 +14,7 @@ interface GulpStylint {
 declare namespace GulpStylint {
     interface Options {
         config?: string | undefined;
-        rules?: { [ruleName: string]: any; } | undefined;
+        rules?: { [ruleName: string]: any } | undefined;
         reporter?: any;
     }
 

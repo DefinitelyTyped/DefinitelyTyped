@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
 import * as gm from "gm";
+import * as stream from "stream";
 
 export = GulpImageResize;
 

@@ -23,7 +23,7 @@ export interface BreakpointOptions {
     queries?: QueriesObject | undefined;
 }
 export interface BreakpointConfig {
-    resolve: 'gatsby-plugin-breakpoints';
+    resolve: "gatsby-plugin-breakpoints";
     options?: BreakpointOptions | undefined;
 }
 

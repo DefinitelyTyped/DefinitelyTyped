@@ -82,7 +82,7 @@ declare namespace gensync {
         errback?: undefined;
     }
 
-    interface AsyncOptions<A extends unknown[], R> extends Omit<SyncOptions<A, R>, 'async'> {
+    interface AsyncOptions<A extends unknown[], R> extends Omit<SyncOptions<A, R>, "async"> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another
@@ -93,7 +93,7 @@ declare namespace gensync {
         async: (...args: A) => Promise<R>;
     }
 
-    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, 'errback'> {
+    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, "errback"> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another

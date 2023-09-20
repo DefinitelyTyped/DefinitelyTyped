@@ -1,9 +1,9 @@
-import * as changelog from 'generate-changelog';
+import * as changelog from "generate-changelog";
 
 changelog.generate({
     allowUnknown: true,
-    exclude: ['chore'],
+    exclude: ["chore"],
     minor: true,
-    repoUrl: 'https://github.com/lob/generate-changelog',
-    tag: 'v1.6.0...v1.7.0'
+    repoUrl: "https://github.com/lob/generate-changelog",
+    tag: "v1.6.0...v1.7.0",
 }).then(changelog => changelog.trim());

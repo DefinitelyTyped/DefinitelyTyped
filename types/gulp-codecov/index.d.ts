@@ -18,10 +18,10 @@ declare namespace gulpCodecov {
         env?: string | undefined;
         file?: string | undefined;
         flags?: string | undefined;
-        'gcov-args'?: string | undefined;
-        'gcov-exec'?: string | undefined;
-        'gcov-glob'?: string | undefined;
-        'gcov-root'?: string | undefined;
+        "gcov-args"?: string | undefined;
+        "gcov-exec"?: string | undefined;
+        "gcov-glob"?: string | undefined;
+        "gcov-root"?: string | undefined;
         pipe?: boolean | undefined;
         root?: string | undefined;
         slug?: string | undefined;

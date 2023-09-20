@@ -7,9 +7,7 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.urlshortener {
-
     export interface url {
-
         /**
          * Expands a short URL or gets creation time and analytics.
          */
@@ -17,15 +15,15 @@ declare namespace gapi.client.urlshortener {
             /**
              * The short URL, including the protocol.
              */
-            'shortUrl': string;
+            "shortUrl": string;
             /**
              * Additional information to return. ANALYTICS_CLICKS, ANALYTICS_TOP_STRINGS, FULL
              */
-            'projection'?: string | undefined;
+            "projection"?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string | undefined
+            "fields"?: string | undefined;
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
         /**
          * Creates a new short URL.
@@ -34,11 +32,11 @@ declare namespace gapi.client.urlshortener {
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string | undefined;
+            "fields"?: string | undefined;
             /**
              * HTTP Request Body
              */
-            'RequestBody'?: string | undefined
+            "RequestBody"?: string | undefined;
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
         /**
          * Retrieves a list of URLs shortened by a user.
@@ -47,15 +45,15 @@ declare namespace gapi.client.urlshortener {
             /**
              * Additional information to return. ANALYTICS_CLICKS, FULL
              */
-            'projection'?: string | undefined;
+            "projection"?: string | undefined;
             /**
              * Token for requesting successive pages of results.
              */
-            'start-token'?: string | undefined;
+            "start-token"?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            'fields'?: string | undefined
+            "fields"?: string | undefined;
         }): HttpRequest<GoogleApiUrlShortenerUrlResource>;
     }
 }
@@ -105,7 +103,7 @@ interface GoogleApiUrlShortenerUrlResource {
          * Click analytics over the last two hours.
          */
         twoHours: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
-    }
+    };
 }
 
 interface GoogleApiUrlShortenerUrlResourceAnalyticsObject {

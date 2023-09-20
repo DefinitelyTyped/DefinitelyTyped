@@ -10,7 +10,6 @@ import { PathLike } from "fs";
 
 declare namespace getFolderSize {
     /**
-     *
      * Returns the size of the folder. If any errors are encountered while traversing the folder, they are silently ignored.
      *
      * The returned folder size might be smaller than the real folder size. It is impossible to know for sure, since errors are ignored.

@@ -14,5 +14,5 @@ declare namespace gitUsername {
         cwd?: string;
     }
 
-    type OptionsWithoutCwd = Omit<Options, 'cwd'>;
+    type OptionsWithoutCwd = Omit<Options, "cwd">;
 }

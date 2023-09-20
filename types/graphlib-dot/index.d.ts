@@ -3,7 +3,7 @@
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Graph } from 'graphlib';
+import { Graph } from "graphlib";
 
 /**
  * Reads a single DOT graph from the str and returns it a Graph representation.

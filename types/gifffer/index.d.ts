@@ -8,8 +8,8 @@ declare namespace Gifffer {
      * @see {@link https://github.com/krasimir/gifffer#styling|Styling}
      */
     interface GiffferOptions {
-        playButtonStyles: { [style: string]: string; };
-        playButtonIconStyles: { [style: string]: string; };
+        playButtonStyles: { [style: string]: string };
+        playButtonIconStyles: { [style: string]: string };
     }
 }
 

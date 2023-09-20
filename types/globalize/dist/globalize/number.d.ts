@@ -1,14 +1,25 @@
 import * as Globalize from "../globalize";
 
 declare module "../globalize" {
-    interface NumberFormatterOptions extends CommonNumberFormatterOptions, NumberParserOptions { }
+    interface NumberFormatterOptions extends CommonNumberFormatterOptions, NumberParserOptions {}
     interface NumberParserOptions {
         /**
          * decimal (default), or percent.
          */
         style?: "decimal" | "percent" | undefined;
     }
-    type NumberFormatPartTypes = "decimal" | "fraction" | "group" | "infinity" | "integer" | "literal" | "minusSign" | "nan" | "plusSign" | "percentSign" | "compact";
+    type NumberFormatPartTypes =
+        | "decimal"
+        | "fraction"
+        | "group"
+        | "infinity"
+        | "integer"
+        | "literal"
+        | "minusSign"
+        | "nan"
+        | "plusSign"
+        | "percentSign"
+        | "compact";
     interface NumberFormatPart {
         type: NumberFormatPartTypes;
         value: string;
@@ -32,7 +43,7 @@ declare module "../globalize" {
          * style Optional String decimal (default), or percent.
          * @returns {Function} Return a function that parses a String representing a number according to the given options. If value is invalid, NaN is returned.
          */
-        numberParser(options?: NumberParserOptions): (value: string) => number
+        numberParser(options?: NumberParserOptions): (value: string) => number;
         /**
          * Return a function that formats a number into parts tokens according to the given options.
          * @param {NumberFormatterOptions} options A JSON object including none or any of the following options.

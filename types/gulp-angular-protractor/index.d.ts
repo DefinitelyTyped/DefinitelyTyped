@@ -3,7 +3,7 @@
 // Definitions by: Adam Kwiatek <https://github.com/akwiatek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import through = require('through');
+import through = require("through");
 
 declare function gulpProtractorAngular(options: gulpProtractorAngular.Options): through.ThroughStream;
 

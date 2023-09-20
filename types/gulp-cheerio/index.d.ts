@@ -7,8 +7,8 @@
 /// <reference types="node" />
 /// <reference types="vinyl" />
 
-import Vinyl = require('vinyl');
-import cheerio = require('cheerio');
+import Vinyl = require("vinyl");
+import cheerio = require("cheerio");
 
 declare namespace gulpCheerio {
     interface GulpCheerio {

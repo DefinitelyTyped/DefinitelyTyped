@@ -48,9 +48,11 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ExcludedVideoMobileApplicationSelector
-            extends Base.Selector<ExcludedVideoMobileApplicationIterator>,
+            extends
+                Base.Selector<ExcludedVideoMobileApplicationIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

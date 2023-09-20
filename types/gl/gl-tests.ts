@@ -1,10 +1,6 @@
 import _default = require("gl");
 
-import type {
-    STACKGL_destroy_context,
-    STACKGL_resize_drawingbuffer,
-    StackGLExtension,
-} from "gl";
+import type { STACKGL_destroy_context, STACKGL_resize_drawingbuffer, StackGLExtension } from "gl";
 
 const createContext = _default;
 const WebGLRenderingContext = _default.WebGLRenderingContext;

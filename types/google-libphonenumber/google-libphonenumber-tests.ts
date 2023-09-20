@@ -1,14 +1,14 @@
-import libphonenumber = require('google-libphonenumber');
+import libphonenumber = require("google-libphonenumber");
 import {
+    AsYouTypeFormatter,
     PhoneNumberFormat,
     PhoneNumberUtil,
-    AsYouTypeFormatter,
-    ShortNumberInfo,
     RegionCode,
     RegionCodeUnknown,
-} from 'google-libphonenumber';
+    ShortNumberInfo,
+} from "google-libphonenumber";
 
-() => {
+(() => {
     // Require `PhoneNumberFormat`.
     var PNF = libphonenumber.PhoneNumberFormat;
 
@@ -16,7 +16,7 @@ import {
     var phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
     // Parse number with country code.
-    var phoneNumber = phoneUtil.parse('202-456-1414', 'US');
+    var phoneNumber = phoneUtil.parse("202-456-1414", "US");
 
     // Print number in the international format.
     console.log(phoneUtil.format(phoneNumber, PNF.INTERNATIONAL));
@@ -27,42 +27,42 @@ import {
     // => (202) 456-1414
 
     // Print number in the original format with specified region.
-    console.log(phoneUtil.formatInOriginalFormat(phoneNumber, 'US'));
+    console.log(phoneUtil.formatInOriginalFormat(phoneNumber, "US"));
     // => (202) 456-1414
-};
+});
 
-() => {
+(() => {
     // Require `AsYouTypeFormatter`.
     var AsYouTypeFormatter = libphonenumber.AsYouTypeFormatter;
-    var formatter = new AsYouTypeFormatter('US');
+    var formatter = new AsYouTypeFormatter("US");
 
-    console.log(formatter.inputDigit('6')); // => 6
-    console.log(formatter.inputDigit('5')); // => 65
-    console.log(formatter.inputDigit('0')); // => 650
-    console.log(formatter.inputDigit('2')); // => 650-2
-    console.log(formatter.inputDigit('5')); // => 650-25
-    console.log(formatter.inputDigit('3')); // => 650-253
-    console.log(formatter.inputDigit('2')); // => 650-2532
-    console.log(formatter.inputDigit('2')); // => (650) 253-22
+    console.log(formatter.inputDigit("6")); // => 6
+    console.log(formatter.inputDigit("5")); // => 65
+    console.log(formatter.inputDigit("0")); // => 650
+    console.log(formatter.inputDigit("2")); // => 650-2
+    console.log(formatter.inputDigit("5")); // => 650-25
+    console.log(formatter.inputDigit("3")); // => 650-253
+    console.log(formatter.inputDigit("2")); // => 650-2532
+    console.log(formatter.inputDigit("2")); // => (650) 253-22
 
     formatter.clear();
-};
+});
 
 // Get instance of `PhoneNumberUtil`
 var phoneNumberUtil = PhoneNumberUtil.getInstance();
 
 // phone code should be a number
-phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number
+phoneNumberUtil.getCountryCodeForRegion("IT"); // $ExpectType number
 
-const aNumber = phoneNumberUtil.parse('+39 02-12345678', 'IT');
+const aNumber = phoneNumberUtil.parse("+39 02-12345678", "IT");
 phoneNumberUtil.getNationalSignificantNumber(aNumber); // $ExpectType string
 
 phoneNumberUtil.getRegionCodeForCountryCode(0); // $ExpectType RegionCode | "ZZ"
 
 // Get instance of `ShortNumberInfo`
 const shortInfo = ShortNumberInfo.getInstance();
-const phoneNumber = phoneNumberUtil.parse('123456', 'FR');
-const regionCode: RegionCode = 'FR';
+const phoneNumber = phoneNumberUtil.parse("123456", "FR");
+const regionCode: RegionCode = "FR";
 
 shortInfo.isPossibleShortNumberForRegion(phoneNumber, regionCode); // $ExpectType boolean
 shortInfo.isPossibleShortNumber(phoneNumber); // $ExpectType boolean
@@ -70,8 +70,8 @@ shortInfo.isValidShortNumberForRegion(phoneNumber, regionCode); // $ExpectType b
 shortInfo.isValidShortNumber(phoneNumber); // $ExpectType boolean
 shortInfo.getExpectedCostForRegion(phoneNumber, regionCode); // $ExpectType ShortNumberCost
 shortInfo.getExpectedCost(phoneNumber); // $ExpectType ShortNumberCost
-shortInfo.connectsToEmergencyNumber('911', 'US'); // $ExpectType boolean
-shortInfo.isEmergencyNumber('911', 'US'); // $ExpectType boolean
+shortInfo.connectsToEmergencyNumber("911", "US"); // $ExpectType boolean
+shortInfo.isEmergencyNumber("911", "US"); // $ExpectType boolean
 shortInfo.isCarrierSpecific(phoneNumber); // $ExpectType boolean
 shortInfo.isCarrierSpecificForRegion(phoneNumber, regionCode); // $ExpectType boolean
 shortInfo.isSmsServiceForRegion(phoneNumber, regionCode); // $ExpectType boolean

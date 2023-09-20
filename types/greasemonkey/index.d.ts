@@ -25,15 +25,15 @@ declare namespace GM {
          */
         resources: {
             [resourceName: string]: {
-                name: string
-                mimetype: string
-                url: string
-            }
+                name: string;
+                mimetype: string;
+                url: string;
+            };
         };
         /** @default 'end' */
-        runAt: 'start' | 'end' | 'idle';
+        runAt: "start" | "end" | "idle";
         uuid: string;
-         /** Possibly empty string. */
+        /** Possibly empty string. */
         version: string;
     }
 
@@ -69,15 +69,15 @@ declare namespace GM {
         url: string;
         /** String type of HTTP request to make (E.G. "GET", "POST") */
         method:
-            | 'GET'
-            | 'POST'
-            | 'PUT'
-            | 'DELETE'
-            | 'PATCH'
-            | 'HEAD'
-            | 'TRACE'
-            | 'OPTIONS'
-            | 'CONNECT';
+            | "GET"
+            | "POST"
+            | "PUT"
+            | "DELETE"
+            | "PATCH"
+            | "HEAD"
+            | "TRACE"
+            | "OPTIONS"
+            | "CONNECT";
         /**
          * When true, the data is sent as a Blob
          * @default false
@@ -97,7 +97,7 @@ declare namespace GM {
         data?: string | undefined;
         /** A set of headers to include in the request */
         headers?: {
-            [header: string]: string
+            [header: string]: string;
         } | undefined;
         /**
          * A MIME type to specify with the request (e.g.
@@ -127,10 +127,10 @@ declare namespace GM {
          * of data.
          */
         upload?: {
-            onabort?(response: Response<TContext>): void
-            onerror?(response: Response<TContext>): void
-            onload?(response: Response<TContext>): void
-            onprogress?(response: ProgressResponse<TContext>): void
+            onabort?(response: Response<TContext>): void;
+            onerror?(response: Response<TContext>): void;
+            onload?(response: Response<TContext>): void;
+            onprogress?(response: ProgressResponse<TContext>): void;
         } | undefined;
 
         // Event handlers
@@ -165,20 +165,20 @@ declare var GM: {
      */
     info: {
         /** An object containing data about the currently running script */
-        script: GM.ScriptInfo
+        script: GM.ScriptInfo;
         /**
          * A string, the entire literal Metadata Block (without the delimiters)
          * for the currently running script
          */
-        scriptMetaStr: string
+        scriptMetaStr: string;
         /**
          * The name of the user script engine handling this script's execution.
          * The string `Greasemonkey`
          */
-        scriptHandler: string
+        scriptHandler: string;
         /** The version of Greasemonkey, a string e.g. `4.0` */
-        version: string
-    }
+        version: string;
+    };
 
     // Values
 
@@ -194,7 +194,7 @@ declare var GM: {
      * @returns A Promise, resolved successfully with no value on success,
      * rejected with no value on failure
      */
-    setValue(name: string, value: GM.Value): Promise<void>
+    setValue(name: string, value: GM.Value): Promise<void>;
 
     /**
      * Retrieves a value that was set with `GM.setValue`
@@ -218,11 +218,11 @@ declare var GM: {
      */
     getValue(
         name: string,
-    ): Promise<GM.Value | undefined>
+    ): Promise<GM.Value | undefined>;
     getValue<TValue = GM.Value>(
         name: string,
-        defaultValue: TValue
-    ): Promise<TValue>
+        defaultValue: TValue,
+    ): Promise<TValue>;
 
     /**
      * Deletes an existing name / value pair from storage.
@@ -231,7 +231,7 @@ declare var GM: {
      * @returns A Promise, resolved successfully with no value on success,
      * rejected with no value on failure.
      */
-    deleteValue(name: string): Promise<void>
+    deleteValue(name: string): Promise<void>;
 
     /**
      * Retrieves an array of preference names that this script has stored
@@ -239,7 +239,7 @@ declare var GM: {
      * @returns A Promise, rejected in case of error and otherwise resolved with
      * an string[] for previously set values
      */
-    listValues(): Promise<string[]>
+    listValues(): Promise<string[]>;
 
     // Resources
 
@@ -252,7 +252,7 @@ declare var GM: {
      * Treat the result as opaque string. It will work where you need a URL
      * (for a `<link>` or `<style>` for CSS, for an `<img>` tag, or similar).
      */
-    getResourceUrl(resourceName: string): Promise<string>
+    getResourceUrl(resourceName: string): Promise<string>;
 
     // Other
 
@@ -271,8 +271,8 @@ declare var GM: {
         text: string,
         title: string,
         image?: string,
-        onClick?: () => void
-    ): void
+        onClick?: () => void,
+    ): void;
 
     /**
      * Opens the specified URL in a new tab.
@@ -281,7 +281,7 @@ declare var GM: {
      * @param openInBackground Force tab to/to not open in a background tab.
      * Default (unspecified) behavior honors Firefox configuration.
      */
-    openInTab(url: string, openInBackground?: boolean): void
+    openInTab(url: string, openInBackground?: boolean): void;
 
     /**
      * Adds an item to the User Script Commands menu.
@@ -297,12 +297,12 @@ declare var GM: {
      * Sets the current contents of the operating system's clipboard
      * @see {@link https://wiki.greasespot.net/GM.setClipboard}
      */
-    setClipboard(text: string): void
+    setClipboard(text: string): void;
 
     /**
      * Performs a similar function to the standard XMLHttpRequest object, but
      * allows these requests to cross the [same origin policy]{@link https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy} boundaries.
      * @see {@link https://wiki.greasespot.net/GM.xmlHttpRequest}
      */
-    xmlHttpRequest(details: GM.Request): void
+    xmlHttpRequest(details: GM.Request): void;
 };

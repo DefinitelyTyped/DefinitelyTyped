@@ -69,10 +69,12 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface NegativeKeywordListSelector
-            extends Base.Selector<NegativeKeywordListIterator>,
+            extends
+                Base.Selector<NegativeKeywordListIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

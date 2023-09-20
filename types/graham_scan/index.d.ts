@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class ConvexHullGrahamScan {
     addPoint(x: number, y: number): void;
-    getHull(): {x: number, y: number}[];
+    getHull(): { x: number; y: number }[];
 }
 
 export = ConvexHullGrahamScan;

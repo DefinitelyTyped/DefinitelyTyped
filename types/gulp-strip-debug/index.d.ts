@@ -4,6 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-
 declare const gulpStripDebug: () => NodeJS.ReadWriteStream;
 export = gulpStripDebug;
