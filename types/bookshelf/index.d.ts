@@ -7,6 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
+// This is a *broken* type definition due to external failures
+// It is excluded from nightly runs here:
+// https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint-runner/expectedFailures.txt
+
 import Knex = require("knex");
 import knex = require("knex");
 import BlueBird = require("bluebird");

@@ -3,10 +3,10 @@
 // from https://developers.google.com/apps-script/overview
 function createAndSendDocument() {
     // Create a new Google Doc named 'Hello, world!'
-    var doc = DocumentApp.create('Hello, world!');
+    var doc = DocumentApp.create("Hello, world!");
 
     // Access the body of the document, then add a paragraph.
-    doc.getBody().appendParagraph('This document was created by Google Apps Script.');
+    doc.getBody().appendParagraph("This document was created by Google Apps Script.");
 
     // Get the URL of the document.
     var url = doc.getUrl();
@@ -18,7 +18,7 @@ function createAndSendDocument() {
     var subject = doc.getName();
 
     // Append a new string to the "url" variable to use as an email body.
-    var body = 'Link to your doc: ' + url;
+    var body = "Link to your doc: " + url;
 
     // Send yourself an email with a link to the document.
     GmailApp.sendEmail(email, subject, body);
@@ -31,41 +31,41 @@ CalendarApp.GuestStatus.NO;
 // test for URLFetchRequestOptions.payload
 import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
 const postTest = (payload: object): string => {
-    const url = 'http://httpbin.org/post';
+    const url = "http://httpbin.org/post";
     const params: URLFetchRequestOptions = {
-        method: 'post',
+        method: "post",
         payload: payload,
     };
     return UrlFetchApp.fetch(url, params).getContentText();
 };
 
 // Advanced Services
-Slides.Presentations.Pages.getThumbnail('presentationId', 'pageId');
+Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
 
 // Calendar (Advanced service)
 const createEvent = (): void => {
-    const calendarId = 'primary';
+    const calendarId = "primary";
     const start = new Date();
     const end = new Date();
     start.setHours(10);
     end.setHours(11);
     let event: GoogleAppsScript.Calendar.Schema.Event = {
-        summary: 'Lunch Meeting',
-        location: 'The Deli',
-        description: 'To discuss our plans for the presentation next week.',
+        summary: "Lunch Meeting",
+        location: "The Deli",
+        description: "To discuss our plans for the presentation next week.",
         start: {
             dateTime: start.toISOString(),
         },
         end: {
             dateTime: end.toISOString(),
         },
-        attendees: [{ email: 'alice@example.com' }, { email: 'bob@example.com' }],
+        attendees: [{ email: "alice@example.com" }, { email: "bob@example.com" }],
         // Red background. Use Calendar.Colors.get() for the full list.
-        colorId: '11',
-        eventType: 'default',
+        colorId: "11",
+        eventType: "default",
     };
     event = Calendar.Events.insert(event, calendarId);
-    Logger.log('Event ID: ' + event.id);
+    Logger.log("Event ID: " + event.id);
 };
 
 // Calendar Working Locations (Advanced Service)
@@ -109,18 +109,18 @@ const listAllUsers = () => {
     let page: GoogleAppsScript.AdminDirectory.Schema.Users;
     do {
         page = AdminDirectory.Users.list({
-            domain: 'example.com',
-            orderBy: 'givenName',
+            domain: "example.com",
+            orderBy: "givenName",
             maxResults: 100,
             pageToken: pageToken,
         });
         const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
         if (users) {
             for (const user of users) {
-                Logger.log('%s (%s)', user.name.fullName, user.primaryEmail);
+                Logger.log("%s (%s)", user.name.fullName, user.primaryEmail);
             }
         } else {
-            Logger.log('No users found.');
+            Logger.log("No users found.");
         }
         pageToken = page.nextPageToken;
     } while (pageToken);
@@ -179,36 +179,36 @@ function createFileFromBlob(blob: GoogleAppsScript.Base.Blob) {
 }
 
 // Console
-console.log('log');
-console.info('info');
-console.warn('warn');
-console.error('error');
-console.log('Console can use %s and %d format string.', 'hello', 2);
+console.log("log");
+console.info("info");
+console.warn("warn");
+console.error("error");
+console.log("Console can use %s and %d format string.", "hello", 2);
 
 // Data Studio Request
 const request: GoogleAppsScript.Data_Studio.Request<any> = {
     configParams: {
-        my_param: 'my_param_value',
+        my_param: "my_param_value",
     },
     dateRange: {
-        endDate: '2019-09-14',
-        startDate: '2019-07-14',
+        endDate: "2019-09-14",
+        startDate: "2019-07-14",
     },
     scriptParams: {
-        lastRefresh: '1569292983027',
+        lastRefresh: "1569292983027",
     },
     fields: [
         {
-            name: 'my_field_name',
+            name: "my_field_name",
         },
     ],
     dimensionsFilters: [
         [
             {
-                fieldName: 'my_field_name',
-                values: ['my_value'],
-                type: 'INCLUDE',
-                operator: 'IN_LIST',
+                fieldName: "my_field_name",
+                values: ["my_value"],
+                type: "INCLUDE",
+                operator: "IN_LIST",
             },
         ],
     ],
@@ -219,9 +219,9 @@ const request: GoogleAppsScript.Data_Studio.Request<any> = {
 // https://developers.google.com/apps-script/reference/spreadsheet/rich-text-value-builder
 const richTextStyle = SpreadsheetApp.newTextStyle().setUnderline(false).build();
 const richTextValue = SpreadsheetApp.newRichTextValue()
-    .setText('foo no baz')
-    .setLinkUrl(0, 3, 'https://bar.foo')
-    .setLinkUrl(7, 10, 'https://abc.xyz')
+    .setText("foo no baz")
+    .setLinkUrl(0, 3, "https://bar.foo")
+    .setLinkUrl(7, 10, "https://abc.xyz")
     .setTextStyle(7, 10, richTextStyle)
     .build();
 for (let richTextRun of richTextValue.getRuns()) {
@@ -244,7 +244,7 @@ for (let richTextRun of richTextValue.getRuns()) {
 // TextStyle - get/setForegroundColorObject
 // Build an RGB color object
 // $ExpectType Color
-const colorObjRgb = SpreadsheetApp.newColor().setRgbColor('red').build();
+const colorObjRgb = SpreadsheetApp.newColor().setRgbColor("red").build();
 
 // Build a Theme color object
 // $ExpectType Color
@@ -282,85 +282,85 @@ Logger.log(themeColorObj); // Color
 Logger.log(themeColorObj.getColorType()); // THEME
 Logger.log(themeColorObj.asThemeColor().getThemeColorType()); // ACCENT1
 
-const tableCell = DocumentApp.create('').getCursor().getElement().asTableCell();
+const tableCell = DocumentApp.create("").getCursor().getElement().asTableCell();
 tableCell.getParentRow().getChildIndex(tableCell);
 
-XmlService.createElement('')
-    .addContent(XmlService.createCdata(''))
-    .addContent(XmlService.createComment(''))
-    .addContent(XmlService.createDocType(''))
-    .addContent(XmlService.createText(''));
+XmlService.createElement("")
+    .addContent(XmlService.createCdata(""))
+    .addContent(XmlService.createComment(""))
+    .addContent(XmlService.createDocType(""))
+    .addContent(XmlService.createText(""));
 
 const createFolderAndGetDescription = () => {
     // Create folder.
-    const folder = DriveApp.createFolder('MyFolder');
+    const folder = DriveApp.createFolder("MyFolder");
     // Get description. Expect null.
     Logger.log(folder.getDescription());
     // Set description.
-    folder.setDescription('desc');
+    folder.setDescription("desc");
     // Get description. Expect 'DESC'.
     Logger.log(folder.getDescription().toUpperCase());
 };
 
 function onChange(e: GoogleAppsScript.Events.SheetsOnChange) {
-    if (e.changeType === 'FORMAT') {
-        console.log('Formatting change detected');
+    if (e.changeType === "FORMAT") {
+        console.log("Formatting change detected");
     }
     const sheetName = e.source?.getSheetName();
     console.log(sheetName);
     if (sheetName !== undefined) {
-        console.log('Success to get e.source field');
+        console.log("Success to get e.source field");
     }
 }
 
 const createFileAndGetDescription = () => {
     // Create file.
-    const file = DriveApp.createFile('New Text File', 'Hello, world!');
+    const file = DriveApp.createFile("New Text File", "Hello, world!");
     // Get description. Expect null.
     Logger.log(file.getDescription());
     // Set description.
-    file.setDescription('desc');
+    file.setDescription("desc");
     // Get description. Expect 'DESC'.
     Logger.log(file.getDescription().toUpperCase());
 };
 
 function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
-    if (typeof e.hour === 'number') {
-        console.log('Time driven event detected');
+    if (typeof e.hour === "number") {
+        console.log("Time driven event detected");
     }
 }
 
 CardService.newDecoratedText(); // $ExpectType DecoratedText
 CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
-CardService.newDecoratedText().setBottomLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setBottomLabel(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setButton(CardService.newTextButton()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setComposeAction(CardService.newAction(), CardService.ComposedEmailType.REPLY_AS_DRAFT); // $ExpectType DecoratedText
 CardService.newDecoratedText().setIcon(CardService.Icon.AIRPLANE); // $ExpectType DecoratedText
-CardService.newDecoratedText().setIconAltText(''); // $ExpectType DecoratedText
-CardService.newDecoratedText().setIconUrl(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconAltText(""); // $ExpectType DecoratedText
+CardService.newDecoratedText().setIconUrl(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setOnClickAction(CardService.newAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setOnClickOpenLinkAction(CardService.newAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setOpenLink(CardService.newOpenLink()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setSwitchControl(CardService.newSwitch()); // $ExpectType DecoratedText
-CardService.newDecoratedText().setText(''); // $ExpectType DecoratedText
-CardService.newDecoratedText().setTopLabel(''); // $ExpectType DecoratedText
+CardService.newDecoratedText().setText(""); // $ExpectType DecoratedText
+CardService.newDecoratedText().setTopLabel(""); // $ExpectType DecoratedText
 CardService.newDecoratedText().setWrapText(true); // $ExpectType DecoratedText
 
 CardService.newDivider(); // $ExpectType Divider
 
 CardService.newTimePicker(); // $ExpectType TimePicker
-CardService.newTimePicker().setFieldName(''); // $ExpectType TimePicker
+CardService.newTimePicker().setFieldName(""); // $ExpectType TimePicker
 CardService.newTimePicker().setHours(0); // $ExpectType TimePicker
 CardService.newTimePicker().setMinutes(0); // $ExpectType TimePicker
 CardService.newTimePicker().setOnChangeAction(CardService.newAction()); // $ExpectType TimePicker
-CardService.newTimePicker().setTitle(''); // $ExpectType TimePicker
+CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
 
 // CardService.newCardBuilder().setDisplayStyle(CardService.DisplayStyle.PEEK)
 CardService.DisplayStyle.PEEK;
 CardService.DisplayStyle.REPLACE;
 
-DriveApp.createShortcut('').getTargetId();
-DriveApp.createFile('', '').moveTo(DriveApp.getFolderById(''));
+DriveApp.createShortcut("").getTargetId();
+DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
 
 // Addon event objects tests:
 
@@ -376,7 +376,7 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const ev = cal.getEventById(recurringEventId);
 
     // $ExpectType string[]
-    const attends: typeof attendees[number]['displayName'][] = ev.getGuestList().map(guest => guest.getName());
+    const attends: typeof attendees[number]["displayName"][] = ev.getGuestList().map(guest => guest.getName());
 
     console.log({ attends });
 
@@ -389,33 +389,33 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
             canSeeConferenceData: false,
             canSetConferenceData: false,
             conferenceData: {
-                conferenceId: '12345',
+                conferenceId: "12345",
                 entryPoints: [
                     {
-                        accessCode: 'access',
-                        entryPointFeatures: ['toll', 'toll_free'],
-                        entryPointType: 'phone',
-                        label: 'MyEntry',
-                        meetingCode: 'meeting',
-                        passcode: 'pass',
-                        password: '12M$q_5',
-                        pin: '50193',
-                        uri: 'tel:123456',
-                        regionCode: 'en-US',
+                        accessCode: "access",
+                        entryPointFeatures: ["toll", "toll_free"],
+                        entryPointType: "phone",
+                        label: "MyEntry",
+                        meetingCode: "meeting",
+                        passcode: "pass",
+                        password: "12M$q_5",
+                        pin: "50193",
+                        uri: "tel:123456",
+                        regionCode: "en-US",
                     },
                 ],
-                notes: 'My notes about the conference',
+                notes: "My notes about the conference",
                 conferenceSolution: {
-                    iconUri: 'https://hostname/path/image.jpeg',
+                    iconUri: "https://hostname/path/image.jpeg",
                     key: {
-                        type: 'hangoutsMeet',
+                        type: "hangoutsMeet",
                     },
-                    name: 'MyConference',
+                    name: "MyConference",
                 },
                 parameters: {
                     addOnParameters: {
-                        test: 'value',
-                        attends: '5',
+                        test: "value",
+                        attends: "5",
                     },
                 },
             },
@@ -463,7 +463,7 @@ const handleDriveAction = (e: GoogleAppsScript.Addons.EventObject) => {
 
         const mimeOk = file.getMimeType() === mimeType;
 
-        const hasIcon = iconUrl !== '';
+        const hasIcon = iconUrl !== "";
 
         return mimeOk && hasIcon && addonHasFileScopePermission && includeHash[title];
     });
@@ -525,9 +525,9 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
     } = e;
 
     const plaformMap: { [P in GoogleAppsScript.Addons.Platform]: string } = {
-        ANDROID: 'Android',
-        IOS: 'iOS',
-        WEB: 'Web',
+        ANDROID: "Android",
+        IOS: "iOS",
+        WEB: "Web",
     };
 
     const hostMap: {
@@ -545,8 +545,8 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         hostMap[hostApp](e);
 
         const now = new Date();
-        const formattedDate = Utilities.formatDate(now, timeZone.id, 'MM/dd/yyyy');
-        const formattedTime = Utilities.formatDate(now, timeZone.id, 'hh:mm a');
+        const formattedDate = Utilities.formatDate(now, timeZone.id, "MM/dd/yyyy");
+        const formattedTime = Utilities.formatDate(now, timeZone.id, "hh:mm a");
 
         Object.keys(formInputs).forEach(id => {
             const {
@@ -556,12 +556,12 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
                 stringInputs,
                 timeInput,
                 // Rhino
-                '': {
+                "": {
                     dateInput: dateInputRhino,
                     dateTimeInput: dateTimeInputRhino,
                     stringInputs: stringInputsRhino,
-                    timeInput: timeInputRhino
-                }
+                    timeInput: timeInputRhino,
+                },
             } = formInputs[id];
 
             if (dateInput || dateInputRhino) {
@@ -597,7 +597,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
 
 const fileSecurityUpdateInfo = () => {
     // get file
-    const file = DriveApp.getFileById('');
+    const file = DriveApp.getFileById("");
     // get resource key
     Logger.log(file.getResourceKey());
 
@@ -608,7 +608,7 @@ const fileSecurityUpdateInfo = () => {
 };
 const folderSecurityUpdateInfo = () => {
     // get folder
-    const folder = DriveApp.getFolderById('');
+    const folder = DriveApp.getFolderById("");
     // get resource key
     Logger.log(folder.getResourceKey());
 
@@ -681,9 +681,9 @@ const makeGrid = ({ items, ...options }: GridOptions) => {
     items.forEach(item => grid.addItem(item));
 
     const action = CardService.newAction();
-    action.setFunctionName('somefunc');
+    action.setFunctionName("somefunc");
 
-    grid.setOnClickAction(action).setBorderStyle(makeBorderStyle(options)).setNumColumns(2).setTitle('My Grid');
+    grid.setOnClickAction(action).setBorderStyle(makeBorderStyle(options)).setNumColumns(2).setTitle("My Grid");
 
     return grid;
 };
@@ -704,12 +704,12 @@ const handleScopeAction = () => {
 
 // Analytics Test
 const requestAnalyticsData = (): string => {
-    const gaData = Analytics.Data.Ga.get('An Id', '2022-01-18', '2022-01-18', 'Some metrics', {
-        dimensions: 'Some dimensions',
+    const gaData = Analytics.Data.Ga.get("An Id", "2022-01-18", "2022-01-18", "Some metrics", {
+        dimensions: "Some dimensions",
     });
 
     const totalsForAllResults = gaData.totalsForAllResults;
-    const totalSessions = totalsForAllResults['ga:sessions'];
+    const totalSessions = totalsForAllResults["ga:sessions"];
 
     return totalSessions;
 };
@@ -718,10 +718,10 @@ const requestAnalyticsData = (): string => {
 const onItemSelected = () => {
     // $ExpectType Attachment
     const attachment = CardService.newAttachment()
-        .setResourceUrl('https://example.com')
-        .setTitle('My Attachment')
-        .setMimeType('text/html')
-        .setIconUrl('https://example.com/icon.png');
+        .setResourceUrl("https://example.com")
+        .setTitle("My Attachment")
+        .setMimeType("text/html")
+        .setIconUrl("https://example.com/icon.png");
 
     // $ExpectType CalendarEventActionResponseBuilder
     CardService.newCalendarEventActionResponseBuilder().addAttachments([attachment]);
@@ -734,31 +734,31 @@ SlidesApp.getActivePresentation().getSlides()[0].setSkipped(true);
 // Example of building a text validation
 const formAppTextValidation = FormApp.createTextValidation()
     .requireNumberBetween(1, 100)
-    .setHelpText('Please be between 1 and 100')
+    .setHelpText("Please be between 1 and 100")
     .build();
 
 // Example of building a grid validation
 const formAppGridValidation = FormApp.createGridValidation()
     .requireLimitOneResponsePerColumn()
-    .setHelpText('You did it wrong')
+    .setHelpText("You did it wrong")
     .build();
 
 // Example of building a grid validation
 const formAppCheckboxGridValidation = FormApp.createCheckboxGridValidation()
     .requireLimitOneResponsePerColumn()
-    .setHelpText('This is not fine')
+    .setHelpText("This is not fine")
     .build();
 
 // Example of building a checkbox validation
 const formAppCheckboxValidation = FormApp.createCheckboxValidation()
     .requireSelectAtLeast(1)
-    .setHelpText('Select one pls')
+    .setHelpText("Select one pls")
     .build();
 
 // Example of building a paragraph text validation
 const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
-    .requireTextDoesNotContainPattern('string')
-    .setHelpText('Hey! You put a string in your string!')
+    .requireTextDoesNotContainPattern("string")
+    .setHelpText("Hey! You put a string in your string!")
     .build();
 
 const mimeTypes: string[] = [
@@ -782,12 +782,12 @@ const analyticsReporting = () => {
                         expression: "some metrics",
                         alias: "some metrics",
                         formattingType: "some metrics",
-                    }
+                    },
                 ],
                 dimensions: [
                     {
-                        name: "some dimensions"
-                    }
+                        name: "some dimensions",
+                    },
                 ],
                 samplingLevel: "LARGE",
             },
@@ -824,8 +824,14 @@ const sheetFontColorObjects = () => {
     sheet.getRange("A1").setFontColorObject(singleBuilder);
     // Test for multiple cells
     const multipleBuilders = [
-        [SpreadsheetApp.newColor().setRgbColor("#000000").build(), SpreadsheetApp.newColor().setRgbColor("#800000").build()],
-        [SpreadsheetApp.newColor().setRgbColor("#008000").build(), SpreadsheetApp.newColor().setRgbColor("#000080").build()],
+        [
+            SpreadsheetApp.newColor().setRgbColor("#000000").build(),
+            SpreadsheetApp.newColor().setRgbColor("#800000").build(),
+        ],
+        [
+            SpreadsheetApp.newColor().setRgbColor("#008000").build(),
+            SpreadsheetApp.newColor().setRgbColor("#000080").build(),
+        ],
     ];
     sheet.getRange("A1:B2").setFontColorObjects(multipleBuilders);
 };
@@ -838,9 +844,9 @@ const utilitiesParseDate = () => {
 const sheetCellImage = () => {
     const imageBuilder = SpreadsheetApp.newCellImage();
     // set methods
-    imageBuilder.setAltTextTitle('Title');
-    imageBuilder.setAltTextDescription('Description');
-    imageBuilder.setSourceUrl('https://hostname/path/image.jpeg');
+    imageBuilder.setAltTextTitle("Title");
+    imageBuilder.setAltTextDescription("Description");
+    imageBuilder.setSourceUrl("https://hostname/path/image.jpeg");
     // get methods
     imageBuilder.getAltTextTitle();
     imageBuilder.getAltTextDescription();
@@ -857,7 +863,7 @@ const sheetCellImage = () => {
 // Blob test
 const blob = () => {
     // $ExpectType Blob
-    const blob = Utilities.newBlob('content', 'application/json');
+    const blob = Utilities.newBlob("content", "application/json");
     blob.setContentType(null);
 
     // $ExpectType string

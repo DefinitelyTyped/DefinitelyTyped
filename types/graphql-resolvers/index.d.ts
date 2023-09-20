@@ -6,14 +6,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+// This is a *broken* type definition due to external failures
+// It is excluded from nightly runs here:
+// https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint-runner/expectedFailures.txt
+
 import { GraphQLResolveInfo } from "graphql";
 import { MergeInfo } from "graphql-tools";
 
 export type IFieldResolver<TSource, TContext, TArgs = Record<string, any>, TReturn = any> = (
-  source: TSource,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo & { mergeInfo?: MergeInfo | undefined },
+    source: TSource,
+    args: TArgs,
+    context: TContext,
+    info: GraphQLResolveInfo & { mergeInfo?: MergeInfo | undefined },
 ) => TReturn;
 
 export const skip: undefined;
@@ -31,7 +35,7 @@ export function pipeResolvers<TSource = any, TContext = any, TArgs = TArgsDefaul
 ): IFieldResolver<TSource, TContext, TArgs>;
 
 export function allResolvers<TSource = any, TContext = any, TArgs = TArgsDefault>(
-    resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
+    resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>,
 ): IFieldResolver<TSource, TContext, TArgs>;
 
 export function resolveDependee(dependeeName: string): IFieldResolver<any, any, any>;
@@ -39,5 +43,5 @@ export function resolveDependee(dependeeName: string): IFieldResolver<any, any, 
 export function resolveDependees(dependeeNames: string[]): IFieldResolver<any, any, any>;
 
 export function isDependee<TSource = any, TContext = any, TArgs = TArgsDefault>(
-    resolver: IFieldResolver<TSource, TContext, TArgs>
+    resolver: IFieldResolver<TSource, TContext, TArgs>,
 ): IFieldResolver<TSource, TContext, TArgs>;
