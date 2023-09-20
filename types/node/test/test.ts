@@ -1,4 +1,4 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only, Mock, mock} from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only, Mock, mock } from 'node:test';
 import { dot, spec, tap, TestEvent } from 'node:test/reporters';
 import { Transform, TransformOptions, TransformCallback } from 'node:stream';
 
@@ -21,7 +21,7 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ['executed'],
-    setup: (root) => {},
+    setup: root => {},
     watch: true,
     shard: {
         index: 1,
@@ -37,12 +37,12 @@ test('foo', t => {
     t;
 });
 
-test('foo', (t) => {
+test('foo', t => {
     // $ExpectType Promise<void>
     t.test();
 });
 
-test('foo', async (t) => {
+test('foo', async t => {
     // $ExpectType void
     await t.test();
 });
@@ -128,7 +128,7 @@ test.it('it', () => {});
 test.mock;
 // $ExpectType typeof test
 test.test;
-test.test.test('chained self ref', (t) => {
+test.test.test('chained self ref', t => {
     // $ExpectType typeof test
     t.test;
 });
@@ -358,17 +358,17 @@ beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity }
 after(() => {}, { signal: new AbortController().signal, timeout: Infinity });
 beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });
 
-test('mocks a counting function', (t) => {
+test('mocks a counting function', t => {
     let cnt = 0;
 
     function addOne() {
-      cnt++;
-      return cnt;
+        cnt++;
+        return cnt;
     }
 
     function addTwo() {
-      cnt += 2;
-      return cnt;
+        cnt += 2;
+        return cnt;
     }
 
     const fn = t.mock.fn(addOne, addTwo, { times: 2 });
@@ -376,7 +376,7 @@ test('mocks a counting function', (t) => {
     fn();
 });
 
-test('spies on an object method', (t) => {
+test('spies on an object method', t => {
     const number = {
         value: 5,
         subtract(a: number) {
@@ -402,7 +402,7 @@ test('spies on an object method', (t) => {
     t.mock.method(obj, 'value');
 });
 
-test('mocks an object method', (t) => {
+test('mocks an object method', t => {
     const obj = {
         prop: 5,
         method(a: number, b: number) {
@@ -411,7 +411,7 @@ test('mocks an object method', (t) => {
     };
 
     function mockMethod(this: typeof obj, a: number) {
-      return a + this.prop;
+        return a + this.prop;
     }
 
     const mocked = t.mock.method(obj, 'method', mockMethod);
@@ -431,7 +431,7 @@ test('mocks an object method', (t) => {
     t.mock.method(obj, 'prop', mockMethod);
 });
 
-test('a no-op spy function is created by default', (t) => {
+test('a no-op spy function is created by default', t => {
     const fn = t.mock.fn();
     fn(3, 4);
 
@@ -442,10 +442,10 @@ test('a no-op spy function is created by default', (t) => {
     call.result;
 });
 
-test('spies on a constructor', (t) => {
+test('spies on a constructor', t => {
     class ParentClazz {
         constructor(public c: number) {
-          this.c = c;
+            this.c = c;
         }
     }
 
@@ -482,7 +482,7 @@ test('spies on a constructor', (t) => {
     call.target;
 });
 
-test('spies on a getter', (t) => {
+test('spies on a getter', t => {
     const obj = {
         prop: 5,
         get method() {
@@ -520,7 +520,7 @@ test('spies on a getter', (t) => {
     }
 });
 
-test('mocks a getter', (t) => {
+test('mocks a getter', t => {
     const obj = {
         prop: 5,
         get method() {
@@ -529,7 +529,7 @@ test('mocks a getter', (t) => {
     };
 
     function mockMethod(this: typeof obj) {
-      return this.prop - 1;
+        return this.prop - 1;
     }
 
     {
@@ -562,7 +562,7 @@ test('mocks a getter', (t) => {
     }
 });
 
-test('spies on a setter', (t) => {
+test('spies on a setter', t => {
     const obj = {
         prop: 100,
         set method(val: number) {
@@ -600,7 +600,7 @@ test('spies on a setter', (t) => {
     }
 });
 
-test('mocks a setter', (t) => {
+test('mocks a setter', t => {
     const obj = {
         prop: 100,
         set method(val: number) {
@@ -609,7 +609,7 @@ test('mocks a setter', (t) => {
     };
 
     function mockMethod(this: typeof obj, value: number) {
-      this.prop = -value;
+        this.prop = -value;
     }
 
     {
@@ -654,7 +654,7 @@ tap('' as any);
 new spec();
 
 describe('Mock Timers Test Suite', () => {
-    it((t) => {
+    it(t => {
         t.mock.timers.enable(['setTimeout']);
         // @ts-expect-error
         t.mock.timers.enable(['DOES_NOT_EXIST']);
@@ -714,4 +714,4 @@ class TestReporter extends Transform {
         }
     }
 }
-const createdMock: Mock<() => undefined> = mock.fn(() => {})
+const createdMock: Mock<() => undefined> = mock.fn(() => undefined);
