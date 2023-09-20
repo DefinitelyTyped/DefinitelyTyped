@@ -1,7 +1,7 @@
 /**
  * @since v0.3.7
  */
-declare module 'node:module' {
+declare module 'module' {
     import { URL } from 'node:url';
     import { MessagePort } from 'node:worker_threads';
     namespace Module {
@@ -251,7 +251,7 @@ declare module 'node:module' {
     }
     export = Module;
 }
-declare module 'module' {
-    import module = require('node:module');
+declare module 'node:module' {
+    import module = require('module');
     export = module;
 }

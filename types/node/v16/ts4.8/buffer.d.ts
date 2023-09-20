@@ -43,7 +43,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/buffer.js)
  */
-declare module 'node:buffer' {
+declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export const INSPECT_MAX_BYTES: number;
@@ -2231,6 +2231,6 @@ declare module 'node:buffer' {
         function btoa(data: string): string;
     }
 }
-declare module 'buffer' {
-    export * from 'node:buffer';
+declare module 'node:buffer' {
+    export * from 'buffer';
 }

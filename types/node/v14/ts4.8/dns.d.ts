@@ -1,4 +1,4 @@
-declare module 'node:dns' {
+declare module 'dns' {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
@@ -382,6 +382,6 @@ declare module 'node:dns' {
         }
     }
 }
-declare module 'dns' {
-    export * from 'node:dns';
+declare module 'node:dns' {
+    export * from 'dns';
 }

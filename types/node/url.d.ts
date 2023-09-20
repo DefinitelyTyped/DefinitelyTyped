@@ -7,7 +7,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/url.js)
  */
-declare module 'node:url' {
+declare module 'url' {
     import { Blob as NodeBlob } from 'node:buffer';
     import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
@@ -910,6 +910,6 @@ declare module 'node:url' {
             : typeof _URLSearchParams;
     }
 }
-declare module 'url' {
-    export * from 'node:url';
+declare module 'node:url' {
+    export * from 'url';
 }

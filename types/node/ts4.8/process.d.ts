@@ -1,4 +1,4 @@
-declare module 'node:process' {
+declare module 'process' {
     import * as tty from 'node:tty';
     import { Worker } from 'node:worker_threads';
     global {
@@ -1489,7 +1489,7 @@ declare module 'node:process' {
     }
     export = process;
 }
-declare module 'process' {
-    import process = require('node:process');
+declare module 'node:process' {
+    import process = require('process');
     export = process;
 }
