@@ -83,7 +83,7 @@ export interface PlonkProof {
     curve: string;
 }
 
-export type PublicSignals = string[];
+export type PublicSignals = NumericString[];
 
 export namespace groth16 {
     function exportSolidityCallData(_proof: Groth16Proof, _pub: PublicSignals): Promise<string>;
