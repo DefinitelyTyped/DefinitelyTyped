@@ -714,4 +714,4 @@ class TestReporter extends Transform {
         }
     }
 }
-const createdMock: Mock<() => undefined> = mock.fn(() => {})
+const createdMock: Mock<() => undefined> = mock.fn(() => undefined)
