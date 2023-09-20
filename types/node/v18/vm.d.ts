@@ -36,7 +36,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/vm.js)
  */
-declare module 'node:vm' {
+declare module 'vm' {
     import { ImportAssertions } from 'node:module';
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
@@ -640,6 +640,6 @@ declare module 'node:vm' {
         setExport(name: string, value: any): void;
     }
 }
-declare module 'vm' {
-    export * from 'node:vm';
+declare module 'node:vm' {
+    export * from 'vm';
 }

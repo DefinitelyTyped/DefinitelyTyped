@@ -3,7 +3,7 @@
  * separate module.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/https.js)
  */
-declare module 'node:https' {
+declare module 'https' {
     import { Duplex } from 'node:stream';
     import * as tls from 'node:tls';
     import * as http from 'node:http';
@@ -436,6 +436,6 @@ declare module 'node:https' {
     function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     let globalAgent: Agent;
 }
-declare module 'https' {
-    export * from 'node:https';
+declare module 'node:https' {
+    export * from 'https';
 }

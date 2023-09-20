@@ -39,7 +39,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/http.js)
  */
-declare module 'node:http' {
+declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { EventEmitter } from 'node:events';
@@ -1716,6 +1716,6 @@ declare module 'node:http' {
      */
     const maxHeaderSize: number;
 }
-declare module 'http' {
-    export * from 'node:http';
+declare module 'node:http' {
+    export * from 'http';
 }

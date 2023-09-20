@@ -23,7 +23,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/inspector.js)
  */
-declare module 'node:inspector' {
+declare module 'inspector' {
     import EventEmitter = require('node:events');
     interface InspectorNotification<T> {
         method: string;
@@ -2742,7 +2742,7 @@ declare module 'node:inspector' {
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-declare module 'inspector' {
-    import inspector = require('node:inspector');
+declare module 'node:inspector' {
+    import inspector = require('inspector');
     export = inspector;
 }

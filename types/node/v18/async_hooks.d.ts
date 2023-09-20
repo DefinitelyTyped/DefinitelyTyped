@@ -8,7 +8,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/async_hooks.js)
  */
-declare module 'node:async_hooks' {
+declare module 'async_hooks' {
     /**
      * ```js
      * import { executionAsyncId } from 'async_hooks';
@@ -514,6 +514,6 @@ declare module 'node:async_hooks' {
         enterWith(store: T): void;
     }
 }
-declare module 'async_hooks' {
-    export * from 'node:async_hooks';
+declare module 'node:async_hooks' {
+    export * from 'async_hooks';
 }

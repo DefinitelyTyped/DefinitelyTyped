@@ -1,4 +1,4 @@
-declare module 'node:wasi' {
+declare module 'wasi' {
     interface WASIOptions {
         /**
          * An array of strings that the WebAssembly application will
@@ -84,6 +84,6 @@ declare module 'node:wasi' {
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }
-declare module 'wasi' {
-    export * from 'node:wasi';
+declare module 'node:wasi' {
+    export * from 'wasi';
 }

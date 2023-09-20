@@ -15,7 +15,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/crypto.js)
  */
-declare module 'node:crypto' {
+declare module 'crypto' {
     import * as stream from 'node:stream';
     import { PeerCertificate } from 'node:tls';
     /**
@@ -3967,6 +3967,6 @@ declare module 'node:crypto' {
         }
     }
 }
-declare module 'crypto' {
-    export * from 'node:crypto';
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

@@ -90,7 +90,7 @@
  * @since v0.5.8
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/zlib.js)
  */
-declare module 'node:zlib' {
+declare module 'zlib' {
     import * as stream from 'node:stream';
     interface ZlibOptions {
         /**
@@ -512,6 +512,6 @@ declare module 'node:zlib' {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
-declare module 'zlib' {
-    export * from 'node:zlib';
+declare module 'node:zlib' {
+    export * from 'zlib';
 }

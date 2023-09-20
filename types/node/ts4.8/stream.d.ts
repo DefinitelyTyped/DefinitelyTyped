@@ -16,7 +16,7 @@
  * It is usually not necessary to use the `node:stream` module to consume streams.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/stream.js)
  */
-declare module 'node:stream' {
+declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import { Blob as NodeBlob } from 'node:buffer';
     import * as streamPromises from 'node:stream/promises';
@@ -1424,7 +1424,7 @@ declare module 'node:stream' {
     }
     export = internal;
 }
-declare module 'stream' {
-    import stream = require('node:stream');
+declare module 'node:stream' {
+    import stream = require('stream');
     export = stream;
 }

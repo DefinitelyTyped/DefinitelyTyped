@@ -1,4 +1,4 @@
-declare module 'node:crypto' {
+declare module 'crypto' {
     import * as stream from 'stream';
 
     interface Certificate {
@@ -1278,6 +1278,6 @@ declare module 'node:crypto' {
      */
     function setEngine(engine: string, flags?: number): void;
 }
-declare module 'crypto' {
-    export * from 'node:crypto';
+declare module 'node:crypto' {
+    export * from 'crypto';
 }

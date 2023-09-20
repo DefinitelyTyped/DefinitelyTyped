@@ -24,7 +24,7 @@
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tty.js)
  */
-declare module 'node:tty' {
+declare module 'tty' {
     import * as net from 'node:net';
     /**
      * The `tty.isatty()` method returns `true` if the given `fd` is associated with
@@ -199,6 +199,6 @@ declare module 'node:tty' {
         isTTY: boolean;
     }
 }
-declare module 'tty' {
-    export * from 'node:tty';
+declare module 'node:tty' {
+    export * from 'tty';
 }

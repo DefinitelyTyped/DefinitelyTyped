@@ -1,4 +1,4 @@
-declare module 'node:timers' {
+declare module 'timers' {
     function setTimeout(callback: (...args: any[]) => void, ms?: number, ...args: any[]): NodeJS.Timeout;
     namespace setTimeout {
         function __promisify__(ms: number): Promise<void>;
@@ -14,6 +14,6 @@ declare module 'node:timers' {
     }
     function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
 }
-declare module 'timers' {
-    export * from 'node:timers';
+declare module 'node:timers' {
+    export * from 'timers';
 }
