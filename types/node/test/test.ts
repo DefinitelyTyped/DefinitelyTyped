@@ -1,4 +1,4 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only, Mock, mock} from 'node:test';
 import { dot, spec, tap, TestEvent } from 'node:test/reporters';
 import { Transform, TransformOptions, TransformCallback } from 'node:stream';
 
@@ -714,3 +714,4 @@ class TestReporter extends Transform {
         }
     }
 }
+const createdMock: Mock<() => undefined> = mock.fn(() => {})
