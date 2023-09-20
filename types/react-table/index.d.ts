@@ -445,7 +445,7 @@ export type UseFiltersColumnOptions<D extends object> = Partial<{
     Filter: Renderer<FilterProps<D>>;
     disableFilters: boolean;
     defaultCanFilter: boolean;
-    filter: FilterType<D> | DefaultFilterTypes | string;
+    filter: FilterType<D> | DefaultFilterTypes | string&{};
 }>;
 
 export interface UseFiltersInstanceProps<D extends object> {
@@ -832,7 +832,7 @@ export type UseSortByColumnOptions<D extends object> = Partial<{
     disableSortBy: boolean;
     sortDescFirst: boolean;
     sortInverted: boolean;
-    sortType: SortByFn<D> | DefaultSortTypes | string;
+    sortType: SortByFn<D> | DefaultSortTypes | string&{};
 }>;
 
 export interface UseSortByInstanceProps<D extends object> {
