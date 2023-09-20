@@ -645,6 +645,26 @@ export interface BrowserContext {
     clearCookies(): void;
 
     /**
+     * Retrieves the {@link Cookie | cookies} in this {@link BrowserContext} filtered by provided URLs,
+     * or all {@link Cookie | cookies} if no URLs are provided.
+     * 
+     * @param urls URLs to filter {@link Cookie | cookies} by.
+     * @returns An array of {@link Cookie | cookies}.
+     * @example
+     * ```js
+     * // Get all cookies in the browser context
+     * const cookies = context.cookies();
+     *
+     * // Get all cookies for the specified URLs
+     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io');
+     *
+     * // Get all cookies for the specified URLs and filter by name
+     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io').filter(c => c.name === 'foo');
+     * ```
+     */
+    cookies(...urls: string[]): Cookie[];
+
+    /**
      * Clears all permission overrides for the `BrowserContext`.
      */
     clearPermissions(): void;
