@@ -14,7 +14,7 @@ import {
 const createContent: () => Content = () => 'allo';
 const content: Content = createContent();
 
-if (typeof content !== 'string' && 'stack' in content && content.stack) {
+if (typeof content !== 'string' && typeof content !== 'number' && 'stack' in content && content.stack) {
     // $ExpectType ContentStack
     content;
 }
