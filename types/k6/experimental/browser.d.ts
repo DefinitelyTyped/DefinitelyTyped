@@ -772,6 +772,96 @@ export interface BrowserContext {
     ): Page | null;
 }
 
+
+/**
+ * {@link Cookie} represents a cookie in a {@link BrowserContext}.
+ *
+ * @see
+ * {@link BrowserContext} has methods to {@link BrowserContext.addCookies | add}, {@link BrowserContext.cookies | query} and {@link BrowserContext.clearCookies | clear} cookies.
+ */
+export interface Cookie {
+    /**
+     * The {@link Cookie | cookie}'s name.
+     *
+     * @defaultValue
+     * The default is `''`.
+     */
+    name: string;
+
+    /**
+     * The {@link Cookie | cookie}'s value.
+     *
+     * @defaultValue
+     * The default is `''`.
+     */
+    value: string;
+
+    /**
+     * The {@link Cookie | cookie}'s URL.
+     *
+     * Required unless one of {@link Cookie.domain | domain} or {@link Cookie.path | path} are specified.
+     */
+    url?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s domain.
+     *
+     * Required unless one of {@link Cookie.url | url} or {@link Cookie.path | path} are specified.
+     */
+    domain?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s path.
+     *
+     * Required unless one of {@link Cookie.url | url} or {@link Cookie.domain | domain} are specified.
+     */
+    path?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s expiration date as the number of seconds since the UNIX epoch.
+     *
+     * If omitted, the {@link Cookie | cookie} becomes a session cookie.
+     *
+     * @defaultValue
+     * The default is `-1`, meaning a session cookie.
+     */
+    expires?: number;
+
+    /**
+     * Whether the {@link Cookie | cookie} is http-only.
+     *
+     * @defaultValue
+     * The default is `false`.
+     */
+    httpOnly?: boolean;
+
+    /**
+     * Whether the {@link Cookie | cookie} is secure.
+     *
+     * @defaultValue
+     * The default is `false`.
+     */
+    secure?: boolean;
+
+    /**
+     * The {@link Cookie | cookie}'s same-site status.
+     *
+     * It can be one of `'Strict'`, `'Lax'`, or `'None'`.
+     *
+     * @defaultValue
+     * The default is `'Lax'`.
+     */
+    sameSite?: CookieSameSite;
+}
+
+/**
+ * CookieSameSite represents the same-site status of a {@link Cookie | cookie}.
+ *
+ * @defaultValue
+ * The default is `'Lax'`.
+ */
+export type CookieSameSite = 'Strict' | 'Lax' | 'None';
+
 /**
  * ElementHandle represents an in-page DOM element.
  */
