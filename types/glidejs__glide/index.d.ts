@@ -3,8 +3,11 @@
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import ComponentFunction from "./components";
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import EventsBus from "./core/event/events-bus";
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import TransformerFunction from "./mutator/transformers";
 
 declare namespace Glide {
