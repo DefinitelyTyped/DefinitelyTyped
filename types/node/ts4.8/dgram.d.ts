@@ -25,7 +25,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/dgram.js)
  */
-declare module 'dgram' {
+declare module 'node:dgram' {
     import { AddressInfo } from 'node:net';
     import * as dns from 'node:dns';
     import { EventEmitter, Abortable } from 'node:events';
@@ -545,6 +545,6 @@ declare module 'dgram' {
         [Symbol.asyncDispose](): Promise<void>;
     }
 }
-declare module 'node:dgram' {
-    export * from 'dgram';
+declare module 'dgram' {
+    export * from 'node:dgram';
 }
