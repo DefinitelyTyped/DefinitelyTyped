@@ -13,9 +13,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "marked": [ "marked/v3" ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
