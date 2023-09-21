@@ -1,6 +1,6 @@
 // Type definitions for mastercard-oauth1-signer 1.1
 // Project: https://github.com/Mastercard/oauth1-signer-nodejs#readme
-// Definitions by: Dean Pienaar <https://github.com/DefinitelyTyped>
+// Definitions by: Dean Pienaar <https://github.com/deanpienaar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace OAuth {
