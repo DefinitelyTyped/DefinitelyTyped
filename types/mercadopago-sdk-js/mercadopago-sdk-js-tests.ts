@@ -32,7 +32,7 @@ brickBuilder.isInitialized();
             },
         },
     });
-   controller.update({ amount: 100 });
+    controller.update({ amount: 100 });
 })();
 
 (async () => {
@@ -48,7 +48,7 @@ brickBuilder.isInitialized();
             },
         },
     });
-   controller.update({ amount: 100 });
+    controller.update({ amount: 100 });
 })();
 
 brickBuilder.create('statusScreen', 'containerStatusScreen', {
