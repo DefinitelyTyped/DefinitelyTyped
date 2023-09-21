@@ -55,7 +55,6 @@ export class Repository {
     detachHead(): number;
     fetchheadForeach(callback?: Function): Promise<any>;
 
-    free(): void;
     getNamespace(): string;
     getSubmodules(): Promise<Submodule[]>;
     head(): Promise<Reference>;

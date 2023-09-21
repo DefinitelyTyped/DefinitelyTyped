@@ -30,7 +30,6 @@ export class Blame {
 
     buffer(buffer: string, bufferLen: number): Promise<Blame>;
 
-    free(): void;
     /**
      * @returns - the hunk at the given index, or NULL on error
      */

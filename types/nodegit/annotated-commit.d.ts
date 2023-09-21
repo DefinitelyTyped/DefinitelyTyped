@@ -14,6 +14,5 @@ export class AnnotatedCommit {
     static fromRevspec(repo: Repository, revspec: string): Promise<AnnotatedCommit>;
     static lookup(repo: Repository, id: Oid): Promise<AnnotatedCommit>;
 
-    free(): void;
     id(): Oid;
 }

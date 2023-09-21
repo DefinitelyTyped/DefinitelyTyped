@@ -12,7 +12,6 @@ export class Reflog {
     entryByIndex(idx: number): ReflogEntry;
     entrycount(): number;
 
-    free(): void;
     write(): number;
 }
 

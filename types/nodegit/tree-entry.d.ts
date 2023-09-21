@@ -17,7 +17,6 @@ export namespace TreeEntry {
 export class TreeEntry {
     filemode(): TreeEntry.FILEMODE;
     filemodeRaw(): TreeEntry.FILEMODE;
-    free(): void;
     getBlob(): Promise<Blob>;
     getTree(): Promise<Tree>;
     id(): Oid;

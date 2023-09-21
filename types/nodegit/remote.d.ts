@@ -49,7 +49,6 @@ export class Remote {
     dup(): Promise<Remote>;
     fetch(refSpecs: any[], opts: FetchOptions, message: string, callback?: Function): Promise<number>;
 
-    free(): void;
     getFetchRefspecs(): Promise<any[]>;
     getPushRefspecs(): Promise<any[]>;
     getRefspec(n: number): Refspec;

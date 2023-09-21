@@ -48,7 +48,6 @@ export class Tag {
 
     dup(): Promise<Tag>;
 
-    free(): void;
     id(): Oid;
     message(): string;
     name(): string;

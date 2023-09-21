@@ -25,7 +25,6 @@ export class Pathspec {
     static matchListFailedEntrycount(m: any): number;
     static create(pathspec: Strarray | string | string[]): Pathspec;
 
-    free(): void;
     matchDiff(diff: Diff, flags: number): Promise<any>;
     matchIndex(index: Index, flags: number): Promise<any>;
     matchTree(tree: Tree, flags: number): Promise<any>;

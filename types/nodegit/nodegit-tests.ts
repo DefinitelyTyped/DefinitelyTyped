@@ -49,7 +49,6 @@ Git.AnnotatedCommit.fromRevspec(repo, 'revspec').then(annotatedCommit => {
 
 Git.AnnotatedCommit.lookup(repo, id).then(annotatedCommit => {
     // Use annotatedCommit
-    annotatedCommit.free();
     annotatedCommit.id();
 });
 

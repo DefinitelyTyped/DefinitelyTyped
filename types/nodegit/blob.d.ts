@@ -27,7 +27,6 @@ export class Blob {
     static lookup(repo: Repository, id: string | Oid | Blob): Promise<Blob>;
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Blob>;
 
-    free(): void;
     id(): Oid;
     isBinary(): number;
     owner(): Repository;
