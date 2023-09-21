@@ -1,4 +1,4 @@
-import * as marked from 'marked';
+import { marked } from 'marked';
 import * as TerminalRenderer from 'marked-terminal';
 import chalk from 'chalk';
 
