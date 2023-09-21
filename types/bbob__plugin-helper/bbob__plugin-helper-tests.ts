@@ -1,3 +1,4 @@
-import { keysReduce } from "./helpers"
+import { keysReduce } from "bbob__plugin-helper/helpers"
 
-keysReduce({"a": "b"} as {[key: string]: string}, (e) => "b", "a" as string)
+const obj: {[key: string]: string} = {"a": "b"};
+keysReduce(obj, (e) => "b", "a" as string)
