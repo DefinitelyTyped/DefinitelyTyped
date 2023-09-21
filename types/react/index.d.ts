@@ -2551,7 +2551,7 @@ declare namespace React {
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
-        type?: string | undefined;
+        type?: 'module' | 'importmap' | string;
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
