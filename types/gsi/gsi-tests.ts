@@ -10,7 +10,7 @@ google.accounts.id.initialize({
     callback: response => {
         // $ExpectType string
         response.credential;
-        // $ExpectType string
+        // $ExpectType "auto" | "user" | "user_1tap" | "user_2tap" | "btn" | "btn_confirm" | "btn_add_session" | "btn_confirm_add_session"
         response.select_by;
     },
     auto_select: true,
