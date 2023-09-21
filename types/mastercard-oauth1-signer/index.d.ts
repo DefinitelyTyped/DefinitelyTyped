@@ -3,6 +3,7 @@
 // Definitions by: Dean Pienaar <https://github.com/deanpienaar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class OAuth {
     /**
      * Creates a Mastercard API compliant OAuth Authorization header
