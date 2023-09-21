@@ -121,24 +121,15 @@ browserContext.browser();
 browserContext.addCookies();
 // $ExpectType void
 browserContext.addCookies([{
-    name: "foo",
-    value: "bar",
-    url: "https://test.k6.io",
+    name: 'foo',
+    value: 'bar',
+    domain: 'test.k6.io',
+    path: '/browser.php',
+    url: 'https://test.k6.io',
     expires: 60,
     httpOnly: false,
     secure: true,
-    sameSite: "Strict",
-}]);
-// $ExpectType void
-browserContext.addCookies([{
-    name: "foo",
-    value: "bar",
-    domain: "test.k6.io",
-    path: "/browser.php",
-    expires: 60,
-    httpOnly: false,
-    secure: true,
-    sameSite: "Lax",
+    sameSite: 'Lax',
 }]);
 // $ExpectType void
 browserContext.clearCookies();
