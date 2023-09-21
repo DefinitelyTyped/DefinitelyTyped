@@ -13,6 +13,7 @@
         "typeRoots": [
             "../"
         ],
+        "target": "es6",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
