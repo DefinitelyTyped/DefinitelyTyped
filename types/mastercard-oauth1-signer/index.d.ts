@@ -3,11 +3,11 @@
 // Definitions by: Dean Pienaar <https://github.com/deanpienaar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace OAuth {
+declare class OAuth {
     /**
      * Creates a Mastercard API compliant OAuth Authorization header
      */
-    function getAuthorizationHeader(
+    static getAuthorizationHeader(
         uri: string,
         method: string,
         payload: string,
@@ -15,3 +15,5 @@ declare namespace OAuth {
         signingKey: string,
     ): string;
 }
+
+export = OAuth;
