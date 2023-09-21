@@ -7,6 +7,5 @@ export class StatusList {
 
     entrycount(): number;
 
-    free(): void;
     getPerfdata(): Promise<DiffPerfdata>;
 }
