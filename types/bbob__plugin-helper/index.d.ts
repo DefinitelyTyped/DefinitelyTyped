@@ -31,3 +31,10 @@
 //      */
 //     function foo(): void;
 // }
+
+export interface Node {}
+
+export interface TagNode extends Node {
+    tag: any
+}
+export interface StringNode extends Node, String {}
