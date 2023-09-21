@@ -1,0 +1,17 @@
+// Type definitions for mastercard-oauth1-signer 1.1
+// Project: https://github.com/Mastercard/oauth1-signer-nodejs#readme
+// Definitions by: Dean Pienaar <https://github.com/DefinitelyTyped>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace OAuth {
+    /**
+     * Creates a Mastercard API compliant OAuth Authorization header
+     */
+    function getAuthorizationHeader(
+        uri: string,
+        method: string,
+        payload: string,
+        consumerKey: string,
+        signingKey: string,
+    ): string;
+}
