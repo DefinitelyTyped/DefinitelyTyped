@@ -31,3 +31,6 @@
 //      */
 //     function foo(): void;
 // }
+
+export * from "./helpers"
+export * from "./char"
