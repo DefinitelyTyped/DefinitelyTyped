@@ -131,6 +131,10 @@ browserContext.addCookies([{
     secure: true,
     sameSite: 'Lax',
 }]);
+// $ExpectType Cookie[]
+browserContext.cookies();
+// $ExpectType Cookie[]
+browserContext.cookies('https://test.k6.io', 'https://k6.io');
 // $ExpectType void
 browserContext.clearCookies();
 // $ExpectType void
