@@ -4,6 +4,7 @@ declare function Stream<T>(): Stream<T>; // eslint-disable-line @definitelytyped
 /** Creates a stream with an initial value. */
 declare function Stream<T>(value: T): Stream<T>; // tslint:disable-line unified-signatures
 
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare interface Stream<T> {
     /** Returns the value of the stream. */
     (): T;
