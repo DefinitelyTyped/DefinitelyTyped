@@ -106,7 +106,7 @@ declare namespace Scripting {
     /** Drive Object */
     class Drive {
         private constructor();
-        private 'Scripting.Drive_typekey': Drive;
+        private "Scripting.Drive_typekey": Drive;
 
         /** Get available space */
         readonly AvailableSpace: number;
@@ -169,7 +169,7 @@ declare namespace Scripting {
     /** File object */
     class File {
         private constructor();
-        private 'Scripting.File_typekey': File;
+        private "Scripting.File_typekey": File;
 
         /** File attributes */
         Attributes: FileAttribute;
@@ -245,7 +245,7 @@ declare namespace Scripting {
     /** FileSystem Object */
     class FileSystemObject {
         private constructor();
-        private 'Scripting.FileSystemObject_typekey': FileSystemObject;
+        private "Scripting.FileSystemObject_typekey": FileSystemObject;
 
         /** Generate a path from an existing path and a name */
         BuildPath(Path: string, Name: string): string;
@@ -356,7 +356,7 @@ declare namespace Scripting {
     /** Folder object */
     class Folder {
         private constructor();
-        private 'Scripting.Folder_typekey': Folder;
+        private "Scripting.Folder_typekey": Folder;
 
         /** Folder attributes */
         Attributes: FileAttribute;
@@ -444,7 +444,7 @@ declare namespace Scripting {
     /** TextStream object */
     class TextStream {
         private constructor();
-        private 'Scripting.TextStream_typekey': TextStream;
+        private "Scripting.TextStream_typekey": TextStream;
 
         /** Is the current position at the end of a line? */
         readonly AtEndOfLine: boolean;
@@ -491,15 +491,20 @@ declare namespace Scripting {
 }
 
 interface ActiveXObject {
-    set<TKey = any, TValue = any>(obj: Scripting.Dictionary<TKey, TValue>, propertyName: 'Item', parameterTypes: [TKey], newValue: TValue): void;
+    set<TKey = any, TValue = any>(
+        obj: Scripting.Dictionary<TKey, TValue>,
+        propertyName: "Item",
+        parameterTypes: [TKey],
+        newValue: TValue,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Scripting.Dictionary': Scripting.Dictionary;
-    'Scripting.Encoder': Scripting.Encoder;
-    'Scripting.FileSystemObject': Scripting.FileSystemObject;
+    "Scripting.Dictionary": Scripting.Dictionary;
+    "Scripting.Encoder": Scripting.Encoder;
+    "Scripting.FileSystemObject": Scripting.FileSystemObject;
 }
 
 interface EnumeratorConstructor {
-    new <TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
+    new<TKey>(dict: Scripting.Dictionary<TKey>): Enumerator<TKey>;
 }

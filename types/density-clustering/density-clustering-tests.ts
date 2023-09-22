@@ -1,4 +1,4 @@
-import clustering = require('density-clustering');
+import clustering = require("density-clustering");
 
 function test1() {
     const dataset = [

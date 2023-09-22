@@ -1,5 +1,5 @@
-import { Handler } from '../handler';
-import { AppSyncIdentity, AppSyncResolverEventHeaders } from './appsync-resolver';
+import { Handler } from "../handler";
+import { AppSyncIdentity, AppSyncResolverEventHeaders } from "./appsync-resolver";
 
 /**
  * An AWS Amplify GraphQL resolver event. It differs slightly from a native ('direct') AppSync resolver event.

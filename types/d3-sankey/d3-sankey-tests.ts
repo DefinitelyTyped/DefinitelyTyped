@@ -6,9 +6,9 @@
  * are not intended as functional tests.
  */
 
-import * as d3Sankey from 'd3-sankey';
-import { select } from 'd3-selection';
-import { Link } from 'd3-shape';
+import * as d3Sankey from "d3-sankey";
+import { select } from "d3-selection";
+import { Link } from "d3-shape";
 
 // ---------------------------------------------------------------------------
 // Preparatory Steps
@@ -49,19 +49,19 @@ interface DAGCustomId {
 const graphDefault: DAG = {
     customNodes: [
         {
-            name: 'node0',
+            name: "node0",
         },
         {
-            name: 'node1',
+            name: "node1",
         },
         {
-            name: 'node2',
+            name: "node2",
         },
         {
-            name: 'node3',
+            name: "node3",
         },
         {
-            name: 'node4',
+            name: "node4",
         },
     ],
     customLinks: [
@@ -69,43 +69,43 @@ const graphDefault: DAG = {
             source: 0,
             target: 2,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 1,
             target: 2,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 1,
             target: 3,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 0,
             target: 4,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 2,
             target: 3,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 2,
             target: 4,
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
             source: 3,
             target: 4,
             value: 4,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
     ],
 };
@@ -113,68 +113,68 @@ const graphDefault: DAG = {
 const graphCustomId: DAGCustomId = {
     customNodes: [
         {
-            nodeId: 'n0',
-            name: 'node0',
+            nodeId: "n0",
+            name: "node0",
         },
         {
-            nodeId: 'n1',
-            name: 'node1',
+            nodeId: "n1",
+            name: "node1",
         },
         {
-            nodeId: 'n2',
-            name: 'node2',
+            nodeId: "n2",
+            name: "node2",
         },
         {
-            nodeId: 'n3',
-            name: 'node3',
+            nodeId: "n3",
+            name: "node3",
         },
         {
-            nodeId: 'n4',
-            name: 'node4',
+            nodeId: "n4",
+            name: "node4",
         },
     ],
     customLinks: [
         {
-            source: 'n0',
-            target: 'n2',
+            source: "n0",
+            target: "n2",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n1',
-            target: 'n2',
+            source: "n1",
+            target: "n2",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n1',
-            target: 'n3',
+            source: "n1",
+            target: "n3",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n0',
-            target: 'n4',
+            source: "n0",
+            target: "n4",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n2',
-            target: 'n3',
+            source: "n2",
+            target: "n3",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n2',
-            target: 'n4',
+            source: "n2",
+            target: "n4",
             value: 2,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
         {
-            source: 'n3',
-            target: 'n4',
+            source: "n3",
+            target: "n4",
             value: 4,
-            uom: 'Widget(s)',
+            uom: "Widget(s)",
         },
     ],
 };
@@ -188,7 +188,7 @@ let str: string;
 let size: [number, number];
 let extent: [[number, number], [number, number]];
 
-const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath'); // assume mock DOM
+const svgLinkPaths = select<SVGSVGElement, undefined>("svg").selectAll<SVGPathElement, SLink>(".linkPath"); // assume mock DOM
 
 let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 
@@ -279,7 +279,7 @@ num = slgDAG.iterations();
 // test multiple definitions
 slgDAG = slgDAG.nodeSort((node: SNode) => (node.index === 0 ? 1 : -1));
 slgDAG = slgDAG.nodeSort(() => undefined);
-slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === 'test' ? null : undefined));
+slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === "test" ? null : undefined));
 
 // ---------------------------------------------------------------------------
 // LinkSort
@@ -376,7 +376,7 @@ const linksAccessor: (d: DAG) => SLink[] = slgDAG.links();
 
 sGraph = slgDAG(graphDefault);
 // With additional arguments, although here unused.
-sGraph = slgDAG(graphDefault, 'foo', 50);
+sGraph = slgDAG(graphDefault, "foo", 50);
 
 // ---------------------------------------------------------------------------
 // Update Layout
@@ -398,7 +398,7 @@ pathGen = d3Sankey.sankeyLinkHorizontal<SNodeExtra, SLinkExtra>();
 // Render to svg path
 
 const svgPathString: string | null = pathGen(sGraph.links[0]);
-svgLinkPaths.attr('d', pathGen);
+svgLinkPaths.attr("d", pathGen);
 
 // Render to canvas
 

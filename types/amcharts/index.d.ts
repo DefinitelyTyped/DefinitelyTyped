@@ -109,34 +109,34 @@ export namespace AmCharts {
      */
     function addInitHandler(handler: () => {}, types?: string[]): any;
 
-    class AmAngularGauge extends _AmAngularGauge { }
-    class AmBalloon extends _AmBalloon { }
-    class AmChart extends _AmChart { }
-    class AmCoordinateChart extends _AmCoordinateChart { }
+    class AmAngularGauge extends _AmAngularGauge {}
+    class AmBalloon extends _AmBalloon {}
+    class AmChart extends _AmChart {}
+    class AmCoordinateChart extends _AmCoordinateChart {}
     // class AmFunnelChart extends _AmFunnelChart { }
     // class AmGanttChart extends _AmGanttChart { }
-    class AmGraph extends _AmGraph { }
-    class AmLegend extends _AmLegend { }
-    class AmPieChart extends _AmPieChart { }
-    class AmRadarChart extends _AmRadarChart { }
-    class AmRectangularChart extends _AmRectangularChart { }
-    class AmSerialChart extends _AmSerialChart { }
+    class AmGraph extends _AmGraph {}
+    class AmLegend extends _AmLegend {}
+    class AmPieChart extends _AmPieChart {}
+    class AmRadarChart extends _AmRadarChart {}
+    class AmRectangularChart extends _AmRectangularChart {}
+    class AmSerialChart extends _AmSerialChart {}
     // class AmSlicedChart extends _AmSlicedChart { }
-    class AmXYChart extends _AmXYChart { }
-    class AxisBase extends _AxisBase { }
-    class CategoryAxis extends _CategoryAxis { }
-    class ChartCursor extends _ChartCursor { }
-    class ChartScrollbar extends _ChartScrollbar { }
-    class GaugeArrow extends _GaugeArrow { }
-    class GaugeAxis extends _GaugeAxis { }
-    class GaugeBand extends _GaugeBand { }
-    class GraphDataItem extends _GraphDataItem { }
-    class Guide extends _Guide { }
+    class AmXYChart extends _AmXYChart {}
+    class AxisBase extends _AxisBase {}
+    class CategoryAxis extends _CategoryAxis {}
+    class ChartCursor extends _ChartCursor {}
+    class ChartScrollbar extends _ChartScrollbar {}
+    class GaugeArrow extends _GaugeArrow {}
+    class GaugeAxis extends _GaugeAxis {}
+    class GaugeBand extends _GaugeBand {}
+    class GraphDataItem extends _GraphDataItem {}
+    class Guide extends _Guide {}
     // class Image extends _Image { }
-    class Label extends _Label { }
-    class SerialDataItem extends _SerialDataItem { }
-    class Slice extends _Slice { }
-    class Title extends _Title { }
-    class TrendLine extends _TrendLine { }
-    class ValueAxis extends _ValueAxis { }
+    class Label extends _Label {}
+    class SerialDataItem extends _SerialDataItem {}
+    class Slice extends _Slice {}
+    class Title extends _Title {}
+    class TrendLine extends _TrendLine {}
+    class ValueAxis extends _ValueAxis {}
 }

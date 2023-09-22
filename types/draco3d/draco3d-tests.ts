@@ -1,4 +1,4 @@
-import { createEncoderModule, createDecoderModule, EncoderModule, DecoderModule } from 'draco3d';
+import { createDecoderModule, createEncoderModule, DecoderModule, EncoderModule } from "draco3d";
 
 /* Encode */
 
@@ -89,7 +89,7 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
     try {
         const geometryType = decoder.GetEncodedGeometryType(buffer);
         if (geometryType !== decoderModule.TRIANGULAR_MESH) {
-            throw new Error('Unknown geometry type.');
+            throw new Error("Unknown geometry type.");
         }
 
         const mesh = new decoderModule.Mesh();
@@ -97,7 +97,7 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
         const meshStatus = decoder.DecodeBufferToMesh(buffer, mesh);
 
         if (!meshStatus.ok() || mesh.ptr === 0) {
-            throw new Error('Decoding failure.' + meshStatus.error_msg());
+            throw new Error("Decoding failure." + meshStatus.error_msg());
         }
 
         // Indices.
@@ -117,8 +117,8 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
 
         const pointCloudStatus = decoder.DecodeBufferToPointCloud(buffer, pointCloud);
 
-        if (!pointCloudStatus.ok() || pointCloud.ptr === 0) {
-            throw new Error('Decoding failure.' + pointCloudStatus.error_msg());
+        if (!pointCloudStatus.ok()) {
+            throw new Error("Decoding failure." + pointCloudStatus.error_msg());
         }
 
         const numAttributes = pointCloud.num_attributes();

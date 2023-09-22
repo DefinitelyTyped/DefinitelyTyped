@@ -1,5 +1,5 @@
-import persistPlugin from '@alpinejs/persist';
-import Alpine, { AlpineComponent } from 'alpinejs';
+import persistPlugin from "@alpinejs/persist";
+import Alpine, { AlpineComponent } from "alpinejs";
 
 Alpine.plugin(persistPlugin);
 
@@ -18,15 +18,15 @@ Alpine.plugin(persistPlugin);
             const interceptor = this.$persist(0 as number);
 
             // $ExpectType persistInterceptor<number>
-            interceptor.as('test');
+            interceptor.as("test");
 
             // $ExpectType persistInterceptor<number>
             interceptor.using(sessionStorage);
         },
     };
 
-    Alpine.data('test', () => ({
-        persisted: Alpine.$persist('foo' as const),
+    Alpine.data("test", () => ({
+        persisted: Alpine.$persist("foo" as const),
         init() {
             // $ExpectType "foo"
             this.persisted;

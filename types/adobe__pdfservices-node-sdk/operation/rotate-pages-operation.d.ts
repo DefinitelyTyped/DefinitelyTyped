@@ -20,7 +20,6 @@
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class RotatePagesOperation {
     /**
@@ -98,5 +97,5 @@ export class RotatePagesOperation {
     validate(context: any): void;
     validateAngleValue(angle: any): void;
 }
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
-import { PageActions } from './delete-pages-operation';
+import { ExecutionContext, FileRef, PageRanges } from "../pdfservices-sdk";
+import { PageActions } from "./delete-pages-operation";

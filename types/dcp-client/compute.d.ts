@@ -1,15 +1,15 @@
-type URL = import('.').URL;
-type DcpURL = import('.').DcpURL;
-type Status = import('.').Status;
-type WorkValueQuote = import('.').WorkValueQuote;
-type WorkValue = import('.').WorkValue;
-type PublicProperties = import('.').PublicProperties;
-type Address = import('dcp/wallet').Address;
-type Keystore = import('dcp/wallet').Keystore;
+type URL = import(".").URL;
+type DcpURL = import(".").DcpURL;
+type Status = import(".").Status;
+type WorkValueQuote = import(".").WorkValueQuote;
+type WorkValue = import(".").WorkValue;
+type PublicProperties = import(".").PublicProperties;
+type Address = import("dcp/wallet").Address;
+type Keystore = import("dcp/wallet").Keystore;
 
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
 // tslint:disable-next-line:no-single-declare-module
-declare module 'dcp/compute' {
+declare module "dcp/compute" {
     export default interface Compute {
         /**
          * This function allows the client to cancel a running job. This function takes as its sole argument
@@ -217,10 +217,10 @@ declare module 'dcp/compute' {
          * @event console: Used to collect the console output of the workers.
          * @event result A slice completes and returns.
          */
-        addEventListener(eventName: 'readystatechange' | 'resultsUpdated' | 'cancel', listener: () => void): void;
-        addEventListener(eventName: 'accepted', listener: (event: { job: JobHandle }) => void): void;
+        addEventListener(eventName: "readystatechange" | "resultsUpdated" | "cancel", listener: () => void): void;
+        addEventListener(eventName: "accepted", listener: (event: { job: JobHandle }) => void): void;
         addEventListener(
-            eventName: 'result',
+            eventName: "result",
             listener: (event: {
                 /**
                  * The address (id) of the the job.
@@ -235,7 +235,7 @@ declare module 'dcp/compute' {
                  */
                 sort: number;
                 result: {
-                    request: 'main';
+                    request: "main";
                     /**
                      * The value returned.
                      */
@@ -243,9 +243,9 @@ declare module 'dcp/compute' {
                 };
             }) => void,
         ): void;
-        addEventListener(eventName: 'complete', listener: (event: ResultHandle) => void): void;
+        addEventListener(eventName: "complete", listener: (event: ResultHandle) => void): void;
         addEventListener(
-            eventName: 'status',
+            eventName: "status",
             listener: (event: {
                 /**
                  * The address (id) of the job.
@@ -266,7 +266,7 @@ declare module 'dcp/compute' {
             }) => void,
         ): void;
         addEventListener(
-            eventName: 'error',
+            eventName: "error",
             listener: (event: {
                 /**
                  * The address (id) of the job.
@@ -291,7 +291,7 @@ declare module 'dcp/compute' {
             }) => void,
         ): void;
         addEventListener(
-            eventName: 'console',
+            eventName: "console",
             listener: (event: {
                 /**
                  * The address (id) of the job.
@@ -304,7 +304,7 @@ declare module 'dcp/compute' {
                 /**
                  * The log level.
                  */
-                level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+                level: "debug" | "info" | "log" | "warn" | "error";
                 /**
                  * The console message.
                  */
@@ -312,7 +312,7 @@ declare module 'dcp/compute' {
             }) => void,
         ): void;
         addEventListener(
-            eventName: 'console',
+            eventName: "console",
             listener: (event: {
                 /**
                  * The address (id) of the job.
@@ -325,7 +325,7 @@ declare module 'dcp/compute' {
                 /**
                  * The log level.
                  */
-                level: 'debug' | 'info' | 'log' | 'warn' | 'error';
+                level: "debug" | "info" | "log" | "warn" | "error";
                 /**
                  * The console message.
                  */

@@ -9,32 +9,35 @@
 declare namespace AMap {
     namespace PlaceSearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
-            selectChanged: Event<'selectChanged', {
-                selected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'];
-                lastSelected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'] | null;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
+            selectChanged: Event<"selectChanged", {
+                selected: SelectChangeEventData | EventMap["markerClick"] | EventMap["listElementClick"];
+                lastSelected: SelectChangeEventData | EventMap["markerClick"] | EventMap["listElementClick"] | null;
             }>;
-            listElementClick: SelectChangeEvent<'listElementClick', MouseEvent>;
-            markerClick: SelectChangeEvent<'markerClick', Marker.EventMap['click']>;
+            listElementClick: SelectChangeEvent<"listElementClick", MouseEvent>;
+            markerClick: SelectChangeEvent<"markerClick", Marker.EventMap["click"]>;
             // internal
-            renderComplete: Event<'renderComplete', {
+            renderComplete: Event<"renderComplete", {
                 result: SelectChangeEventData[];
                 markers: Marker[];
                 listElements: HTMLElement[];
             }>;
-            infoWindowClick: Event<'infoWindowClick', SelectChangeEventData & {
-                event: MouseEvent;
-                infoWindow: InfoWindow;
-                infoWindowContentDom: HTMLDivElement;
-            }>;
-            willClear: Event<'willClear', {
+            infoWindowClick: Event<
+                "infoWindowClick",
+                SelectChangeEventData & {
+                    event: MouseEvent;
+                    infoWindow: InfoWindow;
+                    infoWindowContentDom: HTMLDivElement;
+                }
+            >;
+            willClear: Event<"willClear", {
                 id: string;
                 index: number;
                 data: Poi[];
             }>;
-            markerDestoryed: Event<'markerDestoryed', SelectChangeEventData>; // typo in source code
-            listElementDetroyed: Event<'listElementDetroyed', SelectChangeEventData>; // typo too
+            markerDestoryed: Event<"markerDestoryed", SelectChangeEventData>; // typo in source code
+            listElementDetroyed: Event<"listElementDetroyed", SelectChangeEventData>; // typo too
         }
 
         interface SelectChangeEventData {
@@ -59,9 +62,12 @@ declare namespace AMap {
              */
             data: Poi[];
         }
-        type SelectChangeEvent<N extends string, E> = Event<N, SelectChangeEventData & {
-            event: E;
-        }>;
+        type SelectChangeEvent<N extends string, E> = Event<
+            N,
+            SelectChangeEventData & {
+                event: E;
+            }
+        >;
         interface PoiPhoto {
             /**
              * 图片名称
@@ -416,106 +422,111 @@ declare namespace AMap {
              */
             photos: PoiPhoto[];
         }
-        type PoiExt = PoiBase & {
-            /**
-             * 网址
-             */
-            website: string;
-            /**
-             * 所在省份编码
-             */
-            pcode: string;
-            /**
-             * 所在城市编码
-             */
-            citycode: string;
-            /**
-             * 所在区域编码
-             */
-            adcode: string;
-            /**
-             * 邮编
-             */
-            postcode: string;
-            /**
-             * 所在省份
-             */
-            pname: string;
-            /**
-             * 所在城市名称
-             */
-            cityname: string;
-            /**
-             * 所在行政区名称
-             */
-            adname: string;
-            /**
-             * 电子邮箱
-             */
-            email: string;
-            /**
-             * 照片
-             */
-            photos: PoiPhoto[];
-            /**
-             * 入口经纬度
-             */
-            entr_location: LngLat | null;
-            /**
-             * 出口经纬度
-             */
-            exit_location: LngLat | null;
-            /**
-             * @deprecated 是否有团购信息
-             */
-            groupbuy: boolean;
-            /**
-             * @deprecated 是否有优惠信息
-             */
-            discount: boolean;
-        } & ({
-            indoor_map: true;
-            indoor_data: {
-                cpid: string;
-                floor: string;
-                truefloor: string;
-            };
-        } | {
-            indoor_map: false;
-        }) & {
-            /**
-             * @deprecated 团购信息
-             */
-            groupbuys?: Groupbuy[] | undefined;
-            /**
-             * @deprecated 优惠信息
-             */
-            discounts?: Discount[] | undefined;
-        } & ({
-            deep_type: 'CINEMA';
-            /**
-             * @deprecated 影院类深度信息
-             */
-            cinema: Cinema;
-        } | {
-            deep_type: 'DINING';
-            /**
-             * @deprecated 餐饮类深度信息
-             */
-            dining: Dining;
-        } | {
-            deep_type: 'SCENIC';
-            /**
-             * @deprecated 景点类深度信息
-             */
-            scenic: Scenic;
-        } | {
-            deep_type: 'HOTEL';
-            /**
-             * @deprecated 酒店类深度信息
-             */
-            hotel: Hotel;
-        });
+        type PoiExt =
+            & PoiBase
+            & {
+                /**
+                 * 网址
+                 */
+                website: string;
+                /**
+                 * 所在省份编码
+                 */
+                pcode: string;
+                /**
+                 * 所在城市编码
+                 */
+                citycode: string;
+                /**
+                 * 所在区域编码
+                 */
+                adcode: string;
+                /**
+                 * 邮编
+                 */
+                postcode: string;
+                /**
+                 * 所在省份
+                 */
+                pname: string;
+                /**
+                 * 所在城市名称
+                 */
+                cityname: string;
+                /**
+                 * 所在行政区名称
+                 */
+                adname: string;
+                /**
+                 * 电子邮箱
+                 */
+                email: string;
+                /**
+                 * 照片
+                 */
+                photos: PoiPhoto[];
+                /**
+                 * 入口经纬度
+                 */
+                entr_location: LngLat | null;
+                /**
+                 * 出口经纬度
+                 */
+                exit_location: LngLat | null;
+                /**
+                 * @deprecated 是否有团购信息
+                 */
+                groupbuy: boolean;
+                /**
+                 * @deprecated 是否有优惠信息
+                 */
+                discount: boolean;
+            }
+            & ({
+                indoor_map: true;
+                indoor_data: {
+                    cpid: string;
+                    floor: string;
+                    truefloor: string;
+                };
+            } | {
+                indoor_map: false;
+            })
+            & {
+                /**
+                 * @deprecated 团购信息
+                 */
+                groupbuys?: Groupbuy[] | undefined;
+                /**
+                 * @deprecated 优惠信息
+                 */
+                discounts?: Discount[] | undefined;
+            }
+            & ({
+                deep_type: "CINEMA";
+                /**
+                 * @deprecated 影院类深度信息
+                 */
+                cinema: Cinema;
+            } | {
+                deep_type: "DINING";
+                /**
+                 * @deprecated 餐饮类深度信息
+                 */
+                dining: Dining;
+            } | {
+                deep_type: "SCENIC";
+                /**
+                 * @deprecated 景点类深度信息
+                 */
+                scenic: Scenic;
+            } | {
+                deep_type: "HOTEL";
+                /**
+                 * @deprecated 酒店类深度信息
+                 */
+                hotel: Hotel;
+            });
         interface Options {
             /**
              * 兴趣点城市
@@ -550,7 +561,7 @@ declare namespace AMap {
              * 是否返回详细信息
              * base返回基本地址信息；all返回基本+详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
             /**
              * Map对象
              */
@@ -566,7 +577,7 @@ declare namespace AMap {
             /**
              * 绘制的UI风格
              */
-            renderStyle?: 'newpc' | 'default' | undefined;
+            renderStyle?: "newpc" | "default" | undefined;
             /**
              * 是否自动调整地图视野使绘制的Marker点都处于视口的可见范围
              */
@@ -631,7 +642,7 @@ declare namespace AMap {
             cityList?: CityInfo[] | undefined;
         }
         type Poi = PoiBase | PoiExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class PlaceSearch extends EventEmitter {
         /**
@@ -646,7 +657,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 周边查询
@@ -659,7 +670,7 @@ declare namespace AMap {
             keyword: string,
             center: LocationValue,
             radius: number,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 根据范围和关键词进行范围查询
@@ -670,7 +681,7 @@ declare namespace AMap {
         searchInBounds(
             keyword: string,
             bounds: Bounds | Polygon,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 根据POIID 查询POI 详细信息
@@ -679,7 +690,7 @@ declare namespace AMap {
          */
         getDetails(
             POIID: string,
-            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void
+            callback: (status: PlaceSearch.SearchStatus, result: string | PlaceSearch.SearchResult) => void,
         ): void;
         /**
          * 设置查询类别
@@ -723,12 +734,12 @@ declare namespace AMap {
          * 唤起高德地图客户端marker页
          * @param obj 唤起参数
          */
-        poiOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined; }): void;
+        poiOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined }): void;
         /**
          * 唤起高德地图客户端POI详情页
          * @param obj 唤起参数
          */
-        detailOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined; }): void;
+        detailOnAMAP(obj: { location?: LocationValue | undefined; id: string; name?: string | undefined }): void;
 
         // internal
         open(): void;

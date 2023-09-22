@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 // tslint:disable-next-line:void-return
 export type DynamoDBStreamHandler = Handler<DynamoDBStreamEvent, DynamoDBBatchResponse | void>;
@@ -25,7 +25,7 @@ export interface StreamRecord {
     OldImage?: { [key: string]: AttributeValue } | undefined;
     SequenceNumber?: string | undefined;
     SizeBytes?: number | undefined;
-    StreamViewType?: 'KEYS_ONLY' | 'NEW_IMAGE' | 'OLD_IMAGE' | 'NEW_AND_OLD_IMAGES' | undefined;
+    StreamViewType?: "KEYS_ONLY" | "NEW_IMAGE" | "OLD_IMAGE" | "NEW_AND_OLD_IMAGES" | undefined;
 }
 
 // http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_streams_Record.html
@@ -33,7 +33,7 @@ export interface DynamoDBRecord {
     awsRegion?: string | undefined;
     dynamodb?: StreamRecord | undefined;
     eventID?: string | undefined;
-    eventName?: 'INSERT' | 'MODIFY' | 'REMOVE' | undefined;
+    eventName?: "INSERT" | "MODIFY" | "REMOVE" | undefined;
     eventSource?: string | undefined;
     eventSourceARN?: string | undefined;
     eventVersion?: string | undefined;

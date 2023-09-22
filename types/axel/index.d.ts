@@ -31,7 +31,7 @@ declare interface cursorInterface {
     restore(): void;
 }
 
-declare module 'axel' {
+declare module "axel" {
     const instance: Axel;
     export = instance;
 }
