@@ -81,7 +81,7 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
         records: [
             {
                 recordId: event.records[0].recordId,
-                result: 'Ok' as FirehoseRecordTransformationStatus,
+                result: "Ok" as FirehoseRecordTransformationStatus,
                 data: strOrUndefined,
                 metadata: {
                     partitionKeys: {

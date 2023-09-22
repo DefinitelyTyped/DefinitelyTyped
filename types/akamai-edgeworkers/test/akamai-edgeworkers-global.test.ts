@@ -1,4 +1,4 @@
-import { Headers, createResponse } from 'create-response';
+import { createResponse, Headers } from "create-response";
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -93,7 +93,7 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
 
     // EW.EgressOriginRequest.getHeaders()
     testHeaders(request.getHeaders());
-    
+
     // Verify we set status
     response.status = 189;
     // respondWith
