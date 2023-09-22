@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import flatImpl = require('./implementation');
+import flatImpl = require("./implementation");
 
 type FlatImpl = typeof flatImpl;
 

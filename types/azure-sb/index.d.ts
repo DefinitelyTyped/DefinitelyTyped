@@ -14,20 +14,20 @@ export function createServiceBusService(
     issuer?: string,
     acsNamespace?: string,
     host?: string,
-    authenticationProvider?: object
+    authenticationProvider?: object,
 ): ServiceBusService;
 
 export function createNotificationHubService(
     hubName: string,
     endpointOrConnectionString?: string,
     sharedAccessKeyName?: string,
-    sharedAccessKeyValue?: string
+    sharedAccessKeyValue?: string,
 ): NotificationHubService;
 
 export function createWrapService(
     acsHost: string,
     issuer?: string,
-    accessKey?: string
+    accessKey?: string,
 ): WrapService;
 
 export namespace Azure.ServiceBus {
@@ -43,8 +43,7 @@ export namespace Azure.ServiceBus {
         timeoutIntervalInS?: number | undefined;
     }
 
-    export interface ReceiveSubscriptionMessageOptions
-        extends ReceiveQueueMessageOptions {}
+    export interface ReceiveSubscriptionMessageOptions extends ReceiveQueueMessageOptions {}
 
     interface IBrokerPropertiesResponse {
         readonly DeliveryCount: number;
@@ -203,7 +202,7 @@ export namespace Azure.ServiceBus {
             Renaming = "Renaming",
             Restoring = "Restoring",
             SendDisabled = "SendDisabled",
-            Unknown = "Unknown"
+            Unknown = "Unknown",
         }
 
         export enum EntityAvailabilityStatus {
@@ -211,7 +210,7 @@ export namespace Azure.ServiceBus {
             Limited = "Limited",
             Renaming = "Renaming",
             Restoring = "Restoring",
-            Unknown = "Unknown"
+            Unknown = "Unknown",
         }
 
         interface Base {
@@ -254,8 +253,7 @@ export namespace Azure.ServiceBus {
         export const DeadLetterMessageCount = "d2p1:DeadLetterMessageCount";
         export const ScheduledMessageCount = "d2p1:ScheduledMessageCount";
         export const TransferMessageCount = "d2p1:TransferMessageCount";
-        export const TransferDeadLetterMessageCount =
-            "d2p1:TransferDeadLetterMessageCount";
+        export const TransferDeadLetterMessageCount = "d2p1:TransferDeadLetterMessageCount";
 
         export interface Topic extends ExtendedBase {
             AccessedAt: DateString;
@@ -327,27 +325,28 @@ export namespace Azure.ServiceBus {
      */
     export type ResponseCallback = (
         error: Error | null,
-        response: Response
+        response: Response,
     ) => void;
 
     export type ResultAndResponseCallback = (
         error: Error | null,
         result: boolean | Results.Models.Base | Results.Models.Base[],
-        response: Response
+        response: Response,
     ) => void;
 
     export type TypedResultAndResponseCallback<T> = (
         error: Error | null,
         result: T,
-        response: Response
+        response: Response,
     ) => void;
 
     /*
      * Options interfaces with all properties as optional
      */
     export type BrokerProperties = Partial<IBrokerProperties>;
-    export type BrokerPropertiesResponse = IBrokerPropertiesResponse &
-        Partial<IBrokerProperties>;
+    export type BrokerPropertiesResponse =
+        & IBrokerPropertiesResponse
+        & Partial<IBrokerProperties>;
     export type CreateQueueOptions = Partial<IQueueOptions>;
     export type CreateTopicOptions = Partial<ICreateTopicOptions>;
     export type CreateTopicIfNotExistsOptions = Partial<

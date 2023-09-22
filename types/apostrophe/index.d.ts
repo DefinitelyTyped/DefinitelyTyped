@@ -38,7 +38,7 @@ declare namespace apostrophe {
             sel: string,
             verb: string,
             object: object,
-            callback?: () => any
+            callback?: () => any,
         ) => any;
     };
 
@@ -64,7 +64,7 @@ declare namespace apostrophe {
     function define(
         type: string | string[],
         definition: any,
-        extending?: any
+        extending?: any,
     ): any;
 
     const docs: {
@@ -102,7 +102,7 @@ declare namespace apostrophe {
             schema: Schema,
             data: any,
             options: any,
-            callback?: () => any
+            callback?: () => any,
         ) => any;
         newInstance: (schema: Schema) => any;
         populate: (
@@ -111,14 +111,14 @@ declare namespace apostrophe {
             $field: any,
             callback?: () => void,
             $el?: HTMLElement,
-            field?: any
+            field?: any,
         ) => any;
         returnToError: (
             $el: HTMLElement,
             schema: Schema,
             errorPath: any,
             error: any,
-            callback: () => any
+            callback: () => any,
         ) => void;
     };
 
@@ -166,7 +166,7 @@ declare namespace apostrophe {
                 name: string,
                 object: AposObject,
                 field: any,
-                callback: () => any
+                callback: () => any,
             ): void;
             form(
                 req: any,
@@ -174,7 +174,7 @@ declare namespace apostrophe {
                 name: string,
                 object: AposObject,
                 field: any,
-                callback: () => any
+                callback: () => any,
             ): void;
         };
         empty?(field: any, value: any): void;
@@ -200,7 +200,7 @@ declare namespace apostrophe {
             to: any,
             object: AposObject,
             output: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         isVisible(schema: Schema, object: AposObject, name: string): void;
         export(
@@ -209,7 +209,7 @@ declare namespace apostrophe {
             to: any,
             object: AposObject,
             output: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         joinDriver(
             req: any,
@@ -220,14 +220,14 @@ declare namespace apostrophe {
             relationshipsField: any,
             objectField: any,
             options: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         join(
             req: any,
             schema: Schema,
             objectOrArray: any,
             withJoins: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         addFieldType(type: AposType): void;
         getFieldType(typeName: string): void;

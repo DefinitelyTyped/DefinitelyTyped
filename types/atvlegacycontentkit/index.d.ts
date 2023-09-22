@@ -143,12 +143,12 @@ declare namespace atv {
         /**
          * Which video format the user prefers, set via iTunes settings. This can either be SD (Standard Definition), or HD (either 720p, or 1080p).
          */
-        const preferredVideoFormat: 'HD' | 'SD';
+        const preferredVideoFormat: "HD" | "SD";
 
         /**
          * Which video format the user prefers for previews, set via iTunes settings. This can either be SD (Standard Definition), or HD.
          */
-        const preferredVideoPreviewFormat: 'HD' | 'SD';
+        const preferredVideoPreviewFormat: "HD" | "SD";
 
         /**
          * The frame of the current screen.
@@ -385,7 +385,7 @@ declare namespace atv {
          * The type of this media browser. Default allows switching between fullscreen and comments modes by pressing select. Comments screen only sets the media browser to only have fullscreen
          * and fullscreen only does the same but for fullscreen.
          */
-        type: 'commentsScreenOnly' | 'default' | 'fullScreenOnly';
+        type: "commentsScreenOnly" | "default" | "fullScreenOnly";
     }
 
     /**
@@ -529,25 +529,25 @@ declare namespace atv {
     /**
      * Not sure exactly what these do. They're all subproperties of NSLocale, but NSLocale doesn't appear to be available anywhere in the JS API.
      */
-    const NSLocaleIdentifier = 'kCFLocaleIdentifierKey';
-    const NSLocaleLanguageCode = 'kCFLocaleLanguageCodeKey';
-    const NSLocaleCountryCode = 'kCFLocaleCountryCodeKey';
-    const NSLocaleScriptCode = 'kCFLocaleScriptCodeKey';
-    const NSLocaleVariantCode = 'kCFLocaleVariantCodeKey';
-    const NSLocaleExemplarCharacterSet = 'kCFLocaleExemplarCharacterSetKey';
-    const NSLocaleCalendar = 'kCFLocaleCalendarKey';
-    const NSLocaleCollationIdentifier = 'collation';
-    const NSLocaleUsesMetricSystem = 'kCFLocaleUsesMetricSystemKey';
-    const NSLocaleMeasurementSystem = 'kCFLocaleMeasurementSystemKey';
-    const NSLocaleDecimalSeparator = 'kCFLocaleDecimalSeparatorKey';
-    const NSLocaleGroupingSeparator = 'kCFLocaleGroupingSeparatorKey';
-    const NSLocaleCurrencySymbol = 'kCFLocaleCurrencySymbolKey';
-    const NSLocaleCurrencyCode = 'currency';
-    const NSLocaleCollatorIdentifier = 'kCFLocaleCollatorIdentifierKey';
-    const NSLocaleQuotationBeginDelimiterKey = 'kCFLocaleQuotationBeginDelimiterKey';
-    const NSLocaleQuotationEndDelimiterKey = 'kCFLocaleQuotationEndDelimiterKey';
-    const NSLocaleAlternateQuotationBeginDelimiterKey = 'kCFLocaleAlternateQuotationBeginDelimiterKey';
-    const NSLocaleAlternateQuotationEndDelimiterKey = 'kCFLocaleAlternateQuotationEndDelimiterKey';
+    const NSLocaleIdentifier = "kCFLocaleIdentifierKey";
+    const NSLocaleLanguageCode = "kCFLocaleLanguageCodeKey";
+    const NSLocaleCountryCode = "kCFLocaleCountryCodeKey";
+    const NSLocaleScriptCode = "kCFLocaleScriptCodeKey";
+    const NSLocaleVariantCode = "kCFLocaleVariantCodeKey";
+    const NSLocaleExemplarCharacterSet = "kCFLocaleExemplarCharacterSetKey";
+    const NSLocaleCalendar = "kCFLocaleCalendarKey";
+    const NSLocaleCollationIdentifier = "collation";
+    const NSLocaleUsesMetricSystem = "kCFLocaleUsesMetricSystemKey";
+    const NSLocaleMeasurementSystem = "kCFLocaleMeasurementSystemKey";
+    const NSLocaleDecimalSeparator = "kCFLocaleDecimalSeparatorKey";
+    const NSLocaleGroupingSeparator = "kCFLocaleGroupingSeparatorKey";
+    const NSLocaleCurrencySymbol = "kCFLocaleCurrencySymbolKey";
+    const NSLocaleCurrencyCode = "currency";
+    const NSLocaleCollatorIdentifier = "kCFLocaleCollatorIdentifierKey";
+    const NSLocaleQuotationBeginDelimiterKey = "kCFLocaleQuotationBeginDelimiterKey";
+    const NSLocaleQuotationEndDelimiterKey = "kCFLocaleQuotationEndDelimiterKey";
+    const NSLocaleAlternateQuotationBeginDelimiterKey = "kCFLocaleAlternateQuotationBeginDelimiterKey";
+    const NSLocaleAlternateQuotationEndDelimiterKey = "kCFLocaleAlternateQuotationEndDelimiterKey";
 
     /**
      * Functions to do with the currently playing item.
@@ -722,32 +722,32 @@ declare namespace atv {
             /**
              * The player is currently fast forwarding.
              */
-            FastForwarding = 'FastForwarding',
+            FastForwarding = "FastForwarding",
 
             /**
              * The player is currently buffering.
              */
-            Loading = 'Loading',
+            Loading = "Loading",
 
             /**
              * The player is currently paused.
              */
-            Paused = 'Paused',
+            Paused = "Paused",
 
             /**
              * The player is currently playing.
              */
-            Playing = 'Playing',
+            Playing = "Playing",
 
             /**
              * The player is currently rewinding.
              */
-            Rewinding = 'Rewinding',
+            Rewinding = "Rewinding",
 
             /**
              * The player is currently stopped.
              */
-            Stopped = 'Stopped',
+            Stopped = "Stopped",
         }
 
         /**
@@ -757,32 +757,32 @@ declare namespace atv {
             /**
              * A fast forward has been requested.
              */
-            FFwd = 'FFwd',
+            FFwd = "FFwd",
 
             /**
              * A pause has been requested.
              */
-            Pause = 'Pause',
+            Pause = "Pause",
 
             /**
              * A play has been requested.
              */
-            Play = 'Play',
+            Play = "Play",
 
             /**
              * A rewind has been requested.
              */
-            Rew = 'Rew',
+            Rew = "Rew",
 
             /**
              * A skip back has been requested
              */
-            SwipBack = 'SkipBack',
+            SwipBack = "SkipBack",
 
             /**
              * A skip forward has been requested.
              */
-            SkipFwd = 'SkipFwd',
+            SkipFwd = "SkipFwd",
         }
 
         /**
@@ -1294,21 +1294,21 @@ declare namespace atv {
      *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisexpired?language=objc for more information.
      */
-    const SKReceiptPropertyIsExpired = 'expired';
+    const SKReceiptPropertyIsExpired = "expired";
 
     /**
      * A key whose value indicates whether the receipt has been revoked.
      *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisrevoked?language=objc for more information.
      */
-    const SKReceiptPropertyIsRevoked = 'revoked';
+    const SKReceiptPropertyIsRevoked = "revoked";
 
     /**
      * A key whose value indicates whether the receipt is a Volume Purchase Plan receipt.
      *
      * See https://developer.apple.com/documentation/storekit/skreceiptpropertyisvolumepurchase?language=objc for more information.
      */
-    const SKReceiptPropertyIsVolumePurchase = 'vpp';
+    const SKReceiptPropertyIsVolumePurchase = "vpp";
 
     /**
      * A slideshow view for photos and videos.
@@ -1322,7 +1322,7 @@ declare namespace atv {
         /**
          * The type of the field. Can either be an email address, or a password.
          */
-        type: 'emailAddress' | 'password';
+        type: "emailAddress" | "password";
 
         /**
          * A title to display on the page.
@@ -1459,7 +1459,7 @@ declare interface MediaBrowserItem {
      * What type of item is being displayed. Either photo or video. They're functionally identitical except the video option has a different name for the assets array, and shows a video play
      * button as an overlay.
      */
-    readonly type: 'photo' | 'video';
+    readonly type: "photo" | "video";
 
     /**
      * The ID for this photo, which is passed back by any listeners.
@@ -1530,12 +1530,12 @@ declare interface MediaBrowserBadge {
     /**
      * The type of the badge. This can only be a comments badge.
      */
-    type: 'commentsBadge';
+    type: "commentsBadge";
 
     /**
      * The style of the badge. Either read or unread comment. These look to produce the same output, so the functionality of them is unknown.
      */
-    style?: 'readComment' | 'unreadComment';
+    style?: "readComment" | "unreadComment";
 }
 
 /**
@@ -1616,7 +1616,7 @@ declare interface ATVAnimation {
     /**
      * The type of the animation. It seems this can only be BasicAnimation which seems to basically be CABasicAnimation.
      */
-    readonly type: 'BasicAnimation';
+    readonly type: "BasicAnimation";
 
     /**
      * Tells the delegate the animation has started.
@@ -1693,7 +1693,7 @@ declare interface ATVAnimation {
      *
      * See https://developer.apple.com/documentation/quartzcore/camediatiming/fill_modes for more information.
      */
-    fillMode?: 'removed' | 'forwards' | 'backwards' | 'both';
+    fillMode?: "removed" | "forwards" | "backwards" | "both";
 
     /**
      * Defines the value the receiver uses to start interpolation.
@@ -1837,7 +1837,7 @@ declare interface ATVScreenSaverPhoto {
     /**
      * The type of this screensaver entry. This is always photo.
      */
-    readonly type: 'photo';
+    readonly type: "photo";
 
     /**
      * The ID of this photo.
@@ -1907,7 +1907,7 @@ declare interface ATVScreenSaverCollection {
     /**
      * The type of the collection. This must always be 'collection'.
      */
-    type: 'collection';
+    type: "collection";
 }
 
 /**
@@ -2619,17 +2619,17 @@ declare interface AttributeContainer {
     /**
      * The way the text should break.
      */
-    breakMode?: 'clip' | 'word-wrap' | 'truncate-head' | 'truncate-tail' | 'truncate-middle';
+    breakMode?: "clip" | "word-wrap" | "truncate-head" | "truncate-tail" | "truncate-middle";
 
     /**
      * The weight of the text.
      */
-    weight?: 'normal' | 'light' | 'heavy';
+    weight?: "normal" | "light" | "heavy";
 
     /**
      * The alignment of the text.
      */
-    alignment?: 'left' | 'right' | 'center' | 'justify';
+    alignment?: "left" | "right" | "center" | "justify";
 }
 
 /**

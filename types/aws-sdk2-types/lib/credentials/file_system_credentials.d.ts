@@ -1,4 +1,4 @@
-import { Credentials } from '../credentials';
+import { Credentials } from "../credentials";
 export class FileSystemCredentials extends Credentials {
     /**
      * Creates a new FileSystemCredentials object from a filename.

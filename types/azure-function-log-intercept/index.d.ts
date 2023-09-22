@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Context } from '@azure/functions';
+import { Context } from "@azure/functions";
 
 /**
  * `console.log` doesn't actually log as you would expect in `node.js` Azure Functions.

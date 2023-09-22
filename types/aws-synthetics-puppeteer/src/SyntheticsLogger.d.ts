@@ -1,6 +1,6 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
 /// <reference types="node" />
-declare module 'SyntheticsLogger' {
+declare module "SyntheticsLogger" {
     const _exports: SyntheticsLogger;
     export = _exports;
     class SyntheticsLogger {
@@ -26,5 +26,5 @@ declare module 'SyntheticsLogger' {
         reset(): void;
         end(): void;
     }
-    import * as fs from 'fs';
+    import * as fs from "fs";
 }

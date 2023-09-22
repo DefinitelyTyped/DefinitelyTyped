@@ -1,4 +1,4 @@
-import aspectFit = require('aspect-fit');
+import aspectFit = require("aspect-fit");
 
 aspectFit(10, 10, 200, 100).scale; // $ExpectType number
 aspectFit(10, 10, 200, 100).width; // $ExpectType number

@@ -9,7 +9,6 @@
  *
  *   - http://en.wikipedia.org/wiki/ANSI_escape_code
  *   - http://www.termsys.demon.co.uk/vtansi.htm
- *
  */
 
 /// <reference types="node" />
@@ -174,7 +173,7 @@ declare namespace ansi {
     }
 
     interface Colorer {
-        [key: string]: (...anything: any[]) => (Cursor | Colorer);
+        [key: string]: (...anything: any[]) => Cursor | Colorer;
     }
 }
 

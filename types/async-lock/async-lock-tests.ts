@@ -1,4 +1,4 @@
-import AsyncLock = require('async-lock');
+import AsyncLock = require("async-lock");
 
 // test type exports
 type Opts = AsyncLock.AsyncLockOptions;
@@ -9,7 +9,7 @@ const lock = new AsyncLock();
 
 // $ExpectType void
 lock.acquire<number>(
-    'key',
+    "key",
     done => {
         done; // $ExpectType AsyncLockDoneCallback<number>
         done(undefined, 1);
@@ -21,15 +21,15 @@ lock.acquire<number>(
 );
 
 // $ExpectType Promise<number>
-lock.acquire<number>('key', done => {
+lock.acquire<number>("key", done => {
     done(undefined, 1);
 });
-lock.acquire('key', () => 1); // $ExpectType Promise<number>
-lock.acquire('key', () => Promise.resolve(1)); // $ExpectType Promise<number>
-lock.acquire(['key1', 'key2'], () => 1); // $ExpectType Promise<number>
+lock.acquire("key", () => 1); // $ExpectType Promise<number>
+lock.acquire("key", () => Promise.resolve(1)); // $ExpectType Promise<number>
+lock.acquire(["key1", "key2"], () => 1); // $ExpectType Promise<number>
 
 lock.isBusy(); // $ExpectType boolean
-lock.isBusy('key'); // $ExpectType boolean
+lock.isBusy("key"); // $ExpectType boolean
 
 new AsyncLock({ timeout: 5000 });
 new AsyncLock({ maxPending: 5000 });

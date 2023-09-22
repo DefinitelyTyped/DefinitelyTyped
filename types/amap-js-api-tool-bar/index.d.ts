@@ -9,15 +9,15 @@
 declare namespace AMap {
     namespace ToolBar {
         interface EventMap {
-            hide: Event<'hide'>;
-            show: Event<'show'>;
-            location: Event<'location', {lnglat: LngLat}>;
-            zoomchanged: Event<'zoomin' | 'zoomout'>;
+            hide: Event<"hide">;
+            show: Event<"show">;
+            location: Event<"location", { lnglat: LngLat }>;
+            zoomchanged: Event<"zoomin" | "zoomout">;
             // internal
-            'location-success': Event<'location-success'>; // TODO geolocation.getCurrentPosition
-            'location-failed': Event<'location-failed'>; // TODO geolocation.getCurrentPosition
+            "location-success": Event<"location-success">; // TODO geolocation.getCurrentPosition
+            "location-failed": Event<"location-failed">; // TODO geolocation.getCurrentPosition
         }
-        type Position = 'LT' | 'RT' | 'LB' | 'RB';
+        type Position = "LT" | "RT" | "LB" | "RB";
         interface Options {
             /**
              * 相对于地图容器左上角的偏移量

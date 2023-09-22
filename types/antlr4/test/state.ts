@@ -1,13 +1,13 @@
-import ATNState from 'antlr4/state/ATNState';
-import BasicState from 'antlr4/state/BasicState';
-import BlockEndState from 'antlr4/state/BlockEndState';
-import DecisionState from 'antlr4/state/DecisionState';
-import RuleStartState from 'antlr4/state/RuleStartState';
-import RuleStopState from 'antlr4/state/RuleStopState';
-import StarLoopbackState from 'antlr4/state/StarLoopbackState';
-import StarLoopEntryState from 'antlr4/state/StarLoopEntryState';
-import TokensStartState from 'antlr4/state/TokensStartState';
-import Transition from 'antlr4/transition/Transition';
+import ATNState from "antlr4/state/ATNState";
+import BasicState from "antlr4/state/BasicState";
+import BlockEndState from "antlr4/state/BlockEndState";
+import DecisionState from "antlr4/state/DecisionState";
+import RuleStartState from "antlr4/state/RuleStartState";
+import RuleStopState from "antlr4/state/RuleStopState";
+import StarLoopbackState from "antlr4/state/StarLoopbackState";
+import StarLoopEntryState from "antlr4/state/StarLoopEntryState";
+import TokensStartState from "antlr4/state/TokensStartState";
+import Transition from "antlr4/transition/Transition";
 
 const atnStateInstance = new ATNState();
 const transitionInstance = new Transition(atnStateInstance);

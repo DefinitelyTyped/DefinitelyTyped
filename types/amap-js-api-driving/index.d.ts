@@ -30,12 +30,12 @@ declare namespace AMap {
         HIGHWAY = 6,
         FEE_HIGHWAY = 7,
         FEE_TRAFFIC = 8,
-        TRAFFIC_HIGHWAY = 9
+        TRAFFIC_HIGHWAY = 9,
     }
     namespace Driving {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -47,7 +47,7 @@ declare namespace AMap {
              * 默认值：base，返回基本地址信息
              * 当取值为：all，返回DriveStep基本信息+DriveStep详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
             /**
              * 默认为0，表示可以使用轮渡，为1的时候表示不可以使用轮渡
              */
@@ -257,7 +257,7 @@ declare namespace AMap {
         interface Poi {
             location: LngLat;
             name: string;
-            type: 'start' | 'end' | 'waypoint';
+            type: "start" | "end" | "waypoint";
         }
         interface SearchResultCommon {
             /**
@@ -319,7 +319,7 @@ declare namespace AMap {
             waypoints: Array<PlaceSearch.PoiExt & { isWaypoint: boolean }>;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'error' | 'no_data' | 'complete';
+        type SearchStatus = "error" | "no_data" | "complete";
     }
     class Driving extends EventEmitter {
         /**
@@ -334,7 +334,7 @@ declare namespace AMap {
          */
         search(
             points: Driving.SearchPoint[],
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt) => void,
         ): void;
         /**
          * 根据起点、终点坐标查询驾车路线规划
@@ -345,7 +345,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void,
         ): void;
         /**
          * 根据起点、终点坐标和途径点查询驾车路线规划
@@ -358,7 +358,7 @@ declare namespace AMap {
             origin: LocationValue,
             destination: LocationValue,
             opts?: Driving.SearchOptions,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void,
         ): void;
         /**
          * 设置驾车路线规划策略
@@ -399,7 +399,14 @@ declare namespace AMap {
          * 唤起高德地图客户端驾车路径规划
          * @param obj 唤起参数
          */
-        searchOnAMAP(obj: { origin: LocationValue, originName?: string | undefined, destination: LocationValue, destinationName?: string | undefined }): void;
+        searchOnAMAP(
+            obj: {
+                origin: LocationValue;
+                originName?: string | undefined;
+                destination: LocationValue;
+                destinationName?: string | undefined;
+            },
+        ): void;
         /**
          * 设置车牌的汉字首字符和首字后的号码，
          * 设置后路线规划的结果将考虑该车牌在当前时间的限行路段

@@ -1,5 +1,5 @@
-import { HTTPOptions } from '../config-base';
-import { Credentials } from '../credentials';
+import { HTTPOptions } from "../config-base";
+import { Credentials } from "../credentials";
 export class SharedIniFileCredentials extends Credentials {
     /**
      * Creates a new SharedIniFileCredentials object.

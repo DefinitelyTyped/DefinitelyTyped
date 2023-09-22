@@ -5,9 +5,8 @@
 
 /// <reference types="node" />
 
-
-import stream = require('stream');
-import events = require('events');
+import stream = require("stream");
+import events = require("events");
 
 declare namespace async_writer {
     interface EventFunction {

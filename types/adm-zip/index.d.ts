@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import * as FS from 'fs';
-import { Constants } from './util';
+import * as FS from "fs";
+import { Constants } from "./util";
 
 declare class AdmZip {
     /**
@@ -118,7 +118,6 @@ declare class AdmZip {
         filter?: RegExp | ((filename: string) => boolean),
     ): void;
     /**
-     *
      * @param localPath - path where files will be extracted
      * @param props - optional properties
      * @param props.zipPath - optional path inside zip

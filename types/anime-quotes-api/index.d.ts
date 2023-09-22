@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Quote {
-	constructor();
+    constructor();
 
-	quotes(): Promise<object[]>;
+    quotes(): Promise<object[]>;
 }
 
 export = Quote;

@@ -1,4 +1,4 @@
-import { Callback, Handler } from '../handler';
+import { Callback, Handler } from "../handler";
 
 export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
@@ -32,7 +32,7 @@ export interface FirehoseRecordMetadata {
     subsequenceNumber: string;
 }
 
-export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
+export type FirehoseRecordTransformationStatus = "Ok" | "Dropped" | "ProcessingFailed";
 
 export interface FirehoseTransformationMetadata {
     partitionKeys: { [name: string]: string };

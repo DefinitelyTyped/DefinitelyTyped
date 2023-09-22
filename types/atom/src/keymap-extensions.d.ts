@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /**
  *  Allows commands to be associated with keystrokes in a context-sensitive way.

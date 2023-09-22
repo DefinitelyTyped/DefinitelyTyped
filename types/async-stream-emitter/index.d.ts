@@ -4,8 +4,8 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ConsumableStream = require('consumable-stream');
-import Consumer = require('writable-consumable-stream/consumer');
+import ConsumableStream = require("consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
 
 declare class AsyncStreamEmitter<T> {
     emit(eventName: string, data: T): void;

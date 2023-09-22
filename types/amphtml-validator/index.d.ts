@@ -27,13 +27,13 @@ export class Validator extends Script {
     sandbox: Context;
     validateString(
         stringToValidate: string,
-        htmlFormat?: string
+        htmlFormat?: string,
     ): ValidationResult;
 }
 
 export function getInstance(
     validatorJs?: string,
-    userAgent?: string
+    userAgent?: string,
 ): Promise<Validator>;
 export function newInstance(validatorJsContents: string): Validator;
 

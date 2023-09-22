@@ -13,7 +13,7 @@ interface AsciifyOptions {
 
 interface AsciifyCallback {
     // err is sometimes a string and sometimes an Error
-    (err: any, asciifiedText: string): void
+    (err: any, asciifiedText: string): void;
 }
 
 declare module "asciify" {
@@ -25,5 +25,5 @@ declare module "asciify" {
         function getFonts(callback: (err: Error, fonts: string[]) => void): void;
     }
 
-    export = asciify
+    export = asciify;
 }

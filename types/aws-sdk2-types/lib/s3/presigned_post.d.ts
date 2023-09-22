@@ -49,7 +49,7 @@ export namespace PresignedPost {
          * A hex-encoded HMAC of the POST policy, signed with the credentials
          * provided to the S3 client.
          */
-        'X-Amz-Signature': string;
+        "X-Amz-Signature": string;
 
         /**
          * Additional keys that must be included in the form to be submitted. This

@@ -3,7 +3,7 @@
 // Definitions by: Hunter Ross <https://github.com/huner2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Model is the base for all models.

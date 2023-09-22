@@ -1,9 +1,9 @@
-import ATNConfigSet from '../atn/ATNConfigSet';
-import ParserRuleContext from '../context/ParserRuleContext';
-import Parser from '../Parser';
-import Token from '../Token';
-import TokenStream from '../TokenStream';
-import RecognitionException from './RecognitionException';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import ParserRuleContext from "../context/ParserRuleContext";
+import Parser from "../Parser";
+import Token from "../Token";
+import TokenStream from "../TokenStream";
+import RecognitionException from "./RecognitionException";
 
 /**
  * Indicates that the parser could not decide which of two or more paths

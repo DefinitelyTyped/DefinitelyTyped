@@ -1,3 +1,3 @@
-import ExtractFiles = require('extract-files');
+import ExtractFiles = require("extract-files");
 
 export = ExtractFiles.isExtractableFile;

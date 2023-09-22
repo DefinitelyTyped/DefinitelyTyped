@@ -1,3 +1,3 @@
-import cities = require('all-the-cities');
+import cities = require("all-the-cities");
 
-cities.filter(city => city.name.match('Albuquerque'));
+cities.filter(city => city.name.match("Albuquerque"));

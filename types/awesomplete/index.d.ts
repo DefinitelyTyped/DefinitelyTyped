@@ -12,7 +12,7 @@ declare class Awesomplete {
     static $$(expr: string | ParentNode, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
-        (expr: string|Element, con?: ParentNode): string | Element;
+        (expr: string | Element, con?: ParentNode): string | Element;
         regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
         create(tag: string, o: any): HTMLElement;
         fire(target: EventTarget, type: string, properties: any): any;
@@ -42,11 +42,11 @@ declare class Awesomplete {
 }
 
 declare namespace Awesomplete {
-    type Suggestion = string | { label: string | any, value: string | any } | [string, string];
+    type Suggestion = string | { label: string | any; value: string | any } | [string, string];
     type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
-        list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]> | undefined;
+        list?: string | string[] | Element | Array<{ label: string; value: any }> | Array<[string, string]> | undefined;
         minChars?: number | undefined;
         maxItems?: number | undefined;
         autoFirst?: boolean | undefined;

@@ -1,7 +1,7 @@
-import Token from './Token';
-import Interval from './misc/IntervalSet';
-import TokenSource from './TokenSource';
-import TokenStream from './TokenStream';
+import Interval from "./misc/IntervalSet";
+import Token from "./Token";
+import TokenSource from "./TokenSource";
+import TokenStream from "./TokenStream";
 
 /**
  * This implementation of {@link TokenStream} loads tokens from a
@@ -47,7 +47,7 @@ export default class BufferedTokenStream extends TokenStream {
      */
     getTokens(start: number, stop: number, types: any): Token[];
 
-    LA(i: number): Token['type'];
+    LA(i: number): Token["type"];
 
     LB(k: number): Token;
 

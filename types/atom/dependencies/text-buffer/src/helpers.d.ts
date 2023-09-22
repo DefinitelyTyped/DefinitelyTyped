@@ -1,4 +1,4 @@
-import { Point, Range } from './text-buffer';
+import { Point, Range } from "./text-buffer";
 
 export interface TextChange {
     newExtent: Point;

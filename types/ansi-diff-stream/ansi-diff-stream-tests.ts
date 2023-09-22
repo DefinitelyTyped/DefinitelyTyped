@@ -1,4 +1,4 @@
-import differ = require('ansi-diff-stream');
+import differ = require("ansi-diff-stream");
 
 // test type exports
 type ADS = differ.AnsiDiffStream;

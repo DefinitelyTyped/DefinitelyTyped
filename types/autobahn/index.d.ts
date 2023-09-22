@@ -225,7 +225,7 @@ declare namespace autobahn {
 
     interface IRegisterOptions {
         disclose_caller?: boolean | undefined;
-        invoke?: 'single' | 'roundrobin' | 'random' | 'first' | 'last' | undefined;
+        invoke?: "single" | "roundrobin" | "random" | "first" | "last" | undefined;
     }
 
     export class Connection {
@@ -301,7 +301,7 @@ declare namespace autobahn {
         code: number;
     }
 
-    type DefaultTransportType = 'websocket' | 'longpoll' | 'rawsocket';
+    type DefaultTransportType = "websocket" | "longpoll" | "rawsocket";
 
     // Workaround to get intellisense on type unions of 'literals' | string.
     // See https://github.com/Microsoft/TypeScript/issues/29729
@@ -330,7 +330,7 @@ declare namespace autobahn {
     }
 
     interface ITransportFactoryFactory {
-        new (options: any): ITransportFactory;
+        new(options: any): ITransportFactory;
     }
 
     interface ITransports {

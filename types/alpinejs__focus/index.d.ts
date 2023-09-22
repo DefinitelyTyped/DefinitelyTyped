@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.6
 
-import type { PluginCallback } from 'alpinejs';
+import type { PluginCallback } from "alpinejs";
 
 declare const focusPlugin: PluginCallback;
 
@@ -37,7 +37,7 @@ interface $focus {
     focus(el: Element): void;
 }
 
-declare module 'alpinejs' {
+declare module "alpinejs" {
     interface Magics<T> {
         $focus: $focus;
     }

@@ -1,6 +1,6 @@
-import { ManagedUpload } from '../s3/managed_upload';
-import { Service } from '../service';
-import S3 = require('../../clients/s3');
+import { ManagedUpload } from "../s3/managed_upload";
+import { Service } from "../service";
+import S3 = require("../../clients/s3");
 
 export class S3Customizations extends Service {
     /**

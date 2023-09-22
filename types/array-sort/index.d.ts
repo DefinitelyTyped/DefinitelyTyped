@@ -8,13 +8,13 @@ type ComparisonArg<T> = string | Comparator<T>;
 type ComparisonArgs<T> = ComparisonArg<T> | Array<ComparisonArg<T>>;
 
 interface Options {
-  readonly reverse: boolean;
+    readonly reverse: boolean;
 }
 
 declare function arraySort<T>(
-  arr: T[],
-  props?: ComparisonArgs<T>,
-  options?: Options
+    arr: T[],
+    props?: ComparisonArgs<T>,
+    options?: Options,
 ): T[];
 
 export default arraySort;

@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as express from 'express';
+import * as express from "express";
 
 declare namespace apiErrorHandler {
-
     // Body response: the JSON returned by api-error-handler
     // See https://github.com/expressjs/api-error-handler/blob/1.0.0/index.js
     interface Response {

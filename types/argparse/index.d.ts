@@ -46,7 +46,7 @@ export interface SubparserOptions {
     title?: string | undefined;
     description?: string | undefined;
     prog?: string | undefined;
-    parser_class?: { new (): any } | undefined;
+    parser_class?: { new(): any } | undefined;
     action?: string | undefined;
     dest?: string | undefined;
     help?: string | undefined;
@@ -67,7 +67,7 @@ export interface ArgumentParserOptions {
     parents?: ArgumentParser[] | undefined;
     prefix_chars?: string | undefined;
     formatter_class?: {
-        new (): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
+        new(): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
     } | undefined;
     prog?: string | undefined;
     usage?: string | undefined;
@@ -115,7 +115,7 @@ export class RawDescriptionHelpFormatter {}
 export class RawTextHelpFormatter {}
 
 export interface ArgumentOptions {
-    action?: string | { new (options: ActionConstructorOptions): Action } | undefined;
+    action?: string | { new(options: ActionConstructorOptions): Action } | undefined;
     option_strings?: string[] | undefined;
     dest?: string | undefined;
     nargs?: string | number | undefined;

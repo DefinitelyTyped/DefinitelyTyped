@@ -1,10 +1,10 @@
-import * as ATEM from 'applest-atem';
+import * as ATEM from "applest-atem";
 
 const atem = new ATEM();
 atem.event.setMaxListeners(5);
-atem.connect('192.168.1.220'); // Replace your ATEM switcher. address.
+atem.connect("192.168.1.220"); // Replace your ATEM switcher. address.
 
-atem.on('connect', () => {
+atem.on("connect", () => {
     atem.changeProgramInput(1); // ME1(0)
     atem.changePreviewInput(2); // ME1(0)
     atem.autoTransition(); // ME1(0)
@@ -19,19 +19,19 @@ atem.on('connect', () => {
     atem.changeAuxInput(0, 10011);
 });
 
-atem.on('stateChanged', (err, state) => {
+atem.on("stateChanged", (err, state) => {
     console.log(state); // catch the ATEM state.
 });
 
-atem.once('ping', () => {});
+atem.once("ping", () => {});
 
 // @ts-expect-error invalid event
-atem.once('sdfsdf', () => {});
+atem.once("sdfsdf", () => {});
 
 console.log(atem.state);
 
 const uploader = new ATEM.FileUploader(atem); // Pass the atem instance.
-uploader.uploadFromPNGFile('/Users/Sakura/Desktop/FHD.png'); // Pass a path of valid PNG file.
+uploader.uploadFromPNGFile("/Users/Sakura/Desktop/FHD.png"); // Pass a path of valid PNG file.
 
 const state: ATEM.State = {
     topology: {
@@ -46,20 +46,20 @@ const state: ATEM.State = {
     },
     tallys: [1, 0, 2, 0, 1],
     channels: {
-        0: { name: 'Black', label: 'BLK' },
-        1: { name: 'SDI 1', label: 'SDI1' },
-        2: { name: 'SDI 2', label: 'SDI2' },
-        3: { name: 'HDMI 3', label: 'CAM3' },
-        4: { name: 'HDMI 4', label: 'CAM4' },
-        1000: { name: 'Color Bars', label: 'BARS' },
-        2001: { name: 'Color 1', label: 'COL1' },
-        2002: { name: 'Color 2', label: 'COL2' },
-        3010: { name: 'Media Player 1', label: 'MP1' },
-        3011: { name: 'Media Player 1 Key', label: 'MP1K' },
-        8001: { name: 'Output', label: '' },
-        10010: { name: 'Program', label: 'PGM' },
-        10011: { name: 'Preview', label: 'PVW' },
-        11001: { name: 'Camera 1 Direct', label: 'DIR' },
+        0: { name: "Black", label: "BLK" },
+        1: { name: "SDI 1", label: "SDI1" },
+        2: { name: "SDI 2", label: "SDI2" },
+        3: { name: "HDMI 3", label: "CAM3" },
+        4: { name: "HDMI 4", label: "CAM4" },
+        1000: { name: "Color Bars", label: "BARS" },
+        2001: { name: "Color 1", label: "COL1" },
+        2002: { name: "Color 2", label: "COL2" },
+        3010: { name: "Media Player 1", label: "MP1" },
+        3011: { name: "Media Player 1 Key", label: "MP1K" },
+        8001: { name: "Output", label: "" },
+        10010: { name: "Program", label: "PGM" },
+        10011: { name: "Preview", label: "PVW" },
+        11001: { name: "Camera 1 Direct", label: "DIR" },
     },
     video: {
         ME: [
@@ -82,6 +82,6 @@ const state: ATEM.State = {
         auxs: { 0: 10010 },
     },
     audio: { hasMonitor: null, numberOfChannels: null, channels: {} },
-    _pin: 'ATEM Television Studio HD',
+    _pin: "ATEM Television Studio HD",
     model: 13,
 };

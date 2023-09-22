@@ -22,13 +22,13 @@ export interface CloudFrontCustomOrigin {
     keepaliveTimeout: number;
     path: string;
     port: number;
-    protocol: 'http' | 'https';
+    protocol: "http" | "https";
     readTimeout: number;
     sslProtocols: string[];
 }
 
 export interface CloudFrontS3Origin {
-    authMethod: 'origin-access-identity' | 'none';
+    authMethod: "origin-access-identity" | "none";
     customHeaders: CloudFrontHeaders;
     domainName: string;
     path: string;
@@ -44,11 +44,11 @@ export interface CloudFrontResponse {
 export interface CloudFrontRequest {
     body?:
         | {
-              action: 'read-only' | 'replace';
-              data: string;
-              encoding: 'base64' | 'text';
-              readonly inputTruncated: boolean;
-          }
+            action: "read-only" | "replace";
+            data: string;
+            encoding: "base64" | "text";
+            readonly inputTruncated: boolean;
+        }
         | undefined;
     readonly clientIp: string;
     readonly method: string;
@@ -62,7 +62,7 @@ export interface CloudFrontEvent {
     config: {
         readonly distributionDomainName: string;
         readonly distributionId: string;
-        readonly eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
+        readonly eventType: "origin-request" | "origin-response" | "viewer-request" | "viewer-response";
         readonly requestId: string;
     };
 }
@@ -76,7 +76,7 @@ export interface CloudFrontResultResponse {
     status: string;
     statusDescription?: string | undefined;
     headers?: CloudFrontHeaders | undefined;
-    bodyEncoding?: 'text' | 'base64' | undefined;
+    bodyEncoding?: "text" | "base64" | undefined;
     body?: string | undefined;
 }
 
@@ -135,7 +135,7 @@ export interface CloudFrontFunctionsEvent {
         /** The ID of the distribution (for example, EDFDVBD6EXAMPLE) that’s associated with the event. */
         distributionId: string;
         /** The event type, either `viewer-request` or `viewer-response`. */
-        eventType: 'viewer-request' | 'viewer-response';
+        eventType: "viewer-request" | "viewer-response";
         /** A string that uniquely identifies a CloudFront request (and its associated response). */
         requestId: string;
     };

@@ -9,10 +9,10 @@
 declare namespace AMap {
     namespace OverView {
         interface EventMap {
-            show: Event<'show'>;
-            hide: Event<'hide'>;
-            open: Event<'open'>;
-            close: Event<'close'>;
+            show: Event<"show">;
+            hide: Event<"hide">;
+            open: Event<"open">;
+            close: Event<"close">;
         }
         interface Options<L extends TileLayer = TileLayer> {
             /**

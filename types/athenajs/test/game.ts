@@ -1,17 +1,17 @@
-import { Game, Scene } from 'athenajs';
+import { Game, Scene } from "athenajs";
 
 let myScene: Scene = new Scene();
 let sound: boolean;
 
 const game: Game = new Game({
-    name: 'myGame',
+    name: "myGame",
     showFps: true,
     width: 320,
     height: 200,
     debug: true,
     scene: myScene,
-    target: 'body',
-    sound: true
+    target: "body",
+    sound: true,
 });
 
 game.setScene(myScene);

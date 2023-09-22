@@ -5,7 +5,6 @@
 // Minimum TypeScript Version: 4.0
 
 /**
- *
  * @param txtY
  * The linear Y (luminance) of the text color. Must be between 0.0-1.1.
  *
@@ -21,7 +20,6 @@
 export function APCAcontrast(txtY: number, bgY: number, places?: number): number | string;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0-255)
  * of a color
@@ -32,7 +30,6 @@ export function APCAcontrast(txtY: number, bgY: number, places?: number): number
 export function sRGBtoY(rgb: [r: number, g: number, b: number]): number;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0.0-1.0)
  * of a color in the p3 display color space
@@ -43,7 +40,6 @@ export function sRGBtoY(rgb: [r: number, g: number, b: number]): number;
 export function displayP3toY(rgb: [r: number, g: number, b: number]): number;
 
 /**
- *
  * @param [rgb]
  * A tuple of numbers representing the red, green, and blue components (0-255)
  * of a color
@@ -54,7 +50,6 @@ export function displayP3toY(rgb: [r: number, g: number, b: number]): number;
 export function adobeRGBtoY(rgb?: [r: number, g: number, b: number]): number;
 
 /**
- *
  * @param [rgbaFG]
  * The foreground color expressed as a tuple of red, green, blue, and alpha
  * components. r, g, and b are expressed as 0-255, a is expressed as 0.0-1.0.

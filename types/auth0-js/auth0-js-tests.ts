@@ -83,8 +83,7 @@ webAuth.parseHash((err, authResult) => {
 webAuth.parseHash(
     {
         nonce: "asfd",
-        hash:
-            "#access_token=VjubIMBmpgQ2W2& \
+        hash: "#access_token=VjubIMBmpgQ2W2& \
             id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
             eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE \
             4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0. \
@@ -297,7 +296,7 @@ webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
     }
 });
 
-const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+const input: HTMLInputElement = document.querySelector("input[name=\"captcha\"]");
 // $ExpectType Captcha
 webAuth.renderCaptcha(input);
 // $ExpectType Captcha

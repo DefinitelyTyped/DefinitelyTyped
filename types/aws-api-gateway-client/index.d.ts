@@ -30,13 +30,13 @@ export interface ApiGatewayClient {
     invokeApi(
         params: Record<string, unknown>,
         pathTemplate: string,
-        method: 'GET' | 'POST' | 'DELETE' | 'UPDATE',
+        method: "GET" | "POST" | "DELETE" | "UPDATE",
         additionalParams?: {
             headers?: { [key: string]: unknown };
             queryParams?: { [key: string]: string | number | boolean };
             timeout?: number;
         },
-        body?: string
+        body?: string,
     ): Promise<Response>;
 }
 

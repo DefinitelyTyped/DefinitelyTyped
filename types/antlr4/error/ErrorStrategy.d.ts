@@ -1,5 +1,5 @@
-import Parser from '../Parser';
-import RecognitionException from './RecognitionException';
+import Parser from "../Parser";
+import RecognitionException from "./RecognitionException";
 
 export default class ErrorStrategy {
     reset(recognizer: Parser): void;

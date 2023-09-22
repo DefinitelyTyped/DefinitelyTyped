@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
+import { IncomingHttpHeaders } from "http";
 
 declare namespace autocannon {
     interface Options {
@@ -65,7 +65,7 @@ declare namespace autocannon {
          * The http method to use.
          * @default 'GET'
          */
-        method?: Request['method'];
+        method?: Request["method"];
 
         /**
          * A `String` to be added to the results for identification.
@@ -82,13 +82,13 @@ declare namespace autocannon {
          *
          * Leave undefined for an empty body.
          */
-        body?: Request['body'];
+        body?: Request["body"];
 
         /**
          * An `Object` containing the headers of the request.
          * @default {}
          */
-        headers?: Request['headers'];
+        headers?: Request["headers"];
 
         /**
          * A `Function` which will be passed the Client object for each connection to be made.
@@ -98,7 +98,7 @@ declare namespace autocannon {
          *
          * @default noop(){}
          */
-        setupClient?: ((client: Client) => void);
+        setupClient?: (client: Client) => void;
 
         /**
          * A `Number` stating the max requests to make per connection.
@@ -191,7 +191,7 @@ declare namespace autocannon {
          * A Function which will be passed the response body for each completed request. Each request, whose verifyBody
          * function does not return a truthy value, is counted in mismatches
          */
-        verifyBody?: (body: Request['body']) => boolean;
+        verifyBody?: (body: Request["body"]) => boolean;
 
         /**
          * A Boolean which disables the correction of latencies to compensate for the coordinated omission issue.
@@ -228,40 +228,40 @@ declare namespace autocannon {
         body?: string | Buffer | undefined;
         headers?: IncomingHttpHeaders | undefined;
         method?:
-            | 'ACL'
-            | 'BIND'
-            | 'CHECKOUT'
-            | 'CONNECT'
-            | 'COPY'
-            | 'DELETE'
-            | 'GET'
-            | 'HEAD'
-            | 'LINK'
-            | 'LOCK'
-            | 'M-SEARCH'
-            | 'MERGE'
-            | 'MKACTIVITY'
-            | 'MKCALENDAR'
-            | 'MKCOL'
-            | 'MOVE'
-            | 'NOTIFY'
-            | 'OPTIONS'
-            | 'PATCH'
-            | 'POST'
-            | 'PROPFIND'
-            | 'PROPPATCH'
-            | 'PURGE'
-            | 'PUT'
-            | 'REBIND'
-            | 'REPORT'
-            | 'SEARCH'
-            | 'SOURCE'
-            | 'SUBSCRIBE'
-            | 'TRACE'
-            | 'UNBIND'
-            | 'UNLINK'
-            | 'UNLOCK'
-            | 'UNSUBSCRIBE'
+            | "ACL"
+            | "BIND"
+            | "CHECKOUT"
+            | "CONNECT"
+            | "COPY"
+            | "DELETE"
+            | "GET"
+            | "HEAD"
+            | "LINK"
+            | "LOCK"
+            | "M-SEARCH"
+            | "MERGE"
+            | "MKACTIVITY"
+            | "MKCALENDAR"
+            | "MKCOL"
+            | "MOVE"
+            | "NOTIFY"
+            | "OPTIONS"
+            | "PATCH"
+            | "POST"
+            | "PROPFIND"
+            | "PROPPATCH"
+            | "PURGE"
+            | "PUT"
+            | "REBIND"
+            | "REPORT"
+            | "SEARCH"
+            | "SOURCE"
+            | "SUBSCRIBE"
+            | "TRACE"
+            | "UNBIND"
+            | "UNLINK"
+            | "UNLOCK"
+            | "UNSUBSCRIBE"
             | undefined;
         path?: string | undefined;
     }
@@ -274,36 +274,36 @@ declare namespace autocannon {
          * Emitted once everything has been setup in your autocannon instance and it has started.
          * Useful for if running the instance forever.
          */
-        on(event: 'start', listener: () => void): this;
+        on(event: "start", listener: () => void): this;
 
         /**
          * Emitted every second this autocannon is running a benchmark.
          * Useful for displaying stats, etc. Used by the `track` function.
          */
-        on(event: 'tick', listener: () => void): this; // tslint:disable-line:unified-signatures
+        on(event: "tick", listener: () => void): this; // tslint:disable-line:unified-signatures
 
         /**
          * Emitted when the autocannon finishes a benchmark.
          */
-        on(event: 'done', listener: (result: Result) => void): this;
+        on(event: "done", listener: (result: Result) => void): this;
 
         /**
          * Emitted when the autocannons http-client gets a http response from the server.
          */
         on(
-            event: 'response',
+            event: "response",
             listener: (client: Client, statusCode: number, resBytes: number, responseTime: number) => void,
         ): this;
 
         /**
          * Emitted in the case of a request error e.g. a timeout.
          */
-        on(event: 'reqError', listener: (err: any) => void): this;
+        on(event: "reqError", listener: (err: any) => void): this;
 
         /**
          * Emitted if there is an error during the setup phase of autocannon.
          */
-        on(event: 'error', listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "error", listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
     }
 
     /**
@@ -349,17 +349,17 @@ declare namespace autocannon {
         /**
          * Emitted when a request sent from this client has received the headers of its reply.
          */
-        on(event: 'headers', listener: (headers: IncomingHttpHeaders) => void): this;
+        on(event: "headers", listener: (headers: IncomingHttpHeaders) => void): this;
 
         /**
          * Emitted when a request sent from this client has received the body of a reply.
          */
-        on(event: 'body', listener: (body: Buffer) => void): this;
+        on(event: "body", listener: (body: Buffer) => void): this;
 
         /**
          * Emitted when the client has received a completed response for a request it made.
          */
-        on(event: 'response', listener: (statusCode: number, resBytes: number, responseTime: number) => void): this;
+        on(event: "response", listener: (statusCode: number, resBytes: number, responseTime: number) => void): this;
     }
 
     /**
@@ -409,19 +409,19 @@ declare namespace autocannon {
         non2xx: number;
 
         /** The number of 1xx response status codes received. */
-        '1xx': number;
+        "1xx": number;
 
         /** The number of 2xx response status codes received. */
-        '2xx': number;
+        "2xx": number;
 
         /** The number of 3xx response status codes received. */
-        '3xx': number;
+        "3xx": number;
 
         /** The number of 4xx response status codes received. */
-        '4xx': number;
+        "4xx": number;
 
         /** The number of 5xx response status codes received. */
-        '5xx': number;
+        "5xx": number;
 
         /** The number of requests with a mismatched body. */
         mismatches: number;

@@ -65,7 +65,7 @@ interface LockMgmt {
      * the credential
      */
     setLockCredential(
-        credentialType: 'password' | 'pin' | 'pattern',
+        credentialType: "password" | "pin" | "pattern",
         credential: string,
         oldcredential?: string | null,
     ): Promise<void>;

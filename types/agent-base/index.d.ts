@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace Agent {
     type AgentCallback = (
         req?: any,
         opts?: {
             secureEndpoint: boolean;
-        }
+        },
     ) => void;
 
     interface AgentOptions {
@@ -38,7 +38,7 @@ declare namespace Agent {
 declare function Agent(opts?: Agent.AgentOptions): Agent.Agent;
 declare function Agent(
     callback: Agent.AgentCallback,
-    opts?: Agent.AgentOptions
+    opts?: Agent.AgentOptions,
 ): Agent.Agent;
 
 export = Agent;

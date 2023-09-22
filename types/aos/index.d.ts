@@ -141,7 +141,7 @@ declare global {
         addEventListener(
             type: Aos.AosEventType,
             listener: (event: Aos.AosEvent) => void,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): void;
     }
 }

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
-* Constructing alpha shapes for point sets.
-*/
+ * Constructing alpha shapes for point sets.
+ */
 
 export = alpha_shape;
 

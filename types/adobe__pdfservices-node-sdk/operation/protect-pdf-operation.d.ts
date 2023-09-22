@@ -44,7 +44,6 @@
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class ProtectPDFOperation {
     /**
@@ -74,5 +73,5 @@ export class ProtectPDFOperation {
     execute(context: ExecutionContext): Promise<FileRef>;
     validate(context: any): void;
 }
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { PasswordProtectOptions } from './option/protectpdf/password-protect-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { PasswordProtectOptions } from "./option/protectpdf/password-protect-options";

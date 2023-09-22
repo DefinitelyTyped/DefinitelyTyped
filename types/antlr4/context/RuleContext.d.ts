@@ -1,7 +1,7 @@
-import Interval from '../misc/Interval';
-import Parser from '../Parser';
-import ParseTreeVisitor from '../tree/ParseTreeVisitor';
-import RuleNode from '../tree/RuleNode';
+import Interval from "../misc/Interval";
+import Parser from "../Parser";
+import ParseTreeVisitor from "../tree/ParseTreeVisitor";
+import RuleNode from "../tree/RuleNode";
 
 /**
  * A rule context is a record of a single rule invocation. It knows

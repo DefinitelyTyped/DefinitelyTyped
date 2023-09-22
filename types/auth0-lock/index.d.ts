@@ -15,17 +15,16 @@ interface Auth0LockAdditionalSignUpFieldOption {
     label: string;
 }
 
-type Auth0LockAdditionalSignUpFieldOptionsCallback =
-    (error: auth0.Auth0Error, options: Auth0LockAdditionalSignUpFieldOption[]) => void;
+type Auth0LockAdditionalSignUpFieldOptionsCallback = (
+    error: auth0.Auth0Error,
+    options: Auth0LockAdditionalSignUpFieldOption[],
+) => void;
 
-type Auth0LockAdditionalSignUpFieldOptionsFunction =
-    (callback: Auth0LockAdditionalSignUpFieldOptionsCallback) => void;
+type Auth0LockAdditionalSignUpFieldOptionsFunction = (callback: Auth0LockAdditionalSignUpFieldOptionsCallback) => void;
 
-type Auth0LockAdditionalSignUpFieldPrefillCallback =
-    (error: auth0.Auth0Error, prefill: string) => void;
+type Auth0LockAdditionalSignUpFieldPrefillCallback = (error: auth0.Auth0Error, prefill: string) => void;
 
-type Auth0LockAdditionalSignUpFieldPrefillFunction =
-    (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
+type Auth0LockAdditionalSignUpFieldPrefillFunction = (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
 
 interface Auth0LockAdditionalTextSignUpField {
     type?: "text" | undefined;
@@ -55,7 +54,7 @@ interface Auth0LockAdditionalCheckboxSignUpField {
     name: string;
     placeholder: string;
     prefill: "true" | "false";
-    validator?: ((input: string) => { valid: boolean, hint?: string | undefined }) | undefined;
+    validator?: ((input: string) => { valid: boolean; hint?: string | undefined }) | undefined;
     storage?: "root" | undefined;
 }
 
@@ -66,7 +65,11 @@ interface Auth0LockAdditionalHiddenSignUpField {
     storage?: "root" | undefined;
 }
 
-type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField |Auth0LockAdditionalHiddenSignUpField;
+type Auth0LockAdditionalSignUpField =
+    | Auth0LockAdditionalSelectSignUpField
+    | Auth0LockAdditionalTextSignUpField
+    | Auth0LockAdditionalCheckboxSignUpField
+    | Auth0LockAdditionalHiddenSignUpField;
 
 type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
 type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
@@ -158,7 +161,7 @@ interface Auth0LockConstructorOptions {
     mustAcceptTerms?: boolean | undefined;
     oidcConformant?: boolean | undefined;
     popupOptions?: Auth0LockPopupOptions | undefined;
-    prefill?: { email?: string | undefined, username?: string | undefined} | undefined;
+    prefill?: { email?: string | undefined; username?: string | undefined } | undefined;
     rememberLastLogin?: boolean | undefined;
     scrollGlobalMessagesIntoView?: boolean | undefined;
     showTerms?: boolean | undefined;
@@ -220,7 +223,10 @@ interface Auth0LockCore {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
-    checkSession(options: Auth0LockAuthParamsOptions, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
+    checkSession(
+        options: Auth0LockAuthParamsOptions,
+        callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void,
+    ): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;
@@ -241,7 +247,7 @@ interface Auth0LockCore {
 }
 
 interface Auth0LockStatic extends Auth0LockCore {
-    new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
+    new(clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
 }
 
 // additional options for passwordless mode
@@ -250,7 +256,11 @@ interface Auth0LockPasswordlessConstructorOptions extends Auth0LockConstructorOp
 }
 
 interface Auth0LockPasswordlessStatic extends Auth0LockCore {
-    new (clientId: string, domain: string, options?: Auth0LockPasswordlessConstructorOptions): Auth0LockPasswordlessStatic;
+    new(
+        clientId: string,
+        domain: string,
+        options?: Auth0LockPasswordlessConstructorOptions,
+    ): Auth0LockPasswordlessStatic;
 }
 
 declare module "auth0-lock" {

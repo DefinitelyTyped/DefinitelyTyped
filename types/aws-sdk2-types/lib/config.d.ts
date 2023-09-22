@@ -1,5 +1,5 @@
-import { ConfigBase, ConfigurationOptions } from './config-base';
-import { ConfigurationServiceApiVersions, ConfigurationServicePlaceholders } from './config_service_placeholders';
+import { ConfigBase, ConfigurationOptions } from "./config-base";
+import { ConfigurationServiceApiVersions, ConfigurationServicePlaceholders } from "./config_service_placeholders";
 
 export class Config extends ConfigBase {
     /**
@@ -43,7 +43,7 @@ export interface APIVersions {
     /**
      * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in all services (unless overridden by apiVersions). Specify \'latest\' to use the latest possible version.
      */
-    apiVersion?: 'latest' | string;
+    apiVersion?: "latest" | string;
     /**
      * A map of service identifiers (the lowercase service class name) with the API version to use when instantiating a service. Specify 'latest' for each individual that can use the latest available version.
      */
@@ -51,4 +51,4 @@ export interface APIVersions {
 }
 
 // for backwards compatible client generation
-export { ConfigBase } from './config-base';
+export { ConfigBase } from "./config-base";

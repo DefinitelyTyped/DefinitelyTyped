@@ -1,4 +1,4 @@
-import DynamoDB = require('../../clients/dynamodb');
+import DynamoDB = require("../../clients/dynamodb");
 
 export class Converter {
     static input(

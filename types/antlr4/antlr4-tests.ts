@@ -1,47 +1,47 @@
-import './test/action';
-import './test/atn';
-import './test/context';
-import './test/dfa';
-import './test/error';
-import './test/misc';
-import './test/state';
-import './test/transition';
-import './test/tree';
-import './test/utils';
+import "./test/action";
+import "./test/atn";
+import "./test/context";
+import "./test/dfa";
+import "./test/error";
+import "./test/misc";
+import "./test/state";
+import "./test/transition";
+import "./test/tree";
+import "./test/utils";
 
-import antlr4 from 'antlr4';
+import antlr4 from "antlr4";
 
-import ParserRuleContext from 'antlr4/context/ParserRuleContext';
-import RuleContext from 'antlr4/context/RuleContext';
-import ErrorListener from 'antlr4/error/ErrorListener';
-import RecognitionException from 'antlr4/error/RecognitionException';
-import IntervalSet from 'antlr4/misc/IntervalSet';
-import ParseTreeListener from 'antlr4/tree/ParseTreeListener';
-import TerminalNode from 'antlr4/tree/TerminalNode';
-import BufferedTokenStream from 'antlr4/BufferedTokenStream';
-import CharStreams from 'antlr4/CharStreams';
-import CommonToken from 'antlr4/CommonToken';
-import CommonTokenFactory from 'antlr4/CommonTokenFactory';
-import CommonTokenStream from 'antlr4/CommonTokenStream';
-import FileStream from 'antlr4/FileStream';
-import InputStream from 'antlr4/InputStream';
-import Lexer from 'antlr4/Lexer';
-import Parser from 'antlr4/Parser';
-import Recognizer from 'antlr4/Recognizer';
-import Token from 'antlr4/Token';
-import TokenSource from 'antlr4/TokenSource';
-import TokenStream from 'antlr4/TokenStream';
+import BufferedTokenStream from "antlr4/BufferedTokenStream";
+import CharStreams from "antlr4/CharStreams";
+import CommonToken from "antlr4/CommonToken";
+import CommonTokenFactory from "antlr4/CommonTokenFactory";
+import CommonTokenStream from "antlr4/CommonTokenStream";
+import ParserRuleContext from "antlr4/context/ParserRuleContext";
+import RuleContext from "antlr4/context/RuleContext";
+import ErrorListener from "antlr4/error/ErrorListener";
+import RecognitionException from "antlr4/error/RecognitionException";
+import FileStream from "antlr4/FileStream";
+import InputStream from "antlr4/InputStream";
+import Lexer from "antlr4/Lexer";
+import IntervalSet from "antlr4/misc/IntervalSet";
+import Parser from "antlr4/Parser";
+import Recognizer from "antlr4/Recognizer";
+import Token from "antlr4/Token";
+import TokenSource from "antlr4/TokenSource";
+import TokenStream from "antlr4/TokenStream";
+import ParseTreeListener from "antlr4/tree/ParseTreeListener";
+import TerminalNode from "antlr4/tree/TerminalNode";
 
 const errorListenerInstance = new ErrorListener();
 const intervalSetInstance = new IntervalSet();
-const inputStreamInstance = new InputStream('');
+const inputStreamInstance = new InputStream("");
 const lexerInstance = new Lexer(inputStreamInstance);
 const parserRuleContextInstance = new ParserRuleContext();
 const parseTreeListenerInstance = new ParseTreeListener();
 const recognizerInstance = new Recognizer();
 const ruleContextInstance = new RuleContext();
 const recognitionExceptionInstance = new RecognitionException({
-    message: '',
+    message: "",
     recognizer: recognizerInstance,
     input: inputStreamInstance,
     ctx: ruleContextInstance,
@@ -77,17 +77,17 @@ bufferedTokenStreamInstance.getText(intervalSetInstance); // $ExpectType string
 bufferedTokenStreamInstance.fill(); // $ExpectType void
 
 // CharStreams
-CharStreams.fromString(''); // $ExpectType InputStream
+CharStreams.fromString(""); // $ExpectType InputStream
 // $ExpectType void
 CharStreams.fromBlob(
     {},
-    '',
+    "",
     (_is: InputStream) => undefined,
     (_ev: any) => undefined,
 );
-CharStreams.fromBuffer('', ''); // $ExpectType InputStream
-CharStreams.fromPath('', '', (_err: any, _is: InputStream) => undefined); // $ExpectType void
-CharStreams.fromPathSync('', ''); // $ExpectType InputStream
+CharStreams.fromBuffer("", ""); // $ExpectType InputStream
+CharStreams.fromPath("", "", (_err: any, _is: InputStream) => undefined); // $ExpectType void
+CharStreams.fromPathSync("", ""); // $ExpectType InputStream
 
 // CommonToken
 CommonToken.EMPTY_SOURCE; // $ExpectType [null, null]
@@ -107,8 +107,8 @@ commonTokenFactoryInstance.create([lexerInstance, inputStreamInstance], undefine
 commonTokenFactoryInstance.create([null, null], undefined, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
 commonTokenFactoryInstance.create(undefined, undefined, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
 commonTokenFactoryInstance.create(undefined, 0, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
-commonTokenFactoryInstance.create(undefined, undefined, '', 0, 0, 0, 0, 0); // $ExpectType CommonToken
-commonTokenFactoryInstance.createThin(0, ''); // $ExpectType CommonToken
+commonTokenFactoryInstance.create(undefined, undefined, "", 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.createThin(0, ""); // $ExpectType CommonToken
 
 // CommonTokenStream
 new CommonTokenStream(lexerInstance, 0);
@@ -117,8 +117,8 @@ commonTokenStreamInstance.adjustSeekIndex(0); // $ExpectType number
 commonTokenStreamInstance.getNumberOfOnChannelTokens(); // $ExpectType number
 
 // FileStream
-new FileStream('');
-new FileStream('', true);
+new FileStream("");
+new FileStream("", true);
 
 // InputStream
 inputStreamInstance; // $ExpectType InputStream
@@ -157,9 +157,9 @@ lexerInstance.emitEOF(); // $ExpectType CommonToken
 lexerInstance.charIndex(); // $ExpectType number
 lexerInstance.getAllTokens(); // $ExpectType Token[]
 lexerInstance.notifyListeners(recognitionExceptionInstance); // $ExpectType void
-lexerInstance.getErrorDisplay(''); // $ExpectType string
-lexerInstance.getErrorDisplayForChar(''); // $ExpectType string
-lexerInstance.getCharErrorDisplay(''); // $ExpectType string
+lexerInstance.getErrorDisplay(""); // $ExpectType string
+lexerInstance.getErrorDisplayForChar(""); // $ExpectType string
+lexerInstance.getCharErrorDisplay(""); // $ExpectType string
 lexerInstance.recover(recognitionExceptionInstance); // $ExpectType void
 lexerInstance.inputStream; // $ExpectType InputStream
 lexerInstance.type; // $ExpectType number
@@ -188,8 +188,8 @@ parserInstance.setInputStream(commonTokenStreamInstance); // $ExpectType void
 parserInstance.getTokenStream(); // $ExpectType CommonTokenStream
 parserInstance.setTokenStream(commonTokenStreamInstance); // $ExpectType void
 parserInstance.getCurrentToken(); // $ExpectType Token
-parserInstance.notifyErrorListeners('', tokenInstance); // $ExpectType void
-parserInstance.notifyErrorListeners('', tokenInstance, recognitionExceptionInstance); // $ExpectType void
+parserInstance.notifyErrorListeners("", tokenInstance); // $ExpectType void
+parserInstance.notifyErrorListeners("", tokenInstance, recognitionExceptionInstance); // $ExpectType void
 parserInstance.consume(); // $ExpectType Token
 parserInstance.addContextToParseTree(); // $ExpectType void
 parserInstance.enterRule(parserRuleContextInstance, 0); // $ExpectType void
@@ -207,7 +207,7 @@ parserInstance.inContext(parserRuleContextInstance); // $ExpectType boolean
 parserInstance.isExpectedToken(tokenInstance); // $ExpectType boolean
 parserInstance.getExpectedTokens(); // $ExpectType Token[]
 parserInstance.getExpectedTokensWithinCurrentRule(); // $ExpectType Token[]
-parserInstance.getRuleIndex(''); // $ExpectType number
+parserInstance.getRuleIndex(""); // $ExpectType number
 parserInstance.getRuleInvocationStack(); // $ExpectType string[]
 parserInstance.getRuleInvocationStack(parserRuleContextInstance); // $ExpectType string[]
 parserInstance.getDFAStrings(); // $ExpectType string
@@ -225,7 +225,7 @@ recognizerInstance.getSymbolicNames(); // $ExpectType (string | null)[]
 recognizerInstance.getTokenNames(); // $ExpectType string[]
 recognizerInstance.getTokenTypeMap(); // $ExpectType Record<string, number>
 recognizerInstance.getRuleIndexMap(); // $ExpectType Record<string, number>
-recognizerInstance.getTokenType(''); // $ExpectType number
+recognizerInstance.getTokenType(""); // $ExpectType number
 recognizerInstance.getErrorHeader(recognitionExceptionInstance); // $ExpectType string
 recognizerInstance.getTokenErrorDisplay(tokenInstance); // $ExpectType string
 recognizerInstance.getErrorListenerDispatch(); // $ExpectType ProxyErrorListener
@@ -2404,7 +2404,7 @@ export declare class CParser extends antlr4.Parser {
     getErrorListenerDispatch(): any;
 }
 
-const inputStream = new antlr4.InputStream('int x = 10;');
+const inputStream = new antlr4.InputStream("int x = 10;");
 const lexer = new CLexer(inputStream);
 const tokenStream = new antlr4.CommonTokenStream(lexer);
 const parser = new CParser(tokenStream);

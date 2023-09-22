@@ -1,7 +1,7 @@
-import HashCode from '../misc/HashCode';
-import RuleContext from '../context/RuleContext';
-import Recognizer from '../Recognizer';
-import Predicate from './Predicate';
+import RuleContext from "../context/RuleContext";
+import HashCode from "../misc/HashCode";
+import Recognizer from "../Recognizer";
+import Predicate from "./Predicate";
 
 /**
  * A tree structure used to record the semantic context in which

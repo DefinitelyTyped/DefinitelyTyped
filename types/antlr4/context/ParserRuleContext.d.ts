@@ -1,10 +1,10 @@
-import RuleContext from './RuleContext';
-import Token from '../Token';
-import ErrorNode from '../tree/ErrorNode';
-import ParseTreeListener from '../tree/ParseTreeListener';
-import RecognitionException from '../error/RecognitionException';
-import TerminalNode from '../tree/TerminalNode';
-import ParseTree from '../tree/ParseTree';
+import RecognitionException from "../error/RecognitionException";
+import Token from "../Token";
+import ErrorNode from "../tree/ErrorNode";
+import ParseTree from "../tree/ParseTree";
+import ParseTreeListener from "../tree/ParseTreeListener";
+import TerminalNode from "../tree/TerminalNode";
+import RuleContext from "./RuleContext";
 
 export default class ParserRuleContext extends RuleContext {
     static readonly EMPTY: ParserRuleContext;
@@ -30,13 +30,13 @@ export default class ParserRuleContext extends RuleContext {
 
     addErrorNode(badToken: Token): ErrorNode;
 
-    getChild<T extends ParseTree>(i: number, type?: { new (...args: any[]): T }): T | null;
+    getChild<T extends ParseTree>(i: number, type?: { new(...args: any[]): T }): T | null;
 
     getToken(ttype: number, i: number): Token;
 
     getTokens(ttype: number): Token[];
 
-    getTypedRuleContext<T extends ParserRuleContext>(cxtType: { new (...args: any[]): T }, i: number): T;
+    getTypedRuleContext<T extends ParserRuleContext>(cxtType: { new(...args: any[]): T }, i: number): T;
 
-    getTypedRuleContexts<T extends ParserRuleContext>(cxtType: { new (...args: any[]): T }): T[];
+    getTypedRuleContexts<T extends ParserRuleContext>(cxtType: { new(...args: any[]): T }): T[];
 }

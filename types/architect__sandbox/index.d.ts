@@ -5,12 +5,12 @@
 //                 Ryan Block <https://github.com/ryanblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { StartOptions, Callback } from "./shared";
-export { StartOptions, Callback };
+import { Callback, StartOptions } from "./shared";
+export { Callback, StartOptions };
 
-export { events } from './events';
-export { http } from './http';
-export { tables } from './tables';
+export { events } from "./events";
+export { http } from "./http";
+export { tables } from "./tables";
 
 /**
  * Starts the Sandbox; first checks that ports are available to consume, prints a banner, loads Architect and userland environment variables, hydrates application dependencies, and starts various

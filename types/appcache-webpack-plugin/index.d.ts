@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 /**
  * Generate an HTML5 Application Cache for a Webpack build

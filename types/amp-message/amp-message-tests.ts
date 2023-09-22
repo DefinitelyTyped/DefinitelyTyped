@@ -1,12 +1,12 @@
-import Message = require('amp-message');
+import Message = require("amp-message");
 
 // $ExpectType Message
-new Message(new Buffer('aaa'));
+new Message(new Buffer("aaa"));
 
 // $ExpectType Message
-new Message([new Buffer('aaa'), new Buffer('bbb')]);
+new Message([new Buffer("aaa"), new Buffer("bbb")]);
 
-const message = new Message([new Buffer('aaa'), new Buffer('bbb')]);
+const message = new Message([new Buffer("aaa"), new Buffer("bbb")]);
 
 // $ExpectType string
 message.inspect();
@@ -15,7 +15,7 @@ message.inspect();
 message.toBuffer();
 
 // $ExpectType number
-message.push(new Buffer('ccc'));
+message.push(new Buffer("ccc"));
 
 // $ExpectType Buffer | undefined
 message.pop();
@@ -24,7 +24,7 @@ message.pop();
 message.shift();
 
 // $ExpectType number
-message.unshift(new Buffer('ddd'));
+message.unshift(new Buffer("ddd"));
 
 // @ts-expect-error
 new Message();
@@ -36,7 +36,7 @@ new Message(1);
 new Message({});
 
 // @ts-expect-error
-new Message('aaa');
+new Message("aaa");
 
 // @ts-expect-error
 message.push(1);
@@ -45,7 +45,7 @@ message.push(1);
 message.push({});
 
 // @ts-expect-error
-message.push('aaa');
+message.push("aaa");
 
 // @ts-expect-error
 message.unshift(1);
@@ -54,4 +54,4 @@ message.unshift(1);
 message.unshift({});
 
 // @ts-expect-error
-message.unshift('aaa');
+message.unshift("aaa");

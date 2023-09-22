@@ -1,8 +1,8 @@
-import { SubProcess } from 'teen_process';
-import { AdbMethods, BinaryName } from './tools';
+import { SubProcess } from "teen_process";
+import { AdbMethods, BinaryName } from "./tools";
 
-export { getAndroidBinaryPath } from './tools';
-export { getSdkRootFromEnv } from './helpers';
+export { getSdkRootFromEnv } from "./helpers";
+export { getAndroidBinaryPath } from "./tools";
 
 export const DEFAULT_ADB_PORT: number;
 
@@ -49,7 +49,7 @@ interface ADB extends AdbMethods, Required<CreateAdbOptions> {
 
 declare const ADB: {
     prototype: ADB;
-    new (opts?: CreateAdbOptions): ADB;
+    new(opts?: CreateAdbOptions): ADB;
 
     createADB(opts?: CreateAdbOptions): Promise<ADB>;
 };

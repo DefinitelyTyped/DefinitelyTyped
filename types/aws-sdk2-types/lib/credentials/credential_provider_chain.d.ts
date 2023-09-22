@@ -1,5 +1,5 @@
-import { Credentials } from '../credentials';
-import { AWSError } from '../error';
+import { Credentials } from "../credentials";
+import { AWSError } from "../error";
 export class CredentialProviderChain {
     /**
      * Creates a new CredentialProviderChain with a default set of providers specified by defaultProviders.

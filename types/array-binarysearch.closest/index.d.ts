@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function binarySearch(
-  arr: ReadonlyArray<string>,
-  val: string,
+    arr: ReadonlyArray<string>,
+    val: string,
 ): number;
 
 declare function binarySearch(
-  arr: ReadonlyArray<number>,
-  val: number,
+    arr: ReadonlyArray<number>,
+    val: number,
 ): number;
 
 declare function binarySearch<T>(

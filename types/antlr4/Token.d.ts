@@ -1,5 +1,5 @@
-import InputStream from './InputStream';
-import Lexer from './Lexer';
+import InputStream from "./InputStream";
+import Lexer from "./Lexer";
 
 export type TokenSourceTuple = [Lexer, InputStream] | [null, null];
 

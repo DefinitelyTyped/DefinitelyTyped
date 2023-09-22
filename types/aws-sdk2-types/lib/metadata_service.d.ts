@@ -1,4 +1,4 @@
-import { AWSError } from './error';
+import { AWSError } from "./error";
 /**
  * Represents a metadata service available on EC2 instances. Using the request() method, you can receieve metadata about any available resource on the metadata service.
  */

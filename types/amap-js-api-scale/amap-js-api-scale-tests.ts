@@ -7,9 +7,9 @@ new AMap.Scale();
 new AMap.Scale({});
 // $ExpectType Scale
 const scale = new AMap.Scale({
-    position: 'LT',
+    position: "LT",
     visible: true,
-    offset: pixel
+    offset: pixel,
 });
 
 // $ExpectType Pixel
@@ -27,12 +27,12 @@ scale.show();
 // $ExpectType void
 scale.hide();
 
-scale.on('show', (event: AMap.Scale.EventMap['show']) => {
+scale.on("show", (event: AMap.Scale.EventMap["show"]) => {
     // $ExpectType "show"
     event.type;
 });
 
-scale.on('hide', (event: AMap.Scale.EventMap['hide']) => {
+scale.on("hide", (event: AMap.Scale.EventMap["hide"]) => {
     // $ExpectType "hide"
     event.type;
 });

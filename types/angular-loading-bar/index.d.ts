@@ -10,11 +10,10 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace loadingBar {
-
         interface ILoadingBarProvider {
             /**
              * Turn the spinner on or off
@@ -90,5 +89,4 @@ declare module 'angular' {
          */
         ignoreLoadingBar?: boolean | undefined;
     }
-
 }

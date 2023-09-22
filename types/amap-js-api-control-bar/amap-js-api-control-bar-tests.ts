@@ -5,13 +5,13 @@ new AMap.ControlBar();
 // $ExpectType ControlBar
 const controlBar = new AMap.ControlBar({
     position: {
-        left: 'left',
-        right: 'right',
-        top: 'top',
-        bottom: 'bottom'
+        left: "left",
+        right: "right",
+        top: "top",
+        bottom: "bottom",
     },
     showZoomBar: true,
-    showControlButton: true
+    showControlButton: true,
 });
 
 // $ExpectType void

@@ -6,7 +6,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { WrapOptions } from 'retry';
+import { WrapOptions } from "retry";
 
 /**
  * Retrying made simple, easy, and async.

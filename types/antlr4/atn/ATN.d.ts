@@ -1,12 +1,12 @@
-import LexerAction from '../action/LexerAction';
-import RuleContext from '../context/RuleContext';
-import IntervalSet from '../misc/IntervalSet';
-import ATNState from '../state/ATNState';
-import DecisionState from '../state/DecisionState';
-import RuleStartState from '../state/RuleStartState';
-import RuleStopState from '../state/RuleStopState';
-import TokensStartState from '../state/TokensStartState';
-import Token from '../Token';
+import LexerAction from "../action/LexerAction";
+import RuleContext from "../context/RuleContext";
+import IntervalSet from "../misc/IntervalSet";
+import ATNState from "../state/ATNState";
+import DecisionState from "../state/DecisionState";
+import RuleStartState from "../state/RuleStartState";
+import RuleStopState from "../state/RuleStopState";
+import TokensStartState from "../state/TokensStartState";
+import Token from "../Token";
 
 export default class ATN {
     static readonly INVALID_ALT_NUMBER: 0;

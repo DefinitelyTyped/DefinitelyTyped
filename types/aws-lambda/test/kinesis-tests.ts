@@ -7,7 +7,7 @@ import {
     KinesisStreamRecord,
     KinesisStreamRecordPayload,
     KinesisStreamTumblingWindowHandler,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 const handler: KinesisStreamHandler = async (event, context, callback) => {
     let kinesisStreamRecord: KinesisStreamRecord;
@@ -47,7 +47,7 @@ const tumblingWindowHandler: KinesisStreamTumblingWindowHandler = async (event, 
 
     if (str === str) {
         // return with state...
-        return { state: { one: 'two' } };
+        return { state: { one: "two" } };
     } else {
         // or void
         return;
@@ -81,11 +81,11 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
         records: [
             {
                 recordId: event.records[0].recordId,
-                result: 'Ok' as FirehoseRecordTransformationStatus,
+                result: "Ok" as FirehoseRecordTransformationStatus,
                 data: strOrUndefined,
                 metadata: {
                     partitionKeys: {
-                        testPart: 'test1',
+                        testPart: "test1",
                     },
                 },
             },

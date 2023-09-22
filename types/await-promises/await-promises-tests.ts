@@ -1,4 +1,4 @@
-import AwaitPromises, { wait } from 'await-promises';
+import AwaitPromises, { wait } from "await-promises";
 
 async function classicUsage() {
     const waiter = new AwaitPromises();

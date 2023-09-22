@@ -1,10 +1,10 @@
 declare namespace AMap {
     namespace ShapeOverlay {
         interface EventMap<I = ShapeOverlay> extends Overlay.EventMap<I> {
-            show: Event<'show', { target: I }>;
-            hide: Event<'hide', { target: I }>;
-            options: Event<'options'>;
-            change: Event<'change', { target: I }>;
+            show: Event<"show", { target: I }>;
+            hide: Event<"hide", { target: I }>;
+            options: Event<"options">;
+            change: Event<"change", { target: I }>;
         }
         interface GetOptionsResult<ExtraData = any> {
             /**

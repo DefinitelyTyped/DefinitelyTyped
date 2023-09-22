@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import ConsumableStream = require('consumable-stream');
-import StreamDemux = require('stream-demux');
-import DemuxedConsumableStream = require('stream-demux/demuxed-consumable-stream');
-import Consumer = require('writable-consumable-stream/consumer');
+import ConsumableStream = require("consumable-stream");
+import StreamDemux = require("stream-demux");
+import DemuxedConsumableStream = require("stream-demux/demuxed-consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
 
 declare class AGChannel<T> extends ConsumableStream<T> {
-    readonly PENDING: 'pending';
-    readonly SUBSCRIBED: 'subscribed';
-    readonly UNSUBSCRIBED: 'unsubscribed';
+    readonly PENDING: "pending";
+    readonly SUBSCRIBED: "subscribed";
+    readonly UNSUBSCRIBED: "unsubscribed";
 
     name: string;
     client: AGChannel.Client;
@@ -117,5 +117,5 @@ declare namespace AGChannel {
         invokePublish(channelName: string, data: any): Promise<any>;
     }
 
-    type ChannelState = 'pending' | 'subscribed' | 'unsubscribed';
+    type ChannelState = "pending" | "subscribed" | "unsubscribed";
 }

@@ -9,9 +9,9 @@
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace a0.storage {
         interface IStoreService extends INamespacedStoreService {
             /**
@@ -51,7 +51,6 @@ declare module 'angular' {
         }
 
         interface IStoreProvider {
-
             /**
              * Sets the storage.
              *

@@ -71,8 +71,8 @@ declare const android: {
     get: (
         arg:
             | {
-                  toString(): string;
-              }
+                toString(): string;
+            }
             | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion | null;
     /**
@@ -83,8 +83,8 @@ declare const android: {
     getAll: (
         arg:
             | {
-                  toString(): string;
-              }
+                toString(): string;
+            }
             | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion[] | null;
 } & android.MapVersionSupport;

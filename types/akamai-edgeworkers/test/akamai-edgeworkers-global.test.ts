@@ -1,4 +1,4 @@
-import { Headers, createResponse } from 'create-response';
+import { createResponse, Headers } from "create-response";
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -15,12 +15,12 @@ export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.getVariable()
     request.respondWith(505, [], "Missing get-variable-present");
 
-    request.respondWith(505, { no: 'bad' }, 'Expected var to be missing');
+    request.respondWith(505, { no: "bad" }, "Expected var to be missing");
 
     // Exercise respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onClientRequest-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onClientRequest-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 
@@ -51,8 +51,8 @@ export function onOriginRequest(request: EW.IngressOriginRequest) {
 
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onOriginRequest-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onOriginRequest-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 
@@ -93,18 +93,18 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
 
     // EW.EgressOriginRequest.getHeaders()
     testHeaders(request.getHeaders());
-    
+
     // Verify we set status
     response.status = 189;
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onOriginResponse-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onOriginResponse-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 
     // verify wasTerminated() returns a boolean
     if (request.wasTerminated()) {
-        request.respondWith(419, {}, 'overwritten!');
+        request.respondWith(419, {}, "overwritten!");
     }
 }
 
@@ -150,8 +150,8 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
     response.status = 123;
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onClientResponse-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onClientResponse-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 

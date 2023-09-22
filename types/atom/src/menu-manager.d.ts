@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** Provides a registry for menu items that you'd like to appear in the application menu. */
 export interface MenuManager {

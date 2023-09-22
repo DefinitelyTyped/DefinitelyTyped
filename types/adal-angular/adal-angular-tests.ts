@@ -15,7 +15,7 @@ const onToken: AuthenticationContext.TokenCallback = (errorDesc, token, error) =
         console.error(error);
         return;
     }
-    console.log('Making request with token:', token);
+    console.log("Making request with token:", token);
 };
 
 const onUser: AuthenticationContext.UserCallback = (error, user) => {
@@ -37,19 +37,19 @@ const acquireAnAccessToken = () => {
                         resourceId,
                         null,
                         null,
-                        onToken
+                        onToken,
                     );
                 } else {
                     authenticationContext.acquireTokenRedirect(
                         resourceId,
                         null,
-                        null
+                        null,
                     );
                 }
             } else {
                 onToken(errorDesc, token, error);
             }
-        }
+        },
     );
 };
 
@@ -62,7 +62,7 @@ const config: AuthenticationContext.Options = {
     correlationId: "123",
     popUp: true,
     cacheLocation: "localStorage",
-    callback: onLogin
+    callback: onLogin,
 };
 
 const authenticationContext = new AuthenticationContext(config);

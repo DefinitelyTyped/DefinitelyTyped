@@ -1,4 +1,4 @@
-import audioBufferToWav = require('audiobuffer-to-wav');
+import audioBufferToWav = require("audiobuffer-to-wav");
 
 declare const buffer: AudioBuffer;
 audioBufferToWav(buffer);

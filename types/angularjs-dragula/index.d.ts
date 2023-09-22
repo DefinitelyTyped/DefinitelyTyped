@@ -3,10 +3,10 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import angular = require('angular');
-import d = require('dragula');
+import angular = require("angular");
+import d = require("dragula");
 
-declare module 'angular' {
+declare module "angular" {
     namespace dragula {
         /**
          * This service exposes a few different methods with which you can interact with `dragula` in the Angular way.
@@ -46,7 +46,7 @@ declare module 'angular' {
     }
 }
 
-declare function angularDragula(angular: angular.IAngularStatic): 'dragula';
+declare function angularDragula(angular: angular.IAngularStatic): "dragula";
 
 export as namespace angularDragula;
 export = angularDragula;

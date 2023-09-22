@@ -7,7 +7,7 @@
 //                 Vince Broz <https://github.com/apiology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
 
 declare namespace asana {
     var Client: ClientStatic;
@@ -25,7 +25,7 @@ declare namespace asana {
          * @param {String} [redirectUri]  Default redirect URI for this client
          * @param {String} [asanaBaseUrl] Base URL for Asana, for debugging
          */
-        new (dispatcher: Dispatcher, options?: ClientOptions): Client;
+        new(dispatcher: Dispatcher, options?: ClientOptions): Client;
         /**
          * Creates a new client.
          * @param {Object} options Options for specifying the client, see constructor.
@@ -171,7 +171,7 @@ declare namespace asana {
          * @option {Number} [requestTimeout] Timeout (in milliseconds) to wait for the
          *     request to finish.
          */
-        new (options?: DispatcherOptions): Dispatcher;
+        new(options?: DispatcherOptions): Dispatcher;
 
         /**
          * Default handler for requests that are considered unauthorized.
@@ -195,8 +195,8 @@ declare namespace asana {
         requestTimeout?: string | undefined;
         defaultHeaders?:
             | {
-                  [key: string]: string;
-              }
+                [key: string]: string;
+            }
             | undefined;
     }
 
@@ -324,7 +324,7 @@ declare namespace asana {
             /**
              * @param apiKey
              */
-            new (apiKey: string): BasicAuthenticator;
+            new(apiKey: string): BasicAuthenticator;
         }
 
         interface BasicAuthenticator extends Authenticator {
@@ -361,7 +361,7 @@ declare namespace asana {
              *     contains the token and some other metadata) or just the `access_token`
              *     field.
              */
-            new (options: OauthAuthenticatorOptions): OauthAuthenticator;
+            new(options: OauthAuthenticatorOptions): OauthAuthenticator;
         }
 
         interface OauthAuthenticatorOptions {
@@ -434,7 +434,7 @@ declare namespace asana {
              * @option {String} [scope]        Scope to use, supports `default` and `scim`
              * @option {String} [asanaBaseUrl] Base URL to use for Asana, for debugging
              */
-            new (options: AppOptions): App;
+            new(options: AppOptions): App;
         }
 
         interface AppOptions extends AsanaAuthorizeUrlOptions {
@@ -511,7 +511,7 @@ declare namespace asana {
              * @option {String} [error_uri] A link to help and information about the error.
              * @option {String} [error_description] A description of the error.
              */
-            new (options: OauthErrorOptions): OauthError;
+            new(options: OauthErrorOptions): OauthError;
         }
 
         interface OauthErrorOptions {
@@ -542,7 +542,7 @@ declare namespace asana {
              * the credentials.
              * @param {Object} options See `BaseBrowserFlow` for options.
              */
-            new (options: any): RedirectFlow;
+            new(options: any): RedirectFlow;
         }
 
         interface RedirectFlow extends BaseBrowserFlow {}
@@ -555,7 +555,7 @@ declare namespace asana {
              * popping up a window and prompting the user.
              * @param {Object} options See `BaseBrowserFlow` for options.
              */
-            new (options: any): PopupFlow;
+            new(options: any): PopupFlow;
         }
 
         interface PopupFlow extends BaseBrowserFlow {
@@ -581,7 +581,7 @@ declare namespace asana {
              * @option {String function()} [prompt] String to output immediately before
              *     waiting for a line from stdin.
              */
-            new (options: any): NativeFlow;
+            new(options: any): NativeFlow;
         }
 
         interface NativeFlow extends Flow {
@@ -625,7 +625,7 @@ declare namespace asana {
              *     that has been made web-accessible, and that calls the receiver method
              *     `Asana.auth.ChromeExtensionFlow.runReceiver();`.
              */
-            new (options: any): ChromeExtensionFlow;
+            new(options: any): ChromeExtensionFlow;
         }
 
         interface ChromeExtensionFlow extends BaseBrowserFlow {
@@ -647,7 +647,7 @@ declare namespace asana {
              *     user authorization is complete. Defaults to the URL configured in
              *     the app, and if none then the current page URL.
              */
-            new (options: any): BaseBrowserFlow;
+            new(options: any): BaseBrowserFlow;
         }
 
         interface BaseBrowserFlow extends Flow {
@@ -689,7 +689,7 @@ declare namespace asana {
         }
 
         interface FlowType {
-            new (options: any): Flow;
+            new(options: any): Flow;
         }
 
         interface Flow {
@@ -774,7 +774,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Attachments;
+            new(dispatcher: Dispatcher): Attachments;
         }
 
         namespace Attachments {
@@ -834,7 +834,7 @@ declare namespace asana {
              * @param dispatcher
              * @return
              */
-            new (dispatcher: Dispatcher): Events;
+            new(dispatcher: Dispatcher): Events;
         }
 
         namespace Events {
@@ -923,7 +923,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Projects;
+            new(dispatcher: Dispatcher): Projects;
         }
 
         namespace Projects {
@@ -1279,7 +1279,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Stories;
+            new(dispatcher: Dispatcher): Stories;
         }
 
         namespace Stories {
@@ -1326,8 +1326,9 @@ declare namespace asana {
                     color: string;
                     enabled: boolean;
                 };
-                new_multi_enum_values: Resource &
-                    {
+                new_multi_enum_values:
+                    & Resource
+                    & {
                         color: string;
                         enabled: boolean;
                     }[];
@@ -1348,8 +1349,9 @@ declare namespace asana {
                     color: string;
                     enabled: boolean;
                 };
-                old_multi_enum_values: Resource &
-                    {
+                old_multi_enum_values:
+                    & Resource
+                    & {
                         color: string;
                         enabled: boolean;
                     }[];
@@ -1447,7 +1449,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Tags;
+            new(dispatcher: Dispatcher): Tags;
         }
 
         namespace Tags {
@@ -1620,7 +1622,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Tasks;
+            new(dispatcher: Dispatcher): Tasks;
         }
 
         namespace Tasks {
@@ -1642,10 +1644,10 @@ declare namespace asana {
                 assignee_section: Resource;
                 external:
                     | {
-                          // opt-in
-                          data: string | undefined;
-                          gid: string | undefined;
-                      }
+                        // opt-in
+                        data: string | undefined;
+                        gid: string | undefined;
+                    }
                     | undefined;
                 html_notes: string | undefined; // opt in
                 is_rendered_as_separator: boolean | undefined; // opt in
@@ -1684,9 +1686,9 @@ declare namespace asana {
                 due_on?: string | null | undefined;
                 external?:
                     | {
-                          data?: string | undefined;
-                          gid?: string | undefined;
-                      }
+                        data?: string | undefined;
+                        gid?: string | undefined;
+                    }
                     | undefined;
                 followers?: string[] | undefined; // create-only
                 html_notes?: string | undefined;
@@ -1702,9 +1704,9 @@ declare namespace asana {
                 workspace?: string | undefined;
                 memberships?:
                     | {
-                          project: string;
-                          section: string;
-                      }[]
+                        project: string;
+                        section: string;
+                    }[]
                     | undefined;
             }
 
@@ -1719,9 +1721,9 @@ declare namespace asana {
                 due_on?: string | null | undefined;
                 external?:
                     | {
-                          data?: string | undefined;
-                          gid?: string | undefined;
-                      }
+                        data?: string | undefined;
+                        gid?: string | undefined;
+                    }
                     | undefined;
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
@@ -2195,7 +2197,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Sections;
+            new(dispatcher: Dispatcher): Sections;
         }
 
         namespace Sections {
@@ -2250,7 +2252,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Teams;
+            new(dispatcher: Dispatcher): Teams;
         }
 
         namespace Teams {
@@ -2352,7 +2354,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Users;
+            new(dispatcher: Dispatcher): Users;
         }
 
         namespace Users {
@@ -2445,7 +2447,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Webhooks;
+            new(dispatcher: Dispatcher): Webhooks;
         }
 
         namespace Webhooks {
@@ -2594,7 +2596,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Workspaces;
+            new(dispatcher: Dispatcher): Workspaces;
         }
 
         namespace Workspaces {
@@ -2768,7 +2770,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): UserTaskLists;
+            new(dispatcher: Dispatcher): UserTaskLists;
         }
 
         namespace UserTaskLists {
@@ -2852,7 +2854,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Resource;
+            new(dispatcher: Dispatcher): Resource;
 
             /**
              * Default number of items to get per page.
@@ -2969,8 +2971,8 @@ declare namespace asana {
         }
 
         interface ResourceStream<T extends AnonymousResource> {
-            on(command: 'data', callback: (resource: T) => any): void;
-            on(command: 'end' | 'finish' | 'error', callback: () => void): void;
+            on(command: "data", callback: (resource: T) => any): void;
+            on(command: "end" | "finish" | "error", callback: () => void): void;
         }
 
         interface ResourceList<T extends AnonymousResource> {
@@ -3100,7 +3102,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): CustomFields;
+            new(dispatcher: Dispatcher): CustomFields;
         }
 
         var CustomFields: CustomFieldsStatic;
@@ -3137,12 +3139,12 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'custom_field' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "custom_field" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<CustomFields.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'project' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "project" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Projects.Type>>;
             // typeaheadForWorkspace(
@@ -3152,17 +3154,17 @@ declare namespace asana {
             // ): Promise<ResourceList<Portfolios.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'tag' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "tag" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tags.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'task' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "task" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams & { resource_type: 'user' },
+                params?: Typeahead.TypeaheadParams & { resource_type: "user" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Users.Type>>;
             typeaheadForWorkspace(

@@ -226,7 +226,7 @@ declare namespace ApplePayJS {
     /**
      * Field names used for requesting contact information in a payment request.
      */
-    type ApplePayContactField = 'email' | 'name' | 'phone' | 'postalAddress' | 'phoneticName';
+    type ApplePayContactField = "email" | "name" | "phone" | "postalAddress" | "phoneticName";
 
     /**
      * A customizable error type that you create to indicate problems with the address or contact information on an Apple Pay sheet.
@@ -255,40 +255,37 @@ declare namespace ApplePayJS {
         /**
          * Shipping address or contact information is invalid or missing.
          */
-        | 'shippingContactInvalid'
-
+        | "shippingContactInvalid"
         /**
          * Billing address information is invalid or missing.
          */
-        | 'billingContactInvalid'
-
+        | "billingContactInvalid"
         /**
          * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
          */
-        | 'addressUnserviceable'
-
+        | "addressUnserviceable"
         /**
          * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
          */
-        | 'unknown';
+        | "unknown";
 
     /**
      * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
      */
     type ApplePayErrorContactField =
-        | 'phoneNumber'
-        | 'emailAddress'
-        | 'name'
-        | 'phoneticName'
-        | 'postalAddress'
-        | 'addressLines'
-        | 'locality'
-        | 'subLocality'
-        | 'postalCode'
-        | 'administrativeArea'
-        | 'subAdministrativeArea'
-        | 'country'
-        | 'countryCode';
+        | "phoneNumber"
+        | "emailAddress"
+        | "name"
+        | "phoneticName"
+        | "postalAddress"
+        | "addressLines"
+        | "locality"
+        | "subLocality"
+        | "postalCode"
+        | "administrativeArea"
+        | "subAdministrativeArea"
+        | "country"
+        | "countryCode";
 
     /**
      * Defines a line item in a payment request - for example, total, tax, discount, or grand total.
@@ -331,7 +328,6 @@ declare namespace ApplePayJS {
 
         /**
          * The [ISO 8601 formatted] date of the final payment.
-         *
          */
         recurringPaymentEndDate?: string;
 
@@ -353,19 +349,19 @@ declare namespace ApplePayJS {
         /**
          * A value that specifies that the payment occurs when the transaction is complete.
          */
-        | 'immediate'
+        | "immediate"
         /**
          * A value that specifies that the payment occurs on a regular basis.
          */
-        | 'deferred'
+        | "deferred"
         /**
          * A value that specifies that the payment occurs in the future.
          */
-        | 'recurring'
+        | "recurring"
         /**
          * A value that specifies that the payment occurs automatically when the account falls below the automaticReloadPaymentThresholdAmount amount.
          */
-        | 'automaticReload';
+        | "automaticReload";
 
     /**
      * A type that indicates calendrical units, such as year, month, day, and hour.
@@ -374,23 +370,23 @@ declare namespace ApplePayJS {
         /**
          * A value that specifies the year unit.
          */
-        | 'year'
+        | "year"
         /**
          * A value that specifies the month unit.
          */
-        | 'month'
+        | "month"
         /**
          * A value that specifies the day unit.
          */
-        | 'day'
+        | "day"
         /**
          * A value that specifies the hour unit.
          */
-        | 'hour'
+        | "hour"
         /**
          * A value that specifies the minute unit.
          */
-        | 'minute';
+        | "minute";
 
     /**
      * A type that indicates whether a line item is final or pending.
@@ -399,12 +395,11 @@ declare namespace ApplePayJS {
         /**
          * A line item representing the known, final cost.
          */
-        | 'final'
-
+        | "final"
         /**
          * A line item representing an estimated or unknown cost.
          */
-        | 'pending';
+        | "pending";
 
     /**
      * The payment capabilities supported by the merchant.
@@ -413,22 +408,19 @@ declare namespace ApplePayJS {
         /**
          * Required. This value must be supplied.
          */
-        | 'supports3DS'
-
+        | "supports3DS"
         /**
          * Include this value only if you support China Union Pay transactions.
          */
-        | 'supportsEMV'
-
+        | "supportsEMV"
         /**
          * Optional. If present, only transactions that are categorized as credit cards are allowed.
          */
-        | 'supportsCredit'
-
+        | "supportsCredit"
         /**
          * Optional. If present, only transactions that are categorized as debit cards are allowed.
          */
-        | 'supportsDebit';
+        | "supportsDebit";
 
     /**
      * Represents the result of authorizing a payment request and contains encrypted payment information.
@@ -583,7 +575,7 @@ declare namespace ApplePayJS {
     /**
      * A payment card's type of payment.
      */
-    type ApplePayPaymentMethodType = 'debit' | 'credit' | 'prepaid' | 'store';
+    type ApplePayPaymentMethodType = "debit" | "credit" | "prepaid" | "store";
 
     /**
      * The ApplePayPaymentMethodSelectedEvent class defines the attributes contained by the ApplePaySession.onpaymentmethodselected callback function.
@@ -673,27 +665,23 @@ declare namespace ApplePayJS {
         /**
          * Active and ready to be used for payment.
          */
-        | 'activated'
-
+        | "activated"
         /**
          * Not active but may be activated by the issuer.
          */
-        | 'requiresActivation'
-
+        | "requiresActivation"
         /**
          * Not ready for use but activation is in progress.
          */
-        | 'activating'
-
+        | "activating"
         /**
          * Not active and can't be activated.
          */
-        | 'suspended'
-
+        | "suspended"
         /**
          * Not active because the issuer has disabled the account associated with the device.
          */
-        | 'deactivated';
+        | "deactivated";
 
     /**
      * Encapsulates a request for payment, including information about payment processing capabilities, the payment amount, and shipping information.
@@ -1055,7 +1043,7 @@ declare namespace ApplePayJS {
     /**
      * A type that indicates how purchased items are to be shipped.
      */
-    type ApplePayShippingType = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+    type ApplePayShippingType = "shipping" | "delivery" | "storePickup" | "servicePickup";
 
     /**
      * The attributes contained by the onvalidatemerchant callback function.

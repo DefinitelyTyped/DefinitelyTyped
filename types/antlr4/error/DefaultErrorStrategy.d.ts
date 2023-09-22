@@ -1,12 +1,12 @@
-import ErrorStrategy from './ErrorStrategy';
-import IntervalSet from '../misc/IntervalSet';
-import Parser from '../Parser';
-import RecognitionException from './RecognitionException';
-import NoViableAltException from './NoViableAltException';
-import FailedPredicateException from './FailedPredicateException';
-import InputMismatchException from './InputMismatchException';
-import Token from '../Token';
-import ParserRuleContext from '../context/ParserRuleContext';
+import ParserRuleContext from "../context/ParserRuleContext";
+import IntervalSet from "../misc/IntervalSet";
+import Parser from "../Parser";
+import Token from "../Token";
+import ErrorStrategy from "./ErrorStrategy";
+import FailedPredicateException from "./FailedPredicateException";
+import InputMismatchException from "./InputMismatchException";
+import NoViableAltException from "./NoViableAltException";
+import RecognitionException from "./RecognitionException";
 
 /**
  * This is the default implementation of {@link ErrorStrategy} used for
@@ -241,11 +241,10 @@ export default class DefaultErrorStrategy extends ErrorStrategy {
      * a CommonToken of the appropriate type. The text will be the token.
      * If you change what tokens must be created by the lexer,
      * override this method to create the appropriate tokens.
-     *
      */
     getMissingSymbol(recognizer: Parser): Token;
 
-    getExpectedTokens(recognizer: Parser): ReturnType<Parser['getExpectedTokens']>;
+    getExpectedTokens(recognizer: Parser): ReturnType<Parser["getExpectedTokens"]>;
 
     /**
      * How should a token be displayed in an error message? The default

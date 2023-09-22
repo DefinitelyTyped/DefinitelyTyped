@@ -7,7 +7,11 @@ export as namespace audiosprite;
 export = audiosprite;
 
 declare function audiosprite(files: string[], callback: (error: Error, obj: audiosprite.Result) => void): void;
-declare function audiosprite(files: string[], option: audiosprite.Option, callback: (error: Error, obj: audiosprite.Result) => void): void;
+declare function audiosprite(
+    files: string[],
+    option: audiosprite.Option,
+    callback: (error: Error, obj: audiosprite.Result) => void,
+): void;
 
 declare namespace audiosprite {
     type ExportType = "jukebox" | "howler" | "createjs" | null;
@@ -28,7 +32,7 @@ declare namespace audiosprite {
         minlength?: number | undefined;
         bitrate?: number | undefined;
         vbr?: VBR | undefined;
-        'vbr:vorbis'?: VBR_Vorbis | undefined;
+        "vbr:vorbis"?: VBR_Vorbis | undefined;
         samplerate?: number | undefined;
         channels?: Channels | undefined;
         rawparts?: string | undefined;
@@ -49,7 +53,7 @@ declare namespace audiosprite {
                 start: number;
                 end: number;
                 loop: boolean;
-            }
+            };
         };
         autoplay?: string | undefined;
     }

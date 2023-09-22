@@ -24,11 +24,11 @@ interface Options {
     /**
      * @default 'error'
      */
-    protoAction?: 'error' | 'ignore' | 'preserve' | undefined;
+    protoAction?: "error" | "ignore" | "preserve" | undefined;
     /**
      * @default 'error'
      */
-    constructorAction?: 'error' | 'ignore' | 'preserve' | undefined;
+    constructorAction?: "error" | "ignore" | "preserve" | undefined;
 }
 
 type JSONBigExport = typeof JSONBig & { parse: typeof parse; stringify: typeof stringify };

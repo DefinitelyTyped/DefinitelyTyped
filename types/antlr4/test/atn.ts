@@ -1,42 +1,42 @@
-import LexerAction from 'antlr4/action/LexerAction';
-import atn from 'antlr4/atn';
-import AbstractPredicateTransition from 'antlr4/atn/AbstractPredicateTransition';
-import ATNConfig, { ATNConfigConfig } from 'antlr4/atn/ATNConfig';
-import ATNConfigSet from 'antlr4/atn/ATNConfigSet';
-import ATNDeserializationOptions from 'antlr4/atn/ATNDeserializationOptions';
-import ATNSimulator from 'antlr4/atn/ATNSimulator';
-import LexerActionExecutor from 'antlr4/atn/LexerActionExecutor';
-import LexerActionType from 'antlr4/atn/LexerActionType';
-import LexerATNConfig from 'antlr4/atn/LexerATNConfig';
-import { SimState } from 'antlr4/atn/LexerATNSimulator';
-import LL1Analyzer from 'antlr4/atn/LL1Analyzer';
-import OrderedATNConfigSet from 'antlr4/atn/OrderedATNConfigSet';
-import PrecedencePredicate from 'antlr4/atn/PrecedencePredicate';
-import Predicate from 'antlr4/atn/Predicate';
-import PredictionContextCache from 'antlr4/atn/PredictionContextCache';
-import SemanticContext from 'antlr4/atn/SemanticContext';
-import CommonTokenStream from 'antlr4/CommonTokenStream';
-import ParserRuleContext from 'antlr4/context/ParserRuleContext';
-import PredictionContext from 'antlr4/context/PredictionContext';
-import RuleContext from 'antlr4/context/RuleContext';
-import DFA from 'antlr4/dfa/DFA';
-import DFAState from 'antlr4/dfa/DFAState';
-import PredPrediction from 'antlr4/dfa/PredPrediction';
-import NoViableAltException from 'antlr4/error/NoViableAltException';
-import InputStream from 'antlr4/InputStream';
-import Lexer from 'antlr4/Lexer';
-import BitSet from 'antlr4/misc/BitSet';
-import HashCode from 'antlr4/misc/HashCode';
-import HashSet from 'antlr4/misc/HashSet';
-import IntervalSet from 'antlr4/misc/IntervalSet';
-import Parser from 'antlr4/Parser';
-import Recognizer from 'antlr4/Recognizer';
-import ATNState from 'antlr4/state/ATNState';
-import BlockEndState from 'antlr4/state/BlockEndState';
-import DecisionState from 'antlr4/state/DecisionState';
-import TokenStream from 'antlr4/TokenStream';
-import Transition from 'antlr4/transition/Transition';
-import DoubleDict from 'antlr4/utils/DoubleDict';
+import LexerAction from "antlr4/action/LexerAction";
+import atn from "antlr4/atn";
+import AbstractPredicateTransition from "antlr4/atn/AbstractPredicateTransition";
+import ATNConfig, { ATNConfigConfig } from "antlr4/atn/ATNConfig";
+import ATNConfigSet from "antlr4/atn/ATNConfigSet";
+import ATNDeserializationOptions from "antlr4/atn/ATNDeserializationOptions";
+import ATNSimulator from "antlr4/atn/ATNSimulator";
+import LexerActionExecutor from "antlr4/atn/LexerActionExecutor";
+import LexerActionType from "antlr4/atn/LexerActionType";
+import LexerATNConfig from "antlr4/atn/LexerATNConfig";
+import { SimState } from "antlr4/atn/LexerATNSimulator";
+import LL1Analyzer from "antlr4/atn/LL1Analyzer";
+import OrderedATNConfigSet from "antlr4/atn/OrderedATNConfigSet";
+import PrecedencePredicate from "antlr4/atn/PrecedencePredicate";
+import Predicate from "antlr4/atn/Predicate";
+import PredictionContextCache from "antlr4/atn/PredictionContextCache";
+import SemanticContext from "antlr4/atn/SemanticContext";
+import CommonTokenStream from "antlr4/CommonTokenStream";
+import ParserRuleContext from "antlr4/context/ParserRuleContext";
+import PredictionContext from "antlr4/context/PredictionContext";
+import RuleContext from "antlr4/context/RuleContext";
+import DFA from "antlr4/dfa/DFA";
+import DFAState from "antlr4/dfa/DFAState";
+import PredPrediction from "antlr4/dfa/PredPrediction";
+import NoViableAltException from "antlr4/error/NoViableAltException";
+import InputStream from "antlr4/InputStream";
+import Lexer from "antlr4/Lexer";
+import BitSet from "antlr4/misc/BitSet";
+import HashCode from "antlr4/misc/HashCode";
+import HashSet from "antlr4/misc/HashSet";
+import IntervalSet from "antlr4/misc/IntervalSet";
+import Parser from "antlr4/Parser";
+import Recognizer from "antlr4/Recognizer";
+import ATNState from "antlr4/state/ATNState";
+import BlockEndState from "antlr4/state/BlockEndState";
+import DecisionState from "antlr4/state/DecisionState";
+import TokenStream from "antlr4/TokenStream";
+import Transition from "antlr4/transition/Transition";
+import DoubleDict from "antlr4/utils/DoubleDict";
 
 // TODO go through all the ATN's and ensure they're all type tested.
 
@@ -55,7 +55,7 @@ const decisionStateInstance = new DecisionState();
 const dfaStateInstance = new DFAState(0, atnConfigSetInstance);
 const hashCodeInstance = new HashCode();
 const hashSetInstance = new HashSet();
-const inputStreamInstance = new InputStream('');
+const inputStreamInstance = new InputStream("");
 const intervalSetInstance = new IntervalSet();
 const lexerActionExecutorInstance = new LexerActionExecutor(null);
 const lexerActionInstance = new NewLexerAction(LexerActionType.CHANNEL);
@@ -170,7 +170,7 @@ atnDeserializerInstance.data; // $ExpectType number[]
 atnDeserializerInstance.pos; // $ExpectType number | undefined
 atnDeserializerInstance.deserialize([0]); // $ExpectType ATN
 atnDeserializerInstance.reset([0]); // $ExpectType boolean
-atnDeserializerInstance.reset(''); // $ExpectType boolean
+atnDeserializerInstance.reset(""); // $ExpectType boolean
 atnDeserializerInstance.skipUUID(); // $ExpectType void
 atnDeserializerInstance.checkVersion(false); // $ExpectType void
 atnDeserializerInstance.readATN(); // $ExpectType ATN
@@ -187,7 +187,7 @@ atnDeserializerInstance.stateIsEndStateFor(atnStateInstance, 0); // $ExpectType 
 atnDeserializerInstance.markPrecedenceDecisions(atnInstance); // $ExpectType void
 atnDeserializerInstance.verifyATN(atnInstance); // $ExpectType void
 atnDeserializerInstance.checkCondition(false); // $ExpectType void
-atnDeserializerInstance.checkCondition(true, ''); // $ExpectType void
+atnDeserializerInstance.checkCondition(true, ""); // $ExpectType void
 atnDeserializerInstance.readInt(); // $ExpectType number | undefined
 atnDeserializerInstance.readInt32(); // $ExpectType number
 atnDeserializerInstance.edgeFactory(atnInstance, 0, 0, 0, 0, 0, 0, [intervalSetInstance]); // $ExpectType Transition
@@ -437,10 +437,10 @@ SemanticContext.andContext(predicateInstance, predicateInstance); // $ExpectType
 SemanticContext.orContext(predicateInstance, predicateInstance); // $ExpectType OR
 class NewSemanticContext extends SemanticContext {
     evaluate(_parser: Recognizer, _outerContext: RuleContext): boolean {
-        throw new Error('Method not implemented.');
+        throw new Error("Method not implemented.");
     }
     evalPrecedence(_parser: Recognizer, _outerContext: RuleContext): SemanticContext | null {
-        throw new Error('Method not implemented.');
+        throw new Error("Method not implemented.");
     }
 }
 const newSemanticContextInstance = new NewSemanticContext();

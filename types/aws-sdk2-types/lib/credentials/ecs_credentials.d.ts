@@ -1,4 +1,4 @@
-import { RemoteCredentials } from './remote_credentials';
+import { RemoteCredentials } from "./remote_credentials";
 export class ECSCredentials extends RemoteCredentials {
     /**
      * Represents credentials received.

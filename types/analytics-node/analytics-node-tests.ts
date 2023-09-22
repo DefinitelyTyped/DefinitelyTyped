@@ -1,11 +1,11 @@
-import Analytics = require('analytics-node');
+import Analytics = require("analytics-node");
 let analytics: Analytics;
 
 function testConfig(): void {
-    analytics = new Analytics('YOUR_WRITE_KEY', {
+    analytics = new Analytics("YOUR_WRITE_KEY", {
         flushAt: 20,
         flushInterval: 10000,
-        host: 'http://example.com',
+        host: "http://example.com",
         enable: true,
         timeout: 1000,
         errorHandler: err => console.error(err),
@@ -13,21 +13,21 @@ function testConfig(): void {
 }
 
 function testConfigWithStringTimeout(): void {
-    analytics = new Analytics('YOUR_WRITE_KEY', {
+    analytics = new Analytics("YOUR_WRITE_KEY", {
         flushAt: 20,
         flushInterval: 10000,
-        host: 'http://example.com',
+        host: "http://example.com",
         enable: true,
-        timeout: '1000',
+        timeout: "1000",
         errorHandler: err => console.error(err),
     });
 }
 
 function testConfigWithFlushedSet(): void {
-    analytics = new Analytics('YOUR_WRITE_KEY', {
+    analytics = new Analytics("YOUR_WRITE_KEY", {
         flushAt: 20,
         flushInterval: 10000,
-        host: 'http://example.com',
+        host: "http://example.com",
         enable: true,
         timeout: 1000,
         flushed: true,
@@ -37,22 +37,22 @@ function testConfigWithFlushedSet(): void {
 
 function testIdentify(): void {
     analytics.identify({
-        userId: '019mr8mf4r',
+        userId: "019mr8mf4r",
         traits: {
-            name: 'Michael Bolton',
-            email: 'mbolton@initech.com',
-            plan: 'Enterprise',
+            name: "Michael Bolton",
+            email: "mbolton@initech.com",
+            plan: "Enterprise",
             friends: 42,
         },
     });
 
     analytics.identify(
         {
-            userId: '019mr8mf4r',
+            userId: "019mr8mf4r",
             traits: {
-                name: 'Michael Bolton',
-                email: 'mbolton@initech.com',
-                plan: 'Enterprise',
+                name: "Michael Bolton",
+                email: "mbolton@initech.com",
+                plan: "Enterprise",
                 friends: 42,
             },
         },
@@ -66,40 +66,40 @@ function testIdentify(): void {
 
 function testTrack(): void {
     analytics.track({
-        userId: '019mr8mf4r',
-        event: 'Purchased an Item',
+        userId: "019mr8mf4r",
+        event: "Purchased an Item",
         properties: {
             revenue: 39.95,
-            shippingMethod: '2-day',
+            shippingMethod: "2-day",
         },
     });
 
     analytics.track({
-        anonymousId: '019mr8mf4r',
-        event: 'Purchased an Item',
+        anonymousId: "019mr8mf4r",
+        event: "Purchased an Item",
         properties: {
             revenue: 39.95,
-            shippingMethod: '2-day',
+            shippingMethod: "2-day",
         },
     });
 
     // no userId or anonymousId set
     // @ts-expect-error
     analytics.track({
-        event: 'Purchased an Item',
+        event: "Purchased an Item",
         properties: {
             revenue: 39.95,
-            shippingMethod: '2-day',
+            shippingMethod: "2-day",
         },
     });
 
     analytics.track(
         {
-            userId: '019mr8mf4r',
-            event: 'Purchased an Item',
+            userId: "019mr8mf4r",
+            event: "Purchased an Item",
             properties: {
                 revenue: 39.95,
-                shippingMethod: '2-day',
+                shippingMethod: "2-day",
             },
         },
         err => {
@@ -112,27 +112,27 @@ function testTrack(): void {
 
 function testPage(): void {
     analytics.page({
-        userId: '019mr8mf4r',
-        category: 'Docs',
-        name: 'Node.js Library',
+        userId: "019mr8mf4r",
+        category: "Docs",
+        name: "Node.js Library",
         properties: {
-            url: 'https://segment.com/docs/libraries/node',
-            path: '/docs/libraries/node/',
-            title: 'Node.js Library - Segment',
-            referrer: 'https://github.com/segmentio/analytics-node',
+            url: "https://segment.com/docs/libraries/node",
+            path: "/docs/libraries/node/",
+            title: "Node.js Library - Segment",
+            referrer: "https://github.com/segmentio/analytics-node",
         },
     });
 
     analytics.page(
         {
-            userId: '019mr8mf4r',
-            category: 'Docs',
-            name: 'Node.js Library',
+            userId: "019mr8mf4r",
+            category: "Docs",
+            name: "Node.js Library",
             properties: {
-                url: 'https://segment.com/docs/libraries/node',
-                path: '/docs/libraries/node/',
-                title: 'Node.js Library - Segment',
-                referrer: 'https://github.com/segmentio/analytics-node',
+                url: "https://segment.com/docs/libraries/node",
+                path: "/docs/libraries/node/",
+                title: "Node.js Library - Segment",
+                referrer: "https://github.com/segmentio/analytics-node",
             },
         },
         err => {
@@ -145,25 +145,25 @@ function testPage(): void {
 
 function testScreen(): void {
     analytics.screen({
-        userId: '019mr8mf4r',
-        name: 'Node.js Library',
+        userId: "019mr8mf4r",
+        name: "Node.js Library",
         properties: {
-            url: 'https://segment.com/docs/libraries/node',
-            path: '/docs/libraries/node/',
-            title: 'Node.js Library - Segment',
-            referrer: 'https://github.com/segmentio/analytics-node',
+            url: "https://segment.com/docs/libraries/node",
+            path: "/docs/libraries/node/",
+            title: "Node.js Library - Segment",
+            referrer: "https://github.com/segmentio/analytics-node",
         },
     });
 
     analytics.screen(
         {
-            userId: '019mr8mf4r',
-            name: 'Node.js Library',
+            userId: "019mr8mf4r",
+            name: "Node.js Library",
             properties: {
-                url: 'https://segment.com/docs/libraries/node',
-                path: '/docs/libraries/node/',
-                title: 'Node.js Library - Segment',
-                referrer: 'https://github.com/segmentio/analytics-node',
+                url: "https://segment.com/docs/libraries/node",
+                path: "/docs/libraries/node/",
+                title: "Node.js Library - Segment",
+                referrer: "https://github.com/segmentio/analytics-node",
             },
         },
         err => {
@@ -176,32 +176,32 @@ function testScreen(): void {
 
 function testAlias(): void {
     // the anonymous user does actions ...
-    analytics.track({ userId: 'anonymous_user', event: 'Anonymous Event' });
+    analytics.track({ userId: "anonymous_user", event: "Anonymous Event" });
     // the anonymous user signs up and is aliased
-    analytics.alias({ previousId: 'anonymous_user', userId: 'identified@gmail.com' });
+    analytics.alias({ previousId: "anonymous_user", userId: "identified@gmail.com" });
     // the identified user is identified
-    analytics.identify({ userId: 'identified@gmail.com', traits: { plan: 'Free' } });
+    analytics.identify({ userId: "identified@gmail.com", traits: { plan: "Free" } });
     // the identified user does actions ...
-    analytics.track({ userId: 'identified@gmail.com', event: 'Identified Action' });
+    analytics.track({ userId: "identified@gmail.com", event: "Identified Action" });
 }
 
 function testGroup(): void {
     analytics.group({
-        userId: '019mr8mf4r',
-        groupId: '56',
+        userId: "019mr8mf4r",
+        groupId: "56",
         traits: {
-            name: 'Initech',
-            description: 'Accounting Software',
+            name: "Initech",
+            description: "Accounting Software",
         },
     });
 
     analytics.group(
         {
-            userId: '019mr8mf4r',
-            groupId: '56',
+            userId: "019mr8mf4r",
+            groupId: "56",
             traits: {
-                name: 'Initech',
-                description: 'Accounting Software',
+                name: "Initech",
+                description: "Accounting Software",
             },
         },
         err => {
@@ -214,28 +214,28 @@ function testGroup(): void {
 
 function testIntegrations(): void {
     analytics.track({
-        event: 'Upgraded Membership',
-        userId: '97234974',
+        event: "Upgraded Membership",
+        userId: "97234974",
         integrations: {
             All: false,
             Vero: true,
-            'Google Analytics': false,
+            "Google Analytics": false,
             AppsFlyer: {
-                appsflyer_id: 'example-id',
+                appsflyer_id: "example-id",
             },
         },
     });
 
     analytics.track(
         {
-            event: 'Upgraded Membership',
-            userId: '97234974',
+            event: "Upgraded Membership",
+            userId: "97234974",
             integrations: {
                 All: false,
                 Vero: true,
-                'Google Analytics': false,
+                "Google Analytics": false,
                 AppsFlyer: {
-                    appsflyer_id: 'example-id',
+                    appsflyer_id: "example-id",
                 },
             },
         },
@@ -251,7 +251,7 @@ function testFlush(): void {
     analytics.flush();
     analytics.flush((err, batch) => {
         if (err) {
-            alert('Oh nos!');
+            alert("Oh nos!");
         } else {
             console.log(batch.batch[0].type);
         }

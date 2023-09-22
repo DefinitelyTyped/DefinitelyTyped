@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import { GraphQLSchema, GraphQLFieldResolver } from 'graphql';
+import { GraphQLFieldResolver, GraphQLSchema } from "graphql";
 
 export function wrapResolvers<TContext>(
     schema: GraphQLSchema,

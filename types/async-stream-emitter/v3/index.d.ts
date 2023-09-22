@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import ConsumableStream = require('consumable-stream');
-import Consumer = require('writable-consumable-stream/consumer');
+import ConsumableStream = require("consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
 
 declare class AsyncStreamEmitter<T> {
     emit(eventName: string, data: T): void;

@@ -34,9 +34,11 @@ declare module "angular" {
          * @param url url to connect to
          * @return websocket instance
          */
-        type IWebSocketProvider =
-            (url: string, protocols?: string | string[] | IWebSocketConfigOptions,
-                options?: IWebSocketConfigOptions) => IWebSocket;
+        type IWebSocketProvider = (
+            url: string,
+            protocols?: string | string[] | IWebSocketConfigOptions,
+            options?: IWebSocketConfigOptions,
+        ) => IWebSocket;
 
         /** Options available to be specified for IWebSocket.onMessage */
         interface IWebSocketMessageOptions {

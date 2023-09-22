@@ -1,10 +1,10 @@
-import BitSet from '../misc/BitSet';
-import HashCode from '../misc/HashCode';
-import HashSet from '../misc/HashSet';
-import ATNConfig from './ATNConfig';
-import ATNSimulator from './ATNSimulator';
-import SemanticContext from './SemanticContext';
-import DoubleDict from '../utils/DoubleDict';
+import BitSet from "../misc/BitSet";
+import HashCode from "../misc/HashCode";
+import HashSet from "../misc/HashSet";
+import DoubleDict from "../utils/DoubleDict";
+import ATNConfig from "./ATNConfig";
+import ATNSimulator from "./ATNSimulator";
+import SemanticContext from "./SemanticContext";
 
 /**
  * Specialized `Set<{@link ATNConfig}>` that can track

@@ -212,7 +212,7 @@ export interface PermissionPage extends Page {
     permissions: Permission[];
 }
 
-export type Grant = 'authorization_code' | 'client_credentials' | 'implicit' | 'password' | 'refresh_token';
+export type Grant = "authorization_code" | "client_credentials" | "implicit" | "password" | "refresh_token";
 
 export interface Client {
     /**
@@ -262,12 +262,12 @@ export interface Client {
     allowed_logout_urls?: string[] | undefined;
     jwt_configuration?:
         | {
-              // The amount of time (in seconds) that the token will be valid after being issued
-              lifetime_in_seconds?: number | undefined;
-              scopes?: {} | undefined;
-              // The algorithm used to sign the JsonWebToken
-              alg?: 'HS256' | 'RS256' | undefined;
-          }
+            // The amount of time (in seconds) that the token will be valid after being issued
+            lifetime_in_seconds?: number | undefined;
+            scopes?: {} | undefined;
+            // The algorithm used to sign the JsonWebToken
+            alg?: "HS256" | "RS256" | undefined;
+        }
         | undefined;
     /**
      * A set of grant types that the client is authorized to use
@@ -279,10 +279,10 @@ export interface Client {
     signing_keys?: string[] | undefined;
     encryption_key?:
         | {
-              pub?: string | undefined;
-              cert?: string | undefined;
-              subject?: string | undefined;
-          }
+            pub?: string | undefined;
+            cert?: string | undefined;
+            subject?: string | undefined;
+        }
         | undefined;
     sso?: boolean | undefined;
     /**
@@ -317,7 +317,7 @@ export interface Client {
     initiate_login_uri?: string | undefined;
 }
 
-export interface ClientsPaged extends Omit<Page, 'length'> {
+export interface ClientsPaged extends Omit<Page, "length"> {
     clients: Client[];
 }
 
@@ -330,7 +330,7 @@ export interface ResourceServer {
     /**
      * The algorithm used to sign tokens.
      */
-    signing_alg?: 'HS256' | 'RS256' | undefined;
+    signing_alg?: "HS256" | "RS256" | undefined;
     /**
      * The secret used to sign tokens when using symmetric algorithms.
      */
@@ -366,7 +366,7 @@ export interface ResourceServer {
     /**
      * The dialect for the access token.
      */
-    token_dialect?: 'access_token' | 'access_token_authz' | undefined;
+    token_dialect?: "access_token" | "access_token_authz" | undefined;
 }
 
 export interface CreateResourceServer extends ResourceServer {
@@ -388,7 +388,7 @@ export interface CreateClientGrant {
     scope: string[];
 }
 
-export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, 'scope'>;
+export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, "scope">;
 
 export type ClientGrant = Partial<CreateClientGrant> & {
     /**
@@ -437,68 +437,68 @@ export interface CreateClientGrant {
 }
 
 export type Strategy =
-    | 'ad'
-    | 'adfs'
-    | 'amazon'
-    | 'dropbox'
-    | 'bitbucket'
-    | 'aol'
-    | 'auth0-adldap'
-    | 'auth0-oidc'
-    | 'auth0'
-    | 'baidu'
-    | 'bitly'
-    | 'box'
-    | 'custom'
-    | 'daccount'
-    | 'dwolla'
-    | 'email'
-    | 'evernote-sandbox'
-    | 'evernote'
-    | 'exact'
-    | 'facebook'
-    | 'fitbit'
-    | 'flickr'
-    | 'github'
-    | 'google-apps'
-    | 'google-oauth2'
-    | 'guardian'
-    | 'instagram'
-    | 'ip'
-    | 'line'
-    | 'linkedin'
-    | 'miicard'
-    | 'oauth1'
-    | 'oauth2'
-    | 'office365'
-    | 'oidc'
-    | 'okta'
-    | 'paypal'
-    | 'paypal-sandbox'
-    | 'pingfederate'
-    | 'planningcenter'
-    | 'renren'
-    | 'salesforce-community'
-    | 'salesforce-sandbox'
-    | 'salesforce'
-    | 'samlp'
-    | 'sharepoint'
-    | 'shopify'
-    | 'sms'
-    | 'soundcloud'
-    | 'thecity-sandbox'
-    | 'thecity'
-    | 'thirtysevensignals'
-    | 'twitter'
-    | 'untappd'
-    | 'vkontakte'
-    | 'waad'
-    | 'weibo'
-    | 'windowslive'
-    | 'wordpress'
-    | 'yahoo'
-    | 'yammer'
-    | 'yandex';
+    | "ad"
+    | "adfs"
+    | "amazon"
+    | "dropbox"
+    | "bitbucket"
+    | "aol"
+    | "auth0-adldap"
+    | "auth0-oidc"
+    | "auth0"
+    | "baidu"
+    | "bitly"
+    | "box"
+    | "custom"
+    | "daccount"
+    | "dwolla"
+    | "email"
+    | "evernote-sandbox"
+    | "evernote"
+    | "exact"
+    | "facebook"
+    | "fitbit"
+    | "flickr"
+    | "github"
+    | "google-apps"
+    | "google-oauth2"
+    | "guardian"
+    | "instagram"
+    | "ip"
+    | "line"
+    | "linkedin"
+    | "miicard"
+    | "oauth1"
+    | "oauth2"
+    | "office365"
+    | "oidc"
+    | "okta"
+    | "paypal"
+    | "paypal-sandbox"
+    | "pingfederate"
+    | "planningcenter"
+    | "renren"
+    | "salesforce-community"
+    | "salesforce-sandbox"
+    | "salesforce"
+    | "samlp"
+    | "sharepoint"
+    | "shopify"
+    | "sms"
+    | "soundcloud"
+    | "thecity-sandbox"
+    | "thecity"
+    | "thirtysevensignals"
+    | "twitter"
+    | "untappd"
+    | "vkontakte"
+    | "waad"
+    | "weibo"
+    | "windowslive"
+    | "wordpress"
+    | "yahoo"
+    | "yammer"
+    | "yandex";
 
 export interface UpdateConnection {
     options?: any;
@@ -629,13 +629,13 @@ export interface Identity {
     access_token?: string | undefined;
     profileData?:
         | {
-              email?: string | undefined;
-              email_verified?: boolean | undefined;
-              name?: string | undefined;
-              phone_number?: string | undefined;
-              phone_verified?: boolean | undefined;
-              request_language?: string | undefined;
-          }
+            email?: string | undefined;
+            email_verified?: boolean | undefined;
+            name?: string | undefined;
+            phone_number?: string | undefined;
+            phone_verified?: boolean | undefined;
+            request_language?: string | undefined;
+        }
         | undefined;
 }
 
@@ -755,7 +755,7 @@ export interface ClientParams {
     client_id: string;
 }
 
-export type DeleteDeleteMultifactorParamsProvider = 'duo' | 'google-authenticator';
+export type DeleteDeleteMultifactorParamsProvider = "duo" | "google-authenticator";
 
 export interface DeleteMultifactorParams {
     id: string;
@@ -763,65 +763,65 @@ export interface DeleteMultifactorParams {
 }
 
 export type UnlinkAccountsParamsProvider =
-    | 'ad'
-    | 'adfs'
-    | 'amazon'
-    | 'dropbox'
-    | 'bitbucket'
-    | 'aol'
-    | 'auth0-adldap'
-    | 'auth0-oidc'
-    | 'auth0'
-    | 'baidu'
-    | 'bitly'
-    | 'box'
-    | 'custom'
-    | 'dwolla'
-    | 'email'
-    | 'evernote-sandbox'
-    | 'evernote'
-    | 'exact'
-    | 'facebook'
-    | 'fitbit'
-    | 'flickr'
-    | 'github'
-    | 'google-apps'
-    | 'google-oauth2'
-    | 'guardian'
-    | 'instagram'
-    | 'ip'
-    | 'line'
-    | 'linkedin'
-    | 'miicard'
-    | 'oauth1'
-    | 'oauth2'
-    | 'office365'
-    | 'paypal'
-    | 'paypal-sandbox'
-    | 'pingfederate'
-    | 'planningcenter'
-    | 'renren'
-    | 'salesforce-community'
-    | 'salesforce-sandbox'
-    | 'salesforce'
-    | 'samlp'
-    | 'sharepoint'
-    | 'shopify'
-    | 'sms'
-    | 'soundcloud'
-    | 'thecity-sandbox'
-    | 'thecity'
-    | 'thirtysevensignals'
-    | 'twitter'
-    | 'untappd'
-    | 'vkontakte'
-    | 'waad'
-    | 'weibo'
-    | 'windowslive'
-    | 'wordpress'
-    | 'yahoo'
-    | 'yammer'
-    | 'yandex';
+    | "ad"
+    | "adfs"
+    | "amazon"
+    | "dropbox"
+    | "bitbucket"
+    | "aol"
+    | "auth0-adldap"
+    | "auth0-oidc"
+    | "auth0"
+    | "baidu"
+    | "bitly"
+    | "box"
+    | "custom"
+    | "dwolla"
+    | "email"
+    | "evernote-sandbox"
+    | "evernote"
+    | "exact"
+    | "facebook"
+    | "fitbit"
+    | "flickr"
+    | "github"
+    | "google-apps"
+    | "google-oauth2"
+    | "guardian"
+    | "instagram"
+    | "ip"
+    | "line"
+    | "linkedin"
+    | "miicard"
+    | "oauth1"
+    | "oauth2"
+    | "office365"
+    | "paypal"
+    | "paypal-sandbox"
+    | "pingfederate"
+    | "planningcenter"
+    | "renren"
+    | "salesforce-community"
+    | "salesforce-sandbox"
+    | "salesforce"
+    | "samlp"
+    | "sharepoint"
+    | "shopify"
+    | "sms"
+    | "soundcloud"
+    | "thecity-sandbox"
+    | "thecity"
+    | "thirtysevensignals"
+    | "twitter"
+    | "untappd"
+    | "vkontakte"
+    | "waad"
+    | "weibo"
+    | "windowslive"
+    | "wordpress"
+    | "yahoo"
+    | "yammer"
+    | "yandex";
 
 export interface UnlinkAccountsParams {
     id: string;
@@ -867,13 +867,13 @@ export interface StatsParams {
 
 export type Job = ImportUsersJob | ExportUsersJob | VerificationEmailJob;
 
-export type JobFormat = 'csv' | 'json';
+export type JobFormat = "csv" | "json";
 
-export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
+export type JobStatus = "pending" | "processing" | "completed" | "failed";
 
 export interface ExportUsersJob {
     id: string;
-    type: 'users_export';
+    type: "users_export";
     status: JobStatus;
     created_at?: string | undefined;
     connection_id?: string | undefined;
@@ -884,7 +884,7 @@ export interface ExportUsersJob {
 
 export interface ImportUsersJob {
     id: string;
-    type: 'users_import';
+    type: "users_import";
     status: JobStatus;
     created_at?: string | undefined;
     connection_id?: string | undefined;
@@ -895,16 +895,16 @@ export interface ImportUsersJob {
 
 export interface VerificationEmailJob {
     id: string;
-    type: 'verification_email';
+    type: "verification_email";
     status: JobStatus;
     created_at?: string | undefined;
 }
 
-export type CustomDomainVerificationMethod = 'txt';
+export type CustomDomainVerificationMethod = "txt";
 
-export type CustomDomainStatus = 'disabled' | 'pending' | 'pending_verification' | 'ready';
+export type CustomDomainStatus = "disabled" | "pending" | "pending_verification" | "ready";
 
-export type CustomDomainType = 'auth0_managed_certs' | 'self_managed_certs';
+export type CustomDomainType = "auth0_managed_certs" | "self_managed_certs";
 
 export interface CreateDomainData {
     domain: string;
@@ -985,9 +985,9 @@ export interface EmailVerificationTicketOptions {
     organization_id?: string | undefined;
     identity?:
         | {
-              user_id: string;
-              provider: string;
-          }
+            user_id: string;
+            provider: string;
+        }
         | undefined;
     ttl_sec?: number | undefined;
     includeEmailInRedirect?: boolean | undefined;
@@ -1022,7 +1022,7 @@ export interface CustomDomainsManagerOptions extends BaseClientOptions {
 export interface SignInOptions {
     username: string;
     otp: string;
-    realm?: 'email' | 'sms';
+    realm?: "email" | "sms";
     audience?: string | undefined;
     scope?: string | undefined;
     /**
@@ -1032,7 +1032,7 @@ export interface SignInOptions {
     /**
      * @deprecated
      */
-    connection?: 'email' | 'sms';
+    connection?: "email" | "sms";
 }
 
 export interface SocialSignInOptions {
@@ -1055,7 +1055,7 @@ export interface RequestSMSCodeOptions extends RequestSMSOptions {
     client_id: string;
 }
 
-export type SendType = 'link' | 'code';
+export type SendType = "link" | "code";
 export interface RequestEmailCodeOrLinkOptions {
     email: string;
     send: SendType;
@@ -1078,27 +1078,27 @@ export interface AuthenticationMethodByIdOptions {
 }
 
 export type ClientAppType =
-    | 'native'
-    | 'spa'
-    | 'regular_web'
-    | 'non_interactive'
-    | 'rms'
-    | 'box'
-    | 'cloudbees'
-    | 'concur'
-    | 'dropbox'
-    | 'mscrm'
-    | 'echosign'
-    | 'egnyte'
-    | 'newrelic'
-    | 'office365'
-    | 'salesforce'
-    | 'sentry'
-    | 'sharepoint'
-    | 'slack'
-    | 'springcm'
-    | 'zendesk'
-    | 'zoom';
+    | "native"
+    | "spa"
+    | "regular_web"
+    | "non_interactive"
+    | "rms"
+    | "box"
+    | "cloudbees"
+    | "concur"
+    | "dropbox"
+    | "mscrm"
+    | "echosign"
+    | "egnyte"
+    | "newrelic"
+    | "office365"
+    | "salesforce"
+    | "sentry"
+    | "sharepoint"
+    | "slack"
+    | "springcm"
+    | "zendesk"
+    | "zoom";
 export interface GetClientsOptions {
     fields?: string[] | undefined;
     include_fields?: boolean | undefined;
@@ -1123,9 +1123,9 @@ export interface UserBlocks {
     blocked_for: BlockedForEntry[];
 }
 
-export type EnrollmentStatus = 'pending' | 'confirmed';
+export type EnrollmentStatus = "pending" | "confirmed";
 
-export type AuthMethod = 'authentication' | 'guardian' | 'sms';
+export type AuthMethod = "authentication" | "guardian" | "sms";
 
 export interface Enrollment {
     id: string;
@@ -1228,19 +1228,19 @@ export interface Organization {
     display_name?: string | undefined;
     branding?:
         | {
-              logo_url?: string | undefined;
-              colors?:
-                  | {
-                        primary: string;
-                        page_background: string;
-                    }
-                  | undefined;
-          }
+            logo_url?: string | undefined;
+            colors?:
+                | {
+                    primary: string;
+                    page_background: string;
+                }
+                | undefined;
+        }
         | undefined;
     metadata?: any;
 }
 
-export interface OrganizationsPaged extends Omit<Page, 'length'> {
+export interface OrganizationsPaged extends Omit<Page, "length"> {
     organizations: Organization[];
 }
 
@@ -1249,14 +1249,14 @@ export interface CreateOrganization {
     display_name?: string | undefined;
     branding?:
         | {
-              logo_url?: string | undefined;
-              colors?:
-                  | {
-                        primary: string;
-                        page_background: string;
-                    }
-                  | undefined;
-          }
+            logo_url?: string | undefined;
+            colors?:
+                | {
+                    primary: string;
+                    page_background: string;
+                }
+                | undefined;
+        }
         | undefined;
     metadata?: any;
     enabled_connections?: AddOrganizationEnabledConnection[] | undefined;
@@ -1267,12 +1267,12 @@ export interface UpdateOrganization {
     display_name?: string | undefined;
     branding?:
         | {
-              logo_url?: string | undefined;
-              colors?: {
-                  primary: string;
-                  page_background: string;
-              };
-          }
+            logo_url?: string | undefined;
+            colors?: {
+                primary: string;
+                page_background: string;
+            };
+        }
         | undefined;
     metadata?: any;
 }
@@ -1310,7 +1310,7 @@ export interface OrganizationMember {
     email?: string | undefined;
 }
 
-export interface OrganizationMembersPaged extends Omit<Page, 'length'> {
+export interface OrganizationMembersPaged extends Omit<Page, "length"> {
     members: OrganizationMember[];
 }
 
@@ -1334,7 +1334,7 @@ export interface OrganizationInvitation {
     roles?: string[] | undefined;
 }
 
-export interface OrganizationInvitationsPaged extends Omit<Page, 'length'> {
+export interface OrganizationInvitationsPaged extends Omit<Page, "length"> {
     invitations: OrganizationInvitation[];
 }
 
@@ -1368,9 +1368,9 @@ export interface VerifyEmail {
     client_id?: string | undefined;
     identity?:
         | {
-              user_id: string;
-              provider: string;
-          }
+            user_id: string;
+            provider: string;
+        }
         | undefined;
 }
 
@@ -1436,110 +1436,110 @@ export interface LogEvent {
 
 /** https://auth0.com/docs/deploy-monitor/logs/log-event-type-codes */
 export type LogEventTypeCode =
-    | 'admin_update_launch'
-    | 'api_limit'
-    | 'cls'
-    | 'cs'
-    | 'depnote'
-    | 'du'
-    | 'f'
-    | 'fapi'
-    | 'fc'
-    | 'fce'
-    | 'fco'
-    | 'fcoa'
-    | 'fcp'
-    | 'fcph'
-    | 'fcpn'
-    | 'fcpr'
-    | 'fcpro'
-    | 'fcu'
-    | 'fd'
-    | 'fdeac'
-    | 'fdeaz'
-    | 'fdecc'
-    | 'fdu'
-    | 'feacft'
-    | 'feccft'
-    | 'fede'
-    | 'fens'
-    | 'feoobft'
-    | 'feotpft'
-    | 'fepft'
-    | 'fepotpft'
-    | 'fercft'
-    | 'fertft'
-    | 'ferrt'
-    | 'fi'
-    | 'flo'
-    | 'fn'
-    | 'fp'
-    | 'fs'
-    | 'fsa'
-    | 'fu'
-    | 'fui'
-    | 'fv'
-    | 'fvr'
-    | 'gd_auth_failed'
-    | 'gd_auth_rejected'
-    | 'gd_auth_succeed'
-    | 'gd_enrollment_complete'
-    | 'gd_otp_rate_limit_exceed'
-    | 'gd_recovery_failed'
-    | 'gd_recovery_rate_limit_exceed'
-    | 'gd_recovery_succeed'
-    | 'gd_send_pn'
-    | 'gd_send_sms'
-    | 'gd_send_sms_failure'
-    | 'gd_send_voice'
-    | 'gd_send_voice_failure'
-    | 'gd_start_auth'
-    | 'gd_start_enroll'
-    | 'gd_tenant_update'
-    | 'gd_unenroll'
-    | 'gd_update_device_account'
-    | 'limit_delegation'
-    | 'limit_mu'
-    | 'limit_wc'
-    | 'limit_sul'
-    | 'mfar'
-    | 'mgmt_api_read'
-    | 'pla'
-    | 'pwd_leak'
-    | 's'
-    | 'sapi'
-    | 'sce'
-    | 'scoa'
-    | 'scp'
-    | 'scph'
-    | 'scpn'
-    | 'scpr'
-    | 'scu'
-    | 'sd'
-    | 'sdu'
-    | 'seacft'
-    | 'seccft'
-    | 'sede'
-    | 'sens'
-    | 'seoobft'
-    | 'seotpft'
-    | 'sepft'
-    | 'sercft'
-    | 'sertft'
-    | 'si'
-    | 'srrt'
-    | 'slo'
-    | 'ss'
-    | 'ssa'
-    | 'sui'
-    | 'sv'
-    | 'svr'
-    | 'sys_os_update_end'
-    | 'sys_os_update_start'
-    | 'sys_update_end'
-    | 'sys_update_start'
-    | 'ublkdu'
-    | 'w';
+    | "admin_update_launch"
+    | "api_limit"
+    | "cls"
+    | "cs"
+    | "depnote"
+    | "du"
+    | "f"
+    | "fapi"
+    | "fc"
+    | "fce"
+    | "fco"
+    | "fcoa"
+    | "fcp"
+    | "fcph"
+    | "fcpn"
+    | "fcpr"
+    | "fcpro"
+    | "fcu"
+    | "fd"
+    | "fdeac"
+    | "fdeaz"
+    | "fdecc"
+    | "fdu"
+    | "feacft"
+    | "feccft"
+    | "fede"
+    | "fens"
+    | "feoobft"
+    | "feotpft"
+    | "fepft"
+    | "fepotpft"
+    | "fercft"
+    | "fertft"
+    | "ferrt"
+    | "fi"
+    | "flo"
+    | "fn"
+    | "fp"
+    | "fs"
+    | "fsa"
+    | "fu"
+    | "fui"
+    | "fv"
+    | "fvr"
+    | "gd_auth_failed"
+    | "gd_auth_rejected"
+    | "gd_auth_succeed"
+    | "gd_enrollment_complete"
+    | "gd_otp_rate_limit_exceed"
+    | "gd_recovery_failed"
+    | "gd_recovery_rate_limit_exceed"
+    | "gd_recovery_succeed"
+    | "gd_send_pn"
+    | "gd_send_sms"
+    | "gd_send_sms_failure"
+    | "gd_send_voice"
+    | "gd_send_voice_failure"
+    | "gd_start_auth"
+    | "gd_start_enroll"
+    | "gd_tenant_update"
+    | "gd_unenroll"
+    | "gd_update_device_account"
+    | "limit_delegation"
+    | "limit_mu"
+    | "limit_wc"
+    | "limit_sul"
+    | "mfar"
+    | "mgmt_api_read"
+    | "pla"
+    | "pwd_leak"
+    | "s"
+    | "sapi"
+    | "sce"
+    | "scoa"
+    | "scp"
+    | "scph"
+    | "scpn"
+    | "scpr"
+    | "scu"
+    | "sd"
+    | "sdu"
+    | "seacft"
+    | "seccft"
+    | "sede"
+    | "sens"
+    | "seoobft"
+    | "seotpft"
+    | "sepft"
+    | "sercft"
+    | "sertft"
+    | "si"
+    | "srrt"
+    | "slo"
+    | "ss"
+    | "ssa"
+    | "sui"
+    | "sv"
+    | "svr"
+    | "sys_os_update_end"
+    | "sys_os_update_start"
+    | "sys_update_end"
+    | "sys_update_start"
+    | "ublkdu"
+    | "w";
 
 export interface LogsQuery {
     /** A comma separated list of fields to include or exclude */
@@ -1573,11 +1573,11 @@ export interface UsersLogsQuery {
 interface LogStreamBase {
     id: string;
     name: string;
-    status: 'active' | 'paused' | 'suspended';
+    status: "active" | "paused" | "suspended";
 }
 
 interface DatadogLogStream extends LogStreamBase {
-    type: 'datadog';
+    type: "datadog";
     sink: {
         datadogRegion: string;
         datadogApiKey: string;
@@ -1585,7 +1585,7 @@ interface DatadogLogStream extends LogStreamBase {
 }
 
 interface EventBridgeLogStream extends LogStreamBase {
-    type: 'eventbridge';
+    type: "eventbridge";
     sink: {
         awsAccountId: string;
         awsRegion: string;
@@ -1594,7 +1594,7 @@ interface EventBridgeLogStream extends LogStreamBase {
 }
 
 interface EventGridLogStream extends LogStreamBase {
-    type: 'eventgrid';
+    type: "eventgrid";
     sink: {
         azureSubscriptionId: string;
         azureResourceGroup: string;
@@ -1604,9 +1604,9 @@ interface EventGridLogStream extends LogStreamBase {
 }
 
 interface HttpLogStream extends LogStreamBase {
-    type: 'http';
+    type: "http";
     sink: {
-        httpContentFormat: 'JSONLINES' | 'JSONARRAY';
+        httpContentFormat: "JSONLINES" | "JSONARRAY";
         httpContentType: string;
         httpEndpoint: string;
         httpAuthorization: string;
@@ -1614,7 +1614,7 @@ interface HttpLogStream extends LogStreamBase {
 }
 
 interface SplunkLogStream extends LogStreamBase {
-    type: 'splunk';
+    type: "splunk";
     sink: {
         splunkDomain: string;
         splunkToken: string;
@@ -1624,7 +1624,7 @@ interface SplunkLogStream extends LogStreamBase {
 }
 
 interface SumoLogStream extends LogStreamBase {
-    type: 'sumo';
+    type: "sumo";
     sink: {
         sumoSourceAddress: string;
     };
@@ -1646,7 +1646,7 @@ export interface GetDeviceCredentialsParams {
     fields?: string;
     include_fields?: boolean;
     client_id?: string;
-    type?: 'public_key' | 'refresh_token' | 'rotating_refresh_token';
+    type?: "public_key" | "refresh_token" | "rotating_refresh_token";
 }
 
 export interface DeviceCredential {
@@ -1778,21 +1778,29 @@ export class OrganizationsManager {
     removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
 
     getInvitations(
-        params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
+        params:
+            & ObjectWithId
+            & PagingOptions
+            & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
     ): Promise<OrganizationInvitation[]>;
     getInvitations(
-        params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+        params:
+            & ObjectWithId
+            & PagingOptions
+            & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
     ): Promise<OrganizationInvitationsPaged>;
     getInvitations(
-        params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
+        params:
+            & ObjectWithId
+            & PagingOptions
+            & { fields?: string; include_fields?: boolean; sort?: string; include_totals?: false },
         cb: (err: Error, invitations: OrganizationInvitation[]) => void,
     ): void;
     getInvitations(
-        params: ObjectWithId &
-            PagingOptions & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
+        params:
+            & ObjectWithId
+            & PagingOptions
+            & { fields?: string; include_fields?: boolean; sort?: string; include_totals: true },
         cb: (err: Error, pagedInvitations: OrganizationInvitationsPaged) => void,
     ): void;
 
@@ -1817,14 +1825,14 @@ export class OrganizationsManager {
     getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
     getMemberRoles(
         params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
-    ): Promise<Omit<RolePage, 'length'>>;
+    ): Promise<Omit<RolePage, "length">>;
     getMemberRoles(
         params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
         cb: (err: Error, roles: Role[]) => void,
     ): void;
     getMemberRoles(
         params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
-        cb: (err: Error, roles: Omit<RolePage, 'length'>) => void,
+        cb: (err: Error, roles: Omit<RolePage, "length">) => void,
     ): void;
 
     addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;

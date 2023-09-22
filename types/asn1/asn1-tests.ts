@@ -1,11 +1,11 @@
-import { Ber, BerReader, BerWriter } from 'asn1';
+import { Ber, BerReader, BerWriter } from "asn1";
 
 let buf = Buffer.alloc(0);
 let bufferOrNull: Buffer | null = Buffer.alloc(0);
 const bool = false;
 let boolOrNull: boolean | null = false;
-const str = '';
-let strOrNull: string | null = '';
+const str = "";
+let strOrNull: string | null = "";
 let num = 0;
 let numOrNull: number | null = 0;
 const roStrArray: ReadonlyArray<string> = [str];

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-type Falsy = false | 0 | '' | null | undefined;
+type Falsy = false | 0 | "" | null | undefined;
 
 interface Data<T> {
     pipe: (res: T) => any;
@@ -23,7 +23,7 @@ declare function errorHandler<Err, Req, Res, P, T>(
             err: Err,
             req: Req,
             res: Res,
-        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>['pipe']> : undefined) : T
+        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>["pipe"]> : undefined) : T
     >;
 
     restana: (
@@ -35,7 +35,7 @@ declare function errorHandler<Err, Req, Res, P, T>(
             err: Err,
             req: Req,
             res: Res,
-        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>['pipe']> : undefined) : T
+        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>["pipe"]> : undefined) : T
     >;
 
     native: (
@@ -47,7 +47,7 @@ declare function errorHandler<Err, Req, Res, P, T>(
             err: Err,
             req: Req,
             res: Res,
-        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>['pipe']> : undefined) : T
+        ) => T extends Falsy ? (P extends Data<Res> ? ReturnType<Data<Res>["pipe"]> : undefined) : T
     >;
 };
 

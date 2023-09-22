@@ -3,6 +3,6 @@
 // Definitions by: Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Thing = require('./thing');
+import Thing = require("./thing");
 
 export { Thing };

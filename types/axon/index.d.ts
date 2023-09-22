@@ -123,12 +123,23 @@ export class PullSocket extends Socket {
 }
 
 export type ConnectionPort =
-    number
+    | number
     | string
-    | { protocol?: string | undefined, hostname?: string | undefined, pathname: string, port: string | number };
+    | { protocol?: string | undefined; hostname?: string | undefined; pathname: string; port: string | number };
 
 export function socket(type: string, options?: any): Socket;
 
 export const types: {
-    [propName: string]: { new(): PubEmitterSocket | SubEmitterSocket | PushSocket | PullSocket | PubSocket | SubSocket | ReqSocket | RepSocket | Socket };
+    [propName: string]: {
+        new():
+            | PubEmitterSocket
+            | SubEmitterSocket
+            | PushSocket
+            | PullSocket
+            | PubSocket
+            | SubSocket
+            | ReqSocket
+            | RepSocket
+            | Socket;
+    };
 };

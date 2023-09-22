@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui {
         interface IScrollDatasource<T> {
             /**

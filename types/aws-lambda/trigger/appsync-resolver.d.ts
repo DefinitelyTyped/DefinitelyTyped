@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
     AppSyncResolverEvent<TArguments, TSource>,

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Options as LRUOptions } from 'lru-cache';
+import { Options as LRUOptions } from "lru-cache";
 
 export = AsyncCache;
 
@@ -12,7 +12,7 @@ declare const AsyncCache: AsyncCacheFactory;
 
 interface AsyncCacheFactory {
     <T>(options: AsyncCache.Options<T>): AsyncCache.Cache<T>;
-    new <T>(options: AsyncCache.Options<T>): AsyncCache.Cache<T>;
+    new<T>(options: AsyncCache.Options<T>): AsyncCache.Cache<T>;
 }
 
 declare namespace AsyncCache {

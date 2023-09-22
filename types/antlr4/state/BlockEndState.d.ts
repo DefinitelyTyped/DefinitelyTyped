@@ -1,4 +1,4 @@
-import ATNState from './ATNState';
+import ATNState from "./ATNState";
 
 /**
  * Terminal node of a simple `(a|b|c)` block.

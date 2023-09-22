@@ -11,16 +11,16 @@ asyncRedis.createClient(8080, "localhost");
 
 // $ExpectType AsyncRedisClient
 asyncRedis.createClient("./awesome-redis.sock", {
-  host: "localhost",
-  port: 8080,
-  path: "/",
+    host: "localhost",
+    port: 8080,
+    path: "/",
 });
 
 // $ExpectType AsyncRedisClient
 asyncRedis.createClient({
-  host: "localhost",
-  port: 8080,
-  path: "/",
+    host: "localhost",
+    port: 8080,
+    path: "/",
 });
 
 // $ExpectType Multi

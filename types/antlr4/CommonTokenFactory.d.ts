@@ -1,5 +1,5 @@
-import CommonToken from './CommonToken';
-import Token from './Token';
+import CommonToken from "./CommonToken";
+import Token from "./Token";
 
 export class TokenFactory {}
 
@@ -19,7 +19,7 @@ export default class CommonTokenFactory extends TokenFactory {
     constructor(copyText: boolean);
 
     create(
-        source: Token['source'] | undefined,
+        source: Token["source"] | undefined,
         type: number | undefined,
         text: string | null,
         channel: number,

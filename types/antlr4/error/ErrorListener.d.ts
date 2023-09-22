@@ -1,9 +1,9 @@
-import ATNConfigSet from '../atn/ATNConfigSet';
-import DFA from '../dfa/DFA';
-import BitSet from '../misc/BitSet';
-import Recognizer from '../Recognizer';
-import Token from '../Token';
-import RecognitionException from './RecognitionException';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import DFA from "../dfa/DFA";
+import BitSet from "../misc/BitSet";
+import Recognizer from "../Recognizer";
+import Token from "../Token";
+import RecognitionException from "./RecognitionException";
 
 /**
  * Provides an empty default implementation of ANTLRErrorListener. The

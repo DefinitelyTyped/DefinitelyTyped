@@ -1,4 +1,4 @@
-import Animated_GIF = require('animated_gif');
+import Animated_GIF = require("animated_gif");
 
 const ag = new Animated_GIF();
 

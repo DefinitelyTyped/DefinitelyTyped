@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import Ajv from 'ajv';
+import Ajv from "ajv";
 
 declare function ajvAsync(ajv: Ajv): Ajv;
 export = ajvAsync;

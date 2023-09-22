@@ -28,8 +28,8 @@ declare namespace A2MML {
         decimalMark?: string | undefined;
         colSep?: string | undefined;
         rowSep?: string | undefined;
-        display?: 'inline' | 'block' | undefined;
-        dir?: 'ltr' | 'rtl' | undefined;
+        display?: "inline" | "block" | undefined;
+        dir?: "ltr" | "rtl" | undefined;
         bare?: boolean | undefined;
         standalone?: boolean | undefined;
         annotate?: boolean | undefined;

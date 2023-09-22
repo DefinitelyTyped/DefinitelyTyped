@@ -1,6 +1,6 @@
-import AbstractPredicateTransition from '../atn/AbstractPredicateTransition';
-import Predicate from '../atn/Predicate';
-import ATNState from '../state/ATNState';
+import AbstractPredicateTransition from "../atn/AbstractPredicateTransition";
+import Predicate from "../atn/Predicate";
+import ATNState from "../state/ATNState";
 
 export default class PredicateTransition extends AbstractPredicateTransition {
     readonly serializationType: number;

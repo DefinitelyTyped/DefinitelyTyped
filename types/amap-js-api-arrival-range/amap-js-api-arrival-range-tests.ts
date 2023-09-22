@@ -6,8 +6,8 @@ const arrivalRange = new AMap.ArrivalRange();
 
 // $ExpectType void
 arrivalRange.search(lnglat, 10, (status, result) => {
-    const tempStatus: 'complete' | 'error' | 'no_data' = status;
-    if (typeof result !== 'string') {
+    const tempStatus: "complete" | "error" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResult
         result;
         // $ExpectType string
@@ -24,17 +24,17 @@ arrivalRange.search(lnglat, 10, (status, result) => {
     }
 });
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { });
+arrivalRange.search(lnglatTuple, 10, () => {});
 // $ExpectType void
-arrivalRange.search(lnglatTuple, 10, () => { }, {});
+arrivalRange.search(lnglatTuple, 10, () => {}, {});
 // $ExpectType void
-arrivalRange.search(lnglat, 10, () => { }, {
-    policy: 'BUS',
-    resultType: 'polygon',
-    destination: lnglat
+arrivalRange.search(lnglat, 10, () => {}, {
+    policy: "BUS",
+    resultType: "polygon",
+    destination: lnglat,
 });
 
-arrivalRange.on('error', (event: AMap.ArrivalRange.EventMap['error']) => {
+arrivalRange.on("error", (event: AMap.ArrivalRange.EventMap["error"]) => {
     // $ExpectType string
     event.info;
     // $ExpectType "error"

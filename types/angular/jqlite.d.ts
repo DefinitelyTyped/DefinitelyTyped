@@ -199,7 +199,7 @@ interface JQuery {
      * @param obj An object of key-value pairs of data to update.
      * @see {@link https://api.jquery.com/data/#data-obj}
      */
-    data(obj: { [key: string]: any; }): this;
+    data(obj: { [key: string]: any }): this;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      * @see {@link https://api.jquery.com/data/#data}
@@ -308,7 +308,12 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): this;
+    on(
+        events: string,
+        selector: string,
+        data: any,
+        handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -317,7 +322,11 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, selector?: string, data?: any): this;
+    on(
+        events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any },
+        selector?: string,
+        data?: any,
+    ): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -325,7 +334,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, data?: any): this;
+    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any }, data?: any): this;
 
     /**
      * Remove an event handler.
@@ -364,7 +373,7 @@ interface JQuery {
      * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      * @see {@link https://api.jquery.com/off/#off-events-selector}
      */
-    off(events: { [key: string]: any; }, selector?: string): this;
+    off(events: { [key: string]: any }, selector?: string): this;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -410,7 +419,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data}
      */
-    one(events: { [key: string]: any; }, selector?: string, data?: any): this;
+    one(events: { [key: string]: any }, selector?: string, data?: any): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -418,7 +427,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data}
      */
-    one(events: { [key: string]: any; }, data?: any): this;
+    one(events: { [key: string]: any }, data?: any): this;
 
     /**
      * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
@@ -679,7 +688,7 @@ interface JQuery {
     isolateScope<T extends ng.IScope>(): T;
 
     inheritedData(key: string, value: any): this;
-    inheritedData(obj: { [key: string]: any; }): this;
+    inheritedData(obj: { [key: string]: any }): this;
     inheritedData(key?: string): any;
 }
 
@@ -821,7 +830,14 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryCustomEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+interface JQueryEventObject
+    extends
+        BaseJQueryEventObject,
+        JQueryCustomEventObject,
+        JQueryInputEventObject,
+        JQueryMouseEventObject,
+        JQueryKeyEventObject
+{
 }
 
 /**

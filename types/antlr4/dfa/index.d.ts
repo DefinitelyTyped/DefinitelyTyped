@@ -1,7 +1,7 @@
-import DFA from './DFA';
-import DFASerializer from './DFASerializer';
-import LexerDFASerializer from './LexerDFASerializer';
-import PredPrediction from './PredPrediction';
+import DFA from "./DFA";
+import DFASerializer from "./DFASerializer";
+import LexerDFASerializer from "./LexerDFASerializer";
+import PredPrediction from "./PredPrediction";
 
 declare namespace dfa {
     export { DFA };

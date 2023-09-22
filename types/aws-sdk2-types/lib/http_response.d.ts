@@ -1,4 +1,4 @@
-import * as stream from 'stream';
+import * as stream from "stream";
 interface XMLHttpRequest {}
 /**
  * The low level HTTP response object, encapsulating all HTTP header and body data returned from the request.

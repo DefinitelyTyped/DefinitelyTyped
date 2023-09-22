@@ -1,12 +1,21 @@
 declare namespace AMap {
     namespace InfoWindow {
         interface EventMap<I> {
-            change: Event<'change', { target: I }>;
-            open: Event<'open', { target: I }>;
-            close: Event<'close', { target: I }>;
+            change: Event<"change", { target: I }>;
+            open: Event<"open", { target: I }>;
+            close: Event<"close", { target: I }>;
         }
 
-        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        type Anchor =
+            | "top-left"
+            | "top-center"
+            | "top-right"
+            | "middle-left"
+            | "center"
+            | "middle-right"
+            | "bottom-left"
+            | "bottom-center"
+            | "bottom-right";
 
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**

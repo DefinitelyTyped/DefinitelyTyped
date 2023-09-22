@@ -60,19 +60,16 @@ export class Authentication {
 
     /**
      * Makes a call to the `/ssodata` endpoint
-     *
      */
     getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
-     *
      */
     getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
-     *
      */
     userInfo(accessToken: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
@@ -85,7 +82,6 @@ export class Authentication {
 
     /**
      * Fetches the user country based on the ip.
-     *
      */
     getUserCountry(callback: Auth0Callback<{ countryCode: string }>): void;
 }
@@ -95,7 +91,6 @@ export class PasswordlessAuthentication {
 
     /**
      * Builds and returns the passwordless TOTP verify url in order to initialize a new authN/authZ transaction
-     *
      */
     buildVerifyUrl(options: PasswordlessVerifyOptions): string;
 
@@ -108,7 +103,6 @@ export class PasswordlessAuthentication {
 
     /**
      * Verifies the passwordless TOTP and returns an error if any.
-     *
      */
     verify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 }
@@ -138,14 +132,12 @@ export class Management {
 
     /**
      * Returns the user profile. https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
-     *
      */
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
-     *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
@@ -156,7 +148,6 @@ export class Management {
     patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
-     *
      */
     linkUser(userId: string, secondaryUserToken: string, callback: Auth0Callback<any>): void;
 }
@@ -518,7 +509,6 @@ export class CrossOriginAuthentication {
 
     /**
      * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
      */
     callback(): void;
 }

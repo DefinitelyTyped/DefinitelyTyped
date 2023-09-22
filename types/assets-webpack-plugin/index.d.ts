@@ -5,7 +5,7 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 declare namespace AssetsWebpackPlugin {
     interface Assets {

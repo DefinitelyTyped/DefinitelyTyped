@@ -9,10 +9,10 @@
 declare namespace AMap {
     namespace Scale {
         interface EventMap {
-            show: Event<'show'>;
-            hide: Event<'hide'>;
+            show: Event<"show">;
+            hide: Event<"hide">;
         }
-        type Position = 'LT' | 'RT' | 'LB' | 'RB';
+        type Position = "LT" | "RT" | "LB" | "RB";
         interface Options {
             /**
              * 控件停靠位置

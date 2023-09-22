@@ -1,4 +1,4 @@
-import { Disposable, Pane, PaneItemObservedEvent, TextEditor, TextEditorObservedEvent } from '../index';
+import { Disposable, Pane, PaneItemObservedEvent, TextEditor, TextEditorObservedEvent } from "../index";
 
 // https://github.com/atom/atom/blob/master/src/workspace-center.js
 /** The central container for the editor window capable of holding items. */

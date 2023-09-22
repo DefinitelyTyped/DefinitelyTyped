@@ -10,10 +10,10 @@
 declare namespace AMap {
     namespace Geolocation {
         interface EventMap {
-            complete: Event<'complete', GeolocationResult>;
-            error: Event<'error', ErrorStatus>;
+            complete: Event<"complete", GeolocationResult>;
+            error: Event<"error", ErrorStatus>;
         }
-        type ButtonPosition = 'LT' | 'LB' | 'RT' | 'RB';
+        type ButtonPosition = "LT" | "LB" | "RT" | "RB";
         interface Options {
             /**
              * 是否使用高精度
@@ -102,12 +102,12 @@ declare namespace AMap {
             /**
              * 是否返回详细信息
              */
-            extensions?: 'all' | 'base' | undefined;
+            extensions?: "all" | "base" | undefined;
             // internal
             convertUrl?: string | undefined;
             stopWhenPermissionDenied?: boolean | undefined;
         }
-        type LocationType = 'html5' | 'ip' | 'sdk';
+        type LocationType = "html5" | "ip" | "sdk";
         interface GeolocationResult extends Geocoder.ReGeocode {
             /**
              * 定位结果
@@ -198,7 +198,7 @@ declare namespace AMap {
              */
             status: 1;
         }
-        type SearchStatus = 'complete' | 'error';
+        type SearchStatus = "complete" | "error";
     }
 
     class Geolocation extends EventEmitter {
@@ -215,7 +215,12 @@ declare namespace AMap {
          * 获取用户当前的精确位置信息
          * @param callback 回调
          */
-        getCurrentPosition(callback: (status: Geolocation.SearchStatus, result: Geolocation.GeolocationResult | Geolocation.ErrorStatus) => void): void;
+        getCurrentPosition(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.GeolocationResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
         /**
          * 使用浏览器定位接口监控当前位置，移动端有效
          */
@@ -229,6 +234,11 @@ declare namespace AMap {
          * 进行IP城市查询
          * @param callback 回调
          */
-        getCityInfo(callback: (status: Geolocation.SearchStatus, result: Geolocation.CityResult | Geolocation.ErrorStatus) => void): void;
+        getCityInfo(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.CityResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
     }
 }

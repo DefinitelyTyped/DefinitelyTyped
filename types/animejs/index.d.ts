@@ -7,7 +7,7 @@
 
 type FunctionBasedParameter = (element: HTMLElement, index: number, length: number) => number;
 type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
-type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => ((time: number) => number);
+type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => (time: number) => number;
 // Allowing null is necessary because DOM queries may not return anything.
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
@@ -138,11 +138,11 @@ declare namespace anime {
 
     interface StaggerOptions {
         start?: number | string | undefined;
-        direction?: 'normal' | 'reverse' | undefined;
+        direction?: "normal" | "reverse" | undefined;
         easing?: CustomEasingFunction | string | EasingOptions | undefined;
         grid?: ReadonlyArray<number> | undefined;
-        axis?: 'x' | 'y' | undefined;
-        from?: 'first' | 'last' | 'center' | number | undefined;
+        axis?: "x" | "y" | undefined;
+        from?: "first" | "last" | "center" | number | undefined;
     }
 
     // Helpers
@@ -153,14 +153,17 @@ declare namespace anime {
     function remove(targets: AnimeTarget | ReadonlyArray<AnimeTarget>): void;
     function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
-        el: HTMLElement | SVGElement,
-        property: string,
-        totalLength: number
+        el: HTMLElement | SVGElement;
+        property: string;
+        totalLength: number;
     };
     function setDashoffset(el: HTMLElement | SVGElement | null): number;
     function bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
-    function stagger(value: number | string | ReadonlyArray<number | string>, options?: StaggerOptions): FunctionBasedParameter;
-    function set(targets: AnimeTarget, value: {[AnyAnimatedProperty: string]: any}): void;
+    function stagger(
+        value: number | string | ReadonlyArray<number | string>,
+        options?: StaggerOptions,
+    ): FunctionBasedParameter;
+    function set(targets: AnimeTarget, value: { [AnyAnimatedProperty: string]: any }): void;
     // Timeline
     function timeline(params?: AnimeParams | ReadonlyArray<AnimeInstance>): AnimeTimelineInstance;
     function random(min: number, max: number): number;

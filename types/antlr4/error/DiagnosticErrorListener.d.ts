@@ -1,8 +1,8 @@
-import ATNConfigSet from '../atn/ATNConfigSet';
-import DFA from '../dfa/DFA';
-import BitSet from '../misc/BitSet';
-import Parser from '../Parser';
-import ErrorListener from './ErrorListener';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import DFA from "../dfa/DFA";
+import BitSet from "../misc/BitSet";
+import Parser from "../Parser";
+import ErrorListener from "./ErrorListener";
 
 /**
  * This implementation of {@link ErrorListener} can be used to identify

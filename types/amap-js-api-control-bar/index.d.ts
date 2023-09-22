@@ -9,8 +9,8 @@
 declare namespace AMap {
     namespace ControlBar {
         interface EventMap {
-            hide: Event<'hide'>;
-            show: Event<'show'>;
+            hide: Event<"hide">;
+            show: Event<"show">;
         }
         interface Position {
             top?: string | undefined;

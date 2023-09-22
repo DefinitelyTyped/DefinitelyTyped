@@ -1,7 +1,7 @@
-import ensureDir = require('appgeist__ensure-dir');
+import ensureDir = require("appgeist__ensure-dir");
 
 // $ExpectType Promise<void>
-ensureDir('a dir');
+ensureDir("a dir");
 
 // @ts-expect-error
 ensureDir();

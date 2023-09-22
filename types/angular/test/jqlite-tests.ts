@@ -1,7 +1,7 @@
-import * as angular from 'angular';
+import * as angular from "angular";
 
 function JQLite() {
     function indexSignature() {
-        angular.element('p')[0]; // $ExpectType HTMLElement
+        angular.element("p")[0]; // $ExpectType HTMLElement
     }
 }

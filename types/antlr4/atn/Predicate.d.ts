@@ -1,7 +1,7 @@
-import RuleContext from '../context/RuleContext';
-import HashCode from '../misc/HashCode';
-import Recognizer from '../Recognizer';
-import SemanticContext from './SemanticContext';
+import RuleContext from "../context/RuleContext";
+import HashCode from "../misc/HashCode";
+import Recognizer from "../Recognizer";
+import SemanticContext from "./SemanticContext";
 
 export default class Predicate extends SemanticContext {
     readonly ruleIndex: number;
