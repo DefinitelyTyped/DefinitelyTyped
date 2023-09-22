@@ -40,7 +40,10 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
-type LiteralUnion<T extends U, U = string> = T | (U & {})
+type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+type LiteralUnion<LiteralType, BaseType extends Primitive = string> =
+  | LiteralType
+  | (BaseType & Record<never, never>);
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
