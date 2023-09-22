@@ -1062,7 +1062,12 @@ declare module "@mapbox/mapbox-sdk/services/map-matching" {
         Leg,
     } from "@mapbox/mapbox-sdk/services/directions";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { Coordinates } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import {
+        Coordinates,
+        DirectionsApproach,
+        MapboxProfile,
+        MapiRequest,
+    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
