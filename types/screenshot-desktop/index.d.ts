@@ -11,7 +11,7 @@ declare function screenshotDesktop(options?: { format?: screenshotDesktop.ImageF
 declare function screenshotDesktop(options?: { filename: string, format?: screenshotDesktop.ImageFormat, screen?: screenshotDesktop.DisplayID }): Promise<string>;
 
 declare namespace screenshotDesktop {
-    type DisplayID = number;
+    type DisplayID = string;
 
     type ImageFormat =
         'bmp' |
@@ -24,6 +24,6 @@ declare namespace screenshotDesktop {
         'tiff' |
         'wmf';
 
-    function listDisplays(): Promise<Array<{ id: DisplayID, name: string }>>;
+    function listDisplays(): Promise<Array<{ id: DisplayID, name: string, top?: number, right?: number, bottom?: number, left?: number, width?: number, height?: number }>>;
     function all(): Promise<Array<{ id: DisplayID, name: string }>>;
 }
