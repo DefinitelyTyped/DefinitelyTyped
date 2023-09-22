@@ -36,7 +36,7 @@ interface InlineMap {
     /**
      * @deprecated
      */
-    Paramaters?: JsonObject;
+    Parameters?: JsonObject;
 }
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
