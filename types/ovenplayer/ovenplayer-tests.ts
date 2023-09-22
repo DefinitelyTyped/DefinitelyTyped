@@ -1,6 +1,4 @@
-import OvenPlayer from "ovenplayer";
-import type { OvenPlayerConfig, OvenPlayerPlayList, OvenPlayerSource, OvenPlayerWebRTCStream } from "ovenplayer";
-
+import OvenPlayer, { OvenPlayerConfig, OvenPlayerPlayList, OvenPlayerSource, OvenPlayerWebRTCStream } from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
