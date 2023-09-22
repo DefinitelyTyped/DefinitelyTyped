@@ -12,7 +12,7 @@ interface OvenPlayer {
     removePlayer(player: OvenPlayerInstance): void;
 }
 
-interface OvenPlayerConfig {
+export interface OvenPlayerConfig {
     aspectRatio?: string;
     title?: string;
     waterMark?: object;
@@ -43,16 +43,16 @@ interface OvenPlayerConfig {
     image?: string;
 }
 
-interface OvenPlayerWebRTCStream {
+export interface OvenPlayerWebRTCStream {
     host: string;
     application: string;
     stream: string;
     label?: string;
 }
 
-type OvenPlayerPlayList = OvenPlayerSource[][];
+export type OvenPlayerPlayList = OvenPlayerSource[][];
 
-interface OvenPlayerSource {
+export interface OvenPlayerSource {
     type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
     file: string;
     label?: string;
