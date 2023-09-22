@@ -4922,15 +4922,26 @@ fp.now(); // $ExpectType number
 {
     const listIterator = (value: AbcObject) => 0;
 
+    const listWithNullAndUndefined: _.List<Partial<AbcObject>> = anything
+    const partialIterator = (value: Partial<AbcObject>) => value.a
+
     _.sumBy(list, listIterator); // $ExpectType number
     _.sumBy(list, "a"); // $ExpectType number
+    _.sumBy(listWithNullAndUndefined, partialIterator) // $ExpectType number
+    _.sumBy(listWithNullAndUndefined, "a") // $ExpectType number
     _(list).sumBy(listIterator); // $ExpectType number
     _(list).sumBy("a"); // $ExpectType number
+    _(listWithNullAndUndefined).sumBy(`a`) // $ExpectType number
+    _(listWithNullAndUndefined).sumBy(partialIterator) // $ExpectType number
     _(list).chain().sumBy(listIterator); // $ExpectType PrimitiveChain<number>
     _(list).chain().sumBy("a"); // $ExpectType PrimitiveChain<number>
+    _(listWithNullAndUndefined).chain().sumBy(partialIterator) // $ExpectType PrimitiveChain<number>
+    _(listWithNullAndUndefined).chain().sumBy("a") // $ExpectType PrimitiveChain<number>
 
     fp.sumBy(listIterator, list); // $ExpectType number
     fp.sumBy("a")(list); // $ExpectType number
+    fp.sumBy(partialIterator)(listWithNullAndUndefined); // $ExpectType number
+    fp.sumBy("a")(listWithNullAndUndefined); // $ExpectType number
 }
 
 /**********
