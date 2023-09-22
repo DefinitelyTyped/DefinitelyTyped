@@ -61,7 +61,7 @@ export interface OvenPlayerSource {
     sectionEnd?: number;
 }
 
-interface OvenPlayerInstance {
+export interface OvenPlayerInstance {
     getVersion(): string;
     getConfig(): OvenPlayerConfig;
     getContainerElement(): HTMLDivElement;
