@@ -337,6 +337,33 @@ declare namespace GoogleAppsScript {
             updateSpec(spec: DataSourceSpec): DataSource;
         }
         /**
+         * Access and modify a data source column.
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceColumn {
+            getDataSource(): DataSource;
+            getFormula(): string;
+            getName(): string;
+            hasArrayDependency(): boolean;
+            isCalculatedColumn(): boolean;
+            remove(): void;
+            setFormula(formula: string): DataSourceColumn;
+            setName(name: string): DataSourceColumn;
+        }
+        /**
+         * Access and modify an existing data source sheet filter. To create a new data source sheet filter, use DataSourceSheet.addFilter(columnName, filterCriteria).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceFilter {
+            getDataSourceColumn(): DataSourceColumn;
+            getDataSourceSheet(): DataSourceSheet;
+            getFilterCriteria(): FilterCriteria;
+            remove(): void;
+            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceFilter;
+        }
+        /**
          * Access existing data source parameters.
          */
         interface DataSourceParameter {
@@ -350,6 +377,31 @@ declare namespace GoogleAppsScript {
         enum DataSourceParameterType {
             DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED,
             CELL,
+        }
+        /**
+         * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceSheet {
+            addFilter(columnName: string, filterCriteria: FilterCriteria): DataSourceSheet;
+            asSheet(): Sheet;
+            autoResizeColumn(columnName: string): DataSourceSheet;
+            autoResizeColumns(columnNames: string[]): DataSourceSheet;
+            forceRefreshData(): DataSourceSheet;
+            getColumnWidth(columnName: string): Integer;
+            getDataSource(): DataSource;
+            getFilters(): DataSourceFilter[];
+            getSheetValues(columnName: string, startRow?: Integer, numRows?: Integer): any[];
+            getSortSpecs(): SortSpec[];
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourceSheet;
+            removeFilters(columnName: string): DataSourceSheet;
+            removeSortSpec(columnName: string): DataSourceSheet;
+            setColumnWidth(columnName: string, width: Integer): DataSourceSheet;
+            setColumnWidths(columnNames: string[], width: Integer): DataSourceSheet;
+            setSortSpec(columnName: string, ascending: boolean): DataSourceSheet;
+            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
         }
         /**
          * Access the general settings of an existing data source spec. To access data source spec for
@@ -1963,6 +2015,7 @@ declare namespace GoogleAppsScript {
             addDeveloperMetadata(key: string, value: string): Sheet;
             addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
             appendRow(rowContents: any[]): Sheet;
+            asDataSourceSheet(): DataSourceSheet;
             autoResizeColumn(columnPosition: Integer): Sheet;
             autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
             autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
@@ -2374,6 +2427,24 @@ declare namespace GoogleAppsScript {
                 blue: Integer,
             ): SpreadsheetTheme;
             setFontFamily(fontFamily: string): SpreadsheetTheme;
+        }
+        /**
+         * An enumerations representing the sort order.
+         */
+        enum SortOrder {
+            ASCENDING,
+            DESCENDING,
+        }
+        /**
+         * The sorting specification.
+         */
+        interface SortSpec{
+            getBackgroundColor(): Color;
+            getDataSourceColumn(): DataSourceColumn;
+            getDimensionIndex(): Integer;
+            getForegroundColor(): Color;
+            getSortOrder(): SortOrder;
+            isAscending(): boolean;
         }
         /**
          * An enumerations of text directions.
