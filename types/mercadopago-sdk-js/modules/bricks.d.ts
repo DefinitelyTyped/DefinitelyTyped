@@ -35,13 +35,16 @@ declare namespace bricks {
             BinChange,
             ReviewStepsCallbacks {}
 
-    interface PayerAddress {
-        zipCode?: string;
+    interface DefaultAddress {
+        streetName: string;
+        streetNumber: string;
+        zipCode: string;
+        neighborhood?: string;
         federalUnit?: string;
         city?: string;
-        streetName?: string;
-        streetNumber?: string;
-        neighborhood?: string;
+    }
+
+    interface PayerAddress extends Partial<DefaultAddress> {
         complement?: string;
     }
 
@@ -221,15 +224,6 @@ declare namespace bricks {
         taxIdentificationNumber: string;
         billingAddress?: DefaultAddress;
         identification?: PayerIdentification;
-    }
-
-    interface DefaultAddress {
-        streetName: string;
-        streetNumber: string;
-        zipCode: string;
-        neighborhood?: string;
-        federalUnit?: string;
-        city?: string;
     }
 
     interface Discounts {
