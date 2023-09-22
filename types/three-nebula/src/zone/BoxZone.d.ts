@@ -1,6 +1,6 @@
-import Particle from '../core/Particle';
-import { Vector3D } from '../math';
-import Zone from './Zone';
+import Particle from "../core/Particle";
+import { Vector3D } from "../math";
+import Zone from "./Zone";
 
 export default class BoxZone extends Zone {
     /**
@@ -13,7 +13,6 @@ export default class BoxZone extends Zone {
     constructor(a: number, b?: number, c?: number, d?: number, e?: number, f?: number);
     /**
      * Returns true to indicate this is a BoxZone.
-     *
      */
     isBoxZone(): boolean;
 

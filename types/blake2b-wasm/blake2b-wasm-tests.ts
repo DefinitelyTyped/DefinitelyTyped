@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import blake2b = require('blake2b-wasm');
+import blake2b = require("blake2b-wasm");
 
 // test type exports
 type Blake2b = blake2b.Blake2b;
@@ -39,13 +39,13 @@ hash.pointer; // $ExpectType number
 
 hash.update(new Uint8Array(10)); // $ExpectType Blake2b
 hash.digest(); // $ExpectType Uint8Array
-hash.digest('binary'); // $ExpectType Uint8Array
-hash.digest('hex'); // $ExpectType string
+hash.digest("binary"); // $ExpectType Uint8Array
+hash.digest("hex"); // $ExpectType string
 hash.digest(new Uint8Array(10)); // $ExpectType Uint8Array
 hash.digest(Buffer.alloc(10)); // $ExpectType Buffer
 hash.final(); // $ExpectType Uint8Array
-hash.final('binary'); // $ExpectType Uint8Array
-hash.final('hex'); // $ExpectType string
+hash.final("binary"); // $ExpectType Uint8Array
+hash.final("hex"); // $ExpectType string
 hash.final(new Uint8Array(10)); // $ExpectType Uint8Array
 hash.final(Buffer.alloc(10)); // $ExpectType Buffer
 hash.ready(); // $ExpectType Promise<void>

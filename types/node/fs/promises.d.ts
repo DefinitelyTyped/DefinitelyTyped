@@ -8,7 +8,7 @@
  * concurrent modifications on the same file or data corruption may occur.
  * @since v10.0.0
  */
-declare module 'fs/promises' {
+declare module 'node:fs/promises' {
     import { Abortable } from 'node:events';
     import { Stream } from 'node:stream';
     import { ReadableStream } from 'node:stream/web';
@@ -81,6 +81,7 @@ declare module 'fs/promises' {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+        highWaterMark?: number | undefined;
     }
     interface ReadableWebStreamOptions {
         /**
@@ -1197,6 +1198,6 @@ declare module 'fs/promises' {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
-declare module 'node:fs/promises' {
-    export * from 'fs/promises';
+declare module 'fs/promises' {
+    export * from 'node:fs/promises';
 }

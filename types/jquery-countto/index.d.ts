@@ -48,7 +48,7 @@ export type Options = Partial<{
     onComplete: (value: number) => void;
 }>;
 
-export type Method = 'start' | 'stop' | 'toggle' | 'restart';
+export type Method = "start" | "stop" | "toggle" | "restart";
 
 declare global {
     interface JQuery {

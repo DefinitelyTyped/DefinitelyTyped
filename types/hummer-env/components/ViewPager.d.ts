@@ -34,5 +34,5 @@ declare const ViewPager: {
     /**
      * 可自动轮播滚动的翻页组件。
      */
-    new (): ViewPager;
+    new(): ViewPager;
 };

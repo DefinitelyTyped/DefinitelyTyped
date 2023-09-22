@@ -1,7 +1,7 @@
-import { Gradation, Unit } from '../gradation';
-import { Locale } from '../locale';
+import { Gradation, Unit } from "../gradation";
+import { Locale } from "../locale";
 
-export type Flavour = 'tiny' | 'short-time' | 'narrow' | 'short' | 'long';
+export type Flavour = "tiny" | "short-time" | "narrow" | "short" | "long";
 
 export interface CustomFormatterOptions {
     now: number;
@@ -21,6 +21,6 @@ export interface FormatStyle {
     format?(date: Date | number, locale: Locale): string;
 }
 
-export { default as timeStyle } from './time';
-export { default as twitterStyle } from './twitter';
-export { default as defaultStyle } from './default';
+export { default as defaultStyle } from "./default";
+export { default as timeStyle } from "./time";
+export { default as twitterStyle } from "./twitter";

@@ -1,8 +1,8 @@
 /// <reference types="node" />
+import type { BitcoinNetworkType, FoundTransaction } from "./BitcoinHelpers";
 import type { Config as ElectrumConfig } from "./lib/ElectrumClient";
-import type { FoundTransaction, BitcoinNetworkType } from './BitcoinHelpers';
 import BN = require("bn.js");
-import * as net from 'net';
+import * as net from "net";
 export class Web3 {
     constructor(provider: any, net?: net.Socket);
 
@@ -12,7 +12,7 @@ export class Web3 {
     defaultBlock: string | number;
     readonly currentProvider: any;
     setProvider(provider: any): boolean;
-    BatchRequest: new () => any;
+    BatchRequest: new() => any;
     static readonly providers: any;
 
     utils: any;
@@ -24,8 +24,8 @@ export class Web3 {
     static readonly utils: any;
     extend(extension: any): any;
 }
-export type AbiType = 'function' | 'constructor' | 'event' | 'fallback';
-export type StateMutabilityType = 'pure' | 'view' | 'nonpayable' | 'payable';
+export type AbiType = "function" | "constructor" | "event" | "fallback";
+export type StateMutabilityType = "pure" | "view" | "nonpayable" | "payable";
 export interface AbiInput {
     name: string;
     type: string;
@@ -56,7 +56,7 @@ export class Contract {
         provider: any,
         abi: AbiItem[],
         address?: string,
-        options?: any
+        options?: any,
     );
 
     private _address: string;
@@ -78,12 +78,12 @@ export class Contract {
 
     once(
         event: string,
-        callback: (error: Error, event: any) => void
+        callback: (error: Error, event: any) => void,
     ): void;
     once(
         event: string,
         options: any,
-        callback: (error: Error, event: any) => void
+        callback: (error: Error, event: any) => void,
     ): void;
 
     events: any;
@@ -113,6 +113,9 @@ export interface DepositBaseClass {
     getCurrentState(): Promise<number>;
     factory: any;
     contract: Contract;
-    constructFundingProof(bitcoinTransaction: Omit<FoundTransaction, 'value'>, confirmations: number): Promise<[Buffer, Buffer, Buffer, Buffer, number, Buffer, string, Buffer]>;
+    constructFundingProof(
+        bitcoinTransaction: Omit<FoundTransaction, "value">,
+        confirmations: number,
+    ): Promise<[Buffer, Buffer, Buffer, Buffer, number, Buffer, string, Buffer]>;
     getLatestRedemptionDetails(): Promise<null | RedemptionDetails>;
 }

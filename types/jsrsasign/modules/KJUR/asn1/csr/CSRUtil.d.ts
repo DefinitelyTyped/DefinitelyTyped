@@ -40,7 +40,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          * - sigalg - signature algorithm name (ex. SHA256withRSA)
          * - sbjprvkey - parameter to be passed to `KEYUTIL.getKey`
          *
-         *
          * @example
          * // 1) by key object
          * pem = KJUR.asn1.csr.CSRUtil.newCSRPEM({
@@ -85,8 +84,8 @@ declare namespace jsrsasign.KJUR.asn1.csr {
                 | ({ ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined });
             ext?:
                 | Array<{
-                      subjectAltName: ArrayParam<{ dns: string }>;
-                  }>
+                    subjectAltName: ArrayParam<{ dns: string }>;
+                }>
                 | undefined;
             sbjpubkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
             sigalg: string;
@@ -106,7 +105,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          * - subject.hex - hexadecimal string of X.500 Name of subject
          * - pubkey.obj - subject public key object such as RSAKey, KJUR.crypto.{ECDSA,DSA}
          * - pubkey.hex - hexadecimal string of subject public key
-         *
          *
          * @example
          * o = KJUR.asn1.csr.CSRUtil.getInfo("-----BEGIN CERTIFICATE REQUEST...");

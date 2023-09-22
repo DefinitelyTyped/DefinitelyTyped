@@ -10,7 +10,7 @@ declare namespace bump {
 
     interface Options {
         key?: string | undefined;
-        type?: 'major' | 'minor' | 'patch' | 'prerelease' | undefined;
+        type?: "major" | "minor" | "patch" | "prerelease" | undefined;
         case?: boolean | undefined;
         keys?: string[] | undefined;
         /**

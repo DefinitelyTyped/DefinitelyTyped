@@ -16,11 +16,11 @@ bcryptjs.genSalt(10, (err: Error | null, salt: string) => {
     str = salt;
 });
 bcryptjs.genSalt()
-        .then(salt => str = salt)
-        .catch(err => error = err);
+    .then(salt => str = salt)
+    .catch(err => error = err);
 bcryptjs.genSalt(10)
-        .then(salt => str = salt)
-        .catch(err => error = err);
+    .then(salt => str = salt)
+    .catch(err => error = err);
 
 str = bcryptjs.hashSync("string");
 str = bcryptjs.hashSync("string", 10);
@@ -35,8 +35,8 @@ bcryptjs.hash("string", 10, (err: Error | null, hash: string) => {
     num = percent;
 });
 bcryptjs.hash("string", 10)
-        .then(salt => str = salt)
-        .catch(err => error = err);
+    .then(salt => str = salt)
+    .catch(err => error = err);
 
 bcryptjs.hash("string", "salt", (err: Error | null, hash: string) => {
     str = hash;
@@ -58,8 +58,8 @@ bcryptjs.compare("string1", "string2", (err: Error | null, success: boolean) => 
     num = percent;
 });
 bcryptjs.compare("string1", "string2")
-        .then(success => bool = success)
-        .catch(err => error = err);
+    .then(success => bool = success)
+    .catch(err => error = err);
 
 num = bcryptjs.getRounds("string");
 

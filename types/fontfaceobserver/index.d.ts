@@ -27,6 +27,6 @@ declare class FontFaceObserver {
     load(testString?: string | null, timeout?: number): Promise<void>;
 }
 
-declare module 'fontfaceobserver' {
+declare module "fontfaceobserver" {
     export = FontFaceObserver;
 }

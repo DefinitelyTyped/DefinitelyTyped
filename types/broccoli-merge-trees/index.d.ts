@@ -3,13 +3,12 @@
 // Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { InputNode } from 'broccoli-node-api';
-import Plugin = require('broccoli-plugin');
+import { InputNode } from "broccoli-node-api";
+import Plugin = require("broccoli-plugin");
 
 export = broccoliMergeTrees;
 
 /**
- *
  * @param inputNodes An array of nodes, whose contents will be merged
  * @param options A hash of options
  */

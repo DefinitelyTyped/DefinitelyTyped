@@ -5,14 +5,14 @@
 
 /// <reference types="hashtable" />
 
-interface IHashSet<TValue>
-{
+interface IHashSet<TValue> {
     add(value: TValue): void;
     addAll(arr: TValue[]): void;
     contains(value: TValue): boolean;
 
     clear(): void;
-    isEmpty(): boolean; values(): TValue[];
+    isEmpty(): boolean;
+    values(): TValue[];
 
     remove(value: TValue): void;
     size(): number;
@@ -26,9 +26,12 @@ interface IHashSet<TValue>
 }
 
 interface IHashSetStatic {
-    new <TValue>(): IHashSet<TValue>;
-    new <TValue>(options: IHashtableOptions<TValue>): IHashSet<TValue>;
-    new <TValue>(hashCode?: (value: TValue) => any, equals?: (value1: TValue, value2: TValue) => boolean): IHashSet<TValue>;
+    new<TValue>(): IHashSet<TValue>;
+    new<TValue>(options: IHashtableOptions<TValue>): IHashSet<TValue>;
+    new<TValue>(
+        hashCode?: (value: TValue) => any,
+        equals?: (value1: TValue, value2: TValue) => boolean,
+    ): IHashSet<TValue>;
 }
 
 declare var HashSet: IHashSetStatic;

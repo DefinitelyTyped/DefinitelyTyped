@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 export default function Trie(
-    strings: string[]
+    strings: string[],
 ): {
     /**
      * Get a string representation of the trie

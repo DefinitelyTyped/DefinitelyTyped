@@ -1,3 +1,3 @@
-import toSlugCase = require('to-slug-case');
+import toSlugCase = require("to-slug-case");
 
-toSlugCase('camelCase'); // $ExpectType string
+toSlugCase("camelCase"); // $ExpectType string

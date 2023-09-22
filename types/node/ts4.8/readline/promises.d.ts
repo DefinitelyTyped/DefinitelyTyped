@@ -2,7 +2,7 @@
  * @since v17.0.0
  * @experimental
  */
-declare module 'readline/promises' {
+declare module 'node:readline/promises' {
     import { Interface as _Interface, ReadLineOptions, Completer, AsyncCompleter, Direction } from 'node:readline';
     import { Abortable } from 'node:events';
     /**
@@ -140,6 +140,6 @@ declare module 'readline/promises' {
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 }
-declare module 'node:readline/promises' {
-    export * from 'readline/promises';
+declare module 'readline/promises' {
+    export * from 'node:readline/promises';
 }

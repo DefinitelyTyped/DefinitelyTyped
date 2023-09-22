@@ -2,7 +2,7 @@ export interface SavedMoment {
     /** The title of the associated passage. */
     title: string;
     /** The current variable store object, which contains sigil - less name ⇒ value pairs(e.g.$foo exists as foo). */
-    variables: {[x: string]: any};
+    variables: { [x: string]: any };
     /** The current pull count of SugarCube's seedable PRNG, exists only if enabled. */
     pull?: number | undefined;
 }
@@ -37,7 +37,7 @@ export interface SaveDetails {
     /**
      * A string representing how the save operation came about — i.e., what caused it.
      */
-    type: 'autosave' | 'disk' | 'serialize' | 'slot';
+    type: "autosave" | "disk" | "serialize" | "slot";
 }
 
 type SaveHandler = (save: SaveObject, details: SaveDetails) => void;

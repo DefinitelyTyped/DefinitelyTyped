@@ -5,8 +5,8 @@
 
 // import './segments';
 // import './events';
-import { ADT, OMG, ORM, ORU, SIU } from './events';
-import { AIL, AIS, MSH, OBR, OBX, ORC, PID, PV1 } from './segments';
+import { ADT, OMG, ORM, ORU, SIU } from "./events";
+import { AIL, AIS, MSH, OBR, OBX, ORC, PID, PV1 } from "./segments";
 // import TriggerEvent = require('./events');
 // import Segment = require('./segments');
 

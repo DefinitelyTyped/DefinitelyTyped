@@ -11,7 +11,7 @@ export interface SourceLocation {
 export function codeFrameColumns(
     rawLines: string,
     location: SourceLocation,
-    options?: BabelCodeFrameOptions
+    options?: BabelCodeFrameOptions,
 ): string;
 
 export interface BabelCodeFrameOptions {
@@ -50,5 +50,5 @@ export default function codeFrame(
     rawLines: string,
     lineNumber: number,
     colNumber: number,
-    options?: BabelCodeFrameOptions
+    options?: BabelCodeFrameOptions,
 ): string;

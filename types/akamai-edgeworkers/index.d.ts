@@ -444,6 +444,7 @@ declare namespace EW {
         extends
             MutatesHeaders,
             ReadsHeaders,
+            ReadAllHeader,
             ReadsVariables,
             Request,
             HasRespondWith,
@@ -455,19 +456,23 @@ declare namespace EW {
 
     // onOriginRequest
     interface IngressOriginRequest
-        extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables
+        extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
     {
     }
 
     // onOriginResponse
-    interface EgressOriginRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressOriginRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
     }
 
     // onClientResponse
-    interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressClientRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
@@ -707,21 +712,32 @@ declare namespace EW {
     }
 
     export {
-        EgressClientRequest,
-        EgressClientResponse,
         EgressOriginRequest,
         EgressOriginResponse,
+        Headers,
+        IngressClientRequest,
         IngressClientRequest,
         IngressOriginRequest,
+        IngressOriginRequest,
+        QueuingStrategy,
         QueuingStrategy,
         ReadableStreamDefaultControllerEW,
+        ReadableStreamDefaultControllerEW,
+        ReadableStreamEW,
         ReadableStreamEW,
         ReadAllHeader,
+        ReadAllHeader,
+        ReadsHeaders,
         ReadsHeaders,
         ResponseProviderRequest,
+        ResponseProviderRequest,
+        UnderlyingByteSource,
         UnderlyingByteSource,
         UnderlyingSink,
+        UnderlyingSink,
         UnderlyingSource,
+        UnderlyingSource,
+        WritableStreamEW,
         WritableStreamEW,
     };
 }

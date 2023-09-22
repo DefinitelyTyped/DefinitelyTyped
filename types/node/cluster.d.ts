@@ -52,7 +52,7 @@
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/cluster.js)
  */
-declare module 'cluster' {
+declare module 'node:cluster' {
     import * as child from 'node:child_process';
     import EventEmitter = require('node:events');
     import * as net from 'node:net';
@@ -408,7 +408,7 @@ declare module 'cluster' {
     const cluster: Cluster;
     export default cluster;
 }
-declare module 'node:cluster' {
-    export * from 'cluster';
-    export { default as default } from 'cluster';
+declare module 'cluster' {
+    export * from 'node:cluster';
+    export { default as default } from 'node:cluster';
 }

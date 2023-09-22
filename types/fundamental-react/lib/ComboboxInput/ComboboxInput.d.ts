@@ -14,9 +14,9 @@ export type ComboboxInputProps = {
     placeholder?: string | undefined;
     popoverProps?: object | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
-        text?: string | undefined
-    } | undefined
+        state?: "error" | "warning" | "information" | "success" | undefined;
+        text?: string | undefined;
+    } | undefined;
 } & { [x: string]: any };
 
 declare const ComboboxInput: React.FunctionComponent<ComboboxInputProps>;
