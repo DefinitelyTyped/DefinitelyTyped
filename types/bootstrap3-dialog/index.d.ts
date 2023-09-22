@@ -12,7 +12,7 @@ declare namespace BootstrapDialog {
         BUTTON_SIZES: any;
         BUTTONS_ORDER_CANCEL_OK: string;
         BUTTONS_ORDER_OK_CANCEL: string;
-        DEFAULT_TEXTS: any;                 /** For text localization. */
+        DEFAULT_TEXTS: any; /** For text localization. */
         ICON_SPINNER: string;
         NAMESPACE: string;
 

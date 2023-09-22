@@ -1,4 +1,4 @@
-import walk = require('@fcostarodrigo/walk');
+import walk = require("@fcostarodrigo/walk");
 
 async function parameterless() {
     for await (const file of walk()) {
@@ -7,13 +7,13 @@ async function parameterless() {
 }
 
 async function pathParam() {
-    for await (const file of walk('foo')) {
+    for await (const file of walk("foo")) {
         const fileStr: string = file;
     }
 }
 
 async function filesAndDirs() {
-    for await (const file of walk('foo', true)) {
+    for await (const file of walk("foo", true)) {
         const fileStr: string = file;
     }
 }
@@ -23,7 +23,7 @@ async function withCallback() {
         return true;
     }
 
-    for await (const file of walk('foo', false, shouldList)) {
+    for await (const file of walk("foo", false, shouldList)) {
         const fileStr: string = file;
     }
 }

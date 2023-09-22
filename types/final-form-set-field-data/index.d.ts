@@ -3,7 +3,7 @@
 // Definitions by: hikiko4ern <https://github.com/hikiko4ern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Mutator } from 'final-form';
+import { Mutator } from "final-form";
 
 declare const setFieldData: Mutator;
 

@@ -506,7 +506,7 @@ declare namespace Aws {
         enabled?: boolean | undefined;
         type?: "dynamodb" | "kinesis" | undefined;
         filterPatterns?: FilterPattern[] | undefined;
-        functionResponseType?: 'ReportBatchItemFailures' | undefined;
+        functionResponseType?: "ReportBatchItemFailures" | undefined;
     }
 
     interface Msk {

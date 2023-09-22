@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="jquery"/>
 
 interface TimeagoSetings {
@@ -28,7 +27,7 @@ interface TimeagoSetings {
         months?: any;
         year?: any;
         years?: any;
-        
+
         wordSeparator?: string | undefined;
         numbers?: any[] | undefined;
     } | undefined;

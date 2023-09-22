@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import * as Babel from '@babel/core';
+import * as Babel from "@babel/core";
 
 export = babelPluginMacros;
 

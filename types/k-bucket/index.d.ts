@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class KBucket<T extends Contact = Contact> extends EventEmitter {
     /**
@@ -125,9 +125,9 @@ declare class KBucket<T extends Contact = Contact> extends EventEmitter {
      */
     toArray(): T[];
 
-    on(type: 'added' | 'removed', listener: (peer: T) => void): this;
-    on(type: 'ping', listener: (peers: T[], peer: T) => void): this;
-    on(type: 'updated', listener: (incumbent: T, selection: T) => void): this;
+    on(type: "added" | "removed", listener: (peer: T) => void): this;
+    on(type: "ping", listener: (peers: T[], peer: T) => void): this;
+    on(type: "updated", listener: (incumbent: T, selection: T) => void): this;
 }
 
 interface Contact {

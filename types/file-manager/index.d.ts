@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import EventEmitter = require("events");
 
 export = FileManager;
 

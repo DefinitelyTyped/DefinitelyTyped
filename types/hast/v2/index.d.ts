@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } from 'unist';
+import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 export { UnistNode as Node };
 
@@ -84,7 +84,7 @@ export interface Root extends Parent {
     /**
      * Represents this variant of a Node.
      */
-    type: 'root';
+    type: "root";
 
     /**
      * List representing the children of a node.
@@ -99,7 +99,7 @@ export interface Element extends Parent {
     /**
      * Represents this variant of a Node.
      */
-    type: 'element';
+    type: "element";
 
     /**
      * Represents the element’s local name.
@@ -136,7 +136,7 @@ export interface DocType extends UnistNode {
     /**
      * Represents this variant of a Node.
      */
-    type: 'doctype';
+    type: "doctype";
 
     name: string;
 }
@@ -148,7 +148,7 @@ export interface Comment extends Literal {
     /**
      * Represents this variant of a Literal.
      */
-    type: 'comment';
+    type: "comment";
 }
 
 /**
@@ -158,5 +158,5 @@ export interface Text extends Literal {
     /**
      * Represents this variant of a Literal.
      */
-    type: 'text';
+    type: "text";
 }

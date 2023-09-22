@@ -10,25 +10,24 @@ fingerEventObject.dx = 3;
 fingerEventObject.dy = 4;
 fingerEventObject.adx = 3;
 fingerEventObject.ady = 4;
-fingerEventObject.orientation = 'horizontal';
+fingerEventObject.orientation = "horizontal";
 fingerEventObject.direction = 1;
-$('body').on('drag', e => {
-    if ('vertical' == e.orientation) return;
+$("body").on("drag", e => {
+    if ("vertical" == e.orientation) return;
     e.preventDefault();
 });
 
-$('body').on('drag', '.drag', e => {
-    if ('vertical' == e.orientation) return;
+$("body").on("drag", ".drag", e => {
+    if ("vertical" == e.orientation) return;
     e.preventDefault();
 });
 
-$('#menu').on('flick', function (e) {
-    if ('horizontal' == e.orientation) {
+$("#menu").on("flick", function(e) {
+    if ("horizontal" == e.orientation) {
         if (1 == e.direction) {
-            $(this).addClass('is-opened');
-        }
-        else {
-            $(this).removeClass('is-opened');
+            $(this).addClass("is-opened");
+        } else {
+            $(this).removeClass("is-opened");
         }
     }
 });

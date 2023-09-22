@@ -1,21 +1,21 @@
-import * as JSONPath from 'jsonpath-plus';
+import * as JSONPath from "jsonpath-plus";
 
-let path: JSONPath.pathType = '.';
-path = ['.', '//'];
+let path: JSONPath.pathType = ".";
+path = [".", "//"];
 
 let json: JSONPath.jsonType = null;
 json = true;
 json = 1;
-json = 'test';
-json = { hi: 'there' };
+json = "test";
+json = { hi: "there" };
 json = [1, 2];
 
-let result: JSONPath.resultType = 'PARENT';
-result = 'parent';
-result = 'Parent';
+let result: JSONPath.resultType = "PARENT";
+result = "parent";
+result = "Parent";
 
 const sandboxType: JSONPath.sandboxType = {
-    yes: 'man',
+    yes: "man",
 };
 
 const callback: JSONPath.callback = (payloadValue: any, type: string, fullPayload: any): void => {};

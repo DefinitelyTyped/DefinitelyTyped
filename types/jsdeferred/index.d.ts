@@ -3,7 +3,7 @@
 // Definitions by: Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import $ = require('jquery');
+import $ = require("jquery");
 
 declare global {
     interface Loop {
@@ -23,13 +23,20 @@ declare global {
         wait: number;
     }
 
-    interface DeferredizedFunction { (...arg: any[]): Deferred; }
-    interface DeferredizedFunctionWithNumber { (n: number): Deferred; }
-    interface FunctionWithNumber { (i: number, o?: any): any; }
-    interface ErrorCallback { (d: Deferred, ...args: any[]): any; }
+    interface DeferredizedFunction {
+        (...arg: any[]): Deferred;
+    }
+    interface DeferredizedFunctionWithNumber {
+        (n: number): Deferred;
+    }
+    interface FunctionWithNumber {
+        (i: number, o?: any): any;
+    }
+    interface ErrorCallback {
+        (d: Deferred, ...args: any[]): any;
+    }
 
     class Deferred {
-
         static methods: string[];
 
         static isDeferred(obj: any): boolean;

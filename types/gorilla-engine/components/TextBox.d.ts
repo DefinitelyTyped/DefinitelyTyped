@@ -11,13 +11,13 @@ declare namespace GorillaEngine.UI {
         passwordCharacter: string;
         multiLine: boolean;
         readOnly: boolean;
-        acceptedDataType: 'integer' | 'int' | 'float' | 'string';
+        acceptedDataType: "integer" | "int" | "float" | "string";
         minValue: number;
         maxValue: number;
     }
 
     interface TextBox extends TextBoxProps {
-      grabKeyboardFocus(): void;
+        grabKeyboardFocus(): void;
     }
 
     class TextBox extends Component {
