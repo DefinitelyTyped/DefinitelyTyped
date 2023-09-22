@@ -58,6 +58,26 @@ extract.on('finish', () => {
 // pipe the pack stream
 pack.pipe(extract);
 
+async function loop() {
+    // tslint:disable-next-line: await-promise
+    for await (const entry of extract) {
+        entry.header;
+        entry.resume();
+
+        // tslint:disable-next-line: await-promise
+        for await (const chunk of entry) {
+            chunk.fill('');
+        }
+    }
+
+    // tslint:disable-next-line: await-promise
+    for await (const chunk of pack) {
+        chunk.fill('');
+    }
+}
+
+loop();
+
 const path = 'YourTarBall.tar';
 const yourTarball = fs.createWriteStream(path);
 

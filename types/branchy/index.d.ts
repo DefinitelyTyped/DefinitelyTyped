@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import BetterQueue = require('better-queue');
+import BetterQueue = require("better-queue");
 
 export = branchy;
 
@@ -66,7 +66,7 @@ declare namespace branchy {
         /**
          * @default Infinity
          */
-        concurrent?: ConcurrencyOptions<TFn> | ConcurrencyOptions['threads'] | ConcurrencyContext<TFn>;
+        concurrent?: ConcurrencyOptions<TFn> | ConcurrencyOptions["threads"] | ConcurrencyContext<TFn>;
     }
 
     interface ConcurrencyOptions<TFn extends (...args: any[]) => unknown = (...args: any[]) => unknown> {
@@ -77,7 +77,7 @@ declare namespace branchy {
          *
          * @default Infinity
          */
-        threads?: number | 'auto' | undefined;
+        threads?: number | "auto" | undefined;
         /**
          * By default, the queue starts processes in the order functions were called
          * ([first-in, first-out](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))).
@@ -93,7 +93,7 @@ declare namespace branchy {
          *   }
          * })
          */
-        strategy?: 'stack' | undefined;
+        strategy?: "stack" | undefined;
         /**
          * The priority of each call can be specified depending on its arguments.
          *

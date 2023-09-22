@@ -1,5 +1,5 @@
-import * as arcgisApi from 'arcgis-rest-api';
-import * as Terraformer from '@terraformer/arcgis';
+import * as Terraformer from "@terraformer/arcgis";
+import * as arcgisApi from "arcgis-rest-api";
 
 const arcgisPoint: arcgisApi.Point = {
     x: -122.6764,
@@ -9,15 +9,15 @@ const arcgisPoint: arcgisApi.Point = {
     },
 };
 const geojsonPoint: GeoJSON.Point = {
-    type: 'Point',
+    type: "Point",
     coordinates: [45.5165, -122.6764],
 };
 
 const geojsonFeatureCollection: GeoJSON.FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
+            type: "Feature",
             geometry: geojsonPoint,
             properties: {},
         },

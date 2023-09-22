@@ -21,8 +21,8 @@ export default class Frecency<T = any> {
     sort:
         | ((arg: { searchQuery: T; results: T[] }) => T[])
         | ((arg: {
-              searchQuery: T;
-              results: T[];
-              keepScores?: boolean | undefined;
-          }) => Array<T & { _frecencyScore?: number | undefined }>);
+            searchQuery: T;
+            results: T[];
+            keepScores?: boolean | undefined;
+        }) => Array<T & { _frecencyScore?: number | undefined }>);
 }

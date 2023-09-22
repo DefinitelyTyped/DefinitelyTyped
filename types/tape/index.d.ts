@@ -102,7 +102,7 @@ declare namespace tape {
         opts?: {
             noOnly?: boolean;
             exit?: boolean;
-            stream?: ReturnType<typeof import('through')>;
+            stream?: ReturnType<typeof import("through")>;
         } & StreamOptions,
     ): typeof tape;
 
@@ -157,79 +157,79 @@ declare namespace tape {
          * Assert that value is truthy with an optional description message msg.
          */
         ok(value: any, msg?: string, extra?: AssertOptions): void;
-        true: Test['ok'];
-        assert: Test['ok'];
+        true: Test["ok"];
+        assert: Test["ok"];
 
         /**
          * Assert that value is falsy with an optional description message msg.
          */
         notOk(value: any, msg?: string, extra?: AssertOptions): void;
-        false: Test['notOk'];
-        notok: Test['notOk'];
+        false: Test["notOk"];
+        notok: Test["notOk"];
 
         /**
          * Assert that err is falsy.
          * If err is non-falsy, use its err.message as the description message.
          */
         error(err: any, msg?: string, extra?: AssertOptions): void;
-        ifError: Test['error'];
-        ifErr: Test['error'];
-        iferror: Test['error'];
+        ifError: Test["error"];
+        ifErr: Test["error"];
+        iferror: Test["error"];
 
         /**
          * Assert that a === b with an optional description msg.
          */
         equal(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        equals: Test['equal'];
-        isEqual: Test['equal'];
-        is: Test['equal'];
-        strictEqual: Test['equal'];
-        strictEquals: Test['equal'];
+        equals: Test["equal"];
+        isEqual: Test["equal"];
+        is: Test["equal"];
+        strictEqual: Test["equal"];
+        strictEquals: Test["equal"];
 
         /**
          * Assert that a !== b with an optional description msg.
          */
         notEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notEquals: Test['notEqual'];
-        notStrictEqual: Test['notEqual'];
-        notStrictEquals: Test['notEqual'];
-        isNotEqual: Test['notEqual'];
-        isNot: Test['notEqual'];
-        not: Test['notEqual'];
-        doesNotEqual: Test['notEqual'];
-        isInequal: Test['notEqual'];
+        notEquals: Test["notEqual"];
+        notStrictEqual: Test["notEqual"];
+        notStrictEquals: Test["notEqual"];
+        isNotEqual: Test["notEqual"];
+        isNot: Test["notEqual"];
+        not: Test["notEqual"];
+        doesNotEqual: Test["notEqual"];
+        isInequal: Test["notEqual"];
 
         /**
          * Assert that actual == expected with an optional description of the assertion msg.
          */
         looseEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        looseEquals: Test['looseEqual'];
+        looseEquals: Test["looseEqual"];
 
         /**
          * Assert that actual != expected with an optional description of the assertion msg.
          */
         notLooseEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notLooseEquals: Test['looseEqual'];
+        notLooseEquals: Test["looseEqual"];
 
         /**
          * Assert that a and b have the same structure and nested values using node's deepEqual() algorithm with strict comparisons (===) on leaf nodes and an optional description msg.
          */
         deepEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        deepEquals: Test['deepEqual'];
-        isEquivalent: Test['deepEqual'];
-        same: Test['deepEqual'];
+        deepEquals: Test["deepEqual"];
+        isEquivalent: Test["deepEqual"];
+        same: Test["deepEqual"];
 
         /**
          * Assert that a and b do not have the same structure and nested values using node's deepEqual() algorithm with strict comparisons (===) on leaf nodes and an optional description msg.
          */
         notDeepEqual(actual: any, expected: any, msg?: string, extra?: AssertOptions): void;
-        notEquivalent: Test['notDeepEqual'];
-        notDeeply: Test['notDeepEqual'];
-        notSame: Test['notDeepEqual'];
-        isNotDeepEqual: Test['notDeepEqual'];
-        isNotDeeply: Test['notDeepEqual'];
-        isNotEquivalent: Test['notDeepEqual'];
-        isInequivalent: Test['notDeepEqual'];
+        notEquivalent: Test["notDeepEqual"];
+        notDeeply: Test["notDeepEqual"];
+        notSame: Test["notDeepEqual"];
+        isNotDeepEqual: Test["notDeepEqual"];
+        isNotDeeply: Test["notDeepEqual"];
+        isNotEquivalent: Test["notDeepEqual"];
+        isInequivalent: Test["notDeepEqual"];
 
         /**
          * Assert that a and b have the same structure and nested values using node's deepEqual() algorithm with loose comparisons (==) on leaf nodes and an optional description msg.

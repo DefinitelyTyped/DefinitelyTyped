@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Protocol = false | 'http' | true | 'https';
+export type Protocol = false | "http" | true | "https";
 
 export interface Options {
     cdn?: string | undefined;

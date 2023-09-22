@@ -3,14 +3,18 @@
 // Definitions by: cherryblossom <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AtRule, Comment, Rule } from 'css';
+import { AtRule, Comment, Rule } from "css";
 
 export = api;
 
-declare function api(inputStylesheet: string, ignorePattern: api.Pattern | api.Pattern[], options?: api.Options): string;
+declare function api(
+    inputStylesheet: string,
+    ignorePattern: api.Pattern | api.Pattern[],
+    options?: api.Options,
+): string;
 
 declare namespace api {
-    type Context = 'type' | 'media' | 'selector' | 'declarationProperty' | 'declarationValue';
+    type Context = "type" | "media" | "selector" | "declarationProperty" | "declarationValue";
 
     /**
      * @param context The current matching context.

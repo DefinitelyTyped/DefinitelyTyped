@@ -38,7 +38,7 @@ export interface Match<Handler> {
 export type Route<Handler> = Match<Handler> | Error;
 
 export class Router<Handler> {
-    constructor(routerOptions?: RouterOptions)
+    constructor(routerOptions?: RouterOptions);
     add(definition: RouteDefinition, route?: Handler): void;
     route(method: string, path: string): Route<Handler>;
 }

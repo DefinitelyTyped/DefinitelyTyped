@@ -1,6 +1,6 @@
-import tape = require('tape');
+import tape = require("tape");
 
-import Test = require('tape/lib/test');
+import Test = require("tape/lib/test");
 
 var name: string;
 var cb: tape.TestCase;

@@ -6,8 +6,8 @@
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ParserOptions } from '@babel/parser';
-import { Expression, Program, Statement } from '@babel/types';
+import { ParserOptions } from "@babel/parser";
+import { Expression, Program, Statement } from "@babel/types";
 
 export interface TemplateBuilderOptions extends ParserOptions {
     /**

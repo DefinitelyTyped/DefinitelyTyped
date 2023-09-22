@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import type * as vscodeTypes from 'vscode';
+import type * as vscodeTypes from "vscode";
 
 type Using = <Files extends { [filename: string]: string }>(
     params: {
@@ -13,9 +13,11 @@ type Using = <Files extends { [filename: string]: string }>(
             [path: string]: unknown;
         };
     },
-    closure: (mapFileToDoc: {
-        [filename in keyof Files]: vscodeTypes.TextDocument;
-    }) => Promise<void>,
+    closure: (
+        mapFileToDoc: {
+            [filename in keyof Files]: vscodeTypes.TextDocument;
+        },
+    ) => Promise<void>,
 ) => Promise<void>;
 
 declare global {

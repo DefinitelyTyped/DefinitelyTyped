@@ -4,5 +4,5 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* eslint-disable-next-line @definitelytyped/no-self-import */
-import tapable = require('tapable');
+import tapable = require("tapable");
 export = tapable;

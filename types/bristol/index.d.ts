@@ -22,13 +22,13 @@ interface LogData {
 }
 
 declare class Bristol {
-  addTarget(target: any, opts?: any): any;
-  withFormatter(formatter: string): any;
-  withLowestSeverity(severity: string): any;
-  info(message: string, data: LogData): any;
-  warn(message: string, data: LogData): any;
-  error(message: string, data: LogData): any;
-  debug(message: string, data: LogData): any;
+    addTarget(target: any, opts?: any): any;
+    withFormatter(formatter: string): any;
+    withLowestSeverity(severity: string): any;
+    info(message: string, data: LogData): any;
+    warn(message: string, data: LogData): any;
+    error(message: string, data: LogData): any;
+    debug(message: string, data: LogData): any;
 }
 
 declare const bristol: Bristol;

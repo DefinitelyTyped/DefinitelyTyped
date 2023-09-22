@@ -33,7 +33,7 @@ export interface KatexOptions {
      *
      * @default 'htmlAndMathml'
      */
-    output?: 'html' | 'mathml' | 'htmlAndMathml' | undefined;
+    output?: "html" | "mathml" | "htmlAndMathml" | undefined;
     /**
      * If `true`, display math has \tags rendered on the left
      * instead of the right, like \usepackage[leqno]{amsmath} in LaTeX.

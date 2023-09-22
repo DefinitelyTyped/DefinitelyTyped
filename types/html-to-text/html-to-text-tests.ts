@@ -1,12 +1,19 @@
-import { compile, FormatCallback, FormatOptions, htmlToText, HtmlToTextOptions,
-    SelectorDefinition, TagDefinition } from 'html-to-text';
-import { BlockTextBuilder } from 'html-to-text/lib/block-text-builder';
+import {
+    compile,
+    FormatCallback,
+    FormatOptions,
+    htmlToText,
+    HtmlToTextOptions,
+    SelectorDefinition,
+    TagDefinition,
+} from "html-to-text";
+import { BlockTextBuilder } from "html-to-text/lib/block-text-builder";
 
 // Test code that also provides sample implementations
 
-const headerOptions: TagDefinition =  {
+const headerOptions: TagDefinition = {
     options: {
-        uppercase: false
+        uppercase: false,
     },
     format: "headerFormatter",
 };
@@ -16,13 +23,13 @@ const headerOptions: TagDefinition =  {
 const options1: HtmlToTextOptions = {
     baseElements: {
         selectors: ["a", "h1"],
-        orderBy: 'selectors',
+        orderBy: "selectors",
         returnDomByDefault: true,
     },
     decodeEntities: false,
     encodeCharacters: {
         "☺️": ":smiley:",
-        "😀": ":grinning-face:"
+        "😀": ":grinning-face:",
     },
     limits: {
         ellipsis: "...turtles hidden here...",
@@ -38,22 +45,22 @@ const options1: HtmlToTextOptions = {
     preserveNewlines: true,
     whitespaceCharacters: " abcdef",
     wordwrap: 80,
- };
+};
 
- const options2: HtmlToTextOptions = {
+const options2: HtmlToTextOptions = {
     baseElements: {
-        orderBy: 'occurrence',
+        orderBy: "occurrence",
     },
     wordwrap: false,
- };
+};
 
- const options3: HtmlToTextOptions = {
+const options3: HtmlToTextOptions = {
     wordwrap: null,
- };
+};
 
 // FormatOptions coverage
 
-const formatOptions1: FormatOptions =  {
+const formatOptions1: FormatOptions = {
     leadingLineBreaks: 3,
     trailingLineBreaks: 3,
     baseUrl: "url",
@@ -73,10 +80,10 @@ const formatOptions1: FormatOptions =  {
     string: "tag",
     prefix: "prefix",
     suffix: "suffix",
-    "private-option": { data: "some-data"},
+    "private-option": { data: "some-data" },
 };
 
-const formatOptions2: FormatOptions =  {
+const formatOptions2: FormatOptions = {
     linkBrackets: false,
 };
 
@@ -93,7 +100,7 @@ if (0) {
     builder.addLineBreak();
     builder.addWordBreakOpportunity();
     builder.addInline("inline", { noWordTransform: true });
-    builder.addLiteral('lit');
+    builder.addLiteral("lit");
     builder.openBlock({
         leadingLineBreaks: 2,
         reservedLineLength: 24,
@@ -109,7 +116,7 @@ if (0) {
         interRowLineBreaks: 2,
         leadingLineBreaks: 1,
     });
-    builder.openList({ prefixAlign: "right", }); // test alternate value
+    builder.openList({ prefixAlign: "right" }); // test alternate value
     builder.openListItem({ prefix: ">>" });
     builder.closeListItem();
     builder.closeList({ trailingLineBreaks: 2 });
@@ -132,14 +139,14 @@ if (0) {
 
 // Test code that also provides sample implementations
 
-const testOptions: FormatOptions =  {
-    uppercase: false
+const testOptions: FormatOptions = {
+    uppercase: false,
 };
 
-const headerSelector: SelectorDefinition =  {
-    selector: 'h2',
+const headerSelector: SelectorDefinition = {
+    selector: "h2",
     options: {
-        uppercase: false
+        uppercase: false,
     },
     format: "headerFormatter",
 };
@@ -149,12 +156,13 @@ const headerSelector: SelectorDefinition =  {
 const headerFormatter: FormatCallback = (elem, walk, builder, options) => {
     builder.openBlock({ leadingLineBreaks: options.leadingLineBreaks || 2 });
     walk(elem.children, builder);
-    builder.closeBlock({ trailingLineBreaks: options.trailingLineBreaks || 2,
+    builder.closeBlock({
+        trailingLineBreaks: options.trailingLineBreaks || 2,
         blockTransform: str => {
             const underline = str.substring(str.lastIndexOf("\n") + 1)
                 .replace(/./g, "=");
             return `${str}\n${underline}`;
-        }
+        },
     });
 };
 
@@ -171,8 +179,7 @@ const htmlOptions: HtmlToTextOptions = {
             builder.openBlock({ leadingLineBreaks: options.leadingLineBreaks || 2 });
             walk(elem.children, builder);
             const trailingLineBreaks = options.trailingLineBreaks || 2;
-            builder.closeBlock({ trailingLineBreaks,
-                blockTransform: str => `${str} **hdr**\n` });
+            builder.closeBlock({ trailingLineBreaks, blockTransform: str => `${str} **hdr**\n` });
         },
         blockFormatter: (elem, walk, builder, options) => {
             const reservedLineLength = 2;
@@ -180,11 +187,10 @@ const htmlOptions: HtmlToTextOptions = {
             builder.openBlock({ leadingLineBreaks, reservedLineLength });
             walk(elem.children, builder);
             const trailingLineBreaks = options.trailingLineBreaks || 2;
-            builder.closeBlock({ trailingLineBreaks,
-                blockTransform: str => `**blk** ${str}\n` });
+            builder.closeBlock({ trailingLineBreaks, blockTransform: str => `**blk** ${str}\n` });
         },
         textFormatter: (elem, walk, builder, options) => {
-            builder.options.formatters['heading'](elem, walk, builder, options);
+            builder.options.formatters["heading"](elem, walk, builder, options);
         },
         transform: (elem, walk, builder, options) => {
             builder.pushWordTransform((str) => "transformed");
@@ -197,27 +203,27 @@ const htmlOptions: HtmlToTextOptions = {
         },
     },
     selectors: [
-        { selector: 'a',
+        {
+            selector: "a",
             options: {
-                linkBrackets: ['===> ', ' <==='],
+                linkBrackets: ["===> ", " <==="],
                 hideLinkHrefIfSameAsText: true,
             },
             format: "anchor",
         },
-        { selector: 'h1',
-            options: testOptions, format: "headerFormatter", },
-        { selector: 'h3',
-            format: "textFormatter",
-        },
-        { selector: 'blockquote',
+        { selector: "h1", options: testOptions, format: "headerFormatter" },
+        { selector: "h3", format: "textFormatter" },
+        {
+            selector: "blockquote",
             options: {
-                trimEmptyLines: false
+                trimEmptyLines: false,
             },
             format: "blockFormatter",
         },
-        { selector: 'p',
+        {
+            selector: "p",
             options: {
-                trimEmptyLines: false
+                trimEmptyLines: false,
             },
             format: "transform",
         },
@@ -227,10 +233,10 @@ const htmlOptions: HtmlToTextOptions = {
 const htmlString = `<h1>h1</h1><p><b>bold</b></p><p><i>italic</i></p>
 <h3>h3</h3><blockquote>block quote</blockquote>`;
 
-console.log('\nProcessing string with default options');
+console.log("\nProcessing string with default options");
 console.log(htmlToText(htmlString));
 
-console.log('\nProcessing string with custom options');
+console.log("\nProcessing string with custom options");
 const text = htmlToText(htmlString, htmlOptions);
 console.log(text);
 
@@ -238,7 +244,7 @@ if (!text.match(/\*\*hdr\*\*/)) {
     console.error("Formatter not called!");
 }
 
-const allElements = '<a>a</a>\
+const allElements = "<a>a</a>\
 <blockquote>b</blockquote>\
 <h1>h</h1>\
 <hr />\
@@ -247,15 +253,16 @@ const allElements = '<a>a</a>\
 <ol></ol>\
 <p>😀 p ☺️</p>\
 <table></table>\
-<ul></ul>';
+<ul></ul>";
 
 const elementFormatter: FormatCallback = (elem, walk, builder, options) => {
     builder.openBlock({ leadingLineBreaks: options.leadingLineBreaks || 2 });
     // walk(elem.children?, builder);
-    builder.closeBlock({ trailingLineBreaks: options.trailingLineBreaks || 2,
+    builder.closeBlock({
+        trailingLineBreaks: options.trailingLineBreaks || 2,
         blockTransform: str => {
             return `--${elem.name}--\n`;
-        }
+        },
     });
 };
 
@@ -274,13 +281,13 @@ const fmtOptions: HtmlToTextOptions = {
         unorderedList: elementFormatter,
     },
 };
-console.log('\nEmit all elements with "--" wrapping');
+console.log("\nEmit all elements with \"--\" wrapping");
 console.log(htmlToText(allElements, fmtOptions));
 
-const blockTextTestElements = '<a>a</a>\
+const blockTextTestElements = "<a>a</a>\
 <blockquote>b</blockquote>\
 <p>1234567890123456789012345678901234567890</p>\
-<table></table>';
+<table></table>";
 
 const fmtOptionsTable: HtmlToTextOptions = {
     formatters: {
@@ -288,7 +295,7 @@ const fmtOptionsTable: HtmlToTextOptions = {
             builder.openBlock({ leadingLineBreaks: options.leadingLineBreaks || 2 });
             builder.openTable();
             builder.openTableRow();
-            builder.openTableCell({ maxColumnWidth: 22});
+            builder.openTableCell({ maxColumnWidth: 22 });
             builder.addInline("Cell 1 data", { noWordTransform: false });
             builder.closeTableCell({ colspan: 2 });
             builder.openTableCell({ maxColumnWidth: 6 });
@@ -301,105 +308,105 @@ const fmtOptionsTable: HtmlToTextOptions = {
         },
     },
 };
-console.log('\nTest current table builder interfaces');
+console.log("\nTest current table builder interfaces");
 console.log(htmlToText(blockTextTestElements, fmtOptionsTable));
 
 const selOptions: HtmlToTextOptions = {
     decodeEntities: true,
     encodeCharacters: {
-            "☺️": ":smiley:",
-            "😀": ":grinning-face:"
+        "☺️": ":smiley:",
+        "😀": ":grinning-face:",
     },
     preserveNewlines: false,
     formatters: {
         h1Formatter: (elem, walk, builder, options) => {
             builder.addInline("preheading: ", { noWordTransform: false });
             walk(elem.children, builder);
-        }
+        },
     },
     selectors: [
         {
             selector: "h1",
-            format: 'h1Formatter',
+            format: "h1Formatter",
         },
         {
             selector: "hr",
-            options: {length: 5},
+            options: { length: 5 },
         },
-    ]
+    ],
 };
 
-console.log('\nTest with selectors');
+console.log("\nTest with selectors");
 console.log(htmlToText(allElements, selOptions));
 
-console.log('\nTest with compiler function');
+console.log("\nTest with compiler function");
 const converter = compile(selOptions);
 console.log(converter(allElements));
 
-console.log('\nTest with any tag');
+console.log("\nTest with any tag");
 console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
     formatters: {
         fooFormatter: (elem, walk, builder, options) => {
             builder.addInline("fooFormatter: ", { noWordTransform: false });
             walk(elem.children, builder);
-        }
+        },
     },
     selectors: [
         {
             selector: "foo",
-            format: 'fooFormatter',
+            format: "fooFormatter",
         },
-    ]
+    ],
 }));
 
-console.log('\nTest with linkBrackets false');
+console.log("\nTest with linkBrackets false");
 console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
     selectors: [
         {
             selector: "a",
-            options: { linkBrackets: false }
-        }
-    ]
+            options: { linkBrackets: false },
+        },
+    ],
 }));
 
-console.log('\nTest with custom linkBrackets');
+console.log("\nTest with custom linkBrackets");
 console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
     selectors: [
         {
             selector: "a",
-            options: { linkBrackets: ['@', '@'] }
-        }
-    ]
+            options: { linkBrackets: ["@", "@"] },
+        },
+    ],
 }));
 
-console.log('\nTest without linkBrackets');
+console.log("\nTest without linkBrackets");
 console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
     selectors: [
         {
             selector: "a",
-            options: { linkBrackets: undefined }
-        }
-    ]
+            options: { linkBrackets: undefined },
+        },
+    ],
 }));
 
-console.log('\nTest with user defined options that should be in output');
+console.log("\nTest with user defined options that should be in output");
 console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
     formatters: {
         fooFormatter: (elem, walk, builder, options) => {
             builder.addInline(`beginning ${options.foo} fooFormatter: `, { noWordTransform: false });
             walk(elem.children, builder);
-        }
+        },
     },
     selectors: [
         {
             selector: "foo",
-            format: 'fooFormatter',
+            format: "fooFormatter",
             options: { foo: "show-me" },
         },
-    ]
+    ],
 }));
 
-console.log('\nTest list functions');
+console.log("\nTest list functions");
 console.log(htmlToText("<h1>Starting list test</h1><my-list><li>first</li><li>second</li></my-list>", {
     formatters: {
         listFormatter: (elem, walk, builder, options) => {
@@ -407,42 +414,42 @@ console.log(htmlToText("<h1>Starting list test</h1><my-list><li>first</li><li>se
             const maxPrefixLength = prefix.length;
 
             const listItems = (elem.children || [])
-              .filter(child => child.type !== 'text' || !/^\s*$/.test(child.data || ""))
-              .map((child) => {
-                if (child.name !== 'li') {
-                  return { node: child, prefix: '' };
-                }
-                return { node: child, prefix };
-              });
-            if (!listItems.length) { return; }
+                .filter(child => child.type !== "text" || !/^\s*$/.test(child.data || ""))
+                .map((child) => {
+                    if (child.name !== "li") {
+                        return { node: child, prefix: "" };
+                    }
+                    return { node: child, prefix };
+                });
+            if (!listItems.length) return;
 
             builder.openList({
-              interRowLineBreaks: 1,
-              leadingLineBreaks: options.leadingLineBreaks || 2,
-              maxPrefixLength,
-              prefixAlign: 'left'
+                interRowLineBreaks: 1,
+                leadingLineBreaks: options.leadingLineBreaks || 2,
+                maxPrefixLength,
+                prefixAlign: "left",
             });
 
             for (const { node, prefix } of listItems) {
-              builder.openListItem({ prefix });
-              walk([node], builder);
-              builder.closeListItem();
+                builder.openListItem({ prefix });
+                walk([node], builder);
+                builder.closeListItem();
             }
 
             builder.closeList({ trailingLineBreaks: options.trailingLineBreaks || 2 });
-        }
+        },
     },
     selectors: [
         {
             selector: "h1",
             options: {
-                uppercase: false
+                uppercase: false,
             },
         },
         {
             selector: "my-list",
-            format: 'listFormatter',
+            format: "listFormatter",
             options: { foo: "show-me" },
         },
-    ]
+    ],
 }));

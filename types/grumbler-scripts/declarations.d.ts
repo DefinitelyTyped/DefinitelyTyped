@@ -1,4 +1,4 @@
-import { ENV } from './config/constants';
+import { ENV } from "./config/constants";
 
 export type $Values<O extends object> = O[keyof O];
 

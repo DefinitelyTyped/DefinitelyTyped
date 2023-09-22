@@ -1,23 +1,23 @@
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import { Compiler, compilation } from 'webpack';
+import HtmlWebpackPlugin = require("html-webpack-plugin");
+import { compilation, Compiler } from "webpack";
 
 const plugin = new HtmlWebpackPlugin();
 
 const webpackCompilation: compilation.Compilation = {} as any;
-const templateFunction = () => '';
-plugin.evaluateCompilationResult(webpackCompilation, '').then(res => {
-    if (typeof res === 'function') {
+const templateFunction = () => "";
+plugin.evaluateCompilationResult(webpackCompilation, "").then(res => {
+    if (typeof res === "function") {
         res({});
     } else {
         res.trim();
     }
 });
 plugin.executeTemplate(templateFunction, undefined, undefined, webpackCompilation).then(res => res.trim());
-plugin.postProcessHtml('', undefined, undefined).then(res => res.trim());
+plugin.postProcessHtml("", undefined, undefined).then(res => res.trim());
 
 const optionsArray: HtmlWebpackPlugin.Options[] = [
     {
-        title: 'test',
+        title: "test",
     },
     {
         minify: {
@@ -30,14 +30,14 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
         },
     },
     {
-        arbitrary: 'data',
+        arbitrary: "data",
     },
     {
-        chunksSortMode: 'manual',
+        chunksSortMode: "manual",
     },
     // All default params
     {
-        template: 'default_index.ejs',
+        template: "default_index.ejs",
         templateParameters: (compilation, assets, options) => {
             return {
                 compilation,
@@ -46,11 +46,11 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
                 webpackConfig: {},
                 htmlWebpackPlugin: {
                     files: assets,
-                    options
-                }
+                    options,
+                },
             };
         },
-        filename: 'index.html',
+        filename: "index.html",
         hash: false,
         inject: true,
         compile: true,
@@ -58,78 +58,78 @@ const optionsArray: HtmlWebpackPlugin.Options[] = [
         minify: false,
         cache: true,
         showErrors: true,
-        chunks: 'all',
+        chunks: "all",
         excludeChunks: [],
-        chunksSortMode: 'auto',
+        chunksSortMode: "auto",
         meta: {},
-        title: 'Webpack App',
-        xhtml: false
+        title: "Webpack App",
+        xhtml: false,
     },
     // Config from 'appcache' example
     {
-        filename: 'index.html',
-        template: 'template.html',
+        filename: "index.html",
+        template: "template.html",
         minify: {
-          removeComments: true,
-          collapseWhitespace: true
-        }
+            removeComments: true,
+            collapseWhitespace: true,
+        },
     },
     // Config from 'custom-template' example
     {
-        template: 'template.html'
+        template: "template.html",
     },
     {
-        templateContent: false
+        templateContent: false,
     },
     {
-        templateContent: '<html></html>'
+        templateContent: "<html></html>",
     },
     {
-        templateContent: () => '<html></html>'
+        templateContent: () => "<html></html>",
     },
     // Config from 'favicon' example
     {
-        title: 'HtmlWebpackPlugin example',
-        favicon: 'favicon.ico',
-        filename: 'favicon.html'
+        title: "HtmlWebpackPlugin example",
+        favicon: "favicon.ico",
+        filename: "favicon.html",
     },
     // Config from 'inline' example
     {
         inject: false,
         cache: false,
-        template: 'template.jade',
-        filename: 'index.html',
-        favicon: 'favicon.ico',
-        title: 'Jade demo'
+        template: "template.jade",
+        filename: "index.html",
+        favicon: "favicon.ico",
+        title: "Jade demo",
     },
     // Config from 'sort-manually' example
     {
         inject: true,
-        filename: 'first-file.html',
-        template: 'template.html',
-        chunksSortMode: 'manual',
-        chunks: ['a', 'b', 'c']
+        filename: "first-file.html",
+        template: "template.html",
+        chunksSortMode: "manual",
+        chunks: ["a", "b", "c"],
     },
     // Config from 'template-parameters' example
     {
         templateParameters: {
-          foo: 'bar'
+            foo: "bar",
         },
-        template: 'index.ejs'
-    }
+        template: "index.ejs",
+    },
 ];
 
 const plugins: HtmlWebpackPlugin[] = optionsArray.map(options => new HtmlWebpackPlugin(options));
 
 // Webpack plugin `apply` function
 function apply(compiler: Compiler) {
-    compiler.hooks.compilation.tap('SomeWebpackPlugin', (compilation: compilation.Compilation) => {
+    compiler.hooks.compilation.tap("SomeWebpackPlugin", (compilation: compilation.Compilation) => {
         (compilation.hooks as HtmlWebpackPlugin.Hooks).htmlWebpackPluginAfterHtmlProcessing.tap(
-            'MyPlugin',
+            "MyPlugin",
             (data) => {
-                data.html += 'The Magic Footer';
+                data.html += "The Magic Footer";
                 return data;
-            }
+            },
         );
     });
 }

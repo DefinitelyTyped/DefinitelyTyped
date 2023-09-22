@@ -4,5 +4,5 @@
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import bind = require('./implementation');
+import bind = require("./implementation");
 export = bind;

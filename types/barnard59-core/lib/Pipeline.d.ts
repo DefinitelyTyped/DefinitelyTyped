@@ -1,7 +1,7 @@
 import * as stream from "readable-stream";
 import StreamObject from "./StreamObject";
 
-export { Context } from './StreamObject';
+export { Context } from "./StreamObject";
 
 export default class Pipeline extends StreamObject {
     readable: boolean;
@@ -16,7 +16,7 @@ export default class Pipeline extends StreamObject {
     get lastChild(): StreamObject;
 
     destroy(err: Error): void;
-    finish(): stream['push'];
+    finish(): stream["push"];
 }
 
 export {};

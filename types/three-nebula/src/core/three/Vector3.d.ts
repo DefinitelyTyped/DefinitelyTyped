@@ -1,6 +1,6 @@
-import { Euler } from './Euler.js';
-import { Matrix4 } from './Matrix4.js';
-import { Quaternion } from './Quaternion.js';
+import { Euler } from "./Euler.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Quaternion } from "./Quaternion.js";
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author kile / http://kile.stravaganza.org/

@@ -12,7 +12,7 @@ interface ObjectionModelConstructor<T extends { id: unknown }> {
 
 interface ObjectionQueryBuilder<T extends { id: unknown }> {
     insert(model: T): PromiseLike<T>;
-    deleteById(id: T['id']): PromiseLike<number>;
+    deleteById(id: T["id"]): PromiseLike<number>;
 }
 
 declare class ObjectionAdapter {

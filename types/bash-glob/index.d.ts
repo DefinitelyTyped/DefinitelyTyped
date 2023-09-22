@@ -22,8 +22,8 @@ declare namespace bashGlob {
         nullglob?: boolean | undefined;
     }
 
-    function on(event: 'match' | 'files', callback: (files: string, cwd: string) => void): void;
-    function on(event: 'end', callback: (files: string) => void): void;
+    function on(event: "match" | "files", callback: (files: string, cwd: string) => void): void;
+    function on(event: "end", callback: (files: string) => void): void;
 
     function each(patterns: Patterns, callback: Callback): void;
     function each(patterns: Patterns, options: Options, callback: Callback): void;
