@@ -14,5 +14,5 @@ export function decode(
     data: Buffer,
     start?: number,
     end?: number,
-    encoding?: string
+    encoding?: string,
 ): any;

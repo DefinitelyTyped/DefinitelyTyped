@@ -10,42 +10,42 @@ interface CommonEvent {
     };
 }
 export interface TouchEvent extends CommonEvent {
-    type: 'touch';
+    type: "touch";
 }
 export interface TapEvent extends CommonEvent {
-    type: 'tap';
+    type: "tap";
 }
 export interface LongPressEvent extends CommonEvent {
-    type: 'longPress';
+    type: "longPress";
 }
-export interface PanEvent extends Omit<CommonEvent, 'position'> {
-    type: 'pan';
+export interface PanEvent extends Omit<CommonEvent, "position"> {
+    type: "pan";
     translation: {
         deltaX: number;
         deltaY: number;
     };
 }
 
-export interface SwipeEvent extends Omit<CommonEvent, 'position'> {
-    type: 'swiper';
+export interface SwipeEvent extends Omit<CommonEvent, "position"> {
+    type: "swiper";
     /**
      * @summary 1:right, 2:left, 4:up, 8:down
      */
     direction: number;
 }
 
-export interface PinchEvent extends Omit<CommonEvent, 'position'> {
-    type: 'pinch';
+export interface PinchEvent extends Omit<CommonEvent, "position"> {
+    type: "pinch";
     scale: number;
 }
 
-export interface InputEvent extends Omit<CommonEvent, 'position'> {
-    type: 'input';
+export interface InputEvent extends Omit<CommonEvent, "position"> {
+    type: "input";
     text: string;
 }
 
-export interface ScrollEvent extends Omit<CommonEvent, 'position'> {
-    type: 'scroll';
+export interface ScrollEvent extends Omit<CommonEvent, "position"> {
+    type: "scroll";
     /**
      * @summary x方向实际滚动偏移量
      */
@@ -64,17 +64,17 @@ export interface ScrollEvent extends Omit<CommonEvent, 'position'> {
     dy: number;
 }
 
-export interface SwitchEvent extends Omit<CommonEvent, 'position' | 'state'> {
-    type: 'switch';
+export interface SwitchEvent extends Omit<CommonEvent, "position" | "state"> {
+    type: "switch";
     state: 0 | 1;
 }
 
 // TODO 为各事件设置专属的事件池
-export type EventInView = 'touch' | 'tap' | 'longPress' | 'pan' | 'swipe' | 'pinch';
-export type EventInText = 'touch' | 'tap' | 'longPress' | 'pan' | 'pinch';
-export type EventInImage = 'touch' | 'tap' | 'longPress' | 'pan' | 'pinch';
-export type EventInScroller = 'scroll';
-export type EventInInput = 'input';
+export type EventInView = "touch" | "tap" | "longPress" | "pan" | "swipe" | "pinch";
+export type EventInText = "touch" | "tap" | "longPress" | "pan" | "pinch";
+export type EventInImage = "touch" | "tap" | "longPress" | "pan" | "pinch";
+export type EventInScroller = "scroll";
+export type EventInInput = "input";
 
 export interface EventHandlersEventMap {
     touch: TouchEvent;

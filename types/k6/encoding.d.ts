@@ -24,7 +24,7 @@ export function b64decode(input: string, encoding?: Base64Variant): ArrayBuffer;
  * encoding.b64decode(str, 'rawstd')
  * const decodedString = encoding.b64decode(str, 'rawurl', 's')
  */
-export function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
+export function b64decode(input: string, encoding: Base64Variant, format: "s"): string;
 
 /**
  * Base64 encode a string.
@@ -41,7 +41,7 @@ export function b64encode(input: string | ArrayBuffer, encoding?: Base64Variant)
 /**
  * Base64 variant.
  */
-export type Base64Variant = 'std' | 'rawstd' | 'url' | 'rawurl';
+export type Base64Variant = "std" | "rawstd" | "url" | "rawurl";
 
 /**
  * The encoding module provides base64 encoding/decoding.
@@ -73,7 +73,7 @@ declare namespace encoding {
      * encoding.b64decode(str, 'rawstd')
      * const decodedString = encoding.b64decode(str, 'rawurl', 's')
      */
-    function b64decode(input: string, encoding: Base64Variant, format: 's'): string;
+    function b64decode(input: string, encoding: Base64Variant, format: "s"): string;
     /**
      * Base64 decode a string.
      * https://k6.io/docs/javascript-api/k6-encoding/b64decode-input-encoding/

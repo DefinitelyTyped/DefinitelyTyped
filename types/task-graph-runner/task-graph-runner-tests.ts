@@ -1,4 +1,4 @@
-import taskGraphRunner, { Opts, Results } from 'task-graph-runner';
+import taskGraphRunner, { Opts, Results } from "task-graph-runner";
 
 const graph = new Map([
     ["task-a", ["task-d"]],

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Backbone from 'backbone';
+import * as Backbone from "backbone";
 
-declare module 'backbone' {
+declare module "backbone" {
     export namespace Associations {
         /** Defines a 1:Many relationship type */
         export var Many: string;

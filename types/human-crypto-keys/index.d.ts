@@ -8,7 +8,6 @@ export function generateKeyPair(
      * The algorithm identifier and the respective parameters to generate a key pair
      */
     algorithm: Algorithm,
-
     /**
      * Options to be used while composing keys
      */
@@ -20,12 +19,10 @@ export function getKeyPairFromMnemonic(
      * The mnemonic provided as one of the recovery methods for a key pair
      */
     mnemonic: string,
-
     /**
      * The algorithm identifier and the respective parameters to generate a key pair
      */
     algorithm: Algorithm,
-
     /**
      * Options to be used while composing keys
      */
@@ -37,26 +34,24 @@ export function getKeyPairFromSeed(
      * The seed provided as one of the recovery methods for a key pair
      */
     seed: string,
-
     /**
      * The algorithm identifier and the respective parameters to generate a key pair
      */
     algorithm: Algorithm,
-
     /**
      * Options to be used while composing keys
      */
     options?: Options,
 ): Promise<SimpleKeyPair>;
 
-type Algorithm = ED25519Algorithm | RSAAlgorithm | ED25519Algorithm['id'] | RSAAlgorithm['id'];
+type Algorithm = ED25519Algorithm | RSAAlgorithm | ED25519Algorithm["id"] | RSAAlgorithm["id"];
 
 interface ED25519Algorithm {
-    id: 'ed25519';
+    id: "ed25519";
 }
 
 interface RSAAlgorithm {
-    id: 'rsa';
+    id: "rsa";
 
     /**
      * @default 2048
@@ -100,7 +95,7 @@ interface FullKeyPair {
     publicKey: string;
 }
 
-type SimpleKeyPair = Pick<FullKeyPair, 'privateKey' | 'publicKey'>;
+type SimpleKeyPair = Pick<FullKeyPair, "privateKey" | "publicKey">;
 
 interface Options {
     /**

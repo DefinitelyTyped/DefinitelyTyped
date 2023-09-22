@@ -1,4 +1,4 @@
-import { callback } from './core';
+import { callback } from "./core";
 
 /**
  * This object is returned by {@link Client#getConfiguration|getConfiguration}. This information is used extensively by other Braintree modules to properly configure themselves.

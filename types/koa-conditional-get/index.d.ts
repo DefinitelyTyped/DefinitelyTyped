@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as koa from 'koa';
+import * as koa from "koa";
 
 declare function koaConditionalGet(): koa.Middleware;
 

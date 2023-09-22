@@ -1,5 +1,5 @@
-import Tuna = require('tunajs');
-import type { TunaAudioNode } from 'tunajs';
+import Tuna = require("tunajs");
+import type { TunaAudioNode } from "tunajs";
 
 const context = new AudioContext();
 const tuna = new Tuna(context);
@@ -65,7 +65,7 @@ const convolver = new tuna.Convolver({
     dryLevel: 1,
     wetLevel: 1,
     level: 1,
-    impulse: 'impulses/impulse_rev.wav',
+    impulse: "impulses/impulse_rev.wav",
     bypass: false,
 });
 
@@ -73,13 +73,13 @@ const filter = new tuna.Filter({
     frequency: 800,
     Q: 1,
     gain: 0,
-    filterType: 'lowpass',
+    filterType: "lowpass",
     bypass: false,
 });
 
 const cabinet = new tuna.Cabinet({
     makeupGain: 1,
-    impulsePath: 'impulses/impulse_guitar.wav',
+    impulsePath: "impulses/impulse_guitar.wav",
     bypass: false,
 });
 
@@ -128,7 +128,7 @@ const gain = new tuna.Gain({
 });
 
 const envelopeFollower = new tuna.EnvelopeFollower({
-    target: { foo: 1, bar: 'asdf' },
+    target: { foo: 1, bar: "asdf" },
     callback: (target, envelope) => {
         target.foo; // $ExpectType number
         target.bar; // $ExpectType string
@@ -137,7 +137,7 @@ const envelopeFollower = new tuna.EnvelopeFollower({
 });
 
 const lfo = new tuna.LFO({
-    target: { date: new Date(), bar: 'asdf' },
+    target: { date: new Date(), bar: "asdf" },
     callback: (target, value) => {
         target.date; // $ExpectType Date
         target.bar; // $ExpectType string
@@ -201,7 +201,7 @@ tremolo.getDefaults(); // $ExpectType TremoloProperties
 wahwah.getDefaults(); // $ExpectType WahWahProperties
 
 // instance.automate() must only accept property names that actually exist
-const stringKey = 'invalidKey';
+const stringKey = "invalidKey";
 // @ts-expect-error
 bitcrusher.automate(stringKey, 0);
 // @ts-expect-error

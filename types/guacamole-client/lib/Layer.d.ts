@@ -1,7 +1,7 @@
 export namespace Layer {
     export {};
-    export type LineCap = 'round' | 'square' | 'butt';
-    export type LineJoin = 'round' | 'bevel' | 'mitter';
+    export type LineCap = "round" | "square" | "butt";
+    export type LineJoin = "round" | "bevel" | "mitter";
 
     /**
      * Represents a single pixel of image data. All components have a minimum value
@@ -266,7 +266,7 @@ export class Layer {
      * @param x The X coordinate of the endpoint of the curve.
      * @param y The Y coordinate of the endpoint of the curve.
      */
-    curveTo: CanvasRenderingContext2D['bezierCurveTo'];
+    curveTo: CanvasRenderingContext2D["bezierCurveTo"];
 
     /**
      * Add the specified rectangle to the current path.
@@ -275,21 +275,21 @@ export class Layer {
      * @param w The width of the rectangle to draw.
      * @param h The height of the rectangle to draw.
      */
-    rect: CanvasRenderingContext2D['rect'];
+    rect: CanvasRenderingContext2D["rect"];
 
     /**
      * Starts a new path at the specified point.
      * @param x The X coordinate of the point to draw.
      * @param y The Y coordinate of the point to draw.
      */
-    moveTo: CanvasRenderingContext2D['moveTo'];
+    moveTo: CanvasRenderingContext2D["moveTo"];
 
     /**
      * Add the specified line to the current path.
      * @param x The X coordinate of the endpoint of the line to draw.
      * @param y The Y coordinate of the endpoint of the line to draw.
      */
-    lineTo: CanvasRenderingContext2D['lineTo'];
+    lineTo: CanvasRenderingContext2D["lineTo"];
 
     /**
      * Add the specified arc to the current path.
@@ -303,13 +303,13 @@ export class Layer {
      * @param negative Whether the arc should be drawn in order of
      *                           decreasing angle.
      */
-    arc: CanvasRenderingContext2D['arc'];
+    arc: CanvasRenderingContext2D["arc"];
 
     /**
      * Closes the current path by connecting the end point with the start
      * point (if any) with a straight line.
      */
-    close: CanvasRenderingContext2D['closePath'];
+    close: CanvasRenderingContext2D["closePath"];
 
     /**
      * Clip all future drawing operations by the current path. The current path
@@ -317,7 +317,7 @@ export class Layer {
      * for other operations (such as fillColor()) but a new path will be started
      * once a path drawing operation (path() or rect()) is used.
      */
-    clip: CanvasRenderingContext2D['clip'];
+    clip: CanvasRenderingContext2D["clip"];
 
     /**
      * Stroke the current path with the specified color. The current path

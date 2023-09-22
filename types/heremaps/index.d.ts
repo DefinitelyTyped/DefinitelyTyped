@@ -100,7 +100,14 @@ declare namespace H {
          * @param opt_x2 {number=} - The X coordinate of the right edge of the capturing rectangle defaults to viewport width
          * @param opt_y2 {number=} - The Y coordinate of the bottom edge of the capturing rectangle defaults to viewport height
          */
-        capture(callback?: (canvas: HTMLCanvasElement) => void, opt_capturables?: H.util.ICapturable[], opt_x1?: number, opt_y1?: number, opt_x2?: number, opt_y2?: number): void;
+        capture(
+            callback?: (canvas: HTMLCanvasElement) => void,
+            opt_capturables?: H.util.ICapturable[],
+            opt_x1?: number,
+            opt_y1?: number,
+            opt_x2?: number,
+            opt_y2?: number,
+        ): void;
 
         /**
          * This method sets the rendering engine type for the map. Rendering engine is responsible for displaying i.e tiles and data on the map.
@@ -119,7 +126,13 @@ declare namespace H {
          * @param opt_layer {H.map.layer.BaseTileLayer=} - The layer to store, default is the current base layer
          * @returns {H.util.Request} - A handle to the created storage request
          */
-        storeContent(opt_onprogress?: (req: H.util.Request) => void, opt_bounds?: H.geo.Rect, opt_min?: number, opt_max?: number, opt_layer?: H.map.layer.BaseTileLayer): H.util.Request;
+        storeContent(
+            opt_onprogress?: (req: H.util.Request) => void,
+            opt_bounds?: H.geo.Rect,
+            opt_min?: number,
+            opt_max?: number,
+            opt_layer?: H.map.layer.BaseTileLayer,
+        ): H.util.Request;
 
         /**
          * To clear the entire stored content
@@ -211,7 +224,7 @@ declare namespace H {
          * @param mapObjects {(Array<H.map.Object> | H.map.Group)}
          * @returns {H.Map} - the map instance
          */
-        removeObjects(mapObjects: (H.map.Object[] | H.map.Group)): H.Map;
+        removeObjects(mapObjects: H.map.Object[] | H.map.Group): H.Map;
 
         /**
          * Returns the top most z-ordered map object found under the specific screen coordinates. Coordinates are viewport pixel coordinates starting from top left corner as (0, 0) point.
@@ -234,7 +247,7 @@ declare namespace H {
          * This method will dispatch event on the event target object
          * @param evt {(H.util.Event | string)} - event object or event name
          */
-        dispatchEvent(evt: (H.util.Event | string)): void;
+        dispatchEvent(evt: H.util.Event | string): void;
 
         /**
          * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -492,7 +505,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -556,7 +569,12 @@ declare namespace H {
              * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
              * @returns {Array<H.map.DomMarker>} - a list of intersecting objects
              */
-            requestDomMarkers(bounds: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.DomMarker[];
+            requestDomMarkers(
+                bounds: H.geo.Rect,
+                zoomLevel: number,
+                visiblesOnly: boolean,
+                cacheOnly: boolean,
+            ): H.map.DomMarker[];
 
             /**
              * This method always returns true as we don't have information about visual representation until we have the clustering result and apply the theme.
@@ -572,7 +590,12 @@ declare namespace H {
              * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
              * @returns {Array<H.map.Marker>} - a list of intersecting objects
              */
-            requestMarkers(bounds: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.Marker[];
+            requestMarkers(
+                bounds: H.geo.Rect,
+                zoomLevel: number,
+                visiblesOnly: boolean,
+                cacheOnly: boolean,
+            ): H.map.Marker[];
 
             /**
              * This method always returns true as we don't have information about visual representation until we have the clustering result and apply the theme.
@@ -588,7 +611,12 @@ declare namespace H {
              * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
              * @returns {Array<H.map.Spatial>} - a list of intersecting objects
              */
-            requestSpatials(bounds: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.Spatial[];
+            requestSpatials(
+                bounds: H.geo.Rect,
+                zoomLevel: number,
+                visiblesOnly: boolean,
+                cacheOnly: boolean,
+            ): H.map.Spatial[];
 
             /**
              * Returns the spatial objects which intersect the given tile
@@ -597,7 +625,11 @@ declare namespace H {
              * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
              * @returns {Array<H.map.Spatial>} - a list of intersecting objects
              */
-            requestSpatialsByTile(tile: H.map.provider.Tile, visiblesOnly: boolean, cacheOnly: boolean): H.map.Spatial[];
+            requestSpatialsByTile(
+                tile: H.map.provider.Tile,
+                visiblesOnly: boolean,
+                cacheOnly: boolean,
+            ): H.map.Spatial[];
 
             /**
              * Returns the accumulate invalidations of this provider's objects that have occurred.
@@ -724,7 +756,12 @@ declare namespace H {
                  * @param state {H.data.AbstractReader.State} - The state of the target firing an event
                  * @param message {string} - The message associated with an event
                  */
-                constructor(target: (H.data.AbstractReader | H.map.Object), type: string, state: H.data.AbstractReader.State, message: string);
+                constructor(
+                    target: H.data.AbstractReader | H.map.Object,
+                    type: string,
+                    state: H.data.AbstractReader.State,
+                    message: string,
+                );
             }
 
             /**
@@ -957,7 +994,11 @@ declare namespace H {
              * @param opt_start {number=} - The point's start index (inclusive) to iterate from, defaults to 0.
              * @param opt_end {number=} - The point's end index (exclusive) to iterate to, defaults to Infinity.
              */
-            eachLatLngAlt(eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, index: number) => void, opt_start?: number, opt_end?: number): void;
+            eachLatLngAlt(
+                eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, index: number) => void,
+                opt_start?: number,
+                opt_end?: number,
+            ): void;
 
             /**
              * To obtain whether a leg (formed by the given two longitudes) crosses the International Date Line.
@@ -1417,7 +1458,12 @@ declare namespace H {
              * @param opt_out {H.geo.Rect=} - an optional rectangular area to store the result
              * @returns {H.geo.Rect} - either the rectangular area passed as out parameter or a new rectangular area
              */
-            mergeLatLng(lat: H.geo.Latitude, lng: H.geo.Longitude, opt_skipValidation?: boolean, opt_out?: H.geo.Rect): H.geo.Rect;
+            mergeLatLng(
+                lat: H.geo.Latitude,
+                lng: H.geo.Longitude,
+                opt_skipValidation?: boolean,
+                opt_out?: H.geo.Rect,
+            ): H.geo.Rect;
 
             /**
              * This method returns the smallest bounding box that covers this rectangular area and the point supplied by the caller.
@@ -1447,7 +1493,14 @@ declare namespace H {
              * @param opt_out {H.geo.Rect=} - an optional rectangular area to store the result
              * @returns {H.geo.Rect} - either the rectangular area passed as out parameter or a new rectangular area
              */
-            mergeTopLeftBottomRight(top: H.geo.Latitude, left: H.geo.Longitude, bottom: H.geo.Latitude, right: H.geo.Longitude, opt_skipValidation?: boolean, opt_out?: H.geo.Rect): H.geo.Rect;
+            mergeTopLeftBottomRight(
+                top: H.geo.Latitude,
+                left: H.geo.Longitude,
+                bottom: H.geo.Latitude,
+                right: H.geo.Longitude,
+                opt_skipValidation?: boolean,
+                opt_out?: H.geo.Rect,
+            ): H.geo.Rect;
 
             /**
              * This method checks if the intersection of two bounding boxes is non-empty.
@@ -1470,8 +1523,17 @@ declare namespace H {
              * @param opt_out {H.geo.Rect=} - an optional rect to store the results
              * @returns {H.geo.Rect} - either the opt_out rect or a new rect
              */
-            static merge(topA: H.geo.Latitude, leftA: H.geo.Longitude, bottomA: H.geo.Latitude, rightA: H.geo.Longitude, topB: H.geo.Latitude, leftB: H.geo.Longitude, bottomB: H.geo.Latitude,
-                rightB: H.geo.Longitude, opt_out?: H.geo.Rect): H.geo.Rect;
+            static merge(
+                topA: H.geo.Latitude,
+                leftA: H.geo.Longitude,
+                bottomA: H.geo.Latitude,
+                rightA: H.geo.Longitude,
+                topB: H.geo.Latitude,
+                leftB: H.geo.Longitude,
+                bottomB: H.geo.Latitude,
+                rightB: H.geo.Longitude,
+                opt_out?: H.geo.Rect,
+            ): H.geo.Rect;
 
             /**
              * This method creates a rectangular area from a top-left and bottom-right point pair.
@@ -1480,7 +1542,11 @@ declare namespace H {
              * @param opt_skipValidation {boolean=} - a boolean flag indicating whether to check validity of the arguments
              * @returns {H.geo.Rect} - returns the rectangular area defined by the top-left and bottom-right corners
              */
-            static fromPoints(topLeft: H.geo.IPoint, bottomRight: H.geo.IPoint, opt_skipValidation?: boolean): H.geo.Rect;
+            static fromPoints(
+                topLeft: H.geo.IPoint,
+                bottomRight: H.geo.IPoint,
+                opt_skipValidation?: boolean,
+            ): H.geo.Rect;
 
             /**
              * This method creates the minimum rectangular area covering all of the points in the argument array.
@@ -1563,7 +1629,11 @@ declare namespace H {
              * @param opt_deleteCount - The number of interior rings to remove, defaults to Infinity.
              * @param var_args - repeatable, The interior rings to insert.
              */
-            spliceInteriors(opt_index?: number, opt_deleteCount?: number, ...var_args: H.geo.LineString[]): H.geo.LineString[];
+            spliceInteriors(
+                opt_index?: number,
+                opt_deleteCount?: number,
+                ...var_args: H.geo.LineString[]
+            ): H.geo.LineString[];
         }
 
         namespace Polygon {
@@ -1576,9 +1646,9 @@ declare namespace H {
             }
         }
 
-        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> { }
+        class MultiPolygon extends H.geo.MultiGeometry<H.geo.Polygon> {}
 
-        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> { }
+        class MultiPoint extends H.geo.MultiGeometry<H.geo.Point> {}
     }
 
     /***** lang *****/
@@ -1613,14 +1683,14 @@ declare namespace H {
              * Returns this marker's current icon.
              * @returns {!(H.map.Icon | H.map.DomIcon)}
              */
-            getIcon(): (H.map.Icon | H.map.DomIcon);
+            getIcon(): H.map.Icon | H.map.DomIcon;
 
             /**
              * Sets the marker's current icon.
              * @param icon {!(H.map.Icon | H.map.DomIcon)} - The new marker icon
              * @returns {H.map.AbstractMarker} - the marker itself
              */
-            setIcon(icon: (H.map.Icon | H.map.DomIcon)): H.map.AbstractMarker;
+            setIcon(icon: H.map.Icon | H.map.DomIcon): H.map.AbstractMarker;
 
             /**
              * @description This property ensure that the marker can receive drag events.
@@ -1659,14 +1729,14 @@ declare namespace H {
              * Constructor
              * @param opt_options {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=}
              */
-            constructor(opt_options?: (H.map.ArrowStyle | H.map.ArrowStyle.Options));
+            constructor(opt_options?: H.map.ArrowStyle | H.map.ArrowStyle.Options);
 
             /**
              * This method checks value-equality with another arrow style.
              * @param other {(H.map.ArrowStyle | H.map.ArrowStyle.Options)} - the arrow style to compare with
              * @returns {boolean} - true if the arrow styles are value-equal, otherwise false
              */
-            equals(other: (H.map.ArrowStyle | H.map.ArrowStyle.Options)): boolean;
+            equals(other: H.map.ArrowStyle | H.map.ArrowStyle.Options): boolean;
         }
 
         namespace ArrowStyle {
@@ -1787,7 +1857,7 @@ declare namespace H {
              * @param element {!(Element | string)} - The element or markup to use for this icon
              * @param opt_options {H.map.DomIcon.Options=}
              */
-            constructor(element: (Element | string), opt_options?: H.map.DomIcon.Options);
+            constructor(element: Element | string, opt_options?: H.map.DomIcon.Options);
         }
 
         namespace DomIcon {
@@ -1870,12 +1940,15 @@ declare namespace H {
             constructor(opt_options?: H.map.Group.Options);
 
             /**
-             *
              * @param callback {function(!H.map.Object, number, !H.map.Group)}
              * @param opt_recursive {boolean=} - Indicates whether sub groups should be traversed recursively
              * @param opt_context {*=} - The context to use as "this" within the callback
              */
-            forEach(callback: (object: H.map.Object, n: number, group: H.map.Group) => void, opt_recursive?: boolean, opt_context?: any): void;
+            forEach(
+                callback: (object: H.map.Object, n: number, group: H.map.Group) => void,
+                opt_recursive?: boolean,
+                opt_context?: any,
+            ): void;
 
             /**
              * To get a list of all objects of this group. On groups with many chilren this method can cause a higher memory and CPU consumption. Alternatively you case use H.map.Group#forEach
@@ -1993,7 +2066,16 @@ declare namespace H {
              * @param zoom {number} - changes current zoom level (for view works as moveZ)
              * @param opt_timestamp {number=}
              */
-            control(moveX: number, moveY: number, moveZ: number, angleX: number, angleY: number, angleZ: number, zoom: number, opt_timestamp?: number): void;
+            control(
+                moveX: number,
+                moveY: number,
+                moveZ: number,
+                angleX: number,
+                angleY: number,
+                angleZ: number,
+                zoom: number,
+                opt_timestamp?: number,
+            ): void;
 
             /**
              * This method ends current control, which will stop ongoing animation triggered by the startControl method. This method can prevent kinetics as well as it can adjust the final view if
@@ -2002,7 +2084,10 @@ declare namespace H {
              * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - user defined function which can adjust the final view this function takes last requestedData from the view model and
              * should return a modified H.map.ViewModel.CameraData which will be set as the final view
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
+            endControl(
+                opt_preventKinetics?: boolean,
+                opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void,
+            ): void;
         }
 
         /**
@@ -2053,7 +2138,7 @@ declare namespace H {
              * @param bitmap {!(string | HTMLImageElement | HTMLCanvasElement)} - Either an image URL, a SVG markup, an image or a canvas.
              * @param opt_options {H.map.Icon.Options=}
              */
-            constructor(bitmap: (string | HTMLImageElement | HTMLCanvasElement), opt_options?: H.map.Icon.Options);
+            constructor(bitmap: string | HTMLImageElement | HTMLCanvasElement, opt_options?: H.map.Icon.Options);
 
             /**
              * Returns the icon's bitmap loading state
@@ -2065,7 +2150,7 @@ declare namespace H {
              * Returns the bitmap of this icon or null if the bitmap is not ready yet (see H.map.Icon#getState)
              * @returns {?(HTMLImageElement | HTMLCanvasElement)}
              */
-            getBitmap(): (HTMLImageElement | HTMLCanvasElement);
+            getBitmap(): HTMLImageElement | HTMLCanvasElement;
 
             /**
              * Returns the size of this icon or null if a size wasn't specified in the constructor's options and the state of this icon is not H.map.Icon.prototype.State.READY
@@ -2108,7 +2193,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -2195,7 +2280,12 @@ declare namespace H {
              * @param callback {function(HTMLCanvasElement=)} - Callback function to call once result of the capturing is ready
              * @param opt_errback {function(string)=} - Callback function to call if error occurred during capturing
              */
-            capture(canvas: HTMLCanvasElement, pixelRatio: number, callback?: (canvas: HTMLCanvasElement) => void, opt_errback?: (s: string) => void): void;
+            capture(
+                canvas: HTMLCanvasElement,
+                pixelRatio: number,
+                callback?: (canvas: HTMLCanvasElement) => void,
+                opt_errback?: (s: string) => void,
+            ): void;
         }
 
         namespace Imprint {
@@ -2353,7 +2443,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -2417,7 +2507,11 @@ declare namespace H {
              * @param bitmap {!(string | HTMLImageElement | HTMLCanvasElement)} - Either an image URL, a SVG markup, an image or a canvas.
              * @param opt_options {H.map.Overlay.Options=} - Optional values values to initialize this overlay
              */
-            constructor(bounds: H.geo.Rect, bitmap: (string | HTMLImageElement | HTMLCanvasElement), opt_options?: H.map.Overlay.Options);
+            constructor(
+                bounds: H.geo.Rect,
+                bitmap: string | HTMLImageElement | HTMLCanvasElement,
+                opt_options?: H.map.Overlay.Options,
+            );
 
             /**
              * This method returns this overlay's current bounds.
@@ -2436,14 +2530,14 @@ declare namespace H {
              * Returns this overlay's current bitmap.
              * @returns {?(HTMLImageElement | HTMLCanvasElement)} - the bitmap of this Overlay or null if it isn't ready yet
              */
-            getBitmap(): (HTMLImageElement | HTMLCanvasElement);
+            getBitmap(): HTMLImageElement | HTMLCanvasElement;
 
             /**
              * Sets the overlay's current bitmap.
              * @param bitmap {!(string | HTMLImageElement | HTMLCanvasElement)} - Either an image URL, a SVG markup, an image or a canvas.
              * @returns {H.map.Overlay} - the overlay itself
              */
-            setBitmap(bitmap: (string | HTMLImageElement | HTMLCanvasElement)): H.map.Overlay;
+            setBitmap(bitmap: string | HTMLImageElement | HTMLCanvasElement): H.map.Overlay;
 
             /**
              * Returns this overlay's current opacity.
@@ -2494,7 +2588,10 @@ declare namespace H {
              * The geometry that defines the surface of the polygon. H.geo.LineString is interpreted as an exterior ring of H.geo.Polygon object.
              * @param opt_options {H.map.Spatial.Options=} - optional initialization parameters
              */
-            constructor(geometry: H.geo.LineString | H.geo.Polygon | H.geo.MultiPolygon, opt_options?: H.map.Polygon.Options);
+            constructor(
+                geometry: H.geo.LineString | H.geo.Polygon | H.geo.MultiPolygon,
+                opt_options?: H.map.Polygon.Options,
+            );
 
             /**
              * To set the indicator whether this polygon covers the north pole. It's needed for Polygons whose strip is defined as lines arround the world on longitude axis (for example a circle whose
@@ -2813,7 +2910,7 @@ declare namespace H {
              * @param opt_style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - The style to set. If it evaluates to a falsy the H.map.SpatialStyle.DEFAULT_STYLE is used.
              * @returns {H.map.Spatial} - the Spatial instance itself
              */
-            setStyle(opt_style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options)): H.map.Spatial;
+            setStyle(opt_style?: H.map.SpatialStyle | H.map.SpatialStyle.Options): H.map.Spatial;
 
             /**
              * To get the arrow style of this spatial object or undefined if no style is defined. A returned arrow style is treated as immutable and must not be modified afterwards to prevent
@@ -2827,7 +2924,7 @@ declare namespace H {
              * @param opt_arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - the arrow style to be applied
              * @returns {H.map.Spatial} - the Spatial instance itself
              */
-            setArrows(opt_arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options)): H.map.Spatial;
+            setArrows(opt_arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options): H.map.Spatial;
 
             /**
              * Indicates whether this spatial object represents a closed shape
@@ -2901,14 +2998,14 @@ declare namespace H {
              * Constructor
              * @param opt_options {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - The optional style attributes
              */
-            constructor(opt_options?: (H.map.SpatialStyle | H.map.SpatialStyle.Options));
+            constructor(opt_options?: H.map.SpatialStyle | H.map.SpatialStyle.Options);
 
             /**
              * This method checks value-equality with another style.
              * @param other {(H.map.SpatialStyle | H.map.SpatialStyle.Options)} - the style to compare with
              * @returns {boolean} - true if the styles are value-equal, otherwise false
              */
-            equals(other: (H.map.SpatialStyle | H.map.SpatialStyle.Options)): boolean;
+            equals(other: H.map.SpatialStyle | H.map.SpatialStyle.Options): boolean;
 
             /**
              * Returns a copy of spatial style object and replaces the passed style attributes into it.
@@ -2935,12 +3032,12 @@ declare namespace H {
             /**
              * The style of the end caps for a line, one of 'butt', 'round', 'square', 'arrow-head' or 'arrow-tail'.
              */
-            type LineCap = 'butt' | 'round' | 'square' | 'arrow-head' | 'arrow-tail';
+            type LineCap = "butt" | "round" | "square" | "arrow-head" | "arrow-tail";
 
             /**
              * The type of corner created, when two lines meet, one of 'round', 'bevel' or 'miter'.
              */
-            type LineJoin = 'round' | 'bevel' | 'miter';
+            type LineJoin = "round" | "bevel" | "miter";
 
             /**
              * Options used to initialize a style. If a property is not set, the default value from H.map.SpatialStyle is taken.
@@ -3016,20 +3113,31 @@ declare namespace H {
              * @param angleZ {number} - The rotation of on screen's z axis as degrees per millisecond.
              * @param opt_zoom {number=} - The modification of the zoom level as levels per millisecond
              */
-            control(moveX: number, moveY: number, moveZ: number, angleX: number, angleY: number, angleZ: number, opt_zoom?: number): void;
+            control(
+                moveX: number,
+                moveY: number,
+                moveZ: number,
+                angleX: number,
+                angleY: number,
+                angleZ: number,
+                opt_zoom?: number,
+            ): void;
 
             /**
              * A method to signal the end of a control operation.
              * @param opt_preventKinetics {boolean=} - A flag to indicate whether a kinetic effect is performed
              * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - An callback to adjust the final ViewModel by modifying the passed camera data.
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
+            endControl(
+                opt_preventKinetics?: boolean,
+                opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void,
+            ): void;
 
             /**
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -3154,7 +3262,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -3267,7 +3375,13 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {H.map.layer.ITileLayer.Response} - returns an array if tile which are already loaded
                  */
-                getProviderTiles(tileBounds: H.math.Rect, isCDB: boolean, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): H.map.layer.ITileLayer.Response;
+                getProviderTiles(
+                    tileBounds: H.math.Rect,
+                    isCDB: boolean,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.ITileLayer.Response;
             }
 
             /**
@@ -3282,7 +3396,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse);
+                requestMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse;
 
                 /**
                  * This method requests dom marker objects for provided bounding rectangle.
@@ -3292,8 +3411,14 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                    H.map.layer.IMarkerLayer.TiledResponse);
+                requestDomMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ):
+                    | H.map.layer.IMarkerLayer.Response
+                    | H.map.layer.IMarkerLayer.TiledResponse;
             }
 
             namespace IMarkerLayer {
@@ -3333,7 +3458,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {H.map.layer.ITileLayer.Response} - a response object containing the total number of tiles requested and the tile objects that could be immediately returned
                  */
-                requestTiles(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): H.map.layer.ITileLayer.Response;
+                requestTiles(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.ITileLayer.Response;
 
                 /**
                  * This method requests a single tile according to tile coordinates. It returns either a Tile object if it is already loaded or undefined and starts loading the tile
@@ -3420,7 +3550,7 @@ declare namespace H {
                  * This method will dispatch event on the event target object
                  * @param evt {(H.util.Event | string)} - event object or event name
                  */
-                dispatchEvent(evt: (H.util.Event | string)): void;
+                dispatchEvent(evt: H.util.Event | string): void;
 
                 /**
                  * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -3472,7 +3602,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse);
+                requestMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse;
 
                 /**
                  * This method requests dom marker objects for provided bounding rectangle.
@@ -3482,8 +3617,14 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                    H.map.layer.IMarkerLayer.TiledResponse);
+                requestDomMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ):
+                    | H.map.layer.IMarkerLayer.Response
+                    | H.map.layer.IMarkerLayer.TiledResponse;
             }
 
             /**
@@ -3496,7 +3637,10 @@ declare namespace H {
                  * @param provider {H.map.provider.ObjectProvider} - the ObjectProvider which provides the map objects to this object layer.
                  * @param opt_options {H.map.layer.ObjectLayer.Options=} - The options for this layer
                  */
-                constructor(provider: H.map.provider.ObjectProvider | H.clustering.Provider, opt_options?: H.map.layer.ObjectLayer.Options);
+                constructor(
+                    provider: H.map.provider.ObjectProvider | H.clustering.Provider,
+                    opt_options?: H.map.layer.ObjectLayer.Options,
+                );
 
                 /**
                  * This method returns current ObjectLayer's data provider
@@ -3512,7 +3656,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {H.map.layer.ObjectLayer.OverlaysResponse}
                  */
-                requestOverlays(bounds: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): H.map.layer.ObjectLayer.OverlaysResponse;
+                requestOverlays(
+                    bounds: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.ObjectLayer.OverlaysResponse;
 
                 /**
                  * This method requests tiles for the current bounding rectangle at the given zoom level (z-value).
@@ -3522,7 +3671,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {H.map.layer.ITileLayer.Response} - a response object containing the total number of tiles requested and the tile objects that could be immediately returned
                  */
-                requestTiles(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): H.map.layer.ITileLayer.Response;
+                requestTiles(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.ITileLayer.Response;
 
                 /**
                  * This method requests a single tile according to tile coordinates. It returns either a Tile object if it is already loaded or undefined and starts loading the tile
@@ -3550,7 +3704,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse);
+                requestMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse;
 
                 /**
                  * This method requests dom marker objects for provided bounding rectangle.
@@ -3560,8 +3719,14 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {(H.map.layer.IMarkerLayer.Response | H.map.layer.IMarkerLayer.TiledResponse)} - a response object containing the number of markers and the markers themselves
                  */
-                requestDomMarkers(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): (H.map.layer.IMarkerLayer.Response |
-                    H.map.layer.IMarkerLayer.TiledResponse);
+                requestDomMarkers(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ):
+                    | H.map.layer.IMarkerLayer.Response
+                    | H.map.layer.IMarkerLayer.TiledResponse;
             }
 
             namespace ObjectLayer {
@@ -3610,7 +3775,12 @@ declare namespace H {
                  * @param prioCenter {H.math.Point} - The priority center as an offset in screen pixel relative to the center
                  * @returns {H.map.layer.ITileLayer.Response} - a response object containing the total number of tiles requested and the tile objects that could be immediately returned
                  */
-                requestTiles(boundingRect: H.geo.Rect, zoomLevel: number, cacheOnly: boolean, prioCenter: H.math.Point): H.map.layer.ITileLayer.Response;
+                requestTiles(
+                    boundingRect: H.geo.Rect,
+                    zoomLevel: number,
+                    cacheOnly: boolean,
+                    prioCenter: H.math.Point,
+                ): H.map.layer.ITileLayer.Response;
 
                 update: H.util.Event;
             }
@@ -3785,7 +3955,13 @@ declare namespace H {
                     min?: number | undefined;
                     max?: number | undefined;
 
-                    requestData(n1: number, n2: number, n3: number, markerCallback: (markers: H.map.AbstractMarker[]) => void, f: () => void): H.util.ICancelable;
+                    requestData(
+                        n1: number,
+                        n2: number,
+                        n3: number,
+                        markerCallback: (markers: H.map.AbstractMarker[]) => void,
+                        f: () => void,
+                    ): H.util.ICancelable;
 
                     providesDomMarkers?: boolean | undefined;
                 }
@@ -3829,7 +4005,12 @@ declare namespace H {
                  * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
                  * @returns {Array<H.map.Overlay>} - a list of intersecting objects
                  */
-                requestOverlays(geoRect: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.Overlay[];
+                requestOverlays(
+                    geoRect: H.geo.Rect,
+                    zoomLevel: number,
+                    visiblesOnly: boolean,
+                    cacheOnly: boolean,
+                ): H.map.Overlay[];
 
                 /**
                  * Checks whether this provider is currently providing spatial map objects. A concrete implementation of ObjectProvider must override it if it currently provides Spatials.
@@ -3845,7 +4026,12 @@ declare namespace H {
                  * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
                  * @returns {Array<H.map.Spatial>} - a list of intersecting objects
                  */
-                requestSpatials(geoRect: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.Spatial[];
+                requestSpatials(
+                    geoRect: H.geo.Rect,
+                    zoomLevel: number,
+                    visiblesOnly: boolean,
+                    cacheOnly: boolean,
+                ): H.map.Spatial[];
 
                 /**
                  * Returns the spatial objects which intersect the given tile
@@ -3854,7 +4040,11 @@ declare namespace H {
                  * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
                  * @returns {Array<H.map.Spatial>} - a list of intersecting objects
                  */
-                requestSpatialsByTile(tile: H.map.provider.Tile, visiblesOnly: boolean, cacheOnly: boolean): H.map.Spatial[];
+                requestSpatialsByTile(
+                    tile: H.map.provider.Tile,
+                    visiblesOnly: boolean,
+                    cacheOnly: boolean,
+                ): H.map.Spatial[];
 
                 /**
                  * Checks whether this provider is currently providing Marker map objects. A concrete implementation of ObjectProvider must override it if it currently provides Markers.
@@ -3870,7 +4060,12 @@ declare namespace H {
                  * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
                  * @returns {Array<H.map.Marker>} - a list of intersecting objects
                  */
-                requestMarkers(geoRect: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.Marker[];
+                requestMarkers(
+                    geoRect: H.geo.Rect,
+                    zoomLevel: number,
+                    visiblesOnly: boolean,
+                    cacheOnly: boolean,
+                ): H.map.Marker[];
 
                 /**
                  * Checks whether this provider is currently providing DomMarker map objects. A concrete implementation of ObjectProvider must override it if it currently provides Markers.
@@ -3886,7 +4081,12 @@ declare namespace H {
                  * @param cacheOnly {boolean} - Indicates whether only cached objects are to be considered
                  * @returns {Array<H.map.DomMarker>} - a list of intersecting objects
                  */
-                requestDomMarkers(geoRect: H.geo.Rect, zoomLevel: number, visiblesOnly: boolean, cacheOnly: boolean): H.map.DomMarker[];
+                requestDomMarkers(
+                    geoRect: H.geo.Rect,
+                    zoomLevel: number,
+                    visiblesOnly: boolean,
+                    cacheOnly: boolean,
+                ): H.map.DomMarker[];
             }
 
             /**
@@ -3932,7 +4132,7 @@ declare namespace H {
                  * This method will dispatch event on the event target object
                  * @param evt {(H.util.Event | string)} - event object or event name
                  */
-                dispatchEvent(evt: (H.util.Event | string)): void;
+                dispatchEvent(evt: H.util.Event | string): void;
 
                 /**
                  * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -4071,7 +4271,13 @@ declare namespace H {
                  * @param opt_options {Object<string, *>=} - free form options object. These options are meant to be used in tile specific rendering cases
                  * @returns {H.map.provider.Tile}
                  */
-                createTileInternal(x: number, y: number, z: number, data: (HTMLImageElement | HTMLCanvasElement), opt_options?: { [key: string]: any }): H.map.provider.Tile;
+                createTileInternal(
+                    x: number,
+                    y: number,
+                    z: number,
+                    data: HTMLImageElement | HTMLCanvasElement,
+                    opt_options?: { [key: string]: any },
+                ): H.map.provider.Tile;
 
                 /**
                  * This method creates a tile key consisting of the provider&#x27;s uri, and the tile&#x27;s x, y and z coordinates, seperated by underscores e.g.: &quot;4711_7_42_23&quot;
@@ -4127,7 +4333,12 @@ declare namespace H {
                  * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
                  * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
                  */
-                constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+                constructor(
+                    viewPort: H.map.ViewPort,
+                    viewModel: H.map.ViewModel,
+                    dataModel: H.map.DataModel,
+                    options: H.map.render.RenderEngine.Options,
+                );
 
                 /**
                  * This method adds a listener for a specific event.
@@ -4137,7 +4348,12 @@ declare namespace H {
                  * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
                  * @param opt_scope {Object=} - An object defining the scope for the handler function
                  */
-                addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+                addEventListener(
+                    type: string,
+                    handler: (evt: Event) => void,
+                    opt_capture?: boolean,
+                    opt_scope?: {},
+                ): void;
 
                 /**
                  * This method removes a previously added listener from the EventTarget instance.
@@ -4146,7 +4362,12 @@ declare namespace H {
                  * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
                  * @param opt_scope {Object=} - An object defining the scope for the handler function
                  */
-                removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+                removeEventListener(
+                    type: string,
+                    handler: (evt: Event) => void,
+                    opt_capture?: boolean,
+                    opt_scope?: {},
+                ): void;
 
                 /**
                  * This method dispatches an event on the EventTarget object.
@@ -4272,7 +4493,12 @@ declare namespace H {
                      * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
                      * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
                      */
-                    constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+                    constructor(
+                        viewPort: H.map.ViewPort,
+                        viewModel: H.map.ViewModel,
+                        dataModel: H.map.DataModel,
+                        options: H.map.render.RenderEngine.Options,
+                    );
 
                     /**
                      * This method sets the length (duration) for all animations run by the render engine in milliseconds.
@@ -4313,7 +4539,12 @@ declare namespace H {
                      * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
                      * @param opt_scope {Object=} - An object defining the scope for the handler function
                      */
-                    addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+                    addEventListener(
+                        type: string,
+                        handler: (evt: Event) => void,
+                        opt_capture?: boolean,
+                        opt_scope?: {},
+                    ): void;
 
                     /**
                      * This method removes a previously added listener from the EventTarget instance.
@@ -4322,7 +4553,12 @@ declare namespace H {
                      * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
                      * @param opt_scope {Object=} - An object defining the scope for the handler function
                      */
-                    removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+                    removeEventListener(
+                        type: string,
+                        handler: (evt: Event) => void,
+                        opt_capture?: boolean,
+                        opt_scope?: {},
+                    ): void;
 
                     /**
                      * This method dispatches an event on the EventTarget object.
@@ -4436,7 +4672,7 @@ declare namespace H {
              * @param target {(H.Map | H.map.Object)} - The event's target element
              * @param originalEvent {Event} - target of the event
              */
-            constructor(viewportX: number, viewportY: number, target: (H.Map | H.map.Object), originalEvent: Event);
+            constructor(viewportX: number, viewportY: number, target: H.Map | H.map.Object, originalEvent: Event);
 
             viewportX: H.util.ContextItem[];
             viewportY: number;
@@ -4466,8 +4702,15 @@ declare namespace H {
              * @param target {(H.Map | H.map.Object)} - target map object which triggered event
              * @param originalEvent {Event} - original dom event
              */
-            constructor(type: string, pointers: H.mapevents.Pointer[], changedPointers: H.mapevents.Pointer[], targetPointers: H.mapevents.Pointer[], currentPointer: H.mapevents.Pointer,
-                target: (H.Map | H.map.Object), originalEvent: Event);
+            constructor(
+                type: string,
+                pointers: H.mapevents.Pointer[],
+                changedPointers: H.mapevents.Pointer[],
+                targetPointers: H.mapevents.Pointer[],
+                currentPointer: H.mapevents.Pointer,
+                target: H.Map | H.map.Object,
+                originalEvent: Event,
+            );
 
             /**
              * Sets defaultPrevented to true. Which can be used to prevent some default behavior.
@@ -4484,8 +4727,8 @@ declare namespace H {
             targetPointers: H.mapevents.Pointer[];
             currentPointer: H.mapevents.Pointer;
             originalEvent: Event;
-            target: (H.map.Object | H.Map);
-            currentTarget: (H.map.Object | H.Map);
+            target: H.map.Object | H.Map;
+            currentTarget: H.map.Object | H.Map;
             type: string;
             defaultPrevented: boolean;
         }
@@ -4535,14 +4778,21 @@ declare namespace H {
              * @param opt_button {H.mapevents.Pointer.Button=} - Indicates which pointer device button has changed.
              * @param opt_buttons {number=} - Indicates which pointer device buttons are being pressed, expressed as a bitmask. Uses the same values, as "buttons" in Pointer Events spec.
              */
-            constructor(viewportX: number, viewportY: number, id: number, type: string, opt_button?: H.mapevents.Pointer.Button, opt_buttons?: H.math.BitMask);
+            constructor(
+                viewportX: number,
+                viewportY: number,
+                id: number,
+                type: string,
+                opt_button?: H.mapevents.Pointer.Button,
+                opt_buttons?: H.math.BitMask,
+            );
 
             viewportX: number;
             viewportY: number;
-            target: (H.map.Object | H.Map);
+            target: H.map.Object | H.Map;
             id: number;
             type: string;
-            dragTarget: (H.map.Object | H.Map);
+            dragTarget: H.map.Object | H.Map;
             button: H.mapevents.Pointer.Button;
         }
 
@@ -4593,7 +4843,13 @@ declare namespace H {
              * @param target {(H.Map | H.map.Object)} - The event's target element
              * @param originalEvent {Event} - target of the event
              */
-            constructor(deltaY: number, viewportX: number, viewportY: number, target: (H.Map | H.map.Object), originalEvent: Event);
+            constructor(
+                deltaY: number,
+                viewportX: number,
+                viewportY: number,
+                target: H.Map | H.map.Object,
+                originalEvent: Event,
+            );
 
             delta: number;
             viewportX: number;
@@ -4828,7 +5084,13 @@ declare namespace H {
              * the opt_baseUrl to use HTTPS.
              * @returns {H.service.IConfigurable}
              */
-            configure(appId: string, appCode: string, useHTTPS: boolean, useCIT: boolean, opt_baseUrl?: H.service.Url): H.service.IConfigurable;
+            configure(
+                appId: string,
+                appCode: string,
+                useHTTPS: boolean,
+                useCIT: boolean,
+                opt_baseUrl?: H.service.Url,
+            ): H.service.IConfigurable;
         }
 
         namespace AbstractRestService {
@@ -4841,10 +5103,10 @@ declare namespace H {
         interface DefaultLayers {
             vector: {
                 normal: {
-                    map: H.map.layer.TileLayer,
-                    traffic: H.map.layer.TileLayer,
-                    trafficincidents: H.map.layer.MarkerTileLayer
-                }
+                    map: H.map.layer.TileLayer;
+                    traffic: H.map.layer.TileLayer;
+                    trafficincidents: H.map.layer.MarkerTileLayer;
+                };
             };
             raster: {
                 normal: H.service.MapType;
@@ -4871,7 +5133,11 @@ declare namespace H {
              * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Enterprise Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            calculateRoute(
+                calculateRouteParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): void;
 
             /**
              * This method sends a "getroute" request to Enterprise Routing REST API and calls the onResult callback function once the service response was received - providing
@@ -4880,7 +5146,11 @@ declare namespace H {
              * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Enterprise Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            getRoute(getRouteParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            getRoute(
+                getRouteParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): void;
 
             /**
              * This method sends a "getlinkinfo" request to Enterprise Routing REST API and calls the onResult callback function once the service response was received - providing
@@ -4889,7 +5159,11 @@ declare namespace H {
              * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Enterprise Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            getLinkInfo(getLinkInfoParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            getLinkInfo(
+                getLinkInfoParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): void;
 
             /**
              * This method sends a "calculateisoline" request to Enterprise Routing REST API and calls the onResult callback function once the service response was received - providing
@@ -4898,7 +5172,11 @@ declare namespace H {
              * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Enterprise Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            calculateIsoline(calculateIsolineParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            calculateIsoline(
+                calculateIsolineParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): void;
         }
 
         namespace EnterpriseRoutingService {
@@ -4933,7 +5211,11 @@ declare namespace H {
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              * @returns {H.service.JsonpRequestHandle}
              */
-            geocode(geoodingParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            geocode(
+                geoodingParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * This method sends a reverse geocoding request to Geocoder REST API and calls the onResult callback function once the service response was received - providing a H.service.ServiceResult
@@ -4943,7 +5225,11 @@ declare namespace H {
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              * @returns {H.service.JsonpRequestHandle}
              */
-            reverseGeocode(reverseGeocodingParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            reverseGeocode(
+                reverseGeocodingParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * This method sends a landmark search request to Geocoder REST API and calls the onResult callback function once the service response was received - providing a H.service.ServiceResult
@@ -4953,7 +5239,11 @@ declare namespace H {
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              * @returns {H.service.JsonpRequestHandle}
              */
-            search(searchParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            search(
+                searchParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
         }
 
         namespace GeocodingService {
@@ -4981,7 +5271,13 @@ declare namespace H {
              * the opt_baseUrl to use HTTPS.
              * @returns {H.service.IConfigurable}
              */
-            configure(appId: string, appCode: string, useHTTPS: boolean, useCIT: boolean, opt_baseUrl?: H.service.Url): H.service.IConfigurable;
+            configure(
+                appId: string,
+                appCode: string,
+                useHTTPS: boolean,
+                useCIT: boolean,
+                opt_baseUrl?: H.service.Url,
+            ): H.service.IConfigurable;
         }
 
         /**
@@ -5032,8 +5328,14 @@ declare namespace H {
              * @param opt_options {H.service.TileProviderOptions=} - additional set of options for the provider
              * @returns {H.map.provider.ImageTileProvider} - the image tile provider
              */
-            createTileProvider(tileType: string, scheme: string, tileSize: number, format: string, opt_additionalParameters?: H.service.ServiceParameters, opt_options?: H.service.TileProviderOptions):
-                H.map.provider.ImageTileProvider;
+            createTileProvider(
+                tileType: string,
+                scheme: string,
+                tileSize: number,
+                format: string,
+                opt_additionalParameters?: H.service.ServiceParameters,
+                opt_options?: H.service.TileProviderOptions,
+            ): H.map.provider.ImageTileProvider;
 
             /**
              * This method creates a tile layer. This layer can be used as a layer on a map's data model.
@@ -5047,8 +5349,16 @@ declare namespace H {
              * @param opt_options {H.service.TileProviderOptions=} - additional set of options for the provider
              * @returns {H.map.layer.TileLayer} - the tile layer
              */
-            createTileLayer(tileType: string, scheme: string, tileSize: number, format: string, opt_additionalParameters?: H.service.ServiceParameters, opt_opacity?: number, opt_dark?: boolean,
-                opt_options?: H.service.TileProviderOptions): H.map.layer.TileLayer;
+            createTileLayer(
+                tileType: string,
+                scheme: string,
+                tileSize: number,
+                format: string,
+                opt_additionalParameters?: H.service.ServiceParameters,
+                opt_opacity?: number,
+                opt_dark?: boolean,
+                opt_options?: H.service.TileProviderOptions,
+            ): H.map.layer.TileLayer;
 
             /**
              * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.
@@ -5060,7 +5370,13 @@ declare namespace H {
              * the opt_baseUrl to use HTTPS.
              * @returns {H.service.IConfigurable}
              */
-            configure(appId: string, appCode: string, useHTTPS: boolean, useCIT: boolean, opt_baseUrl?: H.service.Url): H.service.IConfigurable;
+            configure(
+                appId: string,
+                appCode: string,
+                useHTTPS: boolean,
+                useCIT: boolean,
+                opt_baseUrl?: H.service.Url,
+            ): H.service.IConfigurable;
         }
 
         namespace MapTileService {
@@ -5140,8 +5456,12 @@ declare namespace H {
              * @param onError {Function} - callback which is called when error occured (i.e request timeout)
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            request(entryPoint: H.service.PlacesService.EntryPoint, entryPointParams: {}, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void):
-                H.service.JsonpRequestHandle;
+            request(
+                entryPoint: H.service.PlacesService.EntryPoint,
+                entryPointParams: {},
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'search' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5150,7 +5470,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            search(searchParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            search(
+                searchParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'suggestions' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5159,7 +5483,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            suggest(suggestParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            suggest(
+                suggestParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'explore' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5168,7 +5496,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            explore(exploreParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            explore(
+                exploreParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'around' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5177,7 +5509,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            around(aroundParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            around(
+                aroundParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'here' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5186,7 +5522,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            here(hereParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            here(
+                hereParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'categories' entry point. Please refer to documentation for parameter specification and response handling.
@@ -5195,7 +5535,11 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            categories(categoriesParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+            categories(
+                categoriesParams: H.service.ServiceParameters,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+            ): H.service.JsonpRequestHandle;
 
             /**
              * This method should be used to follow hyperlinks available in results returned by dicovery queries.
@@ -5205,7 +5549,12 @@ declare namespace H {
              * @param opt_additionalParameters {Object=} - additional parameters to send with request
              * @returns {H.service.JsonpRequestHandle} - jsonp resquest handle
              */
-            follow(hyperlink: string, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
+            follow(
+                hyperlink: string,
+                onResult: (result: H.service.ServiceResult) => void,
+                onError: (error: Error) => void,
+                opt_additionalParameters?: {},
+            ): H.service.JsonpRequestHandle;
         }
 
         namespace PlacesService {
@@ -5315,16 +5664,24 @@ declare namespace H {
              * POI Categories as described at the Map Tile API documentation POI Categories chapter.
              * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
-            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
-                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                opt_pois?: (string | boolean)): H.service.DefaultLayers;
+            createDefaultLayers(
+                opt_tileSize?: H.service.Platform.DefaultLayersOptions | number,
+                opt_ppi?: number,
+                opt_lang?: string,
+                opt_secondaryLang?: string,
+                opt_style?: string,
+                opt_pois?: string | boolean,
+            ): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
              * @param opt_options {H.service.RoutingService.Options=}
              * @returns {H.service.RoutingService}
              */
-            getRoutingService(opt_options?: H.service.RoutingService.Options, opt_version?: number): H.service.RoutingService;
+            getRoutingService(
+                opt_options?: H.service.RoutingService.Options,
+                opt_version?: number,
+            ): H.service.RoutingService;
 
             /**
              * @deprecated since 3.1.30.12 - This service is no longer being actively developed.
@@ -5345,7 +5702,9 @@ declare namespace H {
              * @param opt_options {H.service.EnterpriseRoutingService.Options=}
              * @returns {H.service.EnterpriseRoutingService}
              */
-            getEnterpriseRoutingService(opt_options?: H.service.EnterpriseRoutingService.Options): H.service.EnterpriseRoutingService;
+            getEnterpriseRoutingService(
+                opt_options?: H.service.EnterpriseRoutingService.Options,
+            ): H.service.EnterpriseRoutingService;
         }
 
         namespace Platform {
@@ -5414,7 +5773,11 @@ declare namespace H {
              * @param onResult {function(H.service.RoutingServiceResult)} - this function will be called once the Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.RoutingService.RoutingServiceResult) => void, onError: (error: Error) => void): void;
+            calculateRoute(
+                calculateRouteParams: H.service.ServiceParameters,
+                onResult: (result: H.service.RoutingService.RoutingServiceResult) => void,
+                onError: (error: Error) => void,
+            ): void;
         }
 
         namespace RoutingService {
@@ -5431,8 +5794,8 @@ declare namespace H {
 
             interface RoutingServiceResult extends H.service.ServiceResult {
                 routes: Array<{
-                    id: string,
-                    sections: RoutingServiceSection[],
+                    id: string;
+                    sections: RoutingServiceSection[];
                 }>;
             }
 
@@ -5440,19 +5803,19 @@ declare namespace H {
                 id: string;
                 type: string;
                 transport: {
-                    mode: string,
+                    mode: string;
                 };
                 arrival: {
-                    time: string,
-                    place: RoutingServicePlace,
+                    time: string;
+                    place: RoutingServicePlace;
                 };
                 departure: {
-                    time: string,
-                    place: RoutingServicePlace
+                    time: string;
+                    place: RoutingServicePlace;
                 };
                 summary: {
-                    duration: number
-                    length: number
+                    duration: number;
+                    length: number;
                 };
                 polyline: string;
             }
@@ -5483,137 +5846,139 @@ declare namespace H {
             [key: string]: any;
 
             response?: {
-                language?: string | undefined,
-                route?: Array<{
-                    leg: Array<{
-                        maneuver: Array<{
-                            id: string,
-                            instruction: string,
-                            length: number,
-                            note: string[],
-                            position: {
-                                latitude: number,
-                                longitude: number
-                            },
-                            shape: string[],
-                            travelTime: number,
-                            _type: string
-                        }>
-                    }>,
-                    mode: {
-                        feature: any[],
-                        trafficMode: string,
-                        transportModes: string[],
-                        type: string
-                    }
-                    shape: string[],
-                    summary: {
-                        baseTime: number,
-                        distance: number,
-                        flags: string[],
-                        text: string,
-                        trafficTime: number,
-                        travelTime: number
-                    }
-                    waypoint: Array<{
-                        label: string,
-                        linkId: string,
-                        mappedPosition: {
-                            latitude: number,
-                            longitude: number
-                        },
-                        mappedRoadName: string,
-                        originalPosition: {
-                            latitude: number,
-                            longitude: number
-                        },
-                        shapeIndex: number,
-                        sideOfStreet: string,
-                        spot: number,
-                        type: string
+                language?: string | undefined;
+                route?:
+                    | Array<{
+                        leg: Array<{
+                            maneuver: Array<{
+                                id: string;
+                                instruction: string;
+                                length: number;
+                                note: string[];
+                                position: {
+                                    latitude: number;
+                                    longitude: number;
+                                };
+                                shape: string[];
+                                travelTime: number;
+                                _type: string;
+                            }>;
+                        }>;
+                        mode: {
+                            feature: any[];
+                            trafficMode: string;
+                            transportModes: string[];
+                            type: string;
+                        };
+                        shape: string[];
+                        summary: {
+                            baseTime: number;
+                            distance: number;
+                            flags: string[];
+                            text: string;
+                            trafficTime: number;
+                            travelTime: number;
+                        };
+                        waypoint: Array<{
+                            label: string;
+                            linkId: string;
+                            mappedPosition: {
+                                latitude: number;
+                                longitude: number;
+                            };
+                            mappedRoadName: string;
+                            originalPosition: {
+                                latitude: number;
+                                longitude: number;
+                            };
+                            shapeIndex: number;
+                            sideOfStreet: string;
+                            spot: number;
+                            type: string;
+                        }>;
                     }>
-                }> | undefined,
-                metaInfo: {}
+                    | undefined;
+                metaInfo: {};
             } | undefined;
             results?: {
-                items?: any[] | undefined,
-                next?: string | undefined
+                items?: any[] | undefined;
+                next?: string | undefined;
             } | undefined;
             search?: {
                 context: {
-                    href: string,
+                    href: string;
                     location: {
                         address: {
-                            city: string,
-                            country: string,
-                            countryCode: string,
-                            county: string,
-                            district: string,
-                            house: string,
-                            postalCode: string,
-                            stateCode: string,
-                            street: string,
-                            text: string
-                        },
-                        position: number[]
-                    },
-                    type: string
-                }
+                            city: string;
+                            country: string;
+                            countryCode: string;
+                            county: string;
+                            district: string;
+                            house: string;
+                            postalCode: string;
+                            stateCode: string;
+                            street: string;
+                            text: string;
+                        };
+                        position: number[];
+                    };
+                    type: string;
+                };
             } | undefined;
             Response?: {
                 MetaInfo: {
-                    Timestamp: string
-                },
+                    Timestamp: string;
+                };
                 View: Array<{
                     Result: Array<{
                         Location: {
                             Address: {
                                 AdditionalData: Array<{
-                                    key: string,
-                                    value: string
-                                }>,
-                                City: string,
-                                Country: string,
-                                County: string,
-                                District: string,
-                                HouseNumber: string,
-                                Label: string,
-                                PostalCode: string,
-                                State: string,
-                                Street: string
-                            },
+                                    key: string;
+                                    value: string;
+                                }>;
+                                City: string;
+                                Country: string;
+                                County: string;
+                                District: string;
+                                HouseNumber: string;
+                                Label: string;
+                                PostalCode: string;
+                                State: string;
+                                Street: string;
+                            };
                             DisplayPosition: {
-                                Latitude: number,
-                                Longitude: number
-                            },
-                            LocationId: string,
-                            LocationType: string,
+                                Latitude: number;
+                                Longitude: number;
+                            };
+                            LocationId: string;
+                            LocationType: string;
                             MapView: {
                                 BottomRight: {
-                                    Latitude: number,
-                                    Longitude: number
-                                },
+                                    Latitude: number;
+                                    Longitude: number;
+                                };
                                 TopLeft: {
-                                    Latitude: number,
-                                    Longitude: number
-                                }
-                            },
+                                    Latitude: number;
+                                    Longitude: number;
+                                };
+                            };
                             NavigationPosition: Array<{
-                                Latitude: number,
-                                Longitude: number
-                            }>
-                        },
-                        MatchLevel: string,
+                                Latitude: number;
+                                Longitude: number;
+                            }>;
+                        };
+                        MatchLevel: string;
                         MatchQuality: {
-                            City: number,
-                            HouseNumber: number,
-                            Street: number[]
-                        },
-                        MatchType: string,
-                        Relevance: number
-                    }>
-                }>,
-                isolines: any[]
+                            City: number;
+                            HouseNumber: number;
+                            Street: number[];
+                        };
+                        MatchType: string;
+                        Relevance: number;
+                    }>;
+                }>;
+                isolines: any[];
             } | undefined;
         }
 
@@ -5644,7 +6009,11 @@ declare namespace H {
                  * @param onError {function()}
                  * @returns {H.service.JsonpRequestHandle}
                  */
-                requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
+                requestIncidents(
+                    serviceParams: H.service.ServiceParameters,
+                    onResponse: (result: H.service.ServiceResult) => void,
+                    onError: (error: Error) => void,
+                ): H.service.JsonpRequestHandle;
 
                 /**
                  * This method requests traffic incident information by tile coordinates
@@ -5656,8 +6025,14 @@ declare namespace H {
                  * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
                  * @returns {H.service.JsonpRequestHandle}
                  */
-                requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
-                    opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
+                requestIncidentsByTile(
+                    x: number,
+                    y: number,
+                    z: number,
+                    onResponse: (result: H.service.ServiceResult) => void,
+                    onError: (error: Error) => void,
+                    opt_serviceParams?: H.service.ServiceParameters,
+                ): H.service.JsonpRequestHandle;
             }
 
             namespace Service {
@@ -5688,7 +6063,14 @@ declare namespace H {
              * @param opt_port {number=} - The port of the host on which the host listens. If a string is passed it must be convertible to an integer.
              * @param opt_anchor {string=} - an optional anchor part of the URL (usually preceded by '#');
              */
-            constructor(scheme: string, host: string, opt_path?: string, opt_params?: {}, opt_port?: number, opt_anchor?: string);
+            constructor(
+                scheme: string,
+                host: string,
+                opt_path?: string,
+                opt_params?: {},
+                opt_port?: number,
+                opt_anchor?: string,
+            );
 
             /**
              * This function parses a URL string and returns a H.service.Url object. The URL string must contain at least a scheme and a host.
@@ -5815,13 +6197,13 @@ declare namespace H {
                  * @param values {Array<string|number>} - The list of values to be associated to a key in a query string. The the values order in the list will be preserved in the query string.
                  * @throws {H.lang.InvalidArgumentError} - in case the argument of the constructor is not an array or its elements have types different from string and number.
                  */
-                constructor(values: Array<string|number>);
+                constructor(values: Array<string | number>);
 
                 /**
                  * Returns the array of values.
                  * @returns {Array<string|number>}
                  */
-                getValues(): Array<string|number>;
+                getValues(): Array<string | number>;
             }
         }
 
@@ -5858,8 +6240,14 @@ declare namespace H {
                  * @param opt_scheme {string=} - the scheme for which the meta info tiles a requested (default is 'normal.day')
                  * @returns {H.map.provider.TileProvider} - the tile provider
                  */
-                createTileProvider(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                    opt_scheme?: string): H.map.provider.TileProvider;
+                createTileProvider(
+                    tileSize: number,
+                    pixelRatio: number,
+                    opt_categoryFilter?: string[],
+                    opt_additionalParameters?: H.service.ServiceParameters,
+                    opt_tileType?: string,
+                    opt_scheme?: string,
+                ): H.map.provider.TileProvider;
 
                 /**
                  * This method creates a tile layer. This layer can be used as a layer on a map's data model.
@@ -5871,8 +6259,14 @@ declare namespace H {
                  * @param opt_scheme {string=} - the scheme for which the meta info tiles a requested (default is 'normal.day')
                  * @returns {H.map.layer.TileLayer} - the tile layer
                  */
-                createTileLayer(tileSize: number, pixelRatio: number, opt_categoryFilter?: string[], opt_additionalParameters?: H.service.ServiceParameters, opt_tileType?: string,
-                    opt_scheme?: string): H.map.layer.TileLayer;
+                createTileLayer(
+                    tileSize: number,
+                    pixelRatio: number,
+                    opt_categoryFilter?: string[],
+                    opt_additionalParameters?: H.service.ServiceParameters,
+                    opt_tileType?: string,
+                    opt_scheme?: string,
+                ): H.map.layer.TileLayer;
 
                 /**
                  * This methods receive configuration parameters from the platform, that can be used by the object implementing the interface.
@@ -5884,7 +6278,13 @@ declare namespace H {
                  * in the opt_baseUrl to use HTTPS.
                  * @returns {H.service.IConfigurable}
                  */
-                configure(appId: string, appCode: string, useHTTPS: boolean, useCIT: boolean, opt_baseUrl?: H.service.Url): H.service.IConfigurable;
+                configure(
+                    appId: string,
+                    appCode: string,
+                    useHTTPS: boolean,
+                    useCIT: boolean,
+                    opt_baseUrl?: H.service.Url,
+                ): H.service.IConfigurable;
             }
 
             namespace Service {
@@ -5928,7 +6328,11 @@ declare namespace H {
                  * @param opt_params {H.service.ServiceParameters=} - an additional set of URL parameters
                  * @param opt_options {H.service.metaInfo.TileProvider.Options=} - additional parameters
                  */
-                constructor(service: (H.service.metaInfo.Service | H.service.MapTileService), opt_params?: H.service.ServiceParameters, opt_options?: H.service.metaInfo.TileProvider.Options);
+                constructor(
+                    service: H.service.metaInfo.Service | H.service.MapTileService,
+                    opt_params?: H.service.ServiceParameters,
+                    opt_options?: H.service.metaInfo.TileProvider.Options,
+                );
             }
 
             namespace TileProvider {
@@ -6061,7 +6465,11 @@ declare namespace H {
                  * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Venue Maps API provides a response to the request
                  * @param onError {function(string)} - this function will be called if a communication error occurs during request and error type is passed as an argument
                  */
-                discover(serviceParams: H.service.ServiceParameters, onResult: (res: H.service.ServiceResult) => void, onError: (s: string) => void): void;
+                discover(
+                    serviceParams: H.service.ServiceParameters,
+                    onResult: (res: H.service.ServiceResult) => void,
+                    onError: (s: string) => void,
+                ): void;
 
                 /**
                  * This method creates a tile layer which can be added to the map in order to see the venues. It uses Interaction Tile endpoint of the Venue Maps API, more at
@@ -6087,7 +6495,13 @@ declare namespace H {
                  * in the opt_baseUrl to use HTTPS.
                  * @returns {H.service.IConfigurable}
                  */
-                configure(appId: string, appCode: string, useHTTPS: boolean, useCIT: boolean, opt_baseUrl?: H.service.Url): H.service.IConfigurable;
+                configure(
+                    appId: string,
+                    appCode: string,
+                    useHTTPS: boolean,
+                    useCIT: boolean,
+                    opt_baseUrl?: H.service.Url,
+                ): H.service.IConfigurable;
             }
 
             namespace Service {
@@ -6121,7 +6535,12 @@ declare namespace H {
                  * @param data {*} - The meta data of this space
                  * @param opt_isFloorSpace {boolean=} - Indicates whether this space represents a floor itself, defaults to false
                  */
-                constructor(provider: H.map.provider.ObjectProvider, uid: string, data?: any, opt_isFloorSpace?: boolean);
+                constructor(
+                    provider: H.map.provider.ObjectProvider,
+                    uid: string,
+                    data?: any,
+                    opt_isFloorSpace?: boolean,
+                );
 
                 /**
                  * The method indicates whether the spatial object represents the whole floor space or a space within a floor boundaries, that belongs to the floor.
@@ -6134,7 +6553,7 @@ declare namespace H {
                  * consistency currently it is not allowed to change the font family and the size of the labels.
                  * @param labelStyle {(H.map.SpatialStyle | H.map.SpatialStyle.Options)} - Custom label style
                  */
-                initLabelStyle(labelStyle: (H.map.SpatialStyle | H.map.SpatialStyle.Options)): void;
+                initLabelStyle(labelStyle: H.map.SpatialStyle | H.map.SpatialStyle.Options): void;
 
                 /**
                  * Method returns parent object - floor (see H.service.venues.Floor) of the space.
@@ -6580,7 +6999,11 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
+            static createDefault(
+                map: H.Map,
+                mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers,
+                opt_locale?: H.ui.i18n.Localization | string,
+            ): H.ui.UI;
 
             /**
              * This method is used to capture the element view
@@ -6589,7 +7012,12 @@ declare namespace H {
              * @param callback {ICapturable~captureCallback} - Callback function to call once result of the capturing is ready
              * @param opt_errback {ICapturable~errorCallback} - Callback function to call if error occurred during capturing
              */
-            capture(canvas: HTMLCanvasElement, pixelRation: number, callback: (canvas?: HTMLCanvasElement) => void, opt_errback?: (error: string) => void): void;
+            capture(
+                canvas: HTMLCanvasElement,
+                pixelRation: number,
+                callback: (canvas?: HTMLCanvasElement) => void,
+                opt_errback?: (error: string) => void,
+            ): void;
 
             /**
              * @param canvas {HTMLCanvasElement=}
@@ -6929,7 +7357,11 @@ declare namespace H {
              * @param opt_onDrop {function(string, ?, number)=} - A callback to be invoked when a data element is dropped from the cache
              * @param opt_filter {(function(string, ?, number): boolean)=} - A function to filter data elements that are not to be cached
              */
-            constructor(maxSize: number, opt_onDrop?: (s: string, i: any, n: number) => void, opt_filter?: (s: string, i: any, n: number) => boolean);
+            constructor(
+                maxSize: number,
+                opt_onDrop?: (s: string, i: any, n: number) => void,
+                opt_filter?: (s: string, i: any, n: number) => boolean,
+            );
 
             /**
              * This method sets this cache's maximum size to a new size. If the cache's contents exceed the new size, least recently used data elements will be dropped.
@@ -6980,7 +7412,11 @@ declare namespace H {
              * @param opt_ctx {Object=} - an optional context object to be used as this within the callback
              * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional match predicate to customize on which entries the callback will be called
              */
-            forEach(callback: (s: string, i: any, n: number) => void, opt_ctx?: any, opt_matcher?: (s: string, i: any, n: number) => boolean): void;
+            forEach(
+                callback: (s: string, i: any, n: number) => void,
+                opt_ctx?: any,
+                opt_matcher?: (s: string, i: any, n: number) => boolean,
+            ): void;
 
             /**
              * This method removes all data elements from the cache. If the optional match predicate is passed to this method only those data elements will be removed for which the predicate
@@ -7070,7 +7506,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
@@ -7167,7 +7603,12 @@ declare namespace H {
              * @param opt_capture {boolean=} - if set to true will listen in the capture phase (bubble otherwise)
              * @param opt_scope {Object=} - scope for the handler function
              */
-            addEventListener(type: string, handler: EventListenerOrEventListenerObject, opt_capture?: boolean, opt_scope?: any): void;
+            addEventListener(
+                type: string,
+                handler: EventListenerOrEventListenerObject,
+                opt_capture?: boolean,
+                opt_scope?: any,
+            ): void;
 
             /**
              * This method will removed previously added listener from the event target
@@ -7176,7 +7617,12 @@ declare namespace H {
              * @param opt_capture {boolean=} - if set to true will listen in the capture phase (bubble otherwise)
              * @param opt_scope {Object=} - scope for the handler function
              */
-            removeEventListener(type: string, handler: EventListenerOrEventListenerObject, opt_capture?: boolean, opt_scope?: any): void;
+            removeEventListener(
+                type: string,
+                handler: EventListenerOrEventListenerObject,
+                opt_capture?: boolean,
+                opt_scope?: any,
+            ): void;
 
             /**
              * This method will dispatch event on the event target object
@@ -7232,7 +7678,11 @@ declare namespace H {
              * @param opt_ctx {Object=} - an optional context object to be used as this within the callback
              * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional match predicate to customize on which entries the callback will be called
              */
-            forEach(callback: (s: string, t: any, n: number) => void, opt_ctx?: {}, opt_matcher?: ((s: string, t: any, n: number) => boolean)): void;
+            forEach(
+                callback: (s: string, t: any, n: number) => void,
+                opt_ctx?: {},
+                opt_matcher?: (s: string, t: any, n: number) => boolean,
+            ): void;
 
             /**
              * This method removes all data elements from the cache. If the optional match predicate is passed to this method only those data elements will be removed for which the predicate
@@ -7240,13 +7690,13 @@ declare namespace H {
              * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional function that receives an entries id, data and size and may return true or false to either remove it or
              * leave the entry in the cache respectively
              */
-            removeAll(opt_matcher?: ((s: string, t: any, n: number) => boolean)): void;
+            removeAll(opt_matcher?: (s: string, t: any, n: number) => boolean): void;
 
             /**
              * This method registers a callback that should be called each time an entry is dropped from the cache.
              * @param callback {(function(string, ?, number))} - the callback to be invoked for each entry
              */
-            registerOnDrop(callback: ((s: string, t: any, n: number) => void)): void;
+            registerOnDrop(callback: (s: string, t: any, n: number) => void): void;
         }
 
         /**
@@ -7267,7 +7717,12 @@ declare namespace H {
              * @param callback {ICapturable~captureCallback} - Callback function to call once result of the capturing is ready
              * @param opt_errback {ICapturable~errorCallback} - Callback function to call if error occurred during capturing
              */
-            capture(canvas: HTMLCanvasElement, pixelRation: number, callback: (canvas?: HTMLCanvasElement) => void, opt_errback?: (error: string) => void): void;
+            capture(
+                canvas: HTMLCanvasElement,
+                pixelRation: number,
+                callback: (canvas?: HTMLCanvasElement) => void,
+                opt_errback?: (error: string) => void,
+            ): void;
 
             /**
              * @param canvas {HTMLCanvasElement=}
@@ -7351,7 +7806,7 @@ declare namespace H {
              * This method will dispatch event on the event target object
              * @param evt {(H.util.Event | string)} - event object or event name
              */
-            dispatchEvent(evt: (H.util.Event | string)): void;
+            dispatchEvent(evt: H.util.Event | string): void;
 
             /**
              * Removes listeners from this object. Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.

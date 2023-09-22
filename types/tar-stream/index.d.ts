@@ -1,8 +1,9 @@
-// Type definitions for tar-stream 2.2
+// Type definitions for tar-stream 3.1
 // Project: https://github.com/mafintosh/tar-stream
 // Definitions by: Guy Lichtman <https://github.com/glicht>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Kevin Lindsay <https://github.com/kevin-lindsay-1>
+//                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -48,6 +49,12 @@ export interface Pack extends stream.Readable {
     entry(headers: Headers, callback?: Callback): stream.Writable;
     entry(headers: Headers, buffer?: string | Buffer, callback?: Callback): stream.Writable;
     finalize(): void;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
+}
+
+export interface Entry extends stream.Readable {
+    header: Headers;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
 }
 
 export interface Extract extends stream.Writable {
@@ -56,6 +63,7 @@ export interface Extract extends stream.Writable {
         event: 'entry',
         listener: (headers: Headers, stream: stream.PassThrough, next: (error?: unknown) => void) => void,
     ): this;
+    [Symbol.asyncIterator](): AsyncIterator<Entry>;
 }
 
 export interface ExtractOptions extends stream.WritableOptions {

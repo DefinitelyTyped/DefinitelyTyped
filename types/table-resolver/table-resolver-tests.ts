@@ -6,9 +6,9 @@ const result = resolver.resolve({
         title: "test title 1",
     }, {
         id: "testid2",
-        title: "test title 2"
+        title: "test title 2",
     }],
-    method: (item) => item.column
+    method: (item) => item.column,
 });
 
 export default result;

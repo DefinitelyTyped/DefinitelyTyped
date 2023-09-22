@@ -11,4 +11,4 @@ export class ReverbEffect extends SoundEffect {
     set tone(arg: number);
     get tone(): number;
 }
-import { SoundEffect } from '../SoundEffect';
+import { SoundEffect } from "../SoundEffect";

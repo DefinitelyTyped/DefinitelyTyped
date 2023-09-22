@@ -44,21 +44,21 @@ declare namespace BScroll {
     }
 
     interface MouseWheelOption {
-      speed: number;
-      invert: boolean;
-      easeTime: number;
+        speed: number;
+        invert: boolean;
+        easeTime: number;
     }
 
     interface ZoomOption {
-      start: number;
-      min: number;
-      max: number;
+        start: number;
+        min: number;
+        max: number;
     }
 
     interface InfinityOption {
-      fetch: (count: number) => void;
-      render: (item: any, div: Element) => Element;
-      createTombstone: () => Element;
+        fetch: (count: number) => void;
+        render: (item: any, div: Element) => Element;
+        createTombstone: () => Element;
     }
 
     interface BounceObjectOption {
@@ -69,7 +69,7 @@ declare namespace BScroll {
     }
 
     interface DoubleClick {
-      delay: number;
+        delay: number;
     }
 
     interface EaseOption {
@@ -215,7 +215,13 @@ declare class BScroll {
 
     scrollTo(x: number, y: number, time?: number, easing?: object): void;
 
-    scrollToElement(el: HTMLElement | string, time?: number, offsetX?: number | boolean, offsetY?: number | boolean, easing?: object): void;
+    scrollToElement(
+        el: HTMLElement | string,
+        time?: number,
+        offsetX?: number | boolean,
+        offsetY?: number | boolean,
+        easing?: object,
+    ): void;
 
     stop(): void;
 
@@ -239,41 +245,41 @@ declare class BScroll {
 
     on(
         type:
-            'beforeScrollStart' |
-            'scrollStart' |
-            'scrollCancel' |
-            'beforeScrollStart' |
-            'flick' |
-            'refresh' |
-            'destroy' |
-            'pullingDown' |
-            'pullingUp',
-        fn: () => any
+            | "beforeScrollStart"
+            | "scrollStart"
+            | "scrollCancel"
+            | "beforeScrollStart"
+            | "flick"
+            | "refresh"
+            | "destroy"
+            | "pullingDown"
+            | "pullingUp",
+        fn: () => any,
     ): void;
 
     on(
         type:
-            'scroll' |
-            'scrollEnd' |
-            'touchEnd',
-        fn: (pos: BScroll.Position) => any
+            | "scroll"
+            | "scrollEnd"
+            | "touchEnd",
+        fn: (pos: BScroll.Position) => any,
     ): void;
 
     off(
         type:
-            'beforeScrollStart' |
-            'scrollStart' |
-            'scroll' |
-            'scrollCancel' |
-            'beforeScrollStart' |
-            'scrollEnd' |
-            'touchEnd' |
-            'flick' |
-            'refresh' |
-            'destroy' |
-            'pullingDown' |
-            'pullingUp',
-        fn: (...args: any[]) => void
+            | "beforeScrollStart"
+            | "scrollStart"
+            | "scroll"
+            | "scrollCancel"
+            | "beforeScrollStart"
+            | "scrollEnd"
+            | "touchEnd"
+            | "flick"
+            | "refresh"
+            | "destroy"
+            | "pullingDown"
+            | "pullingUp",
+        fn: (...args: any[]) => void,
     ): void;
 
     trigger(type: string): void;

@@ -1,7 +1,16 @@
-import type * as React from 'react';
-import type { Animated, StyleProp, TextStyle, ViewStyle, LayoutChangeEvent } from 'react-native';
-import type { EdgeInsets } from 'react-native-safe-area-context';
-import type { NavigationProp, ParamListBase, Descriptor, Route, NavigationHelpers, StackNavigationState, StackActionHelpers, RouteProp } from '../native';
+import type * as React from "react";
+import type { Animated, LayoutChangeEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
+import type { EdgeInsets } from "react-native-safe-area-context";
+import type {
+    Descriptor,
+    NavigationHelpers,
+    NavigationProp,
+    ParamListBase,
+    Route,
+    RouteProp,
+    StackActionHelpers,
+    StackNavigationState,
+} from "../native";
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackNavigationEventMap = {
     /**
@@ -40,9 +49,19 @@ export declare type StackNavigationEventMap = {
     };
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackNavigationHelpers = NavigationHelpers<ParamListBase, StackNavigationEventMap> & StackActionHelpers<ParamListBase>;
+export declare type StackNavigationHelpers =
+    & NavigationHelpers<ParamListBase, StackNavigationEventMap>
+    & StackActionHelpers<ParamListBase>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
-export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> = NavigationProp<ParamList, RouteName, StackNavigationState<ParamList>, StackNavigationOptions, StackNavigationEventMap> & StackActionHelpers<ParamList>;
+export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> =
+    & NavigationProp<
+        ParamList,
+        RouteName,
+        StackNavigationState<ParamList>,
+        StackNavigationOptions,
+        StackNavigationEventMap
+    >
+    & StackActionHelpers<ParamList>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackScreenProps<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> = {
     navigation: StackNavigationProp<ParamList, RouteName>;
@@ -54,7 +73,7 @@ export declare type Layout = {
     height: number;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type GestureDirection = 'horizontal' | 'horizontal-inverted' | 'vertical' | 'vertical-inverted';
+export declare type GestureDirection = "horizontal" | "horizontal-inverted" | "vertical" | "vertical-inverted";
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type Scene<T> = {
     /**
@@ -86,9 +105,9 @@ export declare type Scene<T> = {
     };
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackHeaderMode = 'float' | 'screen' | 'none';
+export declare type StackHeaderMode = "float" | "screen" | "none";
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackCardMode = 'card' | 'modal';
+export declare type StackCardMode = "card" | "modal";
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackHeaderOptions = {
     /**
@@ -102,7 +121,7 @@ export declare type StackHeaderOptions = {
      * How to align the the header title.
      * Defaults to `center` on iOS and `left` on Android.
      */
-    headerTitleAlign?: 'left' | 'center' | undefined;
+    headerTitleAlign?: "left" | "center" | undefined;
     /**
      * Style object for the title component.
      */
@@ -160,9 +179,11 @@ export declare type StackHeaderOptions = {
     /**
      * Function which returns a React Element to display on the right side of the header.
      */
-    headerRight?: ((props: {
-        tintColor?: string | undefined;
-    }) => React.ReactNode) | undefined;
+    headerRight?:
+        | ((props: {
+            tintColor?: string | undefined;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the container of the `headerRight` component, for example to add padding.
      */
@@ -172,7 +193,7 @@ export declare type StackHeaderOptions = {
      * It receives the `tintColor` in in the options object as an argument. object.
      * Defaults to Image component with a the default back icon image for the platform (a chevron on iOS and an arrow on Android).
      */
-    headerBackImage?: StackHeaderLeftButtonProps['backImage'] | undefined;
+    headerBackImage?: StackHeaderLeftButtonProps["backImage"] | undefined;
     /**
      * Color for material ripple (Android >= 5.0 only).
      */
@@ -182,9 +203,11 @@ export declare type StackHeaderOptions = {
      * This is useful for using backgrounds such as an image or a gradient.
      * You can use this with `headerTransparent` to render a blur view, for example, to create a translucent header.
      */
-    headerBackground?: ((props: {
-        style: StyleProp<ViewStyle>;
-    }) => React.ReactNode) | undefined;
+    headerBackground?:
+        | ((props: {
+            style: StyleProp<ViewStyle>;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the header. You can specify a custom background color here, for example.
      */
@@ -208,7 +231,7 @@ export declare type StackHeaderProps = {
      * Mode of the header: `float` renders a single floating header across all screens,
      * `screen` renders separate headers for each screen.
      */
-    mode: 'float' | 'screen';
+    mode: "float" | "screen";
     /**
      * Layout of the screen.
      */
@@ -235,7 +258,12 @@ export declare type StackHeaderProps = {
     styleInterpolator: StackHeaderStyleInterpolator;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackDescriptor = Descriptor<ParamListBase, string, StackNavigationState<ParamListBase>, StackNavigationOptions>;
+export declare type StackDescriptor = Descriptor<
+    ParamListBase,
+    string,
+    StackNavigationState<ParamListBase>,
+    StackNavigationOptions
+>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackDescriptorMap = {
     [key: string]: StackDescriptor;
@@ -267,9 +295,11 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
     /**
      * Function that returns a React Element to display as a overlay for the card.
      */
-    cardOverlay?: ((props: {
-        style: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
-    }) => React.ReactNode) | undefined;
+    cardOverlay?:
+        | ((props: {
+            style: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the card in stack.
      * You can provide a custom background color to use instead of the default background here.
@@ -290,7 +320,7 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
      * The type of animation to use when this screen replaces another screen. Defaults to `push`.
      * When `pop` is used, the `pop` animation is applied to the screen being replaced.
      */
-    animationTypeForReplace?: 'push' | 'pop' | undefined;
+    animationTypeForReplace?: "push" | "pop" | undefined;
     /**
      * Whether you can use gestures to dismiss this screen. Defaults to `true` on iOS, `false` on Android.
      * Not supported on Web.
@@ -368,9 +398,11 @@ export declare type StackHeaderLeftButtonProps = {
     /**
      * Function which returns a React Element to display custom image in header's back button.
      */
-    backImage?: ((props: {
-        tintColor: string;
-    }) => React.ReactNode) | undefined;
+    backImage?:
+        | ((props: {
+            tintColor: string;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Tint color for the header.
      */
@@ -447,11 +479,11 @@ export declare type StackHeaderTitleProps = {
 };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type TransitionSpec = {
-    animation: 'spring';
-    config: Omit<Animated.SpringAnimationConfig, 'toValue' | keyof Animated.AnimationConfig>;
+    animation: "spring";
+    config: Omit<Animated.SpringAnimationConfig, "toValue" | keyof Animated.AnimationConfig>;
 } | {
-    animation: 'timing';
-    config: Omit<Animated.TimingAnimationConfig, 'toValue' | keyof Animated.AnimationConfig>;
+    animation: "timing";
+    config: Omit<Animated.TimingAnimationConfig, "toValue" | keyof Animated.AnimationConfig>;
 };
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type StackCardInterpolationProps = {
@@ -597,7 +629,9 @@ export declare type StackHeaderInterpolatedStyle = {
     backgroundStyle?: any;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackHeaderStyleInterpolator = (props: StackHeaderInterpolationProps) => StackHeaderInterpolatedStyle;
+export declare type StackHeaderStyleInterpolator = (
+    props: StackHeaderInterpolationProps,
+) => StackHeaderInterpolatedStyle;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type TransitionPreset = {
     /**

@@ -23,5 +23,4 @@ export class Cred {
 
     hasUsername(): number;
 
-    free(): void;
 }

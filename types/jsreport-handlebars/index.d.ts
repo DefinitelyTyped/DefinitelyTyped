@@ -3,7 +3,7 @@
 // Definitions by: pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition } from 'jsreport-core';
+import { ExtensionDefinition } from "jsreport-core";
 
 declare function JsReportHandlebars(): ExtensionDefinition;
 

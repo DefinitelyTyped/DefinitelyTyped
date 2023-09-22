@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 declare function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
 declare namespace GulpIstanbul {
@@ -49,7 +48,9 @@ declare namespace GulpIstanbul {
 
     interface ThresholdOptions {
         coverageVariable?: string | undefined;
-        thresholds?: { global?: CoverageOptions | number | undefined; each?: CoverageOptions | number | undefined } | undefined;
+        thresholds?:
+            | { global?: CoverageOptions | number | undefined; each?: CoverageOptions | number | undefined }
+            | undefined;
     }
 
     interface CoverageOptions {

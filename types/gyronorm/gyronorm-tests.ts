@@ -1,8 +1,8 @@
-import * as gyronorm from 'gyronorm';
+import * as gyronorm from "gyronorm";
 
 const instance = new gyronorm.GyroNorm();
 const options: gyronorm.Options = {
-    frequency: 100
+    frequency: 100,
 };
 
 instance.init(options)

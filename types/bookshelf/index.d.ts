@@ -7,11 +7,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-import Knex = require('knex');
-import knex = require('knex');
-import BlueBird = require('bluebird');
-import Lodash = require('lodash');
-import createError = require('create-error');
+// This is a *broken* type definition due to external failures
+// It is excluded from nightly runs here:
+// https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint-runner/expectedFailures.txt
+
+import Knex = require("knex");
+import knex = require("knex");
+import BlueBird = require("bluebird");
+import Lodash = require("lodash");
+import createError = require("create-error");
 
 interface Bookshelf extends Bookshelf.Events<any> {
     VERSION: string;
@@ -26,7 +30,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
 declare function Bookshelf(knex: knex): Bookshelf;
 
 declare namespace Bookshelf {
-    type SortOrder = 'ASC' | 'asc' | 'DESC' | 'desc';
+    type SortOrder = "ASC" | "asc" | "DESC" | "desc";
     type Relations = string | WithRelatedQuery | (string | WithRelatedQuery)[];
 
     abstract class Events<T> {
@@ -85,7 +89,7 @@ declare namespace Bookshelf {
     }
 
     interface ModelSubclass {
-        new (): Model<any>;
+        new(): Model<any>;
     }
 
     class Model<T extends Model<any>> extends ModelBase<T> {
@@ -104,12 +108,12 @@ declare namespace Bookshelf {
         ): T;
 
         belongsTo<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
         belongsToMany<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             table?: string,
             foreignKey?: string,
             otherKey?: string,
@@ -128,24 +132,24 @@ declare namespace Bookshelf {
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
         fetchPage(options?: FetchPageOptions): BlueBird<Collection<T> & Pagination>;
         hasMany<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): Collection<R>;
         hasOne<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
         load(relations: Relations, options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             name?: string,
             columnNames?: string[],
             morphValue?: string,
         ): Collection<R>;
         morphOne<R extends Model<any>>(
-            target: { new (...args: any[]): R },
+            target: { new(...args: any[]): R },
             name?: string,
             columnNames?: string[],
             morphValue?: string,
@@ -167,7 +171,13 @@ declare namespace Bookshelf {
          */
         save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
         save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string, throughForeignKeyTarget?: string, otherKeyTarget?: string): R;
+        through<R extends Model<any>>(
+            interim: ModelSubclass,
+            throughForeignKey?: string,
+            otherKey?: string,
+            throughForeignKeyTarget?: string,
+            otherKeyTarget?: string,
+        ): R;
         where(properties: { [key: string]: any }): T;
         where(
             key: string,
@@ -352,7 +362,7 @@ declare namespace Bookshelf {
             pageCount: number;
             page: number;
             pageSize: number;
-        }
+        };
     }
 
     interface SaveOptions extends SyncOptions {

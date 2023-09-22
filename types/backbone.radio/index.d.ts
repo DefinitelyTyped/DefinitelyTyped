@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Backbone from 'backbone';
+import * as Backbone from "backbone";
 
 export = Backbone.Radio;
 
@@ -28,19 +28,65 @@ declare module "backbone" {
 
         // Proxy functions for Commands
         function command(channelName: string, commandName: string, ...args: any[]): void;
-        function comply(channelName: string, commandName: string, callback: (...args: any[]) => void, context?: any): Commands;
-        function comply(channelName: string, commands: { [key: string]: (...args: any[]) => any }, context?: any): Commands;
-        function complyOnce(channelName: string, commandName: string, callback: (...args: any[]) => void, context?: any): Commands;
-        function complyOnce(channelName: string, commands: { [key: string]: (...args: any[]) => any }, context?: any): Commands;
-        function stopComplying(channelName: string, commandName?: string, callback?: (...args: any[]) => void, context?: any): Commands;
+        function comply(
+            channelName: string,
+            commandName: string,
+            callback: (...args: any[]) => void,
+            context?: any,
+        ): Commands;
+        function comply(
+            channelName: string,
+            commands: { [key: string]: (...args: any[]) => any },
+            context?: any,
+        ): Commands;
+        function complyOnce(
+            channelName: string,
+            commandName: string,
+            callback: (...args: any[]) => void,
+            context?: any,
+        ): Commands;
+        function complyOnce(
+            channelName: string,
+            commands: { [key: string]: (...args: any[]) => any },
+            context?: any,
+        ): Commands;
+        function stopComplying(
+            channelName: string,
+            commandName?: string,
+            callback?: (...args: any[]) => void,
+            context?: any,
+        ): Commands;
 
         // Proxy functions for Requests
         function request(channelName: string, requestName: string, ...args: any[]): any;
-        function reply(channelName: string, requestName: string, callback: (...args: any[]) => any, context?: any): Requests;
-        function reply(channelName: string, commands: { [key: string]: (...args: any[]) => any }, context?: any): Requests;
-        function replyOnce(channelName: string, requestName: string, callback: (...args: any[]) => any, context?: any): Requests;
-        function replyOnce(channelName: string, commands: { [key: string]: (...args: any[]) => any }, context?: any): Requests;
-        function stopReplying(channelName: string, commandName?: string, callback?: (...args: any[]) => any, context?: any): Requests;
+        function reply(
+            channelName: string,
+            requestName: string,
+            callback: (...args: any[]) => any,
+            context?: any,
+        ): Requests;
+        function reply(
+            channelName: string,
+            commands: { [key: string]: (...args: any[]) => any },
+            context?: any,
+        ): Requests;
+        function replyOnce(
+            channelName: string,
+            requestName: string,
+            callback: (...args: any[]) => any,
+            context?: any,
+        ): Requests;
+        function replyOnce(
+            channelName: string,
+            commands: { [key: string]: (...args: any[]) => any },
+            context?: any,
+        ): Requests;
+        function stopReplying(
+            channelName: string,
+            commandName?: string,
+            callback?: (...args: any[]) => any,
+            context?: any,
+        ): Requests;
 
         // Proxy functions for Backbone.Events
         function on(channelName: string, eventName: string, callback?: Function, context?: any): any;
@@ -99,4 +145,3 @@ declare module "backbone" {
         }
     }
 }
-

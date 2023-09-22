@@ -14,7 +14,7 @@ export interface ParseOptions {
      * - "throw" - throw SyntaxError in case of reserved keys
      * - "replace" - replace reserved keys, this is the default JSON.parse behaviour, unsafe
      */
-    reserved_keys?: 'ignore' | 'throw' | 'replace' | undefined;
+    reserved_keys?: "ignore" | "throw" | "replace" | undefined;
 
     /**
      * Create object as `Object.create(null)` instead of `{}`.
@@ -34,7 +34,7 @@ export interface ParseOptions {
     /**
      * Operation mode (default 'json5'). Set to 'json' if you want to throw on non-strict json files.
      */
-    mode?: 'json5' | 'json' | 'cjson' | undefined;
+    mode?: "json5" | "json" | "cjson" | undefined;
 }
 
 export interface StringifyOptions {
@@ -55,7 +55,7 @@ export interface StringifyOptions {
      * - If `mode` is 'json', default is "
      * - Otherwise, default is '
      */
-    quote?: '"' | "'" | undefined;
+    quote?: "\"" | "'" | undefined;
 
     /**
      * Whether keys quoting in objects is required or not.
@@ -97,7 +97,7 @@ export interface StringifyOptions {
      * - options.quote_keys = true
      * - '\x' literals are not used
      */
-    mode?: 'json' | 'json5' | 'cjson' | undefined;
+    mode?: "json" | "json5" | "cjson" | undefined;
 }
 
 /**
@@ -107,7 +107,7 @@ export interface Token {
     /** Raw text of this token. If you join all raws, you will get the original document. */
     raw: string;
     /** Type of the token. */
-    type: 'whitespace' | 'comment' | 'key' | 'literal' | 'separator' | 'newline';
+    type: "whitespace" | "comment" | "key" | "literal" | "separator" | "newline";
     /** Path to the current token in the syntax tree. */
     stack: string[];
     /** Value of the token if token is a key or literal. */
