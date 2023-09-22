@@ -86,12 +86,6 @@ interface FileSystemRemoveOptions {
 
 // type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams;
 
-// TODO: remove this once https://github.com/microsoft/TSJS-lib-generator/issues/881 is fixed.
-// Native File System API especially needs this method.
-interface WritableStream {
-    close(): Promise<void>;
-}
-
 // class FileSystemWritableFileStream extends WritableStream {
 //     write(data: FileSystemWriteChunkType): Promise<void>;
 //     seek(position: number): Promise<void>;
