@@ -615,6 +615,7 @@
 /types/body-scroll-lock/                                  @kimcoder
 /types/bogon/                                             @BendingBender
 /types/bonjour/                                           @quentin-ol
+/types/bookshelf/                                         @arcticwaters @vesse @ianldgs @RyWilliams
 /types/boolbase/                                          @DefinitelyTyped
 /types/boolean-to-signed/                                 @ChocolateLoverRaj
 /types/boom/                                              @AJamesPhillips @jineshshah36 @TimonVS @danielmachado
@@ -2991,6 +2992,7 @@
 /types/graphql-list-fields/                               @filipows
 /types/graphql-react/                                     @mike-marcacci
 /types/graphql-resolve-batch/                             @nayni
+/types/graphql-resolvers/                                 @aecorredor @zaguiini @mike-engel
 /types/graphql-type-json/                                 @schfkt
 /types/graphql-type-uuid/                                 @runk
 /types/graphql-upload/                                    @mike-marcacci @rdsfj
