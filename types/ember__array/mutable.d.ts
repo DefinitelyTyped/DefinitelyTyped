@@ -5,8 +5,6 @@ import MutableEnumerable from "@ember/array/-private/mutable-enumerable";
 import EmberArray from "@ember/array";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import Enumerable from "@ember/array/-private/enumerable";
-import MutableEnumerable from "@ember/array/-private/mutable-enumerable";
-import Mixin from "@ember/object/mixin";
 
 /**
  * This mixin defines the API for modifying array-like objects. These methods

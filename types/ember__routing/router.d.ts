@@ -6,7 +6,6 @@ import RouterDSL from "@ember/routing/-private/router-dsl";
 import Transition from "@ember/routing/transition";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import RouterService from "@ember/routing/router-service";
-import Transition from "@ember/routing/transition";
 
 /**
  * The `Ember.Router` class manages the application state and URLs. Refer to

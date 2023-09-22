@@ -9,7 +9,6 @@ import {
 import Mixin from "@ember/object/mixin";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import CoreObject from "@ember/object/core";
-import Mixin from "@ember/object/mixin";
 
 /**
  * This mixin provides properties and property observing functionality, core features of the Ember object model.
