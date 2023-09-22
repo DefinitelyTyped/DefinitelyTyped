@@ -388,18 +388,18 @@ declare module "../index" {
          * _.sumBy(objects, 'n');
          * // => 20
          */
-        sumBy<T>(collection: List<T> | null | undefined, iteratee?: ((value: T) => number) | string): number;
+        sumBy<T>(collection: List<T> | null | undefined, iteratee?: ((value: T) => number | null | undefined) | string): number;
     }
     interface Collection<T> {
         /**
          * @see _.sumBy
          */
-        sumBy(iteratee?: ((value: T) => number) | string): number;
+        sumBy(iteratee?: ((value: T) => number | null | undefined) | string): number;
     }
     interface CollectionChain<T> {
         /**
          * @see _.sumBy
          */
-        sumBy(iteratee?: ((value: T) => number) | string): PrimitiveChain<number>;
+        sumBy(iteratee?: ((value: T) => number | null | undefined) | string): PrimitiveChain<number>;
     }
 }

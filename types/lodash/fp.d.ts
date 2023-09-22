@@ -4066,9 +4066,9 @@ declare namespace _ {
     type LodashSubtract1x2 = (minuend: number) => number;
     type LodashSum = (collection: lodash.List<any> | null | undefined) => number;
     interface LodashSumBy {
-        <T>(iteratee: ((value: T) => number) | string): LodashSumBy1x1<T>;
+        <T>(iteratee: ((value: T) => number | null | undefined) | string): LodashSumBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2<T>;
-        <T>(iteratee: ((value: T) => number) | string, collection: lodash.List<T> | null | undefined): number;
+        <T>(iteratee: ((value: T) => number | null | undefined) | string, collection: lodash.List<T> | null | undefined): number;
     }
     type LodashSumBy1x1<T> = (collection: lodash.List<T> | null | undefined) => number;
     type LodashSumBy1x2<T> = (iteratee: ((value: T) => number) | string) => number;
