@@ -1,5 +1,5 @@
 import _ = require("../index");
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;

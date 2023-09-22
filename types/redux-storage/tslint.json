@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-redundant-jsdoc-2": false,
-        "strict-export-declare-modifiers": false
+        "no-redundant-jsdoc-2": false
     }
 }

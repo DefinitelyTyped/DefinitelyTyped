@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-redundant-jsdoc-2": false,
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false
+        "only-arrow-functions": false
     }
 }

@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "member-access": false,
         "no-duplicate-imports": false,
-        "no-unnecessary-qualifier": false,
-        "strict-export-declare-modifiers": false
+        "no-unnecessary-qualifier": false
     }
 }

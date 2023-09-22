@@ -60,7 +60,7 @@ declare class Strategy extends oauth2.Strategy {
 
 declare namespace Strategy {
     // NOTE: not true for `export import` statements
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Strategy = twitch;
 
     interface _StrategyOptionsBase {

@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "interface-over-type-literal": false,
-        "new-parens": false,
-        "strict-export-declare-modifiers": false
+        "new-parens": false
     }
 }

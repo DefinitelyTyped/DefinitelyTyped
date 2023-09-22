@@ -7,7 +7,6 @@
         "no-duplicate-imports": false,
         "no-empty-interface": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

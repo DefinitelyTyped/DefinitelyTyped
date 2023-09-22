@@ -32,23 +32,23 @@ declare namespace PromiseFtp {
         553: "Requested action not taken / File name not allowed";
     }
     const ERROR_CODES: ERROR_CODES;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpReconnectError = PromiseFtpCommon.FtpReconnectError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import STATUSES = PromiseFtpCommon.STATUSES;
 
     /**
      * Options for FtpPromise#connect()
      */
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Options = FtpClient.Options;
 
     /**
      * Element returned by FtpPromise#list()
      */
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import ListingElement = FtpClient.ListingElement;
 }
 

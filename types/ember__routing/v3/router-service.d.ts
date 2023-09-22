@@ -3,7 +3,7 @@ import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-att
 import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
 // https://emberjs.com/api/ember/2.18/classes/RouterService

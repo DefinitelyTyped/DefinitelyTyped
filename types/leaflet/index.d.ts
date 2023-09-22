@@ -390,7 +390,7 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-// tslint:disable:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare class Events {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
@@ -1015,7 +1015,7 @@ declare class Events {
     hasEventListeners(type: string): boolean;
 }
 
-// tslint:disable:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare class MixinType {
     Events: Events;
 }

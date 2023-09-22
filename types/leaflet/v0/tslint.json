@@ -15,7 +15,6 @@
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

@@ -4,7 +4,6 @@
         "array-type": false,
         "interface-over-type-literal": false,
         "jsdoc-format": false,
-        "object-literal-shorthand": false,
-        "strict-export-declare-modifiers": false
+        "object-literal-shorthand": false
     }
 }

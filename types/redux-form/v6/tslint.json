@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "jsdoc-format": false,
-        "no-object-literal-type-assertion": false,
-        "strict-export-declare-modifiers": false
+        "no-object-literal-type-assertion": false
     }
 }

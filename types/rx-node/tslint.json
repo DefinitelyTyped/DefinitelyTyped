@@ -7,7 +7,6 @@
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "no-var-requires": false,
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false
+        "only-arrow-functions": false
     }
 }

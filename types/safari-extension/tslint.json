@@ -7,7 +7,6 @@
         "npm-naming": false,
         "prefer-const": false,
         "prefer-for-of": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "jsdoc-format": false
     }

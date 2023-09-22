@@ -5,7 +5,6 @@
         "ban-types": false,
         "interface-name": false,
         "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false
+        "only-arrow-functions": false
     }
 }

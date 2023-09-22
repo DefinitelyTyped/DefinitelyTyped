@@ -1,5 +1,5 @@
 import type { DefaultRouterOptions, NavigationState, ParamListBase, Route, Router } from "./types";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackActionType = {
     type: "REPLACE";
     payload: {
@@ -32,16 +32,16 @@ export declare type StackActionType = {
     source?: string | undefined;
     target?: string | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackRouterOptions = DefaultRouterOptions;
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationState<ParamList extends ParamListBase> = NavigationState<ParamList> & {
     /**
      * Type of the router, in this case, it's stack.
      */
     type: "stack";
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
 export declare type StackActionHelpers<ParamList extends ParamListBase> = {
     /**
      * Replace the current route with a new one.
@@ -72,7 +72,7 @@ export declare type StackActionHelpers<ParamList extends ParamListBase> = {
      */
     popToTop(): void;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare const StackActions: {
     // tslint:disable-next-line no-redundant-undefined
     replace(name: string, params?: object): StackActionType;

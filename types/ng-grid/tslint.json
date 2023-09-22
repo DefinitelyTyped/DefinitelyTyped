@@ -10,7 +10,6 @@
         "no-internal-module": false,
         "no-object-literal-type-assertion": false,
         "no-unnecessary-class": false,
-        "no-var-keyword": false,
-        "strict-export-declare-modifiers": false
+        "no-var-keyword": false
     }
 }

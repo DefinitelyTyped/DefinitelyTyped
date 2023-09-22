@@ -12,7 +12,6 @@
             }
         ],
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

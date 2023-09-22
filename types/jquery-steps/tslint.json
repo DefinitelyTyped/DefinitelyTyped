@@ -4,7 +4,6 @@
         "jsdoc-format": false,
         "no-internal-module": false,
         "no-var-keyword": false,
-        "object-literal-shorthand": false,
-        "strict-export-declare-modifiers": false
+        "object-literal-shorthand": false
     }
 }

@@ -7,7 +7,6 @@
         "no-internal-module": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "unified-signatures": false,
         "void-return": false

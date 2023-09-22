@@ -8,7 +8,6 @@
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false,
         "void-return": false
     }

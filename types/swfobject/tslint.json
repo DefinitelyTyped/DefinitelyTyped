@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "interface-name": false,
-        "no-var-keyword": false,
-        "strict-export-declare-modifiers": false
+        "no-var-keyword": false
     }
 }

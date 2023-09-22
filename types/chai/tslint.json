@@ -5,7 +5,6 @@
         "new-parens": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false
+        "no-single-declare-module": false
     }
 }

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "array-type": false,
-        "strict-export-declare-modifiers": false
+        "array-type": false
     }
 }

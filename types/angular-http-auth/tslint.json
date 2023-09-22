@@ -5,7 +5,6 @@
         "interface-name": false,
         "no-reference-import": false,
         "no-unnecessary-qualifier": false,
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false
+        "only-arrow-functions": false
     }
 }

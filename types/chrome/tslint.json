@@ -17,7 +17,6 @@
         "prefer-const": false,
         "prefer-for-of": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "unified-signatures": false
     }

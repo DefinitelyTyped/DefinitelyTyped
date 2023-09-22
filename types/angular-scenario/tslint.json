@@ -5,7 +5,6 @@
         "interface-name": false,
         "no-empty-interface": false,
         "no-unnecessary-qualifier": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

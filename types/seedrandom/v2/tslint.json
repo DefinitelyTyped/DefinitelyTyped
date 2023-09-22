@@ -4,7 +4,6 @@
         "interface-over-type-literal": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

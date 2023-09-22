@@ -12,12 +12,12 @@ import Mixin from '@ember/object/mixin';
 import EmberObject from '@ember/object';
 import ComputedProperty from '@ember/object/computed';
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type QueryParamScopeTypes = 'controller' | 'model';
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface QueryParamConfig {
     type?: QueryParamTypes | undefined;
     scope?: QueryParamScopeTypes | undefined;

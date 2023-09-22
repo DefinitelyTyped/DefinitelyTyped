@@ -15,7 +15,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false,
         "unified-signatures": false
     }

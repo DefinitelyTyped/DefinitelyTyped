@@ -10,7 +10,6 @@
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "npm-naming": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false,
         "void-return": false
     }

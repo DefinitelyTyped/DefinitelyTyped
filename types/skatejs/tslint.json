@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "interface-over-type-literal": false,
-        "no-redundant-undefined": false,
-        "strict-export-declare-modifiers": false
+        "no-redundant-undefined": false
     }
 }

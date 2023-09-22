@@ -7,7 +7,6 @@
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

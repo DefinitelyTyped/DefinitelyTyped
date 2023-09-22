@@ -3,6 +3,7 @@
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/prefer-declare-function": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/no-declare-current-package": "off"
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

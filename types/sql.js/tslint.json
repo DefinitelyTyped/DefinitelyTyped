@@ -4,7 +4,6 @@
         "ban-types": false,
         "no-duplicate-imports": false,
         "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false,
         "npm-naming": [
             true,

@@ -1,5 +1,5 @@
 import type { DefaultRouterOptions, NavigationState, ParamListBase, PartialState, Route, Router } from "./types";
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
 export declare type TabActionType = {
     type: "JUMP_TO";
     payload: {
@@ -9,13 +9,13 @@ export declare type TabActionType = {
     source?: string | undefined;
     target?: string | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type BackBehavior = "initialRoute" | "order" | "history" | "none";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TabRouterOptions = DefaultRouterOptions & {
     backBehavior?: BackBehavior | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TabNavigationState<ParamList extends ParamListBase> =
     & Omit<NavigationState<ParamList>, "history">
     & {
@@ -32,7 +32,7 @@ export declare type TabNavigationState<ParamList extends ParamListBase> =
             key: string;
         }[];
     };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
 export declare type TabActionHelpers<ParamList extends ParamListBase> = {
     /**
      * Jump to an existing tab.
@@ -45,7 +45,7 @@ export declare type TabActionHelpers<ParamList extends ParamListBase> = {
             : [RouteName, ParamList[RouteName]]
     ): void;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare const TabActions: {
     // tslint:disable-next-line no-redundant-undefined
     jumpTo(name: string, params?: object): TabActionType;

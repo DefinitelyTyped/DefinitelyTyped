@@ -7,7 +7,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

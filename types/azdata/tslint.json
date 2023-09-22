@@ -8,7 +8,6 @@
         "no-empty-interface": false,
         "no-single-declare-module": false,
         "npm-naming": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

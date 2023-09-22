@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "no-const-enum": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

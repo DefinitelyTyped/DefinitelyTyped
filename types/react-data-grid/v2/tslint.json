@@ -10,7 +10,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-object-spread": false,
-        "strict-export-declare-modifiers": false
+        "prefer-object-spread": false
     }
 }
