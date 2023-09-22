@@ -1,4 +1,4 @@
-import Base = require('./base');
+import Base = require("./base");
 
 declare namespace FontFace {
     interface FontFaceOptions {

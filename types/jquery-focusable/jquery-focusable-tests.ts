@@ -1,12 +1,12 @@
 import { Options } from "jquery-focusable";
 
 // Basic usage
-$('body').focusable();
+$("body").focusable();
 
 // With options
 const options: Options = {
     findNegativeTabindex: true,
-    findPositiveTabindex: true
-  };
+    findPositiveTabindex: true,
+};
 
-$('body').focusable(options);
+$("body").focusable(options);

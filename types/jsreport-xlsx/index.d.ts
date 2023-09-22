@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ExtensionDefinition, Template } from 'jsreport-core';
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportXlsx {
     interface Xlsx {
@@ -17,11 +17,11 @@ declare namespace JsReportXlsx {
         numberOfParsedAddIterations: number;
     }
     interface XlsxTemplate extends Template {
-        recipe: 'xlsx' | string;
+        recipe: "xlsx" | string;
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         XlsxTemplate: JsReportXlsx.XlsxTemplate;
     }

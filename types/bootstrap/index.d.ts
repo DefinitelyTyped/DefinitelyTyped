@@ -10,18 +10,18 @@
 
 export as namespace bootstrap;
 
-import Alert from './js/dist/alert';
-import Button from './js/dist/button';
-import Carousel from './js/dist/carousel';
-import Collapse from './js/dist/collapse';
-import Dropdown from './js/dist/dropdown';
-import Modal from './js/dist/modal';
-import Offcanvas from './js/dist/offcanvas';
-import Popover from './js/dist/popover';
-import ScrollSpy from './js/dist/scrollspy';
-import Tab from './js/dist/tab';
-import Toast from './js/dist/toast';
-import Tooltip from './js/dist/tooltip';
+import Alert from "./js/dist/alert";
+import Button from "./js/dist/button";
+import Carousel from "./js/dist/carousel";
+import Collapse from "./js/dist/collapse";
+import Dropdown from "./js/dist/dropdown";
+import Modal from "./js/dist/modal";
+import Offcanvas from "./js/dist/offcanvas";
+import Popover from "./js/dist/popover";
+import ScrollSpy from "./js/dist/scrollspy";
+import Tab from "./js/dist/tab";
+import Toast from "./js/dist/toast";
+import Tooltip from "./js/dist/tooltip";
 
 declare global {
     interface JQuery {
@@ -41,7 +41,7 @@ declare global {
 
     interface Element {
         addEventListener(
-            type: Carousel.Events | 'slide.bs.carousel' | 'slid.bs.carousel',
+            type: Carousel.Events | "slide.bs.carousel" | "slid.bs.carousel",
             listener: (this: Element, ev: Carousel.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
@@ -49,11 +49,11 @@ declare global {
         addEventListener(
             type:
                 | Modal.Events
-                | 'show.bs.modal'
-                | 'shown.bs.modal'
-                | 'hide.bs.modal'
-                | 'hidden.bs.modal'
-                | 'hidePrevented.bs.modal',
+                | "show.bs.modal"
+                | "shown.bs.modal"
+                | "hide.bs.modal"
+                | "hidden.bs.modal"
+                | "hidePrevented.bs.modal",
             listener: (this: Element, ev: Modal.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;

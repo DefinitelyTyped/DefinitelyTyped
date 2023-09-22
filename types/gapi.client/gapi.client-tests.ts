@@ -3,10 +3,10 @@
  * In case of any problems please post issue to https://github.com/Bolisov/google-api-typings-generator
  **/
 
-gapi.load('client', () => {
+gapi.load("client", () => {
     // now we can use gapi.client
 
-    gapi.client.load('acceleratedmobilepageurl', 'v1', () => {
+    gapi.client.load("acceleratedmobilepageurl", "v1", () => {
         // now we can use gapi.client.acceleratedmobilepageurl
     });
 });

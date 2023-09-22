@@ -1,6 +1,6 @@
-import { Callback, Connection } from '../connection';
-import { EventEmitter } from 'events';
-import { Stream } from 'stream';
+import { EventEmitter } from "events";
+import { Stream } from "stream";
+import { Callback, Connection } from "../connection";
 
 interface DeployResult {
     id: string;
@@ -66,7 +66,7 @@ interface MetadataInfo {
 }
 
 interface Package {
-    apiAccessLevel?: 'Unrestricted' | 'Restricted' | undefined;
+    apiAccessLevel?: "Unrestricted" | "Restricted" | undefined;
     description?: string | undefined;
     fullName?: string | undefined;
     namespacePrefix?: string | undefined;

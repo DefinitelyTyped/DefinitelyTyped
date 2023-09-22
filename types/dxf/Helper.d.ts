@@ -1,5 +1,6 @@
 import * as Entities from "./handlers/entities";
 import * as Information from "./Information";
+import { PolylineExport } from "./toPolylines";
 
 export default class Helper {
   constructor(contents: string);
@@ -17,7 +18,7 @@ export default class Helper {
   denormalise(): Entities.Entity[] | null;
   group(): Entities.LayerGroupedEntities | null;
   toSVG(): Information.SVG;
-  toPolylines(): Information.Polyline[];
+  toPolylines(): PolylineExport;
 }
 
 export function parseValue(type: number, value: any): number;

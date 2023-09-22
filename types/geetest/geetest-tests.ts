@@ -1,8 +1,8 @@
-import Geetest = require('geetest');
+import Geetest = require("geetest");
 
 const captcha = new Geetest({
-    geetest_id: 'xxx',
-    geetest_key: 'xxx',
+    geetest_id: "xxx",
+    geetest_key: "xxx",
 });
 
 captcha.register((err, data) => {
@@ -26,16 +26,16 @@ captcha.register().then((data) => {
 });
 
 captcha.validate({
-    challenge: 'xxx',
-    validate: 'xxx',
-    seccode: 'xxx',
+    challenge: "xxx",
+    validate: "xxx",
+    seccode: "xxx",
 }, (err, success) => {
 });
 
 captcha.validate({
-    challenge: 'xxx',
-    validate: 'xxx',
-    seccode: 'xxx',
+    challenge: "xxx",
+    validate: "xxx",
+    seccode: "xxx",
 }).then((success) => {
 }, (err) => {
 });

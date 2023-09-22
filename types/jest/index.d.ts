@@ -58,44 +58,36 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
     9: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8]];
     10: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9]];
     fallback: Array<T extends ReadonlyArray<infer U> ? U : any>;
-}[T extends Readonly<[any]>
-    ? 1
-    : T extends Readonly<[any, any]>
-    ? 2
-    : T extends Readonly<[any, any, any]>
-    ? 3
-    : T extends Readonly<[any, any, any, any]>
-    ? 4
-    : T extends Readonly<[any, any, any, any, any]>
-    ? 5
-    : T extends Readonly<[any, any, any, any, any, any]>
-    ? 6
-    : T extends Readonly<[any, any, any, any, any, any, any]>
-    ? 7
-    : T extends Readonly<[any, any, any, any, any, any, any, any]>
-    ? 8
-    : T extends Readonly<[any, any, any, any, any, any, any, any, any]>
-    ? 9
-    : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]>
-    ? 10
-    : 'fallback'];
+}[
+    T extends Readonly<[any]> ? 1
+        : T extends Readonly<[any, any]> ? 2
+        : T extends Readonly<[any, any, any]> ? 3
+        : T extends Readonly<[any, any, any, any]> ? 4
+        : T extends Readonly<[any, any, any, any, any]> ? 5
+        : T extends Readonly<[any, any, any, any, any, any]> ? 6
+        : T extends Readonly<[any, any, any, any, any, any, any]> ? 7
+        : T extends Readonly<[any, any, any, any, any, any, any, any]> ? 8
+        : T extends Readonly<[any, any, any, any, any, any, any, any, any]> ? 9
+        : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
+        : "fallback"
+];
 
 type FakeableAPI =
-    | 'Date'
-    | 'hrtime'
-    | 'nextTick'
-    | 'performance'
-    | 'queueMicrotask'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'setTimeout'
-    | 'clearTimeout';
+    | "Date"
+    | "hrtime"
+    | "nextTick"
+    | "performance"
+    | "queueMicrotask"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "setTimeout"
+    | "clearTimeout";
 
 interface FakeTimersConfig {
     /**
@@ -435,23 +427,18 @@ declare namespace jest {
         object: T,
         method: Key,
         accessType: A,
-    ): A extends SetAccessor
-        ? SpyInstance<void, [Value]>
-        : A extends GetAccessor
-        ? SpyInstance<Value, []>
-        : Value extends Constructor
-        ? SpyInstance<InstanceType<Value>, ConstructorArgsType<Value>>
-        : Value extends Func
-        ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
+    ): A extends SetAccessor ? SpyInstance<void, [Value]>
+        : A extends GetAccessor ? SpyInstance<Value, []>
+        : Value extends Constructor ? SpyInstance<InstanceType<Value>, ConstructorArgsType<Value>>
+        : Value extends Func ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
         : never;
     function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
         object: T,
         method: M,
-    ): ConstructorProperties<Required<T>>[M] extends new (...args: any[]) => any
-        ? SpyInstance<
-              InstanceType<ConstructorProperties<Required<T>>[M]>,
-              ConstructorArgsType<ConstructorProperties<Required<T>>[M]>
-          >
+    ): ConstructorProperties<Required<T>>[M] extends new(...args: any[]) => any ? SpyInstance<
+            InstanceType<ConstructorProperties<Required<T>>[M]>,
+            ConstructorArgsType<ConstructorProperties<Required<T>>[M]>
+        >
         : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
@@ -481,43 +468,49 @@ declare namespace jest {
     type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
     type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
     type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
-    type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
-    type ConstructorReturnType<T> = T extends new (...args: any) => infer C ? C : any;
+    type ConstructorArgumentsOf<T> = T extends new(...args: infer A) => any ? A : never;
+    type ConstructorReturnType<T> = T extends new(...args: any) => infer C ? C : any;
 
     interface MockWithArgs<T extends MockableFunction>
-        extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
-        new (...args: ConstructorArgumentsOf<T>): T;
+        extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>>
+    {
+        new(...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
-    type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
+    type MaybeMockedConstructor<T> = T extends new(...args: any[]) => infer R
         ? MockInstance<R, ConstructorArgumentsOf<T>, R>
         : T;
     type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
     type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
-    type MockedObject<T> = MaybeMockedConstructor<T> & {
-        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
-    } & { [K in PropertyKeysOf<T>]: T[K] };
-    type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
-        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
-    } & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
-    type MaybeMockedDeep<T> = T extends MockableFunction
-        ? MockedFunctionDeep<T>
+    type MockedObject<T> =
+        & MaybeMockedConstructor<T>
+        & {
+            [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
+        }
+        & { [K in PropertyKeysOf<T>]: T[K] };
+    type MockedObjectDeep<T> =
+        & MaybeMockedConstructor<T>
+        & {
+            [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
+        }
+        & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
+    type MaybeMockedDeep<T> = T extends MockableFunction ? MockedFunctionDeep<T>
         : T extends object // eslint-disable-line @typescript-eslint/ban-types
-        ? MockedObjectDeep<T>
+            ? MockedObjectDeep<T>
         : T;
     // eslint-disable-next-line @typescript-eslint/ban-types
     type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
-    type Constructor = new (...args: any[]) => any;
+    type Constructor = new(...args: any[]) => any;
     type Func = (...args: any[]) => any;
-    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
+    type ConstructorArgsType<T> = T extends new(...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
     type NonFunctionPropertyNames<T> = keyof { [K in keyof T as T[K] extends Func ? never : K]: T[K] };
-    type GetAccessor = 'get';
-    type SetAccessor = 'set';
+    type GetAccessor = "get";
+    type SetAccessor = "set";
     type PropertyAccessors<M extends keyof T, T extends {}> = M extends NonFunctionPropertyNames<Required<T>>
         ? GetAccessor | SetAccessor
         : never;
@@ -618,7 +611,6 @@ declare namespace jest {
          * - `name`: String the title of the test block.
          * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
          *
-         *
          * #### 2  `test.each table(name, fn)`
          *
          * - `table`: Tagged Template Literal
@@ -644,7 +636,6 @@ declare namespace jest {
          * `('returns $expected when $a is added $b', ({a, b, expected}) => {
          *    expect(a + b).toBe(expected);
          * });
-         *
          */
         each: Each;
     }
@@ -661,7 +652,7 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    type MatcherUtils = import('expect').MatcherUtils & { [other: string]: any };
+    type MatcherUtils = import("expect").MatcherUtils & { [other: string]: any };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
@@ -679,7 +670,7 @@ declare namespace jest {
         message: () => string;
     }
 
-    type SnapshotSerializerPlugin = import('pretty-format').Plugin;
+    type SnapshotSerializerPlugin = import("pretty-format").Plugin;
 
     interface InverseAsymmetricMatchers {
         /**
@@ -717,7 +708,7 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-    type MatcherState = import('expect').MatcherState;
+    type MatcherState = import("expect").MatcherState;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -742,7 +733,6 @@ declare namespace jest {
          *   [1].map(x => mock(x));
          *   expect(mock).toBeCalledWith(expect.anything());
          * });
-         *
          */
         anything(): any;
         /**
@@ -1170,10 +1160,8 @@ declare namespace jest {
         toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
 
-    type RemoveFirstFromTuple<T extends any[]> = T['length'] extends 0
-        ? []
-        : ((...b: T) => void) extends (a: any, ...b: infer I) => void
-        ? I
+    type RemoveFirstFromTuple<T extends any[]> = T["length"] extends 0 ? []
+        : ((...b: T) => void) extends (a: any, ...b: infer I) => void ? I
         : [];
 
     interface AsymmetricMatcher {
@@ -1200,10 +1188,12 @@ declare namespace jest {
     // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
     // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
     // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
-    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<
-        TMatcherReturn,
-        TActual
-    > & { [K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn> };
+    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> =
+        & Matchers<
+            TMatcherReturn,
+            TActual
+        >
+        & { [K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn> };
     type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<
         ExtendedMatchers<TMatchers, void, TActual>,
         ExtendedMatchers<TMatchers, Promise<void>, TActual>
@@ -1214,19 +1204,20 @@ declare namespace jest {
         actual: TActual,
     ) => JestExtendedMatchers<TMatchers, TActual>;
 
-    type ExtendedExpect<TMatchers extends ExpectExtendMap> = ExpectProperties &
-        AndNot<CustomAsyncMatchers<TMatchers>> &
-        ExtendedExpectFunction<TMatchers>;
+    type ExtendedExpect<TMatchers extends ExpectExtendMap> =
+        & ExpectProperties
+        & AndNot<CustomAsyncMatchers<TMatchers>>
+        & ExtendedExpectFunction<TMatchers>;
 
-    type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
-    type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
+    type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, "resolves" | "rejects" | "not">;
+    type PromiseMatchers<T extends JestMatchersShape> = Omit<T["resolves"], "not">;
 
     interface Constructable {
-        new (...args: any[]): any;
+        new(...args: any[]): any;
     }
 
     interface Mock<T = any, Y extends any[] = any, C = any> extends Function, MockInstance<T, Y, C> {
-        new (...args: Y): T;
+        new(...args: Y): T;
         (this: C, ...args: Y): T;
     }
 
@@ -1235,10 +1226,10 @@ declare namespace jest {
     /**
      * Constructs the type of a spied class.
      */
-    type SpiedClass<T extends abstract new (...args: any) => any> = SpyInstance<
+    type SpiedClass<T extends abstract new(...args: any) => any> = SpyInstance<
         InstanceType<T>,
         ConstructorParameters<T>,
-        T extends abstract new (...args: any) => infer C ? C : never
+        T extends abstract new(...args: any) => infer C ? C : never
     >;
 
     /**
@@ -1263,12 +1254,10 @@ declare namespace jest {
     /**
      * Constructs the type of a spied class or function.
      */
-    type Spied<T extends (abstract new (...args: any) => any) | ((...args: any) => any)> = T extends abstract new (
+    type Spied<T extends (abstract new(...args: any) => any) | ((...args: any) => any)> = T extends abstract new(
         ...args: any
-    ) => any
-        ? SpiedClass<T>
-        : T extends (...args: any) => any
-        ? SpiedFunction<T>
+    ) => any ? SpiedClass<T>
+        : T extends (...args: any) => any ? SpiedFunction<T>
         : never;
 
     /**
@@ -1282,12 +1271,13 @@ declare namespace jest {
      *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
      *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
      */
-    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<
-        ReturnType<T>,
-        ArgsType<T>,
-        T extends (this: infer C, ...args: any[]) => any ? C : never
-    > &
-        T;
+    type MockedFunction<T extends (...args: any[]) => any> =
+        & MockInstance<
+            ReturnType<T>,
+            ArgsType<T>,
+            T extends (this: infer C, ...args: any[]) => any ? C : never
+        >
+        & T;
 
     /**
      * Wrap a class with mock definitions
@@ -1303,13 +1293,16 @@ declare namespace jest {
      *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
      */
 
-    type MockedClass<T extends Constructable> = MockInstance<
-        InstanceType<T>,
-        T extends new (...args: infer P) => any ? P : never,
-        T extends new (...args: any[]) => infer C ? C : never
-    > & {
-        prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
-    } & T;
+    type MockedClass<T extends Constructable> =
+        & MockInstance<
+            InstanceType<T>,
+            T extends new(...args: infer P) => any ? P : never,
+            T extends new(...args: any[]) => infer C ? C : never
+        >
+        & {
+            prototype: T extends { prototype: any } ? Mocked<T["prototype"]> : never;
+        }
+        & T;
 
     /**
      * Wrap an object or a module with mock definitions
@@ -1322,13 +1315,14 @@ declare namespace jest {
      *  const mockApi = api as jest.Mocked<typeof api>;
      *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");
      */
-    type Mocked<T> = {
-        [P in keyof T]: T[P] extends (this: infer C, ...args: any[]) => any
-            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>, C>
-            : T[P] extends Constructable
-            ? MockedClass<T[P]>
-            : T[P];
-    } & T;
+    type Mocked<T> =
+        & {
+            [P in keyof T]: T[P] extends (this: infer C, ...args: any[]) => any
+                ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>, C>
+                : T[P] extends Constructable ? MockedClass<T[P]>
+                : T[P];
+        }
+        & T;
 
     interface MockInstance<T, Y extends any[], C = any> {
         /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
@@ -1447,7 +1441,6 @@ declare namespace jest {
          *
          * // 'first call', 'second call', 'default', 'default'
          * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
-         *
          */
         mockReturnValueOnce(value: T): this;
         /**
@@ -1471,7 +1464,6 @@ declare namespace jest {
          *  await asyncMock(); // default
          *  await asyncMock(); // default
          * });
-         *
          */
         mockResolvedValueOnce(value: ResolvedValue<T>): this;
         /**
@@ -1501,7 +1493,6 @@ declare namespace jest {
          *  await asyncMock(); // first call
          *  await asyncMock(); // throws "Async error"
          * });
-         *
          */
         mockRejectedValueOnce(value: RejectedValue<T>): this;
     }
@@ -1510,21 +1501,21 @@ declare namespace jest {
      * Represents the result of a single call to a mock function with a return value.
      */
     interface MockResultReturn<T> {
-        type: 'return';
+        type: "return";
         value: T;
     }
     /**
      * Represents the result of a single incomplete call to a mock function.
      */
     interface MockResultIncomplete {
-        type: 'incomplete';
+        type: "incomplete";
         value: undefined;
     }
     /**
      * Represents the result of a single call to a mock function with a thrown error.
      */
     interface MockResultThrow {
-        type: 'throw';
+        type: "throw";
         value: any;
     }
 
@@ -1612,19 +1603,19 @@ declare namespace jasmine {
     }
 
     interface Any {
-        new (expectedClass: any): any;
+        new(expectedClass: any): any;
         jasmineMatches(other: any): boolean;
         jasmineToString(): string;
     }
 
     interface ArrayContaining {
-        new (sample: readonly any[]): any;
+        new(sample: readonly any[]): any;
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
     }
 
     interface ObjectContaining {
-        new (sample: any): any;
+        new(sample: any): any;
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;
     }

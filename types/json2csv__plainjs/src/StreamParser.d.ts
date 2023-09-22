@@ -1,5 +1,5 @@
-import { Tokenizer, TokenizerOptions, TokenParser } from '@streamparser/json/index';
-import JSON2CSVBase, { Options as BaseOptions } from './BaseParser';
+import { Tokenizer, TokenizerOptions, TokenParser } from "@streamparser/json/index";
+import JSON2CSVBase, { Options as BaseOptions } from "./BaseParser";
 
 export interface Options extends BaseOptions {
     ndjson?: boolean | undefined;
@@ -12,7 +12,7 @@ export interface AsyncOptions extends TokenizerOptions {
 export default class JSON2CSVStreamParser extends JSON2CSVBase {
     constructor(opts?: BaseOptions, asyncOpts?: AsyncOptions);
 
-    tokenizer?: Tokenizer | ReturnType<this['getObjectModeTokenzier']> | undefined;
+    tokenizer?: Tokenizer | ReturnType<this["getObjectModeTokenzier"]> | undefined;
     tokenParser?: TokenParser | undefined;
     protected _hasWritten?: boolean | undefined;
 

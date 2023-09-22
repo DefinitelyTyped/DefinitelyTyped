@@ -5,12 +5,12 @@
 
 /// <reference types="node" />
 
-import { Plugin } from 'imagemin';
-import { Options as GifsicleOptions } from 'imagemin-gifsicle';
-import { Options as MozjpegOptions } from 'imagemin-mozjpeg';
-import { Options as OptipngOptions } from 'imagemin-optipng';
-import { Options as SvgoOptions } from 'imagemin-svgo';
-import { Transform } from 'stream';
+import { Plugin } from "imagemin";
+import { Options as GifsicleOptions } from "imagemin-gifsicle";
+import { Options as MozjpegOptions } from "imagemin-mozjpeg";
+import { Options as OptipngOptions } from "imagemin-optipng";
+import { Options as SvgoOptions } from "imagemin-svgo";
+import { Transform } from "stream";
 
 declare function imagemin(pluginsOrOptions?: ReadonlyArray<Plugin> | imagemin.Options): Transform;
 declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Options): Transform;

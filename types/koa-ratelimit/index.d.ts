@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { Middleware, Context } from "koa";
 import { Redis } from "ioredis";
+import { Context, Middleware } from "koa";
 
 declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 
@@ -32,7 +32,7 @@ declare namespace KoaRatelimit {
         /**
          * Driver to use ("redis" or "memory").
          */
-        driver: 'redis' | 'memory';
+        driver: "redis" | "memory";
 
         /**
          * The database powering the backing rate-limiter package.

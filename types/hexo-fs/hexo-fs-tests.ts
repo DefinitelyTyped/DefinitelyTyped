@@ -1,19 +1,19 @@
-import 'mocha';
-import fs = require('hexo-fs');
-import chai = require('chai');
-import Promise = require('bluebird');
-import { FSWatcher } from 'chokidar';
+import "mocha";
+import fs = require("hexo-fs");
+import chai = require("chai");
+import Promise = require("bluebird");
+import { FSWatcher } from "chokidar";
 
 const should = chai.should();
 
-let string = '';
+let string = "";
 let strings = [string];
 let bool = false;
 let boolPromise: Promise<boolean>;
 let stringPromise: Promise<string>;
 let stringsPromise: Promise<string[]>;
-let stringOrStrings: string|string[];
-let stringOrStringsPromise: Promise<string|string[]>;
+let stringOrStrings: string | string[];
+let stringOrStringsPromise: Promise<string | string[]>;
 let watcherPromise: Promise<FSWatcher>;
 let writeStream: fs.WriteStream;
 let writeStreamPromise: Promise<fs.WriteStream>;
@@ -35,24 +35,24 @@ fs.mkdirs(string, err => {
 fs.mkdirsSync(string);
 
 // $ExpectType Bluebird<void>
-fs.writeFile(string, 'foo');
+fs.writeFile(string, "foo");
 
-fs.writeFile(string, 'foo', err => {
+fs.writeFile(string, "foo", err => {
     should.not.exist(err);
 });
 
 // $ExpectType void
-fs.writeFileSync(string, 'foo');
+fs.writeFileSync(string, "foo");
 
 // $ExpectType Bluebird<void>
-fs.appendFile(string, 'foo');
+fs.appendFile(string, "foo");
 
-fs.appendFile(string, 'bar', err => {
+fs.appendFile(string, "bar", err => {
     should.not.exist(err);
 });
 
 // $ExpectType void
-fs.appendFileSync(string, 'bar');
+fs.appendFileSync(string, "bar");
 
 // $ExpectType Bluebird<void>
 fs.copyFile(string, string);

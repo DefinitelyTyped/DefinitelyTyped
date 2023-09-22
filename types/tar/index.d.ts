@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import stream = require('stream');
-import zlib = require('zlib');
-import MiniPass = require('minipass');
+import stream = require("stream");
+import zlib = require("zlib");
+import MiniPass = require("minipass");
 
 // #region Interfaces
 
@@ -101,8 +101,8 @@ export const fieldEnds: number[];
  */
 export const types: {
     0: string;
-    '\0': string;
-    '': string;
+    "\0": string;
+    "": string;
     1: string;
     2: string;
     3: string;
@@ -207,16 +207,16 @@ export interface ParseOptions {
  * A writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
 export interface Parse extends ParseStream {
-    on(event: 'end' | 'close', listener: () => void): this;
-    on(event: 'entry', listener: (entry: ReadEntry) => void): this;
+    on(event: "end" | "close", listener: () => void): this;
+    on(event: "entry", listener: (entry: ReadEntry) => void): this;
 }
 
 export const Parse: {
-    new (opt?: ParseOptions): Parse;
+    new(opt?: ParseOptions): Parse;
 };
-//#endregion
+// #endregion
 
-//#region Global Methods
+// #region Global Methods
 
 export interface PackOptions {
     /**
@@ -321,9 +321,9 @@ export interface PackOptions {
  * The optional properties object are used to set properties in the tar 'Global Extended Header'.
  */
 export class Pack extends MiniPass {
-    linkCache: PackOptions['linkCache'];
-    readdirCache: PackOptions['readdirCache'];
-    statCache: PackOptions['statCache'];
+    linkCache: PackOptions["linkCache"];
+    readdirCache: PackOptions["readdirCache"];
+    statCache: PackOptions["statCache"];
 
     static Sync: typeof PackSync;
 
@@ -527,12 +527,12 @@ export interface ExtractOptions {
     /**
      * Alias for newer.
      */
-    'keep-newer'?: boolean | undefined;
+    "keep-newer"?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer-files'?: boolean | undefined;
+    "keep-newer-files"?: boolean | undefined;
 
     /**
      * Do not overwrite existing files. In particular, if a file appears more
@@ -548,7 +548,7 @@ export interface ExtractOptions {
     /**
      * Alias for keep.
      */
-    'keep-existing'?: boolean | undefined;
+    "keep-existing"?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -568,7 +568,7 @@ export interface ExtractOptions {
     /**
      * Alias for strip.
      */
-    'strip-components'?: number | undefined;
+    "strip-components"?: number | undefined;
 
     /**
      * Alias for strip.
@@ -613,7 +613,7 @@ export interface ExtractOptions {
      */
     noMtime?: boolean | undefined;
     m?: boolean | undefined;
-    'no-mtime'?: boolean | undefined;
+    "no-mtime"?: boolean | undefined;
 
     /**
      * Provide a function that takes an entry object, and returns a stream,
@@ -891,7 +891,10 @@ export const x: typeof extract;
  * it.
  */
 export function list(options: ListOptions & RequiredFileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function list(
+    options: ListOptions & RequiredFileOptions & { sync: true },
+    fileList?: ReadonlyArray<string>,
+): void;
 export function list(callback?: (err?: Error) => void): Parse;
 export function list(optionsOrFileList: ListOptions | ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
 export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;

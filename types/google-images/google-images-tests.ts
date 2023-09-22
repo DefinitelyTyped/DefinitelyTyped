@@ -1,8 +1,8 @@
 import * as GoogleImages from "google-images";
 
-const client = new GoogleImages('CSE ID', 'API KEY');
+const client = new GoogleImages("CSE ID", "API KEY");
 
-client.search('Steve Angello')
+client.search("Steve Angello")
     .then(images => {
         /*
         [{
@@ -21,7 +21,7 @@ client.search('Steve Angello')
     });
 
 // paginate results
-client.search('Steve Angello', {page: 2});
+client.search("Steve Angello", { page: 2 });
 
 // search for certain size
-client.search('Steve Angello', {size: 'large'});
+client.search("Steve Angello", { size: "large" });

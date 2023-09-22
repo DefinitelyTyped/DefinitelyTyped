@@ -1,4 +1,4 @@
-// Type definitions for mssql 8.1
+// Type definitions for mssql 9.1
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
@@ -219,7 +219,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public readonly pending: number;
     public readonly borrowed: number;
     public readonly pool: Pool<Connection>;
-    public static parseConnectionString(connectionString: string): config;
+    public static parseConnectionString(connectionString: string): config & { options: IOptions, pool: Partial<PoolOpts<Connection>> };
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;

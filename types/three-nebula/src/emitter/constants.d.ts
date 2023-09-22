@@ -1,4 +1,4 @@
-import { Rate } from '../initializer';
+import { Rate } from "../initializer";
 
 export const DEFAULT_DAMPING: 0.006;
 export const DEFAULT_BIND_EMITTER: true;

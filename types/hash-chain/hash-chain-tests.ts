@@ -1,4 +1,4 @@
-import HashChain = require('hash-chain');
+import HashChain = require("hash-chain");
 
 // test type exports
 type HC = HashChain;

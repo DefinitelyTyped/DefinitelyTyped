@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { JWT, UserRefreshClient } from 'google-auth-library';
+import { JWT, UserRefreshClient } from "google-auth-library";
 
 declare class gsheetdb {
     spreadsheetId: string;

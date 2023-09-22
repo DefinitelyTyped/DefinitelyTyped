@@ -176,7 +176,7 @@ export namespace spec {
      * @param alts map of alternative keys with their respective SpecInputs
      * @returns the constructed Spec
      */
-    function or(name: string, alts: {[key: string]: SpecInput}): Spec;
+    function or(name: string, alts: { [key: string]: SpecInput }): Spec;
 
     /**
      * By default no spec accepts null or undefined as valid input. Wrap your spec in nilable() to change this.
@@ -196,7 +196,7 @@ export namespace spec {
      * @param spec the spec to apply to values in the collection
      * @param options symbol.count or symbol.minCount / symbol.maxCount
      */
-    function collection(name: string, spec: SpecInput, options?: {[option: string]: number}): Spec;
+    function collection(name: string, spec: SpecInput, options?: { [option: string]: number }): Spec;
 
     /**
      * Used to define collections with items of possibly different types. Works only with arrays as order is important.

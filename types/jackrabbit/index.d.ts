@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import { Connection, Options, Message } from 'amqplib';
+import { Connection, Message, Options } from "amqplib";
 
 declare namespace jackrabbit {
     function jackrabbit(url: string): JackRabbit;
@@ -22,9 +22,9 @@ declare namespace jackrabbit {
     }
 
     enum exchangeType {
-        direct = 'direct',
-        fanout = 'fanout',
-        topic = 'topic',
+        direct = "direct",
+        fanout = "fanout",
+        topic = "topic",
     }
 
     interface Exchange extends NodeJS.EventEmitter {
@@ -56,7 +56,7 @@ declare namespace jackrabbit {
         connect(con: Connection): void;
         consume: (
             callback: (data: any, ack: AckCallback, nack: () => void, msg: Message) => void,
-            options?: Options.Consume
+            options?: Options.Consume,
         ) => void;
         cancel(done: any): void;
         purge(done: any): void;

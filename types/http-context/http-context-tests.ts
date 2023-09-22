@@ -1,5 +1,5 @@
-import http = require('http');
-import httpContext = require('http-context');
+import http = require("http");
+import httpContext = require("http-context");
 
 const context: httpContext.Context = httpContext();
 const request: httpContext.Request = context.request;
@@ -9,11 +9,11 @@ let header: http.IncomingHttpHeaders = context.header;
 header = context.headers;
 header = request.header;
 header = request.headers;
-const headerString: string | string[] | undefined = header['Content-Type'];
+const headerString: string | string[] | undefined = header["Content-Type"];
 
 let url: string = context.url;
 url = request.url;
-context.accepts('html');
+context.accepts("html");
 
 let href: string = context.href;
 href = request.href;
@@ -24,9 +24,9 @@ method = request.method;
 let path: string = context.path;
 path = request.path;
 
-let query: {[param: string]: string | string[]} = context.query;
+let query: { [param: string]: string | string[] } = context.query;
 query = request.query;
-const querySearch: string | string[] = query['search'];
+const querySearch: string | string[] = query["search"];
 
 let queryString: string = context.querystring;
 queryString = request.querystring;
@@ -55,10 +55,10 @@ secure = request.secure;
 let subdomains: string[] = context.subdomains;
 subdomains = request.subdomains;
 
-let accepts: string[] | string | false = context.accepts('text/html');
-accepts = request.accepts('text/html');
-accepts = request.accepts('text/html', 'text/txt');
-accepts = request.accepts(['text/html', 'text/txt']);
+let accepts: string[] | string | false = context.accepts("text/html");
+accepts = request.accepts("text/html");
+accepts = request.accepts("text/html", "text/txt");
+accepts = request.accepts(["text/html", "text/txt"]);
 
 let status: number = context.status;
 status = response.status;

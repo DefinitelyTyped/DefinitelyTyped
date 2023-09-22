@@ -6,8 +6,7 @@
 
 type SparklineNativeEntry = number | { value: number };
 
-type SparklineDatapoint<TEntry> = TEntry extends number
-    ? { x: number; y: number; index: number; value: number }
+type SparklineDatapoint<TEntry> = TEntry extends number ? { x: number; y: number; index: number; value: number }
     : TEntry & { x: number; y: number; index: number };
 
 interface SparklineOptionsFetch<TEntry> {

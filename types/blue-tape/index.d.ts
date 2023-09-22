@@ -6,5 +6,5 @@
 
 /// <reference types="node" />
 
-import tape = require('tape');
+import tape = require("tape");
 export = tape;

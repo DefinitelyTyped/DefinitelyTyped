@@ -1,37 +1,37 @@
-import karma = require('karma');
+import karma = require("karma");
 
 // Mocha reporter options tests
 const mochaReporter: karma.MochaReporterOptions = {
     symbols: {
-        success: '+',
-        info: '#',
-        warning: '!',
-        error: 'x',
+        success: "+",
+        info: "#",
+        warning: "!",
+        error: "x",
     },
     colors: {
-        success: 'blue',
-        info: 'bgGreen',
-        warning: 'cyan',
-        error: 'bgRed',
+        success: "blue",
+        info: "bgGreen",
+        warning: "cyan",
+        error: "bgRed",
     },
-    output: 'minimal',
-    showDiff: 'inline',
-    divider: '==improved==divider==',
+    output: "minimal",
+    showDiff: "inline",
+    divider: "==improved==divider==",
     ignoreSkipped: true,
     maxLogLines: 50,
 };
 
 module.exports = (config: karma.Config) => {
     config.set({
-        frameworks: ['mocha', 'chai'],
-        plugins: ['karma-mocha', 'karma-chai', 'karma-mocha-reporter', 'karma-chrome-launcher'],
+        frameworks: ["mocha", "chai"],
+        plugins: ["karma-mocha", "karma-chai", "karma-mocha-reporter", "karma-chrome-launcher"],
 
         // list of files / patterns to load in the browser
-        files: ['test/**/*.spec.js'],
+        files: ["test/**/*.spec.js"],
 
         mochaReporter,
 
-        reporters: ['mocha'],
+        reporters: ["mocha"],
 
         colors: true,
 
@@ -39,7 +39,7 @@ module.exports = (config: karma.Config) => {
 
         autoWatch: false,
 
-        browsers: ['Chrome'],
+        browsers: ["Chrome"],
 
         singleRun: true,
 

@@ -1,8 +1,8 @@
 import nativePlugin = require('rollup-plugin-natives');
 
-nativePlugin({}); // $ExpectType Plugin
+nativePlugin({}); // $ExpectType Plugin<any>
 
-// $ExpectType Plugin
+// $ExpectType Plugin<any>
 nativePlugin({
     copyTo: './',
     destDir: './dist',
