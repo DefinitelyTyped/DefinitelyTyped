@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "compact-timezone-list-test.ts"
+        "compact-timezone-list-tests.ts"
     ]
 }
