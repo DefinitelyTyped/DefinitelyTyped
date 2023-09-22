@@ -52,4 +52,5 @@ const testInteropApi = async (dotNetRef: DotNet.DotNetObject) => {
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", ...tokens); // $ExpectType Promise<void>
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", 5, ...tokens, 20, ...[25]); // $ExpectType Promise<void>
     dotNetRef.invokeMethodAsync<ColorFlags>("MyCoolApp.Core", "Foo", 1, 2, 3); // $ExpectType Promise<ColorFlags>
+    dotNetRef.dispose(); // $ExpectType void
 };
