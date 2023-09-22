@@ -352,18 +352,6 @@ declare namespace GoogleAppsScript {
             setName(name: string): DataSourceColumn;
         }
         /**
-         * Access and modify an existing data source sheet filter. To create a new data source sheet filter, use DataSourceSheet.addFilter(columnName, filterCriteria).
-         *
-         * Only use this class with data that's connected to a database.
-         */
-        interface DataSourceFilter {
-            getDataSourceColumn(): DataSourceColumn;
-            getDataSourceSheet(): DataSourceSheet;
-            getFilterCriteria(): FilterCriteria;
-            remove(): void;
-            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceFilter;
-        }
-        /**
          * Access existing data source parameters.
          */
         interface DataSourceParameter {
@@ -391,17 +379,29 @@ declare namespace GoogleAppsScript {
             forceRefreshData(): DataSourceSheet;
             getColumnWidth(columnName: string): Integer;
             getDataSource(): DataSource;
-            getFilters(): DataSourceFilter[];
-            getSheetValues(columnName: string, startRow?: Integer, numRows?: Integer): any[];
+            getFilters(): DataSourceSheetFilter[];
+            getSheetValues(columnName: string, startRow?: number, numRows?: number): any[];
             getSortSpecs(): SortSpec[];
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourceSheet;
             removeFilters(columnName: string): DataSourceSheet;
             removeSortSpec(columnName: string): DataSourceSheet;
-            setColumnWidth(columnName: string, width: Integer): DataSourceSheet;
-            setColumnWidths(columnNames: string[], width: Integer): DataSourceSheet;
+            setColumnWidth(columnName: string, width: number): DataSourceSheet;
+            setColumnWidths(columnNames: string[], width: number): DataSourceSheet;
             setSortSpec(columnName: string, ascending: boolean): DataSourceSheet;
-            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing data source sheet filter. To create a new data source sheet filter, use DataSourceSheet.addFilter(columnName, filterCriteria).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceSheetFilter {
+            getDataSourceColumn(): DataSourceColumn;
+            getDataSourceSheet(): DataSourceSheet;
+            getFilterCriteria(): FilterCriteria;
+            remove(): void;
+            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceSheetFilter;
         }
         /**
          * Access the general settings of an existing data source spec. To access data source spec for
@@ -2015,7 +2015,7 @@ declare namespace GoogleAppsScript {
             addDeveloperMetadata(key: string, value: string): Sheet;
             addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
             appendRow(rowContents: any[]): Sheet;
-            asDataSourceSheet(): DataSourceSheet;
+            asDataSourceSheet(): DataSourceSheet | null;
             autoResizeColumn(columnPosition: Integer): Sheet;
             autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
             autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
@@ -2439,10 +2439,10 @@ declare namespace GoogleAppsScript {
          * The sorting specification.
          */
         interface SortSpec{
-            getBackgroundColor(): Color;
+            getBackgroundColor(): Color | null;
             getDataSourceColumn(): DataSourceColumn;
-            getDimensionIndex(): Integer;
-            getForegroundColor(): Color;
+            getDimensionIndex(): number | null;
+            getForegroundColor(): Color | null;
             getSortOrder(): SortOrder;
             isAscending(): boolean;
         }
