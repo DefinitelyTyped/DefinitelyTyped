@@ -6,7 +6,7 @@
 
 interface DjvStatic {
     (options?: DjvStatic.DjvConfig): DjvStatic.djv;
-    new (options?: DjvStatic.DjvConfig): DjvStatic.djv;
+    new(options?: DjvStatic.DjvConfig): DjvStatic.djv;
     expression(strings: string[], ...keys: string[]): (...values: string[]) => string;
 }
 

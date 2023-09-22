@@ -1,3 +1,3 @@
-import dotenvDefaults = require('./index');
+import dotenvDefaults = require("./index");
 
 // nothing

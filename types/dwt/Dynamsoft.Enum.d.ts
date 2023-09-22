@@ -31,7 +31,7 @@ export namespace DynamsoftEnums {
         BF_PDF417 = 33554432,
         BF_QR_CODE = 67108864,
         BF_UPC_A = 128,
-        BF_UPC_E = 256
+        BF_UPC_E = 256,
     }
     /** Barcode Format 2 */
     enum EnumBarcodeFormat_2 {
@@ -43,7 +43,7 @@ export namespace DynamsoftEnums {
         BF2_POSTALCODE = 32505856,
         BF2_POSTNET = 2097152,
         BF2_RM4SCC = 16777216,
-        BF2_USPSINTELLIGENTMAIL = 1048576
+        BF2_USPSINTELLIGENTMAIL = 1048576,
     }
     /** Barcode Color Mode */
     enum EnumBarcodeColourMode {
@@ -52,14 +52,15 @@ export namespace DynamsoftEnums {
         BICM_DARK_ON_LIGHT = 1,
         BICM_DARK_ON_LIGHT_DARK_SURROUNDING = 32,
         BICM_LIGHT_ON_DARK = 2,
-        BICM_LIGHT_ON, _LIGHT = 8,
+        BICM_LIGHT_ON,
+        _LIGHT = 8,
         BICM_SKIP = 0,
     }
     /** Barcode Complement Mode */
     enum EnumBarcodeComplementMode {
         BCM_AUTO = 1,
         BCM_GENERAL = 2,
-        BCM_SKIP = 0
+        BCM_SKIP = 0,
     }
     /** OCR Languages */
     enum EnumDWT_OCRLanguage {
@@ -89,7 +90,7 @@ export namespace DynamsoftEnums {
         OCRL_TAM = "tam",
         OCRL_VIE = "vie",
         OCRL_ITA = "ita",
-        OCRL_THA = "tha"
+        OCRL_THA = "tha",
     }
     /** OCR PageSet Mode */
     enum EnumDWT_OCRPageSetMode {
@@ -103,7 +104,7 @@ export namespace DynamsoftEnums {
         PSM_SINGLE_LINE = 7,
         PSM_SINGLE_WORD = 8,
         PSM_CIRCLE_WORD = 9,
-        PSM_SINGLE_CHAR = 10
+        PSM_SINGLE_CHAR = 10,
     }
     /** OCR Output Format */
     enum EnumDWT_OCROutputFormat {
@@ -111,19 +112,19 @@ export namespace DynamsoftEnums {
         OCROF_PDFPLAINTEXT = 1,
         OCROF_PDFIMAGEOVERTEXT = 2,
         OCROF_PDFPLAINTEXT_PDFX = 3,
-        OCROF_PDFIMAGEOVERTEXT_PDFX = 4
+        OCROF_PDFIMAGEOVERTEXT_PDFX = 4,
     }
     /** OCR Download Type */
     enum EnumDWT_OCRDownloadType {
         OCRDT_Dll = 0,
-        OCRDT_LANGUAGE = 1
+        OCRDT_LANGUAGE = 1,
     }
     /** OCRPro Reconnition module */
     enum EnumDWT_OCRProRecognitionModule {
         OCRPM_AUTO = "AUTO",
         OCRPM_MOSTACCURATE = "MOSTACCURATE",
         OCRPM_BALANCED = "BALANCED",
-        OCRPM_FASTEST = "FASTEST"
+        OCRPM_FASTEST = "FASTEST",
     }
     /** OCRPro Output Format */
     enum EnumDWT_OCRProOutputFormat {
@@ -132,7 +133,7 @@ export namespace DynamsoftEnums {
         OCRPFT_TXTF = "TXTF",
         OCRPFT_XML = "XML",
         OCRPFT_IOTPDF = "IOTPDF",
-        OCRPFT_IOTPDF_MRC = "IOTPDF_MRC"
+        OCRPFT_IOTPDF_MRC = "IOTPDF_MRC",
     }
     /** OCRPro PDF Version */
     enum EnumDWT_OCRProPDFVersion {
@@ -143,7 +144,7 @@ export namespace DynamsoftEnums {
         OCRPPDFV_4 = "1.4",
         OCRPPDFV_5 = "1.5",
         OCRPPDFV_6 = "1.6",
-        OCRPPDFV_7 = "1.7"
+        OCRPPDFV_7 = "1.7",
     }
     /** OCRPro PDFA Version */
     enum EnumDWT_OCRProPDFAVersion {
@@ -154,29 +155,29 @@ export namespace DynamsoftEnums {
         OCRPPDFAV_2U = "pdf/a-2u",
         OCRPPDFAV_3A = "pdf/a-3a",
         OCRPPDFAV_3B = "pdf/a-3b",
-        OCRPPDFAV_3U = "pdf/a-3u"
+        OCRPPDFAV_3U = "pdf/a-3u",
     }
     /** OCRPro Type */
     enum EnumDWT_OCRProType {
         OCRDT_File = 0,
-        OCRDT_Index = 1
+        OCRDT_Index = 1,
     }
     /** OCRPro Find Text Flags */
     enum EnumDWT_OCRFindTextFlags {
         OCRFT_WHOLEWORD = 1,
         OCRFT_MATCHCASE = 2,
-        OCRFT_FUZZYMATCH = 4
+        OCRFT_FUZZYMATCH = 4,
         // OCRFT_BACKWARD= 8
     }
     /** OCRPro Find Text Action */
     enum EnumDWT_OCRFindTextAction {
         OCRFT_HIGHLIGHT = 0,
         OCRFT_STRIKEOUT = 1,
-        OCRFT_MARKFORREDACT = 2
+        OCRFT_MARKFORREDACT = 2,
     }
     enum EnumDWT_ConvertMode {
         CM_DEFAULT = 0,
-        CM_RENDERALL = 1
+        CM_RENDERALL = 1,
     }
     enum EnumErrorCode {
         DBR_1D_LICENSE_INVALID = -10017,
@@ -236,7 +237,7 @@ export namespace DynamsoftEnums {
         DBR_SYSTEM_EXCEPTION = 1,
         DBR_TEMPLATE_NAME_INVALID = -10036,
         DBR_TIFF_READ_FAILED = -10013,
-        DBR_UNKNOWN = -10000
+        DBR_UNKNOWN = -10000,
     }
     /** Specifies the video rotate mode on a video capture device. */
     enum EnumDWT_VideoRotateMode {
@@ -251,7 +252,7 @@ export namespace DynamsoftEnums {
         /** Flip */
         VRM_FLIP_VERTICAL = 4,
         /** Mirror */
-        VRM_FLIP_HORIZONTAL = 5
+        VRM_FLIP_HORIZONTAL = 5,
     }
     /** Specifies video properties on a video capture device. */
     enum EnumDWT_VideoProperty {
@@ -284,7 +285,7 @@ export namespace DynamsoftEnums {
          * Positive values are brighter and negative values are darker.
          * The range of values depends on the device.
          */
-        VP_GAIN = 9
+        VP_GAIN = 9,
     }
 
     /** Specifies a setting on a camera. */
@@ -326,7 +327,7 @@ export namespace DynamsoftEnums {
          * Specifies the camera's focus setting, as the distance to the optimally focused target, in millimeters.
          * The range and default value are specific to the device.
          */
-        CCP_FOCUS = 6
+        CCP_FOCUS = 6,
     }
     /** Border Styles */
     enum EnumDWT_BorderStyle {
@@ -335,7 +336,7 @@ export namespace DynamsoftEnums {
         /** Flat border. */
         TWBS_SINGLEFLAT = 1,
         /** 3D border.   */
-        TWBS_SINGLE3D = 2
+        TWBS_SINGLE3D = 2,
     }
     /** Capabilities */
     enum EnumDWT_Cap {
@@ -895,20 +896,20 @@ export namespace DynamsoftEnums {
         /** Added 2.1  */
         ICAP_IMAGEMERGEHEIGHTTHRESHOLD = 4445,
         /** Added 2.1   */
-        ICAP_SUPPORTEDEXTIMAGEINFO = 4446
+        ICAP_SUPPORTEDEXTIMAGEINFO = 4446,
     }
     /** ICAP_BITORDER values. */
     enum EnumDWT_CapBitOrder {
         TWBO_LSBFIRST = 0,
         /** Indicates that the leftmost bit in the byte (usually bit 7) is the byte's Most Significant Bit. */
-        TWBO_MSBFIRST = 1
+        TWBO_MSBFIRST = 1,
     }
     /** ICAP_BITDEPTHREDUCTION values. */
     enum EnumDWT_CapBitdepthReduction {
         TWBR_THRESHOLD = 0,
         TWBR_HALFTONE = 1,
         TWBR_CUSTHALFTONE = 2,
-        TWBR_DIFFUSION = 3
+        TWBR_DIFFUSION = 3,
     }
     /** CAP_FEEDERALIGNMENT values. */
     enum EnumDWT_CapFeederAlignment {
@@ -923,14 +924,14 @@ export namespace DynamsoftEnums {
          */
         TWFA_CENTER = 2,
         /** The alignment is to the right. */
-        TWFA_RIGHT = 3
+        TWFA_RIGHT = 3,
     }
     /** CAP_FEEDERORDER values. */
     enum EnumDWT_CapFeederOrder {
         /** The feeder starts with the top of the first page. */
         TWFO_FIRSTPAGEFIRST = 0,
         /** The feeder starts with the top of the last page. */
-        TWFO_LASTPAGEFIRST = 1
+        TWFO_LASTPAGEFIRST = 1,
     }
     /** ICAP_FILTER values. */
     enum EnumDWT_CapFilterType {
@@ -942,7 +943,7 @@ export namespace DynamsoftEnums {
         TWFT_CYAN = 5,
         TWFT_MAGENTA = 6,
         TWFT_YELLOW = 7,
-        TWFT_BLACK = 8
+        TWFT_BLACK = 8,
     }
     /** ICAP_FLASHUSED2 values. */
     enum EnumDWT_CapFlash {
@@ -950,14 +951,14 @@ export namespace DynamsoftEnums {
         TWFL_OFF = 1,
         TWFL_ON = 2,
         TWFL_AUTO = 3,
-        TWFL_REDEYE = 4
+        TWFL_REDEYE = 4,
     }
     /** ICAP_FLIPROTATION values. */
     enum EnumDWT_CapFlipRotation {
         /** The images to be scanned are viewed in book form, flipping each page from left to right or right to left. */
         TWFR_BOOK = 0,
         /** The images to be scanned are viewed in fanfold paper style, flipping each page up or down. */
-        TWFR_FANFOLD = 1
+        TWFR_FANFOLD = 1,
     }
     /** ICAP_IMAGEFILTER values. */
     enum EnumDWT_CapImageFilter {
@@ -970,7 +971,7 @@ export namespace DynamsoftEnums {
         /** Good for improving fine lines. */
         TWIF_HIGHPASS = 4,
         TWIF_TEXT = 3,
-        TWIF_FINELINE = 4
+        TWIF_FINELINE = 4,
     }
     /** CAP_LANGUAGE values. */
     enum EnumDWT_CapLanguage {
@@ -1120,12 +1121,12 @@ export namespace DynamsoftEnums {
         TWLG_TELUGU = 110,
         TWLG_TRIPURI = 111,
         TWLG_URDU = 112,
-        TWLG_VIETNAMESE = 113
+        TWLG_VIETNAMESE = 113,
     }
     /** ICAP_LIGHTPATH values. */
     enum EnumDWT_CapLightPath {
         TWLP_REFLECTIVE = 0,
-        TWLP_TRANSMISSIVE = 1
+        TWLP_TRANSMISSIVE = 1,
     }
     /** ICAP_LIGHTSOURCE values. */
     enum EnumDWT_CapLightSource {
@@ -1135,14 +1136,14 @@ export namespace DynamsoftEnums {
         TWLS_NONE = 3,
         TWLS_WHITE = 4,
         TWLS_UV = 5,
-        TWLS_IR = 6
+        TWLS_IR = 6,
     }
     /** ICAP_NOISEFILTER values. */
     enum EnumDWT_CapNoiseFilter {
         TWNF_NONE = 0,
         TWNF_AUTO = 1,
         TWNF_LONEPIXEL = 2,
-        TWNF_MAJORITYRULE = 3
+        TWNF_MAJORITYRULE = 3,
     }
     /** ICAP_ORIENTATION values. */
     enum EnumDWT_CapORientation {
@@ -1157,7 +1158,7 @@ export namespace DynamsoftEnums {
         /** 2.0  */
         TWOR_AUTOTEXT = 5,
         /** 2.0  */
-        TWOR_AUTOPICTURE = 6
+        TWOR_AUTOPICTURE = 6,
     }
     /** ICAP_OVERSCAN values. */
     enum EnumDWT_CapOverscan {
@@ -1165,19 +1166,19 @@ export namespace DynamsoftEnums {
         TWOV_AUTO = 1,
         TWOV_TOPBOTTOM = 2,
         TWOV_LEFTRIGHT = 3,
-        TWOV_ALL = 4
+        TWOV_ALL = 4,
     }
     /** ICAP_PIXELFLAVOR values. */
     enum EnumDWT_CapPixelFlavor {
         /** Zero pixel represents darkest shade. zero pixel represents darkest shade   */
         TWPF_CHOCOLATE = 0,
         /** Zero pixel represents lightest shade. zero pixel represents lightest shade  */
-        TWPF_VANILLA = 1
+        TWPF_VANILLA = 1,
     }
     /** ICAP_PLANARCHUNKY values. */
     enum EnumDWT_CapPlanarChunky {
         TWPC_CHUNKY = 0,
-        TWPC_PLANAR = 1
+        TWPC_PLANAR = 1,
     }
     /** CAP_PRINTER values. */
     enum EnumDWT_CapPrinter {
@@ -1188,7 +1189,7 @@ export namespace DynamsoftEnums {
         TWPR_ENDORSERTOPBEFORE = 4,
         TWPR_ENDORSERTOPAFTER = 5,
         TWPR_ENDORSERBOTTOMBEFORE = 6,
-        TWPR_ENDORSERBOTTOMAFTER = 7
+        TWPR_ENDORSERBOTTOMAFTER = 7,
     }
     /** CAP_PRINTERMODE values. */
     enum EnumDWT_CapPrinterMode {
@@ -1197,7 +1198,7 @@ export namespace DynamsoftEnums {
         /** Specifies that the printed text will consist of an enumerated list of strings to be printed in order. */
         TWPM_MULTISTRING = 1,
         /** Specifies that the printed string will consist of a compound of a String followed by a value followed by a suffix string. */
-        TWPM_COMPOUNDSTRING = 2
+        TWPM_COMPOUNDSTRING = 2,
     }
     /** TWAIN Supported sizes. */
     enum EnumDWT_CapSupportedSizes {
@@ -1327,7 +1328,7 @@ export namespace DynamsoftEnums {
         /** 53 */
         TWSS_BUSINESSCARD = 53,
         /** 54. Added 2.1 */
-        TWSS_MAXSIZE = 54
+        TWSS_MAXSIZE = 54,
     }
     /**
      * Capabilities exist in many varieties but all have a Default Value, Current Value, and may have other values available that can be supported if selected.
@@ -1359,7 +1360,7 @@ export namespace DynamsoftEnums {
          * The capability can specify the minimum and maximum acceptable values and the incremental step size between the values.
          * For example, resolution might be supported from 100 to 600 in steps of 50 (100, 150, 200, ..., 550, 600).
          */
-        TWON_RANGE = 6
+        TWON_RANGE = 6,
     }
     /** The kind of data stored in the container. */
     enum EnumDWT_CapValueType {
@@ -1387,7 +1388,7 @@ export namespace DynamsoftEnums {
         /** Means Item is a TW_STR128  */
         TWTY_STR128 = 11,
         /** Means Item is a TW_STR255  */
-        TWTY_STR255 = 12
+        TWTY_STR255 = 12,
     }
     /**
      * TWAIN compression types.
@@ -1407,13 +1408,13 @@ export namespace DynamsoftEnums {
         TWCP_PNG = 9,
         TWCP_RLE4 = 10,
         TWCP_RLE8 = 11,
-        TWCP_ZIP = 13
+        TWCP_ZIP = 13,
     }
     /** ICAP_DUPLEX values. */
     enum EnumDWT_DUPLEX {
         TWDX_NONE = 0,
         TWDX_1PASSDUPLEX = 1,
-        TWDX_2PASSDUPLEX = 2
+        TWDX_2PASSDUPLEX = 2,
     }
     /** Data source status. */
     enum EnumDWT_DataSourceStatus {
@@ -1424,7 +1425,7 @@ export namespace DynamsoftEnums {
         /** Indicate the data source is enabled.  */
         TWDSS_ENABLED = 2,
         /** Indicate the data source is acquiring image. */
-        TWDSS_ACQUIRING = 3
+        TWDSS_ACQUIRING = 3,
     }
     /**
      * Driver Type
@@ -1435,7 +1436,7 @@ export namespace DynamsoftEnums {
         TWAIN = 0,
         TWAIN_AND_ICA = 4,
         TWAIN_AND_TWAIN64 = 4,
-        TWAIN64 = 5
+        TWAIN64 = 5,
     }
     /** ICAP_IMAGEFILEFORMAT values. */
     enum EnumDWT_FileFormat {
@@ -1472,7 +1473,7 @@ export namespace DynamsoftEnums {
         /** A file format from Adobe. 2.0 */
         TWFF_PDFA = 15,
         /** 2.1 Adobe PDF/A, Version 2 */
-        TWFF_PDFA2 = 16
+        TWFF_PDFA2 = 16,
     }
     /** Fit window type */
     enum EnumDWT_FitWindowType {
@@ -1481,7 +1482,7 @@ export namespace DynamsoftEnums {
         /** Fit the image to the height of the window */
         enumFitWindowHeight = 1,
         /** Fit the image to the width of the window */
-        enumFitWindowWidth = 2
+        enumFitWindowWidth = 2,
     }
     /** Image type */
     enum EnumDWT_ImageType {
@@ -1498,21 +1499,21 @@ export namespace DynamsoftEnums {
         /** All supported formats which are bmp, jpg, tif, png and pdf */
         IT_ALL = 5,
         IT_MULTIPAGE_PDF = 7,
-        IT_MULTIPAGE_TIF = 8
+        IT_MULTIPAGE_TIF = 8,
     }
     enum EnumDWT_InitMsg {
         Info = 1,
         Error = 2,
         NotInstalledError = 3,
         DownloadError = 4,
-        DownloadNotRestartError = 5
+        DownloadNotRestartError = 5,
     }
     /** The method to do interpolation. */
     enum EnumDWT_InterpolationMethod {
         IM_NEARESTNEIGHBOUR = 1,
         IM_BILINEAR = 2,
         IM_BICUBIC = 3,
-        IM_BESTQUALITY = 5
+        IM_BESTQUALITY = 5,
     }
     enum EnumDWT_Language {
         English = 0,
@@ -1523,7 +1524,7 @@ export namespace DynamsoftEnums {
         German = 5,
         Italian = 6,
         Russian = 7,
-        Chinese = 8
+        Chinese = 8,
     }
     /** TWEI_MAGTYPE values. (MD_ means Mag Type) Added 2.0  */
     enum EnumDWT_MagType {
@@ -1532,7 +1533,7 @@ export namespace DynamsoftEnums {
         /** added 2.1   */
         TWMD_RAW = 1,
         /** added 2.1  */
-        TWMD_INVALID = 2
+        TWMD_INVALID = 2,
     }
     /**
      * For query the operation that are supported by the data source on a capability .
@@ -1543,7 +1544,7 @@ export namespace DynamsoftEnums {
         TWQC_SET = 2,
         TWQC_GETDEFAULT = 4,
         TWQC_GETCURRENT = 8,
-        TWQC_RESET = 16
+        TWQC_RESET = 16,
     }
     /**
      * Mouse cursor shape.
@@ -1552,7 +1553,7 @@ export namespace DynamsoftEnums {
         Default = 0,
         Hand = 1,
         Crosshair = 2,
-        Zoom = 3
+        Zoom = 3,
     }
     /** PDF file compression type. */
     enum EnumDWT_PDFCompressionType {
@@ -1567,7 +1568,7 @@ export namespace DynamsoftEnums {
         /** CCITT modified Huffman RLE. */
         PDF_RLE = 4,
         /** JPEG compression. */
-        PDF_JPEG = 5
+        PDF_JPEG = 5,
     }
     /** ICAP_PIXELTYPE values (PT_ means Pixel Type) */
     enum EnumDWT_PixelType {
@@ -1583,7 +1584,7 @@ export namespace DynamsoftEnums {
         TWPT_LAB = 9,
         TWPT_SRGB = 10,
         TWPT_SCRGB = 11,
-        TWPT_INFRARED = 16
+        TWPT_INFRARED = 16,
     }
     enum EnumDWT_PlatformType {
         /// Fit the image to the width and height of the window
@@ -1591,7 +1592,7 @@ export namespace DynamsoftEnums {
         /// Fit the image to the height of the window
         enumMac = 1,
         /// Fit the image to the width of the window
-        enumLinux = 2
+        enumLinux = 2,
     }
     enum EnumDWT_ShowMode {
         /** Activates the window and displays it in its current size and position. */
@@ -1603,7 +1604,7 @@ export namespace DynamsoftEnums {
         /** Close the latest opened editor window */
         SW_CLOSE = 3,
         /** Check whether a window exists */
-        SW_IFLIVE = 4
+        SW_IFLIVE = 4,
     }
     /** TIFF file compression type. */
     enum EnumDWT_TIFFCompressionType {
@@ -1624,7 +1625,7 @@ export namespace DynamsoftEnums {
         /** Lempel Ziv and Welch */
         TIFF_LZW = 5,
         TIFF_JPEG = 7,
-        TIFF_PACKBITS = 32773
+        TIFF_PACKBITS = 32773,
     }
     /** ICAP_XFERMECH values. */
     enum EnumDWT_TransferMode {
@@ -1636,7 +1637,7 @@ export namespace DynamsoftEnums {
         /** Disk File Mode Transfers. */
         TWSX_FILE = 1,
         /** Buffered Memory Mode Transfers. */
-        TWSX_MEMORY = 2/*,*/
+        TWSX_MEMORY = 2, /*,*/
         /**
          * added 1.91 , not supported in DWT yet
          */
@@ -1650,16 +1651,16 @@ export namespace DynamsoftEnums {
         TWUN_POINTS = 3,
         TWUN_TWIPS = 4,
         TWUN_PIXELS = 5,
-        TWUN_MILLIMETERS = 6
+        TWUN_MILLIMETERS = 6,
     }
     enum EnumDWT_UploadDataFormat {
         Binary = 0,
-        Base64 = 1
+        Base64 = 1,
     }
     enum Enum_ErrorMessage {
         FILE_STREAM_ERROR = "File Stream Error= ",
         PARAMETER_TYPE_ERROR = "Parameter Type not Supported= ",
-        TIMEOUT = "Timeout no Response= "
+        TIMEOUT = "Timeout no Response= ",
     }
     enum Enum_ImageType {
         IT_ALL = 5,
@@ -1681,13 +1682,13 @@ export namespace DynamsoftEnums {
     enum EnumBinarizationMode {
         BM_AUTO = 1,
         BM_LOCAL_BLOCK = 2,
-        BM_SKIP = 0
+        BM_SKIP = 0,
     }
     enum EnumClarityCalculationMethod {
         ECCM_CONTRAST = 1,
     }
     enum EnumClarityFilterMode {
-        CFM_GENERAL = 1
+        CFM_GENERAL = 1,
     }
     enum EnumColourClusteringMode {
         CCM_AUTO = 1,
@@ -1710,12 +1711,12 @@ export namespace DynamsoftEnums {
     enum EnumDPMCodeReadingMode {
         DPMCRM_AUTO = 1,
         DPMCRM_GENERAL = 2,
-        DPMCRM_SKIP = 0
+        DPMCRM_SKIP = 0,
     }
     enum EnumGrayscaleTransformationMode {
         GTM_INVERTED = 1,
         GTM_ORIGINAL = 2,
-        GTM_SKIP = 0
+        GTM_SKIP = 0,
     }
     enum EnumImagePixelFormat {
         IPF_ABGR_8888 = 10,
@@ -1730,7 +1731,7 @@ export namespace DynamsoftEnums {
         IPF_RGB_555 = 5,
         IPF_RGB_565 = 4,
         IPF_RGB_888 = 6,
-        IPF_RGB_161616 = 8
+        IPF_RGB_161616 = 8,
     }
     enum EnumImagePreprocessingMode {
         IPM_AUTO = 1,
@@ -1739,7 +1740,7 @@ export namespace DynamsoftEnums {
         IPM_GRAY_SMOOTH = 8,
         IPM_MORPHOLOGY = 32,
         IPM_SHARPEN_SMOOTH = 16,
-        IPM_SKIP = 0
+        IPM_SKIP = 0,
     }
     enum EnumIMResultDataType {
         IMRDT_CONTOUR = 2,
@@ -1747,12 +1748,12 @@ export namespace DynamsoftEnums {
         IMRDT_LINESEGMENT = 4,
         IMRDT_LOCALIZATIONRESULT = 8,
         IMRDT_QUADRILATERAL = 32,
-        IMRDT_REGIONOFINTEREST = 16
+        IMRDT_REGIONOFINTEREST = 16,
     }
     enum EnumIntermediateResultSavingMode {
         IRSM_BOTH = 4,
         IRSM_FILESYSTEM = 2,
-        IRSM_MEMORY = 1
+        IRSM_MEMORY = 1,
     }
     enum EnumIntermediateResultType {
         IRT_BINARIZED_IMAGE = 64,
@@ -1769,7 +1770,7 @@ export namespace DynamsoftEnums {
         IRT_SEGMENTATION_BLOCK = 2048,
         IRT_TEXT_ZONE = 128,
         IRT_TRANSFORMED_GRAYSCALE_IMAGE = 8,
-        IRT_TYPED_BARCODE_ZONE = 4096
+        IRT_TYPED_BARCODE_ZONE = 4096,
     }
     enum EnumLocalizationMode {
         LM_AUTO = 1,
@@ -1779,18 +1780,18 @@ export namespace DynamsoftEnums {
         LM_SKIP = 0,
         LM_STATISTICS = 4,
         LM_STATISTICS_MARKS = 32,
-        LM_STATISTICS_POSTAL_CODE = 64
+        LM_STATISTICS_POSTAL_CODE = 64,
     }
     enum EnumPDFReadingMode {
         PDFRM_AUTO = 2,
         PDFRM_RASTER = 1,
-        PDFRM_VECTOR = 4
+        PDFRM_VECTOR = 4,
     }
     enum EnumQRCodeErrorCorrectionLevel {
         QRECL_ERROR_CORRECTION_H = 0,
         QRECL_ERROR_CORRECTION_L = 1,
         QRECL_ERROR_CORRECTION_M = 2,
-        QRECL_ERROR_CORRECTION_Q = 3
+        QRECL_ERROR_CORRECTION_Q = 3,
     }
     enum EnumRegionPredetectionMode {
         RPM_AUTO = 1,
@@ -1798,23 +1799,23 @@ export namespace DynamsoftEnums {
         RPM_GENERAL_GRAY_CONTRAST = 8,
         RPM_GENERAL_HSV_CONTRAST = 16,
         RPM_GENERAL_RGB_CONTRAST = 4,
-        RPM_SKIP = 0
+        RPM_SKIP = 0,
     }
     enum EnumResultCoordinateType {
         RCT_PERCENTAGE = 2,
-        RCT_PIXEL = 1
+        RCT_PIXEL = 1,
     }
     enum EnumResultType {
         RT_CANDIDATE_TEXT = 2,
         RT_PARTIAL_TEXT = 3,
         RT_RAW_TEXT = 1,
-        RT_STANDARD_TEXT = 0
+        RT_STANDARD_TEXT = 0,
     }
     enum EnumScaleUpMode {
         SUM_AUTO = 1,
         SUM_LINEAR_INTERPOLATION = 2,
         SUM_NEAREST_NEIGHBOUR_INTERPOLATION = 4,
-        SUM_SKIP = 0
+        SUM_SKIP = 0,
     }
     enum EnumTerminatePhase {
         TP_BARCODE_LOCALIZED = 8,
@@ -1822,28 +1823,28 @@ export namespace DynamsoftEnums {
         TP_BARCODE_TYPE_DETERMINED = 16,
         TP_IMAGE_BINARIZED = 4,
         TP_IMAGE_PREPROCESSED = 2,
-        TP_REGION_PREDETECTED = 1
+        TP_REGION_PREDETECTED = 1,
     }
     enum EnumTextAssistedCorrectionMode {
         TACM_AUTO = 1,
         TACM_SKIP = 0,
         TACM_VERIFYING = 2,
-        TACM_VERIFYING_PATCHING = 4
+        TACM_VERIFYING_PATCHING = 4,
     }
     enum EnumTextFilterMode {
         TFM_AUTO = 1,
         TFM_GENERAL_CONTOUR = 2,
-        TFM_SKIP = 0
+        TFM_SKIP = 0,
     }
     enum EnumTextResultOrderMode {
         TROM_CONFIDENCE = 1,
         TROM_FORMAT = 4,
         TROM_POSITION = 2,
-        TROM_SKIP = 0
+        TROM_SKIP = 0,
     }
     enum EnumTextureDetectionMode {
         TDM_AUTO = 1,
         TDM_GENERAL_WIDTH_CONCENTRATION = 2,
-        TDM_SKIP = 0
+        TDM_SKIP = 0,
     }
 }

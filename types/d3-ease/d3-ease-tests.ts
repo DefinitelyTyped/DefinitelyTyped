@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Ease from 'd3-ease';
+import * as d3Ease from "d3-ease";
 
 const t_in = 0.5;
 let t_out: number;
