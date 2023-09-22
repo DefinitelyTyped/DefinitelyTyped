@@ -4922,8 +4922,11 @@ fp.now(); // $ExpectType number
 {
     const listIterator = (value: AbcObject) => 0;
 
-    const listWithNullAndUndefined: _.List<Partial<AbcObject>> = anything
-    const partialIterator = (value: Partial<AbcObject>) => value.a
+    type NullableAbcObject = {
+        [k in keyof AbcObject]?: AbcObject[k] | null
+    }
+    const listWithNullAndUndefined: _.List<NullableAbcObject> = anything
+    const partialIterator = (value: Partial<NullableAbcObject>) => value.a
 
     _.sumBy(list, listIterator); // $ExpectType number
     _.sumBy(list, "a"); // $ExpectType number
