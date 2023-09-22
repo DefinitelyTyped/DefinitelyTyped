@@ -1,6 +1,6 @@
 import tz, { minimalTimezoneSet } from 'compact-timezone-list';
 
-// $ExpectType Array
+// $ExpectType void[]
 minimalTimezoneSet.map(({ label, offset, tzCode }) => {
     // $ExpectType string
     const l = label;
@@ -14,7 +14,7 @@ minimalTimezoneSet.map(({ label, offset, tzCode }) => {
         tzCode,
     });
 });
-// $ExpectType Array
+// $ExpectType void[]
 tz.map(({ label, offset, tzCode }) => {
     // $ExpectType string
     const l = label;

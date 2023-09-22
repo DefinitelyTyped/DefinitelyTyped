@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace minimalTimezoneSet {
-    interface IMinimalTimezoneSet {
+    interface MinimalTimezoneSet {
         offset: string;
         label: string;
         tzCode: string;
     }
 }
 
-declare const minimalTimezoneSet: minimalTimezoneSet.IMinimalTimezoneSet[];
+declare const minimalTimezoneSet: minimalTimezoneSet.MinimalTimezoneSet[];
 export default minimalTimezoneSet;
 export { minimalTimezoneSet };
