@@ -377,7 +377,7 @@ declare namespace GoogleAppsScript {
             autoResizeColumn(columnName: string): DataSourceSheet;
             autoResizeColumns(columnNames: string[]): DataSourceSheet;
             forceRefreshData(): DataSourceSheet;
-            getColumnWidth(columnName: string): Integer;
+            getColumnWidth(columnName: string): number;
             getDataSource(): DataSource;
             getFilters(): DataSourceSheetFilter[];
             getSheetValues(columnName: string, startRow?: number, numRows?: number): any[];
