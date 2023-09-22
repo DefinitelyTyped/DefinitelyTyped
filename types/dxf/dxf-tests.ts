@@ -14,7 +14,7 @@ helper.denormalised;
 // $ExpectType string
 helper.toSVG();
 
-// $ExpectType PolylineExport
+// $ExpectType Polyline[]
 helper.toPolylines();
 
 
