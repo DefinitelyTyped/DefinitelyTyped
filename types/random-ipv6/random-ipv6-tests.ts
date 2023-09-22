@@ -9,7 +9,9 @@ randomIPv6("{token1}:{token2}:{token3}:{token4}:{token5}:{token6}:{token7}:{toke
 randomIPv6("{token1}:{token2}:{token3}:{token4}:{token5}:{token6}:{token7}:{token8}", {}); // $ExpectType string
 randomIPv6("{token1}:{token2}:{token3}:{token4}:{token5}:{token6}:{token7}:{token8}", { compressed: true }); // $ExpectType string
 randomIPv6("{token1}:{token2}:{token3}:{token4}:{token5}:{token6}:{token7}:{token8}", { padded: true }); // $ExpectType string
+
+// $ExpectType string
 randomIPv6("{token1}:{token2}:{token3}:{token4}:{token5}:{token6}:{token7}:{token8}", {
     compressed: true,
     padded: true,
-}); // $ExpectType string
+});

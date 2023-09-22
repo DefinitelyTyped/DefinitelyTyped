@@ -1,5 +1,4 @@
 import * as React from "react";
-import { CSVDownload, CSVLink } from "react-csv";
 import { render } from "react-dom";
 import { CSVLink, CSVDownload } from "react-csv";
 import { toCSV } from "react-csv/lib/core";
