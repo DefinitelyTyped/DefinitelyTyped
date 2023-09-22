@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="jasmine"/>
+/// <reference types="jasmine"/>
 
 declare interface Frisby {
     globalSetup(opts: any): any;

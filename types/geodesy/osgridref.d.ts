@@ -2,9 +2,9 @@
  * @format
  */
 
-import { Datum } from '.';
+import { Datum } from ".";
 
-import LatLonEllipsoidal, { Dms } from './latlon-ellipsoidal-datum';
+import LatLonEllipsoidal, { Dms } from "./latlon-ellipsoidal-datum";
 
 declare class OsGridRef {
     easting: number;
@@ -19,4 +19,4 @@ declare class LatLon_OsGridRef extends LatLonEllipsoidal {
     toOsGrid(): OsGridRef;
 }
 
-export { OsGridRef as default, LatLon_OsGridRef as LatLon, Dms };
+export { Dms, LatLon_OsGridRef as LatLon, OsGridRef as default };

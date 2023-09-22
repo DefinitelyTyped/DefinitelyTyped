@@ -1,15 +1,15 @@
-import { Transform, Options, Parser } from './core';
+import { Options, Parser, Transform } from "./core";
 
 export interface TestOptions {
-    parser?: Parser | 'babylon' | 'flow' | 'ts' | 'tsx' | 'babel' | undefined;
+    parser?: Parser | "babylon" | "flow" | "ts" | "tsx" | "babel" | undefined;
 }
 
 export function applyTransform(
     module:
         | {
-              default: Transform;
-              parser: TestOptions['parser'];
-          }
+            default: Transform;
+            parser: TestOptions["parser"];
+        }
         | Transform,
     options: Options | null | undefined,
     input: {
@@ -38,9 +38,9 @@ export function runTest(
 export function defineInlineTest(
     module:
         | {
-              default: Transform;
-              parser: TestOptions['parser'];
-          }
+            default: Transform;
+            parser: TestOptions["parser"];
+        }
         | Transform,
     options: Options,
     inputSource: string,
@@ -51,9 +51,9 @@ export function defineInlineTest(
 export function runInlineTest(
     module:
         | {
-              default: Transform;
-              parser: TestOptions['parser'];
-          }
+            default: Transform;
+            parser: TestOptions["parser"];
+        }
         | Transform,
     options: Options,
     input: {
@@ -67,9 +67,9 @@ export function runInlineTest(
 export function defineSnapshotTest(
     module:
         | {
-              default: Transform;
-              parser: TestOptions['parser'];
-          }
+            default: Transform;
+            parser: TestOptions["parser"];
+        }
         | Transform,
     options: Options,
     input: string,
@@ -79,9 +79,9 @@ export function defineSnapshotTest(
 export function runSnapshotTest(
     module:
         | {
-              default: Transform;
-              parser: TestOptions['parser'];
-          }
+            default: Transform;
+            parser: TestOptions["parser"];
+        }
         | Transform,
     options: Options,
     input: {

@@ -20,9 +20,9 @@ export {};
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: ReactTestRendererNode | ReactTestRendererNode[];
+    children: null | ReactTestRendererNode[];
 }
-export type ReactTestRendererNode = ReactTestRendererJSON | string | number | boolean | null | undefined;
+export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
     nodeType: 'component' | 'host';
     instance: any;

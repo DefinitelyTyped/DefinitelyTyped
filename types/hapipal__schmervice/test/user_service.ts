@@ -1,4 +1,4 @@
-import * as Schmervice from '@hapipal/schmervice';
+import * as Schmervice from "@hapipal/schmervice";
 
 export interface User {
     firstName: string;
@@ -6,7 +6,7 @@ export interface User {
 }
 
 export class UserService extends Schmervice.Service {
-    static [Schmervice.name]: 'user_service';
+    static [Schmervice.name]: "user_service";
     static [Schmervice.sandbox]: true;
 
     getFullName(user: User): string {
@@ -14,15 +14,15 @@ export class UserService extends Schmervice.Service {
     }
 
     async initialize() {
-        console.log('UserService initialize');
+        console.log("UserService initialize");
     }
 
     async teardown() {
-        console.log('UserService teardown');
+        console.log("UserService teardown");
     }
 }
 
-declare module '@hapipal/schmervice' {
+declare module "@hapipal/schmervice" {
     interface RegisteredServices {
         UserService: UserService;
     }

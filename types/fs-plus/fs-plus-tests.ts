@@ -1,12 +1,12 @@
-import * as path from "path";
 import * as fs from "fs-plus";
+import * as path from "path";
 
 const homeDir = fs.getHomeDirectory();
 
 console.log(fs.absolute("~") === fs.realpathSync(homeDir));
 console.log(
-    fs.absolute(path.join("~", "does", "not", "exist")) ===
-        path.join(homeDir, "does", "not", "exist")
+    fs.absolute(path.join("~", "does", "not", "exist"))
+        === path.join(homeDir, "does", "not", "exist"),
 );
 
 console.log(fs.normalize("~/foo") === path.join(homeDir, "foo"));
@@ -14,8 +14,8 @@ console.log(fs.normalize("~/foo") === path.join(homeDir, "foo"));
 console.log(fs.tildify(homeDir) === "~");
 
 console.log(
-    fs.getAppDataDirectory() ===
-        path.join(fs.getHomeDirectory(), "Library", "Application Support")
+    fs.getAppDataDirectory()
+        === path.join(fs.getHomeDirectory(), "Library", "Application Support"),
 );
 
 console.log(fs.isAbsolute("/a/b/c"));
@@ -109,7 +109,7 @@ fs.traverseTreeSync(
     dir => {
         console.log("directory", dir);
         return true;
-    }
+    },
 );
 
 fs.traverseTree(
@@ -122,7 +122,7 @@ fs.traverseTree(
     },
     err => {
         console.error(err);
-    }
+    },
 );
 
 console.log(fs.md5ForPath("a/b/c"));

@@ -11,4 +11,4 @@
  * `import {parse} from 'jsonlint';`. Otherwise, it cannot reference to the
  * correct instance.
  */
- export function parse(str: string): Record<string, unknown>;
+export function parse(str: string): Record<string, unknown>;

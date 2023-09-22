@@ -1,29 +1,29 @@
-import Heroku = require('heroku-client');
+import Heroku = require("heroku-client");
 
 const heroku = new Heroku({ token: process.env.HEROKU_API_TOKEN });
 
 (async () => {
     // $ExpectType Promise<any>
-    heroku.get('/apps');
+    heroku.get("/apps");
 
     // $ExpectType Promise<any>
-    heroku.post('/apps');
+    heroku.post("/apps");
 
     // $ExpectType Promise<any>
-    heroku.post('/apps', { body: { name: 'my-new-app' } });
+    heroku.post("/apps", { body: { name: "my-new-app" } });
 
     // $ExpectType Promise<any>
-    heroku.patch('/apps/my-app', { body: { name: 'my-renamed-app' } });
+    heroku.patch("/apps/my-app", { body: { name: "my-renamed-app" } });
 
     // $ExpectType Promise<any>
-    heroku.delete('/apps/my-old-app');
+    heroku.delete("/apps/my-old-app");
 
     // $ExpectType Promise<any>
     heroku.request({
-        method: 'GET',
-        path: '/apps',
+        method: "GET",
+        path: "/apps",
         headers: {
-            Foo: 'Bar',
+            Foo: "Bar",
         },
         parseJSON: false,
     });

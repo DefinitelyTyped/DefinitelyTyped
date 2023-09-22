@@ -1,6 +1,4 @@
-import {
-    Session,
-} from "..";
+import { Session } from "..";
 
 declare const s: Session;
 

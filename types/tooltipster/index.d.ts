@@ -13,17 +13,16 @@
 
 declare namespace JQueryTooltipster {
     /**
-    * Tooltipster options @see http://iamceege.github.io/tooltipster/
-    */
+     * Tooltipster options @see http://iamceege.github.io/tooltipster/
+     */
     export interface ITooltipsterOptions {
-
         /**
          * Determines how the tooltip will animate in and out. In addition to the built-in transitions,
          * you may also create custom transitions in your CSS files. In IE9 and lower, all animations
          * default to a JavaScript generated, fade animation.
          * @default 'fade'
          */
-        animation?: 'fade' | 'grow' | 'swing' | 'slide' | 'fall' | undefined;
+        animation?: "fade" | "grow" | "swing" | "slide" | "fall" | undefined;
 
         /**
          * Sets the duration of the animation, in milliseconds. If you wish to provide different durations
@@ -121,7 +120,9 @@ declare namespace JQueryTooltipster {
          * displayed in the tooltip, either a string or a jQuery-wrapped HTML element (see the formatting section).
          * @default null
          */
-        functionFormat?: ((instance: ITooltipsterInstance, helper: ITooltipsterHelper, content: any) => string | JQuery) | undefined;
+        functionFormat?:
+            | ((instance: ITooltipsterInstance, helper: ITooltipsterHelper, content: any) => string | JQuery)
+            | undefined;
 
         /**
          * A custom function fired when the tooltip is repositioned. It gives you the ability to slightly or
@@ -130,7 +131,13 @@ declare namespace JQueryTooltipster {
          * you may have edited (see the positioning section).
          * @default null
          */
-        functionPosition?: ((instance: ITooltipsterInstance, helper: ITooltipsterHelper, position: ITooltipPosition) => ITooltipPosition) | undefined;
+        functionPosition?:
+            | ((
+                instance: ITooltipsterInstance,
+                helper: ITooltipsterHelper,
+                position: ITooltipPosition,
+            ) => ITooltipPosition)
+            | undefined;
 
         /**
          * The minimum version of Internet Explorer to run on.
@@ -199,7 +206,7 @@ declare namespace JQueryTooltipster {
          *
          * @default 'none'
          */
-        restoration?: 'none' | 'previous' | 'current' | undefined;
+        restoration?: "none" | "previous" | "current" | undefined;
 
         /**
          * Sets if the tooltip should self-destruct after a few seconds when its origin is removed from the DOM.
@@ -314,7 +321,7 @@ declare namespace JQueryTooltipster {
          * may create custom animations in your CSS files. Set to null to disable the animation.
          * @default 'rotate'
          */
-        updateAnimation?: 'fade' | 'rotate' | 'scale' | null | undefined;
+        updateAnimation?: "fade" | "rotate" | "scale" | null | undefined;
 
         /**
          * Tries to place the tooltip in such a way that it will be entirely visible on screen when it's opened.
@@ -343,7 +350,7 @@ declare namespace JQueryTooltipster {
         event?: MouseEvent | TouchEvent | null | undefined;
 
         /** provided on position callback */
-        mode?: 'natural' | 'constrained' | undefined;
+        mode?: "natural" | "constrained" | undefined;
         /** provided on position callback */
         tooltipClone?: HTMLElement | undefined;
         /** provided on position callback */
@@ -365,7 +372,7 @@ declare namespace JQueryTooltipster {
             size: {
                 height: number;
                 width: number;
-            }
+            };
         };
         origin: {
             /** the origin has a fixed lineage if itself or one of its ancestors has a fixed position */
@@ -380,7 +387,7 @@ declare namespace JQueryTooltipster {
             };
             size: {
                 height: number;
-                width: number
+                width: number;
             };
             /** if the origin is a map area, this will hold the associated image element */
             usemapImage: HTMLImageElement | null;
@@ -390,9 +397,9 @@ declare namespace JQueryTooltipster {
                 left: number;
                 /** this is the distance between the right side of the origin and the left of the viewport */
                 right: number;
-                top: number
-            }
-        }
+                top: number;
+            };
+        };
     }
 
     /** see http://iamceege.github.io/tooltipster/#positioning */
@@ -425,17 +432,36 @@ declare namespace JQueryTooltipster {
         target: number;
     }
 
-    type TooltipPositioningSide = 'top' | 'bottom' | 'left' | 'right';
-    type TooltipEventName = 'init' | 'before' | 'ready' | 'after' | 'format' | 'position'
-        | 'close' | 'closing' | 'created' | 'destroy' | 'destroyed' | 'dismissable'
-        | 'geometry' | 'positionTest' | 'positionTested' | 'reposition' | 'repositioned'
-        | 'scroll' | 'start' | 'startcancel' | 'startend' | 'state' | 'updated';
+    type TooltipPositioningSide = "top" | "bottom" | "left" | "right";
+    type TooltipEventName =
+        | "init"
+        | "before"
+        | "ready"
+        | "after"
+        | "format"
+        | "position"
+        | "close"
+        | "closing"
+        | "created"
+        | "destroy"
+        | "destroyed"
+        | "dismissable"
+        | "geometry"
+        | "positionTest"
+        | "positionTested"
+        | "reposition"
+        | "repositioned"
+        | "scroll"
+        | "start"
+        | "startcancel"
+        | "startend"
+        | "state"
+        | "updated";
 
     /**
-    * Tooltipster tooltip instance object.
-    */
+     * Tooltipster tooltip instance object.
+     */
     export interface ITooltipsterInstance {
-
         /**
          * Closes the tooltip. When the animation is over, its HTML element is destroyed (definitely removed from the
          * DOM). The `callback` function argument is optional.
@@ -538,10 +564,9 @@ declare namespace JQueryTooltipster {
     }
 
     /**
-    * Tooltipster methods available on a JQuery object
-    */
+     * Tooltipster methods available on a JQuery object
+     */
     export interface ITooltipsterJQuery {
-
         /** Activates Tooltipster */
         (options?: ITooltipsterOptions): JQuery;
 
@@ -549,95 +574,95 @@ declare namespace JQueryTooltipster {
          * Closes the tooltip. When the animation is over, its HTML element is destroyed (definitely removed from the
          * DOM). The `callback` function argument is optional.
          */
-        (method: 'close', callback?: TooltipsterStandardCallbackFunction): JQuery;
+        (method: "close", callback?: TooltipsterStandardCallbackFunction): JQuery;
 
         /**
          * Returns a tooltip's current content. If the selector matches multiple origins, only the value of the first
          * will be returned.
          */
-        (method: 'content'): any;
+        (method: "content"): any;
 
         /**
          * Updates the tooltip's content.
          * @param value the new content of the tooltip
          */
-        (method: 'content', value: string): JQuery;
+        (method: "content", value: string): JQuery;
 
         /**
          * Closes and destroys the tooltip functionality.
          */
-        (method: 'destroy'): JQuery;
+        (method: "destroy"): JQuery;
 
         /**
          * Temporarily disables a tooltip from being able to open.
          */
-        (method: 'disable'): JQuery;
+        (method: "disable"): JQuery;
 
         /**
          * Returns the HTML element which has been tooltipped.
          */
-        (method: 'elementOrigin'): HTMLElement;
+        (method: "elementOrigin"): HTMLElement;
 
         /**
          * Returns the HTML root element of the tooltip if it is open, `null` if it is closed.
          */
-        (method: 'elementTooltip'): HTMLElement | null;
+        (method: "elementTooltip"): HTMLElement | null;
 
         /**
          * If a tooltip was disabled, restores its previous functionality.
          */
-        (method: 'enable'): JQuery;
+        (method: "enable"): JQuery;
 
         /**
          * Returns the instance of Tooltipster associated to the tooltip. If the selector matches multiple origins,
          * only the instance of the first will be returned.
          */
-        (method: 'instance'): ITooltipsterInstance;
+        (method: "instance"): ITooltipsterInstance;
 
         /**
          * Handle Tooltipster's `on` event coming from any instance. See http://iamceege.github.io/tooltipster/#events
          * for a complete description of available events.
          */
-        (method: 'on', eventName: string, callback: (e: JQueryEventObject) => void): JQuery;
+        (method: "on", eventName: string, callback: (e: JQueryEventObject) => void): JQuery;
         /**
          * Handle Tooltipster's `one` event coming from any instance.
          */
-        (method: 'one', eventName: string, callback: (e: JQueryEventObject) => void): JQuery;
+        (method: "one", eventName: string, callback: (e: JQueryEventObject) => void): JQuery;
         /**
          * Handle Tooltipster's `off` event coming from any instance.
          */
-        (method: 'off', eventName: string): JQuery;
+        (method: "off", eventName: string): JQuery;
         /**
          * Trigger a Tooltipster's event coming from any instance.
          */
-        (method: 'triggerHandler', eventName: string): JQuery;
+        (method: "triggerHandler", eventName: string): JQuery;
 
         /**
          * Opens the tooltip. The `callback` function argument is optional (see its input signature) and, if provided,
          * is called when the opening animation has ended
          */
-        (method: 'open', callback?: TooltipsterStandardCallbackFunction): JQuery;
+        (method: "open", callback?: TooltipsterStandardCallbackFunction): JQuery;
 
         /**
          * Returns the value of an option.
          */
-        (method: 'option', optionName: string): any;
+        (method: "option", optionName: string): any;
 
         /**
          * Sets the value of an option (for advanced users only; we do not provide support on unexpected results).
          */
-        (method: 'option', optionName: string, optionValue: any): JQuery;
+        (method: "option", optionName: string, optionValue: any): JQuery;
 
         /**
          * Resizes and repositions the tooltip.
          */
-        (method: 'reposition'): JQuery;
+        (method: "reposition"): JQuery;
 
         /**
          * Returns various information about the tooltip, like whether it is open or not. See
          * http://iamceege.github.io/tooltipster/#status
          */
-        (method: 'status'): ITooltipStatus;
+        (method: "status"): ITooltipStatus;
     }
 
     interface ITooltipsterStatic {
@@ -697,15 +722,15 @@ declare namespace JQueryTooltipster {
 
     interface ITooltipStatus {
         /** if the tooltip has been destroyed */
-        destroyed: boolean,
+        destroyed: boolean;
         /** if the tooltip is scheduled for destruction (which means that the tooltip is currently closing and may not be reopened) */
-        destroying: boolean,
+        destroying: boolean;
         /** if the tooltip is enabled */
-        enabled: boolean,
+        enabled: boolean;
         /** if the tooltip is open (either appearing, stable or disappearing) */
-        open: boolean,
+        open: boolean;
         /** the state equals one of these four values: */
-        state: 'appearing' | 'stable' | 'disappearing' | 'closed'
+        state: "appearing" | "stable" | "disappearing" | "closed";
     }
 }
 

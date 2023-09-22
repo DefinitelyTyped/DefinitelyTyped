@@ -5,5 +5,4 @@ export class Refdb {
 
     compress(): number;
 
-    free(): void;
 }

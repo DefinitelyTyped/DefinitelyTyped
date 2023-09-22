@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import http = require('http');
+import http = require("http");
 
 interface RequestURL {
     host: string;
@@ -33,7 +33,7 @@ interface HerokuClientOptions extends Partial<RequestURL> {
     headers?: Record<string, string>;
     json?: boolean;
     logger?: RequestLogger;
-    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+    method?: "GET" | "POST" | "PATCH" | "DELETE";
     middleware?: (res: http.ServerResponse, cbk: () => void) => void;
     parseJSON?: boolean;
     partial?: boolean;
@@ -135,17 +135,17 @@ declare class Heroku {
 
     constructor(options: HerokuClientOptions);
 
-    request(options: HerokuClientOptions): ReturnType<Request['request']>;
+    request(options: HerokuClientOptions): ReturnType<Request["request"]>;
 
-    get(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
+    get(path: string, options?: HerokuClientOptions): ReturnType<Request["request"]>;
 
-    put(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
+    put(path: string, options?: HerokuClientOptions): ReturnType<Request["request"]>;
 
-    post(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
+    post(path: string, options?: HerokuClientOptions): ReturnType<Request["request"]>;
 
-    patch(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
+    patch(path: string, options?: HerokuClientOptions): ReturnType<Request["request"]>;
 
-    delete(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
+    delete(path: string, options?: HerokuClientOptions): ReturnType<Request["request"]>;
 }
 
 export = Heroku;

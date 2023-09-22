@@ -1,10 +1,12 @@
-import type * as CommonActions from './CommonActions';
+import type * as CommonActions from "./CommonActions";
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type CommonNavigationAction = CommonActions.Action;
 // tslint:disable-next-line strict-export-declare-modifiers
-declare type NavigationRoute<ParamList extends ParamListBase, RouteName extends keyof ParamList> = Route<Extract<RouteName, string>, ParamList[RouteName]> & {
-    state?: NavigationState | PartialState<NavigationState> | undefined;
-};
+declare type NavigationRoute<ParamList extends ParamListBase, RouteName extends keyof ParamList> =
+    & Route<Extract<RouteName, string>, ParamList[RouteName]>
+    & {
+        state?: NavigationState | PartialState<NavigationState> | undefined;
+    };
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type NavigationState<ParamList extends ParamListBase = ParamListBase> = Readonly<{
     /**
@@ -41,44 +43,51 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
     stale: false;
 }>;
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type InitialState = Readonly<Partial<Omit<NavigationState, 'stale' | 'routes'>> & {
-    // tslint:disable-next-line array-type
-    routes: (Omit<Route<string>, 'key'> & {
-        state?: InitialState | undefined;
-    })[];
-}>;
+export declare type InitialState = Readonly<
+    Partial<Omit<NavigationState, "stale" | "routes">> & {
+        // tslint:disable-next-line array-type
+        routes: (Omit<Route<string>, "key"> & {
+            state?: InitialState | undefined;
+        })[];
+    }
+>;
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type PartialRoute<R extends Route<string>> = Omit<R, 'key'> & {
+export declare type PartialRoute<R extends Route<string>> = Omit<R, "key"> & {
     key?: string | undefined;
     state?: PartialState<NavigationState> | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type PartialState<State extends NavigationState> = Partial<Omit<State, 'stale' | 'routes'>> & Readonly<{
-    stale?: true | undefined;
-    // tslint:disable-next-line array-type
-    routes: PartialRoute<Route<State['routeNames'][number]>>[];
-}>;
+export declare type PartialState<State extends NavigationState> =
+    & Partial<Omit<State, "stale" | "routes">>
+    & Readonly<{
+        stale?: true | undefined;
+        // tslint:disable-next-line array-type
+        routes: PartialRoute<Route<State["routeNames"][number]>>[];
+    }>;
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type Route<RouteName extends string, Params extends object | undefined = object | undefined> = Readonly<{
-    /**
-     * Unique key for the route.
-     */
-    key: string;
-    /**
-     * User-provided name for the route.
-     */
-    name: RouteName;
-}> & (undefined extends Params ? Readonly<{
-    /**
-     * Params for this route
-     */
-    params?: Readonly<Params> | undefined;
-}> : Readonly<{
-    /**
-     * Params for this route
-     */
-    params: Readonly<Params>;
-}>);
+export declare type Route<RouteName extends string, Params extends object | undefined = object | undefined> =
+    & Readonly<{
+        /**
+         * Unique key for the route.
+         */
+        key: string;
+        /**
+         * User-provided name for the route.
+         */
+        name: RouteName;
+    }>
+    & (undefined extends Params ? Readonly<{
+            /**
+             * Params for this route
+             */
+            params?: Readonly<Params> | undefined;
+        }>
+        : Readonly<{
+            /**
+             * Params for this route
+             */
+            params: Readonly<Params>;
+        }>);
 // tslint:disable-next-line strict-export-declare-modifiers
 export declare type ParamListBase = Record<string, object | undefined>;
 // tslint:disable-next-line strict-export-declare-modifiers
@@ -113,7 +122,11 @@ export declare type DefaultRouterOptions<RouteName extends string = string> = {
     initialRouteName?: RouteName | undefined;
 };
 // tslint:disable-next-line strict-export-declare-modifiers
-export declare type RouterFactory<State extends NavigationState, Action extends NavigationAction, RouterOptions extends DefaultRouterOptions> = (options: RouterOptions) => Router<State, Action>;
+export declare type RouterFactory<
+    State extends NavigationState,
+    Action extends NavigationAction,
+    RouterOptions extends DefaultRouterOptions,
+> = (options: RouterOptions) => Router<State, Action>;
 // tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
 export declare type RouterConfigOptions = {
     routeNames: string[];
@@ -125,7 +138,7 @@ export declare type Router<State extends NavigationState, Action extends Navigat
      * Type of the router. Should match the `type` property in state.
      * If the type doesn't match, the state will be discarded during rehydration.
      */
-    type: State['type'];
+    type: State["type"];
     /**
      * Initialize the navigation state.
      *
