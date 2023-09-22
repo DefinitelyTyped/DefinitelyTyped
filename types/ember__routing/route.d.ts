@@ -2,9 +2,11 @@ import EmberObject from "@ember/object";
 import ActionHandler from "@ember/object/-private/action-handler";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Transition from "@ember/routing/transition";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import Controller from "@ember/controller";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { RouteQueryParam } from "@ember/routing/types";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
