@@ -290,6 +290,7 @@ declare namespace bricks {
         secondaryColor?: string;
         warningColor?: string;
         fontSizeExtraExtraLarge?: string;
+        secondaryColorListItem?: string;
     }
 
     interface PayerIdentification {
