@@ -69,7 +69,7 @@ interface ChoiceRuleSimple extends ChoiceRuleComparison {
 type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
-export interface Choice extends CommonState {
+export interface Choice extends Omit<CommonState, 'End'> {
     Type: 'Choice';
     Choices: ChoiceRule[];
     Default?: string;
