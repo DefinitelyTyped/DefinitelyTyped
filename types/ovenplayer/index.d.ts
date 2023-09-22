@@ -118,4 +118,4 @@ type OvenPlayerCallbackFunction = (...args: any[]) => void;
 declare const OvenPlayer: OvenPlayer;
 
 export as namespace OvenPlayer;
-export = OvenPlayer;
+export default OvenPlayer;

@@ -1,4 +1,6 @@
-import OvenPlayer = require("ovenplayer");
+import OvenPlayer from "ovenplayer";
+import type { OvenPlayerConfig, OvenPlayerPlayList, OvenPlayerSource, OvenPlayerWebRTCStream } from "ovenplayer";
+
 
 const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
@@ -14,13 +16,15 @@ document.body.appendChild(playerContainer2);
 // debug(debug: boolean): boolean;
 const debug: boolean = OvenPlayer.debug(true);
 
-// generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-const webrtcSources1 = OvenPlayer.generateWebrtcUrls({
+const webrtcStream: OvenPlayerWebRTCStream = {
     host: "ws://host:port",
     application: "app",
     stream: "stream_1080",
     label: "WebRTC 1080P",
-});
+}
+
+// generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
+const webrtcSources1 = OvenPlayer.generateWebrtcUrls(webrtcStream);
 
 const webrtcSources2 = OvenPlayer.generateWebrtcUrls([{
     host: "ws://host:port",
@@ -29,8 +33,7 @@ const webrtcSources2 = OvenPlayer.generateWebrtcUrls([{
     label: "WebRTC 1080P",
 }]);
 
-// create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
-const player = OvenPlayer.create("player1", {
+const conf: OvenPlayerConfig = {
     mute: true,
     playbackRates: [1, 2, 3, 3],
     waterMark: {
@@ -47,7 +50,10 @@ const player = OvenPlayer.create("player1", {
         a: 1,
         b: 2,
     },
-});
+};
+
+// create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
+const player = OvenPlayer.create("player1", conf);
 
 const player2 = OvenPlayer.create(playerContainer2, {});
 
@@ -83,8 +89,7 @@ const mseInstance: object | null = player.getMseInstance();
 // getProviderName(): string | null;
 const providerName: string | null = player.getProviderName();
 
-// load(sources: OvenPlayerSource[] | OvenPlayerPlayList): void;
-player.load([
+const sources: OvenPlayerSource[] = [
     {
         type: "webrtc",
         file: "file",
@@ -94,9 +99,12 @@ player.load([
         type: "webrtc",
         file: "file",
     },
-]);
+];
 
-player.load([
+// load(sources: OvenPlayerSource[] | OvenPlayerPlayList): void;
+player.load(sources);
+
+const playList: OvenPlayerPlayList = [
     [
         {
             type: "webrtc",
@@ -117,7 +125,9 @@ player.load([
             file: "file",
         },
     ],
-]);
+];
+
+player.load(playList);
 
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
