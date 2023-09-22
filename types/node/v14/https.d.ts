@@ -1,4 +1,4 @@
-declare module 'node:https' {
+declare module 'https' {
     import { Duplex } from 'stream';
     import * as tls from 'tls';
     import * as http from 'http';
@@ -267,6 +267,6 @@ declare module 'node:https' {
     ): http.ClientRequest;
     let globalAgent: Agent;
 }
-declare module 'https' {
-    export * from 'node:https';
+declare module 'node:https' {
+    export * from 'https';
 }

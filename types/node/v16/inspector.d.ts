@@ -16,7 +16,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
  */
-declare module 'node:inspector' {
+declare module 'inspector' {
     import EventEmitter = require('node:events');
     interface InspectorNotification<T> {
         method: string;
@@ -2738,7 +2738,7 @@ declare module 'node:inspector' {
      */
     function waitForDebugger(): void;
 }
-declare module 'inspector' {
-    import EventEmitter = require('node:inspector');
+declare module 'node:inspector' {
+    import EventEmitter = require('inspector');
     export = EventEmitter;
 }

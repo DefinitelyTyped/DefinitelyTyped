@@ -8,7 +8,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
  */
-declare module 'node:tls' {
+declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
     import * as net from 'node:net';
     const CLIENT_RENEG_LIMIT: number;
@@ -1014,6 +1014,6 @@ declare module 'node:tls' {
      */
     const rootCertificates: ReadonlyArray<string>;
 }
-declare module 'tls' {
-    export * from 'node:tls';
+declare module 'node:tls' {
+    export * from 'tls';
 }

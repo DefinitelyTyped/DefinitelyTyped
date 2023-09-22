@@ -27,7 +27,6 @@ export class Note {
     author(): Signature;
     committer(): Signature;
 
-    free(): void;
     id(): Oid;
     message(): string;
 }

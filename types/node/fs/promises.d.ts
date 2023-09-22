@@ -8,7 +8,7 @@
  * concurrent modifications on the same file or data corruption may occur.
  * @since v10.0.0
  */
-declare module 'node:fs/promises' {
+declare module 'fs/promises' {
     import { Abortable } from 'node:events';
     import { Stream } from 'node:stream';
     import { ReadableStream } from 'node:stream/web';
@@ -1198,6 +1198,6 @@ declare module 'node:fs/promises' {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
-declare module 'fs/promises' {
-    export * from 'node:fs/promises';
+declare module 'node:fs/promises' {
+    export * from 'fs/promises';
 }

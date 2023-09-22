@@ -8,7 +8,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/repl.js)
  */
-declare module 'node:repl' {
+declare module 'repl' {
     import { Interface, Completer, AsyncCompleter } from 'node:readline';
     import { Context } from 'node:vm';
     import { InspectOptions } from 'node:util';
@@ -419,6 +419,6 @@ declare module 'node:repl' {
         constructor(err: Error);
     }
 }
-declare module 'repl' {
-    export * from 'node:repl';
+declare module 'node:repl' {
+    export * from 'repl';
 }

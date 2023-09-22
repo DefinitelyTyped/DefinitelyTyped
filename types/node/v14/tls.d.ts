@@ -1,4 +1,4 @@
-declare module 'node:tls' {
+declare module 'tls' {
     import * as net from 'net';
     import * as stream from 'stream';
 
@@ -779,6 +779,6 @@ declare module 'node:tls' {
      */
     const rootCertificates: ReadonlyArray<string>;
 }
-declare module 'tls' {
-    export * from 'node:tls';
+declare module 'node:tls' {
+    export * from 'tls';
 }
