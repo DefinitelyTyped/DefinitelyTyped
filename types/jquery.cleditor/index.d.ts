@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 /**
  * An editor is composed of a main div element used to hold a toolbar,
@@ -93,7 +93,7 @@ interface JQuery {
     /**
      * If the cleditor object does not exist for a matched textarea element,
      * it will be created using the default options combined with the supplied options.
-     * This is the core method for creating and selecting cleditor objects. 
+     * This is the core method for creating and selecting cleditor objects.
      */
     cleditor(options?: JQueryCLEditorOptions): CLEditor;
 }

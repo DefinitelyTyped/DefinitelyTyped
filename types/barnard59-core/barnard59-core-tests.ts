@@ -1,11 +1,11 @@
-import { createPipeline, defaultLogger, run, VariableMap } from 'barnard59-core';
-import Pipeline, { Context } from 'barnard59-core/lib/Pipeline';
-import StreamObject from 'barnard59-core/lib/StreamObject';
-import { GraphPointer } from 'clownface';
-import { Logger } from 'winston';
-import { LoaderRegistry } from 'rdf-loaders-registry';
-import * as Stream from 'readable-stream';
-import Step from 'barnard59-core/lib/Step';
+import { createPipeline, defaultLogger, run, VariableMap } from "barnard59-core";
+import Pipeline, { Context } from "barnard59-core/lib/Pipeline";
+import Step from "barnard59-core/lib/Step";
+import StreamObject from "barnard59-core/lib/StreamObject";
+import { GraphPointer } from "clownface";
+import { LoaderRegistry } from "rdf-loaders-registry";
+import * as Stream from "readable-stream";
+import { Logger } from "winston";
 
 function testCreatePipeline() {
     const ptr: GraphPointer = <any> {};
@@ -15,13 +15,13 @@ function testCreatePipeline() {
     let pipeline: Pipeline;
 
     pipeline = createPipeline(ptr);
-    pipeline = createPipeline(ptr, { basePath: '' });
+    pipeline = createPipeline(ptr, { basePath: "" });
     pipeline = createPipeline(ptr, {
-        basePath: '',
+        basePath: "",
         loaderRegistry,
         context: {},
         logger,
-        variables: new Map()
+        variables: new Map(),
     });
 }
 
@@ -31,21 +31,21 @@ function testDefaultLogger() {
     logger = defaultLogger();
     logger = defaultLogger({});
 
-    const level: 'error' | 'info' | 'debug' = 'error';
+    const level: "error" | "info" | "debug" = "error";
     logger = defaultLogger({
-        level
+        level,
     });
 
     logger = defaultLogger({
-        console: true
+        console: true,
     });
 
     logger = defaultLogger({
-        errorFilename: './err.log'
+        errorFilename: "./err.log",
     });
 
     logger = defaultLogger({
-        filename: 'pipeline.log'
+        filename: "pipeline.log",
     });
 }
 
@@ -54,14 +54,14 @@ async function testRun() {
 
     await run(pipeline);
     await run(pipeline, {
-        end: true
+        end: true,
     });
     await run(pipeline, {
-        resume: true
+        resume: true,
     });
 }
 
-declare module 'barnard59-core' {
+declare module "barnard59-core" {
     interface Variables {
         foo: string;
         bar: number;
@@ -69,14 +69,14 @@ declare module 'barnard59-core' {
 }
 
 function testAugmentedVariables(variables: VariableMap) {
-    variables.set('foo', 'bar');
+    variables.set("foo", "bar");
     // @ts-expect-error
-    variables.set('foo', {});
+    variables.set("foo", {});
 
-    const foo: string = variables.get('foo');
-    const bar: number = variables.get('bar');
+    const foo: string = variables.get("foo");
+    const bar: number = variables.get("bar");
     // @ts-expect-error
-    const notBar: string = variables.get('bar');
+    const notBar: string = variables.get("bar");
 }
 
 function testPipeline() {
@@ -99,7 +99,7 @@ function testPipeline() {
         ptr,
         variables,
         stream,
-        loaderRegistry
+        loaderRegistry,
     } = pipeline);
 }
 
@@ -127,7 +127,7 @@ function testStep() {
         stream,
         args,
         operation,
-        loaderRegistry
+        loaderRegistry,
     } = step);
 
     basePath = context.basePath;

@@ -7,17 +7,17 @@ menu.mmenu(
     // options
     {
         extensions: [],
-        navbar:  {
+        navbar: {
             add: true,
             title: "Menu",
-            titleLink: "parent"
+            titleLink: "parent",
         },
         onClick: {
             close: true,
             preventDefault: false,
-            setSelected: false
+            setSelected: false,
         },
-        slidingSubmenus: true
+        slidingSubmenus: true,
     },
     // configurations
     {
@@ -26,15 +26,14 @@ menu.mmenu(
             inset: "Inset",
             panel: "Panel",
             selected: "Selected",
-            vertical: "vertical"
+            vertical: "vertical",
         },
         clone: false,
         openingInterval: 25,
         panelNodetype: "div, ul, ol",
-        transitionDuration: 400
-    }
+        transitionDuration: 400,
+    },
 );
-
 
 // --------------------------------------------------------
 // ------------------- TEST MMENU API ---------------------
@@ -66,7 +65,7 @@ api.bind("init", function(panel) {
 
 api.openPanel(myPanel);
 api.bind("openPanel", function(panel) {
-    console.log("This panel is now opened ",  panel);
+    console.log("This panel is now opened ", panel);
 });
 
 api.setSelected(listItem, true);

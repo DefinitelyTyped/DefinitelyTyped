@@ -132,6 +132,13 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
     maxWorkers?: number | undefined;
 
     /**
+     * The maximum number of tasks allowed to be queued. Can be used to prevent running out of memory.
+     * If the maximum is exceeded, adding a new task will throw an error.
+     * The default value is `Infinity`.
+     */
+    maxQueueSize?: number | undefined;
+
+    /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
      *   when in a browser environment, `'web'` will be used. When in a node.js environment, `worker_threads` will be used
      *   if available (Node.js >= 11.7.0), else `child_process` will be used.

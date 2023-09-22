@@ -80,7 +80,7 @@ export interface DecodeOptions {
 
 export type VerifyCallback = (
     err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
-    decoded: object | string
+    decoded: object | string,
 ) => void;
 
 export type SignCallback = (err: Error, encoded: string) => void;
@@ -129,7 +129,7 @@ export function sign(
 export function signAsync(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
-    options?: SignOptions
+    options?: SignOptions,
 ): Promise<string>;
 
 /**
@@ -155,13 +155,13 @@ export function verify(
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options: VerifyOptions,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 
 /**
@@ -173,8 +173,8 @@ export function verify(
 export function verifyAsync(
     token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions
-): Promise<object|string>;
+    options?: VerifyOptions,
+): Promise<object | string>;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.

@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import * as fs from 'fs';
+import * as fs from "fs";
 
 declare namespace JsReport {
     type Helpers = string | { [fun: string]: (...args: any[]) => any };
@@ -88,7 +88,7 @@ declare namespace JsReport {
     interface ListenerCollection {
         add(
             type: string,
-            callback: (req: Request, res: Response, err?: any) => Promise<any> | void
+            callback: (req: Request, res: Response, err?: any) => Promise<any> | void,
         ): void;
     }
 
@@ -166,9 +166,9 @@ declare namespace JsReport {
         rootDirectory?: string | undefined;
     }
 
-    type ReporterOptionsStoreProvider = 'memory';
-    type ReporterOptionsBlobStorageProvider = 'memory' | 'fs';
-    type EngineStrategy = 'dedicated-process' | 'http-server' | 'in-process';
+    type ReporterOptionsStoreProvider = "memory";
+    type ReporterOptionsBlobStorageProvider = "memory" | "fs";
+    type EngineStrategy = "dedicated-process" | "http-server" | "in-process";
 
     interface Configuration {
         mode?: any;

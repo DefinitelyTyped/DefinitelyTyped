@@ -46,12 +46,14 @@ declare namespace GoogleAdsScripts {
         interface MobileAppOperation extends Base.Operation<MobileApp> {}
 
         interface MobileAppSelector
-            extends Base.Selector<MobileAppIterator>,
+            extends
+                Base.Selector<MobileAppIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
 
         interface MobileAppUrls {
             clearFinalUrlSuffix(): void;

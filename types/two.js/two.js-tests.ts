@@ -78,7 +78,7 @@ import Two = require("two.js");
 
 {
     const two = new Two({ width: 300, height: 500 });
-    const text = new Two.Text('text test', 10, 10);
+    const text = new Two.Text("text test", 10, 10);
     two.add(text);
 }
 

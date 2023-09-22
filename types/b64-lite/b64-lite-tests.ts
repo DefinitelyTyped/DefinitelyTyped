@@ -8,4 +8,4 @@ b64lite.toBase64(new Uint8Array([228, 189, 160, 229, 165, 189]).buffer); // $Exp
 
 b64lite.atob(""); // $ExpectType string
 b64lite.fromBase64(""); // $ExpectType string
-b64lite.toBuffer('5L2g5aW9'); // $ExpectType Uint8Array
+b64lite.toBuffer("5L2g5aW9"); // $ExpectType Uint8Array

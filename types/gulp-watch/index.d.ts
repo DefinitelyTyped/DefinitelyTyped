@@ -27,5 +27,5 @@ type Cb = (file: File & { event: "add" | "change" | "unlink" }) => void;
 
 declare function watch(glob: string | Array<string>, callback?: Cb): IWatchStream;
 declare function watch(glob: string | Array<string>, options?: IOptions, callback?: Cb): IWatchStream;
-declare namespace watch { }
+declare namespace watch {}
 export = watch;

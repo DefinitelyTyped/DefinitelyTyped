@@ -37,10 +37,10 @@ export interface DataGetEntireTableParams {
 }
 export type DataGetSingleResult =
     | {
-          table: string;
-          key: string;
-          [others: string]: BeginDataType | undefined;
-      }
+        table: string;
+        key: string;
+        [others: string]: BeginDataType | undefined;
+    }
     | null
     | undefined;
 export type DataGetSingleCallback = (err: Error | null | undefined, result: DataGetSingleResult) => void;

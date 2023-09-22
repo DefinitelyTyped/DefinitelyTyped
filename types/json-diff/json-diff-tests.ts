@@ -1,4 +1,4 @@
-import { diff, DiffOptions, diffString } from 'json-diff';
+import { diff, DiffOptions, diffString } from "json-diff";
 
 const options: DiffOptions = {
     verbose: true,
@@ -11,16 +11,16 @@ const options: DiffOptions = {
     keepUnchangedValues: true,
     outputNewOnly: true,
     maxElisions: 1,
-    precision: 1
+    precision: 1,
 };
 
-diff({}, { Hello: 'World' });
-diff({}, { Hello: 'World' }, {});
-diff({}, { Hello: 'World' }, options);
+diff({}, { Hello: "World" });
+diff({}, { Hello: "World" }, {});
+diff({}, { Hello: "World" }, options);
 
-diffString({}, { Hello: 'World' });
-diffString({}, { Hello: 'World' }, {});
-diffString({}, { Hello: 'World' }, {
+diffString({}, { Hello: "World" });
+diffString({}, { Hello: "World" }, {});
+diffString({}, { Hello: "World" }, {
     ...options,
     color: true,
 });

@@ -18,7 +18,7 @@ interface Events {
      *     console.log('starting')
      * })
      */
-    on(type: 'start', callback: () => void): Events;
+    on(type: "start", callback: () => void): Events;
 
     /**
      * Map Event
@@ -32,7 +32,7 @@ interface Events {
      *     console.log(`about to process [${ tile }] on worker ${ workerId }`)
      * })
      */
-    on(type: 'map', callback: (tile: TileReduce.Tile, workerId: number) => void): Events;
+    on(type: "map", callback: (tile: TileReduce.Tile, workerId: number) => void): Events;
 
     /**
      * Reduce Event
@@ -48,7 +48,7 @@ interface Events {
      *     count ++
      * })
      */
-    on(type: 'reduce', callback: (result: any, tile: TileReduce.Tile) => void): Events;
+    on(type: "reduce", callback: (result: any, tile: TileReduce.Tile) => void): Events;
 
     /**
      * End Event
@@ -61,7 +61,7 @@ interface Events {
      *     console.log(`Total count was: ${ count }`)
      * })
      */
-    on(type: 'end', callback: (error: any) => void): Events;
+    on(type: "end", callback: (error: any) => void): Events;
 }
 
 interface Options {
@@ -102,7 +102,7 @@ interface Options {
  *     console.log('starting')
  * })
  */
-declare function TileReduce (options: Options): Events;
+declare function TileReduce(options: Options): Events;
 
 declare namespace TileReduce {
     type BBox = [number, number, number, number];
@@ -119,5 +119,5 @@ declare namespace TileReduce {
 }
 
 declare module "tile-reduce" {
-    export = TileReduce
+    export = TileReduce;
 }

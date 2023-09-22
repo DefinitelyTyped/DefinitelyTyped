@@ -1,5 +1,5 @@
-import { Mimetype } from './GuacCommon.d';
-import { OutputStream } from './OutputStream';
+import { Mimetype } from "./GuacCommon.d";
+import { OutputStream } from "./OutputStream";
 
 /**
  * Abstract audio recorder which streams arbitrary audio data to an underlying

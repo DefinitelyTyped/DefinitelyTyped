@@ -11,10 +11,12 @@ declare namespace GoogleAdsScripts {
         interface AdGroupSitelinkIterator extends Base.Iterator<AdGroupSitelink> {}
 
         interface AdGroupSitelinkSelector
-            extends Base.Selector<AdGroupSitelinkIterator>,
+            extends
+                Base.Selector<AdGroupSitelinkIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

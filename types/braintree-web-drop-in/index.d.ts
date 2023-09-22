@@ -17,10 +17,10 @@ Some objects, such as as the payload returned from Dropin.requestPaymentMethod, 
 https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-web-drop-in.html
 */
 
-import { ApplePayPaymentRequest } from 'braintree-web/apple-pay';
-import { HostedFieldsEvent, HostedFieldsField } from 'braintree-web/hosted-fields';
-import { ThreeDSecureInfo } from 'braintree-web/three-d-secure';
-import { ButtonStyle } from 'paypal-checkout-components';
+import { ApplePayPaymentRequest } from "braintree-web/apple-pay";
+import { HostedFieldsEvent, HostedFieldsField } from "braintree-web/hosted-fields";
+import { ThreeDSecureInfo } from "braintree-web/three-d-secure";
+import { ButtonStyle } from "paypal-checkout-components";
 
 /**
  * @description The current version of the SDK, i.e. `3.0.2`.
@@ -48,7 +48,7 @@ export interface Options {
 }
 
 export interface applePayCreateOptions {
-    buttonStyle?: 'black' | 'white' | 'white-outline' | undefined;
+    buttonStyle?: "black" | "white" | "white-outline" | undefined;
     displayName: string;
     applePaySessionVersion?: number | undefined;
     paymentRequest: ApplePayPaymentRequest;
@@ -58,28 +58,28 @@ export interface cardCreateOptions {
     cardholderName?:
         | boolean
         | {
-              required?: boolean | undefined;
-          }
+            required?: boolean | undefined;
+        }
         | undefined;
     overrides?:
         | {
-              fields?:
-                  | {
-                        number?: HostedFieldsField | undefined;
-                        cvv?: HostedFieldsField | undefined;
-                        expirationDate?: HostedFieldsField | undefined;
-                        postalCode?: HostedFieldsField | undefined;
-                    }
-                  | undefined;
-              styles?: object | undefined;
-          }
+            fields?:
+                | {
+                    number?: HostedFieldsField | undefined;
+                    cvv?: HostedFieldsField | undefined;
+                    expirationDate?: HostedFieldsField | undefined;
+                    postalCode?: HostedFieldsField | undefined;
+                }
+                | undefined;
+            styles?: object | undefined;
+        }
         | undefined;
     clearFieldsAfterTokenization?: boolean | undefined;
     vault?:
         | {
-              allowVaultCardOverride?: boolean | undefined;
-              vaultCard?: boolean | undefined;
-          }
+            allowVaultCardOverride?: boolean | undefined;
+            vaultCard?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -95,7 +95,7 @@ export interface googlePayCreateOptions {
 }
 
 export interface paypalCreateOptions {
-    flow: 'checkout' | 'vault';
+    flow: "checkout" | "vault";
     amount?: string | number | undefined;
     currency?: string | undefined;
     buttonStyle?: Partial<ButtonStyle> | undefined;
@@ -116,38 +116,38 @@ export interface venmoCreateOptions {
 // Dropin
 
 export interface PaymentMethodRequestablePayload {
-    type: 'CreditCard' | 'PayPalAccount';
+    type: "CreditCard" | "PayPalAccount";
     paymentMethodIsSelected: boolean;
 }
 
 export interface PaymentOptionSelectedPayload {
-    paymentOption: 'card' | 'paypal' | 'paypalCredit';
+    paymentOption: "card" | "paypal" | "paypalCredit";
 }
 
 export type HostedFieldsStateEvents =
-    | 'card:binAvailable'
-    | 'card:blur'
-    | 'card:cardTypeChange'
-    | 'card:empty'
-    | 'card:focus'
-    | 'card:inputSubmitRequest'
-    | 'card:notEmpty'
-    | 'card:validityChange';
+    | "card:binAvailable"
+    | "card:blur"
+    | "card:cardTypeChange"
+    | "card:empty"
+    | "card:focus"
+    | "card:inputSubmitRequest"
+    | "card:notEmpty"
+    | "card:validityChange";
 
-export type UpdatableConfigurationOption = 'paypal' | 'paypalCredit' | 'applePay' | 'googlePay' | 'threeDSecure';
+export type UpdatableConfigurationOption = "paypal" | "paypalCredit" | "applePay" | "googlePay" | "threeDSecure";
 
 export interface Dropin {
     clearSelectedPaymentMethod(): void;
     isPaymentMethodRequestable(): boolean;
-    on(event: 'noPaymentMethodRequestable', handler: () => void): void;
-    on(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
-    on(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
-    on(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    on(event: "noPaymentMethodRequestable", handler: () => void): void;
+    on(event: "paymentMethodRequestable", handler: (payload: PaymentMethodRequestablePayload) => void): void;
+    on(event: "paymentOptionSelected", handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    on(event: "changeActiveView", handler: (payload: ChangeActiveViewPayload) => void): void;
     on(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
-    off(event: 'noPaymentMethodRequestable', handler: () => void): void;
-    off(event: 'paymentMethodRequestable', handler: (payload: PaymentMethodRequestablePayload) => void): void;
-    off(event: 'paymentOptionSelected', handler: (payload: PaymentOptionSelectedPayload) => void): void;
-    off(event: 'changeActiveView', handler: (payload: ChangeActiveViewPayload) => void): void;
+    off(event: "noPaymentMethodRequestable", handler: () => void): void;
+    off(event: "paymentMethodRequestable", handler: (payload: PaymentMethodRequestablePayload) => void): void;
+    off(event: "paymentOptionSelected", handler: (payload: PaymentOptionSelectedPayload) => void): void;
+    off(event: "changeActiveView", handler: (payload: ChangeActiveViewPayload) => void): void;
     off(event: HostedFieldsStateEvents, handler: (event: HostedFieldsEvent) => void): void;
     requestPaymentMethod(options: PaymentMethodOptions, callback: RequestPaymentMethodCallback): void;
     requestPaymentMethod(callback: RequestPaymentMethodCallback): void;
@@ -181,12 +181,12 @@ export type PaymentMethodPayload =
 export interface binData {
     commercial: string;
     countryOfIssuance: string;
-    debit: 'Yes' | 'No' | 'Unknown';
-    durbinRegulated: 'Yes' | 'No' | 'Unknown';
-    healthcare: 'Yes' | 'No' | 'Unknown';
+    debit: "Yes" | "No" | "Unknown";
+    durbinRegulated: "Yes" | "No" | "Unknown";
+    healthcare: "Yes" | "No" | "Unknown";
     issuingBank: string;
-    payroll: 'Yes' | 'No' | 'Unknown';
-    prepaid: 'Yes' | 'No' | 'Unknown';
+    payroll: "Yes" | "No" | "Unknown";
+    prepaid: "Yes" | "No" | "Unknown";
     productId: string;
 }
 
@@ -200,7 +200,7 @@ export interface applePayPaymentMethodPayload {
         rawPaymentData: ApplePayJS.ApplePayPayment;
     };
     description: string;
-    type: 'ApplePayCard';
+    type: "ApplePayCard";
     binData: binData;
     deviceData?: string | undefined;
 }
@@ -216,7 +216,7 @@ export interface cardPaymentMethodPayload {
         lastFour: string;
         lastTwo: string;
     };
-    type: 'CreditCard';
+    type: "CreditCard";
     binData: binData;
     vaulted?: boolean | undefined;
     deviceData?: string | undefined;
@@ -235,7 +235,7 @@ export interface googlePayPaymentMethodPayload {
         bin: string;
         rawPaymentData: google.payments.api.PaymentData;
     };
-    type: 'AndroidPayCard';
+    type: "AndroidPayCard";
     binData: binData;
     deviceData?: string | undefined;
 }
@@ -263,7 +263,7 @@ export interface paypalPaymentMethodPayload {
         shippingAddress?: Address | undefined;
         billingAddress?: Address | undefined;
     };
-    type: 'PayPalAccount';
+    type: "PayPalAccount";
     deviceData?: string | undefined;
 }
 
@@ -273,20 +273,20 @@ export interface venmoPaymentMethodPayload {
     details: {
         username: string;
     };
-    type: 'VenmoAccount';
+    type: "VenmoAccount";
     deviceData?: string | undefined;
 }
 
 export type ActiveView =
-    | 'card'
-    | 'paypal'
-    | 'paypalCredit'
-    | 'venmo'
-    | 'googlePay'
-    | 'applePay'
-    | 'methods'
-    | 'options'
-    | 'delete-confirmation';
+    | "card"
+    | "paypal"
+    | "paypalCredit"
+    | "venmo"
+    | "googlePay"
+    | "applePay"
+    | "methods"
+    | "options"
+    | "delete-confirmation";
 export interface ChangeActiveViewPayload {
     previousViewId: ActiveView;
     newViewId: ActiveView;
