@@ -176,6 +176,7 @@ declare namespace bricks {
         texts?: WalletButtonTextCustomization;
         backUrls?: StatusBrickBackUrls;
         enableReviewStep?: boolean;
+        reviewCardsOrder?: string[];
     }
 
     interface StatusBrickAdditionalData {
