@@ -1,4 +1,4 @@
-import Koa = require('koa');
+import Koa = require("koa");
 
 const app = new Koa();
 
@@ -9,13 +9,13 @@ interface CustomResponseBody {
 
 const middleware: Koa.Middleware<Koa.DefaultState, Koa.DefaultContext, CustomResponseBody> = (ctx, next) => {
     ctx.body.a = 1;
-    ctx.body.b = 'text';
+    ctx.body.b = "text";
 
     ctx.response.body = {
         a: 1,
-        b: 'text',
+        b: "text",
         // @ts-expect-error
-        c: true
+        c: true,
     };
 
     return next();

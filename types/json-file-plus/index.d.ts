@@ -67,7 +67,7 @@ declare namespace readJSON {
     function sync(filename: string): JSONFile;
 
     interface Format {
-        indent: number | '\t' | ' ';
+        indent: number | "\t" | " ";
         trailing: boolean;
     }
 

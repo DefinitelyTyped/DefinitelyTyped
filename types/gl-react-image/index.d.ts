@@ -3,11 +3,11 @@
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface GLImageProps {
     center?: [number, number];
-    resizeMode?: 'cover' | 'free' | 'contain' | 'stretch';
+    resizeMode?: "cover" | "free" | "contain" | "stretch";
     source: any;
     zoom?: number;
 }

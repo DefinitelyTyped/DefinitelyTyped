@@ -1,8 +1,8 @@
-import { generateImage, debug, restoreDefaultOptions, setDefaultOptions } from 'jsdom-screenshot';
+import { debug, generateImage, restoreDefaultOptions, setDefaultOptions } from "jsdom-screenshot";
 
 generateImage();
 generateImage({
-    launch: { args: ['--no-sandbox'] },
+    launch: { args: ["--no-sandbox"] },
 });
 
 setDefaultOptions({
@@ -13,5 +13,5 @@ restoreDefaultOptions();
 
 debug(document);
 debug(document.body);
-debug(document.getElementById('test')!);
+debug(document.getElementById("test")!);
 debug();

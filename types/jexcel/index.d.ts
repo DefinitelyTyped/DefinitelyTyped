@@ -19,9 +19,9 @@ declare namespace jexcel {
     type SourceValue =
         | CellValue
         | {
-              id: CellValue;
-              name: CellValue;
-          };
+            id: CellValue;
+            name: CellValue;
+        };
 
     interface SourceValueElement<T extends CellValue> {
         id: T;
@@ -41,7 +41,9 @@ declare namespace jexcel {
          * Translations can be done here
          * Default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
          */
-        months?: [string, string, string, string, string, string, string, string, string, string, string, string] | undefined;
+        months?:
+            | [string, string, string, string, string, string, string, string, string, string, string, string]
+            | undefined;
         // tslint:disable-next-line ban-types
         onchange?: Function | undefined;
         /** Events */
@@ -84,7 +86,7 @@ declare namespace jexcel {
         /**
          * Default: "center"
          */
-        align?: 'center' | 'left' | 'right' | undefined;
+        align?: "center" | "left" | "right" | undefined;
         autocomplete?: boolean | undefined;
         decimal?: string | undefined;
         editor?: ColumnEditor | undefined;
@@ -101,17 +103,18 @@ declare namespace jexcel {
          * @see https://bossanova.uk/jexcel/v4/examples/column-types
          */
         type?:
-            | 'autocomplete'
-            | 'calendar'
-            | 'checkbox'
-            | 'color'
-            | 'dropdown'
-            | 'hidden'
-            | 'html'
-            | 'image'
-            | 'numeric'
-            | 'radio'
-            | 'text' | undefined;
+            | "autocomplete"
+            | "calendar"
+            | "checkbox"
+            | "color"
+            | "dropdown"
+            | "hidden"
+            | "html"
+            | "image"
+            | "numeric"
+            | "radio"
+            | "text"
+            | undefined;
         url?: string | undefined;
         width?: number | undefined;
         wordWrap?: boolean | undefined;
@@ -410,15 +413,17 @@ declare namespace jexcel {
         // tslint:disable-next-line ban-types
         onblur?: Function | undefined;
         /** After a column value is changed. */
-        onchange?: ((
-            instance: HTMLElement,
-            cell: HTMLTableCellElement,
-            /** (e.g.) "0", "1" ... */
-            columnIndex: string,
-            /** (e.g.) "0", "1" ... */
-            rowIndex: string,
-            value: CellValue,
-        ) => void) | undefined;
+        onchange?:
+            | ((
+                instance: HTMLElement,
+                cell: HTMLTableCellElement,
+                /** (e.g.) "0", "1" ... */
+                columnIndex: string,
+                /** (e.g.) "0", "1" ... */
+                rowIndex: string,
+                value: CellValue,
+            ) => void)
+            | undefined;
         /** On header change */
         // tslint:disable-next-line ban-types
         onchangeheader?: Function | undefined;
@@ -532,7 +537,7 @@ declare namespace jexcel {
         /** Load this data into the javascript table: array */
         data?: CellValue[][] | Array<{ [title in string | number]: CellValue }> | undefined;
         /** Default align for a new column: [center, left, right] */
-        defaultColAlign?: 'center' | 'left' | 'right' | undefined;
+        defaultColAlign?: "center" | "left" | "right" | undefined;
         /** Default width for a new column: integer */
         defaultColWidth?: number | undefined;
         /** Allow table edition: bool */
@@ -554,12 +559,14 @@ declare namespace jexcel {
         /** Minimum number of spare rows: [integer] */
         minSpareRows?: number[] | undefined;
         /** Define the nested headers, including title, colspan, etc: object */
-        nestedHeaders?: Array<
-            Array<{
-                colspan?: number | undefined;
-                title?: CellValue | undefined;
-            }>
-        > | undefined;
+        nestedHeaders?:
+            | Array<
+                Array<{
+                    colspan?: number | undefined;
+                    title?: CellValue | undefined;
+                }>
+            >
+            | undefined;
         /** Break the table by pages */
         pagination?: number | undefined;
         /** Number of records per page: 25,50,75,100 for example. */
@@ -591,7 +598,9 @@ declare namespace jexcel {
         /** Add custom toolbars: object */
         toolbar?: Array<Record<string, any>> | undefined;
         /** Method to config custom script execution. NOTE: This does not work with lazyLoading, Pagination or Search options. */
-        updateTable?: ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void) | undefined;
+        updateTable?:
+            | ((instance: any, cell: any, col: any, row: any, val: any, label: any, cellName: any) => void)
+            | undefined;
         /** Load a external json file from this URL: string */
         url?: string | undefined;
         /** Global text wrapping: bool */
@@ -666,7 +675,13 @@ declare namespace jexcel {
     /**
      * @see https://bossanova.uk/jexcel/v4/docs/quick-reference
      */
-    type Options = SharedMethodsInitializationOptions & MethodsOptions & EventsOptions & InitializationOptions & TranslationsOptions & UnDocumentOptions;
+    type Options =
+        & SharedMethodsInitializationOptions
+        & MethodsOptions
+        & EventsOptions
+        & InitializationOptions
+        & TranslationsOptions
+        & UnDocumentOptions;
 
     interface ActionHistory {
         action: string;

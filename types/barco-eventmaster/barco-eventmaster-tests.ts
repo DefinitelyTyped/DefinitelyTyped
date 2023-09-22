@@ -1,13 +1,13 @@
-import * as EventMaster from 'barco-eventmaster';
+import * as EventMaster from "barco-eventmaster";
 
-const e2 = new EventMaster('10.0.0.1');
+const e2 = new EventMaster("10.0.0.1");
 
 e2.listPresets(-1, -1, (err, presets) => {
     if (err !== null) {
     } else {
         // $ExpectType null
         err;
-        throw new Error('Something went wrong with the event master request');
+        throw new Error("Something went wrong with the event master request");
     }
 });
 
@@ -19,4 +19,4 @@ e2.listSourceMainBackup(undefined, err => {
     err;
 });
 
-e2.subscribe('10.0.0.69', 66000, ['AUXDestChanged', 'StillChanged']);
+e2.subscribe("10.0.0.69", 66000, ["AUXDestChanged", "StillChanged"]);

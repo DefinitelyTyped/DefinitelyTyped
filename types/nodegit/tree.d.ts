@@ -33,7 +33,6 @@ export class Tree {
     entryByPath(path: string): Promise<TreeEntry>;
     entryCount(): number;
 
-    free(): void;
     id(): Oid;
     owner(): Repository;
     /**

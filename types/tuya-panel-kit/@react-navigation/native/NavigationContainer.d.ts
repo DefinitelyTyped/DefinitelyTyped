@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { NavigationContainerProps, NavigationContainerRef } from '../core';
-import type { Theme, LinkingOptions, DocumentTitleOptions } from './types';
+import * as React from "react";
+import { NavigationContainerProps, NavigationContainerRef } from "../core";
+import type { DocumentTitleOptions, LinkingOptions, Theme } from "./types";
 /**
  * Container component which holds the navigation state designed for React Native apps.
  * This should be rendered at the root wrapping the whole app.
@@ -17,15 +17,17 @@ import type { Theme, LinkingOptions, DocumentTitleOptions } from './types';
  * @param props.children Child elements to render the content.
  * @param props.ref Ref object which refers to the navigation object containing helper methods.
  */
-declare const NavigationContainer: React.ForwardRefExoticComponent<NavigationContainerProps & {
-    // tslint:disable-next-line no-redundant-undefined
-    theme?: Theme | undefined;
-    // tslint:disable-next-line no-redundant-undefined
-    linking?: LinkingOptions | undefined;
-    fallback?: React.ReactNode | undefined;
-    // tslint:disable-next-line no-redundant-undefined
-    documentTitle?: DocumentTitleOptions | undefined;
-    // tslint:disable-next-line no-redundant-undefined
-    onReady?: (() => void) | undefined;
-} & React.RefAttributes<NavigationContainerRef>>;
+declare const NavigationContainer: React.ForwardRefExoticComponent<
+    NavigationContainerProps & {
+        // tslint:disable-next-line no-redundant-undefined
+        theme?: Theme | undefined;
+        // tslint:disable-next-line no-redundant-undefined
+        linking?: LinkingOptions | undefined;
+        fallback?: React.ReactNode | undefined;
+        // tslint:disable-next-line no-redundant-undefined
+        documentTitle?: DocumentTitleOptions | undefined;
+        // tslint:disable-next-line no-redundant-undefined
+        onReady?: (() => void) | undefined;
+    } & React.RefAttributes<NavigationContainerRef>
+>;
 export default NavigationContainer;

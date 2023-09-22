@@ -10,7 +10,7 @@
  * @format
  */
 
-export type Format = 'd' | 'dm' | 'dms';
+export type Format = "d" | "dm" | "dms";
 export type Dp = number;
 
 export interface Plural<T> {
@@ -41,15 +41,15 @@ export interface GeoJSON {
 
 export type Polygon<T> = T[];
 
-import './latlon-ellipsoidal-datum';
-import './dms';
-import './latlon-ellipsoidal-referenceframe';
-import './latlon-ellipsoidal-vincenty';
-import './latlon-ellipsoidal';
-import './latlon-nvector-ellipsoidal';
-import './latlon-nvector-spherical';
-import './latlon-spherical';
-import './mgrs';
-import './osgridref';
-import './utm';
-import './vector3d';
+import "./latlon-ellipsoidal-datum";
+import "./dms";
+import "./latlon-ellipsoidal-referenceframe";
+import "./latlon-ellipsoidal-vincenty";
+import "./latlon-ellipsoidal";
+import "./latlon-nvector-ellipsoidal";
+import "./latlon-nvector-spherical";
+import "./latlon-spherical";
+import "./mgrs";
+import "./osgridref";
+import "./utm";
+import "./vector3d";

@@ -16,7 +16,7 @@ declare namespace naver.maps {
     /***** static members *****/
     let VERSION: string;
     let jsContentLoaded: boolean;
-    function onJsContentLoaded(...args: any): void;
+    function onJSContentLoaded(...args: any): void;
 
     // --------------------------------------------------------------------------
     //  Types

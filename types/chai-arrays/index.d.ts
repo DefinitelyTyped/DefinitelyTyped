@@ -20,6 +20,7 @@ declare global {
             containingAllOf(values: any[]): Assertion;
             containingAnyOf(values: any[]): Assertion;
             sorted(): Assertion;
+            sorted<TElement = any>(comparefn: (a: TElement, b: TElement) => number): Assertion;
         }
 
         interface Assert {
@@ -34,6 +35,7 @@ declare global {
             containingAllOf(val: any[], values: any[], msg?: string): void;
             containingAnyOf(val: any[], values: any[], msg?: string): void;
             sorted(val: any[], msg?: string): void;
+            sorted<TElement>(val: TElement[], comparefn: (a: TElement, b: TElement) => number, msg?: string): void;
         }
     }
 }

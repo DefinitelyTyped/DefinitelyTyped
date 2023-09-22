@@ -3,7 +3,6 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function jjv(): jjv.Env;
 
 declare namespace jjv {
@@ -12,7 +11,7 @@ declare namespace jjv {
             [property: string]: {
                 required?: boolean | undefined;
                 type?: string | undefined;
-            }
+            };
         };
     }
 

@@ -1,6 +1,6 @@
 const ar1 = [1, 2, 3];
 ar1.concatUnique([3, 4, 5], [6, 7, 8]);
-ar1.concatUnique([3, 4, 5], ['a', 'b', 'c']);
+ar1.concatUnique([3, 4, 5], ["a", "b", "c"]);
 
 let n: number = ar1.count(1);
 
@@ -8,14 +8,14 @@ declare const arNum: number[] | readonly number[];
 
 n = arNum.count(1, 1);
 // @ts-expect-error
-n = arNum.count('a', 1);
+n = arNum.count("a", 1);
 
 declare function countPredicate(fruit: string, index: number, array: string[]): boolean;
 declare const fruits: string[] | readonly string[];
 
 fruits.countWith(countPredicate);
 const fakeThis = {
-    propA: "string"
+    propA: "string",
 };
 
 fruits.countWith(function(value: string) {
@@ -25,11 +25,11 @@ fruits.countWith(function(value: string) {
 
 ar1.delete(1, 2);
 // @ts-expect-error
-ar1.delete(1, 'a');
+ar1.delete(1, "a");
 
 ar1.deleteAt(1, 2);
 // @ts-expect-error
-ar1.deleteAt('a', 2);
+ar1.deleteAt("a", 2);
 
 ar1.deleteWith((v: number, i: number, ar: number[]) => true);
 
@@ -67,12 +67,12 @@ ar2 = ar1.shuffle();
 
 ar1.unshiftUnique(1, 2, 3);
 // @ts-expect-error
-ar1.unshiftUnique(1, 2, 'a');
+ar1.unshiftUnique(1, 2, "a");
 
-JSON.reviveWrapper('new Character($ReviveData$)', {});
+JSON.reviveWrapper("new Character($ReviveData$)", {});
 
 n = Math.clamp(23, 0, 20);
-n = Math.clamp('23', 0, 20);
+n = Math.clamp("23", 0, 20);
 
 n = Math.trunc(1.23);
 
@@ -80,8 +80,8 @@ n = n.clamp(1, 20);
 
 const s = "str1";
 
-s.count('test');
-s.count('test', 1);
+s.count("test");
+s.count("test", 1);
 
 let s2: string = s.first();
 s2 = s.last();

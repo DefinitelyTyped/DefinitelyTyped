@@ -7,10 +7,12 @@ declare namespace GoogleAdsScripts {
         interface AccountMessageIterator extends Base.Iterator<AccountMessage> {}
 
         interface AccountMessageSelector
-            extends Base.Selector<AccountMessageIterator>,
+            extends
+                Base.Selector<AccountMessageIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

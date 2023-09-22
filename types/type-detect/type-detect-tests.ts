@@ -1,10 +1,10 @@
-import type = require('type-detect');
+import type = require("type-detect");
 
 // $ExpectType string
 type(123);
 
 // $ExpectType string
-type('foo');
+type("foo");
 
 // $ExpectType string
 type({});
@@ -23,4 +23,3 @@ type(new Map());
 
 // $ExpectType string
 type(new Set());
-

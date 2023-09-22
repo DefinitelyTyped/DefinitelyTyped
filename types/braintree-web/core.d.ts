@@ -8,7 +8,7 @@ export type callback<T = any> = (err?: BraintreeError, data?: T) => void;
 /**
  * Enum for {@link BraintreeError} types.
  */
-export type BraintreeErrorTypes = 'CUSTOMER' | 'MERCHANT' | 'NETWORK' | 'INTERNAL' | 'UNKNOWN';
+export type BraintreeErrorTypes = "CUSTOMER" | "MERCHANT" | "NETWORK" | "INTERNAL" | "UNKNOWN";
 
 export interface BraintreeError extends Error {
     /**

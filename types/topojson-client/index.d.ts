@@ -16,9 +16,9 @@ import {
     Objects,
     Point,
     Polygon,
+    Properties,
     Topology,
     Transform,
-    Properties
 } from "topojson-specification";
 
 export type Transformer = (point: number[], index?: boolean) => number[];

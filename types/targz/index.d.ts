@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as tar from 'tar-fs';
-import * as zlib from 'zlib';
+import * as tar from "tar-fs";
+import * as zlib from "zlib";
 
 export interface options {
     src: string;

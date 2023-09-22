@@ -826,6 +826,7 @@ export type StyleReference = string | Style | Array<string | Style>;
  */
 export type Content =
     | string
+    | number
     | Content[]
     | ContentText
     | ContentColumns

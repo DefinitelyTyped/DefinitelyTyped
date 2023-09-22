@@ -73,7 +73,6 @@ export class Commit {
     author(): Signature;
     committer(): Signature;
 
-    free(): void;
     headerField(field: string): Promise<Buf>;
     id(): Oid;
     message(): string;

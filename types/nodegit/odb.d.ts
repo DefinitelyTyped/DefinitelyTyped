@@ -16,7 +16,6 @@ export class Odb {
 
     addDiskAlternate(path: string): number;
 
-    free(): void;
     read(id: Oid): Promise<OdbObject>;
     write(data: Buffer, len: number, type: Object.TYPE): Promise<Oid>;
     expandIds(ids: OdbExpandId, count: number): number;

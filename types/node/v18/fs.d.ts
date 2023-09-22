@@ -3757,6 +3757,7 @@ declare module "fs" {
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
         start?: number | undefined;
+        highWaterMark?: number | undefined;
     }
     interface FSImplementation {
         open?: (...args: any[]) => any;
@@ -3772,7 +3773,6 @@ declare module "fs" {
     interface ReadStreamOptions extends StreamOptions {
         fs?: CreateReadStreamFSImplementation | null | undefined;
         end?: number | undefined;
-        highWaterMark?: number | undefined;
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;

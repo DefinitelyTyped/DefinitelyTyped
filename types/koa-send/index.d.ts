@@ -5,13 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {
-    ParameterizedContext,
-} from "koa";
+import { ParameterizedContext } from "koa";
 
-import {
-    Stats,
-} from "fs";
+import { Stats } from "fs";
 
 declare function send(ctx: ParameterizedContext, path: string, opts?: send.SendOptions): Promise<string>;
 

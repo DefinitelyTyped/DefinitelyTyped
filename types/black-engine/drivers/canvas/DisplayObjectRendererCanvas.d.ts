@@ -12,4 +12,4 @@ export class DisplayObjectRendererCanvas extends Renderer {
     render(driver: any, session: any): void;
     __refreshBitmapCache(): void;
 }
-import { Renderer } from '../Renderer';
+import { Renderer } from "../Renderer";

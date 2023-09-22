@@ -1,5 +1,5 @@
-import { Content } from "pdfmake/interfaces";
 import htmlToPdfmake from "html-to-pdfmake";
+import { Content } from "pdfmake/interfaces";
 
 export const validExample: Content = htmlToPdfmake(
     `
@@ -41,7 +41,7 @@ export const validExample: Content = htmlToPdfmake(
         },
         removeExtraBlanks: true,
         showhidden: true,
-        ignoreStyles: ['font-family'],
+        ignoreStyles: ["font-family"],
         imagesByReference: true,
         fontSizes: [1, 2, 3, 4, 5, 6, 7],
         replaceText: (text: string) => text.replace(/-/g, "\\u2011"),

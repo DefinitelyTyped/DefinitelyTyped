@@ -1,5 +1,5 @@
-import { Dropdown } from 'bootstrap';
-import * as $ from 'jquery';
+import { Dropdown } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -50,13 +50,13 @@ element.addEventListener(Dropdown.Events.hidden, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').dropdown();
+$(".alert").dropdown();
 
 // @ts-expect-error
-$('.alert').dropdown({ flip: true });
-$('.alert').dropdown({ offset: [0, 2], autoClose: true }); // $ExpectType JQuery<HTMLElement>
+$(".alert").dropdown({ flip: true });
+$(".alert").dropdown({ offset: [0, 2], autoClose: true }); // $ExpectType JQuery<HTMLElement>
 
-$('.alert').dropdown('show'); // $ExpectType JQuery<HTMLElement>
-$('.alert').dropdown('hide'); // $ExpectType JQuery<HTMLElement>
-$('.alert').dropdown('toggle'); // $ExpectType JQuery<HTMLElement>
-$('.alert').dropdown('update'); // $ExpectType JQuery<HTMLElement>
+$(".alert").dropdown("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").dropdown("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").dropdown("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").dropdown("update"); // $ExpectType JQuery<HTMLElement>

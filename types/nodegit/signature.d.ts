@@ -9,7 +9,6 @@ export class Signature {
 
     dup(): Promise<Signature>;
 
-    free(): void;
     toString(): string;
     name(): string;
     email(): string;

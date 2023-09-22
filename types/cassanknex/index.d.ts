@@ -8,7 +8,7 @@
 
 import { Client, ClientOptions, types, ValueCallback } from "cassandra-driver";
 import { EventEmitter } from "events";
-import * as Long from "long";
+import Long = require("long");
 import { Readable } from "stream";
 
 declare function CassanKnex(options?: CassanKnex.DriverOptions): CassanKnex.CassanKnex;

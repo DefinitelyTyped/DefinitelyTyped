@@ -29,4 +29,4 @@ export class Circle {
 export namespace Circle {
     const __cache: Circle;
 }
-import { Vector } from './Vector';
+import { Vector } from "./Vector";

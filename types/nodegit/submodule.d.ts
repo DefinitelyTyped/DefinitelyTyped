@@ -62,7 +62,6 @@ export class Submodule {
     branch(): string;
     fetchRecurseSubmodules(): number;
 
-    free(): void;
     headId(): Oid;
     ignore(): number;
     indexId(): Oid;

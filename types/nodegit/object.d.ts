@@ -12,7 +12,6 @@ export class Object {
 
     dup(): Promise<Object>;
 
-    free(): void;
     id(): Oid;
     lookupByPath(path: string, type: Object.TYPE): Promise<Object>;
     owner(): Repository;
