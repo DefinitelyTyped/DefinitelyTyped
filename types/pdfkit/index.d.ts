@@ -465,6 +465,12 @@ declare namespace PDFKit.Mixins {
         textIndent?: number | undefined;
         destination?: string | undefined;
         goTo?: string | undefined;
+        /** The parent structure element to add this child element to, for usage with text() and list() */
+        structParent?: PDFStructureElement | undefined;
+        /** The marking type used by text(), defaults to 'P' */
+        structType?: string | undefined;
+        /** The marking types used by items of list(), defaults to [ 'LI', 'Lbl', 'LBody' ] */
+        structTypes?: [string | null, string | null, string | null] | undefined;
     }
 
     interface PDFText {
@@ -554,7 +560,7 @@ declare namespace PDFKit.Mixins {
         endMarkedContent(): this;
         struct(
             tag: string,
-            options?: MarkingOptions,
+            options?: StructureElementOptions,
             children?: PDFStructureElementChild | PDFStructureElementChild[],
         ): PDFStructureElement;
         addStructure(structElem: PDFStructureElement): this;
@@ -571,6 +577,13 @@ declare namespace PDFKit.Mixins {
         type?: "Pagination" | "Layout" | "Page";
         bbox?: [number, number, number, number];
         attached?: string[];
+        lang?: string;
+        alt?: string;
+        expanded?: string;
+        actual?: string;
+    }
+    interface StructureElementOptions {
+        title?: string;
         lang?: string;
         alt?: string;
         expanded?: string;

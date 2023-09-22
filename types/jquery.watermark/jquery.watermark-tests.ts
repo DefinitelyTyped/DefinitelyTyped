@@ -1,8 +1,8 @@
-$('#inputId').watermark('Required information');
-$('#inputId').watermark('Required information', { className: 'myClassName' });
-$('#inputId').watermark('Search', { useNative: false });
+$("#inputId").watermark("Required information");
+$("#inputId").watermark("Required information", { className: "myClassName" });
+$("#inputId").watermark("Search", { useNative: false });
 
-$.watermark.options.className = 'myClass';
+$.watermark.options.className = "myClass";
 
 $.watermark.options.useNative = false;
 
@@ -12,13 +12,13 @@ $.watermark.options.useNative = myFunction;
 $.watermark.options.hideBeforeUnload = false;
 
 $.watermark.options = {
-    className: 'myClass',
+    className: "myClass",
     useNative: false,
-    hideBeforeUnload: false
+    hideBeforeUnload: false,
 };
 
 $.watermark.options.hideBeforeUnload = true;
-$.watermark.show('input.optional');
-$.watermark.hide('#myInput');
+$.watermark.show("input.optional");
+$.watermark.hide("#myInput");
 $.watermark.showAll();
 $.watermark.hideAll();

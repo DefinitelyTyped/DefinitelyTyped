@@ -6,9 +6,9 @@
 
 /// <reference types="karma-coverage" />
 
-import 'karma';
+import "karma";
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Key-value pairs where key is report type and value - path to file/dir where to save it.

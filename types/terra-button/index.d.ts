@@ -4,5 +4,5 @@
 //                 Kyle Berkley <https://github.com/Berkyle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/Button';
-export { default } from './lib/Button';
+export * from "./lib/Button";
+export { default } from "./lib/Button";

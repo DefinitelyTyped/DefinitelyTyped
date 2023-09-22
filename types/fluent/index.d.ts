@@ -16,7 +16,7 @@ export class FluentType {
     valueOf(): any;
 }
 
-export class FluentNone extends FluentType  {}
+export class FluentNone extends FluentType {}
 export class FluentNumber extends FluentType {}
 export class FluentDateTime extends FluentType {}
 

@@ -14,7 +14,7 @@ export type ReactComponentLike =
 export interface ReactElementLike {
     type: ReactComponentLike;
     props: any;
-    key: string | number | null;
+    key: string | number | bigint | null;
 }
 
 export interface ReactNodeArray extends Iterable<ReactNodeLike> {}

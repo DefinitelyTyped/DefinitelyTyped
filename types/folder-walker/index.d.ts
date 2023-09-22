@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import * as fs from 'fs';
+import * as fs from "fs";
 
 interface WalkerOptions {
     fs?: NodeRequire;

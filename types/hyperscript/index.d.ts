@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module 'hyperscript' {
-
+declare module "hyperscript" {
     interface HyperScript {
         /** Creates an Element */
         <T extends keyof ElementTagNameMap>(tagName: T, attrs?: Object, ...children: any[]): ElementTagNameMap[T];

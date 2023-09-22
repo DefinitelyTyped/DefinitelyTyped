@@ -78,7 +78,7 @@ export interface Settings {
 
     table_default_styles?: object | string | undefined;
 
-    table_sizing_mode?: 'fixed' | 'relative' | 'responsive' | 'auto' | undefined;
+    table_sizing_mode?: "fixed" | "relative" | "responsive" | "auto" | undefined;
 
     table_class_list?: object[] | undefined;
 

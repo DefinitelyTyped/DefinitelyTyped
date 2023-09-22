@@ -82,11 +82,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ShoppingCampaignAudienceSelector
-            extends Base.Selector<ShoppingCampaignAudienceIterator>,
+            extends
+                Base.Selector<ShoppingCampaignAudienceIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

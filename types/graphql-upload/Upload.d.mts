@@ -1,4 +1,4 @@
-import { ReadStream } from 'fs-capacitor';
+import { ReadStream } from "fs-capacitor";
 
 export interface FileUpload {
     filename: string;

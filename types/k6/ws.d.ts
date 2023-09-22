@@ -1,4 +1,4 @@
-import { CookieJar } from './http';
+import { CookieJar } from "./http";
 
 /**
  * Open WebSocket connection.
@@ -190,7 +190,7 @@ export abstract class Socket {
 /**
  * Event type.
  */
-export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong' | 'binaryMessage';
+export type EventType = "close" | "error" | "message" | "open" | "ping" | "pong" | "binaryMessage";
 
 /**
  * Timer handler.
@@ -205,20 +205,13 @@ export interface TimerHandler {
 /**
  * Event handler. Signature varies with event type.
  */
-export type EventHandler<ET extends EventType> = ET extends 'close'
-    ? CloseEventHandler
-    : ET extends 'error'
-    ? ErrorEventHandler
-    : ET extends 'message'
-    ? MessageEventHandler
-    : ET extends 'binaryMessage'
-    ? BinaryMessageEventHandler
-    : ET extends 'open'
-    ? OpenEventHandler
-    : ET extends 'ping'
-    ? PingEventHandler
-    : ET extends 'pong'
-    ? PongEventHandler
+export type EventHandler<ET extends EventType> = ET extends "close" ? CloseEventHandler
+    : ET extends "error" ? ErrorEventHandler
+    : ET extends "message" ? MessageEventHandler
+    : ET extends "binaryMessage" ? BinaryMessageEventHandler
+    : ET extends "open" ? OpenEventHandler
+    : ET extends "ping" ? PingEventHandler
+    : ET extends "pong" ? PongEventHandler
     : never;
 
 /**

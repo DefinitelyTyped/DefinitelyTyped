@@ -13,5 +13,4 @@ export class Hashsig {
 
     compare(b: Hashsig): number;
 
-    free(): void;
 }

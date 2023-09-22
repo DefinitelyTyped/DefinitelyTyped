@@ -1,9 +1,9 @@
-import walker = require('folder-walker');
+import walker = require("folder-walker");
 
 // $ExpectType ReadableStream
-const stream = walker(['./somedir']);
+const stream = walker(["./somedir"]);
 
-stream.on('data', (file: walker.Entry) => {
+stream.on("data", (file: walker.Entry) => {
     // $ExpectType Entry
     const _ = file;
 });

@@ -48,7 +48,8 @@ export interface BreadthOptions<Node, Value, Children extends Node[] | Promise<N
 }
 
 export interface DepthOptions<Node, Value, Children extends Node[] | Promise<Node[]>>
-    extends BreadthOptions<Node, Value, Children> {
+    extends BreadthOptions<Node, Value, Children>
+{
     /**
      * Called as we ascend back to the root of the tree.
      *
