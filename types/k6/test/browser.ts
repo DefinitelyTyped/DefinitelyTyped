@@ -141,6 +141,10 @@ browserContext.addCookies([{
 }]);
 // @ts-expect-error
 browserContext.cookies()[0].sameSite = 'NotAllowed';
+// @ts-expect-error
+browserContext.addCookies([{ /* without value */ name: 'foo' }]);
+// @ts-expect-error
+browserContext.addCookies([{ /* without name */ value: 'bar' }]);
 // $ExpectType Cookie[]
 browserContext.cookies();
 // $ExpectType Cookie[]
