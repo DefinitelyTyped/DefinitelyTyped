@@ -40,6 +40,7 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
+type LiteralUnion<T extends U, U = string> = T | (U & never)
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
@@ -2551,7 +2552,7 @@ declare namespace React {
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
-        type?: 'module' | 'importmap' | string;
+        type?: LiteralUnion<'module' | 'importmap'>;
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
