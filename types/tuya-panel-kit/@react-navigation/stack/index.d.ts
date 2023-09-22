@@ -6,7 +6,7 @@ import * as TransitionSpecs from "./TransitionConfigs/TransitionSpecs";
  * Navigators
  */
 export { default as createStackNavigator } from "./navigators/createStackNavigator";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare const Assets: any[];
 /**
  * Views

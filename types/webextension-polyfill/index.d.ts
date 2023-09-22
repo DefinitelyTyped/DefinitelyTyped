@@ -179,7 +179,7 @@ declare namespace Browser {
         windows: Windows.Static;
     }
 
-    /* tslint:disable:strict-export-declare-modifiers */
+    /* eslint-disable @definitelytyped/strict-export-declare-modifiers */
     export import ActivityLog = ImportedActivityLog;
     export import Alarms = ImportedAlarms;
     export import Bookmarks = ImportedBookmarks;
@@ -235,7 +235,6 @@ declare namespace Browser {
     export import WebNavigation = ImportedWebNavigation;
     export import WebRequest = ImportedWebRequest;
     export import Windows = ImportedWindows;
-    /* tslint:enable:strict-export-declare-modifiers */
 }
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace

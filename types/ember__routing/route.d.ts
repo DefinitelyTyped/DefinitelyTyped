@@ -7,7 +7,7 @@ import Evented from '@ember/object/evented';
 import { RouteQueryParam } from '@ember/routing/types';
 import Controller from '@ember/controller';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
 /**
