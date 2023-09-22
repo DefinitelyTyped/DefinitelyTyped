@@ -18,5 +18,5 @@ export class SoundChannel {
     get _inputNode(): AudioNode;
     get _outputNode(): AudioNode;
 }
-import { SoundInstance } from './SoundInstance';
-import { SoundEffect } from './SoundEffect';
+import { SoundEffect } from "./SoundEffect";
+import { SoundInstance } from "./SoundInstance";

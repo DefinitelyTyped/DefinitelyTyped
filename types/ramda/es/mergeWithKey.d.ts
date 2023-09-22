@@ -1,2 +1,2 @@
-import { mergeWithKey } from '../index';
+import { mergeWithKey } from "../index";
 export default mergeWithKey;

@@ -1,4 +1,4 @@
-import { AsyncOptions, StreamOptions } from '@json2csv/plainjs';
+import { AsyncOptions, StreamOptions } from "@json2csv/plainjs";
 
 export default class JSON2CSVWHATWGTransformStream<I = any, O = any> extends TransformStream {
     constructor(

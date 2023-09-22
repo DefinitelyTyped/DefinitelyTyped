@@ -360,7 +360,7 @@ export function structuredPatch(
  * Applies a unified diff patch.
  *
  * @param patch May be a string diff or the output from the `parsePatch()` or `structuredPatch()` methods.
- * @returns A string containing new version of provided data.
+ * @returns A string containing new version of provided data. false when failed
  */
 export function applyPatch(
     source: string,

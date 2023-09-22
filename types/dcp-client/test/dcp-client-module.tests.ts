@@ -80,7 +80,8 @@ export const loadOptions: LoadOptions = {
     // #region Job Tests
     const initialSliceProfile = {};
     // $ExpectType Keystore
-    const keystore = new Keystore();
+    const keystore = await new Keystore();
+
     const iterable = [1, 2, 3, 4, 5];
     const MY_RESEARCH_URL = "https://localhost:8080/someURL";
 

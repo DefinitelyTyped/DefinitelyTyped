@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Router } from 'koa-joi-router';
+import { Router } from "koa-joi-router";
 
 export {};
 

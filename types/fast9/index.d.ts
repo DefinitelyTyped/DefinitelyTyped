@@ -9,7 +9,7 @@ export function fast9_score(im: Uint8Array, xsize: number, ysize: number, corner
 export function nonmax_suppression(corners: Corner[], scores: number[]): Corner[];
 
 export interface Corner {
-  x: number;
-  y: number;
-  score: number;
+    x: number;
+    y: number;
+    score: number;
 }

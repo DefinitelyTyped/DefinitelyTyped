@@ -14,8 +14,9 @@ helper.denormalised;
 // $ExpectType string
 helper.toSVG();
 
-// $ExpectType Polyline[]
+// $ExpectType PolylineExport
 helper.toPolylines();
+
 
 const { entities } = helper.parsed!;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-import * as File from 'vinyl';
+import * as File from "vinyl";
 
 declare namespace rename {
     interface ParsedPath {
@@ -26,5 +26,8 @@ declare namespace rename {
     }
 }
 
-declare function rename(obj: string|rename.Options|((path: rename.ParsedPath, file: File) => rename.ParsedPath|void), options?: rename.PluginOptions): NodeJS.ReadWriteStream;
+declare function rename(
+    obj: string | rename.Options | ((path: rename.ParsedPath, file: File) => rename.ParsedPath | void),
+    options?: rename.PluginOptions,
+): NodeJS.ReadWriteStream;
 export = rename;

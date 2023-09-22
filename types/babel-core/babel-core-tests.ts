@@ -2,7 +2,7 @@ import * as babel from "babel-core";
 
 // Slightly modified example from https://github.com/babel/babel/tree/master/packages/babel-core
 const code = `class Example {}`;
-const result = babel.transform(code, { /* options */ });
+const result = babel.transform(code, {/* options */});
 result.code; // Generated code
 result.map; // Sourcemap
 result.ast; // AST
@@ -19,7 +19,7 @@ const options: babel.TransformOptions = {
     ],
     only: /.*\.js/,
     ast: false,
-    sourceMaps: true
+    sourceMaps: true,
 };
 
 babel.transformFile("filename.js", options, (err, result) => {
@@ -33,18 +33,18 @@ babel.transformFile("filename.js", options, (err, result) => {
 babel.transformFileSync("filename.js", options).code;
 
 // Slightly modified example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#-pre-and-post-in-plugins
-export default function(): babel.PluginObj<{ cache: Map<string, number>}> {
+export default function(): babel.PluginObj<{ cache: Map<string, number> }> {
     return {
         pre(state) {
             this.cache = new Map();
         },
         visitor: {
             StringLiteral(path) {
-            this.cache.set(path.node.value, 1);
-            }
+                this.cache.set(path.node.value, 1);
+            },
         },
         post(state) {
             return this.cache;
-        }
+        },
     };
 }

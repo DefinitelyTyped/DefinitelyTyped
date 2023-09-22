@@ -1,4 +1,4 @@
-// Type definitions for oracledb 5.3
+// Type definitions for oracledb 6.0
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 //                 Dan Beglin <https://github.com/dannyb648>
@@ -321,19 +321,6 @@ declare namespace OracleDB {
      */
     let events: boolean;
     /**
-     * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
-     *
-     * With this value, the result.metaData result.resultSet.metaData objects only include column names.
-     *
-     * If extendedMetaData is true then metaData will contain additional attributes.
-     *
-     * This property may be overridden in an execute() call.
-     *
-     * @default false
-     * @since 1.10
-     */
-    let extendedMetaData: boolean;
-    /**
      * If true, connections will be established using external authentication.
      *
      * The user and password properties should not be set when externalAuth is true.
@@ -405,6 +392,25 @@ declare namespace OracleDB {
      * maxRows limit.
      *
      * @default 0 (unlimited)
+     */
+    function fetchTypeHandler(metadata: Metadata<any>): Promise<void>;
+    /**
+     * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
+        * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
+        * dbType: The database type, that is, one of the Oracle Database Type Objects.
+        * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
+        * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
+        * name: The name of the column.
+        * nullable: Indicates whether NULL values are permitted for this column.
+        * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+        * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * By default, this property is “undefined”, that is, it is not set.
+     * The function is expected to return either nothing or an object containing:
+        * the type attribute
+        * or the converter attribute
+        * or both the type and converter attributes
+     * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
+     * This property can be overridden by the fetchTypeHandler option in execute().
      */
     let maxRows: number;
     /**
@@ -594,6 +600,17 @@ declare namespace OracleDB {
      * @default 30
      */
     let stmtCacheSize: number;
+    /**
+     * This property is a boolean that determines the node-oracledb driver mode which is in use. If the value is true, it indicates that node-oracledb Thin mode is in use. 
+     * If the value is false, it indicates that node-oracledb Thick mode is in use.
+     * The default value is true.
+     * Immediately after node-oracledb is imported, this property is set to true indicating that node-oracledb defaults to Thin mode. If oracledb.initOracleClient() is called, 
+     * then the value of this property is set to False indicating that Thick mode is enabled. Once the first standalone connection or connection pool is created, 
+     * or a call to oracledb.initOracleClient() is made, then node-oracledb’s mode is fixed and the value set in oracledb.thin will never change for the lifetime of the process.
+     * The property connection.thin can be used to check a connection’s mode and the attribute pool.thin can be used to check a pool’s mode. 
+     * The value that is displayed for the connection.thin, pool.thin, and oracledb.thin attributes will be the same.
+     */
+    let thin: boolean;
     /**
      * This readonly property gives a numeric representation of the node-oracledb version.
      * For version x.y.z, this property gives the number: (10000 * x) + (100 * y) + z
@@ -1036,7 +1053,14 @@ declare namespace OracleDB {
          */
         getStatementInfo(sql: string): Promise<StatementInfo>;
         getStatementInfo(sql: string, callback: (error: DBError, info: StatementInfo) => void): void;
-
+        /**
+         * This synchronous function returns a boolean indicating the health status of a connection.
+         * Connections may become unusable in several cases, such as if the network socket is broken, if an Oracle error indicates the connection is unusable or after receiving a planned down notification from the database.
+         * This function is best used before starting a new database request on an existing standalone connection. Pooled connections internally perform this check before returning a connection to the application.
+         * If this function returns false, the connection should be closed by the application and a new connection should be established instead.
+         * This function performs a local check. To fully check a connection’s health, use connection.ping() which performs a round-trip to the database.
+         */
+        isHealthy(): boolean;
         /**
          * This method checks that a connection is currently usable and the network to the database is valid.
          * This call can be useful for system health checks. A ping only confirms that a single connection
@@ -1341,6 +1365,18 @@ declare namespace OracleDB {
          */
         connectionString?: string | undefined;
         /**
+         * Enhanced Mail (PEM)-encoded private certificate, if it is encrypted.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        walletPassword?: string | undefined;
+        /**
+         * The directory where the wallet can be found. In node-oracledb Thin mode, this must be the directory that contains the PEM-encoded wallet file.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        walletLocation?: string | undefined;
+        /**
          * Sets the name used for Edition-Based Redefinition by this connection.
          * This optional property overrides the oracledb.edition property.
          *
@@ -1384,6 +1420,19 @@ declare namespace OracleDB {
         password?: string | undefined;
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
+         */
+        configDir?: string | undefined;
+        /**
+         * The directory in which the Optional Oracle Net Configuration Files are found.
+         * For node-oracledb Thick mode, use the oracledb.initOracleClient() option configDir instead.
+        * @since 6.0
+         */
+        sourceRoute?: string | undefined;
+        /**
+         * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
+         *  The default value is ON.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * @since 6.0
          */
         poolAlias?: string | undefined;
         /**
@@ -1429,6 +1478,10 @@ declare namespace OracleDB {
 
     interface DBError extends Error {
         /**
+         * This property is a string that represents the error code, which is the error prefix followed by the error number, for example ORA-01017, DPI-1080, and NJS-500.
+         */
+        code?: string | undefined;
+        /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
         errorNum?: number | undefined;
@@ -1446,6 +1499,13 @@ declare namespace OracleDB {
          * The value may be 0 in non-SQL contexts. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
         offset?: number | undefined;
+        /**
+         * This property is a string. When using Promises or Async/Await, the Error object includes a stack
+         * 
+         * The stack trace displays only the application backtrace and not the driver’s internal frames or functions.
+         * See Increasing the Stack Trace Limit to understand how to increase the number of stack frames displayed in a trace.
+         */
+        stack?: string | undefined;
     }
 
     /**
@@ -1475,16 +1535,6 @@ declare namespace OracleDB {
          */
         dbObjectAsPojo?: boolean | undefined;
         /**
-         * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
-         *
-         * With this value, the result.metaData result.resultSet.metaData objects only include column names.
-         *
-         * If extendedMetaData is true then metaData will contain additional attributes.
-         *
-         * @default false
-         */
-        extendedMetaData?: boolean | undefined;
-        /**
          * This property sets the size of an internal buffer used for fetching query rows from Oracle Database.
          * Changing it may affect query performance but does not affect how many rows are returned to the application.
          *
@@ -1501,6 +1551,9 @@ declare namespace OracleDB {
          */
         fetchArraySize?: number | undefined;
         /**
+         * Depreciated in Version 6.0.0
+         * Use the oracledb.fetchTypeHandler method instead.
+         * 
          * Defines how query column data should be represented in JavaScript. It can be used in conjunction with,
          * or instead of, the global settings fetchAsString and fetchAsBuffer.
          *
@@ -2074,6 +2127,103 @@ declare namespace OracleDB {
          */
         poolAlias?: string | undefined;
         /**
+         * The directory in which the Optional Oracle Net Configuration Files are found.
+         * For node-oracledb Thick mode, use the oracledb.initOracleClient() option configDir.
+         * @since 6.0
+         */
+        configDir?: string | undefined;
+        /**
+         * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
+         * The default value is ON.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sourceRoute?: string | undefined;
+        /**
+         * The distinguished name (DN) that should be matched with the server. If specified, this value is used for any verification. Otherwise, the hostname will be used.
+         * This value is ignored if the sslServerDNMatch property is not set to the value True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0     
+         */
+        sslServerCertDN?: string | undefined;
+        /**
+         * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
+         * If the sslServerCertDN parameter is not provided, host name matching is performed instead.
+         * The default value is True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sslServerDNMatch?: boolean | undefined;
+        /**
+         * The name or IP address of a proxy host to use for tunneling secure connections.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         */
+        httpsProxy?: string | undefined;
+        /**
+         * 	
+         * The port to be used to communicate with the proxy host.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * 
+         * @since 6.0
+         * @default 0
+         */
+        httpsProxyPort?: number | undefined;
+        /**
+         * 	
+         * The number of times that a connection attempt should be retried before the attempt is terminated.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * 
+         * @since 6.0
+         * @default 0
+         */
+        retryCount?: number | undefined;
+        /**
+         * The number of seconds to wait before making a new connection attempt.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * 
+         * @since 6.0
+         * @default 0
+         */
+        retryDelay?: number | undefined;
+        /**
+         * The timeout duration in seconds for an application to establish an Oracle Net connection.
+         * There is no timeout by default.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        connectTimeout?: number | undefined;
+        /**
+         * 	
+         * The maximum number of seconds to wait to establish a connection to the database host.
+         * The default value is 60.0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @default 60.0
+         * @since 6.0
+         */
+        transportConnectTimeout?: number | undefined;
+        /**
+         * The number of minutes between the sending of keepalive probes. If this property is set to a value greater than zero, it enables the keepalive probes.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @default 0
+         * @since 6.0
+         */
+        expireTime?: number | undefined;
+        /**
+         * The Oracle Net Session Data Unit (SDU) packet size in bytes. The database server configuration should also set this parameter.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sdu?: number | undefined;
+        /**
+         * The application specific prefix parameter that is added to the connection identifier.
+         * @since 6.0
+         */
+        connectionIdPrefix?: string | undefined;
+        /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          * This optional property overrides the oracledb.poolIncrement property.
          *
@@ -2498,8 +2648,7 @@ declare namespace OracleDB {
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
          *
-         * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
-         * are true then additional information is included.
+         * Each column’s name is always given. 
          */
         metaData?: Metadata<T>[] | undefined;
         /**
@@ -2590,8 +2739,7 @@ declare namespace OracleDB {
         /**
          * Contains an array of objects with metadata about the query or REF CURSOR columns.
          *
-         * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option
-         * extendedMetaData are true then additional information is included.
+         * Each column’s name is always given.
          */
         readonly metaData: Metadata<T>[];
 

@@ -221,7 +221,9 @@ declare namespace formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename"> {
+    interface FileJSON
+        extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename">
+    {
         length: number;
         mimetype: string | null;
         mtime: Date | null;

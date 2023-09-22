@@ -4,6 +4,6 @@
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { default as get } from './get';
-export { default as post } from './post';
-export { default as put } from './put';
+export { default as get } from "./get";
+export { default as post } from "./post";
+export { default as put } from "./put";

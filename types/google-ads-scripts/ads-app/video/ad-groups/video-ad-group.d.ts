@@ -137,11 +137,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface VideoAdGroupSelector
-            extends Base.Selector<VideoAdGroupIterator>,
+            extends
+                Base.Selector<VideoAdGroupIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

@@ -14,7 +14,7 @@ export type RenderType = string;
 export type RenderEngine = "dot" | "neato" | "circo" | "fdp" | "osage" | "twopi";
 
 export interface Options {
-  [key: string]: PossibleValue;
+    [key: string]: PossibleValue;
 }
 
 export interface HasAttributes {
@@ -38,9 +38,9 @@ export interface ErrorCallback {
 }
 
 export interface RenderOptions {
-  /**
-   * graphviz output file type
-   */
+    /**
+     * graphviz output file type
+     */
     type: RenderType;
 
     /**
@@ -94,8 +94,16 @@ export interface Graph extends HasAttributes {
     // Path containing Graphviz binaries.
     setGraphVizPath(directoryPath: string): void;
 
-    render(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
-    output(type_options: string | RenderOptions, filename_callback: string | OutputCallback, errback?: ErrorCallback): void;
+    render(
+        type_options: string | RenderOptions,
+        filename_callback: string | OutputCallback,
+        errback?: ErrorCallback,
+    ): void;
+    output(
+        type_options: string | RenderOptions,
+        filename_callback: string | OutputCallback,
+        errback?: ErrorCallback,
+    ): void;
 
     edgeCount(): number;
     to_dot(): string;

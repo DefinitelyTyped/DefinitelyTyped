@@ -1,2 +1,2 @@
-import { symmetricDifferenceWith } from '../index';
+import { symmetricDifferenceWith } from "../index";
 export default symmetricDifferenceWith;

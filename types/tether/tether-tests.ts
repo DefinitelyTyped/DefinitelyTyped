@@ -1,4 +1,4 @@
-///<reference types="jquery" />
+/// <reference types="jquery" />
 import Tether = require("tether");
 
 var yellowBox = document.querySelector(".yellow");
@@ -11,9 +11,9 @@ new Tether({
     offset: "-15px 0",
     targetOffset: "0 0",
     classes: {
-      'element': false,
-      'target': 'someClassName'
-    }
+        "element": false,
+        "target": "someClassName",
+    },
 });
 
 new Tether({
@@ -21,8 +21,8 @@ new Tether({
     target: greenBox,
     attachment: "top left",
     optimizations: {
-        gpu: false
-    }
+        gpu: false,
+    },
 });
 
 new Tether({
@@ -33,13 +33,13 @@ new Tether({
     constraints: [
         {
             to: "scrollParent",
-            pin: true
+            pin: true,
         },
         {
             to: "window",
-            attachment: "together"
-        }
-    ]
+            attachment: "together",
+        },
+    ],
 });
 
 new Tether({
@@ -50,7 +50,7 @@ new Tether({
     constraints: [
         {
             to: "scrollParent",
-            pin: ["top"]
-        }
-    ]
+            pin: ["top"],
+        },
+    ],
 });

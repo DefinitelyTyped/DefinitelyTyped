@@ -346,3 +346,7 @@ bool = range.intersects(new semver.Range('', { includePrerelease: true }));
 const sets: ReadonlyArray<ReadonlyArray<semver.Comparator>> = range.set;
 
 const lims: ReadonlyArray<semver.Comparator> = range.parseRange(str);
+
+function isRelativeVersionKeyword(val: string): val is semver.ReleaseType {
+  return semver.RELEASE_TYPES.indexOf(val as semver.ReleaseType) > -1;
+}

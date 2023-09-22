@@ -1,9 +1,9 @@
-import HTTPSnippet = require('httpsnippet');
+import HTTPSnippet = require("httpsnippet");
 
 const snippet = new HTTPSnippet({
-    method: 'POST',
-    url: 'https://asd',
-    httpVersion: '2.0',
+    method: "POST",
+    url: "https://asd",
+    httpVersion: "2.0",
     cookies: [],
     headers: [],
     bodySize: 0,
@@ -12,4 +12,4 @@ const snippet = new HTTPSnippet({
 });
 
 // $ExpectType string | false
-snippet.convert('c', 'libcurl');
+snippet.convert("c", "libcurl");

@@ -11,5 +11,5 @@ declare function GitBranch(cwd?: string, callback?: (err: null | string, name: s
 declare function GitBranch(callback: (err: null | string, name: string) => void): void;
 
 declare namespace GitBranch {
-  function sync(cwd?: string): string;
+    function sync(cwd?: string): string;
 }
