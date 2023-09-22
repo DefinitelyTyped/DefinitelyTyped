@@ -1,7 +1,7 @@
 import { PositiveInteger, State } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-state-machine-structure.html
-type StateMachineDefinition = {
+export interface StateMachineDefinition {
     StartAt: string;
     States: {
         [state: string]: State;
@@ -9,4 +9,6 @@ type StateMachineDefinition = {
     Comment?: string;
     Version?: string;
     TimeoutSeconds?: PositiveInteger;
-};
+}
+
+export {};

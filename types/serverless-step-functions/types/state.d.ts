@@ -7,31 +7,35 @@ import { Succeed } from './succeed';
 import { Task } from './task';
 import { Wait } from './wait';
 
-type JsonPrimitive = string | number | boolean | null;
-type JsonObject = { [member: string]: JsonValue };
-interface JsonArray extends Array<JsonValue> {}
-type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+export type JsonPrimitive = string | number | boolean | null;
+export interface JsonObject {
+    [member: string]: JsonValue;
+}
+export interface JsonArray extends Array<JsonValue> {}
+export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-intrinsic-functions.html
-type IntrinsicFunction = string;
-type Resource = string | { 'Fn::GetAtt': [string, 'Arn'] } | { 'Fn::Join': [string, Resource[]] };
+export type IntrinsicFunction = string;
+export type Resource = string | { 'Fn::GetAtt': [string, 'Arn'] } | { 'Fn::Join': [string, Resource[]] };
 
-type JsonPath = string; // constraint: starts with $.
-type NullableJsonPath = JsonPath | null;
+export type JsonPath = string; // constraint: starts with $.
+export type NullableJsonPath = JsonPath | null;
 
-type PositiveInteger = number; // constraint: > 0 && < 99999999
-type Percentage = number; // constraint: > 0 && <= 100
-type Concurrency = number; // constraint: >= 0
+export type PositiveInteger = number; // constraint: > 0 && < 99999999
+export type Percentage = number; // constraint: > 0 && <= 100
+export type Concurrency = number; // constraint: >= 0
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-states.html
-type State = Task | Wait | Pass | Map | Choice | Parallel | Succeed | Fail;
+export type State = Task | Wait | Pass | Map | Choice | Parallel | Succeed | Fail;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-common-fields.html
-type CommonState = {
+export interface CommonState {
     Type: string;
     Next?: string;
     End?: boolean;
     Comment?: string;
     InputPath?: JsonPath;
     OutputPath?: JsonPath;
-};
+}
+
+export {};

@@ -1,6 +1,6 @@
 import { CommonState, JsonPath } from './state';
 
-type ChoiceRuleComparison = {
+interface ChoiceRuleComparison {
     Variable: string;
     BooleanEquals?: boolean;
     BooleanEqualsPath?: JsonPath;
@@ -41,36 +41,38 @@ type ChoiceRuleComparison = {
     TimestampLessThanPath?: JsonPath;
     TimestampLessThanEquals?: string;
     TimestampLessThanEqualsPath?: JsonPath;
-};
+}
 
-type ChoiceRuleNot = {
+interface ChoiceRuleNot {
     Not: ChoiceRuleComparison;
     Next: string;
     Comment?: string;
-};
+}
 
-type ChoiceRuleAnd = {
+interface ChoiceRuleAnd {
     And: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
-};
+}
 
-type ChoiceRuleOr = {
+interface ChoiceRuleOr {
     Or: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
-};
+}
 
-type ChoiceRuleSimple = ChoiceRuleComparison & {
+interface ChoiceRuleSimple extends ChoiceRuleComparison {
     Next: string;
     Comment?: string;
-};
+}
 
 type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
-interface Choice extends CommonState {
+export interface Choice extends CommonState {
     Type: 'Choice';
     Choices: ChoiceRule[];
     Default?: string;
 }
+
+export {};

@@ -1,9 +1,8 @@
-// Type definitions for serverless-step-functions 3.14.0
+// Type definitions for serverless-step-functions 3.14
 // Project: https://github.com/serverless-operations/serverless-step-functions
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import '@serverless/typescript';
 import { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
 import { Resource } from './types/state';
 import { StateMachineDefinition } from './types/state-machine';
@@ -51,14 +50,12 @@ declare module '@serverless/typescript' {
     }
 }
 
-declare module 'serverless-step-functions' {
-    interface StepFunctions {
-        stateMachines: {
-            [stateMachine: string]: StateMachine;
-        };
-        validate?: boolean;
-        noOutput?: boolean;
-    }
+interface StepFunctions {
+    stateMachines: {
+        [stateMachine: string]: StateMachine;
+    };
+    validate?: boolean;
+    noOutput?: boolean;
 }
 
 interface StateMachine {
@@ -78,3 +75,6 @@ interface StateMachine {
     dependsOn?: AwsResourceDependsOn;
     tags?: AwsResourceTags;
 }
+
+export = StepFunctions;
+export {};

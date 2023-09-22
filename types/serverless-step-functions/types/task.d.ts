@@ -2,7 +2,7 @@ import { Catch, Retry } from './errors';
 import { CommonState, IntrinsicFunction, JsonObject, JsonPath, PositiveInteger, Resource } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-task-state.html#task-state-fields
-interface Task extends CommonState {
+export interface Task extends CommonState {
     Type: 'Task';
     Resource: Resource;
     Parameters?: JsonObject;
@@ -16,3 +16,5 @@ interface Task extends CommonState {
     HeartbeatSeconds?: PositiveInteger;
     HeartbeatSecondsPath?: JsonPath;
 }
+
+export {};

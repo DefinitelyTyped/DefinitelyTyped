@@ -2,7 +2,7 @@ import { Catch, Retry } from './errors';
 import { CommonState, Concurrency, JsonObject, JsonPath, Percentage, State } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html
-type Map = InlineMap | DistributedMap;
+export type Map = InlineMap | DistributedMap;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
 interface InlineMap extends CommonState {
@@ -61,3 +61,5 @@ interface DistributedMap extends CommonState {
     Retry?: Retry[];
     Catch?: Catch[];
 }
+
+export {};
