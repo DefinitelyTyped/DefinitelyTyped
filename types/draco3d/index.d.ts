@@ -43,6 +43,7 @@ export interface BaseModule {
 
 export interface EncoderModule extends BaseModule {
     Encoder: new() => Encoder;
+    ExpertEncoder: new(pc: PointCloud) => ExpertEncoder;
     MeshBuilder: new() => MeshBuilder;
 
     MESH_SEQUENTIAL_ENCODING: number;
