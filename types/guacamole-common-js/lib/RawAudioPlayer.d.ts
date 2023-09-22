@@ -1,6 +1,6 @@
-import { Mimetype } from './GuacCommon.d';
-import { AudioPlayer } from './AudioPlayer.d';
-import { InputStream } from './InputStream.d';
+import { AudioPlayer } from "./AudioPlayer.d";
+import { Mimetype } from "./GuacCommon.d";
+import { InputStream } from "./InputStream.d";
 
 export {};
 

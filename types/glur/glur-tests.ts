@@ -1,5 +1,5 @@
-import blurRGBA = require('glur');
-import blurRGBAMono = require('glur/mono16');
+import blurRGBA = require("glur");
+import blurRGBAMono = require("glur/mono16");
 
 const testRGBA = (src: Uint8Array) => {
     blurRGBA(src, 100, 100, 50); // $ExpectType void

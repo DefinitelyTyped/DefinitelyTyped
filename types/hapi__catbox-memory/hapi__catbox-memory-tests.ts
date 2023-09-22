@@ -1,5 +1,5 @@
-import { Engine as CatboxMemory } from '@hapi/catbox-memory';
-import { Client } from '@hapi/catbox';
+import { Client } from "@hapi/catbox";
+import { Engine as CatboxMemory } from "@hapi/catbox-memory";
 
 const client = new CatboxMemory<string>({
     cloneBuffersOnGet: false,

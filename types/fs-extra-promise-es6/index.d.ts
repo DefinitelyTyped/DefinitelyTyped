@@ -19,12 +19,17 @@ export interface FSWatcher {
     close(): void;
 }
 
-export class ReadStream extends stream.Readable { }
-export class WriteStream extends stream.Writable { }
+export class ReadStream extends stream.Readable {}
+export class WriteStream extends stream.Writable {}
 
 // extended methods
 export function copy(src: string, dest: string, callback?: (err: Error) => void): void;
-export function copy(src: string, dest: string, filter: (src: string) => boolean, callback?: (err: Error) => void): void;
+export function copy(
+    src: string,
+    dest: string,
+    filter: (src: string) => boolean,
+    callback?: (err: Error) => void,
+): void;
 
 export function copySync(src: string, dest: string, filter?: (src: string) => boolean): void;
 
@@ -113,24 +118,60 @@ export function futimes(fd: number, atime: number, mtime: number, callback?: (er
 export function futimesSync(fd: number, atime: number, mtime: number): void;
 export function fsync(fd: number, callback?: (err: Error) => void): void;
 export function fsyncSync(fd: number): void;
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: Buffer) => void): void;
+export function write(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+    callback?: (err: Error, written: number, buffer: Buffer) => void,
+): void;
 export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: Buffer) => void): void;
+export function read(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+    callback?: (err: Error, bytesRead: number, buffer: Buffer) => void,
+): void;
 export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
-export function readFile(filename: string, options: OpenOptions | string, callback: (err: Error, data: string) => void): void;
+export function readFile(
+    filename: string,
+    options: OpenOptions | string,
+    callback: (err: Error, data: string) => void,
+): void;
 export function readFile(filename: string, callback: (err: Error, data: Buffer) => void): void;
 export function readFileSync(filename: string): Buffer;
 export function readFileSync(filename: string, options: OpenOptions | string): string;
 export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
-export function writeFile(filename: string, data: any, options: OpenOptions | string, callback?: (err: Error) => void): void;
+export function writeFile(
+    filename: string,
+    data: any,
+    options: OpenOptions | string,
+    callback?: (err: Error) => void,
+): void;
 export function writeFileSync(filename: string, data: any, option?: OpenOptions | string): void;
 export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
-export function appendFile(filename: string, data: any, option: OpenOptions | string, callback?: (err: Error) => void): void;
+export function appendFile(
+    filename: string,
+    data: any,
+    option: OpenOptions | string,
+    callback?: (err: Error) => void,
+): void;
 export function appendFileSync(filename: string, data: any, option?: OpenOptions | string): void;
-export function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
-export function watchFile(filename: string, options: { persistent?: boolean | undefined; interval?: number | undefined; }, listener: { curr: Stats; prev: Stats; }): void;
+export function watchFile(filename: string, listener: { curr: Stats; prev: Stats }): void;
+export function watchFile(
+    filename: string,
+    options: { persistent?: boolean | undefined; interval?: number | undefined },
+    listener: { curr: Stats; prev: Stats },
+): void;
 export function unwatchFile(filename: string, listener?: Stats): void;
-export function watch(filename: string, options?: { persistent?: boolean | undefined; }, listener?: (event: string, filename: string) => any): FSWatcher;
+export function watch(
+    filename: string,
+    options?: { persistent?: boolean | undefined },
+    listener?: (event: string, filename: string) => any,
+): FSWatcher;
 export function exists(path: string, callback?: (exists: boolean) => void): void;
 export function existsSync(path: string): boolean;
 export function ensureDir(path: string, cb: (err: Error) => void): void;
@@ -201,8 +242,20 @@ export function openAsync(path: string, flags: string, mode?: string): Promise<n
 export function utimesAsync(path: string, atime: number, mtime: number): Promise<void>;
 export function futimesAsync(fd: number, atime: number, mtime: number): Promise<void>;
 export function fsyncAsync(fd: number): Promise<void>;
-export function writeAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
-export function readAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
+export function writeAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
+export function readAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
 export function readFileAsync(filename: string, options: OpenOptions | string): Promise<string>;
 export function readFileAsync(filename: string): Promise<Buffer>;
 export function writeFileAsync(filename: string, data: any, options?: OpenOptions | string): Promise<void>;

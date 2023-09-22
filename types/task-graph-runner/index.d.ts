@@ -6,7 +6,9 @@
 
 export = taskGraphRunner;
 
-declare function taskGraphRunner<Item, Result>(opts: taskGraphRunner.Opts<Item, Result>): Promise<taskGraphRunner.Results<Item, Result>>;
+declare function taskGraphRunner<Item, Result>(
+    opts: taskGraphRunner.Opts<Item, Result>,
+): Promise<taskGraphRunner.Results<Item, Result>>;
 
 declare namespace taskGraphRunner {
     interface Opts<Item, Result> {

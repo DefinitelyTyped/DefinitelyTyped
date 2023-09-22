@@ -5,17 +5,17 @@ jwplayer.key;
 
 const sliderCue: jwplayer.SliderCue = {
     begin: new Date().getTime(),
-    cueType: 'type',
-    text: 'Label',
+    cueType: "type",
+    text: "Label",
 };
 
 const config: jwplayer.SetupConfig = {
-    aspectratio: '16:9',
+    aspectratio: "16:9",
     autostart: true,
 };
 
 // $ExpectType JWPlayer
-const player = jwplayer('id');
+const player = jwplayer("id");
 
 // $ExpectType SliderCue[]
 player.getCues();
@@ -27,10 +27,10 @@ player.getFloating();
 player.setFloating(true);
 
 // $ExpectType JWPlugin
-player.getPlugin('pluginName');
+player.getPlugin("pluginName");
 
 // $ExpectType void
-player.addPlugin('pluginName', {});
+player.addPlugin("pluginName", {});
 
 // $ExpectType boolean
 player.getAdBlock();
@@ -44,9 +44,9 @@ player.skipAd();
 // $ExpectType JWPlayer
 player
     .addCues([sliderCue])
-    .on('userActive', () => {})
-    .on('userInactive', () => {})
-    .resize('50%', 100)
+    .on("userActive", () => {})
+    .on("userInactive", () => {})
+    .resize("50%", 100)
     .resize(40, 40)
     .setCues([sliderCue]);
 
@@ -61,7 +61,7 @@ const playlist = player.getPlaylist();
 
 // $ExpectType JWPlayer
 player
-    .setup({ mute: false, repeat: true, stretching: 'exactfit' })
+    .setup({ mute: false, repeat: true, stretching: "exactfit" })
     .load(playlist)
     .pause()
     .play()
@@ -70,24 +70,24 @@ player
     .setMute()
     .setMute(false)
     .setVolume(20)
-    .trigger('adBlock')
-    .trigger('adClick', { client: 'vast', creativetype: 'creativetest', tag: 'tagtest' })
+    .trigger("adBlock")
+    .trigger("adClick", { client: "vast", creativetype: "creativetest", tag: "tagtest" })
     .setAllowFullscreen()
     .setAllowFullscreen(true)
-    .setCaptions({ color: '#dbdbdb', edgeStyle: 'depressed' })
+    .setCaptions({ color: "#dbdbdb", edgeStyle: "depressed" })
     .setConfig(config)
     .setControls(false)
-    .setCues([{ begin: 5, cueType: 'testType', text: 'testText' }])
+    .setCues([{ begin: 5, cueType: "testType", text: "testText" }])
     .setPlaybackRate(0.25)
     .setPlaybackRate()
-    .addButton('testIcon', 'testLabel', () => {}, 'testId', 'testClass')
-    .removeButton('testId')
-    .on('adBlock', () => {})
-    .on('adClick', e => e.client)
-    .once('beforePlay', () => {})
-    .once('error', e => e.message)
-    .off('adBlock')
-    .off('adClick')
+    .addButton("testIcon", "testLabel", () => {}, "testId", "testClass")
+    .removeButton("testId")
+    .on("adBlock", () => {})
+    .on("adClick", e => e.client)
+    .once("beforePlay", () => {})
+    .once("error", e => e.message)
+    .off("adBlock")
+    .off("adClick")
     .playlistItem(1)
     .playlistNext()
     .playlistPrev()
@@ -168,7 +168,7 @@ player.getPlaylistIndex();
 player.getPercentViewable();
 
 // $ExpectType JWPlugin
-player.getPlugin('sharing');
+player.getPlugin("sharing");
 
 // $ExpectType number
 player.getPosition();
@@ -210,13 +210,13 @@ player.getWidth();
 player.pauseAd(true);
 
 // $ExpectType void
-player.playAd('testTag');
+player.playAd("testTag");
 
 // $ExpectType void
-player.playAd(['testTag', 'testTag2', 'testTag3']);
+player.playAd(["testTag", "testTag2", "testTag3"]);
 
 // $ExpectType void
-player.registerPlugin('testId', 'testTarget', () => {});
+player.registerPlugin("testId", "testTarget", () => {});
 
 // $ExpectType void
 player.removePlaylistItemCallback();

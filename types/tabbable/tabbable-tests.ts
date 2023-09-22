@@ -1,6 +1,6 @@
-import tabbable = require('tabbable');
+import tabbable = require("tabbable");
 
-const el = document.createElement('div');
+const el = document.createElement("div");
 tabbable(el);
 tabbable(el, { includeContainer: true });
 

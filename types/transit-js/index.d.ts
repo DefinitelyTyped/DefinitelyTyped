@@ -34,7 +34,7 @@ export interface WriteCache {
     clear(): any;
 }
 
-export type Encodings = 'json' | 'json-verbose';
+export type Encodings = "json" | "json-verbose";
 
 export interface TransitBuilder<T = any> {
     init(): T;

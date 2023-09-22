@@ -1688,6 +1688,8 @@ declare namespace mapboxgl {
     export class LngLatBounds {
         sw: LngLatLike;
         ne: LngLatLike;
+        _sw: LngLat;
+        _ne: LngLat;
 
         constructor(boundsLike?: [LngLatLike, LngLatLike] | [number, number, number, number]);
         constructor(sw: LngLatLike, ne: LngLatLike);

@@ -165,6 +165,8 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function(err
 
 function test_connection_string_parser() {
     var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
+    parsedConfig.pool; // $ExpectType PoolOpts<Connection>
+    parsedConfig.options; // $ExpectType IOptions
 }
 
 function test_table() {

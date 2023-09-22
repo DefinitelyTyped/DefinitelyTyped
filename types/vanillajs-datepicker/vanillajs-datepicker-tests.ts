@@ -17,4 +17,24 @@ container.appendChild(end);
 
 const dateRangePicker = new DateRangePicker(container);
 
-const datePickerWithCustomPrevArrow = new Datepicker(container, { prevArrow: '<' });
+const datePickerWithCustomOptions = new Datepicker(container, {
+    autohide: false,
+    buttonClass: 'btn',
+    calendarWeeks: true,
+    clearButton: true,
+    enableOnReadonly: false,
+    nextArrow: '>',
+    orientation: 'middle center',
+    prevArrow: '<',
+    shortcutKeys: {
+        show: {
+            key: 'ArrowDown',
+        },
+        prevButton: {
+            key: 'ArrowLeft',
+            ctrlOrMetaKey: true,
+        },
+    },
+    todayButton: true,
+    weekNumbers: 1,
+});

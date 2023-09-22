@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { IncomingMessage, ServerResponse } from "http";
 
 export interface UploadOptions {
     maxFieldSize?: number | undefined;

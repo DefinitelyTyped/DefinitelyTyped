@@ -1,3 +1,3 @@
-export * from '..';
+export * from "..";
 
 export as namespace tdigest;

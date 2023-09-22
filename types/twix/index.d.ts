@@ -3,7 +3,7 @@
 // Definitions by: j3ko <https://github.com/j3ko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Moment, Duration } from 'moment';
+import { Duration, Moment } from "moment";
 
 export interface TwixFormatOptions {
     groupMeridiems?: boolean | undefined;

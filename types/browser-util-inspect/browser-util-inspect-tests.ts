@@ -1,4 +1,4 @@
-import inspect = require('browser-util-inspect');
+import inspect = require("browser-util-inspect");
 
 // accessibility
 type CustomInspect = inspect.CustomInspect;
@@ -10,7 +10,7 @@ type Stylizer = inspect.Stylizer;
 const { colors, styles } = inspect;
 
 // augmentation
-declare module 'browser-util-inspect' {
+declare module "browser-util-inspect" {
     interface Effects {
         extended: Effect;
     }
@@ -45,7 +45,7 @@ const baseOptions = {
 };
 const exclusiveOptions = {
     colors: false,
-    stylize: () => '',
+    stylize: () => "",
 };
 // @ts-expect-error
 inspect();
@@ -100,11 +100,11 @@ inspect.colors = {
 
 // `inspect.styles`
 delete inspect.styles.boolean;
-inspect.styles.date = 'extended';
+inspect.styles.date = "extended";
 // @ts-expect-error
 inspect.styles.name = null;
 // @ts-expect-error
-inspect.styles.null = '';
+inspect.styles.null = "";
 inspect.styles.number = undefined;
 // @ts-expect-error
 delete inspect.styles;
@@ -113,7 +113,7 @@ inspect.styles = {};
 inspect.styles = { regexp: undefined };
 inspect.styles = {
     // @ts-expect-error
-    unstyled: 'white',
+    unstyled: "white",
 };
 inspect.styles = {
     // @ts-expect-error

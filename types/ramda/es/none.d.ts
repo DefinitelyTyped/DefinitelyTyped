@@ -1,2 +1,2 @@
-import { none } from '../index';
+import { none } from "../index";
 export default none;

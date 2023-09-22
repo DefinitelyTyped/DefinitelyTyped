@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as e from "elasticsearch";
 import * as AWS from "aws-sdk2-types";
+import * as e from "elasticsearch";
 
 declare module "elasticsearch" {
     interface ConfigOptions {

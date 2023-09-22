@@ -4,8 +4,8 @@
 
 import { EventEmitter } from "events";
 import { Token } from "parse5";
-import { Context } from "vm";
 import * as tough from "tough-cookie";
+import { Context } from "vm";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
 // in newer TypeScript versions:
@@ -156,7 +156,12 @@ declare module "jsdom" {
         storageQuota?: number | undefined;
     }
 
-    type SupportedContentTypes = 'text/html' | 'application/xhtml+xml' | 'application/xml' | 'text/xml' | 'image/svg+xml';
+    type SupportedContentTypes =
+        | "text/html"
+        | "application/xhtml+xml"
+        | "application/xml"
+        | "text/xml"
+        | "image/svg+xml";
 
     interface VirtualConsoleSendToOptions {
         omitJSDOMErrors: boolean;

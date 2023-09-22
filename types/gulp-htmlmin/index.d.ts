@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as HTMLMinifier from 'html-minifier';
+import * as HTMLMinifier from "html-minifier";
 
 declare namespace htmlmin {
 }

@@ -1,5 +1,5 @@
-import type Particle from '../core/Particle';
-import type Zone from './Zone';
+import type Particle from "../core/Particle";
+import type Zone from "./Zone";
 
 export default class ScreenZone extends Zone {
     /**
@@ -13,7 +13,6 @@ export default class ScreenZone extends Zone {
     constructor(camera: THREE.Camera, renderer: THREE.WebGLRenderer, dis?: number, dir?: number | string);
     /**
      * Returns true to indicate this is a ScreenZone.
-     *
      */
     isScreenZone(): boolean;
     protected _dead(particle: Particle): boolean;

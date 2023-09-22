@@ -1,5 +1,5 @@
-import * as Popper from '@popperjs/core';
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import * as Popper from "@popperjs/core";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class Dropdown extends BaseComponent {
     /**
@@ -54,24 +54,24 @@ declare namespace Dropdown {
         /**
          * Fires immediately when the show instance method is called.
          */
-        show = 'show.bs.dropdown',
+        show = "show.bs.dropdown",
 
         /**
          * Fired when the dropdown has been made visible to the user and CSS
          * transitions have completed.
          */
-        shown = 'shown.bs.dropdown',
+        shown = "shown.bs.dropdown",
 
         /**
          * Fires immediately when the hide instance method has been called.
          */
-        hide = 'hide.bs.dropdown',
+        hide = "hide.bs.dropdown",
 
         /**
          * Fired when the dropdown has finished being hidden from the user and
          * CSS transitions have completed.
          */
-        hidden = 'hidden.bs.dropdown',
+        hidden = "hidden.bs.dropdown",
     }
 
     type Offset = [number, number];
@@ -118,7 +118,7 @@ declare namespace Dropdown {
          * @see {@link https://popper.js.org/docs/v2/constructors/#createpopper}
          * @default "toggle"
          */
-        reference: 'toggle' | 'parent' | Element | Popper.Rect;
+        reference: "toggle" | "parent" | Element | Popper.Rect;
 
         /**
          * By default, we use Popper.js for dynamic positioning. Disable this
@@ -126,7 +126,7 @@ declare namespace Dropdown {
          *
          * @default "dynamic"
          */
-        display: 'dynamic' | 'static';
+        display: "dynamic" | "static";
 
         /**
          * To change Bootstrap's default Popper.js config, see Popper.js's
@@ -148,10 +148,10 @@ declare namespace Dropdown {
          *
          * @default true
          */
-        autoClose: boolean | 'inside' | 'outside';
+        autoClose: boolean | "inside" | "outside";
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => JQuery;
+    type jQueryInterface = (config?: Partial<Options> | "toggle" | "show" | "hide" | "update" | "dispose") => JQuery;
 }
 
 export default Dropdown;
