@@ -130,6 +130,14 @@ browserContext.addCookies([{
     httpOnly: false,
     secure: true,
     sameSite: 'Lax',
+}, { 
+    name: 'foo',
+    value: 'bar',
+    sameSite: 'Strict',
+}, { 
+    name: 'foo',
+    value: 'bar',
+    sameSite: 'None',
 }]);
 // $ExpectType Cookie[]
 browserContext.cookies();
