@@ -3,11 +3,11 @@
 // Definitions by: pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import jsreport = require('jsreport');
-import JsReport = require('jsreport-core');
-import { ServerResponse } from 'http';
+import jsreport = require("jsreport");
+import JsReport = require("jsreport-core");
+import { ServerResponse } from "http";
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface ClientRenderResponse extends ServerResponse {
         body(): Promise<Buffer>;
     }

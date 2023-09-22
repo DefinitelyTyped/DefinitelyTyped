@@ -1,4 +1,4 @@
-import yaml = require('js-yaml');
+import yaml = require("js-yaml");
 import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
@@ -6,7 +6,7 @@ import SchemaDefinition = yaml.SchemaDefinition;
 
 const bool = true;
 const num = 0;
-const str = '';
+const str = "";
 const obj: object = {};
 const map: { [x: string]: any } = {};
 const array: any[] = [];
@@ -19,7 +19,7 @@ const schemaDefinition: SchemaDefinition = {
     include: array,
 };
 const typeConstructorOptions: TypeConstructorOptions = {
-    kind: 'scalar',
+    kind: "scalar",
     resolve: fn,
     construct: fn,
     instanceOf: obj,

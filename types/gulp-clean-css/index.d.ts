@@ -5,13 +5,13 @@
 
 /// <reference types="node" />
 
-import { Options, Output } from 'clean-css';
+import { Options, Output } from "clean-css";
 
 declare namespace GulpCleanCss {
     interface Details {
-        stats: Output['stats'];
-        errors: Output['errors'];
-        warnings: Output['warnings'];
+        stats: Output["stats"];
+        errors: Output["errors"];
+        warnings: Output["warnings"];
         path: string;
         name: string;
     }

@@ -12,7 +12,7 @@
  */
 export function fixTypos(string: string, locale?: Locale, configuration?: Configuration): string;
 
-export type Locale = 'en-us' | 'de-de' | 'cs' | 'rue' | 'sk';
+export type Locale = "en-us" | "de-de" | "cs" | "rue" | "sk";
 
 export interface Configuration {
     /**

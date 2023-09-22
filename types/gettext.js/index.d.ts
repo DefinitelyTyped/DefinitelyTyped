@@ -39,7 +39,14 @@ declare namespace i18n {
         gettext(msgid: string, ...args: any[]): string;
         ngettext(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
         pgettext(msgctxt: string, msgid: string, ...args: any[]): string;
-        dcnpgettext(domain: Optionull<string>, msgctxt: Optionull<string>, msgid: string, msgid_plural: Optionull<string>, n: Optionull<number>, ...args: any[]): string;
+        dcnpgettext(
+            domain: Optionull<string>,
+            msgctxt: Optionull<string>,
+            msgid: string,
+            msgid_plural: Optionull<string>,
+            n: Optionull<number>,
+            ...args: any[]
+        ): string;
         __(msgid: string, ...args: any[]): string;
         _n(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
         _p(msgctxt: string, msgid: string, ...args: any[]): string;

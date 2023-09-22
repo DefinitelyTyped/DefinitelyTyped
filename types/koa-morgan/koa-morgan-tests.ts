@@ -1,49 +1,49 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import Koa = require('koa');
-import morgan = require('koa-morgan');
+import { IncomingMessage, ServerResponse } from "http";
+import Koa = require("koa");
+import morgan = require("koa-morgan");
 
 const app = new Koa();
 
-app.use(morgan('combined'));
-app.use(morgan('common'));
-app.use(morgan('dev'));
-app.use(morgan('short'));
-app.use(morgan('tiny'));
-app.use(morgan(':remote-addr :method :url'));
+app.use(morgan("combined"));
+app.use(morgan("common"));
+app.use(morgan("dev"));
+app.use(morgan("short"));
+app.use(morgan("tiny"));
+app.use(morgan(":remote-addr :method :url"));
 
 const tokenCallback: morgan.TokenCallbackFn = (req: IncomingMessage, res: ServerResponse): string => {
-    const rqid = req.headers['request-id'];
+    const rqid = req.headers["request-id"];
     if (rqid) {
         if (Array.isArray(rqid)) {
-            return rqid.join(';');
+            return rqid.join(";");
         } else {
             return rqid;
         }
     } else {
-        return '-';
+        return "-";
     }
 };
 
-morgan.token('id', tokenCallback);
+morgan.token("id", tokenCallback);
 
 const stream: morgan.StreamOptions = {
     write: (str: string) => {
         console.log(str);
-    }
+    },
 };
 
-app.use(morgan('combined', {
+app.use(morgan("combined", {
     buffer: true,
     immediate: true,
     skip: (req: IncomingMessage, res: ServerResponse) => res.statusCode < 400,
-    stream
+    stream,
 }));
 
 // test interface definition for morgan
 
 // a named custom format defined as string (example: extend 'tiny' format with user-agent token)
-morgan.format('tiny-extended', ':method :url :status :res[content-length] - :response-time ms :user-agent');
-app.use(morgan('tiny-extended'));
+morgan.format("tiny-extended", ":method :url :status :res[content-length] - :response-time ms :user-agent");
+app.use(morgan("tiny-extended"));
 
 // a named custom format defined using the Function signature (example: extend 'dev' format with user-agent token)
 
@@ -64,14 +64,20 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
         : undefined;
 
     // get status color
-    const color = status && status >= 500 ? 31 // red
-        : status && status >= 400 ? 33 // yellow
-        : status && status >= 300 ? 36 // cyan
-        : status && status >= 200 ? 32 // green
+    const color = status && status >= 500
+        ? 31 // red
+        : status && status >= 400
+        ? 33 // yellow
+        : status && status >= 300
+        ? 36 // cyan
+        : status && status >= 200
+        ? 32 // green
         : 0; // no color
 
     // get colored format function, if previously memoized, otherwise undefined
-    let fn: morgan.FormatFn|undefined = developmentExtendedFormatLine.memoizer ? developmentExtendedFormatLine.memoizer[color] : undefined;
+    let fn: morgan.FormatFn | undefined = developmentExtendedFormatLine.memoizer
+        ? developmentExtendedFormatLine.memoizer[color]
+        : undefined;
 
     if (!fn) {
         if (!developmentExtendedFormatLine.memoizer) {
@@ -79,7 +85,8 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
         }
 
         fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
-            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
+            `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`,
+        );
     }
 
     return fn(tokens, req, res);
@@ -87,5 +94,5 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
 
 developmentExtendedFormatLine.memoizer = {};
 
-morgan.format('dev-extended', developmentExtendedFormatLine);
-app.use(morgan('dev-extended'));
+morgan.format("dev-extended", developmentExtendedFormatLine);
+app.use(morgan("dev-extended"));

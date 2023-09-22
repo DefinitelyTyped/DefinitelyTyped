@@ -1,4 +1,4 @@
-import { breadth, depth } from 'treeverse';
+import { breadth, depth } from "treeverse";
 
 interface Node {
     id: number;
@@ -80,24 +80,24 @@ interface Node {
     // Manually typed
     breadth<number, string | Node, number[]>({
         tree: 10,
-        getChildren: (node, value) => [node, typeof value === 'string' ? value.length : value.id],
-        visit: () => 'a',
+        getChildren: (node, value) => [node, typeof value === "string" ? value.length : value.id],
+        visit: () => "a",
     });
 
     // Types "inferred" from usage
     // $ExpectType number[]
     breadth({
         tree: 10 as number | string,
-        getChildren: (node, value: number[]) => value.map(v => (typeof v === 'string' ? v : v * 2)),
-        filter: node => (typeof node === 'string' ? node.startsWith('id-') : node % 2 === 0),
+        getChildren: (node, value: number[]) => value.map(v => (typeof v === "string" ? v : v * 2)),
+        filter: node => (typeof node === "string" ? node.startsWith("id-") : node % 2 === 0),
     });
 
     // Types "inferred" from usage (Promise)
     // $ExpectType Promise<number[]>
     breadth({
         tree: 10 as number | string,
-        getChildren: async (node, value: number[]) => value.map(v => (typeof v === 'string' ? v : v * 2)),
-        filter: async node => (typeof node === 'string' ? node.startsWith('id-') : node % 2 === 0),
+        getChildren: async (node, value: number[]) => value.map(v => (typeof v === "string" ? v : v * 2)),
+        filter: async node => (typeof node === "string" ? node.startsWith("id-") : node % 2 === 0),
     });
 
     // -- Errors

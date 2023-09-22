@@ -1,8 +1,8 @@
-import express = require("express");
-import { SinkMap } from "@rdfjs/sink-map";
-import { EventEmitter } from "events";
-import { DatasetCore, DatasetCoreFactory, Stream } from "rdf-js";
-import rdfHandler = require("@rdfjs/express-handler");
+import express = require('express');
+import { EventEmitter } from 'events';
+import { DatasetCore, DatasetCoreFactory, Stream } from 'rdf-js';
+import { SinkMap } from '@rdfjs/sink-map';
+import rdfHandler from '@rdfjs/express-handler';
 
 const factory: DatasetCoreFactory = <any> {};
 const formats: {

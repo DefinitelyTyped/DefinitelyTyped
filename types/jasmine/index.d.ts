@@ -181,7 +181,7 @@ declare function spyOn<T, K extends keyof T = keyof T>(
     object: T,
     method: T[K] extends Function ? K : never,
 ): jasmine.Spy<
-    T[K] extends jasmine.Func ? T[K] : T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V : never
+    T[K] extends jasmine.Func ? T[K] : T[K] extends { new(...args: infer A): infer V } ? (...args: A) => V : never
 >;
 
 /**
@@ -191,9 +191,15 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
 declare function spyOnProperty<T, K extends keyof T = keyof T>(
-    object: T, property: K, accessType?: "get"): jasmine.Spy<(this: T) => T[K]>;
+    object: T,
+    property: K,
+    accessType?: "get",
+): jasmine.Spy<(this: T) => T[K]>;
 declare function spyOnProperty<T, K extends keyof T = keyof T>(
-    object: T, property: K, accessType: "set"): jasmine.Spy<(this: T, value: T[K]) => void>;
+    object: T,
+    property: K,
+    accessType: "set",
+): jasmine.Spy<(this: T, value: T[K]) => void>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -227,13 +233,15 @@ declare namespace jasmine {
         | {
             [K in keyof T]: ExpectedRecursive<T[K]>;
         };
-    type SpyObjMethodNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [methodName: string]: any }
-        : (ReadonlyArray<keyof T> |
-            { [P in keyof T]?:
-                // Value should be the return type (unless this is a method on Object.prototype, since all object literals contain those methods)
-                T[P] extends Func ? (ReturnType<T[P]> | (P extends keyof Object ? Object[P] : never)) : any
-            });
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? ReadonlyArray<string> | { [methodName: string]: any }
+        : (
+            | ReadonlyArray<keyof T>
+            | {
+                [P in keyof T]?:
+                    // Value should be the return type (unless this is a method on Object.prototype, since all object literals contain those methods)
+                    T[P] extends Func ? (ReturnType<T[P]> | (P extends keyof Object ? Object[P] : never)) : any;
+            }
+        );
 
     type SpyObjPropertyNames<T = undefined> = T extends undefined
         ? ReadonlyArray<string> | { [propertyName: string]: any }
@@ -393,7 +401,7 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any extends AsymmetricMatcher<any> {
-        new (expectedClass: any): any;
+        new(expectedClass: any): any;
         jasmineToString(prettyPrint: (value: any) => string): string;
     }
 
@@ -477,7 +485,7 @@ declare namespace jasmine {
         equals(a: any, b: any): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
-            needle: any
+            needle: any,
         ): boolean;
         /**
          * @deprecated Private method that may be changed or removed in the future
@@ -521,11 +529,11 @@ declare namespace jasmine {
     }
 
     interface HtmlReporter {
-        new (): any;
+        new(): any;
     }
 
     interface HtmlSpecFilter {
-        new (): any;
+        new(): any;
     }
 
     interface Result {
@@ -547,7 +555,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean; seed: number | string }): any;
+        new(options: { random: boolean; seed: number | string }): any;
         random: boolean;
         seed: number | string;
         sort<T>(items: T[]): T[];
@@ -679,7 +687,7 @@ declare namespace jasmine {
         toBeCloseTo(expected: number, precision: any, expectationFailOutput: any): void;
         toThrow(expected?: any): void;
         toThrowError(message?: string | RegExp): void;
-        toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): void;
+        toThrowError(expected?: new(...args: any[]) => Error, message?: string | RegExp): void;
         toThrowMatching(predicate: (thrown: any) => boolean): void;
         toBeNegativeInfinity(): void;
         /**
@@ -872,7 +880,7 @@ declare namespace jasmine {
          * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
+        toBeRejectedWithError(expected?: new(...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
@@ -1021,7 +1029,7 @@ declare namespace jasmine {
     type SpecFunction = (spec?: Spec) => void;
 
     interface Spec {
-        new (attrs: any): any;
+        new(attrs: any): any;
 
         readonly id: number;
         env: Env;
@@ -1042,8 +1050,9 @@ declare namespace jasmine {
         withArgs(...args: MatchableArgs<Fn>): Spy<Fn>;
     }
 
-    type SpyObj<T> = T &
-        {
+    type SpyObj<T> =
+        & T
+        & {
             [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
         };
 
@@ -1133,7 +1142,7 @@ declare namespace jasmine {
     }
 
     interface JsApiReporter extends CustomReporter {
-        new (): any;
+        new(): any;
 
         started: boolean;
         finished: boolean;

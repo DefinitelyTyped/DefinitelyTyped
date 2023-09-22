@@ -25,21 +25,21 @@
  * https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/scopes
  */
 export type Scope =
-    | 'user-profile:read'
-    | 'user:read'
-    | 'user:write'
-    | 'viewables:read'
-    | 'data:read'
-    | 'data:write'
-    | 'data:create'
-    | 'data:search'
-    | 'bucket:create'
-    | 'bucket:read'
-    | 'bucket:update'
-    | 'bucket:delete'
-    | 'code:all'
-    | 'account:read'
-    | 'account:write';
+    | "user-profile:read"
+    | "user:read"
+    | "user:write"
+    | "viewables:read"
+    | "data:read"
+    | "data:write"
+    | "data:create"
+    | "data:search"
+    | "bucket:create"
+    | "bucket:read"
+    | "bucket:update"
+    | "bucket:delete"
+    | "code:all"
+    | "account:read"
+    | "account:write";
 
 export interface ApiResponse {
     body: any;
@@ -80,7 +80,7 @@ export class AuthClientTwoLegged {
     authenticate(): Promise<AuthToken>;
     getCredentials(): AuthToken;
     setCredentials(
-        credentials: AuthToken
+        credentials: AuthToken,
     ): void;
     isAuthorized(): boolean;
 }
@@ -89,16 +89,16 @@ export class AuthClientThreeLegged {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
     generateAuthUrl(
-        state: string
+        state: string,
     ): string;
 
     getToken(
-        code: string
+        code: string,
     ): Promise<AuthToken>;
 
     refreshToken(
         credentials: { refresh_token?: string | undefined },
-        scope?: Scope[]
+        scope?: Scope[],
     ): Promise<AuthToken>;
 }
 
@@ -108,7 +108,7 @@ export class AuthClientTwoLeggedV2 {
     authenticate(): Promise<AuthToken>;
     getCredentials(): AuthToken;
     setCredentials(
-        credentials: AuthToken
+        credentials: AuthToken,
     ): void;
     isAuthorized(): boolean;
 }
@@ -117,16 +117,16 @@ export class AuthClientThreeLeggedV2 {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
     generateAuthUrl(
-        state: string
+        state: string,
     ): string;
 
     getToken(
-        code: string
+        code: string,
     ): Promise<AuthToken>;
 
     refreshToken(
         credentials: { refresh_token?: string | undefined },
-        scope?: Scope[]
+        scope?: Scope[],
     ): Promise<AuthToken>;
 }
 
@@ -163,7 +163,7 @@ export class BucketsApi {
     deleteBucket(
         bucketKey: string,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -172,7 +172,7 @@ export class BucketsApi {
     getBucketDetails(
         bucketKey: string,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -255,7 +255,7 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -266,7 +266,7 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -277,7 +277,7 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -288,7 +288,7 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -299,7 +299,7 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -310,15 +310,15 @@ export class CommandsApi {
         body: CommandsBodyObject,
         opts: object,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 }
 
 export namespace DerivativesApi {
     enum RegionEnum {
-        US = 'US',
-        EMEA = 'EMEA',
-        EU = 'EMEA'
+        US = "US",
+        EMEA = "EMEA",
+        EU = "EMEA",
     }
 }
 
@@ -331,7 +331,7 @@ export class DerivativesApi {
     deleteManifest(
         urn: string,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -343,7 +343,7 @@ export class DerivativesApi {
     getDerivativeManifest(
         urn: string,
         derivativeUrn: string,
-        opts: { range?: number | undefined, acceptEncoding?: string | undefined},
+        opts: { range?: number | undefined; acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -409,7 +409,12 @@ export class DerivativesApi {
     getModelviewMetadata(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, xAdsFormat?: string | undefined, forceget?: boolean | undefined },
+        opts: {
+            acceptEncoding?: string | undefined;
+            xAdsForce?: boolean | undefined;
+            xAdsFormat?: string | undefined;
+            forceget?: boolean | undefined;
+        },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -424,7 +429,13 @@ export class DerivativesApi {
     getModelviewProperties(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, xAdsFormat?: string | undefined, forceget?: boolean | undefined, objectid?: number | undefined },
+        opts: {
+            acceptEncoding?: string | undefined;
+            xAdsForce?: boolean | undefined;
+            xAdsFormat?: string | undefined;
+            forceget?: boolean | undefined;
+            objectid?: number | undefined;
+        },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -670,7 +681,7 @@ export class HubsApi {
     getHub(
         hubId: string,
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 
     /**
@@ -767,7 +778,11 @@ export class ItemsApi {
     getItemRefs(
         projectId: string,
         itemId: string,
-        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
+        opts: {
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+        },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -869,16 +884,16 @@ export interface UploadedResource {
     };
 }
 
-export type DownloadResponseType = 'arraybuffer' | 'document' | 'json' | 'text' | 'stream';
+export type DownloadResponseType = "arraybuffer" | "document" | "json" | "text" | "stream";
 
 export interface DownloadedResource {
     objectKey: string;
     responseType: DownloadResponseType;
-    downloadParams: { statusCode: 200, };
+    downloadParams: { statusCode: 200 };
     downloadUrl: string;
     download: {
-        status: 200,
-        statusText: 'OK',
+        status: 200;
+        statusText: "OK";
     };
     data: Buffer;
     progress: number;
@@ -927,7 +942,7 @@ export class ObjectsApi {
      */
     deleteSignedResource(
         id: string,
-        region: string
+        region: string,
     ): Promise<ApiResponse>;
 
     /**
@@ -937,7 +952,12 @@ export class ObjectsApi {
     getObject(
         bucketKey: string,
         objectName: string,
-        opts: { range?: string | undefined; ifNoneMatch?: string | undefined; ifModifiedSince?: Date | undefined; acceptEncoding?: string | undefined },
+        opts: {
+            range?: string | undefined;
+            ifNoneMatch?: string | undefined;
+            ifModifiedSince?: Date | undefined;
+            acceptEncoding?: string | undefined;
+        },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -975,7 +995,7 @@ export class ObjectsApi {
             ifModifiedSince?: string | undefined;
             acceptEncoding?: string | undefined;
             region?: string | undefined;
-        }
+        },
     ): Promise<ApiResponse>;
 
     /**
@@ -1029,7 +1049,11 @@ export class ObjectsApi {
         id: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
+        opts: {
+            contentDisposition?: string | undefined;
+            xAdsRegion?: string | undefined;
+            ifMatch?: string | undefined;
+        },
     ): Promise<ApiResponse>;
 
     /**
@@ -1041,7 +1065,11 @@ export class ObjectsApi {
         contentRange: number,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
+        opts: {
+            contentDisposition?: string | undefined;
+            xAdsRegion?: string | undefined;
+            ifMatch?: string | undefined;
+        },
     ): Promise<ApiResponse>;
 
     // New S3 Stuff
@@ -1126,12 +1154,12 @@ export class ObjectsApi {
         body: {
             requests: Array<{
                 objectKey: string;
-                'response-content-type'?: string | undefined;
-                'response-content-disposition'?: string | undefined;
-                'response-cache-control'?: string | undefined;
-                'If-None-Match'?: string | undefined;
-                'If-Modified-Since'?: Date | undefined;
-            }>
+                "response-content-type"?: string | undefined;
+                "response-content-disposition"?: string | undefined;
+                "response-cache-control"?: string | undefined;
+                "If-None-Match"?: string | undefined;
+                "If-Modified-Since"?: Date | undefined;
+            }>;
         },
         opts: {
             publicResourceFallback?: boolean | undefined;
@@ -1466,7 +1494,7 @@ export class UserProfileApi {
      */
     getUserProfile(
         oauth2Client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 }
 
@@ -1525,7 +1553,11 @@ export class VersionsApi {
     getVersionRefs(
         projectId: string,
         versionId: string,
-        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
+        opts: {
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+        },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1572,51 +1604,51 @@ export class VersionsApi {
 
 export namespace WebhooksApi {
     enum RegionEnum {
-        US = 'US',
-        EMEA = 'EMEA',
-        EU = 'EMEA'
+        US = "US",
+        EMEA = "EMEA",
+        EU = "EMEA",
     }
 
     enum StatusEnum {
-        Active = 'active',
-        Inactive = 'inactive',
+        Active = "active",
+        Inactive = "inactive",
     }
 
     enum WebhooksSystemEnum {
-        derivative = 'derivative',
-        data = 'data',
-        c4r = 'adsk.c4r'
+        derivative = "derivative",
+        data = "data",
+        c4r = "adsk.c4r",
     }
 
     enum WebhookEventEnum {
         // Data Management
-        VersionAdded = 'dm.version.added',
-        VersionModified = 'dm.version.modified',
-        VersionDeleted = 'dm.version.deleted',
-        VersionMoved = 'dm.version.moved',
-        VersionCopied = 'dm.version.copied',
-        FolderAdded = 'dm.folder.added',
-        FolderModified = 'dm.folder.modified',
-        FolderDeleted = 'dm.folder.deleted',
-        FolderMoved = 'dm.folder.moved',
-        FolderCopied = 'dm.folder.copied',
+        VersionAdded = "dm.version.added",
+        VersionModified = "dm.version.modified",
+        VersionDeleted = "dm.version.deleted",
+        VersionMoved = "dm.version.moved",
+        VersionCopied = "dm.version.copied",
+        FolderAdded = "dm.folder.added",
+        FolderModified = "dm.folder.modified",
+        FolderDeleted = "dm.folder.deleted",
+        FolderMoved = "dm.folder.moved",
+        FolderCopied = "dm.folder.copied",
 
         // Model Derivatives
-        ExtractionFinished = 'extraction.finished',
-        ExtractionUpdated = 'extraction.updated',
+        ExtractionFinished = "extraction.finished",
+        ExtractionUpdated = "extraction.updated",
 
         // Revit Cloud Worksharing
-        ModelSync = 'model.sync',
-        ModelPublish = 'model.publish',
+        ModelSync = "model.sync",
+        ModelPublish = "model.publish",
 
         // Fusion Lifecycle
-        ItemClone = 'item.clone',
-        ItemCreate = 'item.create',
-        ItemLock = 'item.lock',
-        ItemRelease = 'item.release',
-        ItemUnlock = 'item.unlock',
-        ItemUpdate = 'item.update',
-        WorkflowTransition = 'workflow.transition'
+        ItemClone = "item.clone",
+        ItemCreate = "item.create",
+        ItemLock = "item.lock",
+        ItemRelease = "item.release",
+        ItemUnlock = "item.unlock",
+        ItemUpdate = "item.update",
+        WorkflowTransition = "workflow.transition",
     }
 
     interface HooksOptions {
@@ -1640,20 +1672,20 @@ export class WebhooksApi {
     GetHooks(
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     GetSystemHooks(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     GetSystemEventsHooks(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
         eventType: WebhooksApi.WebhookEventEnum,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     GetHook(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
@@ -1661,7 +1693,7 @@ export class WebhooksApi {
         hookId: string,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     CreateSystemHook(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
@@ -1669,7 +1701,7 @@ export class WebhooksApi {
         scope: any,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     CreateSystemEventHook(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
@@ -1678,7 +1710,7 @@ export class WebhooksApi {
         scope: any,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     UpdateSystemEventHook(
         webhooksSystem: WebhooksApi.WebhooksSystemEnum,
@@ -1687,22 +1719,23 @@ export class WebhooksApi {
         payload: string,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
-    DeleteHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+    DeleteHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
         eventType: WebhooksApi.WebhookEventEnum,
         hookId: string,
         opts: WebhooksApi.HooksOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 }
 
 export namespace TokensApi {
     enum RegionEnum {
-        US = 'US',
-        EMEA = 'EMEA',
-        EU = 'EMEA'
+        US = "US",
+        EMEA = "EMEA",
+        EU = "EMEA",
     }
 
     interface TokensOptions {
@@ -1717,17 +1750,17 @@ export class TokensApi {
         token: string,
         opts: TokensApi.TokensOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     UpdateToken(
         token: string,
         opts: TokensApi.TokensOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
     DeleteToken(
         opts: TokensApi.TokensOptions,
         oauth2client: AuthClient,
-        credentials: AuthToken
+        credentials: AuthToken,
     ): Promise<ApiResponse>;
 }

@@ -1,4 +1,4 @@
-import { Type } from '../index';
+import { Type } from "../index";
 
 declare class GameResolver {
     constructor();

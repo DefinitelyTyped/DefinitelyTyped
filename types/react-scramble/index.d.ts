@@ -25,6 +25,8 @@ export interface Step {
 }
 
 export interface AnimationControls {
+    reset: () => void;
+    restart: () => void;
     start: () => void;
     pause: () => void;
 }

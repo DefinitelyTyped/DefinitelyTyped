@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 type WatermarkSettings = Partial<{
-    position: 'NE' | 'NC' | 'NW' | 'SE' | 'SC' | 'SW' | 'C' | 'CE' | 'CW';
+    position: "NE" | "NC" | "NW" | "SE" | "SC" | "SW" | "C" | "CE" | "CW";
     margin_nord: number;
     margin_sud: number;
     margin_east: number;
@@ -344,7 +344,7 @@ interface Video {
 }
 
 interface Iffmpeg {
-    new (filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
+    new(filePath: string, cb?: (err: Error, video: Video) => void): Promise<Video>;
 }
 
 declare var ffmpeg: Iffmpeg;

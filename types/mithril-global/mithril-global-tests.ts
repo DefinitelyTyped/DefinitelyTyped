@@ -17,6 +17,14 @@ const params = m.parseQueryString(qstr);
 const pstr = m.buildPathname('/api/user/:id', { id: 1 });
 const parts = m.parsePathname(pstr);
 
+
+const censored = m.censor({one: "two", enabled: false, oninit: () => {}}, ["enabled"] as const);
+// @ts-expect-error
+censored.enabled;
+// @ts-expect-error
+censored.oninit;
+censored.one;
+
 m.redraw();
 m.redraw.sync();
 

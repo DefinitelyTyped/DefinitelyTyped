@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { TransformOptions } from '@babel/core';
+import { TransformOptions } from "@babel/core";
 
 interface RegisterOptions extends TransformOptions {
     /**

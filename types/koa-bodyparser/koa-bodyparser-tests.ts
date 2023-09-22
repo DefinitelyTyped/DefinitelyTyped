@@ -4,7 +4,7 @@ import bodyParser = require("koa-bodyparser");
 const app = new Koa();
 
 app.use(bodyParser({ strict: false }));
-app.use(bodyParser({ xmlLimit: '2mb' }));
+app.use(bodyParser({ xmlLimit: "2mb" }));
 
 app.use(ctx => {
     console.log(ctx.request.body);

@@ -43,11 +43,13 @@ declare namespace GoogleAdsScripts {
         interface MessageOperation extends Base.Operation<Message> {}
 
         interface MessageSelector
-            extends Base.Selector<MessageIterator>,
+            extends
+                Base.Selector<MessageIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

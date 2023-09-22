@@ -3,16 +3,14 @@
 // Definitions by: Simon Dean <https://github.com/simondean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type DeepPartial<T> = T extends any[]
-    ? Array<T[number]>
-    : T extends Record<string, any>
-    ? {
-          [P in keyof T]?: DeepPartial<T[P]>;
-      }
+type DeepPartial<T> = T extends any[] ? Array<T[number]>
+    : T extends Record<string, any> ? {
+            [P in keyof T]?: DeepPartial<T[P]>;
+        }
     : T;
 
 interface Prop {
-    type: 'array' | 'object' | undefined;
+    type: "array" | "object" | undefined;
     isWildcard: true | undefined;
     properties: Props;
 }
