@@ -7,7 +7,6 @@
         "no-namespace": false,
         "no-reference-import": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

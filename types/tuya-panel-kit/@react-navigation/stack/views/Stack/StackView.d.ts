@@ -1,13 +1,14 @@
 import * as React from "react";
 import { ParamListBase, Route, StackNavigationState } from "../../../native";
 import type { StackDescriptorMap, StackNavigationConfig, StackNavigationHelpers } from "../../types";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Props = StackNavigationConfig & {
     state: StackNavigationState<ParamListBase>;
     navigation: StackNavigationHelpers;
     descriptors: StackDescriptorMap;
 };
-// tslint:disable-next-line interface-over-type-literal strict-export-declare-modifiers
+/* eslint-disable @definitelytyped/strict-export-declare-modifiers */
+// tslint:disable-next-line interface-over-type-literal
 declare type State = {
     // tslint:disable-next-line array-type
     routes: Route<string>[];

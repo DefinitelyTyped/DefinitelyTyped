@@ -14,7 +14,7 @@ import ClassNamesSupport from '@ember/component/-private/class-names-support';
 import ViewMixin from '@ember/component/-private/view-mixin';
 import ActionSupport from '@ember/component/-private/action-support';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
 }

@@ -88,12 +88,12 @@ export class Promise<T, E = Error> {
 }
 
 export namespace Promise {
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class CancellationError extends Error {
         name: 'CancellationError';
     }
 
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class TimeoutError extends Error {
         name: 'TimeoutError';
     }
