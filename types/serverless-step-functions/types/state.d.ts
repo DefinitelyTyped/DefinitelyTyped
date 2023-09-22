@@ -28,14 +28,4 @@ export type Concurrency = number; // constraint: >= 0
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-states.html
 export type State = Task | Wait | Pass | Map | Choice | Parallel | Succeed | Fail;
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-common-fields.html
-export interface CommonState {
-    Type: string;
-    Next?: string;
-    End?: boolean;
-    Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
-}
-
 export {};

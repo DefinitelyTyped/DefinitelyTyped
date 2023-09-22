@@ -1,4 +1,4 @@
-import { CommonState, JsonPath } from './state';
+import { JsonPath } from './state';
 
 interface ChoiceRuleComparison {
     Variable: string;
@@ -69,9 +69,12 @@ interface ChoiceRuleSimple extends ChoiceRuleComparison {
 type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
-export interface Choice extends Omit<CommonState, 'End'> {
+export interface Choice {
     Type: 'Choice';
     Choices: ChoiceRule[];
+    Comment?: string;
+    InputPath?: JsonPath;
+    OutputPath?: JsonPath;
     Default?: string;
 }
 

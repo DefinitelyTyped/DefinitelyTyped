@@ -1,12 +1,17 @@
 import { Catch, Retry } from './errors';
-import { CommonState, Concurrency, JsonObject, JsonPath, Percentage, State } from './state';
+import { Concurrency, JsonObject, JsonPath, Percentage, State } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html
 export type Map = InlineMap | DistributedMap;
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
-interface InlineMap extends CommonState {
+interface InlineMap {
     Type: 'Map';
+    Comment?: string;
+    InputPath?: JsonPath;
+    OutputPath?: JsonPath;
+    Next?: string;
+    End?: boolean;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'INLINE';
@@ -35,8 +40,13 @@ interface InlineMap extends CommonState {
 }
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
-interface DistributedMap extends CommonState {
+interface DistributedMap {
     Type: 'Map';
+    Comment?: string;
+    InputPath?: JsonPath;
+    OutputPath?: JsonPath;
+    Next?: string;
+    End?: boolean;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'DISTRIBUTED';
