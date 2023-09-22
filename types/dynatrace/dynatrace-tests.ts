@@ -59,7 +59,7 @@ function streaming() {
         30,
         10,
         5,
-        "_info_"
+        "_info_",
     );
 }
 
@@ -72,7 +72,7 @@ function Xhr() {
     const enterActionId = dynaTrace.enterXhrAction(
         "Angular Http request",
         0,
-        false
+        false,
     );
     dynaTrace.enterXhrCallback(enterActionId);
     dynaTrace.leaveXhrCallback(enterActionId);

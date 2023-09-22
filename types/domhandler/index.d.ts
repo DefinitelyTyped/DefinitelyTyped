@@ -33,7 +33,7 @@ export interface DomHandlerOptions {
 }
 
 export interface DomElement {
-    attribs?: {[s: string]: string} | undefined;
+    attribs?: { [s: string]: string } | undefined;
     children?: DomElement[] | undefined;
     data?: any;
     name?: string | undefined;
@@ -69,7 +69,7 @@ export class DomHandler {
     onend(): void;
     onerror(error: Error): void;
     onclosetag(): void;
-    onopentag(name: string, attribs: {[s: string]: string}): void;
+    onopentag(name: string, attribs: { [s: string]: string }): void;
     ontext(data: string): void;
     oncomment(data: string): void;
     oncdatastart(): void;

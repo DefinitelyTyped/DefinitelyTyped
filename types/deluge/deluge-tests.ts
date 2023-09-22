@@ -1,5 +1,5 @@
 import deluge = require("deluge");
-import * as http from 'http';
+import * as http from "http";
 
 const delugeInstance: deluge.Deluge = deluge("deluge-webui-api-url", "password");
 
@@ -18,6 +18,8 @@ delugeInstance.getTorrentRecord((error: string, result: deluge.TorrentRecord, re
 delugeInstance.isConnected((error: string, result: boolean, response: http.ServerResponse) => {
 });
 
-delugeInstance.setCookies({ "http://www.some-private-tracker.com/": "my_cookie1=xxx;my_cookie2=yyy;" },
+delugeInstance.setCookies(
+    { "http://www.some-private-tracker.com/": "my_cookie1=xxx;my_cookie2=yyy;" },
     (error: string, result: boolean, response: http.ServerResponse) => {
-});
+    },
+);

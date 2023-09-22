@@ -11,7 +11,7 @@
 
 // Last module patch version validated against: 3.3.0
 
-import { CountableTimeInterval, TimeInterval } from 'd3-time';
+import { CountableTimeInterval, TimeInterval } from "d3-time";
 
 // -------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -274,7 +274,7 @@ export interface ScaleLinear<Range, Output, Unknown = never> extends ScaleContin
  * @param range Array of range values.
  */
 export function scaleLinear<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleLinear<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the default interpolator and clamping disabled.
@@ -295,7 +295,7 @@ export function scaleLinear<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleLinear<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleLinear<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -401,7 +401,7 @@ export interface ScalePower<Range, Output, Unknown = never> extends ScaleContinu
  * @param range Array of range values.
  */
 export function scalePow<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScalePower<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the exponent 1, the default interpolator and clamping disabled.
@@ -423,7 +423,7 @@ export function scalePow<Range = number, Output = Range, Unknown = never>(
  */
 export function scalePow<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScalePower<Range, Output, Unknown>;
 
 /**
@@ -446,7 +446,7 @@ export function scalePow<Range, Output = Range, Unknown = never>(
  * @param range Array of range values.
  */
 export function scaleSqrt<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScalePower<Range, Output, Unknown>;
 /**
  * Constructs a new continuous power scale with the specified domain and range, the exponent 0.5, the default interpolator and clamping disabled.
@@ -468,7 +468,7 @@ export function scaleSqrt<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleSqrt<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScalePower<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -501,7 +501,8 @@ export function scaleSqrt<Range, Output = Range, Unknown = never>(
  * convert the interpolated range element to a corresponding output element.
  */
 export interface ScaleLogarithmic<Range, Output, Unknown = never>
-    extends ScaleContinuousNumeric<Range, Output, Unknown> {
+    extends ScaleContinuousNumeric<Range, Output, Unknown>
+{
     /**
      * Returns a copy of the scale’s current domain.
      */
@@ -557,7 +558,7 @@ export interface ScaleLogarithmic<Range, Output, Unknown = never>
      * @param interpolate An interpolation factory. The generics for Range and Output of the scale must correspond to the interpolation factory applied to the scale.
      */
     interpolate<NewOutput>(
-        interpolate: InterpolatorFactory<Range, NewOutput>
+        interpolate: InterpolatorFactory<Range, NewOutput>,
     ): ScaleLogarithmic<Range, NewOutput, Unknown>;
 
     /**
@@ -641,7 +642,7 @@ export interface ScaleLogarithmic<Range, Output, Unknown = never>
  * @param range Array of range values.
  */
 export function scaleLog<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleLogarithmic<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the base 10, the default interpolator and clamping disabled.
@@ -662,7 +663,7 @@ export function scaleLog<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleLog<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleLogarithmic<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -749,7 +750,7 @@ export interface ScaleSymLog<Range, Output, Unknown = never> extends ScaleContin
  * @param range Array of range values.
  */
 export function scaleSymlog<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleSymLog<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the constant 1, the default interpolator and clamping disabled.
@@ -770,7 +771,7 @@ export function scaleSymlog<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleSymlog<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleSymLog<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -938,7 +939,7 @@ export interface ScaleRadial<Range, Output, Unknown = never> extends ScaleContin
  * @param range Iterable of range values.
  */
 export function scaleRadial<Range = number, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleRadial<Range, Range, Unknown>;
 /**
  * Constructs a new radial scale with the specified domain and range.
@@ -953,7 +954,7 @@ export function scaleRadial<Range = number, Unknown = never>(
  */
 export function scaleRadial<Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleRadial<Range, Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1243,7 +1244,7 @@ export interface ScaleTime<Range, Output, Unknown = never> {
  * @param range Array of range values.
  */
 export function scaleTime<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleTime<Range, Output, Unknown>;
 /**
  * Constructs a new time scale with the specified domain and range, the default interpolator and clamping disabled.
@@ -1264,7 +1265,7 @@ export function scaleTime<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleTime<Range, Output = Range, Unknown = never>(
     domain: Iterable<Date | NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleTime<Range, Output, Unknown>;
 
 /**
@@ -1286,7 +1287,7 @@ export function scaleTime<Range, Output = Range, Unknown = never>(
  * @param range Array of range values.
  */
 export function scaleUtc<Range = number, Output = Range, Unknown = never>(
-    range?: Iterable<Range>
+    range?: Iterable<Range>,
 ): ScaleTime<Range, Output, Unknown>;
 /**
  * Constructs a new time scale using Coordinated Universal Time (UTC) with the specified domain and range, the default interpolator and clamping disabled.
@@ -1307,7 +1308,7 @@ export function scaleUtc<Range = number, Output = Range, Unknown = never>(
  */
 export function scaleUtc<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleTime<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1432,7 +1433,7 @@ export interface ScaleSequential<Output, Unknown = never> extends ScaleSequentia
  * @param interpolator The interpolator function or array to be used with the scale.
  */
 export function scaleSequential<Output = number, Unknown = never>(
-    interpolator?: ((t: number) => Output) | Iterable<Output>
+    interpolator?: ((t: number) => Output) | Iterable<Output>,
 ): ScaleSequential<Output, Unknown>;
 /**
  * Constructs a new sequential scale with the specified domain and interpolator function or array.
@@ -1448,7 +1449,7 @@ export function scaleSequential<Output = number, Unknown = never>(
  */
 export function scaleSequential<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: ((t: number) => Output) | Iterable<Output>
+    interpolator: ((t: number) => Output) | Iterable<Output>,
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1460,7 +1461,7 @@ export function scaleSequential<Output, Unknown = never>(
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequentialLog<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a logarithmic transform, analogous to a log scale.
@@ -1473,7 +1474,7 @@ export function scaleSequentialLog<Output = number, Unknown = never>(
  */
 export function scaleSequentialLog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1485,7 +1486,7 @@ export function scaleSequentialLog<Output, Unknown = never>(
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequentialPow<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a exponential transform, analogous to a power scale.
@@ -1498,7 +1499,7 @@ export function scaleSequentialPow<Output = number, Unknown = never>(
  */
 export function scaleSequentialPow<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1510,7 +1511,7 @@ export function scaleSequentialPow<Output, Unknown = never>(
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequentialSqrt<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
@@ -1523,7 +1524,7 @@ export function scaleSequentialSqrt<Output = number, Unknown = never>(
  */
 export function scaleSequentialSqrt<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1535,7 +1536,7 @@ export function scaleSequentialSqrt<Output, Unknown = never>(
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequentialSymlog<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
@@ -1548,7 +1549,7 @@ export function scaleSequentialSymlog<Output = number, Unknown = never>(
  */
 export function scaleSequentialSymlog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleSequential<Output, Unknown>;
 
 export interface ScaleSequentialQuantile<Output, Unknown = never> extends ScaleSequentialBase<Output, Unknown> {
@@ -1598,7 +1599,7 @@ export interface ScaleSequentialQuantile<Output, Unknown = never> extends ScaleS
  * @param interpolator The interpolator function to be used with the scale.
  */
 export function scaleSequentialQuantile<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleSequentialQuantile<Output, Unknown>;
 /**
  * A sequential scale using a p-quantile transform, analogous to a quantile scale.
@@ -1611,7 +1612,7 @@ export function scaleSequentialQuantile<Output = number, Unknown = never>(
  */
 export function scaleSequentialQuantile<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleSequentialQuantile<Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1728,7 +1729,7 @@ export interface ScaleDiverging<Output, Unknown = never> {
  * @param interpolator The scale’s interpolator function or array.
  */
 export function scaleDiverging<Output = number, Unknown = never>(
-    interpolator?: ((t: number) => Output) | Iterable<Output>
+    interpolator?: ((t: number) => Output) | Iterable<Output>,
 ): ScaleDiverging<Output, Unknown>;
 /**
  * Constructs a new diverging scale with the specified domain and interpolator function or array.
@@ -1745,7 +1746,7 @@ export function scaleDiverging<Output = number, Unknown = never>(
  */
 export function scaleDiverging<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: ((t: number) => Output) | Iterable<Output>
+    interpolator: ((t: number) => Output) | Iterable<Output>,
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1757,7 +1758,7 @@ export function scaleDiverging<Output, Unknown = never>(
  * @param interpolator The scale’s interpolator.
  */
 export function scaleDivergingLog<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a logarithmic transform, analogous to a log scale.
@@ -1770,7 +1771,7 @@ export function scaleDivergingLog<Output = number, Unknown = never>(
  */
 export function scaleDivergingLog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1782,7 +1783,7 @@ export function scaleDivergingLog<Output, Unknown = never>(
  * @param interpolator The scale’s interpolator.
  */
 export function scaleDivergingPow<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a exponential transform, analogous to a power scale.
@@ -1795,7 +1796,7 @@ export function scaleDivergingPow<Output = number, Unknown = never>(
  */
 export function scaleDivergingPow<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1807,7 +1808,7 @@ export function scaleDivergingPow<Output, Unknown = never>(
  * @param interpolator The scale’s interpolator.
  */
 export function scaleDivergingSqrt<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
@@ -1820,7 +1821,7 @@ export function scaleDivergingSqrt<Output = number, Unknown = never>(
  */
 export function scaleDivergingSqrt<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1832,7 +1833,7 @@ export function scaleDivergingSqrt<Output, Unknown = never>(
  * @param interpolator The scale’s interpolator.
  */
 export function scaleDivergingSymlog<Output = number, Unknown = never>(
-    interpolator?: (t: number) => Output
+    interpolator?: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
@@ -1845,7 +1846,7 @@ export function scaleDivergingSymlog<Output = number, Unknown = never>(
  */
 export function scaleDivergingSymlog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
-    interpolator: (t: number) => Output
+    interpolator: (t: number) => Output,
 ): ScaleDiverging<Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1989,7 +1990,7 @@ export function scaleQuantize<Range = number, Unknown = never>(range?: Iterable<
  */
 export function scaleQuantize<Range, Unknown = never>(
     domain: Iterable<NumberValue>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleQuantize<Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -2100,7 +2101,7 @@ export function scaleQuantile<Range = number, Unknown = never>(range?: Iterable<
  */
 export function scaleQuantile<Range, Unknown = never>(
     domain: Iterable<NumberValue | null | undefined>,
-    range: Iterable<Range>
+    range: Iterable<Range>,
 ): ScaleQuantile<Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -2276,7 +2277,7 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
     /**
      * Returns the current unknown value, which defaults to "implicit".
      */
-    unknown(): UnknownReturnType<Unknown, { name: 'implicit' }>;
+    unknown(): UnknownReturnType<Unknown, { name: "implicit" }>;
     /**
      * Sets the output value of the scale for unknown input values and returns this scale.
      * The implicit value enables implicit domain construction. scaleImplicit can be used as a convenience to set the implicit value.
@@ -2284,9 +2285,8 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
      * @param value Unknown value to be used or scaleImplicit to set implicit scale generation.
      */
     unknown<NewUnknown>(
-        value: NewUnknown
-    ): NewUnknown extends { name: "implicit" }
-        ? ScaleOrdinal<Domain, Range>
+        value: NewUnknown,
+    ): NewUnknown extends { name: "implicit" } ? ScaleOrdinal<Domain, Range>
         : ScaleOrdinal<Domain, Range, NewUnknown>;
 
     /**
@@ -2337,7 +2337,7 @@ export function scaleOrdinal<Domain extends { toString(): string }, Range, Unkno
 /**
  * A special value for ordinal.unknown that enables implicit domain construction: unknown values are implicitly added to the domain.
  */
-export const scaleImplicit: { name: 'implicit' };
+export const scaleImplicit: { name: "implicit" };
 
 // -------------------------------------------------------------------------------
 // Band Scale Factory
@@ -2491,7 +2491,7 @@ export interface ScaleBand<Domain extends { toString(): string }> {
  * @param range A two-element array of numeric values.
  */
 export function scaleBand<Domain extends { toString(): string } = string>(
-    range?: Iterable<NumberValue>
+    range?: Iterable<NumberValue>,
 ): ScaleBand<Domain>;
 /**
  * Constructs a new band scale with the specified domain and range, no padding, no rounding and center alignment.
@@ -2503,7 +2503,7 @@ export function scaleBand<Domain extends { toString(): string } = string>(
  */
 export function scaleBand<Domain extends { toString(): string }>(
     domain: Iterable<Domain>,
-    range: Iterable<NumberValue>
+    range: Iterable<NumberValue>,
 ): ScaleBand<Domain>;
 
 // -------------------------------------------------------------------------------
@@ -2580,7 +2580,6 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      * Returns the current outer padding which defaults to 0.
      * The outer padding determines the ratio of the range that is reserved for blank space
      * before the first point and after the last point.
-     *
      */
     padding(): number;
     /**
@@ -2637,7 +2636,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
  * @param range A two-element array of numeric values.
  */
 export function scalePoint<Domain extends { toString(): string } = string>(
-    range?: Iterable<NumberValue>
+    range?: Iterable<NumberValue>,
 ): ScalePoint<Domain>;
 /**
  * Constructs a new point scale with the specified domain and range, no padding, no rounding and center alignment.
@@ -2650,5 +2649,5 @@ export function scalePoint<Domain extends { toString(): string } = string>(
  */
 export function scalePoint<Domain extends { toString(): string }>(
     domain: Iterable<Domain>,
-    range: Iterable<NumberValue>
+    range: Iterable<NumberValue>,
 ): ScalePoint<Domain>;

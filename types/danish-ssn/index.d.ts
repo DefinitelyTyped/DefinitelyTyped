@@ -12,7 +12,7 @@ declare namespace cpr {
         cpr: string;
         valid: boolean;
         date: Date;
-        sex: 'Female' | 'Male';
+        sex: "Female" | "Male";
     }
 }
 

@@ -18,7 +18,7 @@ export class SequenceMatcher<T> {
         rightIndexEnd: number,
     ): [number, number, number];
     getMatchingBlocks(): Array<[number, number, number]>;
-    getOpcodes(): Array<['replace' | 'delete' | 'insert' | 'equal', number, number, number, number]>;
+    getOpcodes(): Array<["replace" | "delete" | "insert" | "equal", number, number, number, number]>;
     ratio(): number;
     quickRatio(): number;
     realQuickRatio(): number;

@@ -9,8 +9,8 @@
 
 // Last module patch version validated against: 3.0.0
 
-import { Selection, TransitionLike, ValueFn } from 'd3-selection';
-import { ZoomView } from 'd3-interpolate';
+import { ZoomView } from "d3-interpolate";
+import { Selection, TransitionLike, ValueFn } from "d3-selection";
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -76,7 +76,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     transform(
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
         transform: ZoomTransform | ((this: ZoomRefElement, event: any, d: Datum) => ZoomTransform),
-        point?: [number, number] | ((this: ZoomRefElement, event: any, d: Datum) => [number, number])
+        point?: [number, number] | ((this: ZoomRefElement, event: any, d: Datum) => [number, number]),
     ): void;
 
     /**
@@ -93,7 +93,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     translateBy(
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
         x: number | ValueFn<ZoomRefElement, Datum, number>,
-        y: number | ValueFn<ZoomRefElement, Datum, number>
+        y: number | ValueFn<ZoomRefElement, Datum, number>,
     ): void;
 
     /**
@@ -119,7 +119,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
         x: number | ValueFn<ZoomRefElement, Datum, number>,
         y: number | ValueFn<ZoomRefElement, Datum, number>,
-        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>,
     ): void;
 
     /**
@@ -138,7 +138,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     scaleBy(
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
         k: number | ValueFn<ZoomRefElement, Datum, number>,
-        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>
+        p?: [number, number] | ValueFn<ZoomRefElement, Datum, [number, number]>,
     ): void;
 
     /**
@@ -157,21 +157,31 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     scaleTo(
         selection: Selection<ZoomRefElement, Datum, any, any> | TransitionLike<ZoomRefElement, Datum>,
         k: number | ValueFn<ZoomRefElement, Datum, number>,
-        p?: [number, number]
+        p?: [number, number],
     ): void;
 
     /**
      * Returns the current constraint function.
      * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
      */
-    constrain(): (transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform;
+    constrain(): (
+        transform: ZoomTransform,
+        extent: [[number, number], [number, number]],
+        translateExtent: [[number, number], [number, number]],
+    ) => ZoomTransform;
     /**
      * Sets the transform constraint function to the specified function and returns the zoom behavior.
      *
      * @param constraint A constraint function which returns a transform given the current transform, viewport extent and translate extent.
      * The default implementation attempts to ensure that the viewport extent does not go outside the translate extent.
      */
-    constrain(constraint: ((transform: ZoomTransform, extent: [[number, number], [number, number]], translateExtent: [[number, number], [number, number]]) => ZoomTransform)): this;
+    constrain(
+        constraint: (
+            transform: ZoomTransform,
+            extent: [[number, number], [number, number]],
+            translateExtent: [[number, number], [number, number]],
+        ) => ZoomTransform,
+    ): this;
 
     /**
      * Returns the current filter function.
@@ -355,8 +365,10 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     /**
      * Returns the current interpolation factory, which defaults to d3.interpolateZoom to implement smooth zooming.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    interpolate<InterpolationFactory extends (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)>(): InterpolationFactory;
+    interpolate<
+        InterpolationFactory extends (a: ZoomView, b: ZoomView) => (t: number) => ZoomView,
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (): InterpolationFactory;
 
     /**
      * Sets the interpolation factory for zoom transitions to the specified function.
@@ -368,7 +380,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      *
      * @param interpolatorFactory An interpolator factory to be used to generate interpolators between zooms for transitions.
      */
-    interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)): this;
+    interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => (t: number) => ZoomView): this;
 
     /**
      * Return the first currently-assigned listener matching the specified typenames, if any.
@@ -436,7 +448,7 @@ export interface D3ZoomEvent<ZoomRefElement extends ZoomedElementBaseType, Datum
     /**
      * The event type for the zoom event
      */
-    type: 'start' | 'zoom' | 'end' | string; // Leave failsafe string type for cases like 'zoom.foo'
+    type: "start" | "zoom" | "end" | string; // Leave failsafe string type for cases like 'zoom.foo'
     /**
      * The current zoom transform
      */

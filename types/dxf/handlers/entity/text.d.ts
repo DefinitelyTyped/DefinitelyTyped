@@ -1,4 +1,4 @@
-import { Property } from '../../Information';
+import { Property } from "../../Information";
 import common, { CommonEntityData } from "./common";
 
 export const TYPE: string;

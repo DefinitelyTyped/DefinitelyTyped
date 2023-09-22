@@ -3,7 +3,7 @@
 // Definitions by: Ayibatari Ibaba <https://github.com/tariibaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 interface ServiceConfigOptions {
     /** The name of the service. */
@@ -93,8 +93,11 @@ declare class Service extends EventEmitter {
      * (i.e. `process.exit(1)`).
      */
     abortOnError: boolean;
-    on(event: 'install' | 'alreadyinstalled' | 'invalidinstallation' | 'uninstall' | 'start' | 'stop', listener: () => void): this;
-    on(event: 'error', listener: (err: any) => void): this;
+    on(
+        event: "install" | "alreadyinstalled" | "invalidinstallation" | "uninstall" | "start" | "stop",
+        listener: () => void,
+    ): this;
+    on(event: "error", listener: (err: any) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 

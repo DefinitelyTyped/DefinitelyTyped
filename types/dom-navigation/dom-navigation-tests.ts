@@ -11,10 +11,10 @@ if (entry) {
     const state: unknown = entry.getState();
     entry.ondispose = () => {};
     const listener = () => {};
-    entry.addEventListener('dispose', listener);
-    entry.removeEventListener('dispose', listener);
+    entry.addEventListener("dispose", listener);
+    entry.removeEventListener("dispose", listener);
 }
-navigation.updateCurrentEntry({ state: '' as unknown });
+navigation.updateCurrentEntry({ state: "" as unknown });
 const transition: NavigationTransition | null = navigation.transition;
 if (transition) {
     const navigationType: NavigationTypeString = transition.navigationType;
@@ -23,11 +23,11 @@ if (transition) {
 }
 const canGoBack: boolean = navigation.canGoBack;
 const canGoForward: boolean = navigation.canGoForward;
-navigation.navigate('/url', { state: '' as unknown, history: 'replace', info: '' as unknown });
-navigation.reload({ state: '' as unknown, info: '' as unknown });
-navigation.traverseTo('', { info: '' as unknown });
-navigation.back({ info: '' as unknown });
-navigation.forward({ info: '' as unknown });
+navigation.navigate("/url", { state: "" as unknown, history: "replace", info: "" as unknown });
+navigation.reload({ state: "" as unknown, info: "" as unknown });
+navigation.traverseTo("", { info: "" as unknown });
+navigation.back({ info: "" as unknown });
+navigation.forward({ info: "" as unknown });
 const navigateListener = (e: NavigateEvent) => {
     const navigationType: NavigationTypeString = e.navigationType;
     const canIntercept: boolean = e.canIntercept;
@@ -46,20 +46,20 @@ const navigateListener = (e: NavigateEvent) => {
     const info: unknown = e.info;
 };
 navigation.onnavigate = navigateListener;
-navigation.addEventListener('navigate', navigateListener);
-navigation.removeEventListener('navigate', navigateListener);
+navigation.addEventListener("navigate", navigateListener);
+navigation.removeEventListener("navigate", navigateListener);
 const navigateSuccessListener = (e: Event) => {};
 navigation.onnavigatesuccess = navigateSuccessListener;
-navigation.addEventListener('navigatesuccess', navigateSuccessListener);
-navigation.removeEventListener('navigatesuccess', navigateSuccessListener);
+navigation.addEventListener("navigatesuccess", navigateSuccessListener);
+navigation.removeEventListener("navigatesuccess", navigateSuccessListener);
 const navigateErrorListener = (e: Event) => {};
 navigation.onnavigateerror = navigateErrorListener;
-navigation.addEventListener('navigateerror', navigateErrorListener);
-navigation.removeEventListener('navigateerror', navigateErrorListener);
+navigation.addEventListener("navigateerror", navigateErrorListener);
+navigation.removeEventListener("navigateerror", navigateErrorListener);
 const currentEntryChangeListener = (e: NavigationCurrentEntryChangeEvent) => {
     const navigationType: NavigationTypeString | null = e.navigationType;
     const from: NavigationHistoryEntry = e.from;
 };
 navigation.oncurrententrychange = currentEntryChangeListener;
-navigation.addEventListener('currententrychange', currentEntryChangeListener);
-navigation.removeEventListener('currententrychange', currentEntryChangeListener);
+navigation.addEventListener("currententrychange", currentEntryChangeListener);
+navigation.removeEventListener("currententrychange", currentEntryChangeListener);

@@ -11,9 +11,9 @@
 /// <reference path="./wallet.d.ts" />
 /// <reference path="./worker.d.ts" />
 
-import type Compute from 'dcp/compute';
-import type Wallet from 'dcp/wallet';
-import type Worker from 'dcp/worker';
+import type Compute from "dcp/compute";
+import type Wallet from "dcp/wallet";
+import type Worker from "dcp/worker";
 
 /**
  * Asynchronously initialize the dcp-client bundle for use by the compute API, etc.

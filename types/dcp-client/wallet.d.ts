@@ -1,6 +1,6 @@
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
 // tslint:disable-next-line:no-single-declare-module
-declare module 'dcp/wallet' {
+declare module "dcp/wallet" {
     export default interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
@@ -51,7 +51,7 @@ declare module 'dcp/wallet' {
         /**
          * The keystore name.
          */
-        name: string | 'default';
+        name: string | "default";
 
         /**
          * An optional, user-defined identifier used for caching keystores.
@@ -220,6 +220,6 @@ declare module 'dcp/wallet' {
         /**
          *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
          */
-        paths?: string[] | LoadOptions['dir'];
+        paths?: string[] | LoadOptions["dir"];
     }
 }

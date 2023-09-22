@@ -3,7 +3,7 @@
 // Definitions by: xingyuzhe <https://github.com/xingyuzhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class Delegate {
-    constructor(proto: object, target: string)
+    constructor(proto: object, target: string);
     method(name: string): Delegate;
     access(name: string): Delegate;
     getter(name: string): Delegate;

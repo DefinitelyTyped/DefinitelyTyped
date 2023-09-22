@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import dotenv = require('dotenv');
+import dotenv = require("dotenv");
 
 export interface MissingEnvVarsError extends Error {
     /**

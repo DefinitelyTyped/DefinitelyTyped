@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
-import { Writable } from 'stream';
+import { Writable } from "stream";
 
 export = destroyOnHwm;
 

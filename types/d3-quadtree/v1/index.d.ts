@@ -173,7 +173,15 @@ export interface Quadtree<T> {
      *
      * @param callback The callback invoked for each node.
      */
-    visit(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void | boolean): this;
+    visit(
+        callback: (
+            node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>,
+            x0: number,
+            y0: number,
+            x1: number,
+            y1: number,
+        ) => void | boolean,
+    ): this;
 
     /**
      * Visits each node in the quadtree in post-order traversal, invoking the specified callback with arguments `node`, `x0`, `y0`, `x1`, `y1` for each node,
@@ -181,7 +189,15 @@ export interface Quadtree<T> {
      *
      * @param callback The callback invoked for each node.
      */
-    visitAfter(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void): this;
+    visitAfter(
+        callback: (
+            node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>,
+            x0: number,
+            y0: number,
+            x1: number,
+            y1: number,
+        ) => void,
+    ): this;
 }
 
 /**

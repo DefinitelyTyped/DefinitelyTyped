@@ -67,14 +67,14 @@ export function min<T extends Numeric>(iterable: Iterable<T>): T | undefined;
  */
 export function min<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): string | undefined;
 /**
  * Return the minimum value in the array using natural order.
  */
 export function min<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): U | undefined;
 
 /**
@@ -86,7 +86,7 @@ export function minIndex(iterable: Iterable<unknown>): number;
  */
 export function minIndex<TDatum>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown,
 ): number;
 /**
  * Return the index of the minimum value in the array using natural order.
@@ -106,14 +106,14 @@ export function max<T extends Numeric>(iterable: Iterable<T>): T | undefined;
  */
 export function max<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): string | undefined;
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
 export function max<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): U | undefined;
 
 /**
@@ -125,7 +125,7 @@ export function maxIndex(iterable: Iterable<unknown>): number;
  */
 export function maxIndex<TDatum>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => unknown,
 ): number;
 
 /**
@@ -141,14 +141,14 @@ export function extent<T extends Numeric>(iterable: Iterable<T>): [T, T] | [unde
  */
 export function extent<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): [string, string] | [undefined, undefined];
 /**
  * Return the min and max simultaneously.
  */
 export function extent<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): [U, U] | [undefined, undefined];
 
 /**
@@ -166,7 +166,10 @@ export function mode(iterable: Iterable<Numeric | undefined | null>): number;
  * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the mode.
  * This method ignores undefined, null and NaN values; this is useful for ignoring missing data.
  */
-export function mode<T>(iterable: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number;
+export function mode<T>(
+    iterable: Iterable<T>,
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
+): number;
 
 /**
  * Compute the sum of an array of numbers.
@@ -177,7 +180,7 @@ export function sum(iterable: Iterable<Numeric | undefined | null>): number;
  */
 export function sum<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number;
 
 /**
@@ -189,7 +192,7 @@ export function mean(iterable: Iterable<Numeric | undefined | null>): number | u
  */
 export function mean<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -201,7 +204,7 @@ export function median(iterable: Iterable<Numeric | undefined | null>): number |
  */
 export function median<T>(
     iterable: Iterable<T>,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -219,7 +222,7 @@ export function cumsum(iterable: Iterable<Numeric | undefined | null>): Float64A
  */
 export function cumsum<T>(
     iterable: Iterable<T>,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): Float64Array;
 
 /**
@@ -236,7 +239,7 @@ export function quantile(iterable: Iterable<Numeric | undefined | null>, p: numb
 export function quantile<T>(
     iterable: Iterable<T>,
     p: number,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -245,7 +248,7 @@ export function quantile<T>(
  */
 export function quantileSorted(
     array: Array<Numeric | undefined | null>,
-    p: number
+    p: number,
 ): number | undefined;
 /**
  * Similar to quantile, but expects the input to be a sorted array of values.
@@ -254,7 +257,7 @@ export function quantileSorted(
 export function quantileSorted<T>(
     array: T[],
     p: number,
-    accessor: (element: T, i: number, array: T[]) => number | undefined | null
+    accessor: (element: T, i: number, array: T[]) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -274,7 +277,9 @@ export function rank(iterable: Iterable<Numeric | undefined | null>): Float64Arr
  */
 export function rank<T>(
     iterable: Iterable<T>,
-    accessorOrComparator: ((datum: T, index: number, array: Iterable<T>) => number | undefined | null) | ((a: T, b: T) => number | undefined | null)
+    accessorOrComparator:
+        | ((datum: T, index: number, array: Iterable<T>) => number | undefined | null)
+        | ((a: T, b: T) => number | undefined | null),
 ): Float64Array;
 
 /**
@@ -292,7 +297,7 @@ export function variance(iterable: Iterable<Numeric | undefined | null>): number
  */
 export function variance<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -305,7 +310,7 @@ export function deviation(iterable: Iterable<Numeric | undefined | null>): numbe
  */
 export function deviation<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -319,7 +324,7 @@ export function fsum(values: Iterable<Numeric | undefined | null>): number;
  */
 export function fsum<T>(
     values: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number;
 
 /**
@@ -333,7 +338,7 @@ export function fcumsum(values: Iterable<Numeric | undefined | null>): Float64Ar
  */
 export function fcumsum<T>(
     values: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): Float64Array;
 
 export class Adder {
@@ -448,7 +453,13 @@ export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
  * @param right The right index.
  * @param compare The compare function.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left?: number, right?: number, compare?: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
+export function quickselect<T>(
+    array: ArrayLike<T>,
+    k: number,
+    left?: number,
+    right?: number,
+    compare?: (a: Primitive | undefined, b: Primitive | undefined) => number,
+): T[];
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -583,7 +594,7 @@ export function flatRollup<TObject, TReduce, TKeys extends unknown[]>(
 export function groupSort<TObject, TKey>(
     iterable: Iterable<TObject>,
     comparator: (a: TObject[], b: TObject[]) => number,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): TKey[];
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified accessor, and then returns an array of keys in sorted order.
@@ -592,7 +603,7 @@ export function groupSort<TObject, TKey>(
     iterable: Iterable<TObject>,
     // tslint:disable-next-line:unified-signatures
     accessor: (value: TObject[]) => unknown,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): TKey[];
 
 /**
@@ -609,7 +620,7 @@ export function count(iterable: Iterable<unknown>): number;
  */
 export function count<TObject>(
     iterable: Iterable<TObject>,
-    accessor: (a: TObject, b: TObject) => number | null | undefined
+    accessor: (a: TObject, b: TObject) => number | null | undefined,
 ): number;
 
 /**
@@ -662,7 +673,7 @@ export function pairs<T, U>(iterable: Iterable<T>, reducer: (a: T, b: T) => U): 
  *
  * It is acceptable to have more keys than source elements, and for keys to be duplicated or omitted.
  */
-export function permute<T>(source: { [key: number]: T; }, keys: Iterable<number>): T[];
+export function permute<T>(source: { [key: number]: T }, keys: Iterable<number>): T[];
 /**
  * Extract the values from an object into an array with a stable order. For example:
  * `var object = {yield: 27, year: 1931, site: "University Farm"};`
@@ -774,7 +785,7 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
  */
 export function every<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): boolean;
 
 /**
@@ -784,7 +795,7 @@ export function every<T>(
  */
 export function some<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): boolean;
 
 /**
@@ -793,7 +804,7 @@ export function some<T>(
  */
 export function filter<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): T[];
 
 /**
@@ -809,7 +820,7 @@ export function map<T, U>(iterable: Iterable<T>, mapper: (value: T, index: numbe
 export function reduce<T>(
     iterable: Iterable<T>,
     reducer: (previousValue: T, currentValue: T, currentIndex: number, iterable: Iterable<T>) => T,
-    initialValue?: T
+    initialValue?: T,
 ): T;
 /**
  * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
@@ -818,7 +829,7 @@ export function reduce<T>(
 export function reduce<T, U>(
     iterable: Iterable<T>,
     reducer: (previousValue: U, currentValue: T, currentIndex: number, iterable: Iterable<T>) => U,
-    initialValue: U
+    initialValue: U,
 ): U;
 
 /**
@@ -889,20 +900,29 @@ export interface Bin<Datum, Value extends number | Date | undefined> extends Arr
 /**
  * Type definition for threshold generator which returns the count of recommended thresholds
  */
-export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> =
-    (values: ArrayLike<Value>, min: number, max: number) => number;
+export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> = (
+    values: ArrayLike<Value>,
+    min: number,
+    max: number,
+) => number;
 
 /**
  * Type definition for threshold generator which returns an array of recommended numbers thresholds
  */
-export type ThresholdNumberArrayGenerator<Value extends number | undefined> =
-    (values: ArrayLike<Value>, min: number, max: number) => Value[];
+export type ThresholdNumberArrayGenerator<Value extends number | undefined> = (
+    values: ArrayLike<Value>,
+    min: number,
+    max: number,
+) => Value[];
 
 /**
  * Type definition for threshold generator which returns an array of recommended dates thresholds
  */
-export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
-    (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
+export type ThresholdDateArrayGenerator<Value extends Date | undefined> = (
+    values: ArrayLike<Value>,
+    min: Date,
+    max: Date,
+) => Value[];
 
 export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
     (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
@@ -931,7 +951,9 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
     thresholds(thresholds: ArrayLike<Value> | ThresholdDateArrayGenerator<Value>): this;
 }
 
-export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
+export interface HistogramGeneratorNumber<Datum, Value extends number | undefined>
+    extends HistogramCommon<Datum, Value>
+{
     domain(): (values: Iterable<Value>) => [number, number] | [undefined, undefined];
     domain(domain: [number, number] | ((values: Iterable<Value>) => [number, number] | [undefined, undefined])): this;
 

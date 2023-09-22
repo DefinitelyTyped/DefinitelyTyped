@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 export = destroy;
 

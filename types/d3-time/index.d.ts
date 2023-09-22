@@ -204,7 +204,7 @@ export function timeInterval(
     floor: (date: Date) => void,
     offset: (date: Date, step: number) => void,
     count: (start: Date, end: Date) => number,
-    field?: (date: Date) => number
+    field?: (date: Date) => number,
 ): CountableTimeInterval;
 
 // ---------------------------------------------------------------
@@ -524,7 +524,6 @@ export function utcDays(start: Date, stop: Date, step?: number): Date[];
 
 /**
  * Week Interval in Local Time. Alias for sunday; 7 days and 168 hours.
- *
  */
 export const utcWeek: CountableTimeInterval;
 

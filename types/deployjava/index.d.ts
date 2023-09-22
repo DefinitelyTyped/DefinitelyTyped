@@ -86,7 +86,12 @@ declare namespace DeployJava {
          * @param   {boolean}       minMatch       Minimum version match.
          * @return  {boolean}       True if a or many patterns are identical to version, otherwise, False.
          */
-        compareVersionToPattern(version: string, patternArray: Array<string>, familyMatch: boolean, minMatch: boolean): boolean;
+        compareVersionToPattern(
+            version: string,
+            patternArray: Array<string>,
+            familyMatch: boolean,
+            minMatch: boolean,
+        ): boolean;
 
         /**
          * @summary Enable alerts.

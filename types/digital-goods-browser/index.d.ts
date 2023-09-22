@@ -25,7 +25,7 @@ interface DigitalGoodsService {
     consume(purchaseToken: string): Promise<void>;
 }
 
-type ItemType = 'product' | 'subscription';
+type ItemType = "product" | "subscription";
 
 interface DigitalGoodsProductDetails {
     itemId: string;

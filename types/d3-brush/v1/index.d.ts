@@ -9,7 +9,7 @@
 
 // Last module patch version validated against: 1.1.6
 
-import { Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { Selection, TransitionLike, ValueFn } from "d3-selection";
 
 /**
  * Type alias for a BrushSelection. For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]],
@@ -289,7 +289,7 @@ export interface D3BrushEvent<Datum> {
     /**
      * The event type for the BrushEvent
      */
-    type: 'start' | 'brush' | 'end' | string; // Leave failsafe string type for cases like 'brush.foo'
+    type: "start" | "brush" | "end" | string; // Leave failsafe string type for cases like 'brush.foo'
     /**
      * The current brush selection associated with the event.
      * This is null when the selection is empty.

@@ -1,3 +1,3 @@
-import detectHover from 'detect-hover';
+import detectHover from "detect-hover";
 
 detectHover.update();

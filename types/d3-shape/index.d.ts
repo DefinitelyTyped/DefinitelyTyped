@@ -10,7 +10,7 @@
 
 // Last module patch version validated against: 3.1.0
 
-import { Path } from 'd3-path';
+import { Path } from "d3-path";
 
 declare global {
     interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
@@ -30,7 +30,16 @@ export interface CanvasPath_D3Shape {
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
     bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
     closePath(): void;
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    ellipse(
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+        rotation: number,
+        startAngle: number,
+        endAngle: number,
+        anticlockwise?: boolean,
+    ): void;
     lineTo(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
@@ -765,7 +774,7 @@ export interface Line<Datum> {
  */
 export function line<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Line<Datum>;
 
 /**
@@ -1221,7 +1230,7 @@ export interface Area<Datum> {
 export function area<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
     y0?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y1?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y1?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Area<Datum>;
 
 /**
@@ -2295,7 +2304,7 @@ export interface Symbol<This, Datum> {
  */
 export function symbol<Datum = any>(
     type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: any, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: any, d: Datum, ...args: any[]) => number),
 ): Symbol<any, Datum>;
 
 /**
@@ -2310,7 +2319,7 @@ export function symbol<Datum = any>(
  */
 export function symbol<This, Datum>(
     type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: This, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: This, d: Datum, ...args: any[]) => number),
 ): Symbol<This, Datum>;
 
 /**
@@ -2333,67 +2342,67 @@ export const symbols: SymbolType[];
 /**
  * The asterisk symbol type; intended for stroking.
  */
- export const symbolAsterisk: SymbolType;
+export const symbolAsterisk: SymbolType;
 
- /**
-  * The circle symbol type; intended for either filling or stroking.
-  */
- export const symbolCircle: SymbolType;
+/**
+ * The circle symbol type; intended for either filling or stroking.
+ */
+export const symbolCircle: SymbolType;
 
- /**
-  * The Greek cross symbol type, with arms of equal length; intended for filling.
-  */
- export const symbolCross: SymbolType;
+/**
+ * The Greek cross symbol type, with arms of equal length; intended for filling.
+ */
+export const symbolCross: SymbolType;
 
- /**
-  * The rhombus symbol type; intended for filling.
-  */
- export const symbolDiamond: SymbolType;
+/**
+ * The rhombus symbol type; intended for filling.
+ */
+export const symbolDiamond: SymbolType;
 
- /**
-  * The rotated square symbol type; intended for stroking.
-  */
- export const symbolDiamond2: SymbolType;
+/**
+ * The rotated square symbol type; intended for stroking.
+ */
+export const symbolDiamond2: SymbolType;
 
- /**
-  * The plus symbol type; intended for stroking.
-  */
- export const symbolPlus: SymbolType;
+/**
+ * The plus symbol type; intended for stroking.
+ */
+export const symbolPlus: SymbolType;
 
- /**
-  * The square symbol type; intended for filling.
-  */
- export const symbolSquare: SymbolType;
+/**
+ * The square symbol type; intended for filling.
+ */
+export const symbolSquare: SymbolType;
 
- /**
-  * The square2 symbol type; intended for stroking.
-  */
- export const symbolSquare2: SymbolType;
+/**
+ * The square2 symbol type; intended for stroking.
+ */
+export const symbolSquare2: SymbolType;
 
- /**
-  * The pentagonal star (pentagram) symbol type; intended for filling.
-  */
- export const symbolStar: SymbolType;
+/**
+ * The pentagonal star (pentagram) symbol type; intended for filling.
+ */
+export const symbolStar: SymbolType;
 
- /**
-  * The up-pointing triangle symbol type; intended for filling.
-  */
- export const symbolTriangle: SymbolType;
+/**
+ * The up-pointing triangle symbol type; intended for filling.
+ */
+export const symbolTriangle: SymbolType;
 
- /**
-  * The up-pointing triangle symbol type; intended for stroking.
-  */
- export const symbolTriangle2: SymbolType;
+/**
+ * The up-pointing triangle symbol type; intended for stroking.
+ */
+export const symbolTriangle2: SymbolType;
 
- /**
-  * The Y-shape symbol type; intended for filling.
-  */
- export const symbolWye: SymbolType;
+/**
+ * The Y-shape symbol type; intended for filling.
+ */
+export const symbolWye: SymbolType;
 
- /**
-  * The X-shape symbol type; intended for stroking.
-  */
- export const symbolX: SymbolType;
+/**
+ * The X-shape symbol type; intended for stroking.
+ */
+export const symbolX: SymbolType;
 
 // -----------------------------------------------------------------------------------
 // pointRadial

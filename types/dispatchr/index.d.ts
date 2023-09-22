@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface DispatcherState {
     stores: { [storeName: string]: any };
@@ -36,8 +36,8 @@ export interface Dispatcher {
 
 export interface DispatcherInterface {
     getContext(): DispatcherContext;
-    getStore: DispatcherContext['getStore'];
-    waitFor: DispatcherContext['waitFor'];
+    getStore: DispatcherContext["getStore"];
+    waitFor: DispatcherContext["waitFor"];
 }
 
 export interface DispatcherContext {
@@ -49,7 +49,7 @@ export interface DispatcherContext {
     dehydrate(): DispatcherState;
     rehydrate(dispatcherState: DispatcherState): void;
 
-    waitFor(stores: ReadonlyArray<string|StoreClass>, callback: () => void): void;
+    waitFor(stores: ReadonlyArray<string | StoreClass>, callback: () => void): void;
     dispatcherInterface: DispatcherInterface;
 }
 
@@ -57,9 +57,9 @@ export interface DispatcherError {
     message: string;
     type: string;
     meta: {
-        actionName?: string | undefined,
-        payload?: any,
-        error: Error
+        actionName?: string | undefined;
+        payload?: any;
+        error: Error;
     };
 }
 

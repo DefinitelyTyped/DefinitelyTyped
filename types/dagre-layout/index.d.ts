@@ -12,15 +12,17 @@ export namespace graphlib {
         edge(id: any): any;
         nodes(): string[];
         node(id: any): any;
-        setDefaultEdgeLabel(callback: string|(() => string|object)): Graph;
-        setDefaultNodeLabel(callback: string|(() => string|object)): Graph;
+        setDefaultEdgeLabel(callback: string | (() => string | object)): Graph;
+        setDefaultNodeLabel(callback: string | (() => string | object)): Graph;
         setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
-        setEdge(params: {v: string, w: string, name?: string | undefined}, value?: string): Graph;
+        setEdge(params: { v: string; w: string; name?: string | undefined }, value?: string): Graph;
         setGraph(label: GraphLabel): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
         graph(): GraphLabel;
 
-        constructor(opt?: {directed?: boolean | undefined, multigraph?: boolean | undefined, compound?: boolean | undefined});
+        constructor(
+            opt?: { directed?: boolean | undefined; multigraph?: boolean | undefined; compound?: boolean | undefined },
+        );
         setParent(name: string, parentName: string): void;
         hasNode(name: string): boolean;
     }

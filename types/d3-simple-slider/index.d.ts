@@ -3,7 +3,7 @@
 // Definitions by: John Walley <https://github.com/johnwalley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Selection, TransitionLike } from 'd3-selection';
+import { Selection, TransitionLike } from "d3-selection";
 
 export as namespace d3;
 

@@ -9,51 +9,51 @@
  * The currently defined set of DNS record types.
  */
 export type RecordType =
-    | 'A'
-    | 'AAAA'
-    | 'AFSDB'
-    | 'APL'
-    | 'AXFR'
-    | 'CAA'
-    | 'CDNSKEY'
-    | 'CDS'
-    | 'CERT'
-    | 'CNAME'
-    | 'DNAME'
-    | 'DHCID'
-    | 'DLV'
-    | 'DNSKEY'
-    | 'DS'
-    | 'HINFO'
-    | 'HIP'
-    | 'IXFR'
-    | 'IPSECKEY'
-    | 'KEY'
-    | 'KX'
-    | 'LOC'
-    | 'MX'
-    | 'NAPTR'
-    | 'NS'
-    | 'NSEC'
-    | 'NSEC3'
-    | 'NSEC3PARAM'
-    | 'NULL'
-    | 'OPT'
-    | 'PTR'
-    | 'RRSIG'
-    | 'RP'
-    | 'SIG'
-    | 'SOA'
-    | 'SRV'
-    | 'SSHFP'
-    | 'TA'
-    | 'TKEY'
-    | 'TLSA'
-    | 'TSIG'
-    | 'TXT'
-    | 'URI';
+    | "A"
+    | "AAAA"
+    | "AFSDB"
+    | "APL"
+    | "AXFR"
+    | "CAA"
+    | "CDNSKEY"
+    | "CDS"
+    | "CERT"
+    | "CNAME"
+    | "DNAME"
+    | "DHCID"
+    | "DLV"
+    | "DNSKEY"
+    | "DS"
+    | "HINFO"
+    | "HIP"
+    | "IXFR"
+    | "IPSECKEY"
+    | "KEY"
+    | "KX"
+    | "LOC"
+    | "MX"
+    | "NAPTR"
+    | "NS"
+    | "NSEC"
+    | "NSEC3"
+    | "NSEC3PARAM"
+    | "NULL"
+    | "OPT"
+    | "PTR"
+    | "RRSIG"
+    | "RP"
+    | "SIG"
+    | "SOA"
+    | "SRV"
+    | "SSHFP"
+    | "TA"
+    | "TKEY"
+    | "TLSA"
+    | "TSIG"
+    | "TXT"
+    | "URI";
 
-export type RecordClass = 'IN' | 'CS' | 'CH' | 'HS' | 'ANY';
+export type RecordClass = "IN" | "CS" | "CH" | "HS" | "ANY";
 
 export interface Question {
     type: RecordType;
@@ -64,7 +64,7 @@ export interface Question {
 export interface CaaData {
     issuerCritical?: boolean | undefined;
     flags?: number | undefined;
-    tag: 'issue' | 'issuewild' | 'iodef';
+    tag: "issue" | "issuewild" | "iodef";
     value: string;
 }
 
@@ -177,52 +177,52 @@ export interface BaseAnswer<T, D> extends GenericAnswer<T> {
 /**
  * Record types for which the library will provide a string in the data field.
  */
-export type StringRecordType = 'A' | 'AAAA' | 'CNAME' | 'DNAME' | 'NS' | 'PTR';
+export type StringRecordType = "A" | "AAAA" | "CNAME" | "DNAME" | "NS" | "PTR";
 
 /**
  * Record types for which the library does not attempt to process the data
  * field.
  */
 export type OtherRecordType =
-    | 'AFSDB'
-    | 'APL'
-    | 'AXFR'
-    | 'CDNSKEY'
-    | 'CDS'
-    | 'CERT'
-    | 'DHCID'
-    | 'DLV'
-    | 'HIP'
-    | 'IPSECKEY'
-    | 'IXFR'
-    | 'KEY'
-    | 'KX'
-    | 'LOC'
-    | 'NSEC3PARAM'
-    | 'NULL'
-    | 'SIG'
-    | 'TA'
-    | 'TKEY'
-    | 'TSIG'
-    | 'URI';
+    | "AFSDB"
+    | "APL"
+    | "AXFR"
+    | "CDNSKEY"
+    | "CDS"
+    | "CERT"
+    | "DHCID"
+    | "DLV"
+    | "HIP"
+    | "IPSECKEY"
+    | "IXFR"
+    | "KEY"
+    | "KX"
+    | "LOC"
+    | "NSEC3PARAM"
+    | "NULL"
+    | "SIG"
+    | "TA"
+    | "TKEY"
+    | "TSIG"
+    | "URI";
 
 export type StringAnswer = BaseAnswer<StringRecordType, string>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
-export type CaaAnswer = BaseAnswer<'CAA', CaaData>;
-export type DnskeyAnswer = BaseAnswer<'DNSKEY', DnskeyData>;
-export type DSAnswer = BaseAnswer<'DS', DsData>;
-export type HInfoAnswer = BaseAnswer<'HINFO', HInfoData>;
-export type MxAnswer = BaseAnswer<'MX', MxData>;
-export type NaptrAnswer = BaseAnswer<'NAPTR', NaptrData>;
-export type Nsec3Answer = BaseAnswer<'NSEC3', Nsec3Data>;
-export type NsecAnswer = BaseAnswer<'NSEC', NsecData>;
-export type RpAnswer = BaseAnswer<'RP', RpData>;
-export type RrsigAnswer = BaseAnswer<'RRSIG', RrsigData>;
-export type SoaAnswer = BaseAnswer<'SOA', SoaData>;
-export type SrvAnswer = BaseAnswer<'SRV', SrvData>;
-export type SshfpAnswer = BaseAnswer<'SSHFP', SshfpData>;
-export type TlsaAnswer = BaseAnswer<'TLSA', TlsaData>;
-export type TxtAnswer = BaseAnswer<'TXT', TxtData>;
+export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
+export type DnskeyAnswer = BaseAnswer<"DNSKEY", DnskeyData>;
+export type DSAnswer = BaseAnswer<"DS", DsData>;
+export type HInfoAnswer = BaseAnswer<"HINFO", HInfoData>;
+export type MxAnswer = BaseAnswer<"MX", MxData>;
+export type NaptrAnswer = BaseAnswer<"NAPTR", NaptrData>;
+export type Nsec3Answer = BaseAnswer<"NSEC3", Nsec3Data>;
+export type NsecAnswer = BaseAnswer<"NSEC", NsecData>;
+export type RpAnswer = BaseAnswer<"RP", RpData>;
+export type RrsigAnswer = BaseAnswer<"RRSIG", RrsigData>;
+export type SoaAnswer = BaseAnswer<"SOA", SoaData>;
+export type SrvAnswer = BaseAnswer<"SRV", SrvData>;
+export type SshfpAnswer = BaseAnswer<"SSHFP", SshfpData>;
+export type TlsaAnswer = BaseAnswer<"TLSA", TlsaData>;
+export type TxtAnswer = BaseAnswer<"TXT", TxtData>;
 
 interface OptCodes {
     OPTION_0: 0;
@@ -253,28 +253,28 @@ interface GenericOpt<T extends OptCodeType> {
     data?: Buffer | undefined;
 }
 
-interface ClientSubnetOpt extends GenericOpt<'CLIENT_SUBNET'> {
+interface ClientSubnetOpt extends GenericOpt<"CLIENT_SUBNET"> {
     family?: number | undefined;
     sourcePrefixLength?: number | undefined;
     scopePrefixLength?: number | undefined;
     ip: string | undefined;
 }
 
-interface KeepAliveOpt extends GenericOpt<'TCP_KEEPALIVE'> {
+interface KeepAliveOpt extends GenericOpt<"TCP_KEEPALIVE"> {
     timeout?: number | undefined;
 }
 
-interface PaddingOpt extends GenericOpt<'PADDING'> {
+interface PaddingOpt extends GenericOpt<"PADDING"> {
     length?: number | undefined;
 }
 
-interface TagOpt extends GenericOpt<'KEY_TAG'> {
+interface TagOpt extends GenericOpt<"KEY_TAG"> {
     tags: number[];
 }
 
 export type PacketOpt = ClientSubnetOpt | KeepAliveOpt | PaddingOpt | TagOpt;
 
-export interface OptAnswer extends GenericAnswer<'OPT'> {
+export interface OptAnswer extends GenericAnswer<"OPT"> {
     udpPayloadSize: number;
     extendedRcode: number;
     ednsVersion: number;
@@ -314,7 +314,7 @@ export interface Packet {
      * omitted if it is clear from the context of usage what type of packet
      * it is.
      */
-    type?: 'query' | 'response' | undefined;
+    type?: "query" | "response" | undefined;
 
     id?: number | undefined;
 

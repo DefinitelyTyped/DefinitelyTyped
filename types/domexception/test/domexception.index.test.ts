@@ -1,8 +1,8 @@
-import DOMException = require('domexception');
+import DOMException = require("domexception");
 
 new DOMException(); // $ExpectType DOMException
-new DOMException('foo'); // $ExpectType DOMException
-new DOMException('foo', 'SyntaxError'); // $ExpectType DOMException
+new DOMException("foo"); // $ExpectType DOMException
+new DOMException("foo", "SyntaxError"); // $ExpectType DOMException
 
 new DOMException().INDEX_SIZE_ERR; // $ExpectType number
 new DOMException().DOMSTRING_SIZE_ERR; // $ExpectType number

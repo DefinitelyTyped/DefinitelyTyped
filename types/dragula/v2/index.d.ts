@@ -28,9 +28,9 @@ declare namespace dragula {
     interface Drake {
         containers: Element[];
         dragging: boolean;
-        start(item:Element): void;
+        start(item: Element): void;
         end(): void;
-        cancel(revert:boolean): void;
+        cancel(revert: boolean): void;
         cancel(): void;
         remove(): void;
         on(events: string, callback: Function): Drake;

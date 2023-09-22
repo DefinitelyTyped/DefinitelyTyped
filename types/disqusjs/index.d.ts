@@ -8,7 +8,7 @@ export = DisqusJS;
 declare const DisqusJS: DisqusJS;
 
 interface DisqusJS {
-    new (config?: Partial<DisqusJSConfig>): {};
+    new(config?: Partial<DisqusJSConfig>): {};
 }
 
 interface DisqusJSConfig {

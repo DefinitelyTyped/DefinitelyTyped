@@ -7,11 +7,11 @@ export function generateMetadata(modules: string[]): DonnaTypes.Metadata;
 
 declare namespace DonnaTypes {
     interface Metadata {
-        files: { [filePath: string]: File; };
+        files: { [filePath: string]: File };
     }
 
     interface File {
-        objects: { [line: number]: Line; };
+        objects: { [line: number]: Line };
         exports: any;
     }
 
@@ -28,6 +28,5 @@ declare namespace DonnaTypes {
         prototypeProperties?: number[][] | undefined;
         doc?: string | undefined;
         range: number[][];
-
     }
 }

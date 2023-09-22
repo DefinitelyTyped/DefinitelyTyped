@@ -20,7 +20,7 @@ interface NavigationPreloadManager {
 
 declare var NavigationPreloadManager: {
     prototype: NavigationPreloadManager;
-    new (): NavigationPreloadManager;
+    new(): NavigationPreloadManager;
 };
 
 /*~ https://w3c.github.io/ServiceWorker/#dictdef-navigationpreloadstate */

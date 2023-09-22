@@ -19,5 +19,5 @@ export function clearDriftless(
     id: number,
     options?: {
         customClearTimeout?: ((...args: any[]) => void) | undefined;
-    }
+    },
 ): void;

@@ -23,7 +23,7 @@ drivelist.list((error, drives) => {
                 isCard,
                 isSCSI,
                 isUSB,
-                isUAS
+                isUAS,
             } = drive;
 
             enumerator; // $ExpectType string

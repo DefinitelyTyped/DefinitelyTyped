@@ -6,7 +6,7 @@
 /**
  * Type of resource indirections may control.
  */
-type ResourceType = 'VideoClip' | 'Projection' | 'unknown';
+type ResourceType = "VideoClip" | "Projection" | "unknown";
 
 /**
  * Base class for all indirections. Should not be used directly.

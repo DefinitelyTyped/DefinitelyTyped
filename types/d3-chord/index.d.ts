@@ -214,7 +214,6 @@ export interface Ribbon {
 }
 
 /**
- *
  * A ribbon generator to support rendering of chords in a chord diagram.
  *
  * The first generic corresponds to the type of the "this" context within which the ribbon generator and its accessor functions will be invoked.
@@ -411,7 +410,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
     context(context: CanvasRenderingContext2D | null): this;
 }
 
-export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum> extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
+export interface RibbonArrowGenerator<This, RibbonDatum, RibbonSubgroupDatum>
+    extends RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum>
+{
     headRadius(): (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number;
 
     headRadius(radius: number): this;

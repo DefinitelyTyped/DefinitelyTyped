@@ -3,6 +3,6 @@ const config: DataTables.Settings = {
     autoFill: {
         alwaysAsk: true,
         enable: true,
-        columns: [1, 2]
-    }
+        columns: [1, 2],
+    },
 };

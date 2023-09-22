@@ -5,7 +5,7 @@ navigator.serviceWorker.ready.then(async registration => {
     await registration.navigationPreload.enable();
     await registration.navigationPreload.disable();
 
-    await registration.navigationPreload.setHeaderValue('test');
+    await registration.navigationPreload.setHeaderValue("test");
 
     const state = await registration.navigationPreload.getState();
     console.log(state.enabled);

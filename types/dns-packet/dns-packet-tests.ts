@@ -1,28 +1,28 @@
 import {
-    encode,
-    decode,
-    encodingLength,
-    streamEncode,
-    streamDecode,
-    Packet,
     Answer,
+    decode,
+    encode,
+    encodingLength,
+    Packet,
     Question,
     RECURSION_DESIRED,
-} from 'dns-packet';
+    streamDecode,
+    streamEncode,
+} from "dns-packet";
 
 const answer: Answer = {
-    type: 'A',
-    name: 'localhost',
+    type: "A",
+    name: "localhost",
     ttl: 3600,
-    data: '127.0.0.1',
-    class: 'ANY',
+    data: "127.0.0.1",
+    class: "ANY",
     flush: true,
 };
 
 const question: Question = {
-    type: 'A',
-    name: 'localhost',
-    class: 'IN',
+    type: "A",
+    name: "localhost",
+    class: "IN",
 };
 
 const inPacket: Packet = {
@@ -32,7 +32,7 @@ const inPacket: Packet = {
     flags: 0,
     id: 0,
     questions: [question],
-    type: 'query',
+    type: "query",
 };
 
 const inputBuf = Buffer.alloc(0);
@@ -43,136 +43,136 @@ encode(outPacket);
 
 const records: Answer[] = [
     {
-        type: 'A',
-        name: 'localhost',
-        data: '127.0.0.1',
+        type: "A",
+        name: "localhost",
+        data: "127.0.0.1",
     },
     {
-        type: 'AAAA',
-        name: 'localhost',
-        data: '::1',
+        type: "AAAA",
+        name: "localhost",
+        data: "::1",
     },
     {
-        type: 'CNAME',
-        name: 'localhost',
-        data: 'example.com',
+        type: "CNAME",
+        name: "localhost",
+        data: "example.com",
     },
     {
-        type: 'DNSKEY',
-        name: 'localhost',
+        type: "DNSKEY",
+        name: "localhost",
         data: {
             algorithm: 1,
             flags: 257,
-            key: Buffer.from('test'),
+            key: Buffer.from("test"),
         },
     },
     {
-        type: 'DS',
-        name: 'localhost',
+        type: "DS",
+        name: "localhost",
         data: {
             keyTag: 12345,
             algorithm: 8,
             digestType: 1,
-            digest: Buffer.from('test'),
+            digest: Buffer.from("test"),
         },
     },
     {
-        type: 'NAPTR',
-        name: 'localhost',
+        type: "NAPTR",
+        name: "localhost",
         data: {
             order: 100,
             preference: 10,
-            flags: 's',
-            services: 'SIP+D2U',
-            regexp: '!^.*$!sip:customer-service@example.com!',
-            replacement: '_sip._udp.example.com',
+            flags: "s",
+            services: "SIP+D2U",
+            regexp: "!^.*$!sip:customer-service@example.com!",
+            replacement: "_sip._udp.example.com",
         },
     },
     {
-        type: 'NS',
-        name: 'localhost',
-        data: 'ns1.localhost',
+        type: "NS",
+        name: "localhost",
+        data: "ns1.localhost",
     },
     {
-        type: 'NSEC',
-        name: 'localhost',
+        type: "NSEC",
+        name: "localhost",
         data: {
-            nextDomain: 'a.domain',
-            rrtypes: ['A', 'TXT', 'RRSIG'],
+            nextDomain: "a.domain",
+            rrtypes: ["A", "TXT", "RRSIG"],
         },
     },
     {
-        type: 'NSEC3',
-        name: 'localhost',
+        type: "NSEC3",
+        name: "localhost",
         data: {
             algorithm: 1,
             flags: 0,
             iterations: 2,
-            salt: Buffer.from('test'),
-            nextDomain: Buffer.from('test'), // Hashed per RFC5155
-            rrtypes: ['A', 'TXT', 'RRSIG'],
+            salt: Buffer.from("test"),
+            nextDomain: Buffer.from("test"), // Hashed per RFC5155
+            rrtypes: ["A", "TXT", "RRSIG"],
         },
     },
     {
-        type: 'MX',
-        name: 'localhost',
+        type: "MX",
+        name: "localhost",
         data: {
             preference: 10,
-            exchange: 'mx.localhost',
+            exchange: "mx.localhost",
         },
     },
     {
-        type: 'TXT',
-        name: 'localhost',
-        data: 'test',
+        type: "TXT",
+        name: "localhost",
+        data: "test",
     },
     {
-        type: 'TXT',
-        name: 'localhost',
-        data: Buffer.from('test'),
+        type: "TXT",
+        name: "localhost",
+        data: Buffer.from("test"),
     },
     {
-        type: 'TXT',
-        name: 'localhost',
-        data: ['foo', 'bar'],
+        type: "TXT",
+        name: "localhost",
+        data: ["foo", "bar"],
     },
     {
-        type: 'SRV',
-        name: '_imap._tcp.localhost',
+        type: "SRV",
+        name: "_imap._tcp.localhost",
         data: {
             priority: 10,
             weight: 60,
             port: 5060,
-            target: 'imap.example.com',
+            target: "imap.example.com",
         },
     },
     {
-        type: 'SOA',
-        name: 'localhost',
+        type: "SOA",
+        name: "localhost",
         data: {
-            mname: 'localhost',
-            rname: 'hostmaster.localhost',
+            mname: "localhost",
+            rname: "hostmaster.localhost",
             serial: 2021122101,
         },
     },
     {
-        type: 'CAA',
-        name: 'localhost',
+        type: "CAA",
+        name: "localhost",
         data: {
             issuerCritical: false,
-            tag: 'issue',
-            value: 'ca.example.com',
+            tag: "issue",
+            value: "ca.example.com",
         },
     },
     {
-        type: 'TXT',
-        name: 'version.bind',
-        class: 'CH',
-        data: '1.2.3',
+        type: "TXT",
+        name: "version.bind",
+        class: "CH",
+        data: "1.2.3",
     },
     {
-        type: 'OPT',
-        name: '.',
+        type: "OPT",
+        name: ".",
         udpPayloadSize: 65535,
         extendedRcode: 255,
         ednsVersion: 255,
@@ -181,18 +181,18 @@ const records: Answer[] = [
         options: [
             {
                 code: 8,
-                type: 'CLIENT_SUBNET',
+                type: "CLIENT_SUBNET",
                 sourcePrefixLength: 0,
                 scopePrefixLength: 0,
-                ip: '127.0.0.1',
+                ip: "127.0.0.1",
             },
             {
                 code: 8,
-                ip: '127.0.0.1',
+                ip: "127.0.0.1",
             },
             {
                 code: 11,
-                type: 'TCP_KEEPALIVE',
+                type: "TCP_KEEPALIVE",
             },
             {
                 code: 11,
@@ -213,35 +213,35 @@ const records: Answer[] = [
         ],
     },
     {
-        type: 'RP',
-        name: 'localhost',
+        type: "RP",
+        name: "localhost",
         data: {
-            mbox: 'admin.example.com',
-            txt: 'txt.example.com',
+            mbox: "admin.example.com",
+            txt: "txt.example.com",
         },
     },
     {
-        type: 'RRSIG',
-        name: 'localhost',
+        type: "RRSIG",
+        name: "localhost",
         data: {
-            typeCovered: 'A',
+            typeCovered: "A",
             algorithm: 8,
             labels: 1,
             originalTTL: 3600,
             expiration: Date.now(),
             inception: Date.now(),
             keyTag: 12345,
-            signersName: 'a.name',
-            signature: Buffer.from('test'),
+            signersName: "a.name",
+            signature: Buffer.from("test"),
         },
     },
     {
-        type: 'SSHFP',
-        name: 'localhost',
+        type: "SSHFP",
+        name: "localhost",
         data: {
             algorithm: 1,
             hash: 1,
-            fingerprint: 'A108C9F834354D5B37AF988141C9294822F5BC00',
+            fingerprint: "A108C9F834354D5B37AF988141C9294822F5BC00",
         },
     },
 ];
@@ -253,13 +253,13 @@ function getRandomInt(min: number, max: number): number {
 }
 
 let buf = streamEncode({
-    type: 'query',
+    type: "query",
     id: getRandomInt(1, 65534),
     flags: RECURSION_DESIRED,
     questions: [
         {
-            type: 'A',
-            name: 'google.com',
+            type: "A",
+            name: "google.com",
         },
     ],
 });

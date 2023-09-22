@@ -11,7 +11,7 @@
  * Options for a `temperature` call
  */
 export interface TemperatureOptions {
-    parser: 'decimal' | 'default' | 'hex';
+    parser: "decimal" | "default" | "hex";
 }
 
 /**

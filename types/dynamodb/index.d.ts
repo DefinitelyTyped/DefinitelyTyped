@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { AnySchema, ArraySchema, SchemaMap, StringSchema } from 'joi';
-import * as bunyan from 'bunyan';
+import * as bunyan from "bunyan";
+import { AnySchema, ArraySchema, SchemaMap, StringSchema } from "joi";
 
-import { Callback } from './Callback';
-import { Model } from './Model';
-import { DynamoDB, Projection, DocumentClient, DynamoDbSet } from './DynamoDB';
+import { Callback } from "./Callback";
+import { DocumentClient, DynamoDB, DynamoDbSet, Projection } from "./DynamoDB";
+import { Model } from "./Model";
 
 interface CreateTablesOptions {
     [key: string]: { readCapacity: number; writeCapacity: number };
@@ -25,7 +25,7 @@ interface IndexDefinition<T> {
     hashKey: keyof T;
     rangeKey?: keyof T;
     name: string;
-    type: 'local' | 'global';
+    type: "local" | "global";
     projection?: Projection<T>;
 }
 

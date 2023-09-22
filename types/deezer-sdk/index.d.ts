@@ -327,7 +327,7 @@ declare namespace DeezerSdk {
      * {@link https://developers.deezer.com/sdk/javascript/player_object | The player properties}
      */
     interface Player {
-        //#region Load tracks to a player
+        // #region Load tracks to a player
 
         // There may be more overloads possible, but the defined ones should suffice for all
         // practical purposes.
@@ -598,9 +598,9 @@ declare namespace DeezerSdk {
          */
         addToQueue(trackIds: ReadonlyArray<string>, onTracksLoaded?: (playQueue: PlayQueue) => void): void;
 
-        //#endregion
+        // #endregion
 
-        //#region Control a player
+        // #region Control a player
 
         /**
          * See: {@link https://developers.deezer.com/sdk/javascript/controls | Control a player}
@@ -674,20 +674,19 @@ declare namespace DeezerSdk {
          * @param trackInfo Replaces the current track information.
          *
          * See: {@link https://developers.deezer.com/sdk/javascript/controls | Control a player}
-         *
          */
         setBlindTestMode(
             blindTestMode: boolean,
             trackInfo?: {
                 title: string;
                 artist: string;
-                cover: string ;
-            }
+                cover: string;
+            },
         ): void;
 
-        //#endregion
+        // #endregion
 
-        //#region The player properties
+        // #region The player properties
 
         /**
          * See: {@link https://developers.deezer.com/sdk/javascript/player_object | The player properties}
@@ -733,7 +732,7 @@ declare namespace DeezerSdk {
          */
         getMute(): boolean;
 
-        //#endregion
+        // #endregion
     }
 
     /**
@@ -796,7 +795,7 @@ declare namespace DeezerSdk {
         readonly title: string;
     }
 
-    //#region Player Events
+    // #region Player Events
 
     /**
      * Allows you to listen to all player-related events.
@@ -810,12 +809,12 @@ declare namespace DeezerSdk {
          * See: {@link https://developers.deezer.com/sdk/javascript/events | List of events}
          */
         subscribe(
-            event: "player_loaded" | "player_play" | "player_paused"| "tracklist_changed",
-            callback: () => void
+            event: "player_loaded" | "player_play" | "player_paused" | "tracklist_changed",
+            callback: () => void,
         ): void;
         subscribe(
             event: "player_position",
-            callback: (positionSecondsFloat_durationSecondsInt: [number, number]) => void
+            callback: (positionSecondsFloat_durationSecondsInt: [number, number]) => void,
         ): void;
         subscribe(event: "player_buffering", callback: (loadedPercentInt: number) => void): void;
         subscribe(event: "volume_changed", callback: (volumePercentInt: number) => void): void;
@@ -825,7 +824,7 @@ declare namespace DeezerSdk {
         subscribe(event: "track_end", callback: (trackPosition: number) => void): void;
         subscribe(
             event: "current_track",
-            callback: (currentTrackInfo: { index: number; track: Track; }) => void
+            callback: (currentTrackInfo: { index: number; track: Track }) => void,
         ): void;
     }
 
@@ -839,7 +838,7 @@ declare namespace DeezerSdk {
      * in some situations anyway.
      */
     type PlayerEvent =
-        "player_loaded"
+        | "player_loaded"
         | "player_play"
         | "player_paused"
         | "player_position"
@@ -852,5 +851,5 @@ declare namespace DeezerSdk {
         | "track_end"
         | "current_track";
 
-    //#endregion
+    // #endregion
 }

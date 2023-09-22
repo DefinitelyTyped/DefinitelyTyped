@@ -1,6 +1,6 @@
-import d = require('d');
-import autoBind = require('d/auto-bind');
-import lazy = require('d/lazy');
+import d = require("d");
+import autoBind = require("d/auto-bind");
+import lazy = require("d/lazy");
 
 class Account {}
 Object.defineProperties(Account.prototype, {
@@ -9,37 +9,37 @@ Object.defineProperties(Account.prototype, {
     balance: d.gs(() => {}),
 });
 
-d('foo'); // $ExpectType PropertyDescriptor
-d('foo', { enumerable: true }); // $ExpectType PropertyDescriptor
-d('c', 'foo'); // $ExpectType PropertyDescriptor
-d('c', 'foo', { enumerable: true }); // $ExpectType PropertyDescriptor
+d("foo"); // $ExpectType PropertyDescriptor
+d("foo", { enumerable: true }); // $ExpectType PropertyDescriptor
+d("c", "foo"); // $ExpectType PropertyDescriptor
+d("c", "foo", { enumerable: true }); // $ExpectType PropertyDescriptor
 
-d('c', 'foo'); // $ExpectType PropertyDescriptor
-d('e', 'foo'); // $ExpectType PropertyDescriptor
-d('w', 'foo'); // $ExpectType PropertyDescriptor
-d('ce', 'foo'); // $ExpectType PropertyDescriptor
-d('cw', 'foo'); // $ExpectType PropertyDescriptor
-d('ew', 'foo'); // $ExpectType PropertyDescriptor
-d('cew', 'foo'); // $ExpectType PropertyDescriptor
+d("c", "foo"); // $ExpectType PropertyDescriptor
+d("e", "foo"); // $ExpectType PropertyDescriptor
+d("w", "foo"); // $ExpectType PropertyDescriptor
+d("ce", "foo"); // $ExpectType PropertyDescriptor
+d("cw", "foo"); // $ExpectType PropertyDescriptor
+d("ew", "foo"); // $ExpectType PropertyDescriptor
+d("cew", "foo"); // $ExpectType PropertyDescriptor
 // @ts-expect-error
-d('foo', 'foo');
+d("foo", "foo");
 
-d.gs('c', { enumerable: true }); // $ExpectType PropertyDescriptor
-d.gs('c', () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
+d.gs("c", { enumerable: true }); // $ExpectType PropertyDescriptor
+d.gs("c", () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
 d.gs(() => ({})); // $ExpectType PropertyDescriptor
 d.gs(null, () => ({})); // $ExpectType PropertyDescriptor
 d.gs(undefined, () => ({})); // $ExpectType PropertyDescriptor
-d.gs('c', () => ({})); // $ExpectType PropertyDescriptor
-d.gs('c', null, () => ({})); // $ExpectType PropertyDescriptor
-d.gs('c', undefined, () => ({})); // $ExpectType PropertyDescriptor
-d.gs('c', null, () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
-d.gs('c', undefined, () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
+d.gs("c", () => ({})); // $ExpectType PropertyDescriptor
+d.gs("c", null, () => ({})); // $ExpectType PropertyDescriptor
+d.gs("c", undefined, () => ({})); // $ExpectType PropertyDescriptor
+d.gs("c", null, () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
+d.gs("c", undefined, () => ({}), { enumerable: true }); // $ExpectType PropertyDescriptor
 
-d.gs('c', () => ({})); // $ExpectType PropertyDescriptor
-d.gs('e', () => ({})); // $ExpectType PropertyDescriptor
-d.gs('ce', () => ({})); // $ExpectType PropertyDescriptor
+d.gs("c", () => ({})); // $ExpectType PropertyDescriptor
+d.gs("e", () => ({})); // $ExpectType PropertyDescriptor
+d.gs("ce", () => ({})); // $ExpectType PropertyDescriptor
 // @ts-expect-error
-d.gs('cew', () => ({}));
+d.gs("cew", () => ({}));
 
 class Foo {
     _count: number;
@@ -51,7 +51,7 @@ Object.defineProperties(
         increment: d(function(this: any) {
             ++this._count;
         }),
-    })
+    }),
 );
 autoBind(
     {
@@ -59,7 +59,7 @@ autoBind(
             ++this._count;
         }),
     },
-    { overwriteDefinition: true }
+    { overwriteDefinition: true },
 );
 autoBind(
     {
@@ -71,7 +71,7 @@ autoBind(
         resolveContext(ctx: any) {
             return ctx;
         },
-    }
+    },
 );
 
 Object.defineProperties(
@@ -80,7 +80,7 @@ Object.defineProperties(
         items: d(() => {
             return [];
         }),
-    })
+    }),
 );
 
 const foo = new Foo();

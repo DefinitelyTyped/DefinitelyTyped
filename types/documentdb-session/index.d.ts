@@ -11,7 +11,7 @@ export = DocumentDBSession;
 declare function DocumentDBSession(expressSession: typeof session): DocumentDBStoreConstructor;
 
 interface DocumentDBStoreConstructor {
-    new (options: Options): session.Store;
+    new(options: Options): session.Store;
 }
 
 interface Options {

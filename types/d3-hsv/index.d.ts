@@ -5,7 +5,7 @@
 
 // Last module patch version validated against: 0.1.0
 
-import { Color, RGBColor, ColorSpaceObject, ColorCommonInstance } from 'd3-color';
+import { Color, ColorCommonInstance, ColorSpaceObject, RGBColor } from "d3-color";
 
 export type ColorSpaceObjectWithHSV = ColorSpaceObject | HSVColor;
 
@@ -86,4 +86,7 @@ export function interpolateHsv(a: string | ColorCommonInstance, b: string | Colo
  * @param a The starting color; it will be converted to HSV using `d3.hsv`.
  * @param b The ending color; it will be converted to HSV using `d3.hsv`.
  */
-export function interpolateHsvLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): (t: number) => string;
+export function interpolateHsvLong(
+    a: string | ColorCommonInstance,
+    b: string | ColorCommonInstance,
+): (t: number) => string;

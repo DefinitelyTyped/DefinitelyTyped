@@ -1,4 +1,4 @@
-import { DeviceUUID, Agent } from 'device-uuid';
+import { Agent, DeviceUUID } from "device-uuid";
 
 /**
  * Example from the README
@@ -27,4 +27,4 @@ const dua: Array<string | number | boolean> = [
     du.pixelDepth,
     du.isTouchScreen,
 ];
-const uuid: string = du.hashMD5(dua.join(':'));
+const uuid: string = du.hashMD5(dua.join(":"));

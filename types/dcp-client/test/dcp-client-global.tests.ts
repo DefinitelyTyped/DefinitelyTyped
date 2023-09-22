@@ -10,3 +10,10 @@ compute;
 wallet;
 // $ExpectType Worker
 worker;
+
+const { Keystore } = wallet;
+
+// $ExpectType Promise<Keystore>
+new Keystore();
+// $ExpectType Promise<Keystore>
+new Keystore(null, "");

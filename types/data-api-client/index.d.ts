@@ -8,9 +8,9 @@
 // This is added because aws-sdk depends on @types/node
 /// <reference types="node" />
 
-import type { ClientConfiguration, Types } from 'aws-sdk2-types/clients/rdsdataservice';
+import type { ClientConfiguration, Types } from "aws-sdk2-types/clients/rdsdataservice";
 declare namespace Client {
-    type OmittedValues = 'database' | 'resourceArn' | 'secretArn' | 'schema';
+    type OmittedValues = "database" | "resourceArn" | "secretArn" | "schema";
 
     interface iParams {
         secretArn: string;
@@ -21,12 +21,12 @@ declare namespace Client {
         sslEnabled?: boolean | undefined;
         options?: ClientConfiguration | undefined;
         region?: string | undefined;
-        engine?: 'mysql' | 'pg' | undefined;
+        engine?: "mysql" | "pg" | undefined;
         formatOptions?:
             | {
-                  deserializeDate?: boolean | undefined;
-                  treatAsLocalDate?: boolean | undefined;
-              }
+                deserializeDate?: boolean | undefined;
+                treatAsLocalDate?: boolean | undefined;
+            }
             | undefined;
     }
 
@@ -35,15 +35,15 @@ declare namespace Client {
         query(
             obj:
                 | {
-                      sql: string;
-                      parameters: [] | unknown;
-                      database?: string | undefined;
-                      hydrateColumnNames?: boolean | undefined;
-                  }
+                    sql: string;
+                    parameters: [] | unknown;
+                    database?: string | undefined;
+                    hydrateColumnNames?: boolean | undefined;
+                }
                 | ((prevResult: { insertId?: any }) => any),
         ): Transaction;
 
-        rollback(cb: ((error: Error, status: any) => void)): Transaction;
+        rollback(cb: (error: Error, status: any) => void): Transaction;
         commit: () => Promise<void>;
     }
 

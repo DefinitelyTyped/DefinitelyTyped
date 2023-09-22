@@ -1,4 +1,4 @@
-import { emojiSupport } from 'detect-emoji-support';
+import { emojiSupport } from "detect-emoji-support";
 
 if (emojiSupport()) {
 }

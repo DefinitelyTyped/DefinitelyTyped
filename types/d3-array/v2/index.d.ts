@@ -44,14 +44,14 @@ export function min<T extends Numeric>(iterable: Iterable<T>): T | undefined;
  */
 export function min<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): string | undefined;
 /**
  * Return the minimum value in the array using natural order.
  */
 export function min<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): U | undefined;
 
 /**
@@ -63,7 +63,7 @@ export function minIndex<T>(iterable: Iterable<T>): number;
  */
 export function minIndex<TDatum, U>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null,
 ): number;
 /**
  * Return the index of the minimum value in the array using natural order.
@@ -83,14 +83,14 @@ export function max<T extends Numeric>(iterable: Iterable<T>): T | undefined;
  */
 export function max<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): string | undefined;
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
 export function max<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): U | undefined;
 
 /**
@@ -102,7 +102,7 @@ export function maxIndex<T>(iterable: Iterable<T>): number;
  */
 export function maxIndex<TDatum, U>(
     iterable: Iterable<TDatum>,
-    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null
+    accessor: (datum: TDatum, index: number, array: Iterable<TDatum>) => U | undefined | null,
 ): number;
 
 /**
@@ -118,14 +118,14 @@ export function extent<T extends Numeric>(iterable: Iterable<T>): [T, T] | [unde
  */
 export function extent<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null,
 ): [string, string] | [undefined, undefined];
 /**
  * Return the min and max simultaneously.
  */
 export function extent<T, U extends Numeric>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null,
 ): [U, U] | [undefined, undefined];
 
 /**
@@ -137,7 +137,7 @@ export function sum<T extends Numeric>(iterable: Iterable<T | undefined | null>)
  */
 export function sum<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number;
 
 /**
@@ -149,7 +149,7 @@ export function mean<T extends Numeric>(iterable: Iterable<T | undefined | null>
  */
 export function mean<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -161,7 +161,7 @@ export function median<T extends Numeric>(iterable: Iterable<T | undefined | nul
  */
 export function median<T>(
     iterable: Iterable<T>,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -179,7 +179,7 @@ export function cumsum(iterable: Iterable<Numeric | undefined | null>): Float64A
  */
 export function cumsum<T>(
     iterable: Iterable<T>,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): Float64Array;
 
 /**
@@ -196,7 +196,7 @@ export function quantile<T extends Numeric>(iterable: Iterable<T | undefined | n
 export function quantile<T>(
     iterable: Iterable<T>,
     p: number,
-    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -205,7 +205,7 @@ export function quantile<T>(
  */
 export function quantileSorted<T extends Numeric>(
     array: Array<T | undefined | null>,
-    p: number
+    p: number,
 ): number | undefined;
 /**
  * Similar to quantile, but expects the input to be a sorted array of values.
@@ -214,7 +214,7 @@ export function quantileSorted<T extends Numeric>(
 export function quantileSorted<T>(
     array: T[],
     p: number,
-    accessor: (element: T, i: number, array: T[]) => number | undefined | null
+    accessor: (element: T, i: number, array: T[]) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -232,7 +232,7 @@ export function variance<T extends Numeric>(iterable: Iterable<T | undefined | n
  */
 export function variance<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -245,7 +245,7 @@ export function deviation<T extends Numeric>(iterable: Iterable<T | undefined | 
  */
 export function deviation<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
 
 /**
@@ -259,7 +259,7 @@ export function fsum<T extends Numeric>(values: Iterable<T | undefined | null>):
  */
 export function fsum<T>(
     values: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): number;
 
 /**
@@ -273,7 +273,7 @@ export function fcumsum(values: Iterable<Numeric | undefined | null>): Float64Ar
  */
 export function fcumsum<T>(
     values: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null,
 ): Float64Array;
 
 export class Adder {
@@ -418,7 +418,13 @@ export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, rig
  * @param right The right index.
  * @param compare The compare function.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
+export function quickselect<T>(
+    array: ArrayLike<T>,
+    k: number,
+    left: number,
+    right: number,
+    compare: (a: Primitive | undefined, b: Primitive | undefined) => number,
+): T[];
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -442,7 +448,10 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject[]>;
+export function group<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey,
+): InternMap<TKey, TObject[]>;
 /**
  * Groups the specified array of values into an InternMap from key to array of value.
  *
@@ -453,7 +462,7 @@ export function group<TObject, TKey>(iterable: Iterable<TObject>, key: (value: T
 export function group<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): InternMap<TKey1, InternMap<TKey2, TObject[]>>;
 /**
  * Groups the specified array of values into an InternMap from key to array of value.
@@ -467,7 +476,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject[]>>>;
 
 /**
@@ -478,7 +487,7 @@ export function group<TObject, TKey1, TKey2, TKey3>(
  */
 export function groups<TObject, TKey>(
     iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): Array<[TKey, TObject[]]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
@@ -490,7 +499,7 @@ export function groups<TObject, TKey>(
 export function groups<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): Array<[TKey1, Array<[TKey2, TObject[]]>]>;
 /**
  * Equivalent to group, but returns nested arrays instead of nested maps.
@@ -504,7 +513,7 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject[]]>]>]>;
 
 /**
@@ -513,7 +522,10 @@ export function groups<TObject, TKey1, TKey2, TKey3>(
  * @param iterable The array to group.
  * @param key The key function.
  */
-export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: TObject) => TKey): InternMap<TKey, TObject>;
+export function index<TObject, TKey>(
+    iterable: Iterable<TObject>,
+    key: (value: TObject) => TKey,
+): InternMap<TKey, TObject>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
  *
@@ -524,7 +536,7 @@ export function index<TObject, TKey>(iterable: Iterable<TObject>, key: (value: T
 export function index<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): InternMap<TKey1, InternMap<TKey2, TObject>>;
 /**
  * Equivalent to group but returns a unique value per compound key instead of an array, throwing if the key is not unique.
@@ -538,7 +550,7 @@ export function index<TObject, TKey1, TKey2, TKey3>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TObject>>>;
 
 /**
@@ -549,7 +561,7 @@ export function index<TObject, TKey1, TKey2, TKey3>(
  */
 export function indexes<TObject, TKey>(
     iterable: Iterable<TObject>,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): Array<[TKey, TObject]>;
 /**
  * Equivalent to index, but returns nested arrays instead of nested maps.
@@ -561,7 +573,7 @@ export function indexes<TObject, TKey>(
 export function indexes<TObject, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): Array<[TKey1, Array<[TKey2, TObject]>]>;
 /**
  * Equivalent to index, but returns nested arrays instead of nested maps.
@@ -575,7 +587,7 @@ export function indexes<TObject, TKey1, TKey2, TKey3>(
     iterable: Iterable<TObject>,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TObject]>]>]>;
 
 /**
@@ -588,7 +600,7 @@ export function indexes<TObject, TKey1, TKey2, TKey3>(
 export function rollup<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): InternMap<TKey, TReduce>;
 /**
  * Groups and reduces the specified array of values into an InternMap from key to value.
@@ -602,7 +614,7 @@ export function rollup<TObject, TReduce, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): InternMap<TKey1, InternMap<TKey2, TReduce>>;
 /**
  * Groups and reduces the specified array of values into an InternMap from key to value.
@@ -618,7 +630,7 @@ export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): InternMap<TKey1, InternMap<TKey2, InternMap<TKey3, TReduce>>>;
 
 /**
@@ -631,7 +643,7 @@ export function rollup<TObject, TReduce, TKey1, TKey2, TKey3>(
 export function rollups<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): Array<[TKey, TReduce]>;
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
@@ -645,7 +657,7 @@ export function rollups<TObject, TReduce, TKey1, TKey2>(
     iterable: Iterable<TObject>,
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
-    key2: (value: TObject) => TKey2
+    key2: (value: TObject) => TKey2,
 ): Array<[TKey1, Array<[TKey2, TReduce]>]>;
 /**
  * Equivalent to rollup, but returns nested arrays instead of nested maps.
@@ -661,7 +673,7 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
     reduce: (value: TObject[]) => TReduce,
     key1: (value: TObject) => TKey1,
     key2: (value: TObject) => TKey2,
-    key3: (value: TObject) => TKey3
+    key3: (value: TObject) => TKey3,
 ): Array<[TKey1, Array<[TKey2, Array<[TKey3, TReduce]>]>]>;
 
 /**
@@ -671,7 +683,7 @@ export function rollups<TObject, TReduce, TKey1, TKey2, TKey3>(
 export function groupSort<TObject, TKey>(
     iterable: Iterable<TObject>,
     comparator: (a: TObject[], b: TObject[]) => number,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): TKey[];
 /**
  * Groups the specified iterable of elements according to the specified key function, sorts the groups according to the specified accessor, and then returns an array of keys in sorted order.
@@ -679,7 +691,7 @@ export function groupSort<TObject, TKey>(
 export function groupSort<TObject, TReduce, TKey>(
     iterable: Iterable<TObject>,
     accessor: (value: TObject[]) => TReduce,
-    key: (value: TObject) => TKey
+    key: (value: TObject) => TKey,
 ): TKey[];
 
 /**
@@ -696,7 +708,7 @@ export function count<TObject>(iterable: Iterable<TObject>): number;
  */
 export function count<TObject>(
     iterable: Iterable<TObject>,
-    accessor: (a: TObject, b: TObject) => number | null | undefined
+    accessor: (a: TObject, b: TObject) => number | null | undefined,
 ): number;
 
 /**
@@ -749,7 +761,7 @@ export function pairs<T, U>(iterable: Iterable<T>, reducer: (a: T, b: T) => U): 
  *
  * It is acceptable to have more keys than source elements, and for keys to be duplicated or omitted.
  */
-export function permute<T>(source: { [key: number]: T; }, keys: Iterable<number>): T[];
+export function permute<T>(source: { [key: number]: T }, keys: Iterable<number>): T[];
 /**
  * Extract the values from an object into an array with a stable order. For example:
  * `var object = {yield: 27, year: 1931, site: "University Farm"};`
@@ -860,7 +872,7 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
  */
 export function every<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): boolean;
 
 /**
@@ -870,7 +882,7 @@ export function every<T>(
  */
 export function some<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): boolean;
 
 /**
@@ -879,7 +891,7 @@ export function some<T>(
  */
 export function filter<T>(
     iterable: Iterable<T>,
-    test: (value: T, index: number, iterable: Iterable<T>) => unknown
+    test: (value: T, index: number, iterable: Iterable<T>) => unknown,
 ): T[];
 
 /**
@@ -895,7 +907,7 @@ export function map<T, U>(iterable: Iterable<T>, mapper: (value: T, index: numbe
 export function reduce<T>(
     iterable: Iterable<T>,
     reducer: (previousValue: T, currentValue: T, currentIndex: number, iterable: Iterable<T>) => T,
-    initialValue?: T
+    initialValue?: T,
 ): T;
 /**
  * Returns the reduced value defined by given reducer function, which is repeatedly invoked for each value in iterable, being passed the current reduced value and the next value.
@@ -904,7 +916,7 @@ export function reduce<T>(
 export function reduce<T, U>(
     iterable: Iterable<T>,
     reducer: (previousValue: U, currentValue: T, currentIndex: number, iterable: Iterable<T>) => U,
-    initialValue: U
+    initialValue: U,
 ): U;
 
 /**
@@ -975,20 +987,29 @@ export interface Bin<Datum, Value extends number | Date | undefined> extends Arr
 /**
  * Type definition for threshold generator which returns the count of recommended thresholds
  */
-export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> =
-    (values: ArrayLike<Value>, min: number, max: number) => number;
+export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> = (
+    values: ArrayLike<Value>,
+    min: number,
+    max: number,
+) => number;
 
 /**
  * Type definition for threshold generator which returns an array of recommended numbers thresholds
  */
-export type ThresholdNumberArrayGenerator<Value extends number | undefined> =
-    (values: ArrayLike<Value>, min: number, max: number) => Value[];
+export type ThresholdNumberArrayGenerator<Value extends number | undefined> = (
+    values: ArrayLike<Value>,
+    min: number,
+    max: number,
+) => Value[];
 
 /**
  * Type definition for threshold generator which returns an array of recommended dates thresholds
  */
-export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
-    (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
+export type ThresholdDateArrayGenerator<Value extends Date | undefined> = (
+    values: ArrayLike<Value>,
+    min: Date,
+    max: Date,
+) => Value[];
 
 export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
     (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
@@ -1027,7 +1048,9 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
     thresholds(thresholds: ThresholdDateArrayGenerator<Value>): this;
 }
 
-export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
+export interface HistogramGeneratorNumber<Datum, Value extends number | undefined>
+    extends HistogramCommon<Datum, Value>
+{
     domain(): (values: Iterable<Value>) => [number, number] | [undefined, undefined];
     domain(domain: [number, number]): this;
     domain(domainAccessor: (values: Iterable<Value>) => [number, number] | [undefined, undefined]): this;

@@ -1,6 +1,6 @@
-import InApp = require('detect-inapp');
+import InApp = require("detect-inapp");
 
-const inApp = new InApp('useragent');
+const inApp = new InApp("useragent");
 
 // @ts-expect-error
 new InApp(3);

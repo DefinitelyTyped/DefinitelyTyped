@@ -100,7 +100,7 @@ export function csvParse<Columns extends string>(csvString: string): DSVRowArray
  */
 export function csvParse<ParsedRow extends object, Columns extends string>(
     csvString: string,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): DSVParsedArray<ParsedRow>;
 
 // csvParseRows(...) ========================================================================
@@ -135,7 +135,7 @@ export function csvParseRows(csvString: string): string[][];
  */
 export function csvParseRows<ParsedRow extends object>(
     csvString: string,
-    row: (rawRow: string[], index: number) => ParsedRow | undefined | null
+    row: (rawRow: string[], index: number) => ParsedRow | undefined | null,
 ): ParsedRow[];
 
 // csvFormat(...) ============================================================================
@@ -239,7 +239,7 @@ export function tsvParse<Columns extends string>(tsvString: string): DSVRowArray
  */
 export function tsvParse<ParsedRow extends object, Columns extends string>(
     tsvString: string,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): DSVParsedArray<ParsedRow>;
 
 // tsvParseRows(...) ========================================================================
@@ -274,7 +274,7 @@ export function tsvParseRows(tsvString: string): string[][];
  */
 export function tsvParseRows<ParsedRow extends object>(
     tsvString: string,
-    row: (rawRow: string[], index: number) => ParsedRow | undefined | null
+    row: (rawRow: string[], index: number) => ParsedRow | undefined | null,
 ): ParsedRow[];
 
 // tsvFormat(...) ============================================================================
@@ -376,7 +376,7 @@ export interface DSV {
      */
     parse<ParsedRow extends object, Columns extends string>(
         dsvString: string,
-        row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+        row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
     ): DSVParsedArray<ParsedRow>;
 
     /**
@@ -405,7 +405,7 @@ export interface DSV {
      */
     parseRows<ParsedRow extends object>(
         dsvString: string,
-        row: (rawRow: string[], index: number) => ParsedRow | undefined | null
+        row: (rawRow: string[], index: number) => ParsedRow | undefined | null,
     ): ParsedRow[];
 
     /**
@@ -478,6 +478,6 @@ export function dsvFormat(delimiter: string): DSV;
  */
 export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    object: DSVRowString<Columns> | string[]
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    object: DSVRowString<Columns> | string[],
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ParsedRow;

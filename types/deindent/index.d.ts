@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function deindent(
-    tagFn: (template: TemplateStringsArray, ...substitutions: any[]) => string
+    tagFn: (template: TemplateStringsArray, ...substitutions: any[]) => string,
 ): (template: TemplateStringsArray, ...substitutions: any[]) => string;
 declare function deindent(template: TemplateStringsArray, ...substitutions: any[]): string;
 declare function deindent(input: string): string;

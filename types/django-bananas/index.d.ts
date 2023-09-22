@@ -2,18 +2,18 @@
 // Project: https://github.com/5monkeys/django-bananas.js
 // Definitions by: Elias Sjögreen <https://github.com/eliassjogreen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// Minimum TypeScript Version: 5.1
 
-import * as React from 'react';
-import { Theme } from './themes';
+import * as React from "react";
+import { Theme } from "./themes";
 
 interface AppProps {
     api: ApiSetting;
     pages: (route: string) => any;
     prefix?: string;
-    logLevel?: 'INFO' | 'DEBUG' | 'WARN' | 'ERROR' | 'OFF';
+    logLevel?: "INFO" | "DEBUG" | "WARN" | "ERROR" | "OFF";
 
-    layout?: 'horizontal' | 'vertical';
+    layout?: "horizontal" | "vertical";
     permanent?: boolean;
     collapsed?: boolean;
     dense?: boolean;
@@ -103,11 +103,11 @@ export class LoginForm extends React.Component<LoginFormProps> {}
 interface TitleBarProps {
     overrides?: any;
     children?: React.ReactNode[] | React.ReactNode;
-    color?: 'primary' | 'secondary' | 'paper';
+    color?: "primary" | "secondary" | "paper";
     title?: string;
     back?: boolean | string;
     dense?: boolean;
-    justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
+    justify?: "start" | "center" | "end" | "between" | "around" | "evenly";
 }
 export const TitleBar: React.FC<TitleBarProps>;
 
@@ -164,10 +164,10 @@ interface NavAppItem {
 type ApiSetting =
     | string
     | {
-          url: string;
-          requestInterceptor?: (v: Request) => Request;
-          responseInterceptor?: (v: Response) => Response;
-      };
+        url: string;
+        requestInterceptor?: (v: Request) => Request;
+        responseInterceptor?: (v: Response) => Response;
+    };
 
 interface AlertProps {
     classes: Record<string, any>;
