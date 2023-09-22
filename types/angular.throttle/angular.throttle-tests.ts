@@ -1,6 +1,4 @@
-
-
-var throttledFn = angular.throttle(function (someArg:any) {
+var throttledFn = angular.throttle(function(someArg: any) {
     return someArg;
 }, 100);
 

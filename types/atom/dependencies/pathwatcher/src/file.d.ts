@@ -1,6 +1,6 @@
-import { ReadStream, WriteStream } from 'fs';
-import { Disposable } from '../../../index';
-import { Directory } from './directory';
+import { ReadStream, WriteStream } from "fs";
+import { Disposable } from "../../../index";
+import { Directory } from "./directory";
 
 /** Represents an individual file that can be watched, read from, and written to. */
 export class File {

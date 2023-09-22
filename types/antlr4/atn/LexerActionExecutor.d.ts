@@ -1,7 +1,7 @@
-import InputStream from '../InputStream';
-import HashCode from '../misc/HashCode';
-import LexerAction from '../action/LexerAction';
-import Lexer from '../Lexer';
+import LexerAction from "../action/LexerAction";
+import InputStream from "../InputStream";
+import Lexer from "../Lexer";
+import HashCode from "../misc/HashCode";
 
 export default class LexerActionExecutor {
     /**
