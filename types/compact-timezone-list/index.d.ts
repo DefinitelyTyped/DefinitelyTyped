@@ -9,10 +9,8 @@ declare namespace minimalTimezoneSet {
         label: string;
         tzCode: string;
     }
-    
 }
 
 declare const minimalTimezoneSet: minimalTimezoneSet.IMinimalTimezoneSet[];
-export default minimalTimezoneSet
-export { minimalTimezoneSet }
-
+export default minimalTimezoneSet;
+export { minimalTimezoneSet };
