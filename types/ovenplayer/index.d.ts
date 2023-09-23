@@ -1,4 +1,4 @@
-// Type definitions for ovenplayer 0.30
+// Type definitions for ovenplayer 0.10.30
 // Project: https://github.com/airensoft/OvenPlayer
 // Definitions by: Sangwon Oh <https://github.com/SangwonOh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
