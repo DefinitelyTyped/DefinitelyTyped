@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Bunyan = require('bunyan');
-import express = require('express');
+import Bunyan = require("bunyan");
+import express = require("express");
 
 export = Factory;
 

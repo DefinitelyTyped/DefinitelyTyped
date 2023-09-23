@@ -1,2 +1,2 @@
-import ToPrimitive = require('../2017/ToPrimitive');
+import ToPrimitive = require("../2017/ToPrimitive");
 export = ToPrimitive;

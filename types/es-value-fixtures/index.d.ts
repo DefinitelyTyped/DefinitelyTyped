@@ -8,30 +8,35 @@
  *~ Otherwise, delete this declaration.
  */
 
-type ESAbstractDescriptor = {
-    '[[Configurable]]'?: boolean;
-    '[[Enumerable]]'?: boolean;
-} & (
-    | Partial<{
-        '[[Writable]]': boolean;
-        '[[Value]]': unknown;
-    }>
-    | Partial<{
-        '[[Get]]'?: () => unknown;
-        '[[Set]]'?: (value: unknown) => void;
-    }>
-);
+type ESAbstractDescriptor =
+    & {
+        "[[Configurable]]"?: boolean;
+        "[[Enumerable]]"?: boolean;
+    }
+    & (
+        | Partial<{
+            "[[Writable]]": boolean;
+            "[[Value]]": unknown;
+        }>
+        | Partial<{
+            "[[Get]]"?: () => unknown;
+            "[[Set]]"?: (value: unknown) => void;
+        }>
+    );
 
 type Func = (...args: unknown[]) => unknown;
 
-interface CoercibleObject { valueOf: Func, toString: Func }
+interface CoercibleObject {
+    valueOf: Func;
+    toString: Func;
+}
 
 declare const fixtures: {
     primitives: ReadonlyArray<string | number | bigint | boolean | symbol | null | undefined>;
     booleans: readonly boolean[];
     coercibleFnObject: readonly CoercibleObject[];
     coercibleObject: readonly CoercibleObject[];
-    falsies: ReadonlyArray<null | undefined | false | number | '' | 0n>;
+    falsies: ReadonlyArray<null | undefined | false | number | "" | 0n>;
     hasSymbols: boolean;
     infinities: readonly number[];
     int32s: readonly number[];

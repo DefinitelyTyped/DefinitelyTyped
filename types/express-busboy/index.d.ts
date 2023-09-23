@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as connectBusboy from 'connect-busboy';
-import * as express from 'express';
+import * as connectBusboy from "connect-busboy";
+import * as express from "express";
 
 export interface ExpressBusboyOptions extends connectBusboy.ConnectBusboyOptions {
     upload?: boolean;

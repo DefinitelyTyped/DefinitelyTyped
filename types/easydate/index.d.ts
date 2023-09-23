@@ -7,7 +7,7 @@ export = easydate;
 
 interface DateConfig {
     setDate?: string | undefined;
-    timeZone?: 'utc' | 'local' | undefined;
+    timeZone?: "utc" | "local" | undefined;
     adjust?: boolean | undefined;
 }
 

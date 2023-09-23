@@ -1,4 +1,3 @@
-
 import ent = require("ent");
 
 // encode

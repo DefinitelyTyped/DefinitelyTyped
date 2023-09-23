@@ -1,21 +1,21 @@
 import {
-    setModifierManager,
     capabilities,
-    on,
     ModifierCapabilities,
-    OnModifier,
     ModifierCapabilitiesVersions,
-} from '@ember/modifier';
+    on,
+    OnModifier,
+    setModifierManager,
+} from "@ember/modifier";
 
 on; // $ExpectType OnModifier
 setModifierManager(owner => {}, {}); // $ExpectType {}
-const capabilitiesFor3_22 = capabilities('3.22'); // $ExpectType ModifierCapabilities
+const capabilitiesFor3_22 = capabilities("3.22"); // $ExpectType ModifierCapabilities
 capabilitiesFor3_22.disableAutoTracking; // $ExpectType boolean
 
 declare let x: ModifierCapabilitiesVersions;
-x['3.22'].disableAutoTracking;
+x["3.22"].disableAutoTracking;
 // @ts-expect-error
-x['1.23'];
+x["1.23"];
 
 // We can name the type of `OnModifier`.
 declare function takesOn(on: OnModifier): void;

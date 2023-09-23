@@ -1,2 +1,2 @@
-import CopyDataProperties = require('../2018/CopyDataProperties');
+import CopyDataProperties = require("../2018/CopyDataProperties");
 export = CopyDataProperties;

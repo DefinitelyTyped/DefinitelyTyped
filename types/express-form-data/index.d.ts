@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { NextHandleFunction } from 'connect';
-import { FormOptions } from 'multiparty';
+import { NextHandleFunction } from "connect";
+import { FormOptions } from "multiparty";
 
 export interface FormDataOptions extends FormOptions {
     autoClean?: boolean | undefined;

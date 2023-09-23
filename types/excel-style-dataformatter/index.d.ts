@@ -41,7 +41,7 @@ declare namespace DataFormatter {
         thousandSeparator: string;
         decimalSeparator: string;
         formats: {
-            [index: string]: string
+            [index: string]: string;
         };
     }
     interface FormatterOptions {

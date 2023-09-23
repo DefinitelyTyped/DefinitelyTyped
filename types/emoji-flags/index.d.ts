@@ -295,9 +295,10 @@ interface EmojiFlags {
 /**
  * return emoji flag symbol for country code
  */
-declare const emojiFlags: {
-    [CountryCode in CountryCodes]: emojiFlags.CountryData;
-} &
-    EmojiFlags;
+declare const emojiFlags:
+    & {
+        [CountryCode in CountryCodes]: emojiFlags.CountryData;
+    }
+    & EmojiFlags;
 
 export = emojiFlags;

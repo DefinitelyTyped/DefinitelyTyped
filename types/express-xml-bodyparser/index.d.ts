@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { Handler } from 'express';
+import { Handler } from "express";
 
-import { ParserOptions as XmlParserOptions } from 'xml2js';
+import { ParserOptions as XmlParserOptions } from "xml2js";
 
 declare function xmlparser(options?: XmlParserOptions): Handler;
 

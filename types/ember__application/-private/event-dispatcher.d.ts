@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-self-import
-import { EventDispatcherEvents } from '@ember/application/types';
+import { EventDispatcherEvents } from "@ember/application/types";
 
 /**
  * `Ember.EventDispatcher` handles delegating browser events to their

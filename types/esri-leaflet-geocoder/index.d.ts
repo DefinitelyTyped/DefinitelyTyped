@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as L from 'leaflet';
-import 'esri-leaflet';
+import * as L from "leaflet";
+import "esri-leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace esri.Geocoding {
-        type GeosearchConstructor = new (options?: GeosearchObject) => Geosearch;
+        type GeosearchConstructor = new(options?: GeosearchObject) => Geosearch;
         type Geosearch = GeosearchControl & Evented;
 
         interface GeosearchControl extends Control {

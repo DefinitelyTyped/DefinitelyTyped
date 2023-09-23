@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 declare class NewRelicPlugin {
     constructor(options?: NewRelicPlugin.Options);
@@ -61,7 +61,7 @@ declare namespace NewRelicPlugin {
     }
 
     interface StaticAssetUrlBuilder {
-        (url: string, publicPath: 'auto' | string, file: string): string;
+        (url: string, publicPath: "auto" | string, file: string): string;
     }
 
     interface ErrorCallback {

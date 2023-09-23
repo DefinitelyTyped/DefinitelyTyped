@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { JSONSchema4 } from "json-schema";
 
 export class JsonSchemaCustomPropertyError {
@@ -16,8 +16,8 @@ export class JsonSchemaCustomPropertyError {
 export class JsonSchemaValidation {
     name: string;
     message: string;
-    validations: {[requestProperty: string]: Array<{ value: any, property: string, messages: string[]}> };
-    constructor(validations: { [requestProperty: string]: { instance: any, property: string, message: string }});
+    validations: { [requestProperty: string]: Array<{ value: any; property: string; messages: string[] }> };
+    constructor(validations: { [requestProperty: string]: { instance: any; property: string; message: string } });
 }
 
 /**
@@ -28,7 +28,11 @@ export class JsonSchemaValidation {
  * functions that implement the validation.
  * @throws Client tries to override an existing JSON Schema property.
  */
-export function addSchemaProperties(newProperties: { [attribute: string]: (instance: any, schema: JSONSchema4, options: any, ctx: any) => void | string }): void;
+export function addSchemaProperties(
+    newProperties: {
+        [attribute: string]: (instance: any, schema: JSONSchema4, options: any, ctx: any) => void | string;
+    },
+): void;
 
 /**
  * Accepts an object where the keys are request properties and the

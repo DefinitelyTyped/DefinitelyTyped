@@ -3,15 +3,15 @@
 // Definitions by: Samuel Corsi-House <https://github.com/xenfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BrowserWindowConstructorOptions, app } from 'electron';
+import { app, BrowserWindowConstructorOptions } from "electron";
 
 declare class ProgressBar {
-    constructor(options: ProgressBarOptions, electronApp?: typeof app)
+    constructor(options: ProgressBarOptions, electronApp?: typeof app);
 
     getOptions(): ProgressBarOptions;
 
-    on(eventName: 'ready' | 'progress' | 'completed' | 'aborted', listener: () => void): this;
-    on(eventName: 'progress' | 'completed' | 'aborted', listener: (value: number) => void): this;
+    on(eventName: "ready" | "progress" | "completed" | "aborted", listener: () => void): this;
+    on(eventName: "progress" | "completed" | "aborted", listener: (value: number) => void): this;
 
     setCompleted(): void;
 

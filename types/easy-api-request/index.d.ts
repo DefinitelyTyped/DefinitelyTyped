@@ -6,12 +6,12 @@
 
 /// <reference types="node" />
 
-import stream = require('stream');
-import http = require('http');
-import request = require('request');
-import Logger = require('bunyan');
-import express = require('express');
-import Q = require('q');
+import stream = require("stream");
+import http = require("http");
+import request = require("request");
+import Logger = require("bunyan");
+import express = require("express");
+import Q = require("q");
 
 export declare function create(opts: {
     name: any;

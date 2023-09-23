@@ -35,34 +35,34 @@ class Foo123 extends GetAndSet {
         super();
         this.a = 1;
         this.b = [true, false];
-        this.c = 'hello';
+        this.c = "hello";
     }
 }
 
 let f = new Foo123();
 
-f.get('a'); // $ExpectType number
+f.get("a"); // $ExpectType number
 // @ts-expect-error
-f.set('a');
+f.set("a");
 // @ts-expect-error
-f.set('a', '1');
-f.set('a', 1); // $ExpectType number
+f.set("a", "1");
+f.set("a", 1); // $ExpectType number
 
-f.get('b'); // $ExpectType [boolean, boolean]
+f.get("b"); // $ExpectType [boolean, boolean]
 // @ts-expect-error
-f.set('b', 1);
+f.set("b", 1);
 // @ts-expect-error
-f.set('b', []);
+f.set("b", []);
 // @ts-expect-error
-f.set('b', [true]);
-f.set('b', [false, true]); // $ExpectType [boolean, boolean]
+f.set("b", [true]);
+f.set("b", [false, true]); // $ExpectType [boolean, boolean]
 // @ts-expect-error
-f.set('b', [false, true, false]);
+f.set("b", [false, true, false]);
 
-f.get('c'); // $ExpectType string
-f.set('c', '1'); // $ExpectType string
+f.get("c"); // $ExpectType string
+f.set("c", "1"); // $ExpectType string
 
-f.get('cpA'); // $ExpectType string
+f.get("cpA"); // $ExpectType string
 // @ts-expect-error
-f.set('cpA', ['newValue']);
-f.set('cpA', 'newValue'); // $ExpectType string
+f.set("cpA", ["newValue"]);
+f.set("cpA", "newValue"); // $ExpectType string

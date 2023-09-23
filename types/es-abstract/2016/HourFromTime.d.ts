@@ -1,2 +1,2 @@
-import HourFromTime = require('../2015/HourFromTime');
+import HourFromTime = require("../2015/HourFromTime");
 export = HourFromTime;

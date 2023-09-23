@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require('express');
-import SocketIO = require('socket.io');
+import express = require("express");
+import SocketIO = require("socket.io");
 
 declare namespace e {
     interface ExpressStatusMonitorConfig {

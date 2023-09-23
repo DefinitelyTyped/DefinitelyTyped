@@ -24,7 +24,7 @@ export default class Router extends EmberObject {
      *
      * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: 'history' | 'hash' | 'none' | 'auto';
+    location: "history" | "hash" | "none" | "auto";
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.
@@ -42,8 +42,8 @@ export default class Router extends EmberObject {
 // tslint:disable-next-line:no-empty-interface -- used for declaration merge
 export default interface Router extends Evented {}
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
-        'router': RouterService;
+        "router": RouterService;
     }
 }

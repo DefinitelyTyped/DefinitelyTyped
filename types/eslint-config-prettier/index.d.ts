@@ -3,4 +3,4 @@
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export const rules: Record<string, 0 | 'off'>;
+export const rules: Record<string, 0 | "off">;

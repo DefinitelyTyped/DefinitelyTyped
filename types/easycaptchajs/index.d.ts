@@ -21,28 +21,28 @@ export interface EasyCaptchaSettings {
         error: () => void;
         errorMsg: string;
     };
-    theme?: 'light' | 'dark';
+    theme?: "light" | "dark";
     failure?: (error: string) => void;
 }
 
-export type EasyCaptchaMethod = 'getTarget' | 'verify' | 'response' | 'reset' | 'destroy';
+export type EasyCaptchaMethod = "getTarget" | "verify" | "response" | "reset" | "destroy";
 
 export type EasyCaptchaElementData = Record<string, any>;
 
 export interface EasyCaptchaResultBaseTarget {
-    parentElement?: JQuery,
+    parentElement?: JQuery;
 }
 
 export interface EasyCaptchaResultTarget extends EasyCaptchaResultBaseTarget {
-    data: EasyCaptchaElementData
+    data: EasyCaptchaElementData;
 }
 
 export interface EasyCaptchaResultVerify extends EasyCaptchaResultBaseTarget {
-    verified: boolean
+    verified: boolean;
 }
 
 export interface EasyCaptchaResultResponse extends EasyCaptchaResultBaseTarget {
-    token: string
+    token: string;
 }
 
 export type EasyCaptchaResult = EasyCaptchaResultTarget | EasyCaptchaResultVerify | EasyCaptchaResultResponse;
@@ -51,9 +51,13 @@ export type EasyCaptchaResults = EasyCaptchaResult[] | EasyCaptchaResult | null;
 
 export interface EasyCaptchaInstance {
     (options?: EasyCaptchaSettings, ...args: string[]): EasyCaptchaResults;
-    (method: EasyCaptchaMethod, results: EasyCaptchaResult[], data: EasyCaptchaElementData, args: string[]): EasyCaptchaResults;
+    (
+        method: EasyCaptchaMethod,
+        results: EasyCaptchaResult[],
+        data: EasyCaptchaElementData,
+        args: string[],
+    ): EasyCaptchaResults;
 }
-
 
 // noinspection JSUnusedGlobalSymbols
 export const EasyCaptcha: EasyCaptchaInstance;
@@ -69,7 +73,7 @@ export interface EasyCaptchaJQueryStatic extends JQuery {
 // noinspection JSUnusedGlobalSymbols
 export const $: EasyCaptchaJQueryStatic;
 
-declare global{
+declare global {
     interface JQuery {
         EasyCaptcha: EasyCaptchaInstance;
     }

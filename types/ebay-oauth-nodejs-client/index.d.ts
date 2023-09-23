@@ -3,20 +3,20 @@
 // Definitions by: Jeremy Möglich <https://github.com/JeremyMoeglich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type EbayEnvironment = 'SANDBOX' | 'PRODUCTION';
+type EbayEnvironment = "SANDBOX" | "PRODUCTION";
 
 type EbayAuthTokenOptions =
     | {
-          filePath: string;
-      }
+        filePath: string;
+    }
     | {
-          clientId: string;
-          clientSecret: string;
-          env?: EbayEnvironment;
-          baseUrl?: string;
-          redirectUri?: string;
-          scope?: string[] | string;
-      };
+        clientId: string;
+        clientSecret: string;
+        env?: EbayEnvironment;
+        baseUrl?: string;
+        redirectUri?: string;
+        scope?: string[] | string;
+    };
 
 declare class EbayAuthToken {
     constructor(options: Readonly<EbayAuthTokenOptions>);
@@ -25,7 +25,7 @@ declare class EbayAuthToken {
         environment: EbayEnvironment,
         scopes: string[] | string,
         options?: {
-            prompt?: 'login' | 'consent';
+            prompt?: "login" | "consent";
             state?: string;
         },
     ): string;

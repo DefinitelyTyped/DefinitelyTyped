@@ -1,4 +1,4 @@
-import * as utils from 'eslint-utils';
+import * as utils from "eslint-utils";
 
 new utils.PatternMatcher(/.*/, {});
 new utils.PatternMatcher(/.*/, { escaped: true });
@@ -6,13 +6,13 @@ new utils.PatternMatcher(/.*/, { escaped: true });
 const patternMatcher = new utils.PatternMatcher(/.*/);
 
 // $ExpectType IterableIterator<RegExpExecArray>
-patternMatcher.execAll('');
+patternMatcher.execAll("");
 
 // $ExpectType boolean
-patternMatcher.test('');
+patternMatcher.test("");
 
 // $ExpectType string
-patternMatcher[Symbol.replace]('', '');
+patternMatcher[Symbol.replace]("", "");
 
 // $ExpectType string
-patternMatcher[Symbol.replace]('', (...strs: string[]) => strs.join());
+patternMatcher[Symbol.replace]("", (...strs: string[]) => strs.join());

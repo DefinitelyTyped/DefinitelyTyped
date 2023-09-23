@@ -1,4 +1,4 @@
-import slowDown = require('express-slow-down');
+import slowDown = require("express-slow-down");
 
 const slowerAllDefaults = slowDown({});
 

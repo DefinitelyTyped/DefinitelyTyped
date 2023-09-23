@@ -1,12 +1,12 @@
-import { assertType } from './lib/assert';
-import EmberObject from '@ember/object';
-import Mixin from '@ember/object/mixin';
+import EmberObject from "@ember/object";
+import Mixin from "@ember/object/mixin";
+import { assertType } from "./lib/assert";
 
 type Person = typeof Person.prototype;
 const Person = EmberObject.extend({
-    name: '',
+    name: "",
     sayHello() {
-        alert(`Hello. My name is ${this.get('name')}`);
+        alert(`Hello. My name is ${this.get("name")}`);
     },
 });
 
@@ -17,7 +17,7 @@ assertType<string>(Person.create().name);
 assertType<void>(Person.create().sayHello());
 
 const Person2 = Person.reopenClass({
-    species: 'Homo sapiens',
+    species: "Homo sapiens",
 
     createPerson(name: string): Person {
         return Person.create({ name });
@@ -30,29 +30,29 @@ assertType<void>(Person2.create().sayHello());
 assertType<string>(Person2.species);
 
 const tom = Person2.create({
-    name: 'Tom Dale',
+    name: "Tom Dale",
 });
 
 // @ts-expect-error
 const badTom = Person2.create({ name: 99 });
 
-const yehuda = Person2.createPerson('Yehuda Katz');
+const yehuda = Person2.createPerson("Yehuda Katz");
 
 tom.sayHello(); // "Hello. My name is Tom Dale"
 yehuda.sayHello(); // "Hello. My name is Yehuda Katz"
 alert(Person2.species); // "Homo sapiens"
 
 const Person3 = Person2.reopen({
-    goodbyeMessage: 'goodbye',
+    goodbyeMessage: "goodbye",
 
     sayGoodbye() {
-        alert(`${this.get('goodbyeMessage')}, ${this.get('name')}`);
+        alert(`${this.get("goodbyeMessage")}, ${this.get("name")}`);
     },
 });
 
 const person3 = Person3.create();
-person3.get('name');
-person3.get('goodbyeMessage');
+person3.get("name");
+person3.get("goodbyeMessage");
 person3.sayHello();
 person3.sayGoodbye();
 

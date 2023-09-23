@@ -5,12 +5,15 @@
 
 declare module "electron-devtools-installer" {
     interface ExtensionReference {
-        id: string,
-        electron: string,
+        id: string;
+        electron: string;
     }
 
     // Default installation function
-    export default function (extensionReference: ExtensionReference | string | Array<ExtensionReference | string>, forceDownload?: boolean): Promise<string>;
+    export default function(
+        extensionReference: ExtensionReference | string | Array<ExtensionReference | string>,
+        forceDownload?: boolean,
+    ): Promise<string>;
 
     // Devtools themself
     export const EMBER_INSPECTOR: ExtensionReference;

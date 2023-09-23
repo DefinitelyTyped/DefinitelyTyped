@@ -1,4 +1,4 @@
-import { Disposable, CompositeDisposable, Emitter } from "event-kit";
+import { CompositeDisposable, Disposable, Emitter } from "event-kit";
 
 declare let bool: boolean;
 declare let subscription: Disposable;
@@ -56,7 +56,7 @@ subscriptions.dispose();
 subscriptions.add(subscription);
 subscriptions.add(
     subscription,
-    { dispose() {} }
+    { dispose() {} },
 );
 
 subscriptions.remove(subscription);

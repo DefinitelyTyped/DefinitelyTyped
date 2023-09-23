@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { EnzymeAdapter } from 'enzyme';
+import { EnzymeAdapter } from "enzyme";
 
 declare class ReactFifteenFourAdapter extends EnzymeAdapter {
 }

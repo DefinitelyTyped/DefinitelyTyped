@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Application } from 'express';
+import { Application } from "express";
 
 declare function displayRoutes(app: Application, filename?: string): void;
 export = displayRoutes;

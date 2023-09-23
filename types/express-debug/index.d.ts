@@ -11,10 +11,7 @@
 
  =============================================== */
 
-
-
-
-import express = require('express');
+import express = require("express");
 
 interface CustomPanel {
     name: string;
@@ -77,7 +74,6 @@ declare function debug(app: express.Application, settings?: {
      * default order, true for basic default sort, or a function to use for sort.
      */
     sort?: boolean | ((a: number, b: number) => number) | undefined;
-
 }): void;
 
 export = debug;

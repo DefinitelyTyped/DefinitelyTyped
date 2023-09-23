@@ -7,10 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import ComputedProperty from '@ember/object/computed';
-import Mixin from '@ember/object/mixin';
-import Enumerable from '@ember/array/-private/enumerable';
-import NativeArray from '@ember/array/-private/native-array';
+import Enumerable from "@ember/array/-private/enumerable";
+import NativeArray from "@ember/array/-private/native-array";
+import ComputedProperty from "@ember/object/computed";
+import Mixin from "@ember/object/mixin";
 
 /**
  * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
@@ -87,7 +87,7 @@ interface Array<T> extends Enumerable<T> {
      * return an enumerable that maps automatically to the named key on the
      * member objects.
      */
-    '@each': ComputedProperty<T>;
+    "@each": ComputedProperty<T>;
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type

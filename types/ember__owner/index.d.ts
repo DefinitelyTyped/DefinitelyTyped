@@ -70,10 +70,8 @@ type ValidName<Type extends ValidType> = keyof DIRegistry[Type] & string;
 type ResolveFactoryManager<
     Type extends string,
     Name extends string,
-> = DIRegistry[Type][Name] extends infer RegistryEntry
-    ? RegistryEntry extends object
-        ? FactoryManager<RegistryEntry>
-        : FactoryManager<object> | undefined
+> = DIRegistry[Type][Name] extends infer RegistryEntry ? RegistryEntry extends object ? FactoryManager<RegistryEntry>
+    : FactoryManager<object> | undefined
     : never;
 
 /**

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 declare function expressHealthcheck(options?: {
     test?: ((err: Error) => void) | (() => Error);

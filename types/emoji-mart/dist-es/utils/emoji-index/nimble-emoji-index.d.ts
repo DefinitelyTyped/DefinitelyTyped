@@ -1,6 +1,6 @@
-import { Data } from '../data';
+import { Data } from "../data";
 
-import { CategoryName } from '../shared-props';
+import { CategoryName } from "../shared-props";
 
 export type EmojiSkin = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -33,7 +33,7 @@ export type EmojiEntry = EmojiData | { [variant in EmojiSkin]: EmojiData }; // e
 
 export default class NimbleEmojiIndex {
     constructor(data: Data);
-    search(query: ''): null;
+    search(query: ""): null;
     search(query: string): EmojiData[] | null;
     emojis: { [emoji: string]: EmojiData };
     /** Mapping of string to keyof emojis */

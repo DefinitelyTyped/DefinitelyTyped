@@ -129,7 +129,6 @@ export interface GenerateOptions {
      * looking up node[option.verbatim] value and dump it instead of normal code generation.
      *
      * @example
-     *
      */
     verbatim?: string | undefined;
 }
@@ -160,7 +159,7 @@ export enum Precedence {
     New,
     TaggedTemplate,
     Member,
-    Primary
+    Primary,
 }
 
 /**

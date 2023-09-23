@@ -1,4 +1,4 @@
-import BaseEvalError from './base/EvalError';
+import BaseEvalError from "./base/EvalError";
 
 declare class EvalError extends BaseEvalError {
     constructor(reason?: string, options?: { cause?: unknown });

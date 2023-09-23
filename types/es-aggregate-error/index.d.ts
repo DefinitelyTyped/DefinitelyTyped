@@ -3,9 +3,9 @@
 // Definitions by: AverageHelper <https://github.com/AverageHelper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import implementation = require('./implementation');
-import getPolyfill = require('./polyfill');
-import shim = require('./shim');
+import implementation = require("./implementation");
+import getPolyfill = require("./polyfill");
+import shim = require("./shim");
 
 declare class AggregateError extends implementation {
     static getPolyfill: typeof getPolyfill;

@@ -48,8 +48,8 @@ interface Map<K, V> {
 }
 
 interface MapConstructor {
-    new <K, V>(): Map<K, V>;
-    new <K, V>(iterable: ForEachable<[K, V]>): Map<K, V>;
+    new<K, V>(): Map<K, V>;
+    new<K, V>(iterable: ForEachable<[K, V]>): Map<K, V>;
     prototype: Map<any, any>;
 }
 
@@ -68,8 +68,8 @@ interface Set<T> {
 }
 
 interface SetConstructor {
-    new <T>(): Set<T>;
-    new <T>(iterable: ForEachable<T>): Set<T>;
+    new<T>(): Set<T>;
+    new<T>(iterable: ForEachable<T>): Set<T>;
     prototype: Set<any>;
 }
 
@@ -84,8 +84,8 @@ interface WeakMap<K extends object, V> {
 }
 
 interface WeakMapConstructor {
-    new <K extends object, V>(): WeakMap<K, V>;
-    new <K extends object, V>(iterable: ForEachable<[K, V]>): WeakMap<K, V>;
+    new<K extends object, V>(): WeakMap<K, V>;
+    new<K extends object, V>(iterable: ForEachable<[K, V]>): WeakMap<K, V>;
     prototype: WeakMap<any, any>;
 }
 
@@ -99,8 +99,8 @@ interface WeakSet<T> {
 }
 
 interface WeakSetConstructor {
-    new <T>(): WeakSet<T>;
-    new <T>(iterable: ForEachable<T>): WeakSet<T>;
+    new<T>(): WeakSet<T>;
+    new<T>(iterable: ForEachable<T>): WeakSet<T>;
     prototype: WeakSet<any>;
 }
 

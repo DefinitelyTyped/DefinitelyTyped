@@ -1,2 +1,2 @@
-import IteratorComplete = require('../2017/IteratorComplete');
+import IteratorComplete = require("../2017/IteratorComplete");
 export = IteratorComplete;

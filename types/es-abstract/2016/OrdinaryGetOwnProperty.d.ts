@@ -1,2 +1,2 @@
-import OrdinaryGetOwnProperty = require('../2015/OrdinaryGetOwnProperty');
+import OrdinaryGetOwnProperty = require("../2015/OrdinaryGetOwnProperty");
 export = OrdinaryGetOwnProperty;

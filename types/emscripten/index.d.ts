@@ -14,14 +14,14 @@ declare namespace WebAssembly {
 
 declare namespace Emscripten {
     interface FileSystemType {}
-    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
+    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
-    type JSType = 'number' | 'string' | 'array' | 'boolean';
+    type JSType = "number" | "string" | "array" | "boolean";
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
-    type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
-    type CFloatType = 'float' | 'double';
-    type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
+    type CIntType = "i8" | "i16" | "i32" | "i64";
+    type CFloatType = "float" | "double";
+    type CPointerType = "i8*" | "i16*" | "i32*" | "i64*" | "float*" | "double*" | "*";
     type CType = CIntType | CFloatType | CPointerType;
 
     type WebAssemblyImports = Array<{
@@ -207,8 +207,8 @@ declare namespace FS {
         flags: number,
     ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts: { encoding: 'binary'; flags?: string | undefined }): Uint8Array;
-    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string | undefined }): string;
+    function readFile(path: string, opts: { encoding: "binary"; flags?: string | undefined }): Uint8Array;
+    function readFile(path: string, opts: { encoding: "utf8"; flags?: string | undefined }): string;
     function readFile(path: string, opts?: { flags?: string | undefined }): Uint8Array;
     function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string | undefined }): void;
 
@@ -256,26 +256,24 @@ declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
 // https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html
-type StringToType<R extends any> = R extends Emscripten.JSType
-  ? {
-      number: number;
-      string: string;
-      array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
-      boolean: boolean;
-      null: null;
+type StringToType<R extends any> = R extends Emscripten.JSType ? {
+        number: number;
+        string: string;
+        array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
+        boolean: boolean;
+        null: null;
     }[R]
-  : never;
+    : never;
 
 type ArgsToType<T extends Array<Emscripten.JSType | null>> = Extract<
-  {
-    [P in keyof T]: StringToType<T[P]>;
-  },
-  any[]
+    {
+        [P in keyof T]: StringToType<T[P]>;
+    },
+    any[]
 >;
 
-type ReturnToType<R extends Emscripten.JSType | null> = R extends null
-  ? null
-  : StringToType<Exclude<R, null>>;
+type ReturnToType<R extends Emscripten.JSType | null> = R extends null ? null
+    : StringToType<Exclude<R, null>>;
 
 // Below runtime function/variable declarations are exportable by
 // -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
@@ -292,24 +290,24 @@ type ReturnToType<R extends Emscripten.JSType | null> = R extends null
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
 declare function cwrap<
-  I extends Array<Emscripten.JSType | null> | [],
-  R extends Emscripten.JSType | null
+    I extends Array<Emscripten.JSType | null> | [],
+    R extends Emscripten.JSType | null,
 >(
-  ident: string,
-  returnType: R,
-  argTypes: I,
-  opts?: Emscripten.CCallOpts
+    ident: string,
+    returnType: R,
+    argTypes: I,
+    opts?: Emscripten.CCallOpts,
 ): (...arg: ArgsToType<I>) => ReturnToType<R>;
 
 declare function ccall<
-  I extends Array<Emscripten.JSType | null> | [],
-  R extends Emscripten.JSType | null
+    I extends Array<Emscripten.JSType | null> | [],
+    R extends Emscripten.JSType | null,
 >(
-  ident: string,
-  returnType: R,
-  argTypes: I,
-  args: ArgsToType<I>,
-  opts?: Emscripten.CCallOpts
+    ident: string,
+    returnType: R,
+    argTypes: I,
+    args: ArgsToType<I>,
+    opts?: Emscripten.CCallOpts,
 ): ReturnToType<R>;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;

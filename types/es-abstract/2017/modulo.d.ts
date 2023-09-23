@@ -1,2 +1,2 @@
-import modulo = require('../2016/modulo');
+import modulo = require("../2016/modulo");
 export = modulo;

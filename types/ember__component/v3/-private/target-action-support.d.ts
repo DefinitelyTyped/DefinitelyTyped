@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
 
 interface TriggerActionOptions {
     action?: string | undefined;

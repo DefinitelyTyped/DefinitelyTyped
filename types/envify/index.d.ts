@@ -11,6 +11,8 @@ declare module "envify" {
 }
 
 declare module "envify/custom" {
-    function envify(environment: { [name: string]: any }): (file: string, environment: { [name: string]: any }) => NodeJS.ReadWriteStream;
+    function envify(
+        environment: { [name: string]: any },
+    ): (file: string, environment: { [name: string]: any }) => NodeJS.ReadWriteStream;
     export = envify;
 }

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { mount } from 'enzyme';
-import { waitForElement, waitForProps, waitForState, Config } from "enzyme-async-helpers";
+import { mount } from "enzyme";
+import { Config, waitForElement, waitForProps, waitForState } from "enzyme-async-helpers";
+import * as React from "react";
 
 const component = mount(<div>component</div>);
 const config: Config = {
     interval: 50,
     timeout: 2000,
-    timeoutMessage: 'Timed out.',
+    timeoutMessage: "Timed out.",
     logStructureOnTimeout: true,
-    logStructureOnSuccess: false
+    logStructureOnSuccess: false,
 };
 
 // $ExpectType Promise<void>

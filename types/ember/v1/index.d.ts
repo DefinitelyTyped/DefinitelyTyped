@@ -236,7 +236,7 @@ interface Array<T> {
     @param callback The callback to execute
     @param {Object} [target] The target object to use
     @return {Object} Found item or `undefined`.
-*/
+    */
     find(callback: Function, target?: any): any;
     findBy(key: string, value?: string): any;
     forEach(callback: Function, target?: any): any;
@@ -271,8 +271,8 @@ interface Array<T> {
     unshiftObject(object: any): any;
     unshiftObjects(objects: any[]): any[];
     without(value: any): any[];
-    '[]': any[];
-    '@each': Ember.EachProxy;
+    "[]": any[];
+    "@each": Ember.EachProxy;
     Boolean: boolean;
     firstObject: any;
     hasEnumerableObservers: boolean;
@@ -577,9 +577,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '@each': EachProxy;
+        "@each": EachProxy;
         Boolean: boolean;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -711,8 +711,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1199,7 +1199,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1475,8 +1475,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1532,7 +1532,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1618,8 +1618,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -2473,7 +2473,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2538,7 +2538,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -3221,7 +3221,7 @@ declare namespace Em {
  * External ambient module - to allow "import Ember = require('Ember');" to work correctly
  */
 
-declare module 'Ember' {
+declare module "Ember" {
     var $: typeof Ember.$;
     var A: typeof Ember.A;
     class ActionHandlerMixin extends Ember.ActionHandlerMixin {}

@@ -1,6 +1,6 @@
-import Service from '@ember/service';
-import type EmberArray from '@ember/array';
-import ModalModel from '../models/modal';
+import type EmberArray from "@ember/array";
+import Service from "@ember/service";
+import ModalModel from "../models/modal";
 
 /**
  * Service that opens and closes modals.
@@ -9,7 +9,7 @@ export default class EmberModalService extends Service {
     /**
      * Array model.
      */
-    content: EmberArray<ModalModel> & { removeObject: (model: ModalModel) => void; };
+    content: EmberArray<ModalModel> & { removeObject: (model: ModalModel) => void };
 
     /**
      * Creates new modal object and insert it in the array.

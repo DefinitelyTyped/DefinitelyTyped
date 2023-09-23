@@ -1,5 +1,5 @@
-import { assertType } from './lib/assert';
+import { assertType } from "./lib/assert";
 
-import Ember from 'ember';
+import Ember from "ember";
 
 assertType<typeof Ember.Error>(Ember.Error);

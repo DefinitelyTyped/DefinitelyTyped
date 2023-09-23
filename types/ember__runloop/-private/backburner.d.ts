@@ -17,7 +17,7 @@ export interface DeferredActionQueues {
             method: M,
             ...methodArgs: EmberMethodParams<T, M>,
             onceFlag: boolean,
-            stack: unknown
+            stack: unknown,
         ]
     ): any;
     flush(fromAutorun: boolean): any;

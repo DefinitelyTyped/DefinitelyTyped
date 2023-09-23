@@ -1,4 +1,4 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
 
 interface ActionSupport {
     sendAction(action: string, ...params: any[]): void;

@@ -1,16 +1,16 @@
-import UserAgentService from 'ember-useragent/services/user-agent';
-import UserAgentHelper from 'ember-useragent/helpers/user-agent';
+import UserAgentHelper from "ember-useragent/helpers/user-agent";
+import UserAgentService from "ember-useragent/services/user-agent";
 
 const service = UserAgentService.create();
 
-service.get('browser'); // $ExpectType BrowserInfo
-service.get('device'); // $ExpectType DeviceInfo
-service.get('engine'); // $ExpectType EngineInfo
-service.get('os'); // $ExpectType OSInfo
-service.get('cpu'); // $ExpectType ICPU
+service.get("browser"); // $ExpectType BrowserInfo
+service.get("device"); // $ExpectType DeviceInfo
+service.get("engine"); // $ExpectType EngineInfo
+service.get("os"); // $ExpectType OSInfo
+service.get("cpu"); // $ExpectType ICPU
 
 // @ts-expect-error
-service.get('fakeKey');
+service.get("fakeKey");
 
 const browser = service.browser; // $ExpectType BrowserInfo
 browser.info; // $ExpectType IBrowser
@@ -45,14 +45,14 @@ service.userAgent; // $ExpectType string
 
 const helper = new UserAgentHelper();
 
-helper.compute(['browser']); // $ExpectType BrowserInfo
-helper.compute(['device']); // $ExpectType DeviceInfo
-helper.compute(['engine']); // $ExpectType EngineInfo
-helper.compute(['os']); // $ExpectType OSInfo
-helper.compute(['cpu']); // $ExpectType ICPU
+helper.compute(["browser"]); // $ExpectType BrowserInfo
+helper.compute(["device"]); // $ExpectType DeviceInfo
+helper.compute(["engine"]); // $ExpectType EngineInfo
+helper.compute(["os"]); // $ExpectType OSInfo
+helper.compute(["cpu"]); // $ExpectType ICPU
 
 // @ts-expect-error
-helper.compute(['fakeKey']);
+helper.compute(["fakeKey"]);
 // @ts-expect-error
 helper.compute([]);
 // @ts-expect-error

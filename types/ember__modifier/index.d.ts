@@ -7,14 +7,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Owner from '@ember/owner';
-import { Opaque } from 'ember/-private/type-utils';
+import Owner from "@ember/owner";
+import { Opaque } from "ember/-private/type-utils";
 
 // In normal TypeScript, this modifier is essentially an opaque token
 // that just needs to be importable. Declaring it with a unique interface
 // like this, however, gives tools like Glint (that DO have a richer
 // notion of what it is) a place to install more detailed type information.
-export interface OnModifier extends Opaque<'modifier:on'> {}
+export interface OnModifier extends Opaque<"modifier:on"> {}
 
 /**
  * The `{{on}}` modifier lets you easily add event listeners.
@@ -36,7 +36,7 @@ export function setModifierManager<T>(factory: (owner: Owner) => unknown, modifi
 export interface ModifierCapabilitiesVersions {
     // passes factoryFor(...).class to `.createModifier`
     // uses args proxy, does not provide a way to opt-out
-    '3.22': {
+    "3.22": {
         disableAutoTracking?: boolean;
     };
 }

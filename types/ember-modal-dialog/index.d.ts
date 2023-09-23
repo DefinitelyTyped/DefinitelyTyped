@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-declare module 'ember-modal-dialog/components/modal-dialog' {
-    import Component from '@ember/component';
+declare module "ember-modal-dialog/components/modal-dialog" {
+    import Component from "@ember/component";
 
     // https://github.com/yapplabs/ember-modal-dialog/blob/v3.0.3/addon/components/modal-dialog.js
     // https://www.npmjs.com/package/ember-modal-dialog#configurable-properties
@@ -47,7 +47,7 @@ declare module 'ember-modal-dialog/components/modal-dialog' {
          * rendered as a parent element of the container div or as a sibling to it
          * (default: 'parent')
          */
-        overlayPosition: 'parent' | 'sibling';
+        overlayPosition: "parent" | "sibling";
         /**
          * CSS class name(s) to append to container divs. Set this from template.
          */

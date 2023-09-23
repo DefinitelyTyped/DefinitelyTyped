@@ -4,7 +4,7 @@
 //                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as ESTree from 'estree';
+import * as ESTree from "estree";
 
 declare namespace ESTraverse {
     const Syntax: Syntax;
@@ -157,11 +157,15 @@ declare namespace ESTraverse {
     interface VisitorKeys extends Record<NodeType, string[]> {}
 
     interface Visitor {
-        enter?: ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void) | undefined;
+        enter?:
+            | ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void)
+            | undefined;
 
-        leave?: ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void) | undefined;
+        leave?:
+            | ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void)
+            | undefined;
 
-        fallback?: 'iteration' | ((this: Controller, node: ESTree.Node) => string[]) | undefined;
+        fallback?: "iteration" | ((this: Controller, node: ESTree.Node) => string[]) | undefined;
 
         keys?: Record<string, string[]> | undefined;
     }

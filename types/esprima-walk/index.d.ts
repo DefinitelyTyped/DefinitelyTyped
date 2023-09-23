@@ -12,7 +12,7 @@ type NodeWithParent = ESTree.Node & { parent?: ESTree.Node | undefined };
  * @param {ESTree.Program} ast program to walk
  * @param {function} fn function invoked for each node with type
  */
-declare function walk (ast: ESTree.Program, fn:(node: ESTree.Node)=>void) :void
+declare function walk(ast: ESTree.Program, fn: (node: ESTree.Node) => void): void;
 
 declare namespace walk {
     /**
@@ -20,7 +20,7 @@ declare namespace walk {
      * @param {ESTree.Program} ast program to walk
      * @param {function} fn function invoked for each node
      */
-    export function walk (ast: ESTree.Program, fn:(node: ESTree.Node)=>void) :void
+    export function walk(ast: ESTree.Program, fn: (node: ESTree.Node) => void): void;
 
     /**
      * Walk the provided AST; fn is called once for each node with a `type`.
@@ -28,7 +28,7 @@ declare namespace walk {
      * @param {ESTree.Program} ast program to walk
      * @param {function} fn function invoked for each node
      */
-    export function walkAddParent (ast: ESTree.Program, fn:(node: NodeWithParent)=>void) :void
+    export function walkAddParent(ast: ESTree.Program, fn: (node: NodeWithParent) => void): void;
 }
 
-export = walk
+export = walk;

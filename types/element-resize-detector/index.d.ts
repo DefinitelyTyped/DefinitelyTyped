@@ -4,11 +4,13 @@
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions): elementResizeDetectorMaker.Erd;
+declare function elementResizeDetectorMaker(
+    options?: elementResizeDetectorMaker.ErdmOptions,
+): elementResizeDetectorMaker.Erd;
 
 declare namespace elementResizeDetectorMaker {
     interface ErdmOptions {
-        strategy?: 'scroll' | 'object' | undefined;
+        strategy?: "scroll" | "object" | undefined;
         /**
          * A custom reporter that handles reporting logs, warnings and errors.
          * If not provided, a default id handler will be used.

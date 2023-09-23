@@ -1,23 +1,23 @@
-import * as ESTree from 'estree';
+import * as ESTree from "estree";
 
 import {
-    Node,
-    JSXIdentifier,
-    JSXNamespacedName,
-    JSXMemberExpression,
-    JSXEmptyExpression,
-    JSXExpressionContainer,
-    JSXSpreadChild,
-    JSXSpreadAttribute,
     JSXAttribute,
-    JSXOpeningElement,
-    JSXOpeningFragment,
     JSXClosingElement,
     JSXClosingFragment,
     JSXElement,
+    JSXEmptyExpression,
+    JSXExpressionContainer,
     JSXFragment,
+    JSXIdentifier,
+    JSXMemberExpression,
+    JSXNamespacedName,
+    JSXOpeningElement,
+    JSXOpeningFragment,
+    JSXSpreadAttribute,
+    JSXSpreadChild,
     JSXText,
-} from 'estree-jsx';
+    Node,
+} from "estree-jsx";
 
 declare let node: Node;
 declare let identifier: JSXIdentifier;
@@ -82,46 +82,46 @@ string = text.raw;
 // Test narrowing
 
 switch (node.type) {
-    case 'JSXAttribute':
+    case "JSXAttribute":
         attribute = node;
         break;
-    case 'JSXClosingElement':
+    case "JSXClosingElement":
         closingElement = node;
         break;
-    case 'JSXClosingFragment':
+    case "JSXClosingFragment":
         closingFragment = node;
         break;
-    case 'JSXElement':
+    case "JSXElement":
         element = node;
         break;
-    case 'JSXEmptyExpression':
+    case "JSXEmptyExpression":
         emptyExpression = node;
         break;
-    case 'JSXExpressionContainer':
+    case "JSXExpressionContainer":
         expressionContainer = node;
         break;
-    case 'JSXFragment':
+    case "JSXFragment":
         fragment = node;
         break;
-    case 'JSXIdentifier':
+    case "JSXIdentifier":
         identifier = node;
         break;
-    case 'JSXMemberExpression':
+    case "JSXMemberExpression":
         memberExpression = node;
         break;
-    case 'JSXNamespacedName':
+    case "JSXNamespacedName":
         namespacedName = node;
         break;
-    case 'JSXOpeningElement':
+    case "JSXOpeningElement":
         openingElement = node;
         break;
-    case 'JSXOpeningFragment':
+    case "JSXOpeningFragment":
         openingFragment = node;
         break;
-    case 'JSXSpreadAttribute':
+    case "JSXSpreadAttribute":
         spreadAttribute = node;
         break;
-    case 'JSXText':
+    case "JSXText":
         text = node;
         break;
 

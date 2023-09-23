@@ -1,4 +1,4 @@
-import elementClosest from 'element-closest';
+import elementClosest from "element-closest";
 
 // @ts-expect-error
 elementClosest(null);
@@ -10,7 +10,7 @@ elementClosest(undefined);
 elementClosest(100);
 
 // @ts-expect-error
-elementClosest('test');
+elementClosest("test");
 
 // @ts-expect-error
 elementClosest(false);

@@ -1,17 +1,17 @@
-import * as moment from 'moment';
-import * as EonasdanBootstrapDatetimepicker from 'eonasdan-bootstrap-datetimepicker';
+import * as EonasdanBootstrapDatetimepicker from "eonasdan-bootstrap-datetimepicker";
+import * as moment from "moment";
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();
 
 // Using Locales
 $("#datetimepicker2").datetimepicker({
-    locale: "ru"
+    locale: "ru",
 });
 
 // Custom Formats
 $("#datetimepicker3").datetimepicker({
-    format: "LT"
+    format: "LT",
 });
 
 // Enabled/Disabled Dates
@@ -20,24 +20,24 @@ $("#datetimepicker5").datetimepicker({
     disabledDates: [
         moment("12/25/2013"),
         new Date(2013, 11 - 1, 21),
-        "11/22/2013 00:53"
-    ]
+        "11/22/2013 00:53",
+    ],
 });
 
 // Enabled/Disabled Hours
 $("#datetimepicker").datetimepicker({
     format: "LT",
-    enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    enabledHours: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 });
 
 // Linked Pickers
 $("#datetimepicker7").datetimepicker({
-    useCurrent: false
+    useCurrent: false,
 });
-$("#datetimepicker6").on("dp.change", function (e) {
+$("#datetimepicker6").on("dp.change", function(e) {
     $("#datetimepicker7").data("DateTimePicker").minDate(e.date);
 });
-$("#datetimepicker7").on("dp.change", function (e) {
+$("#datetimepicker7").on("dp.change", function(e) {
     $("#datetimepicker6").data("DateTimePicker").maxDate(e.date);
 });
 
@@ -47,25 +47,25 @@ $("#datetimepicker8").datetimepicker({
         time: "fa fa-clock-o",
         date: "fa fa-calendar",
         up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down"
-    }
+        down: "fa fa-arrow-down",
+    },
 });
 
 // Min View Mode
 $("#datetimepicker10").datetimepicker({
     viewMode: "years",
-    format: "MM/YYYY"
+    format: "MM/YYYY",
 });
 
 // Disabled Days of the Week
 $("#datetimepicker11").datetimepicker({
-    daysOfWeekDisabled: [0, 6, EonasdanBootstrapDatetimepicker.DayOfWeek.Thursday]
+    daysOfWeekDisabled: [0, 6, EonasdanBootstrapDatetimepicker.DayOfWeek.Thursday],
 });
 
 // Inline
 $("#datetimepicker12").datetimepicker({
     inline: true,
-    sideBySide: true
+    sideBySide: true,
 });
 
 // Functions
@@ -76,7 +76,7 @@ $("#dtpFrom").datetimepicker({
     showClear: true,
     showClose: true,
     maxDate: new Date(),
-    toolbarPlacement: "top"
+    toolbarPlacement: "top",
 });
 $("#dtpFrom").data("DateTimePicker").date(moment(new Date()).format("DD/MM/YYYY"));
 
@@ -89,9 +89,9 @@ datepicker.datetimepicker({
     showTodayButton: true,
     toolbarPlacement: "top",
     widgetPositioning: {
-        horizontal: "right"
-    }
+        horizontal: "right",
+    },
 });
-datepicker.on("dp.change", function (e) {
+datepicker.on("dp.change", function(e) {
     alert("e.date=" + e.date);
 });

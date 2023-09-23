@@ -4,12 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Service from '@ember/service';
+import Service from "@ember/service";
 
 export function scheduleFrame(context: object, method: string): number;
 
-export function exec(target: object, method: () => void | string, args: unknown[],
-                     onError: (e: Error, stack: object) => void, stack: object): void;
+export function exec(
+    target: object,
+    method: () => void | string,
+    args: unknown[],
+    onError: (e: Error, stack: object) => void,
+    stack: object,
+): void;
 
 export function _logWarn(title: string, stack: object, test: boolean, options: object): void;
 
@@ -55,14 +60,21 @@ export default interface Scheduler extends Service {
      * Schedule a unique task into the scheduler.
      *
      * When first argument is a function it ignores the rest.
-     *
      */
-    scheduleOnce<T, F extends (this: T, ...args: unknown[]) => void>(target: T, method: F, ...args: Parameters<F>): void;
+    scheduleOnce<T, F extends (this: T, ...args: unknown[]) => void>(
+        target: T,
+        method: F,
+        ...args: Parameters<F>
+    ): void;
 
     /**
      * Try to cancel a given task.
      *
      * When first argument is a function it ignores the rest.
      */
-    cancel<T, F extends (this: T, ...args: unknown[]) => null | unknown[]>(target: T, method: F, ...args: Parameters<F>): null | unknown[];
+    cancel<T, F extends (this: T, ...args: unknown[]) => null | unknown[]>(
+        target: T,
+        method: F,
+        ...args: Parameters<F>
+    ): null | unknown[];
 }

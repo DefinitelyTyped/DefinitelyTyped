@@ -7,5 +7,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import DS from 'ember-data';
+import DS from "ember-data";
 export default DS.Serializer;

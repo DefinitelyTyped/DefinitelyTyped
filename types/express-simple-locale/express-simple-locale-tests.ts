@@ -1,12 +1,12 @@
-import express = require('express');
-import locale = require('express-simple-locale');
+import express = require("express");
+import locale = require("express-simple-locale");
 
 const localeMiddlewareOptions = {
-    key: 'userLocale',
-    supportedLocales: ['en', 'fr', 'it', 'es', 'de'],
-    defaultLocale: 'en',
-    cookieName: 'c00ki3z',
-    queryParams: ['locale', 'lang'],
+    key: "userLocale",
+    supportedLocales: ["en", "fr", "it", "es", "de"],
+    defaultLocale: "en",
+    cookieName: "c00ki3z",
+    queryParams: ["locale", "lang"],
 };
 
 express()

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from "koa";
 import { IncomingMessage, ServerResponse } from "http";
+import * as Koa from "koa";
 
 export = expressToKoa;
 
@@ -14,5 +14,5 @@ declare function expressToKoa(
         req: IncomingMessage,
         res: ServerResponse,
         next: (err?: any) => void,
-    ) => void
+    ) => void,
 ): Koa.Middleware;

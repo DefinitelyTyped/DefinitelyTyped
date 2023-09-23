@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Mix, Mix3, Mix4 } from './types';
+import { Mix, Mix3, Mix4 } from "./types";
 
 /**
  * Copy properties from a source object to a target object.

@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Application from '@ember/application';
+import Application from "@ember/application";
 
 /**
  * `registerHelper` is used to register a test helper that will be injected

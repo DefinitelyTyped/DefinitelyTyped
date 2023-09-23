@@ -1,2 +1,2 @@
-import ToPropertyDescriptor = require('../2015/ToPropertyDescriptor');
+import ToPropertyDescriptor = require("../2015/ToPropertyDescriptor");
 export = ToPropertyDescriptor;

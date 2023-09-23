@@ -28,7 +28,7 @@ interface EarcutStatic {
      *     const triangles = earcut(data.vertices, data.holes, data.dimensions);
      * @param data Arrays of rings, with the first being the outline and the rest holes. A ring is an array points, each point being an array of numbers.
      */
-    flatten(data: ArrayLike<ArrayLike<ArrayLike<number>>>): { vertices: number[], holes: number[], dimensions: number };
+    flatten(data: ArrayLike<ArrayLike<ArrayLike<number>>>): { vertices: number[]; holes: number[]; dimensions: number };
 
     /**
      * Returns the relative difference between the total area of triangles and the area of the input polygon. 0 means the triangulation is fully correct.
@@ -40,7 +40,12 @@ interface EarcutStatic {
      *     const triangles = earcut(vertices, holes, dimensions);
      *  const deviation = earcut.deviation(vertices, holes, dimensions, triangles);
      */
-    deviation(vertices: ArrayLike<number>, holes: ArrayLike<number> | undefined, dimensions: number, triangles: ArrayLike<number>): number;
+    deviation(
+        vertices: ArrayLike<number>,
+        holes: ArrayLike<number> | undefined,
+        dimensions: number,
+        triangles: ArrayLike<number>,
+    ): number;
 
     default: EarcutStatic;
 }

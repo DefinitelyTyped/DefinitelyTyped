@@ -106,6 +106,6 @@ export function deprecate(
         /**
          * Describes when the deprecation became available and enabled.
          */
-        since: Partial<Record<'available' | 'enabled', string>>;
+        since: Partial<Record<"available" | "enabled", string>>;
     },
 ): void;

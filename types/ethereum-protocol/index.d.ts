@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
 export type JSONRPCErrorCallback = (err: Error | null, result?: JSONRPCResponsePayload) => void;
 
@@ -22,14 +22,14 @@ export type AbiDefinition = FunctionAbi | EventAbi;
 
 export type FunctionAbi = MethodAbi | ConstructorAbi | FallbackAbi;
 
-export type ConstructorStateMutability = 'nonpayable' | 'payable';
-export type StateMutability = 'pure' | 'view' | ConstructorStateMutability;
+export type ConstructorStateMutability = "nonpayable" | "payable";
+export type StateMutability = "pure" | "view" | ConstructorStateMutability;
 
 export enum AbiType {
-    Function = 'function',
-    Constructor = 'constructor',
-    Event = 'event',
-    Fallback = 'fallback',
+    Function = "function",
+    Constructor = "constructor",
+    Event = "event",
+    Fallback = "fallback",
 }
 
 export interface MethodAbi {
@@ -72,16 +72,16 @@ export interface DataItem {
 }
 
 export enum OpCode {
-    DelegateCall = 'DELEGATECALL',
-    Revert = 'REVERT',
-    Create = 'CREATE',
-    Stop = 'STOP',
-    Invalid = 'INVALID',
-    CallCode = 'CALLCODE',
-    StaticCall = 'STATICCALL',
-    Return = 'RETURN',
-    Call = 'CALL',
-    SelfDestruct = 'SELFDESTRUCT',
+    DelegateCall = "DELEGATECALL",
+    Revert = "REVERT",
+    Create = "CREATE",
+    Stop = "STOP",
+    Invalid = "INVALID",
+    CallCode = "CALLCODE",
+    StaticCall = "STATICCALL",
+    Return = "RETURN",
+    Call = "CALL",
+    SelfDestruct = "SELFDESTRUCT",
 }
 
 export interface StructLog {
@@ -103,21 +103,21 @@ export interface TransactionTrace {
 }
 
 export type Unit =
-    | 'kwei'
-    | 'ada'
-    | 'mwei'
-    | 'babbage'
-    | 'gwei'
-    | 'shannon'
-    | 'szabo'
-    | 'finney'
-    | 'ether'
-    | 'kether'
-    | 'grand'
-    | 'einstein'
-    | 'mether'
-    | 'gether'
-    | 'tether';
+    | "kwei"
+    | "ada"
+    | "mwei"
+    | "babbage"
+    | "gwei"
+    | "shannon"
+    | "szabo"
+    | "finney"
+    | "ether"
+    | "kether"
+    | "grand"
+    | "einstein"
+    | "mether"
+    | "gether"
+    | "tether";
 
 export interface JSONRPCRequestPayload {
     params: any[];
@@ -252,9 +252,9 @@ export interface LogWithDecodedArgs<ArgsType extends DecodedLogArgs> extends Dec
 export type RawLog = LogEntry;
 
 export enum BlockParamLiteral {
-    Earliest = 'earliest',
-    Latest = 'latest',
-    Pending = 'pending',
+    Earliest = "earliest",
+    Latest = "latest",
+    Pending = "pending",
 }
 
 export type BlockParam = BlockParamLiteral | number;
@@ -271,10 +271,10 @@ export interface RawLogEntry {
 }
 
 export enum SolidityTypes {
-    Address = 'address',
-    Uint256 = 'uint256',
-    Uint8 = 'uint8',
-    Uint = 'uint',
+    Address = "address",
+    Uint256 = "uint256",
+    Uint8 = "uint8",
+    Uint = "uint",
 }
 
 /**

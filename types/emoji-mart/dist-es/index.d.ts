@@ -1,6 +1,6 @@
-export { default as store, StoreHandlers } from './utils/store';
-export { default as frequently } from './utils/frequently';
-export { Data } from './utils/data';
+export { Data } from "./utils/data";
+export { default as frequently } from "./utils/frequently";
+export { default as store, StoreHandlers } from "./utils/store";
 
 export {
     BackgroundImageFn,
@@ -12,28 +12,28 @@ export {
     I18n,
     PartialI18n,
     PickerProps,
-} from './utils/shared-props';
+} from "./utils/shared-props";
 
-export { default as emojiIndex } from './utils/emoji-index/emoji-index';
+export { default as emojiIndex } from "./utils/emoji-index/emoji-index";
 
 export {
     BaseEmoji,
     CustomEmoji,
+    default as NimbleEmojiIndex,
     EmojiData,
     EmojiEntry,
     EmojiSkin,
-    default as NimbleEmojiIndex,
-} from './utils/emoji-index/nimble-emoji-index';
+} from "./utils/emoji-index/nimble-emoji-index";
 
-export { getEmojiDataFromNative } from './utils/index';
+export { getEmojiDataFromNative } from "./utils/index";
 
 export {
-    Picker,
-    NimblePicker,
-    NimblePickerProps,
+    Category,
+    CategoryProps,
     Emoji,
     NimbleEmoji,
     NimbleEmojiProps,
-    Category,
-    CategoryProps,
-} from './components';
+    NimblePicker,
+    NimblePickerProps,
+    Picker,
+} from "./components";

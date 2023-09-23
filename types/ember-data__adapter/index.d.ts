@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import DS from 'ember-data';
+import DS from "ember-data";
 
 export let BuildURLMixin: DS.BuildURLMixin;
 

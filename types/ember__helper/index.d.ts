@@ -7,17 +7,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { Opaque } from 'ember/-private/type-utils';
+import { Opaque } from "ember/-private/type-utils";
 
 // In normal TypeScript, these helpers are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces
 // like this, however, gives tools like Glint (that DO have a richer
 // notion of what they are) a place to install more detailed type information.
-export interface ArrayHelper extends Opaque<'helper:array'> {}
-export interface ConcatHelper extends Opaque<'helper:concat'> {}
-export interface FnHelper extends Opaque<'helper:fn'> {}
-export interface GetHelper extends Opaque<'helper:get'> {}
-export interface HashHelper extends Opaque<'helper:hash'> {}
+export interface ArrayHelper extends Opaque<"helper:array"> {}
+export interface ConcatHelper extends Opaque<"helper:concat"> {}
+export interface FnHelper extends Opaque<"helper:fn"> {}
+export interface GetHelper extends Opaque<"helper:get"> {}
+export interface HashHelper extends Opaque<"helper:hash"> {}
 
 /**
  * Use the `{{array}}` helper to create an array to pass as an option to your components.

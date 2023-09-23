@@ -1,4 +1,4 @@
-import { text } from 'estimated-read-time';
+import { text } from "estimated-read-time";
 const lorem = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan laoreet massa, quis fringilla nunc ornare eu.
 Suspendisse arcu turpis, luctus id tortor quis, aliquam pellentesque magna. Mauris at lacinia libero.

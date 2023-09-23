@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Loader } from 'webpack';
+import { Loader, Plugin } from "webpack";
 
 export = ExtractTextPlugin;
 

@@ -7,15 +7,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import ActionHandler from '@ember/object/-private/action-handler';
-import Mixin from '@ember/object/mixin';
-import EmberObject from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+import ComputedProperty from "@ember/object/computed";
+import Mixin from "@ember/object/mixin";
 
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
-type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+type QueryParamTypes = "boolean" | "number" | "array" | "string";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
-type QueryParamScopeTypes = 'controller' | 'model';
+type QueryParamScopeTypes = "controller" | "model";
 
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface QueryParamConfig {

@@ -1,5 +1,5 @@
-import Owner from '@ember/owner';
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
+import Owner from "@ember/owner";
 
 /**
  * RegistryProxyMixin is used to provide public access to specific

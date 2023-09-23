@@ -1,2 +1,2 @@
-import thisBooleanValue = require('../2015/thisBooleanValue');
+import thisBooleanValue = require("../2015/thisBooleanValue");
 export = thisBooleanValue;

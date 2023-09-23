@@ -4,7 +4,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import AsyncStreamEmitter = require('async-stream-emitter');
+import AsyncStreamEmitter = require("async-stream-emitter");
 
 declare function eetase<T>(object: T): AsyncStreamEmitter<any> & T;
 
