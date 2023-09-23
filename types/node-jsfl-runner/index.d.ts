@@ -17,7 +17,12 @@ export interface JSFL {
  * @param initParams Parameters to pass to JSFL init function
  * @param callback Callback
  */
-export function createJSFL(jsfl: JSFL, fileName: string, initParams: Array<any>, callback: (err: NodeJS.ErrnoException) => void): void;
+export function createJSFL(
+    jsfl: JSFL,
+    fileName: string,
+    initParams: Array<any>,
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 
 /**
  * Deletes a JSFL file

@@ -1,8 +1,8 @@
-import { core } from './core';
+import { core } from "./core";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../';
+import * as el from "../";
 
 // ============================================================================
 // Native
@@ -20,10 +20,7 @@ import * as el from '../';
  * @see core.KeyProps
  * @see core.ZNode
  */
-export const z:
-    core.NodeFactory<'z',
-        core.KeyProps,
-        []>;
+export const z: core.NodeFactory<"z", core.KeyProps, []>;
 
 /**
  * A variable-length delay line with a feedback component.
@@ -67,11 +64,8 @@ export const z:
  * @see core.Child
  * @see core.DelayNode
  */
-export const delay:
-    core.NodeFactory<'delay',
-        core.DelayProps,
-        [
-            length: core.Child,
-            feedback: core.Child,
-            signal: core.Child
-        ]>;
+export const delay: core.NodeFactory<"delay", core.DelayProps, [
+    length: core.Child,
+    feedback: core.Child,
+    signal: core.Child,
+]>;

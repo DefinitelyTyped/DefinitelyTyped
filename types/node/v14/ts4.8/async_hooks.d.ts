@@ -1,7 +1,7 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module 'async_hooks' {
+declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
      */
@@ -83,20 +83,20 @@ declare module 'async_hooks' {
     function createHook(options: HookCallbacks): AsyncHook;
 
     interface AsyncResourceOptions {
-      /**
-       * The ID of the execution context that created this async event.
-       * @default executionAsyncId()
-       */
-      triggerAsyncId?: number | undefined;
+        /**
+         * The ID of the execution context that created this async event.
+         * @default executionAsyncId()
+         */
+        triggerAsyncId?: number | undefined;
 
-      /**
-       * Disables automatic `emitDestroy` when the object is garbage collected.
-       * This usually does not need to be set (even if `emitDestroy` is called
-       * manually), unless the resource's `asyncId` is retrieved and the
-       * sensitive API's `emitDestroy` is called with it.
-       * @default false
-       */
-      requireManualDestroy?: boolean | undefined;
+        /**
+         * Disables automatic `emitDestroy` when the object is garbage collected.
+         * This usually does not need to be set (even if `emitDestroy` is called
+         * manually), unless the resource's `asyncId` is retrieved and the
+         * sensitive API's `emitDestroy` is called with it.
+         * @default false
+         */
+        requireManualDestroy?: boolean | undefined;
     }
 
     /**
@@ -113,14 +113,17 @@ declare module 'async_hooks' {
          *   this async event (default: `executionAsyncId()`), or an
          *   AsyncResourceOptions object (since v9.3.0)
          */
-        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+        constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
 
         /**
          * Binds the given function to the current execution context.
          * @param fn The function to bind to the current execution context.
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
-        static bind<Func extends (...args: any[]) => any>(fn: Func, type?: string): Func & { asyncResource: AsyncResource };
+        static bind<Func extends (...args: any[]) => any>(
+            fn: Func,
+            type?: string,
+        ): Func & { asyncResource: AsyncResource };
 
         /**
          * Binds the given function to execute to this `AsyncResource`'s scope.
@@ -139,7 +142,11 @@ declare module 'async_hooks' {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
+        runInAsyncScope<This, Result>(
+            fn: (this: This, ...args: any[]) => Result,
+            thisArg?: This,
+            ...args: any[]
+        ): Result;
 
         /**
          * Call AsyncHooks destroy callbacks.
@@ -225,6 +232,6 @@ declare module 'async_hooks' {
         enterWith(store: T): void;
     }
 }
-declare module 'node:async_hooks' {
-    export * from 'async_hooks';
+declare module "node:async_hooks" {
+    export * from "async_hooks";
 }

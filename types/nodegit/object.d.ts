@@ -1,6 +1,6 @@
-import { Oid } from './oid';
-import { Repository } from './repository';
-import { Buf } from './buf';
+import { Buf } from "./buf";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
 
 export class Object {
     static size(type: Object.TYPE): number;

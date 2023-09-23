@@ -1,9 +1,9 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex } from 'node:stream';
-import { promisify } from 'node:util';
-import { createReadStream, createWriteStream } from 'node:fs';
-import { createGzip, constants } from 'node:zlib';
-import assert = require('node:assert');
-import { Http2ServerResponse } from 'node:http2';
+import { createReadStream, createWriteStream } from "node:fs";
+import { Duplex, finished, pipeline, Readable, Transform, Writable } from "node:stream";
+import { promisify } from "node:util";
+import { constants, createGzip } from "node:zlib";
+import assert = require("node:assert");
+import { Http2ServerResponse } from "node:http2";
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -19,7 +19,7 @@ function simplified_stream_ctor_test() {
             error;
             // $ExpectType (error: Error | null) => void
             cb;
-        }
+        },
     });
 
     new Writable({
@@ -55,7 +55,7 @@ function simplified_stream_ctor_test() {
             // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
-        defaultEncoding: 'utf8',
+        defaultEncoding: "utf8",
     });
 
     new Duplex({
@@ -100,7 +100,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 
     new Transform({
@@ -160,7 +160,7 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true,
         readableHighWaterMark: 2048,
-        writableHighWaterMark: 1024
+        writableHighWaterMark: 1024,
     });
 }
 
@@ -188,14 +188,14 @@ async function asyncStreamPipelineFinished() {
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
-    const rs = createReadStream(Buffer.from('file.txt'));
-    const r = createReadStream('file.txt');
+    const rs = createReadStream(Buffer.from("file.txt"));
+    const r = createReadStream("file.txt");
     const z = createGzip({ finishFlush: constants.Z_FINISH });
-    const w = createWriteStream('file.txt.gz');
+    const w = createWriteStream("file.txt.gz");
 
-    assert(typeof z.bytesRead === 'number');
-    assert(typeof r.bytesRead === 'number');
-    assert(typeof r.path === 'string');
+    assert(typeof z.bytesRead === "number");
+    assert(typeof r.bytesRead === "number");
+    assert(typeof r.path === "string");
     assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
@@ -209,16 +209,16 @@ function stream_readable_pipe_test() {
 {
     // checking the type definitions for the events on the Duplex class and subclasses
     const transform = new Transform();
-    transform.on('pipe', (src) => {
+    transform.on("pipe", (src) => {
         // $ExpectType Readable
         src;
-    }).once('unpipe', (src) => {
+    }).once("unpipe", (src) => {
         // $ExpectType Readable
         src;
-    }).addListener('data', (chunk) => {
+    }).addListener("data", (chunk) => {
         // $ExpectType any
         chunk;
-    }).prependOnceListener('error', (err) => {
+    }).prependOnceListener("error", (err) => {
         // $ExpectType Error
         err;
     });
