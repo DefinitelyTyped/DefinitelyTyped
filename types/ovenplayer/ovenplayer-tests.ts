@@ -145,7 +145,15 @@ player.off('ready');
 // remove(): void;
 player.remove();
 
-player.setCaption?.({
+// @ts-expect-error: it's deprecated method, should throw error for newest users.
+player.setCaption({
+    // you can use player.setCaption?.()
+    file: 'https://youtu.be/dQw4w9WgXcQ',
+    kind: 'caption',
+    label: 'label',
+});
+
+player.addCaption({
     file: 'https://youtu.be/dQw4w9WgXcQ',
     kind: 'caption',
     label: 'label',

@@ -113,7 +113,7 @@ interface OvenPlayerInstance {
     setCurrentQuality(index: number): void;
     isAutoQuality(): boolean;
     setAutoQuality(auto: boolean): void;
-    addCaption(track: OvenPlayerTrack): void;
+    addCaption(track: Pick<OvenPlayerTrack, 'file' | 'kind' | 'label'>): void;
     getCaptionList(): OvenPlayerTrack[];
     getCurrentCaption(): string;
     setCaption?(track: OvenPlayerTrack): void;
@@ -153,9 +153,9 @@ type OvenPlayerTrack = {
     file: string;
     kind: string;
     label: string;
-    data?: string[];
-    id?: string;
-    name?: string;
+    data: string[];
+    id: string;
+    name: string;
 };
 
 export {
