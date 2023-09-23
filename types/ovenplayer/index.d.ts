@@ -150,11 +150,11 @@ type OvenPlayerBrowser = {
 };
 
 type OvenPlayerTrack = {
-    data?: string[];
     file: string;
-    id?: string;
     kind: string;
     label: string;
+    data?: string[];
+    id?: string;
     name?: string;
 };
 
