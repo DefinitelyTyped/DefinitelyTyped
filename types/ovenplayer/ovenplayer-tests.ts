@@ -1,5 +1,4 @@
-import OvenPlayer from 'ovenplayer';
-import type { OvenPlayerQuality } from 'ovenplayer';
+import OvenPlayer, { OvenPlayerQuality } from 'ovenplayer';
 
 const playerContainer1 = document.createElement('div');
 playerContainer1.id = 'player1';
