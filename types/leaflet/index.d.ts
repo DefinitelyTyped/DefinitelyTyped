@@ -391,7 +391,8 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-export class Events {
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+declare class Events {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
      * You can optionally specify the context of the listener (object the this
