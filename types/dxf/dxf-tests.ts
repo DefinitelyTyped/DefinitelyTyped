@@ -1,4 +1,4 @@
-import { Entities, Helper } from 'dxf';
+import { Entities, Helper } from "dxf";
 
 const dxfString = "";
 
@@ -14,17 +14,14 @@ helper.denormalised;
 // $ExpectType string
 helper.toSVG();
 
-// $ExpectType PolylineExport
+// $ExpectType Polyline[]
 helper.toPolylines();
 
 
 const { entities } = helper.parsed!;
 
 // $ExpectType PointEntityData[]
-const points = entities.filter(entity => entity.type === 'POINT') as Entities.Point[];
+const points = entities.filter(entity => entity.TYPE === "POINT") as Entities.Point[];
 
 // $ExpectType PolylineEntityData[]
-const polylines = entities.filter(entity => entity.type === 'POLYLINE') as Entities.Polyline[];
-
-// $ExpectType LineEntityData[]
-const lines = entities.filter(entity => entity.type === 'LINE') as Entities.Line[];
+const polylines = entities.filter(entity => entity.TYPE === "POLYLINE") as Entities.Polyline[];

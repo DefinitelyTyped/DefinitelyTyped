@@ -1,5 +1,5 @@
-import focusPlugin from '@alpinejs/focus';
-import Alpine, { AlpineComponent } from 'alpinejs';
+import focusPlugin from "@alpinejs/focus";
+import Alpine, { AlpineComponent } from "alpinejs";
 
 Alpine.plugin(focusPlugin);
 

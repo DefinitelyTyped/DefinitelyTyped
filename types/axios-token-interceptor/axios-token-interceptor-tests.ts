@@ -1,7 +1,7 @@
-import tokenProvider = require('axios-token-interceptor');
+import tokenProvider = require("axios-token-interceptor");
 
 const getToken = async (): Promise<tokenProvider.Token> => ({
-    access_token: 'token1',
+    access_token: "token1",
     expires_in: 50,
 });
 
@@ -18,19 +18,19 @@ cache().then((token: tokenProvider.Token) => {
 tokenProvider();
 
 const validOptions1 = {
-    getToken: () => 'qwerty',
+    getToken: () => "qwerty",
 };
 tokenProvider(validOptions1); // $ExpectType TokenProvider
 
 const validOptions2 = {
-    getToken: () => Promise.resolve('qwerty'),
+    getToken: () => Promise.resolve("qwerty"),
 };
 tokenProvider(validOptions2); // $ExpectType TokenProvider
 
 // @ts-expect-error
 tokenProvider.tokenCache();
 
-const validCacheGetter = () => Promise.resolve('qwerty');
+const validCacheGetter = () => Promise.resolve("qwerty");
 const validCacheOptions = {
     maxAge: 3600,
 };

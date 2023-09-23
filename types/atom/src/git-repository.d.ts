@@ -1,4 +1,4 @@
-import { Config, Disposable, Project } from '../index';
+import { Config, Disposable, Project } from "../index";
 
 /** Represents the underlying git operations performed by Atom. */
 export class GitRepository {
@@ -6,7 +6,14 @@ export class GitRepository {
     /** Creates a new GitRepository instance. */
     static open(path: string, options?: { refreshOnWindowFocus?: boolean | undefined }): GitRepository;
 
-    constructor(path: string, options?: { refreshOnWindowFocus?: boolean | undefined; config?: Config | undefined; project?: Project | undefined });
+    constructor(
+        path: string,
+        options?: {
+            refreshOnWindowFocus?: boolean | undefined;
+            config?: Config | undefined;
+            project?: Project | undefined;
+        },
+    );
 
     // Lifecycle
     /** Destroy this GitRepository object. */
@@ -33,7 +40,7 @@ export class GitRepository {
 
     // Repository Details
     /** A string indicating the type of version control system used by this repository. */
-    getType(): 'git';
+    getType(): "git";
 
     /** Returns the string path of the repository. */
     getPath(): string;

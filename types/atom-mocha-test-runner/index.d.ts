@@ -32,8 +32,7 @@ interface AtomMochaOptions {
 //   module.exports.createRunner = createRunner
 // Which is what we're trying to model here.
 interface TestRunnerExport extends TestRunner {
-    createRunner(options?: AtomMochaOptions, mochaConfigFunction?:
-        (mocha: Mocha) => void): TestRunner;
+    createRunner(options?: AtomMochaOptions, mochaConfigFunction?: (mocha: Mocha) => void): TestRunner;
 }
 
 declare const runner: TestRunnerExport;

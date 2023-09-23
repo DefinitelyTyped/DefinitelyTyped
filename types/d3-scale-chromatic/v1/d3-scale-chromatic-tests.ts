@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import * as d3ScaleChromatic from "d3-scale-chromatic";
 
 // -----------------------------------------------------------------------
 // Preparatory Steps

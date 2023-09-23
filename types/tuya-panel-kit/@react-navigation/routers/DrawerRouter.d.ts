@@ -1,16 +1,16 @@
 import { TabActionHelpers, TabActionType, TabNavigationState, TabRouterOptions } from "./TabRouter";
 import type { CommonNavigationAction, ParamListBase, Router } from "./types";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DrawerActionType = TabActionType | {
     type: "OPEN_DRAWER" | "CLOSE_DRAWER" | "TOGGLE_DRAWER";
     source?: string | undefined;
     target?: string | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DrawerRouterOptions = TabRouterOptions & {
     openByDefault?: boolean | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DrawerNavigationState<ParamList extends ParamListBase> =
     & Omit<TabNavigationState<ParamList>, "type" | "history">
     & {
@@ -29,7 +29,7 @@ export declare type DrawerNavigationState<ParamList extends ParamListBase> =
             type: "drawer";
         })[];
     };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DrawerActionHelpers<ParamList extends ParamListBase> = TabActionHelpers<ParamList> & {
     /**
      * Open the drawer sidebar.
@@ -44,7 +44,7 @@ export declare type DrawerActionHelpers<ParamList extends ParamListBase> = TabAc
      */
     toggleDrawer(): void;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare const DrawerActions: {
     openDrawer(): DrawerActionType;
     closeDrawer(): DrawerActionType;

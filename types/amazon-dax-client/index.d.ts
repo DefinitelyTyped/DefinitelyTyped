@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-import * as AWS from 'aws-sdk2-types';
+import * as AWS from "aws-sdk2-types";
 
 declare class AmazonDaxClient {
     constructor(options: AmazonDaxClientOptions);

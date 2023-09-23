@@ -6,7 +6,7 @@
 // matches [the implementation][1], which *also* uses it as a type-only brand.
 //
 // [1]: https://github.com/glimmerjs/glimmer-vm/blob/d6d776cf3797dafa923bcdad47e1897231ef6539/packages/%40glimmer/interfaces/lib/managers/capabilities.d.ts#L1
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare const CAPABILITIES: unique symbol;
 
 export interface Capabilities {

@@ -11,7 +11,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
     ShowImageEditor(
         divId?: string,
         width?: number,
-        height?: number
+        height?: number,
     ): boolean;
     /**
      * Change the bit depth of the specified image.
@@ -43,8 +43,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Change the DPI (dots per inch) of the specified image.
@@ -67,8 +67,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Convert the specified image to black & white.
@@ -83,8 +83,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Convert the specified image to grayscale.
@@ -99,8 +99,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Invert the colour of the pixels on the specified image.
@@ -115,8 +115,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Change the width of the specified image by adding a margin or removing part of the image.
@@ -133,8 +133,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Flip the specified image.
@@ -149,8 +149,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Mirror the specified image.
@@ -165,8 +165,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Rotate the specified image 90 degrees counterclockwise.
@@ -181,8 +181,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Rotate the specified image 90 degrees clockwise.
@@ -197,8 +197,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Rotate the specified image by the specified angle.
@@ -217,8 +217,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Rotate the specified image by the specified angle.
@@ -239,8 +239,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Crop the specified image using the specified coordinates.
@@ -263,8 +263,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Erase a rectangular area from the specified image.
@@ -287,8 +287,8 @@ export interface WebTwainEdit extends WebTwainBuffer {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void | boolean;
     /**
      * Copy the specified image to the clipboard of the operating system.
@@ -313,7 +313,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
         left: number,
         top: number,
         right: number,
-        bottom: number
+        bottom: number,
     ): boolean;
     /**
      * Cut a rectangular area from the specified image to the clipboard of the operating system.
@@ -328,7 +328,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
         left: number,
         top: number,
         right: number,
-        bottom: number
+        bottom: number,
     ): boolean;
     /**
      * Return or set the fill colour for the empty area on an image that has been cut/cropped/erased.
@@ -354,7 +354,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
         txtColor: number,
         backgroundColor: number,
         backgroundRoundRadius: number,
-        backgroundOpacity: number
+        backgroundOpacity: number,
     ): boolean;
     /**
      * [Deprecation] Create the font for adding text using the method AddText.
@@ -409,7 +409,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
         clipPrecision: number,
         quality: number,
         pitchAndFamily: number,
-        faceName: string
+        faceName: string,
     ): boolean;
     /**
      * [Deprecation] Decorates image of a specified index in buffer with rectangles of transparent color.
@@ -429,6 +429,6 @@ export interface WebTwainEdit extends WebTwainBuffer {
         right: number,
         bottom: number,
         color: number,
-        fOpacity: number
+        fOpacity: number,
     ): boolean;
 }

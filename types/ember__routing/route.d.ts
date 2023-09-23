@@ -9,7 +9,7 @@ import Controller from "@ember/controller";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import { RouteQueryParam } from "@ember/routing/types";
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
 /**

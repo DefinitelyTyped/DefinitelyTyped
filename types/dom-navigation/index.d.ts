@@ -105,7 +105,7 @@ declare class NavigationHistoryEntry extends EventTarget {
     ): void;
 }
 
-type NavigationTypeString = 'reload' | 'push' | 'replace' | 'traverse';
+type NavigationTypeString = "reload" | "push" | "replace" | "traverse";
 
 interface NavigationUpdateCurrentEntryOptions {
     state: unknown;
@@ -117,7 +117,7 @@ interface NavigationOptions {
 
 interface NavigationNavigateOptions extends NavigationOptions {
     state?: unknown;
-    history?: 'auto' | 'push' | 'replace';
+    history?: "auto" | "push" | "replace";
 }
 
 interface NavigationReloadOptions extends NavigationOptions {
@@ -167,8 +167,8 @@ interface NavigateEventInit extends EventInit {
 
 interface NavigationInterceptOptions {
     handler?: () => Promise<void>;
-    focusReset?: 'after-transition' | 'manual';
-    scroll?: 'after-transition' | 'manual';
+    focusReset?: "after-transition" | "manual";
+    scroll?: "after-transition" | "manual";
 }
 
 declare class NavigationDestination {

@@ -13,28 +13,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import {
-    ComputedPropertyCallback,
-    EmberClassArguments,
-    EmberClassConstructor,
-    EmberInstanceArguments,
-    Fix,
-    Objectify,
-    ObserverMethod,
-    UnwrapComputedPropertyGetter,
-    UnwrapComputedPropertyGetters,
-    UnwrapComputedPropertySetter,
-    UnwrapComputedPropertySetters,
-} from "@ember/object/-private/types";
 
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from "rsvp";
 
-import { TemplateFactory } from "htmlbars-inline-precompile";
 
 import { Registry as ControllerRegistry } from "@ember/controller";
-import { Registry as ServiceRegistry } from "@ember/service";
 import * as EmberStringNs from "@ember/string";
 import * as EmberTemplateNs from "@ember/template";
 import * as EmberTemplateHandlebarsNs from "@ember/template/-private/handlebars";
@@ -44,7 +29,6 @@ import * as EmberObjectComputedNs from "@ember/object/computed";
 import * as EmberObjectEventedNs from "@ember/object/evented";
 import * as EmberObjectEventsNs from "@ember/object/events";
 import * as EmberObjectInternalsNs from "@ember/object/internals";
-import * as EmberObjectMixinNs from "@ember/object/mixin";
 import * as EmberObjectObserversNs from "@ember/object/observers";
 import * as EmberObjectPromiseProxyNs from "@ember/object/promise-proxy-mixin";
 import * as EmberObjectProxyNs from "@ember/object/proxy";
@@ -80,7 +64,6 @@ import EmberMutableArray from "@ember/array/mutable";
 import EmberArrayProxy from "@ember/array/proxy";
 import EmberArrayProtoExtensions from "@ember/array/types/prototype-extensions";
 // @ember/run
-import { RunMethod } from "@ember/runloop/-private/types";
 // @ember/error
 import EmberError from "@ember/error";
 
@@ -92,15 +75,12 @@ import EmberTextArea from "@ember/component/text-area";
 import EmberTextField from "@ember/component/text-field";
 import EmberActionHandler from "@ember/object/-private/action-handler";
 // @ember/routing
-import EmberRoutingTransition from "@ember/routing/-private/transition";
-import EmberRoutingAutoLocation from "@ember/routing/auto-location";
 import EmberRoutingHashLocation from "@ember/routing/hash-location";
 import EmberRoutingHistoryLocation from "@ember/routing/history-location";
 import EmberRoutingLinkComponent from "@ember/routing/link-component";
 import EmberRoutingNoneLocation from "@ember/routing/none-location";
 import EmberRoutingRoute from "@ember/routing/route";
 import EmberRoutingRouter from "@ember/routing/router";
-import EmberRoutingRouterService from "@ember/routing/router-service";
 // @ember/application
 import EmberDefaultResolver from "@ember/application/-private/default-resolver";
 import EmberEventDispatcher from "@ember/application/-private/event-dispatcher";

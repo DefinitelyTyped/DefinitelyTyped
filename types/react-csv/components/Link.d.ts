@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { CommonPropTypes } from "./CommonPropTypes";
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface LinkProps

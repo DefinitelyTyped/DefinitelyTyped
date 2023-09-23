@@ -12,12 +12,12 @@ import ActionHandler from "@ember/object/-private/action-handler";
 import ComputedProperty from "@ember/object/computed";
 import Mixin from "@ember/object/mixin";
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type QueryParamTypes = "boolean" | "number" | "array" | "string";
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type QueryParamScopeTypes = "controller" | "model";
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface QueryParamConfig {
     type?: QueryParamTypes | undefined;
     scope?: QueryParamScopeTypes | undefined;

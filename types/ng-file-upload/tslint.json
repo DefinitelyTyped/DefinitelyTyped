@@ -9,7 +9,6 @@
         "no-unnecessary-qualifier": false,
         "one-variable-per-declaration": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "strict-export-declare-modifiers": false
+        "prefer-template": false
     }
 }
