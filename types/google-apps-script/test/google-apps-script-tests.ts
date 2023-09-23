@@ -871,3 +871,30 @@ const blob = () => {
 
     return contentType;
 };
+
+// DataSourceSheet test
+const sheetDataSource = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const dss = sheet.asDataSourceSheet();
+
+    // methods
+    dss.addFilter("column1", {} as unknown as GoogleAppsScript.Spreadsheet.FilterCriteria);
+    dss.asSheet();
+    dss.autoResizeColumn("column1");
+    dss.autoResizeColumns(["column1"]);
+    dss.forceRefreshData();
+    dss.getColumnWidth("column1");
+    dss.getDataSource();
+    dss.getFilters();
+    dss.getSheetValues("column1");
+    dss.getSheetValues("column1", 1, 1)
+    dss.getSortSpecs();
+    dss.getStatus();
+    dss.refreshData();
+    dss.removeFilters("column1");
+    dss.removeSortSpec("column1");
+    dss.setColumnWidth("column1", 100);
+    dss.setColumnWidths(["column1"], 100);
+    dss.setSortSpec("column1", true);
+    dss.waitForCompletion(10);
+};
