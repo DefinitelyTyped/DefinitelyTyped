@@ -62,6 +62,19 @@ interface OvenPlayerSource {
     sectionEnd?: number;
 }
 
+type OvenPlayerState =
+    | 'idle'
+    | 'complete'
+    | 'paused'
+    | 'playing'
+    | 'error'
+    | 'loading'
+    | 'stalled'
+    | 'adLoaded'
+    | 'adPlaying'
+    | 'adPaused'
+    | 'adComplete';
+
 interface OvenPlayerInstance {
     getVersion(): string;
     getConfig(): OvenPlayerConfig;
@@ -71,8 +84,8 @@ interface OvenPlayerInstance {
     getProviderName(): string | null;
     load(sources: OvenPlayerSource[] | OvenPlayerPlayList): void;
     getMediaElement(): HTMLVideoElement;
-    getState(): string;
-    getBrowser(): object;
+    getState(): OvenPlayerState;
+    getBrowser(): OvenPlayerBrowser;
     setTimecodeMode(mode: boolean): void;
     isTimecodeMode(): boolean;
     getFramerate(): number;
@@ -100,11 +113,10 @@ interface OvenPlayerInstance {
     setCurrentQuality(index: number): void;
     isAutoQuality(): boolean;
     setAutoQuality(auto: boolean): void;
-    addCaption(track: object): void;
-    getCaptionList(): object[];
+    addCaption(track: OvenPlayerTrack): void;
+    getCaptionList(): OvenPlayerTrack[];
     getCurrentCaption(): number;
     setCurrentCaption(index: number): void;
-    setCaption(caption: object): void;
     removeCaption(index: number): void;
     showControls(show: boolean): void;
     toggleFullScreen(): void;
@@ -124,6 +136,24 @@ type OvenPlayerQuality = {
 
 type OvenPlayerCallbackFunction = (...args: any[]) => void;
 
+type OvenPlayerBrowser = {
+    browser: string;
+    browserMajorVersion: number;
+    browserVersion: string;
+    cookies: boolean;
+    mobile: boolean;
+    os: string;
+    osVersion: string;
+    screen: string;
+    ua: string;
+};
+
+type OvenPlayerTrack = {
+    kind: string;
+    file: string;
+    label: string;
+};
+
 export {
     OvenPlayerQuality,
     OvenPlayerCallbackFunction,
@@ -132,6 +162,9 @@ export {
     OvenPlayerPlayList,
     OvenPlayerWebRTCStream,
     OvenPlayerConfig,
+    OvenPlayerState,
+    OvenPlayerBrowser,
+    OvenPlayerTrack,
 };
 
 declare const OvenPlayer: OvenPlayer;
