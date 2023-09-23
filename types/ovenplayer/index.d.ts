@@ -1,4 +1,4 @@
-// Type definitions for ovenplayer 0.10
+// Type definitions for ovenplayer 0.30
 // Project: https://github.com/airensoft/OvenPlayer
 // Definitions by: Sangwon Oh <https://github.com/SangwonOh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -94,7 +94,7 @@ interface OvenPlayerInstance {
     getSources(): OvenPlayerSource[] | OvenPlayerPlayList;
     getCurrentSource(): number;
     setCurrentSource(index: number): void;
-    getQualityLevels(): object[];
+    getQualityLevels(): Quality[];
     getCurrentQuality(): number;
     setCurrentQuality(index: number): void;
     isAutoQuality(): boolean;
@@ -112,6 +112,15 @@ interface OvenPlayerInstance {
     off(eventName: string): void;
     remove(): void;
 }
+
+type Quality = {
+    bitrate: string;
+    height: number;
+    index: string;
+    label: string;
+    width: number;
+};
+
 
 type OvenPlayerCallbackFunction = (...args: any[]) => void;
 
