@@ -6,12 +6,12 @@
 
 /// <reference types="node" />
 
-import { PathLike } from 'fs';
+import { PathLike } from "fs";
 
 export = LineByLine;
 
 declare class LineByLine {
-    constructor(file: PathLike | number, options?: Options)
+    constructor(file: PathLike | number, options?: Options);
     next(): Buffer | false;
     reset(): void;
     close(): void;

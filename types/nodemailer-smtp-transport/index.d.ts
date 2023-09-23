@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import tls = require("tls");
-import nodemailer = require('nodemailer');
+import nodemailer = require("nodemailer");
 
 declare namespace smtpTransport {
     export interface AuthOptions {

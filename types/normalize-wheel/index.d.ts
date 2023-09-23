@@ -101,12 +101,11 @@
  *                IE9/Win7  |       -120       |   undefined
  *         Firefox v4/OS X  |     undefined    |       1
  *         Firefox v4/Win7  |     undefined    |       3
- *
  */
 declare function normalizeWheel(event: any): { spinX: number; spinY: number; pixelX: number; pixelY: number };
 
 declare namespace normalizeWheel {
-    function getEventType(): 'wheel' | 'mousewheel' | 'DOMMouseScroll';
+    function getEventType(): "wheel" | "mousewheel" | "DOMMouseScroll";
 }
 
 export = normalizeWheel;

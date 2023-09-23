@@ -4,4 +4,4 @@
 //                 Sasial <https://github.com/sasial-dev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib';
+export * from "./lib";

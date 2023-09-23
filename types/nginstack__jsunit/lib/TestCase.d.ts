@@ -12,4 +12,4 @@ declare class TestCase {
 declare namespace TestCase {
     export { TestSuite };
 }
-type TestSuite = import('./TestSuite');
+type TestSuite = import("./TestSuite");

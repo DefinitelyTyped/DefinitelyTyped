@@ -9,7 +9,7 @@ export const DHLEN: 32;
 export const PKLEN: 32;
 export const SCALARLEN: 32;
 export const SKLEN: 64;
-export const ALG: 'Ed25519';
+export const ALG: "Ed25519";
 export const name: typeof ALG;
 
 /**

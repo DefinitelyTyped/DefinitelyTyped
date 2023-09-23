@@ -7,10 +7,10 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
  */
-declare module 'url' {
-    import { Blob } from 'node:buffer';
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+declare module "url" {
+    import { Blob } from "node:buffer";
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
     interface UrlObject {
         auth?: string | null | undefined;
@@ -72,7 +72,11 @@ declare module 'url' {
      * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
-    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlString: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
@@ -711,7 +715,14 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | ReadonlyArray<string>>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         readonly size: number;
         /**
          * Append a new name-value pair to the query string.
@@ -743,7 +754,10 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(
+            callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void,
+            thisArg?: TThis,
+        ): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -821,7 +835,7 @@ declare module 'url' {
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
@@ -836,8 +850,7 @@ declare module 'url' {
          */
         var URL:
             // For compatibility with "dom" and "webworker" URL declarations
-            typeof globalThis extends { onmessage: any, URL: infer URL }
-                ? URL
+            typeof globalThis extends { onmessage: any; URL: infer URL } ? URL
                 : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`.
@@ -846,11 +859,10 @@ declare module 'url' {
          */
         var URLSearchParams:
             // For compatibility with "dom" and "webworker" URLSearchParams declarations
-            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
-                ? URLSearchParams
+            typeof globalThis extends { onmessage: any; URLSearchParams: infer URLSearchParams } ? URLSearchParams
                 : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

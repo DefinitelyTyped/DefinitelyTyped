@@ -1,9 +1,9 @@
-import * as _core from './core';
-import { Core } from './api';
+import { Core } from "./api";
+import * as _core from "./core";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../../';
+import * as el from "../../";
 
 /**
  * The core namespace holds types of everything Elementary.
@@ -19,4 +19,4 @@ import * as el from '../../';
  */
 import core = _core;
 
-export { core, Core };
+export { Core, core };

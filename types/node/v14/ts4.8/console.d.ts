@@ -1,9 +1,9 @@
-declare module 'console' {
-    import console = require('node:console');
+declare module "console" {
+    import console = require("node:console");
     export = console;
 }
-declare module 'node:console' {
-    import { InspectOptions } from 'util';
+declare module "node:console" {
+    import { InspectOptions } from "util";
 
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
@@ -117,13 +117,13 @@ declare module 'node:console' {
                 stdout: WritableStream;
                 stderr?: WritableStream | undefined;
                 ignoreErrors?: boolean | undefined;
-                colorMode?: boolean | 'auto' | undefined;
+                colorMode?: boolean | "auto" | undefined;
                 inspectOptions?: InspectOptions | undefined;
                 /**
                  * Set group indentation
                  * @default 2
                  */
-                 groupIndentation?: number | undefined;
+                groupIndentation?: number | undefined;
             }
 
             interface ConsoleConstructor {

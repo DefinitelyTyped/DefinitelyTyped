@@ -8,7 +8,7 @@ declare namespace list {
         /** registry port. Default: 443 (HTTPS) or 80 (HTTP). */
         port?: 443 | 80 | undefined;
         /** registry protocol. Default: 'https'. */
-        protocol?: 'http' | 'https' | undefined;
+        protocol?: "http" | "https" | undefined;
         /** registry. Default: 'registry.npmjs.org'. */
         registry?: string | undefined;
         /** author username (required). */

@@ -1,11 +1,11 @@
-declare module 'dgram' {
-    import { AddressInfo } from 'net';
-    import * as dns from 'dns';
-    import EventEmitter = require('events');
+declare module "dgram" {
+    import { AddressInfo } from "net";
+    import * as dns from "dns";
+    import EventEmitter = require("events");
 
     interface RemoteInfo {
         address: string;
-        family: 'IPv4' | 'IPv6';
+        family: "IPv4" | "IPv6";
         port: number;
         size: number;
     }
@@ -28,7 +28,13 @@ declare module 'dgram' {
         ipv6Only?: boolean | undefined;
         recvBufferSize?: number | undefined;
         sendBufferSize?: number | undefined;
-        lookup?: ((hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void) | undefined;
+        lookup?:
+            | ((
+                hostname: string,
+                options: dns.LookupOneOptions,
+                callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+            ) => void)
+            | undefined;
     }
 
     function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
@@ -50,12 +56,42 @@ declare module 'dgram' {
         getSendBufferSize(): number;
         ref(): this;
         remoteAddress(): AddressInfo;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
         setBroadcast(flag: boolean): void;
         setMulticastInterface(multicastInterface: string): void;
         setMulticastLoopback(flag: boolean): boolean;
@@ -139,6 +175,6 @@ declare module 'dgram' {
         prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
 }
-declare module 'node:dgram' {
-    export * from 'dgram';
+declare module "node:dgram" {
+    export * from "dgram";
 }

@@ -30,8 +30,8 @@ declare function NSpell(dictionary: Dictionary | Dictionary[]): NSpell;
  * Describes instance of NSpell, which is returned by the default factory function.
  */
 declare class NSpell {
-    constructor(aff: Buffer | string, dic?: Buffer | string)
-    constructor(dictionary: Dictionary | Dictionary[])
+    constructor(aff: Buffer | string, dic?: Buffer | string);
+    constructor(dictionary: Dictionary | Dictionary[]);
 
     /**
      * Add word to known words.

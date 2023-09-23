@@ -244,7 +244,7 @@ export interface QueueObject<T> {
  * - The `unshift` method was removed.
  */
 // FIXME: can not use Omit due to ts version restriction. Replace Pick with Omit, when ts 3.5+ will be allowed
-export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, 'push' | 'unshift'>> {
+export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, "push" | "unshift">> {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     push<R>(task: T | T[], priority?: number): Promise<R>;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -473,7 +473,7 @@ export function series<T, E = Error>(
 ): void;
 export function series<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<R>;
 export function parallel<T, E = Error>(
     tasks: Array<AsyncFunction<T, E>>,
@@ -485,7 +485,7 @@ export function parallel<T, E = Error>(
 ): void;
 export function parallel<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<R>;
 export function parallelLimit<T, E = Error>(
     tasks: Array<AsyncFunction<T, E>>,
@@ -500,7 +500,7 @@ export function parallelLimit<T, E = Error>(
 export function parallelLimit<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
     limit: number,
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<R>;
 export function whilst<E = Error>(
     test: (cb: (err: any, truth: boolean) => boolean) => boolean,
@@ -511,7 +511,7 @@ export function whilst<R, E = Error>(
     test: (cb: (err: any, truth: boolean) => boolean) => boolean,
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     fn: AsyncVoidFunction<E>,
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<R>;
 export function doWhilst<T, E = Error>(
     fn: AsyncFunctionEx<T, E>,

@@ -14,7 +14,11 @@ import events = require("events");
 
 export function startScanning(callback?: (error?: Error) => void): void;
 export function startScanning(serviceUUIDs: string[], callback?: (error?: Error) => void): void;
-export function startScanning(serviceUUIDs: string[], allowDuplicates: boolean, callback?: (error?: Error) => void): void;
+export function startScanning(
+    serviceUUIDs: string[],
+    allowDuplicates: boolean,
+    callback?: (error?: Error) => void,
+): void;
 export function stopScanning(callback?: () => void): void;
 
 export function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
@@ -40,14 +44,20 @@ export class Peripheral extends events.EventEmitter {
     advertisement: Advertisement;
     rssi: number;
     services: Service[];
-    state: 'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
+    state: "error" | "connecting" | "connected" | "disconnecting" | "disconnected";
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;
     updateRssi(callback?: (error: string, rssi: number) => void): void;
     discoverServices(serviceUUIDs: string[], callback?: (error: string, services: Service[]) => void): void;
-    discoverAllServicesAndCharacteristics(callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
-    discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
+    discoverAllServicesAndCharacteristics(
+        callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void,
+    ): void;
+    discoverSomeServicesAndCharacteristics(
+        serviceUUIDs: string[],
+        characteristicUUIDs: string[],
+        callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void,
+    ): void;
 
     readHandle(handle: Buffer, callback: (error: string, data: Buffer) => void): void;
     writeHandle(handle: Buffer, data: Buffer, withoutResponse: boolean, callback: (error: string) => void): void;
@@ -62,8 +72,8 @@ export class Peripheral extends events.EventEmitter {
 export interface Advertisement {
     localName: string;
     serviceData: {
-        uuid: string,
-        data: Buffer
+        uuid: string;
+        data: Buffer;
     };
     txPowerLevel: number;
     manufacturerData: Buffer;
@@ -77,8 +87,14 @@ export class Service extends events.EventEmitter {
     includedServiceUuids: string[];
     characteristics: Characteristic[];
 
-    discoverIncludedServices(serviceUUIDs: string[], callback?: (error: string, includedServiceUuids: string[]) => void): void;
-    discoverCharacteristics(characteristicUUIDs: string[], callback?: (error: string, characteristics: Characteristic[]) => void): void;
+    discoverIncludedServices(
+        serviceUUIDs: string[],
+        callback?: (error: string, includedServiceUuids: string[]) => void,
+    ): void;
+    discoverCharacteristics(
+        characteristicUUIDs: string[],
+        callback?: (error: string, characteristics: Characteristic[]) => void,
+    ): void;
     toString(): string;
 
     on(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): this;

@@ -8,10 +8,10 @@
  * concurrent modifications on the same file or data corruption may occur.
  * @since v10.0.0
  */
-declare module 'fs/promises' {
-    import { Abortable } from 'node:events';
-    import { Stream } from 'node:stream';
-    import { ReadableStream } from 'node:stream/web';
+declare module "fs/promises" {
+    import { Abortable } from "node:events";
+    import { Stream } from "node:stream";
+    import { ReadableStream } from "node:stream/web";
     import {
         BigIntStats,
         BigIntStatsFs,
@@ -30,8 +30,8 @@ declare module 'fs/promises' {
         ReadVResult,
         RmDirOptions,
         RmOptions,
-        StatOptions,
         StatFsOptions,
+        StatOptions,
         Stats,
         StatsFs,
         TimeLike,
@@ -39,8 +39,8 @@ declare module 'fs/promises' {
         WatchOptions,
         WriteStream,
         WriteVResult,
-    } from 'node:fs';
-    import { Interface as ReadlineInterface } from 'node:readline';
+    } from "node:fs";
+    import { Interface as ReadlineInterface } from "node:readline";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T | null;
@@ -88,7 +88,7 @@ declare module 'fs/promises' {
          * Whether to open a normal or a `'bytes'` stream.
          * @since v20.0.0
          */
-        type?: 'bytes' | undefined;
+        type?: "bytes" | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -105,7 +105,10 @@ declare module 'fs/promises' {
          * @since v10.0.0
          * @return Fulfills with `undefined` upon success.
          */
-        appendFile(data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null): Promise<void>;
+        appendFile(
+            data: string | Uint8Array,
+            options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null,
+        ): Promise<void>;
         /**
          * Changes the ownership of the file. A wrapper for [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html).
          * @since v10.0.0
@@ -222,7 +225,12 @@ declare module 'fs/promises' {
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
          */
-        read<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView>(
+            buffer: T,
+            offset?: number | null,
+            length?: number | null,
+            position?: number | null,
+        ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
          * Returns a `ReadableStream` that may be used to read the files data.
@@ -267,7 +275,7 @@ declare module 'fs/promises' {
             options?: {
                 encoding?: null | undefined;
                 flag?: OpenMode | undefined;
-            } | null
+            } | null,
         ): Promise<Buffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -278,10 +286,10 @@ declare module 'fs/promises' {
         readFile(
             options:
                 | {
-                      encoding: BufferEncoding;
-                      flag?: OpenMode | undefined;
-                  }
-                | BufferEncoding
+                    encoding: BufferEncoding;
+                    flag?: OpenMode | undefined;
+                }
+                | BufferEncoding,
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -292,10 +300,10 @@ declare module 'fs/promises' {
         readFile(
             options?:
                 | (ObjectEncodingOptions & {
-                      flag?: OpenMode | undefined;
-                  })
+                    flag?: OpenMode | undefined;
+                })
                 | BufferEncoding
-                | null
+                | null,
         ): Promise<string | Buffer>;
         /**
          * Convenience method to create a `readline` interface and stream over the file.
@@ -320,12 +328,12 @@ declare module 'fs/promises' {
         stat(
             opts?: StatOptions & {
                 bigint?: false | undefined;
-            }
+            },
         ): Promise<Stats>;
         stat(
             opts: StatOptions & {
                 bigint: true;
-            }
+            },
         ): Promise<BigIntStats>;
         stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
         /**
@@ -380,7 +388,10 @@ declare module 'fs/promises' {
          * beginning of the file.
          * @since v10.0.0
          */
-        writeFile(data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null): Promise<void>;
+        writeFile(
+            data: string | Uint8Array,
+            options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null,
+        ): Promise<void>;
         /**
          * Write `buffer` to the file.
          *
@@ -403,7 +414,7 @@ declare module 'fs/promises' {
             buffer: TBuffer,
             offset?: number | null,
             length?: number | null,
-            position?: number | null
+            position?: number | null,
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -411,7 +422,7 @@ declare module 'fs/promises' {
         write(
             data: string,
             position?: number | null,
-            encoding?: BufferEncoding | null
+            encoding?: BufferEncoding | null,
         ): Promise<{
             bytesWritten: number;
             buffer: string;
@@ -602,7 +613,7 @@ declare module 'fs/promises' {
         path: PathLike,
         options: MakeDirectoryOptions & {
             recursive: true;
-        }
+        },
     ): Promise<string | undefined>;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -615,9 +626,9 @@ declare module 'fs/promises' {
         options?:
             | Mode
             | (MakeDirectoryOptions & {
-                  recursive?: false | undefined;
-              })
-            | null
+                recursive?: false | undefined;
+            })
+            | null,
     ): Promise<void>;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -654,11 +665,11 @@ declare module 'fs/promises' {
         path: PathLike,
         options?:
             | (ObjectEncodingOptions & {
-                  withFileTypes?: false | undefined;
-                  recursive?: boolean | undefined;
-              })
+                withFileTypes?: false | undefined;
+                recursive?: boolean | undefined;
+            })
             | BufferEncoding
-            | null
+            | null,
     ): Promise<string[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -669,11 +680,11 @@ declare module 'fs/promises' {
         path: PathLike,
         options:
             | {
-                  encoding: 'buffer';
-                  withFileTypes?: false | undefined;
-                  recursive?: boolean | undefined;
-              }
-            | 'buffer'
+                encoding: "buffer";
+                withFileTypes?: false | undefined;
+                recursive?: boolean | undefined;
+            }
+            | "buffer",
     ): Promise<Buffer[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -684,11 +695,11 @@ declare module 'fs/promises' {
         path: PathLike,
         options?:
             | (ObjectEncodingOptions & {
-                  withFileTypes?: false | undefined;
-                  recursive?: boolean | undefined;
-              })
+                withFileTypes?: false | undefined;
+                recursive?: boolean | undefined;
+            })
             | BufferEncoding
-            | null
+            | null,
     ): Promise<string[] | Buffer[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -700,7 +711,7 @@ declare module 'fs/promises' {
         options: ObjectEncodingOptions & {
             withFileTypes: true;
             recursive?: boolean | undefined;
-        }
+        },
     ): Promise<Dirent[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
@@ -751,13 +762,13 @@ declare module 'fs/promises' {
         path: PathLike,
         opts?: StatOptions & {
             bigint?: false | undefined;
-        }
+        },
     ): Promise<Stats>;
     function lstat(
         path: PathLike,
         opts: StatOptions & {
             bigint: true;
-        }
+        },
     ): Promise<BigIntStats>;
     function lstat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
     /**
@@ -768,13 +779,13 @@ declare module 'fs/promises' {
         path: PathLike,
         opts?: StatOptions & {
             bigint?: false | undefined;
-        }
+        },
     ): Promise<Stats>;
     function stat(
         path: PathLike,
         opts: StatOptions & {
             bigint: true;
-        }
+        },
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
     /**
@@ -785,13 +796,13 @@ declare module 'fs/promises' {
         path: PathLike,
         opts?: StatFsOptions & {
             bigint?: false | undefined;
-        }
+        },
     ): Promise<StatsFs>;
     function statfs(
         path: PathLike,
         opts: StatFsOptions & {
             bigint: true;
-        }
+        },
     ): Promise<BigIntStatsFs>;
     function statfs(path: PathLike, opts?: StatFsOptions): Promise<StatsFs | BigIntStatsFs>;
     /**
@@ -882,7 +893,10 @@ declare module 'fs/promises' {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
+    function realpath(
+        path: PathLike,
+        options?: ObjectEncodingOptions | BufferEncoding | null,
+    ): Promise<string | Buffer>;
     /**
      * Creates a unique temporary directory. A unique directory name is generated by
      * appending six random characters to the end of the provided `prefix`. Due to
@@ -977,14 +991,19 @@ declare module 'fs/promises' {
      */
     function writeFile(
         file: PathLike | FileHandle,
-        data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
+        data:
+            | string
+            | NodeJS.ArrayBufferView
+            | Iterable<string | NodeJS.ArrayBufferView>
+            | AsyncIterable<string | NodeJS.ArrayBufferView>
+            | Stream,
         options?:
             | (ObjectEncodingOptions & {
-                  mode?: Mode | undefined;
-                  flag?: OpenMode | undefined;
-              } & Abortable)
+                mode?: Mode | undefined;
+                flag?: OpenMode | undefined;
+            } & Abortable)
             | BufferEncoding
-            | null
+            | null,
     ): Promise<void>;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
@@ -1000,7 +1019,11 @@ declare module 'fs/promises' {
      * @param path filename or {FileHandle}
      * @return Fulfills with `undefined` upon success.
      */
-    function appendFile(path: PathLike | FileHandle, data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null): Promise<void>;
+    function appendFile(
+        path: PathLike | FileHandle,
+        data: string | Uint8Array,
+        options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null,
+    ): Promise<void>;
     /**
      * Asynchronously reads the entire contents of a file.
      *
@@ -1061,10 +1084,10 @@ declare module 'fs/promises' {
         path: PathLike | FileHandle,
         options?:
             | ({
-                  encoding?: null | undefined;
-                  flag?: OpenMode | undefined;
-              } & Abortable)
-            | null
+                encoding?: null | undefined;
+                flag?: OpenMode | undefined;
+            } & Abortable)
+            | null,
     ): Promise<Buffer>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1077,10 +1100,10 @@ declare module 'fs/promises' {
         path: PathLike | FileHandle,
         options:
             | ({
-                  encoding: BufferEncoding;
-                  flag?: OpenMode | undefined;
-              } & Abortable)
-            | BufferEncoding
+                encoding: BufferEncoding;
+                flag?: OpenMode | undefined;
+            } & Abortable)
+            | BufferEncoding,
     ): Promise<string>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1092,12 +1115,15 @@ declare module 'fs/promises' {
     function readFile(
         path: PathLike | FileHandle,
         options?:
-            | (ObjectEncodingOptions &
-                  Abortable & {
-                      flag?: OpenMode | undefined;
-                  })
+            | (
+                & ObjectEncodingOptions
+                & Abortable
+                & {
+                    flag?: OpenMode | undefined;
+                }
+            )
             | BufferEncoding
-            | null
+            | null,
     ): Promise<string | Buffer>;
     /**
      * Asynchronously open a directory for iterative scanning. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for more detail.
@@ -1162,9 +1188,9 @@ declare module 'fs/promises' {
         filename: PathLike,
         options:
             | (WatchOptions & {
-                  encoding: 'buffer';
-              })
-            | 'buffer'
+                encoding: "buffer";
+            })
+            | "buffer",
     ): AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -1183,7 +1209,10 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
+    function watch(
+        filename: PathLike,
+        options: WatchOptions | string,
+    ): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Asynchronously copies the entire directory structure from `src` to `dest`,
      * including subdirectories and files.
@@ -1198,6 +1227,6 @@ declare module 'fs/promises' {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
-declare module 'node:fs/promises' {
-    export * from 'fs/promises';
+declare module "node:fs/promises" {
+    export * from "fs/promises";
 }

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import * as _el from './src';
+import * as _el from "./src";
 
 /**
  * The main export of Elementary. Use the {@link el.Elementary} type for the

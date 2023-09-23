@@ -3,7 +3,7 @@
 // Definitions by: Yusuke Fujiki <https://github.com/fujikky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import fetch, { Response } from 'node-fetch';
+import fetch, { Response } from "node-fetch";
 
 declare class NFCResponse extends Response {
     ejectFromCache(): Promise<void>;

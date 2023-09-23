@@ -15,7 +15,7 @@ declare class DataSourceFilters {
         includeFieldNames?: string,
         excludeFieldNames?: string,
         classDef?: ModelDef,
-        onlyIncludedFieldNames?: boolean
+        onlyIncludedFieldNames?: boolean,
     ): void;
     parseDynFilterExpr(filterName: string): any;
     filter(id: number | string, opt_type?: string, opt_classKey?: number): DataSourceFilter;
@@ -28,13 +28,13 @@ declare class DataSourceFilters {
     hasFilter(name: string): boolean;
     map(
         fn: (arg0: DataSourceFilter, arg1: number, arg2: DataSourceFilter[]) => any,
-        opt_scope?: any
+        opt_scope?: any,
     ): any[];
 }
 declare namespace DataSourceFilters {
-    export { ModelDef, IQuery, DataSource };
+    export { DataSource, IQuery, ModelDef };
 }
-type DataSource = import('./DataSource');
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
-import DataSourceFilter = require('./DataSourceFilter.js');
-type IQuery = import('@nginstack/iquery/lib/IQuery');
+type DataSource = import("./DataSource");
+type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
+import DataSourceFilter = require("./DataSourceFilter.js");
+type IQuery = import("@nginstack/iquery/lib/IQuery");

@@ -26,7 +26,7 @@
  * @deprecated Since v7.0.0 - Deprecated
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/punycode.js)
  */
-declare module 'punycode' {
+declare module "punycode" {
     /**
      * The `punycode.decode()` method converts a [Punycode](https://tools.ietf.org/html/rfc3492) string of ASCII-only
      * characters to the equivalent string of Unicode codepoints.
@@ -112,6 +112,6 @@ declare module 'punycode' {
      */
     const version: string;
 }
-declare module 'node:punycode' {
-    export * from 'punycode';
+declare module "node:punycode" {
+    export * from "punycode";
 }

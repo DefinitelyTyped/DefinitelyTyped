@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /** The callback executed by a Job */
 export type JobCallback = (fireDate: Date) => void | Promise<any>;
@@ -25,7 +25,7 @@ export class Job extends EventEmitter {
      * @param job      either this Job's callback or an optional callback function
      * @param callback optional callback that is executed right before the JobCallback
      */
-    constructor(name: string|JobCallback, job?: JobCallback|(() => void), callback?: () => void);
+    constructor(name: string | JobCallback, job?: JobCallback | (() => void), callback?: () => void);
 
     /**
      * Adds an Invocation to this job. For internal use.
@@ -70,7 +70,7 @@ export class Job extends EventEmitter {
      * Changes the scheduling information for this Job.
      * @return whether the reschedule was successful
      */
-    reschedule(spec: RecurrenceRule|string|number): boolean;
+    reschedule(spec: RecurrenceRule | string | number): boolean;
 
     /** The Date on which this Job will be run next. */
     nextInvocation(): Date;
@@ -87,7 +87,7 @@ export class Job extends EventEmitter {
     runOnDate(date: Date): void;
 
     /** set scheduling information */
-    schedule(date: Date|string|number): boolean;
+    schedule(date: Date | string | number): boolean;
 }
 
 export class Range {
@@ -185,7 +185,11 @@ export class Invocation {
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
+export function scheduleJob(
+    name: string,
+    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    callback: JobCallback,
+): Job;
 
 /**
  * Create a schedule job.
@@ -193,7 +197,10 @@ export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecD
  * @param rule     scheduling info
  * @param callback callback to be executed on each invocation
  */
-export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number, callback: JobCallback): Job;
+export function scheduleJob(
+    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    callback: JobCallback,
+): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.
@@ -201,21 +208,24 @@ export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | Rec
  * @param spec The new timing for this Job.
  * @return if the job could be rescheduled, {null} otherwise.
  */
-export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string): Job;
+export function rescheduleJob(
+    job: Job | string,
+    spec: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string,
+): Job;
 
 /** Dictionary of all Jobs, accessible by name. */
-export let scheduledJobs: {[jobName: string]: Job};
+export let scheduledJobs: { [jobName: string]: Job };
 
 /**
  * Cancels the job.
  *
  * @returns Whether the job has been cancelled with success.
  */
-export function cancelJob(job: Job|string): boolean;
+export function cancelJob(job: Job | string): boolean;
 
 /**
  * Gracefullly cancels all jobs.
  *
  * @returns Promise that resolves when all running jobs have stopped.
  */
- export function gracefulShutdown(): Promise<void>;
+export function gracefulShutdown(): Promise<void>;

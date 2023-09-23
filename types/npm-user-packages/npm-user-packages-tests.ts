@@ -1,3 +1,3 @@
-import npmUserPackages = require('npm-user-packages');
+import npmUserPackages = require("npm-user-packages");
 
-npmUserPackages('kevva'); // $ExpectType Promise<PackageData[]>
+npmUserPackages("kevva"); // $ExpectType Promise<PackageData[]>

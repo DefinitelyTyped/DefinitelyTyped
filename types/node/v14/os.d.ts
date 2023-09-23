@@ -1,4 +1,4 @@
-declare module 'os' {
+declare module "os" {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -49,7 +49,7 @@ declare module 'os' {
     function release(): string;
     function networkInterfaces(): NodeJS.Dict<NetworkInterfaceInfo[]>;
     function homedir(): string;
-    function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
+    function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
     function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
 
     type SignalConstants = {
@@ -238,6 +238,6 @@ declare module 'os' {
      */
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module "node:os" {
+    export * from "os";
 }

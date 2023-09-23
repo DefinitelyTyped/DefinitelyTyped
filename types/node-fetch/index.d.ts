@@ -16,9 +16,9 @@
 
 /// <reference types="node" />
 
-import FormData = require('form-data');
+import FormData = require("form-data");
 import { RequestOptions } from "http";
-import { URLSearchParams, URL } from "url";
+import { URL, URLSearchParams } from "url";
 import { AbortSignal } from "./externals";
 
 export class Request extends Body {
@@ -32,7 +32,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: RequestOptions['agent'] | ((parsedUrl: URL) => RequestOptions['agent']);
+    agent?: RequestOptions["agent"] | ((parsedUrl: URL) => RequestOptions["agent"]);
     compress: boolean;
     counter: number;
     follow: number;
@@ -52,7 +52,7 @@ export interface RequestInit {
     signal?: AbortSignal | null | undefined;
 
     // node-fetch extensions
-    agent?: RequestOptions['agent'] | ((parsedUrl: URL) => RequestOptions['agent']); // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: RequestOptions["agent"] | ((parsedUrl: URL) => RequestOptions["agent"]); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean | undefined; // =true support gzip/deflate content encoding. false to disable
     follow?: number | undefined; // =20 maximum redirect count. 0 to not follow redirect
     size?: number | undefined; // =0 maximum response body size in bytes. 0 to disable
@@ -62,7 +62,7 @@ export interface RequestInit {
 }
 
 export type RequestContext =
-    "audio"
+    | "audio"
     | "beacon"
     | "cspreport"
     | "download"
@@ -100,7 +100,7 @@ export type RequestRedirect = "error" | "follow" | "manual";
 export type RequestCredentials = "omit" | "include" | "same-origin";
 
 export type RequestCache =
-    "default"
+    | "default"
     | "force-cache"
     | "no-cache"
     | "no-store"
@@ -180,7 +180,7 @@ export class Response extends Body {
 }
 
 export type ResponseType =
-    "basic"
+    | "basic"
     | "cors"
     | "default"
     | "error"
@@ -204,7 +204,7 @@ export type HeadersInit = Headers | string[][] | { [key: string]: string };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
 export type BodyInit =
-    ArrayBuffer
+    | ArrayBuffer
     | ArrayBufferView
     | NodeJS.ReadableStream
     | string
@@ -214,7 +214,7 @@ export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
     url: RequestInfo,
-    init?: RequestInit
+    init?: RequestInit,
 ): Promise<Response>;
 
 declare namespace fetch {

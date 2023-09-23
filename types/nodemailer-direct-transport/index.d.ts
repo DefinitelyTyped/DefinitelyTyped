@@ -3,10 +3,9 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as nodemailer from 'nodemailer';
+import * as nodemailer from "nodemailer";
 
 declare namespace directTransport {
-
     export interface AuthOptions {
         user?: string | undefined;
         pass?: string | undefined;

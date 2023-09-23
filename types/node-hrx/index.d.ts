@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export class Directory implements Iterable<string> {
     constructor(path: string, contents?: Record<string, HrxItem>, comment?: string | null);
@@ -22,7 +22,7 @@ export class Directory implements Iterable<string> {
 
 export class Archive extends Directory {
     constructor(contents?: Record<string, HrxItem>, comment?: string | null);
-    readonly path: '';
+    readonly path: "";
 }
 
 export class File {
@@ -37,14 +37,14 @@ export class File {
 export type HrxItem = File | Directory;
 
 export class ParseProblem extends Error {
-    constructor(message: string, position: { line: number, col: number }, details?: Record<string, unknown>);
+    constructor(message: string, position: { line: number; col: number }, details?: Record<string, unknown>);
     readonly line: number;
     readonly col: number;
     readonly details: {};
 }
 
 export class LexicalProblem extends Error {
-    constructor(message: string, line: number, details?: { path?: string, [key: string]: unknown });
+    constructor(message: string, line: number, details?: { path?: string; [key: string]: unknown });
     readonly line: number;
     readonly details: {
         path?: string;

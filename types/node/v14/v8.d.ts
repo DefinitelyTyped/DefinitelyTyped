@@ -1,5 +1,5 @@
-declare module 'v8' {
-    import { Readable } from 'stream';
+declare module "v8" {
+    import { Readable } from "stream";
 
     interface HeapSpaceInfo {
         space_name: string;
@@ -52,7 +52,6 @@ declare module 'v8' {
     function getHeapSnapshot(): Readable;
 
     /**
-     *
      * @param fileName The file path where the V8 heap snapshot is to be
      * saved. If not specified, a file name with the pattern
      * `'Heap-${yyyymmdd}-${hhmmss}-${pid}-${thread_id}.heapsnapshot'` will be
@@ -185,6 +184,6 @@ declare module 'v8' {
      */
     function deserialize(data: NodeJS.TypedArray): any;
 }
-declare module 'node:v8' {
-    export * from 'v8';
+declare module "node:v8" {
+    export * from "v8";
 }

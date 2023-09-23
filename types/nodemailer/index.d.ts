@@ -8,14 +8,14 @@
 
 /// <reference types="node" />
 
-import JSONTransport = require('./lib/json-transport');
-import Mail = require('./lib/mailer');
-import MailMessage = require('./lib/mailer/mail-message');
-import SendmailTransport = require('./lib/sendmail-transport');
-import SESTransport = require('./lib/ses-transport');
-import SMTPPool = require('./lib/smtp-pool');
-import SMTPTransport = require('./lib/smtp-transport');
-import StreamTransport = require('./lib/stream-transport');
+import JSONTransport = require("./lib/json-transport");
+import Mail = require("./lib/mailer");
+import MailMessage = require("./lib/mailer/mail-message");
+import SendmailTransport = require("./lib/sendmail-transport");
+import SESTransport = require("./lib/ses-transport");
+import SMTPPool = require("./lib/smtp-pool");
+import SMTPTransport = require("./lib/smtp-transport");
+import StreamTransport = require("./lib/stream-transport");
 
 export type SendMailOptions = Mail.Options;
 
@@ -54,7 +54,10 @@ export function createTransport(
     transport?: SMTPTransport | SMTPTransport.Options | string,
     defaults?: SMTPTransport.Options,
 ): Transporter<SMTPTransport.SentMessageInfo>;
-export function createTransport(transport: SMTPPool | SMTPPool.Options, defaults?: SMTPPool.Options): Transporter<SMTPPool.SentMessageInfo>;
+export function createTransport(
+    transport: SMTPPool | SMTPPool.Options,
+    defaults?: SMTPPool.Options,
+): Transporter<SMTPPool.SentMessageInfo>;
 export function createTransport(
     transport: SendmailTransport | SendmailTransport.Options,
     defaults?: SendmailTransport.Options,
@@ -71,7 +74,10 @@ export function createTransport(
     transport: SESTransport | SESTransport.Options,
     defaults?: SESTransport.Options,
 ): Transporter<SESTransport.SentMessageInfo>;
-export function createTransport<T>(transport: Transport<T> | TransportOptions, defaults?: TransportOptions): Transporter<T>;
+export function createTransport<T>(
+    transport: Transport<T> | TransportOptions,
+    defaults?: TransportOptions,
+): Transporter<T>;
 
 export function createTestAccount(
     apiUrl: string,

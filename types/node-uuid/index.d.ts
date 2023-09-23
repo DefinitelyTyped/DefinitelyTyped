@@ -8,7 +8,6 @@
 export as namespace uuid;
 
 export interface UUIDOptions {
-
     /**
      * Node id as Array of 6 bytes (per 4.1.6).
      * Default: Randomly generated ID. See note 1.
@@ -25,7 +24,7 @@ export interface UUIDOptions {
      * (Number | Date) Time in milliseconds since unix Epoch.
      * Default: The current time is used.
      */
-    msecs?: number|Date | undefined;
+    msecs?: number | Date | undefined;
 
     /**
      * (Number between 0-9999) additional time, in 100-nanosecond units. Ignored if msecs is unspecified.

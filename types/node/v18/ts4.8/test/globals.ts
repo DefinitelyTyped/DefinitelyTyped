@@ -30,7 +30,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 // structuredClone
 {
     structuredClone(123); // $ExpectType 123
-    structuredClone('hello'); // $ExpectType "hello"
+    structuredClone("hello"); // $ExpectType "hello"
     structuredClone({ test: 123 }); // $ExpectType { test: number; }
     structuredClone([{ test: 123 }]); // $ExpectType { test: number; }[]
 

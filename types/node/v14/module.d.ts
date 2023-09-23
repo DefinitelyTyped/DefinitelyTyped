@@ -1,5 +1,5 @@
-declare module 'module' {
-    import { URL } from 'url';
+declare module "module" {
+    import { URL } from "url";
     namespace Module {
         /**
          * Updates all the live bindings for builtin ES Modules to match the properties of the CommonJS exports.
@@ -50,7 +50,7 @@ declare module 'module' {
     }
     export = Module;
 }
-declare module 'node:module' {
-    import module = require('module');
+declare module "node:module" {
+    import module = require("module");
     export = module;
 }

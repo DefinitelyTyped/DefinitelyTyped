@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as http from 'http';
 import { EventEmitter } from "events";
+import * as http from "http";
 import {
     Collection,
     CollectionDefinition,
@@ -13,9 +13,9 @@ import {
     Request,
     Response,
     VariableScope,
-    VariableScopeDefinition
+    VariableScopeDefinition,
 } from "postman-collection";
-import { CookieJar } from 'tough-cookie';
+import { CookieJar } from "tough-cookie";
 
 export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
@@ -23,11 +23,11 @@ export interface NewmanRunOptions {
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    envVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
+    envVar?: { key: string; value: string } | Array<{ key: string; value: string }> | undefined;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to global variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    globalVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
+    globalVar?: { key: string; value: string } | Array<{ key: string; value: string }> | undefined;
     /** The relative path to export the globals file from the current run to  */
     exportGlobals?: string | undefined;
     /** The relative path to export the environment file from the current run to */
@@ -261,10 +261,10 @@ export interface NewmanRunFailure {
 }
 export function run(
     options: NewmanRunOptions,
-    callback?: (err: Error | null, summary: NewmanRunSummary) => void
+    callback?: (err: Error | null, summary: NewmanRunSummary) => void,
 ): EventEmitter;
 export function run(
-    callback: (err: Error | null, summary: NewmanRunSummary) => void
+    callback: (err: Error | null, summary: NewmanRunSummary) => void,
 ): EventEmitter;
 
 /** The event fired when a console function is called within the scripts. */

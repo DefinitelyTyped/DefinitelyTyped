@@ -6,8 +6,8 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/v8.js)
  */
-declare module 'v8' {
-    import { Readable } from 'node:stream';
+declare module "v8" {
+    import { Readable } from "node:stream";
     interface HeapSpaceInfo {
         space_name: string;
         space_size: number;
@@ -467,6 +467,6 @@ declare module 'v8' {
      */
     const promiseHooks: PromiseHooks;
 }
-declare module 'node:v8' {
-    export * from 'v8';
+declare module "node:v8" {
+    export * from "v8";
 }

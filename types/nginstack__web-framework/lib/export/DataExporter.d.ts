@@ -16,16 +16,10 @@ declare class DataExporter {
     }>;
 }
 declare namespace DataExporter {
-    export {
-        tempExportDir,
-        purgeExpiredExportedFiles,
-        exportedFileLifetime,
-        DataSet,
-        DataExporterFieldDef,
-    };
+    export { DataExporterFieldDef, DataSet, exportedFileLifetime, purgeExpiredExportedFiles, tempExportDir };
 }
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-type DataExporterFieldDef = import('./DataExporterFieldDef');
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataExporterFieldDef = import("./DataExporterFieldDef");
 declare var tempExportDir: string;
 declare function purgeExpiredExportedFiles(): void;
 declare var exportedFileLifetime: number;

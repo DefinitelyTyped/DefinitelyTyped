@@ -37,7 +37,7 @@ declare namespace nProgress {
         render(fromStart?: boolean): HTMLDivElement;
         remove(): void;
         isRendered(): boolean;
-        getPositioningCSS(): 'translate3d' | 'translate' | 'margin';
+        getPositioningCSS(): "translate3d" | "translate" | "margin";
     }
 }
 

@@ -1,4 +1,4 @@
-import runtime = require('@node-red/runtime');
+import runtime = require("@node-red/runtime");
 
 async function runtimeTests() {
     await runtime.start();

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Duplex, DuplexOptions } from 'stream';
+import { Duplex, DuplexOptions } from "stream";
 
 declare class DuplexPair {
     readonly socket1: Duplex;

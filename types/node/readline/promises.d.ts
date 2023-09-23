@@ -2,9 +2,9 @@
  * @since v17.0.0
  * @experimental
  */
-declare module 'readline/promises' {
-    import { Interface as _Interface, ReadLineOptions, Completer, AsyncCompleter, Direction } from 'node:readline';
-    import { Abortable } from 'node:events';
+declare module "readline/promises" {
+    import { AsyncCompleter, Completer, Direction, Interface as _Interface, ReadLineOptions } from "node:readline";
+    import { Abortable } from "node:events";
     /**
      * Instances of the `readlinePromises.Interface` class are constructed using the`readlinePromises.createInterface()` method. Every instance is associated with a
      * single `input` `Readable` stream and a single `output` `Writable` stream.
@@ -61,7 +61,7 @@ declare module 'readline/promises' {
             stream: NodeJS.WritableStream,
             options?: {
                 autoCommit?: boolean;
-            }
+            },
         );
         /**
          * The `rl.clearLine()` method adds to the internal list of pending action an
@@ -137,9 +137,14 @@ declare module 'readline/promises' {
      * (`process.stdout` does this automatically when it is a TTY).
      * @since v17.0.0
      */
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    function createInterface(
+        input: NodeJS.ReadableStream,
+        output?: NodeJS.WritableStream,
+        completer?: Completer | AsyncCompleter,
+        terminal?: boolean,
+    ): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 }
-declare module 'node:readline/promises' {
-    export * from 'readline/promises';
+declare module "node:readline/promises" {
+    export * from "readline/promises";
 }

@@ -3,7 +3,7 @@
 // Definitions by: Eunchong Yu <https://github.com/Kroisse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = memwatch;
 

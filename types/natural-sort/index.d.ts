@@ -11,7 +11,7 @@ interface Options {
     caseSensitive?: boolean | undefined;
 
     /** Set to 'desc' to sort in reverse. */
-    direction?: 'desc' | undefined
+    direction?: "desc" | undefined;
 }
 
 declare function naturalSort(options?: Options): (a: string | number, b: string | number) => number;

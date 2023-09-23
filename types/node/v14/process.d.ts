@@ -1,5 +1,5 @@
-declare module 'process' {
-    import * as tty from 'tty';
+declare module "process" {
+    import * as tty from "tty";
 
     global {
         var process: NodeJS.Process;
@@ -43,25 +43,59 @@ declare module 'process' {
                 openssl: string;
             }
 
-            type Platform = 'aix'
-                | 'android'
-                | 'darwin'
-                | 'freebsd'
-                | 'linux'
-                | 'openbsd'
-                | 'sunos'
-                | 'win32'
-                | 'cygwin'
-                | 'netbsd';
+            type Platform =
+                | "aix"
+                | "android"
+                | "darwin"
+                | "freebsd"
+                | "linux"
+                | "openbsd"
+                | "sunos"
+                | "win32"
+                | "cygwin"
+                | "netbsd";
 
             type Signals =
-                "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
-                "SIGIOT" | "SIGKILL" | "SIGPIPE" | "SIGPOLL" | "SIGPROF" | "SIGPWR" | "SIGQUIT" | "SIGSEGV" | "SIGSTKFLT" |
-                "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
-                "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
+                | "SIGABRT"
+                | "SIGALRM"
+                | "SIGBUS"
+                | "SIGCHLD"
+                | "SIGCONT"
+                | "SIGFPE"
+                | "SIGHUP"
+                | "SIGILL"
+                | "SIGINT"
+                | "SIGIO"
+                | "SIGIOT"
+                | "SIGKILL"
+                | "SIGPIPE"
+                | "SIGPOLL"
+                | "SIGPROF"
+                | "SIGPWR"
+                | "SIGQUIT"
+                | "SIGSEGV"
+                | "SIGSTKFLT"
+                | "SIGSTOP"
+                | "SIGSYS"
+                | "SIGTERM"
+                | "SIGTRAP"
+                | "SIGTSTP"
+                | "SIGTTIN"
+                | "SIGTTOU"
+                | "SIGUNUSED"
+                | "SIGURG"
+                | "SIGUSR1"
+                | "SIGUSR2"
+                | "SIGVTALRM"
+                | "SIGWINCH"
+                | "SIGXCPU"
+                | "SIGXFSZ"
+                | "SIGBREAK"
+                | "SIGLOST"
+                | "SIGINFO";
 
-            type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
-            type MultipleResolveType = 'resolve' | 'reject';
+            type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
+            type MultipleResolveType = "resolve" | "reject";
 
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
@@ -278,7 +312,12 @@ declare module 'process' {
                 domain: Domain;
 
                 // Worker
-                send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean | undefined}, callback?: (error: Error | null) => void): boolean;
+                send?(
+                    message: any,
+                    sendHandle?: any,
+                    options?: { swallowErrors?: boolean | undefined },
+                    callback?: (error: Error | null) => void,
+                ): boolean;
                 disconnect(): void;
                 connected: boolean;
 
@@ -407,7 +446,7 @@ declare module 'process' {
 
     export = process;
 }
-declare module 'node:process' {
-    import process = require('process');
+declare module "node:process" {
+    import process = require("process");
     export = process;
 }

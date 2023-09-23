@@ -1,8 +1,8 @@
-import { core } from './core';
+import { core } from "./core";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../';
+import * as el from "../";
 
 // ============================================================================
 // Native
@@ -34,13 +34,10 @@ import * as el from '../';
  * @see core.Child
  * @see core.LatchNode
  */
-export const latch:
-    core.NodeFactory<'latch',
-        core.KeyProps,
-        [
-            control: core.Child,
-            input: core.Child
-        ]>;
+export const latch: core.NodeFactory<"latch", core.KeyProps, [
+    control: core.Child,
+    input: core.Child,
+]>;
 
 /**
  * A simple signal sequencer. Receives a sequence of values from the seq
@@ -70,15 +67,16 @@ export const latch:
  * @see core.Child
  * @see core.SeqNode
  */
-export const seq:
-    core.NodeFactory<'seq',
-        core.SeqProps,
-        [
-            next: core.Child
-        ] | [
-            next: core.Child,
-            last: core.Child
-        ]>;
+export const seq: core.NodeFactory<
+    "seq",
+    core.SeqProps,
+    [
+        next: core.Child,
+    ] | [
+        next: core.Child,
+        last: core.Child,
+    ]
+>;
 
 // ============================================================================
 // Composite
@@ -119,16 +117,13 @@ export const seq:
  * @see core.Child
  * @see core.Node
  */
-export const adsr:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            attack: core.Child,
-            delay: core.Child,
-            sustain: core.Child,
-            release: core.Child,
-            gate: core.Child
-        ]>;
+export const adsr: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    attack: core.Child,
+    delay: core.Child,
+    sustain: core.Child,
+    release: core.Child,
+    gate: core.Child,
+]>;
 
 /**
  * A simple Hann window generator. The window is generated according to an
@@ -152,9 +147,6 @@ export const adsr:
  * @see core.Child
  * @see core.Node
  */
-export const hann:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            phase: core.Child
-        ]>;
+export const hann: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    phase: core.Child,
+]>;

@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { ThroughStream } from "through";
 import { DuplexOptions, Transform } from "stream";
+import { ThroughStream } from "through";
 
 export interface ParseOptions {
     strict?: boolean | undefined;

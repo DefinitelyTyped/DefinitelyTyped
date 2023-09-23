@@ -46,14 +46,26 @@ declare namespace NodeSpriteGenerator {
     interface Layout {
         width: number;
         height: number;
-        images: Array<{
-            x: number;
-            y: number;
-        } & Image>;
+        images: Array<
+            {
+                x: number;
+                y: number;
+            } & Image
+        >;
     }
-    type LayoutFunc = (images: Image[], options: LayoutOption, callback: (error: Error, layout: Layout) => void) => void;
+    type LayoutFunc = (
+        images: Image[],
+        options: LayoutOption,
+        callback: (error: Error, layout: Layout) => void,
+    ) => void;
 
-    type StylesheetFunc = (layout: Layout, stylesheetPath: string, spritePath: string, options: StylesheetOption, callback: (error: Error) => void) => void;
+    type StylesheetFunc = (
+        layout: Layout,
+        stylesheetPath: string,
+        spritePath: string,
+        options: StylesheetOption,
+        callback: (error: Error) => void,
+    ) => void;
 
     interface Option {
         src?: string[] | undefined;

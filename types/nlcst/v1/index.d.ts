@@ -5,7 +5,7 @@
 //                 Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Parent as UnistParent, Literal as UnistLiteral } from 'unist';
+import { Literal as UnistLiteral, Parent as UnistParent } from "unist";
 
 /**
  * This map registers all node types that are acceptable inside paragraphs.
@@ -91,7 +91,7 @@ export interface Literal extends UnistLiteral {
  * restriction that all content must be of the same category.
  */
 export interface Root extends Parent {
-    type: 'RootNode';
+    type: "RootNode";
     children: Content[];
 }
 
@@ -101,7 +101,7 @@ export interface Root extends Parent {
  * It can contain sentence, whitespace, and source nodes.
  */
 export interface Paragraph extends Parent {
-    type: 'ParagraphNode';
+    type: "ParagraphNode";
     children: ParagraphContent[];
 }
 
@@ -114,7 +114,7 @@ export interface Paragraph extends Parent {
  * It can contain word, symbol, punctuation, whitespace, and source nodes.
  */
 export interface Sentence extends Parent {
-    type: 'SentenceNode';
+    type: "SentenceNode";
     children: SentenceContent[];
 }
 
@@ -126,7 +126,7 @@ export interface Sentence extends Parent {
  * It can contain text, symbol, punctuation, and source nodes.
  */
 export interface Word extends Parent {
-    type: 'WordNode';
+    type: "WordNode";
     children: WordContent[];
 }
 
@@ -137,7 +137,7 @@ export interface Word extends Parent {
  * It can be used in sentence or word nodes.
  */
 export interface Symbol extends Literal {
-    type: 'SymbolNode';
+    type: "SymbolNode";
 }
 
 /**
@@ -147,7 +147,7 @@ export interface Symbol extends Literal {
  * It can be used in root, paragraph, or sentence nodes.
  */
 export interface WhiteSpace extends Literal {
-    type: 'WhiteSpaceNode';
+    type: "WhiteSpaceNode";
 }
 
 /**
@@ -157,7 +157,7 @@ export interface WhiteSpace extends Literal {
  * It can be used in sentence or word nodes.
  */
 export interface Punctuation extends Literal {
-    type: 'PunctuationNode';
+    type: "PunctuationNode";
 }
 
 /**
@@ -167,7 +167,7 @@ export interface Punctuation extends Literal {
  * It can be used in root, paragraph, sentence, or word nodes.
  */
 export interface Source extends Literal {
-    type: 'SourceNode';
+    type: "SourceNode";
 }
 
 /**
@@ -176,5 +176,5 @@ export interface Source extends Literal {
  * It can be used in word nodes.
  */
 export interface Text extends Literal {
-    type: 'TextNode';
+    type: "TextNode";
 }

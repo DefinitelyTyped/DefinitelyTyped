@@ -1,10 +1,10 @@
 // $ExpectType (config: PWAConfig) => (config: NextConfig) => NextConfig & PWAConfig
-import nextPWA = require('next-pwa');
-import type { NextConfig } from 'next';
+import nextPWA = require("next-pwa");
+import type { NextConfig } from "next";
 
 // $ExpectType (config: NextConfig) => NextConfig & PWAConfig
 const withPWA = nextPWA({
-    dest: 'public',
+    dest: "public",
 });
 
 const nextConfig: NextConfig = {
@@ -16,9 +16,9 @@ const nextConfig: NextConfig = {
 const outputConfig = withPWA(nextConfig);
 
 const errorWithPWA = nextPWA({
-    dest: 'public',
+    dest: "public",
     // @ts-expect-error
-    register: 'error',
+    register: "error",
 });
 
 const webpackConfigOptions: nextPWA.WebpackConfigOptions = {

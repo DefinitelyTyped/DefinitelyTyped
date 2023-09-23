@@ -1,7 +1,7 @@
-import Noise = require('noise-handshake');
-import SymmetricState = require('noise-handshake/symmetric-state');
-import Cipher = require('noise-handshake/cipher');
-import * as curve from 'noise-handshake/dh';
+import Noise = require("noise-handshake");
+import SymmetricState = require("noise-handshake/symmetric-state");
+import Cipher = require("noise-handshake/cipher");
+import * as curve from "noise-handshake/dh";
 
 // test type exports
 type N = Noise;
@@ -20,12 +20,12 @@ type KP = curve.KeyPair;
 declare let buf: Buffer | Uint8Array;
 declare let bufnull: Buffer | Uint8Array | null;
 
-const noise = new Noise('IK', true); // $ExpectType NoiseState
-new Noise('XX', true); // $ExpectType NoiseState
+const noise = new Noise("IK", true); // $ExpectType NoiseState
+new Noise("XX", true); // $ExpectType NoiseState
 // @ts-expect-error
-new Noise('foo', true);
-new Noise('IK', true, { publicKey: Buffer.alloc(32), secretKey: Buffer.alloc(32) }); // $ExpectType NoiseState
-new Noise('IK', true, { publicKey: Buffer.alloc(32), secretKey: Buffer.alloc(32) }, { curve }); // $ExpectType NoiseState
+new Noise("foo", true);
+new Noise("IK", true, { publicKey: Buffer.alloc(32), secretKey: Buffer.alloc(32) }); // $ExpectType NoiseState
+new Noise("IK", true, { publicKey: Buffer.alloc(32), secretKey: Buffer.alloc(32) }, { curve }); // $ExpectType NoiseState
 
 noise.s; // $ExpectType KeyPair
 buf = noise.s.publicKey;
@@ -65,9 +65,9 @@ symmetricState.offset; // $ExpectType number | null
 symmetricState.mixHash(Buffer.alloc(10)); // $ExpectType void
 symmetricState.mixKey(Buffer.alloc(10), noise.s); // $ExpectType void
 buf = symmetricState.encryptAndHash(Buffer.alloc(10));
-buf = symmetricState.encryptAndHash('foo');
+buf = symmetricState.encryptAndHash("foo");
 buf = symmetricState.decryptAndHash(Buffer.alloc(10));
-buf = symmetricState.decryptAndHash('foo');
+buf = symmetricState.decryptAndHash("foo");
 buf = symmetricState.getHandshakeHash();
 buf = symmetricState.getHandshakeHash(Buffer.alloc(10));
 symmetricState.split(); // $ExpectType [Buffer, Buffer] | [Uint8Array, Uint8Array]
@@ -90,12 +90,12 @@ cipherState.initialiseKey(Buffer.alloc(10)); // $ExpectType void
 cipherState.setNonce(1); // $ExpectType void
 buf = cipherState.encrypt(Buffer.alloc(10));
 buf = cipherState.encrypt(Buffer.alloc(10), Buffer.alloc(10));
-buf = cipherState.encrypt('foo');
-buf = cipherState.encrypt('foo', 'bar');
+buf = cipherState.encrypt("foo");
+buf = cipherState.encrypt("foo", "bar");
 buf = cipherState.decrypt(Buffer.alloc(10));
 buf = cipherState.decrypt(Buffer.alloc(10), Buffer.alloc(10));
-buf = cipherState.decrypt('foo');
-buf = cipherState.decrypt('foo', 'bar');
+buf = cipherState.decrypt("foo");
+buf = cipherState.decrypt("foo", "bar");
 cipherState._clear(); // $ExpectType void
 
 curve.DHLEN; // $ExpectType 32

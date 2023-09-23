@@ -1,19 +1,19 @@
 import {
-    performance,
-    monitorEventLoopDelay,
-    PerformanceObserverCallback,
-    PerformanceObserver,
-    PerformanceEntry,
-    EntryType,
     constants,
+    EntryType,
     EventLoopUtilization,
-} from 'node:perf_hooks';
+    monitorEventLoopDelay,
+    performance,
+    PerformanceEntry,
+    PerformanceObserver,
+    PerformanceObserverCallback,
+} from "node:perf_hooks";
 
-performance.mark('start');
+performance.mark("start");
 (
     () => {}
 )();
-performance.mark('end');
+performance.mark("end");
 
 const timeOrigin: number = performance.timeOrigin;
 
@@ -35,7 +35,7 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['function'] as ReadonlyArray<EntryType>,
+    entryTypes: ["function"] as ReadonlyArray<EntryType>,
     buffered: true,
 });
 
@@ -57,4 +57,7 @@ const exceeds: number = monitor.exceeds;
 
 const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
 const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(
+    eventLoopUtilization2,
+    eventLoopUtilization1,
+);

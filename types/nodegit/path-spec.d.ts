@@ -1,9 +1,9 @@
-import { DiffDelta } from './diff-delta';
-import { Tree } from './tree';
-import { Diff } from './diff';
-import { Repository } from './repository';
-import { Index } from './index';
-import { Strarray } from './str-array';
+import { Diff } from "./diff";
+import { DiffDelta } from "./diff-delta";
+import { Index } from "./index";
+import { Repository } from "./repository";
+import { Strarray } from "./str-array";
+import { Tree } from "./tree";
 
 export namespace Pathspec {
     const enum FLAG {

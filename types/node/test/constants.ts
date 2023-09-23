@@ -1,4 +1,4 @@
-import * as constants from 'node:constants';
+import * as constants from "node:constants";
 {
     let str: string;
     let num: number;

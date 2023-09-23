@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { Transport } from 'nodemailer';
+import { Transport } from "nodemailer";
 
 declare namespace nodemailerSendgrid {
     interface SendgridOptions {

@@ -6,7 +6,7 @@
 //                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Timezone } from 'tz-offset';
+import { Timezone } from "tz-offset";
 
 export function schedule(cronExpression: string, func: () => void, options?: ScheduleOptions): ScheduledTask;
 

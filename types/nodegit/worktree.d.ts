@@ -1,7 +1,7 @@
-import { Buf } from './buf';
-import { Repository } from './repository';
-import { WorktreeAddOptions } from './worktree-add-options';
-import { WorktreePruneOptions } from './worktree-prune-options';
+import { Buf } from "./buf";
+import { Repository } from "./repository";
+import { WorktreeAddOptions } from "./worktree-add-options";
+import { WorktreePruneOptions } from "./worktree-prune-options";
 
 export namespace Worktree {
     const enum PRUNE {

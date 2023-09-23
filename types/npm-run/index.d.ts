@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { exec, execSync, spawnSync, spawn } from "child_process";
+import { exec, execSync, spawn, spawnSync } from "child_process";
 
 type ExecFunction = typeof exec;
 

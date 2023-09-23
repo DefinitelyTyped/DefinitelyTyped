@@ -19,8 +19,8 @@ declare class GetText {
     gettext(msgid: string): string;
     ngettext(msgid: string, msgidPlural: string, count: number): string;
     npgettext(msgctxt: string, msgid: string, msgidPlural: string, count: number): string;
-    off(eventName: 'error', callback: (error: Error) => void): void;
-    on(eventName: 'error', callback: (error: Error) => void): void;
+    off(eventName: "error", callback: (error: Error) => void): void;
+    on(eventName: "error", callback: (error: Error) => void): void;
     pgettext(msgctxt: string, msgid: string): string;
     setLocale(locale: string): void;
     setTextDomain(domain: string): void;

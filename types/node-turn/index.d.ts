@@ -5,11 +5,11 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-type TurnDebugLevel = 'OFF' | 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | 'ALL';
+type TurnDebugLevel = "OFF" | "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | "ALL";
 
-type TurnAuthMech = 'none' | 'short-term' | 'long-term';
+type TurnAuthMech = "none" | "short-term" | "long-term";
 
 interface TurnCredentials {
     [user: string]: string;
@@ -52,7 +52,7 @@ declare class TurnServer extends EventEmitter {
 }
 
 declare namespace TurnServer {
-    export { TurnOptions, TurnProps, TurnCredentials, TurnAuthMech, TurnDebugLevel };
+    export { TurnAuthMech, TurnCredentials, TurnDebugLevel, TurnOptions, TurnProps };
 }
 
 export = TurnServer;

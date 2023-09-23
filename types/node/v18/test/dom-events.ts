@@ -14,7 +14,7 @@
     e.eventPhase;
 
     const et: EventTarget = new EventTarget();
-    et.addEventListener("", () => {}, {passive: true});
+    et.addEventListener("", () => {}, { passive: true });
     // @ts-expect-error - ensure constructor does not return a constructor
     new et();
 }

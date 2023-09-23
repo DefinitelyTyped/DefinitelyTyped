@@ -1,7 +1,7 @@
-declare module 'net' {
-    import * as stream from 'stream';
-    import EventEmitter = require('events');
-    import * as dns from 'dns';
+declare module "net" {
+    import * as stream from "stream";
+    import EventEmitter = require("events");
+    import * as dns from "dns";
 
     type LookupFunction = (
         hostname: string,
@@ -56,7 +56,7 @@ declare module 'net' {
     }
 
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
-    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
+    type SocketReadyState = "opening" | "open" | "readOnly" | "writeOnly" | "closed";
 
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
@@ -127,7 +127,10 @@ declare module 'net' {
         addListener(event: "drain", listener: () => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        addListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
         addListener(event: "ready", listener: () => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
@@ -149,7 +152,10 @@ declare module 'net' {
         on(event: "drain", listener: () => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
-        on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        on(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
         on(event: "ready", listener: () => void): this;
         on(event: "timeout", listener: () => void): this;
 
@@ -160,7 +166,10 @@ declare module 'net' {
         once(event: "drain", listener: () => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
-        once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        once(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
         once(event: "ready", listener: () => void): this;
         once(event: "timeout", listener: () => void): this;
 
@@ -171,7 +180,10 @@ declare module 'net' {
         prependListener(event: "drain", listener: () => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
         prependListener(event: "ready", listener: () => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
@@ -182,7 +194,10 @@ declare module 'net' {
         prependOnceListener(event: "drain", listener: () => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependOnceListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
         prependOnceListener(event: "ready", listener: () => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
@@ -304,6 +319,6 @@ declare module 'net' {
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
 }
-declare module 'node:net' {
-    export * from 'net';
+declare module "node:net" {
+    export * from "net";
 }

@@ -1,29 +1,29 @@
 import {
-    performance as NodePerf,
-    monitorEventLoopDelay,
-    PerformanceObserverCallback,
-    PerformanceObserver,
-    PerformanceEntry,
-    EntryType,
     constants,
-    IntervalHistogram,
-    RecordableHistogram,
     createHistogram,
+    EntryType,
+    IntervalHistogram,
+    monitorEventLoopDelay,
     NodeGCPerformanceDetail,
+    performance as NodePerf,
+    PerformanceEntry,
     PerformanceMark,
-} from 'node:perf_hooks';
+    PerformanceObserver,
+    PerformanceObserverCallback,
+    RecordableHistogram,
+} from "node:perf_hooks";
 
 // Test module import once, the rest use global
-const startMark: PerformanceMark = NodePerf.mark('start');
+const startMark: PerformanceMark = NodePerf.mark("start");
 (() => {})();
-performance.mark('end');
+performance.mark("end");
 
-performance.mark('test', {
-    detail: 'something',
+performance.mark("test", {
+    detail: "something",
     startTime: 123,
 });
 
-performance.measure('name', startMark.name, 'endMark');
+performance.measure("name", startMark.name, "endMark");
 
 const timeOrigin: number = performance.timeOrigin;
 
@@ -46,11 +46,11 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['gc'],
+    entryTypes: ["gc"],
     buffered: true,
 });
 obs.observe({
-    type: 'gc',
+    type: "gc",
     buffered: true,
 });
 

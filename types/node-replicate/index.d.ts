@@ -9,7 +9,7 @@ export interface Prediction {
     created_at: string;
     updated_at: string;
     complete_at: string | null;
-    status: 'starting' | 'processing' | 'canceled' | 'succeeded' | 'failed';
+    status: "starting" | "processing" | "canceled" | "succeeded" | "failed";
     inputs: any;
     output: unknown;
     output_files?: string[];

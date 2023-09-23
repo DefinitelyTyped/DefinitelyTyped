@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="flowjs" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace flow {
         interface FlowFactory {
             create(options?: flowjs.FlowOptions): flowjs.Flow;

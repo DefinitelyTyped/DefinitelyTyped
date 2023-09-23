@@ -1,16 +1,16 @@
-import * as path from 'node:path';
+import * as path from "node:path";
 
-path.normalize('/foo/bar//baz/asdf/quux/..');
+path.normalize("/foo/bar//baz/asdf/quux/..");
 
-path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
+path.join("/foo", "bar", "baz/asdf", "quux", "..");
 // returns
 // '/foo/bar/baz/asdf'
 
 try {
-    path.join('foo', 'bar');
-} catch (error) { }
+    path.join("foo", "bar");
+} catch (error) {}
 
-path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
+path.resolve("foo/bar", "/tmp/file/", "..", "a/../subfile");
 // Is similar to:
 //
 // cd foo/bar
@@ -19,78 +19,78 @@ path.resolve('foo/bar', '/tmp/file/', '..', 'a/../subfile');
 //    cd a/../subfile
 // pwd
 
-path.resolve('/foo/bar', './baz');
+path.resolve("/foo/bar", "./baz");
 // returns
 //    '/foo/bar/baz'
 
-path.resolve('/foo/bar', '/tmp/file/');
+path.resolve("/foo/bar", "/tmp/file/");
 // returns
 //    '/tmp/file'
 
-path.resolve('wwwroot', 'static_files/png/', '../gif/image.gif');
+path.resolve("wwwroot", "static_files/png/", "../gif/image.gif");
 // if currently in /home/myself/node, it returns
 //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
 
-path.isAbsolute('/foo/bar'); // true
-path.isAbsolute('/baz/..');  // true
-path.isAbsolute('qux/');     // false
-path.isAbsolute('.');        // false
+path.isAbsolute("/foo/bar"); // true
+path.isAbsolute("/baz/.."); // true
+path.isAbsolute("qux/"); // false
+path.isAbsolute("."); // false
 
-path.isAbsolute('//server');  // true
-path.isAbsolute('C:/foo/..'); // true
-path.isAbsolute('bar\\baz');   // false
-path.isAbsolute('.');         // false
+path.isAbsolute("//server"); // true
+path.isAbsolute("C:/foo/.."); // true
+path.isAbsolute("bar\\baz"); // false
+path.isAbsolute("."); // false
 
-path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb');
+path.relative("C:\\orandea\\test\\aaa", "C:\\orandea\\impl\\bbb");
 // returns
 //    '..\\..\\impl\\bbb'
 
-path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb');
+path.relative("/data/orandea/test/aaa", "/data/orandea/impl/bbb");
 // returns
 //    '../../impl/bbb'
 
-path.dirname('/foo/bar/baz/asdf/quux');
+path.dirname("/foo/bar/baz/asdf/quux");
 // returns
 //    '/foo/bar/baz/asdf'
 
-path.basename('/foo/bar/baz/asdf/quux.html');
+path.basename("/foo/bar/baz/asdf/quux.html");
 // returns
 //    'quux.html'
 
-path.basename('/foo/bar/baz/asdf/quux.html', '.html');
+path.basename("/foo/bar/baz/asdf/quux.html", ".html");
 // returns
 //    'quux'
 
-path.extname('index.html');
+path.extname("index.html");
 // returns
 //    '.html'
 
-path.extname('index.coffee.md');
+path.extname("index.coffee.md");
 // returns
 //    '.md'
 
-path.extname('index.');
+path.extname("index.");
 // returns
 //    '.'
 
-path.extname('index');
+path.extname("index");
 // returns
 //    ''
 
-'foo/bar/baz'.split(path.sep);
+"foo/bar/baz".split(path.sep);
 // returns
 //        ['foo', 'bar', 'baz']
 
-'foo\\bar\\baz'.split(path.sep);
+"foo\\bar\\baz".split(path.sep);
 // returns
 //        ['foo', 'bar', 'baz']
 
 // $ExpectType "folder\\file.png" | "folder/file.png"
 const string = `folder${path.sep}file.png` as const; // tslint:disable-line:no-unnecessary-type-assertion
 
-process.env['PATH']; // $ExpectType string | undefined
+process.env["PATH"]; // $ExpectType string | undefined
 
-path.parse('/home/user/dir/file.txt');
+path.parse("/home/user/dir/file.txt");
 // returns
 //    {
 //        root : "/",
@@ -100,7 +100,7 @@ path.parse('/home/user/dir/file.txt');
 //        name : "file"
 //    }
 
-path.parse('C:\\path\\dir\\index.html');
+path.parse("C:\\path\\dir\\index.html");
 // returns
 //    {
 //        root : "C:\",
@@ -115,7 +115,7 @@ path.format({
     dir: "/home/user/dir",
     base: "file.txt",
     ext: ".txt",
-    name: "file"
+    name: "file",
 });
 // returns
 //    '/home/user/dir/file.txt'
@@ -124,14 +124,14 @@ path.format({
     root: "/",
     dir: "/home/user/dir",
     ext: ".txt",
-    name: "file"
+    name: "file",
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.format({
     dir: "/home/user/dir",
-    base: "file.txt"
+    base: "file.txt",
 });
 // returns
 //    '/home/user/dir/file.txt'
@@ -141,14 +141,14 @@ path.posix.format({
     dir: "/home/user/dir",
     base: "file.txt",
     ext: ".txt",
-    name: "file"
+    name: "file",
 });
 // returns
 //    '/home/user/dir/file.txt'
 
 path.posix.format({
     dir: "/home/user/dir",
-    base: "file.txt"
+    base: "file.txt",
 });
 // returns
 //    '/home/user/dir/file.txt'
@@ -157,14 +157,14 @@ path.win32.format({
     root: "C:\\",
     dir: "C:\\home\\user\\dir",
     ext: ".txt",
-    name: "file"
+    name: "file",
 });
 // returns
 //    'C:\home\user\dir\file.txt'
 
 path.win32.format({
     dir: "C:\\home\\user\\dir",
-    base: "file.txt"
+    base: "file.txt",
 });
 // returns
 //    'C:\home\user\dir\file.txt'

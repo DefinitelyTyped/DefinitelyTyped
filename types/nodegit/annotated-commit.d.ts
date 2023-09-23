@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Reference } from './reference';
+import { Oid } from "./oid";
+import { Reference } from "./reference";
+import { Repository } from "./repository";
 
 export class AnnotatedCommit {
     /**

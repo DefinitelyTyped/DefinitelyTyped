@@ -7,4 +7,4 @@ declare class LookupMultipleInsertEvent {
 declare namespace LookupMultipleInsertEvent {
     export { Process };
 }
-type Process = import('../process/Process');
+type Process = import("../process/Process");

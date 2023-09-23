@@ -3,8 +3,8 @@
 // Definitions by: Mats Jun Larsen <https://github.com/matsjla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { PathLike } from 'fs';
-import type { ExtractOptions, PackOptions } from 'tar-fs';
+import type { PathLike } from "fs";
+import type { ExtractOptions, PackOptions } from "tar-fs";
 
 export interface CompressOptions {
     source: string;

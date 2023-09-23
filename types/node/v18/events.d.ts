@@ -34,7 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/events.js)
  */
-declare module 'events' {
+declare module "events" {
     // NOTE: This class is in the docs but is **not actually exported** by Node.
     // If https://github.com/nodejs/node/issues/39903 gets resolved and Node
     // actually starts exporting the class, uncomment below.
@@ -87,7 +87,7 @@ declare module 'events' {
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
-            }
+            },
         ): any;
     }
     interface StaticEventEmitterOptions {
@@ -191,7 +191,11 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(emitter: _NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(
+            emitter: _NodeEventTarget,
+            eventName: string | symbol,
+            options?: StaticEventEmitterOptions,
+        ): Promise<any[]>;
         static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
@@ -251,7 +255,11 @@ declare module 'events' {
          * @param eventName The name of the event being listened for
          * @return that iterates `eventName` events emitted by the `emitter`
          */
-        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+        static on(
+            emitter: NodeJS.EventEmitter,
+            eventName: string,
+            options?: StaticEventEmitterOptions,
+        ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
@@ -362,7 +370,7 @@ declare module 'events' {
         static captureRejections: boolean;
         static defaultMaxListeners: number;
     }
-    import internal = require('node:events');
+    import internal = require("node:events");
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
@@ -705,7 +713,7 @@ declare module 'events' {
     }
     export = EventEmitter;
 }
-declare module 'node:events' {
-    import events = require('events');
+declare module "node:events" {
+    import events = require("events");
     export = events;
 }

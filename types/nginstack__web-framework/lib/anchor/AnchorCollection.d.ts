@@ -2,7 +2,7 @@ export = AnchorCollection;
 declare function AnchorCollection(attachedTo: any, process: Process): void;
 declare class AnchorCollection {
     constructor(attachedTo: any, process: Process);
-    process: import('../process/Process');
+    process: import("../process/Process");
     private attachedTo_;
     anchors: any[];
     private pairName_;
@@ -30,13 +30,13 @@ declare class AnchorCollection {
             cssClass?: string;
             key?: number;
             bookmark?: string;
-        }
+        },
     ): string;
     private anchorToMenuItem_;
     private act_showMenu_;
 }
 declare namespace AnchorCollection {
-    export { Process, Anchor };
+    export { Anchor, Process };
 }
-type Process = import('../process/Process');
-type Anchor = import('./Anchor');
+type Process = import("../process/Process");
+type Anchor = import("./Anchor");

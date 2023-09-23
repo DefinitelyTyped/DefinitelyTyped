@@ -1,8 +1,8 @@
-import { core } from './core';
+import { core } from "./core";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../';
+import * as el from "../";
 
 // ============================================================================
 // Native
@@ -26,12 +26,9 @@ import * as el from '../';
  * @see core.Child
  * @see core.PhasorNode
  */
-export const phasor:
-    core.NodeFactory<'phasor',
-        core.KeyProps,
-        [
-            rate: core.Child
-        ]>;
+export const phasor: core.NodeFactory<"phasor", core.KeyProps, [
+    rate: core.Child,
+]>;
 
 // ============================================================================
 // Composite
@@ -55,12 +52,9 @@ export const phasor:
  * @see core.Child
  * @see core.Node
  */
-export const train:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            rate: core.Child
-        ]>;
+export const train: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    rate: core.Child,
+]>;
 
 /**
  * Outputs a periodic sine tone at the given frequency.
@@ -81,12 +75,9 @@ export const train:
  * @see core.Child
  * @see core.Node
  */
-export const cycle:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const cycle: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a naive sawtooth oscillator at the given frequency.
@@ -110,12 +101,9 @@ export const cycle:
  * @see core.Child
  * @see core.Node
  */
-export const saw:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const saw: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a naive square oscillator at the given frequency.
@@ -139,12 +127,9 @@ export const saw:
  * @see core.Child
  * @see core.Node
  */
-export const square:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const square: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a naive triangle oscillator at the given frequency.
@@ -168,12 +153,9 @@ export const square:
  * @see core.Child
  * @see core.Node
  */
-export const triangle:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const triangle: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a band-limited polyblep sawtooth waveform at the given frequency.
@@ -194,12 +176,9 @@ export const triangle:
  * @see core.Child
  * @see core.Node
  */
-export const blepsaw:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const blepsaw: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a band-limited polyblep square waveform at the given frequency.
@@ -219,12 +198,9 @@ export const blepsaw:
  * @see core.Child
  * @see core.Node
  */
-export const blepsquare:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const blepsquare: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;
 
 /**
  * Outputs a band-limited polyblep triangle waveform at the given frequency.
@@ -256,9 +232,6 @@ export const blepsquare:
  * @see core.Child
  * @see core.Node
  */
-export const bleptriangle:
-    core.NodeFactory<core.CompositeNodeType,
-        core.KeyProps,
-        [
-            frequency: core.Child
-        ]>;
+export const bleptriangle: core.NodeFactory<core.CompositeNodeType, core.KeyProps, [
+    frequency: core.Child,
+]>;

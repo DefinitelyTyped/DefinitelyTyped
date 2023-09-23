@@ -1,11 +1,11 @@
-import mapWorkspaces = require('@npmcli/map-workspaces');
+import mapWorkspaces = require("@npmcli/map-workspaces");
 async function tests() {
-    const cwd = 'cwd';
+    const cwd = "cwd";
     await mapWorkspaces({
         cwd,
         pkg: {
             workspaces: {
-                packages: ['a', 'b'],
+                packages: ["a", "b"],
             },
         },
     });

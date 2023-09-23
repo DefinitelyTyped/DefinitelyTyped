@@ -38,7 +38,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/string_decoder.js)
  */
-declare module 'string_decoder' {
+declare module "string_decoder" {
     class StringDecoder {
         constructor(encoding?: BufferEncoding);
         /**
@@ -62,6 +62,6 @@ declare module 'string_decoder' {
         end(buffer?: Buffer): string;
     }
 }
-declare module 'node:string_decoder' {
-    export * from 'string_decoder';
+declare module "node:string_decoder" {
+    export * from "string_decoder";
 }

@@ -1,4 +1,4 @@
-import editorAPI = require('@node-red/editor-api');
+import editorAPI = require("@node-red/editor-api");
 
 async function tests() {
     await editorAPI.start();

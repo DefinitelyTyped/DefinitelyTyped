@@ -3,7 +3,7 @@
  * invariants.
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/assert.js)
  */
-declare module 'assert' {
+declare module "assert" {
     /**
      * An alias of {@link ok}.
      * @since v0.5.9
@@ -34,7 +34,7 @@ declare module 'assert' {
             /**
              * Value is always `ERR_ASSERTION` to show that the error is an assertion error.
              */
-            code: 'ERR_ASSERTION';
+            code: "ERR_ASSERTION";
             constructor(options?: {
                 /** If provided, the error message is set to this value. */
                 message?: string | undefined;
@@ -197,7 +197,7 @@ declare module 'assert' {
             /** A stack trace of the function. */
             stack: object;
         }
-        type AssertPredicate = RegExp | (new () => object) | ((thrown: unknown) => boolean) | object | Error;
+        type AssertPredicate = RegExp | (new() => object) | ((thrown: unknown) => boolean) | object | Error;
         /**
          * Throws an `AssertionError` with the provided error message or a default
          * error message. If the `message` parameter is an instance of an `Error` then
@@ -229,7 +229,7 @@ declare module 'assert' {
             message?: string | Error,
             operator?: string,
             // tslint:disable-next-line:ban-types
-            stackStartFn?: Function
+            stackStartFn?: Function,
         ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.
@@ -857,7 +857,11 @@ declare module 'assert' {
          * @since v10.0.0
          */
         function rejects(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
-        function rejects(block: (() => Promise<unknown>) | Promise<unknown>, error: AssertPredicate, message?: string | Error): Promise<void>;
+        function rejects(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            error: AssertPredicate,
+            message?: string | Error,
+        ): Promise<void>;
         /**
          * Awaits the `asyncFn` promise or, if `asyncFn` is a function, immediately
          * calls the function and awaits the returned promise to complete. It will then
@@ -900,8 +904,15 @@ declare module 'assert' {
          * ```
          * @since v10.0.0
          */
-        function doesNotReject(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
-        function doesNotReject(block: (() => Promise<unknown>) | Promise<unknown>, error: AssertPredicate, message?: string | Error): Promise<void>;
+        function doesNotReject(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            message?: string | Error,
+        ): Promise<void>;
+        function doesNotReject(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            error: AssertPredicate,
+            message?: string | Error,
+        ): Promise<void>;
         /**
          * Expects the `string` input to match the regular expression.
          *
@@ -948,25 +959,38 @@ declare module 'assert' {
          * @since v13.6.0, v12.16.0
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
-        const strict: Omit<typeof assert, 'equal' | 'notEqual' | 'deepEqual' | 'notDeepEqual' | 'ok' | 'strictEqual' | 'deepStrictEqual' | 'ifError' | 'strict'> & {
-            (value: unknown, message?: string | Error): asserts value;
-            equal: typeof strictEqual;
-            notEqual: typeof notStrictEqual;
-            deepEqual: typeof deepStrictEqual;
-            notDeepEqual: typeof notDeepStrictEqual;
-            // Mapped types and assertion functions are incompatible?
-            // TS2775: Assertions require every name in the call target
-            // to be declared with an explicit type annotation.
-            ok: typeof ok;
-            strictEqual: typeof strictEqual;
-            deepStrictEqual: typeof deepStrictEqual;
-            ifError: typeof ifError;
-            strict: typeof strict;
-        };
+        const strict:
+            & Omit<
+                typeof assert,
+                | "equal"
+                | "notEqual"
+                | "deepEqual"
+                | "notDeepEqual"
+                | "ok"
+                | "strictEqual"
+                | "deepStrictEqual"
+                | "ifError"
+                | "strict"
+            >
+            & {
+                (value: unknown, message?: string | Error): asserts value;
+                equal: typeof strictEqual;
+                notEqual: typeof notStrictEqual;
+                deepEqual: typeof deepStrictEqual;
+                notDeepEqual: typeof notDeepStrictEqual;
+                // Mapped types and assertion functions are incompatible?
+                // TS2775: Assertions require every name in the call target
+                // to be declared with an explicit type annotation.
+                ok: typeof ok;
+                strictEqual: typeof strictEqual;
+                deepStrictEqual: typeof deepStrictEqual;
+                ifError: typeof ifError;
+                strict: typeof strict;
+            };
     }
     export = assert;
 }
-declare module 'node:assert' {
-    import assert = require('assert');
+declare module "node:assert" {
+    import assert = require("assert");
     export = assert;
 }

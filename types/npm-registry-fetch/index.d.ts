@@ -6,12 +6,12 @@
 
 /// <reference types="node" />
 
-import { Response } from 'node-fetch';
-import { Readable, Stream } from 'stream';
-import { Agent } from 'http';
-import { Integrity } from 'ssri';
-import { Logger } from 'npmlog';
-import * as npa from 'npm-package-arg';
+import { Agent } from "http";
+import { Response } from "node-fetch";
+import * as npa from "npm-package-arg";
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Readable, Stream } from "stream";
 
 /**
  * Performs a request to a given URL.
@@ -46,7 +46,7 @@ declare namespace fetch {
     type Options = FetchOptions & FetchRetryOptions & AuthOptions;
 
     interface AuthOptions {
-        'always-auth'?: boolean | undefined;
+        "always-auth"?: boolean | undefined;
         alwaysAuth?: boolean | undefined;
         email?: string | undefined;
         /**

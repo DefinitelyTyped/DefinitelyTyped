@@ -266,7 +266,7 @@ declare namespace whale {
         export interface SidebarIconDetail {
             /**
              * 아이콘 이미지 데이터입니다. @see https://developer.chrome.com/extensions/pageAction#type-ImageDataType
-             * */
+             */
             icon: ImageData;
         }
 
@@ -291,8 +291,7 @@ declare namespace whale {
         }
         export type ColorArray = [number, number, number, number];
 
-        export interface BrowserClickedEvent
-            extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
         /**
          * 지정한 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
@@ -304,7 +303,7 @@ declare namespace whale {
         export function show(
             windowId: number,
             details?: SidebarShowDetail,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -315,7 +314,7 @@ declare namespace whale {
          */
         export function show(
             details: SidebarShowDetail,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -327,7 +326,6 @@ declare namespace whale {
 
         /**
          * 현재 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
-         *
          */
         export function show(): void;
 
@@ -338,7 +336,7 @@ declare namespace whale {
          */
         export function hide(
             windowId: number,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -402,7 +400,7 @@ declare namespace whale {
          * @param details 뱃지 배경 색상을 담은 객체
          */
         export function setBadgeBackgroundColor(
-            details: BadgeBackgroundColorDetails
+            details: BadgeBackgroundColorDetails,
         ): void;
 
         /**
@@ -410,7 +408,7 @@ declare namespace whale {
          * @param callback 뱃지 배경 색상. RGBA 색상값 배열 [R, G, B, A]를 담은 인자값으로 넣은 콜백 함수.
          */
         export function getBadgeBackgroundColor(
-            callback: (color: ColorArray) => void
+            callback: (color: ColorArray) => void,
         ): void;
 
         /**
@@ -423,7 +421,7 @@ declare namespace whale {
         export function dock(
             popupWindowId: number,
             details: SidebarDockDetail,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -434,7 +432,7 @@ declare namespace whale {
          */
         export function dock(
             popupWindowId: number,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -445,7 +443,7 @@ declare namespace whale {
          */
         export function undock(
             popupWindowId: number,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -502,7 +500,6 @@ declare namespace whale {
      * Whale에서 더 많은 기능을 지원합니다.
      * 권한: "topSites"
      * @since Chrome 19.
-     *
      */
     export namespace topSites {
         /** 많이 방문한 URL을 저장하는 Object입니다. get에서 사용됩니다. */
@@ -541,7 +538,7 @@ declare namespace whale {
         export function add(
             url: string,
             title: string,
-            callback?: (status: boolean) => void
+            callback?: (status: boolean) => void,
         ): void;
 
         /**
@@ -570,7 +567,7 @@ declare namespace whale {
          */
         export function isBlocked(
             url: string,
-            callback: (status: boolean) => void
+            callback: (status: boolean) => void,
         ): void;
 
         /**
@@ -582,7 +579,7 @@ declare namespace whale {
         export function search(
             term: string,
             count: number,
-            callback?: (result: MostVisitedURL2[]) => void
+            callback?: (result: MostVisitedURL2[]) => void,
         ): void;
 
         /**

@@ -1,5 +1,5 @@
-import { Repository } from './repository';
-import { Time } from './time';
+import { Repository } from "./repository";
+import { Time } from "./time";
 
 export class Signature {
     static default(repo: Repository): Promise<Signature>;

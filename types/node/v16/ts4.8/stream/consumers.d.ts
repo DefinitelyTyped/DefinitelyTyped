@@ -1,5 +1,5 @@
-declare module 'stream/consumers' {
-    import { Readable } from 'node:stream';
+declare module "stream/consumers" {
+    import { Readable } from "node:stream";
     import { Blob as NodeBlob } from "node:buffer";
     function buffer(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<Buffer>;
     function text(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<string>;
@@ -7,6 +7,6 @@ declare module 'stream/consumers' {
     function blob(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<NodeBlob>;
     function json(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<unknown>;
 }
-declare module 'node:stream/consumers' {
-    export * from 'stream/consumers';
+declare module "node:stream/consumers" {
+    export * from "stream/consumers";
 }

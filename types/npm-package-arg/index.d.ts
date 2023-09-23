@@ -23,11 +23,11 @@ declare namespace npa {
      * @param where Optionally the path to resolve file paths relative to. Defaults to process.cwd()
      */
     function resolve(name: string, spec: string, where?: string):
-        FileResult |
-        HostedGitResult |
-        URLResult |
-        AliasResult |
-        RegistryResult;
+        | FileResult
+        | HostedGitResult
+        | URLResult
+        | AliasResult
+        | RegistryResult;
 
     class Result {
         /**

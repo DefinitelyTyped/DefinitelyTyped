@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as http from 'http';
-import { Readable, Stream } from 'stream';
+import * as http from "http";
+import { Readable, Stream } from "stream";
 
-import * as shared from '../shared';
+import * as shared from "../shared";
 
 type ms = number;
 type s = number;
@@ -23,13 +23,17 @@ declare namespace XOAuth2 {
         /** An existing valid accessToken */
         accessToken?: string | undefined;
         /** Private key for JSW */
-        privateKey?: string | { key: string; passphrase: string; } | undefined;
+        privateKey?: string | { key: string; passphrase: string } | undefined;
         /** Optional Access Token expire time in ms */
         expires?: ms | undefined;
         /** Optional TTL for Access Token in seconds */
         timeout?: s | undefined;
         /** Function to run when a new access token is required */
-        provisionCallback?(user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void): void;
+        provisionCallback?(
+            user: string,
+            renew: boolean,
+            callback: (err: Error | null, accessToken: string, expires: number) => void,
+        ): void;
         serviceClient?: string | undefined;
     }
 
@@ -76,7 +80,7 @@ declare class XOAuth2 extends Stream {
         url: string,
         payload: string | Buffer | Readable | { [key: string]: string },
         params: XOAuth2.RequestParams,
-        callback: (err: Error | null, buf: Buffer) => void
+        callback: (err: Error | null, buf: Buffer) => void,
     ): void;
 
     /** Encodes a buffer or a string into Base64url format */
@@ -85,26 +89,26 @@ declare class XOAuth2 extends Stream {
     /** Creates a JSON Web Token signed with RS256 (SHA256 + RSA) */
     jwtSignRS256(payload: object): string;
 
-    addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    emit(event: 'error', error: Error): boolean;
-    emit(event: 'token', token: XOAuth2.Token): boolean;
+    emit(event: "error", error: Error): boolean;
+    emit(event: "token", token: XOAuth2.Token): boolean;
 
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    prependListener(event: 'error', listener: (err: Error) => void): this;
-    prependListener(event: 'end', listener: (token: XOAuth2.Token) => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: "end", listener: (token: XOAuth2.Token) => void): this;
 
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-    prependOnceListener(event: 'end', listener: (token: XOAuth2.Token) => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: "end", listener: (token: XOAuth2.Token) => void): this;
 
-    listeners(event: 'error'): Array<(err: Error) => void>;
-    listeners(event: 'end'): Array<(token: XOAuth2.Token) => void>;
+    listeners(event: "error"): Array<(err: Error) => void>;
+    listeners(event: "end"): Array<(token: XOAuth2.Token) => void>;
 }
 
 export = XOAuth2;

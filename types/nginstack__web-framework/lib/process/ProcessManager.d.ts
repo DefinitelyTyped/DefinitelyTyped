@@ -73,29 +73,21 @@ declare class ProcessManager {
     getCurrentProcess(): Process;
 }
 declare namespace ProcessManager {
-    export {
-        getInstance,
-        parseLayoutLinkContent,
-        Event,
-        DataSet,
-        Controller,
-        TabInfo,
-        SessionTimeoutsInfo,
-    };
+    export { Controller, DataSet, Event, getInstance, parseLayoutLinkContent, SessionTimeoutsInfo, TabInfo };
 }
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-type Event = import('@nginstack/engine/lib/event/Event');
-import ControlChannel = require('../ifp/ControlChannel.js');
-import Process = require('./Process.js');
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type Event = import("@nginstack/engine/lib/event/Event");
+import ControlChannel = require("../ifp/ControlChannel.js");
+import Process = require("./Process.js");
 interface SessionTimeoutsInfo {
     inactivity: number;
     lockedScreen: number;
 }
 declare function getInstance(): ProcessManager;
 declare function parseLayoutLinkContent(content: any): DBKey;
-type Controller = import('../messaging/Controller');
+type Controller = import("../messaging/Controller");
 interface TabInfo {
     processIds: string[];
     currentProcessId: string;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

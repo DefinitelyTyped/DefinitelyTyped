@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-import { Request, Response, NextFunction, Express } from 'express';
-import { Server as HttpsServer } from 'https';
+import { Express, NextFunction, Request, Response } from "express";
+import { Server as HttpsServer } from "https";
 
-import * as runtime from '@node-red/runtime';
+import * as runtime from "@node-red/runtime";
 
 declare const editorAPI: editorAPI.EditorAPIModule;
 

@@ -11,13 +11,12 @@ export as namespace nv;
 declare var nv: nv.Nvd3Static;
 
 declare namespace nv {
-
-//#region Core Interfaces
+    // #region Core Interfaces
     interface Margin {
-        left?: number | undefined,
-        right?: number | undefined,
-        top?: number | undefined,
-        bottom?: number | undefined
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
+        bottom?: number | undefined;
     }
 
     interface Size {
@@ -40,11 +39,11 @@ declare namespace nv {
     }
 
     interface InteractiveLayer {
-        tooltip: Tooltip
+        tooltip: Tooltip;
     }
 
     interface SymbolMap {
-        set(name:string,func: (size: any)=>void): void
+        set(name: string, func: (size: any) => void): void;
     }
 
     interface Utils {
@@ -67,8 +66,8 @@ declare namespace nv {
     }
 
     interface Nvd3TooltipStatic {
-        show(leftTop: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
-        cleanup(): void; //todo sort out use on nv.tooltip.
+        show(leftTop: [number, number], content: string, gravity?: string): void; // todo sort out use on nv.tooltip.
+        cleanup(): void; // todo sort out use on nv.tooltip.
     }
 
     interface Nvd3Element {
@@ -86,9 +85,9 @@ declare namespace nv {
         interactiveLayer: InteractiveLayer;
     }
 
-//#endregion
+    // #endregion
 
-//#region Chart Component
+    // #region Chart Component
 
     interface Legend extends Nvd3Element {
         align(): boolean;
@@ -114,17 +113,17 @@ declare namespace nv {
         /*Specifies how much spacing there is between legend items.*/
         padding(value: number): this;
         radioButtonMode(): boolean;
-        //If true, clicking legend items will cause it to behave like a radio button. (only one can be selected at
+        // If true, clicking legend items will cause it to behave like a radio button. (only one can be selected at
         radioButtonMode(value: boolean): this;
         rightAlign(): boolean;
         rightAlign(value: boolean): this;
-        //If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
+        // If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
         updateState(): boolean;
-        //If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
+        // If true, legend will update data.disabled and trigger a 'stateChange' dispatch.
         updateState(value: boolean): this;
-        //Options are "classic" and "furious"
+        // Options are "classic" and "furious"
         vers(): string;
-        //Options are "classic" and "furious"
+        // Options are "classic" and "furious"
         vers(value: string): this;
         /* The width the graph or component created inside the SVG should be made*/
         width(): number;
@@ -150,7 +149,7 @@ declare namespace nv {
         showYAxis(): boolean;
         showYAxis(value: boolean): this;
         brushExtent(): [number, number] | [[number, number], [number, number]];
-        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
+        brushExtent(value: [number, number] | [[number, number], [number, number]]): this;
         duration(): number;
         duration(value: number): this;
         xTickFormat(): (d: any) => string;
@@ -168,7 +167,6 @@ declare namespace nv {
         syncBrushing(): boolean;
         syncBrushing(value: boolean): this;
     }
-
 
     interface Nvd3Axis extends d3.svg.Axis {
         axisLabel(): string;
@@ -239,7 +237,7 @@ declare namespace nv {
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -300,14 +298,14 @@ declare namespace nv {
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(value: Margin): this;
-        markers(): (d: any) => any //todo;
-        markers(func: (d: any) => any): this //todo;
-        measures(): (d: any) => any //todo;
-        measures(func: (d: any) => any): this //todo;
+        markers(): (d: any) => any; // todo;
+        markers(func: (d: any) => any): this; // todo;
+        measures(): (d: any) => any; // todo;
+        measures(func: (d: any) => any): this; // todo;
         orient(): string;
         orient(orientation: string): this;
-        ranges(): (d: any) => any //todo;
-        ranges(func: (d: any) => any): this //todo;
+        ranges(): (d: any) => any; // todo;
+        ranges(func: (d: any) => any): this; // todo;
         tickFormat(): (d: any) => string;
         tickFormat(format: (d: any) => string): this;
         tickFormat(format: string): this;
@@ -324,7 +322,7 @@ declare namespace nv {
         /*If true, masks lines within the X and Y scales using a clip-path*/
         clipEdge(value: boolean): this;
         close(): (d: any) => number;
-        close(func: (d:any) => number): this;
+        close(func: (d: any) => number): this;
         /*Colors to use for the different data. If an array is given, it is converted to a function automatically.*/
         color(value: string[]): this;
         /*Colors to use for the different data. If an array is given, it is converted to a function automatically.*/
@@ -344,7 +342,7 @@ declare namespace nv {
         high(): (d: any) => number;
         high(func: (d: any) => number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -414,7 +412,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -468,8 +466,8 @@ id(value: number|string): this;
 
     interface Distribution extends Nvd3Element {
         axis(): string;
-        axis(value: 'x'): this;
-        axis(value: 'y'): this;
+        axis(value: "x"): this;
+        axis(value: "y"): this;
         axis(value: string): this;
         /*Colors to use for the different data. If an array is given, it is converted to a function automatically.*/
         color(value: string[]): this;
@@ -488,8 +486,6 @@ id(value: number|string): this;
         size(value: number): this;
         width(): number;
         width(value: number): this;
-
-
     }
 
     interface HistoricalBar extends Nvd3Element {
@@ -518,7 +514,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -624,7 +620,7 @@ id(value: number|string): this;
         /**/
         hideable(value: boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -634,13 +630,13 @@ id(value: number|string): this;
         /**/
         stacked(value: boolean): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'silhouette'): this;
+        stackOffset(offset: "silhouette"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'wiggle'): this;
+        stackOffset(offset: "wiggle"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'expand'): this;
+        stackOffset(offset: "expand"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'zero'): this;
+        stackOffset(offset: "zero"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
         stackOffset(offset: string): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
@@ -712,7 +708,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -726,13 +722,13 @@ id(value: number|string): this;
         /**/
         stacked(value: boolean): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'silhouette'): this;
+        stackOffset(offset: "silhouette"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'wiggle'): this;
+        stackOffset(offset: "wiggle"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'expand'): this;
+        stackOffset(offset: "expand"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'zero'): this;
+        stackOffset(offset: "zero"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
         stackOffset(offset: string): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
@@ -773,7 +769,7 @@ id(value: number|string): this;
         /* Defines the whole y scale's domain. Using this will disable calculating the domain based on the data.*/
         yDomain(value: number[]): this;
         /**/
-        yErr(): (d: any, i: number) => number|number[];
+        yErr(): (d: any, i: number) => number | number[];
         /**/
         yErr(func: (d: any, i: number) => number | number[]): this;
         /* Override the y scale's range. Using this will disable calculating the range based on the data and chart width/height.*/
@@ -812,7 +808,7 @@ id(value: number|string): this;
         high(): (d: any) => number;
         high(func: (d: any) => number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -869,8 +865,8 @@ id(value: number|string): this;
         color(value: string[]): this;
         /*Colors to use for the different data. If an array is given, it is converted to a function automatically.*/
         color(func: (d: any, i: number) => string): this;
-        dimensionData(): any
-        dimensionData(d: any): this
+        dimensionData(): any;
+        dimensionData(d: any): this;
         /*D3 format for each x axis*/
         dimensionFormats(): string[];
         /*D3 format for each x axis*/
@@ -939,7 +935,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /**/
         labelFormat(): string;
         /**/
@@ -957,15 +953,15 @@ id(value: number|string): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
         labelType(): string;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'key'): this;
+        labelType(value: "key"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'value'): this;
+        labelType(value: "value"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'percent'): this;
+        labelType(value: "percent"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
         labelType(value: string): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(func: (d: any, i: number, values:any)=> string): this;
+        labelType(func: (d: any, i: number, values: any) => string): this;
         /*Whether pie/donut chart labels should be outside the slices instead of inside them*/
         labelsOutside(): boolean;
         /*Whether pie/donut chart labels should be outside the slices instead of inside them*/
@@ -1140,7 +1136,6 @@ id(value: number|string): this;
         yScale(): any;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
-
     }
 
     interface SparkLine extends Nvd3Element {
@@ -1216,10 +1211,10 @@ id(value: number|string): this;
         showLastValue(value: boolean): this;
         xTickFormat(format: (d: any) => string): this;
         xTickFormat(format: string): this;
-        xTickFormat(format: (d: any, i: any) => string) : this;
+        xTickFormat(format: (d: any, i: any) => string): this;
         yTickFormat(format: (d: any) => string): this;
         yTickFormat(format: string): this;
-        yTickFormat(format: (d: any, i: any) => string) :this;
+        yTickFormat(format: (d: any, i: any) => string): this;
     }
 
     interface StackedArea extends Scatter {
@@ -1233,24 +1228,24 @@ id(value: number|string): this;
         /*controls the line interpolation between points, many options exist, see the D3 reference:*/
         interpolate(value: string): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        offset(offset: 'silhouette'): this;
+        offset(offset: "silhouette"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        offset(offset: 'wiggle'): this;
+        offset(offset: "wiggle"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        offset(offset: 'expand'): this;
+        offset(offset: "expand"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        offset(offset: 'zero'): this;
+        offset(offset: "zero"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
         offset(offset: string): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
         offset(offset: (data: Array<[number, number]>) => number[]): this;
         order(): string;
         order(value: string): this;
-        style(offset: 'stack'): this;
-        style(offset: 'stream'): this;
-        style(offset: 'stream-center'): this;
-        style(offset: 'expand'): this;
-        style(offset: 'stack_percent'): this;
+        style(offset: "stack"): this;
+        style(offset: "stream"): this;
+        style(offset: "stream-center"): this;
+        style(offset: "expand"): this;
+        style(offset: "stack_percent"): this;
         style(offset: string): this;
         width(): number;
         width(value: number): this;
@@ -1268,7 +1263,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -1276,9 +1271,9 @@ id(value: number|string): this;
         /*For sunburst only: specifies the mode of drawing the sunburst segments. Can be 'size' or 'count'. 'size' draws the segments according to the 'size' attribute of the leaf nodes, 'count' draws according to the amount of siblings a node has.*/
         mode(): string;
         /*For sunburst only: specifies the mode of drawing the sunburst segments. Can be 'size' or 'count'. 'size' draws the segments according to the 'size' attribute of the leaf nodes, 'count' draws according to the amount of siblings a node has.*/
-        mode(value: 'size'): this;
+        mode(value: "size"): this;
         /*For sunburst only: specifies the mode of drawing the sunburst segments. Can be 'size' or 'count'. 'size' draws the segments according to the 'size' attribute of the leaf nodes, 'count' draws according to the amount of siblings a node has.*/
-        mode(value: 'count'): this;
+        mode(value: "count"): this;
         /*For sunburst only: specifies the mode of drawing the sunburst segments. Can be 'size' or 'count'. 'size' draws the segments according to the 'size' attribute of the leaf nodes, 'count' draws according to the amount of siblings a node has.*/
         mode(value: string): this;
         /* The width the graph or component created inside the SVG should be made*/
@@ -1288,15 +1283,14 @@ id(value: number|string): this;
     }
 
     interface Tooltip {
-
         /*For tooltip: Parent dom element of the SVG that holds the chart. This will make the tooltip dom be created inside this container instead of on the document body.*/
-        chartContainer(el: HTMLElement): this
+        chartContainer(el: HTMLElement): this;
         /*For tooltip: Parent dom element of the SVG that holds the chart. This will make the tooltip dom be created inside this container instead of on the document body.*/
-        chartContainer(): HTMLElement
+        chartContainer(): HTMLElement;
         /*Attaches additional CSS classes to the tooltip DIV that is created.*/
-        classes(el: string): this
+        classes(el: string): this;
         /*Attaches additional CSS classes to the tooltip DIV that is created.*/
-        classes(): string
+        classes(): string;
         /*Function that generates the tooltip content html.*/
         contentGenerator(): (d: any) => string;
         /*Function that generates the tooltip content html.*/
@@ -1365,9 +1359,9 @@ id(value: number|string): this;
         strokeColor?: any;
     }
 
-//#endregion
+    // #endregion
 
-//#region Charts
+    // #region Charts
     interface BoxPlotChart extends Chart {
         boxplot: BoxPlot;
         xAxis: Nvd3Axis;
@@ -1387,7 +1381,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -1455,10 +1449,9 @@ id(value: number|string): this;
         yScale(): any;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
-
     }
 
-    interface BulletChart extends Chart{
+    interface BulletChart extends Chart {
         bullet: Bullet;
         tooltip: Tooltip;
 
@@ -1478,16 +1471,16 @@ id(value: number|string): this;
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(value: Margin): this;
-        markers(): (d: any) => any //todo;
-        markers(func: (d: any) => any): this //todo;
-        measures(): (d: any) => any //todo;
-        measures(func: (d: any) => any): this //todo;
+        markers(): (d: any) => any; // todo;
+        markers(func: (d: any) => any): this; // todo;
+        measures(): (d: any) => any; // todo;
+        measures(func: (d: any) => any): this; // todo;
         noData(): string;
         noData(value: string): this;
         orient(): string;
         orient(orientation: string): this;
-        ranges(): (d: any) => any //todo;
-        ranges(func: (d: any) => any): this //todo;
+        ranges(): (d: any) => any; // todo;
+        ranges(func: (d: any) => any): this; // todo;
         tickFormat(): (d: any) => string;
         tickFormat(format: (d: any) => string): this;
         tickFormat(format: string): this;
@@ -1548,7 +1541,7 @@ id(value: number|string): this;
         high(): (d: any) => number;
         high(func: (d: any) => number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -1661,7 +1654,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -1776,7 +1769,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -1913,7 +1906,7 @@ id(value: number|string): this;
         /**/
         highlightPoint(func: (d: any) => boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -2052,7 +2045,7 @@ id(value: number|string): this;
         tooltip: Tooltip;
 
         brushExtent(): [number, number] | [[number, number], [number, number]];
-        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
+        brushExtent(value: [number, number] | [[number, number], [number, number]]): this;
         clearHighlights(): this;
         /*If true, masks lines within the X and Y scales using a clip-path*/
         clipEdge(): boolean;
@@ -2111,7 +2104,7 @@ id(value: number|string): this;
         /**/
         highlightPoint(func: (d: any) => boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -2129,11 +2122,11 @@ id(value: number|string): this;
         /*The extra text after the label in the legend that tells what axis the series belongs to, for any series on the left axis.*/
         legendLeftAxisHint(): string;
         /*The extra text after the label in the legend that tells what axis the series belongs to, for any series on the left axis.*/
-        legendLeftAxisHint(value: string): this
+        legendLeftAxisHint(value: string): this;
         /*The extra text after the label in the legend that tells what axis the series belongs to, for any seris on the right axis.*/
         legendRightAxisHint(): string;
-                /*The extra text after the label in the legend that tells what axis the series belongs to, for any seris on the right axis.*/
-        legendRightAxisHint(value: string): this
+        /*The extra text after the label in the legend that tells what axis the series belongs to, for any seris on the right axis.*/
+        legendRightAxisHint(value: string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -2297,7 +2290,7 @@ id(value: number|string): this;
         /**/
         highlightPoint(func: (d: any) => boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -2469,7 +2462,7 @@ id(value: number|string): this;
         /**/
         hideable(value: boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -2507,13 +2500,13 @@ id(value: number|string): this;
         /**/
         stacked(value: boolean): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'silhouette'): this;
+        stackOffset(offset: "silhouette"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'wiggle'): this;
+        stackOffset(offset: "wiggle"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'expand'): this;
+        stackOffset(offset: "expand"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
-        stackOffset(offset: 'zero'): this;
+        stackOffset(offset: "zero"): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
         stackOffset(offset: string): this;
         /* options include 'silhouette', 'wiggle', 'expand', 'zero', or a custom function*/
@@ -2565,7 +2558,6 @@ id(value: number|string): this;
         yScale(): any;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
-
     }
 
     interface MultiBarHorizontalChart extends Chart {
@@ -2613,7 +2605,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -2700,7 +2692,6 @@ id(value: number|string): this;
         yScale(): any;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
-
     }
 
     interface MultiChart extends Chart {
@@ -2815,7 +2806,7 @@ id(value: number|string): this;
         high(): (d: any) => number;
         high(func: (d: any) => number): this;
         id(): any;
-        id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -2909,8 +2900,8 @@ id(value: number|string): this;
         defaultState(): any;
         /*No longer used.Use chart.dispatch.changeState(...) instead*/
         defaultState(value: any): this;
-        dimensionData(): any
-        dimensionData(d:any) : this
+        dimensionData(): any;
+        dimensionData(d: any): this;
         /*D3 format for each x axis*/
         dimensionFormats(): string[];
         /*D3 format for each x axis*/
@@ -3003,7 +2994,7 @@ id(value: number|string): this;
         /*The height the graph or component created inside the SVG should be made.*/
         height(value: number): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /**/
         labelFormat(): string;
         /**/
@@ -3021,11 +3012,11 @@ id(value: number|string): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
         labelType(): string;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'key'): this;
+        labelType(value: "key"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'value'): this;
+        labelType(value: "value"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
-        labelType(value: 'percent'): this;
+        labelType(value: "percent"): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
         labelType(value: string): this;
         /*pie/donut charts only: what kind of data to display for the slice labels. Options are key, value, or percent. */
@@ -3037,9 +3028,9 @@ id(value: number|string): this;
         /*Position of the legend (top or right). */
         legendPosition(): string;
         /*Position of the legend (top or right). */
-        legendPosition(value: 'top'): this;
+        legendPosition(value: "top"): this;
         /*Position of the legend (top or right). */
-        legendPosition(value: 'right'): this;
+        legendPosition(value: "right"): this;
         /*Position of the legend (top or right). */
         legendPosition(value: string): this;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
@@ -3049,7 +3040,7 @@ id(value: number|string): this;
         /*Message to display if no data is provided*/
         noData(): string;
         /*Message to display if no data is provided*/
-        noData(value : string): this;
+        noData(value: string): this;
         /*D3 3.4+, For donut charts only, the percent of the chart that should be spacing between slices.*/
         padAngle(): number;
         /*D3 3.4+, For donut charts only, the percent of the chart that should be spacing between slices.*/
@@ -3161,7 +3152,7 @@ id(value: number|string): this;
         /**/
         highlightPoint(func: (d: any) => boolean): this;
         id(): any;
-id(value: number|string): this;
+        id(value: number | string): this;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
         interactive(): boolean;
         /*A master flag for turning chart interaction on and off. This overrides all tooltip, voronoi, and guideline options.*/
@@ -3285,7 +3276,6 @@ id(value: number|string): this;
         yScale(): any;
         /* Override the default scale type for the y axis*/
         yScale(value: any): this;
-
     }
 
     interface SankeyChart extends Chart {
@@ -3335,7 +3325,7 @@ id(value: number|string): this;
         width(value: number): this;
 
         /*Units to be used. */
-        units(): string
+        units(): string;
         /*Units to be used. */
         units(value: string): this;
     }
@@ -3396,7 +3386,7 @@ id(value: number|string): this;
         showControls(): boolean;
         showControls(value: boolean): this;
         brushExtent(): [number, number] | [[number, number], [number, number]];
-        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
+        brushExtent(value: [number, number] | [[number, number], [number, number]]): this;
     }
 
     interface SunburstChart extends Sunburst, Chart {
@@ -3416,9 +3406,9 @@ id(value: number|string): this;
         noData(value: string): this;
     }
 
-//#endregion
+    // #endregion
 
-    interface Models{
+    interface Models {
         boxPlotChart(): BoxPlotChart;
         bullet(): Bullet;
         bulletChart(): BulletChart;
@@ -3456,11 +3446,11 @@ id(value: number|string): this;
         tooltip(): Tooltip;
     }
 
-    interface Nvd3Static{
+    interface Nvd3Static {
         /*set to false in production*/
-        dev: boolean
+        dev: boolean;
         /*stores all the ready to use charts*/
-        charts: any
+        charts: any;
         models: Models;
         tooltip: Nvd3TooltipStatic;
         utils: Utils;
@@ -3471,8 +3461,7 @@ id(value: number|string): this;
         addGraph<TChart extends Nvd3Element>(factory: ChartFactory<TChart>): void;
         addGraph<TChart extends Nvd3Element>(generate: () => TChart, callBack?: (chart: TChart) => void): void;
 
-
-        log(topic: string, value?: string): string //returns last argument
-        log(arg: any[]): any //returns last argument
+        log(topic: string, value?: string): string; // returns last argument
+        log(arg: any[]): any; // returns last argument
     }
 }

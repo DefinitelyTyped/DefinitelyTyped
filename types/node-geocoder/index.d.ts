@@ -5,24 +5,24 @@
 
 /// <reference types="node" />
 
-import { RequestInfo, RequestInit, Response } from 'node-fetch';
+import { RequestInfo, RequestInit, Response } from "node-fetch";
 
 declare namespace node_geocoder {
     type Providers =
-        | 'freegeoip'
-        | 'datasciencetoolkit'
-        | 'locationiq'
-        | 'mapquest'
-        | 'mapbox'
-        | 'openmapquest'
-        | 'tomtom'
-        | 'nominatimmapquest'
-        | 'opencage'
-        | 'geocodio'
-        | 'yandex'
-        | 'teleport'
-        | 'pickpoint'
-        | 'virtualearth';
+        | "freegeoip"
+        | "datasciencetoolkit"
+        | "locationiq"
+        | "mapquest"
+        | "mapbox"
+        | "openmapquest"
+        | "tomtom"
+        | "nominatimmapquest"
+        | "opencage"
+        | "geocodio"
+        | "yandex"
+        | "teleport"
+        | "pickpoint"
+        | "virtualearth";
 
     interface BaseOptions {
         provider: string;
@@ -33,7 +33,7 @@ declare namespace node_geocoder {
     }
 
     interface HereOptions {
-        provider: 'here';
+        provider: "here";
         appId: string;
         apiKey: string;
         appCode?: string;
@@ -45,7 +45,7 @@ declare namespace node_geocoder {
     }
 
     interface OpenStreetMapOptions {
-        provider: 'openstreetmap';
+        provider: "openstreetmap";
         language?: string | undefined;
         email?: string | undefined;
         apiKey?: string | undefined;
@@ -53,26 +53,26 @@ declare namespace node_geocoder {
     }
 
     interface OpenDataFranceOptions {
-        provider: 'opendatafrance';
+        provider: "opendatafrance";
         language?: string | undefined;
         email?: string | undefined;
         apiKey?: string | undefined;
     }
 
     interface AgolOptions {
-        provider: 'agol';
+        provider: "agol";
         client_id?: string | undefined;
         client_secret?: string | undefined;
     }
 
     interface SmartyStreetsOptions {
-        provider: 'smartyStreet';
+        provider: "smartyStreet";
         auth_id: string;
         auth_token: string;
     }
 
     interface GoogleOptions {
-        provider: 'google';
+        provider: "google";
         clientId?: string | undefined;
         apiKey?: string | undefined;
         language?: string | undefined;
@@ -88,8 +88,9 @@ declare namespace node_geocoder {
         host?: string | undefined;
     }
 
-    type Options = BaseOptions &
-        (
+    type Options =
+        & BaseOptions
+        & (
             | GenericOptions
             | HereOptions
             | OpenStreetMapOptions
@@ -110,17 +111,17 @@ declare namespace node_geocoder {
         longitude?: number | undefined;
         extra?:
             | {
-                  googlePlaceId?: string | undefined;
-                  confidence?: number | undefined;
-              }
+                googlePlaceId?: string | undefined;
+                confidence?: number | undefined;
+            }
             | undefined;
         administrativeLevels?:
             | {
-                  level1long?: string | undefined;
-                  level1short?: string | undefined;
-                  level2long?: string | undefined;
-                  level2short?: string | undefined;
-              }
+                level1long?: string | undefined;
+                level1short?: string | undefined;
+                level2long?: string | undefined;
+                level2short?: string | undefined;
+            }
             | undefined;
         city?: string | undefined;
         streetName?: string | undefined;

@@ -1,11 +1,11 @@
-import RED = require('node-red');
-import { createServer } from 'http';
-import { LocalSettings } from '@node-red/runtime';
+import RED = require("node-red");
+import { LocalSettings } from "@node-red/runtime";
+import { createServer } from "http";
 
 async function REDTests() {
     const server = createServer();
     const settings: LocalSettings = {
-        uiHost: '127.0.0.1',
+        uiHost: "127.0.0.1",
         uiPort: 1880,
     };
     RED.init(server, settings);

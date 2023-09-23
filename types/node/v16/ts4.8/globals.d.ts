@@ -20,9 +20,9 @@ interface ErrorConstructor {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require { }
-interface RequireResolve extends NodeJS.RequireResolve { }
-interface NodeModule extends NodeJS.Module { }
+interface NodeRequire extends NodeJS.Require {}
+interface RequireResolve extends NodeJS.RequireResolve {}
+interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -41,7 +41,7 @@ declare var exports: any;
  */
 declare var gc: undefined | (() => void);
 
-//#region borrowed
+// #region borrowed
 // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
 /** A controller object that allows you to abort one or more DOM requests as and when desired. */
 interface AbortController {
@@ -74,9 +74,9 @@ declare var AbortSignal: {
     new(): AbortSignal;
     // TODO: Add abort() static
 };
-//#endregion borrowed
+// #endregion borrowed
 
-//#region ArrayLike.at()
+// #region ArrayLike.at()
 interface RelativeIndexable<T> {
     /**
      * Takes an integer value and returns the item at that index,
@@ -98,7 +98,7 @@ interface Float32Array extends RelativeIndexable<number> {}
 interface Float64Array extends RelativeIndexable<number> {}
 interface BigInt64Array extends RelativeIndexable<bigint> {}
 interface BigUint64Array extends RelativeIndexable<bigint> {}
-//#endregion ArrayLike.at() end
+// #endregion ArrayLike.at() end
 
 /*----------------------------------------------*
 *                                               *
@@ -194,7 +194,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -210,7 +210,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     interface RefCounted {
         ref(): this;
@@ -243,14 +243,14 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[] | undefined; }): string;
+        (id: string, options?: { paths?: string[] | undefined }): string;
         paths(request: string): string[] | null;
     }
 
     interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
-        '.js': (m: Module, filename: string) => any;
-        '.json': (m: Module, filename: string) => any;
-        '.node': (m: Module, filename: string) => any;
+        ".js": (m: Module, filename: string) => any;
+        ".json": (m: Module, filename: string) => any;
+        ".node": (m: Module, filename: string) => any;
     }
     interface Module {
         /**

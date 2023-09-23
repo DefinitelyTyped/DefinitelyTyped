@@ -1,4 +1,4 @@
-import * as os from 'node:os';
+import * as os from "node:os";
 {
     let result: string;
 
@@ -15,7 +15,7 @@ import * as os from 'node:os';
 
 {
     const a: os.UserInfo<string> = os.userInfo();
-    const b: os.UserInfo<Buffer> = os.userInfo({ encoding: 'buffer' });
+    const b: os.UserInfo<Buffer> = os.userInfo({ encoding: "buffer" });
 }
 
 {
@@ -167,7 +167,7 @@ import * as os from 'node:os';
     result = os.constants.errno.EXDEV;
 }
 
-if (os.platform() === 'win32') {
+if (os.platform() === "win32") {
     let result: number;
 
     result = os.constants.errno.WSAEINTR;

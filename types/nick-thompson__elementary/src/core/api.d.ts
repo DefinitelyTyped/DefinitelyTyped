@@ -1,12 +1,12 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { NodeStatic } from './node';
-import { Child } from './children';
-import { MidiEvent } from './midi';
+import { Child } from "./children";
+import { MidiEvent } from "./midi";
+import { NodeStatic } from "./node";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../../';
+import * as el from "../../";
 
 /**
  * The elementary.core object is an instance of Node.js' events.EventEmitter.
@@ -52,7 +52,7 @@ export interface Core extends EventEmitter {
      *
      * @see Core
      */
-    on(event: 'load' | 'tick', doThis: () => void): this;
+    on(event: "load" | "tick", doThis: () => void): this;
 
     /**
      * The midi event fires any time the runtime receives a MIDI event from
@@ -68,7 +68,7 @@ export interface Core extends EventEmitter {
      * @see Core
      * @see MidiEvent
      */
-    on(event: 'midi', doThis: (event: MidiEvent) => void): this;
+    on(event: "midi", doThis: (event: MidiEvent) => void): this;
 
     /**
      * Returns the audio device sample rate.

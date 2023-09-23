@@ -24,27 +24,34 @@ export interface Options {
     ipv6?: boolean | undefined;
     rcvmaxsize?: number | undefined;
     chan?: string[] | undefined;
-    wsopt?: 'text' | 'binary' | undefined;
+    wsopt?: "text" | "binary" | undefined;
     dontwait?: boolean | undefined;
 }
 
 export type SocketType =
-    | 'pair'
-    | 'pub' | 'sub'
-    | 'req' | 'rep'
-    | 'push' | 'pull'
-    | 'surveyor' | 'respondent'
-    | 'bus';
+    | "pair"
+    | "pub"
+    | "sub"
+    | "req"
+    | "rep"
+    | "push"
+    | "pull"
+    | "surveyor"
+    | "respondent"
+    | "bus";
 
-export type Domain =
-    | 1 | 2;
+export type Domain = 1 | 2;
 
 export type Protocol =
     | 16
-    | 32 | 33
-    | 48 | 49
-    | 80 | 81
-    | 98 | 99
+    | 32
+    | 33
+    | 48
+    | 49
+    | 80
+    | 81
+    | 98
+    | 99
     | 112;
 
 export interface SocketEvents {
@@ -74,7 +81,7 @@ export interface SocketEventEmitter {
     setMaxListeners(maxListeners: number): this;
 }
 
-export class Socket extends (EventEmitter as new () => SocketEventEmitter) {
+export class Socket extends (EventEmitter as new() => SocketEventEmitter) {
     type: SocketType;
     af_domain: Domain;
     protocol: Protocol;
@@ -87,7 +94,7 @@ export class Socket extends (EventEmitter as new () => SocketEventEmitter) {
     closed?: boolean;
     closed_status?: number;
 
-    constructor(type: SocketType, opts?: Options)
+    constructor(type: SocketType, opts?: Options);
 
     /* Socket API */
     bind(addr: string): number | null;

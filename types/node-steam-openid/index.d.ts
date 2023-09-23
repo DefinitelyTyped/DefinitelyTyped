@@ -3,7 +3,7 @@
 // Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Request } from 'express';
+import { Request } from "express";
 
 export = SteamAuth;
 

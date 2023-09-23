@@ -5,9 +5,7 @@
 // TypeScript Version: 3.2
 
 /// <reference types="node" />
-import {
-    Stream
-} from 'stream';
+import { Stream } from "stream";
 
 export class Parser extends Stream {
     constructor(encoding?: string);

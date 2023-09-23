@@ -71,7 +71,6 @@ export class Netmask {
     toString(): string;
 
     /**
-     *
      * @param net A network - e.g 216.240.32.0/24
      * @param mask - optional netmask if not provided in `net`
      */

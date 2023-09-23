@@ -3,7 +3,7 @@
 // Definitions by: Andrei Kazakou <https://github.com/akazakou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { LogglyInstance, LogglyOptions } from 'loggly';
+import { LogglyInstance, LogglyOptions } from "loggly";
 
 export interface LogglyBulkOptions extends LogglyOptions {
     proxy?: any;
@@ -18,7 +18,7 @@ export interface LogglyBulkOptions extends LogglyOptions {
 }
 
 export interface LogglyBulkConstructor {
-    new (options: LogglyBulkOptions): LogglyInstance;
+    new(options: LogglyBulkOptions): LogglyInstance;
 }
 
 export const Loggly: LogglyBulkConstructor;

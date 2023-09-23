@@ -14,5 +14,5 @@ declare class TestRunner {
 declare namespace TestRunner {
     export { TestSuite };
 }
-type TestSuite = import('./TestSuite');
-import TestResult = require('./TestResult.js');
+type TestSuite = import("./TestSuite");
+import TestResult = require("./TestResult.js");

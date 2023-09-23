@@ -25,8 +25,8 @@ declare namespace NetgearRouter {
         method?: LoginMethod | undefined;
     }
 
-    type Band = '2.4G' | '5G' | '5G1';
-    type Channel = 'Auto' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | '13';
+    type Band = "2.4G" | "5G" | "5G1";
+    type Channel = "Auto" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13";
 
     interface Log {
         string: string;
@@ -261,7 +261,7 @@ declare class NetgearRouter {
     setWifiChannel(channel: NetgearRouter.Channel, mode: NetgearRouter.Band): Promise<true>;
 
     setBlockDeviceEnable(enabled: boolean): Promise<true>;
-    setBlockDevice(macAddress: string, action: 'Block' | 'Allow'): Promise<true>;
+    setBlockDevice(macAddress: string, action: "Block" | "Allow"): Promise<true>;
     getInfo(): Promise<NetgearRouter.Info>;
 
     getAttachedDevices(): Promise<NetgearRouter.Device[]>;

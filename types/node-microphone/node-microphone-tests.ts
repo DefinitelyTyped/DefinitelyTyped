@@ -7,7 +7,7 @@ const mic = new Microphone({
     device: "default",
     encoding: "signed-integer",
     rate: 44100,
-    additionalParameters: {}
+    additionalParameters: {},
 });
 
 const stream = mic.startRecording();

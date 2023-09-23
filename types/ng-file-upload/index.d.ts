@@ -6,12 +6,12 @@
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace angularFileUpload {
         interface ImageDimensions {
             height: number;
@@ -82,7 +82,7 @@ declare module 'angular' {
              */
             ngfValidateForce?: boolean | undefined;
         }
-        
+
         interface ResizeIfFunction {
             (width: number, height: number): boolean;
         }
@@ -229,7 +229,6 @@ declare module 'angular' {
              * {file: file, info: Upload.json({id: id, name: name, ...})} send fields as json string
              * {file: file, info: Upload.jsonBlob({id: id, name: name, ...})} send fields as json blob, 'application/json' content_type
              * {picFile: Upload.rename(file, 'profile.jpg'), title: title} send file with picFile key and profile.jpg file name
-             *
              */
             data: any;
             /**
