@@ -33,7 +33,7 @@ interface OvenPlayerConfig {
     tracks?: object[];
     volume?: number;
     adTagUrl?: string;
-    adClient?: "googleima" | "vast";
+    adClient?: 'googleima' | 'vast';
     playlist?: OvenPlayerPlayList;
     hidePlaylistIcon?: boolean;
     webrtcConfig?: object;
@@ -53,7 +53,7 @@ interface OvenPlayerWebRTCStream {
 type OvenPlayerPlayList = OvenPlayerSource[][];
 
 interface OvenPlayerSource {
-    type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
+    type: 'webrtc' | 'llhls' | 'hls' | 'lldash' | 'dash' | 'mp4';
     file: string;
     label?: string;
     framerate?: number;
@@ -94,7 +94,7 @@ interface OvenPlayerInstance {
     getSources(): OvenPlayerSource[] | OvenPlayerPlayList;
     getCurrentSource(): number;
     setCurrentSource(index: number): void;
-    getQualityLevels(): Quality[];
+    getQualityLevels(): OvenPlayerQuality[];
     getCurrentQuality(): number;
     setCurrentQuality(index: number): void;
     isAutoQuality(): boolean;
@@ -113,7 +113,7 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
-type Quality = {
+type OvenPlayerQuality = {
     bitrate: string;
     height: number;
     index: string;
@@ -121,10 +121,19 @@ type Quality = {
     width: number;
 };
 
-
 type OvenPlayerCallbackFunction = (...args: any[]) => void;
+
+export {
+    OvenPlayerQuality,
+    OvenPlayerCallbackFunction,
+    OvenPlayerInstance,
+    OvenPlayerSource,
+    OvenPlayerPlayList,
+    OvenPlayerWebRTCStream,
+    OvenPlayerConfig,
+};
 
 declare const OvenPlayer: OvenPlayer;
 
 export as namespace OvenPlayer;
-export = OvenPlayer;
+export default OvenPlayer;
