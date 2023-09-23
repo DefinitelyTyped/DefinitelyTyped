@@ -6,8 +6,8 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { RequestHandler } from 'express';
-import type { BusboyConfig } from 'busboy';
+import type { BusboyConfig } from "busboy";
+import type { RequestHandler } from "express";
 
 declare global {
     namespace Express {

@@ -9,10 +9,10 @@
 
 /// <reference types="jquery" />
 
-import CoreView from '@ember/component/-private/core-view';
-import ClassNamesSupport from '@ember/component/-private/class-names-support';
-import ViewMixin from '@ember/component/-private/view-mixin';
-import ActionSupport from '@ember/component/-private/action-support';
+import ActionSupport from "@ember/component/-private/action-support";
+import ClassNamesSupport from "@ember/component/-private/class-names-support";
+import CoreView from "@ember/component/-private/core-view";
+import ViewMixin from "@ember/component/-private/view-mixin";
 
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface TemplateFactory {

@@ -33,7 +33,11 @@ export interface Ecies {
 }
 
 // Encrypt message for given recepient's public key.
-export function encrypt(publicKeyTo: Buffer, msg: Buffer, opts?: { iv?: Buffer | undefined, ephemPrivateKey?: Buffer | undefined }): Promise<Ecies>;
+export function encrypt(
+    publicKeyTo: Buffer,
+    msg: Buffer,
+    opts?: { iv?: Buffer | undefined; ephemPrivateKey?: Buffer | undefined },
+): Promise<Ecies>;
 
 // Decrypt message using given private key.
 export function decrypt(privateKey: Buffer, opts: Ecies): Promise<Buffer>;

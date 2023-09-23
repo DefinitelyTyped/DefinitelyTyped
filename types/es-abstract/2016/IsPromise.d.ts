@@ -1,2 +1,2 @@
-import IsPromise = require('../2015/IsPromise');
+import IsPromise = require("../2015/IsPromise");
 export = IsPromise;

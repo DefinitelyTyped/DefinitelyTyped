@@ -12,7 +12,7 @@
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
-import { SendOptions } from 'send';
+import { SendOptions } from "send";
 
 declare global {
     namespace Express {
@@ -25,10 +25,10 @@ declare global {
     }
 }
 
-import * as http from 'http';
-import { EventEmitter } from 'events';
-import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
-import { ParsedQs } from 'qs';
+import { EventEmitter } from "events";
+import * as http from "http";
+import { ParsedQs } from "qs";
+import { Options as RangeParserOptions, Ranges as RangeParserRanges, Result as RangeParserResult } from "range-parser";
 
 export {};
 
@@ -40,12 +40,12 @@ export interface NextFunction {
      * "Break-out" of a router by calling {next('router')};
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.router}
      */
-    (deferToNext: 'router'): void;
+    (deferToNext: "router"): void;
     /**
      * "Break-out" of a route by calling {next('route')};
      * @see {https://expressjs.com/en/guide/using-middleware.html#middleware.application}
      */
-    (deferToNext: 'route'): void;
+    (deferToNext: "route"): void;
 }
 
 export interface Dictionary<T> {
@@ -65,7 +65,7 @@ export interface RequestHandler<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    LocalsObj extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>,
 > {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
     (
@@ -80,7 +80,7 @@ export type ErrorRequestHandler<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    LocalsObj extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>,
 > = (
     err: any,
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
@@ -95,7 +95,7 @@ export type RequestHandlerParams<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    LocalsObj extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>,
 > =
     | RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
@@ -108,25 +108,20 @@ type GetRouteParameter<S extends string> = RemoveTail<
 >;
 
 // prettier-ignore
-export type RouteParameters<Route extends string> = string extends Route
-    ? ParamsDictionary
-    : Route extends `${string}(${string}`
-        ? ParamsDictionary //TODO: handling for regex parameters
-        : Route extends `${string}:${infer Rest}`
-            ? (
-            GetRouteParameter<Rest> extends never
-                ? ParamsDictionary
-                : GetRouteParameter<Rest> extends `${infer ParamName}?`
-                    ? { [P in ParamName]?: string }
+export type RouteParameters<Route extends string> = string extends Route ? ParamsDictionary
+    : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
+    : Route extends `${string}:${infer Rest}` ?
+            & (
+                GetRouteParameter<Rest> extends never ? ParamsDictionary
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string }
                     : { [P in GetRouteParameter<Rest>]: string }
-            ) &
-            (Rest extends `${GetRouteParameter<Rest>}${infer Next}`
-                ? RouteParameters<Next> : unknown)
-            : {};
+            )
+            & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
+    : {};
 
 export interface IRouterMatcher<
     T,
-    Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
+    Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
 > {
     <
         Route extends string,
@@ -134,7 +129,7 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -149,7 +144,7 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -163,7 +158,7 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
@@ -175,7 +170,7 @@ export interface IRouterMatcher<
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
@@ -193,10 +188,10 @@ export interface IRouterHandler<T, Route extends string = string> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
-        >(
+        LocalsObj extends Record<string, any> = Record<string, any>,
+    >(
         // (This generic is meant to be passed explicitly.)
-            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -204,10 +199,10 @@ export interface IRouterHandler<T, Route extends string = string> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
-        >(
+        LocalsObj extends Record<string, any> = Record<string, any>,
+    >(
         // (This generic is meant to be passed explicitly.)
-            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -215,7 +210,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -226,7 +221,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         ResBody = any,
         ReqBody = any,
         ReqQuery = ParsedQs,
-        LocalsObj extends Record<string, any> = Record<string, any>
+        LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -274,14 +269,14 @@ export interface IRouter extends RequestHandler {
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
-    all: IRouterMatcher<this, 'all'>;
-    get: IRouterMatcher<this, 'get'>;
-    post: IRouterMatcher<this, 'post'>;
-    put: IRouterMatcher<this, 'put'>;
-    delete: IRouterMatcher<this, 'delete'>;
-    patch: IRouterMatcher<this, 'patch'>;
-    options: IRouterMatcher<this, 'options'>;
-    head: IRouterMatcher<this, 'head'>;
+    all: IRouterMatcher<this, "all">;
+    get: IRouterMatcher<this, "get">;
+    post: IRouterMatcher<this, "post">;
+    put: IRouterMatcher<this, "put">;
+    delete: IRouterMatcher<this, "delete">;
+    patch: IRouterMatcher<this, "patch">;
+    options: IRouterMatcher<this, "options">;
+    head: IRouterMatcher<this, "head">;
 
     checkout: IRouterMatcher<this>;
     connect: IRouterMatcher<this>;
@@ -291,7 +286,7 @@ export interface IRouter extends RequestHandler {
     mkactivity: IRouterMatcher<this>;
     mkcol: IRouterMatcher<this>;
     move: IRouterMatcher<this>;
-    'm-search': IRouterMatcher<this>;
+    "m-search": IRouterMatcher<this>;
     notify: IRouterMatcher<this>;
     propfind: IRouterMatcher<this>;
     proppatch: IRouterMatcher<this>;
@@ -334,7 +329,7 @@ export interface IRoute<Route extends string = string> {
     mkactivity: IRouterHandler<this, Route>;
     mkcol: IRouterHandler<this, Route>;
     move: IRouterHandler<this, Route>;
-    'm-search': IRouterHandler<this, Route>;
+    "m-search": IRouterHandler<this, Route>;
     notify: IRouterHandler<this, Route>;
     purge: IRouterHandler<this, Route>;
     report: IRouterHandler<this, Route>;
@@ -356,7 +351,7 @@ export interface CookieOptions {
     domain?: string | undefined;
     secure?: boolean | undefined;
     encode?: ((val: string) => string) | undefined;
-    sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+    sameSite?: boolean | "lax" | "strict" | "none" | undefined;
 }
 
 export interface ByteRange {
@@ -386,9 +381,8 @@ export interface Request<
     ResBody = any,
     ReqBody = any,
     ReqQuery = ParsedQs,
-    LocalsObj extends Record<string, any> = Record<string, any>
-> extends http.IncomingMessage,
-        Express.Request {
+    LocalsObj extends Record<string, any> = Record<string, any>,
+> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -408,10 +402,10 @@ export interface Request<
      *
      * Aliased as `req.header()`.
      */
-    get(name: 'set-cookie'): string[] | undefined;
+    get(name: "set-cookie"): string[] | undefined;
     get(name: string): string | undefined;
 
-    header(name: 'set-cookie'): string[] | undefined;
+    header(name: "set-cookie"): string[] | undefined;
     header(name: string): string | undefined;
 
     /**
@@ -503,7 +497,6 @@ export interface Request<
      *
      * NOTE: remember that ranges are inclusive, so for example "Range: users=0-3"
      * should respond with 4 users when available, not 3.
-     *
      */
     range(size: number, options?: RangeParserOptions): RangeParserRanges | RangeParserResult | undefined;
 
@@ -632,10 +625,10 @@ export interface Request<
      */
     xhr: boolean;
 
-    //body: { username: string; password: string; remember: boolean; title: string; };
+    // body: { username: string; password: string; remember: boolean; title: string; };
     body: ReqBody;
 
-    //cookies: { string; remember: boolean; };
+    // cookies: { string; remember: boolean; };
     cookies: any;
 
     method: string;
@@ -686,9 +679,8 @@ export interface DownloadOptions extends SendOptions {
 export interface Response<
     ResBody = any,
     LocalsObj extends Record<string, any> = Record<string, any>,
-    StatusCode extends number = number
-> extends http.ServerResponse,
-        Express.Response {
+    StatusCode extends number = number,
+> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
@@ -941,7 +933,7 @@ export interface Response<
     headersSent: boolean;
 
     /** Get value for header `field`. */
-    get(field: string): string|undefined;
+    get(field: string): string | undefined;
 
     /** Clear cookie `name`. */
     clearCookie(name: string, options?: CookieOptions): this;
@@ -1039,7 +1031,6 @@ export interface Response<
      * Examples:
      *
      *     res.vary('User-Agent').render('docs');
-     *
      */
     vary(field: string): this;
 
@@ -1067,12 +1058,13 @@ export interface Handler extends RequestHandler {}
 
 export type RequestParamHandler = (req: Request, res: Response, next: NextFunction, value: any, name: string) => any;
 
-export type ApplicationRequestHandler<T> = IRouterHandler<T> &
-    IRouterMatcher<T> &
-    ((...handlers: RequestHandlerParams[]) => T);
+export type ApplicationRequestHandler<T> =
+    & IRouterHandler<T>
+    & IRouterMatcher<T>
+    & ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application<
-    LocalsObj extends Record<string, any> = Record<string, any>
+    LocalsObj extends Record<string, any> = Record<string, any>,
 > extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
