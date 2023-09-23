@@ -1016,7 +1016,8 @@ declare class Events {
     hasEventListeners(type: string): boolean;
 }
 
-export class MixinType {
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+declare class MixinType {
     Events: Events;
 }
 
