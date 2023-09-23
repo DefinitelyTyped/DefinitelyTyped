@@ -144,3 +144,9 @@ player.off('ready');
 
 // remove(): void;
 player.remove();
+
+player.setCaption?.({
+    file: 'https://youtu.be/dQw4w9WgXcQ',
+    kind: 'caption',
+    label: 'label',
+});

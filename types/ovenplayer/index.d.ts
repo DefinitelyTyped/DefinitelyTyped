@@ -115,9 +115,10 @@ interface OvenPlayerInstance {
     setAutoQuality(auto: boolean): void;
     addCaption(track: OvenPlayerTrack): void;
     getCaptionList(): OvenPlayerTrack[];
-    getCurrentCaption(): number;
-    setCurrentCaption(index: number): void;
-    removeCaption(index: number): void;
+    getCurrentCaption(): string;
+    setCaption?(track: OvenPlayerTrack): void;
+    setCurrentCaption(index: string): void;
+    removeCaption(index: string): void;
     showControls(show: boolean): void;
     toggleFullScreen(): void;
     on(eventName: string, callback: OvenPlayerCallbackFunction): void;
@@ -149,9 +150,12 @@ type OvenPlayerBrowser = {
 };
 
 type OvenPlayerTrack = {
-    kind: string;
+    data?: string[];
     file: string;
+    id?: string;
+    kind: string;
     label: string;
+    name?: string;
 };
 
 export {
