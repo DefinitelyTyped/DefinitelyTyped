@@ -127,17 +127,17 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
-type OvenPlayerQuality = {
+interface OvenPlayerQuality {
     bitrate: string;
     height: number;
     index: string;
     label: string;
     width: number;
-};
+}
 
 type OvenPlayerCallbackFunction = (...args: any[]) => void;
 
-type OvenPlayerBrowser = {
+interface OvenPlayerBrowser {
     browser: string;
     browserMajorVersion: number;
     browserVersion: string;
@@ -147,16 +147,16 @@ type OvenPlayerBrowser = {
     osVersion: string;
     screen: string;
     ua: string;
-};
+}
 
-type OvenPlayerTrack = {
+interface OvenPlayerTrack {
     file: string;
     kind: string;
     label: string;
     data: string[];
     id: string;
     name: string;
-};
+}
 
 export {
     OvenPlayerQuality,
