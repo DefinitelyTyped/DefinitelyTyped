@@ -1,6 +1,7 @@
 // Type definitions for ovenplayer 0.10
 // Project: https://github.com/airensoft/OvenPlayer
 // Definitions by: Sangwon Oh <https://github.com/SangwonOh>
+//                 Dygy <https://github.com/dygy/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 interface OvenPlayer {
     debug(debug: boolean): boolean;
