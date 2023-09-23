@@ -171,9 +171,10 @@ export class LatLng {
 export interface LatLngLiteral {
     lat: number;
     lng: number;
+    alt?: number;
 }
 
-export type LatLngTuple = [number, number];
+export type LatLngTuple = [number, number, number?];
 
 export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
@@ -390,8 +391,7 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-// tslint:disable:strict-export-declare-modifiers
-declare class Events {
+export class Events {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
      * You can optionally specify the context of the listener (object the this
@@ -1015,8 +1015,7 @@ declare class Events {
     hasEventListeners(type: string): boolean;
 }
 
-// tslint:disable:strict-export-declare-modifiers
-declare class MixinType {
+export class MixinType {
     Events: Events;
 }
 
