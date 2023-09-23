@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-redundant-jsdoc-2": false,
-        "npm-naming": false,
-        "strict-export-declare-modifiers": false
+        "npm-naming": false
     }
 }

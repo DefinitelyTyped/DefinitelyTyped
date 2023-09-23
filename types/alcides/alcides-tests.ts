@@ -1,16 +1,16 @@
-suite('A', () => {
+suite("A", () => {
     setUp(() => {});
 
     tearDown(() => {});
 
-    test('Empty Test', () => {
+    test("Empty Test", () => {
         assert.isTrue(true);
     });
 });
 
-suite('B', () => {
+suite("B", () => {
     setUp(() => {
-        return { message: 'Hello, World!' };
+        return { message: "Hello, World!" };
     });
 
     tearDown((state: any) => {
@@ -18,24 +18,24 @@ suite('B', () => {
     });
 
     test("Test that msg equals 'Hello, World!`", ({ message }: any) => {
-        assert.deepEqual(message, 'Hello, World!');
+        assert.deepEqual(message, "Hello, World!");
     });
 });
 
-suite('C', () => {
+suite("C", () => {
     interface State {
         message?: string;
     }
 
     setUp((): State => {
-        return { message: 'QWERTY' };
+        return { message: "QWERTY" };
     });
 
     tearDown((state: State) => {
         delete state.message;
     });
 
-    test('Empty Test', ({ message }: State) => {
-        assert.deepEqual(message, 'QWERTY');
+    test("Empty Test", ({ message }: State) => {
+        assert.deepEqual(message, "QWERTY");
     });
 });

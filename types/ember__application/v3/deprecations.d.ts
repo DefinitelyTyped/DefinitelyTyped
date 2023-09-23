@@ -1,4 +1,4 @@
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface DeprecationOptions {
   id: string;
   until: string;

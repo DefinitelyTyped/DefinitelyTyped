@@ -9,7 +9,6 @@
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

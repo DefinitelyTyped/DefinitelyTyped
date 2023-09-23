@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { GraphQLFieldConfig, GraphQLResolveInfo } from 'graphql';
+import { GraphQLFieldConfig, GraphQLResolveInfo } from "graphql";
 
 export function fromGlobalId(opaqueID: string): string;
 

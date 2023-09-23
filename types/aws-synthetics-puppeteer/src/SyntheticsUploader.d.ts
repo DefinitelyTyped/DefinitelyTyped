@@ -1,5 +1,5 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsUploader' {
+declare module "SyntheticsUploader" {
     export = uploader;
     const uploader: SyntheticsUploader;
     /**
