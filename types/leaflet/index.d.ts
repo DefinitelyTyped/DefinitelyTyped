@@ -165,25 +165,26 @@ export class LatLng {
 
     lat: number;
     lng: number;
-    alt?: number | undefined;
+    alt?: number;
 }
 
 export interface LatLngLiteral {
     lat: number;
     lng: number;
+    alt?: number;
 }
 
-export type LatLngTuple = [number, number];
+export type LatLngTuple = [number, number] | [number, number, number];
 
 export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
 export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
 export function latLng(
-    coords: LatLngTuple | [number, number, number] | LatLngLiteral | {
+    coords: LatLngTuple | LatLngLiteral | {
         lat: number;
         lng: number;
-        alt?: number | undefined;
+        alt?: number;
     },
 ): LatLng;
 

@@ -4,14 +4,18 @@ import * as L from "leaflet";
 const version = L.version;
 
 const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
+const latLngAltLiteral: L.LatLngLiteral = { lat: 12, lng: 13, alt: 100 };
 const latLngTuple: L.LatLngTuple = [12, 13];
+const latLngAltTuple: L.LatLngTuple = [12, 13, 100];
 
 let latLng: L.LatLng;
 latLng = L.latLng(12, 13);
 latLng = L.latLng(12, 13, 0);
 latLng = L.latLng(latLngLiteral);
+latLng = L.latLng(latLngAltLiteral);
 latLng = L.latLng({ lat: 12, lng: 13, alt: 0 });
 latLng = L.latLng(latLngTuple);
+latLng = L.latLng(latLngAltTuple);
 latLng = L.latLng([12, 13, 0]);
 
 latLng = new L.LatLng(12, 13);
@@ -768,6 +772,13 @@ polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
 polyline.addLatLng([45.51, -122.68]);
 const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
+
+// mix in some altitudes
+const polylineLatLngsAlt: L.LatLngExpression[] = [[45.51, -122.68, 100], [37.77, -122.43], [34.04, -118.2, 200]];
+polyline = L.polyline(polylineLatLngsAlt);
+polyline = new L.Polyline(polylineLatLngsAlt);
+polyline.setLatLngs(polylineLatLngsAlt);
+polyline.addLatLng([45.51, -122.68]);
 
 // multi polyline
 const multiPolylineLatLngs: L.LatLngExpression[][] = [
