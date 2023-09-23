@@ -11,10 +11,8 @@
 // the Ember namespace.
 import Rsvp from "rsvp";
 
-import { TemplateFactory } from "htmlbars-inline-precompile";
 
 import { Registry as ControllerRegistry } from "@ember/controller";
-import { Registry as ServiceRegistry } from "@ember/service";
 import * as EmberStringNs from "@ember/string";
 import * as EmberTemplateNs from "@ember/template";
 import * as EmberTemplateHandlebarsNs from "@ember/template/-private/handlebars";
@@ -24,7 +22,6 @@ import * as EmberObjectComputedNs from "@ember/object/computed";
 import * as EmberObjectEventedNs from "@ember/object/evented";
 import * as EmberObjectEventsNs from "@ember/object/events";
 import * as EmberObjectInternalsNs from "@ember/object/internals";
-import * as EmberObjectMixinNs from "@ember/object/mixin";
 import * as EmberObjectObserversNs from "@ember/object/observers";
 import * as EmberObjectPromiseProxyNs from "@ember/object/promise-proxy-mixin";
 import * as EmberObjectProxyNs from "@ember/object/proxy";
@@ -66,14 +63,11 @@ import EmberComponent from "@ember/component";
 import EmberHelper from "@ember/component/helper";
 import EmberActionHandler from "@ember/object/-private/action-handler";
 // @ember/routing
-import EmberRoutingAutoLocation from "@ember/routing/auto-location";
 import EmberRoutingHashLocation from "@ember/routing/hash-location";
 import EmberRoutingHistoryLocation from "@ember/routing/history-location";
 import EmberRoutingNoneLocation from "@ember/routing/none-location";
 import EmberRoutingRoute from "@ember/routing/route";
 import EmberRoutingRouter from "@ember/routing/router";
-import EmberRoutingRouterService from "@ember/routing/router-service";
-import EmberRoutingTransition from "@ember/routing/transition";
 // @ember/application
 import EmberEventDispatcher from "@ember/application/-private/event-dispatcher";
 import EmberRegistry from "@ember/application/-private/registry";
