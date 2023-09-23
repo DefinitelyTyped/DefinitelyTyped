@@ -136,7 +136,7 @@ declare module 'http' {
         'content-disposition'?: string | undefined;
         'content-encoding'?: string | undefined;
         'content-language'?: string | undefined;
-        'content-length'?: string | undefined;
+        'content-length'?: string | number | undefined;
         'content-location'?: string | undefined;
         'content-range'?: string | undefined;
         'content-security-policy'?: string | undefined;

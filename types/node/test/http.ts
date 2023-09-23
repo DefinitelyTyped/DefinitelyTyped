@@ -424,6 +424,8 @@ import * as dns from 'node:dns';
     headers["access-control-allow-methods"] = "PUT";
     headers.origin = "https://example.com";
     headers["foo"] = "bar"; // custom header
+
+    headers['content-length'] = 100;
 }
 
 // statics
