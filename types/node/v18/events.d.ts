@@ -428,20 +428,21 @@ declare module "events" {
 
         export interface EventEmitterAsyncResourceOptions extends AsyncResourceOptions, EventEmitterOptions {
             /**
-             * The type of async event.
+             * The type of async event, this is required when instantiating `EventEmitterAsyncResource`
+             * directly rather than as a child class.
              * @default new.target.name
-             * @throws is required if `new.target === EventEmitterAsyncResource`
              */
             name?: string;
         }
 
         /**
-         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitters` that require
+         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that require
          * manual async tracking. Specifically, all events emitted by instances of
          * `EventEmitterAsyncResource` will run within its async context.
          *
          * The EventEmitterAsyncResource class has the same methods and takes the
          * same options as EventEmitter and AsyncResource themselves.
+         * @throws if `options.name` is not provided when instantiated directly.
          * @since v17.4.0, v16.14.0
          */
         export class EventEmitterAsyncResource extends EventEmitter {
