@@ -126,3 +126,4 @@ check.assert.containsKey(new Map(), { k: 'l' });
 
 check.assert.in('value', ['value']);
 check.assert.in('value', { key: 'value' });
+check.assert.in('string', 'string');
