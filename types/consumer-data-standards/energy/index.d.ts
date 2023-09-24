@@ -5111,7 +5111,7 @@ export interface EnergyBillingDemandTransactionV2 {
         | "SOLAR"
         | "AGGREGATE"
         | "ALL_DAY"
-        | "EXCESS"
+        | "EXCESS";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -8411,8 +8411,8 @@ export interface RequestAccountIdList {
     };
     [k: string]: unknown;
 }
+
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-  
 export interface RequestServicePointIdList {
     data: {
       /**
@@ -8426,5 +8426,3 @@ export interface RequestServicePointIdList {
     };
     [k: string]: unknown;
 }
-/* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
-  

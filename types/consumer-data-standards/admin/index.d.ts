@@ -227,7 +227,6 @@ export interface AverageTPSMetricsV2 {
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-  
 
 /**
  * Authorisation counts for the data holder
@@ -537,8 +536,6 @@ export interface AuthorisationMetricsV2 {
     };
     [k: string]: unknown;
   }
-  /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-  
 
 /**
  * Number of calls resulting in error due to server execution over time
@@ -573,7 +570,18 @@ export interface ErrorMetricsV2 {
        */
       previousDays?: number[] | null;
       [k: string]: unknown;
-    };
+    } | null;
+    aggregate1?: {
+      /**
+       * Error counts for current day
+       */
+      500?: number | null;
+      /**
+       * Error counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
+       */
+      previousDays?: number[] | null;
+      [k: string]: unknown;
+    } | null;
     /**
      * Number of calls resulting in error due to server execution over time for authenticated endpoints
      */
@@ -589,7 +597,6 @@ export interface ErrorMetricsV2 {
         /**
          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
          */
-        [k: string]: number;
       } | null;
       /**
        * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
@@ -644,9 +651,6 @@ export interface ErrorMetricsV2 {
     };
     [k: string]: unknown;
   }
-  /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-  
-
 /**
  * Number of API calls in each performance tier over time
  */
@@ -858,7 +862,6 @@ export interface InvocationMetricsV3 {
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
 
 export interface Links {
     /**
@@ -2836,4 +2839,3 @@ export interface SessionCountMetricsV2 {
   previousDays?: number[] | null;
   [k: string]: unknown;
 }
-

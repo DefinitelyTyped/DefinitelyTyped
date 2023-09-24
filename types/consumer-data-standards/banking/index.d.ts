@@ -3246,7 +3246,7 @@ export interface BankingScheduledPaymentV2 {
                  */
                 type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
                 [k: string]: unknown;
-            },            
+            },
             domestic?: {
                 account?: {
                     /**
@@ -3370,7 +3370,7 @@ export interface BankingScheduledPaymentV2 {
             /**
              * The type of object provided that specifies the destination of the funds for the payment.
              */
-            toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";;
+            toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
             [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -3910,7 +3910,7 @@ export interface BankingScheduledPaymentSetV2 {
              */
             type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
             [k: string]: unknown;
-        },        
+        },
         domestic?: {
             account?: {
                 /**
@@ -4034,7 +4034,7 @@ export interface BankingScheduledPaymentSetV2 {
         /**
          * The type of object provided that specifies the destination of the funds for the payment.
          */
-        toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";;
+        toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
         [k: string]: unknown;
     };
     [k: string]: unknown;
@@ -4233,7 +4233,7 @@ export interface BankingScheduledPaymentToV2 {
          */
         type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
         [k: string]: unknown;
-    },
+    };
     domestic?: {
         account?: {
             /**
@@ -7337,8 +7337,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
                          */
                         type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
                         [k: string]: unknown;
-                    },
-                
+                    };
                     domestic?: {
                         account?: {
                             /**
