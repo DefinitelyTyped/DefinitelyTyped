@@ -171,9 +171,10 @@ export class LatLng {
 export interface LatLngLiteral {
     lat: number;
     lng: number;
+    alt?: number;
 }
 
-export type LatLngTuple = [number, number];
+export type LatLngTuple = [number, number, number?];
 
 export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
