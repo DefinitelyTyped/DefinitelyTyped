@@ -37,7 +37,6 @@ let parsedTestObject: ParsedTestObject;
 
 let num: number;
 let str: string;
-let strMaybe: string | undefined;
 
 let columns: string[];
 let headers: Headers[];
@@ -48,40 +47,40 @@ let parsedHeaders: ParsedHeaders[];
 // ------------------------------------------------------------------------------------------
 
 declare let row: d3Dsv.DSVRowString;
-strMaybe = row.property;
+str = row.property;
 
 declare let row2: d3Dsv.DSVRowString<Headers>;
-strMaybe = row2.Make;
+str = row2.Make;
 // @ts-expect-error
-strMaybe = row2.Property;
+str = row2.Property;
 
 declare let raw: d3Dsv.DSVRaw<ParsedTestObject>;
-strMaybe = raw.make;
+str = raw.make;
 // @ts-expect-error
-strMaybe = raw.property;
+str = raw.property;
 
 declare let rowArray: d3Dsv.DSVRowArray;
-strMaybe = rowArray[0].property;
+str = rowArray[0].property;
 columns = rowArray.columns;
 num = rowArray.length;
 
 declare let rowArrayHeader: d3Dsv.DSVRowArray<Headers>;
-strMaybe = rowArrayHeader[0].Make;
+str = rowArrayHeader[0].Make;
 // @ts-expect-error
-strMaybe = rowArrayHeader[0].Property;
+str = rowArrayHeader[0].Property;
 headers = rowArrayHeader.columns;
 num = rowArrayHeader.length;
 
 declare let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
-strMaybe = parseMappedArray[0].make;
+str = parseMappedArray[0].make;
 // @ts-expect-error
-strMaybe = parseMappedArray[0].property;
+str = parseMappedArray[0].property;
 parsedTestObject = parseMappedArray[0];
 parsedHeaders = parseMappedArray.columns;
 num = parseMappedArray.length;
 
 declare let parseArray: d3Dsv.DSVParsedArray<d3Dsv.DSVRowString>;
-strMaybe = parseArray[0].property;
+str = parseArray[0].property;
 columns = parseArray.columns;
 num = parseArray.length;
 
@@ -130,7 +129,7 @@ parseMappedArray = d3Dsv.csvParse<ParsedTestObject, Headers>(csvTestStringWithHe
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = d3Dsv.csvParseRows(csvTestString);
-strMaybe = parseRowsArray[0][0]; // 'Year' of first row
+str = parseRowsArray[0][0]; // 'Year' of first row
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -235,7 +234,7 @@ parseMappedArray = d3Dsv.tsvParse<ParsedTestObject, Headers>(tsvTestStringWithHe
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = d3Dsv.tsvParseRows(tsvTestString);
-strMaybe = parseRowsArray[0][0]; // 'Year' of first row
+str = parseRowsArray[0][0]; // 'Year' of first row
 
 // with row mapper ---------------------------------------------------------------------------
 
@@ -341,7 +340,7 @@ parseMappedArray = dsv.parse<ParsedTestObject, Headers>(pipedTestStringWithHeade
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = dsv.parseRows(pipedTestString);
-strMaybe = parseRowsArray[0][0]; // 'Year' of first row
+str = parseRowsArray[0][0]; // 'Year' of first row
 
 // with row mapper ---------------------------------------------------------------------------
 
