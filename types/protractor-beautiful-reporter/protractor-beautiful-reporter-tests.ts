@@ -1,49 +1,49 @@
-import HtmlReporter = require('protractor-beautiful-reporter');
-import { Capabilities } from 'selenium-webdriver';
+import HtmlReporter = require("protractor-beautiful-reporter");
+import { Capabilities } from "selenium-webdriver";
 
 // https://github.com/Evilweed/protractor-beautiful-reporter/blob/master/README.md
 
 // Jasmine 2.x
 jasmine.getEnv().addReporter(
     new HtmlReporter({
-        baseDirectory: 'tmp/screenshots',
+        baseDirectory: "tmp/screenshots",
     }).getJasmine2Reporter(),
 );
 
 // Base Directory (mandatory)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
 });
 
 // Path Builder (optional)
 const path = {
-    join: (...paths: readonly string[]) => paths.join('/'),
+    join: (...paths: readonly string[]) => paths.join("/"),
 };
 
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     pathBuilder(spec, descriptions, results, capabilities) {
         // Return '<browser>/<specname>' as path for screenshots:
         // Example: 'firefox/list-should work'.
-        return path.join('firefox' /*capabilities.caps_.browser*/, descriptions.join('-'));
+        return path.join("firefox", /*capabilities.caps_.browser*/ descriptions.join("-"));
     },
 });
 
 // Jasmine2 Meta Data Builder (optional)
-const originalJasmine2MetaDataBuilder = new HtmlReporter({ baseDirectory: './' })['jasmine2MetaDataBuilder'];
+const originalJasmine2MetaDataBuilder = new HtmlReporter({ baseDirectory: "./" })["jasmine2MetaDataBuilder"];
 jasmine.getEnv().addReporter(
     new HtmlReporter({
-        baseDirectory: 'tmp/screenshots',
+        baseDirectory: "tmp/screenshots",
         jasmine2MetaDataBuilder(spec, descriptions, results, capabilities) {
             // filter for pendings with pending() function and "unfail" them
             if (
-                results &&
-                results.failedExpectations &&
-                results.failedExpectations.length > 0 &&
-                'Failed: => marked Pending' === results.failedExpectations[0].message
+                results
+                && results.failedExpectations
+                && results.failedExpectations.length > 0
+                && "Failed: => marked Pending" === results.failedExpectations[0].message
             ) {
-                results.pendingReason = 'Marked Pending with pending()';
-                results.status = 'pending';
+                results.pendingReason = "Marked Pending with pending()";
+                results.status = "pending";
                 results.failedExpectations = [];
             }
             // call the original method after my own mods
@@ -55,14 +55,14 @@ jasmine.getEnv().addReporter(
 
 // Screenshots Subfolder (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
-    screenshotsSubfolder: 'images',
+    baseDirectory: "tmp/screenshots",
+    screenshotsSubfolder: "images",
 });
 
 // JSONs Subfolder (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
-    jsonsSubfolder: 'jsons',
+    baseDirectory: "tmp/screenshots",
+    jsonsSubfolder: "jsons",
 });
 
 // Sort function (optional)
@@ -72,17 +72,17 @@ interface SortableMetaData extends HtmlReporter.MetaData {
 }
 
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     sortFunction(a: SortableMetaData, b: SortableMetaData) {
         if (a.cachedBase === undefined) {
-            const aTemp = a.description.split('|').reverse();
+            const aTemp = a.description.split("|").reverse();
             a.cachedBase = aTemp.slice(0).slice(0, -1);
-            a.cachedName = aTemp.slice(0).join('');
+            a.cachedName = aTemp.slice(0).join("");
         }
         if (b.cachedBase === undefined) {
-            const bTemp = b.description.split('|').reverse();
+            const bTemp = b.description.split("|").reverse();
             b.cachedBase = bTemp.slice(0).slice(0, -1);
-            b.cachedName = bTemp.slice(0).join('');
+            b.cachedName = bTemp.slice(0).join("");
         }
 
         const firstBase = a.cachedBase;
@@ -110,7 +110,7 @@ new HtmlReporter({
 });
 
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     sortFunction(a, b) {
         if (a.instanceId < b.instanceId) return -1;
         else if (a.instanceId > b.instanceId) return 1;
@@ -130,43 +130,43 @@ new HtmlReporter({
 
 // Screenshots for skipped test cases (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     takeScreenShotsForSkippedSpecs: true,
 });
 
 // Screenshots only for failed test cases (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     takeScreenShotsOnlyForFailedSpecs: true,
 });
 
 // Disable all screenshots
 new HtmlReporter({
-    baseDirectory: 'tmp/reports',
+    baseDirectory: "tmp/reports",
     disableScreenshots: true,
 });
 
 // Add title for the html report (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
-    docTitle: 'my reporter',
+    baseDirectory: "tmp/screenshots",
+    docTitle: "my reporter",
 });
 
 // Change html report file name (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
-    docName: 'index.html',
+    baseDirectory: "tmp/screenshots",
+    docName: "index.html",
 });
 
 // Option to override CSS file used in reporter (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
-    cssOverrideFile: 'css/style.css',
+    baseDirectory: "tmp/screenshots",
+    cssOverrideFile: "css/style.css",
 });
 
 // Add custom css inline
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     customCssInline: `
 .mediumColumn:not([ng-class]) {
     white-space: pre-wrap;
@@ -176,19 +176,19 @@ new HtmlReporter({
 
 // Preserve base directory (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     preserveDirectory: false,
 });
 
 // Store Browser logs (optional)
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     gatherBrowserLogs: false,
 });
 
 // Customize default search settings
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     clientDefaults: {
         searchSettings: {
             allselected: false,
@@ -202,7 +202,7 @@ new HtmlReporter({
 
 // Customize default column settings
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     clientDefaults: {
         columnSettings: {
             displayTime: true,
@@ -216,7 +216,7 @@ new HtmlReporter({
 
 // time values for coloring the time column.
 new HtmlReporter({
-    baseDirectory: 'tmp/screenshots',
+    baseDirectory: "tmp/screenshots",
     clientDefaults: {
         columnSettings: {
             warningTime: 1000,
@@ -227,16 +227,16 @@ new HtmlReporter({
 
 // Show total duration of test execution
 new HtmlReporter({
-    baseDirectory: 'reports',
+    baseDirectory: "reports",
     clientDefaults: {
-        showTotalDurationIn: 'header',
-        totalDurationFormat: 'hms',
+        showTotalDurationIn: "header",
+        totalDurationFormat: "hms",
     },
 });
 
 // Load spec results via ajax
 new HtmlReporter({
-    baseDirectory: 'reports',
+    baseDirectory: "reports",
     clientDefaults: {
         useAjax: true,
     },
@@ -249,9 +249,9 @@ jasmine.getEnv().addReporter(
     new HtmlReporter({
         preserveDirectory: true,
         takeScreenShotsOnlyForFailedSpecs: true,
-        screenshotsSubfolder: 'images',
-        jsonsSubfolder: 'jsons',
-        baseDirectory: 'reports-tmp',
+        screenshotsSubfolder: "images",
+        jsonsSubfolder: "jsons",
+        baseDirectory: "reports-tmp",
         pathBuilder(spec, descriptions, results, capabilities) {
             // Return '<30-12-2016>/<browser>/<specname>' as path for screenshots:
             // Example: '30-12-2016/firefox/list-should work'.
@@ -261,13 +261,13 @@ jasmine.getEnv().addReporter(
             const year = currentDate.getFullYear();
 
             const validDescriptions = descriptions.map(description => {
-                return description.replace('/', '@');
+                return description.replace("/", "@");
             });
 
             return path.join(
                 `${day}-${month}-${year}`,
                 // capabilities.get('browserName'),
-                validDescriptions.join('-'),
+                validDescriptions.join("-"),
             );
         },
         sortFunction(a, b) {
@@ -284,18 +284,18 @@ jasmine.getEnv().addReporter(
 
 // https://github.com/Evilweed/protractor-beautiful-reporter/blob/master/app/reporter.js
 function app_reporter_js() {
-    const screenshotReporter: HtmlReporter.HtmlReporterConstructorOptions = { baseDirectory: 'tmp/screenshots' };
-    const descriptions = ['description'];
+    const screenshotReporter: HtmlReporter.HtmlReporterConstructorOptions = { baseDirectory: "tmp/screenshots" };
+    const descriptions = ["description"];
     const result: jasmine.SpecResult = {
         passedExpectations: [],
-        pendingReason: 'text',
+        pendingReason: "text",
         debugLogs: [],
-        id: 'text',
-        description: 'text',
-        fullName: 'text',
+        id: "text",
+        description: "text",
+        fullName: "text",
         failedExpectations: [],
         deprecationWarnings: [],
-        status: 'text',
+        status: "text",
         duration: 0,
         properties: {},
     };

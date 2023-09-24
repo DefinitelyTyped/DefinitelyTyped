@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Persona {
-
     export interface WatchOptions {
         loggedInUser: string;
         onlogin: (s: string) => void;
@@ -38,10 +37,8 @@ declare namespace Persona {
         get(gotAssertion: (s: string) => void): void;
         get(gotAssertion: (s: string) => void, options: GetOptions): void;
     }
-
 }
 
 interface Navigator {
     id: Persona.Persona;
 }
-

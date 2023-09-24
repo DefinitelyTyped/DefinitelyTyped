@@ -5,8 +5,8 @@
 
 /// <reference types="passport"/>
 
-import express = require('express');
-import { Strategy as PassportStrategy } from 'passport-strategy';
+import express = require("express");
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 interface StrategyOptions {
     tokenFields?: string[] | undefined;

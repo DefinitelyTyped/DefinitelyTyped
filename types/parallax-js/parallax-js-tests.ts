@@ -1,5 +1,5 @@
-import Parallax = require('parallax-js');
-import { ParallaxOptions } from 'parallax-js';
+import Parallax = require("parallax-js");
+import { ParallaxOptions } from "parallax-js";
 
 // --- test parallax constructor ---
 // @ts-expect-error
@@ -8,7 +8,7 @@ new Parallax(); // first argument is required
 // @ts-expect-error
 new Parallax(null); // first argument may not be null
 
-const scene: HTMLElement = document.createElement('div');
+const scene: HTMLElement = document.createElement("div");
 new Parallax(scene); // the options object is optional
 new Parallax(scene, {}); // all options are optional
 
@@ -57,7 +57,7 @@ const parallax = new Parallax(scene, {
     originX: 0.0,
     originY: 0.0,
     precision: 10,
-    selector: '.my-layer',
+    selector: ".my-layer",
     pointerEvents: true,
     onReady: () => console.log("I'm SO ready to do some parallaxing!"),
 });
@@ -72,9 +72,9 @@ parallax.setInputElement(scene);
 // input element. They are only allowed for setting the input element through
 // the `data-input-element` attribute.
 // @ts-expect-error
-parallax.setInputElement('#scene');
+parallax.setInputElement("#scene");
 // @ts-expect-error
-const invalidInputElementOpt: ParallaxOptions = { inputElement: '#scene' };
+const invalidInputElementOpt: ParallaxOptions = { inputElement: "#scene" };
 
 // limitX allows false (but not true!) and integers
 const limitXOpts: ParallaxOptions[] = [{ limitX: false }, { limitX: 100 }];
@@ -95,10 +95,10 @@ const invalidLimitYOpt: ParallaxOptions = { limitY: true };
 parallax.limit(0, true);
 
 // selector allows null or string
-const selectorOpts: ParallaxOptions[] = [{ selector: null }, { selector: '.layer' }];
+const selectorOpts: ParallaxOptions[] = [{ selector: null }, { selector: ".layer" }];
 
 // onReady allows null or callback function
-const onReadyOptions: ParallaxOptions[] = [{ onReady: null }, { onReady: () => console.log('Parallax is ready!') }];
+const onReadyOptions: ParallaxOptions[] = [{ onReady: null }, { onReady: () => console.log("Parallax is ready!") }];
 
 // --- test parallax object non-setter methods ---
 parallax.disable();

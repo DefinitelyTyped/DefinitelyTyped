@@ -25,7 +25,7 @@ declare namespace psi {
          * Strategy to use when analyzing the page.
          * @default 'mobile'
          */
-        strategy?: 'mobile' | 'desktop' | undefined;
+        strategy?: "mobile" | "desktop" | undefined;
         /**
          * Locale results should be generated in.
          * @default 'en_US'

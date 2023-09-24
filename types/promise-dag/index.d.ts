@@ -5,7 +5,10 @@
 
 export type Step = string | ((...args: any[]) => PromiseLike<any>);
 
-export type Run<P extends PromiseLike<any>> = (steps: { [name: string]: Step[]; }, required?: string[]) => { [name: string]: P; };
+export type Run<P extends PromiseLike<any>> = (
+    steps: { [name: string]: Step[] },
+    required?: string[],
+) => { [name: string]: P };
 
 export interface PromiseImplementation<P extends PromiseLike<any>> {
     resolve(value: any): P;

@@ -12,10 +12,14 @@ declare namespace ParseMockDB {
     function promiseResultSync<T>(promise: Parse.IPromise<T>): T;
 
     type HookType = "beforeSave" | "beforeDelete";
-    function registerHook(className: string, hookType: HookType, hookFn: (request: Parse.Cloud.BeforeSaveRequest) => Parse.IPromise<any>): void;
+    function registerHook(
+        className: string,
+        hookType: HookType,
+        hookFn: (request: Parse.Cloud.BeforeSaveRequest) => Parse.IPromise<any>,
+    ): void;
 }
 
 declare module "parse-mockdb" {
-    import * as Parse from 'parse'
+    import * as Parse from "parse";
     export = ParseMockDB;
 }

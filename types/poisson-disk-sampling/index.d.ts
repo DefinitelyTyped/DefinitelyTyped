@@ -4,8 +4,8 @@
 //                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import FixedDensityPDS = require('./src/implementations/fixed-density');
-import VariableDensityPDS = require('./src/implementations/variable-density');
+import FixedDensityPDS = require("./src/implementations/fixed-density");
+import VariableDensityPDS = require("./src/implementations/variable-density");
 
 type Point = number[];
 

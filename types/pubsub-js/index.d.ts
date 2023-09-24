@@ -7,12 +7,14 @@
 
 declare namespace PubSubJS {
     interface Base<T = any, M = Message>
-        extends CountSubscriptions,
+        extends
+            CountSubscriptions,
             ClearAllSubscriptions,
             GetSubscriptions,
             Publish<T, M>,
             Subscribe<T, M>,
-            Unsubscribe<T> {
+            Unsubscribe<T>
+    {
         name: string;
         version: string;
     }
@@ -54,6 +56,6 @@ declare namespace PubSubJS {
 
 declare var PubSub: PubSubJS.Base;
 
-declare module 'pubsub-js' {
+declare module "pubsub-js" {
     export = PubSub;
 }

@@ -3,6 +3,6 @@
 // Definitions by: Florian Dreier <https://github.com/DreierF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Plotly from 'plotly.js';
+import * as Plotly from "plotly.js";
 
 export = Plotly;

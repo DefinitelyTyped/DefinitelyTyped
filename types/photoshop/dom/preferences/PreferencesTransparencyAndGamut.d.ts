@@ -1,5 +1,5 @@
-import { PreferencesBase } from "./PreferencesBase";
 import * as Constants from "../Constants";
+import { PreferencesBase } from "./PreferencesBase";
 /**
  * Preferences how transparency will be shown and what color to use for out of gamut warning
  *

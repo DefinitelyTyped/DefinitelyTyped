@@ -9,7 +9,7 @@ declare namespace photonui {
         function escapeHtml(string: string): void;
         function uuid4(): string;
         function cleanNode(node: HTMLElement): void;
-        function getAbsolutePosition(element: HTMLElement|string): { x: number; y: number };
+        function getAbsolutePosition(element: HTMLElement | string): { x: number; y: number };
         function numberToCssSize(value: number, defaultValue?: number, nullValue?: string): string;
     }
 
@@ -21,7 +21,7 @@ declare namespace photonui {
     }
 
     class Widget extends Base {
-        absolutePosition: { x: number; y: number; }; // readonly
+        absolutePosition: { x: number; y: number }; // readonly
         contextMenu: PopupWindow;
         contextMenuName: string;
         html: HTMLElement; // readonly
@@ -41,14 +41,14 @@ declare namespace photonui {
         removeClass(className: string): void;
 
         static getWidget(name: string): Widget;
-        static domInsert(widget: Widget, element?: HTMLElement|string): void;
+        static domInsert(widget: Widget, element?: HTMLElement | string): void;
     }
 
     // Methods
-    function domInsert(widget: Widget, element?: HTMLElement|string): void;
+    function domInsert(widget: Widget, element?: HTMLElement | string): void;
     function getWidget(name: string): Widget;
 
-    //Widgets
+    // Widgets
     class FileManager extends Base {
         acceptedExts: string[];
         acceptedMimes: string[];
@@ -76,7 +76,7 @@ declare namespace photonui {
 
     class MouseManager extends Base {
         constructor(params?: { [key: string]: any });
-        constructor(element?: Widget|HTMLElement, params?: { [key: string]: any });
+        constructor(element?: Widget | HTMLElement, params?: { [key: string]: any });
 
         element: HTMLElement;
         threshold: number;
@@ -132,7 +132,7 @@ declare namespace photonui {
 
         addIcon(iconName: string, x: number, y: number): void;
         removeIcon(iconName: string): void;
-        getIconPosition(iconName: string): { x: number; y: number; };
+        getIconPosition(iconName: string): { x: number; y: number };
         getIconCSS(iconName: string): string;
 
         static getSpriteSheet(name: string): SpriteSheet;
@@ -157,7 +157,7 @@ declare namespace photonui {
         constructor(params?: { [key: string]: any });
         constructor(name: string, params?: { [key: string]: any });
 
-        forInput: Field|CheckBox;
+        forInput: Field | CheckBox;
         forInputName: string;
         text: string;
         textAlign: string;

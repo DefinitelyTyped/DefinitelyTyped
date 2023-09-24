@@ -19,7 +19,7 @@ export interface Paddle {
 
     Environment: {
         /** Set to use the sandbox environment; remove when you're ready to go live. */
-        set(env: 'sandbox'): void;
+        set(env: "sandbox"): void;
     };
 
     Audience: {
@@ -45,56 +45,66 @@ export interface Paddle {
         }): void;
 
         /** Add someone to your marketing list */
-        subscribe(email: string, marketingConsent: boolean, callback: (response: {
-            success: true;
-            email: string;
-            user_id: number;
-        } | {
-            success: false;
-            error: string;
-        }) => void): void;
+        subscribe(
+            email: string,
+            marketingConsent: boolean,
+            callback: (
+                response: {
+                    success: true;
+                    email: string;
+                    user_id: number;
+                } | {
+                    success: false;
+                    error: string;
+                },
+            ) => void,
+        ): void;
     };
 
     Checkout: {
         /** The main Paddle function to open the checkout. */
-        open(options: ({
-            product: number | string;
-            override?: string;
-        } | {
-            product?: number | string;
-            override: string;
-        }) & {
-            frameTarget?: string;
-            frameStyle?: string;
-            frameInitialHeight?: number;
-            title?: string;
-            message?: string;
-            coupon?: string;
-            email?: string;
-            marketingConsent?: '0' | '1';
-            country?: string;
-            postcode?: string;
-            allowQuantity?: boolean | 'true' | 'false';
-            quantity?: number | string;
-            disableLogout?: boolean | 'true' | 'false';
-            hideTaxLink?: boolean | 'true' | 'false';
-            customData?: Paddle.Json;
-            locale?: string;
-            passthrough?: string;
-            referring_domain?: string;
-            success?: string;
-            successCallback?: (data: any) => void | string;
-            closeCallback?: (data: any) => void | string;
-            loadCallback?: (data: any) => void | string;
-            upsell?: number | string;
-            upsellTitle?: string;
-            upsellText?: string;
-            upsellAction?: string;
-            upsellCoupon?: string;
-            upsellPassthrough?: string;
-            displayModeTheme?: 'light' | 'dark';
-            method?: 'inline' | 'overlay' | 'sdk';
-        }): void;
+        open(
+            options:
+                & ({
+                    product: number | string;
+                    override?: string;
+                } | {
+                    product?: number | string;
+                    override: string;
+                })
+                & {
+                    frameTarget?: string;
+                    frameStyle?: string;
+                    frameInitialHeight?: number;
+                    title?: string;
+                    message?: string;
+                    coupon?: string;
+                    email?: string;
+                    marketingConsent?: "0" | "1";
+                    country?: string;
+                    postcode?: string;
+                    allowQuantity?: boolean | "true" | "false";
+                    quantity?: number | string;
+                    disableLogout?: boolean | "true" | "false";
+                    hideTaxLink?: boolean | "true" | "false";
+                    customData?: Paddle.Json;
+                    locale?: string;
+                    passthrough?: string;
+                    referring_domain?: string;
+                    success?: string;
+                    successCallback?: (data: any) => void | string;
+                    closeCallback?: (data: any) => void | string;
+                    loadCallback?: (data: any) => void | string;
+                    upsell?: number | string;
+                    upsellTitle?: string;
+                    upsellText?: string;
+                    upsellAction?: string;
+                    upsellCoupon?: string;
+                    upsellPassthrough?: string;
+                    displayModeTheme?: "light" | "dark";
+                    method?: "inline" | "overlay" | "sdk";
+                },
+        ): void;
     };
 
     Download: {
@@ -115,9 +125,18 @@ export interface Paddle {
 
     Product: {
         /** Returns a specific localized pricing data for product_id. amountType can be gross, tax, net, or tax_included amount */
-        Price(amountType: 'gross' | 'tax' | 'net' | 'tax_included', product_id: number | string, quantity: number, callback: (data: any) => void): void;
+        Price(
+            amountType: "gross" | "tax" | "net" | "tax_included",
+            product_id: number | string,
+            quantity: number,
+            callback: (data: any) => void,
+        ): void;
         /** Returns object of localized pricing data for product_id */
-        Prices(product_id: number | string, quantity: number, callback: (price: Paddle.ProductPriceResponse) => void): void;
+        Prices(
+            product_id: number | string,
+            quantity: number,
+            callback: (price: Paddle.ProductPriceResponse) => void,
+        ): void;
     };
 
     Spinner: {
@@ -135,17 +154,21 @@ export interface Paddle {
 
     User: {
         /** Returns a specific localized pricing data for product_id. amountType can be gross, tax, net, or tax_included amount */
-        History(email: string, product_id: number | string | null, callback: (response: {
-            success: boolean;
-            message: string;
-            callback: string;
-        }) => void): void;
+        History(
+            email: string,
+            product_id: number | string | null,
+            callback: (response: {
+                success: boolean;
+                message: string;
+                callback: string;
+            }) => void,
+        ): void;
     };
 }
 
 export namespace Paddle {
     interface CheckoutOrder {
-        state: 'incomplete' | 'processing' | 'processed';
+        state: "incomplete" | "processing" | "processed";
         checkout: Checkout;
         custom_data: Json;
         order: Order;
@@ -217,8 +240,8 @@ export namespace Paddle {
             subscription: {
                 trial_days: number;
                 length: number;
-                type: 'day' | 'week' | 'month' | 'year';
-            }
+                type: "day" | "week" | "month" | "year";
+            };
         };
     }
 

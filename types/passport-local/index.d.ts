@@ -6,8 +6,8 @@
 
 /// <reference types="passport"/>
 
-import { Strategy as PassportStrategy } from 'passport-strategy';
-import express = require('express');
+import { Strategy as PassportStrategy } from "passport-strategy";
+import express = require("express");
 
 interface IStrategyOptions {
     usernameField?: string | undefined;

@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import MagnetUri = require('magnet-uri');
-import * as ParseTorrentFile from 'parse-torrent-file';
+import MagnetUri = require("magnet-uri");
+import * as ParseTorrentFile from "parse-torrent-file";
 
 declare const ParseTorrent: ParseTorrent.ParseTorrent;
 
@@ -19,7 +19,10 @@ declare namespace ParseTorrent {
         toMagnetURI: typeof MagnetUri.encode;
         toTorrentFile: typeof ParseTorrentFile.encode;
 
-        remote(torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob, cb?: (err: Error, torrent?: Instance) => void): void;
+        remote(
+            torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob,
+            cb?: (err: Error, torrent?: Instance) => void,
+        ): void;
     }
 
     interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {

@@ -27,13 +27,13 @@ export interface ParseError {
     input: string;
     error: {
         code:
-            | 'DOMAIN_TOO_SHORT'
-            | 'DOMAIN_TOO_LONG'
-            | 'LABEL_STARTS_WITH_DASH'
-            | 'LABEL_ENDS_WITH_DASH'
-            | 'LABEL_TOO_LONG'
-            | 'LABEL_TOO_SHORT'
-            | 'LABEL_INVALID_CHARS';
+            | "DOMAIN_TOO_SHORT"
+            | "DOMAIN_TOO_LONG"
+            | "LABEL_STARTS_WITH_DASH"
+            | "LABEL_ENDS_WITH_DASH"
+            | "LABEL_TOO_LONG"
+            | "LABEL_TOO_SHORT"
+            | "LABEL_INVALID_CHARS";
         message: string;
     };
 }

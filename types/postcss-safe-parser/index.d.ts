@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { Parser, Root } from 'postcss';
+import { Parser, Root } from "postcss";
 
 /**
  * A fault-tolerant CSS parser for PostCSS, which will find & fix syntax errors, capable of parsing any input.

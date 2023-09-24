@@ -71,7 +71,7 @@ declare namespace parse {
     function resolveConfigPath(options: string | ResolveConfigOptions): string | null;
 
     interface ResolveConfigOptions {
-        type?: 'global' | undefined;
+        type?: "global" | undefined;
         cwd?: string | undefined;
         path?: string | undefined;
     }
@@ -81,7 +81,7 @@ declare namespace parse {
         expandKeys?: boolean | undefined;
     }
 
-    type ParseCallback = ((err: Error | null, config: Config) => void);
+    type ParseCallback = (err: Error | null, config: Config) => void;
 
     // TODO: Can this be defined more precisely?
     interface Config {

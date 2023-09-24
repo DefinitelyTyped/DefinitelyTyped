@@ -8,17 +8,18 @@
 
 /// <reference types="node" />
 
-import { RequestHandler } from 'express';
-import { Params, ParamsDictionary, Query } from 'express-serve-static-core';
-import { IncomingMessage, Server, ServerResponse } from 'http';
-import * as Trouter from 'trouter';
-import { Url } from 'url';
+import { RequestHandler } from "express";
+import { Params, ParamsDictionary, Query } from "express-serve-static-core";
+import { IncomingMessage, Server, ServerResponse } from "http";
+import * as Trouter from "trouter";
+import { Url } from "url";
 
 declare namespace polka {
     /**
      * A middleware function
      */
-    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>;
+    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> =
+        RequestHandler<P, ResBody, ReqBody, ReqQuery>;
 
     /**
      * Calls the next middleware function in the chain, or throws an error.

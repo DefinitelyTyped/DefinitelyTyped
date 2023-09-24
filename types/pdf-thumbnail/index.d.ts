@@ -5,7 +5,7 @@
 /// <reference types="node" />
 
 declare namespace pdf {
-    type Operations = 'compress' | 'crop' | 'resize';
+    type Operations = "compress" | "crop" | "resize";
 
     interface CompressParams {
         type?: string | undefined;

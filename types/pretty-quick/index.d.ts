@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-import { ResolveConfigOptions } from 'prettier';
+import { ResolveConfigOptions } from "prettier";
 
 declare namespace prettyQuick {
     interface Options {

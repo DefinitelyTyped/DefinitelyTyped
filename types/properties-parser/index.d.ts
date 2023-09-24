@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import type * as fs from 'fs';
-import type { promisify } from 'util';
+import type * as fs from "fs";
+import type { promisify } from "util";
 
 export type Properties = Record<string, string>;
 

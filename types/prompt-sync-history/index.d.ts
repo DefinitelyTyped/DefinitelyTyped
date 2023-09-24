@@ -3,9 +3,9 @@
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { History } from 'prompt-sync';
+import { History } from "prompt-sync";
 
 declare namespace history {}
-declare function history(file?:string, max?:number): History;
+declare function history(file?: string, max?: number): History;
 
 export = history;

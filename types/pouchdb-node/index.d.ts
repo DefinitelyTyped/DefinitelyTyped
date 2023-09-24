@@ -19,7 +19,7 @@ declare namespace PouchDB {
     }
 }
 
-declare module 'pouchdb-node' {
+declare module "pouchdb-node" {
     const PouchDb: PouchDB.Static;
     export = PouchDb;
 }

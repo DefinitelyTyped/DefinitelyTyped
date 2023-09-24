@@ -1,4 +1,4 @@
-import Deferred = require('promise-deferred');
+import Deferred = require("promise-deferred");
 
 // test type exports
 type Deferred = Deferred.Deferred<string>;
@@ -10,5 +10,5 @@ Deferred<string>(); // $ExpectType Deferred<string>
 
 deferred.promise; // $ExpectType Promise<string>
 
-deferred.resolve('a value'); // $ExpectType void
-deferred.reject(new Error('oh noes')); // $ExpectType void
+deferred.resolve("a value"); // $ExpectType void
+deferred.reject(new Error("oh noes")); // $ExpectType void

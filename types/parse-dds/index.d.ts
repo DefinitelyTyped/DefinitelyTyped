@@ -14,7 +14,7 @@ interface DdsInfo {
         // width, height
         shape: [number, number];
     }>;
-    format: 'dxt1' | 'dxt3' | 'dxt5' | 'rgba32f';
+    format: "dxt1" | "dxt3" | "dxt5" | "rgba32f";
     flags: number;
     cubemap: boolean;
 }

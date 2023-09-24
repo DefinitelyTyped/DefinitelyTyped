@@ -224,7 +224,7 @@ declare global {
         }
 
         interface TraceElement {
-            severity: 'Debug';
+            severity: "Debug";
             message: string;
         }
 
@@ -248,7 +248,6 @@ declare global {
          * that are defined on the {@link Paho.MQTT.Client} object.
          * These may get called multiple times, and aren't directly related to specific method invocations made by the
          * client.
-         *
          */
         class Client {
             /** used when connecting to the server. */

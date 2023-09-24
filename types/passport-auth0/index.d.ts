@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 declare class StrategyInternal extends passport.Strategy {
     constructor(

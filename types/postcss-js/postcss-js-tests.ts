@@ -1,9 +1,9 @@
-import postcss from 'postcss';
-import * as postcssJs from 'postcss-js';
+import postcss from "postcss";
+import * as postcssJs from "postcss-js";
 
 const style = {
     top: 10,
-    '&:hover': {
+    "&:hover": {
         top: 5,
     },
 };
@@ -17,7 +17,7 @@ postcss()
 
 // Try to parse random object with postcss-js parser (errors)
 // @ts-expect-error
-postcss().process('.a {}', { parser: postcssJs.parse });
+postcss().process(".a {}", { parser: postcssJs.parse });
 
 postcssJs.parse(style);
 

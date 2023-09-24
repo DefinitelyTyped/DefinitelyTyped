@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import fs = require("fs");
 import events = require("events");
 import stream = require("stream");
@@ -48,11 +47,18 @@ export declare class PNG extends stream.Writable {
     parse(data: string | Buffer, callback?: (err: Error, data: Buffer) => void): PNG;
     pack(): PNG;
 
-    static bitblt(src: PNG, dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): void;
+    static bitblt(
+        src: PNG,
+        dst: PNG,
+        srcX: number,
+        srcY: number,
+        width: number,
+        height: number,
+        deltaX: number,
+        deltaY: number,
+    ): void;
 
-    bitblt(dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): PNG;
+    bitblt(dst: PNG, srcX: number, srcY: number, width: number, height: number, deltaX: number, deltaY: number): PNG;
 }
 
 export declare namespace PNG {

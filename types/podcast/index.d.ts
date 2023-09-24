@@ -50,10 +50,11 @@ declare namespace Podcast {
         subcats?: FeedItunesCategory[] | undefined;
     }
 
-    type FeedOptions = BaseFeedOptions &
-        ({ feedUrl: string } | { feed_url: string }) &
-        ({ siteUrl: string } | { site_url: string }) &
-        ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
+    type FeedOptions =
+        & BaseFeedOptions
+        & ({ feedUrl: string } | { feed_url: string })
+        & ({ siteUrl: string } | { site_url: string })
+        & ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
 
     interface Item {
         title?: string | undefined;
@@ -76,7 +77,7 @@ declare namespace Podcast {
         itunesSeason?: number | undefined;
         itunesEpisode?: number | undefined;
         itunesTitle?: string | undefined;
-        itunesEpisodeType?: 'full' | 'trailer' | 'bonus' | undefined;
+        itunesEpisodeType?: "full" | "trailer" | "bonus" | undefined;
         customElements?: object[] | undefined;
     }
 

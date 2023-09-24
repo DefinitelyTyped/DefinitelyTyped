@@ -19,15 +19,15 @@ export interface GenerateDifferences {
      * @returns An array containing { operation, offset, insertText, deleteText }
      */
     (source: string, prettierSource: string): Difference[];
-    INSERT: 'insert';
-    DELETE: 'delete';
-    REPLACE: 'replace';
+    INSERT: "insert";
+    DELETE: "delete";
+    REPLACE: "replace";
 }
 
 export const generateDifferences: GenerateDifferences;
 
 export interface Difference {
-    operation: 'insert' | 'delete' | 'replace';
+    operation: "insert" | "delete" | "replace";
     offset: number;
     insertText?: string | undefined;
     deleteText?: string | undefined;

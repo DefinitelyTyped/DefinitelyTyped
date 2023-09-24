@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import * as ProgressBar from 'progress';
-import { Plugin } from 'webpack';
+import * as ProgressBar from "progress";
+import { Plugin } from "webpack";
 
 export = ProgressBarPlugin;
 

@@ -6,20 +6,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import implementation = require('./implementation');
-import getPolyfill = require('./polyfill');
-import shim = require('./shim');
+import implementation = require("./implementation");
+import getPolyfill = require("./polyfill");
+import shim = require("./shim");
 import {
     PromiseRejection as PromiseRejectionType,
     PromiseResolution as PromiseResolutionType,
     PromiseResult as PromiseResultType,
     PromiseResultTuple as PromiseResultTupleType,
-} from './types';
+} from "./types";
 
 type ExportedImplementationType = typeof implementation & {
-    getPolyfill: typeof getPolyfill,
-    implementation: typeof implementation,
-    shim: typeof shim,
+    getPolyfill: typeof getPolyfill;
+    implementation: typeof implementation;
+    shim: typeof shim;
 };
 
 declare const exportedImplementation: ExportedImplementationType;

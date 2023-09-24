@@ -3,6 +3,5 @@
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare var PureRender: ClassDecorator;
 export = PureRender;

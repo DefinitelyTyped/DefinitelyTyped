@@ -8,14 +8,14 @@ export class ParcelWatcherSubscription {
     unsubscribe(): Promise<void>;
 }
 
-export type ParcelWatcherEventType = 'create' | 'update' | 'delete';
+export type ParcelWatcherEventType = "create" | "update" | "delete";
 
 export interface ParcelWatcherEvent {
     type: ParcelWatcherEventType;
     path: string;
 }
 
-export type ParcelWatcherBackend = 'fs-events' | 'watchman' | 'inotify' | 'windows' | 'brute-force';
+export type ParcelWatcherBackend = "fs-events" | "watchman" | "inotify" | "windows" | "brute-force";
 
 export interface ParcelWatcherOptions {
     ignore?: string[] | undefined;

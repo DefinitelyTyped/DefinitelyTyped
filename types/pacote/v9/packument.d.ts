@@ -1,4 +1,4 @@
-import { Options, Packument } from './index';
+import { Options, Packument } from "./index";
 
 /**
  * Fetches the packument for a package. Packument objects are general metadata

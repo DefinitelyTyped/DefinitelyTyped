@@ -1,20 +1,20 @@
-import Pizzicato = require('pizzicato');
+import Pizzicato = require("pizzicato");
 
 Pizzicato.context; // $ExpectType AudioContext
 Pizzicato.masterGainNode; // $ExpectType GainNode
 
 // Utils
-Pizzicato.Util.isString('Foobar');
-Pizzicato.Util.isObject('Foobar');
-Pizzicato.Util.isFunction('Foobar');
-Pizzicato.Util.isNumber('Foobar');
-Pizzicato.Util.isArray('Foobar');
+Pizzicato.Util.isString("Foobar");
+Pizzicato.Util.isObject("Foobar");
+Pizzicato.Util.isFunction("Foobar");
+Pizzicato.Util.isNumber("Foobar");
+Pizzicato.Util.isArray("Foobar");
 Pizzicato.Util.isInRange(1, 3, 5);
-Pizzicato.Util.isBool('Foobar');
-Pizzicato.Util.isOscillator('Foobar');
-Pizzicato.Util.isAudioBufferSourceNode('Foobar');
-Pizzicato.Util.isSound('Foobar');
-Pizzicato.Util.isEffect('Foobar');
+Pizzicato.Util.isBool("Foobar");
+Pizzicato.Util.isOscillator("Foobar");
+Pizzicato.Util.isAudioBufferSourceNode("Foobar");
+Pizzicato.Util.isSound("Foobar");
+Pizzicato.Util.isEffect("Foobar");
 Pizzicato.Util.normalize(0.6, 2, 12);
 Pizzicato.Util.getDryLevel(12);
 Pizzicato.Util.getWetLevel(15);
@@ -26,7 +26,7 @@ Pizzicato.volume = 0.3;
 const myEvents = Object.create(Pizzicato.Events, {});
 
 // Sounds
-const fileSound = new Pizzicato.Sound('foo.wav');
+const fileSound = new Pizzicato.Sound("foo.wav");
 fileSound.detached; // $ExpectType boolean
 // prettier-ignore
 // @ts-expect-error
@@ -64,25 +64,25 @@ for (const effect of fileSound.effects) {
 fileSound.connect(new AudioNode());
 fileSound.disconnect(new AudioNode());
 
-fileSound.on('play', () => {
-    console.log('playing');
+fileSound.on("play", () => {
+    console.log("playing");
 });
 function logFunction(this: { log: (s: string) => void }) {
-    this.log('pause');
+    this.log("pause");
 }
-fileSound.on('pause', logFunction, { log: console.log });
-fileSound.on('stop', () => {});
-fileSound.on('end', () => {});
+fileSound.on("pause", logFunction, { log: console.log });
+fileSound.on("stop", () => {});
+fileSound.on("end", () => {});
 
-fileSound.off('play');
-fileSound.off('pause');
-fileSound.off('stop');
-fileSound.off('end');
+fileSound.off("play");
+fileSound.off("pause");
+fileSound.off("stop");
+fileSound.off("end");
 
 const fileSound2 = new Pizzicato.Sound({
-    source: 'file',
+    source: "file",
     options: {
-        path: 'foo2.wav',
+        path: "foo2.wav",
         attack: 0.4,
         detached: false,
         loop: true,
@@ -92,7 +92,7 @@ const fileSound2 = new Pizzicato.Sound({
 });
 
 const waveSound = new Pizzicato.Sound({
-    source: 'wave',
+    source: "wave",
     options: {
         frequency: 440,
     },
@@ -104,11 +104,11 @@ const cloneSound = waveSound.clone();
 cloneSound.frequency = 880;
 
 const inputSound = new Pizzicato.Sound({
-    source: 'input',
+    source: "input",
 });
 
 const scriptSound = new Pizzicato.Sound({
-    source: 'script',
+    source: "script",
     options: {
         audioFunction: (e: AudioProcessingEvent) => {},
     },
@@ -137,12 +137,12 @@ group.disconnect(new AudioNode());
 group.addEffect(new Pizzicato.Effects.Delay());
 group.removeEffect(new Pizzicato.Effects.HighPassFilter());
 
-group.on('play', logFunction, { log: console.log });
-group.on('pause', () => {});
-group.on('stop', () => {});
-group.off('play');
-group.off('pause');
-group.off('stop');
+group.on("play", logFunction, { log: console.log });
+group.on("pause", () => {});
+group.on("stop", () => {});
+group.off("play");
+group.off("pause");
+group.off("stop");
 
 // Effects
 const baseEffect: Pizzicato.BaseEffect = {
@@ -159,7 +159,7 @@ waveSound.addEffect(baseEffect);
 group.addEffect(baseEffect);
 
 new Pizzicato.Effects.Compressor();
-new Pizzicato.Effects.Convolver({ impulse: 'impulseFile' });
+new Pizzicato.Effects.Convolver({ impulse: "impulseFile" });
 new Pizzicato.Effects.Delay();
 new Pizzicato.Effects.Distortion();
 new Pizzicato.Effects.DubDelay();
@@ -182,7 +182,7 @@ new Pizzicato.Effects.Compressor({
     mix: 6,
 });
 new Pizzicato.Effects.Convolver({
-    impulse: 'impulseFile',
+    impulse: "impulseFile",
     mix: 1,
 });
 new Pizzicato.Effects.Delay({

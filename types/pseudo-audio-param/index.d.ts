@@ -35,12 +35,12 @@ declare class PseudoAudioParam {
     setTargetAtTime(
         value: number,
         time: number,
-        timeConstant: number
+        timeConstant: number,
     ): PseudoAudioParam;
     setValueCurveAtTime(
         values: number[],
         time: number,
-        duration: number
+        duration: number,
     ): PseudoAudioParam;
     cancelScheduledValues(time: number): PseudoAudioParam;
     cancelAndHoldAtTime(time: number): PseudoAudioParam;

@@ -1,14 +1,14 @@
+import { Request } from "express";
 import AppleStrategy, {
+    AppleAuthorizationParams,
     AuthenticateOptions,
     AuthenticateOptionsWithRequest,
-    AppleAuthorizationParams,
     DecodedIdToken,
     Profile,
     VerifyCallback,
     VerifyFunction,
     VerifyFunctionWithRequest,
-} from 'passport-apple';
-import { Request } from 'express';
+} from "passport-apple";
 
 const authenticateOptions: AuthenticateOptions = {
     clientID: "",
@@ -26,19 +26,19 @@ const authenticateOptionsWithRequest: AuthenticateOptionsWithRequest = {
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-    passReqToCallback: true
+    passReqToCallback: true,
 };
 
-const decodedIdToken: DecodedIdToken = { sub: '1' };
+const decodedIdToken: DecodedIdToken = { sub: "1" };
 
 const verifyFunction: VerifyFunction = (
     accessToken: string,
     refreshToken: string,
     decodedIdToken: DecodedIdToken,
     profile: Profile,
-    verifyCallback: VerifyCallback
+    verifyCallback: VerifyCallback,
 ) => {
-    verifyCallback(new Error('unimplemented'));
+    verifyCallback(new Error("unimplemented"));
 };
 
 const VerifyFunctionWithRequest: VerifyFunctionWithRequest = (
@@ -47,8 +47,9 @@ const VerifyFunctionWithRequest: VerifyFunctionWithRequest = (
     refreshToken: string,
     decodedIdToken: DecodedIdToken,
     profile: Profile,
-    verifyCallback: VerifyCallback) => {
-    verifyCallback(new Error('unimplemented'));
+    verifyCallback: VerifyCallback,
+) => {
+    verifyCallback(new Error("unimplemented"));
 };
 
 const appleStrategy = new AppleStrategy({

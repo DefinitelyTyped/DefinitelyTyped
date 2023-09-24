@@ -3,8 +3,8 @@
 // Definitions by: Valentin Schabschneider <https://github.com/valentinschabschneider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { EventEmitter } from 'events';
-import type { Page } from 'puppeteer';
+import type { EventEmitter } from "events";
+import type { Page } from "puppeteer";
 
 export interface PrinterOptions {
     debug?: boolean;

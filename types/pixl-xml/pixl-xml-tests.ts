@@ -1,6 +1,6 @@
-import * as XML from 'pixl-xml';
+import * as XML from "pixl-xml";
 
-const xmlstring = '<xml><users id="0">Octocat</users><users id="1">Evan</users></xml>';
+const xmlstring = "<xml><users id=\"0\">Octocat</users><users id=\"1\">Evan</users></xml>";
 
 interface User {
     id: string;

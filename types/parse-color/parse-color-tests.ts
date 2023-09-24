@@ -1,6 +1,6 @@
 import * as parseColor from "parse-color";
 
-const color = parseColor('lime');
+const color = parseColor("lime");
 
 color.rgb;
 color.hsl;
@@ -13,5 +13,5 @@ color.hsla;
 color.hsva;
 color.cmyka;
 
-const noKeyword = parseColor('#333');
+const noKeyword = parseColor("#333");
 noKeyword.keyword; // $ExpectType string | undefined

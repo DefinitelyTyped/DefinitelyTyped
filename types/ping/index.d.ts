@@ -75,7 +75,7 @@ export interface PingResponse {
     /**
      * Time (float) in ms for first successful ping response. `unknown` if ping fails.
      */
-    time: number | 'unknown';
+    time: number | "unknown";
     /**
      * Array of times (float) in ms for each ping response.
      */

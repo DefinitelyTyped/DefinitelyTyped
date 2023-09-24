@@ -1,28 +1,28 @@
-import * as express from 'express';
-import * as passport from 'passport';
-import * as PassportTwitterToken from 'passport-twitter-token';
+import * as express from "express";
+import * as passport from "passport";
+import * as PassportTwitterToken from "passport-twitter-token";
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'podpli' });
+        callback(null, { username: "podpli" });
     },
 };
 
 const options: PassportTwitterToken.StrategyOptions = {
-    consumerKey: 'consumerKey',
-    consumerSecret: 'consumerSecret',
+    consumerKey: "consumerKey",
+    consumerSecret: "consumerSecret",
 };
 
 const optionsWithCustomTokenFields: PassportTwitterToken.StrategyOptions = {
-    consumerKey: 'consumerKey',
-    consumerSecret: 'consumerSecret',
-    oauthTokenField: 'oauthTokenField',
-    oauthTokenSecretField: 'oauthTokenSecretField',
+    consumerKey: "consumerKey",
+    consumerSecret: "consumerSecret",
+    oauthTokenField: "oauthTokenField",
+    oauthTokenSecretField: "oauthTokenSecretField",
 };
 
 const optionsWithRequest: PassportTwitterToken.StrategyOptionsWithRequest = {
-    consumerKey: 'consumerKey',
-    consumerSecret: 'consumerSecret',
+    consumerKey: "consumerKey",
+    consumerSecret: "consumerSecret",
     passReqToCallback: true,
 };
 

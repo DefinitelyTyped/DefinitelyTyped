@@ -3,8 +3,8 @@
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Feature, FeatureCollection, Polygon } from 'geojson';
-import RBush from 'rbush';
+import { Feature, FeatureCollection, Polygon } from "geojson";
+import RBush from "rbush";
 
 declare namespace PolygonLookup {
     interface BBox {

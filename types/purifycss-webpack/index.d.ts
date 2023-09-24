@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import * as webpack from 'webpack';
+import * as webpack from "webpack";
 
 declare class PurifyPlugin extends webpack.Plugin {
     constructor(options?: PurifyOptions);
@@ -16,11 +16,11 @@ interface PurifyOptions {
     minimize?: boolean | undefined;
     paths?: object | string[] | undefined;
     purifyOptions?: {
-        minify?: boolean | undefined,
-        output?: string | boolean | undefined,
-        info?: boolean | undefined,
-        rejected?: boolean | undefined,
-        whitelist?: string[] | undefined
+        minify?: boolean | undefined;
+        output?: string | boolean | undefined;
+        info?: boolean | undefined;
+        rejected?: boolean | undefined;
+        whitelist?: string[] | undefined;
     } | undefined;
     verbose?: boolean | undefined;
 }

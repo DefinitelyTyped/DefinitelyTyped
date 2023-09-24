@@ -18,7 +18,7 @@ import { Duplex } from "stream";
 
 export as namespace Papa;
 
-export {};   // Don't export all declarations!
+export {}; // Don't export all declarations!
 
 /**
  * Parse local files
@@ -64,8 +64,9 @@ export function parse<T>(
  */
 export function parse<T>(
     source: LocalFile | string,
-    config: ParseLocalConfig<T, LocalFile> &
-        (
+    config:
+        & ParseLocalConfig<T, LocalFile>
+        & (
             | (ParseConfig<T> & { download?: false | undefined; worker?: false | undefined })
             | (ParseWorkerConfig<T> & { download?: false | undefined })
             | ParseRemoteConfig<T>
@@ -96,10 +97,10 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
 export const BAD_DELIMITERS: ReadonlyArray<string>;
 
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
-export const RECORD_SEP: '\x1E';
+export const RECORD_SEP: "\x1E";
 
 /** Also sometimes used as a delimiting character. ASCII code 31. */
-export const UNIT_SEP: '\x1F';
+export const UNIT_SEP: "\x1F";
 /**
  * Whether or not the browser supports HTML5 Web Workers.
  * If false, `worker: true` will have no effect.
@@ -172,7 +173,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The newline sequence. Leave blank to auto-detect. Must be one of `\r`, `\n`, or `\r\n`.
      * @default // auto-detect
      */
-    newline?: '\r' | '\n' | '\r\n' | undefined;
+    newline?: "\r" | "\n" | "\r\n" | undefined;
     /**
      * The character used to quote fields. The quoting of all fields is not mandatory. Any field which is not quoted will correctly read.
      * @default '"'
@@ -226,7 +227,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * If set to `'greedy'`, lines that don't have any content (those which have only whitespace after parsing) will also be skipped.
      * @default false
      */
-    skipEmptyLines?: boolean | 'greedy' | undefined;
+    skipEmptyLines?: boolean | "greedy" | undefined;
     /**
      * Fast mode speeds up parsing significantly for large inputs.
      * However, it only works when the input has no quoted fields.
@@ -324,7 +325,9 @@ interface ParseLocalConfigNoStep<T = any, TInput = undefined> extends ParseLocal
 }
 
 // Local parsing is async and thus must specify either `step` or `complete` (but may specify both)
-export type ParseLocalConfig<T = any, TInput = undefined> = ParseLocalConfigStep<T, TInput> | ParseLocalConfigNoStep<T, TInput>;
+export type ParseLocalConfig<T = any, TInput = undefined> =
+    | ParseLocalConfigStep<T, TInput>
+    | ParseLocalConfigNoStep<T, TInput>;
 
 // Remote parsing has options for the backing web request
 interface ParseRemoteConfigBase<T = any> extends ParseAsyncConfigBase<T, string> {
@@ -408,7 +411,7 @@ export interface UnparseConfig {
      * If set to `'greedy'`, lines that don't have any content (those which have only whitespace after parsing) will also be skipped.
      * @default false
      */
-    skipEmptyLines?: boolean | 'greedy' | undefined;
+    skipEmptyLines?: boolean | "greedy" | undefined;
     /**
      * If `data` is an array of objects this option can be used to manually specify the keys (columns) you expect in the objects.
      * If not set the keys of the first objects are used as column.
@@ -432,9 +435,9 @@ export interface UnparseObject<T> {
 /** Error structure */
 export interface ParseError {
     /** A generalization of the error */
-    type: 'Quotes' | 'Delimiter' | 'FieldMismatch';
+    type: "Quotes" | "Delimiter" | "FieldMismatch";
     /** Standardized error code */
-    code: 'MissingQuotes' | 'UndetectableDelimiter' | 'TooFewFields' | 'TooManyFields' | 'InvalidQuotes';
+    code: "MissingQuotes" | "UndetectableDelimiter" | "TooFewFields" | "TooManyFields" | "InvalidQuotes";
     /** Human-readable details */
     message: string;
     /** Row index of parsed data where error is */

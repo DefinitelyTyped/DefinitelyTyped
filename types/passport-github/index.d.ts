@@ -4,22 +4,58 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as passport from 'passport';
-import * as express from 'express';
-import * as oauth2 from 'passport-oauth2';
-import { OutgoingHttpHeaders } from 'http';
+import * as express from "express";
+import { OutgoingHttpHeaders } from "http";
+import * as passport from "passport";
+import * as oauth2 from "passport-oauth2";
 
 import github = Strategy;
 
 declare class Strategy extends oauth2.Strategy {
-    constructor(options: github.StrategyOptions, verify: (accessToken: string, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
-    constructor(options: github.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: github.Profile, done: oauth2.VerifyCallback) => void);
-    constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
-    constructor(options: github.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: github.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: github.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: github.StrategyOptions,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: github.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: github.StrategyOptionsWithRequest,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            params: any,
+            refreshToken: string,
+            profile: github.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
 }
 
 declare namespace Strategy {
@@ -69,7 +105,7 @@ declare namespace Strategy {
 
     type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
         oauth2._StrategyOptionsBase,
-        Exclude<keyof oauth2._StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>
+        Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
     >;
 }
 

@@ -1,20 +1,20 @@
-import { Future, Scheduler } from 'posterus';
-import { fiber } from 'posterus/fiber';
+import { Future, Scheduler } from "posterus";
+import { fiber } from "posterus/fiber";
 
 const anyFuture = new Future();
 anyFuture.settle(undefined, 10);
-anyFuture.settle(undefined, 'foo');
+anyFuture.settle(undefined, "foo");
 // @ts-expect-error
-anyFuture.settle('not an Error');
+anyFuture.settle("not an Error");
 
 const future = new Future<string>();
-future.settle(undefined, 'result');
+future.settle(undefined, "result");
 // @ts-expect-error
 future.settle(undefined, 10);
 
 const undefinedResult = Future.fromResult();
 
-const futureString = future.mapResult<string>(() => 'result');
+const futureString = future.mapResult<string>(() => "result");
 
 // @ts-expect-error
 const futureWrongType = future.mapResult<string>(() => 9000);

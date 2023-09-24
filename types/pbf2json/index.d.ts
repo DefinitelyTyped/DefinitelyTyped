@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 /** A key-value pair of OSM tags */
 export type Tags = Record<string, string | undefined>;
@@ -15,17 +15,17 @@ export interface Coordinate {
     lon: number;
 }
 export interface Centroid extends Coordinate {
-    type: 'entrance' | undefined;
+    type: "entrance" | undefined;
 }
 
 export interface Node extends Coordinate {
     id: number;
-    type: 'node';
+    type: "node";
     tags: Tags;
 }
 export interface Way {
     id: number;
-    type: 'way';
+    type: "way";
     tags: Tags;
     centroid: Centroid;
     bounds: {
@@ -38,7 +38,7 @@ export interface Way {
 }
 export interface Relation {
     id: number;
-    type: 'relation';
+    type: "relation";
     tags: Tags;
     centroid: Centroid;
     bounds: {

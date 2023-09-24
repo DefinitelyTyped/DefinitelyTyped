@@ -15,4 +15,4 @@ import { Url } from "url";
  * @returns The URL of the proxy that should handle the request to the given
  *          URL.
  */
-export function getProxyForUrl(url: string|Url): string;
+export function getProxyForUrl(url: string | Url): string;

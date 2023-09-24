@@ -1,4 +1,4 @@
-import parseDds = require('parse-dds');
+import parseDds = require("parse-dds");
 
 const res = parseDds(new ArrayBuffer(0));
 

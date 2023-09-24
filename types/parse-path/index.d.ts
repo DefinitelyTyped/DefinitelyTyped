@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace parsePath {
-    type Protocol = 'http' | 'https' | 'ssh' | 'file' | 'git';
+    type Protocol = "http" | "https" | "ssh" | "file" | "git";
 
     interface ParsedPath {
         /** The url hash. */

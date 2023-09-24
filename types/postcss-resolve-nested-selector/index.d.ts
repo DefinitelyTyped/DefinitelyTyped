@@ -4,7 +4,7 @@
 //                 Masafumi Koba <https://github.com/ybiquitous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Node } from 'postcss';
+import { Node } from "postcss";
 
 /**
  * Returns an array of selectors resolved from `selector`.

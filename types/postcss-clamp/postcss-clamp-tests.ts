@@ -1,5 +1,5 @@
-import postcssClamp = require('postcss-clamp');
-import postcss = require('postcss');
+import postcssClamp = require("postcss-clamp");
+import postcss = require("postcss");
 
 // Pass function directly
 postcss().use(postcssClamp);

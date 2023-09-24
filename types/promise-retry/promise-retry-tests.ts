@@ -1,4 +1,4 @@
-import promiseRetry = require('promise-retry');
+import promiseRetry = require("promise-retry");
 
 // From sleep
 declare function sleep(milliseconds: number): Promise<void>;
@@ -45,7 +45,7 @@ declare let Console: {
 declare let console: Console;
 
 describe("Promise-retry tests", () => {
-    it('should allow params to be input either way round', () => {
+    it("should allow params to be input either way round", () => {
         let count = 0;
 
         promiseRetry(
@@ -53,45 +53,45 @@ describe("Promise-retry tests", () => {
                 count += 1;
 
                 return Promise.resolve()
-                .then(() => {
-                    console.log("Count in then()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return Promise.reject(new Error('arbitrary excuse to retry'));
-                })
-                .catch((err: any) => {
-                    console.log("Count in catch()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return retryCb(err);
-                });
+                    .then(() => {
+                        console.log("Count in then()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return Promise.reject(new Error("arbitrary excuse to retry"));
+                    })
+                    .catch((err: any) => {
+                        console.log("Count in catch()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return retryCb(err);
+                    });
             },
-            {forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false}
+            { forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false },
         )
-        .then((value: any) => console.log("Finished with value ", value))
-        .catch((err: any) => console.error(err.message || err));
+            .then((value: any) => console.log("Finished with value ", value))
+            .catch((err: any) => console.error(err.message || err));
 
         promiseRetry(
-            {forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false},
+            { forever: true, factor: 1, minTimeout: 0, maxTimeout: 30, randomize: false },
             (retryCb, attemptNumber) => {
                 count += 1;
 
                 return Promise.resolve()
-                .then(() => {
-                    console.log("Count in then()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return Promise.reject(new Error('arbitrary excuse to retry'));
-                })
-                .catch((err: any) => {
-                    console.log("Count in catch()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return retryCb(err);
-                });
-            }
+                    .then(() => {
+                        console.log("Count in then()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return Promise.reject(new Error("arbitrary excuse to retry"));
+                    })
+                    .catch((err: any) => {
+                        console.log("Count in catch()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return retryCb(err);
+                    });
+            },
         )
-        .then((value: any) => console.log("Finished with value ", value))
-        .catch((err: any) => console.error(err.message || err));
+            .then((value: any) => console.log("Finished with value ", value))
+            .catch((err: any) => console.error(err.message || err));
     });
 
-    it('should allow an array of timeouts as the param', () => {
+    it("should allow an array of timeouts as the param", () => {
         let count = 0;
 
         promiseRetry(
@@ -99,20 +99,20 @@ describe("Promise-retry tests", () => {
                 count += 1;
 
                 return Promise.resolve()
-                .then(() => {
-                    console.log("Count in then()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return Promise.reject(new Error('arbitrary excuse to retry'));
-                })
-                .catch((err: any) => {
-                    console.log("Count in catch()", count);
-                    if (count > 1) return Promise.resolve('final');
-                    else return retryCb(err);
-                });
+                    .then(() => {
+                        console.log("Count in then()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return Promise.reject(new Error("arbitrary excuse to retry"));
+                    })
+                    .catch((err: any) => {
+                        console.log("Count in catch()", count);
+                        if (count > 1) return Promise.resolve("final");
+                        else return retryCb(err);
+                    });
             },
-            [2000, 3000, 4000]
+            [2000, 3000, 4000],
         )
-        .then((value: any) => console.log("Finished with value ", value))
-        .catch((err: any) => console.error(err.message || err));
+            .then((value: any) => console.log("Finished with value ", value))
+            .catch((err: any) => console.error(err.message || err));
     });
 });

@@ -1,6 +1,6 @@
 import * as Payment from "payment";
 
-const input = document.getElementById('input') as HTMLInputElement;
+const input = document.getElementById("input") as HTMLInputElement;
 
 Payment.restrictNumeric(input);
 Payment.formatCardNumber(input);
@@ -17,7 +17,7 @@ Payment.fns.validateCardCVC("123", cardType);
 
 const newCardTypes = [
     {
-        type: 'fakecardtype',
+        type: "fakecardtype",
         pattern: /\d{4}/,
         length: [16],
         cvcLength: [3],
@@ -29,11 +29,11 @@ const newCardTypes = [
 Payment.setCardArray(newCardTypes);
 Payment.getCardArray();
 Payment.addToCardArray({
-    type: 'fakecardtype',
+    type: "fakecardtype",
     pattern: /\d{4}/,
     length: [16],
     cvcLength: [3],
     luhn: true,
     format: /\d{4}/,
 });
-Payment.removeFromCardArray('fakecardtype');
+Payment.removeFromCardArray("fakecardtype");

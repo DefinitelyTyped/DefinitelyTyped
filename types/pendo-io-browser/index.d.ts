@@ -18,7 +18,7 @@ declare namespace pendo {
         [key: string]: string | number | boolean | string[] | null;
     }
 
-    type IdentityMetadata = { id?: string | undefined; } & Metadata;
+    type IdentityMetadata = { id?: string | undefined } & Metadata;
 
     /** cookie domains should start with a dot, e.g. ".example.com" */
     type IdentityCookieDomain = `.${string}`;
@@ -35,7 +35,7 @@ declare namespace pendo {
             timeout?: number | undefined;
             tooltip?: {
                 arrowSize?: number | undefined;
-            } | undefined
+            } | undefined;
         } | undefined;
         events?: EventCallbacks | undefined;
         sanitizeUrl?: (url: string) => string;

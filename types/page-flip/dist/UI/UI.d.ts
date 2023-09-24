@@ -1,7 +1,7 @@
-import { PageFlip } from '../PageFlip';
-import { FlipSetting } from '../Settings';
-import { Orientation } from '../Render/Render';
-import { Point } from '../BasicTypes';
+import { Point } from "../BasicTypes";
+import { PageFlip } from "../PageFlip";
+import { Orientation } from "../Render/Render";
+import { FlipSetting } from "../Settings";
 export interface SwipeData {
     point: Point;
     time: number;

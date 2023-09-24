@@ -7,9 +7,9 @@
 
 /// <reference types="node" />
 
+import * as Promise from "bluebird";
 import * as FtpClient from "ftp";
 import * as PromiseFtpCommon from "promise-ftp-common";
-import * as Promise from "bluebird";
 
 declare namespace PromiseFtp {
     interface ERROR_CODES {
@@ -106,7 +106,7 @@ declare class PromiseFtp {
      */
     listSafe(
         path?: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<Array<FtpClient.ListingElement | string>>;
     listSafe(useCompression: boolean): Promise<Array<FtpClient.ListingElement | string>>;
 
@@ -127,7 +127,7 @@ declare class PromiseFtp {
     put(
         input: NodeJS.ReadableStream | Buffer | string,
         destPath: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<void>;
 
     /**
@@ -139,7 +139,7 @@ declare class PromiseFtp {
     append(
         input: NodeJS.ReadableStream | Buffer | string,
         destPath: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<void>;
 
     /**

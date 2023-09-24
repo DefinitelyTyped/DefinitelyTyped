@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import { Transform, TransformOptions, TransformCallback } from "stream";
+import { Transform, TransformCallback, TransformOptions } from "stream";
 
 type OnTransform = (chunk: any, callback: TransformCallback) => void;
 

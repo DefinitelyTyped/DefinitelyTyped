@@ -1,5 +1,3 @@
-
-
 facebookConnectPlugin.api("a", ["b", "c"]);
 facebookConnectPlugin.api("a", ["b", "c"], (result: any) => {});
 facebookConnectPlugin.api("a", ["b", "c"], (result: any) => {}, (error: string) => {});
@@ -42,17 +40,21 @@ facebookConnectPlugin.logout();
 facebookConnectPlugin.logout(() => {});
 facebookConnectPlugin.logout(() => {}, (error: string) => {});
 
-//#region BaseDialog
+// #region BaseDialog
 
 var baseDialogOptions: PhonegapFacebookPlugin.BaseDialogOptions = {
-    method: "a"
+    method: "a",
 };
 
-facebookConnectPlugin.showDialog(baseDialogOptions, (status: PhonegapFacebookPlugin.BaseDialogResult) => {}, (error: string) => {});
+facebookConnectPlugin.showDialog(
+    baseDialogOptions,
+    (status: PhonegapFacebookPlugin.BaseDialogResult) => {},
+    (error: string) => {},
+);
 
-//#endregion
+// #endregion
 
-//#region Feed Dialog
+// #region Feed Dialog
 
 var feedDialogOptions: PhonegapFacebookPlugin.FeedDialogOptions = {
     method: "feed",
@@ -64,51 +66,51 @@ var feedDialogOptions: PhonegapFacebookPlugin.FeedDialogOptions = {
     name: "f",
     caption: "g",
     description: "h",
-    ref: "i"
+    ref: "i",
 };
 
 facebookConnectPlugin.showDialog(feedDialogOptions, (status: PhonegapFacebookPlugin.FeedDialogResult) => {
     var post_id: string = status.post_id;
 }, (error: string) => {});
 
-//#endregion
+// #endregion
 
-//#region Send Dialog
+// #region Send Dialog
 
 var sendDialogOptions: PhonegapFacebookPlugin.SendDialogOptions = {
     method: "send",
     to: "a",
-    link: "b"
+    link: "b",
 };
 
 facebookConnectPlugin.showDialog(sendDialogOptions, (status: PhonegapFacebookPlugin.SendDialogResult) => {
 }, (error: string) => {});
 
-//#endregion
+// #endregion
 
-//#region Share Dialog
+// #region Share Dialog
 
 var shareDialogOptions: PhonegapFacebookPlugin.ShareDialogOptions = {
     method: "share",
-    href: "a"
+    href: "a",
 };
 
 facebookConnectPlugin.showDialog(shareDialogOptions, (status: PhonegapFacebookPlugin.ShareDialogResult) => {
     var post_id: string = status.post_id;
 }, (error: string) => {});
 
-//#endregion
+// #endregion
 
-//#region Share Open Graph Dialog
+// #region Share Open Graph Dialog
 
 var shareOpenGraphDialogOptions: PhonegapFacebookPlugin.ShareOpenGraphDialogOptions = {
     method: "share_open_graph",
     action_type: "a",
-    action_properties: "b"
+    action_properties: "b",
 };
 
 facebookConnectPlugin.showDialog(shareOpenGraphDialogOptions, (status: PhonegapFacebookPlugin.ShareDialogResult) => {
     var post_id: string = status.post_id;
 }, (error: string) => {});
 
-//#endregion
+// #endregion

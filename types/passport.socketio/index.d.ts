@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Store } from 'express-session';
-import { RequestHandler } from 'express';
-import { PassportStatic } from 'passport';
-import { Server, Socket } from 'socket.io';
+import { RequestHandler } from "express";
+import { Store } from "express-session";
+import { PassportStatic } from "passport";
+import { Server, Socket } from "socket.io";
 
 export interface PassportSocketIoOptions {
     /**
@@ -39,7 +39,9 @@ export interface PassportSocketIoOptions {
     /**
      * callback on fail/error.
      */
-    fail?: ((data: any, message: string, critical: boolean, accept: (err?: any, accepted?: boolean) => void) => void) | undefined;
+    fail?:
+        | ((data: any, message: string, critical: boolean, accept: (err?: any, accepted?: boolean) => void) => void)
+        | undefined;
 }
 
 export function authorize(options: PassportSocketIoOptions): (socket: Socket, fn: (err?: any) => void) => void;

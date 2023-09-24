@@ -1,5 +1,5 @@
-import assert = require('assert');
-import any = require('promise.any');
+import assert = require("assert");
+import any = require("promise.any");
 
 const resolved = Promise.resolve(42);
 const rejected = Promise.reject(-1);

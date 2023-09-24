@@ -1,4 +1,4 @@
-import { Color } from '../../index';
+import { Color } from "../../index";
 
 export interface ScatterSelectedMarker {
     marker: Partial<{

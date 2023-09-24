@@ -19,7 +19,7 @@ declare class ProbeError extends Error {
         message: string,
         code?: "ECONTENT" | null,
         statusCode?: number,
-    )
+    );
 }
 
 declare namespace probe {

@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PebbleKit {
-
     interface Error {
         message: string;
     }
@@ -112,7 +111,11 @@ declare namespace PebbleKit {
          * @param callbackForNack       The developer-defined function to run if the watch does not acknowledge (NACK) this message.
          * @return string
          */
-        sendAppMessage(jsonAppMessage: Object, callbackForAck?: (e: AppMessageEvent) => void, callbackForNack?: (e: AppMessageEvent) => void): string;
+        sendAppMessage(
+            jsonAppMessage: Object,
+            callbackForAck?: (e: AppMessageEvent) => void,
+            callbackForNack?: (e: AppMessageEvent) => void,
+        ): string;
 
         /**
          * Get the user's timeline token for this app. This is a string and is unique per user per app.
@@ -174,7 +177,11 @@ declare namespace PebbleKit {
          * @param onSuccess
          * @param onFailure
          */
-        appGlanceReload(appGlanceSlices: AppGlanceSlice[], onSuccess: (appGlanceSlices: AppGlanceSlice[]) => void, onFailure: (appGlanceSlices: AppGlanceSlice[]) => void): void;
+        appGlanceReload(
+            appGlanceSlices: AppGlanceSlice[],
+            onSuccess: (appGlanceSlices: AppGlanceSlice[]) => void,
+            onFailure: (appGlanceSlices: AppGlanceSlice[]) => void,
+        ): void;
 
         /**
          * to start displaying this webview

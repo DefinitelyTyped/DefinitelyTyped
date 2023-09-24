@@ -1,3 +1,3 @@
-import parseNodeVersion = require('parse-node-version');
+import parseNodeVersion = require("parse-node-version");
 
-parseNodeVersion('');
+parseNodeVersion("");

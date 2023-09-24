@@ -3,9 +3,10 @@
 // Definitions by: Konrad Klockgether <https://github.com/Nielio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* tslint:disable:array-type */  // cause contradictory error messages
+/* tslint:disable:array-type */
+// cause contradictory error messages
 
-import Vec2 = require('vec2');
+import Vec2 = require("vec2");
 
 /**
  * Create a new polygon:
@@ -33,7 +34,7 @@ declare class Polygon {
      */
     readonly length: number;
 
-    constructor(points: Vec2[] | number[][] | { x: number, y: number }[]);
+    constructor(points: Vec2[] | number[][] | { x: number; y: number }[]);
 
     /**
      * Something like Array.forEach on points
@@ -108,7 +109,7 @@ declare class Polygon {
     /**
      * Returns an object `{x:_, y:_, w:_, h:_}` representing the axis-aligned bounding box of this polygyon
      */
-    aabb(): { x: number, y: number, w: number, h: number };
+    aabb(): { x: number; y: number; w: number; h: number };
 
     /**
      * Performs an offset/buffering operation on this polygon and returns a new one
@@ -164,11 +165,12 @@ declare class Polygon {
      * See the tests for more info
      */
     contains(
-        thing: Vec2[]
-            | { position: Vec2, radius: number }
-            | { x1: number, y1: number, x2: number, y2: number }
-            | { x: number, y: number, w: number, h: number }
-            | { x: number, y: number, width: number, height: number }
+        thing:
+            | Vec2[]
+            | { position: Vec2; radius: number }
+            | { x1: number; y1: number; x2: number; y2: number }
+            | { x: number; y: number; w: number; h: number }
+            | { x: number; y: number; width: number; height: number },
     ): boolean;
 
     /**

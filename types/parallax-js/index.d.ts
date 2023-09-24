@@ -334,7 +334,7 @@ declare class Parallax {
     /**
      * Returns the version number of the Parallax library.
      */
-    version(): '3.1.0';
+    version(): "3.1.0";
 
     /**
      * @see {@link ParallaxOptions.inputElement}

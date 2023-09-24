@@ -13,8 +13,8 @@
 
 /// <reference types="express" />
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 declare class Strategy implements passport.Strategy {
     /**

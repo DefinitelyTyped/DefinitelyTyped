@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Create a SourceStream that reads the values from an array or object and then stops.

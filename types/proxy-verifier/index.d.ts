@@ -12,10 +12,18 @@ export function testAll(proxy: Proxy, cb: (error: any, result: AllResults) => vo
 export function testProtocol(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;
 export function testProtocol(proxy: Proxy, cb: (error: any, result: Result) => void): void;
 
-export function testProtocols(proxy: Proxy, options: RequestOptions, cb: (error: any, result: ProtocolResult) => void): void;
+export function testProtocols(
+    proxy: Proxy,
+    options: RequestOptions,
+    cb: (error: any, result: ProtocolResult) => void,
+): void;
 export function testProtocols(proxy: Proxy, cb: (error: any, result: ProtocolResult) => void): void;
 
-export function testAnonymityLevel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: string) => void): void;
+export function testAnonymityLevel(
+    proxy: Proxy,
+    options: RequestOptions,
+    cb: (error: any, result: string) => void,
+): void;
 export function testAnonymityLevel(proxy: Proxy, cb: (error: any, result: string) => void): void;
 
 export function testTunnel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;

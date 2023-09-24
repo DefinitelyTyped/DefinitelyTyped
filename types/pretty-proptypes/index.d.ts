@@ -39,17 +39,17 @@ export interface PropProps extends CommonProps {
 export class Prop extends React.Component<PropProps> {}
 
 export interface Obj {
-    kind: 'object';
+    kind: "object";
     members: any[];
 }
 
 export interface Gen {
-    kind: 'generic';
+    kind: "generic";
     value: any;
 }
 
 export interface Inter {
-    kind: 'intersection';
+    kind: "intersection";
     types: Array<Obj | Gen>;
 }
 

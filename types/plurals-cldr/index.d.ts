@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Form = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
+type Form = "zero" | "one" | "two" | "few" | "many" | "other";
 
 interface Plural {
     /**

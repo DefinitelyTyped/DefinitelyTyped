@@ -4,7 +4,7 @@
 //                 Federico Banchero <https://github.com/FdBn1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export type NextFunction<TOutput> = (err?: Error | null, result?: TOutput) => void;
 export type Filter<TInput = any, TOutput = any> = (input: TInput, next: NextFunction<TOutput>) => void;

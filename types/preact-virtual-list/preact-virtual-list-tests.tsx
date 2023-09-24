@@ -1,7 +1,4 @@
-import {
-    FunctionalComponent,
-    Component,
-    h } from "preact";
+import { Component, FunctionalComponent, h } from "preact";
 import VirtualList from "preact-virtual-list";
 
 class TestClass extends Component<any> {

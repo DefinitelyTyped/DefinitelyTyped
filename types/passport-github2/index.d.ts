@@ -7,10 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import passport = require('passport');
-import oauth2 = require('passport-oauth2');
-import express = require('express');
-import { OutgoingHttpHeaders } from 'http';
+import passport = require("passport");
+import oauth2 = require("passport-oauth2");
+import express = require("express");
+import { OutgoingHttpHeaders } from "http";
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
@@ -34,7 +34,7 @@ export interface StrategyOption extends passport.AuthenticateOptions {
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
-    Exclude<keyof oauth2._StrategyOptionsBase , 'authorizationURL' | 'tokenURL'>
+    Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {

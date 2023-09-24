@@ -14,7 +14,7 @@ declare namespace payu {
         dev?: boolean | undefined;
     }
 
-    type tokenType = 'SINGLE' | 'SINGLE_LONGTERM' | 'MULTI';
+    type tokenType = "SINGLE" | "SINGLE_LONGTERM" | "MULTI";
     interface PayU {
         secureForms(options?: SecureFormsOptions): SecureForms;
         tokenize(type?: tokenType): Promise<TokenizeResultSuccess | TokenizeResultError>;
@@ -31,13 +31,13 @@ declare namespace payu {
     interface FontOptions {
         family: string;
         src: string;
-        display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional' | undefined;
-        style?: 'normal' | 'italic' | 'oblique' | undefined;
-        weight?: 'normal' | 'bold' | fontWeightNumber | undefined;
+        display?: "auto" | "block" | "swap" | "fallback" | "optional" | undefined;
+        style?: "normal" | "italic" | "oblique" | undefined;
+        weight?: "normal" | "bold" | fontWeightNumber | undefined;
         unicodeRange?: string | undefined;
     }
 
-    type secureFormType = 'card' | 'number' | 'date' | 'cvv';
+    type secureFormType = "card" | "number" | "date" | "cvv";
     interface SecureForms {
         add(type?: secureFormType, options?: SecureFormOptions): SecureForm;
     }
@@ -45,35 +45,35 @@ declare namespace payu {
     interface SecureFormOptions {
         style?: StyleOptions | undefined;
         placeholder?: PlaceHolderOptions | undefined;
-        lang?: 'pl' | 'en' | 'cs' | 'sk' | undefined;
+        lang?: "pl" | "en" | "cs" | "sk" | undefined;
         disabled?: boolean | undefined;
         cardIcon?: boolean | undefined;
     }
 
-    type fontWeight = 'normal' | 'bold' | 'lighter' | 'bolder' | 'inherit' | 'initial' | 'unset' | fontWeightNumber;
+    type fontWeight = "normal" | "bold" | "lighter" | "bolder" | "inherit" | "initial" | "unset" | fontWeightNumber;
     interface StyleOptions {
         basic?: {
             fontColor?: string | undefined;
             fontSize?: string | undefined;
             fontFamily?: string | undefined;
-            fontWeight?: fontWeight | undefined
-            letterSpacing?: string | undefined
+            fontWeight?: fontWeight | undefined;
+            letterSpacing?: string | undefined;
         } | undefined;
         invalid?: {
             fontColor?: string | undefined;
-            fontWeight?: fontWeight | undefined
+            fontWeight?: fontWeight | undefined;
         } | undefined;
         focus?: {
             fontColor?: string | undefined;
-            fontWeight?: fontWeight | undefined
+            fontWeight?: fontWeight | undefined;
         } | undefined;
         placeholder?: {
             fontColor?: string | undefined;
-            fontWeight?: fontWeight | undefined
+            fontWeight?: fontWeight | undefined;
         } | undefined;
         disabled?: {
             fontColor?: string | undefined;
-            fontWeight?: fontWeight | undefined
+            fontWeight?: fontWeight | undefined;
         } | undefined;
     }
 
@@ -83,36 +83,37 @@ declare namespace payu {
         cvv?: string | undefined;
     }
 
-    type eventTypes = 'ready' | 'focus' | 'blur';
+    type eventTypes = "ready" | "focus" | "blur";
     interface SecureForm {
         render(selector: string): SecureForm;
         update(options: SecureFormOptions): SecureForm;
         on(event: eventTypes, handler: () => void): SecureForm;
-        on(event: 'change', handler: (body: SecureFormChangeResponse) => void): SecureForm;
+        on(event: "change", handler: (body: SecureFormChangeResponse) => void): SecureForm;
         clear(): SecureForm;
         focus(): SecureForm;
         remove(): SecureForm;
     }
 
-    type SecureFormErrorCode = 'error.validation.card.empty'
-        | 'error.validation.card.length'
-        | 'error.validation.card.number'
-        | 'error.validation.card.unsupported'
-        | 'error.validation.expDate.empty'
-        | 'error.validation.expDate.past'
-        | 'error.validation.expDate.value'
-        | 'error.validation.cvv.empty'
-        | 'error.validation.cvv.value'
-        | 'error.tokenization'
-        | 'error.send.cvv'
-        | 'error.network';
+    type SecureFormErrorCode =
+        | "error.validation.card.empty"
+        | "error.validation.card.length"
+        | "error.validation.card.number"
+        | "error.validation.card.unsupported"
+        | "error.validation.expDate.empty"
+        | "error.validation.expDate.past"
+        | "error.validation.expDate.value"
+        | "error.validation.cvv.empty"
+        | "error.validation.cvv.value"
+        | "error.tokenization"
+        | "error.send.cvv"
+        | "error.network";
 
     interface SecureFormErrorMessage {
-        type: 'validation' | 'technical';
+        type: "validation" | "technical";
         code: SecureFormErrorCode;
         message: string;
         parameters?: {
-            error: string
+            error: string;
         } | undefined;
         source?: secureFormType | undefined;
     }
@@ -120,34 +121,34 @@ declare namespace payu {
     interface SecureFormChangeResponse {
         empty: boolean;
         error: false | SecureFormErrorMessage[];
-        brand?: 'visa' | 'mastercard' | 'maestro' | undefined;
+        brand?: "visa" | "mastercard" | "maestro" | undefined;
         length?: number | undefined;
     }
 
     interface TokenizeResultSuccess {
-        status: 'SUCCESS';
+        status: "SUCCESS";
         body: {
-            token: string,
-            mask: string
+            token: string;
+            mask: string;
         };
     }
 
     interface TokenizeResultError {
-        status: 'ERROR';
+        status: "ERROR";
         error: {
-            messages: SecureFormErrorMessage[]
+            messages: SecureFormErrorMessage[];
         };
         correlationId?: string | undefined;
     }
 
     interface SendCvvResultSuccess {
-        status: 'SUCCESS';
+        status: "SUCCESS";
     }
 
     interface SendCvvResultError {
-        status: 'ERROR';
+        status: "ERROR";
         error: {
-            messages: SecureFormErrorMessage[]
+            messages: SecureFormErrorMessage[];
         };
         correlationId?: string | undefined;
     }

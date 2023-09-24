@@ -1,4 +1,4 @@
-import { Printer, PrinterOptions } from 'pagedjs-cli';
+import { Printer, PrinterOptions } from "pagedjs-cli";
 
 const options: PrinterOptions = { debug: false };
 

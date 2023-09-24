@@ -5,7 +5,6 @@
 
 declare namespace PromptSync {
     export interface Prompt {
-
         (opts: Option): string;
         (ask: string): string;
         (ask: string, opts: Option): string;

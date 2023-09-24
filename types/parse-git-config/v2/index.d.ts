@@ -42,7 +42,7 @@ interface Parse {
     expandKeys(config: Config): Config;
 }
 
-interface Options extends Pick<_Options, keyof _Options> { }
+interface Options extends Pick<_Options, keyof _Options> {}
 
 interface _Options {
     cwd: string;
@@ -51,7 +51,7 @@ interface _Options {
     expandKeys?: boolean | undefined;
 }
 
-type ParseCallback = ((err: Error | null, config: Config) => void);
+type ParseCallback = (err: Error | null, config: Config) => void;
 // TODO: Can this be defined more precisely?
 interface Config {
     [key: string]: any;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 export as namespace Pikaday;
 

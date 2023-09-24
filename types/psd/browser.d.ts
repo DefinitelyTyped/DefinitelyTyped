@@ -6,11 +6,11 @@
 
 /// <reference lib="dom" />
 
-import { Promise } from 'rsvp';
+import { Promise } from "rsvp";
 
-import { PSD as PSD_ } from './psd';
+import { PSD as PSD_ } from "./psd";
 
-declare module './psd' {
+declare module "./psd" {
     // The following functions are available only in the browser build
 
     namespace PSD {

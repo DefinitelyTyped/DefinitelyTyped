@@ -43,17 +43,17 @@ export interface pellCustomActionConfig {
 }
 
 export type pellBuiltinAction =
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'heading1'
-    | 'heading2'
-    | 'paragraph'
-    | 'quote'
-    | 'olist'
-    | 'ulist'
-    | 'code'
-    | 'line'
-    | 'link'
-    | 'image';
+    | "bold"
+    | "italic"
+    | "underline"
+    | "strikethrough"
+    | "heading1"
+    | "heading2"
+    | "paragraph"
+    | "quote"
+    | "olist"
+    | "ulist"
+    | "code"
+    | "line"
+    | "link"
+    | "image";

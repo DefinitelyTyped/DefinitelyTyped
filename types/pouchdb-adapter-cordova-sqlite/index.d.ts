@@ -29,17 +29,16 @@ declare namespace PouchDB {
              */
             auto_compaction?: boolean | undefined;
 
-            adapter: 'cordova-sqlite';
+            adapter: "cordova-sqlite";
         }
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: AdapterCordovaSqlite.Configuration): Database<Content>;
+        new<Content extends {}>(name: string | null, options: AdapterCordovaSqlite.Configuration): Database<Content>;
     }
 }
 
-declare module 'pouchdb-adapter-cordova-sqlite' {
+declare module "pouchdb-adapter-cordova-sqlite" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

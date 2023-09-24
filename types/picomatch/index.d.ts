@@ -5,6 +5,6 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import picomatch = require('./lib/picomatch');
+import picomatch = require("./lib/picomatch");
 
 export = picomatch;

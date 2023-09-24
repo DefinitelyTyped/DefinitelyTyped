@@ -12,11 +12,11 @@ interface IConfiguration {
 interface IResolver {
     compare(binding: string, topic: string, headerOptions: {}): boolean;
     reset(): void;
-    purge(options?: {topic?: string | undefined, binding?: string | undefined, compact?: boolean | undefined}): void;
+    purge(options?: { topic?: string | undefined; binding?: string | undefined; compact?: boolean | undefined }): void;
 }
 
 interface ICallback<T> {
-    (data: T, envelope: IEnvelope<T>): void
+    (data: T, envelope: IEnvelope<T>): void;
 }
 
 interface ISubscriptionDefinition<T> {
@@ -52,7 +52,6 @@ interface IEnvelope<T> {
     timeStamp?: string | undefined;
 }
 
-
 interface IChannelDefinition<T> {
     subscribe(topic: string, callback: ICallback<T>): ISubscriptionDefinition<T>;
 
@@ -70,17 +69,21 @@ interface IPostal {
     channel<T>(name?: string): IChannelDefinition<T>;
 
     getSubscribersFor(): ISubscriptionDefinition<any>[];
-    getSubscribersFor(options: {channel?: string | undefined, topic?: string | undefined, context?: any}): ISubscriptionDefinition<any>[];
+    getSubscribersFor(
+        options: { channel?: string | undefined; topic?: string | undefined; context?: any },
+    ): ISubscriptionDefinition<any>[];
     getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
 
     publish(envelope: IEnvelope<any>): void;
 
     reset(): void;
 
-    subscribe(options: {channel?: string | undefined, topic: string, callback: ICallback<any>}): ISubscriptionDefinition<any>;
+    subscribe(
+        options: { channel?: string | undefined; topic: string; callback: ICallback<any> },
+    ): ISubscriptionDefinition<any>;
     unsubscribe(sub: ISubscriptionDefinition<any>): void;
     unsubscribeFor(): void;
-    unsubscribeFor(options: {channel?: string | undefined, topic?: string | undefined, context?: any}): void;
+    unsubscribeFor(options: { channel?: string | undefined; topic?: string | undefined; context?: any }): void;
 
     configuration: IConfiguration;
 }
@@ -91,4 +94,3 @@ declare module "postal" {
     var postal: IPostal;
     export = postal;
 }
-

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface TInputs {
     inputString?: string | undefined;
@@ -18,7 +18,7 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
     destroy() {}
     getOutputs() {
         return {
-            testString: '',
+            testString: "",
         };
     }
 }
@@ -27,13 +27,13 @@ class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutp
     init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void) {
     }
     updateView(context: ComponentFramework.Context<TInputs>) {
-        return React.createElement('div', { id: 'test-id' });
+        return React.createElement("div", { id: "test-id" });
     }
     destroy() {
     }
     getOutputs() {
         return {
-            testString: '',
+            testString: "",
         };
     }
 }
@@ -41,16 +41,16 @@ class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutp
 const clientTest: ComponentFramework.Client = {
     disableScroll: false,
     getFormFactor: () => 1,
-    getClient: () => '',
+    getClient: () => "",
     isOffline: () => false,
 };
 
-const tmpFile: ComponentFramework.FileObject = { fileContent: '', fileName: '', fileSize: 0, mimeType: '' };
+const tmpFile: ComponentFramework.FileObject = { fileContent: "", fileName: "", fileSize: 0, mimeType: "" };
 const deviceTest: ComponentFramework.Device = {
     captureAudio: () => Promise.resolve(tmpFile),
     captureImage: () => Promise.resolve(tmpFile),
     captureVideo: () => Promise.resolve(tmpFile),
-    getBarcodeValue: () => Promise.resolve(''),
+    getBarcodeValue: () => Promise.resolve(""),
 
     getCurrentPosition: () =>
         Promise.resolve({
@@ -89,7 +89,7 @@ const modeTest: ComponentFramework.Mode = {
     allocatedWidth: -1,
     isControlDisabled: false,
     isVisible: true,
-    label: '',
+    label: "",
     setControlState: (state: ComponentFramework.Dictionary) => false,
     setFullScreen: (value: boolean) => null,
     trackContainerResize: (value: boolean) => null,
@@ -97,16 +97,16 @@ const modeTest: ComponentFramework.Mode = {
 
 const resourcesTest: ComponentFramework.Resources = {
     getResource: (id: string, success: (data: string) => void, failure: () => void) => {},
-    getString: (id: string) => '',
+    getString: (id: string) => "",
 };
 
-const dictionary: ComponentFramework.Dictionary = { testKey: '' };
+const dictionary: ComponentFramework.Dictionary = { testKey: "" };
 
 const dataSetApiColumn: ComponentFramework.PropertyHelper.DataSetApi.Column = {
-    name: '',
-    displayName: '',
-    dataType: '',
-    alias: '',
+    name: "",
+    displayName: "",
+    dataType: "",
+    alias: "",
     order: 1,
     visualSizeFactor: 1,
     isHidden: false,
@@ -115,11 +115,11 @@ const dataSetApiColumn: ComponentFramework.PropertyHelper.DataSetApi.Column = {
 };
 
 const linkEntityExposeExpression: ComponentFramework.PropertyHelper.DataSetApi.LinkEntityExposedExpression = {
-    name: '',
-    from: '',
-    to: '',
-    linkType: '',
-    alias: '',
+    name: "",
+    from: "",
+    to: "",
+    linkType: "",
+    alias: "",
 };
 
 enum ImeMode {
@@ -136,61 +136,61 @@ enum DateTimeFieldBehavior {
 }
 
 const stringMetadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadata.DateTimeMetadata = {
-    DisplayName: '',
-    LogicalName: '',
+    DisplayName: "",
+    LogicalName: "",
     RequiredLevel: 0,
     IsSecured: false,
     SourceType: 0,
-    Description: '',
+    Description: "",
     ImeMode: ImeMode.Inactive,
-    Format: '',
+    Format: "",
     Behavior: DateTimeFieldBehavior.TimeZoneIndependent,
 };
 
 const EntityReferenceTest: ComponentFramework.EntityReference = {
-    id: { guid: '' },
-    etn: '',
-    name: '',
+    id: { guid: "" },
+    etn: "",
+    name: "",
 };
 
 const metadataTest: ComponentFramework.PropertyHelper.FieldPropertyMetadata.Metadata = {
-    DisplayName: '',
-    LogicalName: '',
+    DisplayName: "",
+    LogicalName: "",
     RequiredLevel: -1,
     IsSecured: false,
     SourceType: 0,
-    Description: '',
+    Description: "",
 };
 
 const propertyTest: ComponentFramework.PropertyTypes.Property = {
     error: false,
-    errorMessage: '',
-    formatted: '',
-    raw: '',
-    type: '',
+    errorMessage: "",
+    formatted: "",
+    raw: "",
+    type: "",
     attributes: metadataTest,
 };
 
 const lookupValueTest: ComponentFramework.LookupValue = {
-    id: '',
-    name: '',
-    entityType: '',
+    id: "",
+    name: "",
+    entityType: "",
 };
 
 const lookupPropertyTest: ComponentFramework.PropertyTypes.LookupProperty = {
     error: false,
-    errorMessage: '',
-    type: '',
+    errorMessage: "",
+    type: "",
     raw: [lookupValueTest],
-    getTargetEntityType: () => '',
-    getViewId: () => '',
+    getTargetEntityType: () => "",
+    getViewId: () => "",
 };
 
 const webApiTest: ComponentFramework.WebApi = {
     createRecord: () => Promise.resolve(lookupValueTest),
     updateRecord: () => Promise.resolve(lookupValueTest),
     deleteRecord: () => Promise.resolve(lookupValueTest),
-    retrieveMultipleRecords: () => Promise.resolve({ entities: [], nextLink: '' }),
+    retrieveMultipleRecords: () => Promise.resolve({ entities: [], nextLink: "" }),
     retrieveRecord: () => Promise.resolve({}),
 };
 

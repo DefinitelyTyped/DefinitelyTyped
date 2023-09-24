@@ -33,7 +33,13 @@ declare namespace PDFKit {
     }
 
     interface PDFTilingPattern {
-        new(document: any, bbox: PDFKit.Mixins.BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
+        new(
+            document: any,
+            bbox: PDFKit.Mixins.BoundingBox,
+            xStep: number,
+            yStep: number,
+            stream: string,
+        ): PDFTilingPattern;
         createPattern(): PDFKitReference;
         embedPatternColorSpaces(): void;
         getPatternColorSpaceId(underlyingColorspace: string): string;
@@ -92,39 +98,261 @@ declare namespace PDFKit.Mixins {
 
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
-    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [number, number, number, number];
+    type ColorValue = string | PDFGradient | [PDFTilingPattern, TilingPatternColorValue] | [number, number, number] | [
+        number,
+        number,
+        number,
+        number,
+    ];
 
     // The color forms accepted by PDFKit Tiling Pattern:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
     type TilingPatternColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
 
     // The winding / filling rule accepted by PDFKit:
-    type RuleValue = 'even-odd' | 'evenodd' | 'non-zero' | 'nonzero';
+    type RuleValue = "even-odd" | "evenodd" | "non-zero" | "nonzero";
 
     // Text option opentype features as listed at https://docs.microsoft.com/en-us/typography/opentype/spec/featurelist
     type OpenTypeFeatures =
-        | 'aalt' | 'abvf' | 'abvm' | 'abvs' | 'afrc' | 'akhn' | 'blwf' | 'blwm' | 'blws' | 'calt' | 'case'
-        | 'cfar' | 'cjct' | 'clig' | 'cpct' | 'cpsp' | 'cswh' | 'curs' | 'cv01' | 'cv02' | 'cv03' | 'cv04'
-        | 'cv05' | 'cv06' | 'cv07' | 'cv08' | 'cv09' | 'cv10' | 'cv11' | 'cv12' | 'cv13' | 'cv14' | 'cv15'
-        | 'cv16' | 'cv17' | 'cv18' | 'cv19' | 'cv20' | 'cv21' | 'cv22' | 'cv23' | 'cv24' | 'cv25' | 'cv26'
-        | 'cv27' | 'cv28' | 'cv29' | 'cv30' | 'cv31' | 'cv32' | 'cv33' | 'cv34' | 'cv35' | 'cv36' | 'cv37'
-        | 'cv38' | 'cv39' | 'cv40' | 'cv41' | 'cv42' | 'cv43' | 'cv44' | 'cv45' | 'cv46' | 'cv47' | 'cv48'
-        | 'cv49' | 'cv50' | 'cv51' | 'cv52' | 'cv53' | 'cv54' | 'cv55' | 'cv56' | 'cv57' | 'cv58' | 'cv59'
-        | 'cv60' | 'cv61' | 'cv62' | 'cv63' | 'cv64' | 'cv65' | 'cv66' | 'cv67' | 'cv68' | 'cv69' | 'cv70'
-        | 'cv71' | 'cv72' | 'cv73' | 'cv74' | 'cv75' | 'cv76' | 'cv77' | 'cv78' | 'cv79' | 'cv80' | 'cv81'
-        | 'cv82' | 'cv83' | 'cv84' | 'cv85' | 'cv86' | 'cv87' | 'cv88' | 'cv89' | 'cv90' | 'cv91' | 'cv92'
-        | 'cv93' | 'cv94' | 'cv95' | 'cv96' | 'cv97' | 'cv98' | 'cv99' | 'c2pc' | 'c2sc' | 'dist' | 'ccmp'
-        | 'dlig' | 'dnom' | 'dtls' | 'expt' | 'falt' | 'fin2' | 'fin3' | 'fina' | 'flac' | 'frac' | 'fwid'
-        | 'half' | 'haln' | 'halt' | 'hist' | 'hkna' | 'hlig' | 'hngl' | 'hojo' | 'hwid' | 'init' | 'isol'
-        | 'ital' | 'jalt' | 'jp78' | 'jp83' | 'jp90' | 'jp04' | 'kern' | 'lfbd' | 'liga' | 'ljmo' | 'lnum'
-        | 'locl' | 'ltra' | 'ltrm' | 'mark' | 'med2' | 'medi' | 'mgrk' | 'mkmk' | 'mset' | 'nalt' | 'nlck'
-        | 'nukt' | 'numr' | 'onum' | 'opbd' | 'ordn' | 'ornm' | 'palt' | 'pcap' | 'pkna' | 'pnum' | 'pref'
-        | 'pres' | 'pstf' | 'psts' | 'pwid' | 'qwid' | 'rand' | 'rclt' | 'rkrf' | 'rlig' | 'rphf' | 'rtbd'
-        | 'rtla' | 'rtlm' | 'ruby' | 'rvrn' | 'salt' | 'sinf' | 'size' | 'smcp' | 'smpl' | 'ss01' | 'ss02'
-        | 'ss03' | 'ss04' | 'ss05' | 'ss06' | 'ss07' | 'ss08' | 'ss09' | 'ss10' | 'ss11' | 'ss12' | 'ss13'
-        | 'ss14' | 'ss15' | 'ss16' | 'ss17' | 'ss18' | 'ss19' | 'ss20' | 'ssty' | 'stch' | 'subs' | 'sups'
-        | 'swsh' | 'titl' | 'tjmo' | 'tnam' | 'tnum' | 'trad' | 'twid' | 'unic' | 'valt' | 'vatu' | 'vert'
-        | 'vhal' | 'vjmo' | 'vkna' | 'vkrn' | 'vpal' | 'vrt2' | 'vrtr' | 'zero';
+        | "aalt"
+        | "abvf"
+        | "abvm"
+        | "abvs"
+        | "afrc"
+        | "akhn"
+        | "blwf"
+        | "blwm"
+        | "blws"
+        | "calt"
+        | "case"
+        | "cfar"
+        | "cjct"
+        | "clig"
+        | "cpct"
+        | "cpsp"
+        | "cswh"
+        | "curs"
+        | "cv01"
+        | "cv02"
+        | "cv03"
+        | "cv04"
+        | "cv05"
+        | "cv06"
+        | "cv07"
+        | "cv08"
+        | "cv09"
+        | "cv10"
+        | "cv11"
+        | "cv12"
+        | "cv13"
+        | "cv14"
+        | "cv15"
+        | "cv16"
+        | "cv17"
+        | "cv18"
+        | "cv19"
+        | "cv20"
+        | "cv21"
+        | "cv22"
+        | "cv23"
+        | "cv24"
+        | "cv25"
+        | "cv26"
+        | "cv27"
+        | "cv28"
+        | "cv29"
+        | "cv30"
+        | "cv31"
+        | "cv32"
+        | "cv33"
+        | "cv34"
+        | "cv35"
+        | "cv36"
+        | "cv37"
+        | "cv38"
+        | "cv39"
+        | "cv40"
+        | "cv41"
+        | "cv42"
+        | "cv43"
+        | "cv44"
+        | "cv45"
+        | "cv46"
+        | "cv47"
+        | "cv48"
+        | "cv49"
+        | "cv50"
+        | "cv51"
+        | "cv52"
+        | "cv53"
+        | "cv54"
+        | "cv55"
+        | "cv56"
+        | "cv57"
+        | "cv58"
+        | "cv59"
+        | "cv60"
+        | "cv61"
+        | "cv62"
+        | "cv63"
+        | "cv64"
+        | "cv65"
+        | "cv66"
+        | "cv67"
+        | "cv68"
+        | "cv69"
+        | "cv70"
+        | "cv71"
+        | "cv72"
+        | "cv73"
+        | "cv74"
+        | "cv75"
+        | "cv76"
+        | "cv77"
+        | "cv78"
+        | "cv79"
+        | "cv80"
+        | "cv81"
+        | "cv82"
+        | "cv83"
+        | "cv84"
+        | "cv85"
+        | "cv86"
+        | "cv87"
+        | "cv88"
+        | "cv89"
+        | "cv90"
+        | "cv91"
+        | "cv92"
+        | "cv93"
+        | "cv94"
+        | "cv95"
+        | "cv96"
+        | "cv97"
+        | "cv98"
+        | "cv99"
+        | "c2pc"
+        | "c2sc"
+        | "dist"
+        | "ccmp"
+        | "dlig"
+        | "dnom"
+        | "dtls"
+        | "expt"
+        | "falt"
+        | "fin2"
+        | "fin3"
+        | "fina"
+        | "flac"
+        | "frac"
+        | "fwid"
+        | "half"
+        | "haln"
+        | "halt"
+        | "hist"
+        | "hkna"
+        | "hlig"
+        | "hngl"
+        | "hojo"
+        | "hwid"
+        | "init"
+        | "isol"
+        | "ital"
+        | "jalt"
+        | "jp78"
+        | "jp83"
+        | "jp90"
+        | "jp04"
+        | "kern"
+        | "lfbd"
+        | "liga"
+        | "ljmo"
+        | "lnum"
+        | "locl"
+        | "ltra"
+        | "ltrm"
+        | "mark"
+        | "med2"
+        | "medi"
+        | "mgrk"
+        | "mkmk"
+        | "mset"
+        | "nalt"
+        | "nlck"
+        | "nukt"
+        | "numr"
+        | "onum"
+        | "opbd"
+        | "ordn"
+        | "ornm"
+        | "palt"
+        | "pcap"
+        | "pkna"
+        | "pnum"
+        | "pref"
+        | "pres"
+        | "pstf"
+        | "psts"
+        | "pwid"
+        | "qwid"
+        | "rand"
+        | "rclt"
+        | "rkrf"
+        | "rlig"
+        | "rphf"
+        | "rtbd"
+        | "rtla"
+        | "rtlm"
+        | "ruby"
+        | "rvrn"
+        | "salt"
+        | "sinf"
+        | "size"
+        | "smcp"
+        | "smpl"
+        | "ss01"
+        | "ss02"
+        | "ss03"
+        | "ss04"
+        | "ss05"
+        | "ss06"
+        | "ss07"
+        | "ss08"
+        | "ss09"
+        | "ss10"
+        | "ss11"
+        | "ss12"
+        | "ss13"
+        | "ss14"
+        | "ss15"
+        | "ss16"
+        | "ss17"
+        | "ss18"
+        | "ss19"
+        | "ss20"
+        | "ssty"
+        | "stch"
+        | "subs"
+        | "sups"
+        | "swsh"
+        | "titl"
+        | "tjmo"
+        | "tnam"
+        | "tnum"
+        | "trad"
+        | "twid"
+        | "unic"
+        | "valt"
+        | "vatu"
+        | "vert"
+        | "vhal"
+        | "vjmo"
+        | "vkna"
+        | "vkrn"
+        | "vpal"
+        | "vrt2"
+        | "vrtr"
+        | "zero";
 
     type BoundingBox = [number, number, number, number];
 
@@ -157,8 +385,8 @@ declare namespace PDFKit.Mixins {
         /** Two elements array specifying dimensions(w,h)  */
         fit?: [number, number] | undefined;
         cover?: [number, number] | undefined;
-        align?: 'center' | 'right' | undefined;
-        valign?: 'center' | 'bottom' | undefined;
+        align?: "center" | "right" | undefined;
+        valign?: "center" | "bottom" | undefined;
         link?: AnnotationOption | undefined;
         goTo?: AnnotationOption | undefined;
         destination?: string | undefined;
@@ -210,14 +438,25 @@ declare namespace PDFKit.Mixins {
         /** Whether to slant the text (angle in degrees or true) */
         oblique?: boolean | number | undefined;
         /** The alignment of the text (center, justify, left, right) */
-        //TODO check this
-        align?: 'center' | 'justify' | 'left' | 'right' | string | undefined;
+        // TODO check this
+        align?: "center" | "justify" | "left" | "right" | string | undefined;
         /** The vertical alignment of the text with respect to its insertion point */
-        baseline?: number | 'svg-middle' | 'middle' | 'svg-central' | 'bottom' | 'ideographic' | 'alphabetic' | 'mathematical' | 'hanging' | 'top' | undefined;
+        baseline?:
+            | number
+            | "svg-middle"
+            | "middle"
+            | "svg-central"
+            | "bottom"
+            | "ideographic"
+            | "alphabetic"
+            | "mathematical"
+            | "hanging"
+            | "top"
+            | undefined;
         /** An array of OpenType feature tags to apply. If not provided, a set of defaults is used. */
         features?: OpenTypeFeatures[] | undefined;
         /** Sets a list as unordered, ordered or lettered */
-        listType?: 'bullet' | 'numbered' | 'lettered' | undefined;
+        listType?: "bullet" | "numbered" | "lettered" | undefined;
         /** The radius of bullet points in a list. Works only with listType: 'bullet' */
         bulletRadius?: number | undefined;
         /** The indent of bullet points in a list */
@@ -319,7 +558,11 @@ declare namespace PDFKit.Mixins {
     interface PDFMarking {
         markContent(tag: string, options?: MarkingOptions): this;
         endMarkedContent(): this;
-        struct(tag: string, options?: StructureElementOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
+        struct(
+            tag: string,
+            options?: StructureElementOptions,
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        ): PDFStructureElement;
         addStructure(structElem: PDFStructureElement): this;
         initMarkings(options?: { tagged?: boolean }): void;
         initPageMarkings(pageMarkings: PageMarking[]): void;
@@ -331,7 +574,7 @@ declare namespace PDFKit.Mixins {
         endMarkings(): void;
     }
     interface MarkingOptions {
-        type?: 'Pagination' | 'Layout' | 'Page';
+        type?: "Pagination" | "Layout" | "Page";
         bbox?: [number, number, number, number];
         attached?: string[];
         lang?: string;
@@ -387,7 +630,7 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/data' {
+declare module "pdfkit/js/data" {
     var PDFKitData: PDFKit.PDFData;
     export = PDFKitData;
 }
@@ -411,7 +654,7 @@ declare namespace PDFKit {
         fillingForms?: boolean | undefined;
         contentAccessibility?: boolean | undefined;
         documentAssembly?: boolean | undefined;
-        printing?: 'lowResolution' | 'highResolution' | undefined;
+        printing?: "lowResolution" | "highResolution" | undefined;
     }
 
     interface PDFDocumentOptions {
@@ -420,12 +663,12 @@ declare namespace PDFKit {
         userPassword?: string | undefined;
         ownerPassword?: string | undefined;
         permissions?: DocumentPermissions | undefined;
-        pdfVersion?: '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3' | undefined;
+        pdfVersion?: "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3" | undefined;
         autoFirstPage?: boolean | undefined;
         size?: number[] | string | undefined;
         margin?: number | undefined;
         margins?: { top: number; left: number; bottom: number; right: number } | undefined;
-        layout?: 'portrait' | 'landscape' | undefined;
+        layout?: "portrait" | "landscape" | undefined;
         font?: string | undefined;
 
         bufferPages?: boolean | undefined;
@@ -435,16 +678,18 @@ declare namespace PDFKit {
     }
 
     interface PDFDocument
-        extends NodeJS.ReadableStream,
-        Mixins.PDFAnnotation,
-        Mixins.PDFColor,
-        Mixins.PDFImage,
-        Mixins.PDFText,
-        Mixins.PDFVector,
-        Mixins.PDFFont,
-        Mixins.PDFAcroForm,
-        Mixins.PDFMarking,
-        Mixins.PDFAttachment {
+        extends
+            NodeJS.ReadableStream,
+            Mixins.PDFAnnotation,
+            Mixins.PDFColor,
+            Mixins.PDFImage,
+            Mixins.PDFText,
+            Mixins.PDFVector,
+            Mixins.PDFFont,
+            Mixins.PDFAcroForm,
+            Mixins.PDFMarking,
+            Mixins.PDFAttachment
+    {
         /**
          * PDF Version
          */
@@ -490,12 +735,12 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit' {
+declare module "pdfkit" {
     var doc: PDFKit.PDFDocument;
     export = doc;
 }
 
-declare module 'pdfkit/js/gradient' {
+declare module "pdfkit/js/gradient" {
     var gradient: {
         PDFGradient: PDFKit.PDFGradient;
         PDFLinearGradient: PDFKit.PDFLinearGradient;
@@ -505,7 +750,7 @@ declare module 'pdfkit/js/gradient' {
     export = gradient;
 }
 
-declare module 'pdfkit/js/pattern' {
+declare module "pdfkit/js/pattern" {
     var pattern: {
         PDFTilingPattern: PDFKit.PDFTilingPattern;
     };
@@ -543,7 +788,7 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/page' {
+declare module "pdfkit/js/page" {
     var PDFKitPage: PDFKit.PDFPage;
 
     export = PDFKitPage;
@@ -570,7 +815,7 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/reference' {
+declare module "pdfkit/js/reference" {
     var PDFKitReference: PDFKit.PDFKitReference;
 
     export = PDFKitReference;
@@ -583,14 +828,14 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/structure_content' {
+declare module "pdfkit/js/structure_content" {
     var PDFStructureContent: PDFKit.PDFStructureContent;
     export = PDFStructureContent;
 }
 
 declare namespace PDFKit {
     type PDFStructureElementChild =
-        (() => any)
+        | (() => any)
         | PDFStructureElement
         | PDFStructureContent;
 
@@ -600,11 +845,13 @@ declare namespace PDFKit {
             document: PDFDocument,
             type: string,
             options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
-            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        );
         constructor(
             document: PDFDocument,
             type: string,
-            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+            children?: PDFStructureElementChild | PDFStructureElementChild[],
+        );
         add(el: PDFStructureElementChild): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
@@ -612,42 +859,42 @@ declare namespace PDFKit {
     }
 }
 
-declare module 'pdfkit/js/structure_element' {
+declare module "pdfkit/js/structure_element" {
     var PDFStructureElement: PDFKit.PDFStructureElement;
     export = PDFStructureElement;
 }
 
-declare module 'pdfkit/js/mixins/annotations' {
+declare module "pdfkit/js/mixins/annotations" {
     var PDFKitAnnotation: PDFKit.Mixins.PDFAnnotation;
     export = PDFKitAnnotation;
 }
 
-declare module 'pdfkit/js/mixins/color' {
+declare module "pdfkit/js/mixins/color" {
     var PDFKitColor: PDFKit.Mixins.PDFColor;
     export = PDFKitColor;
 }
 
-declare module 'pdfkit/js/mixins/fonts' {
+declare module "pdfkit/js/mixins/fonts" {
     var PDFKitFont: PDFKit.Mixins.PDFFont;
     export = PDFKitFont;
 }
 
-declare module 'pdfkit/js/mixins/images' {
+declare module "pdfkit/js/mixins/images" {
     var PDFKitImage: PDFKit.Mixins.PDFImage;
     export = PDFKitImage;
 }
 
-declare module 'pdfkit/js/mixins/text' {
+declare module "pdfkit/js/mixins/text" {
     var PDFKitText: PDFKit.Mixins.PDFText;
     export = PDFKitText;
 }
 
-declare module 'pdfkit/js/mixins/vector' {
+declare module "pdfkit/js/mixins/vector" {
     var PDFKitVector: PDFKit.Mixins.PDFVector;
     export = PDFKitVector;
 }
 
-declare module 'pdfkit/js/mixins/markings' {
+declare module "pdfkit/js/mixins/markings" {
     var PDFKitMarking: PDFKit.Mixins.PDFMarking;
     export = PDFKitMarking;
 }

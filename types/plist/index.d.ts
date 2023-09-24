@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import { XMLToStringOptions } from 'xmlbuilder';
+import { XMLToStringOptions } from "xmlbuilder";
 
 // plist
 export as namespace plist;
@@ -16,13 +16,11 @@ export function parse(xml: string): PlistValue;
 export function build(obj: PlistValue, opts?: PlistBuildOptions): string;
 
 // PlistValue
-export type PlistValue =
-  string | number | boolean |
-  Date | Buffer | PlistObject | PlistArray;
+export type PlistValue = string | number | boolean | Date | Buffer | PlistObject | PlistArray;
 export interface PlistObject {
-  readonly [x: string]: PlistValue;
+    readonly [x: string]: PlistValue;
 }
-export interface PlistArray extends ReadonlyArray<PlistValue> { }
+export interface PlistArray extends ReadonlyArray<PlistValue> {}
 
 // PlistBuildOptions
 // The instance of this type is passed to 'xmlbuilder' module as it is.

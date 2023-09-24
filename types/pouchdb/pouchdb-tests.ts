@@ -1,4 +1,4 @@
-import PouchDB = require('pouchdb');
+import PouchDB = require("pouchdb");
 
 function isString(someString: string) {
 }
@@ -24,7 +24,7 @@ function testAllDocs() {
 
     db.allDocs({ startkey: "a", endkey: "b" });
     db.allDocs({ startkey: "a", endkey: "b", inclusive_end: true });
-    db.allDocs({ keys: ["a", "b", "c" ]});
+    db.allDocs({ keys: ["a", "b", "c"] });
     db.allDocs({ key: "a" });
     db.allDocs({
         attachments: true,
@@ -33,7 +33,7 @@ function testAllDocs() {
         descending: true,
         include_docs: true,
         limit: 5,
-        skip: 1
+        skip: 1,
     });
 }
 
@@ -43,42 +43,42 @@ function testDestroy() {
     db.destroy({}, (error) => {
     });
     db.destroy().then(() => {
-            }).catch((error) => {
-            });
+    }).catch((error) => {
+    });
 }
 
 function testBasics() {
     interface MyModel {
-        property: 'someProperty ';
+        property: "someProperty ";
     }
     let model: PouchDB.Core.Document<MyModel>;
-    const id = 'model';
+    const id = "model";
 
     let db = new PouchDB<MyModel>();
     db = new PouchDB<MyModel>(null, {
-        adapter: 'fruitdown'
+        adapter: "fruitdown",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'http'
+        adapter: "http",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'idb'
+        adapter: "idb",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'leveldb'
+        adapter: "leveldb",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'localstorage'
+        adapter: "localstorage",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'memory'
+        adapter: "memory",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'websql'
+        adapter: "websql",
     });
     db = new PouchDB<MyModel>(null, {
-        adapter: 'websql',
-        size: 100
+        adapter: "websql",
+        size: 100,
     });
 
     db.post(model).then((result) => {
@@ -93,7 +93,7 @@ function testBasics() {
 
     db.put(model).then((error) => {
     });
-    db.put(model,  null, (error) => {
+    db.put(model, null, (error) => {
     });
 
     db.info().then((info) => {

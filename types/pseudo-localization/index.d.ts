@@ -7,10 +7,10 @@
 export namespace PseudoLocalization {
     interface Options {
         blacklistedNodeNames?: string[] | undefined;
-        strategy?: 'accented' | 'bidi' | undefined;
+        strategy?: "accented" | "bidi" | undefined;
     }
 
-    type Localize = (inputString: string, options?: Omit<Options, 'blacklistedNodeNames'>) => string;
+    type Localize = (inputString: string, options?: Omit<Options, "blacklistedNodeNames">) => string;
     type Start = (options?: Options) => void;
     type Stop = () => void;
 }

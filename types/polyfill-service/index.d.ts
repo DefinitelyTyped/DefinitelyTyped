@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export type PolyfillFlag = 'gated' | 'always';
-export type Unknown = 'polyfill' | 'ignore';
+export type PolyfillFlag = "gated" | "always";
+export type Unknown = "polyfill" | "ignore";
 
 export interface Feature {
     flags?: PolyfillFlag[] | undefined;

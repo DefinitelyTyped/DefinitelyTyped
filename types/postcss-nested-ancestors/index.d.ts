@@ -3,7 +3,7 @@
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace nestedAncestors {
     interface Options {

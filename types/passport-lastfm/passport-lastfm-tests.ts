@@ -1,13 +1,13 @@
-import type { Request } from 'express';
-import { Profile, StrategyOptions, Strategy, VerifyCallback, VerifyFunction } from 'passport-lastfm';
+import type { Request } from "express";
+import { Profile, Strategy, StrategyOptions, VerifyCallback, VerifyFunction } from "passport-lastfm";
 
 const strategyOptions: StrategyOptions = {
-    api_key: 'api-key',
-    clientID: 'client-id',
-    secret: 'secret',
-    clientSecret: 'client-secret',
-    callback_url: 'callback-url',
-    callbackURL: 'callback-url',
+    api_key: "api-key",
+    clientID: "client-id",
+    secret: "secret",
+    clientSecret: "client-secret",
+    callback_url: "callback-url",
+    callbackURL: "callback-url",
 };
 
 const verifyFunction: VerifyFunction = (
@@ -16,7 +16,7 @@ const verifyFunction: VerifyFunction = (
     done: VerifyCallback,
 ) => {
     const user = {
-        profile: sessionKey
+        profile: sessionKey,
     };
 
     done(null, user);

@@ -12,16 +12,16 @@ PooolAccess;
 // $ExpectType Access
 Access.noConflict();
 // $ExpectType AccessFactory
-Access.init('key-string');
+Access.init("key-string");
 
-const access = Access.init('key-string');
+const access = Access.init("key-string");
 
 // $ExpectType AccessFactory
 access.createPaywall({
-    target: 'target',
-    content: 'content',
-    mode: 'hide',
-    pageType: 'premium',
+    target: "target",
+    content: "content",
+    mode: "hide",
+    pageType: "premium",
     percent: 80,
 });
 
@@ -34,50 +34,50 @@ access.config(
 );
 
 //  $ExpectType AccessFactory
-access.config('key', 'value', true);
+access.config("key", "value", true);
 
 // $ExpectType AccessFactory
-access.config('key', false, true);
+access.config("key", false, true);
 
 // $ExpectType AccessFactory
-access.texts('key', 'value', false, 'en');
+access.texts("key", "value", false, "en");
 
 // $ExpectType AccessFactory
 access.texts(
     {
-        key: 'value',
+        key: "value",
     },
     false,
-    'en',
+    "en",
 );
 
 // $ExpectType AccessFactory
-access.styles('key', 'value', false);
+access.styles("key", "value", false);
 
 // $ExpectType AccessFactory
 access.styles(
     {
-        brand_cover: 'value',
+        brand_cover: "value",
     },
     false,
 );
 
 // $ExpectType AccessFactory
-access.variables('key', 'value');
+access.variables("key", "value");
 
 // $ExpectType AccessFactory
 access.variables({
-    key: 'value',
+    key: "value",
 });
 
 // $ExpectType AccessFactory
-access.on('subscribeClick', () => {});
+access.on("subscribeClick", () => {});
 
 // $ExpectType AccessFactory
-access.once('subscribeClick', () => {});
+access.once("subscribeClick", () => {});
 
 // $ExpectType AccessFactory
-access.off('subscribeClick', () => {});
+access.off("subscribeClick", () => {});
 
 // $ExpectType null
 access.destroy();
@@ -96,9 +96,9 @@ PooolAudit;
 Audit.noConflict();
 
 // $ExpectType Audit
-Audit.init('key-string');
+Audit.init("key-string");
 
-const audit = Audit.init('key-string');
+const audit = Audit.init("key-string");
 
 // $ExpectType Audit
 audit.config(
@@ -109,22 +109,22 @@ audit.config(
 );
 
 // $ExpectType Audit
-audit.sendEvent('page-view', { type: 'premium' }, { key: 'value' });
+audit.sendEvent("page-view", { type: "premium" }, { key: "value" });
 
 // $ExpectType Audit
 audit.config({ debug: false }, true);
 
 // $ExpectType Audit
-audit.config('key', 'value', true);
+audit.config("key", "value", true);
 
 // $ExpectType Audit
-audit.config('key', false, true);
+audit.config("key", false, true);
 
 // $ExpectType Audit
-audit.on('subscribeClick', () => {});
+audit.on("subscribeClick", () => {});
 
 // $ExpectType Audit
-audit.once('subscribeClick', () => {});
+audit.once("subscribeClick", () => {});
 
 // $ExpectType Audit
-audit.off('subscribeClick', () => {});
+audit.off("subscribeClick", () => {});

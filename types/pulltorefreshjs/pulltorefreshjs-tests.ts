@@ -1,4 +1,4 @@
-import * as PullToRefresh from 'pulltorefreshjs';
+import * as PullToRefresh from "pulltorefreshjs";
 
 PullToRefresh.init();
 
@@ -9,22 +9,22 @@ PullToRefresh.init({
     distMax: 80,
     distReload: 50,
     distIgnore: 0,
-    mainElement: 'body',
-    triggerElement: 'body',
-    ptrElement: '.ptr',
-    classPrefix: 'ptr--',
-    cssProp: 'min-height',
-    iconArrow: '&#8675;',
-    iconRefreshing: '&hellip;',
-    instructionsPullToRefresh: 'Pull down to refresh',
-    instructionsReleaseToRefresh: 'Release to refresh',
-    instructionsRefreshing: 'Refreshing',
+    mainElement: "body",
+    triggerElement: "body",
+    ptrElement: ".ptr",
+    classPrefix: "ptr--",
+    cssProp: "min-height",
+    iconArrow: "&#8675;",
+    iconRefreshing: "&hellip;",
+    instructionsPullToRefresh: "Pull down to refresh",
+    instructionsReleaseToRefresh: "Release to refresh",
+    instructionsRefreshing: "Refreshing",
     refreshTimeout: 500,
     getMarkup: () => {
-        return '';
+        return "";
     },
     getStyles: () => {
-        return '';
+        return "";
     },
     onInit: () => {},
     onRefresh: () => {
@@ -39,7 +39,7 @@ PullToRefresh.init({
 });
 
 PullToRefresh.init({
-    mainElement: 'body',
+    mainElement: "body",
     onRefresh: () => {
         window.location.reload();
     },
@@ -50,7 +50,7 @@ PullToRefresh.init({
 });
 
 PullToRefresh.init({
-    mainElement: 'body',
+    mainElement: "body",
     onRefresh: () => Promise.resolve(),
 });
 

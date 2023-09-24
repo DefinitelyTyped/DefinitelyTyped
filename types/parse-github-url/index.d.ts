@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Url } from 'url';
+import { Url } from "url";
 
 declare namespace gh {
     interface Result extends Url {

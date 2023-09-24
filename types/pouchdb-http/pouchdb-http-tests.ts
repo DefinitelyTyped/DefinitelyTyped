@@ -3,8 +3,8 @@ interface MyModel {
 }
 
 function testConstructor(model: PouchDB.Core.Document<MyModel>) {
-    const db = new PouchDB<MyModel>('myDb', {
-        adapter: 'http',
+    const db = new PouchDB<MyModel>("myDb", {
+        adapter: "http",
     });
-    db.get('model').then((result) => model);
+    db.get("model").then((result) => model);
 }

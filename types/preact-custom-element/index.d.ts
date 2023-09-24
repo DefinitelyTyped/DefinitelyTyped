@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
-import { ComponentClass, FunctionComponent, FunctionalComponent } from 'preact';
+import { ComponentClass, FunctionalComponent, FunctionComponent } from "preact";
 declare function register(
     componentDefinition: FunctionComponent<any> | ComponentClass<any> | FunctionalComponent<any>,
     tagName?: string,

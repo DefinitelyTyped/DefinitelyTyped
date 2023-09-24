@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
 import * as parse5 from "parse5";
+import * as stream from "stream";
 
 /**
  * Streaming AST node to an HTML serializer.

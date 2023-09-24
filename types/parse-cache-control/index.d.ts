@@ -11,10 +11,10 @@ declare function parseCacheControl(field: string): parseCacheControl.Header | nu
 
 declare namespace parseCacheControl {
     interface Header {
-        'max-age'?: number | undefined;
-        'must-revalidate'?: boolean | undefined;
-        'no-cache'?: boolean | undefined;
-        'no-store'?: boolean | undefined;
+        "max-age"?: number | undefined;
+        "must-revalidate"?: boolean | undefined;
+        "no-cache"?: boolean | undefined;
+        "no-store"?: boolean | undefined;
         private?: boolean | undefined;
     }
 }
