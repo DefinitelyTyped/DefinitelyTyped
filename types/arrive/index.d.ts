@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // required for declare global to work
-export { };
+export {};
 
 interface Options {
     fireOnAttributesModification?: boolean | undefined;
@@ -12,10 +12,24 @@ interface Options {
     existing?: boolean | undefined;
 }
 
-type ArriveSignature = (element: string, handlerOrOptions: ((this: Element, element: Element) => void) | Options, handler?: (this: Element, element: Element) => void) => void;
-type UnbindArriveSignature = (elementOrHandler?: string | ((this: Element, element: Element) => void), handler?: (this: Element, element: Element) => void) => void;
-type LeaveSignature = (element: string, handlerOrOptions: ((this: Element, element: Element) => void) | Options, handler?: (this: Element) => void) => void;
-type UnbindLeaveSignature = (elementOrHandler?: string | ((this: Element, element: Element) => void), handler?: (this: Element, element: Element) => void) => void;
+type ArriveSignature = (
+    element: string,
+    handlerOrOptions: ((this: Element, element: Element) => void) | Options,
+    handler?: (this: Element, element: Element) => void,
+) => void;
+type UnbindArriveSignature = (
+    elementOrHandler?: string | ((this: Element, element: Element) => void),
+    handler?: (this: Element, element: Element) => void,
+) => void;
+type LeaveSignature = (
+    element: string,
+    handlerOrOptions: ((this: Element, element: Element) => void) | Options,
+    handler?: (this: Element) => void,
+) => void;
+type UnbindLeaveSignature = (
+    elementOrHandler?: string | ((this: Element, element: Element) => void),
+    handler?: (this: Element, element: Element) => void,
+) => void;
 
 declare global {
     // tslint:disable-next-line no-unnecessary-class

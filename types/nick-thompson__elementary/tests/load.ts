@@ -1,5 +1,5 @@
-import * as el from '@nick-thompson/elementary';
-import { padEnd, print } from './tester';
+import * as el from "@nick-thompson/elementary";
+import { padEnd, print } from "./tester";
 
 declare const global: any;
 const core: el.Core = global.elementary.core;
@@ -14,18 +14,19 @@ Number: ${index}
 }
 
 export function onCoreLoad(...callbacks: ElementaryCallback[]) {
-    core.on('load', () =>
+    core.on("load", () =>
         callbacks.forEach(
             (callback, index) => {
-                const callbackName =
-                    padEnd(
-                        callback.name.slice(0, 20),
-                        20,
-                        ' ');
+                const callbackName = padEnd(
+                    callback.name.slice(0, 20),
+                    20,
+                    " ",
+                );
 
                 printCallback(callbackName, index);
                 callback(core, el);
-            }));
+            },
+        ));
 }
 
-export { el, core };
+export { core, el };

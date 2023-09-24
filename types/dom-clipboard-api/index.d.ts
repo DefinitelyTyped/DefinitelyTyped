@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Clipboard extends EventTarget {
-  read(): Promise<DataTransfer>;
-  readText(): Promise<string>;
-  write(data: DataTransfer): Promise<void>;
-  writeText(data: string): Promise<void>;
+    read(): Promise<DataTransfer>;
+    readText(): Promise<string>;
+    write(data: DataTransfer): Promise<void>;
+    writeText(data: string): Promise<void>;
 }
 
 interface Navigator {
-  readonly clipboard: Clipboard;
+    readonly clipboard: Clipboard;
 }

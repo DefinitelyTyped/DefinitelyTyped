@@ -3,7 +3,7 @@
 // Definitions by: Joseph Hendrix <https://github.com/hendrixjoseph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestListener } from 'http';
+import { RequestListener } from "http";
 
 export interface Options {
     packageRoot: string;
@@ -19,4 +19,4 @@ export interface Serve {
     serve: (app: RequestListener) => void;
 }
 
-export function init(o: (Options | (() => Options))): Serve;
+export function init(o: Options | (() => Options)): Serve;

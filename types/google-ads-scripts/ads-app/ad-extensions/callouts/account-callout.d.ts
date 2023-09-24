@@ -7,10 +7,12 @@ declare namespace GoogleAdsScripts {
         interface AccountCalloutIterator extends Base.Iterator<AccountCallout> {}
 
         interface AccountCalloutSelector
-            extends Base.Selector<AccountCalloutIterator>,
+            extends
+                Base.Selector<AccountCalloutIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

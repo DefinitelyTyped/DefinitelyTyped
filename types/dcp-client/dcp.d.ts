@@ -1,6 +1,6 @@
-import type Compute from 'dcp/compute';
-import type Wallet from 'dcp/wallet';
-import type Worker from 'dcp/worker';
+import type Compute from "dcp/compute";
+import type Wallet from "dcp/wallet";
+import type Worker from "dcp/worker";
 
 export as namespace dcp;
 

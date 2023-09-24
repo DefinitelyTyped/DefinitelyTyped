@@ -3,7 +3,6 @@
 // Definitions by: TANAKA Koichi <https://gitnub.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface Options {
     configDir: string;
     env: string;

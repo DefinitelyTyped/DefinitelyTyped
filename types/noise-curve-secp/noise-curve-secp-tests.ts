@@ -1,5 +1,5 @@
-import * as curve from 'noise-curve-secp';
-import Noise = require('noise-handshake');
+import * as curve from "noise-curve-secp";
+import Noise = require("noise-handshake");
 
 // test type exports
 type KeyPair = curve.KeyPair;
@@ -15,4 +15,4 @@ curve.generateKeyPair(Buffer.alloc(10)); // $ExpectType KeyPair
 curve.dh(Buffer.alloc(10), { secretKey: Buffer.alloc(10) }); // $ExpectType Buffer
 curve.dh(Buffer.alloc(10), kp); // $ExpectType Buffer
 
-new Noise('IK', true, undefined, { curve });
+new Noise("IK", true, undefined, { curve });

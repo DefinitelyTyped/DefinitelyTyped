@@ -1,4 +1,4 @@
-import type { PropertyDescriptor as ESPropertyDescriptor, PropertyKey as ESPropertyKey } from '../index';
+import type { PropertyDescriptor as ESPropertyDescriptor, PropertyKey as ESPropertyKey } from "../index";
 
 /**
  * Adds a property to an object, or modifies attributes of an existing property.

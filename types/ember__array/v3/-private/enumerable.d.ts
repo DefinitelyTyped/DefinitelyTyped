@@ -1,7 +1,7 @@
-import ComputedProperty from '@ember/object/computed';
-import Mixin from '@ember/object/mixin';
-import NativeArray from '@ember/array/-private/native-array';
-import EmberArray from '@ember/array';
+import EmberArray from "@ember/array";
+import NativeArray from "@ember/array/-private/native-array";
+import ComputedProperty from "@ember/object/computed";
+import Mixin from "@ember/object/mixin";
 /**
  * This mixin defines the common interface implemented by enumerable objects
  * in Ember. Most of these methods follow the standard Array iteration
@@ -30,7 +30,7 @@ interface Enumerable<T> {
      * item. This method corresponds to the `forEach()` method defined in
      * JavaScript 1.6.
      */
-    forEach: T[]['forEach'];
+    forEach: T[]["forEach"];
     /**
      * Alias for `mapBy`
      */
@@ -46,7 +46,7 @@ interface Enumerable<T> {
      * Maps all of the items in the enumeration to another value, returning
      * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
      */
-    map: T[]['map'];
+    map: T[]["map"];
     /**
      * Similar to map, this specialized function returns the value of the named
      * property on all items in the enumeration.
@@ -57,7 +57,7 @@ interface Enumerable<T> {
      * function returns true for. This method corresponds to `filter()` defined in
      * JavaScript 1.6.
      */
-    filter: T[]['filter'];
+    filter: T[]["filter"];
     /**
      * Returns an array with all of the items in the enumeration where the passed
      * function returns false. This method is the inverse of filter().
@@ -80,7 +80,7 @@ interface Enumerable<T> {
      * This method works similar to the `filter()` method defined in JavaScript 1.6
      * except that it will stop working on the array once a match is found.
      */
-    find: T[]['find'];
+    find: T[]["find"];
     /**
      * Returns the first item with a property matching the passed value. You
      * can pass an optional second argument with the target value. Otherwise
@@ -91,7 +91,7 @@ interface Enumerable<T> {
      * Returns `true` if the passed function returns true for every item in the
      * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
      */
-    every: T[]['every'];
+    every: T[]["every"];
     /**
      * Returns `true` if the passed property resolves to the value of the second
      * argument for all items in the enumerable. This method is often simpler/faster
@@ -114,7 +114,7 @@ interface Enumerable<T> {
      * is a useful way to collect a summary value from an enumeration. This
      * corresponds to the `reduce()` method defined in JavaScript 1.8.
      */
-    reduce: T[]['reduce'];
+    reduce: T[]["reduce"];
     /**
      * Invokes the named method on every object in the receiver that
      * implements it. This method corresponds to the implementation in
@@ -161,7 +161,7 @@ interface Enumerable<T> {
      * this property, it will return this. If you set this property to a new
      * array, it will replace the current content.
      */
-    '[]': ComputedProperty<this>;
+    "[]": ComputedProperty<this>;
 }
 declare const Enumerable: Mixin<Enumerable<any>>;
 

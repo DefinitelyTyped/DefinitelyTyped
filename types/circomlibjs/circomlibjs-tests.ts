@@ -35,6 +35,14 @@ new evmasm();
     const smt = await buildSMT(db, 0);
 
     // $ExpectType any
+    smt.F;
+    // $ExpectType SMTMemDb
+    smt.db;
+    // $ExpectType BigNumberish
+    smt.root;
+    smt.hash0;
+    smt.hash1;
+    // $ExpectType any
     smt.delete(1);
     // $ExpectType any
     smt.find(1);
@@ -46,6 +54,24 @@ new evmasm();
     // $ExpectType BabyJub
     const babyJub = await buildBabyjub();
 
+    // $ExpectType any
+    babyJub.F;
+    // $ExpectType bigint
+    babyJub.p;
+    // $ExpectType bigint
+    babyJub.pm1d2;
+    // $ExpectType Point
+    babyJub.Generator;
+    // $ExpectType Point
+    babyJub.Base8;
+    // $ExpectType bigint
+    babyJub.order;
+    // $ExpectType bigint
+    babyJub.subOrder;
+    // $ExpectType Uint8Array
+    babyJub.A;
+    // $ExpectType Uint8Array
+    babyJub.D;
     // $ExpectType Point
     babyJub.addPoint(point, point);
     // $ExpectType Point
@@ -62,6 +88,18 @@ new evmasm();
     // $ExpectType Eddsa
     const eddsa = await buildEddsa();
 
+    // $ExpectType any
+    eddsa.F;
+    // $ExpectType BabyJub
+    eddsa.babyJub;
+    // $ExpectType PedersenHash
+    eddsa.pedersenHash;
+    // $ExpectType Mimc7
+    eddsa.mimc7;
+    // $ExpectType Poseidon
+    eddsa.poseidon;
+    // $ExpectType MimcSponge
+    eddsa.mimcSponge;
     // $ExpectType Uint8Array
     eddsa.pruneBuffer(new Uint8Array([0]));
     // $ExpectType Point
@@ -90,6 +128,10 @@ new evmasm();
     // $ExpectType Mimc7
     const mimc7 = await buildMimc7();
 
+    // $ExpectType any
+    mimc7.F;
+    // $ExpectType Uint8Array[]
+    mimc7.cts;
     // $ExpectType bigint
     mimc7.getIV('mimc');
     mimc7.getIV();
@@ -106,6 +148,10 @@ new evmasm();
     // $ExpectType MimcSponge
     const mimcSponge = await buildMimcSponge();
 
+    // $ExpectType any
+    mimcSponge.F;
+    // $ExpectType Uint8Array[]
+    mimcSponge.cts;
     // $ExpectType bigint
     mimcSponge.getIV('mimcsponge');
     mimcSponge.getIV();
@@ -133,6 +179,10 @@ new evmasm();
     // $ExpectType PedersenHash
     const pederson = await buildPedersenHash();
 
+    // $ExpectType BabyJub
+    pederson.babyJub;
+    // $ExpectType any[]
+    pederson.bases;
     // $ExpectType any
     pederson.baseHash('blake', 3);
     pederson.baseHash('blake2b', 4);

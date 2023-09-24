@@ -1,8 +1,8 @@
-import * as workerThreads from 'node:worker_threads';
-import assert = require('node:assert');
-import { createContext } from 'node:vm';
-import { Readable } from 'node:stream';
-import * as fs from 'node:fs';
+import * as workerThreads from "node:worker_threads";
+import assert = require("node:assert");
+import * as fs from "node:fs";
+import { Readable } from "node:stream";
+import { createContext } from "node:vm";
 
 {
     if (workerThreads.isMainThread) {
@@ -13,15 +13,16 @@ import * as fs from 'node:fs';
                     resourceLimits: {
                         codeRangeSizeMb: 123,
                     },
-                    argv: ['asd'],
+                    argv: ["asd"],
                     workerData: script,
                     transferList: [port1],
                 });
-                worker.on('message', resolve);
-                worker.on('error', reject);
-                worker.on('exit', (code) => {
-                    if (code !== 0)
+                worker.on("message", resolve);
+                worker.on("error", reject);
+                worker.on("exit", (code) => {
+                    if (code !== 0) {
                         reject(new Error(`Worker stopped with exit code ${code}`));
+                    }
                 });
             });
         };
@@ -33,25 +34,30 @@ import * as fs from 'node:fs';
 
 {
     const { port1, port2 } = new workerThreads.MessageChannel();
-    port1.on('message', (message) => console.log('received', message));
-    port2.postMessage({ foo: 'bar' });
+    port1.on("message", (message) => console.log("received", message));
+    port2.postMessage({ foo: "bar" });
 }
 
 {
     if (workerThreads.isMainThread) {
         const worker = new workerThreads.Worker(__filename);
         const subChannel = new workerThreads.MessageChannel();
-        worker.postMessage({ hereIsYourPort: subChannel.port1 }, [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>);
-        subChannel.port2.on('message', (value) => {
-            console.log('received:', value);
+        worker.postMessage(
+            { hereIsYourPort: subChannel.port1 },
+            [subChannel.port1] as ReadonlyArray<workerThreads.TransferListItem>,
+        );
+        subChannel.port2.on("message", (value) => {
+            console.log("received:", value);
         });
         const movedPort = workerThreads.moveMessagePortToContext(
-            new workerThreads.MessagePort(), createContext());
+            new workerThreads.MessagePort(),
+            createContext(),
+        );
         workerThreads.receiveMessageOnPort(movedPort);
     } else {
-        workerThreads.parentPort!.once('message', (value) => {
+        workerThreads.parentPort!.once("message", (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
-            value.hereIsYourPort.postMessage('the worker is sending this');
+            value.hereIsYourPort.postMessage("the worker is sending this");
             value.hereIsYourPort.close();
         });
     }
@@ -67,19 +73,19 @@ import * as fs from 'node:fs';
     });
 
     const ww = new workerThreads.Worker(__filename, {
-      env: workerThreads.SHARE_ENV
+        env: workerThreads.SHARE_ENV,
     });
 
     const www = new workerThreads.Worker(__filename, {
-      env: process.env
+        env: process.env,
     });
 
     const wwww = new workerThreads.Worker(__filename, {
-      env: { doot: 'woot' }
+        env: { doot: "woot" },
     });
 
     const wwwww = new workerThreads.Worker(__filename, {
-      trackUnmanagedFds: true
+        trackUnmanagedFds: true,
     });
 }
 
@@ -91,7 +97,7 @@ import * as fs from 'node:fs';
     workerThreads.markAsUntransferable(pooledBuffer);
 
     const { port1 } = new workerThreads.MessageChannel();
-    port1.postMessage(typedArray1, [ typedArray1.buffer ] as ReadonlyArray<workerThreads.TransferListItem>);
+    port1.postMessage(typedArray1, [typedArray1.buffer] as ReadonlyArray<workerThreads.TransferListItem>);
 
     console.log(typedArray1);
     console.log(typedArray2);
@@ -101,6 +107,6 @@ import * as fs from 'node:fs';
     (async () => {
         const fileHandle = await fs.promises.open("thefile.txt", "r");
         const worker = new workerThreads.Worker(__filename);
-        worker.postMessage("some message", [ fileHandle ] as ReadonlyArray<workerThreads.TransferListItem>);
+        worker.postMessage("some message", [fileHandle] as ReadonlyArray<workerThreads.TransferListItem>);
     })();
 }

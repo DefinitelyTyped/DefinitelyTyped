@@ -71,11 +71,22 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "base64url" | "latin1" | "binary" | "hex";
+type BufferEncoding =
+    | "ascii"
+    | "utf8"
+    | "utf-8"
+    | "utf16le"
+    | "ucs2"
+    | "ucs-2"
+    | "base64"
+    | "base64url"
+    | "latin1"
+    | "binary"
+    | "hex";
 
 type WithImplicitCoercion<T> = T | { valueOf(): T };
 
-//#region borrowed
+// #region borrowed
 // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
 /**
  * A controller object that allows you to abort one or more DOM requests as and when desired.
@@ -116,7 +127,7 @@ declare var AbortSignal: {
     new(): AbortSignal;
     // TODO: Add abort() static
 };
-//#endregion borrowed
+// #endregion borrowed
 
 /**
  * Raw data is stored in instances of the Buffer class.
@@ -150,7 +161,6 @@ declare class Buffer extends Uint8Array {
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}/{SharedArrayBuffer}.
      *
-     *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
      */
@@ -177,7 +187,11 @@ declare class Buffer extends Uint8Array {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    static from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
+    static from(
+        arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+        byteOffset?: number,
+        length?: number,
+    ): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
@@ -189,7 +203,10 @@ declare class Buffer extends Uint8Array {
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    static from(str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string }, encoding?: BufferEncoding): Buffer;
+    static from(
+        str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string },
+        encoding?: BufferEncoding,
+    ): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -217,7 +234,7 @@ declare class Buffer extends Uint8Array {
      */
     static byteLength(
         string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-        encoding?: BufferEncoding
+        encoding?: BufferEncoding,
     ): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
@@ -267,14 +284,14 @@ declare class Buffer extends Uint8Array {
     write(string: string, offset: number, encoding?: BufferEncoding): number;
     write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
     toString(encoding?: BufferEncoding, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer'; data: number[] };
+    toJSON(): { type: "Buffer"; data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(
         otherBuffer: Uint8Array,
         targetStart?: number,
         targetEnd?: number,
         sourceStart?: number,
-        sourceEnd?: number
+        sourceEnd?: number,
     ): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     /**
@@ -459,7 +476,7 @@ declare namespace NodeJS {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean | undefined;
+        getters?: "get" | "set" | boolean | undefined;
         showHidden?: boolean | undefined;
         /**
          * @default 2
@@ -579,7 +596,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -595,7 +612,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     interface Global {
         Array: typeof Array;
@@ -709,14 +726,14 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[] | undefined; }): string;
+        (id: string, options?: { paths?: string[] | undefined }): string;
         paths(request: string): string[] | null;
     }
 
     interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
-        '.js': (m: Module, filename: string) => any;
-        '.json': (m: Module, filename: string) => any;
-        '.node': (m: Module, filename: string) => any;
+        ".js": (m: Module, filename: string) => any;
+        ".json": (m: Module, filename: string) => any;
+        ".node": (m: Module, filename: string) => any;
     }
     interface Module {
         exports: any;

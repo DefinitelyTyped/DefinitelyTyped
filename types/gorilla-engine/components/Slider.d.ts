@@ -4,7 +4,7 @@ declare namespace GorillaEngine.UI {
         min: number;
         max: number;
         value: number;
-        direction: 'horizontal' | 'vertical';
+        direction: "horizontal" | "vertical";
         animation: LottieAnimation;
         filmstrip: {
             path: string;

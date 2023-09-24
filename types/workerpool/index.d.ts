@@ -88,12 +88,12 @@ export class Promise<T, E = Error> {
 }
 
 export namespace Promise {
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class CancellationError extends Error {
         name: 'CancellationError';
     }
 
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class TimeoutError extends Error {
         name: 'TimeoutError';
     }
@@ -130,6 +130,13 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number | undefined;
+
+    /**
+     * The maximum number of tasks allowed to be queued. Can be used to prevent running out of memory.
+     * If the maximum is exceeded, adding a new task will throw an error.
+     * The default value is `Infinity`.
+     */
+    maxQueueSize?: number | undefined;
 
     /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:

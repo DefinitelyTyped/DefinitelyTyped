@@ -1,7 +1,7 @@
-import * as http from 'http';
+import * as http from "http";
 
-import * as Crypto from './crypto';
-import { Message } from './client';
+import { Message } from "./client";
+import * as Crypto from "./crypto";
 
 export type CredentialsFunc = (id: string) => Promise<Credentials> | Credentials;
 export type NonceFunc = (key: string, nonce: string, ts: string) => Promise<void> | void;
@@ -50,7 +50,7 @@ export interface AuthenticateOptions {
 }
 
 export interface Credentials {
-    algorithm: 'sha1' | 'sha256';
+    algorithm: "sha1" | "sha256";
     key: string;
     user: string;
 }
@@ -73,7 +73,7 @@ export interface HeaderOptions {
 
 export type AuthenticateBewitOptions = Pick<
     AuthenticateOptions,
-    'hostHeaderName' | 'localtimeOffsetMsec' | 'host' | 'port'
+    "hostHeaderName" | "localtimeOffsetMsec" | "host" | "port"
 >;
 
 export interface Bewit {
@@ -93,7 +93,7 @@ export interface AuthenticatedMessage {
 
 export type AuthenticateMessageOptions = Pick<
     AuthenticateOptions,
-    'nonceFunc' | 'timestampSkewSec' | 'localtimeOffsetMsec'
+    "nonceFunc" | "timestampSkewSec" | "localtimeOffsetMsec"
 >;
 
 export function authenticate(

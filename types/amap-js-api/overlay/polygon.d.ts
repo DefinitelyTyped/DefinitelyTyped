@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace Polygon {
-        interface EventMap<I = Polygon> extends PathOverlay.EventMap<I> { }
+        interface EventMap<I = Polygon> extends PathOverlay.EventMap<I> {}
         interface Options<ExtraData = any> extends PathOverlay.Options<ExtraData> {
             /**
              * 多边形轮廓线的节点坐标数组
@@ -61,9 +61,9 @@ declare namespace AMap {
          * 获取多边形的属性
          */
         getOptions(): Partial<
-            this extends Omit<Ellipse, keyof Polygon> ? Ellipse.GetOptionsResult<ExtraData> :
-            this extends Omit<Rectangle, keyof Polygon> ? Rectangle.GetOptionsResult<ExtraData> :
-            Polygon.GetOptionsResult<ExtraData>
+            this extends Omit<Ellipse, keyof Polygon> ? Ellipse.GetOptionsResult<ExtraData>
+                : this extends Omit<Rectangle, keyof Polygon> ? Rectangle.GetOptionsResult<ExtraData>
+                : Polygon.GetOptionsResult<ExtraData>
         >;
         /**
          * 获取多边形的面积

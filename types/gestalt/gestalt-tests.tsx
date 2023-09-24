@@ -73,8 +73,8 @@ import {
     useReducedMotion,
     Video,
     WashAnimated,
-} from 'gestalt';
-import * as React from 'react';
+} from "gestalt";
+import * as React from "react";
 
 const MasonryComponent = ({}) => {
     return <div>Masonry</div>;
@@ -82,12 +82,12 @@ const MasonryComponent = ({}) => {
 
 const CheckUseFocusVisible = () => {
     const { isFocusVisible } = useFocusVisible();
-    return <>{isFocusVisible ? 'is visible' : 'no visible'}</>;
+    return <>{isFocusVisible ? "is visible" : "no visible"}</>;
 };
 
 const CheckUseReducedMotion = () => {
     const shouldReduceMotion = useReducedMotion();
-    return <>{shouldReduceMotion ? 'reduced' : 'not reduced'}</>;
+    return <>{shouldReduceMotion ? "reduced" : "not reduced"}</>;
 };
 
 <ActivationCard
@@ -96,28 +96,28 @@ const CheckUseReducedMotion = () => {
     title="Claim your website"
     message="Grow distribution and track Pins linked to your website"
     link={{
-        href: 'foo',
-        label: 'foo',
-        accessibilityLabel: 'foo',
+        href: "foo",
+        label: "foo",
+        accessibilityLabel: "foo",
         onClick: ({ event }) => {
             event.stopPropagation();
         },
-        rel: 'nofollow',
-        target: 'blank',
+        rel: "nofollow",
+        target: "blank",
     }}
 />;
 <Avatar name="Nicolas" />;
-<AvatarGroup accessibilityLabel="test-example" collaborators={[{ name: 'nicolas' }]} />;
+<AvatarGroup accessibilityLabel="test-example" collaborators={[{ name: "nicolas" }]} />;
 <AvatarPair
     size="md"
     collaborators={[
         {
-            name: 'Keerthi',
-            src: 'https://i.ibb.co/ZfCZrY8/keerthi.jpg',
+            name: "Keerthi",
+            src: "https://i.ibb.co/ZfCZrY8/keerthi.jpg",
         },
         {
-            name: 'Shanice',
-            src: 'https://i.ibb.co/7tGKGvb/shanice.jpg',
+            name: "Shanice",
+            src: "https://i.ibb.co/7tGKGvb/shanice.jpg",
         },
     ]}
 />;
@@ -141,17 +141,17 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 // Test Box accepts Ref.
-() => {
+(() => {
     const ref = React.useRef<HTMLDivElement>(null);
     return <Box ref={ref} />;
-};
+});
 // Test BoxProps can be forwarded to Box.
-(props: BoxProps) => <Box {...props} />;
+((props: BoxProps) => <Box {...props} />);
 
 <Button text="" />;
 <ButtonGroup>
-    <Button text={'Click me'} />
-    <Button text={'Click me'} />
+    <Button text={"Click me"} />
+    <Button text={"Click me"} />
 </ButtonGroup>;
 <WashAnimated />;
 <ComboBox
@@ -159,7 +159,7 @@ const CheckUseReducedMotion = () => {
     id="combobox"
     label="combobox"
     noResultText="combobox"
-    options={[{ label: 'combobox', value: 'combobox' }]}
+    options={[{ label: "combobox", value: "combobox" }]}
     onChange={args => {
         const currentTarget: HTMLInputElement = args.event.currentTarget;
         const nativeEvent: Event = args.event.nativeEvent;
@@ -181,14 +181,14 @@ const CheckUseReducedMotion = () => {
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryAction={{ accessibilityLabel: 'primary-callout', href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryAction={{ accessibilityLabel: 'secondary-callout', href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ accessibilityLabel: "primary-callout", href: "https://pinterest.com", label: "Get started" }}
+    secondaryAction={{ accessibilityLabel: "secondary-callout", href: "https://pinterest.com", label: "Learn more" }}
     dismissButton={{
-        accessibilityLabel: 'Dismiss banner',
+        accessibilityLabel: "Dismiss banner",
         onDismiss: () => {},
     }}
 />;
-<Checkbox id={'1'} onChange={() => {}} />;
+<Checkbox id={"1"} onChange={() => {}} />;
 <Collage columns={1} height={1} renderImage={({ height, index, width }) => null} width={1} />;
 <ColorSchemeProvider colorScheme="dark" id="docsExample">
     <Box />
@@ -202,13 +202,13 @@ const CheckUseReducedMotion = () => {
 <Dropdown id="dropdown-example" onDismiss={() => {}}>
     <Dropdown.Section label="View options">
         <Dropdown.Item
-            option={{ value: 'item 1', label: 'Custom link 1' }}
+            option={{ value: "item 1", label: "Custom link 1" }}
             onSelect={({ item }) => {}}
             selected={undefined}
         >
             <Text>Dropdown</Text>
         </Dropdown.Item>
-        <Dropdown.Link href="#" option={{ value: 'item 2', label: 'Url Link' }}></Dropdown.Link>
+        <Dropdown.Link href="#" option={{ value: "item 2", label: "Url Link" }}></Dropdown.Link>
     </Dropdown.Section>
 </Dropdown>;
 <Fieldset legend="Fieldset Example">
@@ -229,17 +229,17 @@ const CheckUseReducedMotion = () => {
     text=""
     accessibilityLabel=""
     link={{
-        externalLinkIcon: { color: 'brandPrimary', size: 100 },
-        href: '',
-        text: '',
+        externalLinkIcon: { color: "brandPrimary", size: 100 },
+        href: "",
+        text: "",
     }}
 />;
 <Icon accessibilityLabel="icon" />;
 <IconButton
     accessibilityLabel="icon"
     tooltip={{
-        text: 'foo',
-        idealDirection: 'down',
+        text: "foo",
+        idealDirection: "down",
     }}
 />;
 <Image alt="image" color="#ffff" naturalHeight={1} naturalWidth={1} src="http" />;
@@ -249,7 +249,7 @@ const CheckUseReducedMotion = () => {
 </Layer>;
 <Letterbox contentAspectRatio={1} height={1} width={1} />;
 <Link href="#" />;
-<Link href="#" externalLinkIcon={{ color: 'light', size: '100' }} />;
+<Link href="#" externalLinkIcon={{ color: "light", size: "100" }} />;
 <List label={<Text weight="bold">Regular spacing</Text>} type="unordered" spacing="regular">
     <List.Item text="List item text" />
     <List.Item text="List item text">
@@ -277,15 +277,15 @@ const CheckUseReducedMotion = () => {
         accessibilityCollapseLabel="Collapse the module"
         items={[
             {
-                title: 'Title',
-                summary: ['summary1', 'summary2', 'summary3'],
+                title: "Title",
+                summary: ["summary1", "summary2", "summary3"],
                 children: <Text size="100">Children1</Text>,
                 iconButton: <IconButton accessibilityLabel="test" />,
             },
         ]}
         expandedIndex={1}
         onExpandedChange={index => {}}
-    ></Module.Expandable>
+    />
 </Module>;
 <NumberField
     id="number"
@@ -320,7 +320,7 @@ const CheckUseReducedMotion = () => {
     title="Posts"
     primaryAction={{
         component: <Button color="red" size="lg" text="Create" />,
-        dropdownItems: [<Dropdown.Item onSelect={() => undefined} option={{ value: 'create', label: 'Create' }} />],
+        dropdownItems: [<Dropdown.Item onSelect={() => undefined} option={{ value: "create", label: "Create" }} />],
     }}
 />;
 <Pog />;
@@ -363,19 +363,15 @@ const CheckUseReducedMotion = () => {
     size="lg"
 >
     <SelectList.Group disabled={true} label="Family">
-        {['Bart', 'Lisa', 'Homer', 'Marge', 'Maggie'].map(name => (
+        {["Bart", "Lisa", "Homer", "Marge", "Maggie"].map(name => (
             <SelectList.Option key={name} label={name} value={name} />
         ))}
     </SelectList.Group>
     <SelectList.Group label="Neighbors">
-        {['Ned', 'Maude', 'Rod', 'Todd'].map(name => (
-            <SelectList.Option key={name} label={name} value={name} />
-        ))}
+        {["Ned", "Maude", "Rod", "Todd"].map(name => <SelectList.Option key={name} label={name} value={name} />)}
     </SelectList.Group>
     <SelectList.Group label="Cartoons">
-        {['Itchy', 'Scratchy', 'Poochie'].map(name => (
-            <SelectList.Option key={name} label={name} value={name} />
-        ))}
+        {["Itchy", "Scratchy", "Poochie"].map(name => <SelectList.Option key={name} label={name} value={name} />)}
     </SelectList.Group>
 </SelectList>;
 <OverlayPanel
@@ -444,7 +440,7 @@ const CheckUseReducedMotion = () => {
         <SideNavigation.Group
             label="Halloween"
             display="static"
-            badge={{ text: 'hell', position: 'middle', type: 'darkWash' }}
+            badge={{ text: "hell", position: "middle", type: "darkWash" }}
         >
             <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="East Coast" />
             <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="West Coast" />
@@ -456,11 +452,11 @@ const CheckUseReducedMotion = () => {
     iconAccessibilityLabel="Info"
     message={<Text>hell</Text>}
     helperLink={{
-        text: 'Go to account',
-        accessibilityLabel: 'Go to your account',
-        href: 'http://www.pinterest.com',
+        text: "Go to account",
+        accessibilityLabel: "Go to your account",
+        href: "http://www.pinterest.com",
         onClick: () => {},
-        target: 'blank',
+        target: "blank",
     }}
 />;
 <Spinner show={true} accessibilityLabel="Example spinner" />;
@@ -479,7 +475,7 @@ const CheckUseReducedMotion = () => {
 <Table accessibilityLabel="complex table">
     <Table.Header>
         <Table.Row>
-            <Table.SortableHeaderCell onSortChange={() => {}} sortOrder={'asc'} status={'active'}>
+            <Table.SortableHeaderCell onSortChange={() => {}} sortOrder={"asc"} status={"active"}>
                 <Text weight="bold">Name</Text>
             </Table.SortableHeaderCell>
             <Table.HeaderCell>
@@ -546,16 +542,16 @@ const CheckUseReducedMotion = () => {
 <Tabs
     tabs={[
         {
-            text: 'Boards',
-            href: '#',
+            text: "Boards",
+            href: "#",
         },
         {
-            text: 'Pins',
-            href: '#',
+            text: "Pins",
+            href: "#",
         },
         {
-            text: 'Topics',
-            href: '#',
+            text: "Topics",
+            href: "#",
         },
     ]}
     activeTabIndex={1}
@@ -626,7 +622,7 @@ const CheckUseReducedMotion = () => {
     title="Give $30, get $60 in ads credit"
     message="Earn $60 of ads credit, and give $30 of ads credit to a friend"
     dismissButton={{
-        accessibilityLabel: 'Dismiss banner',
+        accessibilityLabel: "Dismiss banner",
         onDismiss: () => {},
     }}
     imageData={{
@@ -647,8 +643,8 @@ const CheckUseReducedMotion = () => {
     poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
     src="http://media.w3.org/2010/05/bunny/movie.mp4"
 />;
-<Icon accessibilityLabel={'sup'} icon={'add'} dangerouslySetSvgPath={{ __path: 'something' }} />;
-<IconButton accessibilityLabel={'something'} icon={'add-pin'} />;
+<Icon accessibilityLabel={"sup"} icon={"add"} dangerouslySetSvgPath={{ __path: "something" }} />;
+<IconButton accessibilityLabel={"something"} icon={"add-pin"} />;
 <IconButtonFloating
     accessibilityControls="sections-dropdown-example"
     accessibilityExpanded={true}
@@ -664,6 +660,6 @@ new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)
 <Datapoint
     title="Test Value"
     value="100"
-    trend={{ accessibilityLabel: 'Trending up', value: 50 }}
+    trend={{ accessibilityLabel: "Trending up", value: 50 }}
     trendSentiment="good"
 />;

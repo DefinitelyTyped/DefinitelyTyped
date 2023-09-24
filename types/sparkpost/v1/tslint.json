@@ -4,7 +4,6 @@
         "array-type": false,
         "no-redundant-jsdoc-2": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

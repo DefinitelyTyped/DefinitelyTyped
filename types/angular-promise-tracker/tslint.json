@@ -4,7 +4,6 @@
         "interface-name": false,
         "no-object-literal-type-assertion": false,
         "no-reference-import": false,
-        "no-unnecessary-qualifier": false,
-        "strict-export-declare-modifiers": false
+        "no-unnecessary-qualifier": false
     }
 }

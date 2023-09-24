@@ -1,37 +1,37 @@
-import TLV = require('node-tlv');
-import assert = require('assert');
+import TLV = require("node-tlv");
+import assert = require("assert");
 
 // Examples directly from the source page. @see https://github.com/coolbong/node-tlv#readme
 
 // GPO Example
 
 // parse TLV
-const resp = '770E8202580094080801010010010301';
+const resp = "770E8202580094080801010010010301";
 const tlv = TLV.parse(resp);
 
 // response message template
-assert(tlv.getTag() === '77');
+assert(tlv.getTag() === "77");
 assert(tlv.getLength() === 14);
-assert(tlv.getValue() === '8202580094080801010010010301');
+assert(tlv.getValue() === "8202580094080801010010010301");
 
 // get TLV array
 const child = tlv.getChild();
 assert(child.length === 2);
 
 const first = child[0];
-assert(first.getTag() === '82');
+assert(first.getTag() === "82");
 
 // find API
 const aip = tlv.find(0x82);
-assert(aip.getTag() === '82');
+assert(aip.getTag() === "82");
 assert(aip.getLength() === 2);
-assert(aip.getValue() === '5800');
+assert(aip.getValue() === "5800");
 
 // you can also use a string tag value
-const afl = tlv.find('94');
-assert(afl.getTag() === '94');
+const afl = tlv.find("94");
+assert(afl.getTag() === "94");
 assert(afl.getLength() === 0x08);
-assert(afl.getValue() === '0801010010010301');
+assert(afl.getValue() === "0801010010010301");
 
 // Example for build PPSE FCI
 
@@ -56,25 +56,25 @@ assert(afl.getValue() === '0801010010010301');
 //                50  0A(10) [Application Label]: VISACREDIT
 
 // step 1 build leaf
-const df_name = new TLV('84', '325041592E5359532E4444463031'); // DF name for PPSE
-const adf_nameEx1 = new TLV('4F', 'A0000000031010'); // aid for visa
-const app_labelEx1 = new TLV('50', '56495341435245444954'); // VISACREDIT
+const df_name = new TLV("84", "325041592E5359532E4444463031"); // DF name for PPSE
+const adf_nameEx1 = new TLV("4F", "A0000000031010"); // aid for visa
+const app_labelEx1 = new TLV("50", "56495341435245444954"); // VISACREDIT
 
 // step 2 build directory entry '61'
-const dir_encty = new TLV('61', adf_nameEx1.getTLV() + app_labelEx1.getTLV());
+const dir_encty = new TLV("61", adf_nameEx1.getTLV() + app_labelEx1.getTLV());
 
 // step 3 build FCI Issuer Discretionary data ' BF0C'
-const issuer_discretionary_data = new TLV('BF0C', dir_encty.getTLV());
+const issuer_discretionary_data = new TLV("BF0C", dir_encty.getTLV());
 
 // step 4 build FCI Proprietary Template 'A5'
-const fci_proprietary_template = new TLV('A5', issuer_discretionary_data.getTLV());
+const fci_proprietary_template = new TLV("A5", issuer_discretionary_data.getTLV());
 
 // step 5 build FCI template '6F'
-const fci_template = new TLV('6F', df_name.getTLV() + fci_proprietary_template.getTLV());
+const fci_template = new TLV("6F", df_name.getTLV() + fci_proprietary_template.getTLV());
 
 assert(
-    fci_template.getTLV() ===
-        '6F2C840E325041592E5359532E4444463031A51ABF0C1761154F07A0000000031010500A56495341435245444954',
+    fci_template.getTLV()
+        === "6F2C840E325041592E5359532E4444463031A51ABF0C1761154F07A0000000031010500A56495341435245444954",
 );
 
 // Example for build PSE record
@@ -99,18 +99,18 @@ assert(
 //        9F12 0B(11) [Application Preferred Name]: CITI MASTER
 
 // step 1 build leaf
-const adf_name = new TLV('4F', 'A0000000041010'); // aid for mastercard
-const app_priority = new TLV('87', '01');
-const app_label = new TLV('50', '4D415354455243415244'); // MASTERCARD
-const app_pref_name = new TLV('9F12', '43495449204D4153544552'); // CITI MASTER
+const adf_name = new TLV("4F", "A0000000041010"); // aid for mastercard
+const app_priority = new TLV("87", "01");
+const app_label = new TLV("50", "4D415354455243415244"); // MASTERCARD
+const app_pref_name = new TLV("9F12", "43495449204D4153544552"); // CITI MASTER
 
 // step 2 build directory entry '61'
-const dir_entry = new TLV('61', `${adf_name}${app_priority}${app_label}${app_pref_name}`);
+const dir_entry = new TLV("61", `${adf_name}${app_priority}${app_label}${app_pref_name}`);
 
 // step 3 build read record response message template
-const record_template = new TLV('70', dir_entry.getTLV());
+const record_template = new TLV("70", dir_entry.getTLV());
 
 assert(
-    record_template.toString() ===
-        '702861264F07A0000000041010870101500A4D4153544552434152449F120B43495449204D4153544552',
+    record_template.toString()
+        === "702861264F07A0000000041010870101500A4D4153544552434152449F120B43495449204D4153544552",
 );

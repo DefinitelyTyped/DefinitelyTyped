@@ -13,8 +13,8 @@ export class Event {
     timestamp?: string | undefined;
     id?: string | undefined;
     payload?: any;
-    headers: { [key: string]: string; };
-    metrics?: { [key: string]: number; } | undefined;
+    headers: { [key: string]: string };
+    metrics?: { [key: string]: number } | undefined;
 }
 
 export class DM {

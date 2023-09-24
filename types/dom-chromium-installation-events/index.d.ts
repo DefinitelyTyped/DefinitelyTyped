@@ -3,7 +3,7 @@
 // Definitions by: Sergey Kozlov <https://github.com/dartess>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type AppBannerPromptOutcome = 'accepted' | 'dismissed';
+type AppBannerPromptOutcome = "accepted" | "dismissed";
 
 interface PromptResponseObject {
     readonly outcome: AppBannerPromptOutcome;
@@ -12,13 +12,13 @@ interface PromptResponseObject {
 
 // https://github.com/w3c/manifest/wiki/Platforms
 type BeforeInstallPromptEventPlatform =
-    | 'chrome_web_store'
-    | 'play'
-    | 'itunes'
-    | 'webapp'
-    | 'windows'
-    | 'f-droid'
-    | 'amazon';
+    | "chrome_web_store"
+    | "play"
+    | "itunes"
+    | "webapp"
+    | "windows"
+    | "f-droid"
+    | "amazon";
 
 interface BeforeInstallPromptEvent extends Event {
     prompt(): Promise<void>;

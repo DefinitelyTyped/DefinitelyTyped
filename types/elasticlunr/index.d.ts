@@ -51,7 +51,7 @@ declare namespace elasticlunr {
         static load<T>(serialisedData: SerialisedDocumentStore<T>): DocumentStore<T>;
     }
 
-    type EventType = 'add' | 'update' | 'remove';
+    type EventType = "add" | "update" | "remove";
     type EventHandler = (...args: any[]) => void;
 
     class EventEmitter {
@@ -85,7 +85,7 @@ declare namespace elasticlunr {
         [key: string]: T;
     }
 
-    type Bool = 'OR' | 'AND';
+    type Bool = "OR" | "AND";
 
     type FieldSearchConfig<T extends {}> = {
         [K in keyof T]?: {
@@ -149,7 +149,7 @@ declare namespace elasticlunr {
 
         idf(term: string, field: keyof T): number;
 
-        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: 'AND' | 'OR'): SearchScores;
+        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: "AND" | "OR"): SearchScores;
 
         off(name: EventType, fn: EventHandler): void;
 

@@ -47,11 +47,11 @@ declare namespace PromiseSftp {
         GROUP_INVALID,
         NO_MATCHING_BYTE_RANGE_LOCK
     }
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpReconnectError = PromiseFtpCommon.FtpReconnectError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import STATUSES = PromiseFtpCommon.STATUSES;
 
     /**
