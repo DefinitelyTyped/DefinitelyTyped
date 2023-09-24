@@ -11,14 +11,14 @@ export enum STATUSES {
     LOGGING_OUT = "logging out",
     DISCONNECTING = "disconnecting",
     DISCONNECTED = "disconnected",
-    RECONNECTING = "reconnecting"
+    RECONNECTING = "reconnecting",
 }
 export class FtpConnectionError extends Error {}
 export class FtpReconnectError extends Error {
     constructor(
         disconnectError?: string | Error,
         connectError?: string | Error,
-        onCwd?: boolean
+        onCwd?: boolean,
     );
     connectError: string | Error;
     disconnectError: string | Error;

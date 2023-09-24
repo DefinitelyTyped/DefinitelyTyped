@@ -1,6 +1,6 @@
-import PreactRefreshPlugin = require('@prefresh/webpack');
+import PreactRefreshPlugin = require("@prefresh/webpack");
 
-import { Configuration } from 'webpack';
+import { Configuration } from "webpack";
 
 const config: Configuration = {
     plugins: [

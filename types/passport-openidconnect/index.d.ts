@@ -4,11 +4,11 @@
 //                 Seng-Siong Lim <https://github.com/seng-siong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Strategy as PassportStrategy } from 'passport-strategy';
-import { Profile as passportProfile } from 'passport';
-import { Request } from 'express';
-import { OAuth2 } from 'oauth';
-import { Agent, OutgoingHttpHeaders } from 'http';
+import { Request } from "express";
+import { Agent, OutgoingHttpHeaders } from "http";
+import { OAuth2 } from "oauth";
+import { Profile as passportProfile } from "passport";
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 /**
  * The OpenID Connect authentication strategy authenticates requests using
@@ -22,7 +22,6 @@ declare class OpenIDConnectStrategy extends PassportStrategy {
      *
      * Subclasses are allowed to use it when making protected resource requests to retrieve
      * the user profile.
-     *
      */
     protected _oauth2: OAuth2;
 
@@ -180,78 +179,78 @@ declare namespace OpenIDConnectStrategy {
         | ((issuer: string, profile: Profile, context: object, done: VerifyCallback) => void)
         | ((issuer: string, profile: Profile, context: object, idToken: string | object, done: VerifyCallback) => void)
         | ((
-              issuer: string,
-              profile: Profile,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              done: VerifyCallback,
-          ) => void)
+            issuer: string,
+            profile: Profile,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            done: VerifyCallback,
+        ) => void)
         | ((
-              issuer: string,
-              profile: Profile,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              params: any,
-              done: VerifyCallback,
-          ) => void)
+            issuer: string,
+            profile: Profile,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            params: any,
+            done: VerifyCallback,
+        ) => void)
         | ((
-              issuer: string,
-              uiProfile: object,
-              idProfile: object,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              params: any,
-              done: VerifyCallback,
-          ) => void)
+            issuer: string,
+            uiProfile: object,
+            idProfile: object,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            params: any,
+            done: VerifyCallback,
+        ) => void)
         | ((req: Request, issuer: string, profile: Profile, done: VerifyCallback) => void)
         | ((req: Request, issuer: string, profile: Profile, context: object, done: VerifyCallback) => void)
         | ((
-              req: Request,
-              issuer: string,
-              profile: Profile,
-              context: object,
-              idToken: string | object,
-              done: VerifyCallback,
-          ) => void)
+            req: Request,
+            issuer: string,
+            profile: Profile,
+            context: object,
+            idToken: string | object,
+            done: VerifyCallback,
+        ) => void)
         | ((
-              req: Request,
-              issuer: string,
-              profile: Profile,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              done: VerifyCallback,
-          ) => void)
+            req: Request,
+            issuer: string,
+            profile: Profile,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            done: VerifyCallback,
+        ) => void)
         | ((
-              req: Request,
-              issuer: string,
-              profile: Profile,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              params: any,
-              done: VerifyCallback,
-          ) => void)
+            req: Request,
+            issuer: string,
+            profile: Profile,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            params: any,
+            done: VerifyCallback,
+        ) => void)
         | ((
-              req: Request,
-              issuer: string,
-              uiProfile: object,
-              idProfile: object,
-              context: object,
-              idToken: string | object,
-              accessToken: string | object,
-              refreshToken: string,
-              params: any,
-              done: VerifyCallback,
-          ) => void);
+            req: Request,
+            issuer: string,
+            uiProfile: object,
+            idProfile: object,
+            context: object,
+            idToken: string | object,
+            accessToken: string | object,
+            refreshToken: string,
+            params: any,
+            done: VerifyCallback,
+        ) => void);
 
     interface AuthenticateOptions {
         callbackURL?: string | undefined;
@@ -268,7 +267,6 @@ declare namespace OpenIDConnectStrategy {
      *
      * References:
      *   - [The OAuth 2.0 Authorization Framework](http://tools.ietf.org/html/rfc6749)
-     *
      */
     class AuthorizationError extends Error {
         code: string;
@@ -292,7 +290,6 @@ declare namespace OpenIDConnectStrategy {
      *
      * References:
      *   - [The OAuth 2.0 Authorization Framework](http://tools.ietf.org/html/rfc6749)
-     *
      */
     class TokenError extends Error {
         code: string;
@@ -314,7 +311,6 @@ declare namespace OpenIDConnectStrategy {
      * InternalOAuthError wraps errors generated by node-oauth.  By wrapping these
      * objects, error messages can be formatted in a manner that aids in debugging
      * OAuth issues.
-     *
      */
     class InternalOAuthError extends Error {
         oauthError?: { statusCode?: number; data?: any };

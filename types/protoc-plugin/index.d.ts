@@ -5,16 +5,18 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
 import {
-  CodeGeneratorRequest as pb_CodeGeneratorRequest,
-  CodeGeneratorResponse as pb_CodeGeneratorResponse
+    CodeGeneratorRequest as pb_CodeGeneratorRequest,
+    CodeGeneratorResponse as pb_CodeGeneratorResponse,
 } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import { FileDescriptorProto, SourceCodeInfo } from "google-protobuf/google/protobuf/descriptor_pb";
+import * as stream from "stream";
 import Location = SourceCodeInfo.Location;
 
 type OutputFiles = pb_CodeGeneratorResponse.File.AsObject[];
-type SimplePluginCallback = (filesToGenerate: ReadonlyArray<FileDescriptorProto.AsObject>) => (OutputFiles | Promise<OutputFiles>);
+type SimplePluginCallback = (
+    filesToGenerate: ReadonlyArray<FileDescriptorProto.AsObject>,
+) => OutputFiles | Promise<OutputFiles>;
 
 declare function simplePlugin(cb: SimplePluginCallback): Promise<void>;
 declare namespace simplePlugin {

@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-export * from './lib/paypalhttp';
+export * from "./lib/paypalhttp";
