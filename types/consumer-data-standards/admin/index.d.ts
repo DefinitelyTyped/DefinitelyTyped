@@ -571,17 +571,6 @@ export interface ErrorMetricsV2 {
       previousDays?: number[] | null;
       [k: string]: unknown;
     } | null;
-    aggregate1?: {
-      /**
-       * Error counts for current day
-       */
-      500?: number | null;
-      /**
-       * Error counts for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
-       */
-      previousDays?: number[] | null;
-      [k: string]: unknown;
-    } | null;
     /**
      * Number of calls resulting in error due to server execution over time for authenticated endpoints
      */
@@ -597,22 +586,22 @@ export interface ErrorMetricsV2 {
         /**
          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
          */
+        [k: string]: number;
       } | null;
       /**
        * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
        */
       previousDays?:
-        | {
-            /**
-             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
-             */
-            "500"?: number;
-            /**
-             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
-             */
-            [k: string]: number;
-          }[]
-        | null;
+      {
+        /**
+         * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+         */
+        "500"?: number;
+        /**
+         * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+         */
+        [k: string]: number;
+      }[]| null;
       [k: string]: unknown;
     };
     /**
