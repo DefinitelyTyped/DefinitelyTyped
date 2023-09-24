@@ -1,5 +1,5 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, only, run, skip, test, todo } from "node:test";
+import { after, afterEach, before, beforeEach, describe, it, only, run, skip, test, todo, mock, Mock } from "node:test";
 import { dot, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
@@ -714,3 +714,4 @@ class TestReporter extends Transform {
         }
     }
 }
+const createdMock: Mock<() => undefined> = mock.fn(() => undefined)
