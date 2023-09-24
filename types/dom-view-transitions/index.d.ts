@@ -16,5 +16,5 @@ interface ViewTransition {
 }
 
 interface CSSStyleDeclaration {
-  viewTransitionName: string;
+    viewTransitionName: string;
 }

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.6
 
-import type { InterceptorObject, PluginCallback } from 'alpinejs';
+import type { InterceptorObject, PluginCallback } from "alpinejs";
 
 declare const persistPlugin: PluginCallback;
 
@@ -26,7 +26,7 @@ interface $persist {
 
 type persist = <T>(key: string, { get, set }: { get(): T; set(val: T): void }, storage: SimpleStorage) => void;
 
-declare module 'alpinejs' {
+declare module "alpinejs" {
     interface Alpine {
         $persist: $persist;
         persist: persist;

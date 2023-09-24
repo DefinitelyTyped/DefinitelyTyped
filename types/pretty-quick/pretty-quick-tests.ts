@@ -1,9 +1,9 @@
-import mri = require('mri');
-import prettyQuick = require('pretty-quick');
+import mri = require("mri");
+import prettyQuick = require("pretty-quick");
 
 declare const args: mri.Argv;
 
-const prettyQuickResult = prettyQuick('./cwd', {
+const prettyQuickResult = prettyQuick("./cwd", {
     ...args,
     onFoundSinceRevision: (scm, revision) => {
         scm; // $ExpectType string
@@ -33,10 +33,10 @@ const prettyQuickResult = prettyQuick('./cwd', {
 });
 
 {
-    prettyQuick('/sub-directory/', {
-        since: 'banana',
+    prettyQuick("/sub-directory/", {
+        since: "banana",
         onWriteFile: file => {},
-        ignorePath: '/.ignorePath',
+        ignorePath: "/.ignorePath",
     });
 }
 

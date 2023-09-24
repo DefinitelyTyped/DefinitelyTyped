@@ -1,17 +1,21 @@
-import { AST, Scope, SourceCode } from 'eslint';
-import * as utils from 'eslint-utils';
-import * as ESTree from 'estree';
+import { AST, Scope, SourceCode } from "eslint";
+import * as utils from "eslint-utils";
+import * as ESTree from "estree";
 
 declare const commentOrToken: ESTree.Comment | AST.Token;
 declare const identifier: ESTree.Identifier;
 declare const functionLike: ESTree.ArrowFunctionExpression | ESTree.FunctionDeclaration | ESTree.FunctionExpression;
-declare const propertyLike: ESTree.MemberExpression | ESTree.MethodDefinition | ESTree.Property | ESTree.PropertyDefinition;
+declare const propertyLike:
+    | ESTree.MemberExpression
+    | ESTree.MethodDefinition
+    | ESTree.Property
+    | ESTree.PropertyDefinition;
 declare const node: ESTree.Node;
 declare const scope: Scope.Scope;
 declare const sourceCode: SourceCode;
 
 // $ExpectType Variable | null
-utils.findVariable(scope, 'name');
+utils.findVariable(scope, "name");
 
 // $ExpectType Variable | null
 utils.findVariable(scope, identifier);
@@ -43,7 +47,7 @@ utils.getPropertyName(propertyLike, scope);
 const staticValue = utils.getStaticValue(node);
 
 if (staticValue) {
-    if ('optional' in staticValue) {
+    if ("optional" in staticValue) {
         // $ExpectType true | undefined
         staticValue.optional;
 

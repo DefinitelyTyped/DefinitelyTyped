@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import events = require('events');
-import express = require('express');
-import redis = require('redis');
+import events = require("events");
+import express = require("express");
+import redis = require("redis");
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Response {
         express_redis_cache_name?: string | undefined;
         use_express_redis_cache?: boolean | undefined;

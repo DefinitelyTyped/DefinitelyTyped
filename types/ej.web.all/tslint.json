@@ -20,7 +20,6 @@
         "prefer-for-of": false,
         "prefer-template": false,
         "radix": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false
     }
 }

@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Revwalk } from './rev-walk';
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Revwalk } from "./rev-walk";
 
 export namespace Packbuilder {
     const enum STAGE {
@@ -12,7 +12,6 @@ export namespace Packbuilder {
 export class Packbuilder {
     static create(repo: Repository): Packbuilder;
 
-    free(): void;
     hash(): Oid;
     insert(id: Oid, name: string): number;
     insertCommit(id: Oid): number;

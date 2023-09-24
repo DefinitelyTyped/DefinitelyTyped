@@ -2,7 +2,7 @@
 // Project: https://github.com/fengyuanchen/postcss-header
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'postcss';
+import { Plugin } from "postcss";
 
 declare namespace header {
     interface Options {

@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function powerAssertFormatter(options?:powerAssertFormatter.Options):powerAssertFormatter.Formatter;
+declare function powerAssertFormatter(options?: powerAssertFormatter.Options): powerAssertFormatter.Formatter;
 
 declare namespace powerAssertFormatter {
     export interface Options {
@@ -17,15 +17,15 @@ declare namespace powerAssertFormatter {
         widthOf?: Function | undefined;
         stringify?: Function | undefined;
         diff?: Function | undefined;
-        writerClass?: {new (): any;} | undefined;
+        writerClass?: { new(): any } | undefined;
         renderers?: any[] | undefined; // { string | Function }[]
     }
 
     export interface Formatter {
-        (powerAssertContext:any): string;
+        (powerAssertContext: any): string;
     }
 
-    export function defaultOptions():Options;
+    export function defaultOptions(): Options;
 }
 
 export = powerAssertFormatter;

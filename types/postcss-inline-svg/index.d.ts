@@ -3,7 +3,7 @@
 // Definitions by: Anatoly Pitikin <https://github.com/xapdkop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace postcssInlineSvg {
     interface Options {

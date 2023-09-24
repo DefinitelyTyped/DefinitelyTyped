@@ -1,21 +1,21 @@
 /// <reference lib="dom" />
 
-import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
+import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
 
 declare const hubUrl: string;
 
 // $ExpectType EventSourcePolyfill
-const es = new EventSourcePolyfill('/events', {
+const es = new EventSourcePolyfill("/events", {
     headers: {
-        'X-Custom-Header': 'value',
+        "X-Custom-Header": "value",
     },
 });
 
 const es2 = new EventSourcePolyfill(hubUrl, {
-    lastEventIdQueryParameterName: 'Last-Event-Id',
+    lastEventIdQueryParameterName: "Last-Event-Id",
 });
 
-const nes = new NativeEventSource('/events', { withCredentials: true });
+const nes = new NativeEventSource("/events", { withCredentials: true });
 
 const typecheckPolyfill: EventSource = es;
 

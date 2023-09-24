@@ -39,7 +39,7 @@ const failOpenClient = new DynamoDBLockClient.FailOpen({
     retryCount: 0,
 });
 
-failOpenClient.acquireLock({mylocks: "my-fail-open-lock", mysortkey: "my-sort-key"}, (error, lock) => {
+failOpenClient.acquireLock({ mylocks: "my-fail-open-lock", mysortkey: "my-sort-key" }, (error, lock) => {
     if (error) {
         console.error(error);
         return;

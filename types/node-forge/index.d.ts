@@ -23,14 +23,14 @@
 
 /// <reference types="node" />
 
-declare module 'node-forge' {
+declare module "node-forge" {
     type Byte = number;
     type Bytes = string;
     type Hex = string;
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
-    type Encoding = 'raw' | 'utf8';
+    type Encoding = "raw" | "utf8";
 
     namespace jsbn {
         interface RandomGenerator {
@@ -255,10 +255,10 @@ declare module 'node-forge' {
         type PublicKey = rsa.PublicKey | ed25519.Key;
         type PrivateKey = rsa.PrivateKey | ed25519.Key;
         type EncryptionOptions = {
-            algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des' | undefined;
+            algorithm?: "aes128" | "aes192" | "aes256" | "3des" | undefined;
             count?: number | undefined;
             saltSize?: number | undefined;
-            prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512' | undefined;
+            prfAlgorithm?: "sha1" | "sha224" | "sha256" | "sha384" | "sha512" | undefined;
             legacy?: boolean | undefined;
         };
 
@@ -266,7 +266,7 @@ declare module 'node-forge' {
             /**
              * @description The type of fingerprint. If not specified, defaults to 'RSAPublicKey'
              */
-            type?: 'SubjectPublicKeyInfo' | 'RSAPublicKey' | undefined;
+            type?: "SubjectPublicKeyInfo" | "RSAPublicKey" | undefined;
             /**
              * @description the delimiter to use between bytes for `hex` encoded output
              */
@@ -281,14 +281,14 @@ declare module 'node-forge' {
             /**
              * @description if not specified, the function will return `ByteStringBuffer`
              */
-            encoding: 'hex';
+            encoding: "hex";
         }
 
         interface BinaryFingerprintOptions extends ByteBufferFingerprintOptions {
             /**
              * @description if not specified, the function will return `ByteStringBuffer`
              */
-            encoding: 'binary';
+            encoding: "binary";
         }
 
         interface KeyPair {
@@ -302,8 +302,8 @@ declare module 'node-forge' {
         var oids: oids;
 
         namespace rsa {
-            type EncryptionScheme = 'RSAES-PKCS1-V1_5' | 'RSA-OAEP' | 'RAW' | 'NONE' | null;
-            type SignatureScheme = 'RSASSA-PKCS1-V1_5' | pss.PSS | 'NONE' | null;
+            type EncryptionScheme = "RSAES-PKCS1-V1_5" | "RSA-OAEP" | "RAW" | "NONE" | null;
+            type SignatureScheme = "RSASSA-PKCS1-V1_5" | pss.PSS | "NONE" | null;
 
             interface PublicKey {
                 n: jsbn.BigInteger;
@@ -370,15 +370,15 @@ declare module 'node-forge' {
 
             type ToNativeBufferParameters =
                 | {
-                      md: md.MessageDigest;
-                  }
+                    md: md.MessageDigest;
+                }
                 | {
-                      message: NativeBuffer | util.ByteBuffer;
-                  }
+                    message: NativeBuffer | util.ByteBuffer;
+                }
                 | {
-                      message: string;
-                      encoding: 'binary' | 'utf8';
-                  };
+                    message: string;
+                    encoding: "binary" | "utf8";
+                };
 
             // `string`s will be converted by toNativeBuffer with `encoding: 'binary'`
             type BinaryBuffer = NativeBuffer | util.ByteBuffer | string;
@@ -646,11 +646,11 @@ declare module 'node-forge' {
             options?:
                 | ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean)
                 | {
-                      verify?:
-                          | ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean)
-                          | undefined;
-                      validityCheckDate?: Date | null | undefined;
-                  },
+                    verify?:
+                        | ((verified: boolean | string, depth: number, certs: Certificate[]) => boolean)
+                        | undefined;
+                    validityCheckDate?: Date | null | undefined;
+                },
         ): boolean;
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
@@ -723,7 +723,7 @@ declare module 'node-forge' {
             /**
              * @description if not specified, the function will return `ByteStringBuffer`
              */
-            encoding?: 'hex' | 'binary' | undefined;
+            encoding?: "hex" | "binary" | undefined;
             /**
              * @description if not specified defaults to `md.md5`
              */
@@ -963,7 +963,7 @@ declare module 'node-forge' {
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {
-                algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des' | undefined;
+                algorithm?: "aes128" | "aes192" | "aes256" | "3des" | undefined;
                 count?: number | undefined;
                 saltSize?: number | undefined;
                 useMac?: boolean | undefined;
@@ -1131,14 +1131,10 @@ declare module 'node-forge' {
             create<TAlg extends md.sha512.AlgorithmSelection = md.sha512.AlgorithmSelection.Sha512>(
                 /** @default 'SHA-512' */
                 algorithm?: TAlg,
-            ): TAlg extends md.sha512.AlgorithmSelection.Sha384
-                ? md.sha512.Sha384MessageDigest
-                : TAlg extends md.sha512.AlgorithmSelection.Sha512224
-                ? md.sha512.Sha512224MessageDigest
-                : TAlg extends md.sha512.AlgorithmSelection.Sha512256
-                ? md.sha512.Sha512256MessageDigest
-                : TAlg extends md.sha512.AlgorithmSelection.Sha512
-                ? md.sha512.Sha512MessageDigest
+            ): TAlg extends md.sha512.AlgorithmSelection.Sha384 ? md.sha512.Sha384MessageDigest
+                : TAlg extends md.sha512.AlgorithmSelection.Sha512224 ? md.sha512.Sha512224MessageDigest
+                : TAlg extends md.sha512.AlgorithmSelection.Sha512256 ? md.sha512.Sha512256MessageDigest
+                : TAlg extends md.sha512.AlgorithmSelection.Sha512 ? md.sha512.Sha512MessageDigest
                 : never;
             sha224: {
                 create(): md.sha512.Sha512224MessageDigest;
@@ -1151,8 +1147,8 @@ declare module 'node-forge' {
             };
         };
         sha384: typeof md.sha512.sha384;
-        'sha512/224': typeof md.sha512.sha224;
-        'sha512/256': typeof md.sha512.sha256;
+        "sha512/224": typeof md.sha512.sha224;
+        "sha512/256": typeof md.sha512.sha256;
         md5: {
             create(): md.md5.MessageDigest;
         };
@@ -1162,8 +1158,8 @@ declare module 'node-forge' {
             sha256: typeof md.sha256;
             sha384: typeof md.sha384;
             sha512: typeof md.sha512;
-            'sha512/224': (typeof md)['sha512/224'];
-            'sha512/256': (typeof md)['sha512/256'];
+            "sha512/224": (typeof md)["sha512/224"];
+            "sha512/256": (typeof md)["sha512/256"];
         };
     };
 
@@ -1188,7 +1184,7 @@ declare module 'node-forge' {
         }
 
         namespace md5 {
-            type Algorithm = 'md5';
+            type Algorithm = "md5";
 
             interface MessageDigest extends md.MessageDigest {
                 readonly algorithm: Algorithm;
@@ -1199,7 +1195,7 @@ declare module 'node-forge' {
         }
 
         namespace sha1 {
-            type Algorithm = 'sha1';
+            type Algorithm = "sha1";
 
             interface MessageDigest extends md.MessageDigest {
                 readonly algorithm: Algorithm;
@@ -1210,7 +1206,7 @@ declare module 'node-forge' {
         }
 
         namespace sha256 {
-            type Algorithm = 'sha256';
+            type Algorithm = "sha256";
 
             interface MessageDigest extends md.MessageDigest {
                 readonly algorithm: Algorithm;
@@ -1223,10 +1219,10 @@ declare module 'node-forge' {
         namespace sha512 {
             type Algorithm = Algorithm.Sha384 | Algorithm.Sha512 | Algorithm.Sha512224 | Algorithm.Sha512256;
             namespace Algorithm {
-                type Sha384 = 'sha384';
-                type Sha512 = 'sha512';
-                type Sha512224 = 'sha512/224';
-                type Sha512256 = 'sha512/256';
+                type Sha384 = "sha384";
+                type Sha512 = "sha512";
+                type Sha512224 = "sha512/224";
+                type Sha512256 = "sha512/256";
             }
 
             type AlgorithmSelection =
@@ -1235,10 +1231,10 @@ declare module 'node-forge' {
                 | AlgorithmSelection.Sha512224
                 | AlgorithmSelection.Sha512256;
             namespace AlgorithmSelection {
-                type Sha384 = 'SHA-384';
-                type Sha512 = 'SHA-512';
-                type Sha512224 = 'SHA-512/224';
-                type Sha512256 = 'SHA-512/256';
+                type Sha384 = "SHA-384";
+                type Sha512 = "SHA-512";
+                type Sha512224 = "SHA-512/224";
+                type Sha512256 = "SHA-512/256";
             }
 
             interface MessageDigest extends md.MessageDigest {
@@ -1284,16 +1280,16 @@ declare module 'node-forge' {
 
     namespace cipher {
         type Algorithm =
-            | 'AES-ECB'
-            | 'AES-CBC'
-            | 'AES-CFB'
-            | 'AES-OFB'
-            | 'AES-CTR'
-            | 'AES-GCM'
-            | '3DES-ECB'
-            | '3DES-CBC'
-            | 'DES-ECB'
-            | 'DES-CBC';
+            | "AES-ECB"
+            | "AES-CBC"
+            | "AES-CFB"
+            | "AES-OFB"
+            | "AES-CTR"
+            | "AES-GCM"
+            | "3DES-ECB"
+            | "3DES-CBC"
+            | "DES-ECB"
+            | "DES-CBC";
 
         function createCipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
         function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
@@ -1534,7 +1530,7 @@ declare module 'node-forge' {
         interface TLSError extends Error {
             message: string;
             send: boolean;
-            origin: 'server' | 'client';
+            origin: "server" | "client";
             alert: Alert;
         }
 

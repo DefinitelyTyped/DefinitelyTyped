@@ -30,7 +30,7 @@ declare namespace parseConflictJSON {
      * If any change in the diff set cannot be applied (ie, because they changed an object into a non-object and we changed a field on that object),
      * then replace the object at the specified path with the object at the path in ours.
      */
-    type Prefer = 'theirs' | 'ours';
+    type Prefer = "theirs" | "ours";
 }
 
 export = parseConflictJSON;

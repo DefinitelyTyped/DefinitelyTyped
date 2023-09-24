@@ -1,5 +1,3 @@
-
-
 var f = dymo.label.framework;
 
 // Test checkEnvironment
@@ -14,7 +12,7 @@ env.isWebServicePresent = true;
 var printers = f.getPrinters();
 
 // Test PrinterInfo properties
-printers.forEach((value) =>{
+printers.forEach((value) => {
     value.isAutoCutSupported = true;
     value.isConnected = true;
     value.isLocal = true;
@@ -23,7 +21,7 @@ printers.forEach((value) =>{
     value.name = "";
 });
 
-var testcolor:dymo.label.framework.Color = { alpha: 255, red: 0, green: 0, blue: 0};
+var testcolor: dymo.label.framework.Color = { alpha: 255, red: 0, green: 0, blue: 0 };
 
 // Test createLabelRenderParamsXml
 var renderParamsXml: string = f.createLabelRenderParamsXml({
@@ -31,7 +29,7 @@ var renderParamsXml: string = f.createLabelRenderParamsXml({
     labelColor: testcolor,
     pngUseDisplayResolution: true,
     shadowColor: testcolor,
-    shadowDepth: 0
+    shadowDepth: 0,
 });
 f.createLabelRenderParamsXml({}).charAt(0); // string, all optional params
 
@@ -88,18 +86,16 @@ f.printLabel2("", "", "", "").getStatus((pjsi) => {
     pjsi.statusMessage.charAt(0);
 });
 
-
-
 // Test createLabelWriterPrintParamsXml
 var clwppxp: dymo.label.framework.CreateLabelWriterPrintParamsXmlParams = {
     copies: 0, // number
     flowDirection: dymo.label.framework.FlowDirection.LeftToRight, // enum
     jobTitle: "", // string
     printQuality: dymo.label.framework.LabelWriterPrintQuality.BarcodeAndGraphics, // enum
-    twinTurboRoll: dymo.label.framework.TwinTurboRoll.Left // enum
-}
+    twinTurboRoll: dymo.label.framework.TwinTurboRoll.Left, // enum
+};
 f.createLabelWriterPrintParamsXml(clwppxp).charAt(0); // string
-f.createLabelWriterPrintParamsXml({}).charAt(0) // all optional params
+f.createLabelWriterPrintParamsXml({}).charAt(0); // all optional params
 
 // Test createTapePrintParamsXml
 var ctppxp: dymo.label.framework.CreateTapePrintParamsXmlParams = {
@@ -107,8 +103,8 @@ var ctppxp: dymo.label.framework.CreateTapePrintParamsXmlParams = {
     flowDirection: dymo.label.framework.FlowDirection.RightToLeft, // enum
     alignment: dymo.label.framework.TapeAlignment.Left, // enum
     cutMode: dymo.label.framework.TapeCutMode.ChainMarks, // enum
-    jobTitle: "" // string
-}
+    jobTitle: "", // string
+};
 f.createTapePrintParamsXml(ctppxp).charAt(0); // string
 f.createTapePrintParamsXml({}).charAt(0); // all optional params
 

@@ -1,14 +1,14 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, StringMap } from "./_common";
 
 export type UserStatus =
-    | 'UNCONFIRMED'
-    | 'CONFIRMED'
-    | 'ARCHIVED'
-    | 'COMPROMISED'
-    | 'UNKNOWN'
-    | 'RESET_REQUIRED'
-    | 'FORCE_CHANGE_PASSWORD';
+    | "UNCONFIRMED"
+    | "CONFIRMED"
+    | "ARCHIVED"
+    | "COMPROMISED"
+    | "UNKNOWN"
+    | "RESET_REQUIRED"
+    | "FORCE_CHANGE_PASSWORD";
 
 export interface BaseUserMigrationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
     request: {
@@ -19,15 +19,15 @@ export interface BaseUserMigrationTriggerEvent<T extends string> extends BaseTri
     response: {
         userAttributes: StringMap;
         finalUserStatus?: UserStatus | undefined;
-        messageAction?: 'RESEND' | 'SUPPRESS' | undefined;
-        desiredDeliveryMediums: Array<'SMS' | 'EMAIL'>;
+        messageAction?: "RESEND" | "SUPPRESS" | undefined;
+        desiredDeliveryMediums: Array<"SMS" | "EMAIL">;
         forceAliasCreation?: boolean | undefined;
     };
 }
 
-export type UserMigrationAuthenticationTriggerEvent = BaseUserMigrationTriggerEvent<'UserMigration_Authentication'>;
+export type UserMigrationAuthenticationTriggerEvent = BaseUserMigrationTriggerEvent<"UserMigration_Authentication">;
 
-export type UserMigrationForgotPasswordTriggerEvent = BaseUserMigrationTriggerEvent<'UserMigration_ForgotPassword'>;
+export type UserMigrationForgotPasswordTriggerEvent = BaseUserMigrationTriggerEvent<"UserMigration_ForgotPassword">;
 
 /**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html

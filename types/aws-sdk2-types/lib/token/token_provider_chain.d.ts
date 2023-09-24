@@ -1,5 +1,5 @@
-import { AWSError } from '../error';
-import { Token } from '../token';
+import { AWSError } from "../error";
+import { Token } from "../token";
 export class TokenProviderChain {
     /**
      * Creates a new TokenProviderChain with a default set of providers specified by defaultProviders.

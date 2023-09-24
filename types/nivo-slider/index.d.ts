@@ -6,9 +6,23 @@
 
 /// <reference types="jquery" />
 
-export type EffectType = 'sliceDown' | 'sliceDownLeft' | 'sliceUp' | 'sliceUpLeft' | 'sliceUpDown' | 'sliceUpDownLeft' |
-    'fold' | 'fade' | 'random' | 'slideInRight' | 'slideInLeft' | 'boxRandom' | 'boxRain' | 'boxRainReverse' |
-    'boxRainGrow' | 'boxRainGrowReverse';
+export type EffectType =
+    | "sliceDown"
+    | "sliceDownLeft"
+    | "sliceUp"
+    | "sliceUpLeft"
+    | "sliceUpDown"
+    | "sliceUpDownLeft"
+    | "fold"
+    | "fade"
+    | "random"
+    | "slideInRight"
+    | "slideInLeft"
+    | "boxRandom"
+    | "boxRain"
+    | "boxRainReverse"
+    | "boxRainGrow"
+    | "boxRainGrowReverse";
 
 export interface Options {
     effect?: EffectType | undefined;

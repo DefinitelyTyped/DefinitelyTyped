@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { TypeOf } from './-private/types';
+import { TypeOf } from "./-private/types";
 
 /**
  * Compares two javascript values and returns:
@@ -46,4 +46,4 @@ export function isPresent(obj?: unknown): boolean;
  * Returns a consistent type for the passed object.
  */
 export function typeOf<T>(value: T): TypeOf<T>;
-export function typeOf(): 'undefined';
+export function typeOf(): "undefined";

@@ -6,7 +6,7 @@
 
 import { AxiosStatic } from "axios";
 
-declare module 'axios' {
+declare module "axios" {
     interface AxiosRequestConfig {
         requestId?: string | undefined;
     }

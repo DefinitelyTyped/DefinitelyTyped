@@ -1,7 +1,7 @@
-import * as http from 'http';
-import * as http2 from 'http2';
-import * as https from 'https';
-import proxy = require('proxy');
+import * as http from "http";
+import * as http2 from "http2";
+import * as https from "https";
+import proxy = require("proxy");
 
 proxy(http.createServer());
 proxy(https.createServer());
@@ -16,7 +16,7 @@ const server = proxy();
 
 server.authenticate = (req, callback) => {
     try {
-        callback(null, req.headers['proxy-authorization'] === 'Basic Zm9vOmJhcg==' /* foo:bar */);
+        callback(null, req.headers["proxy-authorization"] === "Basic Zm9vOmJhcg==" /* foo:bar */);
     } catch (err) {
         callback(err, false);
     }

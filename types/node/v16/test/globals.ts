@@ -29,9 +29,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
 // Array.prototype.at()
 {
-    const mutableArray = ['a'];
+    const mutableArray = ["a"];
     mutableArray.at(-1);
-    const readonlyArray: ReadonlyArray<string> = ['b'];
+    const readonlyArray: ReadonlyArray<string> = ["b"];
     readonlyArray.at(-1);
 }
 
