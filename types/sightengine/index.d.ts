@@ -1,4 +1,4 @@
-// Type definitions for sightengine 1.3.0
+// Type definitions for sightengine 1.3
 // Project: https://github.com/Sightengine/client-nodejs
 // Definitions by: Andrew Kerr <https://github.com/andrewkerr3956>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
