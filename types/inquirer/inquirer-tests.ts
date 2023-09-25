@@ -231,8 +231,8 @@ fetchAsyncQuestionProperty(
             // DO NOTHING
         },
     });
+    // @ts-expect-error
     promptResult.ui.process.subscribe({
-        // @ts-expect-error
         next: (value: { name_: string; answer: number }) => {
             // DO NOTHING
         },
@@ -259,8 +259,8 @@ fetchAsyncQuestionProperty(
             }
         },
     });
+    // @ts-expect-error
     promptResult.ui.process.subscribe({
-        // @ts-expect-error
         next: (value: { name: string; answer: number }) => {
             // DO NOTHING
         },
