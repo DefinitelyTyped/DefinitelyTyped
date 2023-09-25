@@ -67,7 +67,7 @@ mixpanel.init('YOUR PROJECT TOKEN', {
 mixpanel.opt_in_tracking();
 mixpanel.opt_in_tracking({
     track_event_name: 'User opted in',
-    track_event_properties: {
+    track_properties: {
         Email: 'jdoe@example.com',
     },
     cookie_expiration: 30,

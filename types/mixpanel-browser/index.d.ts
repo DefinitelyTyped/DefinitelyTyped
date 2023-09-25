@@ -41,7 +41,7 @@ export interface ClearOptOutInOutOptions extends HasOptedInOutOptions {
 export interface InTrackingOptions extends ClearOptOutInOutOptions {
     track: () => void;
     track_event_name: string;
-    track_event_properties: Dict;
+    track_properties: Dict;
 }
 
 export interface OutTrackingOptions extends ClearOptOutInOutOptions {
