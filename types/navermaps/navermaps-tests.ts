@@ -358,6 +358,7 @@ naver.maps.Event.once(map, "init", function() {
     drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function(e) {});
 });
 
+
 /**
  * DrawingManager setOptions and getOptions Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-drawing-options.example.html
@@ -495,6 +496,18 @@ drawingManager?.getOptions("markerOptions")?.shape;
 drawingManager?.getOptions("markerOptions")?.title;
 drawingManager?.getOptions("markerOptions")?.visible;
 drawingManager?.getOptions("markerOptions")?.zIndex;
+
+/**
+ * Map Data Layer Event
+ */
+map.data.addListener('click', function(e: naver.maps.PointerEvent) {
+    const feature = e.feature;
+    if (feature.getProperty('focus') !== true) {
+        feature.setProperty('focus', true);
+    } else {
+        feature.setProperty('focus', false);
+    }
+});
 
 /*
  * LatLng
