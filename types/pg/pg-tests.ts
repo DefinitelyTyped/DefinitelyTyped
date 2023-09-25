@@ -222,7 +222,9 @@ pool.connect((err, client, done) => {
         console.error("error fetching client from pool", err);
         return;
     }
-    client.query("SELECT $1::int AS number", ["1"], (err, result) => {
+    // @ts-expect-error
+    client.query("SELECT");
+    client?.query("SELECT $1::int AS number", ["1"], (err, result) => {
         done();
 
         if (err) {
