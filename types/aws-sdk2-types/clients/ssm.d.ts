@@ -1,10 +1,10 @@
-import { ConfigBase as Config } from '../lib/config-base';
-import { AWSError } from '../lib/error';
-import { Request } from '../lib/request';
-import { Response } from '../lib/response';
-import { Service } from '../lib/service';
-import { WaiterConfiguration } from '../lib/service';
-import { ServiceConfigurationOptions } from '../lib/service';
+import { ConfigBase as Config } from "../lib/config-base";
+import { AWSError } from "../lib/error";
+import { Request } from "../lib/request";
+import { Response } from "../lib/response";
+import { Service } from "../lib/service";
+import { WaiterConfiguration } from "../lib/service";
+import { ServiceConfigurationOptions } from "../lib/service";
 interface Blob {}
 declare class SSM extends Service {
     /**
@@ -1810,7 +1810,7 @@ declare class SSM extends Service {
      * Waits for the commandExecuted state by periodically calling the underlying SSM.getCommandInvocationoperation every 5 seconds (at most 20 times).
      */
     waitFor(
-        state: 'commandExecuted',
+        state: "commandExecuted",
         params: SSM.Types.GetCommandInvocationRequest & { $waiter?: WaiterConfiguration },
         callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
@@ -1818,7 +1818,7 @@ declare class SSM extends Service {
      * Waits for the commandExecuted state by periodically calling the underlying SSM.getCommandInvocationoperation every 5 seconds (at most 20 times).
      */
     waitFor(
-        state: 'commandExecuted',
+        state: "commandExecuted",
         callback?: (err: AWSError, data: SSM.Types.GetCommandInvocationResult) => void,
     ): Request<SSM.Types.GetCommandInvocationResult, AWSError>;
 }
@@ -2008,7 +2008,7 @@ declare namespace SSM {
          */
         TargetMaps?: TargetMaps;
     }
-    export type AssociationComplianceSeverity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'UNSPECIFIED' | string;
+    export type AssociationComplianceSeverity = "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "UNSPECIFIED" | string;
     export interface AssociationDescription {
         /**
          * The name of the SSM document.
@@ -2174,7 +2174,7 @@ declare namespace SSM {
          */
         Type: AssociationFilterOperatorType;
     }
-    export type AssociationExecutionFilterKey = 'ExecutionId' | 'Status' | 'CreatedTime' | string;
+    export type AssociationExecutionFilterKey = "ExecutionId" | "Status" | "CreatedTime" | string;
     export type AssociationExecutionFilterList = AssociationExecutionFilter[];
     export type AssociationExecutionFilterValue = string;
     export type AssociationExecutionId = string;
@@ -2226,7 +2226,7 @@ declare namespace SSM {
          */
         Value: AssociationExecutionTargetsFilterValue;
     }
-    export type AssociationExecutionTargetsFilterKey = 'Status' | 'ResourceId' | 'ResourceType' | string;
+    export type AssociationExecutionTargetsFilterKey = "Status" | "ResourceId" | "ResourceType" | string;
     export type AssociationExecutionTargetsFilterList = AssociationExecutionTargetsFilter[];
     export type AssociationExecutionTargetsFilterValue = string;
     export type AssociationExecutionTargetsList = AssociationExecutionTarget[];
@@ -2242,17 +2242,17 @@ declare namespace SSM {
         value: AssociationFilterValue;
     }
     export type AssociationFilterKey =
-        | 'InstanceId'
-        | 'Name'
-        | 'AssociationId'
-        | 'AssociationStatusName'
-        | 'LastExecutedBefore'
-        | 'LastExecutedAfter'
-        | 'AssociationName'
-        | 'ResourceGroupName'
+        | "InstanceId"
+        | "Name"
+        | "AssociationId"
+        | "AssociationStatusName"
+        | "LastExecutedBefore"
+        | "LastExecutedAfter"
+        | "AssociationName"
+        | "ResourceGroupName"
         | string;
     export type AssociationFilterList = AssociationFilter[];
-    export type AssociationFilterOperatorType = 'EQUAL' | 'LESS_THAN' | 'GREATER_THAN' | string;
+    export type AssociationFilterOperatorType = "EQUAL" | "LESS_THAN" | "GREATER_THAN" | string;
     export type AssociationFilterValue = string;
     export type AssociationId = string;
     export type AssociationIdList = AssociationId[];
@@ -2293,8 +2293,8 @@ declare namespace SSM {
         AdditionalInfo?: StatusAdditionalInfo;
     }
     export type AssociationStatusAggregatedCount = { [key: string]: InstanceCount };
-    export type AssociationStatusName = 'Pending' | 'Success' | 'Failed' | string;
-    export type AssociationSyncCompliance = 'AUTO' | 'MANUAL' | string;
+    export type AssociationStatusName = "Pending" | "Success" | "Failed" | string;
+    export type AssociationSyncCompliance = "AUTO" | "MANUAL" | string;
     export type AssociationVersion = string;
     export interface AssociationVersionInfo {
         /**
@@ -2399,7 +2399,7 @@ declare namespace SSM {
     }
     export type AttachmentContentList = AttachmentContent[];
     export type AttachmentHash = string;
-    export type AttachmentHashType = 'Sha256' | string;
+    export type AttachmentHashType = "Sha256" | string;
     export type AttachmentIdentifier = string;
     export interface AttachmentInformation {
         /**
@@ -2424,7 +2424,7 @@ declare namespace SSM {
          */
         Name?: AttachmentIdentifier;
     }
-    export type AttachmentsSourceKey = 'SourceUrl' | 'S3FileUrl' | 'AttachmentReference' | string;
+    export type AttachmentsSourceKey = "SourceUrl" | "S3FileUrl" | "AttachmentReference" | string;
     export type AttachmentsSourceList = AttachmentsSource[];
     export type AttachmentsSourceValue = string;
     export type AttachmentsSourceValues = AttachmentsSourceValue[];
@@ -2576,18 +2576,18 @@ declare namespace SSM {
         Values: AutomationExecutionFilterValueList;
     }
     export type AutomationExecutionFilterKey =
-        | 'DocumentNamePrefix'
-        | 'ExecutionStatus'
-        | 'ExecutionId'
-        | 'ParentExecutionId'
-        | 'CurrentAction'
-        | 'StartTimeBefore'
-        | 'StartTimeAfter'
-        | 'AutomationType'
-        | 'TagKey'
-        | 'TargetResourceGroup'
-        | 'AutomationSubtype'
-        | 'OpsItemId'
+        | "DocumentNamePrefix"
+        | "ExecutionStatus"
+        | "ExecutionId"
+        | "ParentExecutionId"
+        | "CurrentAction"
+        | "StartTimeBefore"
+        | "StartTimeAfter"
+        | "AutomationType"
+        | "TagKey"
+        | "TargetResourceGroup"
+        | "AutomationSubtype"
+        | "OpsItemId"
         | string;
     export type AutomationExecutionFilterList = AutomationExecutionFilter[];
     export type AutomationExecutionFilterValue = string;
@@ -2717,32 +2717,32 @@ declare namespace SSM {
     }
     export type AutomationExecutionMetadataList = AutomationExecutionMetadata[];
     export type AutomationExecutionStatus =
-        | 'Pending'
-        | 'InProgress'
-        | 'Waiting'
-        | 'Success'
-        | 'TimedOut'
-        | 'Cancelling'
-        | 'Cancelled'
-        | 'Failed'
-        | 'PendingApproval'
-        | 'Approved'
-        | 'Rejected'
-        | 'Scheduled'
-        | 'RunbookInProgress'
-        | 'PendingChangeCalendarOverride'
-        | 'ChangeCalendarOverrideApproved'
-        | 'ChangeCalendarOverrideRejected'
-        | 'CompletedWithSuccess'
-        | 'CompletedWithFailure'
+        | "Pending"
+        | "InProgress"
+        | "Waiting"
+        | "Success"
+        | "TimedOut"
+        | "Cancelling"
+        | "Cancelled"
+        | "Failed"
+        | "PendingApproval"
+        | "Approved"
+        | "Rejected"
+        | "Scheduled"
+        | "RunbookInProgress"
+        | "PendingChangeCalendarOverride"
+        | "ChangeCalendarOverrideApproved"
+        | "ChangeCalendarOverrideRejected"
+        | "CompletedWithSuccess"
+        | "CompletedWithFailure"
         | string;
     export type AutomationParameterKey = string;
     export type AutomationParameterMap = { [key: string]: AutomationParameterValueList };
     export type AutomationParameterValue = string;
     export type AutomationParameterValueList = AutomationParameterValue[];
-    export type AutomationSubtype = 'ChangeRequest' | string;
+    export type AutomationSubtype = "ChangeRequest" | string;
     export type AutomationTargetParameterName = string;
-    export type AutomationType = 'CrossAccount' | 'Local' | string;
+    export type AutomationType = "CrossAccount" | "Local" | string;
     export type BaselineDescription = string;
     export type BaselineId = string;
     export type BaselineName = string;
@@ -2782,7 +2782,7 @@ declare namespace SSM {
     export type Boolean = boolean;
     export type CalendarNameOrARN = string;
     export type CalendarNameOrARNList = CalendarNameOrARN[];
-    export type CalendarState = 'OPEN' | 'CLOSED' | string;
+    export type CalendarState = "OPEN" | "CLOSED" | string;
     export interface CancelCommandRequest {
         /**
          * The ID of the command you want to cancel.
@@ -2942,11 +2942,11 @@ declare namespace SSM {
         value: CommandFilterValue;
     }
     export type CommandFilterKey =
-        | 'InvokedAfter'
-        | 'InvokedBefore'
-        | 'Status'
-        | 'ExecutionStage'
-        | 'DocumentName'
+        | "InvokedAfter"
+        | "InvokedBefore"
+        | "Status"
+        | "ExecutionStage"
+        | "DocumentName"
         | string;
     export type CommandFilterList = CommandFilter[];
     export type CommandFilterValue = string;
@@ -3019,14 +3019,14 @@ declare namespace SSM {
     }
     export type CommandInvocationList = CommandInvocation[];
     export type CommandInvocationStatus =
-        | 'Pending'
-        | 'InProgress'
-        | 'Delayed'
-        | 'Success'
-        | 'Cancelled'
-        | 'TimedOut'
-        | 'Failed'
-        | 'Cancelling'
+        | "Pending"
+        | "InProgress"
+        | "Delayed"
+        | "Success"
+        | "Cancelled"
+        | "TimedOut"
+        | "Failed"
+        | "Cancelling"
         | string;
     export type CommandList = Command[];
     export type CommandMaxResults = number;
@@ -3084,21 +3084,21 @@ declare namespace SSM {
     export type CommandPluginName = string;
     export type CommandPluginOutput = string;
     export type CommandPluginStatus =
-        | 'Pending'
-        | 'InProgress'
-        | 'Success'
-        | 'TimedOut'
-        | 'Cancelled'
-        | 'Failed'
+        | "Pending"
+        | "InProgress"
+        | "Success"
+        | "TimedOut"
+        | "Cancelled"
+        | "Failed"
         | string;
     export type CommandStatus =
-        | 'Pending'
-        | 'InProgress'
-        | 'Success'
-        | 'Cancelled'
-        | 'Failed'
-        | 'TimedOut'
-        | 'Cancelling'
+        | "Pending"
+        | "InProgress"
+        | "Success"
+        | "Cancelled"
+        | "Failed"
+        | "TimedOut"
+        | "Cancelling"
         | string;
     export type Comment = string;
     export type CompletedCount = number;
@@ -3186,18 +3186,18 @@ declare namespace SSM {
     export type ComplianceItemList = ComplianceItem[];
     export type ComplianceItemTitle = string;
     export type ComplianceQueryOperatorType =
-        | 'EQUAL'
-        | 'NOT_EQUAL'
-        | 'BEGIN_WITH'
-        | 'LESS_THAN'
-        | 'GREATER_THAN'
+        | "EQUAL"
+        | "NOT_EQUAL"
+        | "BEGIN_WITH"
+        | "LESS_THAN"
+        | "GREATER_THAN"
         | string;
     export type ComplianceResourceId = string;
     export type ComplianceResourceIdList = ComplianceResourceId[];
     export type ComplianceResourceType = string;
     export type ComplianceResourceTypeList = ComplianceResourceType[];
-    export type ComplianceSeverity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'INFORMATIONAL' | 'UNSPECIFIED' | string;
-    export type ComplianceStatus = 'COMPLIANT' | 'NON_COMPLIANT' | string;
+    export type ComplianceSeverity = "CRITICAL" | "HIGH" | "MEDIUM" | "LOW" | "INFORMATIONAL" | "UNSPECIFIED" | string;
+    export type ComplianceStatus = "COMPLIANT" | "NON_COMPLIANT" | string;
     export interface ComplianceStringFilter {
         /**
          * The name of the filter.
@@ -3232,7 +3232,7 @@ declare namespace SSM {
     }
     export type ComplianceSummaryItemList = ComplianceSummaryItem[];
     export type ComplianceTypeName = string;
-    export type ComplianceUploadType = 'COMPLETE' | 'PARTIAL' | string;
+    export type ComplianceUploadType = "COMPLETE" | "PARTIAL" | string;
     export interface CompliantSummary {
         /**
          * The total number of resources that are compliant.
@@ -3244,7 +3244,7 @@ declare namespace SSM {
         SeveritySummary?: SeveritySummary;
     }
     export type ComputerName = string;
-    export type ConnectionStatus = 'Connected' | 'NotConnected' | string;
+    export type ConnectionStatus = "Connected" | "NotConnected" | string;
     export type ContentLength = number;
     export interface CreateActivationRequest {
         /**
@@ -3990,7 +3990,7 @@ declare namespace SSM {
          */
         FilterValues?: StringList;
     }
-    export type DescribeActivationsFilterKeys = 'ActivationIds' | 'DefaultInstanceName' | 'IamRole' | string;
+    export type DescribeActivationsFilterKeys = "ActivationIds" | "DefaultInstanceName" | "IamRole" | string;
     export type DescribeActivationsFilterList = DescribeActivationsFilter[];
     export interface DescribeActivationsRequest {
         /**
@@ -5047,12 +5047,12 @@ declare namespace SSM {
          */
         value: DocumentFilterValue;
     }
-    export type DocumentFilterKey = 'Name' | 'Owner' | 'PlatformTypes' | 'DocumentType' | string;
+    export type DocumentFilterKey = "Name" | "Owner" | "PlatformTypes" | "DocumentType" | string;
     export type DocumentFilterList = DocumentFilter[];
     export type DocumentFilterValue = string;
-    export type DocumentFormat = 'YAML' | 'JSON' | 'TEXT' | string;
+    export type DocumentFormat = "YAML" | "JSON" | "TEXT" | string;
     export type DocumentHash = string;
-    export type DocumentHashType = 'Sha256' | 'Sha1' | string;
+    export type DocumentHashType = "Sha256" | "Sha1" | string;
     export interface DocumentIdentifier {
         /**
          * The name of the SSM document.
@@ -5130,7 +5130,7 @@ declare namespace SSM {
     export type DocumentKeyValuesFilterList = DocumentKeyValuesFilter[];
     export type DocumentKeyValuesFilterValue = string;
     export type DocumentKeyValuesFilterValues = DocumentKeyValuesFilterValue[];
-    export type DocumentMetadataEnum = 'DocumentReviews' | string;
+    export type DocumentMetadataEnum = "DocumentReviews" | string;
     export interface DocumentMetadataResponseInfo {
         /**
          * Details about a reviewer's response to a document review request.
@@ -5161,9 +5161,9 @@ declare namespace SSM {
     export type DocumentParameterDescrption = string;
     export type DocumentParameterList = DocumentParameter[];
     export type DocumentParameterName = string;
-    export type DocumentParameterType = 'String' | 'StringList' | string;
+    export type DocumentParameterType = "String" | "StringList" | string;
     export type DocumentPermissionMaxResults = number;
-    export type DocumentPermissionType = 'Share' | string;
+    export type DocumentPermissionType = "Share" | string;
     export interface DocumentRequires {
         /**
          * The name of the required SSM document. The name can be an Amazon Resource Name (ARN).
@@ -5183,7 +5183,7 @@ declare namespace SSM {
         VersionName?: DocumentVersionName;
     }
     export type DocumentRequiresList = DocumentRequires[];
-    export type DocumentReviewAction = 'SendForReview' | 'UpdateReview' | 'Approve' | 'Reject' | string;
+    export type DocumentReviewAction = "SendForReview" | "UpdateReview" | "Approve" | "Reject" | string;
     export type DocumentReviewComment = string;
     export type DocumentReviewCommentList = DocumentReviewCommentSource[];
     export interface DocumentReviewCommentSource {
@@ -5196,7 +5196,7 @@ declare namespace SSM {
          */
         Content?: DocumentReviewComment;
     }
-    export type DocumentReviewCommentType = 'Comment' | string;
+    export type DocumentReviewCommentType = "Comment" | string;
     export type DocumentReviewerResponseList = DocumentReviewerResponseSource[];
     export interface DocumentReviewerResponseSource {
         /**
@@ -5232,24 +5232,24 @@ declare namespace SSM {
     }
     export type DocumentSchemaVersion = string;
     export type DocumentSha1 = string;
-    export type DocumentStatus = 'Creating' | 'Active' | 'Updating' | 'Deleting' | 'Failed' | string;
+    export type DocumentStatus = "Creating" | "Active" | "Updating" | "Deleting" | "Failed" | string;
     export type DocumentStatusInformation = string;
     export type DocumentType =
-        | 'Command'
-        | 'Policy'
-        | 'Automation'
-        | 'Session'
-        | 'Package'
-        | 'ApplicationConfiguration'
-        | 'ApplicationConfigurationSchema'
-        | 'DeploymentStrategy'
-        | 'ChangeCalendar'
-        | 'Automation.ChangeTemplate'
-        | 'ProblemAnalysis'
-        | 'ProblemAnalysisTemplate'
-        | 'CloudFormation'
-        | 'ConformancePackTemplate'
-        | 'QuickSetup'
+        | "Command"
+        | "Policy"
+        | "Automation"
+        | "Session"
+        | "Package"
+        | "ApplicationConfiguration"
+        | "ApplicationConfigurationSchema"
+        | "DeploymentStrategy"
+        | "ChangeCalendar"
+        | "Automation.ChangeTemplate"
+        | "ProblemAnalysis"
+        | "ProblemAnalysisTemplate"
+        | "CloudFormation"
+        | "ConformancePackTemplate"
+        | "QuickSetup"
         | string;
     export type DocumentVersion = string;
     export interface DocumentVersionInfo {
@@ -5311,10 +5311,10 @@ declare namespace SSM {
     }
     export type EffectivePatchList = EffectivePatch[];
     export type ErrorCount = number;
-    export type ExecutionMode = 'Auto' | 'Interactive' | string;
+    export type ExecutionMode = "Auto" | "Interactive" | string;
     export type ExecutionRoleName = string;
     export type ExpirationDate = Date;
-    export type ExternalAlarmState = 'UNKNOWN' | 'ALARM' | string;
+    export type ExternalAlarmState = "UNKNOWN" | "ALARM" | string;
     export interface FailedCreateAssociation {
         /**
          * The association.
@@ -5344,7 +5344,7 @@ declare namespace SSM {
          */
         Details?: AutomationParameterMap;
     }
-    export type Fault = 'Client' | 'Server' | 'Unknown' | string;
+    export type Fault = "Client" | "Server" | "Unknown" | string;
     export interface GetAutomationExecutionRequest {
         /**
          * The unique identifier for an existing automation execution to examine. The execution ID is returned by StartAutomationExecution when the execution of an Automation runbook is initiated.
@@ -6502,14 +6502,14 @@ declare namespace SSM {
         valueSet: InstanceInformationFilterValueSet;
     }
     export type InstanceInformationFilterKey =
-        | 'InstanceIds'
-        | 'AgentVersion'
-        | 'PingStatus'
-        | 'PlatformTypes'
-        | 'ActivationIds'
-        | 'IamRole'
-        | 'ResourceType'
-        | 'AssociationStatus'
+        | "InstanceIds"
+        | "AgentVersion"
+        | "PingStatus"
+        | "PlatformTypes"
+        | "ActivationIds"
+        | "IamRole"
+        | "ResourceType"
+        | "AssociationStatus"
         | string;
     export type InstanceInformationFilterList = InstanceInformationFilter[];
     export type InstanceInformationFilterValue = string;
@@ -6636,7 +6636,7 @@ declare namespace SSM {
     export type InstancePatchStateFilterValue = string;
     export type InstancePatchStateFilterValues = InstancePatchStateFilterValue[];
     export type InstancePatchStateList = InstancePatchState[];
-    export type InstancePatchStateOperatorType = 'Equal' | 'NotEqual' | 'LessThan' | 'GreaterThan' | string;
+    export type InstancePatchStateOperatorType = "Equal" | "NotEqual" | "LessThan" | "GreaterThan" | string;
     export type InstancePatchStatesList = InstancePatchState[];
     export type InstanceTagName = string;
     export type InstancesCount = number;
@@ -6657,11 +6657,11 @@ declare namespace SSM {
     }
     export type InventoryAggregatorExpression = string;
     export type InventoryAggregatorList = InventoryAggregator[];
-    export type InventoryAttributeDataType = 'string' | 'number' | string;
+    export type InventoryAttributeDataType = "string" | "number" | string;
     export type InventoryDeletionLastStatusMessage = string;
     export type InventoryDeletionLastStatusUpdateTime = Date;
     export type InventoryDeletionStartTime = Date;
-    export type InventoryDeletionStatus = 'InProgress' | 'Complete' | string;
+    export type InventoryDeletionStatus = "InProgress" | "Complete" | string;
     export interface InventoryDeletionStatusItem {
         /**
          * The deletion ID returned by the DeleteInventory operation.
@@ -6819,12 +6819,12 @@ declare namespace SSM {
     export type InventoryItemTypeName = string;
     export type InventoryItemTypeNameFilter = string;
     export type InventoryQueryOperatorType =
-        | 'Equal'
-        | 'NotEqual'
-        | 'BeginWith'
-        | 'LessThan'
-        | 'GreaterThan'
-        | 'Exists'
+        | "Equal"
+        | "NotEqual"
+        | "BeginWith"
+        | "LessThan"
+        | "GreaterThan"
+        | "Exists"
         | string;
     export interface InventoryResultEntity {
         /**
@@ -6862,7 +6862,7 @@ declare namespace SSM {
     }
     export type InventoryResultItemKey = string;
     export type InventoryResultItemMap = { [key: string]: InventoryResultItem };
-    export type InventorySchemaDeleteOption = 'DisableSchema' | 'DeleteSchema' | string;
+    export type InventorySchemaDeleteOption = "DisableSchema" | "DeleteSchema" | string;
     export type InventoryTypeDisplayName = string;
     export type InvocationTraceOutput = string;
     export type IsSubTypeSchema = boolean;
@@ -6892,7 +6892,7 @@ declare namespace SSM {
         ParameterVersion?: PSParameterVersion;
     }
     export type LastResourceDataSyncMessage = string;
-    export type LastResourceDataSyncStatus = 'Successful' | 'Failed' | 'InProgress' | string;
+    export type LastResourceDataSyncStatus = "Successful" | "Failed" | "InProgress" | string;
     export type LastResourceDataSyncTime = Date;
     export type LastSuccessfulResourceDataSyncTime = Date;
     export interface ListAssociationVersionsRequest {
@@ -7411,14 +7411,14 @@ declare namespace SSM {
     export type MaintenanceWindowExecutionId = string;
     export type MaintenanceWindowExecutionList = MaintenanceWindowExecution[];
     export type MaintenanceWindowExecutionStatus =
-        | 'PENDING'
-        | 'IN_PROGRESS'
-        | 'SUCCESS'
-        | 'FAILED'
-        | 'TIMED_OUT'
-        | 'CANCELLING'
-        | 'CANCELLED'
-        | 'SKIPPED_OVERLAPPING'
+        | "PENDING"
+        | "IN_PROGRESS"
+        | "SUCCESS"
+        | "FAILED"
+        | "TIMED_OUT"
+        | "CANCELLING"
+        | "CANCELLED"
+        | "SKIPPED_OVERLAPPING"
         | string;
     export type MaintenanceWindowExecutionStatusDetails = string;
     export type MaintenanceWindowExecutionTaskExecutionId = string;
@@ -7617,7 +7617,7 @@ declare namespace SSM {
     export type MaintenanceWindowMaxResults = number;
     export type MaintenanceWindowName = string;
     export type MaintenanceWindowOffset = number;
-    export type MaintenanceWindowResourceType = 'INSTANCE' | 'RESOURCE_GROUP' | string;
+    export type MaintenanceWindowResourceType = "INSTANCE" | "RESOURCE_GROUP" | string;
     export interface MaintenanceWindowRunCommandParameters {
         /**
          * Information about the commands to run.
@@ -7771,7 +7771,7 @@ declare namespace SSM {
         AlarmConfiguration?: AlarmConfiguration;
     }
     export type MaintenanceWindowTaskArn = string;
-    export type MaintenanceWindowTaskCutoffBehavior = 'CONTINUE_TASK' | 'CANCEL_TASK' | string;
+    export type MaintenanceWindowTaskCutoffBehavior = "CONTINUE_TASK" | "CANCEL_TASK" | string;
     export type MaintenanceWindowTaskId = string;
     export interface MaintenanceWindowTaskInvocationParameters {
         /**
@@ -7805,7 +7805,7 @@ declare namespace SSM {
     export type MaintenanceWindowTaskParametersList = MaintenanceWindowTaskParameters[];
     export type MaintenanceWindowTaskPriority = number;
     export type MaintenanceWindowTaskTargetId = string;
-    export type MaintenanceWindowTaskType = 'RUN_COMMAND' | 'AUTOMATION' | 'STEP_FUNCTIONS' | 'LAMBDA' | string;
+    export type MaintenanceWindowTaskType = "RUN_COMMAND" | "AUTOMATION" | "STEP_FUNCTIONS" | "LAMBDA" | string;
     export type MaintenanceWindowTimezone = string;
     export type MaintenanceWindowsForTargetList = MaintenanceWindowIdentityForTarget[];
     export type ManagedInstanceId = string;
@@ -7875,23 +7875,23 @@ declare namespace SSM {
          */
         NotificationType?: NotificationType;
     }
-    export type NotificationEvent = 'All' | 'InProgress' | 'Success' | 'TimedOut' | 'Cancelled' | 'Failed' | string;
+    export type NotificationEvent = "All" | "InProgress" | "Success" | "TimedOut" | "Cancelled" | "Failed" | string;
     export type NotificationEventList = NotificationEvent[];
-    export type NotificationType = 'Command' | 'Invocation' | string;
+    export type NotificationType = "Command" | "Invocation" | string;
     export type OperatingSystem =
-        | 'WINDOWS'
-        | 'AMAZON_LINUX'
-        | 'AMAZON_LINUX_2'
-        | 'AMAZON_LINUX_2022'
-        | 'UBUNTU'
-        | 'REDHAT_ENTERPRISE_LINUX'
-        | 'SUSE'
-        | 'CENTOS'
-        | 'ORACLE_LINUX'
-        | 'DEBIAN'
-        | 'MACOS'
-        | 'RASPBIAN'
-        | 'ROCKY_LINUX'
+        | "WINDOWS"
+        | "AMAZON_LINUX"
+        | "AMAZON_LINUX_2"
+        | "AMAZON_LINUX_2022"
+        | "UBUNTU"
+        | "REDHAT_ENTERPRISE_LINUX"
+        | "SUSE"
+        | "CENTOS"
+        | "ORACLE_LINUX"
+        | "DEBIAN"
+        | "MACOS"
+        | "RASPBIAN"
+        | "ROCKY_LINUX"
         | string;
     export interface OpsAggregator {
         /**
@@ -7970,12 +7970,12 @@ declare namespace SSM {
     export type OpsFilterKey = string;
     export type OpsFilterList = OpsFilter[];
     export type OpsFilterOperatorType =
-        | 'Equal'
-        | 'NotEqual'
-        | 'BeginWith'
-        | 'LessThan'
-        | 'GreaterThan'
-        | 'Exists'
+        | "Equal"
+        | "NotEqual"
+        | "BeginWith"
+        | "LessThan"
+        | "GreaterThan"
+        | "Exists"
         | string;
     export type OpsFilterValue = string;
     export type OpsFilterValueList = OpsFilterValue[];
@@ -8073,7 +8073,7 @@ declare namespace SSM {
     export type OpsItemArn = string;
     export type OpsItemCategory = string;
     export type OpsItemDataKey = string;
-    export type OpsItemDataType = 'SearchableString' | 'String' | string;
+    export type OpsItemDataType = "SearchableString" | "String" | string;
     export interface OpsItemDataValue {
         /**
          * The value of the OperationalData key.
@@ -8100,8 +8100,8 @@ declare namespace SSM {
          */
         Operator: OpsItemEventFilterOperator;
     }
-    export type OpsItemEventFilterKey = 'OpsItemId' | string;
-    export type OpsItemEventFilterOperator = 'Equal' | string;
+    export type OpsItemEventFilterKey = "OpsItemId" | string;
+    export type OpsItemEventFilterOperator = "Equal" | string;
     export type OpsItemEventFilterValue = string;
     export type OpsItemEventFilterValues = OpsItemEventFilterValue[];
     export type OpsItemEventFilters = OpsItemEventFilter[];
@@ -8152,36 +8152,36 @@ declare namespace SSM {
         Operator: OpsItemFilterOperator;
     }
     export type OpsItemFilterKey =
-        | 'Status'
-        | 'CreatedBy'
-        | 'Source'
-        | 'Priority'
-        | 'Title'
-        | 'OpsItemId'
-        | 'CreatedTime'
-        | 'LastModifiedTime'
-        | 'ActualStartTime'
-        | 'ActualEndTime'
-        | 'PlannedStartTime'
-        | 'PlannedEndTime'
-        | 'OperationalData'
-        | 'OperationalDataKey'
-        | 'OperationalDataValue'
-        | 'ResourceId'
-        | 'AutomationId'
-        | 'Category'
-        | 'Severity'
-        | 'OpsItemType'
-        | 'ChangeRequestByRequesterArn'
-        | 'ChangeRequestByRequesterName'
-        | 'ChangeRequestByApproverArn'
-        | 'ChangeRequestByApproverName'
-        | 'ChangeRequestByTemplate'
-        | 'ChangeRequestByTargetsResourceGroup'
-        | 'InsightByType'
-        | 'AccountId'
+        | "Status"
+        | "CreatedBy"
+        | "Source"
+        | "Priority"
+        | "Title"
+        | "OpsItemId"
+        | "CreatedTime"
+        | "LastModifiedTime"
+        | "ActualStartTime"
+        | "ActualEndTime"
+        | "PlannedStartTime"
+        | "PlannedEndTime"
+        | "OperationalData"
+        | "OperationalDataKey"
+        | "OperationalDataValue"
+        | "ResourceId"
+        | "AutomationId"
+        | "Category"
+        | "Severity"
+        | "OpsItemType"
+        | "ChangeRequestByRequesterArn"
+        | "ChangeRequestByRequesterName"
+        | "ChangeRequestByApproverArn"
+        | "ChangeRequestByApproverName"
+        | "ChangeRequestByTemplate"
+        | "ChangeRequestByTargetsResourceGroup"
+        | "InsightByType"
+        | "AccountId"
         | string;
-    export type OpsItemFilterOperator = 'Equal' | 'Contains' | 'GreaterThan' | 'LessThan' | string;
+    export type OpsItemFilterOperator = "Equal" | "Contains" | "GreaterThan" | "LessThan" | string;
     export type OpsItemFilterValue = string;
     export type OpsItemFilterValues = OpsItemFilterValue[];
     export type OpsItemFilters = OpsItemFilter[];
@@ -8254,8 +8254,8 @@ declare namespace SSM {
          */
         Operator: OpsItemRelatedItemsFilterOperator;
     }
-    export type OpsItemRelatedItemsFilterKey = 'ResourceType' | 'AssociationId' | 'ResourceUri' | string;
-    export type OpsItemRelatedItemsFilterOperator = 'Equal' | string;
+    export type OpsItemRelatedItemsFilterKey = "ResourceType" | "AssociationId" | "ResourceUri" | string;
+    export type OpsItemRelatedItemsFilterOperator = "Equal" | string;
     export type OpsItemRelatedItemsFilterValue = string;
     export type OpsItemRelatedItemsFilterValues = OpsItemRelatedItemsFilterValue[];
     export type OpsItemRelatedItemsFilters = OpsItemRelatedItemsFilter[];
@@ -8263,25 +8263,25 @@ declare namespace SSM {
     export type OpsItemSeverity = string;
     export type OpsItemSource = string;
     export type OpsItemStatus =
-        | 'Open'
-        | 'InProgress'
-        | 'Resolved'
-        | 'Pending'
-        | 'TimedOut'
-        | 'Cancelling'
-        | 'Cancelled'
-        | 'Failed'
-        | 'CompletedWithSuccess'
-        | 'CompletedWithFailure'
-        | 'Scheduled'
-        | 'RunbookInProgress'
-        | 'PendingChangeCalendarOverride'
-        | 'ChangeCalendarOverrideApproved'
-        | 'ChangeCalendarOverrideRejected'
-        | 'PendingApproval'
-        | 'Approved'
-        | 'Rejected'
-        | 'Closed'
+        | "Open"
+        | "InProgress"
+        | "Resolved"
+        | "Pending"
+        | "TimedOut"
+        | "Cancelling"
+        | "Cancelled"
+        | "Failed"
+        | "CompletedWithSuccess"
+        | "CompletedWithFailure"
+        | "Scheduled"
+        | "RunbookInProgress"
+        | "PendingChangeCalendarOverride"
+        | "ChangeCalendarOverrideApproved"
+        | "ChangeCalendarOverrideRejected"
+        | "PendingApproval"
+        | "Approved"
+        | "Rejected"
+        | "Closed"
         | string;
     export type OpsItemSummaries = OpsItemSummary[];
     export interface OpsItemSummary {
@@ -8602,8 +8602,8 @@ declare namespace SSM {
     export type ParameterStringFilterValue = string;
     export type ParameterStringFilterValueList = ParameterStringFilterValue[];
     export type ParameterStringQueryOption = string;
-    export type ParameterTier = 'Standard' | 'Advanced' | 'Intelligent-Tiering' | string;
-    export type ParameterType = 'String' | 'StringList' | 'SecureString' | string;
+    export type ParameterTier = "Standard" | "Advanced" | "Intelligent-Tiering" | string;
+    export type ParameterType = "String" | "StringList" | "SecureString" | string;
     export type ParameterValue = string;
     export type ParameterValueList = ParameterValue[];
     export type Parameters = { [key: string]: ParameterValueList };
@@ -8617,7 +8617,7 @@ declare namespace SSM {
          */
         Values: ParametersFilterValueList;
     }
-    export type ParametersFilterKey = 'Name' | 'Type' | 'KeyId' | string;
+    export type ParametersFilterKey = "Name" | "Type" | "KeyId" | string;
     export type ParametersFilterList = ParametersFilter[];
     export type ParametersFilterValue = string;
     export type ParametersFilterValueList = ParametersFilterValue[];
@@ -8715,7 +8715,7 @@ declare namespace SSM {
          */
         Repository?: PatchRepository;
     }
-    export type PatchAction = 'ALLOW_AS_DEPENDENCY' | 'BLOCK' | string;
+    export type PatchAction = "ALLOW_AS_DEPENDENCY" | "BLOCK" | string;
     export type PatchAdvisoryId = string;
     export type PatchAdvisoryIdList = PatchAdvisoryId[];
     export type PatchArch = string;
@@ -8781,30 +8781,30 @@ declare namespace SSM {
     }
     export type PatchComplianceDataList = PatchComplianceData[];
     export type PatchComplianceDataState =
-        | 'INSTALLED'
-        | 'INSTALLED_OTHER'
-        | 'INSTALLED_PENDING_REBOOT'
-        | 'INSTALLED_REJECTED'
-        | 'MISSING'
-        | 'NOT_APPLICABLE'
-        | 'FAILED'
+        | "INSTALLED"
+        | "INSTALLED_OTHER"
+        | "INSTALLED_PENDING_REBOOT"
+        | "INSTALLED_REJECTED"
+        | "MISSING"
+        | "NOT_APPLICABLE"
+        | "FAILED"
         | string;
     export type PatchComplianceLevel =
-        | 'CRITICAL'
-        | 'HIGH'
-        | 'MEDIUM'
-        | 'LOW'
-        | 'INFORMATIONAL'
-        | 'UNSPECIFIED'
+        | "CRITICAL"
+        | "HIGH"
+        | "MEDIUM"
+        | "LOW"
+        | "INFORMATIONAL"
+        | "UNSPECIFIED"
         | string;
     export type PatchComplianceMaxResults = number;
     export type PatchContentUrl = string;
     export type PatchCriticalNonCompliantCount = number;
     export type PatchDeploymentStatus =
-        | 'APPROVED'
-        | 'PENDING_APPROVAL'
-        | 'EXPLICIT_APPROVED'
-        | 'EXPLICIT_REJECTED'
+        | "APPROVED"
+        | "PENDING_APPROVAL"
+        | "EXPLICIT_APPROVED"
+        | "EXPLICIT_REJECTED"
         | string;
     export type PatchDescription = string;
     export type PatchEpoch = number;
@@ -8826,25 +8826,25 @@ declare namespace SSM {
         PatchFilters: PatchFilterList;
     }
     export type PatchFilterKey =
-        | 'ARCH'
-        | 'ADVISORY_ID'
-        | 'BUGZILLA_ID'
-        | 'PATCH_SET'
-        | 'PRODUCT'
-        | 'PRODUCT_FAMILY'
-        | 'CLASSIFICATION'
-        | 'CVE_ID'
-        | 'EPOCH'
-        | 'MSRC_SEVERITY'
-        | 'NAME'
-        | 'PATCH_ID'
-        | 'SECTION'
-        | 'PRIORITY'
-        | 'REPOSITORY'
-        | 'RELEASE'
-        | 'SEVERITY'
-        | 'SECURITY'
-        | 'VERSION'
+        | "ARCH"
+        | "ADVISORY_ID"
+        | "BUGZILLA_ID"
+        | "PATCH_SET"
+        | "PRODUCT"
+        | "PRODUCT_FAMILY"
+        | "CLASSIFICATION"
+        | "CVE_ID"
+        | "EPOCH"
+        | "MSRC_SEVERITY"
+        | "NAME"
+        | "PATCH_ID"
+        | "SECTION"
+        | "PRIORITY"
+        | "REPOSITORY"
+        | "RELEASE"
+        | "SEVERITY"
+        | "SECURITY"
+        | "VERSION"
         | string;
     export type PatchFilterList = PatchFilter[];
     export type PatchFilterValue = string;
@@ -8876,7 +8876,7 @@ declare namespace SSM {
     export type PatchMsrcSeverity = string;
     export type PatchName = string;
     export type PatchNotApplicableCount = number;
-    export type PatchOperationType = 'Scan' | 'Install' | string;
+    export type PatchOperationType = "Scan" | "Install" | string;
     export interface PatchOrchestratorFilter {
         /**
          * The key for the filter.
@@ -8896,12 +8896,12 @@ declare namespace SSM {
     export type PatchProductFamily = string;
     export type PatchPropertiesList = PatchPropertyEntry[];
     export type PatchProperty =
-        | 'PRODUCT'
-        | 'PRODUCT_FAMILY'
-        | 'CLASSIFICATION'
-        | 'MSRC_SEVERITY'
-        | 'PRIORITY'
-        | 'SEVERITY'
+        | "PRODUCT"
+        | "PRODUCT_FAMILY"
+        | "CLASSIFICATION"
+        | "MSRC_SEVERITY"
+        | "PRIORITY"
+        | "SEVERITY"
         | string;
     export type PatchPropertyEntry = { [key: string]: AttributeValue };
     export type PatchRelease = string;
@@ -8936,7 +8936,7 @@ declare namespace SSM {
     }
     export type PatchRuleList = PatchRule[];
     export type PatchSecurityNonCompliantCount = number;
-    export type PatchSet = 'OS' | 'APPLICATION' | string;
+    export type PatchSet = "OS" | "APPLICATION" | string;
     export type PatchSeverity = string;
     export interface PatchSource {
         /**
@@ -8976,8 +8976,8 @@ declare namespace SSM {
     export type PatchUnreportedNotApplicableCount = number;
     export type PatchVendor = string;
     export type PatchVersion = string;
-    export type PingStatus = 'Online' | 'ConnectionLost' | 'Inactive' | string;
-    export type PlatformType = 'Windows' | 'Linux' | 'MacOS' | string;
+    export type PingStatus = "Online" | "ConnectionLost" | "Inactive" | string;
+    export type PlatformType = "Windows" | "Linux" | "MacOS" | string;
     export type PlatformTypeList = PlatformType[];
     export type Policy = string;
     export type PolicyHash = string;
@@ -9138,7 +9138,7 @@ declare namespace SSM {
          */
         PolicyHash?: PolicyHash;
     }
-    export type RebootOption = 'RebootIfNeeded' | 'NoReboot' | string;
+    export type RebootOption = "RebootIfNeeded" | "NoReboot" | string;
     export type Region = string;
     export type Regions = Region[];
     export interface RegisterDefaultPatchBaselineRequest {
@@ -9483,7 +9483,7 @@ declare namespace SSM {
          */
         DestinationDataSharing?: ResourceDataSyncDestinationDataSharing;
     }
-    export type ResourceDataSyncS3Format = 'JsonSerDe' | string;
+    export type ResourceDataSyncS3Format = "JsonSerDe" | string;
     export type ResourceDataSyncS3Prefix = string;
     export type ResourceDataSyncS3Region = string;
     export interface ResourceDataSyncSource {
@@ -9541,17 +9541,17 @@ declare namespace SSM {
     export type ResourceDataSyncType = string;
     export type ResourceId = string;
     export type ResourcePolicyMaxResults = number;
-    export type ResourceType = 'ManagedInstance' | 'Document' | 'EC2Instance' | string;
+    export type ResourceType = "ManagedInstance" | "Document" | "EC2Instance" | string;
     export type ResourceTypeForTagging =
-        | 'Document'
-        | 'ManagedInstance'
-        | 'MaintenanceWindow'
-        | 'Parameter'
-        | 'PatchBaseline'
-        | 'OpsItem'
-        | 'OpsMetadata'
-        | 'Automation'
-        | 'Association'
+        | "Document"
+        | "ManagedInstance"
+        | "MaintenanceWindow"
+        | "Parameter"
+        | "PatchBaseline"
+        | "OpsItem"
+        | "OpsMetadata"
+        | "Automation"
+        | "Association"
         | string;
     export type ResponseCode = number;
     export interface ResultAttribute {
@@ -9596,7 +9596,7 @@ declare namespace SSM {
         Reviewer?: Reviewer;
     }
     export type ReviewInformationList = ReviewInformation[];
-    export type ReviewStatus = 'APPROVED' | 'NOT_REVIEWED' | 'PENDING' | 'REJECTED' | string;
+    export type ReviewStatus = "APPROVED" | "NOT_REVIEWED" | "PENDING" | "REJECTED" | string;
     export type Reviewer = string;
     export interface Runbook {
         /**
@@ -9860,12 +9860,12 @@ declare namespace SSM {
         value: SessionFilterValue;
     }
     export type SessionFilterKey =
-        | 'InvokedAfter'
-        | 'InvokedBefore'
-        | 'Target'
-        | 'Owner'
-        | 'Status'
-        | 'SessionId'
+        | "InvokedAfter"
+        | "InvokedBefore"
+        | "Target"
+        | "Owner"
+        | "Status"
+        | "SessionId"
         | string;
     export type SessionFilterList = SessionFilter[];
     export type SessionFilterValue = string;
@@ -9890,14 +9890,14 @@ declare namespace SSM {
     export type SessionMaxResults = number;
     export type SessionOwner = string;
     export type SessionReason = string;
-    export type SessionState = 'Active' | 'History' | string;
+    export type SessionState = "Active" | "History" | string;
     export type SessionStatus =
-        | 'Connected'
-        | 'Connecting'
-        | 'Disconnected'
-        | 'Terminated'
-        | 'Terminating'
-        | 'Failed'
+        | "Connected"
+        | "Connecting"
+        | "Disconnected"
+        | "Terminated"
+        | "Terminating"
+        | "Failed"
         | string;
     export type SessionTarget = string;
     export interface SeveritySummary {
@@ -9927,11 +9927,11 @@ declare namespace SSM {
         UnspecifiedCount?: ComplianceSummaryCount;
     }
     export type SharedDocumentVersion = string;
-    export type SignalType = 'Approve' | 'Reject' | 'StartStep' | 'StopStep' | 'Resume' | string;
+    export type SignalType = "Approve" | "Reject" | "StartStep" | "StopStep" | "Resume" | string;
     export type SnapshotDownloadUrl = string;
     export type SnapshotId = string;
     export type SourceId = string;
-    export type SourceType = 'AWS::EC2::Instance' | 'AWS::IoT::Thing' | 'AWS::SSM::ManagedInstance' | string;
+    export type SourceType = "AWS::EC2::Instance" | "AWS::IoT::Thing" | "AWS::SSM::ManagedInstance" | string;
     export type StandardErrorContent = string;
     export type StandardOutputContent = string;
     export interface StartAssociationsOnceRequest {
@@ -10195,12 +10195,12 @@ declare namespace SSM {
         Values: StepExecutionFilterValueList;
     }
     export type StepExecutionFilterKey =
-        | 'StartTimeBefore'
-        | 'StartTimeAfter'
-        | 'StepExecutionStatus'
-        | 'StepExecutionId'
-        | 'StepName'
-        | 'Action'
+        | "StartTimeBefore"
+        | "StartTimeAfter"
+        | "StepExecutionStatus"
+        | "StepExecutionId"
+        | "StepName"
+        | "Action"
         | string;
     export type StepExecutionFilterList = StepExecutionFilter[];
     export type StepExecutionFilterValue = string;
@@ -10218,7 +10218,7 @@ declare namespace SSM {
     }
     export interface StopAutomationExecutionResult {
     }
-    export type StopType = 'Complete' | 'Cancel' | string;
+    export type StopType = "Complete" | "Cancel" | string;
     export type StreamUrl = string;
     export type String = string;
     export type StringDateTime = string;
@@ -11030,7 +11030,7 @@ declare namespace SSM {
     /**
      * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.
      */
-    export type apiVersion = '2014-11-06' | 'latest' | string;
+    export type apiVersion = "2014-11-06" | "latest" | string;
     export interface ClientApiVersions {
         /**
          * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.

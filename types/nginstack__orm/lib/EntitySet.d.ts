@@ -2,7 +2,7 @@ export = EntitySet;
 declare function EntitySet(
     baseClass: number,
     dataSet: any,
-    opt_options?: EntitySetOptions | Record<any, any>
+    opt_options?: EntitySetOptions | Record<any, any>,
 ): void;
 declare class EntitySet {
     constructor(baseClass: number, dataSet: any, opt_options?: EntitySetOptions | Record<any, any>);
@@ -39,18 +39,18 @@ declare class EntitySet {
     toJSONSchema(): any;
 }
 declare namespace EntitySet {
-    export { fromClass, fromDataSet, persist, ModelDef, DataSet, Field, EntitySetOptions };
+    export { DataSet, EntitySetOptions, Field, fromClass, fromDataSet, ModelDef, persist };
 }
-type EntitySetOptions = import('./EntitySetOptions');
-import Entity = require('./Entity.js');
+type EntitySetOptions = import("./EntitySetOptions");
+import Entity = require("./Entity.js");
 declare function fromClass(
     classKey: number,
     opt_options?:
         | {
-              userKey: number;
-              fields: string[] | ((arg0: Field) => boolean);
-          }
-        | Record<any, any>
+            userKey: number;
+            fields: string[] | ((arg0: Field) => boolean);
+        }
+        | Record<any, any>,
 ): EntitySet;
 declare function fromDataSet(
     baseClass: number,
@@ -58,11 +58,11 @@ declare function fromDataSet(
     opt_options?:
         | Record<any, any>
         | {
-              userKey: number;
-              fields: string[] | ((arg0: Field) => boolean);
-          }
+            userKey: number;
+            fields: string[] | ((arg0: Field) => boolean);
+        },
 ): EntitySet;
 declare function persist(entitySets: EntitySet | EntitySet[]): number;
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
 type DataSet = any;
-type Field = import('@nginstack/engine/lib/classdef/Field');
+type Field = import("@nginstack/engine/lib/classdef/Field");

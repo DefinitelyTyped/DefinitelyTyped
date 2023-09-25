@@ -1,2 +1,2 @@
-import OrdinaryGetPrototypeOf = require('../2016/OrdinaryGetPrototypeOf');
+import OrdinaryGetPrototypeOf = require("../2016/OrdinaryGetPrototypeOf");
 export = OrdinaryGetPrototypeOf;

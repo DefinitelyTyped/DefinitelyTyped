@@ -1,7 +1,7 @@
-import safe = require('postcss-safe-parser');
+import safe = require("postcss-safe-parser");
 import postcss from "postcss";
 
-const badCss = 'a {';
+const badCss = "a {";
 
 postcss()
     .process(badCss, { parser: safe })

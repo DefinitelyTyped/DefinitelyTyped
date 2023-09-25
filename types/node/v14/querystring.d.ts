@@ -1,4 +1,4 @@
-declare module 'node:querystring' {
+declare module "querystring" {
     interface StringifyOptions {
         encodeURIComponent?: ((str: string) => string) | undefined;
     }
@@ -8,9 +8,19 @@ declare module 'node:querystring' {
         decodeURIComponent?: ((str: string) => string) | undefined;
     }
 
-    interface ParsedUrlQuery extends NodeJS.Dict<string | string[]> { }
+    interface ParsedUrlQuery extends NodeJS.Dict<string | string[]> {}
 
-    interface ParsedUrlQueryInput extends NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null> {
+    interface ParsedUrlQueryInput extends
+        NodeJS.Dict<
+            | string
+            | number
+            | boolean
+            | ReadonlyArray<string>
+            | ReadonlyArray<number>
+            | ReadonlyArray<boolean>
+            | null
+        >
+    {
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
@@ -26,6 +36,6 @@ declare module 'node:querystring' {
     function escape(str: string): string;
     function unescape(str: string): string;
 }
-declare module 'querystring' {
-    export * from 'node:querystring';
+declare module "node:querystring" {
+    export * from "querystring";
 }

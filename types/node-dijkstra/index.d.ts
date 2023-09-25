@@ -47,7 +47,7 @@ declare class Graph {
      *
      * const route = new Graph(g)
      */
-    constructor(nodes?: {[key: string]: {[key: string]: number}} | Map<string, Map<string, number>>);
+    constructor(nodes?: { [key: string]: { [key: string]: number } } | Map<string, Map<string, number>>);
 
     /**
      * Adds a node to the graph
@@ -133,14 +133,14 @@ declare class Graph {
      * //       cost: 4
      * //    }
      */
-    path(start: any, goal: any, options ?: PathOption): string[] | PathResult;
+    path(start: any, goal: any, options?: PathOption): string[] | PathResult;
 }
 
 interface PathOption {
-    trim ?: boolean | undefined;
-    reverse ?: boolean | undefined;
-    cost ?: boolean | undefined;
-    avoid ?: any[] | undefined;
+    trim?: boolean | undefined;
+    reverse?: boolean | undefined;
+    cost?: boolean | undefined;
+    avoid?: any[] | undefined;
 }
 
 interface PathResult {

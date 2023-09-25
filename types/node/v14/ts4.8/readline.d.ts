@@ -1,5 +1,5 @@
-declare module 'node:readline' {
-    import EventEmitter = require('node:events');
+declare module "readline" {
+    import EventEmitter = require("events");
 
     interface Key {
         sequence?: string | undefined;
@@ -27,7 +27,12 @@ declare module 'node:readline' {
          *
          * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
          */
-        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean);
+        protected constructor(
+            input: NodeJS.ReadableStream,
+            output?: NodeJS.WritableStream,
+            completer?: Completer | AsyncCompleter,
+            terminal?: boolean,
+        );
         /**
          * NOTE: According to the documentation:
          *
@@ -141,7 +146,12 @@ declare module 'node:readline' {
         tabSize?: number | undefined;
     }
 
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    function createInterface(
+        input: NodeJS.ReadableStream,
+        output?: NodeJS.WritableStream,
+        completer?: Completer | AsyncCompleter,
+        terminal?: boolean,
+    ): Interface;
     function createInterface(options: ReadLineOptions): Interface;
     function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
 
@@ -169,6 +179,6 @@ declare module 'node:readline' {
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
-declare module 'readline' {
-    export * from 'node:readline';
+declare module "node:readline" {
+    export * from "readline";
 }

@@ -5,14 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-import { CorsOptions } from 'cors';
-import { Express, Request, Response, NextFunction } from 'express';
-import { EventEmitter } from 'events';
-import { ServerOptions, Server as HttpsServer } from 'https';
-import { Strategy } from 'passport';
+import { CorsOptions } from "cors";
+import { EventEmitter } from "events";
+import { Express, NextFunction, Request, Response } from "express";
+import { Server as HttpsServer, ServerOptions } from "https";
+import { Strategy } from "passport";
 
-import { EditorAPIModule } from '@node-red/editor-api';
-import { Util, Log, I18n, Hooks } from '@node-red/util';
+import { EditorAPIModule } from "@node-red/editor-api";
+import { Hooks, I18n, Log, Util } from "@node-red/util";
 
 declare const runtime: runtime.RuntimeModule;
 
@@ -20,14 +20,14 @@ export = runtime;
 
 declare namespace runtime {
     type Permission =
-        | '*'
-        | 'read'
-        | 'flows.read'
-        | 'flows.write'
-        | 'nodes.read'
-        | 'nodes.write'
-        | 'context.read'
-        | 'context.write';
+        | "*"
+        | "read"
+        | "flows.read"
+        | "flows.write"
+        | "nodes.read"
+        | "nodes.write"
+        | "context.read"
+        | "context.write";
 
     interface UsernamePermissions {
         username: string;
@@ -184,35 +184,35 @@ declare namespace runtime {
          */
         adminAuth?:
             | {
-                  type: 'credentials';
-                  users: Array<{
-                      username: string;
-                      password: string;
-                      permissions: Permission | Permission[];
-                  }>;
-                  default?:
-                      | {
-                            permissions: Permission | Permission[];
-                        }
-                      | undefined;
-              }
+                type: "credentials";
+                users: Array<{
+                    username: string;
+                    password: string;
+                    permissions: Permission | Permission[];
+                }>;
+                default?:
+                    | {
+                        permissions: Permission | Permission[];
+                    }
+                    | undefined;
+            }
             | {
-                  type: 'credentials';
-                  users: (username: string) => Promise<UsernamePermissions | null>;
-                  authenticate: (username: string, password: string) => Promise<UsernamePermissions | null>;
-                  default: () => Promise<AnonymousPermissions | null>;
-              }
+                type: "credentials";
+                users: (username: string) => Promise<UsernamePermissions | null>;
+                authenticate: (username: string, password: string) => Promise<UsernamePermissions | null>;
+                default: () => Promise<AnonymousPermissions | null>;
+            }
             | {
-                  type: 'strategy';
-                  strategy: {
-                      name: string;
-                      label: string;
-                      icon: string;
-                      strategy: Strategy;
-                      options: object;
-                  };
-                  users: UsernamePermissions[];
-              }
+                type: "strategy";
+                strategy: {
+                    name: string;
+                    label: string;
+                    icon: string;
+                    strategy: Strategy;
+                    options: object;
+                };
+                users: UsernamePermissions[];
+            }
             | undefined;
 
         /**
@@ -269,13 +269,13 @@ declare namespace runtime {
         webSocketNodeVerifyClient?:
             | ((info: { origin: string; req: Request; secure: boolean }) => boolean)
             | ((
-                  info: {
-                      origin: string;
-                      req: Request;
-                      secure: boolean;
-                  },
-                  callback: (result: boolean, code?: string, reason?: string) => void,
-              ) => void)
+                info: {
+                    origin: string;
+                    req: Request;
+                    secure: boolean;
+                },
+                callback: (result: boolean, code?: string, reason?: string) => void,
+            ) => void)
             | undefined;
 
         /**
@@ -308,12 +308,12 @@ declare namespace runtime {
          */
         contextStorage?:
             | {
-                  [key: string]:
-                      | string
-                      | {
-                            module: string;
-                        };
-              }
+                [key: string]:
+                    | string
+                    | {
+                        module: string;
+                    };
+            }
             | undefined;
 
         /**
@@ -330,35 +330,35 @@ declare namespace runtime {
          */
         logging?:
             | {
-                  /**
-                   * Only console logging is currently supported
-                   */
-                  console?:
-                      | {
-                            /**
-                             * Level of logging to be recorded. Options are:
-                             * fatal - only those errors which make the application unusable should be recorded
-                             * error - record errors which are deemed fatal for a particular request + fatal errors
-                             * warn - record problems which are non fatal + errors + fatal errors
-                             * info - record information about the general running of the application + warn + error + fatal errors
-                             * debug - record information which is more verbose than info + info + warn + error + fatal errors
-                             * trace - record very detailed logging + debug + info + warn + error + fatal errors
-                             * off - turn off all logging (doesn't affect metrics or audit)
-                             */
-                            level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'off';
+                /**
+                 * Only console logging is currently supported
+                 */
+                console?:
+                    | {
+                        /**
+                         * Level of logging to be recorded. Options are:
+                         * fatal - only those errors which make the application unusable should be recorded
+                         * error - record errors which are deemed fatal for a particular request + fatal errors
+                         * warn - record problems which are non fatal + errors + fatal errors
+                         * info - record information about the general running of the application + warn + error + fatal errors
+                         * debug - record information which is more verbose than info + info + warn + error + fatal errors
+                         * trace - record very detailed logging + debug + info + warn + error + fatal errors
+                         * off - turn off all logging (doesn't affect metrics or audit)
+                         */
+                        level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
 
-                            /**
-                             * Whether or not to include metric events in the log output
-                             */
-                            metrics: boolean;
+                        /**
+                         * Whether or not to include metric events in the log output
+                         */
+                        metrics: boolean;
 
-                            /**
-                             * Whether or not to include audit events in the log output
-                             */
-                            audit: boolean;
-                        }
-                      | undefined;
-              }
+                        /**
+                         * Whether or not to include audit events in the log output
+                         */
+                        audit: boolean;
+                    }
+                    | undefined;
+            }
             | undefined;
 
         /**
@@ -366,113 +366,113 @@ declare namespace runtime {
          */
         editorTheme?:
             | {
-                  page?:
-                      | {
-                            /**
-                             * Page title
-                             */
-                            title?: string | undefined;
-                            /**
-                             * Absolute path to theme icon
-                             */
-                            favicon?: string | undefined;
-                            /**
-                             * Absolute path to custom css file
-                             */
-                            css?: string | undefined;
-                            /**
-                             * Absolute paths to custom script files
-                             */
-                            scripts?: string[] | undefined;
-                        }
-                      | undefined;
-                  header?:
-                      | {
-                            /**
-                             * Header title
-                             */
-                            title?: string | undefined;
-                            /**
-                             * Absolute path to header image, or `null` to remove image
-                             */
-                            image?: string | null | undefined;
-                            /**
-                             * Url to make the header text/image a link to this url
-                             */
-                            url?: string | undefined;
-                        }
-                      | undefined;
-                  deployButton?:
-                      | {
-                            type: 'simple';
-                            /**
-                             * Deploy button label
-                             */
-                            label: string;
-                            /**
-                             * Absolute path to deploy button image or `null` to remove image
-                             */
-                            icon: string;
-                        }
-                      | undefined;
-                  /**
-                   * Hide unwanted menu items by id
-                   */
-                  menu?:
-                      | {
-                            'menu-item-import-library'?: boolean | undefined;
-                            'menu-item-export-library'?: boolean | undefined;
-                            'menu-item-keyboard-shortcuts'?: boolean | undefined;
-                            'menu-item-help'?:
-                                | {
-                                      /** Help Link Text */
-                                      label: string;
-                                      /** Help Link URL */
-                                      url: string;
-                                  }
-                                | undefined;
-                        }
-                      | undefined;
-                  /**
-                   * Hide the user-menu even if adminAuth is enabled
-                   */
-                  userMenu?: boolean | undefined;
-                  login?:
-                      | {
-                            image?: string | undefined;
-                        }
-                      | undefined;
-                  palette?:
-                      | {
-                            /**
-                             * Enable/disable the Palette Manager
-                             */
-                            editable?: boolean | undefined;
-                            /**
-                             * Alternative palette manager catalogues
-                             */
-                            catalogues?: string[] | undefined;
-                            /**
-                             * Override node colours - rules test against category/type by RegExp.
-                             */
-                            theme?:
-                                | Array<{
-                                      category: string;
-                                      type: string;
-                                      color: string;
-                                  }>
-                                | undefined;
-                        }
-                      | undefined;
-                  projects?:
-                      | {
-                            /**
-                             * To enable the Projects feature, set this value to true
-                             */
-                            enabled: boolean;
-                        }
-                      | undefined;
-              }
+                page?:
+                    | {
+                        /**
+                         * Page title
+                         */
+                        title?: string | undefined;
+                        /**
+                         * Absolute path to theme icon
+                         */
+                        favicon?: string | undefined;
+                        /**
+                         * Absolute path to custom css file
+                         */
+                        css?: string | undefined;
+                        /**
+                         * Absolute paths to custom script files
+                         */
+                        scripts?: string[] | undefined;
+                    }
+                    | undefined;
+                header?:
+                    | {
+                        /**
+                         * Header title
+                         */
+                        title?: string | undefined;
+                        /**
+                         * Absolute path to header image, or `null` to remove image
+                         */
+                        image?: string | null | undefined;
+                        /**
+                         * Url to make the header text/image a link to this url
+                         */
+                        url?: string | undefined;
+                    }
+                    | undefined;
+                deployButton?:
+                    | {
+                        type: "simple";
+                        /**
+                         * Deploy button label
+                         */
+                        label: string;
+                        /**
+                         * Absolute path to deploy button image or `null` to remove image
+                         */
+                        icon: string;
+                    }
+                    | undefined;
+                /**
+                 * Hide unwanted menu items by id
+                 */
+                menu?:
+                    | {
+                        "menu-item-import-library"?: boolean | undefined;
+                        "menu-item-export-library"?: boolean | undefined;
+                        "menu-item-keyboard-shortcuts"?: boolean | undefined;
+                        "menu-item-help"?:
+                            | {
+                                /** Help Link Text */
+                                label: string;
+                                /** Help Link URL */
+                                url: string;
+                            }
+                            | undefined;
+                    }
+                    | undefined;
+                /**
+                 * Hide the user-menu even if adminAuth is enabled
+                 */
+                userMenu?: boolean | undefined;
+                login?:
+                    | {
+                        image?: string | undefined;
+                    }
+                    | undefined;
+                palette?:
+                    | {
+                        /**
+                         * Enable/disable the Palette Manager
+                         */
+                        editable?: boolean | undefined;
+                        /**
+                         * Alternative palette manager catalogues
+                         */
+                        catalogues?: string[] | undefined;
+                        /**
+                         * Override node colours - rules test against category/type by RegExp.
+                         */
+                        theme?:
+                            | Array<{
+                                category: string;
+                                type: string;
+                                color: string;
+                            }>
+                            | undefined;
+                    }
+                    | undefined;
+                projects?:
+                    | {
+                        /**
+                         * To enable the Projects feature, set this value to true
+                         */
+                        enabled: boolean;
+                    }
+                    | undefined;
+            }
             | undefined;
 
         verbose?: boolean | undefined;
@@ -870,7 +870,6 @@ declare namespace runtime {
          */
         getActiveProject: (opts: { user?: ProjectUser | undefined; req?: object | undefined }) => Promise<object>;
         /**
-         *
          * @param opts
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project to activate
@@ -1098,7 +1097,6 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<string>;
         /**
-         *
          * @param opts
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project
@@ -1113,7 +1111,6 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<object>;
         /**
-         *
          * @param opts
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project
@@ -1169,7 +1166,6 @@ declare namespace runtime {
          */
         getRemotes: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
         /**
-         *
          * @param opts
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project
@@ -1201,7 +1197,6 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<object>;
         /**
-         *
          * @param opts
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project

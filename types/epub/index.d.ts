@@ -29,9 +29,8 @@
  *  following url (providing that imageroot is "/images/"):
  *
  *      /images/logo_img/OPT/logo.jpg
- **/
+ */
 declare module "epub" {
-
     import { EventEmitter } from "events";
 
     interface TocElement {

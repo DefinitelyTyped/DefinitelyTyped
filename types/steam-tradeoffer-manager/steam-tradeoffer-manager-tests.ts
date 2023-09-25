@@ -1,8 +1,8 @@
 import TradeOfferManager = require("steam-tradeoffer-manager");
 import TradeOffer = require("steam-tradeoffer-manager/lib/classes/TradeOffer");
-import SteamCommunity = require('steamcommunity');
-import SteamUser = require('steam-user');
-import Steam = require('steam');
+import SteamCommunity = require("steamcommunity");
+import SteamUser = require("steam-user");
+import Steam = require("steam");
 import CEconItem = require("steamcommunity/classes/CEconItem");
 
 // ----- Common Definitions -----
@@ -10,16 +10,16 @@ const community = new SteamCommunity();
 let manager = new TradeOfferManager();
 const user = new SteamUser();
 const steam = new Steam.SteamClient();
-const offer = manager.createOffer('123');
-const item = new CEconItem('a', 'b', 'c');
+const offer = manager.createOffer("123");
+const item = new CEconItem("a", "b", "c");
 
 // ----- TradeOfferManager -----
 
 manager = new TradeOfferManager({
     community,
     steam: user,
-    domain: 'localhost',
-    language: 'en',
+    domain: "localhost",
+    language: "en",
     pollInterval: 60000,
     cancelTime: 60000,
     pendingCancelTime: 60000,
@@ -28,18 +28,18 @@ manager = new TradeOfferManager({
     globalAssetCache: false,
     assetCacheMaxItems: 500,
     assetCacheGcInterval: 120000,
-    pollData: 'poll_data_object',
-    dataDirectory: '/tmp',
+    pollData: "poll_data_object",
+    dataDirectory: "/tmp",
     gzipData: true,
     savePollData: true,
 });
 manager = new TradeOfferManager({
-    steam
+    steam,
 });
 
-manager.setCookies(['a=b']);
-manager.setCookies(['a=b'], '123');
-manager.setCookies(['a=b'], e => {
+manager.setCookies(["a=b"]);
+manager.setCookies(["a=b"], "123");
+manager.setCookies(["a=b"], e => {
     if (e) {
         throw e;
     }
@@ -47,19 +47,19 @@ manager.setCookies(['a=b'], e => {
 
 manager.shutdown();
 
-manager.parentalUnlock('123');
-manager.parentalUnlock('123', e => {
+manager.parentalUnlock("123");
+manager.parentalUnlock("123", e => {
     if (e) {
         throw e;
     }
 });
 
 // $ExpectType TradeOffer
-manager.createOffer('123');
-manager.createOffer(new TradeOfferManager.SteamID('123'));
-manager.createOffer('123', '456');
+manager.createOffer("123");
+manager.createOffer(new TradeOfferManager.SteamID("123"));
+manager.createOffer("123", "456");
 
-manager.getOffer('123', (err, offer: TradeOffer) => {
+manager.getOffer("123", (err, offer: TradeOffer) => {
     if (err) {
         throw err;
     }
@@ -74,13 +74,13 @@ manager.getOffers(TradeOfferManager.EOfferFilter.ActiveOnly, new Date(), (err, s
 manager.getInventoryContents(440, 2, true, (err, inventory: CEconItem[], currencies: CEconItem[]) => {
 });
 
-manager.getUserInventoryContents('123', 440, 2, true, (err, inventory: CEconItem[], currencies: CEconItem[]) => {
+manager.getUserInventoryContents("123", 440, 2, true, (err, inventory: CEconItem[], currencies: CEconItem[]) => {
 });
 
 manager.loadInventory(440, 2, true, (err, inventory, currencies) => {
 });
 
-manager.loadUserInventory('123', 440, 2, true, (err, inventory, currencies) => {
+manager.loadUserInventory("123", 440, 2, true, (err, inventory, currencies) => {
 });
 
 manager.getOfferToken((err, token: string) => {
@@ -99,8 +99,8 @@ manager.doPoll();
 // $ExpectType boolean
 offer.isGlitched();
 
-offer.data('a');
-offer.data('a', 'b');
+offer.data("a");
+offer.data("a", "b");
 
 offer.getPartnerInventoryContents(440, 2, (err, inventory, currencies) => {
 });
@@ -135,9 +135,9 @@ offer.removeTheirItems([item, item]);
 // $ExpectType boolean
 offer.containsItem(item);
 
-offer.setMessage('a');
+offer.setMessage("a");
 
-offer.setToken('a');
+offer.setToken("a");
 
 offer.getUserDetails((err, me, them) => {
 });

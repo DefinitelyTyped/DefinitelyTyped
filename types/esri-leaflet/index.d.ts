@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace esri {
         type CallbackHandler = (error: any, metadata: any) => void;
 
@@ -31,24 +31,24 @@ declare module 'leaflet' {
         }
 
         type Basemaps =
-            | 'Streets'
-            | 'Topographic'
-            | 'NationalGeographic'
-            | 'Oceans'
-            | 'Gray'
-            | 'DarkGray'
-            | 'Imagery'
-            | 'ShadedRelief'
-            | 'Terrain'
-            | 'USATopo'
-            | 'OceansLabels'
-            | 'GrayLabels'
-            | 'DarkGrayLabels'
-            | 'ImageryLabels'
-            | 'ImageryClarity'
-            | 'ImageryTransportation'
-            | 'ShadedReliefLabels'
-            | 'TerrainLabels';
+            | "Streets"
+            | "Topographic"
+            | "NationalGeographic"
+            | "Oceans"
+            | "Gray"
+            | "DarkGray"
+            | "Imagery"
+            | "ShadedRelief"
+            | "Terrain"
+            | "USATopo"
+            | "OceansLabels"
+            | "GrayLabels"
+            | "DarkGrayLabels"
+            | "ImageryLabels"
+            | "ImageryClarity"
+            | "ImageryTransportation"
+            | "ShadedReliefLabels"
+            | "TerrainLabels";
 
         type LeafletGeometry = Marker | Polygon | Polyline | LatLngExpression | LatLngBounds | GeoJSON;
         type GeoJSONGeometry = GeoJSON.Point | GeoJSON.Polygon | GeoJSON.LineString;
@@ -61,7 +61,6 @@ declare module 'leaflet' {
         }
 
         /**
-         *
          * Options for `L.esri.BasemapLayer`
          */
         interface BasemapLayerOptions extends TileLayerOptions {
@@ -397,7 +396,7 @@ declare module 'leaflet' {
              * Determines where features are filtered by time. By default features will be filtered by the server. If
              * set to 'client' all features are requested and filtered by the app before display.
              */
-            timeFilterMode?: 'server' | 'client' | undefined;
+            timeFilterMode?: "server" | "client" | undefined;
             /**
              * How much to simplify polygons and polylines. A higher value gives better performance, a lower value
              * gives a more accurate representation.
@@ -659,7 +658,7 @@ declare module 'leaflet' {
             /**
              * Server response content type "json" | "image". Default is 'image'
              */
-            f?: 'json' | 'image' | undefined;
+            f?: "json" | "image" | undefined;
 
             /**
              * Output format of the image. Default is 'jpegpng
@@ -752,20 +751,20 @@ declare module 'leaflet' {
              */
             setPixelType(
                 pixelType:
-                    | 'C128'
-                    | 'C64'
-                    | 'F32'
-                    | 'F64'
-                    | 'S16'
-                    | 'S32'
-                    | 'S8'
-                    | 'U1'
-                    | 'U16'
-                    | 'U2'
-                    | 'U32'
-                    | 'U4'
-                    | 'U8'
-                    | 'UNKNOWN',
+                    | "C128"
+                    | "C64"
+                    | "F32"
+                    | "F64"
+                    | "S16"
+                    | "S32"
+                    | "S8"
+                    | "U1"
+                    | "U16"
+                    | "U2"
+                    | "U32"
+                    | "U4"
+                    | "U8"
+                    | "UNKNOWN",
             ): this;
 
             /**

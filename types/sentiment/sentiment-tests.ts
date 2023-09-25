@@ -1,4 +1,4 @@
-import Sentiment = require('sentiment');
+import Sentiment = require("sentiment");
 
 const sentiment = new Sentiment();
 
@@ -9,7 +9,7 @@ const options: Sentiment.AnalysisOptions = {
     },
 };
 // $ExpectType AnalysisResult
-sentiment.analyze('Cats are totally amazing!', options);
+sentiment.analyze("Cats are totally amazing!", options);
 
 const frLanguage: Sentiment.LanguageModule = {
     labels: { stupide: -2 },
@@ -17,7 +17,7 @@ const frLanguage: Sentiment.LanguageModule = {
         apply: (tokens: string[], cursor: number, tokenScore: number) => {
             if (cursor > 0) {
                 const prevtoken = tokens[cursor - 1];
-                if (prevtoken === 'pas') {
+                if (prevtoken === "pas") {
                     tokenScore = -tokenScore;
                 }
             }
@@ -26,6 +26,6 @@ const frLanguage: Sentiment.LanguageModule = {
     },
 };
 // $ExpectType void
-sentiment.registerLanguage('fr', frLanguage);
+sentiment.registerLanguage("fr", frLanguage);
 // $ExpectType AnalysisResult
-sentiment.analyze("Le chat n'est pas stupide", { language: 'fr' });
+sentiment.analyze("Le chat n'est pas stupide", { language: "fr" });

@@ -84,10 +84,23 @@ assert.containingAnyOf(arr, anotherArr, "contains any of");
 
 arr.should.be.sorted();
 anotherArr.should.be.sorted();
-yetAnotherArr.should.be.sorted();
+yetAnotherArr.should.not.be.sorted();
 
 expect(arr).to.be.sorted();
 expect(anotherArr).to.be.sorted();
 expect(yetAnotherArr).to.be.not.sorted();
 
-assert.sorted(arr, "sorted");
+assert.sorted(arr, 'sorted');
+
+// sorted with compareFn overload
+const strArr = ['a', 'b', 'c'];
+const strArrNot = ['a', 'z', 'c'];
+const compareFn = (a: string, b: string) => a.localeCompare(b);
+
+strArr.should.be.sorted(compareFn);
+strArrNot.should.not.be.sorted(compareFn);
+
+expect(strArr).to.be.sorted(compareFn);
+expect(strArrNot).to.be.not.sorted(compareFn);
+
+assert.sorted(strArr, compareFn, 'sorted');

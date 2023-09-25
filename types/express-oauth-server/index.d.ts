@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as express from 'express';
-import * as OAuth2Server from 'oauth2-server';
+import * as express from "express";
+import * as OAuth2Server from "oauth2-server";
 
 declare namespace ExpressOAuthServer {
     interface Options extends OAuth2Server.ServerOptions {

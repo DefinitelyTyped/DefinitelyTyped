@@ -29,8 +29,8 @@ export interface DataParserOptions {
         callback?: (
             err: any,
             fields: formidable.Fields,
-            files: formidable.Files
-        ) => any
+            files: formidable.Files,
+        ) => any,
     ): void;
 }
 
@@ -61,12 +61,14 @@ export interface Options {
     security?:
         | false
         | helmet.IHelmetConfiguration & {
-              csrf?: false | CsurfOptions | undefined;
-          } | undefined;
+            csrf?: false | CsurfOptions | undefined;
+        }
+        | undefined;
     log?:
         | LogLevel
         | {
-              level: LogLevel;
-              report: (content: string, type: LogLevel) => void;
-          } | undefined;
+            level: LogLevel;
+            report: (content: string, type: LogLevel) => void;
+        }
+        | undefined;
 }

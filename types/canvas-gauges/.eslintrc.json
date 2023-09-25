@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-declare-current-package": "off",
-        "@definitelytyped/no-single-element-tuple-type": "off"
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

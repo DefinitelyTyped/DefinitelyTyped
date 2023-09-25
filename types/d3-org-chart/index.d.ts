@@ -4,10 +4,10 @@
 //                 Matteo Gallesio <https://github.com/m-gallesio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { HierarchyNode } from 'd3-hierarchy';
-import { Selection, ValueFn, BaseType } from 'd3-selection';
-import { Link, DefaultLinkObject } from 'd3-shape';
-import { ZoomBehavior, ZoomTransform } from 'd3-zoom';
+import { HierarchyNode } from "d3-hierarchy";
+import { BaseType, Selection, ValueFn } from "d3-selection";
+import { DefaultLinkObject, Link } from "d3-shape";
+import { ZoomBehavior, ZoomTransform } from "d3-zoom";
 
 export type NodeId = string | number;
 
@@ -81,7 +81,7 @@ export interface StatePublic<Datum> {
         state: State<Datum>,
     ) => string;
     layout: Layout;
-    buttonContent: (params: { node: HierarchyNode<Datum>; state: State<Datum>; }) => string;
+    buttonContent: (params: { node: HierarchyNode<Datum>; state: State<Datum> }) => string;
     layoutBindings: Record<Layout, LayoutBinding<Datum>>;
 }
 
@@ -98,7 +98,7 @@ export interface State<Datum> extends StatePublic<Datum>, StateInternal<Datum> {
     [key: string]: any;
 }
 
-export type Layout = 'left' | 'bottom' | 'right' | 'top';
+export type Layout = "left" | "bottom" | "right" | "top";
 
 export interface LayoutBinding<Datum> {
     nodeLeftX: (node: HierarchyNode<Datum>) => number;
@@ -142,17 +142,17 @@ export interface LayoutBinding<Datum> {
         state: State<Datum>;
         node: HierarchyNode<Datum>;
     }) => [number, number];
-    zoomTransform: (params: { centerY: number; scale: number; }) => string;
+    zoomTransform: (params: { centerY: number; scale: number }) => string;
     diagonal(source: Point, target: Point, m: Point): string;
     /** Swaps x and y coordinates */
     swap: (d: Point) => Point;
-    nodeUpdateTransform: (params: { width: number; height: number; } & Point) => string;
+    nodeUpdateTransform: (params: { width: number; height: number } & Point) => string;
 }
 
 // Helper type to remove the need to explicitly declare get / set methods
 export type StateGetSet<T, TSelf> =
-    & { [Property in keyof StatePublic<T>]: () => StatePublic<T>[Property]; }
-    & { [Property in keyof StatePublic<T>]: (value: StatePublic<T>[Property]) => TSelf; };
+    & { [Property in keyof StatePublic<T>]: () => StatePublic<T>[Property] }
+    & { [Property in keyof StatePublic<T>]: (value: StatePublic<T>[Property]) => TSelf };
 
 // This is separated from the implementation declaration to not have to replicate the propertied of StateGetSet
 export interface OrgChart<Datum> extends StateGetSet<Datum, OrgChart<Datum>> {
@@ -171,7 +171,7 @@ export class OrgChart<Datum> {
     removeNode(nodeId: NodeId): this;
     calculateCompactFlexDimensions(root: HierarchyNode<Datum>): void;
     calculateCompactFlexPositions(root: HierarchyNode<Datum>): void;
-    update(params: { x0: number; y0: number; width: number; height: number; } & Partial<Point>): void;
+    update(params: { x0: number; y0: number; width: number; height: number } & Partial<Point>): void;
     /** Whether the current browser is Microsoft Edge */
     isEdge(): boolean;
     hdiagonal(source: Point, target: Point, m: Point): string;
@@ -181,7 +181,7 @@ export class OrgChart<Datum> {
     setExpansionFlagToChildren(node: HierarchyNode<Datum>, isExpanded: boolean): void;
     expandSomeNodes(node: HierarchyNode<Datum>): void;
     updateNodesState(): void;
-    setLayouts(params: { expandNodesFirst?: boolean; }): void;
+    setLayouts(params: { expandNodesFirst?: boolean }): void;
     collapse(node: HierarchyNode<Datum>): void;
     expand(node: HierarchyNode<Datum>): void;
     zoomed(event: any, node: HierarchyNode<Datum>): void;
@@ -190,9 +190,9 @@ export class OrgChart<Datum> {
         x1: number;
         y0: number;
         y1: number;
-        params: { animate?: boolean; scale?: boolean; };
+        params: { animate?: boolean; scale?: boolean };
     }): void;
-    fit(params?: { animate?: boolean; nodes?: Iterable<HierarchyNode<Datum>>; scale?: boolean; }): this;
+    fit(params?: { animate?: boolean; nodes?: Iterable<HierarchyNode<Datum>>; scale?: boolean }): this;
     setExpanded(nodeId: NodeId, isExpanded?: boolean): this;
     setCentered(nodeId: NodeId): this;
     setHighlighted(nodeId: NodeId): this;
@@ -202,7 +202,7 @@ export class OrgChart<Datum> {
     zoomIn(): void;
     zoomOut(): void;
     toDataUrl(url: string, callback: (result: string | ArrayBuffer) => void): void;
-    exportImg(params?: { full?: boolean; scale?: number; onLoad?: (s: string) => void; save?: boolean; }): void;
+    exportImg(params?: { full?: boolean; scale?: number; onLoad?: (s: string) => void; save?: boolean }): void;
     exportSvg(): this;
     expandAll(): this;
     collapseAll(): this;
@@ -216,6 +216,6 @@ export class OrgChart<Datum> {
     }): void;
     getTextWidth(
         text: string,
-        params: { fontSize?: number; fontWeight?: number; defaultFont?: string; ctx: CanvasRenderingContext2D; },
+        params: { fontSize?: number; fontWeight?: number; defaultFont?: string; ctx: CanvasRenderingContext2D },
     ): number;
 }

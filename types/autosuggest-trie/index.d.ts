@@ -9,7 +9,7 @@
  * @param textKey Key that every item in items must have. item will be inserted to the trie based on item[textKey].
  * @param options Additional options
  */
- declare function createTrie<T extends object>(
+declare function createTrie<T extends object>(
     items: T[],
     textKey: keyof T,
     options?: TrieOptions<T>,

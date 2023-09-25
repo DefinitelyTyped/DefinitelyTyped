@@ -21,19 +21,19 @@ export interface Deprecated extends Linter.RulesRecord {
                  */
                 VariableDeclarator:
                     | Partial<{
-                          /**
-                           * @default 1
-                           */
-                          var: number | "first";
-                          /**
-                           * @default 1
-                           */
-                          let: number | "first";
-                          /**
-                           * @default 1
-                           */
-                          const: number | "first";
-                      }>
+                        /**
+                         * @default 1
+                         */
+                        var: number | "first";
+                        /**
+                         * @default 1
+                         */
+                        let: number | "first";
+                        /**
+                         * @default 1
+                         */
+                        const: number | "first";
+                    }>
                     | number
                     | "first";
                 /**

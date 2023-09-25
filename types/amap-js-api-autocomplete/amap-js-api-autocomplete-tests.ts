@@ -1,34 +1,34 @@
 declare const div: HTMLDivElement;
 
-const input = document.createElement('input');
+const input = document.createElement("input");
 // $ExpectType Autocomplete
 const autoComplete = new AMap.Autocomplete();
 // $ExpectType Autocomplete
 new AMap.Autocomplete({});
 // $ExpectType Autocomplete
 new AMap.Autocomplete({
-    type: 'type',
-    city: 'city',
-    datatype: 'all',
+    type: "type",
+    city: "city",
+    datatype: "all",
     citylimit: true,
-    input: 'input',
-    output: 'output',
-    outPutDirAuto: true
+    input: "input",
+    output: "output",
+    outPutDirAuto: true,
 });
 // $ExpectType Autocomplete
 new AMap.Autocomplete({
-    type: 'type',
-    city: 'city',
-    datatype: 'all',
+    type: "type",
+    city: "city",
+    datatype: "all",
     citylimit: true,
     input,
     output: div,
-    outPutDirAuto: true
+    outPutDirAuto: true,
 });
 
-autoComplete.search('keyword', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
-    if (typeof result !== 'string') {
+autoComplete.search("keyword", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType number
         result.count;
         // $ExpectType string
@@ -63,22 +63,22 @@ autoComplete.search('keyword', (status, result) => {
 // $ExpectType void
 autoComplete.setType();
 // $ExpectType void
-autoComplete.setType('type');
+autoComplete.setType("type");
 
 // $ExpectType void
 autoComplete.setCity();
 // $ExpectType void
-autoComplete.setCity('city');
+autoComplete.setCity("city");
 
 // $ExpectType void
 autoComplete.setCityLimit(false);
 
-autoComplete.on('complete', (event: AMap.Autocomplete.EventMap['complete']) => {
+autoComplete.on("complete", (event: AMap.Autocomplete.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
     event.info;
-    if ('tips' in event) {
+    if ("tips" in event) {
         // $ExpectType number
         event.count;
         // $ExpectType Tip[]
@@ -86,21 +86,21 @@ autoComplete.on('complete', (event: AMap.Autocomplete.EventMap['complete']) => {
     }
 });
 
-autoComplete.on('error', (event: AMap.Autocomplete.EventMap['error']) => {
+autoComplete.on("error", (event: AMap.Autocomplete.EventMap["error"]) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
 });
 
-autoComplete.on('select', (event: AMap.Autocomplete.EventMap['select']) => {
+autoComplete.on("select", (event: AMap.Autocomplete.EventMap["select"]) => {
     // $ExpectType "select"
     event.type;
     // $ExpectType Tip
     event.tip;
 });
 
-autoComplete.on('choose', (event: AMap.Autocomplete.EventMap['choose']) => {
+autoComplete.on("choose", (event: AMap.Autocomplete.EventMap["choose"]) => {
     // $ExpectType "choose"
     event.type;
     // $ExpectType Tip

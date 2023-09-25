@@ -3,7 +3,7 @@
 // Definitions by: Pat Lillis <https://github.com/patlillis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _Immutable from 'immutable';
+import * as _Immutable from "immutable";
 
 // Disable automatic exports.
 export {};
@@ -158,7 +158,7 @@ export const Reactor: {
      * update state, Reactor's dispatch messages to all registered stores, and
      * the store returns it's new state based on the message
      */
-    new (config?: ReactorConfig): Reactor;
+    new(config?: ReactorConfig): Reactor;
 
     /**
      * State is stored in NuclearJS Reactors. Reactors contain a `state` object
@@ -256,7 +256,7 @@ export const Store: {
      * entire app state and have no knowledge about the other parts of the
      * application state.
      */
-    new <T>(config: StoreLike<T>): Store<T>;
+    new<T>(config: StoreLike<T>): Store<T>;
 
     /**
      * A Store defines how a certain domain of the application should respond to

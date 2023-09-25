@@ -1,18 +1,18 @@
-import * as gulp from 'gulp';
-import * as minify from 'gulp-minify';
+import * as gulp from "gulp";
+import * as minify from "gulp-minify";
 
-gulp.task('minify-1', () => {
-    gulp.src('./src').pipe(minify()).pipe(gulp.dest('./out'));
+gulp.task("minify-1", () => {
+    gulp.src("./src").pipe(minify()).pipe(gulp.dest("./out"));
 });
 
-gulp.task('minify-2', () => {
-    gulp.src('./src')
+gulp.task("minify-2", () => {
+    gulp.src("./src")
         .pipe(
             minify({
-                preserveComments: 'all',
+                preserveComments: "all",
                 mangle: true,
-                ignoreFiles: ['file.js'],
+                ignoreFiles: ["file.js"],
             }),
         )
-        .pipe(gulp.dest('./out'));
+        .pipe(gulp.dest("./out"));
 });

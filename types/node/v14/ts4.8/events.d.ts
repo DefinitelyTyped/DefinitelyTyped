@@ -1,4 +1,4 @@
-declare module 'node:events' {
+declare module "events" {
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -45,7 +45,7 @@ declare module 'node:events' {
         static defaultMaxListeners: number;
     }
 
-    import internal = require('events');
+    import internal = require("events");
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
@@ -76,7 +76,7 @@ declare module 'node:events' {
 
     export = EventEmitter;
 }
-declare module 'events' {
-    import events = require('node:events');
+declare module "node:events" {
+    import events = require("events");
     export = events;
 }

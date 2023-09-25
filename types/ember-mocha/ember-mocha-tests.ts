@@ -1,38 +1,44 @@
 import {
-    describeComponent, describeModel, describeModule,
-    setResolver, setupAcceptanceTest, setupComponentTest,
-    setupModelTest, setupTest, setupRenderingTest,
-    setupApplicationTest
-} from 'ember-mocha';
-import { describe, it, beforeEach, afterEach, before, after } from 'mocha';
-import chai = require('chai');
+    describeComponent,
+    describeModel,
+    describeModule,
+    setResolver,
+    setupAcceptanceTest,
+    setupApplicationTest,
+    setupComponentTest,
+    setupModelTest,
+    setupRenderingTest,
+    setupTest,
+} from "ember-mocha";
+import { after, afterEach, before, beforeEach, describe, it } from "mocha";
+import chai = require("chai");
 import Ember from "ember";
-import hbs from 'htmlbars-inline-precompile';
+import hbs from "htmlbars-inline-precompile";
 
-describeModule('name', function() {
+describeModule("name", function() {
     beforeEach(function() {
     });
 
-    it('test', function() {
+    it("test", function() {
     });
 });
 
-describeModule('name', 'description', function() {
-    it('test', function() {
+describeModule("name", "description", function() {
+    it("test", function() {
     });
 });
 
 describeModule(
-    'name',
-    'description',
+    "name",
+    "description",
     {
-        needs: ['service:notifications']
+        needs: ["service:notifications"],
     },
     function() {
-    }
+    },
 );
 
-describeModule('component:x-foo', 'TestModule callbacks', {
+describeModule("component:x-foo", "TestModule callbacks", {
     needs: [],
 
     beforeSetup() {
@@ -42,48 +48,48 @@ describeModule('component:x-foo', 'TestModule callbacks', {
     teardown() {
     },
     afterTeardown() {
-    }
+    },
 }, function() {
 });
 
-describeComponent('x-foo', {
-    integration: true
+describeComponent("x-foo", {
+    integration: true,
 }, function() {
 });
 
-describeComponent('x-foo', {
+describeComponent("x-foo", {
     unit: true,
-    needs: ['helper:pluralize-string']
+    needs: ["helper:pluralize-string"],
 }, function() {
 });
 
 describeComponent.skip(
-    'block-slot',
-    'Integration: BlockSlotComponent',
+    "block-slot",
+    "Integration: BlockSlotComponent",
     {
-        integration: true
+        integration: true,
     },
     function() {
-    }
+    },
 );
 
-describeModel('user', {
-    needs: ['model:child']
+describeModel("user", {
+    needs: ["model:child"],
 }, function() {
 });
 
-describeModule('component:x-foo', 'TestModule callbacks', function() {
+describeModule("component:x-foo", "TestModule callbacks", function() {
     before(function() {
         class I18n extends Ember.Object {}
 
         this.skip();
         this.timeout(1000);
-        this.registry.register('helper:i18n', I18n);
-        this.registry.register('helper:i18n', I18n, { singleton: true });
-        this.register('service:i18n', {});
-        this.inject.service('i18n');
-        this.inject.service('i18n', { as: 'i18n' });
-        this.factory('object:user').create();
+        this.registry.register("helper:i18n", I18n);
+        this.registry.register("helper:i18n", I18n, { singleton: true });
+        this.register("service:i18n", {});
+        this.inject.service("i18n");
+        this.inject.service("i18n", { as: "i18n" });
+        this.factory("object:user").create();
     });
 
     after(function() {
@@ -96,40 +102,40 @@ describeModule('component:x-foo', 'TestModule callbacks', function() {
     });
 });
 
-describe('setupTest', function() {
-    setupTest('service:ajax');
+describe("setupTest", function() {
+    setupTest("service:ajax");
 
-    setupTest('service:ajax', {
-        unit: true
+    setupTest("service:ajax", {
+        unit: true,
     });
 
-    setupTest('controller:sidebar', {
+    setupTest("controller:sidebar", {
         // Specify the other units that are required for this test.
         // needs: ['controller:foo']
     });
 
-    setupComponentTest('gravatar-image', {
+    setupComponentTest("gravatar-image", {
         // specify the other units that are required for this test
         // needs: ['component:foo', 'helper:bar']
     });
 
-    setupModelTest('contact', {
+    setupModelTest("contact", {
         // Specify the other units that are required for this test.
-        needs: []
+        needs: [],
     });
 
     const Application = Ember.Application.extend();
 
     setupAcceptanceTest({ Application });
 
-    it('test', function() {
+    it("test", function() {
     });
 });
 
 // testing context
-describe('for test suite A', function() {
-    context('when trying method foo', function() {
-        it('should test correctly', function() {
+describe("for test suite A", function() {
+    context("when trying method foo", function() {
+        it("should test correctly", function() {
         });
     });
 });
@@ -137,75 +143,75 @@ describe('for test suite A', function() {
 // if you don't have a custom resolver, do it like this:
 setResolver(Ember.DefaultResolver.create());
 
-it('renders', function() {
+it("renders", function() {
     // setup the outer context
-    this.set('value', 'cat');
-    this.on('action', function(result) {
-        chai.expect(result).to.equal('bar', 'The correct result was returned');
-        chai.expect(this.get('value')).to.equal('cat');
+    this.set("value", "cat");
+    this.on("action", function(result) {
+        chai.expect(result).to.equal("bar", "The correct result was returned");
+        chai.expect(this.get("value")).to.equal("cat");
     });
 
     // render the component
     this.render(hbs`
         {{ x-foo value=value action="result" }}
     `);
-    this.render('{{ x-foo value=value action="result" }}');
+    this.render("{{ x-foo value=value action=\"result\" }}");
     this.render([
-        '{{ x-foo value=value action="result" }}'
+        "{{ x-foo value=value action=\"result\" }}",
     ]);
 
-    chai.expect(this.$('div>.value').text()).to.equal('cat', 'The component shows the correct value');
+    chai.expect(this.$("div>.value").text()).to.equal("cat", "The component shows the correct value");
 
-    this.$('button').click();
+    this.$("button").click();
 });
 
-it('renders', function() {
+it("renders", function() {
     // creates the component instance
     const subject = this.subject();
 
     const subject2 = this.subject({
-        item: 42
+        item: 42,
     });
 
     const { inputFormat } = this.setProperties({
-        inputFormat: 'M/D/YY',
-        outputFormat: 'MMMM D, YYYY',
-        date: '5/3/10'
+        inputFormat: "M/D/YY",
+        outputFormat: "MMMM D, YYYY",
+        date: "5/3/10",
     });
 
-    const { inputFormat: if2, outputFormat } = this.getProperties('inputFormat', 'outputFormat');
+    const { inputFormat: if2, outputFormat } = this.getProperties("inputFormat", "outputFormat");
 
-    const inputFormat2 = this.get('inputFormat');
+    const inputFormat2 = this.get("inputFormat");
 
     // render the component on the page
     this.render();
-    chai.expect(this.$('.foo').text()).to.equal('bar');
+    chai.expect(this.$(".foo").text()).to.equal("bar");
 });
 
-it('can calculate the result', function(assert) {
+it("can calculate the result", function(assert) {
     const subject = this.subject();
 
-    subject.set('value', 'foo');
-    chai.assert.equal(subject.get('result'), 'bar');
+    subject.set("value", "foo");
+    chai.assert.equal(subject.get("result"), "bar");
 });
 
-it.skip('disabled test');
+it.skip("disabled test");
 
-it.skip('disabled test', function() { });
+it.skip("disabled test", function() {});
 
 // New testing APIs of ember-mocha 0.14
 
-describe('setupTest', function() {
+describe("setupTest", function() {
     setupTest();
 
     setupTest({ resolver: Ember.DefaultResolver.create() });
 
     const hooks = setupTest();
     hooks.beforeEach(function() {
-        this.owner.lookup('service:foo');
+        this.owner.lookup("service:foo");
     });
     hooks.afterEach(function() {
-        this.owner.factoryFor('service:foo');
+        this.owner.factoryFor("service:foo");
     });
 
     setupRenderingTest();
@@ -214,11 +220,11 @@ describe('setupTest', function() {
 
     const hooks2 = setupRenderingTest();
     hooks2.beforeEach(function() {
-        this.owner.lookup('service:foo');
+        this.owner.lookup("service:foo");
     });
 
     hooks2.afterEach(function() {
-        this.owner.factoryFor('service:foo');
+        this.owner.factoryFor("service:foo");
     });
 
     setupApplicationTest();
@@ -227,27 +233,30 @@ describe('setupTest', function() {
 
     const hooks3 = setupApplicationTest();
     hooks3.beforeEach(function() {
-        this.owner.lookup('service:foo');
+        this.owner.lookup("service:foo");
     });
 
     hooks3.afterEach(function() {
-        this.owner.factoryFor('service:foo');
+        this.owner.factoryFor("service:foo");
     });
 
-    it('test', function() {
+    it("test", function() {
     });
 });
 
-describe('rendering test', function() {
+describe("rendering test", function() {
     setupRenderingTest();
 
-    it('renders', async function() {
+    it("renders", async function() {
         // setup the outer context
-        this.set('value', 'cat');
+        this.set("value", "cat");
 
         // render the component
         await this.render(hbs`{{ x-foo value=value}}`);
 
-        chai.expect(this.element.querySelector('div>.value')!.textContent!.trim()).to.equal('cat', 'The component shows the correct value');
+        chai.expect(this.element.querySelector("div>.value")!.textContent!.trim()).to.equal(
+            "cat",
+            "The component shows the correct value",
+        );
     });
 });

@@ -3,14 +3,14 @@
 // Definitions by: anyo <https://github.com/nyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Request } from 'express';
+import type { Request } from "express";
 
 declare class Strategy {
     constructor(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction);
 
     name: string;
     authenticate(req: Request, options?: object): void;
-    static Strategy: { new (options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction): Strategy };
+    static Strategy: { new(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction): Strategy };
 }
 
 declare namespace Strategy {
@@ -34,7 +34,7 @@ declare namespace Strategy {
     type VerifyFunction = (
         req: Request,
         sessionKey: Profile,
-        done: VerifyCallback
+        done: VerifyCallback,
     ) => void;
 }
 

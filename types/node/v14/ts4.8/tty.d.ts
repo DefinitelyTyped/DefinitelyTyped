@@ -1,5 +1,5 @@
-declare module 'node:tty' {
-    import * as net from 'net';
+declare module "tty" {
+    import * as net from "net";
 
     function isatty(fd: number): boolean;
     class ReadStream extends net.Socket {
@@ -64,6 +64,6 @@ declare module 'node:tty' {
         isTTY: boolean;
     }
 }
-declare module 'tty' {
-    export * from 'node:tty';
+declare module "node:tty" {
+    export * from "tty";
 }

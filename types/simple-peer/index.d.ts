@@ -55,7 +55,7 @@ declare namespace SimplePeer {
          *
          * If opts is specified, then the default options (see <https://github.com/feross/simple-peer#peer--new-peeropts>) will be overridden.
          */
-        new (opts?: Options): Instance;
+        new(opts?: Options): Instance;
 
         /** Detect native WebRTC support in the javascript environment. */
         readonly WEBRTC_SUPPORT: boolean;
@@ -93,20 +93,20 @@ declare namespace SimplePeer {
 
     type SignalData =
         | {
-              type: "transceiverRequest";
-              transceiverRequest: {
-                  kind: string;
-                  init?: RTCRtpTransceiverInit | undefined;
-              };
-          }
+            type: "transceiverRequest";
+            transceiverRequest: {
+                kind: string;
+                init?: RTCRtpTransceiverInit | undefined;
+            };
+        }
         | {
-              type: "renegotiate";
-              renegotiate: true;
-          }
+            type: "renegotiate";
+            renegotiate: true;
+        }
         | {
-              type: "candidate";
-              candidate: RTCIceCandidate;
-          }
+            type: "candidate";
+            candidate: RTCIceCandidate;
+        }
         | RTCSessionDescriptionInit;
 
     interface Instance extends stream.Duplex {

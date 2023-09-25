@@ -63,7 +63,7 @@ function faceFound() {
         faceInset.faceIndex = script.face;
     }
 }
-const faceFoundEvent = script.createEvent('FaceFoundEvent');
+const faceFoundEvent = script.createEvent("FaceFoundEvent");
 faceFoundEvent.faceIndex = script.face;
 faceFoundEvent.bind(faceFound);
 
@@ -79,14 +79,14 @@ function faceLost() {
         }
     }
 }
-const faceLostEvent = script.createEvent('FaceLostEvent');
+const faceLostEvent = script.createEvent("FaceLostEvent");
 faceLostEvent.faceIndex = script.face;
 faceLostEvent.bind(faceLost);
 
 function getFillScaledVec3(originalVec3: vec3) {
     if (!script.defaultCamTex) {
         print(
-            '[FaceInsetController] Please set Default Cam Tex to Default Camera Texture. Skipping getFillModePosition().',
+            "[FaceInsetController] Please set Default Cam Tex to Default Camera Texture. Skipping getFillModePosition().",
         );
         return originalVec3;
     }

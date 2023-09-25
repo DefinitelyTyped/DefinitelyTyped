@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export = Stringify;
 
@@ -13,7 +13,7 @@ declare const Stringify: StringifyFactory;
 
 interface StringifyFactory {
     (options?: Stringify.Options): Stringify.Instance & stream.Transform;
-    new (options?: Stringify.Options): Stringify.Instance & stream.Transform;
+    new(options?: Stringify.Options): Stringify.Instance & stream.Transform;
 }
 
 declare namespace Stringify {

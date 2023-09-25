@@ -7,4 +7,4 @@
 // has a modified implementation for compatibility with the glTF file format's
 // KHR_draco_mesh_compression extension.
 // See: https://github.com/google/draco/issues/717
-export * from 'draco3d';
+export * from "draco3d";

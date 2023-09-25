@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-declare module 'window-size' {
-    import { WriteStream } from 'fs';
+declare module "window-size" {
+    import { WriteStream } from "fs";
 
     const windowSize: windowSize.Size & {
         /** Get terminal window's size with available channels. */

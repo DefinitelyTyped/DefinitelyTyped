@@ -1,28 +1,28 @@
-import { Location, Map } from '@svg-maps/common';
+import { Location, Map } from "@svg-maps/common";
 
 const SVGLocation: Location = {
-    path: 'path',
-    id: 'id',
-    name: 'name',
+    path: "path",
+    id: "id",
+    name: "name",
 };
 const SVGMapContainer: Map = {
-    viewBox: 'viewBox',
+    viewBox: "viewBox",
     locations: [
         {
-            path: 'path',
-            id: 'id',
-            name: 'name',
+            path: "path",
+            id: "id",
+            name: "name",
         },
     ],
-    label: 'label',
+    label: "label",
 };
 
 const SVGMapContainerNoOptional: Map = {
-    viewBox: 'vieweBox',
+    viewBox: "vieweBox",
     locations: [
         {
-            path: 'path',
-            id: 'id',
+            path: "path",
+            id: "id",
         },
     ],
 };

@@ -9,12 +9,12 @@
 export type ReactComponentLike =
     | string
     | ((props: any, context?: any) => any)
-    | (new (props: any, context?: any) => any);
+    | (new(props: any, context?: any) => any);
 
 export interface ReactElementLike {
     type: ReactComponentLike;
     props: any;
-    key: string | number | null;
+    key: string | number | bigint | null;
 }
 
 export interface ReactNodeArray extends Iterable<ReactNodeLike> {}
@@ -32,12 +32,21 @@ export const nominalTypeHack: unique symbol;
 
 export type IsOptional<T> = undefined extends T ? true : false;
 
-export type RequiredKeys<V> = { [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
+export type RequiredKeys<V> = {
+    [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T> ? IsOptional<T> extends true ? never : K
+        : never;
+}[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
-export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]>; };
+export type InferPropsInner<V> = { [K in keyof V]-?: InferType<V[K]> };
 
 export interface Validator<T> {
-    (props: { [key: string]: any }, propName: string, componentName: string, location: string, propFullName: string): Error | null;
+    (
+        props: { [key: string]: any },
+        propName: string,
+        componentName: string,
+        location: string,
+        propFullName: string,
+    ): Error | null;
     [nominalTypeHack]?: {
         type: T;
     } | undefined;
@@ -65,11 +74,11 @@ export const node: Requireable<ReactNodeLike>;
 export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
 export const elementType: Requireable<ReactComponentLike>;
-export function instanceOf<T>(expectedClass: new (...args: any[]) => T): Requireable<T>;
+export function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
 export function oneOf<T>(types: ReadonlyArray<T>): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
-export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
+export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T }>;
 export function shape<P extends ValidationMap<any>>(type: P): Requireable<InferProps<P>>;
 export function exact<P extends ValidationMap<any>>(type: P): Requireable<Required<InferProps<P>>>;
 
@@ -83,7 +92,13 @@ export function exact<P extends ValidationMap<any>>(type: P): Requireable<Requir
  * @param componentName Name of the component for error messages
  * @param getStack Returns the component stack
  */
-export function checkPropTypes(typeSpecs: any, values: any, location: string, componentName: string, getStack?: () => any): void;
+export function checkPropTypes(
+    typeSpecs: any,
+    values: any,
+    location: string,
+    componentName: string,
+    getStack?: () => any,
+): void;
 
 /**
  * Only available if NODE_ENV=production

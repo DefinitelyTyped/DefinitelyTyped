@@ -14,7 +14,7 @@ type SearchResult = {
 type SearchCallback = (err: NodeJS.ErrnoException, result: SearchResult) => void;
 
 declare class IP2Region {
-    //#region Static Functions
+    // #region Static Functions
 
     // Single Instance
     static create(dbPath?: string): IP2Region;
@@ -24,11 +24,11 @@ declare class IP2Region {
      */
     static destroy(): void;
 
-    //#endregion
+    // #endregion
 
     constructor(options?: { dbPath: string });
 
-    //#region Public Functions
+    // #region Public Functions
     /**
      * Destroy the current file by closing it.
      */

@@ -1,4 +1,4 @@
-import { HorizontalRule } from '../../primitives';
+import { HorizontalRule } from "../../primitives";
 
 declare namespace CardDivider {
     type Props<T extends keyof JSX.IntrinsicElements> = {

@@ -1,2 +1,2 @@
-import IsCallable = require('../2016/IsCallable');
+import IsCallable = require("../2016/IsCallable");
 export = IsCallable;

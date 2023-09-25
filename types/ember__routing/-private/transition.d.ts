@@ -1,1 +1,1 @@
-export { default as default } from '../transition';
+export { default as default } from "../transition";

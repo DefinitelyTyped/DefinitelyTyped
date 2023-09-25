@@ -1,34 +1,34 @@
-import express = require('express');
-import * as http from 'http';
-import { Request, RequestRanges, ParamsArray } from 'express-serve-static-core';
+import express = require("express");
+import { ParamsArray, Request, RequestRanges } from "express-serve-static-core";
+import * as http from "http";
 
 namespace express_tests {
     const app = express();
 
     // Disable and use the same built-in query parser
-    app.disable('query parser');
+    app.disable("query parser");
     app.use(express.query({}));
 
-    app.engine('jade', require('jade').__express);
-    app.engine('html', require('ejs').renderFile);
+    app.engine("jade", require("jade").__express);
+    app.engine("html", require("ejs").renderFile);
 
     express.static.mime.define({
-        'application/fx': ['fx'],
+        "application/fx": ["fx"],
     });
     app.use(
-        '/static',
-        express.static(__dirname + '/public', {
+        "/static",
+        express.static(__dirname + "/public", {
             setHeaders: res => {
                 // $ExpectType Response<any, Record<string, any>>
                 res;
-                res.set('foo', 'bar');
+                res.set("foo", "bar");
             },
         }),
     );
 
     // simple logger
     app.use((req, res, next) => {
-        console.log('%s %s', req.method, req.url);
+        console.log("%s %s", req.method, req.url);
         next();
     });
 
@@ -37,13 +37,13 @@ namespace express_tests {
         next(err);
     });
 
-    app.get('/', (req, res) => {
-        res.send('hello world');
+    app.get("/", (req, res) => {
+        res.send("hello world");
     });
 
     // Accept json app-wide or on one endpoint.
-    app.use(express.json({ limit: '200kb' }));
-    app.post('/echo', express.json(), (req, res) => {
+    app.use(express.json({ limit: "200kb" }));
+    app.post("/echo", express.json(), (req, res) => {
         res.json(req.body);
     });
 
@@ -54,13 +54,13 @@ namespace express_tests {
             parameterLimit: 16,
         }),
     );
-    app.post('/search', express.urlencoded(), (req, res) => {
+    app.post("/search", express.urlencoded(), (req, res) => {
         res.json(Object.keys(req.body));
     });
 
     const router = express.Router({ caseSensitive: true, mergeParams: true, strict: true });
 
-    const pathStr = 'test';
+    const pathStr = "test";
     const pathRE: RegExp = /test/;
     const path = true ? pathStr : pathRE;
 
@@ -80,44 +80,44 @@ namespace express_tests {
     router.use((req, res, next) => {
         next();
     });
-    router.route('/users').get((req, res, next) => {
+    router.route("/users").get((req, res, next) => {
         const types: string[] = req.accepts();
-        let type: string | false = req.accepts('json');
-        type = req.accepts(['json', 'text']);
-        type = req.accepts('json', 'text');
+        let type: string | false = req.accepts("json");
+        type = req.accepts(["json", "text"]);
+        type = req.accepts("json", "text");
 
         const charsets: string[] = req.acceptsCharsets();
-        let charset: string | false = req.acceptsCharsets('utf-8');
-        charset = req.acceptsCharsets(['utf-8', 'utf-16']);
-        charset = req.acceptsCharsets('utf-8', 'utf-16');
+        let charset: string | false = req.acceptsCharsets("utf-8");
+        charset = req.acceptsCharsets(["utf-8", "utf-16"]);
+        charset = req.acceptsCharsets("utf-8", "utf-16");
 
         const encodings: string[] = req.acceptsEncodings();
-        let encoding: string | false = req.acceptsEncodings('gzip');
-        encoding = req.acceptsEncodings(['gzip', 'deflate']);
-        encoding = req.acceptsEncodings('gzip', 'deflate');
+        let encoding: string | false = req.acceptsEncodings("gzip");
+        encoding = req.acceptsEncodings(["gzip", "deflate"]);
+        encoding = req.acceptsEncodings("gzip", "deflate");
 
         const languages: string[] = req.acceptsLanguages();
-        let language: string | false = req.acceptsLanguages('en');
-        language = req.acceptsLanguages(['en', 'ja']);
-        language = req.acceptsLanguages('en', 'ja');
+        let language: string | false = req.acceptsLanguages("en");
+        language = req.acceptsLanguages(["en", "ja"]);
+        language = req.acceptsLanguages("en", "ja");
 
         // downcasting
-        req.get('set-cookie') as undefined;
-        req.get('set-cookie') as string[];
-        const setCookieHeader1 = req.get('set-cookie');
+        req.get("set-cookie") as undefined;
+        req.get("set-cookie") as string[];
+        const setCookieHeader1 = req.get("set-cookie");
         if (setCookieHeader1 !== undefined) {
             const setCookieHeader2: string[] = setCookieHeader1;
         }
-        req.get('header') as undefined;
-        req.get('header') as string;
-        const header1 = req.get('header');
+        req.get("header") as undefined;
+        req.get("header") as string;
+        const header1 = req.get("header");
         if (header1 !== undefined) {
             const header2: string = header1;
         }
 
         // upcasting
-        const setCookieHeader3: string[] | undefined = req.get('set-cookie');
-        const header3: string | undefined = req.header('header');
+        const setCookieHeader3: string[] | undefined = req.get("set-cookie");
+        const header3: string | undefined = req.header("header");
 
         req.headers.existingHeader as string;
         (req.headers.nonExistingHeader as any) as undefined;
@@ -125,48 +125,48 @@ namespace express_tests {
         // Since 4.14.0 req.range() has options
         req.range(2, { combine: true });
 
-        res.send(req.query['token']);
+        res.send(req.query["token"]);
     });
 
     router.get(
-        '/user/:id',
+        "/user/:id",
         (req, res, next) => {
-            if (Number(req.params.id) === 0) next('route');
+            if (Number(req.params.id) === 0) next("route");
             else next();
         },
         (req, res, next) => {
-            res.render('regular');
+            res.render("regular");
         },
     );
 
     // Params defaults to typed object
-    router.get('/:foo', req => {
+    router.get("/:foo", req => {
         req.params.foo; // $ExpectType string
         // @ts-expect-error
         req.params[0];
     });
 
     // Params can used as an array
-    router.get<ParamsArray>('/*', req => {
+    router.get<ParamsArray>("/*", req => {
         req.params[0]; // $ExpectType string
         req.params.length; // $ExpectType number
     });
 
     // Params can used as an array and can be specified via an explicit param type (express-serve-static-core)
-    router.get('/*', (req: Request<ParamsArray>) => {
+    router.get("/*", (req: Request<ParamsArray>) => {
         req.params[0]; // $ExpectType string
         req.params.length; // $ExpectType number
     });
 
     // Params can used as an array and can be specified via an explicit param type (express)
-    router.get('/*', (req: express.Request<ParamsArray>) => {
+    router.get("/*", (req: express.Request<ParamsArray>) => {
         req.params[0]; // $ExpectType string
         req.params.length; // $ExpectType number
     });
 
     // Params can be a custom type
     // NB. out-of-the-box all params are strings, however, other types are allowed to accomadate request validation/coersion middleware
-    router.get<{ foo: string; bar: number }>('/:foo/:bar', req => {
+    router.get<{ foo: string; bar: number }>("/:foo/:bar", req => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         // @ts-expect-error
@@ -174,7 +174,7 @@ namespace express_tests {
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express-serve-static-core)
-    router.get('/:foo/:bar', (req: Request<{ foo: string; bar: number }>) => {
+    router.get("/:foo/:bar", (req: Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         // @ts-expect-error
@@ -182,7 +182,7 @@ namespace express_tests {
     });
 
     // Params can be a custom type and can be specified via an explicit param type (express)
-    router.get('/:foo/:bar', (req: express.Request<{ foo: string; bar: number }>) => {
+    router.get("/:foo/:bar", (req: express.Request<{ foo: string; bar: number }>) => {
         req.params.foo; // $ExpectType string
         req.params.bar; // $ExpectType number
         // @ts-expect-error
@@ -190,31 +190,31 @@ namespace express_tests {
     });
 
     // Query can be a custom type
-    router.get('/:foo', (req: express.Request<{}, any, any, { q: string }>) => {
+    router.get("/:foo", (req: express.Request<{}, any, any, { q: string }>) => {
         req.query.q; // $ExpectType string
         // @ts-expect-error
         req.query.a;
     });
 
     // Query will be defaulted to any
-    router.get('/:foo', (req: express.Request<{}>) => {
+    router.get("/:foo", (req: express.Request<{}>) => {
         req.query; // $ExpectType ParsedQs
     });
 
     // Locals can be a custom type
-    router.get('/locals', (req, res: express.Response<any, { foo: boolean }>) => {
+    router.get("/locals", (req, res: express.Response<any, { foo: boolean }>) => {
         res.locals.foo; // $ExpectType boolean
         // @ts-expect-error
         res.locals.bar;
     });
 
     // Response will default to any type
-    router.get('/', (req: Request, res: express.Response) => {
+    router.get("/", (req: Request, res: express.Response) => {
         res.json({});
     });
 
     // Response will be of Type provided
-    router.get('/', (req: Request, res: express.Response<string>) => {
+    router.get("/", (req: Request, res: express.Response<string>) => {
         res.json();
         // @ts-expect-error
         res.json(1);
@@ -229,9 +229,9 @@ namespace express_tests {
 
     // Test append function
     app.use((req, res, next) => {
-        res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
-        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
-        res.append('Warning', '199 Miscellaneous warning');
+        res.append("Link", ["<http://localhost/>", "<http://localhost:3000/>"]);
+        res.append("Set-Cookie", "foo=bar; Path=/; HttpOnly");
+        res.append("Warning", "199 Miscellaneous warning");
     });
 
     app.use(router);
@@ -244,10 +244,10 @@ namespace express_tests {
     });
 
     // Test mounting sub-apps
-    app.use('/sub-app', express());
+    app.use("/sub-app", express());
 
     // Test on mount event
-    app.on('mount', parent => true);
+    app.on("mount", parent => true);
 
     // Test mountpath
     const mountPath: string | string[] = app.mountpath;
