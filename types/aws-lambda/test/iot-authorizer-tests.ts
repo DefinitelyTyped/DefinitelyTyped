@@ -1,13 +1,19 @@
 import {
     IoTCustomAuthorizerHandler,
     IoTCustomAuthorizerEvent,
-    IoTCustomAuthorizerResult, IoTProtocolType, IoTProtocolDataHTTP, IoTProtocolDataTLS, IoTProtocolDataMQTT,
-    PolicyDocument, Statement,
-} from "aws-lambda";
+    IoTCustomAuthorizerResult,
+    IoTProtocolType,
+    IoTProtocolDataHTTP,
+    IoTProtocolDataTLS,
+    IoTProtocolDataMQTT,
+    PolicyDocument,
+    Statement,
+} from 'aws-lambda';
 
 // IoT Custom Authorizer
 // https://docs.aws.amazon.com/iot/latest/developerguide/config-custom-auth.html#custom-auth-lambda
 
+// prettier-ignore
 const iotCustomAuthorizerEvent: IoTCustomAuthorizerEvent = {
     "token" :"aToken",
     "signatureVerified": true, // Indicates whether the device gateway has validated the signature.
@@ -34,23 +40,23 @@ const iotCustomAuthorizerEvent: IoTCustomAuthorizerEvent = {
 };
 
 const iotCustomAuthorizerResult: IoTCustomAuthorizerResult = {
-    "isAuthenticated": true, //A Boolean that determines whether client can connect.
-    "principalId": "xxxxxxxx",  //A string that identifies the connection in logs.
-    "disconnectAfterInSeconds": 86400,
-    "refreshAfterInSeconds": 300,
-    "policyDocuments": [
+    isAuthenticated: true, //A Boolean that determines whether client can connect.
+    principalId: 'xxxxxxxx', //A string that identifies the connection in logs.
+    disconnectAfterInSeconds: 86400,
+    refreshAfterInSeconds: 300,
+    policyDocuments: [
         {
-            "Version": "2012-10-17",
-            "Statement": [
+            Version: '2012-10-17',
+            Statement: [
                 {
-                    "Action": "iot:Publish",
-                    "Effect": "Allow",
-                    "Resource": "arn:aws:iot:us-east-1:<your_aws_account_id>:topic/customauthtesting"
-                }
-            ]
-        }
-    ]
-}
+                    Action: 'iot:Publish',
+                    Effect: 'Allow',
+                    Resource: 'arn:aws:iot:us-east-1:<your_aws_account_id>:topic/customauthtesting',
+                },
+            ],
+        },
+    ],
+};
 
 const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, context, callback) => {
     strOrUndefined = event.token;
@@ -71,7 +77,7 @@ const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, con
         disconnectAfterInSeconds: num,
         refreshAfterInSeconds: num,
         policyDocuments: [],
-    }
+    };
 
     result = {
         isAuthenticated: bool,
@@ -79,7 +85,7 @@ const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, con
         disconnectAfterInSeconds: num,
         refreshAfterInSeconds: num,
         policyDocuments: [createPolicyDocument()],
-    }
+    };
 
     // check reasonable result-returning styles
     callback(new Error());
@@ -119,14 +125,14 @@ function createPolicyDocument(): PolicyDocument {
         Effect: str,
         Resource: [str, str],
         Condition: {
-            condition1: { key: "value" },
+            condition1: { key: 'value' },
             condition2: [
                 {
-                    key1: "value",
-                    key2: "value",
+                    key1: 'value',
+                    key2: 'value',
                 },
                 {
-                    key3: "value",
+                    key3: 'value',
                 },
             ],
         },
