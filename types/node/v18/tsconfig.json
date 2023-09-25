@@ -16,6 +16,7 @@
     "strictFunctionTypes": true,
     "baseUrl": "../../",
     "typeRoots": [
+      ".",
       "../../"
     ],
     "types": [],
