@@ -1,4 +1,4 @@
-import { WritableOptions, Writable, Readable, Duplex } from "stream";
+import { Duplex, Readable, Writable, WritableOptions } from "stream";
 import { IncomingFrame } from "./IncomingFrameStream";
 import { SocketOptions } from "./Socket";
 
@@ -12,7 +12,12 @@ declare class Client extends Socket {
 
     send(headers?: any, options?: Client.SendOptions): Writable;
     sendFrame(command: string, headers?: any, options?: Client.SendOptions): Writable;
-    sendString(headers?: any, body?: any, options?: Client.SendOptions, callback?: (error?: Error | null) => void): void;
+    sendString(
+        headers?: any,
+        body?: any,
+        options?: Client.SendOptions,
+        callback?: (error?: Error | null) => void,
+    ): void;
 
     connect(headers?: any, callback?: (err: Error | null, client: Client) => void): void;
     disconnect(callback?: (error: Error | null, client: Client) => void): void;
@@ -23,8 +28,18 @@ declare class Client extends Socket {
 
     begin(headers?: any): Transaction;
 
-    ack(message: Client.Message, headers?: any, sendOptions?: Client.SendOptions, callback?: (error?: Error | null) => void): void;
-    nack(message: Client.Message, headers?: any, sendOptions?: Client.SendOptions, callback?: (error?: Error | null) => void): void;
+    ack(
+        message: Client.Message,
+        headers?: any,
+        sendOptions?: Client.SendOptions,
+        callback?: (error?: Error | null) => void,
+    ): void;
+    nack(
+        message: Client.Message,
+        headers?: any,
+        sendOptions?: Client.SendOptions,
+        callback?: (error?: Error | null) => void,
+    ): void;
 
     readEmptyBody(frame: IncomingFrameStream, callback?: (client: Client) => void): void;
 

@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace steed {
-    interface Dictionary<T> { [key: string]: T; }
+    interface Dictionary<T> {
+        [key: string]: T;
+    }
     type ErrorCallback<T> = (err?: T) => void;
 
     type SteedResultCallback<T, E> = (err: E, result: T) => void;
@@ -38,7 +40,11 @@ declare namespace steed {
         waterfall<T, E>(tasks: Function[], callback?: SteedResultCallback<T, E>): void;
         each<T, E>(arr: T[] | Dictionary<T>, iterator: SteedIterator<T, E>, callback?: ErrorCallback<E>): void;
         eachSeries: typeof steed.each;
-        map<T, R, E>(arr: T[] | Dictionary<T>, iterator: SteedResultIterator<T, R, E>, callback?: SteedResultArrayCallback<R, E>): void;
+        map<T, R, E>(
+            arr: T[] | Dictionary<T>,
+            iterator: SteedResultIterator<T, R, E>,
+            callback?: SteedResultArrayCallback<R, E>,
+        ): void;
         mapSeries: typeof steed.map;
         queue<T, E>(worker: SteedWorker<T, E>, concurrency?: number): SteedQueue<T>;
         queue<T, R, E>(worker: SteedResultIterator<T, R, E>, concurrency?: number): SteedQueue<T>;

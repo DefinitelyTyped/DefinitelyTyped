@@ -199,7 +199,7 @@ declare namespace standardVersion {
              *
              * The `json` updater assumes the version is available under a `version` key in the provided JSON document.
              */
-            type?: 'plain-text' | 'json';
+            type?: "plain-text" | "json";
 
             /**
              * An updater is expected to be a Javascript module with atleast two methods exposed: readVersion and writeVersion

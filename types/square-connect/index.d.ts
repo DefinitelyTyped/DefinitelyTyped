@@ -6,678 +6,678 @@
 // TypeScript Version: 2.4
 
 export type CountryType =
-    | 'ZZ'
-    | 'AD'
-    | 'AE'
-    | 'AF'
-    | 'AG'
-    | 'AI'
-    | 'AL'
-    | 'AM'
-    | 'AO'
-    | 'AQ'
-    | 'AR'
-    | 'AS'
-    | 'AT'
-    | 'AU'
-    | 'AW'
-    | 'AX'
-    | 'AZ'
-    | 'BA'
-    | 'BB'
-    | 'BD'
-    | 'BE'
-    | 'BF'
-    | 'BG'
-    | 'BH'
-    | 'BI'
-    | 'BJ'
-    | 'BL'
-    | 'BM'
-    | 'BN'
-    | 'BO'
-    | 'BQ'
-    | 'BR'
-    | 'BS'
-    | 'BT'
-    | 'BV'
-    | 'BW'
-    | 'BY'
-    | 'BZ'
-    | 'CA'
-    | 'CC'
-    | 'CD'
-    | 'CF'
-    | 'CG'
-    | 'CH'
-    | 'CI'
-    | 'CK'
-    | 'CL'
-    | 'CM'
-    | 'CN'
-    | 'CO'
-    | 'CR'
-    | 'CU'
-    | 'CV'
-    | 'CW'
-    | 'CX'
-    | 'CY'
-    | 'CZ'
-    | 'DE'
-    | 'DJ'
-    | 'DK'
-    | 'DM'
-    | 'DO'
-    | 'DZ'
-    | 'EC'
-    | 'EE'
-    | 'EG'
-    | 'EH'
-    | 'ER'
-    | 'ES'
-    | 'ET'
-    | 'FI'
-    | 'FJ'
-    | 'FK'
-    | 'FM'
-    | 'FO'
-    | 'FR'
-    | 'GA'
-    | 'GB'
-    | 'GD'
-    | 'GE'
-    | 'GF'
-    | 'GG'
-    | 'GH'
-    | 'GI'
-    | 'GL'
-    | 'GM'
-    | 'GN'
-    | 'GP'
-    | 'GQ'
-    | 'GR'
-    | 'GS'
-    | 'GT'
-    | 'GU'
-    | 'GW'
-    | 'GY'
-    | 'HK'
-    | 'HM'
-    | 'HN'
-    | 'HR'
-    | 'HT'
-    | 'HU'
-    | 'ID'
-    | 'IE'
-    | 'IL'
-    | 'IM'
-    | 'IN'
-    | 'IO'
-    | 'IQ'
-    | 'IR'
-    | 'IS'
-    | 'IT'
-    | 'JE'
-    | 'JM'
-    | 'JO'
-    | 'JP'
-    | 'KE'
-    | 'KG'
-    | 'KH'
-    | 'KI'
-    | 'KM'
-    | 'KN'
-    | 'KP'
-    | 'KR'
-    | 'KW'
-    | 'KY'
-    | 'KZ'
-    | 'LA'
-    | 'LB'
-    | 'LC'
-    | 'LI'
-    | 'LK'
-    | 'LR'
-    | 'LS'
-    | 'LT'
-    | 'LU'
-    | 'LV'
-    | 'LY'
-    | 'MA'
-    | 'MC'
-    | 'MD'
-    | 'ME'
-    | 'MF'
-    | 'MG'
-    | 'MH'
-    | 'MK'
-    | 'ML'
-    | 'MM'
-    | 'MN'
-    | 'MO'
-    | 'MP'
-    | 'MQ'
-    | 'MR'
-    | 'MS'
-    | 'MT'
-    | 'MU'
-    | 'MV'
-    | 'MW'
-    | 'MX'
-    | 'MY'
-    | 'MZ'
-    | 'NA'
-    | 'NC'
-    | 'NE'
-    | 'NF'
-    | 'NG'
-    | 'NI'
-    | 'NL'
-    | 'NO'
-    | 'NP'
-    | 'NR'
-    | 'NU'
-    | 'NZ'
-    | 'OM'
-    | 'PA'
-    | 'PE'
-    | 'PF'
-    | 'PG'
-    | 'PH'
-    | 'PK'
-    | 'PL'
-    | 'PM'
-    | 'PN'
-    | 'PR'
-    | 'PS'
-    | 'PT'
-    | 'PW'
-    | 'PY'
-    | 'QA'
-    | 'RE'
-    | 'RO'
-    | 'RS'
-    | 'RU'
-    | 'RW'
-    | 'SA'
-    | 'SB'
-    | 'SC'
-    | 'SD'
-    | 'SE'
-    | 'SG'
-    | 'SH'
-    | 'SI'
-    | 'SJ'
-    | 'SK'
-    | 'SL'
-    | 'SM'
-    | 'SN'
-    | 'SO'
-    | 'SR'
-    | 'SS'
-    | 'ST'
-    | 'SV'
-    | 'SX'
-    | 'SY'
-    | 'SZ'
-    | 'TC'
-    | 'TD'
-    | 'TF'
-    | 'TG'
-    | 'TH'
-    | 'TJ'
-    | 'TK'
-    | 'TL'
-    | 'TM'
-    | 'TN'
-    | 'TO'
-    | 'TR'
-    | 'TT'
-    | 'TV'
-    | 'TW'
-    | 'TZ'
-    | 'UA'
-    | 'UG'
-    | 'UM'
-    | 'US'
-    | 'UY'
-    | 'UZ'
-    | 'VA'
-    | 'VC'
-    | 'VE'
-    | 'VG'
-    | 'VI'
-    | 'VN'
-    | 'VU'
-    | 'WF'
-    | 'WS'
-    | 'YE'
-    | 'YT'
-    | 'ZA'
-    | 'ZM'
-    | 'ZW';
+    | "ZZ"
+    | "AD"
+    | "AE"
+    | "AF"
+    | "AG"
+    | "AI"
+    | "AL"
+    | "AM"
+    | "AO"
+    | "AQ"
+    | "AR"
+    | "AS"
+    | "AT"
+    | "AU"
+    | "AW"
+    | "AX"
+    | "AZ"
+    | "BA"
+    | "BB"
+    | "BD"
+    | "BE"
+    | "BF"
+    | "BG"
+    | "BH"
+    | "BI"
+    | "BJ"
+    | "BL"
+    | "BM"
+    | "BN"
+    | "BO"
+    | "BQ"
+    | "BR"
+    | "BS"
+    | "BT"
+    | "BV"
+    | "BW"
+    | "BY"
+    | "BZ"
+    | "CA"
+    | "CC"
+    | "CD"
+    | "CF"
+    | "CG"
+    | "CH"
+    | "CI"
+    | "CK"
+    | "CL"
+    | "CM"
+    | "CN"
+    | "CO"
+    | "CR"
+    | "CU"
+    | "CV"
+    | "CW"
+    | "CX"
+    | "CY"
+    | "CZ"
+    | "DE"
+    | "DJ"
+    | "DK"
+    | "DM"
+    | "DO"
+    | "DZ"
+    | "EC"
+    | "EE"
+    | "EG"
+    | "EH"
+    | "ER"
+    | "ES"
+    | "ET"
+    | "FI"
+    | "FJ"
+    | "FK"
+    | "FM"
+    | "FO"
+    | "FR"
+    | "GA"
+    | "GB"
+    | "GD"
+    | "GE"
+    | "GF"
+    | "GG"
+    | "GH"
+    | "GI"
+    | "GL"
+    | "GM"
+    | "GN"
+    | "GP"
+    | "GQ"
+    | "GR"
+    | "GS"
+    | "GT"
+    | "GU"
+    | "GW"
+    | "GY"
+    | "HK"
+    | "HM"
+    | "HN"
+    | "HR"
+    | "HT"
+    | "HU"
+    | "ID"
+    | "IE"
+    | "IL"
+    | "IM"
+    | "IN"
+    | "IO"
+    | "IQ"
+    | "IR"
+    | "IS"
+    | "IT"
+    | "JE"
+    | "JM"
+    | "JO"
+    | "JP"
+    | "KE"
+    | "KG"
+    | "KH"
+    | "KI"
+    | "KM"
+    | "KN"
+    | "KP"
+    | "KR"
+    | "KW"
+    | "KY"
+    | "KZ"
+    | "LA"
+    | "LB"
+    | "LC"
+    | "LI"
+    | "LK"
+    | "LR"
+    | "LS"
+    | "LT"
+    | "LU"
+    | "LV"
+    | "LY"
+    | "MA"
+    | "MC"
+    | "MD"
+    | "ME"
+    | "MF"
+    | "MG"
+    | "MH"
+    | "MK"
+    | "ML"
+    | "MM"
+    | "MN"
+    | "MO"
+    | "MP"
+    | "MQ"
+    | "MR"
+    | "MS"
+    | "MT"
+    | "MU"
+    | "MV"
+    | "MW"
+    | "MX"
+    | "MY"
+    | "MZ"
+    | "NA"
+    | "NC"
+    | "NE"
+    | "NF"
+    | "NG"
+    | "NI"
+    | "NL"
+    | "NO"
+    | "NP"
+    | "NR"
+    | "NU"
+    | "NZ"
+    | "OM"
+    | "PA"
+    | "PE"
+    | "PF"
+    | "PG"
+    | "PH"
+    | "PK"
+    | "PL"
+    | "PM"
+    | "PN"
+    | "PR"
+    | "PS"
+    | "PT"
+    | "PW"
+    | "PY"
+    | "QA"
+    | "RE"
+    | "RO"
+    | "RS"
+    | "RU"
+    | "RW"
+    | "SA"
+    | "SB"
+    | "SC"
+    | "SD"
+    | "SE"
+    | "SG"
+    | "SH"
+    | "SI"
+    | "SJ"
+    | "SK"
+    | "SL"
+    | "SM"
+    | "SN"
+    | "SO"
+    | "SR"
+    | "SS"
+    | "ST"
+    | "SV"
+    | "SX"
+    | "SY"
+    | "SZ"
+    | "TC"
+    | "TD"
+    | "TF"
+    | "TG"
+    | "TH"
+    | "TJ"
+    | "TK"
+    | "TL"
+    | "TM"
+    | "TN"
+    | "TO"
+    | "TR"
+    | "TT"
+    | "TV"
+    | "TW"
+    | "TZ"
+    | "UA"
+    | "UG"
+    | "UM"
+    | "US"
+    | "UY"
+    | "UZ"
+    | "VA"
+    | "VC"
+    | "VE"
+    | "VG"
+    | "VI"
+    | "VN"
+    | "VU"
+    | "WF"
+    | "WS"
+    | "YE"
+    | "YT"
+    | "ZA"
+    | "ZM"
+    | "ZW";
 
 export type CurrencyType =
-    | 'UNKNOWN_CURRENCY'
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ANG'
-    | 'AOA'
-    | 'ARS'
-    | 'AUD'
-    | 'AWG'
-    | 'AZN'
-    | 'BAM'
-    | 'BBD'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BIF'
-    | 'BMD'
-    | 'BND'
-    | 'BOB'
-    | 'BOV'
-    | 'BRL'
-    | 'BSD'
-    | 'BTN'
-    | 'BWP'
-    | 'BYR'
-    | 'BZD'
-    | 'CAD'
-    | 'CDF'
-    | 'CHE'
-    | 'CHF'
-    | 'CHW'
-    | 'CLF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'COU'
-    | 'CRC'
-    | 'CUC'
-    | 'CUP'
-    | 'CVE'
-    | 'CZK'
-    | 'DJF'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ERN'
-    | 'ETB'
-    | 'EUR'
-    | 'FJD'
-    | 'FKP'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GIP'
-    | 'GMD'
-    | 'GNF'
-    | 'GTQ'
-    | 'GYD'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HTG'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KHR'
-    | 'KMF'
-    | 'KPW'
-    | 'KRW'
-    | 'KWD'
-    | 'KYD'
-    | 'KZT'
-    | 'LAK'
-    | 'LBP'
-    | 'LKR'
-    | 'LRD'
-    | 'LSL'
-    | 'LTL'
-    | 'LVL'
-    | 'LYD'
-    | 'MAD'
-    | 'MDL'
-    | 'MGA'
-    | 'MKD'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MRO'
-    | 'MUR'
-    | 'MVR'
-    | 'MWK'
-    | 'MXN'
-    | 'MXV'
-    | 'MYR'
-    | 'MZN'
-    | 'NAD'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'OMR'
-    | 'PAB'
-    | 'PEN'
-    | 'PGK'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'RWF'
-    | 'SAR'
-    | 'SBD'
-    | 'SCR'
-    | 'SDG'
-    | 'SEK'
-    | 'SGD'
-    | 'SHP'
-    | 'SLL'
-    | 'SOS'
-    | 'SRD'
-    | 'SSP'
-    | 'STD'
-    | 'SVC'
-    | 'SYP'
-    | 'SZL'
-    | 'THB'
-    | 'TJS'
-    | 'TMT'
-    | 'TND'
-    | 'TOP'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'USN'
-    | 'USS'
-    | 'UYI'
-    | 'UYU'
-    | 'UZS'
-    | 'VEF'
-    | 'VND'
-    | 'VUV'
-    | 'WST'
-    | 'XAF'
-    | 'XAG'
-    | 'XAU'
-    | 'XBA'
-    | 'XBB'
-    | 'XBC'
-    | 'XBD'
-    | 'XCD'
-    | 'XDR'
-    | 'XOF'
-    | 'XPD'
-    | 'XPF'
-    | 'XPT'
-    | 'XTS'
-    | 'XXX'
-    | 'YER'
-    | 'ZAR'
-    | 'ZMK'
-    | 'ZMW'
-    | 'BTC';
+    | "UNKNOWN_CURRENCY"
+    | "AED"
+    | "AFN"
+    | "ALL"
+    | "AMD"
+    | "ANG"
+    | "AOA"
+    | "ARS"
+    | "AUD"
+    | "AWG"
+    | "AZN"
+    | "BAM"
+    | "BBD"
+    | "BDT"
+    | "BGN"
+    | "BHD"
+    | "BIF"
+    | "BMD"
+    | "BND"
+    | "BOB"
+    | "BOV"
+    | "BRL"
+    | "BSD"
+    | "BTN"
+    | "BWP"
+    | "BYR"
+    | "BZD"
+    | "CAD"
+    | "CDF"
+    | "CHE"
+    | "CHF"
+    | "CHW"
+    | "CLF"
+    | "CLP"
+    | "CNY"
+    | "COP"
+    | "COU"
+    | "CRC"
+    | "CUC"
+    | "CUP"
+    | "CVE"
+    | "CZK"
+    | "DJF"
+    | "DKK"
+    | "DOP"
+    | "DZD"
+    | "EGP"
+    | "ERN"
+    | "ETB"
+    | "EUR"
+    | "FJD"
+    | "FKP"
+    | "GBP"
+    | "GEL"
+    | "GHS"
+    | "GIP"
+    | "GMD"
+    | "GNF"
+    | "GTQ"
+    | "GYD"
+    | "HKD"
+    | "HNL"
+    | "HRK"
+    | "HTG"
+    | "HUF"
+    | "IDR"
+    | "ILS"
+    | "INR"
+    | "IQD"
+    | "IRR"
+    | "ISK"
+    | "JMD"
+    | "JOD"
+    | "JPY"
+    | "KES"
+    | "KGS"
+    | "KHR"
+    | "KMF"
+    | "KPW"
+    | "KRW"
+    | "KWD"
+    | "KYD"
+    | "KZT"
+    | "LAK"
+    | "LBP"
+    | "LKR"
+    | "LRD"
+    | "LSL"
+    | "LTL"
+    | "LVL"
+    | "LYD"
+    | "MAD"
+    | "MDL"
+    | "MGA"
+    | "MKD"
+    | "MMK"
+    | "MNT"
+    | "MOP"
+    | "MRO"
+    | "MUR"
+    | "MVR"
+    | "MWK"
+    | "MXN"
+    | "MXV"
+    | "MYR"
+    | "MZN"
+    | "NAD"
+    | "NGN"
+    | "NIO"
+    | "NOK"
+    | "NPR"
+    | "NZD"
+    | "OMR"
+    | "PAB"
+    | "PEN"
+    | "PGK"
+    | "PHP"
+    | "PKR"
+    | "PLN"
+    | "PYG"
+    | "QAR"
+    | "RON"
+    | "RSD"
+    | "RUB"
+    | "RWF"
+    | "SAR"
+    | "SBD"
+    | "SCR"
+    | "SDG"
+    | "SEK"
+    | "SGD"
+    | "SHP"
+    | "SLL"
+    | "SOS"
+    | "SRD"
+    | "SSP"
+    | "STD"
+    | "SVC"
+    | "SYP"
+    | "SZL"
+    | "THB"
+    | "TJS"
+    | "TMT"
+    | "TND"
+    | "TOP"
+    | "TRY"
+    | "TTD"
+    | "TWD"
+    | "TZS"
+    | "UAH"
+    | "UGX"
+    | "USD"
+    | "USN"
+    | "USS"
+    | "UYI"
+    | "UYU"
+    | "UZS"
+    | "VEF"
+    | "VND"
+    | "VUV"
+    | "WST"
+    | "XAF"
+    | "XAG"
+    | "XAU"
+    | "XBA"
+    | "XBB"
+    | "XBC"
+    | "XBD"
+    | "XCD"
+    | "XDR"
+    | "XOF"
+    | "XPD"
+    | "XPF"
+    | "XPT"
+    | "XTS"
+    | "XXX"
+    | "YER"
+    | "ZAR"
+    | "ZMK"
+    | "ZMW"
+    | "BTC";
 
-export type DayOfWeekType = 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
+export type DayOfWeekType = "SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT";
 
 export type CardBrandType =
-    | 'JCB'
-    | 'VISA'
-    | 'DISCOVER'
-    | 'MASTERCARD'
-    | 'OTHER_BRAND'
-    | 'CHINA_UNIONPAY'
-    | 'DISCOVER_DINERS'
-    | 'AMERICAN_EXPRESS'
-    | 'SQUARE_GIFT_CARD';
+    | "JCB"
+    | "VISA"
+    | "DISCOVER"
+    | "MASTERCARD"
+    | "OTHER_BRAND"
+    | "CHINA_UNIONPAY"
+    | "DISCOVER_DINERS"
+    | "AMERICAN_EXPRESS"
+    | "SQUARE_GIFT_CARD";
 
-export type SortOrderType = 'ASC' | 'DESC';
+export type SortOrderType = "ASC" | "DESC";
 
-export type TaxType = 'ADDITIVE' | 'INCLUSIVE' | 'UNKNOWN_TAX';
+export type TaxType = "ADDITIVE" | "INCLUSIVE" | "UNKNOWN_TAX";
 
-export type TaxApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_TAX_SCOPE';
+export type TaxApplicationScopeType = "ORDER" | "LINE_ITEM" | "OTHER_TAX_SCOPE";
 
 export type DiscountType =
-    | 'FIXED_AMOUNT'
-    | 'FIXED_PERCENTAGE'
-    | 'VARIABLE_AMOUNT'
-    | 'VARIABLE_PERCENTAGE'
-    | 'UNKNOWN_DISCOUNT';
+    | "FIXED_AMOUNT"
+    | "FIXED_PERCENTAGE"
+    | "VARIABLE_AMOUNT"
+    | "VARIABLE_PERCENTAGE"
+    | "UNKNOWN_DISCOUNT";
 
-export type DiscountApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_DISCOUNT_SCOPE';
+export type DiscountApplicationScopeType = "ORDER" | "LINE_ITEM" | "OTHER_DISCOUNT_SCOPE";
 
 export type CustomerSourceType =
-    | 'OTHER'
-    | 'APPOINTMENTS'
-    | 'COUPON'
-    | 'DELETION_RECOVERY'
-    | 'DIRECTORY'
-    | 'EGIFTING'
-    | 'EMAIL_COLLECTION'
-    | 'FEEDBACK'
-    | 'IMPORT'
-    | 'INVOICES'
-    | 'LOYALTY'
-    | 'MARKETING'
-    | 'MERGE'
-    | 'ONLINE_STORE'
-    | 'INSTANT_PROFILE'
-    | 'TERMINAL'
-    | 'THIRD_PARTY'
-    | 'THIRD_PARTY_IMPORT'
-    | 'UNMERGE_RECOVERY';
+    | "OTHER"
+    | "APPOINTMENTS"
+    | "COUPON"
+    | "DELETION_RECOVERY"
+    | "DIRECTORY"
+    | "EGIFTING"
+    | "EMAIL_COLLECTION"
+    | "FEEDBACK"
+    | "IMPORT"
+    | "INVOICES"
+    | "LOYALTY"
+    | "MARKETING"
+    | "MERGE"
+    | "ONLINE_STORE"
+    | "INSTANT_PROFILE"
+    | "TERMINAL"
+    | "THIRD_PARTY"
+    | "THIRD_PARTY_IMPORT"
+    | "UNMERGE_RECOVERY";
 
 export type InventoryStateType =
-    | 'CUSTOM'
-    | 'IN_STOCK'
-    | 'SOLD'
-    | 'RETURNED_BY_CUSTOMER'
-    | 'RESERVED_FOR_SALE'
-    | 'SOLD_ONLINE'
-    | 'ORDERED_FROM_VENDOR'
-    | 'RECEIVED_FROM_VENDOR'
-    | 'IN_TRANSIT_TO'
-    | 'NONE'
-    | 'WASTE'
-    | 'UNLINKED_RETURN';
+    | "CUSTOM"
+    | "IN_STOCK"
+    | "SOLD"
+    | "RETURNED_BY_CUSTOMER"
+    | "RESERVED_FOR_SALE"
+    | "SOLD_ONLINE"
+    | "ORDERED_FROM_VENDOR"
+    | "RECEIVED_FROM_VENDOR"
+    | "IN_TRANSIT_TO"
+    | "NONE"
+    | "WASTE"
+    | "UNLINKED_RETURN";
 
-export type ActivityStatusType = 'ACTIVE' | 'INACTIVE';
+export type ActivityStatusType = "ACTIVE" | "INACTIVE";
 
-export type FulfillmentType = 'PICKUP' | 'SHIPMENT';
+export type FulfillmentType = "PICKUP" | "SHIPMENT";
 
-export type FulfillmentStateType = 'PROPOSED' | 'RESERVED' | 'PREPARED' | 'COMPLETED' | 'CANCELED' | 'FAILED';
+export type FulfillmentStateType = "PROPOSED" | "RESERVED" | "PREPARED" | "COMPLETED" | "CANCELED" | "FAILED";
 
-export type InventoryType = 'PHYSICAL_COUNT' | 'ADJUSTMENT' | 'TRANSFER';
+export type InventoryType = "PHYSICAL_COUNT" | "ADJUSTMENT" | "TRANSFER";
 
 export type ObjectType =
-    | 'ITEM'
-    | 'IMAGE'
-    | 'CATEGORY'
-    | 'ITEM_VARIATION'
-    | 'TAX'
-    | 'DISCOUNT'
-    | 'MODIFIER_LIST'
-    | 'MODIFIER';
+    | "ITEM"
+    | "IMAGE"
+    | "CATEGORY"
+    | "ITEM_VARIATION"
+    | "TAX"
+    | "DISCOUNT"
+    | "MODIFIER_LIST"
+    | "MODIFIER";
 
-export type PricingType = 'FIXED_PRICING' | 'VARIABLE_PRICING';
+export type PricingType = "FIXED_PRICING" | "VARIABLE_PRICING";
 
-export type OrderStateType = 'OPEN' | 'COMPLETED' | 'CANCELED';
+export type OrderStateType = "OPEN" | "COMPLETED" | "CANCELED";
 
 export type AreaUnitType =
-    | 'IMPERIAL_ACRE'
-    | 'IMPERIAL_SQUARE_INCH'
-    | 'IMPERIAL_SQUARE_FOOT'
-    | 'IMPERIAL_SQUARE_YARD'
-    | 'IMPERIAL_SQUARE_MILE'
-    | 'METRIC_SQUARE_METER'
-    | 'METRIC_SQUARE_KILOMETER'
-    | 'METRIC_SQUARE_CENTIMETER';
+    | "IMPERIAL_ACRE"
+    | "IMPERIAL_SQUARE_INCH"
+    | "IMPERIAL_SQUARE_FOOT"
+    | "IMPERIAL_SQUARE_YARD"
+    | "IMPERIAL_SQUARE_MILE"
+    | "METRIC_SQUARE_METER"
+    | "METRIC_SQUARE_KILOMETER"
+    | "METRIC_SQUARE_CENTIMETER";
 
 export type LengthUnitType =
-    | 'IMPERIAL_INCH'
-    | 'IMPERIAL_FOOT'
-    | 'IMPERIAL_YARD'
-    | 'IMPERIAL_MILE'
-    | 'METRIC_MILLIMETER'
-    | 'METRIC_CENTIMETER'
-    | 'METRIC_METER'
-    | 'METRIC_KILOMETER';
+    | "IMPERIAL_INCH"
+    | "IMPERIAL_FOOT"
+    | "IMPERIAL_YARD"
+    | "IMPERIAL_MILE"
+    | "METRIC_MILLIMETER"
+    | "METRIC_CENTIMETER"
+    | "METRIC_METER"
+    | "METRIC_KILOMETER";
 
 export type VolumeUnitType =
-    | 'GENERIC_FLUID_OUNCE'
-    | 'GENERIC_SHOT'
-    | 'GENERIC_CUP'
-    | 'GENERIC_PINT'
-    | 'GENERIC_QUART'
-    | 'GENERIC_GALLON'
-    | 'IMPERIAL_CUBIC_INCH'
-    | 'IMPERIAL_CUBIC_FOOT'
-    | 'IMPERIAL_CUBIC_YARD'
-    | 'METRIC_MILLILITER'
-    | 'METRIC_LITER';
+    | "GENERIC_FLUID_OUNCE"
+    | "GENERIC_SHOT"
+    | "GENERIC_CUP"
+    | "GENERIC_PINT"
+    | "GENERIC_QUART"
+    | "GENERIC_GALLON"
+    | "IMPERIAL_CUBIC_INCH"
+    | "IMPERIAL_CUBIC_FOOT"
+    | "IMPERIAL_CUBIC_YARD"
+    | "METRIC_MILLILITER"
+    | "METRIC_LITER";
 
 export type WeightUnitType =
-    | 'IMPERIAL_WEIGHT_OUNCE'
-    | 'IMPERIAL_POUND'
-    | 'IMPERIAL_STONE'
-    | 'METRIC_MILLIGRAM'
-    | 'METRIC_GRAM'
-    | 'METRIC_KILOGRAM';
+    | "IMPERIAL_WEIGHT_OUNCE"
+    | "IMPERIAL_POUND"
+    | "IMPERIAL_STONE"
+    | "METRIC_MILLIGRAM"
+    | "METRIC_GRAM"
+    | "METRIC_KILOGRAM";
 
 export type ErrorCategoryType =
-    | 'API_ERROR'
-    | 'AUTHENTICATION_ERROR'
-    | 'INVALID_REQUEST_ERROR'
-    | 'RATE_LIMIT_ERROR'
-    | 'PAYMENT_METHOD_ERROR'
-    | 'REFUND_ERROR';
+    | "API_ERROR"
+    | "AUTHENTICATION_ERROR"
+    | "INVALID_REQUEST_ERROR"
+    | "RATE_LIMIT_ERROR"
+    | "PAYMENT_METHOD_ERROR"
+    | "REFUND_ERROR";
 
 export type ErrorCodeType =
-    | 'INTERNAL_SERVER_ERROR'
-    | 'UNAUTHORIZED'
-    | 'ACCESS_TOKEN_EXPIRED'
-    | 'ACCESS_TOKEN_REVOKED'
-    | 'FORBIDDEN'
-    | 'INSUFFICIENT_SCOPES'
-    | 'APPLICATION_DISABLED'
-    | 'V1_APPLICATION'
-    | 'V1_ACCESS_TOKEN'
-    | 'CARD_PROCESSING_NOT_ENABLED'
-    | 'BAD_REQUEST'
-    | 'MISSING_REQUIRED_PARAMETER'
-    | 'INCORRECT_TYPE'
-    | 'INVALID_TIME'
-    | 'INVALID_TIME_RANGE'
-    | 'INVALID_VALUE'
-    | 'INVALID_CURSOR'
-    | 'UNKNOWN_QUERY_PARAMETER'
-    | 'CONFLICTING_PARAMETERS'
-    | 'EXPECTED_JSON_BODY'
-    | 'INVALID_SORT_ORDER'
-    | 'VALUE_REGEX_MISMATCH'
-    | 'VALUE_TOO_SHORT'
-    | 'VALUE_TOO_LONG'
-    | 'VALUE_TOO_LOW'
-    | 'VALUE_TOO_HIGH'
-    | 'VALUE_EMPTY'
-    | 'ARRAY_LENGTH_TOO_LONG'
-    | 'ARRAY_LENGTH_TOO_SHORT'
-    | 'ARRAY_EMPTY'
-    | 'EXPECTED_BOOLEAN'
-    | 'EXPECTED_INTEGER'
-    | 'EXPECTED_FLOAT'
-    | 'EXPECTED_STRING'
-    | 'EXPECTED_OBJECT'
-    | 'EXPECTED_ARRAY'
-    | 'EXPECTED_MAP'
-    | 'EXPECTED_BASE64_ENCODED_BYTE_ARRAY'
-    | 'INVALID_ARRAY_VALUE'
-    | 'INVALID_ENUM_VALUE'
-    | 'INVALID_CONTENT_TYPE'
-    | 'INVALID_FORM_VALUE'
-    | 'ONE_INSTRUMENT_EXPECTED'
-    | 'NO_FIELDS_SET'
-    | 'DEPRECATED_FIELD_SET'
-    | 'CARD_EXPIRED'
-    | 'INVALID_EXPIRATION'
-    | 'INVALID_EXPIRATION_YEAR'
-    | 'INVALID_EXPIRATION_DATE'
-    | 'UNSUPPORTED_CARD_BRAND'
-    | 'UNSUPPORTED_ENTRY_METHOD'
-    | 'INVALID_ENCRYPTED_CARD'
-    | 'INVALID_CARD'
-    | 'DELAYED_TRANSACTION_EXPIRED'
-    | 'DELAYED_TRANSACTION_CANCELED'
-    | 'DELAYED_TRANSACTION_CAPTURED'
-    | 'DELAYED_TRANSACTION_FAILED'
-    | 'CARD_TOKEN_EXPIRED'
-    | 'CARD_TOKEN_USED'
-    | 'AMOUNT_TOO_HIGH'
-    | 'UNSUPPORTED_INSTRUMENT_TYPE'
-    | 'REFUND_AMOUNT_INVALID'
-    | 'REFUND_ALREADY_PENDING'
-    | 'PAYMENT_NOT_REFUNDABLE'
-    | 'INVALID_CARD_DATA'
-    | 'LOCATION_MISMATCH'
-    | 'IDEMPOTENCY_KEY_REUSED'
-    | 'UNEXPECTED_VALUE'
-    | 'SANDBOX_NOT_SUPPORTED'
-    | 'INVALID_EMAIL_ADDRESS'
-    | 'INVALID_PHONE_NUMBER'
-    | 'CHECKOUT_EXPIRED'
-    | 'BAD_CERTIFICATE'
-    | 'INVALID_SQUARE_VERSION_FORMAT'
-    | 'API_VERSION_INCOMPATIBLE'
-    | 'CARD_DECLINED'
-    | 'VERIFY_CVV_FAILURE'
-    | 'VERIFY_AVS_FAILURE'
-    | 'CARD_DECLINED_CALL_ISSUER'
-    | 'NOT_FOUND'
-    | 'APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND'
-    | 'METHOD_NOT_ALLOWED'
-    | 'NOT_ACCEPTABLE'
-    | 'REQUEST_TIMEOUT'
-    | 'CONFLICT'
-    | 'REQUEST_ENTITY_TOO_LARGE'
-    | 'UNSUPPORTED_MEDIA_TYPE'
-    | 'RATE_LIMITED'
-    | 'NOT_IMPLEMENTED'
-    | 'SERVICE_UNAVAILABLE'
-    | 'GATEWAY_TIMEOUT';
+    | "INTERNAL_SERVER_ERROR"
+    | "UNAUTHORIZED"
+    | "ACCESS_TOKEN_EXPIRED"
+    | "ACCESS_TOKEN_REVOKED"
+    | "FORBIDDEN"
+    | "INSUFFICIENT_SCOPES"
+    | "APPLICATION_DISABLED"
+    | "V1_APPLICATION"
+    | "V1_ACCESS_TOKEN"
+    | "CARD_PROCESSING_NOT_ENABLED"
+    | "BAD_REQUEST"
+    | "MISSING_REQUIRED_PARAMETER"
+    | "INCORRECT_TYPE"
+    | "INVALID_TIME"
+    | "INVALID_TIME_RANGE"
+    | "INVALID_VALUE"
+    | "INVALID_CURSOR"
+    | "UNKNOWN_QUERY_PARAMETER"
+    | "CONFLICTING_PARAMETERS"
+    | "EXPECTED_JSON_BODY"
+    | "INVALID_SORT_ORDER"
+    | "VALUE_REGEX_MISMATCH"
+    | "VALUE_TOO_SHORT"
+    | "VALUE_TOO_LONG"
+    | "VALUE_TOO_LOW"
+    | "VALUE_TOO_HIGH"
+    | "VALUE_EMPTY"
+    | "ARRAY_LENGTH_TOO_LONG"
+    | "ARRAY_LENGTH_TOO_SHORT"
+    | "ARRAY_EMPTY"
+    | "EXPECTED_BOOLEAN"
+    | "EXPECTED_INTEGER"
+    | "EXPECTED_FLOAT"
+    | "EXPECTED_STRING"
+    | "EXPECTED_OBJECT"
+    | "EXPECTED_ARRAY"
+    | "EXPECTED_MAP"
+    | "EXPECTED_BASE64_ENCODED_BYTE_ARRAY"
+    | "INVALID_ARRAY_VALUE"
+    | "INVALID_ENUM_VALUE"
+    | "INVALID_CONTENT_TYPE"
+    | "INVALID_FORM_VALUE"
+    | "ONE_INSTRUMENT_EXPECTED"
+    | "NO_FIELDS_SET"
+    | "DEPRECATED_FIELD_SET"
+    | "CARD_EXPIRED"
+    | "INVALID_EXPIRATION"
+    | "INVALID_EXPIRATION_YEAR"
+    | "INVALID_EXPIRATION_DATE"
+    | "UNSUPPORTED_CARD_BRAND"
+    | "UNSUPPORTED_ENTRY_METHOD"
+    | "INVALID_ENCRYPTED_CARD"
+    | "INVALID_CARD"
+    | "DELAYED_TRANSACTION_EXPIRED"
+    | "DELAYED_TRANSACTION_CANCELED"
+    | "DELAYED_TRANSACTION_CAPTURED"
+    | "DELAYED_TRANSACTION_FAILED"
+    | "CARD_TOKEN_EXPIRED"
+    | "CARD_TOKEN_USED"
+    | "AMOUNT_TOO_HIGH"
+    | "UNSUPPORTED_INSTRUMENT_TYPE"
+    | "REFUND_AMOUNT_INVALID"
+    | "REFUND_ALREADY_PENDING"
+    | "PAYMENT_NOT_REFUNDABLE"
+    | "INVALID_CARD_DATA"
+    | "LOCATION_MISMATCH"
+    | "IDEMPOTENCY_KEY_REUSED"
+    | "UNEXPECTED_VALUE"
+    | "SANDBOX_NOT_SUPPORTED"
+    | "INVALID_EMAIL_ADDRESS"
+    | "INVALID_PHONE_NUMBER"
+    | "CHECKOUT_EXPIRED"
+    | "BAD_CERTIFICATE"
+    | "INVALID_SQUARE_VERSION_FORMAT"
+    | "API_VERSION_INCOMPATIBLE"
+    | "CARD_DECLINED"
+    | "VERIFY_CVV_FAILURE"
+    | "VERIFY_AVS_FAILURE"
+    | "CARD_DECLINED_CALL_ISSUER"
+    | "NOT_FOUND"
+    | "APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND"
+    | "METHOD_NOT_ALLOWED"
+    | "NOT_ACCEPTABLE"
+    | "REQUEST_TIMEOUT"
+    | "CONFLICT"
+    | "REQUEST_ENTITY_TOO_LARGE"
+    | "UNSUPPORTED_MEDIA_TYPE"
+    | "RATE_LIMITED"
+    | "NOT_IMPLEMENTED"
+    | "SERVICE_UNAVAILABLE"
+    | "GATEWAY_TIMEOUT";
 
 export type ProductSourceType =
-    | 'SQUARE_POS'
-    | 'EXTERNAL_API'
-    | 'BILLING'
-    | 'APPOINTMENTS'
-    | 'INVOICES'
-    | 'ONLINE_STORE'
-    | 'PAYROLL'
-    | 'DASHBOARD'
-    | 'ITEM_LIBRARY_IMPORT'
-    | 'OTHER';
+    | "SQUARE_POS"
+    | "EXTERNAL_API"
+    | "BILLING"
+    | "APPOINTMENTS"
+    | "INVOICES"
+    | "ONLINE_STORE"
+    | "PAYROLL"
+    | "DASHBOARD"
+    | "ITEM_LIBRARY_IMPORT"
+    | "OTHER";
 
 /**
  * Defines request parameters for the AcceptDispute endpoint.
@@ -1632,7 +1632,7 @@ export class CardPaymentDetails {
     /**
      * For EMV payments, the results of the cardholder verification.
      */
-    verification_results?: 'SUCCESS' | 'FAILURE' | 'UNKNOWN' | undefined;
+    verification_results?: "SUCCESS" | "FAILURE" | "UNKNOWN" | undefined;
     /**
      * The statement description sent to the card networks.
      * @note The actual statement description will vary and is likely to be truncated and appended with additional
@@ -2254,7 +2254,7 @@ export class CatalogItem {
      * Only items of product type `REGULAR` or `APPOINTMENTS_SERVICE` may be created by this API; items with other product
      * types are read-only. See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
      */
-    product_type?: 'REGULAR' | 'GIFT_CARD' | 'APPOINTMENTS_SERVICE' | 'RETAIL_ITEM' | 'RESTAURANT_ITEM' | undefined;
+    product_type?: "REGULAR" | "GIFT_CARD" | "APPOINTMENTS_SERVICE" | "RETAIL_ITEM" | "RESTAURANT_ITEM" | undefined;
     /**
      * If `false`, the Square Point of Sale app will present the `CatalogItem`'s details screen immediately, allowing
      * the merchant to choose `CatalogModifier`s before adding the item to the cart. This is the default behavior.
@@ -2431,7 +2431,7 @@ export class CatalogItemVariation {
      * Indicates whether the item variation displays an alert when its inventory quantity is less than or equal to its
      * `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
+    inventory_alert_type?: "NONE" | "LOW_QUANTITY" | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
@@ -3110,7 +3110,7 @@ export class CatalogTax {
      * Whether the tax is calculated based on a payment's subtotal or total.
      * See [TaxCalculationPhase](#type-taxcalculationphase) for possible values.
      */
-    calculation_phase?: 'TAX_SUBTOTAL_PHASE' | 'TAX_TOTAL_PHASE' | undefined;
+    calculation_phase?: "TAX_SUBTOTAL_PHASE" | "TAX_TOTAL_PHASE" | undefined;
     /**
      * Whether the tax is `ADDITIVE` or `INCLUSIVE`. See [TaxInclusionType](#type-taxinclusiontype) for possible values.
      */
@@ -4406,7 +4406,7 @@ export class CustomerCreationSourceFilter {
      * from the result. Default: `INCLUDE`.
      * See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for possible values.
      */
-    rule?: 'INCLUDE' | 'EXCLUDE' | undefined;
+    rule?: "INCLUDE" | "EXCLUDE" | undefined;
 }
 
 /**
@@ -5875,7 +5875,7 @@ export class ItemVariationLocationOverrides {
      * Indicates whether the `CatalogItemVariation` displays an alert when its inventory quantity is less than or
      * equal to its `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
+    inventory_alert_type?: "NONE" | "LOW_QUANTITY" | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
@@ -6075,7 +6075,16 @@ export class ListCatalogRequest {
     /**
      * An optional case-insensitive, comma-separated list of object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`.
      */
-    types?: 'ITEM' | 'ITEM_VARIATION' | 'CATEGORY' | 'DISCOUNT' | 'TAX' | 'MODIFIER' | 'MODIFIER_LIST' | 'IMAGE' | undefined;
+    types?:
+        | "ITEM"
+        | "ITEM_VARIATION"
+        | "CATEGORY"
+        | "DISCOUNT"
+        | "TAX"
+        | "MODIFIER"
+        | "MODIFIER_LIST"
+        | "IMAGE"
+        | undefined;
 }
 
 export class ListCatalogResponse {
@@ -6883,7 +6892,7 @@ export class Location {
     /**
      * The type of the location, either physical or mobile. See [LocationType](#type-locationtype) for possible values
      */
-    type?: 'PHYSICAL' | 'MOBILE' | undefined;
+    type?: "PHYSICAL" | "MOBILE" | undefined;
     /**
      * The website URL of the location.
      */
@@ -7896,7 +7905,7 @@ export class Order {
      * 10 entries per metadata field. Entries written by applications are private and can only be read or modified by
      * the same application. See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * Timestamp for when the order was created. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
@@ -8033,7 +8042,7 @@ export class OrderFulfillment {
      * per metadata field. Entries written by applications are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * Contains details for a pickup fulfillment. Required when fulfillment type is `PICKUP`.
      */
@@ -8075,7 +8084,7 @@ export class OrderFulfillmentPickupDetails {
      * The schedule type of the pickup fulfillment. Defaults to `SCHEDULED`.
      * See [OrderFulfillmentPickupDetailsScheduleType](#type-orderfulfillmentpickupdetailsscheduletype) for possible values.
      */
-    schedule_type?: 'SCHEDULED' | 'ASAP' | undefined;
+    schedule_type?: "SCHEDULED" | "ASAP" | undefined;
     /**
      * The [timestamp](#workingwithdates) that represents the start of the pickup window.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`,
@@ -8385,7 +8394,7 @@ export class OrderLineItem {
      * be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * The [CatalogModifier](#type-catalogmodifier)s applied to this line item.
      */
@@ -9385,7 +9394,7 @@ export class PaymentRefund {
      * - `REJECTED` - the refund was rejected
      * - `FAILED` - an error occurred
      */
-    status: 'PENDING' | 'COMPLETED' | 'REJECTED' | 'FAILED';
+    status: "PENDING" | "COMPLETED" | "REJECTED" | "FAILED";
     /**
      * Location ID associated with the payment this refund is attached to.
      */
@@ -9561,7 +9570,7 @@ export class Refund {
      * The current status of the refund (`PENDING`, `APPROVED`, `REJECTED`, or `FAILED`).
      * See [RefundStatus](#type-refundstatus) for possible values.
      */
-    status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'FAILED';
+    status: "PENDING" | "APPROVED" | "REJECTED" | "FAILED";
     /**
      * The amount of Square processing fee money refunded to the *merchant*.
      */
@@ -9651,7 +9660,7 @@ export class RegisterDomainResponse {
     /**
      * Status of the domain registration. See `RegisterDomainResponseStatus` for possible values.
      */
-    status?: 'PENDING' | 'VERIFIED' | undefined;
+    status?: "PENDING" | "VERIFIED" | undefined;
 }
 
 /**
@@ -10708,7 +10717,7 @@ export class SearchOrdersSort {
      * SearchOrders will return an error. Default: `CREATED_AT`.
      * See [SearchOrdersSortField](#type-searchorderssortfield) for possible values.
      */
-    sort_field: 'CREATED_AT' | 'UPDATED_AT' | 'CLOSED_AT';
+    sort_field: "CREATED_AT" | "UPDATED_AT" | "CLOSED_AT";
     /**
      * The chronological order in which results are returned. Defaults to `DESC`.
      * See [SortOrder](#type-sortorder) for possible values.
@@ -10853,7 +10862,7 @@ export class SearchTeamMembersFilter {
     /**
      * When present, filter by team members assigned to the specified locations. When empty, include team members assigned to any location.
      */
-    'locationIds'?: Array<string> | undefined;
+    "locationIds"?: Array<string> | undefined;
     /**
      * When present, filter by team members who match the given status. When empty, include team members of all statuses.
      * See [TeamMemberStatus](#type-teammemberstatus) for possible values.
@@ -11018,7 +11027,7 @@ export class Shift {
     /**
      * Describes working state of the current `Shift`. See [ShiftStatus](#type-shiftstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED' | undefined;
+    status?: "OPEN" | "CLOSED" | undefined;
     /**
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at
      * time of request. If not provided, Square executes a blind write; potentially overwriting data from another write.
@@ -11054,7 +11063,7 @@ export class ShiftFilter {
     /**
      * Fetch a `Shift` instance by `Shift.status`. See [ShiftFilterStatus](#type-shiftfilterstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED' | undefined;
+    status?: "OPEN" | "CLOSED" | undefined;
     /**
      * Fetch `Shift`s that start in the time range - Inclusive.
      */
@@ -11099,7 +11108,7 @@ export class ShiftSort {
     /**
      * The field to sort on. See [ShiftSortField](#type-shiftsortfield) for possible values.
      */
-    field?: 'START_AT' | 'END_AT' | 'CREATED_AT' | 'UPDATED_AT' | undefined;
+    field?: "START_AT" | "END_AT" | "CREATED_AT" | "UPDATED_AT" | undefined;
     /**
      * The order in which results are returned. Defaults to DESC. See [SortOrder](#type-sortorder) for possible values.
      */
@@ -11142,7 +11151,7 @@ export class ShiftWorkday {
     /**
      * The strategy on which the dates are applied. See [ShiftWorkdayMatcher](#type-shiftworkdaymatcher) for possible values.
      */
-    match_shifts_by?: 'START_AT' | 'END_AT' | 'INTERSECTION' | undefined;
+    match_shifts_by?: "START_AT" | "END_AT" | "INTERSECTION" | undefined;
     /**
      * Location-specific timezones convert workdays to datetime filters.
      * Every location included in the query must have a timezone, or this field must be provided as a fallback.
@@ -11532,7 +11541,7 @@ export class Tender {
     /**
      * The type of tender, such as `CARD` or `CASH`. See [TenderType](#type-tendertype) for possible values.
      */
-    type: 'CARD' | 'CASH' | 'THIRD_PARTY_CARD' | 'SQUARE_GIFT_CARD' | 'NO_SALE' | 'OTHER';
+    type: "CARD" | "CASH" | "THIRD_PARTY_CARD" | "SQUARE_GIFT_CARD" | "NO_SALE" | "OTHER";
     /**
      * The details of the card tender. This value is present only if the value of `type` is `CARD`.
      */
@@ -11561,7 +11570,7 @@ export class TenderCardDetails {
      * See `TenderCardDetailsStatus` for possible values.
      * See [TenderCardDetailsStatus](#type-tendercarddetailsstatus) for possible values.
      */
-    status?: 'AUTHORIZED' | 'CAPTURED' | 'VOIDED' | 'FAILED' | undefined;
+    status?: "AUTHORIZED" | "CAPTURED" | "VOIDED" | "FAILED" | undefined;
     /**
      * The credit card's non-confidential details.
      */
@@ -11570,7 +11579,7 @@ export class TenderCardDetails {
      * The method used to enter the card's details for the transaction.
      * See [TenderCardDetailsEntryMethod](#type-tendercarddetailsentrymethod) for possible values.
      */
-    entry_method?: 'SWIPED' | 'KEYED' | 'EMV' | 'ON_FILE' | 'CONTACTLESS' | undefined;
+    entry_method?: "SWIPED" | "KEYED" | "EMV" | "ON_FILE" | "CONTACTLESS" | undefined;
 }
 
 /**
@@ -11834,7 +11843,16 @@ export class Transaction {
     /**
      * The Square product that processed the transaction. See [TransactionProduct](#type-transactionproduct) for possible values.
      */
-    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER' | undefined;
+    product?:
+        | "REGISTER"
+        | "EXTERNAL_API"
+        | "BILLING"
+        | "APPOINTMENTS"
+        | "INVOICES"
+        | "ONLINE_STORE"
+        | "PAYROLL"
+        | "OTHER"
+        | undefined;
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
      * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
@@ -12406,18 +12424,18 @@ export class ApiClient {
         oauth2: {
             type: string;
             accessToken: string;
-        }
+        };
         oauth2ClientSecret: {
             type: string;
             in: string;
             name: string;
-        }
+        };
     };
 
     /**
      * The default HTTP headers to be included for all API calls.
      */
-    defaultHeaders: {[key: string]: string};
+    defaultHeaders: { [key: string]: string };
 
     /**
      *  The default HTTP timeout for all API calls.
@@ -12778,17 +12796,17 @@ export class LocationsApi {
      * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
      */
     listLocations(): Promise<ListLocationsResponse>;
-  /**
-   * Creates a location.
-   */
+    /**
+     * Creates a location.
+     */
     createLocation(body: Location): Promise<CreateLocationResponse>;
-  /**
-   * Retrieves details of a location.
-   */
+    /**
+     * Retrieves details of a location.
+     */
     retrieveLocation(locationId: string): Promise<RetrieveLocationResponse>;
-  /**
-   * Updates a location.
-   */
+    /**
+     * Updates a location.
+     */
     updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>;
 }
 
@@ -12811,7 +12829,9 @@ export class MobileAuthorizationApi {
      * `Authorization: Bearer ACCESS_TOKEN` Replace `ACCESS_TOKEN` with a [valid production authorization credential]
      * @link https://docs.connect.squareup.com/get-started#step-4-understand-the-different-application-credentials
      */
-    createMobileAuthorizationCode(body: CreateMobileAuthorizationCodeRequest): Promise<CreateMobileAuthorizationCodeResponse>;
+    createMobileAuthorizationCode(
+        body: CreateMobileAuthorizationCodeRequest,
+    ): Promise<CreateMobileAuthorizationCodeResponse>;
 }
 
 export class OAuthApi {
@@ -12932,7 +12952,9 @@ export class PaymentsApi {
      * CreatePayment request you want  to cancel. After cancelling the payment, you can submit your CreatePayment request again.
      * Note that if no payment with the specified idempotency key is found, no action is taken, the end point returns successfully.
      */
-    cancelPaymentByIdempotencyKey(body: CancelPaymentByIdempotencyKeyRequest): Promise<CancelPaymentByIdempotencyKeyResponse>;
+    cancelPaymentByIdempotencyKey(
+        body: CancelPaymentByIdempotencyKeyRequest,
+    ): Promise<CancelPaymentByIdempotencyKeyResponse>;
     /**
      * Completes (captures) a payment. By default, payments are set to complete immediately after they are created.
      * If you set autocomplete to false when creating a payment, you can complete (capture) the payment using this endpoint.

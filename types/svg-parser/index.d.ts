@@ -6,14 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TextNode {
-    type: 'text';
+    type: "text";
     value?: string | boolean | number | undefined;
 }
 
 export interface ElementNode {
-    type: 'element';
+    type: "element";
     tagName?: string | undefined;
-    properties?: Record<string, string|number> | undefined;
+    properties?: Record<string, string | number> | undefined;
     children: Array<Node | string>;
     value?: string | undefined;
     metadata?: string | undefined;
@@ -22,7 +22,7 @@ export interface ElementNode {
 export type Node = TextNode | ElementNode;
 
 export interface RootNode {
-    type: 'root';
+    type: "root";
     children: [Node];
 }
 

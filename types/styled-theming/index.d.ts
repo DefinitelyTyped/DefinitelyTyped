@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { FlattenInterpolation, ThemeProps, ThemedStyledProps } from 'styled-components';
+import { FlattenInterpolation, ThemedStyledProps, ThemeProps } from "styled-components";
 
 declare function theme(name: string, values: theme.ThemeMap): theme.ThemeSet;
 

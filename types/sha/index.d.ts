@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export type CheckCallback<R> = (err: Error | null) => R;
 export type GetCallback = (err: Error | null, actual: string) => void;

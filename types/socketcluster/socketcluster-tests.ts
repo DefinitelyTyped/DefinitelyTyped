@@ -1,7 +1,7 @@
 import * as fsutil from "socketcluster/fsutil";
 import SocketCluster = require("socketcluster");
-import { SCServer } from "socketcluster-server";
 import { ChildProcess } from "child_process";
+import { SCServer } from "socketcluster-server";
 import path = require("path");
 import * as minimist from "minimist";
 import * as scHotReboot from "sc-hot-reboot";
@@ -120,7 +120,7 @@ import * as scHotReboot from "sc-hot-reboot";
         crashWorkerOnError: argv["auto-reboot"] !== false,
         // If using nodemon, set this to true, and make sure that environment is 'dev'.
         killMasterOnSignal: false,
-        environment
+        environment,
     };
 
     const socketCluster = new SocketCluster(options);
@@ -136,7 +136,16 @@ import * as scHotReboot from "sc-hot-reboot";
         console.log(`   !! The sc-hot-reboot plugin is watching for code changes in the ${__dirname} directory`);
         scHotReboot.attach(socketCluster, {
             cwd: __dirname,
-            ignored: ["public", "node_modules", "README.md", "Dockerfile", "server.js", "broker.js", /[\/\\]\./, "*.log"]
+            ignored: [
+                "public",
+                "node_modules",
+                "README.md",
+                "Dockerfile",
+                "server.js",
+                "broker.js",
+                /[\/\\]\./,
+                "*.log",
+            ],
         });
     }
 }

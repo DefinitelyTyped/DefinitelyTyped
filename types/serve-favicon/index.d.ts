@@ -11,14 +11,14 @@
 
  =============================================== */
 
-import express = require('express');
+import express = require("express");
 
 /**
  * Node.js middleware for serving a favicon.
  */
 declare function serveFavicon(
     path: string | Buffer,
-    options?: serveFavicon.Options
+    options?: serveFavicon.Options,
 ): express.RequestHandler;
 
 declare namespace serveFavicon {

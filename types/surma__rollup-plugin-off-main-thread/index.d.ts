@@ -3,7 +3,7 @@
 // Definitions by: Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, RenderedChunk } from 'rollup';
+import { Plugin, RenderedChunk } from "rollup";
 
 interface OffMainThreadOptions {
     /**

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Socket } from 'socket.io';
+import { Socket } from "socket.io";
 
 export = SocketIOFile;
 

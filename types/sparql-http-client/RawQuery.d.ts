@@ -1,4 +1,4 @@
-import { QueryInit, Query } from '.';
+import { Query, QueryInit } from ".";
 
 declare namespace RawQuery {
     type RawQuery = Query<Response, Response, Response, Response>;

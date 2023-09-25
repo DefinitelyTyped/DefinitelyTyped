@@ -1,3 +1,3 @@
-import singleTrailingNewline = require('single-trailing-newline');
+import singleTrailingNewline = require("single-trailing-newline");
 
-singleTrailingNewline(''); // $ExpectType string
+singleTrailingNewline(""); // $ExpectType string

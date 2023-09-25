@@ -1,4 +1,4 @@
-import shallowEqual = require('shallowequal');
+import shallowEqual = require("shallowequal");
 
 const a = {};
 const b = {};
@@ -21,7 +21,7 @@ shallowEqual(
         this; // $ExpectType { foo: string; }
         return undefined;
     },
-    { foo: 'bar' }
+    { foo: "bar" },
 );
 
 interface Foo {
@@ -29,8 +29,8 @@ interface Foo {
     bar: number;
 }
 
-const c: Foo = { foo: 'foo', bar: 0 };
-const d: Foo = { foo: 'baz', bar: 1 };
+const c: Foo = { foo: "foo", bar: 0 };
+const d: Foo = { foo: "baz", bar: 1 };
 
 const undefinedCustomizer: shallowEqual.Customizer<Foo> = () => undefined;
 

@@ -87,7 +87,7 @@ interface HubConnectionSettings {
 }
 
 interface HubConnection extends SignalR {
-    //(url?: string, queryString?: any, logging?: boolean): HubConnection;
+    // (url?: string, queryString?: any, logging?: boolean): HubConnection;
     proxies: any;
     transport: { name: string; supportsKeepAlive: () => boolean };
     received(callback: (data: { Id: any; Method: any; Hub: any; State: any; Args: any }) => void): HubConnection;

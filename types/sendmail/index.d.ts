@@ -17,9 +17,10 @@ declare namespace sendMailFactory {
         dkim?:
             | boolean
             | {
-                  privateKey: string;
-                  keySelector: string;
-              } | undefined;
+                privateKey: string;
+                keySelector: string;
+            }
+            | undefined;
         /** Default: False */
         devPort?: number | boolean | undefined;
         /** Default: localhost */
@@ -48,14 +49,16 @@ declare namespace sendMailFactory {
         content?: string | undefined;
         text?: string | undefined;
         html?: string | undefined;
-        attachments?: Array<{
-            type?: string | undefined;
-            filename?: string | undefined;
-            content?: any;
-            path?: string | undefined;
-            contentType?: string | undefined;
-            encoding?: string | undefined;
-        }> | undefined;
+        attachments?:
+            | Array<{
+                type?: string | undefined;
+                filename?: string | undefined;
+                content?: any;
+                path?: string | undefined;
+                contentType?: string | undefined;
+                encoding?: string | undefined;
+            }>
+            | undefined;
     }
 }
 

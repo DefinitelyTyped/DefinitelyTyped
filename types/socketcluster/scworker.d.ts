@@ -1,9 +1,9 @@
 import { EventEmitter } from "events";
 import { Server as httpServer } from "http";
 import { Server as httpsServer } from "https";
-import { SCServer, SCServerSocket } from "socketcluster-server";
 import { SCAuthEngine } from "sc-auth";
 import { SCExchange } from "sc-broker-cluster";
+import { SCServer, SCServerSocket } from "socketcluster-server";
 
 export = SCWorker;
 
@@ -59,5 +59,8 @@ declare class SCWorker extends EventEmitter {
     on(event: "ready", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "warning", listener: (warning: Error) => void): this;
-    on(event: "masterMessage", listener: (data: any, respond: (err: Error | null, responseData: any) => void) => void): this;
+    on(
+        event: "masterMessage",
+        listener: (data: any, respond: (err: Error | null, responseData: any) => void) => void,
+    ): this;
 }

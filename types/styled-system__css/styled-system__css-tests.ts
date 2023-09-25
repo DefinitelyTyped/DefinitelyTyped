@@ -1,13 +1,13 @@
-import css, { CssFunctionReturnType, Theme } from '@styled-system/css';
+import css, { CssFunctionReturnType, Theme } from "@styled-system/css";
 
 const theme = {
     colors: {
-        primary: 'tomato',
-        secondary: 'cyan',
+        primary: "tomato",
+        secondary: "cyan",
     },
     fontSizes: [12, 14, 16, 24, 36],
     fonts: {
-        monospace: 'Menlo, monospace',
+        monospace: "Menlo, monospace",
     },
     lineHeights: {
         body: 1.5,
@@ -23,12 +23,12 @@ const theme = {
 export const themeWithVariants: Theme = {
     breakpoints: [500, 1000, 1500],
     colors: {
-        primary: 'tomato',
-        secondary: 'cyan',
+        primary: "tomato",
+        secondary: "cyan",
     },
     fontSizes: [12, 14, 16, 24, 36],
     fonts: {
-        monospace: 'Menlo, monospace',
+        monospace: "Menlo, monospace",
     },
     lineHeights: {
         body: 1.5,
@@ -71,36 +71,36 @@ css()();
 // returns styles
 css({
     fontSize: 32,
-    color: 'blue',
+    color: "blue",
     borderRadius: 4,
 })();
 
 // returns system props styles
 css({
     fontSize: [32, 48],
-    color: 'blue',
+    color: "blue",
     borderRadius: 4,
 })({ theme });
 
 // omits null values in responsive styles
 css({
-    color: 'primary',
+    color: "primary",
     fontSize: [2, null, 4],
 })({ theme });
 
 // returns nested system props styles
 css({
     fontSize: 32,
-    color: 'blue',
+    color: "blue",
     borderRadius: 4,
-    ':hover': {
-        color: 'hotpink',
+    ":hover": {
+        color: "hotpink",
     },
 });
 
 // returns nested responsive styles
 css({
-    color: 'primary',
+    color: "primary",
     h1: {
         py: [3, 4],
     },
@@ -108,23 +108,23 @@ css({
 
 // handles function as argument
 css(() => ({
-    color: 'hotpink',
+    color: "hotpink",
 }));
 
 // handles all core styled system props
 const style = css({
     m: 0,
     mb: 2,
-    mx: 'auto',
+    mx: "auto",
     p: 3,
     py: 4,
     fontSize: 3,
-    fontWeight: 'bold',
-    color: 'primary',
-    bg: ['secondary', 'transparent'],
-    fontFamily: 'monospace',
-    lineHeight: 'body',
-    letterSpacing: '0.1em',
+    fontWeight: "bold",
+    color: "primary",
+    bg: ["secondary", "transparent"],
+    fontFamily: "monospace",
+    lineHeight: "body",
+    letterSpacing: "0.1em",
     boxShadow: 1,
 });
 style({ theme });
@@ -133,32 +133,32 @@ style({ theme });
 css({
     zIndex: 5,
     width: [500, 1000],
-    height: '50vh',
+    height: "50vh",
 });
 
 // handles variants
 css({
-    variant: 'text.title',
+    variant: "text.title",
 });
 
 // handles using string values
 css({
-    fontWeight: 'regular',
-    bg: 'secondary',
+    fontWeight: "regular",
+    bg: "secondary",
 });
 
 // handles multiple pseudo selectors
 css({
-    bg: 'primary',
+    bg: "primary",
 
-    ':hover': {
-        bg: 'secondary',
+    ":hover": {
+        bg: "secondary",
     },
 
-    ':disabled': {
-        color: 'gray',
-        bg: 'white',
-        cursor: 'auto',
+    ":disabled": {
+        color: "gray",
+        bg: "white",
+        cursor: "auto",
     },
 });
 
@@ -182,28 +182,28 @@ css({
 
 // returns variants from theme
 css({
-    variant: 'buttons.primary',
+    variant: "buttons.primary",
 })(theme);
 
 // returns nested variants
 css({
-    variant: 'buttons.primary',
+    variant: "buttons.primary",
     header: {
-        variant: 'buttons.primary',
+        variant: "buttons.primary",
         h1: {
-            variant: 'buttons.primary',
+            variant: "buttons.primary",
         },
     },
 })(theme);
 
 // handles variants with responsive values
 css({
-    variant: 'text.caps',
+    variant: "text.caps",
 })(theme);
 
 // handles responsive variants
 css({
-    variant: 'text.title',
+    variant: "text.title",
 })(theme);
 
 // handles negative margins from scale
@@ -222,14 +222,14 @@ css({
 
 // skip breakpoints
 css({
-    width: ['100%', null, '50%'],
+    width: ["100%", null, "50%"],
 })(theme);
 
 // padding shorthand does not collide with nested p selector
 css({
     p: {
         fontSize: 32,
-        color: 'tomato',
+        color: "tomato",
         p: 2,
     },
     padding: 32,
@@ -239,41 +239,41 @@ css({
 css({
     width: [32, 64, 128, 256, 512],
 })({
-    breakpoints: ['32em', '40em'],
+    breakpoints: ["32em", "40em"],
 });
 
 // handles theme string values for zIndex
 css({
-    zIndex: 'base',
+    zIndex: "base",
 })(theme);
 
 // ignores null
 css(null);
 
 css({
-    label: 'foo',
+    label: "foo",
     button: {
-        label: 'bar',
-        color: 'blue',
+        label: "bar",
+        color: "blue",
     },
-    '> *': {
-        label: 'baz',
+    "> *": {
+        label: "baz",
     },
 });
 
 // handles vendor-prefixed css properties
 css({
-    WebkitTouchCallout: 'none'
+    WebkitTouchCallout: "none",
 });
 
 // size (number)
 css({
-    size: 4
+    size: 4,
 });
 
 // size (token)
 css({
-    size: 'xl'
+    size: "xl",
 });
 
 const result: CssFunctionReturnType = css({});

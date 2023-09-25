@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import Client = require('./StreamClient');
+import Client = require("./StreamClient");
 
 export = Client;

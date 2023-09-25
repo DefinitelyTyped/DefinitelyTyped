@@ -1,3 +1,3 @@
-import stripBom = require('strip-bom-string');
+import stripBom = require("strip-bom-string");
 
-stripBom(''); // $ExpectType string
+stripBom(""); // $ExpectType string

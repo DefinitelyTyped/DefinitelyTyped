@@ -8,338 +8,338 @@
 
 declare namespace Shippo {
     type USPSServiceLevel =
-        | 'usps_priority'
-        | 'usps_priority_express'
-        | 'usps_first'
-        | 'usps_parcel_select'
-        | 'usps_media_mail'
-        | 'usps_priority_mail_international'
-        | 'usps_priority_mail_express_international'
-        | 'usps_first_class_package_international_service'
+        | "usps_priority"
+        | "usps_priority_express"
+        | "usps_first"
+        | "usps_parcel_select"
+        | "usps_media_mail"
+        | "usps_priority_mail_international"
+        | "usps_priority_mail_express_international"
+        | "usps_first_class_package_international_service"
         | (string & {});
 
     type FEDEXServiceLevel =
-        | 'fedex_ground'
-        | 'fedex_home_delivery'
-        | 'fedex_smart_post'
-        | 'fedex_2_day'
-        | 'fedex_2_day_am'
-        | 'fedex_express_saver'
-        | 'fedex_standard_overnight'
-        | 'fedex_priority_overnight'
-        | 'fedex_first_overnight'
-        | 'fedex_freight_priority'
-        | 'fedex_next_day_freight'
-        | 'fedex_freight_economy'
-        | 'fedex_first_freight'
-        | 'fedex_international_economy'
-        | 'fedex_international_priority'
-        | 'fedex_international_first'
-        | 'fedex_europe_first_international_priority'
-        | 'international_economy_freight'
-        | 'international_priority_freight'
+        | "fedex_ground"
+        | "fedex_home_delivery"
+        | "fedex_smart_post"
+        | "fedex_2_day"
+        | "fedex_2_day_am"
+        | "fedex_express_saver"
+        | "fedex_standard_overnight"
+        | "fedex_priority_overnight"
+        | "fedex_first_overnight"
+        | "fedex_freight_priority"
+        | "fedex_next_day_freight"
+        | "fedex_freight_economy"
+        | "fedex_first_freight"
+        | "fedex_international_economy"
+        | "fedex_international_priority"
+        | "fedex_international_first"
+        | "fedex_europe_first_international_priority"
+        | "international_economy_freight"
+        | "international_priority_freight"
         | (string & {});
 
     type UPSServiceLevel =
-        | 'ups_standard'
-        | 'ups_ground'
-        | 'ups_saver'
-        | 'ups_3_day_select'
-        | 'ups_second_day_air'
-        | 'ups_second_day_air_am'
-        | 'ups_next_day_air'
-        | 'ups_next_day_air_saver'
-        | 'ups_next_day_air_early_am'
-        | 'ups_mail_innovations_domestic'
-        | 'ups_surepost'
-        | 'ups_surepost_bound_printed_matter'
-        | 'ups_surepost_lightweight'
-        | 'ups_surepost_media'
-        | 'ups_express'
-        | 'ups_express_1200'
-        | 'ups_express_plus'
-        | 'ups_expedited'
-        | 'ups_express_early'
-        | 'ups_access_point_economy'
+        | "ups_standard"
+        | "ups_ground"
+        | "ups_saver"
+        | "ups_3_day_select"
+        | "ups_second_day_air"
+        | "ups_second_day_air_am"
+        | "ups_next_day_air"
+        | "ups_next_day_air_saver"
+        | "ups_next_day_air_early_am"
+        | "ups_mail_innovations_domestic"
+        | "ups_surepost"
+        | "ups_surepost_bound_printed_matter"
+        | "ups_surepost_lightweight"
+        | "ups_surepost_media"
+        | "ups_express"
+        | "ups_express_1200"
+        | "ups_express_plus"
+        | "ups_expedited"
+        | "ups_express_early"
+        | "ups_access_point_economy"
         | (string & {});
 
     type ServiceLevels = USPSServiceLevel | UPSServiceLevel | FEDEXServiceLevel;
 
     type Country =
-        | 'US'
-        | 'AF'
-        | 'AX'
-        | 'AL'
-        | 'DZ'
-        | 'AS'
-        | 'AD'
-        | 'AO'
-        | 'AI'
-        | 'AQ'
-        | 'AG'
-        | 'AR'
-        | 'AM'
-        | 'AW'
-        | 'AU'
-        | 'AT'
-        | 'AZ'
-        | 'BS'
-        | 'BH'
-        | 'BD'
-        | 'BB'
-        | 'BY'
-        | 'BE'
-        | 'BZ'
-        | 'BJ'
-        | 'BM'
-        | 'BT'
-        | 'BO'
-        | 'BQ'
-        | 'BA'
-        | 'BW'
-        | 'BV'
-        | 'BR'
-        | 'IO'
-        | 'BN'
-        | 'BG'
-        | 'BF'
-        | 'BI'
-        | 'KH'
-        | 'CM'
-        | 'CA'
-        | 'CV'
-        | 'KY'
-        | 'CF'
-        | 'TD'
-        | 'CL'
-        | 'CN'
-        | 'CX'
-        | 'CC'
-        | 'CO'
-        | 'KM'
-        | 'CG'
-        | 'CD'
-        | 'CK'
-        | 'CR'
-        | 'CI'
-        | 'HR'
-        | 'CU'
-        | 'CW'
-        | 'CY'
-        | 'CZ'
-        | 'DK'
-        | 'DJ'
-        | 'DM'
-        | 'DO'
-        | 'EC'
-        | 'EG'
-        | 'SV'
-        | 'GQ'
-        | 'ER'
-        | 'EE'
-        | 'ET'
-        | 'FK'
-        | 'FO'
-        | 'FJ'
-        | 'FI'
-        | 'FR'
-        | 'GF'
-        | 'PF'
-        | 'TF'
-        | 'GA'
-        | 'GM'
-        | 'GE'
-        | 'DE'
-        | 'GH'
-        | 'GI'
-        | 'GR'
-        | 'GL'
-        | 'GD'
-        | 'GP'
-        | 'GU'
-        | 'GT'
-        | 'GG'
-        | 'GN'
-        | 'GW'
-        | 'GY'
-        | 'HT'
-        | 'HM'
-        | 'VA'
-        | 'HN'
-        | 'HK'
-        | 'HU'
-        | 'IS'
-        | 'IN'
-        | 'ID'
-        | 'IR'
-        | 'IQ'
-        | 'IE'
-        | 'IM'
-        | 'IL'
-        | 'IT'
-        | 'JM'
-        | 'JP'
-        | 'JE'
-        | 'JO'
-        | 'KZ'
-        | 'KE'
-        | 'KI'
-        | 'KR'
-        | 'KP'
-        | 'KW'
-        | 'KG'
-        | 'LA'
-        | 'LV'
-        | 'LB'
-        | 'LS'
-        | 'LR'
-        | 'LY'
-        | 'LI'
-        | 'LT'
-        | 'LU'
-        | 'MO'
-        | 'MK'
-        | 'MG'
-        | 'MW'
-        | 'MY'
-        | 'MV'
-        | 'ML'
-        | 'MT'
-        | 'MH'
-        | 'MQ'
-        | 'MR'
-        | 'MU'
-        | 'YT'
-        | 'MX'
-        | 'FM'
-        | 'MD'
-        | 'MC'
-        | 'MN'
-        | 'ME'
-        | 'MS'
-        | 'MA'
-        | 'MZ'
-        | 'MM'
-        | 'NA'
-        | 'NR'
-        | 'NP'
-        | 'NL'
-        | 'NC'
-        | 'NZ'
-        | 'NI'
-        | 'NE'
-        | 'NG'
-        | 'NU'
-        | 'NF'
-        | 'MP'
-        | 'NO'
-        | 'OM'
-        | 'PK'
-        | 'PW'
-        | 'PS'
-        | 'PA'
-        | 'PG'
-        | 'PY'
-        | 'PE'
-        | 'PH'
-        | 'PN'
-        | 'PL'
-        | 'PT'
-        | 'PR'
-        | 'QA'
-        | 'RE'
-        | 'RO'
-        | 'RU'
-        | 'RW'
-        | 'BL'
-        | 'SH'
-        | 'KN'
-        | 'LC'
-        | 'MF'
-        | 'PM'
-        | 'VC'
-        | 'WS'
-        | 'SM'
-        | 'ST'
-        | 'SA'
-        | 'SN'
-        | 'RS'
-        | 'SC'
-        | 'SL'
-        | 'SG'
-        | 'SX'
-        | 'SK'
-        | 'SI'
-        | 'SB'
-        | 'SO'
-        | 'ZA'
-        | 'GS'
-        | 'SS'
-        | 'ES'
-        | 'LK'
-        | 'SD'
-        | 'SR'
-        | 'SJ'
-        | 'SZ'
-        | 'SE'
-        | 'CH'
-        | 'SY'
-        | 'TW'
-        | 'TJ'
-        | 'TZ'
-        | 'TH'
-        | 'TL'
-        | 'TG'
-        | 'TK'
-        | 'TO'
-        | 'TT'
-        | 'TN'
-        | 'TR'
-        | 'TM'
-        | 'TC'
-        | 'TV'
-        | 'UG'
-        | 'UA'
-        | 'AE'
-        | 'GB'
-        | 'UM'
-        | 'UY'
-        | 'UZ'
-        | 'VU'
-        | 'VE'
-        | 'VN'
-        | 'VG'
-        | 'VI'
-        | 'WF'
-        | 'EH'
-        | 'YE'
-        | 'ZM'
-        | 'ZW'
+        | "US"
+        | "AF"
+        | "AX"
+        | "AL"
+        | "DZ"
+        | "AS"
+        | "AD"
+        | "AO"
+        | "AI"
+        | "AQ"
+        | "AG"
+        | "AR"
+        | "AM"
+        | "AW"
+        | "AU"
+        | "AT"
+        | "AZ"
+        | "BS"
+        | "BH"
+        | "BD"
+        | "BB"
+        | "BY"
+        | "BE"
+        | "BZ"
+        | "BJ"
+        | "BM"
+        | "BT"
+        | "BO"
+        | "BQ"
+        | "BA"
+        | "BW"
+        | "BV"
+        | "BR"
+        | "IO"
+        | "BN"
+        | "BG"
+        | "BF"
+        | "BI"
+        | "KH"
+        | "CM"
+        | "CA"
+        | "CV"
+        | "KY"
+        | "CF"
+        | "TD"
+        | "CL"
+        | "CN"
+        | "CX"
+        | "CC"
+        | "CO"
+        | "KM"
+        | "CG"
+        | "CD"
+        | "CK"
+        | "CR"
+        | "CI"
+        | "HR"
+        | "CU"
+        | "CW"
+        | "CY"
+        | "CZ"
+        | "DK"
+        | "DJ"
+        | "DM"
+        | "DO"
+        | "EC"
+        | "EG"
+        | "SV"
+        | "GQ"
+        | "ER"
+        | "EE"
+        | "ET"
+        | "FK"
+        | "FO"
+        | "FJ"
+        | "FI"
+        | "FR"
+        | "GF"
+        | "PF"
+        | "TF"
+        | "GA"
+        | "GM"
+        | "GE"
+        | "DE"
+        | "GH"
+        | "GI"
+        | "GR"
+        | "GL"
+        | "GD"
+        | "GP"
+        | "GU"
+        | "GT"
+        | "GG"
+        | "GN"
+        | "GW"
+        | "GY"
+        | "HT"
+        | "HM"
+        | "VA"
+        | "HN"
+        | "HK"
+        | "HU"
+        | "IS"
+        | "IN"
+        | "ID"
+        | "IR"
+        | "IQ"
+        | "IE"
+        | "IM"
+        | "IL"
+        | "IT"
+        | "JM"
+        | "JP"
+        | "JE"
+        | "JO"
+        | "KZ"
+        | "KE"
+        | "KI"
+        | "KR"
+        | "KP"
+        | "KW"
+        | "KG"
+        | "LA"
+        | "LV"
+        | "LB"
+        | "LS"
+        | "LR"
+        | "LY"
+        | "LI"
+        | "LT"
+        | "LU"
+        | "MO"
+        | "MK"
+        | "MG"
+        | "MW"
+        | "MY"
+        | "MV"
+        | "ML"
+        | "MT"
+        | "MH"
+        | "MQ"
+        | "MR"
+        | "MU"
+        | "YT"
+        | "MX"
+        | "FM"
+        | "MD"
+        | "MC"
+        | "MN"
+        | "ME"
+        | "MS"
+        | "MA"
+        | "MZ"
+        | "MM"
+        | "NA"
+        | "NR"
+        | "NP"
+        | "NL"
+        | "NC"
+        | "NZ"
+        | "NI"
+        | "NE"
+        | "NG"
+        | "NU"
+        | "NF"
+        | "MP"
+        | "NO"
+        | "OM"
+        | "PK"
+        | "PW"
+        | "PS"
+        | "PA"
+        | "PG"
+        | "PY"
+        | "PE"
+        | "PH"
+        | "PN"
+        | "PL"
+        | "PT"
+        | "PR"
+        | "QA"
+        | "RE"
+        | "RO"
+        | "RU"
+        | "RW"
+        | "BL"
+        | "SH"
+        | "KN"
+        | "LC"
+        | "MF"
+        | "PM"
+        | "VC"
+        | "WS"
+        | "SM"
+        | "ST"
+        | "SA"
+        | "SN"
+        | "RS"
+        | "SC"
+        | "SL"
+        | "SG"
+        | "SX"
+        | "SK"
+        | "SI"
+        | "SB"
+        | "SO"
+        | "ZA"
+        | "GS"
+        | "SS"
+        | "ES"
+        | "LK"
+        | "SD"
+        | "SR"
+        | "SJ"
+        | "SZ"
+        | "SE"
+        | "CH"
+        | "SY"
+        | "TW"
+        | "TJ"
+        | "TZ"
+        | "TH"
+        | "TL"
+        | "TG"
+        | "TK"
+        | "TO"
+        | "TT"
+        | "TN"
+        | "TR"
+        | "TM"
+        | "TC"
+        | "TV"
+        | "UG"
+        | "UA"
+        | "AE"
+        | "GB"
+        | "UM"
+        | "UY"
+        | "UZ"
+        | "VU"
+        | "VE"
+        | "VN"
+        | "VG"
+        | "VI"
+        | "WF"
+        | "EH"
+        | "YE"
+        | "ZM"
+        | "ZW"
         | (string & {});
 
-    type DistanceUnit = 'cm' | 'in' | 'ft' | 'mm' | 'm' | 'yd' | (string & {});
-    type MassUnit = 'g' | 'oz' | 'lb' | 'kg' | (string & {});
+    type DistanceUnit = "cm" | "in" | "ft" | "mm" | "m" | "yd" | (string & {});
+    type MassUnit = "g" | "oz" | "lb" | "kg" | (string & {});
 
     type Carriers =
-        | 'fedex'
-        | 'ups'
-        | 'usps'
+        | "fedex"
+        | "ups"
+        | "usps"
         | (string & {});
 
-    type TrackingStatuses = 'UNKNOWN' | 'DELIVERED' | 'PRE_TRANSIT' | 'TRANSIT' | 'FAILURE' | 'RETURNED';
+    type TrackingStatuses = "UNKNOWN" | "DELIVERED" | "PRE_TRANSIT" | "TRANSIT" | "FAILURE" | "RETURNED";
 
-    type ObjectState = 'VALID' | 'INVALID';
+    type ObjectState = "VALID" | "INVALID";
 
     type LabelFileType =
-        | 'PNG'
-        | 'PNG_2.3x7.5'
-        | 'PDF'
-        | 'PDF_2.3x7.5'
-        | 'PDF_4x6'
-        | 'PDF_4x8'
-        | 'PDF_A4'
-        | 'PDF_A6'
-        | 'ZPLII';
+        | "PNG"
+        | "PNG_2.3x7.5"
+        | "PDF"
+        | "PDF_2.3x7.5"
+        | "PDF_4x6"
+        | "PDF_4x8"
+        | "PDF_A4"
+        | "PDF_A6"
+        | "ZPLII";
 
     interface ValidationError {
         source: string;
@@ -432,7 +432,7 @@ declare namespace Shippo {
         }
 
         namespace COD {
-            type PaymentMethod = 'SECURED_FUNDS' | 'CASH' | 'ANY';
+            type PaymentMethod = "SECURED_FUNDS" | "CASH" | "ANY";
         }
 
         interface Insurance {
@@ -443,7 +443,7 @@ declare namespace Shippo {
         }
 
         namespace Insurance {
-            type Provider = 'FEDEX' | 'UPS';
+            type Provider = "FEDEX" | "UPS";
         }
     }
 
@@ -486,7 +486,7 @@ declare namespace Shippo {
     }
 
     namespace Shipment {
-        type Status = 'WAITING' | 'QUEUED' | 'SUCCESS' | 'ERROR';
+        type Status = "WAITING" | "QUEUED" | "SUCCESS" | "ERROR";
     }
 
     interface ShipmentExtras {
@@ -522,7 +522,7 @@ declare namespace Shippo {
     }
 
     namespace ShipmentExtras {
-        type AncillaryEndorsement = 'FORWARDING_SERVICE_REQUESTED' | 'RETURN_SERVICE_REQUESTED';
+        type AncillaryEndorsement = "FORWARDING_SERVICE_REQUESTED" | "RETURN_SERVICE_REQUESTED";
 
         interface Alcohol {
             contains_alcohol: boolean;
@@ -530,7 +530,7 @@ declare namespace Shippo {
         }
 
         namespace Alcohol {
-            type RecipientType = 'licensee' | 'consumer'; // as per docs
+            type RecipientType = "licensee" | "consumer"; // as per docs
         }
 
         interface Billing {
@@ -542,7 +542,7 @@ declare namespace Shippo {
         }
 
         namespace Billing {
-            type Type = 'SENDER' | 'RECIPIENT' | 'THIRD_PARTY' | 'THIRD_PARTY_CONSIGNEE';
+            type Type = "SENDER" | "RECIPIENT" | "THIRD_PARTY" | "THIRD_PARTY_CONSIGNEE";
         }
 
         interface COD {
@@ -552,10 +552,10 @@ declare namespace Shippo {
         }
 
         namespace COD {
-            type PaymentMethod = 'SECURED_FUNDS' | 'CASH' | 'ANY';
+            type PaymentMethod = "SECURED_FUNDS" | "CASH" | "ANY";
         }
 
-        type DangerousGoodsCode = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09';
+        type DangerousGoodsCode = "01" | "02" | "03" | "04" | "05" | "06" | "07" | "08" | "09";
 
         interface DryIce {
             contains_dry_ice: boolean;
@@ -570,25 +570,25 @@ declare namespace Shippo {
         }
 
         namespace Insurance {
-            type Provider = 'FEDEX' | 'UPS' | 'ONTRAC';
+            type Provider = "FEDEX" | "UPS" | "ONTRAC";
         }
 
         type LasershipAttrs =
-            | 'TwoPersonDelivery'
-            | 'Explosive'
-            | 'Alcohol'
-            | 'Hazmat'
-            | 'ControlledSubstance'
-            | 'Refrigerated'
-            | 'DryIce'
-            | 'Perishable'
-            | 'NoRTS';
+            | "TwoPersonDelivery"
+            | "Explosive"
+            | "Alcohol"
+            | "Hazmat"
+            | "ControlledSubstance"
+            | "Refrigerated"
+            | "DryIce"
+            | "Perishable"
+            | "NoRTS";
 
-        type PreferredDeliveryTimeframe = '10001200' | '12001400' | '14001600' | '16001800' | '18002000' | '19002100';
+        type PreferredDeliveryTimeframe = "10001200" | "12001400" | "14001600" | "16001800" | "18002000" | "19002100";
 
-        type ReturnServiceType = 'PRINT_AND_MAIL' | 'ATTEMPT_1' | 'ATTEMPT_3' | 'ELECTRONIC_LABEL';
+        type ReturnServiceType = "PRINT_AND_MAIL" | "ATTEMPT_1" | "ATTEMPT_3" | "ELECTRONIC_LABEL";
 
-        type SignatureConfirmation = 'STANDARD' | 'ADULT' | 'CERTIFIED' | 'INDIRECT' | 'CARRIER_CONFIRMATION';
+        type SignatureConfirmation = "STANDARD" | "ADULT" | "CERTIFIED" | "INDIRECT" | "CARRIER_CONFIRMATION";
     }
 
     type GetRequired<T, P extends Required<T> = Required<T>> = {
@@ -611,12 +611,15 @@ declare namespace Shippo {
         token: ServiceLevels;
         terms: string;
         extended_token: string;
-        parent_servicelevel: {
-            name: string;
-            token: ServiceLevels;
-            terms: string;
-            extended_token: string;
-        } | string | null;
+        parent_servicelevel:
+            | {
+                name: string;
+                token: ServiceLevels;
+                terms: string;
+                extended_token: string;
+            }
+            | string
+            | null;
     }
 
     // https://goshippo.com/docs/reference#rates
@@ -639,7 +642,7 @@ declare namespace Shippo {
     }
 
     namespace Rate {
-        type Attribute = 'CHEAPEST' | 'FASTEST' | 'BESTVALUE';
+        type Attribute = "CHEAPEST" | "FASTEST" | "BESTVALUE";
     }
 
     // https://goshippo.com/docs/reference#carriers
@@ -673,7 +676,7 @@ declare namespace Shippo {
     }
 
     namespace Transaction {
-        type Status = 'WAITING' | 'QUEUED' | 'SUCCESS' | 'ERROR' | 'REFUNDED' | 'REFUNDPENDING' | 'REFUNDREJECTED';
+        type Status = "WAITING" | "QUEUED" | "SUCCESS" | "ERROR" | "REFUNDED" | "REFUNDPENDING" | "REFUNDREJECTED";
     }
 
     interface TransactionCreateInstantRequest {
@@ -690,7 +693,7 @@ declare namespace Shippo {
         label_file_type?: LabelFileType | undefined;
     }
 
-    interface TrackingStatus extends Omit<Metadata, 'object_owner'> {
+    interface TrackingStatus extends Omit<Metadata, "object_owner"> {
         location: Location;
         status: TrackingStatuses;
         status_date: string;
@@ -723,12 +726,12 @@ declare namespace Shippo {
         eccn_ear99?: string | undefined;
         mass_unit: MassUnit;
         metadata?: string | undefined;
-        net_weight: `${ number }`;
+        net_weight: `${number}`;
         origin_country: Country;
         quantity: number;
         sku_code?: string | undefined;
         tariff_number?: string | undefined;
-        value_amount: `${ number }`;
+        value_amount: `${number}`;
         value_currency: string;
         object_state: ObjectState;
         test?: boolean | undefined;
@@ -777,21 +780,21 @@ declare namespace Shippo {
     }
 
     namespace CustomsDeclaration {
-        type B13aFilingOption = 'FILED_ELECTRONICALLY' | 'SUMMARY_REPORTING' | 'NOT_REQUIRED';
+        type B13aFilingOption = "FILED_ELECTRONICALLY" | "SUMMARY_REPORTING" | "NOT_REQUIRED";
 
         type ContentsType =
-            | 'DOCUMENTS'
-            | 'GIFT'
-            | 'SAMPLE'
-            | 'MERCHANDISE'
-            | 'HUMANITARIAN_DONATION'
-            | 'RETURN_MERCHANDISE'
-            | 'OTHER'
+            | "DOCUMENTS"
+            | "GIFT"
+            | "SAMPLE"
+            | "MERCHANDISE"
+            | "HUMANITARIAN_DONATION"
+            | "RETURN_MERCHANDISE"
+            | "OTHER"
             | (string & {});
 
-        type EelPfc = 'NOEEI_30_37_a' | 'NOEEI_30_37_h' | 'NOEEI_30_37_f' | 'NOEEI_30_36' | 'AES_ITN';
+        type EelPfc = "NOEEI_30_37_a" | "NOEEI_30_37_h" | "NOEEI_30_37_f" | "NOEEI_30_36" | "AES_ITN";
 
-        type NonDeliveryOption = 'ABANDON' | 'RETURN' | (string & {});
+        type NonDeliveryOption = "ABANDON" | "RETURN" | (string & {});
     }
 
     interface CustomsInvoicedCharges {
@@ -813,7 +816,7 @@ declare namespace Shippo {
     }
 
     namespace CustomsTaxIdentification {
-        type Type = 'EIN' | 'VAT' | 'IOSS' | 'ARN' | (string & {});
+        type Type = "EIN" | "VAT" | "IOSS" | "ARN" | (string & {});
     }
 
     interface CreateCustomsDeclarationRequest {
@@ -848,7 +851,7 @@ declare namespace Shippo {
     }
 
     namespace Refund {
-        type Status = 'QUEUED' | 'PENDING' | 'SUCCESS' | 'ERROR';
+        type Status = "QUEUED" | "PENDING" | "SUCCESS" | "ERROR";
     }
 
     interface CreateRefundRequest extends Asyncable {
@@ -866,7 +869,7 @@ declare namespace Shippo {
     }
 
     namespace Manifest {
-        type Status = 'QUEUED' | 'SUCCESS' | 'ERROR';
+        type Status = "QUEUED" | "SUCCESS" | "ERROR";
     }
 
     interface CreateManifestRequest extends Asyncable {
@@ -889,7 +892,7 @@ declare namespace Shippo {
     }
 
     namespace Batch {
-        type Status = 'VALIDATING' | 'VALID' | 'INVALID' | 'PURCHASING' | 'PURCHASED';
+        type Status = "VALIDATING" | "VALID" | "INVALID" | "PURCHASING" | "PURCHASED";
 
         interface ShipmentListWrapper {
             next?: string | undefined;
@@ -909,7 +912,7 @@ declare namespace Shippo {
         }
 
         namespace Shipment {
-            type Status = 'INVALID' | 'VALID' | 'INCOMPLETE' | 'TRANSACTION_FAILED';
+            type Status = "INVALID" | "VALID" | "INCOMPLETE" | "TRANSACTION_FAILED";
         }
 
         interface ErrorMessage {
@@ -923,7 +926,7 @@ declare namespace Shippo {
             purchase_failed: number;
         }
 
-        type ObjectResult = 'creation_succeeded' | 'creation_failed' | 'purchase_succeeded' | 'purchase_failed';
+        type ObjectResult = "creation_succeeded" | "creation_failed" | "purchase_succeeded" | "purchase_failed";
     }
 
     interface CreateBatchRequest {
@@ -1022,7 +1025,7 @@ declare namespace Shippo {
 
 interface ShippoStatic {
     (token: string): Shippo.Shippo;
-    new (token: string): Shippo.Shippo;
+    new(token: string): Shippo.Shippo;
 }
 
 declare const Shippo: ShippoStatic;

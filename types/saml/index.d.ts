@@ -74,7 +74,10 @@ export interface SamlUnassignedOpts {
 }
 export namespace Saml11 {
     function create(opts: SamlSignedOpts, cb?: (err: Error | null, result: any[], proofSecret: Buffer) => void): any;
-    function createUnsignedAssertion(opts: SamlUnassignedOpts, cb?: (err: Error | null, result: any[], proofSecret: Buffer) => void): any;
+    function createUnsignedAssertion(
+        opts: SamlUnassignedOpts,
+        cb?: (err: Error | null, result: any[], proofSecret: Buffer) => void,
+    ): any;
 }
 
 export namespace Saml20 {

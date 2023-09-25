@@ -1,10 +1,10 @@
-import * as webdriver from './index';
-import * as remote from './remote';
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * IEDriverServer logging levels.
  */
-export type Level = 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE';
+export type Level = "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE";
 
 /**
  * A WebDriver client for Microsoft's Internet Explorer.

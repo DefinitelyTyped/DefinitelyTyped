@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import { ChildProcess } from "child_process";
 import { EventEmitter } from "events";
 import { SCServer } from "socketcluster-server";
-import { ChildProcess } from "child_process";
 
 interface WorkerStartInfo {
     id: number;
@@ -72,7 +72,11 @@ declare class SocketCluster extends EventEmitter {
 
     run(): void;
 
-    sendToWorker(workerId: number, data: any, callback?: (err: Error, responseData: any, workerId: number) => void): void;
+    sendToWorker(
+        workerId: number,
+        data: any,
+        callback?: (err: Error, responseData: any, workerId: number) => void,
+    ): void;
     sendToBroker(brokerId: number, data: any, callback?: (err: Error | null, responseData: any) => void): void;
 
     killWorkers(options?: KillWorkersOptions): void;

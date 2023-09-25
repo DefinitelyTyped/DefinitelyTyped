@@ -1,4 +1,4 @@
-import ShopifyBuy = require('shopify-buy');
+import ShopifyBuy = require("shopify-buy");
 
 declare const collection: ShopifyBuy.Collection;
 declare const checkout: ShopifyBuy.Checkout;
@@ -8,11 +8,11 @@ declare const shop: ShopifyBuy.Shop;
 
 // Initializing a client to return content in the store's primary language
 const client = ShopifyBuy.buildClient({
-    domain: 'your-shop-name.myshopify.com',
-    storefrontAccessToken: 'your-storefront-access-token',
-    language: 'en-US',
-    apiVersion: '1.0',
-    source: 'source',
+    domain: "your-shop-name.myshopify.com",
+    storefrontAccessToken: "your-storefront-access-token",
+    language: "en-US",
+    apiVersion: "1.0",
+    source: "source",
 });
 
 // Fetch all products in your shop
@@ -27,7 +27,7 @@ client.product.fetchAll().then(products => {
 });
 
 // Fetch a single product by ID
-const productId = 'gid://shopify/Product/7857989384';
+const productId = "gid://shopify/Product/7857989384";
 
 client.product.fetch(productId).then(product => {
     // $ExpectType Product
@@ -49,7 +49,7 @@ client.product.fetch(productId).then(product => {
 });
 
 // Fetch a single product by Handle
-const handle = 'product-handle';
+const handle = "product-handle";
 
 client.product.fetchByHandle(handle).then(product => {
     // $ExpectType Product
@@ -70,7 +70,7 @@ client.collection.fetchAllWithProducts().then(collections => {
 });
 
 // Fetch a single collection by ID, including its products
-const collectionId = 'gid://shopify/Collection/369312584';
+const collectionId = "gid://shopify/Collection/369312584";
 // Set a parameter for first x products, defaults to 20 if you don't provide a param
 
 client.collection.fetchWithProducts(collectionId, { productsFirst: 10 }).then(collection => {
@@ -86,12 +86,12 @@ client.checkout.create().then(checkout => {
     checkout;
 });
 
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8';
+const checkoutId = "gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8";
 
 // Updating checkout attributes
 client.checkout
     .updateAttributes(checkoutId, {
-        customAttributes: [{ key: 'MyKey', value: 'MyValue' }],
+        customAttributes: [{ key: "MyKey", value: "MyValue" }],
     })
     .then(checkout => {
         // $ExpectType Checkout
@@ -102,9 +102,9 @@ client.checkout
 client.checkout
     .addLineItems(checkoutId, [
         {
-            variantId: 'gid://shopify/ProductVariant/29106064584',
+            variantId: "gid://shopify/ProductVariant/29106064584",
             quantity: 5,
-            customAttributes: [{ key: 'MyKey', value: 'MyValue' }],
+            customAttributes: [{ key: "MyKey", value: "MyValue" }],
         },
     ])
     .then(checkout => {
@@ -118,7 +118,7 @@ client.checkout
 client.checkout
     .updateLineItems(checkoutId, [
         {
-            variantId: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef',
+            variantId: "gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef",
             quantity: 2,
         },
     ])
@@ -132,7 +132,7 @@ client.checkout
 // Remove an item from the checkout
 client.checkout
     .removeLineItems(checkoutId, [
-        'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef',
+        "gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef",
     ])
     .then(checkout => {
         // $ExpectType Checkout
@@ -149,7 +149,7 @@ client.checkout.fetch(checkoutId).then(checkout => {
 });
 
 // Add a discount code to the checkout
-client.checkout.addDiscount(checkoutId, 'best-discount-ever').then(checkout => {
+client.checkout.addDiscount(checkoutId, "best-discount-ever").then(checkout => {
     // $ExpectType Checkout
     checkout;
     // $ExpectType CheckoutLineItem[]
@@ -167,16 +167,16 @@ client.checkout.removeDiscount(checkoutId).then(checkout => {
 // Update the shipping address for an existing checkout.
 client.checkout
     .updateShippingAddress(checkoutId, {
-        address1: 'Chestnut Street 92',
-        address2: 'Apartment 2',
-        city: 'Louisville',
+        address1: "Chestnut Street 92",
+        address2: "Apartment 2",
+        city: "Louisville",
         company: null,
-        country: 'United States',
-        firstName: 'Bob',
-        lastName: 'Norman',
-        phone: '555-625-1199',
-        province: 'Kentucky',
-        zip: '40202',
+        country: "United States",
+        firstName: "Bob",
+        lastName: "Norman",
+        phone: "555-625-1199",
+        province: "Kentucky",
+        zip: "40202",
     })
     .then(checkout => {
         // $ExpectType Checkout

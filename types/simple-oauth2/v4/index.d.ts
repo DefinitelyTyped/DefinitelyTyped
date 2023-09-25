@@ -86,14 +86,16 @@ export interface WreckHttpOptions {
     headers?: { [key: string]: any } | undefined;
     redirects?: number | undefined;
     redirect303?: boolean | undefined;
-    beforeRedirect?: ((
-        redirectMethod: string,
-        statusCode: number,
-        location: string,
-        resHeaders: { [key: string]: any },
-        redirectOptions: any,
-        next: () => {},
-    ) => void) | undefined;
+    beforeRedirect?:
+        | ((
+            redirectMethod: string,
+            statusCode: number,
+            location: string,
+            resHeaders: { [key: string]: any },
+            redirectOptions: any,
+            next: () => {},
+        ) => void)
+        | undefined;
     redirected?: ((statusCode: number, location: string, req: any) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
@@ -127,14 +129,16 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
      * @return the absolute authorization url
      */
     authorizeURL(
-        params?: {
-            /** A string that represents the Client-ID */
-            [key in ClientIdName]?: string;
-        } & {
-            redirect_uri?: string | undefined;
-            scope?: string | string[] | undefined;
-            state?: string | undefined;
-        },
+        params?:
+            & {
+                /** A string that represents the Client-ID */
+                [key in ClientIdName]?: string;
+            }
+            & {
+                redirect_uri?: string | undefined;
+                scope?: string | string[] | undefined;
+                state?: string | undefined;
+            },
     ): string;
 
     /**

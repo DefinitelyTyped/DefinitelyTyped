@@ -1,6 +1,6 @@
-import { Map } from 'leaflet';
-import { getContext } from 'svelte';
-import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs';
+import { Map } from "leaflet";
+import { getContext } from "svelte";
+import { Circle, LeafletContext, LeafletMap, TileLayer } from "svelte-leafletjs";
 
 //
 // component tests
@@ -15,7 +15,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     // $ExpectType Map
     mapEl.getMap();
 
-    mapEl.$on('locationfound', e => {
+    mapEl.$on("locationfound", e => {
         // $ExpectType LocationEvent
         e;
     });
@@ -33,7 +33,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     const tileLayerEl = new TileLayer({
         target: document.body,
         props: {
-            url: 'abc',
+            url: "abc",
             // @ts-expect-error -- invalid value
             wms: 1,
         },
@@ -43,7 +43,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     tileLayerEl.getTileLayer();
 
     // @ts-expect-error this event doesn't exist on this component
-    tileLayerEl.$on('locationfound', () => {});
+    tileLayerEl.$on("locationfound", () => {});
 }
 
 {
@@ -58,7 +58,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     // test that leaflet methods work
     circleEl.getCircle().getBounds();
 
-    circleEl.$on('dblclick', e => {
+    circleEl.$on("dblclick", e => {
         // $ExpectType LeafletMouseEvent
         e;
     });
@@ -71,7 +71,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     const f = () => {
         const mapEl = new LeafletMap({
             target: document.body,
-            props: { options: { center: [-36.84111, 174.7682] }, getMap, events: ['moveend', 'zoom', 'resize'] },
+            props: { options: { center: [-36.84111, 174.7682] }, getMap, events: ["moveend", "zoom", "resize"] },
         });
     };
 }
@@ -81,10 +81,10 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
 //
 
 // $ExpectType Map
-getContext<LeafletContext.Map>('key').getMap();
+getContext<LeafletContext.Map>("key").getMap();
 
 // @ts-expect-error accessing invalid context attribute
-getContext<LeafletContext.Map>('key').getLayer();
+getContext<LeafletContext.Map>("key").getLayer();
 
 // $ExpectType Rectangle<any>
-getContext<LeafletContext.Rectangle>('key').getLayer();
+getContext<LeafletContext.Rectangle>("key").getLayer();

@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export * from './handler';
-export * from './trigger';
+export * from "./handler";
+export * from "./trigger";

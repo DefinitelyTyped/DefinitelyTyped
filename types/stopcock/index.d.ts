@@ -76,8 +76,7 @@ declare namespace stopcock {
     }
 
     interface LimiterFunction<TFn extends (...args: any[]) => unknown> {
-        (...args: Parameters<TFn>): ReturnType<TFn> extends PromiseLike<infer TRetVal>
-            ? Promise<TRetVal>
+        (...args: Parameters<TFn>): ReturnType<TFn> extends PromiseLike<infer TRetVal> ? Promise<TRetVal>
             : Promise<ReturnType<TFn>>;
 
         /**

@@ -3,11 +3,13 @@
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from 'react';
-import { BlockProperties, ValueJSON, Value, Node as SlateNode, Mark, Leaf } from 'slate';
+import * as React from "react";
+import { BlockProperties, Leaf, Mark, Node as SlateNode, Value, ValueJSON } from "slate";
 
 export interface Rule {
-    deserialize?: ((el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any) | undefined;
+    deserialize?:
+        | ((el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any)
+        | undefined;
     serialize?: ((obj: any, children: string) => React.ReactNode) | undefined;
 }
 

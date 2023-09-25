@@ -27,7 +27,7 @@ export interface SignalReport {
     counters?: SignalMetric[] | undefined;
 }
 
-export type EventCategory = 'USER_DEFINED' | 'ALERT' | 'AUDIT' | 'JOB' | 'COLLECTD' | 'SERVICE_DISCOVERY' | 'EXCEPTION';
+export type EventCategory = "USER_DEFINED" | "ALERT" | "AUDIT" | "JOB" | "COLLECTD" | "SERVICE_DISCOVERY" | "EXCEPTION";
 
 export interface SignalEvent {
     eventType: string;
@@ -95,7 +95,7 @@ export interface ExplainOptions extends RequestOptions {
 }
 
 export interface MetadataMessage {
-    type: 'metadata';
+    type: "metadata";
     channel: string;
     tsId: string;
     properties: {
@@ -110,14 +110,14 @@ export interface MetadataMessage {
 }
 
 export interface DataMessage {
-    type: 'data';
+    type: "data";
     channel: string;
     data: [{ tsId: string; value: number }];
     logicalTimestampMs: number;
 }
 
 export interface ControlMessage {
-    type: 'control-message';
+    type: "control-message";
     channel?: string;
     logicalTimestampMs: number;
     // TODO: this is really a fixed set with different values
@@ -131,15 +131,15 @@ export interface ControlMessage {
 }
 
 export interface EventMessage {
-    type: 'event';
+    type: "event";
     logicalTimestampMs: number;
     channel: string;
     tsId: string;
     properties: {
         incidentId: string;
         inputValues: string;
-        is: 'ok' | 'anomalous';
-        was: 'ok' | 'anomalous';
+        is: "ok" | "anomalous";
+        was: "ok" | "anomalous";
     };
 }
 

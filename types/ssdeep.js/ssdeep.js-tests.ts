@@ -1,9 +1,9 @@
-import { digest, similarity } from 'ssdeep.js';
+import { digest, similarity } from "ssdeep.js";
 
 const testStrings = {
-    test1: 'I love typescript',
-    test2: 'I love javascript',
-    test3: 'I love python :(',
+    test1: "I love typescript",
+    test2: "I love javascript",
+    test3: "I love python :(",
 };
 
 digest(testStrings.test1); // $ExpectType string

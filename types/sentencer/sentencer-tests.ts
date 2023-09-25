@@ -1,4 +1,4 @@
-import Sentencer = require('sentencer');
+import Sentencer = require("sentencer");
 
 // @ts-expect-error
 Sentencer.make();
@@ -16,4 +16,4 @@ Sentencer.configure(123);
 // @ts-expect-error
 Sentencer.configure();
 // $ExpectType void
-Sentencer.configure({ actions: { test: () => "123" }});
+Sentencer.configure({ actions: { test: () => "123" } });

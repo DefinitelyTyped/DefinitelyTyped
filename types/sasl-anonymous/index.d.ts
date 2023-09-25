@@ -3,18 +3,18 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Mechanism } from 'saslmechanisms';
+import { Mechanism } from "saslmechanisms";
 
 export = AnonymousMechanism;
 
 declare class AnonymousMechanism implements Mechanism {
     static Mechanism: typeof AnonymousMechanism;
     static prototype: {
-        name: 'ANONYMOUS';
+        name: "ANONYMOUS";
         clientFirst: true;
     };
 
-    name: 'ANONYMOUS';
+    name: "ANONYMOUS";
     clientFirst: true;
 
     response(cred: AnonymousMechanism.Credentials): string;

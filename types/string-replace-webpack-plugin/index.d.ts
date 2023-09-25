@@ -14,7 +14,7 @@ declare class StringReplacePlugin extends Plugin {
         /**
          * loaders to follow the replacement
          */
-        nextLoaders?: string
+        nextLoaders?: string,
     ): RuleSetUse;
     static replace(
         /**
@@ -25,7 +25,7 @@ declare class StringReplacePlugin extends Plugin {
         /**
          * loaders to follow the replacement
          */
-        nextLoaders?: string
+        nextLoaders?: string,
     ): RuleSetUse;
 }
 

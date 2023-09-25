@@ -8,7 +8,7 @@ declare var sitemap2: Sitemap;
 export = sitemap2;
 
 interface Sitemap {
-    new (conf?: SitemapConfig): Sitemap;
+    new(conf?: SitemapConfig): Sitemap;
 
     addUrl(urlData: UrlData | UrlData[] | string | string[]): this;
     addSitemap(sm: Sitemap): this;

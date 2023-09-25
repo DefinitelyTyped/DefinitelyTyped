@@ -4,22 +4,22 @@ import * as selfsigned from "selfsigned";
 // $ExpectType PEMS
 const pems = selfsigned.generate(
     [
-        { name: 'commonName', value: 'contoso.com' },
-        { shortName: 'OU', value: 'Test' }
+        { name: "commonName", value: "contoso.com" },
+        { shortName: "OU", value: "Test" },
     ],
     {
         days: 365,
-        algorithm: "sha256"
-    }
+        algorithm: "sha256",
+    },
 );
 
 // Callback
 // $ExpectType void
-selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], { days: 365 }, (err, pems) => {});
+selfsigned.generate([{ name: "commonName", value: "contoso.com" }], { days: 365 }, (err, pems) => {});
 
 // Callback
 // $ExpectType void
-selfsigned.generate([{ name: 'commonName', value: 'contoso.com' }], (err, pems) => {});
+selfsigned.generate([{ name: "commonName", value: "contoso.com" }], (err, pems) => {});
 
 // Callback only
 // $ExpectType void

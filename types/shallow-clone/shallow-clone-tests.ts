@@ -1,3 +1,3 @@
-import shallowClone = require('shallow-clone');
+import shallowClone = require("shallow-clone");
 
-shallowClone({ a: 'b' }); // $ExpectType { a: string; }
+shallowClone({ a: "b" }); // $ExpectType { a: string; }

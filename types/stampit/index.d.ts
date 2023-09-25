@@ -33,18 +33,13 @@ interface StampSignature {
  * @internal Extracts the `Stamp` type.
  * @template Original The type to extract the `Stamp` type from.
  */
-type StampType<Original> = Original extends /* disallowed types */ [] | bigint
-    ? never
+type StampType<Original> = Original extends /* disallowed types */ [] | bigint ? never
     : stampit.IsADescriptor<Original> extends true
-    ? (Original extends stampit.ExtendedDescriptor<infer Obj, infer Stamp> ? Stamp : never)
-    : unknown extends Original /* is any or unknown */
-    ? stampit.Stamp<Original>
-    : Original extends StampSignature
-    ? Original
-    : Original extends stampit.ExtendedDescriptor<infer Obj, any>
-    ? stampit.Stamp<Obj>
-    : Original extends Pojo
-    ? stampit.Stamp<Original> /*assume it is the object from a stamp object*/
+        ? (Original extends stampit.ExtendedDescriptor<infer Obj, infer Stamp> ? Stamp : never)
+    : unknown extends Original /* is any or unknown */ ? stampit.Stamp<Original>
+    : Original extends StampSignature ? Original
+    : Original extends stampit.ExtendedDescriptor<infer Obj, any> ? stampit.Stamp<Obj>
+    : Original extends Pojo ? stampit.Stamp<Original> /*assume it is the object from a stamp object*/
     : never;
 
 /**
@@ -54,17 +49,14 @@ type StampType<Original> = Original extends /* disallowed types */ [] | bigint
 type StampObjectType<Original> = Original extends /* disallowed types */ bigint | boolean | number | string | symbol
     ? never
     : stampit.IsADescriptor<Original> extends true
-    ? (Original extends stampit.ExtendedDescriptor<infer Obj, any> ? Obj : never)
-    : unknown extends Original /* is any or unknown */
-    ? Original
+        ? (Original extends stampit.ExtendedDescriptor<infer Obj, any> ? Obj : never)
+    : unknown extends Original /* is any or unknown */ ? Original
     : Original extends StampSignature
-    ? (Original extends stampit.Stamp<infer Obj> /* extended stamps may require infering twice */
-          ? (Obj extends stampit.Stamp<infer Obj> ? Obj : Obj)
-          : any)
-    : Original extends stampit.ExtendedDescriptor<infer Obj, any>
-    ? Obj
-    : Original extends Pojo
-    ? Original
+        ? (Original extends stampit.Stamp<infer Obj> /* extended stamps may require infering twice */
+            ? (Obj extends stampit.Stamp<infer Obj> ? Obj : Obj)
+            : any)
+    : Original extends stampit.ExtendedDescriptor<infer Obj, any> ? Obj
+    : Original extends Pojo ? Original
     : never;
 
 /**
@@ -277,12 +269,9 @@ declare namespace stampit {
      * @template Type A type to check if a ExtendedDescriptor.
      */
     // TODO: Improve test by checking the type of common keys
-    type IsADescriptor<Type> = unknown extends Type
-        ? (keyof Type extends never
-              ? false
-              : keyof Type extends infer K
-              ? (K extends keyof ExtendedDescriptor<unknown> ? true : false)
-              : false)
+    type IsADescriptor<Type> = unknown extends Type ? (keyof Type extends never ? false
+            : keyof Type extends infer K ? (K extends keyof ExtendedDescriptor<unknown> ? true : false)
+            : false)
         : false;
 
     /**

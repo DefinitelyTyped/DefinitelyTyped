@@ -1,12 +1,12 @@
-import * as AWS from 'aws-sdk2-types';
-import * as S3S from 's3-streams';
+import * as AWS from "aws-sdk2-types";
+import * as S3S from "s3-streams";
 
 const s3 = new AWS.S3();
 const ws = new S3S.WriteStream(
     s3,
     {
-        Bucket: 'my-bucket',
-        Key: 'my-key',
+        Bucket: "my-bucket",
+        Key: "my-key",
     },
     { highWaterMark: 42 },
 );
@@ -14,8 +14,8 @@ const ws = new S3S.WriteStream(
 const rs = new S3S.ReadStream(
     s3,
     {
-        Bucket: 'my-bucket',
-        Key: 'my-key',
+        Bucket: "my-bucket",
+        Key: "my-key",
     },
     { highWaterMark: 42 },
 );

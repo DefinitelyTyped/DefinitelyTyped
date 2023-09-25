@@ -1,4 +1,4 @@
-import { NrOfTokens, OriginalIds, Scores, TokenizerFn, Tokens, Weights } from './';
+import { NrOfTokens, OriginalIds, Scores, TokenizerFn, Tokens, Weights } from "./";
 
 export = buildIndex;
 

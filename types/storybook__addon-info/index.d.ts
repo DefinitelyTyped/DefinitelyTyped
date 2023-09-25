@@ -6,9 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ComponentType, ReactElement } from 'react';
-import { DecoratorFunction, StoryFn, Parameters, StoryApi } from '@storybook/addons';
-import { StoryContext } from '@storybook/csf/dist/story';
+import { DecoratorFunction, Parameters, StoryApi, StoryFn } from "@storybook/addons";
+import { StoryContext } from "@storybook/csf/dist/story";
+import { ComponentType, ReactElement } from "react";
 
 export interface WrapStoryProps {
     storyFn?: StoryFn | undefined;
@@ -35,7 +35,7 @@ export interface Options {
     propTablesExclude?: Array<ComponentType<any>> | undefined;
     styles?: object | undefined;
     components?: {
-        [key: string]: ComponentType<any>
+        [key: string]: ComponentType<any>;
     } | undefined;
     /**
      * @deprecated "marksyConf" option has been renamed to "components"
@@ -51,7 +51,7 @@ export interface Options {
 
 export function withInfo<A = unknown>(
     story: StoryFn<A>,
-    context: StoryContext<{ component: any; storyResult: A; }>
+    context: StoryContext<{ component: any; storyResult: A }>,
 ): ReturnType<DecoratorFunction<A>>;
 
 // Legacy, but supported
@@ -67,7 +67,7 @@ export function withInfo(
  */
 export function setDefaults(newDefaults: Options): Options;
 
-declare module '@storybook/addons' {
+declare module "@storybook/addons" {
     interface ClientStoryApi<StoryFnReturnType = unknown> {
         storiesOf(kind: string, module: NodeModule): StoryApi<StoryFnReturnType>;
         addParameters(parameter: Parameters & { info: Options }): StoryApi<StoryFnReturnType>;

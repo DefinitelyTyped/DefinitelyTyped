@@ -9,14 +9,14 @@ declare namespace SailsIOJS {
     interface SDKInfo {
         version?: string | undefined;
         language?: string | undefined;
-        platform?: 'browser' | 'node' | undefined;
+        platform?: "browser" | "node" | undefined;
         versionString?: string | undefined;
     }
     interface ClientSails {
         url?: string | undefined;
         autoConnect?: boolean | undefined;
         headers?: { [index: string]: string } | undefined;
-        transports?: Array<'websocket' | 'polling'> | undefined;
+        transports?: Array<"websocket" | "polling"> | undefined;
         rejectUnauthorized?: boolean | undefined;
         reconnection?: boolean | undefined;
         reconnectionAttempts?: number | undefined;
@@ -26,7 +26,7 @@ declare namespace SailsIOJS {
         query?: string | undefined;
         path?: string | undefined;
         // All logs are disabled when `io.sails.environment = 'production'`
-        environment?: 'production' | string | undefined;
+        environment?: "production" | string | undefined;
         connect(url?: string, config?: ConnectConfig): Socket;
         initialConnectionHeaders?: InitialConnectionHeaders | undefined;
         strict?: boolean | undefined;
@@ -83,11 +83,11 @@ declare namespace SailsIOJS {
         delete(url: string, data: Data, cb: RequestCallback): void;
         request(options: RequestOptions, cb?: RequestCallback): void;
         on(event: string, cb: (...args: any[]) => any): Socket;
-        on(event: 'connect', cb: () => any): Socket;
-        on(event: 'disconnect', cb: () => any): Socket;
-        on(event: 'reconnecting', cb: (numAttempts: number) => any): Socket;
-        on(event: 'reconnect', cb: (transport: string, numAttempts: number) => any): Socket;
-        on(event: 'error', cb: (err: any) => any): Socket;
+        on(event: "connect", cb: () => any): Socket;
+        on(event: "disconnect", cb: () => any): Socket;
+        on(event: "reconnecting", cb: (numAttempts: number) => any): Socket;
+        on(event: "reconnect", cb: (transport: string, numAttempts: number) => any): Socket;
+        on(event: "error", cb: (err: any) => any): Socket;
         off(event: string, cb: (...args: any[]) => any): Socket;
         removeAllListeners(): Socket;
         isConnecting(): boolean;

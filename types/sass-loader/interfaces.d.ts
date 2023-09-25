@@ -431,11 +431,11 @@ export interface LoaderOptions {
      * };
      * ```
      */
-    warnRuleAsWarning ?: boolean | undefined;
+    warnRuleAsWarning?: boolean | undefined;
 }
 
 export namespace LoaderOptions {
     type Callback<T> = (loaderContext: Webpack.loader.LoaderContext) => T;
 
-    type SassOptions = NodeSass.Options | Sass.LegacyOptions<'sync'>;
+    type SassOptions = NodeSass.Options | Sass.LegacyOptions<"sync">;
 }

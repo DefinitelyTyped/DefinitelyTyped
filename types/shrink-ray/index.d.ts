@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { RequestHandler, Request, Response } from 'express';
-import * as zlib from 'zlib';
+import { Request, RequestHandler, Response } from "express";
+import * as zlib from "zlib";
 type FilterFunction = (req: Request, res: Response) => boolean;
 
 type Options = Partial<{

@@ -22,7 +22,6 @@ interface StoreJSStatic {
 }
 
 declare var store: StoreJSStatic;
-declare module 'store' {
+declare module "store" {
     export = store;
 }
-

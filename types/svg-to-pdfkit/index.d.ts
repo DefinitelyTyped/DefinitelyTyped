@@ -3,7 +3,7 @@
 // Definitions by: Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import PDFDocument = require('pdfkit');
+import PDFDocument = require("pdfkit");
 
 declare function SVGtoPDF(
     doc: typeof PDFDocument,

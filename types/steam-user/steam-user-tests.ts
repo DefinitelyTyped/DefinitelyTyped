@@ -1,5 +1,5 @@
-import SteamUser = require('steam-user');
-import SteamID = require('steamid');
+import SteamUser = require("steam-user");
+import SteamID = require("steamid");
 
 console.log(SteamUser.formatCurrency(12.34, SteamUser.ECurrencyCode.USD));
 console.log(SteamUser.formatCurrency(12345, SteamUser.ECurrencyCode.JPY));
@@ -7,44 +7,44 @@ console.log(SteamUser.formatCurrency(123.45, SteamUser.ECurrencyCode.EUR));
 
 const user = new SteamUser();
 
-user.on('debug', message => {
+user.on("debug", message => {
     console.log(message);
 });
 
-user.on('loggedOn', () => {
-    console.log('logged on');
+user.on("loggedOn", () => {
+    console.log("logged on");
     user.setPersona(SteamUser.EPersonaState.Snooze);
     user.setUIMode(SteamUser.EClientUIMode.Mobile);
 });
 
-user.on('error', err => {
+user.on("error", err => {
     console.log(err);
     console.log(err.eresult);
 });
 
-user.chat.on('chatMessage', message => {
-    console.log('Got new message!');
+user.chat.on("chatMessage", message => {
+    console.log("Got new message!");
     console.log(message.message_no_bbcode);
 });
 
-user.setOption('autoRelogin', true);
+user.setOption("autoRelogin", true);
 
-user.setOptions({ language: 'spanish', saveAppTickets: true });
+user.setOptions({ language: "spanish", saveAppTickets: true });
 
 user.logOn({
-    accountName: 'user123',
-    password: 'password',
+    accountName: "user123",
+    password: "password",
 });
 user.logOff();
 user.relog();
 
 user.logOn({
-    refreshToken: 'token123',
-    steamID: '76561197960287930',
+    refreshToken: "token123",
+    steamID: "76561197960287930",
 });
 
 user.logOn({
-    refreshToken: '123token',
+    refreshToken: "123token",
 });
 
 user.requestValidationEmail().catch(err => console.error(err));
@@ -55,7 +55,7 @@ user.enableTwoFactor()
     })
     .catch(err => console.error(err));
 
-user.finalizeTwoFactor(Buffer.from('iwpergjawhirgos'), 'active')
+user.finalizeTwoFactor(Buffer.from("iwpergjawhirgos"), "active")
     .then(response => {
         // do something with response
     })
@@ -101,18 +101,18 @@ console.log(owned);
 
 console.log(user.ownsApp(730));
 
-user.getStoreTagNames('spanish', [1])
+user.getStoreTagNames("spanish", [1])
     .then(response => {
         // do something with response
     })
     .catch(err => console.error(err));
 
-user.addFriend('76561197960287930')
+user.addFriend("76561197960287930")
     .then(response => {
         // do something with response
     })
     .catch(err => console.error(err));
-user.removeFriend('76561197960287930');
+user.removeFriend("76561197960287930");
 
 user.createQuickInviteLink()
     .then(response => {
@@ -126,23 +126,23 @@ user.listQuickInviteLinks()
     })
     .catch(err => console.error(err));
 
-console.log(user.getQuickInviteLinkSteamID('www.steamcommunity.com/quickinvite/123456780'));
+console.log(user.getQuickInviteLinkSteamID("www.steamcommunity.com/quickinvite/123456780"));
 
-user.redeemQuickInviteLink('www.steamcommunity.com/quickinvite/123456780').catch(err => console.error(err));
+user.redeemQuickInviteLink("www.steamcommunity.com/quickinvite/123456780").catch(err => console.error(err));
 
-user.getPersonas(['76561197960287930'])
+user.getPersonas(["76561197960287930"])
     .then(response => {
         // do something with response
     })
     .catch(err => console.error(err));
 
-user.getSteamLevels(['76561197960287930'])
+user.getSteamLevels(["76561197960287930"])
     .then(response => {
         // do something with response
     })
     .catch(err => console.error(err));
 
-user.getAliases(['76561197960287930'])
+user.getAliases(["76561197960287930"])
     .then(response => {
         // do something with response
     })
@@ -161,7 +161,7 @@ user.getEmoticonList()
     .catch(err => console.error(err));
 
 user.chat
-    .getFriendMessageHistory('76561197960287930')
+    .getFriendMessageHistory("76561197960287930")
     .then(response => {
         // do something with response
     })
@@ -170,7 +170,7 @@ user.chat
 user.getFriendsThatPlay(730).then(response => {
     // do something with response
 });
-user.chat.on('chatRoomGroupRoomsChange', details => {
+user.chat.on("chatRoomGroupRoomsChange", details => {
     console.log(details.chat_group_id);
     console.log(details.default_chat_id);
     console.log(details.chat_rooms);
@@ -179,7 +179,7 @@ user.chat.on('chatRoomGroupRoomsChange', details => {
 // ADDED IN v4.21.0
 
 user.chat
-    .createGroup(['76561197960287930', '76561197960287931', '76561197960287932'])
+    .createGroup(["76561197960287930", "76561197960287931", "76561197960287932"])
     .then(response => {
         console.log(response.chat_group_id);
         console.log(response.state);
@@ -187,28 +187,28 @@ user.chat
     })
     .catch(err => console.error(err));
 
-user.chat.saveGroup('groupId', 'myAwesomeGroupName').catch(err => console.error(err));
+user.chat.saveGroup("groupId", "myAwesomeGroupName").catch(err => console.error(err));
 
-user.chat.leaveGroup('groupId').catch(err => console.error(err));
+user.chat.leaveGroup("groupId").catch(err => console.error(err));
 
 user.chat
-    .setGroupUserRoleState('groupId', new SteamID('76561197960287931'), 'roleId', true)
+    .setGroupUserRoleState("groupId", new SteamID("76561197960287931"), "roleId", true)
     .catch(err => console.error);
 
-user.chat.on('chatRoomGroupSelfStateChange', details => {
+user.chat.on("chatRoomGroupSelfStateChange", details => {
     console.log(details.chat_group_id);
     console.log(details.user_action);
     console.log(details.user_chat_group_state);
     console.log(details.group_summary);
 });
 
-user.chat.on('chatRoomGroupMemberStateChange', details => {
+user.chat.on("chatRoomGroupMemberStateChange", details => {
     console.log(details.chat_group_id);
     console.log(details.member);
     console.log(details.change);
 });
 
-user.chat.on('chatRoomGroupHeaderStateChange', details => {
+user.chat.on("chatRoomGroupHeaderStateChange", details => {
     console.log(details.chat_group_id);
     console.log(details.header_state);
 });
@@ -240,34 +240,34 @@ user.getOwnedPackages({ excludeShared: false, excludeFree: false });
 user.ownsPackage(4, { excludeExpiring: true, excludeFree: true, excludeShared: true });
 
 // deprecated since v4.22.1
-user.on('appOwnershipCached', () => {});
+user.on("appOwnershipCached", () => {});
 // not deprecated
-user.on('ownershipCached', () => {});
+user.on("ownershipCached", () => {});
 
 // added in v4.23 revision, not necessarily part of that release tho
-user.setOption('ownershipFilter', { excludeExpiring: false });
+user.setOption("ownershipFilter", { excludeExpiring: false });
 
 // APPAUTH METHODS
 user.createEncryptedAppTicket(730, Buffer.alloc(42)).then(ticket => {
     // $ExpectType Record<string, any>
-    SteamUser.parseEncryptedAppTicket(ticket, 'supersafekey');
+    SteamUser.parseEncryptedAppTicket(ticket, "supersafekey");
 });
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.cancelAuthSessionTickets(730, ['gctoken1', 'gctoken2']);
+user.cancelAuthSessionTickets(730, ["gctoken1", "gctoken2"]);
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.cancelAuthSessionTickets(730, 'gctoken1');
+user.cancelAuthSessionTickets(730, "gctoken1");
 // $ExpectType Promise<{ canceledTicketCount: number; }>
 user.cancelAuthSessionTickets(730, null);
 // $ExpectType Promise<{ canceledTicketCount: number; }>
 user.cancelAuthSessionTickets(730);
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.endAuthSessions(730, '76561197960287930');
+user.endAuthSessions(730, "76561197960287930");
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.endAuthSessions(730, ['76561197960287930']);
+user.endAuthSessions(730, ["76561197960287930"]);
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.endAuthSessions(730, [new SteamID('76561197960287930')]);
+user.endAuthSessions(730, [new SteamID("76561197960287930")]);
 // $ExpectType Promise<{ canceledTicketCount: number; }>
-user.endAuthSessions(730, new SteamID('76561197960287930'));
+user.endAuthSessions(730, new SteamID("76561197960287930"));
 user.createAuthSessionTicket(730).then(res => {
     return res.sessionTicket;
 });
@@ -275,9 +275,9 @@ user.getAppOwnershipTicket(730).then(ownershipticket => {
     return ownershipticket;
 });
 // $ExpectType Promise<void>
-user.activateAuthSessionTickets(730, { foo: 42, bar: 'foobar' });
+user.activateAuthSessionTickets(730, { foo: 42, bar: "foobar" });
 // $ExpectType Promise<void>
-user.activateAuthSessionTickets(730, [{ foo: 42, bar: 'foobar' }]);
+user.activateAuthSessionTickets(730, [{ foo: 42, bar: "foobar" }]);
 // $ExpectType Promise<void>
 user.activateAuthSessionTickets(730, [Buffer.alloc(42), Buffer.alloc(43)]);
 // $ExpectType Promise<void>

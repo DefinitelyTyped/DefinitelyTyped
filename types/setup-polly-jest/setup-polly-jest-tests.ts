@@ -1,8 +1,8 @@
-import { setupPolly } from 'setup-polly-jest';
+import { setupPolly } from "setup-polly-jest";
 
 setupPolly();
 setupPolly({ recordIfMissing: true });
-setupPolly({ adapters: ['xhr'] });
+setupPolly({ adapters: ["xhr"] });
 
 const context = setupPolly();
 

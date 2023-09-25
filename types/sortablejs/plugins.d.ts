@@ -1,5 +1,5 @@
-import * as Sortable from './index';
-import { SortableEvent } from './index';
+import * as Sortable from "./index";
+import { SortableEvent } from "./index";
 
 declare class SortablePlugin {}
 declare class AutoScrollPlugin {}
@@ -19,14 +19,16 @@ export interface AutoScrollOptions {
     /**
      * if you have custom scrollbar scrollFn may be used for autoscrolling.
      */
-    scrollFn?: ((
-        this: Sortable,
-        offsetX: number,
-        offsetY: number,
-        originalEvent: Event,
-        touchEvt: TouchEvent,
-        hoverTargetEl: HTMLElement,
-    ) => 'continue' | void) | undefined;
+    scrollFn?:
+        | ((
+            this: Sortable,
+            offsetX: number,
+            offsetY: number,
+            originalEvent: Event,
+            touchEvt: TouchEvent,
+            hoverTargetEl: HTMLElement,
+        ) => "continue" | void)
+        | undefined;
     /**
      * `px`, how near the mouse must be to an edge to start scrolling.
      */

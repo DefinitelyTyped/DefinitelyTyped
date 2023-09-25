@@ -14,7 +14,7 @@ type ReplacerFn = (key: any, value: any) => any;
 declare function safeJsonStringify(
     data: object,
     replacer?: ReplacerFn | any[] | null,
-    space?: string | number
+    space?: string | number,
 ): string;
 
 export = safeJsonStringify;

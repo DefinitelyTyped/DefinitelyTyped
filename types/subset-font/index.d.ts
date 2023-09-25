@@ -12,7 +12,7 @@ interface SubsetFontOptions {
     /**
      * The desired output format. Defaults to the format of the original font.
      */
-    targetFormat?: 'sfnt' | 'woff' | 'woff2' | 'truetype';
+    targetFormat?: "sfnt" | "woff" | "woff2" | "truetype";
     /**
      * An array of numbers specifying the extra name ids to preserve in the name table. See README for details.
      */

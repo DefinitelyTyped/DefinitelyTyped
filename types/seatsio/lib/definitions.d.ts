@@ -4,12 +4,12 @@ declare namespace Seatsio {
     interface BaseObject {
         accessible: boolean;
         category?: Category | undefined;
-        center?: { x: number, y: number } | undefined;
+        center?: { x: number; y: number } | undefined;
         label: string;
         labels: {
-            own: string
-            parent?: string | undefined
-            section?: string | undefined
+            own: string;
+            parent?: string | undefined;
+            section?: string | undefined;
         };
         pricing?: Pricing[] | Pricing | undefined;
         status: string;
@@ -38,7 +38,7 @@ declare namespace Seatsio {
     }
 
     interface Seat extends BaseObject {
-        parent: { type: 'row' | 'table' };
+        parent: { type: "row" | "table" };
         viewFromSeatUrl?: string | undefined;
         companionSeat: boolean;
         restrictedView: boolean;
@@ -77,13 +77,13 @@ declare namespace Seatsio {
         numBooked: 5;
         holds: {
             [tokenHash: string]: {
-                NO_TICKET_TYPE: number
-                [ticketType: string]: number
-            }
+                NO_TICKET_TYPE: number;
+                [ticketType: string]: number;
+            };
         };
     }
 
-    type ColorScheme = 'light' | 'dark';
+    type ColorScheme = "light" | "dark";
 
     interface Colors {
         colorSelected?: string | undefined;
@@ -91,14 +91,14 @@ declare namespace Seatsio {
         colorTitle?: string | undefined;
     }
 
-    type StylePreset = 'balance' | 'bubblegum' | 'flathead' | 'bezels' | 'leaf';
+    type StylePreset = "balance" | "bubblegum" | "flathead" | "bezels" | "leaf";
 
     interface Style {
-        font?: 'Roboto' | 'Montserrat' | 'WorkSans' | 'NotoSansHK' | 'Lato' | undefined;
-        fontWeight?: 'bolder' | 'minMax' | undefined;
-        borderRadius?: 'none' | 'max' | 'asymmetrical' | undefined;
-        border?: 'thick' | '3d' | undefined;
-        padding?: 'spacious' | undefined;
-        buttonFace?: 'fillEnabled' | 'fillHighlightedOption' | undefined;
+        font?: "Roboto" | "Montserrat" | "WorkSans" | "NotoSansHK" | "Lato" | undefined;
+        fontWeight?: "bolder" | "minMax" | undefined;
+        borderRadius?: "none" | "max" | "asymmetrical" | undefined;
+        border?: "thick" | "3d" | undefined;
+        padding?: "spacious" | undefined;
+        buttonFace?: "fillEnabled" | "fillHighlightedOption" | undefined;
     }
 }

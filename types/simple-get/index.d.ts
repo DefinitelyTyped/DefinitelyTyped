@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { ClientRequest, IncomingMessage, RequestOptions } from 'http';
-import { Readable } from 'stream';
+import { ClientRequest, IncomingMessage, RequestOptions } from "http";
+import { Readable } from "stream";
 
 interface SimpleGetOptions extends RequestOptions {
     url: string;

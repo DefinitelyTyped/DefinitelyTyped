@@ -3,5 +3,5 @@
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import SymbolTree = require('./lib/SymbolTree');
+import SymbolTree = require("./lib/SymbolTree");
 export = SymbolTree;

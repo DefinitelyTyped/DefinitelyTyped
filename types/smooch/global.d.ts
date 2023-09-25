@@ -50,7 +50,7 @@ interface InitOptions {
      * Choose how the messenger will appear on your website.
      * @default 'button'
      */
-    displayStyle?: 'button' | 'tab';
+    displayStyle?: "button" | "tab";
     /**
      * When the displayStyle is button, you have the option of selecting your own button icon. The image must be at least 200 x 200 pixels and must be in either JPG, PNG, or GIF format.
      */
@@ -104,7 +104,7 @@ interface InitOptions {
      * Choose the storage type to use for storing user identity in the browser. Must be either localStorage or sessionStorage.
      * @default 'localStorage'
      */
-    browserStorage?: 'localStorage' | 'sessionStorage';
+    browserStorage?: "localStorage" | "sessionStorage";
     /**
      * Sets a delegate on the conversation.
      */
@@ -669,7 +669,7 @@ interface PrechatCapture {
 }
 
 interface PrechatCaptureField {
-    type: 'text' | 'select' | 'email';
+    type: "text" | "select" | "email";
     name: string;
     label: string;
     placeholder: string;
@@ -703,18 +703,19 @@ interface ConversationParticipant {
 
 type Metadata = Record<string, string | number | boolean>;
 
-type ContentType = 'text'
-    | 'carousel'
-    | 'file'
-    | 'form'
-    | 'formResponse'
-    | 'image'
-    | 'list'
-    | 'location'
-    | 'template';
+type ContentType =
+    | "text"
+    | "carousel"
+    | "file"
+    | "form"
+    | "formResponse"
+    | "image"
+    | "list"
+    | "location"
+    | "template";
 
 interface Message {
-    role: 'user' | 'business';
+    role: "user" | "business";
     userId: string;
     displayName: string;
     id: string;
@@ -730,7 +731,7 @@ interface SimpleMessage {
 }
 
 interface MessageSource {
-    type: 'web' | 'slack';
+    type: "web" | "slack";
     id: string;
     integrationId: string;
 }
@@ -742,14 +743,14 @@ interface Conversation {
     description: string;
     displayName: string;
     iconUrl: string;
-    type: 'sdkGroup' | string;
+    type: "sdkGroup" | string;
     participants: ConversationParticipant[];
     metadata: Metadata;
     messages: Message[];
 }
 
 interface Status {
-    status: 'resolved' | 'pending' | string;
+    status: "resolved" | "pending" | string;
 }
 
 interface ConversationData {

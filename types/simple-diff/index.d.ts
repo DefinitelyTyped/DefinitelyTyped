@@ -9,7 +9,7 @@ declare namespace simpleDiff {
     interface AddEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'add';
+        type: "add";
         oldValue: undefined;
         newValue: unknown;
     }
@@ -17,7 +17,7 @@ declare namespace simpleDiff {
     interface RemoveEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'remove';
+        type: "remove";
         oldValue: unknown;
         newValue: undefined;
     }
@@ -25,7 +25,7 @@ declare namespace simpleDiff {
     interface ChangeEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'change';
+        type: "change";
         oldValue: unknown;
         newValue: unknown;
     }
@@ -33,7 +33,7 @@ declare namespace simpleDiff {
     interface AddItemEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'add-item';
+        type: "add-item";
         oldIndex: -1;
         curIndex: -1;
         newIndex: number;
@@ -43,7 +43,7 @@ declare namespace simpleDiff {
     interface RemoveItemEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'remove-item';
+        type: "remove-item";
         oldIndex: number;
         curIndex: number;
         newIndex: -1;
@@ -53,7 +53,7 @@ declare namespace simpleDiff {
     interface MoveItemEvent {
         oldPath: Path;
         newPath: Path;
-        type: 'move-item';
+        type: "move-item";
         oldIndex: number;
         curIndex: number;
         newIndex: number;
@@ -72,19 +72,23 @@ declare namespace simpleDiff {
         idProps?: {
             [path: string]: string;
         } | undefined;
-        comparators?: Array<[
-            unknown,
-            (
+        comparators?:
+            | Array<[
+                unknown,
+                (
+                    oldValue: unknown,
+                    newValue: unknown,
+                    options: { oldPath: Path; newPath: Path },
+                ) => boolean,
+            ]>
+            | undefined;
+        ignore?:
+            | ((
                 oldValue: unknown,
                 newValue: unknown,
-                options: { oldPath: Path; newPath: Path }
-            ) => boolean
-        ]> | undefined;
-        ignore?: ((
-            oldValue: unknown,
-            newValue: unknown,
-            options: { oldPath: Path; newPath: Path }
-        ) => boolean) | undefined;
+                options: { oldPath: Path; newPath: Path },
+            ) => boolean)
+            | undefined;
         callback?: ((event: Event) => void) | undefined;
         addEvent?: string | undefined;
         changeEvent?: string | undefined;

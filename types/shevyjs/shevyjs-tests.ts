@@ -1,12 +1,12 @@
-import Shevy from 'shevyjs';
-import { Options } from 'shevyjs/types';
-import { headings } from 'shevyjs/constants';
-import * as utils from 'shevyjs/utils';
+import Shevy from "shevyjs";
+import { headings } from "shevyjs/constants";
+import { Options } from "shevyjs/types";
+import * as utils from "shevyjs/utils";
 
 const options: Options = {
-    baseFontSize: '16px',
+    baseFontSize: "16px",
     baseLineHeight: 1,
-    baseFontScale: 'majorSecond',
+    baseFontScale: "majorSecond",
     addMarginBottom: true,
     proximity: true,
     proximityFactor: 1,
@@ -44,7 +44,7 @@ utils.calcHeadingLineHeight(shevy, 1); // $ExpectType number
 utils.calcHeadingMarginBottom(shevy, 1); // $ExpectType string | undefined
 utils.calcHeadingMarginBottom(shevy, 1, true); // $ExpectType string | undefined
 utils.getFontScale([1, 2, 3]); // $ExpectType number[]
-utils.getFontScale('majorSecond'); // $ExpectType number[]
-utils.getFontUnit('16px'); // $ExpectType string
-utils.getFontValue('16px'); // $ExpectType number
+utils.getFontScale("majorSecond"); // $ExpectType number[]
+utils.getFontUnit("16px"); // $ExpectType string
+utils.getFontValue("16px"); // $ExpectType number
 utils.trimArrayToMaxOf6([1, 2, 3, 4, 5, 6, 7, 8]); // $ExpectType number[]

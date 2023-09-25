@@ -3,8 +3,8 @@
 // Definitions by: Jonatas de Moraes Junior <https://github.com/Honatas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type DataTableOrderDirection = 'asc' | 'desc';
-export type DataTableColumnType = 'string' | 'number' | 'date';
+export type DataTableOrderDirection = "asc" | "desc";
+export type DataTableColumnType = "string" | "number" | "date";
 
 export interface DataTableOptions {
     columns?: DataTableColumnOptions[];
@@ -43,7 +43,7 @@ export interface DataTableColumnOptions {
 
 // TODO: some of the attributes only exist depending on the type selected
 export interface DataTableExportOptions {
-    type: 'csv' | 'txt' | 'json' | 'sql';
+    type: "csv" | "txt" | "json" | "sql";
     download?: boolean;
     filename?: string;
     selection?: number | number[];
@@ -60,7 +60,7 @@ export interface DataTableExportOptions {
 
 // TODO: some of the attributes only exist depending on the type selected
 export interface DataTableImportOptions {
-    type: 'csv' | 'json';
+    type: "csv" | "json";
     data: string;
     // csv only
     headings?: boolean;
@@ -144,11 +144,11 @@ export class DataTable {
 
     static extend(pluginName: string, callback: (options: DataTableOptions) => DataTablePlugin): void;
 
-    on(event: 'datatable.init' | 'datatable.refresh' | 'datatable.update', callback: () => void): void;
-    on(event: 'datatable.page', callback: (page: number) => void): void;
-    on(event: 'datatable.sort', callback: (column: number, direction: DataTableOrderDirection) => void): void;
-    on(event: 'datatable.perpage', callback: (perpage: number) => void): void;
-    on(event: 'datatable.search', callback: (query: string, matched: DataTableRow[]) => void): void;
+    on(event: "datatable.init" | "datatable.refresh" | "datatable.update", callback: () => void): void;
+    on(event: "datatable.page", callback: (page: number) => void): void;
+    on(event: "datatable.sort", callback: (column: number, direction: DataTableOrderDirection) => void): void;
+    on(event: "datatable.perpage", callback: (perpage: number) => void): void;
+    on(event: "datatable.search", callback: (query: string, matched: DataTableRow[]) => void): void;
 
     rows(): DataTableRows;
     columns(): DataTableColumns;

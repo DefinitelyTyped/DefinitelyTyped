@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import { ClientRequest } from 'http';
+import { ClientRequest } from "http";
 
 export function createClient(options?: Options): Client;
 

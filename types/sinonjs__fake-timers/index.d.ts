@@ -12,21 +12,21 @@
  * Names of clock methods that may be faked by install.
  */
 export type FakeMethod =
-    | 'setTimeout'
-    | 'clearTimeout'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'Date'
-    | 'nextTick'
-    | 'hrtime'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback'
-    | 'performance'
-    | 'queueMicrotask';
+    | "setTimeout"
+    | "clearTimeout"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "Date"
+    | "nextTick"
+    | "hrtime"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback"
+    | "performance"
+    | "queueMicrotask";
 
 /**
  * Global methods available to every clock and also as standalone methods (inside `timers` global object).

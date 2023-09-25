@@ -17,7 +17,7 @@ export function listen(
     server: Server,
     port?: number,
     options?: {
-        readonly workers?: number | undefined,
-        readonly env?: any
-    }
+        readonly workers?: number | undefined;
+        readonly env?: any;
+    },
 ): boolean;

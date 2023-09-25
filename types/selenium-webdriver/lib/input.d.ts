@@ -1,5 +1,5 @@
-import { ILocation, WebDriver, WebElement } from '../';
-import { Executor } from './command';
+import { ILocation, WebDriver, WebElement } from "../";
+import { Executor } from "./command";
 
 /**
  * Defines the reference point from which to compute offsets for
@@ -7,9 +7,9 @@ import { Executor } from './command';
  */
 export enum Origin {
     /** Compute offsets relative to the pointer's current position. */
-    POINTER = 'pointer',
+    POINTER = "pointer",
     /** Compute offsets relative to the viewport. */
-    VIEWPORT = 'viewport',
+    VIEWPORT = "viewport",
 }
 
 /**

@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Writable, Readable, Duplex, WritableOptions } from "stream";
 import { EventEmitter } from "events";
+import { Duplex, Readable, Writable, WritableOptions } from "stream";
 
 export import IncomingFrameStream = require("./lib/IncomingFrameStream");
 export import OutgoingFrameStream = require("./lib/OutgoingFrameStream");

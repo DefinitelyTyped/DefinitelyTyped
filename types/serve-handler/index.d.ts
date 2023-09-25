@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { lstat, realpath, createReadStream, readdir } from 'fs';
-import { IncomingMessage, ServerResponse } from 'http';
+import { createReadStream, lstat, readdir, realpath } from "fs";
+import { IncomingMessage, ServerResponse } from "http";
 
 export = serveHandler;
 

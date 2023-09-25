@@ -16,9 +16,9 @@
 
  =============================================== */
 
-import * as express from 'express';
-import * as koa from 'koa';
-import { SignalClient } from 'signalfx';
+import * as express from "express";
+import * as koa from "koa";
+import { SignalClient } from "signalfx";
 
 declare class SignalFxCollect {
     constructor(config: SignalFxCollect.Config);
@@ -28,8 +28,8 @@ declare class SignalFxCollect {
 
     // Returns an Express or Koa middleware to register into the web server
     // The middleware collects metrics about the successfully completed requests
-    getMiddleware(framework: 'express'): express.RequestHandler;
-    getMiddleware(framework: 'koa'): koa.Middleware;
+    getMiddleware(framework: "express"): express.RequestHandler;
+    getMiddleware(framework: "koa"): koa.Middleware;
 }
 
 declare namespace SignalFxCollect {
@@ -49,7 +49,7 @@ declare namespace SignalFxCollect {
         // The logging level; one of 'debug' (more verbose) or 'info' (less verbose); default is to not log anything
         // A level for logging verbosity. Available levels are 'debug' and 'info'.
         // No log will be shown except system exceptions if the level is not specified.
-        logLevel?: 'debug' | 'info';
+        logLevel?: "debug" | "info";
         // A dictionary of additional dimensions sent with metrics and events with string keys/values.
         // Default is an empty dictionary.
         extraDimensions?: Record<string, string>;

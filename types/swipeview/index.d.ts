@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface SwipeViewEvent {
     (fn: Function): void;
 }
@@ -17,14 +16,13 @@ interface SwipeViewOptions {
 }
 
 declare class SwipeView {
-
     masterPages: HTMLElement[];
     currentMasterPage: number;
     wrapper: HTMLElement;
     slider: HTMLElement;
 
-    constructor (element: string);
-    constructor (element: string, options: SwipeViewOptions);
+    constructor(element: string);
+    constructor(element: string, options: SwipeViewOptions);
 
     destroy(): void;
     refreshSize(): void;
@@ -33,7 +31,7 @@ declare class SwipeView {
     next(): void;
     prev(): void;
     handleEvent(e: Event): void;
-    
+
     onFlip: SwipeViewEvent;
     onMoveOut: SwipeViewEvent;
     onMoveIn: SwipeViewEvent;

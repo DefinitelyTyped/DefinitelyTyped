@@ -1,12 +1,12 @@
-stringSimilarity.compareTwoStrings('test', 'test'); // $ExpectType number
+stringSimilarity.compareTwoStrings("test", "test"); // $ExpectType number
 
 const match = stringSimilarity.findBestMatch(
-    'Olive-green table for sale, in extremely good condition.',
+    "Olive-green table for sale, in extremely good condition.",
     [
-        'For sale: green Subaru Impreza, 210,000 miles',
-        'For sale: table in very good condition, olive green in colour.',
-        'Wanted: mountain bike with at least 21 gears.',
-    ]
+        "For sale: green Subaru Impreza, 210,000 miles",
+        "For sale: table in very good condition, olive green in colour.",
+        "Wanted: mountain bike with at least 21 gears.",
+    ],
 );
 
 match; // $ExpectType BestMatch

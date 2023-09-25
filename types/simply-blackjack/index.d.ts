@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import Deck = require('./cards');
-import { EventEmitter } from 'events';
+import Deck = require("./cards");
+import { EventEmitter } from "events";
 
 export = Blackjack;
 

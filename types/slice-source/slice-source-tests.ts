@@ -1,1 +1,1 @@
-import slice = require('slice-source');
+import slice = require("slice-source");

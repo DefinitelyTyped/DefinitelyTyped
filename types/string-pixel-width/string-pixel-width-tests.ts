@@ -1,4 +1,4 @@
-import stringPixelWidth = require('string-pixel-width');
+import stringPixelWidth = require("string-pixel-width");
 
 // $ExpectType number
 stringPixelWidth("test");

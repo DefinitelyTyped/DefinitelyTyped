@@ -3,14 +3,14 @@ declare function registerWindow(win: Window, doc: Document): void;
 declare function SVG<T>(el: T): SVGTypeMapping<T>;
 type SVGTypeMapping<T> = T extends HTMLElement ? Dom : T extends SVGSVGElement ? Svg : never;
 interface Svg {
-    _svg: 'Svg';
+    _svg: "Svg";
 }
 interface Dom {
-    _dom: 'Dom';
+    _dom: "Dom";
 }
 
 // Test the createSVGWindow method of this library
-import { createSVGWindow } from 'svgdom';
+import { createSVGWindow } from "svgdom";
 
 // $ExpectType SVGWindow
 const window = createSVGWindow();

@@ -21,7 +21,7 @@ declare namespace split {
     interface Options extends TransformOptions {
         maxLength?: number | undefined;
     }
-    type Matcher = string | RegExp | { [Symbol.split](string: string, limit?: number): string[]; };
+    type Matcher = string | RegExp | { [Symbol.split](string: string, limit?: number): string[] };
 }
 
 export = split;

@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { getFontUnit, getFontScale } from './utils';
-import { Options, RhythmProperties, Factor } from './types';
+import { Factor, Options, RhythmProperties } from "./types";
+import { getFontScale, getFontUnit } from "./utils";
 
 export default class Shevy {
     constructor(options?: Partial<Options>);
 
-    baseFontSize: Options['baseFontSize'];
+    baseFontSize: Options["baseFontSize"];
     baseFontUnit: ReturnType<typeof getFontUnit>;
-    baseLineHeight: Options['baseLineHeight'];
+    baseLineHeight: Options["baseLineHeight"];
     baseFontScale: ReturnType<typeof getFontScale>;
-    addMarginBottom: Options['addMarginBottom'];
-    proximity: Options['proximity'];
-    proximityFactor: Options['proximityFactor'];
+    addMarginBottom: Options["addMarginBottom"];
+    proximity: Options["proximity"];
+    proximityFactor: Options["proximityFactor"];
 
     h1: RhythmProperties;
     h2: RhythmProperties;
@@ -25,7 +25,7 @@ export default class Shevy {
     h5: RhythmProperties;
     h6: RhythmProperties;
 
-    body: Pick<RhythmProperties, Exclude<keyof RhythmProperties, 'marginBottom'>>;
+    body: Pick<RhythmProperties, Exclude<keyof RhythmProperties, "marginBottom">>;
 
     content: RhythmProperties;
 

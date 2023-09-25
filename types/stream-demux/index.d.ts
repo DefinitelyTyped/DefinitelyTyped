@@ -4,9 +4,9 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Consumer = require('writable-consumable-stream/consumer');
+import Consumer = require("writable-consumable-stream/consumer");
 
-import DemuxedConsumableStream = require('./demuxed-consumable-stream');
+import DemuxedConsumableStream = require("./demuxed-consumable-stream");
 
 declare class StreamDemux<T> {
     write(streamName: string, value: T): void;

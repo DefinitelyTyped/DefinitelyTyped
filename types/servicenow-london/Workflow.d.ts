@@ -57,7 +57,7 @@ declare namespace global {
             workflowId: string,
             current: ScopedGlideRecord | null,
             operation: GlideRecordOperation,
-            vars?: object
+            vars?: object,
         ): string;
 
         /**
@@ -69,7 +69,7 @@ declare namespace global {
          */
         startFlowFromContextInsert(
             context: ScopedGlideRecord,
-            operation: GlideRecordOperation
+            operation: GlideRecordOperation,
         ): void;
 
         /**
@@ -91,7 +91,7 @@ declare namespace global {
             current: ScopedGlideRecord,
             operation: GlideRecordOperation,
             vars?: object,
-            withSchedule?: any
+            withSchedule?: any,
         ): ScopedGlideRecord;
     }
 }

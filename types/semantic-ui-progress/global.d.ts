@@ -9,123 +9,123 @@ declare namespace SemanticUI {
         /**
          * Sets current percent of progress to value. If using a total will convert from percent to estimated value.
          */
-        (behavior: 'set percent', percent: number): JQuery;
+        (behavior: "set percent", percent: number): JQuery;
         /**
          * Sets progress to specified value. Will automatically calculate percent from total.
          */
-        (behavior: 'set progress', value: number): JQuery;
+        (behavior: "set progress", value: number): JQuery;
         /**
          * Increments progress by increment value, if not passed a value will use random amount specified in settings
          */
-        (behavior: 'increment', incrementValue?: number): JQuery;
+        (behavior: "increment", incrementValue?: number): JQuery;
         /**
          * Decrements progress by decrement value, if not passed a value will use random amount specified in settings
          */
-        (behavior: 'decrement', decrementValue?: number): JQuery;
+        (behavior: "decrement", decrementValue?: number): JQuery;
         /**
          * Immediately updates progress to value, ignoring progress animation interval delays
          */
-        (behavior: 'update progress', value: number): JQuery;
+        (behavior: "update progress", value: number): JQuery;
         /**
          * Finishes progress and sets loaded to 100%
          */
-        (behavior: 'complete'): JQuery;
+        (behavior: "complete"): JQuery;
         /**
          * Resets progress to zero
          */
-        (behavior: 'reset'): JQuery;
+        (behavior: "reset"): JQuery;
         /**
          * Set total to a new value
          */
-        (behavior: 'set total', total: number): JQuery;
+        (behavior: "set total", total: number): JQuery;
         /**
          * Replaces templated string with value, total, percent left and percent.
          */
-        (behavior: 'get text', text: string): string;
+        (behavior: "get text", text: string): string;
         /**
          * Returns normalized value inside acceptable range specified by total.
          */
-        (behavior: 'get normalized value', value: number): number;
+        (behavior: "get normalized value", value: number): number;
         /**
          * Returns percent as last specified
          */
-        (behavior: 'get percent'): number;
+        (behavior: "get percent"): number;
         /**
          * Returns current progress value
          */
-        (behavior: 'get value'): number;
+        (behavior: "get value"): number;
         /**
          * Returns total
          */
-        (behavior: 'get total'): number;
+        (behavior: "get total"): number;
         /**
          * Returns whether progress is completed
          */
-        (behavior: 'is complete'): boolean;
+        (behavior: "is complete"): boolean;
         /**
          * Returns whether progress was a success
          */
-        (behavior: 'is success'): boolean;
+        (behavior: "is success"): boolean;
         /**
          * Returns whether progress is in warning state
          */
-        (behavior: 'is warning'): boolean;
+        (behavior: "is warning"): boolean;
         /**
          * Returns whether progress is in error state
          */
-        (behavior: 'is error'): boolean;
+        (behavior: "is error"): boolean;
         /**
          * Returns whether progress is in active state
          */
-        (behavior: 'is active'): boolean;
+        (behavior: "is active"): boolean;
         /**
          * Sets progress to active state
          */
-        (behavior: 'set active'): JQuery;
+        (behavior: "set active"): JQuery;
         /**
          * Sets progress to warning state
          */
-        (behavior: 'set warning'): JQuery;
+        (behavior: "set warning"): JQuery;
         /**
          * Sets progress to success state
          */
-        (behavior: 'set success'): JQuery;
+        (behavior: "set success"): JQuery;
         /**
          * Sets progress to error state
          */
-        (behavior: 'set error'): JQuery;
+        (behavior: "set error"): JQuery;
         /**
          * Changes progress animation speed
          */
-        (behavior: 'set duration', value: number): JQuery;
+        (behavior: "set duration", value: number): JQuery;
         /**
          * Sets progress exterior label to text
          */
-        (behavior: 'set label', text: string): JQuery;
+        (behavior: "set label", text: string): JQuery;
         /**
          * Sets progress bar label to text
          */
-        (behavior: 'set bar label', text: string): JQuery;
+        (behavior: "set bar label", text: string): JQuery;
         /**
          * Removes progress to active state
          */
-        (behavior: 'remove active'): JQuery;
+        (behavior: "remove active"): JQuery;
         /**
          * Removes progress to warning state
          */
-        (behavior: 'remove warning'): JQuery;
+        (behavior: "remove warning"): JQuery;
         /**
          * Removes progress to success state
          */
-        (behavior: 'remove success'): JQuery;
+        (behavior: "remove success"): JQuery;
         /**
          * Removes progress to error state
          */
-        (behavior: 'remove error'): JQuery;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value?: undefined): ProgressSettings._Impl[K];
-        <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value: ProgressSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: ProgressSettings): JQuery;
+        (behavior: "remove error"): JQuery;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof ProgressSettings>(behavior: "setting", name: K, value?: undefined): ProgressSettings._Impl[K];
+        <K extends keyof ProgressSettings>(behavior: "setting", name: K, value: ProgressSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: ProgressSettings): JQuery;
         (settings?: ProgressSettings): JQuery;
     }
 
@@ -135,32 +135,35 @@ declare namespace SemanticUI {
     type ProgressSettings = ProgressSettings.Param;
 
     namespace ProgressSettings {
-        type Param = (Pick<_Impl, 'autoSuccess'> |
-            Pick<_Impl, 'showActivity'> |
-            Pick<_Impl, 'limitValues'> |
-            Pick<_Impl, 'label'> |
-            Pick<_Impl, 'random'> |
-            Pick<_Impl, 'precision'> |
-            Pick<_Impl, 'total'> |
-            Pick<_Impl, 'value'> |
-            Pick<_Impl, 'onChange'> |
-            Pick<_Impl, 'onSuccess'> |
-            Pick<_Impl, 'onActive'> |
-            Pick<_Impl, 'onError'> |
-            Pick<_Impl, 'onWarning'> |
-            Pick<_Impl, 'text'> |
-            Pick<_Impl, 'regExp'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "autoSuccess">
+                | Pick<_Impl, "showActivity">
+                | Pick<_Impl, "limitValues">
+                | Pick<_Impl, "label">
+                | Pick<_Impl, "random">
+                | Pick<_Impl, "precision">
+                | Pick<_Impl, "total">
+                | Pick<_Impl, "value">
+                | Pick<_Impl, "onChange">
+                | Pick<_Impl, "onSuccess">
+                | Pick<_Impl, "onActive">
+                | Pick<_Impl, "onError">
+                | Pick<_Impl, "onWarning">
+                | Pick<_Impl, "text">
+                | Pick<_Impl, "regExp">
+                | Pick<_Impl, "selector">
+                | Pick<_Impl, "metadata">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Progress Settings
@@ -189,7 +192,7 @@ declare namespace SemanticUI {
              *
              * @default 'percent'
              */
-            label: 'percent' | 'ratio';
+            label: "percent" | "ratio";
             /**
              * When incrementing without value, sets range for random increment value
              */
@@ -315,9 +318,12 @@ declare namespace SemanticUI {
         type RandomSettings = RandomSettings.Param;
 
         namespace RandomSettings {
-            type Param = (Pick<_Impl, 'min'> |
-                Pick<_Impl, 'max'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "min">
+                    | Pick<_Impl, "max">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -334,13 +340,16 @@ declare namespace SemanticUI {
         type TextSettings = TextSettings.Param;
 
         namespace TextSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'error'> |
-                Pick<_Impl, 'success'> |
-                Pick<_Impl, 'warning'> |
-                Pick<_Impl, 'percent'> |
-                Pick<_Impl, 'ratio'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "active">
+                    | Pick<_Impl, "error">
+                    | Pick<_Impl, "success">
+                    | Pick<_Impl, "warning">
+                    | Pick<_Impl, "percent">
+                    | Pick<_Impl, "ratio">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -373,8 +382,9 @@ declare namespace SemanticUI {
         type RegExpSettings = RegExpSettings.Param;
 
         namespace RegExpSettings {
-            type Param = (Pick<_Impl, 'variable'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "variable">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -387,10 +397,13 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'bar'> |
-                Pick<_Impl, 'label'> |
-                Pick<_Impl, 'progress'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "bar">
+                    | Pick<_Impl, "label">
+                    | Pick<_Impl, "progress">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -411,10 +424,13 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'percent'> |
-                Pick<_Impl, 'total'> |
-                Pick<_Impl, 'value'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "percent">
+                    | Pick<_Impl, "total">
+                    | Pick<_Impl, "value">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -435,11 +451,14 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'error'> |
-                Pick<_Impl, 'success'> |
-                Pick<_Impl, 'warning'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "active">
+                    | Pick<_Impl, "error">
+                    | Pick<_Impl, "success">
+                    | Pick<_Impl, "warning">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -464,9 +483,12 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'method'> |
-                Pick<_Impl, 'nonNumeric'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "method">
+                    | Pick<_Impl, "nonNumeric">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

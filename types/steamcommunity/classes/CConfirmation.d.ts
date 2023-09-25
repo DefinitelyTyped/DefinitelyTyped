@@ -1,4 +1,4 @@
-import { Callback, ConfirmationType } from '../index';
+import { Callback, ConfirmationType } from "../index";
 
 export = CConfirmation;
 

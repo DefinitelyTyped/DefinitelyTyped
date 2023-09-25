@@ -1,5 +1,5 @@
-import Plain from "slate-plain-serializer";
 import { Value } from "slate";
+import Plain from "slate-plain-serializer";
 
 const val = Value.create();
 const serialized = Plain.serialize(val);

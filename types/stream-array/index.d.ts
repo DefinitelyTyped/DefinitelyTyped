@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 declare function streamify(array: ReadonlyArray<any>): Readable;
 

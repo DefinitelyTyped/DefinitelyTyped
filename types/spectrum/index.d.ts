@@ -161,7 +161,7 @@ interface JQuery {
      */
     spectrum<K extends keyof Spectrum.Options>(
         methodName: "option",
-        optionName: K
+        optionName: K,
     ): Spectrum.Options[K];
 
     /**
@@ -183,7 +183,7 @@ interface JQuery {
     spectrum<K extends keyof Spectrum.Options>(
         methodName: "option",
         optionName: K,
-        newOptionValue: NonNullable<Spectrum.Options[K]>
+        newOptionValue: NonNullable<Spectrum.Options[K]>,
     ): JQuery;
 
     /**
@@ -211,7 +211,7 @@ declare namespace JQuery {
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget
+        TTarget,
     > {
         /**
          * Called as the original input changes. Only happens when the input is
@@ -755,7 +755,12 @@ declare namespace Spectrum {
          * Changing this can help resolve issues with opening the color picker
          * in a modal dialog or fixed position container, for instance.
          */
-        appendTo?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery | undefined;
+        appendTo?:
+            | JQuery.Selector
+            | JQuery.htmlString
+            | JQuery.TypeOrArray<Element | DocumentFragment>
+            | JQuery
+            | undefined;
 
         /**
          * Sets the max size for the palette.
@@ -925,7 +930,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "beforeShow";
     }
@@ -952,7 +957,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "show";
     }
@@ -983,7 +988,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "hide";
     }
@@ -1006,7 +1011,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "move";
     }
@@ -1028,7 +1033,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "dragstart";
     }
@@ -1050,7 +1055,7 @@ declare namespace Spectrum {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends JQuery.EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: "dragstop";
     }

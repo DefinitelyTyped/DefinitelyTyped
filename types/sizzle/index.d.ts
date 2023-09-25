@@ -11,7 +11,11 @@ export = Sizzle;
 
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
-    <TArrayLike extends ArrayLike<Element>>(selector: string, context: Element | Document | DocumentFragment, results: TArrayLike): TArrayLike;
+    <TArrayLike extends ArrayLike<Element>>(
+        selector: string,
+        context: Element | Document | DocumentFragment,
+        results: TArrayLike,
+    ): TArrayLike;
     (selector: string, context?: Element | Document | DocumentFragment): Element[];
     // tslint:disable-next-line:ban-types
     compile(selector: string): Function;

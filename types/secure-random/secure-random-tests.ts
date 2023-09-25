@@ -1,18 +1,18 @@
-import * as secureRandom from 'secure-random';
+import * as secureRandom from "secure-random";
 
 const byteCount = 10;
 
 // $ExpectType number[]
-const secureRandomArray = secureRandom(byteCount, { type: 'Array' });
+const secureRandomArray = secureRandom(byteCount, { type: "Array" });
 
 // $ExpectType Buffer
-const secureRandomBuffer = secureRandom(byteCount, { type: 'Buffer' });
+const secureRandomBuffer = secureRandom(byteCount, { type: "Buffer" });
 
 // $ExpectType Uint8Array
-const secureRandomUint8Array = secureRandom(byteCount, { type: 'Uint8Array' });
+const secureRandomUint8Array = secureRandom(byteCount, { type: "Uint8Array" });
 
 // @ts-expect-error
-const error = secureRandom(byteCount, { type: 'unsupported type' });
+const error = secureRandom(byteCount, { type: "unsupported type" });
 
 // $ExpectType number[]
 const randomArray = secureRandom.randomArray(byteCount);

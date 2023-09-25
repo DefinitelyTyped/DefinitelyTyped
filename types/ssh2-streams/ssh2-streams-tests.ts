@@ -1,16 +1,16 @@
-import * as stream from "stream";
 import * as ssh2 from "ssh2-streams";
+import * as stream from "stream";
 
 declare const SERVER_KEY: string;
 declare const HOST_KEY: { publicKey: ssh2.ParsedKey; privateKey: ssh2.ParsedKey };
-declare const clientBufStream: stream.Transform & { buffer: string; };
-declare const serverBufStream: stream.Transform & { buffer: string; };
+declare const clientBufStream: stream.Transform & { buffer: string };
+declare const serverBufStream: stream.Transform & { buffer: string };
 declare const parsedKey: ssh2.ParsedKey;
 declare const prompts: ssh2.Prompt[];
 declare const buffer: Buffer;
 
-const hostKeys = { 'ssh-rsa': HOST_KEY };
-const algos = ['ssh-dss', 'ssh-rsa', 'ecdsa-sha2-nistp521'];
+const hostKeys = { "ssh-rsa": HOST_KEY };
+const algos = ["ssh-dss", "ssh-rsa", "ecdsa-sha2-nistp521"];
 const client = new ssh2.SSH2Stream({ algorithms: { serverHostKey: algos } });
 const server = new ssh2.SSH2Stream({ server: true, hostKeys: hostKeys });
 
@@ -32,7 +32,14 @@ client
     .on("SERVICE_ACCEPT", (serviceName: string) => {})
     .on("REQUEST_SUCCESS", (resData?: Buffer) => {})
     .on("REQUEST_FAILURE", () => {})
-    .on("GLOBAL_REQUEST", (reqName: string, wantReply: boolean, reqData: ssh2.TcpipForwardGlobalRequest | ssh2.openssh_StreamLocalForwardGlobalRequest) => {});
+    .on(
+        "GLOBAL_REQUEST",
+        (
+            reqName: string,
+            wantReply: boolean,
+            reqData: ssh2.TcpipForwardGlobalRequest | ssh2.openssh_StreamLocalForwardGlobalRequest,
+        ) => {},
+    );
 
 client.ping();
 client.authPassword("username", "password");
@@ -65,8 +72,16 @@ client.channelOpenFail(0, 0, "desc", "lang");
 
 server
     .on("SERVICE_REQUEST", (serviceName: string) => {})
-    .on("USERAUTH_REQUEST", (username: string, serviceName: string, authmethod: string, authMethodData: string | ssh2.PublicKeyAuthMethodData | ssh2.HostbasedAuthMethodData) => {})
-    .on("USERAUTH_INFO_RESPONSE", (responses: string[]) => {})
+    .on(
+        "USERAUTH_REQUEST",
+        (
+            username: string,
+            serviceName: string,
+            authmethod: string,
+            authMethodData: string | ssh2.PublicKeyAuthMethodData | ssh2.HostbasedAuthMethodData,
+        ) => {},
+    )
+    .on("USERAUTH_INFO_RESPONSE", (responses: string[]) => {});
 
 server.disconnect(0);
 server.authSuccess();
@@ -89,7 +104,6 @@ server.openssh_forwardedStreamLocal(0, 0, 0, { socketPath: "socketPath" });
 
 const maybeParsedKey = ssh2.utils.parseKey("keyData", "passphrase");
 
-
 declare const attrs: ssh2.Attributes;
 const sftp = new ssh2.SFTPStream();
 sftp.attrs(0, attrs);
@@ -102,7 +116,7 @@ sftp.data(0, buffer);
 sftp.fastGet("remotePath", "localPath", () => {});
 sftp.fastGet("remotePath", "localPath", { concurrency: 64, chunkSize: 32768, step: () => {} }, () => {});
 sftp.fastPut("localPath", "remotePath", () => {});
-sftp.fastPut("localPath", "remotePath", { concurrency: 64, chunkSize: 32768, step: () => {}, mode: '0755' }, () => {});
+sftp.fastPut("localPath", "remotePath", { concurrency: 64, chunkSize: 32768, step: () => {}, mode: "0755" }, () => {});
 sftp.readFile("remotePath", () => {});
 sftp.readFile("remotePath", "utf8", () => {});
 sftp.readFile("remotePath", { encoding: "utf8", flag: "r" }, () => {});

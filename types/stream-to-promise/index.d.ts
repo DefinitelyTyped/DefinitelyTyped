@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-import * as Stream from 'stream';
+import * as Stream from "stream";
 
 /**
  * Return a promise which resolves when the input stream ends

@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 /**
  * Converts an array into a Node readable stream.

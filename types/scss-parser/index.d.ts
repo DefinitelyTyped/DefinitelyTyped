@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface InputStreamPosition {
-  cursor: number;
-  line: number;
-  column: number;
+    cursor: number;
+    line: number;
+    column: number;
 }
 
 export interface Node {
-  type: string;
-  value: string | Node[];
-  start?: InputStreamPosition | undefined;
-  end?: InputStreamPosition | undefined;
+    type: string;
+    value: string | Node[];
+    start?: InputStreamPosition | undefined;
+    end?: InputStreamPosition | undefined;
 }
 
 export function parse(css: string): Node;

@@ -16,11 +16,11 @@
 
 /// <reference types="node" />
 
+import { Blob } from "buffer";
+import * as cookiejar from "cookiejar";
 import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
-import * as cookiejar from "cookiejar";
-import { Blob } from "buffer";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -146,7 +146,7 @@ declare namespace request {
         ca(cert: string | string[] | Buffer | Buffer[]): this;
         cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
-        connect(override: string | { [hostname: string]: false | string | { host: string, port: number} }): this;
+        connect(override: string | { [hostname: string]: false | string | { host: string; port: number } }): this;
         disableTLSCerts(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;

@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as BluebirdPromise from 'bluebird';
+import * as BluebirdPromise from "bluebird";
 
 /**
  * Split file into number of parts

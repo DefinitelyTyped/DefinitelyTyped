@@ -5,13 +5,12 @@
 
 /// <reference types="node" />
 
-type TypeName = 'Array' | 'Buffer' | 'Uint8Array';
+type TypeName = "Array" | "Buffer" | "Uint8Array";
 
-type ObjectType<T> =
-    T extends 'Array' ? number[] :
-    T extends 'Buffer' ? Buffer :
-    T extends 'Uint8Array' ? Uint8Array :
-    never;
+type ObjectType<T> = T extends "Array" ? number[]
+    : T extends "Buffer" ? Buffer
+    : T extends "Uint8Array" ? Uint8Array
+    : never;
 
 declare namespace secureRandom {
     /**

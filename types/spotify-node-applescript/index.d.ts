@@ -137,7 +137,7 @@ export interface TrackInfo {
     track_number: number;
 }
 
-export type SpotifyPlayingState = 'playing' | 'paused';
+export type SpotifyPlayingState = "playing" | "paused";
 
 export type SuccessCallbackFn = () => void;
 

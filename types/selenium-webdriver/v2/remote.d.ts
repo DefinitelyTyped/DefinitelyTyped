@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 /**
  * A record object that defines the configuration options for a DriverService

@@ -1,4 +1,4 @@
-import SNSValidator = require('sns-validator');
+import SNSValidator = require("sns-validator");
 
 const message = `{
     "Type" : "SubscriptionConfirmation",
@@ -27,13 +27,13 @@ new SNSValidator().validate(messageObject, (err, message) => {
 });
 
 // Test with an invalid string
-new SNSValidator().validate('invalid_message', (err, message) => {
+new SNSValidator().validate("invalid_message", (err, message) => {
     const e = err; // $ExpectType Error | null
     const m = message; // $ExpectType Record<string, unknown> | undefined
 });
 
 // Test with an invalid JSON
-new SNSValidator().validate({ ...messageObject, Signature: 'invalid_signature' }, (err, message) => {
+new SNSValidator().validate({ ...messageObject, Signature: "invalid_signature" }, (err, message) => {
     const e = err; // $ExpectType Error | null
     const m = message; // $ExpectType Record<string, unknown> | undefined
 });

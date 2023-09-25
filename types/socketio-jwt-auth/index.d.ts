@@ -12,7 +12,10 @@ import SocketIO = require("socket.io");
  * @param options is an object literal that contains options.
  * @param verify is a function with two args payload, and done.
  */
-export function authenticate(options: authOptions, verify: verifyFunc): (socket: SocketIO.Socket, fn: (err?: any) => void) => void;
+export function authenticate(
+    options: authOptions,
+    verify: verifyFunc,
+): (socket: SocketIO.Socket, fn: (err?: any) => void) => void;
 
 /**
  * This is an object literal that contains options.

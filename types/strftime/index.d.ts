@@ -56,7 +56,7 @@ declare module "strftime" {
             PM?: string | undefined;
             am?: string | undefined;
             pm?: string | undefined;
-            formats: LocaleFormats
+            formats: LocaleFormats;
         }
     }
 

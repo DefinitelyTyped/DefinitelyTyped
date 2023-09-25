@@ -1,33 +1,33 @@
-import 'strophe/muc';
+import "strophe/muc";
 
 function log(msg: string): void {
     console.log(msg);
 }
 
 function rawInput(data: string): void {
-    log('RECV: ' + data);
+    log("RECV: " + data);
 }
 
 function rawOutput(data: string): void {
-    log('SENT: ' + data);
+    log("SENT: " + data);
 }
 
 function onOwnMessage(msg: Element): boolean {
     console.log(msg);
-    const elems = msg.getElementsByTagName('own-message');
+    const elems = msg.getElementsByTagName("own-message");
     if (elems.length > 0) {
         const own = elems[0];
-        const to = msg.getAttribute('to');
-        const from = msg.getAttribute('from');
+        const to = msg.getAttribute("to");
+        const from = msg.getAttribute("from");
         const iq = $iq({
             to: from,
-            type: 'error',
-            id: msg.getAttribute('id'),
+            type: "error",
+            id: msg.getAttribute("id"),
         })
             .cnode(own)
             .up()
-            .c('error', { type: 'cancel', code: '501' })
-            .c('feature-not-implemented', { xmlns: 'urn:ietf:params:xml:ns:xmpp-stanzas' });
+            .c("error", { type: "cancel", code: "501" })
+            .c("feature-not-implemented", { xmlns: "urn:ietf:params:xml:ns:xmpp-stanzas" });
 
         connection.sendIQ(iq);
     }
@@ -36,17 +36,17 @@ function onOwnMessage(msg: Element): boolean {
 }
 
 function onMessage(msg: Element): boolean {
-    const to = msg.getAttribute('to');
-    const from = msg.getAttribute('from');
-    const type = msg.getAttribute('type');
-    const elems = msg.getElementsByTagName('body');
+    const to = msg.getAttribute("to");
+    const from = msg.getAttribute("from");
+    const type = msg.getAttribute("type");
+    const elems = msg.getElementsByTagName("body");
 
-    if (type === 'chat' && elems.length > 0) {
+    if (type === "chat" && elems.length > 0) {
         const body = elems[0];
 
         log(`ECHOBOT: I got a message from ${from}: ${Strophe.getText(body)}`);
 
-        const text = Strophe.getText(body) + ' (this is echo)';
+        const text = Strophe.getText(body) + " (this is echo)";
 
         // var reply = $msg({to: from, from: to, type: 'chat', id: 'purple4dac25e4'}).c('active', {xmlns: "http://jabber.org/protocol/chatstates"}).up().cnode(body);
         // .cnode(Strophe.copyElement(body));
@@ -61,16 +61,16 @@ function onMessage(msg: Element): boolean {
 }
 
 function sendMessage() {
-    const message = 'some message';
-    const to = 'some recipient';
+    const message = "some message";
+    const to = "some recipient";
     if (message && to) {
         const reply = $msg({
             to,
-            type: 'chat',
+            type: "chat",
         })
-            .cnode(Strophe.xmlElement('body', message))
+            .cnode(Strophe.xmlElement("body", message))
             .up()
-            .c('active', { xmlns: 'http://jabber.org/protocol/chatstates' });
+            .c("active", { xmlns: "http://jabber.org/protocol/chatstates" });
 
         connection.send(reply);
 
@@ -78,37 +78,37 @@ function sendMessage() {
     }
 }
 
-const connection = new Strophe.Connection('someservice');
+const connection = new Strophe.Connection("someservice");
 connection.rawInput = rawInput;
 connection.rawOutput = rawOutput;
 
 function onConnect(status: Strophe.Status): void {
     switch (status) {
         case Strophe.Status.CONNECTING:
-            log('Strophe is connecting.');
+            log("Strophe is connecting.");
         case Strophe.Status.CONNFAIL:
-            log('Strophe failed to connect.');
+            log("Strophe failed to connect.");
         case Strophe.Status.DISCONNECTING:
-            log('Strophe is disconnecting.');
+            log("Strophe is disconnecting.");
         case Strophe.Status.DISCONNECTED:
-            log('Strophe is disconnected.');
+            log("Strophe is disconnected.");
         case Strophe.Status.CONNECTED:
-            log('Strophe is connected.');
+            log("Strophe is connected.");
             log(`ECHOBOT: Send a message to ${connection.jid} to talk to me.`);
-            connection.addHandler(onMessage, null, 'message', null, null, null);
-            connection.addHandler(onOwnMessage, null, 'iq', 'set', null, null);
+            connection.addHandler(onMessage, null, "message", null, null, null);
+            connection.addHandler(onOwnMessage, null, "iq", "set", null, null);
             connection.send($pres().tree());
     }
 }
 
 function onRoomMessage(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
     console.log(Strophe.serialize(stanza));
-    room.groupchat('hello');
+    room.groupchat("hello");
     return true;
 }
 
 function onRoomPresence(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
-    const from = stanza.getAttribute('from');
+    const from = stanza.getAttribute("from");
     console.log(`${from} precense updated`);
     return true;
 }
@@ -122,6 +122,6 @@ function onRoomRoster(occupants: Strophe.MUC.OccupantMap, room: Strophe.MUC.Xmpp
 }
 
 connection.muc.init(connection);
-connection.muc.join('room', 'nick', onRoomMessage, onRoomPresence, onRoomRoster);
+connection.muc.join("room", "nick", onRoomMessage, onRoomPresence, onRoomRoster);
 
 Strophe.SASLPlain.test = () => false;

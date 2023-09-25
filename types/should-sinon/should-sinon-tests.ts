@@ -1,8 +1,8 @@
-import sinon = require('sinon');
-import should = require('should');
+import sinon = require("sinon");
+import should = require("should");
 
 const callback = sinon.spy();
-const obj = { };
+const obj = {};
 
 callback.should.be.alwaysCalledOn(obj);
 callback.should.be.alwaysCalledWith(1, 2, 3);

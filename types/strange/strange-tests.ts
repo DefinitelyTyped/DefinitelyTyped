@@ -1,22 +1,22 @@
-import * as Range from 'strange';
-import * as RangeTree from 'strange/tree';
+import * as Range from "strange";
+import * as RangeTree from "strange/tree";
 
 {
     new Range();
     new Range(1, Infinity);
     new Range(null, 10);
     new Range(undefined, 10);
-    new Range(1, 10, '[]');
-    new Range(-Infinity, null, '[]');
-    new Range(1, undefined, '[]');
+    new Range(1, 10, "[]");
+    new Range(-Infinity, null, "[]");
+    new Range(1, undefined, "[]");
 
     Range();
     Range(1, Infinity);
     Range(null, 10);
     Range(undefined, 10);
-    Range(1, 10, '[]');
-    Range(-Infinity, null, '[]');
-    Range(1, undefined, '[]');
+    Range(1, 10, "[]");
+    Range(-Infinity, null, "[]");
+    Range(1, undefined, "[]");
 
     new Range(new Date(2000, 5, 18), new Date(2000, 5, 22));
 

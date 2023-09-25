@@ -1,5 +1,5 @@
-import * as crypto from 'node:crypto';
-import createCodec = require('secretbox-encoding');
+import * as crypto from "node:crypto";
+import createCodec = require("secretbox-encoding");
 
 // test type exports
 type Options = createCodec.Options;
@@ -21,7 +21,7 @@ const strCodec = createCodec(secretKey, {
         decode(buffer, offset) {
             buffer; // $ExpectType Buffer
             offset; // $ExpectType number
-            return buffer.toString('utf8');
+            return buffer.toString("utf8");
         },
         encode(value: string) {
             return Buffer.from(value) as createCodec.ValueToEncode;
@@ -29,18 +29,18 @@ const strCodec = createCodec(secretKey, {
     },
 });
 
-codec.encode(Buffer.from('foo')); // $ExpectType Buffer
-codec.encode('foo'); // $ExpectType Buffer
+codec.encode(Buffer.from("foo")); // $ExpectType Buffer
+codec.encode("foo"); // $ExpectType Buffer
 codec.encode([1]); // $ExpectType Buffer
-codec.encode(Buffer.from('foo').toJSON()); // $ExpectType Buffer
-codec.encode(Buffer.from('foo'), Buffer.alloc(10)); // $ExpectType Buffer
-codec.encode(Buffer.from('foo'), Buffer.alloc(10), 1); // $ExpectType Buffer
+codec.encode(Buffer.from("foo").toJSON()); // $ExpectType Buffer
+codec.encode(Buffer.from("foo"), Buffer.alloc(10)); // $ExpectType Buffer
+codec.encode(Buffer.from("foo"), Buffer.alloc(10), 1); // $ExpectType Buffer
 
-strCodec.encode('foo'); // $ExpectType Buffer
+strCodec.encode("foo"); // $ExpectType Buffer
 // @ts-expect-error
-strCodec.encode(Buffer.from('foo'));
-strCodec.encode('foo', Buffer.alloc(10)); // $ExpectType Buffer
-strCodec.encode('foo', Buffer.alloc(10), 1); // $ExpectType Buffer
+strCodec.encode(Buffer.from("foo"));
+strCodec.encode("foo", Buffer.alloc(10)); // $ExpectType Buffer
+strCodec.encode("foo", Buffer.alloc(10), 1); // $ExpectType Buffer
 
 codec.encode.bytes; // $ExpectType number
 strCodec.encode.bytes; // $ExpectType number

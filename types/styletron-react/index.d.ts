@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from 'react';
-import { driver, StandardEngine, StyleObject } from 'styletron-standard';
+import * as React from "react";
+import { driver, StandardEngine, StyleObject } from "styletron-standard";
 
-export { StyleObject, StandardEngine };
+export { StandardEngine, StyleObject };
 
 // From styletron-react types
 export interface Reducer {

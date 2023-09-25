@@ -1,6 +1,6 @@
-import * as http from './http';
-import * as webdriver from './index';
-import * as remote from './remote';
+import * as http from "./http";
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Configuration options for the FirefoxDriver.

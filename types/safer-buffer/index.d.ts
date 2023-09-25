@@ -5,4 +5,4 @@
 
 /// <reference types="node" />
 
-export { Buffer } from 'buffer';
+export { Buffer } from "buffer";

@@ -18,7 +18,7 @@
  * chrome.storage.onChanged.trigger(...);
  */
 
-import * as Sinon from 'sinon';
+import * as Sinon from "sinon";
 export = SinonChrome;
 export as namespace SinonChrome;
 
@@ -197,7 +197,7 @@ declare namespace SinonChrome.declarativeContent {
     export var onPageChanged: SinonChrome.events.Event;
 }
 
-declare namespace SinonChrome. desktopCapture {
+declare namespace SinonChrome.desktopCapture {
     export var cancelChooseDesktopMedia: SinonChromeStub;
     export var chooseDesktopMedia: SinonChromeStub;
 }

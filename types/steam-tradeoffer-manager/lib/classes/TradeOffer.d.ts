@@ -1,6 +1,6 @@
 import TradeOfferManager = require("../../index");
-import SteamID = require('steamid');
-import CEconItem = require('steamcommunity/classes/CEconItem');
+import SteamID = require("steamid");
+import CEconItem = require("steamcommunity/classes/CEconItem");
 
 export = TradeOffer;
 
@@ -260,7 +260,9 @@ declare class TradeOffer {
      * - `me` - An object containing your user data
      * - `them` - An object containing the other user's user data
      */
-    getUserDetails(callback: (err: Error | null, me: TradeOffer.UserDetails, them: TradeOffer.UserDetails) => void): void;
+    getUserDetails(
+        callback: (err: Error | null, me: TradeOffer.UserDetails, them: TradeOffer.UserDetails) => void,
+    ): void;
 
     /**
      * Sends a newly-created offer. Only works if this is an offer created with {@link TradeOfferManager.createOffer} which hasn't been
@@ -278,7 +280,21 @@ declare class TradeOffer {
      * - `err` - An `Error` object on failure, `null` on success
      * - `status` - `pending` if awaiting email/mobile confirmation, `sent` if offer was successfully sent to the other party
      */
-    send(callback?: (err: (Error & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade' | 'OfferLimitExceeded' | 'ItemServerUnavailable'; } | null), status: 'pending' | 'sent') => void): void;
+    send(
+        callback?: (
+            err:
+                | Error & {
+                    cause?:
+                        | "TradeBan"
+                        | "NewDevice"
+                        | "TargetCannotTrade"
+                        | "OfferLimitExceeded"
+                        | "ItemServerUnavailable";
+                }
+                | null,
+            status: "pending" | "sent",
+        ) => void,
+    ): void;
 
     /**
      * If this trade offer was sent by us, cancels it. If it was sent to us, declines it. As of v1.1.0, on failure, the err object may contain an eresult property.
@@ -316,7 +332,10 @@ declare class TradeOffer {
      */
     accept(
         skipStateUpdate?: boolean,
-        callback?: (err: (TradeOfferManager.EResultError & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade'; }) | null, status: 'pending' | 'accepted' | 'escrow') => void,
+        callback?: (
+            err: (TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" }) | null,
+            status: "pending" | "accepted" | "escrow",
+        ) => void,
     ): void;
 
     /**
@@ -336,7 +355,11 @@ declare class TradeOffer {
      * - `err` - An `Error` object on failure, `null` on success
      * - `status` - `pending` if awaiting email confirmation to be committed, `accepted` if successfully accepted, `escrow` if it went into escrow
      */
-    accept(callback?: (err: (TradeOfferManager.EResultError & { cause?: 'TradeBan' | 'NewDevice' | 'TargetCannotTrade'; }) | null, status: 'pending' | 'accepted' | 'escrow') => void,
+    accept(
+        callback?: (
+            err: (TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" }) | null,
+            status: "pending" | "accepted" | "escrow",
+        ) => void,
     ): void;
 
     /**

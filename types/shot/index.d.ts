@@ -103,5 +103,5 @@ export interface ResponseObject {
     /** the raw payload as a Buffer. */
     rawPayload: Buffer;
     /** an object containing the response trailers. */
-    trailers: {[index: string]: any};
+    trailers: { [index: string]: any };
 }

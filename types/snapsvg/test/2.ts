@@ -1,5 +1,3 @@
-
-
 // tests by Daniel Rosenwasser
 function tester1() {
     var paper = Snap("#content");
@@ -10,7 +8,9 @@ function tester1() {
     var x = 0;
     var y = 0;
 
-    paper.click((ev) => { var x = ev.clientX; }, this)
+    paper.click((ev) => {
+        var x = ev.clientX;
+    }, this);
 
     redrawLoop();
 
@@ -23,23 +23,23 @@ function tester1() {
     }
 
     function drawDrop(): void {
-        //var c = paper.circle(window.innerWidth * Math.random(), window.innerHeight * Math.random(), 50);
+        // var c = paper.circle(window.innerWidth * Math.random(), window.innerHeight * Math.random(), 50);
         var radius = 25;
-        var c = paper.circle(x + radius * Math.random() - radius*2, y + radius * Math.random() - radius, radius*2);
-        c.animate({ r: 0 }, 1000,  mina.bounce, () => c.remove());
+        var c = paper.circle(x + radius * Math.random() - radius * 2, y + radius * Math.random() - radius, radius * 2);
+        c.animate({ r: 0 }, 1000, mina.bounce, () => c.remove());
     }
 }
 
 function tester2() {
-    var m1 = Snap.matrix(1,2,3,4,5,6);
+    var m1 = Snap.matrix(1, 2, 3, 4, 5, 6);
 
     m1.add(m1).add(m1);
 
-    var m2 = Snap.matrix(0,0,0,0,0,0);
-    m2.add(1,-1,1,-1,1,-1).add(-1,1,-1,1,-1,1);
+    var m2 = Snap.matrix(0, 0, 0, 0, 0, 0);
+    m2.add(1, -1, 1, -1, 1, -1).add(-1, 1, -1, 1, -1, 1);
 
-    var m3 = Snap.matrix(1,1,1,1,1,1);
-    m3.add(Snap.matrix(0,0,0,0,0,0)).add(m2);
+    var m3 = Snap.matrix(1, 1, 1, 1, 1, 1);
+    m3.add(Snap.matrix(0, 0, 0, 0, 0, 0)).add(m2);
 
     var m4 = Snap.matrix();
 
@@ -68,7 +68,7 @@ function tester3() {
 
 function tester4() {
     console.log("tester4");
-    var paper = Snap(800,600);
+    var paper = Snap(800, 600);
     var bbox = paper.getBBox();
 
     console.log("cx:     " + bbox.cx);
@@ -102,12 +102,9 @@ function tester5() {
     }
 
     Snap.animate(sideLength, sideLength + 100, updater, 1500 /*ms*/);
-    setTimeout(() => { Snap.animate(sideLength + 100,
-                                         0,
-                                         updater,
-                                         100 /*ms*/,
-                                         easer,
-                                         square.remove); }, 500);
+    setTimeout(() => {
+        Snap.animate(sideLength + 100, 0, updater, 100, /*ms*/ easer, square.remove);
+    }, 500);
 }
 
 function tester6() {
@@ -135,16 +132,16 @@ function tester7() {
 
         symbol.add(fragment.selectAll("svg *"));
         symbol.toDefs();
-   });
+    });
 }
 
-//$(function () {
+// $(function () {
 //    tester1();
-//});
+// });
 
-//tester2();
-//tester3();
-//tester4();
-//tester5();
-//tester6();
-//tester7();
+// tester2();
+// tester3();
+// tester4();
+// tester5();
+// tester6();
+// tester7();

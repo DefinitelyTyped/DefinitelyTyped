@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as Logger from 'bunyan';
-import { Plugin } from 'superagent';
+import * as Logger from "bunyan";
+import { Plugin } from "superagent";
 
 declare function superagentLogger(logger: Logger, requestId?: string, extra?: object): Plugin;
 

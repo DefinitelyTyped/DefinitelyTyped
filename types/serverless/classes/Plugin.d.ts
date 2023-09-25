@@ -1,4 +1,4 @@
-import Serverless = require('../index');
+import Serverless = require("../index");
 
 declare namespace Plugin {
     interface Hooks {
@@ -12,12 +12,12 @@ declare namespace Plugin {
             commands?: { [command: string]: {} } | undefined;
             options?:
                 | {
-                      [option: string]: {
-                          usage?: string | undefined;
-                          required?: boolean | undefined;
-                          shortcut?: string | undefined;
-                      };
-                  }
+                    [option: string]: {
+                        usage?: string | undefined;
+                        required?: boolean | undefined;
+                        shortcut?: string | undefined;
+                    };
+                }
                 | undefined;
         };
     }
@@ -28,10 +28,10 @@ declare namespace Plugin {
         [variablePrefix: string]:
             | VariableResolver
             | {
-                  resolver: VariableResolver;
-                  isDisabledAtPrepopulation?: boolean | undefined;
-                  serviceName?: string | undefined;
-              };
+                resolver: VariableResolver;
+                isDisabledAtPrepopulation?: boolean | undefined;
+                serviceName?: string | undefined;
+            };
     }
 
     type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
@@ -40,10 +40,10 @@ declare namespace Plugin {
         [variablePrefix: string]:
             | ConfigurationVariablesSource
             | {
-                  resolve: ConfigurationVariablesSource;
-                  isDisabledAtPrepopulation?: boolean | undefined;
-                  serviceName?: string | undefined;
-              };
+                resolve: ConfigurationVariablesSource;
+                isDisabledAtPrepopulation?: boolean | undefined;
+                serviceName?: string | undefined;
+            };
     }
 
     interface Logging {
@@ -59,7 +59,7 @@ declare namespace Plugin {
         writeText: (text: string | string[]) => void;
         progress: {
             get: (name: string) => Progress;
-            create: (args: { message?: string, name?: string }) => Progress;
+            create: (args: { message?: string; name?: string }) => Progress;
         };
     }
 
@@ -73,7 +73,7 @@ declare namespace Plugin {
     }
 
     interface PluginStatic {
-        new (serverless: Serverless, options: Serverless.Options, logging: Logging): Plugin;
+        new(serverless: Serverless, options: Serverless.Options, logging: Logging): Plugin;
     }
 }
 

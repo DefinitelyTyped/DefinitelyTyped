@@ -1,7 +1,7 @@
 function test_sticky_static() {
-    $.fn.sticky.settings.error!.method = 'method';
-    $.fn.sticky.settings.namespace = 'namespace';
-    $.fn.sticky.settings.name = 'name';
+    $.fn.sticky.settings.error!.method = "method";
+    $.fn.sticky.settings.namespace = "namespace";
+    $.fn.sticky.settings.name = "name";
     $.fn.sticky.settings.silent = false;
     $.fn.sticky.settings.debug = true;
     $.fn.sticky.settings.performance = true;
@@ -9,20 +9,20 @@ function test_sticky_static() {
 }
 
 function test_sticky() {
-    const selector = '.ui.sticky';
-    $(selector).sticky('refresh'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sticky('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sticky('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).sticky('setting', 'debug'); // $ExpectType boolean
-    $(selector).sticky('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.sticky";
+    $(selector).sticky("refresh"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sticky("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sticky("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).sticky("setting", "debug"); // $ExpectType boolean
+    $(selector).sticky("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).sticky('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).sticky("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).sticky({
@@ -53,29 +53,29 @@ function test_sticky() {
             this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
-            bound: 'bound',
-            fixed: 'fixed',
-            supported: 'supported',
-            top: 'top',
-            bottom: 'bottom'
+            bound: "bound",
+            fixed: "fixed",
+            supported: "supported",
+            top: "top",
+            bottom: "bottom",
         },
         error: {
-            container: 'container',
-            visible: 'visible',
-            method: 'method',
-            invalidContext: 'invalidContext',
-            elementSize: 'elementSize'
-        }
+            container: "container",
+            visible: "visible",
+            method: "method",
+            invalidContext: "invalidContext",
+            elementSize: "elementSize",
+        },
     });
     $(selector).sticky(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).sticky('foo');
+    $(selector).sticky("foo");
     // @ts-expect-error
-    $(selector).sticky({ foo: 'bar' });
+    $(selector).sticky({ foo: "bar" });
 }
 
-import sticky = require('semantic-ui-sticky');
+import sticky = require("semantic-ui-sticky");
 
 function test_module() {
     sticky; // $ExpectType Sticky

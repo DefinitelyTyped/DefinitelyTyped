@@ -1,5 +1,5 @@
-import * as webdriver from './index';
-import * as remote from './remote';
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Creates a new WebDriver client for Chrome.

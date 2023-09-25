@@ -1,6 +1,6 @@
-import { fontScalePresets } from '../constants';
-import { Scale, Factor } from '../types';
-import Shevy from '../index';
+import { fontScalePresets } from "../constants";
+import Shevy from "../index";
+import { Factor, Scale } from "../types";
 
 export function getFontValue(size: string): number;
 

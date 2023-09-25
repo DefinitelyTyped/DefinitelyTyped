@@ -1,15 +1,15 @@
-import { logging, ProxyConfig } from '../';
-import Symbols from './symbols';
+import { logging, ProxyConfig } from "../";
+import Symbols from "./symbols";
 
 /**
  * Recognized browser names.
  */
 export interface IBrowser {
-    CHROME: 'chrome';
-    EDGE: 'MicrosoftEdge';
-    FIREFOX: 'firefox';
-    INTERNET_EXPLORER: 'internet explorer';
-    SAFARI: 'safari';
+    CHROME: "chrome";
+    EDGE: "MicrosoftEdge";
+    FIREFOX: "firefox";
+    INTERNET_EXPLORER: "internet explorer";
+    SAFARI: "safari";
 }
 
 /**

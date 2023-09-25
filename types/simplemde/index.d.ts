@@ -35,7 +35,7 @@ declare namespace SimpleMDE {
     }
 
     interface ShortcutsArray {
-        [action: string]: string|undefined;
+        [action: string]: string | undefined;
         toggleBlockquote?: string | undefined;
         toggleBold?: string | undefined;
         cleanBlock?: string | undefined;
@@ -60,7 +60,7 @@ declare namespace SimpleMDE {
 
     interface ToolbarIcon {
         name: string;
-        action: string|((editor: SimpleMDE) => void);
+        action: string | ((editor: SimpleMDE) => void);
         className: string;
         title: string;
     }
@@ -85,10 +85,10 @@ declare namespace SimpleMDE {
         shortcuts?: ShortcutsArray | undefined;
         showIcons?: string[] | undefined;
         spellChecker?: boolean | undefined;
-        status?: boolean|Array<string|StatusBarItem> | undefined;
+        status?: boolean | Array<string | StatusBarItem> | undefined;
         styleSelectedText?: boolean | undefined;
         tabSize?: number | undefined;
-        toolbar?: boolean|Array<string|ToolbarIcon> | undefined;
+        toolbar?: boolean | Array<string | ToolbarIcon> | undefined;
         toolbarTips?: boolean | undefined;
     }
 }

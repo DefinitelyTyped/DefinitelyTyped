@@ -1,5 +1,5 @@
-import { IWebElementId, Locator, Serializable, WebDriver, WebElement, WebElementPromise } from '..';
-import { Command } from './command';
+import { IWebElementId, Locator, Serializable, WebDriver, WebElement, WebElementPromise } from "..";
+import { Command } from "./command";
 
 /**
  * Represents a ShadowRoot of a {@link WebElement}. Provides functions to

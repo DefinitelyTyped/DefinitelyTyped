@@ -48,8 +48,8 @@ declare namespace SwaggerHook {
                  * This route will match any routes that aren't bound in the app via a custom route configuration
                  * or a blueprint.
                  */
-                "/*"(req: any, res: any, next: () => any): any
-            }
+                "/*"(req: any, res: any, next: () => any): any;
+            };
         };
     }
 }

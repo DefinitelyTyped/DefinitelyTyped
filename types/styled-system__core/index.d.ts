@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 

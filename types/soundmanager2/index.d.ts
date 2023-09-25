@@ -7,7 +7,7 @@
 declare var soundManager: soundmanager.SoundManager;
 
 declare namespace soundmanager {
-    type ScriptAccess = 'always' | 'sameDomain';
+    type ScriptAccess = "always" | "sameDomain";
 
     interface DefaultOptions {
         autoLoad?: boolean | undefined;
@@ -112,7 +112,7 @@ declare namespace soundmanager {
         canPlayLink(domElement: HTMLElement): boolean;
         canPlayMIME(MIMEtype: string): boolean;
         canPlayURL(mediaURL: string): boolean;
-        clearOnPosition(id: string, msecOffset: number, callback?: (() => void)): SMSound;
+        clearOnPosition(id: string, msecOffset: number, callback?: () => void): SMSound;
         /**
          * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
          */

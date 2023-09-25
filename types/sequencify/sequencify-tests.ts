@@ -2,29 +2,29 @@
 
 /// <reference types="node" />
 
-import sequencify = require('sequencify');
+import sequencify = require("sequencify");
 
 const items: sequencify.TaskMap = {
     a: {
-        name: 'a',
-        dep: []
+        name: "a",
+        dep: [],
         // other properties as needed
     },
     b: {
-        name: 'b',
-        dep: ['a']
+        name: "b",
+        dep: ["a"],
     },
     c: {
-        name: 'c',
-        dep: ['a']
+        name: "c",
+        dep: ["a"],
     },
     d: {
-        name: 'd',
-        dep: ['c']
+        name: "d",
+        dep: ["c"],
     },
 };
 
-const names = ['d', 'b', 'c', 'a']; // The names of the items you want arranged, need not be all
+const names = ["d", "b", "c", "a"]; // The names of the items you want arranged, need not be all
 
 const results: string[] = [];
 

@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import { Pool, Options as PoolOptions } from 'generic-pool';
-import { Readable } from 'stream';
+import { Options as PoolOptions, Pool } from "generic-pool";
+import { Readable } from "stream";
 
 /**
  * ### Related Docs
@@ -166,7 +166,7 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
 export interface StreamOptions {
     start?: number;
     end?: number;
-    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+    fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
 }
 
 /**
@@ -396,8 +396,8 @@ export interface Column {
 }
 
 export enum StatementStatus {
-    Fetching = 'fetching',
-    Complete = 'complete',
+    Fetching = "fetching",
+    Complete = "complete",
 }
 
 export interface Statement {
@@ -570,7 +570,7 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+        fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): Statement;
 
@@ -591,20 +591,20 @@ export type Connection = NodeJS.EventEmitter & {
     serialize(): string;
 };
 
-export const STRING = 'STRING';
-export const BOOLEAN = 'BOOLEAN';
-export const NUMBER = 'NUMBER';
-export const DATE = 'DATE';
-export const JSON = 'JSON';
+export const STRING = "STRING";
+export const BOOLEAN = "BOOLEAN";
+export const NUMBER = "NUMBER";
+export const DATE = "DATE";
+export const JSON = "JSON";
 
 export enum ocspModes {
-    FAIL_CLOSED = 'FAIL_CLOSED',
-    FAIL_OPEN = 'FAIL_OPEN',
-    INSECURE = 'INSECURE',
+    FAIL_CLOSED = "FAIL_CLOSED",
+    FAIL_OPEN = "FAIL_OPEN",
+    INSECURE = "INSECURE",
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    logLevel?: "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | undefined;
     insecureConnect?: boolean | undefined;
 
     /**

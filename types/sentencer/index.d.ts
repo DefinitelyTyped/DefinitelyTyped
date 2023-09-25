@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type action = () => string;
-interface actions { [key: string]: action; }
+interface actions {
+    [key: string]: action;
+}
 interface options {
     nounList?: string[];
     adjectiveList?: string[];

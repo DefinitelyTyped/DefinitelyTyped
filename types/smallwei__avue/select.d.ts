@@ -1,4 +1,4 @@
-import { DicItem } from './dic';
+import { DicItem } from "./dic";
 
 export interface AvueSelectProps<T = any> {
     modelValue?: T;
@@ -9,9 +9,9 @@ export interface AvueSelectProps<T = any> {
     /** 是否使用虚拟列表 */
     virtualize?: boolean;
     onChange?: (data: { value: T }) => void;
-    'onUpdate:modelValue'?: (val: T) => any;
+    "onUpdate:modelValue"?: (val: T) => any;
 }
-export const AvueSelect: new () => {
+export const AvueSelect: new() => {
     $props: AvueSelectProps;
 };
 export interface AvueSelectSlots {

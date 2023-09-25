@@ -8,11 +8,11 @@ import * as Sequelize from "sequelize";
 
 declare namespace SequelizeFixtures {
     interface Options {
-        encoding?: string | undefined,
-        log?: ((message: string) => void) | undefined,
-        transaction?: Sequelize.Transaction | undefined,
-        transformFixtureDataFn?: ((data: any) => any) | undefined,
-        modifyFixtureDataFn?: ((data: any) => any) | undefined
+        encoding?: string | undefined;
+        log?: ((message: string) => void) | undefined;
+        transaction?: Sequelize.Transaction | undefined;
+        transformFixtureDataFn?: ((data: any) => any) | undefined;
+        modifyFixtureDataFn?: ((data: any) => any) | undefined;
     }
 
     interface SequelizeFixturesStatic {

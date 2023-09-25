@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Codec } from 'varstruct';
-import { BinaryLike } from 'node:crypto';
+import { BinaryLike } from "node:crypto";
+import { Codec } from "varstruct";
 
 /**
  * Encrypt secrets. Built on AES-256-GCM and Scrypt.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
 
 export type Properties = CSS.Properties<string | number>;
 export type FontFace = CSS.AtRule.FontFace;
@@ -20,8 +20,9 @@ export type KeyframesObject = KeyframesPercentageObject & {
 // Unrecognized properties are assumed to be media queries
 // or pseudo selectors w/ nested style objects.
 // See: https://github.com/styletron/styletron-standard
-export type StyleObject = Properties &
-    { [key in string]: Properties[keyof Properties] | StyleObject };
+export type StyleObject =
+    & Properties
+    & { [key in string]: Properties[keyof Properties] | StyleObject };
 
 export interface StandardEngine {
     renderStyle(style: StyleObject): string;
@@ -35,5 +36,5 @@ export function getInitialStyle(): StyleObject;
 
 export function renderDeclarativeRules(
     style: StyleObject,
-    styletrong: StandardEngine
+    styletrong: StandardEngine,
 ): StyleObject;

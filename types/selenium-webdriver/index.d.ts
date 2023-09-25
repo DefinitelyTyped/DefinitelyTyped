@@ -15,27 +15,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { WebSocket } from 'ws';
-import * as chrome from './chrome';
-import { HttpResponse } from './devtools/networkinterceptor';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as http from './http';
-import * as ie from './ie';
-import { By, ByHash, RelativeBy } from './lib/by';
-import { Browser, Capabilities, Capability, ITimeouts } from './lib/capabilities';
-import * as command from './lib/command';
-import { Actions, Button, Key, Origin } from './lib/input';
-import * as logging from './lib/logging';
-import { promise } from './lib/promise';
-import * as until from './lib/until';
-import { ShadowRootPromise } from './lib/webdriver';
-import * as safari from './safari';
+import { WebSocket } from "ws";
+import * as chrome from "./chrome";
+import { HttpResponse } from "./devtools/networkinterceptor";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as http from "./http";
+import * as ie from "./ie";
+import { By, ByHash, RelativeBy } from "./lib/by";
+import { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
+import * as command from "./lib/command";
+import { Actions, Button, Key, Origin } from "./lib/input";
+import * as logging from "./lib/logging";
+import { promise } from "./lib/promise";
+import * as until from "./lib/until";
+import { ShadowRootPromise } from "./lib/webdriver";
+import * as safari from "./safari";
 
-export * from './lib/by';
-export { Browser, Capabilities, Capability, ITimeouts } from './lib/capabilities';
-export { Actions, Button, Key, Origin } from './lib/input';
-export { promise } from './lib/promise';
+export * from "./lib/by";
+export { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
+export { Actions, Button, Key, Origin } from "./lib/input";
+export { promise } from "./lib/promise";
 export { until };
 export { logging };
 
@@ -2164,7 +2164,7 @@ export class ChromiumWebDriver extends WebDriver {
      * @see <https://w3c.github.io/permissions/#permission-registry> for valid
      *     names
      */
-    setPermission(name: string, state: 'granted' | 'denied' | 'prompt'): Promise<Object>;
+    setPermission(name: string, state: "granted" | "denied" | "prompt"): Promise<Object>;
 
     /**
      * Sends a DevTools command to change the browser's download directory.

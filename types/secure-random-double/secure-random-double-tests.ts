@@ -1,4 +1,4 @@
-import secureRandomDouble = require('secure-random-double');
+import secureRandomDouble = require("secure-random-double");
 
 secureRandomDouble(); // $ExpectType number
 

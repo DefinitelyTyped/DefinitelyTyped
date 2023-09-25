@@ -7,9 +7,9 @@
 /// <reference types="jquery"/>
 
 declare namespace JQuerySmartwizard {
-    type TransitionEffect = 'none' | 'slide' | 'fade';
-    type ToolbarPosition = 'none' | 'top' | 'bottom' | 'both';
-    type ToolbarButtonPosition = 'left' | 'right';
+    type TransitionEffect = "none" | "slide" | "fade";
+    type ToolbarPosition = "none" | "top" | "bottom" | "both";
+    type ToolbarButtonPosition = "left" | "right";
 
     interface ToolbarSettings {
         toolbarPosition?: ToolbarPosition | undefined;

@@ -2,8 +2,8 @@
 import request = require("superagent");
 import * as fs from "fs";
 import assert = require("assert");
-import { Agent } from "https";
 import { Blob } from "buffer";
+import { Agent } from "https";
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -81,7 +81,7 @@ request.get("/querystring").query("search=Manny").query("range=1..5").end(callba
 request.head("/users").query({ email: "joe@smith.com" }).end(callback);
 
 // POST / PUT requests
-request.post("/user").set("Content-Type", "application/json").send('{"name":"tj","pet":"tobi"}').end(callback);
+request.post("/user").set("Content-Type", "application/json").send("{\"name\":\"tj\",\"pet\":\"tobi\"}").end(callback);
 
 request.post("/user").send({ name: "tj", pet: "tobi" }).end(callback);
 
@@ -210,11 +210,11 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
 
     req.part()
         .set("Content-Type", "image/png")
-        .set("Content-Disposition", 'attachment; filename="myimage.png"')
+        .set("Content-Disposition", "attachment; filename=\"myimage.png\"")
         .write("some image data");
     req.write("some more image data");
 
-    req.part().set("Content-Disposition", 'form-data; name="name"').set("Content-Type", "text/plain").write("tobi");
+    req.part().set("Content-Disposition", "form-data; name=\"name\"").set("Content-Type", "text/plain").write("tobi");
 
     req.end(callback);
 })();
@@ -276,12 +276,12 @@ request
 request.get("http://example.com").connect("127.0.0.1").end(callback);
 
 request.get("http://redir.example.com:555")
-      .connect({
+    .connect({
         "redir.example.com": "127.0.0.1", // redir.example.com:555 will use 127.0.0.1:555
         "www.example.com": false, // don't override this one; use DNS as normal
-        "mapped.example.com": { host: "127.0.0.1", port: 8080}, // mapped.example.com:* will use 127.0.0.1:8080
+        "mapped.example.com": { host: "127.0.0.1", port: 8080 }, // mapped.example.com:* will use 127.0.0.1:8080
         "*": "proxy.example.com", // all other requests will go to this host
-      }).end(callback);
+    }).end(callback);
 
 // Promise
 request

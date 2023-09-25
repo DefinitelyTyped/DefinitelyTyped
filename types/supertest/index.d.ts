@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as superagent from 'superagent';
+import * as superagent from "superagent";
 
 export = supertest;
 
@@ -40,27 +40,28 @@ declare namespace supertest {
     interface SuperTestWithHost<T extends superagent.SuperAgentRequest> extends SuperTest<T> {
         host(host: string): this;
     }
-    type SuperAgentTest = SuperTestWithHost<Test> &
-        Pick<
+    type SuperAgentTest =
+        & SuperTestWithHost<Test>
+        & Pick<
             Request,
-            | 'use'
-            | 'on'
-            | 'set'
-            | 'query'
-            | 'type'
-            | 'accept'
-            | 'auth'
-            | 'withCredentials'
-            | 'retry'
-            | 'ok'
-            | 'redirects'
-            | 'timeout'
-            | 'buffer'
-            | 'serialize'
-            | 'parse'
-            | 'ca'
-            | 'key'
-            | 'pfx'
-            | 'cert'
+            | "use"
+            | "on"
+            | "set"
+            | "query"
+            | "type"
+            | "accept"
+            | "auth"
+            | "withCredentials"
+            | "retry"
+            | "ok"
+            | "redirects"
+            | "timeout"
+            | "buffer"
+            | "serialize"
+            | "parse"
+            | "ca"
+            | "key"
+            | "pfx"
+            | "cert"
         >;
 }

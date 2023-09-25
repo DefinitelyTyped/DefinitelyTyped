@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as ReactDOMServer from 'react-dom/server';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as ReactDOMServer from "react-dom/server";
 
 import styled, {
     css,
@@ -12,7 +12,7 @@ import styled, {
     ThemeProps,
     ThemeProvider,
     withTheme,
-} from 'styled-components';
+} from "styled-components";
 
 /**
  * general usage
@@ -70,8 +70,8 @@ const TomatoButton = styled(MyButton)`
 
 const CustomizableButton = styled(MyButton)`
     /* Adapt the colors based on primary prop */
-    background: ${props => (props.primary ? 'palevioletred' : 'white')};
-    color: ${props => (props.primary ? 'white' : 'palevioletred')};
+    background: ${props => (props.primary ? "palevioletred" : "white")};
+    color: ${props => (props.primary ? "white" : "palevioletred")};
 
     font-size: 1em;
     margin: 1em;
@@ -84,7 +84,7 @@ const example = css`
     font-size: 1.5em;
     text-align: center;
     color: ${props => props.theme.primary};
-    border-color: ${'red'};
+    border-color: ${"red"};
 `;
 
 const fadeIn = keyframes`
@@ -97,7 +97,7 @@ const fadeIn = keyframes`
 `;
 
 const theme = {
-    main: 'mediumseagreen',
+    main: "mediumseagreen",
 };
 
 injectGlobal`
@@ -128,17 +128,17 @@ class Example extends React.Component {
 
 // css which only uses simple interpolations without functions
 const cssWithValues1 = css`
-    font-size: ${14} ${'pt'};
+    font-size: ${14} ${"pt"};
 `;
 // css which uses other simple interpolations without functions
 const cssWithValues2 = css`
     ${cssWithValues1}
     ${[cssWithValues1, cssWithValues1]}
-  font-weight: ${'bold'};
+  font-weight: ${"bold"};
 `;
 // injectGlobal accepts simple interpolations if they're not using functions
 injectGlobal`
-  ${'font-size'}: ${10}pt;
+  ${"font-size"}: ${10}pt;
   ${cssWithValues1}
   ${[cssWithValues1, cssWithValues2]}
 `;
@@ -165,7 +165,7 @@ injectGlobal`
 `;
 */
 
-const name = 'hey';
+const name = "hey";
 
 const ThemedMyButton = withTheme(MyButton);
 
@@ -211,7 +211,7 @@ const ComposedLink = () => <Link onClick={(e: React.MouseEvent<HTMLAnchorElement
 
 // Create a <LinkFromString> react component that renders an <a> which is
 // centered, palevioletred and sized at 1.5em
-const LinkFromString = styled('a')`
+const LinkFromString = styled("a")`
     font-size: 1.5em;
     text-align: center;
     color: palevioletred;
@@ -226,23 +226,26 @@ interface LinkProps {
     canClick: boolean;
 }
 
-const LinkFromStringWithProps = styled('a')`
+const LinkFromStringWithProps = styled("a")`
     font-size: 1.5em;
     text-align: center;
-    color: ${(a: LinkProps) => (a.canClick ? 'palevioletred' : 'gray')};
+    color: ${(a: LinkProps) => (a.canClick ? "palevioletred" : "gray")};
 `;
 
 // A LinkFromStringWithProps instance should be backed by an HTMLAnchorElement
 const MyOtherComponentWithProps = () => (
-    <LinkFromStringWithProps canClick={false} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
+    <LinkFromStringWithProps
+        canClick={false}
+        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
+    />
 );
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
 // which takes extra props passed as a generic type argument
-const LinkFromStringWithPropsAndGenerics = styled<LinkProps, 'a'>('a')`
+const LinkFromStringWithPropsAndGenerics = styled<LinkProps, "a">("a")`
     font-size: 1.5em;
     text-align: center;
-    color: ${a => (a.canClick ? 'palevioletred' : 'gray')};
+    color: ${a => (a.canClick ? "palevioletred" : "gray")};
 `;
 
 // A LinkFromStringWithPropsAndGenerics instance should be backed by an HTMLAnchorElement
@@ -262,20 +265,20 @@ interface ObjectStyleProps {
 }
 
 const functionReturningStyleObject = (props: ObjectStyleProps) => ({
-    padding: props.size === 'big' ? '10px' : 2,
+    padding: props.size === "big" ? "10px" : 2,
 });
 
 const ObjectStylesBox = styled.div`
     ${functionReturningStyleObject} ${{
-        backgroundColor: 'red',
+    backgroundColor: "red",
 
-        // Supports nested objects (pseudo selectors, media queries, etc)
-        '@media screen and (min-width: 800px)': {
-            backgroundColor: 'blue',
-        },
+    // Supports nested objects (pseudo selectors, media queries, etc)
+    "@media screen and (min-width: 800px)": {
+        backgroundColor: "blue",
+    },
 
-        fontSize: 2,
-    }};
+    fontSize: 2,
+}};
 `;
 
 <ObjectStylesBox size="big" />;
@@ -286,11 +289,11 @@ const ObjectStylesBox = styled.div`
 
 const AttrsInput = styled.input.attrs({
     // we can define static props
-    type: 'password',
+    type: "password",
 
     // or we can define dynamic ones
-    margin: (props: any) => (props.size as string) || '1em',
-    padding: (props: any) => (props.size as string) || '1em',
+    margin: (props: any) => (props.size as string) || "1em",
+    padding: (props: any) => (props.size as string) || "1em",
 })`
     color: palevioletred;
     font-size: 1em;
@@ -357,8 +360,8 @@ const ThemedButton = styled.button`
 
 // Define our `fg` and `bg` on the theme
 const theme2 = {
-    fg: 'palevioletred',
-    bg: 'white',
+    fg: "palevioletred",
+    bg: "white",
 };
 
 // This theme swaps `fg` and `bg`
@@ -387,7 +390,7 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
     render() {
         const { theme } = this.props;
 
-        console.log('Current theme: ', theme);
+        console.log("Current theme: ", theme);
 
         return <h1>Hello</h1>;
     }
@@ -406,8 +409,8 @@ const Component = (props: WithThemeProps) => <div style={{ color: props.theme.co
 
 const ComponentWithTheme = withTheme(Component);
 
-<ComponentWithTheme text={'hi'} />; // ok
-<ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
+<ComponentWithTheme text={"hi"} />; // ok
+<ComponentWithTheme text={"hi"} theme={{ color: "red" }} />; // ok
 
 /**
  * isStyledComponent utility
@@ -426,7 +429,7 @@ class ClassComponent extends React.Component {
 isStyledComponent(StyledComponent);
 isStyledComponent(FunctionComponent);
 isStyledComponent(ClassComponent);
-isStyledComponent('div');
+isStyledComponent("div");
 
 /**
  * server side rendering
@@ -496,12 +499,14 @@ class Random extends React.Component<any, any> {
     }
 }
 
-const WithComponentH2 = WithComponentH1.withComponent('h2');
-const WithComponentAbbr = WithComponentH1.withComponent('abbr');
+const WithComponentH2 = WithComponentH1.withComponent("h2");
+const WithComponentAbbr = WithComponentH1.withComponent("abbr");
 
-const WithComponentAnchor = WithComponentH1.withComponent('a');
+const WithComponentAnchor = WithComponentH1.withComponent("a");
 const AnchorContainer = () => (
-    <WithComponentAnchor href="https://example.com">withComponent Anchor</WithComponentAnchor>
+    <WithComponentAnchor href="https://example.com">
+        withComponent Anchor
+    </WithComponentAnchor>
 );
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
@@ -522,4 +527,4 @@ const WithComponentFirstStyledA = styled(WithComponentStyledA).attrs({
 
 const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(WithComponentCompB);
 
-const test = () => [<WithComponentFirstStyledA color={'black'} />, <WithComponentFirstStyledB b={2} color={'black'} />];
+const test = () => [<WithComponentFirstStyledA color={"black"} />, <WithComponentFirstStyledB b={2} color={"black"} />];

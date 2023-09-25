@@ -1,6 +1,6 @@
-import getBounds from 'svg-path-bounds';
+import getBounds from "svg-path-bounds";
 
-const [left, top, right, bottom] = getBounds('M0 0L10 10 20 0Z');
+const [left, top, right, bottom] = getBounds("M0 0L10 10 20 0Z");
 
 const xStart: number = left;
 const yStart: number = top;

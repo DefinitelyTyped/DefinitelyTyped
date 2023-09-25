@@ -1,6 +1,6 @@
-import { Duplex } from 'stream';
-import { JSONObject } from './sharedb';
-import ShareDbBackend = require('..');
+import { Duplex } from "stream";
+import { JSONObject } from "./sharedb";
+import ShareDbBackend = require("..");
 
 export = Agent;
 

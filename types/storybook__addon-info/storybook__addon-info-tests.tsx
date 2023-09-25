@@ -1,6 +1,6 @@
-import React, { Component, FunctionComponent, HTMLAttributes } from 'react';
-import { addDecorator, addParameters, storiesOf } from '@storybook/react';
-import { setDefaults, withInfo, TableComponentOptionProps } from '@storybook/addon-info';
+import { setDefaults, TableComponentOptionProps, withInfo } from "@storybook/addon-info";
+import { addDecorator, addParameters, storiesOf } from "@storybook/react";
+import React, { Component, FunctionComponent, HTMLAttributes } from "react";
 
 const TableComponent: FunctionComponent<TableComponentOptionProps> = ({ propDefinitions }) => (
     <table>
@@ -17,8 +17,8 @@ const TableComponent: FunctionComponent<TableComponentOptionProps> = ({ propDefi
             {propDefinitions.map(row => (
                 <tr key={row.property}>
                     <td>{row.property}</td>
-                    <td>{row.required ? 'yes' : '-'}</td>
-                    <td>{row.defaultValue === undefined ? '-' : row.defaultValue}</td>
+                    <td>{row.required ? "yes" : "-"}</td>
+                    <td>{row.defaultValue === undefined ? "-" : row.defaultValue}</td>
                     <td>{row.description}</td>
                 </tr>
             ))}
@@ -42,7 +42,7 @@ addDecorator(withInfo);
 // define parameters of info addon as part of global parameters
 addParameters({
     info: {
-        text: 'String or React Element with docs about my component',
+        text: "String or React Element with docs about my component",
         inline: true,
         header: true,
         source: true,
@@ -61,28 +61,28 @@ addParameters({
 });
 
 // `withInfo` used as story decorator
-storiesOf('Component', module).addDecorator(withInfo);
+storiesOf("Component", module).addDecorator(withInfo);
 
 // Set parameters for multiple config
-storiesOf('Component', module)
+storiesOf("Component", module)
     .addParameters({
         info: {
-            header: '',
+            header: "",
             // Your settings
         },
     })
-    .add('with some emoji', () => <Component />);
+    .add("with some emoji", () => <Component />);
 
-storiesOf('Component', module)
+storiesOf("Component", module)
     .add(
-        'with some emoji',
+        "with some emoji",
         () => <Component emoji />,
         { info: { inline: true, header: false } }, // Make your component render inline with the additional info
     )
     .add(
-        'with no emoji',
+        "with no emoji",
         () => <Component />,
-        { info: '☹️ no emojis' }, // Add additional info text directly
+        { info: "☹️ no emojis" }, // Add additional info text directly
     );
 
 // Check deprecated option functions
@@ -91,18 +91,18 @@ setDefaults({
     propTables: false,
 });
 
-storiesOf('Component', module)
-    .add('no info', withInfo()(() => <Component>Click the "?" mark at top-right to view the info.</Component>))
+storiesOf("Component", module)
+    .add("no info", withInfo()(() => <Component>Click the "?" mark at top-right to view the info.</Component>))
     .add(
-        'simple info',
-        withInfo('doc string about my component')(() => (
+        "simple info",
+        withInfo("doc string about my component")(() => (
             <Component>Click the "?" mark at top-right to view the info.</Component>
         )),
     )
     .add(
-        'using an options object',
+        "using an options object",
         withInfo({
-            text: 'String or React Element with docs about my component',
+            text: "String or React Element with docs about my component",
             inline: true,
             header: true,
             source: true,

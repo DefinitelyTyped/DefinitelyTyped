@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as superagent from 'superagent';
+import * as superagent from "superagent";
 
-declare module 'superagent' {
+declare module "superagent" {
     interface Request {
         proxy(url: string): this;
     }

@@ -19,4 +19,9 @@ declare namespace sequencify {
     }
 }
 
-declare function sequencify<T extends sequencify.TaskMap>(tasks: T, names: Array<keyof T>, results: Array<keyof T>, nest?: string[]): void;
+declare function sequencify<T extends sequencify.TaskMap>(
+    tasks: T,
+    names: Array<keyof T>,
+    results: Array<keyof T>,
+    nest?: string[],
+): void;

@@ -1,4 +1,4 @@
-import { assetid, contextid, appid, classid, instanceid } from '../index';
+import { appid, assetid, classid, contextid, instanceid } from "../index";
 
 export = CEconItem;
 

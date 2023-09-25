@@ -6,7 +6,7 @@
 
 // <reference types="node" />
 
-import { Request } from 'express';
+import { Request } from "express";
 export namespace core {
     class Batch<T> {
         constructor();
@@ -1206,7 +1206,7 @@ export namespace internationalAddressAutocomplete {
          *
          * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
          */
-        geolocation: 'adminarea' | 'locality' | 'postalcode' | 'geocodes';
+        geolocation: "adminarea" | "locality" | "postalcode" | "geocodes";
         /**
          * Limit the results to only the administrative area provided.
          * An administrative area is like a state in the United States, a province in Canada, or region in France.

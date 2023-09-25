@@ -1,21 +1,21 @@
-import { ECIES } from 'sic-ecies';
-import { PrivateKey, PublicKey } from 'bitcore-lib';
+import { PrivateKey, PublicKey } from "bitcore-lib";
+import { ECIES } from "sic-ecies";
 
 const aliceKey = new PrivateKey();
 const bobKey = new PrivateKey();
 
 const alice = ECIES()
-  .privateKey(aliceKey)
-  .publicKey(bobKey.publicKey);
+    .privateKey(aliceKey)
+    .publicKey(bobKey.publicKey);
 
-const message = 'some secret message';
+const message = "some secret message";
 
 const encrypted = alice.encrypt(message);
 // encrypted will contain an encrypted buffer only Bob can decrypt
 
 const bob = ECIES()
-  .privateKey(bobKey)
-  .publicKey(aliceKey.publicKey);
+    .privateKey(bobKey)
+    .publicKey(aliceKey.publicKey);
 
 const decrypted = bob.decrypt(encrypted).toString();
 // decrypted will be 'some secret message'

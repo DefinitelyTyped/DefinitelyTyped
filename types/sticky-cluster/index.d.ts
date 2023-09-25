@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node"/>
-import * as http from 'http';
+import * as http from "http";
 
 declare namespace stickyCluster {
     type InitializeFn = (callback: Callback) => void;

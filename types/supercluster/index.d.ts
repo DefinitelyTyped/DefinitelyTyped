@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as GeoJSON from 'geojson';
+import * as GeoJSON from "geojson";
 
 export as namespace supercluster;
 

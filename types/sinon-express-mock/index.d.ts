@@ -5,14 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    SinonStub,
-} from "sinon";
+import { SinonStub } from "sinon";
 
-import {
-    Request,
-    Response,
-} from "express";
+import { Request, Response } from "express";
 
 export namespace mockReq {
     interface MockReq {

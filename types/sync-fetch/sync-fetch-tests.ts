@@ -1,51 +1,51 @@
-import syncFetch = require('sync-fetch');
+import syncFetch = require("sync-fetch");
 
 const { FetchError, Headers, Request, Response } = syncFetch;
 
-syncFetch(''); // $ExpectType SyncResponse
-syncFetch(new URL(''));
-syncFetch(new Request(''));
-syncFetch('', {});
-syncFetch('', {
-    body: '',
-    headers: { '': '' },
-    method: '',
-    redirect: 'follow',
+syncFetch(""); // $ExpectType SyncResponse
+syncFetch(new URL(""));
+syncFetch(new Request(""));
+syncFetch("", {});
+syncFetch("", {
+    body: "",
+    headers: { "": "" },
+    method: "",
+    redirect: "follow",
     compress: true,
     follow: 0,
     size: 0,
     timeout: 0,
 });
-syncFetch('', {
+syncFetch("", {
     body: new URLSearchParams(),
 });
-syncFetch('', {
+syncFetch("", {
     body: new ArrayBuffer(0),
 });
-syncFetch('', {
+syncFetch("", {
     // @ts-expect-error
     agent: undefined,
 });
-syncFetch('', {
+syncFetch("", {
     // @ts-expect-error
     signal: undefined,
 });
 
-new Request(''); // $ExpectType SyncRequest
-new Request(new URL(''));
-new Request(new Request(''));
-new Request('', {});
-new Request('', {
-    body: '',
-    headers: { '': '' },
-    method: '',
-    redirect: 'follow',
+new Request(""); // $ExpectType SyncRequest
+new Request(new URL(""));
+new Request(new Request(""));
+new Request("", {});
+new Request("", {
+    body: "",
+    headers: { "": "" },
+    method: "",
+    redirect: "follow",
     compress: true,
     follow: 0,
     size: 0,
     timeout: 0,
 });
-const request = new Request('');
+const request = new Request("");
 // @ts-expect-error
 request.agent;
 request.arrayBuffer(); // $ExpectType ArrayBuffer
@@ -58,17 +58,17 @@ request.text(); // $ExpectType string
 request.textConverted;
 
 new Response(); // $ExpectType SyncResponse
-new Response('');
+new Response("");
 new Response(new URLSearchParams());
 new Response(new ArrayBuffer(0));
-new Response('', {});
-new Response('', {
-    headers: { '': '' },
+new Response("", {});
+new Response("", {
+    headers: { "": "" },
     size: 0,
     status: 0,
-    statusText: '',
+    statusText: "",
     timeout: 0,
-    url: '',
+    url: "",
 });
 // @ts-expect-error
 Response.error;
@@ -85,8 +85,8 @@ response.text(); // $ExpectType string
 response.textConverted;
 
 new Headers();
-new Headers({ '': '' });
-new Headers([['', '']]);
+new Headers({ "": "" });
+new Headers([["", ""]]);
 new Headers(new Headers());
 
-new FetchError('', '');
+new FetchError("", "");

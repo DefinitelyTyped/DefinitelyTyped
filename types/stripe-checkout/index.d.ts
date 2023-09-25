@@ -32,7 +32,7 @@ interface StripeCheckoutOptions {
     label?: string | undefined;
     allowRememberMe?: boolean | undefined;
     bitcoin?: boolean | undefined;
-    alipay?: boolean | 'auto' | undefined;
+    alipay?: boolean | "auto" | undefined;
     alipayReusable?: boolean | undefined;
     opened?(): void;
     closed?(): void;

@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "slackify-html" {
-    function slackify(html : string) : string;
+    function slackify(html: string): string;
     export = slackify;
 }

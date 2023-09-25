@@ -3,7 +3,7 @@
 // Definitions by: Tom Golden <https://github.com/tbjgolden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { KeyframesObject, FontFace as FontFaceObject, StandardEngine, StyleObject } from 'styletron-standard';
+import { FontFace as FontFaceObject, KeyframesObject, StandardEngine, StyleObject } from "styletron-standard";
 
 export interface SequentialIDGenerator {
     prefix: string;

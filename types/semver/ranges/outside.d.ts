@@ -1,6 +1,6 @@
-import Range = require('../classes/range');
-import SemVer = require('../classes/semver');
-import semver = require('../index');
+import Range = require("../classes/range");
+import SemVer = require("../classes/semver");
+import semver = require("../index");
 
 /**
  * Return true if the version is outside the bounds of the range in either the high or low direction.
@@ -9,7 +9,7 @@ import semver = require('../index');
 declare function outside(
     version: string | SemVer,
     range: string | Range,
-    hilo: '>' | '<',
+    hilo: ">" | "<",
     optionsOrLoose?: boolean | semver.RangeOptions,
 ): boolean;
 export = outside;
