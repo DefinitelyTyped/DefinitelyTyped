@@ -40,8 +40,8 @@ interface MediaSettingsRange {
     readonly step: number;
 }
 
-type RedEyeReduction = 'never' | 'always' | 'controllable';
-type FillLightMode = 'auto' | 'off' | 'flash';
+type RedEyeReduction = "never" | "always" | "controllable";
+type FillLightMode = "auto" | "off" | "flash";
 
 interface MediaTrackCapabilities {
     whiteBalanceMode: MeteringMode[];
@@ -137,7 +137,7 @@ interface ConstrainPoint2DParameters {
     ideal: Point2D[];
 }
 
-type MeteringMode = 'none' | 'manual' | 'single-shot' | 'continuous';
+type MeteringMode = "none" | "manual" | "single-shot" | "continuous";
 
 interface Point2D {
     x: number;

@@ -6,13 +6,13 @@
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'webp-in-css/polyfill' {
+declare module "webp-in-css/polyfill" {
     // nothing here, global script
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'webp-in-css/plugin' {
-    import { Declaration, PluginCreator } from 'postcss';
+declare module "webp-in-css/plugin" {
+    import { Declaration, PluginCreator } from "postcss";
 
     namespace webpInCss {
         interface Options {

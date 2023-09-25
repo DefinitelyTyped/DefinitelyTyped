@@ -107,8 +107,8 @@ interface ScreenDetailed extends Screen /*, ScreenDetailsEventHandlers*/ {
 type PermissionDescriptorWithWindowPlacement =
     | PermissionDescriptor
     | {
-          name: 'window-placement';
-      };
+        name: "window-placement";
+    };
 interface Permissions {
     query(permissionDesc: PermissionDescriptorWithWindowPlacement): Promise<PermissionStatus>;
 }

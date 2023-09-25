@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import IconButton from '../icon-button';
+import IconButton from "../icon-button";
 
 declare namespace MenuItem {
     interface Props extends Partial<IconButton.Props> {

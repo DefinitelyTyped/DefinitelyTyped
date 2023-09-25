@@ -14,9 +14,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+import { Events } from "./events";
 import { Extension } from "./extension";
 import { Tabs } from "./tabs";
-import { Events } from "./events";
 
 export namespace Menus {
     /**

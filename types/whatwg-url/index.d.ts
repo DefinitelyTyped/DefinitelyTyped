@@ -61,7 +61,7 @@ export class URL {
 
     toJSON(): string;
 
-    readonly [Symbol.toStringTag]: 'URL';
+    readonly [Symbol.toStringTag]: "URL";
 }
 
 /** https://url.spec.whatwg.org/#interface-urlsearchparams */
@@ -90,7 +90,7 @@ export class URLSearchParams {
         thisArg?: THIS_ARG,
     ): void;
 
-    readonly [Symbol.toStringTag]: 'URLSearchParams';
+    readonly [Symbol.toStringTag]: "URLSearchParams";
     [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
 }
 
@@ -109,27 +109,27 @@ export function basicURLParse(
 
 /** https://url.spec.whatwg.org/#scheme-start-state */
 export type StateOverride =
-    | 'scheme start'
-    | 'scheme'
-    | 'no scheme'
-    | 'special relative or authority'
-    | 'path or authority'
-    | 'relative'
-    | 'relative slash'
-    | 'special authority slashes'
-    | 'special authority ignore slashes'
-    | 'authority'
-    | 'host'
-    | 'hostname'
-    | 'port'
-    | 'file'
-    | 'file slash'
-    | 'file host'
-    | 'path start'
-    | 'path'
-    | 'opaque path'
-    | 'query'
-    | 'fragment';
+    | "scheme start"
+    | "scheme"
+    | "no scheme"
+    | "special relative or authority"
+    | "path or authority"
+    | "relative"
+    | "relative slash"
+    | "special authority slashes"
+    | "special authority ignore slashes"
+    | "authority"
+    | "host"
+    | "hostname"
+    | "port"
+    | "file"
+    | "file slash"
+    | "file host"
+    | "path start"
+    | "path"
+    | "opaque path"
+    | "query"
+    | "fragment";
 
 /** https://url.spec.whatwg.org/#concept-url-serializer */
 export function serializeURL(urlRecord: URLRecord, excludeFragment?: boolean): string;

@@ -1,11 +1,11 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { BlockInstance } from '@wordpress/blocks';
-import { Autocomplete, ToolbarButton } from '@wordpress/components';
-import { ComponentType, HTMLProps, ReactNode } from 'react';
-import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
+import { BlockInstance } from "@wordpress/blocks";
+import { Autocomplete, ToolbarButton } from "@wordpress/components";
+import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
+import { ComponentType, HTMLProps, ReactNode } from "react";
 
 declare namespace RichText {
-    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {
+    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
         /**
          * By default, all registered formats are allowed. This setting can be used to fine-tune
          * the allowed formats.
@@ -70,17 +70,17 @@ declare namespace RichText {
     }
     interface ContentProps<T extends keyof HTMLElementTagNameMap> extends HTMLProps<T> {
         children?: never | undefined;
-        multiline?: boolean | 'p' | 'li' | undefined;
+        multiline?: boolean | "p" | "li" | undefined;
         tagName?: T | undefined;
         value: string;
     }
 }
 declare const RichText: {
-    <T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.Props<T>): JSX.Element;
+    <T extends keyof HTMLElementTagNameMap = "div">(props: RichText.Props<T>): JSX.Element;
     /**
      * Should be used in the `save` function of your block to correctly save rich text content.
      */
-    Content<T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.ContentProps<T>): JSX.Element;
+    Content<T extends keyof HTMLElementTagNameMap = "div">(props: RichText.ContentProps<T>): JSX.Element;
     isEmpty(value: string | string[]): boolean;
 };
 

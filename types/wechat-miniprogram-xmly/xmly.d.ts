@@ -1,7 +1,7 @@
 /**
  * API 请求类型
  */
-type RequestType = 'GET' | 'POST';
+type RequestType = "GET" | "POST";
 
 /**
  * API 请求参数

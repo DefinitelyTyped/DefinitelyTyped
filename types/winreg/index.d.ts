@@ -19,7 +19,7 @@ interface WinregStatic {
      *       key:  '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
      *     });
      */
-    new (options: Winreg.Options): Winreg.Registry;
+    new(options: Winreg.Options): Winreg.Registry;
 
     /**
      * Registry hive key HKEY_LOCAL_MACHINE.

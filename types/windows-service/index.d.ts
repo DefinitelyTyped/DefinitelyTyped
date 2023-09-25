@@ -43,7 +43,6 @@ export interface AddOptions {
  */
 export declare function add(name: string, opts?: AddOptions): void;
 
-
 /**
  * The remove() function removes a Windows service.
  * The name parameter specifies the name of the service to remove. This will be the same name parameter specified when adding the service.
@@ -62,7 +61,11 @@ export declare function remove(name: string): void;
  * The program should perform cleanup tasks and then call the service.stop() function.
  */
 export declare function run(stdoutLogStream: stream.Writable, callback: () => void): void;
-export declare function run(stdoutLogStream: stream.Writable, stderrLogStream: stream.Writable, callback: () => void): void;
+export declare function run(
+    stdoutLogStream: stream.Writable,
+    stderrLogStream: stream.Writable,
+    callback: () => void,
+): void;
 
 /**
  * The stop() function will cause the service to stop, and the calling program to exit.

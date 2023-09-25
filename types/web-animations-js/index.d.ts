@@ -34,7 +34,7 @@ interface AnimationKeyFrame {
     easing?: string | string[] | undefined;
     offset?: number | Array<number | null> | null | undefined;
     opacity?: number | number[] | undefined;
-    transform?: string |  string[] | undefined;
+    transform?: string | string[] | undefined;
     // [key: string]: string | number | [string | number, string | number] | undefined; (duplicate string indexer in TypeScript 2.7+)
 }
 

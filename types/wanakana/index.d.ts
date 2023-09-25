@@ -6,14 +6,14 @@
 
 export as namespace wanakana;
 
-export type IMEModes = true | false | 'toHiragana' | 'toKatakana';
+export type IMEModes = true | false | "toHiragana" | "toKatakana";
 
 export interface WanakanaOptions {
     useObsoleteKana?: boolean | undefined;
     passRomaji?: boolean | undefined;
     upcaseKatakana?: boolean | undefined;
     IMEMode?: IMEModes | undefined;
-    romanization?: 'hepburn' | undefined;
+    romanization?: "hepburn" | undefined;
     customKanaMapping?: Record<string, string> | undefined;
     customRomajiMapping?: Record<string, string> | undefined;
 }

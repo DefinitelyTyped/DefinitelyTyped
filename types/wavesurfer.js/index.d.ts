@@ -7,7 +7,7 @@
 //                 Thijs Triemstra <https://github.com/thijstriemstra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import WaveSurfer from './src/wavesurfer';
+import WaveSurfer from "./src/wavesurfer";
 
 export = WaveSurfer;
 export as namespace WaveSurfer;

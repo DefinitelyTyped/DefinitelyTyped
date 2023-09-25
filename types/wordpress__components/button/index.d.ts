@@ -1,10 +1,10 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
-import Icon from '../icon';
-import Tooltip from '../tooltip';
+import Icon from "../icon";
+import Tooltip from "../tooltip";
 
 declare namespace Button {
-    type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'link';
+    type ButtonVariant = "primary" | "secondary" | "tertiary" | "link";
     interface BaseProps {
         /**
          * Renders a default button style.
@@ -77,19 +77,19 @@ declare namespace Button {
          * strings), functions, WPComponent instances and `null`.
          * @defaultValue null
          */
-        icon?: Icon.Props<any>['icon'] | undefined;
+        icon?: Icon.Props<any>["icon"] | undefined;
 
         /**
          * The position of the icon within the button.
          * @defaultValue `left`
          */
-        iconPosition?: 'left' | 'right';
+        iconPosition?: "left" | "right";
 
         /**
          * The size (width and height) of the icon.
          * @defaultValue `20` (when using Dashicon), `24` otherwise
          */
-        iconSize?: Icon.Props<any>['size'] | undefined;
+        iconSize?: Icon.Props<any>["size"] | undefined;
 
         /**
          * Renders a with the `label` prop when `true`.
@@ -101,14 +101,14 @@ declare namespace Button {
          * The direction in which the tooltip should open relative to its
          * parent node.
          */
-        tooltipPosition?: Tooltip.Props['position'] | undefined;
+        tooltipPosition?: Tooltip.Props["position"] | undefined;
 
         /**
          * If provided with `showTooltip`, appends the Shortcut label to the
          * tooltip content. If an `Object` is provided, it should contain
          * `display` and `ariaLabel` keys.
          */
-        shortcut?: Tooltip.Props['shortcut'] | undefined;
+        shortcut?: Tooltip.Props["shortcut"] | undefined;
 
         /**
          * Used as the Tooltip text and `aria-label` if one is not provided.

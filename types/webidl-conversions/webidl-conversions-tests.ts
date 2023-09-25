@@ -1,4 +1,4 @@
-import conversions = require('webidl-conversions');
+import conversions = require("webidl-conversions");
 
 // test type exports
 type Globals = conversions.Globals;
@@ -57,19 +57,19 @@ conversions.byte(unknown, integerOptions); // $ExpectType number
 conversions.octet(unknown, integerOptions); // $ExpectType number
 
 conversions.short(unknown, integerOptions); // $ExpectType number
-conversions['unsigned short'](unknown, integerOptions); // $ExpectType number
+conversions["unsigned short"](unknown, integerOptions); // $ExpectType number
 
 conversions.long(unknown, integerOptions); // $ExpectType number
-conversions['unsigned long'](unknown, integerOptions); // $ExpectType number
+conversions["unsigned long"](unknown, integerOptions); // $ExpectType number
 
-conversions['long long'](unknown, integerOptions); // $ExpectType number
-conversions['unsigned long long'](unknown, integerOptions); // $ExpectType number
+conversions["long long"](unknown, integerOptions); // $ExpectType number
+conversions["unsigned long long"](unknown, integerOptions); // $ExpectType number
 
 conversions.double(unknown, integerOptions); // $ExpectType number
-conversions['unrestricted double'](unknown, integerOptions); // $ExpectType number
+conversions["unrestricted double"](unknown, integerOptions); // $ExpectType number
 
 conversions.float(unknown, integerOptions); // $ExpectType number
-conversions['unrestricted float'](unknown, integerOptions); // $ExpectType number
+conversions["unrestricted float"](unknown, integerOptions); // $ExpectType number
 
 conversions.DOMString(unknown, stringOptions); // $ExpectType string
 conversions.ByteString(unknown, stringOptions); // $ExpectType string
@@ -78,7 +78,7 @@ conversions.USVString(unknown, stringOptions); // $ExpectType string
 conversions.object(any, options); // $ExpectType any
 conversions.object(unknown, options); // $ExpectType object
 expectType<null & object>(conversions.object(null, options));
-expectType<string & object>(conversions.object('string', options));
+expectType<string & object>(conversions.object("string", options));
 expectType<number & object>(conversions.object(123, options));
 conversions.object({}, options); // $ExpectType {}
 

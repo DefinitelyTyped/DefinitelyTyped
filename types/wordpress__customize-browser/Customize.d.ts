@@ -1,16 +1,16 @@
-import { Class } from './Class';
-import { Control } from './Control';
-import { Control_Constructor } from './Control_Constructor';
-import { Notifications } from './Notifications';
-import { Panel } from './Panel';
-import { Panel_Constructor } from './Panel_Constructor';
-import { Previewer } from './Previewer';
-import { Section } from './Section';
-import { Section_Constructor } from './Section_Constructor';
-import { Setting } from './Setting';
-import { Setting_Constructor } from './Setting_Constructor';
-import { Utils } from './Utils';
-import { Values } from './Values';
+import { Class } from "./Class";
+import { Control } from "./Control";
+import { Control_Constructor } from "./Control_Constructor";
+import { Notifications } from "./Notifications";
+import { Panel } from "./Panel";
+import { Panel_Constructor } from "./Panel_Constructor";
+import { Previewer } from "./Previewer";
+import { Section } from "./Section";
+import { Section_Constructor } from "./Section_Constructor";
+import { Setting } from "./Setting";
+import { Setting_Constructor } from "./Setting_Constructor";
+import { Utils } from "./Utils";
+import { Values } from "./Values";
 
 export interface DirtyValuesOptions {
     unsaved?: boolean | undefined;

@@ -5,11 +5,11 @@
 // TypeScript Version: 3.7
 // TypeScript Version: 3.7
 
-import { WebpackPluginInstance, Chunk, Compiler } from 'webpack';
-import { SyncWaterfallHook } from 'tapable';
+import { SyncWaterfallHook } from "tapable";
+import { Chunk, Compiler, WebpackPluginInstance } from "webpack";
 
 export const WebpackManifestPlugin: {
-    new (options?: Options): WebpackPluginInstance;
+    new(options?: Options): WebpackPluginInstance;
 };
 
 export interface FileDescriptor {

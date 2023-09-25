@@ -16,7 +16,11 @@
  * @param html HTML to convert to PDF
  * @param [options] Options
  */
-declare function wkhtmltopdf(html: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
+declare function wkhtmltopdf(
+    html: string,
+    options?: Options,
+    callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void,
+): NodeJS.ReadWriteStream;
 /**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
@@ -25,7 +29,11 @@ declare function wkhtmltopdf(html: string, options?: Options, callback?: (err: E
  * @param [options] Options
  * @param [callback] Callback
  */
-declare function wkhtmltopdf(url: string, options?: Options, callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void): NodeJS.ReadWriteStream;
+declare function wkhtmltopdf(
+    url: string,
+    options?: Options,
+    callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void,
+): NodeJS.ReadWriteStream;
 /**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
@@ -69,7 +77,7 @@ interface Options {
     /** When jpeg compressing images use this quality (default 94) */
     imageQuality?: number | undefined;
     /** Set log level (default info) */
-    logLevel?: "none"|"error"|"warn"|"info" | undefined;
+    logLevel?: "none" | "error" | "warn" | "info" | undefined;
     /** Generates lower quality pdf/ps. Useful to shrink the result document space */
     lowquality?: boolean | undefined;
     /** Set the page bottom margin in unitreal (e.g 10mm 2cm 0.5in) */
@@ -81,25 +89,54 @@ interface Options {
     /** Set the page top margin in unitreal (e.g 10mm 2cm 0.5in) */
     marginTop?: string | undefined;
     /** Set orientation to Landscape or Portrait (default Portrait) */
-    orientation?: "Landscape"|"Portrait" | undefined;
+    orientation?: "Landscape" | "Portrait" | undefined;
     /** Page height in unitreal (e.g 10mm 2cm 0.5in) */
     pageHeight?: string | undefined;
     /** Set paper size to: A4, Letter, etc. (default A4) */
-    pageSize?: "A0"|"A1"|"A2"|"A3"|"A4"|"A5"|"A6"|"A7"|"A8"|"A9"|
-                "B0"|"B1"|"B10"|"B2"|"B3"|"B4"|"B5"|"B6"|"B7"|"B8"|"B9"|
-                "C5E"|"Comm10E"|"DLE"|"Executive"|"Folio"|"Ledger"|"Legal"|"Letter"|"Tabloid" | undefined;
+    pageSize?:
+        | "A0"
+        | "A1"
+        | "A2"
+        | "A3"
+        | "A4"
+        | "A5"
+        | "A6"
+        | "A7"
+        | "A8"
+        | "A9"
+        | "B0"
+        | "B1"
+        | "B10"
+        | "B2"
+        | "B3"
+        | "B4"
+        | "B5"
+        | "B6"
+        | "B7"
+        | "B8"
+        | "B9"
+        | "C5E"
+        | "Comm10E"
+        | "DLE"
+        | "Executive"
+        | "Folio"
+        | "Ledger"
+        | "Legal"
+        | "Letter"
+        | "Tabloid"
+        | undefined;
     /** Page width in unitreal (e.g 10mm 2cm 0.5in) */
     pageWidth?: string | undefined;
     /** Do not use lossless compression on pdf objects */
     noPdfCompression?: boolean | undefined;
     /** Debug prints stderr messages */
-    debug?: boolean|((data: Buffer) => void) | undefined;
+    debug?: boolean | ((data: Buffer) => void) | undefined;
     /** debugStdOut prints any stdout warning messages */
     debugStdOut?: boolean | undefined;
     /** The title of the generated pdf file (The title of the first document is used if not specified) */
     title?: string | undefined;
     /** Ignore warnings */
-    ignore?: ReadonlyArray<string|RegExp> | undefined;
+    ignore?: ReadonlyArray<string | RegExp> | undefined;
     /** If defined only output to this path */
     output?: string | undefined;
 
@@ -181,9 +218,9 @@ interface Options {
     /** Keep relative external links as relative external links */
     keepRelativeLinks?: boolean | undefined;
     /** Specify how to handle pages that fail to load: abort, ignore or skip (default abort) */
-    loadErrorHandling?: "abort"|"ignore"|"skip" | undefined;
+    loadErrorHandling?: "abort" | "ignore" | "skip" | undefined;
     /** Specify how to handle media files that fail to load: abort, ignore or skip (default ignore) */
-    loadMediaErrorHandling?: "abort"|"ignore"|"skip" | undefined;
+    loadMediaErrorHandling?: "abort" | "ignore" | "skip" | undefined;
     /** Do not allowed conversion of a local file to read in other local files, unless explicitly allowed with --allow (default) */
     disableLocalFileAccess?: boolean | undefined;
     /** Allowed conversion of a local file to read in other local files. */

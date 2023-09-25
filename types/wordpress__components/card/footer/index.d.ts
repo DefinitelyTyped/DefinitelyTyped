@@ -1,4 +1,4 @@
-import Card from '..';
+import Card from "..";
 
 declare namespace CardFooter {
     type Props<T extends keyof JSX.IntrinsicElements> = {
@@ -27,6 +27,6 @@ declare namespace CardFooter {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function CardFooter<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardFooter.Props<T>): JSX.Element;
+declare function CardFooter<T extends keyof JSX.IntrinsicElements = "div">(props: CardFooter.Props<T>): JSX.Element;
 
 export default CardFooter;

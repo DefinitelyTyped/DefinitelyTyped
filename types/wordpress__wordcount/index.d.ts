@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export type CountType = 'words' | 'characters_excluding_spaces' | 'characters_including_spaces';
+export type CountType = "words" | "characters_excluding_spaces" | "characters_including_spaces";
 
 export interface Settings {
     HTMLEntityRegExp: RegExp;

@@ -125,7 +125,7 @@ export namespace DevtoolsPanels {
         create(
             title: string,
             iconPath: "" | Manifest.ExtensionURL,
-            pagePath: Manifest.ExtensionURL
+            pagePath: Manifest.ExtensionURL,
         ): Promise<ExtensionPanel>;
 
         /**

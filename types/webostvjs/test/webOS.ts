@@ -89,8 +89,8 @@ function test_systemInfo() {
 }
 
 function test_service_request() {
-    const returnedValue = window.webOS.service.request('luna://com.palm.systemservice', {
-        method: 'time/getSystemTime',
+    const returnedValue = window.webOS.service.request("luna://com.palm.systemservice", {
+        method: "time/getSystemTime",
         parameters: { subscribe: true },
         onSuccess({ returnValue }) {
             returnValue; // $ExpectType true
@@ -99,17 +99,17 @@ function test_service_request() {
             returnValue; // $ExpectType false
             errorCode; // $ExpectType string
             errorText; // $ExpectType string
-        }
+        },
     });
 
-    window.webOS.service.request('luna://com.palm.systemservice', {
-        method: 'time/getSystemTime',
+    window.webOS.service.request("luna://com.palm.systemservice", {
+        method: "time/getSystemTime",
         parameters: { subscribe: true },
-        onSuccess({ returnValue }) {}
+        onSuccess({ returnValue }) {},
     });
 
-    window.webOS.service.request('luna://com.palm.systemservice', {
-        method: 'time/getSystemTime',
+    window.webOS.service.request("luna://com.palm.systemservice", {
+        method: "time/getSystemTime",
         parameters: { subscribe: true },
         onComplete(res) {
             res.returnValue; // $ExpectType boolean
@@ -118,21 +118,21 @@ function test_service_request() {
             } else {
                 res; // $ExpectType OnCompleteFailureResponse
             }
-        }
+        },
     });
 
-    window.webOS.service.request('luna://com.palm.systemservice', {
-        method: 'time/getSystemTime',
-        parameters: { subscribe: true }
-    });
-
-    window.webOS.service.request('luna://com.palm.systemservice', {
-        method: 'time/getSystemTime',
+    window.webOS.service.request("luna://com.palm.systemservice", {
+        method: "time/getSystemTime",
         parameters: { subscribe: true },
-        onSuccess({ returnValue, foo }: { returnValue: true, foo: string }) {}
     });
 
-    window.webOS.service.request('luna://com.palm.systemservice');
+    window.webOS.service.request("luna://com.palm.systemservice", {
+        method: "time/getSystemTime",
+        parameters: { subscribe: true },
+        onSuccess({ returnValue, foo }: { returnValue: true; foo: string }) {},
+    });
+
+    window.webOS.service.request("luna://com.palm.systemservice");
 
     returnedValue.cancel(); // $ExpectType void
     returnedValue.onComplete; // $ExpectType ((response: OnCompleteSuccessResponse | OnCompleteFailureResponse) => void) | undefined

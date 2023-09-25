@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 interface Options {
     /**

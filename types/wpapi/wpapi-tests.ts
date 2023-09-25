@@ -34,7 +34,7 @@ apiPromise.then(site => {
     (site.namespace("myplugin/v1").authors() as WPAPI.WPRequest).then(
         (authors: any[]) => {
             /* ... */
-        }
+        },
     );
 
     // Namespaces can be saved out to variables:
@@ -51,7 +51,7 @@ apiPromise.then(site => {
 const apiPromise2 = WPAPI.discover("http://my-site.com").then(site => {
     return site.auth({
         username: "admin",
-        password: "always use secure passwords"
+        password: "always use secure passwords",
     });
 });
 
@@ -64,7 +64,7 @@ const wp2 = new WPAPI({
     endpoint: "http://your-site.com/wp-json",
     // This assumes you are using basic auth, as described further below
     username: "someusername",
-    password: "password"
+    password: "password",
 });
 wp2
     .posts()
@@ -74,7 +74,7 @@ wp2
         content: "Your post content",
         // Post will be created as a draft by default if a specific "status"
         // is not specified
-        status: "publish"
+        status: "publish",
     })
     .then((response: any) => {
         // "response" will hold all properties of your newly-created post,
@@ -90,7 +90,7 @@ wp2
         // Update the title
         title: "A Better Title",
         // Set the post live (assuming it was "draft" before)
-        status: "publish"
+        status: "publish",
     })
     .then((response: any) => {});
 

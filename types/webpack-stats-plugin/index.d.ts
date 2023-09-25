@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import StatsWriterPlugin = require('./lib/stats-writer-plugin');
+import StatsWriterPlugin = require("./lib/stats-writer-plugin");
 
 export { StatsWriterPlugin };

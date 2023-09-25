@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import DirectoryWatcher = require('./DirectoryWatcher');
+import { EventEmitter } from "events";
+import DirectoryWatcher = require("./DirectoryWatcher");
 
 declare class Watcher extends EventEmitter {
     data: number;

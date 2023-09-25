@@ -1,7 +1,7 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace BlockAlignmentToolbar {
-    type Control = 'center' | 'full' | 'left' | 'right' | 'wide';
+    type Control = "center" | "full" | "left" | "right" | "wide";
     interface Props {
         children?: never | undefined;
         controls?: Control[] | undefined;

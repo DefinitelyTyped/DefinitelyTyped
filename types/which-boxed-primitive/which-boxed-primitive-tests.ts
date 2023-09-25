@@ -1,4 +1,4 @@
-import whichBoxedPrimitive = require('which-boxed-primitive');
+import whichBoxedPrimitive = require("which-boxed-primitive");
 
 whichBoxedPrimitive(undefined); // $ExpectType null
 whichBoxedPrimitive(null); // $ExpectType null
@@ -15,10 +15,10 @@ whichBoxedPrimitive(new Number(42)); // $ExpectType "Number"
 whichBoxedPrimitive(new Number(NaN)); // $ExpectType "Number"
 whichBoxedPrimitive(new Number(Infinity)); // $ExpectType "Number"
 
-whichBoxedPrimitive(''); // $ExpectType null
-whichBoxedPrimitive('foo'); // $ExpectType null
-whichBoxedPrimitive(new String('')); // $ExpectType "String"
-whichBoxedPrimitive(new String('foo')); // $ExpectType "String"
+whichBoxedPrimitive(""); // $ExpectType null
+whichBoxedPrimitive("foo"); // $ExpectType null
+whichBoxedPrimitive(new String("")); // $ExpectType "String"
+whichBoxedPrimitive(new String("foo")); // $ExpectType "String"
 
 whichBoxedPrimitive(Symbol()); // $ExpectType null
 whichBoxedPrimitive(Object(Symbol()) as Symbol); // $ExpectType "Symbol"
@@ -29,7 +29,7 @@ whichBoxedPrimitive(Object(BigInt(42)) as BigInt); // $ExpectType "BigInt"
 whichBoxedPrimitive([]); // $ExpectType undefined
 whichBoxedPrimitive({}); // $ExpectType undefined
 whichBoxedPrimitive(/a/g); // $ExpectType undefined
-whichBoxedPrimitive(new RegExp('a', 'g')); // $ExpectType undefined
+whichBoxedPrimitive(new RegExp("a", "g")); // $ExpectType undefined
 whichBoxedPrimitive(new Date()); // $ExpectType undefined
 whichBoxedPrimitive(() => {}); // $ExpectType undefined
 whichBoxedPrimitive(function*() {}); // $ExpectType undefined

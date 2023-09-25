@@ -1,9 +1,9 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import SelectControl from '../select-control';
+import SelectControl from "../select-control";
 
 declare namespace TreeSelect {
-    interface Props extends Omit<SelectControl.Props<string>, 'options' | 'value'> {
+    interface Props extends Omit<SelectControl.Props<string>, "options" | "value"> {
         /**
          * If this property is added, an option will be added with this label
          * to represent empty selection.

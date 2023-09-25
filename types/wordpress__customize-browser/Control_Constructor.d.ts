@@ -1,15 +1,15 @@
-import { BackgroundControl } from './BackgroundControl';
-import { BackgroundPositionControl } from './BackgroundPositionControl';
-import { CodeEditorControl } from './CodeEditorControl';
-import { ColorControl } from './ColorControl';
-import { CroppedImageControl } from './CroppedImageControl';
-import { DateTimeControl } from './DateTimeControl';
-import { HeaderControl } from './HeaderControl';
-import { ImageControl } from './ImageControl';
-import { MediaControl } from './MediaControl';
-import { SiteIconControl } from './SiteIconControl';
-import { ThemeControl } from './ThemeControl';
-import { UploadControl } from './UploadControl';
+import { BackgroundControl } from "./BackgroundControl";
+import { BackgroundPositionControl } from "./BackgroundPositionControl";
+import { CodeEditorControl } from "./CodeEditorControl";
+import { ColorControl } from "./ColorControl";
+import { CroppedImageControl } from "./CroppedImageControl";
+import { DateTimeControl } from "./DateTimeControl";
+import { HeaderControl } from "./HeaderControl";
+import { ImageControl } from "./ImageControl";
+import { MediaControl } from "./MediaControl";
+import { SiteIconControl } from "./SiteIconControl";
+import { ThemeControl } from "./ThemeControl";
+import { UploadControl } from "./UploadControl";
 
 export interface Control_Constructor {
     color: typeof ColorControl;

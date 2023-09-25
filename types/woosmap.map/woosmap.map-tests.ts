@@ -7,21 +7,21 @@
 const mapOptions = expectType({
     center: new woosmap.map.LatLng(43.3, 3.883),
     zoom: 13,
-    defaultStyle: 'streets',
+    defaultStyle: "streets",
     disableDefaultUI: true,
-    gestureHandling: 'greedy',
+    gestureHandling: "greedy",
     styles: [
         {
-            featureType: 'poi',
+            featureType: "poi",
             stylers: [
                 {
-                    visibility: 'off',
+                    visibility: "off",
                 },
             ],
         },
     ],
 }) as woosmap.map.MapOptions;
-const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLElement, mapOptions);
+const map = new woosmap.map.Map(document.getElementById("mapContainer") as HTMLElement, mapOptions);
 
 // $ExpectType LatLngBounds
 const bounds = map.getBounds({ left: 100 });
@@ -51,10 +51,10 @@ const simpleMarkerOptions = expectType({
     clickable: true,
     draggable: true,
     opacity: 0.8,
-    title: 'Marker Title',
+    title: "Marker Title",
     visible: true,
     icon: {
-        url: 'https://images.woosmap.com/marker-red.svg',
+        url: "https://images.woosmap.com/marker-red.svg",
         scaledSize: {
             height: 64,
             width: 46,
@@ -80,7 +80,7 @@ const rotationAlignment = marker.getRotationAlignment();
 const pitchAlignment = marker.getPitchAlignment();
 // $ExpectType void
 marker.setIcon({
-    url: 'https://images.woosmap.com/marker-green.svg',
+    url: "https://images.woosmap.com/marker-green.svg",
     anchor: new woosmap.map.Point(12, 12),
     labelOrigin: new woosmap.map.Point(0, 10),
     scaledSize: new woosmap.map.Size(32, 38),
@@ -97,11 +97,11 @@ marker.setDraggable(true);
 // $ExpectType Marker
 marker.setRotation(0);
 // $ExpectType Marker
-marker.setRotationAlignment('auto');
+marker.setRotationAlignment("auto");
 // $ExpectType Marker
-marker.setPitchAlignment('auto');
+marker.setPitchAlignment("auto");
 // $ExpectType MapEventListener
-marker.addListener('click', () => {
+marker.addListener("click", () => {
     marker.setMap(null);
 });
 
@@ -112,15 +112,15 @@ const labelMarkerOptions = expectType({
     position: { lat: 43.3, lng: 3.883 },
     icon: {
         labelOrigin: new woosmap.map.Point(12, 12),
-        url: 'https://images.woosmap.com/marker-red.svg',
+        url: "https://images.woosmap.com/marker-red.svg",
     },
     label: {
-        text: 'some label',
-        color: 'blue',
-        className: 'someClass',
-        fontWeight: 'bold',
-        fontSize: '42pt',
-        fontFamily: 'Helvetica',
+        text: "some label",
+        color: "blue",
+        className: "someClass",
+        fontWeight: "bold",
+        fontSize: "42pt",
+        fontFamily: "Helvetica",
     },
     map,
 }) as woosmap.map.MarkerOptions;
@@ -130,19 +130,19 @@ const markerLabel = new woosmap.map.Marker(labelMarkerOptions);
  * Map Event Handler
  */
 const events = [
-    'bounds_changed',
-    'center_changed',
-    'click',
-    'dblclick',
-    'drag',
-    'dragend',
-    'dragstart',
-    'idle',
-    'mousemove',
-    'mouseout',
-    'mouseover',
-    'rightclick',
-    'zoom_changed',
+    "bounds_changed",
+    "center_changed",
+    "click",
+    "dblclick",
+    "drag",
+    "dragend",
+    "dragstart",
+    "idle",
+    "mousemove",
+    "mouseout",
+    "mouseover",
+    "rightclick",
+    "zoom_changed",
 ];
 events.forEach(eventName => () => {
     // $ExpectType MapEventListener
@@ -150,8 +150,8 @@ events.forEach(eventName => () => {
         console.log(eventName);
     });
 });
-const clickListener = map.addListener('click', () => {
-    console.log('click');
+const clickListener = map.addListener("click", () => {
+    console.log("click");
 });
 // $ExpectType void
 clickListener.remove();
@@ -162,11 +162,11 @@ clickListener.remove();
 const style = expectType({
     breakPoint: 14,
     default: {
-        color: '#008a2f',
+        color: "#008a2f",
         size: 8,
         minSize: 1,
         icon: {
-            url: 'https://images.woosmap.com/marker-red.svg',
+            url: "https://images.woosmap.com/marker-red.svg",
             scaledSize: {
                 height: 40,
                 width: 34,
@@ -177,18 +177,18 @@ const style = expectType({
             },
         },
         selectedIcon: {
-            url: 'https://images.woosmap.com/marker-blue.svg',
+            url: "https://images.woosmap.com/marker-blue.svg",
         },
     },
     rules: [
         {
-            color: '#FF5221',
-            type: 'click_and_collect',
+            color: "#FF5221",
+            type: "click_and_collect",
             icon: {
-                url: 'https://images.woosmap.com/marker-green.svg',
+                url: "https://images.woosmap.com/marker-green.svg",
             },
             selectedIcon: {
-                url: 'https://images.woosmap.com/marker-green.svg',
+                url: "https://images.woosmap.com/marker-green.svg",
             },
         },
     ],
@@ -197,7 +197,7 @@ const rules = expectType(style.rules[0]) as woosmap.map.TypedStyleRule;
 const defaultStyle = expectType(style.default) as woosmap.map.StyleRule;
 
 const storesOverlay = new woosmap.map.StoresOverlay(style);
-storesOverlay.setQuery('type:"click_and_collect"');
+storesOverlay.setQuery("type:\"click_and_collect\"");
 storesOverlay.setMap(map);
 
 /**
@@ -219,10 +219,10 @@ const innerShape = [
 ];
 const polygonOption = expectType({
     paths: [outerShape, innerShape],
-    strokeColor: '#b71c1c',
+    strokeColor: "#b71c1c",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#b71c1c',
+    fillColor: "#b71c1c",
     fillOpacity: 0.5,
 }) as woosmap.map.PolygonOptions;
 const polygon = new woosmap.map.Polygon(polygonOption);
@@ -236,7 +236,7 @@ const polylinePath = [
 ];
 const polyLineOptions = expectType({
     path: polylinePath,
-    strokeColor: '#b71c1c',
+    strokeColor: "#b71c1c",
     strokeOpacity: 0.8,
     strokeWeight: 4,
 }) as woosmap.map.PolylineOptions;
@@ -246,10 +246,10 @@ polyline.setMap(map);
 const latlng = { lat: 43.34, lng: -24.76 };
 const radius50km = 50000;
 const circleOptions = expectType({
-    strokeColor: '#b71c1c',
+    strokeColor: "#b71c1c",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#b71c1c',
+    fillColor: "#b71c1c",
     fillOpacity: 0.5,
     map,
     center: latlng,
@@ -260,16 +260,16 @@ const cityCircle = new woosmap.map.Circle(circleOptions);
 
 const feature = expectType({
     geometry: new woosmap.map.Data.Point(new woosmap.map.LatLng(43.34, -24.76)),
-    id: 'ID_1234',
-    properties: { some_properties: 'some_value' },
+    id: "ID_1234",
+    properties: { some_properties: "some_value" },
 }) as woosmap.map.FeatureData;
 
 map.data.add(feature);
-map.data.loadGeoJson('https://demo.woosmap.com/misc/data/europe.geojson.json');
+map.data.loadGeoJson("https://demo.woosmap.com/misc/data/europe.geojson.json");
 map.data.setStyle(feature => {
-    let color = '#b71c1c';
-    if (feature.getProperty('highlighted')) {
-        color = '#C51162';
+    let color = "#b71c1c";
+    if (feature.getProperty("highlighted")) {
+        color = "#C51162";
     }
     return {
         fillColor: color,
@@ -279,10 +279,10 @@ map.data.setStyle(feature => {
     };
 });
 
-map.data.addListener('click', (event: any) => {
-    const feature: woosmap.map.data.Feature | null = map.data.getFeatureById('ID_1234');
-    feature?.setProperty('highlighted', false);
-    event.feature?.setProperty('highlighted', true);
+map.data.addListener("click", (event: any) => {
+    const feature: woosmap.map.data.Feature | null = map.data.getFeatureById("ID_1234");
+    feature?.setProperty("highlighted", false);
+    event.feature?.setProperty("highlighted", true);
 });
 
 /**
@@ -313,8 +313,8 @@ directionsService.route(directionsRequest, (result, status) => {});
  */
 let infoWindow;
 infoWindow = new woosmap.map.InfoWindow({});
-infoWindow.setContent('<div>Some Content</div>');
-infoWindow = new woosmap.map.InfoWindow({ content: '<div>Some Content</div>' });
+infoWindow.setContent("<div>Some Content</div>");
+infoWindow = new woosmap.map.InfoWindow({ content: "<div>Some Content</div>" });
 infoWindow.open(map, marker);
 infoWindow.close();
 
@@ -341,9 +341,9 @@ map.flyTo(flyToOptions);
  * woosmap.map.event
  */
 // $ExpectType MapEventListener
-const listener = woosmap.map.event.addListener(map, 'click', () => {});
+const listener = woosmap.map.event.addListener(map, "click", () => {});
 // $ExpectType MapEventListener
-woosmap.map.event.addListenerOnce(map, 'click', () => {});
+woosmap.map.event.addListenerOnce(map, "click", () => {});
 woosmap.map.event.removeListener(listener); // $ExpectType void
 listener.remove(); // $ExpectType void
 
@@ -361,41 +361,41 @@ const draw = new woosmap.map.Drawing({});
 draw.addControl(map);
 // $ExpectType string[]
 draw.add({
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [],
 });
 // $ExpectType void
-draw.addListener('draw.create', e => {});
+draw.addListener("draw.create", e => {});
 // $ExpectType void
-draw.addListener('draw.create', e => {});
+draw.addListener("draw.create", e => {});
 // $ExpectType void
-draw.addListener('draw.delete', e => {});
+draw.addListener("draw.delete", e => {});
 // $ExpectType void
-draw.addListener('draw.modechange', e => {});
+draw.addListener("draw.modechange", e => {});
 // $ExpectType void
-draw.addListener('draw.selectionchange', e => {});
+draw.addListener("draw.selectionchange", e => {});
 // $ExpectType void
-draw.addListener('draw.update', e => {});
+draw.addListener("draw.update", e => {});
 // @ts-expect-error
-draw.addListener('draw.unknown_event', e => {});
+draw.addListener("draw.unknown_event", e => {});
 // $ExpectType Drawing
-draw.delete('1');
+draw.delete("1");
 // $ExpectType Drawing
-draw.delete(['1', '2']);
+draw.delete(["1", "2"]);
 // $ExpectType string[]
 draw.getSelectedIds();
 // $ExpectType Drawing
-draw.changeMode('direct_select', { featureId: '1' });
+draw.changeMode("direct_select", { featureId: "1" });
 // @ts-expect-error
-draw.changeMode('direct_select');
+draw.changeMode("direct_select");
 // $ExpectType Drawing
-draw.changeMode('simple_select');
+draw.changeMode("simple_select");
 // $ExpectType Drawing
-draw.changeMode('draw_point');
+draw.changeMode("draw_point");
 // @ts-expect-error
-draw.changeMode('draw_point', {});
+draw.changeMode("draw_point", {});
 // $ExpectType Drawing
-draw.changeMode('custom_mode');
+draw.changeMode("custom_mode");
 // $ExpectType void
 draw.removeControl();
 

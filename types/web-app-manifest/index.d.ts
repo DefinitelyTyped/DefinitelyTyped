@@ -3,8 +3,8 @@
 // Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type TextDirectionType = 'ltr' | 'rtl' | 'auto';
-export type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
+export type TextDirectionType = "ltr" | "rtl" | "auto";
+export type DisplayModeType = "fullscreen" | "standalone" | "minimal-ui" | "browser";
 
 /**
  * Each `ImageResource` represents an image that is used as part of a web application, suitable to use in
@@ -253,7 +253,16 @@ export interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#orientation-member
      */
-    orientation?: "any" | "landscape" | "landscape-primary" | "landscape-secondary" | "natural" | "portrait" | "portrait-primary" | "portrait-secondary" | undefined;
+    orientation?:
+        | "any"
+        | "landscape"
+        | "landscape-primary"
+        | "landscape-secondary"
+        | "natural"
+        | "portrait"
+        | "portrait-primary"
+        | "portrait-secondary"
+        | undefined;
 
     /**
      * The manifest's id member is a string that represents the identity for the application.

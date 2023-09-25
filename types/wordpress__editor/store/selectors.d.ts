@@ -1,6 +1,6 @@
-import { EditorSettings } from '@wordpress/block-editor';
-import { BlockInstance } from '@wordpress/blocks';
-import { EntityRecord, Page, Post, User } from '@wordpress/core-data';
+import { EditorSettings } from "@wordpress/block-editor";
+import { BlockInstance } from "@wordpress/blocks";
+import { EntityRecord, Page, Post, User } from "@wordpress/core-data";
 
 export {
     canInsertBlockType,
@@ -16,10 +16,10 @@ export {
     getBlockName,
     getBlockOrder,
     getBlockRootClientId,
-    getBlockSelectionEnd,
-    getBlockSelectionStart,
     getBlocks,
     getBlocksByClientId,
+    getBlockSelectionEnd,
+    getBlockSelectionStart,
     getClientIdsOfDescendants,
     getClientIdsWithDescendants,
     getFirstMultiSelectedBlockClientId,
@@ -54,7 +54,7 @@ export {
     isSelectionEnabled,
     isTyping,
     isValidTemplate,
-} from '@wordpress/block-editor/store/selectors';
+} from "@wordpress/block-editor/store/selectors";
 
 /**
  * Returns whether or not the user has the unfiltered_html capability.
@@ -107,7 +107,7 @@ export function getCurrentPost(): Page | Post;
  * @param attributeName - Post attribute name.
  */
 export function getCurrentPostAttribute<T extends keyof (Page | Post)>(
-    attributeName: T
+    attributeName: T,
 ): (Page | Post)[T] | undefined;
 
 /**
@@ -138,7 +138,7 @@ export function getCurrentPostType(): string;
  * @param attributeName - Post attribute name.
  */
 export function getEditedPostAttribute<T extends keyof (Page | Post)>(
-    attributeName: T
+    attributeName: T,
 ): (Page | Post)[T] | undefined;
 
 /**
@@ -156,7 +156,7 @@ export function getEditedPostPreviewLink(): string | null;
  * Returns the current visibility of the post being edited, preferring the unsaved value if
  * different than the saved post. The return value is one of `"private"`, `"password"`, or `"public"`.
  */
-export function getEditedPostVisibility(): 'password' | 'private' | 'public';
+export function getEditedPostVisibility(): "password" | "private" | "public";
 
 /**
  * Return the current block list.

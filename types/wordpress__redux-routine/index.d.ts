@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { AnyAction, Middleware } from 'redux';
+import { AnyAction, Middleware } from "redux";
 
 /**
  * Creates a Redux middleware, given an object of controls where each key is an action type for

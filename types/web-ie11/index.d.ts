@@ -11,5 +11,10 @@ interface Document {
      * @param filter A custom NodeFilter function to use.
      * @param entityReferenceExpansion A flag that specifies whether entity reference nodes are expanded. Required on IE11 and ignored on other browsers.
      */
-    createTreeWalker(root: Node, whatToShow: number, filter: NodeFilter | null, entityReferenceExpansion: boolean): TreeWalker;
+    createTreeWalker(
+        root: Node,
+        whatToShow: number,
+        filter: NodeFilter | null,
+        entityReferenceExpansion: boolean,
+    ): TreeWalker;
 }

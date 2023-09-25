@@ -5,7 +5,7 @@
 // TypeScript Version: 3.7
 /// <reference types="node" />
 
-import { Plugin, ProgressPlugin } from 'webpack';
+import { Plugin, ProgressPlugin } from "webpack";
 
 export = WebpackBar;
 

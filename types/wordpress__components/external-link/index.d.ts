@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
 declare namespace ExternalLink {
     type Props = HTMLProps<HTMLAnchorElement>;

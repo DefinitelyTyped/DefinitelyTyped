@@ -6,7 +6,7 @@
 
 /// <reference types="request" />
 
-import * as request from 'request';
+import * as request from "request";
 
 declare namespace websiteScraper {
     interface Url {

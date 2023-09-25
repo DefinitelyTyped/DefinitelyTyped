@@ -1,97 +1,97 @@
-open('https://google.com');
+open("https://google.com");
 
-click('#div', {
-    method: 'by_query_selector',
+click("#div", {
+    method: "by_query_selector",
     retryDuration: 10,
     expectReload: true,
     numberOfTries: 10,
 });
 
-notify('Workerb is cool.', 'success', 200);
+notify("Workerb is cool.", "success", 200);
 
-type('Some text', '#form-input', {
+type("Some text", "#form-input", {
     numberOfTries: 10,
-    method: 'by_label',
+    method: "by_label",
 });
 
-download('Download Pdf', '.download', '.pdf');
+download("Download Pdf", ".download", ".pdf");
 
 event(
-    '#div',
+    "#div",
     {
-        eventType: 'keydown',
+        eventType: "keydown",
         eventProps: {
             keyCode: 76,
         },
     },
-    { method: 'by_query_selector', numberOfTries: 10 },
+    { method: "by_query_selector", numberOfTries: 10 },
 );
 
-prompt('Enter your name');
+prompt("Enter your name");
 
-log('logging...');
+log("logging...");
 
-read('#input', {
-    method: 'by_query_selector',
+read("#input", {
+    method: "by_query_selector",
 });
 
-readAll('.boards', {
+readAll(".boards", {
     retryDuration: 10,
 });
 
-readTable('#table', {
-    method: 'by_query_selector',
+readTable("#table", {
+    method: "by_query_selector",
     numberOfTries: 10,
 });
 
 readURL();
 
 runInTab(() => {
-    open('https://cnn.com');
-    click('#searchInput', { method: 'by_query_selector' });
-    type('steve jobs', '#searchInput', { method: 'by_query_selector' });
-    submit('#searchInput', { expectReload: true });
+    open("https://cnn.com");
+    click("#searchInput", { method: "by_query_selector" });
+    type("steve jobs", "#searchInput", { method: "by_query_selector" });
+    submit("#searchInput", { expectReload: true });
 }, true);
 
-select('2', '#.access-me', {
-    selectBy: 'label',
-    method: 'by_query_selector',
+select("2", "#.access-me", {
+    selectBy: "label",
+    method: "by_query_selector",
     retryDuration: 10,
 });
 
-submit('#workerB_Input', {
-    method: 'by_query_selector',
+submit("#workerB_Input", {
+    method: "by_query_selector",
     retryDuration: 10,
 });
 
-tab('https://google.com');
+tab("https://google.com");
 
-getAttribute(['href'], 'a', {
-    method: 'by_query_selector_all',
+getAttribute(["href"], "a", {
+    method: "by_query_selector_all",
     retryDuration: 10,
     numberOfTries: 10,
 });
 
-logging('on');
+logging("on");
 
-const { response, status } = httpGet('https://api.github.com/userss/', {});
+const { response, status } = httpGet("https://api.github.com/userss/", {});
 
-httpDelete('https://www.google.com', JSON.stringify({ name: 'workerB' }), { 'content-type': 'application/json' });
+httpDelete("https://www.google.com", JSON.stringify({ name: "workerB" }), { "content-type": "application/json" });
 
-httpDelete('https://api.delete.com/posts/1');
+httpDelete("https://api.delete.com/posts/1");
 
-httpPost('https://www.google.com', JSON.stringify({ name: 'workerB' }), { 'content-type': 'application/json' });
+httpPost("https://www.google.com", JSON.stringify({ name: "workerB" }), { "content-type": "application/json" });
 
-httpPut('https://www.google.com', JSON.stringify({ name: 'workerB' }), { 'content-type': 'application/json' });
+httpPut("https://www.google.com", JSON.stringify({ name: "workerB" }), { "content-type": "application/json" });
 
 setVars([{
-    name: 'accessToken',
-    value: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    name: "accessToken",
+    value: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 }, {
-    name: 'accessKey',
-    value: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-}], {local: true});
+    name: "accessKey",
+    value: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+}], { local: true });
 
-reIndex(['boards', 'Board Name', 'lists']);
+reIndex(["boards", "Board Name", "lists"]);
 
 reIndex();

@@ -3,7 +3,7 @@
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Token } from 'wink-tokenizer';
+import { Token } from "wink-tokenizer";
 
 declare class Tagger {
     /**
@@ -18,7 +18,7 @@ declare class Tagger {
      * @param config configuration object
      * @returns object with active configuration
      */
-    defineConfig(config: any): { lemma: true, normal: true };
+    defineConfig(config: any): { lemma: true; normal: true };
 
     /**
      * Tags the input tokens with their pos.
@@ -53,9 +53,22 @@ declare class Tagger {
 }
 
 declare namespace Tagger {
-    type Tag = "word" | "email" | "emoji" | "punctuation"
-        | "number" | "time" | "hashtag" | "mention" | "emoticon" | "ordinal"
-        | "quoted_phrase" | "url" | "symbol" | "currency" | "alien";
+    type Tag =
+        | "word"
+        | "email"
+        | "emoji"
+        | "punctuation"
+        | "number"
+        | "time"
+        | "hashtag"
+        | "mention"
+        | "emoticon"
+        | "ordinal"
+        | "quoted_phrase"
+        | "url"
+        | "symbol"
+        | "currency"
+        | "alien";
 
     type PosTag = "PRP" | "VBD" | "DT" | "JJ" | "NN" | "NNP" | "NNS" | "IN" | "VBG" | ".";
 

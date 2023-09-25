@@ -480,7 +480,7 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"Point"`.
          */
-        getType(): 'Point';
+        getType(): "Point";
     }
 }
 declare namespace woosmap.map.Data {
@@ -513,7 +513,7 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"MultiPoint"`.
          */
-        getType(): 'MultiPoint';
+        getType(): "MultiPoint";
     }
 }
 declare namespace woosmap.map.Data {
@@ -537,7 +537,7 @@ declare namespace woosmap.map.Data {
 
         forEachLatLng(callback: (point: woosmap.map.LatLng) => void): void;
 
-        getType(): 'LineString';
+        getType(): "LineString";
     }
 }
 declare namespace woosmap.map.Data {
@@ -562,7 +562,7 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"MultiLineString"`.
          */
-        getType(): 'MultiLineString';
+        getType(): "MultiLineString";
     }
 }
 declare namespace woosmap.map.Data {
@@ -609,7 +609,7 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"Polygon"`.
          */
-        getType(): 'Polygon';
+        getType(): "Polygon";
     }
 }
 declare namespace woosmap.map.Data {
@@ -670,7 +670,7 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"GeometryCollection"`.
          */
-        getType(): 'GeometryCollection';
+        getType(): "GeometryCollection";
     }
 }
 declare namespace woosmap.map {
@@ -1054,7 +1054,7 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
-    type ControlPositionType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    type ControlPositionType = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 }
 declare namespace woosmap.map {
     interface FlyToOptions {
@@ -1137,7 +1137,7 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
-    type GestureHandlingMode = 'none' | 'greedy' | 'cooperative' | 'auto';
+    type GestureHandlingMode = "none" | "greedy" | "cooperative" | "auto";
 }
 declare namespace woosmap.map {
     /**
@@ -1173,7 +1173,6 @@ declare namespace woosmap.map {
          */
         gestureHandling?: woosmap.map.GestureHandlingMode;
         /**
-         *
          * ```json
          * [
          *   {
@@ -1519,14 +1518,14 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     type GeometryType =
-        | 'Point'
-        | 'MultiPoint'
-        | 'LineString'
-        | 'MultiLineString'
-        | 'LinearRing'
-        | 'Polygon'
-        | 'MultiPolygon'
-        | 'GeometryCollection';
+        | "Point"
+        | "MultiPoint"
+        | "LineString"
+        | "MultiLineString"
+        | "LinearRing"
+        | "Polygon"
+        | "MultiPolygon"
+        | "GeometryCollection";
 }
 declare namespace woosmap.map {
     interface GeometryData {
@@ -1618,22 +1617,22 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
-    type GeoJSONPoint = woosmap.map.GeoJSONRawGeometry<'Point', woosmap.map.GeoJSONPosition>;
+    type GeoJSONPoint = woosmap.map.GeoJSONRawGeometry<"Point", woosmap.map.GeoJSONPosition>;
 }
 declare namespace woosmap.map {
-    type GeoJSONMultiPoint = woosmap.map.GeoJSONRawGeometry<'MultiPoint', woosmap.map.GeoJSONPosition[]>;
+    type GeoJSONMultiPoint = woosmap.map.GeoJSONRawGeometry<"MultiPoint", woosmap.map.GeoJSONPosition[]>;
 }
 declare namespace woosmap.map {
-    type GeoJSONLineString = woosmap.map.GeoJSONRawGeometry<'LineString', woosmap.map.GeoJSONPosition[]>;
+    type GeoJSONLineString = woosmap.map.GeoJSONRawGeometry<"LineString", woosmap.map.GeoJSONPosition[]>;
 }
 declare namespace woosmap.map {
-    type GeoJSONMultiLineString = woosmap.map.GeoJSONRawGeometry<'MultiLineString', woosmap.map.GeoJSONPosition[][]>;
+    type GeoJSONMultiLineString = woosmap.map.GeoJSONRawGeometry<"MultiLineString", woosmap.map.GeoJSONPosition[][]>;
 }
 declare namespace woosmap.map {
-    type GeoJSONPolygon = woosmap.map.GeoJSONRawGeometry<'Polygon', woosmap.map.GeoJSONPosition[][]>;
+    type GeoJSONPolygon = woosmap.map.GeoJSONRawGeometry<"Polygon", woosmap.map.GeoJSONPosition[][]>;
 }
 declare namespace woosmap.map {
-    type GeoJSONMultiPolygon = woosmap.map.GeoJSONRawGeometry<'MultiPolygon', woosmap.map.GeoJSONPosition[][][]>;
+    type GeoJSONMultiPolygon = woosmap.map.GeoJSONRawGeometry<"MultiPolygon", woosmap.map.GeoJSONPosition[][][]>;
 }
 declare namespace woosmap.map {
     type GeoJSONGeometry =
@@ -1648,7 +1647,7 @@ declare namespace woosmap.map {
 declare namespace woosmap.map {
     interface GeoJSONGeometryCollection {
         geometries: woosmap.map.GeoJSONGeometry[];
-        type: 'GeometryCollection';
+        type: "GeometryCollection";
     }
 }
 declare namespace woosmap.map {
@@ -1656,13 +1655,13 @@ declare namespace woosmap.map {
         geometry: woosmap.map.GeoJSONGeometry;
         id?: number | string;
         properties: {};
-        type: 'Feature';
+        type: "Feature";
     }
 }
 declare namespace woosmap.map {
     interface GeoJSONFeatureCollection {
         features: woosmap.map.GeoJSONFeature[];
-        type: 'FeatureCollection';
+        type: "FeatureCollection";
     }
 }
 declare namespace woosmap.map {
@@ -1847,20 +1846,20 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     enum TravelMode {
-        BICYCLING = 'BICYCLING',
-        DRIVING = 'DRIVING',
-        WALKING = 'WALKING',
+        BICYCLING = "BICYCLING",
+        DRIVING = "DRIVING",
+        WALKING = "WALKING",
     }
 }
 declare namespace woosmap.map {
     enum UnitSystem {
-        IMPERIAL = 'IMPERIAL',
-        METRIC = 'METRIC',
+        IMPERIAL = "IMPERIAL",
+        METRIC = "METRIC",
     }
 }
 declare namespace woosmap.map {
     enum DirectionStatus {
-        OK = 'OK',
+        OK = "OK",
     }
 }
 declare namespace woosmap.map.event {

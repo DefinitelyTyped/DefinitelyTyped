@@ -139,7 +139,11 @@ declare var WScript: {
      * @param strProgID
      * @param strPrefix Function names in the form prefix_event will be bound to this object's COM events.
      */
-    GetObject<K extends keyof ActiveXObjectNameMap>(strPathname: string, strProgID: K, strPrefix?: string): ActiveXObjectNameMap[K];
+    GetObject<K extends keyof ActiveXObjectNameMap>(
+        strPathname: string,
+        strProgID: K,
+        strPrefix?: string,
+    ): ActiveXObjectNameMap[K];
     GetObject(strPathname: string, strProgID?: string, strPrefix?: string): any;
 
     /**

@@ -1518,7 +1518,8 @@ export namespace WebRequest {
      * Fired when a request is about to occur.
      */
     interface onBeforeRequestEvent
-        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void> {
+        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1529,7 +1530,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRequestOptions[]
+            extraInfoSpec?: OnBeforeRequestOptions[],
         ): void;
     }
 
@@ -1538,7 +1539,8 @@ export namespace WebRequest {
      * made to the server, but before any HTTP data is sent.
      */
     interface onBeforeSendHeadersEvent
-        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void> {
+        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1549,7 +1551,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeSendHeadersOptions[]
+            extraInfoSpec?: OnBeforeSendHeadersOptions[],
         ): void;
     }
 
@@ -1568,7 +1570,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnSendHeadersDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnSendHeadersOptions[]
+            extraInfoSpec?: OnSendHeadersOptions[],
         ): void;
     }
 
@@ -1576,7 +1578,8 @@ export namespace WebRequest {
      * Fired when HTTP response headers of a request have been received.
      */
     interface onHeadersReceivedEvent
-        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void> {
+        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1587,7 +1590,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnHeadersReceivedOptions[]
+            extraInfoSpec?: OnHeadersReceivedOptions[],
         ): void;
     }
 
@@ -1597,7 +1600,8 @@ export namespace WebRequest {
      * If bad user credentials are provided, this may be called multiple times for the same request.
      */
     interface onAuthRequiredEvent
-        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void> {
+        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1608,7 +1612,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnAuthRequiredOptions[]
+            extraInfoSpec?: OnAuthRequiredOptions[],
         ): void;
     }
 
@@ -1627,7 +1631,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnResponseStartedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnResponseStartedOptions[]
+            extraInfoSpec?: OnResponseStartedOptions[],
         ): void;
     }
 
@@ -1645,7 +1649,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnBeforeRedirectDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRedirectOptions[]
+            extraInfoSpec?: OnBeforeRedirectOptions[],
         ): void;
     }
 
@@ -1663,7 +1667,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnCompletedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnCompletedOptions[]
+            extraInfoSpec?: OnCompletedOptions[],
         ): void;
     }
 
@@ -1681,7 +1685,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnErrorOccurredDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnErrorOccurredOptions[]
+            extraInfoSpec?: OnErrorOccurredOptions[],
         ): void;
     }
 

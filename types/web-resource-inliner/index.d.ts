@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CoreOptions, RequiredUriUrl } from 'request';
+import { CoreOptions, RequiredUriUrl } from "request";
 
 export function html(options: Options, callback: Callback): string;
 export function css(options: Options, callback: Callback): string;
@@ -111,9 +111,11 @@ export interface Options {
      *
      * See the [list of available options](https://www.npmjs.com/package/request#request-options-callback).
      */
-    requestTransform?: ((
-        requestOptions: RequiredUriUrl & CoreOptions
-    ) => RequiredUriUrl & CoreOptions) | undefined;
+    requestTransform?:
+        | ((
+            requestOptions: RequiredUriUrl & CoreOptions,
+        ) => RequiredUriUrl & CoreOptions)
+        | undefined;
     /**
      * Allows to make changes to scripts before they are inlined, such as minifying.
      *

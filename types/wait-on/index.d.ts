@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { SecureContextOptions } from 'tls';
+import { SecureContextOptions } from "tls";
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;

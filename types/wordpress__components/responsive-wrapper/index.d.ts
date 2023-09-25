@@ -1,4 +1,4 @@
-import { ComponentType, ReactChild } from 'react';
+import { ComponentType, ReactChild } from "react";
 
 declare namespace ResponsiveWrapper {
     interface Props {

@@ -17,7 +17,7 @@ async function testExamples() {
         await wait
             .every(50)
             .and(exampleVoidFn)
-            .until(() => true)
+            .until(() => true),
     ];
     await wait
         .every(500)

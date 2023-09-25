@@ -55,16 +55,10 @@ export = whichBoxedPrimitive;
  */
 declare function whichBoxedPrimitive<T>(value: T): WhichBoxed<T>;
 
-type WhichBoxed<T> = T extends string | number | boolean | symbol | bigint | null | undefined
-    ? null
-    : T extends String
-    ? 'String'
-    : T extends Number
-    ? 'Number'
-    : T extends Boolean
-    ? 'Boolean'
-    : T extends Symbol
-    ? 'Symbol'
-    : T extends BigInt
-    ? 'BigInt'
+type WhichBoxed<T> = T extends string | number | boolean | symbol | bigint | null | undefined ? null
+    : T extends String ? "String"
+    : T extends Number ? "Number"
+    : T extends Boolean ? "Boolean"
+    : T extends Symbol ? "Symbol"
+    : T extends BigInt ? "BigInt"
     : undefined;

@@ -4,18 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { dispatch, select, StoreDescriptor } from '@wordpress/data';
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/viewport'): typeof import('./store/actions');
-    function select(key: 'core/viewport'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/viewport"): typeof import("./store/actions");
+    function select(key: "core/viewport"): typeof import("./store/selectors");
 }
 
-export { default as ifViewportMatches } from './if-viewport-matches';
-export { default as withViewportMatch } from './with-viewport-match';
+export { default as ifViewportMatches } from "./if-viewport-matches";
+export { default as withViewportMatch } from "./with-viewport-match";
 
 export interface ViewportStoreDescriptor extends StoreDescriptor {
-    name: 'core/viewport';
+    name: "core/viewport";
 }
 
 export const store: ViewportStoreDescriptor;

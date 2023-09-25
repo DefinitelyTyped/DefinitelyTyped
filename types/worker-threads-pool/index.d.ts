@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Worker, WorkerOptions } from 'worker_threads';
+import { Worker, WorkerOptions } from "worker_threads";
 
 export = Pool;
 
@@ -26,7 +26,7 @@ declare class Pool {
     acquire(
         filename: string,
         options: WorkerOptions,
-        callback: (error: Error | null, worker: Worker) => void
+        callback: (error: Error | null, worker: Worker) => void,
     ): void;
 
     /**
@@ -37,7 +37,7 @@ declare class Pool {
 }
 
 declare namespace Pool {
-     interface Options {
+    interface Options {
         /**
          * Maximum number of workers allowed in the pool. Other workers will be queued
          * and started once there's room in the pool.

@@ -1,1 +1,1 @@
-export const HorizontalRule: 'hr';
+export const HorizontalRule: "hr";

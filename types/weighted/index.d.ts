@@ -4,6 +4,6 @@
 //                 Dmitry Minkovsky <https://github.com/dminkovsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import weighted = require('./lib/weighted');
+import weighted = require("./lib/weighted");
 
 export = weighted;

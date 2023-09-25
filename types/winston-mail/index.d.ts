@@ -7,8 +7,7 @@ import * as winston from "winston";
 
 export as namespace winstonMail;
 
-export class Mail extends winston.Transport
-    implements winston.TransportInstance {
+export class Mail extends winston.Transport implements winston.TransportInstance {
     constructor(options: MailTransportOptions);
     name: string;
     to: string;
@@ -16,7 +15,7 @@ export class Mail extends winston.Transport
     level: string;
     unique: boolean;
     silent: boolean;
-    filter: ((obj: { level: string; message: string; meta: any }) => boolean);
+    filter: (obj: { level: string; message: string; meta: any }) => boolean;
     subject: string;
     html: boolean;
     log(level: any, msg: any, meta: any, callback: any): any;
@@ -41,9 +40,11 @@ export interface MailTransportOptions {
     html?: boolean | undefined;
     timeout?: number | undefined;
     authentication?: string[] | undefined;
-    formatter?: ((
-        obj: { level: string; message: string; meta: any }
-    ) => string) | undefined;
+    formatter?:
+        | ((
+            obj: { level: string; message: string; meta: any },
+        ) => string)
+        | undefined;
 }
 
 declare module "winston" {

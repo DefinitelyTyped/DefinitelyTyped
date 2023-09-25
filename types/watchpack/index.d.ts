@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import Watcher = require('./Watcher');
+import { EventEmitter } from "events";
+import Watcher = require("./Watcher");
 
 interface Entry {
     /** A point in time at which is it safe to say all changes happened before that */
@@ -62,7 +62,7 @@ declare class Watchpack extends EventEmitter {
     }): void;
 
     on(
-        eventName: 'change',
+        eventName: "change",
         listener: (
             /** The changed file or directory */
             filePath: string,
@@ -74,7 +74,7 @@ declare class Watchpack extends EventEmitter {
     ): this;
 
     on(
-        eventName: 'remove',
+        eventName: "remove",
         listener: (
             /** The removed file or directory */
             filePath: string,
@@ -84,7 +84,7 @@ declare class Watchpack extends EventEmitter {
     ): this;
 
     on(
-        eventName: 'aggregated',
+        eventName: "aggregated",
         listener: (
             /** Set of all changed files */
             changes: Set<string>,

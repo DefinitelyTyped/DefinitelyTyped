@@ -1,70 +1,68 @@
 getCurrentPages();
 
-interface MyOwnEvent
-    extends wx.CustomEvent<
+interface MyOwnEvent extends
+    wx.CustomEvent<
         "my-own",
         {
             hello: string;
         }
-    > {}
+    >
+{}
 
 const parentBehavior = Behavior({
     behaviors: ["wx://form-field"],
     properties: {
         myParentBehaviorProperty: {
-            type: String
-        }
+            type: String,
+        },
     },
     data: {
-        myParentBehaviorData: ""
+        myParentBehaviorData: "",
     },
     methods: {
         myParentBehaviorMethod(input: number) {
             const s: string = this.data.myParentBehaviorData;
-        }
-    }
+        },
+    },
 });
 
 function createBehaviorWithUnionTypes(n: number) {
-    const properties =
-        n % 2 < 1
-            ? {
-                    unionPropA: {
-                        type: String
-                    }
-              }
-            : {
-                    unionPropB: {
-                        type: Number
-                    }
-              };
+    const properties = n % 2 < 1
+        ? {
+            unionPropA: {
+                type: String,
+            },
+        }
+        : {
+            unionPropB: {
+                type: Number,
+            },
+        };
 
-    const data =
-        n % 4 < 2
-            ? {
-                    unionDataA: "a"
-              }
-            : {
-                    unionDataB: 1
-              };
+    const data = n % 4 < 2
+        ? {
+            unionDataA: "a",
+        }
+        : {
+            unionDataB: 1,
+        };
 
-    const methods =
-        n % 8 < 4
-            ? {
-                    unionMethodA(a: number) {
-                        return n + 1;
-                    }
-              }
-            : {
-                    unionMethodB(a: string) {
-                        return { value: a };
-                    }
-              };
+    const methods = n % 8 < 4
+        ? {
+            unionMethodA(a: number) {
+                return n + 1;
+            },
+        }
+        : {
+            unionMethodB(a: string) {
+                return { value: a };
+            },
+        };
 
     return Behavior({
         properties,
         data,
-        methods
+        methods,
     });
 }
 
@@ -72,22 +70,22 @@ const behavior = Behavior({
     behaviors: [
         createBehaviorWithUnionTypes(1),
         parentBehavior,
-        "wx://form-field"
+        "wx://form-field",
     ],
     properties: {
         myBehaviorProperty: {
-            type: String
-        }
+            type: String,
+        },
     },
     data: {
-        myBehaviorData: ""
+        myBehaviorData: "",
     },
     attached() {},
     methods: {
         myBehaviorMethod(input: number) {
             const s: string = this.data.myBehaviorData;
-        }
-    }
+        },
+    },
 });
 
 Component({
@@ -95,7 +93,7 @@ Component({
 
     options: {
         multipleSlots: false,
-        addGlobalClass: false
+        addGlobalClass: false,
     },
 
     properties: {
@@ -106,22 +104,22 @@ Component({
             observer(newVal: string, oldVal: string, changedPath: string) {
                 const anotherKey = newVal + changedPath;
                 this.setData({
-                    anotherKey
+                    anotherKey,
                 });
-            } // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
+            }, // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         },
-        myProperty2: String // 简化的定义方式
+        myProperty2: String, // 简化的定义方式
     },
     data: {
         key: "value",
-        anotherKey: "value"
+        anotherKey: "value",
     }, // 私有数据，可用于模版渲染
 
     lifetimes: {
         attached() {
             wx.setEnableDebug({
                 enableDebug: true,
-                success(res) {}
+                success(res) {},
             });
 
             wx.reportMonitor("123", 123);
@@ -139,25 +137,25 @@ Component({
         detached() {
             this.setData(
                 {
-                    key: null
+                    key: null,
                 },
-                () => {}
+                () => {},
             );
-        }
+        },
     },
 
     pageLifetimes: {
         show() {},
-        hide() {}
+        hide() {},
     },
 
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached() {
         this.setData(
             {
-                key: "123"
+                key: "123",
             },
-            () => {}
+            () => {},
         );
     },
 
@@ -198,13 +196,13 @@ Component({
             this.properties.key;
             this.properties.anotherKey;
             this.setData({
-                key: stringValue1 + stringValue2 + stringValue3
+                key: stringValue1 + stringValue2 + stringValue3,
             });
         },
         onMyButtonTap() {
             // 更新属性和数据的方法与更新页面数据的方法类似
             this.setData({
-                key: 123 // note this is edge case where it cannot detect wrong types...
+                key: 123, // note this is edge case where it cannot detect wrong types...
             });
         },
         _myPrivateMethod() {
@@ -212,12 +210,12 @@ Component({
             // this.replaceDataOnPath(['A', 0, 'B'], 'myPrivateData'); // 这里将 data.A[0].B 设为 'myPrivateData'
             // this.applyDataUpdates();
             this.setData({
-                anotherKey: 123
+                anotherKey: 123,
             });
         },
         _propertyChange(newVal: string, oldVal: string) {
             //
-        }
+        },
     },
     relations: {
         "./custom-ul": {
@@ -233,15 +231,15 @@ Component({
             unlinked(target: wx.Component<{ key: string }, {}>) {
                 // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
                 target.data.key;
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 // index.js
 Page({
     data: {
-        text: "This is page data."
+        text: "This is page data.",
     },
     onLoad() {
         // Do some initialize when page load.
@@ -275,7 +273,7 @@ Page({
         return {
             success(res) {
                 console.log(res.shareTickets.length);
-            }
+            },
         };
     },
     onPageScroll() {
@@ -295,7 +293,7 @@ Page({
     onTabItemTap(item: any) {
         this.setData({
             1: null,
-            _2: "undefined"
+            _2: "undefined",
         });
         console.log(item.index);
         console.log(item.pagePath);
@@ -305,15 +303,15 @@ Page({
     viewTap() {
         this.setData(
             {
-                text: "Set some data for updating view."
+                text: "Set some data for updating view.",
             },
             () => {
                 // this is setData callback
-            }
+            },
         );
     },
     customData: {
-        hi: "MINA"
+        hi: "MINA",
     },
     onMyOwnEvent(e: MyOwnEvent) {
         e.detail.hello;
@@ -337,7 +335,7 @@ Page({
         e.touches;
         e.detail.x;
         e.detail.y;
-    }
+    },
 });
 
 Page({
@@ -351,7 +349,7 @@ Page({
                 res.scrollTop; // 节点的竖直滚动位置
             })
             .exec();
-    }
+    },
 });
 
 Page({
@@ -364,7 +362,7 @@ Page({
                     dataset: true,
                     size: true,
                     scrollOffset: true,
-                    properties: ["scrollX", "scrollY"]
+                    properties: ["scrollX", "scrollY"],
                 },
                 res => {
                     // res.
@@ -375,10 +373,10 @@ Page({
                     res.scrollTop; // 节点的竖直滚动位置
                     res.scrollX; // 节点 scroll-x 属性的当前值
                     res.scrollY; // 节点 scroll-x 属性的当前值
-                }
+                },
             )
             .exec();
-    }
+    },
 });
 
 Page({
@@ -413,7 +411,7 @@ Page({
                 });
             })
             .exec();
-    }
+    },
 });
 
 const recorderManager = wx.getRecorderManager();
@@ -442,7 +440,7 @@ const options = {
     numberOfChannels: 1,
     encodeBitRate: 192000,
     format: "aac",
-    frameSize: 50
+    frameSize: 50,
 };
 
 recorderManager.start(options);
@@ -454,13 +452,13 @@ wx.onGetWifiList(res => {
                 {
                     SSID: res.wifiList[0].SSID,
                     BSSID: res.wifiList[0].BSSID,
-                    password: "123456"
-                }
-            ]
+                    password: "123456",
+                },
+            ],
         });
     } else {
         wx.setWifiList({
-            wifiList: []
+            wifiList: [],
         });
     }
 });
@@ -473,13 +471,13 @@ wx.onWifiConnected(wifi => {
 wx.getConnectedWifi({
     success(result) {
         result.signalStrength;
-    }
+    },
 });
 
 wx.getWeRunData({
     success(res) {
         const encryptedData = res.encryptedData;
-    }
+    },
 });
 
 const uploadTask = wx.uploadFile({
@@ -487,12 +485,12 @@ const uploadTask = wx.uploadFile({
     filePath: "/local/folder/file.ext",
     name: "file",
     formData: {
-        user: "test"
+        user: "test",
     },
     success: res => {
         const data = res.data;
         // do something
-    }
+    },
 });
 
 uploadTask.onProgressUpdate(res => {
@@ -507,9 +505,9 @@ const downloadTask = wx.downloadFile({
     url: "http://example.com/audio/123", // 仅为示例，并非真实的资源
     success: res => {
         wx.playVoice({
-            filePath: res.tempFilePath
+            filePath: res.tempFilePath,
         });
-    }
+    },
 });
 
 downloadTask.onProgressUpdate(res => {
@@ -532,7 +530,7 @@ wx.request({
     },
     fail(e) {
         console.error(e);
-    }
+    },
 }).abort();
 
 wx.getSystemInfo({
@@ -551,9 +549,9 @@ wx.getSystemInfo({
             model,
             version,
             fontSizeSetting,
-            system
+            system,
         } = res;
-    }
+    },
 });
 
 function testAccountInfo(): string {
@@ -575,7 +573,7 @@ App({
         manager.onUpdateFailed(({ errMsg }) => {
             console.warn("update failed", errMsg);
         });
-    }
+    },
 });
 
 Component({
@@ -583,27 +581,27 @@ Component({
         "name, age": function nameAgeObserver(name: string, age: number) {
             this.setData({
                 nameStr: `Dear ${name}`,
-                ageStr: `${age}`
+                ageStr: `${age}`,
             });
-        }
+        },
     },
     properties: {
         name: {
-            type: String
+            type: String,
         },
         age: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     data: {
         nameStr: "",
-        ageStr: ""
-    }
+        ageStr: "",
+    },
 });
 
 wx.loadFontFace({
     family: "Bitstream Vera Serif Bold",
-    source: 'url("https://sungd.github.io/Pacifico.ttf")',
+    source: "url(\"https://sungd.github.io/Pacifico.ttf\")",
     success(res) {
         console.log(res.status);
     },
@@ -612,5 +610,5 @@ wx.loadFontFace({
     },
     complete(res) {
         console.log(res.status);
-    }
+    },
 });

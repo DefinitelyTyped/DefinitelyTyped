@@ -1,4 +1,4 @@
-import * as wpi from 'wiring-pi';
+import * as wpi from "wiring-pi";
 
 console.log(wpi.VERSION);
 
@@ -7,7 +7,7 @@ let ret: number = wpi.wiringPiSetup();
 ret = wpi.wiringPiSetupGpio();
 ret = wpi.wiringPiSetupPhys();
 ret = wpi.wiringPiSetupSys();
-ret = wpi.setup('wpi');
+ret = wpi.setup("wpi");
 // Core functions
 wpi.pinModeAlt(1, wpi.FSEL_ALT0);
 wpi.pinMode(2, wpi.INPUT);
@@ -46,7 +46,7 @@ wpi.pwmToneWrite(6, 1024);
 wpi.gpioClockSet(6, 1024);
 // I2C
 let fd: number = wpi.wiringPiI2CSetup(2);
-fd = wpi.wiringPiI2CSetupInterface('/dev/i2c-2', 2);
+fd = wpi.wiringPiI2CSetupInterface("/dev/i2c-2", 2);
 read = wpi.wiringPiI2CRead(fd);
 ret = wpi.wiringPiI2CWrite(fd, read);
 read = wpi.wiringPiI2CReadReg8(fd, 2);
@@ -63,11 +63,11 @@ ret = wpi.wiringPiSPIDataRW(2, buff);
 console.log(buff.toString());
 wpi.wiringPiSPIClose(fd);
 // Serial
-fd = wpi.serialOpen('/dev/AMA0', 9600);
+fd = wpi.serialOpen("/dev/AMA0", 9600);
 wpi.serialFlush(fd);
-wpi.serialPutChar(fd, 'i'.charCodeAt(0));
-wpi.serialPuts(fd, 'serial data');
-wpi.serialPrintf(fd, 'more');
+wpi.serialPutChar(fd, "i".charCodeAt(0));
+wpi.serialPuts(fd, "serial data");
+wpi.serialPrintf(fd, "more");
 read = wpi.serialDataAvail(fd);
 read = wpi.serialGetchar(fd);
 wpi.serialClose(fd);

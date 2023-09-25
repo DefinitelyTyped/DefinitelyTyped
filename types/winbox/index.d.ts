@@ -47,8 +47,8 @@ declare namespace WinBox {
     interface WinBoxConstructor {
         (title: string, params?: Params): WinBox;
         (params: Params): WinBox;
-        new (title: string, params?: Params): WinBox;
-        new (params: Params): WinBox;
+        new(title: string, params?: Params): WinBox;
+        new(params: Params): WinBox;
     }
 
     interface Params {

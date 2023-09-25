@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import * as webpack from 'webpack';
+import * as webpack from "webpack";
 
 declare namespace WebpackDotenvPlugin {
     interface Options {

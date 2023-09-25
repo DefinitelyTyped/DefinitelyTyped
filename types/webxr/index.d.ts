@@ -44,39 +44,39 @@ interface WebGLRenderingContextBase {
  *
  * ref: https://immersive-web.github.io/webxr/#xrsessionmode-enum
  */
-type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
+type XRSessionMode = "inline" | "immersive-vr" | "immersive-ar";
 
 /**
  * Reference space types
  */
-type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
+type XRReferenceSpaceType = "viewer" | "local" | "local-floor" | "bounded-floor" | "unbounded";
 
-type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
+type XREnvironmentBlendMode = "opaque" | "additive" | "alpha-blend";
 
 /**
  * ref: https://immersive-web.github.io/webxr/#xrsession-interface
  */
-type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
+type XRVisibilityState = "visible" | "visible-blurred" | "hidden";
 
 /**
  * Handedness types
  */
-type XRHandedness = 'none' | 'left' | 'right';
+type XRHandedness = "none" | "left" | "right";
 
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
+type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen";
 
 /**
  * Eye types
  */
-type XREye = 'none' | 'left' | 'right';
+type XREye = "none" | "left" | "right";
 
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
 interface XRSystemDeviceChangeEvent extends Event {
-    type: 'devicechange';
+    type: "devicechange";
 }
 
 interface XRSystemDeviceChangeEventHandler {
@@ -189,14 +189,14 @@ interface XRReferenceSpaceEventInit extends EventInit {
  * ref: https://immersive-web.github.io/webxr/#xrreferencespaceevent-interface
  */
 interface XRReferenceSpaceEvent extends Event {
-    readonly type: 'reset';
+    readonly type: "reset";
     readonly referenceSpace: XRReferenceSpace;
     readonly transform?: XRRigidTransform | undefined;
 }
 
 // tslint:disable-next-line no-unnecessary-class
 declare class XRReferenceSpaceEvent implements XRReferenceSpaceEvent {
-    constructor(type: 'reset', eventInitDict?: XRReferenceSpaceEventInit);
+    constructor(type: "reset", eventInitDict?: XRReferenceSpaceEventInit);
 }
 
 interface XRReferenceSpaceEventHandler {
@@ -342,7 +342,7 @@ declare abstract class XRFrame implements XRFrame {}
 /**
  * Type of XR events available
  */
-type XRInputSourceEventType = 'select' | 'selectend' | 'selectstart' | 'squeeze' | 'squeezeend' | 'squeezestart';
+type XRInputSourceEventType = "select" | "selectend" | "selectstart" | "squeeze" | "squeezeend" | "squeezestart";
 
 interface XRInputSourceEventInit extends EventInit {
     frame?: XRFrame | undefined;
@@ -365,7 +365,7 @@ interface XRInputSourceEventHandler {
     (evt: XRInputSourceEvent): any;
 }
 
-type XRSessionEventType = 'end' | 'visibilitychange' | 'frameratechange';
+type XRSessionEventType = "end" | "visibilitychange" | "frameratechange";
 
 interface XRSessionEventInit extends EventInit {
     session: XRSession;
@@ -587,7 +587,7 @@ declare class XRRay {
     constructor(transformOrOrigin?: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
 }
 
-type XRHitTestTrackableType = 'point' | 'plane' | 'mesh';
+type XRHitTestTrackableType = "point" | "plane" | "mesh";
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
@@ -653,7 +653,7 @@ interface XRHitResult {
 // Plane detection
 type XRPlaneSet = Set<XRPlane>;
 
-type XRPlaneOrientation = 'horizontal' | 'vertical';
+type XRPlaneOrientation = "horizontal" | "vertical";
 
 interface XRPlane {
     orientation: XRPlaneOrientation;
@@ -687,38 +687,38 @@ interface XRSession {
 interface XRFrame {
     worldInformation?:
         | {
-              detectedPlanes?: XRPlaneSet | undefined;
-          }
+            detectedPlanes?: XRPlaneSet | undefined;
+        }
         | undefined;
 }
 
 // Hand Tracking
 type XRHandJoint =
-    | 'wrist'
-    | 'thumb-metacarpal'
-    | 'thumb-phalanx-proximal'
-    | 'thumb-phalanx-distal'
-    | 'thumb-tip'
-    | 'index-finger-metacarpal'
-    | 'index-finger-phalanx-proximal'
-    | 'index-finger-phalanx-intermediate'
-    | 'index-finger-phalanx-distal'
-    | 'index-finger-tip'
-    | 'middle-finger-metacarpal'
-    | 'middle-finger-phalanx-proximal'
-    | 'middle-finger-phalanx-intermediate'
-    | 'middle-finger-phalanx-distal'
-    | 'middle-finger-tip'
-    | 'ring-finger-metacarpal'
-    | 'ring-finger-phalanx-proximal'
-    | 'ring-finger-phalanx-intermediate'
-    | 'ring-finger-phalanx-distal'
-    | 'ring-finger-tip'
-    | 'pinky-finger-metacarpal'
-    | 'pinky-finger-phalanx-proximal'
-    | 'pinky-finger-phalanx-intermediate'
-    | 'pinky-finger-phalanx-distal'
-    | 'pinky-finger-tip';
+    | "wrist"
+    | "thumb-metacarpal"
+    | "thumb-phalanx-proximal"
+    | "thumb-phalanx-distal"
+    | "thumb-tip"
+    | "index-finger-metacarpal"
+    | "index-finger-phalanx-proximal"
+    | "index-finger-phalanx-intermediate"
+    | "index-finger-phalanx-distal"
+    | "index-finger-tip"
+    | "middle-finger-metacarpal"
+    | "middle-finger-phalanx-proximal"
+    | "middle-finger-phalanx-intermediate"
+    | "middle-finger-phalanx-distal"
+    | "middle-finger-tip"
+    | "ring-finger-metacarpal"
+    | "ring-finger-phalanx-proximal"
+    | "ring-finger-phalanx-intermediate"
+    | "ring-finger-phalanx-distal"
+    | "ring-finger-tip"
+    | "pinky-finger-metacarpal"
+    | "pinky-finger-phalanx-proximal"
+    | "pinky-finger-phalanx-intermediate"
+    | "pinky-finger-phalanx-distal"
+    | "pinky-finger-tip";
 
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
@@ -824,7 +824,7 @@ interface XRRenderState {
     readonly layers?: XRLayer[] | undefined;
 }
 
-type XRLayerEventType = 'redraw';
+type XRLayerEventType = "redraw";
 
 interface XRLayerEvent extends Event {
     readonly type: XRLayerEventType;
@@ -846,7 +846,7 @@ interface XRCompositionLayer extends XRLayer {
     space: XRSpace;
 
     // Events
-    onredraw: (evt: XRCompositionLayerEventMap['redraw']) => any;
+    onredraw: (evt: XRCompositionLayerEventMap["redraw"]) => any;
 
     addEventListener<K extends keyof XRCompositionLayerEventMap>(
         this: XRCompositionLayer,
@@ -874,9 +874,9 @@ interface XRCompositionLayer extends XRLayer {
 
 declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 
-type XRTextureType = 'texture' | 'texture-array';
+type XRTextureType = "texture" | "texture-array";
 
-type XRLayerLayout = 'default' | 'mono' | 'stereo' | 'stereo-left-right' | 'stereo-top-bottom';
+type XRLayerLayout = "default" | "mono" | "stereo" | "stereo-left-right" | "stereo-top-bottom";
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
@@ -1035,7 +1035,7 @@ declare class XRMediaBinding {
 
 // WebGL extensions
 interface WebGLRenderingContextBase {
-    getExtension(extensionName: 'OCULUS_multiview'): OCULUS_multiview | null;
+    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
 }
 
 declare enum XOVR_multiview2 {
@@ -1053,7 +1053,7 @@ interface XRSessionGrant {
 }
 
 interface XRSystemSessionGrantedEvent extends Event {
-    type: 'sessiongranted';
+    type: "sessiongranted";
     session: XRSessionGrant;
 }
 
@@ -1111,7 +1111,7 @@ interface XRSessionInit {
     domOverlay?: XRDOMOverlayInit | undefined;
 }
 
-type XRDOMOverlayType = 'screen' | 'floating' | 'head-locked';
+type XRDOMOverlayType = "screen" | "floating" | "head-locked";
 
 interface XRDOMOverlayState {
     type: XRDOMOverlayType;

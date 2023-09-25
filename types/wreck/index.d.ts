@@ -7,7 +7,6 @@
 
 /// <reference types="node" />
 
-
 import * as Boom from "boom";
 import * as events from "events";
 import * as http from "http";
@@ -16,12 +15,21 @@ import * as Url from "url";
 
 interface RequestOptions {
     baseUrl?: string | undefined;
-    socketPath? : string | undefined;
+    socketPath?: string | undefined;
     payload?: any;
     headers?: { [key: string]: any } | undefined;
     redirects?: number | undefined;
     redirect303?: boolean | undefined;
-    beforeRedirect?: ((redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void) | undefined;
+    beforeRedirect?:
+        | ((
+            redirectMethod: string,
+            statusCode: number,
+            location: string,
+            resHeaders: { [key: string]: any },
+            redirectOptions: any,
+            next: () => {},
+        ) => void)
+        | undefined;
     redirected?: ((statusCode: number, location: string, req: http.ClientRequest) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
@@ -41,12 +49,15 @@ interface ReadOptions {
 }
 
 interface RequestResponse {
-    res: http.IncomingMessage,
-    payload: any,
+    res: http.IncomingMessage;
+    payload: any;
 }
 
 declare type RequestCallback = (uri: string, options: RequestOptions & { payload?: any }) => void;
-declare type ResponseCallback = (err: Boom | undefined, details: { req: http.ClientRequest, res: http.IncomingMessage | undefined, start: number, url: Url.URL }) => void;
+declare type ResponseCallback = (
+    err: Boom | undefined,
+    details: { req: http.ClientRequest; res: http.IncomingMessage | undefined; start: number; url: Url.URL },
+) => void;
 
 declare class WreckEventEmitter extends events.EventEmitter {
     on(event: "request", listener: RequestCallback): this;
@@ -56,7 +67,11 @@ declare class WreckEventEmitter extends events.EventEmitter {
 interface WreckObject {
     defaults: (options: RequestOptions) => WreckObject;
 
-    request: (method: string, uri: string, options: RequestOptions) => Promise<http.IncomingMessage> & { req: http.ClientRequest };
+    request: (
+        method: string,
+        uri: string,
+        options: RequestOptions,
+    ) => Promise<http.IncomingMessage> & { req: http.ClientRequest };
 
     read: (response: http.IncomingMessage, options: ReadOptions) => Promise<any>;
 
@@ -71,9 +86,9 @@ interface WreckObject {
     parseCacheControl: (field: string) => any;
 
     agents: {
-        http: http.Agent,
-        https: http.Agent,
-        httpsAllowUnauthorized: http.Agent
+        http: http.Agent;
+        https: http.Agent;
+        httpsAllowUnauthorized: http.Agent;
     };
 
     events?: WreckEventEmitter | undefined;

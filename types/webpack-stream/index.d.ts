@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as webpack from 'webpack';
+import * as webpack from "webpack";
 
 export = webpackStream;
 

@@ -27,7 +27,7 @@ declare class WebSocketClient {
 
     _closeEvent: CloseEvent | null;
 
-    _receiveCallbacksQueue: Array<{ resolve: (data: any) => void, reject: (reason: any) => void }>;
+    _receiveCallbacksQueue: Array<{ resolve: (data: any) => void; reject: (reason: any) => void }>;
 
     _receiveDataQueue: any[];
 

@@ -4,22 +4,22 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Browserify = require('browserify');
+import Browserify = require("browserify");
 
-declare module 'browserify' {
+declare module "browserify" {
     interface BrowserifyObject extends NodeJS.EventEmitter {
         /**
          * When the bundle changes, emit the array of bundle ids that changed.
          */
-        on(event: 'update', listener: (ids: string[]) => any): this;
+        on(event: "update", listener: (ids: string[]) => any): this;
         /**
          * When a bundle is generated, this event fires with the number of bytes
          */
-        on(event: 'bytes', listener: (bytes: number) => any): this;
+        on(event: "bytes", listener: (bytes: number) => any): this;
         /**
          * When a bundle is generated, this event fires with the time it took to create the bundle in milliseconds.
          */
-        on(event: 'time', listener: (time: number) => any): this;
+        on(event: "time", listener: (time: number) => any): this;
         /**
          * This event fires after a bundle was created with messages of the form:
          * ```text
@@ -27,7 +27,7 @@ declare module 'browserify' {
          * ```
          * with the number of bytes in the bundle X and the time in seconds Y.
          */
-        on(event: 'log', listener: (msg: string) => any): this;
+        on(event: "log", listener: (msg: string) => any): this;
     }
 }
 
@@ -67,11 +67,12 @@ declare namespace Watchify {
         ignoreWatch?:
             | boolean
             | (
-                  | string
-                  | RegExp
-                  | ((...values: any[]) => boolean)
-                  | Array<string | RegExp | ((...values: any[]) => boolean)>
-              ) | undefined;
+                | string
+                | RegExp
+                | ((...values: any[]) => boolean)
+                | Array<string | RegExp | ((...values: any[]) => boolean)>
+            )
+            | undefined;
 
         /**
          * Enables polling to monitor for changes. If set to `true`, then a polling interval of 100 ms is used.

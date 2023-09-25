@@ -40,9 +40,9 @@ interface WootheeParseResult {
  * The Woothee object.
  */
 interface Woothee {
-   /**
-    * Parsing user-agent.
-    */
+    /**
+     * Parsing user-agent.
+     */
     parse(uaString: string): WootheeParseResult;
     /**
      * Finding crawler.

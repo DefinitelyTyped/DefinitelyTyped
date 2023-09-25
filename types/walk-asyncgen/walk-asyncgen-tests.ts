@@ -7,14 +7,14 @@ pathsGenerator(".");
 pathsGenerator(".", {
     excludeFiles: /tslint.\S+/,
     excludeDirs: /node_modules/,
-    excludeExt: /mp3$/
+    excludeExt: /mp3$/,
 });
 
 // $ExpectType AsyncGenerator<string, void, void>
 pathsGenerator(".", {
     includeFiles: /tslint.\S+/,
     includeExt: /json/,
-    printDirs: false
+    printDirs: false,
 });
 
 pathsGenerator(".", {
@@ -23,5 +23,5 @@ pathsGenerator(".", {
     // @ts-expect-error
     excludeDirs: "",
     // @ts-expect-error
-    excludeExt: ".mp3"
+    excludeExt: ".mp3",
 });

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { compilation, Plugin } from 'webpack';
+import { compilation, Plugin } from "webpack";
 
 interface Options {
     /** Current working directoy for patterns above. If you don't set explicitly, your webpack context will be used. */

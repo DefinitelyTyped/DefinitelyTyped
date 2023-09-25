@@ -4,14 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Block } from 'webpack-blocks';
+import { Block } from "webpack-blocks";
 
 declare namespace typescript {
     type CustomTransformersFunction = (program: any) => any;
 
     interface BabelOptions {
         babelrc?: boolean | undefined;
-        presets?: string[][] | Array<Array<{ targets?: string | undefined, modules?: boolean | undefined }>> | undefined;
+        presets?:
+            | string[][]
+            | Array<Array<{ targets?: string | undefined; modules?: boolean | undefined }>>
+            | undefined;
     }
 
     interface Options {

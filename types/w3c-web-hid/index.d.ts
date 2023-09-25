@@ -28,7 +28,7 @@ declare class HID extends EventTarget {
     requestDevice(options?: HIDDeviceRequestOptions): Promise<HIDDevice[]>;
 
     addEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         listener: (this: this, ev: HIDConnectionEvent) => any,
         useCapture?: boolean,
     ): void;
@@ -39,7 +39,7 @@ declare class HID extends EventTarget {
     ): void;
 
     removeEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         callback: (this: this, ev: HIDConnectionEvent) => any,
         useCapture?: boolean,
     ): void;
@@ -85,13 +85,13 @@ declare class HIDInputReportEvent extends Event {
 
 /*~ https://wicg.github.io/webhid/#hidunitsystem-enum */
 type HIDUnitSystem =
-    | 'none'
-    | 'si-linear'
-    | 'si-rotation'
-    | 'english-linear'
-    | 'english-rotation'
-    | 'vendor-defined'
-    | 'reserved';
+    | "none"
+    | "si-linear"
+    | "si-rotation"
+    | "english-linear"
+    | "english-rotation"
+    | "vendor-defined"
+    | "reserved";
 
 /*~ https://wicg.github.io/webhid/#hidreportitem-dictionary */
 interface HIDReportItem {
@@ -163,14 +163,14 @@ declare class HIDDevice extends EventTarget {
 
     receiveFeatureReport(reportId: number): Promise<DataView>;
 
-    addEventListener(type: 'inputreport', listener: (this: this, ev: HIDInputReportEvent) => any): void;
+    addEventListener(type: "inputreport", listener: (this: this, ev: HIDInputReportEvent) => any): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject | null,
         options?: boolean | AddEventListenerOptions,
     ): void;
 
-    removeEventListener(type: 'inputreport', callback: (this: this, ev: HIDInputReportEvent) => any): void;
+    removeEventListener(type: "inputreport", callback: (this: this, ev: HIDInputReportEvent) => any): void;
     removeEventListener(
         type: string,
         callback: EventListenerOrEventListenerObject | null,

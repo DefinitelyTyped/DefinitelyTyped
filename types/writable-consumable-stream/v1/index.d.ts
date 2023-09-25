@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import ConsumableStream = require('consumable-stream');
+import ConsumableStream = require("consumable-stream");
 
-import Consumer = require('./consumer');
+import Consumer = require("./consumer");
 
 declare class WritableConsumableStream<T> extends ConsumableStream<T> {
     nextConsumerId: number;

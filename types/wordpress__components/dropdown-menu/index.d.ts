@@ -1,10 +1,10 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import Button from '../button';
-import Dashicon from '../dashicon';
-import Dropdown from '../dropdown';
-import { NavigableMenu } from '../navigable-container';
-import Popover from '../popover';
+import Button from "../button";
+import Dashicon from "../dashicon";
+import Dropdown from "../dropdown";
+import { NavigableMenu } from "../navigable-container";
+import Popover from "../popover";
 
 declare namespace DropdownMenu {
     interface BaseProps {

@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
 declare namespace KeyboardShortcuts {
     interface BaseProps {
@@ -28,7 +28,7 @@ declare namespace KeyboardShortcuts {
          * To override this, pass `eventName` with the name of a specific keyboard
          * event.
          */
-        eventName?: 'keydown' | 'keypress' | 'keyup' | undefined;
+        eventName?: "keydown" | "keypress" | "keyup" | undefined;
     }
     interface PropsWithChildren extends BaseProps {
         children: ReactNode;

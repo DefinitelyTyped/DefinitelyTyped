@@ -1,6 +1,6 @@
-import webpack = require('webpack');
-import { Tapable } from 'tapable';
-import { RawSourceMap } from 'source-map';
+import webpack = require("webpack");
+import { RawSourceMap } from "source-map";
+import { Tapable } from "tapable";
 
 const {
     optimize,
@@ -40,7 +40,7 @@ rule = { test: /\.png$/, loader: "url-loader?mimetype=image/png" };
 rule = {
     test: /\.png$/,
     loader: "url-loader",
-    query: { mimetype: "image/png" }
+    query: { mimetype: "image/png" },
 };
 
 //
@@ -48,62 +48,65 @@ rule = {
 //
 
 configuration = {
-    entry: () => './demo'
+    entry: () => "./demo",
 };
 
 configuration = {
-    entry: () => ['./demo', './demo2']
+    entry: () => ["./demo", "./demo2"],
 };
 
 configuration = {
     entry: () => ({
         p1: "./page1",
         p2: "./page2",
-        p3: "./page3"
-    })
+        p3: "./page3",
+    }),
 };
 
 configuration = {
-    entry: () => new Promise((resolve) => resolve('./demo'))
+    entry: () => new Promise((resolve) => resolve("./demo")),
 };
 
 configuration = {
-    entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+    entry: () => new Promise((resolve) => resolve(["./demo", "./demo2"])),
 };
 
 configuration = {
-    entry: () => new Promise((resolve) => resolve({
-        p1: "./page1",
-        p2: "./page2",
-        p3: "./page3"
-    }))
+    entry: () =>
+        new Promise((resolve) =>
+            resolve({
+                p1: "./page1",
+                p2: "./page2",
+                p3: "./page3",
+            })
+        ),
 };
 
 //
 // https://webpack.js.org/configuration/externals/
 //
 configuration = {
-    externals : {
-        react: 'react'
+    externals: {
+        react: "react",
     },
 };
 
 configuration = {
-    externals : {
-        lodash : {
-            commonjs: 'lodash',
-            amd: 'lodash',
-            root: '_' // indicates global variable
-        }
-      },
+    externals: {
+        lodash: {
+            commonjs: "lodash",
+            amd: "lodash",
+            root: "_", // indicates global variable
+        },
+    },
 };
 
 configuration = {
-    externals : {
-        subtract : {
-            root: ['math', 'subtract']
-        }
-    }
+    externals: {
+        subtract: {
+            root: ["math", "subtract"],
+        },
+    },
 };
 
 configuration = {
@@ -114,27 +117,27 @@ configuration = {
             if (/^yourregex$/.test(request)) {
                 // Disable TSLint for allowing non-arrow functions
                 /* tslint:disable-next-line:no-void-expression */
-                return callback(null, 'commonjs ' + request);
+                return callback(null, "commonjs " + request);
             }
-            if (request === 'foo') {
+            if (request === "foo") {
                 // Disable TSLint for allowing non-arrow functions
                 /* tslint:disable-next-line:no-void-expression */
-                return callback(null, ['path', 'to', 'external']);
+                return callback(null, ["path", "to", "external"]);
             }
-            if (request === 'bar') {
+            if (request === "bar") {
                 // Disable TSLint for allowing non-arrow functions
                 /* tslint:disable-next-line:no-void-expression */
-                return callback(null, {}, 'commonjs');
+                return callback(null, {}, "commonjs");
             }
-            if (request === 'baz') {
+            if (request === "baz") {
                 // Disable TSLint for allowing non-arrow functions
                 /* tslint:disable-next-line:no-void-expression */
                 return callback(null, {});
             }
 
             // Callback can be invoked with an error
-            callback('An error');
-            callback(new Error('Boom!'));
+            callback("An error");
+            callback(new Error("Boom!"));
 
             // A null error should include external parameters
             // @ts-expect-error
@@ -142,7 +145,7 @@ configuration = {
 
             // An error should include no other parameters
             // @ts-expect-error
-            callback('An error', 'externalName');
+            callback("An error", "externalName");
 
             // Continue without externalizing the import
             // Disable TSLint for allowing non-arrow functions
@@ -156,29 +159,29 @@ configuration = {
     externals: [
         {
             // String
-            react: 'react',
+            react: "react",
             // Object
-            lodash : {
-                commonjs: 'lodash',
-                amd: 'lodash',
-                root: '_' // indicates global variable
+            lodash: {
+                commonjs: "lodash",
+                amd: "lodash",
+                root: "_", // indicates global variable
             },
             // Array
-            subtract: ['./math', 'subtract']
-            },
-            // Disable TSLint for allowing non-arrow functions
-            /* tslint:disable-next-line:only-arrow-functions */
-            function(context, request, callback) {
-              if (/^yourregex$/.test(request)) {
+            subtract: ["./math", "subtract"],
+        },
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line:only-arrow-functions */
+        function(context, request, callback) {
+            if (/^yourregex$/.test(request)) {
                 // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
                 /* tslint:disable-next-line:no-void-expression */
-                return callback(null, 'commonjs ' + request);
-              }
-              callback(null, {});
-            },
-            // Regex
-            /^(jquery|\$)$/i
-    ]
+                return callback(null, "commonjs " + request);
+            }
+            callback(null, {});
+        },
+        // Regex
+        /^(jquery|\$)$/i,
+    ],
 };
 
 configuration = {
@@ -189,10 +192,10 @@ configuration = {
                 root: "subtract",
                 commonjs2: "./subtract",
                 commonjs: ["./math", "subtract"],
-                amd: "subtract"
-            }
-        }
-    ]
+                amd: "subtract",
+            },
+        },
+    ],
 };
 
 //
@@ -203,11 +206,11 @@ configuration = {
     entry: {
         p1: "./page1",
         p2: "./page2",
-        p3: "./page3"
+        p3: "./page3",
     },
     output: {
-        filename: "[name].entry.chunk.js"
-    }
+        filename: "[name].entry.chunk.js",
+    },
 };
 
 configuration = {
@@ -216,10 +219,10 @@ configuration = {
         p2: "./page2",
         p3: "./page3",
         ap1: "./admin/page1",
-        ap2: "./admin/page2"
+        ap2: "./admin/page2",
     },
     output: {
-        filename: "[name].js"
+        filename: "[name].js",
     },
 };
 
@@ -233,9 +236,9 @@ configuration = {
         publicPath: "assets/[hash]/",
         filename: "output.[hash].bundle.js",
         chunkFilename: "[id].[hash].bundle.js",
-        hashFunction: 'sha256',
+        hashFunction: "sha256",
         hashDigestLength: 64,
-    }
+    },
 };
 
 configuration = { output: { chunkFilename: "[chunkhash].bundle.js" } };
@@ -247,138 +250,138 @@ configuration = { output: { chunkFilename: "[chunkhash].bundle.js" } };
 configuration = {
     entry: [
         "./entry1",
-        "./entry2"
-    ]
+        "./entry2",
+    ],
 };
 
 configuration = {
-    devtool: "inline-source-map"
+    devtool: "inline-source-map",
 };
 
 configuration = {
-    devtool: false
+    devtool: false,
 };
 
 configuration = {
     resolve: {
-        modules: [__dirname]
-    }
+        modules: [__dirname],
+    },
 };
 
 rule = {
     test: /\.jsx$/,
     include: [
         path.resolve(__dirname, "app/src"),
-        path.resolve(__dirname, "app/test")
+        path.resolve(__dirname, "app/test"),
     ],
     exclude: [
-        path.resolve(__dirname, "node_modules")
+        path.resolve(__dirname, "node_modules"),
     ],
-    loader: "babel-loader"
+    loader: "babel-loader",
 };
 
 rule = {
     test: /\.css$/,
     resourceQuery: /module/,
-    loader: 'css-loader',
+    loader: "css-loader",
     options: {
-        modules: true
-    }
+        modules: true,
+    },
 };
 
 declare const require: any;
 declare const path: any;
 configuration = {
-  plugins: [
-    function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
-      const prevTimestamps = new Map<string, number>();
-      const startTime = Date.now();
+    plugins: [
+        function apply(this: webpack.Compiler, compiler: webpack.Compiler) {
+            const prevTimestamps = new Map<string, number>();
+            const startTime = Date.now();
 
-      this.hooks.emit.tap(
-        'SomePlugin',
-        (compilation: webpack.compilation.Compilation) => {
-          for (const filepath in compilation.fileTimestamps.keys()) {
-            const prevTimestamp = prevTimestamps.get(filepath) || startTime;
-            const newTimestamp =
-              compilation.fileTimestamps.get(filepath) || Infinity;
-            if (prevTimestamp < newTimestamp) {
-              this.inputFileSystem.readFileSync(filepath).toString('utf-8');
-            }
-          }
+            this.hooks.emit.tap(
+                "SomePlugin",
+                (compilation: webpack.compilation.Compilation) => {
+                    for (const filepath in compilation.fileTimestamps.keys()) {
+                        const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+                        const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
+                        if (prevTimestamp < newTimestamp) {
+                            this.inputFileSystem.readFileSync(filepath).toString("utf-8");
+                        }
+                    }
+                },
+            );
+
+            compiler.hooks.afterCompile.tap(
+                "SomePlugin",
+                (compilation: webpack.compilation.Compilation) => {
+                    ["path/to/extra/dep", "another/extra/dep"].forEach(path => compilation.fileDependencies.add(path));
+                },
+            );
+
+            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
+                this.outputFileSystem.writeFile(
+                    path.join(__dirname, "...", "stats.json"),
+                    JSON.stringify(stats.getStats().toJson()),
+                    callback,
+                );
+            });
+
+            this.hooks.beforeRun.tap(
+                "SomePlugin",
+                (compiler: webpack.Compiler) => {},
+            );
+            this.hooks.run.tap("SomePlugin", (compiler: webpack.Compiler) => {});
+
+            compiler.hooks.compilation.tap("SomePlugin", compilation => {
+                const { mainTemplate } = compilation;
+                mainTemplate.requireFn.trimLeft();
+                mainTemplate.outputOptions.crossOriginLoading;
+                mainTemplate.hooks.require.tap("SomePlugin", resource => {
+                    return `console.log('A module is required'); ${resource}`;
+                });
+                mainTemplate.hooks.requireExtensions.tap("SomePlugin", resource => {
+                    return resource.trimLeft();
+                });
+                mainTemplate.hooks.requireEnsure.tap(
+                    "SomePlugin",
+                    (resource, chunk, hash, chunkIdExpression: string) => {
+                        mainTemplate.renderRequireFunctionForModule(hash, chunk, "moduleId");
+                        mainTemplate.renderAddModule(hash, chunk, "moduleId", JSON.stringify({ ok: true }));
+                        return `${resource};/* additional requests for ${chunkIdExpression} */`;
+                    },
+                );
+                mainTemplate.hooks.localVars.tap("SomePlugin", resource => {
+                    return resource.trimLeft();
+                });
+                mainTemplate.hooks.afterStartup.tap("SomePlugin", (resource, chunk) => {
+                    if (chunk.name) {
+                        return `/* In named chunk: ${chunk.name} */ ${resource};`;
+                    } else {
+                        return resource;
+                    }
+                });
+                mainTemplate.hooks.hash.tap("SomePlugin", hash => {
+                    hash.update("SomePlugin");
+                    hash.update("1");
+                });
+                mainTemplate.hooks.hashForChunk.tap("SomePlugin", (hash, chunk) => {
+                    if (chunk.name) {
+                        hash.update(chunk.name);
+                    }
+                });
+                if (mainTemplate.hooks.jsonpScript == null) {
+                    return;
+                }
+                mainTemplate.hooks.jsonpScript.tap(
+                    "SomePlugin",
+                    (source, chunk, hash) => {
+                        source.trimLeft();
+                        hash.trimLeft();
+                        return chunk.name;
+                    },
+                );
+            });
         },
-      );
-
-      compiler.hooks.afterCompile.tap(
-        'SomePlugin',
-        (compilation: webpack.compilation.Compilation) => {
-          ['path/to/extra/dep', 'another/extra/dep'].forEach(path =>
-            compilation.fileDependencies.add(path),
-          );
-        },
-      );
-
-      this.hooks.afterEmit.tapAsync('afterEmit', (stats, callback) => {
-        this.outputFileSystem.writeFile(
-          path.join(__dirname, '...', 'stats.json'),
-          JSON.stringify(stats.getStats().toJson()),
-          callback,
-        );
-      });
-
-      this.hooks.beforeRun.tap(
-        'SomePlugin',
-        (compiler: webpack.Compiler) => {},
-      );
-      this.hooks.run.tap('SomePlugin', (compiler: webpack.Compiler) => {});
-
-      compiler.hooks.compilation.tap('SomePlugin', compilation => {
-        const { mainTemplate } = compilation;
-        mainTemplate.requireFn.trimLeft();
-        mainTemplate.outputOptions.crossOriginLoading;
-        mainTemplate.hooks.require.tap('SomePlugin', resource => {
-            return `console.log('A module is required'); ${resource}`;
-        });
-        mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
-          return resource.trimLeft();
-        });
-        mainTemplate.hooks.requireEnsure.tap('SomePlugin', (resource, chunk, hash, chunkIdExpression: string) => {
-          mainTemplate.renderRequireFunctionForModule(hash, chunk, 'moduleId');
-          mainTemplate.renderAddModule(hash, chunk, 'moduleId', JSON.stringify({ ok: true }));
-          return `${resource};/* additional requests for ${chunkIdExpression} */`;
-        });
-        mainTemplate.hooks.localVars.tap('SomePlugin', resource => {
-          return resource.trimLeft();
-        });
-        mainTemplate.hooks.afterStartup.tap('SomePlugin', (resource, chunk) => {
-            if (chunk.name) {
-                return `/* In named chunk: ${chunk.name} */ ${resource};`;
-            } else {
-                return resource;
-            }
-        });
-        mainTemplate.hooks.hash.tap('SomePlugin', hash => {
-            hash.update('SomePlugin');
-            hash.update('1');
-        });
-        mainTemplate.hooks.hashForChunk.tap('SomePlugin', (hash, chunk) => {
-            if (chunk.name) {
-                hash.update(chunk.name);
-            }
-        });
-        if (mainTemplate.hooks.jsonpScript == null) {
-          return;
-        }
-        mainTemplate.hooks.jsonpScript.tap(
-          'SomePlugin',
-          (source, chunk, hash) => {
-            source.trimLeft();
-            hash.trimLeft();
-            return chunk.name;
-          },
-        );
-      });
-    },
-  ],
+    ],
 };
 
 //
@@ -406,41 +409,44 @@ plugin = new webpack.ContextReplacementPlugin(
     resourceRegExp,
     newContentResource,
     newContentRecursive,
-    newContentRegExp);
+    newContentRegExp,
+);
 plugin = new webpack.ContextReplacementPlugin(
     resourceRegExp,
     newContentResource,
-    newContentRecursive);
+    newContentRecursive,
+);
 plugin = new webpack.ContextReplacementPlugin(
     resourceRegExp,
-    newContentResource);
+    newContentResource,
+);
 plugin = new webpack.ContextReplacementPlugin(resourceRegExp);
 plugin = new webpack.DllPlugin({
-    context: 'dir-context',
-    name: 'dll-name',
-    path: 'manifest-path'
+    context: "dir-context",
+    name: "dll-name",
+    path: "manifest-path",
 });
 plugin = new webpack.DllPlugin([{
-    context: 'dir-context',
-    name: 'dll-name',
-    path: 'manifest-path'
+    context: "dir-context",
+    name: "dll-name",
+    path: "manifest-path",
 }]);
 plugin = new webpack.DllReferencePlugin({
-    content: 'dll content',
-    context: 'dir-context',
+    content: "dll content",
+    context: "dir-context",
     manifest: {
-        content: 'dll content',
-        name: 'dll name'
+        content: "dll content",
+        name: "dll name",
     },
-    name: 'dll name',
-    scope: 'dll prefix',
-    sourceType: 'var'
+    name: "dll name",
+    scope: "dll prefix",
+    sourceType: "var",
 });
-plugin = new webpack.ExternalsPlugin('this', 'react');
-plugin = new webpack.ExternalsPlugin('this', {jquery: 'jQuery'});
-plugin = new webpack.ExternalsPlugin('this', (context, request, callback) => {
-    if (request === 'jquery') {
-        callback(null, 'jQuery');
+plugin = new webpack.ExternalsPlugin("this", "react");
+plugin = new webpack.ExternalsPlugin("this", { jquery: "jQuery" });
+plugin = new webpack.ExternalsPlugin("this", (context, request, callback) => {
+    if (request === "jquery") {
+        callback(null, "jQuery");
     }
     callback();
 });
@@ -449,17 +455,17 @@ plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
 plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
-plugin = new webpack.BannerPlugin('banner');
+plugin = new webpack.BannerPlugin("banner");
 plugin = new webpack.BannerPlugin({
-    banner: 'banner'
+    banner: "banner",
 });
 plugin = new webpack.BannerPlugin({
-    banner: 'banner',
+    banner: "banner",
     entryOnly: true,
     exclude: /index/,
-    include: 'test',
+    include: "test",
     raw: false,
-    test: ['test', /index/]
+    test: ["test", /index/],
 });
 plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
@@ -476,44 +482,44 @@ plugin = new webpack.DefinePlugin({
         foo: "bar",
         bar: {
             DEEP_RUNTIME: webpack.DefinePlugin.runtimeValue(
-                () => JSON.stringify("DEEP_RUUNTIME")
+                () => JSON.stringify("DEEP_RUUNTIME"),
             ),
             foofoo: {
-                barbar: false
-            }
-        }
+                barbar: false,
+            },
+        },
     },
     RUNTIME: webpack.DefinePlugin.runtimeValue(
-        () => JSON.stringify("TEST_VALUE")
-    )
+        () => JSON.stringify("TEST_VALUE"),
+    ),
 });
 plugin = new webpack.DefinePlugin({
     TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
-        ({ module }) => JSON.stringify(module.context)
-    )
+        ({ module }) => JSON.stringify(module.context),
+    ),
 });
 plugin = new webpack.DefinePlugin({
     TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
         () => JSON.stringify("TEST_VALUE"),
-        ["value.txt"]
-    )
+        ["value.txt"],
+    ),
 });
 plugin = new webpack.DefinePlugin({
     TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
         () => JSON.stringify("TEST_VALUE"),
-        true
-    )
+        true,
+    ),
 });
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
-    $: "jquery"
+    $: "jquery",
 });
 plugin = new webpack.SourceMapDevToolPlugin({
     //// asset matching
     test: /\.js$/,
     // include: Condition | Condition[],
     exclude: [
-        /node_modules/
+        /node_modules/,
     ],
     //
     //// file and reference
@@ -526,7 +532,7 @@ plugin = new webpack.SourceMapDevToolPlugin({
     //// quality/performance
     module: true,
     columns: true,
-    lineToLine: false // | { test?: Condition | Condition[], ... }
+    lineToLine: false, // | { test?: Condition | Condition[], ... }
 });
 plugin = new webpack.EvalSourceMapDevToolPlugin(false);
 plugin = new webpack.HotModuleReplacementPlugin();
@@ -534,24 +540,26 @@ plugin = new webpack.ExtendedAPIPlugin();
 plugin = new webpack.NoEmitOnErrorsPlugin();
 plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
-    debug: true
+    debug: true,
 });
-plugin = new webpack.EnvironmentPlugin(['a', 'b']);
-plugin = new webpack.EnvironmentPlugin({ a: true, b: 'c' });
-plugin = new webpack.ProgressPlugin((percent: number, message: string) => { });
-plugin = new webpack.ProgressPlugin((percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => { });
+plugin = new webpack.EnvironmentPlugin(["a", "b"]);
+plugin = new webpack.EnvironmentPlugin({ a: true, b: "c" });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.ProgressPlugin(
+    (percent: number, message: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => {},
+);
 plugin = new webpack.ProgressPlugin({ profile: true });
 plugin = new webpack.ProgressPlugin({ activeModules: true, entries: false });
 plugin = new webpack.HashedModuleIdsPlugin();
 plugin = new webpack.HashedModuleIdsPlugin({
-    hashFunction: 'sha256',
-    hashDigest: 'hex',
-    hashDigestLength: 20
+    hashFunction: "sha256",
+    hashDigest: "hex",
+    hashDigestLength: 20,
 });
 plugin = new webpack.SingleEntryPlugin(
-    '/home',
-    './main.js',
-    'main'
+    "/home",
+    "./main.js",
+    "main",
 );
 
 //
@@ -576,20 +584,20 @@ compiler.run((err, stats) => {
 // or
 compiler.watch({ // watch options:
     aggregateTimeout: 300, // wait so long for more changes
-    poll: true // use polling instead of native watchers
+    poll: true, // use polling instead of native watchers
     // pass a number to set the polling interval
 }, (err, stats) => {
     // ...
 });
 // or
 compiler.watch({ // watch options:
-    ignored: 'foo/**/*'
+    ignored: "foo/**/*",
 }, (err, stats) => {
     // ...
 });
 // or
 compiler.watch({ // watch options:
-    ignored: /node_modules/
+    ignored: /node_modules/,
 }, (err, stats) => {
     // ...
 });
@@ -631,7 +639,7 @@ webpack({
         version: true,
         warnings: true,
         warningsFilter: ["filter", /filter/],
-        excludeAssets: ["filter", "excluded"]
+        excludeAssets: ["filter", "excluded"],
     });
 
     if (jsonStats.errors.length > 0) {
@@ -662,10 +670,10 @@ rule = {
         or: [
             require.resolve("./a"),
             require.resolve("./c"),
-        ]
+        ],
     },
     loader: "./loader",
-    options: "third"
+    options: "third",
 };
 
 configuration = {
@@ -677,10 +685,10 @@ configuration = {
                         test: {
                             and: [
                                 /a.\.js$/,
-                                /b\.js$/
-                            ]
+                                /b\.js$/,
+                            ],
                         },
-                        loader: "./loader?first"
+                        loader: "./loader?first",
                     },
                     {
                         test: [
@@ -692,45 +700,45 @@ configuration = {
                             "./loader?second-1",
                             {
                                 loader: "./loader",
-                                options: "second-2"
+                                options: "second-2",
                             },
                             {
                                 loader: "./loader",
                                 options: {
-                                    get: () => "second-3"
-                                }
-                            }
-                        ]
+                                    get: () => "second-3",
+                                },
+                            },
+                        ],
                     },
                     {
                         test: {
                             or: [
                                 require.resolve("./a"),
                                 require.resolve("./c"),
-                            ]
+                            ],
                         },
                         loader: "./loader",
-                        options: "third"
-                    }
-                ]
-            }
-        ]
-    }
+                        options: "third",
+                    },
+                ],
+            },
+        ],
+    },
 };
 
 class TestResolvePlugin implements webpack.ResolvePlugin {
     apply(resolver: any) {
-        resolver.plugin('before-existing-directory', (request: any, callback: any) => {
+        resolver.plugin("before-existing-directory", (request: any, callback: any) => {
             callback();
         });
     }
 }
 
 const performance: webpack.Options.Performance = {
-    hints: 'error',
+    hints: "error",
     maxEntrypointSize: 400000,
     maxAssetSize: 100000,
-    assetFilter: assetFilename => assetFilename.endsWith('.js'),
+    assetFilter: assetFilename => assetFilename.endsWith(".js"),
 };
 
 configuration = {
@@ -742,38 +750,42 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.async();
 
-    this.addDependency('');
+    this.addDependency("");
     this.getDependencies();
 
-    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
-    this.resolve('context', 'request', (err: Error, result: string) => { });
+    this.loadModule("path", (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => {});
+    this.resolve("context", "request", (err: Error, result: string) => {});
 
-    this.emitWarning('warning message');
-    this.emitWarning(new Error('warning message'));
+    this.emitWarning("warning message");
+    this.emitWarning(new Error("warning message"));
 
-    this.emitError('error message');
-    this.emitError(new Error('error message'));
+    this.emitError("error message");
+    this.emitError(new Error("error message"));
 
     this.callback(null, source);
 }
 
 (loader as webpack.loader.Loader).raw = true;
-(loader as webpack.loader.Loader).pitch = function(this: webpack.loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any) { };
+(loader as webpack.loader.Loader).pitch = function(
+    this: webpack.loader.LoaderContext,
+    remainingRequest: string,
+    precedingRequest: string,
+    data: any,
+) {};
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);
 
 /**
  * New v4 tests
  */
+configuration = {};
+
 configuration = {
+    mode: "development",
 };
 
 configuration = {
-    mode: "development"
-};
-
-configuration = {
-    mode: "production"
+    mode: "production",
 };
 
 configuration = {
@@ -795,8 +807,8 @@ configuration = {
         namedChunks: true,
         nodeEnv: "development",
         minimize: false,
-        portableRecords: false
-    }
+        portableRecords: false,
+    },
 };
 
 configuration = {
@@ -818,8 +830,8 @@ configuration = {
         namedChunks: false,
         nodeEnv: "production",
         minimize: true,
-        portableRecords: true
-    }
+        portableRecords: true,
+    },
 };
 
 configuration = {
@@ -836,10 +848,10 @@ configuration = {
                     name: "vendor",
                     minSize: 30000,
                     maxSize: 50000,
-                    enforce: true
-                }
-            }
-        }
+                    enforce: true,
+                },
+            },
+        },
     },
 };
 
@@ -849,18 +861,18 @@ configuration = {
         splitChunks: {
             cacheGroups: {
                 common: {
-                    name: 'common',
+                    name: "common",
                     chunks(chunk: webpack.compilation.Chunk) {
                         const allowedChunks = [
-                            'renderer',
-                            'component-window',
+                            "renderer",
+                            "component-window",
                         ];
                         return allowedChunks.indexOf(chunk.name) >= 0;
                     },
-                    minChunks: 2
-                }
-            }
-        }
+                    minChunks: 2,
+                },
+            },
+        },
     },
 };
 
@@ -875,14 +887,14 @@ class MultiEntryPlugin extends webpack.Plugin {
             "MultiEntryPlugin",
             (compilation, { normalModuleFactory }) => {
                 compilation.dependencyFactories.set(MultiEntryDependency, new MultiModuleFactory());
-            }
+            },
         );
         compiler.hooks.make.tapAsync(
             "MultiEntryPlugin",
             (compilation, callback) => {
                 const dep = new MultiEntryPlugin();
                 compilation.addEntry("", {}, "", () => {});
-            }
+            },
         );
     }
 }
@@ -911,13 +923,13 @@ class DllEntryPlugin extends webpack.Plugin {
                 const dllModuleFactory = new DllModuleFactory();
                 compilation.dependencyFactories.set(
                     DllEntryDependency,
-                    dllModuleFactory
+                    dllModuleFactory,
                 );
                 compilation.dependencyFactories.set(
                     SingleEntryDependency,
-                    normalModuleFactory
+                    normalModuleFactory,
                 );
-            }
+            },
         );
         compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
             compilation.addEntry("", new DllEntryDependency(), "", callback);
@@ -927,7 +939,7 @@ class DllEntryPlugin extends webpack.Plugin {
 
 class BannerPlugin extends webpack.Plugin {
     apply(compiler: webpack.Compiler) {
-        compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
+        compiler.hooks.compilation.tap("BannerPlugin", compilation => {
             compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
                 for (const chunk of chunks) {
                     if (!chunk.canBeInitial()) {
@@ -958,16 +970,16 @@ class DefinePlugin extends webpack.Plugin {
                             .for("TEST")
                             .tap("DefinePlugin", () => {});
                     });
-            }
+            },
         );
     }
 }
 
 class ChunkGroupTestPlugin extends webpack.Plugin {
     apply(compiler: webpack.Compiler) {
-        compiler.hooks.compilation.tap("ChunkGroupTestPlugin", compilation  => {
-            const namedChunkGroupA = compilation.addChunkInGroup('vendors-a');
-            const namedChunkGroupB = compilation.addChunkInGroup({ name: 'vendors-b' });
+        compiler.hooks.compilation.tap("ChunkGroupTestPlugin", compilation => {
+            const namedChunkGroupA = compilation.addChunkInGroup("vendors-a");
+            const namedChunkGroupB = compilation.addChunkInGroup({ name: "vendors-b" });
             const unnamedChunkGroup = compilation.addChunkInGroup({});
             if (namedChunkGroupA.getNumberOfChildren() > 0) {
                 for (const chunk of namedChunkGroupA.chunks) {}
@@ -981,7 +993,7 @@ class ChunkGroupTestPlugin extends webpack.Plugin {
             namedChunkGroupA.setParents(new Set([unnamedChunkGroup]));
             compilation.hooks.optimizeModules.tap("ChunkGroupTestPlugin", modules => {
                 for (const module of modules) {
-                    const group = compilation.addChunkInGroup('module', module, { start: { line: 0 } }, 'module.js');
+                    const group = compilation.addChunkInGroup("module", module, { start: { line: 0 } }, "module.js");
                     if (module.index) {
                         group.setModuleIndex(module, module.index);
                     }
@@ -1009,11 +1021,11 @@ configuration = {
                 test: /\.css$/,
                 oneOf: [
                     { resourceQuery: /global/, use: ["style-loader", "css-loader"] },
-                    { use: ["to-string-loader", "css-loader"] }
-                ]
-            }
-        ]
-    }
+                    { use: ["to-string-loader", "css-loader"] },
+                ],
+            },
+        ],
+    },
 };
 
 configuration = {
@@ -1021,139 +1033,140 @@ configuration = {
         rules: [
             {
                 test: /\.ts$/,
-                include: '/foo/bar',
-                exclude: path => path.startsWith('/foo'),
-                resourceQuery: ['foo', 'bar'],
+                include: "/foo/bar",
+                exclude: path => path.startsWith("/foo"),
+                resourceQuery: ["foo", "bar"],
                 resolve: {
                     roots: [process.cwd()],
-                    mainFields: ['foo'],
-                    aliasFields: [['bar']],
+                    mainFields: ["foo"],
+                    aliasFields: [["bar"]],
                 },
-                loader: 'foo-loader',
+                loader: "foo-loader",
                 loaders: [
-                    'foo-loader',
+                    "foo-loader",
                     {
-                        loader: 'bar-loader',
-                        query: 'baz'
-                    }
-                ],
-                use: () => ([
-                    'foo-loader',
-                    {
-                        loader: 'bar-loader',
-                        query: {
-                            baz: 'qux'
-                        }
+                        loader: "bar-loader",
+                        query: "baz",
                     },
-                ])
-            }
-        ]
-    }
+                ],
+                use: () => [
+                    "foo-loader",
+                    {
+                        loader: "bar-loader",
+                        query: {
+                            baz: "qux",
+                        },
+                    },
+                ],
+            },
+        ],
+    },
 };
 
 let profiling = new webpack.debug.ProfilingPlugin();
-profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
+profiling = new webpack.debug.ProfilingPlugin({ outputPath: "./path.json" });
 
 configuration = {
-    plugins: [profiling]
+    plugins: [profiling],
 };
 
-compiler.hooks.done.tap('foo', stats => {
-  if (stats.startTime === undefined || stats.endTime === undefined) {
-    throw new Error('Well, this is odd');
-  }
+compiler.hooks.done.tap("foo", stats => {
+    if (stats.startTime === undefined || stats.endTime === undefined) {
+        throw new Error("Well, this is odd");
+    }
 
-  console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
+    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
 });
 
 const multiCompiler = webpack([{}, {}]);
 
-multiCompiler.hooks.done.tap('foo', (multiStats) => {
+multiCompiler.hooks.done.tap("foo", (multiStats) => {
     const [firstStat] = multiStats.stats;
 
     if (multiStats.hasWarnings() || multiStats.hasErrors()) {
-        throw new Error(multiStats.toString('errors-warnings'));
+        throw new Error(multiStats.toString("errors-warnings"));
     }
     multiStats.toJson(); // $ExpectType ToJsonOutput
 
     if (firstStat.startTime === undefined || firstStat.endTime === undefined) {
-        throw new Error('Well, this is odd');
+        throw new Error("Well, this is odd");
     }
 
     console.log(`Compiled in ${firstStat.endTime - firstStat.startTime}ms`, multiStats.hash);
 });
 
 webpack.Template.getFunctionContent(() => undefined).trimLeft();
-webpack.Template.toIdentifier('a').trimLeft();
-webpack.Template.toComment('a').trimLeft();
-webpack.Template.toNormalComment('a').trimLeft();
-webpack.Template.toPath('a').trimLeft();
+webpack.Template.toIdentifier("a").trimLeft();
+webpack.Template.toComment("a").trimLeft();
+webpack.Template.toNormalComment("a").trimLeft();
+webpack.Template.toPath("a").trimLeft();
 webpack.Template.numberToIdentifer(2).trimLeft();
-webpack.Template.indent('a').trimLeft();
-webpack.Template.indent(['a']).trimLeft();
-webpack.Template.prefix('a', 'a').trimLeft();
-webpack.Template.prefix(['a'], 'a').trimLeft();
-webpack.Template.asString('a').trimLeft();
-webpack.Template.asString(['a']).trimLeft();
-webpack.Template.getModulesArrayBounds([{ id: 'a' }]);
+webpack.Template.indent("a").trimLeft();
+webpack.Template.indent(["a"]).trimLeft();
+webpack.Template.prefix("a", "a").trimLeft();
+webpack.Template.prefix(["a"], "a").trimLeft();
+webpack.Template.asString("a").trimLeft();
+webpack.Template.asString(["a"]).trimLeft();
+webpack.Template.getModulesArrayBounds([{ id: "a" }]);
 
 function testTemplateFn() {
-  const result = webpack.Template.getModulesArrayBounds([{ id: 1 }]);
-  if (result === false) {
-    return;
-  }
-  Math.max(...result);
+    const result = webpack.Template.getModulesArrayBounds([{ id: 1 }]);
+    if (result === false) {
+        return;
+    }
+    Math.max(...result);
 }
 
-const chunk = new webpack.compilation.Chunk('name');
+const chunk = new webpack.compilation.Chunk("name");
 
 chunk.sortModules((module1, module2) => {
-  if (module1)
-      return 1;
-  else if (module2)
-      return -1;
-  return 0;
+    if (module1) {
+        return 1;
+    } else if (module2) {
+        return -1;
+    }
+    return 0;
 });
 chunk.addMultiplierAndOverhead(12, {});
 chunk.addMultiplierAndOverhead(12, {
-  chunkOverhead: 1,
-  entryChunkMultiplicator: 2
+    chunkOverhead: 1,
+    entryChunkMultiplicator: 2,
 });
 chunk.size();
 chunk.size({});
 chunk.size({
-  chunkOverhead: 1,
-  entryChunkMultiplicator: 2
+    chunkOverhead: 1,
+    entryChunkMultiplicator: 2,
 });
 chunk.hasModuleInGraph(
-  m => m.type === "webassembly/async",
-  chunk => chunk.name === "vendor"
+    m => m.type === "webassembly/async",
+    chunk => chunk.name === "vendor",
 );
 
 const moduleTemplate = ({} as any) as webpack.compilation.ModuleTemplate;
 webpack.Template.renderChunkModules(
-  chunk,
-  (_, num) => {
-    Math.max(num, 2);
-    return true;
-  },
-  moduleTemplate,
-  [],
+    chunk,
+    (_, num) => {
+        Math.max(num, 2);
+        return true;
+    },
+    moduleTemplate,
+    [],
 );
 
 webpack.Template.renderChunkModules(
-  chunk,
-  () => false,
-  moduleTemplate,
-  [],
-  'a',
+    chunk,
+    () => false,
+    moduleTemplate,
+    [],
+    "a",
 );
 
 // https://webpack.js.org/configuration/output/#outputfilename
 configuration = {
     output: {
         filename: chunkData => {
-            return chunkData.chunk.name === 'main' ? '[name].js' : '[name]/[name].js';
+            return chunkData.chunk.name === "main" ? "[name].js" : "[name]/[name].js";
         },
     },
 };
@@ -1161,7 +1174,7 @@ configuration = {
 // https://webpack.js.org/api/logging/
 class LoggingPlugin extends webpack.Plugin {
     apply(compiler: webpack.Compiler): void {
-        const infrastructureLogger: webpack.Logger = compiler.getInfrastructureLogger('LoggingPlugin');
+        const infrastructureLogger: webpack.Logger = compiler.getInfrastructureLogger("LoggingPlugin");
         infrastructureLogger.error("File not found");
         infrastructureLogger.warn("Ignoring unknown configuration option");
         infrastructureLogger.info("Maintaining flux");
@@ -1176,8 +1189,8 @@ class LoggingPlugin extends webpack.Plugin {
         infrastructureLogger.profile("How long does this take");
         infrastructureLogger.profileEnd();
 
-        compiler.hooks.emit.tap('LoggingPlugin', compilation => {
-            const logger = compilation.getLogger('LoggingPlugin');
+        compiler.hooks.emit.tap("LoggingPlugin", compilation => {
+            const logger = compilation.getLogger("LoggingPlugin");
             logger.error("File not found");
             logger.warn("Ignoring unknown configuration option");
             logger.info("Maintaining flux");
@@ -1198,12 +1211,12 @@ class LoggingPlugin extends webpack.Plugin {
 // Stats Microsoft/DefinitelyTyped#43952
 const { Stats } = webpack;
 
-compiler.hooks.compilation.tap('SomePlugin', compilation => {
+compiler.hooks.compilation.tap("SomePlugin", compilation => {
     const stats = new Stats(compilation); // $ExpectType Stats
     Stats.filterWarnings([], [(warning: string) => true]); // $ExpectType string[]
-    stats.formatFilePath('app/src/'); // $ExpectType string
-    stats.normalizeFieldKey('field'); // $ExpectType string
-    stats.sortOrderRegular('!field'); // $ExpectType boolean
+    stats.formatFilePath("app/src/"); // $ExpectType string
+    stats.normalizeFieldKey("field"); // $ExpectType string
+    stats.sortOrderRegular("!field"); // $ExpectType boolean
 });
 
 const config1: webpack.ConfigurationFactory = (env) => {
@@ -1218,11 +1231,11 @@ const config2: webpack.MultiConfigurationFactory = (env) => {
 
 configuration = {
     infrastructureLogging: {
-        level: 'info',
+        level: "info",
         debug: [
-            'MyPlugin',
+            "MyPlugin",
             /MyPlugin/,
-            (name) => name.includes('MyPlugin'),
+            (name) => name.includes("MyPlugin"),
         ],
-    }
+    },
 };

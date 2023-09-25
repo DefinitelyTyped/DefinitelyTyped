@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import https = require('https');
+import https = require("https");
 /**
  * To send a push notification call this method with a subscription, optional payload and any options.
  *
@@ -85,7 +85,7 @@ export function getVapidHeaders(
     subject: string,
     publicKey: string,
     privateKey: string,
-    contentEncoding: 'aes128gcm',
+    contentEncoding: "aes128gcm",
     expiration?: number,
 ): {
     Authorization: string;
@@ -95,11 +95,11 @@ export function getVapidHeaders(
     subject: string,
     publicKey: string,
     privateKey: string,
-    contentEncoding: 'aesgcm',
+    contentEncoding: "aesgcm",
     expiration?: number,
 ): {
     Authorization: string;
-    'Crypto-Key': string;
+    "Crypto-Key": string;
 };
 export function getVapidHeaders(
     audience: string,
@@ -110,7 +110,7 @@ export function getVapidHeaders(
     expiration?: number,
 ): {
     Authorization: string;
-    'Crypto-Key'?: string | undefined;
+    "Crypto-Key"?: string | undefined;
 };
 
 /**
@@ -150,29 +150,29 @@ export function generateRequestDetails(
 /**
  * Valid content encodings used by encrypt(), getVapidHeaders(), generateRequestDetails() and sendNotification().
  */
-export type ContentEncoding = 'aesgcm' | 'aes128gcm';
+export type ContentEncoding = "aesgcm" | "aes128gcm";
 
 /**
  * Map of valid content encodings.
  */
 export const supportedContentEncodings: {
-    readonly AES_GCM: 'aesgcm' & ContentEncoding;
-    readonly AES_128_GCM: 'aws128gcm' & ContentEncoding;
+    readonly AES_GCM: "aesgcm" & ContentEncoding;
+    readonly AES_128_GCM: "aws128gcm" & ContentEncoding;
 };
 
 /**
  * Valid urgency used by RequestOptions.
  */
-export type Urgency = 'very-low' | 'low' | 'normal' | 'high';
+export type Urgency = "very-low" | "low" | "normal" | "high";
 
 /**
  * Map of valid urgency values.
  */
 export const supportedUrgency: {
-    readonly VERY_LOW: 'very-low' & Urgency;
-    readonly LOW: 'low' & Urgency;
-    readonly NORMAL: 'normal' & Urgency;
-    readonly HIGH: 'high' & Urgency;
+    readonly VERY_LOW: "very-low" & Urgency;
+    readonly LOW: "low" & Urgency;
+    readonly NORMAL: "normal" & Urgency;
+    readonly HIGH: "high" & Urgency;
 };
 
 /**
@@ -242,10 +242,10 @@ export interface RequestOptions {
      */
     vapidDetails?:
         | {
-              subject: string;
-              publicKey: string;
-              privateKey: string;
-          }
+            subject: string;
+            publicKey: string;
+            privateKey: string;
+        }
         | undefined;
     /**
      * A value in milliseconds that specifies the request's socket timeout.
@@ -300,7 +300,7 @@ export interface RequestOptions {
  * Buffer is null unless a payload was passed into generateRequestDetails().
  */
 export interface RequestDetails {
-    method: 'POST';
+    method: "POST";
     headers: Headers;
     body: Buffer | null;
     endpoint: string;

@@ -7,20 +7,20 @@
 /// <reference types="node" />
 
 declare namespace WSD {
-    type OutputType = 'png' | 'svg' | 'pdf';
+    type OutputType = "png" | "svg" | "pdf";
     type Style =
-        | 'default'
-        | 'earth'
-        | 'magazine'
-        | 'modern-blue'
-        | 'mscgen,'
-        | 'napkin'
-        | 'omegapple'
-        | 'patent'
-        | 'qsd'
-        | 'rose'
-        | 'roundgreen'
-        | 'vs2010';
+        | "default"
+        | "earth"
+        | "magazine"
+        | "modern-blue"
+        | "mscgen,"
+        | "napkin"
+        | "omegapple"
+        | "patent"
+        | "qsd"
+        | "rose"
+        | "roundgreen"
+        | "vs2010";
 
     type DiagramTuple = [Buffer, string];
 }

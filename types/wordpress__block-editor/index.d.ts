@@ -5,25 +5,25 @@
 //                 Dennis Snell <https://github.com/dmsnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
-import { BlockIconNormalized } from '@wordpress/blocks';
-import { dispatch, select } from '@wordpress/data';
+import { BlockIconNormalized } from "@wordpress/blocks";
+import { dispatch, select } from "@wordpress/data";
 
-export * from './components';
-export * from './hooks';
-export * from './utils';
-export { storeConfig } from './store';
-export { SETTINGS_DEFAULTS } from './store/defaults';
+export * from "./components";
+export * from "./hooks";
+export { storeConfig } from "./store";
+export { SETTINGS_DEFAULTS } from "./store/defaults";
+export * from "./utils";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/block-editor'): typeof import('./store/actions');
-    function select(key: 'core/block-editor'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/block-editor"): typeof import("./store/actions");
+    function select(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
 export const store: any;
 
-export type EditorBlockMode = 'html' | 'visual';
-export type EditorMode = 'text' | 'visual';
-export type EditorTemplateLock = 'all' | 'insert' | false;
+export type EditorBlockMode = "html" | "visual";
+export type EditorMode = "text" | "visual";
+export type EditorTemplateLock = "all" | "insert" | false;
 
 export interface EditorBaseSetting {
     name: string;

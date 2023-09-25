@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import type { Compiler } from 'webpack';
+import type { Compiler } from "webpack";
 
 declare namespace WebpackFilesArchivePlugin {
-    type Formats = 'tar' | 'zip';
+    type Formats = "tar" | "zip";
 
     interface Options {
         /**

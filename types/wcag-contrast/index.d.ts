@@ -47,4 +47,4 @@ export function score(contrast: number): Score;
 export type RGBColor = [number, number, number];
 
 /** Textual score */
-export type Score = 'AAA' | 'AA' | 'AA Large' | 'Fail';
+export type Score = "AAA" | "AA" | "AA Large" | "Fail";

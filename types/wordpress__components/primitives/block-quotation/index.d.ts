@@ -1,1 +1,1 @@
-export const BlockQuotation: 'blockquote';
+export const BlockQuotation: "blockquote";
