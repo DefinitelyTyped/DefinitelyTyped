@@ -3,7 +3,7 @@
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
+// import { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
 import { Resource } from './types/state';
 import { StateMachineDefinition } from './types/state-machine';
 
@@ -38,17 +38,20 @@ import { StateMachineDefinition } from './types/state-machine';
  * @see https://github.com/serverless-operations/serverless-step-functions
  */
 
-declare module '@serverless/typescript' {
-    interface AWS {
-        stepFunctions?: {
-            stateMachines: {
-                [stateMachine: string]: StateMachine;
-            };
-            validate?: boolean;
-            noOutput?: boolean;
-        };
-    }
-}
+// TODO: use module augmentation to extend the existing types
+// when the following issue is resolved:
+// https://github.com/serverless/typescript/issues/82
+// declare module '@serverless/typescript' {
+//     interface AWS {
+//         stepFunctions?: {
+//             stateMachines: {
+//                 [stateMachine: string]: StateMachine;
+//             };
+//             validate?: boolean;
+//             noOutput?: boolean;
+//         };
+//     }
+// }
 
 interface StepFunctions {
     stateMachines: {
@@ -72,8 +75,10 @@ interface StateMachine {
         destinations: Resource | Resource[];
     };
     events?: any[];
-    dependsOn?: AwsResourceDependsOn;
-    tags?: AwsResourceTags;
+    dependsOn?: string[];
+    tags?: {
+        [k: string]: string
+    };
 }
 
 export = StepFunctions;
