@@ -53,7 +53,7 @@ declare namespace Yallist {
 
     interface NodeConstructor {
         <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
-        new <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
+        new<T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
     }
 
     interface Node<T> {

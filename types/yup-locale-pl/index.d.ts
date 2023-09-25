@@ -3,7 +3,7 @@
 // Definitions by: Radosław Grochowski <https://github.com/radoslawgrochowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { setLocale } from 'yup';
+import { setLocale } from "yup";
 
 type LocaleObject = Parameters<typeof setLocale>[0];
 declare const locale: LocaleObject;

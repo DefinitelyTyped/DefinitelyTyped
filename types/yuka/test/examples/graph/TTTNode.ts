@@ -22,7 +22,7 @@ export class TTTNode extends Node {
 
         this.board = board;
 
-        this.value = parseInt(this.board.join(''), 10); // number representation of the board array for faster comparision
+        this.value = parseInt(this.board.join(""), 10); // number representation of the board array for faster comparision
         this.win = false; // whether this node represents a won game
         this.finished = false; // whether this node represents a finished game (win or draw)
         this.winPlayer = -1; // represents the player who wins with the current board, - 1 if there is no winner

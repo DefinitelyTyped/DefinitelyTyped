@@ -24,4 +24,4 @@ declare class RelativeTime {
 
 export = RelativeTime;
 
-export as namespace RelativeTime
+export as namespace RelativeTime;

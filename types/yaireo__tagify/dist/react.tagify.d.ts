@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-self-import
-import Tagify = require('@yaireo/tagify');
+import Tagify = require("@yaireo/tagify");
 
 // eslint-disable-next-line @definitelytyped/no-self-import
 import {
@@ -15,8 +15,8 @@ import {
     DropDownShowEventData,
     DropDownUpdatedEventData,
     EditBeforeUpdateEventData,
-    EditKeydownEventData,
     EditInputEventData,
+    EditKeydownEventData,
     EditStartEventData,
     EditUpdatedEventData,
     FocusEventData,
@@ -26,9 +26,9 @@ import {
     RemoveEventData,
     TagData,
     TagifySettings,
-} from '@yaireo/tagify';
+} from "@yaireo/tagify";
 
-import { MutableRefObject, ReactElement } from 'react';
+import { MutableRefObject, ReactElement } from "react";
 
 declare namespace Tags {
     /**
@@ -37,7 +37,7 @@ declare namespace Tags {
      * - `textarea` - renders an HTML TEXTAREA element and switch tagify to mixed
      * mode
      */
-    type InputMode = 'input' | 'textarea';
+    type InputMode = "input" | "textarea";
 
     /**
      * Base react props that for both the {@link Tags} and {@link MixedTags}

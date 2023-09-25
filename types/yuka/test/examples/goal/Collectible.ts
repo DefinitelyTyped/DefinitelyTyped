@@ -16,11 +16,11 @@ export class Collectible extends GameEntity {
     handleMessage(telegram: Telegram): boolean {
         const message = telegram.message;
         switch (message) {
-            case 'PickedUp':
+            case "PickedUp":
                 this.spawn();
                 return true;
             default:
-                console.warn('Collectible: Unknown message.');
+                console.warn("Collectible: Unknown message.");
         }
 
         return false;

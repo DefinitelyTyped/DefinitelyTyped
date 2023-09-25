@@ -8,8 +8,8 @@
 import * as express from "express";
 import * as _ from "lodash";
 import * as ral from "node-ral";
-import * as log from "yog-log";
 import * as yogBigpipe from "yog-bigpipe";
+import * as log from "yog-log";
 
 export as namespace yog;
 declare namespace yog {

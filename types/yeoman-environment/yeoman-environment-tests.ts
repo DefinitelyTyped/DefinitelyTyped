@@ -3,7 +3,7 @@ import { Adapter } from "yeoman-environment";
 import createLogger = require("yeoman-environment/lib/util/log");
 import Generator = require("yeoman-generator");
 
-class TestGenerator extends Generator { }
+class TestGenerator extends Generator {}
 
 const env = Env.createEnv();
 const versionEnv = Env.createEnvWithVersion("2.9.0", [], {});
@@ -17,13 +17,13 @@ env.store.createProxy();
 const defaultLogger = createLogger({});
 const customLogger = createLogger({
     colors: {
-        help: "magenta"
-    }
+        help: "magenta",
+    },
 });
 createLogger({
     console,
     stderr: process.stdout,
-    stdout: process.stderr
+    stdout: process.stderr,
 });
 // $ExpectType Logger<DefaultCategories>
 Env.util.log({});

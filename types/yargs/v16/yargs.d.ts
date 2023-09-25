@@ -1,4 +1,4 @@
-import { Argv } from '.';
+import { Argv } from ".";
 
 export = Yargs;
 

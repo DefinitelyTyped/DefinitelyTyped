@@ -1,5 +1,5 @@
-import { Server, Request } from 'hapi';
-import * as yar from 'yar';
+import { Request, Server } from "hapi";
+import * as yar from "yar";
 
 async function boot() {
     const server = new Server();
@@ -7,21 +7,21 @@ async function boot() {
         plugin: yar,
         options: {
             cookieOptions: {
-                password: 'test',
+                password: "test",
                 isSecure: true,
             },
             cache: {
-                cache: 'test',
+                cache: "test",
                 expiresIn: 123141243,
-            }
+            },
         },
     });
 
     server.route({
-        path: '/test',
-        method: 'get',
+        path: "/test",
+        method: "get",
         handler(request: Request) {
-            const example = request.yar.get('example');
+            const example = request.yar.get("example");
             return {
                 id: request.yar.id,
                 key: example.key,

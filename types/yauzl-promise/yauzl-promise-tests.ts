@@ -1,16 +1,16 @@
-import * as yauzl from 'yauzl-promise';
+import * as yauzl from "yauzl-promise";
 
 class FakeRaR extends yauzl.RandomAccessReader {}
 
 const options: yauzl.Options = {
-    autoClose: true
+    autoClose: true,
 };
 
 const zipOptions: yauzl.ZipFileOptions = {
     decrypt: true,
     decompress: true,
     start: 0,
-    end: 1
+    end: 1,
 };
 
 const date = yauzl.dosDateTimeToDate(1, 1);

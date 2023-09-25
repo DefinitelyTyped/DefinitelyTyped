@@ -89,7 +89,7 @@ declare namespace yts {
     }
 
     interface VideoSearchResult {
-        type: 'video';
+        type: "video";
         videoId: string;
         url: string;
         title: string;
@@ -105,7 +105,7 @@ declare namespace yts {
     }
 
     interface LiveSearchResultBase {
-        type: 'live';
+        type: "live";
         videoId: string;
         url: string;
         title: string;
@@ -117,19 +117,19 @@ declare namespace yts {
     }
 
     interface UpcomingLiveSearchResult extends LiveSearchResultBase {
-        status: 'UPCOMING';
+        status: "UPCOMING";
         startTime: number;
         startDate: string;
     }
 
     interface LiveLiveSearchResult extends LiveSearchResultBase {
-        status: 'LIVE';
+        status: "LIVE";
     }
 
     type LiveSearchResult = UpcomingLiveSearchResult | LiveLiveSearchResult;
 
     interface PlaylistSearchResult {
-        type: 'list';
+        type: "list";
         listId: string;
         url: string;
         title: string;
@@ -140,7 +140,7 @@ declare namespace yts {
     }
 
     interface ChannelSearchResult {
-        type: 'channel';
+        type: "channel";
         name: string;
         url: string;
         title: string;

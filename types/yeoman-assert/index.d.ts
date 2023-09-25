@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import assert = require('assert');
+import assert = require("assert");
 
-declare module 'assert' {
+declare module "assert" {
     /**
      * Assert that a file exists or that each files in the array exists
      * @param path path to a file or an array of paths to files

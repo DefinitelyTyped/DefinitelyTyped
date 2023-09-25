@@ -1,5 +1,5 @@
-import yosay = require('yosay');
+import yosay = require("yosay");
 
 yosay();
-yosay('Welcome to the generator!');
-yosay('Welcome to the generator!', { maxLength: 20 });
+yosay("Welcome to the generator!");
+yosay("Welcome to the generator!", { maxLength: 20 });

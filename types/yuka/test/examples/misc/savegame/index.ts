@@ -1,16 +1,16 @@
 import * as YUKA from "yuka";
-import { CustomEntity } from './CustomEntity';
-import { CustomVehicle } from './CustomVehicle';
+import { CustomEntity } from "./CustomEntity";
+import { CustomVehicle } from "./CustomVehicle";
 
 const entityManager = new YUKA.EntityManager();
 const time = new YUKA.Time();
-const targetMesh = {matrix: new YUKA.Matrix4()};
-const vehicleMesh = {matrix: new YUKA.Matrix4()};
+const targetMesh = { matrix: new YUKA.Matrix4() };
+const vehicleMesh = { matrix: new YUKA.Matrix4() };
 
 // register custom types so the entity manager is able to instantiate
 // custom objects from JSON
-entityManager.registerType('CustomEntity', CustomEntity);
-entityManager.registerType('CustomVehicle', CustomVehicle);
+entityManager.registerType("CustomEntity", CustomEntity);
+entityManager.registerType("CustomVehicle", CustomVehicle);
 if (hasSavegame()) {
     // load an existing savegame
     onLoad();
@@ -34,7 +34,7 @@ time.update();
 const delta = time.getDelta();
 entityManager.update(delta);
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }
 
@@ -42,11 +42,11 @@ function onSave() {
     const json = entityManager.toJSON();
     const jsonString = JSON.stringify(json);
 
-    localStorage.setItem('yuka_savegame', jsonString);
+    localStorage.setItem("yuka_savegame", jsonString);
 }
 
 function onLoad() {
-    const jsonString = localStorage.getItem('yuka_savegame');
+    const jsonString = localStorage.getItem("yuka_savegame");
 
     if (jsonString !== null) {
         try {
@@ -54,27 +54,27 @@ function onLoad() {
             entityManager.fromJSON(json);
 
             // restore render components (depends on 3D engine)
-            const target = entityManager.getEntityByName('target');
+            const target = entityManager.getEntityByName("target");
             if (target instanceof YUKA.GameEntity) {
                 target.setRenderComponent(targetMesh, sync);
             }
-            const vehicle = entityManager.getEntityByName('vehicle');
+            const vehicle = entityManager.getEntityByName("vehicle");
             if (vehicle instanceof YUKA.GameEntity) {
                 vehicle.setRenderComponent(vehicleMesh, sync);
             }
         } catch (e) {
             console.error(e);
             onClear();
-            alert('Invalid Savegame found. Savegame was deleted.');
+            alert("Invalid Savegame found. Savegame was deleted.");
             window.location.reload();
         }
     }
 }
 
 function onClear() {
-    localStorage.removeItem('yuka_savegame');
+    localStorage.removeItem("yuka_savegame");
 }
 
 function hasSavegame() {
-    return localStorage.getItem('yuka_savegame') !== null;
+    return localStorage.getItem("yuka_savegame") !== null;
 }
