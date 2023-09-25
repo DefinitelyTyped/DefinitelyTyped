@@ -77,6 +77,7 @@ export * from "./trigger/eventbridge";
 // ElastiCache section just describes using lambdas in an ElastiCache context (VPC issues, etc.)
 // EC2 events are delivered using cloudwatch events...
 export * from "./trigger/iot";
+export * from "./trigger/iot-authorizer";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
 export * from "./trigger/lex";
