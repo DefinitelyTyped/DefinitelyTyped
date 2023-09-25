@@ -483,7 +483,7 @@ declare module "events" {
             /**
              * @param options Only optional in child class.
              */
-            constructor<T extends EventEmitterAsyncResource>(options?: EventEmitterAsyncResourceOptions);
+            constructor(options?: EventEmitterAsyncResourceOptions);
             /**
              * Call all destroy hooks. This should only ever be called once. An
              * error will be thrown if it is called more than once. This must be
