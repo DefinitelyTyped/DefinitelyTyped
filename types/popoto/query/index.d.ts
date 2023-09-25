@@ -1,5 +1,5 @@
-import { Node } from '../graph/node';
-import { Link } from '../graph/link';
+import { Link } from "../graph/link";
+import { Node } from "../graph/node";
 
 export interface QueryStructure {
     statement: string;
@@ -28,7 +28,7 @@ export namespace Query {
     /**
      * Immutable constant object to identify Neo4j internal ID
      */
-    type NEO4J_INTERNAL_ID = Readonly<{queryInternalName: "NEO4JID"}>;
+    type NEO4J_INTERNAL_ID = Readonly<{ queryInternalName: "NEO4JID" }>;
 
     /**
      * Function used to filter returned relations
@@ -45,7 +45,7 @@ export namespace Query {
      */
     function generateTaxonomyCountQuery(label: string): string;
 
-    function generateNegativeQueryElements(): Pick<QueryStructure, 'whereElements' | 'parameters'>;
+    function generateNegativeQueryElements(): Pick<QueryStructure, "whereElements" | "parameters">;
 
     /**
      * Generate Cypher query match and where elements from root node, selected node and a set of the graph links.
@@ -57,7 +57,13 @@ export namespace Query {
      * @param isConstraintNeeded (used only for relation query)
      * @param useCustomConstraints define whether to use the custom constraints (actually it is used only for results)
      */
-    function generateQueryElements(rootNode: Node, selectedNode: Node, links: Link[], isConstraintNeeded: boolean, useCustomConstraints: boolean): QueryStructure;
+    function generateQueryElements(
+        rootNode: Node,
+        selectedNode: Node,
+        links: Link[],
+        isConstraintNeeded: boolean,
+        useCustomConstraints: boolean,
+    ): QueryStructure;
 
     /**
      * Generate the where and parameter statements for the nodes with value
@@ -65,7 +71,10 @@ export namespace Query {
      * @param node the node to generate value constraints
      * @param useCustomConstraints define whether to use custom generation in popoto config
      */
-    function generateNodeValueConstraints(node: Node, useCustomConstraints: boolean): Pick<QueryStructure, 'whereElements' | 'parameters'>;
+    function generateNodeValueConstraints(
+        node: Node,
+        useCustomConstraints: boolean,
+    ): Pick<QueryStructure, "whereElements" | "parameters">;
 
     /**
      * Filter links to get only paths from root to leaf containing a value or being the selectedNode.

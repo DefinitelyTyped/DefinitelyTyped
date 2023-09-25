@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /**
  *  A singleton instance of this class available via atom.styles, which you can

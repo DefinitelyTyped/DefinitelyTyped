@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "interface-name": false,
-        "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false
+        "no-single-declare-module": false
     }
 }

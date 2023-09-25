@@ -2,7 +2,7 @@ import PlugAPI = require("plugapi");
 
 new PlugAPI({
     email: "",
-    password: ""
+    password: "",
 }, (err, bot) => {
     if (!err) {
         const ROOM = "roomslug";

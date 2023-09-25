@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 export interface Options {
     /**

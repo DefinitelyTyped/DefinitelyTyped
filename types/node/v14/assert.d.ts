@@ -1,4 +1,4 @@
-declare module 'assert' {
+declare module "assert" {
     /** An alias of `assert.ok()`. */
     function assert(value: any, message?: string | Error): asserts value;
     namespace assert {
@@ -7,7 +7,7 @@ declare module 'assert' {
             expected: any;
             operator: string;
             generatedMessage: boolean;
-            code: 'ERR_ASSERTION';
+            code: "ERR_ASSERTION";
 
             constructor(options?: {
                 /** If provided, the error message is set to this value. */
@@ -42,7 +42,7 @@ declare module 'assert' {
             stack: object;
         }
 
-        type AssertPredicate = RegExp | (new () => object) | ((thrown: any) => boolean) | object | Error;
+        type AssertPredicate = RegExp | (new() => object) | ((thrown: any) => boolean) | object | Error;
 
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
@@ -91,38 +91,40 @@ declare module 'assert' {
         function match(value: string, regExp: RegExp, message?: string | Error): void;
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
 
-        const strict: Omit<
-            typeof assert,
-            | 'equal'
-            | 'notEqual'
-            | 'deepEqual'
-            | 'notDeepEqual'
-            | 'ok'
-            | 'strictEqual'
-            | 'deepStrictEqual'
-            | 'ifError'
-            | 'strict'
-        > & {
-            (value: any, message?: string | Error): asserts value;
-            equal: typeof strictEqual;
-            notEqual: typeof notStrictEqual;
-            deepEqual: typeof deepStrictEqual;
-            notDeepEqual: typeof notDeepStrictEqual;
+        const strict:
+            & Omit<
+                typeof assert,
+                | "equal"
+                | "notEqual"
+                | "deepEqual"
+                | "notDeepEqual"
+                | "ok"
+                | "strictEqual"
+                | "deepStrictEqual"
+                | "ifError"
+                | "strict"
+            >
+            & {
+                (value: any, message?: string | Error): asserts value;
+                equal: typeof strictEqual;
+                notEqual: typeof notStrictEqual;
+                deepEqual: typeof deepStrictEqual;
+                notDeepEqual: typeof notDeepStrictEqual;
 
-            // Mapped types and assertion functions are incompatible?
-            // TS2775: Assertions require every name in the call target
-            // to be declared with an explicit type annotation.
-            ok: typeof ok;
-            strictEqual: typeof strictEqual;
-            deepStrictEqual: typeof deepStrictEqual;
-            ifError: typeof ifError;
-            strict: typeof strict;
-        };
+                // Mapped types and assertion functions are incompatible?
+                // TS2775: Assertions require every name in the call target
+                // to be declared with an explicit type annotation.
+                ok: typeof ok;
+                strictEqual: typeof strictEqual;
+                deepStrictEqual: typeof deepStrictEqual;
+                ifError: typeof ifError;
+                strict: typeof strict;
+            };
     }
 
     export = assert;
 }
-declare module 'node:assert' {
-    import assert = require('assert');
+declare module "node:assert" {
+    import assert = require("assert");
     export = assert;
 }

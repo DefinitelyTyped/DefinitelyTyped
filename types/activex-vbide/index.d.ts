@@ -88,7 +88,7 @@ declare namespace VBIDE {
     }
 
     class AddIn {
-        private 'VBIDE.AddIn_typekey': AddIn;
+        private "VBIDE.AddIn_typekey": AddIn;
         private constructor();
         readonly Collection: Addins;
         Connect: boolean;
@@ -109,13 +109,13 @@ declare namespace VBIDE {
     }
 
     class Application {
-        private 'VBIDE.Application_typekey': Application;
+        private "VBIDE.Application_typekey": Application;
         private constructor();
         readonly Version: string;
     }
 
     class CodeModule {
-        private 'VBIDE.CodeModule_typekey': CodeModule;
+        private "VBIDE.CodeModule_typekey": CodeModule;
         private constructor();
         AddFromFile(FileName: string): void;
         AddFromString(String: string): void;
@@ -132,7 +132,16 @@ declare namespace VBIDE {
          * @param MatchCase [MatchCase=false]
          * @param PatternSearch [PatternSearch=false]
          */
-        Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
+        Find(
+            Target: string,
+            StartLine: number,
+            StartColumn: number,
+            EndLine: number,
+            EndColumn: number,
+            WholeWord?: boolean,
+            MatchCase?: boolean,
+            PatternSearch?: boolean,
+        ): boolean;
         InsertLines(Line: number, String: string): void;
         Lines(StartLine: number, Count: number): string;
         Name: string;
@@ -146,7 +155,7 @@ declare namespace VBIDE {
     }
 
     class CodePane {
-        private 'VBIDE.CodePane_typekey': CodePane;
+        private "VBIDE.CodePane_typekey": CodePane;
         private constructor();
         readonly CodeModule: CodeModule;
         readonly CodePaneView: vbext_CodePaneview;
@@ -170,12 +179,12 @@ declare namespace VBIDE {
     }
 
     class CommandBarEvents {
-        private 'VBIDE.CommandBarEvents_typekey': CommandBarEvents;
+        private "VBIDE.CommandBarEvents_typekey": CommandBarEvents;
         private constructor();
     }
 
     class Component {
-        private 'VBIDE.Component_typekey': Component;
+        private "VBIDE.Component_typekey": Component;
         private constructor();
         readonly Application: Application;
         IsDirty: boolean;
@@ -196,7 +205,7 @@ declare namespace VBIDE {
     }
 
     class Events {
-        private 'VBIDE.Events_typekey': Events;
+        private "VBIDE.Events_typekey": Events;
         private constructor();
         CommandBarEvents(CommandBarControl: any): CommandBarEvents;
         ReferencesEvents(VBProject: VBProject): ReferencesEvents;
@@ -213,7 +222,7 @@ declare namespace VBIDE {
     }
 
     class ProjectTemplate {
-        private 'VBIDE.ProjectTemplate_typekey': ProjectTemplate;
+        private "VBIDE.ProjectTemplate_typekey": ProjectTemplate;
         private constructor();
         readonly Application: Application;
         readonly Parent: Application;
@@ -229,7 +238,7 @@ declare namespace VBIDE {
     }
 
     class Property {
-        private 'VBIDE.Property_typekey': Property;
+        private "VBIDE.Property_typekey": Property;
         private constructor();
         readonly Application: Application;
         readonly Collection: Properties;
@@ -243,7 +252,7 @@ declare namespace VBIDE {
     }
 
     class Reference {
-        private 'VBIDE.Reference_typekey': Reference;
+        private "VBIDE.Reference_typekey": Reference;
         private constructor();
         readonly BuiltIn: boolean;
         readonly Collection: References;
@@ -270,12 +279,12 @@ declare namespace VBIDE {
     }
 
     class ReferencesEvents {
-        private 'VBIDE.ReferencesEvents_typekey': ReferencesEvents;
+        private "VBIDE.ReferencesEvents_typekey": ReferencesEvents;
         private constructor();
     }
 
     class VBComponent {
-        private 'VBIDE.VBComponent_typekey': VBComponent;
+        private "VBIDE.VBComponent_typekey": VBComponent;
         private constructor();
         Activate(): void;
         readonly CodeModule: CodeModule;
@@ -308,7 +317,7 @@ declare namespace VBIDE {
     }
 
     class VBE {
-        private 'VBIDE.VBE_typekey': VBE;
+        private "VBIDE.VBE_typekey": VBE;
         private constructor();
         ActiveCodePane: CodePane;
         ActiveVBProject: VBProject;
@@ -325,7 +334,7 @@ declare namespace VBIDE {
     }
 
     class VBProject {
-        private 'VBIDE.VBProject_typekey': VBProject;
+        private "VBIDE.VBProject_typekey": VBProject;
         private constructor();
         readonly Application: Application;
         BuildFileName: string;
@@ -359,7 +368,7 @@ declare namespace VBIDE {
     }
 
     class Window {
-        private 'VBIDE.Window_typekey': Window;
+        private "VBIDE.Window_typekey": Window;
         private constructor();
         readonly Caption: string;
         Close(): void;
@@ -389,7 +398,25 @@ declare namespace VBIDE {
 }
 
 interface ActiveXObject {
-    on(obj: VBIDE.CommandBarEvents, event: 'Click', argNames: ['CommandBarControl', 'handled', 'CancelDefault'], handler: (this: VBIDE.CommandBarEvents, parameter: {readonly CommandBarControl: any, readonly handled: boolean, readonly CancelDefault: boolean}) => void): void;
-    on(obj: VBIDE.References, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.References, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
-    on(obj: VBIDE.ReferencesEvents, event: 'ItemAdded' | 'ItemRemoved', argNames: ['Reference'], handler: (this: VBIDE.ReferencesEvents, parameter: {readonly Reference: VBIDE.Reference}) => void): void;
+    on(
+        obj: VBIDE.CommandBarEvents,
+        event: "Click",
+        argNames: ["CommandBarControl", "handled", "CancelDefault"],
+        handler: (
+            this: VBIDE.CommandBarEvents,
+            parameter: { readonly CommandBarControl: any; readonly handled: boolean; readonly CancelDefault: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: VBIDE.References,
+        event: "ItemAdded" | "ItemRemoved",
+        argNames: ["Reference"],
+        handler: (this: VBIDE.References, parameter: { readonly Reference: VBIDE.Reference }) => void,
+    ): void;
+    on(
+        obj: VBIDE.ReferencesEvents,
+        event: "ItemAdded" | "ItemRemoved",
+        argNames: ["Reference"],
+        handler: (this: VBIDE.ReferencesEvents, parameter: { readonly Reference: VBIDE.Reference }) => void,
+    ): void;
 }

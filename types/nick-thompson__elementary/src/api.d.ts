@@ -1,8 +1,8 @@
-import * as _Elementary from './elementary';
+import * as _Elementary from "./elementary";
 
 // for docs
 // noinspection ES6UnusedImports
-import * as el from '../';
+import * as el from "../";
 
 /**
  * The Elementary namespace containing all Elementary functions and factories.

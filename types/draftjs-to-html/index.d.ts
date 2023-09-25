@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { RawDraftContentState } from 'draft-js';
+import { RawDraftContentState } from "draft-js";
 
 interface HashtagConfig {
     trigger?: string | undefined;

@@ -12,7 +12,7 @@ export as namespace numeral;
  */
 declare function numeral(input?: any): numeral.Numeral;
 
-type VERSION = '2.0.6';
+type VERSION = "2.0.6";
 
 declare namespace numeral {
     /** compare numeral object */
@@ -73,7 +73,7 @@ declare namespace numeral {
 
     function validate(value: any, culture: any): boolean;
 
-    const fn: Numeral['prototype'];
+    const fn: Numeral["prototype"];
 
     // http://numeraljs.com/#use-it
     class Numeral {
@@ -142,7 +142,7 @@ declare namespace numeral {
         stringToNumber: (string: string) => number;
     }
 
-    type RegisterType = 'format' | 'locale';
+    type RegisterType = "format" | "locale";
 }
 
 export = numeral;

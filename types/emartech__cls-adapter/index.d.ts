@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as Koa from "koa";
-import * as Express from 'express';
 import * as CLS from "cls-hooked";
+import * as Express from "express";
+import * as Koa from "koa";
 
 declare class ContextFactory {
     private _namespace: CLS.Namespace;
@@ -52,7 +52,7 @@ declare class ContextFactory {
      * Returns a function that extends the given object with the request identifier set on the current storage.
      */
     static addRequestIdToInput: () => <T extends {}>(
-        input: T
+        input: T,
     ) => T & { requestId: string };
 
     /**

@@ -31,7 +31,7 @@ export interface Dispatch<T extends object> {
      * @param args Additional arguments to be passed to the callback.
      * @throws "unknown type" on unknown event type.
      */
-     call(type: string, that?: T, ...args: any[]): void;
+    call(type: string, that?: T, ...args: any[]): void;
 
     /**
      * Returns a copy of this dispatch object.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
-export = PvUtils
+export = PvUtils;
 
 declare namespace PvUtils {
     /**
@@ -39,7 +39,12 @@ declare namespace PvUtils {
      * @param {number} inputLength
      * @returns {boolean}
      */
-    function checkBufferParams(baseBlock: any, inputBuffer: ArrayBuffer, inputOffset: number, inputLength: number): boolean;
+    function checkBufferParams(
+        baseBlock: any,
+        inputBuffer: ArrayBuffer,
+        inputOffset: number,
+        inputLength: number,
+    ): boolean;
 
     /**
      * Convert number from 2^base to 2^10

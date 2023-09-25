@@ -1,49 +1,49 @@
-import moment = require('moment');
-import daterangepicker = require('daterangepicker');
+import moment = require("moment");
+import daterangepicker = require("daterangepicker");
 
-import { DateRangePicker } from 'daterangepicker';
+import { DateRangePicker } from "daterangepicker";
 
 function tests_simple() {
-    $('#daterange').daterangepicker();
-    $('#daterange').daterangepicker({
-        drops: 'auto',
+    $("#daterange").daterangepicker();
+    $("#daterange").daterangepicker({
+        drops: "auto",
     });
-    $('input[name="daterange"]')
+    $("input[name=\"daterange\"]")
         .daterangepicker({
             timePicker: true,
             timePickerIncrement: 30,
             locale: {
-                format: 'MM/DD/YYYY h:mm A',
+                format: "MM/DD/YYYY h:mm A",
             },
             maxSpan: { days: 10 },
-            applyButtonClasses: 'my-apply-class',
-            cancelButtonClasses: 'my-cancel-class',
+            applyButtonClasses: "my-apply-class",
+            cancelButtonClasses: "my-cancel-class",
             showDropdowns: true,
             maxYear: 3000,
             minYear: 2000,
         })
-        .data('daterangepicker')
+        .data("daterangepicker")
         .remove();
 
-    $('#reportrange').daterangepicker({
+    $("#reportrange").daterangepicker({
         ranges: {
             Today: [moment(), moment()],
-            Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [
-                moment().subtract(1, 'month').startOf('month'),
-                moment().subtract(1, 'month').endOf('month'),
+            Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+            "Last 30 Days": [moment().subtract(29, "days"), moment()],
+            "This Month": [moment().startOf("month"), moment().endOf("month")],
+            "Last Month": [
+                moment().subtract(1, "month").startOf("month"),
+                moment().subtract(1, "month").endOf("month"),
             ],
         },
     });
 
-    $('input[name="datefilter"]').on('apply.daterangepicker', (_event: Event, _picker: DateRangePicker) => {});
+    $("input[name=\"datefilter\"]").on("apply.daterangepicker", (_event: Event, _picker: DateRangePicker) => {});
 
-    $('input[name="datefilter"]').on('cancel.daterangepicker', (_event: Event, _picker: DateRangePicker) => {});
+    $("input[name=\"datefilter\"]").on("cancel.daterangepicker", (_event: Event, _picker: DateRangePicker) => {});
 
-    $('input[name="datefilter"]').on('showCalendar.daterangepicker', (_event: Event, picker: DateRangePicker) => {
+    $("input[name=\"datefilter\"]").on("showCalendar.daterangepicker", (_event: Event, picker: DateRangePicker) => {
         picker.startDate; // $ExpectType Moment
         picker.endDate; // $ExpectType Moment
         picker.minDate; // $ExpectType Moment
@@ -82,10 +82,10 @@ function tests_simple() {
         picker.rightCalendar; // $ExpectType Calendar
     });
 
-    $('#demo').daterangepicker(
+    $("#demo").daterangepicker(
         {
-            startDate: '05/06/2016',
-            endDate: '05/12/2016',
+            startDate: "05/06/2016",
+            endDate: "05/12/2016",
         },
         (_start: moment.Moment, _end: moment.Moment, _label: string) => {
             console.log(
@@ -96,41 +96,41 @@ function tests_simple() {
 
     $(() => {
         function cb(start: moment.Moment, end: moment.Moment) {
-            $('#reportrange span').html(`${start.format('MMMM D, YYYY')} - ${end.format('MMMM D, YYYY')}`);
+            $("#reportrange span").html(`${start.format("MMMM D, YYYY")} - ${end.format("MMMM D, YYYY")}`);
         }
-        cb(moment().subtract(29, 'days'), moment());
+        cb(moment().subtract(29, "days"), moment());
 
-        $('#reportrange').daterangepicker(
+        $("#reportrange").daterangepicker(
             {
                 ranges: {
                     Today: [moment(), moment()],
-                    Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [
-                        moment().subtract(1, 'month').startOf('month'),
-                        moment().subtract(1, 'month').endOf('month'),
+                    Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                    "Last 30 Days": [moment().subtract(29, "days"), moment()],
+                    "This Month": [moment().startOf("month"), moment().endOf("month")],
+                    "Last Month": [
+                        moment().subtract(1, "month").startOf("month"),
+                        moment().subtract(1, "month").endOf("month"),
                     ],
                 },
             },
             cb,
         );
 
-        $('#reportrange').daterangepicker(
+        $("#reportrange").daterangepicker(
             {
                 ranges: {
                     Today: [moment(), moment()],
-                    Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                    "Last 30 Days": [moment().subtract(29, "days"), moment()],
                 },
                 showCustomRangeLabel: false,
             },
             cb,
         );
 
-        $('#endDate').daterangepicker({
+        $("#endDate").daterangepicker({
             singleDatePicker: true,
             startDate: moment(),
         });
@@ -140,5 +140,5 @@ function tests_simple() {
 declare const host: HTMLElement;
 function test_from_amd() {
     const picker = new daterangepicker(host);
-    console.log(picker.startDate.format('YYYY-MM-DD'));
+    console.log(picker.startDate.format("YYYY-MM-DD"));
 }

@@ -1,3 +1,3 @@
-import nextTick = require('next-tick');
+import nextTick = require("next-tick");
 
 nextTick(() => {});

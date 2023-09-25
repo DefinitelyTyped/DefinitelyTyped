@@ -1,4 +1,4 @@
-import adjNoun = require('adj-noun');
+import adjNoun = require("adj-noun");
 
 adjNoun.seed(123); // $ExpectType boolean
 adjNoun.adjPrime(3); // $ExpectType boolean

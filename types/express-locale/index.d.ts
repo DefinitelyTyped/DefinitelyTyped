@@ -2,10 +2,10 @@
 // Project: https://github.com/smhg/express-locale#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import express = require('express');
-import { RequestHandler, Request } from 'express';
+import express = require("express");
+import { Request, RequestHandler } from "express";
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         locale: locale.Locale;
     }

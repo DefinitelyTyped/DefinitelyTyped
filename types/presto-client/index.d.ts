@@ -147,48 +147,48 @@ export interface ClientTypeSignature {
     // https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-common/src/main/java/com/facebook/presto/common/type/StandardTypes.java#L22
     rawType:
         // boolean
-        | 'boolean'
+        | "boolean"
         // integer
-        | 'tinyint'
-        | 'smallint'
-        | 'integer'
-        | 'bigint'
+        | "tinyint"
+        | "smallint"
+        | "integer"
+        | "bigint"
         // floating point
-        | 'real'
-        | 'double'
+        | "real"
+        | "double"
         // fixed precision
-        | 'decimal'
+        | "decimal"
         // string
-        | 'varchar'
-        | 'char'
-        | 'varbinary'
-        | 'json'
+        | "varchar"
+        | "char"
+        | "varbinary"
+        | "json"
         // date and time
-        | 'date'
-        | 'time'
-        | 'time with time zone'
-        | 'timestamp'
-        | 'timestamp with time zone'
-        | 'interval year to month'
-        | 'interval day to second'
+        | "date"
+        | "time"
+        | "time with time zone"
+        | "timestamp"
+        | "timestamp with time zone"
+        | "interval year to month"
+        | "interval day to second"
         // structural
-        | 'array'
-        | 'map'
-        | 'row'
+        | "array"
+        | "map"
+        | "row"
         // network address
-        | 'ipaddress'
+        | "ipaddress"
         // uuid
-        | 'uuid'
-        | 'ipprefix'
+        | "uuid"
+        | "ipprefix"
         // hyperloglog
-        | 'hyperloglog'
-        | 'p4hyperloglog'
+        | "hyperloglog"
+        | "p4hyperloglog"
         // KHyperLogLog
-        | 'khyperloglog'
+        | "khyperloglog"
         // Quantile Digest
-        | 'qdigest'
+        | "qdigest"
         // T-Digest
-        | 'tdigest'
+        | "tdigest"
         | string;
     typeArguments: ClientTypeSignature[];
 }
@@ -199,7 +199,7 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
-    state: 'QUEUED' | 'PLANNING' | 'STARTING' | 'RUNNING' | 'FINISHED' | 'CANCELED' | 'FAILED';
+    state: "QUEUED" | "PLANNING" | "STARTING" | "RUNNING" | "FINISHED" | "CANCELED" | "FAILED";
     scheduled: boolean;
     nodes: number;
     totalSplits: number;

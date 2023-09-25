@@ -49,8 +49,8 @@ declare namespace envCi {
     }
 
     interface AppveyorEnv extends CiEnvBase {
-        name: 'Appveyor';
-        service: 'appveyor';
+        name: "Appveyor";
+        service: "appveyor";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -66,8 +66,8 @@ declare namespace envCi {
     }
 
     interface BambooEnv extends CiEnvBase {
-        name: 'Bamboo';
-        service: 'bamboo';
+        name: "Bamboo";
+        service: "bamboo";
         commit: string;
         build: string;
         buildUrl: string;
@@ -77,8 +77,8 @@ declare namespace envCi {
     }
 
     interface BitbucketEnv extends CiEnvBase {
-        name: 'Bitbucket Pipelines';
-        service: 'bitbucket';
+        name: "Bitbucket Pipelines";
+        service: "bitbucket";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -89,8 +89,8 @@ declare namespace envCi {
     }
 
     interface BitriseEnv extends CiEnvBase {
-        name: 'Bitrise';
-        service: 'bitrise';
+        name: "Bitrise";
+        service: "bitrise";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -103,8 +103,8 @@ declare namespace envCi {
     }
 
     interface BuddyEnv extends CiEnvBase {
-        name: 'Buddy';
-        service: 'buddy';
+        name: "Buddy";
+        service: "buddy";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -116,8 +116,8 @@ declare namespace envCi {
     }
 
     interface BuildkiteEnv extends CiEnvBase {
-        name: 'Buildkite';
-        service: 'buildkite';
+        name: "Buildkite";
+        service: "buildkite";
         build: string;
         buildUrl: string;
         commit: string;
@@ -131,8 +131,8 @@ declare namespace envCi {
     }
 
     interface CircleCiEnv extends CiEnvBase {
-        name: 'CircleCI';
-        service: 'circleci';
+        name: "CircleCI";
+        service: "circleci";
         build: string;
         buildUrl: string;
         job: string;
@@ -146,8 +146,8 @@ declare namespace envCi {
     }
 
     interface CirrusEnv extends CiEnvBase {
-        name: 'Cirrus CI';
-        service: 'cirrus';
+        name: "Cirrus CI";
+        service: "cirrus";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -162,8 +162,8 @@ declare namespace envCi {
     }
 
     interface CodeBuildEnv extends CiEnvBase {
-        name: 'AWS CodeBuild';
-        service: 'codebuild';
+        name: "AWS CodeBuild";
+        service: "codebuild";
         commit: string;
         build: string;
         branch: string;
@@ -172,8 +172,8 @@ declare namespace envCi {
     }
 
     interface CodefreshEnv extends CiEnvBase {
-        name: 'Codefresh';
-        service: 'codefresh';
+        name: "Codefresh";
+        service: "codefresh";
         commit: string;
         build: string;
         buildUrl: string;
@@ -186,8 +186,8 @@ declare namespace envCi {
     }
 
     interface CodeshipEnv extends CiEnvBase {
-        name: 'Codeship';
-        service: 'codeship';
+        name: "Codeship";
+        service: "codeship";
         build: string;
         buildUrl: string;
         commit: string;
@@ -196,8 +196,8 @@ declare namespace envCi {
     }
 
     interface DroneEnv extends CiEnvBase {
-        name: 'Drone';
-        service: 'drone';
+        name: "Drone";
+        service: "drone";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -210,8 +210,8 @@ declare namespace envCi {
     }
 
     interface GitLabEnv extends CiEnvBase {
-        name: 'GitLab CI/CD';
-        service: 'gitlab';
+        name: "GitLab CI/CD";
+        service: "gitlab";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -224,8 +224,8 @@ declare namespace envCi {
     }
 
     interface JenkinsEnv extends CiEnvBase {
-        name: 'Jenkins';
-        service: 'jenkins';
+        name: "Jenkins";
+        service: "jenkins";
         commit: string;
         branch: string;
         build: string;
@@ -237,8 +237,8 @@ declare namespace envCi {
     }
 
     interface SailEnv extends CiEnvBase {
-        name: 'Sail CI';
-        service: 'sail';
+        name: "Sail CI";
+        service: "sail";
         commit: string;
         branch?: string | undefined;
         pr?: string | undefined;
@@ -248,8 +248,8 @@ declare namespace envCi {
     }
 
     interface SemaphoreEnv extends CiEnvBase {
-        name: 'Semaphore';
-        service: 'semaphore';
+        name: "Semaphore";
+        service: "semaphore";
         commit: string;
         build: string;
         branch?: string | undefined;
@@ -261,8 +261,8 @@ declare namespace envCi {
     }
 
     interface ShippableEnv extends CiEnvBase {
-        name: 'Shippable';
-        service: 'shippable';
+        name: "Shippable";
+        service: "shippable";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -277,8 +277,8 @@ declare namespace envCi {
     }
 
     interface TeamCityEnv extends CiEnvBase {
-        name: 'TeamCity';
-        service: 'teamcity';
+        name: "TeamCity";
+        service: "teamcity";
         branch?: string | undefined;
         commit: string;
         build: string;
@@ -287,8 +287,8 @@ declare namespace envCi {
     }
 
     interface TravisEnv extends CiEnvBase {
-        name: 'Travis CI';
-        service: 'travis';
+        name: "Travis CI";
+        service: "travis";
         commit: string;
         tag?: string | undefined;
         build: string;
@@ -304,8 +304,8 @@ declare namespace envCi {
     }
 
     interface VstsEnv extends CiEnvBase {
-        name: 'Visual Studio Team Services';
-        service: 'vsts';
+        name: "Visual Studio Team Services";
+        service: "vsts";
         commit: string;
         build: string;
         branch: string;
@@ -316,8 +316,8 @@ declare namespace envCi {
     }
 
     interface WerckerEnv extends CiEnvBase {
-        name: 'Wercker';
-        service: 'wercker';
+        name: "Wercker";
+        service: "wercker";
         commit: string;
         build: string;
         buildUrl: string;

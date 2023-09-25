@@ -12,7 +12,6 @@
         "prefer-conditional-expression": false,
         "prefer-const": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false
     }
 }

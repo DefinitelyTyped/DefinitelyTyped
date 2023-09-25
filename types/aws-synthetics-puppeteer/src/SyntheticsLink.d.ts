@@ -1,5 +1,5 @@
 // tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsLink' {
+declare module "SyntheticsLink" {
     export = SyntheticsLink;
     /**
      * This class handles the creation of result for Synthetics Link. For each link, add url, text, parent url, status and failure reason using the methods below.

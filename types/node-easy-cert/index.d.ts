@@ -81,13 +81,9 @@ declare namespace CertManager {
 
     type CertErrors =
         /** Error thrown when Root CA has not been generated yet. */
-        "ROOT_CA_NOT_EXISTS" |
-
-        /** Error thrown when Root CA was existed, beware that it will be overwrited. */
-        "ROOT_CA_EXISTED" |
-
-        /** Error thrown when no commonName options is specified when generating Root CA. */
-        "ROOT_CA_COMMON_NAME_UNSPECIFIED";
+        | "ROOT_CA_NOT_EXISTS"
+        | /** Error thrown when Root CA was existed, beware that it will be overwrited. */ "ROOT_CA_EXISTED"
+        | /** Error thrown when no commonName options is specified when generating Root CA. */ "ROOT_CA_COMMON_NAME_UNSPECIFIED";
 
     type CertificateAttribute = CertificateAttributeName | CertificateAttributeShortName;
 

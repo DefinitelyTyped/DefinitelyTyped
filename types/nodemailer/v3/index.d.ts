@@ -7,7 +7,7 @@
 
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
-import sesTransport = require("nodemailer-ses-transport")
+import sesTransport = require("nodemailer-ses-transport");
 
 /**
  * Transporter plugin
@@ -91,7 +91,7 @@ export interface AttachmentObject {
     /**
      * String, Buffer or a Stream contents for the attachment
      */
-    content: string|Buffer|NodeJS.ReadableStream;
+    content: string | Buffer | NodeJS.ReadableStream;
     /**
      * If set and content is string, then encodes the content to a Buffer using the specified encoding. Example values: base64, hex, 'binary' etc. Useful if you want to use binary attachments in a JSON formatted e-mail object.
      */
@@ -146,11 +146,11 @@ export interface SendMailOptions {
     /**
      * The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    text?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
+    text?: string | Buffer | NodeJS.ReadableStream | AttachmentObject | undefined;
     /**
      * The HTML version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    html?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
+    html?: string | Buffer | NodeJS.ReadableStream | AttachmentObject | undefined;
     /**
      * An object or array of additional header fields (e.g. {"X-Key-Name": "key value"} or [{key: "X-Key-Name", value: "val1"}, {key: "X-Key-Name", value: "val2"}])
      */

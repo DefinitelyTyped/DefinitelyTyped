@@ -6,23 +6,15 @@
 
 /// <reference types="node" />
 
-import {
-    IncomingMessage,
-    ServerResponse,
-    RequestOptions
-} from "http";
+import { IncomingMessage, RequestOptions, ServerResponse } from "http";
 
-import {
-    EventEmitter
-} from "events";
+import { EventEmitter } from "events";
 
-import {
-    Socket
-} from "net";
+import { Socket } from "net";
 
 export type MaybePromise<T> = T | Promise<T>;
 
-export type NetworkType = 'http' | 'https';
+export type NetworkType = "http" | "https";
 
 export interface ProxyOptions {
     /** Port number of proxy server */
@@ -62,7 +54,10 @@ export interface RuleModule {
     /** Before sending request to server, AnyProxy will call beforeSendRequest with param requestDetail. */
     beforeSendRequest?(requestDetail: RequestDetail): MaybePromise<BeforeSendRequestResult | null | undefined>;
     /** Before sending response to client, AnyProxy will call beforeSendResponse with param requestDetail responseDetail. */
-    beforeSendResponse?(requestDetail: RequestDetail, responseDetail: ResponseDetail): MaybePromise<BeforeSendResponseResult | null | undefined>;
+    beforeSendResponse?(
+        requestDetail: RequestDetail,
+        responseDetail: ResponseDetail,
+    ): MaybePromise<BeforeSendResponseResult | null | undefined>;
     /**
      * When receiving https request, AnyProxy will call beforeDealHttpsRequest with param requestDetail.
      * If configed with forceProxyHttps in launching, AnyProxy will skip calling this method.
@@ -75,7 +70,10 @@ export interface RuleModule {
      */
     onError?(requestDetail: RequestDetail, err: Error): MaybePromise<BeforeSendResponseResult | null | undefined>;
     /** AnyProxy will call this method when failed to connect target server in https request. */
-    onConnectError?(requestDetail: RequestDetail, err: Error): MaybePromise<BeforeSendResponseResult | null | undefined>;
+    onConnectError?(
+        requestDetail: RequestDetail,
+        err: Error,
+    ): MaybePromise<BeforeSendResponseResult | null | undefined>;
 }
 
 // TypeScript Version: 2.2

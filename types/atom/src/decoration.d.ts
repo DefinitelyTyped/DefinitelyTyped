@@ -1,4 +1,4 @@
-import { DecorationPropsChangedEvent, DisplayMarker, Disposable } from '../index';
+import { DecorationPropsChangedEvent, DisplayMarker, Disposable } from "../index";
 
 /**
  *  Represents a decoration that follows a DisplayMarker. A decoration is basically
@@ -100,7 +100,7 @@ export interface SharedDecorationOptions {
      *  'head' (the default) or 'tail' for overlay decorations, and 'before' (the default)
      *  or 'after' for block decorations.
      */
-    position?: 'head' | 'tail' | 'before' | 'after' | undefined;
+    position?: "head" | "tail" | "before" | "after" | undefined;
 
     /**
      *  Only applicable to decorations of type block. Controls where the view is
@@ -119,12 +119,12 @@ export interface SharedDecorationOptions {
 
 export interface DecorationLayerOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'block' | 'cursor' | undefined;
+    type?: "line" | "line-number" | "text" | "highlight" | "block" | "cursor" | undefined;
 }
 
 export interface DecorationOptions extends SharedDecorationOptions {
     /** One of several supported decoration types. */
-    type?: 'line' | 'line-number' | 'text' | 'highlight' | 'overlay' | 'gutter' | 'block' | 'cursor' | undefined;
+    type?: "line" | "line-number" | "text" | "highlight" | "overlay" | "gutter" | "block" | "cursor" | undefined;
 
     /** The name of the gutter we're decorating, if type is "gutter". */
     gutterName?: string | undefined;

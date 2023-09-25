@@ -5,7 +5,6 @@
         "no-var-keyword": false,
         "no-void-expression": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

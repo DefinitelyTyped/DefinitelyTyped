@@ -1,4 +1,13 @@
-import { CMYKColorDescriptor, ColorConversionModel, ColorDescriptor, GrayscaleColorDescriptor, HSBColorDescriptor, LabColorDescriptor, RGB32ColorDescriptor, RGBColorDescriptor } from "../util/colorTypes";
+import {
+    CMYKColorDescriptor,
+    ColorConversionModel,
+    ColorDescriptor,
+    GrayscaleColorDescriptor,
+    HSBColorDescriptor,
+    LabColorDescriptor,
+    RGB32ColorDescriptor,
+    RGBColorDescriptor,
+} from "../util/colorTypes";
 /** @ignore */
 declare type NotificationListener = (name: string, descriptor: ActionDescriptor) => void;
 /** @ignore */
@@ -224,7 +233,10 @@ export declare namespace photoshopAction {
      * ```
      * @minVersion 23.0
      */
-    function batchPlay(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Promise<Array<ActionDescriptor>>;
+    function batchPlay(
+        commands: ActionDescriptor[],
+        options?: BatchPlayCommandOptions,
+    ): Promise<Array<ActionDescriptor>>;
     /**
      * Attach a listener to a Photoshop event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
@@ -410,9 +422,11 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function showAlert(options: string | {
-        message: string;
-    }): Promise<void>;
+    function showAlert(
+        options: string | {
+            message: string;
+        },
+    ): Promise<void>;
     /**
      * Returns the effective size of a dialog.
      * ```javascript
@@ -451,7 +465,10 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function executeAsModal<T>(targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<T>, options: ExecuteAsModalOptions): Promise<T>;
+    function executeAsModal<T>(
+        targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<T>,
+        options: ExecuteAsModalOptions,
+    ): Promise<T>;
     /**
      * Converts the given color (in descriptor form) to RGB,
      * returning the color descriptor.
@@ -465,7 +482,10 @@ export declare namespace photoshopCore {
      * based on embedded color profiles.
      * @minVersion 23.0
      */
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.RGB): RGBColorDescriptor | RGB32ColorDescriptor;
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.RGB,
+    ): RGBColorDescriptor | RGB32ColorDescriptor;
     /**
      * Convert to Lab
      * @minVersion 23.0
@@ -480,7 +500,10 @@ export declare namespace photoshopCore {
      * Convert to Grayscale
      * @minVersion 23.0
      */
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.Gray): GrayscaleColorDescriptor;
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.Gray,
+    ): GrayscaleColorDescriptor;
     /**
      * Convert to CMYK
      * @minVersion 23.0

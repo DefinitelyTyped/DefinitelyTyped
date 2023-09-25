@@ -33,5 +33,5 @@ declare class IClauseWhere {
 declare namespace IClauseWhere {
     export { IClauseJoin };
 }
-import IQuery = require('./IQuery.js');
-type IClauseJoin = import('./IClauseJoin');
+import IQuery = require("./IQuery.js");
+type IClauseJoin = import("./IClauseJoin");
