@@ -3,5 +3,8 @@
     "types": "index",
     "typesVersions": {
         "<=4.8": { "*": ["ts4.8/*"] }
+    },
+    "dependencies": {
+        "undici-types": "~5.25.1"
     }
 }

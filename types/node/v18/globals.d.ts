@@ -320,4 +320,48 @@ declare namespace NodeJS {
     interface ReadOnlyDict<T> {
         readonly [key: string]: T | undefined;
     }
+
+    namespace undici {
+        type Request = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Request;
+        type Response = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Response;
+        type FormData = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').FormData;
+        type Headers = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Headers;
+    }
 }
+
+declare function fetch(
+    input: import('undici-types').RequestInfo,
+    init?: import('undici-types').RequestInit,
+): Promise<Response>;
+
+interface Request extends NodeJS.undici.Request {}
+declare var Request: typeof globalThis extends {
+    onmessage: any;
+    Request: infer T;
+}
+    ? T
+    : typeof import('undici-types').Request;
+
+interface Response extends NodeJS.undici.Response {}
+declare var Response: typeof globalThis extends {
+    onmessage: any;
+    Response: infer T;
+}
+    ? T
+    : typeof import('undici-types').Response;
+
+declare var FormData: typeof globalThis extends {
+    onmessage: any;
+    FormData: infer T;
+}
+    ? T
+    : typeof import('undici-types').FormData;
+interface FormData extends NodeJS.undici.FormData {}
+
+declare var Headers: typeof globalThis extends {
+    onmessage: any;
+    Headers: infer T;
+}
+    ? T
+    : typeof import('undici-types').Headers;
+interface Headers extends NodeJS.undici.Headers {}
