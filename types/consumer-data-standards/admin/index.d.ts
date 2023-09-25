@@ -586,7 +586,7 @@ export interface ErrorMetricsV2 {
         /**
          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
          */
-        [k: string]: number;
+        [k: string]: unknown;
       } | null;
       /**
        * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
@@ -600,7 +600,7 @@ export interface ErrorMetricsV2 {
         /**
          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
          */
-        [k: string]: number;
+        [k: string]: unknown;
       }[]| null;
       [k: string]: unknown;
     };
@@ -619,7 +619,7 @@ export interface ErrorMetricsV2 {
         /**
          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
          */
-        [k: string]: number;
+        [k: string]: unknown;
       } | null;
       /**
        * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
@@ -633,7 +633,7 @@ export interface ErrorMetricsV2 {
             /**
              * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
              */
-            [k: string]: number;
+            [k: string]: unknown;
           }[]
         | null;
       [k: string]: unknown;
@@ -943,7 +943,6 @@ export interface PeakTPSMetricsV2 {
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
 
 /**
  * Percentage of calls within the performance thresholds
@@ -2255,7 +2254,7 @@ export interface ResponseMetricsListV5 {
           /**
            * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
            */
-          [k: string]: number;
+          [k: string]: unknown;
         } | null;
         /**
          * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
@@ -2269,7 +2268,7 @@ export interface ResponseMetricsListV5 {
               /**
                * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
                */
-              [k: string]: number;
+              [k: string]: unknown;
             }[]
           | null;
         [k: string]: unknown;
@@ -2289,7 +2288,7 @@ export interface ResponseMetricsListV5 {
           /**
            * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
            */
-          [k: string]: number;
+          [k: string]: unknown;
         } | null;
         /**
          * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
@@ -2303,7 +2302,7 @@ export interface ResponseMetricsListV5 {
               /**
                * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
                */
-              [k: string]: number;
+              [k: string]: unknown;
             }[]
           | null;
         [k: string]: unknown;
