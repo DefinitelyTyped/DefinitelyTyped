@@ -670,41 +670,59 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
-            case "test:diagnostic":
-                callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
+            case "test:diagnostic": {
+                const { file, column, line, message, nesting } = event.data
+                callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case "test:fail":
+            }
+            case "test:fail": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
-                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${name}/${details.duration_ms}/${details.type}/
+                    ${details.error}/${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
-            case "test:pass":
+            }
+            case "test:pass": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
-                    ${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${name}/${details.duration_ms}/${details.type}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
-            case "test:plan":
-                callback(null, `${event.data.count}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:plan": {
+                const { file, column, line, count, nesting } = event.data
+                callback(null, `${count}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case "test:start":
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:start": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case "test:stderr":
-                callback(null, `${event.data.message}/${event.data.file}`);
+            }
+            case "test:stderr": {
+                const { file, column, line, message } = event.data
+                callback(null, `${message}/${file}/${column}/${line}`);
                 break;
-            case "test:stdout":
-                callback(null, `${event.data.message}/${event.data.file}`);
+            }
+            case "test:stdout": {
+                const { file, column, line, message } = event.data
+                callback(null, `${message}/${file}/${column}/${line}`);
                 break;
-            case "test:enqueue":
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:enqueue": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case "test:dequeue":
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:dequeue": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
+            }
             case "test:watch:drained":
                 // event doesn't have any data
                 callback(null);

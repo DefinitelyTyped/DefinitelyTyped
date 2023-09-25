@@ -68,6 +68,7 @@ declare module "process" {
                 | "mipsel"
                 | "ppc"
                 | "ppc64"
+                | "riscv64"
                 | "s390"
                 | "s390x"
                 | "x64";
@@ -896,6 +897,12 @@ declare module "process" {
                  */
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 /**
+                 * The `process.sourceMapsEnabled` property returns whether the [Source Map v3](https://sourcemaps.info/spec.html) support for stack traces is enabled.
+                 * @since v20.7.0
+                 * @experimental
+                 */
+                readonly sourceMapsEnabled: boolean;
+                /**
                  * The `process.version` property contains the Node.js version string.
                  *
                  * ```js
@@ -1068,7 +1075,7 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
