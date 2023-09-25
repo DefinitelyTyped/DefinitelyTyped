@@ -3,6 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import ConcreteMenuItem from "./src/ConcreteMenuItem";
 
 /**
