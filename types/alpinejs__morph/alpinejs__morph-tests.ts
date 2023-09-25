@@ -57,7 +57,7 @@ Alpine.morph(originalNode, '<div></div>', {
     lookahead: true,
 });
 
-morph(originalNode, '<div></div>', {
+morph(originalNode, document.createElement('div'), {
     updating(from, to, childrenOnly, skip) {
         // $ExpectType Node
         from;
