@@ -6,7 +6,6 @@
         "no-misused-new": false,
         "no-var-keyword": false,
         "no-var-requires": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

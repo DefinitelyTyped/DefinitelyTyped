@@ -291,7 +291,6 @@ interface EasySpeech {
      * @param  handlers.resume - optional, event handler
      * @param  handlers.start - optional, event handler
      *
-     *
      * @return
      * fulfill:  Resolves to the `end` event
      * reject:  rejects using the `error` event

@@ -1,4 +1,4 @@
-import intersectPlugin from '@alpinejs/intersect';
-import Alpine from 'alpinejs';
+import intersectPlugin from "@alpinejs/intersect";
+import Alpine from "alpinejs";
 
 Alpine.plugin(intersectPlugin);

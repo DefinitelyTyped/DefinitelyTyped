@@ -3,7 +3,7 @@
 // Definitions by: Nick Saunders <https://github.com/nsaunders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace prefixKeyframe {
     interface Options {

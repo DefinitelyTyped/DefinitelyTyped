@@ -14,9 +14,9 @@ export class Eureka {
 }
 
 export namespace EurekaClient {
-    type InstanceStatus = 'UP' | 'DOWN' | 'STARTING' | 'OUT_OF_SERVICE' | 'UNKNOWN';
-    type ActionType = 'ADDED' | 'MODIFIED' | 'DELETED';
-    type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
+    type InstanceStatus = "UP" | "DOWN" | "STARTING" | "OUT_OF_SERVICE" | "UNKNOWN";
+    type ActionType = "ADDED" | "MODIFIED" | "DELETED";
+    type DataCenterName = "Netflix" | "Amazon" | "MyOwn";
 
     interface EurekaConfig {
         requestMiddleware?: ((requestOpts: any, done: (opts: any) => void) => void) | undefined;
@@ -89,7 +89,7 @@ export namespace EurekaClient {
     }
     interface LegacyPortWrapper {
         $: number;
-        '@enabled': boolean;
+        "@enabled": boolean;
     }
     interface PortWrapper {
         enabled: boolean;
@@ -105,6 +105,6 @@ export namespace EurekaClient {
     }
     interface DataCenterInfo {
         name: DataCenterName;
-        '@class'?: string | undefined;
+        "@class"?: string | undefined;
     }
 }

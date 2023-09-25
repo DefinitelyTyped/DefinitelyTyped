@@ -44,7 +44,7 @@ declare namespace Allure {
     enum TYPE {
         TEXT = "text",
         HTML = "html",
-        MARKDOWN = "markdown"
+        MARKDOWN = "markdown",
     }
 
     class Suite {

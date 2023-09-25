@@ -1,21 +1,21 @@
-async () => {
+(async () => {
     // WebSocket
     ap.onSocketOpen();
     ap.onSocketError();
     ap.onSocketClose();
     ap.onSocketMessage();
     await ap.connectSocket({
-        url: 'ws://127.0.0.1:8088',
+        url: "ws://127.0.0.1:8088",
         data: {
-            b: '1234567890',
+            b: "1234567890",
             c: 9999,
         },
         headers: {
-            a: '0987654321',
+            a: "0987654321",
         },
     });
     await ap.sendSocketMessage({
-        data: 'web socket msg',
+        data: "web socket msg",
     });
     ap.offSocketOpen();
     ap.offSocketError();
@@ -25,10 +25,10 @@ async () => {
 
     await ap.setSessionData({
         data: {
-            pageId: '1',
+            pageId: "1",
         },
     });
-    ap.getSessionData('pageId');
+    ap.getSessionData("pageId");
 
     ap.parseQueryString();
 
@@ -41,7 +41,7 @@ async () => {
 
     ap.chooseVideo({
         maxDuration: 30,
-        sourceType: ['camera'],
+        sourceType: ["camera"],
     });
 
     ap.onBackgroundAudioPlay();
@@ -49,9 +49,9 @@ async () => {
     ap.onBackgroundAudioStop();
 
     ap.playBackgroundAudio({
-        url: 'https://os.alipayobjects.com/rmsportal/FOjtUAVjVsfldZgjBdxE.mp3',
-        title: '舒缓轻音乐',
-        cover: 'https://zos.alipayobjects.com/rmsportal/VRrMXbgUSdsibQjwZpyT.png',
+        url: "https://os.alipayobjects.com/rmsportal/FOjtUAVjVsfldZgjBdxE.mp3",
+        title: "舒缓轻音乐",
+        cover: "https://zos.alipayobjects.com/rmsportal/VRrMXbgUSdsibQjwZpyT.png",
     });
 
     ap.pauseBackgroundAudio();
@@ -88,7 +88,7 @@ async () => {
     ap.getBluetoothAdapterState();
 
     ap.startBluetoothDevicesDiscovery({
-        services: ['0000fdd7-0000-1011-8004-00987f9b34fb'],
+        services: ["0000fdd7-0000-1011-8004-00987f9b34fb"],
     });
     ap.stopBluetoothDevicesDiscovery();
     const bltDevices = await ap.getBluetoothDevices();
@@ -130,7 +130,7 @@ async () => {
                     // 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
                     characteristicId,
                     // 这里的value是 16 进制字符串
-                    value: 'value',
+                    value: "value",
                 });
                 await ap.readBLECharacteristicValue({
                     // 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
@@ -164,11 +164,11 @@ async () => {
     ap.offAccelerometerChange();
 
     ap.pushWindow({
-        url: 'https://google.com',
+        url: "https://google.com",
     });
     ap.popWindow();
     ap.popTo(-1);
-    ap.redirectTo('https://github.com');
+    ap.redirectTo("https://github.com");
 
     ap.onResume();
     ap.onPause();
@@ -184,19 +184,19 @@ async () => {
     ap.onAppResume();
     ap.offAppResume();
 
-    ap.alert('Hello World');
-    ap.confirm('Hello World');
-    ap.showToast('Hello world');
+    ap.alert("Hello World");
+    ap.confirm("Hello World");
+    ap.showToast("Hello world");
     ap.hideToast();
-    ap.showLoading('Loading...');
+    ap.showLoading("Loading...");
     ap.hideLoading();
     ap.showActionSheet({
-        items: ['item1', 'item2', 'item3'],
+        items: ["item1", "item2", "item3"],
     });
 
     ap.onTitleClick();
     ap.setNavigationBar({
-        title: 'title',
+        title: "title",
     });
 
     ap.offTitleClick();
@@ -205,10 +205,10 @@ async () => {
     ap.setOptionButton({
         items: [
             {
-                title: 'title',
+                title: "title",
             },
             {
-                type: 'user',
+                type: "user",
             },
         ],
     });
@@ -218,10 +218,10 @@ async () => {
     ap.showPopMenu({
         items: [
             {
-                title: 'title',
+                title: "title",
             },
             {
-                icon: 'user',
+                icon: "user",
             },
         ],
     });
@@ -236,7 +236,7 @@ async () => {
     ap.chooseCity();
     ap.datePicker();
 
-    ap.tradePay('orderStr');
+    ap.tradePay("orderStr");
 
     ap.getServerTime();
-};
+});

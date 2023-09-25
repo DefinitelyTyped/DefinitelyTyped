@@ -12,5 +12,5 @@ export interface PathCommandObject {
 export function interpolatePath(
     a: string,
     b: string,
-    excludeSegment?: (a: PathCommandObject, b: PathCommandObject) => boolean
+    excludeSegment?: (a: PathCommandObject, b: PathCommandObject) => boolean,
 ): (t: number) => string;

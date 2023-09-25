@@ -58,7 +58,7 @@ declare namespace echarts {
              *
              * @default 'mousemove|click'
              */
-            triggerOn?: 'mousemove' | 'click' | 'mousemove|click' | 'none' | undefined;
+            triggerOn?: "mousemove" | "click" | "mousemove|click" | "none" | undefined;
         }
     }
 }

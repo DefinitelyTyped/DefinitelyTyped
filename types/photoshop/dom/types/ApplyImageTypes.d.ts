@@ -1,7 +1,7 @@
+import { Channel } from "../Channel";
+import { ApplyImageBlendMode, ApplyImageChannel, ApplyImageLayer } from "../Constants";
 import { Document } from "../Document";
 import { Layer } from "../Layer";
-import { Channel } from "../Channel";
-import { ApplyImageBlendMode, ApplyImageLayer, ApplyImageChannel } from "../Constants";
 /**
  * Type for the Layer choice in [[ApplyImageSource]].
  * Select [ApplyImageLayer.MERGED](../constants/#applyimagelayer) to use the pixels from a merged
@@ -17,7 +17,13 @@ export declare type ApplyImageLayerType = Layer | ApplyImageLayer.MERGED;
  * @optionobject
  * @minVersion 24.5
  */
-export declare type ApplyImageChannelType = Channel | ApplyImageChannel.RGB | ApplyImageChannel.CMYK | ApplyImageChannel.LAB | ApplyImageChannel.SELECTION | ApplyImageChannel.TRANSPARENCY;
+export declare type ApplyImageChannelType =
+    | Channel
+    | ApplyImageChannel.RGB
+    | ApplyImageChannel.CMYK
+    | ApplyImageChannel.LAB
+    | ApplyImageChannel.SELECTION
+    | ApplyImageChannel.TRANSPARENCY;
 /**
  * Reference for sources to be used in Apply Image operations
  * @targetfolder objects/options

@@ -1,7 +1,7 @@
-declare module 'repl' {
-    import { Interface, Completer, AsyncCompleter } from 'readline';
-    import { Context } from 'vm';
-    import { InspectOptions } from 'util';
+declare module "repl" {
+    import { AsyncCompleter, Completer, Interface } from "readline";
+    import { Context } from "vm";
+    import { InspectOptions } from "util";
 
     interface ReplOptions {
         /**
@@ -91,7 +91,13 @@ declare module 'repl' {
         breakEvalOnSigint?: boolean | undefined;
     }
 
-    type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+    type REPLEval = (
+        this: REPLServer,
+        evalCmd: string,
+        context: Context,
+        file: string,
+        cb: (err: Error | null, result: any) => void,
+    ) => void;
     type REPLWriter = (this: REPLServer, obj: any) => string;
 
     /**
@@ -393,6 +399,6 @@ declare module 'repl' {
         constructor(err: Error);
     }
 }
-declare module 'node:repl' {
-    export * from 'repl';
+declare module "node:repl" {
+    export * from "repl";
 }

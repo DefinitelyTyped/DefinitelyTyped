@@ -1,6 +1,6 @@
-import * as util from 'node:util';
-import assert = require('node:assert');
-import { access, readFile } from 'node:fs';
+import * as util from "node:util";
+import assert = require("node:assert");
+import { access, readFile } from "node:fs";
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -30,37 +30,37 @@ util.inspect(["This is nice"], {
     breakLength: Infinity,
     compact: false,
     sorted: true,
-    getters: 'set',
+    getters: "set",
     showHidden: false,
     numericSeparator: false,
 });
 util.inspect(["This is nice"], {
     compact: 42,
 });
-assert(typeof util.inspect.custom === 'symbol');
+assert(typeof util.inspect.custom === "symbol");
 
 util.inspect.replDefaults = {
     colors: true,
 };
 
 util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+    [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize("woop", "module")),
 });
 
 util.inspect({
-    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: 'baz' })),
+    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: "baz" })),
 });
 
-(options?: util.InspectOptions) => util.inspect({ }, options);
-(showHidden?: boolean) => util.inspect({ }, showHidden);
+((options?: util.InspectOptions) => util.inspect({}, options));
+((showHidden?: boolean) => util.inspect({}, showHidden));
 
-util.format('%s:%s', 'foo');
-util.format('%s:%s', 'foo', 'bar', 'baz');
+util.format("%s:%s", "foo");
+util.format("%s:%s", "foo", "bar", "baz");
 util.format(1, 2, 3);
-util.format('%% %s');
+util.format("%% %s");
 util.format();
 
-util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
+util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
 // util.callbackify
 class callbackifyTest {
@@ -73,43 +73,43 @@ class callbackifyTest {
     static fnE(): Promise<void> {
         assert(arguments.length === 0);
 
-        return Promise.reject(new Error('fail'));
+        return Promise.reject(new Error("fail"));
     }
 
     static fnT1(arg1: string): Promise<void> {
-        assert(arguments.length === 1 && arg1 === 'parameter');
+        assert(arguments.length === 1 && arg1 === "parameter");
 
         return Promise.resolve();
     }
 
     static fnT1E(arg1: string): Promise<void> {
-        assert(arguments.length === 1 && arg1 === 'parameter');
+        assert(arguments.length === 1 && arg1 === "parameter");
 
-        return Promise.reject(new Error('fail'));
+        return Promise.reject(new Error("fail"));
     }
 
     static fnTResult(): Promise<string> {
         assert(arguments.length === 0);
 
-        return Promise.resolve('result');
+        return Promise.resolve("result");
     }
 
     static fnTResultE(): Promise<string> {
         assert(arguments.length === 0);
 
-        return Promise.reject(new Error('fail'));
+        return Promise.reject(new Error("fail"));
     }
 
     static fnT1TResult(arg1: string): Promise<string> {
-        assert(arguments.length === 1 && arg1 === 'parameter');
+        assert(arguments.length === 1 && arg1 === "parameter");
 
-        return Promise.resolve('result');
+        return Promise.resolve("result");
     }
 
     static fnT1TResultE(arg1: string): Promise<string> {
-        assert(arguments.length === 1 && arg1 === 'parameter');
+        assert(arguments.length === 1 && arg1 === "parameter");
 
-        return Promise.reject(new Error('fail'));
+        return Promise.reject(new Error("fail"));
     }
 
     static test(): void {
@@ -122,39 +122,70 @@ class callbackifyTest {
         const cfnT1TResult = util.callbackify(callbackifyTest.fnT1TResult);
         const cfnT1TResultE = util.callbackify(callbackifyTest.fnT1TResultE);
 
-        cfn((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
-        cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-        cfnT1('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
-        cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-        cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
-        cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
-        cfnT1TResult('parameter', (err: NodeJS.ErrnoException | null, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
-        cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+        cfn((err: NodeJS.ErrnoException | null, ...args: string[]) =>
+            assert(err === null && args.length === 1 && args[0] === undefined)
+        );
+        cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0));
+        cfnT1(
+            "parameter",
+            (err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === undefined),
+        );
+        cfnT1E(
+            "parameter",
+            (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0),
+        );
+        cfnTResult((err: NodeJS.ErrnoException | null, ...args: string[]) =>
+            assert(err === null && args.length === 1 && args[0] === "result")
+        );
+        cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) =>
+            assert(err.message === "fail" && args.length === 0)
+        );
+        cfnT1TResult(
+            "parameter",
+            (err: NodeJS.ErrnoException | null, ...args: string[]) =>
+                assert(err === null && args.length === 1 && args[0] === "result"),
+        );
+        cfnT1TResultE(
+            "parameter",
+            (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === "fail" && args.length === 0),
+        );
     }
 }
 callbackifyTest.test();
 
 // util.promisify
 const readPromised = util.promisify(readFile);
-const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => { });
-const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => { });
-const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-const arg1UnknownError: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error | null, result: number) => void): void => { });
-const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error | null) => void): void => { });
-const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
-assert(typeof util.promisify.custom === 'symbol');
+const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => {}).catch(
+    (error: Error): void => {},
+);
+const arg0: () => Promise<number> = util.promisify((cb: (err: Error | null, result: number) => void): void => {});
+const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error | null) => void): void => {});
+const arg1: (arg: string) => Promise<number> = util.promisify(
+    (arg: string, cb: (err: Error | null, result: number) => void): void => {},
+);
+const arg1UnknownError: (arg: string) => Promise<number> = util.promisify(
+    (arg: string, cb: (err: Error | null, result: number) => void): void => {},
+);
+const arg1NoResult: (arg: string) => Promise<any> = util.promisify(
+    (arg: string, cb: (err: Error | null) => void): void => {},
+);
+ // tslint:disable-next-line void-return
+const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => {
+    cb();
+});
+assert(typeof util.promisify.custom === "symbol");
 // util.deprecate
 const foo = () => {};
 // $ExpectType () => void
-util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+util.deprecate(foo, "foo() is deprecated, use bar() instead");
 // $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
-util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead");
 // $ExpectType <T extends Function>(fn: T, msg: string, code?: string | undefined) => T
-util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
+util.deprecate(util.deprecate, "deprecate() is deprecated, use bar() instead", "DEP0001");
 
 // util.isDeepStrictEqual
-util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
+util.isDeepStrictEqual({ foo: "bar" }, { foo: "bar" });
 
 // util.TextDecoder()
 const td = new util.TextDecoder();
@@ -192,28 +223,28 @@ const teEncodeRes: Uint8Array = te.encode("TextEncoder");
 // Test global alias
 const te2 = new TextEncoder();
 
-const encIntoRes: util.EncodeIntoResult = te.encodeInto('asdf', new Uint8Array(16));
+const encIntoRes: util.EncodeIntoResult = te.encodeInto("asdf", new Uint8Array(16));
 
 const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 
 {
-    const logger: util.DebugLogger = util.debuglog('section');
+    const logger: util.DebugLogger = util.debuglog("section");
     logger.enabled; // $ExpectType boolean
-    util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
-    util.debug('section', (fn: util.DebugLoggerFunction) => { });
+    util.debuglog("section", (fn: util.DebugLoggerFunction) => {});
+    util.debug("section", (fn: util.DebugLoggerFunction) => {});
 }
 
 {
-    const foo: string = util.toUSVString('foo');
+    const foo: string = util.toUSVString("foo");
 }
 
-access('file/that/does/not/exist', (err) => {
+access("file/that/does/not/exist", (err) => {
     const name = util.getSystemErrorName(err!.errno!);
     console.error(name);
 });
 
 {
-    util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'); // $ExpectType string
+    util.stripVTControlCharacters("\u001B[4mvalue\u001B[0m"); // $ExpectType string
 }
 
 {
@@ -222,8 +253,8 @@ access('file/that/does/not/exist', (err) => {
     const config = {
         allowPositionals: true,
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean', multiple: true },
+            foo: { type: "string" },
+            bar: { type: "boolean", multiple: true },
         },
     } as const;
 
@@ -238,8 +269,8 @@ access('file/that/does/not/exist', (err) => {
     // tslint:disable-next-line:no-object-literal-type-assertion
     const config = {
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean', multiple: true },
+            foo: { type: "string" },
+            bar: { type: "boolean", multiple: true },
         },
     } as const;
 
@@ -254,8 +285,8 @@ access('file/that/does/not/exist', (err) => {
         tokens: true,
         allowPositionals: true,
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean' },
+            foo: { type: "string" },
+            bar: { type: "boolean" },
         },
     } as const;
 
@@ -278,7 +309,7 @@ access('file/that/does/not/exist', (err) => {
     const result = util.parseArgs({
         strict: false,
         options: {
-            x: { type: 'string', multiple: true },
+            x: { type: "string", multiple: true },
         },
     });
     // $ExpectType (string | boolean)[] | undefined
@@ -302,19 +333,19 @@ access('file/that/does/not/exist', (err) => {
 }
 
 {
-    let myMIME = new util.MIMEType('text/plain');
-    myMIME = new util.MIMEType({ toString: () => 'text/plain' });
-    myMIME.type = 'application';
-    myMIME.subtype = 'javascript';
+    let myMIME = new util.MIMEType("text/plain");
+    myMIME = new util.MIMEType({ toString: () => "text/plain" });
+    myMIME.type = "application";
+    myMIME.subtype = "javascript";
     // $ExpectType string
     myMIME.essence;
 }
 
 {
     const params = new util.MIMEParams();
-    params.set('foo', 'def');
+    params.set("foo", "def");
     // $ExpectType string | null
-    params.get('foo');
+    params.get("foo");
     for (const [name, value] of params) {
         console.log(name, value);
     }

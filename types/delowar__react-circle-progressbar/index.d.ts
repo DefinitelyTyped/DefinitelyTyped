@@ -3,7 +3,7 @@
 // Definitions by: Seungbin Oh <https://github.com/sboh1214>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 declare const Progress: React.FunctionComponent<ProgressProps>;
 

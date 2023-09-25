@@ -1,4 +1,4 @@
-import { Repository } from './repository';
+import { Repository } from "./repository";
 
 export class Ignore {
     static addRule(repo: Repository, rules: string): number;

@@ -7,19 +7,19 @@ declare namespace AMap {
 
     namespace Geometry3D {
         class Mesh extends Geometry3D {
-            readonly type: 'mesh';
+            readonly type: "mesh";
             readonly faces: number[];
             readonly textureIndices: number[];
         }
 
         class Line extends Geometry3D {
-            readonly type: 'line';
+            readonly type: "line";
             readonly segments: number[];
             readonly textureIndices: number[];
         }
 
         class Points extends Geometry3D {
-            readonly type: 'points';
+            readonly type: "points";
             readonly pointSizes: number[];
             readonly pointAreas: number[];
             readonly textureIndices: number[];

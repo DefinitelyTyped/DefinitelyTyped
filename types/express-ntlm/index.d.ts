@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ConnectionOptions } from 'tls';
+import { ConnectionOptions } from "tls";
 
-import { Handler } from 'express';
+import { Handler } from "express";
 
 declare function expressNtlm(options?: expressNtlm.Options): Handler;
 

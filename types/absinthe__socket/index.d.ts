@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import { Socket, Channel } from 'phoenix';
+import { Channel, Socket } from "phoenix";
 
 export interface AbsintheSocket<T = {}> {
     channel: Channel;
@@ -13,8 +13,8 @@ export interface AbsintheSocket<T = {}> {
     phoenixSocket: Socket;
 }
 
-export type GqlOperationType = 'mutation' | 'query' | 'subscription';
-export type RequestStatus = 'canceled' | 'canceling' | 'pending' | 'sent' | 'sending';
+export type GqlOperationType = "mutation" | "query" | "subscription";
+export type RequestStatus = "canceled" | "canceling" | "pending" | "sent" | "sending";
 
 export interface GqlRequest<Variables> {
     operation: string;

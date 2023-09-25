@@ -1,7 +1,7 @@
-import { WriteStream } from 'fs';
-import { Wrapper } from './wrapper';
-import { Repository } from './repository';
-import { Oid } from './oid';
+import { WriteStream } from "fs";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Wrapper } from "./wrapper";
 
 export class Blob {
     /**

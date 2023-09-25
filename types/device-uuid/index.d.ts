@@ -95,9 +95,9 @@ export class DeviceUUID {
     get(customData?: Record<string, string | boolean>): string;
 
     testCompatibilityMode(): void;
-    testSilk(): false | 'Silk';
+    testSilk(): false | "Silk";
     testKindleFire(): string | false;
-    testCaptiveNetwork(): false | 'CaptiveNetwork';
+    testCaptiveNetwork(): false | "CaptiveNetwork";
     testMobile(): void;
     testTablet(): void;
     testNginxGeoIP(headers: Headers): void;

@@ -21,7 +21,7 @@ declare namespace pify {
     }
 
     interface PromiseModule {
-        new (executor: (resolve: (value?: any) => void, reject: (reason?: any) => void) => void): any;
+        new(executor: (resolve: (value?: any) => void, reject: (reason?: any) => void) => void): any;
     }
 }
 

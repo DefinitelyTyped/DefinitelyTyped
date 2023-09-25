@@ -8,10 +8,10 @@ declare namespace pgnParser {
      * The result of a game or sequence of moves.
      */
     type Result =
-        | '1-0' // White wins
-        | '0-1' // Black wins
-        | '1/2-1/2' // Draw
-        | '*'; // Game ongoing or result inconclusive
+        | "1-0" // White wins
+        | "0-1" // Black wins
+        | "1/2-1/2" // Draw
+        | "*"; // Game ongoing or result inconclusive
 
     /**
      * A PGN comment.

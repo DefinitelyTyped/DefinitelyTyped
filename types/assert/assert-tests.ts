@@ -1,18 +1,18 @@
-import * as assert from 'assert';
+import * as assert from "assert";
 
 assert(true, "it's working");
 
-assert.ok(true, 'inner functions work as well');
+assert.ok(true, "inner functions work as well");
 
 assert.throws(() => {});
 assert.throws(() => {}, /Regex test/);
 assert.throws(
     () => {},
     () => {},
-    'works wonderfully',
+    "works wonderfully",
 );
 
-assert['fail'](true, true, 'works like a charm');
+assert["fail"](true, true, "works like a charm");
 
 {
     const a = null as any;
@@ -45,14 +45,14 @@ assert['fail'](true, true, 'works like a charm');
 }
 
 {
-    const a = 'test' as any;
-    assert.strictEqual(a, 'test');
+    const a = "test" as any;
+    assert.strictEqual(a, "test");
     a; // $ExpectType string || "test"
 }
 
 {
-    const a = 'test' as any;
-    assert.strict.equal(a, 'test');
+    const a = "test" as any;
+    assert.strict.equal(a, "test");
     a; // $ExpectType string || "test"
 }
 

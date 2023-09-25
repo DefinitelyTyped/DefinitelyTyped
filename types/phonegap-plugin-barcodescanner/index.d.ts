@@ -21,7 +21,7 @@ declare namespace phonegapBarcode {
         showTorchButton?: boolean | undefined;
         torchOn?: boolean | undefined;
         saveHistory?: boolean | undefined;
-        resultDisplayDuration? :number | undefined;
+        resultDisplayDuration?: number | undefined;
         disableAnimations: boolean;
         prompt?: string | undefined;
         formats?: string | undefined;
@@ -37,8 +37,17 @@ declare namespace phonegapBarcode {
     }
 
     interface BarcodeScanner {
-        scan: (success: ((result: BarcodeScanResult) => any), failure?: ((err: any) => any), opts?: BarcodeScanOptions) => void;
-        encode: (encodingType: EncodingType, data: string, success: ((result: any) => any), failure?: ((err: any) => any)) => void;
+        scan: (
+            success: (result: BarcodeScanResult) => any,
+            failure?: (err: any) => any,
+            opts?: BarcodeScanOptions,
+        ) => void;
+        encode: (
+            encodingType: EncodingType,
+            data: string,
+            success: (result: any) => any,
+            failure?: (err: any) => any,
+        ) => void;
         Encode: EncodingType;
     }
 }

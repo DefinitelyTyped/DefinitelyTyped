@@ -24,8 +24,8 @@
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
  */
-declare module 'tty' {
-    import * as net from 'node:net';
+declare module "tty" {
+    import * as net from "node:net";
     /**
      * The `tty.isatty()` method returns `true` if the given `fd` is associated with
      * a TTY and `false` if it is not, including whenever `fd` is not a non-negative
@@ -81,17 +81,17 @@ declare module 'tty' {
     class WriteStream extends net.Socket {
         constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'resize', listener: () => void): this;
+        addListener(event: "resize", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'resize'): boolean;
+        emit(event: "resize"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'resize', listener: () => void): this;
+        on(event: "resize", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'resize', listener: () => void): this;
+        once(event: "resize", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'resize', listener: () => void): this;
+        prependListener(event: "resize", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'resize', listener: () => void): this;
+        prependOnceListener(event: "resize", listener: () => void): this;
         /**
          * `writeStream.clearLine()` clears the current line of this `WriteStream` in a
          * direction identified by `dir`.
@@ -201,6 +201,6 @@ declare module 'tty' {
         isTTY: boolean;
     }
 }
-declare module 'node:tty' {
-    export * from 'tty';
+declare module "node:tty" {
+    export * from "tty";
 }

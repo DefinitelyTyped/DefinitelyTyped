@@ -4,24 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ReactWrapper, EnzymeSelector } from 'enzyme';
+import { EnzymeSelector, ReactWrapper } from "enzyme";
 
 export function waitForState(
     wrapper: ReactWrapper,
     stateValidationFn: (state: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export function waitForElement(
     wrapper: ReactWrapper,
     elementSelector: EnzymeSelector,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export function waitForProps(
     wrapper: ReactWrapper,
     propsValidationFn: (props: object) => boolean,
-    config?: Config
+    config?: Config,
 ): Promise<void>;
 
 export interface Config {

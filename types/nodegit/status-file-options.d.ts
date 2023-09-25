@@ -1,4 +1,4 @@
-import { StatusEntry } from './status-entry';
+import { StatusEntry } from "./status-entry";
 
 export interface StatusFileOptions {
     path?: string | undefined;

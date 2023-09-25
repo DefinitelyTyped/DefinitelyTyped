@@ -1,3 +1,3 @@
-import palx = require('palx');
+import palx = require("palx");
 
-palx('#b4da55'); // $ExpectType PalxPalette
+palx("#b4da55"); // $ExpectType PalxPalette

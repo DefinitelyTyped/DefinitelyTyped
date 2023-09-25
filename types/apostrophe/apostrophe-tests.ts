@@ -9,9 +9,9 @@ const firstCustomWidgetOptions: AposModuleOptions = {
         {
             name: "title",
             label: "Custom Widget Title",
-            type: "string"
-        }
-    ]
+            type: "string",
+        },
+    ],
 };
 
 const secondCustomWidgetOptions: AposModuleOptions<CustomModules> = {
@@ -21,7 +21,7 @@ const secondCustomWidgetOptions: AposModuleOptions<CustomModules> = {
         {
             name: "title",
             label: "Custom Widget Title",
-            type: "string"
-        }
-    ]
+            type: "string",
+        },
+    ],
 };

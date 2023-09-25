@@ -10,15 +10,15 @@
 
 // tslint:disable:no-empty-interface
 
-import { Express } from 'express';
-import { EventEmitter } from 'events';
-import { Server as HttpServer } from 'http';
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Server as HttpServer } from "http";
 
-import * as editorAPI from '@node-red/editor-api';
-import * as editorClient from '@node-red/editor-client';
-import * as registry from '@node-red/registry';
-import * as runtime from '@node-red/runtime';
-import * as util from '@node-red/util';
+import * as editorAPI from "@node-red/editor-api";
+import * as editorClient from "@node-red/editor-client";
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
+import * as util from "@node-red/util";
 
 declare const nodeRed: nodeRed.NodeRedApp;
 
@@ -129,10 +129,12 @@ declare namespace nodeRed {
      * by the node .js files.
      */
     interface NodeInitializer<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
-        extends registry.NodeInitializer<TSets> {}
+        extends registry.NodeInitializer<TSets>
+    {}
 
     interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds extends {}>
-        extends registry.NodeConstructor<TNode, TNodeDef, TCreds> {}
+        extends registry.NodeConstructor<TNode, TNodeDef, TCreds>
+    {}
 
     interface NodeAPISettingsWithData extends registry.NodeAPISettingsWithData {}
 
@@ -151,7 +153,8 @@ declare namespace nodeRed {
     interface NodeMessageInFlow extends registry.NodeMessageInFlow {}
 
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
-        extends registry.NodeAPI<TSets> {}
+        extends registry.NodeAPI<TSets>
+    {}
 
     interface Node<TCreds extends {} = {}> extends registry.Node<TCreds> {}
 
@@ -176,7 +179,8 @@ declare namespace nodeRed {
      * Read more: https://nodered.org/docs/creating-nodes/properties#property-definitions
      */
     interface EditorNodePropertyDef<TVal, TInstProps extends EditorNodeProperties = EditorNodeProperties>
-        extends editorClient.NodePropertyDef<TVal, TInstProps> {}
+        extends editorClient.NodePropertyDef<TVal, TInstProps>
+    {}
 
     /**
      * Properties definitions (`defaults` object)
@@ -193,8 +197,9 @@ declare namespace nodeRed {
      */
     interface EditorNodeProperties extends editorClient.NodeProperties {}
 
-    type EditorNodeInstance<TProps extends EditorNodeProperties = EditorNodeProperties> =
-        editorClient.NodeInstance<TProps>;
+    type EditorNodeInstance<TProps extends EditorNodeProperties = EditorNodeProperties> = editorClient.NodeInstance<
+        TProps
+    >;
 
     type EditorNodeCredentials<T> = editorClient.NodeCredentials<T>;
 
@@ -225,7 +230,6 @@ declare namespace nodeRed {
      *   ...
      * })
      * ```
-     *
      */
     interface EditorRED extends editorClient.RED {}
 

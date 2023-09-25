@@ -1,9 +1,9 @@
-import { ConfigBase as Config } from '../lib/config-base';
-import { AWSError } from '../lib/error';
-import { Request } from '../lib/request';
-import { Response } from '../lib/response';
-import { Service } from '../lib/service';
-import { ServiceConfigurationOptions } from '../lib/service';
+import { ConfigBase as Config } from "../lib/config-base";
+import { AWSError } from "../lib/error";
+import { Request } from "../lib/request";
+import { Response } from "../lib/response";
+import { Service } from "../lib/service";
+import { ServiceConfigurationOptions } from "../lib/service";
 interface Blob {}
 declare class RDSDataService extends Service {
     /**
@@ -263,7 +263,7 @@ declare namespace RDSDataService {
         transactionStatus?: TransactionStatus;
     }
     export type DbName = string;
-    export type DecimalReturnType = 'STRING' | 'DOUBLE_OR_LONG' | string;
+    export type DecimalReturnType = "STRING" | "DOUBLE_OR_LONG" | string;
     export type DoubleArray = BoxedDouble[];
     export interface ExecuteSqlRequest {
         /**
@@ -397,7 +397,7 @@ declare namespace RDSDataService {
     export type Integer = number;
     export type Long = number;
     export type LongArray = BoxedLong[];
-    export type LongReturnType = 'STRING' | 'LONG' | string;
+    export type LongReturnType = "STRING" | "LONG" | string;
     export type Metadata = ColumnMetadata[];
     export type ParameterName = string;
     export interface Record {
@@ -407,7 +407,7 @@ declare namespace RDSDataService {
         values?: Row;
     }
     export type Records = Record[];
-    export type RecordsFormatType = 'NONE' | 'JSON' | string;
+    export type RecordsFormatType = "NONE" | "JSON" | string;
     export type RecordsUpdated = number;
     export interface ResultFrame {
         /**
@@ -498,7 +498,7 @@ declare namespace RDSDataService {
         attributes?: ArrayValueList;
     }
     export type TransactionStatus = string;
-    export type TypeHint = 'JSON' | 'UUID' | 'TIMESTAMP' | 'DATE' | 'TIME' | 'DECIMAL' | string;
+    export type TypeHint = "JSON" | "UUID" | "TIMESTAMP" | "DATE" | "TIME" | "DECIMAL" | string;
     export interface UpdateResult {
         /**
          * Values for fields generated during the request.
@@ -551,7 +551,7 @@ declare namespace RDSDataService {
     /**
      * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.
      */
-    export type apiVersion = '2018-08-01' | 'latest' | string;
+    export type apiVersion = "2018-08-01" | "latest" | string;
     export interface ClientApiVersions {
         /**
          * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.

@@ -7,10 +7,10 @@
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export = youtubedl;
-declare function youtubedl(url: string, arg: string[], opt: {[key: string]: string}): youtubedl.Youtubedl;
+declare function youtubedl(url: string, arg: string[], opt: { [key: string]: string }): youtubedl.Youtubedl;
 declare namespace youtubedl {
     interface Youtubedl extends Readable {
         on(event: "info" | "complete", listener: (info: Info) => void): this;
@@ -49,7 +49,11 @@ declare namespace youtubedl {
     function getThumbs(url: string, options: Options, callback: (err: any, output: string[]) => void): void;
     function getThumbs(url: string, callback: (err: any, output: string[]) => void): void;
 
-    function getExtractors(descriptions: boolean, options: Options, callback: (err: any, output: string[]) => void): void;
+    function getExtractors(
+        descriptions: boolean,
+        options: Options,
+        callback: (err: any, output: string[]) => void,
+    ): void;
     function getExtractors(descriptions: boolean, callback: (err: any, output: string[]) => void): void;
     function getExtractors(callback: (err: any, output: string[]) => void): void;
 }

@@ -1,2 +1,2 @@
-import ToNumber = require('../2015/ToNumber');
+import ToNumber = require("../2015/ToNumber");
 export = ToNumber;

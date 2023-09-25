@@ -9,7 +9,7 @@
 declare namespace AMap {
     namespace ArrivalRange {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
+            error: Event<"error", { info: string }>;
         }
         interface SearchOptions {
             /**
@@ -19,7 +19,7 @@ declare namespace AMap {
             /**
              * 结果返回样式：polygon：返回多边形边界值，coverage：判断设定的终点坐标是否在到达圈范围内
              */
-            resultType?: 'polygon' | 'coverage' | undefined; // useless
+            resultType?: "polygon" | "coverage" | undefined; // useless
             /**
              * 选择一个想到达的目的地坐标，最多支持5个目的地坐标
              */
@@ -42,7 +42,7 @@ declare namespace AMap {
             // internal
             infocode: string;
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
 
     /**
@@ -60,7 +60,7 @@ declare namespace AMap {
             origin: LocationValue,
             time: number,
             callback: (status: ArrivalRange.SearchStatus, result: string | ArrivalRange.SearchResult) => void,
-            opts?: ArrivalRange.SearchOptions
+            opts?: ArrivalRange.SearchOptions,
         ): void;
     }
 }

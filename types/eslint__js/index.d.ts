@@ -3,7 +3,7 @@
 // Definitions by: Matt Wilkinson <https://github.com/matwilko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Linter } from 'eslint';
+import type { Linter } from "eslint";
 
 declare const js: {
     readonly configs: {

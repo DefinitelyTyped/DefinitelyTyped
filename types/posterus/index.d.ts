@@ -24,8 +24,8 @@ export class Future<T = any, E extends Error = Error> {
     weak: () => Future<T, E>;
     settle: (error?: E, result?: T) => void;
     toPromise: () => Promise<T>;
-    then: Promise<T>['then'];
-    catch: Promise<T>['catch'];
+    then: Promise<T>["then"];
+    catch: Promise<T>["catch"];
     finishPending: () => void;
     deref: () => T | undefined;
 }

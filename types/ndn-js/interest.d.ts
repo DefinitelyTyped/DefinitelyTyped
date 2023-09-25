@@ -3,7 +3,7 @@ import { Data } from "./data";
 import { Name } from "./name";
 
 export class Interest {
-    constructor(name?: Name|string);
+    constructor(name?: Name | string);
     constructor(interest: Interest);
 
     getName(): Name;
@@ -20,14 +20,14 @@ export class Interest {
     setMustBeFresh(mustBeFresh: boolean): Interest;
     setForwardingHint(fh: DelegationSet): Interest;
     setInterestLifetimeMilliseconds(lifetime: number): Interest;
-    setApplicationParameters(parameters: Blob|Buffer): Interest;
+    setApplicationParameters(parameters: Blob | Buffer): Interest;
 
     appendParametersDigestToName(): Interest;
     matchesData(data: Data): boolean;
     matchesName(name: Name): boolean;
     refreshNonce(): void;
     toUri(): string;
-    wireDecode(input: Blob|Buffer): void;
+    wireDecode(input: Blob | Buffer): void;
     wireEncode(): Blob;
 }
 

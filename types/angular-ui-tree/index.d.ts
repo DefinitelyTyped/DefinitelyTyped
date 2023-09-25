@@ -71,8 +71,8 @@ declare namespace AngularUITree {
     }
 
     /**
-      * Node in list
-      */
+     * Node in list
+     */
     interface ITreeNode {
         id: number | string;
         nodes: ITreeNode[];

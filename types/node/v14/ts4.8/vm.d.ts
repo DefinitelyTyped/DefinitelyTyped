@@ -1,5 +1,5 @@
-declare module 'vm' {
-    interface Context extends NodeJS.Dict<any> { }
+declare module "vm" {
+    interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
@@ -45,7 +45,7 @@ declare module 'vm' {
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -98,10 +98,10 @@ declare module 'vm' {
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
     }
 
-    type MeasureMemoryMode = 'summary' | 'detailed';
+    type MeasureMemoryMode = "summary" | "detailed";
 
     interface MeasureMemoryOptions {
         /**
@@ -150,6 +150,6 @@ declare module 'vm' {
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
 }
-declare module 'node:vm' {
-    export * from 'vm';
+declare module "node:vm" {
+    export * from "vm";
 }

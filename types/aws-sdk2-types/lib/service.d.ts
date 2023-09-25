@@ -1,7 +1,7 @@
-import { ConfigBase, ConfigurationOptions } from './config-base';
-import { Endpoint } from './endpoint';
-import { AWSError } from './error';
-import { Request } from './request';
+import { ConfigBase, ConfigurationOptions } from "./config-base";
+import { Endpoint } from "./endpoint";
+import { AWSError } from "./error";
+import { Request } from "./request";
 
 export interface WaiterConfiguration {
     /**
