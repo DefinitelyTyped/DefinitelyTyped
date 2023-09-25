@@ -1,7 +1,7 @@
-import { Control } from './Control';
-import { Section_Params, Section } from './Section';
-import { ThemeControl } from './ThemeControl';
-import { Theme } from './external';
+import { Control } from "./Control";
+import { Theme } from "./external";
+import { Section, Section_Params } from "./Section";
+import { ThemeControl } from "./ThemeControl";
 
 export class ThemesSection extends Section {
     currentTheme: string;

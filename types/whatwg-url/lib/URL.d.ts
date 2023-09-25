@@ -1,5 +1,5 @@
-import { URL } from '../index';
-import { implementation as URLImpl } from './URL-impl';
+import { URL } from "../index";
+import { implementation as URLImpl } from "./URL-impl";
 
 /**
  * Checks whether `obj` is a `URL` object with an implementation
@@ -55,7 +55,7 @@ export function setup<T extends URL>(
  * Useful when implementing specifications that initialize objects
  * in different ways than their constructors do.
  */
-declare function _new(globalObject: object, newTarget?: new (url: string, base?: string) => URL): URLImpl;
+declare function _new(globalObject: object, newTarget?: new(url: string, base?: string) => URL): URLImpl;
 export { _new as new };
 
 /**

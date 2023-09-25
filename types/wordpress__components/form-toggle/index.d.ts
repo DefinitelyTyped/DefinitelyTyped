@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
 declare const FormToggle: ComponentType<HTMLProps<HTMLInputElement>>;
 
