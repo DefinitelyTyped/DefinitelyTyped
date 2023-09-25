@@ -15,4 +15,4 @@ declare namespace client {
 }
 declare function encodeQueryData(data: string): string;
 declare function makeClient(api_user: string, api_secret: string): typeof client; 
-export default makeClient;
+export = makeClient;
