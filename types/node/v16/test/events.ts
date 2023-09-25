@@ -129,8 +129,11 @@ async function test() {
     class MyEmitter extends events.EventEmitterAsyncResource {}
 
     const emitter = new MyEmitter({
-        name: "testing",
         triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: 'test'
     });
 
     emitter.asyncId // $ExpectType number

@@ -430,7 +430,7 @@ declare module "events" {
             /**
              * The type of async event, this is required when instantiating `EventEmitterAsyncResource`
              * directly rather than as a child class.
-             * @default new.target.name
+             * @default new.target.name if instantiated as a child class.
              */
             name?: string;
         }
@@ -446,7 +446,10 @@ declare module "events" {
          * @since v17.4.0, v16.14.0
          */
         export class EventEmitterAsyncResource extends EventEmitter {
-            constructor(options: EventEmitterAsyncResourceOptions);
+            /**
+             * @param options Only optional in child class.
+             */
+            constructor(options?: EventEmitterAsyncResourceOptions);
             /**
              * Call all destroy hooks. This should only ever be called once. An
              * error will be thrown if it is called more than once. This must be
