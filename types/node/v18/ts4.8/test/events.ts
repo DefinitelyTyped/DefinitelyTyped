@@ -132,6 +132,19 @@ async function test() {
 }
 
 {
+    let disposable: Disposable | undefined;
+    try {
+        const signal = new AbortSignal();
+        signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+        disposable = events.addAbortListener(signal, (e) => {
+            console.log(e);
+        });
+    } finally {
+        disposable?.[Symbol.dispose]();
+    }
+}
+
+{
     // Some event properties differ from DOM types
     const evt = new Event("fake");
     evt.cancelBubble();

@@ -235,6 +235,14 @@ declare module "net" {
          */
         ref(): this;
         /**
+         * This property is only present if the family autoselection algorithm is enabled in `socket.connect(options)`
+         * and it is an array of the addresses that have been attempted.
+         *
+         * Each address is a string in the form of `$IP:$PORT`.
+         * If the connection was successful, then the last address is the one that the socket is currently connected to.
+         */
+        readonly autoSelectFamilyAttemptedAddresses: string[];
+        /**
          * This property shows the number of characters buffered for writing. The buffer
          * may contain strings whose length after encoding is not yet known. So this number
          * is only an approximation of the number of bytes in the buffer.
@@ -824,6 +832,10 @@ declare module "net" {
     function createConnection(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
     function createConnection(path: string, connectionListener?: () => void): Socket;
+    function getDefaultAutoSelectFamily(): boolean;
+    function setDefaultAutoSelectFamily(value: boolean): void;
+    function getDefaultAutoSelectFamilyAttemptTimeout(): number;
+    function setDefaultAutoSelectFamilyAttemptTimeout(value: number): void;
     /**
      * Returns `6` if `input` is an IPv6 address. Returns `4` if `input` is an IPv4
      * address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no leading zeroes. Otherwise, returns`0`.

@@ -274,6 +274,12 @@ declare module "net" {
          */
         readonly connecting: boolean;
         /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`
+         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+         * @since v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * See `writable.destroyed` for further details.
          */
         readonly destroyed: boolean;
@@ -294,12 +300,6 @@ declare module "net" {
          * @since v18.8.0
          */
         readonly localFamily?: string;
-        /**
-         * This is `true` if the socket is not connected yet, either because `.connect()`
-         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
-         * @since v10.16.0
-         */
-        readonly pending: boolean;
         /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
@@ -654,6 +654,11 @@ declare module "net" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
         prependOnceListener(event: "drop", listener: (data?: DropArgument) => void): this;
+        /**
+         * Calls {@link Server.close()} and returns a promise that fulfills when the server has closed.
+         * @since v18.18.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
     type IPVersion = "ipv4" | "ipv6";
     /**

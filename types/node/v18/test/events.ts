@@ -130,3 +130,16 @@ async function test() {
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
 }
+
+{
+    let disposable: Disposable | undefined;
+    try {
+        const signal = new AbortSignal();
+        signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+        disposable = events.addAbortListener(signal, (e) => {
+            console.log(e);
+        });
+    } finally {
+        disposable?.[Symbol.dispose]();
+    }
+}

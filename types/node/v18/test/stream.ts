@@ -515,6 +515,9 @@ function stream_readable_pipe_test() {
     r.close();
     z.close();
     rs.close();
+
+    rs.destroy();
+    rs[Symbol.asyncDispose]();
 }
 
 function stream_duplex_allowHalfOpen_test() {

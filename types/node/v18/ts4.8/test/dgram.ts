@@ -24,6 +24,7 @@ import * as net from "node:net";
         sendBufferSize: 1000,
         lookup: dns.lookup,
     });
+    ds[Symbol.asyncDispose]();
 }
 
 {

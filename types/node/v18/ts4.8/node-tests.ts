@@ -165,7 +165,7 @@ import * as url from "node:url";
         const func: Function | undefined = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
         const meth: string | null = frame.getMethodName();
-        const fname: string | null = frame.getFileName();
+        const fname: string | undefined = frame.getFileName();
         const lineno: number | null = frame.getLineNumber();
         const colno: number | null = frame.getColumnNumber();
         const evalOrigin: string | undefined = frame.getEvalOrigin();

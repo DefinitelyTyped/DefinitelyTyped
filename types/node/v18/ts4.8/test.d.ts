@@ -3,6 +3,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module "node:test" {
+    import { AsyncResource } from "node:async_hooks";
     /**
      * Programmatically start the test runner.
      * @since v18.9.0
@@ -58,31 +59,33 @@ declare module "node:test" {
      * @param options Configuration options for the suite
      * @param fn The function under suite. Default: A no-op function.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): void;
-    function describe(name?: string, fn?: SuiteFn): void;
-    function describe(options?: TestOptions, fn?: SuiteFn): void;
-    function describe(fn?: SuiteFn): void;
+    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, fn?: SuiteFn): Promise<void>;
+    function describe(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+    function describe(fn?: SuiteFn): Promise<void>;
     namespace describe {
-        // Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
-        function skip(name?: string, fn?: SuiteFn): void;
-        function skip(options?: TestOptions, fn?: SuiteFn): void;
-        function skip(fn?: SuiteFn): void;
-
-        // Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
-        function todo(name?: string, fn?: SuiteFn): void;
-        function todo(options?: TestOptions, fn?: SuiteFn): void;
-        function todo(fn?: SuiteFn): void;
-
+        /**
+         * Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
+         */
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, fn?: SuiteFn): Promise<void>;
+        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function skip(fn?: SuiteFn): Promise<void>;
+        /**
+         * Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
+         */
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, fn?: SuiteFn): Promise<void>;
+        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function todo(fn?: SuiteFn): Promise<void>;
         /**
          * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
-        function only(name?: string, fn?: SuiteFn): void;
-        function only(options?: TestOptions, fn?: SuiteFn): void;
-        function only(fn?: SuiteFn): void;
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function only(name?: string, fn?: SuiteFn): Promise<void>;
+        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function only(fn?: SuiteFn): Promise<void>;
     }
 
     /**
@@ -93,31 +96,33 @@ declare module "node:test" {
      * @param fn The function under test. If the test uses callbacks, the callback function is
      *    passed as the second argument. Default: A no-op function.
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): void;
-    function it(name?: string, fn?: TestFn): void;
-    function it(options?: TestOptions, fn?: TestFn): void;
-    function it(fn?: TestFn): void;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+    function it(name?: string, fn?: TestFn): Promise<void>;
+    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
+    function it(fn?: TestFn): Promise<void>;
     namespace it {
-        // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function skip(name?: string, fn?: TestFn): void;
-        function skip(options?: TestOptions, fn?: TestFn): void;
-        function skip(fn?: TestFn): void;
-
-        // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function todo(name?: string, fn?: TestFn): void;
-        function todo(options?: TestOptions, fn?: TestFn): void;
-        function todo(fn?: TestFn): void;
-
+        /**
+         * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+         */
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function skip(name?: string, fn?: TestFn): Promise<void>;
+        function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function skip(fn?: TestFn): Promise<void>;
+        /**
+         * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+         */
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function todo(name?: string, fn?: TestFn): Promise<void>;
+        function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function todo(fn?: TestFn): Promise<void>;
         /**
          * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
-        function only(name?: string, fn?: TestFn): void;
-        function only(options?: TestOptions, fn?: TestFn): void;
-        function only(fn?: TestFn): void;
+        function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function only(name?: string, fn?: TestFn): Promise<void>;
+        function only(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function only(fn?: TestFn): Promise<void>;
     }
     /**
      * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
@@ -191,6 +196,30 @@ declare module "node:test" {
          * incremented from the primary's `process.debugPort`.
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * That can be used to only run tests whose name matches the provided pattern.
+         * Test name patterns are interpreted as JavaScript regular expressions.
+         * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
+         */
+        testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Whether to run in watch mode or not.
+         * @default false
+         */
+        watch?: boolean | undefined;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
 
     /**
