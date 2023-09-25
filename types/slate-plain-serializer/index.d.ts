@@ -4,7 +4,7 @@
 //                 Martin Kiefel <https://github.com/mkiefel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { BlockProperties, MarkProperties, Value } from 'slate';
+import { BlockProperties, MarkProperties, Value } from "slate";
 
 export interface DeserializeOptions {
     toJson?: boolean | undefined;

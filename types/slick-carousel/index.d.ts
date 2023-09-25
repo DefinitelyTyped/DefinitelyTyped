@@ -16,12 +16,12 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: null
      */
-    activeBreakpoint: number | null;
+    activeBreakpoint: number | null;
 
     /**
      * Default: null
      */
-    animType: 'OTransform' | 'MozTransform' | 'webkitTransform' | 'msTransform' | 'transform' | false | null;
+    animType: "OTransform" | "MozTransform" | "webkitTransform" | "msTransform" | "transform" | false | null;
 
     /**
      * Default: null
@@ -56,7 +56,7 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: 'hidden'
      */
-    hidden: 'mozHidden' | 'webkitHidden' | 'hidden';
+    hidden: "mozHidden" | "webkitHidden" | "hidden";
 
     /**
      * Default: true
@@ -66,12 +66,12 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: null
      */
-    positionProp: 'top' | 'left' | null;
+    positionProp: "top" | "left" | null;
 
     /**
      * Default: null
      */
-    respondTo: 'window' | 'slider' | 'min' | null;
+    respondTo: "window" | "slider" | "min" | null;
 
     /**
      * Default: 1
@@ -96,17 +96,17 @@ interface JQuerySlick extends JQuerySlickInitials {
     /**
      * Default: null
      */
-    transformType: '-o-transform' | '-moz-transform' | '-webkit-transform' | '-ms-transform' | 'transition' | null;
+    transformType: "-o-transform" | "-moz-transform" | "-webkit-transform" | "-ms-transform" | "transition" | null;
 
     /**
      * Default: null
      */
-    transitionType: 'OTransition' | 'MozTransition' | 'webkitTransition' | 'msTransition' | 'transition' | null;
+    transitionType: "OTransition" | "MozTransition" | "webkitTransition" | "msTransition" | "transition" | null;
 
     /**
      * Default: 'visibilitychange'
      */
-    visibilityChange: 'visibilitychange' | 'mozvisibilitychange' | 'webkitvisibilitychange';
+    visibilityChange: "visibilitychange" | "mozvisibilitychange" | "webkitvisibilitychange";
 
     /**
      * Default: 0
@@ -120,7 +120,6 @@ interface JQuerySlick extends JQuerySlickInitials {
 }
 
 interface JQuerySlickOptions {
-
     /**
      * Enables tabbing and arrow key navigation
      * Default: true
@@ -417,7 +416,6 @@ interface JQuerySlickOptions {
      * Default: 1000
      */
     zIndex?: number | undefined;
-
 }
 
 interface JQuerySlickInitials {
@@ -437,7 +435,7 @@ interface JQuerySlickInitials {
      * Internal `setInterval` identifier.
      * Default: null
      */
-    autoPlayTimer: number|null;
+    autoPlayTimer: number | null;
 
     /**
      * The current direction (`0` for left and down, `1` for right and up).
@@ -448,7 +446,7 @@ interface JQuerySlickInitials {
     /**
      * Default: null
      */
-    currentLeft: number|null;
+    currentLeft: number | null;
 
     /**
      * The index of the current slide.
@@ -472,13 +470,13 @@ interface JQuerySlickInitials {
      * The list's width in pixels.
      * Default: null
      */
-    listWidth: number|null;
+    listWidth: number | null;
 
     /**
      * The list's height in pixels.
      * Default: null
      */
-    listHeight: number|null;
+    listHeight: number | null;
 
     /**
      * (actually it's not used in Slick, so I don't know what it is...)
@@ -514,7 +512,7 @@ interface JQuerySlickInitials {
      * The slide's width in pixels.
      * Default: null
      */
-    slideWidth: Number | null;
+    slideWidth: Number | null;
 
     /**
      * jQuery instance that contains the "slide track".
@@ -526,7 +524,7 @@ interface JQuerySlickInitials {
      * jQuery instance that contains the "slides".
      * Default: null
      */
-    $slides: JQuery | null;
+    $slides: JQuery | null;
 
     /**
      * When the slider is sliding.
@@ -543,7 +541,7 @@ interface JQuerySlickInitials {
     /**
      * Default: null
      */
-    swipeLeft: number | null;
+    swipeLeft: number | null;
 
     /**
      * Default: false
@@ -583,7 +581,6 @@ interface JQuerySlickInitials {
 }
 
 interface JQuery {
-
     /**
      * Create slick component
      */
@@ -659,14 +656,14 @@ interface JQuery {
      * @param methodName The name of the method
      * @param selector
      */
-    slick(methodName : "slickFilter", selector: string): JQuery;
+    slick(methodName: "slickFilter", selector: string): JQuery;
 
     /**
      * Filters slides using jQuery .filter()
      * @param methodName The name of the method
      * @param func
      */
-    slick(methodName : "slickFilter", func: (index: number, element: Element) => any): JQuery;
+    slick(methodName: "slickFilter", func: (index: number, element: Element) => any): JQuery;
 
     /**
      * Removes applied filtering
@@ -702,5 +699,4 @@ interface JQuery {
      * @param methodName The name of the method
      */
     slick(methodName: "getSlick"): JQuerySlick;
-
 }

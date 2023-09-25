@@ -1,4 +1,4 @@
-import { WebElement } from '../';
+import { WebElement } from "../";
 
 export class Select {
     /**

@@ -6,12 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type ControlOperator = '||' | '&&' | ';;' | '|&' | '<(' | '>>' | '>&' | '&' | ';' | '(' | ')' | '|' | '<' | '>';
+export type ControlOperator = "||" | "&&" | ";;" | "|&" | "<(" | ">>" | ">&" | "&" | ";" | "(" | ")" | "|" | "<" | ">";
 
 export type ParseEntry =
     | string
     | { op: ControlOperator }
-    | { op: 'glob'; pattern: string }
+    | { op: "glob"; pattern: string }
     | { comment: string };
 
 export interface ParseOptions {

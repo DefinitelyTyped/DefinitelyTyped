@@ -8,7 +8,7 @@ declare namespace exec {
     type ProgressFunction = (event?: SpeedTestEvent) => void;
 
     interface BaseEvent {
-        type: 'config' | 'log' | 'testStart' | 'ping' | 'download' | 'upload' | 'result';
+        type: "config" | "log" | "testStart" | "ping" | "download" | "upload" | "result";
     }
 
     /** Sent when the test is in the upload phase. */
@@ -16,7 +16,7 @@ declare namespace exec {
         /** Indicates the overall progress of the test as a fraction (0 to 1). */
         progress: number;
         timestamp: Date;
-        type: 'upload';
+        type: "upload";
         upload: DownloadUploadData;
     }
 
@@ -25,7 +25,7 @@ declare namespace exec {
         /** Indicates the overall progress of the test as a fraction (0 to 1). */
         progress: number;
         timestamp: Date;
-        type: 'download';
+        type: "download";
     }
 
     interface DownloadUploadData {
@@ -51,7 +51,7 @@ declare namespace exec {
         /** Indicates the overall progress of the test as a fraction (0 to 1). */
         progress: number;
         timestamp: Date;
-        type: 'ping';
+        type: "ping";
     }
 
     interface SuiteData {
@@ -105,7 +105,7 @@ declare namespace exec {
         progress: number;
         servers: ServerData[];
         suite: SuiteData;
-        type: 'config';
+        type: "config";
     }
 
     /**
@@ -119,7 +119,7 @@ declare namespace exec {
         /** Indicates the overall progress of the test as a fraction (0 to 1). */
         progress: number;
         timestamp: Date;
-        type: 'log';
+        type: "log";
     }
 
     interface ResultEvent extends BaseEvent {
@@ -134,7 +134,7 @@ declare namespace exec {
         };
         server: ServerData;
         timestamp: Date;
-        type: 'result';
+        type: "result";
         upload: DownloadUploadData;
     }
 
@@ -166,7 +166,7 @@ declare namespace exec {
         progress: number;
         server: ServerData;
         timestamp: Date;
-        type: 'testStart';
+        type: "testStart";
     }
 
     type SpeedTestEvent =

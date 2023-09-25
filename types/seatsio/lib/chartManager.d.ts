@@ -13,7 +13,7 @@ declare namespace Seatsio {
         divId: string;
         secretKey: string;
         chart: string;
-        mode: 'manageRulesets';
+        mode: "manageRulesets";
         language?: string | undefined;
         messages?: { [key: string]: string } | undefined;
         tooltipInfo?: ((object: BookableObject) => string) | undefined;
@@ -25,8 +25,18 @@ declare namespace Seatsio {
 
         onChartRendered?: ((chart: ChartManager) => void) | undefined;
         onChartRenderingFailed?: ((chart: ChartManager) => void) | undefined;
-        onObjectSelected?: ((object: BookableObject, selectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
-        onObjectDeselected?: ((object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectSelected?:
+            | ((
+                object: BookableObject,
+                selectedTicketType?: { price: number; ticketType?: string | undefined },
+            ) => void)
+            | undefined;
+        onObjectDeselected?:
+            | ((
+                object: BookableObject,
+                deselectedTicketType?: { price: number; ticketType?: string | undefined },
+            ) => void)
+            | undefined;
         onObjectClicked?: ((object: BookableObject) => void) | undefined;
         onFullScreenOpened?: (() => void) | undefined;
         onFullScreenClosed?: (() => void) | undefined;

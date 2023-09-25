@@ -7,12 +7,10 @@
 /// <reference types="chai" />
 /// <reference types="sinon" />
 
-import * as Sinon from 'sinon';
+import * as Sinon from "sinon";
 
 declare global {
-
     export namespace Chai {
-
         interface LanguageChains {
             always: Assertion;
         }
@@ -41,21 +39,21 @@ declare global {
             /**
              * Returns true if the spy was called before anotherSpy.
              */
-            calledBefore(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub): Assertion;
+            calledBefore(anotherSpy: Sinon.SinonSpy | Sinon.SinonSpyCall | Sinon.SinonStub): Assertion;
             /**
              * Returns true if the spy was called after anotherSpy.
              */
-            calledAfter(anotherSpy: Sinon.SinonSpy|Sinon.SinonSpyCall|Sinon.SinonStub): Assertion;
+            calledAfter(anotherSpy: Sinon.SinonSpy | Sinon.SinonSpyCall | Sinon.SinonStub): Assertion;
             /**
              * Returns true if spy was called before anotherSpy, and no spy calls occurred
              * between spy and anotherSpy.
              */
-            calledImmediatelyBefore(anotherSpy: Sinon.SinonSpy|Sinon.SinonStub): Assertion;
+            calledImmediatelyBefore(anotherSpy: Sinon.SinonSpy | Sinon.SinonStub): Assertion;
             /**
              * Returns true if spy was called after anotherSpy, and no spy calls occurred
              * between anotherSpy and spy.
              */
-            calledImmediatelyAfter(anotherSpy: Sinon.SinonSpy|Sinon.SinonStub): Assertion;
+            calledImmediatelyAfter(anotherSpy: Sinon.SinonSpy | Sinon.SinonStub): Assertion;
             /**
              * Returns true if spy/stub was called with the new operator. Beware that
              * this is inferred based on the value of the this object and the spy
@@ -103,5 +101,5 @@ declare global {
 }
 
 declare const sinonChai: Chai.ChaiPlugin;
-declare namespace sinonChai { }
+declare namespace sinonChai {}
 export = sinonChai;

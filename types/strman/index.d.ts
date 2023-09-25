@@ -48,7 +48,13 @@ export function removeNonWords(value: string, replaced?: string): string;
 export function removeRight(value: string, suffix: string, caseSensitive?: boolean): string;
 export function removeSpaces(value: string, replaced?: string): string;
 export function repeat(string: string, multiplier: number): string;
-export function replace(value: string, search: string, newValue: string, caseSensitive?: boolean, multiline?: boolean): string;
+export function replace(
+    value: string,
+    search: string,
+    newValue: string,
+    caseSensitive?: boolean,
+    multiline?: boolean,
+): string;
 export function reverse(value: string): string;
 export function rightPad(value: string, length: number, char?: string): string;
 export function rightTrim(value: string, char?: string): string;
