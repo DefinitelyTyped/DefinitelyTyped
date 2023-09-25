@@ -1,5 +1,5 @@
-import { OutputStream } from './OutputStream';
-import { Status } from './Status';
+import { OutputStream } from "./OutputStream";
+import { Status } from "./Status";
 /**
  * A writer which automatically writes to the given output stream with the
  * contents of provided Blob objects.

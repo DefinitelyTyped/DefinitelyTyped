@@ -23,10 +23,10 @@
  *      failing test demonstrating use if so.
  */
 
-import { Plugin } from 'hapi';
-import NesClient = require('nes/client');
+import { Plugin } from "hapi";
+import NesClient = require("nes/client");
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Server {
         broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
@@ -35,7 +35,7 @@ declare module 'hapi' {
     }
 }
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Request {
         socket: nes.Socket;
     }
@@ -49,7 +49,7 @@ declare namespace nes {
     }
 
     interface ServerBroadcastOptions {
-        user: any
+        user: any;
     }
 
     interface ServerSubscriptionOptionsFilterOptions {
@@ -59,9 +59,9 @@ declare namespace nes {
     }
 
     interface ServerSubscriptionOptionsAuthOptions {
-        mode?: 'required' | 'optional' | undefined;
+        mode?: "required" | "optional" | undefined;
         scope?: string | string[] | undefined;
-        entity?: 'user' | 'app' | 'any' | undefined;
+        entity?: "user" | "app" | "any" | undefined;
         index?: boolean | undefined;
     }
 
@@ -74,7 +74,14 @@ declare namespace nes {
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
     interface ServerSubscriptionOptions {
-        filter?: ((path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void) | undefined;
+        filter?:
+            | ((
+                path: string,
+                message: any,
+                options: ServerSubscriptionOptionsFilterOptions,
+                next: (isMatch: boolean, override?: any) => void,
+            ) => void)
+            | undefined;
         auth?: boolean | ServerSubscriptionOptionsAuthOptions | undefined;
         onSubscribe?: ServerOnSubscribe | undefined;
         onUnsubscribe?: ServerOnUnSubscribe | undefined;

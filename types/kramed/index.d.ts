@@ -81,8 +81,8 @@ export interface KramedRenderer {
     table(header: string, body: string): string;
     tablerow(content: string): string;
     tablecell(content: string, flags: {
-        header: boolean,
-        align: string
+        header: boolean;
+        align: string;
     }): string;
     strong(text: string): string;
     em(text: string): string;

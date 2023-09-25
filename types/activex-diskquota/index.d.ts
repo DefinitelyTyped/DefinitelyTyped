@@ -33,7 +33,7 @@ declare namespace DiskQuotaTypeLibrary {
 
     /** Automation interface for DiskQuotaUser */
     class DIDiskQuotaUser {
-        private 'DiskQuotaTypeLibrary.DIDiskQuotaUser_typekey': DIDiskQuotaUser;
+        private "DiskQuotaTypeLibrary.DIDiskQuotaUser_typekey": DIDiskQuotaUser;
         private constructor();
 
         /** Name of user's account container */
@@ -75,7 +75,7 @@ declare namespace DiskQuotaTypeLibrary {
 
     /** Microsoft Disk Quota */
     class DiskQuotaControl {
-        private 'DiskQuotaTypeLibrary.DiskQuotaControl_typekey': DiskQuotaControl;
+        private "DiskQuotaTypeLibrary.DiskQuotaControl_typekey": DiskQuotaControl;
         private constructor();
 
         /** Add a user quota entry by Name */
@@ -136,12 +136,18 @@ declare namespace DiskQuotaTypeLibrary {
 
 interface ActiveXObject {
     on(
-        obj: DiskQuotaTypeLibrary.DiskQuotaControl, event: 'OnUserNameChanged', argNames: ['pUser'], handler: (
-            this: DiskQuotaTypeLibrary.DiskQuotaControl, parameter: {readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser}) => void): void;
+        obj: DiskQuotaTypeLibrary.DiskQuotaControl,
+        event: "OnUserNameChanged",
+        argNames: ["pUser"],
+        handler: (
+            this: DiskQuotaTypeLibrary.DiskQuotaControl,
+            parameter: { readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser },
+        ) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Microsoft.DiskQuota': DiskQuotaTypeLibrary.DiskQuotaControl;
+    "Microsoft.DiskQuota": DiskQuotaTypeLibrary.DiskQuotaControl;
 }
 
 interface EnumeratorConstructor {

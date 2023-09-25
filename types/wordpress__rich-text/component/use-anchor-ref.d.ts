@@ -1,7 +1,7 @@
-import { RefObject } from 'react';
+import { RefObject } from "react";
 
-import { NamedFormatConfiguration } from '..';
-import { Value } from '../create';
+import { NamedFormatConfiguration } from "..";
+import { Value } from "../create";
 
 /**
  * This hook, to be used in a format type's Edit component, returns the active
@@ -19,4 +19,6 @@ import { Value } from '../create';
  *
  * @deprecated since 5.16.0. Use `useAnchor` instead.
  */
-export function useAnchorRef(param: { ref: RefObject<HTMLElement>, value: Value, settings?: NamedFormatConfiguration }): Element | Range;
+export function useAnchorRef(
+    param: { ref: RefObject<HTMLElement>; value: Value; settings?: NamedFormatConfiguration },
+): Element | Range;

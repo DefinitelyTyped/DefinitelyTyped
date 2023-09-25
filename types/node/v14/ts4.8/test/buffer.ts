@@ -1,26 +1,26 @@
 // Specifically test buffer module regression.
 import {
+    Blob,
     Buffer as ImportedBuffer,
-    SlowBuffer as ImportedSlowBuffer,
-    transcode,
-    TranscodeEncoding,
     constants,
     kMaxLength,
     kStringMaxLength,
-    Blob,
-} from 'node:buffer';
+    SlowBuffer as ImportedSlowBuffer,
+    transcode,
+    TranscodeEncoding,
+} from "node:buffer";
 
-const utf8Buffer = new Buffer('test');
-const base64Buffer = new Buffer('', 'base64');
-const base64UrlBuffer = new Buffer('', 'base64url');
+const utf8Buffer = new Buffer("test");
+const base64Buffer = new Buffer("", "base64");
+const base64UrlBuffer = new Buffer("", "base64url");
 const octets: Uint8Array = new Uint8Array(123);
 const octetBuffer = new Buffer(octets);
 const sharedBuffer = new Buffer(octets.buffer);
 const copiedBuffer = new Buffer(utf8Buffer);
 console.log(Buffer.isBuffer(octetBuffer));
-console.log(Buffer.isEncoding('utf8'));
-console.log(Buffer.byteLength('xyz123'));
-console.log(Buffer.byteLength('xyz123', 'ascii'));
+console.log(Buffer.isEncoding("utf8"));
+console.log(Buffer.byteLength("xyz123"));
+console.log(Buffer.byteLength("xyz123", "ascii"));
 const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
 const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
 
@@ -47,7 +47,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     // Buffer
     const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
-    const buf3: Buffer = Buffer.from('this is a tést');
+    const buf3: Buffer = Buffer.from("this is a tést");
     // ArrayBuffer
     const arrUint16: Uint16Array = new Uint16Array(2);
     arrUint16[0] = 5000;
@@ -80,32 +80,44 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 
 // Class Method: Buffer.from(str[, encoding])
 {
-    const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    const buf2: Buffer = Buffer.from("7468697320697320612074c3a97374", "hex");
     /* tslint:disable-next-line no-construct */
     Buffer.from(new String("DEADBEEF"), "hex");
     // @ts-expect-error
-    Buffer.from(buf2, 'hex');
+    Buffer.from(buf2, "hex");
 }
 
 // Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
 {
-    const pseudoBuf = { valueOf() { return Buffer.from([1, 2, 3]); } };
+    const pseudoBuf = {
+        valueOf() {
+            return Buffer.from([1, 2, 3]);
+        },
+    };
     let buf: Buffer = Buffer.from(pseudoBuf);
-    const pseudoString = { valueOf() { return "Hello"; }};
+    const pseudoString = {
+        valueOf() {
+            return "Hello";
+        },
+    };
     buf = Buffer.from(pseudoString);
     buf = Buffer.from(pseudoString, "utf-8");
     // @ts-expect-error
     Buffer.from(pseudoString, 1, 2);
-    const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
+    const pseudoArrayBuf = {
+        valueOf() {
+            return new Uint16Array(2);
+        },
+    };
     buf = Buffer.from(pseudoArrayBuf, 1, 1);
 }
 
 // Class Method: Buffer.alloc(size[, fill[, encoding]])
 {
     const buf1: Buffer = Buffer.alloc(5);
-    const buf2: Buffer = Buffer.alloc(5, 'a');
-    const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
-    const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
+    const buf2: Buffer = Buffer.alloc(5, "a");
+    const buf3: Buffer = Buffer.alloc(11, "aGVsbG8gd29ybGQ=", "base64");
+    const buf4: Buffer = Buffer.alloc(11, "aGVsbG8gd29ybGQ", "base64url");
     const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
@@ -162,16 +174,16 @@ result = b.writeUInt8(0, 6);
 result = b.writeUint8(0, 6);
 result = b.writeInt8(0, 7);
 result = b.writeDoubleLE(0, 8);
-result = b.write('asd');
-result = b.write('asd', 'hex');
-result = b.write('asd', 123, 'hex');
-result = b.write('asd', 123, 123, 'hex');
+result = b.write("asd");
+result = b.write("asd", "hex");
+result = b.write("asd", 123, "hex");
+result = b.write("asd", 123, 123, "hex");
 
 // fill returns the input buffer.
-b.fill('a').fill('b');
+b.fill("a").fill("b");
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     let index: number;
     index = buffer.indexOf("23");
     index = buffer.indexOf("23", 1);
@@ -181,7 +193,7 @@ b.fill('a').fill('b');
 }
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     let index: number;
     index = buffer.lastIndexOf("23");
     index = buffer.lastIndexOf("23", 1);
@@ -191,7 +203,7 @@ b.fill('a').fill('b');
 }
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     const val: [number, number] = [1, 1];
 
     /* comment out for --target es5
@@ -202,7 +214,7 @@ b.fill('a').fill('b');
 }
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     let includes: boolean;
     includes = buffer.includes("23");
     includes = buffer.includes("23", 1);
@@ -216,7 +228,7 @@ b.fill('a').fill('b');
 }
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     const val = 1;
 
     /* comment out for --target es5
@@ -227,7 +239,7 @@ b.fill('a').fill('b');
 }
 
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     const val = 1;
 
     /* comment out for --target es5
@@ -239,7 +251,7 @@ b.fill('a').fill('b');
 
 // Imported Buffer from buffer module works properly
 {
-    const b = new ImportedBuffer('123');
+    const b = new ImportedBuffer("123");
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
     b.writeUInt8(0, 6);
@@ -247,13 +259,13 @@ b.fill('a').fill('b');
 
 // Buffer has Uint8Array's buffer field (an ArrayBuffer).
 {
-    const buffer = new Buffer('123');
+    const buffer = new Buffer("123");
     const octets = new Uint8Array(buffer.buffer);
 }
 
 // Inherited from Uint8Array but return buffer
 {
-    const b = Buffer.from('asd');
+    const b = Buffer.from("asd");
     let res: Buffer = b.reverse();
     res = b.subarray();
     res = b.subarray(1);
@@ -262,18 +274,18 @@ b.fill('a').fill('b');
 
 // Buffer module, transcode function
 {
-    transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
+    transcode(Buffer.from("€"), "utf8", "ascii"); // $ExpectType Buffer
 
-    const source: TranscodeEncoding = 'utf8';
-    const target: TranscodeEncoding = 'ascii';
-    transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
+    const source: TranscodeEncoding = "utf8";
+    const target: TranscodeEncoding = "ascii";
+    transcode(Buffer.from("€"), source, target); // $ExpectType Buffer
 }
 
 // Blob
-async () => {
-    const blob = new Blob(['asd', Buffer.from('test'), new Blob(['dummy'])], {
-        type: 'application/javascript',
-        encoding: 'base64',
+(async () => {
+    const blob = new Blob(["asd", Buffer.from("test"), new Blob(["dummy"])], {
+        type: "application/javascript",
+        encoding: "base64",
     });
 
     blob.size; // $ExpectType number
@@ -284,5 +296,5 @@ async () => {
     blob.slice(); // $ExpectType Blob
     blob.slice(1); // $ExpectType Blob
     blob.slice(1, 2); // $ExpectType Blob
-    blob.slice(1, 2, 'other'); // $ExpectType Blob
-};
+    blob.slice(1, 2, "other"); // $ExpectType Blob
+});

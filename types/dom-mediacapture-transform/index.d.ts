@@ -54,8 +54,8 @@ declare var MediaStreamTrackProcessor: {
     prototype: MediaStreamTrackProcessor<any>;
 
     /** Constructor overrides based on the type of track. */
-    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack; }): MediaStreamTrackProcessor<AudioData>;
-    new (init: MediaStreamTrackProcessorInit & { track: MediaStreamVideoTrack }): MediaStreamTrackProcessor<VideoFrame>;
+    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack }): MediaStreamTrackProcessor<AudioData>;
+    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamVideoTrack }): MediaStreamTrackProcessor<VideoFrame>;
 };
 
 interface MediaStreamTrackProcessorInit {
@@ -94,8 +94,12 @@ declare var MediaStreamTrackGenerator: {
     prototype: MediaStreamTrackGenerator<any>;
 
     /** Constructor overrides based on the type of track. */
-    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack | undefined }): MediaStreamAudioTrackGenerator;
-    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack | undefined }): MediaStreamVideoTrackGenerator;
+    new(
+        init: MediaStreamTrackGeneratorInit & { kind: "audio"; signalTarget?: MediaStreamAudioTrack | undefined },
+    ): MediaStreamAudioTrackGenerator;
+    new(
+        init: MediaStreamTrackGeneratorInit & { kind: "video"; signalTarget?: MediaStreamVideoTrack | undefined },
+    ): MediaStreamVideoTrackGenerator;
 };
 
 interface MediaStreamTrackGeneratorInit {

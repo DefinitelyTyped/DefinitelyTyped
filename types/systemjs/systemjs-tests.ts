@@ -1,14 +1,14 @@
-System.import('./hi.js').then(hi => {
+System.import("./hi.js").then(hi => {
     hi.someProperty();
 });
 
-System.import<Hi>('./hi.js').then(hi => {
+System.import<Hi>("./hi.js").then(hi => {
     hi.someExport();
 });
 
-System.import('./hi.js', 'https://example.com/base/');
+System.import("./hi.js", "https://example.com/base/");
 
-System.register(['foo', 'bar'], (_export, _context) => {
+System.register(["foo", "bar"], (_export, _context) => {
     let foo;
     let bar;
 
@@ -22,12 +22,12 @@ System.register(['foo', 'bar'], (_export, _context) => {
             },
         ],
         execute() {
-            _export('a', 'thing');
-            _export('b', 123);
-            _export('c', () => 'hi');
-            _export({ some: 'thing' });
+            _export("a", "thing");
+            _export("b", 123);
+            _export("c", () => "hi");
+            _export({ some: "thing" });
 
-            _context.import('./other-thing.js');
+            _context.import("./other-thing.js");
 
             _context.meta.url;
         },
@@ -35,16 +35,16 @@ System.register(['foo', 'bar'], (_export, _context) => {
 });
 
 // named register
-System.register('name', [], () => ({}));
+System.register("name", [], () => ({}));
 
-const update = System.delete('https://example.com/a.js');
+const update = System.delete("https://example.com/a.js");
 if (update) {
     update();
 } else {
     const expected: false = update;
 }
 
-const a = System.get('https://example.com/a.js');
+const a = System.get("https://example.com/a.js");
 if (a) {
     a.doThing();
 } else {
@@ -52,7 +52,7 @@ if (a) {
     a;
 }
 
-const b = System.get<ModuleB>('https://example.com/b.js');
+const b = System.get<ModuleB>("https://example.com/b.js");
 if (b) {
     b.theBThing();
 } else {
@@ -60,10 +60,10 @@ if (b) {
     b;
 }
 
-const hasC: boolean = System.has('https://example.com/c.js');
+const hasC: boolean = System.has("https://example.com/c.js");
 
-System.set('https://example.com/d.js', {
-    hi: 'there',
+System.set("https://example.com/d.js", {
+    hi: "there",
 });
 
 for (const entry of System.entries()) {
@@ -82,11 +82,11 @@ interface Hi {
 
 System.addImportMap({
     imports: {
-        a: 'https://example.com/a.js',
+        a: "https://example.com/a.js",
     },
     scopes: {
         b: {
-            c: 'https://example.com/c.js',
+            c: "https://example.com/c.js",
         },
     },
 });

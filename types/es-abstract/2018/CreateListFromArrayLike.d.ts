@@ -1,2 +1,2 @@
-import CreateListFromArrayLike = require('../2017/CreateListFromArrayLike');
+import CreateListFromArrayLike = require("../2017/CreateListFromArrayLike");
 export = CreateListFromArrayLike;

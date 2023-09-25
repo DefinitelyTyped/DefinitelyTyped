@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Submittable, Connection } from "pg";
+import { Connection, Submittable } from "pg";
 import { Readable, ReadableOptions, Writable, WritableOptions } from "stream";
 
 export function from(txt: string, options?: WritableOptions): CopyStreamQuery;

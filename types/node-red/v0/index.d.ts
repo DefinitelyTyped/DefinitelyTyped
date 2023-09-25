@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Node-RED node creation api.
@@ -132,9 +132,9 @@ export type NodeId = string;
 export type NodeType = string;
 
 /** Node status icon color choices. */
-export type StatusFill = 'red' | 'green' | 'yellow' | 'blue' | 'grey';
+export type StatusFill = "red" | "green" | "yellow" | "blue" | "grey";
 /** Node status icon shape choices. */
-export type StatusShape = 'ring' | 'dot';
+export type StatusShape = "ring" | "dot";
 
 /**
  * Object used to set the nodes status flag.

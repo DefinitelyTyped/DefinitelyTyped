@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Forked from: plotly.js-basic-dist by Florian Dreier <https://github.com/DreierF>
 
-import * as Plotly from 'plotly.js';
+import * as Plotly from "plotly.js";
 
 export = Plotly;

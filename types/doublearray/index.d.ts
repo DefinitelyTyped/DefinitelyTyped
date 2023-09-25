@@ -10,8 +10,8 @@ declare namespace doublearray {
     }
 
     interface BaseAndCheck {
-        getBaseBuffer(): any;   // Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array
-        getCheckBuffer(): any;  // Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array
+        getBaseBuffer(): any; // Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array
+        getCheckBuffer(): any; // Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array
         loadBaseBuffer(base_buffer: Int8Array): BaseAndCheck;
         loadBaseBuffer(base_buffer: Int16Array): BaseAndCheck;
         loadBaseBuffer(base_buffer: Int32Array): BaseAndCheck;
@@ -32,7 +32,7 @@ declare namespace doublearray {
         setFirstUnusedNode(index: number): void;
         getFirstUnusedNode(): number;
         shrink(): void;
-        calc(): {all: number; unused: number;  efficiency: number};
+        calc(): { all: number; unused: number; efficiency: number };
         dump(): string;
     }
 
@@ -54,7 +54,7 @@ declare namespace doublearray {
         commonPrefixSearch(key: string): KeyValue;
         traverse(parent: number, code: number): number;
         size(): number;
-        calc(): {all: number; unused: number;  efficiency: number};
+        calc(): { all: number; unused: number; efficiency: number };
         dump(): string;
     }
 

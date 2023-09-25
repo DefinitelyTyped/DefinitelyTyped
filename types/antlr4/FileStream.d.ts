@@ -1,4 +1,4 @@
-import InputStream from './InputStream';
+import InputStream from "./InputStream";
 
 /**
  * This is an InputStream that is loaded from a file all at once

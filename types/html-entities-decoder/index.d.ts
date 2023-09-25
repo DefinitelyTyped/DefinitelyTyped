@@ -13,6 +13,6 @@
  * const input = '1 &copy; 2 &#34;'
  * const output = decode(input) // 1 © 2 "
  */
- declare function htmlEntitiesDecoder(str: string): string;
+declare function htmlEntitiesDecoder(str: string): string;
 
- export = htmlEntitiesDecoder;
+export = htmlEntitiesDecoder;

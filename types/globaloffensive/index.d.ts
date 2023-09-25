@@ -6,10 +6,10 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import type SteamUser = require('steam-user');
-import SteamID = require('steamid');
-import { GCConnectionStatus, ItemCustomizationNotification } from './enums';
+import { EventEmitter } from "events";
+import type SteamUser = require("steam-user");
+import SteamID = require("steamid");
+import { GCConnectionStatus, ItemCustomizationNotification } from "./enums";
 
 export = GlobalOffensive;
 
@@ -213,14 +213,14 @@ interface GlobalOffensiveEvents {
 }
 
 declare namespace GlobalOffensive {
-    interface Profile extends Omit<AccountData, 'global_stats'> {
+    interface Profile extends Omit<AccountData, "global_stats"> {
         /**
          * Seems to always be `null`
          */
         global_stats: null;
     }
 
-    //#region AccountData
+    // #region AccountData
 
     interface AccountData {
         account_id: number;
@@ -319,9 +319,9 @@ declare namespace GlobalOffensive {
         cmd_leader: number;
     }
 
-    //#endregion AccountData
+    // #endregion AccountData
 
-    //#region Match
+    // #region Match
     interface MatchesData {
         matches: Match[];
         streams: unknown[];
@@ -399,7 +399,7 @@ declare namespace GlobalOffensive {
     interface TournamentTeams {
         players: {
             account_id: number;
-            player_nick: 'string';
+            player_nick: "string";
             player_name: string | null;
             player_flag: string | null;
             player_dob: unknown | null;
@@ -441,9 +441,9 @@ declare namespace GlobalOffensive {
         reservation_id: unknown | null;
     }
 
-    //#endregion Match
+    // #endregion Match
 
-    //#region Inventory
+    // #region Inventory
 
     interface InventoryItem {
         /**
@@ -586,5 +586,5 @@ declare namespace GlobalOffensive {
         questid: unknown | null;
         dropreason: unknown | null;
     }
-    //#endregion Inventory
+    // #endregion Inventory
 }

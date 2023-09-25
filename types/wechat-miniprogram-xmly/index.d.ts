@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import XMLY from './xmly';
-import XMplayer from './player';
+import XMplayer from "./player";
+import XMLY from "./xmly";
 
 interface options {
     appKey: string; // 开放平台应用接入申请的app_key

@@ -1,25 +1,25 @@
 function test_cases() {
-    $('#switch').bootstrapSwitch();
+    $("#switch").bootstrapSwitch();
 
-    $('#switch').bootstrapSwitch({
-        state: false
-    });
-
-    $('#switch').bootstrapSwitch({
+    $("#switch").bootstrapSwitch({
         state: false,
-        disabled: true
     });
 
-    //var mySwitch = $('#switch').get(0);
-    //mySwitch.toggleAnimate();
+    $("#switch").bootstrapSwitch({
+        state: false,
+        disabled: true,
+    });
 
-    $('#switch').bootstrapSwitch('state', true, true);
+    // var mySwitch = $('#switch').get(0);
+    // mySwitch.toggleAnimate();
 
-    $('#switch').bootstrapSwitch('state') === true;
+    $("#switch").bootstrapSwitch("state", true, true);
 
-    $('#switch').bootstrapSwitch('onText') === 'test';
+    $("#switch").bootstrapSwitch("state") === true;
 
-    $('#switch').on('switchChange.bootstrapSwitch', (event) => {
+    $("#switch").bootstrapSwitch("onText") === "test";
+
+    $("#switch").on("switchChange.bootstrapSwitch", (event) => {
         console.log($(event.target).val());
     });
 }

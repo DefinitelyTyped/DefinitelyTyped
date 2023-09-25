@@ -1,4 +1,4 @@
-import { Readable, Writable } from 'node:stream';
+import { Readable, Writable } from "node:stream";
 
 {
     const x: NodeModule = {} as any;
@@ -21,11 +21,11 @@ import { Readable, Writable } from 'node:stream';
 
 {
     const a = new Readable();
-    a.unshift('something', 'utf8');
+    a.unshift("something", "utf8");
 }
 
 {
-    const a = Readable.from(['test'], {
+    const a = Readable.from(["test"], {
         objectMode: true,
     });
 }
@@ -36,8 +36,8 @@ const a: NodeJS.TypedArray = new Buffer(123);
     let writableFinished: boolean;
     const readable: Readable = new Readable({
         read() {
-            this.push('hello');
-            this.push('world');
+            this.push("hello");
+            this.push("world");
             this.push(null);
         },
     });
@@ -53,12 +53,12 @@ const a: NodeJS.TypedArray = new Buffer(123);
 }
 
 {
-  const obj = {
-    valueOf() {
-      return 'hello';
-    }
-  };
-  Buffer.from(obj);
+    const obj = {
+        valueOf() {
+            return "hello";
+        },
+    };
+    Buffer.from(obj);
 }
 
 const buff = Buffer.from("Hello World!");

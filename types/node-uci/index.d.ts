@@ -6,7 +6,7 @@
 // Minimum TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface SearchOptions {
     searchmoves?: ReadonlyArray<string> | undefined;

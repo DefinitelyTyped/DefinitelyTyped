@@ -1,9 +1,9 @@
 /// <reference types="node" />
-import fresh = require('fresh');
-import * as http from 'http';
+import fresh = require("fresh");
+import * as http from "http";
 
-const reqHeaders = { 'if-none-match': '"foo"' };
-const resHeaders = { etag: '"bar"' };
+const reqHeaders = { "if-none-match": "\"foo\"" };
+const resHeaders = { etag: "\"bar\"" };
 // $ExpectType boolean
 fresh(reqHeaders, resHeaders);
 
@@ -15,13 +15,13 @@ const server = http.createServer((req, res) => {
     }
 
     res.statusCode = 200;
-    res.end('hello, world!');
+    res.end("hello, world!");
 });
 
 function isFresh(req: http.IncomingMessage, res: http.ServerResponse) {
     return fresh(req.headers, {
-        etag: res.getHeader('ETag'),
-        'last-modified': res.getHeader('Last-Modified')
+        etag: res.getHeader("ETag"),
+        "last-modified": res.getHeader("Last-Modified"),
     });
 }
 

@@ -1,5 +1,5 @@
-import { Serializer } from './serializer';
-import { HttpRequest } from '../http_client';
+import { HttpRequest } from "../http_client";
+import { Serializer } from "./serializer";
 
 export class FormEncoded extends Serializer {
     encode(request: HttpRequest): string;

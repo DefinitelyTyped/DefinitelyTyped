@@ -1,5 +1,5 @@
-import SymbolTree = require('symbol-tree');
-import TreePosition = require('symbol-tree/lib/TreePosition');
+import SymbolTree = require("symbol-tree");
+import TreePosition = require("symbol-tree/lib/TreePosition");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,

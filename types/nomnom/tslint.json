@@ -5,7 +5,6 @@
         "no-var-keyword": false,
         "prefer-const": false,
         "radix": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false
     }
 }

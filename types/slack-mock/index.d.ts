@@ -65,9 +65,9 @@ declare namespace SlackMock {
 
     interface IncomingWebhookOptions<T> {
         url?: IncomingWebhookUrl | undefined;
-        statusCode ?: number | undefined;
-        body ?: T | undefined;
-        headers ?: IncomingWebhookHttpHeaders | undefined;
+        statusCode?: number | undefined;
+        body?: T | undefined;
+        headers?: IncomingWebhookHttpHeaders | undefined;
     }
 
     interface IncomingWebhookCall<T> {
@@ -90,9 +90,9 @@ declare namespace SlackMock {
 
     interface InteractiveButtonOptions<T> {
         url?: InteractiveButtonUrl | undefined;
-        statusCode ?: number | undefined;
-        body ?: T | undefined;
-        headers ?: InteractiveButtonHttpHeaders | undefined;
+        statusCode?: number | undefined;
+        body?: T | undefined;
+        headers?: InteractiveButtonHttpHeaders | undefined;
     }
 
     interface InteractiveButtonCall<T> {
@@ -104,8 +104,8 @@ declare namespace SlackMock {
     }
 
     enum InteractiveButtonCallType {
-        response = 'response',
-        response_url = 'response_url'
+        response = "response",
+        response_url = "response_url",
     }
 
     // Outgoing Webhooks
@@ -157,9 +157,9 @@ declare namespace SlackMock {
 
     interface SlashCommandOptions<T> {
         url?: SlashCommandUrl | undefined;
-        statusCode ?: number | undefined;
-        body ?: T | undefined;
-        headers ?: SlashCommandHttpHeaders | undefined;
+        statusCode?: number | undefined;
+        body?: T | undefined;
+        headers?: SlashCommandHttpHeaders | undefined;
     }
 
     interface SlashCommandCall<T> {
@@ -171,8 +171,8 @@ declare namespace SlackMock {
     }
 
     enum SlashCommandCallType {
-        response = 'response',
-        response_url = 'response_url'
+        response = "response",
+        response_url = "response_url",
     }
 
     // Web
@@ -188,9 +188,9 @@ declare namespace SlackMock {
 
     interface WebOptions<T> {
         url?: WebUrl | undefined;
-        statusCode ?: number | undefined;
-        body ?: T | undefined;
-        headers ?: WebHttpHeaders | undefined;
+        statusCode?: number | undefined;
+        body?: T | undefined;
+        headers?: WebHttpHeaders | undefined;
     }
 
     interface WebCall<T> {

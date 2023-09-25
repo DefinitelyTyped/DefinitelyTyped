@@ -1,5 +1,5 @@
-import { UserInterface } from '../';
-import * as React from 'react';
+import * as React from "react";
+import { UserInterface } from "../";
 
 export interface UserPassesTestProps {
     testFunc: (user: UserInterface) => boolean;

@@ -1,4 +1,4 @@
-import { Tunnel } from './Tunnel';
+import { Tunnel } from "./Tunnel";
 
 /**
  * Guacamole Tunnel implemented over HTTP via XMLHttpRequest.

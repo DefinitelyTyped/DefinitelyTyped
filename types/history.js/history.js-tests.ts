@@ -1,17 +1,15 @@
-
-
-// Since History is defined in lib.d.ts as well 
+// Since History is defined in lib.d.ts as well
 // the name for our interfaces was chosen to be Historyjs
 // However at runtime you would need to do
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/277 
-var Historyjs: Historyjs = <any>History;
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/277
+var Historyjs: Historyjs = <any> History;
 
 function tests() {
     if (!Historyjs.enabled) {
         return false;
     }
 
-    Historyjs.Adapter.bind(window, 'statechange', () => {
+    Historyjs.Adapter.bind(window, "statechange", () => {
         var State = Historyjs.getState();
         Historyjs.log(State.data, State.title, State.url);
     });

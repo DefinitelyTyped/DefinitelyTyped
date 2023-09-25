@@ -8,10 +8,16 @@ namespace nvd3_test_bullet {
         .height(height - margin.top - margin.bottom);
 
     var data = [
-        { "title": "Revenue", "subtitle": "US$, in thousands", "ranges": [-150, -225, -300], "measures": [-220], "markers": [-250] }
+        {
+            "title": "Revenue",
+            "subtitle": "US$, in thousands",
+            "ranges": [-150, -225, -300],
+            "measures": [-220],
+            "markers": [-250],
+        },
     ];
 
-    //TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element
+    // TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element
     var vis = d3.select("#chart").selectAll("svg")
         .data(data)
         .enter().append("svg")
@@ -21,7 +27,7 @@ namespace nvd3_test_bullet {
 
     vis.transition().duration(1000).call(chart);
 
-    var transition = function () {
+    var transition = function() {
         vis.datum(randomize);
         vis.transition().duration(1000).call(chart);
     };
@@ -36,10 +42,10 @@ namespace nvd3_test_bullet {
 
     function randomizer(d) {
         var k = d3.max(d.ranges) * .2;
-        return function (d) {
+        return function(d) {
             return Math.max(0, d + k * (Math.random() - .5));
         };
     }
 
-    d3.select('body').on('click', transition);
+    d3.select("body").on("click", transition);
 }

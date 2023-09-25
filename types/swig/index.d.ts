@@ -5,26 +5,44 @@
 
 // API Documentation : http://paularmstrong.github.io/swig/docs/api/
 
-
 export declare class Swig {
     constructor(options?: SwigOptions);
 
     setFilter(
         name: string,
-        method: (input: any, ...args: any[]) => string
+        method: (input: any, ...args: any[]) => string,
     ): void;
     setTag(
         name: string,
-        parse: (str?: string, line?: string, parser?: Object, types?: lexer.TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
-        compile: (compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string, args?: any[], content?: string, parents?: any, options?: any, blockName?: string) => string,
+        parse: (
+            str?: string,
+            line?: string,
+            parser?: Object,
+            types?: lexer.TYPES,
+            stack?: any,
+            opts?: Object,
+            swig?: Swig,
+        ) => boolean,
+        compile: (
+            compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string,
+            args?: any[],
+            content?: string,
+            parents?: any,
+            options?: any,
+            blockName?: string,
+        ) => string,
         ends?: boolean,
-        blockLevel?: boolean
+        blockLevel?: boolean,
     ): void;
     setExtension(name: string, object: any): void;
     parseFile(pathName: string, options?: any): parser.ParseReturn;
     precompile(source: string, options?: SwigOptions): any;
     compile(source: string, options?: SwigOptions): (locals?: any) => string;
-    compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
+    compileFile(
+        pathname: string,
+        options: SwigOptions,
+        cb: (err: Error, compiledRender: (locals?: any) => string) => void,
+    ): void;
     compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
     render(source: string, options?: SwigOptions): string;
     renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
@@ -94,7 +112,7 @@ export declare namespace lexer {
          * Currently unused
         METHODEND = 26, */
         /** Unknown type */
-        UNKNOWN = 100
+        UNKNOWN = 100,
     }
 
     export function read(str: string): string[];
@@ -135,23 +153,42 @@ export declare function setDefaults(options: SwigOptions): void;
 export declare function setDefaultTZOffset(offset: number): void;
 export declare function setFilter(
     name: string,
-    method: (input: any, ...args: any[]) => string
+    method: (input: any, ...args: any[]) => string,
 ): void;
 export declare function setTag(
     name: string,
-    parse: (str?: string, line?: string, parser?: Object, types?: lexer.TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
-    compile: (compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string, args?: any[], content?: string, parents?: any, options?: any, blockName?: string) => string,
+    parse: (
+        str?: string,
+        line?: string,
+        parser?: Object,
+        types?: lexer.TYPES,
+        stack?: any,
+        opts?: Object,
+        swig?: Swig,
+    ) => boolean,
+    compile: (
+        compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string,
+        args?: any[],
+        content?: string,
+        parents?: any,
+        options?: any,
+        blockName?: string,
+    ) => string,
     ends?: boolean,
-    blockLevel?: boolean
+    blockLevel?: boolean,
 ): void;
 export declare function setExtension(name: string, object: any): void;
 export declare function parseFile(pathName: string, options?: any): parser.ParseReturn;
 export declare function precompile(source: string, options?: SwigOptions): any;
 export declare function compile(source: string, options?: SwigOptions): (locals?: any) => string;
-export declare function compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
+export declare function compileFile(
+    pathname: string,
+    options: SwigOptions,
+    cb: (err: Error, compiledRender: (locals?: any) => string) => void,
+): void;
 export declare function compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
 export declare function render(source: string, options?: SwigOptions): string;
 export declare function renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
-export declare function renderFile(pathName: string, locals?: any): string
+export declare function renderFile(pathName: string, locals?: any): string;
 export declare function run(templateFn: Function, locals?: any, filePath?: string): string;
 export declare function invalidateCache(): void;

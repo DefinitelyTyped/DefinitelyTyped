@@ -31,7 +31,7 @@ export class BlackjackEnvironment {
         return getState(this.player, this.dealer);
     }
 
-    step(action: number): {state: [number, number, boolean], reward: number, done: boolean} {
+    step(action: number): { state: [number, number, boolean]; reward: number; done: boolean } {
         const player = this.player;
         if (!player) {
             throw new Error();
@@ -43,7 +43,7 @@ export class BlackjackEnvironment {
         let done = false;
         let reward = 0;
         if (-1 !== this.actionSpace.indexOf(action)) {
-            throw new Error('Invalid Action');
+            throw new Error("Invalid Action");
         }
         if (action === ACTIONS.HIT) {
             // hit: add a card to players hand and return
@@ -72,7 +72,7 @@ export class BlackjackEnvironment {
 
         const state = getState(player, dealer);
 
-        return {state, reward, done};
+        return { state, reward, done };
     }
 }
 
@@ -141,5 +141,5 @@ function sumHand(hand: number[]): number {
 
 export const ACTIONS = Object.freeze({
     STICK: 0,
-    HIT: 1
+    HIT: 1,
 });

@@ -1,6 +1,6 @@
-declare module 'url' {
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+declare module "url" {
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "querystring";
 
     // Input to `url.format`
     interface UrlObject {
@@ -44,7 +44,11 @@ declare module 'url' {
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlStr: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
@@ -126,7 +130,14 @@ declare module 'url' {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | ReadonlyArray<string>>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         readonly size: number;
         append(name: string, value: string): void;
         delete(name: string): void;
@@ -143,7 +154,7 @@ declare module 'url' {
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
@@ -158,8 +169,7 @@ declare module 'url' {
          */
         var URL:
             // For compatibility with "dom" and "webworker" URL declarations
-            typeof globalThis extends { onmessage: any, URL: infer URL }
-                ? URL
+            typeof globalThis extends { onmessage: any; URL: infer URL } ? URL
                 : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`.
@@ -168,11 +178,10 @@ declare module 'url' {
          */
         var URLSearchParams:
             // For compatibility with "dom" and "webworker" URLSearchParams declarations
-            typeof globalThis extends { onmessage: any, URLSearchParams: infer URLSearchParams }
-                ? URLSearchParams
+            typeof globalThis extends { onmessage: any; URLSearchParams: infer URLSearchParams } ? URLSearchParams
                 : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

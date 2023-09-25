@@ -4,7 +4,7 @@ declare namespace echarts {
     }
     namespace VisualMap {
         interface Continuous {
-            type?: 'continuous' | undefined;
+            type?: "continuous" | undefined;
             id?: string | undefined;
             min?: number | undefined;
             max?: number | undefined;
@@ -15,7 +15,7 @@ declare namespace echarts {
             precision?: number | undefined;
             itemWidth?: number | undefined;
             itemHeight?: number | undefined;
-            align?: 'auto' | 'left' | 'right' | 'top' | 'bottom' | undefined;
+            align?: "auto" | "left" | "right" | "top" | "bottom" | undefined;
             text?: string[] | undefined;
             textGap?: number | undefined;
             show?: boolean | undefined;
@@ -34,7 +34,7 @@ declare namespace echarts {
             top?: number | string | undefined;
             right?: number | string | undefined;
             bottom?: number | string | undefined;
-            orient?: 'vertical' | 'horizontal' | undefined;
+            orient?: "vertical" | "horizontal" | undefined;
             padding?: number | number[] | undefined;
             backgroundColor?: string | undefined;
             borderColor?: string | undefined;
@@ -44,7 +44,7 @@ declare namespace echarts {
             formatter?: string | Function | undefined;
         }
         interface Piecewise {
-            type?: 'piecewise' | undefined;
+            type?: "piecewise" | undefined;
             id?: string | undefined;
             splitNumber?: number | undefined;
             pieces?: PiecesObject[] | undefined;
@@ -53,12 +53,12 @@ declare namespace echarts {
             max?: number | undefined;
             minOpen?: boolean | undefined;
             maxOpen?: boolean | undefined;
-            selectedMode?: 'multiple' | 'single' | undefined;
+            selectedMode?: "multiple" | "single" | undefined;
             inverse?: boolean | undefined;
             precision?: number | undefined;
             itemWidth?: number | undefined;
             itemHeight?: number | undefined;
-            align?: 'auto' | 'left' | 'right' | undefined;
+            align?: "auto" | "left" | "right" | undefined;
             text?: string[] | undefined;
             textGap?: number | number[] | undefined;
             showLabel?: boolean | undefined;
@@ -80,7 +80,7 @@ declare namespace echarts {
             top?: number | string | undefined;
             right?: number | string | undefined;
             bottom?: number | string | undefined;
-            orient?: 'vertical' | 'horizontal' | undefined;
+            orient?: "vertical" | "horizontal" | undefined;
             padding?: number | number[] | undefined;
             backgroundColor?: string | undefined;
             borderColor?: string | undefined;

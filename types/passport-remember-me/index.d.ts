@@ -3,8 +3,8 @@
 // Definitions by: gristow <https://github.com/gristow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 export interface StrategyOption {
     key?: string | undefined;

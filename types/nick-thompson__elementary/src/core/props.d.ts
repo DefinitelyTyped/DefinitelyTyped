@@ -1,12 +1,12 @@
-import { NativeNodeType, CompositeNodeType, NodeType } from './types';
-import { Node } from './node';
-import { Child } from './children';
+import { Child } from "./children";
+import { Node } from "./node";
+import { CompositeNodeType, NativeNodeType, NodeType } from "./types";
 
 // for docs
 // noinspection ES6UnusedImports
-import { core } from './';
+import { core } from "./";
 // noinspection ES6UnusedImports
-import * as el from '../../';
+import * as el from "../../";
 
 // Base
 
@@ -149,7 +149,7 @@ export interface SampleProps extends KeyProps {
      * @see SampleProps
      * @see el.sample
      */
-    mode?: 'trigger' | 'gate' | 'loop';
+    mode?: "trigger" | "gate" | "loop";
 
     /**
      * Offset in samples from the start of the sample where playback starts.
@@ -176,16 +176,16 @@ export interface SampleProps extends KeyProps {
  * @see KeyProps
  */
 export type TableProps =
-    KeyProps &
-    ({
-         path?: string,
-         data?: never
-     } | {
-         path?: never,
-         data?: Float32Array
-     }) &
-    {
-        channel?: number
+    & KeyProps
+    & ({
+        path?: string;
+        data?: never;
+    } | {
+        path?: never;
+        data?: Float32Array;
+    })
+    & {
+        channel?: number;
     };
 
 // Signals
@@ -238,17 +238,16 @@ export interface SeqProps extends KeyProps {
  * @see SeqProps
  * @see KeyProps
  */
-export type NativeNodeProps<T extends NativeNodeType> =
-    {
-        in: InProps | KeyProps,
-        const: ConstProps,
-        delay: DelayProps,
-        convolve: ConvolveProps,
-        sample: SampleProps,
-        table: TableProps,
-        seq: SeqProps
-        [other: string]: KeyProps
-    }[T];
+export type NativeNodeProps<T extends NativeNodeType> = {
+    in: InProps | KeyProps;
+    const: ConstProps;
+    delay: DelayProps;
+    convolve: ConvolveProps;
+    sample: SampleProps;
+    table: TableProps;
+    seq: SeqProps;
+    [other: string]: KeyProps;
+}[T];
 
 /**
  * Type of props of any given {@link CompositeNodeType}.
@@ -256,11 +255,9 @@ export type NativeNodeProps<T extends NativeNodeType> =
  * @see core
  * @see Props
  */
-export type CompositeNodeProps<T extends CompositeNodeType> =
-    Parameters<T> extends [] ? KeyProps :
-    Parameters<T> extends [infer IProps, ...any] ?
-    IProps extends Child ? KeyProps : IProps & KeyProps :
-    never;
+export type CompositeNodeProps<T extends CompositeNodeType> = Parameters<T> extends [] ? KeyProps
+    : Parameters<T> extends [infer IProps, ...any] ? IProps extends Child ? KeyProps : IProps & KeyProps
+    : never;
 
 /**
  * Type of props of any {@link NodeType}.
@@ -271,8 +268,7 @@ export type CompositeNodeProps<T extends CompositeNodeType> =
  * @see NativeNodeProps
  * @see CompositeNodeProps
  */
-export type NodeProps<T extends NodeType> =
-    NodeType extends T ? Props :
-    T extends NativeNodeType ? NativeNodeProps<T> :
-    T extends CompositeNodeType ? CompositeNodeProps<T> :
-    never;
+export type NodeProps<T extends NodeType> = NodeType extends T ? Props
+    : T extends NativeNodeType ? NativeNodeProps<T>
+    : T extends CompositeNodeType ? CompositeNodeProps<T>
+    : never;

@@ -1,6 +1,6 @@
-import { Guide } from "../Guide";
-import { Document } from "../Document";
 import * as Constants from "../Constants";
+import { Document } from "../Document";
+import { Guide } from "../Guide";
 /**
  * A collections class allowing for array access into a document's guides
  *
@@ -52,7 +52,6 @@ export declare class Guides extends Array<Guide> {
      */
     /**
      * Adds a guide for the collection at the given coordinate and direction
-     *
      *
      * ***Fixes in Photoshop 24.0:***
      * - *Correct coordinate when resolution is not 72 PPI*

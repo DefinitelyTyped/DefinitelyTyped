@@ -1,34 +1,34 @@
-let scroller: Scroller = new Scroller((left, top, zoom) => { });
-scroller = new Scroller((left, top, zoom) => { }, {
-  scrollingX: true,
-  scrollingY: true,
-  animating: true,
-  animationDuration: 400,
-  bouncing: false,
-  locking: false,
-  paging: false,
-  snapping: true,
-  zooming: 10,
-  minZoom: 1,
-  maxZoom: 2
+let scroller: Scroller = new Scroller((left, top, zoom) => {});
+scroller = new Scroller((left, top, zoom) => {}, {
+    scrollingX: true,
+    scrollingY: true,
+    animating: true,
+    animationDuration: 400,
+    bouncing: false,
+    locking: false,
+    paging: false,
+    snapping: true,
+    zooming: 10,
+    minZoom: 1,
+    maxZoom: 2,
 });
 
 scroller.setDimensions(10, 10, 10, 10);
 scroller.setPosition(200, 300);
 scroller.setSnapSize(300, 300);
-scroller.activatePullToRefresh(200, () => { }, () => { }, () => { });
+scroller.activatePullToRefresh(200, () => {}, () => {}, () => {});
 scroller.finishPullToRefresh();
 const data: {
-  left: number;
-  top: number;
-  zoom: number
+    left: number;
+    top: number;
+    zoom: number;
 } = scroller.getValues();
 scroller.zoomTo(10);
 scroller.zoomBy(10);
 scroller.doMouseZoom(10, 10, 10, 10);
 scroller.doTouchStart([{
-  pageX: 10,
-  pageY: 20
+    pageX: 10,
+    pageY: 20,
 }], 200);
 scroller.doTouchEnd(300);
 
@@ -41,7 +41,7 @@ declare const Tiling: any; // TODO: What is this?
 function test_basic() {
     const scrollerObj = new Scroller((left, top, zoom) => {
     }, {
-        scrollingY: false
+        scrollingY: false,
     });
     scrollerObj.setDimensions(1000, 1000, 3000, 3000);
 }
@@ -51,8 +51,8 @@ function test_canvas() {
     const contentHeight = 2000;
     const cellWidth = 100;
     const cellHeight = 100;
-    const content = document.getElementById('content') as HTMLCanvasElement;
-    const context = content.getContext('2d');
+    const content = document.getElementById("content") as HTMLCanvasElement;
+    const context = content.getContext("2d");
     const tiling = new Tiling();
     function render(left: number, top: number, zoom: number) {
         content.width = clientWidth;
@@ -65,7 +65,7 @@ function test_canvas() {
         context.fillStyle = row % 2 + col % 2 > 0 ? "#ddd" : "#fff";
         context.fillRect(left, top, width, height);
         context.fillStyle = "black";
-        context.font = (14 * zoom).toFixed(2) + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
+        context.font = (14 * zoom).toFixed(2) + "px \"Helvetica Neue\", Helvetica, Arial, sans-serif";
         context.fillText(`${row},${col}`, left + (6 * zoom), top + (18 * zoom));
     }
 }
@@ -75,7 +75,7 @@ function test_domlist() {
     const content = document.getElementById("content");
     const refreshElem = content.getElementsByTagName("div")[0];
     const scroller = new Scroller(render, {
-        scrollingX: false
+        scrollingX: false,
     });
     scroller.activatePullToRefresh(50, () => {
         refreshElem.className += " active";
@@ -106,10 +106,15 @@ function test_domlist() {
                 content.insertBefore(row, content.childNodes[1]);
             }
         }
-        scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight - 50);
+        scroller.setDimensions(
+            container.clientWidth,
+            container.clientHeight,
+            content.offsetWidth,
+            content.offsetHeight - 50,
+        );
     };
     insertItems();
-    if ('ontouchstart' in window) {
+    if ("ontouchstart" in window) {
         container.addEventListener("touchstart", e => {
             // Don't react if initial down happens on a form element
             if ((e.target as any).tagName.match(/input|textarea|select/i)) {
@@ -132,7 +137,7 @@ function test_domlist() {
             }
             scroller.doTouchStart([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -142,7 +147,7 @@ function test_domlist() {
             }
             scroller.doTouchMove([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -171,12 +176,12 @@ function test_dompaging() {
     content.appendChild(frag);
     const scroller = new Scroller(render, {
         scrollingY: false,
-        paging: true
+        paging: true,
     });
     const rect = container.getBoundingClientRect();
     scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clientTop);
     scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
-    if ('ontouchstart' in window) {
+    if ("ontouchstart" in window) {
         container.addEventListener("touchstart", e => {
             if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
@@ -198,7 +203,7 @@ function test_dompaging() {
             }
             scroller.doTouchStart([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -208,7 +213,7 @@ function test_dompaging() {
             }
             scroller.doTouchMove([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -239,13 +244,13 @@ function test_domsnapping() {
     }
     content.appendChild(frag);
     const scroller = new Scroller(render, {
-        snapping: true
+        snapping: true,
     });
     const rect = container.getBoundingClientRect();
     scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clientTop);
     scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
     scroller.setSnapSize(100, 100);
-    if ('ontouchstart' in window) {
+    if ("ontouchstart" in window) {
         container.addEventListener("touchstart", e => {
             if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
@@ -267,7 +272,7 @@ function test_domsnapping() {
             }
             scroller.doTouchStart([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);
@@ -277,7 +282,7 @@ function test_domsnapping() {
             }
             scroller.doTouchMove([{
                 pageX: (e as any).pageX,
-                pageY: (e as any).pageY
+                pageY: (e as any).pageY,
             }], e.timeStamp);
             mousedown = true;
         }, false);

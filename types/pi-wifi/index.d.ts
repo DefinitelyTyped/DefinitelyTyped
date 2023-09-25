@@ -93,7 +93,12 @@ declare function openConnection(ssid: string, callback: (error: Error) => any): 
  * @param password Password to use on authentication
  * @param callback Returns error if the connection isn't successful
  */
-declare function enterpriseConnection(ssid: string, username: string, password: string, callback: (error: Error) => any): any;
+declare function enterpriseConnection(
+    ssid: string,
+    username: string,
+    password: string,
+    callback: (error: Error) => any,
+): any;
 /**
  * @description Disconnects from the network on the current interface
  * @param callback (err) returns err if the process fails
@@ -181,4 +186,11 @@ export function startSupplicant(options: object, callback: (error: Error) => any
  * }
  */
 export function status(iface: string, callback: (error: Error, status: Status) => any): any;
-export { checkConnection as check, connection as connectTo, secureConnection as connect, openConnection as connectOpen, enterpriseConnection as connectEAP, disableSupplicant as killSupplicant };
+export {
+    checkConnection as check,
+    connection as connectTo,
+    disableSupplicant as killSupplicant,
+    enterpriseConnection as connectEAP,
+    openConnection as connectOpen,
+    secureConnection as connect,
+};

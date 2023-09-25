@@ -37,10 +37,12 @@ declare namespace SwaggerUI {
          * used by Topbar plugin. When used and Topbar plugin is enabled, the url parameter will not be parsed.
          * Names and URLs must be unique among all items in this array, since they're used as identifiers.
          */
-        urls?: Array<{
-            url: string;
-            name: string;
-        }> | undefined;
+        urls?:
+            | Array<{
+                url: string;
+                name: string;
+            }>
+            | undefined;
 
         // Plugin system
 
@@ -154,15 +156,16 @@ declare namespace SwaggerUI {
         syntaxHighlight?:
             | false
             | {
-                  /**
-                   * Whether syntax highlighting should be activated or not.
-                   */
-                  activate?: boolean | undefined;
-                  /**
-                   * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
-                   */
-                  theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
-              } | undefined;
+                /**
+                 * Whether syntax highlighting should be activated or not.
+                 */
+                activate?: boolean | undefined;
+                /**
+                 * Highlight.js syntax coloring theme to use. (Only these 6 styles are available.)
+                 */
+                theme?: "agate" | "arta" | "monokai" | "nord" | "obsidian" | "tomorrow-night" | undefined;
+            }
+            | undefined;
         /**
          * Controls whether the "Try it out" section should be enabled by default.
          */
@@ -265,7 +268,7 @@ declare namespace SwaggerUI {
         pluginLoadType?: PluginLoadType;
     }
 
-    type PluginLoadType = 'legacy' | 'chain';
+    type PluginLoadType = "legacy" | "chain";
 
     type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
@@ -273,8 +276,8 @@ declare namespace SwaggerUI {
         | "alpha"
         | "method"
         | {
-              (name1: string, name2: string): number;
-          };
+            (name1: string, name2: string): number;
+        };
 
     interface Request {
         [prop: string]: any;

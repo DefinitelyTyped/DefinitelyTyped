@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type EventBridgeHandler<TDetailType extends string, TDetail, TResult> = Handler<
     EventBridgeEvent<TDetailType, TDetail>,
@@ -13,7 +13,7 @@ export interface EventBridgeEvent<TDetailType extends string, TDetail> {
     region: string;
     resources: string[];
     source: string;
-    'detail-type': TDetailType;
+    "detail-type": TDetailType;
     detail: TDetail;
-    'replay-name'?: string;
+    "replay-name"?: string;
 }
