@@ -256,8 +256,13 @@ declare namespace Snap {
         clone():Matrix;
         determinant():number;
         invert():Matrix;
+        multLeft(a:number,b:number,c:number,d:number,e:number,f:number):Matrix;
+        multLeft(matrix:Matrix):Matrix;
         rotate(a:number,x?:number,y?:number):Matrix;
         scale(x:number,y?:number,cx?:number,cy?:number):Matrix;
+        skew(x:number,y:number);
+        skewX(x:number);
+        skewY(y:number);
         split():ExplicitTransform;
         toTransformString():string;
         translate(x:number,y:number):Matrix;
