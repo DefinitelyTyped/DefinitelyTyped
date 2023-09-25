@@ -342,6 +342,7 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: PayerAPI;
+        additional_info?: AdditionalInfo;
     }
 
     interface SavedCardFormData {
@@ -353,6 +354,31 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: SavedCardPayer;
+        additional_info?: AdditionalInfo;
+    }
+
+    interface AdditionalInfo {
+        items: AdditionalInfoItems[];
+        shipments: AdditionalInfoShipments;
+    }
+
+    interface AdditionalInfoItems {
+        unit_price: number;
+        quantity: number,
+        title: string,
+        description: string,
+        picture_url: string,
+    }
+
+    interface AdditionalInfoShipments {
+        receiver_address: {
+            zip_code: string;
+            state_name: string;
+            city_name: string;
+            street_name: string;
+            street_number: string;
+            apartment: string;
+        }
     }
 
     interface Metadata {
@@ -370,6 +396,7 @@ declare namespace bricks {
         payer: PayerAPI;
         metadata?: Metadata;
         transaction_details?: TransactionDetails;
+        additional_info?: AdditionalInfo;
     }
 
     interface AdditionalSavedCardFormData {
