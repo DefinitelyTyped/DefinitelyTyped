@@ -374,15 +374,14 @@ declare namespace bricks {
 
     interface AdditionalSavedCardFormData {
         bin: string;
+        lastFourDigits: string;
     }
 
-    interface AdditionalCardFormData {
-        bin: string;
+    interface AdditionalCardFormData extends AdditionalSavedCardFormData {
+        cardholderName?: string;
     }
 
-    type AdditionalTicketFormData = Record<string, unknown>;
-
-    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData | AdditionalTicketFormData;
+    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData;
 
     interface CardPaymentUpdatableValues {
         amount: number;
@@ -400,7 +399,7 @@ declare namespace bricks {
         paymentType: PaymentType;
         selectedPaymentMethod: PaymentType;
         formData?: CardFormData | SavedCardFormData | TicketFormData | null;
-        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | AdditionalTicketFormData | null;
+        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | null;
     }
 
     interface CardPaymentController {
