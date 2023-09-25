@@ -44,6 +44,11 @@ declare module "timers" {
                  */
                 hasRef(): boolean;
                 _onImmediate: Function; // to distinguish it from the Timeout class
+                /**
+                 * Cancels the immediate. This is similar to calling `clearImmediate()`.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
             interface Timeout extends Timer {
                 /**
@@ -64,6 +69,11 @@ declare module "timers" {
                  */
                 refresh(): this;
                 [Symbol.toPrimitive](): number;
+                /**
+                 * Cancels the timeout.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
         }
         /**
@@ -89,10 +99,10 @@ declare module "timers" {
             callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
-        ): NodeJS.Timer;
+        ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
+        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }

@@ -245,6 +245,7 @@ import {
 
     // close callback parameter is optional
     _server = _server.close();
+    _server[Symbol.asyncDispose]();
 
     // close callback parameter doesn't specify any arguments, so any
     // function is acceptable

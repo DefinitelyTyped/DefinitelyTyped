@@ -20,6 +20,9 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    testNamePatterns: ["executed"],
+    setup: (root) => {},
+    watch: true,
 });
 
 // TestsStream should be a NodeJS.ReadableStream
