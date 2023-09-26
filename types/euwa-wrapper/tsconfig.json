@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "euwa-wrapper.tests.ts"
+        "test/euwa-wrapper.tests.ts"
     ]
 }
