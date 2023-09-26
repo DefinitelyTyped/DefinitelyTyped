@@ -1,5 +1,6 @@
 import type { DefaultRouterOptions, NavigationState, ParamListBase, PartialState, Route, Router } from "./types";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TabActionType = {
     type: "JUMP_TO";
     payload: {
@@ -32,7 +33,7 @@ export declare type TabNavigationState<ParamList extends ParamListBase> =
             key: string;
         }[];
     };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TabActionHelpers<ParamList extends ParamListBase> = {
     /**
      * Jump to an existing tab.

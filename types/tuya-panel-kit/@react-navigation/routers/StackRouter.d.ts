@@ -1,4 +1,5 @@
 import type { DefaultRouterOptions, NavigationState, ParamListBase, Route, Router } from "./types";
+// tslint:disable:interface-over-type-literal
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackActionType = {
     type: "REPLACE";
@@ -41,7 +42,7 @@ export declare type StackNavigationState<ParamList extends ParamListBase> = Navi
      */
     type: "stack";
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackActionHelpers<ParamList extends ParamListBase> = {
     /**
      * Replace the current route with a new one.

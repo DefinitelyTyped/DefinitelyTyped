@@ -1,10 +1,11 @@
 import * as React from "react";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type ScrollOptions = {
     y?: number | undefined;
     animated?: boolean | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type ScrollableView = {
     scrollToTop(): void;
 } | {
