@@ -1,8 +1,8 @@
-import WordExtractor = require('word-extractor');
+import WordExtractor = require("word-extractor");
 
 const extractor = new WordExtractor();
 
-extractor.extract('/path/to/file.doc').then(document => {
+extractor.extract("/path/to/file.doc").then(document => {
     document.getBody(); // $ExpectType string
     document.getAnnotations(); // $ExpectType string
     document.getEndnotes(); // $ExpectType string

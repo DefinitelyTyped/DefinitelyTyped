@@ -1,4 +1,4 @@
-import { ddpReactiveCollection } from './ddpReactiveCollection';
+import { ddpReactiveCollection } from "./ddpReactiveCollection";
 
 export class ddpReducer<T> {
     constructor(ddpReactiveCollectionInstance: ddpReactiveCollection<T>, reducer: () => void, initialValue: unknown);

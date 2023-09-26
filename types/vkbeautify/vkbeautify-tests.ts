@@ -1,4 +1,4 @@
-import VKBeautify = require('vkbeautify');
+import VKBeautify = require("vkbeautify");
 
 /*
  * Beautifying
@@ -26,7 +26,7 @@ function xmlWithNumberOfSpaces() {
 }
 
 function xmlWithStringPattern() {
-    VKBeautify.xml(exampleContent, '   ');
+    VKBeautify.xml(exampleContent, "   ");
 }
 
 // json
@@ -39,7 +39,7 @@ function jsonWithNumberOfSpaces() {
 }
 
 function jsonWithStringPattern() {
-    VKBeautify.json(exampleContent, '   ');
+    VKBeautify.json(exampleContent, "   ");
 }
 
 // css
@@ -52,7 +52,7 @@ function cssWithNumberOfSpaces() {
 }
 
 function cssWithStringPattern() {
-    VKBeautify.css(exampleContent, '   ');
+    VKBeautify.css(exampleContent, "   ");
 }
 
 // sql
@@ -65,7 +65,7 @@ function sqlWithNumberOfSpaces() {
 }
 
 function sqlWithStringPattern() {
-    VKBeautify.sql(exampleContent, '   ');
+    VKBeautify.sql(exampleContent, "   ");
 }
 
 /*

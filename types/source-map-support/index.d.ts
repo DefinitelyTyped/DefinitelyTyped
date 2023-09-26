@@ -7,7 +7,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 
 /**
  * Output of `retrieveSourceMap()`.
@@ -19,7 +19,7 @@ export interface UrlAndMap {
     map: string | RawSourceMap;
 }
 
-export type Environment = 'auto' | 'browser' | 'node';
+export type Environment = "auto" | "browser" | "node";
 
 /**
  * Options to install().

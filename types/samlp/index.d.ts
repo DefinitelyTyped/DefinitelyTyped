@@ -8,20 +8,22 @@
 /// <reference types="passport" />
 
 declare module "samlp" {
-
-    import * as express from 'express';
-    import * as passport from 'passport';
+    import * as express from "express";
+    import * as passport from "passport";
 
     export function auth(options: IdPOptions): express.Handler;
     export function logout(options: IdPOptions): express.Handler;
     export function parseRequest(req: express.Request, callback: (err: any, data: SamlRequest) => void): void;
-    export function getSamlResponse(options: IdPOptions, user: any, callback: (err: any, samlResponse: string) => void): void;
+    export function getSamlResponse(
+        options: IdPOptions,
+        user: any,
+        callback: (err: any, samlResponse: string) => void,
+    ): void;
     export function sendError(options: IdPOptions): express.Handler;
     export function metadata(options: IdPMetadataOptions): express.Handler;
 
-
-    export type DigestAlgorithmType = 'sha1' | 'sha256';
-    export type SignatureAlgorithmType = 'rsa-sha1' | 'rsa-sha256';
+    export type DigestAlgorithmType = "sha1" | "sha256";
+    export type SignatureAlgorithmType = "rsa-sha1" | "rsa-sha256";
 
     export interface IdPOptions {
         issuer: string;
@@ -43,7 +45,12 @@ declare module "samlp" {
         inResponseTo?: string | undefined;
         profileMapper?: ProfileMapperConstructor | undefined;
         getUserFromRequest?: ((req: express.Request) => any) | undefined;
-        getPostURL: (audience: string, authnRequestDom: any, req: express.Request, callback: (err: any, url: string) => void) => void;
+        getPostURL: (
+            audience: string,
+            authnRequestDom: any,
+            req: express.Request,
+            callback: (err: any, url: string) => void,
+        ) => void;
     }
 
     export interface IdPMetadataOptions {
@@ -66,7 +73,6 @@ declare module "samlp" {
         forceAuthn?: string | undefined;
     }
 
-
     export interface ProfileMapper {
         metadata: MetadataItem[];
         getClaims(): any;
@@ -84,5 +90,4 @@ declare module "samlp" {
         displayName: string;
         description: string;
     }
-
 }

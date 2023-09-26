@@ -3,25 +3,22 @@
 // Definitions by: Gregory Moore <https://github.com/ChanceM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-//#region SFX2X
+// #region SFX2X
 
 // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.html
 declare namespace SFS2X {
-    //#region Entities
+    // #region Entities
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.html
     namespace Entities {
-
-        //#region Data
+        // #region Data
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Data.html
         namespace Data {
-
-            //#region Vec3D
+            // #region Vec3D
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Data.Vec3D.html
             export class Vec3D {
-
                 /** Returns the position along the X axis. */
                 px: number;
                 /** Returns the position along the Y axis. */
@@ -42,34 +39,29 @@ declare namespace SFS2X {
                  */
                 isFloat(): boolean;
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region Invitation
+        // #endregion
+        // #region Invitation
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Invitation.html
         namespace Invitation {
-
-            //#region InvitationReply
+            // #region InvitationReply
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Invitation.InvitationReply.html
             export class InvitationReply {
-
                 /** Invitation is accepted. */
                 static ACCEPT: number;
                 /** Invitation is refused. */
                 static REFUSE: number;
-
             }
 
-            //#endregion
+            // #endregion
 
-            //#region SFSInvitation
+            // #region SFSInvitation
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Invitation.SFSInvitation.html
             export class SFSInvitation {
-
                 /** Indicates the id of the invitation. */
                 id: number;
                 /** Returns the SFSUser object corresponding to the user who received the invitation. */
@@ -91,48 +83,49 @@ declare namespace SFS2X {
                 constructor(inviter: SFSUser, invitee: SFSUser, secondsForAnswer: number, params: Object);
             }
 
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region Match
+        // #endregion
+        // #region Match
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.html
         namespace Match {
-
-            //#region BoolMatch
+            // #region BoolMatch
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.BoolMatch.html
             export class BoolMatch {
-
                 /** An instance of BoolMatch representing the following condition: bool1 == bool2. */
                 static EQUALS: BoolMatch;
                 /** An instance of BoolMatch representing the following condition: bool1 != bool2. */
                 static NOT_EQUALS: BoolMatch;
-
             }
 
-            //#endregion
-            //#region LogicOperator
+            // #endregion
+            // #region LogicOperator
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.LogicOperator.html
             export class LogicOperator {
-
                 /** An instance of LogicOperator representing the AND logical operator. */
                 static AND: LogicOperator;
                 /** An instance of LogicOperator representing the OR logical operator. */
                 static OR: LogicOperator;
-
             }
 
-            //#endregion
-            //#region MatchExpression
+            // #endregion
+            // #region MatchExpression
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.MatchExpression.html
             export class MatchExpression {
-
                 /** Returns the matching criteria used during values comparison among those provided by the BoolMatch, NumberMatch and StringMatch classes. */
-                condition: RoomProperties | UserProperties | BoolMatch | NumberMatch | StringMatch | Requests.Game.CreateSFSGameRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest;
+                condition:
+                    | RoomProperties
+                    | UserProperties
+                    | BoolMatch
+                    | NumberMatch
+                    | StringMatch
+                    | Requests.Game.CreateSFSGameRequest
+                    | Requests.System.FindRoomsRequest
+                    | Requests.System.FindUsersRequest;
                 /** In case of concatenated expressions, returns the current logical operator. */
                 loginOp: LogicOperator;
                 /** Returns the next matching expression concatenated to the current one, if existing. */
@@ -148,7 +141,19 @@ declare namespace SFS2X {
                  * @param {(RoomProperties | UserProperties | BoolMatch | NumberMatch | StringMatch | Requests.Game.CreateSFSGameRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest)} condition A matching condition among those provided by the BoolMatch, NumberMatch and StringMatch classes.
                  * @param {any}               value   The value to compare against the variable or property during the matching.
                  */
-                constructor(varName: string, condition: RoomProperties | UserProperties | BoolMatch | NumberMatch | StringMatch | Requests.Game.CreateSFSGameRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest, value: any);
+                constructor(
+                    varName: string,
+                    condition:
+                        | RoomProperties
+                        | UserProperties
+                        | BoolMatch
+                        | NumberMatch
+                        | StringMatch
+                        | Requests.Game.CreateSFSGameRequest
+                        | Requests.System.FindRoomsRequest
+                        | Requests.System.FindUsersRequest,
+                    value: any,
+                );
                 /**
                  * Concatenates the current expression with a new one using the logical AND operator.
                  * @param  {string}            varName Name of the additional variable or property to match.
@@ -156,11 +161,22 @@ declare namespace SFS2X {
                  * @param  {any}               value   The value to compare against the additional variable or property during the matching.
                  * @return {MatchExpression}            A new MatchExpression resulting from the concatenation of the current expression with a new one generated from the specified parameters.
                  */
-                and(varName: string, condition: RoomProperties | UserProperties | BoolMatch | NumberMatch | StringMatch | Requests.Game.CreateSFSGameRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest, value: any): MatchExpression;
+                and(
+                    varName: string,
+                    condition:
+                        | RoomProperties
+                        | UserProperties
+                        | BoolMatch
+                        | NumberMatch
+                        | StringMatch
+                        | Requests.Game.CreateSFSGameRequest
+                        | Requests.System.FindRoomsRequest
+                        | Requests.System.FindUsersRequest,
+                    value: any,
+                ): MatchExpression;
                 /**
                  * Checks if the current matching expression is concatenated to another one through a logical operator.
                  * @return {boolean} Returns: true if the current matching expression is concatenated to another one.
-
                  */
                 hasNext(): boolean;
                 /**
@@ -170,7 +186,19 @@ declare namespace SFS2X {
                  * @param  {any}               value   The value to compare against the additional variable or property during the matching.
                  * @return {MatchExpression}           A new MatchExpression resulting from the concatenation of the current expression with a new one generated from the specified parameters.
                  */
-                or(varName: string, condition: RoomProperties | UserProperties | BoolMatch | NumberMatch | StringMatch | Requests.Game.CreateSFSGameRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest, value: any): MatchExpression;
+                or(
+                    varName: string,
+                    condition:
+                        | RoomProperties
+                        | UserProperties
+                        | BoolMatch
+                        | NumberMatch
+                        | StringMatch
+                        | Requests.Game.CreateSFSGameRequest
+                        | Requests.System.FindRoomsRequest
+                        | Requests.System.FindUsersRequest,
+                    value: any,
+                ): MatchExpression;
                 /**
                  * Moves the iterator cursor to the first matching expression in the chain.
                  * @return {MatchExpression} The MatchExpression object at the top of the chain of matching expressions.
@@ -183,12 +211,11 @@ declare namespace SFS2X {
                 toString(): string;
             }
 
-            //#endregion
-            //#region NumberMatch
+            // #endregion
+            // #region NumberMatch
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.NumberMatch.html
             export class NumberMatch {
-
                 /** An instance of NumberMatch representing the following condition: number1 == number2. */
                 static EQUALS: NumberMatch;
                 /** An instance of NumberMatch representing the following condition: number1 > number2. */
@@ -201,15 +228,13 @@ declare namespace SFS2X {
                 static LESS_THAN_OR_EQUAL_TO: NumberMatch;
                 /** An instance of NumberMatch representing the following condition: number1 != number2. */
                 static NOT_EQUALS: NumberMatch;
-
             }
 
-            //#endregion
-            //#region RoomProperties
+            // #endregion
+            // #region RoomProperties
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.RoomProperties.html
             export class RoomProperties {
-
                 /** The name of the Group to which the Room belongs. */
                 static GROUP_ID: string;
                 /** The Room has at least one free player slot. */
@@ -230,15 +255,13 @@ declare namespace SFS2X {
                 static SPECTATOR_COUNT: string;
                 /** The Room users count (players in Game Rooms). */
                 static USER_COUNT: string;
-
             }
 
-            //#endregion
-            //#region StringMatch
+            // #endregion
+            // #region StringMatch
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.StringMatch.html
             export class StringMatch {
-
                 /** An instance of StringMatch representing the following condition: string1.indexOf(string2) != -1 */
                 static CONTAINS: StringMatch;
                 /** An instance of StringMatch representing the following condition: string1 ends with characters contained in string2. */
@@ -249,15 +272,13 @@ declare namespace SFS2X {
                 static NOT_EQUALS: StringMatch;
                 /** An instance of StringMatch representing the following condition: string1 starts with characters contained in string2. */
                 static STARTS_WITH: StringMatch;
-
             }
 
-            //#endregion
-            //#region UserProperties
+            // #endregion
+            // #region UserProperties
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Match.UserProperties.html
             export class UserProperties {
-
                 /** The user joined at least one Room. */
                 static IS_IN_ANY_ROOM: string;
                 /** The user is a Non-Player Character (NPC). */
@@ -270,18 +291,15 @@ declare namespace SFS2X {
                 static NAME: string;
                 /** The user privilege id. */
                 static PRIVILEGE_ID: string;
-
             }
 
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region MMOItem
+        // #endregion
+        // #region MMOItem
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.MMOItem.html
         export class MMOItem {
-
             /** Returns the entry point of this item in the current user's AoI. */
             aoiEnteryPoint: Data.Vec3D;
             /** Indicates the id of this item. */
@@ -314,15 +332,13 @@ declare namespace SFS2X {
              * @return {string} Returns: The string representation of the MMOItem object.
              */
             toString(): string;
-
         }
 
-        //#endregion
-        //#region MMORoom
+        // #endregion
+        // #region MMORoom
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.MMORoom.html
         export class MMORoom extends SFSRoom {
-
             /** Returns the default Area of Interest (AoI) of this MMORoom. */
             defaultAOI: Data.Vec3D;
             /** Returns the higher coordinates limit of the virtual environment represented by the MMORoom along the X,Y,Z axes. If null is returned, no limits were set at Room creation time. */
@@ -341,7 +357,6 @@ declare namespace SFS2X {
              * Retrieves an MMOItem object from its id property. The item is available to the current user if it falls within their Area of Interest only.
              * @param  {number}  id The id of the item to be retrieved.
              * @return {MMOItem}    Returns: An MMOItem object, or null if the item with the passed id is not in proximity of the current user.
-
              */
             getMMOItem(id: number): MMOItem;
             /**
@@ -351,12 +366,11 @@ declare namespace SFS2X {
             getMMOItems(): MMOItem[];
         }
 
-        //#endregion
-        //#region SFSBuddy
+        // #endregion
+        // #region SFSBuddy
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.SFSBuddy.html
         export class SFSBuddy {
-
             /** Indicates the id of this buddy. */
             id: number;
             /** Indicates the name of this buddy. */
@@ -427,15 +441,13 @@ declare namespace SFS2X {
              * @return {string} Returns: The string representation of the SFSBuddy object.
              */
             toString(): string;
-
         }
 
-        //#endregion
-        //#region SFSRoom
+        // #endregion
+        // #region SFSRoom
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.SFSRoom.html
         export class SFSRoom {
-
             /** Returns the Room Group name. */
             groupId: string;
             /** Indicates the id of this Room. */
@@ -539,15 +551,13 @@ declare namespace SFS2X {
              * @return {string} Returns: The string representation of the SFSRoom object.
              */
             toString(): string;
-
         }
 
-        //#endregion
-        //#region SFSUser
+        // #endregion
+        // #region SFSUser
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.SFSUser.html
         export class SFSUser {
-
             /** Returns the entry point of this user in the current user's AoI. */
             aoiEntryPoint: Data.Vec3D;
             /** Indicates the id of this user. It is unique and it is generated by the server when the user is created. */
@@ -649,15 +659,13 @@ declare namespace SFS2X {
              * @return {string} Returns: The string representation of the SFSUser object.
              */
             toString(): string;
-
         }
 
-        //#endregion
-        //#region UserPrivileges
+        // #endregion
+        // #region UserPrivileges
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.UserPrivileges.html
         export class UserPrivileges {
-
             /** The administrator user can send dedicated "administrator messages", kick and ban users. */
             static ADMINISTRATOR: number;
             /** The Guest user is usually the lowest level in the privilege profiles scale. */
@@ -666,20 +674,17 @@ declare namespace SFS2X {
             static MODERATOR: number;
             /** The standard user is usually registered in the application custom login system; uses a unique name and password to login. */
             static STANDARD: number;
-
         }
 
-        //#endregion
-        //#region Variables
+        // #endregion
+        // #region Variables
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.html
         namespace Variables {
-
-            //#region MMOItemVariable
+            // #region MMOItemVariable
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.MMOItemVariable.html
             export class MMOItemVariable extends SFSUserVariable {
-
                 /**
                  * Creates a new MMOItemVariable instance.
                  * @param {string} name  The name of the MMOItem Variable.
@@ -692,38 +697,32 @@ declare namespace SFS2X {
                  * @return {string} Returns: The string representation of the MMOItemVariable object.
                  */
                 toString(): string;
-
             }
-            //#endregion
-            //#region ReservedBuddyVariables
+            // #endregion
+            // #region ReservedBuddyVariables
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.ReservedBuddyVariables.html
             export class ReservedBuddyVariables {
-
                 /** The Buddy Variable with this name stores the optional nickname of the user in a buddy list. This variable is persistent, which means that the nickname is preserved upon disconnection. */
                 static BV_NICKNAME: string;
                 /** The Buddy Variable with this name keeps track of the online/offline state of the user in a buddy list. This variable is persistent, which means that the online/offline state is preserved upon disconnection. */
                 static BV_ONLINE: string;
                 /** The Buddy Variable with this name stores the custom state of the user in a buddy list. This variable is persistent, which means that the custom state is preserved upon disconnection. */
                 static BV_STATE: string;
-
             }
-            //#endregion
-            //#region ReservedRoomVariables
+            // #endregion
+            // #region ReservedRoomVariables
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.ReservedRoomVariables.html
             export class ReservedRoomVariables {
-
                 /** The Room Variable with this name keeps track of the state (started or stopped) of a game created with the CreateSFSGameRequest request. */
                 static RV_GAME_STARTED: string;
-
             }
-            //#endregion
-            //#region SFSBuddyVariable
+            // #endregion
+            // #region SFSBuddyVariable
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.SFSBuddyVariable.html
             export class SFSBuddyVariable extends SFSUserVariable {
-
                 /** The prefix to be added to a Buddy Variable name to make it persistent. */
                 static OFFLINE_PREFIX: string;
 
@@ -744,14 +743,12 @@ declare namespace SFS2X {
                  * @return {string} Returns: The string representation of the SFSBuddyVariable object.
                  */
                 toString(): string;
-
             }
-            //#endregion
-            //#region SFSRoomVariable
+            // #endregion
+            // #region SFSRoomVariable
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.SFSRoomVariable.html
             export class SFSRoomVariable extends SFSUserVariable {
-
                 /** Indicates whether this Room Variable is persistent or not. */
                 isPersistent: boolean;
                 /** Indicates whether this Room Variable is private or not. */
@@ -769,14 +766,12 @@ declare namespace SFS2X {
                  * @return {string} Returns: The string representation of the SFSRoomVariable object.
                  */
                 toString(): string;
-
             }
-            //#endregion
-            //#region SFSUserVariable
+            // #endregion
+            // #region SFSUserVariable
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.SFSUserVariable.html
             export class SFSUserVariable {
-
                 /** Indicates the name of this variable. */
                 name: string;
                 /** Returns the value of this variable. */
@@ -806,12 +801,11 @@ declare namespace SFS2X {
                  */
                 toString(): string;
             }
-            //#endregion
-            //#region VariableType
+            // #endregion
+            // #region VariableType
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Entities.Variables.VariableType.html
             export class VariableType {
-
                 /** The type of the User/Room Variable is array. */
                 static ARRAY: number;
                 /** The type of the User/Room Variable is boolean. */
@@ -826,47 +820,39 @@ declare namespace SFS2X {
                 static OBJECT: number;
                 /** The type of the User/Room Variable is string. */
                 static STRING: number;
-
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-
+        // #endregion
     }
-    //#endregion
-    //#region ErrorCodes
+    // #endregion
+    // #region ErrorCodes
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.ErrorCodes.html
     export class ErrorCodes {
-
         /**
          * Sets the text of the error message corresponding to the passed error code.
          * @param {number} code    The code of the error message to be modified.
          * @param {string} message The new error message, including the placeholders for runtime informations.
          */
         static setErrorMessage(code: number, message: string): void;
-
     }
-    //#endregion
-    //#region Logger
+    // #endregion
+    // #region Logger
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Logger.html
     export class Logger {
-
         /**
          * Sets the current logging level.
          * @param {number} level The minimum logging level.
          */
         setLevel(level: number): void;
-
     }
-    //#endregion
-    //#region LogLevel
+    // #endregion
+    // #region LogLevel
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.LogLevel.html
     export class LogLevel {
-
         /** A DEBUG message is a fine-grained information on the client activity. */
         static DEBUG: number;
         /** An ERROR message contains informations on a problem that occurred during the client activities. Client operations might be compromised when an error is raised. */
@@ -875,19 +861,16 @@ declare namespace SFS2X {
         static INFO: number;
         /** A WARN message is a warning caused by an unexpected behavior of the client. Client operations are not compromised when a warning is raised. */
         static WARN: number;
-
     }
-    //#endregion
-    //#region Managers
+    // #endregion
+    // #region Managers
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Managers.html
     namespace Managers {
-
-        //#region BuddyManager
+        // #region BuddyManager
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Managers.BuddyManager.html
         export class BuddyManager {
-
             /**
              * Creates a new BuddyManager instance.
              * @param {SmartFox} sfs An instance of the SmartFoxServer 2X client API main SmartFox class.
@@ -968,14 +951,12 @@ declare namespace SFS2X {
              * @return {boolean} Returns: true if the Buddy List system is initialized in the client.
              */
             isInited(): boolean;
-
         }
-        //#endregion
-        //#region RoomManager
+        // #endregion
+        // #region RoomManager
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Managers.RoomManager.html
         export class RoomManager {
-
             /**
              * Creates a new RoomManager instance.
              * @param {SmartFox} sfs An instance of the SmartFoxServer 2X client API main SmartFox class.
@@ -1044,14 +1025,12 @@ declare namespace SFS2X {
              * @return {Entities.SFSRoom[]}      Returns: The list of Rooms joined by the passed user.
              */
             getUserRooms(user: Entities.SFSUser): Entities.SFSRoom[];
-
         }
-        //#endregion
-        //#region UserManager
+        // #endregion
+        // #region UserManager
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Managers.UserManager.html
         export class UserManager {
-
             /**
              * Creates a new UserManager instance.
              * @param {SmartFox} sfs An instance of the SmartFoxServer 2X client API main SmartFox class.
@@ -1097,66 +1076,55 @@ declare namespace SFS2X {
              * @return {Entities.SFSUser[]} Returns: The list of SFSUser objects representing the users in the local users list.
              */
             getUserList(): Entities.SFSUser[];
-
         }
-        //#endregion
-
+        // #endregion
     }
-    //#endregion
-    //#region Requests
+    // #endregion
+    // #region Requests
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.html
     namespace Requests {
-
-        //#region BanMode
+        // #region BanMode
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BanMode.html
         export class BanMode {
-
             /** User is banned by IP address. */
             static BY_ADDRESS: number;
             /** User is banned by name. */
             static BY_NAME: number;
-
         }
-        //#endregion
-        //#region BuddyList
+        // #endregion
+        // #region BuddyList
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.html
         namespace BuddyList {
-
-            //#region AddBuddyRequest
+            // #region AddBuddyRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.AddBuddyRequest.html
             export class AddBuddyRequest {
-
                 /**
                  * Creates a new AddBuddyRequest instance.
                  * @param {string} buddyName The name of the user to be added as a buddy.
                  */
                 constructor(buddyName: string);
-
             }
-            //#endregion
-            //#region BlockBuddyRequest
+            // #endregion
+            // #region BlockBuddyRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.BlockBuddyRequest.html
             export class BlockBuddyRequest {
-
                 /**
                  * Creates a new BlockBuddyRequest instance.
                  * @param {string}  buddyName The name of the buddy to be removed from the user's buddy list.
                  * @param {boolean} blocked   blocked
                  */
                 constructor(buddyName: string, blocked: boolean);
-
             }
-            //#endregion
-            //#region BuddyMessageRequest
+            // #endregion
+            // #region BuddyMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.BuddyMessageRequest.html
             export class BuddyMessageRequest {
-
                 /**
                  * Creates a new BuddyMessageRequest instance.
                  * @param {string}            message     The message to be sent to a buddy.
@@ -1164,86 +1132,72 @@ declare namespace SFS2X {
                  * @param {Object}            [parms=null]       An object containing additional custom parameters (e.g. the message color, an emoticon id, etc).
                  */
                 constructor(message: string, targetBuddy: Entities.SFSBuddy, parms?: Object);
-
             }
-            //#endregion
-            //#region GoOnlineRequest
+            // #endregion
+            // #region GoOnlineRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.GoOnlineRequest.html
             export class GoOnlineRequest {
-
                 /**
                  * Creates a new GoOnlineRequest instance.
                  * @param {boolean} online true to make the current user available (online) in the Buddy List system; false to make them not available (offline).
                  */
                 constructor(online: boolean);
-
             }
-            //#endregion
-            //#region InitBuddyListRequest
+            // #endregion
+            // #region InitBuddyListRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.InitBuddyListRequest.html
             export class InitBuddyListRequest {
-
                 /**
                  * Creates a new InitBuddyListRequest instance.
                  */
                 constructor();
-
             }
-            //#endregion
-            //#region RemoveBuddyRequest
+            // #endregion
+            // #region RemoveBuddyRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.RemoveBuddyRequest.html
             export class RemoveBuddyRequest {
-
                 /**
                  * Creates a new RemoveBuddyRequest instance.
                  * @param {string} buddyName The name of the buddy to be removed from the user's buddy list.
                  */
                 constructor(buddyName: string);
-
             }
-            //#endregion
-            //#region SetBuddyVariablesRequest
+            // #endregion
+            // #region SetBuddyVariablesRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.BuddyList.SetBuddyVariablesRequest.html
             export class SetBuddyVariablesRequest {
-
                 /**
                  * Creates a new SetBuddyVariablesRequest instance.
                  * @param {Entities.Variables.SFSBuddyVariable[]} buddyVariables A list of SFSBuddyVariable objects representing the Buddy Variables to set.
                  */
                 constructor(buddyVariables: Entities.Variables.SFSBuddyVariable[]);
-
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region Game
+        // #endregion
+        // #region Game
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.html
         namespace Game {
-
-            //#region CreateSFSGameRequest
+            // #region CreateSFSGameRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.CreateSFSGameRequest.html
             export class CreateSFSGameRequest {
-
                 /**
                  * Creates a new CreateSFSGameRequest instance.
                  * @param {SFSGameSettings} settings An object containing the Game Room configuration settings.
                  */
                 constructor(settings: SFSGameSettings);
-
             }
-            //#endregion
-            //#region InvitationReplyRequest
+            // #endregion
+            // #region InvitationReplyRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.InvitationReplyRequest.html
             export class InvitationReplyRequest {
-
                 /**
                  * Creates a new InvitationReplyRequest instance.
                  * @param {IINVITATION} invitation      An instance of the Invitation class containing the invitation details (inviter, custom parameters, etc).
@@ -1251,14 +1205,12 @@ declare namespace SFS2X {
                  * @param {Object}      [params=null]          An object containing custom parameters to be returned to the inviter together with the reply (for example a message describing the reason of refusal).
                  */
                 constructor(invitation: IINVITATION, invitationReply: number, params?: Object);
-
             }
-            //#endregion
-            //#region InviteUsersRequest
+            // #endregion
+            // #region InviteUsersRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.InviteUsersRequest.html
             export class InviteUsersRequest {
-
                 /**
                  * Creates a new InviteUsersRequest instance.
                  * @param {Entities.SFSUser[]} invitedUsers     A list of SFSUser objects, each representing a user to send the invitation to.
@@ -1266,14 +1218,12 @@ declare namespace SFS2X {
                  * @param {Object}             [params=null]           An object containing custom parameters containing additional invitation details.
                  */
                 constructor(invitedUsers: Entities.SFSUser[], secondsForAnswer: number, params?: Object);
-
             }
-            //#endregion
-            //#region QuickJoinGameRequest
+            // #endregion
+            // #region QuickJoinGameRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.QuickJoinGameRequest.html
             export class QuickJoinGameRequest {
-
                 /**
                  * Creates a new QuickJoinGameRequest instance.
                  * @param {Entities.SFSRoom[]} whereToSearch An array of SFSRoom objects or an array of Group names to which the matching expression should be applied. The maximum number of elements that this array can contain is 32.
@@ -1286,15 +1236,17 @@ declare namespace SFS2X {
                  * @param {Entities.SFSRoom[]} whereToSearch An array of SFSRoom objects or an array of Group names to which the matching expression should be applied. The maximum number of elements that this array can contain is 32.
                  * @param {Entities.SFSRoom}               [roomToLeave=null]     A SFSRoom object representing the Room that the user should leave when joining the game.
                  */
-                constructor(matchExpression: Entities.Match.MatchExpression, whereToSearch: Entities.SFSRoom[], roomToLeave?: Entities.SFSRoom);
-
+                constructor(
+                    matchExpression: Entities.Match.MatchExpression,
+                    whereToSearch: Entities.SFSRoom[],
+                    roomToLeave?: Entities.SFSRoom,
+                );
             }
-            //#endregion
-            //#region SFSGameSettings
+            // #endregion
+            // #region SFSGameSettings
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.Game.SFSGameSettings.html
             export class SFSGameSettings extends RoomSettings {
-
                 /** In private games, defines the number of seconds that users have to reply to the invitation to join a game. The suggested range is 10 to 40 seconds. */
                 invitationExpiryTime: number;
                 /** In private games, defines a list of SFSUser objects representing players to be invited to join the game. */
@@ -1321,17 +1273,14 @@ declare namespace SFS2X {
                  * @param {string} name The name of the Game Room to be created.
                  */
                 constructor(name: string);
-
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region MessageRecipientMode
+        // #endregion
+        // #region MessageRecipientMode
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.MessageRecipientMode.html
         export class MessageRecipientMode {
-
             /** Returns the selected recipient mode. */
             mode: number;
             /** Returns the moderator/administrator message target, according to the selected recipient mode. */
@@ -1351,19 +1300,16 @@ declare namespace SFS2X {
              * @param {any}    target The moderator/administrator message recipient/s, according to the selected recipient mode.
              */
             constructor(mode: number, target: any);
-
         }
-        //#endregion
-        //#region MMO
+        // #endregion
+        // #region MMO
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.MMO.html
         namespace MMO {
-
-            //#region MapLimits
+            // #region MapLimits
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.MMO.MapLimits.html
             export class MapLimits {
-
                 /** Returns the higher coordinates limit of the virtual environment along the X,Y,Z axes. */
                 higherLimit: Entities.Data.Vec3D;
                 /** Returns the lower coordinates limit of the virtual environment along the X,Y,Z axes. */
@@ -1375,14 +1321,12 @@ declare namespace SFS2X {
                  * @param {Entities.Data.Vec3D} higherLimit
                  */
                 constructor(lowerLimit: Entities.Data.Vec3D, higherLimit: Entities.Data.Vec3D);
-
             }
-            //#endregion
-            //#region MMORoomSettings
+            // #endregion
+            // #region MMORoomSettings
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.MMO.MMORoomSettings.html
             export class MMORoomSettings {
-
                 /** Defines the Area of Interest (AoI) for the MMORoom. */
                 defaultAOI: Entities.Data.Vec3D;
                 /** Defines the limits of the virtual environment represented by the MMORoom. */
@@ -1399,31 +1343,26 @@ declare namespace SFS2X {
                  * @param {string} name The name of the MMORoom to be created.
                  */
                 constructor(name: string);
-
             }
-            //#endregion
-            //#region SetUserPositionRequest
+            // #endregion
+            // #region SetUserPositionRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.MMO.SetUserPositionRequest.html
             export class SetUserPositionRequest {
-
                 /**
                  * Creates a new SetUserPositionRequest instance.
                  * @param {Entities.Data.Vec3D} pos        The user position.
                  * @param {Entities.MMORoom}    [targetRoom=null] The MMORoom object corresponding to the Room where the position should be set; if null, the last Room joined by the user is used.
                  */
                 constructor(pos: Entities.Data.Vec3D, targetRoom?: Entities.MMORoom);
-
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-        //#region RoomEvents
+        // #endregion
+        // #region RoomEvents
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.RoomEvents.html
         export class RoomEvents {
-
             /** Sets whether or not the userCountChange event should be dispatched whenever the users (or players+spectators) count changes in the Room. */
             allowUserCountChance: boolean;
             /** Sets whether the userEnterRoom event should be dispatched whenever a user joins the Room or not. */
@@ -1437,14 +1376,12 @@ declare namespace SFS2X {
              * Creates a new RoomEvents instance.
              */
             constructor();
-
         }
-        //#endregion
-        //#region RoomExtension
+        // #endregion
+        // #region RoomExtension
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.RoomExtension.html
         export class RoomExtension {
-
             /** Returns the fully qualified name of the main class of the Extension. */
             className: string;
             /** Returns the name of the Extension to be attached to the Room. */
@@ -1458,14 +1395,12 @@ declare namespace SFS2X {
              * @param {string} className The fully qualified name of the main class of the Extension.
              */
             constructor(id: string, className: string);
-
         }
-        //#endregion
-        //#region RoomPermissions
+        // #endregion
+        // #region RoomPermissions
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.RoomPermissions.html
         export class RoomPermissions {
-
             /** Sets whether changing the Room name after its creation is allowed or not. */
             allowNameChange: boolean;
             /** Sets whether changing (or removing) the Room password after its creation is allowed or not. */
@@ -1479,14 +1414,12 @@ declare namespace SFS2X {
              * Creates a new RoomPermissions instance.
              */
             constructor();
-
         }
-        //#endregion
-        //#region RoomSettings
+        // #endregion
+        // #region RoomSettings
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.RoomSettings.html
         export class RoomSettings {
-
             /** Sets the flags indicating which events related to the Room are dispatched by the SmartFox client. */
             events: RoomEvents;
             /** Sets the Extension that must be attached to the Room on the server-side, and its settings. */
@@ -1515,19 +1448,16 @@ declare namespace SFS2X {
              * @param {string} name The name of the Room to be created.
              */
             constructor(name: string);
-
         }
-        //#endregion
-        //#region System
+        // #endregion
+        // #region System
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.html
         namespace System {
-
-            //#region AdminMessageRequest
+            // #region AdminMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.AdminMessageRequest.html
-            export class AdminMessageRequest{
-
+            export class AdminMessageRequest {
                 /**
                  * Creates a new AdminMessageRequest instance.
                  * @param {string}               message       The message of the administrator to be sent to the target user/s defined by the recipientMode parameter.
@@ -1535,14 +1465,12 @@ declare namespace SFS2X {
                  * @param {Object}               [params=null]        An object containing custom parameters to be sent to the recipient user/s.
                  */
                 constructor(message: string, recipientMode: MessageRecipientMode, params?: Object);
-
             }
-            //#endregion
-            //#region BanUserRequest
+            // #endregion
+            // #region BanUserRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.BanUserRequest.html
-            export class BanUserRequest{
-
+            export class BanUserRequest {
                 /**
                  * Creates a new BanUserRequest instance.
                  * @param {number}  userId        The id of the user to be banned.
@@ -1551,15 +1479,19 @@ declare namespace SFS2X {
                  * @param {number}  [delaySeconds=5]  The number of seconds after which the user is banned after receiving the ban message.
                  * @param {number}  [durationHours=24] The duration of the banishment, expressed in hours.
                  */
-                constructor(userId: number, message?: string, banMode?: BanMode, delaySeconds?: number, durationHours?: number);
-
+                constructor(
+                    userId: number,
+                    message?: string,
+                    banMode?: BanMode,
+                    delaySeconds?: number,
+                    durationHours?: number,
+                );
             }
-            //#endregion
-            //#region ChangeRoomCapacityRequest
+            // #endregion
+            // #region ChangeRoomCapacityRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ChangeRoomCapacityRequest.html
-            export class ChangeRoomCapacityRequest{
-
+            export class ChangeRoomCapacityRequest {
                 /**
                  * Creates a new ChangeRoomCapacityRequest instance.
                  * @param {Entities.SFSRoom} room        The Room object corresponding to the Room whose capacity should be changed.
@@ -1567,42 +1499,36 @@ declare namespace SFS2X {
                  * @param {number}           newMaxSpect The new maximum number of spectators who can join the Room (for Game Rooms only); the -1 value can be passed not to change the Room.maxSpectators property.
                  */
                 constructor(room: Entities.SFSRoom, newMaxUsers: number, newMaxSpect: number);
-
             }
-            //#endregion
-            //#region ChangeRoomNameRequest
+            // #endregion
+            // #region ChangeRoomNameRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ChangeRoomNameRequest.html
-            export class ChangeRoomNameRequest{
-
+            export class ChangeRoomNameRequest {
                 /**
                  * Creates a new ChangeRoomNameRequest instance.
                  * @param {Entities.SFSRoom} room    The SFSRoom object corresponding to the Room whose name should be changed.
                  * @param {string}           newName The new name to be assigned to the Room.
                  */
                 constructor(room: Entities.SFSRoom, newName: string);
-
             }
-            //#endregion
-            //#region ChangeRoomPasswordStateRequest
+            // #endregion
+            // #region ChangeRoomPasswordStateRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ChangeRoomPasswordStateRequest.html
-            export class ChangeRoomPasswordStateRequest{
-
+            export class ChangeRoomPasswordStateRequest {
                 /**
                  * Creates a new ChangeRoomPasswordStateRequest instance.
                  * @param {Entities.SFSRoom} room    The SFSRoom object corresponding to the Room whose password should be changed.
                  * @param {string}           newPass The new password to be assigned to the Room; an empty string or the null value can be passed to remove the Room's password.
                  */
                 constructor(room: Entities.SFSRoom, newPass: string);
-
             }
-            //#endregion
-            //#region CreateRoomRequest
+            // #endregion
+            // #region CreateRoomRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.CreateRoomRequest.html
-            export class CreateRoomRequest{
-
+            export class CreateRoomRequest {
                 /**
                  * Creates a new CreateRoomRequest instance.
                  * @param {RoomSettings}     settings    An object containing the Room configuration settings.
@@ -1610,14 +1536,12 @@ declare namespace SFS2X {
                  * @param {Entities.SFSRoom} {roomToLeave=null} A SFSRoom object representing the Room that should be left if the new Room is auto-joined.
                  */
                 constructor(settings: RoomSettings, autoJoin?: boolean, roomToLeave?: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region ExtensionRequest
+            // #endregion
+            // #region ExtensionRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ExtensionRequest.html
-            export class ExtensionRequest{
-
+            export class ExtensionRequest {
                 /**
                  * Creates a new ExtensionRequest instance.
                  * @param {string}           extCmd The name of the command which identifies an action that should be executed by the server-side Extension.
@@ -1625,14 +1549,12 @@ declare namespace SFS2X {
                  * @param {Entities.SFSRoom} {room=null}   If null, the specified command is sent to the current Zone server-side Extension; if not null, the command is sent to the server-side Extension attached to the passed Room.
                  */
                 constructor(extCmd: string, params?: Object, room?: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region FindRoomsRequest
+            // #endregion
+            // #region FindRoomsRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.FindRoomsRequest.html
-            export class FindRoomsRequest{
-
+            export class FindRoomsRequest {
                 /**
                  * Creates a new FindRoomsRequest instance.
                  * @param {Entities.Match.MatchExpression} expr    A matching expression that the system will use to retrieve the Rooms.
@@ -1640,14 +1562,12 @@ declare namespace SFS2X {
                  * @param {number}                         [limit=0]   The maximum size of the list of Rooms that will be returned by the roomFindResult event. If 0, all the found Rooms are returned.
                  */
                 constructor(expr: Entities.Match.MatchExpression, groupId?: string, limit?: number);
-
             }
-            //#endregion
-            //#region FindUsersRequest
+            // #endregion
+            // #region FindUsersRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.FindUsersRequest.html
-            export class FindUsersRequest{
-
+            export class FindUsersRequest {
                 /**
                  * Creates a new FindUsersRequest instance.
                  * @param {Entities.Match.MatchExpression} expr   A matching expression that the system will use to retrieve the users.
@@ -1655,14 +1575,12 @@ declare namespace SFS2X {
                  * @param {number}                         [limit=0]  The maximum size of the list of users that will be returned by the userFindResult event. If 0, all the found users are returned.
                  */
                 constructor(expr: Entities.Match.MatchExpression, target?: any, limit?: number);
-
             }
-            //#endregion
-            //#region JoinRoomRequest
+            // #endregion
+            // #region JoinRoomRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.JoinRoomRequest.html
-            export class JoinRoomRequest{
-
+            export class JoinRoomRequest {
                 /**
                  * Creates a new JoinRoomRequest instance.
                  * @param {any}     room          The id or the name of the Room to be joined.
@@ -1671,14 +1589,12 @@ declare namespace SFS2X {
                  * @param {boolean} [asSpect=false]       true to join the Room as a spectator (in Game Rooms only).
                  */
                 constructor(room: any, password?: string, roomIdToLeave?: number, asSpect?: boolean);
-
             }
-            //#endregion
-            //#region KickUserRequest
+            // #endregion
+            // #region KickUserRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.KickUserRequest.html
-            export class KickUserRequest{
-
+            export class KickUserRequest {
                 /**
                  * Creates a new KickUserRequest instance.
                  * @param {number} userId       The id of the user to be kicked.
@@ -1686,27 +1602,23 @@ declare namespace SFS2X {
                  * @param {number} [delaySeconds=5] The number of seconds after which the user is kicked after receiving the kick message.
                  */
                 constructor(userId: number, message?: string, delaySeconds?: number);
-
             }
-            //#endregion
-            //#region LeaveRoomRequest
+            // #endregion
+            // #region LeaveRoomRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.LeaveRoomRequest.html
-            export class LeaveRoomRequest{
-
+            export class LeaveRoomRequest {
                 /**
                  * Creates a new LeaveRoomRequest instance.
                  * @param {Entities.SFSRoom} [room=null] The SFSRoom object corresponding to the Room that the current user must leave. If null, the last Room joined by the user is left.
                  */
                 constructor(room?: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region LoginRequest
+            // #endregion
+            // #region LoginRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.LoginRequest.html
-            export class LoginRequest{
-
+            export class LoginRequest {
                 /**
                  * Creates a new LoginRequest instance.
                  * @param {string} userName The name to be assigned to the user. If not passed and if the Zone allows guest users, the name is generated automatically by the server.
@@ -1715,26 +1627,22 @@ declare namespace SFS2X {
                  * @param {string} [zoneName] The name (case-sensitive) of the server Zone to login to; if a Zone name is not specified, the client will use the setting passed to the SmartFox class constructor.
                  */
                 constructor(userName: string, password?: string, params?: Object, zoneName?: string);
-
             }
-            //#endregion
-            //#region LogoutRequest
+            // #endregion
+            // #region LogoutRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.LogoutRequest.html
-            export class LogoutRequest{
-
+            export class LogoutRequest {
                 /**
                  * Creates a new LogoutRequest instance.
                  */
                 constructor();
-
             }
-            //#endregion
-            //#region ModeratorMessageRequest
+            // #endregion
+            // #region ModeratorMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ModeratorMessageRequest.html
-            export class ModeratorMessageRequest{
-
+            export class ModeratorMessageRequest {
                 /**
                  * Creates a new ModeratorMessageRequest instance.
                  * @param {string}               message       The message of the moderator to be sent to the target user/s defined by the recipientMode parameter.
@@ -1742,14 +1650,12 @@ declare namespace SFS2X {
                  * @param {Object}               [params=null]        An object containing custom parameters to be sent to the recipient user/s.
                  */
                 constructor(message: string, recipientMode: MessageRecipientMode, params?: Object);
-
             }
-            //#endregion
-            //#region ObjectMessageRequest
+            // #endregion
+            // #region ObjectMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.ObjectMessageRequest.html
-            export class ObjectMessageRequest{
-
+            export class ObjectMessageRequest {
                 /**
                  * Creates a new ObjectMessageRequest instance.
                  * @param {Object}             obj        An object containing custom parameters to be sent to the message recipients.
@@ -1757,27 +1663,23 @@ declare namespace SFS2X {
                  * @param {Entities.SFSUser[]} [recipients=null] A list of SFSUser objects corresponding to the message recipients; if null, the message is sent to all users in the target Room (except the sender themselves).
                  */
                 constructor(obj: Object, targetRoom?: Entities.SFSRoom, recipients?: Entities.SFSUser[]);
-
             }
-            //#endregion
-            //#region PlayerToSpectatorRequest
+            // #endregion
+            // #region PlayerToSpectatorRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.PlayerToSpectatorRequest.html
-            export class PlayerToSpectatorRequest{
-
+            export class PlayerToSpectatorRequest {
                 /**
                  * Creates a new SpectatorToPlayerRequest instance.
                  * @param {Entities.SFSRoom} [targetRoom=null] The SFSRoom object corresponding to the Room in which the spectator should be turned to player. If null, the last Room joined by the user is used.
                  */
                 constructor(targetRoom?: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region PrivateMessageRequest
+            // #endregion
+            // #region PrivateMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.PrivateMessageRequest.html
-            export class PrivateMessageRequest{
-
+            export class PrivateMessageRequest {
                 /**
                  * Creates a new PrivateMessageRequest instance.
                  * @param {string} message     The message to be sent to to the recipient user.
@@ -1785,14 +1687,12 @@ declare namespace SFS2X {
                  * @param {Object} [params=null]      An object containing additional custom parameters to be sent to the message recipient (for example the color of the text, etc).
                  */
                 constructor(message: string, recipientId: number, params?: Object);
-
             }
-            //#endregion
-            //#region PublicMessageRequest
+            // #endregion
+            // #region PublicMessageRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.PublicMessageRequest.html
-            export class PublicMessageRequest{
-
+            export class PublicMessageRequest {
                 /**
                  * Creates a new PublicMessageRequest instance.
                  * @param {string}           message    The message to be sent to all the users in the target Room.
@@ -1800,86 +1700,72 @@ declare namespace SFS2X {
                  * @param {Entities.SFSRoom} [targetRoom=null] The SFSRoom object corresponding to the Room where the message should be dispatched; if null, the last Room joined by the user is used.
                  */
                 constructor(message: string, params?: Object, targetRoom?: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region SetRoomVariablesRequest
+            // #endregion
+            // #region SetRoomVariablesRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.SetRoomVariablesRequest.html
-            export class SetRoomVariablesRequest{
-
+            export class SetRoomVariablesRequest {
                 /**
                  * Creates a new SetRoomVariablesRequest instance.
                  * @param {Entities.Variables.SFSRoomVariable[]} roomVariables A list of SFSRoomVariable objects representing the Room Variables to be set.
                  * @param {Entities.SFSRoom}                     [room=null]          A SFSRoom object representing the Room where to set the Room Variables; if null, the last Room joined by the current user is used.
                  */
                 constructor(roomVariables: Entities.Variables.SFSRoomVariable[], room: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region SetUserVariablesRequest
+            // #endregion
+            // #region SetUserVariablesRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.SetUserVariablesRequest.html
-            export class SetUserVariablesRequest{
-
+            export class SetUserVariablesRequest {
                 /**
                  * Creates a new SetUserVariablesRequest instance.
                  * @param {Entities.Variables.SFSUserVariable} userVariables A list of SFSUserVariable objects representing the User Variables to be set.
                  */
                 constructor(userVariables: Entities.Variables.SFSUserVariable);
-
             }
-            //#endregion
-            //#region SpectatorToPlayerRequest
+            // #endregion
+            // #region SpectatorToPlayerRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.SpectatorToPlayerRequest.html
-            export class SpectatorToPlayerRequest{
-
+            export class SpectatorToPlayerRequest {
                 /**
                  * Creates a new SpectatorToPlayerRequest instance.
                  * @param {Entities.SFSRoom} targetRoom The SFSRoom object corresponding to the Room in which the spectator should be turned to player. If null, the last Room joined by the user is used.
                  */
                 constructor(targetRoom: Entities.SFSRoom);
-
             }
-            //#endregion
-            //#region SubscribeRoomGroupRequest
+            // #endregion
+            // #region SubscribeRoomGroupRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.SubscribeRoomGroupRequest.html
-            export class SubscribeRoomGroupRequest{
-
+            export class SubscribeRoomGroupRequest {
                 /**
                  * Creates a new SubscribeRoomGroupRequest instance.
                  * @param {string} groupId The name of the Room Group to subscribe.
                  */
                 constructor(groupId: string);
-
             }
-            //#endregion
-            //#region UnsubscribeRoomGroupRequest
+            // #endregion
+            // #region UnsubscribeRoomGroupRequest
 
             // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Requests.System.UnsubscribeRoomGroupRequest.html
-            export class UnsubscribeRoomGroupRequest{
-
+            export class UnsubscribeRoomGroupRequest {
                 /**
                  * Creates a new UnsubscribeRoomGroupRequest instance.
                  * @param {string} groupId The name of the Room Group to unsubscribe.
                  */
                 constructor(groupId: string);
-
             }
-            //#endregion
-
+            // #endregion
         }
-        //#endregion
-
+        // #endregion
     }
-    //#endregion
-    //#region SFSBuddyEvent
+    // #endregion
+    // #region SFSBuddyEvent
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.SFSBuddyEvent.html
     export class SFSBuddyEvent {
-
         /** The buddyAdd event type, dispatched when a buddy is added successfully to the current user's buddy list. */
         static BUDDY_ADD: string;
         /** The buddyBlock event type, dispatched when a buddy is blocked or unblocked successfully by the current user. */
@@ -1896,7 +1782,6 @@ declare namespace SFS2X {
         static BUDDY_REMOVE: string;
         /** The buddyVariablesUpdate event type, dispatched when a buddy in the current user's buddies list updates one or more Buddy Variables. */
         static BUDDY_VARIABLES_UPDATE: string;
-
     }
 
     interface IBUDDY_ADD {
@@ -1939,12 +1824,11 @@ declare namespace SFS2X {
         changedVars: string[];
     }
 
-    //#endregion
-    //#region SFSEvent
+    // #endregion
+    // #region SFSEvent
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.SFSEvent.html
     export class SFSEvent {
-
         /** The adminMessage event type, dispatched when the current user receives a message from an administrator user. */
         static ADMIN_MESSAGE: string;
         /** The connection event type, dispatched when a connection between the client and a SmartFoxServer 2X instance is attempted. */
@@ -2033,7 +1917,6 @@ declare namespace SFS2X {
         static USER_FIND_RESULT: string;
         /** The userVariablesUpdate event type, dispatched when a User Variable is updated. */
         static USER_VARIABLES_UPDATE: string;
-
     }
 
     interface IADMIN_MESSAGE {
@@ -2082,7 +1965,6 @@ declare namespace SFS2X {
     }
 
     interface ILOGOUT {
-
     }
 
     interface IMMOITEM_VARIABLES_UPDATE {
@@ -2215,7 +2097,7 @@ declare namespace SFS2X {
     }
 
     interface ISOCKET_ERROR {
-         errorMessage: string;
+        errorMessage: string;
     }
 
     interface ISPECTATOR_TO_PLAYER {
@@ -2253,12 +2135,11 @@ declare namespace SFS2X {
         user: Entities.SFSUser;
         changedVars: string[];
     }
-    //#endregion
-    //#region SmartFox
+    // #endregion
+    // #region SmartFox
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.SmartFox.html
     export class SmartFox {
-
         /** Returns a reference to the Buddy Manager. */
         buddyManager: Managers.BuddyManager;
         /** Returns the client configuration object passed during the SmartFox instance creation. */
@@ -2358,7 +2239,45 @@ declare namespace SFS2X {
          * Sends a request to the server.
          * @param {(Requests.BuddyList.AddBuddyRequest | Requests.BuddyList.BlockBuddyRequest | Requests.BuddyList.BuddyMessageRequest | Requests.BuddyList.GoOnlineRequest | Requests.BuddyList.InitBuddyListRequest | Requests.BuddyList.RemoveBuddyRequest | Requests.BuddyList.SetBuddyVariablesRequest | Requests.Game.CreateSFSGameRequest | Requests.Game.InvitationReplyRequest | Requests.Game.InviteUsersRequest | Requests.Game.QuickJoinGameRequest | Requests.MMO.SetUserPositionRequest | Requests.System.AdminMessageRequest | Requests.System.BanUserRequest | Requests.System.ChangeRoomCapacityRequest | Requests.System.ChangeRoomNameRequest | Requests.System.ChangeRoomPasswordStateRequest | Requests.System.CreateRoomRequest | Requests.System.ExtensionRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest | Requests.System.JoinRoomRequest | Requests.System.KickUserRequest | Requests.System.LeaveRoomRequest | Requests.System.LoginRequest | Requests.System.LogoutRequest | Requests.System.ModeratorMessageRequest | Requests.System.ObjectMessageRequest | Requests.System.PlayerToSpectatorRequest | Requests.System.PrivateMessageRequest | Requests.System.PublicMessageRequest | Requests.System.SetRoomVariablesRequest | Requests.System.SetUserVariablesRequest | Requests.System.SpectatorToPlayerRequest | Requests.System.SubscribeRoomGroupRequest | Requests.System.UnsubscribeRoomGroupRequest)} request Sends a request to the server.
          */
-        send(request: Requests.BuddyList.AddBuddyRequest | Requests.BuddyList.BlockBuddyRequest | Requests.BuddyList.BuddyMessageRequest | Requests.BuddyList.GoOnlineRequest | Requests.BuddyList.InitBuddyListRequest | Requests.BuddyList.RemoveBuddyRequest | Requests.BuddyList.SetBuddyVariablesRequest | Requests.Game.CreateSFSGameRequest | Requests.Game.InvitationReplyRequest | Requests.Game.InviteUsersRequest | Requests.Game.QuickJoinGameRequest | Requests.MMO.SetUserPositionRequest | Requests.System.AdminMessageRequest | Requests.System.BanUserRequest | Requests.System.ChangeRoomCapacityRequest | Requests.System.ChangeRoomNameRequest | Requests.System.ChangeRoomPasswordStateRequest | Requests.System.CreateRoomRequest | Requests.System.ExtensionRequest | Requests.System.FindRoomsRequest | Requests.System.FindUsersRequest | Requests.System.JoinRoomRequest | Requests.System.KickUserRequest | Requests.System.LeaveRoomRequest | Requests.System.LoginRequest | Requests.System.LogoutRequest | Requests.System.ModeratorMessageRequest | Requests.System.ObjectMessageRequest | Requests.System.PlayerToSpectatorRequest | Requests.System.PrivateMessageRequest | Requests.System.PublicMessageRequest | Requests.System.SetRoomVariablesRequest | Requests.System.SetUserVariablesRequest | Requests.System.SpectatorToPlayerRequest | Requests.System.SubscribeRoomGroupRequest | Requests.System.UnsubscribeRoomGroupRequest): void;
+        send(
+            request:
+                | Requests.BuddyList.AddBuddyRequest
+                | Requests.BuddyList.BlockBuddyRequest
+                | Requests.BuddyList.BuddyMessageRequest
+                | Requests.BuddyList.GoOnlineRequest
+                | Requests.BuddyList.InitBuddyListRequest
+                | Requests.BuddyList.RemoveBuddyRequest
+                | Requests.BuddyList.SetBuddyVariablesRequest
+                | Requests.Game.CreateSFSGameRequest
+                | Requests.Game.InvitationReplyRequest
+                | Requests.Game.InviteUsersRequest
+                | Requests.Game.QuickJoinGameRequest
+                | Requests.MMO.SetUserPositionRequest
+                | Requests.System.AdminMessageRequest
+                | Requests.System.BanUserRequest
+                | Requests.System.ChangeRoomCapacityRequest
+                | Requests.System.ChangeRoomNameRequest
+                | Requests.System.ChangeRoomPasswordStateRequest
+                | Requests.System.CreateRoomRequest
+                | Requests.System.ExtensionRequest
+                | Requests.System.FindRoomsRequest
+                | Requests.System.FindUsersRequest
+                | Requests.System.JoinRoomRequest
+                | Requests.System.KickUserRequest
+                | Requests.System.LeaveRoomRequest
+                | Requests.System.LoginRequest
+                | Requests.System.LogoutRequest
+                | Requests.System.ModeratorMessageRequest
+                | Requests.System.ObjectMessageRequest
+                | Requests.System.PlayerToSpectatorRequest
+                | Requests.System.PrivateMessageRequest
+                | Requests.System.PublicMessageRequest
+                | Requests.System.SetRoomVariablesRequest
+                | Requests.System.SetUserVariablesRequest
+                | Requests.System.SpectatorToPlayerRequest
+                | Requests.System.SubscribeRoomGroupRequest
+                | Requests.System.UnsubscribeRoomGroupRequest,
+        ): void;
         /**
          * Allows to specify custom client details that will be used to gather statistics about the client platform via the AdminTool's Analytics Module.
          * @param {string} platformId An identification string for the client, like the browser name for example.
@@ -2379,17 +2298,15 @@ declare namespace SFS2X {
         /** Indicates whether the client-server messages console debug should be enabled or not. */
         debug?: boolean | undefined;
     }
-    //#endregion
-    //#region Utils
+    // #endregion
+    // #region Utils
 
     // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Utils.html
     namespace Utils {
-
-        //#region ClientDisconnectionReason
+        // #region ClientDisconnectionReason
 
         // http://docs2x.smartfoxserver.com/api-docs/jsdoc/symbols/SFS2X.Utils.ClientDisconnectionReason.html
         export class ClientDisconnectionReason {
-
             /** Client was banned from the server. */
             static BAN: string;
             /** Client was disconnected because it was idle for too long. */
@@ -2400,12 +2317,9 @@ declare namespace SFS2X {
             static MANUAL: string;
             /** A generic network error occurred, and the client is unable to determine the cause of the disconnection. */
             static UNKNOWN: string;
-
         }
-        //#endregion
-
+        // #endregion
     }
-    //#endregion
-
+    // #endregion
 }
-//#endregion
+// #endregion

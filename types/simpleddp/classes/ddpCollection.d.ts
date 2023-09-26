@@ -1,7 +1,7 @@
-import simpleDDP from '../index';
-import { ddpFilterOptions } from '../options';
-import { ddpOnChange } from './ddpOnChange';
-import { ddpReactiveCollection } from './ddpReactiveCollection';
+import simpleDDP from "../index";
+import { ddpFilterOptions } from "../options";
+import { ddpOnChange } from "./ddpOnChange";
+import { ddpReactiveCollection } from "./ddpReactiveCollection";
 
 export interface CollectionChangeEvent<T> {
     changed: boolean | CollectionChangeEventData<T>;
@@ -30,7 +30,7 @@ export interface FieldsChanged<T> {
 
 export class ddpCollection<T> {
     constructor(name: string, server: simpleDDP);
-    exportData(format: 'string' | 'raw'): object | string;
+    exportData(format: "string" | "raw"): object | string;
     /**
      * Returns collection data based on filter and on passed settings. Supports skip, limit and sort.
      * Order is `filter` then `sort` then `skip` then `limit`.

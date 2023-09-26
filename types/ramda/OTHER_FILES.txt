@@ -81,6 +81,7 @@ es/identical.d.ts
 es/identity.d.ts
 es/ifElse.d.ts
 es/inc.d.ts
+es/index.d.ts
 es/indexBy.d.ts
 es/indexOf.d.ts
 es/init.d.ts
@@ -152,6 +153,7 @@ es/once.d.ts
 es/or.d.ts
 es/over.d.ts
 es/otherwise.d.ts
+es/package.json
 es/pair.d.ts
 es/partial.d.ts
 es/partialObject.d.ts

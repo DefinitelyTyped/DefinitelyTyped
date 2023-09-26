@@ -1,4 +1,4 @@
-import SymbolTree = require('./SymbolTree');
+import SymbolTree = require("./SymbolTree");
 
 declare namespace TreeIterator {
     /**

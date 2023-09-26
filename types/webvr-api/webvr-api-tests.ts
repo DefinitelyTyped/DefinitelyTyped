@@ -1,10 +1,8 @@
-
-
 function fieldOfViewToProjectionMatrix(fov: VRFieldOfView, zNear: number, zFar: number) {
-    var upTan = Math.tan(fov.upDegrees * Math.PI/180.0);
-    var downTan = Math.tan(fov.downDegrees * Math.PI/180.0);
-    var leftTan = Math.tan(fov.leftDegrees * Math.PI/180.0);
-    var rightTan = Math.tan(fov.rightDegrees * Math.PI/180.0);
+    var upTan = Math.tan(fov.upDegrees * Math.PI / 180.0);
+    var downTan = Math.tan(fov.downDegrees * Math.PI / 180.0);
+    var leftTan = Math.tan(fov.leftDegrees * Math.PI / 180.0);
+    var rightTan = Math.tan(fov.rightDegrees * Math.PI / 180.0);
     var xScale = 2.0 / (leftTan + rightTan);
     var yScale = 2.0 / (upTan + downTan);
 
@@ -18,7 +16,7 @@ function fieldOfViewToProjectionMatrix(fov: VRFieldOfView, zNear: number, zFar: 
     out[6] = 0.0;
     out[7] = 0.0;
     out[8] = -((leftTan - rightTan) * xScale * 0.5);
-    out[9] = ((upTan - downTan) * yScale * 0.5);
+    out[9] = (upTan - downTan) * yScale * 0.5;
     out[10] = -(zNear + zFar) / (zFar - zNear);
     out[11] = -1.0;
     out[12] = 0.0;

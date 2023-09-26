@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { pki } from 'node-forge';
+import { pki } from "node-forge";
 
 export = api;
 
@@ -83,7 +83,7 @@ declare namespace api {
      *
      * ca.inject('+') // Switch to new injection mode
      */
-    function inject(mode: boolean | '+', certificates?: Certificate[]): void;
+    function inject(mode: boolean | "+", certificates?: Certificate[]): void;
 
     /**
      * Applications that use `win-ca` are sometimes packed / bundled. In this case one should find appropriate
@@ -111,7 +111,7 @@ declare namespace api {
     function exe(path?: string): string;
 
     type CertificateFormat = (typeof der2)[keyof typeof der2];
-    type Store = 'root' | 'ca' | 'my' | 'trustedpublisher';
+    type Store = "root" | "ca" | "my" | "trustedpublisher";
     type Certificate = Buffer | string | pki.Certificate;
     interface Options {
         /**
@@ -222,7 +222,7 @@ declare namespace api {
          *
          * @default false // just fetch from store, do not install
          */
-        inject?: boolean | '+';
+        inject?: boolean | "+";
         /**
          * How to save certificates to disk.
          *

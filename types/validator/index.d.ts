@@ -16,15 +16,15 @@
 //                 Daniel Freire <https://github.com/dcfreire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _isBoolean from './lib/isBoolean';
-import * as _isEmail from './lib/isEmail';
-import * as _isFQDN from './lib/isFQDN';
-import * as _isIBAN from './lib/isIBAN';
-import * as _isISO31661Alpha2 from './lib/isISO31661Alpha2';
-import * as _isISO4217 from './lib/isISO4217';
-import * as _isISO6391 from './lib/isISO6391';
-import * as _isURL from './lib/isURL';
-import * as _isTaxID from './lib/isTaxID';
+import * as _isBoolean from "./lib/isBoolean";
+import * as _isEmail from "./lib/isEmail";
+import * as _isFQDN from "./lib/isFQDN";
+import * as _isIBAN from "./lib/isIBAN";
+import * as _isISO31661Alpha2 from "./lib/isISO31661Alpha2";
+import * as _isISO4217 from "./lib/isISO4217";
+import * as _isISO6391 from "./lib/isISO6391";
+import * as _isTaxID from "./lib/isTaxID";
+import * as _isURL from "./lib/isURL";
 
 declare namespace validator {
     const version: string;
@@ -66,60 +66,60 @@ declare namespace validator {
     function isAfter(str: string, date?: string): boolean;
 
     type AlphaLocale =
-        | 'en-US'
-        | 'bg-BG'
-        | 'cs-CZ'
-        | 'da-DK'
-        | 'de-DE'
-        | 'el-GR'
-        | 'es-AR'
-        | 'es-ES'
-        | 'fr-FR'
-        | 'it-IT'
-        | 'nb-NO'
-        | 'nl-NL'
-        | 'nn-NO'
-        | 'hu-HU'
-        | 'pl-PL'
-        | 'pt-PT'
-        | 'ru-RU'
-        | 'sl-SI'
-        | 'sk-SK'
-        | 'sr-RS@latin'
-        | 'sr-RS'
-        | 'sv-SE'
-        | 'tr-TR'
-        | 'uk-UA'
-        | 'ku-IQ'
-        | 'ar'
-        | 'he'
-        | 'fa-IR'
-        | 'en-AU'
-        | 'en-GB'
-        | 'en-HK'
-        | 'en-IN'
-        | 'en-NZ'
-        | 'en-ZA'
-        | 'en-ZM'
-        | 'ar-AE'
-        | 'ar-BH'
-        | 'ar-DZ'
-        | 'ar-EG'
-        | 'ar-IQ'
-        | 'ar-JO'
-        | 'ar-KW'
-        | 'ar-LB'
-        | 'ar-LY'
-        | 'ar-MA'
-        | 'ar-QM'
-        | 'ar-QA'
-        | 'ar-SA'
-        | 'ar-SD'
-        | 'ar-SY'
-        | 'ar-TN'
-        | 'ar-YE'
-        | 'pt-BR'
-        | 'pl-Pl';
+        | "en-US"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "el-GR"
+        | "es-AR"
+        | "es-ES"
+        | "fr-FR"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "hu-HU"
+        | "pl-PL"
+        | "pt-PT"
+        | "ru-RU"
+        | "sl-SI"
+        | "sk-SK"
+        | "sr-RS@latin"
+        | "sr-RS"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA"
+        | "ku-IQ"
+        | "ar"
+        | "he"
+        | "fa-IR"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-ZA"
+        | "en-ZM"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QM"
+        | "ar-QA"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "pt-BR"
+        | "pl-Pl";
 
     const isAlphaLocales: AlphaLocale[];
 
@@ -139,60 +139,60 @@ declare namespace validator {
     function isAlpha(str: string, locale?: AlphaLocale, options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
-        | 'en-US'
-        | 'bg-BG'
-        | 'cs-CZ'
-        | 'da-DK'
-        | 'de-DE'
-        | 'el-GR'
-        | 'es-AR'
-        | 'es-ES'
-        | 'fr-FR'
-        | 'it-IT'
-        | 'hu-HU'
-        | 'nb-NO'
-        | 'nl-NL'
-        | 'nn-NO'
-        | 'pl-PL'
-        | 'pt-PT'
-        | 'ru-RU'
-        | 'sl-SI'
-        | 'sk-SK'
-        | 'sr-RS@latin'
-        | 'sr-RS'
-        | 'sv-SE'
-        | 'tr-TR'
-        | 'uk-UA'
-        | 'ku-IQ'
-        | 'ar'
-        | 'he'
-        | 'fa-IR'
-        | 'en-AU'
-        | 'en-GB'
-        | 'en-HK'
-        | 'en-IN'
-        | 'en-NZ'
-        | 'en-ZA'
-        | 'en-ZM'
-        | 'ar-AE'
-        | 'ar-BH'
-        | 'ar-DZ'
-        | 'ar-EG'
-        | 'ar-IQ'
-        | 'ar-JO'
-        | 'ar-KW'
-        | 'ar-LB'
-        | 'ar-LY'
-        | 'ar-MA'
-        | 'ar-QM'
-        | 'ar-QA'
-        | 'ar-SA'
-        | 'ar-SD'
-        | 'ar-SY'
-        | 'ar-TN'
-        | 'ar-YE'
-        | 'pt-BR'
-        | 'pl-Pl';
+        | "en-US"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "el-GR"
+        | "es-AR"
+        | "es-ES"
+        | "fr-FR"
+        | "it-IT"
+        | "hu-HU"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-PT"
+        | "ru-RU"
+        | "sl-SI"
+        | "sk-SK"
+        | "sr-RS@latin"
+        | "sr-RS"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA"
+        | "ku-IQ"
+        | "ar"
+        | "he"
+        | "fa-IR"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-ZA"
+        | "en-ZM"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QM"
+        | "ar-QA"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "pt-BR"
+        | "pl-Pl";
 
     const isAlphanumericLocales: AlphanumericLocale[];
 
@@ -278,7 +278,7 @@ declare namespace validator {
         /**
          * @default undefined
          */
-        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
+        provider?: "amex" | "dinersclub" | "discover" | "jcb" | "mastercard" | "unionpay" | "visa" | "";
     }
 
     /**
@@ -460,56 +460,56 @@ declare namespace validator {
     function isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     type FloatLocale =
-        | 'en-US'
-        | 'ar'
-        | 'en-AU'
-        | 'en-GB'
-        | 'en-HK'
-        | 'en-IN'
-        | 'en-NZ'
-        | 'en-ZA'
-        | 'en-ZM'
-        | 'ar-AE'
-        | 'ar-BH'
-        | 'ar-DZ'
-        | 'ar-EG'
-        | 'ar-IQ'
-        | 'ar-JO'
-        | 'ar-KW'
-        | 'ar-LB'
-        | 'ar-LY'
-        | 'ar-MA'
-        | 'ar-QM'
-        | 'ar-QA'
-        | 'ar-SA'
-        | 'ar-SD'
-        | 'ar-SY'
-        | 'ar-TN'
-        | 'ar-YE'
-        | 'bg-BG'
-        | 'cs-CZ'
-        | 'da-DK'
-        | 'de-DE'
-        | 'el-GR'
-        | 'es-ES'
-        | 'fr-FR'
-        | 'it-IT'
-        | 'ku-IQ'
-        | 'hu-HU'
-        | 'nb-NO'
-        | 'nn-NO'
-        | 'nl-NL'
-        | 'pl-PL'
-        | 'pt-PT'
-        | 'ru-RU'
-        | 'sl-SI'
-        | 'sr-RS@latin'
-        | 'sr-RS'
-        | 'sv-SE'
-        | 'tr-TR'
-        | 'uk-UA'
-        | 'pt-BR'
-        | 'pl-Pl';
+        | "en-US"
+        | "ar"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-ZA"
+        | "en-ZM"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QM"
+        | "ar-QA"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "el-GR"
+        | "es-ES"
+        | "fr-FR"
+        | "it-IT"
+        | "ku-IQ"
+        | "hu-HU"
+        | "nb-NO"
+        | "nn-NO"
+        | "nl-NL"
+        | "pl-PL"
+        | "pt-PT"
+        | "ru-RU"
+        | "sl-SI"
+        | "sr-RS@latin"
+        | "sr-RS"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA"
+        | "pt-BR"
+        | "pl-Pl";
 
     const isFloatLocales: FloatLocale[];
 
@@ -557,19 +557,19 @@ declare namespace validator {
     function isHalfWidth(str: string): boolean;
 
     type HashAlgorithm =
-        | 'md4'
-        | 'md5'
-        | 'sha1'
-        | 'sha256'
-        | 'sha384'
-        | 'sha512'
-        | 'ripemd128'
-        | 'ripemd160'
-        | 'tiger128'
-        | 'tiger160'
-        | 'tiger192'
-        | 'crc32'
-        | 'crc32b';
+        | "md4"
+        | "md5"
+        | "sha1"
+        | "sha256"
+        | "sha384"
+        | "sha512"
+        | "ripemd128"
+        | "ripemd160"
+        | "tiger128"
+        | "tiger160"
+        | "tiger192"
+        | "crc32"
+        | "crc32b";
 
     /**
      * Check if the string is a hash of type algorithm.
@@ -601,14 +601,14 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
+    type IdentityCardLocale = "ES" | "he-IL" | "zh-TW" | "zh-CN";
 
     /**
      * Check if the string is a valid identity card code.
      *
      * @param [locale="any"] - IdentityCardLocale
      */
-    function isIdentityCard(str: string, locale?: 'any' | IdentityCardLocale): boolean;
+    function isIdentityCard(str: string, locale?: "any" | IdentityCardLocale): boolean;
 
     interface IsIMEIOptions {
         /**
@@ -664,7 +664,7 @@ declare namespace validator {
      */
     function isInt(str: string, options?: IsIntOptions): boolean;
 
-    type IPVersion = '4' | '6' | 4 | 6;
+    type IPVersion = "4" | "6" | 4 | 6;
 
     /**
      * Check if the string is an IP (version 4 or 6).
@@ -678,7 +678,7 @@ declare namespace validator {
      */
     function isIPRange(str: string, version?: IPVersion): boolean;
 
-    type ISBNVersion = '10' | '13' | 10 | 13;
+    type ISBNVersion = "10" | "13" | 10 | 13;
 
     /**
      * Check if the string is an ISBN (version 10 or 13).
@@ -731,7 +731,6 @@ declare namespace validator {
         /**
          * If `strictSeparator` is true, date strings with date and time separated
          * by anything other than a T will be invalid
-         *
          */
         strictSeparator?: boolean | undefined;
     }
@@ -858,122 +857,122 @@ declare namespace validator {
 
     type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
     type PhoneLocale =
-        | 'am-AM'
-        | 'ar-AE'
-        | 'ar-BH'
-        | 'ar-DZ'
-        | 'ar-LB'
-        | 'ar-EG'
-        | 'ar-IQ'
-        | 'ar-JO'
-        | 'ar-KW'
-        | 'ar-LY'
-        | 'ar-MA'
-        | 'ar-OM'
-        | 'ar-SA'
-        | 'ar-SY'
-        | 'ar-TN'
-        | 'az-AZ'
-        | 'bs-BA'
-        | 'be-BY'
-        | 'bg-BG'
-        | 'bn-BD'
-        | 'ca-AD'
-        | 'cs-CZ'
-        | 'da-DK'
-        | 'de-DE'
-        | 'de-AT'
-        | 'de-CH'
-        | 'de-LU'
-        | 'el-GR'
-        | 'en-AU'
-        | 'en-GB'
-        | 'en-GG'
-        | 'en-GH'
-        | 'en-HK'
-        | 'en-MO'
-        | 'en-IE'
-        | 'en-IN'
-        | 'en-KE'
-        | 'en-MT'
-        | 'en-MU'
-        | 'en-NG'
-        | 'en-NZ'
-        | 'en-PK'
-        | 'en-PH'
-        | 'en-RW'
-        | 'en-SG'
-        | 'en-SL'
-        | 'en-TZ'
-        | 'en-UG'
-        | 'en-US'
-        | 'en-ZA'
-        | 'en-ZM'
-        | 'en-ZW'
-        | 'es-AR'
-        | 'es-BO'
-        | 'es-CO'
-        | 'es-CL'
-        | 'es-CR'
-        | 'es-DO'
-        | 'es-HN'
-        | 'es-EC'
-        | 'es-ES'
-        | 'es-PE'
-        | 'es-MX'
-        | 'es-PA'
-        | 'es-PY'
-        | 'es-UY'
-        | 'es-VE'
-        | 'et-EE'
-        | 'fa-IR'
-        | 'fi-FI'
-        | 'fj-FJ'
-        | 'fo-FO'
-        | 'fr-FR'
-        | 'fr-GF'
-        | 'fr-GP'
-        | 'fr-MQ'
-        | 'fr-RE'
-        | 'he-IL'
-        | 'hu-HU'
-        | 'id-ID'
-        | 'it-IT'
-        | 'it-SM'
-        | 'ja-JP'
-        | 'ka-GE'
-        | 'kk-KZ'
-        | 'kl-GL'
-        | 'ko-KR'
-        | 'lt-LT'
-        | 'lv-LV'
-        | 'ms-MY'
-        | 'mz-MZ'
-        | 'nb-NO'
-        | 'ne-NP'
-        | 'nl-BE'
-        | 'nl-NL'
-        | 'nn-NO'
-        | 'pl-PL'
-        | 'pt-BR'
-        | 'pt-PT'
-        | 'pt-AO'
-        | 'ro-RO'
-        | 'ru-RU'
-        | 'si-LK'
-        | 'sl-SI'
-        | 'sk-SK'
-        | 'sq-AL'
-        | 'sr-RS'
-        | 'sv-SE'
-        | 'th-TH'
-        | 'tr-TR'
-        | 'uk-UA'
-        | 'uz-UZ'
-        | 'vi-VN'
-        | 'zh-CN'
-        | 'zh-TW';
-    type PhoneLocaleAlias = 'en-CA' | 'fr-CA' | 'fr-BE' | 'zh-HK' | 'zh-MO' | 'ga-IE' | 'fr-CH' | 'it-CH';
+        | "am-AM"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-LB"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-OM"
+        | "ar-SA"
+        | "ar-SY"
+        | "ar-TN"
+        | "az-AZ"
+        | "bs-BA"
+        | "be-BY"
+        | "bg-BG"
+        | "bn-BD"
+        | "ca-AD"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "de-AT"
+        | "de-CH"
+        | "de-LU"
+        | "el-GR"
+        | "en-AU"
+        | "en-GB"
+        | "en-GG"
+        | "en-GH"
+        | "en-HK"
+        | "en-MO"
+        | "en-IE"
+        | "en-IN"
+        | "en-KE"
+        | "en-MT"
+        | "en-MU"
+        | "en-NG"
+        | "en-NZ"
+        | "en-PK"
+        | "en-PH"
+        | "en-RW"
+        | "en-SG"
+        | "en-SL"
+        | "en-TZ"
+        | "en-UG"
+        | "en-US"
+        | "en-ZA"
+        | "en-ZM"
+        | "en-ZW"
+        | "es-AR"
+        | "es-BO"
+        | "es-CO"
+        | "es-CL"
+        | "es-CR"
+        | "es-DO"
+        | "es-HN"
+        | "es-EC"
+        | "es-ES"
+        | "es-PE"
+        | "es-MX"
+        | "es-PA"
+        | "es-PY"
+        | "es-UY"
+        | "es-VE"
+        | "et-EE"
+        | "fa-IR"
+        | "fi-FI"
+        | "fj-FJ"
+        | "fo-FO"
+        | "fr-FR"
+        | "fr-GF"
+        | "fr-GP"
+        | "fr-MQ"
+        | "fr-RE"
+        | "he-IL"
+        | "hu-HU"
+        | "id-ID"
+        | "it-IT"
+        | "it-SM"
+        | "ja-JP"
+        | "ka-GE"
+        | "kk-KZ"
+        | "kl-GL"
+        | "ko-KR"
+        | "lt-LT"
+        | "lv-LV"
+        | "ms-MY"
+        | "mz-MZ"
+        | "nb-NO"
+        | "ne-NP"
+        | "nl-BE"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-BR"
+        | "pt-PT"
+        | "pt-AO"
+        | "ro-RO"
+        | "ru-RU"
+        | "si-LK"
+        | "sl-SI"
+        | "sk-SK"
+        | "sq-AL"
+        | "sr-RS"
+        | "sv-SE"
+        | "th-TH"
+        | "tr-TR"
+        | "uk-UA"
+        | "uz-UZ"
+        | "vi-VN"
+        | "zh-CN"
+        | "zh-TW";
+    type PhoneLocaleAlias = "en-CA" | "fr-CA" | "fr-BE" | "zh-HK" | "zh-MO" | "ga-IE" | "fr-CH" | "it-CH";
 
     const isMobilePhoneLocales: MobilePhoneLocale[];
 
@@ -994,7 +993,7 @@ declare namespace validator {
      */
     function isMobilePhone(
         str: string,
-        locale?: 'any' | MobilePhoneLocale | MobilePhoneLocale[],
+        locale?: "any" | MobilePhoneLocale | MobilePhoneLocale[],
         options?: IsMobilePhoneOptions,
     ): boolean;
 
@@ -1043,61 +1042,61 @@ declare namespace validator {
     function isPort(str: string): boolean;
 
     type PostalCodeLocale =
-        | 'AD'
-        | 'AT'
-        | 'AU'
-        | 'BE'
-        | 'BG'
-        | 'BR'
-        | 'CA'
-        | 'CH'
-        | 'CN'
-        | 'CZ'
-        | 'DE'
-        | 'DK'
-        | 'DZ'
-        | 'EE'
-        | 'ES'
-        | 'FI'
-        | 'FR'
-        | 'GB'
-        | 'GR'
-        | 'HR'
-        | 'HU'
-        | 'ID'
-        | 'IE'
-        | 'IL'
-        | 'IN'
-        | 'IR'
-        | 'IS'
-        | 'IT'
-        | 'JP'
-        | 'KE'
-        | 'KR'
-        | 'LI'
-        | 'LT'
-        | 'LU'
-        | 'LV'
-        | 'MX'
-        | 'MT'
-        | 'NL'
-        | 'NO'
-        | 'NZ'
-        | 'PL'
-        | 'PR'
-        | 'PT'
-        | 'RO'
-        | 'RU'
-        | 'SA'
-        | 'SE'
-        | 'SI'
-        | 'SK'
-        | 'TN'
-        | 'TW'
-        | 'UA'
-        | 'US'
-        | 'ZA'
-        | 'ZM';
+        | "AD"
+        | "AT"
+        | "AU"
+        | "BE"
+        | "BG"
+        | "BR"
+        | "CA"
+        | "CH"
+        | "CN"
+        | "CZ"
+        | "DE"
+        | "DK"
+        | "DZ"
+        | "EE"
+        | "ES"
+        | "FI"
+        | "FR"
+        | "GB"
+        | "GR"
+        | "HR"
+        | "HU"
+        | "ID"
+        | "IE"
+        | "IL"
+        | "IN"
+        | "IR"
+        | "IS"
+        | "IT"
+        | "JP"
+        | "KE"
+        | "KR"
+        | "LI"
+        | "LT"
+        | "LU"
+        | "LV"
+        | "MX"
+        | "MT"
+        | "NL"
+        | "NO"
+        | "NZ"
+        | "PL"
+        | "PR"
+        | "PT"
+        | "RO"
+        | "RU"
+        | "SA"
+        | "SE"
+        | "SI"
+        | "SK"
+        | "TN"
+        | "TW"
+        | "UA"
+        | "US"
+        | "ZA"
+        | "ZM";
 
     const isPostalCodeLocales: PostalCodeLocale[];
 
@@ -1106,7 +1105,7 @@ declare namespace validator {
      *
      * @param locale - PostalCodeLocale
      */
-    function isPostalCode(str: string, locale: 'any' | PostalCodeLocale): boolean;
+    function isPostalCode(str: string, locale: "any" | PostalCodeLocale): boolean;
 
     /**
      * Check if the string is a Semantic Versioning Specification (SemVer).
@@ -1148,13 +1147,13 @@ declare namespace validator {
          * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
          * @default 'hour24'
          */
-        hourFormat?: 'hour12' | 'hour24';
+        hourFormat?: "hour12" | "hour24";
         /**
          * 'default' will validate HH:MM format, 'withSeconds' will validate the HH:MM:SS format
          *
          * @default 'default'
          */
-        mode?: 'default' | 'withSeconds';
+        mode?: "default" | "withSeconds";
     }
 
     /**
@@ -1172,7 +1171,7 @@ declare namespace validator {
      */
     function isUppercase(str: string): boolean;
 
-    type UUIDVersion = '1' | '2' | '3' | '4' | '5' | 'all' | 1 | 2 | 3 | 4 | 5;
+    type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "all" | 1 | 2 | 3 | 4 | 5;
     /**
      * Check if the string is a UUID (version 1, 2, 3, 4 or 5).
      *

@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
-import { Readable } from 'node:stream';
+import { Readable } from "node:stream";
+import { OpenAPIV2, OpenAPIV3 } from "openapi-types";
 
 export class S2OError extends Error {}
 

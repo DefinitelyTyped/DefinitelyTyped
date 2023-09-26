@@ -3,7 +3,8 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import videojs from 'video.js';
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import videojs from "video.js";
 
 /**
  * A video.js plugin.
@@ -85,7 +86,7 @@ declare namespace mobileUi {
 
 export = mobileUi;
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer {
         mobileUi: typeof mobileUi;
     }

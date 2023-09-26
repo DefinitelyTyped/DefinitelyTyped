@@ -1,6 +1,6 @@
-import weak = require('weak-napi');
+import weak = require("weak-napi");
 
-const obj = {a: 123};
+const obj = { a: 123 };
 
 const weakReference = weak(obj, () => {
     // collected
@@ -11,7 +11,7 @@ weak.create(obj, () => {}); // $ExpectType WeakRef<{ a: number; }>
 
 const sameType = weak.get(weakReference);
 
-function foo(a: {a: number}) {}
+function foo(a: { a: number }) {}
 
 if (sameType) {
     foo(sameType);

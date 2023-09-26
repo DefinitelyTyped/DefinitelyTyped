@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import * as cp from 'child_process';
-import * as wt from 'worker_threads';
+import * as cp from "child_process";
+import * as wt from "worker_threads";
 
 export interface WorkerPoolStats {
     totalWorkers: number;
@@ -90,12 +90,12 @@ export class Promise<T, E = Error> {
 export namespace Promise {
     // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class CancellationError extends Error {
-        name: 'CancellationError';
+        name: "CancellationError";
     }
 
     // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class TimeoutError extends Error {
-        name: 'TimeoutError';
+        name: "TimeoutError";
     }
 }
 
@@ -123,7 +123,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * The minimum number of workers that must be initialized and kept available.
      * Setting this to 'max' will create maxWorkers default workers.
      */
-    minWorkers?: number | 'max' | undefined;
+    minWorkers?: number | "max" | undefined;
 
     /**
      * The default number of maxWorkers is the number of CPU's minus one.
@@ -147,7 +147,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
      *   Only available in a node.js environment.
      */
-    workerType?: 'auto' | 'web' | 'process' | 'thread' | undefined;
+    workerType?: "auto" | "web" | "process" | "thread" | undefined;
 
     /**
      * The timeout in milliseconds to wait for a worker to cleanup it's resources on termination before stopping it forcefully.
@@ -202,6 +202,6 @@ export interface WorkerOptions {
  */
 export function worker(methods?: { [k: string]: (...args: any[]) => any }, options?: WorkerOptions): any;
 export function workerEmit(payload: any): void;
-export const platform: 'node' | 'browser';
+export const platform: "node" | "browser";
 export const isMainThread: boolean;
 export const cpus: number;

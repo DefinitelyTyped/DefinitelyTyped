@@ -1,4 +1,4 @@
-import Range = require('./index');
+import Range = require("./index");
 
 export = RangeTree;
 

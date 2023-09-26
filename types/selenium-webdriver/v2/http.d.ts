@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 /**
  * Converts a headers map to a HTTP header block string.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 /**
  * Plugin that allows dynamic generation of in-memory virtual modules for JavaScript builds

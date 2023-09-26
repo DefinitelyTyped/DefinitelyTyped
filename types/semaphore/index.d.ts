@@ -8,7 +8,6 @@
 declare function semaphore(capacity?: number): semaphore.Semaphore;
 
 declare namespace semaphore {
-
     interface Task {
         (): void;
     }

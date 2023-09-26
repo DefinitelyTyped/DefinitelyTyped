@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { ConnectOptions, ConnectionListener } from "./connect";
+import { ConnectionListener, ConnectOptions } from "./connect";
 import { AddressInfo } from "./connect-failover/getAddressInfo";
 
 import Client = require("./Client");
@@ -11,11 +11,16 @@ declare class ConnectFailover extends EventEmitter {
 
     getReconnectDelay(reconnects: number): number;
 
-    connect(callback: (error: Error | null, client: Client, reconnect: () => void, server: ConnectFailover.Server) => void): {
+    connect(
+        callback: (error: Error | null, client: Client, reconnect: () => void, server: ConnectFailover.Server) => void,
+    ): {
         abort: () => void;
     };
 
-    on(event: "error", listener: (err: ConnectFailover.ConnectError, server: ConnectFailover.ConnectState) => void): this;
+    on(
+        event: "error",
+        listener: (err: ConnectFailover.ConnectError, server: ConnectFailover.ConnectState) => void,
+    ): this;
     on(event: "connect" | "connecting", listener: (server: ConnectFailover.ConnectState) => void): this;
 }
 
