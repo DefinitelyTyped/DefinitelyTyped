@@ -3,12 +3,12 @@
 // Definitions by: Benjamin Bloomfield <https://github.com/bbloomf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { VerovioOptions } from './VerovioOptions';
-import { EditorAction } from './EditorAction';
-import { AvailableOptions } from './AvailableOptions';
-export { VerovioOptions } from './VerovioOptions';
-export { EditorAction } from './EditorAction';
-export * from './AvailableOptions';
+import { AvailableOptions } from "./AvailableOptions";
+import { EditorAction } from "./EditorAction";
+import { VerovioOptions } from "./VerovioOptions";
+export * from "./AvailableOptions";
+export { EditorAction } from "./EditorAction";
+export { VerovioOptions } from "./VerovioOptions";
 
 export interface MIDIValues {
     time: number;

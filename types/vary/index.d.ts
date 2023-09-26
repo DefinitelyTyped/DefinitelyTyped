@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { ServerResponse } from 'http';
+import { ServerResponse } from "http";
 export = vary;
 
 declare function vary(res: ServerResponse, field: string | string[]): void;

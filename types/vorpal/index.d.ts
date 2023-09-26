@@ -36,7 +36,7 @@ declare namespace Vorpal {
     }
 
     interface ParseOpts {
-        use?: 'minimist';
+        use?: "minimist";
     }
 
     interface PromptObject {

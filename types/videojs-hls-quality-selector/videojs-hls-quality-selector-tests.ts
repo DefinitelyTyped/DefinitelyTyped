@@ -1,7 +1,7 @@
-import videojs from 'video.js';
-import { HlsQualitySelectorPlugin } from 'videojs-hls-quality-selector';
-import ConcreteButton from 'videojs-hls-quality-selector/src/ConcreteButton';
-import ConcreteMenuItem from 'videojs-hls-quality-selector/src/ConcreteMenuItem';
+import videojs from "video.js";
+import { HlsQualitySelectorPlugin } from "videojs-hls-quality-selector";
+import ConcreteButton from "videojs-hls-quality-selector/src/ConcreteButton";
+import ConcreteMenuItem from "videojs-hls-quality-selector/src/ConcreteMenuItem";
 
 declare const player: videojs.Player;
 declare const plugin: HlsQualitySelectorPlugin;
@@ -13,7 +13,7 @@ qualityButton.createMenu(); // $ExpectType Menu
 const concreteMenuItem = new ConcreteMenuItem(
     player,
     {
-        label: 'label',
+        label: "label",
         selected: true,
     },
     qualityButton,
@@ -28,5 +28,5 @@ player.hlsQualitySelector();
 player.hlsQualitySelector({
     displayCurrentQuality: true,
     placementIndex: 3,
-    vjsIconClass: 'vjs-icon',
+    vjsIconClass: "vjs-icon",
 });

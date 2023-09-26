@@ -1,16 +1,16 @@
-import { Datepicker, DateRangePicker } from 'vanillajs-datepicker';
+import { Datepicker, DateRangePicker } from "vanillajs-datepicker";
 
-const container = document.createElement('div');
+const container = document.createElement("div");
 const datePicker = new Datepicker(container);
 
 // test dateRangePicker
-const start = document.createElement('input');
-start.setAttribute('name', 'start');
-start.setAttribute('type', 'text');
+const start = document.createElement("input");
+start.setAttribute("name", "start");
+start.setAttribute("type", "text");
 
-const end = document.createElement('input');
-end.setAttribute('name', 'end');
-end.setAttribute('type', 'text');
+const end = document.createElement("input");
+end.setAttribute("name", "end");
+end.setAttribute("type", "text");
 
 container.appendChild(start);
 container.appendChild(end);
@@ -19,19 +19,19 @@ const dateRangePicker = new DateRangePicker(container);
 
 const datePickerWithCustomOptions = new Datepicker(container, {
     autohide: false,
-    buttonClass: 'btn',
+    buttonClass: "btn",
     calendarWeeks: true,
     clearButton: true,
     enableOnReadonly: false,
-    nextArrow: '>',
-    orientation: 'middle center',
-    prevArrow: '<',
+    nextArrow: ">",
+    orientation: "middle center",
+    prevArrow: "<",
     shortcutKeys: {
         show: {
-            key: 'ArrowDown',
+            key: "ArrowDown",
         },
         prevButton: {
-            key: 'ArrowLeft',
+            key: "ArrowLeft",
             ctrlOrMetaKey: true,
         },
     },

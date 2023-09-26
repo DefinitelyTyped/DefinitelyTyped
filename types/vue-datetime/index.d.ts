@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { VueConstructor } from 'vue';
+import { VueConstructor } from "vue";
 export const Datetime: VueDateTimeConstructor;
 export const DatetimePopup: VueDateTimeConstructor;
 export default Datetime;

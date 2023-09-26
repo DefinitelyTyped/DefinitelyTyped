@@ -1,5 +1,5 @@
-import { VueConstructor } from 'vue';
-import { DateLocale, Modifiers, ModifiersClassNames } from './shared.d';
+import { VueConstructor } from "vue";
+import { DateLocale, Modifiers, ModifiersClassNames } from "./shared.d";
 
 export const Calendar: Calendar;
 

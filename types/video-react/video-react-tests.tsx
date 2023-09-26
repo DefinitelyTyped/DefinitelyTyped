@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     ControlBar,
     CurrentTimeDisplay,
@@ -7,7 +7,7 @@ import {
     PlayerProps,
     ProgressControl,
     TimeDivider,
-} from 'video-react';
+} from "video-react";
 
 const testProps: PlayerProps = { autoPlay: true };
 

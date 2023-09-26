@@ -1,4 +1,4 @@
-import { decode, encode, encodingLength } from 'varint';
+import { decode, encode, encodingLength } from "varint";
 
 encode(0); // $ExpectType number[]
 encode(0, [] as number[]); // $ExpectType number[]

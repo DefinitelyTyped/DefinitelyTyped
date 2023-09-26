@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import { TLSSocket } from 'tls';
+import { TLSSocket } from "tls";
 
 /**
  * Used for creating a connection to VNDB API

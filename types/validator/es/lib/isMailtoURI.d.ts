@@ -1,2 +1,2 @@
-import isMailtoURI from '../../lib/isMailtoURI';
+import isMailtoURI from "../../lib/isMailtoURI";
 export default isMailtoURI;

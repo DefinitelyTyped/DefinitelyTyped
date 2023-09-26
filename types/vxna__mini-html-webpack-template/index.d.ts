@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { PluginContext } from 'mini-html-webpack-plugin';
+import { PluginContext } from "mini-html-webpack-plugin";
 
 /**
  * Template for `mini-html-webpack-plugin` that extends default features with useful subset of options

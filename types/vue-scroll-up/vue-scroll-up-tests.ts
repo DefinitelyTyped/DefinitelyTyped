@@ -1,5 +1,5 @@
-import Vue, { ComponentOptions } from 'vue';
-import VueScrollUp from 'vue-scroll-up';
+import Vue, { ComponentOptions } from "vue";
+import VueScrollUp from "vue-scroll-up";
 
 // excerpt from vue-class-component/src/declarations.ts
 type VueClass<V> = {
@@ -7,12 +7,14 @@ type VueClass<V> = {
 } & typeof Vue;
 
 // excerpt from vue-class-component/src/index.ts
-declare function Component<V extends Vue>(options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC;
+declare function Component<V extends Vue>(
+    options: ComponentOptions<V> & ThisType<V>,
+): <VC extends VueClass<V>>(target: VC) => VC;
 
 new Vue({
-    el: '#app',
+    el: "#app",
     components: {
-        VueScrollUp
+        VueScrollUp,
     },
     template: `
         <vue-scroll-up />
@@ -21,14 +23,14 @@ new Vue({
 
 @Component({
     components: {
-        VueScrollUp
+        VueScrollUp,
     },
     template: `
         <vue-scroll-up
           :scroll-duration="500"
           :scroll-y="500"
         />
-    `
+    `,
 })
 class App extends Vue {
 }

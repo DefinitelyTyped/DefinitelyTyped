@@ -16,7 +16,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     context.setState({ unknownProp: true });
 
     if (context.postMessage) {
-        context.postMessage('hello world');
+        context.postMessage("hello world");
     }
     if (context.onDidReceiveMessage) {
         context.onDidReceiveMessage(message => {
@@ -50,7 +50,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             id;
         },
 
-        otherProp: () => { },
+        otherProp: () => {},
     };
 };
 

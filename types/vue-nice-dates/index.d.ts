@@ -5,12 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-export { Calendar } from './Calendar';
-export { DatePicker } from './DatePicker';
-export { DatePickerCalendar } from './DatePickerCalendar';
-export { DateRangePicker } from './DateRangePicker';
-export { DateRangePickerCalendar } from './DateRangePickerCalendar';
-export { Popover } from './Popover';
+export { Calendar } from "./Calendar";
+export { DatePicker } from "./DatePicker";
+export { DatePickerCalendar } from "./DatePickerCalendar";
+export { DateRangePicker } from "./DateRangePicker";
+export { DateRangePickerCalendar } from "./DateRangePickerCalendar";
+export { Popover } from "./Popover";
 
 export const START_DATE: string;
 export const END_DATE: string;

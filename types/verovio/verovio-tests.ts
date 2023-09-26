@@ -1,6 +1,6 @@
-import * as verovio from 'verovio';
-import createVerovioModule from 'verovio/wasm';
-import { VerovioToolkit } from 'verovio/esm';
+import * as verovio from "verovio";
+import { VerovioToolkit } from "verovio/esm";
+import createVerovioModule from "verovio/wasm";
 
 (async () => {
     const VerovioModule = await createVerovioModule();
@@ -12,10 +12,10 @@ import { VerovioToolkit } from 'verovio/esm';
 })();
 
 verovio.module.onRuntimeInitialized = () => {
-    verovio.module.FS_unlink('/data/text/Times.xml');
+    verovio.module.FS_unlink("/data/text/Times.xml");
     verovio.module.FS_createDataFile(
-        '/data/text',
-        'Times.xml',
+        "/data/text",
+        "Times.xml",
         `<?xml version="1.0" encoding="UTF-8"?>`,
         true,
         true,
@@ -28,22 +28,22 @@ verovio.module.onRuntimeInitialized = () => {
         adjustPageHeight: true,
         barLineWidth: 0.1,
         scaleToPageSize: true,
-        smuflTextFont: 'none',
+        smuflTextFont: "none",
         dynamSingleGlyphs: false,
         extenderLineMinSpace: 10,
-        lyricElision: 'narrow',
+        lyricElision: "narrow",
     });
-    vrvTk.loadData('<MEIDATA>');
+    vrvTk.loadData("<MEIDATA>");
     vrvTk.renderToSVG(1);
     const { groups } = vrvTk.getAvailableOptions();
     const definitions = Object.keys(groups)
         .map(key => Object.keys(groups[key].options).map(option => groups[key].options[option]))
         .reduce((result, array) => [...result, ...array], []);
-    const intDefinitions = definitions.filter(d => d.type === 'int') as verovio.IntOption[];
+    const intDefinitions = definitions.filter(d => d.type === "int") as verovio.IntOption[];
     const firstDefinition = definitions[0];
-    if (firstDefinition.type === 'int') {
+    if (firstDefinition.type === "int") {
         // $ExpectType IntOption
         const def = firstDefinition;
     }
-    const { attributeName } = vrvTk.getElementAttr('elementId');
+    const { attributeName } = vrvTk.getElementAttr("elementId");
 };

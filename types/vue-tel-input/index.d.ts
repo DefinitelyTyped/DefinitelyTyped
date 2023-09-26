@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { VueConstructor, PluginFunction } from 'vue';
-import { DirectiveOptions } from 'vue/types/options';
+import { PluginFunction, VueConstructor } from "vue";
+import { DirectiveOptions } from "vue/types/options";
 
 export default VueTelInput;
 export const VueTelInput: VueTelInputConstructor;
@@ -53,7 +53,7 @@ export interface VueTelInputMethods {
     findCountry: (iso: string) => any[];
     getItemClass: (index: number, iso2: string) => any;
     choose: (country: any) => void;
-    onInput: ()  => void;
+    onInput: () => void;
     onBlur: () => void;
     toggleDropdown: () => void;
     clickedOutside: () => void;
@@ -67,11 +67,11 @@ export interface VueTelInputComputed {
     sortedCountries: () => string[];
     formattedResult: () => string;
     state: () => boolean;
-    response: () => VueTelInputResponse ;
+    response: () => VueTelInputResponse;
 }
 
 export interface VueTelInputDirective {
-    'click-outside': DirectiveOptions;
+    "click-outside": DirectiveOptions;
 }
 
 export interface VueTelInputResponse {

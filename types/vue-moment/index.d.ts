@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Moment, MomentFormatSpecification, MomentInput, Duration, DurationInputArg2, DurationInputArg1 } from 'moment';
-import { PluginObject } from 'vue';
+import { Duration, DurationInputArg1, DurationInputArg2, Moment, MomentFormatSpecification, MomentInput } from "moment";
+import { PluginObject } from "vue";
 
 declare namespace VueMomentPlugin {
     interface Options {
@@ -21,7 +21,7 @@ declare namespace VueMomentPlugin {
     }
 }
 
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
     interface Vue {
         $moment: VueMomentPlugin.VueStatic;
     }

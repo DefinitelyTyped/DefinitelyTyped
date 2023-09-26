@@ -66,7 +66,7 @@ declare class Vivus {
     /**
      * Get the status of the animation between start, progress, end.
      */
-    getStatus(): 'start' | 'progress' | 'end';
+    getStatus(): "start" | "progress" | "end";
 
     /**
      * Reset the SVG but make the instance out of order.
@@ -88,7 +88,7 @@ declare namespace Vivus {
          * Can be `'delayed'`, `'sync'`, `'oneByOne'`, `'script'`, `'scenario'`, or `'scenario-sync'`.
          * (default: `'delayed'`)
          */
-        type?: 'delayed' | 'sync' | 'oneByOne' | 'script' | 'scenario' | 'scenario-sync' | undefined;
+        type?: "delayed" | "sync" | "oneByOne" | "script" | "scenario" | "scenario-sync" | undefined;
         /**
          * Link to the SVG to animate.
          * If set, Vivus will create an object tag and append it to the DOM element given to the constructor.
@@ -105,7 +105,7 @@ declare namespace Vivus {
          * Can be `'inViewport'`, `'manual'`, or `'autostart'`
          * (default: `'inViewport'`)
          */
-        start?: 'inViewport' | 'manual' | 'autostart' | undefined;
+        start?: "inViewport" | "manual" | "autostart" | undefined;
         /**
          *     Time between the drawing of first and last path, in frames (only for `delayed` animations).
          */

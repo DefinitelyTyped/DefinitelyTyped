@@ -88,7 +88,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    breaks?: 'none' | 'auto' | 'line' | 'smart' | 'encoded';
+    breaks?: "none" | "auto" | "line" | "smart" | "encoded";
 
     /**
      * (double) In smart breaks mode, the portion of system width usage at which an encoded sb will be used
@@ -106,7 +106,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    condense?: 'none' | 'auto' | 'encoded';
+    condense?: "none" | "auto" | "encoded";
 
     /**
      * When condensing a score also condense the first page
@@ -148,14 +148,14 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    footer?: 'none' | 'auto' | 'encoded' | 'always';
+    footer?: "none" | "auto" | "encoded" | "always";
 
     /**
      * Control header layout
      *
      * default: "auto"
      */
-    header?: 'none' | 'auto' | 'encoded';
+    header?: "none" | "auto" | "encoded";
 
     /**
      * Include type attributes when importing from Humdrum
@@ -334,7 +334,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    pedalStyle?: 'auto' | 'line' | 'pedstar' | 'altpedstar';
+    pedalStyle?: "auto" | "line" | "pedstar" | "altpedstar";
 
     /**
      * Preserves the analytical markup in MEI
@@ -376,7 +376,7 @@ export interface VerovioOptions {
      *
      * default: "embedded"
      */
-    smuflTextFont?: 'embedded' | 'linked' | 'none';
+    smuflTextFont?: "embedded" | "linked" | "none";
 
     /**
      * Align staccato and staccatissimo articulations with center of the note
@@ -792,7 +792,7 @@ export interface VerovioOptions {
      *
      * default: "regular"
      */
-    lyricElision?: 'unicode' | 'narrow' | 'regular' | 'wide';
+    lyricElision?: "unicode" | "narrow" | "regular" | "wide";
 
     /**
      * (double) The lyric hyphen and dash length
@@ -890,7 +890,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    multiRestStyle?: 'auto' | 'default' | 'block' | 'symbols';
+    multiRestStyle?: "auto" | "default" | "block" | "symbols";
 
     /**
      * (double) The thickness of the multi rest in unit
@@ -1142,7 +1142,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    systemDivider?: 'none' | 'auto' | 'left' | 'left-right';
+    systemDivider?: "none" | "auto" | "left" | "left-right";
 
     /**
      * (int) Maximun number of systems per page

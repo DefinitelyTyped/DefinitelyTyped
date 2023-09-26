@@ -55,7 +55,7 @@ interface vCard {
     /**
      * Gender.
      */
-    gender: 'M' | 'F';
+    gender: "M" | "F";
 
     /**
      * Home mailing address

@@ -16,7 +16,7 @@ declare namespace VMAP {
         /**
          * Identifies whether the ad break allows "linear", "nonlinear" or "display" ads
          */
-        breakType: 'linear' | 'nonlinear' | 'display';
+        breakType: "linear" | "nonlinear" | "display";
         /**
          * An optional string identifier for the ad break
          */
@@ -50,7 +50,7 @@ declare namespace VMAP {
         /**
          * The name of the event to track for the element. Can be one of breakStart, breakEnd or error
          */
-        event: 'breakStart' | 'breakEnd' | 'error';
+        event: "breakStart" | "breakEnd" | "error";
         /**
          * The URI of the tracker
          */

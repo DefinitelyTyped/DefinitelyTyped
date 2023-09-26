@@ -3,13 +3,13 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import File = require('vinyl');
-import Through = require('through');
+import File = require("vinyl");
+import Through = require("through");
 
 type Callback = (
     this: Through.ThroughStream,
     /** A vinyl file object */
-    file: File & { named: string }
+    file: File & { named: string },
 ) => string | null | undefined | void;
 
 /**

@@ -13,6 +13,6 @@ declare namespace voronoi {
     }
 }
 
-declare function voronoi(points: voronoi.Point[]) : voronoi.VoronoiDiagram;
+declare function voronoi(points: voronoi.Point[]): voronoi.VoronoiDiagram;
 
 export = voronoi;

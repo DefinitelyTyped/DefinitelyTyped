@@ -1,7 +1,7 @@
-import videojs from 'video.js';
-import 'videojs-mobile-ui';
+import videojs from "video.js";
+import "videojs-mobile-ui";
 
-const player = videojs('my-video');
+const player = videojs("my-video");
 
 player.mobileUi();
 player.mobileUi({

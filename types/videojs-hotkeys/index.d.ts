@@ -3,9 +3,9 @@
 // Definitions by: James Cote <https://github.com/Coteh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { VideoJsPlayer } from 'video.js';
+import { VideoJsPlayer } from "video.js";
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer {
         hotkeys(options?: VideoJsHotkeysOptions): void;
     }
