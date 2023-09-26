@@ -65,7 +65,7 @@ app.CloudStorage.getKeys((err, keys) => {
 });
 
 app.requestWriteAccess(success => {
-    const test = success; // $ExpectType boolean | undefined
+    const test = success; // $ExpectType boolean
 });
 
 app.onEvent('writeAccessRequested', ({ status }) => {});
