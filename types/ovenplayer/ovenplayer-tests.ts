@@ -125,7 +125,7 @@ const quality: OvenPlayerQuality = {
     bitrate: '4000',
     height: 320,
     width: 320,
-    index: '320p',
+    index: 1,
     label: '320p',
 };
 
