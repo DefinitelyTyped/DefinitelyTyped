@@ -44,5 +44,5 @@ for (const pkg of changedPackages) {
         await mkdir(path.dirname(outPath), { recursive: true });
         await writeFile(outPath, packageFS.readFile(fileName));
     }));
-    await writeTgz(tmpDir, path.join("out", `${pkg.fullNpmName}-${packageJson.version}.tgz`));
+    await writeTgz(tmpDir, path.join("out", `${pkg.name}-${packageJson.version}.tgz`));
 }
