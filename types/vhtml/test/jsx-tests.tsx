@@ -4,7 +4,7 @@
 
 /** @jsx h */
 
-import h = require('vhtml');
+import h = require("vhtml");
 
 // Empty element
 // $ExpectType string
@@ -28,7 +28,7 @@ import h = require('vhtml');
 // $ExpectType string
 <blockquote>
     <span>{99}</span>
-    <span>{'string'}</span>
+    <span>{"string"}</span>
     <span>{true}</span>
     <span>{/pattern.*/}</span>
     <span>{null}</span>
@@ -59,7 +59,7 @@ import h = require('vhtml');
 
 // dangerouslySetInnerHTML
 // $ExpectType string
-<main dangerouslySetInnerHTML={{ __html: '&trade;' }}></main>;
+<main dangerouslySetInnerHTML={{ __html: "&trade;" }}></main>;
 // @ts-expect-error
 <main dangerouslySetInnerHTML="foo bar"></main>;
 
