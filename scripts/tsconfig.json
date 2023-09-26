@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "checkJs": true,
+        "module": "NodeNext"
+    }
+}

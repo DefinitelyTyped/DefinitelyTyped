@@ -65,7 +65,7 @@ function getAllHeaders() {
             const indexContent = readFileSync(index, "utf-8");
             let parsed;
             try {
-                parsed = hp.parseHeaderOrFail(indexContent);
+                parsed = hp.parseHeaderOrFail(index.pathname, indexContent);
             } catch (e) {}
             if (parsed) {
                 headers[index.pathname] = { ...parsed, raw: indexContent };

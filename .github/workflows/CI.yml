@@ -29,6 +29,18 @@ jobs:
       # Run tests
       - run: npm run test-all
 
+      - run: node scripts/pack-changed.js
+        id: pack-changed
+        if: always()
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: packages
+          path: out
+
       - name: "Run Danger"
         env:
           # See https://github.com/danger/danger-js/issues/1042
