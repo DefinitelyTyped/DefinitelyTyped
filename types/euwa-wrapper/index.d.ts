@@ -177,12 +177,12 @@ export interface ApplicationAPI {
      * @example
      * ```ts
      * {
-          enteredFormName: 'Name Surname',
-          enteredChatId: 'name@example.com',
-          enteredFormIssue: 'I need help with my order',
-          selectedQueueKey: 'q_cookies_problems',
-          timeId2Map: 'cookiesQueueWorkingTime',
-        }
+     *   enteredFormName: 'Name Surname',
+     *   enteredChatId: 'name@example.com',
+     *   enteredFormIssue: 'I need help with my order',
+     *   selectedQueueKey: 'q_cookies_problems',
+     *   timeId2Map: 'cookiesQueueWorkingTime',
+     * }
      * ```
      * @returns void
      */
