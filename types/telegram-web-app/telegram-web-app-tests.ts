@@ -37,28 +37,28 @@ app.setHeaderColor('#ff0010');
 app.setHeaderColor('bg_color');
 
 app.CloudStorage.setItem('key', 'value', (err, success): void => {
-    if (err) console.error(err.message);
+    if (err) console.error(err);
     if (success) {
         console.log('success');
     }
 });
 
 app.CloudStorage.getItem('key', (err, val) => {
-    if (err) console.error(err.message);
+    if (err) console.error(err);
     if (val) {
         const test = val; // $ExpectType string
     }
 });
 
 app.CloudStorage.getItems(['key1', 'key2'], (err, vals) => {
-    if (err) console.error(err.message);
+    if (err) console.error(err);
     if (vals) {
-        const test = vals; // $ExpectType string[]
+        const test = vals; // $ExpectType Record<string, string>
     }
 });
 
 app.CloudStorage.getKeys((err, keys) => {
-    if (err) console.error(err.message);
+    if (err) console.error(err);
     if (keys) {
         const test = keys; // $ExpectType string[]
     }
