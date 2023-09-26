@@ -1,6 +1,7 @@
 declare namespace GorillaEngine.UI {
-    interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus {
+    interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus, Keyable {
         text: string;
+        isDumb: boolean;
         images: {
             normal?: string;
             hover?: string;

@@ -18,7 +18,7 @@ declare namespace GorillaEngine.UI {
         checkmarkPadding: ComboBoxPadding;
     }
 
-    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font {
+    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font, Highlight {
         value: number;
         /**
          * List of options
