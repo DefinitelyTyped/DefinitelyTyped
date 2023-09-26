@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.3
 
-import Serverless = require('serverless');
-import Plugin = require('serverless/classes/Plugin');
-import lw = require('lambda-wrapper');
+import Serverless = require("serverless");
+import Plugin = require("serverless/classes/Plugin");
+import lw = require("lambda-wrapper");
 export = ServerlessJestPlugin;
 
 declare class ServerlessJestPlugin implements Plugin {

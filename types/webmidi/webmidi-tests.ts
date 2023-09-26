@@ -2,14 +2,14 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
     const midiPort = item;
 
     midiPort.onstatechange = event => {
-        console.log('onstatechange');
+        console.log("onstatechange");
         console.log(event);
     };
-    midiPort.addEventListener('statechange', event => {
+    midiPort.addEventListener("statechange", event => {
         console.log(event.port);
     });
 
-    console.log('sysexenabled');
+    console.log("sysexenabled");
     console.log(item.sysexEnabled);
 
     const outputs = item.outputs.values();
@@ -23,13 +23,13 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
         input.onmidimessage = event => {
             console.log(event.data);
         };
-        input.addEventListener('midimessage', event => {
+        input.addEventListener("midimessage", event => {
             console.log(event.data);
         });
     }
 
     const inputOrOutput = [...inputs, ...outputs][0];
-    if (inputOrOutput.type === 'output') {
+    if (inputOrOutput.type === "output") {
         // 'send' only available on outputs
         inputOrOutput.send([12345]);
     }

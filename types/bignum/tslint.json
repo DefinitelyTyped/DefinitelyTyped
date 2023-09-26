@@ -3,7 +3,6 @@
     "rules": {
         "jsdoc-format": false,
         "no-var-keyword": false,
-        "no-var-requires": false,
-        "strict-export-declare-modifiers": false
+        "no-var-requires": false
     }
 }

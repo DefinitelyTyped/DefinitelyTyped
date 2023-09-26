@@ -1,4 +1,4 @@
-import { Options, Manifest } from './index';
+import { Manifest, Options } from "./index";
 
 /**
  * Fetches the manifest for a package. Manifest objects are similar and based on

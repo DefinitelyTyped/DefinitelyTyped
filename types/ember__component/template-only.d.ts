@@ -1,4 +1,4 @@
-import { Opaque } from 'ember/-private/type-utils';
+import { Opaque } from "ember/-private/type-utils";
 
 /**
  * Template-only components have no backing class instance, so this in their

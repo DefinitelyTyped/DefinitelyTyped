@@ -8,9 +8,9 @@
  * Provides access to global proxy settings for Firefox and proxy event listeners to handle dynamic proxy implementations.
  * Permissions: "proxy"
  */
-import { WebRequest } from "./webRequest";
 import { Events } from "./events";
 import { Types } from "./types";
+import { WebRequest } from "./webRequest";
 
 export namespace Proxy {
     /**
@@ -197,7 +197,7 @@ export namespace Proxy {
         addListener(
             callback: (details: OnRequestDetailsType) => void,
             filter: WebRequest.RequestFilter,
-            extraInfoSpec?: string[]
+            extraInfoSpec?: string[],
         ): void;
     }
 

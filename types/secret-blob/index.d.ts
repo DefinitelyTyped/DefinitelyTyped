@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { SecureBuffer } from 'sodium-native';
+import { SecureBuffer } from "sodium-native";
 
 /**
  * Generate a new key.

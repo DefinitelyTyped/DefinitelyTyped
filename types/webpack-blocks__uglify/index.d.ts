@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Block } from 'webpack-blocks';
-import { MinifyOptions } from 'uglify-js';
+import { MinifyOptions } from "uglify-js";
+import { Block } from "webpack-blocks";
 
 declare namespace uglify {
     type TestType = string | RegExp;
@@ -27,7 +27,12 @@ declare namespace uglify {
         cacheKeys?: ((defaultCacheKeys: any, file: any) => object) | undefined;
         parallel?: boolean | number | undefined;
         sourceMap?: boolean | undefined;
-        minify?: ((file: any, sourceMap: any) => {error: any, map: any, code: any, warnings: any, extractedComments: any}) | undefined;
+        minify?:
+            | ((
+                file: any,
+                sourceMap: any,
+            ) => { error: any; map: any; code: any; warnings: any; extractedComments: any })
+            | undefined;
         uglifyOptions?: MinifyOptions | undefined;
         extractComments?: boolean | string | RegExp | ExtractCommentsFunction | undefined;
         warningsFilter?: ((warning: any, source: any) => boolean) | undefined;

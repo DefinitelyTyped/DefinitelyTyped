@@ -21,10 +21,10 @@ export class FirstPersonControls extends EventDispatcher {
     lookingSpeed: number;
     headMovement: number;
     input: {
-        forward: boolean,
-        backward: boolean,
-        right: boolean,
-        left: boolean
+        forward: boolean;
+        backward: boolean;
+        right: boolean;
+        left: boolean;
     };
 
     constructor(owner: Player) {
@@ -43,7 +43,7 @@ export class FirstPersonControls extends EventDispatcher {
             forward: false,
             backward: false,
             right: false,
-            left: false
+            left: false,
         };
     }
 
@@ -148,16 +148,16 @@ export class FirstPersonControls extends EventDispatcher {
 
     _pointerlockChangeHandler() {
         if (document.pointerLockElement === document.body) {
-            this.dispatchEvent({type: 'lock'});
+            this.dispatchEvent({ type: "lock" });
         } else {
             this.disconnect();
 
-            this.dispatchEvent({type: 'unlock'});
+            this.dispatchEvent({ type: "unlock" });
         }
     }
 
     _pointerlockErrorHandler() {
-        Logger.warn('YUKA.Player: Unable to use Pointer Lock API.');
+        Logger.warn("YUKA.Player: Unable to use Pointer Lock API.");
     }
 
     _keyDownHandler(event: KeyboardEvent) {

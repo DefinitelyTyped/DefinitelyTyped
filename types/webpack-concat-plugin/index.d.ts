@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import webpack = require('webpack');
-import { Compiler, Plugin } from 'webpack';
-import { MinifyOptions } from 'uglify-js';
+import webpack = require("webpack");
+import { MinifyOptions } from "uglify-js";
+import { Compiler, Plugin } from "webpack";
 
 /**
  * A plugin to help webpack concat js and inject into html
@@ -65,7 +65,7 @@ declare namespace ConcatPlugin {
          * (only if html-webpack-plugin set inject option not to be false)
          * @default 'prepend'
          */
-        injectType?: 'prepend' | 'append' | 'none' | undefined;
+        injectType?: "prepend" | "append" | "none" | undefined;
         /** if set, will be used as the extra attributes of the script tag. */
         attributes?: {
             [key: string]: any;

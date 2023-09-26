@@ -1,6 +1,6 @@
-import toArray = require('stream-to-array');
-import * as stream from 'stream';
-import * as util from 'util';
+import toArray = require("stream-to-array");
+import * as stream from "stream";
+import * as util from "util";
 
 const stream1 = new stream.Readable();
 toArray(stream1); // $ExpectType Promise<any[]>

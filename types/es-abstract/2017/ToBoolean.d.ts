@@ -1,2 +1,2 @@
-import ToBoolean = require('../2016/ToBoolean');
+import ToBoolean = require("../2016/ToBoolean");
 export = ToBoolean;

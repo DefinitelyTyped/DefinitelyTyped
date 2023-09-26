@@ -1,7 +1,7 @@
-import proxymise = require('proxymise');
+import proxymise = require("proxymise");
 
 const c = {
-    testC: () => Promise.resolve('proxymised'),
+    testC: () => Promise.resolve("proxymised"),
 };
 
 const b = {

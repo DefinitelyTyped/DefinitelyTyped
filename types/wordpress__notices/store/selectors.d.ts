@@ -1,4 +1,4 @@
-import { Notice } from '../';
+import { Notice } from "../";
 
 /**
  * Returns all notices as an array, optionally for a given context.

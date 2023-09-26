@@ -1,5 +1,5 @@
-import ES2015Operations = require('./2015');
-import ES2016 = require('../es2016');
+import ES2015Operations = require("./2015");
+import ES2016 = require("../es2016");
 
 interface ES2016Operations extends Record<keyof ES2016, string>, ES2015Operations {
     // Unimplemented operations:
@@ -42,8 +42,8 @@ interface ES2016Operations extends Record<keyof ES2016, string>, ES2015Operation
     EvaluateNew: string;
     floor: string;
     ForBodyEvaluation: string;
-    'ForIn/OfBodyEvaluation': string;
-    'ForIn/OfHeadEvaluation': string;
+    "ForIn/OfBodyEvaluation": string;
+    "ForIn/OfHeadEvaluation": string;
     FulfillPromise: string;
     FunctionAllocate: string;
     FunctionCreate: string;
@@ -149,7 +149,7 @@ interface ES2016Operations extends Record<keyof ES2016, string>, ES2015Operation
     SplitMatch: string;
     StringCreate: string;
     TopLevelModuleEvaluationJob: string;
-    'ToString Applied to the Number Type': string;
+    "ToString Applied to the Number Type": string;
     TriggerPromiseReactions: string;
     TypedArrayCreate: string;
     TypedArraySpeciesCreate: string;

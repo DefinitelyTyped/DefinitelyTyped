@@ -1,4 +1,4 @@
-import NProgress, { NProgressOptions } from 'nprogress';
+import NProgress, { NProgressOptions } from "nprogress";
 
 console.log(NProgress.status);
 console.log(NProgress.version);
@@ -16,13 +16,13 @@ NProgress.done(true);
 
 NProgress.configure({ minimum: 0.1 });
 NProgress.configure({
-    template: '<div></div>',
-    easing: 'ease',
+    template: "<div></div>",
+    easing: "ease",
     speed: 500,
     trickle: true,
     showSpinner: false,
     trickleSpeed: 250,
-    parent: '#content',
+    parent: "#content",
     // @ts-expect-error
-    foo: ''
+    foo: "",
 });

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import Consumer = require('writable-consumable-stream/consumer');
+import Consumer = require("writable-consumable-stream/consumer");
 
-import DemuxedConsumableStream = require('./demuxed-consumable-stream');
+import DemuxedConsumableStream = require("./demuxed-consumable-stream");
 
 declare class StreamDemux<T> {
     write(streamName: string, value: T): void;

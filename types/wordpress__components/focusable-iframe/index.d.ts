@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, RefObject } from 'react';
+import { ComponentType, HTMLProps, RefObject } from "react";
 
 declare namespace FocusableIframe {
     interface Props extends HTMLProps<HTMLIFrameElement> {

@@ -1,7 +1,7 @@
-import PredictionContext from '../context/PredictionContext';
-import DFAState from '../dfa/DFAState';
-import ATN from './ATN';
-import PredictionContextCache from './PredictionContextCache';
+import PredictionContext from "../context/PredictionContext";
+import DFAState from "../dfa/DFAState";
+import ATN from "./ATN";
+import PredictionContextCache from "./PredictionContextCache";
 
 export default class ATNSimulator {
     static readonly ERROR: DFAState;

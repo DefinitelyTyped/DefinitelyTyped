@@ -10,7 +10,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-for-of": false,
-        "prefer-template": false,
-        "strict-export-declare-modifiers": false
+        "prefer-template": false
     }
 }

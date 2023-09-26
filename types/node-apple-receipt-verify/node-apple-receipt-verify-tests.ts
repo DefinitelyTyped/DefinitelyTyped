@@ -1,11 +1,11 @@
-import { error } from 'server/router';
-import appleReceiptVerify = require('node-apple-receipt-verify');
+import { error } from "server/router";
+import appleReceiptVerify = require("node-apple-receipt-verify");
 
 appleReceiptVerify.config({
-    secret: 'test-secret',
+    secret: "test-secret",
 });
 
-appleReceiptVerify.validate({ receipt: 'test-reciept' }, (err, products) => {
+appleReceiptVerify.validate({ receipt: "test-reciept" }, (err, products) => {
     if (err) {
         console.error(err.appleStatus);
         console.error(err.isRetryable);
@@ -15,7 +15,7 @@ appleReceiptVerify.validate({ receipt: 'test-reciept' }, (err, products) => {
 });
 
 appleReceiptVerify
-    .validate({ receipt: 'test-reciept' })
+    .validate({ receipt: "test-reciept" })
     .then(products => {
         console.log(products.map((p: appleReceiptVerify.PurchasedProducts) => p.productId));
     })

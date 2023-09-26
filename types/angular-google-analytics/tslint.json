@@ -13,7 +13,6 @@
                 "mode": "code"
             }
         ],
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

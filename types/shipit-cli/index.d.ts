@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
 import * as child_process from "child_process";
+import * as fs from "fs";
 import * as shipit from "./index"; // Used for `typeof shipit`
 
 export type LocalOrRemoteCommand = (

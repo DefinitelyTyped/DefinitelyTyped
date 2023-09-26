@@ -1,6 +1,6 @@
-import express = require('express');
-import { Request } from 'express-serve-static-core';
-import fileUpload = require('express-fileupload');
+import express = require("express");
+import { Request } from "express-serve-static-core";
+import fileUpload = require("express-fileupload");
 
 // test type exports
 type FileArray = fileUpload.FileArray;
@@ -10,7 +10,7 @@ type Options = fileUpload.Options;
 const app: express.Express = express();
 
 function isSingleFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
-    return typeof file === 'object' && (file as UploadedFile).name !== undefined;
+    return typeof file === "object" && (file as UploadedFile).name !== undefined;
 }
 
 function isFileArray(file: UploadedFile | UploadedFile[]): file is UploadedFile[] {
@@ -32,20 +32,20 @@ const uploadHandler = (req: Request) => {
             fileField.truncated; // $ExpectType boolean
             console.log(fileField.name);
             // $ExpectType void
-            fileField.mv('/tmp/test', err => {
+            fileField.mv("/tmp/test", err => {
                 err; // $ExpectType any
                 if (err) {
-                    console.log('Error while copying file to target location');
+                    console.log("Error while copying file to target location");
                 }
             });
-            fileField.mv('foo'); // $ExpectType Promise<void>
+            fileField.mv("foo"); // $ExpectType Promise<void>
         }
 
         if (isFileArray(fileField)) {
             console.log(fileField[0].name);
-            fileField[0].mv('/tmp/test', err => {
+            fileField[0].mv("/tmp/test", err => {
                 if (err) {
-                    console.log('Error while copying file to target location');
+                    console.log("Error while copying file to target location");
                 }
             });
         }
@@ -59,7 +59,7 @@ const uploadHandler = (req: Request) => {
     }
 };
 
-app.post('/upload', uploadHandler);
+app.post("/upload", uploadHandler);
 app.use(fileUpload());
 app.use(fileUpload({}));
 app.use(fileUpload({ debug: true }));
@@ -68,12 +68,12 @@ app.use(fileUpload({ safeFileNames: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: 2 }));
 app.use(fileUpload({ abortOnLimit: true }));
-app.use(fileUpload({ responseOnLimit: 'Size Limit reached' }));
+app.use(fileUpload({ responseOnLimit: "Size Limit reached" }));
 app.use(fileUpload({ limitHandler: true }));
-app.use(fileUpload({ limits: { fileSize: 4096 }, defCharset: 'utf8' }));
+app.use(fileUpload({ limits: { fileSize: 4096 }, defCharset: "utf8" }));
 app.use(fileUpload({ createParentPath: false }));
 app.use(fileUpload({ parseNested: false }));
-app.use(fileUpload({ tempFileDir: '/temp' }));
+app.use(fileUpload({ tempFileDir: "/temp" }));
 app.use(fileUpload({ uriDecodeFileNames: false }));
 app.use(
     fileUpload({
@@ -93,15 +93,15 @@ app.use(
         },
     }),
 );
-app.use(fileUpload({ useTempFiles: true, tempFileDir: 'temp2/' }));
+app.use(fileUpload({ useTempFiles: true, tempFileDir: "temp2/" }));
 app.use(fileUpload({ limitHandler: true }));
 app.use(fileUpload({ uploadTimeout: 6_000 }));
 
 // busboy options
-app.use(fileUpload({ headers: { foo: 'bar' } }));
+app.use(fileUpload({ headers: { foo: "bar" } }));
 app.use(fileUpload({ highWaterMark: 1 }));
 app.use(fileUpload({ fileHwm: 1 }));
-app.use(fileUpload({ defCharset: 'utf8' }));
-app.use(fileUpload({ defParamCharset: 'utf8' }));
+app.use(fileUpload({ defCharset: "utf8" }));
+app.use(fileUpload({ defParamCharset: "utf8" }));
 app.use(fileUpload({ preservePath: true }));
 app.use(fileUpload({ limits: { fieldNameSize: 1 } }));

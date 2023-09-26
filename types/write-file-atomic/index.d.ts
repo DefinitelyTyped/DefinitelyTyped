@@ -27,9 +27,9 @@ declare namespace writeFile {
     interface Options {
         chown?:
             | {
-                  uid: number;
-                  gid: number;
-              }
+                uid: number;
+                gid: number;
+            }
             | undefined;
         /**
          * @default 'utf8'

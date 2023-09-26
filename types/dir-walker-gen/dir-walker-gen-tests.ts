@@ -1,7 +1,7 @@
 import DirGen = require("dir-walker-gen");
 
 const options = {
-    folders: [".."]
+    folders: [".."],
 };
 
 const iterator = DirGen(options);

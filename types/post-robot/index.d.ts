@@ -13,9 +13,9 @@ type ZalgoPromise<T> = Promise<T>;
 type CrossDomainWindowType = Window | null;
 type DomainMatcher = string | RegExp | string[];
 type HandlerType = (event: {
-    source: CrossDomainWindowType,
-    origin: string,
-    data: any
+    source: CrossDomainWindowType;
+    origin: string;
+    data: any;
 }) => ZalgoPromise<any>;
 type ErrorHandlerType = (err: any) => void;
 

@@ -1,5 +1,5 @@
 "use strict";
-import { install, start, FsPaths, InstallOpts, StartOpts } from "selenium-standalone";
+import { FsPaths, install, InstallOpts, start, StartOpts } from "selenium-standalone";
 
 // InstallOpts interface
 let installOpts: InstallOpts = {
@@ -16,7 +16,7 @@ let installOpts: InstallOpts = {
             version: "version",
             arch: "ia64",
             baseURL: "baseURL b",
-        }
+        },
     },
     progressCb: (totalLength: number, progressLength: number, chunkLength: number) => {},
     logger: (message: string) => {},
@@ -38,7 +38,7 @@ installOpts = {
     requestOpts: {
         agent: true,
         host: "host",
-        family: 5
+        family: 5,
     },
 };
 
@@ -56,7 +56,7 @@ let startOpts: StartOpts = {
             version: "version",
             arch: "ia64",
             baseURL: "baseURL b",
-        }
+        },
     },
     seleniumArgs: ["bla", "foo"],
     javaArgs: ["bla", "foo"],
@@ -71,7 +71,7 @@ const startOptsCompact: StartOpts = {
     drivers: {
         firefox: {
             version: "version",
-        }
+        },
     },
 };
 

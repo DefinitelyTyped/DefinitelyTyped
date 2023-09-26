@@ -41,7 +41,7 @@ console.log(listEndpoints(app));
 
  =============================================== */
 
-import express = require('express');
+import express = require("express");
 
 declare function listEndpoints(app: express.Express): listEndpoints.Endpoint[];
 

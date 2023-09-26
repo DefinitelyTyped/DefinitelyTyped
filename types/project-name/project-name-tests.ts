@@ -1,4 +1,4 @@
-import name = require('project-name');
+import name = require("project-name");
 
-name('d'); // $ExpectType string
+name("d"); // $ExpectType string
 name(); // $ExpectType string

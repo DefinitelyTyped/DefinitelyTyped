@@ -27,17 +27,17 @@ declare namespace PkgInfo {
         // which contains a `package.json` file.
         //
         read(
-          pmodule: NodeModule,
-          dir?: string
+            pmodule: NodeModule,
+            dir?: string,
         ): FindResults;
 
         find(
-          pmodule: NodeModule,
-          dir?: string
+            pmodule: NodeModule,
+            dir?: string,
         ): Record<string, any>;
     }
 }
 
-declare const pkgInfo: PkgInfo.PkgInfo & { version: string; };
+declare const pkgInfo: PkgInfo.PkgInfo & { version: string };
 
 export = pkgInfo;

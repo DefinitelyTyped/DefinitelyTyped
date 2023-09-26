@@ -88,7 +88,7 @@ declare class diff_match_patch {
     patch_toText(patches: Array<typeof diff_match_patch.patch_obj>): string;
 
     static patch_obj: {
-        new (): diff_match_patch.patch_obj;
+        new(): diff_match_patch.patch_obj;
     };
 
     static diff_match_patch: typeof diff_match_patch;

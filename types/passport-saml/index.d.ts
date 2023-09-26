@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 export interface CacheItem {
     createdAt: Date;
@@ -47,7 +47,7 @@ export interface SamlConfig {
     privateCert?: string | undefined;
     cert?: string | string[] | CertCallback | undefined;
     decryptionPvk?: string | undefined;
-    signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512' | undefined;
+    signatureAlgorithm?: "sha1" | "sha256" | "sha512" | undefined;
 
     // Additional SAML behaviors
     additionalParams?: any;
@@ -60,7 +60,7 @@ export interface SamlConfig {
     forceAuthn?: boolean | undefined;
     skipRequestCompression?: boolean | undefined;
     authnRequestBinding?: string | undefined;
-    RACComparison?: 'exact' | 'minimum' | 'maximum' | 'better' | undefined;
+    RACComparison?: "exact" | "minimum" | "maximum" | "better" | undefined;
     providerName?: string | undefined;
     passive?: boolean | undefined;
     idpIssuer?: string | undefined;
@@ -90,18 +90,18 @@ export interface AuthorizeOptions extends AuthenticateOptions {
 }
 
 export type Profile = {
-  issuer?: string | undefined;
-  sessionIndex?: string | undefined;
-  nameID?: string | undefined;
-  nameIDFormat?: string | undefined;
-  nameQualifier?: string | undefined;
-  spNameQualifier?: string | undefined;
-  ID?: string | undefined;
-  mail?: string | undefined; // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
-  email?: string | undefined; // `mail` if not present in the assertion
-  getAssertionXml(): string; // get the raw assertion XML
-  getAssertion(): object; // get the assertion XML parsed as a JavaScript object
-  getSamlResponseXml(): string; // get the raw SAML response XML
+    issuer?: string | undefined;
+    sessionIndex?: string | undefined;
+    nameID?: string | undefined;
+    nameIDFormat?: string | undefined;
+    nameQualifier?: string | undefined;
+    spNameQualifier?: string | undefined;
+    ID?: string | undefined;
+    mail?: string | undefined; // InCommon Attribute urn:oid:0.9.2342.19200300.100.1.3
+    email?: string | undefined; // `mail` if not present in the assertion
+    getAssertionXml(): string; // get the raw assertion XML
+    getAssertion(): object; // get the assertion XML parsed as a JavaScript object
+    getSamlResponseXml(): string; // get the raw SAML response XML
 } & {
-  [attributeName: string]: unknown; // arbitrary `AttributeValue`s
+    [attributeName: string]: unknown; // arbitrary `AttributeValue`s
 };

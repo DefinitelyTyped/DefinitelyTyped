@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { PagerInstance } from 'memory-pager';
+import { PagerInstance } from "memory-pager";
 
 export = BitField;
 
@@ -13,7 +13,7 @@ declare const BitField: BitField;
 
 interface BitField {
     (bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
-    new (bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
+    new(bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
 }
 
 declare namespace BitField {

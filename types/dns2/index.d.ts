@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import * as net from 'net';
-import * as udp from 'dgram';
-import { EventEmitter } from 'events';
+import * as udp from "dgram";
+import { EventEmitter } from "events";
+import * as net from "net";
 
 declare class Packet {
     static TYPE: {
@@ -57,7 +57,7 @@ declare namespace DNS {
         retries: number;
         timeout: number;
         recursive: boolean;
-        resolverProtocol: 'UDP' | 'TCP';
+        resolverProtocol: "UDP" | "TCP";
         nameServers: string[];
         rootServers: string[];
     }
@@ -130,7 +130,12 @@ declare class DNS {
     static TCPServer: typeof TcpDnsServer;
 
     query(name: string, type: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
-    resolve(domain: string, type?: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
+    resolve(
+        domain: string,
+        type?: DNS.PacketQuestion,
+        cls?: DNS.PacketClass,
+        clientIp?: string,
+    ): Promise<DNS.DnsResponse>;
     resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveAAAA(domain: string): Promise<DNS.DnsResponse>;
     resolveMX(domain: string): Promise<DNS.DnsResponse>;

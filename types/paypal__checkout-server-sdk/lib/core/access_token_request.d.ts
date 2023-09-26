@@ -4,10 +4,10 @@
  * @see {@link https://github.com/paypal/Checkout-NodeJS-SDK/blob/develop/lib/core/access_token_request.js}
  */
 
-import { PayPalEnvironment } from './paypal_environment';
+import { PayPalEnvironment } from "./paypal_environment";
 
 export interface AccessTokenRequestHeaders {
-    'Content-Type': string;
+    "Content-Type": string;
     Authorization: string;
 }
 

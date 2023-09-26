@@ -14,7 +14,7 @@ declare namespace Format {
      * create a format function with given transformers
      * @param transformers functions which convert a string, indexed by a name
      */
-    function create(transformers: Transformers): (typeof Format);
+    function create(transformers: Transformers): typeof Format;
 
     /**
      * @param prototype prototype which should be extended by format (usually String.prototype)

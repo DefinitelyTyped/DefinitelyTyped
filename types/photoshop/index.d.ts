@@ -6,9 +6,9 @@
 //                  Jaroslav Bereza <https://github.com/jardicc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as photoshopConstants from "./dom/Constants";
 import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import { imaging as photoshopImaging } from "./dom/ImagingModule";
-import * as photoshopConstants from "./dom/Constants";
 /**
  * Root of the DOM, the `app` object where you can access application settings,
  * open documents and reach rest of the APIs

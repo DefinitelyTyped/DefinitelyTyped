@@ -1,5 +1,5 @@
-import BitField = require('sparse-bitfield');
-import Pager = require('memory-pager');
+import BitField = require("sparse-bitfield");
+import Pager = require("memory-pager");
 
 const bits = BitField();
 BitField(new Buffer(1));

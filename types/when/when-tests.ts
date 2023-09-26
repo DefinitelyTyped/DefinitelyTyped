@@ -1,8 +1,7 @@
 /// <reference types="node" />
 
-
-import fs = require('fs');
-import dns = require('dns');
+import fs = require("fs");
+import dns = require("dns");
 
 import when = require("when");
 
@@ -10,7 +9,7 @@ class ForeignPromise<T> {
     constructor(private readonly value: T) {
     }
 
-    then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U): ForeignPromise<U>
+    then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U): ForeignPromise<U>;
     then(onFulfilled?: (value: T) => T, onRejected?: (reason: any) => T): ForeignPromise<T> {
         return new ForeignPromise(onFulfilled ? onFulfilled(this.value) : this.value);
     }
@@ -68,21 +67,28 @@ promise = when.attempt(() => 1);
 promise = when.attempt((a: number) => a + a, 1);
 promise = when.attempt((a: number) => a + a, when(1));
 
-promise = when.attempt((a: number, b: string) => a, 1, '2');
-promise = when.attempt((a: number, b: string) => a, 1, when('2'));
-promise = when.attempt((a: number, b: string) => a, when(1), '2');
-promise = when.attempt((a: number, b: string) => a, when(1), when('2'));
+promise = when.attempt((a: number, b: string) => a, 1, "2");
+promise = when.attempt((a: number, b: string) => a, 1, when("2"));
+promise = when.attempt((a: number, b: string) => a, when(1), "2");
+promise = when.attempt((a: number, b: string) => a, when(1), when("2"));
 
-promise = when.attempt((a: number, b: string, c: boolean) => a, 1, '2', true);
-promise = when.attempt((a: number, b: string, c: boolean) => a, 1, when('2'), true);
-promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), '2', true);
-promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), when('2'), true);
-promise = when.attempt((a: number, b: string, c: boolean) => a, 1, '2', when(true));
-promise = when.attempt((a: number, b: string, c: boolean) => a, 1, when('2'), when(true));
-promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), '2', when(true));
-promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), when('2'), when(true));
+promise = when.attempt((a: number, b: string, c: boolean) => a, 1, "2", true);
+promise = when.attempt((a: number, b: string, c: boolean) => a, 1, when("2"), true);
+promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), "2", true);
+promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), when("2"), true);
+promise = when.attempt((a: number, b: string, c: boolean) => a, 1, "2", when(true));
+promise = when.attempt((a: number, b: string, c: boolean) => a, 1, when("2"), when(true));
+promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), "2", when(true));
+promise = when.attempt((a: number, b: string, c: boolean) => a, when(1), when("2"), when(true));
 
-promise = when.attempt((a: number, b: string, c: boolean, d: number, e: string) => a, when(1), when('2'), when(true), when(4), when('5'));
+promise = when.attempt(
+    (a: number, b: string, c: boolean, d: number, e: string) => a,
+    when(1),
+    when("2"),
+    when(true),
+    when(4),
+    when("5"),
+);
 
 /* when.lift(f) */
 
@@ -98,21 +104,21 @@ promise = liftedFunc0();
 promise = liftedFunc1(1);
 promise = liftedFunc1(when(1));
 
-promise = liftedFunc2(1, '2');
-promise = liftedFunc2(when(1), '2');
-promise = liftedFunc2(1, when('2'));
-promise = liftedFunc2(when(1), when('2'));
+promise = liftedFunc2(1, "2");
+promise = liftedFunc2(when(1), "2");
+promise = liftedFunc2(1, when("2"));
+promise = liftedFunc2(when(1), when("2"));
 
-promise = liftedFunc3(1, '2', true);
-promise = liftedFunc3(when(1), '2', true);
-promise = liftedFunc3(1, when('2'), true);
-promise = liftedFunc3(when(1), when('2'), true);
-promise = liftedFunc3(1, '2', when(true));
-promise = liftedFunc3(when(1), '2', when(true));
-promise = liftedFunc3(1, when('2'), when(true));
-promise = liftedFunc3(when(1), when('2'), when(true));
+promise = liftedFunc3(1, "2", true);
+promise = liftedFunc3(when(1), "2", true);
+promise = liftedFunc3(1, when("2"), true);
+promise = liftedFunc3(when(1), when("2"), true);
+promise = liftedFunc3(1, "2", when(true));
+promise = liftedFunc3(when(1), "2", when(true));
+promise = liftedFunc3(1, when("2"), when(true));
+promise = liftedFunc3(when(1), when("2"), when(true));
 
-promise = liftedFunc5(when(1), when('2'), when(true), when(4), when('5'));
+promise = liftedFunc5(when(1), when("2"), when(true), when(4), when("5"));
 
 /* when.join(...promises) */
 
@@ -146,13 +152,13 @@ when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
 /* when.reduceRight(arr, reduceFunc, initialValue) */
 when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number, index: number) => {
     return when(value * index)
-    .then((v) => reduction += v);
+        .then((v) => reduction += v);
 }, 0).then((result: number) => {
     return result;
 });
 when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => {
     return when(value)
-    .then((v) => reduction += v);
+        .then((v) => reduction += v);
 }, 0).then((result: number) => {
     return result;
 });
@@ -160,7 +166,7 @@ when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => 
 /* when.settle(arr) */
 when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
     return descriptors.reduce((r, d) => {
-        if (d.state === 'fulfilled') {
+        if (d.state === "fulfilled") {
             return r + d.value;
         } else {
             console.error(d.reason);
@@ -170,7 +176,7 @@ when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(desc
 });
 when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
     return descriptors.reduce((r, d) => {
-        if (d.state === 'rejected') {
+        if (d.state === "rejected") {
             console.error(d.reason);
             return r;
         } else {
@@ -181,24 +187,24 @@ when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(desc
 
 /* when.iterate(f, predicate, handler, seed) */
 
-when.iterate(function (x) {
+when.iterate(function(x) {
     return x + 1;
-}, function (x) {
+}, function(x) {
     // Stop when x >= 100000000000
     return x >= 100000000000;
-}, function (x) {
+}, function(x) {
     console.log(x);
-}, 0).done(function (x) {
+}, 0).done(function(x) {
     console.log(x === 100000000000);
-}, function (err) {
+}, function(err) {
     console.log(err);
 });
 
-when.unfold(function (x) {
-    return [{foo: 'bar'}, x + 1];
-}, function (x) {
+when.unfold(function(x) {
+    return [{ foo: "bar" }, x + 1];
+}, function(x) {
     return x < 10;
-}, function (y) {
+}, function(y) {
     delete (y as { foo?: string | undefined }).foo;
 }, 0);
 
@@ -250,7 +256,7 @@ promise = when(1).then(undefined, (err: any) => 2);
 promise = when(1).then((val: number) => val + val, (err: any) => 2);
 promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
 
-promise = when('1').then((val: string) => parseInt(val));
+promise = when("1").then((val: string) => parseInt(val));
 
 // Tests for when TResult is a subtype of T
 const subData: IData = { timestamp: Date.now() };
@@ -265,17 +271,17 @@ promise2 = when(subData).then((val: IData) => when(new Data(val)), (err: any) =>
 
 promise = when([]).spread(() => 2);
 promise = when([1]).spread((a: number) => a);
-promise = when([1, '2']).spread((a: number, b: string) => a);
-promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => a);
-promise = when([1, '2', true]).spread((a: number, b: string, c: boolean) => when(a));
+promise = when([1, "2"]).spread((a: number, b: string) => a);
+promise = when([1, "2", true]).spread((a: number, b: string, c: boolean) => a);
+promise = when([1, "2", true]).spread((a: number, b: string, c: boolean) => when(a));
 
 /* promise.fold(combine, promise2) */
 
-promise = when(1).fold((a: number, b: string) => a, '2');
-promise = when(1).fold((a: number, b: string) => a, when('2'));
+promise = when(1).fold((a: number, b: string) => a, "2");
+promise = when(1).fold((a: number, b: string) => a, when("2"));
 
-promise = when(1).fold((a: number, b: string) => when(a), '2');
-promise = when(1).fold((a: number, b: string) => when(a), when('2'));
+promise = when(1).fold((a: number, b: string) => when(a), "2");
+promise = when(1).fold((a: number, b: string) => when(a), when("2"));
 
 /* promise.catch(onRejected) */
 
@@ -288,7 +294,7 @@ promise = when(1).catch((err: any) => err.good, (err: any) => when(2));
 promise = when(1).catch(Error, (err: any) => 2);
 promise = when(1).catch(Error, (err: any) => when(2));
 
-//TODO: error constructor predicate
+// TODO: error constructor predicate
 
 promise = when(1).otherwise((err: any) => 2);
 promise = when(1).otherwise((err: any) => when(2));
@@ -298,9 +304,9 @@ promise = when(1).otherwise((err: any) => err.good, (err: any) => when(2));
 
 /* promise.finally(cleanup) */
 
-promise = when(1).finally(() => console.log('Cleaning up'));
+promise = when(1).finally(() => console.log("Cleaning up"));
 
-promise = when(1).ensure(() => console.log('Cleaning up'));
+promise = when(1).ensure(() => console.log("Cleaning up"));
 
 /* promise.yield(x) */
 
@@ -326,7 +332,7 @@ promise = when(1).delay(1000);
 /* promise.timeout(milliseconds, reason) */
 
 promise = when(1).timeout(1000);
-promise = when(1).timeout(1000, new Error('Too SLOW!'));
+promise = when(1).timeout(1000, new Error("Too SLOW!"));
 
 /* promise.inspect() */
 
@@ -336,17 +342,17 @@ var status: {
     reason?: any;
 };
 
-status = when(1).inspect()
+status = when(1).inspect();
 
 var status2: when.Snapshot<number>;
 
 status2 = when(1).inspect();
-if (status2.state === 'fulfilled') {
+if (status2.state === "fulfilled") {
     console.log(status2.value + 2);
-} else if (status2.state === 'rejected') {
+} else if (status2.state === "rejected") {
     console.log(status2.reason);
 } else {
-    console.log(status2.state === 'pending');
+    console.log(status2.state === "pending");
 }
 
 /* promise.with(thisArg) */
@@ -359,7 +365,7 @@ promise = when(1).withThis(2);
  *   when/node   *
  * * * * * * * * */
 
-import nodefn = require('when/node');
+import nodefn = require("when/node");
 
 /* node.lift */
 
@@ -368,7 +374,8 @@ var nodeFn1 = (a: number, callback: (err: any, result: number) => void) => callb
 var nodeFn2 = (a: number, b: string, callback: (err: any, result: number) => void) => callback(null, a);
 var nodeFn3 = (a: number, b: string, c: boolean, callback: (err: any, result: number) => void) => callback(null, a);
 
-var nodeFn5 = (a: number, b: string, c: boolean, d: number, e: string, callback: (err: any, result: number) => void) => callback(null, a);
+var nodeFn5 = (a: number, b: string, c: boolean, d: number, e: string, callback: (err: any, result: number) => void) =>
+    callback(null, a);
 
 var liftedNodeFunc0 = nodefn.lift(nodeFn0);
 var liftedNodeFunc1 = nodefn.lift(nodeFn1);
@@ -382,35 +389,35 @@ promise = liftedNodeFunc0();
 promise = liftedNodeFunc1(1);
 promise = liftedNodeFunc1(when(1));
 
-promise = liftedNodeFunc2(1, '2');
-promise = liftedNodeFunc2(when(1), '2');
-promise = liftedNodeFunc2(1, when('2'));
-promise = liftedNodeFunc2(when(1), when('2'));
+promise = liftedNodeFunc2(1, "2");
+promise = liftedNodeFunc2(when(1), "2");
+promise = liftedNodeFunc2(1, when("2"));
+promise = liftedNodeFunc2(when(1), when("2"));
 
-promise = liftedNodeFunc3(1, '2', true);
-promise = liftedNodeFunc3(when(1), '2', true);
-promise = liftedNodeFunc3(1, when('2'), true);
-promise = liftedNodeFunc3(when(1), when('2'), true);
-promise = liftedNodeFunc3(1, '2', when(true));
-promise = liftedNodeFunc3(when(1), '2', when(true));
-promise = liftedNodeFunc3(1, when('2'), when(true));
-promise = liftedNodeFunc3(when(1), when('2'), when(true));
+promise = liftedNodeFunc3(1, "2", true);
+promise = liftedNodeFunc3(when(1), "2", true);
+promise = liftedNodeFunc3(1, when("2"), true);
+promise = liftedNodeFunc3(when(1), when("2"), true);
+promise = liftedNodeFunc3(1, "2", when(true));
+promise = liftedNodeFunc3(when(1), "2", when(true));
+promise = liftedNodeFunc3(1, when("2"), when(true));
+promise = liftedNodeFunc3(when(1), when("2"), when(true));
 
-promise = liftedNodeFunc5(when(1), when('2'), when(true), when(4), when('5'));
+promise = liftedNodeFunc5(when(1), when("2"), when(true), when(4), when("5"));
 
 example = function() {
     var resolveAddress = nodefn.lift(dns.resolve);
 
     when.join(
-        resolveAddress(when('twitter.com')),
-        resolveAddress(when('facebook.com')),
-        resolveAddress(when('google.com'))
+        resolveAddress(when("twitter.com")),
+        resolveAddress(when("facebook.com")),
+        resolveAddress(when("google.com")),
     ).then((addresses) => {
         // All addresses resolved
     }).catch((reason) => {
         // At least one of the lookups failed
     });
-}
+};
 
 /* node.liftAll */
 
@@ -423,36 +430,36 @@ example = function() {
     when.join(
         promisedDns.resolve("twitter.com"),
         promisedDns.resolveNs("facebook.com"),
-        promisedDns.resolveMx("google.com")
+        promisedDns.resolveMx("google.com"),
     ).then((addresses) => {
         // All addresses resolved
     }).catch((reason) => {
         // At least one of the lookups failed
     });
-}
+};
 
 example = function() {
     // Lift all of the fs methods, but name them with an 'Async' suffix
     var promisedFs = nodefn.liftAll(fs, (promisedFs: any, liftedFunc: Function, name: string) => {
-        promisedFs[name + 'Async'] = liftedFunc;
+        promisedFs[name + "Async"] = liftedFunc;
         return promisedFs;
     });
 
-    promisedFs.readFileAsync('file.txt').done(console.log.bind(console));
-}
+    promisedFs.readFileAsync("file.txt").done(console.log.bind(console));
+};
 
 example = function() {
     // Lift all of the fs methods, but name them with an 'Async' suffix
     // and add them back onto fs!
     var promisedFs = nodefn.liftAll(fs, (promisedFs: any, liftedFunc: Function, name: string) => {
-        promisedFs[name + 'Async'] = liftedFunc;
+        promisedFs[name + "Async"] = liftedFunc;
         return promisedFs;
     }, fs);
 
     if (promisedFs === fs) {
-        promisedFs.readFileAsync('file.txt').done(console.log.bind(console));
+        promisedFs.readFileAsync("file.txt").done(console.log.bind(console));
     }
-}
+};
 
 /* node.call */
 
@@ -461,75 +468,79 @@ promise = nodefn.call(nodeFn0);
 promise = nodefn.call(nodeFn1, 1);
 promise = nodefn.call(nodeFn1, when(1));
 
-promise = nodefn.call(nodeFn2, 1, '2');
-promise = nodefn.call(nodeFn2, 1, when('2'));
-promise = nodefn.call(nodeFn2, when(1), '2');
-promise = nodefn.call(nodeFn2, when(1), when('2'));
+promise = nodefn.call(nodeFn2, 1, "2");
+promise = nodefn.call(nodeFn2, 1, when("2"));
+promise = nodefn.call(nodeFn2, when(1), "2");
+promise = nodefn.call(nodeFn2, when(1), when("2"));
 
-promise = nodefn.call(nodeFn3, 1, '2', true);
-promise = nodefn.call(nodeFn3, 1, when('2'), true);
-promise = nodefn.call(nodeFn3, when(1), '2', true);
-promise = nodefn.call(nodeFn3, when(1), when('2'), true);
-promise = nodefn.call(nodeFn3, 1, '2', when(true));
-promise = nodefn.call(nodeFn3, 1, when('2'), when(true));
-promise = nodefn.call(nodeFn3, when(1), '2', when(true));
-promise = nodefn.call(nodeFn3, when(1), when('2'), when(true));
+promise = nodefn.call(nodeFn3, 1, "2", true);
+promise = nodefn.call(nodeFn3, 1, when("2"), true);
+promise = nodefn.call(nodeFn3, when(1), "2", true);
+promise = nodefn.call(nodeFn3, when(1), when("2"), true);
+promise = nodefn.call(nodeFn3, 1, "2", when(true));
+promise = nodefn.call(nodeFn3, 1, when("2"), when(true));
+promise = nodefn.call(nodeFn3, when(1), "2", when(true));
+promise = nodefn.call(nodeFn3, when(1), when("2"), when(true));
 
-promise = nodefn.call(nodeFn5, when(1), when('2'), when(true), when(4), when('5'));
+promise = nodefn.call(nodeFn5, when(1), when("2"), when(true), when(4), when("5"));
 
-example = function () {
-    var loadPasswd = nodefn.call(fs.readFile, '/etc/passwd');
+example = function() {
+    var loadPasswd = nodefn.call(fs.readFile, "/etc/passwd");
 
     loadPasswd.done(
-        (passwd: Buffer) => console.log('Contents of /etc/passwd:\n' + passwd),
-        (error: any) => console.log('Something wrong happened: ' + error));
+        (passwd: Buffer) => console.log("Contents of /etc/passwd:\n" + passwd),
+        (error: any) => console.log("Something wrong happened: " + error),
+    );
 };
 
 /* node.apply */
 
-promise = nodefn.apply(nodeFn2, [1, '2']);
+promise = nodefn.apply(nodeFn2, [1, "2"]);
 
 example = function() {
     nodefn.apply(fs.read, arguments);
-}
+};
 
-example = function () {
-    var loadPasswd = nodefn.apply(fs.readFile, ['/etc/passwd']);
+example = function() {
+    var loadPasswd = nodefn.apply(fs.readFile, ["/etc/passwd"]);
 
     loadPasswd.done(
-        (passwd: Buffer) => console.log('Contents of /etc/passwd:\n' + passwd),
-        (error: any) => console.log('Something wrong happened: ' + error));
+        (passwd: Buffer) => console.log("Contents of /etc/passwd:\n" + passwd),
+        (error: any) => console.log("Something wrong happened: " + error),
+    );
 };
 
 /* node.liftCallback */
 
-example = function () {
+example = function() {
     var fetchData: (key: string) => when.Promise<number> = () => when(1);
     var handleData: (err: any, result: number) => void = () => undefined;
 
     var handlePromisedData: (result: when.Promise<number>) => when.Promise<number>;
     handlePromisedData = nodefn.liftCallback(handleData);
 
-    handlePromisedData(fetchData('thing'));
+    handlePromisedData(fetchData("thing"));
 };
 
 /* node.bindCallback */
 
-example = function () {
+example = function() {
     var fetchData: (key: string) => when.Promise<number> = () => when(1);
     var handleData: (err: any, result: number) => void = () => undefined;
 
-    nodefn.bindCallback(fetchData('thing'), handleData);
+    nodefn.bindCallback(fetchData("thing"), handleData);
 };
 
 /* node.createCallback */
 
-example = function () {
+example = function() {
     when.promise<number>((resolve, reject) =>
-            nodeFn2(1, '2', nodefn.createCallback({ resolve: resolve, reject: reject })))
+        nodeFn2(1, "2", nodefn.createCallback({ resolve: resolve, reject: reject }))
+    )
         .then(
             (value: number) => console.log(value),
-            (err: any) => console.error(err));
+            (err: any) => console.error(err),
+        );
 };
 
 /* * * * * * * * * * *

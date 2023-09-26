@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 interface Document {
     url?: string | undefined;
