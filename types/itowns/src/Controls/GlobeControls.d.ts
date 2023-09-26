@@ -1,16 +1,16 @@
 import * as THREE from "three";
-import CameraUtils from "../Utils/CameraUtils";
 import Coordinates from "../Core/Geographic/Coordinates";
 import Extent from "../Core/Geographic/Extent";
 import GlobeView from "../Core/Prefab/GlobeView";
+import CameraUtils from "../Utils/CameraUtils";
 
 // TODO: hidden properties
 
 export enum CONTROL_EVENTS {
-    PAN_CHANGED = 'pan-changed',
-    ORIENTATION_CHANGED = 'orientation-changed',
-    RANGE_CHANGED = 'range-changed',
-    CAMERA_TARGET_CHANGED = 'camera-target-changed',
+    PAN_CHANGED = "pan-changed",
+    ORIENTATION_CHANGED = "orientation-changed",
+    RANGE_CHANGED = "range-changed",
+    CAMERA_TARGET_CHANGED = "camera-target-changed",
 }
 
 interface GlobeControls {
@@ -148,7 +148,8 @@ declare class GlobeControls extends THREE.EventDispatcher<THREE.Event> {
 
     lookAtCoordinate(
         params?: CameraUtils.CameraTransformOptions | Extent,
-        isAnimated?: boolean): Promise<any>;
+        isAnimated?: boolean,
+    ): Promise<any>;
 
     pickGeoPosition(windowCoords: THREE.Vector3): Coordinates;
 }

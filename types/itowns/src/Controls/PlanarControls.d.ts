@@ -20,7 +20,7 @@ export enum STATE {
 }
 
 export enum PLANAR_CONTROL_EVENT {
-    MOVED = 'moved',
+    MOVED = "moved",
 }
 
 interface PlanarControls {
