@@ -8,19 +8,19 @@
 // Minimum TypeScript Version: 4.4
 
 // eslint-disable-next-line @definitelytyped/no-self-import
-import CoreObject from '@ember/object/core';
+import CoreObject from "@ember/object/core";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import Observable from '@ember/object/observable';
+import Observable from "@ember/object/observable";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import {
     ComputedPropertyCallback,
     UnwrapComputedPropertyGetter,
-    UnwrapComputedPropertySetter,
     UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetter,
     UnwrapComputedPropertySetters,
-} from '@ember/object/-private/types';
+} from "@ember/object/-private/types";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import ComputedProperty from '@ember/object/computed';
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass
@@ -144,7 +144,7 @@ export function notifyPropertyChange(obj: object, keyName: string): void;
 
 export const action: MethodDecorator;
 
-declare module '@ember/utils/-private/types' {
+declare module "@ember/utils/-private/types" {
     interface TypeLookup {
         class: typeof EmberObject;
         instance: EmberObject;

@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import BluebirdPromise = require('bluebird');
+import BluebirdPromise = require("bluebird");
 declare namespace Waterline {
     type Adapter = Object;
 
@@ -62,18 +62,25 @@ declare namespace Waterline {
         beforeValidate?: { (vaues: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
         beforeCreate?: { (values: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
         afterCreate?:
-        | { (newlyCreatedRecord: any, next: Function): void }[]
-        | { (newlyCreatedRecord: any, next: Function): void } | undefined;
+            | { (newlyCreatedRecord: any, next: Function): void }[]
+            | { (newlyCreatedRecord: any, next: Function): void }
+            | undefined;
         beforeUpdate?:
-        | { (valuesToUpdate: any, next: Function): void }[]
-        | { (valuesToUpdate: any, next: Function): void } | undefined;
+            | { (valuesToUpdate: any, next: Function): void }[]
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
         afterUpdate?:
-        | { (valuesToUpdate: any, next: Function): void }[]
-        | { (valuesToUpdate: any, next: Function): void } | undefined;
-        beforeDestroy?: { (criteria: any, next: Function): void }[] | { (valuesToUpdate: any, next: Function): void } | undefined;
+            | { (valuesToUpdate: any, next: Function): void }[]
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
+        beforeDestroy?:
+            | { (criteria: any, next: Function): void }[]
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
         afterDestroy?:
-        | { (destroyedInstance: any, next: Function): void }[]
-        | { (destroyedInstance: any, next: Function): void } | undefined;
+            | { (destroyedInstance: any, next: Function): void }[]
+            | { (destroyedInstance: any, next: Function): void }
+            | undefined;
     };
 
     export type CollectionDefinition = LifecycleCallbacks & {
@@ -81,7 +88,7 @@ declare namespace Waterline {
         connection?: string | undefined;
         identity?: string | undefined;
         tableName?: string | undefined;
-        migrate?: 'alter' | 'drop' | 'safe' | undefined;
+        migrate?: "alter" | "drop" | "safe" | undefined;
         schema?: boolean | undefined;
         types?: any;
         datastore?: string | undefined;
@@ -100,18 +107,18 @@ declare namespace Waterline {
 
     // Data types https://github.com/balderdashy/waterline-docs/blob/master/models/data-types-attributes.md#data-types
     export type AttributeType =
-        | 'string'
-        | 'text'
-        | 'number'
-        | 'integer'
-        | 'float'
-        | 'date'
-        | 'time'
-        | 'datetime'
-        | 'boolean'
-        | 'binary'
-        | 'array'
-        | 'json';
+        | "string"
+        | "text"
+        | "number"
+        | "integer"
+        | "float"
+        | "date"
+        | "time"
+        | "datetime"
+        | "boolean"
+        | "binary"
+        | "array"
+        | "json";
 
     export type Attribute =
         | string
@@ -151,57 +158,57 @@ declare namespace Waterline {
     };
 
     export type StringAttribute = BaseAttribute<string> & {
-        type: 'string';
+        type: "string";
     };
 
     export type EmailAttribute = BaseAttribute<string> & {
-        type: 'email';
+        type: "email";
     };
 
     export type TextAttribute = BaseAttribute<string> & {
-        type: 'text';
+        type: "text";
     };
 
     export type IntegerAttribute = BaseAttribute<number> & {
-        type: 'integer';
+        type: "integer";
         autoIncrement?: boolean | undefined;
     };
 
     export type NumberAttribute = BaseAttribute<number> & {
-        type: 'number';
+        type: "number";
         autoIncrement?: boolean | undefined;
     };
 
     export type FloatAttribute = BaseAttribute<number> & {
-        type: 'float';
+        type: "float";
     };
 
     export type DateAttribute = BaseAttribute<Date> & {
-        type: 'date';
+        type: "date";
     };
 
     export type TimeAttribute = BaseAttribute<Date> & {
-        type: 'time';
+        type: "time";
     };
 
     export type DatetimeAttribute = BaseAttribute<Date> & {
-        type: 'datetime';
+        type: "datetime";
     };
 
     export type BooleanAttribute = BaseAttribute<boolean> & {
-        type: 'boolean';
+        type: "boolean";
     };
 
     export type BinaryAttribute = BaseAttribute<any> & {
-        type: 'binary';
+        type: "binary";
     };
 
     export type ArrayAttribute = BaseAttribute<any> & {
-        type: 'array';
+        type: "array";
     };
 
     export type JsonAttribute = BaseAttribute<any> & {
-        type: 'json';
+        type: "json";
     };
 
     export type OneToOneAttribute = BaseAttribute<any> & {
@@ -325,7 +332,10 @@ declare interface WaterlineStatic {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     };
     new(): Waterline.Waterline;
-    start<CB extends (err: Error | undefined, orm: Waterline.Waterline) => unknown>(options: Waterline.StartOptions, done: CB): CB;
+    start<CB extends (err: Error | undefined, orm: Waterline.Waterline) => unknown>(
+        options: Waterline.StartOptions,
+        done: CB,
+    ): CB;
     stop<CB extends (err: Error | undefined) => unknown>(orm: Waterline.Waterline, done: CB): ReturnType<CB>;
 }
 

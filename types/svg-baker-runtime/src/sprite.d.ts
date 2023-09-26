@@ -1,5 +1,5 @@
-import SpriteSymbol from './symbol';
-import { SpriteConfig } from './sprite.config';
+import { SpriteConfig } from "./sprite.config";
+import SpriteSymbol from "./symbol";
 
 export default class Sprite {
     protected config: SpriteConfig;

@@ -1,4 +1,4 @@
-import { Block } from '../';
+import { Block } from "../";
 
 /**
  * Returns true if the parsed block is valid given the input content. A block
@@ -14,5 +14,5 @@ import { Block } from '../';
 export function isValidBlockContent<T extends Record<string, any>>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    originalBlockContent: string
+    originalBlockContent: string,
 ): boolean;

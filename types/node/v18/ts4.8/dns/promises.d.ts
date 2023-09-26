@@ -4,23 +4,23 @@
  * via `require('dns').promises` or `require('dns/promises')`.
  * @since v10.6.0
  */
-declare module 'dns/promises' {
+declare module "dns/promises" {
     import {
-        LookupAddress,
-        LookupOneOptions,
-        LookupAllOptions,
-        LookupOptions,
         AnyRecord,
         CaaRecord,
+        LookupAddress,
+        LookupAllOptions,
+        LookupOneOptions,
+        LookupOptions,
         MxRecord,
         NaptrRecord,
-        SoaRecord,
-        SrvRecord,
-        ResolveWithTtlOptions,
         RecordWithTtl,
         ResolveOptions,
         ResolverOptions,
-    } from 'node:dns';
+        ResolveWithTtlOptions,
+        SoaRecord,
+        SrvRecord,
+    } from "node:dns";
     /**
      * Returns an array of IP address strings, formatted according to [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6),
      * that are currently configured for DNS resolution. A string will include a port
@@ -106,7 +106,7 @@ declare module 'dns/promises' {
      */
     function lookupService(
         address: string,
-        port: number
+        port: number,
     ): Promise<{
         hostname: string;
         service: string;
@@ -125,19 +125,22 @@ declare module 'dns/promises' {
      * @param [rrtype='A'] Resource record type.
      */
     function resolve(hostname: string): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'A'): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'AAAA'): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'ANY'): Promise<AnyRecord[]>;
-    function resolve(hostname: string, rrtype: 'CAA'): Promise<CaaRecord[]>;
-    function resolve(hostname: string, rrtype: 'CNAME'): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'MX'): Promise<MxRecord[]>;
-    function resolve(hostname: string, rrtype: 'NAPTR'): Promise<NaptrRecord[]>;
-    function resolve(hostname: string, rrtype: 'NS'): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'PTR'): Promise<string[]>;
-    function resolve(hostname: string, rrtype: 'SOA'): Promise<SoaRecord>;
-    function resolve(hostname: string, rrtype: 'SRV'): Promise<SrvRecord[]>;
-    function resolve(hostname: string, rrtype: 'TXT'): Promise<string[][]>;
-    function resolve(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+    function resolve(hostname: string, rrtype: "A"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "AAAA"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+    function resolve(hostname: string, rrtype: "CAA"): Promise<CaaRecord[]>;
+    function resolve(hostname: string, rrtype: "CNAME"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
+    function resolve(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
+    function resolve(hostname: string, rrtype: "NS"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "PTR"): Promise<string[]>;
+    function resolve(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
+    function resolve(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+    function resolve(hostname: string, rrtype: "TXT"): Promise<string[][]>;
+    function resolve(
+        hostname: string,
+        rrtype: string,
+    ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
     /**
      * Uses the DNS protocol to resolve IPv4 addresses (`A` records) for the`hostname`. On success, the `Promise` is resolved with an array of IPv4
      * addresses (e.g. `['74.125.79.104', '74.125.79.105', '74.125.79.106']`).
@@ -343,7 +346,7 @@ declare module 'dns/promises' {
      * @since v16.4.0, v14.18.0
      * @param order must be `'ipv4first'` or `'verbatim'`.
      */
-    function setDefaultResultOrder(order: 'ipv4first' | 'verbatim'): void;
+    function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
     class Resolver {
         constructor(options?: ResolverOptions);
         cancel(): void;
@@ -365,6 +368,6 @@ declare module 'dns/promises' {
         setServers: typeof setServers;
     }
 }
-declare module 'node:dns/promises' {
-    export * from 'dns/promises';
+declare module "node:dns/promises" {
+    export * from "dns/promises";
 }

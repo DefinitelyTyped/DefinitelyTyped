@@ -14,12 +14,12 @@
 
 export = prompts;
 
-import { Readable, Writable } from 'stream';
-import { Kleur } from 'kleur';
+import { Kleur } from "kleur";
+import { Readable, Writable } from "stream";
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
-    options?: prompts.Options
+    options?: prompts.Options,
 ): Promise<prompts.Answers<T>>;
 
 declare namespace prompts {
@@ -110,12 +110,24 @@ declare namespace prompts {
     type PrevCaller<T extends string, R = T> = (
         prev: any,
         values: Answers<T>,
-        prompt: PromptObject
+        prompt: PromptObject,
     ) => R;
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
+    type PromptType =
+        | "text"
+        | "password"
+        | "invisible"
+        | "number"
+        | "confirm"
+        | "list"
+        | "toggle"
+        | "select"
+        | "multiselect"
+        | "autocomplete"
+        | "date"
+        | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 

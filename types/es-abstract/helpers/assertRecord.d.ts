@@ -1,4 +1,4 @@
-import type { PropertyDescriptor } from '../index';
+import type { PropertyDescriptor } from "../index";
 
 declare function assertRecord<K extends string>(
     ES: K extends keyof assertRecord.Predicates ? Parameters<assertRecord.Predicates[K]>[0] : object,
@@ -9,7 +9,7 @@ declare function assertRecord<K extends string>(
 
 declare namespace assertRecord {
     interface Predicates {
-        'Property Descriptor': (
+        "Property Descriptor": (
             ES: {
                 Type(o: unknown): string | undefined;
             },

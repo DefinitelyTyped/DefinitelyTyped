@@ -6,7 +6,7 @@ const time = new YUKA.Time();
 const params = {
     alignment: 1,
     cohesion: 0.9,
-    separation: 0.3
+    separation: 0.3,
 };
 
 init();
@@ -23,7 +23,7 @@ function init() {
     separationBehavior.weight = params.separation;
 
     for (let i = 0; i < 50; i++) {
-        const vehicleMesh = {matrix: new YUKA.Matrix4()};
+        const vehicleMesh = { matrix: new YUKA.Matrix4() };
 
         const vehicle = new YUKA.Vehicle();
         vehicle.maxSpeed = 1.5;
@@ -53,6 +53,6 @@ function animate() {
     entityManager.update(delta);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

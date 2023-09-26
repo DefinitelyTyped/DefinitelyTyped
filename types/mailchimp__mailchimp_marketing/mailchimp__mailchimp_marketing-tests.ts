@@ -44,7 +44,7 @@ const setListMemberBody: mailchimp.lists.SetListMemberBody = {
     interests: { property1: true },
     language: 'language',
     vip: true,
-    location: { latitude: 123, logitude: 123 },
+    location: { latitude: 123, longitude: 123 },
     marketing_permissions: [
         {
             marketing_permission_id: 'string',
@@ -106,10 +106,33 @@ const getListMergeFieldsBody: mailchimp.lists.ListOptions = {
 const createListMemberBody: mailchimp.lists.CreateListMemberEventBody = {
     name: 'test',
     properties: {
-        key: 'value'
+        key: 'value',
     },
     is_syncing: true,
     occurred_at: 'YYYY-MM-DD',
+};
+
+const listCampaignsOpts: mailchimp.campaigns.CampaignsOptions = {
+    fields: ['test', 'test'],
+    excludeFields: ['test', 'test'],
+    count: 10,
+    offset: 0,
+    type: 'regular',
+    status: 'sent',
+    beforeSendTime: 'YYYY-MM-DDTHH:MM:SSZ',
+    sinceSendTime: 'YYYY-MM-DDTHH:MM:SSZ',
+    beforeCreateTime: 'YYYY-MM-DDTHH:MM:SSZ',
+    sinceCreateTime: 'YYYY-MM-DDTHH:MM:SSZ',
+    listId: 'test',
+    folderId: 'test',
+    memberId: 'test',
+    sortField: 'create_time',
+    sortDir: 'asc',
+};
+
+const getContentOpts: mailchimp.campaigns.GetCampaignContentOptions = {
+    fields: ['test', 'test'],
+    excludeFields: ['test', 'test'],
 };
 
 // Promise<MembersSuccessResponse | ErrorResponse>
@@ -149,3 +172,9 @@ mailchimp.lists.getListInterestCategories('test');
 
 // Promise<ListInterestCategoryInterestsResponse | ErrorResponse>
 mailchimp.lists.listInterestCategoryInterests('test', 'test');
+
+// Promise<CampaignsSuccessResponse | ErrorResponse>
+mailchimp.campaigns.list(listCampaignsOpts);
+
+// Promise<CampaignContentSuccessResponse | ErrorResponse>
+mailchimp.campaigns.getContent('test', getContentOpts);

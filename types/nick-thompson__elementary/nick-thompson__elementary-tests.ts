@@ -1,18 +1,18 @@
 import {
     onCoreLoad,
-    testCore,
-    testFactories,
-    testNative,
     testBasics,
+    testCore,
     testDelays,
+    testFactories,
     testFilters,
     testMath,
+    testNative,
     testNoise,
     testOscillators,
     testSamples,
-    testSignals
-} from './tests/index';
-import { flush } from './tests/tester';
+    testSignals,
+} from "./tests/index";
+import { flush } from "./tests/tester";
 
 const stopMessage = `
 Don\'t worry about this error.
@@ -33,4 +33,5 @@ onCoreLoad(
     testOscillators,
     testSamples,
     testSignals,
-    () => flush(stopMessage));
+    () => flush(stopMessage),
+);

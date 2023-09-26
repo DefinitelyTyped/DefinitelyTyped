@@ -19,12 +19,12 @@ export interface Node {
 }
 
 export interface Child extends Node {
-    type: 'media-query' | 'media-feature-expression' | 'media-feature' | 'media-type' | 'colon' | 'value' | 'keyword';
+    type: "media-query" | "media-feature-expression" | "media-feature" | "media-type" | "colon" | "value" | "keyword";
     parent: Node;
 }
 
 export interface Root extends Node {
-    type: 'media-query-list';
+    type: "media-query-list";
 }
 
 declare function mediaQueryParser(mediaQuery: string): Root;

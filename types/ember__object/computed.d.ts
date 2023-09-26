@@ -37,8 +37,7 @@ export default class ComputedProperty<Get, Set = Get> {
 // Computed property definitions also act as property decorators, including those
 // returned from "macros" in third-party code. We additionally include a marker
 // interface that we use in `UnwrapComputedProperty{G,S}etters`.
-export default interface ComputedProperty<Get, Set = Get>
-    extends PropertyDecorator, ComputedPropertyMarker<Get, Set> {}
+export default interface ComputedProperty<Get, Set = Get> extends PropertyDecorator, ComputedPropertyMarker<Get, Set> {}
 
 /**
  * Creates a new property that is an alias for another property
@@ -46,7 +45,7 @@ export default interface ComputedProperty<Get, Set = Get>
  * though they were called on the original property.
  */
 export function alias(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<unknown>;
 /**
  * A computed property that performs a logical `and` on the
@@ -60,7 +59,7 @@ export function and(
  * into a boolean value.
  */
 export function bool(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<boolean>;
 
 /**
@@ -79,7 +78,7 @@ export function collect(
  */
 export function deprecatingAlias(
     dependentKey: string,
-    options: { id: string; until: string }
+    options: { id: string; until: string },
 ): ComputedProperty<unknown>;
 
 /**
@@ -87,7 +86,7 @@ export function deprecatingAlias(
  * property is null, an empty string, empty array, or empty function.
  */
 export function empty(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<boolean>;
 /**
  * A computed property that returns true if the provided dependent property
@@ -95,14 +94,14 @@ export function empty(
  */
 export function equal(
     dependentKey: string,
-    value: unknown
+    value: unknown,
 ): ComputedProperty<boolean>;
 /**
  * Expands `pattern`, invoking `callback` for each expansion.
  */
 export function expandProperties(
     pattern: string,
-    callback: (expanded: string) => void
+    callback: (expanded: string) => void,
 ): void;
 
 /**
@@ -110,7 +109,7 @@ export function expandProperties(
  */
 export function filter(
     dependentKey: string,
-    callback: (value: unknown, index: number, array: unknown[]) => boolean
+    callback: (value: unknown, index: number, array: unknown[]) => boolean,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -119,7 +118,7 @@ export function filter(
 export function filter(
     dependentKey: string,
     additionalDependentKeys: string[],
-    callback: (value: unknown, index: number, array: unknown[]) => boolean
+    callback: (value: unknown, index: number, array: unknown[]) => boolean,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -128,7 +127,7 @@ export function filter(
 export function filterBy(
     dependentKey: string,
     propertyKey: string,
-    value?: unknown
+    value?: unknown,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -137,7 +136,7 @@ export function filterBy(
  */
 export function gt(
     dependentKey: string,
-    value: number
+    value: number,
 ): ComputedProperty<boolean>;
 /**
  * A computed property that returns true if the provided dependent property
@@ -145,7 +144,7 @@ export function gt(
  */
 export function gte(
     dependentKey: string,
-    value: number
+    value: number,
 ): ComputedProperty<boolean>;
 
 /**
@@ -162,7 +161,7 @@ export function intersect(
  */
 export function lt(
     dependentKey: string,
-    value: number
+    value: number,
 ): ComputedProperty<boolean>;
 /**
  * A computed property that returns true if the provided dependent property
@@ -170,7 +169,7 @@ export function lt(
  */
 export function lte(
     dependentKey: string,
-    value: number
+    value: number,
 ): ComputedProperty<boolean>;
 
 /**
@@ -178,7 +177,7 @@ export function lte(
  */
 export function map<U>(
     dependentKey: string,
-    callback: (value: unknown, index: number, array: unknown[]) => U
+    callback: (value: unknown, index: number, array: unknown[]) => U,
 ): ComputedProperty<U[]>;
 
 /**
@@ -186,7 +185,7 @@ export function map<U>(
  */
 export function mapBy(
     dependentKey: string,
-    propertyKey: string
+    propertyKey: string,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -196,7 +195,7 @@ export function mapBy(
  */
 export function match(
     dependentKey: string,
-    regexp: RegExp
+    regexp: RegExp,
 ): ComputedProperty<boolean>;
 
 /**
@@ -205,7 +204,7 @@ export function match(
  * array is empty.
  */
 export function max(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<number>;
 
 /**
@@ -214,7 +213,7 @@ export function max(
  * array is empty.
  */
 export function min(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<number>;
 
 /**
@@ -223,21 +222,21 @@ export function min(
  * about use of ==, which can be technically confusing.
  */
 export function none(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<boolean>;
 /**
  * A computed property that returns the inverse boolean value
  * of the original value for the dependent property.
  */
 export function not(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<boolean>;
 /**
  * A computed property that returns true if the value of the dependent
  * property is NOT null, an empty string, empty array, or empty function.
  */
 export function notEmpty(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<boolean>;
 /**
  * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
@@ -247,7 +246,7 @@ export function notEmpty(
  * diverge from the upstream property.
  */
 export function oneWay(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<unknown>;
 /**
  * A computed property which performs a logical `or` on the
@@ -262,14 +261,14 @@ export function or(
  * not also want changes to propagate back up, as they will replace the value.
  */
 export function readOnly(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<unknown>;
 /**
  * This is a more semantically meaningful alias of `computed.oneWay`,
  * whose name is somewhat ambiguous as to which direction the data flows.
  */
 export function reads(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<unknown>;
 
 /**
@@ -279,7 +278,7 @@ export function reads(
  */
 export function setDiff(
     setAProperty: string,
-    setBProperty: string
+    setBProperty: string,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -293,7 +292,7 @@ export function setDiff(
  */
 export function sort<T>(
     itemsKey: string,
-    sortDefinition: string | ((itemA: T, itemB: T) => number)
+    sortDefinition: string | ((itemA: T, itemB: T) => number),
 ): ComputedProperty<T[]>;
 
 /**
@@ -306,7 +305,7 @@ export function sort<T>(
 export function sort<T>(
     itemsKey: string,
     dependentKeys: string[],
-    sortDefinition: string | ((itemA: T, itemB: T) => number)
+    sortDefinition: string | ((itemA: T, itemB: T) => number),
 ): ComputedProperty<T[]>;
 
 /**
@@ -314,7 +313,7 @@ export function sort<T>(
  * in the dependent array.
  */
 export function sum(
-    dependentKey: string
+    dependentKey: string,
 ): ComputedProperty<number>;
 
 /**
@@ -322,7 +321,7 @@ export function sum(
  * elements from one or more dependent arrays.
  */
 export function uniq(
-    propertyKey: string
+    propertyKey: string,
 ): ComputedProperty<unknown[]>;
 
 /**
@@ -339,5 +338,5 @@ export function union(
  */
 export function uniqBy(
     dependentKey: string,
-    propertyKey: string
+    propertyKey: string,
 ): ComputedProperty<any[]>;

@@ -32,6 +32,12 @@ interface IdConfiguration {
     intermediate_iframe_close_callback?: () => void;
     /** Enables upgraded One Tap UX on ITP browsers. */
     itp_support?: boolean;
+    /** Skip account selection by providing a user hint. */
+    login_hint?: string;
+    /** Limit account selection by domain */
+    hd?: string;
+    /** Allow the browser to control user sign-in prompts and mediate the sign-in flow between your website and Google. */
+    use_fedcm_for_prompt?: boolean;
 }
 
 interface CredentialResponse {

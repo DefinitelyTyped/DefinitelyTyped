@@ -5,9 +5,9 @@
 // TypeScript Version: 2.3
 
 /**
-* SpinnerService
-* see https://github.com/urish/angular-spinner
-*/
+ * SpinnerService
+ * see https://github.com/urish/angular-spinner
+ */
 declare interface ISpinnerService {
     /**
      * Start selected spinner

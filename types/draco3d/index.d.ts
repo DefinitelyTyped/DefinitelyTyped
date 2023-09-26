@@ -10,15 +10,15 @@ export function createDecoderModule(object?: Record<string, unknown>): Promise<D
 export function createEncoderModule(object?: Record<string, unknown>): Promise<EncoderModule>;
 
 export interface BaseModule {
-    Mesh: new () => Mesh;
+    Mesh: new() => Mesh;
 
-    DracoFloat32Array: new () => DracoFloat32Array;
-    DracoInt8Array: new () => DracoInt8Array;
-    DracoInt16Array: new () => DracoInt16Array;
-    DracoInt32Array: new () => DracoInt32Array;
-    DracoUInt8Array: new () => DracoUInt8Array;
-    DracoUInt16Array: new () => DracoUInt16Array;
-    DracoUInt32Array: new () => DracoUInt32Array;
+    DracoFloat32Array: new() => DracoFloat32Array;
+    DracoInt8Array: new() => DracoInt8Array;
+    DracoInt16Array: new() => DracoInt16Array;
+    DracoInt32Array: new() => DracoInt32Array;
+    DracoUInt8Array: new() => DracoUInt8Array;
+    DracoUInt16Array: new() => DracoUInt16Array;
+    DracoUInt32Array: new() => DracoUInt32Array;
 
     POSITION: GeometryAttributeType;
     NORMAL: GeometryAttributeType;
@@ -42,9 +42,9 @@ export interface BaseModule {
 }
 
 export interface EncoderModule extends BaseModule {
-    Encoder: new () => Encoder;
-    ExpertEncoder: new (pc: PointCloud) => ExpertEncoder;
-    MeshBuilder: new () => MeshBuilder;
+    Encoder: new() => Encoder;
+    ExpertEncoder: new(pc: PointCloud) => ExpertEncoder;
+    MeshBuilder: new() => MeshBuilder;
 
     MESH_SEQUENTIAL_ENCODING: number;
     MESH_EDGEBREAKER_ENCODING: number;
@@ -58,9 +58,9 @@ export interface DracoDecoderModuleProps {
 export type DracoDecoderModule = (props: DracoDecoderModuleProps) => Promise<DecoderModule>;
 
 export interface DecoderModule extends BaseModule {
-    Decoder: new () => Decoder;
-    DecoderBuffer: new () => DecoderBuffer;
-    PointCloud: new () => PointCloud;
+    Decoder: new() => Decoder;
+    DecoderBuffer: new() => DecoderBuffer;
+    PointCloud: new() => PointCloud;
 
     // GeometryType.
     TRIANGULAR_MESH: GeometryType;

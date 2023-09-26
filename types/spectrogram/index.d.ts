@@ -6,13 +6,13 @@
 
 interface SpectrogramOptions {
     canvas?: {
-        width?: HTMLCanvasElement['width'] | (() => HTMLCanvasElement['width']) | undefined;
-        height?: HTMLCanvasElement['height'] | (() => HTMLCanvasElement['height']) | undefined;
+        width?: HTMLCanvasElement["width"] | (() => HTMLCanvasElement["width"]) | undefined;
+        height?: HTMLCanvasElement["height"] | (() => HTMLCanvasElement["height"]) | undefined;
     } | undefined;
     audio?: {
         enable?: boolean | undefined;
     } | undefined;
-    colors?: ((steps: number) => Array<CanvasRenderingContext2D['fillStyle']>) | undefined;
+    colors?: ((steps: number) => Array<CanvasRenderingContext2D["fillStyle"]>) | undefined;
 }
 
 interface Spectrogram {

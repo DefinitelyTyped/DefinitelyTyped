@@ -21,5 +21,5 @@ export function train(
     trainFile: string,
     modelFile: string,
     options?: object,
-    callback?: () => void
+    callback?: () => void,
 ): void;

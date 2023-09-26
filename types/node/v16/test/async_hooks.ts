@@ -1,12 +1,12 @@
 import {
+    AsyncLocalStorage,
     AsyncResource,
     createHook,
-    triggerAsyncId,
     executionAsyncId,
     executionAsyncResource,
     HookCallbacks,
-    AsyncLocalStorage,
-} from 'node:async_hooks';
+    triggerAsyncId,
+} from "node:async_hooks";
 
 {
     const hooks: HookCallbacks = {
@@ -27,13 +27,13 @@ import {
 
     class TestResource extends AsyncResource {
         constructor() {
-            super('TEST_RESOURCE');
+            super("TEST_RESOURCE");
         }
     }
 
     class AnotherTestResource extends AsyncResource {
         constructor() {
-            super('TEST_RESOURCE', 42);
+            super("TEST_RESOURCE", 42);
             const aId: number = this.asyncId();
             const tId: number = this.triggerAsyncId();
         }
@@ -47,26 +47,30 @@ import {
     }
 
     // check AsyncResource constructor options.
-    new AsyncResource('');
-    new AsyncResource('', 0);
-    new AsyncResource('', {});
-    new AsyncResource('', { triggerAsyncId: 0 });
-    new AsyncResource('', {
-      triggerAsyncId: 0,
-      requireManualDestroy: true
+    new AsyncResource("");
+    new AsyncResource("", 0);
+    new AsyncResource("", {});
+    new AsyncResource("", { triggerAsyncId: 0 });
+    new AsyncResource("", {
+        triggerAsyncId: 0,
+        requireManualDestroy: true,
     });
 
     let res = AsyncResource.bind((x: number) => x)(42);
-    const asyncResource = new AsyncResource('');
+    const asyncResource = new AsyncResource("");
     res = asyncResource.bind((x: number) => x)(42);
     // $ExpectType AsyncResource
     asyncResource.emitDestroy();
 
-    AsyncResource.bind(function() {
-        this.a; // $ExpectType number
-    }, 'test', {
-        a: 1,
-    });
+    AsyncResource.bind(
+        function() {
+            this.a; // $ExpectType number
+        },
+        "test",
+        {
+            a: 1,
+        },
+    );
 }
 
 {
@@ -75,9 +79,9 @@ import {
     const exitResult: number = ctx.exit((a: number) => {
         return 42;
     }, 1);
-    const runResult: number = ctx.run('test', (a: number) => {
+    const runResult: number = ctx.run("test", (a: number) => {
         const store: string | undefined = ctx.getStore();
         return 42;
     }, 1);
-    ctx.enterWith('test');
+    ctx.enterWith("test");
 }

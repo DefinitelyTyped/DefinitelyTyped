@@ -1,4 +1,4 @@
-import { ConfigBase } from './config-base';
+import { ConfigBase } from "./config-base";
 
 export interface UseDualstackConfigOptions {
     /**

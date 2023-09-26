@@ -1,6 +1,6 @@
-import { Class } from './Class';
-import { Notifications } from './Notifications';
-import { Value } from './Value';
+import { Class } from "./Class";
+import { Notifications } from "./Notifications";
+import { Value } from "./Value";
 
 export interface Container_Arguments {
     duration?: string | number | undefined;

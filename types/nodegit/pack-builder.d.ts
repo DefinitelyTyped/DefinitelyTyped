@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Revwalk } from './rev-walk';
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Revwalk } from "./rev-walk";
 
 export namespace Packbuilder {
     const enum STAGE {

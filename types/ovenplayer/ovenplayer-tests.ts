@@ -1,11 +1,11 @@
-import OvenPlayer, { OvenPlayerConfig, OvenPlayerPlayList, OvenPlayerSource, OvenPlayerWebRTCStream } from "ovenplayer";
+import OvenPlayer, { OvenPlayerConfig, OvenPlayerPlayList, OvenPlayerSource, OvenPlayerWebRTCStream } from 'ovenplayer';
 
-const playerContainer1 = document.createElement("div");
-playerContainer1.id = "player1";
+const playerContainer1 = document.createElement('div');
+playerContainer1.id = 'player1';
 document.body.appendChild(playerContainer1);
 
-const playerContainer2 = document.createElement("div");
-playerContainer2.id = "player2";
+const playerContainer2 = document.createElement('div');
+playerContainer2.id = 'player2';
 document.body.appendChild(playerContainer2);
 
 // test interface OvenPlayer, interface OvenPlayerConfig,
@@ -15,32 +15,34 @@ document.body.appendChild(playerContainer2);
 const debug: boolean = OvenPlayer.debug(true);
 
 const webrtcStream: OvenPlayerWebRTCStream = {
-    host: "ws://host:port",
-    application: "app",
-    stream: "stream_1080",
-    label: "WebRTC 1080P",
+    host: 'ws://host:port',
+    application: 'app',
+    stream: 'stream_1080',
+    label: 'WebRTC 1080P',
 }
 
 // generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
 const webrtcSources1 = OvenPlayer.generateWebrtcUrls(webrtcStream);
 
-const webrtcSources2 = OvenPlayer.generateWebrtcUrls([{
-    host: "ws://host:port",
-    application: "app",
-    stream: "stream_1080",
-    label: "WebRTC 1080P",
-}]);
+const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
+    {
+        host: 'ws://host:port',
+        application: 'app',
+        stream: 'stream_1080',
+        label: 'WebRTC 1080P',
+    },
+]);
 
 const conf: OvenPlayerConfig = {
     mute: true,
     playbackRates: [1, 2, 3, 3],
     waterMark: {
-        image: "/path/to/watermark/image.png",
-        position: "top-left",
-        y: "20px",
-        x: "20px",
-        width: "40px",
-        height: "30px",
+        image: '/path/to/watermark/image.png',
+        position: 'top-left',
+        y: '20px',
+        x: '20px',
+        width: '40px',
+        height: '30px',
         opacity: 0.7,
     },
     sources: webrtcSources1,
@@ -51,12 +53,12 @@ const conf: OvenPlayerConfig = {
 };
 
 // create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
-const player = OvenPlayer.create("player1", conf);
+const player = OvenPlayer.create('player1', conf);
 
 const player2 = OvenPlayer.create(playerContainer2, {});
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-const playerInstance1 = OvenPlayer.getPlayerByContainerId("player");
+const playerInstance1 = OvenPlayer.getPlayerByContainerId('player');
 
 // getPlayerByIndex(index: number): OvenPlayerInstance | null;
 const playerInstance2 = OvenPlayer.getPlayerByIndex(0);
@@ -89,13 +91,13 @@ const providerName: string | null = player.getProviderName();
 
 const sources: OvenPlayerSource[] = [
     {
-        type: "webrtc",
-        file: "file",
-        label: "myLabel",
+        type: 'webrtc',
+        file: 'file',
+        label: 'myLabel',
     },
     {
-        type: "webrtc",
-        file: "file",
+        type: 'webrtc',
+        file: 'file',
     },
 ];
 
@@ -105,41 +107,61 @@ player.load(sources);
 const playList: OvenPlayerPlayList = [
     [
         {
-            type: "webrtc",
-            file: "file",
+            type: 'webrtc',
+            file: 'file',
         },
         {
-            type: "webrtc",
-            file: "file",
+            type: 'webrtc',
+            file: 'file',
         },
     ],
     [
         {
-            type: "webrtc",
-            file: "file",
+            type: 'webrtc',
+            file: 'file',
         },
         {
-            type: "webrtc",
-            file: "file",
+            type: 'webrtc',
+            file: 'file',
         },
     ],
 ];
 
 player.load(playList);
 
+const quality: OvenPlayerQuality = {
+    bitrate: '4000',
+    height: 320,
+    width: 320,
+    index: '320p',
+    label: '320p',
+};
+
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
 // on(eventName: string, callback: OvenPlayerCallbackFunction): void;
-player.on("ready", (data, data2) => {
-});
+player.on('ready', (data, data2) => {});
 
 // once(eventName: string, callback: OvenPlayerCallbackFunction): void;
-player.once("play", (data) => {
-});
+player.once('play', data => {});
 
 // off(eventName: string): void;
-player.off("ready");
+player.off('ready');
 
 // remove(): void;
 player.remove();
+
+// @ts-expect-error: it's deprecated method, should throw error for newest users.
+player.setCaption({
+    // you can use player.setCaption?.()
+    file: 'https://youtu.be/dQw4w9WgXcQ',
+    kind: 'caption',
+    label: 'label',
+});
+
+player.addCaption({
+    file: 'https://youtu.be/dQw4w9WgXcQ',
+    kind: 'caption',
+    label: 'label',
+});

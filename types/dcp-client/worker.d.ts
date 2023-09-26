@@ -1,9 +1,9 @@
-type SchedMsg = import('.').SchedMsg;
-type PaymentParams = import('.').PaymentParams;
+type SchedMsg = import(".").SchedMsg;
+type PaymentParams = import(".").PaymentParams;
 
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
 // tslint:disable-next-line:no-single-declare-module
-declare module 'dcp/worker' {
+declare module "dcp/worker" {
     export default class Worker {
         /**
          * start - Emitted when the worker is started.
@@ -19,28 +19,28 @@ declare module 'dcp/worker' {
          */
         on(
             event:
-                | 'start'
-                | 'stop'
-                | 'fetchStart'
-                | 'fetchEnd'
-                | 'fetch'
-                | 'fetchError'
-                | 'submitStart'
-                | 'submitEnd'
-                | 'submit'
-                | 'submitError',
+                | "start"
+                | "stop"
+                | "fetchStart"
+                | "fetchEnd"
+                | "fetch"
+                | "fetchError"
+                | "submitStart"
+                | "submitEnd"
+                | "submit"
+                | "submitError",
             listener: () => void,
         ): this;
 
         /**
          * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
          */
-        on(event: 'sandbox', listener: (sandbox: Sandbox) => void): this;
+        on(event: "sandbox", listener: (sandbox: Sandbox) => void): this;
 
         /**
          * Emitted when the worker submits a result. Contains the value of DCC earned.
          */
-        on(event: 'payment', listener: (paymentParams: PaymentParams) => void): this;
+        on(event: "payment", listener: (paymentParams: PaymentParams) => void): this;
 
         /**
          * This boolean indicates the current status of the worker. It should not be set manually.
@@ -79,19 +79,19 @@ declare module 'dcp/worker' {
         /**
          * Emitted when the sandbox begins working on a slice. The job description object. Use job.public for accessing the job’s title/description.
          */
-        addEventListener(event: 'sliceStart', listener: (job: object) => void): void;
+        addEventListener(event: "sliceStart", listener: (job: object) => void): void;
 
         /**
          * Emitted when the sandbox completes the slice it was working on.
          */
-        addEventListener(event: 'sliceFinish', listener: (result: any) => void): void;
+        addEventListener(event: "sliceFinish", listener: (result: any) => void): void;
 
         /**
          * sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
          * sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
          * terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
          */
-        addEventListener(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): void;
+        addEventListener(event: "sliceError" | "sliceEnd" | "terminate", listener: () => void): void;
 
         on: typeof Sandbox.prototype.addEventListener;
     }

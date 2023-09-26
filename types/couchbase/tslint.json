@@ -14,7 +14,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-for-of": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false,
         "void-return": false
     }

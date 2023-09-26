@@ -3,7 +3,7 @@
 // Definitions by: Alex Laz <https://github.com/alex-laz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import NodeFetch = require('node-fetch');
+import NodeFetch = require("node-fetch");
 
 type Blob = NodeFetch.Blob;
 type Headers = NodeFetch.Headers;

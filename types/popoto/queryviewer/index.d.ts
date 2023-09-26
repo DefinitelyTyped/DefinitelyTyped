@@ -1,4 +1,4 @@
-import { Link, Node } from '../provider';
+import { Link, Node } from "../provider";
 
 export namespace QueryViewer {
     const containerId: string;

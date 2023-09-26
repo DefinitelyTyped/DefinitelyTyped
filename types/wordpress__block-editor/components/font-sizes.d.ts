@@ -1,10 +1,10 @@
-import { FontSizePicker as FSP } from '@wordpress/components';
-import { ComponentType } from 'react';
+import { FontSizePicker as FSP } from "@wordpress/components";
+import { ComponentType } from "react";
 
-import { EditorFontSize } from '../';
+import { EditorFontSize } from "../";
 
 export namespace FontSizePicker {
-    type Props = Omit<FSP.Props, 'disableCustomFontSizes' | 'fontSizes'>;
+    type Props = Omit<FSP.Props, "disableCustomFontSizes" | "fontSizes">;
 }
 export const FontSizePicker: ComponentType<FontSizePicker.Props>;
 
@@ -25,8 +25,8 @@ export const FontSizePicker: ComponentType<FontSizePicker.Props>;
 export function getFontSize(
     fontSizes: EditorFontSize[],
     fontSizeAttribute: string | undefined,
-    customFontSizeAttribute: number
-): Partial<EditorFontSize> & Pick<EditorFontSize, 'size'>;
+    customFontSizeAttribute: number,
+): Partial<EditorFontSize> & Pick<EditorFontSize, "size">;
 
 /**
  * Returns a class based on fontSizeName.

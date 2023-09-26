@@ -7,9 +7,9 @@
 /// <reference types="angular" />
 /// <reference types="facebook-js-sdk" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ngFacebook {
         interface IFacebookProvider {
             setAppId(appId: string): IFacebookProvider;

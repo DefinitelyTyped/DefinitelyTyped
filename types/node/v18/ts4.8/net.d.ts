@@ -12,11 +12,15 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
  */
-declare module 'net' {
-    import * as stream from 'node:stream';
-    import { Abortable, EventEmitter } from 'node:events';
-    import * as dns from 'node:dns';
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+declare module "net" {
+    import * as stream from "node:stream";
+    import { Abortable, EventEmitter } from "node:events";
+    import * as dns from "node:dns";
+    type LookupFunction = (
+        hostname: string,
+        options: dns.LookupOneOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+    ) => void;
     interface AddressInfo {
         address: string;
         family: string;
@@ -70,7 +74,7 @@ declare module 'net' {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
-    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
+    type SocketReadyState = "opening" | "open" | "readOnly" | "writeOnly" | "closed";
     /**
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
@@ -270,6 +274,12 @@ declare module 'net' {
          */
         readonly connecting: boolean;
         /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`
+         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+         * @since v10.16.0
+         */
+        readonly pending: boolean;
+        /**
          * See `writable.destroyed` for further details.
          */
         readonly destroyed: boolean;
@@ -290,12 +300,6 @@ declare module 'net' {
          * @since v18.8.0
          */
         readonly localFamily?: string;
-        /**
-         * This is `true` if the socket is not connected yet, either because `.connect()`
-         * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
-         * @since v10.16.0
-         */
-        readonly pending: boolean;
         /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
@@ -349,65 +353,80 @@ declare module 'net' {
          *   9. timeout
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: (hadError: boolean) => void): this;
-        addListener(event: 'connect', listener: () => void): this;
-        addListener(event: 'data', listener: (data: Buffer) => void): this;
-        addListener(event: 'drain', listener: () => void): this;
-        addListener(event: 'end', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        addListener(event: 'ready', listener: () => void): this;
-        addListener(event: 'timeout', listener: () => void): this;
+        addListener(event: "close", listener: (hadError: boolean) => void): this;
+        addListener(event: "connect", listener: () => void): this;
+        addListener(event: "data", listener: (data: Buffer) => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        addListener(event: "ready", listener: () => void): this;
+        addListener(event: "timeout", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close', hadError: boolean): boolean;
-        emit(event: 'connect'): boolean;
-        emit(event: 'data', data: Buffer): boolean;
-        emit(event: 'drain'): boolean;
-        emit(event: 'end'): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'lookup', err: Error, address: string, family: string | number, host: string): boolean;
-        emit(event: 'ready'): boolean;
-        emit(event: 'timeout'): boolean;
+        emit(event: "close", hadError: boolean): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "data", data: Buffer): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "ready"): boolean;
+        emit(event: "timeout"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: (hadError: boolean) => void): this;
-        on(event: 'connect', listener: () => void): this;
-        on(event: 'data', listener: (data: Buffer) => void): this;
-        on(event: 'drain', listener: () => void): this;
-        on(event: 'end', listener: () => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        on(event: 'ready', listener: () => void): this;
-        on(event: 'timeout', listener: () => void): this;
+        on(event: "close", listener: (hadError: boolean) => void): this;
+        on(event: "connect", listener: () => void): this;
+        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        on(event: "ready", listener: () => void): this;
+        on(event: "timeout", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: (hadError: boolean) => void): this;
-        once(event: 'connect', listener: () => void): this;
-        once(event: 'data', listener: (data: Buffer) => void): this;
-        once(event: 'drain', listener: () => void): this;
-        once(event: 'end', listener: () => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        once(event: 'ready', listener: () => void): this;
-        once(event: 'timeout', listener: () => void): this;
+        once(event: "close", listener: (hadError: boolean) => void): this;
+        once(event: "connect", listener: () => void): this;
+        once(event: "data", listener: (data: Buffer) => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        once(event: "ready", listener: () => void): this;
+        once(event: "timeout", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: (hadError: boolean) => void): this;
-        prependListener(event: 'connect', listener: () => void): this;
-        prependListener(event: 'data', listener: (data: Buffer) => void): this;
-        prependListener(event: 'drain', listener: () => void): this;
-        prependListener(event: 'end', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependListener(event: 'ready', listener: () => void): this;
-        prependListener(event: 'timeout', listener: () => void): this;
+        prependListener(event: "close", listener: (hadError: boolean) => void): this;
+        prependListener(event: "connect", listener: () => void): this;
+        prependListener(event: "data", listener: (data: Buffer) => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        prependListener(event: "ready", listener: () => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: (hadError: boolean) => void): this;
-        prependOnceListener(event: 'connect', listener: () => void): this;
-        prependOnceListener(event: 'data', listener: (data: Buffer) => void): this;
-        prependOnceListener(event: 'drain', listener: () => void): this;
-        prependOnceListener(event: 'end', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependOnceListener(event: 'ready', listener: () => void): this;
-        prependOnceListener(event: 'timeout', listener: () => void): this;
+        prependOnceListener(event: "close", listener: (hadError: boolean) => void): this;
+        prependOnceListener(event: "connect", listener: () => void): this;
+        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
         port?: number | undefined;
@@ -600,43 +619,48 @@ declare module 'net' {
          *   5. drop
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connection', listener: (socket: Socket) => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'drop', listener: (data?: DropArgument) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "drop", listener: (data?: DropArgument) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'connection', socket: Socket): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'listening'): boolean;
-        emit(event: 'drop', data?: DropArgument): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "drop", data?: DropArgument): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'connection', listener: (socket: Socket) => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'listening', listener: () => void): this;
-        on(event: 'drop', listener: (data?: DropArgument) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+        on(event: "drop", listener: (data?: DropArgument) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'connection', listener: (socket: Socket) => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'listening', listener: () => void): this;
-        once(event: 'drop', listener: (data?: DropArgument) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "drop", listener: (data?: DropArgument) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'drop', listener: (data?: DropArgument) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "drop", listener: (data?: DropArgument) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'drop', listener: (data?: DropArgument) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "drop", listener: (data?: DropArgument) => void): this;
+        /**
+         * Calls {@link Server.close()} and returns a promise that fulfills when the server has closed.
+         * @since v18.18.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
-    type IPVersion = 'ipv4' | 'ipv6';
+    type IPVersion = "ipv4" | "ipv6";
     /**
      * The `BlockList` object can be used with some network APIs to specify rules for
      * disabling inbound or outbound access to specific IP addresses, IP ranges, or
@@ -878,6 +902,6 @@ declare module 'net' {
         readonly flowlabel: number;
     }
 }
-declare module 'node:net' {
-    export * from 'net';
+declare module "node:net" {
+    export * from "net";
 }

@@ -20,7 +20,7 @@ declare namespace depd {
     }
 
     interface DeprecationError extends Error {
-        readonly name: 'DeprecationError';
+        readonly name: "DeprecationError";
         namespace: string;
         stack: string;
     }
@@ -29,13 +29,16 @@ declare namespace depd {
 declare global {
     namespace NodeJS {
         interface Process {
-            addListener(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            emit(event: 'deprecation', code: depd.DeprecationError): boolean;
-            on(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            once(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            prependListener(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            prependOnceListener(event: 'deprecation', listener: (deprecationError: depd.DeprecationError) => void): this;
-            listeners(event: 'deprecation'): depd.DeprecationError[];
+            addListener(event: "deprecation", listener: (deprecationError: depd.DeprecationError) => void): this;
+            emit(event: "deprecation", code: depd.DeprecationError): boolean;
+            on(event: "deprecation", listener: (deprecationError: depd.DeprecationError) => void): this;
+            once(event: "deprecation", listener: (deprecationError: depd.DeprecationError) => void): this;
+            prependListener(event: "deprecation", listener: (deprecationError: depd.DeprecationError) => void): this;
+            prependOnceListener(
+                event: "deprecation",
+                listener: (deprecationError: depd.DeprecationError) => void,
+            ): this;
+            listeners(event: "deprecation"): depd.DeprecationError[];
         }
     }
 }

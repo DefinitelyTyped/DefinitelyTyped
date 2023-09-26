@@ -7,7 +7,6 @@ export = PromiseQueue;
 
 declare class PromiseQueue {
     /**
-     *
      * @param maxPendingPromises [Infinity] Number of promises that can run at once.
      * @param maxQueuedPromises [Infinity] Number of promises generators that can be in the queue at once.
      *                                     `add()` will return a rejected promise if this limit would be exceeded.
