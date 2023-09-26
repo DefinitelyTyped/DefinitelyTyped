@@ -1,6 +1,7 @@
 // Type definitions for ovenplayer 0.10
 // Project: https://github.com/airensoft/OvenPlayer
 // Definitions by: Sangwon Oh <https://github.com/SangwonOh>
+//                 Dygy <https://github.com/dygy/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 interface OvenPlayer {
     debug(debug: boolean): boolean;
@@ -33,7 +34,7 @@ interface OvenPlayerConfig {
     tracks?: object[];
     volume?: number;
     adTagUrl?: string;
-    adClient?: "googleima" | "vast";
+    adClient?: 'googleima' | 'vast';
     playlist?: OvenPlayerPlayList;
     hidePlaylistIcon?: boolean;
     webrtcConfig?: object;
@@ -53,13 +54,26 @@ interface OvenPlayerWebRTCStream {
 type OvenPlayerPlayList = OvenPlayerSource[][];
 
 interface OvenPlayerSource {
-    type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
+    type: 'webrtc' | 'llhls' | 'hls' | 'lldash' | 'dash' | 'mp4';
     file: string;
     label?: string;
     framerate?: number;
     sectionStart?: number;
     sectionEnd?: number;
 }
+
+type OvenPlayerState =
+    | 'idle'
+    | 'complete'
+    | 'paused'
+    | 'playing'
+    | 'error'
+    | 'loading'
+    | 'stalled'
+    | 'adLoaded'
+    | 'adPlaying'
+    | 'adPaused'
+    | 'adComplete';
 
 interface OvenPlayerInstance {
     getVersion(): string;
@@ -70,8 +84,8 @@ interface OvenPlayerInstance {
     getProviderName(): string | null;
     load(sources: OvenPlayerSource[] | OvenPlayerPlayList): void;
     getMediaElement(): HTMLVideoElement;
-    getState(): string;
-    getBrowser(): object;
+    getState(): OvenPlayerState;
+    getBrowser(): OvenPlayerBrowser;
     setTimecodeMode(mode: boolean): void;
     isTimecodeMode(): boolean;
     getFramerate(): number;
@@ -94,17 +108,17 @@ interface OvenPlayerInstance {
     getSources(): OvenPlayerSource[] | OvenPlayerPlayList;
     getCurrentSource(): number;
     setCurrentSource(index: number): void;
-    getQualityLevels(): object[];
+    getQualityLevels(): OvenPlayerQuality[];
     getCurrentQuality(): number;
     setCurrentQuality(index: number): void;
     isAutoQuality(): boolean;
     setAutoQuality(auto: boolean): void;
-    addCaption(track: object): void;
-    getCaptionList(): object[];
-    getCurrentCaption(): number;
-    setCurrentCaption(index: number): void;
-    setCaption(caption: object): void;
-    removeCaption(index: number): void;
+    addCaption(track: Pick<OvenPlayerTrack, 'file' | 'kind' | 'label'>): void;
+    getCaptionList(): OvenPlayerTrack[];
+    getCurrentCaption(): string;
+    setCaption?(track: OvenPlayerTrack): void;
+    setCurrentCaption(index: string): void;
+    removeCaption(index: string): void;
     showControls(show: boolean): void;
     toggleFullScreen(): void;
     on(eventName: string, callback: OvenPlayerCallbackFunction): void;
@@ -113,9 +127,51 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
+interface OvenPlayerQuality {
+    bitrate: string;
+    height: number;
+    index: string;
+    label: string;
+    width: number;
+}
+
 type OvenPlayerCallbackFunction = (...args: any[]) => void;
+
+interface OvenPlayerBrowser {
+    browser: string;
+    browserMajorVersion: number;
+    browserVersion: string;
+    cookies: boolean;
+    mobile: boolean;
+    os: string;
+    osVersion: string;
+    screen: string;
+    ua: string;
+}
+
+interface OvenPlayerTrack {
+    file: string;
+    kind: string;
+    label: string;
+    data: string[];
+    id: string;
+    name: string;
+}
+
+export {
+    OvenPlayerQuality,
+    OvenPlayerCallbackFunction,
+    OvenPlayerInstance,
+    OvenPlayerSource,
+    OvenPlayerPlayList,
+    OvenPlayerWebRTCStream,
+    OvenPlayerConfig,
+    OvenPlayerState,
+    OvenPlayerBrowser,
+    OvenPlayerTrack,
+};
 
 declare const OvenPlayer: OvenPlayer;
 
 export as namespace OvenPlayer;
-export = OvenPlayer;
+export default OvenPlayer;
