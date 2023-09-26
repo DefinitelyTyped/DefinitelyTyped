@@ -1,4 +1,4 @@
-import * as React from './';
+import * as React from "./";
 
 export namespace JSX {
     interface Element extends React.JSX.Element {}

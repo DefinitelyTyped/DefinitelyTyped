@@ -1,4 +1,4 @@
-import * as React from './';
+import * as React from "./";
 
 export namespace JSX {
     type ElementType = React.JSX.ElementType;

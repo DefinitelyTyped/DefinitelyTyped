@@ -62,7 +62,7 @@ type NativeTouchEvent = TouchEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
+type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
@@ -118,7 +118,7 @@ declare namespace React {
     }
 
     // ReactHTML for ReactHTMLElement
-    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> {}
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
         type: keyof ReactHTML;
@@ -156,14 +156,18 @@ declare namespace React {
 
     type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
 
-    type ComponentFactory<P, T extends Component<P, ComponentState>> =
-        (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
+    type ComponentFactory<P, T extends Component<P, ComponentState>> = (
+        props?: ClassAttributes<T> & P,
+        ...children: ReactNode[]
+    ) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
-    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+    type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]
+    ) => DOMElement<P, T>;
 
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
@@ -172,7 +176,10 @@ declare namespace React {
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+        (
+            props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null,
+            ...children: ReactNode[]
+        ): ReactSVGElement;
     }
 
     //
@@ -195,93 +202,113 @@ declare namespace React {
 
     // DOM Elements
     function createFactory<T extends HTMLElement>(
-        type: keyof ReactHTML): HTMLFactory<T>;
+        type: keyof ReactHTML,
+    ): HTMLFactory<T>;
     function createFactory(
-        type: keyof ReactSVG): SVGFactory;
+        type: keyof ReactSVG,
+    ): SVGFactory;
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string): DOMFactory<P, T>;
+        type: string,
+    ): DOMFactory<P, T>;
 
     // Custom components
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
+    ): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
-        type: ClassType<P, T, C>): CFactory<P, T>;
+        type: ClassType<P, T, C>,
+    ): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
-            type: "input",
-            props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
-            ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        type: "input",
+        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNode[]
+    ): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]
+    ): DOMElement<P, T>;
 
     // Custom components
     function createElement<P>(
         type: SFC<P>,
         props?: Attributes & P,
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]
+    ): SFCElement<P>;
     function createElement<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+        ...children: ReactNode[]
+    ): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNode[]
+    ): CElement<P, T>;
     function createElement<P>(
         type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]
+    ): ReactElement<P>;
 
     // DOM Elements
     // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: DetailedReactHTMLElement<P, T>,
         props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNode[]
+    ): DetailedReactHTMLElement<P, T>;
     // ReactHTMLElement, less specific
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: ReactHTMLElement<T>,
         props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
+        ...children: ReactNode[]
+    ): ReactHTMLElement<T>;
     // SVGElement
     function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
         element: ReactSVGElement,
         props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNode[]
+    ): ReactSVGElement;
     // DOM Element (has to be the last, because type checking stops at first overload that fits)
     function cloneElement<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
         props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]
+    ): DOMElement<P, T>;
 
     // Custom components
     function cloneElement<P extends Q, Q>(
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]
+    ): SFCElement<P>;
     function cloneElement<P extends Q, Q, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Q, // should be Q & ClassAttributes<T>
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNode[]
+    ): CElement<P, T>;
     function cloneElement<P extends Q, Q>(
         element: ReactElement<P>,
         props?: Q, // should be Q & Attributes
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNode[]
+    ): ReactElement<P>;
 
     function isValidElement<P>(object: {}): object is ReactElement<P>;
 
@@ -297,7 +324,7 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
+    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> {}
     class Component<P, S> {
         constructor(props?: P, context?: any);
 
@@ -305,8 +332,8 @@ declare namespace React {
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S)) | (Pick<S, K> | S),
-            callback?: () => any
+            state: ((prevState: Readonly<S>, props: P) => Pick<S, K> | S) | (Pick<S, K> | S),
+            callback?: () => any,
         ): void;
 
         forceUpdate(callBack?: () => any): void;
@@ -321,11 +348,11 @@ declare namespace React {
         state: Readonly<S>;
         context: any;
         refs: {
-            [key: string]: ReactInstance
+            [key: string]: ReactInstance;
         };
     }
 
-    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}> extends Component<P, S> {}
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -351,7 +378,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> {
-        new (props?: P, context?: any): Component<P, ComponentState>;
+        new(props?: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         childContextTypes?: ValidationMap<any> | undefined;
@@ -360,7 +387,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props?: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -370,9 +397,9 @@ declare namespace React {
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
-        C &
-        (new (props?: P, context?: any) => T) &
-        (new (props?: P, context?: any) => { props: P });
+        & C
+        & (new(props?: P, context?: any) => T)
+        & (new(props?: P, context?: any) => { props: P });
 
     //
     // Component Specs and Lifecycle
@@ -463,7 +490,21 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+    type ModifierKey =
+        | "Alt"
+        | "AltGraph"
+        | "CapsLock"
+        | "Control"
+        | "Fn"
+        | "FnLock"
+        | "Hyper"
+        | "Meta"
+        | "NumLock"
+        | "ScrollLock"
+        | "Shift"
+        | "Super"
+        | "Symbol"
+        | "SymbolLock";
 
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
         altKey: boolean;
@@ -786,7 +827,15 @@ declare namespace React {
         /**
          * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
          */
-        alignContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch" | undefined;
+        alignContent?:
+            | CSSWideKeyword
+            | "flex-start"
+            | "flex-end"
+            | "center"
+            | "space-between"
+            | "space-around"
+            | "stretch"
+            | undefined;
 
         /**
          * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
@@ -1417,10 +1466,20 @@ declare namespace React {
          * Specifies the size of the font. Used to compute em and ex units.
          * See CSS 3 font-size property https://www.w3.org/TR/css-fonts-3/#propdef-font-size
          */
-        fontSize?: CSSWideKeyword |
-        "xx-small" | "x-small" | "small" | "medium" | "large" | "x-large" | "xx-large" |
-        "larger" | "smaller" |
-        CSSLength | CSSPercentage | undefined;
+        fontSize?:
+            | CSSWideKeyword
+            | "xx-small"
+            | "x-small"
+            | "small"
+            | "medium"
+            | "large"
+            | "x-large"
+            | "xx-large"
+            | "larger"
+            | "smaller"
+            | CSSLength
+            | CSSPercentage
+            | undefined;
 
         /**
          * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family,
@@ -1434,9 +1493,18 @@ declare namespace React {
          * Allows you to expand or condense the widths for a normal, condensed, or expanded font face.
          * See CSS 3 font-stretch property https://drafts.csswg.org/css-fonts-3/#propdef-font-stretch
          */
-        fontStretch?: CSSWideKeyword |
-        "normal" | "ultra-condensed" | "extra-condensed" | "condensed" | "semi-condensed" |
-        "semi-expanded" | "expanded" | "extra-expanded" | "ultra-expanded" | undefined;
+        fontStretch?:
+            | CSSWideKeyword
+            | "normal"
+            | "ultra-condensed"
+            | "extra-condensed"
+            | "condensed"
+            | "semi-condensed"
+            | "semi-expanded"
+            | "expanded"
+            | "extra-expanded"
+            | "ultra-expanded"
+            | undefined;
 
         /**
          * The font-style property allows normal, italic, or oblique faces to be selected.
@@ -1465,7 +1533,22 @@ declare namespace React {
          * Specifies the weight or boldness of the font.
          * See CSS 3 'font-weight' property https://www.w3.org/TR/css-fonts-3/#propdef-font-weight
          */
-        fontWeight?: CSSWideKeyword | "normal" | "bold" | "bolder" | "lighter" | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | undefined;
+        fontWeight?:
+            | CSSWideKeyword
+            | "normal"
+            | "bold"
+            | "bolder"
+            | "lighter"
+            | 100
+            | 200
+            | 300
+            | 400
+            | 500
+            | 600
+            | 700
+            | 800
+            | 900
+            | undefined;
 
         /**
          * Lays out one or more grid items bound by 4 grid lines. Shorthand for setting grid-column-start, grid-column-end, grid-row-start, and grid-row-end in a single declaration.
@@ -1562,7 +1645,15 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly" | undefined;
+        justifyContent?:
+            | CSSWideKeyword
+            | "flex-start"
+            | "flex-end"
+            | "center"
+            | "space-between"
+            | "space-around"
+            | "space-evenly"
+            | undefined;
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -2401,189 +2492,189 @@ declare namespace React {
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
-        'aria-activedescendant'?: string | undefined;
+        "aria-activedescendant"?: string | undefined;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
-        'aria-atomic'?: boolean | 'false' | 'true' | undefined;
+        "aria-atomic"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
          * presented if they are made.
          */
-        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
+        "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
-        'aria-busy'?: boolean | 'false' | 'true' | undefined;
+        "aria-busy"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
          * @see aria-pressed @see aria-selected.
          */
-        'aria-checked'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-checked"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Defines the total number of columns in a table, grid, or treegrid.
          * @see aria-colindex.
          */
-        'aria-colcount'?: number | undefined;
+        "aria-colcount"?: number | undefined;
         /**
          * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
          * @see aria-colcount @see aria-colspan.
          */
-        'aria-colindex'?: number | undefined;
+        "aria-colindex"?: number | undefined;
         /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
-        'aria-colspan'?: number | undefined;
+        "aria-colspan"?: number | undefined;
         /**
          * Identifies the element (or elements) whose contents or presence are controlled by the current element.
          * @see aria-owns.
          */
-        'aria-controls'?: string | undefined;
+        "aria-controls"?: string | undefined;
         /** Indicates the element that represents the current item within a container or set of related elements. */
-        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time' | undefined;
+        "aria-current"?: boolean | "false" | "true" | "page" | "step" | "location" | "date" | "time" | undefined;
         /**
          * Identifies the element (or elements) that describes the object.
          * @see aria-labelledby
          */
-        'aria-describedby'?: string | undefined;
+        "aria-describedby"?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
          */
-        'aria-details'?: string | undefined;
+        "aria-details"?: string | undefined;
         /**
          * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
          * @see aria-hidden @see aria-readonly.
          */
-        'aria-disabled'?: boolean | 'false' | 'true' | undefined;
+        "aria-disabled"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what functions can be performed when a dragged object is released on the drop target.
          * @deprecated in ARIA 1.1
          */
-        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup' | undefined;
+        "aria-dropeffect"?: "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined;
         /**
          * Identifies the element that provides an error message for the object.
          * @see aria-invalid @see aria-describedby.
          */
-        'aria-errormessage'?: string | undefined;
+        "aria-errormessage"?: string | undefined;
         /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
-        'aria-expanded'?: boolean | 'false' | 'true' | undefined;
+        "aria-expanded"?: boolean | "false" | "true" | undefined;
         /**
          * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
          * allows assistive technology to override the general default of reading in document source order.
          */
-        'aria-flowto'?: string | undefined;
+        "aria-flowto"?: string | undefined;
         /**
          * Indicates an element's "grabbed" state in a drag-and-drop operation.
          * @deprecated in ARIA 1.1
          */
-        'aria-grabbed'?: boolean | 'false' | 'true' | undefined;
+        "aria-grabbed"?: boolean | "false" | "true" | undefined;
         /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
-        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
+        "aria-haspopup"?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
         /**
          * Indicates whether the element is exposed to an accessibility API.
          * @see aria-disabled.
          */
-        'aria-hidden'?: boolean | 'false' | 'true' | undefined;
+        "aria-hidden"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the entered value does not conform to the format expected by the application.
          * @see aria-errormessage.
          */
-        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling' | undefined;
+        "aria-invalid"?: boolean | "false" | "true" | "grammar" | "spelling" | undefined;
         /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
-        'aria-keyshortcuts'?: string | undefined;
+        "aria-keyshortcuts"?: string | undefined;
         /**
          * Defines a string value that labels the current element.
          * @see aria-labelledby.
          */
-        'aria-label'?: string | undefined;
+        "aria-label"?: string | undefined;
         /**
          * Identifies the element (or elements) that labels the current element.
          * @see aria-describedby.
          */
-        'aria-labelledby'?: string | undefined;
+        "aria-labelledby"?: string | undefined;
         /** Defines the hierarchical level of an element within a structure. */
-        'aria-level'?: number | undefined;
+        "aria-level"?: number | undefined;
         /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
-        'aria-live'?: 'off' | 'assertive' | 'polite' | undefined;
+        "aria-live"?: "off" | "assertive" | "polite" | undefined;
         /** Indicates whether an element is modal when displayed. */
-        'aria-modal'?: boolean | 'false' | 'true' | undefined;
+        "aria-modal"?: boolean | "false" | "true" | undefined;
         /** Indicates whether a text box accepts multiple lines of input or only a single line. */
-        'aria-multiline'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiline"?: boolean | "false" | "true" | undefined;
         /** Indicates that the user may select more than one item from the current selectable descendants. */
-        'aria-multiselectable'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiselectable"?: boolean | "false" | "true" | undefined;
         /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
-        'aria-orientation'?: 'horizontal' | 'vertical' | undefined;
+        "aria-orientation"?: "horizontal" | "vertical" | undefined;
         /**
          * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
          * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
          * @see aria-controls.
          */
-        'aria-owns'?: string | undefined;
+        "aria-owns"?: string | undefined;
         /**
          * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
          * A hint could be a sample value or a brief description of the expected format.
          */
-        'aria-placeholder'?: string | undefined;
+        "aria-placeholder"?: string | undefined;
         /**
          * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-setsize.
          */
-        'aria-posinset'?: number | undefined;
+        "aria-posinset"?: number | undefined;
         /**
          * Indicates the current "pressed" state of toggle buttons.
          * @see aria-checked @see aria-selected.
          */
-        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-pressed"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Indicates that the element is not editable, but is otherwise operable.
          * @see aria-disabled.
          */
-        'aria-readonly'?: boolean | 'false' | 'true' | undefined;
+        "aria-readonly"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text' | undefined;
+        "aria-relevant"?: "additions" | "additions text" | "all" | "removals" | "text" | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
-        'aria-required'?: boolean | 'false' | 'true' | undefined;
+        "aria-required"?: boolean | "false" | "true" | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
-        'aria-roledescription'?: string | undefined;
+        "aria-roledescription"?: string | undefined;
         /**
          * Defines the total number of rows in a table, grid, or treegrid.
          * @see aria-rowindex.
          */
-        'aria-rowcount'?: number | undefined;
+        "aria-rowcount"?: number | undefined;
         /**
          * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
          * @see aria-rowcount @see aria-rowspan.
          */
-        'aria-rowindex'?: number | undefined;
+        "aria-rowindex"?: number | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
          */
-        'aria-rowspan'?: number | undefined;
+        "aria-rowspan"?: number | undefined;
         /**
          * Indicates the current "selected" state of various widgets.
          * @see aria-checked @see aria-pressed.
          */
-        'aria-selected'?: boolean | 'false' | 'true' | undefined;
+        "aria-selected"?: boolean | "false" | "true" | undefined;
         /**
          * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-posinset.
          */
-        'aria-setsize'?: number | undefined;
+        "aria-setsize"?: number | undefined;
         /** Indicates if items in a table or grid are sorted in ascending or descending order. */
-        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
+        "aria-sort"?: "none" | "ascending" | "descending" | "other" | undefined;
         /** Defines the maximum allowed value for a range widget. */
-        'aria-valuemax'?: number | undefined;
+        "aria-valuemax"?: number | undefined;
         /** Defines the minimum allowed value for a range widget. */
-        'aria-valuemin'?: number | undefined;
+        "aria-valuemin"?: number | undefined;
         /**
          * Defines the current value for a range widget.
          * @see aria-valuetext.
          */
-        'aria-valuenow'?: number | undefined;
+        "aria-valuenow"?: number | undefined;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
-        'aria-valuetext'?: string | undefined;
+        "aria-valuetext"?: string | undefined;
     }
 
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -2647,7 +2738,7 @@ declare namespace React {
          * Hints at the type of data that might be entered by the user while editing the element or its contents
          * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
          */
-        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
+        inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
          * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
@@ -3172,8 +3263,21 @@ declare namespace React {
         accentHeight?: number | string | undefined;
         accumulate?: "none" | "sum" | undefined;
         additive?: "replace" | "sum" | undefined;
-        alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" |
-        "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit" | undefined;
+        alignmentBaseline?:
+            | "auto"
+            | "baseline"
+            | "before-edge"
+            | "text-before-edge"
+            | "middle"
+            | "central"
+            | "after-edge"
+            | "text-after-edge"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "inherit"
+            | undefined;
         allowReorder?: "no" | "yes" | undefined;
         alphabetic?: number | string | undefined;
         amplitude?: number | string | undefined;
@@ -3559,19 +3663,21 @@ declare namespace React {
         use: SVGFactory;
     }
 
-    interface ReactDOM extends ReactHTML, ReactSVG { }
+    interface ReactDOM extends ReactHTML, ReactSVG {}
 
     //
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
+    type Validator<T> = {
+        bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null;
+    }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
     }
 
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+    type ValidationMap<T> = { [K in keyof T]?: Validator<T> };
 
     interface ReactPropTypes {
         any: Requireable<any>;
@@ -3649,15 +3755,19 @@ declare global {
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
      */
     namespace JSX {
-        interface Element extends React.ReactElement { }
+        interface Element extends React.ReactElement {}
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
         }
-        interface ElementAttributesProperty { props: {}; }
-        interface ElementChildrenAttribute { children: {}; }
+        interface ElementAttributesProperty {
+            props: {};
+        }
+        interface ElementChildrenAttribute {
+            children: {};
+        }
 
-        interface IntrinsicAttributes extends React.Attributes { }
-        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
+        interface IntrinsicAttributes extends React.Attributes {}
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
 
         interface IntrinsicElements {
             // HTML

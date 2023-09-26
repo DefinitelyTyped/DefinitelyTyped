@@ -1,7 +1,7 @@
 /// <reference types="../canary"/>
 
-const contextUsers = React.createContext(['HAL']);
-const promisedUsers = Promise.resolve(['Dave']);
+const contextUsers = React.createContext(["HAL"]);
+const promisedUsers = Promise.resolve(["Dave"]);
 
 function useUse() {
     // @ts-expect-error Missing value
@@ -17,7 +17,7 @@ function useUse() {
 }
 
 function serverContextTest() {
-    const ServerContext = React.createServerContext<string>('ServerContext', 'default');
+    const ServerContext = React.createServerContext<string>("ServerContext", "default");
 
     function ServerContextUser() {
         const context = React.useContext(ServerContext);
@@ -34,27 +34,27 @@ function serverContextTest() {
         );
     }
 
-    const ClientContext = React.createContext<string>('default');
+    const ClientContext = React.createContext<string>("default");
     function ClientContextUser() {
         const context = React.useContext(ClientContext);
         return <React.Fragment>{context}</React.Fragment>;
     }
 
     // plain objects work
-    React.createServerContext('PlainObjectContext', { foo: 1 });
+    React.createServerContext("PlainObjectContext", { foo: 1 });
     // readonly arrays work
-    React.createServerContext('ReadonlyArrayContext', ['foo', 'bar'] as const);
+    React.createServerContext("ReadonlyArrayContext", ["foo", "bar"] as const);
     // nested readonly arrays work
-    React.createServerContext('ReadonlyArrayContext', ['foo', ['bar']] as const);
+    React.createServerContext("ReadonlyArrayContext", ["foo", ["bar"]] as const);
     // @ts-expect-error Incompatible with JSON stringify+parse
-    React.createServerContext('DateContext', new Date());
+    React.createServerContext("DateContext", new Date());
     // @ts-expect-error Incompatible with JSON stringify+parse
-    React.createServerContext('SetContext', new Set());
+    React.createServerContext("SetContext", new Set());
 }
 
 function cacheTest() {
     const getLength = React.cache((a: string) => a.length);
-    const fooLength: number = getLength('foo');
+    const fooLength: number = getLength("foo");
     getLength(
         // @ts-expect-error -- number not assignable to string
         133,
@@ -73,15 +73,15 @@ function useCacheTest() {
 
     function handleRefresh() {
         // @ts-expect-error -- experimental only
-        refresh(() => 'refresh', 'initial');
+        refresh(() => "refresh", "initial");
         // @ts-expect-error -- experimental only
-        refresh(() => 'refresh');
+        refresh(() => "refresh");
         refresh();
 
         // @ts-expect-error -- experimental only
-        refresh(() => 'refresh', 0);
+        refresh(() => "refresh", 0);
 
         // @ts-expect-error -- experimental only
-        refresh(() => 'refresh');
+        refresh(() => "refresh");
     }
 }
