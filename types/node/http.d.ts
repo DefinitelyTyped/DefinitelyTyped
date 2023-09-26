@@ -177,7 +177,7 @@ declare module "http" {
         'sec-websocket-protocol'?: string | string[] | undefined;
         'sec-websocket-version'?: string | undefined;
         server?: string | undefined;
-        'set-cookie'?: string[] | undefined;
+        'set-cookie'?: string | string[] | undefined;
         'strict-transport-security'?: string | undefined;
         te?: string | undefined;
         trailer?: string | undefined;
