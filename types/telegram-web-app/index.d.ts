@@ -1,4 +1,4 @@
-// Type definitions for non-npm package telegram-web-app 6.7
+// Type definitions for non-npm package telegram-web-app 6.9
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
 //                 MKRhere <https://github.com/MKRhere>
@@ -38,7 +38,7 @@ interface WebApp {
      * The color scheme currently used in the Telegram app. Either “light” or
      * “dark”. Also available as the CSS variable var(--tg-color-scheme).
      */
-    colorScheme: "light" | "dark";
+    colorScheme: 'light' | 'dark';
     /**
      * An object containing the current theme settings used in the Telegram app.
      */
@@ -112,22 +112,24 @@ interface WebApp {
      */
     HapticFeedback: HapticFeedback;
     /**
+     * An object for controlling cloud storage.
+     */
+    CloudStorage: CloudStorage;
+    /**
      * Returns true if the user's app supports a version of the Bot API that is
      * equal to or higher than the version passed as the parameter.
      */
     isVersionAtLeast(version: string): boolean;
     /**
-     * A method that sets the app header color. You can only pass
-     * Telegram.WebApp.themeParams.bg_color or
-     * Telegram.WebApp.themeParams.secondary_bg_colo as a color or you can use
-     * keywords bg_color, secondary_bg_color instead.
-     */
-    setHeaderColor(color: "bg_color" | "secondary_bg_color"): void;
+     * A method that sets the app header color in the `#RRGGBB` format.
+     * You can also use keywords bg_color and secondary_bg_color.
+     */ // string & {} prevents this from eagerly collapsing into just string
+    setHeaderColor(color: 'bg_color' | 'secondary_bg_color' | (string & {})): void;
     /**
-     * A method that sets the app background color in the #RRGGBB format or you
-     * can use keywords bg_color, secondary_bg_color instead.
+     * A method that sets the app background color in the `#RRGGBB` format or
+     * you can use keywords bg_color, secondary_bg_color instead.
      */
-    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | string): void;
+    setBackgroundColor(color: 'bg_color' | 'secondary_bg_color' | (string & {})): void;
     /**
      * A method that enables a confirmation dialog while the user is trying to close the Web App.
      */
@@ -141,31 +143,41 @@ interface WebApp {
      * events.
      */
     onEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
-    onEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
-    onEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    onEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
+    onEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     onEvent(
-        eventType: "invoiceClosed",
-        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
+        eventType: 'invoiceClosed',
+        eventHandler: (eventData: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void,
     ): void;
-    onEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
-    onEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
+    onEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
+    onEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+    onEvent(
+        eventType: 'writeAccessRequested',
+        eventHandler: (eventData: { status: 'allowed' | 'cancelled' }) => void,
+    ): void;
+    onEvent(eventType: 'contactRequested', eventHandler: (eventData: { status: 'sent' | 'cancelled' }) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
-    offEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
-    offEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    offEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
+    offEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     offEvent(
-        eventType: "invoiceClosed",
-        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
+        eventType: 'invoiceClosed',
+        eventHandler: (eventData: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void,
     ): void;
-    offEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
-    offEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
+    offEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
+    offEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+    offEvent(
+        eventType: 'writeAccessRequested',
+        eventHandler: (eventData: { status: 'allowed' | 'cancelled' }) => void,
+    ): void;
+    offEvent(eventType: 'contactRequested', eventHandler: (eventData: { status: 'sent' | 'cancelled' }) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -184,7 +196,7 @@ interface WebApp {
      * You can specify which types of chats the user will be able to choose from.
      * It can be one or more of the following types: users, bots, groups, channels.
      */
-    switchInlineQuery(query: string, choose_chat_types?: Array<"users" | "bots" | "groups" | "channels">): void;
+    switchInlineQuery(query: string, choose_chat_types?: Array<'users' | 'bots' | 'groups' | 'channels'>): void;
     /**
      * A method that opens a link in an external browser.
      * The Web App will not be closed.
@@ -208,7 +220,7 @@ interface WebApp {
      */
     openInvoice(
         url: string,
-        callback: (url: string, status: "paid" | "cancelled" | "failed" | "pending") => void,
+        callback: (url: string, status: 'paid' | 'cancelled' | 'failed' | 'pending') => void,
     ): void;
     /**
      * A method that shows a native popup described by the params argument of the type PopupParams.
@@ -250,6 +262,26 @@ interface WebApp {
      * in response to a user interaction with the Web App interface (e.g. a click inside the Web App or on the main button).
      */
     readTextFromClipboard(callback?: (data: string | null) => void): void;
+    /**
+     * A method that shows a native popup requesting permission for the bot to
+     * send messages to the user.
+     *
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called when the popup is closed and the first
+     * argument will be a boolean indicating whether the user granted this
+     * access.
+     */
+    requestWriteAccess(callback?: (success: boolean) => void): void;
+    /**
+     * A method that shows a native popup prompting the user for their phone
+     * number.
+     *
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called when the popup is closed and the first
+     * argument will be a boolean indicating whether the user shared its
+     * phone number.
+     */
+    requestContact(callback?: (success: boolean) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -333,39 +365,37 @@ interface PopupParams {
 /**
  * This object describes the native popup button.
  */
-type PopupButton =
-    & {
-        /**
-         * Identifier of the button, 0-64 characters. Set to empty string by default.
-         * If the button is pressed, its id is returned in the callback and the popupClosed event.
-         */
-        id?: string;
-        /**
-         * Type of the button. Set to default by default.
-         * Can be one of these values:
-         * - `default`, a button with the default style,
-         * - `ok`, a button with the localized text “OK”,
-         * - `close`, a button with the localized text “Close”,
-         * - `cancel`, a button with the localized text “Cancel”,
-         * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
-         */
-        type?: "default" | "ok" | "close" | "cancel" | "destructive";
-        /**
-         * The text to be displayed on the button, 0-64 characters.
-         * Required if type is default or destructive. Irrelevant for other types.
-         */
-        text?: string;
-    }
-    & (
-        | {
-            type: "default" | "destructive";
-            text: string;
-        }
-        | {
-            type: "ok" | "close" | "cancel";
-            text?: string;
-        }
-    );
+type PopupButton = {
+    /**
+     * Identifier of the button, 0-64 characters. Set to empty string by default.
+     * If the button is pressed, its id is returned in the callback and the popupClosed event.
+     */
+    id?: string;
+    /**
+     * Type of the button. Set to default by default.
+     * Can be one of these values:
+     * - `default`, a button with the default style,
+     * - `ok`, a button with the localized text “OK”,
+     * - `close`, a button with the localized text “Close”,
+     * - `cancel`, a button with the localized text “Cancel”,
+     * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+     */
+    type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive';
+    /**
+     * The text to be displayed on the button, 0-64 characters.
+     * Required if type is default or destructive. Irrelevant for other types.
+     */
+    text?: string;
+} & (
+    | {
+          type: 'default' | 'destructive';
+          text: string;
+      }
+    | {
+          type: 'ok' | 'close' | 'cancel';
+          text?: string;
+      }
+);
 
 /**
  * This object controls the back button, which can be displayed in the header of
@@ -485,7 +515,7 @@ interface HapticFeedback {
      * - rigid, indicates a collision between hard or inflexible UI objects,
      * - soft, indicates a collision between soft or flexible UI objects.
      */
-    impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): () => void;
+    impactOccurred(style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'): () => void;
     /**
      * A method tells that a task or action has succeeded, failed, or produced a
      * warning. The Telegram app may play the appropriate haptics based on type
@@ -494,7 +524,7 @@ interface HapticFeedback {
      * - success, indicates that a task or action has completed successfully,
      * - warning, indicates that a task or action produced a warning.
      */
-    notificationOccurred(type: "error" | "success" | "warning"): () => void;
+    notificationOccurred(type: 'error' | 'success' | 'warning'): () => void;
     /**
      * A method tells that the user has changed a selection. The Telegram app
      * may play the appropriate haptics.
@@ -503,6 +533,86 @@ interface HapticFeedback {
      * it only when the selection changes.
      */
     selectionChanged(): void;
+}
+
+interface CloudStorage {
+    /**
+     * A method that stores a value in the cloud storage using the
+     * specified key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param value The value should contain 0-4096 characters. You can store
+     * up to 1024 keys in the cloud storage.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first argument
+     * will contain the error. In case of success, the first argument will be
+     * null and the second argument will be a boolean indicating whether the
+     * value was stored.
+     */
+    setItem(key: string, value: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that receives a value from the cloud storage using
+     * the specified key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback In case of an error, the callback function will
+     * be called and the first argument will contain the error. In case of
+     * success, the first argument will be null and the value will be passed
+     * as the second argument.
+     */
+    getItem(key: string, callback?: (error: string | null, value: null | string) => void): CloudStorage;
+    /**
+     * A method that receives values from the cloud storage using the specified
+     * keys.
+     *
+     * @param key The keys should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback In case of an error, the callback? function will be
+     * called and the first argument will contain the error. In case of
+     * success, the first argument will be null and the values will be passed
+     * as the second argument.
+     */
+    getItems(
+        keys: string[],
+        callback?: (error: string | null, values: null | Record<string, string>) => void,
+    ): CloudStorage;
+    /**
+     * A method that removes a value from the cloud storage using the specified
+     * key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first
+     * argument will contain the error. In case of success, the first
+     * argument will be null and the second argument will be a boolean
+     * indicating whether the value was removed.
+     */
+    removeItem(key: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that removes values from the cloud storage using the specified
+     * keys.
+     *
+     * @param key The keys should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first
+     * argument will contain the error. In case of success, the first
+     * argument will be null and the second argument will be a boolean
+     * indicating whether the values were removed.
+     */
+    removeItems(keys: string[], callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that receives the list of all keys stored in the cloud storage.
+     *
+     * @param callback In case of an error, the callback function will be called
+     * and the first argument will contain the error. In case of success, the
+     * first argument will be null and the list of keys will be passed as the
+     * second argument.
+     */
+    getKeys(callback?: (error: string | null, keys: null | string[]) => void): CloudStorage;
 }
 
 /**
@@ -535,7 +645,7 @@ interface WebAppInitData {
      * “private”, “group”, “supergroup”, or “channel”.
      * Returned only for Web Apps launched from direct links.
      */
-    chat_type?: "sender" | "private" | "group" | "supergroup" | "channel";
+    chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
     /**
      * Global identifier, uniquely corresponding to the chat from which the Web App was opened.
      * Returned only for Web Apps launched from a direct link.
@@ -585,6 +695,10 @@ interface WebAppUser {
     language_code?: string;
     /** True, if this user is a Telegram Premium user. */
     is_premium?: true;
+    /** True, if this user added the bot to the attachment menu. */
+    added_to_attachment_menu?: true;
+    /** True, if this user allowed the bot to message them. */
+    allows_write_to_pm?: true;
     /**
      * URL of the user’s profile photo. The photo can be in .jpeg or .svg formats.
      * Only returned for Web Apps launched from the attachment menu.
@@ -607,7 +721,7 @@ interface WebAppChat {
     /**
      * Type of chat, can be either “group”, “supergroup” or “channel”
      */
-    type: "group" | "supergroup" | "channel";
+    type: 'group' | 'supergroup' | 'channel';
     /**
      * Title of the chat
      */
