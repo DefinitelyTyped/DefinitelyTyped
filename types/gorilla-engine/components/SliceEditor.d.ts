@@ -1,6 +1,7 @@
 declare namespace GorillaEngine.UI {
     interface SliceStyle {
         y: number;
+        xOffset: number;
         width: number;
         height: number;
         color: string;
@@ -45,10 +46,14 @@ declare namespace GorillaEngine.UI {
         setValues: (values: any) => void;
     }
     interface GridMeasure {
-        fractionOfBar: number;
-        showLabels?: boolean;
-        tickHeight: number;
-        font?: { size: number };
+      fractionOfBar: number;
+      enabled: boolean;
+      showLabels?: boolean;
+      tickWidth: boolean;
+      tickHeight: number;
+      tickColor: string;
+      tickImage: string;
+      font?: {name: string; size: number; kerning: number; color: string };
     }
 
     interface SliceEditorProps extends Common, Bounds, Background, Clickable {
@@ -56,11 +61,12 @@ declare namespace GorillaEngine.UI {
         audioLengthInSamples: number;
         audioLengthInBeats: number;
         minSliceSpacing: number;
+        minMarkerSpacing: number;
         canChangeSlices: boolean;
         canAddSlices: boolean;
         canRemoveSlices: boolean;
         snapSlicesToGrid: boolean;
-        zoom: { start: number; end: number };
+        zoom: { start: number; end: number; dragToZoomFactor: number; dragToZoomEnabled: boolean };
         addModulation(modulation: Partial<Modulation>): Modulation;
         grid: Partial<{
             position: string;
@@ -80,6 +86,7 @@ declare namespace GorillaEngine.UI {
         }>;
         selectionAreaStyle: Partial<{
             backgroundColor: string;
+            enabled: boolean;
             border: Partial<{
                 width: number;
                 radius: number;
