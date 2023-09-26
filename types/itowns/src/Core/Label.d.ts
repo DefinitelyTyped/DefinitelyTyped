@@ -7,7 +7,8 @@ declare class Label extends THREE.Object3D {
         content: string | Element,
         coordinates: Coordinates,
         style?: Style,
-        sprites?: any);
+        sprites?: any,
+    );
 
     readonly isLabel: boolean;
 

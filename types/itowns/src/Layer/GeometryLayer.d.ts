@@ -1,5 +1,5 @@
-import Layer, { LayerOptions } from "./Layer";
 import View from "../Core/View";
+import Layer, { LayerOptions } from "./Layer";
 
 export interface GeometryLayerOptions extends LayerOptions {
     visible?: boolean;
@@ -9,7 +9,8 @@ declare class GeometryLayer extends Layer {
     constructor(
         id: string,
         object3d: THREE.Object3D,
-        config?: GeometryLayerOptions);
+        config?: GeometryLayerOptions,
+    );
 
     readonly isGeometryLayer: boolean;
     readonly object3d: THREE.Object3D;
@@ -32,8 +33,9 @@ declare class GeometryLayer extends Layer {
 
     pickObjectsAt(
         view: View,
-        coordinates: { x: number, y: number },
+        coordinates: { x: number; y: number },
         radius?: number,
-        target?: any[]): any[]; // TODO: any is THREE.Object3D ?
+        target?: any[],
+    ): any[]; // TODO: any is THREE.Object3D ?
 }
 export default GeometryLayer;

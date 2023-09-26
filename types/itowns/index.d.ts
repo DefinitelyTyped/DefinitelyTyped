@@ -4,6 +4,6 @@
 //                 Madec Germerie <https://github.com/mgermerie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './src/Main';
+export * from "./src/Main";
 
 export as namespace itowns;

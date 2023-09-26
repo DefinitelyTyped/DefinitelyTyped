@@ -1,4 +1,4 @@
-import isTypedArray = require('is-typedarray');
+import isTypedArray = require("is-typedarray");
 
 const buf: any = new Buffer(1);
 

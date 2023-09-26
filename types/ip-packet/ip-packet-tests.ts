@@ -1,4 +1,4 @@
-import * as ipPacket from 'ip-packet';
+import * as ipPacket from "ip-packet";
 
 // test type exports
 type Options = ipPacket.Options;
@@ -7,7 +7,7 @@ type DecodedPacket = ipPacket.DecodedPacket;
 
 const configured = ipPacket.configure({ allowNullChecksum: true });
 
-const packet = { version: 4 as const, sourceIp: '127.0.0.1', destinationIp: '127.0.0.1', data: Buffer.alloc(10) };
+const packet = { version: 4 as const, sourceIp: "127.0.0.1", destinationIp: "127.0.0.1", data: Buffer.alloc(10) };
 ipPacket.encode(packet); // $ExpectType Buffer
 ipPacket.encode({ ...packet, ihl: 1 }); // $ExpectType Buffer
 ipPacket.encode({ ...packet, dscp: 1 }); // $ExpectType Buffer

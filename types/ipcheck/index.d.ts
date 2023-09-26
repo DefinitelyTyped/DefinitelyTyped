@@ -20,7 +20,7 @@ declare namespace ipcheck {
     }
 
     interface IPCheckConstructor {
-        new (input: string): IPCheck;
+        new(input: string): IPCheck;
     }
 
     interface IPCheckStatic extends IPCheckConstructor {

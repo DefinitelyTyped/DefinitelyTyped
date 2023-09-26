@@ -12,9 +12,9 @@ declare namespace isColor {
     function isHsla(str: string): boolean;
     function isHex(str: string): boolean;
     function isKeyword(str: string): boolean;
-    function isInherit(str: string): str is 'inherit';
-    function isCurrentColor(str: string): str is ('currentColor' | 'currentcolor');
-    function isTransparent(str: string): str is 'transparent';
+    function isInherit(str: string): str is "inherit";
+    function isCurrentColor(str: string): str is "currentColor" | "currentcolor";
+    function isTransparent(str: string): str is "transparent";
 }
 
 export = isColor;

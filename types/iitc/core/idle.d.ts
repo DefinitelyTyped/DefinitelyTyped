@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     var idleTime: number; // in seconds

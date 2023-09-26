@@ -1,11 +1,11 @@
-import * as itowns from 'itowns';
+import * as itowns from "itowns";
 
 const placement = {
-    coord: new itowns.Coordinates('EPSG:4326', 2.475, 48.807),
+    coord: new itowns.Coordinates("EPSG:4326", 2.475, 48.807),
     range: 120000,
 };
 
-const viewerDiv = document.getElementById('viewerDiv') as HTMLDivElement;
+const viewerDiv = document.getElementById("viewerDiv") as HTMLDivElement;
 const view = new itowns.GlobeView(viewerDiv, placement);
 
 let currentLayer: itowns.ColorLayer;
@@ -43,8 +43,18 @@ function loadStyle(event: Event, files?: FileList) {
 }
 
 // Listen to drag and drop actions
-document.addEventListener('dragenter', function _(e) { e.preventDefault(); }, false);
-document.addEventListener('dragover', function _(e) { e.preventDefault(); }, false);
-document.addEventListener('dragleave', function _(e) { e.preventDefault(); }, false);
-document.addEventListener('drop', function _(e) { loadStyle(e, e.dataTransfer?.files); }, false);
-document.addEventListener('paste', function _(e) { loadStyle(e, e.clipboardData?.files); }, false);
+document.addEventListener("dragenter", function _(e) {
+    e.preventDefault();
+}, false);
+document.addEventListener("dragover", function _(e) {
+    e.preventDefault();
+}, false);
+document.addEventListener("dragleave", function _(e) {
+    e.preventDefault();
+}, false);
+document.addEventListener("drop", function _(e) {
+    loadStyle(e, e.dataTransfer?.files);
+}, false);
+document.addEventListener("paste", function _(e) {
+    loadStyle(e, e.clipboardData?.files);
+}, false);

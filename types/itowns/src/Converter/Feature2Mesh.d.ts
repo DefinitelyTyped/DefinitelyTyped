@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { FeatureCollection } from '../Core/Feature';
+import * as THREE from "three";
+import { FeatureCollection } from "../Core/Feature";
 
 export interface Feature2MeshOptions {
     batchId?: (props: unknown, featureId: number) => number;

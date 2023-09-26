@@ -1,4 +1,4 @@
-import ic = require('img-clipboard');
+import ic = require("img-clipboard");
 
 // $ExpectType boolean
 ic.isWayland();
@@ -10,4 +10,4 @@ ic.copyImg(42);
 ic.copyImg(Buffer.from([]));
 
 // $ExpectType Promise<[ExecException | null, string, string]>
-ic.copyImg('test.png');
+ic.copyImg("test.png");

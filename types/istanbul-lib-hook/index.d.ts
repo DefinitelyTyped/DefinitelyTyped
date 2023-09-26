@@ -16,13 +16,13 @@ export interface HookRequireOptions extends Options {
 export function hookRequire(
     matcher: Matcher,
     transformer: Transformer,
-    options?: Partial<HookRequireOptions>
+    options?: Partial<HookRequireOptions>,
 ): () => void;
 
 export function hookCreateScript(
     matcher: Matcher,
     transformer: Transformer,
-    options?: Partial<Options>
+    options?: Partial<Options>,
 ): void;
 
 export function unhookCreateScript(): void;
@@ -30,7 +30,7 @@ export function unhookCreateScript(): void;
 export function hookRunInThisContext(
     matcher: Matcher,
     transformer: Transformer,
-    options?: Partial<Options>
+    options?: Partial<Options>,
 ): void;
 
 export function unhookRunInThisContext(): void;
@@ -38,7 +38,7 @@ export function unhookRunInThisContext(): void;
 export function hookRunInContext(
     matcher: Matcher,
     transformer: Transformer,
-    options?: Partial<HookRunInContextOptions>
+    options?: Partial<HookRunInContextOptions>,
 ): void;
 
 export function unhookRunInContext(): void;

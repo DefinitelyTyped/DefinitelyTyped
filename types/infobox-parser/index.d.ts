@@ -15,7 +15,7 @@ interface ParseResult {
 
 declare function infobox_parser(
     source: string,
-    options?: ParseOptions
+    options?: ParseOptions,
 ): ParseResult;
 
 export = infobox_parser;

@@ -2,12 +2,12 @@ import Extent from "../Core/Geographic/Extent";
 import Source, { SourceOptions } from "./Source";
 
 interface EntwinePointTileSourceOptions extends SourceOptions {
-    colorDepth?: 8 | 16 | 'auto';
+    colorDepth?: 8 | 16 | "auto";
 }
 
 interface ParsingOptionsLAS {
     in?: {
-        colorDepth?: 8 | 16 | 'auto';
+        colorDepth?: 8 | 16 | "auto";
     };
     out?: {
         skip?: number;
@@ -27,8 +27,8 @@ declare class EntwinePointTileSource extends Source {
 
     readonly isEntwinePointTileSource: boolean;
 
-    colorDepth?: 8 | 16 | 'auto';
-    extension: 'laz' | 'bin';
+    colorDepth?: 8 | 16 | "auto";
+    extension: "laz" | "bin";
     spacing: number;
     boundsConforming: [number, number, number, number, number, number];
     span: number;

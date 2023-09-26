@@ -1,4 +1,4 @@
-import * as isPiped from 'is-piped';
+import * as isPiped from "is-piped";
 
 // test type exports
 type Res = isPiped.IsPipedResult;

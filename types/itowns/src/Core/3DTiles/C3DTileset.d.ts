@@ -1,4 +1,4 @@
-import C3DTilesTypes from './C3DTilesTypes';
+import C3DTilesTypes from "./C3DTilesTypes";
 
 declare class C3DTileset {
     constructor(json: any, baseURL: string, registeredExtensions: any); // TODO

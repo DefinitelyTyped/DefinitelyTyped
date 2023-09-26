@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { CoverageMap, FileCoverage, CoverageSummary } from 'istanbul-lib-coverage';
+import { CoverageMap, CoverageSummary, FileCoverage } from "istanbul-lib-coverage";
 
 /**
  * returns a reporting context for the supplied options
@@ -25,7 +25,7 @@ export interface ReportBaseOptions {
     summarizer: Summarizers;
 }
 
-export type Summarizers = 'flat' | 'nested' | 'pkg' | 'defaultSummarizer';
+export type Summarizers = "flat" | "nested" | "pkg" | "defaultSummarizer";
 
 export interface ContextOptions {
     coverageMap: CoverageMap;

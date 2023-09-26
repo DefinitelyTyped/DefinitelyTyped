@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'imagemin';
+import { Plugin } from "imagemin";
 
 /**
  * Imagemin plugin for {@link https://www.lcdf.org/gifsicle/|Gifsicle}

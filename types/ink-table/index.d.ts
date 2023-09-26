@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { InkComponent, InkNode, StatelessComponent } from 'ink';
+import { InkComponent, InkNode, StatelessComponent } from "ink";
 
 export interface TableProps {
     cell?: InkComponent | undefined;

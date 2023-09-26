@@ -15,6 +15,7 @@ declare namespace _default {
 
     function parse(
         json: string | CameraCalibrationJson,
-        options?: { near?: string; far?: string }): Promise<any>;
+        options?: { near?: string; far?: string },
+    ): Promise<any>;
 }
 export default _default;

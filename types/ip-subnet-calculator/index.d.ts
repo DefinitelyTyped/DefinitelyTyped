@@ -5,15 +5,15 @@
 
 export as namespace IpSubnetCalculator;
 
-export function calculate(ipStart: string|number, ipEnd: string|number): SubnetResult[];
-export function calculateSubnetMask(ip: string|number, prefixSize: number): SubnetResult;
-export function calculateCIDRPrefix(ip: string|number, subnetMask: string|number): SubnetResult;
+export function calculate(ipStart: string | number, ipEnd: string | number): SubnetResult[];
+export function calculateSubnetMask(ip: string | number, prefixSize: number): SubnetResult;
+export function calculateCIDRPrefix(ip: string | number, subnetMask: string | number): SubnetResult;
 
 export function isIp(ipStr: string): boolean;
 export function isDecimalIp(ipNum: number): boolean;
 
-export function toDecimal(ip: string|number): number;
-export function toString(num: string|number): string;
+export function toDecimal(ip: string | number): number;
+export function toString(num: string | number): string;
 
 export interface SubnetResult {
     ipLow: number;

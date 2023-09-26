@@ -6,7 +6,7 @@
 
 declare function issueParser(
     authOptions?: issueParser.Options,
-    extension?: issueParser.Overrides
+    extension?: issueParser.Overrides,
 ): issueParser.Parser;
 
 declare namespace issueParser {

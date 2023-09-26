@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Readable } from 'stream';
-import { ZlibOptions } from 'zlib';
+import { Readable } from "stream";
+import { ZlibOptions } from "zlib";
 
 export = inflate;
 
@@ -22,6 +22,6 @@ declare namespace inflate {
         /**
          * The encoding of the stream. If not given, will look in `stream.headers['content-encoding']`.
          */
-        gzip?: 'deflate' | 'gzip' | 'identity' | undefined;
+        gzip?: "deflate" | "gzip" | "identity" | undefined;
     }
 }

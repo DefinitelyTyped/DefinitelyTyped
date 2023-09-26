@@ -47,7 +47,7 @@ export interface Svg {
             width: number;
             height: number;
             color: Color;
-        }
+        },
     ];
 
     /**
@@ -106,7 +106,7 @@ export default class Identicon {
         w: number,
         h: number,
         color: Color,
-        image: Svg | PNGlib
+        image: Svg | PNGlib,
     ): void;
 
     /**

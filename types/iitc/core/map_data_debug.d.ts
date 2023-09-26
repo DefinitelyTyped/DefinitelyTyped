@@ -1,6 +1,15 @@
 /** useful bits to assist debugging map data tiles */
-export type DebugTileState = 'ok' | 'error' | 'cache-fresh' | 'cache-stale' | 'requested' |
-    'retrying' | 'request-fail' | 'tile-fail' | 'tile-timeout' | 'render-queue';
+export type DebugTileState =
+    | "ok"
+    | "error"
+    | "cache-fresh"
+    | "cache-stale"
+    | "requested"
+    | "retrying"
+    | "request-fail"
+    | "tile-fail"
+    | "tile-timeout"
+    | "render-queue";
 
 export class RenderDebugTiles {
     CLEAR_CHECK_TIME: number; // = 0.1;

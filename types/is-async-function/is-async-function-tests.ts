@@ -1,4 +1,4 @@
-import isAsyncFunction = require('is-async-function');
+import isAsyncFunction = require("is-async-function");
 
 isAsyncFunction(() => {}); // $ExpectType boolean
 isAsyncFunction(null); // $ExpectType boolean

@@ -3,10 +3,9 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export declare function parse<T>(
     file: string,
-    callback: (err: any, data: T) => void
+    callback: (err: any, data: T) => void,
 ): void;
 
 export declare function parseSync<T>(file: string): T;

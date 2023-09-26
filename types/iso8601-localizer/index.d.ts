@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface localizer {
-    to(offset: number): localizer,
+    to(offset: number): localizer;
     returnAs(as: string): localizer;
     localize(): string;
 }

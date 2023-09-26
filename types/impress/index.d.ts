@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface Impress {
     init(): void;
     getStep(step: any): any;

@@ -1,4 +1,4 @@
-import importLocal = require('import-local');
+import importLocal = require("import-local");
 
 // $ExpectType boolean
 importLocal("...");

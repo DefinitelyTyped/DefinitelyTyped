@@ -1,10 +1,10 @@
-import IBAN = require('iban');
+import IBAN = require("iban");
 
 /**
  * @summary Test for "electronicFormat" method.
  */
 function testElectronicFormat() {
-    const iban = 'BE68539007547034';
+    const iban = "BE68539007547034";
     const format: string = IBAN.electronicFormat(iban);
 }
 
@@ -12,8 +12,8 @@ function testElectronicFormat() {
  * @summary Test for "fromBBAN" method.
  */
 function testFromBBAN() {
-    const countryCode = 'fr';
-    const bban = 'BBBBBGGGGGCCCCCCCCCCCKK';
+    const countryCode = "fr";
+    const bban = "BBBBBGGGGGCCCCCCCCCCCKK";
     const iban: string = IBAN.fromBBAN(countryCode, bban);
 }
 
@@ -21,7 +21,7 @@ function testFromBBAN() {
  * @summary Test for "isValid" method.
  */
 function testIsValid() {
-    const iban = 'BE68539007547034';
+    const iban = "BE68539007547034";
     const valid: boolean = IBAN.isValid(iban);
 }
 
@@ -29,8 +29,8 @@ function testIsValid() {
  * @summary Test for "isValidBBAN" method.
  */
 function testIsValidBBAN() {
-    const countryCode = 'fr';
-    const bban = 'BBBBBGGGGGCCCCCCCCCCCKK';
+    const countryCode = "fr";
+    const bban = "BBBBBGGGGGCCCCCCCCCCCKK";
     const valid: boolean = IBAN.isValidBBAN(countryCode, bban);
 }
 
@@ -38,8 +38,8 @@ function testIsValidBBAN() {
  * @summary Test for "printFormat" method.
  */
 function testPrintFormat() {
-    const iban = 'BE68539007547034';
-    const separator = ' ';
+    const iban = "BE68539007547034";
+    const separator = " ";
     const format: string = IBAN.printFormat(iban, separator);
 }
 
@@ -47,8 +47,8 @@ function testPrintFormat() {
  * @summary Test for "toBBAN" method.
  */
 function testToBBAN() {
-    const iban = 'BE68539007547034';
-    const separator = '-';
+    const iban = "BE68539007547034";
+    const separator = "-";
     const bban: string = IBAN.toBBAN(iban, separator);
 }
 

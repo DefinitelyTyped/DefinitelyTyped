@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import Coordinates from "./Geographic/Coordinates";
-import Style from "./Style";
-import Extent from "./Geographic/Extent";
 import Layer from "../Layer/Layer";
+import Coordinates from "./Geographic/Coordinates";
+import Extent from "./Geographic/Extent";
+import Style from "./Style";
 
 export enum FEATURE_TYPES {
     POINT = 0,
@@ -12,7 +12,7 @@ export enum FEATURE_TYPES {
 
 export interface FeatureBuildingOptions { // TODO
     crs: string;
-    structure?: '2d' | '3d';
+    structure?: "2d" | "3d";
     filteringExtent?: any; // Event | boolean
     buildExtent?: any; // boolean
     forcedExtentCrs?: string;
@@ -21,7 +21,7 @@ export interface FeatureBuildingOptions { // TODO
     style?: Style;
 }
 
-type FeatureType = 'point' | 'line' | 'polygon';
+type FeatureType = "point" | "line" | "polygon";
 
 export class FeatureGeometry { // TODO
     constructor(feature: Feature);
@@ -49,7 +49,8 @@ export class FeatureGeometry { // TODO
         feature: Feature,
         long: number,
         lat: number,
-        normal?: THREE.Vector3): void;
+        normal?: THREE.Vector3,
+    ): void;
 
     updateExtent(): void;
 }
@@ -57,7 +58,8 @@ export class FeatureGeometry { // TODO
 declare class Feature { // TODO
     constructor(
         type: FeatureType,
-        collection: FeatureCollection);
+        collection: FeatureCollection,
+    );
 
     type: FeatureType;
     vertices: number[];

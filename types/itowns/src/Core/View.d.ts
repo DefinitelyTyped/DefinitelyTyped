@@ -1,16 +1,16 @@
 import * as THREE from "three";
-import Camera, { CameraOptions } from "../Renderer/Camera";
-import MainLoop, { MAIN_LOOP_EVENTS } from "./MainLoop";
 import Coordinates from "../Core/Geographic/Coordinates";
 import type Layer from "../Layer/Layer";
+import Camera, { CameraOptions } from "../Renderer/Camera";
+import MainLoop, { MAIN_LOOP_EVENTS } from "./MainLoop";
 
 export enum VIEW_EVENTS {
-    LAYERS_INITIALIZED = 'layers-initialized',
-    LAYER_REMOVED = 'layer-removed',
-    LAYER_ADDED = 'layer-added',
-    INITIALIZED = 'initialized',
-    COLOR_LAYERS_ORDER_CHANGED = 'layers-order-changed',
-    CAMERA_MOVED = 'camera-moved',
+    LAYERS_INITIALIZED = "layers-initialized",
+    LAYER_REMOVED = "layer-removed",
+    LAYER_ADDED = "layer-added",
+    INITIALIZED = "initialized",
+    COLOR_LAYERS_ORDER_CHANGED = "layers-order-changed",
+    CAMERA_MOVED = "camera-moved",
 }
 
 export interface RendererOptions {
@@ -30,8 +30,7 @@ export interface ViewOptions {
     disableFocusOnStart?: boolean;
 }
 
-export type FrameRequester =
-    (dt: number, updateLoopRestarted: boolean, ...args: any) => void;
+export type FrameRequester = (dt: number, updateLoopRestarted: boolean, ...args: any) => void;
 
 export type Event = MouseEvent | TouchEvent;
 
@@ -61,7 +60,8 @@ export default class View extends THREE.EventDispatcher<THREE.Event> {
 
     addFrameRequester(
         when: MAIN_LOOP_EVENTS,
-        frameRequester: FrameRequester): void;
+        frameRequester: FrameRequester,
+    ): void;
 
     removeFrameRequester(when: string, frameRequester: FrameRequester): void;
 
@@ -73,25 +73,29 @@ export default class View extends THREE.EventDispatcher<THREE.Event> {
         when: MAIN_LOOP_EVENTS,
         dt: number,
         updateLoopRestarted: boolean,
-        ...args: any[]): void;
+        ...args: any[]
+    ): void;
 
     eventToViewCoords(
         event: Event,
         target?: THREE.Vector2,
-        touchIdx?: number): THREE.Vector2;
+        touchIdx?: number,
+    ): THREE.Vector2;
 
     eventToNormalizedCoords(event: Event, touchIdx?: number): THREE.Vector2;
 
     viewToNormalizedCoords(
         viewCoords: THREE.Vector2,
-        target?: THREE.Vector2): THREE.Vector2;
+        target?: THREE.Vector2,
+    ): THREE.Vector2;
 
     normalizedToViewCoords(ndcCoords: THREE.Vector2): THREE.Vector2;
 
     pickObjectsAt(
         mouseOrEvt: THREE.Vector2 | Event,
         radius?: number,
-        ...where: any[]): any[]; // TODO
+        ...where: any[]
+    ): any[]; // TODO
 
     getScale(pitch?: number): number;
 
@@ -113,13 +117,15 @@ export default class View extends THREE.EventDispatcher<THREE.Event> {
 
     getPickingPositionFromDepth(
         mouse: THREE.Vector2,
-        target?: THREE.Vector3): THREE.Vector3;
+        target?: THREE.Vector3,
+    ): THREE.Vector3;
 
     // pickTerrainCoordinates TODO
 
     pickCoordinates(
         mouse?: THREE.Vector2 | Event,
-        target?: Coordinates): Coordinates;
+        target?: Coordinates,
+    ): Coordinates;
 
     resize(width?: number, height?: number): void;
 }

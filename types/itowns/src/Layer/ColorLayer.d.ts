@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import Layer, { LayerOptions } from "./Layer";
 import Style from "../Core/Style";
 import { Extent, FeatureCollection } from "../Main";
+import Layer, { LayerOptions } from "./Layer";
 // import { RasterColorTile } from "../Renderer/RasterTile";
 
 type EffectType = 0 | 1 | 2 | 3; // TODO: enum
@@ -38,7 +38,8 @@ declare class ColorLayer extends Layer {
 
     convert(
         data: FeatureCollection | THREE.Texture,
-        extentDestination: Extent): THREE.Texture;
+        extentDestination: Extent,
+    ): THREE.Texture;
 
     // setupRasterNode(node: TileMesh): RasterColorTile; // TODO
 

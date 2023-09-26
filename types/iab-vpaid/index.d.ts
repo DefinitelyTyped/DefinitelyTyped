@@ -8,7 +8,7 @@
 
 declare namespace iab.vpaid {
     /** The vpaid view mode set on init or on resize */
-    type ViewMode = 'normal' | 'thumbnail' | 'fullscreen';
+    type ViewMode = "normal" | "thumbnail" | "fullscreen";
 
     /**
      * JavaScript specific VPAID init config
@@ -26,28 +26,28 @@ declare namespace iab.vpaid {
     }
 
     type SimpleEvents =
-        | 'AdLoaded'
-        | 'AdStarted'
-        | 'AdStopped'
-        | 'AdSkipped'
-        | 'AdPaused'
-        | 'AdSizeChange'
-        | 'AdPlaying'
-        | 'AdExpandedChange'
-        | 'AdSkippableStateChange'
-        | 'AdLinearChange'
-        | 'AdVolumeChange'
-        | 'AdVideoStart'
-        | 'AdVideoFirstQuartile'
-        | 'AdVideoMidpoint'
-        | 'AdVideoThirdQuartile'
-        | 'AdVideoComplete'
-        | 'AdUserAcceptInvitation'
-        | 'AdUserClose'
-        | 'AdUserMinimize'
-        | 'AdDurationChange'
-        | 'AdRemainingTimeChange'
-        | 'AdImpression';
+        | "AdLoaded"
+        | "AdStarted"
+        | "AdStopped"
+        | "AdSkipped"
+        | "AdPaused"
+        | "AdSizeChange"
+        | "AdPlaying"
+        | "AdExpandedChange"
+        | "AdSkippableStateChange"
+        | "AdLinearChange"
+        | "AdVolumeChange"
+        | "AdVideoStart"
+        | "AdVideoFirstQuartile"
+        | "AdVideoMidpoint"
+        | "AdVideoThirdQuartile"
+        | "AdVideoComplete"
+        | "AdUserAcceptInvitation"
+        | "AdUserClose"
+        | "AdUserMinimize"
+        | "AdDurationChange"
+        | "AdRemainingTimeChange"
+        | "AdImpression";
 
     type SimpleEventsMap = { [K in SimpleEvents]: () => void };
 

@@ -7,7 +7,7 @@ export = isTrademarked;
 
 declare function isTrademarked(
     searchTerm: string,
-    opts?: isTrademarked.Options
+    opts?: isTrademarked.Options,
 ): Promise<false | isTrademarked.TrademarkedData[]>;
 
 declare namespace isTrademarked {

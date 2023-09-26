@@ -1,1 +1,1 @@
-import * as intl from 'intl';
+import * as intl from "intl";

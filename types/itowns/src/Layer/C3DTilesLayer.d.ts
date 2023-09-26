@@ -1,13 +1,13 @@
 import * as THREE from "three";
-import GeometryLayer from "./GeometryLayer";
-import C3DTileset from "../Core/3DTiles/C3DTileset";
+import type C3DTBatchTable from "../Core/3DTiles/C3DTBatchTable";
 import C3DTExtensions from "../Core/3DTiles/C3DTExtensions";
-import { PNTS_MODE } from "../Renderer/PointsMaterial";
+import type C3DTFeature from "../Core/3DTiles/C3DTFeature";
+import C3DTileset from "../Core/3DTiles/C3DTileset";
 import type Style from "../Core/Style";
 import type View from "../Core/View";
-import type C3DTBatchTable from "../Core/3DTiles/C3DTBatchTable";
-import type C3DTFeature from "../Core/3DTiles/C3DTFeature";
+import { PNTS_MODE } from "../Renderer/PointsMaterial";
 import type C3DTileSource from "../Source/C3DTilesSource";
+import GeometryLayer from "./GeometryLayer";
 
 export interface C3DTilesLayerOptions {
     source: C3DTileSource;
@@ -20,15 +20,15 @@ export interface C3DTilesLayerOptions {
 }
 
 export enum C3DTILES_LAYER_EVENTS {
-    ON_TILE_CONTENT_LOADED = 'on-tile-content-loaded',
-    ON_TILE_REQUESTED = 'on-tile-requested',
+    ON_TILE_CONTENT_LOADED = "on-tile-content-loaded",
+    ON_TILE_REQUESTED = "on-tile-requested",
 }
 
 declare class C3DTilesLayer extends GeometryLayer {
     constructor(id: string, config: C3DTilesLayerOptions, view: View);
 
     readonly isC3DTilesLayer: boolean;
-    readonly protocol: '3d-tiles';
+    readonly protocol: "3d-tiles";
 
     sseThreshold: number;
     cleanupDelay: number;

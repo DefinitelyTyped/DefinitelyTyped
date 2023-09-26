@@ -1,16 +1,18 @@
-import * as itowns from 'itowns';
+import * as itowns from "itowns";
 
 // # Planar view with one single layer of vector tile
 
 // Define geographic extent: CRS, min/max X, min/max Y
 const extent = new itowns.Extent(
-    'EPSG:3857',
-    -20037508.342789244, 20037508.342789244,
-    -20037508.342789255, 20037508.342789244
+    "EPSG:3857",
+    -20037508.342789244,
+    20037508.342789244,
+    -20037508.342789255,
+    20037508.342789244,
 );
 
 // `viewerDiv` will contain iTowns' rendering area (`<canvas>`)
-const viewerDiv = document.getElementById('viewerDiv') as HTMLDivElement;
+const viewerDiv = document.getElementById("viewerDiv") as HTMLDivElement;
 
 // Instanciate PlanarView
 const view = new itowns.PlanarView(viewerDiv, extent, {
@@ -27,12 +29,12 @@ const view = new itowns.PlanarView(viewerDiv, extent, {
 
 // Defines a VectorTilesSource to load Vector Tiles data from the geoportail
 const mvtSource = new itowns.VectorTilesSource({
-    style: 'https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json',
+    style: "https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json",
     // We don't display mountains related data to ease visualisation
-    filter: (layer) => !layer['source-layer'].includes('oro_') && !layer['source-layer'].includes('parcellaire'),
+    filter: (layer) => !layer["source-layer"].includes("oro_") && !layer["source-layer"].includes("parcellaire"),
 });
 
-const mvtLayer = new itowns.ColorLayer('MVT', {
+const mvtLayer = new itowns.ColorLayer("MVT", {
     source: mvtSource,
     addLabelLayer: { performance: true },
 });

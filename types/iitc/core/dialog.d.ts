@@ -1,4 +1,4 @@
-import 'jqueryui';
+import "jqueryui";
 
 declare global {
     /** The global ID of onscreen dialogs. */

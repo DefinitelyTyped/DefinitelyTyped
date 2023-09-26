@@ -3,11 +3,10 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import jQuery = require('jquery');
+import jQuery = require("jquery");
 
 declare global {
     namespace ImageMapster {
-
         type Select = "select";
         type Deselect = "deselect";
         type Set = "set";
@@ -25,7 +24,6 @@ declare global {
         type State = "highlight" | "select";
 
         interface RenderingOptions {
-
             /**
              * fade effect - can only be applied to "render_highlight".
              *
@@ -185,7 +183,6 @@ declare global {
         }
 
         interface AreaRenderingOptions extends RenderingOptions {
-
             key: string;
 
             /**
@@ -260,7 +257,6 @@ declare global {
              * mask as well as the areas, to create both inner and outer borders.
              * You can always specifically enable or disable this, or any other
              * effect, for any area as desired.
-             *
              */
             isMask?: boolean | undefined;
 
@@ -278,7 +274,6 @@ declare global {
         }
 
         interface OnClickData {
-
             /**
              * $(item) from boundList
              */
@@ -294,7 +289,6 @@ declare global {
         }
 
         interface OnStateChangeData {
-
             /**
              * map key
              */
@@ -309,7 +303,6 @@ declare global {
         }
 
         interface OnMouseData {
-
             /**
              * area key
              */
@@ -325,7 +318,6 @@ declare global {
         }
 
         interface OnGetListData {
-
             /**
              * primary mapKey for this area or area group
              */
@@ -345,7 +337,6 @@ declare global {
         }
 
         interface OnShowToolTipData {
-
             /**
              * jQuery object of the tooltip container
              */
@@ -365,7 +356,6 @@ declare global {
         }
 
         interface Options extends RenderingOptions {
-
             /**
              * an attribute identifying each imagemap area.
              *
@@ -471,12 +461,11 @@ declare global {
             listSelectedClass?: string | undefined;
 
             /**
-             *
              * define area-specific options; each object in the array must contain
              * a "key" property identifying a valid mapKey, and additional
              * rendering options specific to that area or group
              */
-            areas?: AreaRenderingOptions[] | undefined,
+            areas?: AreaRenderingOptions[] | undefined;
 
             /**
              * add "classname" class to the wrapper created around the image, or
@@ -733,9 +722,7 @@ declare global {
     }
 
     interface JQuery {
-
         /**
-         *
          * All images in the jQuery object will be bound. The specific example
          * above will attempt to bind to all images present on the page. Each image
          * must be bound to an image map identified with the usemap attribute. If
@@ -977,7 +964,11 @@ declare global {
          * including those that are inherited, as well as any specifically assigned
          * to the area.
          */
-        mapster(method: ImageMapster.GetOptions, key?: string, effective?: boolean): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
+        mapster(
+            method: ImageMapster.GetOptions,
+            key?: string,
+            effective?: boolean,
+        ): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
 
         /**
          * tooltip: show/hide tooltips from code

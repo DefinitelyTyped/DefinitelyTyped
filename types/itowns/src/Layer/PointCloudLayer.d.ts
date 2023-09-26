@@ -1,5 +1,5 @@
-import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 import { PNTS_MODE } from "../Renderer/PointsMaterial";
+import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 
 interface PointCloudLayer {
     group: THREE.Group;

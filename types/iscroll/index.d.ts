@@ -50,11 +50,11 @@ interface IScrollOptions {
 
     bounceTime?: number | undefined;
 
-    ///String or function
-    bounceEasing?: string|{ style: string, fn: (k: any) => any } | undefined;
+    /// String or function
+    bounceEasing?: string | { style: string; fn: (k: any) => any } | undefined;
 
     preventDefault?: boolean | undefined;
-    preventDefaultException?: Array<RegExp>|Object | undefined;
+    preventDefaultException?: Array<RegExp> | Object | undefined;
 
     HWCompositing?: boolean | undefined;
 
@@ -76,8 +76,8 @@ interface IScrollOptions {
 }
 
 declare class IScroll {
-    constructor (element: string, options?: IScrollOptions);
-    constructor (element: HTMLElement, options?: IScrollOptions);
+    constructor(element: string, options?: IScrollOptions);
+    constructor(element: HTMLElement, options?: IScrollOptions);
 
     x: number;
     y: number;
@@ -88,7 +88,13 @@ declare class IScroll {
     scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
     scrollToElement(element: string, time?: number): void;
     scrollToElement(element: HTMLElement, time?: number): void;
-    scrollToElement(element: HTMLElement, time?: number, offsetX?: number | boolean, offsetY?: number | boolean, easing?: Function): void;
+    scrollToElement(
+        element: HTMLElement,
+        time?: number,
+        offsetX?: number | boolean,
+        offsetY?: number | boolean,
+        easing?: Function,
+    ): void;
     goToPage(pageX: number, pageY: number, time?: number): void;
     disable(): void;
     enable(): void;
