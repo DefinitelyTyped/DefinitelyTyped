@@ -1,5 +1,5 @@
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "dcp/wallet" {
     export default interface Wallet {
         /**

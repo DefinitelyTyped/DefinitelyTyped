@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "no-internal-module": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
