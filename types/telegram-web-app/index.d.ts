@@ -271,7 +271,7 @@ interface WebApp {
      * argument will be a boolean indicating whether the user granted this
      * access.
      */
-    requestWriteAccess(callback?: (success?: boolean) => void): void;
+    requestWriteAccess(callback?: (success: boolean) => void): void;
     /**
      * A method that shows a native popup prompting the user for their phone
      * number.
@@ -281,7 +281,7 @@ interface WebApp {
      * argument will be a boolean indicating whether the user shared its
      * phone number.
      */
-    requestContact(callback?: (success?: boolean) => void): void;
+    requestContact(callback?: (success: boolean) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
