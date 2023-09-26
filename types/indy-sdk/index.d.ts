@@ -1,12 +1,3 @@
-// Type definitions for indy-sdk 1.16
-// Project: https://github.com/hyperledger/indy-sdk/tree/master/wrappers/nodejs
-// Definitions by: Timo Glastra <https://github.com/TimoGlastra>
-//                 Jakub Kočí <https://github.com/jakubkoci>
-//                 Karim Stekelenburg <https://github.com/karimStekelenburg>
-//                 James Ebert <https://github.com/JamesKebert>
-//                 Berend Sliedrecht <https://github.com/berendsliedrecht>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Buffer } from "buffer/";
 
 export function createWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;

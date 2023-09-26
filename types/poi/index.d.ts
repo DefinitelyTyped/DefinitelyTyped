@@ -1,9 +1,3 @@
-// Type definitions for poi 12.5
-// Project: https://github.com/egoist/poi/
-// Definitions by: c4605 <https://github.com/bolasblack>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import CAC from "cac/types/CAC";
 import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
 import { Configuration as WebpackConfig, ICompiler } from "webpack";

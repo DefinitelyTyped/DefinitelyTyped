@@ -1,11 +1,3 @@
-// Type definitions for ospec 4.0
-// Project: https://github.com/MithrilJS/mithril.js/tree/next/ospec
-// Definitions by: Már Örlygsson <https://github.com/maranomynet>
-//                 Mike Linkovich <https://github.com/spacejack>
-//                 Claudia Meadows <https://github.com/dead-claudia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 type ObjectConstructor = new(...args: any[]) => any;
 
 declare namespace o {

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/shallowequal",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/dashed/shallowequal"
+    ],
+    "devDependencies": {
+        "@types/shallowequal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Kelley",
+            "githubUsername": "seansfkelley"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Arnd Issler",
+            "githubUsername": "arndissler"
+        }
+    ]
+}

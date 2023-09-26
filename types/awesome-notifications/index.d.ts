@@ -1,8 +1,3 @@
-// Type definitions for awesome-notifications 3.1
-// Project: https://github.com/f3oall/awesome-notifications
-// Definitions by: Sibin Grasic <https://github.com/oblakstudio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type AwnPosition = "bottom-right" | "bottom-left" | "top-left" | "top-right";
 
 export interface AwnDurations {

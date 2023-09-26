@@ -1,8 +1,3 @@
-// Type definitions for nwsapi 2.2
-// Project: https://github.com/dperini/nwsapi, https://dperini.github.io/nwsapi/
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="./_internal/umd-global.d.ts"/>
 
 type ResolveElementType<T extends string> = string extends T ? Element

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/markdown-it-highlightjs",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/valeriangalliat/markdown-it-highlightjs"
+    ],
     "dependencies": {
+        "@types/markdown-it": "*",
         "highlight.js": "^10.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/markdown-it-highlightjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wilson Gramer",
+            "githubUsername": "WilsonGramer"
+        }
+    ]
 }

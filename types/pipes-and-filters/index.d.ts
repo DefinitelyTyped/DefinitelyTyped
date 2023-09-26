@@ -1,9 +1,3 @@
-// Type definitions for pipes-and-filters 0.0
-// Project: https://github.com/slashdotdash/node-pipes-and-filters
-// Definitions by: Alvaro Nicoli <https://github.com/mrnkr>
-//                 Federico Banchero <https://github.com/FdBn1999>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 export type NextFunction<TOutput> = (err?: Error | null, result?: TOutput) => void;

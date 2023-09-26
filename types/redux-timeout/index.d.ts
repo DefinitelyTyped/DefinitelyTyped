@@ -1,8 +1,3 @@
-// Type definitions for redux-timeout 2.0
-// Project: https://github.com/gpfunk/redux-timeout
-// Definitions by: Xavier Balloy <https://github.com/xballoy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AnyAction, Middleware } from "redux";
 
 /**

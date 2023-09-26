@@ -1,9 +1,3 @@
-// Type definitions for empower-core 1.2
-// Project: https://github.com/twada/power-assert-runtime
-// Definitions by: Jakub Jirutka <https://github.com/jirutka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /**
  * Enhances Power Assert feature to assert function/object.
  *

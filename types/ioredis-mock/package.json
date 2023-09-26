@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/ioredis-mock",
+    "version": "8.2.9999",
+    "projects": [
+        "https://github.com/stipsan/ioredis-mock#readme"
+    ],
     "dependencies": {
         "ioredis": ">=5"
-    }
+    },
+    "devDependencies": {
+        "@types/ioredis-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lukas Elmer",
+            "githubUsername": "lukaselmer"
+        }
+    ]
 }

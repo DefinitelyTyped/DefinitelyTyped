@@ -1,7 +1,3 @@
-// Type definitions for express-ua-middleware 0.2
-// Project: https://github.com/davidsdevel/express-ua-middleware#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { RequestHandler } from "express-serve-static-core";
 
 /**

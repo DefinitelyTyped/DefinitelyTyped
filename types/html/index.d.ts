@@ -1,8 +1,3 @@
-// Type definitions for html 1.0
-// Project: https://github.com/maxogden/commonjs-html-prettyprinter
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PrintOptions {
     /**
      * Put braces on the same line as control statements (`collapse`),

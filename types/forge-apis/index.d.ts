@@ -1,9 +1,3 @@
-// Type definitions for Forge-apis 0.9
-// Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
 // Permission to use, copy, modify, and distribute this software in

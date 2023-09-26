@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/set-link",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bergos/set-link"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/set-link": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for yeast 0.1
-// Project: https://github.com/unshiftio/yeast
-// Definitions by: Christian Scheja <https://github.com/schmollmolch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = yeast;
 /**
  * Yeast: A tiny growing id generator.

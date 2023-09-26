@@ -1,15 +1,3 @@
-// Type definitions for Microsoft Dynamics xRM API 9.0
-// Project: https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview
-// Definitions by:  Matt Ngan <https://github.com/mattngan>
-//                  Markus Mauch <https://github.com/markusmauch>
-//                  Daryl LaBar <https://github.com/daryllabar>
-//                  Tully H <https://github.com/clownwilleatme>
-//                  Scott Durow <https://github.com/scottdurow>
-//                  Phil Cole <https://github.com/filcole>
-//                  Danish Naglekar <https://github.com/power-maverick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare var Xrm: Xrm.XrmStatic;
 
 /**

@@ -1,9 +1,3 @@
-// Type definitions for stremio-addon-sdk 1.6
-// Project: https://github.com/Stremio/stremio-addon-sdk#readme
-// Definitions by: Sleeyax <https://github.com/sleeyax>, Victor <https://github.com/victorgveloso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export {};
 
 export type ShortManifestResource = "catalog" | "meta" | "stream" | "subtitles" | "addon_catalog";

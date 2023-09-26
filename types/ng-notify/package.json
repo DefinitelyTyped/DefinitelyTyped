@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ng-notify",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/matowens/ng-notify"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ng-notify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Zamosenchuk",
+            "githubUsername": "nzamosenchuk"
+        }
+    ]
+}

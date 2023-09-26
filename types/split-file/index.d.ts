@@ -1,8 +1,3 @@
-// Type definitions for split-file 2.3
-// Project: https://github.com/tomvlk/node-split-file#readme
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as BluebirdPromise from "bluebird";

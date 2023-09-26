@@ -1,8 +1,3 @@
-// Type definitions for icepick 2.3
-// Project: https://github.com/aearly/icepick
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Tobias Cohen <https://github.com/tobico>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function freeze<T>(collection: T): T;
 export function thaw<T>(collection: T): T;
 export function assoc<T>(collection: T, key: number | string, value: any): T;

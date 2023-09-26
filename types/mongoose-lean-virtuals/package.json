@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/mongoose-lean-virtuals",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/vkarpov15/mongoose-lean-virtuals"
+    ],
     "dependencies": {
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongoose-lean-virtuals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Isaac Herrera",
+            "githubUsername": "isaacdecoded"
+        }
+    ]
 }

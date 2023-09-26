@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/camelcase-keys-deep",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/rxaviers/camelcase-keys-deep"
+    ],
+    "devDependencies": {
+        "@types/camelcase-keys-deep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Søren Englund",
+            "githubUsername": "englund0110"
+        }
+    ]
+}

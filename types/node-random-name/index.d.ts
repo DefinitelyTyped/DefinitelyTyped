@@ -1,8 +1,3 @@
-// Type definitions for node-random-name 1.0
-// Project: https://github.com/cscott/node-random-name
-// Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function getName(args?: getName.NodeRandomNameArgs): string;
 
 declare namespace getName {

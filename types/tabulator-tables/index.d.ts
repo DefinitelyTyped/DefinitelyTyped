@@ -1,11 +1,3 @@
-// Type definitions for tabulator-tables 5.5
-// Project: http://tabulator.info
-// Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-// tslint:disable:no-unnecessary-class
-// tslint:disable:no-empty-interface
-
 export interface Options
     extends
         OptionsGeneral,

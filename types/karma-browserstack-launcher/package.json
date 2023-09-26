@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-browserstack-launcher",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/karma-runner/karma-browserstack-launcher#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-browserstack-launcher": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

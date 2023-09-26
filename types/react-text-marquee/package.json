@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-text-marquee",
+    "version": "1.0.9999",
+    "projects": [
+        "github.com/jcgertig/react-text-marquee"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-text-marquee": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mem-cache",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/silviom/node-mem-cache"
+    ],
+    "devDependencies": {
+        "@types/mem-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Mutter",
+            "githubUsername": "MutterPedro"
+        }
+    ]
+}

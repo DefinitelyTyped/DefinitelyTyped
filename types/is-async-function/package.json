@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-async-function",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-async-function"
+    ],
+    "devDependencies": {
+        "@types/is-async-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leondreamed"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for metascraper-logo-favicon 5.14
-// Project: https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-logo-favicon
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 
 import * as http from "http";

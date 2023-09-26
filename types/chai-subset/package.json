@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/chai-subset",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/debitoor/chai-subset"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-subset": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Noedel",
+            "githubUsername": "delta62"
+        },
+        {
+            "name": "Andrew Brown",
+            "githubUsername": "AGBrown"
+        }
+    ]
+}

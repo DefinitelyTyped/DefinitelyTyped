@@ -1,14 +1,3 @@
-// Type definitions for Microsoft SharePoint: 2016.1
-// Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
-//                 Andrey Markeev <https://github.com/andrei-markeev>
-//                 Tero Arvola <https://github.com/teroarvola>
-//                 Dennis George <https://github.com/dennispg>
-//                 SPWizard01 <https://github.com/SPWizard01>
-//                 Vitaliy Kotlyarov <https://github.com/betlgtu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
-
 /// <reference types="microsoft-ajax" />
 
 declare var _spBodyOnLoadFunctions: Array<() => void>;

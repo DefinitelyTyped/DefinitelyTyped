@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cyberblast__logger",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/cyberblast/logger"
+    ],
+    "devDependencies": {
+        "@types/cyberblast__logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "cyberblast",
+            "githubUsername": "cyberblast"
+        }
+    ]
+}

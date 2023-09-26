@@ -1,8 +1,3 @@
-// Type definitions for http-terminator 2.0
-// Project: https://github.com/gajus/http-terminator#readme
-// Definitions by: Steve Ripberger <https://github.com/sripberger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Server as HttpServer } from "http";

@@ -1,8 +1,3 @@
-// Type definitions for desktop-service 1.0
-// Project: https://github.com/tariibaba/desktop-service#readme
-// Definitions by: Ayibatari Ibaba <https://github.com/tariibaba>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 interface ServiceConfigOptions {

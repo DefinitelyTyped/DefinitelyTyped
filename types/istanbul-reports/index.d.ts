@@ -1,10 +1,3 @@
-// Type definitions for istanbul-reports 3.0
-// Project: https://github.com/istanbuljs/istanbuljs, https://istanbul.js.org
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Elena Shcherbakova <https://github.com/not-a-doctor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { Node, ReportBase } from "istanbul-lib-report";
 
 export function create<T extends keyof ReportOptions>(name: T, options?: Partial<ReportOptions[T]>): ReportBase;

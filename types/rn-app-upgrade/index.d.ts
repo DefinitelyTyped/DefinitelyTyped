@@ -1,8 +1,3 @@
-// Type definitions for rn-app-upgrade 1.0
-// Project: https://github.com/songxiaoliang/react-native-app-upgrade#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EmitterSubscription } from "react-native";
 
 /**

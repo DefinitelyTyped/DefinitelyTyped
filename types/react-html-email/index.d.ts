@@ -1,9 +1,3 @@
-// Type definitions for react-html-email 3.0
-// Project: https://github.com/chromakode/react-html-email#readme
-// Definitions by: Saiichi Hashimoto <https://github.com/saiichihashimoto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import type { CSSProperties, FunctionComponent, FunctionComponentElement, ReactElement, ReactNode } from "react";
 
 export interface AProps {

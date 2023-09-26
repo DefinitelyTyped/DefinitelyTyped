@@ -1,8 +1,3 @@
-// Type definitions for observ 0.2
-// Project: https://github.com/Raynos/observ
-// Definitions by: Ben O'Sullivan <https://github.com/beno-coviu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Observable {
     type RemoveListener = () => void;
 

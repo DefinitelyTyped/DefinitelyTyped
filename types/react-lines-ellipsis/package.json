@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-lines-ellipsis",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/xiaody/react-lines-ellipsis#readme"
+    ],
+    "dependencies": {
+        "@types/lodash": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-lines-ellipsis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Angelo",
+            "githubUsername": "angeloaltamiranom"
+        }
+    ]
+}

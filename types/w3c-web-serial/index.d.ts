@@ -1,9 +1,3 @@
-// Type definitions for non-npm package w3c-web-serial 1.0
-// Project: https://wicg.github.io/serial
-// Definitions by: Reilly Grant <https://github.com/reillyeon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /*~ https://wicg.github.io/serial/#dom-paritytype */
 type ParityType = "none" | "even" | "odd";
 

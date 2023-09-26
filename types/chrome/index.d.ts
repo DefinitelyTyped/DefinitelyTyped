@@ -1,23 +1,3 @@
-// Type definitions for Chrome extension development
-// Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
-//                 otiai10 <https://github.com/otiai10>
-//                 sreimer15 <https://github.com/sreimer15>
-//                 MatCarlson <https://github.com/MatCarlson>
-//                 ekinsol <https://github.com/ekinsol>
-//                 Brian Wilson <https://github.com/echoabstract>
-//                 Sebastiaan Pasma <https://github.com/spasma>
-//                 bdbai <https://github.com/bdbai>
-//                 pokutuna <https://github.com/pokutuna>
-//                 Jason Xian <https://github.com/JasonXian>
-//                 userTim <https://github.com/usertim>
-//                 Idan Zeierman <https://github.com/idan315>
-//                 Nicolas Rodriguez <https://github.com/nicolas377>
-//                 Ido Salomon <https://github.com/idosal>
-//                 Federico Brigante <https://github.com/fregante>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />

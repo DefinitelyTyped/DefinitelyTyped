@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/moment-business-time",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/lennym/moment-business-time"
+    ],
     "dependencies": {
         "moment": "^2.24.0"
-    }
+    },
+    "devDependencies": {
+        "@types/moment-business-time": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Nguyen",
+            "githubUsername": "swist"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

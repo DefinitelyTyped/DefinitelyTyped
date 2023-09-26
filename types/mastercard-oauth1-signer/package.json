@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mastercard-oauth1-signer",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/Mastercard/oauth1-signer-nodejs#readme"
+    ],
+    "devDependencies": {
+        "@types/mastercard-oauth1-signer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dean Pienaar",
+            "githubUsername": "deanpienaar"
+        }
+    ]
+}

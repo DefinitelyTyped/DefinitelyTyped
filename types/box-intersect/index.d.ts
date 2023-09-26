@@ -1,8 +1,3 @@
-// Type definitions for box-intersect 1.0
-// Project: https://github.com/mikolalysenko/box-intersect
-// Definitions by: Sankaku <https://github.com/sankaku-deltalab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = boxIntersect;
 
 declare function boxIntersect(

@@ -1,8 +1,3 @@
-// Type definitions for @sematext/gc-stats 1.5
-// Project: https://github.com/adnanrahic/node-gcstats#readme
-// Definitions by: Jarco-dev <https://github.com/Jarco-dev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 declare namespace GCStats {

@@ -1,9 +1,3 @@
-// Type definitions for koa-ejs 4.3
-// Project: https://github.com/koajs/ejs
-// Definitions by: Matt B <https://github.com/mattb-prg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Ejs from "ejs";
 import * as Koa from "koa";
 

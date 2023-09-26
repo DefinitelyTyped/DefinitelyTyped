@@ -1,9 +1,3 @@
-// Type definitions for cfn-response-promise 1.1
-// Project: https://github.com/ispyinternet/cfn-response-promise
-// Definitions by: Artur Androsovych <https://github.com/arturovt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
 
 export const SUCCESS: "SUCCESS";

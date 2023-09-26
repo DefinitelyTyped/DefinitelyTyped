@@ -1,9 +1,3 @@
-// Type definitions for express-multipart-file-parser 0.1
-// Project: https://github.com/cristovao-trevisan/express-multipart-file-parser#readme
-// Definitions by: Chen Asraf <https://github.com/chenasraf>
-//                 Cristóvão Trevisan <https://github.com/cristovao-trevisan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type { BusboyConfig as BusboyOptions } from "busboy";

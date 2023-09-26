@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/tinycolor2",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/bgrins/TinyColor"
+    ],
+    "devDependencies": {
+        "@types/tinycolor2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mordechai Zuber",
+            "githubUsername": "M-Zuber"
+        },
+        {
+            "name": "Geert Jansen",
+            "githubUsername": "geertjansen"
+        },
+        {
+            "name": "Niels van Hoorn",
+            "githubUsername": "nvh"
+        }
+    ]
+}

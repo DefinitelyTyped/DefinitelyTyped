@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fuzzyset",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/washt/fuzzyset"
+    ],
+    "devDependencies": {
+        "@types/fuzzyset": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Louis Grignon",
+            "githubUsername": "lgrignon"
+        },
+        {
+            "name": "Narain Sagar",
+            "githubUsername": "narainsagar"
+        }
+    ]
+}

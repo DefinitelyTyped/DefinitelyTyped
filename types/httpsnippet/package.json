@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/httpsnippet",
+    "version": "1.23.9999",
+    "projects": [
+        "https://github.com/Kong/httpsnippet"
+    ],
+    "dependencies": {
+        "@types/har-format": "*"
+    },
+    "devDependencies": {
+        "@types/httpsnippet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcell Toth",
+            "githubUsername": "marcelltoth"
+        }
+    ]
+}

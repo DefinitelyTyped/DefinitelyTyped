@@ -1,9 +1,3 @@
-// Type definitions for @dhis2/ui-constants 7.8
-// Project: https://github.com/dhis2/ui/tree/master/constants
-// Definitions by: Alexis Rico <https://github.com/SferaDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 // https://github.com/dhis2/ui/blob/master/constants/src/colors.js
 export type ColorBase = "blue" | "teal" | "red" | "yellow" | "green" | "grey";
 export type ColorVariant = "900" | "800" | "700" | "600" | "500" | "400" | "300" | "200" | "100" | "050";

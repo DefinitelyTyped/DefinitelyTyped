@@ -1,8 +1,3 @@
-// Type definitions for gulp-load-plugins
-// Project: https://github.com/jackfranklin/gulp-load-plugins
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */

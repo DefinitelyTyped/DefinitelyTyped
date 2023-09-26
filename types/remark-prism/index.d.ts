@@ -1,10 +1,3 @@
-// Type definitions for remark-prism 1.3
-// Project: https://github.com/sergioramos/remark-prism#readme
-// Definitions by: Hojun Bun <https://github.com/bunhojun>
-//                 Stephen Weiss <https://github.com/stephencweiss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 import { Root } from "mdast";
 import { Plugin } from "unified";
 

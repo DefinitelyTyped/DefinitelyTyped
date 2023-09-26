@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/feathersjs__primus-client",
+    "version": "1.0.9999",
+    "projects": [
+        "https://feathersjs.com"
+    ],
+    "devDependencies": {
+        "@types/feathersjs__feathers": "*",
+        "@types/feathersjs__primus-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Lohage",
+            "githubUsername": "j2L4e"
+        }
+    ]
+}

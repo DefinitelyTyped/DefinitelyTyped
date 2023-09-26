@@ -1,8 +1,3 @@
-// Type definitions for elasticlunrjs 1.0
-// Project: https://github.com/robertIsaac/elasticlunr.js
-// Definitions by: Robert Isaac <https://github.com/robertIsaac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = elasticlunr;
 
 export as namespace elasticlunr;

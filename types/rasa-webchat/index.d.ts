@@ -1,8 +1,3 @@
-// Type definitions for rasa-webchat 1.0
-// Project: https://github.com/botfront/rasa-webchat
-// Definitions by: Weiqiu Zheng <https://github.com/nygmaaa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 /**

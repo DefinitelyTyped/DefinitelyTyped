@@ -1,8 +1,3 @@
-// Type definitions for react-native-asset 2.0
-// Project: https://github.com/unimonkiez/react-native-asset#readme
-// Definitions by: Armaan A <https://github.com/Armster15>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function ReactNativeAsset(args: {
     /**
      * Root path of where to search for the `assets` folders

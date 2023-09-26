@@ -1,9 +1,3 @@
-// Type definitions for gl-shader 4.2
-// Project: https://github.com/stackgl/gl-shader
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Parameter {
     type: string;
     name: string;

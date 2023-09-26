@@ -7,16 +7,7 @@
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
         "experimentalDecorators": true,
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ember/*": [
-                "ember__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "exactOptionalPropertyTypes": true,

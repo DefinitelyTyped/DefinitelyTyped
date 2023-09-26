@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sfdx-faye",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/sfdx-faye"
+    ],
+    "devDependencies": {
+        "@types/sfdx-faye": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Donnalley",
+            "githubUsername": "mdonnalley"
+        }
+    ]
+}

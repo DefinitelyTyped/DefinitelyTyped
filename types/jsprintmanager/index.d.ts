@@ -1,8 +1,3 @@
-// Type definitions for jsprintmanager 2.0
-// Project: https://github.com/neodynamic/JSPrintManager#readme
-// Definitions by: Philippe Auriou <https://github.com/auriou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace JSPM {
     interface IClientPrinter {
         Id: any;

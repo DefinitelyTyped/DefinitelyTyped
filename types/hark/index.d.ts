@@ -1,9 +1,3 @@
-// Type definitions for hark 1.2
-// Project: https://github.com/otalk/hark
-// Definitions by: baiyufei <https://github.com/baiyufei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = hark;
 
 declare function hark(stream: HTMLAudioElement | HTMLVideoElement | MediaStream, option?: hark.Option): hark.Harker;

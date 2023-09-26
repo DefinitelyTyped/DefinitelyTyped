@@ -1,8 +1,3 @@
-// Type definitions for identity-obj-proxy 3.0
-// Project: https://github.com/keyanzhang/identity-obj-proxy#readme
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type IdObj = {
     readonly [Key: string]: string;
 } & {

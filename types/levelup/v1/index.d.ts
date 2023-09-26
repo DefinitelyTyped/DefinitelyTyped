@@ -1,8 +1,3 @@
-// Type definitions for levelup 1.0
-// Project: https://github.com/Level/levelup
-// Definitions by: Bret Little <https://github.com/blittle>, Thiago de Arruda <https://github.com/tarruda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as leveldown from "leveldown";

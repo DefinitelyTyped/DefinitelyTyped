@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dookie",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/vkarpov15/dookie#readme"
+    ],
+    "devDependencies": {
+        "@types/dookie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Swanest",
+            "githubUsername": "swanest"
+        }
+    ]
+}

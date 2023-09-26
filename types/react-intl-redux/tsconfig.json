@@ -12,13 +12,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "react": ["react/v16"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

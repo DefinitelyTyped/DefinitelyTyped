@@ -1,8 +1,3 @@
-// Type definitions for xar 1.1
-// Project: https://github.com/finnp/xar
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import { Readable as ReadableStream } from "stream";

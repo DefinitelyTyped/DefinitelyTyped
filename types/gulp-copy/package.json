@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-copy",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/klaascuvelier/gulp-copy"
+    ],
+    "dependencies": {
+        "@types/through": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-copy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arun Aravind",
+            "githubUsername": "aravindarun"
+        }
+    ]
+}

@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/balanced-match",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/juliangruber/balanced-match"
+    ],
     "type": "module",
     "exports": {
         ".": {
@@ -7,5 +12,14 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/balanced-match": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

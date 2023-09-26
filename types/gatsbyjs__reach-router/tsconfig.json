@@ -9,22 +9,10 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "paths": {
-            "@gatsbyjs/*": [
-                "gatsbyjs__*"
-            ],
-            "@reach/*": [
-                "reach__*"
-            ]
-        }
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",

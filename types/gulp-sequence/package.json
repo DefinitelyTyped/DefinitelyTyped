@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gulp-sequence",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/teambition/gulp-sequence"
+    ],
+    "dependencies": {
+        "@types/gulp": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-sequence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alorel",
+            "githubUsername": "Alorel"
+        }
+    ]
+}

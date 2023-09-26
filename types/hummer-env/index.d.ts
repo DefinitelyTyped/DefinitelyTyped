@@ -1,7 +1,3 @@
-// Type definitions for non-npm package didi/Hummer 1.0
-// Project: https://github.com/didi/Hummer
-// Definitions by: Mi <https://github.com/iammvp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="./components/Index.d.ts" />
 /// <reference path="./interface/style.d.ts" />
 declare const Hummer: {

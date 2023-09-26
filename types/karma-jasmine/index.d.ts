@@ -1,9 +1,3 @@
-// Type definitions for karma-jasmine 4.0
-// Project: https://github.com/karma-runner/karma-jasmine#readme
-// Definitions by: Michel Salib <https://github.com/michelsalib>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jasmine" />
 
 import karma = require("karma");

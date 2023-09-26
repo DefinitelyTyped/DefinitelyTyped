@@ -1,8 +1,3 @@
-// Type definitions for dos2unix 1.1
-// Project: https://github.com/JamesMGreene/node-dos2unix
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import { IOptions as GlobOptions } from "glob";
 

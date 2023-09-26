@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-osc",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/MylesBorins/node-osc#readme"
+    ],
+    "devDependencies": {
+        "@types/node-osc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mattia Panzeri",
+            "githubUsername": "panz3r"
+        }
+    ]
+}

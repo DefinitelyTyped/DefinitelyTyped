@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/phoenix_live_view",
+    "version": "0.18.9999",
+    "projects": [
+        "https://github.com/phoenixframework/phoenix_live_view"
+    ],
+    "dependencies": {
+        "@types/phoenix": "*"
+    },
+    "devDependencies": {
+        "@types/phoenix_live_view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Zingg",
+            "githubUsername": "pzingg"
+        }
+    ]
+}

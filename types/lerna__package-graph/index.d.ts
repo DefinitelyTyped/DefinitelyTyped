@@ -1,8 +1,3 @@
-// Type definitions for @lerna/package-graph 5.1
-// Project: https://github.com/lerna/lerna/tree/main/core/package-graph
-// Definitions by: DonMahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Package } from "@lerna/package";
 import { CyclicPackageGraphNode } from "./lib/cyclic-package-graph-node";
 import { PackageGraphNode } from "./lib/package-graph-node";

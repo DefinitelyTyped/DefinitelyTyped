@@ -1,9 +1,3 @@
-// Type definitions for angular-oauth2 4.1
-// Project: https://github.com/oauthjs/angular-oauth2, https://github.com/seegno/angular-oauth2
-// Definitions by: Antério Vieira <https://github.com/anteriovieira>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as angular from "angular";
 
 declare module "angular" {

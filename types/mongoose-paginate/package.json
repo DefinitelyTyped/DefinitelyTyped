@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-paginate",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/edwardhotchkiss/mongoose-paginate"
+    ],
     "dependencies": {
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/mongoose-paginate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Linus Brolin",
+            "githubUsername": "linusbrolin"
+        }
+    ]
 }

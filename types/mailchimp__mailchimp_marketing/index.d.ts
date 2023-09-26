@@ -1,12 +1,3 @@
-// Type definitions for @mailchimp/mailchimp_marketing 3.0
-// Project: https://github.com/mailchimp/mailchimp-client-lib-codegen
-// Definitions by: Jan Müller <https://github.com/rattkin>
-//                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Daniel Castro <https://github.com/odanieldcs>
-//                 Edwin Finch <https://github.com/edwinfinch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// API Documentation: https://mailchimp.com/developer/marketing/api/
-
 /*
 These type definitions are missing many of the actual definitions within the Mailchimp marketing API.
 

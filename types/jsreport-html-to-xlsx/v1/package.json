@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsreport-html-to-xlsx",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/jsreport/jsreport-html-to-xlsx"
+    ],
+    "dependencies": {
+        "@types/jsreport-core": "*",
+        "@types/jsreport-xlsx": "*"
+    },
+    "devDependencies": {
+        "@types/jsreport-html-to-xlsx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tao Quifeng",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

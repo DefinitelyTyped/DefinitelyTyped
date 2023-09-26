@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-locale",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/smhg/express-locale#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-locale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

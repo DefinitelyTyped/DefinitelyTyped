@@ -1,9 +1,3 @@
-// Type definitions for non-npm package jquery-monthPicker 3.0
-// Project: <https://github.com/KidSysco/jquery-ui-month-picker>
-// Definitions by: doberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 

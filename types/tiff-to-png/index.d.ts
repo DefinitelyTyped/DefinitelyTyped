@@ -1,8 +1,3 @@
-// Type definitions for tiff-to-png 2.0
-// Project: https://github.com/RickCraig/node-tiff-to-png
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class TiffConverter {
     constructor(options?: TiffConverter.Options);
 

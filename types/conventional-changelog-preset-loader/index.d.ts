@@ -1,8 +1,3 @@
-// Type definitions for conventional-changelog-preset-loader 2.3
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-preset-loader#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Options as CoreOptions } from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit } from "conventional-commits-parser";

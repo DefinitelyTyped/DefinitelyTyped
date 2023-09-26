@@ -1,20 +1,15 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "module": "commonjs",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "paths": {
-            "sc-broker-cluster": ["sc-broker-cluster/v6"],
-            "sc-channel": ["sc-channel/v1"],
-            "socketcluster-server": ["socketcluster-server/v14"]
-        },
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": ["../"],
         "types": []
     },
     "files": [

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pipes-and-filters",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/slashdotdash/node-pipes-and-filters"
+    ],
+    "devDependencies": {
+        "@types/pipes-and-filters": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alvaro Nicoli",
+            "githubUsername": "mrnkr"
+        },
+        {
+            "name": "Federico Banchero",
+            "githubUsername": "FdBn1999"
+        }
+    ]
+}

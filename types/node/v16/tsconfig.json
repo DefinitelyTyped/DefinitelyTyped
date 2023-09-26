@@ -13,15 +13,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "node": [
-                "node/v16"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     }
 }

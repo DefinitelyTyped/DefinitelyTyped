@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/inflected",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/martinandert/inflected"
+    ],
+    "devDependencies": {
+        "@types/inflected": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Schmidt",
+            "githubUsername": "dsci"
+        },
+        {
+            "name": "Jon Clerck",
+            "githubUsername": "Jclerck"
+        }
+    ]
+}

@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/roslib",
+    "version": "1.3.9999",
+    "projects": [
+        "http://wiki.ros.org/roslibjs"
+    ],
     "dependencies": {
         "eventemitter2": "^6.4.0"
-    }
+    },
+    "devDependencies": {
+        "@types/roslib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Profanter",
+            "githubUsername": "Pro"
+        },
+        {
+            "name": "David Gonzalez",
+            "githubUsername": "dgorobopec"
+        },
+        {
+            "name": "Aluma Gelbard",
+            "githubUsername": "alumag"
+        }
+    ]
 }

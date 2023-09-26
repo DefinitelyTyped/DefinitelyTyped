@@ -1,10 +1,3 @@
-// Type definitions for Dot-Object 2.1
-// Project: https://github.com/rhalff/dot-object
-// Definitions by: Niko Kovačič <https://github.com/nkovacic>
-//                 Rico Sandyca <https://github.com/ricosandyca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace DotObject {
     interface DotConstructor extends Dot {
         new(

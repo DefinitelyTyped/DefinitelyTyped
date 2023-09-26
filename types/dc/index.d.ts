@@ -1,11 +1,3 @@
-// Type definitions for dc 4.2
-// Project: https://github.com/dc-js/dc.js
-// Definitions by: hans windhoff <https://github.com/hansrwindhoff>
-//                 matt traynham <https://github.com/mtraynham>
-//                 matthias jobst <https://github.com/MatthiasJobst>
-//                 kiran mathew mohan <https://github.com/privateOmega>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as d3 from "d3";
 
 export = dc;

@@ -1,8 +1,3 @@
-// Type definitions for clean-css 4.2
-// Project: https://github.com/clean-css/clean-css
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Andrew Potter <https://github.com/GolaWaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { RequestOptions as HttpRequestOptions } from "http";

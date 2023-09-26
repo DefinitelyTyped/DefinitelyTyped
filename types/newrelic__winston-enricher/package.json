@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/newrelic__winston-enricher",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/newrelic/newrelic-winston-logenricher-node"
+    ],
     "dependencies": {
         "winston": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/newrelic__winston-enricher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "wrumsby",
+            "githubUsername": "wrumsby"
+        }
+    ]
 }

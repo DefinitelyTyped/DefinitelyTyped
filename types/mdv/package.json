@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mdv",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/Mermade/mdv#readme"
+    ],
+    "devDependencies": {
+        "@types/mdv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

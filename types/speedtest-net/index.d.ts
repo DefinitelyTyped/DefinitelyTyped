@@ -1,8 +1,3 @@
-// Type definitions for speedtest-net 2.1
-// Project: https://github.com/ddsol/speedtest.net#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace exec {
     type CancelFunction = (setCancelHandler?: symbol, newHandler?: () => void) => boolean | void;
     type ProgressFunction = (event?: SpeedTestEvent) => void;

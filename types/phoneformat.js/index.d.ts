@@ -1,8 +1,3 @@
-// Type definitions for phoneformat.js 1.0
-// Project: https://github.com/albeebe/phoneformat.js
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace phoneFormat;
 
 export function cleanPhone(phoneNumber: string): string;

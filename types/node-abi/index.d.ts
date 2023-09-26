@@ -1,8 +1,3 @@
-// Type definitions for node-abi 3.0
-// Project: https://github.com/lgeiger/node-abi#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Runtime = "electron" | "node" | "node-webkit";
 export interface Target {
     abi: string;

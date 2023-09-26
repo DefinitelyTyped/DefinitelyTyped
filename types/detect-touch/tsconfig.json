@@ -4,10 +4,6 @@
         "lib": [
             "es6"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,

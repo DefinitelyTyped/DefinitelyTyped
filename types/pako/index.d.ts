@@ -1,10 +1,3 @@
-// Type definitions for pako 2.0
-// Project: https://github.com/nodeca/pako
-// Definitions by: Caleb Eggensperger <https://github.com/calebegg>
-//                 Muhammet Öztürk <https://github.com/hlthi>
-//                 Thibault Poisson <https://github.com/OrIOg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Pako;
 export as namespace pako;
 

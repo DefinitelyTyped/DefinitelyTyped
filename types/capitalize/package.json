@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/capitalize",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/grncdr/js-capitalize"
+    ],
+    "devDependencies": {
+        "@types/capitalize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frederick Fogerty",
+            "githubUsername": "frederickfogerty"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/create-react-class",
+    "version": "15.6.9999",
+    "projects": [
+        "https://facebook.github.io/react/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/create-react-class": "workspace:.",
+        "@types/react-dom": "*",
+        "@types/react-dom-factories": "*"
+    },
+    "owners": [
+        {
+            "name": "John Gozde",
+            "githubUsername": "jgoz"
+        }
+    ]
+}

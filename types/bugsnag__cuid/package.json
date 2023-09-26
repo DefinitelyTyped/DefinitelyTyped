@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bugsnag__cuid",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bugsnag/cuid#readme"
+    ],
+    "devDependencies": {
+        "@types/bugsnag__cuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ankan Bhattacharya",
+            "githubUsername": "Ankan002"
+        }
+    ]
+}

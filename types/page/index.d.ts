@@ -1,10 +1,3 @@
-// Type definitions for page 1.11
-// Project: https://github.com/visionmedia/page.js
-// Definitions by: Alan Norbauer <https://github.com/altano/>
-//                 James Garbutt <https://github.com/43081j>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PageJS {
     interface Static {
         create(options?: Partial<Options>): Static;

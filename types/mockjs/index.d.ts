@@ -1,10 +1,3 @@
-// Type definitions for mockjs 1.0
-// Project: http://mockjs.com/
-// Definitions by: lavyun <httpS://github.com/lavyun>
-//                 ChenKS12138 <https://github.com/ChenKS12138>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace mockjs {
     type N = number;
     type S = string;

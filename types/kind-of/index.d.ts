@@ -1,8 +1,3 @@
-// Type definitions for kind-of 6.0
-// Project: https://github.com/jonschlinkert/kind-of
-// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.7
 /// <reference types="node" />
 

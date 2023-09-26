@@ -1,8 +1,3 @@
-// Type definitions for parse-dds 1.0
-// Project: https://github.com/Jam3/parse-dds
-// Definitions by: 4eb0da <https://github.com/4eb0da>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface DdsInfo {
     // width, height
     shape: [number, number];

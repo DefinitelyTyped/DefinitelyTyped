@@ -1,9 +1,3 @@
-// Type definitions for smartwizard 5.0
-// Project: https://github.com/techlab/SmartWizard
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQuerySmartwizard {

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/remove-markdown",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/stiang/remove-markdown"
+    ],
+    "devDependencies": {
+        "@types/remove-markdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Muhammad Ragib Hasin",
+            "githubUsername": "RagibHasin"
+        }
+    ]
+}

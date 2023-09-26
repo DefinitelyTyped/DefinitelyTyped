@@ -1,8 +1,3 @@
-// Type definitions for vault-auth-aws 0.1
-// Project: https://github.com/abdullahshahin/vault-auth-aws
-// Definitions by: Nathan McGinn <https://github.com/nmcginn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 /// <reference types="node" />
 
 declare class vaultAuthAws {

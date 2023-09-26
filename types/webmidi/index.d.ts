@@ -1,8 +1,3 @@
-// Type definitions for Web MIDI API 2.0
-// Project: http://www.w3.org/TR/webmidi/
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Navigator {
     /**
      * When invoked, returns a Promise object representing a request for access to MIDI

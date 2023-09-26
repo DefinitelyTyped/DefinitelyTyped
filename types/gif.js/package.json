@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gif.js",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/jnordberg/gif.js#readme"
+    ],
+    "devDependencies": {
+        "@types/gif.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Precioso",
+            "githubUsername": "cprecioso"
+        },
+        {
+            "name": "Marco Tulio",
+            "githubUsername": "TulioAbreu"
+        }
+    ]
+}

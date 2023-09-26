@@ -1,8 +1,3 @@
-// Type definitions for gulp-diff 1.0
-// Project: https://github.com/creativelive/gulp-diff
-// Definitions by: Ika <https://github.com/ikatyang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

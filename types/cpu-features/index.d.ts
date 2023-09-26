@@ -1,8 +1,3 @@
-// Type definitions for cpu-features 0.0
-// Project: https://github.com/mscdex/cpu-features
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = getCpuInfo;
 
 /**

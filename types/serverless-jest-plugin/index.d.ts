@@ -1,9 +1,3 @@
-// Type definitions for serverless-jest-plugin 0.3
-// Project: https://github.com/nordcloud/serverless-jest-plugin#readme
-// Definitions by: Gaelan Steele <https://github.com/Gaelan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 import Serverless = require("serverless");
 import Plugin = require("serverless/classes/Plugin");
 import lw = require("lambda-wrapper");

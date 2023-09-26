@@ -1,9 +1,3 @@
-// Type definitions for hapi-auth-bearer-token 6.1
-// Project: https://github.com/johnbrett/hapi-auth-bearer-token
-// Definitions by: Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 import { AuthenticationData, Plugin, Request, ResponseToolkit } from "@hapi/hapi";
 
 type ValidateReturn = AuthenticationData & { isValid: boolean };

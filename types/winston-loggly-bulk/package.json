@@ -1,6 +1,16 @@
 {
     "private": true,
+    "name": "@types/winston-loggly-bulk",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/loggly/winston-loggly-bulk"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "winston": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/winston-loggly-bulk": "workspace:."
+    },
+    "owners": []
 }

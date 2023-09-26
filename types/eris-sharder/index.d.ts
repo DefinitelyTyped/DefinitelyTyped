@@ -1,8 +1,3 @@
-// Type definitions for Eris-Sharder 1.10
-// Project: https://github.com/discordware/eris-sharder
-// Definitions by: MathleteDev <https://github.com/mathletedev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Eris from "eris";
 import { EventEmitter } from "events";
 

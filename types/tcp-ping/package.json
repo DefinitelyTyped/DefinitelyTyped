@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/tcp-ping",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/wesolyromek/tcp-ping"
+    ],
+    "devDependencies": {
+        "@types/tcp-ping": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JUNG YONG WOO",
+            "githubUsername": "stegano"
+        },
+        {
+            "name": "rymate1234",
+            "githubUsername": "rymate1234"
+        }
+    ]
+}

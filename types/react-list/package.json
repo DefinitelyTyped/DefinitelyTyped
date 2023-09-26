@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-list",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/coderiety/react-list"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yifei Yan",
+            "githubUsername": "buptyyf"
+        },
+        {
+            "name": "Tom Shen",
+            "githubUsername": "tomshen"
+        }
+    ]
+}

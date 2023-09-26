@@ -1,8 +1,3 @@
-// Type definitions for email-reply-parser 1.4
-// Project: https://github.com/crisp-oss/email-reply-parser
-// Definitions by: MelonCode <https://github.com/MelonCode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Represents a fragment of an email, with content and metadata about whether it's hidden, a signature, or quoted.
  */

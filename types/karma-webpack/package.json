@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/karma-webpack",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/karma-webpack"
+    ],
     "dependencies": {
+        "@types/karma": "*",
+        "@types/webpack": "^4",
         "@types/webpack-dev-middleware": "3"
-    }
+    },
+    "devDependencies": {
+        "@types/karma-webpack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        }
+    ]
 }

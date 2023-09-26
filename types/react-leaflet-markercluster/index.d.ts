@@ -1,9 +1,3 @@
-// Type definitions for react-leaflet-markercluster 3.0
-// Project: https://github.com/YUzhva/react-leaflet-markercluster
-// Definitions by: Davide Ciacco <https://github.com/ciaccodavide>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="leaflet.markercluster" />
 
 import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from "leaflet";

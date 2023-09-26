@@ -1,8 +1,3 @@
-// Type definitions for gc-stats 1.4
-// Project: https://github.com/dainis/node-gcstats#readme
-// Definitions by: Vitor Fernandes <https://github.com/vfernandestoptal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 declare namespace GCStats {

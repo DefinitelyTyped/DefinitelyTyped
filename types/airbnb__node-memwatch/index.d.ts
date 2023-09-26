@@ -1,8 +1,3 @@
-// Type definitions for @airbnb/node-memwatch 2.0
-// Project: https://github.com/airbnb/node-memwatch#readme
-// Definitions by: Tyler Levine <https://github.com/tylerlevine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface GcStats {
     gcScavengeCount: number;
     gcScavengeTime: number; // nanoseconds

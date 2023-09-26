@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-valid-zipcode",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hacdias/is-valid-zipcode#readme"
+    ],
+    "devDependencies": {
+        "@types/is-valid-zipcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dillon Mulroy",
+            "githubUsername": "dmmulroy"
+        }
+    ]
+}

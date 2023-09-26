@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/delete-empty",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/delete-empty"
+    ],
+    "devDependencies": {
+        "@types/delete-empty": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alorel",
+            "githubUsername": "Alorel"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "Alorel"
+        }
+    ]
+}
