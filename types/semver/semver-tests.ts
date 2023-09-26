@@ -121,6 +121,8 @@ const anyVersion = Math.random() < 0.5 ? undefined : Math.random() < 0.5 ? strn 
 sem = new semver.SemVer(str, { includePrerelease: false });
 sem = new semver.SemVer(str, { loose: true });
 
+sem.toString();
+
 sem = semver.parse(str);
 strn = semver.valid(str);
 strn = semver.clean(str);

@@ -7,6 +7,7 @@ declare class SemVer {
     loose: boolean;
     options: semver.Options;
     format(): string;
+    toString(): string;
     inspect(): string;
 
     major: number;
