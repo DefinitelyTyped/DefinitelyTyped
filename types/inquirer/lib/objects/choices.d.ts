@@ -1,6 +1,6 @@
-import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../../index.js';
-import Choice from './choice.js';
-import Separator from './separator.js';
+import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from "../../index.js";
+import Choice from "./choice.js";
+import Separator from "./separator.js";
 
 /**
  * Represents a valid choice for the {@link Choices `Choices<T>`} class.
@@ -16,7 +16,7 @@ type DistinctChoice<T extends Answers> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
  * @template T
  * The type of the answers.
  */
-type RealChoice<T extends Answers> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
+type RealChoice<T extends Answers> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
 
 /**
  * Represents a property-name of any choice-type.
