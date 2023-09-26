@@ -819,6 +819,9 @@ export interface Cookie {
      * The {@link Cookie | cookie}'s path.
      *
      * Required unless one of {@link Cookie.url | url} or {@link Cookie.domain | domain} are specified.
+     * 
+     * @defaultValue
+     * The default is `'/'`.
      */
     path?: string;
 
