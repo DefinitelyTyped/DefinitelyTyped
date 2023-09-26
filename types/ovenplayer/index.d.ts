@@ -130,7 +130,7 @@ interface OvenPlayerInstance {
 interface OvenPlayerQuality {
     bitrate: string;
     height: number;
-    index: string;
+    index: number;
     label: string;
     width: number;
 }
