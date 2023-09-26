@@ -320,18 +320,22 @@ declare namespace GorillaEngine {
     /**
      * Method updates the list of the automatable parameters note it does not work for all DAWS
      */
-    function updateHostDisplay(): void; 
+    function updateHostDisplay(): void;
     /**
      * Method returns the Host name of the plugin is running in
      * @returns The name of the host
      */
     function getHostDescription(): string;
-    function showNativeMessageBox(options: {title: string, message: string, iconType: | 'info' | 'question' | 'warning' }): void; 
-    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number; 
+    function showNativeMessageBox(options: {
+        title: string;
+        message: string;
+        iconType: 'info' | 'question' | 'warning';
+    }): void;
+    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
     function checkLicense(): boolean;
     function isTrial(): boolean;
     function trialExpirationTimestamp(): number;
-    function initialiseSpliceRTO(pluginName?: string): any;  
+    function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     function setActiveInstrument(instrument: Instrument): void;
     function setSessionSaveCallback(callback: any, instance: any): void;
@@ -356,18 +360,18 @@ declare namespace GorillaEngine {
         defaultLocation?: string;
     }): void;
     /**
-    * Method to convert mp3 files to wave files 
-    * @param mp3Filepath The path of the mp3 file to convert
-    * @param wavFilePath The path where the converted file should be stored
-    * @returns `true` if the convertion was successful
-    */
+     * Method to convert mp3 files to wave files
+     * @param mp3Filepath The path of the mp3 file to convert
+     * @param wavFilePath The path where the converted file should be stored
+     * @returns `true` if the convertion was successful
+     */
     function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): boolean;
     /**
      * Method to register opening and closing of the plugin editor
      * @param openCallback The callback when the plugin editor opens
      * @param closeCallback The callback when the plugin editor closes
      */
-    function registerEditorCallbacks(openCallback?: any, closeCallback?: any): void
+    function registerEditorCallbacks(openCallback?: any, closeCallback?: any): void;
     let sessionSaveLoadCallbackTimeoutMs: number;
 
     namespace UI {

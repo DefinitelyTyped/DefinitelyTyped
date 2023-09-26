@@ -3,8 +3,8 @@ declare namespace GorillaEngine.UI {
         height: number;
         borderSize: number;
         cornerRadius: number;
-        textColor: {normal: string; active: string; header: string};
-        backgroundColor: {normal: string; active: string; header: string};
-        cancel: {x: number; width: number}; 
+        textColor: { normal: string; active: string; header: string };
+        backgroundColor: { normal: string; active: string; header: string };
+        cancel: { x: number; width: number };
     }
 }

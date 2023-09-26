@@ -6,6 +6,6 @@ declare namespace GorillaEngine.UI {
             top: number;
             right: number;
             bottom: number;
-        }
+        };
     }
 }
