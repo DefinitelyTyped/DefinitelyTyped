@@ -1,4 +1,5 @@
 import type * as CommonActions from "./CommonActions";
+// tslint:disable:interface-over-type-literal
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type CommonNavigationAction = CommonActions.Action;
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
@@ -109,11 +110,11 @@ export declare type NavigationAction = Readonly<{
      */
     target?: string | undefined;
 }>;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type ActionCreators<Action extends NavigationAction> = {
     [key: string]: (...args: any) => Action;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DefaultRouterOptions<RouteName extends string = string> = {
     /**
      * Name of the route to focus by on initial render.
@@ -127,12 +128,12 @@ export declare type RouterFactory<
     Action extends NavigationAction,
     RouterOptions extends DefaultRouterOptions,
 > = (options: RouterOptions) => Router<State, Action>;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type RouterConfigOptions = {
     routeNames: string[];
     routeParamList: ParamListBase;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Router<State extends NavigationState, Action extends NavigationAction> = {
     /**
      * Type of the router. Should match the `type` property in state.

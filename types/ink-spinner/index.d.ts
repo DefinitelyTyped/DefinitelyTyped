@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as cliSpinners from 'cli-spinners';
-import { Component } from 'react';
+import * as cliSpinners from "cli-spinners";
+import { Component } from "react";
 
 interface SpinnerProps {
     /**

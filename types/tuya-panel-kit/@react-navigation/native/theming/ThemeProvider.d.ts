@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { Theme } from "../types";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Props = {
     value: Theme;
     children: React.ReactNode;

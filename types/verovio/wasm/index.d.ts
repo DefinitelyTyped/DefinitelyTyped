@@ -1,4 +1,4 @@
-import { VerovioModule } from '..';
+import { VerovioModule } from "..";
 
 declare function createVerovioModule(): Promise<VerovioModule>;
 export default createVerovioModule;

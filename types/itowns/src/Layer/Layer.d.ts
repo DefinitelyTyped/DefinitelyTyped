@@ -16,8 +16,8 @@ export interface LayerOptions {
         min?: number;
     };
     updateStrategy?: {
-     type: Strategy;
-     options?: any;
+        type: Strategy;
+        options?: any;
     };
     // options: any;
     // mergeFeatures: boolean;
@@ -32,7 +32,7 @@ export class Layer extends THREE.EventDispatcher<THREE.Event> {
     source: Source;
     ready: boolean;
     whenReady: Promise<this>;
-    zoom: { max: number, min: number };
+    zoom: { max: number; min: number };
     frozen: boolean; // TODO: event
     // cache: Cache;
     // info: InfoLayer;
@@ -76,7 +76,8 @@ export const ImageryLayers: { // TODO
     moveLayerToIndex(
         layer: any,
         newIndex: number,
-        imageryLayers: any): void;
+        imageryLayers: any,
+    ): void;
 
     moveLayerDown(layer: any, imageryLayers: any): void;
 

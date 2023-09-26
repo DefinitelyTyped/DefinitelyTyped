@@ -23,11 +23,11 @@
 
 // See https://github.com/facebook/react/blob/main/packages/react/src/React.js to see how the exports are declared,
 
-import React = require('.');
+import React = require(".");
 
 export {};
 
-declare module '.' {
+declare module "." {
     interface ThenableImpl<T> {
         then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
     }
@@ -36,16 +36,16 @@ declare module '.' {
     }
 
     export interface PendingThenable<T> extends ThenableImpl<T> {
-        status: 'pending';
+        status: "pending";
     }
 
     export interface FulfilledThenable<T> extends ThenableImpl<T> {
-        status: 'fulfilled';
+        status: "fulfilled";
         value: T;
     }
 
     export interface RejectedThenable<T> extends ThenableImpl<T> {
-        status: 'rejected';
+        status: "rejected";
         reason: unknown;
     }
 

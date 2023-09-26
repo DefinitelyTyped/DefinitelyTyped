@@ -8,6 +8,7 @@ import type {
     PartialState,
     Route,
 } from "../routers";
+// tslint:disable:interface-over-type-literal
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DefaultNavigatorOptions<ScreenOptions extends {}, ParamList extends ParamListBase = ParamListBase> =
     & DefaultRouterOptions<Extract<keyof ParamList, string>>
@@ -33,7 +34,7 @@ export declare type EventMapBase = Record<string, {
     data?: any;
     canPreventDefault?: boolean | undefined;
 }>;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type EventMapCore<State extends NavigationState> = {
     focus: {
         data: undefined;
@@ -87,7 +88,7 @@ export declare type EventArg<
 export declare type EventListenerCallback<EventMap extends EventMapBase, EventName extends keyof EventMap> = (
     e: EventArg<Extract<EventName, string>, EventMap[EventName]["canPreventDefault"], EventMap[EventName]["data"]>,
 ) => void;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type EventConsumer<EventMap extends EventMapBase> = {
     /**
      * Subscribe to events from the parent navigator.
@@ -104,7 +105,7 @@ export declare type EventConsumer<EventMap extends EventMapBase> = {
         callback: EventListenerCallback<EventMap, EventName>,
     ): void;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type EventEmitter<EventMap extends EventMapBase> = {
     /**
      * Emit an event to child screens.
@@ -236,7 +237,7 @@ export declare type NavigationHelpers<ParamList extends ParamListBase, EventMap 
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         setParams<RouteName extends keyof ParamList>(params: Partial<ParamList[RouteName]>): void;
     };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type NavigationContainerProps = {
     /**
      * Initial navigation state for the child navigators.
@@ -327,7 +328,7 @@ export declare type CompositeNavigationProp<
          */
         A extends NavigationProp<any, any, any, any, infer E> ? E : {}
     >;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Descriptor<
     ParamList extends ParamListBase,
     RouteName extends keyof ParamList = string,
@@ -417,7 +418,7 @@ export declare type RouteConfig<
         component?: never | undefined;
         getComponent?: never | undefined;
     });
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type NavigationContainerEventMap = {
     /**
      * Event which fires when the navigation state changes.
@@ -480,7 +481,7 @@ export declare type NavigationContainerRef =
          */
         getCurrentOptions(): object | undefined;
     };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TypedNavigator<
     ParamList extends ParamListBase,
     State extends NavigationState,
@@ -525,7 +526,7 @@ export declare type NavigatorScreenParams<ParamList, State extends NavigationSta
                 state?: never | undefined;
             };
     }[keyof ParamList];
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type PathConfig = {
     path?: string | undefined;
     exact?: boolean | undefined;
@@ -534,7 +535,7 @@ export declare type PathConfig = {
     screens?: PathConfigMap | undefined;
     initialRouteName?: string | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type PathConfigMap = {
     [routeName: string]: string | PathConfig;
 };

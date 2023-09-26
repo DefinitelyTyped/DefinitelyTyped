@@ -55,5 +55,4 @@ export function parameterize(sentence: string, options?: Parameterize): string;
 export function constantify(words: string): string;
 export function capitalize(word?: string | null): string;
 
-
 export as namespace Inflector;

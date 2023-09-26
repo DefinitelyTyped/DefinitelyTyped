@@ -17,6 +17,11 @@
 /// <reference path = "interfaces/KeyboardFocus.d.ts" />
 /// <reference path = "interfaces/Scrollable.d.ts" />
 /// <reference path = "interfaces/Skinnable.d.ts" />
+/// <reference path = "interfaces/MIDILearn.d.ts" />
+/// <reference path = "interfaces/Highlight.d.ts" />
+/// <reference path = "interfaces/Keyable.d.ts" />
+/// <reference path = "interfaces/Margin.d.ts" />
+/// <reference path = "interfaces/Tag.d.ts" />
 
 /// <reference path = "components/AmpEnv.d.ts" />
 /// <reference path = "components/BarStepEditor.d.ts" />
@@ -40,6 +45,10 @@
 /// <reference path = "components/Trigger.d.ts" />
 /// <reference path = "components/Waveform.d.ts" />
 /// <reference path = "components/Window.d.ts" />
+/// <reference path = "components/TagBrowser.d.ts" />
+/// <reference path = "components/TagEditor.d.ts" />
+/// <reference path = "components/XYPad.d.ts" />
+/// <reference path = "components/Rubberband.d.ts" />
 
 declare namespace GorillaEngine {
     /**
@@ -302,12 +311,40 @@ declare namespace GorillaEngine {
     function registerUncaughtUIExceptionCallback(handler: (err: Error) => void): void;
     function getResourcePath(): string;
     function getPluginName(): string;
+    function getPluginType(): string;
+    function getPluginPath(): string;
+    function quitApplication(): void;
     function getManufacturerName(): string;
     function loadBlob(blobPath: string): Blob;
+    function getPluginNRTB(enable: boolean): void;
+    /**
+     * Method updates the list of the automatable parameters note it does not work for all DAWS
+     */
+    function updateHostDisplay(): void;
+    /**
+     * Method returns the Host name of the plugin is running in
+     * @returns The name of the host
+     */
+    function getHostDescription(): string;
+    function showNativeMessageBox(options: {
+        title: string;
+        message: string;
+        iconType: 'info' | 'question' | 'warning';
+    }): void;
+    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
+    function checkLicense(): boolean;
+    function isTrial(): boolean;
+    function trialExpirationTimestamp(): number;
+    function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     function setActiveInstrument(instrument: Instrument): void;
     function setSessionSaveCallback(callback: any, instance: any): void;
     function setSessionLoadCallback(callback: any, instance: any): void;
+    function setParametersDirty(dirty: boolean): void;
+    function areParametersDirty(): boolean;
+    function shouldWaitForReadySignal(): void;
+    function signalReady(): void;
+    function setParametersDirtyCallback(callback: any): void;
     function getBuildInformation(): any;
     function openURLinBrowser(path: string): void;
     function getPluginMM(v: boolean): void;
@@ -322,6 +359,19 @@ declare namespace GorillaEngine {
         allowedExtensions?: string;
         defaultLocation?: string;
     }): void;
+    /**
+     * Method to convert mp3 files to wave files
+     * @param mp3Filepath The path of the mp3 file to convert
+     * @param wavFilePath The path where the converted file should be stored
+     * @returns `true` if the convertion was successful
+     */
+    function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): boolean;
+    /**
+     * Method to register opening and closing of the plugin editor
+     * @param openCallback The callback when the plugin editor opens
+     * @param closeCallback The callback when the plugin editor closes
+     */
+    function registerEditorCallbacks(openCallback?: any, closeCallback?: any): void;
     let sessionSaveLoadCallbackTimeoutMs: number;
 
     namespace UI {
