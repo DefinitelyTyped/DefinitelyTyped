@@ -81,20 +81,20 @@ const parseRow = (d: DSVRowString<Headers>, index: number, columns: Headers[]): 
     const car = d.Make === "Ford"
         ? null
         : {
-            year: new Date(+d.Make!, 0, 1),
-            make: d.Make!,
-            model: d.Model!,
-            length: +d.Length!,
+            year: new Date(+d.Make, 0, 1),
+            make: d.Make,
+            model: d.Model,
+            length: +d.Length,
         };
     return index % 2 === 0 ? undefined : car;
 };
 
 const parseRowSimple = (d: DSVRaw<Car>) => {
     return {
-        year: new Date(+d.make!, 0, 1),
-        make: d.make!,
-        model: d.model!,
-        length: +d.length!,
+        year: new Date(+d.make, 0, 1),
+        make: d.make,
+        model: d.model,
+        length: +d.length,
     };
 };
 
@@ -116,7 +116,7 @@ parsedPromise = d3Fetch.csv(url, parseRow);
 parsedPromise = d3Fetch.csv(url, init, parseRow);
 parsedPromise = d3Fetch.csv(url, parseRowSimple);
 
-anyPromise = d3Fetch.csv(url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
+anyPromise = d3Fetch.csv(url, (d: DSVRaw<Car>) => map.set(d.model, +d.year));
 
 // DSV
 
@@ -136,7 +136,7 @@ parsedPromise = d3Fetch.dsv("|", url, parseRow);
 parsedPromise = d3Fetch.dsv("|", url, init, parseRow);
 parsedPromise = d3Fetch.dsv("|", url, parseRowSimple);
 
-anyPromise = d3Fetch.dsv("|", url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
+anyPromise = d3Fetch.dsv("|", url, (d: DSVRaw<Car>) => map.set(d.model, +d.year));
 
 // TSV
 
@@ -156,4 +156,4 @@ parsedPromise = d3Fetch.tsv(url, parseRow);
 parsedPromise = d3Fetch.tsv(url, init, parseRow);
 parsedPromise = d3Fetch.tsv(url, parseRowSimple);
 
-anyPromise = d3Fetch.csv(url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
+anyPromise = d3Fetch.csv(url, (d: DSVRaw<Car>) => map.set(d.model, +d.year));

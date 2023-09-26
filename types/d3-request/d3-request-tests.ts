@@ -364,8 +364,8 @@ const csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<Respon
         const i: number = index;
         const cols: string[] = columns;
         const mappedRow: ResponseDatumGET = {
-            test: rr["test"]!,
-            value: +rr["value"]!,
+            test: rr["test"],
+            value: +rr["value"],
         };
         return mappedRow;
     },
@@ -400,8 +400,8 @@ const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Respon
         const i: number = index;
         const cols: string[] = columns;
         const mappedRow: ResponseDatumGET = {
-            test: rr["test"]!,
-            value: +rr["value"]!,
+            test: rr["test"],
+            value: +rr["value"],
         };
         return mappedRow;
     },
@@ -425,8 +425,8 @@ csvRequest = csvRequest
         const i: number = index;
         const cols: string[] = columns;
         const mappedRow: ResponseDatumGET = {
-            test: rr["test"]!,
-            value: +rr["value"]!,
+            test: rr["test"],
+            value: +rr["value"],
         };
         return mappedRow;
     });
