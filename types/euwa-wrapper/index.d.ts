@@ -160,22 +160,33 @@ export interface ApplicationAPI {
 
     /**
      * Updates the chat variables, one may update or set custom variables
-     * @param param
+     * @param options - An object with string keys and string values
+     * @example
+     * ```ts
+     * {
+     *   someKey: 'Some value',
+     * }
+     * ```
      * @returns void
      */
-    updateVariables: () => void;
+    updateVariables: (options: Record<string, string>) => void;
 
     /**
      * Updates system variables
-     * @param - enteredFormName
-     * @param - enteredChatId
-     * @param - enteredFormIssue
-     * @param - selectedQueueKey
-     * @param - timeId2Map
+     * @param options - An object with string keys and string values
+     * @example
+     * ```ts
+     * {
+          enteredFormName: 'Name Surname',
+          enteredChatId: 'name@example.com',
+          enteredFormIssue: 'I need help with my order',
+          selectedQueueKey: 'q_cookies_problems',
+          timeId2Map: 'cookiesQueueWorkingTime',
+        }
+     * ```
      * @returns void
      */
-    updateSystemVariables: () => void;
-    [method: string]: () => void;
+    updateSystemVariables: (options: Record<string, string>) => void;
 }
 
 export default class EUWA {

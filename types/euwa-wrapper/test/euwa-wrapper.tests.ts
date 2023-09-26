@@ -1,4 +1,4 @@
-import { EUWA } from '@puzzel/euwa-wrapper';
+import EUWA from 'euwa-wrapper';
 
 const euwa = new EUWA(
     {
@@ -23,6 +23,8 @@ const euwa = new EUWA(
         if (agentsOnline && !isConnected) {
             // $ExpectType void
             chat.api.startChat();
+
+            chat.api.updateVariables({someKey: 'someValue'});
 
             // Optional: update some system variables
             chat.api.updateSystemVariables({
