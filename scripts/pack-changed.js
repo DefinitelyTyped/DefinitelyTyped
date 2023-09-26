@@ -22,7 +22,7 @@ if (changedPackages.length === 0 || changedPackages.length > 10) {
 const prereleaseNumber = process.env.PR_NUMBER || execSync("git rev-parse HEAD").toString().trim();
 await mkdir("out", { recursive: true });
 for (const pkg of changedPackages) {
-    const typesDirectory = dt.subDir(pkg.name);
+    const typesDirectory = dt.subDir("types").subDir(pkg.name);
     const packageFS = pkg.isLatest || !pkg.versionDirectoryName
         ? typesDirectory
         : typesDirectory.subDir(pkg.versionDirectoryName);
