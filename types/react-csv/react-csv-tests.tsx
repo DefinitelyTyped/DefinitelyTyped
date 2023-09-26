@@ -1,7 +1,7 @@
 import * as React from "react";
-import { render } from "react-dom";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVDownload, CSVLink } from "react-csv";
 import { toCSV } from "react-csv/lib/core";
+import { render } from "react-dom";
 
 const headers = [
     { label: "First Name", key: "details.firstName" },

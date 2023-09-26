@@ -7,8 +7,8 @@
 
 /// <reference types="node"/>
 
-import stream = require('node:stream');
-import { PathLike } from 'fs';
+import stream = require("node:stream");
+import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
@@ -152,7 +152,7 @@ export namespace JobStatuses {
         watch(jobStatusId: ZendeskID, interval: number, maxAttempts: number): Promise<unknown>;
     }
 
-    type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
+    type Status = "queued" | "working" | "failed" | "completed" | "killed";
 
     interface Result extends PersistableModel {
         readonly action: string;
@@ -451,7 +451,7 @@ export namespace Requests {
             readonly metadata?: Tickets.Comments.Metadata | undefined;
         }
 
-        type RequestType = 'Comment' | 'VoiceComment';
+        type RequestType = "Comment" | "VoiceComment";
 
         namespace CommentsUsers {
             interface ResponseModel extends PersistableModel {
@@ -688,18 +688,18 @@ export namespace Tickets {
         action: string;
     }
 
-    type Priority = 'urgent' | 'high' | 'normal' | 'low';
+    type Priority = "urgent" | "high" | "normal" | "low";
 
-    type Status = 'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed';
+    type Status = "new" | "open" | "pending" | "hold" | "solved" | "closed";
 
-    type TicketType = 'problem' | 'incident' | 'question' | 'task';
+    type TicketType = "problem" | "incident" | "question" | "task";
 
     interface Via {
         channel: ViaChannel;
         source: ViaSource;
     }
 
-    type ViaChannel = 'api' | 'web' | 'mobile' | 'rule' | 'system';
+    type ViaChannel = "api" | "web" | "mobile" | "rule" | "system";
 
     interface ViaSource {
         to: object;
@@ -1128,7 +1128,7 @@ export namespace Users {
         users: ReadonlyArray<ResponseModel>;
     }
 
-    type Role = 'admin' | 'agent' | 'end-user';
+    type Role = "admin" | "agent" | "end-user";
 
     /**
      * Defines an agent type
@@ -1138,7 +1138,7 @@ export namespace Users {
      */
     type RoleType = 0 | 1 | 2;
 
-    type TicketRestriction = 'assigned' | 'groups' | 'organization' | 'requested';
+    type TicketRestriction = "assigned" | "groups" | "organization" | "requested";
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/user_identities|Zendesk User Identities}
@@ -1220,9 +1220,9 @@ export namespace Users {
             readonly identity: ResponseModel;
         }
 
-        type IdentityType = 'agent_forwarding' | 'email' | 'facebook' | 'google' | 'phone_number' | 'sdk';
+        type IdentityType = "agent_forwarding" | "email" | "facebook" | "google" | "phone_number" | "sdk";
 
-        type DeliverableState = 'deliverable' | 'undeliverable';
+        type DeliverableState = "deliverable" | "undeliverable";
     }
 
     namespace Fields {
@@ -1243,7 +1243,7 @@ export namespace Users {
          * Types of custom fields that can be created
          * @default 'text'
          */
-        type UserFieldType = 'text' | 'textarea' | 'checkbox' | 'date' | 'integer' | 'decimal' | 'regexp' | 'tagger';
+        type UserFieldType = "text" | "textarea" | "checkbox" | "date" | "integer" | "decimal" | "regexp" | "tagger";
 
         /**
          * Represents 'user_field'

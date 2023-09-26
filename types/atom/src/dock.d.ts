@@ -1,4 +1,4 @@
-import { Disposable, Pane, PaneItemObservedEvent } from '../index';
+import { Disposable, Pane, PaneItemObservedEvent } from "../index";
 
 /** A container at the edges of the editor window capable of holding items. */
 export interface Dock {

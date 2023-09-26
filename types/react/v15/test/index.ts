@@ -491,10 +491,10 @@ const ContextTypesSpecification: React.ComponentSpec<any, any> = {
 // React.Children
 // --------------------------------------------------------------------------
 
-const mappedChildrenArray: number[] = React.Children.map<number>(children, (child) => 42);
+const mappedChildrenArray: number[] = React.Children.map<number>(children, child => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
-const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, (child) => child.props.p);
-React.Children.forEach(children, (child) => {});
+const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, child => child.props.p);
+React.Children.forEach(children, child => {});
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(React.DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
@@ -606,7 +606,7 @@ if (TestUtils.isDOMComponent(container)) {
     const obj = { a: 5, b: 3 };
     const newObj = update(obj, {
         b: {
-            $apply: (x) => x * 2,
+            $apply: x => x * 2,
         },
     });
     // => {a: 5, b: 6}

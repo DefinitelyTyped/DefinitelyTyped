@@ -3,7 +3,7 @@
 // Definitions by: Michael Mifsud <https://github.com/xzyfer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import dogstatsd = require('node-dogstatsd');
+import dogstatsd = require("node-dogstatsd");
 
 declare class Collector implements dogstatsd.StatsDClient {
     constructor(client: dogstatsd.StatsDClient | null, delayMilliseconds?: number);

@@ -6,7 +6,6 @@
         "no-object-literal-type-assertion": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
-        "npm-naming": false,
-        "strict-export-declare-modifiers": false
+        "npm-naming": false
     }
 }

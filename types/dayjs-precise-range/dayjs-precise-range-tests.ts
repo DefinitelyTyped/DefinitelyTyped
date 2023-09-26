@@ -1,5 +1,5 @@
-import dayjs = require('dayjs');
-import preciseDiff = require('dayjs-precise-range');
+import dayjs = require("dayjs");
+import preciseDiff = require("dayjs-precise-range");
 
 dayjs.extend(preciseDiff); // $ExpectType Dayjs
 

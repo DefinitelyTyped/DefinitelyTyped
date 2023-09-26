@@ -8,20 +8,20 @@
 
 declare namespace PouchDB {
     namespace FruitDOWNAdapter {
-        interface FruitDOWNAdapterConfiguration
-                extends Configuration.LocalDatabaseConfiguration {
-            adapter: 'fruitdown';
+        interface FruitDOWNAdapterConfiguration extends Configuration.LocalDatabaseConfiguration {
+            adapter: "fruitdown";
         }
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: FruitDOWNAdapter.FruitDOWNAdapterConfiguration
-                               ): Database<Content>;
+        new<Content extends {}>(
+            name: string | null,
+            options: FruitDOWNAdapter.FruitDOWNAdapterConfiguration,
+        ): Database<Content>;
     }
 }
 
-declare module 'pouchdb-adapter-fruitdown' {
+declare module "pouchdb-adapter-fruitdown" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

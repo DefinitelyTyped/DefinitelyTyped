@@ -14,7 +14,7 @@ interface MediaRecorderErrorEvent extends Event {
 
 declare var MediaRecorderErrorEvent: {
     prototype: MediaRecorderErrorEvent;
-    new (type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
+    new(type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
 };
 
 interface BlobEventInit extends EventInit {
@@ -29,7 +29,7 @@ interface BlobEvent extends Event {
 
 declare var BlobEvent: {
     prototype: BlobEvent;
-    new (type: string, eventInitDict: BlobEventInit): BlobEvent;
+    new(type: string, eventInitDict: BlobEventInit): BlobEvent;
 };
 
 type BitrateMode = VideoEncoderBitrateMode;
@@ -54,7 +54,7 @@ interface MediaRecorderEventMap {
 interface MediaRecorder extends EventTarget {
     readonly stream: MediaStream;
     readonly mimeType: string;
-    readonly state: 'inactive' | 'recording' | 'paused';
+    readonly state: "inactive" | "recording" | "paused";
     readonly videoBitsPerSecond: number;
     readonly audioBitsPerSecond: number;
     readonly audioBitrateMode: BitrateMode;
@@ -96,7 +96,7 @@ interface MediaRecorder extends EventTarget {
 
 declare var MediaRecorder: {
     prototype: MediaRecorder;
-    new (stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
+    new(stream: MediaStream, options?: MediaRecorderOptions): MediaRecorder;
     isTypeSupported(type: string): boolean;
 };
 

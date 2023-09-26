@@ -1,6 +1,6 @@
 // for docs
 // noinspection ES6UnusedImports
-import { core } from './';
+import { core } from "./";
 
 /**
  * Base MIDI event type.
@@ -71,7 +71,7 @@ export interface MidiNoteOnEvent extends MidiNoteEventBase {
     /**
      * Since this is a 'noteOn' event it can only be a 'noteOn' value.
      */
-    type: 'noteOn';
+    type: "noteOn";
 }
 
 /**
@@ -84,7 +84,7 @@ export interface MidiNoteOffEvent extends MidiNoteEventBase {
     /**
      * Since this is a 'noteOff' event it can only be a 'noteOff' value.
      */
-    type: 'noteOff';
+    type: "noteOff";
 }
 
 /**
@@ -98,8 +98,8 @@ export interface MidiNoteOffEvent extends MidiNoteEventBase {
  * @see MidiNoteEventBase
  */
 export type MidiNoteEvent =
-    MidiNoteOnEvent |
-    MidiNoteOffEvent;
+    | MidiNoteOnEvent
+    | MidiNoteOffEvent;
 
 /**
  * Base type for MIDI controller events usually emitted by control surfaces.
@@ -112,7 +112,7 @@ export interface MidiControllerEvent extends MidiEventBase {
      * Since this is a 'controller' event the only possible value of this field
      * is 'controller'.
      */
-    type: 'controller';
+    type: "controller";
 
     /**
      * One of the 16 available MIDI channels where each one represents a
@@ -219,7 +219,7 @@ export interface MidiRawEvent extends MidiEventBase {
     /**
      * The type can only be 'raw' for this type of event.
      */
-    type: 'raw';
+    type: "raw";
 }
 
 /**
@@ -241,10 +241,10 @@ export interface MidiRawEvent extends MidiEventBase {
  * @see MidiRawEvent
  */
 export type MidiEvent =
-    MidiNoteOnEvent |
-    MidiNoteOffEvent |
-    MidiControllerEvent |
-    // MidiProgramChangeEvent |
+    | MidiNoteOnEvent
+    | MidiNoteOffEvent
+    | MidiControllerEvent
+    | // MidiProgramChangeEvent |
     // MidiPitchWheelEvent |
     // MidiAftertouchEvent |
     // MidiChannelPressureEvent |

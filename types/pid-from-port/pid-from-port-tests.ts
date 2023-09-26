@@ -1,4 +1,4 @@
-import pidFromPort = require('pid-from-port');
+import pidFromPort = require("pid-from-port");
 
 // $ExpectType Promise<number>
 pidFromPort(8080);

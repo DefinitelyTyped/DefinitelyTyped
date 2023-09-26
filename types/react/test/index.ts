@@ -558,8 +558,8 @@ DOM.span(trustedTypesHTMLAttr);
 
 const mappedChildrenArray: number[] = React.Children.map(children, (child: any) => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
-const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, (child) => child.props.p);
-React.Children.forEach(children, (child) => {});
+const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, child => child.props.p);
+React.Children.forEach(children, child => {});
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
@@ -652,7 +652,7 @@ createReactClass({
     const obj = { a: 5, b: 3 };
     const newObj = update(obj, {
         b: {
-            $apply: (x) => x * 2,
+            $apply: x => x * 2,
         },
     });
     // => {a: 5, b: 6}

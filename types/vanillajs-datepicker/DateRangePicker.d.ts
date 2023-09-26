@@ -1,4 +1,4 @@
-import Datepicker from './Datepicker';
+import Datepicker from "./Datepicker";
 
 export interface DateRangePickerOptions {
     allowOneSidedRange?: boolean;

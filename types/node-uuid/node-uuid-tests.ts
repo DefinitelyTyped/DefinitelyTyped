@@ -1,22 +1,20 @@
-
-
-import nodeUuid = require('node-uuid');
+import nodeUuid = require("node-uuid");
 
 var uid1: string = nodeUuid.v1();
 var uid4: string = nodeUuid.v4();
 
 var options: nodeUuid.UUIDOptions = {
-  node: [],
-  clockseq: 2,
-  nsecs: 3,
-  msecs: new Date()
+    node: [],
+    clockseq: 2,
+    nsecs: 3,
+    msecs: new Date(),
 };
 
 var padding: number[] = [0, 1, 2];
 
 var offset: number = 15;
 
-var buf : number[] = [];
+var buf: number[] = [];
 
 nodeUuid.parse(uid4, buf, offset);
 nodeUuid.unparse(buf, offset);

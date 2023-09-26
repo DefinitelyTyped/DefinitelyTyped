@@ -5,11 +5,11 @@
 
 /// <reference types="node" />
 
-import type { renderSync } from 'sass';
+import type { renderSync } from "sass";
 export type Options = Parameters<typeof renderSync>[0];
 
 export interface TrueOptions {
-    sass?: typeof import('sass');
+    sass?: typeof import("sass");
     describe: (description: string, fn: () => void) => void;
     it: (description: string, fn: () => void) => void;
     contextLines?: number;

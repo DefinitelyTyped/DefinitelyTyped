@@ -1,4 +1,4 @@
-import { ObserverMethod } from '@ember/object/-private/types';
+import { ObserverMethod } from "@ember/object/-private/types";
 
 /**
  * Add an event listener
@@ -8,12 +8,12 @@ export function addListener<Context, Target>(
     key: keyof Context,
     target: Target,
     method: ObserverMethod<Target, Context>,
-    once?: boolean
+    once?: boolean,
 ): void;
 export function addListener<Context>(
     obj: Context,
     key: keyof Context,
-    method: ObserverMethod<Context, Context>
+    method: ObserverMethod<Context, Context>,
 ): void;
 /**
  * Remove an event listener
@@ -22,12 +22,12 @@ export function removeListener<Context, Target>(
     obj: Context,
     key: keyof Context,
     target: Target,
-    method: ObserverMethod<Target, Context>
+    method: ObserverMethod<Target, Context>,
 ): any;
 export function removeListener<Context>(
     obj: Context,
     key: keyof Context,
-    method: ObserverMethod<Context, Context>
+    method: ObserverMethod<Context, Context>,
 ): any;
 /**
  * Send an event. The execution of suspended listeners
@@ -39,5 +39,5 @@ export function sendEvent(
     obj: any,
     eventName: string,
     params?: any[],
-    actions?: any[]
+    actions?: any[],
 ): boolean;

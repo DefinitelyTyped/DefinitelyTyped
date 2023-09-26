@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Strategy } from 'passport-oauth2';
-import { oauth2tokenCallback } from 'oauth';
+import { oauth2tokenCallback } from "oauth";
+import { Strategy } from "passport-oauth2";
 
 export function use(name: string | Strategy, strategy?: Strategy): void;
 

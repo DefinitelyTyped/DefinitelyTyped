@@ -49,9 +49,22 @@ declare class Tokenizer {
 }
 
 declare namespace Tokenizer {
-    type Tag = "word" | "email" | "emoji" | "punctuation"
-        | "number" | "time" | "hashtag" | "mention" | "emoticon" | "ordinal"
-        | "quoted_phrase" | "url" | "symbol" | "currency" | "alien";
+    type Tag =
+        | "word"
+        | "email"
+        | "emoji"
+        | "punctuation"
+        | "number"
+        | "time"
+        | "hashtag"
+        | "mention"
+        | "emoticon"
+        | "ordinal"
+        | "quoted_phrase"
+        | "url"
+        | "symbol"
+        | "currency"
+        | "alien";
 
     interface Token {
         value: string;

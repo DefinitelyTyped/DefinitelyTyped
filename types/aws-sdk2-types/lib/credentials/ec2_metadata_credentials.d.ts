@@ -1,5 +1,5 @@
-import { Logger } from '../config-base';
-import { Credentials } from '../credentials';
+import { Logger } from "../config-base";
+import { Credentials } from "../credentials";
 
 export class EC2MetadataCredentials extends Credentials {
     /**

@@ -1,2 +1,2 @@
-import SecFromTime = require('../2016/SecFromTime');
+import SecFromTime = require("../2016/SecFromTime");
 export = SecFromTime;

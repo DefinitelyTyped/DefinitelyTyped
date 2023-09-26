@@ -21,7 +21,7 @@ interface DropkickOptions {
 }
 
 declare class Dropkick {
-    constructor(id: string|HTMLElement, options?: DropkickOptions);
+    constructor(id: string | HTMLElement, options?: DropkickOptions);
 
     add(value: string | Node, before?: number | string): void;
     close(): void;
@@ -36,7 +36,7 @@ declare class Dropkick {
     remove(index: number): void;
     reset(clear?: boolean): void;
     search(string: string, mode?: string): string[];
-    select(element: number|string, selectDisabled?: boolean): Node;
+    select(element: number | string, selectDisabled?: boolean): Node;
     selectOne(element: number, selectDisabled?: boolean): Node;
 
     disabled: boolean;

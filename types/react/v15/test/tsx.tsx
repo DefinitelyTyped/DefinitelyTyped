@@ -69,7 +69,7 @@ class ComponentWithoutPropsAndState extends React.Component {
 }
 <ComponentWithoutPropsAndState />;
 
-const StatelessComponentWithoutProps: React.SFC = (props) => {
+const StatelessComponentWithoutProps: React.SFC = props => {
     return <div />;
 };
 <StatelessComponentWithoutProps />;

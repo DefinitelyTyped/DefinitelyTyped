@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-var-keyword": false,
-        "strict-export-declare-modifiers": false,
         "void-return": false,
         "npm-naming": [
             true,

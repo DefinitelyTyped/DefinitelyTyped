@@ -3,7 +3,7 @@
 // Definitions by: n0k0 <https://github.com/n0k0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-import { VueConstructor } from 'vue';
+import { VueConstructor } from "vue";
 
 // Misc
 export interface ContainerType {
@@ -80,10 +80,10 @@ export interface SplitpaneIndexedType {
 }
 
 export interface SplitpaneProps {
-    horizontal: boolean;        // false
-    pushOtherPanes: boolean;    // true
-    dblClickSplitter: boolean;  // true
-    firstSplitter: boolean;     // false
+    horizontal: boolean; // false
+    pushOtherPanes: boolean; // true
+    dblClickSplitter: boolean; // true
+    firstSplitter: boolean; // false
 }
 
 export interface SplitpaneData {

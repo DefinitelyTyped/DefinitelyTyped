@@ -1,7 +1,7 @@
-import { Oid } from './oid';
-import { Repository } from './repository';
-import { Tree } from './tree';
-import { TreeEntry } from './tree-entry';
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
+import { TreeEntry } from "./tree-entry";
 
 export class Treebuilder {
     static create(repo: Repository, source?: Tree): Promise<Treebuilder>;

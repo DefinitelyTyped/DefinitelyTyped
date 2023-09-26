@@ -30,7 +30,7 @@ declare global {
             url?: string | undefined;
         }
         interface Request {
-            flash(type: string, message?: string, redirect?: string|boolean): void;
+            flash(type: string, message?: string, redirect?: string | boolean): void;
             flash(object: FlashOptions): void;
         }
     }

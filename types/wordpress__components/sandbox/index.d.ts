@@ -1,4 +1,4 @@
-import { ComponentType, FocusEventHandler } from 'react';
+import { ComponentType, FocusEventHandler } from "react";
 
 declare namespace SandBox {
     interface Props {

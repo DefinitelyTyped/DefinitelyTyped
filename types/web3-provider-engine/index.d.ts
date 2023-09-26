@@ -4,11 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import {
-    Provider,
-    JSONRPCRequestPayload,
-    JSONRPCResponsePayload
-} from "ethereum-protocol";
+import { JSONRPCRequestPayload, JSONRPCResponsePayload, Provider } from "ethereum-protocol";
 interface Web3ProviderEngineOptions {
     pollingInterval?: number | undefined;
     blockTracker?: any;
@@ -22,8 +18,8 @@ declare class Web3ProviderEngine implements Provider {
         payload: JSONRPCRequestPayload,
         callback: (
             error: null | Error,
-            response: JSONRPCResponsePayload
-        ) => void
+            response: JSONRPCResponsePayload,
+        ) => void,
     ): void;
     addProvider(provider: any): void;
     // start block polling

@@ -5,7 +5,6 @@
         "no-boolean-literal-compare": false,
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { FileCoverage, FileCoverageData, Range } from 'istanbul-lib-coverage';
-import { RawSourceMap } from 'source-map';
-import * as babelTypes from 'babel-types';
+import * as babelTypes from "babel-types";
+import { FileCoverage, FileCoverageData, Range } from "istanbul-lib-coverage";
+import { RawSourceMap } from "source-map";
 
 export interface InstrumenterOptions {
     coverageVariable: string;
@@ -33,14 +33,14 @@ export class Instrumenter {
     instrumentSync(
         code: string,
         filename: string,
-        inputSourceMap?: RawSourceMap
+        inputSourceMap?: RawSourceMap,
     ): string;
 
     instrument(
         code: string,
         filenameOrCallback: string | InstrumenterCallback,
         callback?: InstrumenterCallback,
-        inputSourceMap?: RawSourceMap
+        inputSourceMap?: RawSourceMap,
     ): void;
 
     lastFileCoverage(): FileCoverageData;
@@ -48,7 +48,7 @@ export class Instrumenter {
 }
 
 export function createInstrumenter(
-    options?: Partial<InstrumenterOptions>
+    options?: Partial<InstrumenterOptions>,
 ): Instrumenter;
 
 export interface InitialCoverage {
@@ -73,5 +73,5 @@ export interface VisitorOptions {
 export function programVisitor(
     types: typeof babelTypes,
     sourceFilePath?: string,
-    opts?: Partial<VisitorOptions>
+    opts?: Partial<VisitorOptions>,
 ): Visitor;

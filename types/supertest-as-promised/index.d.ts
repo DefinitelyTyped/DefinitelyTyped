@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as supertest from "supertest";
-import * as superagent from "superagent";
-import { SuperTest, Response } from "supertest";
 import * as PromiseBluebird from "bluebird";
+import * as superagent from "superagent";
+import * as supertest from "supertest";
+import { Response, SuperTest } from "supertest";
 
 declare function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 

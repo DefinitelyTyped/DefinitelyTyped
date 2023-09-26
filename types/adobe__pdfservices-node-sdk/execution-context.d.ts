@@ -1,8 +1,7 @@
-import { Credentials } from './auth/credentials';
-import { ClientConfig } from './client-config';
+import { Credentials } from "./auth/credentials";
+import { ClientConfig } from "./client-config";
 
 /**
- *
  * Represents the execution context of an Operation. An execution context typically consists of the desired
  * authentication credentials and client configurations such as timeouts.
  * <p>
@@ -29,9 +28,7 @@ import { ClientConfig } from './client-config';
 /* tslint:disable-next-line:no-unnecessary-class */
 export class ExecutionContext {
     /**
-     *
      * Creates a context instance using the provided {@link Credentials} and {@link ClientConfig}.
-     *
      */
     static create(credentials: Credentials, clientConfig?: ClientConfig): ExecutionContext;
 }

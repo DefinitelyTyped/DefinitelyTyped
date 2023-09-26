@@ -1,15 +1,15 @@
-import Extent from "../Geographic/Extent";
 import Layer from "../../Layer/Layer";
+import Extent from "../Geographic/Extent";
 import View, { VIEW_EVENTS } from "../View";
 // import GlobeLayer from "./Globe/GlobeLayer";
 import GlobeControls from "../../Controls/GlobeControls";
 import CameraUtils from "../../Utils/CameraUtils";
 
 export enum GLOBE_VIEW_EVENTS {
-    GLOBE_INITIALIZED = 'initialized',
-    LAYER_ADDED = 'layer-added',
-    LAYER_REMOVED = 'layer-removed',
-    COLOR_LAYERS_ORDER_CHANGED = 'layers-order-changed',
+    GLOBE_INITIALIZED = "initialized",
+    LAYER_ADDED = "layer-added",
+    LAYER_REMOVED = "layer-removed",
+    COLOR_LAYERS_ORDER_CHANGED = "layers-order-changed",
 }
 
 // TODO GlobeViewOptions
@@ -26,7 +26,8 @@ declare class GlobeView extends View {
     constructor(
         viewerDiv: HTMLDivElement,
         placement?: CameraUtils.CameraTransformOptions | Extent,
-        options?: GlobeViewOptions);
+        options?: GlobeViewOptions,
+    );
 
     readonly isGlobeView: boolean;
     tileLayer: /* GlobeLayer */ any; // TODO

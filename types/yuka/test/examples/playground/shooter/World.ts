@@ -3,15 +3,15 @@
  */
 
 import * as YUKA from "yuka";
-import { Bullet } from './Bullet';
-import { FirstPersonControls } from './FirstPersonControls';
-import { Ground } from './Ground';
-import { Player } from './Player';
-import { Target } from './Target';
+import { Bullet } from "./Bullet";
+import { FirstPersonControls } from "./FirstPersonControls";
+import { Ground } from "./Ground";
+import { Player } from "./Player";
+import { Target } from "./Target";
 
 const intersection = {
     point: new YUKA.Vector3(),
-    normal: new YUKA.Vector3()
+    normal: new YUKA.Vector3(),
 };
 
 class World {
@@ -29,9 +29,9 @@ class World {
         this.time = new YUKA.Time();
         const player = new Player();
         player.position.set(6, 0, 35);
-        player.head.setRenderComponent({matrixWorld: new YUKA.Matrix4()}, syncCamera);
+        player.head.setRenderComponent({ matrixWorld: new YUKA.Matrix4() }, syncCamera);
         const weapon = player.weapon;
-        const weaponMesh = {matrix: new YUKA.Matrix4()};
+        const weaponMesh = { matrix: new YUKA.Matrix4() };
         weapon.setRenderComponent(weaponMesh, sync);
         this.add(player);
         this.player = player;
@@ -69,7 +69,7 @@ class World {
     }
 
     addBullet(owner: Player, ray: YUKA.Ray) {
-        const bulletLine = {matrix: new YUKA.Matrix4()};
+        const bulletLine = { matrix: new YUKA.Matrix4() };
         const bullet = new Bullet(owner, ray);
         bullet.setRenderComponent(bulletLine, sync);
         this.add(bullet);
@@ -82,7 +82,15 @@ class World {
 
         for (let i = 0, l = obstacles.length; i < l; i++) {
             const obstacle = obstacles[i];
-            if (obstacle.geometry.intersectRay(ray, obstacle.worldMatrix, false, intersection.point, intersection.normal) !== null) {
+            if (
+                obstacle.geometry.intersectRay(
+                    ray,
+                    obstacle.worldMatrix,
+                    false,
+                    intersection.point,
+                    intersection.normal,
+                ) !== null
+            ) {
                 const squaredDistance = intersection.point.squaredDistanceTo(ray.origin);
                 if (squaredDistance < minDistance) {
                     minDistance = squaredDistance;
@@ -97,7 +105,7 @@ class World {
     }
 
     _initGround() {
-        const groundMesh = {matrix: new YUKA.Matrix4()};
+        const groundMesh = { matrix: new YUKA.Matrix4() };
         const vertices = new Float32Array(0);
         const indices = new Uint32Array(0);
 
@@ -109,7 +117,7 @@ class World {
     }
 
     _initTarget() {
-        const targetMesh = {matrix: new YUKA.Matrix4()};
+        const targetMesh = { matrix: new YUKA.Matrix4() };
 
         const vertices = new Float32Array(0);
         const indices = new Uint32Array(0);
@@ -123,11 +131,11 @@ class World {
     }
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }
 
-function syncCamera(entity: YUKA.GameEntity, renderComponent: {matrixWorld: YUKA.Matrix4}) {
+function syncCamera(entity: YUKA.GameEntity, renderComponent: { matrixWorld: YUKA.Matrix4 }) {
     renderComponent.matrixWorld.copy(entity.worldMatrix);
 }
 

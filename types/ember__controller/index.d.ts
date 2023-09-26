@@ -7,17 +7,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import ActionHandler from '@ember/object/-private/action-handler';
-import Mixin from '@ember/object/mixin';
-import EmberObject from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+import ComputedProperty from "@ember/object/computed";
+import Mixin from "@ember/object/mixin";
 
-// tslint:disable-next-line strict-export-declare-modifiers
-type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
-// tslint:disable-next-line strict-export-declare-modifiers
-type QueryParamScopeTypes = 'controller' | 'model';
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+type QueryParamTypes = "boolean" | "number" | "array" | "string";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+type QueryParamScopeTypes = "controller" | "model";
 
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface QueryParamConfig {
     type?: QueryParamTypes | undefined;
     scope?: QueryParamScopeTypes | undefined;
@@ -58,7 +58,7 @@ export function inject(target: object, propertyKey: string | symbol): void;
 // tslint:disable-next-line no-empty-interface
 export interface Registry extends Record<string, Controller | undefined> {}
 
-declare module '@ember/owner' {
+declare module "@ember/owner" {
     interface DIRegistry {
         controller: Registry;
     }

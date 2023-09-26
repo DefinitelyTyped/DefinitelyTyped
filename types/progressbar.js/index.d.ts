@@ -2,13 +2,13 @@
 // Project: https://kimmobrunfeldt.github.io/progressbar.js/
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import Line = require('./line');
-import Circle = require('./circle');
-import SemiCircle = require('./semicircle');
-import Square = require('./square');
-import Path = require('./path');
-import Shape = require('./shape');
-import utils = require('./utils');
+import Line = require("./line");
+import Circle = require("./circle");
+import SemiCircle = require("./semicircle");
+import Square = require("./square");
+import Path = require("./path");
+import Shape = require("./shape");
+import utils = require("./utils");
 
 export as namespace ProgressBar;
 

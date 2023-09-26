@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 export interface Node {
     // ID of the g element in SVG graph containing all the link elements.
@@ -14,7 +14,7 @@ export interface Node {
     PAGE_RESIZE: number;
 
     // Count box default size
-    CountBox: { x: number, y: number, w: number, h: number };
+    CountBox: { x: number; y: number; w: number; h: number };
 
     // Store choose node state to avoid multiple node expand at the same time
     chooseWaiting: boolean;
@@ -32,10 +32,10 @@ export interface Node {
      * GROUP: Empty node used to group relations. No value can be selected but relations can be explored. These nodes doesn't have count.
      */
     nodeTypes: Readonly<{
-        ROOT: 0
-        CHOOSE: 0
-        VALUE: 0
-        GROUP: 0
+        ROOT: 0;
+        CHOOSE: 0;
+        VALUE: 0;
+        GROUP: 0;
     }>;
 
     // Used to generate unique internal labels used for example as identifier in Cypher query.
@@ -163,7 +163,6 @@ export interface Node {
 
     /**
      * Collapse all nodes with value expanded.
-     *
      */
     collapseAllNode: () => void;
 

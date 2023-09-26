@@ -1,7 +1,7 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
 // geodesic
-declare module 'leaflet' {
+declare module "leaflet" {
     function geodesicPolyline(latlngs: LatLng[], options?: PolylineOptions): GeodesicPolyline;
     function geodesicPolygon(latlngs: LatLng[], options?: PolylineOptions): GeodesicPolygon;
 

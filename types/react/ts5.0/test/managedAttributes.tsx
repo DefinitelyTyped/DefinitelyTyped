@@ -268,10 +268,8 @@ const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<
 const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     IndexedComponentProps
-> = {
-    // @ts-expect-error
-    foo: "",
-};
+> // @ts-expect-error
+ = { foo: "" };
 const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     WeakIndexedComponentProps

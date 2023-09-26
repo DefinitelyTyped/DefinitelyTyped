@@ -7,7 +7,7 @@ const handleBeforeInstallPrompt = (event: BeforeInstallPromptEvent) => {
     const userChoiceResult = event.userChoice;
 };
 
-window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
 window.onbeforeinstallprompt = handleBeforeInstallPrompt;
 

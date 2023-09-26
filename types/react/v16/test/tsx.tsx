@@ -106,7 +106,7 @@ class ComponentWithoutPropsAndState extends React.Component {
 }
 <ComponentWithoutPropsAndState />;
 
-const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
+const FunctionComponentWithoutProps: React.FunctionComponent = props => {
     return <div />;
 };
 <FunctionComponentWithoutProps />;
@@ -192,7 +192,7 @@ interface NewState {
 }
 
 class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { baz: string }> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = nextProps => {
         return { bar: `${nextProps.foo}bar` };
     };
 
@@ -215,7 +215,7 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
 <ComponentWithNewLifecycles foo="bar" />;
 
 class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewState, { baz: string }> {
-    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
+    static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = nextProps => {
         return { bar: `${nextProps.foo}bar` };
     };
 

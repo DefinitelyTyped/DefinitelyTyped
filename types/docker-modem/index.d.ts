@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-import { ConnectConfig } from 'ssh2';
-import { ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions, Agent } from 'http';
-import { Socket } from 'net';
-import { Duplex, DuplexOptions } from 'stream';
+import { Agent, ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions } from "http";
+import { Socket } from "net";
+import { ConnectConfig } from "ssh2";
+import { Duplex, DuplexOptions } from "stream";
 
 declare namespace DockerModem {
     class HttpDuplex extends Duplex {
@@ -30,7 +30,7 @@ declare namespace DockerModem {
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
-        protocol?: 'https' | 'http' | 'ssh' | undefined;
+        protocol?: "https" | "http" | "ssh" | undefined;
         sshOptions?: ConnectConfig | undefined;
         timeout?: number | undefined;
         version?: string | undefined;

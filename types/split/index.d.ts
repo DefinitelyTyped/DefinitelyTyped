@@ -6,7 +6,7 @@
 /// <reference types="node" />
 /// <reference types="through" />
 
-import { ThroughStream } from 'through';
+import { ThroughStream } from "through";
 
 // doc-strings taken from https://github.com/dominictarr/split, used under MIT license
 

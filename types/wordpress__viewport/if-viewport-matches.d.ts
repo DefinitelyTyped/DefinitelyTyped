@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 /**
  * Higher-order component creator, creating a new component which renders if
@@ -16,9 +16,9 @@ import { ComponentType } from 'react';
  * ```
  */
 // prettier-ignore
-declare function ifViewportMatches(query: string):
-    <T extends ComponentType<any>>(component: T) =>
-        T extends ComponentType<infer U> ? ComponentType<U> :
-        never;
+declare function ifViewportMatches(
+    query: string,
+): <T extends ComponentType<any>>(component: T) => T extends ComponentType<infer U> ? ComponentType<U>
+    : never;
 
 export default ifViewportMatches;

@@ -1,4 +1,4 @@
-import RangeSliderPips = require('svelte-range-slider-pips');
+import RangeSliderPips = require("svelte-range-slider-pips");
 
 {
     const slider = new RangeSliderPips({

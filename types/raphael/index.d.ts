@@ -451,17 +451,17 @@ export type RaphaelPotentialFailure<T extends {}> = T & {
  */
 export type RaphaelPaperPluginRegistry<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    T = RaphaelPaper<TTechnology>> = {
-        /**
-         * Either the paper plugin method or a new namespace with methods.
-         */
-        [P in keyof T]: RaphaelPaperPluginMethodOrRegistry<TTechnology, T[P]>;
-    };
+    T = RaphaelPaper<TTechnology>,
+> = {
+    /**
+     * Either the paper plugin method or a new namespace with methods.
+     */
+    [P in keyof T]: RaphaelPaperPluginMethodOrRegistry<TTechnology, T[P]>;
+};
 
-type RaphaelPaperPluginMethodOrRegistry<TTechnology extends RaphaelTechnology, T> =
-    T extends (...args: any) => any
-        ? RaphaelPaperPluginMethod<TTechnology, Parameters<T>, ReturnType<T>>
-        : RaphaelPaperPluginRegistry<TTechnology, T>;
+type RaphaelPaperPluginMethodOrRegistry<TTechnology extends RaphaelTechnology, T> = T extends (...args: any) => any
+    ? RaphaelPaperPluginMethod<TTechnology, Parameters<T>, ReturnType<T>>
+    : RaphaelPaperPluginRegistry<TTechnology, T>;
 /**
  * You can add your own method to elements. This is useful when you want to hack default functionality or want
  * to wrap some common transformation or attributes in one method. In contrast to canvas methods, you can

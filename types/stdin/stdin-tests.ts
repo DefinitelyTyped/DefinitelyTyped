@@ -1,4 +1,4 @@
-import stdin = require('stdin');
+import stdin = require("stdin");
 
 // @ts-expect-error
 stdin();

@@ -1,14 +1,14 @@
-import * as path from 'path';
-import Config = require('@npmcli/config');
+import * as path from "path";
+import Config = require("@npmcli/config");
 
 const conf = new Config({
-    npmPath: path.resolve(__dirname, '..'),
+    npmPath: path.resolve(__dirname, ".."),
     definitions: {
         str: { type: String },
-        num: { type: Number }
+        num: { type: Number },
     },
     shorthands: {
-        help: ['--usage'],
+        help: ["--usage"],
     },
     flatten: (data, flattened) => {
         Object.assign(flattened, data);
@@ -17,5 +17,5 @@ const conf = new Config({
 
 conf.load(); // $ExpectType Promise<void>
 
-conf.get('str'); // $ExpectType string
-conf.get('num'); // $ExpectType number
+conf.get("str"); // $ExpectType string
+conf.get("num"); // $ExpectType number

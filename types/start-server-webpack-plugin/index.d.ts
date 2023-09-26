@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Compiler } from 'webpack';
+import { Compiler, Plugin } from "webpack";
 
 export = StartServerWebpackPlugin;
 
@@ -33,7 +33,7 @@ declare namespace StartServerWebpackPlugin {
          * Signal to send for HMR.
          * Default: 'false'.
          */
-        signal?: false | true | 'SIGUSR2' | undefined;
+        signal?: false | true | "SIGUSR2" | undefined;
         /**
          * Allow typing 'rs' to restart the server.
          * Default: 'true' if in 'development' mode, 'false' otherwise.

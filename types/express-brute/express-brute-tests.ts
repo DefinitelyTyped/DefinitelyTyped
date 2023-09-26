@@ -1,20 +1,20 @@
-import express = require('express');
-import ExpressBrute = require('express-brute');
+import express = require("express");
+import ExpressBrute = require("express-brute");
 
 var store = new ExpressBrute.MemoryStore();
-store = new ExpressBrute.MemoryStore({ prefix: 'prefix' });
-store.set('key', 'value', 0, (error: any) => {});
-store.get('key', (error: any, data: Object) => {});
-store.reset('key', (error: any) => {});
+store = new ExpressBrute.MemoryStore({ prefix: "prefix" });
+store.set("key", "value", 0, (error: any) => {});
+store.get("key", (error: any, data: Object) => {});
+store.reset("key", (error: any) => {});
 
 var app = express();
 var bruteforce = new ExpressBrute(store);
-app.post('/auth', bruteforce.prevent, (req, res, next) => {
-    res.send('Success!');
+app.post("/auth", bruteforce.prevent, (req, res, next) => {
+    res.send("Success!");
 });
 
 app.get(
-    '/expensive',
+    "/expensive",
     bruteforce.getMiddleware({
         key(req, res, next) {
             // prevent too many attempts for the same username
@@ -25,10 +25,10 @@ app.get(
         },
     }),
     (req, res, next) => {
-        res.send('Success!');
+        res.send("Success!");
     },
 );
 
-app.post('/expensive', bruteforce.getMiddleware({ failCallback: ExpressBrute.FailMark }), (req, res, next) => {
-    res.send('Success!');
+app.post("/expensive", bruteforce.getMiddleware({ failCallback: ExpressBrute.FailMark }), (req, res, next) => {
+    res.send("Success!");
 });

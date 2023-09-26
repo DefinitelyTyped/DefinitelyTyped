@@ -5,8 +5,8 @@
 import { State } from "yuka";
 import { Girl } from "./Girl";
 
-const IDLE = 'IDLE';
-const WALK = 'WALK';
+const IDLE = "IDLE";
+const WALK = "WALK";
 
 export class IdleState extends State<Girl> {
     enter(girl: Girl) {

@@ -1,6 +1,6 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
-import BaseControl from '../base-control';
+import BaseControl from "../base-control";
 
 declare namespace SelectControl {
     interface Option {
@@ -20,11 +20,13 @@ declare namespace SelectControl {
          */
         disabled?: boolean;
     }
-    type Props<T extends string | readonly string[]> = Omit<
-        HTMLProps<HTMLSelectElement>,
-        keyof BaseControl.ControlProps | 'multiple' | 'onChange' | 'value'
-    > &
-        BaseControl.ControlProps & {
+    type Props<T extends string | readonly string[]> =
+        & Omit<
+            HTMLProps<HTMLSelectElement>,
+            keyof BaseControl.ControlProps | "multiple" | "onChange" | "value"
+        >
+        & BaseControl.ControlProps
+        & {
             options?: readonly Option[] | undefined;
             value?: T | undefined;
             /**
@@ -34,11 +36,12 @@ declare namespace SelectControl {
              * is a single value with the new selected value.
              */
             onChange(value: T): void;
-        } & (T extends readonly string[] ? { multiple: true } : { multiple?: false | undefined });
+        }
+        & (T extends readonly string[] ? { multiple: true } : { multiple?: false | undefined });
 }
 declare function SelectControl<T extends string | readonly string[]>(
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    props: SelectControl.Props<T>
+    props: SelectControl.Props<T>,
 ): JSX.Element;
 
 export default SelectControl;
