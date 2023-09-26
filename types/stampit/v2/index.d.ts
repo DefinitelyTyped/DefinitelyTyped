@@ -7,7 +7,7 @@
  * Function used as .init() argument.
  */
 interface Init {
-    (ctx:Context): any | Promise<any>;
+    (ctx: Context): any | Promise<any>;
 }
 
 /**
@@ -97,7 +97,7 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    (state?:{}, ...encloseArgs:any[]): any | Promise<any>;
+    (state?: {}, ...encloseArgs: any[]): any | Promise<any>;
 
     /**
      * Just like calling stamp(), stamp.create() invokes the stamp and returns a new instance.
@@ -109,7 +109,7 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    create(state?:{}, ...encloseArgs:any[]): any | Promise<any>;
+    create(state?: {}, ...encloseArgs: any[]): any | Promise<any>;
 
     /**
      * An object map containing the fixed prototypes.
@@ -121,14 +121,14 @@ interface Stamp {
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    methods(...methods:{}[]): Stamp;
+    methods(...methods: {}[]): Stamp;
 
     /**
      * Take n objects and add them to the state prototype. Creates and returns new Stamp. Chainable.
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    refs(...states:{}[]): Stamp;
+    refs(...states: {}[]): Stamp;
 
     /**
      * Take n objects and merge them (but safely, no data override) to the of any future created instance.
@@ -136,22 +136,22 @@ interface Stamp {
      * @param objects Object(s) to merge for each new object.
      * @return A new Stamp.
      */
-    props(...objects:{}[]): Stamp;
+    props(...objects: {}[]): Stamp;
 
     /**
      * @deprecated Use .refs() instead.
      */
-    state(...states:{}[]): Stamp;
+    state(...states: {}[]): Stamp;
 
     /**
      * @deprecated Use .init() instead.
      */
-    enclose(...functions:Init[]): Stamp;
+    enclose(...functions: Init[]): Stamp;
 
     /**
      * @deprecated Use .init() instead.
      */
-    enclose(...functions:{}[]): Stamp;
+    enclose(...functions: {}[]): Stamp;
 
     /**
      * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
@@ -161,7 +161,7 @@ interface Stamp {
      * @param functions Closures (functions) used to create private data and privileged methods.
      * @return A new Stamp.
      */
-    init(...functions:Init[]): Stamp;
+    init(...functions: Init[]): Stamp;
 
     /**
      * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
@@ -171,7 +171,7 @@ interface Stamp {
      * @param functions Function properties of these objects will be treated as closure functions.
      * @return A new Stamp.
      */
-    init(...functions:{}[]): Stamp;
+    init(...functions: {}[]): Stamp;
 
     /**
      * Take n objects and add them to a new stamp and any future stamp it composes with.
@@ -179,7 +179,7 @@ interface Stamp {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      * @return A new Stamp.
      */
-    static(...statics:{}[]): Stamp;
+    static(...statics: {}[]): Stamp;
 
     /**
      * Take one or more Stamps and
@@ -189,7 +189,7 @@ interface Stamp {
      * @param stamps Stampit factories, aka Stamps.
      * @return A new Stamp composed from arguments and `this`.
      */
-    compose(...stamps:Stamp[]): Stamp;
+    compose(...stamps: Stamp[]): Stamp;
 }
 
 /**
@@ -201,45 +201,44 @@ interface Stamp {
  * @param {object} options.props A map of property names and values to clone for each new object.
  * @param {function} options.init A closure(s) (function(s)) used to create private data and privileged methods.
  * @param {object} options.static A map of properties to mixin into new and other stamp it will compose with.
- * */
-declare function stampit(options?: Options): Stamp
+ */
+declare function stampit(options?: Options): Stamp;
 
 declare namespace stampit {
-
     /**
      * A shortcut methods for stampit().methods()
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    export function methods(...methods:{}[]): Stamp;
+    export function methods(...methods: {}[]): Stamp;
 
     /**
      * A shortcut methods for stampit().refs()
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    export function refs(...states:{}[]): Stamp;
+    export function refs(...states: {}[]): Stamp;
 
     /**
      * A shortcut methods for stampit().props()
      * @param states Object(s) to merge for each new object.
      * @return A new Stamp.
      */
-    export function props(...states:{}[]): Stamp;
+    export function props(...states: {}[]): Stamp;
 
     /**
      * A shortcut methods for stampit().init()
      * @param functions Closures (functions) used to create private data and privileged methods.
      * @return A new Stamp.
      */
-    export function init(...functions:Init[]): Stamp;
+    export function init(...functions: Init[]): Stamp;
 
     /**
      * A shortcut methods for stampit().static()
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp (NOT OBJECT).
      * @return A new Stamp.
      */
-    export function static(...statics:{}[]): Stamp;
+    export function static(...statics: {}[]): Stamp;
 
     /**
      * Take two or more Stamps and combine them to produce a new Stamp.
@@ -247,7 +246,7 @@ declare namespace stampit {
      * @param stamps Stamps produced by stampit.
      * @return A new Stamp made of all the given.
      */
-    export function compose(...stamps:Stamp[]): Stamp;
+    export function compose(...stamps: Stamp[]): Stamp;
 
     /**
      * Take a destination object followed by one or more source objects,
@@ -257,29 +256,29 @@ declare namespace stampit {
      * @param source Objects to copy properties from.
      * @return The destination object.
      */
-    export function mixin(destination:any, ...source:any[]): any;
+    export function mixin(destination: any, ...source: any[]): any;
 
     /**
      * Alias for mixin()
      */
-    export function mixIn(destination:any, ...source:any[]): any;
+    export function mixIn(destination: any, ...source: any[]): any;
 
     /**
      * Alias for mixin()
      */
-    export function extend(destination:any, ...source:any[]): any;
+    export function extend(destination: any, ...source: any[]): any;
 
     /**
      * Alias for mixin()
      */
-    export function assign(destination:any, ...source:any[]): any;
+    export function assign(destination: any, ...source: any[]): any;
 
     /**
      * Check if an object is a Stamp.
      * @param obj An object to check.
      * @return true if the object is a Stamp; otherwise - false.
      */
-    export function isStamp(obj:any): boolean;
+    export function isStamp(obj: any): boolean;
 
     /**
      * Take an old-fashioned JS constructor and return a Stamp
@@ -287,7 +286,7 @@ declare namespace stampit {
      * @param Constructor Old-fashioned constructor function.
      * @return A new Stamp based on the given constructor.
      */
-    export function convertConstructor(Constructor:any): Stamp;
+    export function convertConstructor(Constructor: any): Stamp;
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package

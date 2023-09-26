@@ -1,12 +1,12 @@
-import { TeenProcessExecOptions } from 'teen_process';
+import { TeenProcessExecOptions } from "teen_process";
 
 export type APP_INSTALL_STATE = typeof APP_INSTALL_STATE[keyof typeof APP_INSTALL_STATE];
 export const APP_INSTALL_STATE: {
-    UNKNOWN: 'unknown';
-    NOT_INSTALLED: 'notInstalled';
-    NEWER_VERSION_INSTALLED: 'newerVersionInstalled';
-    SAME_VERSION_INSTALLED: 'sameVersionInstalled';
-    OLDER_VERSION_INSTALLED: 'olderVersionInstalled';
+    UNKNOWN: "unknown";
+    NOT_INSTALLED: "notInstalled";
+    NEWER_VERSION_INSTALLED: "newerVersionInstalled";
+    SAME_VERSION_INSTALLED: "sameVersionInstalled";
+    OLDER_VERSION_INSTALLED: "olderVersionInstalled";
 };
 
 export interface StartAppOptions {
@@ -195,7 +195,7 @@ export interface AppInfo {
     versionName: string | null;
 }
 
-export const REMOTE_CACHE_ROOT = '/data/local/tmp/appium_cache';
+export const REMOTE_CACHE_ROOT = "/data/local/tmp/appium_cache";
 
 declare const apkUtilsMethods: ApkUtils;
 export default apkUtilsMethods;

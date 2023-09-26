@@ -1,4 +1,4 @@
-import * as isaac from 'isaac';
+import * as isaac from "isaac";
 
 const r1 = isaac.random();
 const r2 = isaac.rand();

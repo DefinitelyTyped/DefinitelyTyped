@@ -1,6 +1,6 @@
-import { assertType } from './lib/assert';
-import Ember from 'ember';
-import { PersonWithNumberName, Person } from './create';
+import Ember from "ember";
+import { Person, PersonWithNumberName } from "./create";
+import { assertType } from "./lib/assert";
 
 // @ts-expect-error
 Person.create({ firstName: 99 });

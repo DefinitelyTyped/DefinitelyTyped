@@ -3,11 +3,11 @@
 // Definitions by: grgr-dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Crawler = require('simplecrawler');
+import Crawler = require("simplecrawler");
 
 type PriorityValues = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0;
-type FreqValues = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-type EventTypes = 'add' | 'done' | 'error' | 'ignore';
+type FreqValues = "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+type EventTypes = "add" | "done" | "error" | "ignore";
 type ExcludeFunctionProps<T> = Pick<T, { [K in keyof T]: T[K] extends (...args: any[]) => void ? never : K }[keyof T]>;
 
 type Options = Partial<ExcludeFunctionProps<Crawler>> & {
@@ -32,11 +32,10 @@ interface SiteMapRotator {
     finish: () => void;
 }
 
-type EventCallback<T extends EventTypes> =
-    T extends 'error' ? (error: ErrorMessage) => void :
-    T extends 'add' ? (url: string) => void :
-    T extends 'ignore' ? (url: string) => void :
-    () => void;
+type EventCallback<T extends EventTypes> = T extends "error" ? (error: ErrorMessage) => void
+    : T extends "add" ? (url: string) => void
+    : T extends "ignore" ? (url: string) => void
+    : () => void;
 
 interface Methods {
     start: () => void;

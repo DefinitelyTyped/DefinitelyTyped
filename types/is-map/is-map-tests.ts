@@ -1,6 +1,6 @@
-import isMap = require('is-map');
+import isMap = require("is-map");
 
 const tests = () => {
     !isMap(new Set());
-    isMap(Symbol('foo'));
+    isMap(Symbol("foo"));
 };

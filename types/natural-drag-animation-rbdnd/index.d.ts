@@ -3,8 +3,8 @@
 // Definitions by: Prajwal Kulkarni <https://github.com/prajwalkulkarni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { DraggingStyle, NotDraggingStyle, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import * as React from "react";
+import { DraggableStateSnapshot, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 
 export default NaturalDragAnimation;
 

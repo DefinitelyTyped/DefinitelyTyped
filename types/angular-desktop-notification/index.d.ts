@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace desktopNotification {
         /**
          * All options available during show notification according to https://developer.mozilla.org/en-US/docs/Web/API/notification
@@ -140,9 +140,9 @@ declare module 'angular' {
         // tslint:disable-next-line interface-name
         interface IDesktopNotificationService {
             permissions: {
-                default: 'default',
-                denied: 'denied',
-                granted: 'granted',
+                default: "default";
+                denied: "denied";
+                granted: "granted";
             };
 
             /**

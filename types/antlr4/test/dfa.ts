@@ -1,17 +1,17 @@
-import atn from 'antlr4/atn';
-import ATNConfigSet from 'antlr4/atn/ATNConfigSet';
-import SemanticContext from 'antlr4/atn/SemanticContext';
-import RuleContext from 'antlr4/context/RuleContext';
-import dfa from 'antlr4/dfa';
-import DFAState from 'antlr4/dfa/DFAState';
-import Recognizer from 'antlr4/Recognizer';
+import atn from "antlr4/atn";
+import ATNConfigSet from "antlr4/atn/ATNConfigSet";
+import SemanticContext from "antlr4/atn/SemanticContext";
+import RuleContext from "antlr4/context/RuleContext";
+import dfa from "antlr4/dfa";
+import DFAState from "antlr4/dfa/DFAState";
+import Recognizer from "antlr4/Recognizer";
 
 const { ATN } = atn;
 const { DFA, DFASerializer, LexerDFASerializer, PredPrediction } = dfa;
 
 class TestSemanticContext extends SemanticContext {
     evaluate(parser: Recognizer, outerContext: RuleContext): boolean {
-        throw new Error('Method not implemented.');
+        throw new Error("Method not implemented.");
     }
 }
 
@@ -36,9 +36,9 @@ dfaInstance.toLexerString(); // $ExpectType string | null
 dfaInstance.states; // $ExpectType HashSet
 
 // DFASerializer
-new DFASerializer(dfaInstance, ['']);
-new DFASerializer(dfaInstance, undefined, ['']);
-new DFASerializer(dfaInstance, [''], ['']);
+new DFASerializer(dfaInstance, [""]);
+new DFASerializer(dfaInstance, undefined, [""]);
+new DFASerializer(dfaInstance, [""], [""]);
 const dfaSerializerInstance = new DFASerializer(dfaInstance);
 dfaSerializerInstance.dfa; // $ExpectType DFA
 dfaSerializerInstance.literalNames; // $ExpectType string[]

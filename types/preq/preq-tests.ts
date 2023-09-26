@@ -1,8 +1,8 @@
-import preq = require('preq');
+import preq = require("preq");
 
 // #region preq
 {
-    preq('https://www.example.com').then(
+    preq("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -11,8 +11,8 @@ import preq = require('preq');
         },
     );
 
-    preq('https://www.example.com', {
-        query: 'foo=bar',
+    preq("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -24,10 +24,10 @@ import preq = require('preq');
         },
     );
 
-    preq('https://www.example.com', {
-        method: 'post',
-        query: 'foo=bar',
-        body: 'text=value',
+    preq("https://www.example.com", {
+        method: "post",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -40,10 +40,10 @@ import preq = require('preq');
     );
 
     preq({
-        uri: 'https://www.example.com',
-        method: 'post',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        method: "post",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -59,7 +59,7 @@ import preq = require('preq');
 
 // #region preq.get
 {
-    preq.get('https://www.example.com').then(
+    preq.get("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -68,8 +68,8 @@ import preq = require('preq');
         },
     );
 
-    preq.get('https://www.example.com', {
-        query: 'foo=bar',
+    preq.get("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -81,9 +81,9 @@ import preq = require('preq');
         },
     );
 
-    preq.get('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.get("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -96,9 +96,9 @@ import preq = require('preq');
     );
 
     preq.get({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -114,7 +114,7 @@ import preq = require('preq');
 
 // #region preq.head
 {
-    preq.head('https://www.example.com').then(
+    preq.head("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -123,8 +123,8 @@ import preq = require('preq');
         },
     );
 
-    preq.head('https://www.example.com', {
-        query: 'foo=bar',
+    preq.head("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -136,9 +136,9 @@ import preq = require('preq');
         },
     );
 
-    preq.head('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.head("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -151,9 +151,9 @@ import preq = require('preq');
     );
 
     preq.head({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -169,7 +169,7 @@ import preq = require('preq');
 
 // #region preq.mkcol
 {
-    preq.mkcol('https://www.example.com').then(
+    preq.mkcol("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -178,8 +178,8 @@ import preq = require('preq');
         },
     );
 
-    preq.mkcol('https://www.example.com', {
-        query: 'foo=bar',
+    preq.mkcol("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -191,9 +191,9 @@ import preq = require('preq');
         },
     );
 
-    preq.mkcol('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.mkcol("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -206,9 +206,9 @@ import preq = require('preq');
     );
 
     preq.mkcol({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -224,7 +224,7 @@ import preq = require('preq');
 
 // #region preq.options
 {
-    preq.options('https://www.example.com').then(
+    preq.options("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -233,8 +233,8 @@ import preq = require('preq');
         },
     );
 
-    preq.options('https://www.example.com', {
-        query: 'foo=bar',
+    preq.options("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -246,9 +246,9 @@ import preq = require('preq');
         },
     );
 
-    preq.options('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.options("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -261,9 +261,9 @@ import preq = require('preq');
     );
 
     preq.options({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -279,7 +279,7 @@ import preq = require('preq');
 
 // #region preq.patch
 {
-    preq.patch('https://www.example.com').then(
+    preq.patch("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -288,8 +288,8 @@ import preq = require('preq');
         },
     );
 
-    preq.patch('https://www.example.com', {
-        query: 'foo=bar',
+    preq.patch("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -301,9 +301,9 @@ import preq = require('preq');
         },
     );
 
-    preq.patch('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.patch("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -316,9 +316,9 @@ import preq = require('preq');
     );
 
     preq.patch({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -334,7 +334,7 @@ import preq = require('preq');
 
 // #region preq.post
 {
-    preq.post('https://www.example.com').then(
+    preq.post("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -343,8 +343,8 @@ import preq = require('preq');
         },
     );
 
-    preq.post('https://www.example.com', {
-        query: 'foo=bar',
+    preq.post("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -356,9 +356,9 @@ import preq = require('preq');
         },
     );
 
-    preq.post('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.post("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -371,9 +371,9 @@ import preq = require('preq');
     );
 
     preq.post({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -389,7 +389,7 @@ import preq = require('preq');
 
 // #region preq.put
 {
-    preq.put('https://www.example.com').then(
+    preq.put("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -398,8 +398,8 @@ import preq = require('preq');
         },
     );
 
-    preq.put('https://www.example.com', {
-        query: 'foo=bar',
+    preq.put("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -411,9 +411,9 @@ import preq = require('preq');
         },
     );
 
-    preq.put('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.put("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -426,9 +426,9 @@ import preq = require('preq');
     );
 
     preq.put({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -444,7 +444,7 @@ import preq = require('preq');
 
 // #region preq.trace
 {
-    preq.trace('https://www.example.com').then(
+    preq.trace("https://www.example.com").then(
         resp => {
             resp; // $ExpectType Response
         },
@@ -453,8 +453,8 @@ import preq = require('preq');
         },
     );
 
-    preq.trace('https://www.example.com', {
-        query: 'foo=bar',
+    preq.trace("https://www.example.com", {
+        query: "foo=bar",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -466,9 +466,9 @@ import preq = require('preq');
         },
     );
 
-    preq.trace('https://www.example.com', {
-        query: 'foo=bar',
-        body: 'text=value',
+    preq.trace("https://www.example.com", {
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(
@@ -481,9 +481,9 @@ import preq = require('preq');
     );
 
     preq.trace({
-        uri: 'https://www.example.com',
-        query: 'foo=bar',
-        body: 'text=value',
+        uri: "https://www.example.com",
+        query: "foo=bar",
+        body: "text=value",
         retries: 2,
         timeout: 1500,
     }).then(

@@ -5,65 +5,67 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AP {
-    type RequestOptions = {
-        /**
-         * The HTTP method name.
-         */
-        type?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
+    type RequestOptions =
+        & {
+            /**
+             * The HTTP method name.
+             */
+            type?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "PATCH";
 
-        /**
-         * If the request should be cached.
-         */
-        cache?: boolean;
+            /**
+             * If the request should be cached.
+             */
+            cache?: boolean;
 
-        /**
-         * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
-         */
-        data?: string | object;
+            /**
+             * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
+             */
+            data?: string | object;
 
-        /**
-         * The content-type string value of the entity body, above; required when data is supplied.
-         */
-        contentType?: string;
+            /**
+             * The content-type string value of the entity body, above; required when data is supplied.
+             */
+            contentType?: string;
 
-        /**
-         * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
-         */
-        headers?: { Accept: string; 'If-Match': string; 'If-None-Match': string };
+            /**
+             * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
+             */
+            headers?: { Accept: string; "If-Match": string; "If-None-Match": string };
 
-        /**
-         * An optional callback function executed when a HTTP status error code is returned.
-         */
-        error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
+            /**
+             * An optional callback function executed when a HTTP status error code is returned.
+             */
+            error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
-        /**
-         * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
-         */
-        experimental?: boolean;
-    } & (
-        | {
-              /**
-               * An optional callback function executed on a 200 success status code.
-               */
-              success?: (response: string) => void;
+            /**
+             * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
+             */
+            experimental?: boolean;
+        }
+        & (
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: string) => void;
 
-              /**
-               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
-               */
-              binaryAttachment?: false;
-          }
-        | {
-              /**
-               * An optional callback function executed on a 200 success status code.
-               */
-              success?: (response: ArrayBuffer) => void;
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment?: false;
+            }
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: ArrayBuffer) => void;
 
-              /**
-               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
-               */
-              binaryAttachment: true;
-          }
-    );
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment: true;
+            }
+        );
 
     function defineGlobal(module: object): void;
     function defineModule(name: string, module: object): void;
@@ -374,8 +376,7 @@ declare namespace AP {
              *     // editComponent.submitCallback(false, 'Cannot save the content');
              * });
              */
-            | 'confluence.customcontent.submit'
-
+            | "confluence.customcontent.submit"
             /**
              * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
              * If add-on didn't intercept this event, user will be redirected to the content view page.
@@ -400,8 +401,7 @@ declare namespace AP {
              *     editComponent.submitSuccessCallback(true);
              * });
              */
-            | 'confluence.customcontent.submitSuccess'
-
+            | "confluence.customcontent.submitSuccess"
             /**
              * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
              * If add-on didn't intercept this event, a flag message will be shown.
@@ -422,8 +422,7 @@ declare namespace AP {
              *     editComponent.submitErrorCallback(true);
              * });
              */
-            | 'confluence.customcontent.submitError'
-
+            | "confluence.customcontent.submitError"
             /**
              * The `confluence.customcontent.cancel` event will be emitted when user clicks close button.
              * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
@@ -446,7 +445,7 @@ declare namespace AP {
              *     editComponent.cancelCallback(true);
              * });
              */
-            | 'confluence.customcontent.cancel';
+            | "confluence.customcontent.cancel";
 
         interface EditComponent {
             /**
@@ -518,7 +517,7 @@ declare namespace AP {
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
              */
-            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen' | undefined;
+            size?: "small" | "medium" | "large" | "x-large" | "fullscreen" | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
@@ -641,7 +640,7 @@ declare namespace AP {
         /**
          * Returns the button that was requested (either cancel or submit). If the requested button does not exist, an empty Object will be returned instead.
          */
-        function getButton(button: 'cancel' | 'submit'): DialogButton | {};
+        function getButton(button: "cancel" | "submit"): DialogButton | {};
 
         /**
          * Stop the dialog from closing when the submit button is clicked
@@ -816,12 +815,12 @@ declare namespace AP {
                 /**
                  * Sets the type of the message. Valid options are "info", "success", "warning" and "error".
                  */
-                type: 'info' | 'success' | 'warning' | 'error';
+                type: "info" | "success" | "warning" | "error";
 
                 /**
                  * The closing behaviour that this flag has. Valid options are "manual", and "auto".
                  */
-                close: 'manual' | 'auto';
+                close: "manual" | "auto";
 
                 /**
                  * Map of {actionIdentifier: 'Action link text'} to add to the flag. The actionIdentifier will be passed to a 'flag.action' event if the link is clicked.
@@ -886,40 +885,42 @@ declare namespace AP {
          * });
          * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
          */
-        function popState(callback: (event: {
-            /**
-             * Add-on key
-             */
-            key: string;
-            /**
-             * URL hash
-             */
-            hash: null | string;
-            /**
-             * URL query parameters
-             */
-            query: null | string;
-            /**
-             * Title of the destination page.
-             */
-            title: string;
-            /**
-             * Complete url
-             */
-            href: string;
-            /**
-             * State defined in the pushState function
-             */
-            state: unknown;
-            /**
-             * URL added to history
-             */
-            newURL: string;
-            /**
-             * URL previously in the history, or undefined if no URLs were already in the history.
-             */
-            oldURL?: string;
-        }) => void): void;
+        function popState(
+            callback: (event: {
+                /**
+                 * Add-on key
+                 */
+                key: string;
+                /**
+                 * URL hash
+                 */
+                hash: null | string;
+                /**
+                 * URL query parameters
+                 */
+                query: null | string;
+                /**
+                 * Title of the destination page.
+                 */
+                title: string;
+                /**
+                 * Complete url
+                 */
+                href: string;
+                /**
+                 * State defined in the pushState function
+                 */
+                state: unknown;
+                /**
+                 * URL added to history
+                 */
+                newURL: string;
+                /**
+                 * URL previously in the history, or undefined if no URLs were already in the history.
+                 */
+                oldURL?: string;
+            }) => void,
+        ): void;
     }
 
     /**
@@ -1106,83 +1107,69 @@ declare namespace AP {
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            | 'dashboard'
-
+            | "dashboard"
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            | 'issue'
-
+            | "issue"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            | 'addonModule'
-
+            | "addonModule"
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            | 'userProfile'
-
+            | "userProfile"
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            | 'projectAdminSummary'
-
+            | "projectAdminSummary"
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            | 'projectAdminTabPanel'
-
+            | "projectAdminTabPanel"
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            | 'site';
+            | "site";
 
         type NavigatorTargetConfluence =
             /**
              * The view page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            | 'contentview'
-
+            | "contentview"
             /**
              * The edit page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            | 'contentedit'
-
+            | "contentedit"
             /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
-            | 'spaceview'
-
+            | "spaceview"
             /**
              * The space tools page. Takes a `spaceKey` to identify the space.
              */
-            | 'spacetools'
-
+            | "spacetools"
             /**
              * The dashboard of Confluence.
              */
-            | 'dashboard'
-
+            | "dashboard"
             /**
              * The profile page for a specific user. Takes a `username` or `userAccountId` to identify the user.
              */
-            | 'userProfile'
-
+            | "userProfile"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            | 'addonModule'
-
+            | "addonModule"
             /**
              * The list/collector page for pages, blogs and custom content contained in a space. Takes a `spaceKey` and a `contentType` to identify the content type.
              */
-            | 'contentlist'
-
+            | "contentlist"
             /**
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
-            | 'site';
+            | "site";
 
         type CustomDataBasicValue = string | number | boolean | null | undefined;
         type CustomDataValue = CustomDataBasicValue | CustomDataBasicValue[];
@@ -1196,7 +1183,7 @@ declare namespace AP {
             /**
              * Identifies the type of content. Can be either `page` or `blogpost`. Required for the `contentEdit` target.
              */
-            contentType: 'page' | 'blogpost';
+            contentType: "page" | "blogpost";
 
             /**
              * Identifies a space. Required for the `spaceView` and `spaceTools` targets.
@@ -1269,7 +1256,7 @@ declare namespace AP {
              *
              * This parameter is optional and defaults to `current`.
              */
-            embeddedContentRender?: 'current' | 'version-at-save' | undefined;
+            embeddedContentRender?: "current" | "version-at-save" | undefined;
 
             /**
              * Identifies a specific page within a site. Required for the `site` target and must begin with `/`.

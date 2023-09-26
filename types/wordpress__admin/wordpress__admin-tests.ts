@@ -1,5 +1,5 @@
 const frame = window.wp.media({
-    title: 'Media Library',
+    title: "Media Library",
 });
 
-frame.on('select', () => alert('works'));
+frame.on("select", () => alert("works"));

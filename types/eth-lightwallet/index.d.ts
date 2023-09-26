@@ -16,19 +16,19 @@ export namespace signing {
         keystore: keystore,
         pwDerivedKey: Uint8Array,
         rawTx: string,
-        signingAddress: string
+        signingAddress: string,
     ): string;
     function signMsg(
         keystore: keystore,
         pwDerivedKey: Uint8Array,
         rawMsg: string,
-        signingAddress: string
+        signingAddress: string,
     ): ECSignatureBuffer;
     function signMsgHash(
         keystore: keystore,
         pwDerivedKey: Uint8Array,
         msgHash: string,
-        signingAddress: string
+        signingAddress: string,
     ): ECSignatureBuffer;
     function concatSig(signature: any): string;
 }
@@ -36,7 +36,7 @@ export namespace signing {
 export class keystore {
     static createVault(
         options: any,
-        callback?: (error: Error, keystore: keystore) => void
+        callback?: (error: Error, keystore: keystore) => void,
     ): keystore;
     static generateRandomSeed(): string;
     static isSeedValid(seed: string): boolean;
@@ -44,12 +44,12 @@ export class keystore {
     serialize(): string;
     keyFromPassword(
         password: string,
-        callback?: (error: Error, pwDerivedKey: Uint8Array) => void
+        callback?: (error: Error, pwDerivedKey: Uint8Array) => void,
     ): Uint8Array;
     isDerivedKeyCorrect(pwDerivedKey: Uint8Array): boolean;
     generateNewAddress(
         pwDerivedKey: Uint8Array,
-        numberOfAddresses: number
+        numberOfAddresses: number,
     ): void;
     getSeed(pwDerivedKey: Uint8Array): string;
     exportPrivateKey(address: string, pwDerivedKey: Uint8Array): string;

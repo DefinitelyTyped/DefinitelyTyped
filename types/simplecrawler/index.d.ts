@@ -6,6 +6,6 @@
 
 export as namespace simplecrawler;
 
-import Crawler = require('./crawler');
+import Crawler = require("./crawler");
 
 export = Crawler;

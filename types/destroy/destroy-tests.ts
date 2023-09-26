@@ -1,7 +1,7 @@
-import destroy = require('destroy');
-import * as fs from 'fs';
+import destroy = require("destroy");
+import * as fs from "fs";
 
-const stream = fs.createReadStream('package.json');
+const stream = fs.createReadStream("package.json");
 
 // $ExpectType ReadStream
 destroy(stream);

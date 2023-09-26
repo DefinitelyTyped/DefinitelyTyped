@@ -5,7 +5,6 @@
         "no-mergeable-namespace": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

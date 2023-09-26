@@ -1,9 +1,9 @@
-import Emitter = require('component-emitter');
-import { SCServer } from 'socketcluster-server';
-import { SCAuthEngine } from 'sc-auth';
-import { SocketProtocolIgnoreStatuses, SocketProtocolErrorStatuses } from 'sc-errors';
-import { SCChannel } from 'sc-channel';
-import WebSocket = require('ws');
+import Emitter = require("component-emitter");
+import { SCAuthEngine } from "sc-auth";
+import { SCChannel } from "sc-channel";
+import { SocketProtocolErrorStatuses, SocketProtocolIgnoreStatuses } from "sc-errors";
+import { SCServer } from "socketcluster-server";
+import WebSocket = require("ws");
 
 declare class SCClientSocket extends Emitter {
     constructor(opts: SCClientSocket.ClientOptions);
@@ -15,19 +15,19 @@ declare class SCClientSocket extends Emitter {
         [channelName: string]: SCChannel;
     };
 
-    readonly CONNECTING: 'connecting';
-    readonly OPEN: 'open';
-    readonly CLOSED: 'closed';
+    readonly CONNECTING: "connecting";
+    readonly OPEN: "open";
+    readonly CLOSED: "closed";
 
     state: SCClientSocket.States;
     getState(): SCClientSocket.States;
 
-    readonly AUTHENTICATED: 'authenticated';
-    readonly UNAUTHENTICATED: 'unauthenticated';
+    readonly AUTHENTICATED: "authenticated";
+    readonly UNAUTHENTICATED: "unauthenticated";
 
     authState: SCClientSocket.AuthStates;
 
-    readonly PENDING: 'pending';
+    readonly PENDING: "pending";
 
     pendingReconnect: boolean;
     pendingReconnectTimeout: number;
@@ -102,91 +102,91 @@ declare class SCClientSocket extends Emitter {
     watchers(channelName: string): SCClientSocket.WatcherFunction[];
 
     on(event: string, listener: SCClientSocket.AnyFunction): this;
-    on(event: 'connecting', listener: () => void): this;
+    on(event: "connecting", listener: () => void): this;
     on(
-        event: 'connect',
+        event: "connect",
         listener: (status: SCClientSocket.ConnectStatus, processSubscriptions: () => void) => void,
     ): this;
-    on(event: 'connectAbort' | 'disconnect' | 'close', listener: (code: number, data: string | object) => void): this;
-    on(event: 'kickOut', listener: (message: string, channelName: string) => void): this;
-    on(event: 'authenticate', listener: (signedAuthToken: string | null) => void): this;
-    on(event: 'deauthenticate', listener: (oldSignedToken: string | null) => void): this;
-    on(event: 'authStateChange', listener: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
-    on(event: 'removeAuthToken', listener: (oldToken: object | null) => void): this;
+    on(event: "connectAbort" | "disconnect" | "close", listener: (code: number, data: string | object) => void): this;
+    on(event: "kickOut", listener: (message: string, channelName: string) => void): this;
+    on(event: "authenticate", listener: (signedAuthToken: string | null) => void): this;
+    on(event: "deauthenticate", listener: (oldSignedToken: string | null) => void): this;
+    on(event: "authStateChange", listener: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
+    on(event: "removeAuthToken", listener: (oldToken: object | null) => void): this;
     on(
-        event: 'subscribe' | 'subscribeRequest',
+        event: "subscribe" | "subscribeRequest",
         listener: (channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
     on(
-        event: 'subscribeStateChange',
+        event: "subscribeStateChange",
         listener: (stateChangeData: SCClientSocket.SubscribeStateChangeData) => void,
     ): this;
     on(
-        event: 'subscribeFail',
+        event: "subscribeFail",
         listener: (err: Error, channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
-    on(event: 'unsubscribe', listener: (channelName: string) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'raw', listener: (data: any) => void): this;
-    on(event: 'message', listener: (message: WebSocket.Data) => void): this;
+    on(event: "unsubscribe", listener: (channelName: string) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "raw", listener: (data: any) => void): this;
+    on(event: "message", listener: (message: WebSocket.Data) => void): this;
 
     once(event: string, listener: SCClientSocket.AnyFunction): this;
-    once(event: 'connecting', listener: () => void): this;
+    once(event: "connecting", listener: () => void): this;
     once(
-        event: 'connect',
+        event: "connect",
         listener: (status: SCClientSocket.ConnectStatus, processSubscriptions: () => void) => void,
     ): this;
-    once(event: 'connectAbort' | 'disconnect' | 'close', listener: (code: number, data: string | object) => void): this;
-    once(event: 'kickOut', listener: (message: string, channelName: string) => void): this;
-    once(event: 'authenticate', listener: (signedAuthToken: string | null) => void): this;
-    once(event: 'deauthenticate', listener: (oldSignedToken: string | null) => void): this;
-    once(event: 'authStateChange', listener: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
-    once(event: 'removeAuthToken', listener: (oldToken: object | null) => void): this;
+    once(event: "connectAbort" | "disconnect" | "close", listener: (code: number, data: string | object) => void): this;
+    once(event: "kickOut", listener: (message: string, channelName: string) => void): this;
+    once(event: "authenticate", listener: (signedAuthToken: string | null) => void): this;
+    once(event: "deauthenticate", listener: (oldSignedToken: string | null) => void): this;
+    once(event: "authStateChange", listener: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
+    once(event: "removeAuthToken", listener: (oldToken: object | null) => void): this;
     once(
-        event: 'subscribe' | 'subscribeRequest',
+        event: "subscribe" | "subscribeRequest",
         listener: (channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
     once(
-        event: 'subscribeStateChange',
+        event: "subscribeStateChange",
         listener: (stateChangeData: SCClientSocket.SubscribeStateChangeData) => void,
     ): this;
     once(
-        event: 'subscribeFail',
+        event: "subscribeFail",
         listener: (err: Error, channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
-    once(event: 'unsubscribe', listener: (channelName: string) => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'raw', listener: (data: any) => void): this;
-    once(event: 'message', listener: (message: WebSocket.Data) => void): this;
+    once(event: "unsubscribe", listener: (channelName: string) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "raw", listener: (data: any) => void): this;
+    once(event: "message", listener: (message: WebSocket.Data) => void): this;
 
     off(event?: string, listener?: SCClientSocket.AnyFunction): this;
-    off(event: 'connecting', listener?: () => void): this;
+    off(event: "connecting", listener?: () => void): this;
     off(
-        event: 'connect',
+        event: "connect",
         listener?: (status: SCClientSocket.ConnectStatus, processSubscriptions: () => void) => void,
     ): this;
-    off(event: 'connectAbort' | 'disconnect' | 'close', listener?: (code: number, data: string | object) => void): this;
-    off(event: 'kickOut', listener?: (message: string, channelName: string) => void): this;
-    off(event: 'authenticate', listener?: (signedAuthToken: string | null) => void): this;
-    off(event: 'deauthenticate', listener?: (oldSignedToken: string | null) => void): this;
-    off(event: 'authStateChange', listener?: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
-    off(event: 'removeAuthToken', listener?: (oldToken: object | null) => void): this;
+    off(event: "connectAbort" | "disconnect" | "close", listener?: (code: number, data: string | object) => void): this;
+    off(event: "kickOut", listener?: (message: string, channelName: string) => void): this;
+    off(event: "authenticate", listener?: (signedAuthToken: string | null) => void): this;
+    off(event: "deauthenticate", listener?: (oldSignedToken: string | null) => void): this;
+    off(event: "authStateChange", listener?: (stateChangeData: SCClientSocket.AuthStateChangeData) => void): this;
+    off(event: "removeAuthToken", listener?: (oldToken: object | null) => void): this;
     off(
-        event: 'subscribe' | 'subscribeRequest',
+        event: "subscribe" | "subscribeRequest",
         listener?: (channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
     off(
-        event: 'subscribeStateChange',
+        event: "subscribeStateChange",
         listener?: (stateChangeData: SCClientSocket.SubscribeStateChangeData) => void,
     ): this;
     off(
-        event: 'subscribeFail',
+        event: "subscribeFail",
         listener?: (err: Error, channelName: string, subscriptionOptions: SCChannel.SCChannelOptions) => void,
     ): this;
-    off(event: 'unsubscribe', listener?: (channelName: string) => void): this;
-    off(event: 'error', listener?: (err: Error) => void): this;
-    off(event: 'raw', listener?: (data: any) => void): this;
-    off(event: 'message', listener?: (message: WebSocket.Data) => void): this;
+    off(event: "unsubscribe", listener?: (channelName: string) => void): this;
+    off(event: "error", listener?: (err: Error) => void): this;
+    off(event: "raw", listener?: (data: any) => void): this;
+    off(event: "message", listener?: (message: WebSocket.Data) => void): this;
 }
 
 export = SCClientSocket;
@@ -325,6 +325,6 @@ declare namespace SCClientSocket {
     }
 
     type WatcherFunction = (data: any) => void;
-    type AuthStates = 'authenticated' | 'unauthenticated';
-    type States = 'connecting' | 'open' | 'closed';
+    type AuthStates = "authenticated" | "unauthenticated";
+    type States = "connecting" | "open" | "closed";
 }

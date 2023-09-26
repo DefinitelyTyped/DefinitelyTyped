@@ -26,11 +26,11 @@ declare class Sensor extends EventTarget {
     onerror: (this: this, ev: SensorErrorEvent) => any;
 
     addEventListener(
-        type: 'reading' | 'activate',
+        type: "reading" | "activate",
         listener: (this: this, ev: Event) => any,
         useCapture?: boolean,
     ): void;
-    addEventListener(type: 'error', listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
 interface SensorOptions {
@@ -38,7 +38,7 @@ interface SensorOptions {
 }
 
 interface MotionSensorOptions extends SensorOptions {
-    referenceFrame?: 'device' | 'screen' | undefined;
+    referenceFrame?: "device" | "screen" | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/

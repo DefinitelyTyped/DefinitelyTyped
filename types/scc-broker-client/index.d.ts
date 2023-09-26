@@ -4,16 +4,16 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import AGSimpleBroker = require('ag-simple-broker');
-import ConsumableStream = require('consumable-stream');
-import { Secret } from 'jsonwebtoken';
+import AGSimpleBroker = require("ag-simple-broker");
+import ConsumableStream = require("consumable-stream");
+import { Secret } from "jsonwebtoken";
 
-import ClusterBrokerClient = require('./cluster-broker-client');
+import ClusterBrokerClient = require("./cluster-broker-client");
 
 export interface Broker {
-    listener(eventName: 'subscribe'): ConsumableStream<AGSimpleBroker.SubscribeData>;
-    listener(eventName: 'unsubscribe'): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
-    listener(eventName: 'publish'): ConsumableStream<AGSimpleBroker.PublishData>;
+    listener(eventName: "subscribe"): ConsumableStream<AGSimpleBroker.SubscribeData>;
+    listener(eventName: "unsubscribe"): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
+    listener(eventName: "publish"): ConsumableStream<AGSimpleBroker.PublishData>;
 
     invokePublish(channelName: string, data: any, suppressEvent: boolean): Promise<void>;
 
@@ -29,7 +29,7 @@ export interface MappingEngine {
 export interface SCCBrokerClientOptions {
     stateServerReconnectRandomness?: number | undefined;
     authKey?: Secret | undefined;
-    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine | undefined;
+    mappingEngine?: "skeletonRendezvous" | "simple" | MappingEngine | undefined;
 
     clientPoolSize?: number | undefined;
 

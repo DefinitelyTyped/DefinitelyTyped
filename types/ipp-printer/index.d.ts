@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
-import { Readable } from 'node:stream';
+import * as http from "http";
+import { Readable } from "node:stream";
 
 declare class Printer {
     constructor(opts?: Printer.Options | string);
@@ -19,8 +19,8 @@ declare class Printer {
     state: number;
     uri: string;
 
-    on(event: 'job', handler: (job: Printer.Job) => void): Printer;
-    on(event: 'operation', handler: (operation: Printer.Operation) => void): Printer;
+    on(event: "job", handler: (job: Printer.Job) => void): Printer;
+    on(event: "operation", handler: (operation: Printer.Operation) => void): Printer;
 }
 
 declare namespace Printer {
@@ -53,7 +53,7 @@ declare namespace Printer {
     }
 
     interface Operation {
-        version: { major: number, minor: number };
+        version: { major: number; minor: number };
         operationId: number;
         requestId: number;
         groups: AttributeGroup[];

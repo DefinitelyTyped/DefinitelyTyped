@@ -1,8 +1,8 @@
-import { Class } from './Class';
-import { Container_Arguments, Container_Deferred } from './Container';
-import { Notifications } from './Notifications';
-import { Setting } from './Setting';
-import { Value } from './Value';
+import { Class } from "./Class";
+import { Container_Arguments, Container_Deferred } from "./Container";
+import { Notifications } from "./Notifications";
+import { Setting } from "./Setting";
+import { Value } from "./Value";
 
 export type Control_Settings = (Record<string, Setting<any> | Value<any>> | Array<Setting<any> | Value<any>>) & {
     default?: string | Setting<any> | undefined;

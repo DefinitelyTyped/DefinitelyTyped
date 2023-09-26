@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as RdfJs from 'rdf-js';
+import * as RdfJs from "rdf-js";
 
 export const Parser: {
-    new (options?: ParserOptions): SparqlParser;
+    new(options?: ParserOptions): SparqlParser;
 };
 
 export interface ParserOptions {
@@ -19,7 +19,7 @@ export interface ParserOptions {
 }
 
 export const Generator: {
-    new (options?: GeneratorOptions): SparqlGenerator;
+    new(options?: GeneratorOptions): SparqlGenerator;
 };
 
 export interface GeneratorOptions {
@@ -40,8 +40,8 @@ export interface SparqlGenerator {
 }
 
 export class Wildcard {
-    readonly termType: 'Wildcard';
-    readonly value: '*';
+    readonly termType: "Wildcard";
+    readonly value: "*";
     equals(other: RdfJs.Term | null | undefined): boolean;
 }
 
@@ -58,15 +58,15 @@ export type SparqlQuery = Query | Update;
 export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 
 export interface BaseQuery {
-    type: 'query';
+    type: "query";
     base?: string | undefined;
-    prefixes: { [prefix: string]: string; };
+    prefixes: { [prefix: string]: string };
     where?: Pattern[] | undefined;
     values?: ValuePatternRow[] | undefined;
 }
 
 export interface SelectQuery extends BaseQuery {
-    queryType: 'SELECT';
+    queryType: "SELECT";
     variables: Variable[] | [Wildcard];
     distinct?: boolean | undefined;
     from?: {
@@ -91,30 +91,30 @@ export interface Ordering {
 }
 
 export interface ConstructQuery extends BaseQuery {
-    queryType: 'CONSTRUCT';
+    queryType: "CONSTRUCT";
     template?: Triple[] | undefined;
 }
 
 export interface AskQuery extends BaseQuery {
-    queryType: 'ASK';
+    queryType: "ASK";
 }
 
 export interface DescribeQuery extends BaseQuery {
-    queryType: 'DESCRIBE';
+    queryType: "DESCRIBE";
     variables: Variable[] | [Wildcard];
 }
 
 export interface Update {
-    type: 'update';
+    type: "update";
     base?: string | undefined;
-    prefixes: { [prefix: string]: string; };
+    prefixes: { [prefix: string]: string };
     updates: UpdateOperation[];
 }
 
 export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
-    updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
+    updateType: "insert" | "delete" | "deletewhere" | "insertdelete";
     graph?: IriTerm | undefined;
     insert?: Quads[] | undefined;
     delete?: Quads[] | undefined;
@@ -130,33 +130,33 @@ export type ManagementOperation =
     | ClearDropOperation;
 
 export interface CopyMoveAddOperation {
-    type: 'copy' | 'move' | 'add';
+    type: "copy" | "move" | "add";
     silent: boolean;
     source: GraphOrDefault;
     destination: GraphOrDefault;
 }
 
 export interface LoadOperation {
-    type: 'load';
+    type: "load";
     silent: boolean;
     source: IriTerm;
     destination: IriTerm | false;
 }
 
 export interface CreateOperation {
-    type: 'create';
+    type: "create";
     silent: boolean;
     graph: IriTerm;
 }
 
 export interface ClearDropOperation {
-    type: 'clear' | 'drop';
+    type: "clear" | "drop";
     silent: boolean;
     graph: GraphReference;
 }
 
 export interface GraphOrDefault {
-    type: 'graph';
+    type: "graph";
     name?: IriTerm | undefined;
     default?: boolean | undefined;
 }
@@ -189,12 +189,12 @@ export type Pattern =
  * Basic Graph Pattern
  */
 export interface BgpPattern {
-    type: 'bgp';
+    type: "bgp";
     triples: Triple[];
 }
 
 export interface GraphQuads {
-    type: 'graph';
+    type: "graph";
     name: IriTerm;
     triples: Triple[];
 }
@@ -208,51 +208,51 @@ export type BlockPattern =
     | ServicePattern;
 
 export interface OptionalPattern {
-    type: 'optional';
+    type: "optional";
     patterns: Pattern[];
 }
 
 export interface UnionPattern {
-    type: 'union';
+    type: "union";
     patterns: Pattern[];
 }
 
 export interface GroupPattern {
-    type: 'group';
+    type: "group";
     patterns: Pattern[];
 }
 
 export interface GraphPattern {
-    type: 'graph';
+    type: "graph";
     name: IriTerm;
     patterns: Pattern[];
 }
 
 export interface MinusPattern {
-    type: 'minus';
+    type: "minus";
     patterns: Pattern[];
 }
 
 export interface ServicePattern {
-    type: 'service';
+    type: "service";
     name: IriTerm;
     silent: boolean;
     patterns: Pattern[];
 }
 
 export interface FilterPattern {
-    type: 'filter';
+    type: "filter";
     expression: Expression;
 }
 
 export interface BindPattern {
-    type: 'bind';
+    type: "bind";
     expression: Expression;
     variable: VariableTerm;
 }
 
 export interface ValuesPattern {
-    type: 'values';
+    type: "values";
     values: ValuePatternRow[];
 }
 
@@ -267,8 +267,8 @@ export interface Triple {
 }
 
 export interface PropertyPath {
-    type: 'path';
-    pathType: '|' | '/' | '^' | '+' | '*' | '!';
+    type: "path";
+    pathType: "|" | "/" | "^" | "+" | "*" | "!";
     items: Array<IriTerm | PropertyPath>;
 }
 
@@ -291,19 +291,19 @@ export interface BaseExpression {
 }
 
 export interface OperationExpression extends BaseExpression {
-    type: 'operation';
+    type: "operation";
     operator: string;
     args: Expression[];
 }
 
 export interface FunctionCallExpression extends BaseExpression {
-    type: 'functionCall';
+    type: "functionCall";
     function: string;
     args: Expression[];
 }
 
 export interface AggregateExpression extends BaseExpression {
-    type: 'aggregate';
+    type: "aggregate";
     expression: Expression;
     aggregation: string;
     separator?: string | undefined;

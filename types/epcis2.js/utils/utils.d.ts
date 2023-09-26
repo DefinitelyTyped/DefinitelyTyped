@@ -18,7 +18,13 @@ export function buildCPIUri(gcp: string, componentPartReference: string, serial:
 export function buildSGCNUri(gcp: string, couponReference: string, serialComponent: string): string;
 export function buildGINCUri(gcp: string, consignmentReference: string): string;
 export function buildGSINUri(gcp: string, shipperReference: string): string;
-export function buildITIPUri(gcp: string, itemRefAndIndicator: string, piece: string, total: string, serialNumber: string): string;
+export function buildITIPUri(
+    gcp: string,
+    itemRefAndIndicator: string,
+    piece: string,
+    total: string,
+    serialNumber: string,
+): string;
 export function buildGIDUri(manageNumber: string, objectClass: string, serialNumber: string): string;
 export function throwIfThereIsAnUnexpectedExtension(object: any): void;
 export function timer(ms: number): Promise<unknown>;

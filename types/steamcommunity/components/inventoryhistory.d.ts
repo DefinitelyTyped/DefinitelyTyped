@@ -1,4 +1,4 @@
-import { Callback } from '../index';
+import { Callback } from "../index";
 
 /*
  * Inventory history in a nutshell.

@@ -209,7 +209,7 @@ declare class PasswordCredential extends SiteBoundCredential {
      */
     constructor(data: PasswordCredentialData | HTMLFormElement);
 
-    readonly type: 'password';
+    readonly type: "password";
 
     /**
      * Represents the name which will be used for the ID field when submitting
@@ -260,7 +260,7 @@ interface FederatedCredentialData extends SiteBoundCredentialData {
 declare class FederatedCredential extends SiteBoundCredential {
     constructor(data: FederatedCredentialData);
 
-    readonly type: 'federated';
+    readonly type: "federated";
 
     /**
      * The credential’s federated identity provider. Must be a absolute,
@@ -306,7 +306,7 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: 'silent' | 'optional' | 'required' | 'conditional' | undefined;
+    mediation?: "silent" | "optional" | "required" | "conditional" | undefined;
 
     /**
      * This property specifies options for requesting a public-key signature.
@@ -394,7 +394,7 @@ interface PublicKeyCredentialRequestOptions {
     timeout?: number | undefined;
     rpId?: string | undefined;
     allowCredentials?: PublicKeyCredentialDescriptor[] | undefined;
-    userVerification?: 'required' | 'preferred' | 'discouraged' | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
     extensions?: AuthenticationExtensionsClientInputs | undefined;
 }
 
@@ -425,7 +425,7 @@ interface PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
  */
 interface PublicKeyCredentialParameters {
-    type: 'public-key';
+    type: "public-key";
     alg: number;
 }
 
@@ -433,7 +433,7 @@ interface PublicKeyCredentialParameters {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
  */
 interface PublicKeyCredentialDescriptor {
-    type: 'public-key';
+    type: "public-key";
     id: BufferSource;
     transports?: AuthenticatorTransport[];
 }
@@ -442,9 +442,9 @@ interface PublicKeyCredentialDescriptor {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
  */
 interface AuthenticatorSelectionCriteria {
-    authenticatorAttachment?: 'platform' | 'cross-platform' | undefined;
+    authenticatorAttachment?: "platform" | "cross-platform" | undefined;
     requireResidentKey?: boolean | undefined;
-    userVerification?: 'required' | 'preferred' | 'discouraged' | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
 }
 
 /**
@@ -491,7 +491,7 @@ interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
  * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
  */
 interface PublicKeyCredential extends Credential {
-    readonly type: 'public-key';
+    readonly type: "public-key";
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorResponse;
 }

@@ -3,7 +3,7 @@ declare function Label(process: Process): void;
 declare class Label {
     constructor(process: Process);
     private _changedProperties;
-    process: import('../process/Process');
+    process: import("../process/Process");
     private logger_;
     private _changed;
     private written_;
@@ -28,4 +28,4 @@ declare class Label {
 declare namespace Label {
     export { Process };
 }
-type Process = import('../process/Process');
+type Process = import("../process/Process");

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.9
 
-import { Polly, PollyConfig } from '@pollyjs/core';
+import { Polly, PollyConfig } from "@pollyjs/core";
 
 export interface Context {
     readonly polly: Polly;

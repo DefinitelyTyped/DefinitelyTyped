@@ -405,7 +405,7 @@ declare namespace Pubnub {
     }
 
     interface PresenceEvent {
-        action: 'join' | 'leave' | 'state-change' | 'timeout';
+        action: "join" | "leave" | "state-change" | "timeout";
         channel: string;
         occupancy: number;
         state?: any;
@@ -458,8 +458,8 @@ declare namespace Pubnub {
     interface BaseObjectsEvent {
         channel: string;
         message: {
-            event: 'set' | 'delete';
-            type: 'uuid' | 'channel' | 'membership';
+            event: "set" | "delete";
+            type: "uuid" | "channel" | "membership";
             data: object;
         };
         subscription: string | null;
@@ -469,40 +469,40 @@ declare namespace Pubnub {
 
     interface SetUUIDMetadataEvent<UUIDCustom extends ObjectCustom> extends BaseObjectsEvent {
         message: {
-            event: 'set';
-            type: 'uuid';
+            event: "set";
+            type: "uuid";
             data: UUIDMetadataObject<UUIDCustom>;
         };
     }
 
     interface RemoveUUIDMetadataEvent extends BaseObjectsEvent {
         message: {
-            event: 'delete';
-            type: 'uuid';
+            event: "delete";
+            type: "uuid";
             data: { id: string };
         };
     }
 
     interface SetChannelMetadataEvent<ChannelCustom extends ObjectCustom> extends BaseObjectsEvent {
         message: {
-            event: 'set';
-            type: 'channel';
+            event: "set";
+            type: "channel";
             data: ChannelMetadataObject<ChannelCustom>;
         };
     }
 
     interface RemoveChannelMetadataEvent extends BaseObjectsEvent {
         message: {
-            event: 'delete',
-            type: 'channel',
+            event: "delete";
+            type: "channel";
             data: { id: string };
         };
     }
 
     interface SetMembershipEvent<MembershipCustom extends ObjectCustom> extends BaseObjectsEvent {
         message: {
-            event: 'set';
-            type: 'membership';
+            event: "set";
+            type: "membership";
             data: {
                 channel: {
                     id: string;
@@ -519,8 +519,8 @@ declare namespace Pubnub {
 
     interface RemoveMembershipEvent extends BaseObjectsEvent {
         message: {
-            event: 'delete';
-            type: 'membership';
+            event: "delete";
+            type: "membership";
             data: {
                 channel: {
                     id: string;
@@ -536,13 +536,13 @@ declare namespace Pubnub {
         UUIDCustom extends ObjectCustom = ObjectCustom,
         ChannelCustom extends ObjectCustom = ObjectCustom,
         MembershipCustom extends ObjectCustom = ObjectCustom,
-        > =
-        SetUUIDMetadataEvent<UUIDCustom> |
-        RemoveUUIDMetadataEvent |
-        SetChannelMetadataEvent<ChannelCustom> |
-        RemoveChannelMetadataEvent |
-        SetMembershipEvent<MembershipCustom> |
-        RemoveMembershipEvent;
+    > =
+        | SetUUIDMetadataEvent<UUIDCustom>
+        | RemoveUUIDMetadataEvent
+        | SetChannelMetadataEvent<ChannelCustom>
+        | RemoveChannelMetadataEvent
+        | SetMembershipEvent<MembershipCustom>
+        | RemoveMembershipEvent;
 
     // publish
     interface PublishParameters {
@@ -1000,20 +1000,20 @@ declare namespace Pubnub {
     interface ListFilesResponse {
         status: number;
         data: Array<{
-          name: string;
-          id: string;
-          size: number;
-          created: string;
+            name: string;
+            id: string;
+            size: number;
+            created: string;
         }>;
         next: string;
         count: number;
-      }
+    }
 
     interface SendFileResponse {
         timetoken: string;
         name: string;
         id: string;
-      }
+    }
 
     interface DeleteFileResponse {
         status: number;
@@ -1048,12 +1048,14 @@ declare namespace Pubnub {
         profileUrl: string;
         email: string;
         status: string;
-        type: string;        
+        type: string;
     }
 
-    interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> { }
+    interface UUIDMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<UUIDMetadataFields> {}
 
-    interface UUIDMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<UUIDMetadataFields> { }
+    interface UUIDMetadataObject<Custom extends ObjectCustom>
+        extends v2ObjectData<Custom>, Nullable<UUIDMetadataFields>
+    {}
 
     interface SetUUIDMetadataParameters<Custom extends ObjectCustom> {
         uuid?: string | undefined;
@@ -1105,9 +1107,13 @@ declare namespace Pubnub {
         type: string;
     }
 
-    interface ChannelMetadata<Custom extends ObjectCustom> extends v2ObjectParam<Custom>, Partial<ChannelMetadataFields> { }
+    interface ChannelMetadata<Custom extends ObjectCustom>
+        extends v2ObjectParam<Custom>, Partial<ChannelMetadataFields>
+    {}
 
-    interface ChannelMetadataObject<Custom extends ObjectCustom> extends v2ObjectData<Custom>, Nullable<ChannelMetadataFields> { }
+    interface ChannelMetadataObject<Custom extends ObjectCustom>
+        extends v2ObjectData<Custom>, Nullable<ChannelMetadataFields>
+    {}
 
     interface SetChannelMetadataParameters<Custom extends ObjectCustom> {
         channel: string;
@@ -1140,11 +1146,15 @@ declare namespace Pubnub {
 
     // Memberships
 
-    interface UUIDMembershipObject<MembershipCustom extends ObjectCustom, UUIDCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
+    interface UUIDMembershipObject<MembershipCustom extends ObjectCustom, UUIDCustom extends ObjectCustom>
+        extends Omit<v2ObjectData<MembershipCustom>, "id">
+    {
         uuid: (UUIDMetadataObject<UUIDCustom> & { status?: string }) | { id: string };
     }
 
-    interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom> extends Omit<v2ObjectData<MembershipCustom>, "id"> {
+    interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom>
+        extends Omit<v2ObjectData<MembershipCustom>, "id">
+    {
         channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
     }
 
@@ -1187,11 +1197,11 @@ declare namespace Pubnub {
     type ManageChannelMembersResponse<
         MembershipCustom extends ObjectCustom,
         UUIDCustom extends ObjectCustom,
-        > = PagedObjectsResponse<UUIDMembershipObject<MembershipCustom, UUIDCustom>>;
+    > = PagedObjectsResponse<UUIDMembershipObject<MembershipCustom, UUIDCustom>>;
     type ManageMembershipsResponse<
         MembershipCustom extends ObjectCustom,
         ChannelCustom extends ObjectCustom,
-        > = PagedObjectsResponse<ChannelMembershipObject<MembershipCustom, ChannelCustom>>;
+    > = PagedObjectsResponse<ChannelMembershipObject<MembershipCustom, ChannelCustom>>;
 
     interface GetMembershipsParametersv2 extends ChannelMembersParameters {
         uuid?: string | undefined;
@@ -1244,7 +1254,7 @@ declare namespace Pubnub {
 
     interface APNS2Target {
         topic: string;
-        environment?: 'development' | 'production' | undefined;
+        environment?: "development" | "production" | undefined;
         excludedDevices?: string[] | undefined;
     }
     // NotificationPayloads

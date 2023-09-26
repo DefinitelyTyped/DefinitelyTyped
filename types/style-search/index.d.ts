@@ -10,7 +10,7 @@ declare namespace styleSearch {
      * Syntax feature options.
      * An error will be thrown if you use `only` more than once
      */
-    type SyntaxFeatureOption = 'skip' | 'check' | 'only';
+    type SyntaxFeatureOption = "skip" | "check" | "only";
 
     /**
      * For every match found your callback is invoked with:

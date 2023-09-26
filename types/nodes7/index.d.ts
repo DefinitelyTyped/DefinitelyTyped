@@ -90,8 +90,7 @@ declare class NodeS7 {
      * @param value The corresponding value
      * @param callback err: `true` if ANY of the items have "bad quality"
      */
-    writeItems(item: string,
-               value: NodeS7.S7Types, callback: (err: boolean) => void): number;
+    writeItems(item: string, value: NodeS7.S7Types, callback: (err: boolean) => void): number;
     /**
      * Writes items to the PLC using the corresponding values and calls callback when done.
      *
@@ -102,8 +101,7 @@ declare class NodeS7 {
      * @param values The corresponding values to the items
      * @param callback err: `true` if ANY of the items have "bad quality"
      */
-    writeItems(items: string[],
-               values: NodeS7.S7Types[], callback: (err: boolean) => void): number;
+    writeItems(items: string[], values: NodeS7.S7Types[], callback: (err: boolean) => void): number;
 
     /**
      * Reads the internal polling list and calls `callback` when done

@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { StripeElement, ElementCreatorOptions, ElementFactory } from './element';
-import { StripePaymentOptions, StripePaymentRequest } from './payment';
-import { BankTokenData, PiiTokenData, TokenData, IBANTokenData, TokenResult } from './token';
-import { SourceData, SourceResult } from './source';
+import { ElementCreatorOptions, ElementFactory, StripeElement } from "./element";
+import { StripePaymentOptions, StripePaymentRequest } from "./payment";
+import { SourceData, SourceResult } from "./source";
+import { BankTokenData, IBANTokenData, PiiTokenData, TokenData, TokenResult } from "./token";
 
 export interface StripeJS {
     /**
@@ -62,8 +62,8 @@ export interface StripeJS {
      * @return an object containing the generated token or an error
      */
     createToken(element: StripeElement, data?: TokenData | IBANTokenData): Promise<TokenResult>;
-    createToken(type: 'bank_account', data: BankTokenData): Promise<TokenResult>;
-    createToken(type: 'pii', data: PiiTokenData): Promise<TokenResult>;
+    createToken(type: "bank_account", data: BankTokenData): Promise<TokenResult>;
+    createToken(type: "pii", data: PiiTokenData): Promise<TokenResult>;
 
     /**
      *  convert payment information collected by Elements into a Source object that you safely pass
@@ -88,7 +88,7 @@ export interface StripeJS {
      *
      * @return an object containing the generated Source or an error
      */
-    retrieveSource({id, client_secret}: { id: string, client_secret: string }): Promise<SourceResult>;
+    retrieveSource({ id, client_secret }: { id: string; client_secret: string }): Promise<SourceResult>;
 }
 
 export interface StripeConfigOptions {
@@ -139,10 +139,10 @@ export interface StripeError {
 }
 
 export type errorType =
-    'api_connection_error' |
-    'api_error' |
-    'authentication_error' |
-    'card_error' |
-    'idempotency_error' |
-    'invalid_request_error' |
-    'rate_limit_error';
+    | "api_connection_error"
+    | "api_error"
+    | "authentication_error"
+    | "card_error"
+    | "idempotency_error"
+    | "invalid_request_error"
+    | "rate_limit_error";

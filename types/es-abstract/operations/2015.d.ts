@@ -1,4 +1,4 @@
-import ES2015 = require('../es2015');
+import ES2015 = require("../es2015");
 
 interface ES2015Operations extends Record<keyof ES2015, string> {
     // Unimplemented operations:

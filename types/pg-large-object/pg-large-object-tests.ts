@@ -1,10 +1,4 @@
-import {
-  LargeObject,
-  LargeObjectManager,
-  LargeObjectManagerSettings,
-  ReadStream,
-  WriteStream
-} from "pg-large-object";
+import { LargeObject, LargeObjectManager, LargeObjectManagerSettings, ReadStream, WriteStream } from "pg-large-object";
 import pg = require("pg");
 
 const buffer = Buffer.from("");
@@ -37,8 +31,8 @@ const writeConst = LargeObjectManager.WRITE; // $ExpectType number
 const readConst = LargeObjectManager.READ; // $ExpectType number
 const readWriteConst = LargeObjectManager.READWRITE; // $ExpectType number
 const config: LargeObjectManagerSettings = {
-  pg: new pg.Client(),
-  pgPromise: {}
+    pg: new pg.Client(),
+    pgPromise: {},
 };
 
 const lom = new LargeObjectManager(config);

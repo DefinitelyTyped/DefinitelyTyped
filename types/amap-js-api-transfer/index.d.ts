@@ -32,13 +32,13 @@ declare namespace AMap {
         /**
          * 不乘地铁模式
          */
-        NO_SUBWAY = 5
+        NO_SUBWAY = 5,
     }
 
     namespace Transfer {
         interface EventMap {
-            error: Event<'error', { info: string }>;
-            complete: Event<'complete', SearchResult>;
+            error: Event<"error", { info: string }>;
+            complete: Event<"complete", SearchResult>;
         }
         interface Options {
             /**
@@ -62,7 +62,7 @@ declare namespace AMap {
              * base:返回基本信息
              * all:返回全部信息
              */
-            extensions?: 'all' | 'base' | undefined;
+            extensions?: "all" | "base" | undefined;
             /**
              * AMap.Map对象, 展现结果的地图实例
              */
@@ -163,7 +163,7 @@ declare namespace AMap {
             /**
              * 换乘动作类型
              */
-            transit_mode: 'WALK';
+            transit_mode: "WALK";
             /**
              * 此换乘段导航信息
              */
@@ -199,7 +199,7 @@ declare namespace AMap {
             /**
              * 换乘动作类型
              */
-            transit_mode: 'TAXI';
+            transit_mode: "TAXI";
             /**
              * 此换乘段导航信息
              */
@@ -290,7 +290,7 @@ declare namespace AMap {
             /**
              * 换乘动作类型
              */
-            transit_mode: 'SUBWAY' | 'METRO_RAIL' | 'BUS';
+            transit_mode: "SUBWAY" | "METRO_RAIL" | "BUS";
             /**
              * 此换乘段导航信息
              */
@@ -419,7 +419,7 @@ declare namespace AMap {
             /**
              * 换乘动作类型
              */
-            transit_mode: 'RAILWAY';
+            transit_mode: "RAILWAY";
             /**
              * 此换乘段导航信息
              */
@@ -471,7 +471,7 @@ declare namespace AMap {
         interface Poi {
             location: LngLat;
             name: string;
-            type: 'start' | 'end';
+            type: "start" | "end";
         }
         interface SearchResultCommon {
             /**
@@ -525,7 +525,7 @@ declare namespace AMap {
         }
 
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
 
     class Transfer extends EventEmitter {
@@ -543,7 +543,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultBase) => void
+            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultBase) => void,
         ): void;
         /**
          * 根据起点和终点坐标，进行公交换乘查询
@@ -552,7 +552,7 @@ declare namespace AMap {
          */
         search(
             path: [Transfer.SearchPoint, Transfer.SearchPoint],
-            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultExt) => void
+            callback?: (status: Transfer.SearchStatus, result: string | Transfer.SearchResultExt) => void,
         ): void;
         /**
          * 设置公交换乘策略
@@ -587,19 +587,19 @@ declare namespace AMap {
             /**
              * 起点坐标
              */
-            origin: LocationValue,
+            origin: LocationValue;
             /**
              * 起点名称
              */
-            originName?: string | undefined,
+            originName?: string | undefined;
             /**
              * 终点坐标
              */
-            destination: LocationValue,
+            destination: LocationValue;
             /**
              * 终点名称
              */
-            destinationName?: string | undefined
+            destinationName?: string | undefined;
         }): void;
 
         // internal

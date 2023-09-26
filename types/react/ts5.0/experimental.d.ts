@@ -34,14 +34,14 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./canary');
+import React = require("./canary");
 
 export {};
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-declare module '.' {
+declare module "." {
     // Need an interface to not cause ReactNode to be a self-referential type.
     interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
@@ -57,8 +57,8 @@ declare module '.' {
         unstable_expectedLoadTime?: number | undefined;
     }
 
-    export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
-    export type SuspenseListTailMode = 'collapsed' | 'hidden';
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together";
+    export type SuspenseListTailMode = "collapsed" | "hidden";
 
     export interface SuspenseListCommonProps {
         /**
@@ -75,7 +75,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: 'forwards' | 'backwards';
+        revealOrder: "forwards" | "backwards";
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
@@ -90,7 +90,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']> | undefined;
+        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */

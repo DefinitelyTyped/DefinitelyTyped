@@ -70,7 +70,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/wasi.js)
  */
-declare module 'wasi' {
+declare module "wasi" {
     interface WASIOptions {
         /**
          * An array of strings that the WebAssembly application will
@@ -153,6 +153,6 @@ declare module 'wasi' {
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }
-declare module 'node:wasi' {
-    export * from 'wasi';
+declare module "node:wasi" {
+    export * from "wasi";
 }

@@ -6,9 +6,9 @@
 
 /// <reference types="angular" />
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace featureflags {
         export interface FlagData {
             /**
@@ -41,7 +41,7 @@ declare module 'angular' {
             set(
                 flagsPromise:
                     | ng.IPromise<ReadonlyArray<FlagData>>
-                    | ng.IHttpPromise<ReadonlyArray<FlagData>>
+                    | ng.IHttpPromise<ReadonlyArray<FlagData>>,
             ): void;
         }
     }

@@ -1,11 +1,11 @@
-import Controller from '@ember/controller';
+import Controller from "@ember/controller";
 
 Controller.extend({
-    queryParams: ['category'],
+    queryParams: ["category"],
     category: null,
     isExpanded: false,
 
     toggleBody() {
-        this.toggleProperty('isExpanded');
+        this.toggleProperty("isExpanded");
     },
 });

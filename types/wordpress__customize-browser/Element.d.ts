@@ -1,4 +1,4 @@
-import { Value } from './Value';
+import { Value } from "./Value";
 
 export interface Element_Synchronizer_Method<T> {
     update(to: T | ((this: HTMLElement, index: number, value: T) => T)): void;

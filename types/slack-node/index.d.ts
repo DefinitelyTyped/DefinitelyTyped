@@ -17,14 +17,13 @@ declare class Slack {
     constructor(token?: string, domain?: string);
     composeUrl(): string;
     setWebhook(url: string): this;
-    detectEmoji(emoji: string): { key: "icon_url" | "icon_emoji", val: string };
+    detectEmoji(emoji: string): { key: "icon_url" | "icon_emoji"; val: string };
     webhook(options: Slack.WebhookOptions, callback: (err: any, response: Slack.WebhookResponse) => void): void;
     api(method: string, callback: (err: any, response: any) => void): this;
     api(method: string, options: any, callback: (err: any, response: any) => void): this;
 }
 
 declare namespace Slack {
-
     export interface WebhookOptions {
         icon_emoji?: string | undefined;
         response_type?: string | undefined;

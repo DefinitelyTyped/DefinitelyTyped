@@ -8,7 +8,7 @@
 
 import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace blockUI {
         interface BlockUIConfig {
             /**
@@ -74,9 +74,8 @@ declare module 'angular' {
              * argument to the start method of the service.
              *
              * @param config the Angular request config object.
-             *
              */
-            requestFilter?(config: IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): string | boolean;
 
             /**
              * When the module is started it will inject the main block element
@@ -145,7 +144,7 @@ declare module 'angular' {
              *     If no argument is specified the default text message
              *     from the configuration is used.
              */
-            start(messageOrOptions?: (string | BlockUIConfig)): void;
+            start(messageOrOptions?: string | BlockUIConfig): void;
 
             /**
              * This will decrease the block count.

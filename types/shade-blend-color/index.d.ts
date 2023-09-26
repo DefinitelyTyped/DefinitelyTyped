@@ -50,4 +50,4 @@
  * // Error Check Fails (Some Errors are not Caught)
  * shadeBlend(0.42, "#salt"); // #salt + [42% Lighter] => #6b6b6b00 (...and a Pound of Salt is Jibberish)
  */
-export default function shadeBlendColor(percentage: number, from: string, to?: 'c' | string): string | null;
+export default function shadeBlendColor(percentage: number, from: string, to?: "c" | string): string | null;
