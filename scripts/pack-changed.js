@@ -1,9 +1,9 @@
 import { execSync } from "node:child_process";
-import { getAffectedPackagesFromDiff, getDefinitelyTyped } from "@definitelytyped/definitions-parser";
+import { getAffectedPackagesFromDiff, getDefinitelyTyped, parseDefinitions } from "@definitelytyped/definitions-parser";
 import { loggerWithErrors, writeTgz } from "@definitelytyped/utils";
 import { makeTypesVersionsForPackageJson } from "@definitelytyped/header-parser";
 import { mkdir, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { cpus, tmpdir } from "node:os";
 import path from "node:path";
 
 const dt = await getDefinitelyTyped({
@@ -12,6 +12,7 @@ const dt = await getDefinitelyTyped({
     parseInParallel: true,
 }, loggerWithErrors()[0]);
 
+await parseDefinitions(dt, { definitelyTypedPath: process.cwd(), nProcesses: cpus().length }, loggerWithErrors()[0]);
 const { changedPackages } = await getAffectedPackagesFromDiff(dt, process.cwd(), "affected");
 if (changedPackages.length === 0 || changedPackages.length > 10) {
     console.log(`Skipping packing because ${changedPackages.length} packages were changed.`);
