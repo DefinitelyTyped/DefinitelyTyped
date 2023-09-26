@@ -114,10 +114,10 @@ declare module "http" {
     // outgoing headers allows numbers (as they are converted internally to strings)
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
-        accept?: string | undefined;
-        'accept-charset'?: string | undefined;
-        'accept-encoding'?: string | undefined;
-        'accept-language'?: string | undefined;
+        accept?: string | string[] | undefined;
+        'accept-charset'?: string | string[] | undefined;
+        'accept-encoding'?: string | string[] | undefined;
+        'accept-language'?: string | string[] | undefined;
         'accept-ranges'?: string | undefined;
         'access-control-allow-credentials'?: string | undefined;
         'access-control-allow-headers'?: string | undefined;
@@ -132,7 +132,7 @@ declare module "http" {
         authorization?: string | undefined;
         'cache-control'?: string | undefined;
         'cdn-cache-control'?: string | undefined;
-        connection?: string | undefined;
+        connection?: string | string[] | undefined;
         'content-disposition'?: string | undefined;
         'content-encoding'?: string | undefined;
         'content-language'?: string | undefined;
@@ -141,7 +141,8 @@ declare module "http" {
         'content-range'?: string | undefined;
         'content-security-policy'?: string | undefined;
         'content-security-policy-report-only'?: string | undefined;
-        cookie?: string | undefined;
+        cookie?: string | string[] | undefined;
+        dav?: string | string[] | undefined;
         dnt?: string | undefined;
         date?: string | undefined;
         etag?: string | undefined;
@@ -156,12 +157,12 @@ declare module "http" {
         'if-range'?: string | undefined;
         'if-unmodified-since'?: string | undefined;
         'last-modified'?: string | undefined;
-        link?: string | undefined;
+        link?: string | string[] | undefined;
         location?: string | undefined;
         'max-forwards'?: string | undefined;
         origin?: string | undefined;
-        prgama?: string | undefined;
-        'proxy-authenticate'?: string | undefined;
+        prgama?: string | string[] | undefined;
+        'proxy-authenticate'?: string | string[] | undefined;
         'proxy-authorization'?: string | undefined;
         'public-key-pins'?: string | undefined;
         'public-key-pins-report-only'?: string | undefined;
@@ -171,9 +172,9 @@ declare module "http" {
         refresh?: string | undefined;
         'retry-after'?: string | undefined;
         'sec-websocket-accept'?: string | undefined;
-        'sec-websocket-extensions'?: string | undefined;
+        'sec-websocket-extensions'?: string | string[] | undefined;
         'sec-websocket-key'?: string | undefined;
-        'sec-websocket-protocol'?: string | undefined;
+        'sec-websocket-protocol'?: string | string[] | undefined;
         'sec-websocket-version'?: string | undefined;
         server?: string | undefined;
         'set-cookie'?: string[] | undefined;
@@ -185,9 +186,9 @@ declare module "http" {
         upgrade?: string | undefined;
         'upgrade-insecure-requests'?: string | undefined;
         vary?: string | undefined;
-        via?: string | undefined;
+        via?: string | string[] | undefined;
         warning?: string | undefined;
-        'www-authenticate'?: string | undefined;
+        'www-authenticate'?: string | string[] | undefined;
         'x-content-type-options'?: string | undefined;
         'x-dns-prefetch-control'?: string | undefined;
         'x-frame-options'?: string | undefined;

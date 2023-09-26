@@ -427,7 +427,8 @@ import * as url from "node:url";
     headers.origin = "https://example.com";
     headers["foo"] = "bar"; // custom header
 
-    headers['content-length'] = 100;
+    headers['content-length'] = 100; // numeric header
+    headers['accept-charset'] = ["UTF-8", "windows-1252"]; // array example
 }
 
 // statics
