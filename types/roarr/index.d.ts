@@ -47,7 +47,7 @@ export interface Logger {
         g?: SprintfArgumentType,
         h?: SprintfArgumentType,
         i?: SprintfArgumentType,
-        k?: SprintfArgumentType
+        k?: SprintfArgumentType,
     ): void;
 
     (
@@ -59,7 +59,7 @@ export interface Logger {
         f?: SprintfArgumentType,
         g?: SprintfArgumentType,
         h?: SprintfArgumentType,
-        i?: SprintfArgumentType
+        i?: SprintfArgumentType,
     ): void;
 }
 
@@ -78,8 +78,7 @@ export interface LoggerType extends Logger {
      *
      * @see https://www.npmjs.com/package/roarr#child
      */
-    child(contextOrFunction: TranslateMessageFunctionType | MessageContextType):
-        LoggerType;
+    child(contextOrFunction: TranslateMessageFunctionType | MessageContextType): LoggerType;
 
     /**
      * Returns the current context.

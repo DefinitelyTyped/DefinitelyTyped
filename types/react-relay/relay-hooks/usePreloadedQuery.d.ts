@@ -1,6 +1,6 @@
-import { GraphQLTaggedNode, OperationType, RenderPolicy } from 'relay-runtime';
+import { GraphQLTaggedNode, OperationType, RenderPolicy } from "relay-runtime";
 
-import { PreloadedQuery } from './EntryPointTypes';
+import { PreloadedQuery } from "./EntryPointTypes";
 
 export function usePreloadedQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
@@ -8,4 +8,4 @@ export function usePreloadedQuery<TQuery extends OperationType>(
     options?: {
         UNSTABLE_renderPolicy?: RenderPolicy | undefined;
     },
-): TQuery['response'];
+): TQuery["response"];

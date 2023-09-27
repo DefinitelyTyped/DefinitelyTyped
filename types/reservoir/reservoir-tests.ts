@@ -1,4 +1,4 @@
-import Reservoir = require('reservoir');
+import Reservoir = require("reservoir");
 
 // $ExpectType ReservoirArray<number>
 const x = Reservoir<number>(1);

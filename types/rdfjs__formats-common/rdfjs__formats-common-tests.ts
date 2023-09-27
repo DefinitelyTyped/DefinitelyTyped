@@ -1,12 +1,12 @@
-import formats, * as formatsNamed from '@rdfjs/formats-common';
-import { Stream, Sink } from 'rdf-js';
-import { SinkMap } from '@rdfjs/sink-map';
-import { EventEmitter } from 'events';
+import formats, * as formatsNamed from "@rdfjs/formats-common";
+import { SinkMap } from "@rdfjs/sink-map";
+import { EventEmitter } from "events";
+import { Sink, Stream } from "rdf-js";
 
 let parsers: SinkMap<EventEmitter, Stream> = formats.parsers;
 let serializers: SinkMap<Stream, EventEmitter> = formats.serializers;
 
-({parsers, serializers} = formatsNamed);
+({ parsers, serializers } = formatsNamed);
 
 type Parser = Sink<EventEmitter, Stream>;
 

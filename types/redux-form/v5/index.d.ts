@@ -6,8 +6,8 @@
 
 // Based on work by: Daniel Lytkin <https://github.com/aikoven>
 
-import * as React from 'react';
-import { Dispatch, Reducer } from 'redux';
+import * as React from "react";
+import { Dispatch, Reducer } from "redux";
 
 //
 // export const actionTypes: { [actionName: string]: string };

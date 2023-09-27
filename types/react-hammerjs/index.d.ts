@@ -25,7 +25,8 @@ declare namespace ReactHammer {
             | "DIRECTION_DOWN"
             | "DIRECTION_HORIZONTAL"
             | "DIRECTION_VERTICAL"
-            | "DIRECTION_ALL" | undefined;
+            | "DIRECTION_ALL"
+            | undefined;
         options?: HammerOptionsWithRecognizers | undefined;
         recognizeWith?: { [gesture: string]: Recognizer | string } | undefined;
         vertical?: boolean | undefined;

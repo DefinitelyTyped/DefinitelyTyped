@@ -6,7 +6,7 @@
 /// <reference types="node" />
 /// <reference types="less" />
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace less {
     interface Options {

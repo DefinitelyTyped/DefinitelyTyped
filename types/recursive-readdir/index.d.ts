@@ -8,7 +8,7 @@
 import * as fs from "fs";
 declare namespace RecursiveReaddir {
     type IgnoreFunction = (file: string, stats: fs.Stats) => boolean;
-    type Ignores = ReadonlyArray<string|IgnoreFunction>;
+    type Ignores = ReadonlyArray<string | IgnoreFunction>;
     type Callback = (error: Error, files: string[]) => void;
     interface readDir {
         (path: string, ignores?: Ignores): Promise<string[]>;

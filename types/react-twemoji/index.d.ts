@@ -3,7 +3,7 @@
 // Definitions by: smallpence <https://github.com/smallpence>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface TwemojiProps {
     children?: React.ReactNode;

@@ -12,17 +12,17 @@
 declare function round(value: number, multiple?: number, direction?: round.Direction): number;
 
 declare namespace round {
-  type Direction = 'up' | 'down';
+    type Direction = "up" | "down";
 
-  /**
-   * Convenience method for rounding down.
-   */
-  function down(value: number, multiple?: number): number;
+    /**
+     * Convenience method for rounding down.
+     */
+    function down(value: number, multiple?: number): number;
 
-  /**
-   * Convenience method for rounding up.
-   */
-   function up(value: number, multiple?: number): number;
+    /**
+     * Convenience method for rounding up.
+     */
+    function up(value: number, multiple?: number): number;
 }
 
 export = round;

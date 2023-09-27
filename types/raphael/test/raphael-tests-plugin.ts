@@ -13,7 +13,7 @@ declare module "raphael" {
         firstLevel: {
             secondLevel: {
                 method(): boolean;
-            }
+            };
         };
     }
 

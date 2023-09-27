@@ -14,4 +14,4 @@ export interface MarqueeProps extends React.HTMLProps<HTMLTextAreaElement> {
     trailing?: number | undefined;
 }
 
-export default class Marquee extends React.Component<MarqueeProps> { }
+export default class Marquee extends React.Component<MarqueeProps> {}

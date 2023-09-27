@@ -6,6 +6,6 @@
 declare function requireindex(
     path: string,
     basenames?: ReadonlyArray<string>,
-): {[filename: string]: any};
+): { [filename: string]: any };
 
 export = requireindex;

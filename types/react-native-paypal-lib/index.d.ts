@@ -3,47 +3,47 @@
 // Definitions by: Gustavo Silva <https://github.com/gstvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type ENVIRONMENT = 'NO_NETWORK' | 'SANDBOX' | 'PRODUCTION';
-export type INTENT = 'SALE' | 'AUTHORIZE' | 'ORDER';
+export type ENVIRONMENT = "NO_NETWORK" | "SANDBOX" | "PRODUCTION";
+export type INTENT = "SALE" | "AUTHORIZE" | "ORDER";
 
 export type CURRENCIES =
-    | 'AUD'
-    | 'BRL'
-    | 'CAD'
-    | 'CNY'
-    | 'CZK'
-    | 'DKK'
-    | 'EUR'
-    | 'HKD'
-    | 'HUF'
-    | 'INR'
-    | 'ILS'
-    | 'JPY'
-    | 'MYR'
-    | 'MXN'
-    | 'TWD'
-    | 'NZD'
-    | 'NOK'
-    | 'PHP'
-    | 'PLN'
-    | 'GBP'
-    | 'RUB'
-    | 'SGD'
-    | 'SEK'
-    | 'CHF'
-    | 'THB'
-    | 'USD';
+    | "AUD"
+    | "BRL"
+    | "CAD"
+    | "CNY"
+    | "CZK"
+    | "DKK"
+    | "EUR"
+    | "HKD"
+    | "HUF"
+    | "INR"
+    | "ILS"
+    | "JPY"
+    | "MYR"
+    | "MXN"
+    | "TWD"
+    | "NZD"
+    | "NOK"
+    | "PHP"
+    | "PLN"
+    | "GBP"
+    | "RUB"
+    | "SGD"
+    | "SEK"
+    | "CHF"
+    | "THB"
+    | "USD";
 
 export interface EnvironmentParam {
-    NO_NETWORK: 'NO_NETWORK';
-    SANDBOX: 'SANDBOX';
-    PRODUCTION: 'PRODUCTION';
+    NO_NETWORK: "NO_NETWORK";
+    SANDBOX: "SANDBOX";
+    PRODUCTION: "PRODUCTION";
 }
 
 export interface IntentParam {
-    SALE: 'SALE';
-    AUTHORIZE: 'AUTHORIZE';
-    ORDER: 'ORDER';
+    SALE: "SALE";
+    AUTHORIZE: "AUTHORIZE";
+    ORDER: "ORDER";
 }
 
 export interface PayPalPayment {

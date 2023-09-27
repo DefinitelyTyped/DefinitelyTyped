@@ -3,7 +3,7 @@
 // Definitions by: Naveen DA <https://github.com/NaveenDA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 interface Units {
     length: string;

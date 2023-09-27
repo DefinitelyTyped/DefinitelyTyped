@@ -1,4 +1,4 @@
-import {NativeEventSubscription} from '../EventEmitter/RCTNativeAppEventEmitter';
+import { NativeEventSubscription } from "../EventEmitter/RCTNativeAppEventEmitter";
 
 /**
  * AppState can tell you if the app is in the foreground or background,
@@ -23,26 +23,26 @@ import {NativeEventSubscription} from '../EventEmitter/RCTNativeAppEventEmitter'
  *
  * @see https://reactnative.dev/docs/appstate#app-states
  */
-export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
+export type AppStateEvent = "change" | "memoryWarning" | "blur" | "focus";
 export type AppStateStatus =
-  | 'active'
-  | 'background'
-  | 'inactive'
-  | 'unknown'
-  | 'extension';
+    | "active"
+    | "background"
+    | "inactive"
+    | "unknown"
+    | "extension";
 
 export interface AppStateStatic {
-  currentState: AppStateStatus;
-  isAvailable: boolean;
+    currentState: AppStateStatus;
+    isAvailable: boolean;
 
-  /**
-   * Add a handler to AppState changes by listening to the change event
-   * type and providing the handler
-   */
-  addEventListener(
-    type: AppStateEvent,
-    listener: (state: AppStateStatus) => void,
-  ): NativeEventSubscription;
+    /**
+     * Add a handler to AppState changes by listening to the change event
+     * type and providing the handler
+     */
+    addEventListener(
+        type: AppStateEvent,
+        listener: (state: AppStateStatus) => void,
+    ): NativeEventSubscription;
 }
 
 export const AppState: AppStateStatic;

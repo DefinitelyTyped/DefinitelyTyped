@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-declare function regexgen(inputs: string[], flags?: RegExp['flags']): RegExp;
+declare function regexgen(inputs: string[], flags?: RegExp["flags"]): RegExp;
 
 declare namespace regexgen {
     class Trie {
@@ -12,8 +12,8 @@ declare namespace regexgen {
         addAll(inputs: string[]): void;
         minimize(): void;
 
-        toString(flags?: RegExp['flags']): string;
-        toRegExp(flags?: RegExp['flags']): RegExp;
+        toString(flags?: RegExp["flags"]): string;
+        toRegExp(flags?: RegExp["flags"]): RegExp;
     }
 }
 

@@ -1,5 +1,5 @@
-import Spinner  = require('react-spinkit');
-import * as React from 'react';
+import Spinner = require("react-spinkit");
+import * as React from "react";
 
 // Examples taken from http://kyleamathews.github.io/react-spinkit/
 const spinners = [

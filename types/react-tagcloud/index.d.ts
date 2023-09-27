@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="react"/>
+/// <reference types="react"/>
 
 declare namespace ReactTagCloud {
     interface TagCloudProps {
@@ -20,7 +20,7 @@ declare namespace ReactTagCloud {
         onClick?: Function | undefined;
         disableRandomColor?: boolean | undefined;
     }
-    interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
+    interface TagCloudClass extends React.ComponentClass<TagCloudProps> {}
 
     interface DefaultRendererFactoryOptions {
         tagRenderer?: Function | undefined;
@@ -31,11 +31,10 @@ declare namespace ReactTagCloud {
         (tag: any, size: number, key: string | number, handlers: any): any;
     }
     interface DefaultRendererFactory {
-        new (_ref?: DefaultRendererFactoryOptions): RendererFunction;
+        new(_ref?: DefaultRendererFactoryOptions): RendererFunction;
         (_ref?: DefaultRendererFactoryOptions): RendererFunction;
     }
 }
-
 
 // export = TagCloud
 declare namespace reactTagCloud {
@@ -44,5 +43,5 @@ declare namespace reactTagCloud {
 }
 
 declare module "react-tagcloud" {
-    export = reactTagCloud
+    export = reactTagCloud;
 }

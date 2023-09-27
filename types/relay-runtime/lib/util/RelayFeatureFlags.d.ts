@@ -1,4 +1,4 @@
-import { Disposable } from './RelayRuntimeTypes';
+import { Disposable } from "./RelayRuntimeTypes";
 
 export interface FeatureFlags {
     ENABLE_CLIENT_EDGES: boolean;

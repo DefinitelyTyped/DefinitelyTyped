@@ -15,7 +15,7 @@ declare namespace NotificationSystem {
         level?: "error" | "warning" | "info" | "success" | undefined;
         position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc" | undefined;
         autoDismiss?: number | undefined;
-        dismissible?: 'both' | 'button' | 'click' | 'hide' | 'none' | boolean | undefined;
+        dismissible?: "both" | "button" | "click" | "hide" | "none" | boolean | undefined;
         action?: ActionObject | undefined;
         children?: React.ReactNode | undefined;
         onAdd?: CallBackFunction | undefined;
@@ -68,10 +68,9 @@ declare namespace NotificationSystem {
     }
 
     export interface State {
-        notifications: Notification[]
+        notifications: Notification[];
     }
 }
-
 
 declare class NotificationSystem extends React.Component<NotificationSystem.Attributes, NotificationSystem.State> {
     addNotification(notification: NotificationSystem.Notification): NotificationSystem.Notification;

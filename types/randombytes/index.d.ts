@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { randomBytes as _randomBytes } from 'crypto';
+import { randomBytes as _randomBytes } from "crypto";
 
 export = randomBytes;
 

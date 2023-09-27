@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ActionCreator, Action, Dispatch } from "redux";
-import Mousetrap = require('mousetrap');
-import 'mousetrap/extensions/global';
+import { Action, ActionCreator, Dispatch } from "redux";
+import Mousetrap = require("mousetrap");
+import "mousetrap/extensions/global";
 
 export { Mousetrap };
 export const mousetrap: Mousetrap.MousetrapInstance;
@@ -14,7 +14,7 @@ export const mousetrap: Mousetrap.MousetrapInstance;
 export function bindShortcut(
     keys: KeyBindings,
     actionCreator: ActionBindings,
-    preventDefault?: boolean
+    preventDefault?: boolean,
 ): (dispatch: Dispatch<any>) => void;
 
 export function bindShortcuts(
@@ -36,5 +36,5 @@ export type BasicShortcutDefinition = [KeyBindings, ActionBindings];
 export type ShortcutDefinitionWithPreventDefault = [
     KeyBindings,
     ActionBindings,
-    boolean
+    boolean,
 ];

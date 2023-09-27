@@ -9,29 +9,29 @@
  * ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER
  */
 export interface ToastAndroidStatic {
-  /**
-   * String message: A string with the text to toast
-   * int duration: The duration of the toast.
-   * May be ToastAndroid.SHORT or ToastAndroid.LONG
-   */
-  show(message: string, duration: number): void;
-  /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
-  showWithGravity(message: string, duration: number, gravity: number): void;
+    /**
+     * String message: A string with the text to toast
+     * int duration: The duration of the toast.
+     * May be ToastAndroid.SHORT or ToastAndroid.LONG
+     */
+    show(message: string, duration: number): void;
+    /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
+    showWithGravity(message: string, duration: number, gravity: number): void;
 
-  showWithGravityAndOffset(
-    message: string,
-    duration: number,
-    gravity: number,
-    xOffset: number,
-    yOffset: number,
-  ): void;
-  // Toast duration constants
-  SHORT: number;
-  LONG: number;
-  // Toast gravity constants
-  TOP: number;
-  BOTTOM: number;
-  CENTER: number;
+    showWithGravityAndOffset(
+        message: string,
+        duration: number,
+        gravity: number,
+        xOffset: number,
+        yOffset: number,
+    ): void;
+    // Toast duration constants
+    SHORT: number;
+    LONG: number;
+    // Toast gravity constants
+    TOP: number;
+    BOTTOM: number;
+    CENTER: number;
 }
 
 export const ToastAndroid: ToastAndroidStatic;

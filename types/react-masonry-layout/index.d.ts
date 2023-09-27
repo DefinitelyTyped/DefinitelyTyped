@@ -3,7 +3,7 @@
 // Definitions by: moonrailgun <https://github.com/moonrailgun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ReactMasonryLayoutExport {
     interface MasonryLayoutSizes {

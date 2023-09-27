@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Hammer from 'hammerjs';
-import * as React from 'react';
+import * as Hammer from "hammerjs";
+import * as React from "react";
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-type HammerOptionsWithRecognizers = Omit<HammerOptions, 'recognizers'> & {
+type HammerOptionsWithRecognizers = Omit<HammerOptions, "recognizers"> & {
     recognizers?: { [gesture: string]: RecognizerOptions } | undefined;
 };
 

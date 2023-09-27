@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import { Plugin } from 'unified';
+import { Plugin } from "unified";
 
 declare namespace remarkAbbr {
     type Abbr = Plugin<[Options?]>;

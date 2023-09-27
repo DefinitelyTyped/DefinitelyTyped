@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Pivot } from './Utilities';
-import { TableRenderers } from './TableRenderers';
+import * as React from "react";
+import { TableRenderers } from "./TableRenderers";
+import { Pivot } from "./Utilities";
 export interface PivotTableProps extends Pivot {
     // maybe some generic can be implemented for the last two.
     renderers?: TableRenderers;

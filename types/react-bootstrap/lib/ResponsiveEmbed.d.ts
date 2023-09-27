@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ResponsiveEmbed {
     export interface ResponsiveEmbedProps extends React.HTMLProps<ResponsiveEmbed> {
@@ -7,5 +7,5 @@ declare namespace ResponsiveEmbed {
         bsClass?: string | undefined;
     }
 }
-declare class ResponsiveEmbed extends React.Component<ResponsiveEmbed.ResponsiveEmbedProps> { }
+declare class ResponsiveEmbed extends React.Component<ResponsiveEmbed.ResponsiveEmbedProps> {}
 export = ResponsiveEmbed;

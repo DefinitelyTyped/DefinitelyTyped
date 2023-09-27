@@ -37,5 +37,5 @@ export const NotificationsProvider: React.FC<{
      * Horizontal direction which notification appears from. If not provided, the notification will
      * appear from top or bottom, depending on position prop
      */
-    slideFromSide?: 'right' | 'left' | undefined;
+    slideFromSide?: "right" | "left" | undefined;
 }>;

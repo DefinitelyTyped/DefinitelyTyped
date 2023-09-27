@@ -6,10 +6,9 @@
 
 /// <reference types='react' />
 
-declare module 'react-user-tour' {
-
+declare module "react-user-tour" {
     // Import React
-    import { HTMLAttributes, ComponentClass } from 'react';
+    import { ComponentClass, HTMLAttributes } from "react";
 
     interface TourStep {
         /**
@@ -39,7 +38,7 @@ declare module 'react-user-tour' {
         /**
         Each step can also take an optional argument, position which will override the position of the tour component in relation to the selector that is determined by the application.
         */
-        position?: 'left' | 'right' | 'top' | 'topLeft' | 'bottom' | 'bottomLeft' | undefined;
+        position?: "left" | "right" | "top" | "topLeft" | "bottom" | "bottomLeft" | undefined;
     }
 
     interface TourProps extends HTMLAttributes<any> {

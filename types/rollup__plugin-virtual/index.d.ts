@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace virtual {
     interface Options {

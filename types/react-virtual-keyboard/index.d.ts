@@ -28,4 +28,4 @@ export interface KeyboardState {
     className: string;
 }
 
-export default class Keyboard extends Component<KeyboardProps, KeyboardState> { }
+export default class Keyboard extends Component<KeyboardProps, KeyboardState> {}

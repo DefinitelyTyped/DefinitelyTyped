@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export namespace Subscriber {
     interface DefaultProps {
@@ -27,5 +27,5 @@ export namespace Broadcast {
     }
 }
 
-export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> { }
-export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> { }
+export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> {}
+export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> {}

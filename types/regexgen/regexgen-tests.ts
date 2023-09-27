@@ -1,8 +1,8 @@
-import regexgen = require('regexgen');
+import regexgen = require("regexgen");
 
-regexgen(['foobar', 'foobaz', 'foozap', 'fooza']);
+regexgen(["foobar", "foobaz", "foozap", "fooza"]);
 
 const t = new regexgen.Trie();
-t.add('foobar');
-t.add('foobaz');
+t.add("foobar");
+t.add("foobaz");
 t.toRegExp();

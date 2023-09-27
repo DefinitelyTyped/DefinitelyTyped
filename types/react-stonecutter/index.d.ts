@@ -4,7 +4,7 @@
 //                  Iswenzz <https://github.com/Iswenzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export type Coordinates = [number, number];
 export interface Layout {

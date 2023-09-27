@@ -3,8 +3,8 @@
 // Definitions by: Rodolphe Lemasquerier <https://github.com/rlemasquerier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface CheckBoxProps {
     style?: StyleProp<ViewStyle> | undefined;

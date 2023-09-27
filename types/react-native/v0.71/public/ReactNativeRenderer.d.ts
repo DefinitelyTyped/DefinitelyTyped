@@ -1,4 +1,4 @@
-import {GestureResponderEvent} from '../Libraries/Types/CoreEventTypes';
+import { GestureResponderEvent } from "../Libraries/Types/CoreEventTypes";
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
@@ -26,106 +26,106 @@ import {GestureResponderEvent} from '../Libraries/Types/CoreEventTypes';
  * Use TouchableHighlight anywhere where you would use a button or link on web.
  */
 export interface GestureResponderHandlers {
-  /**
-   * A view can become the touch responder by implementing the correct negotiation methods.
-   * There are two methods to ask the view if it wants to become responder:
-   */
+    /**
+     * A view can become the touch responder by implementing the correct negotiation methods.
+     * There are two methods to ask the view if it wants to become responder:
+     */
 
-  /**
-   * Does this view want to become responder on the start of a touch?
-   */
-  onStartShouldSetResponder?:
-    | ((event: GestureResponderEvent) => boolean)
-    | undefined;
+    /**
+     * Does this view want to become responder on the start of a touch?
+     */
+    onStartShouldSetResponder?:
+        | ((event: GestureResponderEvent) => boolean)
+        | undefined;
 
-  /**
-   * Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
-   */
-  onMoveShouldSetResponder?:
-    | ((event: GestureResponderEvent) => boolean)
-    | undefined;
+    /**
+     * Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
+     */
+    onMoveShouldSetResponder?:
+        | ((event: GestureResponderEvent) => boolean)
+        | undefined;
 
-  /**
-   * If the View returns true and attempts to become the responder, one of the following will happen:
-   */
+    /**
+     * If the View returns true and attempts to become the responder, one of the following will happen:
+     */
 
-  onResponderEnd?: ((event: GestureResponderEvent) => void) | undefined;
+    onResponderEnd?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   * The View is now responding for touch events.
-   * This is the time to highlight and show the user what is happening
-   */
-  onResponderGrant?: ((event: GestureResponderEvent) => void) | undefined;
+    /**
+     * The View is now responding for touch events.
+     * This is the time to highlight and show the user what is happening
+     */
+    onResponderGrant?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   * Something else is the responder right now and will not release it
-   */
-  onResponderReject?: ((event: GestureResponderEvent) => void) | undefined;
+    /**
+     * Something else is the responder right now and will not release it
+     */
+    onResponderReject?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   * If the view is responding, the following handlers can be called:
-   */
+    /**
+     * If the view is responding, the following handlers can be called:
+     */
 
-  /**
-   * The user is moving their finger
-   */
-  onResponderMove?: ((event: GestureResponderEvent) => void) | undefined;
+    /**
+     * The user is moving their finger
+     */
+    onResponderMove?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   * Fired at the end of the touch, ie "touchUp"
-   */
-  onResponderRelease?: ((event: GestureResponderEvent) => void) | undefined;
+    /**
+     * Fired at the end of the touch, ie "touchUp"
+     */
+    onResponderRelease?: ((event: GestureResponderEvent) => void) | undefined;
 
-  onResponderStart?: ((event: GestureResponderEvent) => void) | undefined;
+    onResponderStart?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   *  Something else wants to become responder.
-   *  Should this view release the responder? Returning true allows release
-   */
-  onResponderTerminationRequest?:
-    | ((event: GestureResponderEvent) => boolean)
-    | undefined;
+    /**
+     *  Something else wants to become responder.
+     *  Should this view release the responder? Returning true allows release
+     */
+    onResponderTerminationRequest?:
+        | ((event: GestureResponderEvent) => boolean)
+        | undefined;
 
-  /**
-   * The responder has been taken from the View.
-   * Might be taken by other views after a call to onResponderTerminationRequest,
-   * or might be taken by the OS without asking (happens with control center/ notification center on iOS)
-   */
-  onResponderTerminate?: ((event: GestureResponderEvent) => void) | undefined;
+    /**
+     * The responder has been taken from the View.
+     * Might be taken by other views after a call to onResponderTerminationRequest,
+     * or might be taken by the OS without asking (happens with control center/ notification center on iOS)
+     */
+    onResponderTerminate?: ((event: GestureResponderEvent) => void) | undefined;
 
-  /**
-   * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
-   * where the deepest node is called first.
-   * That means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.
-   * This is desirable in most cases, because it makes sure all controls and buttons are usable.
-   *
-   * However, sometimes a parent will want to make sure that it becomes responder.
-   * This can be handled by using the capture phase.
-   * Before the responder system bubbles up from the deepest component,
-   * it will do a capture phase, firing on*ShouldSetResponderCapture.
-   * So if a parent View wants to prevent the child from becoming responder on a touch start,
-   * it should have a onStartShouldSetResponderCapture handler which returns true.
-   */
-  onStartShouldSetResponderCapture?:
-    | ((event: GestureResponderEvent) => boolean)
-    | undefined;
+    /**
+     * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
+     * where the deepest node is called first.
+     * That means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.
+     * This is desirable in most cases, because it makes sure all controls and buttons are usable.
+     *
+     * However, sometimes a parent will want to make sure that it becomes responder.
+     * This can be handled by using the capture phase.
+     * Before the responder system bubbles up from the deepest component,
+     * it will do a capture phase, firing on*ShouldSetResponderCapture.
+     * So if a parent View wants to prevent the child from becoming responder on a touch start,
+     * it should have a onStartShouldSetResponderCapture handler which returns true.
+     */
+    onStartShouldSetResponderCapture?:
+        | ((event: GestureResponderEvent) => boolean)
+        | undefined;
 
-  /**
-   * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
-   * where the deepest node is called first.
-   * That means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.
-   * This is desirable in most cases, because it makes sure all controls and buttons are usable.
-   *
-   * However, sometimes a parent will want to make sure that it becomes responder.
-   * This can be handled by using the capture phase.
-   * Before the responder system bubbles up from the deepest component,
-   * it will do a capture phase, firing on*ShouldSetResponderCapture.
-   * So if a parent View wants to prevent the child from becoming responder on a touch start,
-   * it should have a onStartShouldSetResponderCapture handler which returns true.
-   */
-  onMoveShouldSetResponderCapture?:
-    | ((event: GestureResponderEvent) => boolean)
-    | undefined;
+    /**
+     * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
+     * where the deepest node is called first.
+     * That means that the deepest component will become responder when multiple Views return true for *ShouldSetResponder handlers.
+     * This is desirable in most cases, because it makes sure all controls and buttons are usable.
+     *
+     * However, sometimes a parent will want to make sure that it becomes responder.
+     * This can be handled by using the capture phase.
+     * Before the responder system bubbles up from the deepest component,
+     * it will do a capture phase, firing on*ShouldSetResponderCapture.
+     * So if a parent View wants to prevent the child from becoming responder on a touch start,
+     * it should have a onStartShouldSetResponderCapture handler which returns true.
+     */
+    onMoveShouldSetResponderCapture?:
+        | ((event: GestureResponderEvent) => boolean)
+        | undefined;
 }
 
 /**

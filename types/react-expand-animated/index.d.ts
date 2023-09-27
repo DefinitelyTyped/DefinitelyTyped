@@ -3,8 +3,8 @@
 // Definitions by: Ben Langlois <https://github.com/BenLanglois>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
+import * as React from "react";
 
 export interface ExpandProps {
     /**

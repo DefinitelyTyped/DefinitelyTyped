@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Carousel {
     /**
@@ -64,7 +64,7 @@ declare namespace Carousel {
         children?: React.ReactNode;
     }
 
-    type ObjectFit = React.CSSProperties['objectFit'];
+    type ObjectFit = React.CSSProperties["objectFit"];
 
     /**
      * The Ref carousel element with the imperative handlers.
@@ -89,30 +89,31 @@ declare namespace Carousel {
      */
 
     type SmallWidgetPositions =
-        | 'topLeft'
-        | 'topCenter'
-        | 'topRight'
-        | 'centerLeft'
-        | 'centerCenter'
-        | 'centerRight'
-        | 'bottomLeft'
-        | 'bottomCenter'
-        | 'bottomRight';
+        | "topLeft"
+        | "topCenter"
+        | "topRight"
+        | "centerLeft"
+        | "centerCenter"
+        | "centerRight"
+        | "bottomLeft"
+        | "bottomCenter"
+        | "bottomRight";
 
     /**
      * The available position for large widgets
      * @see
      */
 
-    type LargeWidgetPositions = 'top' | 'bottom';
+    type LargeWidgetPositions = "top" | "bottom";
 
     /**
      * The props of the carousel
      * @see {@link https://github.com/yifaneye/react-gallery-carousel#props}
      */
 
-    type CarouselProps = (CarouselWithChildren | CarouselWithImages) &
-        Partial<{
+    type CarouselProps =
+        & (CarouselWithChildren | CarouselWithImages)
+        & Partial<{
             thumbnails: React.ReactNode;
             index: number;
             isRTL: boolean;

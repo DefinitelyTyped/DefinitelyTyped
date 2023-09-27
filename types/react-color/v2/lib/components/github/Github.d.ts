@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface GithubPickerStylesProps {
     card: CSSProperties;
@@ -16,4 +16,4 @@ export interface GithubPickerProps extends CustomPickerProps {
     styles?: Partial<Classes<GithubPickerStylesProps>> | undefined;
 }
 
-export default class GithubPicker extends Component<GithubPickerProps> { }
+export default class GithubPicker extends Component<GithubPickerProps> {}

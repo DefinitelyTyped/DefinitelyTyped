@@ -2,14 +2,14 @@
 // Project: https://github.com/fbaiodias/react-video-recorder#readme
 // Definitions by: Gabriel Cartier <https://github.com/GabrielCartier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
 export type VideoRecorderMimeTypes =
-    | 'video/webm;codecs="vp8|opus"'
-    | 'video/webm;codecs=h264'
-    | 'video/webm;codecs=vp9'
-    | 'video/webm'
-    | 'video/mp4';
+    | "video/webm;codecs=\"vp8|opus\""
+    | "video/webm;codecs=h264"
+    | "video/webm;codecs=vp9"
+    | "video/webm"
+    | "video/mp4";
 
 export interface VideoActionsProps {
     isVideoInputSupported: boolean;

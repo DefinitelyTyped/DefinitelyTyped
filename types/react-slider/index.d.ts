@@ -203,10 +203,12 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderThumb?: ((
-        props: HTMLPropsWithRefCallback<HTMLDivElement>,
-        state: { index: number; value: T; valueNow: number },
-    ) => JSX.Element | null) | undefined;
+    renderThumb?:
+        | ((
+            props: HTMLPropsWithRefCallback<HTMLDivElement>,
+            state: { index: number; value: T; valueNow: number },
+        ) => JSX.Element | null)
+        | undefined;
 
     /**
      * Provide a custom render function for the track node.
@@ -220,10 +222,12 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default props => <div {...props} />
      */
-    renderTrack?: ((
-        props: HTMLPropsWithRefCallback<HTMLDivElement>,
-        state: { index: number; value: T },
-    ) => JSX.Element | null) | undefined;
+    renderTrack?:
+        | ((
+            props: HTMLPropsWithRefCallback<HTMLDivElement>,
+            state: { index: number; value: T },
+        ) => JSX.Element | null)
+        | undefined;
 
     /**
      * Disables thumb move when clicking the slider track

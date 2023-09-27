@@ -3,8 +3,8 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginCreator, Postcss, Root } from 'postcss';
-import Processor = require('postcss/lib/processor');
+import { PluginCreator, Postcss, Root } from "postcss";
+import Processor = require("postcss/lib/processor");
 
 declare namespace rtlcss {
     interface MapOptions {
@@ -45,8 +45,8 @@ declare namespace rtlcss {
          */
         blacklist?:
             | {
-                  [pluginName: string]: Record<string, unknown>;
-              }
+                [pluginName: string]: Record<string, unknown>;
+            }
             | undefined;
         /**
          * Removes directives comments from output CSS.
@@ -63,8 +63,8 @@ declare namespace rtlcss {
         processUrls?:
             | boolean
             | {
-                  [key: string]: boolean;
-              }
+                [key: string]: boolean;
+            }
             | undefined;
         /**
          * The default array of String Map.

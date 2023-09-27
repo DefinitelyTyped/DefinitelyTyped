@@ -9,7 +9,7 @@ import * as React from "react";
 
 export interface ReactSoundProps {
     url: string;
-    playStatus: 'PLAYING' | 'STOPPED' | 'PAUSED';
+    playStatus: "PLAYING" | "STOPPED" | "PAUSED";
     playFromPosition?: number | undefined;
     position?: number | undefined;
     volume?: number | undefined;

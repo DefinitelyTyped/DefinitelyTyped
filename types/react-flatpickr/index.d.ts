@@ -6,12 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactElement } from "react";
 import flatpickr from "flatpickr";
+import { Component, ReactElement } from "react";
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface DateTimePickerProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'children' | 'value' | 'onChange'> {
+export interface DateTimePickerProps
+    extends Omit<React.ComponentPropsWithoutRef<"input">, "children" | "value" | "onChange">
+{
     defaultValue?: string | undefined;
     options?: flatpickr.Options.Options | undefined;
     onChange?: flatpickr.Options.Hook | undefined;
@@ -25,7 +27,12 @@ export interface DateTimePickerProps extends Omit<React.ComponentPropsWithoutRef
     value?: string | Date | number | ReadonlyArray<string | Date | number> | undefined;
     className?: string | undefined;
     children?: React.ReactNode | undefined;
-    render?: ((props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement | null) => void) => ReactElement) | undefined;
+    render?:
+        | ((
+            props: Omit<DateTimePickerProps, "options" | "render">,
+            ref: (node: HTMLInputElement | null) => void,
+        ) => ReactElement)
+        | undefined;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {

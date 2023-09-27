@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import ProcessImage from "react-imgpro";
 
 class Test extends React.Component<any> {

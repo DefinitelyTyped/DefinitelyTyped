@@ -3,7 +3,7 @@
 // Definitions by: “GlennChia” <https://github.com/GlennChia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 interface locale {
     format: string;
@@ -75,7 +75,7 @@ interface locale {
             missingOpen: string;
             missingClose: string;
             cannotWrap: string;
-        }
+        };
     };
     string: {
         missingOpen: string;

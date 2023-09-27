@@ -3,7 +3,7 @@
 // Definitions by: rxliuli <https://github.com/rxliuli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 interface AutoExternalOptions {
     /**

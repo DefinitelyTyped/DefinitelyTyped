@@ -3,7 +3,7 @@
 // Definitions by: ibrahim <https://github.com/ibrahim-13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
+import { Component } from "react";
 
 export interface ResizerProps {
     className?: string | undefined;

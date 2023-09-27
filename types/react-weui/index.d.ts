@@ -21,10 +21,8 @@ export class ActionSheet {
 export class Article {
     constructor(...args: any[]);
     render(): any;
-    static defaultProps: {
-    };
-    static propTypes: {
-    };
+    static defaultProps: {};
+    static propTypes: {};
 }
 
 export class Badge {
@@ -593,10 +591,8 @@ export namespace CellHeader {
 }
 
 export namespace Cells {
-    const defaultProps: {
-    };
-    const propTypes: {
-    };
+    const defaultProps: {};
+    const propTypes: {};
 }
 
 export namespace CityPicker {

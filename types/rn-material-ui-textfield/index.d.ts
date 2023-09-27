@@ -4,17 +4,17 @@
 //                 Gabriel Donadel Dall'Agnol <https://github.com/gabrieldonadel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 import {
-  StyleProp,
-  TextInputProps,
-  TextStyle,
-  ViewStyle,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  TextInputChangeEventData,
-  ColorValue
-} from 'react-native';
+    ColorValue,
+    NativeSyntheticEvent,
+    StyleProp,
+    TextInputChangeEventData,
+    TextInputFocusEventData,
+    TextInputProps,
+    TextStyle,
+    ViewStyle,
+} from "react-native";
 
 export interface ContentInset {
     top?: number | undefined;
@@ -44,7 +44,7 @@ export interface LabelOffset {
 }
 
 export interface TextFieldProps extends TextInputProps {
-    textColor?:	ColorValue | undefined;
+    textColor?: ColorValue | undefined;
     fontSize?: number | undefined;
     labelFontSize?: number | undefined;
     lineWidth?: number | undefined;
@@ -58,8 +58,8 @@ export interface TextFieldProps extends TextInputProps {
     suffix?: string | undefined;
     error?: string | undefined;
     errorColor?: ColorValue | undefined;
-    lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
-    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    lineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
+    disabledLineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
     animationDuration?: number | undefined;
     characterRestriction?: number | undefined;
     disabled?: boolean | undefined;

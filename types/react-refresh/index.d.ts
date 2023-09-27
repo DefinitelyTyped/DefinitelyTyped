@@ -3,4 +3,4 @@
 // Definitions by: Yarden Porat <https://github.com/yardenporat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './runtime';
+export * from "./runtime";

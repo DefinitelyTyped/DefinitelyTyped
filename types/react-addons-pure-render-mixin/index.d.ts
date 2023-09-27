@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Mixin } from 'react';
+import { Mixin } from "react";
 
 declare var PureRenderMixin: PureRenderMixin;
 export = PureRenderMixin;
 
-interface PureRenderMixin extends Mixin<any, any> { }
+interface PureRenderMixin extends Mixin<any, any> {}

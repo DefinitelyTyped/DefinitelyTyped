@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { StyleProp, TextStyle, ImageStyle, ViewStyle, ImageURISource } from 'react-native';
-import * as moment from 'moment';
+import * as moment from "moment";
+import * as React from "react";
+import { ImageStyle, ImageURISource, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface DatePickerCustomStylesProps {
     placeholderText?: StyleProp<TextStyle> | undefined;
@@ -25,8 +25,8 @@ export interface DatePickerCustomStylesProps {
 }
 
 export interface DatePickerProps {
-    mode?: 'date' | 'datetime' | 'time' | undefined;
-    androidMode?: 'default' | 'calendar' | 'spinner' | undefined;
+    mode?: "date" | "datetime" | "time" | undefined;
+    androidMode?: "default" | "calendar" | "spinner" | undefined;
     date?: string | Date | moment.Moment | undefined;
     format?: string | undefined;
     iconSource?: ImageURISource | undefined;

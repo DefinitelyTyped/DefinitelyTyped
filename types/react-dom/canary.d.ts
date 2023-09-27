@@ -26,13 +26,13 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/index.js to see how the exports are declared,
 // but confirm with published source code (e.g. https://unpkg.com/react-dom@canary) that these exports end up in the published code
 
-import React = require('react');
-import ReactDOM = require('.');
+import React = require("react");
+import ReactDOM = require(".");
 
 export {};
 
-declare module '.' {
-    type PreloadAs = 'font' | 'script' | 'style';
+declare module "." {
+    type PreloadAs = "font" | "script" | "style";
     interface PreloadOptions {
         as: PreloadAs;
         crossOrigin?: string | undefined;
@@ -40,7 +40,7 @@ declare module '.' {
     }
     function preload(href: string, options?: PreloadOptions): void;
 
-    type PreinitAs = 'script' | 'style';
+    type PreinitAs = "script" | "style";
     interface PreinitOptions {
         as: PreinitAs;
         crossOrigin?: string | undefined;

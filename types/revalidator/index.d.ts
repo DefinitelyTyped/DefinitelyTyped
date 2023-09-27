@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Revalidator {
-
     interface IOptions {
         /** Enforce format constraints (default true) */
         validateFormats?: boolean | undefined;
@@ -22,8 +21,19 @@ declare namespace Revalidator {
         validate<T>(object: T, schema: JSONSchema<T>, options?: IOptions): IReturnMessage;
     }
 
-    type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
-    type Formats = 'url' | 'email' | 'ip-address' | 'ipv6' | 'date-time' | 'date' | 'time' | 'color' | 'host-name' | 'utc-millisec' | 'regex';
+    type Types = "string" | "number" | "integer" | "array" | "boolean" | "object" | "null" | "any";
+    type Formats =
+        | "url"
+        | "email"
+        | "ip-address"
+        | "ipv6"
+        | "date-time"
+        | "date"
+        | "time"
+        | "color"
+        | "host-name"
+        | "utc-millisec"
+        | "regex";
 
     interface IErrrorProperty {
         property: string;
@@ -36,22 +46,22 @@ declare namespace Revalidator {
     }
 
     interface JSONSchema<T> {
-        type?: 'object' | undefined;
+        type?: "object" | undefined;
         properties?: ISchemas<T> | undefined;
         patternProperties?: ISchemas<T> | undefined;
     }
 
     interface ISchemas<T> {
-        [index: string]: ISchema<T>|JSONSchema<T>;
+        [index: string]: ISchema<T> | JSONSchema<T>;
     }
 
     interface ISchema<T> {
         /**The type of value should be equal to the expected value */
-        type: Types|Types[];
+        type: Types | Types[];
         /**If true, the value should not be undefined */
         required?: boolean | undefined;
         /**The expected value regex needs to be satisfied by the value */
-        pattern?: RegExp|string | undefined;
+        pattern?: RegExp | string | undefined;
         /**The length of value must be greater than or equal to expected value */
         maxLength?: number | undefined;
         /**Description for this object */
@@ -81,7 +91,7 @@ declare namespace Revalidator {
         /**Custom messages for different constraints */
         message?: string | undefined;
         /**Custom messages for different constraints */
-        messages?: {[index: string]: string} | undefined;
+        messages?: { [index: string]: string } | undefined;
         /**Default value */
         default?: any;
         /**Value must be a valid format */
@@ -91,7 +101,7 @@ declare namespace Revalidator {
         /**Value is valid only if the dependent value is valid */
         dependencies?: string | undefined;
         /**Property to describe items for type: 'array' */
-        items?: ISchema<T>|JSONSchema<T> | undefined
+        items?: ISchema<T> | JSONSchema<T> | undefined;
     }
 }
 

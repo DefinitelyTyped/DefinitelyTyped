@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Scheduler, { SchedulerData } from 'react-big-scheduler';
+import * as React from "react";
+import Scheduler, { SchedulerData } from "react-big-scheduler";
 
 const sd = new SchedulerData();
 

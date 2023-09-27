@@ -1,5 +1,5 @@
-import { Lanes, Fiber } from 'react-reconciler';
-import { Config } from './frontend';
+import { Fiber, Lanes } from "react-reconciler";
+import { Config } from "./frontend";
 
 export type AnyFn = (...args: any[]) => any;
 export interface Wall {
@@ -28,11 +28,11 @@ export interface Plugins {
     stylex: StyleXPlugin | null;
 }
 
-export type BrowserTheme = 'dark' | 'light';
+export type BrowserTheme = "dark" | "light";
 
 export type CanViewElementSource = (inspectedElement: InspectedElement) => boolean;
 
-export type TabID = 'components' | 'profiler';
+export type TabID = "components" | "profiler";
 
 export type ViewAttributeSource = (id: number, path: Array<string | number>) => void;
 
@@ -358,7 +358,7 @@ export class ProfilingCache {
 
 export type BatchUID = number;
 export type Milliseconds = number;
-export type ReactMeasureType = 'commit' | 'render-idle' | 'render' | 'layout-effects' | 'passive-effects';
+export type ReactMeasureType = "commit" | "render-idle" | "render" | "layout-effects" | "passive-effects";
 export type ReactLane = number;
 
 export interface ReactMeasure {
@@ -371,11 +371,11 @@ export interface ReactMeasure {
 }
 
 export type ReactComponentMeasureType =
-    | 'render'
-    | 'layout-effect-mount'
-    | 'layout-effect-unmount'
-    | 'passive-effect-mount'
-    | 'passive-effect-unmount';
+    | "render"
+    | "layout-effect-mount"
+    | "layout-effect-unmount"
+    | "passive-effect-mount"
+    | "passive-effect-unmount";
 export interface ReactComponentMeasure {
     readonly type: ReactComponentMeasureType;
     readonly componentName: string;
@@ -438,13 +438,13 @@ export interface BaseReactScheduleEvent extends BaseReactEvent {
 }
 
 export interface ReactScheduleRenderEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-render';
+    readonly type: "schedule-render";
 }
 export interface ReactScheduleStateUpdateEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-state-update';
+    readonly type: "schedule-state-update";
 }
 export interface ReactScheduleForceUpdateEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-force-update';
+    readonly type: "schedule-force-update";
 }
 export type SchedulingEvent = ReactScheduleRenderEvent | ReactScheduleStateUpdateEvent | ReactScheduleForceUpdateEvent;
 
@@ -455,20 +455,20 @@ export interface Snapshot {
     readonly timestamp: Milliseconds;
     width: number;
 }
-export type Phase = 'mount' | 'update';
+export type Phase = "mount" | "update";
 
 export interface SuspenseEvent extends BaseReactEvent {
-    readonly type: 'suspense';
+    readonly type: "suspense";
     depth: number;
     duration: number | null;
     readonly id: string;
     readonly phase: Phase | null;
     promiseName: string | null;
-    resolution: 'rejected' | 'resolved' | 'unresolved';
+    resolution: "rejected" | "resolved" | "unresolved";
 }
 
 export interface ThrownError {
-    readonly type: 'thrown-error';
+    readonly type: "thrown-error";
     readonly componentName?: string | undefined;
     readonly message: string;
     readonly phase: Phase;
@@ -761,7 +761,7 @@ export interface ElementAndRendererID {
     rendererID: RendererID;
 }
 
-export type PathType = 'props' | 'hooks' | 'state' | 'context';
+export type PathType = "props" | "hooks" | "state" | "context";
 
 export interface OverrideValueAtPath extends ElementAndRendererID {
     type: PathType;
@@ -790,34 +790,34 @@ export class Bridge<
     overrideValueAtPath: (overrideValueAtPath: OverrideValueAtPath) => void;
 }
 export interface InspectElementError {
-    type: 'error';
+    type: "error";
     id: number;
     responseID: number;
-    errorType: 'user' | 'unknown-hook' | 'uncaught';
+    errorType: "user" | "unknown-hook" | "uncaught";
     message: string;
     stack?: string | undefined;
 }
 
 export interface InspectElementFullData {
-    type: 'full-data';
+    type: "full-data";
     id: number;
     responseID: number;
     value: InspectedElement;
 }
 export interface InspectElementHydratedPath {
-    type: 'hydrated-path';
+    type: "hydrated-path";
     id: number;
     responseID: number;
     path: Array<string | number>;
     value: any;
 }
 export interface InspectElementNoChange {
-    type: 'no-change';
+    type: "no-change";
     id: number;
     responseID: number;
 }
 export interface InspectElementNotFound {
-    type: 'not-found';
+    type: "not-found";
     id: number;
     responseID: number;
 }
@@ -1023,7 +1023,7 @@ export interface PathMatch {
     isFullMatch: boolean;
 }
 export type FindNativeNodesForFiberID = (id: number) => any[] | null | undefined;
-export type Type = 'props' | 'hooks' | 'state' | 'context';
+export type Type = "props" | "hooks" | "state" | "context";
 
 export type NativeType = unknown;
 export type GetFiberIDForNative = (component: NativeType, findNearestUnfilteredAncestor?: boolean) => number | null;
@@ -1096,11 +1096,11 @@ export interface ReactRenderer {
     /** 17+ */
     overrideHookStateRenamePath?:
         | ((
-              fiber: Record<string, unknown>,
-              id: number,
-              oldPath: Array<string | number>,
-              newPath: Array<string | number>,
-          ) => void)
+            fiber: Record<string, unknown>,
+            id: number,
+            oldPath: Array<string | number>,
+            newPath: Array<string | number>,
+        ) => void)
         | null
         | undefined;
     /** 16.7+ */
@@ -1220,8 +1220,8 @@ export interface HookEventPayload {
     operations: number[];
     /** value: nodes */
     traceUpdates: Set<NativeType>;
-    'react-devtools': unknown;
-    'renderer-attached': {
+    "react-devtools": unknown;
+    "renderer-attached": {
         id: number;
         renderer: ReactRenderer;
         rendererInterface: RendererInterface;
@@ -1229,7 +1229,7 @@ export interface HookEventPayload {
     shutdown: undefined;
     fastRefreshScheduled: undefined;
     /** Value: id */
-    'unsupported-renderer-version': number;
+    "unsupported-renderer-version": number;
 }
 
 export type HookEventListener<EV extends HookEvents> = (

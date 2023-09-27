@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent } from 'react';
+import { PureComponent, Requireable, Validator } from "react";
 
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.

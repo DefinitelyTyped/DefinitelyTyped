@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Redux from 'redux';
+import * as Redux from "redux";
 
 export interface MockStore<T> extends Redux.Store<T> {
     getActions(): any[];

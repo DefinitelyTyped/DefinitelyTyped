@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
@@ -43,10 +43,10 @@ interface ProviderProps<T> {
 declare class Provider<T> extends Component<ProviderProps<T>> {}
 
 declare function create<T extends object>(state: T): {
-    Provider: new() => Provider<T>,
-    Consumer: new() => Consumer<T>,
-    createSelector: SelectorFn<T>,
-    mutate: Mutator<T>,
+    Provider: new() => Provider<T>;
+    Consumer: new() => Consumer<T>;
+    createSelector: SelectorFn<T>;
+    mutate: Mutator<T>;
 };
 
 export default create;

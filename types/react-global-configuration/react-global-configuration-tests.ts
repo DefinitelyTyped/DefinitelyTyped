@@ -5,7 +5,7 @@ interface UserConfig {
     b: string;
     c: {
         ca: 123;
-        cb: 'ABC';
+        cb: "ABC";
     };
 }
 
@@ -14,12 +14,12 @@ config.set({
     b: "DEF",
     c: {
         ca: 123,
-        cb: 'ABC',
-    }
+        cb: "ABC",
+    },
 });
 
 config.serialize();
 
 const all = config.get(); // all: any
-const a = config.get<number>('a', 789); // a: number
-const d = config.get('d'); // d: any
+const a = config.get<number>("a", 789); // a: number
+const d = config.get("d"); // d: any

@@ -22,11 +22,11 @@ class SimpleTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     render() {
         return React.createElement(ReactCrop, {
-            src: 'imageSrc',
+            src: "imageSrc",
             onChange: this.onChange,
             crop: this.state.crop,
         });
@@ -42,7 +42,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -52,17 +52,17 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 50,
-                    unit: 'px',
+                    unit: "px",
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     render() {
         return React.createElement(ReactCrop, {
-            src: 'imageSrc',
+            src: "imageSrc",
             onChange: this.onChange,
             onImageLoaded: this.onImageLoaded,
             crop: this.state.crop,
@@ -79,7 +79,7 @@ class CompleteTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -89,21 +89,21 @@ class CompleteTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 20,
-                    unit: 'px',
+                    unit: "px",
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-        console.warn('Error loading image');
-    }
+        console.warn("Error loading image");
+    };
 
     render() {
         return React.createElement(ReactCrop, {
-            src: 'imageSrc',
+            src: "imageSrc",
             onChange: this.onChange,
             onImageLoaded: this.onImageLoaded,
             crop: this.state.crop,
@@ -113,13 +113,13 @@ class CompleteTest extends React.Component<{}, TestState> {
             maxHeight: 90,
             keepSelection: true,
             disabled: false,
-            style: { border: '1px solid black', position: 'relative' },
-            onComplete: () => console.log('Crop complete'),
-            onDragStart: () => console.log('Drag start'),
-            onDragEnd: () => console.log('Drag end'),
-            crossorigin: 'anonymous',
+            style: { border: "1px solid black", position: "relative" },
+            onComplete: () => console.log("Crop complete"),
+            onDragStart: () => console.log("Drag start"),
+            onDragEnd: () => console.log("Drag end"),
+            crossorigin: "anonymous",
             onImageError: this.onImageError,
-            className: 'my-cropper',
+            className: "my-cropper",
             locked: false,
             ruleOfThirds: false,
             circularCrop: false,

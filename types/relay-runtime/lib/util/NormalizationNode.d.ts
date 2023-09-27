@@ -1,5 +1,5 @@
-import type { ConcreteRequest } from './RelayConcreteNode';
-import type { JSResourceReference } from './JSResourceReference';
+import type { JSResourceReference } from "./JSResourceReference";
+import type { ConcreteRequest } from "./RelayConcreteNode";
 
 /**
  * Represents a single operation used to processing and normalize runtime

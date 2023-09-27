@@ -1,5 +1,5 @@
-import * as React from 'react';
-import CustomScroll from 'react-custom-scroll';
+import * as React from "react";
+import CustomScroll from "react-custom-scroll";
 
 const onScrollStub = () => 1;
 export const _ = () => (

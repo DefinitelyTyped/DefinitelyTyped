@@ -1,4 +1,4 @@
-import express = require('express');
+import express = require("express");
 
 /**
  * Returns Express middleware that redirects to `${servedPath}/${req.url}`

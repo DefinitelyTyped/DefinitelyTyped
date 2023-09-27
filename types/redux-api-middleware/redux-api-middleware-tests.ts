@@ -1,31 +1,31 @@
-import { createStore, Store } from 'redux';
+import { createStore, Store } from "redux";
 import {
-    RSAA,
-    isRSAA,
-    validateRSAA,
-    isValidRSAA,
-    InvalidRSAA,
-    InternalError,
-    RequestError,
     ApiError,
-    getJSON,
-    createMiddleware,
     apiMiddleware,
+    createAction,
+    createMiddleware,
+    getJSON,
+    InternalError,
+    InvalidRSAA,
+    isRSAA,
+    isValidRSAA,
+    RequestError,
+    RSAA,
     RSAAAction,
     RSAACall,
-    RSAARequestTypeDescriptor,
-    RSAASuccessTypeDescriptor,
     RSAAFailureTypeDescriptor,
     RSAARequestAction,
+    RSAARequestTypeDescriptor,
     RSAAResultAction,
-    createAction,
-} from 'redux-api-middleware';
+    RSAASuccessTypeDescriptor,
+    validateRSAA,
+} from "redux-api-middleware";
 
 {
     // RSAA
-    const passRSAA: typeof RSAA = '@@redux-api-middleware/RSAA';
+    const passRSAA: typeof RSAA = "@@redux-api-middleware/RSAA";
     // @ts-expect-error
-    const failRSAA: typeof RSAA = '@@redux-api-middleware/RSAA-fail';
+    const failRSAA: typeof RSAA = "@@redux-api-middleware/RSAA-fail";
 }
 
 {
@@ -55,7 +55,7 @@ import {
     new InvalidRSAA([]).message; // $ExpectType "Invalid RSAA"
     new InvalidRSAA([]).name; // $ExpectType "InvalidRSAA"
     new InvalidRSAA([]).validationErrors; // $ExpectType string[]
-    new InvalidRSAA(['']);
+    new InvalidRSAA([""]);
     // @ts-expect-error
     new InvalidRSAA();
     // @ts-expect-error
@@ -64,8 +64,8 @@ import {
 
 {
     // InternalError
-    new InternalError(''); // $ExpectType InternalError
-    new InternalError('').name; // $ExpectType "InternalError"
+    new InternalError(""); // $ExpectType InternalError
+    new InternalError("").name; // $ExpectType "InternalError"
     // @ts-expect-error
     new InternalError();
     // @ts-expect-error
@@ -74,8 +74,8 @@ import {
 
 {
     // RequestError
-    new RequestError(''); // $ExpectType RequestError
-    new RequestError('').name; // $ExpectType "RequestError"
+    new RequestError(""); // $ExpectType RequestError
+    new RequestError("").name; // $ExpectType "RequestError"
     // @ts-expect-error
     new RequestError();
     // @ts-expect-error
@@ -84,24 +84,24 @@ import {
 
 {
     // ApiError
-    new ApiError(200, 'OK', {}); // $ExpectType ApiError<{}>
-    new ApiError(200, 'OK', {}).name; // $ExpectType "ApiError"
-    new ApiError(200, 'OK', {}).status; // $ExpectType number
-    new ApiError(200, 'OK', {}).statusText; // $ExpectType string
-    new ApiError(200, 'OK', {}).response; // $ExpectType {}
+    new ApiError(200, "OK", {}); // $ExpectType ApiError<{}>
+    new ApiError(200, "OK", {}).name; // $ExpectType "ApiError"
+    new ApiError(200, "OK", {}).status; // $ExpectType number
+    new ApiError(200, "OK", {}).statusText; // $ExpectType string
+    new ApiError(200, "OK", {}).response; // $ExpectType {}
     // @ts-expect-error
     new ApiError();
 
     interface Response {
         data: number;
     }
-    new ApiError<Response>(200, 'OK', { data: 0 }); // $ExpectType ApiError<Response>
-    new ApiError<Response>(200, 'OK', { data: 0 }).name; // $ExpectType "ApiError"
-    new ApiError<Response>(200, 'OK', { data: 0 }).status; // $ExpectType number
-    new ApiError<Response>(200, 'OK', { data: 0 }).statusText; // $ExpectType string
-    new ApiError<Response>(200, 'OK', { data: 0 }).response; // $ExpectType Response
+    new ApiError<Response>(200, "OK", { data: 0 }); // $ExpectType ApiError<Response>
+    new ApiError<Response>(200, "OK", { data: 0 }).name; // $ExpectType "ApiError"
+    new ApiError<Response>(200, "OK", { data: 0 }).status; // $ExpectType number
+    new ApiError<Response>(200, "OK", { data: 0 }).statusText; // $ExpectType string
+    new ApiError<Response>(200, "OK", { data: 0 }).response; // $ExpectType Response
     // @ts-expect-error
-    new ApiError<Response>(200, 'OK', {});
+    new ApiError<Response>(200, "OK", {});
 }
 
 {
@@ -156,8 +156,8 @@ import {
         bailout(state: State) {
             return state.bailout;
         }
-        method: 'GET';
-        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+        method: "GET";
+        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 
     class PromiseStateDrivenRSAACall implements RSAACall<State> {
@@ -176,17 +176,17 @@ import {
         bailout(state: State) {
             return Promise.resolve(state.bailout);
         }
-        method: 'GET';
-        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+        method: "GET";
+        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 
     class NonStateDrivenRSAACall implements RSAACall<State> {
-        endpoint: '/test/endpoint';
-        method: 'GET';
-        headers: { 'Content-Type': 'application/json' };
-        options: { redirect: 'follow' };
+        endpoint: "/test/endpoint";
+        method: "GET";
+        headers: { "Content-Type": "application/json" };
+        options: { redirect: "follow" };
         bailout: true;
-        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'];
+        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"];
     }
 }
 
@@ -194,9 +194,9 @@ import {
     const store: Store = createStore(() => undefined);
     const action: RSAAAction<any, string, number> = {
         [RSAA]: {
-            endpoint: '/test/endpoint',
-            method: 'GET',
-            types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
+            endpoint: "/test/endpoint",
+            method: "GET",
+            types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"],
         },
     };
 
@@ -222,7 +222,7 @@ import {
 
 {
     const requestDescriptor0: RSAARequestTypeDescriptor<number, number, number> = {
-        type: '',
+        type: "",
         payload: 0,
         meta: 0,
     };
@@ -235,9 +235,9 @@ import {
         // @ts-expect-error
         type: 0,
         // @ts-expect-error
-        payload: '',
+        payload: "",
         // @ts-expect-error
-        meta: (action: RSAAAction, state: number) => '',
+        meta: (action: RSAAAction, state: number) => "",
     };
     const requestDescriptor3: RSAARequestTypeDescriptor<number, number, number> = {
         type: Symbol(),
@@ -246,7 +246,7 @@ import {
     };
 
     const successDescriptor0: RSAASuccessTypeDescriptor<number, number, number> = {
-        type: '',
+        type: "",
         payload: 0,
         meta: 0,
     };
@@ -259,9 +259,9 @@ import {
         // @ts-expect-error
         type: 0,
         // @ts-expect-error
-        payload: '',
+        payload: "",
         // @ts-expect-error
-        meta: (action: RSAAAction, state: number) => '',
+        meta: (action: RSAAAction, state: number) => "",
     };
     const successDescriptor3: RSAASuccessTypeDescriptor<number, number, number> = {
         type: Symbol(),
@@ -270,7 +270,7 @@ import {
     };
 
     const failureDescriptor0: RSAAFailureTypeDescriptor<number, number, number> = {
-        type: '',
+        type: "",
         payload: 0,
         meta: 0,
     };
@@ -283,9 +283,9 @@ import {
         // @ts-expect-error
         type: 0,
         // @ts-expect-error
-        payload: '',
+        payload: "",
         // @ts-expect-error
-        meta: (action: RSAAAction, state: number) => '',
+        meta: (action: RSAAAction, state: number) => "",
     };
     const failureDescriptor3: RSAAFailureTypeDescriptor<number, number, number> = {
         type: Symbol(),
@@ -296,96 +296,96 @@ import {
 
 {
     const requestActionSimple: RSAARequestAction = {
-        type: '',
+        type: "",
     };
 
     const requestActionWithPayload: RSAARequestAction<number> = {
-        type: '',
+        type: "",
         payload: 1,
     };
 
     const requestActionWithIncorrectPayload: RSAARequestAction<number> = {
-        type: '',
+        type: "",
         // @ts-expect-error
-        payload: '',
+        payload: "",
     };
 
     const requestActionWithMeta: RSAARequestAction<never, number> = {
-        type: '',
+        type: "",
         meta: 1,
     };
 
     // @ts-expect-error
     const requestActionWithMissingPayload: RSAARequestAction<number> = {
-        type: '',
+        type: "",
     };
 
     const requestActionWithExtraneousMeta: RSAARequestAction<number> = {
-        type: '',
+        type: "",
         payload: 1,
         // @ts-expect-error
         meta: 1,
     };
 
     const requestActionWithError: RSAARequestAction<number> = {
-        type: '',
+        type: "",
         error: true,
-        payload: new InvalidRSAA(['']),
+        payload: new InvalidRSAA([""]),
     };
 
     const resultActionSimple: RSAAResultAction = {
-        type: '',
+        type: "",
     };
 
     const resultActionWithPayload: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         payload: 1,
     };
 
     const resultActionWithIncorrectPayload: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         // @ts-expect-error
-        payload: '',
+        payload: "",
     };
 
     const resultActionWithMeta: RSAAResultAction<never, number> = {
-        type: '',
+        type: "",
         meta: 1,
     };
 
     // @ts-expect-error
     const resultActionWithMissingPayload: RSAAResultAction<number> = {
-        type: '',
+        type: "",
     };
 
     const resultActionWithExtraneousMeta: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         payload: 1,
         // @ts-expect-error
         meta: 1,
     };
 
     const resultActionWithApiError: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         error: true,
-        payload: new ApiError(500, '', 1),
+        payload: new ApiError(500, "", 1),
     };
 
     const resultActionWithInternalError: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         error: true,
-        payload: new InternalError(''),
+        payload: new InternalError(""),
     };
 
     const resultActionWithRequestError: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         error: true,
-        payload: new RequestError(''),
+        payload: new RequestError(""),
     };
 
     // @ts-expect-error
     const resultActionWithMissingErrorPayload: RSAAResultAction<number> = {
-        type: '',
+        type: "",
         error: true,
     };
 }
@@ -397,8 +397,8 @@ import {
     createAction({});
     // $ExpectType RSAAAction<any, any, any>
     createAction<any, any, any>({
-        endpoint: '/test/endpoint',
-        method: 'GET',
-        types: ['REQ_TYPE', 'SUCCESS_TYPE', 'FAILURE_TYPE'],
+        endpoint: "/test/endpoint",
+        method: "GET",
+        types: ["REQ_TYPE", "SUCCESS_TYPE", "FAILURE_TYPE"],
     });
 }

@@ -1,5 +1,5 @@
-import * as LRUCache from 'lru-cache';
-import { Store } from './index';
+import * as LRUCache from "lru-cache";
+import { Store } from "./index";
 
 export = LruStore;
 

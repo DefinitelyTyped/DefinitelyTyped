@@ -3,7 +3,7 @@
 // Definitions by: Adriaan Marain <https://github.com/AdrianMrn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DragulaOptions, Drake } from 'dragula';
+import { DragulaOptions, Drake } from "dragula";
 
 export = reactDragula;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
 export interface Style {
     width?: number | undefined;

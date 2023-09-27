@@ -8,7 +8,7 @@ import {
     IEnvironment,
     OperationDescriptor,
     Variables,
-} from 'relay-runtime';
+} from "relay-runtime";
 
 export type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
 

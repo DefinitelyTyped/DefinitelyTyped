@@ -1,10 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     AllSearchResults,
     AutocompleteProvided,
     BasicDoc,
     connectAutoComplete,
     connectCurrentRefinements,
+    connectDynamicWidgets,
     connectHighlight,
     connectHitInsights,
     ConnectHitInsightsProvided,
@@ -15,9 +16,10 @@ import {
     connectSearchBox,
     connectStateResults,
     connectStats,
-    connectDynamicWidgets,
     createConnector,
     CurrentRefinementsProvided,
+    DynamicWidgets,
+    DynamicWidgetsProvided,
     HighlightProps,
     HighlightProvided,
     Hit,
@@ -32,28 +34,26 @@ import {
     StatsProvided,
     translatable,
     TranslatableProvided,
-    DynamicWidgetsProvided,
-    DynamicWidgets,
-} from 'react-instantsearch-core';
+} from "react-instantsearch-core";
 
-import { Hits, RefinementList } from 'react-instantsearch-dom';
+import { Hits, RefinementList } from "react-instantsearch-dom";
 
-() => {
-    <Index indexName={'test'} indexId="id">
+(() => {
+    <Index indexName={"test"} indexId="id">
         <div></div>
     </Index>;
-};
+});
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
-() => {
+(() => {
     const CoolWidget = createConnector({
-        displayName: 'CoolWidget',
-        $$type: 'coolWidget',
+        displayName: "CoolWidget",
+        $$type: "coolWidget",
 
         getProvidedProps(props, searchState) {
             // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
             // to default its value.
-            const [query, page] = searchState.queryAndPage || ['', 0];
+            const [query, page] = searchState.queryAndPage || ["", 0];
 
             // Connect the underlying component to the `queryAndPage` searchState entry.
             return {
@@ -77,42 +77,45 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     })(
         props => (
             <div>
-                The query is {props.query}, the page is {props.page}. This is an error:{' '}
-                {
+                The query is {props.query}, the page is {props.page}. This is an error: {
                     // @ts-expect-error
                     props.somethingElse
                 }
-                {/*
+                {
+                    /*
         Clicking on this button will update the searchState to:
         {
           ...otherSearchState,
           query: 'algolia',
           page: 20,
         }
-      */}
-                <button onClick={() => props.refine('algolia', 20)} />
-                {/*
+      */
+                }
+                <button onClick={() => props.refine("algolia", 20)} />
+                {
+                    /*
         Clicking on this button will update the searchState to:
         {
           ...otherSearchState,
           query: 'instantsearch',
           page: 15,
         }
-      */}
-                <button onClick={() => props.refine('instantsearch', 15)} />
+      */
+                }
+                <button onClick={() => props.refine("instantsearch", 15)} />
             </div>
         ),
         {
-            $$widgetType: 'coolWidget',
+            $$widgetType: "coolWidget",
         },
     );
 
     <CoolWidget>
         <div></div>
     </CoolWidget>;
-};
+});
 
-() => {
+(() => {
     interface Provided {
         query: string;
         page: number;
@@ -124,7 +127,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     }
 
     const typedCoolConnector = createConnector<Provided, Exposed>({
-        displayName: 'CoolWidget',
+        displayName: "CoolWidget",
 
         getProvidedProps(props, searchState) {
             // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
@@ -154,37 +157,40 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const TypedCoolWidgetStateless = typedCoolConnector(
         props => (
             <div>
-                The query is {props.query}, the page is {props.page}. This is an error:{' '}
-                {
+                The query is {props.query}, the page is {props.page}. This is an error: {
                     // @ts-expect-error
                     props.somethingElse
                 }
-                {/*
+                {
+                    /*
         Clicking on this button will update the searchState to:
         {
           ...otherSearchState,
           query: 'algolia',
           page: 20,
         }
-      */}
-                <button onClick={() => props.refine('algolia', 20)} />
-                {/*
+      */
+                }
+                <button onClick={() => props.refine("algolia", 20)} />
+                {
+                    /*
         Clicking on this button will update the searchState to:
         {
           ...otherSearchState,
           query: 'instantsearch',
           page: 15,
         }
-      */}
-                <button onClick={() => props.refine('instantsearch', 15)} />
+      */
+                }
+                <button onClick={() => props.refine("instantsearch", 15)} />
             </div>
         ),
         {
-            $$widgetType: 'typedCoolWidget',
+            $$widgetType: "typedCoolWidget",
         },
     );
 
-    <TypedCoolWidgetStateless defaultRefinement={'asdf'} startAtPage={10} />;
+    <TypedCoolWidgetStateless defaultRefinement={"asdf"} startAtPage={10} />;
 
     const TypedCoolWidget = typedCoolConnector(
         class extends React.Component<ConnectorProvided<Provided> & { passThruName: string }> {
@@ -193,34 +199,38 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
                 return (
                     <div>
                         The query is {props.query}, the page is {props.page}. The name is {props.passThruName}
-                        {/*
+                        {
+                            /*
             Clicking on this button will update the searchState to:
             {
               ...otherSearchState,
               query: 'algolia',
               page: 20,
             }
-          */}
-                        <button onClick={() => props.refine('algolia', 20)} />
-                        {/*
+          */
+                        }
+                        <button onClick={() => props.refine("algolia", 20)} />
+                        {
+                            /*
             Clicking on this button will update the searchState to:
             {
               ...otherSearchState,
               query: 'instantsearch',
               page: 15,
             }
-          */}
-                        <button onClick={() => props.refine('instantsearch', 15)} />
+          */
+                        }
+                        <button onClick={() => props.refine("instantsearch", 15)} />
                     </div>
                 );
             }
         },
     );
 
-    <TypedCoolWidget defaultRefinement={'asdf'} startAtPage={10} passThruName={'test'} />;
-};
+    <TypedCoolWidget defaultRefinement={"asdf"} startAtPage={10} passThruName={"test"} />;
+});
 
-() => {
+(() => {
     interface MyDoc {
         field1: string;
         field2: number;
@@ -240,7 +250,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
             { searchResults, additionalProp, error },
         ) => {
             // Make sure that error is optional
-            if (typeof error !== 'undefined') {
+            if (typeof error !== "undefined") {
                 return null;
             }
             return (
@@ -286,7 +296,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
                         const words = h._highlightResult.field3!.compound!.matchedWords;
                         return (
                             <span>
-                                {h.field2}: {words.join(',')}
+                                {h.field2}: {words.join(",")}
                             </span>
                         );
                     })}
@@ -300,28 +310,32 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     <ComposedMyComponent />;
 
     <ComposedMyComponent additionalProp="test" />;
-};
+});
 
-() => {
+(() => {
     <InstantSearch searchClient={{}} indexName="xxx" />;
 
     // @ts-expect-error
     <InstantSearch indexName="xxx" />;
-};
+});
 
 // https://community.algolia.com/react-instantsearch/guide/Connectors.html
-() => {
+(() => {
     const MySearchBox = ({ currentRefinement, refine }: SearchBoxProvided) => (
-        <input type="text" value={currentRefinement} onChange={e => refine(e.target.value)} />
+        <input
+            type="text"
+            value={currentRefinement}
+            onChange={e => refine(e.target.value)}
+        />
     );
 
     // `ConnectedSearchBox` renders a `<MySearchBox>` widget that is connected to
     // the <InstantSearch> state, providing it with `currentRefinement` and `refine` props for
     // reading and manipulating the current query of the search.
     const ConnectedSearchBox = connectSearchBox(MySearchBox);
-};
+});
 
-() => {
+(() => {
     const MyCurrentRefinements = ({ refine, items, query }: CurrentRefinementsProvided) => (
         <>
             {items.map(refinement => (
@@ -335,9 +349,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const ConnectedCurrentRefinements = connectCurrentRefinements(MyCurrentRefinements);
 
     <ConnectedCurrentRefinements clearsQuery={true} transformItems={item => item} />;
-};
+});
 
-() => {
+(() => {
     const MyClearRefinements = ({ refine, items }: CurrentRefinementsProvided) => (
         <button onClick={() => refine(items)}>clear all</button>
     );
@@ -345,10 +359,10 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const ConnectedClearRefinements = connectCurrentRefinements(MyClearRefinements);
 
     <ConnectedClearRefinements clearsQuery={true} transformItems={item => item} />;
-};
+});
 
-() => {
-    function renderRefinement(label: string, value: Refinement['value'], refine: CurrentRefinementsProvided['refine']) {
+(() => {
+    function renderRefinement(label: string, value: Refinement["value"], refine: CurrentRefinementsProvided["refine"]) {
         return (
             <button className="badge badge-secondary" onClick={() => refine(value)}>
                 {label}
@@ -370,47 +384,45 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
                     }
 
                     // extra assert for typescript < 3.2
-                    if (typeof refinement.currentRefinement === 'string') {
+                    if (typeof refinement.currentRefinement === "string") {
                         return renderRefinement(refinement.currentRefinement, refinement.value, refine);
                     }
                 })}
             </>
         );
     });
-};
+});
 
-() => {
+(() => {
     const MyRefinementList = ({ items, refine }: RefinementListProvided) => (
         <>
-            {items.map(item => (
-                <button onClick={() => refine(item.value)}>{item.label}</button>
-            ))}
+            {items.map(item => <button onClick={() => refine(item.value)}>{item.label}</button>)}
         </>
     );
     const ConnectedRefinementList = connectRefinementList(MyRefinementList);
 
     <ConnectedRefinementList
-        attribute={'test'}
+        attribute={"test"}
         searchable={true}
-        operator={'and'}
+        operator={"and"}
         showMore={true}
         limit={8}
         showMoreLimit={99}
         facetOrdering={true}
     />;
-};
+});
 
-() => {
+(() => {
     interface MyDoc {
         a: 1;
         b: {
-            c: '2';
+            c: "2";
         };
     }
 
     const CustomHighlight = connectHighlight<MyDoc>(({ highlight, attribute, hit }) => {
         const highlights = highlight({
-            highlightProperty: '_highlightResult',
+            highlightProperty: "_highlightResult",
             attribute,
             hit,
         });
@@ -424,7 +436,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
         render() {
             const { highlight, attribute, hit, limit } = this.props;
             const highlights = highlight({
-                highlightProperty: '_highlightResult',
+                highlightProperty: "_highlightResult",
                 attribute,
                 hit,
             });
@@ -448,17 +460,17 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     ));
 
     <ConnectedStatelessHits />;
-};
+});
 
 // https://github.com/algolia/react-instantsearch/blob/master/examples/autocomplete/src/App-Mentions.js
-() => {
+(() => {
     const Mention: any = null; // import Mention from 'antd/lib/mention';
 
     const AsyncMention = ({ hits, refine }: AutocompleteProvided) => (
         <Mention
             style={{ width: 500, height: 100 }}
             prefix="@"
-            notFoundContent={'No suggestion'}
+            notFoundContent={"No suggestion"}
             placeholder="give someone an @-mention here"
             suggestions={hits.map(hit => hit.name)}
             onSearchChange={refine}
@@ -468,11 +480,13 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const ConnectedAsyncMention = connectAutoComplete(AsyncMention);
 
     <ConnectedAsyncMention />;
-};
+});
 
-() => {
-    type Props = SearchBoxProvided &
-        TranslatableProvided & {
+(() => {
+    type Props =
+        & SearchBoxProvided
+        & TranslatableProvided
+        & {
             className?: string | undefined;
             showLoadingIndicator?: boolean | undefined;
 
@@ -490,9 +504,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 
     class SearchBox extends React.Component<Props, State> {
         static defaultProps = {
-            currentRefinement: '',
-            className: 'ais-SearchBox',
-            focusShortcuts: ['s', '/'],
+            currentRefinement: "",
+            className: "ais-SearchBox",
+            focusShortcuts: ["s", "/"],
             autoFocus: false,
             searchAsYouType: true,
             showLoadingIndicator: false,
@@ -501,7 +515,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
             submit: <i className="material-icons">search</i>,
         };
 
-        constructor(props: SearchBox['props']) {
+        constructor(props: SearchBox["props"]) {
             super(props);
 
             this.state = {
@@ -537,9 +551,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
         onReset(event: React.FormEvent<HTMLFormElement>) {
             const { refine, onReset } = this.props;
 
-            refine('');
+            refine("");
 
-            this.setState({ query: '' });
+            this.setState({ query: "" });
 
             if (onReset) {
                 onReset(event);
@@ -554,7 +568,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
 
             const isCurrentQuerySubmitted = query && query === this.props.currentRefinement;
 
-            const button = isSearchStalled ? 'loading' : isCurrentQuerySubmitted ? 'reset' : 'submit';
+            const button = isSearchStalled ? "loading" : isCurrentQuerySubmitted ? "reset" : "submit";
 
             return (
                 <div className={className}>
@@ -562,38 +576,38 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
                         noValidate
                         onSubmit={this.onSubmit}
                         onReset={this.onReset}
-                        className={`${className}-${isSearchStalled ? 'form--stalledSearch' : 'form'}`}
+                        className={`${className}-${isSearchStalled ? "form--stalledSearch" : "form"}`}
                         action=""
                         role="search"
                     >
                         <button
                             type="submit"
-                            title={translate('submitTitle')}
+                            title={translate("submitTitle")}
                             className={`${className}-submit`}
-                            hidden={button !== 'submit'}
+                            hidden={button !== "submit"}
                         >
                             {submit}
                         </button>
                         <button
                             type="reset"
-                            title={translate('resetTitle')}
+                            title={translate("resetTitle")}
                             className={`${className}-reset`}
-                            hidden={button !== 'reset'}
+                            hidden={button !== "reset"}
                         >
                             {reset}
                         </button>
-                        <span className={`${className}-loadingIndicator`} hidden={button !== 'loading'}>
+                        <span className={`${className}-loadingIndicator`} hidden={button !== "loading"}>
                             {loadingIndicator}
                         </span>
                         <input
                             {...{
                                 onChange: this.onChange,
                                 value: query,
-                                type: 'search',
-                                placeholder: translate('placeholder'),
-                                autoComplete: 'off',
-                                autoCorrect: 'off',
-                                autoCapitalize: 'off',
+                                type: "search",
+                                placeholder: translate("placeholder"),
+                                autoComplete: "off",
+                                autoCorrect: "off",
+                                autoCapitalize: "off",
                                 spellCheck: false,
                                 required: true,
                                 maxLength: 512,
@@ -607,9 +621,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     }
 
     const TranslatableSearchBox = translatable({
-        resetTitle: 'Clear the search query.',
-        submitTitle: 'Submit your search query.',
-        placeholder: 'Search here…',
+        resetTitle: "Clear the search query.",
+        submitTitle: "Submit your search query.",
+        placeholder: "Search here…",
     })(SearchBox);
 
     const ConnectedSearchBox = connectSearchBox(TranslatableSearchBox);
@@ -618,13 +632,13 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
         className="ais-search"
         loadingIndicator={<i className="material-icons">search</i>}
         onSubmit={evt => {
-            console.log('submitted', evt);
+            console.log("submitted", evt);
         }}
     />;
-};
+});
 
 // can we recreate connectStateResults from source using the createConnector typedef?
-() => {
+(() => {
     function getIndexId(context: any): string {
         return context && context.multiIndexContext
             ? context.multiIndexContext.targetedIndex
@@ -644,7 +658,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     }
 
     const csr = createConnector({
-        displayName: 'AlgoliaStateResults',
+        displayName: "AlgoliaStateResults",
 
         getProvidedProps(props, searchState, searchResults) {
             const results = getResults(searchResults, this.context);
@@ -664,9 +678,9 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     });
 
     const asConnectStateResults: typeof connectStateResults = csr;
-};
+});
 
-() => {
+(() => {
     const TotalHits = ({ nbHits }: StatsProvided) => {
         return <span>Your search returned {nbHits} results.</span>;
     };
@@ -674,13 +688,13 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const ConnectedTotalHits = connectStats(TotalHits);
 
     <ConnectedTotalHits />;
-};
+});
 
-() => {
+(() => {
     const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
         <button
             onClick={() => {
-                insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+                insights("clickedObjectIDsAfterSearch", { eventName: "hit clicked" });
             }}
         >
             <article>
@@ -692,11 +706,11 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     const HitWithInsights = connectHitInsights(() => {})(HitComponent);
 
     <Hits hitComponent={HitWithInsights} />;
-};
+});
 
-() => {
+(() => {
     function getAttribute(component: React.ReactChild): string | undefined {
-        if (typeof component !== 'object') {
+        if (typeof component !== "object") {
             return undefined;
         }
 
@@ -723,7 +737,7 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
         React.Children.forEach(children, child => {
             const attribute = getAttribute(child as React.ReactChild);
             if (!attribute) {
-                throw new Error('Could not find "attribute" prop');
+                throw new Error("Could not find \"attribute\" prop");
             }
             widgets.set(attribute, child);
         });
@@ -744,21 +758,21 @@ import { Hits, RefinementList } from 'react-instantsearch-dom';
     <ConnectedDynamicWidgets
         transformItems={item => item}
         fallbackComponent={RefinementList}
-        facets={['*']}
+        facets={["*"]}
         maxValuesPerFacet={20}
     >
         <RefinementList attribute="brand" />
     </ConnectedDynamicWidgets>;
-};
+});
 
-() => {
+(() => {
     // https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/
     <DynamicWidgets
         transformItems={item => item}
         fallbackComponent={RefinementList}
-        facets={['*']}
+        facets={["*"]}
         maxValuesPerFacet={20}
     >
         <RefinementList attribute="brand" />
     </DynamicWidgets>;
-};
+});

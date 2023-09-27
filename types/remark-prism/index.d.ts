@@ -5,19 +5,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import { Root } from 'mdast';
-import { Plugin } from 'unified';
+import { Root } from "mdast";
+import { Plugin } from "unified";
 
 type SupportedPlugins =
-    | 'autolinker'
-    | 'command-line'
-    | 'data-uri-highlight'
-    | 'diff-highlight'
-    | 'inline-color'
-    | 'keep-markup'
-    | 'line-numbers'
-    | 'show-invisibles'
-    | 'treeview';
+    | "autolinker"
+    | "command-line"
+    | "data-uri-highlight"
+    | "diff-highlight"
+    | "inline-color"
+    | "keep-markup"
+    | "line-numbers"
+    | "show-invisibles"
+    | "treeview";
 
 declare namespace remarkPrism {
     interface Options {

@@ -8,8 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from "react";
 import * as Draft from "draft-js";
+import * as React from "react";
 
 export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 export type SyntheticEvent = React.SyntheticEvent<{}>;
@@ -78,7 +78,7 @@ export interface EditorProps {
     ): boolean;
     handleReturn?(
         e: SyntheticKeyboardEvent,
-        editorState: EditorState
+        editorState: EditorState,
     ): boolean;
     customStyleMap?: object | undefined;
 }

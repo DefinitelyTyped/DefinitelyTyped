@@ -3,10 +3,10 @@
 // Definitions by: Tamir Kfir <https://github.com/ktamir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
-import { TextStyle, ViewStyle, StyleProp } from 'react-native';
+import { Component } from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
-export type DigitType = 'D' | 'H' | 'M' | 'S';
+export type DigitType = "D" | "H" | "M" | "S";
 
 export interface CountDownProps {
     /**

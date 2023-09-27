@@ -200,7 +200,7 @@ export interface HeaderComponentProps {
     /** Hide month navigation arrows. Default = false */
     hideArrows?: boolean;
     /** Replace default arrows with custom ones (direction can be 'left' or 'right') */
-    renderArrow?: (direction: 'left' | 'right') => React.ReactNode;
+    renderArrow?: (direction: "left" | "right") => React.ReactNode;
     /** Handler which gets executed when press arrow icon left. It receive a callback can go back month */
     onPressArrowLeft?: (addMonth: () => void) => void;
     /** Handler which gets executed when press arrow icon right. It receive a callback can go next month */
@@ -364,8 +364,10 @@ export interface CalendarBaseProps {
     customHeader?: ((props: HeaderComponentProps) => React.ReactNode) | undefined;
 }
 
-export type CalendarProps = CalendarMarkingProps &
-    CalendarBaseProps & {
+export type CalendarProps =
+    & CalendarMarkingProps
+    & CalendarBaseProps
+    & {
         /**
          * Enable the option to swipe between months. Default = false
          */
@@ -614,13 +616,13 @@ export interface TimelineProps {
 export class Timeline extends React.PureComponent<TimelineProps> {}
 
 export type UpdateSource =
-    | 'calendarInit'
-    | 'todayPress'
-    | 'listDrag'
-    | 'dayPress'
-    | 'pageScroll'
-    | 'weekScroll'
-    | 'propUpdate';
+    | "calendarInit"
+    | "todayPress"
+    | "listDrag"
+    | "dayPress"
+    | "pageScroll"
+    | "weekScroll"
+    | "propUpdate";
 
 export interface CalendarProviderProps {
     children?: React.ReactNode;
@@ -675,7 +677,7 @@ export interface WeekCalendarProps extends CalendarListBaseProps {
 
 export class WeekCalendar extends React.Component<CalendarMarkingProps & WeekCalendarProps> {}
 
-export type Positions = 'closed' | 'open';
+export type Positions = "closed" | "open";
 
 export interface ExpandableCalendarProps extends CalendarListBaseProps {
     /**

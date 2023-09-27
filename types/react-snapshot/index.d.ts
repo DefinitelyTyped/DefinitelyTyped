@@ -3,6 +3,6 @@
 // Definitions by: Evan Gubarev <https://github.com/gubareve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export function render(rootComponent: React.Component | JSX.Element, domElement: HTMLElement | null): void;

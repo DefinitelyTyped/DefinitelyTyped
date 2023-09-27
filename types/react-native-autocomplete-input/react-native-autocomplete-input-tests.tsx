@@ -1,28 +1,28 @@
-import Autocomplete from 'react-native-autocomplete-input';
-import * as React from 'react';
-import { Text, TouchableOpacity, TextInput, View } from 'react-native';
+import * as React from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import Autocomplete from "react-native-autocomplete-input";
 
 interface Item {
     id: string;
     value: string;
 }
 const data: Item[] = [
-    { id: '0', value: 'test' },
-    { id: '1', value: 'value' },
-    { id: '2', value: 'prop' },
+    { id: "0", value: "test" },
+    { id: "1", value: "value" },
+    { id: "2", value: "prop" },
 ];
 
 const AutocompleteExample: React.FC = () => {
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = React.useState("");
     return (
         <Autocomplete
-            containerStyle={{ backgroundColor: '#fff' }}
+            containerStyle={{ backgroundColor: "#fff" }}
             hideResults={false}
             data={data.filter(d => d.value.toLowerCase().includes(value.toLowerCase()))}
             value={value}
-            inputContainerStyle={{ backgroundColor: '#fff' }}
-            listContainerStyle={{ backgroundColor: '#fff' }}
-            listStyle={{ backgroundColor: '#fff' }}
+            inputContainerStyle={{ backgroundColor: "#fff" }}
+            listContainerStyle={{ backgroundColor: "#fff" }}
+            listStyle={{ backgroundColor: "#fff" }}
             onShowResults={showResults => null}
             onStartShouldSetResponderCapture={event => false}
             renderTextInput={props => <TextInput {...props} />}
@@ -48,9 +48,7 @@ const AutocompleteCustomResultList: React.FC = () => {
             data={data}
             renderResultList={({ data, style }) => (
                 <View style={style}>
-                    {data.map((item, index) => (
-                        <Text key={index}>{item}</Text>
-                    ))}
+                    {data.map((item, index) => <Text key={index}>{item}</Text>)}
                 </View>
             )}
         />

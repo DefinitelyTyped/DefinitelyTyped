@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ThemeProps } from 'react-sortable-tree';
+import { ThemeProps } from "react-sortable-tree";
 
 declare const theme: ThemeProps;
 export default theme;

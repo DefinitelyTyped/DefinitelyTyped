@@ -1,4 +1,4 @@
-declare module 'react-native/Libraries/Utilities/codegenNativeCommands' {
+declare module "react-native/Libraries/Utilities/codegenNativeCommands" {
     export interface Options<T extends string> {
         readonly supportedCommands: ReadonlyArray<T>;
     }
@@ -8,14 +8,14 @@ declare module 'react-native/Libraries/Utilities/codegenNativeCommands' {
     export default codegenNativeCommands;
 }
 
-declare module 'react-native/Libraries/Utilities/codegenNativeComponent' {
-    import type { HostComponent } from 'react-native';
+declare module "react-native/Libraries/Utilities/codegenNativeComponent" {
+    import type { HostComponent } from "react-native";
 
     export interface Options {
         readonly interfaceOnly?: boolean;
         readonly paperComponentName?: string;
         readonly paperComponentNameDeprecated?: string;
-        readonly excludedPlatforms?: ReadonlyArray<'iOS' | 'android'>;
+        readonly excludedPlatforms?: ReadonlyArray<"iOS" | "android">;
     }
 
     export type NativeComponentType<T> = HostComponent<T>;
@@ -28,8 +28,8 @@ declare module 'react-native/Libraries/Utilities/codegenNativeComponent' {
     export default codegenNativeComponent;
 }
 
-declare module 'react-native/Libraries/Types/CodegenTypes' {
-    import type { NativeSyntheticEvent } from 'react-native';
+declare module "react-native/Libraries/Types/CodegenTypes" {
+    import type { NativeSyntheticEvent } from "react-native";
 
     // Event types
     // We're not using the PaperName, it is only used to codegen view config settings

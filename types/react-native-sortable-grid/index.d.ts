@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { StyleProp, ViewStyle, Animated } from 'react-native';
+import * as React from "react";
+import { Animated, StyleProp, ViewStyle } from "react-native";
 
 interface SortableGridItemProps {
     key: string;

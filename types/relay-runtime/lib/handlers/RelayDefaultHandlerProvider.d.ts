@@ -1,4 +1,4 @@
-import { Handler } from '../store/RelayStoreTypes';
+import { Handler } from "../store/RelayStoreTypes";
 
 export type HandlerProvider = (handle: string) => any;
 

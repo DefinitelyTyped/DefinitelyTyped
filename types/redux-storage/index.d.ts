@@ -8,7 +8,7 @@
 /// <reference types="redux" />
 
 declare module "redux-storage" {
-    import { Reducer, Store, Middleware } from "redux";
+    import { Middleware, Reducer, Store } from "redux";
 
     /**
      * Action constants
@@ -46,7 +46,7 @@ declare module "redux-storage" {
      * Callback that checks action type
      * @param type
      */
-    export type ActionTypeCheckCallback = (type: string) => boolean
+    export type ActionTypeCheckCallback = (type: string) => boolean;
 
     /**
      * Create storage middleware
@@ -54,7 +54,11 @@ declare module "redux-storage" {
      * @param actionBlacklist
      * @param actionWhitelist
      */
-    export function createMiddleware(engine: StorageEngine, actionBlacklist?: string[], actionWhitelist?: string[] | ActionTypeCheckCallback): Middleware;
+    export function createMiddleware(
+        engine: StorageEngine,
+        actionBlacklist?: string[],
+        actionWhitelist?: string[] | ActionTypeCheckCallback,
+    ): Middleware;
 
     /**
      * Loader interface
@@ -68,7 +72,6 @@ declare module "redux-storage" {
      * @param engine
      */
     export function createLoader<TState>(engine: StorageEngine): Loader<TState>;
-
 }
 
 declare module "redux-storage-decorator-filter" {
@@ -94,13 +97,13 @@ declare module "redux-storage-decorator-filter" {
      *     ['nested', 'blacklisted-key']
      * ]);
      */
-    export default function (engine: StorageEngine, whitelist?: FilterList, blacklist?: FilterList): StorageEngine;
+    export default function(engine: StorageEngine, whitelist?: FilterList, blacklist?: FilterList): StorageEngine;
 }
 
 declare module "redux-storage-engine-reactnativeasyncstorage" {
     import { StorageEngine } from "redux-storage";
 
-    export interface ReactNativeAsyncStorageEngine extends StorageEngine { }
+    export interface ReactNativeAsyncStorageEngine extends StorageEngine {}
 
     /**
      * Create React Native Async Storage

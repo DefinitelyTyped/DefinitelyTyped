@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import * as ActualTinyMCE from 'tinymce';
+import * as React from "react";
+import * as ActualTinyMCE from "tinymce";
 
 type EventHandler = (event: any, editor: ActualTinyMCE.Editor) => void;
 
@@ -80,5 +80,5 @@ interface ReactMCEProps {
     onDirty?: EventHandler | undefined;
 }
 
-declare class TinyMCE extends React.Component<ReactMCEProps> { }
+declare class TinyMCE extends React.Component<ReactMCEProps> {}
 export = TinyMCE;

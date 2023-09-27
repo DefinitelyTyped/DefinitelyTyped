@@ -50,8 +50,8 @@ export interface PieCenterProps {
 export interface ContextSelectorProps<T> {
     theme: {
         context: {
-            [key: string]: T
-        }
+            [key: string]: T;
+        };
     };
 }
 

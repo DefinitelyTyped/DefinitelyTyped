@@ -4,7 +4,7 @@
 //                 Guy Gascoigne-Piggford <https://github.com/ggascoigne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Key, CSSProperties, MouseEvent, TouchEvent } from 'react';
+import { CSSProperties, Key, MouseEvent, TouchEvent } from "react";
 
 export interface RangerOptions {
     values: number[];
@@ -26,11 +26,11 @@ export interface TrackProps {
     key: Key;
     style: CSSProperties;
 }
-export interface TickProps  {
+export interface TickProps {
     key: Key;
     style: CSSProperties;
 }
-export interface SegmentProps  {
+export interface SegmentProps {
     key: Key;
     style: CSSProperties;
 }

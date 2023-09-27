@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import React = require('react');
+import React = require("react");
 
 export interface AriaModalProps {
     /**
@@ -191,8 +191,9 @@ export interface AriaModalProps {
 /**
  * This difinition is for require one parameter of 'titleId' or 'title' (and not both) on AriaModal props.
  */
-export type RequiredAriaTypes<T = Pick<AriaModalProps, 'titleId'>, U = Pick<AriaModalProps, 'titleText'>> =
-    { [K in keyof T]-? : T[K] } & { [P in keyof U]: never} | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y]};
+export type RequiredAriaTypes<T = Pick<AriaModalProps, "titleId">, U = Pick<AriaModalProps, "titleText">> =
+    | { [K in keyof T]-?: T[K] } & { [P in keyof U]: never }
+    | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y] };
 
 export default class AriaModal extends React.PureComponent<AriaModalProps & RequiredAriaTypes> {
     static renderTo(node: HTMLElement | string): React.ElementType;

@@ -5,12 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { RouteComponentProps, SwitchProps, match } from 'react-router';
-import { Location } from 'history';
+import { Location } from "history";
+import * as React from "react";
+import { match, RouteComponentProps, SwitchProps } from "react-router";
 
 export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?: string } = {}>
-    extends RouteComponentProps<Params> {
+    extends RouteComponentProps<Params>
+{
     route?: RouteConfig | undefined;
 }
 
@@ -28,7 +29,7 @@ export interface RouteConfig {
 
 export interface MatchedRoute<
     Params extends { [K in keyof Params]?: string },
-    TRouteConfig extends RouteConfig = RouteConfig
+    TRouteConfig extends RouteConfig = RouteConfig,
 > {
     route: TRouteConfig;
     match: match<Params>;
@@ -36,7 +37,7 @@ export interface MatchedRoute<
 
 export function matchRoutes<
     Params extends { [K in keyof Params]?: string },
-    TRouteConfig extends RouteConfig = RouteConfig
+    TRouteConfig extends RouteConfig = RouteConfig,
 >(routes: TRouteConfig[], pathname: string): Array<MatchedRoute<Params, TRouteConfig>>;
 
 export function renderRoutes(

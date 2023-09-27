@@ -3,7 +3,7 @@
 // Definitions by: Manish Kumar <https://github.com/manishprivet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export type AnimationTypes =
     | "pulse"

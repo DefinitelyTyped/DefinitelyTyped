@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Action, Middleware, Store } from 'redux';
+import { Action, Middleware, Store } from "redux";
 
 export interface Options {
     connected?: (() => void) | undefined;

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import MessengerCheckbox from 'react-messenger-checkbox';
+import * as React from "react";
+import MessengerCheckbox from "react-messenger-checkbox";
 
-const PAGE_ID = '';
-const APP_ID = '';
-const ORIGIN = '';
-const USER_REF = '';
+const PAGE_ID = "";
+const APP_ID = "";
+const ORIGIN = "";
+const USER_REF = "";
 
 class Test extends React.Component {
     render() {

@@ -1,4 +1,4 @@
-import Formats from './lib/Formats.js';
+import Formats from "./lib/Formats.js";
 
 export interface FormatsFactory {
     formats: Formats;

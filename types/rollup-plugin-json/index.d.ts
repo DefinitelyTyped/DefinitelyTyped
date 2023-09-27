@@ -6,7 +6,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace json {
     interface Options {

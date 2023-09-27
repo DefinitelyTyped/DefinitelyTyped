@@ -1,4 +1,4 @@
-let $obj: JQuery = $('meh');
+let $obj: JQuery = $("meh");
 
 let selection: RangyInputs.Selection = $obj.getSelection();
 let start: number = selection.start;
@@ -14,8 +14,8 @@ $obj = $obj.setSelection(selection.start)
     .deleteSelectedText();
 text = $obj.extractSelectedText();
 $obj.insertText(selection.text, 4)
-    .insertText(text, 4, 'collapseToStart')
+    .insertText(text, 4, "collapseToStart")
     .replaceSelectedText(text)
-    .replaceSelectedText(text, 'select')
-    .surroundSelectedText('before', 'after')
-    .surroundSelectedText('before', 'after', 'collapseToEnd');
+    .replaceSelectedText(text, "select")
+    .surroundSelectedText("before", "after")
+    .surroundSelectedText("before", "after", "collapseToEnd");

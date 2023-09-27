@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { FC, ReactNode } from 'react';
-import { GestureResponderHandlers, StyleProp, ViewStyle, FlatListProps, TextInputProps } from 'react-native';
+import { FC, ReactNode } from "react";
+import { FlatListProps, GestureResponderHandlers, StyleProp, TextInputProps, ViewStyle } from "react-native";
 
 export interface AutocompleteProps<T> extends TextInputProps {
     /**
@@ -63,7 +63,7 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'] | undefined;
+    onStartShouldSetResponderCapture?: GestureResponderHandlers["onStartShouldSetResponderCapture"] | undefined;
 
     /**
      * function

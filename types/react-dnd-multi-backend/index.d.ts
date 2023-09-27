@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 import { BackendFactory } from "dnd-core";
+import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 
 /**
  * Callback function type definition for checking whether an event represents a transition between
@@ -125,7 +125,7 @@ export class Preview extends PureComponent<PreviewProps> {}
 /**
  * Pre-existing/default react-dnd-multi-backend transition available to use.
  */
- export const MouseTransition: Transition;
+export const MouseTransition: Transition;
 /**
  * Pre-existing/default react-dnd-touch-backend transition available to use.
  * This transition has the setting for "enableMouseEvents" turned on.

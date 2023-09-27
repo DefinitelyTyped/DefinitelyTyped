@@ -6,14 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Component } from 'react';
-import { Action, Reducer } from 'redux';
+import { Component } from "react";
+import { Action, Reducer } from "redux";
 
-export type iconType = 'success' | 'info' | 'warning' | 'error';
-export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
-export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
-export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
+export type iconType = "success" | "info" | "warning" | "error";
+export type positionType = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
+export type toastType = "success" | "info" | "warning" | "light" | "error" | "confirm" | "message";
+export type transitionInType = "bounceIn" | "bounceInDown" | "fadeIn";
+export type transitionOutType = "bounceOut" | "bounceOutUp" | "fadeOut";
 
 interface BasicToastrOptions {
     attention?: boolean | undefined;

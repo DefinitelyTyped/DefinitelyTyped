@@ -1,7 +1,14 @@
-import * as React from 'react';
-import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from 'react-transition-group/Transition';
-import { modes } from 'react-transition-group/SwitchTransition';
-import { Transition, CSSTransition, TransitionGroup, SwitchTransition, TransitionStatus, config } from 'react-transition-group';
+import * as React from "react";
+import {
+    config,
+    CSSTransition,
+    SwitchTransition,
+    Transition,
+    TransitionGroup,
+    TransitionStatus,
+} from "react-transition-group";
+import { modes } from "react-transition-group/SwitchTransition";
+import { ENTERED, ENTERING, EXITED, EXITING, UNMOUNTED } from "react-transition-group/Transition";
 
 interface ContainerProps {
     theme: string;
@@ -21,7 +28,7 @@ const Test: React.FunctionComponent = () => {
     function handleExit(node: HTMLElement) {}
 
     function handleEndListener(node: HTMLElement, done: () => void) {
-        node.addEventListener('transitionend', done, false);
+        node.addEventListener("transitionend", done, false);
     }
 
     function statusAsArgument(status: TransitionStatus) {
@@ -54,7 +61,7 @@ const Test: React.FunctionComponent = () => {
                     onExiting={handleExit}
                     onExited={handleExit}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -75,7 +82,7 @@ const Test: React.FunctionComponent = () => {
                     onExiting={handleExit}
                     onExited={handleExit}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -96,7 +103,7 @@ const Test: React.FunctionComponent = () => {
                     onExiting={handleExit}
                     onExited={handleExit}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -117,7 +124,7 @@ const Test: React.FunctionComponent = () => {
                     onExiting={handleExit}
                     onExited={handleExit}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
             </SwitchTransition>
 
@@ -143,7 +150,7 @@ const Test: React.FunctionComponent = () => {
                     onExiting={handleExit}
                     onExited={handleExit}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
                 <Transition in timeout={500}>
                     {status => {
@@ -163,7 +170,7 @@ const Test: React.FunctionComponent = () => {
                 </Transition>
 
                 <Transition timeout={{ enter: 500, exit: 500 }}>
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </Transition>
 
                 <Transition addEndListener={() => {}} />
@@ -185,36 +192,36 @@ const Test: React.FunctionComponent = () => {
                     onExited={handleExit}
                     classNames="fade"
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </CSSTransition>
 
                 <CSSTransition
                     timeout={{ enter: 500, exit: 500 }}
                     classNames={{
-                        appear: 'fade-appear',
-                        appearActive: 'fade-active-appear',
-                        appearDone: 'fade-done-appear',
-                        enter: 'fade-enter',
-                        enterActive: 'fade-active-enter',
-                        enterDone: 'fade-done-enter',
-                        exit: 'fade-exit',
-                        exitActive: 'fade-active-exit',
-                        exitDone: 'fade-done-exit',
+                        appear: "fade-appear",
+                        appearActive: "fade-active-appear",
+                        appearDone: "fade-done-appear",
+                        enter: "fade-enter",
+                        enterActive: "fade-active-enter",
+                        enterDone: "fade-done-enter",
+                        exit: "fade-exit",
+                        exitActive: "fade-active-exit",
+                        exitDone: "fade-done-exit",
                     }}
                 >
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </CSSTransition>
 
                 <CSSTransition timeout={100}>
-                    <div>{'test'}</div>
+                    <div>{"test"}</div>
                 </CSSTransition>
 
                 <CSSTransition timeout={500} onEnter={handleEnter}>
-                    <div ref={nodeRef}>{'test'}</div>
+                    <div ref={nodeRef}>{"test"}</div>
                 </CSSTransition>
 
                 <CSSTransition timeout={500} nodeRef={nodeRef} onEnter={handleEnterNoNode}>
-                    <div ref={nodeRef}>{'test'}</div>
+                    <div ref={nodeRef}>{"test"}</div>
                 </CSSTransition>
             </TransitionGroup>
         </>

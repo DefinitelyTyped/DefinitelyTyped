@@ -30,16 +30,16 @@ interface Exchange extends Topology {
 }
 
 interface FanoutExchange extends Exchange {
-    type: 'fanout';
+    type: "fanout";
 }
 
 interface TopicExchange extends Exchange {
-    type: 'topic';
+    type: "topic";
     bindings: TopicBinding[];
 }
 
 interface DirectExchange extends Exchange {
-    type: 'direct';
+    type: "direct";
     bindings: DirectBinding[];
 }
 

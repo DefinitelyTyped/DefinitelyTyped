@@ -110,7 +110,7 @@ declare namespace LoadableExport {
          * An object containing functions which return promises, which resolve to an object to be passed to `render` on success.
          */
         loader: {
-            [P in keyof Exports]: () => Promise<Exports[P]>
+            [P in keyof Exports]: () => Promise<Exports[P]>;
         };
         /**
          * If you want to customize what gets rendered from your loader you can also pass `render`.
@@ -150,8 +150,12 @@ declare namespace LoadableExport {
     }
 
     interface Loadable {
-        <Props, Exports extends object>(options: Options<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
-        Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
+        <Props, Exports extends object>(
+            options: Options<Props, Exports>,
+        ): React.ComponentType<Props> & LoadableComponent;
+        Map<Props, Exports extends { [key: string]: any }>(
+            options: OptionsWithMap<Props, Exports>,
+        ): React.ComponentType<Props> & LoadableComponent;
 
         /**
          * This will call all of the LoadableComponent.preload methods recursively until they are all

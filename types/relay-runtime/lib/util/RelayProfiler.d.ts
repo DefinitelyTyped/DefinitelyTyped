@@ -78,7 +78,6 @@ export const RelayProfiler: {
      *
      *   // Profiles both `renderA` and `renderB`.
      *   RelayProfiler.attachAggregateHandler('render', ...);
-     *
      */
     attachAggregateHandler(name: string, handler: Handler): void;
 

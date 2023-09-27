@@ -4,12 +4,15 @@
 //                 mike castleman <https://github.com/mlc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { ImageSourcePropType, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
-import { VideoProperties } from 'react-native-video';
+import * as React from "react";
+import { ImageSourcePropType, ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { VideoProperties } from "react-native-video";
 
-export interface VideoPlayerProps extends Omit<VideoProperties, 'source'> {
-    video?: { uri?: string | undefined, mainVer?: number | undefined, patchVer?: number | undefined } | number | undefined;
+export interface VideoPlayerProps extends Omit<VideoProperties, "source"> {
+    video?:
+        | { uri?: string | undefined; mainVer?: number | undefined; patchVer?: number | undefined }
+        | number
+        | undefined;
     thumbnail?: ImageSourcePropType | undefined;
     endThumbnail?: ImageSourcePropType | undefined;
     videoWidth?: number | undefined;

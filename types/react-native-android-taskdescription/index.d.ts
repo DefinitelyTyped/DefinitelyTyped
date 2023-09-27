@@ -4,11 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ReactNativeAndroidTaskDescriptionProps {
-  backgroundColor?: string | undefined;
-  label?: string | undefined;
+    backgroundColor?: string | undefined;
+    label?: string | undefined;
 }
 
-export default class ReactNativeAndroidTaskDescription extends React.Component<ReactNativeAndroidTaskDescriptionProps> {}
+export default class ReactNativeAndroidTaskDescription
+    extends React.Component<ReactNativeAndroidTaskDescriptionProps>
+{}

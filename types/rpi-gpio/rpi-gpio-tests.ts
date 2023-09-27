@@ -1,4 +1,4 @@
-import gpio = require('rpi-gpio');
+import gpio = require("rpi-gpio");
 
 gpio.setMode("mode_bcm");
 gpio.setMode("mode_rpi");

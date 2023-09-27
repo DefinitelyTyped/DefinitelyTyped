@@ -3,7 +3,7 @@
 // Definitions by: Jeroen Claassens <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 interface PluginURLOptions {
     limit?: number | undefined;

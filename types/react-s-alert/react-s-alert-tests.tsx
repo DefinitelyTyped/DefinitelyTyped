@@ -25,12 +25,12 @@ const config = {
 class Test extends React.Component {
     render() {
         return (
-          <div>
-              <Alert />
-              <Alert
-                  {...config}
-              />
-          </div>
+            <div>
+                <Alert />
+                <Alert
+                    {...config}
+                />
+            </div>
         );
     }
 }

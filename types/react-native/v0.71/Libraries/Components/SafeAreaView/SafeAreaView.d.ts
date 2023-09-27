@@ -1,7 +1,7 @@
-import type * as React from 'react';
-import {Constructor} from '../../../private/Utilities';
-import {NativeMethods} from '../../../public/ReactNativeTypes';
-import {ViewProps} from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * Renders nested content and automatically applies paddings reflect the portion of the view
@@ -10,6 +10,7 @@ import {ViewProps} from '../View/ViewPropTypes';
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
-declare const SafeAreaViewBase: Constructor<NativeMethods> &
-  typeof SafeAreaViewComponent;
+declare const SafeAreaViewBase:
+    & Constructor<NativeMethods>
+    & typeof SafeAreaViewComponent;
 export class SafeAreaView extends SafeAreaViewBase {}

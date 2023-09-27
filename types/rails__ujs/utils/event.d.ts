@@ -1,4 +1,4 @@
-import { SelectorObject } from './dom';
+import { SelectorObject } from "./dom";
 
 export function fire(obj: EventTarget, name: string, data?: any): boolean;
 

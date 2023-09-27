@@ -57,8 +57,9 @@ export interface MeasureProps {
     children?: React.FC<MeasuredComponentProps> | undefined;
 }
 
-export function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
-    <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
+export function withContentRect(
+    types: ReadonlyArray<MeasurementType> | MeasurementType,
+): <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
 
 declare class Measure extends React.Component<MeasureProps> {}
 export default Measure;

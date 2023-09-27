@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewProps, ViewStyle, Constructor, NativeMethodsMixin } from 'react-native';
+import * as React from "react";
+import { Constructor, NativeMethodsMixin, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 export interface PositionStyle {
     top?: number | undefined;
@@ -27,7 +27,7 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     animated?: boolean | undefined;
     isFullWidth?: boolean | undefined;
     showsVerticalScrollIndicator?: boolean | undefined;
-    keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | undefined;
+    keyboardShouldPersistTaps?: "always" | "never" | "handled" | undefined;
     showSearch?: boolean | undefined;
     keySearchObject?: string | undefined;
     renderSearch?: () => React.ReactNode | undefined;
@@ -44,7 +44,9 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     renderRow?: ((option: T, index: string, isSelected: boolean) => React.ReactNode) | undefined;
     renderRowComponent?: React.ComponentClass | React.FC | undefined;
     renderRowProps?: any;
-    renderSeparator?: ((sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode) | undefined;
+    renderSeparator?:
+        | ((sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode)
+        | undefined;
     renderButtonText?: ((text: string) => string) | undefined;
     renderRowText?: ((item: T) => string) | undefined;
     renderButtonComponent?: React.ComponentClass | React.FC | undefined;

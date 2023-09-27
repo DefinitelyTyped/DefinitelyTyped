@@ -1,5 +1,5 @@
-import { ReaderFragment, ReaderRefetchMetadata } from './ReaderNode';
-import { ConcreteRequest } from './RelayConcreteNode';
+import { ReaderFragment, ReaderRefetchMetadata } from "./ReaderNode";
+import { ConcreteRequest } from "./RelayConcreteNode";
 
 export default function getRefetchMetadata(
     fragmentNode: ReaderFragment,

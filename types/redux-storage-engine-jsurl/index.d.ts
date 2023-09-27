@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { StorageEngine } from 'redux-storage';
+import { StorageEngine } from "redux-storage";
 
 export = createEngine;
 declare function createEngine(): StorageEngine;

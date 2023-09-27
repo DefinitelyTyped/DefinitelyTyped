@@ -1,6 +1,6 @@
-import * as React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay, virtualize, bindKeyboard, SlideRenderProps } from 'react-swipeable-views-utils';
+import * as React from "react";
+import SwipeableViews from "react-swipeable-views";
+import { autoPlay, bindKeyboard, SlideRenderProps, virtualize } from "react-swipeable-views-utils";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);

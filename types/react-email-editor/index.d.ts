@@ -6,20 +6,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component as ReactComponent, CSSProperties } from 'react';
+import { Component as ReactComponent, CSSProperties } from "react";
 
-export type ThemeColor = 'light' | 'dark';
-export type DockPosition = 'right' | 'left';
+export type ThemeColor = "light" | "dark";
+export type DockPosition = "right" | "left";
 export interface AppearanceConfig {
     readonly theme?: ThemeColor | undefined;
     readonly panels?:
         | {
-              readonly tools?:
-                  | {
-                        readonly dock: DockPosition;
-                    }
-                  | undefined;
-          }
+            readonly tools?:
+                | {
+                    readonly dock: DockPosition;
+                }
+                | undefined;
+        }
         | undefined;
 }
 
@@ -118,7 +118,7 @@ export interface TextEditor {
 
 export type Translations = Record<string, Record<string, string>>;
 
-export type DisplayMode = 'email' | 'web';
+export type DisplayMode = "email" | "web";
 export interface UnlayerOptions {
     readonly id?: string | undefined;
     readonly displayMode?: DisplayMode | undefined;
@@ -197,8 +197,8 @@ export type DisplayConditionCallback = (
 
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;
-    registerCallback(type: 'image', callback: FileUploadCallback): void;
-    registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
+    registerCallback(type: "image", callback: FileUploadCallback): void;
+    registerCallback(type: "displayCondition", callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
     loadBlank(type: object): void;
     loadDesign(design: Design): void;

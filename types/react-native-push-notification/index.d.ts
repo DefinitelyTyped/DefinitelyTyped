@@ -31,7 +31,7 @@ export interface ReceivedNotification {
 
 export interface PushNotificationOptions {
     onRegister?: ((token: { os: string; token: string }) => void) | undefined;
-    onNotification?: ((notification: Omit<ReceivedNotification, 'userInfo'>) => void) | undefined;
+    onNotification?: ((notification: Omit<ReceivedNotification, "userInfo">) => void) | undefined;
     onAction?: ((notification: ReceivedNotification) => void) | undefined;
     onRegistrationError?: ((error: any) => void) | undefined;
     onRemoteFetch?: ((notificationData: any) => void) | undefined;
@@ -60,9 +60,9 @@ export class PushNotificationObject {
     group?: string | undefined;
     groupSummary?: boolean | undefined;
     ongoing?: boolean | undefined;
-    priority?: 'max' | 'high' | 'low' | 'min' | 'default' | undefined;
-    visibility?: 'private' | 'public' | 'secret' | undefined;
-    importance?: 'default' | 'max' | 'high' | 'low' | 'min' | 'none' | 'unspecified' | undefined;
+    priority?: "max" | "high" | "low" | "min" | "default" | undefined;
+    visibility?: "private" | "public" | "secret" | undefined;
+    importance?: "default" | "max" | "high" | "low" | "min" | "none" | "unspecified" | undefined;
     ignoreInForeground?: boolean | undefined;
     shortcutId?: string | undefined;
     channelId?: string | undefined;
@@ -89,7 +89,7 @@ export class PushNotificationObject {
     playSound?: boolean | undefined;
     soundName?: string | undefined;
     number?: string | number | undefined;
-    repeatType?: 'week' | 'day' | 'hour' | 'minute' | 'time' | undefined;
+    repeatType?: "week" | "day" | "hour" | "minute" | "time" | undefined;
     repeatTime?: number | undefined;
 }
 
@@ -143,7 +143,7 @@ export interface PushNotification {
     unregister(): void;
     localNotification(notification: PushNotificationObject): void;
     localNotificationSchedule(notification: PushNotificationScheduleObject): void;
-    requestPermissions(permissions?: Array<'alert' | 'badge' | 'sound'>): Promise<PushNotificationPermissions>;
+    requestPermissions(permissions?: Array<"alert" | "badge" | "sound">): Promise<PushNotificationPermissions>;
     subscribeToTopic(topic: string): void;
     unsubscribeFromTopic(topic: string): void;
     presentLocalNotification(notification: PushNotificationObject): void;

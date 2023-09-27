@@ -35,8 +35,8 @@ export interface MediaQueryMatchers {
     colorIndex?: boolean | undefined;
     monochrome?: boolean | undefined;
     resolution?: number | string | undefined;
-    orientation?: 'portrait' | 'landscape' | undefined;
-    scan?: 'progressive' | 'interlace' | undefined;
+    orientation?: "portrait" | "landscape" | undefined;
+    scan?: "progressive" | "interlace" | undefined;
     type?: MediaQueryType | undefined;
 }
 
@@ -86,7 +86,7 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     onChange?: ((matches: boolean) => void) | undefined;
 }
 
-declare class MediaQuery extends React.Component<MediaQueryProps> { }
+declare class MediaQuery extends React.Component<MediaQueryProps> {}
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
 
 export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
@@ -94,7 +94,7 @@ export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
 export function useMediaQuery(
     settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
     device?: MediaQueryMatchers,
-    callback?: (matches: boolean) => void
+    callback?: (matches: boolean) => void,
 ): boolean;
 
 export default MediaQuery;

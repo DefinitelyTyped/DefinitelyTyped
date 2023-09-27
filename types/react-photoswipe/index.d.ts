@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as React from 'react';
-import { Item, Options } from 'photoswipe';
+import { Item, Options } from "photoswipe";
+import * as React from "react";
 
 export interface PhotoSwipeProps {
     /**
@@ -146,7 +146,9 @@ export interface PhotoSwipeProps {
      * Allow to call preventDefault on down and up events
      * {@link https://photoswipe.com/documentation/api.html}
      */
-    preventDragEvent?: ((instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void) | undefined;
+    preventDragEvent?:
+        | ((instance: PhotoSwipe, e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void)
+        | undefined;
     /**
      * Photoswipe event listener
      * Share link clicked
@@ -159,7 +161,7 @@ export interface PhotoSwipeGalleryItem extends Item {
     thumbnail: string;
 }
 
-export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> {
+export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, "isOpen"> {
     /**
      * photoswipe item
      * {@link http://photoswipe.com/documentation/getting-started.html}
@@ -182,6 +184,6 @@ export interface PhotoSwipeGalleryProps extends Omit<PhotoSwipeProps, 'isOpen'> 
     thumbnailContent: (item: PhotoSwipeGalleryItem) => React.ReactNode;
 }
 
-export class PhotoSwipe extends React.Component<PhotoSwipeProps> { }
+export class PhotoSwipe extends React.Component<PhotoSwipeProps> {}
 
-export class PhotoSwipeGallery extends React.Component<PhotoSwipeGalleryProps> { }
+export class PhotoSwipeGallery extends React.Component<PhotoSwipeGalleryProps> {}

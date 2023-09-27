@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TSorterFn } from './Utilities';
-import { PivotTableProps } from './PivotTable';
+import * as React from "react";
+import { PivotTableProps } from "./PivotTable";
+import { TSorterFn } from "./Utilities";
 
 export interface PivotTableUIProps extends PivotTableProps {
     /**

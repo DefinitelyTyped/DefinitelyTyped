@@ -9,11 +9,11 @@ export interface ReactHintProps {
     attribute?: string;
     autoPosition?: boolean;
     className?: string;
-    delay?: number | { show: number, hide: number };
-    events?: boolean | { click: boolean, focus: boolean, hover: boolean };
+    delay?: number | { show: number; hide: number };
+    events?: boolean | { click: boolean; focus: boolean; hover: boolean };
     onRenderContent?: (target: HTMLElement, content: any) => React.ReactNode;
     persist?: boolean;
-    position?: 'top' | 'left' | 'right' | 'bottom';
+    position?: "top" | "left" | "right" | "bottom";
     ref?(ref: React.ComponentClass<ReactHintProps, any>): void;
 }
 

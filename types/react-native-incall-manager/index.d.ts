@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 export interface StartSetup {
-    media?: 'video' | 'audio' | undefined;
+    media?: "video" | "audio" | undefined;
     auto?: boolean | undefined;
     ringback?: string | undefined;
 }
@@ -61,7 +61,7 @@ declare class InCallManager {
 
     chooseAudioRoute(
         route: "EARPIECE" | "SPEAKER_PHONE" | "WIRED_HEADSET" | "BLUETOOTH",
-    ): Promise<{ availableAudioDeviceList: string, selectedAudioDevice: string }>;
+    ): Promise<{ availableAudioDeviceList: string; selectedAudioDevice: string }>;
 
     requestAudioFocus(): Promise<string | undefined>;
 

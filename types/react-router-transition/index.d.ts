@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from 'react';
-import { OpaqueConfig, SpringHelperConfig, TransitionStyle } from 'react-motion';
+import * as React from "react";
+import { OpaqueConfig, SpringHelperConfig, TransitionStyle } from "react-motion";
 import { RouteProps } from "react-router-dom";
 
 /**
@@ -17,11 +17,13 @@ export interface Styles extends React.CSSProperties {
 /**
  * Object containing animated styles
  */
-export type AnimatableStyles = {
-    [x in keyof React.CSSProperties]: React.CSSProperties[x] | OpaqueConfig;
-} & {
-    [x: string]: any;
-};
+export type AnimatableStyles =
+    & {
+        [x in keyof React.CSSProperties]: React.CSSProperties[x] | OpaqueConfig;
+    }
+    & {
+        [x: string]: any;
+    };
 
 // I don't want to export CommonProps because it's here for DRY reasons
 export {};
@@ -96,9 +98,11 @@ export const RouteTransition: React.ComponentClass<RouteTransitionProps>;
  * AnimatedRoute's props. Extends RouteProps except `location`.
  * http://maisano.github.io/react-router-transition/animated-route/props
  */
-export interface AnimatedRouteProps extends
-    CommonProps,
-    Pick<RouteProps, "children"|"component"|"exact"|"path"|"render"|"sensitive"|"strict"> {}
+export interface AnimatedRouteProps
+    extends
+        CommonProps,
+        Pick<RouteProps, "children" | "component" | "exact" | "path" | "render" | "sensitive" | "strict">
+{}
 /**
  * A <Route />, but with mounting & unmounting transitions.
  * http://maisano.github.io/react-router-transition/animated-route

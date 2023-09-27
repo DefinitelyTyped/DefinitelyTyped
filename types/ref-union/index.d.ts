@@ -3,7 +3,7 @@
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ref = require('ref');
+import ref = require("ref");
 
 /**
  * This is the `constructor` of the Struct type that gets returned.
@@ -12,12 +12,11 @@ import ref = require('ref');
  * Pass it an existing Buffer instance to use that as the backing buffer.
  * Pass in an Object containing the union fields to auto-populate the
  * union with the data.
- *
  */
 interface UnionType extends ref.Type {
     /** Pass it an existing Buffer instance to use that as the backing buffer. */
-    new (arg: Buffer, data?: {}): any;
-    new (data?: {}): any;
+    new(arg: Buffer, data?: {}): any;
+    new(data?: {}): any;
     /** Pass it an existing Buffer instance to use that as the backing buffer. */
     (arg: Buffer, data?: {}): any;
     (data?: {}): any;
@@ -49,10 +48,10 @@ interface UnionType extends ref.Type {
 
 /** The union type meta-constructor. */
 declare var UnionType: {
-    new (fields?: {}): UnionType;
-    new (fields?: any[]): UnionType;
+    new(fields?: {}): UnionType;
+    new(fields?: any[]): UnionType;
     (fields?: {}): UnionType;
     (fields?: any[]): UnionType;
-}
+};
 
 export = UnionType;

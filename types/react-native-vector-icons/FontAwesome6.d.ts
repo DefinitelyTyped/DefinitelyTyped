@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { Icon, IconButtonProps, IconProps, ImageSource } from './Icon';
+import { Component } from "react";
+import { Icon, IconButtonProps, IconProps, ImageSource } from "./Icon";
 
 export const FA6Style: {
     regular: 0;
@@ -17,7 +17,7 @@ export type ValueOf<T> = T[keyof T];
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export type FontAwesome6IconVariants = keyof Omit<typeof FA6Style, 'regular'>;
+export type FontAwesome6IconVariants = keyof Omit<typeof FA6Style, "regular">;
 
 export type FontAwesome6IconProps = { [K in FontAwesome6IconVariants]?: boolean } & IconProps;
 

@@ -3,8 +3,8 @@
 // Definitions by: akkumar <https://github.com/akkumar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
-import ToolTip from './ToolTip';
+import ToolTip from "./ToolTip";
 
 export default ToolTip;

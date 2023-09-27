@@ -1,3 +1,3 @@
-import randomWord = require('random-word');
+import randomWord = require("random-word");
 
 randomWord();

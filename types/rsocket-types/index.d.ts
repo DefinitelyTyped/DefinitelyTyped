@@ -5,5 +5,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export * from './ReactiveSocketTypes';
-export * from './ReactiveStreamTypes';
+export * from "./ReactiveSocketTypes";
+export * from "./ReactiveStreamTypes";

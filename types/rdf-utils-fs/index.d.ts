@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const rdfUtilsFs: {
-    fromFile: typeof import('./fromFile'),
-    toFile: typeof import('./toFile')
+    fromFile: typeof import("./fromFile");
+    toFile: typeof import("./toFile");
 };
 
 export = rdfUtilsFs;

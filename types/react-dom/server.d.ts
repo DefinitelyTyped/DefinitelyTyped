@@ -21,8 +21,8 @@ declare global {
     interface ReadableStream {}
 }
 
-import { ReactElement, ReactNode } from 'react';
-import { ErrorInfo } from './client';
+import { ReactElement, ReactNode } from "react";
+import { ErrorInfo } from "./client";
 
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;

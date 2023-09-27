@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { Action, Middleware } from "redux";
 import * as Sentry from "@sentry/browser";
+import { Action, Middleware } from "redux";
 
 declare namespace createSentryMiddleware {
     interface Options<T> {
@@ -16,10 +16,13 @@ declare namespace createSentryMiddleware {
         breadcrumbCategory?: string | undefined;
         filterBreadcrumbActions?: ((action: Action) => boolean) | undefined;
         getUserContext?: ((state: T) => Sentry.User) | undefined;
-        getTags?: ((state: T) => Sentry.Event['tags']) | undefined;
+        getTags?: ((state: T) => Sentry.Event["tags"]) | undefined;
     }
 }
 
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function createSentryMiddleware<T>(sentry: typeof Sentry, options?: createSentryMiddleware.Options<T>): Middleware;
+declare function createSentryMiddleware<T>(
+    sentry: typeof Sentry,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    options?: createSentryMiddleware.Options<T>,
+): Middleware;
 export = createSentryMiddleware;

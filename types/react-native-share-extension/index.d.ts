@@ -5,7 +5,7 @@
 
 interface ShareData {
     value: string;
-    type: 'text/plain' | 'images/*';
+    type: "text/plain" | "images/*";
 }
 
 interface ShareExtension {

@@ -1,4 +1,4 @@
-import type { Handler } from '../../store/RelayStoreTypes';
+import type { Handler } from "../../store/RelayStoreTypes";
 
 export const MutationHandlers: {
     DeleteRecordHandler: Handler;

@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Socket, SocketConnectOpts } from 'net';
-import { Duplex, DuplexOptions } from 'stream';
+import { EventEmitter } from "events";
+import { Socket, SocketConnectOpts } from "net";
+import { Duplex, DuplexOptions } from "stream";
 
 export type Callback<T> = (err: any, value?: T) => void;
 
@@ -21,14 +21,14 @@ export type EscapeHandler = (escapeSequence: string) => string | null;
 
 export type TelnetState =
     | null
-    | 'end'
-    | 'failedlogin'
-    | 'getprompt'
-    | 'login'
-    | 'ready'
-    | 'response'
-    | 'standby'
-    | 'start';
+    | "end"
+    | "failedlogin"
+    | "getprompt"
+    | "login"
+    | "ready"
+    | "response"
+    | "standby"
+    | "start";
 
 export interface ExecOptions {
     echoLines?: number | undefined;

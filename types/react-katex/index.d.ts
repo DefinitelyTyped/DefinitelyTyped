@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export type ErrorRenderer = (error: Error) => React.ReactNode;
 

@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import * as React from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import Modal, {
+    FadeAnimation,
+    ModalButton,
+    ModalContent,
+    ModalFooter,
     ModalPortal,
     ModalTitle,
-    ModalContent,
-    ModalButton,
-    SlideAnimation,
     ScaleAnimation,
-    FadeAnimation,
-    ModalFooter,
-} from 'react-native-modals';
+    SlideAnimation,
+} from "react-native-modals";
 
-const slideAnimation = new SlideAnimation({ slideFrom: 'bottom' });
+const slideAnimation = new SlideAnimation({ slideFrom: "bottom" });
 const scaleAnimation = new ScaleAnimation({});
 const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
 
@@ -43,7 +43,7 @@ class ImperativeUsageTest extends React.Component<any> {
                     <ModalButton
                         text="CLOSE"
                         onPress={() => this.dismissPopupModal(this.scalingPopupModal)}
-                        textStyle={{ color: 'red' }}
+                        textStyle={{ color: "red" }}
                         bordered
                         key="button-1"
                     />
@@ -58,14 +58,14 @@ class ImperativeUsageTest extends React.Component<any> {
             modalAnimation: slideAnimation,
             modalStyle: styles.testStyle,
             animationDuration: 150,
-            overlayPointerEvents: 'auto',
-            overlayBackgroundColor: 'white',
+            overlayPointerEvents: "auto",
+            overlayBackgroundColor: "white",
             overlayOpacity: 0.5,
             hasOverlay: true,
             visible: true,
-            onShow: () => console.log('onShow'),
-            onDismiss: () => console.log('onDismiss'),
-            onTouchOutside: () => console.log('onTouchOutside'),
+            onShow: () => console.log("onShow"),
+            onDismiss: () => console.log("onDismiss"),
+            onTouchOutside: () => console.log("onTouchOutside"),
             onHardwareBackPress: () => true,
         });
     }
@@ -120,8 +120,7 @@ class BasicUsageTest extends React.Component<{}, State> {
                         onPress={() =>
                             this.setState({
                                 showModal: true,
-                            })
-                        }
+                            })}
                         title="Show Fading Modal"
                     />
                 </View>
@@ -136,20 +135,17 @@ class BasicUsageTest extends React.Component<{}, State> {
                                 onPress={() =>
                                     this.setState({
                                         showModal: false,
-                                    })
-                                }
-                                textStyle={{ color: 'red' }}
+                                    })}
+                                textStyle={{ color: "red" }}
                                 bordered
                                 key="button-1"
                             />
                             <ModalButton text="OK" onPress={() => {}} key="button-2" />
                         </ModalFooter>
                     }
-                    modalAnimation={
-                        new SlideAnimation({
-                            slideFrom: 'top',
-                        })
-                    }
+                    modalAnimation={new SlideAnimation({
+                        slideFrom: "top",
+                    })}
                 >
                     <ModalContent>
                         <Text>content of the modal</Text>

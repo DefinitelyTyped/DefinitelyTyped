@@ -9,5 +9,5 @@ declare function requiresPort(port: string | number, protocol: requiresPort.Prot
 declare function requiresPort(port: string | number, protocol: string): boolean; // tslint:disable-line:unified-signatures
 
 declare namespace requiresPort {
-    type Protocol = 'http' | 'https' | 'ws' | 'wss' | 'ftp' | 'gopher' | 'file';
+    type Protocol = "http" | "https" | "ws" | "wss" | "ftp" | "gopher" | "file";
 }

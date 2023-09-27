@@ -507,7 +507,7 @@ export interface Rebase {
      */
     remove(
         endpoint: string,
-        callback?: (result: Promise<any>) => void
+        callback?: (result: Promise<any>) => void,
     ): Promise<any>;
 
     /**
@@ -530,7 +530,7 @@ export interface Rebase {
      */
     listenToDoc(
         refOrPath: object | string,
-        options: listenToDocOptions
+        options: listenToDocOptions,
     ): object;
 
     /**
@@ -544,7 +544,7 @@ export interface Rebase {
      */
     bindCollection(
         refOrPath: object | string,
-        options: bindCollectionOptions
+        options: bindCollectionOptions,
     ): RebaseBinding;
 
     /**
@@ -557,7 +557,7 @@ export interface Rebase {
      */
     listenToCollection(
         refOrPath: object | string,
-        options: listenToCollectionOptions
+        options: listenToCollectionOptions,
     ): RebaseBinding;
 
     /**
@@ -570,7 +570,7 @@ export interface Rebase {
      */
     get(
         refOrPath: object | object | string,
-        options: listenToCollectionOptions
+        options: listenToCollectionOptions,
     ): Promise<any>;
 
     /**
@@ -586,7 +586,7 @@ export interface Rebase {
     addToCollection(
         refOrPath: object | string,
         data: object,
-        id?: string
+        id?: string,
     ): Promise<any>;
 
     /**
@@ -621,7 +621,7 @@ export interface Rebase {
      */
     removeFromCollection(
         refOrPath: object | string,
-        options: removeFromCollectionOptions
+        options: removeFromCollectionOptions,
     ): Promise<any>;
 
     /**

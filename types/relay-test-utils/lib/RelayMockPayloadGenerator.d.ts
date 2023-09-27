@@ -1,4 +1,4 @@
-import { GraphQLSingularResponse, OperationDescriptor } from 'relay-runtime';
+import { GraphQLSingularResponse, OperationDescriptor } from "relay-runtime";
 
 export interface MockResolverContext {
     readonly parentType: string | null | undefined;

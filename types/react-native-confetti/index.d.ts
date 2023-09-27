@@ -3,7 +3,7 @@
 // Definitions by: Maurice el-Banna <https://github.com/MauriceNino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
+import { Component } from "react";
 
 export interface ConfettiProps {
     /**

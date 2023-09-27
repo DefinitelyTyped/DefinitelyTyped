@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import * as React from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 interface CardProps {
     title: string;
@@ -10,18 +10,18 @@ const Card = ({ description, title }: CardProps) => {
     return (
         <div
             style={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '40px',
-                gap: '16px',
-                borderRadius: '16px',
-                boxShadow: '0 0 16px rgba(0, 0, 0, 0.1)',
+                display: "flex",
+                flexDirection: "column",
+                padding: "40px",
+                gap: "16px",
+                borderRadius: "16px",
+                boxShadow: "0 0 16px rgba(0, 0, 0, 0.1)",
             }}
         >
             <p
                 style={{
-                    fontSize: '24px',
-                    lineHeight: '32px',
+                    fontSize: "24px",
+                    lineHeight: "32px",
                 }}
             >
                 {title}

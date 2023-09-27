@@ -1,9 +1,9 @@
-import * as React from 'react';
-import PhoneInput from 'react-phone-number-input/input';
+import * as React from "react";
+import PhoneInput from "react-phone-number-input/input";
 
 const test1 = (
     <PhoneInput
-        value={'+64271231234'}
+        value={"+64271231234"}
         onChange={(value?: string) => {
             console.log(value);
         }}
@@ -12,7 +12,7 @@ const test1 = (
         defaultCountry="NZ"
         placeholder="Place holder"
         international={true}
-        country={'US'}
+        country={"US"}
         onBlur={(ev: React.FocusEvent<HTMLInputElement>) => {
             console.log(ev.currentTarget.value);
         }}
@@ -25,7 +25,7 @@ const InputComponent = React.forwardRef<HTMLInputElement, React.InputHTMLAttribu
 
 const test2 = (
     <PhoneInput
-        value={'+64271231234'}
+        value={"+64271231234"}
         onChange={(value?: string) => {
             console.log(value);
         }}

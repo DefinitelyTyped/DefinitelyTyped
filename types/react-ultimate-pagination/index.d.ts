@@ -77,7 +77,7 @@ export interface CreateUltimatePaginationOptions {
     /**
      * A React.js component that will be used as a wrapper for pagination items
      */
-    WrapperComponent?: string|React.ComponentType<any> | undefined;
+    WrapperComponent?: string | React.ComponentType<any> | undefined;
 }
 
 export interface UltimatePaginationProps {
@@ -127,4 +127,6 @@ export interface UltimatePaginationProps {
     disabled?: boolean | undefined;
 }
 
-export function createUltimatePagination(options: CreateUltimatePaginationOptions): React.ComponentType<UltimatePaginationProps>;
+export function createUltimatePagination(
+    options: CreateUltimatePaginationOptions,
+): React.ComponentType<UltimatePaginationProps>;

@@ -4,14 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-type DeepResolved<T> =
-  T extends PromiseLike<infer R>
-    ? DeepResolved<R>
-    : T extends object
-      ? {
-        [K in keyof T]: DeepResolved<T[K]>
-      }
-      : T;
+type DeepResolved<T> = T extends PromiseLike<infer R> ? DeepResolved<R>
+    : T extends object ? {
+            [K in keyof T]: DeepResolved<T[K]>;
+        }
+    : T;
 
 declare function resolveValue<T>(boolean: T): Promise<DeepResolved<T>>;
 

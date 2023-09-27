@@ -3,7 +3,7 @@
 // Definitions by: Rafal Witczak <https://github.com/rafw87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ReactSvgPanZoomLoaderProps {
     src: string;

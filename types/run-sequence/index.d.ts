@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import gulp = require('gulp');
+import gulp = require("gulp");
 
 interface IRunSequence {
     (...streams: (string | string[] | gulp.TaskCallback)[]): NodeJS.ReadWriteStream;

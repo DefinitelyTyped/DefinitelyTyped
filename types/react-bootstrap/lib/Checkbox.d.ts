@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Checkbox {
     export interface CheckboxProps extends React.HTMLProps<Checkbox> {
@@ -9,5 +9,5 @@ declare namespace Checkbox {
         validationState?: "success" | "warning" | "error" | undefined;
     }
 }
-declare class Checkbox extends React.Component<Checkbox.CheckboxProps> { }
+declare class Checkbox extends React.Component<Checkbox.CheckboxProps> {}
 export = Checkbox;

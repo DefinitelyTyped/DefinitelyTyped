@@ -13,8 +13,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Dispatch, Store, Reducer, Middleware, StoreEnhancer } from 'redux';
-import { History } from 'history';
+import { History } from "history";
+import { Dispatch, Middleware, Reducer, Store, StoreEnhancer } from "redux";
 
 export type Nullable<T> = T | null | undefined;
 
@@ -85,7 +85,7 @@ export interface Location {
     search?: string | undefined;
 }
 
-export type LocationKind = 'load' | 'back' | 'next' | 'pop' | 'stealth' | 'push' | 'replace' | 'redirect';
+export type LocationKind = "load" | "back" | "next" | "pop" | "stealth" | "push" | "replace" | "redirect";
 
 export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
@@ -302,7 +302,7 @@ export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean)
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
-export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
+export const NOT_FOUND: "@@redux-first-router/NOT_FOUND";
 
 export function actionToPath<TKeys = {}, TState = any>(
     action: ReceivedAction,

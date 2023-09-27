@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export = FontAwesome;
 
@@ -16,9 +16,9 @@ interface Intermediate extends React.AllHTMLAttributes<HTMLElement> {
 }
 
 declare namespace FontAwesome {
-    type FontAwesomeSize = 'lg' | '2x' | '3x' | '4x' | '5x';
-    type FontAwesomeStack = '1x' | '2x';
-    type FontAwesomeFlip = 'horizontal' | 'vertical';
+    type FontAwesomeSize = "lg" | "2x" | "3x" | "4x" | "5x";
+    type FontAwesomeStack = "1x" | "2x";
+    type FontAwesomeFlip = "horizontal" | "vertical";
 
     interface FontAwesomeProps extends Intermediate {
         ariaLabel?: string | undefined;

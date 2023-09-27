@@ -1,5 +1,5 @@
-import express = require('express');
-import WebpackDevServer = require('webpack-dev-server');
+import express = require("express");
+import WebpackDevServer = require("webpack-dev-server");
 
 /*
  * Middleware responsible for retrieving a generated source

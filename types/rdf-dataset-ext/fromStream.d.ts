@@ -6,6 +6,9 @@ import { EventEmitter } from "stream";
  *
  * Errors emitted by the stream are forwarded as Promise rejects. Returns the given dataset.
  */
-declare function fromStream<D extends DatasetCore<BaseQuad> = DatasetCore>(dataset: D, stream: EventEmitter): Promise<D>;
+declare function fromStream<D extends DatasetCore<BaseQuad> = DatasetCore>(
+    dataset: D,
+    stream: EventEmitter,
+): Promise<D>;
 
 export = fromStream;

@@ -3,18 +3,10 @@
 // Definitions by: mkchung <https://github.com/mkchung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react';
-import {
-    StyleProp,
-    TextProps,
-    TextStyle,
-    TouchableOpacityProps,
-    ViewStyle,
-} from 'react-native';
+import { Component } from "react";
+import { StyleProp, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 
-export interface ButtonProps
-    extends TouchableOpacityProps,
-    Pick<TextProps, 'allowFontScaling'> {
+export interface ButtonProps extends TouchableOpacityProps, Pick<TextProps, "allowFontScaling"> {
     containerStyle?: StyleProp<ViewStyle> | undefined;
     disabledContainerStyle?: StyleProp<ViewStyle> | undefined;
     style?: StyleProp<TextStyle> | undefined;

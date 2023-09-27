@@ -11,7 +11,7 @@ export default ReactGooglePlacesSuggest;
 
 declare class ReactGooglePlacesSuggest extends Component<
     ReactGooglePlacesSuggest.Props
-    > { }
+> {}
 
 declare namespace ReactGooglePlacesSuggest {
     type Prediction = google.maps.places.AutocompletePrediction;
@@ -21,14 +21,18 @@ declare namespace ReactGooglePlacesSuggest {
         autocompletionRequest: google.maps.places.AutocompletionRequest;
         children?: ReactNode | undefined;
         customRender?: ((prediction?: Prediction) => JSX.Element | string) | undefined;
-        customContainerRender?: ((
-            predictions: ReadonlyArray<Prediction>
-        ) => JSX.Element | string) | undefined;
+        customContainerRender?:
+            | ((
+                predictions: ReadonlyArray<Prediction>,
+            ) => JSX.Element | string)
+            | undefined;
         googleMaps: typeof google.maps;
-        onSelectSuggest?: ((
-            geocodedPrediction: GeocodedPrediction,
-            originalPrediction: Prediction
-        ) => any) | undefined;
+        onSelectSuggest?:
+            | ((
+                geocodedPrediction: GeocodedPrediction,
+                originalPrediction: Prediction,
+            ) => any)
+            | undefined;
         textNoResults?: string | null | undefined;
     }
 }

@@ -35,4 +35,6 @@ export interface ReactFauxDomProps {
     isAnimatingFauxDOM(): boolean;
 }
 
-export function withFauxDOM<P>(WrappedComponent: React.ComponentClass<P>): React.ComponentClass<Pick<P, Exclude<keyof P, keyof ReactFauxDomProps>>>;
+export function withFauxDOM<P>(
+    WrappedComponent: React.ComponentClass<P>,
+): React.ComponentClass<Pick<P, Exclude<keyof P, keyof ReactFauxDomProps>>>;

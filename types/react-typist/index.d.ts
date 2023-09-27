@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from 'react';
+import * as React from "react";
 
 export namespace Typist {
     interface CursorProps {

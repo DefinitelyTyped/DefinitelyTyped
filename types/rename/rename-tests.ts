@@ -1,9 +1,9 @@
-import rename = require('rename');
+import rename = require("rename");
 
 // @ts-expect-error
 rename();
 // @ts-expect-error
-rename('a.js');
+rename("a.js");
 // @ts-expect-error
 rename(undefined, undefined);
 
@@ -13,37 +13,37 @@ rename(undefined, undefined);
 // rename('a.js', (obj) => { });    // @ts-expect-error
 
 // @ts-expect-error
-rename({ non: "existent" }, 'b.js');
+rename({ non: "existent" }, "b.js");
 
-rename('a.js', 'b.js');         // $ExpectType FilePath
-rename('a.js', { suffix: '-debug' });
-rename('a.js', (fileObject) => {
-    return { suffix: '-debug' };
+rename("a.js", "b.js"); // $ExpectType FilePath
+rename("a.js", { suffix: "-debug" });
+rename("a.js", (fileObject) => {
+    return { suffix: "-debug" };
 });
 
-rename({}, 'b.js');
-rename({ basename: 'a', extname: '.js' }, 'b.js');
+rename({}, "b.js");
+rename({ basename: "a", extname: ".js" }, "b.js");
 
 function transformer(obj: rename.FileObject): rename.Specification {
     return {
-        suffix: obj.hash || '-debug'
+        suffix: obj.hash || "-debug",
     };
 }
 
-rename({ basename: 'a', extname: '.js' }, transformer);
-rename({ basename: 'a', extname: '.js', hash: '-123' }, transformer);
+rename({ basename: "a", extname: ".js" }, transformer);
+rename({ basename: "a", extname: ".js", hash: "-123" }, transformer);
 
 rename({
-    basename: 'c',
-    extname: '.js',
-    hash: '111'
+    basename: "c",
+    extname: ".js",
+    hash: "111",
 }, {
-        // tslint:disable-next-line no-invalid-template-strings
-        suffix: '-${hash}'
-    });
+    // tslint:disable-next-line no-invalid-template-strings
+    suffix: "-${hash}",
+});
 
 rename.parse("p.js"); // $ExpectType ParsedFileObject
-rename.parse({ dirname: '.'}); // $ExpectType ParsedFileObject
+rename.parse({ dirname: "." }); // $ExpectType ParsedFileObject
 
 // @ts-expect-error
 rename.stringify();

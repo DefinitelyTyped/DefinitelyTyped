@@ -1,1 +1,1 @@
-export * from './lib/multi-actor-environment';
+export * from "./lib/multi-actor-environment";

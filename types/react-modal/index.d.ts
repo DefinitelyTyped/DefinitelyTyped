@@ -36,7 +36,7 @@ declare namespace ReactModal {
         /** Identifies the element (or elements) that describes the object. */
         describedby?: string | undefined;
         /** Indicates whether an element is modal when displayed. */
-        modal?: boolean | 'false' | 'true' | undefined;
+        modal?: boolean | "false" | "true" | undefined;
     }
 
     /** Describes overlay and content element references passed to onAfterOpen function */
@@ -131,9 +131,13 @@ declare namespace ReactModal {
         overlayRef?: ((instance: HTMLDivElement) => void) | undefined;
 
         /* Custom Overlay element. */
-        overlayElement?: ((props: React.ComponentPropsWithRef<"div">, contentEl: React.ReactElement) => React.ReactElement) | undefined;
+        overlayElement?:
+            | ((props: React.ComponentPropsWithRef<"div">, contentEl: React.ReactElement) => React.ReactElement)
+            | undefined;
         /* Custom Content element. */
-        contentElement?: ((props: React.ComponentPropsWithRef<"div">, children: React.ReactNode) => React.ReactElement) | undefined;
+        contentElement?:
+            | ((props: React.ComponentPropsWithRef<"div">, children: React.ReactNode) => React.ReactElement)
+            | undefined;
 
         /* String value of data-test-id attibute to be applied to to the modal content. */
         testId?: string | undefined;

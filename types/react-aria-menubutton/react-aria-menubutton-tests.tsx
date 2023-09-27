@@ -1,14 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {
-    Button,
-    Menu,
-    MenuItem,
-    Wrapper,
-    closeMenu,
-    openMenu
-} from "react-aria-menubutton";
+import { Button, closeMenu, Menu, MenuItem, openMenu, Wrapper } from "react-aria-menubutton";
 
 const menuItemWords = ["foo", "bar", "baz"];
 
@@ -48,7 +41,7 @@ const words = [
     "anisodactylous",
     "barbar",
     "pilcrow",
-    "destroy"
+    "destroy",
 ];
 
 interface DemoOneState {
@@ -73,8 +66,8 @@ class DemoOne extends React.Component<{}, DemoOneState> {
         if (noMenu) {
             return (
                 <div>
-                    [You decided to "destroy this menu," so the menu has been destroyed,
-                    according to your wishes. Refresh the page to see it again.]
+                    [You decided to "destroy this menu," so the menu has been destroyed, according to your wishes.
+                    Refresh the page to see it again.]
                 </div>
             );
         }
@@ -129,7 +122,7 @@ class ObjectMenuItem extends React.Component {
         return (
             <Wrapper onSelection={(value) => console.log(value.name)}>
                 <li>
-                    <MenuItem value={itemValue} >{itemValue.label}</MenuItem>
+                    <MenuItem value={itemValue}>{itemValue.label}</MenuItem>
                 </li>
             </Wrapper>
         );
@@ -144,7 +137,9 @@ class MenuWithRenderProp extends React.Component {
             <Menu>
                 {({ isOpen }) => (
                     <ul>
-                        <li><MenuItem>Foo</MenuItem></li>
+                        <li>
+                            <MenuItem>Foo</MenuItem>
+                        </li>
                     </ul>
                 )}
             </Menu>

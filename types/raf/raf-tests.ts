@@ -1,7 +1,7 @@
 import * as raf from "raf";
 
 const handle = raf((timestamp) => {
-  timestamp; // $ExpectType number
+    timestamp; // $ExpectType number
 });
 
 handle; // $ExpectType number

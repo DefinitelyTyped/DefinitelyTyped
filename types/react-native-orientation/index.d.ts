@@ -10,7 +10,9 @@ declare namespace Orientation {
     export function addOrientationListener(callback: (orientation: orientation) => void): void;
     export function removeOrientationListener(callback: (orientation: orientation) => void): void;
     export function addSpecificOrientationListener(callback: (specificOrientation: specificOrientation) => void): void;
-    export function removeSpecificOrientationListener(callback: (specificOrientation: specificOrientation) => void): void;
+    export function removeSpecificOrientationListener(
+        callback: (specificOrientation: specificOrientation) => void,
+    ): void;
 
     export function getInitialOrientation(): orientation;
     export function lockToPortrait(): void;

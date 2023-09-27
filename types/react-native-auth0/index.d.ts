@@ -13,7 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Auth
@@ -97,13 +97,13 @@ export interface AuthParams {
 
 export interface PasswordlessWithEmailParams {
     email: string;
-    send?: 'link' | 'code';
+    send?: "link" | "code";
     authParams?: AuthParams;
 }
 
 export interface PasswordlessWithSMSParams {
     phoneNumber: string;
-    send?: 'link' | 'code';
+    send?: "link" | "code";
     authParams?: AuthParams;
 }
 
@@ -139,12 +139,12 @@ export interface LoginWithRecoveryCodeParams {
 
 export interface MultiFactorChallengeParams {
     mfaToken: string;
-    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    challengeType?: "oob" | "otp" | "oob otp" | "otp oob";
     authenticatorId?: string;
 }
 
 export interface MultiFactorChallengeResponse {
-    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    challengeType?: "oob" | "otp" | "oob otp" | "otp oob";
     oobCode?: string;
     bindingMethod?: string;
 }
@@ -269,7 +269,7 @@ export class WebAuth {
 }
 
 export interface UsersOptions {
-    baseUrl: Options['domain'];
+    baseUrl: Options["domain"];
     token: string;
 }
 
@@ -356,11 +356,13 @@ export interface PhoneClaims {
     phone_number: string;
     phone_number_verified: boolean;
 }
-export type User = {
-    // for custom claim
-    [key: string]: unknown;
-} & OpenIdClaims &
-    Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
+export type User =
+    & {
+        // for custom claim
+        [key: string]: unknown;
+    }
+    & OpenIdClaims
+    & Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
 
 export class Auth0ContextInterface {
     user: User | null;
@@ -399,6 +401,6 @@ export interface BaseError extends Error {
 }
 
 export interface TimeoutError extends BaseError {
-    name: 'TimeoutError';
+    name: "TimeoutError";
     message: string;
 }

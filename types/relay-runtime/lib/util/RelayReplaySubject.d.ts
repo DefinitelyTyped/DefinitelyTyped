@@ -1,6 +1,6 @@
-import type { Observer, Sink, Subscription, RelayObservable } from '../network/RelayObservable';
+import type { Observer, RelayObservable, Sink, Subscription } from "../network/RelayObservable";
 
-export type Event<T> = { kind: 'next'; data: T } | { kind: 'error'; error: Error } | { kind: 'complete' };
+export type Event<T> = { kind: "next"; data: T } | { kind: "error"; error: Error } | { kind: "complete" };
 
 /**
  * An implementation of a `ReplaySubject` for Relay Observables.

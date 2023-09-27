@@ -11,7 +11,19 @@ declare namespace spinner {
         /**
          * Specify spinner to use.
          */
-        spinnerName?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress' | undefined;
+        spinnerName?:
+            | "three-bounce"
+            | "double-bounce"
+            | "rotating-plane"
+            | "folding-cube"
+            | "wave"
+            | "wandering-cubes"
+            | "pulse"
+            | "chasing-dots"
+            | "circle"
+            | "cube-grid"
+            | "wordpress"
+            | undefined;
         /**
          * Disable the initial fade-in of the spinner.
          */

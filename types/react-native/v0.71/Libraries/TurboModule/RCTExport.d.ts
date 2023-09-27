@@ -6,5 +6,5 @@
  */
 
 export interface TurboModule {
-  getConstants?(): {};
+    getConstants?(): {};
 }

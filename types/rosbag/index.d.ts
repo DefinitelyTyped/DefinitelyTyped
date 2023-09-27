@@ -73,21 +73,21 @@ declare function extractFields(buffer: Buffer): { [key: string]: Buffer };
 declare function extractTime(buffer: Buffer, offset: number): Time;
 
 type rosType =
-    | 'string'
-    | 'bool'
-    | 'int8'
-    | 'uint8'
-    | 'int16'
-    | 'uint16'
-    | 'int32'
-    | 'uint32'
-    | 'float32'
-    | 'float64'
-    | 'int64'
-    | 'uint64'
-    | 'time'
-    | 'duration'
-    | 'json';
+    | "string"
+    | "bool"
+    | "int8"
+    | "uint8"
+    | "int16"
+    | "uint16"
+    | "int32"
+    | "uint32"
+    | "float32"
+    | "float64"
+    | "int64"
+    | "uint64"
+    | "time"
+    | "duration"
+    | "json";
 
 type rosPrimitiveTypes = Set<rosType>;
 
@@ -493,16 +493,16 @@ declare class ChunkInfo extends Record {
 }
 
 export {
-    Callback,
-    TimeUtil,
     BagReader,
+    Callback,
+    extractFields,
+    extractTime,
     MessageReader,
     MessageWriter,
     open,
     parseMessageDefinition,
     rosPrimitiveTypes,
-    extractFields,
-    extractTime,
+    TimeUtil,
 };
 export default Bag;
 

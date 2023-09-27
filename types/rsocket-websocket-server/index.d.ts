@@ -5,5 +5,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { RSocketWebSocketServer } from './RSocketWebSocketServer';
+import { RSocketWebSocketServer } from "./RSocketWebSocketServer";
 export default RSocketWebSocketServer;

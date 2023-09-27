@@ -1,4 +1,4 @@
-import {OpaqueColorValue} from './StyleSheet';
+import { OpaqueColorValue } from "./StyleSheet";
 
 /**
  * Select native platform color

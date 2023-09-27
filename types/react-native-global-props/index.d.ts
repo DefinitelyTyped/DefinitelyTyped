@@ -21,7 +21,7 @@ import {
     TouchableOpacityProps,
     TouchableWithoutFeedbackProps,
     ViewProps,
-} from 'react-native';
+} from "react-native";
 
 export function setCustomView(customViewProps: ViewProps): void;
 

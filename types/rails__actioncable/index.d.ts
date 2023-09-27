@@ -7,17 +7,17 @@
 export as namespace ActionCable;
 
 export enum MessageTypes {
-    confirmation = 'confirm_subscription',
-    disconnect = 'disconnect',
-    ping = 'ping',
-    rejection = 'reject_subscription',
-    welcome = 'welcome',
+    confirmation = "confirm_subscription",
+    disconnect = "disconnect",
+    ping = "ping",
+    rejection = "reject_subscription",
+    welcome = "welcome",
 }
 
 export enum DisconnectReasons {
-    invalid_request = 'invalid_request',
-    server_restart = 'server_restart',
-    unauthorized = 'unauthorized',
+    invalid_request = "invalid_request",
+    server_restart = "server_restart",
+    unauthorized = "unauthorized",
 }
 
 export interface Mixin {
@@ -48,10 +48,10 @@ export interface ChannelNameWithParams {
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/internal.js
  */
 export const INTERNAL: {
-    default_mount_path: '/cable';
+    default_mount_path: "/cable";
     disconnect_reasons: typeof DisconnectReasons;
     message_types: typeof MessageTypes;
-    protocols: ['actioncable-v1-json', 'actioncable-unsupported'];
+    protocols: ["actioncable-v1-json", "actioncable-unsupported"];
 };
 
 /**

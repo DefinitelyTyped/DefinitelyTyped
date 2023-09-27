@@ -6,7 +6,7 @@ declare global {
     }
 }
 
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
 /**
  * Render a React element to its initial HTML. This should only be used on the server.

@@ -166,4 +166,4 @@ export interface ParseOptions {
 /**
  * A guess at the locale of the name.
  */
-export type Locale = 'ja' | '';
+export type Locale = "ja" | "";

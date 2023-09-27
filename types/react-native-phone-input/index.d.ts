@@ -4,26 +4,32 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import * as React from 'react';
-import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, TextInput, ImageRequireSource } from 'react-native';
+import * as React from "react";
+import {
+    ImageRequireSource,
+    StyleProp,
+    TextInput,
+    TextStyle as TextStyleRaw,
+    ViewStyle as ViewStyleRaw,
+} from "react-native";
 
 export type ViewStyle = StyleProp<ViewStyleRaw>;
 export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface CountriesListItem {
-  name: string;
-  iso2: string;
-  dialCode: string;
-  priority: number;
-  areaCodes: ReadonlyArray<string> | null;
+    name: string;
+    iso2: string;
+    dialCode: string;
+    priority: number;
+    areaCodes: ReadonlyArray<string> | null;
 }
 
 export interface PickerData {
-  key: number;
-  image: ImageRequireSource;
-  label: CountriesListItem['name'];
-  dialCode: CountriesListItem['dialCode'];
-  iso2: CountriesListItem['iso2'];
+    key: number;
+    image: ImageRequireSource;
+    label: CountriesListItem["name"];
+    dialCode: CountriesListItem["dialCode"];
+    iso2: CountriesListItem["iso2"];
 }
 
 export interface ReactNativePhoneInputProps<TextComponentType extends React.ComponentType = typeof TextInput> {
@@ -118,51 +124,51 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
 }
 
 export default class ReactNativePhoneInput<
-                   TextComponentType extends React.ComponentType = typeof TextInput
-               > extends React.Component<ReactNativePhoneInputProps<TextComponentType>> {
-                   picker?: React.Ref<ThisType<ReactNativePhoneInput>> | undefined;
-                   /**
-                    * Return true if current phone number is valid
-                    */
-                   isValidNumber: () => boolean;
-                   /**
-                    * Return true type of current phone number
-                    */
-                   getNumberType: () => string;
-                   /**
-                    * Return current phone number
-                    */
-                   getValue: () => string;
-                   /**
-                    * Return flag image
-                    */
-                   getFlag: (iso2: string) => ImageRequireSource;
-                   /**
-                    * Return country object in country picker
-                    */
-                   getAllCountries: () => CountriesListItem;
-                   /**
-                    * Return country object with flag image
-                    */
-                   getPickerData: () => PickerData;
-                   /**
-                    * Focus the phone input
-                    */
-                   focus: () => void;
-                   /**
-                    * Blur the phone input
-                    */
-                   blur: () => void;
-                   /**
-                    * Set phone input to specific country
-                    */
-                   selectCountry: (iso2: string) => void;
-                   /**
-                    * Return country dial code of current phone number
-                    */
-                   getCountryCode: () => string;
-                   /**
-                    * Return country iso code of current phone number
-                    */
-                   getISOCode: () => string;
-               }
+    TextComponentType extends React.ComponentType = typeof TextInput,
+> extends React.Component<ReactNativePhoneInputProps<TextComponentType>> {
+    picker?: React.Ref<ThisType<ReactNativePhoneInput>> | undefined;
+    /**
+     * Return true if current phone number is valid
+     */
+    isValidNumber: () => boolean;
+    /**
+     * Return true type of current phone number
+     */
+    getNumberType: () => string;
+    /**
+     * Return current phone number
+     */
+    getValue: () => string;
+    /**
+     * Return flag image
+     */
+    getFlag: (iso2: string) => ImageRequireSource;
+    /**
+     * Return country object in country picker
+     */
+    getAllCountries: () => CountriesListItem;
+    /**
+     * Return country object with flag image
+     */
+    getPickerData: () => PickerData;
+    /**
+     * Focus the phone input
+     */
+    focus: () => void;
+    /**
+     * Blur the phone input
+     */
+    blur: () => void;
+    /**
+     * Set phone input to specific country
+     */
+    selectCountry: (iso2: string) => void;
+    /**
+     * Return country dial code of current phone number
+     */
+    getCountryCode: () => string;
+    /**
+     * Return country iso code of current phone number
+     */
+    getISOCode: () => string;
+}

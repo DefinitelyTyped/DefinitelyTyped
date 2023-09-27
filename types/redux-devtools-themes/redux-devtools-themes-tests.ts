@@ -1,4 +1,4 @@
-import * as base16 from 'redux-devtools-themes';
+import * as base16 from "redux-devtools-themes";
 
 const colorScheme: base16.Base16Theme = base16.nicinabox;
 

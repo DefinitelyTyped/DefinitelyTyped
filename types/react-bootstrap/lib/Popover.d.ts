@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes, Omit } from 'react-bootstrap';
+import * as React from "react";
+import { Omit, Sizes } from "react-bootstrap";
 
 declare namespace Popover {
     export interface PopoverProps extends Omit<React.HTMLProps<Popover>, "title"> {
@@ -15,5 +15,5 @@ declare namespace Popover {
         title?: React.ReactNode | undefined;
     }
 }
-declare class Popover extends React.Component<Popover.PopoverProps> { }
+declare class Popover extends React.Component<Popover.PopoverProps> {}
 export = Popover;

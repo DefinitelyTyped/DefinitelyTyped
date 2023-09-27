@@ -1,4 +1,4 @@
-import * as bootstrapUtils from './bootstrapUtils';
-import createChainedFunction from './createChainedFunction';
+import * as bootstrapUtils from "./bootstrapUtils";
+import createChainedFunction from "./createChainedFunction";
 
-export { createChainedFunction, bootstrapUtils }
+export { bootstrapUtils, createChainedFunction };

@@ -1,4 +1,4 @@
-import { ISubscriber, ISubscription } from 'rsocket-types';
+import { ISubscriber, ISubscription } from "rsocket-types";
 /**
  * An operator that acts like Array.map, applying a given function to
  * all values provided by its `Subscription` and passing the result to its

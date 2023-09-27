@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode } from "react";
 
 declare function ReactReconciler<
     Type,
@@ -38,8 +38,7 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
-        /* eslint-enable @definitelytyped/no-unnecessary-generics */
-    >,
+    >, /* eslint-enable @definitelytyped/no-unnecessary-generics */
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
 
 declare namespace ReactReconciler {
@@ -62,7 +61,6 @@ declare namespace ReactReconciler {
         //        Modes
         // -------------------
         /**
-         *
          * The reconciler has two modes: mutation mode and persistent mode. You must specify one of them.
          *
          * If your target platform is similar to the DOM and has methods similar to `appendChild`, `removeChild`, and so on, you'll want to use the **mutation mode**. This is the same mode used by React DOM, React ART, and the classic React Native renderer.
@@ -82,7 +80,6 @@ declare namespace ReactReconciler {
         supportsMutation: boolean;
 
         /**
-         *
          * The reconciler has two modes: mutation mode and persistent mode. You must specify one of them.
          *
          * If your target platform has immutable trees, you'll want the **persistent mode** instead. In that mode, existing nodes are never mutated, and instead every change clones the parent tree and then replaces the whole parent tree at the root. This is the node used by the new React Native renderer, codenamed "Fabric".
@@ -586,21 +583,21 @@ declare namespace ReactReconciler {
         | 24;
 
     type HookType =
-        | 'useState'
-        | 'useReducer'
-        | 'useContext'
-        | 'useRef'
-        | 'useEffect'
-        | 'useLayoutEffect'
-        | 'useCallback'
-        | 'useMemo'
-        | 'useImperativeHandle'
-        | 'useDebugValue'
-        | 'useDeferredValue'
-        | 'useTransition'
-        | 'useMutableSource'
-        | 'useOpaqueIdentifier'
-        | 'useCacheRefresh';
+        | "useState"
+        | "useReducer"
+        | "useContext"
+        | "useRef"
+        | "useEffect"
+        | "useLayoutEffect"
+        | "useCallback"
+        | "useMemo"
+        | "useImperativeHandle"
+        | "useDebugValue"
+        | "useDeferredValue"
+        | "useTransition"
+        | "useMutableSource"
+        | "useOpaqueIdentifier"
+        | "useCacheRefresh";
 
     interface Source {
         fileName: string;
@@ -738,8 +735,8 @@ declare namespace ReactReconciler {
         ref:
             | null
             | (((handle: unknown) => void) & {
-                  _stringRef?: string | null;
-              })
+                _stringRef?: string | null;
+            })
             | RefObject;
 
         // Input is the data coming into process this fiber. Arguments. Props.

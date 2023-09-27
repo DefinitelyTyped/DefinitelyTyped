@@ -1,12 +1,12 @@
-import RelateUrl = require('relateurl');
+import RelateUrl = require("relateurl");
 
 var from = "http://www.domain.com/asdf/";
 var to = "http://www.domain.com/asdf/asdf";
 var to1 = "http://www.domain.com/asdf/asdf1";
 var to2 = "http://www.domain.com/asdf/asdf1";
 var to3 = "http://www.domain.com/asdf/asdf1";
-var options = {site: "http://www.domain.com/asdf2/"};
-var customOptions = {output: RelateUrl.ABSOLUTE};
+var options = { site: "http://www.domain.com/asdf2/" };
+var customOptions = { output: RelateUrl.ABSOLUTE };
 
 // Single Instance
 var result = RelateUrl.relate(from, to, options);

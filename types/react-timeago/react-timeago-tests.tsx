@@ -1,15 +1,13 @@
-import ReactTimeago, { Unit, Suffix } from "react-timeago";
 import * as React from "react";
+import ReactTimeago, { Suffix, Unit } from "react-timeago";
 
-const ReactTimeagoRequiredOptions: JSX.Element = (
-    <ReactTimeago date={new Date()} />
-);
+const ReactTimeagoRequiredOptions: JSX.Element = <ReactTimeago date={new Date()} />;
 
 const customFormatter = (
     value: number,
     unit: Unit,
     suffix: Suffix,
-    epochMiliseconds: number
+    epochMiliseconds: number,
 ) => {
     return epochMiliseconds > 300000
         ? `${value}${unit[0]} ${suffix}`
@@ -32,7 +30,7 @@ const ReactTimeagoDefaultComponentProps: JSX.Element = (
     // Note that the default component is <time/>, which has a style prop.
     <ReactTimeago
         date={new Date()}
-        style={{marginTop: 42}}
+        style={{ marginTop: 42 }}
     />
 );
 

@@ -6,5 +6,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import RSocketWebSocketClient from './RSocketWebSocketClient';
+import RSocketWebSocketClient from "./RSocketWebSocketClient";
 export default RSocketWebSocketClient;

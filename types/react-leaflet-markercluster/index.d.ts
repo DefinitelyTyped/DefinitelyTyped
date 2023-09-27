@@ -6,8 +6,8 @@
 
 /// <reference types="leaflet.markercluster" />
 
-import { ComponentType } from 'react';
-import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from 'leaflet';
+import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from "leaflet";
+import { ComponentType } from "react";
 
 interface MarkerClusterGroupProps {
     /**
@@ -174,7 +174,7 @@ interface MarkerClusterGroupProps {
      * Typically used to implement a progress indicator.
      * Defaults to null.
      */
-        chunkProgress?: ((processed: number, total: number, elapsed: number) => void) | null;
+    chunkProgress?: ((processed: number, total: number, elapsed: number) => void) | null;
 }
 
 declare const MarkerClusterGroup: ComponentType<MarkerClusterGroupProps>;

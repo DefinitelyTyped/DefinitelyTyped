@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type * as React from "react";
 
 /**
  * YellowBox has been replaced with LogBox.
@@ -6,5 +6,5 @@ import type * as React from 'react';
  * @deprecated
  */
 export const YellowBox: React.ComponentClass<any, any> & {
-  ignoreWarnings: (warnings: string[]) => void;
+    ignoreWarnings: (warnings: string[]) => void;
 };

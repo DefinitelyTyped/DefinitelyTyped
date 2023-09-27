@@ -3,7 +3,7 @@
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface MorphReplaceProps {
     children: React.ReactElement;

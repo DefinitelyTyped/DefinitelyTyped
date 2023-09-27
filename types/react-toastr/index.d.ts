@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactHTML } from 'react';
+import { Component, ReactHTML } from "react";
 
 export class ToastContainer extends Component<{
     toastMessageFactory: any;

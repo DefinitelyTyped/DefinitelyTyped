@@ -8,12 +8,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { ListProps, Index } from 'react-virtualized';
-import { ConnectDragSource, ConnectDragPreview, ConnectDropTarget } from 'react-dnd';
+import * as React from "react";
+import { ConnectDragPreview, ConnectDragSource, ConnectDropTarget } from "react-dnd";
+import { Index, ListProps } from "react-virtualized";
 
-export * from './utils/tree-data-utils';
-export * from './utils/default-handlers';
+export * from "./utils/default-handlers";
+export * from "./utils/tree-data-utils";
 
 export interface GetTreeItemChildren<T = {}> {
     done: (children: Array<TreeItem<T>>) => void;
@@ -120,7 +120,7 @@ export interface NodeRendererProps<T = {}> {
     swapLength?: number | undefined;
     listIndex: number;
     treeId: string;
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -154,7 +154,7 @@ export interface TreeRendererProps<T = {}> {
     swapLength?: number | undefined;
     scaffoldBlockPxWidth: number;
     lowerSiblingCounts: number[];
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
 
     listIndex: number;
     children: JSX.Element[];
@@ -196,7 +196,7 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
     onVisibilityToggle?(data: OnVisibilityToggleData<T>): void;
     onDragStateChanged?(data: OnDragStateChangedData<T>): void;
     maxDepth?: number | undefined;
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean | undefined;
     canDrop?(data: OnDragPreviousAndNextLocation<T> & NodeData<T>): boolean;
     canNodeHaveChildren?(node: TreeItem<T>): boolean;
@@ -214,8 +214,10 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function SortableTreeWithoutDndContext<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
+declare function SortableTreeWithoutDndContext<T>(
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    props: React.PropsWithChildren<ReactSortableTreeProps<T>>,
+): JSX.Element;
 
 export { SortableTree, SortableTreeWithoutDndContext };
 export default SortableTree;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 export = shallowCompare;
 
@@ -15,4 +15,5 @@ declare namespace shallowCompare {}
 declare function shallowCompare<P, S>(
     component: Component<P, S>,
     nextProps: P,
-    nextState: S): boolean;
+    nextState: S,
+): boolean;

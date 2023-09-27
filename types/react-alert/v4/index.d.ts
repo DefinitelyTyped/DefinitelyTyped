@@ -3,11 +3,11 @@
 // Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactNode, ComponentType, Component, Consumer } from 'react';
+import { Component, ComponentType, Consumer, ReactNode } from "react";
 
-export type AlertPosition = 'top left' | 'top center' | 'top right' | 'bottom left' | 'bottom center' | 'bottom right';
-export type AlertType = 'info' | 'success' | 'error';
-export type AlertTransition = 'fade' | 'scale';
+export type AlertPosition = "top left" | "top center" | "top right" | "bottom left" | "bottom center" | "bottom right";
+export type AlertType = "info" | "success" | "error";
+export type AlertTransition = "fade" | "scale";
 
 export interface AlertOptions {
     /**
@@ -69,7 +69,7 @@ export interface AlertInstance {
     close: () => void;
 }
 
-export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
+export interface AlertTemplateProps extends Omit<AlertInstance, "id"> {
     /**
      * The style contains only the margin given as offset.
      */
@@ -109,6 +109,6 @@ export type AlertContainer = AlertContainerFactory<AlertCustomOptions>;
 export interface InjectedAlertProps {
     alert: AlertContainer;
 }
-export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, 'alert'>>;
+export function withAlert<P extends InjectedAlertProps>(c: ComponentType<P>): ComponentType<Omit<P, "alert">>;
 
 export const Alert: Consumer<AlertContainer>;

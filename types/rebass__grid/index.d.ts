@@ -20,26 +20,26 @@ export interface BaseProps {
 }
 
 interface BoxKnownProps
-    extends BaseProps,
+    extends
+        BaseProps,
         StyledSystem.SpaceProps,
         StyledSystem.WidthProps,
         StyledSystem.FontSizeProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexProps,
         StyledSystem.OrderProps,
-        StyledSystem.AlignSelfProps {}
-export interface BoxProps
-    extends BoxKnownProps,
-        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+        StyledSystem.AlignSelfProps
+{}
+export interface BoxProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 export const Box: React.FunctionComponent<BoxProps>;
 
 interface FlexKnownProps
-    extends BoxKnownProps,
+    extends
+        BoxKnownProps,
         StyledSystem.FlexWrapProps,
         StyledSystem.FlexDirectionProps,
         StyledSystem.AlignItemsProps,
-        StyledSystem.JustifyContentProps {}
-export interface FlexProps
-    extends FlexKnownProps,
-        Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
+        StyledSystem.JustifyContentProps
+{}
+export interface FlexProps extends FlexKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;

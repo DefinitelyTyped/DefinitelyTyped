@@ -5,5 +5,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as ReactScroll from './modules/index';
+import * as ReactScroll from "./modules/index";
 export = ReactScroll;

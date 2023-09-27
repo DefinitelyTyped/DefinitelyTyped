@@ -3,8 +3,8 @@
 // Definitions by: Nikolai Lopin <https://github.com/nlopin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CookieSerializeOptions } from 'cookie';
-import { Request, Response } from 'express';
+import { CookieSerializeOptions } from "cookie";
+import { Request, Response } from "express";
 
 /**
  * Load the cookie value.

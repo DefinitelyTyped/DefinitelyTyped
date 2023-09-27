@@ -9,8 +9,8 @@
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { ComponentClass, ReactElement } from 'react';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { ComponentClass, ReactElement } from "react";
 
 /**
  * Interface spec for sepcifying functionality to handle remotely
@@ -183,7 +183,7 @@ export interface BootstrapTableProps {
     expandComponent?: ((row: any) => any) | undefined;
 }
 
-export type SelectRowMode = 'none' | 'radio' | 'checkbox';
+export type SelectRowMode = "none" | "radio" | "checkbox";
 
 export interface SelectRow {
     /**
@@ -244,7 +244,7 @@ export interface SelectRow {
     unselectable?: number[] | undefined;
 }
 
-export type CellEditClickMode = 'none' | 'click' | 'dbclick';
+export type CellEditClickMode = "none" | "click" | "dbclick";
 
 export interface CellEdit {
     /**
@@ -269,7 +269,7 @@ export interface CellEdit {
     afterSaveCell?: ((row: any, cellName: string, cellValue: any) => void) | undefined;
 }
 
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = "asc" | "desc";
 
 export interface Options {
     /**
@@ -515,9 +515,9 @@ export interface BootstrapTable extends ComponentClass<BootstrapTableProps> {
      */
     cleanSelected(): void;
 }
-interface BootstrapTable extends ComponentClass<BootstrapTableProps> { }
+interface BootstrapTable extends ComponentClass<BootstrapTableProps> {}
 declare const BootstrapTable: BootstrapTable;
-export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
+export type DataAlignType = "left" | "center" | "right" | "start" | "end";
 
 export interface TableHeaderColumnProps {
     children?: React.ReactNode;
@@ -563,7 +563,10 @@ export interface TableHeaderColumnProps {
      *         getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
      *         customEditorParameters: Another extra data for custom cell edit component.
      */
-    customEditor?: { getElement: (onUpdate: any, props: any) => ReactElement, customEditorParameters?: object | undefined } | undefined;
+    customEditor?: {
+        getElement: (onUpdate: any, props: any) => ReactElement;
+        customEditorParameters?: object | undefined;
+    } | undefined;
     /**
      * To customize the column. This callback function should return a String or a React Component.
      * In addition, this function taking two argument: cell and row.
@@ -709,7 +712,7 @@ export interface ApplyFilterParameter {
     callback: SetFilterCallback;
 }
 
-export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
+export type FilterType = "TextFilter" | "RegexFilter" | "SelectFilter" | "NumberFilter" | "DateFilter" | "CustomFilter";
 export interface Filter {
     /**
      * "TextFilter"||"SelectFilter"||"NumberFilter"||"DateFilter"||"RegexFilter"||"YOUR_CUSTOM_FILTER"
@@ -745,7 +748,9 @@ export interface Filter {
     /**
      * Get element which represent filter.
      */
-    getElement?: ((filterHandler: (parameters?: ApplyFilterParameter) => void, filterParameters: any) => JSX.Element) | undefined;
+    getElement?:
+        | ((filterHandler: (parameters?: ApplyFilterParameter) => void, filterParameters: any) => JSX.Element)
+        | undefined;
 
     /**
      * Parameters for custom filter
@@ -753,7 +758,7 @@ export interface Filter {
     customFilterParameters?: any;
 }
 
-export interface TableHeaderColumn extends ComponentClass<TableHeaderColumnProps> { }
+export interface TableHeaderColumn extends ComponentClass<TableHeaderColumnProps> {}
 declare const TableHeaderColumn: TableHeaderColumn;
 
 declare class TableDataSet extends EventEmitter {

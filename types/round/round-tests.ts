@@ -1,4 +1,4 @@
-import round = require('round');
+import round = require("round");
 
 // $ExpectType number
 const apples = round(4.99);
@@ -10,4 +10,4 @@ const cents = round.down(24.02342, 0.01);
 round();
 
 // @ts-expect-error
-round.up('1');
+round.up("1");

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import LoadingIndicator, { LoadingIndicatorColor, LoadingIndicatorProps } from 'react-loading-indicator';
+import * as React from "react";
+import LoadingIndicator, { LoadingIndicatorColor, LoadingIndicatorProps } from "react-loading-indicator";
 
 export class LoadingIndicatorTest extends React.PureComponent {
     render(): JSX.Element {

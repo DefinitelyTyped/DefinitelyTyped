@@ -8,17 +8,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import request = require('request');
-import http = require('http');
-import errors = require('./errors');
-import Promise = require('bluebird');
+import request = require("request");
+import http = require("http");
+import errors = require("./errors");
+import Promise = require("bluebird");
 
 declare namespace requestPromise {
     interface RequestPromise<T = any> extends request.Request {
-        then: Promise<T>['then'];
-        catch: Promise<T>['catch'];
-        finally: Promise<T>['finally'];
-        cancel: Promise<T>['cancel'];
+        then: Promise<T>["then"];
+        catch: Promise<T>["catch"];
+        finally: Promise<T>["finally"];
+        cancel: Promise<T>["cancel"];
         promise(): Promise<T>;
     }
 
@@ -29,7 +29,11 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean | undefined;
     }
 
-    type RequestPromiseAPI<T= any> = request.RequestAPI<RequestPromise<T>, RequestPromiseOptions, request.RequiredUriUrl>;
+    type RequestPromiseAPI<T = any> = request.RequestAPI<
+        RequestPromise<T>,
+        RequestPromiseOptions,
+        request.RequiredUriUrl
+    >;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;

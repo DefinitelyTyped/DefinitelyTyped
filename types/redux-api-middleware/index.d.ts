@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Dispatch, Middleware, MiddlewareAPI } from 'redux';
+import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type | Promise<Type>);
 
@@ -17,33 +17,33 @@ type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type | Promise<Type>);
  */
 export as namespace ReduxApiMiddleware;
 
-export const RSAA = '@@redux-api-middleware/RSAA';
+export const RSAA = "@@redux-api-middleware/RSAA";
 
 export function isRSAA(action: object): boolean;
 export function validateRSAA(action: object): string[];
 export function isValidRSAA(action: object): boolean;
 
 export class InvalidRSAA extends Error {
-    name: 'InvalidRSAA';
-    message: 'Invalid RSAA';
+    name: "InvalidRSAA";
+    message: "Invalid RSAA";
     validationErrors: string[];
     constructor(validationErrors: string[]);
 }
 
 export class InternalError extends Error {
-    name: 'InternalError';
+    name: "InternalError";
     message: string;
     constructor(message: string);
 }
 
 export class RequestError extends Error {
-    name: 'RequestError';
+    name: "RequestError";
     message: string;
     constructor(message: string);
 }
 
 export class ApiError<T = any> extends Error {
-    name: 'ApiError';
+    name: "ApiError";
     status: number;
     statusText: string;
     response: T;
@@ -98,11 +98,11 @@ export type RSAAFailureType<State = any, Payload = any, Meta = any> =
 export interface RSAACall<State = any, Payload = any, Meta = any> {
     endpoint: TypeOrResolver<State, string>;
     // `redux-api-middleware` strictly allows only this methods
-    method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
+    method: "GET" | "HEAD" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
     types: [
         RSAARequestType<State, Payload, Meta>,
         RSAASuccessType<State, Payload, Meta>,
-        RSAAFailureType<State, Payload, Meta>
+        RSAAFailureType<State, Payload, Meta>,
     ];
     body?: TypeOrResolver<State, BodyInit | null> | undefined;
     headers?: TypeOrResolver<State, HeadersInit> | undefined;
@@ -118,7 +118,7 @@ export interface RSAAAction<State = any, Payload = any, Meta = any> {
 }
 
 type ValidAction<Payload = never, Meta = never> =
-    { type: string | symbol; error?: false | undefined }
+    & { type: string | symbol; error?: false | undefined }
     // The `[Payload] extends [never]` is required to check if generic type is never.
     // Can't do it with just `Payload extends never`.
     & ([Payload] extends [never] ? {} : { payload: Payload })
@@ -149,13 +149,13 @@ export type RSAAResultAction<Payload = never, Meta = never> =
 export type RSAAActions = RSAARequestAction | RSAAResultAction;
 
 export function createAction<State, Payload, Meta>(
-    clientCall: RSAACall<State, Payload, Meta>
+    clientCall: RSAACall<State, Payload, Meta>,
 ): RSAAAction<State, Payload, Meta>;
 
 /**
  * Redux behaviour changed by middleware, so overloads here
  */
-declare module 'redux' {
+declare module "redux" {
     /*
      * Overload to add api middleware support to Redux's dispatch() function.
      * Useful for react-redux or any other library which could use this type.
@@ -167,4 +167,4 @@ declare module 'redux' {
     }
 }
 
-export { };
+export {};

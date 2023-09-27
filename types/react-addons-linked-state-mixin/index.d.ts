@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Mixin } from 'react';
+import { Mixin } from "react";
 
 declare var LinkedStateMixin: LinkedStateMixin.LinkedStateMixin;
 type LinkedStateMixin = LinkedStateMixin.LinkedStateMixin;
@@ -21,7 +21,7 @@ declare namespace LinkedStateMixin {
     }
 }
 
-declare module 'react' {
+declare module "react" {
     interface HTMLAttributes<T> {
         checkedLink?: LinkedStateMixin.ReactLink<boolean> | undefined;
         valueLink?: LinkedStateMixin.ReactLink<boolean | string | number> | undefined;

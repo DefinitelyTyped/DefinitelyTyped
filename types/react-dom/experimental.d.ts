@@ -27,12 +27,12 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/index.experimental.js to see how the exports are declared,
 // but confirm with published source code (e.g. https://unpkg.com/react-dom@experimental) that these exports end up in the published code
 
-import React = require('react');
-import ReactDOM = require('./canary');
+import React = require("react");
+import ReactDOM = require("./canary");
 
 export {};
 
-declare module '.' {
+declare module "." {
     interface FormStatusNotPending {
         pending: false;
         data: null;

@@ -5,7 +5,7 @@
 
 // TypeScript Version: 2.2
 
-type Generator = (min?: number|null, max?: number|null, integer?: boolean|null) => number;
+type Generator = (min?: number | null, max?: number | null, integer?: boolean | null) => number;
 
 interface UnparsedOptions {
     min?: number | undefined;

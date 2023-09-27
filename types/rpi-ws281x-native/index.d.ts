@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import type { stripType, stripTypeIds } from './lib/constants';
+import type { stripType, stripTypeIds } from "./lib/constants";
 
 type StripType = typeof stripType[keyof typeof stripType];
 type StripTypeEnum = StripType | keyof typeof stripTypeIds;
@@ -61,7 +61,7 @@ interface InitOptions {
 }
 
 interface Ws281x {
-    (numLeds: number, opts?: Omit<ChannelOptions, 'count'>): Channel;
+    (numLeds: number, opts?: Omit<ChannelOptions, "count">): Channel;
     stripType: typeof stripType;
     init(opts: InitOptions): Channel[];
     /**

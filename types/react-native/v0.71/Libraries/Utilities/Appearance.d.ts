@@ -1,30 +1,30 @@
-import {NativeEventSubscription} from '../EventEmitter/RCTNativeAppEventEmitter';
+import { NativeEventSubscription } from "../EventEmitter/RCTNativeAppEventEmitter";
 
-type ColorSchemeName = 'light' | 'dark' | null | undefined;
+type ColorSchemeName = "light" | "dark" | null | undefined;
 
 export namespace Appearance {
-  type AppearancePreferences = {
-    colorScheme: ColorSchemeName;
-  };
+    type AppearancePreferences = {
+        colorScheme: ColorSchemeName;
+    };
 
-  type AppearanceListener = (preferences: AppearancePreferences) => void;
+    type AppearanceListener = (preferences: AppearancePreferences) => void;
 
-  /**
-   * Note: Although color scheme is available immediately, it may change at any
-   * time. Any rendering logic or styles that depend on this should try to call
-   * this function on every render, rather than caching the value (for example,
-   * using inline styles rather than setting a value in a `StyleSheet`).
-   *
-   * Example: `const colorScheme = Appearance.getColorScheme();`
-   */
-  export function getColorScheme(): ColorSchemeName;
+    /**
+     * Note: Although color scheme is available immediately, it may change at any
+     * time. Any rendering logic or styles that depend on this should try to call
+     * this function on every render, rather than caching the value (for example,
+     * using inline styles rather than setting a value in a `StyleSheet`).
+     *
+     * Example: `const colorScheme = Appearance.getColorScheme();`
+     */
+    export function getColorScheme(): ColorSchemeName;
 
-  /**
-   * Add an event handler that is fired when appearance preferences change.
-   */
-  export function addChangeListener(
-    listener: AppearanceListener,
-  ): NativeEventSubscription;
+    /**
+     * Add an event handler that is fired when appearance preferences change.
+     */
+    export function addChangeListener(
+        listener: AppearanceListener,
+    ): NativeEventSubscription;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { TypingAnimation } from 'react-native-typing-animation';
+import { TypingAnimation } from "react-native-typing-animation";
 
 const Test = () => {
     return (

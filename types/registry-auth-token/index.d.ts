@@ -44,7 +44,7 @@ declare namespace auth {
         /**
          * The type of token
          */
-        type: 'Basic' | 'Bearer';
+        type: "Basic" | "Bearer";
         /**
          * The username used in `Basic`
          */
@@ -57,7 +57,6 @@ declare namespace auth {
 }
 
 /**
- *
  * @param registryUrl - Either the registry url used
  * for matching or a configuration object describing the contents of the .npmrc file
  * @param [options] - a configuration object describing the

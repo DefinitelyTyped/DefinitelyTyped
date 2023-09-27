@@ -1,4 +1,4 @@
-import buble = require('rollup-plugin-buble');
+import buble = require("rollup-plugin-buble");
 
 // No options (default)
 (() => {
@@ -37,7 +37,7 @@ import buble = require('rollup-plugin-buble');
             templateString: false,
             trailingFunctionCommas: true,
             unicodeRegExp: true,
-        }
+        },
     });
 })();
 
@@ -45,13 +45,13 @@ import buble = require('rollup-plugin-buble');
 (() => {
     // $ExpectType Plugin
     buble({
-        include: '*.js',
-        exclude: '*.js',
+        include: "*.js",
+        exclude: "*.js",
     });
 
     // $ExpectType Plugin
     buble({
         include: /.js$/,
-        exclude: ['foo.js', 'bar.js'],
+        exclude: ["foo.js", "bar.js"],
     });
 })();

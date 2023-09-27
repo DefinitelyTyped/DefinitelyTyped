@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { View, Animated } from 'react-native';
-import ReactNativeSideMenu from 'react-native-side-menu';
+import * as React from "react";
+import { Animated, View } from "react-native";
+import ReactNativeSideMenu from "react-native-side-menu";
 
 export default () => (
     <ReactNativeSideMenu
@@ -22,8 +22,7 @@ export default () => (
                 useNativeDriver: false,
                 toValue: value,
                 friction: 8,
-            })
-        }
+            })}
         animationStyle={() => ({
             transform: [{ translateX: 40 }],
         })}

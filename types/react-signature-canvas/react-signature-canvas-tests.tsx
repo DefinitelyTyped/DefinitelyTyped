@@ -1,6 +1,6 @@
-import ReactSignatureCanvas from 'react-signature-canvas';
-import SignaturePad = require('signature_pad');
-import * as React from 'react';
+import ReactSignatureCanvas from "react-signature-canvas";
+import SignaturePad = require("signature_pad");
+import * as React from "react";
 
 const ReactSignatureCanvasNoOptions: JSX.Element = <ReactSignatureCanvas />;
 
@@ -19,11 +19,11 @@ const ReactSignatureCanvasAllOptions: JSX.Element = (
         onBegin={(event: MouseEvent) => {}}
         onEnd={(event: MouseEvent) => {}}
         canvasProps={{
-            title: 'canvas',
-            width: '50%',
+            title: "canvas",
+            width: "50%",
             height: 300,
-            className: 'canvas',
-            style: { border: '2px solid #000' },
+            className: "canvas",
+            style: { border: "2px solid #000" },
         }}
         clearOnResize
     />
@@ -36,8 +36,8 @@ class Example extends React.Component {
         if (this.canvasRef.current) {
             this.canvasRef.current.clear();
             this.canvasRef.current.fromData([[new SignaturePad.Point(1, 2, 3)]]);
-            this.canvasRef.current.fromDataURL('url');
-            this.canvasRef.current.fromDataURL('url', { height: 1, width: 4 });
+            this.canvasRef.current.fromDataURL("url");
+            this.canvasRef.current.fromDataURL("url", { height: 1, width: 4 });
             const isEmptyResult: boolean = this.canvasRef.current.isEmpty();
             this.canvasRef.current.off();
             this.canvasRef.current.on();

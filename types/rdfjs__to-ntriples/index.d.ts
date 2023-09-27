@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-import { DatasetCore, Term } from 'rdf-js';
+import { DatasetCore, Term } from "rdf-js";
 
 declare function toNT(term: Term | DatasetCore): string;
 

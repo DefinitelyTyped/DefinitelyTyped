@@ -8,8 +8,8 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-import { Component } from 'react';
-import { ViewProps } from 'react-native';
+import { Component } from "react";
+import { ViewProps } from "react-native";
 
 export interface SignatureCaptureProps extends ViewProps {
     /**
@@ -45,7 +45,7 @@ export interface SignatureCaptureProps extends ViewProps {
      * Change the screen orientation based on boolean value
      * "portrait" or "landscape"
      */
-    viewMode?: 'portrait' | 'landscape' | undefined;
+    viewMode?: "portrait" | "landscape" | undefined;
 
     /**
      * sets the max size of the image maintains aspect ratio,

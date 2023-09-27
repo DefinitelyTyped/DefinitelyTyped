@@ -1,41 +1,40 @@
-import type * as React from 'react';
-import {Constructor} from '../../../private/Utilities';
-import {TimerMixin} from '../../../private/TimerMixin';
-import {NativeMethods} from '../../../public/ReactNativeTypes';
-import {ColorValue, StyleProp} from '../../StyleSheet/StyleSheet';
-import {ViewStyle} from '../../StyleSheet/StyleSheetTypes';
-import {TouchableMixin} from './Touchable';
-import {TouchableWithoutFeedbackProps} from './TouchableWithoutFeedback';
+import type * as React from "react";
+import { TimerMixin } from "../../../private/TimerMixin";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
+import { TouchableMixin } from "./Touchable";
+import { TouchableWithoutFeedbackProps } from "./TouchableWithoutFeedback";
 
 /**
  * @see https://reactnative.dev/docs/touchablehighlight#props
  */
 export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
-  /**
-   * Determines what the opacity of the wrapped view should be when touch is active.
-   */
-  activeOpacity?: number | undefined;
+    /**
+     * Determines what the opacity of the wrapped view should be when touch is active.
+     */
+    activeOpacity?: number | undefined;
 
-  /**
-   *
-   * Called immediately after the underlay is hidden
-   */
-  onHideUnderlay?: (() => void) | undefined;
+    /**
+     * Called immediately after the underlay is hidden
+     */
+    onHideUnderlay?: (() => void) | undefined;
 
-  /**
-   * Called immediately after the underlay is shown
-   */
-  onShowUnderlay?: (() => void) | undefined;
+    /**
+     * Called immediately after the underlay is shown
+     */
+    onShowUnderlay?: (() => void) | undefined;
 
-  /**
-   * @see https://reactnative.dev/docs/view#style
-   */
-  style?: StyleProp<ViewStyle> | undefined;
+    /**
+     * @see https://reactnative.dev/docs/view#style
+     */
+    style?: StyleProp<ViewStyle> | undefined;
 
-  /**
-   * The color of the underlay that will show through when the touch is active.
-   */
-  underlayColor?: ColorValue | undefined;
+    /**
+     * The color of the underlay that will show through when the touch is active.
+     */
+    underlayColor?: ColorValue | undefined;
 }
 
 /**
@@ -52,8 +51,9 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
  * @see https://reactnative.dev/docs/touchablehighlight
  */
 declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> {}
-declare const TouchableHighlightBase: Constructor<NativeMethods> &
-  Constructor<TimerMixin> &
-  Constructor<TouchableMixin> &
-  typeof TouchableHighlightComponent;
+declare const TouchableHighlightBase:
+    & Constructor<NativeMethods>
+    & Constructor<TimerMixin>
+    & Constructor<TouchableMixin>
+    & typeof TouchableHighlightComponent;
 export class TouchableHighlight extends TouchableHighlightBase {}

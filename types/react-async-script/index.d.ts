@@ -3,8 +3,8 @@
 // Definitions by: Michalis Zachariadis <https://github.com/mzachariadis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import hoistNonReactStatics = require('hoist-non-react-statics');
+import * as React from "react";
+import hoistNonReactStatics = require("hoist-non-react-statics");
 
 interface Options {
     attributes?: { [key: string]: string } | undefined;
@@ -26,10 +26,11 @@ declare function makeAsyncScript(
 ): <P>(
     Component: React.ComponentType<P>,
 ) => React.ComponentType<
-    P &
-        hoistNonReactStatics.NonReactStatics<React.ComponentType<any>> & {
-            asyncScriptOnLoad?: (() => void) | undefined;
-        }
+    & P
+    & hoistNonReactStatics.NonReactStatics<React.ComponentType<any>>
+    & {
+        asyncScriptOnLoad?: (() => void) | undefined;
+    }
 >;
 
 export = makeAsyncScript;

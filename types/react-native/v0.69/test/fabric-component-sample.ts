@@ -1,15 +1,15 @@
-import codegenNativeComponent, { NativeComponentType } from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import type { ViewProps } from "react-native";
 import {
-    WithDefault,
+    BubblingEventHandler,
+    DirectEventHandler,
     Double,
     Float,
     Int32,
     UnsafeObject,
-    BubblingEventHandler,
-    DirectEventHandler,
-} from 'react-native/Libraries/Types/CodegenTypes';
-import type { ViewProps } from 'react-native';
+    WithDefault,
+} from "react-native/Libraries/Types/CodegenTypes";
+import codegenNativeCommands from "react-native/Libraries/Utilities/codegenNativeCommands";
+import codegenNativeComponent, { NativeComponentType } from "react-native/Libraries/Utilities/codegenNativeComponent";
 
 type Event = Readonly<{
     value: Double;
@@ -19,7 +19,7 @@ interface NativeProps extends ViewProps {
     string?: string;
     number?: number;
     boolean?: boolean;
-    default?: WithDefault<'option1' | 'option2', 'option1'>;
+    default?: WithDefault<"option1" | "option2", "option1">;
     double?: Double;
     float?: Float;
     int32?: Int32;
@@ -35,7 +35,7 @@ interface NativeCommands {
 }
 
 export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
-    supportedCommands: ['changeBackgroundColor'],
+    supportedCommands: ["changeBackgroundColor"],
 });
 
-export default codegenNativeComponent<NativeProps>('SampleView');
+export default codegenNativeComponent<NativeProps>("SampleView");

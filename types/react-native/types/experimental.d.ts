@@ -23,70 +23,70 @@
  * Either the import or the reference only needs to appear once, anywhere in the project.
  */
 
-import {DimensionValue} from '../Libraries/StyleSheet/StyleSheetTypes';
+import { DimensionValue } from "../Libraries/StyleSheet/StyleSheetTypes";
 
 export {};
 
-declare module '.' {
-  export interface FlexStyle {
-    /**
-     * Equivalent to `marginVertical`
-     */
-    marginBlock?: DimensionValue | undefined;
+declare module "." {
+    export interface FlexStyle {
+        /**
+         * Equivalent to `marginVertical`
+         */
+        marginBlock?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `marginBottom`
-     */
-    marginBlockEnd?: DimensionValue | undefined;
+        /**
+         * Equivalent to `marginBottom`
+         */
+        marginBlockEnd?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `marginTop`
-     */
-    marginBlockStart?: DimensionValue | undefined;
+        /**
+         * Equivalent to `marginTop`
+         */
+        marginBlockStart?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `marginHorizontal`
-     */
-    marginInline?: DimensionValue | undefined;
+        /**
+         * Equivalent to `marginHorizontal`
+         */
+        marginInline?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `marginEnd`
-     */
-    marginInlineEnd?: DimensionValue | undefined;
+        /**
+         * Equivalent to `marginEnd`
+         */
+        marginInlineEnd?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `marginStart`
-     */
-    marginInlineStart?: DimensionValue | undefined;
+        /**
+         * Equivalent to `marginStart`
+         */
+        marginInlineStart?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingVertical`
-     */
-    paddingBlock?: DimensionValue | undefined;
+        /**
+         * Equivalent to `paddingVertical`
+         */
+        paddingBlock?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingBottom`
-     */
-    paddingBlockEnd?: DimensionValue | undefined;
+        /**
+         * Equivalent to `paddingBottom`
+         */
+        paddingBlockEnd?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingTop`
-     */
-    paddingBlockStart?: DimensionValue | undefined;
+        /**
+         * Equivalent to `paddingTop`
+         */
+        paddingBlockStart?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingHorizontal`
-     */
-    paddingInline?: DimensionValue | undefined;
+        /**
+         * Equivalent to `paddingHorizontal`
+         */
+        paddingInline?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingEnd`
-     */
-    paddingInlineEnd?: DimensionValue | undefined;
+        /**
+         * Equivalent to `paddingEnd`
+         */
+        paddingInlineEnd?: DimensionValue | undefined;
 
-    /**
-     * Equivalent to `paddingStart`
-     */
-    paddingInlineStart?: DimensionValue | undefined;
-  }
+        /**
+         * Equivalent to `paddingStart`
+         */
+        paddingInlineStart?: DimensionValue | undefined;
+    }
 }

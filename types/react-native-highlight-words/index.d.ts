@@ -3,15 +3,15 @@
 // Definitions by: Ivan Stelmakh <https://github.com/stelmakhivan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { TextProps } from 'react-native';
+import * as React from "react";
+import { TextProps } from "react-native";
 
 export interface HighlighterProps extends TextProps {
     autoEscape?: boolean | undefined;
-    highlightStyle?: TextProps['style'] | undefined;
+    highlightStyle?: TextProps["style"] | undefined;
     sanitize?: ((text: string) => string) | undefined;
     searchWords: string[];
-    style?: TextProps['style'] | undefined;
+    style?: TextProps["style"] | undefined;
     textToHighlight: string;
 }
 

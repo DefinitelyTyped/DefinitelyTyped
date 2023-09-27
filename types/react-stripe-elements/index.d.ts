@@ -16,14 +16,14 @@
 // TypeScript Version: 3.5
 
 /// <reference types="stripe-v3" />
-import * as React from 'react';
+import * as React from "react";
 
 export namespace ReactStripeElements {
     import BankAccountTokenOptions = stripe.BankAccountTokenOptions;
     type ElementChangeResponse = stripe.elements.ElementChangeResponse;
     type ElementsOptions = stripe.elements.ElementsOptions;
     // From https://stripe.com/docs/stripe-js/reference#element-types
-    type TokenType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'paymentRequestButton' | 'iban' | 'idealBank';
+    type TokenType = "card" | "cardNumber" | "cardExpiry" | "cardCvc" | "paymentRequestButton" | "iban" | "idealBank";
     type TokenOptions = stripe.TokenOptions & { type?: TokenType | undefined };
     type TokenResponse = stripe.TokenResponse;
     type SourceResponse = stripe.SourceResponse;
@@ -34,8 +34,9 @@ export namespace ReactStripeElements {
         stripeAccount?: string | undefined;
     }
     type StripeProviderProps =
-        | { children?: React.ReactNode, apiKey: string; stripe?: never | undefined } & StripeProviderOptions
-        | { children?: React.ReactNode, apiKey?: never | undefined; stripe: stripe.Stripe | null } & StripeProviderOptions;
+        | { children?: React.ReactNode; apiKey: string; stripe?: never | undefined } & StripeProviderOptions
+        | { children?: React.ReactNode; apiKey?: never | undefined; stripe: stripe.Stripe | null }
+            & StripeProviderOptions;
 
     interface StripeOverrideProps {
         /*
@@ -120,7 +121,9 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
+export class PaymentRequestButtonElement
+    extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps>
+{}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 

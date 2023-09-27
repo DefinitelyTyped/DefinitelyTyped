@@ -3,13 +3,13 @@
 // Definitions by: Lauren Ashpole <https://github.com/laurenashpole>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface InnerImageZoomProps {
-    moveType?: 'pan' | 'drag' | undefined;
-    zoomType?: 'click' | 'hover' | undefined;
+    moveType?: "pan" | "drag" | undefined;
+    zoomType?: "click" | "hover" | undefined;
     src: string;
-    sources?: Array<{ srcSet?: string | undefined, media?: string | undefined }> | undefined;
+    sources?: Array<{ srcSet?: string | undefined; media?: string | undefined }> | undefined;
     width?: number | undefined;
     height?: number | undefined;
     hasSpacer?: boolean | undefined;

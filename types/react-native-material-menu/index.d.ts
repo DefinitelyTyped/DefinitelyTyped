@@ -3,8 +3,8 @@
 // Definitions by: hyun <https://github.com/KoreanThinker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentClass, ReactElement, Component, ReactNode } from 'react';
-import { StyleProp, TextStyle, TextProps, ViewStyle } from 'react-native';
+import { Component, ComponentClass, ReactElement, ReactNode } from "react";
+import { StyleProp, TextProps, TextStyle, ViewStyle } from "react-native";
 
 export interface MenuProps {
     button?: ReactElement | undefined;
@@ -19,7 +19,7 @@ export interface MenuItemProps {
     disabled?: boolean | undefined;
     testID?: string | undefined;
     disabledTextColor?: string | undefined;
-    ellipsizeMode?: TextProps['ellipsizeMode'] | undefined;
+    ellipsizeMode?: TextProps["ellipsizeMode"] | undefined;
     onPress?: (() => void) | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     textStyle?: TextStyle | undefined;

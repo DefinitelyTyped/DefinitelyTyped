@@ -1,8 +1,8 @@
-import * as ReactRefreshRuntime from 'react-refresh/runtime';
-import ReactRefreshBabelPlugin = require('react-refresh/babel');
-import * as babel from '@babel/core';
+import * as ReactRefreshRuntime from "react-refresh/runtime";
+import ReactRefreshBabelPlugin = require("react-refresh/babel");
+import * as babel from "@babel/core";
 
-const STRING = 'example string';
+const STRING = "example string";
 const noop = () => {};
 
 ReactRefreshRuntime.collectCustomHooksForSignature(STRING);
@@ -21,7 +21,7 @@ ReactRefreshRuntime.injectIntoGlobalHook(window);
 // @ts-expect-error
 ReactRefreshRuntime.injectIntoGlobalHook(STRING);
 ReactRefreshRuntime.performReactRefresh();
-ReactRefreshRuntime.register('unknown type', STRING);
+ReactRefreshRuntime.register("unknown type", STRING);
 ReactRefreshRuntime.register(noop, STRING);
 ReactRefreshRuntime.register({}, STRING);
 ReactRefreshRuntime.setSignature(noop, STRING, true, () => noop);

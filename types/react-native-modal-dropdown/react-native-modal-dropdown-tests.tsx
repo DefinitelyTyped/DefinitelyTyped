@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 
-const viewStyle: StyleProp<ViewStyle> = { };
-const textStyle: StyleProp<TextStyle> = { };
+const viewStyle: StyleProp<ViewStyle> = {};
+const textStyle: StyleProp<TextStyle> = {};
 
 const FunctionComponent: React.FC = () => {
     return null;
@@ -16,9 +16,7 @@ class ClassComponent extends React.Component {
 }
 
 export const TestBasic: React.FC = () => {
-    return (
-        <ModalDropdown options={["option 1", "option 2"]}/>
-    );
+    return <ModalDropdown options={["option 1", "option 2"]} />;
 };
 
 export const TestComponents: React.FC<{ useFunctional: boolean }> = ({ useFunctional }) => {
@@ -35,7 +33,7 @@ export const TestComponents: React.FC<{ useFunctional: boolean }> = ({ useFuncti
     );
 };
 
-export const TestBooleans: React.FC<{ boolValue?: boolean}> = ({ boolValue }) => {
+export const TestBooleans: React.FC<{ boolValue?: boolean }> = ({ boolValue }) => {
     return (
         <ModalDropdown
             disabled={boolValue}

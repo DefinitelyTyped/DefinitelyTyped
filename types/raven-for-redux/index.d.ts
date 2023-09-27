@@ -4,12 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Action, Middleware } from "redux";
 import * as Raven from "raven-js";
+import { Action, Middleware } from "redux";
 
 export = createRavenMiddleware;
 
-declare function createRavenMiddleware(raven: Raven.RavenStatic, options?: createRavenMiddleware.RavenMiddlewareOptions<any>): Middleware;
+declare function createRavenMiddleware(
+    raven: Raven.RavenStatic,
+    options?: createRavenMiddleware.RavenMiddlewareOptions<any>,
+): Middleware;
 
 declare namespace createRavenMiddleware {
     interface RavenUserContext {

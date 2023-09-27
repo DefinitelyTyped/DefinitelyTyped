@@ -4,15 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import type * as React from 'react';
+import type * as React from "react";
 
-import type {
-    ReactElement,
-    ReactHTML,
-    ReactNode,
-    ReactSVG,
-    ReactSVGElement,
-} from 'react';
+import type { ReactElement, ReactHTML, ReactNode, ReactSVG, ReactSVGElement } from "react";
 
 export = $;
 
@@ -25,7 +19,7 @@ declare function $(
 // dom elements without attributes
 
 declare function $(
-    tag: 'input',
+    tag: "input",
     children?: Children,
 ): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -47,7 +41,7 @@ declare function $<T extends Element>(
 // dom elements with attributes
 
 declare function $(
-    tag: 'input',
+    tag: "input",
     attributes?: React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>,
     children?: Children,
 ): React.DetailedReactHTMLElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;

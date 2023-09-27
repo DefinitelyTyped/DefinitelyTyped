@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import request = require('request');
-import http = require('http');
+import request = require("request");
+import http = require("http");
 
 declare namespace requestPromise {
     interface RequestPromise<T = any> extends request.Request, Promise<T> {

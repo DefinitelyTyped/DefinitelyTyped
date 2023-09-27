@@ -4,7 +4,7 @@
 //                  Kristofer Giltvedt Selbekk <https://github.com/selbekk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from 'react';
+import * as React from "react";
 
 export interface CollapseCallbackArgs {
     /** `true` only when Collapse reached final height */

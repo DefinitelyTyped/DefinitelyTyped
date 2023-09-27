@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Graph, Link, Node } from 'react-d3-graph';
+import * as React from "react";
+import { Graph, Link, Node } from "react-d3-graph";
 
 const nodes = [
-    { id: 'node1', labelProperty: 'id' },
-    { id: 'node2', name: 'node2Name' },
+    { id: "node1", labelProperty: "id" },
+    { id: "node2", name: "node2Name" },
     {
-        id: 'node3',
+        id: "node3",
         size: {
             width: 100,
             height: 200,
@@ -15,7 +15,7 @@ const nodes = [
 
 type INode = typeof nodes[number];
 
-const links = [{ source: 'node1', target: 'node2' }];
+const links = [{ source: "node1", target: "node2" }];
 type ILink = typeof links[number];
 
 export class Example extends React.Component {
@@ -30,34 +30,34 @@ export class Example extends React.Component {
                     data={{
                         nodes,
                         links,
-                        focusedNodeId: 'node1',
+                        focusedNodeId: "node1",
                     }}
                     config={{
                         node: {
-                            color: 'green',
-                            fontColor: 'blue',
+                            color: "green",
+                            fontColor: "blue",
                             opacity: 0.5,
                             renderLabel: true,
                             size: 100,
-                            strokeColor: 'white',
+                            strokeColor: "white",
                             strokeWidth: 100,
-                            svg: '<line />',
-                            symbolType: 'circle',
+                            svg: "<line />",
+                            symbolType: "circle",
                             viewGenerator: node => <div>{node.name}</div>,
-                            labelProperty: node => node.name || 'No name',
-                            labelPosition: 'bottom',
+                            labelProperty: node => node.name || "No name",
+                            labelPosition: "bottom",
                         },
                         link: {
                             fontSize: 10,
-                            fontWeight: 'bold',
-                            highlightColor: '#fff',
-                            highlightFontWeight: '100',
-                            labelProperty: () => 'Label',
+                            fontWeight: "bold",
+                            highlightColor: "#fff",
+                            highlightFontWeight: "100",
+                            labelProperty: () => "Label",
                             renderLabel: true,
                             semanticStrokeWidth: true,
                             markerHeight: 100,
-                            type: 'circle',
-                            mouseCursor: 'pointer',
+                            type: "circle",
+                            mouseCursor: "pointer",
                         },
                         automaticRearrangeAfterDropNode: true,
                         collapsible: true,

@@ -4,7 +4,7 @@
 //                 Coston Perkins <https://github.com/coston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface CsvDownloadProps extends React.HTMLAttributes<HTMLButtonElement> {
     data: object | object[];

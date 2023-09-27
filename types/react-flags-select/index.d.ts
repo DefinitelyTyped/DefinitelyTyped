@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 interface Props {
     countries?: string[] | undefined;
     blackList?: boolean | undefined;
-    customLabels?: {[propName: string]: string} | undefined;
+    customLabels?: { [propName: string]: string } | undefined;
     selectedSize?: number | undefined;
     optionsSize?: number | undefined;
     defaultCountry?: string | undefined;

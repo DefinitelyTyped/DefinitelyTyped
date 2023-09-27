@@ -91,7 +91,16 @@ export interface SwipeableProps {
 export class Swipeable extends React.Component<SwipeableProps> {
 }
 
-export enum moves {UPLEFT, UP, UPRIGHT, LEFT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT}
+export enum moves {
+    UPLEFT,
+    UP,
+    UPRIGHT,
+    LEFT,
+    RIGHT,
+    DOWNRIGHT,
+    DOWN,
+    DOWNLEFT,
+}
 
 export interface CustomGestureProps {
     config: moves[];

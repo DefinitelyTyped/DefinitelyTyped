@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Glyphicon {
     export interface GlyphiconProps extends React.HTMLProps<Glyphicon> {
@@ -8,5 +8,5 @@ declare namespace Glyphicon {
         bsClass?: string | undefined;
     }
 }
-declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> { }
+declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> {}
 export = Glyphicon;

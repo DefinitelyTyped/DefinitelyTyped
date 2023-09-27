@@ -1,4 +1,4 @@
-import { DataID, Disposable } from 'relay-runtime';
+import { DataID, Disposable } from "relay-runtime";
 
 /**
  * This hook subscribes a callback to the invalidation state of the given data

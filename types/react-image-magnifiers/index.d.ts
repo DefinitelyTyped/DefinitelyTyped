@@ -3,10 +3,10 @@
 // Definitions by: Rafal Witczak <https://github.com/rafw87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
-export type MouseActivation = 'click' | 'doubleClick';
-export type TouchActivation = 'tap' | 'doubleTap' | 'longTouch';
+export type MouseActivation = "click" | "doubleClick";
+export type TouchActivation = "tap" | "doubleTap" | "longTouch";
 
 export const MOUSE_ACTIVATION: {
     CLICK: MouseActivation;
@@ -64,8 +64,8 @@ export const GlassMagnifier: React.ComponentType<GlassMagnifierProps>;
 
 export interface PictureInPictureMagnifierProps extends CommonProps {
     cursorStyleActive?: string | undefined;
-    previewHorizontalPos?: 'left' | 'right' | undefined;
-    previewVerticalPos?: 'top' | 'bottom' | undefined;
+    previewHorizontalPos?: "left" | "right" | undefined;
+    previewVerticalPos?: "top" | "bottom" | undefined;
     previewOpacity?: number | undefined;
     previewOverlayBoxOpacity?: number | undefined;
     previewOverlayBackgroundColor?: string | undefined;

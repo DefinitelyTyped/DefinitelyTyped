@@ -1,5 +1,5 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import { Index, IndexRange } from '../../index';
+import { PureComponent, Requireable, Validator } from "react";
+import { Index, IndexRange } from "../../index";
 
 export type InfiniteLoaderChildProps = {
     onRowsRendered: (params: IndexRange) => void;

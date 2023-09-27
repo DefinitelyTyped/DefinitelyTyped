@@ -1,4 +1,4 @@
-import { ESLint } from 'eslint';
+import { ESLint } from "eslint";
 
 /**
  * This is our custom ESLint formatter that integrates well with

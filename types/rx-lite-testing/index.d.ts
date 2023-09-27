@@ -11,13 +11,18 @@ declare namespace Rx {
         createHotObservable<T>(...records: Recorded[]): Observable<T>;
         createObserver<T>(): MockObserver<T>;
 
-        startWithTiming<T>(create: () => Observable<T>, createdAt: number, subscribedAt: number, disposedAt: number): MockObserver<T>;
+        startWithTiming<T>(
+            create: () => Observable<T>,
+            createdAt: number,
+            subscribedAt: number,
+            disposedAt: number,
+        ): MockObserver<T>;
         startWithDispose<T>(create: () => Observable<T>, disposedAt: number): MockObserver<T>;
         startWithCreate<T>(create: () => Observable<T>): MockObserver<T>;
     }
 
     const TestScheduler: {
-        new (): TestScheduler;
+        new(): TestScheduler;
     };
 
     class Recorded {
@@ -50,7 +55,7 @@ declare namespace Rx {
     }
 
     interface MockObserverStatic extends ObserverStatic {
-        new <T>(scheduler: IScheduler): MockObserver<T>;
+        new<T>(scheduler: IScheduler): MockObserver<T>;
     }
 
     const MockObserver: MockObserverStatic;

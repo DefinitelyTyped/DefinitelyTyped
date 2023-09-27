@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface Options {
     /**
@@ -47,15 +47,15 @@ export interface EventListener {
      * The event sent by Lottie
      */
     eventName:
-        | 'complete'
-        | 'loopComplete'
-        | 'enterFrame'
-        | 'segmentStart'
-        | 'config_ready'
-        | 'data_ready'
-        | 'loaded_images'
-        | 'DOMLoaded'
-        | 'destroy';
+        | "complete"
+        | "loopComplete"
+        | "enterFrame"
+        | "segmentStart"
+        | "config_ready"
+        | "data_ready"
+        | "loaded_images"
+        | "DOMLoaded"
+        | "destroy";
     /**
      * A callback that will be executed when the given eventName is received
      */
@@ -93,8 +93,8 @@ export interface LottieProps {
     segments?: ReadonlyArray<number> | undefined;
     speed?: number | undefined;
     direction?: number | undefined;
-    ariaRole?: string | 'button' | undefined;
-    ariaLabel?: string | 'animation' | undefined;
+    ariaRole?: string | "button" | undefined;
+    ariaLabel?: string | "animation" | undefined;
     isClickToPauseDisabled?: boolean | undefined;
     title?: string | undefined;
     style?: React.CSSProperties | undefined;

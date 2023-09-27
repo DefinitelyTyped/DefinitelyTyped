@@ -56,46 +56,50 @@ interface Props {
         option?: string[] | number[] | undefined;
     } | undefined;
     loop?: {
-        active?: boolean | undefined
+        active?: boolean | undefined;
     } | undefined;
     speed?: {
         selected?: number | undefined;
-        options?: number[] | undefined
+        options?: number[] | undefined;
     } | undefined;
     keyboard?: {
         focused?: boolean | undefined;
-        global?: boolean | undefined
+        global?: boolean | undefined;
     } | undefined;
     tooltips?: {
         controls?: boolean | undefined;
-        seek?: boolean | undefined
+        seek?: boolean | undefined;
     } | undefined;
     fullscreen?: {
         enabled?: boolean | undefined;
         fallback?: boolean | undefined;
-        iosNative?: boolean | undefined
+        iosNative?: boolean | undefined;
     } | undefined;
     storage?: {
         enabled?: boolean | undefined;
-        key?: string | undefined
+        key?: string | undefined;
     } | undefined;
     controls?: string[] | undefined;
     settings?: string[] | undefined;
 
     poster?: string | undefined;
-    sources?: Array<{
-        src: string;
-        type: string;
-        size?: string | undefined;
-    }> | undefined;
-    captions?: Array<{
-        kind?: string | undefined;
-        label?: string | undefined;
-        src: string;
-        srclang?: string | undefined;
-        default?: boolean | undefined;
-        key?: any;
-    }> | undefined;
+    sources?:
+        | Array<{
+            src: string;
+            type: string;
+            size?: string | undefined;
+        }>
+        | undefined;
+    captions?:
+        | Array<{
+            kind?: string | undefined;
+            label?: string | undefined;
+            src: string;
+            srclang?: string | undefined;
+            default?: boolean | undefined;
+            key?: any;
+        }>
+        | undefined;
 }
 
 declare class Plyr extends Component<Props> {

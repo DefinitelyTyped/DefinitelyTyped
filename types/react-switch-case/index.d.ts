@@ -3,7 +3,7 @@
 // Definitions by: Fernando Falci <https://github.com/Falci>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface SwitchProps {
     children?: React.ReactNode;

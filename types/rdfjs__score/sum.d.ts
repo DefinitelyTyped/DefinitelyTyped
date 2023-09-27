@@ -1,4 +1,4 @@
-import { ScoreFn } from './index.js';
+import { ScoreFn } from "./index.js";
 
 declare const sum: ScoreFn;
 export default sum;

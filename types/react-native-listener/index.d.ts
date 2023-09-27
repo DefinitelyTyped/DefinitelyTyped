@@ -3,48 +3,48 @@
 // Definitions by: Chintan <https://github.com/ChintanAcharya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, ReactElement } from 'react';
+import { Component, ReactElement } from "react";
 
 type NativeEvent =
-    | 'Click'
-    | 'ContextMenu'
-    | 'DoubleClick'
-    | 'Drag'
-    | 'DragEnd'
-    | 'DragEnter'
-    | 'DragExit'
-    | 'DragLeave'
-    | 'DragOver'
-    | 'DragStart'
-    | 'Drop'
-    | 'Focus'
-    | 'KeyDown'
-    | 'KeyPress'
-    | 'KeyUp'
-    | 'MouseDown'
-    | 'MouseEnter'
-    | 'MouseLeave'
-    | 'MouseMove'
-    | 'MouseOut'
-    | 'MouseOver'
-    | 'MouseUp'
-    | 'PointerCancel'
-    | 'PointerDown'
-    | 'PointerEnter'
-    | 'PointerLeave'
-    | 'PointerMove'
-    | 'PointerOut'
-    | 'PointerOver'
-    | 'PointerUp'
-    | 'Scroll'
-    | 'TouchCancel'
-    | 'TouchEnd'
-    | 'TouchMove'
-    | 'TouchStart';
+    | "Click"
+    | "ContextMenu"
+    | "DoubleClick"
+    | "Drag"
+    | "DragEnd"
+    | "DragEnter"
+    | "DragExit"
+    | "DragLeave"
+    | "DragOver"
+    | "DragStart"
+    | "Drop"
+    | "Focus"
+    | "KeyDown"
+    | "KeyPress"
+    | "KeyUp"
+    | "MouseDown"
+    | "MouseEnter"
+    | "MouseLeave"
+    | "MouseMove"
+    | "MouseOut"
+    | "MouseOver"
+    | "MouseUp"
+    | "PointerCancel"
+    | "PointerDown"
+    | "PointerEnter"
+    | "PointerLeave"
+    | "PointerMove"
+    | "PointerOut"
+    | "PointerOver"
+    | "PointerUp"
+    | "Scroll"
+    | "TouchCancel"
+    | "TouchEnd"
+    | "TouchMove"
+    | "TouchStart";
 
 type ExtendedWindowEventMap = {
-    doubleclick: WindowEventMap['dblclick'];
-    dragexit: WindowEventMap['dragleave'];
+    doubleclick: WindowEventMap["dblclick"];
+    dragexit: WindowEventMap["dragleave"];
 } & WindowEventMap;
 
 type NativeListenerBubbleProps = {

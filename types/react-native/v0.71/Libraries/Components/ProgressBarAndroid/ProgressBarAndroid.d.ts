@@ -1,8 +1,8 @@
-import type * as React from 'react';
-import {Constructor} from '../../../private/Utilities';
-import {NativeMethods} from '../../../public/ReactNativeTypes';
-import {ColorValue} from '../../StyleSheet/StyleSheet';
-import {ViewProps} from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { ViewProps } from "../View/ViewPropTypes";
 
 /**
  * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
@@ -11,7 +11,7 @@ import {ViewProps} from '../View/ViewPropTypes';
  * @deprecated
  */
 export interface ProgressBarAndroidProps extends ViewProps {
-  /**
+    /**
      * Style of the ProgressBar. One of:
          Horizontal
          Normal (default)
@@ -21,41 +21,41 @@ export interface ProgressBarAndroidProps extends ViewProps {
          SmallInverse
          LargeInverse
      */
-  styleAttr?:
-    | 'Horizontal'
-    | 'Normal'
-    | 'Small'
-    | 'Large'
-    | 'Inverse'
-    | 'SmallInverse'
-    | 'LargeInverse'
-    | undefined;
+    styleAttr?:
+        | "Horizontal"
+        | "Normal"
+        | "Small"
+        | "Large"
+        | "Inverse"
+        | "SmallInverse"
+        | "LargeInverse"
+        | undefined;
 
-  /**
-   * If the progress bar will show indeterminate progress.
-   * Note that this can only be false if styleAttr is Horizontal.
-   */
-  indeterminate?: boolean | undefined;
+    /**
+     * If the progress bar will show indeterminate progress.
+     * Note that this can only be false if styleAttr is Horizontal.
+     */
+    indeterminate?: boolean | undefined;
 
-  /**
-   * The progress value (between 0 and 1).
-   */
-  progress?: number | undefined;
+    /**
+     * The progress value (between 0 and 1).
+     */
+    progress?: number | undefined;
 
-  /**
-   * Whether to show the ProgressBar (true, the default) or hide it (false).
-   */
-  animating?: boolean | undefined;
+    /**
+     * Whether to show the ProgressBar (true, the default) or hide it (false).
+     */
+    animating?: boolean | undefined;
 
-  /**
-   * Color of the progress bar.
-   */
-  color?: ColorValue | undefined;
+    /**
+     * Color of the progress bar.
+     */
+    color?: ColorValue | undefined;
 
-  /**
-   * Used to locate this view in end-to-end tests.
-   */
-  testID?: string | undefined;
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string | undefined;
 }
 
 /**
@@ -63,8 +63,9 @@ export interface ProgressBarAndroidProps extends ViewProps {
  * that the app is loading or there is some activity in the app.
  */
 declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
-declare const ProgressBarAndroidBase: Constructor<NativeMethods> &
-  typeof ProgressBarAndroidComponent;
+declare const ProgressBarAndroidBase:
+    & Constructor<NativeMethods>
+    & typeof ProgressBarAndroidComponent;
 /**
  * ProgressBarAndroid has been extracted from react-native core and will be removed in a future release.
  * It can now be installed and imported from `@react-native-community/progress-bar-android` instead of 'react-native'.
