@@ -1,4 +1,4 @@
-import { CommandEvent, CompositeDisposable, Disposable } from '../index';
+import { CommandEvent, CompositeDisposable, Disposable } from "../index";
 
 export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
     [key: string]: EventTarget;
@@ -6,11 +6,11 @@ export interface CommandRegistryTargetMap extends HTMLElementTagNameMap {
 
 export type CommandRegistryListener<TargetType extends EventTarget> =
     | {
-          didDispatch(event: CommandEvent<TargetType>): void | Promise<void>;
-          displayName?: string | undefined;
-          description?: string | undefined;
-          hiddenInCommandPalette?: boolean | undefined;
-      }
+        didDispatch(event: CommandEvent<TargetType>): void | Promise<void>;
+        displayName?: string | undefined;
+        description?: string | undefined;
+        hiddenInCommandPalette?: boolean | undefined;
+    }
     | ((event: CommandEvent<TargetType>) => void | Promise<void>);
 
 /**

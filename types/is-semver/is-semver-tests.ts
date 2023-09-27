@@ -1,3 +1,3 @@
-import isSemver = require('is-semver');
+import isSemver = require("is-semver");
 
-isSemver('1.2.3'); // $ExpectType boolean
+isSemver("1.2.3"); // $ExpectType boolean

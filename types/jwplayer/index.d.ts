@@ -65,17 +65,17 @@ declare namespace jwplayer {
     }
 
     interface Provider {
-        name: 'flash_adaptive' | 'flash_video' | 'flash_sound' | 'hlsjs' | 'html5' | 'shaka';
+        name: "flash_adaptive" | "flash_video" | "flash_sound" | "hlsjs" | "html5" | "shaka";
     }
 
     interface AbsolutePositionReadyParam {
         ready: boolean;
         startDateTime: number;
-        type: 'absolutePositionReady';
+        type: "absolutePositionReady";
     }
 
     interface AdProgressParam {
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         tag: string;
     }
@@ -91,18 +91,18 @@ declare namespace jwplayer {
     }
 
     interface AdRequestParam {
-        adposition: 'pre' | 'mid' | 'post';
-        client: 'vast' | 'googima';
-        offset: 'pre' | 'mid' | 'post';
+        adposition: "pre" | "mid" | "post";
+        client: "vast" | "googima";
+        offset: "pre" | "mid" | "post";
         tag: string;
     }
 
     interface AdImpressionParam {
-        adposition: 'pre' | 'mid' | 'post';
+        adposition: "pre" | "mid" | "post";
         adsystem: string;
         adtitle: string;
         clickThroughUrl: string;
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         linear: string;
         mediafile: any;
@@ -133,14 +133,14 @@ declare namespace jwplayer {
         code: number;
         error: Error;
         reason: string;
-        type: 'autostartNotAllowed';
+        type: "autostartNotAllowed";
     }
 
     interface BufferParam {
-        newstate: 'buffering';
+        newstate: "buffering";
         oldstate: PlayState;
-        reason: 'loading' | 'complete' | 'stalled' | 'error';
-        type: 'buffer';
+        reason: "loading" | "complete" | "stalled" | "error";
+        type: "buffer";
     }
 
     interface BufferChangeParam {
@@ -149,11 +149,11 @@ declare namespace jwplayer {
         position: number;
         currentTime: number;
         seekRange: SeekRange;
-        type: 'bufferChange';
+        type: "bufferChange";
     }
 
     interface AdTimeParam {
-        client: 'vast' | 'googima';
+        client: "vast" | "googima";
         creativetype: string;
         duration: number;
         position: number;
@@ -169,7 +169,7 @@ declare namespace jwplayer {
     interface CaptionsChangedParam {
         tracks: Caption[];
         track: number;
-        type: 'captionsChanged';
+        type: "captionsChanged";
     }
 
     interface CaptionsListParam {
@@ -192,15 +192,15 @@ declare namespace jwplayer {
     }
 
     interface Meta {
-        type: 'meta';
+        type: "meta";
     }
 
     interface MetadataCueParsed {
-        type: 'metadataCueParsed';
+        type: "metadataCueParsed";
     }
 
     interface MetaDateRange {
-        metadataType: 'date-range';
+        metadataType: "date-range";
         metadataTime: number;
         metadata: DateRangeMetaData;
     }
@@ -213,17 +213,17 @@ declare namespace jwplayer {
         endDate: string;
         start: number;
         startDate: string;
-        tag: 'EXT-X-DATERANGE';
+        tag: "EXT-X-DATERANGE";
     }
 
     interface MetaDiscontinuity {
-        metadataType: 'discontinuity';
+        metadataType: "discontinuity";
         metadataTime: number;
         metadata: DiscontinuityMetaData;
     }
 
     interface DiscontinuityMetaData {
-        metadataType: 'discontinuity';
+        metadataType: "discontinuity";
         discontinuitySequence: number;
         end: number;
         PTS: number;
@@ -232,7 +232,7 @@ declare namespace jwplayer {
     }
 
     interface MetaEMSG {
-        metadataType: 'emsg';
+        metadataType: "emsg";
         metadataTime: number;
         metadata: EMSGMetaData;
     }
@@ -242,7 +242,7 @@ declare namespace jwplayer {
         end: number;
         id: number;
         messageData: any[];
-        metadataType: 'emsg';
+        metadataType: "emsg";
         presentationTimeOffset: number;
         start: number;
         schemeIdUri: string;
@@ -250,7 +250,7 @@ declare namespace jwplayer {
     }
 
     interface MetaID3 {
-        metadataType: 'id3';
+        metadataType: "id3";
         metadataTime: number;
         metadata: Id3MetaData;
     }
@@ -260,7 +260,7 @@ declare namespace jwplayer {
     }
 
     interface MetaMedia {
-        metadataType: 'media';
+        metadataType: "media";
         duration: number;
         height: number;
         seekRange: SeekRange;
@@ -268,7 +268,7 @@ declare namespace jwplayer {
     }
 
     interface MetaProgramDateTime {
-        metadataType: 'program-date-time';
+        metadataType: "program-date-time";
         metadataTime: number;
         programDateTime: string;
         metadata: ProgramDateTimeMetaData;
@@ -281,7 +281,7 @@ declare namespace jwplayer {
     }
 
     interface MetaSCTE35 {
-        metadataType: 'scte-35';
+        metadataType: "scte-35";
         metadataTime: number;
         metadata: SCTE35MetaData;
     }
@@ -290,7 +290,7 @@ declare namespace jwplayer {
         content: string;
         end: number;
         start: number;
-        tag: 'EXT-X-CUE-OUT' | 'EXT-X-CUE-IN';
+        tag: "EXT-X-CUE-OUT" | "EXT-X-CUE-IN";
     }
 
     type MetaData =
@@ -302,7 +302,7 @@ declare namespace jwplayer {
         | SCTE35MetaData;
 
     interface MetaUnknown {
-        metadataType: 'unknown';
+        metadataType: "unknown";
     }
 
     type MetadataParam =
@@ -324,12 +324,12 @@ declare namespace jwplayer {
         | (MetaDiscontinuity & MetadataCueParsed);
 
     interface CompleteParam {
-        type: 'complete';
+        type: "complete";
     }
 
     interface ControlsParam {
         controls: boolean;
-        type: 'controls';
+        type: "controls";
     }
 
     interface Error {
@@ -339,12 +339,12 @@ declare namespace jwplayer {
     }
 
     interface ErrorParam extends Error {
-        type: 'error';
+        type: "error";
     }
 
     interface FloatParam {
         floating: boolean;
-        type: 'float';
+        type: "float";
     }
 
     interface FullscreenParam {
@@ -352,21 +352,21 @@ declare namespace jwplayer {
     }
 
     interface IdleParam {
-        newstate: 'idle';
+        newstate: "idle";
         oldstate: PlayState;
-        reason: 'complete' | 'idle';
-        type: 'idle';
+        reason: "complete" | "idle";
+        type: "idle";
     }
 
     interface LevelsChangedParam {
         currentQuality: number;
         levels: Level[];
-        type: 'levelsChanged';
+        type: "levelsChanged";
     }
 
     interface MuteParam {
         mute: boolean;
-        type: 'mute';
+        type: "mute";
     }
 
     interface NextClickParam {
@@ -376,17 +376,17 @@ declare namespace jwplayer {
         mode: string;
         target: PlaylistItem;
         ui: string;
-        type: 'nextClick';
+        type: "nextClick";
     }
 
     interface VolumeParam {
         volume: number;
-        type: 'volume';
+        type: "volume";
     }
 
-    type PlayReason = 'autostart' | 'external' | 'interaction' | 'playlist' | 'related-auto' | 'viewable';
+    type PlayReason = "autostart" | "external" | "interaction" | "playlist" | "related-auto" | "viewable";
 
-    type PlayState = 'buffering' | 'idle' | 'paused' | 'playing';
+    type PlayState = "buffering" | "idle" | "paused" | "playing";
 
     interface PauseParam {
         newstate: PlayState;
@@ -394,7 +394,7 @@ declare namespace jwplayer {
         pauseReason: PlayReason;
         reason: string;
         viewable: 0 | 1;
-        type: 'pause';
+        type: "pause";
     }
 
     interface PlayParam {
@@ -403,7 +403,7 @@ declare namespace jwplayer {
         playReason: PlayReason;
         reason: string;
         viewable: 0 | 1;
-        type: 'play';
+        type: "play";
     }
 
     interface PlayAttemptFailedParam {
@@ -412,23 +412,23 @@ declare namespace jwplayer {
         item: PlaylistItem;
         playReason: PlayReason;
         sourceError: object | null;
-        type: 'playAttemptFailed';
+        type: "playAttemptFailed";
     }
 
     interface PlaylistParam {
         feedData: object;
         playlist: PlaylistItem[];
-        type: 'playlist';
+        type: "playlist";
     }
 
     interface PlaylistCompleteParam {
-        type: 'playlistComplete';
+        type: "playlistComplete";
     }
 
     interface PlaylistItemParam {
         index: number;
         item: PlaylistItem;
-        type: 'playlistItem';
+        type: "playlistItem";
     }
 
     interface ReadyParam {
@@ -443,21 +443,21 @@ declare namespace jwplayer {
 
     interface VisualQualityParam extends VisualQuality {
         level: Level;
-        mode: 'auto' | 'manual';
-        reason: 'api' | 'auto' | 'initial choice';
-        type: 'visualQuality';
+        mode: "auto" | "manual";
+        reason: "api" | "auto" | "initial choice";
+        type: "visualQuality";
     }
 
     interface PlaybackRateChangedParam {
         playbackRate: number;
         position: number | undefined;
-        type: 'playbackRateChanged';
+        type: "playbackRateChanged";
     }
 
     interface LevelsParam {
         currentQuality: number;
         levels: Level[];
-        type: 'levels';
+        type: "levels";
     }
 
     interface SeekParam {
@@ -469,7 +469,7 @@ declare namespace jwplayer {
         offset: number;
         position: number;
         seekRange: SeekRange;
-        type: 'seek';
+        type: "seek";
     }
 
     interface SeekRange {
@@ -485,7 +485,7 @@ declare namespace jwplayer {
 
     interface FirstFrameParam {
         loadTime: number;
-        type: 'firstFrame';
+        type: "firstFrame";
     }
 
     type EventCallback<T> = (param: T) => void;
@@ -518,7 +518,7 @@ declare namespace jwplayer {
         fontOpacity?: number;
         backgroundColor?: string;
         backgroundOpacity?: number;
-        edgeStyle?: 'none' | 'depressed' | 'dropshadow' | 'raised' | 'uniform';
+        edgeStyle?: "none" | "depressed" | "dropshadow" | "raised" | "uniform";
         windowColor?: string;
         windowOpacity?: number;
     }
@@ -543,11 +543,11 @@ declare namespace jwplayer {
 
     interface VisualQuality {
         level: QualityLevel;
-        mode: 'auto' | 'manual';
-        reason: 'auto' | 'api' | 'initial choice';
+        mode: "auto" | "manual";
+        reason: "auto" | "api" | "initial choice";
     }
 
-    type Preload = 'metadata' | 'auto' | 'none';
+    type Preload = "metadata" | "auto" | "none";
 
     interface PlaylistItem {
         adschedule?: Adschedule;
@@ -573,7 +573,7 @@ declare namespace jwplayer {
     interface Adschedule {
         offset: number | string;
         tag?: string | string[];
-        type?: 'linear' | 'nonlinear';
+        type?: "linear" | "nonlinear";
         vastxml?: string;
     }
 
@@ -597,7 +597,7 @@ declare namespace jwplayer {
     interface Track {
         default?: boolean;
         file: string;
-        kind: 'captions' | 'chapters' | 'thumbnails';
+        kind: "captions" | "chapters" | "thumbnails";
         label?: string;
     }
 
@@ -616,7 +616,7 @@ declare namespace jwplayer {
         licenseRequestHeaders?: Header[];
         licenseRequestMessage?: (message: any) => any;
         licenseResponseFilter?: (response: any) => any;
-        licenseResponseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+        licenseResponseType?: "arraybuffer" | "blob" | "json" | "text";
         processSpcUrl: string | ((...args: any[]) => string);
     }
 
@@ -634,11 +634,11 @@ declare namespace jwplayer {
     }
 
     type RobustnessLevel =
-        | 'HW_SECURE_ALL'
-        | 'HW_SECURE_CRYPTO'
-        | 'HW_SECURE_DECODE'
-        | 'SW_SECURE_CRYPTO'
-        | 'SW_SECURE_DECODE';
+        | "HW_SECURE_ALL"
+        | "HW_SECURE_CRYPTO"
+        | "HW_SECURE_DECODE"
+        | "SW_SECURE_CRYPTO"
+        | "SW_SECURE_DECODE";
 
     interface Header {
         name: string;
@@ -652,19 +652,19 @@ declare namespace jwplayer {
     }
 
     interface CastParam extends CastState {
-        type: 'cast';
+        type: "cast";
     }
 
     interface ViewableParam {
         viewable: 0 | 1;
-        type: 'viewable';
+        type: "viewable";
     }
 
     interface WarningParam {
         code: number;
         key?: string;
         sourceError: object | null;
-        type: 'warning';
+        type: "warning";
     }
 
     interface GaConfig {
@@ -846,14 +846,14 @@ declare namespace jwplayer {
     }
 
     type NoParamEvent =
-        | 'adBlock'
-        | 'beforeComplete'
-        | 'beforePlay'
-        | 'displayClick'
-        | 'remove'
-        | 'seeked'
-        | 'userActive'
-        | 'userInactive';
+        | "adBlock"
+        | "beforeComplete"
+        | "beforePlay"
+        | "displayClick"
+        | "remove"
+        | "seeked"
+        | "userActive"
+        | "userInactive";
 
     interface SliderCue {
         begin: number;
@@ -901,8 +901,8 @@ declare namespace jwplayer {
     }
 
     interface RPCloseParam {
-        method: 'interaction' | 'play';
-        onclick: 'link' | 'play';
+        method: "interaction" | "play";
+        onclick: "link" | "play";
         relatedFile: string;
         visible: boolean;
     }
@@ -912,7 +912,7 @@ declare namespace jwplayer {
         feedShownId: string;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: 'link' | 'play';
+        onclick: "link" | "play";
         relatedFile: string;
         target: PlaylistItem;
         ui: RelatedDisplayMode;
@@ -924,9 +924,9 @@ declare namespace jwplayer {
         index: number;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: 'link' | 'play';
+        onclick: "link" | "play";
         page: number;
-        reason: 'interaction' | 'paged';
+        reason: "interaction" | "paged";
         relatedFile: string;
         target: PlaylistItem;
         ui: RelatedDisplayMode;
@@ -939,9 +939,9 @@ declare namespace jwplayer {
         feedShownId: string;
         itemsShown: PlaylistItem[];
         mode: string;
-        onclick: 'link' | 'play';
+        onclick: "link" | "play";
         page: number;
-        reason: 'complete' | 'interaction' | 'inview' | 'paged' | 'resized';
+        reason: "complete" | "interaction" | "inview" | "paged" | "resized";
         relatedFile: string;
         ui: RelatedDisplayMode;
         viewable: 0 | 1;
@@ -958,8 +958,8 @@ declare namespace jwplayer {
         feed: string;
         feedData: FeedData;
         items: PlaylistItem[];
-        method: 'complete' | 'interaction';
-        onclick: 'link' | 'play';
+        method: "complete" | "interaction";
+        onclick: "link" | "play";
         relatedFile: string;
         visible: boolean;
     }
@@ -969,15 +969,15 @@ declare namespace jwplayer {
         autoplaytimer: number;
         feedData: FeedData;
         item: PlaylistItem;
-        method: 'auto' | 'manual';
-        onclick: 'link' | 'play';
+        method: "auto" | "manual";
+        onclick: "link" | "play";
         position: number;
         relatedFile: string;
     }
 
     interface RPPlaylistParam {
         feedData: FeedData;
-        onclick: 'link' | 'play';
+        onclick: "link" | "play";
         playlist: PlaylistItem[];
     }
 
@@ -1107,11 +1107,11 @@ declare namespace jwplayer {
         an?: string;
         ltd?: 0 | 1;
         rdid?: string;
-        idtype?: 'adid' | 'afai' | 'idfa' | 'lgudid' | 'msai' | 'rida' | 'tifa' | 'tvOS' | 'vaid';
+        idtype?: "adid" | "afai" | "idfa" | "lgudid" | "msai" | "rida" | "tifa" | "tvOS" | "vaid";
         is_lat?: 0 | 1;
         trt?: 0 | 1 | 2;
         vconp?: 1 | 2;
-        vpa?: 'auto' | 'click';
+        vpa?: "auto" | "click";
         vpmute?: 0 | 1;
         npa?: 0 | 1;
         gdpr?: 0 | 1;
@@ -1131,7 +1131,7 @@ declare namespace jwplayer {
 
     interface BidsSettings {
         consentManagement: ConsentManagement;
-        mediationLayerAdServer: 'dfp' | 'jwp' | 'jwpdfp' | 'jwpspotx';
+        mediationLayerAdServer: "dfp" | "jwp" | "jwpdfp" | "jwpspotx";
         bidTimeout?: number;
         buckets?: PriceBucket[];
         floorPriceCents?: number;
@@ -1199,36 +1199,36 @@ declare namespace jwplayer {
         | YahooSSP;
 
     interface JWDemand {
-        name: 'jwdemand';
+        name: "jwdemand";
         placementId: number;
         publisherId: string;
         propertyId: string;
     }
 
     interface Azerion {
-        name: 'improvedigital';
+        name: "improvedigital";
         placementId: number;
     }
 
     interface Criteo {
-        name: 'criteo';
+        name: "criteo";
         networkId: number;
         networkdId: number;
     }
 
     interface Emodo {
-        name: 'Axonix';
+        name: "Axonix";
         supplyId: string;
     }
 
     interface EMX {
-        name: 'EMX';
+        name: "EMX";
         id: string;
         pubid?: string;
     }
 
     interface Equativ {
-        name: 'SmartAdServer';
+        name: "SmartAdServer";
         formatId: number;
         networkId: number;
         pageId: number;
@@ -1236,84 +1236,84 @@ declare namespace jwplayer {
     }
 
     interface Imds {
-        name: 'SynacorMedia';
+        name: "SynacorMedia";
         id: string;
         pubid: string;
     }
 
     interface IndexExchange {
-        name: 'IndexExchange';
+        name: "IndexExchange";
         id: string;
         optionalParams?: BiddersOptionalParams;
     }
 
     interface Kargo {
-        name: 'kargo';
+        name: "kargo";
         placementId: string;
     }
 
     interface Magnite {
-        name: 'Rubicon';
+        name: "Rubicon";
         pubid: string;
         siteId: string;
         zoneId: string;
     }
 
     interface MediaNet {
-        name: 'MediaNet';
+        name: "MediaNet";
         id: string;
         pubid: string;
     }
 
     interface OpenX {
-        name: 'OpenX';
+        name: "OpenX";
         delDomain: string;
         id: string;
     }
 
     interface PubMatic {
-        name: 'PubMatic';
+        name: "PubMatic";
         pubid: string;
         id: string;
         optionalParams?: BiddersOptionalParams;
     }
 
     interface Sonobi {
-        name: 'Sonobi';
+        name: "Sonobi";
         id: string;
     }
 
     interface Sovrn {
-        name: 'Sovrn';
+        name: "Sovrn";
         tagid: string;
     }
 
     interface SpotX {
-        name: 'SpotX';
+        name: "SpotX";
         id: string;
         optionalParams?: BiddersOptionalParams;
     }
 
     interface MediaGrid {
-        name: 'MediaGrid';
+        name: "MediaGrid";
         id: string;
         pubid?: string;
     }
 
     interface Unruly {
-        name: 'Unruly';
+        name: "Unruly";
         pubid: string;
     }
 
     interface VideoByte {
-        name: 'VideoByte';
+        name: "VideoByte";
         pubid: string;
         nid?: string;
         placementId?: string;
     }
 
     interface Xandr {
-        name: 'AppNexus';
+        name: "AppNexus";
         id: string;
         invCode?: string;
         member?: string;
@@ -1322,7 +1322,7 @@ declare namespace jwplayer {
     }
 
     interface YahooSSP {
-        name: 'YahooSSP';
+        name: "YahooSSP";
         pubid: string;
         id: string;
         siteId: string;
@@ -1361,7 +1361,7 @@ declare namespace jwplayer {
         deferAds?: Record<string, never>;
         frequency?: number;
         startOn?: number;
-        startOnSeek?: 'none' | 'pre';
+        startOnSeek?: "none" | "pre";
         timeBetweenAds?: number;
     }
 
@@ -1384,7 +1384,7 @@ declare namespace jwplayer {
 
     interface FloatingConfig {
         dismissible?: boolean;
-        mode?: 'always' | 'never' | 'notVisible';
+        mode?: "always" | "never" | "notVisible";
         showTitle?: boolean;
     }
 
@@ -1393,7 +1393,7 @@ declare namespace jwplayer {
         hide?: boolean;
         link?: string;
         margin?: number;
-        position?: 'bottom-left' | 'bottom-right' | 'control-bar' | 'top-left' | 'top-right';
+        position?: "bottom-left" | "bottom-right" | "control-bar" | "top-left" | "top-right";
     }
 
     interface RelatedConfig {
@@ -1402,8 +1402,8 @@ declare namespace jwplayer {
         disableRelated: boolean;
         displayMode?: RelatedDisplayMode;
         file?: string;
-        onclick?: 'link' | 'play';
-        oncomplete: 'autoplay' | 'hide' | 'none' | 'show';
+        onclick?: "link" | "play";
+        oncomplete: "autoplay" | "hide" | "none" | "show";
         selector?: string;
         shouldAutoAdvance: boolean;
         showButton: boolean;
@@ -1411,7 +1411,7 @@ declare namespace jwplayer {
 
     type RelatedSetupConfig = Partial<RelatedConfig>;
 
-    type RelatedDisplayMode = 'none' | 'overlay' | 'shelf' | 'shelfWidget';
+    type RelatedDisplayMode = "none" | "overlay" | "shelf" | "shelfWidget";
 
     interface SharingConfig {
         code?: string;
@@ -1420,7 +1420,7 @@ declare namespace jwplayer {
         sites?: SharingSite[];
     }
 
-    type SharingSite = 'email' | 'facebook' | 'linkedin' | 'pinterest' | 'reddit' | 'tumlbr' | 'twitter';
+    type SharingSite = "email" | "facebook" | "linkedin" | "pinterest" | "reddit" | "tumlbr" | "twitter";
 
     interface SkinConfig {
         controlbar?: {
@@ -1453,9 +1453,9 @@ declare namespace jwplayer {
         showAdMarkers?: boolean;
     }
 
-    type StreamType = 'VOD' | 'Live' | 'DVR';
+    type StreamType = "VOD" | "Live" | "DVR";
 
-    type Stretching = 'exactfit' | 'fill' | 'none' | 'uniform';
+    type Stretching = "exactfit" | "fill" | "none" | "uniform";
 
     interface SetupConfig {
         aboutlink?: string;
@@ -1464,7 +1464,7 @@ declare namespace jwplayer {
         allowFullscreen?: boolean;
         aspectratio?: string;
         autoPause?: Partial<AutoPauseConfig>;
-        autostart?: boolean | 'viewable';
+        autostart?: boolean | "viewable";
         base?: string;
         captions?: CaptionsConfig;
         cast?: CastConfig;
@@ -1491,7 +1491,7 @@ declare namespace jwplayer {
         mute?: boolean;
         nextUpDisplay?: boolean;
         nextupoffset?: number | string;
-        pipIcon?: 'disabled' | 'enabled';
+        pipIcon?: "disabled" | "enabled";
         playbackRateControls?: boolean;
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;

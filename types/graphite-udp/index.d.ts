@@ -20,7 +20,7 @@ export interface ClientOptions {
      * udp type (udp4 or udp6)
      * Defaults to udp4
      */
-    type?: 'udp4' | 'udp6' | undefined;
+    type?: "udp4" | "udp6" | undefined;
 
     /**
      * split into smaller UDP packets

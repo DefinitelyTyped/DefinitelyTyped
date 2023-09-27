@@ -98,8 +98,8 @@ export interface Request {
     send(): this;
     abort(): this;
     progress(callback: (progress: Progress) => any): this;
-    then(...args: Parameters<this['_promise']['then']>): this;
-    catch(...args: Parameters<this['_promise']['catch']>): this;
+    then(...args: Parameters<this["_promise"]["then"]>): this;
+    catch(...args: Parameters<this["_promise"]["catch"]>): this;
 }
 
 export interface Response {

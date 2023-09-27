@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace BlockEdit {
     // It is extremely unclear what props this component accepts.

@@ -8,7 +8,7 @@
  * https://k6.io/docs/javascript-api/k6-experimental/tracing/
  */
 
-import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from '../http';
+import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from "../http";
 
 /**
  * The instrumentHTTP function instruments the k6 http module
@@ -186,7 +186,7 @@ export interface Options {
      *
      * Defaults to `w3c`.
      */
-    propagator: 'w3c' | 'jaeger';
+    propagator: "w3c" | "jaeger";
 
     /**
      * The probability of each request having
@@ -202,5 +202,5 @@ export interface Options {
  * Returned value from http.url method.
  */
 export interface HttpURL {
-    __brand: 'http-url';
+    __brand: "http-url";
 }

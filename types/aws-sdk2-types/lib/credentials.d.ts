@@ -1,4 +1,4 @@
-import { AWSError } from './error';
+import { AWSError } from "./error";
 export class Credentials {
     /**
      * Creates a Credentials object with a given set of credential information as an options hash.

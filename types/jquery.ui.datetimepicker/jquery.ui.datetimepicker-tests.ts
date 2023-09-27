@@ -1,19 +1,16 @@
 // basic no options
-$('#datetimepicker').datetimepicker({
-
-});
+$("#datetimepicker").datetimepicker({});
 
 // basic with some options
-$('#datetimepicker').datetimepicker({
+$("#datetimepicker").datetimepicker({
     dateFormat: "yy-mm-dd",
-    timeFormat: 'HH:mm',
+    timeFormat: "HH:mm",
     nextText: "",
-    prevText: ""
+    prevText: "",
 });
 
 // function within the plugin
-$('#datetimepicker').datetimepicker('formatTime', {
+$("#datetimepicker").datetimepicker("formatTime", {
     format: "HH:mm",
-    time: { hours: 1, minutes: 1, seconds: 1 }
+    time: { hours: 1, minutes: 1, seconds: 1 },
 });
-

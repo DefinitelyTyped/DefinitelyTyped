@@ -4,7 +4,7 @@
 //                 James <https://github.com/durandj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface Session {
     webId: string;
@@ -23,13 +23,13 @@ interface LoginOptions {
 }
 
 export interface SolidAuthClient extends EventEmitter {
-  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
-  currentSession(storage?: AsyncStorage): Promise<Session | undefined>;
-  trackSession(callback: (session?: Session) => void): Promise<void>;
-  stopTrackSession(callback: (session?: Session) => void): void;
-  login(identityProvider: string, options?: LoginOptions): Promise<void>;
-  logout(storage?: AsyncStorage): Promise<void>;
-  popupLogin(params?: LoginOptions): Promise<Session>;
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+    currentSession(storage?: AsyncStorage): Promise<Session | undefined>;
+    trackSession(callback: (session?: Session) => void): Promise<void>;
+    stopTrackSession(callback: (session?: Session) => void): void;
+    login(identityProvider: string, options?: LoginOptions): Promise<void>;
+    logout(storage?: AsyncStorage): Promise<void>;
+    popupLogin(params?: LoginOptions): Promise<Session>;
 }
 
 declare const instantiated: SolidAuthClient;

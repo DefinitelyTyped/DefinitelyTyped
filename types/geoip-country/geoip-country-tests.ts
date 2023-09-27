@@ -1,8 +1,8 @@
 // require geoip-country
-import geoip = require('geoip-country');
+import geoip = require("geoip-country");
 
 // lookup an IP addres
-const stringLookup = geoip.lookup('199.16.156.125');
+const stringLookup = geoip.lookup("199.16.156.125");
 
 const numberLookup = geoip.lookup(3339754621);
 

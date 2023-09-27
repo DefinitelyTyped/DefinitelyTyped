@@ -3,7 +3,7 @@
 // Definitions by: Christophe Coevoet <https://github.com/stof>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import vinyl = require('vinyl');
+import vinyl = require("vinyl");
 import minimatch = require("minimatch");
 
 interface StatFilterCondition {

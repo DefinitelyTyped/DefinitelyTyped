@@ -8,7 +8,6 @@
         "jsdoc-format": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "no-void-expression": false,
@@ -17,7 +16,6 @@
         "prefer-conditional-expression": false,
         "prefer-const": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false,
         "void-return": false
     }

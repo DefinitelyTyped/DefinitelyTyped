@@ -1,4 +1,4 @@
-import forEach = require('foreach');
+import forEach = require("foreach");
 
 declare const stringArray: string[];
 declare const numberArrayLike: ArrayLike<string>;
@@ -26,7 +26,7 @@ forEach(objectRecord, (value, property, record) => {
     record; // $ExpectType Record<string, object>
 });
 
-forEach({ foo: 'bar' }, (value, property, record) => {
+forEach({ foo: "bar" }, (value, property, record) => {
     value; // $ExpectType string
     property; // $ExpectType string
     record; // $ExpectType { foo: string; }
@@ -34,18 +34,18 @@ forEach({ foo: 'bar' }, (value, property, record) => {
 
 // thisArg
 /// implicit undefined
-forEach([], function () {
+forEach([], function() {
     this; // $ExpectType undefined
 });
 
-forEach({}, function () {
+forEach({}, function() {
     this; // $ExpectType undefined
 });
 
 /// explicit binding
 forEach(
     [],
-    function () {
+    function() {
         this; // $ExpectType object
     },
     object,
@@ -53,7 +53,7 @@ forEach(
 
 forEach(
     {},
-    function () {
+    function() {
         this; // $ExpectType object
     },
     object,

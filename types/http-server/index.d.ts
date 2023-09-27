@@ -3,9 +3,9 @@
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { HandleFunction } from "connect";
 import * as http from "http";
 import * as https from "https";
-import { HandleFunction } from "connect";
 
 export function createServer(options?: Options): http.Server | https.Server;
 

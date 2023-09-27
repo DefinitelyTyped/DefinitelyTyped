@@ -5,16 +5,16 @@ declare namespace GorillaEngine.UI {
         fontKerning: number;
         textColor: string;
         textAlign:
-            | 'centered left'
-            | 'centered right'
-            | 'left'
-            | 'right'
-            | 'center'
-            | 'top left'
-            | 'top right'
-            | 'top center'
-            | 'bottom left'
-            | 'bottom right'
-            | 'bottom center';
+            | "centered left"
+            | "centered right"
+            | "left"
+            | "right"
+            | "center"
+            | "top left"
+            | "top right"
+            | "top center"
+            | "bottom left"
+            | "bottom right"
+            | "bottom center";
     }
 }

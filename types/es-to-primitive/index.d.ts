@@ -4,9 +4,9 @@
 //                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ES5 = require('./es5');
-import ES6 = require('./es6');
-import ES2015 = require('./es2015');
+import ES5 = require("./es5");
+import ES6 = require("./es6");
+import ES2015 = require("./es2015");
 
 declare const ToPrimitive: typeof ES2015 & {
     readonly ES5: typeof ES5;

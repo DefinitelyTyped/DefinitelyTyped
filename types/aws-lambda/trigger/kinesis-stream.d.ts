@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 // tslint:disable-next-line:void-return
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;

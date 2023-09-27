@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import * as moment from 'moment';
+import * as moment from "moment";
+import * as React from "react";
 
 export default class Scheduler extends React.Component<SchedulerProps, any> {}
 

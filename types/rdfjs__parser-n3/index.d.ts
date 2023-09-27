@@ -3,8 +3,8 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Sink, Stream, DataFactory, BaseQuad, Quad } from 'rdf-js';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { BaseQuad, DataFactory, Quad, Sink, Stream } from "rdf-js";
 
 export interface ParserOptions {
     baseIRI?: string | undefined;

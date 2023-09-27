@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import * as PropTypes from "prop-types";
+import * as React from "react";
 
-import hoistNonReactStatics = require('hoist-non-react-statics');
+import hoistNonReactStatics = require("hoist-non-react-statics");
 
 function TestClassComponents() {
     class A extends React.Component<{ x: number; y?: number | null | undefined }> {
-        static a = 'a';
+        static a = "a";
 
         static propTypes = {
             x: PropTypes.number.isRequired,
@@ -18,7 +18,7 @@ function TestClassComponents() {
     }
 
     class B extends React.Component {
-        static b = 'b';
+        static b = "b";
 
         static propTypes = {
             n: PropTypes.number.isRequired,
@@ -76,22 +76,22 @@ function TestClassComponents() {
 // convenience to avoid having to model the component's type with static fields.
 
 function TestFunctionalComponents() {
-    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number | undefined }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
-        a: 'a',
+        a: "a",
         propTypes: {
             x: PropTypes.number.isRequired,
             y: PropTypes.number,
         },
     });
 
-    const B = ({n}: {n: number}) => <div>{n}</div>;
+    const B = ({ n }: { n: number }) => <div>{n}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {
-        b: 'b',
+        b: "b",
         propTypes: {
             n: PropTypes.number.isRequired,
         },
@@ -134,22 +134,22 @@ function TestFunctionalComponents() {
 }
 
 function TestMemoComponents() {
-    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number | undefined }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
-        a: 'a',
+        a: "a",
         propTypes: {
             x: PropTypes.number.isRequired,
             y: PropTypes.number,
         },
     });
 
-    const B = React.memo(({n}: {n: number}) => <div>{n}</div>);
+    const B = React.memo(({ n }: { n: number }) => <div>{n}</div>);
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {
-        b: 'b',
+        b: "b",
         propTypes: {
             n: PropTypes.number.isRequired,
         },
@@ -192,11 +192,11 @@ function TestMemoComponents() {
 }
 
 function TestForwardRefComponents() {
-    const A = ({x, y}: {x: number; y?: number | undefined}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number | undefined }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
-        a: 'a',
+        a: "a",
         propTypes: {
             x: PropTypes.number.isRequired,
             y: PropTypes.number,
@@ -204,12 +204,12 @@ function TestForwardRefComponents() {
     });
 
     const B = React.forwardRef(
-        ({n}: {n: number}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}>{n}</div>
+        ({ n }: { n: number }, ref: React.Ref<HTMLDivElement>) => <div ref={ref}>{n}</div>,
     );
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {
-        b: 'b',
+        b: "b",
         propTypes: {
             n: PropTypes.number.isRequired,
         },

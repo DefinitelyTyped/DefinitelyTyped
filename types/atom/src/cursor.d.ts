@@ -1,4 +1,4 @@
-import { DisplayMarker, Disposable, Point, PointCompatible, Range, ScopeDescriptor } from '../index';
+import { DisplayMarker, Disposable, Point, PointCompatible, Range, ScopeDescriptor } from "../index";
 
 /**
  *  The Cursor class represents the little blinking line identifying where text
@@ -175,7 +175,9 @@ export interface Cursor {
     }): Point;
 
     /** Retrieves the buffer position of where the current word ends. */
-    getEndOfCurrentWordBufferPosition(options?: { wordRegex?: RegExp | undefined; includeNonWordCharacters?: boolean | undefined }): Point;
+    getEndOfCurrentWordBufferPosition(
+        options?: { wordRegex?: RegExp | undefined; includeNonWordCharacters?: boolean | undefined },
+    ): Point;
 
     /** Retrieves the buffer position of where the next word starts. */
     getBeginningOfNextWordBufferPosition(options?: { wordRegex?: RegExp | undefined }): Point;

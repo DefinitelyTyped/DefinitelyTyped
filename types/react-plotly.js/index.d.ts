@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Plotly from 'plotly.js';
-import * as React from 'react';
+import * as Plotly from "plotly.js";
+import * as React from "react";
 
 export interface Figure {
     data: Plotly.Data[];

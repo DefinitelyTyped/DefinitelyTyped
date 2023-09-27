@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 export interface ReactGitHubButtonProps {
     /**
      * The type of information to display
      */
-    type: 'stargazers' | 'watchers' | 'forks';
+    type: "stargazers" | "watchers" | "forks";
     /**
      * The size of the button. Leave undefined for default.
      */
-    size?: 'large' | undefined;
+    size?: "large" | undefined;
     /**
      * Your GitHub id or organization name.
      */

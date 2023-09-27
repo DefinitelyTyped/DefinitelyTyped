@@ -1,13 +1,13 @@
 export class BlobUpload {
-  constructor(blob: {
-    file: File;
-    directUploadData: {
-      headers: Record<string, string>;
-      url: string;
-    };
-  });
+    constructor(blob: {
+        file: File;
+        directUploadData: {
+            headers: Record<string, string>;
+            url: string;
+        };
+    });
 
-  create(callback: (error: Error, blob: Blob) => void): void;
+    create(callback: (error: Error, blob: Blob) => void): void;
 
-  xhr: XMLHttpRequest;
+    xhr: XMLHttpRequest;
 }

@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Data, NdArray } from 'ndarray';
+import { Data, NdArray } from "ndarray";
 
 ////////////////
 /// Assignment operations

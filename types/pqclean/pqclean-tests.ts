@@ -1,9 +1,9 @@
-import PQClean = require('pqclean');
+import PQClean = require("pqclean");
 
 // New KEM API.
 {
     // $ExpectType Promise<GenerateKeyPairResult>
-    const keyPairPromise = PQClean.kem.generateKeyPair('mceliece8192128');
+    const keyPairPromise = PQClean.kem.generateKeyPair("mceliece8192128");
     keyPairPromise.then(result => {
         // $ExpectType PublicKey
         const publicKey = result.publicKey;
@@ -69,7 +69,7 @@ import PQClean = require('pqclean');
 // New sign API.
 {
     // $ExpectType Promise<GenerateKeyPairResult>
-    const keyPairPromise = PQClean.sign.generateKeyPair('falcon-1024');
+    const keyPairPromise = PQClean.sign.generateKeyPair("falcon-1024");
     keyPairPromise.then(result => {
         // $ExpectType PublicKey
         const publicKey = result.publicKey;
@@ -130,7 +130,7 @@ import PQClean = require('pqclean');
 // Classic KEM API.
 {
     // $ExpectType KEM
-    const mceliece = new PQClean.KEM('mceliece8192128');
+    const mceliece = new PQClean.KEM("mceliece8192128");
 
     // $ExpectType number
     mceliece.keySize;
@@ -195,7 +195,7 @@ import PQClean = require('pqclean');
 // Classic Sign API.
 {
     // $ExpectType Sign
-    const falcon = new PQClean.Sign('falcon-1024');
+    const falcon = new PQClean.Sign("falcon-1024");
 
     // $ExpectType number
     falcon.signatureSize;

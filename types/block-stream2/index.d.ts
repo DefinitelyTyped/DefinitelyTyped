@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export = BlockStream2;
 

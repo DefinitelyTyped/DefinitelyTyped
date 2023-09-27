@@ -1,5 +1,5 @@
-import postcss = require('postcss');
-import plugin = require('postcss-flexbugs-fixes');
+import postcss = require("postcss");
+import plugin = require("postcss-flexbugs-fixes");
 
 postcss([plugin]);
 

@@ -1,5 +1,5 @@
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
 /**
  * @description This module is for use with Amex Express Checkout. To accept American Express cards, use Hosted Fields.

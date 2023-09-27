@@ -1,6 +1,6 @@
-import { MutableRecordSource, RecordMap, Record } from './RelayStoreTypes';
-import { DataID } from '../util/RelayRuntimeTypes';
-import { RecordState } from './RelayRecordState';
+import { DataID } from "../util/RelayRuntimeTypes";
+import { RecordState } from "./RelayRecordState";
+import { MutableRecordSource, Record, RecordMap } from "./RelayStoreTypes";
 
 export class RelayRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);

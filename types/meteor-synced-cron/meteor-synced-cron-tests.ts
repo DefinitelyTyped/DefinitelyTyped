@@ -1,8 +1,8 @@
 // Refer to documentation on https://github.com/percolatestudio/meteor-synced-cron#readme
 // as well as source code in https://github.com/percolatestudio/meteor-synced-cron/blob/master/synced-cron-server.js
 
-import * as later from 'later';
-import { SyncedCron } from 'meteor/littledata:synced-cron';
+import * as later from "later";
+import { SyncedCron } from "meteor/littledata:synced-cron";
 
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.add()
@@ -15,8 +15,8 @@ SyncedCron.add(); // Expected 1 arguments, but got 0. ts(2554)
 SyncedCron.add({}); // Type '{}' is missing the following properties: name, schedule, job ts(2345)
 
 const validAddOptions = {
-    name: 'Job name',
-    schedule: (parser: later.ParseStatic) => parser.text('every hour'),
+    name: "Job name",
+    schedule: (parser: later.ParseStatic) => parser.text("every hour"),
     job: () => null,
 };
 
@@ -41,7 +41,7 @@ SyncedCron.start();
 SyncedCron.nextScheduledAtDate(); // Expected 1 arguments, but got 0. ts(2554)
 
 // $ExpectType Date
-SyncedCron.nextScheduledAtDate('Job name');
+SyncedCron.nextScheduledAtDate("Job name");
 
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.remove()
@@ -50,7 +50,7 @@ SyncedCron.nextScheduledAtDate('Job name');
 // @ts-expect-error
 SyncedCron.remove(); // Expected 1 arguments, but got 0. ts(2554)
 
-SyncedCron.remove('Job name');
+SyncedCron.remove("Job name");
 
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.stop()
@@ -77,7 +77,7 @@ SyncedCron.config({
 });
 
 SyncedCron.config({
-    collectionName: 'foo',
+    collectionName: "foo",
 });
 
 SyncedCron.config({

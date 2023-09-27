@@ -11,9 +11,9 @@ declare namespace AMap {
         }
 
         interface EventMap<I> {
-            items: Event<'items'>;
-            open: Event<'open', { target: I }>;
-            close: Event<'close', { target: I }>;
+            items: Event<"items">;
+            open: Event<"open", { target: I }>;
+            close: Event<"close", { target: I }>;
         }
     }
 

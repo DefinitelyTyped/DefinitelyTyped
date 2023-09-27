@@ -1,4 +1,4 @@
-import dnsTxt = require('dns-txt');
+import dnsTxt = require("dns-txt");
 
 // test type exports
 type Options = dnsTxt.Options;
@@ -10,7 +10,7 @@ dnsTxt({ binary: true });
 
 const obj = {
     foo: 1,
-    bar: '2',
+    bar: "2",
     baz: true,
     quux: Buffer.alloc(1),
 };

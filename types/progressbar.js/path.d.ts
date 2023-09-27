@@ -4,7 +4,7 @@
  * It's on caller's responsibility to append SVG to DOM.
  */
 
-import { AnimationOptions, AnimationSupport } from './';
+import { AnimationOptions, AnimationSupport } from "./";
 declare class Path<SElement extends Element = SVGPathElement> {
     readonly path?: SElement | undefined;
     constructor(path: SElement | string | null, options?: AnimationOptions);

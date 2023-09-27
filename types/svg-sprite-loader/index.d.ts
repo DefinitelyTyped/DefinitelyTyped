@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { loader } from 'webpack';
+import { loader } from "webpack";
 
 export = SVGSpriteLoader;
 
 declare function SVGSpriteLoader(
-  this: loader.LoaderContext,
-  source: string | Buffer
+    this: loader.LoaderContext,
+    source: string | Buffer,
 ): string | Buffer | void | undefined;

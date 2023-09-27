@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export * from '@wordpress/block-serialization-spec-parser';
+export * from "@wordpress/block-serialization-spec-parser";

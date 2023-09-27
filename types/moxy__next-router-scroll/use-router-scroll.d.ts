@@ -1,4 +1,4 @@
-import { RouterScrollContext } from './context';
+import { RouterScrollContext } from "./context";
 
 export default useRouterScroll;
 declare function useRouterScroll(): RouterScrollContext;

@@ -13,11 +13,11 @@ function sleep(ms: number) {
 }
 
 Fiber(function() {
-    console.log('wait... ' + new Date);
+    console.log("wait... " + new Date());
     sleep(1000);
-    console.log('ok... ' + new Date);
+    console.log("ok... " + new Date());
 }).run();
-console.log('back in main');
+console.log("back in main");
 
 var inc = Fiber(function(start: any) {
     var total = start;
@@ -29,7 +29,6 @@ var inc = Fiber(function(start: any) {
 for (var ii = inc.run(1); ii <= 10; ii = inc.run(1)) {
     console.log(ii);
 }
-
 
 // Generator function. Returns a function which returns incrementing
 // Fibonacci numbers with each call.
@@ -56,26 +55,24 @@ for (var ii = seq(); ii <= 1597; ii = seq()) {
 }
 
 var fn = Fiber(function() {
-    console.log('async work here...');
+    console.log("async work here...");
     Fiber.yield();
-    console.log('still working...');
+    console.log("still working...");
     Fiber.yield();
-    console.log('just a little bit more...');
+    console.log("just a little bit more...");
     Fiber.yield();
-    throw new Error('oh crap!');
+    throw new Error("oh crap!");
 });
 
 try {
     while (true) {
         fn.run();
     }
-} catch(e) {
-    console.log('safely caught that error!');
+} catch (e) {
+    console.log("safely caught that error!");
     console.log(e.stack);
 }
-console.log('done!');
-
-
+console.log("done!");
 
 // This function returns a future which resolves after a timeout. This
 // demonstrates manually resolving futures.

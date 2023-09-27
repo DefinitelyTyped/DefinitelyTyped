@@ -3,8 +3,8 @@
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from "react";
 import * as CommonmarkReactRenderer from "commonmark-react-renderer";
+import * as React from "react";
 
 declare namespace md {
     type CommonProps = CommonmarkReactRenderer.CommonProps;

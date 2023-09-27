@@ -3,4 +3,4 @@
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './lib/lib';
+export * from "./lib/lib";

@@ -13,10 +13,13 @@ export function usePageVisibility(): boolean;
 /**
  * Note that support for these states differs by browser.
  */
-export type KnownVisibilityStates = 'visible' | 'hidden' | 'prerender' | 'unloaded';
+export type KnownVisibilityStates = "visible" | "hidden" | "prerender" | "unloaded";
 
 export interface PageVisibilityProps {
-    children?: React.ReactNode | ((isVisible: boolean, visibilityState: KnownVisibilityStates) => React.ReactNode) | undefined;
+    children?:
+        | React.ReactNode
+        | ((isVisible: boolean, visibilityState: KnownVisibilityStates) => React.ReactNode)
+        | undefined;
     onChange?: ((isVisible: boolean, visibilityState: KnownVisibilityStates) => void) | undefined;
 }
 

@@ -1,4 +1,4 @@
-import { ErrorFrame, Frame } from 'rsocket-types';
+import { ErrorFrame, Frame } from "rsocket-types";
 export const CONNECTION_STREAM_ID = 0;
 export const FRAME_TYPES: {
     CANCEL: number;

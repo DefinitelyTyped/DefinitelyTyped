@@ -12,7 +12,11 @@ declare namespace SVGInjector {
          * @param options Injector options.
          * @param done Callback that receives the injected element count as parameter.
          */
-        (elements: Node | NodeList | Array<Node>, options?: SVGInjectorOptions, done?: (elementCount: number) => void): void;
+        (
+            elements: Node | NodeList | Array<Node>,
+            options?: SVGInjectorOptions,
+            done?: (elementCount: number) => void,
+        ): void;
     }
 
     interface SVGInjectorOptions {
@@ -38,7 +42,6 @@ declare namespace SVGInjector {
         each?: ((svg: SVGElement | string) => void) | undefined;
     }
 }
-
 
 declare var SVGInjector: SVGInjector.SVGInjector;
 export = SVGInjector;

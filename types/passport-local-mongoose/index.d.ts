@@ -7,8 +7,8 @@
 /// <reference types="mongoose" />
 /// <reference types="passport-local" />
 
-declare module 'mongoose' {
-    import passportLocal = require('passport-local');
+declare module "mongoose" {
+    import passportLocal = require("passport-local");
 
     export interface AuthenticationResult {
         user: any;
@@ -114,8 +114,8 @@ declare module 'mongoose' {
     ): U;
 }
 
-declare module 'passport-local-mongoose' {
-    import mongoose = require('mongoose');
+declare module "passport-local-mongoose" {
+    import mongoose = require("mongoose");
     var _: (schema: mongoose.Schema, options?: Object) => void;
     export = _;
 }

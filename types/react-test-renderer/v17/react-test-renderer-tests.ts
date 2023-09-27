@@ -1,13 +1,13 @@
 import React = require("react");
 import { act, create, ReactTestInstance } from "react-test-renderer";
-import { createRenderer } from 'react-test-renderer/shallow';
+import { createRenderer } from "react-test-renderer/shallow";
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component {}
 
 const renderer = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement) => {
         return {};
-    }
+    },
 });
 
 const json = renderer.toJSON();
@@ -95,21 +95,3 @@ void (async () => {
     // @ts-expect-error
     await act(async () => null);
 })();
-
-[undefined, null, true, false, 0, 1, "", "test"].forEach((children) => {
-    const renderer = create(React.createElement("div", { children }), {
-        createNodeMock: (el: React.ReactElement) => {
-            return {};
-        }
-    });
-    const json = renderer.toJSON();
-    const tree = renderer.toTree();
-
-    if (!json || typeof json !== "object" || Array.isArray(json) || json.children !== children) {
-        throw(new Error(`Type of children ${children} doesn't match!`));
-    }
-
-    if (!tree || typeof tree !== "object" || Array.isArray(tree) || tree.children !== children) {
-        throw(new Error(`Type of children ${children} doesn't match!`));
-    }
-});

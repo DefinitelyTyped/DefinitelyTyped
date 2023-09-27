@@ -49,4 +49,4 @@ export interface ScanOptions {
     quiet?: boolean;
 }
 
-export * from './api/callback';
+export * from "./api/callback";

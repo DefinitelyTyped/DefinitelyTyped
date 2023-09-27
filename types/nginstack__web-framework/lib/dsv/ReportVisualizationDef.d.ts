@@ -24,4 +24,4 @@ declare class ReportVisualizationDef {
 declare namespace ReportVisualizationDef {
     export { ReportVisualizationColumnDef };
 }
-type ReportVisualizationColumnDef = import('./ReportVisualizationColumnDef');
+type ReportVisualizationColumnDef = import("./ReportVisualizationColumnDef");

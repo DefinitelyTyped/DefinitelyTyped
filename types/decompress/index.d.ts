@@ -8,7 +8,11 @@
 
 export = decompress;
 
-declare function decompress(input: string | Buffer, output?: string | decompress.DecompressOptions, opts?: decompress.DecompressOptions): Promise<decompress.File[]>;
+declare function decompress(
+    input: string | Buffer,
+    output?: string | decompress.DecompressOptions,
+    opts?: decompress.DecompressOptions,
+): Promise<decompress.File[]>;
 
 declare namespace decompress {
     interface File {

@@ -3,7 +3,7 @@
 // Definitions by: Andy Katz <https://github.com/katz12>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 declare class RelativePortal extends React.Component<RelativePortal.Props> {}
 

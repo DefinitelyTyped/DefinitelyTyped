@@ -1,12 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 import BootstrapTable, {
     CellAlignment,
     ColumnDescription,
-    HeaderFormatter,
     ColumnFormatter,
-} from 'react-bootstrap-table-next';
-import paginationFactory, { PaginationProvider, PaginationTotalStandalone, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
-import { render } from 'react-dom';
+    HeaderFormatter,
+} from "react-bootstrap-table-next";
+import paginationFactory, {
+    PaginationListStandalone,
+    PaginationProvider,
+    PaginationTotalStandalone,
+} from "react-bootstrap-table2-paginator";
+import { render } from "react-dom";
 
 interface Product {
     id: number;
@@ -20,12 +24,12 @@ interface Product {
 const products: Product[] = [
     {
         id: 1,
-        name: 'Item name 1',
+        name: "Item name 1",
         price: 100,
     },
     {
         id: 2,
-        name: 'Item name 2',
+        name: "Item name 2",
         price: 100,
     },
 ];
@@ -49,19 +53,19 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
 };
 
 const productColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
-    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
+    { dataField: "id", align: "center", sort: true, text: "Product ID" },
+    { dataField: "name", align: "center", sort: true, text: "Product Name" },
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
-        text: 'Product Name',
+        text: "Product Name",
     },
     {
-        dataField: 'price',
+        dataField: "price",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
     },
     /**
@@ -69,10 +73,10 @@ const productColumns: Array<ColumnDescription<Product>> = [
      */
     {
         isDummyField: true,
-        dataField: '',
+        dataField: "",
         sort: true,
         formatter: priceFormatter,
-        text: 'Product Price',
+        text: "Product Price",
         headerFormatter: priceHeaderFormatter,
     },
 ];
@@ -87,7 +91,7 @@ render(
         pagination={paginationFactory({ sizePerPage: 10, page: 1 })}
         columns={productColumns}
     />,
-    document.getElementById('app'),
+    document.getElementById("app"),
 );
 
 /**
@@ -96,20 +100,20 @@ render(
 
 render(
     <PaginationProvider
-        pagination={ paginationFactory({ custom: true, totalSize: 2 }) }
+        pagination={paginationFactory({ custom: true, totalSize: 2 })}
     >
         {({ paginationProps, paginationTableProps }) => (
             <>
-                <PaginationTotalStandalone { ...paginationProps } />
-                <PaginationListStandalone { ...paginationProps } />
+                <PaginationTotalStandalone {...paginationProps} />
+                <PaginationListStandalone {...paginationProps} />
                 <BootstrapTable
-                    { ...paginationTableProps }
+                    {...paginationTableProps}
                     keyField="id"
-                    data={ products }
-                    columns={ productColumns }
+                    data={products}
+                    columns={productColumns}
                 />
             </>
         )}
     </PaginationProvider>,
-    document.getElementById('app'),
+    document.getElementById("app"),
 );

@@ -19,6 +19,12 @@ type DomainMatcher = string | RegExp | string[];
 
 type HandlerType = (event: { source: CrossDomainWindowType; origin: string; data: any }) => ZalgoPromise<any> | void;
 
+type HandlerType = (event: {
+    source: CrossDomainWindowType;
+    origin: string;
+    data: any;
+}) => ZalgoPromise<any>;
+
 type ErrorHandlerType = (err: any) => void;
 
 interface ServerOptionsType {

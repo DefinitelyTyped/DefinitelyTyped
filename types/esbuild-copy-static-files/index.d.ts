@@ -16,7 +16,7 @@ export interface CopyStaticFilesOptions {
 }
 
 export interface CopyStaticFilesPluginInstance {
-    name: 'copy-static-files';
+    name: "copy-static-files";
     setup(build: any): void;
 }
 

@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { NextFunction } from 'express';
+import { NextFunction } from "express";
 
 /**
  * Middleware that processes images according to the query string.

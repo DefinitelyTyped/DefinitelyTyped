@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement, ElementType } from 'react';
+import { ElementType, ReactElement } from "react";
 export {};
 
 // extracted from:
@@ -20,11 +20,11 @@ export {};
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: ReactTestRendererNode | ReactTestRendererNode[];
+    children: null | ReactTestRendererNode[];
 }
-export type ReactTestRendererNode = ReactTestRendererJSON | string | number | boolean | null | undefined;
+export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
-    nodeType: 'component' | 'host';
+    nodeType: "component" | "host";
     instance: any;
     rendered: null | ReactTestRendererTree | ReactTestRendererTree[];
 }

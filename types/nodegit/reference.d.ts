@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Object } from './object';
+import { Object } from "./object";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
 
 export namespace Reference {
     const enum TYPE {

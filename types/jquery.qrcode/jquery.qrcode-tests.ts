@@ -1,31 +1,30 @@
 // Examples from website (note: the examples use color instead of fill, which is not supported)
-$('.container').qrcode();
+$(".container").qrcode();
 
-$('.container').qrcode({
+$(".container").qrcode({
     "size": 100,
     "fill": "#3a3",
-    "text": "http://larsjung.de/qrcode"
+    "text": "http://larsjung.de/qrcode",
 });
 
-$('.container').qrcode({
+$(".container").qrcode({
     "render": "div",
     "size": 100,
     "fill": "#3a3",
-    "text": "http://larsjung.de/qrcode"
+    "text": "http://larsjung.de/qrcode",
 });
 
 // defaults
-$('.container').qrcode({
-
+$(".container").qrcode({
     // render method: `'canvas'`, `'image'` or `'div'`
-    render: 'canvas',
+    render: "canvas",
 
     // version range somewhere in 1 .. 40
     minVersion: 1,
     maxVersion: 40,
 
     // error correction level: `'L'`, `'M'`, `'Q'` or `'H'`
-    ecLevel: 'L',
+    ecLevel: "L",
 
     // offset in pixel if drawn onto existing canvas
     left: 0,
@@ -35,13 +34,13 @@ $('.container').qrcode({
     size: 200,
 
     // code color or image element
-    fill: '#000',
+    fill: "#000",
 
     // background color or image element, `null` for transparent background
     background: null,
 
     // content
-    text: 'no text',
+    text: "no text",
 
     // corner radius relative to module width: 0.0 .. 0.5
     radius: 0,
@@ -61,10 +60,9 @@ $('.container').qrcode({
     mPosX: 0.5,
     mPosY: 0.5,
 
-    label: 'no label',
-    fontname: 'sans',
-    fontcolor: '#000',
+    label: "no label",
+    fontname: "sans",
+    fontcolor: "#000",
 
-    image: null
+    image: null,
 });
-

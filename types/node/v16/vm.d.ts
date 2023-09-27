@@ -34,7 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/vm.js)
  */
-declare module 'vm' {
+declare module "vm" {
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -81,7 +81,7 @@ declare module 'vm' {
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -118,25 +118,25 @@ declare module 'vm' {
         origin?: string | undefined;
         codeGeneration?:
             | {
-                  /**
-                   * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
-                   * will throw an EvalError.
-                   * @default true
-                   */
-                  strings?: boolean | undefined;
-                  /**
-                   * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
-                   * @default true
-                   */
-                  wasm?: boolean | undefined;
-              }
+                /**
+                 * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
+                 * will throw an EvalError.
+                 * @default true
+                 */
+                strings?: boolean | undefined;
+                /**
+                 * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
+                 * @default true
+                 */
+                wasm?: boolean | undefined;
+            }
             | undefined;
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
     }
-    type MeasureMemoryMode = 'summary' | 'detailed';
+    type MeasureMemoryMode = "summary" | "detailed";
     interface MeasureMemoryOptions {
         /**
          * @default 'summary'
@@ -502,6 +502,6 @@ declare module 'vm' {
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
 }
-declare module 'node:vm' {
-    export * from 'vm';
+declare module "node:vm" {
+    export * from "vm";
 }

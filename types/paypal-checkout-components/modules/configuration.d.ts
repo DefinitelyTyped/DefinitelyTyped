@@ -1,6 +1,6 @@
 export enum Environment {
-    Production = 'production',
-    Sandbox = 'sandbox',
+    Production = "production",
+    Sandbox = "sandbox",
 }
 
 export enum ButtonColorOption {
@@ -10,7 +10,7 @@ export enum ButtonColorOption {
      * Extensive testing determined just the right shade and shape that help increase conversion.
      * Use it on your website to leverage PayPal’s recognition and preference.
      */
-    Gold = 'gold',
+    Gold = "gold",
 
     /**
      * First alternate
@@ -18,7 +18,7 @@ export enum ButtonColorOption {
      * Research shows that people know it is our brand color,
      * which provides a halo of trust and security to your experience.
      */
-    Blue = 'blue',
+    Blue = "blue",
 
     /**
      * Second alternate
@@ -26,7 +26,7 @@ export enum ButtonColorOption {
      * Because this color is a bit recessive and less capable of drawing people’s attention,
      * we recommend this button color as a second alternative.
      */
-    Silver = 'silver',
+    Silver = "silver",
 
     /**
      * Third alternate
@@ -34,12 +34,12 @@ export enum ButtonColorOption {
      * Because black is a common website color and less capable of drawing people's attention,
      * we recommend this button as a third alternative.
      */
-    Black = 'black',
+    Black = "black",
 
     /**
      * Fourth alternate
      */
-    White = 'white',
+    White = "white",
 }
 
 export enum ButtonShapeOption {
@@ -48,13 +48,13 @@ export enum ButtonShapeOption {
      * Whenever possible, use the pill-shaped button.
      * Its unique and powerful shape signifies PayPal in people’s minds.
      */
-    Pill = 'pill',
+    Pill = "pill",
 
     /**
      * Use the rectangular button as an alternative for media such as mobile
      * where pill-shaped buttons might pose design challenges.
      */
-    Rect = 'rect',
+    Rect = "rect",
 }
 
 export enum ButtonSizeOption {
@@ -62,52 +62,52 @@ export enum ButtonSizeOption {
      * Recommended. Default.
      * 150 pixels by 25 pixels
      */
-    Small = 'small',
+    Small = "small",
 
     /**
      * 250 pixels by 35 pixels
      */
-    Medium = 'medium',
+    Medium = "medium",
 
     /**
      * 350 pixels by 40 pixels
      */
-    Large = 'large',
+    Large = "large",
 
     /**
      * Dynamic
      * Matches the width of the container element, height is decided dynamically based on width.
      * Minimum width is 150px, maximum width is 500px.
      */
-    Responsive = 'responsive',
+    Responsive = "responsive",
 }
 
 export enum ButtonLabelOption {
     /**
      * The PayPal Checkout button. The default button.
      */
-    Checkout = 'checkout',
+    Checkout = "checkout",
 
     /**
      * The PayPal Credit button. Initializes the credit flow. Cannot be used with any custom color option.
      */
-    Credit = 'credit',
+    Credit = "credit",
 
     /**
      * The Pay With PayPal button. Initializes the checkout flow.
      */
-    Pay = 'pay',
+    Pay = "pay",
 
     /**
      * The Buy Now button. Initializes the checkout flow.
      * The default Buy Now button is unbranded. To include PayPal branding, set branding: true.
      */
-    BuyNow = 'buynow',
+    BuyNow = "buynow",
 
     /**
      * The generic PayPal button. Initializes the checkout flow. This button contains only the PayPal brand logo.
      */
-    PayPal = 'paypal',
+    PayPal = "paypal",
 }
 
 export interface ButtonStyle {

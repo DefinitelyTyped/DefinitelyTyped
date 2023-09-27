@@ -1,3 +1,3 @@
-import parse = require('parse-github-repo-url');
+import parse = require("parse-github-repo-url");
 
-parse('component/emitter#1');
+parse("component/emitter#1");

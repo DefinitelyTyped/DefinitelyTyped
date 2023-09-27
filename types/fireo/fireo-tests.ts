@@ -1,7 +1,7 @@
-import { Field, TextField, Model } from 'fireo';
+import { Field, Model, TextField } from "fireo";
 
 const textField: TextField = Field.Text();
-textField.setValue('test-string');
+textField.setValue("test-string");
 
 // $ExpectType any
 textField.getValue();

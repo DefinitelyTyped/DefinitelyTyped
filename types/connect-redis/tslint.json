@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-misused-new": false,
-        "no-single-declare-module": false,
         "prefer-const": false
     }
 }

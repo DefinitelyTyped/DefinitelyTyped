@@ -4,10 +4,8 @@
         "ban-types": false,
         "interface-name": false,
         "no-empty-interface": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

@@ -1,7 +1,7 @@
-import fetchMeta from 'fetch-meta-tags';
+import fetchMeta from "fetch-meta-tags";
 
 // $ExpectType fetchedMeta
-const data = fetchMeta('https://alessandrorabitti.com/');
+const data = fetchMeta("https://alessandrorabitti.com/");
 
 // @ts-expect-error
 fetchMeta(true);

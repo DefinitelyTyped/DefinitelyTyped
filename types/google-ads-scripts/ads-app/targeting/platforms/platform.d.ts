@@ -52,12 +52,14 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface PlatformSelector
-            extends Base.Selector<PlatformIterator>,
+            extends
+                Base.Selector<PlatformIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {
+                Base.SelectorWithLimit
+        {
             /** Restricts this selector to only select desktop targets. */
             desktop(): this;
             /** Restricts this selector to only select mobile targets. */

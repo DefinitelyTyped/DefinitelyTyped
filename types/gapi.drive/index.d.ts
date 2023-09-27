@@ -22,7 +22,7 @@ declare namespace gapi.client {
             trash: (parameters: TrashParameters) => HttpRequest<FileResource>;
             untrash: (parameters: UntrashParameters) => HttpRequest<FileResource>;
             watch: (parameters: WatchParameters) => HttpRequest<ChannelResource>;
-        }
+        };
 
         interface GetParameters {
             fileId: string;
@@ -37,7 +37,7 @@ declare namespace gapi.client {
 
         interface PatchParameters {
             fileId: string;
-            resource?: FileResource | undefined
+            resource?: FileResource | undefined;
             convert?: boolean | undefined;
             modifiedDateBehavior?: string | undefined;
             newRevision?: boolean | undefined;
@@ -118,12 +118,10 @@ declare namespace gapi.client {
             supportsTeamDrives?: boolean | undefined;
         }
 
-
         interface UntrashParameters {
             fileId: string;
             supportsTeamDrives?: boolean | undefined;
         }
-
 
         interface WatchParameters {
             fileId: string;
@@ -133,7 +131,7 @@ declare namespace gapi.client {
         }
 
         interface FileResource {
-            kind: 'drive#file';
+            kind: "drive#file";
             id: string;
             etag: string;
             selfLink: string;
@@ -169,7 +167,7 @@ declare namespace gapi.client {
             sharedWithMeDate: Date;
             version: number;
             sharingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -195,7 +193,7 @@ declare namespace gapi.client {
             quotaBytesUsed: number;
             ownerNames: string[];
             owners: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -207,7 +205,7 @@ declare namespace gapi.client {
             teamDriveId: string;
             lastModifyingUserName: string;
             lastModifyingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -245,7 +243,7 @@ declare namespace gapi.client {
             shared: boolean;
             explicitlyTrashed: boolean;
             trashingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -296,7 +294,7 @@ declare namespace gapi.client {
         }
 
         interface FileListResource {
-            kind: 'drive#fileList';
+            kind: "drive#fileList";
             etag: string;
             selfLink: string;
             nextPageToken: string;
@@ -306,7 +304,7 @@ declare namespace gapi.client {
         }
 
         interface ParentResource {
-            kind: 'drive#parentReference';
+            kind: "drive#parentReference";
             id: string;
             selfLink: string;
             parentLink: string;
@@ -314,7 +312,7 @@ declare namespace gapi.client {
         }
 
         interface PermissionResource {
-            kind: 'drive#permission';
+            kind: "drive#permission";
             etag: string;
             id: string;
             selfLink: string;
@@ -340,7 +338,7 @@ declare namespace gapi.client {
         }
 
         interface PropertiesResource {
-            kind: 'drive$property';
+            kind: "drive$property";
             etag: string;
             selfLink: string;
             key: string;
@@ -357,7 +355,7 @@ declare namespace gapi.client {
         }
 
         interface ChannelResource {
-            kind: 'api#channel';
+            kind: "api#channel";
             id: string;
             resourceId: string;
             resourceUri: string;
@@ -366,7 +364,7 @@ declare namespace gapi.client {
         }
 
         interface IdsResource {
-            kind: 'drive#generatedIds';
+            kind: "drive#generatedIds";
             space: string;
             ids: string[];
         }

@@ -2,9 +2,9 @@
  * @format
  */
 
-import { Datum, Datums, Ellipsoid, Ellipsoids, Dp } from '.';
-import Dms from './dms';
-import Vector3d from './vector3d';
+import { Datum, Datums, Dp, Ellipsoid, Ellipsoids } from ".";
+import Dms from "./dms";
+import Vector3d from "./vector3d";
 
 declare class LatLonEllipsoidal {
     _lat: number;
@@ -39,4 +39,4 @@ declare class Cartesian extends Vector3d {
     toString(dp?: number): string;
 }
 
-export { LatLonEllipsoidal as default, Cartesian, Vector3d, Dms };
+export { Cartesian, Dms, LatLonEllipsoidal as default, Vector3d };

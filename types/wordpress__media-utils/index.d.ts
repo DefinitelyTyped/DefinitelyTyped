@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-export * from './components';
-export * from './utils';
+export * from "./components";
+export * from "./utils";

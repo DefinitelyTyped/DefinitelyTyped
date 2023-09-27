@@ -10,16 +10,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Ember from 'ember';
-import Evented from '@ember/object/evented';
-import ObjectProxy from '@ember/object/proxy';
-import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
-import RSVP from 'rsvp';
-import TransformRegistry from 'ember-data/types/registries/transform';
-import ModelRegistry from 'ember-data/types/registries/model';
-import SerializerRegistry from 'ember-data/types/registries/serializer';
-import AdapterRegistry from 'ember-data/types/registries/adapter';
-import EmberError from '@ember/error';
+import EmberError from "@ember/error";
+import Evented from "@ember/object/evented";
+import PromiseProxyMixin from "@ember/object/promise-proxy-mixin";
+import ObjectProxy from "@ember/object/proxy";
+import Ember from "ember";
+import AdapterRegistry from "ember-data/types/registries/adapter";
+import ModelRegistry from "ember-data/types/registries/model";
+import SerializerRegistry from "ember-data/types/registries/serializer";
+import TransformRegistry from "ember-data/types/registries/transform";
+import RSVP from "rsvp";
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -49,7 +49,7 @@ interface RelationshipMetaOptions {
 }
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
-    kind: 'belongsTo' | 'hasMany';
+    kind: "belongsTo" | "hasMany";
     type: keyof ModelRegistry;
     options: RelationshipMetaOptions;
     name: string;
@@ -59,7 +59,7 @@ interface RelationshipMeta<Model extends DS.Model> {
 
 export interface ModelSchema<ModelName extends keyof ModelRegistry = keyof ModelRegistry> {
     modelName: ModelName;
-    fields: Map<string, 'attribute' | 'belongsTo' | 'hasMany'>;
+    fields: Map<string, "attribute" | "belongsTo" | "hasMany">;
     attributes: Map<string, AttributeSchema>;
     relationshipsByName: Map<string, RelationshipSchema>;
     eachAttribute<T>(callback: (this: T, key: string, attribute: AttributeSchema) => void, binding?: T): void;
@@ -71,7 +71,7 @@ export interface ModelSchema<ModelName extends keyof ModelRegistry = keyof Model
 }
 export interface RelationshipSchema {
     name: string; // property key for this relationship
-    kind: 'belongsTo' | 'hasMany';
+    kind: "belongsTo" | "hasMany";
     type: string; // related type
     options: {
         async: boolean;
@@ -83,7 +83,7 @@ export interface RelationshipSchema {
 }
 export interface AttributeSchema {
     name: string;
-    kind?: 'attribute';
+    kind?: "attribute";
     options?: Record<string, unknown>;
     type?: string;
 }
@@ -161,7 +161,7 @@ export namespace DS {
 
     // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
     type TransformType<K extends keyof TransformRegistry> = TransformRegistry[K] extends Transform
-        ? ReturnType<TransformRegistry[K]['deserialize']>
+        ? ReturnType<TransformRegistry[K]["deserialize"]>
         : TransformRegistry[K];
 
     /**
@@ -908,9 +908,9 @@ export namespace DS {
      * it easy to create data bindings with the `PromiseArray` that will be
      * updated when the promise resolves.
      */
-    interface PromiseArray<T, ArrayType extends Ember.ArrayProxy<T>['content'] = Ember.Array<T>>
-        extends Ember.ArrayProxy<T>,
-            PromiseProxyMixin<ArrayType> {}
+    interface PromiseArray<T, ArrayType extends Ember.ArrayProxy<T>["content"] = Ember.Array<T>>
+        extends Ember.ArrayProxy<T>, PromiseProxyMixin<ArrayType>
+    {}
     class PromiseArray<T> extends Ember.ArrayProxy<T> {}
     /**
      * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -2027,13 +2027,13 @@ export namespace DS {
 
 export default DS;
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
         store: DS.Store;
     }
 }
 
-declare module 'ember-test-helpers' {
+declare module "ember-test-helpers" {
     interface TestContext {
         store: DS.Store;
     }

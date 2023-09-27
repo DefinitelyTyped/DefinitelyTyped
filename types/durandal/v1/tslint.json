@@ -5,7 +5,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "no-var-keyword": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

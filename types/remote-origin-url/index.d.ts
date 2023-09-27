@@ -6,12 +6,12 @@
 export = remoteOriginUrl;
 
 declare function remoteOriginUrl(
-    options?: string | remoteOriginUrl.Options
+    options?: string | remoteOriginUrl.Options,
 ): Promise<string | undefined>;
 declare function remoteOriginUrl(callback: remoteOriginUrl.Callback): void;
 declare function remoteOriginUrl(
     options: string | remoteOriginUrl.Options,
-    callback: remoteOriginUrl.Callback
+    callback: remoteOriginUrl.Callback,
 ): void;
 
 declare namespace remoteOriginUrl {

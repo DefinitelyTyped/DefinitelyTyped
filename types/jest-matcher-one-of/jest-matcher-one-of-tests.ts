@@ -1,1 +1,1 @@
-expect('x').toBeOneOf(['x', 'y']);
+expect("x").toBeOneOf(["x", "y"]);

@@ -1,7 +1,7 @@
 import Extent from "../Core/Geographic/Extent";
 import Source, { SourceOptions } from "./Source";
 
-export type AxisOrder = 'wsen' | 'swne';
+export type AxisOrder = "wsen" | "swne";
 
 export interface WMSSourceOptions extends SourceOptions {
     // Mandatory: url, name, extent, crs
@@ -30,7 +30,7 @@ declare class WMSSource extends Source {
     height: number;
     axisOrder: AxisOrder;
     transparent: boolean;
-    zoom: { min: number, max: number };
+    zoom: { min: number; max: number };
     vendorSpecific: Record<string, string>;
 
     urlFromExtent(extent: any): string;

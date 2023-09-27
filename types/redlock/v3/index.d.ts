@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as Promise from 'bluebird';
-import { EventEmitter } from 'events';
+import * as Promise from "bluebird";
+import { EventEmitter } from "events";
 
 export = Redlock;
 
@@ -34,7 +34,7 @@ declare namespace Redlock {
     }
 
     class LockError extends Error {
-        readonly name: 'LockError';
+        readonly name: "LockError";
         constructor(message?: string);
     }
 
@@ -66,8 +66,8 @@ declare class Redlock extends EventEmitter {
 
     extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    addListener(event: 'clientError', listener: (err: any) => void): this;
-    on(event: 'clientError', listener: (err: any) => void): this;
-    once(event: 'clientError', listener: (err: any) => void): this;
-    removeListener(event: 'clientError', listener: (err: any) => void): this;
+    addListener(event: "clientError", listener: (err: any) => void): this;
+    on(event: "clientError", listener: (err: any) => void): this;
+    once(event: "clientError", listener: (err: any) => void): this;
+    removeListener(event: "clientError", listener: (err: any) => void): this;
 }

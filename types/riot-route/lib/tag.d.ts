@@ -1,3 +1,3 @@
-import route from './index';
+import route from "./index";
 
 export default route;
