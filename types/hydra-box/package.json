@@ -10,6 +10,7 @@
         "@types/absolute-url": "*",
         "@types/clownface": "*",
         "@types/express": "*",
+        "@types/express-serve-static-core": "*",
         "@types/rdf-ext": "*",
         "@types/rdf-loaders-registry": "*",
         "@types/rdfjs__express-handler": "*",
