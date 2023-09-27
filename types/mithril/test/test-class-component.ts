@@ -1,4 +1,4 @@
-import * as m from 'mithril';
+import * as m from "mithril";
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -7,15 +7,15 @@ import * as m from 'mithril';
 class Comp0 implements m.ClassComponent {
     constructor(vnode: m.CVnode) {}
     view() {
-        return m('span', 'Test');
+        return m("span", "Test");
     }
 }
 
 // Mount the component
-m.mount(document.getElementById('comp0')!, Comp0);
+m.mount(document.getElementById("comp0")!, Comp0);
 
 // Unmount the component
-m.mount(document.getElementById('comp0')!, null);
+m.mount(document.getElementById("comp0")!, null);
 
 ///////////////////////////////////////////////////////////
 // 1.
@@ -25,7 +25,7 @@ class Comp1 implements m.ClassComponent {
     oninit(vnode: m.CVnode) {}
     oncreate({ dom }: m.CVnodeDOM) {}
     view(vnode: m.CVnode) {
-        return m('span', 'Test');
+        return m("span", "Test");
     }
 }
 
@@ -40,7 +40,7 @@ interface Comp2Attrs {
 
 class Comp2 implements m.ClassComponent<Comp2Attrs> {
     view({ attrs: { title, description } }: m.CVnode<Comp2Attrs>) {
-        return [m('h2', title), m('p', description)];
+        return [m("h2", title), m("p", description)];
     }
 }
 
@@ -56,20 +56,20 @@ class Comp3 implements m.ClassComponent<{ pageHead: string }> {
     }
     view({ attrs }: m.CVnode<{ pageHead: string }>) {
         return m(
-            '.page',
-            m('h1', attrs.pageHead),
+            ".page",
+            m("h1", attrs.pageHead),
             m(Comp2, {
                 // attrs is type checked - nice!
-                title: 'A Title',
-                description: 'Some descriptive text.',
+                title: "A Title",
+                description: "Some descriptive text.",
                 onremove(vnode) {
                     // Vnode type is inferred
-                    console.log('comp2 was removed');
+                    console.log("comp2 was removed");
                 },
             }),
             // Test other hyperscript parameter variations
             m(Comp1, m(Comp1)),
-            m('br'),
+            m("br"),
         );
     }
 }
@@ -92,14 +92,14 @@ class Comp4 implements m.ClassComponent<Comp4Attrs> {
     }
     view(vnode: m.Vnode<Comp4Attrs, Comp4>) {
         return [
-            m('h1', `This ${vnode.attrs.name} has been clicked ${this.count} times`),
+            m("h1", `This ${vnode.attrs.name} has been clicked ${this.count} times`),
             m(
-                'button',
+                "button",
                 {
                     // Can access 'this' via vnode.state
                     onclick: () => vnode.state.add(1),
                 },
-                'Click me',
+                "Click me",
             ),
         ];
     }
@@ -109,12 +109,12 @@ class Comp4 implements m.ClassComponent<Comp4Attrs> {
 //
 // Test that all are mountable components
 //
-m.route(document.body, '/', {
-    '/comp0': Comp0,
-    '/comp1': Comp1,
-    '/comp2': Comp2,
-    '/comp3': Comp3,
-    '/comp4': Comp4,
+m.route(document.body, "/", {
+    "/comp0": Comp0,
+    "/comp1": Comp1,
+    "/comp2": Comp2,
+    "/comp3": Comp3,
+    "/comp4": Comp4,
 });
 
 ///////////////////////////////////////////////////////////
@@ -128,6 +128,6 @@ export interface Attrs {
 export default class MyComponent implements m.ClassComponent<Attrs> {
     count = 0;
     view({ attrs }: m.CVnode<Attrs>) {
-        return m('span', `name: ${attrs.name}, count: ${this.count}`);
+        return m("span", `name: ${attrs.name}, count: ${this.count}`);
     }
 }

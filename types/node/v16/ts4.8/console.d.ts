@@ -55,12 +55,12 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/console.js)
  */
-declare module 'console' {
-    import console = require('node:console');
+declare module "console" {
+    import console = require("node:console");
     export = console;
 }
-declare module 'node:console' {
-    import { InspectOptions } from 'node:util';
+declare module "node:console" {
+    import { InspectOptions } from "node:util";
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
@@ -392,7 +392,7 @@ declare module 'node:console' {
                 stdout: NodeJS.WritableStream;
                 stderr?: NodeJS.WritableStream | undefined;
                 ignoreErrors?: boolean | undefined;
-                colorMode?: boolean | 'auto' | undefined;
+                colorMode?: boolean | "auto" | undefined;
                 inspectOptions?: InspectOptions | undefined;
                 /**
                  * Set group indentation
@@ -402,8 +402,8 @@ declare module 'node:console' {
             }
             interface ConsoleConstructor {
                 prototype: Console;
-                new (stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
-                new (options: ConsoleConstructorOptions): Console;
+                new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
+                new(options: ConsoleConstructorOptions): Console;
             }
         }
         var console: Console;

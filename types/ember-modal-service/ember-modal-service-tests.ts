@@ -1,4 +1,4 @@
-import ModalComponent from 'ember-modal-service/components/modal';
+import ModalComponent from "ember-modal-service/components/modal";
 
 class Modal extends ModalComponent {
     testProperties() {
@@ -9,8 +9,8 @@ class Modal extends ModalComponent {
         this.attributeBindings; // $ExpectType string[]
         this.ariaRole; // $ExpectType string
         this.visible; // $ExpectType boolean
-        this['data-id']; // $ExpectType string
-        this['data-modal-show']; // $ExpectType string
+        this["data-id"]; // $ExpectType string
+        this["data-modal-show"]; // $ExpectType string
         this.resolve();
         this.reject();
     }

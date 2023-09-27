@@ -1,5 +1,5 @@
-import { Photoshop } from "../Photoshop";
 import { TextFont } from "../objects/TextFont";
+import { Photoshop } from "../Photoshop";
 /**
  * The collection of fonts available on your computer. Fonts are represented by
  *  [[TextFont]] objects. Access this object in the [[Photoshop.fonts]] property.

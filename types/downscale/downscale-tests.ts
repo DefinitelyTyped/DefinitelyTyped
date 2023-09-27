@@ -1,9 +1,9 @@
-import downscale from 'downscale';
+import downscale from "downscale";
 
 const image = new HTMLImageElement();
 const video = new HTMLVideoElement();
-const file = new File([], 'abc');
-const string = '';
+const file = new File([], "abc");
+const string = "";
 
 downscale(image, 0, 0);
 downscale(video, 0, 0);

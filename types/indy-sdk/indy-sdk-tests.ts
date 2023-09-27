@@ -1,224 +1,224 @@
-import indy from 'indy-sdk';
-import { Buffer } from 'buffer/';
+import { Buffer } from "buffer/";
+import indy from "indy-sdk";
 
 indy.setLogger((level, target, message, modulePath, file, line) => {});
 
-indy.openBlobStorageWriter('default', {
-    base_dir: 'dir',
-    uri_pattern: 'uri_pattern',
+indy.openBlobStorageWriter("default", {
+    base_dir: "dir",
+    uri_pattern: "uri_pattern",
 });
-indy.openBlobStorageReader('default', {
-    base_dir: 'dir',
+indy.openBlobStorageReader("default", {
+    base_dir: "dir",
 });
 
 const credential: indy.Cred = {
-    cred_def_id: 'cred_def_id',
-    schema_id: 'schema_id',
-    signature: 'signature',
-    signature_correctness_proof: 'signature_correctness_proof',
+    cred_def_id: "cred_def_id",
+    schema_id: "schema_id",
+    signature: "signature",
+    signature_correctness_proof: "signature_correctness_proof",
     values: {},
 };
 const revRegs: indy.RevRegs = {
-    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+    "BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024": {
         1615468964: {
             value: {
-                accum: '10',
+                accum: "10",
             },
-            ver: '1.0',
+            ver: "1.0",
         },
     },
 };
 const revStates: indy.RevStates = {
-    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+    "BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024": {
         1615468964: {
             rev_reg: {
                 value: {
-                    accum: '10',
+                    accum: "10",
                 },
-                ver: '1.0',
+                ver: "1.0",
             },
             timestamp: 1234,
             witness: {
-                some: 'value',
+                some: "value",
             },
         },
     },
 };
 const revRegDef: indy.RevocRegDef = {
-    id: '10',
-    revocDefType: 'CL_ACCUM',
-    tag: 'tag',
-    credDefId: 'id',
+    id: "10",
+    revocDefType: "CL_ACCUM",
+    tag: "tag",
+    credDefId: "id",
     value: {
-        issuanceType: 'ISSUANCE_BY_DEFAULT',
+        issuanceType: "ISSUANCE_BY_DEFAULT",
         maxCredNum: 10,
-        tailsHash: 'xxxxx',
-        tailsLocation: 'xxxxx',
+        tailsHash: "xxxxx",
+        tailsLocation: "xxxxx",
         publicKeys: {
             accumKey: {
-                z: '1',
+                z: "1",
             },
         },
     },
-    ver: '2',
+    ver: "2",
 };
 
 const indyCredentialInfo: indy.IndyCredentialInfo = {
-    referent: 'referent',
+    referent: "referent",
     attrs: {
-        key: 'value',
+        key: "value",
     },
-    schema_id: 'schema_id',
-    cred_def_id: 'cred_def_id',
-    rev_reg_id: '123jaja',
-    cred_rev_id: '12408120',
+    schema_id: "schema_id",
+    cred_def_id: "cred_def_id",
+    rev_reg_id: "123jaja",
+    cred_rev_id: "12408120",
 };
 
-const walletConfig: indy.WalletConfig = { id: 'wallet' };
-const walletCredentials: indy.WalletCredentials = { key: 'key' };
+const walletConfig: indy.WalletConfig = { id: "wallet" };
+const walletCredentials: indy.WalletCredentials = { key: "key" };
 const importExportConfig: indy.WalletExportImportConfig = {
-    key: 'export_key',
-    path: 'some-path',
+    key: "export_key",
+    path: "some-path",
 };
 const rekeyWalletCredentials: indy.OpenWalletCredentials = {
-    key: 'old_key',
-    rekey: 'new_key',
+    key: "old_key",
+    rekey: "new_key",
 };
 const credDef: indy.CredDef = {
-    id: 'id',
-    schemaId: 'schemaId',
-    tag: 'tag',
-    type: 'type',
+    id: "id",
+    schemaId: "schemaId",
+    tag: "tag",
+    type: "type",
     value: { primary: {}, revocation: true },
-    ver: '1.0',
+    ver: "1.0",
 };
 const schema: indy.Schema = {
-    attrNames: ['name'],
-    name: 'schemaName',
-    id: 'id',
-    version: '1.0',
-    ver: '1.0',
+    attrNames: ["name"],
+    name: "schemaName",
+    id: "id",
+    version: "1.0",
+    ver: "1.0",
     seqNo: 10,
 };
-const ledgerRequest: indy.LedgerRequest = { identifier: '', operation: {}, protocolVersion: 1, reqId: 100 };
+const ledgerRequest: indy.LedgerRequest = { identifier: "", operation: {}, protocolVersion: 1, reqId: 100 };
 const credOffer: indy.CredOffer = {} as unknown as indy.CredOffer;
 const credRequest: indy.CredReq = {} as unknown as indy.CredReq;
 const proofReq: indy.IndyProofRequest = {
-    nonce: 'nonce',
-    name: 'proof_req_1',
-    version: '0.1',
+    nonce: "nonce",
+    name: "proof_req_1",
+    version: "0.1",
     requested_attributes: {
-        attr1_referent: { name: 'name' },
+        attr1_referent: { name: "name" },
     },
     requested_predicates: {
-        predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
+        predicate1_referent: { name: "age", p_type: ">=", p_value: 18 },
     },
     non_revoked: { from: 80, to: 100 },
 };
 const proofRequestWithNamesArray: indy.IndyProofRequest = {
-    nonce: 'nonce',
-    name: 'proof_req_1',
-    version: '0.1',
+    nonce: "nonce",
+    name: "proof_req_1",
+    version: "0.1",
     requested_attributes: {
-        attr1_referent: { names: ['name', 'address'] },
+        attr1_referent: { names: ["name", "address"] },
     },
     requested_predicates: {
-        predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
+        predicate1_referent: { name: "age", p_type: ">=", p_value: 18 },
     },
     non_revoked: { from: 80, to: 100 },
 };
 const ledgerRejectResponse: indy.LedgerRejectResponse = {
-    op: 'REJECT',
+    op: "REJECT",
     reqId: 1615465027340221000,
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
-    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+    identifier: "TL1EaPFCZ8Si5aUrqScBDt",
 };
 const ledgerReqnackResponse: indy.LedgerReqnackResponse = {
-    op: 'REQNACK',
+    op: "REQNACK",
     reqId: 1615465027340221000,
     reason: "client request invalid: UnauthorizedClientRequest('The action is forbidden',)",
-    identifier: 'TL1EaPFCZ8Si5aUrqScBDt',
+    identifier: "TL1EaPFCZ8Si5aUrqScBDt",
 };
 const ledgerWriteReply: indy.LedgerWriteReplyResponse = {
     result: {
         auditPath: [
-            '4VahmcUBKBJFnTJzRnepCaTWjNHQf9iA6vRHFHW15aLJ',
-            '8YEfjmSDPigomwpY13G28qd78oaimVyrFaRDX5PEgiKw',
-            'FCSuYAG7wuTWD4RbtgBKyGuKMmzt5Wonv1yqjdFjkXfJ',
-            'BZEGj9cAx4uGVywT88iC7QN8Nu4TiP9Ax7RLqSNXaM5',
+            "4VahmcUBKBJFnTJzRnepCaTWjNHQf9iA6vRHFHW15aLJ",
+            "8YEfjmSDPigomwpY13G28qd78oaimVyrFaRDX5PEgiKw",
+            "FCSuYAG7wuTWD4RbtgBKyGuKMmzt5Wonv1yqjdFjkXfJ",
+            "BZEGj9cAx4uGVywT88iC7QN8Nu4TiP9Ax7RLqSNXaM5",
         ],
         reqSignature: {
-            type: 'ED25519',
+            type: "ED25519",
             values: [
                 {
-                    from: 'TL1EaPFCZ8Si5aUrqScBDt',
-                    value: '4Rp2dU5C8cBy4prK53tUyEM8shknKuqSE3w4YpZaQGBs3fH5uKhKMAAPhcw274KuNPas2Ss8h5obDicgaSKp69Yo',
+                    from: "TL1EaPFCZ8Si5aUrqScBDt",
+                    value: "4Rp2dU5C8cBy4prK53tUyEM8shknKuqSE3w4YpZaQGBs3fH5uKhKMAAPhcw274KuNPas2Ss8h5obDicgaSKp69Yo",
                 },
             ],
         },
         txnMetadata: {
             txnTime: 1615468668,
-            txnId: 'TL1EaPFCZ8Si5aUrqScBDt:2:test-schema-1615468667975:1.0',
+            txnId: "TL1EaPFCZ8Si5aUrqScBDt:2:test-schema-1615468667975:1.0",
             seqNo: 44,
         },
         txn: {
-            type: '101',
+            type: "101",
             metadata: {
                 taaAcceptance: {
-                    mechanism: 'accept',
-                    taaDigest: 'e546ad2a5311b2020fd80efb4d17ec75f823d26ee2424cf741ee345ede9d3ff3',
+                    mechanism: "accept",
+                    taaDigest: "e546ad2a5311b2020fd80efb4d17ec75f823d26ee2424cf741ee345ede9d3ff3",
                     time: 1615420800,
                 },
-                from: 'TL1EaPFCZ8Si5aUrqScBDt',
+                from: "TL1EaPFCZ8Si5aUrqScBDt",
                 reqId: 1615468667976625000,
-                digest: '70337d6d1f539cc5a6f75b18a76f7edb7d5f630da40d4fef7091e7b3f34fd38a',
-                payloadDigest: 'd843ba2af9c6ae3beb0c889e1c8802e89174f5c1636f88b8071503473b1926ab',
+                digest: "70337d6d1f539cc5a6f75b18a76f7edb7d5f630da40d4fef7091e7b3f34fd38a",
+                payloadDigest: "d843ba2af9c6ae3beb0c889e1c8802e89174f5c1636f88b8071503473b1926ab",
             },
             protocolVersion: 2,
             data: {
                 data: {
-                    name: 'test-schema-1615468667975',
-                    attr_names: ['age', 'name'],
-                    version: '1.0',
+                    name: "test-schema-1615468667975",
+                    attr_names: ["age", "name"],
+                    version: "1.0",
                 },
             },
         },
-        rootHash: '3MGBE7fXbtDHS2aZSiq8NAbn3mFykZCHc4Hibpittgfe',
-        ver: '1',
+        rootHash: "3MGBE7fXbtDHS2aZSiq8NAbn3mFykZCHc4Hibpittgfe",
+        ver: "1",
     },
-    op: 'REPLY',
+    op: "REPLY",
 };
 const ledgerReadReply: indy.LedgerReadReplyResponse = {
     result: {
-        type: '107',
-        dest: 'TL1EaPFCZ8Si5aUrqScBDt',
+        type: "107",
+        dest: "TL1EaPFCZ8Si5aUrqScBDt",
         txnTime: 1615468964,
         state_proof: {
             multi_signature: {
                 signature:
-                    'RFszfgrdWaxPi6UUrwXoip5ctpcxMYbD5kS13bgtdfQNx3RQSpEd5cCYNMbU4AUGJWt5imEJ7kWXzzwNvmWLGzKdcYZxjanbfyftYgnEKxPdhPhcpDyi56C9xdyYssFGZrtadLg6bWRXaCVfhuSmSt66SHXbpsGaEvYaWhetKFi6eb',
+                    "RFszfgrdWaxPi6UUrwXoip5ctpcxMYbD5kS13bgtdfQNx3RQSpEd5cCYNMbU4AUGJWt5imEJ7kWXzzwNvmWLGzKdcYZxjanbfyftYgnEKxPdhPhcpDyi56C9xdyYssFGZrtadLg6bWRXaCVfhuSmSt66SHXbpsGaEvYaWhetKFi6eb",
                 value: {
-                    txn_root_hash: '4UpqjtRCbKkUxVRBSpg4x9yyKuRWHwkp5TegWCiGFG1o',
-                    state_root_hash: '8h6xGyeaHtM8X1a5TQgjGDLFSUWShsKCzQs3fKpJmyiU',
+                    txn_root_hash: "4UpqjtRCbKkUxVRBSpg4x9yyKuRWHwkp5TegWCiGFG1o",
+                    state_root_hash: "8h6xGyeaHtM8X1a5TQgjGDLFSUWShsKCzQs3fKpJmyiU",
                     ledger_id: 1,
-                    pool_state_root_hash: 'NCGqbfRWDWtLB2bDuL6TC5BhrRdQMc5MyKdXQqXii44',
+                    pool_state_root_hash: "NCGqbfRWDWtLB2bDuL6TC5BhrRdQMc5MyKdXQqXii44",
                     timestamp: 1615468964,
                 },
-                participants: ['Node1', 'Node2', 'Node3'],
+                participants: ["Node1", "Node2", "Node3"],
             },
-            root_hash: '8h6xGyeaHtM8X1a5TQgjGDLFSUWShsKCzQs3fKpJmyiU',
-            proof_nodes: '+QRc+FGAgICAgKAjhAHlsUg90Ze+qFGKL7a3H792uCXMvXQBgJqRnEzrPaB9T3yGi1oxqCdAeo8ZplJs6kjTOqEA/...',
+            root_hash: "8h6xGyeaHtM8X1a5TQgjGDLFSUWShsKCzQs3fKpJmyiU",
+            proof_nodes: "+QRc+FGAgICAgKAjhAHlsUg90Ze+qFGKL7a3H792uCXMvXQBgJqRnEzrPaB9T3yGi1oxqCdAeo8ZplJs6kjTOqEA/...",
         },
         reqId: 1615468964808503000,
         data: {
-            name: 'test-schema-1615468964699',
-            attr_names: ['name', 'age'],
-            version: '1.0',
+            name: "test-schema-1615468964699",
+            attr_names: ["name", "age"],
+            version: "1.0",
         },
         seqNo: 46,
-        identifier: 'LibindyDid111111111111',
+        identifier: "LibindyDid111111111111",
     },
-    op: 'REPLY',
+    op: "REPLY",
 };
 
 indy.createWallet(walletConfig, walletCredentials);
@@ -226,52 +226,52 @@ indy.openWallet(walletConfig, walletCredentials);
 indy.openWallet(walletConfig, rekeyWalletCredentials);
 indy.exportWallet(10, importExportConfig);
 indy.importWallet(walletConfig, walletCredentials, importExportConfig);
-indy.createKey(1, { seed: 'seed' });
-indy.cryptoSign(1, 'verkey', Buffer.from('message'));
-indy.cryptoVerify('verkey', Buffer.from('message'), Buffer.from('signature'));
-indy.createAndStoreMyDid(10, { seed: '000000000000000000000000Steward1' });
-indy.cryptoAnonCrypt('trusteeVerkey', Buffer.from('message'));
-indy.packMessage(10, Buffer.from('message'), ['receiverKeys'], 'senderVerkey');
-indy.unpackMessage(10, Buffer.from('packed'));
+indy.createKey(1, { seed: "seed" });
+indy.cryptoSign(1, "verkey", Buffer.from("message"));
+indy.cryptoVerify("verkey", Buffer.from("message"), Buffer.from("signature"));
+indy.createAndStoreMyDid(10, { seed: "000000000000000000000000Steward1" });
+indy.cryptoAnonCrypt("trusteeVerkey", Buffer.from("message"));
+indy.packMessage(10, Buffer.from("message"), ["receiverKeys"], "senderVerkey");
+indy.unpackMessage(10, Buffer.from("packed"));
 indy.closeWallet(10);
 indy.deleteWallet(walletConfig, walletCredentials);
-indy.keyForLocalDid(10, '10');
-indy.abbreviateVerkey('did', 'verkey');
-indy.issuerCreateSchema('myDid', 'schemaName', '1.0', ['name', 'age']);
-indy.buildSchemaRequest('myDid', schema);
-indy.signRequest(10, 'myDid', ledgerRequest);
-indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
+indy.keyForLocalDid(10, "10");
+indy.abbreviateVerkey("did", "verkey");
+indy.issuerCreateSchema("myDid", "schemaName", "1.0", ["name", "age"]);
+indy.buildSchemaRequest("myDid", schema);
+indy.signRequest(10, "myDid", ledgerRequest);
+indy.signAndSubmitRequest(10, 10, "myDid", ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
 indy.parseGetNymResponse(ledgerReqnackResponse);
-indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
-indy.buildGetSchemaRequest('myDid', 'a');
+indy.buildNymRequest("myDid", "targetDid", "verKey", "alias", "TRUSTEE");
+indy.buildGetSchemaRequest("myDid", "a");
 indy.parseGetSchemaResponse(ledgerWriteReply);
 indy.buildGetAcceptanceMechanismsRequest(null);
 indy.appendTxnAuthorAgreementAcceptanceToRequest(
     ledgerRequest,
-    'indy agreement',
-    '1.0.0',
-    'null',
-    'acceptance mechanism label 1',
+    "indy agreement",
+    "1.0.0",
+    "null",
+    "acceptance mechanism label 1",
     123379200,
 );
-indy.issuerCreateAndStoreCredentialDef(10, 'myDid', schema, 'TAG', 'CL', { support_revocation: true });
-indy.buildCredDefRequest('myDid', credDef);
-indy.buildGetCredDefRequest('myDid', 'credDefId');
+indy.issuerCreateAndStoreCredentialDef(10, "myDid", schema, "TAG", "CL", { support_revocation: true });
+indy.buildCredDefRequest("myDid", credDef);
+indy.buildGetCredDefRequest("myDid", "credDefId");
 indy.parseGetCredDefResponse(ledgerReadReply);
 indy.buildGetTxnAuthorAgreementRequest(null);
-indy.addWalletRecord(10, 'contact', '1', 'john', {
-    '~score': 'aaa',
+indy.addWalletRecord(10, "contact", "1", "john", {
+    "~score": "aaa",
 });
-indy.updateWalletRecordValue(10, 'contact', '3', 'george');
-indy.updateWalletRecordTags(10, 'contact', '3', {
-    '~score': 'fff',
+indy.updateWalletRecordValue(10, "contact", "3", "george");
+indy.updateWalletRecordTags(10, "contact", "3", {
+    "~score": "fff",
 });
-indy.getWalletRecord(10, 'contact', '1', {});
+indy.getWalletRecord(10, "contact", "1", {});
 indy.openWalletSearch(
     10,
-    'contact',
+    "contact",
     {},
     {
         retrieveRecords: true,
@@ -283,68 +283,68 @@ indy.openWalletSearch(
 );
 indy.fetchWalletSearchNextRecords(10, 10, 10);
 indy.closeWalletSearch(10);
-indy.createPoolLedgerConfig('not_a_real_pool', {
-    genesis_txn: '/not/a/real/file.txn',
+indy.createPoolLedgerConfig("not_a_real_pool", {
+    genesis_txn: "/not/a/real/file.txn",
 });
-indy.deletePoolLedgerConfig('not_a_real_pool');
+indy.deletePoolLedgerConfig("not_a_real_pool");
 indy.setProtocolVersion(1);
-indy.openPoolLedger('name', { timeout: 1000 });
+indy.openPoolLedger("name", { timeout: 1000 });
 indy.closePoolLedger(10);
-indy.proverCreateMasterSecret(10, 'masterSecretName');
-indy.proverCreateCredentialReq(10, 'proverDid', credOffer, credDef, 'master_secret');
-indy.issuerCreateCredentialOffer(10, 'credDefId');
+indy.proverCreateMasterSecret(10, "masterSecretName");
+indy.proverCreateCredentialReq(10, "proverDid", credOffer, credDef, "master_secret");
+indy.issuerCreateCredentialOffer(10, "credDefId");
 indy.issuerCreateCredential(
     10,
     credOffer,
     credRequest,
     {
-        name: { raw: 'Alex', encoded: '1139481716457488690172217916278103335' },
-        height: { raw: '175', encoded: '175' },
-        age: { raw: '28', encoded: '28' },
+        name: { raw: "Alex", encoded: "1139481716457488690172217916278103335" },
+        height: { raw: "175", encoded: "175" },
+        age: { raw: "28", encoded: "28" },
     },
-    '10',
+    "10",
     10,
 );
 indy.proverStoreCredential(
     10,
-    'cred_1_id',
+    "cred_1_id",
     {},
     {
-        cred_def_id: 'cred_def_id',
-        rev_reg_id: 'rev_reg_id',
-        schema_id: 'schema_id',
-        signature: 'signature',
-        signature_correctness_proof: 'signature_correctness_proof',
+        cred_def_id: "cred_def_id",
+        rev_reg_id: "rev_reg_id",
+        schema_id: "schema_id",
+        signature: "signature",
+        signature_correctness_proof: "signature_correctness_proof",
         values: {},
     },
     credDef,
     null,
 );
-indy.proverGetCredential(10, 'outCredId');
+indy.proverGetCredential(10, "outCredId");
 indy.proverGetCredentials(10, {
-    cred_def_id: 'cred_def_id',
-    issuer_did: 'issuer_did',
-    schema_id: 'schema_id',
-    schema_issuer_did: 'schema_issuer_did',
-    schema_name: 'schema_name',
-    schema_version: 'schema_version',
+    cred_def_id: "cred_def_id",
+    issuer_did: "issuer_did",
+    schema_id: "schema_id",
+    schema_issuer_did: "schema_issuer_did",
+    schema_name: "schema_name",
+    schema_version: "schema_version",
 });
-indy.proverDeleteCredential(10, 'credId');
+indy.proverDeleteCredential(10, "credId");
 indy.generateNonce();
 indy.generateWalletKey();
-indy.generateWalletKey({ seed: 'seed' });
-indy.buildAttribRequest('myDid', 'myDid', null, { endpoint: 'value' }, null);
-indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
+indy.generateWalletKey({ seed: "seed" });
+indy.buildAttribRequest("myDid", "myDid", null, { endpoint: "value" }, null);
+indy.buildGetAttribRequest(null, "did", "endpoint", null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
 indy.proverGetCredentialsForProofReq(10, proofRequestWithNamesArray);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
-indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
+indy.proverFetchCredentialsForProofReq(10, "attr1_referent", 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
 indy.verifierVerifyProof(
     proofReq,
     {
-        proof: 'proof',
-        identifiers: [{ schema_id: 'schema_id', cred_def_id: 'cred_def_id' }],
+        proof: "proof",
+        identifiers: [{ schema_id: "schema_id", cred_def_id: "cred_def_id" }],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -366,7 +366,7 @@ indy.proverCreateProof(
         requested_predicates: {},
         self_attested_attributes: {},
     },
-    'masterSecretName',
+    "masterSecretName",
     {},
     {},
     {},
@@ -375,34 +375,34 @@ indy.proverCreateProof(
 indy.createRevocationState(
     10,
     {
-        id: '',
-        revocDefType: 'CL_ACCUM',
-        tag: '',
-        credDefId: '',
+        id: "",
+        revocDefType: "CL_ACCUM",
+        tag: "",
+        credDefId: "",
         value: {
-            issuanceType: 'ISSUANCE_BY_DEFAULT',
+            issuanceType: "ISSUANCE_BY_DEFAULT",
             maxCredNum: 0,
-            tailsHash: '',
-            tailsLocation: '',
+            tailsHash: "",
+            tailsLocation: "",
             publicKeys: {
                 accumKey: {
-                    z: '12',
+                    z: "12",
                 },
             },
         },
-        ver: '',
+        ver: "",
     },
     {
         value: {
-            prevAccum: 'prevAccum',
-            accum: 'accum',
+            prevAccum: "prevAccum",
+            accum: "accum",
             issued: [],
             revoked: [],
         },
-        ver: 'ver',
+        ver: "ver",
     },
     new Date().getDate(),
-    'credRevId',
+    "credRevId",
 );
 
 indy.listMyDidsWithMeta(10);
@@ -461,22 +461,22 @@ indy.listMyDidsWithMeta(10);
 //     blskey: 'CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW'
 //   })
 // indy.issuerCreateAndStoreRevocReg(wh, myDid, null, 'tag1', credDefId, { max_cred_num: 5 }, writerH)
-indy.buildGetTxnRequest('myDid', 'DOMAIN', 10);
-indy.buildRevocRegDefRequest('myDid', revRegDef);
-indy.buildGetRevocRegDefRequest('myDid', 'revRegDefId');
+indy.buildGetTxnRequest("myDid", "DOMAIN", 10);
+indy.buildRevocRegDefRequest("myDid", revRegDef);
+indy.buildGetRevocRegDefRequest("myDid", "revRegDefId");
 indy.parseGetRevocRegDefResponse(ledgerRejectResponse);
-indy.buildRevocRegEntryRequest('myDid', 'revRegDefId', 'CL_ACCUM', {
+indy.buildRevocRegEntryRequest("myDid", "revRegDefId", "CL_ACCUM", {
     value: {
-        accum: '10',
+        accum: "10",
         issued: [10, 20],
-        prevAccum: '10',
+        prevAccum: "10",
         revoked: [10],
     },
-    ver: '1',
+    ver: "1",
 });
-indy.buildGetRevocRegRequest('myDid', 'revRegDefId', 100);
+indy.buildGetRevocRegRequest("myDid", "revRegDefId", 100);
 indy.parseGetRevocRegResponse(ledgerRejectResponse);
-indy.buildGetRevocRegDeltaRequest('myDid', 'revRegDefId', 100, 100);
+indy.buildGetRevocRegDeltaRequest("myDid", "revRegDefId", 100, 100);
 indy.parseGetRevocRegDeltaResponse(ledgerRejectResponse);
 
 // indy.buildGetValidatorInfoRequest(myDid)

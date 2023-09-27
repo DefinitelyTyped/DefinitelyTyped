@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Format } from 'logform';
+import { Format } from "logform";
 
 declare function newrelicFormatter(): Format;
 

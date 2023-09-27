@@ -7,11 +7,11 @@ $(".my_select_box").chosen({
     disable_search_threshold: 10,
     max_selected_options: 5,
     no_results_text: "Oops, nothing found!",
-    width: "95%"
+    width: "95%",
 });
 
 $(".chosen-select").chosen({
-    rtl: true
+    rtl: true,
 });
 
 // Destroy

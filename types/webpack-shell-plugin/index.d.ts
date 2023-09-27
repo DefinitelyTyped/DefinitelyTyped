@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 declare class WebpackShellPlugin extends Plugin {
     constructor(options?: WebpackShellPlugin.Options);

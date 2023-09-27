@@ -41,7 +41,7 @@ declare namespace koaCompress {
          * An optional string, which specifies what encoders to use for requests
          * without Accept-Encoding. Default: 'idenity'.
          */
-        defaultEncoding?: string | undefined
+        defaultEncoding?: string | undefined;
 
         /**
          * Options for brotli compression.

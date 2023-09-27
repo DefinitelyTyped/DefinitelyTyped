@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import through2 = require('through2');
-import stream = require('stream');
+import through2 = require("through2");
+import stream = require("stream");
 
 type MapCallback = (chunk: any, index: number) => void;
 

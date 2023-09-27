@@ -1,4 +1,4 @@
-import isRegExp = require('is-regex');
+import isRegExp = require("is-regex");
 
 declare var any: unknown;
 

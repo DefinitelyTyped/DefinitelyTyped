@@ -7,9 +7,11 @@
 /// <reference types="jquery"/>
 
 declare namespace JQueryValidation {
-    interface RulesDictionary { [name: string]: any; }
+    interface RulesDictionary {
+        [name: string]: any;
+    }
 
-    type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
+    type ValidatePredicate = (element: HTMLElement, event: JQueryEventObject) => void;
 
     type ShouldValidatePredicate = boolean | ValidatePredicate;
 
@@ -213,13 +215,17 @@ declare namespace JQueryValidation {
          * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
          * @param message a default string message or a Message generator. First argument: Parameters. Second argument: Validated element.
          */
-        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string | ((params: any, element: HTMLElement) => string)): void;
+        addMethod(
+            name: string,
+            method: (value: any, element: HTMLElement, params: any) => boolean,
+            message?: string | ((params: any, element: HTMLElement) => string),
+        ): void;
         /**
          * Replaces {n} placeholders with arguments.
          *
          * @param template The string to format.
          */
-        format(template: string): ((...args: any[]) => string);
+        format(template: string): (...args: any[]) => string;
         format(template: string, ...args: any[]): string;
         /**
          * Modify default settings for validation.

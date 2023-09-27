@@ -1,4 +1,4 @@
-import * as bchaddr from 'bchaddrjs';
+import * as bchaddr from "bchaddrjs";
 
 const formatLegacy: string = bchaddr.Format.Legacy;
 const formatBitpay: string = bchaddr.Format.Bitpay;
@@ -7,7 +7,7 @@ const networkMainnet: string = bchaddr.Network.Mainnet;
 const networkTestnet: string = bchaddr.Network.Testnet;
 const typeP2PKH: string = bchaddr.Type.P2PKH;
 const typeP2SH: string = bchaddr.Type.P2SH;
-const someAddress = 'qph5kuz78czq00e3t85ugpgd7xmer5kr7c5f6jdpwk';
+const someAddress = "qph5kuz78czq00e3t85ugpgd7xmer5kr7c5f6jdpwk";
 const someFormat: string = bchaddr.detectAddressFormat(someAddress);
 const someNetwork: string = bchaddr.detectAddressNetwork(someAddress);
 const someType: string = bchaddr.detectAddressType(someAddress);
@@ -24,7 +24,7 @@ let someOtherAddress: string;
 someOtherAddress = bchaddr.toLegacyAddress(someAddress);
 someOtherAddress = bchaddr.toBitpayAddress(someAddress);
 someOtherAddress = bchaddr.toCashAddress(someAddress);
-const someInvalidInput = 'abcdefghijklmn';
+const someInvalidInput = "abcdefghijklmn";
 try {
     bchaddr.detectAddressFormat(someInvalidInput);
 } catch (err) {

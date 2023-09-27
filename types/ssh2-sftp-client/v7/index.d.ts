@@ -12,11 +12,11 @@
 //                 Emma Milner <https://github.com/tsop14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as ssh2 from 'ssh2';
+import * as ssh2 from "ssh2";
 
 export = sftp;
 
-type FileInfoType = 'd' | '-' | 'l';
+type FileInfoType = "d" | "-" | "l";
 
 declare class sftp {
     constructor(name?: string);
@@ -99,14 +99,14 @@ declare namespace sftp {
     }
 
     interface ReadStreamOptions extends ModeOption {
-        flags?: 'r';
+        flags?: "r";
         encoding?: null | string;
         handle?: null | string;
         autoClose?: boolean;
     }
 
     interface WriteStreamOptions extends ModeOption {
-        flags?: 'w' | 'a';
+        flags?: "w" | "a";
         encoding?: null | string;
         autoClose?: boolean;
     }

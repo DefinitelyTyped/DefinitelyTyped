@@ -1,4 +1,4 @@
-import Color = require('color');
+import Color = require("color");
 
 const color: Color = new Color("white");
 const colorOther: Color = new Color("black");

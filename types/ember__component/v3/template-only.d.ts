@@ -1,7 +1,7 @@
 // This class is not intended to be directly constructable.
 declare class _TemplateOnlyComponent {
     // Type brand to simulate a nominal type.
-    declare private brand: 'TemplateOnlyComponent';
+    declare private brand: "TemplateOnlyComponent";
     toString(): string;
 }
 

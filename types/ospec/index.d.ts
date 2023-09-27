@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-type ObjectConstructor = new (...args: any[]) => any;
+type ObjectConstructor = new(...args: any[]) => any;
 
 declare namespace o {
     type AssertionDescriber = (description: string) => void;
@@ -86,7 +86,7 @@ declare namespace o {
         /** Default reporter used by `o.run()` */
         report: Reporter;
 
-        'new'(): Ospec;
+        "new"(): Ospec;
     }
 }
 

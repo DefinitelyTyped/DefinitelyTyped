@@ -3,8 +3,7 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "string_score"
-{
+declare module "string_score" {
     // nothing here as it's only extending the build in String class
 }
 

@@ -1,7 +1,7 @@
-import { GraphQLTaggedNode, OperationType } from 'relay-runtime';
+import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
-import { KeyType, KeyTypeData } from './helpers';
-import { RefetchFnDynamic } from './useRefetchableFragmentNode';
+import { KeyType, KeyTypeData } from "./helpers";
+import { RefetchFnDynamic } from "./useRefetchableFragmentNode";
 
 export type useRefetchableFragmentHookType<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> = [
     TFragmentData,

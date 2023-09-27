@@ -51,8 +51,8 @@ declare namespace Timeago {
 }
 
 interface JQuery {
-    timeago(action: 'update', timestamp: Date | string): this;
-    timeago(action?: 'init' | 'updateFromDOM' | 'dispose'): this;
+    timeago(action: "update", timestamp: Date | string): this;
+    timeago(action?: "init" | "updateFromDOM" | "dispose"): this;
 }
 
 interface JQueryStatic {

@@ -32,7 +32,7 @@ interface PLoadingOptions {
     destroyAfterHide?: boolean | undefined;
     idPrefix?: string | undefined;
     pluginNameSpace?: string | undefined;
-    useAddOns?: string [] | undefined;
+    useAddOns?: string[] | undefined;
 }
 
 interface PLoading {

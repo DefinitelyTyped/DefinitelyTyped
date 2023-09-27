@@ -2,12 +2,12 @@ import { Dispatcher } from "flux";
 
 enum ActionSource {
     Server,
-    View
+    View,
 }
 enum ActionType {
     Create,
     Update,
-    Delete
+    Delete,
 }
 
 interface Action {
@@ -28,7 +28,7 @@ let dispatcherToken: string;
 const actionPayload = {
     data: {},
     source: ActionSource.Server,
-    type: ActionType.Create
+    type: ActionType.Create,
 };
 
 /**
@@ -50,7 +50,7 @@ class CustomDispatcher extends Dispatcher<Action> {
         this.dispatch({
             source: ActionSource.Server,
             type,
-            data
+            data,
         });
     }
     // Dispatch an action with view as source
@@ -58,7 +58,7 @@ class CustomDispatcher extends Dispatcher<Action> {
         this.dispatch({
             source: ActionSource.View,
             type,
-            data
+            data,
         });
     }
 }

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "space-before-function-paren": false,
         "ban-types": false,
         "jsdoc-format": false,
         "no-empty-interface": false,
@@ -9,7 +8,6 @@
         "no-void-expression": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

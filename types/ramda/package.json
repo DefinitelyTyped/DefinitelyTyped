@@ -2,5 +2,18 @@
     "private": true,
     "dependencies": {
         "types-ramda": "^0.29.4"
+    },
+    "exports": {
+        ".": {
+            "require": "./src/index.js",
+            "import": "./es/index.js",
+            "default": "./src/index.js"
+        },
+        "./es/*": "./es/*.js",
+        "./src/*": "./src/*.js",
+        "./dist/*": "./dist/*.js",
+        "./es/": "./es/",
+        "./src/": "./src/",
+        "./dist/": "./dist/"
     }
 }

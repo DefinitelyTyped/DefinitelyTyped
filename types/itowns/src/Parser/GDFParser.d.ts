@@ -2,7 +2,7 @@ import GeoidGrid from "../Core/Geographic/GeoidGrid";
 
 declare namespace _default {
     interface ParsingOptions {
-        in?: { crs?: string; };
+        in?: { crs?: string };
         out?: {};
     }
 

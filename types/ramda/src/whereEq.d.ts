@@ -1,2 +1,2 @@
-import { whereEq } from '../index';
+import { whereEq } from "../index";
 export default whereEq;

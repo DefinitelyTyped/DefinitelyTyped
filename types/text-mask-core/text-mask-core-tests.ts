@@ -1,21 +1,21 @@
 import {
+    CreateTextMaskConfig,
+    createTextMaskInputElement,
     Mask,
+    Pipe,
     PipeAddResult,
     PipeResult,
-    Pipe,
-    CreateTextMaskConfig,
     TextMaskInputElement,
-    createTextMaskInputElement,
-} from 'text-mask-core';
+} from "text-mask-core";
 
 function test() {
-    const mask: Mask = ['a'];
+    const mask: Mask = ["a"];
 
-    const pipeAddResult: PipeAddResult = { value: 'abc', indexesOfPipedChars: [1] };
+    const pipeAddResult: PipeAddResult = { value: "abc", indexesOfPipedChars: [1] };
 
     let pipeResult: PipeResult = pipeAddResult;
     pipeResult = false;
-    pipeResult = 'abc';
+    pipeResult = "abc";
 
     const pipeFunc: Pipe = (value: string, config: any): PipeResult => {
         return pipeAddResult;
@@ -24,7 +24,7 @@ function test() {
     const createTextMaskConfig: CreateTextMaskConfig = {
         inputElement: {} as any,
         mask,
-        guide: 'a',
+        guide: "a",
         keepCharPositions: true,
         showMask: true,
     };

@@ -15,7 +15,7 @@ export function info(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -30,7 +30,7 @@ export function warn(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -45,7 +45,7 @@ export function error(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -66,7 +66,7 @@ export function question(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL' | ''>
+    callback?: DialogCallback<"OK" | "CANCEL" | "">,
 ): void;
 
 /**
@@ -86,7 +86,7 @@ export function entry(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 /**
@@ -106,7 +106,7 @@ export function calendar(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 /**
@@ -121,7 +121,7 @@ export function fileselect(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 export interface DialogCallback<TRetVal> {

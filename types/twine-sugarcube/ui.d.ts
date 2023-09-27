@@ -33,8 +33,13 @@ export interface DialogAPI {
      *     Dialog.wiki(Story.get("MyDialogContents").processText());
      * });
      */
-    addClickHandler(targets: HTMLElement | string, options?: DialogOptions,
-        tartFn?: () => void, doneFn?: () => void, closeFn?: () => void): void;
+    addClickHandler(
+        targets: HTMLElement | string,
+        options?: DialogOptions,
+        tartFn?: () => void,
+        doneFn?: () => void,
+        closeFn?: () => void,
+    ): void;
 
     /**
      * Appends the given content to the dialog's content area. Returns a reference to the Dialog object for chaining.
@@ -275,7 +280,6 @@ export interface UIAPI {
      * @param options The options object. See Dialog.addClickHandler() for more information.
      * @param closeFn The function to execute whenever the dialog is closed.
      * @since 2.0.0
-     *
      */
     settings(options?: DialogOptions, closeFn?: () => void): void;
 

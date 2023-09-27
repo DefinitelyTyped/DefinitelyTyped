@@ -3,5 +3,5 @@
 // Definitions by: Jinwoo Lee <https://github.com/jinwoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function spdxCorrect(identifier: string, options?: { upgrade: boolean }): string|null;
+declare function spdxCorrect(identifier: string, options?: { upgrade: boolean }): string | null;
 export = spdxCorrect;

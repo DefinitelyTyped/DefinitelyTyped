@@ -2,6 +2,6 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/export-just-namespace": "off",
-        "@definitelytyped/trim-file": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

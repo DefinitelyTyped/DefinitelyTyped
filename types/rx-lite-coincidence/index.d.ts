@@ -11,21 +11,29 @@ declare namespace Rx {
             right: Observable<TRight>,
             leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
             rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
-            resultSelector: (leftItem: T, rightItem: TRight) => TResult): Observable<TResult>;
+            resultSelector: (leftItem: T, rightItem: TRight) => TResult,
+        ): Observable<TResult>;
 
         groupJoin<TRight, TDurationLeft, TDurationRight, TResult>(
             right: Observable<TRight>,
             leftDurationSelector: (leftItem: T) => Observable<TDurationLeft>,
             rightDurationSelector: (rightItem: TRight) => Observable<TDurationRight>,
-            resultSelector: (leftItem: T, rightItem: Observable<TRight>) => TResult): Observable<TResult>;
+            resultSelector: (leftItem: T, rightItem: Observable<TRight>) => TResult,
+        ): Observable<TResult>;
 
         window<TWindowOpening>(windowOpenings: Observable<TWindowOpening>): Observable<Observable<T>>;
         window<TWindowClosing>(windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
-        window<TWindowOpening, TWindowClosing>(windowOpenings: Observable<TWindowOpening>, windowClosingSelector: () => Observable<TWindowClosing>): Observable<Observable<T>>;
+        window<TWindowOpening, TWindowClosing>(
+            windowOpenings: Observable<TWindowOpening>,
+            windowClosingSelector: () => Observable<TWindowClosing>,
+        ): Observable<Observable<T>>;
 
         buffer<TBufferOpening>(bufferOpenings: Observable<TBufferOpening>): Observable<T[]>;
         buffer<TBufferClosing>(bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
-        buffer<TBufferOpening, TBufferClosing>(bufferOpenings: Observable<TBufferOpening>, bufferClosingSelector: () => Observable<TBufferClosing>): Observable<T[]>;
+        buffer<TBufferOpening, TBufferClosing>(
+            bufferOpenings: Observable<TBufferOpening>,
+            bufferClosingSelector: () => Observable<TBufferClosing>,
+        ): Observable<T[]>;
 
         /**
          * Returns a new observable that triggers on the second and subsequent triggerings of the input observable.
@@ -48,7 +56,10 @@ declare namespace Rx {
          *    An array of observables. The first triggers when the predicate returns true,
          *    and the second triggers when the predicate returns false.
          */
-        partition(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Array<Observable<T>>;
+        partition(
+            predicate: (value: T, index: number, source: Observable<T>) => boolean,
+            thisArg?: any,
+        ): Array<Observable<T>>;
     }
 }
 

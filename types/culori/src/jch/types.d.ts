@@ -1,5 +1,5 @@
 export interface Jch {
-    mode: 'jch';
+    mode: "jch";
     j: number;
     c: number;
     h?: number;

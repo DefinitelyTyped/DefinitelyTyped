@@ -1,2 +1,2 @@
-import InLeapYear = require('../2018/InLeapYear');
+import InLeapYear = require("../2018/InLeapYear");
 export = InLeapYear;

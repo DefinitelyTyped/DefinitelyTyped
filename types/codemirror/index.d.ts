@@ -17,12 +17,15 @@
 export = CodeMirror;
 export as namespace CodeMirror;
 
-declare function CodeMirror(place: ParentNode | ((host: HTMLElement) => void), options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
+declare function CodeMirror(
+    place: ParentNode | ((host: HTMLElement) => void),
+    options?: CodeMirror.EditorConfiguration,
+): CodeMirror.Editor;
 
 declare namespace CodeMirror {
     const Doc: DocConstructor;
     const Pos: PositionConstructor;
-    const Pass: { toString(): 'CodeMirror.PASS' };
+    const Pass: { toString(): "CodeMirror.PASS" };
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
@@ -151,16 +154,40 @@ declare namespace CodeMirror {
 
     function on<T extends keyof DocEventMap>(doc: Doc, eventName: T, handler: DocEventMap[T]): void;
     function on<T extends keyof EditorEventMap>(cm: Editor, eventName: T, handler: EditorEventMap[T]): void;
-    function on<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, handler: LineHandleEventMap[T]): void;
-    function on<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, handler: TextMarkerEventMap[T]): void;
-    function on<T extends keyof LineWidgetEventMap>(LineWidget: LineWidget, eventName: T, handler: LineWidgetEventMap[T]): void;
+    function on<T extends keyof LineHandleEventMap>(
+        lineHandle: LineHandle,
+        eventName: T,
+        handler: LineHandleEventMap[T],
+    ): void;
+    function on<T extends keyof TextMarkerEventMap>(
+        textMarker: TextMarker<unknown>,
+        eventName: T,
+        handler: TextMarkerEventMap[T],
+    ): void;
+    function on<T extends keyof LineWidgetEventMap>(
+        LineWidget: LineWidget,
+        eventName: T,
+        handler: LineWidgetEventMap[T],
+    ): void;
     function on(element: any, eventName: string, handler: () => void): void;
 
     function off<T extends keyof DocEventMap>(doc: Doc, eventName: T, handler: DocEventMap[T]): void;
     function off<T extends keyof EditorEventMap>(cm: Editor, eventName: T, handler: EditorEventMap[T]): void;
-    function off<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, handler: LineHandleEventMap[T]): void;
-    function off<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, handler: TextMarkerEventMap[T]): void;
-    function off<T extends keyof LineWidgetEventMap>(lineWidget: LineWidget, eventName: T, handler: LineWidgetEventMap[T]): void;
+    function off<T extends keyof LineHandleEventMap>(
+        lineHandle: LineHandle,
+        eventName: T,
+        handler: LineHandleEventMap[T],
+    ): void;
+    function off<T extends keyof TextMarkerEventMap>(
+        textMarker: TextMarker<unknown>,
+        eventName: T,
+        handler: TextMarkerEventMap[T],
+    ): void;
+    function off<T extends keyof LineWidgetEventMap>(
+        lineWidget: LineWidget,
+        eventName: T,
+        handler: LineWidgetEventMap[T],
+    ): void;
     function off(element: any, eventName: string, handler: () => void): void;
 
     /**
@@ -169,33 +196,49 @@ declare namespace CodeMirror {
      * To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object.
      */
     function signal<T extends keyof DocEventMap>(doc: Doc, eventName: T, ...args: Parameters<DocEventMap[T]>): void;
-    function signal<T extends keyof EditorEventMap>(cm: Editor, eventName: T, ...args: Parameters<EditorEventMap[T]>): void;
-    function signal<T extends keyof LineHandleEventMap>(lineHandle: LineHandle, eventName: T, ...args: Parameters<LineHandleEventMap[T]>): void;
-    function signal<T extends keyof TextMarkerEventMap>(textMarker: TextMarker<unknown>, eventName: T, ...args: Parameters<TextMarkerEventMap[T]>): void;
-    function signal<T extends keyof LineWidgetEventMap>(lineWidget: LineWidget, eventName: T, ...args: Parameters<LineWidgetEventMap[T]>): void;
+    function signal<T extends keyof EditorEventMap>(
+        cm: Editor,
+        eventName: T,
+        ...args: Parameters<EditorEventMap[T]>
+    ): void;
+    function signal<T extends keyof LineHandleEventMap>(
+        lineHandle: LineHandle,
+        eventName: T,
+        ...args: Parameters<LineHandleEventMap[T]>
+    ): void;
+    function signal<T extends keyof TextMarkerEventMap>(
+        textMarker: TextMarker<unknown>,
+        eventName: T,
+        ...args: Parameters<TextMarkerEventMap[T]>
+    ): void;
+    function signal<T extends keyof LineWidgetEventMap>(
+        lineWidget: LineWidget,
+        eventName: T,
+        ...args: Parameters<LineWidgetEventMap[T]>
+    ): void;
     function signal(target: any, name: string, ...args: any[]): void;
 
     /** Modify a keymap to normalize modifier order and properly recognize multi-stroke bindings. */
     function normalizeKeyMap(km: KeyMap): KeyMap;
 
     type DOMEvent =
-        | 'mousedown'
-        | 'dblclick'
-        | 'touchstart'
-        | 'contextmenu'
-        | 'keydown'
-        | 'keypress'
-        | 'keyup'
-        | 'cut'
-        | 'copy'
-        | 'paste'
-        | 'dragstart'
-        | 'dragenter'
-        | 'dragover'
-        | 'dragleave'
-        | 'drop';
+        | "mousedown"
+        | "dblclick"
+        | "touchstart"
+        | "contextmenu"
+        | "keydown"
+        | "keypress"
+        | "keyup"
+        | "cut"
+        | "copy"
+        | "paste"
+        | "dragstart"
+        | "dragenter"
+        | "dragover"
+        | "dragleave"
+        | "drop";
 
-    type CoordsMode = 'window' | 'page' | 'local' | 'div';
+    type CoordsMode = "window" | "page" | "local" | "div";
 
     interface Token {
         /** The character(on the given line) at which the token starts. */
@@ -277,7 +320,7 @@ declare namespace CodeMirror {
          * Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
          * to override the styling of the base mode entirely, instead of the two being applied together.
          */
-        addOverlay(mode: any, options?: {opaque?: boolean | undefined, priority?: number | undefined}): void;
+        addOverlay(mode: any, options?: { opaque?: boolean | undefined; priority?: number | undefined }): void;
 
         /** Pass this the exact argument passed for the mode parameter to addOverlay to remove an overlay again. */
         removeOverlay(mode: any): void;
@@ -408,8 +451,13 @@ declare namespace CodeMirror {
          * The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well.
          */
         scrollIntoView(
-            pos: Position | null | { line: number; ch: number } | { left: number; top: number; right: number; bottom: number } | { from: Position; to: Position },
-            margin?: number
+            pos: Position | null | { line: number; ch: number } | {
+                left: number;
+                top: number;
+                right: number;
+                bottom: number;
+            } | { from: Position; to: Position },
+            margin?: number,
         ): void;
 
         /**
@@ -418,7 +466,10 @@ declare namespace CodeMirror {
          * If it is "page" or not given, they are relative to the top-left corner of the page.
          * where specifies the position at which you want to measure. A boolean indicates either the start(true) or the end(false) of the selection.
          */
-        cursorCoords(where?: boolean | Position | null, mode?: CoordsMode): { left: number; top: number; bottom: number };
+        cursorCoords(
+            where?: boolean | Position | null,
+            mode?: CoordsMode,
+        ): { left: number; top: number; bottom: number };
 
         /**
          * Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
@@ -616,7 +667,7 @@ declare namespace CodeMirror {
         base?: string | undefined;
 
         /** Below options are supported in HTML mixed  mode */
-        tags?: {[key: string]: unknown} | undefined;
+        tags?: { [key: string]: unknown } | undefined;
 
         /** Below options are supported in JavaScript mixed  mode */
 
@@ -711,9 +762,11 @@ declare namespace CodeMirror {
         alignCDATA?: boolean | undefined;
     }
 
-    type ModeSpec<T> = {
-        [P in keyof T]: T[P];
-    } & { name: string };
+    type ModeSpec<T> =
+        & {
+            [P in keyof T]: T[P];
+        }
+        & { name: string };
 
     interface SelectionOptions {
         /**
@@ -740,7 +793,7 @@ declare namespace CodeMirror {
     }
 
     interface DocConstructor {
-        new (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
+        new(text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
         (text: string, mode?: string | ModeSpec<ModeSpecOptions>, firstLineNumber?: number, lineSep?: string): Doc;
     }
 
@@ -1181,7 +1234,7 @@ declare namespace CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch?: number, sticky?: string): Position;
+        new(line: number, ch?: number, sticky?: string): Position;
         (line: number, ch?: number, sticky?: string): Position;
     }
 
@@ -1218,14 +1271,17 @@ declare namespace CodeMirror {
     }
 
     interface ScrollbarModel {
-        update(measure: ScrollbarMeasure): { bottom: number, right: number };
+        update(measure: ScrollbarMeasure): { bottom: number; right: number };
         clear(): void;
         setScrollLeft(pos: number): void;
         setScrollTop(pos: number): void;
     }
 
     interface ScrollbarModelConstructor {
-        new(place: (node: Element) => void, scroll: (pos: number, axis: 'horizontal' | 'vertical') => void): ScrollbarModel;
+        new(
+            place: (node: Element) => void,
+            scroll: (pos: number, axis: "horizontal" | "vertical") => void,
+        ): ScrollbarModel;
     }
 
     interface ScrollbarModels {
@@ -1235,7 +1291,7 @@ declare namespace CodeMirror {
 
     const scrollbarModel: ScrollbarModels;
 
-    type InputStyle = 'textarea' | 'contenteditable';
+    type InputStyle = "textarea" | "contenteditable";
 
     interface EditorConfiguration {
         /** The starting value of the editor. Can be a string, or a document object. */
@@ -1319,11 +1375,13 @@ declare namespace CodeMirror {
         extraKeys?: string | KeyMap | undefined;
 
         /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
-        configureMouse?: ((
-            cm: Editor,
-            repeat: 'single' | 'double' | 'triple',
-            event: Event,
-        ) => MouseSelectionConfiguration) | undefined;
+        configureMouse?:
+            | ((
+                cm: Editor,
+                repeat: "single" | "double" | "triple",
+                event: Event,
+            ) => MouseSelectionConfiguration)
+            | undefined;
 
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean | undefined;
@@ -1373,7 +1431,7 @@ declare namespace CodeMirror {
         inputStyle?: InputStyle | undefined;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
-        readOnly?: boolean | 'nocursor' | undefined;
+        readOnly?: boolean | "nocursor" | undefined;
 
         /** This label is read by the screenreaders when CodeMirror text area is focused. This is helpful for accessibility. */
         screenReaderLabel?: string | undefined;
@@ -1414,7 +1472,7 @@ declare namespace CodeMirror {
          * This option determines the return value of that method. When it is null or an object that doesn't have a property named by
          * the input string, that string is returned. Otherwise, the value of the property corresponding to that string is returned.
          */
-        phrases?: {[s: string]: unknown} | undefined;
+        phrases?: { [s: string]: unknown } | undefined;
 
         /** Controls whether drag-and - drop is enabled. On by default. */
         dragDrop?: boolean | undefined;
@@ -1989,11 +2047,12 @@ declare namespace CodeMirror {
          * (or, on Chrome OS, meta-shift-clicks), and "single" otherwise.
          */
         unit?:
-            | 'char'
-            | 'word'
-            | 'line'
-            | 'rectangle'
-            | ((cm: Editor, pos: Position) => { from: Position; to: Position }) | undefined;
+            | "char"
+            | "word"
+            | "line"
+            | "rectangle"
+            | ((cm: Editor, pos: Position) => { from: Position; to: Position })
+            | undefined;
 
         /**
          * Whether to extend the existing selection range or start

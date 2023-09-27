@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode } from "react";
 
 type RefHandler<
     RefElement extends undefined | HTMLElement,
@@ -7,7 +7,7 @@ type RefHandler<
 > = {
     implicit: ImplicitRefHandler;
     explicit: ExplicitRefHandler;
-}[RefElement extends undefined ? 'implicit' : 'explicit'];
+}[RefElement extends undefined ? "implicit" : "explicit"];
 
 export type EndHandler<RefElement extends undefined | HTMLElement> = RefHandler<
     RefElement,
@@ -23,11 +23,11 @@ export type EnterHandler<RefElement extends undefined | HTMLElement> = RefHandle
 
 export type ExitHandler<E extends undefined | HTMLElement> = RefHandler<E, (node: HTMLElement) => void, () => void>;
 
-export const UNMOUNTED = 'unmounted';
-export const EXITED = 'exited';
-export const ENTERING = 'entering';
-export const ENTERED = 'entered';
-export const EXITING = 'exiting';
+export const UNMOUNTED = "unmounted";
+export const EXITED = "exited";
+export const ENTERING = "entering";
+export const ENTERED = "entered";
+export const EXITING = "exiting";
 
 export interface TransitionActions {
     /**
@@ -244,7 +244,6 @@ export type TransitionProps<RefElement extends undefined | HTMLElement = undefin
  *   </Transition>
  * );
  * ```
- *
  */
 declare class Transition<RefElement extends HTMLElement | undefined> extends Component<TransitionProps<RefElement>> {}
 

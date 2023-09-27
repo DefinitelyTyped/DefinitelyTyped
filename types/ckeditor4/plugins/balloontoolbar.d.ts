@@ -2,14 +2,14 @@ declare namespace CKEDITOR {
     interface CKEditorPluginsCore {
         balloontoolbar?: {
             context: {
-                new (editor: editor, options: plugins.balloontoolbar.contextDefinition): plugins.balloontoolbar.context;
+                new(editor: editor, options: plugins.balloontoolbar.contextDefinition): plugins.balloontoolbar.context;
             };
-            contextManager: { new (editor: editor): plugins.balloontoolbar.contextManager };
+            contextManager: { new(editor: editor): plugins.balloontoolbar.contextManager };
         } & plugins.balloontoolbar;
     }
 
     interface CKEditorUIStatic {
-        balloonToolbar: { new (editor: editor, definition: ui.balloonPanel.definition): ui.balloonToolbar };
+        balloonToolbar: { new(editor: editor, definition: ui.balloonPanel.definition): ui.balloonToolbar };
     }
 
     interface CKEditorPluginsEditorInstance {

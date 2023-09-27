@@ -1,16 +1,20 @@
 /// <reference types="cordova" />
 
-
 function registerDelegates() {
     cordova.plugins.locationManager.enableDebugLogs();
 
-    cordova.plugins.locationManager.delegate.didRangeBeaconsInRegion = (pluginResult) => didRangeBeaconsInRegion(pluginResult);
+    cordova.plugins.locationManager.delegate.didRangeBeaconsInRegion = (pluginResult) =>
+        didRangeBeaconsInRegion(pluginResult);
     cordova.plugins.locationManager.delegate.didEnterRegion = (pluginResult) => didEnterRegion(pluginResult);
     cordova.plugins.locationManager.delegate.didExitRegion = (pluginResult) => didExitRegion(pluginResult);
-    cordova.plugins.locationManager.delegate.didDetermineStateForRegion = (pluginResult) => didDetermineStateForRegion(pluginResult);
-    cordova.plugins.locationManager.delegate.didChangeAuthorizationStatus = (authorizationStatus) => didChangeAuthorizationStatus(authorizationStatus);
-    cordova.plugins.locationManager.delegate.didStartMonitoringForRegion = (pluginResult) => didStartMonitoringForRegion(pluginResult);
-    cordova.plugins.locationManager.delegate.monitoringDidFailForRegionWithError = (pluginResult) => monitoringDidFailForRegionWithError(pluginResult);
+    cordova.plugins.locationManager.delegate.didDetermineStateForRegion = (pluginResult) =>
+        didDetermineStateForRegion(pluginResult);
+    cordova.plugins.locationManager.delegate.didChangeAuthorizationStatus = (authorizationStatus) =>
+        didChangeAuthorizationStatus(authorizationStatus);
+    cordova.plugins.locationManager.delegate.didStartMonitoringForRegion = (pluginResult) =>
+        didStartMonitoringForRegion(pluginResult);
+    cordova.plugins.locationManager.delegate.monitoringDidFailForRegionWithError = (pluginResult) =>
+        monitoringDidFailForRegionWithError(pluginResult);
 
     cordova.plugins.locationManager.onDomDelegateReady();
 }
@@ -22,7 +26,7 @@ function didRangeBeaconsInRegion(pluginResult: BeaconPlugin.PluginResult): void 
 }
 
 function didEnterRegion(pluginResult: BeaconPlugin.PluginResult): void {
-    var region: BeaconPlugin.Region = new cordova.plugins.locationManager.BeaconRegion("identifier", "uuid", 1, 2);;
+    var region: BeaconPlugin.Region = new cordova.plugins.locationManager.BeaconRegion("identifier", "uuid", 1, 2);
     cordova.plugins.locationManager.startRangingBeaconsInRegion(this.createBeaconRegionFromPluginResult(pluginResult))
         .then(() => {
             console.log("startRangingBeaconsInRegion succeeded");

@@ -5,6 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import Onfleet = require('./onfleet');
+import Onfleet = require("./onfleet");
 
 export = Onfleet;

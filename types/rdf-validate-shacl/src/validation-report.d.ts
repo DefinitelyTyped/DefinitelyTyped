@@ -1,15 +1,16 @@
-import * as RDF from '@rdfjs/types';
-import { GraphPointer } from 'clownface';
+import * as RDF from "@rdfjs/types";
+import { GraphPointer } from "clownface";
 
-type Factory<OutQuad extends RDF.Quad = RDF.Quad,
+type Factory<
+    OutQuad extends RDF.Quad = RDF.Quad,
     InQuad extends RDF.Quad = RDF.Quad,
     D extends RDF.DatasetCore<OutQuad, InQuad> = RDF.DatasetCore<OutQuad, InQuad>,
 > = RDF.DataFactory<OutQuad, InQuad> & RDF.DatasetCoreFactory<OutQuad, InQuad, D>;
 
-type BlankNodeOf<F extends Factory> = ReturnType<F['blankNode']>;
-type NamedNodeOf<F extends Factory> = ReturnType<F['namedNode']>;
-type LiteralOf<F extends Factory> = ReturnType<F['literal']>;
-type DatasetOf<F extends Factory> = ReturnType<F['dataset']>;
+type BlankNodeOf<F extends Factory> = ReturnType<F["blankNode"]>;
+type NamedNodeOf<F extends Factory> = ReturnType<F["namedNode"]>;
+type LiteralOf<F extends Factory> = ReturnType<F["literal"]>;
+type DatasetOf<F extends Factory> = ReturnType<F["dataset"]>;
 
 declare namespace ValidationReport {
     interface Options<F extends Factory> {

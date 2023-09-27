@@ -1,4 +1,4 @@
-import InputStream from './InputStream';
+import InputStream from "./InputStream";
 
 declare namespace CharStreams {
     /**

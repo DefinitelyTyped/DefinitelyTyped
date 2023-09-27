@@ -259,7 +259,9 @@ export interface FakeXMLHttpRequestStatic {
      * If the filter returns true, the request will not be faked.
      * @param filter
      */
-    addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
+    addFilter(
+        filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean,
+    ): void;
     /**
      * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest()
      * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.

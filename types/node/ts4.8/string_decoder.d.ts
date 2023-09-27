@@ -14,10 +14,10 @@
  * const decoder = new StringDecoder('utf8');
  *
  * const cent = Buffer.from([0xC2, 0xA2]);
- * console.log(decoder.write(cent));
+ * console.log(decoder.write(cent)); // Prints: ¢
  *
  * const euro = Buffer.from([0xE2, 0x82, 0xAC]);
- * console.log(decoder.write(euro));
+ * console.log(decoder.write(euro)); // Prints: €
  * ```
  *
  * When a `Buffer` instance is written to the `StringDecoder` instance, an
@@ -34,11 +34,11 @@
  *
  * decoder.write(Buffer.from([0xE2]));
  * decoder.write(Buffer.from([0x82]));
- * console.log(decoder.end(Buffer.from([0xAC])));
+ * console.log(decoder.end(Buffer.from([0xAC]))); // Prints: €
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/string_decoder.js)
  */
-declare module 'string_decoder' {
+declare module "string_decoder" {
     class StringDecoder {
         constructor(encoding?: BufferEncoding);
         /**
@@ -46,7 +46,7 @@ declare module 'string_decoder' {
          * the end of the `Buffer`, or `TypedArray`, or `DataView` are omitted from the
          * returned string and stored in an internal buffer for the next call to`stringDecoder.write()` or `stringDecoder.end()`.
          * @since v0.1.99
-         * @param buffer A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.
+         * @param buffer The bytes to decode.
          */
         write(buffer: Buffer): string;
         /**
@@ -57,11 +57,11 @@ declare module 'string_decoder' {
          * If the `buffer` argument is provided, one final call to `stringDecoder.write()`is performed before returning the remaining input.
          * After `end()` is called, the `stringDecoder` object can be reused for new input.
          * @since v0.9.3
-         * @param buffer A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.
+         * @param buffer The bytes to decode.
          */
         end(buffer?: Buffer): string;
     }
 }
-declare module 'node:string_decoder' {
-    export * from 'string_decoder';
+declare module "node:string_decoder" {
+    export * from "string_decoder";
 }

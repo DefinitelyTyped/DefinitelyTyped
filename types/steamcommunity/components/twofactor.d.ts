@@ -1,4 +1,4 @@
-import { Callback, CallbackError } from '../index';
+import { Callback, CallbackError } from "../index";
 
 export interface TwoFactor {
     /**
@@ -6,20 +6,22 @@ export interface TwoFactor {
      *
      * @param callback Called when the request completes.
      */
-    enableTwoFactor(callback: (
-        err: CallbackError,
-        /** The entire response from Steam. */
-        response: {
-            /** A value from EResult. If this is not OK (1), then the request failed. */
-            status: any,
-            /** This is your secret that's used for two-factor authentication. */
-            shared_secret: any,
-            /** This is your secret that's used for confirming trades. */
-            identity_secret: any,
-            /** You will need this in the future to disable two-factor authentication. */
-            revocation_code: any,
-        },
-    ) => any): void;
+    enableTwoFactor(
+        callback: (
+            err: CallbackError,
+            /** The entire response from Steam. */
+            response: {
+                /** A value from EResult. If this is not OK (1), then the request failed. */
+                status: any;
+                /** This is your secret that's used for two-factor authentication. */
+                shared_secret: any;
+                /** This is your secret that's used for confirming trades. */
+                identity_secret: any;
+                /** You will need this in the future to disable two-factor authentication. */
+                revocation_code: any;
+            },
+        ) => any,
+    ): void;
 
     /**
      * Finishes the process of enabling TOTP two-factor authentication for your account. You can use steam-totp in the future when logging on to get a code.

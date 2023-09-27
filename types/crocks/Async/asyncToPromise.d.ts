@@ -1,5 +1,5 @@
-import { UnaryFunction } from '../internal/types';
-import Async from './Async';
+import { UnaryFunction } from "../internal/types";
+import Async from "./Async";
 
 /**
  * asyncToPromise :: Async e a -> Promise a e

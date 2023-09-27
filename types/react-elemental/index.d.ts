@@ -14,11 +14,11 @@ import {
     InputHTMLAttributes,
     ReactElement,
     ReactNode,
-    TextareaHTMLAttributes
-} from 'react';
+    TextareaHTMLAttributes,
+} from "react";
 
-export type AlertType = 'info' | 'success' | 'warn' | 'error';
-export type AlertSize = 'alpha' | 'beta';
+export type AlertType = "info" | "success" | "warn" | "error";
+export type AlertSize = "alpha" | "beta";
 export interface AlertProps {
     readonly type?: AlertType | undefined;
     readonly size?: AlertSize | undefined;
@@ -35,7 +35,7 @@ export interface AlertProps {
 export class Alert extends Component<AlertProps> {
 }
 
-export type ButtonSize = 'alpha' | 'beta' | 'gamma';
+export type ButtonSize = "alpha" | "beta" | "gamma";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     readonly color?: string | undefined;
     readonly size?: ButtonSize | undefined;
@@ -101,7 +101,7 @@ export interface LabelProps {
  */
 export const Label: FunctionComponent<LabelProps>;
 
-export type LinkType = 'regular' | 'plain' | 'underline';
+export type LinkType = "regular" | "plain" | "underline";
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     readonly type?: LinkType | undefined;
     readonly ref?: string | undefined;
@@ -133,7 +133,7 @@ export interface LoadingBarState {
 export class LoadingBar extends Component<LoadingBarProps, LoadingBarState> {
 }
 
-export type ModalSize = 'alpha' | 'beta' | 'gamma';
+export type ModalSize = "alpha" | "beta" | "gamma";
 export interface ModalProps {
     readonly size?: ModalSize | undefined;
     readonly persistent?: boolean | undefined;
@@ -153,7 +153,7 @@ export interface ModalState {
 export class Modal extends Component<ModalProps, ModalState> {
 }
 
-export type PulsatorSize = 'alpha' | 'beta' | 'gamma' | 'delta';
+export type PulsatorSize = "alpha" | "beta" | "gamma" | "delta";
 export interface PulsatorProps {
     readonly color?: string | undefined;
     readonly size?: PulsatorSize | undefined;
@@ -172,11 +172,13 @@ export class Pulsator extends Component<PulsatorProps, PulsatorState> {
 }
 
 export type RadioGroupProps = HTMLAttributes<HTMLDivElement> & {
-    readonly options?: Array<{
-        readonly value: string;
-        readonly label: string | ReactNode;
-        readonly disabled?: boolean | undefined;
-    }> | undefined;
+    readonly options?:
+        | Array<{
+            readonly value: string;
+            readonly label: string | ReactNode;
+            readonly disabled?: boolean | undefined;
+        }>
+        | undefined;
     readonly value?: string | undefined;
     readonly accentColor?: string | undefined;
     readonly idleColor?: string | undefined;
@@ -192,10 +194,12 @@ export class RadioGroup extends Component<RadioGroupProps> {
 
 export interface SelectListProps {
     readonly placeholder?: string | undefined;
-    readonly options?: Array<{
-        readonly label: string;
-        readonly value: string;
-    }> | undefined;
+    readonly options?:
+        | Array<{
+            readonly label: string;
+            readonly value: string;
+        }>
+        | undefined;
     readonly width?: number | string | undefined;
     readonly height?: number | undefined;
     readonly error?: string | undefined;
@@ -236,7 +240,7 @@ export interface SpacingProps {
  */
 export const Spacing: FunctionComponent<SpacingProps>;
 
-export type SpinnerSize = 'alpha' | 'beta' | 'gamma' | 'delta';
+export type SpinnerSize = "alpha" | "beta" | "gamma" | "delta";
 export interface SpinnerProps {
     readonly size?: SpinnerSize | undefined;
     readonly ringColor?: string | undefined;
@@ -253,10 +257,12 @@ export class Spinner extends Component<SpinnerProps> {
 }
 
 export interface TabsProps {
-    readonly options?: Array<{
-        readonly value: string;
-        readonly label: string | ReactNode;
-    }> | undefined;
+    readonly options?:
+        | Array<{
+            readonly value: string;
+            readonly label: string | ReactNode;
+        }>
+        | undefined;
     readonly value?: string | undefined;
     readonly secondary?: boolean | undefined;
     readonly fit?: boolean | undefined;
@@ -271,7 +277,7 @@ export interface TabsProps {
 export class Tabs extends Component<TabsProps> {
 }
 
-export type TagSize = 'alpha' | 'beta';
+export type TagSize = "alpha" | "beta";
 export interface TagProps {
     readonly outlineColor?: string | undefined;
     readonly backgroundColor?: string | undefined;
@@ -454,10 +460,10 @@ export const sizes: {
 
 export const spacing: {
     default: string;
-    micro: string
-    tiny: string
-    small: string
-    large: string
-    huge: string
+    micro: string;
+    tiny: string;
+    small: string;
+    large: string;
+    huge: string;
     enormous: string;
 };

@@ -9,30 +9,25 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
+import { Company, CompanyIdentifier, List as CompanyList } from "./Company";
+import { Event, List as EventList, ListParam as EventListParam } from "./Event";
+import { IntercomError } from "./IntercomError";
+import { Lead, LeadIdentifier, LeadIdIdentifier, List as LeadList } from "./Lead";
+import { CreateMessage, Message } from "./Message";
+import { Scroll } from "./Scroll";
+import { List as TagList, Tag, TagIdentifier, TagOper } from "./Tag";
 import {
+    CreateUpdateUser,
     List as UserList,
     User,
-    UserIdIdentifier,
     UserEmailIdentifier,
     UserIdentifier,
-    CreateUpdateUser,
-} from './User';
-import {
-    List as LeadList,
-    Lead,
-    LeadIdentifier,
-    LeadIdIdentifier,
-} from './Lead';
-import { Visitor, VisitorIdentifier } from './Visitor';
-import { CompanyIdentifier, List as CompanyList, Company } from './Company';
-import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
-import { List as EventList, Event, ListParam as EventListParam } from './Event';
-import { CreateMessage, Message } from './Message';
-import { Scroll } from './Scroll';
-import { IntercomError } from './IntercomError';
+    UserIdIdentifier,
+} from "./User";
+import { Visitor, VisitorIdentifier } from "./Visitor";
 
-import { IncomingMessage } from 'http';
-import request = require('request');
+import { IncomingMessage } from "http";
+import request = require("request");
 
 export { IntercomError };
 
@@ -73,8 +68,8 @@ export class ApiResponse<T> extends IncomingMessage {
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
 
 interface BulkOperation {
-    create?: any
-    delete?: any
+    create?: any;
+    delete?: any;
 }
 
 export class Users {
@@ -95,7 +90,10 @@ export class Users {
     list(cb: callback<ApiResponse<UserList>>): void;
 
     listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<UserList>>;
-    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<UserList>>): void;
+    listBy(
+        params: { tag_id?: string | undefined; segment_id?: string | undefined },
+        cb: callback<ApiResponse<UserList>>,
+    ): void;
 
     scroll: Scroll<User>;
 
@@ -122,8 +120,13 @@ export class Leads {
     list(): Promise<ApiResponse<LeadList>>;
     list(cb: callback<ApiResponse<LeadList>>): void;
 
-    listBy(params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<LeadList>>;
-    listBy(params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<LeadList>>): void;
+    listBy(
+        params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined },
+    ): Promise<ApiResponse<LeadList>>;
+    listBy(
+        params: { email?: string | undefined; tag_id?: string | undefined; segment_id?: string | undefined },
+        cb: callback<ApiResponse<LeadList>>,
+    ): void;
 
     find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>;
     find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
@@ -145,20 +148,20 @@ export class Visitors {
     delete(id: string): Promise<ApiResponse<Visitor>>;
     delete(id: string, cb: callback<ApiResponse<Visitor>>): void;
 
-    convert(params: { identifier: VisitorIdentifier; type: 'lead' }): Promise<ApiResponse<Lead>>;
-    convert(params: { identifier: VisitorIdentifier; type: 'user'; user: UserIdentifier }): Promise<ApiResponse<User>>;
+    convert(params: { identifier: VisitorIdentifier; type: "lead" }): Promise<ApiResponse<Lead>>;
+    convert(params: { identifier: VisitorIdentifier; type: "user"; user: UserIdentifier }): Promise<ApiResponse<User>>;
 
     convert(
         params: {
             identifier: VisitorIdentifier;
-            type: 'lead';
+            type: "lead";
         },
         cb: callback<ApiResponse<Lead>>,
     ): void;
     convert(
         params: {
             identifier: VisitorIdentifier;
-            type: 'user';
+            type: "user";
             user: UserIdentifier;
         },
         cb: callback<ApiResponse<User>>,
@@ -179,7 +182,10 @@ export class Companies {
     list(cb: callback<ApiResponse<CompanyList>>): void;
 
     listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }): Promise<ApiResponse<CompanyList>>;
-    listBy(params: { tag_id?: string | undefined; segment_id?: string | undefined }, cb: callback<ApiResponse<CompanyList>>): void;
+    listBy(
+        params: { tag_id?: string | undefined; segment_id?: string | undefined },
+        cb: callback<ApiResponse<CompanyList>>,
+    ): void;
 
     scroll: Scroll<Company>;
 
@@ -211,7 +217,7 @@ export class Events {
     listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
 
     bulk(operations: Array<BulkOperation>): Promise<ApiResponse<any>>;
-    bulk(operations: Array<BulkOperation>, cb: callback<ApiResponse<any>>): void
+    bulk(operations: Array<BulkOperation>, cb: callback<ApiResponse<any>>): void;
 }
 
 export class Messages {

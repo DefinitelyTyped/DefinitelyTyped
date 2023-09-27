@@ -5,7 +5,7 @@
 //                 Ward Delabastita <https://github.com/wdlb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export as namespace CopyToClipboard;
 

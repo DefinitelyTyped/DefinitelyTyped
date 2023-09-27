@@ -8,4 +8,4 @@ export class GraphicsLinearGradient extends GraphicsGradient {
     addColorStop(percent: any, color: any): void;
     clone(): GraphicsLinearGradient;
 }
-import { GraphicsGradient } from './GraphicsGradient';
+import { GraphicsGradient } from "./GraphicsGradient";

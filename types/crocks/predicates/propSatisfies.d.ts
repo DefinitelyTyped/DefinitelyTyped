@@ -1,4 +1,4 @@
-import Pred from '../Pred';
+import Pred from "../Pred";
 
 /**
  * propSatisfies :: (String | Integer) -> ((a -> Boolean) | Pred) -> Object -> Boolean

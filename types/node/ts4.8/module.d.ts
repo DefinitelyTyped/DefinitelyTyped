@@ -1,9 +1,10 @@
 /**
  * @since v0.3.7
+ * @experimental
  */
-declare module 'module' {
-    import { URL } from 'node:url';
-    import { MessagePort } from 'node:worker_threads';
+declare module "module" {
+    import { URL } from "node:url";
+    import { MessagePort } from "node:worker_threads";
     namespace Module {
         /**
          * The `module.syncBuiltinESMExports()` method updates all the live bindings for
@@ -96,12 +97,15 @@ declare module 'module' {
         interface ImportAssertions extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = 'builtin' | 'commonjs' | 'json' | 'module' | 'wasm';
+        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
         }
         /**
+         * @deprecated This hook will be removed in a future version.
+         * Use `initialize` instead. When a loader has an `initialize` export, `globalPreload` will be ignored.
+         *
          * Sometimes it might be necessary to run some code inside of the same global scope that the application runs in.
          * This hook allows the return of a string that is run as a sloppy-mode script on startup.
          *
@@ -109,6 +113,14 @@ declare module 'module' {
          * @return Code to run before application startup
          */
         type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
+        /**
+         * The `initialize` hook provides a way to define a custom function that runs in the loader's thread
+         * when the loader is initialized. Initialization happens when the loader is registered via `register`
+         * or registered via the `--experimental-loader` command line option.
+         *
+         * This hook can send and receive data from a `register` invocation, including ports and other transferrable objects.
+         */
+        type InitializeHook<Data = any, ReturnType = any> = (data: Data) => ReturnType;
         interface ResolveHookContext {
             /**
              * Export conditions of the relevant `package.json`
@@ -154,7 +166,10 @@ declare module 'module' {
         type ResolveHook = (
             specifier: string,
             context: ResolveHookContext,
-            nextResolve: (specifier: string, context?: ResolveHookContext) => ResolveFnOutput | Promise<ResolveFnOutput>
+            nextResolve: (
+                specifier: string,
+                context?: ResolveHookContext,
+            ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
             /**
@@ -193,8 +208,13 @@ declare module 'module' {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>
+            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
+    }
+    interface RegisterOptions<Data> {
+        parentURL: string;
+        data?: Data | undefined;
+        transferList?: any[] | undefined;
     }
     interface Module extends NodeModule {}
     class Module {
@@ -204,13 +224,26 @@ declare module 'module' {
         static builtinModules: string[];
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
+        static register<Data = any, ReturnType = any>(
+            specifier: string,
+            parentURL?: string,
+            options?: RegisterOptions<Data>,
+        ): ReturnType;
+        static register<Data = any, ReturnType = any>(specifier: string, options?: RegisterOptions<Data>): ReturnType;
         constructor(id: string, parent?: Module);
     }
     global {
         interface ImportMeta {
             url: string;
             /**
-             * @experimental
+             * Provides a module-relative resolution function scoped to each module, returning
+             * the URL string.
+             *
+             * @param specified The module specifier to resolve relative to the current module.
+             * @returns The absolute (`file:`) URL string for the resolved module.
+             */
+            resolve(specified: string): string;
+            /**
              * This feature is only available with the `--experimental-import-meta-resolve`
              * command flag enabled.
              *
@@ -218,15 +251,15 @@ declare module 'module' {
              * the URL string.
              *
              * @param specified The module specifier to resolve relative to `parent`.
-             * @param parent The absolute parent module URL to resolve from. If none
-             * is specified, the value of `import.meta.url` is used as the default.
+             * @param parent The absolute parent module URL to resolve from.
+             * @returns The absolute (`file:`) URL string for the resolved module.
              */
-            resolve?(specified: string, parent?: string | URL): Promise<string>;
+            resolve(specified: string, parent: string | URL): string;
         }
     }
     export = Module;
 }
-declare module 'node:module' {
-    import module = require('module');
+declare module "node:module" {
+    import module = require("module");
     export = module;
 }

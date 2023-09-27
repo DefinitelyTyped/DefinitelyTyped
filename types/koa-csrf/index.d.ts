@@ -22,16 +22,16 @@ app.use(new CSRF({
 
 export = CSRF;
 
-import { Context, Middleware } from 'koa';
+import { Context, Middleware } from "koa";
 
-declare module 'koa' {
+declare module "koa" {
     interface DefaultState {
         _csrf: string;
     }
 }
 
 declare const CSRF: {
-    new (opts?: {
+    new(opts?: {
         errorHandler?: (ctx: Context) => never;
         excludedMethods?: string[];
         disableQuery?: boolean;

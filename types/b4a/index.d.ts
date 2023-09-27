@@ -91,7 +91,7 @@ export function from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<numbe
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromstring-encoding
  */
 export function from(
-    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string },
+    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string },
     encoding?: BufferEncoding,
 ): Buffer | Uint8Array;
 /**

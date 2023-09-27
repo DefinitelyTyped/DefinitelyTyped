@@ -1,7 +1,7 @@
-import isObject = require('is-object');
+import isObject = require("is-object");
 
 const obj = {};
-if (isObject(obj)) isObject(obj['attr']);
+if (isObject(obj)) isObject(obj["attr"]);
 
 isObject(null);
 isObject(undefined);

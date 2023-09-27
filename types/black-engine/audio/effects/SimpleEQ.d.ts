@@ -10,4 +10,4 @@ export class SimpleEQ extends SoundEffect {
     savePreset(name: string): void;
     applyPreset(name: string): void;
 }
-import { SoundEffect } from '../SoundEffect';
+import { SoundEffect } from "../SoundEffect";

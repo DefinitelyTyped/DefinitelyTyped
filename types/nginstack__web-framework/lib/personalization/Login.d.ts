@@ -18,4 +18,4 @@ declare namespace Login {
         value: number;
     }>;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

@@ -5,11 +5,10 @@
 var options = {
     minMargin: 10,
     maxMargin: 35,
-    itemSelector: ".item"
+    itemSelector: ".item",
 };
 
 $(".container").rowGrid(options);
-
 
 /*
  *  Test endless scrolling

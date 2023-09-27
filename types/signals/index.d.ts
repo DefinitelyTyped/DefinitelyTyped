@@ -32,7 +32,7 @@ declare namespace signals {
          * <br />- inspired by Robert Penner's AS3 Signals.
          * @author Miller Medeiros
          */
-        new (): Signal<T>;
+        new(): Signal<T>;
 
         /**
          * If Signal is active and should broadcast events.

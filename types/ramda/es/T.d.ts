@@ -1,2 +1,2 @@
-import { T } from '../index';
+import { T } from "../index.js";
 export default T;

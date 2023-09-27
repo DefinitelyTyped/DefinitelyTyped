@@ -12,10 +12,9 @@ export interface Options {
     version?: string | undefined;
 }
 
-export type CorejsOption = (
+export type CorejsOption =
     | CorejsVersion
-    | { version: CorejsVersion, proposals: boolean }
-    | false
-);
+    | { version: CorejsVersion; proposals: boolean }
+    | false;
 
-export type CorejsVersion = (2 | 3);
+export type CorejsVersion = 2 | 3;

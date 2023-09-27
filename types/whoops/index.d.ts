@@ -16,11 +16,29 @@ declare namespace createErrorClass {
 }
 
 declare function createErrorClass(className?: string, props?: Record<string, any>): createErrorClass.ExtendError<Error>;
-declare function createErrorClass(className?: 'TypeError', props?: Record<string, any>): createErrorClass.ExtendError<TypeError>;
-declare function createErrorClass(className?: 'RangeError', props?: Record<string, any>): createErrorClass.ExtendError<RangeError>;
-declare function createErrorClass(className?: 'EvalError', props?: Record<string, any>): createErrorClass.ExtendError<EvalError>;
-declare function createErrorClass(className?: 'SyntaxError', props?: Record<string, any>): createErrorClass.ExtendError<SyntaxError>;
-declare function createErrorClass(className?: 'ReferenceError', props?: Record<string, any>): createErrorClass.ExtendError<ReferenceError>;
-declare function createErrorClass(className?: 'URIError', props?: Record<string, any>): createErrorClass.ExtendError<URIError>;
+declare function createErrorClass(
+    className?: "TypeError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<TypeError>;
+declare function createErrorClass(
+    className?: "RangeError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<RangeError>;
+declare function createErrorClass(
+    className?: "EvalError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<EvalError>;
+declare function createErrorClass(
+    className?: "SyntaxError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<SyntaxError>;
+declare function createErrorClass(
+    className?: "ReferenceError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<ReferenceError>;
+declare function createErrorClass(
+    className?: "URIError",
+    props?: Record<string, any>,
+): createErrorClass.ExtendError<URIError>;
 
 export = createErrorClass;

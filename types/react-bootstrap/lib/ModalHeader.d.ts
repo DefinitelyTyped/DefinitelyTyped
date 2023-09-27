@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ModalHeader {
     export interface ModalHeaderProps extends React.HTMLProps<ModalHeader> {
@@ -8,5 +8,5 @@ declare namespace ModalHeader {
         bsClass?: string | undefined;
     }
 }
-declare class ModalHeader extends React.Component<ModalHeader.ModalHeaderProps> { }
+declare class ModalHeader extends React.Component<ModalHeader.ModalHeaderProps> {}
 export = ModalHeader;

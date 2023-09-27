@@ -8,7 +8,7 @@ type MultiValue<V extends Record<string, number>> = V & {
 };
 
 interface SingleValue {
-    get: (name?: 'value', now?: Date) => number;
+    get: (name?: "value", now?: Date) => number;
     set: (values: number | { value: number }, time?: number) => void;
     value: number;
 }

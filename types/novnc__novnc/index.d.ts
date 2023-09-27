@@ -4,7 +4,8 @@
 //                 Maksim Ovcharik <https://github.com/ovcharik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module '@novnc/novnc/core/rfb' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/core/rfb" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
@@ -106,7 +107,7 @@ declare module '@novnc/novnc/core/rfb' {
          * The `detail` property is an `object` with the property `capabilities` containing the new
          * value of `capabilities`.
          */
-        capabilities: CustomEvent<{ capabilities: NoVncClient['capabilities'] }>;
+        capabilities: CustomEvent<{ capabilities: NoVncClient["capabilities"] }>;
     }
 
     type NoVncEventType = keyof NoVncEvents;
@@ -298,7 +299,8 @@ declare module '@novnc/novnc/core/rfb' {
     }
 }
 
-declare module '@novnc/novnc/core/util/browser' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/core/util/browser" {
     let isTouchDevice: boolean;
     let dragThreshold: number;
 
@@ -312,7 +314,8 @@ declare module '@novnc/novnc/core/util/browser' {
     function isFirefox(): boolean;
 }
 
-declare module '@novnc/novnc/core/input/util' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/core/input/util" {
     interface KeyboardEventBase {
         char?: string;
         charCode?: number;

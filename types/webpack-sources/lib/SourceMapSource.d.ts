@@ -1,7 +1,7 @@
-import { RawSourceMap, SourceMapGenerator } from 'source-map';
+import { RawSourceMap, SourceMapGenerator } from "source-map";
 
-import { SourceAndMapMixin } from '.';
-import Source = require('./Source');
+import { SourceAndMapMixin } from ".";
+import Source = require("./Source");
 
 /**
  * Represents source code with SourceMap, optionally having an additional SourceMap for the original source.

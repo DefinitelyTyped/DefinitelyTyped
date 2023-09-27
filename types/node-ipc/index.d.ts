@@ -348,6 +348,6 @@ declare namespace NodeIPC {
     }
 }
 
-declare const RootIPC: NodeIPC.IPC & { IPC: new () => NodeIPC.IPC };
+declare const RootIPC: NodeIPC.IPC & { IPC: new() => NodeIPC.IPC };
 
 export = RootIPC;

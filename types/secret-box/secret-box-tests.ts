@@ -1,11 +1,11 @@
-import * as secretBox from 'secret-box';
+import * as secretBox from "secret-box";
 
 // test type exports
 type EncryptOptions = secretBox.EncryptOptions;
 type SerializedResult = secretBox.SerializedResult;
 
-const pw = 'open sesame 2';
-const message = Buffer.from('The secret launch code is 1234.');
+const pw = "open sesame 2";
+const message = Buffer.from("The secret launch code is 1234.");
 
 const secret = secretBox.encrypt(message, pw); // $ExpectType Buffer
 secretBox.encrypt(message, Buffer.from(pw)); // $ExpectType Buffer

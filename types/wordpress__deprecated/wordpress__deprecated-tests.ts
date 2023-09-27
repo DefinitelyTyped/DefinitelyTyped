@@ -1,14 +1,14 @@
-import deprecated, { logged } from '@wordpress/deprecated';
+import deprecated, { logged } from "@wordpress/deprecated";
 
 // $ExpectType void
-deprecated('foo');
+deprecated("foo");
 
-deprecated('foo', { alternative: 'bar' });
-deprecated('foo', { hint: 'bar' });
-deprecated('foo', { link: 'bar' });
-deprecated('foo', { plugin: 'bar' });
-deprecated('foo', { version: 'bar' });
-deprecated('foo', { alternative: 'bar', hint: 'baz', version: 'qux' });
+deprecated("foo", { alternative: "bar" });
+deprecated("foo", { hint: "bar" });
+deprecated("foo", { link: "bar" });
+deprecated("foo", { plugin: "bar" });
+deprecated("foo", { version: "bar" });
+deprecated("foo", { alternative: "bar", hint: "baz", version: "qux" });
 
 // $ExpectType Record<string, boolean | undefined>
 logged;

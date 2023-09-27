@@ -4,9 +4,6 @@
         "ban-types": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

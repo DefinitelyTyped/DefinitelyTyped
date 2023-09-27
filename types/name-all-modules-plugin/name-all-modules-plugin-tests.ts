@@ -1,21 +1,21 @@
 /// <reference types="node" />
 
-import path = require('path');
-import { NamedModulesPlugin, NamedChunksPlugin } from 'webpack';
-import NameAllModulesPlugin = require('name-all-modules-plugin');
+import path = require("path");
+import { NamedChunksPlugin, NamedModulesPlugin } from "webpack";
+import NameAllModulesPlugin = require("name-all-modules-plugin");
 
 module.exports = {
     entry: {
-        main: './src/foo',
-        other: './src/foo-two',
-        vendor: ['preact'],
+        main: "./src/foo",
+        other: "./src/foo-two",
+        vendor: ["preact"],
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: '[name].[chunkhash].js',
+        path: path.join(__dirname, "dist"),
+        filename: "[name].[chunkhash].js",
     },
     externals: {
-        jquery: 'jQuery',
+        jquery: "jQuery",
     },
     plugins: [
         new NamedModulesPlugin(),
@@ -23,7 +23,7 @@ module.exports = {
             if (chunk.name) {
                 return chunk.name;
             }
-            return chunk.modules.map((m: any) => path.relative(m.context, m.request)).join('_');
+            return chunk.modules.map((m: any) => path.relative(m.context, m.request)).join("_");
         }),
         // some other declaration
         // ....

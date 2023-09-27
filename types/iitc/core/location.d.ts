@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     /** retrieves current position from map and stores it cookies */

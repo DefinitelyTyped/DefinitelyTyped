@@ -1,2 +1,2 @@
-import { isNil } from '../index';
+import { isNil } from "../index.js";
 export default isNil;

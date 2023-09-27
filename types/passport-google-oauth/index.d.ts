@@ -6,8 +6,8 @@
 
 /// <reference types="passport"/>
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 interface Profile extends passport.Profile {
     gender: string;
@@ -40,8 +40,8 @@ declare class OAuthStrategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     name: string;
     authenticate(req: express.Request, options?: Object): void;
@@ -76,8 +76,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     constructor(
         options: IOAuth2StrategyOptionWithRequest,
@@ -86,8 +86,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
 
     name: string;

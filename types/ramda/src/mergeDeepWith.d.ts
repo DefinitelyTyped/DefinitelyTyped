@@ -1,2 +1,2 @@
-import { mergeDeepWith } from '../index';
+import { mergeDeepWith } from "../index";
 export default mergeDeepWith;

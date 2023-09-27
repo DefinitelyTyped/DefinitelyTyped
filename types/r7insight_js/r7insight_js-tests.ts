@@ -1,4 +1,4 @@
-import { error, info, init, log, warn } from 'r7insight_js';
+import { error, info, init, log, warn } from "r7insight_js";
 
 // @ts-expect-error
 init();
@@ -7,55 +7,55 @@ init();
 init({});
 
 // @ts-expect-error
-init({ token: 'token' });
+init({ token: "token" });
 
 // @ts-expect-error
-init({ region: 'eu' });
+init({ region: "eu" });
 
-init({ token: 'token', region: 'eu' }); // $ExpectType void
+init({ token: "token", region: "eu" }); // $ExpectType void
 
 init({
-    token: 'token',
-    region: 'eu',
+    token: "token",
+    region: "eu",
     ssl: true,
     catchall: true,
     trace: true,
     no_format: true,
-    page_info: 'never',
+    page_info: "never",
     print: true,
 });
 
-const string = 'value';
-const obj = { key: 'value' };
+const string = "value";
+const obj = { key: "value" };
 
 // @ts-expect-error
 log();
 log(undefined);
-log('Message'); // $ExpectType void
-log('Message with', string, ' and some objects: ', obj, 1);
+log("Message"); // $ExpectType void
+log("Message with", string, " and some objects: ", obj, 1);
 log(obj);
 log(obj, obj);
 
 // @ts-expect-error
 error();
 error(undefined);
-error('Message'); // $ExpectType void
-error('Message with', string, ' and some objects: ', obj, 1);
+error("Message"); // $ExpectType void
+error("Message with", string, " and some objects: ", obj, 1);
 error(obj);
 error(obj, obj);
 
 // @ts-expect-error
 warn();
 warn(undefined);
-warn('Message'); // $ExpectType void
-warn('Message with', string, ' and some objects: ', obj, 1);
+warn("Message"); // $ExpectType void
+warn("Message with", string, " and some objects: ", obj, 1);
 warn(obj);
 warn(obj, obj);
 
 // @ts-expect-error
 info();
 info(undefined);
-info('Message'); // $ExpectType void
-info('Message with', string, ' and some objects: ', obj, 1);
+info("Message"); // $ExpectType void
+info("Message with", string, " and some objects: ", obj, 1);
 info(obj);
 info(obj, obj);

@@ -1,16 +1,16 @@
-import { View } from './../view/view';
-import { Base, EmitterBase } from '../base';
-import { Channel } from '../interappbus/channel/index';
-import { ChannelClient } from '../interappbus/channel/client';
-import { Identity } from '../../identity';
-import { ApplicationOption } from '../application/applicationOption';
-import { WindowOption } from '../window/windowOption';
-import { ViewCreationOptions } from '../view/view';
-import { RvmLaunchOptions } from '../application/application';
-import Transport from '../../transport/transport';
-import LayoutModule from './layout';
-import { PlatformEvents } from '../events/platform';
-import { _Window } from '../window/window';
+import { Identity } from "../../identity";
+import Transport from "../../transport/transport";
+import { RvmLaunchOptions } from "../application/application";
+import { ApplicationOption } from "../application/applicationOption";
+import { Base, EmitterBase } from "../base";
+import { PlatformEvents } from "../events/platform";
+import { ChannelClient } from "../interappbus/channel/client";
+import { Channel } from "../interappbus/channel/index";
+import { View } from "./../view/view";
+import { ViewCreationOptions } from "../view/view";
+import { _Window } from "../window/window";
+import { WindowOption } from "../window/windowOption";
+import LayoutModule from "./layout";
 export interface Snapshot {
     windows: WindowOption[];
 }
@@ -79,13 +79,13 @@ export default class PlatformModule extends Base {
      */
     getCurrentSync(): Platform;
     /**
-    * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
-    * be used to launch content into the platform.  Promise will reject if the platform is already running.
-    * @param { PlatformOptions } platformOptions
-    * @return {Promise.<Platform>}
-    * @tutorial Platform.start
-    * @static
-    */
+     * Creates and starts a Platform and returns a wrapped and running Platform instance. The wrapped Platform methods can
+     * be used to launch content into the platform.  Promise will reject if the platform is already running.
+     * @param { PlatformOptions } platformOptions
+     * @return {Promise.<Platform>}
+     * @tutorial Platform.start
+     * @static
+     */
     start(platformOptions: PlatformOptions): Promise<Platform>;
     /**
      * Retrieves platforms's manifest and returns a wrapped and running Platform.  If there is a snapshot in the manifest,
@@ -108,7 +108,7 @@ export declare class Platform extends EmitterBase<PlatformEvents> {
     Layout: LayoutModule;
     private _channel;
     identity: Identity;
-    onWindowContextUpdate: Platform['onWindowContextUpdated'];
+    onWindowContextUpdate: Platform["onWindowContextUpdated"];
     constructor(identity: Identity, channel: Channel);
     getClient(identity?: Identity): Promise<ChannelClient>;
     /**

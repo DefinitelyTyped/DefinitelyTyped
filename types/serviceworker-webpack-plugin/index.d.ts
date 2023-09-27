@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Stats } from 'webpack';
+import { Plugin, Stats } from "webpack";
 
 declare class ServiceWorkerWebpackPlugin<T = ServiceWorkerWebpackPlugin.ServiceWorkerDefaultOption> extends Plugin {
     constructor(options: ServiceWorkerWebpackPlugin.ServiceWorkerWebpackPluginOptions<T>);

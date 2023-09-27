@@ -3,8 +3,8 @@
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Root } from 'hast';
-import { Plugin } from 'unified';
+import { Root } from "hast";
+import { Plugin } from "unified";
 
 declare namespace rehypePrism {
     interface Options {

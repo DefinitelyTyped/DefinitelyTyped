@@ -3,9 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
-        "npm-naming": false,
-        "one-line": false,
-        "semicolon": false
+        "npm-naming": false
     }
 }

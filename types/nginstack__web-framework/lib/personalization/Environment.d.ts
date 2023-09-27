@@ -9,5 +9,5 @@ declare class Environment {
 declare namespace Environment {
     function getInstance(userAgent: number, userKey: number): Environment;
 }
-import MenuBar = require('./MenuBar.js');
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import MenuBar = require("./MenuBar.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

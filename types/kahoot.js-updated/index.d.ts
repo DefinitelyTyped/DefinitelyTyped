@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import EventEmitter = require('events');
-import { RequestOptions } from 'http';
-import WebSocket = require('ws');
+import EventEmitter = require("events");
+import { RequestOptions } from "http";
+import WebSocket = require("ws");
 
-import LiveTwoStepAnswer = require('./src/assets/LiveTwoStepAnswer');
-import LiveClientHandshake = require('./src/assets/LiveClientHandshake');
-import LiveJoinPacket = require('./src/assets/LiveJoinPacket');
-import LiveJoinTeamPacket = require('./src/assets/LiveJoinTeamPacket');
-import LiveLeavePacket = require('./src/assets/LiveLeavePacket');
-import LiveBaseMessage = require('./src/assets/LiveBaseMessage');
+import LiveTwoStepAnswer = require("./src/assets/LiveTwoStepAnswer");
+import LiveClientHandshake = require("./src/assets/LiveClientHandshake");
+import LiveJoinPacket = require("./src/assets/LiveJoinPacket");
+import LiveJoinTeamPacket = require("./src/assets/LiveJoinTeamPacket");
+import LiveLeavePacket = require("./src/assets/LiveLeavePacket");
+import LiveBaseMessage = require("./src/assets/LiveBaseMessage");
 
 declare namespace Kahoot {
     interface KahootOptions {
@@ -22,36 +22,36 @@ declare namespace Kahoot {
          */
         options?:
             | {
-                  ChallengeAutoContinue?: boolean | undefined;
-                  ChallengeGetFullScore?: boolean | undefined;
-                  ChallengeAlwaysCorrect?: boolean | undefined;
-                  ChallengeUseStreakBonus?: boolean | undefined;
-                  ChallengeWaitForInput?: boolean | undefined;
-                  ChallengeScore?: number | null | undefined;
-              }
+                ChallengeAutoContinue?: boolean | undefined;
+                ChallengeGetFullScore?: boolean | undefined;
+                ChallengeAlwaysCorrect?: boolean | undefined;
+                ChallengeUseStreakBonus?: boolean | undefined;
+                ChallengeWaitForInput?: boolean | undefined;
+                ChallengeScore?: number | null | undefined;
+            }
             | undefined;
         /**
          * Modules to load or not to load. All are enabled by default
          */
         modules?:
             | {
-                  extraData?: boolean | undefined;
-                  feedback?: boolean | undefined;
-                  gameReset?: boolean | undefined;
-                  quizStart?: boolean | undefined;
-                  quizEnd?: boolean | undefined;
-                  podium?: boolean | undefined;
-                  timeOver?: boolean | undefined;
-                  reconnect?: boolean | undefined;
-                  questionReady?: boolean | undefined;
-                  questionStart?: boolean | undefined;
-                  questionEnd?: boolean | undefined;
-                  nameAccept?: boolean | undefined;
-                  teamAccept?: boolean | undefined;
-                  teamTalk?: boolean | undefined;
-                  backup?: boolean | undefined;
-                  answer?: boolean | undefined;
-              }
+                extraData?: boolean | undefined;
+                feedback?: boolean | undefined;
+                gameReset?: boolean | undefined;
+                quizStart?: boolean | undefined;
+                quizEnd?: boolean | undefined;
+                podium?: boolean | undefined;
+                timeOver?: boolean | undefined;
+                reconnect?: boolean | undefined;
+                questionReady?: boolean | undefined;
+                questionStart?: boolean | undefined;
+                questionEnd?: boolean | undefined;
+                nameAccept?: boolean | undefined;
+                teamAccept?: boolean | undefined;
+                teamTalk?: boolean | undefined;
+                backup?: boolean | undefined;
+                answer?: boolean | undefined;
+            }
             | undefined;
 
         proxy?: ((options: RequestOptions) => void | RequestOptions) | undefined;
@@ -145,7 +145,7 @@ declare namespace Kahoot {
     }
 
     interface Podium {
-        podiumMedalType?: 'gold' | 'silver' | 'bronze' | null | undefined;
+        podiumMedalType?: "gold" | "silver" | "bronze" | null | undefined;
     }
 
     interface QuestionReady {
@@ -170,7 +170,7 @@ declare namespace Kahoot {
 
     interface QuestionStart extends QuestionReady {
         /** @inheritdoc */
-        answer: Kahoot['answer'];
+        answer: Kahoot["answer"];
     }
 
     interface QuestionEnd {
@@ -278,7 +278,7 @@ declare class Kahoot extends EventEmitter {
         pin: string | number,
         name: string,
         team?: string[] | false,
-    ): { client: Kahoot; event: ReturnType<Kahoot['join']> };
+    ): { client: Kahoot; event: ReturnType<Kahoot["join"]> };
 
     /**
      * Join a game
@@ -291,7 +291,6 @@ declare class Kahoot extends EventEmitter {
     join(pin: string | number, name: string, team?: string[] | false): Promise<Kahoot.JoinResponse>;
 
     /**
-     *
      * @param team The team member names. If set to false, team members will not be automatically added
      * @param emit Whether to emit the Join and TwoFactorReset events
      * @fires Kahoot#Joined
@@ -334,22 +333,22 @@ declare class Kahoot extends EventEmitter {
     gameid?: number | undefined;
 
     handlers: Record<
-        | 'feedback'
-        | 'gameReset'
-        | 'quizStart'
-        | 'quizEnd'
-        | 'podium'
-        | 'timeOver'
-        | 'QuestionReady'
-        | 'questionStart'
-        | 'questionEnd'
-        | 'nameAccept'
-        | 'teamAccept'
-        | 'teamTalk'
-        | 'PingChecker'
-        | 'timetrack'
-        | 'Disconnect'
-        | 'JoinFinish',
+        | "feedback"
+        | "gameReset"
+        | "quizStart"
+        | "quizEnd"
+        | "podium"
+        | "timeOver"
+        | "QuestionReady"
+        | "questionStart"
+        | "questionEnd"
+        | "nameAccept"
+        | "teamAccept"
+        | "teamTalk"
+        | "PingChecker"
+        | "timetrack"
+        | "Disconnect"
+        | "JoinFinish",
         (message: LiveBaseMessage) => void
     >;
 

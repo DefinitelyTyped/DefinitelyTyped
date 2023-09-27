@@ -34,10 +34,10 @@
  * The type cast is necessary since the type definitions for Koa do not allow for the `Context.req` property to be extended.
  */
 
-import * as Koa from 'koa';
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
+import * as Koa from "koa";
 
-declare module 'koa' {
+declare module "koa" {
     interface DefaultContext {
         file: multer.File;
         files: { [fieldname: string]: multer.File[] } | multer.File[] | undefined;
@@ -114,7 +114,11 @@ declare namespace multer {
             preservePath?: boolean | undefined;
         } | undefined;
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: IncomingMessage, file: File, callback: (error: Error | null, acceptFile: boolean) => void): void;
+        fileFilter?(
+            req: IncomingMessage,
+            file: File,
+            callback: (error: Error | null, acceptFile: boolean) => void,
+        ): void;
     }
 
     interface StorageEngine {
@@ -124,7 +128,10 @@ declare namespace multer {
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: string | ((req: IncomingMessage, file: File, callback: (error: Error | null, destination: string) => void) => void) | undefined;
+        destination?:
+            | string
+            | ((req: IncomingMessage, file: File, callback: (error: Error | null, destination: string) => void) => void)
+            | undefined;
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
         filename?(req: IncomingMessage, file: File, callback: (error: Error | null, filename: string) => void): void;
     }

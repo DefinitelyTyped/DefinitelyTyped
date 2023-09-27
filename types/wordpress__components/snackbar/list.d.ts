@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import NoticeList from '../notice/list';
+import NoticeList from "../notice/list";
 
 declare namespace SnackbarList {
     type Props = NoticeList.Props;

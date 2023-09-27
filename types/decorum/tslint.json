@@ -5,7 +5,6 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "no-duplicate-imports": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
@@ -13,8 +12,6 @@
         "npm-naming": false,
         "prefer-const": false,
         "prefer-for-of": false,
-        "prefer-template": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "prefer-template": false
     }
 }

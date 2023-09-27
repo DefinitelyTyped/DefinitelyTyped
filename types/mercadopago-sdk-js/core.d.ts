@@ -5,15 +5,15 @@
 
 declare namespace mercadopagocore {
     enum Locale {
-        ES_AR = 'es-AR',
-        ES_CL = 'es-CL',
-        ES_CO = 'es-CO',
-        ES_MX = 'es-MX',
-        ES_VE = 'es-VE',
-        ES_UY = 'es-UY',
-        ES_PE = 'es-PE',
-        PT_BR = 'pt-BR',
-        EN_US = 'en-US',
+        ES_AR = "es-AR",
+        ES_CL = "es-CL",
+        ES_CO = "es-CO",
+        ES_MX = "es-MX",
+        ES_VE = "es-VE",
+        ES_UY = "es-UY",
+        ES_PE = "es-PE",
+        PT_BR = "pt-BR",
+        EN_US = "en-US",
     }
 
     interface Options {
@@ -22,7 +22,7 @@ declare namespace mercadopagocore {
         trackingDisabled?: boolean;
     }
 
-    type ProcessingMode = 'gateway' | 'aggregator';
+    type ProcessingMode = "gateway" | "aggregator";
 
     interface IdentificationTypesResponse {
         id: string;

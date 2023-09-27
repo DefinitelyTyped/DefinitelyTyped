@@ -11,36 +11,36 @@ export interface JsonOption extends VerovioOption {
 }
 
 export interface IntOption extends VerovioOption {
-    type: 'int';
+    type: "int";
     min?: number;
     max?: number;
     default?: number;
     values?: undefined;
 }
 export interface DoubleOption extends VerovioOption {
-    type: 'double';
+    type: "double";
     min?: number;
     max?: number;
     default?: number;
     values?: undefined;
 }
 export interface StringArrayOption extends VerovioOption {
-    type: 'array';
+    type: "array";
     default?: string[];
     values?: undefined;
 }
 export interface StringOption extends VerovioOption {
-    type: 'std::string';
+    type: "std::string";
     default?: string;
     values?: undefined;
 }
 export interface EnumOption extends VerovioOption {
-    type: 'std::string-list';
+    type: "std::string-list";
     default?: string;
     values: string[];
 }
 export interface BooleanOption extends VerovioOption {
-    type: 'bool';
+    type: "bool";
     default?: boolean;
     values?: undefined;
 }

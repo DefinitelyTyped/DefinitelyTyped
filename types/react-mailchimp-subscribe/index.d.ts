@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode } from "react";
 
 // A few common set of form fields, based on defaults in Mailchimp's website
 export interface EmailFormFields {
@@ -17,27 +17,27 @@ export interface NameFormFields extends EmailFormFields {
 }
 
 export interface ClassicFormFields extends NameFormFields {
-    'BIRTHDAY[month]': number;
-    'BIRTHDAY[day]': number;
+    "BIRTHDAY[month]": number;
+    "BIRTHDAY[day]": number;
 }
 
 // library default form just sends EMAIL
 export type DefaultFormFields = EmailFormFields;
 
 export interface ErrorResponseArgs {
-    status: 'error';
+    status: "error";
     message: string | Error;
 }
 
 export interface SuccessResponseArgs {
-    status: 'success';
+    status: "success";
     message: string;
 }
 
 export type ResponseArgs = ErrorResponseArgs | SuccessResponseArgs;
 
 export interface PendingArgs {
-    status: 'sending' | null;
+    status: "sending" | null;
     message: null;
 }
 

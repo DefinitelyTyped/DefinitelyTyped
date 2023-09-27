@@ -1,4 +1,4 @@
-import polar = require('array-polar');
+import polar = require("array-polar");
 
 polar([0, 1, 1, 0]); // $ExpectType number[]
 polar(new Uint8Array([0, 1, 1, 0])); // $ExpectType Uint8Array

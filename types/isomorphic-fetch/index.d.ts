@@ -3,6 +3,6 @@
 // Definitions by: Todd Lucas <https://github.com/toddlucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace _fetch { }
+declare namespace _fetch {}
 declare const _fetch: typeof fetch;
 export = _fetch;

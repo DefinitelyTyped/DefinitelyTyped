@@ -1,13 +1,13 @@
-import get = require('simple-get');
+import get = require("simple-get");
 
-get('http://example.com', (err, res) => {
+get("http://example.com", (err, res) => {
     // $ExpectType Error | null
     err;
     // $ExpectType IncomingMessage | undefined
     res;
 });
 
-get.concat('http://example.com', (err, res, data) => {
+get.concat("http://example.com", (err, res, data) => {
     // $ExpectType Error | null
     err;
     // $ExpectType IncomingMessage | undefined
@@ -17,12 +17,12 @@ get.concat('http://example.com', (err, res, data) => {
 });
 
 get.get({
-    url: 'http://example.com',
-    method: 'POST',
-    body: 'this is the POST body',
+    url: "http://example.com",
+    method: "POST",
+    body: "this is the POST body",
     headers: {
-        'user-agent': 'my cool app'
-    }
+        "user-agent": "my cool app",
+    },
 }, (err, res) => {
     // $ExpectType Error | null
     err;
@@ -31,11 +31,11 @@ get.get({
 });
 
 get.post({
-    url: 'http://example.com',
+    url: "http://example.com",
     body: {
-        value: 123
+        value: 123,
     },
-    timeout: 2000
+    timeout: 2000,
 }, (err, res) => {
     // $ExpectType Error | null
     err;
@@ -44,10 +44,10 @@ get.post({
 });
 
 get.head({
-    url: 'http://example.com',
+    url: "http://example.com",
     form: {
-        key: 'value'
-    }
+        key: "value",
+    },
 }, (err, res) => {
     // $ExpectType Error | null
     err;
@@ -56,10 +56,10 @@ get.head({
 });
 
 get.patch({
-    url: 'http://example.com',
+    url: "http://example.com",
     form: {
-        key: 'value'
-    }
+        key: "value",
+    },
 }, (err, res) => {
     // $ExpectType Error | null
     err;
@@ -68,10 +68,10 @@ get.patch({
 });
 
 get.put({
-    url: 'http://example.com',
+    url: "http://example.com",
     form: {
-        key: 'value'
-    }
+        key: "value",
+    },
 }, (err, res) => {
     // $ExpectType Error | null
     err;
@@ -80,10 +80,10 @@ get.put({
 });
 
 get.delete({
-    url: 'http://example.com',
+    url: "http://example.com",
     form: {
-        key: 'value'
-    }
+        key: "value",
+    },
 }, (err, res) => {
     // $ExpectType Error | null
     err;

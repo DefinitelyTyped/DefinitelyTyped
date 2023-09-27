@@ -3,15 +3,8 @@
     "rules": {
         "array-type": false,
         "interface-name": false,
-        "max-line-length": false,
         "no-inferrable-types": false,
-        "no-padding": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "one-line": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false
+        "prefer-const": false
     }
 }

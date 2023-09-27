@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 export class Peripheral extends EventEmitter {
     private _alive;
     readonly alive: boolean;

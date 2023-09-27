@@ -24,6 +24,6 @@ interface JQueryDrawerOptions {
 
 interface JQuery {
     drawer(options?: JQueryDrawerOptions): JQuery;
-    drawer(method: 'open'|'close'|'toggle'|'destroy'): JQuery;
-    on(event: 'drawer.opened'|'drawer.closed', handler: () => void): JQuery;
+    drawer(method: "open" | "close" | "toggle" | "destroy"): JQuery;
+    on(event: "drawer.opened" | "drawer.closed", handler: () => void): JQuery;
 }

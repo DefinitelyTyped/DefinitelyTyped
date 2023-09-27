@@ -6,9 +6,12 @@
 
 /// <reference types="node" />
 
-import npmFetch = require('npm-registry-fetch');
+import npmFetch = require("npm-registry-fetch");
 
-declare function search(query: string | ReadonlyArray<string>, opts: search.Options & { detailed: true }): Promise<search.DetailedResult[]>;
+declare function search(
+    query: string | ReadonlyArray<string>,
+    opts: search.Options & { detailed: true },
+): Promise<search.DetailedResult[]>;
 declare function search(query: string | ReadonlyArray<string>, opts?: search.Options): Promise<search.Result[]>;
 
 declare namespace search {
@@ -66,7 +69,7 @@ declare namespace search {
          * Used as a shorthand to set `opts.quality`, `opts.maintenance`, and
          * `opts.popularity` with values that prioritize each one.
          */
-        sortBy?: 'optimal' | 'quality' | 'maintenance' | 'popularity' | undefined;
+        sortBy?: "optimal" | "quality" | "maintenance" | "popularity" | undefined;
         /**
          * Decimal number between `0` and `1` that defines the weight of
          * `maintenance` metrics when scoring and sorting packages.
