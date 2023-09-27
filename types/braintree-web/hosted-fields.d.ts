@@ -21,11 +21,11 @@ export interface HostedFieldsFieldSupportedCardBrands {
      */
     visa?: boolean | undefined;
     mastercard?: boolean | undefined;
-    'american-express'?: boolean | undefined;
-    'diners-club'?: boolean | undefined;
+    "american-express"?: boolean | undefined;
+    "diners-club"?: boolean | undefined;
     discover?: boolean | undefined;
     jcb?: boolean | undefined;
-    'union-pay'?: boolean | undefined;
+    "union-pay"?: boolean | undefined;
     maestro?: boolean | undefined;
     elo?: boolean | undefined;
     mir?: boolean | undefined;
