@@ -1,6 +1,6 @@
-import map = require('map-stream');
+import map = require("map-stream");
 
-const callback: map.Callback = function (err, data) {};
+const callback: map.Callback = function(err, data) {};
 
 const fn = map((data, callback) => {}, {
     failures: true,

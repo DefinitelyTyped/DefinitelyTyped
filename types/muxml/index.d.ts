@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
-import * as sax from 'sax';
+import * as sax from "sax";
+import { Transform } from "stream";
 
 declare namespace muxml {
     interface Options {
@@ -27,7 +27,7 @@ declare namespace muxml {
          *
          * @default 'spaces'
          */
-        indentStyle?: 'spaces' | 'tabs' | undefined;
+        indentStyle?: "spaces" | "tabs" | undefined;
 
         /**
          * When pretty is set to true and indentStyle is set to spaces, then indent with this number of spaces.

@@ -3,6 +3,6 @@
 // Definitions by: Daniil Pronin <https://github.com/grawl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import MarkdownIt = require('markdown-it');
+import MarkdownIt = require("markdown-it");
 declare function attrs(md: MarkdownIt): void;
 export = attrs;

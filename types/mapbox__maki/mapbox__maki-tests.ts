@@ -1,4 +1,4 @@
-import { layouts, svgArray } from '@mapbox/maki';
+import { layouts, svgArray } from "@mapbox/maki";
 
 layouts; // $ExpectType string[]
 svgArray; // $ExpectType string[]

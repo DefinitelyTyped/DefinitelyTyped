@@ -3,7 +3,7 @@
 // Definitions by: Luqman Rizal <https://github.com/drpsyko101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { MouseEvent } from 'react';
+import { MouseEvent } from "react";
 
 declare namespace MarkdownNavbar {
     interface MarkdownNavbarProps {

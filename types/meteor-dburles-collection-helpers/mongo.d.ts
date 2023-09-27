@@ -1,12 +1,12 @@
-import { Helpers, Full, Data, AllowPartial, PartialHelpers } from 'meteor/dburles:collection-helpers';
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { AllowPartial, Data, Full, Helpers, PartialHelpers } from "meteor/dburles:collection-helpers";
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
 // Cursor<T> and Collection<T> are pulled from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/meteor/mongo.d.ts
 // and should be kept in sync with any changes to it
 // only modified properties are included
 
-declare module 'meteor/mongo' {
+declare module "meteor/mongo" {
     namespace Mongo {
         interface Collection<T> {
             /**
@@ -23,7 +23,7 @@ declare module 'meteor/mongo' {
              */
             helpers<allowPartial extends (false | AllowPartial) = false>(
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-                helpers: (allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>)
+                helpers: allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>,
             ): void;
 
             // modifications:
@@ -32,7 +32,9 @@ declare module 'meteor/mongo' {
 
             allow(options: {
                 insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
-                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                update?:
+                    | ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean)
+                    | undefined;
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto
@@ -41,7 +43,9 @@ declare module 'meteor/mongo' {
             }): boolean;
             deny(options: {
                 insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
-                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                update?:
+                    | ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean)
+                    | undefined;
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto

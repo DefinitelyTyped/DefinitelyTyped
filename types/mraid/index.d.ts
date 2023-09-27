@@ -69,7 +69,11 @@ export interface MRAIDEventHandlers {
     // Deprecated in MRAID 3.0; may no longer be dispatched by 3.0 SDKs when exposure changes
     viewableChange: (isViewable: boolean) => void;
     // MRAID 3.0
-    exposureChange: (exposedPercentage: number, visibleRectangle: MRAIDRect, occlusionRectangles: MRAIDRect[] | null) => void;
+    exposureChange: (
+        exposedPercentage: number,
+        visibleRectangle: MRAIDRect,
+        occlusionRectangles: MRAIDRect[] | null,
+    ) => void;
     audioVolumeChange: (newPercentage: number) => void;
     adAction: (action: keyof MRAID) => void;
 }
@@ -109,7 +113,7 @@ type MRAIDResizeProperties = MRAIDSize & {
 declare enum MRAIDLocationType {
     LocationServices = 1,
     IPGeoLocation = 2,
-    UserProvided = 3
+    UserProvided = 3,
 }
 export interface MRAIDLocationState {
     lat: number;

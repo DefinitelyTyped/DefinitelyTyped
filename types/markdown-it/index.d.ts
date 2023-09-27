@@ -6,7 +6,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import MarkdownIt = require('./lib');
+import MarkdownIt = require("./lib");
 
 export as namespace markdownit;
 

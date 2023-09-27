@@ -7,7 +7,7 @@
 //                 Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from 'unist';
+import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Enumeration
 
@@ -28,7 +28,7 @@ import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Par
  *
  * Used in GFM tables.
  */
-export type AlignType = 'center' | 'left' | 'right' | null;
+export type AlignType = "center" | "left" | "right" | null;
 
 /**
  * Explicitness of a reference.
@@ -39,7 +39,7 @@ export type AlignType = 'center' | 'left' | 'right' | null;
  *   content
  * `'full'`: the reference is explicit, its identifier explicitly set
  */
-export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
+export type ReferenceType = "shortcut" | "collapsed" | "full";
 
 // ## Mixin
 
@@ -524,7 +524,7 @@ export interface Blockquote extends Parent {
     /**
      * Node type of mdast block quote.
      */
-    type: 'blockquote';
+    type: "blockquote";
     /**
      * Children of block quote.
      */
@@ -547,7 +547,7 @@ export interface Break extends Node {
     /**
      * Node type of mdast break.
      */
-    type: 'break';
+    type: "break";
     /**
      * Data associated with the mdast break.
      */
@@ -566,7 +566,7 @@ export interface Code extends Literal {
     /**
      * Node type of mdast code (flow).
      */
-    type: 'code';
+    type: "code";
     /**
      * Language of computer code being marked up.
      */
@@ -595,7 +595,7 @@ export interface Definition extends Node, Association, Resource {
     /**
      * Node type of mdast definition.
      */
-    type: 'definition';
+    type: "definition";
     /**
      * Data associated with the mdast definition.
      */
@@ -614,7 +614,7 @@ export interface Delete extends Parent {
     /**
      * Node type of mdast GFM delete.
      */
-    type: 'delete';
+    type: "delete";
     /**
      * Children of GFM delete.
      */
@@ -637,7 +637,7 @@ export interface Emphasis extends Parent {
     /**
      * Node type of mdast emphasis.
      */
-    type: 'emphasis';
+    type: "emphasis";
     /**
      * Children of emphasis.
      */
@@ -660,7 +660,7 @@ export interface FootnoteDefinition extends Parent, Association {
     /**
      * Node type of mdast GFM footnote definition.
      */
-    type: 'footnoteDefinition';
+    type: "footnoteDefinition";
     /**
      * Children of GFM footnote definition.
      */
@@ -683,7 +683,7 @@ export interface FootnoteReference extends Association, Node {
     /**
      * Node type of mdast GFM footnote reference.
      */
-    type: 'footnoteReference';
+    type: "footnoteReference";
     /**
      * Data associated with the mdast GFM footnote reference.
      */
@@ -702,7 +702,7 @@ export interface Heading extends Parent {
     /**
      * Node type of mdast heading.
      */
-    type: 'heading';
+    type: "heading";
     /**
      * Heading rank.
      *
@@ -731,7 +731,7 @@ export interface Html extends Literal {
     /**
      * Node type of mdast HTML.
      */
-    type: 'html';
+    type: "html";
     /**
      * Data associated with the mdast HTML.
      */
@@ -758,7 +758,7 @@ export interface Image extends Alternative, Node, Resource {
     /**
      * Node type of mdast image.
      */
-    type: 'image';
+    type: "image";
     /**
      * Data associated with the mdast image.
      */
@@ -777,7 +777,7 @@ export interface ImageReference extends Alternative, Node, Reference {
     /**
      * Node type of mdast image reference.
      */
-    type: 'imageReference';
+    type: "imageReference";
     /**
      * Data associated with the mdast image reference.
      */
@@ -796,7 +796,7 @@ export interface InlineCode extends Literal {
     /**
      * Node type of mdast code (text).
      */
-    type: 'inlineCode';
+    type: "inlineCode";
     /**
      * Data associated with the mdast code (text).
      */
@@ -815,7 +815,7 @@ export interface Link extends Parent, Resource {
     /**
      * Node type of mdast link.
      */
-    type: 'link';
+    type: "link";
     /**
      * Children of link.
      */
@@ -838,7 +838,7 @@ export interface LinkReference extends Parent, Reference {
     /**
      * Node type of mdast link reference.
      */
-    type: 'linkReference';
+    type: "linkReference";
     /**
      * Children of link reference.
      */
@@ -861,7 +861,7 @@ export interface List extends Parent {
     /**
      * Node type of mdast list.
      */
-    type: 'list';
+    type: "list";
     /**
      * Whether the items have been intentionally ordered (when `true`), or that
      * the order of items is not important (when `false` or not present).
@@ -898,7 +898,7 @@ export interface ListItem extends Parent {
     /**
      * Node type of mdast list item.
      */
-    type: 'listItem';
+    type: "listItem";
     /**
      * Whether the item is a tasklist item (when `boolean`).
      *
@@ -933,7 +933,7 @@ export interface Paragraph extends Parent {
     /**
      * Node type of mdast paragraph.
      */
-    type: 'paragraph';
+    type: "paragraph";
     /**
      * Children of paragraph.
      */
@@ -958,7 +958,7 @@ export interface Root extends Parent {
     /**
      * Node type of mdast root.
      */
-    type: 'root';
+    type: "root";
     /**
      * Data associated with the mdast root.
      */
@@ -977,7 +977,7 @@ export interface Strong extends Parent {
     /**
      * Node type of mdast strong.
      */
-    type: 'strong';
+    type: "strong";
     /**
      * Children of strong.
      */
@@ -1000,7 +1000,7 @@ export interface Table extends Parent {
     /**
      * Node type of mdast GFM table.
      */
-    type: 'table';
+    type: "table";
     /**
      * How cells in columns are aligned.
      */
@@ -1027,7 +1027,7 @@ export interface TableRow extends Parent {
     /**
      * Node type of mdast GFM table row.
      */
-    type: 'tableRow';
+    type: "tableRow";
     /**
      * Children of GFM table row.
      */
@@ -1050,7 +1050,7 @@ export interface TableCell extends Parent {
     /**
      * Node type of mdast GFM table cell.
      */
-    type: 'tableCell';
+    type: "tableCell";
     /**
      * Children of GFM table cell.
      */
@@ -1073,7 +1073,7 @@ export interface Text extends Literal {
     /**
      * Node type of mdast text.
      */
-    type: 'text';
+    type: "text";
     /**
      * Data associated with the mdast text.
      */
@@ -1092,7 +1092,7 @@ export interface ThematicBreak extends Node {
     /**
      * Node type of mdast thematic break.
      */
-    type: 'thematicBreak';
+    type: "thematicBreak";
     /**
      * Data associated with the mdast thematic break.
      */
@@ -1111,7 +1111,7 @@ export interface Yaml extends Literal {
     /**
      * Node type of mdast YAML.
      */
-    type: 'yaml';
+    type: "yaml";
     /**
      * Data associated with the mdast YAML.
      */

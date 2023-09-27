@@ -1,5 +1,5 @@
-import { PathLike } from 'fs';
-import type { Driver, EmptyObject, ParsedMigration, ScanOptions } from '../index';
+import { PathLike } from "fs";
+import type { Driver, EmptyObject, ParsedMigration, ScanOptions } from "../index";
 
 export function drop(driver: Driver): Promise<void>;
 

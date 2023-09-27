@@ -57,80 +57,80 @@ type Position = [number, number];
 type Size = [number, number];
 
 type MaxMessage =
-    | 'buildcollective'
-    | 'checkpreempt'
-    | 'clean'
-    | 'clearmaxwindow'
-    | 'closefile'
-    | 'crash'
-    | 'db.exportmetadata'
-    | 'db.importmetadata'
-    | 'db.reset'
-    | 'debug'
-    | 'disablevirtualmididestinations'
-    | 'disablevirtualmidisources'
-    | 'enablepathcache'
-    | 'externaleditor'
-    | 'externs'
-    | 'fileformat'
-    | 'fixwidthratio'
-    | 'getarch'
-    | 'getdefaultpatcherheight'
-    | 'getdefaultpatcherwidth'
-    | 'getenablepathcache'
-    | 'geteventinterval'
-    | 'getfixwidthratio'
-    | 'getpollthrottle'
-    | 'getqueuethrottle'
-    | 'getrefreshrate'
-    | 'getruntime'
-    | 'getslop'
-    | 'getsysqelemthrottle'
-    | 'getsystem'
-    | 'getversion'
-    | 'hidecursor'
-    | 'hidemenubar'
-    | 'htmlref'
-    | 'interval'
-    | 'launchbrowser'
-    | 'maxcharheightforsubpixelantialiasing'
-    | 'maxinwmenu'
-    | 'maxwindow'
-    | 'midilist'
-    | 'nativetextrendering'
-    | 'notypeinfo'
-    | 'objectfile'
-    | 'openfile'
-    | 'paths'
-    | 'preempt'
-    | 'pupdate'
-    | 'purgemididevices'
-    | 'quit'
-    | 'refresh'
-    | 'refreshrate'
-    | 'relaunchmax'
-    | 'runtime'
-    | 'sendinterval'
-    | 'sendapppath'
-    | 'setdefaultpatcherheight'
-    | 'setdefaultpatcherwidth'
-    | 'seteventinterval'
-    | 'setmixergbitmode'
-    | 'setmixerlatency'
-    | 'setmixerparallel'
-    | 'setmixerramptime'
-    | 'setmirrortoconsole'
-    | 'setsleep'
-    | 'setpollthrottle'
-    | 'setqueuethrottle'
-    | 'setslop'
-    | 'setsysqelemthrottle'
-    | 'showcursor'
-    | 'showmenubar'
-    | 'size'
-    | 'system'
-    | 'useexternaleditor'
-    | 'useslowbutcompletesearching'
+    | "buildcollective"
+    | "checkpreempt"
+    | "clean"
+    | "clearmaxwindow"
+    | "closefile"
+    | "crash"
+    | "db.exportmetadata"
+    | "db.importmetadata"
+    | "db.reset"
+    | "debug"
+    | "disablevirtualmididestinations"
+    | "disablevirtualmidisources"
+    | "enablepathcache"
+    | "externaleditor"
+    | "externs"
+    | "fileformat"
+    | "fixwidthratio"
+    | "getarch"
+    | "getdefaultpatcherheight"
+    | "getdefaultpatcherwidth"
+    | "getenablepathcache"
+    | "geteventinterval"
+    | "getfixwidthratio"
+    | "getpollthrottle"
+    | "getqueuethrottle"
+    | "getrefreshrate"
+    | "getruntime"
+    | "getslop"
+    | "getsysqelemthrottle"
+    | "getsystem"
+    | "getversion"
+    | "hidecursor"
+    | "hidemenubar"
+    | "htmlref"
+    | "interval"
+    | "launchbrowser"
+    | "maxcharheightforsubpixelantialiasing"
+    | "maxinwmenu"
+    | "maxwindow"
+    | "midilist"
+    | "nativetextrendering"
+    | "notypeinfo"
+    | "objectfile"
+    | "openfile"
+    | "paths"
+    | "preempt"
+    | "pupdate"
+    | "purgemididevices"
+    | "quit"
+    | "refresh"
+    | "refreshrate"
+    | "relaunchmax"
+    | "runtime"
+    | "sendinterval"
+    | "sendapppath"
+    | "setdefaultpatcherheight"
+    | "setdefaultpatcherwidth"
+    | "seteventinterval"
+    | "setmixergbitmode"
+    | "setmixerlatency"
+    | "setmixerparallel"
+    | "setmixerramptime"
+    | "setmirrortoconsole"
+    | "setsleep"
+    | "setpollthrottle"
+    | "setqueuethrottle"
+    | "setslop"
+    | "setsysqelemthrottle"
+    | "showcursor"
+    | "showmenubar"
+    | "size"
+    | "system"
+    | "useexternaleditor"
+    | "useslowbutcompletesearching"
     | string;
 
 /**
@@ -327,7 +327,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access?: 'read' | 'write' | 'readwrite', typelist?: string);
+    constructor(filename: string, access?: "read" | "write" | "readwrite", typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
@@ -1124,7 +1124,7 @@ declare class Max {
     /**
      * The word system, followed by the name of an Operating System (windows or macintosh) and a message, will execute the message if Max is running on the named OS.
      */
-    system(os: 'windows' | 'macintosh', message: string): void;
+    system(os: "windows" | "macintosh", message: string): void;
 
     /**
      * The word useslowbutcompletesearching, followed by a one (on) or zero (off), toggles complete file searching. When enabled, it causes files not found in Max's cache of the search path to be
@@ -1288,7 +1288,7 @@ declare class Maxobj {
  * When a change occurs, a user-specified function will be called.
  * The object also provides methods for getting and setting the value of the observed value or attribute.
  */
-declare class MaxobjListener  {
+declare class MaxobjListener {
     constructor(object: Maxobj, attribute_name: string, callback: (data: MaxobjListenerData<any>) => void);
 
     /**
@@ -1325,7 +1325,7 @@ declare class MaxobjListener  {
 /**
  * The MaxobjListenerData object is the argument to your MaxobjListener's function
  */
-declare class MaxobjListenerData<Tvalue>  {
+declare class MaxobjListenerData<Tvalue> {
     /**
      * The MaxobjListener which called the function.
      */
@@ -2161,22 +2161,22 @@ declare class MGraphics {
     /**
      * Set the appearance of the end-point of a drawn line. The options are butt, round, or square.
      */
-    set_line_cap(line_cap: 'butt' | 'round' | 'square'): void;
+    set_line_cap(line_cap: "butt" | "round" | "square"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_cap setting. The returned value is the same as the values used by set_line_cap.
      */
-    get_line_cap(): 'butt' | 'round' | 'square';
+    get_line_cap(): "butt" | "round" | "square";
 
     /**
      * Set the appearance of the connection point between lines. The options are miter, round, or bevel.
      */
-    set_line_join(line_join: 'miter' | 'round' | 'bevel'): void;
+    set_line_join(line_join: "miter" | "round" | "bevel"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_join setting. The returned value is the same as the values used by set_line_join.
      */
-    get_line_join(): 'miter' | 'round' | 'bevel';
+    get_line_join(): "miter" | "round" | "bevel";
 
     /**
      * Set the width of path lines drawn using the stroke() function. The width value is dependent on the coordinate system in use.
@@ -2610,7 +2610,7 @@ declare class Sketch {
     /**
      * Begin definition of a stroked path of the style specified by the stroke_style argument. Currently supported stroke styles are "basic2d" and "line".
      */
-    beginstroke(stroke_style: 'basic2d' | 'line'): void;
+    beginstroke(stroke_style: "basic2d" | "line"): void;
 
     /**
      * End definition of a stroked path, and render the path.
@@ -2752,7 +2752,7 @@ declare class Image {
      * Adjusts all channel values in the image channel specified by the channel argument, by multiplying the channel value by the value specified by the scale argument and then adding the value
      * specified by the bias argument. The resulting channel is clipped to the range 0.-1. Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    adjustchannel(channel: 'red' | 'green' | 'blue' | 'alpha', scale: number, bias: number): void;
+    adjustchannel(channel: "red" | "green" | "blue" | "alpha", scale: number, bias: number): void;
 
     /**
      * Generates an alpha channel based on the chromatic distance from the specified RGB target color. If no tolerance, fade or minkey arguments are specified they are assumed to be 0. If no maxkey
@@ -2776,8 +2776,8 @@ declare class Image {
     blendchannel(
         source_object: any,
         alpha: number,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2809,7 +2809,7 @@ declare class Image {
      * Sets all channel values in the image channel specified by the channel argument to be the value specified by the value argument. If no value argument is specified, it is assumed to be 0.
      * Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    clearchannel(channel: 'red' | 'green' | 'blue' | 'alpha', value: number): void;
+    clearchannel(channel: "red" | "green" | "blue" | "alpha", value: number): void;
 
     /**
      * Copies the channel values from the source object's channel specified by the source_channel argument to the destination object's channel specified by the destination_channel argument. The source
@@ -2818,8 +2818,8 @@ declare class Image {
      */
     copychannel(
         source_object: string,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2917,7 +2917,7 @@ declare class MaxCanvas {
     //      return;
     // }
     constructor(jsui: object);
-    getContext(type: 'max-2d'): CanvasRenderingContext2D;
+    getContext(type: "max-2d"): CanvasRenderingContext2D;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2935,7 +2935,7 @@ declare class CanvasRenderingContext2D {
     setTransform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): void;
     createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
     createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
-    createPattern(image: Image, repetition: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): CanvasPattern;
+    createPattern(image: Image, repetition: "repeat" | "repeat-x" | "repeat-y" | "no-repeat"): CanvasPattern;
     clearRect(x: number, y: number, w: number, h: number): void;
     fillRect(x: number, y: number, w: number, h: number): void;
     strokeRect(x: number, y: number, w: number, h: number): void;

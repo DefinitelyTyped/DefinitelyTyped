@@ -20,7 +20,8 @@ import stream = require("stream");
 
 declare function merkle(
     hashname: "sha512" | "sha256" | "sha1" | "md5" | "ripemd160" | "whirlpool" | "none",
-    useUpperCaseForHash?: boolean): MerkleStream;
+    useUpperCaseForHash?: boolean,
+): MerkleStream;
 
 declare class MerkleStream extends stream.Transform {
     sync(leaves: any[]): MerkleTree;

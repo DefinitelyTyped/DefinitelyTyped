@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export class Connection extends EventEmitter {
     constructor(...args: any[]);
@@ -20,7 +20,7 @@ export class Connection extends EventEmitter {
 
     disconnect(): void;
 
-    events(type: 'json' | 'plain' | 'xml', events: string, cb?: () => void): void;
+    events(type: "json" | "plain" | "xml", events: string, cb?: () => void): void;
 
     execute(app: any, arg?: string, uuid?: string, cb?: () => void): any;
 

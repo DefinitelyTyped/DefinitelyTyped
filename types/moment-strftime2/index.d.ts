@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as _moment from 'moment';
+import * as _moment from "moment";
 
 declare module "moment" {
     interface Moment {

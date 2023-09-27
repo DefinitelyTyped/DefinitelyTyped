@@ -20,4 +20,9 @@ export function viewport(
     allowAntiMeridian?: boolean,
 ): GeoViewport;
 
-export function bounds(viewport: { lon: number; lat: number } | [number, number], zoom: number, dimensions: [number, number], tileSize?: number): BoundingBox;
+export function bounds(
+    viewport: { lon: number; lat: number } | [number, number],
+    zoom: number,
+    dimensions: [number, number],
+    tileSize?: number,
+): BoundingBox;

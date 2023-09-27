@@ -53,13 +53,13 @@ declare namespace LM {
          * Maximum values for the parameters.
          * Default value: Array(parameters.length).fill(MAX_SAFE_INTEGER)
          */
-         maxValues: number[];
+        maxValues: number[];
 
-         /**
-          * Minimum values for the parameters.
-          * Default value: Array(parameters.length).fill(MIN_SAFE_INTEGER)
-          */
-         minValues: number[];
+        /**
+         * Minimum values for the parameters.
+         * Default value: Array(parameters.length).fill(MIN_SAFE_INTEGER)
+         */
+        minValues: number[];
     }
 
     interface Result {

@@ -24,7 +24,7 @@ declare namespace move {
         /**
          * (Default: global.Promise) The promise implementation to use, defaults to Node's.
          */
-        Promise?: (new (...args: any[]) => T | undefined) | undefined;
+        Promise?: (new(...args: any[]) => T | undefined) | undefined;
         /**
          * (Default: require('fs')) The filesystem module to use. Can be used to use graceful-fs or to inject a mock.
          */

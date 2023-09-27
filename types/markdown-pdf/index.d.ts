@@ -35,8 +35,8 @@ declare namespace MarkdownPDF {
         /** A config object that is passed to remarkable, the underlying markdown parser */
         remarkable?: any; // FIXME: remarkable config types
     }
-    type PaperFormat = 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
-    type PaperOrientation = 'portait' | 'landscape';
+    type PaperFormat = "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid";
+    type PaperOrientation = "portait" | "landscape";
 
     interface OptionsBuilder {
         /** Create a readable stream and pipe it to markdown pdf. */

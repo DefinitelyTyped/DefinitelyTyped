@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { MDXProvider, useMDXComponents, withMDXComponents, InjectedMDXProviderProps } from '@mdx-js/react';
-import { renderToString } from 'react-dom/server';
+import { InjectedMDXProviderProps, MDXProvider, useMDXComponents, withMDXComponents } from "@mdx-js/react";
+import { FC } from "react";
+import { renderToString } from "react-dom/server";
 
-const H1: FC = props => <h1 style={{ color: 'tomato' }} {...props} />;
-const Time: FC = props => <time style={{ color: '#f0f'}} {...props} />;
+const H1: FC = props => <h1 style={{ color: "tomato" }} {...props} />;
+const Time: FC = props => <time style={{ color: "#f0f" }} {...props} />;
 
 renderToString(
     <MDXProvider components={{ h1: H1 }}>

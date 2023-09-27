@@ -54,7 +54,7 @@ export interface CustomPreset extends Options {
     preset: Preset;
 }
 
-export type Preset = 'bem' | string;
+export type Preset = "bem" | string;
 
 /**
  * Note that some cases may omit a particular flag field.

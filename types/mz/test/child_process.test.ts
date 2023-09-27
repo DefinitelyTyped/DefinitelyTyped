@@ -1,14 +1,14 @@
-import cp = require('mz/child_process');
+import cp = require("mz/child_process");
 
 // Promise:
-cp.exec('node --version', {
-    encoding: String(Math.random() < 0.5 ? 'utf-8' : 'buffer'),
+cp.exec("node --version", {
+    encoding: String(Math.random() < 0.5 ? "utf-8" : "buffer"),
 }).then((params: [string | Buffer, string | Buffer]) => {
-    (params[0] as Buffer).toString('utf8'); // $ExpectType string
+    (params[0] as Buffer).toString("utf8"); // $ExpectType string
 });
 
 // Callback:
-cp.exec('node --version', (err, stdout) => {
+cp.exec("node --version", (err, stdout) => {
     err; // $ExpectType ExecException | null
     stdout; // $ExpectType string
 });
@@ -18,7 +18,7 @@ declare function execBufferCallback(err: cp.ExecException | null, stdout: Buffer
 
 declare const command: string;
 declare const stringEncoding: BufferEncoding;
-declare const bufferEncoding: 'buffer' | null | undefined;
+declare const bufferEncoding: "buffer" | null | undefined;
 declare const anyEncoding: string | null | undefined;
 
 declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | undefined;

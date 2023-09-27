@@ -442,10 +442,15 @@ interface ModernizrAPI {
 
     testProp(prop: string, value?: string, useValue?: boolean): boolean;
 
-    testStyles(rule: string, callback: (elem: HTMLDivElement, rule: string) => void, nodes?: number, testnames?: string[]): boolean;
+    testStyles(
+        rule: string,
+        callback: (elem: HTMLDivElement, rule: string) => void,
+        nodes?: number,
+        testnames?: string[],
+    ): boolean;
 }
 
-interface ModernizrStatic extends ModernizrAPI, FeatureDetects { }
+interface ModernizrStatic extends ModernizrAPI, FeatureDetects {}
 
 declare var Modernizr: ModernizrStatic;
 declare module "modernizr" {

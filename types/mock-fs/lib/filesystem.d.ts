@@ -1,7 +1,7 @@
-import Item = require('./item');
-import File = require('./file');
-import Directory = require('./directory');
-import SymbolicLink = require('./symlink');
+import Item = require("./item");
+import File = require("./file");
+import Directory = require("./directory");
+import SymbolicLink = require("./symlink");
 
 export = FileSystem;
 
@@ -68,12 +68,12 @@ declare class FileSystem {
 
 declare namespace FileSystem {
     type DirectoryItem =
-      | string
-      | Buffer
-      | (() => File)
-      | (() => Directory)
-      | (() => SymbolicLink)
-      | DirectoryItems;
+        | string
+        | Buffer
+        | (() => File)
+        | (() => Directory)
+        | (() => SymbolicLink)
+        | DirectoryItems;
 
     interface DirectoryItems {
         [name: string]: DirectoryItem;

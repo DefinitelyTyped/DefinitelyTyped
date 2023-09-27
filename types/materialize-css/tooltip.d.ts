@@ -79,7 +79,7 @@ declare namespace M {
          * Set the direction of the tooltip.
          * @default 'bottom'
          */
-        position: 'top' | 'right' | 'bottom' | 'left';
+        position: "top" | "right" | "bottom" | "left";
 
         /**
          * Amount in px that the tooltip moves during its transition.

@@ -3,21 +3,24 @@
 // Definitions by: Robert Winslow Dalpe <https://github.com/rwdalpe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-declare module 'moment' {
+declare module "moment" {
     interface Moment extends Object {
         holiday(
             holidays?: string[] | string,
-            adjust?: boolean): Moment | false | { [holidayName: string]: Moment };
+            adjust?: boolean,
+        ): Moment | false | { [holidayName: string]: Moment };
 
         holidays(
             holidays?: string[] | string,
-            adjust?: boolean): Moment | false | { [holidayName: string]: Moment };
+            adjust?: boolean,
+        ): Moment | false | { [holidayName: string]: Moment };
 
         isHoliday(
             holidays?: string[] | string | null,
-            adjust?: boolean): boolean | string | string[];
+            adjust?: boolean,
+        ): boolean | string | string[];
 
         previousHoliday(count?: number, adjust?: boolean): Moment[] | Moment;
 
@@ -51,11 +54,13 @@ declare module 'moment' {
     interface HolidayModifier {
         set(
             holidays: HolidaysMapping | string | string[],
-            specifics?: any): HolidayModifier;
+            specifics?: any,
+        ): HolidayModifier;
 
         add(
             holidays: HolidaysMapping | string,
-            specifics?: any): HolidayModifier;
+            specifics?: any,
+        ): HolidayModifier;
 
         remove(holidays: string | string[]): HolidayModifier;
 

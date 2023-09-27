@@ -5,8 +5,8 @@
 // TypeScript Version: 2.9
 
 declare class FloatingLabel {
-  constructor(el: any, userOptions?: any);
-  refresh(): void;
+    constructor(el: any, userOptions?: any);
+    refresh(): void;
 }
 
 export = FloatingLabel;

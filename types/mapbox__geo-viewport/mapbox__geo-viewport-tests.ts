@@ -1,4 +1,4 @@
-import { viewport, bounds } from '@mapbox/geo-viewport';
+import { bounds, viewport } from "@mapbox/geo-viewport";
 
 const geoViewport = viewport([
     5.668343999999995,
@@ -24,9 +24,13 @@ viewport(
     true,
 );
 
-const boundingBox = bounds({
-    lon: 100,
-    lat: 200,
-}, 14, [640, 480]);
+const boundingBox = bounds(
+    {
+        lon: 100,
+        lat: 200,
+    },
+    14,
+    [640, 480],
+);
 
 const boundingBox2 = bounds([100, 200], 14, [640, 480]);

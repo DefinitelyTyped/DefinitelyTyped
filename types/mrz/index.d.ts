@@ -14,7 +14,7 @@ export interface Result {
      * * SWISS_DRIVING_LICENSE
      * * FRENCH_NATIONAL_ID
      */
-    format: 'TD1' | 'TD2' | 'TD3' | 'SWISS_DRIVING_LICENSE' | 'FRENCH_NATIONAL_ID';
+    format: "TD1" | "TD2" | "TD3" | "SWISS_DRIVING_LICENSE" | "FRENCH_NATIONAL_ID";
     /** `true` if all fields are valid. `false` otherwise. */
     valid: boolean;
     /**
@@ -34,7 +34,7 @@ export interface ResultFields {
     documentNumberCheckDigit: string | null;
     documentCode: string | null;
     nationality: string | null;
-    sex: 'male' | 'female' | 'nonspecified' | null;
+    sex: "male" | "female" | "nonspecified" | null;
     expirationDate: string | null;
     expirationDateCheckDigit: string | null;
     compositeCheckDigit: string | null;
@@ -65,7 +65,7 @@ export interface ResultDetails {
     /** Full english term for the field. */
     label: string;
     /** Name of the field in `result.fields`. */
-    field: keyof Result['fields'];
+    field: keyof Result["fields"];
     /** Value of the field or `null`. */
     value: string | null;
     valid: boolean;
@@ -104,11 +104,11 @@ export namespace parse {
 }
 
 export const formats: {
-    readonly TD1: 'TD1';
-    readonly TD2: 'TD2';
-    readonly TD3: 'TD3';
-    readonly SWISS_DRIVING_LICENSE: 'SWISS_DRIVING_LICENSE';
-    readonly FRENCH_NATIONAL_ID: 'FRENCH_NATIONAL_ID';
+    readonly TD1: "TD1";
+    readonly TD2: "TD2";
+    readonly TD3: "TD3";
+    readonly SWISS_DRIVING_LICENSE: "SWISS_DRIVING_LICENSE";
+    readonly FRENCH_NATIONAL_ID: "FRENCH_NATIONAL_ID";
 };
 
 export const states: {

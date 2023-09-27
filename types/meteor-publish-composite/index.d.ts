@@ -22,7 +22,7 @@ declare interface PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4
         arg4: InLevel4,
         arg3: InLevel3,
         arg2: InLevel2,
-        arg1: InLevel1
+        arg1: InLevel1,
     ): Mongo.Cursor<OutLevel>;
 }
 
@@ -32,7 +32,7 @@ declare interface PublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel
     find(
         arg3: InLevel3,
         arg2: InLevel2,
-        arg1: InLevel1
+        arg1: InLevel1,
     ): Mongo.Cursor<OutLevel>;
 }
 
@@ -41,7 +41,7 @@ declare interface PublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
     children?: PublishCompositeConfig3<InLevel1, InLevel2, OutLevel, any>[] | undefined;
     find(
         arg2: InLevel2,
-        arg1: InLevel1
+        arg1: InLevel1,
     ): Mongo.Cursor<OutLevel>;
 }
 
@@ -49,7 +49,7 @@ declare interface PublishCompositeConfig1<InLevel1, OutLevel> {
     collectionName?: string | undefined;
     children?: PublishCompositeConfig2<InLevel1, OutLevel, any>[] | undefined;
     find(
-        arg1: InLevel1
+        arg1: InLevel1,
     ): Mongo.Cursor<OutLevel>;
 }
 
@@ -62,12 +62,11 @@ declare interface PublishCompositeConfig<OutLevel> {
 declare module "meteor/reywood:publish-composite" {
     function publishComposite(
         name: string,
-        config: PublishCompositeConfig<any> | PublishCompositeConfig<any>[]
+        config: PublishCompositeConfig<any> | PublishCompositeConfig<any>[],
     ): void;
 
     function publishComposite(
         name: string,
-        configFunc: (...args: any[]) =>
-            PublishCompositeConfig<any> | PublishCompositeConfig<any>[]
+        configFunc: (...args: any[]) => PublishCompositeConfig<any> | PublishCompositeConfig<any>[],
     ): void;
 }

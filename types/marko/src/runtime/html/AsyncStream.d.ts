@@ -1,4 +1,4 @@
-import Async from '../Async';
+import Async from "../Async";
 
 export default interface AsyncStream extends Async {
     DEFAULT_TIMEOUT: number;

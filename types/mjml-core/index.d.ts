@@ -65,7 +65,7 @@ export interface MJMLParsingOptions {
      *
      * default: soft
      */
-    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
+    validationLevel?: "strict" | "soft" | "skip" | undefined;
 
     /**
      * Full path of the specified file to use when resolving paths from mj-include components
@@ -187,7 +187,7 @@ export abstract class BodyComponent extends Component {
     renderChildren(
         children?: [],
         options?: {
-            props?: Component['props'] | undefined;
+            props?: Component["props"] | undefined;
             renderer?: ((component: Component) => any) | undefined;
             attributes?: Record<string, string> | undefined;
             rawXML?: boolean | undefined;

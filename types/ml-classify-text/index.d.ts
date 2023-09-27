@@ -61,8 +61,8 @@ declare class Prediction {
 }
 
 export {
-    Model,
-    Vocabulary as Cocabulary, // typo by the package author
     Classifier,
     Classifier as default,
+    Model,
+    Vocabulary as Cocabulary, // typo by the package author
 };

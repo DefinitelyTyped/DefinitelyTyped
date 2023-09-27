@@ -1,14 +1,14 @@
-import css from './css';
-import html from './html';
-import img from './img';
-import js from './js';
+import css from "./css";
+import html from "./html";
+import img from "./img";
+import js from "./js";
 
-import type { Options as CleanCssOptions } from 'clean-css';
-import type { Options as HtmlMinifierOptions } from 'html-minifier-terser';
-import type { MinifyOptions } from 'terser';
+import type { Options as CleanCssOptions } from "clean-css";
+import type { Options as HtmlMinifierOptions } from "html-minifier-terser";
+import type { MinifyOptions } from "terser";
 
 // supported extensions
-export type Ext = 'js' | 'html' | 'css';
+export type Ext = "js" | "html" | "css";
 
 interface Minify {
     /**
@@ -46,12 +46,12 @@ export interface Options {
      */
     img?:
         | {
-              /**
-               * bigger images are not base64 in the CSS
-               * @default 4096
-               */
-              maxSize?: number | undefined;
-          }
+            /**
+             * bigger images are not base64 in the CSS
+             * @default 4096
+             */
+            maxSize?: number | undefined;
+        }
         | undefined;
 }
 

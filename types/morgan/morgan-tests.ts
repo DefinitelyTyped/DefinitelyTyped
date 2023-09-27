@@ -2,20 +2,20 @@
  * Created by staticfunction on 8/3/14.
  */
 
-import http = require('http');
-import morgan = require('morgan');
-import express = require('express');
+import http = require("http");
+import morgan = require("morgan");
+import express = require("express");
 
 // a pre-defined name
-morgan('combined');
-morgan('common');
-morgan('short');
-morgan('tiny');
+morgan("combined");
+morgan("common");
+morgan("short");
+morgan("tiny");
 
 // a format string
-morgan(':remote-addr :method :url');
+morgan(":remote-addr :method :url");
 
-morgan('combined', {
+morgan("combined", {
     buffer: true,
     immediate: true,
     skip: (req, res) => res.statusCode < 400,
@@ -32,14 +32,14 @@ morgan((tokens, req, res) => {
         tokens.method(req, res),
         tokens.url(req, res),
         tokens.status(req, res),
-        tokens.res(req, res, 'content-length'),
-        '-',
-        tokens['response-time'](req, res),
-        'ms',
-    ].join(' ');
+        tokens.res(req, res, "content-length"),
+        "-",
+        tokens["response-time"](req, res),
+        "ms",
+    ].join(" ");
 });
 // a custom format function with options
-morgan((_tokens, _req, _res) => '', {
+morgan((_tokens, _req, _res) => "", {
     buffer: true,
     immediate: true,
     skip: (req, res) => res.statusCode < 400,
@@ -53,7 +53,7 @@ morgan((_tokens, _req, _res) => '', {
 // test interface definition for morgan
 
 // a named custom format defined as string (example: extend 'tiny' format with user-agent token)
-morgan.format('tiny-extended', ':method :url :status :res[content-length] - :response-time ms :user-agent');
+morgan.format("tiny-extended", ":method :url :status :res[content-length] - :response-time ms :user-agent");
 
 // a named custom format defined using the Function signature (example: extend 'dev' format with user-agent token)
 
@@ -72,16 +72,15 @@ const developmentExtendedFormatLine = ((tokens, req, res): string | undefined | 
     const status = res.statusCode;
 
     // get status color
-    const color =
-        status >= 500
-            ? 31 // red
-            : status >= 400
-            ? 33 // yellow
-            : status >= 300
-            ? 36 // cyan
-            : status >= 200
-            ? 32 // green
-            : 0; // no color
+    const color = status >= 500
+        ? 31 // red
+        : status >= 400
+        ? 33 // yellow
+        : status >= 300
+        ? 36 // cyan
+        : status >= 200
+        ? 32 // green
+        : 0; // no color
 
     // get colored format function, if previously memoized, otherwise undefined
     let fn: morgan.FormatFn | undefined = developmentExtendedFormatLine.memoizer[color];
@@ -98,19 +97,19 @@ const developmentExtendedFormatLine = ((tokens, req, res): string | undefined | 
 
 developmentExtendedFormatLine.memoizer = {};
 
-morgan.format('dev-extended', developmentExtendedFormatLine);
+morgan.format("dev-extended", developmentExtendedFormatLine);
 
-morgan.token('status', (req, res) => {
+morgan.token("status", (req, res) => {
     return res.headersSent ? String(res.statusCode) : undefined;
 });
 
-express().use(morgan<express.Request, express.Response>('combined'));
-express().use(morgan('combined', { skip: (req: express.Request) => req.header('user-agent') === 'fake' }));
+express().use(morgan<express.Request, express.Response>("combined"));
+express().use(morgan("combined", { skip: (req: express.Request) => req.header("user-agent") === "fake" }));
 
 http.createServer((req, res) => {
-    morgan('combined')(req, res, (err) => {
+    morgan("combined")(req, res, (err) => {
         // respond to request
-        res.setHeader('content-type', 'text/plain');
-        res.end('hello, world!');
+        res.setHeader("content-type", "text/plain");
+        res.end("hello, world!");
     });
 });

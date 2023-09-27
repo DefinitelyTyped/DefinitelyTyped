@@ -57,7 +57,7 @@ declare namespace M {
         /**
          * Instance of the dropdown plugin for this autocomplete.
          */
-         dropdown: Dropdown;
+        dropdown: Dropdown;
     }
 
     interface AutocompleteData {

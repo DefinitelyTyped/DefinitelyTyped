@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type CharacterSets = [
-    'asterisks',
-    'number signs',
-    'slashes',
-    'parentheses',
-    'parentheses',
-    'square brackets',
-    'square brackets',
-    'angle brackets',
-    'angle brackets',
-    'underscores'
+    "asterisks",
+    "number signs",
+    "slashes",
+    "parentheses",
+    "parentheses",
+    "square brackets",
+    "square brackets",
+    "angle brackets",
+    "angle brackets",
+    "underscores",
 ];
 
 declare namespace markdownEscape {

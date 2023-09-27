@@ -1,15 +1,15 @@
-import mParticle = require('@mparticle/web-sdk');
-import { Batch } from '@mparticle/event-models';
+import mParticle = require("@mparticle/web-sdk");
+import { Batch } from "@mparticle/event-models";
 
-const instance = mParticle.getInstance('default');
+const instance = mParticle.getInstance("default");
 
 const dataPlan: mParticle.DataPlanConfig = {
-    planId: 'test',
+    planId: "test",
     planVersion: 2,
 };
 
 const customAttrs: mParticle.SDKEventAttrs = {
-    attr1: 'hi',
+    attr1: "hi",
     attr2: 2,
     attr3: null,
     attr4: undefined,
@@ -17,11 +17,11 @@ const customAttrs: mParticle.SDKEventAttrs = {
 };
 
 const customFlags: mParticle.SDKEventCustomFlags = {
-    attr1: 'hi',
+    attr1: "hi",
     attr2: 2,
     attr3: true,
-    attr4: [{ foo: '2' }],
-    attr5: { foo: 'bar' },
+    attr4: [{ foo: "2" }],
+    attr5: { foo: "bar" },
 };
 
 const eventOptions: mParticle.SDKEventOptions = {
@@ -30,27 +30,27 @@ const eventOptions: mParticle.SDKEventOptions = {
 
 const identifyRequest: mParticle.IdentifyRequest = {
     userIdentities: {
-        customerid: 'test',
-        email: 'test',
-        other: 'test',
-        other2: 'test',
-        other3: 'test',
-        other4: 'test',
-        other5: 'test',
-        other6: 'test',
-        other7: 'test',
-        other8: 'test',
-        other9: 'test',
-        other10: 'test',
-        mobile_number: 'test',
-        phone_number_2: 'test',
-        phone_number_3: 'test',
-        facebook: 'test',
-        facebookcustomaudienceid: 'test',
-        google: 'test',
-        twitter: 'test',
-        microsoft: 'test',
-        yahoo: 'test',
+        customerid: "test",
+        email: "test",
+        other: "test",
+        other2: "test",
+        other3: "test",
+        other4: "test",
+        other5: "test",
+        other6: "test",
+        other7: "test",
+        other8: "test",
+        other9: "test",
+        other10: "test",
+        mobile_number: "test",
+        phone_number_2: "test",
+        phone_number_3: "test",
+        facebook: "test",
+        facebookcustomaudienceid: "test",
+        google: "test",
+        twitter: "test",
+        microsoft: "test",
+        yahoo: "test",
     },
 };
 
@@ -108,20 +108,20 @@ const config: mParticle.MPConfiguration = {
     identityCallback,
     onCreateBatch,
     dataPlan,
-    appVersion: '1.0.0',
-    appName: 'testAppName',
-    package: 'com.mparticle.example',
-    logLevel: 'warning',
+    appVersion: "1.0.0",
+    appName: "testAppName",
+    package: "com.mparticle.example",
+    logLevel: "warning",
     logger,
     sessionTimeout: 500,
     useCookieStorage: true,
     maxCookieSize: 300,
-    cookieDomain: 'mparticle.com',
+    cookieDomain: "mparticle.com",
     customFlags: {
-        flag: 'foo',
-        anotherFlag: 'bar',
+        flag: "foo",
+        anotherFlag: "bar",
     },
-    sideloadedKits: [{}, {}]
+    sideloadedKits: [{}, {}],
 };
 
 instance.endSession();
@@ -136,85 +136,85 @@ instance.getEnvironment();
 
 instance.getVersion();
 
-instance.init('apiKey', config);
-instance.init('apiKey', config, 'instance');
+instance.init("apiKey", config);
+instance.init("apiKey", config, "instance");
 
 instance.isInitialized();
 
 instance.logBaseEvent({
     data: {},
-    name: 'baseEventName',
+    name: "baseEventName",
     messageType: 1,
     eventType: 1,
 });
 instance.logBaseEvent(
     {
         data: {},
-        name: 'baseEventName',
+        name: "baseEventName",
         messageType: 1,
         eventType: 1,
     },
     eventOptions,
 );
 
-instance.logError('Login Failed', customAttrs);
+instance.logError("Login Failed", customAttrs);
 instance.logError(
     {
-        name: 'error',
-        message: 'errorMessage',
-        stack: 'errorStack',
+        name: "error",
+        message: "errorMessage",
+        stack: "errorStack",
     },
     customAttrs,
 );
 
-instance.logEvent('eventName');
-instance.logEvent('eventName', instance.EventType.Location);
-instance.logEvent('eventName', instance.EventType.Location, customAttrs);
-instance.logEvent('eventName', instance.EventType.Location, customAttrs, customFlags);
-instance.logEvent('eventName', mParticle.EventType.Location, customAttrs, customFlags, eventOptions);
+instance.logEvent("eventName");
+instance.logEvent("eventName", instance.EventType.Location);
+instance.logEvent("eventName", instance.EventType.Location, customAttrs);
+instance.logEvent("eventName", instance.EventType.Location, customAttrs, customFlags);
+instance.logEvent("eventName", mParticle.EventType.Location, customAttrs, customFlags, eventOptions);
 
-instance.logForm('click', 'eventName');
-instance.logForm('click', 'eventName', instance.EventType.Location);
-instance.logForm('click', 'eventName', instance.EventType.Location, customAttrs);
+instance.logForm("click", "eventName");
+instance.logForm("click", "eventName", instance.EventType.Location);
+instance.logForm("click", "eventName", instance.EventType.Location, customAttrs);
 
-instance.logLink('click', 'eventName');
-instance.logLink('click', 'eventName', instance.EventType.Location);
-instance.logLink('click', 'eventName', instance.EventType.Location, customAttrs);
+instance.logLink("click", "eventName");
+instance.logLink("click", "eventName", instance.EventType.Location);
+instance.logLink("click", "eventName", instance.EventType.Location, customAttrs);
 
 instance.logPageView();
-instance.logPageView('pageName');
-instance.logPageView('pageName', customAttrs);
-instance.logPageView('pageName', customAttrs, customFlags);
-instance.logPageView('pageName', customAttrs, customFlags, eventOptions);
+instance.logPageView("pageName");
+instance.logPageView("pageName", customAttrs);
+instance.logPageView("pageName", customAttrs, customFlags);
+instance.logPageView("pageName", customAttrs, customFlags, eventOptions);
 
 instance.ready(() => {
-    console.log('hi');
+    console.log("hi");
 });
 
 instance.reset();
 
-instance.setAppName('appName');
+instance.setAppName("appName");
 
-instance.setAppVersion('1.0.0');
+instance.setAppVersion("1.0.0");
 
-instance.setDeviceId('foo-uuid-v4');
+instance.setDeviceId("foo-uuid-v4");
 
-instance.setIntegrationAttribute(123, { key: 'value' });
+instance.setIntegrationAttribute(123, { key: "value" });
 
 instance.getIntegrationAttributes(123);
 
-instance.setLogLevel('verbose');
-instance.setLogLevel('none');
-instance.setLogLevel('warning');
+instance.setLogLevel("verbose");
+instance.setLogLevel("none");
+instance.setLogLevel("warning");
 
 instance.setOptOut(true);
 
 instance.setPosition(1, 2);
 
-instance.setSessionAttribute('key1', 'value1');
-instance.setSessionAttribute('key2', 2);
-instance.setSessionAttribute('key3', false);
-instance.setSessionAttribute('key4', null);
+instance.setSessionAttribute("key1", "value1");
+instance.setSessionAttribute("key2", 2);
+instance.setSessionAttribute("key3", false);
+instance.setSessionAttribute("key4", null);
 
 instance.startNewSession();
 
@@ -236,21 +236,21 @@ const user: mParticle.User = instance.Identity.getCurrentUser();
 const ccpaConsent: mParticle.CCPAConsentState = instance.Consent.createCCPAConsent(
     true,
     new Date().getTime(),
-    'consentDocument',
-    'location',
-    'hardware',
+    "consentDocument",
+    "location",
+    "hardware",
 );
 const gdprConsent = instance.Consent.createGDPRConsent(
     true,
     new Date().getTime(),
-    'consentDocument',
-    'location',
-    'hardware',
+    "consentDocument",
+    "location",
+    "hardware",
 );
 
 let consentState: mParticle.ConsentState = instance.Consent.createConsentState();
 
-consentState.addGDPRConsentState('generalConsent', gdprConsent);
+consentState.addGDPRConsentState("generalConsent", gdprConsent);
 consentState.setCCPAConsentState(ccpaConsent);
 user.setConsentState(consentState);
 
@@ -264,7 +264,7 @@ const gdprConsentState: mParticle.GDPRConsentState = consentState.getGDPRConsent
 const user2 = instance.Identity.getCurrentUser();
 user2.getConsentState().setGDPRConsentState(gdprConsentState);
 
-consentState.removeGDPRConsentState('generalConsent');
+consentState.removeGDPRConsentState("generalConsent");
 consentState.removeCCPAConsentState();
 user.setConsentState(consentState);
 
@@ -273,47 +273,47 @@ user.setConsentState(consentState);
 // ECOMMERCE START
 
 const product1: mParticle.Product = instance.eCommerce.createProduct(
-    'product1',
-    'sku1',
+    "product1",
+    "sku1",
     10,
     1,
-    'variant1',
-    'category1',
-    'brand1',
+    "variant1",
+    "category1",
+    "brand1",
     1,
-    'coupon1',
-    { foo: 'bar' },
+    "coupon1",
+    { foo: "bar" },
 );
-const product2: mParticle.Product = instance.eCommerce.createProduct('product2', 'sku2', 20);
-console.log('Product 1 Name', product1.Name);
-console.log('Product 1 Sku', product1.Sku);
-console.log('Product 1 Price', product1.Price);
-console.log('Product 1 Quantity', product1.Quantity);
-console.log('Product 1 Variant', product1.Variant);
-console.log('Product 1 Category', product1.Category);
-console.log('Product 1 Brand', product1.Brand);
-console.log('Product 1 Position', product1.Position);
-console.log('Product 1 Coupon', product1.Coupon);
-console.log('Product 1 Attributes', product1.Attributes);
+const product2: mParticle.Product = instance.eCommerce.createProduct("product2", "sku2", 20);
+console.log("Product 1 Name", product1.Name);
+console.log("Product 1 Sku", product1.Sku);
+console.log("Product 1 Price", product1.Price);
+console.log("Product 1 Quantity", product1.Quantity);
+console.log("Product 1 Variant", product1.Variant);
+console.log("Product 1 Category", product1.Category);
+console.log("Product 1 Brand", product1.Brand);
+console.log("Product 1 Position", product1.Position);
+console.log("Product 1 Coupon", product1.Coupon);
+console.log("Product 1 Attributes", product1.Attributes);
 
-const impression1: mParticle.Impression = instance.eCommerce.createImpression('name1', product1);
-const impression2: mParticle.Impression = instance.eCommerce.createImpression('name2', product2);
-const impression3: mParticle.Impression = instance.eCommerce.createImpression('name2', [product1, product2]);
-console.log('Impression 1 Name', impression1.Name);
-console.log('Impression 1 Product', impression1.Product);
+const impression1: mParticle.Impression = instance.eCommerce.createImpression("name1", product1);
+const impression2: mParticle.Impression = instance.eCommerce.createImpression("name2", product2);
+const impression3: mParticle.Impression = instance.eCommerce.createImpression("name2", [product1, product2]);
+console.log("Impression 1 Name", impression1.Name);
+console.log("Impression 1 Product", impression1.Product);
 
-const promotion1 = instance.eCommerce.createPromotion('id2');
-const promotion2: mParticle.Promotion = instance.eCommerce.createPromotion('id1', 'creative', 'name', 1);
-console.log('Promotion 1 ID', promotion1.Id);
-console.log('Promotion 1 Creative', promotion1.Creative);
-console.log('Promotion 1 Name', promotion1.Name);
-console.log('Promotion 1 Position', promotion1.Position);
+const promotion1 = instance.eCommerce.createPromotion("id2");
+const promotion2: mParticle.Promotion = instance.eCommerce.createPromotion("id1", "creative", "name", 1);
+console.log("Promotion 1 ID", promotion1.Id);
+console.log("Promotion 1 Creative", promotion1.Creative);
+console.log("Promotion 1 Name", promotion1.Name);
+console.log("Promotion 1 Position", promotion1.Position);
 
-const transactionAttributes1: mParticle.TransactionAttributes = instance.eCommerce.createTransactionAttributes('TAid1');
+const transactionAttributes1: mParticle.TransactionAttributes = instance.eCommerce.createTransactionAttributes("TAid1");
 const transactionAttributes2: mParticle.TransactionAttributes = instance.eCommerce.createTransactionAttributes(
-    'TAid1',
-    'aff1',
-    'coupon',
+    "TAid1",
+    "aff1",
+    "coupon",
     1798,
     10,
     5,
@@ -321,10 +321,10 @@ const transactionAttributes2: mParticle.TransactionAttributes = instance.eCommer
 
 const clearCartBoolean = true;
 const eCommerceCustomAttributes = { value: 10 };
-const eCommerceCustomFlags = { CF1: 'key' };
+const eCommerceCustomFlags = { CF1: "key" };
 
 instance.eCommerce.logCheckout(1);
-instance.eCommerce.logCheckout(1, 'ok', eCommerceCustomAttributes, eCommerceCustomFlags);
+instance.eCommerce.logCheckout(1, "ok", eCommerceCustomAttributes, eCommerceCustomFlags);
 
 instance.eCommerce.logProductAction(
     instance.ProductActionType.AddToCart,
@@ -449,33 +449,33 @@ instance.eCommerce.logRefund(
     eCommerceCustomFlags,
 );
 
-instance.eCommerce.setCurrencyCode('usd');
+instance.eCommerce.setCurrencyCode("usd");
 // ECOMMERCE END
 
 // Identity Start
 const identifyIdentities: mParticle.IdentifyRequest = {
     userIdentities: {
-        customerid: 'customerid',
-        email: 'email',
-        other: 'email',
-        other2: 'email',
-        other3: 'email',
-        other4: 'email',
-        other5: 'email',
-        other6: 'email',
-        other7: 'email',
-        other8: 'email',
-        other9: 'email',
-        other10: 'email',
-        mobile_number: 'email',
-        phone_number_2: 'email',
-        phone_number_3: 'email',
-        facebook: 'email',
-        facebookcustomaudienceid: 'email',
-        google: 'email',
-        twitter: 'email',
-        microsoft: 'email',
-        yahoo: 'email',
+        customerid: "customerid",
+        email: "email",
+        other: "email",
+        other2: "email",
+        other3: "email",
+        other4: "email",
+        other5: "email",
+        other6: "email",
+        other7: "email",
+        other8: "email",
+        other9: "email",
+        other10: "email",
+        mobile_number: "email",
+        phone_number_2: "email",
+        phone_number_3: "email",
+        facebook: "email",
+        facebookcustomaudienceid: "email",
+        google: "email",
+        twitter: "email",
+        microsoft: "email",
+        yahoo: "email",
     },
 };
 
@@ -613,7 +613,7 @@ instance.Identity.identify(identifyIdentities, result => {
         sourceMpid: result.getUser().getMPID(),
         startTime: new Date().getTime(),
         endTime: new Date().getTime(),
-        scope: 'mpid',
+        scope: "mpid",
     };
 
     instance.Identity.aliasUsers(userAliasObject, result => {
@@ -680,32 +680,32 @@ instance.Identity.modify(identifyIdentities, result => {
 });
 
 const user3: mParticle.User = instance.Identity.getCurrentUser();
-const user4: mParticle.User = instance.Identity.getUser('mpid' as mParticle.MPID);
+const user4: mParticle.User = instance.Identity.getUser("mpid" as mParticle.MPID);
 
 const identities: mParticle.IdentityApiData = mParticle.Identity.getCurrentUser().getUserIdentities();
 const { email, customerid, facebook, other } = identities.userIdentities;
 const mpid: mParticle.MPID = instance.Identity.getCurrentUser().getMPID();
 const user5: mParticle.User = instance.Identity.getCurrentUser();
-user5.setUserTag('tag');
-user5.removeUserTag('tag');
-user5.setUserAttribute('attr', 'value');
+user5.setUserTag("tag");
+user5.removeUserTag("tag");
+user5.setUserAttribute("attr", "value");
 user5.setUserAttributes({
-    attr: 'value',
-    foo: 'bar',
+    attr: "value",
+    foo: "bar",
 });
-user5.removeUserAttribute('attr');
-user5.setUserAttributeList('hi', ['hello']);
+user5.removeUserAttribute("attr");
+user5.setUserAttributeList("hi", ["hello"]);
 user5.removeAllUserAttributes();
 const userAttributesList: mParticle.AllUserAttributes = user5.getUserAttributesLists();
 const userAttributes = user5.getAllUserAttributes();
-const abc = 'abc';
+const abc = "abc";
 
-if (Array.isArray(userAttributes['hi'])) {
-    userAttributes['hi'].push('ok');
-} else if (typeof userAttributes['hi'] === 'number') {
-    userAttributes['hi'] += 1;
-} else if (typeof userAttributes['hi'] === 'string') {
-    userAttributes['hi'].slice();
+if (Array.isArray(userAttributes["hi"])) {
+    userAttributes["hi"].push("ok");
+} else if (typeof userAttributes["hi"] === "number") {
+    userAttributes["hi"] += 1;
+} else if (typeof userAttributes["hi"] === "string") {
+    userAttributes["hi"].slice();
 }
 
 const consent: mParticle.ConsentState = user5.getConsentState();

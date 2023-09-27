@@ -1,4 +1,4 @@
-import Pager = require('memory-pager');
+import Pager = require("memory-pager");
 
 const pages = new Pager(1024);
 new Pager();

@@ -1,5 +1,5 @@
-import MarkdownIt = require('..');
-import Token = require('../token');
+import MarkdownIt = require("..");
+import Token = require("../token");
 
 declare class StateCore {
     constructor(src: string, md: MarkdownIt, env: any);

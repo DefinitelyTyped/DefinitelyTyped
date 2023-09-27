@@ -1,56 +1,62 @@
-import * as React from 'react';
 import {
-    render,
     Mjml,
-    MjmlHead,
-    MjmlTitle,
-    MjmlPreview,
-    MjmlBody,
-    MjmlSection,
-    MjmlColumn,
-    MjmlButton,
-    MjmlImage,
-    MjmlText,
-    MjmlClass,
     MjmlAccordion,
     MjmlAccordionElement,
     MjmlAccordionText,
     MjmlAccordionTitle,
     MjmlAll,
     MjmlAttributes,
+    MjmlBody,
     MjmlBreakpoint,
+    MjmlButton,
     MjmlCarousel,
     MjmlCarouselImage,
+    MjmlClass,
+    MjmlColumn,
     MjmlDivider,
     MjmlFont,
     MjmlGroup,
+    MjmlHead,
     MjmlHero,
+    MjmlHtmlAttribute,
+    MjmlHtmlAttributes,
+    MjmlImage,
     MjmlNavbar,
     MjmlNavbarLink,
+    MjmlPreview,
     MjmlRaw,
+    MjmlSection,
+    MjmlSelector,
     MjmlSocial,
     MjmlSocialElement,
     MjmlSpacer,
     MjmlStyle,
     MjmlTable,
+    MjmlText,
+    MjmlTitle,
     MjmlWrapper,
-    MjmlHtmlAttributes,
-    MjmlSelector,
-    MjmlHtmlAttribute
-} from 'mjml-react';
+    render,
+} from "mjml-react";
+import * as React from "react";
 
-import { MjmlComment, MjmlConditionalComment, MjmlTrackingPixel, MjmlYahooStyle, MjmlHtml } from 'mjml-react/extensions';
+import {
+    MjmlComment,
+    MjmlConditionalComment,
+    MjmlHtml,
+    MjmlTrackingPixel,
+    MjmlYahooStyle,
+} from "mjml-react/extensions";
 
 import {
     addQueryParams,
     fixConditionalComment,
     getTextAlign,
     namedEntityToHexCode,
+    renderToJson,
+    renderToJson2,
     toMobileFontSize,
     useHttps,
-    renderToJson,
-    renderToJson2
-} from 'mjml-react/utils';
+} from "mjml-react/utils";
 
 function renderOutTestEmail() {
     // $ExpectType { html: string; errors: MjmlError[]; }
@@ -69,7 +75,13 @@ function renderOutTestEmail() {
                 </MjmlSection>
                 <MjmlSection>
                     <MjmlColumn>
-                        <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/" fontWeight="initial" letterSpacing="normal">
+                        <MjmlButton
+                            padding="20px"
+                            backgroundColor="#346DB7"
+                            href="https://www.wix.com/"
+                            fontWeight="initial"
+                            letterSpacing="normal"
+                        >
                             I like it!
                         </MjmlButton>
                     </MjmlColumn>
@@ -80,7 +92,7 @@ function renderOutTestEmail() {
                 </MjmlSection>
             </MjmlBody>
         </Mjml>,
-        { validationLevel: 'soft' },
+        { validationLevel: "soft" },
     );
 }
 
@@ -161,9 +173,12 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlPreview>""</MjmlPreview>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
-    const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>;
+    const childError: React.ReactNode = (
+        <MjmlPreview>
+            {/* @ts-expect-error */}
+            <p>""</p>
+        </MjmlPreview>
+    );
 }
 // TestMjmlStyleTag
 {
@@ -171,9 +186,12 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlStyle inline>child</MjmlStyle>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
+    const childError: React.ReactNode = (
+        <MjmlStyle>
+            {/* @ts-expect-error */}
+            <p>""</p>
+        </MjmlStyle>
+    );
 }
 // TestMjmlTitleTag
 {
@@ -181,9 +199,12 @@ function renderOutTestEmail() {
     const maxProps: React.ReactNode = <MjmlTitle>""</MjmlTitle>;
 
     // children cannot be anything other than string
-    // prettier-ignore
-    // @ts-expect-error
-    const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
+    const childError: React.ReactNode = (
+        <MjmlStyle>
+            {/* @ts-expect-error */}
+            <p>""</p>
+        </MjmlStyle>
+    );
 }
 // TestMjmlButtonTag
 {

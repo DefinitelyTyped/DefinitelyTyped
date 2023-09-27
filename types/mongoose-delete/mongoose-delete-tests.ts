@@ -1,5 +1,5 @@
-import mongoose = require('mongoose');
-import MongooseDelete = require('mongoose-delete');
+import mongoose = require("mongoose");
+import MongooseDelete = require("mongoose-delete");
 
 interface PetDocument extends MongooseDelete.SoftDeleteDocument {
     name: string;
@@ -8,41 +8,41 @@ const PetSchema = new mongoose.Schema<PetDocument>({
     name: String,
 });
 // Override all methods
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all' });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 // or
 PetSchema.plugin(MongooseDelete, { overrideMethods: true });
 
 // Overide only specific methods
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'],
+    overrideMethods: ["count", "find", "findOne", "findOneAndUpdate", "update"],
 });
 // or
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ['count', 'countDocuments', 'find'],
+    overrideMethods: ["count", "countDocuments", "find"],
 });
 // @ts-expect-error (unrecognized method names are disallowed)
-PetSchema.plugin(MongooseDelete, { overrideMethods: ['count', 'find', 'errorXyz'] });
+PetSchema.plugin(MongooseDelete, { overrideMethods: ["count", "find", "errorXyz"] });
 
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedAt: true });
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedAt: true });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true });
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: 'all',
+    overrideMethods: "all",
     deletedByType: String,
 });
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true, indexFields: ["deleted"] });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true, indexFields: "all" });
 // @ts-expect-error (unrecognized indexFields are disallowed)
-PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
+PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true, indexFields: "invalid" });
 PetSchema.plugin(MongooseDelete, { use$neOperator: true });
 PetSchema.plugin(MongooseDelete, { validateBeforeRestore: true });
 
-const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
+const idUser = new mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocument>>('Pet', PetSchema);
+const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocument>>("Pet", PetSchema);
 
-const Pet2 = mongoose.model('Pet', PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
+const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
 
-const fluffy = new Pet({ name: 'Fluffy' });
+const fluffy = new Pet({ name: "Fluffy" });
 
 fluffy.delete(() => {});
 
@@ -80,10 +80,10 @@ Pet.restore().exec();
 Pet.restore({ age: 10 }).exec();
 
 // $ExpectType boolean | undefined
-type deletedType = PetDocument['deleted'];
+type deletedType = PetDocument["deleted"];
 
 // $ExpectType Date | undefined
-type deletedAtType = PetDocument['deletedAt'];
+type deletedAtType = PetDocument["deletedAt"];
 
 // Additional Methods for overrides
 Pet.countDeleted({ age: 10 });
@@ -94,13 +94,13 @@ Pet.findDeleted({ age: 10 });
 Pet.findWithDeleted({ age: 10 });
 Pet.findOneDeleted({ age: 10 });
 Pet.findOneWithDeleted({ age: 10 });
-Pet.findOneAndUpdateDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateWithDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateOneDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateOneWithDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateManyDeleted({ age: 10 }, { name: 'Fluffy' });
-Pet.updateManyWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.findOneAndUpdateDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateWithDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateOneDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateOneWithDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateManyDeleted({ age: 10 }, { name: "Fluffy" });
+Pet.updateManyWithDeleted({ age: 10 }, { name: "Fluffy" });
 Pet.aggregateDeleted([{ $match: { age: 10 } }]);
 Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);

@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
-import metascraper = require('metascraper');
+import * as http from "http";
+import metascraper = require("metascraper");
 
 declare namespace getData {
     type PickDefaultFunction = (sizes: FaviconSize[]) => FaviconSize;

@@ -1,6 +1,6 @@
-import MarkoAsyncStream from './AsyncStream';
-import MarkoTemplate from './Template';
-import MarkoRenderResult from './RenderResult';
+import MarkoAsyncStream from "./AsyncStream";
+import MarkoRenderResult from "./RenderResult";
+import MarkoTemplate from "./Template";
 
 export function createWriter(writer: any): AsyncStream;
 

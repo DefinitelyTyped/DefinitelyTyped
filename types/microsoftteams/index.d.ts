@@ -249,7 +249,11 @@ declare namespace microsoftTeams {
          *                 The callback takes two arguments: the app entity configuration, if available and
          *                 an optional SdkError in case something happened (i.e. the window was closed)
          */
-        function selectAppEntity(threadId: string, categories: string[], callback: (appEntity: AppEntity, sdkError?: SdkError) => void): void;
+        function selectAppEntity(
+            threadId: string,
+            categories: string[],
+            callback: (appEntity: AppEntity, sdkError?: SdkError) => void,
+        ): void;
     }
     /**
      * Namespace to interact with bots using the SDK.
@@ -263,7 +267,11 @@ declare namespace microsoftTeams {
          * @param onSuccess callback to invoke when data is retrieved from bot
          * @param onError callback to invoke should an error occur
          */
-        function sendQuery(botRequest: QueryRequest, onSuccess?: (data: QueryResponse) => void, onError?: (error: string) => void): void;
+        function sendQuery(
+            botRequest: QueryRequest,
+            onSuccess?: (data: QueryResponse) => void,
+            onError?: (error: string) => void,
+        ): void;
         /**
          * Hide from docs until release.
          * -----
@@ -271,7 +279,10 @@ declare namespace microsoftTeams {
          * @param onSuccess callback to invoke when data is retrieved from bot
          * @param onError callback to invoke should an error occur
          */
-        function getSupportedCommands(onSuccess?: (response: Command[]) => void, onError?: (error: string) => void): void;
+        function getSupportedCommands(
+            onSuccess?: (response: Command[]) => void,
+            onError?: (error: string) => void,
+        ): void;
         /**
          * Hide from docs until release.
          * -----
@@ -280,7 +291,11 @@ declare namespace microsoftTeams {
          * @param onSuccess callback to invoke when user is authenticated
          * @param onError callback to invoke should an error occur
          */
-        function authenticate(authRequest: AuthQueryRequest, onSuccess?: (results: Results) => void, onError?: (error: string) => void): void;
+        function authenticate(
+            authRequest: AuthQueryRequest,
+            onSuccess?: (results: Results) => void,
+            onError?: (error: string) => void,
+        ): void;
         interface QueryRequest {
             /**
              * Query to search for
@@ -321,7 +336,7 @@ declare namespace microsoftTeams {
         }
         enum ResponseType {
             Results = "Results",
-            Auth = "Auth"
+            Auth = "Auth",
         }
     }
     /**
@@ -357,7 +372,7 @@ declare namespace microsoftTeams {
             Box = "BOX",
             Sharefile = "SHAREFILE",
             GoogleDrive = "GOOGLEDRIVE",
-            Egnyte = "EGNYTE"
+            Egnyte = "EGNYTE",
         }
         /**
          * Hide from docs
@@ -367,7 +382,7 @@ declare namespace microsoftTeams {
         enum CloudStorageProviderType {
             Sharepoint = 0,
             WopiIntegration = 1,
-            Google = 2
+            Google = 2,
         }
         /**
          * Hide from docs
@@ -462,7 +477,10 @@ declare namespace microsoftTeams {
          * @param channelId ID of the channel whose cloud storage folders should be retrieved
          * @param callback Callback that will be triggered post folders load
          */
-        function getCloudStorageFolders(channelId: string, callback: (error: SdkError, folders: CloudStorageFolder[]) => void): void;
+        function getCloudStorageFolders(
+            channelId: string,
+            callback: (error: SdkError, folders: CloudStorageFolder[]) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -470,7 +488,10 @@ declare namespace microsoftTeams {
          * @param channelId ID of the channel to add cloud storage folder
          * @param callback Callback that will be triggered post add folder flow is compelete
          */
-        function addCloudStorageFolder(channelId: string, callback: (error: SdkError, isFolderAdded: boolean, folders: CloudStorageFolder[]) => void): void;
+        function addCloudStorageFolder(
+            channelId: string,
+            callback: (error: SdkError, isFolderAdded: boolean, folders: CloudStorageFolder[]) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -479,7 +500,11 @@ declare namespace microsoftTeams {
          * @param folderToDelete cloud storage folder to be deleted
          * @param callback Callback that will be triggered post delete
          */
-        function deleteCloudStorageFolder(channelId: string, folderToDelete: CloudStorageFolder, callback: (error: SdkError, isFolderDeleted: boolean) => void): void;
+        function deleteCloudStorageFolder(
+            channelId: string,
+            folderToDelete: CloudStorageFolder,
+            callback: (error: SdkError, isFolderDeleted: boolean) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -488,7 +513,11 @@ declare namespace microsoftTeams {
          * @param providerCode Code of the cloud storage folder provider
          * @param callback Callback that will be triggered post contents are loaded
          */
-        function getCloudStorageFolderContents(folder: CloudStorageFolder | CloudStorageFolderItem, providerCode: CloudStorageProvider, callback: (error: SdkError, items: CloudStorageFolderItem[]) => void): void;
+        function getCloudStorageFolderContents(
+            folder: CloudStorageFolder | CloudStorageFolderItem,
+            providerCode: CloudStorageProvider,
+            callback: (error: SdkError, items: CloudStorageFolderItem[]) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -497,7 +526,11 @@ declare namespace microsoftTeams {
          * @param providerCode Code of the cloud storage folder provider
          * @param fileOpenPreference Whether file should be opened in web/inline
          */
-        function openCloudStorageFile(file: CloudStorageFolderItem, providerCode: CloudStorageProvider, fileOpenPreference?: FileOpenPreference.Web | FileOpenPreference.Inline): void;
+        function openCloudStorageFile(
+            file: CloudStorageFolderItem,
+            providerCode: CloudStorageProvider,
+            fileOpenPreference?: FileOpenPreference.Web | FileOpenPreference.Inline,
+        ): void;
     }
     /**
      * Hide from docs
@@ -520,7 +553,7 @@ declare namespace microsoftTeams {
     }
     enum NotificationTypes {
         fileDownloadStart = "fileDownloadStart",
-        fileDownloadComplete = "fileDownloadComplete"
+        fileDownloadComplete = "fileDownloadComplete",
     }
     interface ShowNotificationParameters {
         message: string;
@@ -533,7 +566,7 @@ declare namespace microsoftTeams {
     enum ViewerActionTypes {
         view = "view",
         edit = "edit",
-        editNew = "editNew"
+        editNew = "editNew",
     }
     /**
      * Hide from docs.
@@ -548,7 +581,7 @@ declare namespace microsoftTeams {
         /**
          * Use this key to subscribe to theme changes
          */
-        theme = "theme"
+        theme = "theme",
     }
     /**
      * Hide from docs.
@@ -716,7 +749,7 @@ declare namespace microsoftTeams {
             /**
              * Meeting control capability: leave meeting.
              */
-            leaveMeeting = "leaveMeeting"
+            leaveMeeting = "leaveMeeting",
         }
         /**
          * Hide from docs
@@ -770,7 +803,9 @@ declare namespace microsoftTeams {
          * Fetch the meeting room info that paired with current client.
          * @param callback Callback to invoke when the meeting room info is fetched.
          */
-        function getPairedMeetingRoomInfo(callback: (sdkError: SdkError, meetingRoomInfo: MeetingRoomInfo) => void): void;
+        function getPairedMeetingRoomInfo(
+            callback: (sdkError: SdkError, meetingRoomInfo: MeetingRoomInfo) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -786,7 +821,9 @@ declare namespace microsoftTeams {
          * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
          * @param handler The handler to invoke when the capabilities of meeting room update.
          */
-        function registerMeetingRoomCapabilitiesUpdateHandler(handler: (capabilities: MeetingRoomCapability) => void): void;
+        function registerMeetingRoomCapabilitiesUpdateHandler(
+            handler: (capabilities: MeetingRoomCapability) => void,
+        ): void;
         /**
          * Hide from docs
          * Registers a handler for meeting room states update.
@@ -878,7 +915,7 @@ declare namespace microsoftTeams {
          */
         enum MenuListType {
             dropDown = "dropDown",
-            popOver = "popOver"
+            popOver = "popOver",
         }
         function initialize(): void;
         /**
@@ -919,7 +956,10 @@ declare namespace microsoftTeams {
      * @param callback The callback to invoke when the {@link TeamInstanceParameters} object is retrieved.
      * @param teamInstanceParameters OPTIONAL Flags that specify whether to scope call to favorite teams
      */
-    function getUserJoinedTeams(callback: (userJoinedTeamsInformation: UserJoinedTeamsInformation) => void, teamInstanceParameters?: TeamInstanceParameters): void;
+    function getUserJoinedTeams(
+        callback: (userJoinedTeamsInformation: UserJoinedTeamsInformation) => void,
+        teamInstanceParameters?: TeamInstanceParameters,
+    ): void;
     /**
      * Hide from docs
      * ------
@@ -1001,7 +1041,10 @@ declare namespace microsoftTeams {
      * @param settingTypes List of user setting changes to subscribe
      * @param handler When a subscribed setting is updated this handler is called
      */
-    function registerUserSettingsChangeHandler(settingTypes: UserSettingTypes[], handler: (settingType: UserSettingTypes, value: any) => void): void;
+    function registerUserSettingsChangeHandler(
+        settingTypes: UserSettingTypes[],
+        handler: (settingType: UserSettingTypes, value: any) => void,
+    ): void;
     namespace remoteCamera {
         /**
          * Hide from docs
@@ -1034,7 +1077,7 @@ declare namespace microsoftTeams {
             PanLeft = "PanLeft",
             PanRight = "PanRight",
             TiltUp = "TiltUp",
-            TiltDown = "TiltDown"
+            TiltDown = "TiltDown",
         }
         /**
          * Hide from docs
@@ -1092,7 +1135,7 @@ declare namespace microsoftTeams {
             CommandPanRightError = 4,
             CommandTiltUpError = 5,
             CommandTiltDownError = 6,
-            SendDataError = 7
+            SendDataError = 7,
         }
         /**
          * Hide from docs
@@ -1125,7 +1168,7 @@ declare namespace microsoftTeams {
             DataChannelError = 7,
             ControllerCancelled = 8,
             ControlDisabled = 9,
-            ControlTerminatedToAllowOtherController = 10
+            ControlTerminatedToAllowOtherController = 10,
         }
         /**
          * Hide from docs
@@ -1136,7 +1179,9 @@ declare namespace microsoftTeams {
          * participants can either contain an array of Participant objects, incase of a successful fetch or null when it fails
          * participants: object that contains an array of participants with controllable-cameras
          */
-        function getCapableParticipants(callback: (error: SdkError | null, participants: Participant[] | null) => void): void;
+        function getCapableParticipants(
+            callback: (error: SdkError | null, participants: Participant[] | null) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -1147,7 +1192,10 @@ declare namespace microsoftTeams {
          * requestResponse can either contain the true/false value, incase of a successful request or null when it fails
          * requestResponse: True means request was accepted and false means request was denied
          */
-        function requestControl(participant: Participant, callback: (error: SdkError | null, requestResponse: boolean | null) => void): void;
+        function requestControl(
+            participant: Participant,
+            callback: (error: SdkError | null, requestResponse: boolean | null) => void,
+        ): void;
         /**
          * Hide from docs
          *
@@ -1198,14 +1246,14 @@ declare namespace microsoftTeams {
         enum FailedReason {
             AuthFailed = "AuthFailed",
             Timeout = "Timeout",
-            Other = "Other"
+            Other = "Other",
         }
         enum ExpectedFailureReason {
             PermissionError = "PermissionError",
             NotFound = "NotFound",
             Throttling = "Throttling",
             Offline = "Offline",
-            Other = "Other"
+            Other = "Other",
         }
         // tslint:disable-next-line:interface-name
         interface IFailedRequest {
@@ -1234,7 +1282,7 @@ declare namespace microsoftTeams {
          */
         function notifyExpectedFailure(expectedFailureRequest: IExpectedFailureRequest): void;
     }
-        // tslint:disable-next-line:interface-name
+    // tslint:disable-next-line:interface-name
     interface IAppWindow {
         postMessage(message: any): void;
         addEventListener(type: string, listener: () => void): void;
@@ -1429,7 +1477,7 @@ declare namespace microsoftTeams {
         android = "android",
         ios = "ios",
         rigel = "rigel",
-        surfaceHub = "surfaceHub"
+        surfaceHub = "surfaceHub",
     }
     enum FrameContexts {
         settings = "settings",
@@ -1439,7 +1487,7 @@ declare namespace microsoftTeams {
         task = "task",
         sidePanel = "sidePanel",
         stage = "stage",
-        meetingStage = "meetingStage"
+        meetingStage = "meetingStage",
     }
     /**
      * Indicates the team type, currently used to distinguish between different team
@@ -1450,7 +1498,7 @@ declare namespace microsoftTeams {
         Edu = 1,
         Class = 2,
         Plc = 3,
-        Staff = 4
+        Staff = 4,
     }
     /**
      * Indicates the various types of roles of a user in a team.
@@ -1458,7 +1506,7 @@ declare namespace microsoftTeams {
     enum UserTeamRole {
         Admin = 0,
         User = 1,
-        Guest = 2
+        Guest = 2,
     }
     /**
      * Task module dimension enum
@@ -1466,7 +1514,7 @@ declare namespace microsoftTeams {
     enum TaskModuleDimension {
         Large = "large",
         Medium = "medium",
-        Small = "small"
+        Small = "small",
     }
     /**
      * The type of the channel with which the content is associated.
@@ -1474,7 +1522,7 @@ declare namespace microsoftTeams {
     enum ChannelType {
         Regular = "Regular",
         Private = "Private",
-        Shared = "Shared"
+        Shared = "Shared",
     }
     /**
      * Represents information about tabs for an app
@@ -1599,7 +1647,7 @@ declare namespace microsoftTeams {
      * Represents OS locale info used for formatting date and time data
      */
     interface LocaleInfo {
-        platform: 'windows' | 'macos';
+        platform: "windows" | "macos";
         regionalFormat: string;
         shortDate: string;
         longDate: string;
@@ -1612,7 +1660,7 @@ declare namespace microsoftTeams {
     enum FileOpenPreference {
         Inline = "inline",
         Desktop = "desktop",
-        Web = "web"
+        Web = "web",
     }
     interface Context {
         /**
@@ -2025,7 +2073,7 @@ declare namespace microsoftTeams {
         /**
          * The return value is too big and has exceeded our size boundries
          */
-        SIZE_EXCEEDED = 10000
+        SIZE_EXCEEDED = 10000,
     }
     namespace location {
         interface LocationProps {
@@ -2079,7 +2127,7 @@ declare namespace microsoftTeams {
          */
         enum FileFormat {
             Base64 = "base64",
-            ID = "id"
+            ID = "id",
         }
         /**
          * File object that can be used to represent image or video or audio
@@ -2211,21 +2259,21 @@ declare namespace microsoftTeams {
             Photo = 1,
             Document = 2,
             Whiteboard = 3,
-            BusinessCard = 4
+            BusinessCard = 4,
         }
         /**
          * Specifies the image source
          */
         enum Source {
             Camera = 1,
-            Gallery = 2
+            Gallery = 2,
         }
         /**
          * Specifies the type of Media
          */
         enum MediaType {
             Image = 1,
-            Audio = 4
+            Audio = 4,
         }
         /**
          * Input for view images API
@@ -2240,7 +2288,7 @@ declare namespace microsoftTeams {
          */
         enum ImageUriType {
             ID = 1,
-            URL = 2
+            URL = 2,
         }
         /**
          * Media chunks an output of getMedia API from platform
@@ -2387,7 +2435,7 @@ declare namespace microsoftTeams {
             Scheduled = "Scheduled",
             Recurring = "Recurring",
             Broadcast = "Broadcast",
-            MeetNow = "MeetNow"
+            MeetNow = "MeetNow",
         }
         /**
          * Allows an app to get the incoming audio speaker setting for the meeting user
@@ -2412,21 +2460,27 @@ declare namespace microsoftTeams {
          * error can either contain an error of type SdkError, incase of an error, or null when get is successful
          * result can either contain a IMeetingDetails value, incase of a successful get or null when the get fails
          */
-        function getMeetingDetails(callback: (error: SdkError | null, meetingDetails: IMeetingDetails | null) => void): void;
+        function getMeetingDetails(
+            callback: (error: SdkError | null, meetingDetails: IMeetingDetails | null) => void,
+        ): void;
         /**
          * Allows an app to get the authentication token for the anonymous or guest user in the meeting
          * @param callback Callback contains 2 parameters, error and authenticationTokenOfAnonymousUser.
          * error can either contain an error of type SdkError, incase of an error, or null when get is successful
          * authenticationTokenOfAnonymousUser can either contain a string value, incase of a successful get or null when the get fails
          */
-        function getAuthenticationTokenForAnonymousUser(callback: (error: SdkError | null, authenticationTokenOfAnonymousUser: string | null) => void): void;
+        function getAuthenticationTokenForAnonymousUser(
+            callback: (error: SdkError | null, authenticationTokenOfAnonymousUser: string | null) => void,
+        ): void;
         /**
          * Allows an app to get the state of the live stream in the current meeting
          * @param callback Callback contains 2 parameters: error and liveStreamState.
          * error can either contain an error of type SdkError, in case of an error, or null when get is successful
          * liveStreamState can either contain a LiveStreamState value, or null when operation fails
          */
-        function getLiveStreamState(callback: (error: SdkError | null, liveStreamState: LiveStreamState | null) => void): void;
+        function getLiveStreamState(
+            callback: (error: SdkError | null, liveStreamState: LiveStreamState | null) => void,
+        ): void;
         /**
          * Allows an app to request the live streaming be started at the given streaming url
          * @param streamUrl the url to the stream resource
@@ -2434,7 +2488,11 @@ declare namespace microsoftTeams {
          * @param callback Callback contains error parameter which can be of type SdkError in case of an error, or null when operation is successful
          * Use getLiveStreamState or registerLiveStreamChangedHandler to get updates on the live stream state
          */
-        function requestStartLiveStreaming(callback: (error: SdkError | null) => void, streamUrl: string, streamKey?: string): void;
+        function requestStartLiveStreaming(
+            callback: (error: SdkError | null) => void,
+            streamUrl: string,
+            streamKey?: string,
+        ): void;
         /**
          * Allows an app to request the live streaming be stopped at the given streaming url
          * @param callback Callback contains error parameter which can be of type SdkError in case of an error, or null when operation is successful
@@ -2482,7 +2540,10 @@ declare namespace microsoftTeams {
          * @param callback Returns list of JSON object of type PeoplePickerResult which consists of AAD IDs, display names and emails of the selected users
          * @param peoplePickerInputs Input parameters to launch customized people picker
          */
-        function selectPeople(callback: (error: SdkError, people: PeoplePickerResult[]) => void, peoplePickerInputs?: PeoplePickerInputs): void;
+        function selectPeople(
+            callback: (error: SdkError, people: PeoplePickerResult[]) => void,
+            peoplePickerInputs?: PeoplePickerInputs,
+        ): void;
         /**
          * Input parameter supplied to the People Picker API
          */
@@ -2624,13 +2685,19 @@ declare namespace microsoftTeams {
      * @param callback The callback to invoke when the {@link TabInstanceParameters} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Flags that specify whether to scope call to favorite teams or channels.
      */
-    function getTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getTabInstances(
+        callback: (tabInfo: TabInformation) => void,
+        tabInstanceParameters?: TabInstanceParameters,
+    ): void;
     /**
      * Allows an app to retrieve the most recently used tabs for this user.
      * @param callback The callback to invoke when the {@link TabInformation} object is retrieved.
      * @param tabInstanceParameters OPTIONAL Ignored, kept for future use
      */
-    function getMruTabInstances(callback: (tabInfo: TabInformation) => void, tabInstanceParameters?: TabInstanceParameters): void;
+    function getMruTabInstances(
+        callback: (tabInfo: TabInformation) => void,
+        tabInstanceParameters?: TabInstanceParameters,
+    ): void;
     /**
      * Shares a deep link that a user can use to navigate back to a specific state in this page.
      * @param deepLinkParameters ID and label for the link and fallback URL.
@@ -2642,7 +2709,11 @@ declare namespace microsoftTeams {
      */
     function executeDeepLink(deepLink: string, onComplete?: (status: boolean, reason?: string) => void): void;
     function setFrameContext(frameContext: FrameContext): void;
-    function initializeWithFrameContext(frameContext: FrameContext, callback?: () => void, validMessageOrigins?: string[]): void;
+    function initializeWithFrameContext(
+        frameContext: FrameContext,
+        callback?: () => void,
+        validMessageOrigins?: string[],
+    ): void;
     /**
      * Namespace to interact with the settings-specific part of the SDK.
      * This object is usable only on the settings frame.

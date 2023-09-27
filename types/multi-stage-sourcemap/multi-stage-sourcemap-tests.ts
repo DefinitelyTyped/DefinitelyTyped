@@ -1,5 +1,5 @@
-import { transfer } from 'multi-stage-sourcemap';
-import { SourceMapGenerator } from 'source-map';
+import { transfer } from "multi-stage-sourcemap";
+import { SourceMapGenerator } from "source-map";
 
 const old = new SourceMapGenerator();
 /**

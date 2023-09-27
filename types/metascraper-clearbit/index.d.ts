@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
+import * as http from "http";
 
-import metascraper = require('metascraper');
+import metascraper = require("metascraper");
 
 declare namespace getData {
     interface Options {

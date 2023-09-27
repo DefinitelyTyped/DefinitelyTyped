@@ -1,6 +1,6 @@
-import { CreateCustomerPayload } from './create-payload.model';
+import { CreateCustomerPayload } from "./create-payload.model";
 
 export interface UpdateCustomerPayload extends CreateCustomerPayload {
-  /** Customer's id. */
-  id: string;
+    /** Customer's id. */
+    id: string;
 }

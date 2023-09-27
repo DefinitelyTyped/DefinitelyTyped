@@ -6,7 +6,7 @@
 
 // TypeScript Version: 2.2
 
-import * as braces from 'braces';
+import * as braces from "braces";
 declare namespace micromatch {
     interface Item {
         glob: string;

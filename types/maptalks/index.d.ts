@@ -209,7 +209,7 @@ export interface DrawToolModeActionOptions {
     action: string[];
     create: (projection: object, clickCoords: object, event: object) => object;
     update: (projection: object, path: object, geometry: object, event: object) => void;
-    generate: (geometry: object, extraData: {drawTool: DrawTool}) => object;
+    generate: (geometry: object, extraData: { drawTool: DrawTool }) => object;
 }
 
 export interface DistanceToolOptions extends DrawToolOptions {
@@ -1160,7 +1160,6 @@ export namespace renderer {
          * a required abstract method to implement
          * draw the layer when map is not interacting
          *
-         *
          *  draw
          *  renderer.CanvasRenderer
          */
@@ -1169,7 +1168,6 @@ export namespace renderer {
         /**
          * an optional abstract method to implement
          * draw the layer when map is interacting (moving/zooming/dragrotating)
-         *
          *
          *  drawOnInteracting
          * @param  eventParam event parameters
@@ -1484,7 +1482,6 @@ export interface Ajax {
      *         console.log(json.foo);
      *     }
      * );
-     *
      */
     getJSON(url: string, options?: object, cb?: AjaxCallbackFun): Ajax;
 }
@@ -1692,7 +1689,6 @@ export namespace DomUtil {
      * Vendor-prefixed fransform style name (e.g. `'webkitTransform'` for WebKit).
      *   TRANSFORM
      *  DomUtil
-     *
      */
     const TRANSFORM: string;
 
@@ -1700,7 +1696,6 @@ export namespace DomUtil {
      * Vendor-prefixed tfransform-origin name (e.g. `'webkitTransformOrigin'` for WebKit).
      *   TRANSFORMORIGIN
      *  DomUtil
-     *
      */
     const TRANSFORMORIGIN: string;
 
@@ -1708,7 +1703,6 @@ export namespace DomUtil {
      * Vendor-prefixed transition name (e.g. `'WebkitTransition'` for WebKit).
      *   TRANSITION
      *  DomUtil
-     *
      */
     const TRANSITION: string;
 
@@ -1716,7 +1710,6 @@ export namespace DomUtil {
      * Vendor-prefixed filter name (e.g. `'WebkitFilter'` for WebKit).
      *   FILTER
      *  DomUtil
-     *
      */
     const CSSFILTER: string;
 
@@ -1973,7 +1966,6 @@ export namespace StringUtil {
  *
  * Foo.addInitHook('whenCreated');
  * @category core
- *
  */
 export abstract class Class {
     id: string | number;
@@ -2576,7 +2568,7 @@ export interface Map extends Handlerable, ui.Menuable {
 }
 
 export interface MapStatic {
-    new (container: string | HTMLElement, opts?: MapOptions): Map;
+    new(container: string | HTMLElement, opts?: MapOptions): Map;
 }
 
 export const Map: MapStatic;
@@ -2655,7 +2647,6 @@ export abstract class Layer extends Eventable implements JSONAble {
     /**
      * If the layer is rendered by HTML5 Canvas.
      * @return
-     *
      */
     isCanvasRender(): boolean;
 
@@ -2785,8 +2776,8 @@ export interface TileSystem {
 }
 
 export interface TileSystemStatic {
-    new (sx: number, sy: number, ox: number, oy: number): TileSystem;
-    new (sx: number[]): TileSystem;
+    new(sx: number, sy: number, ox: number, oy: number): TileSystem;
+    new(sx: number[]): TileSystem;
 }
 
 export const TileSystem: TileSystemStatic;
@@ -2796,9 +2787,6 @@ export interface TileLayer extends Layer {
      * Reproduce a TileLayer from layer's profile JSON.
      * @param   layerJSON - layer's profile JSON
      * @return
-     *
-     *
-     *
      */
     fromJSON(layerJSON: object): TileLayer;
 
@@ -2846,7 +2834,7 @@ export interface TileLayer extends Layer {
 }
 
 export interface TileLayerInstanceStatic {
-    new (id: string | number, options?: TileLayerOptions): TileLayer;
+    new(id: string | number, options?: TileLayerOptions): TileLayer;
 }
 
 export const TileLayer: TileLayerInstanceStatic;
@@ -2860,7 +2848,7 @@ export interface GroupTileLayer extends TileLayer {
 }
 
 export interface GroupTileLayerStatic {
-    new (id: string | number, layers: TileLayer[], options?: TileLayerOptions): GroupTileLayer;
+    new(id: string | number, layers: TileLayer[], options?: TileLayerOptions): GroupTileLayer;
 }
 
 export const GroupTileLayer: GroupTileLayerStatic;
@@ -2870,7 +2858,7 @@ export interface WMSTileLayer extends TileLayer {
 }
 
 export interface WMSTileLayerStatic {
-    new (id: string | number, options?: WMSTileLayerOptions): WMSTileLayer;
+    new(id: string | number, options?: WMSTileLayerOptions): WMSTileLayer;
 }
 
 export const WMSTileLayer: WMSTileLayerStatic;
@@ -2885,7 +2873,7 @@ export interface CanvasTileLayer extends TileLayer {
     drawTile(canvas: HTMLCanvasElement, ...options: any[] /*canvas, options*/): void;
 }
 export interface CanvasTileLayerStatic {
-    new (id: string | number, options?: TileLayerOptions): CanvasTileLayer;
+    new(id: string | number, options?: TileLayerOptions): CanvasTileLayer;
 }
 export const CanvasTileLayer: CanvasTileLayerStatic;
 
@@ -2988,7 +2976,6 @@ export interface OverlayLayer extends Layer {
     /**
      * Called when geometry is being removed to clear the context concerned.
      * @param   geometry - the geometry instance to remove
-     *
      */
     onRemoveGeometry(geometry: Geometry): Geometry;
 
@@ -3039,7 +3026,7 @@ export interface VectorLayer extends OverlayLayer {
 }
 
 export interface VectorLayerStatic {
-    new (id: string | number, geometries?: Geometry | Geometry[] | null, options?: VectorLayerOptions): VectorLayer;
+    new(id: string | number, geometries?: Geometry | Geometry[] | null, options?: VectorLayerOptions): VectorLayer;
 }
 export const VectorLayer: VectorLayerStatic;
 
@@ -3167,7 +3154,7 @@ export interface CanvasLayer extends Layer {
 }
 
 export interface CanvasLayerStatic {
-    new (id: string | number, options: CanvasLayerOptions): CanvasLayer;
+    new(id: string | number, options: CanvasLayerOptions): CanvasLayer;
 }
 export const CanvasLayer: CanvasLayerStatic;
 
@@ -3180,7 +3167,7 @@ export interface ParticleLayer extends CanvasLayer {
 }
 
 export interface ParticleLayerStatic {
-    new (id: string, options?: CanvasLayerOptions): ParticleLayer;
+    new(id: string, options?: CanvasLayerOptions): ParticleLayer;
 }
 export const ParticleLayer: ParticleLayerStatic;
 
@@ -3200,7 +3187,7 @@ export interface ImageLayer extends Layer {
 }
 
 export interface ImageLayerStatic {
-    new (id: string | number, images?: object[], options?: ImageLayerOptions): ImageLayer;
+    new(id: string | number, images?: object[], options?: ImageLayerOptions): ImageLayer;
 }
 export const ImageLayer: ImageLayerStatic;
 
@@ -4079,7 +4066,7 @@ export interface Path extends Geometry {
 export interface Marker extends Geometry, CenterAble {}
 
 export interface MarkerStatic {
-    new (coordinates: Coordinate | number[], options?: MarkerOptions): Marker;
+    new(coordinates: Coordinate | number[], options?: MarkerOptions): Marker;
 }
 
 export const Marker: MarkerStatic;
@@ -4128,7 +4115,7 @@ export interface Label extends TextMarker, TextEditable {
 }
 
 export interface LabelStatic {
-    new (contetn: string, coordinates: Coordinate | number[], options?: LabelOptions): Label;
+    new(contetn: string, coordinates: Coordinate | number[], options?: LabelOptions): Label;
 }
 export const Label: LabelStatic;
 
@@ -4187,7 +4174,7 @@ export interface TextBox extends TextMarker, TextEditable {
 }
 
 export interface TextBoxStatic {
-    new (
+    new(
         content: string,
         coordinates: Coordinate | number[],
         width: number,
@@ -4246,7 +4233,7 @@ export interface Polygon extends Path {
 }
 
 export interface PolygonStatic {
-    new (coordinates: number[][] | number[][][] | Coordinate[] | Coordinate[][], options?: PathOptions): Polygon;
+    new(coordinates: number[][] | number[][][] | Coordinate[] | Coordinate[][], options?: PathOptions): Polygon;
 }
 export const Polygon: PolygonStatic;
 
@@ -4277,7 +4264,7 @@ export interface LineString extends Path {
 }
 
 export interface LineStringStatic {
-    new (coordinates: Coordinate[] | number[][] | any[], options?: LineStringOptions): LineString;
+    new(coordinates: Coordinate[] | number[][] | any[], options?: LineStringOptions): LineString;
 }
 export const LineString: LineStringStatic;
 
@@ -4290,7 +4277,7 @@ export interface ArcCurve extends Curve {
 }
 
 export interface ArcCurveStatic {
-    new (coordinates: Coordinate[] | number[][], options?: ArcCurveOptions): ArcCurve;
+    new(coordinates: Coordinate[] | number[][], options?: ArcCurveOptions): ArcCurve;
 }
 
 export const ArcCurve: ArcCurveStatic;
@@ -4300,7 +4287,7 @@ export interface QuadBezierCurve extends Curve {
 }
 
 export interface QuadBezierCurveStatic {
-    new (coordinates: Coordinate[] | number[][], options?: LineStringOptions): QuadBezierCurve;
+    new(coordinates: Coordinate[] | number[][], options?: LineStringOptions): QuadBezierCurve;
 }
 
 export const QuadBezierCurve: QuadBezierCurveStatic;
@@ -4309,7 +4296,7 @@ export interface CubicBezierCurve extends Curve {
     _cubicBezierCurve: string;
 }
 export interface CubicBezierCurveStatic {
-    new (coordinates: Coordinate[] | number[][], options?: LineStringOptions): CubicBezierCurve;
+    new(coordinates: Coordinate[] | number[][], options?: LineStringOptions): CubicBezierCurve;
 }
 
 export const CubicBezierCurve: CubicBezierCurveStatic;
@@ -4349,7 +4336,7 @@ export interface Connectable {
 export interface ConnectorLine extends Connectable, LineString {}
 
 export interface ConnectorLineStatic {
-    new (
+    new(
         src: Geometry | control.Control | ui.UIComponent,
         target: Geometry | control.Control | ui.UIComponent,
         options?: ConnectorLineOptions,
@@ -4361,7 +4348,7 @@ export const ConnectorLine: ConnectorLineStatic;
 export interface ArcConnectorLine extends Connectable, LineString {}
 
 export interface ArcConnectorLineStatic {
-    new (
+    new(
         src: Geometry | control.Control | ui.UIComponent,
         target: Geometry | control.Control | ui.UIComponent,
         options?: ArcConnectorLineOptions,
@@ -4377,12 +4364,11 @@ export interface Ellipse extends Polygon, CenterAble {
      * @fires Geometry#positionchange
      *  CenterAble.setCoordinates
      */
-      setCoordinates(coordinates: Coordinate | number[]): this;
+    setCoordinates(coordinates: Coordinate | number[]): this;
 
     /**
      * Get geometry's center
      * @return  - center of the geometry
-     *
      */
     getCoordinates(): Coordinate;
 
@@ -4441,7 +4427,7 @@ export interface Ellipse extends Polygon, CenterAble {
 }
 
 export interface EllipseStatic {
-    new (center: Coordinate | number[], width: number, height: number, options?: EllipseOptions): Ellipse;
+    new(center: Coordinate | number[], width: number, height: number, options?: EllipseOptions): Ellipse;
 }
 export const Ellipse: EllipseStatic;
 
@@ -4458,7 +4444,6 @@ export interface Circle extends Polygon, CenterAble {
     /**
      * Get geometry's center
      * @return  - center of the geometry
-     *
      */
     getCoordinates(): Coordinate;
 
@@ -4503,7 +4488,7 @@ export interface Circle extends Polygon, CenterAble {
 }
 
 export interface CircleStatic {
-    new (center: Coordinate | number[], radius: number, options?: EllipseOptions): Circle;
+    new(center: Coordinate | number[], radius: number, options?: EllipseOptions): Circle;
 }
 export const Circle: CircleStatic;
 
@@ -4544,7 +4529,7 @@ export interface Sector extends Circle {
 }
 
 export interface SectorStatic {
-    new (
+    new(
         center: Coordinate | number[],
         radius: number,
         startAngle: number,
@@ -4616,7 +4601,7 @@ export interface Rectangle extends Polygon {
 }
 
 export interface RectangleStatic {
-    new (coordinates: Coordinate | number[], width: number, height: number, options?: PathOptions): Rectangle;
+    new(coordinates: Coordinate | number[], width: number, height: number, options?: PathOptions): Rectangle;
 }
 export const Rectangle: RectangleStatic;
 
@@ -4685,7 +4670,7 @@ export interface GeometryCollectionStatic {
      * @param  geometries - GeometryCollection's geometries
      * @param  [options=null] - options defined in [nGeometryCollection]{@link GeometryCollection#options}
      */
-    new (geometries: Geometry[], options?: object): GeometryCollection;
+    new(geometries: Geometry[], options?: object): GeometryCollection;
 }
 export const GeometryCollection: GeometryCollectionStatic;
 
@@ -4705,7 +4690,7 @@ export interface MultiGeometry extends GeometryCollection {
     setCoordinates(coordinates: Coordinate[] | Coordinate[][] | Coordinate[][][]): this;
 }
 export interface MultiGeometryStatic {
-    new (geoType: Class, type: string, data: Geometry[], options?: GeometryOptions): any;
+    new(geoType: Class, type: string, data: Geometry[], options?: GeometryOptions): any;
 }
 export const MultiGeometry: MultiGeometryStatic;
 
@@ -4718,7 +4703,7 @@ export interface MultiPoint extends MultiGeometry {
     findClosest(coordinate: Coordinate): Coordinate;
 }
 export interface MultiPointStatic {
-    new (data: number[][] | Coordinate[] | Marker[], options?: GeometryOptions): MultiPoint;
+    new(data: number[][] | Coordinate[] | Marker[], options?: GeometryOptions): MultiPoint;
 }
 
 export const MultiPoint: MultiPointStatic;
@@ -4728,7 +4713,7 @@ export interface MultiLineString extends MultiGeometry {
 }
 
 export interface MultiLineStringStatic {
-    new (data: number[][][] | Coordinate[][] | LineString[], options?: LineStringOptions): MultiLineString;
+    new(data: number[][][] | Coordinate[][] | LineString[], options?: LineStringOptions): MultiLineString;
 }
 export const MultiLineString: MultiLineStringStatic;
 
@@ -4737,7 +4722,7 @@ export interface MultiPolygon extends MultiGeometry {
 }
 
 export interface MultiPolygonStatic {
-    new (data: number[][][][] | Coordinate[][][] | Polygon[], options?: GeometryOptions): MultiPolygon;
+    new(data: number[][][][] | Coordinate[][][] | Polygon[], options?: GeometryOptions): MultiPolygon;
 }
 
 export const MultiPolygon: MultiPolygonStatic;
@@ -4999,7 +4984,6 @@ export class CRS {
  * A core class used internally for mapping map's (usually geographical) coordinates to 2d points.<br>
  *
  * @category geo
- *
  */
 export interface Transformation {
     /**
@@ -5032,7 +5016,7 @@ export interface TransformationStatic {
      * e.g.: Transformation parameters for Google map: [1, -1, -20037508.34, 20037508.34] <br>
      * @param   matrix transformation array
      */
-    new (matrix: number[]): Transformation;
+    new(matrix: number[]): Transformation;
 }
 export const Transformation: TransformationStatic;
 

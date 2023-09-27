@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { EventEmitter } from 'events';
-import { Express } from 'express';
-import * as Multer from 'multer';
-import { Db } from 'mongodb';
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Db } from "mongodb";
+import * as Multer from "multer";
 
 interface MulterGfsOptions {
     file?(req: Express.Request, file: Express.Multer.File): any;
@@ -16,7 +16,11 @@ interface MulterGfsOptions {
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
     constructor(settings: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions);
 
-    _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+    _handleFile(
+        req: Express.Request,
+        file: Express.Multer.File,
+        callback: (error?: any, info?: Express.Multer.File) => void,
+    ): void;
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
 }

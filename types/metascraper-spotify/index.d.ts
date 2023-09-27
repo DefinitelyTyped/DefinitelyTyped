@@ -3,7 +3,7 @@
 // Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import metascraper = require('metascraper');
+import metascraper = require("metascraper");
 
 declare namespace getData {
     function isValidUrl(config: { url: string }): boolean;

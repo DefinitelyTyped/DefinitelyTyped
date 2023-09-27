@@ -174,7 +174,7 @@ declare namespace madge {
          *
          * @default 'LR'
          */
-        rankdir?: 'TB' | 'LR' | 'BT' | 'RL';
+        rankdir?: "TB" | "LR" | "BT" | "RL";
 
         /**
          * Font name to use in the graph.

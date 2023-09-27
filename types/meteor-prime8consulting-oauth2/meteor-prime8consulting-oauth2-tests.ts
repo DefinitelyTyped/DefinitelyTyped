@@ -1,6 +1,4 @@
-
-
-let str : string;
+let str: string;
 str = oAuth2Server.pubSubNames.authCodes;
 str = oAuth2Server.pubSubNames.refreshTokens;
 
@@ -16,12 +14,11 @@ let obj = oAuth2Server.oauthserver;
 oAuth2Server.subscribeTo.authCode();
 
 oAuth2Server.callMethod.authCodeGrant(
-    'client_id',
-    'redirect_uri',
-    'response_type',
-    ['scope1', 'scope'],
-    'state',
-    (err : Meteor.Error, result : OAuth2Server.AuthCodeGrantResult) => {
-
-    }
+    "client_id",
+    "redirect_uri",
+    "response_type",
+    ["scope1", "scope"],
+    "state",
+    (err: Meteor.Error, result: OAuth2Server.AuthCodeGrantResult) => {
+    },
 );

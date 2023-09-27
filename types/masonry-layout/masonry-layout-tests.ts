@@ -3,10 +3,10 @@ import Masonry = require("masonry-layout");
 // responsive layouts
 function testResponsiveLayouts() {
     $(document).ready(() => {
-        $('.grid').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-sizer',
-            percentPosition: true
+        $(".grid").masonry({
+            itemSelector: ".grid-item",
+            columnWidth: ".grid-sizer",
+            percentPosition: true,
         });
     });
 }
@@ -14,47 +14,47 @@ function testResponsiveLayouts() {
 // recommended Options
 function testRecommendedOptions() {
     $(document).ready(() => {
-        $('.grid').masonry({
+        $(".grid").masonry({
             columnWidth: 200,
-            itemSelector: '.grid-item'
+            itemSelector: ".grid-item",
         });
     });
 
-    const msnry = new Masonry('.grid', {
+    const msnry = new Masonry(".grid", {
         columnWidth: 200,
-        itemSelector: '.grid-item'
+        itemSelector: ".grid-item",
     });
 
     // Test JQuery 2-parameter interface added to address issue 59558
-    $('.grid').masonry('remove', $('.grid-item'));
+    $(".grid").masonry("remove", $(".grid-item"));
 }
 
 // extended Options
 function testExtendedOptions() {
-    const msnry = new Masonry('.grid', {
-        itemSelector: '.grid-item',
-        columnWidth: '.grid-sizer',
+    const msnry = new Masonry(".grid", {
+        itemSelector: ".grid-item",
+        columnWidth: ".grid-sizer",
         percentPosition: true,
-        gutter: '.gutter-sizer',
-        stamp: '.stamp',
+        gutter: ".gutter-sizer",
+        stamp: ".stamp",
         fitWidth: true,
         originLeft: true,
         originTop: true,
         containerStyle: {
-            position: 'relative'
+            position: "relative",
         },
         hiddenStyle: {
-            transform: 'translateY(100px)',
+            transform: "translateY(100px)",
             opacity: 0,
         },
         visibleStyle: {
-            transform: 'translateY(0px)',
-            opacity: 1
+            transform: "translateY(0px)",
+            opacity: 1,
         },
-        transitionDuration: '0.4s',
+        transitionDuration: "0.4s",
         stagger: 30,
         resize: true,
         initLayout: true,
-        horizontalOrder: true
+        horizontalOrder: true,
     });
 }

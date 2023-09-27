@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface Column {
     /** The element key */
@@ -116,4 +116,4 @@ export interface DataTableProps {
     onRowSelection: (selectedRows: any) => void;
 }
 
-export default class DataTable extends React.Component<Partial<DataTableProps>> { }
+export default class DataTable extends React.Component<Partial<DataTableProps>> {}

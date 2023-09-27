@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import { Readable, Writable, Stream } from 'stream';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Readable, Stream, Writable } from "stream";
 
 export interface AccountInfo {
     type: string;
@@ -96,9 +96,9 @@ export class Storage extends EventEmitter {
     login(cb: any): Readable;
     getAccountInfo(cb: any): AccountInfo;
     toJSON(): JSON;
-    on(event: 'ready', listener: (storage: Storage) => void): this;
-    on(event: 'move', listener: (file: MutableFile, oldDir: MutableFile) => void): this;
-    on(event: 'add' | 'delete' | 'update', listener: (file: MutableFile) => void): this;
+    on(event: "ready", listener: (storage: Storage) => void): this;
+    on(event: "move", listener: (file: MutableFile, oldDir: MutableFile) => void): this;
+    on(event: "add" | "delete" | "update", listener: (file: MutableFile) => void): this;
 }
 
 export class MutableFile extends File {
@@ -115,8 +115,8 @@ export class MutableFile extends File {
     rename(newFileName: string, cb: (err: Error | undefined) => void): Readable;
     setLabel(label: string, cb: (err: Error | undefined) => void): Readable;
     setFavorite(isFavorite: boolean, cb: (err: Error | undefined) => void): Readable;
-    on(event: 'move', listener: (oldDir: MutableFile) => void): this;
-    on(event: 'delete' | 'update', listener: () => void): this;
+    on(event: "move", listener: (oldDir: MutableFile) => void): this;
+    on(event: "delete" | "update", listener: () => void): this;
 }
 
 export default function mega(options: StorageOptions, cb?: any): Storage;

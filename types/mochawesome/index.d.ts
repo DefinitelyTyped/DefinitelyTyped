@@ -7,7 +7,7 @@ declare namespace Mochawesome {
     interface ReporterOptions {
         quiet: boolean;
         code: boolean;
-        'no-code': boolean;
+        "no-code": boolean;
         html: boolean;
         json: boolean;
         consoleReporter: string;
@@ -86,8 +86,8 @@ declare namespace Mochawesome {
         err: TestError | {};
 
         context?: string | undefined;
-        speed?: 'slow' | 'medium' | 'fast' | undefined;
-        state?: 'failed' | 'passed' | undefined;
+        speed?: "slow" | "medium" | "fast" | undefined;
+        state?: "failed" | "passed" | undefined;
         duration?: number | undefined;
         code?: string | undefined;
         parentUUID?: string | undefined;

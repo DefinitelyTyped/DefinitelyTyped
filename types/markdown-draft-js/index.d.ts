@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { RawDraftContentState, Entity } from 'draft-js';
+import { Entity, RawDraftContentState } from "draft-js";
 
 export interface BlockEntitiesParam {
     [key: string]: (item?: { [key: string]: any }) => Entity;

@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Cache } from 'lru-cache';
+import { Cache } from "lru-cache";
 
 export = mustacheExpress;
 
 declare function mustacheExpress(
     partialsPath?: string,
-    partialsExt?: string
+    partialsExt?: string,
 ): mustacheExpress.ExpessEngine;
 
 declare namespace mustacheExpress {

@@ -5,12 +5,12 @@
 // Minimum TypeScript Version: 3.4
 
 declare namespace mp {
-    type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'v' | 'debug' | 'trace';
+    type LogLevel = "fatal" | "error" | "warn" | "info" | "v" | "debug" | "trace";
 
     interface AddKeyBindingFlags {
         repeatable?: boolean | undefined;
         complex?: boolean | undefined;
-        event?: 'down' | 'repeat' | 'up' | 'press' | undefined;
+        event?: "down" | "repeat" | "up" | "press" | undefined;
         is_mouse?: boolean | undefined;
         key_name?: string | undefined;
         key_text?: string | undefined;
@@ -87,19 +87,19 @@ declare namespace mp {
 
     function unregister_event(fn: (...args: unknown[]) => void): void;
 
-    function observe_property(name: string, type: 'native', fn: (name: string, value: unknown) => void): void;
-    function observe_property(name: string, type: 'bool', fn: (name: string, value: boolean | undefined) => void): void;
+    function observe_property(name: string, type: "native", fn: (name: string, value: unknown) => void): void;
+    function observe_property(name: string, type: "bool", fn: (name: string, value: boolean | undefined) => void): void;
     function observe_property(
         name: string,
-        type: 'string',
+        type: "string",
         fn: (name: string, value: string | undefined) => void,
     ): void;
     function observe_property(
         name: string,
-        type: 'number',
+        type: "number",
         fn: (name: string, value: number | undefined) => void,
     ): void;
-    function observe_property(name: string, type: 'none' | undefined, fn: (name: string) => void): void;
+    function observe_property(name: string, type: "none" | undefined, fn: (name: string) => void): void;
 
     function unobserve_property(fn: (...args: unknown[]) => void): void;
 
@@ -119,7 +119,7 @@ declare namespace mp {
 
     function unregister_script_message(name: string): void;
 
-    function create_osd_overlay(format: 'ass-events'): OSDOverlay;
+    function create_osd_overlay(format: "ass-events"): OSDOverlay;
 
     function get_osd_size(): OSDSize | undefined;
 
@@ -162,7 +162,7 @@ declare namespace mp {
     namespace utils {
         function getcwd(): string | undefined;
 
-        function readdir(path: string, filter?: 'files' | 'dirs' | 'normal' | 'all'): string[] | undefined;
+        function readdir(path: string, filter?: "files" | "dirs" | "normal" | "all"): string[] | undefined;
 
         function file_info(path: string): FileInfo | undefined;
 

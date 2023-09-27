@@ -21,7 +21,7 @@
  * @param options Hash of options, having async: true
  * @return Promise of string of compiled HTML
  */
-export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+export function marked(src: string, options: marked.MarkedOptions & { async: true }): Promise<string>;
 
 /**
  * Compiles markdown to HTML synchronously.
@@ -85,7 +85,7 @@ export namespace marked {
      * @param options Hash of options having async: true
      * @return Promise of string of compiled HTML
      */
-    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+    function parse(src: string, options: MarkedOptions & { async: true }): Promise<string>;
 
     /**
      * Compiles markdown to HTML synchronously.
@@ -186,7 +186,7 @@ export namespace marked {
         inlineText(this: Tokenizer & TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
     }
 
-    type TokenizerObject = Partial<Omit<Tokenizer<false>, 'constructor' | 'options'>>;
+    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">>;
 
     class Renderer<T = never> {
         constructor(options?: MarkedOptions);
@@ -213,7 +213,7 @@ export namespace marked {
             content: string,
             flags: {
                 header: boolean;
-                align: 'center' | 'left' | 'right' | null;
+                align: "center" | "left" | "right" | null;
             },
         ): string | T;
         strong(this: Renderer | RendererThis, text: string): string | T;
@@ -226,7 +226,7 @@ export namespace marked {
         text(this: Renderer | RendererThis, text: string): string | T;
     }
 
-    type RendererObject = Partial<Omit<Renderer<false>, 'constructor' | 'options'>>;
+    type RendererObject = Partial<Omit<Renderer<false>, "constructor" | "options">>;
 
     class TextRenderer {
         strong(text: string): string;
@@ -319,20 +319,20 @@ export namespace marked {
 
     namespace Tokens {
         interface Space {
-            type: 'space';
+            type: "space";
             raw: string;
         }
 
         interface Code {
-            type: 'code';
+            type: "code";
             raw: string;
-            codeBlockStyle?: 'indented' | undefined;
+            codeBlockStyle?: "indented" | undefined;
             lang?: string | undefined;
             text: string;
         }
 
         interface Heading {
-            type: 'heading';
+            type: "heading";
             raw: string;
             depth: number;
             text: string;
@@ -340,9 +340,9 @@ export namespace marked {
         }
 
         interface Table {
-            type: 'table';
+            type: "table";
             raw: string;
-            align: Array<'center' | 'left' | 'right' | null>;
+            align: Array<"center" | "left" | "right" | null>;
             header: TableCell[];
             rows: TableCell[][];
         }
@@ -353,28 +353,28 @@ export namespace marked {
         }
 
         interface Hr {
-            type: 'hr';
+            type: "hr";
             raw: string;
         }
 
         interface Blockquote {
-            type: 'blockquote';
+            type: "blockquote";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface List {
-            type: 'list';
+            type: "list";
             raw: string;
             ordered: boolean;
-            start: number | '';
+            start: number | "";
             loose: boolean;
             items: ListItem[];
         }
 
         interface ListItem {
-            type: 'list_item';
+            type: "list_item";
             raw: string;
             task: boolean;
             checked?: boolean | undefined;
@@ -384,7 +384,7 @@ export namespace marked {
         }
 
         interface Paragraph {
-            type: 'paragraph';
+            type: "paragraph";
             raw: string;
             pre?: boolean | undefined;
             text: string;
@@ -392,21 +392,21 @@ export namespace marked {
         }
 
         interface HTML {
-            type: 'html';
+            type: "html";
             raw: string;
             pre: boolean;
             text: string;
         }
 
         interface Text {
-            type: 'text';
+            type: "text";
             raw: string;
             text: string;
             tokens?: Token[] | undefined;
         }
 
         interface Def {
-            type: 'def';
+            type: "def";
             raw: string;
             tag: string;
             href: string;
@@ -414,13 +414,13 @@ export namespace marked {
         }
 
         interface Escape {
-            type: 'escape';
+            type: "escape";
             raw: string;
             text: string;
         }
 
         interface Tag {
-            type: 'text' | 'html';
+            type: "text" | "html";
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
@@ -428,7 +428,7 @@ export namespace marked {
         }
 
         interface Link {
-            type: 'link';
+            type: "link";
             raw: string;
             href: string;
             title: string;
@@ -437,7 +437,7 @@ export namespace marked {
         }
 
         interface Image {
-            type: 'image';
+            type: "image";
             raw: string;
             href: string;
             title: string;
@@ -445,32 +445,32 @@ export namespace marked {
         }
 
         interface Strong {
-            type: 'strong';
+            type: "strong";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface Em {
-            type: 'em';
+            type: "em";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface Codespan {
-            type: 'codespan';
+            type: "codespan";
             raw: string;
             text: string;
         }
 
         interface Br {
-            type: 'br';
+            type: "br";
             raw: string;
         }
 
         interface Del {
-            type: 'del';
+            type: "del";
             raw: string;
             text: string;
             tokens: Token[];
@@ -490,7 +490,7 @@ export namespace marked {
 
     interface TokenizerExtension {
         name: string;
-        level: 'block' | 'inline';
+        level: "block" | "inline";
         start?: ((this: TokenizerThis, src: string) => number | void) | undefined;
         tokenizer: (this: TokenizerThis, src: string, tokens: Token[] | TokensList) => Tokens.Generic | void;
         childTokens?: string[] | undefined;
@@ -505,7 +505,10 @@ export namespace marked {
         renderer: (this: RendererThis, token: Tokens.Generic) => string | false;
     }
 
-    type TokenizerAndRendererExtension = TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension);
+    type TokenizerAndRendererExtension =
+        | TokenizerExtension
+        | RendererExtension
+        | (TokenizerExtension & RendererExtension);
 
     interface MarkedExtension {
         /**
@@ -559,8 +562,8 @@ export namespace marked {
          * postprocess is called to process html after marked has finished parsing.
          */
         hooks?: {
-            preprocess?: (markdown: string) => string,
-            postprocess?: (html: string) => string,
+            preprocess?: (markdown: string) => string;
+            postprocess?: (html: string) => string;
         };
 
         /**
@@ -628,7 +631,7 @@ export namespace marked {
         xhtml?: boolean | undefined;
     }
 
-    interface MarkedOptions extends Omit<MarkedExtension, 'extensions'> {
+    interface MarkedOptions extends Omit<MarkedExtension, "extensions"> {
         /**
          * Type: object Default: new Renderer()
          *

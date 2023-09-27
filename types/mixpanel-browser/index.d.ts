@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type Persistence = 'cookie' | 'localStorage';
+export type Persistence = "cookie" | "localStorage";
 
 export type PushItem = Array<string | Dict>;
 
@@ -19,7 +19,7 @@ export interface Dict {
 }
 
 export interface RequestOptions {
-    transport?: 'xhr' | 'sendBeacon' | undefined;
+    transport?: "xhr" | "sendBeacon" | undefined;
     send_immediately?: boolean | undefined;
 }
 
@@ -99,13 +99,13 @@ export interface Config {
 
 export type VerboseResponse =
     | {
-          status: 1;
-          error: null;
-      }
+        status: 1;
+        error: null;
+    }
     | {
-          status: 0;
-          error: string;
-      };
+        status: 0;
+        error: string;
+    };
 
 export type NormalResponse = 1 | 0;
 

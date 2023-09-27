@@ -8,7 +8,9 @@
 
 export as namespace mime;
 
-export interface TypeMap { [key: string]: string[]; }
+export interface TypeMap {
+    [key: string]: string[];
+}
 
 /**
  * Look up a mime type based on extension.

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import type { MouseEvent, TouchEvent } from 'react';
+import type { MouseEvent, TouchEvent } from "react";
 
 declare function offset(e: MouseEvent | TouchEvent, element?: HTMLElement): [number, number];
 

@@ -25,7 +25,7 @@ interface SensorOptions {
 type AccelerometerLocalCoordinateSystem = "device" | "screen";
 
 interface AccelerometerSensorOptions extends SensorOptions {
-  referenceFrame?: AccelerometerLocalCoordinateSystem | undefined; // defaults to "device". IDK how to type this
+    referenceFrame?: AccelerometerLocalCoordinateSystem | undefined; // defaults to "device". IDK how to type this
 }
 
 export class Accelerometer extends Sensor {
@@ -65,7 +65,7 @@ interface OrientationSensorOptions extends SensorOptions {
 type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;
 
 export class OrientationSensor extends Sensor {
-    readonly quaternion: [ number, number, number, number ];
+    readonly quaternion: [number, number, number, number];
     populateMatrix(matrix: RotationMatrixType): void;
 }
 

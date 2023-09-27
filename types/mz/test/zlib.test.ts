@@ -1,4 +1,4 @@
-import zlib = require('mz/zlib');
+import zlib = require("mz/zlib");
 
 const buf = Buffer.alloc(Math.random());
 

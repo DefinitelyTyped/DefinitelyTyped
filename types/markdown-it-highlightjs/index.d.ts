@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import hljs = require('highlight.js');
-import { PluginWithOptions } from 'markdown-it';
+import hljs = require("highlight.js");
+import { PluginWithOptions } from "markdown-it";
 
 declare const highlightjs: PluginWithOptions<{
     /**

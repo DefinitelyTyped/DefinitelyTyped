@@ -1,4 +1,4 @@
-import * as Stream from 'mithril/stream';
+import * as Stream from "mithril/stream";
 
 {
     const s = Stream(1);
@@ -153,9 +153,9 @@ import * as Stream from 'mithril/stream';
 
 {
     const a = Stream(1);
-    const b = Stream('x');
+    const b = Stream("x");
     const concated = Stream.lift((num, str) => str + num, a, b);
-    console.assert(concated() === 'x1');
+    console.assert(concated() === "x1");
 }
 
 {
@@ -168,12 +168,12 @@ import * as Stream from 'mithril/stream';
 }
 
 {
-    const all = Stream.merge([Stream(10), Stream('20'), Stream({ value: 30 })]);
+    const all = Stream.merge([Stream(10), Stream("20"), Stream({ value: 30 })]);
 }
 
 {
     const straggler = Stream();
-    const all = Stream.merge([Stream(10), Stream('20'), straggler]);
+    const all = Stream.merge([Stream(10), Stream("20"), straggler]);
     console.assert(all() === undefined);
     straggler(30);
 }
@@ -235,7 +235,7 @@ import * as Stream from 'mithril/stream';
 // map
 
 {
-    const s = Stream('a');
+    const s = Stream("a");
     const t = s.map(() => 1);
     const n = t() + 1;
     console.assert(n === 2);
@@ -286,14 +286,14 @@ import * as Stream from 'mithril/stream';
             [parent1, (out, p1) => out + p1],
             [parent2, (out, p2) => out + p2 + p2],
         ],
-        'a',
+        "a",
     );
 
-    parent1('b');
-    parent2('c');
-    parent1('b');
+    parent1("b");
+    parent2("c");
+    parent1("b");
 
-    console.assert(child() === 'abccb');
+    console.assert(child() === "abccb");
 }
 
 {
@@ -304,11 +304,11 @@ import * as Stream from 'mithril/stream';
             [parent1, (out, p1) => out + p1],
             [parent2, (out, p2) => out + p2 + p2],
         ],
-        'a',
+        "a",
     );
 
-    parent1('a');
+    parent1("a");
     parent2(1);
 
-    console.assert(child() === 'aa11');
+    console.assert(child() === "aa11");
 }

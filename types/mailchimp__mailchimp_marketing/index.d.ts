@@ -34,22 +34,22 @@ export interface Config {
     server?: string | undefined;
 }
 
-export type Status = 'subscribed' | 'unsubscribed' | 'cleaned' | 'pending' | 'transactional';
+export type Status = "subscribed" | "unsubscribed" | "cleaned" | "pending" | "transactional";
 
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'HEAD';
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "HEAD";
 
 export type MergeFieldType =
-    | 'text'
-    | 'number'
-    | 'address'
-    | 'phone'
-    | 'date'
-    | 'url'
-    | 'imageurl'
-    | 'radio'
-    | 'dropdown'
-    | 'birthday'
-    | 'zip';
+    | "text"
+    | "number"
+    | "address"
+    | "phone"
+    | "date"
+    | "url"
+    | "imageurl"
+    | "radio"
+    | "dropdown"
+    | "birthday"
+    | "zip";
 
 /**
  * Anything with this type must confirm to Mailchimp's only valid time format:
@@ -81,17 +81,17 @@ export interface Body {
     language?: string | undefined;
     vip?: boolean | undefined;
     location?:
-    | {
-        latitude: number;
-        longitude: number;
-    }
-    | undefined;
+        | {
+            latitude: number;
+            longitude: number;
+        }
+        | undefined;
     marketing_permissions?:
-    | Array<{
-        marketing_permission_id: string;
-        enabled: boolean;
-    }>
-    | undefined;
+        | Array<{
+            marketing_permission_id: string;
+            enabled: boolean;
+        }>
+        | undefined;
     ip_signup?: string | undefined;
     timestamp_signup?: string | undefined;
     ip_opt?: string | undefined;
@@ -1209,7 +1209,7 @@ export namespace lists {
     /**
      * @deprecated No longer used, according to Mailchimp API documentation: https://mailchimp.com/developer/marketing/api/lists/get-lists-info/
      */
-    type ListVisibility = 'pub' | 'prv';
+    type ListVisibility = "pub" | "prv";
 
     interface Contact {
         company: string;
@@ -1364,7 +1364,7 @@ export namespace lists {
         _links: Link[];
     }
 
-    type ListStatusTag = 'active' | 'inactive';
+    type ListStatusTag = "active" | "inactive";
 
     interface AddListMemberBody extends Body {
         email_address: string;
@@ -1513,7 +1513,7 @@ export namespace lists {
         }>;
     }
 
-    type EmailType = 'text' | 'html';
+    type EmailType = "text" | "html";
 
     interface BatchListMembersBodyMembersObject {
         email_address: string;

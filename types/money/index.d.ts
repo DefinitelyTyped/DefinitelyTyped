@@ -30,7 +30,7 @@ declare namespace fx {
          * If fx(val) is called as a function, it returns a wrapped object that can be used OO-style
          */
         <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
-        new <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
+        new<T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
 
         /**
          * Current version

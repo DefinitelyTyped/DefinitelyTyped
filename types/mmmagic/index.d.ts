@@ -10,7 +10,7 @@
  * Result is a string, except when MAGIC_CONTINUE is set,
  * then it is an array of string
  */
-type DetectionCallback = ((err: Error, result: string | string[]) => void)
+type DetectionCallback = (err: Error, result: string | string[]) => void;
 
 export type bitmask = number;
 export declare class Magic {
@@ -38,4 +38,4 @@ export declare var MAGIC_NO_CHECK_ELF: bitmask; // don't check for elf details
 export declare var MAGIC_NO_CHECK_TEXT: bitmask; // don't check for text files
 export declare var MAGIC_NO_CHECK_CDF: bitmask; // don't check for cdf files
 export declare var MAGIC_NO_CHECK_TOKENS: bitmask; // don't check tokens
-export declare var MAGIC_NO_CHECK_ENCODING: bitmask
+export declare var MAGIC_NO_CHECK_ENCODING: bitmask;

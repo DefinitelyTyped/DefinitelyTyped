@@ -1,4 +1,4 @@
-import type { TypeMap } from './index';
+import type { TypeMap } from "./index";
 
 declare class Mime {
     constructor(typeMap: TypeMap, ...mimes: TypeMap[]);

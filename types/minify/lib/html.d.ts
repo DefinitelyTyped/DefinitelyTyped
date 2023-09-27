@@ -1,4 +1,4 @@
-import type { Options } from './minify';
+import type { Options } from "./minify";
 
 /**
  * minify html data.
@@ -6,4 +6,4 @@ import type { Options } from './minify';
  * @param data
  * @param [userOptions] - (optional) object that may contain an `html` key with an object of options
  */
-export default function (data: string, userOptions?: Pick<Options, 'html'>): Promise<string>;
+export default function(data: string, userOptions?: Pick<Options, "html">): Promise<string>;

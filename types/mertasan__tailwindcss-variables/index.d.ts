@@ -3,7 +3,7 @@
 // Definitions by: Liam Martens <https://github.com/LiamMartens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Config, PluginCreator } from 'tailwindcss/types/config';
+import { Config, PluginCreator } from "tailwindcss/types/config";
 
 declare namespace plugin {
     interface PluginOptions {

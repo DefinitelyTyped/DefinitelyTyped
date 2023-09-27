@@ -6,7 +6,7 @@
 
 /// <reference types="geojson" />
 
-import mapboxgl = require('mapbox-gl');
+import mapboxgl = require("mapbox-gl");
 
 export as namespace MapboxGeocoder;
 export = MapboxGeocoder;
@@ -112,10 +112,12 @@ declare namespace MapboxGeocoder {
          * A function accepting the query string and current features list which performs geocoding to supplement results from the Mapbox Geocoding API.
          * Expected to return a Promise which resolves to an Array of GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.
          */
-        externalGeocoder?: ((
-            searchInput: string,
-            features: GeoJSON.FeatureCollection<GeoJSON.Geometry>,
-        ) => Promise<GeoJSON.FeatureCollection>) | undefined;
+        externalGeocoder?:
+            | ((
+                searchInput: string,
+                features: GeoJSON.FeatureCollection<GeoJSON.Geometry>,
+            ) => Promise<GeoJSON.FeatureCollection>)
+            | undefined;
         /**
          * If `true`, enable reverse geocoding mode. In reverse geocoding, search input is expected to be coordinates in the form `lat, lon`, with suggestions being the reverse geocodes.
          * (optional, default false)
@@ -147,7 +149,7 @@ declare namespace MapboxGeocoder {
          *  A string specifying the geocoding [endpoint](https://docs.mapbox.com/api/search/#endpoints) to query.
          * Options are `mapbox.places` and `mapbox.places`. The `mapbox.places-permanent` mode requires an enterprise license for permanent geocodes. (optional, default "mapbox.places")
          */
-        mode?: 'mapbox.places' | 'mapbox.places-permanent' | undefined;
+        mode?: "mapbox.places" | "mapbox.places-permanent" | undefined;
         /**
          * A function accepting the query string which performs local geocoding to supplement results from the Mapbox Geocoding API.
          * Expected to return an Array of GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.

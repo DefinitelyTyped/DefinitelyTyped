@@ -6,7 +6,7 @@
 
 // Originally imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
 
-import Mime = require('./Mime');
+import Mime = require("./Mime");
 
 export as namespace mime;
 

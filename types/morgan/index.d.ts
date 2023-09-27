@@ -7,24 +7,37 @@
 
 /// <reference types="node" />
 
-import http = require('http');
+import http = require("http");
 
-type Handler<Request extends http.IncomingMessage, Response extends http.ServerResponse> = (req: Request, res: Response, callback: (err?: Error) => void) => void;
+type Handler<Request extends http.IncomingMessage, Response extends http.ServerResponse> = (
+    req: Request,
+    res: Response,
+    callback: (err?: Error) => void,
+) => void;
 
 declare namespace morgan {
-    type FormatFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
+    type FormatFn<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    > = (
         tokens: TokenIndexer<Request, Response>,
         req: Request,
         res: Response,
     ) => string | undefined | null;
 
-    type TokenCallbackFn<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> = (
+    type TokenCallbackFn<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    > = (
         req: Request,
         res: Response,
         arg?: string | number | boolean,
     ) => string | undefined;
 
-    interface TokenIndexer<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse> {
+    interface TokenIndexer<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    > {
         [tokenName: string]: TokenCallbackFn<Request, Response>;
     }
 
@@ -47,14 +60,14 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'combined', options?: Options<Request, Response>): Handler<Request, Response>;
+        (format: "combined", options?: Options<Request, Response>): Handler<Request, Response>;
         /***
          * Standard Apache common log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length]
          * @param format
          * @param options
          */
-        (format: 'common', options?: Options<Request, Response>): Handler<Request, Response>;
+        (format: "common", options?: Options<Request, Response>): Handler<Request, Response>;
         /**
          * Concise output colored by response status for development use. The
          * :status token will be colored red for server error codes, yellow for
@@ -62,7 +75,7 @@ declare namespace morgan {
          * all other codes.
          * :method :url :status :response-time ms - :res[content-length]
          */
-        (format: 'dev', options?: Options<Request, Response>): Handler<Request, Response>;
+        (format: "dev", options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * Shorter than default, also including response time.
@@ -70,7 +83,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'short', options?: Options<Request, Response>): Handler<Request, Response>;
+        (format: "short", options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * The minimal output.
@@ -78,7 +91,7 @@ declare namespace morgan {
          * @param format
          * @param options
          */
-        (format: 'tiny', options?: Options<Request, Response>): Handler<Request, Response>;
+        (format: "tiny", options?: Options<Request, Response>): Handler<Request, Response>;
 
         /***
          * Create a new morgan logger middleware function using the given format
@@ -114,7 +127,10 @@ declare namespace morgan {
     /**
      * Define a custom token which can be used in custom morgan logging formats.
      */
-    function token<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    function token<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    >(
         name: string,
         callback: TokenCallbackFn<Request, Response>,
     ): Morgan<Request, Response>;
@@ -123,13 +139,19 @@ declare namespace morgan {
      * Define a named custom format by specifying a format string in token
      * notation.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(name: string, fmt: string): Morgan<Request, Response>;
+    function format<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (name: string, fmt: string): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format function.
      */
-    function format<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+    function format<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    >(
         name: string,
         fmt: FormatFn<Request, Response>,
     ): Morgan<Request, Response>;
@@ -137,8 +159,11 @@ declare namespace morgan {
     /**
      * Compile a format string in token notation into a format function.
      */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function compile<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(format: string): FormatFn<Request, Response>;
+    function compile<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+        Response extends http.ServerResponse = http.ServerResponse,
+    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    (format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
         /**
@@ -186,7 +211,10 @@ declare namespace morgan {
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
     format: string,
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
@@ -197,8 +225,11 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
-    format: 'combined',
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
+    format: "combined",
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 
@@ -208,8 +239,11 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
-    format: 'common',
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
+    format: "common",
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 
@@ -221,8 +255,11 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
-    format: 'dev',
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
+    format: "dev",
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 
@@ -232,8 +269,11 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
-    format: 'short',
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
+    format: "short",
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 
@@ -243,8 +283,11 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
-    format: 'tiny',
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
+    format: "tiny",
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;
 
@@ -255,7 +298,10 @@ declare function morgan<Request extends http.IncomingMessage = http.IncomingMess
  * @param format
  * @param options
  */
-declare function morgan<Request extends http.IncomingMessage = http.IncomingMessage, Response extends http.ServerResponse = http.ServerResponse>(
+declare function morgan<
+    Request extends http.IncomingMessage = http.IncomingMessage,
+    Response extends http.ServerResponse = http.ServerResponse,
+>(
     format: morgan.FormatFn<Request, Response>,
     options?: morgan.Options<Request, Response>,
 ): Handler<Request, Response>;

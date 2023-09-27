@@ -1,10 +1,10 @@
-import * as marked from 'marked';
+import * as marked from "marked";
 
 const tokenizer = new marked.Tokenizer();
 
 tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
     const token: marked.Tokens.Strong = {
-        type: 'strong',
+        type: "strong",
         text: src,
         raw: src,
         tokens: [],
@@ -16,7 +16,7 @@ tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
 };
 
 let options: marked.MarkedOptions = {
-    baseUrl: '',
+    baseUrl: "",
     gfm: true,
     breaks: false,
     pedantic: false,
@@ -24,14 +24,14 @@ let options: marked.MarkedOptions = {
     smartLists: true,
     silent: false,
     highlight(code: string, lang: string) {
-        return '';
+        return "";
     },
-    langPrefix: 'lang-',
+    langPrefix: "lang-",
     smartypants: false,
     tokenizer,
     renderer: new marked.Renderer(),
     walkTokens: token => {
-        if (token.type === 'heading') {
+        if (token.type === "heading") {
             token.depth += 1;
         }
     },
@@ -39,34 +39,34 @@ let options: marked.MarkedOptions = {
 
 options.highlight = (code: string, lang: string, callback: (error: any | undefined, code?: string) => void) => {
     callback(new Error());
-    callback(null, '');
+    callback(null, "");
 };
 
 options = marked.getDefaults();
 options = marked.defaults;
 
 function callback(err: string, markdown: string) {
-    console.log('Callback called!');
+    console.log("Callback called!");
     console.log(markdown);
 }
 
 let myOldMarked: typeof marked = marked.options(options);
 myOldMarked = marked.setOptions(options);
 
-console.log(marked('1) I am using __markdown__.'));
-console.log(marked('2) I am using __markdown__.', options));
-marked('3) I am using __markdown__.', callback);
-marked('4) I am using __markdown__.', options, callback);
+console.log(marked("1) I am using __markdown__."));
+console.log(marked("2) I am using __markdown__.", options));
+marked("3) I am using __markdown__.", callback);
+marked("4) I am using __markdown__.", options, callback);
 
-console.log(marked.parse('5) I am using __markdown__.'));
-console.log(marked.parse('6) I am using __markdown__.', options));
-marked.parse('7) I am using __markdown__.', callback);
-marked.parse('8) I am using __markdown__.', options, callback);
+console.log(marked.parse("5) I am using __markdown__."));
+console.log(marked.parse("6) I am using __markdown__.", options));
+marked.parse("7) I am using __markdown__.", callback);
+marked.parse("8) I am using __markdown__.", options, callback);
 
-console.log(marked.parseInline('9) I am using __markdown__.'));
-console.log(marked.parseInline('10) I am using __markdown__.', options));
+console.log(marked.parseInline("9) I am using __markdown__."));
+console.log(marked.parseInline("10) I am using __markdown__.", options));
 
-const text = 'Something';
+const text = "Something";
 const tokens: marked.TokensList = marked.lexer(text, options);
 console.log(marked.parser(tokens));
 
@@ -75,7 +75,7 @@ const tokens2 = lexer.lex(text);
 console.log(tokens2);
 const tokens3 = lexer.inlineTokens(text, tokens);
 console.log(tokens3);
-const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
+const re: RegExp | marked.Rules = marked.Lexer.rules["code"];
 const lexerOptions: marked.MarkedOptions = lexer.options;
 
 const renderer = new marked.Renderer();
@@ -83,25 +83,25 @@ renderer.heading = (text, level, raw, slugger) => {
     return text + level.toString() + slugger.slug(raw);
 };
 renderer.hr = () => {
-    return `<hr${renderer.options.xhtml ? '/' : ''}>\n`;
+    return `<hr${renderer.options.xhtml ? "/" : ""}>\n`;
 };
 renderer.checkbox = checked => {
-    return checked ? 'CHECKED' : 'UNCHECKED';
+    return checked ? "CHECKED" : "UNCHECKED";
 };
 const rendererOptions: marked.MarkedOptions = renderer.options;
 
 const textRenderer = new marked.TextRenderer();
 console.log(textRenderer.strong(text));
 
-const parseTestText = '- list1\n  - list1.1\n\n listend';
+const parseTestText = "- list1\n  - list1.1\n\n listend";
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 
-const inlineTestText = '- list1\n  - list1.1\n\n listend';
+const inlineTestText = "- list1\n  - list1.1\n\n listend";
 const inlineTestTokens: marked.Token[] = marked.Lexer.lexInline(inlineTestText, options);
 
 /* List type is `list`. */
 const listToken = parseTestTokens[0] as marked.Tokens.List;
-console.log(listToken.type === 'list');
+console.log(listToken.type === "list");
 
 const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));
@@ -109,8 +109,8 @@ console.log(marked.Parser.parse(parseTestTokens));
 const parserOptions: marked.MarkedOptions = parser.options;
 
 const slugger = new marked.Slugger();
-console.log(slugger.slug('Test Slug'));
-console.log(slugger.slug('Test Slug', { dryrun: true }));
+console.log(slugger.slug("Test Slug"));
+console.log(slugger.slug("Test Slug", { dryrun: true }));
 
 marked.use({ renderer }, { tokenizer });
 
@@ -124,7 +124,7 @@ marked.use({
             return false;
         },
         listitem(text, task, checked) {
-            if (task) return `<li class="task-list-item ${checked ? 'checked' : ''}">${text}</li>\n`;
+            if (task) return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
             else return `<li>${text}</li>\n`;
         },
     },
@@ -133,7 +133,7 @@ marked.use({
             const match = src.match(/\$+([^\$\n]+?)\$+/);
             if (match) {
                 return {
-                    type: 'codespan',
+                    type: "codespan",
                     raw: match[0],
                     text: match[1].trim(),
                 };
@@ -146,7 +146,7 @@ marked.use({
 });
 
 interface NameToken {
-    type: 'name';
+    type: "name";
     raw: string;
     text: string;
     tokens: marked.Token[];
@@ -154,13 +154,13 @@ interface NameToken {
 }
 
 const tokenizerExtension: marked.TokenizerExtension = {
-    name: 'name',
-    level: 'block',
-    start: (src: string) => src.indexOf('name'),
+    name: "name",
+    level: "block",
+    start: (src: string) => src.indexOf("name"),
     tokenizer(src: string): NameToken | void {
-        if (src === 'name') {
+        if (src === "name") {
             const token: NameToken = {
-                type: 'name',
+                type: "name",
                 raw: src,
                 text: src,
                 tokens: [],
@@ -171,14 +171,14 @@ const tokenizerExtension: marked.TokenizerExtension = {
             return token;
         }
     },
-    childTokens: ['items'],
+    childTokens: ["items"],
 };
 
 const rendererExtension: marked.RendererExtension = {
-    name: 'name',
+    name: "name",
     renderer(t) {
         const token = t as NameToken;
-        if (token.text === 'name') {
+        if (token.text === "name") {
             return this.parser.parse(token.items);
         }
         return false;
@@ -186,20 +186,20 @@ const rendererExtension: marked.RendererExtension = {
 };
 
 const tokenizerAndRendererExtension = {
-    name: 'name',
-    level: 'block',
+    name: "name",
+    level: "block",
     tokenizer(src: string) {
-        if (src === 'name') {
+        if (src === "name") {
             const token = {
-                type: 'name',
+                type: "name",
                 raw: src,
             };
             return token;
         }
     },
     renderer(token: marked.Tokens.Generic) {
-        if (token.raw === 'name') {
-            return 'name';
+        if (token.raw === "name") {
+            return "name";
         }
 
         return false;
@@ -214,36 +214,36 @@ marked.use({
 // Dumped from markdown list parsed data
 
 const listAndListItemText: marked.Tokens.List = {
-    type: 'list',
-    raw: '1. Text ...',
+    type: "list",
+    raw: "1. Text ...",
     ordered: true,
     start: 1,
     loose: false,
     items: [
         {
-            type: 'list_item',
-            raw: '1. Text ...',
+            type: "list_item",
+            raw: "1. Text ...",
             task: false,
             loose: false,
-            text: 'Text',
+            text: "Text",
             tokens: [
                 {
-                    type: 'text',
-                    raw: 'Point one',
-                    text: 'Point one',
+                    type: "text",
+                    raw: "Point one",
+                    text: "Point one",
                     tokens: [
                         {
-                            type: 'text',
-                            raw: 'Point one',
-                            text: 'Point one',
+                            type: "text",
+                            raw: "Point one",
+                            text: "Point one",
                         },
                     ],
                 },
                 {
-                    type: 'list',
-                    raw: '',
+                    type: "list",
+                    raw: "",
                     ordered: false,
-                    start: '',
+                    start: "",
                     loose: false,
                     items: [],
                 },

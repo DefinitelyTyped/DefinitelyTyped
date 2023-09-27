@@ -42,9 +42,9 @@ declare namespace LM {
          */
         initialValues: number[];
 
-         /**
-          * Weighting vector, if the length does not match with the number of data points, the vector is reconstructed with first value.
-          */
+        /**
+         * Weighting vector, if the length does not match with the number of data points, the vector is reconstructed with first value.
+         */
         weights: number[];
 
         /**

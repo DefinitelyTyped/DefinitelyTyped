@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
-import { MercadoPago } from './interface';
+import { MercadoPago } from "./interface";
 
 declare const mercadopago: MercadoPago;
 

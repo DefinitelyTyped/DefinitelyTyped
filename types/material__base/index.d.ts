@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-import MDCFoundation, { MDCNumbers, MDCStrings } from './foundation';
-import MDCComponent from './component';
+import MDCComponent from "./component";
+import MDCFoundation, { MDCNumbers, MDCStrings } from "./foundation";
 
-export { MDCNumbers, MDCStrings, MDCFoundation, MDCComponent };
+export { MDCComponent, MDCFoundation, MDCNumbers, MDCStrings };

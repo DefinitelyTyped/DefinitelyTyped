@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
-  class MapboxGL extends Layer {
-    constructor(options: MapboxGLOptions);
-  }
+declare module "leaflet" {
+    class MapboxGL extends Layer {
+        constructor(options: MapboxGLOptions);
+    }
 
-  function mapboxGL(options: MapboxGLOptions): MapboxGL;
+    function mapboxGL(options: MapboxGLOptions): MapboxGL;
 
-  interface MapboxGLOptions {
-    accessToken: string;
-    style: string;
-  }
+    interface MapboxGLOptions {
+        accessToken: string;
+        style: string;
+    }
 }

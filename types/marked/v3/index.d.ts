@@ -152,7 +152,7 @@ declare namespace marked {
         inlineText(this: TokenizerThis, src: string, smartypants: (cap: string) => string): Tokens.Text | T;
     }
 
-    type TokenizerObject = Partial<Omit<Tokenizer<false>, 'constructor' | 'options'>>;
+    type TokenizerObject = Partial<Omit<Tokenizer<false>, "constructor" | "options">>;
 
     class Renderer<T = never> {
         constructor(options?: MarkedOptions);
@@ -179,7 +179,7 @@ declare namespace marked {
             content: string,
             flags: {
                 header: boolean;
-                align: 'center' | 'left' | 'right' | null;
+                align: "center" | "left" | "right" | null;
             },
         ): string | T;
         strong(this: RendererThis, text: string): string | T;
@@ -192,7 +192,7 @@ declare namespace marked {
         text(this: RendererThis, text: string): string | T;
     }
 
-    type RendererObject = Partial<Omit<Renderer<false>, 'constructor' | 'options'>>;
+    type RendererObject = Partial<Omit<Renderer<false>, "constructor" | "options">>;
 
     class TextRenderer {
         strong(text: string): string;
@@ -285,20 +285,20 @@ declare namespace marked {
 
     namespace Tokens {
         interface Space {
-            type: 'space';
+            type: "space";
             raw: string;
         }
 
         interface Code {
-            type: 'code';
+            type: "code";
             raw: string;
-            codeBlockStyle?: 'indented' | undefined;
+            codeBlockStyle?: "indented" | undefined;
             lang?: string | undefined;
             text: string;
         }
 
         interface Heading {
-            type: 'heading';
+            type: "heading";
             raw: string;
             depth: number;
             text: string;
@@ -306,9 +306,9 @@ declare namespace marked {
         }
 
         interface Table {
-            type: 'table';
+            type: "table";
             raw: string;
-            align: Array<'center' | 'left' | 'right' | null>;
+            align: Array<"center" | "left" | "right" | null>;
             header: TableCell[];
             rows: TableCell[][];
         }
@@ -319,28 +319,28 @@ declare namespace marked {
         }
 
         interface Hr {
-            type: 'hr';
+            type: "hr";
             raw: string;
         }
 
         interface Blockquote {
-            type: 'blockquote';
+            type: "blockquote";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface List {
-            type: 'list';
+            type: "list";
             raw: string;
             ordered: boolean;
-            start: number | '';
+            start: number | "";
             loose: boolean;
             items: ListItem[];
         }
 
         interface ListItem {
-            type: 'list_item';
+            type: "list_item";
             raw: string;
             task: boolean;
             checked?: boolean | undefined;
@@ -350,7 +350,7 @@ declare namespace marked {
         }
 
         interface Paragraph {
-            type: 'paragraph';
+            type: "paragraph";
             raw: string;
             pre?: boolean | undefined;
             text: string;
@@ -358,21 +358,21 @@ declare namespace marked {
         }
 
         interface HTML {
-            type: 'html';
+            type: "html";
             raw: string;
             pre: boolean;
             text: string;
         }
 
         interface Text {
-            type: 'text';
+            type: "text";
             raw: string;
             text: string;
             tokens?: Token[] | undefined;
         }
 
         interface Def {
-            type: 'def';
+            type: "def";
             raw: string;
             tag: string;
             href: string;
@@ -380,13 +380,13 @@ declare namespace marked {
         }
 
         interface Escape {
-            type: 'escape';
+            type: "escape";
             raw: string;
             text: string;
         }
 
         interface Tag {
-            type: 'text' | 'html';
+            type: "text" | "html";
             raw: string;
             inLink: boolean;
             inRawBlock: boolean;
@@ -394,7 +394,7 @@ declare namespace marked {
         }
 
         interface Link {
-            type: 'link';
+            type: "link";
             raw: string;
             href: string;
             title: string;
@@ -403,7 +403,7 @@ declare namespace marked {
         }
 
         interface Image {
-            type: 'image';
+            type: "image";
             raw: string;
             href: string;
             title: string;
@@ -411,32 +411,32 @@ declare namespace marked {
         }
 
         interface Strong {
-            type: 'strong';
+            type: "strong";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface Em {
-            type: 'em';
+            type: "em";
             raw: string;
             text: string;
             tokens: Token[];
         }
 
         interface Codespan {
-            type: 'codespan';
+            type: "codespan";
             raw: string;
             text: string;
         }
 
         interface Br {
-            type: 'br';
+            type: "br";
             raw: string;
         }
 
         interface Del {
-            type: 'del';
+            type: "del";
             raw: string;
             text: string;
             tokens: Token[];
@@ -456,7 +456,7 @@ declare namespace marked {
 
     interface TokenizerExtension {
         name: string;
-        level: 'block' | 'inline';
+        level: "block" | "inline";
         start?: ((this: TokenizerThis, src: string) => number) | undefined;
         tokenizer: (this: TokenizerThis, src: string, tokens: Token[] | TokensList) => Tokens.Generic | void;
         childTokens?: string[] | undefined;
@@ -581,7 +581,7 @@ declare namespace marked {
         xhtml?: boolean | undefined;
     }
 
-    interface MarkedOptions extends Omit<MarkedExtension, 'extensions'> {
+    interface MarkedOptions extends Omit<MarkedExtension, "extensions"> {
         /**
          * Type: object Default: new Renderer()
          *

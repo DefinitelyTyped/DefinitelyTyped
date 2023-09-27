@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import mongoose = require('mongoose');
+import mongoose = require("mongoose");
 
 declare var mock: mongoose.Mongoose;
 export = mock;

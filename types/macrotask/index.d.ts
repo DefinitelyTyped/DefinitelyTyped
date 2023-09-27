@@ -15,5 +15,5 @@ export function clear(cancel: CancelToken): void;
 
 export class CancelToken {
     // needed for TS to not accept just any object, only instances of CancelToken
-    private __cancel__prop: 'imaginary';
+    private __cancel__prop: "imaginary";
 }

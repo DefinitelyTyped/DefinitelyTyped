@@ -94,8 +94,8 @@ interface Mixpanel {
      * @template EventType The Event type. Use this to set specific properties for an event name
      */
     track<EventType extends Mixpanel.EventBaseType>(
-        eventName: EventType['eventName'],
-        properties: EventType['properties'],
+        eventName: EventType["eventName"],
+        properties: EventType["properties"],
         callback?: () => void,
     ): void;
 
@@ -517,7 +517,6 @@ declare namespace Mixpanel {
          *
          *     // remove the all data you have stored about the current user
          *     mixpanel.people.delete_user();
-         *
          */
         delete_user(): void;
     }
@@ -554,7 +553,7 @@ declare namespace Mixpanel {
          *
          * @default 'cookie'
          */
-        persistence?: 'localStorage' | 'cookie' | undefined;
+        persistence?: "localStorage" | "cookie" | undefined;
         /**
          * Name for super properties persistent store
          *

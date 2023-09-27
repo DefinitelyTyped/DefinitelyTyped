@@ -3,4 +3,4 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { minify, Options, Ext } from './lib/minify';
+export { Ext, minify, Options } from "./lib/minify";

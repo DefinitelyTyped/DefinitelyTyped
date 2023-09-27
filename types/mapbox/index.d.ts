@@ -21,7 +21,7 @@ declare global {
         /**
          * Create and automatically configure a map with layers, markers, and interactivity.
          */
-        function map(element: string|Element, idOrTileJson: any, options?: MapOptions): Map;
+        function map(element: string | Element, idOrTileJson: any, options?: MapOptions): Map;
 
         interface MapOptions extends Leaflet.Map.MapOptions {
             featureLayer?: FeatureLayerOptions | undefined;

@@ -1,4 +1,4 @@
-import * as Mocha from 'mocha';
+import * as Mocha from "mocha";
 
 declare namespace addContext {
     interface TestContextObject {
@@ -30,7 +30,6 @@ declare namespace addContext {
  *
  *   assert('something');
  * });
- *
  */
 declare function addContext(testCtx: Mocha.Context, context: addContext.TestContext): void;
 
