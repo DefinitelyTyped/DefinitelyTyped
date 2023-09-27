@@ -1,4 +1,4 @@
-import { JsonPath, PositiveInteger } from './state';
+import { Path, PositiveInteger, ReferencePath } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-error-representation
 export type Errors =
@@ -18,7 +18,7 @@ export type Errors =
 export interface Catch {
     ErrorEquals: Errors[];
     Next: string;
-    ResultPath?: JsonPath;
+    ResultPath?: ReferencePath;
 }
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-retrying-after-an-error

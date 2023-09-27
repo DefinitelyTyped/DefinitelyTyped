@@ -1,9 +1,9 @@
-import { JsonPath } from './state';
+import { Path } from './state';
 
 interface ChoiceRuleComparison {
     Variable: string;
     BooleanEquals?: boolean;
-    BooleanEqualsPath?: JsonPath;
+    BooleanEqualsPath?: Path;
     IsBoolean?: boolean;
     IsNull?: boolean;
     IsNumeric?: boolean;
@@ -11,36 +11,36 @@ interface ChoiceRuleComparison {
     IsString?: boolean;
     IsTimestamp?: boolean;
     NumericEquals?: number;
-    NumericEqualsPath?: JsonPath;
+    NumericEqualsPath?: Path;
     NumericGreaterThan?: number;
-    NumericGreaterThanPath?: JsonPath;
+    NumericGreaterThanPath?: Path;
     NumericGreaterThanEquals?: number;
-    NumericGreaterThanEqualsPath?: JsonPath;
+    NumericGreaterThanEqualsPath?: Path;
     NumericLessThan?: number;
-    NumericLessThanPath?: JsonPath;
+    NumericLessThanPath?: Path;
     NumericLessThanEquals?: number;
-    NumericLessThanEqualsPath?: JsonPath;
+    NumericLessThanEqualsPath?: Path;
     StringEquals?: string;
-    StringEqualsPath?: JsonPath;
+    StringEqualsPath?: Path;
     StringGreaterThan?: string;
-    StringGreaterThanPath?: JsonPath;
+    StringGreaterThanPath?: Path;
     StringGreaterThanEquals?: string;
-    StringGreaterThanEqualsPath?: JsonPath;
+    StringGreaterThanEqualsPath?: Path;
     StringLessThan?: string;
-    StringLessThanPath?: JsonPath;
+    StringLessThanPath?: Path;
     StringLessThanEquals?: string;
-    StringLessThanEqualsPath?: JsonPath;
+    StringLessThanEqualsPath?: Path;
     StringMatches?: string;
     TimestampEquals?: string;
-    TimestampEqualsPath?: JsonPath;
+    TimestampEqualsPath?: Path;
     TimestampGreaterThan?: string;
-    TimestampGreaterThanPath?: JsonPath;
+    TimestampGreaterThanPath?: Path;
     TimestampGreaterThanEquals?: string;
-    TimestampGreaterThanEqualsPath?: JsonPath;
+    TimestampGreaterThanEqualsPath?: Path;
     TimestampLessThan?: string;
-    TimestampLessThanPath?: JsonPath;
+    TimestampLessThanPath?: Path;
     TimestampLessThanEquals?: string;
-    TimestampLessThanEqualsPath?: JsonPath;
+    TimestampLessThanEqualsPath?: Path;
 }
 
 interface ChoiceRuleNot {
@@ -68,13 +68,18 @@ interface ChoiceRuleSimple extends ChoiceRuleComparison {
 
 type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
+/**
+ * The Choice State (identified by "Type":"Choice") adds branching logic to a state machine.
+ *
+ * @see https://states-language.net/#choice-state
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
+ */
 export interface Choice {
     Type: 'Choice';
     Choices: ChoiceRule[];
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
+    InputPath?: Path;
+    OutputPath?: Path;
     Default?: string;
 }
 

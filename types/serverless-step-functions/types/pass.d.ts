@@ -1,16 +1,21 @@
-import { JsonObject, JsonPath, JsonValue } from './state';
+import { JsonObject, Path, JsonValue, EndOrNext, ReferencePath } from './state';
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-pass-state.html
-export interface Pass {
+/**
+ * The Pass State (identified by "Type":"Pass") by default passes its input to its output, performing no work.
+ *
+ * @see https://states-language.net/#pass-state
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-pass-state.html
+ */
+export type Pass = {
     Type: 'Pass';
     Next?: string;
     End?: boolean;
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
+    InputPath?: Path;
+    OutputPath?: Path;
     Result?: JsonValue;
-    ResultPath?: JsonPath;
+    ResultPath?: ReferencePath;
     Parameters?: JsonObject;
-}
+} & EndOrNext;
 
 export {};

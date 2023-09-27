@@ -77,7 +77,7 @@ interface StateMachine {
     events?: any[];
     dependsOn?: string[];
     tags?: {
-        [k: string]: string
+        [k: string]: string;
     };
 }
 

@@ -1,17 +1,43 @@
-import { JsonPath, PositiveInteger } from './state';
+import { EndOrNext, Path, PositiveInteger } from './state';
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html
-export interface Wait {
+/**
+ * The Wait State (identified by "Type":"Wait") can be used to delay the state machine from continuing for a specified time.
+ *
+ * @see https://states-language.net/#wait-state
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html
+ */
+export type Wait = {
     Type: 'Wait';
-    Next?: string;
-    End?: boolean;
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
-    Seconds?: PositiveInteger;
-    Timestamp?: string;
-    SecondsPath?: JsonPath;
-    TimestampPath?: JsonPath;
-}
+    InputPath?: Path;
+    OutputPath?: Path;
+} & EndOrNext &
+    SecondsOrTimestamp;
+
+type SecondsOrTimestamp =
+    | {
+          Seconds?: PositiveInteger;
+          SecondsPath?: never;
+          Timestamp?: never;
+          TimestampPath?: never;
+      }
+    | {
+          Seconds?: never;
+          SecondsPath?: Path;
+          Timestamp?: never;
+          TimestampPath?: never;
+      }
+    | {
+          Seconds?: never;
+          SecondsPath?: never;
+          Timestamp?: string;
+          TimestampPath?: never;
+      }
+    | {
+          Seconds?: never;
+          SecondsPath?: never;
+          Timestamp?: never;
+          TimestampPath?: Path;
+      };
 
 export {};

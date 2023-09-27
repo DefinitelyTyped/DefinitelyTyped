@@ -1,5 +1,5 @@
 import { Catch, Retry } from './errors';
-import { JsonObject, JsonPath, State } from './state';
+import { EndOrNext, JsonObject, Path, ReferencePath, State } from './state';
 
 interface Branch {
     StartAt: string;
@@ -9,19 +9,22 @@ interface Branch {
     Comment?: string;
 }
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-parallel-state.html
-export interface Parallel {
+/**
+ * The Parallel State (identified by "Type":"Parallel") can be used to create parallel branches of execution in your state machine.
+ *
+ * @see https://states-language.net/#parallel-state
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-parallel-state.html
+ */
+export type Parallel = {
     Type: 'Parallel';
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
-    Next?: string;
-    End?: boolean;
+    InputPath?: Path;
+    OutputPath?: Path;
     Branches: Branch[];
-    ResultPath?: JsonPath;
+    ResultPath?: ReferencePath;
     ResultSelector?: JsonObject;
-    Retry: Retry[];
-    Catch: Catch[];
-}
+    Retry?: Retry[];
+    Catch?: Catch[];
+} & EndOrNext;
 
 export {};

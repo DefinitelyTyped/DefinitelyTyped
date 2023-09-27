@@ -1,17 +1,22 @@
 import { Catch, Retry } from './errors';
-import { Concurrency, JsonObject, JsonPath, Percentage, State } from './state';
+import { Concurrency, EndOrNext, JsonObject, Path, Percentage, ReferencePath, State } from './state';
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html
+/**
+ * The Map State (identified by "Type": "Map") causes the interpreter to process all the elements of an array, potentially in parallel, with the processing of each element independent of the others.
+ *
+ * @see https://states-language.net/#map-state
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html
+ */
 export type Map = InlineMap | DistributedMap;
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
-interface InlineMap {
+/**
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
+ */
+type InlineMap = {
     Type: 'Map';
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
-    Next?: string;
-    End?: boolean;
+    InputPath?: Path;
+    OutputPath?: Path;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'INLINE';
@@ -21,10 +26,10 @@ interface InlineMap {
             [state: string]: State;
         };
     };
-    ItemsPath?: JsonPath;
+    ItemsPath?: ReferencePath;
     ItemSelector?: JsonObject;
     MaxConcurrency?: number;
-    ResultPath?: JsonPath;
+    ResultPath?: ReferencePath;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];
@@ -37,16 +42,16 @@ interface InlineMap {
      * @deprecated
      */
     Parameters?: JsonObject;
-}
+} & EndOrNext;
 
-// https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
-interface DistributedMap {
+/**
+ * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
+ */
+type DistributedMap = {
     Type: 'Map';
     Comment?: string;
-    InputPath?: JsonPath;
-    OutputPath?: JsonPath;
-    Next?: string;
-    End?: boolean;
+    InputPath?: Path;
+    OutputPath?: Path;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'DISTRIBUTED';
@@ -58,7 +63,7 @@ interface DistributedMap {
         };
     };
     ItemReader?: JsonObject;
-    ItemsPath?: JsonPath;
+    ItemsPath?: ReferencePath;
     ItemSelector?: JsonObject;
     ItemBatcher?: JsonObject;
     MaxConcurrency?: Concurrency;
@@ -66,10 +71,10 @@ interface DistributedMap {
     ToleratedFailureCount?: number;
     Label?: string;
     ResultWriter?: JsonObject;
-    ResultPath?: JsonPath;
+    ResultPath?: ReferencePath;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];
-}
+} & EndOrNext;
 
 export {};
