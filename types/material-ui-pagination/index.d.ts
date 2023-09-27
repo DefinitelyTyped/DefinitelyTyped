@@ -3,7 +3,7 @@
 // Definitions by: m0a <https://m0a.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
-import * as React from 'react';
+import * as React from "react";
 export interface PaginationProps {
     total: number;
     display: number;

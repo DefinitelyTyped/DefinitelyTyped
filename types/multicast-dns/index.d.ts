@@ -6,9 +6,9 @@
 
 /// <reference types="node"/>
 
-import { EventEmitter } from "events";
 import { RemoteInfo, Socket, SocketType } from "dgram";
 import { Answer, Packet, Question, RecordType } from "dns-packet";
+import { EventEmitter } from "events";
 
 export = mDNS;
 

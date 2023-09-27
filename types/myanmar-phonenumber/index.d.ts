@@ -17,5 +17,5 @@ export function getTelecomName(phoneNumber: string): Operator;
 export function getPhoneNetworkType(phoneNumber: string): NetworkType;
 
 /*~ You can declare types that are available via importing the module */
-export type Operator = 'Ooredoo' | 'Telenor' | 'MPT' | 'MEC' | 'MyTel' | 'Unknown';
-export type NetworkType = 'GSM' | 'WCDMA' | 'CDMA 450 MHz' | 'CDMA 800 MHz' | 'Unknown';
+export type Operator = "Ooredoo" | "Telenor" | "MPT" | "MEC" | "MyTel" | "Unknown";
+export type NetworkType = "GSM" | "WCDMA" | "CDMA 450 MHz" | "CDMA 800 MHz" | "Unknown";

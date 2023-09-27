@@ -1,4 +1,4 @@
-import MersenneTwister = require('mersennetwister');
+import MersenneTwister = require("mersennetwister");
 
 const withNoSeed = new MersenneTwister();
 const withSeed = new MersenneTwister(1234);

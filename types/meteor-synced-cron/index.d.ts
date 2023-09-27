@@ -6,7 +6,7 @@
 /// <reference types='later' />
 
 // tslint:disable-next-line no-single-declare-module
-declare module 'meteor/littledata:synced-cron' {
+declare module "meteor/littledata:synced-cron" {
     /**
      * A simple cron system for Meteor.
      * It supports syncronizing jobs between multiple processes.
@@ -124,19 +124,19 @@ declare module 'meteor/littledata:synced-cron' {
              */
             logger?:
                 | ((opts: {
-                      /**
-                       * will be one of `"info"`, `"warn"`, `"error"`, `"debug"`.
-                       */
-                      level: 'info' | 'warn' | 'error' | 'debug';
-                      /**
-                       * something like `'Scheduled "Test Job" next run @Fri Mar 13 2015 10:15:00 GMT+0100 (CET)'`".
-                       */
-                      message: string;
-                      /**
-                       * will always be `"SyncedCron"` (handy for filtering).
-                       */
-                      tag: string;
-                  }) => void)
+                    /**
+                     * will be one of `"info"`, `"warn"`, `"error"`, `"debug"`.
+                     */
+                    level: "info" | "warn" | "error" | "debug";
+                    /**
+                     * something like `'Scheduled "Test Job" next run @Fri Mar 13 2015 10:15:00 GMT+0100 (CET)'`".
+                     */
+                    message: string;
+                    /**
+                     * will always be `"SyncedCron"` (handy for filtering).
+                     */
+                    tag: string;
+                }) => void)
                 | null;
 
             /**
