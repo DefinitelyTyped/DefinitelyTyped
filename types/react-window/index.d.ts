@@ -6,15 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Component,
-    ComponentType,
-    CSSProperties,
-    Ref,
-    Key,
-    FunctionComponent,
-    ComponentClass
-} from "react";
+import { Component, ComponentClass, ComponentType, CSSProperties, FunctionComponent, Key, Ref } from "react";
 
 export type CSSDirection = "ltr" | "rtl";
 export type Direction = "vertical" | "horizontal"; // TODO: deprecate in favour of Layout
@@ -524,7 +516,7 @@ export class VariableSizeGrid<T = any> extends Component<VariableSizeGridProps<T
  */
 export function areEqual(
     prevProps: Readonly<object>,
-    nextProps: Readonly<object>
+    nextProps: Readonly<object>,
 ): boolean;
 
 /**
@@ -536,5 +528,5 @@ export function areEqual(
 export function shouldComponentUpdate<P = {}, S = {}>(
     this: { props: P; state: S },
     nextProps: Readonly<P>,
-    nextState: Readonly<S>
+    nextState: Readonly<S>,
 ): boolean;

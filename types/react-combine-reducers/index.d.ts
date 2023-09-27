@@ -3,7 +3,7 @@
 // Definitions by: Raphaël Léger <https://github.com/raphael-leger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
-import { Reducer, ReducerState } from 'react';
+import { Reducer, ReducerState } from "react";
 
 declare function combineReducers<R extends Reducer<any, any>>(
     reducers: {

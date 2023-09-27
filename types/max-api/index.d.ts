@@ -9,7 +9,9 @@
  */
 type JSONPrimitive = string | number | boolean | null;
 interface JSONArray extends Array<JSONValue> {}
-interface JSONObject { [key: string]: JSONValue | undefined; }
+interface JSONObject {
+    [key: string]: JSONValue | undefined;
+}
 type JSONValue = JSONPrimitive | JSONArray | JSONObject;
 
 declare namespace MaxAPIStatic {
@@ -20,7 +22,7 @@ declare namespace MaxAPIStatic {
         /** node.script running from within Max For Live */
         MAX_FOR_LIVE = "maxforlive",
         /** node.script running from within a standalone application */
-        STANDALONE = "max:standalone"
+        STANDALONE = "max:standalone",
     }
 
     /** Predefined generic MaxFunctionSelector types */
@@ -34,7 +36,7 @@ declare namespace MaxAPIStatic {
         /** Number message type */
         NUMBER = "number",
         /** List message type */
-        LIST = "list"
+        LIST = "list",
     }
 
     /** Log Levels used in maxAPI.post */
@@ -44,7 +46,7 @@ declare namespace MaxAPIStatic {
         /** info level messages */
         INFO = "info",
         /** warn level messages */
-        WARN = "warn"
+        WARN = "warn",
     }
 
     type MaxFunctionSelector = MESSAGE_TYPES | string;

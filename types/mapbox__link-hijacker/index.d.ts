@@ -28,7 +28,7 @@ declare function hijack(options: Options, callback: Callback): Unhijack;
 declare function hijack(callback: Callback): Unhijack;
 
 declare const linkHijacker: {
-    hijack: typeof hijack
+    hijack: typeof hijack;
 };
 
 export = linkHijacker;

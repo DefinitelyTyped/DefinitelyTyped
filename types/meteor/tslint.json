@@ -16,7 +16,6 @@
         "no-namespace": false,
         "no-object-literal-type-assertion": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,

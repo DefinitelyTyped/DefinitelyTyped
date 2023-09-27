@@ -4,7 +4,6 @@
         "interface-name": false,
         "no-duplicate-variable": false,
         "no-misused-new": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

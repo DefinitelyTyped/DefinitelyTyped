@@ -1,7 +1,7 @@
-import type { ComponentType } from 'react';
-import type { DevtoolsProps, Store, Wall, FrontendBridge } from './commons';
+import type { ComponentType } from "react";
+import type { DevtoolsProps, FrontendBridge, Store, Wall } from "./commons";
 
-export * from './commons';
+export * from "./commons";
 
 export interface Config {
     checkBridgeProtocolCompatibility?: boolean | undefined;

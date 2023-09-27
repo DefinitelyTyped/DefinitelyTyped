@@ -1,11 +1,11 @@
-import {EmitterSubscription} from '../vendor/emitter/EventEmitter';
+import { EmitterSubscription } from "../vendor/emitter/EventEmitter";
 
 // Used by Dimensions below
 export interface ScaledSize {
-  width: number;
-  height: number;
-  scale: number;
-  fontScale: number;
+    width: number;
+    height: number;
+    scale: number;
+    fontScale: number;
 }
 
 /**
@@ -25,7 +25,7 @@ export interface ScaledSize {
  * @see https://reactnative.dev/docs/dimensions#content
  */
 export interface Dimensions {
-  /**
+    /**
        * Initial dimensions are set before runApplication is called so they
        * should be available before any other require's are run, but may be
        * updated later.
@@ -39,30 +39,30 @@ export interface Dimensions {
        @param dim Name of dimension as defined when calling set.
        @returns Value for the dimension.
        */
-  get(dim: 'window' | 'screen'): ScaledSize;
+    get(dim: "window" | "screen"): ScaledSize;
 
-  /**
-   * This should only be called from native code by sending the didUpdateDimensions event.
-   * @param dims Simple string-keyed object of dimensions to set
-   */
-  set(dims: {[key: string]: any}): void;
+    /**
+     * This should only be called from native code by sending the didUpdateDimensions event.
+     * @param dims Simple string-keyed object of dimensions to set
+     */
+    set(dims: { [key: string]: any }): void;
 
-  /**
-   * Add an event listener for dimension changes
-   *
-   * @param type the type of event to listen to
-   * @param handler the event handler
-   */
-  addEventListener(
-    type: 'change',
-    handler: ({
-      window,
-      screen,
-    }: {
-      window: ScaledSize;
-      screen: ScaledSize;
-    }) => void,
-  ): EmitterSubscription;
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param type the type of event to listen to
+     * @param handler the event handler
+     */
+    addEventListener(
+        type: "change",
+        handler: ({
+            window,
+            screen,
+        }: {
+            window: ScaledSize;
+            screen: ScaledSize;
+        }) => void,
+    ): EmitterSubscription;
 }
 
 export function useWindowDimensions(): ScaledSize;

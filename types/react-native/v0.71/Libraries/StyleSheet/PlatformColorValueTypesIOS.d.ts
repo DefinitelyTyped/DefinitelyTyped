@@ -1,10 +1,10 @@
-import {ColorValue, OpaqueColorValue} from './StyleSheet';
+import { ColorValue, OpaqueColorValue } from "./StyleSheet";
 
 type DynamicColorIOSTuple = {
-  light: ColorValue;
-  dark: ColorValue;
-  highContrastLight?: ColorValue | undefined;
-  highContrastDark?: ColorValue | undefined;
+    light: ColorValue;
+    dark: ColorValue;
+    highContrastLight?: ColorValue | undefined;
+    highContrastDark?: ColorValue | undefined;
 };
 
 /**

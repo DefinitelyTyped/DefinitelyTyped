@@ -3,44 +3,45 @@ import { defaults } from "require-directory";
 import { CheckPathFn, RequireDirectoryOptions, RequireDirectoryResult } from "require-directory";
 
 const requiredModules1 = requireDirectory(module);
-const requiredModules2 = requireDirectory(module, 'subdirectory');
-const requiredModules3 = requireDirectory(module, 'subdirectory', {
+const requiredModules2 = requireDirectory(module, "subdirectory");
+const requiredModules3 = requireDirectory(module, "subdirectory", {
     exclude: /foo/,
     include: /bar/,
-    extensions: ['js', 'json', 'ts'],
+    extensions: ["js", "json", "ts"],
     recurse: true,
     rename: (name) => name,
-    visit: (obj: { foo: number, bar: number}) => obj.foo + obj.bar
+    visit: (obj: { foo: number; bar: number }) => obj.foo + obj.bar,
 });
-const someModule1 = requiredModules3['someModule'];
-if (typeof someModule1 === 'number') {
+const someModule1 = requiredModules3["someModule"];
+if (typeof someModule1 === "number") {
     const number1: number = someModule1;
 } else {
-    const someSubModule = someModule1['someSubModule'];
-    if (typeof someSubModule === 'number') {
+    const someSubModule = someModule1["someSubModule"];
+    if (typeof someSubModule === "number") {
         const number2: number = someSubModule;
     }
 }
 
 class TestClass {
-    baz = 'baz';
+    baz = "baz";
     constructor(
         public foo: number,
-        public bar: number) { }
+        public bar: number,
+    ) {}
 }
 const requiredModules4 = requireDirectory(module, {
     exclude: /foo/,
     include: /bar/,
-    extensions: ['js', 'json', 'ts'],
+    extensions: ["js", "json", "ts"],
     recurse: false,
     rename: (name) => name,
-    visit: (obj: { foo: number, bar: number }) => new TestClass(obj.foo, obj.bar)
+    visit: (obj: { foo: number; bar: number }) => new TestClass(obj.foo, obj.bar),
 });
-const someModule2 = requiredModules4['someModule'];
+const someModule2 = requiredModules4["someModule"];
 if (someModule2 instanceof TestClass) {
     const obj1: TestClass = someModule2;
 } else {
-    const someSubModule = someModule2['someSubModule'];
+    const someSubModule = someModule2["someSubModule"];
     if (someSubModule instanceof TestClass) {
         const obj2: TestClass = someSubModule;
     }

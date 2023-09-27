@@ -8,11 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import {
-  ComponentClass,
-  FunctionComponent,
-  ReactElement
-} from "react";
+import { ComponentClass, FunctionComponent, ReactElement } from "react";
 
 export type FieldValue = any;
 
@@ -49,13 +45,13 @@ export type FormMeta<FormData extends DataShape> = {
  */
 export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
-export * from "./lib/reduxForm";
-export * from "./lib/Field";
-export * from "./lib/Fields";
-export * from "./lib/FieldArray";
-export * from "./lib/Form";
-export * from "./lib/FormSection";
 export * from "./lib/actions";
 export * from "./lib/actionTypes";
+export * from "./lib/Field";
+export * from "./lib/FieldArray";
+export * from "./lib/Fields";
+export * from "./lib/Form";
+export * from "./lib/FormSection";
 export * from "./lib/reducer";
+export * from "./lib/reduxForm";
 export * from "./lib/selectors";

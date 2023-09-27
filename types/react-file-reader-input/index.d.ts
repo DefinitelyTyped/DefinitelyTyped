@@ -6,16 +6,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import * as React from 'react';
+import * as React from "react";
 
 declare class FileInput extends React.Component<FileInput.Props> {
 }
 
 declare namespace FileInput {
-    type Format = 'buffer' | 'binary' | 'url' | 'text';
+    type Format = "buffer" | "binary" | "url" | "text";
     type Result = [ProgressEvent, File];
 
-    interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+    interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
         /**
          * what format the `FileReader` should read the file as
          * (i.e., `'buffer'`, `'binary'`, `'url'`, `'text'`).

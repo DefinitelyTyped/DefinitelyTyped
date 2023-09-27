@@ -3,7 +3,7 @@
 // Definitions by: euZebe <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface PTRViewProps {
     children?: React.ReactNode;

@@ -16,7 +16,7 @@ interface ResizeObserverOptions {
      *
      * @default 'content-box'
      */
-    box?: 'content-box' | 'border-box' | 'device-pixel-content-box' | undefined;
+    box?: "content-box" | "border-box" | "device-pixel-content-box" | undefined;
 }
 
 interface ResizeObserverSize {
@@ -31,7 +31,7 @@ interface ResizeObserver {
 }
 
 declare var ResizeObserver: {
-    new (callback: ResizeObserverCallback): ResizeObserver;
+    new(callback: ResizeObserverCallback): ResizeObserver;
     prototype: ResizeObserver;
 };
 

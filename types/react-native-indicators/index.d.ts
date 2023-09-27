@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
-import { Animated, EasingFunction, StyleProp, ViewStyle } from 'react-native';
+import { Component } from "react";
+import { Animated, EasingFunction, StyleProp, ViewStyle } from "react-native";
 export interface BaseIndicatorProps {
     /**
      * Animation easing function
@@ -233,7 +233,7 @@ export interface WaveIndicatorProps extends BaseIndicatorProps {
      * Maximum component scale
      * @default 'fill'
      */
-    waveMode?: 'fill' | 'outline' | undefined;
+    waveMode?: "fill" | "outline" | undefined;
 }
 
 export class WaveIndicator extends Component<WaveIndicatorProps> {}

@@ -5,17 +5,17 @@
 /// <reference types="node" />
 
 // Import from dependencies
-import MiniPass = require('minipass');
-import zlib = require('zlib');
+import MiniPass = require("minipass");
+import zlib = require("zlib");
 
 // Exports only from typings
-export { constants } from 'zlib';
+export { constants } from "zlib";
 
-type BrotliMode = 'BrotliCompress' | 'BrotliDecompress';
-type ZlibMode = 'Gzip' | 'Gunzip' | 'Deflate' | 'Inflate' | 'DeflateRaw' | 'InflateRaw' | 'Unzip';
+type BrotliMode = "BrotliCompress" | "BrotliDecompress";
+type ZlibMode = "Gzip" | "Gunzip" | "Deflate" | "Inflate" | "DeflateRaw" | "InflateRaw" | "Unzip";
 
-interface MiniPassOptions extends Omit<MiniPass.StringOptions, 'encoding'> {
-    encoding?: BufferEncoding | 'buffer' | null;
+interface MiniPassOptions extends Omit<MiniPass.StringOptions, "encoding"> {
+    encoding?: BufferEncoding | "buffer" | null;
 }
 
 interface ZlibBaseOptions extends MiniPassOptions {

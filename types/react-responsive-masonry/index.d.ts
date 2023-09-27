@@ -3,7 +3,7 @@
 // Definitions by: themashcodee <https://github.com/themashcodee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { CSSProperties, ReactNode, ReactElement } from 'react';
+import { CSSProperties, ReactElement, ReactNode } from "react";
 
 export interface MasonryProps {
     children: ReactNode;

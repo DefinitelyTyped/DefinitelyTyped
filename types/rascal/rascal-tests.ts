@@ -1,56 +1,56 @@
+import { Message } from "amqplib";
 import {
+    AckOrNack,
     Broker,
     BrokerAsPromised,
     BrokerConfig,
-    AckOrNack,
-    withDefaultConfig,
+    createBroker,
+    createBrokerAsPromised,
     PublicationSession,
     SubscriptionSession,
-    createBrokerAsPromised,
-    createBroker,
-} from 'rascal';
-import { Message } from 'amqplib';
+    withDefaultConfig,
+} from "rascal";
 
 const config: BrokerConfig = {
     vhosts: {
-        '/': {
+        "/": {
             connection: {
-                url: 'amqp://user:password@broker.example.com:5742/',
+                url: "amqp://user:password@broker.example.com:5742/",
                 socketOptions: {
                     clientProperties: {
-                        connection_name: 'demo_service',
-                        custom_tag: 'custom_tag_identifier',
+                        connection_name: "demo_service",
+                        custom_tag: "custom_tag_identifier",
                     },
                 },
             },
             exchanges: [
-                'demo_ex',
+                "demo_ex",
                 {
-                    name: 'short_ex',
+                    name: "short_ex",
                 },
             ],
             queues: [
-                'demo_q',
+                "demo_q",
                 {
-                    name: 'short_q',
+                    name: "short_q",
                 },
             ],
             bindings: [
-                'demo_ex[a.b.c] -> demo_q',
+                "demo_ex[a.b.c] -> demo_q",
                 {
-                    source: 'short_ex',
-                    destination: 'short_q',
+                    source: "short_ex",
+                    destination: "short_q",
                 },
             ],
             publications: {
                 demo_pub: {
-                    exchange: 'demo_ex',
-                    routingKey: 'a.b.c',
+                    exchange: "demo_ex",
+                    routingKey: "a.b.c",
                 },
             },
             subscriptions: {
                 demo_sub: {
-                    queue: 'demo_q',
+                    queue: "demo_q",
                     prefetch: 3,
                 },
             },
@@ -61,40 +61,40 @@ const config: BrokerConfig = {
 (async () => {
     try {
         const broker = await BrokerAsPromised.create(withDefaultConfig(config));
-        broker.on('error', console.error);
+        broker.on("error", console.error);
 
         // Publish a message
-        const publication = await broker.publish('demo_publication', 'Hello World!');
-        await broker.publish('p1', 'some message');
-        await broker.publish('p1', 'some message', 'some.routing.key');
-        await broker.publish('p1', 'some message', {
-            routingKey: 'some.routing.key',
-            options: { messageId: 'foo', expiration: 5000 },
+        const publication = await broker.publish("demo_publication", "Hello World!");
+        await broker.publish("p1", "some message");
+        await broker.publish("p1", "some message", "some.routing.key");
+        await broker.publish("p1", "some message", {
+            routingKey: "some.routing.key",
+            options: { messageId: "foo", expiration: 5000 },
         });
-        publication.on('error', console.error);
+        publication.on("error", console.error);
 
         // Consume a message
-        const subscription = await broker.subscribe('demo_subscription');
-        await broker.subscribe('s1', { prefetch: 10, retry: false });
+        const subscription = await broker.subscribe("demo_subscription");
+        await broker.subscribe("s1", { prefetch: 10, retry: false });
         await subscription.cancel();
         subscription
-            .on('message', (message, content, ackOrNack) => {
+            .on("message", (message, content, ackOrNack) => {
                 ackOrNack();
-                ackOrNack(new Error(), { strategy: 'nack' });
-                ackOrNack(new Error(), { strategy: 'nack', defer: 1000, requeue: true });
-                ackOrNack(new Error(), [{ strategy: 'republish', defer: 1000, attempts: 10 }, { strategy: 'nack' }]);
-                ackOrNack(new Error(), { strategy: 'republish', immediateNack: true });
-                ackOrNack(new Error(), { strategy: 'forward', publication: 'some_exchange' });
+                ackOrNack(new Error(), { strategy: "nack" });
+                ackOrNack(new Error(), { strategy: "nack", defer: 1000, requeue: true });
+                ackOrNack(new Error(), [{ strategy: "republish", defer: 1000, attempts: 10 }, { strategy: "nack" }]);
+                ackOrNack(new Error(), { strategy: "republish", immediateNack: true });
+                ackOrNack(new Error(), { strategy: "forward", publication: "some_exchange" });
                 ackOrNack(new Error(), [
                     {
-                        strategy: 'forward',
-                        publication: 'some_exchange',
-                        options: { routingKey: 'custom.routing.key' },
+                        strategy: "forward",
+                        publication: "some_exchange",
+                        options: { routingKey: "custom.routing.key" },
                     },
-                    { strategy: 'nack' },
+                    { strategy: "nack" },
                 ]);
             })
-            .on('error', console.error);
+            .on("error", console.error);
     } catch (err) {
         console.error(err);
     }
@@ -104,23 +104,23 @@ const config: BrokerConfig = {
 Broker.create(config, (err, broker) => {
     if (err) throw err;
 
-    broker.on('error', console.error);
+    broker.on("error", console.error);
 
     // Publish a message
-    broker.publish('demo_publication', 'Hello World!', (err, publication) => {
+    broker.publish("demo_publication", "Hello World!", (err, publication) => {
         if (err) throw err;
-        publication.on('error', console.error);
+        publication.on("error", console.error);
     });
 
     // Consume a message
-    broker.subscribe('demo_subscription', (err, subscription) => {
+    broker.subscribe("demo_subscription", (err, subscription) => {
         if (err) throw err;
         subscription
-            .on('message', (message, content, ackOrNack) => {
+            .on("message", (message, content, ackOrNack) => {
                 console.log(content);
                 ackOrNack();
             })
-            .on('error', console.error);
+            .on("error", console.error);
     });
 });
 
@@ -197,12 +197,12 @@ Broker.create(config, (err, broker) => {
         err; // $ExpectType null
         broker; // $ExpectType Broker
 
-        broker.connect('/', (err, conn) => {
+        broker.connect("/", (err, conn) => {
             err; // $ExpectType Error | null
             conn; // $ExpectType Connection | null
         });
 
-        broker.connect('/', (...x) => {
+        broker.connect("/", (...x) => {
             if (x[0] === null) {
                 const y = x[1]; // $ExpectType Connection
             } else {
@@ -214,16 +214,16 @@ Broker.create(config, (err, broker) => {
 
 {
     Broker.create(config, (err, broker) => {
-        broker.publish('demo_publication', 'Hello World!', (err, publication) => {
+        broker.publish("demo_publication", "Hello World!", (err, publication) => {
             publication
-                .on('error', (err, msgId) => {
+                .on("error", (err, msgId) => {
                     err; // $ExpectType Error
                     msgId; // $ExpectType string
                 })
-                .on('return', msg => {
+                .on("return", msg => {
                     msg; // $ExpectType Message
                 })
-                .on('success', msgId => {
+                .on("success", msgId => {
                     msgId; // $ExpectType string
                 });
         });

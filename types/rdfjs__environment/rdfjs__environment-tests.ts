@@ -1,14 +1,14 @@
-import { NamedNode, Stream } from '@rdfjs/types';
-import Environment from '@rdfjs/environment';
-import { FactoryConstructor } from '@rdfjs/environment/Environment.js';
-import FormatsFactory from '@rdfjs/environment/FormatsFactory.js';
-import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js';
-import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js';
-import DatasetFactory from '@rdfjs/environment/DatasetFactory.js';
-import DataFactory from '@rdfjs/environment/DataFactory.js';
-import { SinkMap } from '@rdfjs/sink-map';
-import { EventEmitter } from 'events';
-import formatsCommon from '@rdfjs/formats-common';
+import Environment from "@rdfjs/environment";
+import DataFactory from "@rdfjs/environment/DataFactory.js";
+import DatasetFactory from "@rdfjs/environment/DatasetFactory.js";
+import { FactoryConstructor } from "@rdfjs/environment/Environment.js";
+import FormatsFactory from "@rdfjs/environment/FormatsFactory.js";
+import NamespaceFactory from "@rdfjs/environment/NamespaceFactory.js";
+import TermMapSetFactory from "@rdfjs/environment/TermMapSetFactory.js";
+import formatsCommon from "@rdfjs/formats-common";
+import { SinkMap } from "@rdfjs/sink-map";
+import { NamedNode, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 
 const emptyEnv = new Environment([]);
 const clone = emptyEnv.clone();
@@ -16,18 +16,18 @@ const clone = emptyEnv.clone();
 declare class FooFactory {
     init(): void;
     foo(foo: string): string;
-    static exports: ['foo'];
+    static exports: ["foo"];
 }
 
 declare class BarFactory {
     bar(bar: number): number;
     baz(): number;
-    static exports: ['bar'];
+    static exports: ["bar"];
 }
 
 const dataEnv = new Environment([
     DatasetFactory,
-    DataFactory
+    DataFactory,
 ]);
 
 let environment = new Environment([
@@ -42,7 +42,7 @@ environment = new Environment([
 // @ts-expect-error
 environment.init();
 
-const foo: string = environment.foo('10');
+const foo: string = environment.foo("10");
 const bar: number = environment.bar(10);
 
 const envWithDefaults = new Environment([
@@ -50,14 +50,14 @@ const envWithDefaults = new Environment([
     NamespaceFactory,
 ]);
 
-const { formats, namespace }  = envWithDefaults;
+const { formats, namespace } = envWithDefaults;
 
 const env = new Environment([TermMapSetFactory]);
 
 const node: NamedNode = <any> {};
 const termMap = env.termMap([ // $ExpectType TermMap<NamedNode<string>, string>
-    [node, 'foo'],
-    [node, 'bar']
+    [node, "foo"],
+    [node, "bar"],
 ]);
 const termSet = env.termSet([node]); // $ExpectType TermSet<NamedNode<string>>
 
@@ -102,11 +102,13 @@ function customFactory<F extends FactoryConstructor>(...additionalFactories: F[]
 }
 
 function testCustomFactoryMethod() {
-    const env = customFactory(class Factory {
-        foo() {
-            return 'bar';
-        }
-    });
+    const env = customFactory(
+        class Factory {
+            foo() {
+                return "bar";
+            }
+        },
+    );
 
     // $ExpectType BlankNode
     const node = env.blankNode();

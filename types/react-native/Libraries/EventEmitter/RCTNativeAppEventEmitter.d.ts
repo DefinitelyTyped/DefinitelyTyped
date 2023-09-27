@@ -1,10 +1,10 @@
-import {DeviceEventEmitterStatic} from './RCTDeviceEventEmitter';
+import { DeviceEventEmitterStatic } from "./RCTDeviceEventEmitter";
 
 export interface NativeEventSubscription {
-  /**
-   * Call this method to un-subscribe from a native-event
-   */
-  remove(): void;
+    /**
+     * Call this method to un-subscribe from a native-event
+     */
+    remove(): void;
 }
 
 /**

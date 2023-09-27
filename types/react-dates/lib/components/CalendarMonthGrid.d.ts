@@ -1,3 +1,3 @@
-import { CalendarMonthGrid } from '../../index';
+import { CalendarMonthGrid } from "../../index";
 
 export default CalendarMonthGrid;

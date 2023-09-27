@@ -1,34 +1,34 @@
-import { Term, Stream, Quad_Graph } from '@rdfjs/types';
-import $rdf from 'rdf-ext';
-import StoreFs = require('rdf-store-fs');
-import FlatFilenameResolver = require('rdf-store-fs/lib/FlatFilenameResolver.js');
+import { Quad_Graph, Stream, Term } from "@rdfjs/types";
+import $rdf from "rdf-ext";
+import StoreFs = require("rdf-store-fs");
+import FlatFilenameResolver = require("rdf-store-fs/lib/FlatFilenameResolver.js");
 
 let flatStore = new StoreFs.FlatMultiFileStore({
-    path: '/',
-    baseIRI: 'http://example.com/'
+    path: "/",
+    baseIRI: "http://example.com/",
 });
 
 flatStore = new StoreFs.FlatMultiFileStore({
-    path: '/',
-    baseIRI: 'http://example.com/',
-    extension: 'n3',
-    factory: $rdf
+    path: "/",
+    baseIRI: "http://example.com/",
+    extension: "n3",
+    factory: $rdf,
 });
 
 let resolver = new FlatFilenameResolver({
-    path: '/',
-    baseIRI: 'http://example.com/',
+    path: "/",
+    baseIRI: "http://example.com/",
 });
 
 resolver = new FlatFilenameResolver({
-    path: '/',
-    baseIRI: 'http://example.com/',
-    extension: 'n3',
-    factory: $rdf
+    path: "/",
+    baseIRI: "http://example.com/",
+    extension: "n3",
+    factory: $rdf,
 });
 
 let multiStore = new StoreFs.MultiFileStore({
-    resolver
+    resolver,
 });
 
 multiStore = new StoreFs.MultiFileStore({ resolver, factory: $rdf });
