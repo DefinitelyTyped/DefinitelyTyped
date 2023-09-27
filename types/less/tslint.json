@@ -3,7 +3,6 @@
     "rules": {
         "jsdoc-format": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "unified-signatures": false

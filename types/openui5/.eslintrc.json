@@ -8,6 +8,7 @@
                 "definedTags": ["ui5-protected", "experimental"]
             }
         ],
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off"
     }
 }

@@ -151,7 +151,7 @@ declare namespace MeteorAstronomy {
     };
 }
 
-declare module "meteor/jagi:astronomy" { // tslint:disable-line:no-single-declare-module
+declare module "meteor/jagi:astronomy" { // eslint-disable-line @definitelytyped/no-single-declare-module
     namespace Class {
         function create<T extends {}>(model: MeteorAstronomy.ClassModel<T>): MeteorAstronomy.Class<T>;
     }

@@ -4,7 +4,6 @@
         "ban-types": false,
         "new-parens": false,
         "no-empty-interface": false,
-        "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false
+        "no-redundant-jsdoc-2": false
     }
 }
