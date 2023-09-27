@@ -2438,7 +2438,7 @@ declare namespace GoogleAppsScript {
         /**
          * The sorting specification.
          */
-        interface SortSpec{
+        interface SortSpec {
             getBackgroundColor(): Color | null;
             getDataSourceColumn(): DataSourceColumn;
             getDimensionIndex(): number | null;
