@@ -2,11 +2,11 @@ var message = Messenger().post({
     message: "message",
     hideAfter: 5,
     showCloseButton: true,
-    type: "error"
+    type: "error",
 });
 message.update({
     type: "error",
-    message: "Error calculating position"
+    message: "Error calculating position",
 });
 
 Messenger().hideAll();

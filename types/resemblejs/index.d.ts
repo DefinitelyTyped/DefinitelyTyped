@@ -164,10 +164,10 @@ declare namespace Resemble {
     interface OutputSettings {
         errorColor?:
             | {
-                  red: number;
-                  green: number;
-                  blue: number;
-              }
+                red: number;
+                green: number;
+                blue: number;
+            }
             | undefined;
         errorType?: OutputErrorType | undefined;
         errorPixel?: ((px: number[], offset: number, d1: Color, d2: Color) => void) | undefined;
@@ -212,11 +212,11 @@ declare namespace Resemble {
         tolerance?: Tolerance | undefined;
     }
 
-    type OutputErrorType = 'flat' | 'movement' | 'flatDifferenceIntensity' | 'movementDifferenceIntensity' | 'diffOnly';
+    type OutputErrorType = "flat" | "movement" | "flatDifferenceIntensity" | "movementDifferenceIntensity" | "diffOnly";
 
     type ComparisonCallback = (err: unknown, data: ComparisonResult) => void;
 
-    type ComparisonIgnoreOption = 'nothing' | 'less' | 'antialiasing' | 'colors' | 'alpha';
+    type ComparisonIgnoreOption = "nothing" | "less" | "antialiasing" | "colors" | "alpha";
 
     function compare(
         image1: string | ImageData | Buffer,

@@ -5,8 +5,7 @@
 
 /// <reference types="node" />
 
-
-import * as child_process from 'child_process';
+import * as child_process from "child_process";
 interface StreamDataHandler {
     (data: any): void;
 }
@@ -42,7 +41,7 @@ interface Rsync {
     execute(
         callback?: (err: Error | null, code: number, cmd: string) => void,
         stdout?: StreamDataHandler,
-        stderr?: StreamDataHandler
+        stderr?: StreamDataHandler,
     ): child_process.ChildProcess;
 
     // cwd
@@ -80,17 +79,18 @@ interface Rsync {
 }
 
 interface RsyncStatic {
-    new (): Rsync;
+    new(): Rsync;
 
     // The `build` method will take an arguments object where the key is an rsync method and the value is the first paramater to that argument.
     // If the method doesn't take an argument (e.g. `archive`, `progress`) then the value should be "true".
     // Technically speaking, the value can be anything if the method doesn't take an argument, but it may as well be typed consistently here.
     build: (
-        options: Partial<{
-            [Property in keyof Rsync]: [Parameters<Rsync[Property]>[0]] extends [undefined]
-                ? true
-                : Parameters<Rsync[Property]>[0];
-        }>,
+        options: Partial<
+            {
+                [Property in keyof Rsync]: [Parameters<Rsync[Property]>[0]] extends [undefined] ? true
+                    : Parameters<Rsync[Property]>[0];
+            }
+        >,
     ) => Rsync;
 }
 

@@ -1,28 +1,28 @@
+import * as React from "react";
+import { processColor, StyleSheet, View } from "react-native";
 import {
-    LineChart,
-    ChartSelectEvent,
+    AxisLimitLine,
     BarChart,
     BubbleChart,
     CandleStickChart,
-    HorizontalBarChart,
+    ChartSelectEvent,
     CombinedChart,
+    HorizontalBarChart,
+    LineChart,
     PieChart,
-    AxisLimitLine,
-} from 'react-native-charts-wrapper';
-import * as React from 'react';
-import { View, processColor, StyleSheet } from 'react-native';
+} from "react-native-charts-wrapper";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: "#F5FCFF",
     },
     chart: {
         flex: 1,
     },
 });
 
-const COLOR_PURPLE = processColor('#697dfb');
+const COLOR_PURPLE = processColor("#697dfb");
 
 function _randomYValues(range: number, size: number) {
     const nextValueMaxDiff = 0.2;
@@ -51,7 +51,7 @@ class AxisLineChartScreen extends React.Component {
                             dataSets: [
                                 {
                                     values: _randomYValues(100, 30),
-                                    label: '',
+                                    label: "",
                                     config: {
                                         lineWidth: 1.5,
                                         drawCircles: false,
@@ -65,21 +65,21 @@ class AxisLineChartScreen extends React.Component {
                                 },
                             ],
                         }}
-                        chartDescription={{ text: '' }}
+                        chartDescription={{ text: "" }}
                         xAxis={{
                             drawAxisLine: true,
-                            textColor: processColor('red'),
+                            textColor: processColor("red"),
                             textSize: 16,
-                            gridColor: processColor('red'),
+                            gridColor: processColor("red"),
                             gridLineWidth: 1,
-                            axisLineColor: processColor('darkgray'),
+                            axisLineColor: processColor("darkgray"),
                             axisLineWidth: 1.5,
                             gridDashedLine: {
                                 lineLength: 10,
                                 spaceLength: 10,
                             },
                             avoidFirstLastClipping: true,
-                            position: 'BOTTOM',
+                            position: "BOTTOM",
                         }}
                         yAxis={{
                             left: {
@@ -124,12 +124,12 @@ class BarChartScreen extends React.Component {
                                         { y: 99 },
                                         { y: 95 },
                                     ],
-                                    label: 'Bar dataSet',
+                                    label: "Bar dataSet",
                                     config: {
-                                        color: processColor('teal'),
-                                        barShadowColor: processColor('lightgrey'),
+                                        color: processColor("teal"),
+                                        barShadowColor: processColor("lightgrey"),
                                         highlightAlpha: 90,
-                                        highlightColor: processColor('red'),
+                                        highlightColor: processColor("red"),
                                     },
                                 },
                             ],
@@ -139,7 +139,7 @@ class BarChartScreen extends React.Component {
                             },
                         }}
                         xAxis={{
-                            valueFormatter: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                            valueFormatter: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
                             granularityEnabled: true,
                             granularity: 1,
                         }}
@@ -147,7 +147,7 @@ class BarChartScreen extends React.Component {
                         legend={{
                             enabled: true,
                             textSize: 14,
-                            form: 'SQUARE',
+                            form: "SQUARE",
                             formSize: 14,
                             xEntrySpace: 10,
                             yEntrySpace: 5,
@@ -155,7 +155,7 @@ class BarChartScreen extends React.Component {
                             wordWrapEnabled: true,
                             maxSizePercent: 0.5,
                         }}
-                        gridBackgroundColor={processColor('#ffffff')}
+                        gridBackgroundColor={processColor("#ffffff")}
                         visibleRange={{ x: { min: 5, max: 5 } }}
                         drawBarShadow={false}
                         drawValueAboveBar={true}
@@ -194,24 +194,24 @@ class BubbleChartScreen extends React.Component {
                             dataSets: [
                                 {
                                     values: _randomYSizeValues(20, 10),
-                                    label: 'DS 1',
+                                    label: "DS 1",
                                     config: {
-                                        color: processColor('#C0FF8C'),
+                                        color: processColor("#C0FF8C"),
                                         highlightCircleWidth: 2,
                                     },
                                 },
                                 {
                                     values: _randomYSizeValues(20, 10),
-                                    label: 'DS 2',
+                                    label: "DS 2",
                                     config: {
-                                        color: processColor('#FFF78C'),
+                                        color: processColor("#FFF78C"),
                                     },
                                 },
                                 {
                                     values: _randomYSizeValues(20, 10),
-                                    label: 'DS 3',
+                                    label: "DS 3",
                                     config: {
-                                        color: processColor('#FFD08C'),
+                                        color: processColor("#FFD08C"),
                                     },
                                 },
                             ],
@@ -219,13 +219,13 @@ class BubbleChartScreen extends React.Component {
                         legend={{
                             enabled: true,
                             textSize: 14,
-                            form: 'CIRCLE',
+                            form: "CIRCLE",
                             wordWrapEnabled: true,
                         }}
                         animation={{
                             durationX: 1500,
                             durationY: 1500,
-                            easingX: 'EaseInCirc',
+                            easingX: "EaseInCirc",
                         }}
                         onSelect={this.handleSelect.bind(this)}
                         onChange={event => console.log(event.nativeEvent)}
@@ -298,44 +298,44 @@ class CandleStickChartScreen extends React.Component {
                                         { shadowH: 92.78, shadowL: 89.47, open: 92.72, close: 90.32 },
                                         { shadowH: 91.67, shadowL: 90, open: 90, close: 90.52 },
                                     ],
-                                    label: 'AAPL',
+                                    label: "AAPL",
                                     config: {
-                                        highlightColor: processColor('darkgray'),
+                                        highlightColor: processColor("darkgray"),
 
-                                        shadowColor: processColor('black'),
+                                        shadowColor: processColor("black"),
                                         shadowWidth: 1,
                                         shadowColorSameAsCandle: true,
-                                        increasingColor: processColor('#71BD6A'),
-                                        increasingPaintStyle: 'FILL',
-                                        decreasingColor: processColor('#D14B5A'),
+                                        increasingColor: processColor("#71BD6A"),
+                                        increasingPaintStyle: "FILL",
+                                        decreasingColor: processColor("#D14B5A"),
                                     },
                                 },
                             ],
                         }}
                         marker={{
                             enabled: true,
-                            markerColor: processColor('#2c3e50'),
-                            textColor: processColor('white'),
+                            markerColor: processColor("#2c3e50"),
+                            textColor: processColor("white"),
                         }}
-                        chartDescription={{ text: 'CandleStick' }}
+                        chartDescription={{ text: "CandleStick" }}
                         legend={{
                             enabled: true,
                             textSize: 14,
-                            form: 'CIRCLE',
+                            form: "CIRCLE",
                             wordWrapEnabled: true,
                         }}
                         xAxis={{
                             drawLabels: true,
                             drawAxisLine: true,
                             drawGridLines: true,
-                            position: 'BOTTOM',
+                            position: "BOTTOM",
                             yOffset: 5,
                             limitLines: Array.from({ length: 47 / 5 })
                                 .fill(0)
                                 .map<AxisLimitLine>((_, i) => {
                                     return {
                                         limit: 5 * (i + 1) + 0.5,
-                                        lineColor: processColor('darkgray'),
+                                        lineColor: processColor("darkgray"),
                                         lineWidth: 1,
                                         label: (i + 1).toString(),
                                     };
@@ -343,17 +343,17 @@ class CandleStickChartScreen extends React.Component {
                         }}
                         yAxis={{
                             left: {
-                                valueFormatter: '$ #',
+                                valueFormatter: "$ #",
                                 limitLines: [
                                     {
                                         limit: 112.4,
-                                        lineColor: processColor('red'),
+                                        lineColor: processColor("red"),
                                         lineDashPhase: 2,
                                         lineDashLengths: [10, 20],
                                     },
                                     {
                                         limit: 89.47,
-                                        lineColor: processColor('red'),
+                                        lineColor: processColor("red"),
                                         lineDashPhase: 2,
                                         lineDashLengths: [10, 20],
                                     },
@@ -366,7 +366,7 @@ class CandleStickChartScreen extends React.Component {
                         maxVisibleValueCount={16}
                         autoScaleMinMaxEnabled={true}
                         // zoom={{scaleX: 2, scaleY: 1, xValue:  400000, yValue: 1}}
-                        zoom={{ scaleX: 15.41, scaleY: 1, xValue: 40, yValue: 916, axisDependency: 'LEFT' }}
+                        zoom={{ scaleX: 15.41, scaleY: 1, xValue: 40, yValue: 916, axisDependency: "LEFT" }}
                         onSelect={this.handleSelect.bind(this)}
                         ref="chart"
                         onChange={event => console.log(event.nativeEvent)}
@@ -388,7 +388,7 @@ class StackedBarChartScreen extends React.Component {
                 <View>
                     <BarChart
                         xAxis={{
-                            valueFormatter: ['1990', '1991', '1992', '1993', '1994'],
+                            valueFormatter: ["1990", "1991", "1992", "1993", "1994"],
                             granularityEnabled: true,
                             granularity: 1,
                             axisMaximum: 5,
@@ -399,26 +399,26 @@ class StackedBarChartScreen extends React.Component {
                             dataSets: [
                                 {
                                     values: [5, 40, 77, 81, 43],
-                                    label: 'Company A',
+                                    label: "Company A",
                                     config: {
                                         drawValues: false,
-                                        colors: [processColor('red')],
+                                        colors: [processColor("red")],
                                     },
                                 },
                                 {
                                     values: [40, 5, 50, 23, 79],
-                                    label: 'Company B',
+                                    label: "Company B",
                                     config: {
                                         drawValues: false,
-                                        colors: [processColor('blue')],
+                                        colors: [processColor("blue")],
                                     },
                                 },
                                 {
                                     values: [10, 55, 35, 90, 82],
-                                    label: 'Company C',
+                                    label: "Company C",
                                     config: {
                                         drawValues: false,
-                                        colors: [processColor('green')],
+                                        colors: [processColor("green")],
                                     },
                                 },
                             ],
@@ -434,7 +434,7 @@ class StackedBarChartScreen extends React.Component {
                         legend={{
                             enabled: true,
                             textSize: 14,
-                            form: 'SQUARE',
+                            form: "SQUARE",
                             formSize: 14,
                             xEntrySpace: 10,
                             yEntrySpace: 5,
@@ -449,8 +449,8 @@ class StackedBarChartScreen extends React.Component {
                         ]}
                         marker={{
                             enabled: true,
-                            markerColor: processColor('#F0C0FF8C'),
-                            textColor: processColor('white'),
+                            markerColor: processColor("#F0C0FF8C"),
+                            textColor: processColor("white"),
                             textSize: 14,
                         }}
                     />
@@ -485,19 +485,19 @@ class HorizontalBarChartScreen extends React.Component {
                                         { y: 99 },
                                         { y: 95 },
                                     ],
-                                    label: 'Bar dataSet',
+                                    label: "Bar dataSet",
                                     config: {
-                                        color: processColor('teal'),
-                                        barShadowColor: processColor('lightgrey'),
+                                        color: processColor("teal"),
+                                        barShadowColor: processColor("lightgrey"),
                                         highlightAlpha: 90,
-                                        highlightColor: processColor('red'),
+                                        highlightColor: processColor("red"),
                                     },
                                 },
                             ],
                         }}
                         xAxis={{
-                            valueFormatter: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-                            position: 'BOTTOM',
+                            valueFormatter: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+                            position: "BOTTOM",
                             granularityEnabled: true,
                             granularity: 1,
                             labelCount: 10,
@@ -507,7 +507,7 @@ class HorizontalBarChartScreen extends React.Component {
                         legend={{
                             enabled: true,
                             textSize: 14,
-                            form: 'SQUARE',
+                            form: "SQUARE",
                             formSize: 14,
                             xEntrySpace: 10,
                             yEntrySpace: 5,
@@ -515,7 +515,7 @@ class HorizontalBarChartScreen extends React.Component {
                             wordWrapEnabled: true,
                             maxSizePercent: 0.5,
                         }}
-                        gridBackgroundColor={processColor('#ffffff')}
+                        gridBackgroundColor={processColor("#ffffff")}
                         drawBarShadow={false}
                         drawValueAboveBar={true}
                         onSelect={this.handleSelect.bind(this)}
@@ -528,7 +528,7 @@ class HorizontalBarChartScreen extends React.Component {
 }
 
 class Combined extends React.Component {
-    static displayName = 'Combined';
+    static displayName = "Combined";
 
     handleSelect(event: ChartSelectEvent) {
         console.log(event.nativeEvent);
@@ -544,19 +544,19 @@ class Combined extends React.Component {
                                 dataSets: [
                                     {
                                         values: [
-                                            { y: [40, 30, 20], marker: ['row1', 'row2', 'row3'] },
-                                            { y: [10, 20, 10], marker: 'second' },
-                                            { y: [30, 20, 50], marker: ['hello', 'world', 'third'] },
-                                            { y: [30, 50, 10], marker: 'fourth' },
+                                            { y: [40, 30, 20], marker: ["row1", "row2", "row3"] },
+                                            { y: [10, 20, 10], marker: "second" },
+                                            { y: [30, 20, 50], marker: ["hello", "world", "third"] },
+                                            { y: [30, 50, 10], marker: "fourth" },
                                         ],
-                                        label: 'Stacked Bar dataset',
+                                        label: "Stacked Bar dataset",
                                         config: {
                                             colors: [
-                                                processColor('#C0FF8C'),
-                                                processColor('#FFF78C'),
-                                                processColor('#FFD08C'),
+                                                processColor("#C0FF8C"),
+                                                processColor("#FFF78C"),
+                                                processColor("#FFD08C"),
                                             ],
-                                            stackLabels: ['Engineering', 'Sales', 'Marketing'],
+                                            stackLabels: ["Engineering", "Sales", "Marketing"],
                                         },
                                     },
                                 ],
@@ -565,25 +565,25 @@ class Combined extends React.Component {
                                 dataSets: [
                                     {
                                         values: [50, 100, 50, 100, 50],
-                                        label: 'Sine function',
+                                        label: "Sine function",
 
                                         config: {
                                             drawValues: false,
-                                            colors: [processColor('green')],
-                                            mode: 'CUBIC_BEZIER',
+                                            colors: [processColor("green")],
+                                            mode: "CUBIC_BEZIER",
                                             drawCircles: false,
                                             lineWidth: 2,
-                                            axisDependency: 'RIGHT',
+                                            axisDependency: "RIGHT",
                                         },
                                     },
                                     {
                                         values: [100, 50, 100, 50, 100],
-                                        label: 'Cosine function',
+                                        label: "Cosine function",
 
                                         config: {
                                             drawValues: false,
-                                            colors: [processColor('blue')],
-                                            mode: 'CUBIC_BEZIER',
+                                            colors: [processColor("blue")],
+                                            mode: "CUBIC_BEZIER",
                                             drawCircles: false,
                                             lineWidth: 2,
                                         },
@@ -597,17 +597,17 @@ class Combined extends React.Component {
                                             {
                                                 size: 2.3,
                                                 y: 180,
-                                                marker: 'marker 1',
+                                                marker: "marker 1",
                                             },
                                             {
                                                 size: 1.4,
                                                 y: 150,
-                                                marker: 'marker 2',
+                                                marker: "marker 2",
                                             },
                                             {
                                                 size: 2.0,
                                                 y: 106,
-                                                marker: 'marker 3',
+                                                marker: "marker 3",
                                             },
                                             {
                                                 size: 5.0,
@@ -618,11 +618,11 @@ class Combined extends React.Component {
                                                 y: 65,
                                             },
                                         ],
-                                        label: 'Company A',
+                                        label: "Company A",
                                         config: {
                                             drawValues: false,
-                                            colors: [processColor('pink')],
-                                            axisDependency: 'RIGHT',
+                                            colors: [processColor("pink")],
+                                            axisDependency: "RIGHT",
                                         },
                                     },
                                 ],
@@ -636,21 +636,21 @@ class Combined extends React.Component {
                                                 shadowL: 5,
                                                 open: 15,
                                                 close: 10,
-                                                marker: 'marker 1',
+                                                marker: "marker 1",
                                             },
                                             {
                                                 shadowH: 30,
                                                 shadowL: 10,
                                                 open: 25,
                                                 close: 15,
-                                                marker: 'marker 1',
+                                                marker: "marker 1",
                                             },
                                             {
                                                 shadowH: 10,
                                                 shadowL: 5,
                                                 open: 15,
                                                 close: 10,
-                                                marker: 'marker 1',
+                                                marker: "marker 1",
                                             },
                                             {
                                                 shadowH: 50,
@@ -659,19 +659,19 @@ class Combined extends React.Component {
                                                 close: 25,
                                             },
                                         ],
-                                        label: 'Company A',
+                                        label: "Company A",
 
                                         config: {
                                             drawValues: false,
-                                            axisDependency: 'RIGHT',
-                                            highlightColor: processColor('darkgray'),
+                                            axisDependency: "RIGHT",
+                                            highlightColor: processColor("darkgray"),
 
-                                            shadowColor: processColor('black'),
+                                            shadowColor: processColor("black"),
                                             shadowWidth: 1,
                                             shadowColorSameAsCandle: true,
-                                            increasingColor: processColor('yellow'),
-                                            increasingPaintStyle: 'FILL',
-                                            decreasingColor: processColor('green'),
+                                            increasingColor: processColor("yellow"),
+                                            increasingPaintStyle: "FILL",
+                                            decreasingColor: processColor("green"),
                                         },
                                     },
                                 ],
@@ -680,40 +680,40 @@ class Combined extends React.Component {
                                 dataSets: [
                                     {
                                         values: [15, 40, 77, 81, 43],
-                                        label: 'Company A',
+                                        label: "Company A",
 
                                         config: {
-                                            colors: [processColor('purple')],
+                                            colors: [processColor("purple")],
                                             drawValues: false,
-                                            scatterShape: 'SQUARE',
+                                            scatterShape: "SQUARE",
                                         },
                                     },
                                     {
                                         values: [40, 5, 50, 23, 79],
-                                        label: 'Company B',
+                                        label: "Company B",
 
                                         config: {
                                             drawValues: false,
-                                            colors: [processColor('grey')],
-                                            scatterShape: 'CIRCLE',
+                                            colors: [processColor("grey")],
+                                            scatterShape: "CIRCLE",
                                         },
                                     },
                                     {
                                         values: [10, 55, 35, 90, 82],
-                                        label: 'Company C',
+                                        label: "Company C",
 
                                         config: {
                                             drawValues: false,
-                                            axisDependency: 'RIGHT',
-                                            colors: [processColor('brown')],
-                                            scatterShape: 'TRIANGLE',
+                                            axisDependency: "RIGHT",
+                                            colors: [processColor("brown")],
+                                            scatterShape: "TRIANGLE",
                                         },
                                     },
                                 ],
                             },
                         }}
                         xAxis={{
-                            valueFormatter: ['1990', '1991', '1992', '1993', '1994'],
+                            valueFormatter: ["1990", "1991", "1992", "1993", "1994"],
                             granularityEnabled: true,
                             granularity: 1,
                         }}
@@ -731,8 +731,8 @@ class Combined extends React.Component {
                         onChange={event => console.log(event.nativeEvent)}
                         marker={{
                             enabled: true,
-                            markerColor: processColor('#F0C0FF8C'),
-                            textColor: processColor('white'),
+                            markerColor: processColor("#F0C0FF8C"),
+                            textColor: processColor("white"),
                             textSize: 14,
                         }}
                         highlights={[
@@ -740,7 +740,7 @@ class Combined extends React.Component {
                             { x: 2, y: 106, dataIndex: 4 },
                         ]}
                         highlightFullBarEnabled={false}
-                        drawOrder={['SCATTER', 'LINE', 'BAR']}
+                        drawOrder={["SCATTER", "LINE", "BAR"]}
                         style={styles.container}
                     />
                 </View>
@@ -761,39 +761,39 @@ class PieChartScreen extends React.Component {
                     <PieChart
                         style={styles.chart}
                         logEnabled={true}
-                        chartBackgroundColor={processColor('pink')}
+                        chartBackgroundColor={processColor("pink")}
                         chartDescription={{
-                            text: 'This is Pie chart description',
+                            text: "This is Pie chart description",
                             textSize: 15,
-                            textColor: processColor('darkgray'),
+                            textColor: processColor("darkgray"),
                         }}
                         data={{
                             dataSets: [
                                 {
                                     values: [
-                                        { value: 45, label: 'Sandwiches' },
-                                        { value: 21, label: 'Salads' },
-                                        { value: 15, label: 'Soup' },
-                                        { value: 9, label: 'Beverages' },
-                                        { value: 15, label: 'Desserts' },
+                                        { value: 45, label: "Sandwiches" },
+                                        { value: 21, label: "Salads" },
+                                        { value: 15, label: "Soup" },
+                                        { value: 9, label: "Beverages" },
+                                        { value: 15, label: "Desserts" },
                                     ],
-                                    label: 'Pie dataset',
+                                    label: "Pie dataset",
                                     config: {
                                         colors: [
-                                            processColor('#C0FF8C'),
-                                            processColor('#FFF78C'),
-                                            processColor('#FFD08C'),
-                                            processColor('#8CEAFF'),
-                                            processColor('#FF8C9D'),
+                                            processColor("#C0FF8C"),
+                                            processColor("#FFF78C"),
+                                            processColor("#FFD08C"),
+                                            processColor("#8CEAFF"),
+                                            processColor("#FF8C9D"),
                                         ],
                                         valueTextSize: 20,
-                                        valueTextColor: processColor('green'),
+                                        valueTextColor: processColor("green"),
                                         sliceSpace: 5,
                                         selectionShift: 13,
-                                        xValuePosition: 'OUTSIDE_SLICE',
-                                        yValuePosition: 'OUTSIDE_SLICE',
+                                        xValuePosition: "OUTSIDE_SLICE",
+                                        yValuePosition: "OUTSIDE_SLICE",
                                         valueFormatter: "#.#'%'",
-                                        valueLineColor: processColor('green'),
+                                        valueLineColor: processColor("green"),
                                         valueLinePart1Length: 0.5,
                                     },
                                 },
@@ -802,26 +802,31 @@ class PieChartScreen extends React.Component {
                         legend={{
                             enabled: true,
                             textSize: 15,
-                            form: 'CIRCLE',
+                            form: "CIRCLE",
 
-                            horizontalAlignment: 'RIGHT',
-                            verticalAlignment: 'CENTER',
-                            orientation: 'VERTICAL',
+                            horizontalAlignment: "RIGHT",
+                            verticalAlignment: "CENTER",
+                            orientation: "VERTICAL",
                             wordWrapEnabled: true,
                         }}
                         highlights={[{ x: 2 }]}
-                        entryLabelColor={processColor('green')}
+                        entryLabelColor={processColor("green")}
                         entryLabelTextSize={20}
                         drawEntryLabels={true}
                         rotationEnabled={true}
                         rotationAngle={45}
                         usePercentValues={true}
-                        styledCenterText={{ text: 'Pie center text!', color: processColor('pink'), size: 20 , fontFamily: 'San Francisco'}}
+                        styledCenterText={{
+                            text: "Pie center text!",
+                            color: processColor("pink"),
+                            size: 20,
+                            fontFamily: "San Francisco",
+                        }}
                         centerTextRadiusPercent={100}
                         holeRadius={40}
-                        holeColor={processColor('#f0f0f0')}
+                        holeColor={processColor("#f0f0f0")}
                         transparentCircleRadius={45}
-                        transparentCircleColor={processColor('#f0f0f088')}
+                        transparentCircleColor={processColor("#f0f0f088")}
                         maxAngle={350}
                         onSelect={this.handleSelect.bind(this)}
                         onChange={event => console.log(event.nativeEvent)}

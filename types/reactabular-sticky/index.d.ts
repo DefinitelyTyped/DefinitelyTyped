@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as Table from "reactabular-table";
 import * as React from "react";
+import * as Table from "reactabular-table";
 
 export interface StickyHeaderProps {
     tableBody: HTMLElement | null;

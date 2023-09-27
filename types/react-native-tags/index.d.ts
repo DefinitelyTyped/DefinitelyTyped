@@ -3,8 +3,8 @@
 // Definitions by: IdaszakDaniel <https://github.com/IdaszakDaniel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { ViewStyle, TextStyle } from 'react-native';
+import * as React from "react";
+import { TextStyle, ViewStyle } from "react-native";
 
 interface RenderTag {
     tag: string;

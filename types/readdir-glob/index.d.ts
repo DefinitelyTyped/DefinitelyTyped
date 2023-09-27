@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import * as fs from "fs";
 
 declare function readdirGlob(root: string, options: readdirGlob.Options): readdirGlob.ReaddirGlob;
 
@@ -90,15 +90,15 @@ declare namespace readdirGlob {
         /**
          * Every time a match is found, this is emitted with the specific thing that matched.
          */
-        on(event: 'match', callback: (match: Match) => void): this;
+        on(event: "match", callback: (match: Match) => void): this;
         /**
          * When the matching is finished, this is emitted with all the matches found.
          */
-        on(event: 'error', callback: (error: Error) => void): this;
+        on(event: "error", callback: (error: Error) => void): this;
         /**
          * Emitted when an unexpected error is encountered.
          */
-        on(event: 'end', callback: (matches: ReadonlyArray<Match>) => void): this;
+        on(event: "end", callback: (matches: ReadonlyArray<Match>) => void): this;
         /**
          * Temporarily stop the search
          */

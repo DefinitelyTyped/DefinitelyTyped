@@ -1,4 +1,4 @@
-import { RelayContext, FragmentMap, Props, FragmentSpecResolver } from './RelayStoreTypes';
+import { FragmentMap, FragmentSpecResolver, Props, RelayContext } from "./RelayStoreTypes";
 
 export function createFragmentSpecResolver(
     context: RelayContext,

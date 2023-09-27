@@ -11,7 +11,10 @@ declare module "@mapbox/shelf-pack" {
     class ShelfPack {
         constructor(width?: number, height?: number, options?: ShelfPack.CreateOption);
 
-        pack(bins: Array<ShelfPack.RequestShort | ShelfPack.RequestLong>, options?: ShelfPack.PackOption): ShelfPack.Bin[];
+        pack(
+            bins: Array<ShelfPack.RequestShort | ShelfPack.RequestLong>,
+            options?: ShelfPack.PackOption,
+        ): ShelfPack.Bin[];
         packOne(w: number, h: number, id?: ShelfPack.ID): ShelfPack.Bin;
         getBin(id: ShelfPack.ID): ShelfPack.Bin;
         ref(bin: ShelfPack.Bin): number;

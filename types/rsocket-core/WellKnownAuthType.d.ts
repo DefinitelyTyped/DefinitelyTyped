@@ -1,5 +1,5 @@
 export default class WellKnownAuthType {
-    constructor(str: string, identifier: number)
+    constructor(str: string, identifier: number);
 
     /**
      * Find the {@link WellKnownAuthType} for the given identifier (as an {@link number}). Valid

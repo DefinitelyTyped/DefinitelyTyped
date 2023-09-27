@@ -1,5 +1,5 @@
-import { Sticky, StickyContainer } from "react-sticky";
 import * as React from "react";
+import { Sticky, StickyContainer } from "react-sticky";
 
 const StickyAllOptions: JSX.Element = (
     <StickyContainer className="sticky-container">

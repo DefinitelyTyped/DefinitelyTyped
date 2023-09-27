@@ -52,7 +52,7 @@ export namespace Rivets {
             rootInterface?: string | undefined;
 
             // Template delimiters for text bindings
-            templateDelimiters?: string[] | undefined
+            templateDelimiters?: string[] | undefined;
 
             // Augment the event handler of the on-* binder
             handler?(context: any, ev: Event, biding: any): void;

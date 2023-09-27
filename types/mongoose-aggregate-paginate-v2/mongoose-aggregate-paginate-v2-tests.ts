@@ -3,11 +3,11 @@
  * Adapted to mongoose-aggregate-paginate-v2 by Alexandre Croteau <https://github.com/acrilex1>
  */
 
-import { Schema, model, Aggregate, AggregatePaginateModel, PaginateOptions, AggregatePaginateResult } from 'mongoose';
-import mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2');
-import { Router, Request, Response } from 'express';
+import { Aggregate, AggregatePaginateModel, AggregatePaginateResult, model, PaginateOptions, Schema } from "mongoose";
+import mongooseAggregatePaginate = require("mongoose-aggregate-paginate-v2");
+import { Request, Response, Router } from "express";
 
-//#region Test Models
+// #region Test Models
 interface User {
     email: string;
     username: string;
@@ -29,13 +29,13 @@ const UserSchema: Schema = new Schema<User>({
 
 UserSchema.plugin(mongooseAggregatePaginate);
 
-const UserModel = model<User, AggregatePaginateModel<User>>('User', UserSchema);
-//#endregion
+const UserModel = model<User, AggregatePaginateModel<User>>("User", UserSchema);
+// #endregion
 
-//#region Test Paginate
+// #region Test Paginate
 const router: Router = Router();
 
-router.get('/users.json', async (req: Request, res: Response) => {
+router.get("/users.json", async (req: Request, res: Response) => {
     const aggregate: Aggregate<User[]> = UserModel.aggregate();
 
     const descending = true;
@@ -44,26 +44,26 @@ router.get('/users.json', async (req: Request, res: Response) => {
         page: 1,
         limit: 10,
         customLabels: {
-            totalDocs: 'totalDocsCustom',
-            limit: 'limitCustom',
-            page: 'pageCustom',
-            totalPages: 'totalPagesCustom',
-            docs: 'docsCustom',
-            nextPage: 'nextPageCustom',
-            prevPage: 'prevPageCustom',
+            totalDocs: "totalDocsCustom",
+            limit: "limitCustom",
+            page: "pageCustom",
+            totalPages: "totalPagesCustom",
+            docs: "docsCustom",
+            nextPage: "nextPageCustom",
+            prevPage: "prevPageCustom",
         },
     };
 
     try {
         const value: AggregatePaginateResult<User> = await UserModel.aggregatePaginate(aggregate, options);
-        console.log('totalDocs: ' + value.totalDocsCustom);
-        console.log('limit: ' + value.limitCustom);
-        console.log('page: ' + value.pageCustom);
-        console.log('nextPage: ' + value.nextPageCustom);
-        console.log('prevPage: ' + value.prevPageCustom);
-        console.log('totalPages: ' + value.totalPagesCustom);
-        console.log('offset: ' + value.offset);
-        console.log('docs: ');
+        console.log("totalDocs: " + value.totalDocsCustom);
+        console.log("limit: " + value.limitCustom);
+        console.log("page: " + value.pageCustom);
+        console.log("nextPage: " + value.nextPageCustom);
+        console.log("prevPage: " + value.prevPageCustom);
+        console.log("totalPages: " + value.totalPagesCustom);
+        console.log("offset: " + value.offset);
+        console.log("docs: ");
         console.dir(value.docsCustom);
         return res.json(value);
     } catch (err) {
@@ -72,14 +72,14 @@ router.get('/users.json', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/stats/hobbies.json', async (req: Request, res: Response) => {
+router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
     const aggregate: Aggregate<HobbyStats[]> = UserModel.aggregate()
-        .unwind('$hobbies')
+        .unwind("$hobbies")
         .group({
-            _id: '$hobbies',
+            _id: "$hobbies",
             count: { $count: {} },
         })
-        .addFields({ hobby: '$_id' })
+        .addFields({ hobby: "$_id" })
         .project({ _id: 0 })
         .sort({ count: -1 });
 
@@ -98,14 +98,14 @@ router.get('/stats/hobbies.json', async (req: Request, res: Response) => {
 });
 
 // Handle useFacet option
-router.get('/stats/hobbies.json', async (req: Request, res: Response) => {
+router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
     const aggregate: Aggregate<HobbyStats[]> = UserModel.aggregate()
-        .unwind('$hobbies')
+        .unwind("$hobbies")
         .group({
-            _id: '$hobbies',
+            _id: "$hobbies",
             count: { $count: {} },
         })
-        .addFields({ hobby: '$_id' })
+        .addFields({ hobby: "$_id" })
         .project({ _id: 0 })
         .sort({ count: -1 });
 
@@ -123,4 +123,4 @@ router.get('/stats/hobbies.json', async (req: Request, res: Response) => {
         return res.status(500).send(err);
     }
 });
-//#endregion
+// #endregion

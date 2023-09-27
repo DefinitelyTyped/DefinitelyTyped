@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import RSocketTCPServer, { ServerOptions } from './RSocketTCPServer';
+import RSocketTCPServer, { ServerOptions } from "./RSocketTCPServer";
 export default RSocketTCPServer;
 export { ServerOptions };

@@ -1,14 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    Decorator,
+    Options,
+    ReactTrackingContext,
     Track,
     track as _track,
-    TrackingProp,
-    Options,
-    Decorator,
     TrackingContext,
-    ReactTrackingContext,
+    TrackingProp,
     useTracking,
-} from 'react-tracking';
+} from "react-tracking";
 
 function customEventReporter(data: { page?: string | undefined }) {}
 
@@ -29,18 +29,18 @@ interface TrackingData {
 const track: Track<TrackingData, Props, State> = _track;
 
 @track(
-    { page: 'ClassPage' },
+    { page: "ClassPage" },
     {
         dispatch: customEventReporter,
-        dispatchOnMount: contextData => ({ event: 'pageDataReady' }),
-        process: ownTrackingData => (ownTrackingData.page ? { event: 'pageview' } : null),
+        dispatchOnMount: contextData => ({ event: "pageDataReady" }),
+        process: ownTrackingData => (ownTrackingData.page ? { event: "pageview" } : null),
     },
 )
 class ClassPage extends React.Component<Props, State> {
-    @track({ event: 'Clicked' })
+    @track({ event: "Clicked" })
     @track((_props, _state, [e]: [React.MouseEvent]) => {
         if (e.ctrlKey) {
-            return { event: 'Click + ctrl key' };
+            return { event: "Click + ctrl key" };
         }
     })
     handleClick() {
@@ -63,13 +63,13 @@ class ClassPage extends React.Component<Props, State> {
 
     @track((_props, _state, _args, [resp, err]) => {
         if (err || !resp) {
-            return { event: 'Async Error' };
+            return { event: "Async Error" };
         }
-        return { event: 'Async Response' };
+        return { event: "Async Response" };
     })
     async handleAsync() {
         // ... other stuff
-        return 'response';
+        return "response";
     }
 }
 
@@ -77,7 +77,7 @@ const FunctionPage: React.FC<Props> = props => {
     return (
         <div
             onClick={() => {
-                props.tracking && props.tracking.trackEvent({ action: 'click' });
+                props.tracking && props.tracking.trackEvent({ action: "click" });
             }}
         />
     );
@@ -85,7 +85,7 @@ const FunctionPage: React.FC<Props> = props => {
 
 const WrappedFunctionPage = track(
     {
-        page: 'FunctionPage',
+        page: "FunctionPage",
     },
     {
         dispatchOnMount: true,
@@ -106,7 +106,7 @@ class Test extends React.Component<any, null> {
 const TestContext = () => {
     const trackingContext = {
         tracking: {
-            data: { foo: 'bar' },
+            data: { foo: "bar" },
             dispatch: (data: {}) => data,
             process: (x: string) => x,
         },
@@ -125,19 +125,19 @@ interface Trackables {
 }
 
 const TestHook = track()((props: { foo: string }) => {
-    const { Track, trackEvent } = useTracking<Trackables>({ page: 'Page' }, { dispatchOnMount: false });
+    const { Track, trackEvent } = useTracking<Trackables>({ page: "Page" }, { dispatchOnMount: false });
 
     React.useEffect(() =>
         trackEvent({
-            action: 'useEffect callback',
-        }),
+            action: "useEffect callback",
+        })
     );
     return (
         <Track>
             <div
                 onClick={() => {
                     trackEvent({
-                        action: 'Click',
+                        action: "Click",
                     });
                 }}
             />
@@ -146,22 +146,22 @@ const TestHook = track()((props: { foo: string }) => {
 });
 
 const TestHookWithDataFunction = track()((props: { foo: string }) => {
-    const { Track, trackEvent } = useTracking<Trackables>(() => ({ page: 'Page' }), {
+    const { Track, trackEvent } = useTracking<Trackables>(() => ({ page: "Page" }), {
         dispatchOnMount: false,
         dispatch: ({ page }) => {},
     });
 
     React.useEffect(() =>
         trackEvent({
-            action: 'useEffect callback',
-        }),
+            action: "useEffect callback",
+        })
     );
     return (
         <Track>
             <div
                 onClick={() => {
                     trackEvent({
-                        action: 'Click',
+                        action: "Click",
                     });
                 }}
             />
@@ -174,17 +174,17 @@ const TestEmptyHook = track()((props: { foo: string }) => {
 
     React.useEffect(() =>
         trackEvent({
-            page: 'Home',
-            action: 'useEffect callback',
-        }),
+            page: "Home",
+            action: "useEffect callback",
+        })
     );
     return (
         <Track>
             <div
                 onClick={() => {
                     trackEvent({
-                        page: 'Home',
-                        action: 'Click',
+                        page: "Home",
+                        action: "Click",
                     });
                 }}
             />
