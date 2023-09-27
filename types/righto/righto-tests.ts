@@ -68,12 +68,12 @@ righto(
     rDivideNumbers2,
     righto.after(rDivideNumbers1),
 );
-// @ts-expect-error
 righto(
     divideNumbersCPS,
     righto.after(rDivideNumbers1),
     rDivideNumbers1,
     righto.after(rDivideNumbers1),
+    // @ts-expect-error
     rDivideNumbers2,
 );
 // #endregion
