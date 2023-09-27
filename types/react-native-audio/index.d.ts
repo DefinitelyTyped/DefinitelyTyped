@@ -3,16 +3,16 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type AudioEncodingAndroidType = 'aac_eld' | 'amr_nb' | 'amr_wb' | 'he_aac' | 'vorbis';
+export type AudioEncodingAndroidType = "aac_eld" | "amr_nb" | "amr_wb" | "he_aac" | "vorbis";
 
-export type AudioEncodingIOSType = 'lpcm' | 'ima4' | 'MAC3' | 'MAC6' | 'ulaw' | 'alaw' | 'mp1' | 'mp2' | 'alac' | 'amr';
+export type AudioEncodingIOSType = "lpcm" | "ima4" | "MAC3" | "MAC6" | "ulaw" | "alaw" | "mp1" | "mp2" | "alac" | "amr";
 
-export type AudioEncodingType = 'aac' | AudioEncodingAndroidType | AudioEncodingIOSType;
+export type AudioEncodingType = "aac" | AudioEncodingAndroidType | AudioEncodingIOSType;
 
 export interface RecordingOptions {
     SampleRate?: number | undefined;
     Channels?: number | undefined;
-    AudioQuality?: 'Low' | 'Medium' | 'High' | undefined;
+    AudioQuality?: "Low" | "Medium" | "High" | undefined;
     AudioEncoding?: AudioEncodingType | undefined;
     OutputFormat?: string | undefined;
     MeteringEnabled?: boolean | undefined;
@@ -30,8 +30,8 @@ export const AudioRecorder: {
     resumeRecording(): Promise<string>;
     pauseRecording(): Promise<string>;
     checkAuthorizationStatus(): Promise<boolean>;
-    onProgress(res: { currentTime: number; }): void;
-    onFinished(res: { audioFileURL: string; base64: string; status: string; }): void;
+    onProgress(res: { currentTime: number }): void;
+    onFinished(res: { audioFileURL: string; base64: string; status: string }): void;
 };
 
 export const AudioUtils: {

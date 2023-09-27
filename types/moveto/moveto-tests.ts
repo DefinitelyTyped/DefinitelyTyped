@@ -2,8 +2,8 @@ const options: MoveTo.MoveToOptions = {
     tolerance: 70,
     duration: 300,
     easing: "easeOutQuart",
-    container: Math.random() > 0.5 ? window : document.createElement('div'),
-    callback: () => {}
+    container: Math.random() > 0.5 ? window : document.createElement("div"),
+    callback: () => {},
 };
 
 const easeFunctions: MoveTo.MoveToEaseFunctionsObject = {
@@ -11,7 +11,7 @@ const easeFunctions: MoveTo.MoveToEaseFunctionsObject = {
     fun2: t => t,
     fun3: (t, b) => t + b,
     fun4: (t, b, c) => t + b + c,
-    fun5: (t, b, c, d) => t + b + c + d
+    fun5: (t, b, c, d) => t + b + c + d,
 };
 
 const a = new MoveTo();

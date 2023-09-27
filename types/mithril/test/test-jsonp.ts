@@ -1,10 +1,10 @@
-import { jsonp } from 'mithril/request';
+import { jsonp } from "mithril/request";
 
 interface Result {
     id: number;
 }
 
-jsonp<Result>('/item').then(data => {
+jsonp<Result>("/item").then(data => {
     console.log(data.id);
 });
 
@@ -16,12 +16,12 @@ class User {
 }
 
 jsonp<User>({
-    url: '/user',
-    params: { test: 'abc' },
-    body: { abc: 'test' },
+    url: "/user",
+    params: { test: "abc" },
+    body: { abc: "test" },
     type: User,
-    callbackName: 'getuser',
-    callbackKey: 'key',
+    callbackName: "getuser",
+    callbackKey: "key",
     background: true,
 }).then(user => {
     console.log(user.id);

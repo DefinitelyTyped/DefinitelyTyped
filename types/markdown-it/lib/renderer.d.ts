@@ -1,5 +1,5 @@
-import MarkdownIt = require('.');
-import Token = require('./token');
+import MarkdownIt = require(".");
+import Token = require("./token");
 
 declare namespace Renderer {
     type RenderRule = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => string;

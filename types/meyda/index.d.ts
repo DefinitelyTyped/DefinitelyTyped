@@ -6,29 +6,29 @@
 
 export as namespace Meyda;
 
-export type MeydaWindowingFunction = 'blackman' | 'sine' | 'hanning' | 'hamming';
+export type MeydaWindowingFunction = "blackman" | "sine" | "hanning" | "hamming";
 
 export type MeydaAudioFeature =
-    | 'amplitudeSpectrum'
-    | 'chroma'
-    | 'complexSpectrum'
-    | 'energy'
-    | 'loudness'
-    | 'mfcc'
-    | 'perceptualSharpness'
-    | 'perceptualSpread'
-    | 'powerSpectrum'
-    | 'rms'
-    | 'spectralCentroid'
-    | 'spectralFlatness'
-    | 'spectralFlux'
-    | 'spectralKurtosis'
-    | 'spectralRolloff'
-    | 'spectralSkewness'
-    | 'spectralSlope'
-    | 'spectralSpread'
-    | 'zcr'
-    | 'buffer';
+    | "amplitudeSpectrum"
+    | "chroma"
+    | "complexSpectrum"
+    | "energy"
+    | "loudness"
+    | "mfcc"
+    | "perceptualSharpness"
+    | "perceptualSpread"
+    | "powerSpectrum"
+    | "rms"
+    | "spectralCentroid"
+    | "spectralFlatness"
+    | "spectralFlux"
+    | "spectralKurtosis"
+    | "spectralRolloff"
+    | "spectralSkewness"
+    | "spectralSlope"
+    | "spectralSpread"
+    | "zcr"
+    | "buffer";
 
 export interface MeydaAnalyzerOptions {
     audioContext: AudioContext;

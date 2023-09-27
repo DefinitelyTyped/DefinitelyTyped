@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import resolve = require('resolve');
+import * as fs from "fs";
+import resolve = require("resolve");
 
 function test_basic_async() {
-    resolve('typescript', function(error, resolved, pkg) {
+    resolve("typescript", function(error, resolved, pkg) {
         if (error) {
             console.error(error.message);
             return;
@@ -15,17 +15,17 @@ function test_basic_async() {
 }
 
 function test_basic_sync() {
-    var resolved = resolve.sync('typescript');
+    var resolved = resolve.sync("typescript");
     console.log(resolved);
 }
 
 function test_options_async() {
     resolve(
-        'typescript',
+        "typescript",
         {
             basedir: process.cwd(),
             package: {},
-            extensions: ['.js'],
+            extensions: [".js"],
             packageFilter: function(pkg, pkgfile, dir) {
                 return pkg;
             },
@@ -33,11 +33,11 @@ function test_options_async() {
                 return path;
             },
             paths: [process.cwd()],
-            moduleDirectory: 'node_modules',
+            moduleDirectory: "node_modules",
             readFile: fs.readFile,
             isDirectory: function(directory, cb) {
                 fs.stat(directory, function(error, stat) {
-                    if (error && error.code === 'ENOENT') {
+                    if (error && error.code === "ENOENT") {
                         return cb(null, false);
                     } else if (error) {
                         return cb(error);
@@ -48,7 +48,7 @@ function test_options_async() {
             },
             isFile: function(file, cb) {
                 fs.stat(file, function(error, stat) {
-                    if (error && error.code === 'ENOENT') {
+                    if (error && error.code === "ENOENT") {
                         return cb(null, false);
                     } else if (error) {
                         return cb(error);
@@ -71,10 +71,10 @@ function test_options_async() {
 }
 
 function test_options_sync() {
-    var resolved = resolve.sync('typescript', {
+    var resolved = resolve.sync("typescript", {
         basedir: process.cwd(),
         package: {},
-        extensions: ['.js'],
+        extensions: [".js"],
         packageFilter: function(pkg, pkgfile, dir) {
             return pkg;
         },
@@ -82,7 +82,7 @@ function test_options_sync() {
             return path;
         },
         paths: [process.cwd()],
-        moduleDirectory: 'node_modules',
+        moduleDirectory: "node_modules",
         readFileSync: fs.readFileSync,
         isDirectory: function(directory) {
             try {
@@ -101,12 +101,12 @@ function test_options_sync() {
         preserveSymlinks: true,
     });
     console.log(resolved);
-    resolved = resolve.sync('typescript', {
+    resolved = resolve.sync("typescript", {
         readFileSync(file) {
             return fs.readFileSync(file);
         },
     });
-    resolved = resolve.sync('typescript', {
+    resolved = resolve.sync("typescript", {
         readPackageSync(readFileSync, file) {
             // JSON.parse accepts anything with a toString, so a cast here is safe
             return JSON.parse(readFileSync(file) as string);
@@ -114,7 +114,7 @@ function test_options_sync() {
     });
     // specifying both `readFile` and `readPackage` is forbidden
     // @ts-expect-error
-    resolved = resolve.sync('typescript', {
+    resolved = resolve.sync("typescript", {
         readFileSync(file) {
             return fs.readFileSync(file);
         },
@@ -126,6 +126,6 @@ function test_options_sync() {
 }
 
 function test_is_core() {
-    var fsIsCore = resolve.isCore('fs');
-    var typescriptIsCore = resolve.isCore('typescript');
+    var fsIsCore = resolve.isCore("fs");
+    var typescriptIsCore = resolve.isCore("typescript");
 }

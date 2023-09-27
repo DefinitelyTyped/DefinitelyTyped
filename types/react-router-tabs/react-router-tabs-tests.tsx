@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { NavTab, RoutedTabs } from 'react-router-tabs';
+import { NavTab, RoutedTabs } from "react-router-tabs";
 
 const NavTabTest: React.FC = () => {
     return (

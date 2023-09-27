@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import ref = require('ref');
+import ref = require("ref");
 
 /**
  * This is the `constructor` of the Struct type that gets returned.
@@ -13,12 +13,11 @@ import ref = require('ref');
  * Pass it an existing Buffer instance to use that as the backing buffer.
  * Pass in an Object containing the struct fields to auto-populate the
  * struct with the data.
- *
  */
 interface StructType extends ref.Type {
     /** Pass it an existing Buffer instance to use that as the backing buffer. */
-    new (arg: Buffer, data?: {}): any;
-    new (data?: {}): any;
+    new(arg: Buffer, data?: {}): any;
+    new(data?: {}): any;
     /** Pass it an existing Buffer instance to use that as the backing buffer. */
     (arg: Buffer, data?: {}): any;
     (data?: {}): any;
@@ -50,10 +49,10 @@ interface StructType extends ref.Type {
 
 /** The struct type meta-constructor. */
 declare var StructType: {
-    new (fields?: object, opt?: object): StructType;
-    new (fields?: any[]): StructType;
+    new(fields?: object, opt?: object): StructType;
+    new(fields?: any[]): StructType;
     (fields?: object, opt?: object): StructType;
     (fields?: any[]): StructType;
-}
+};
 
 export = StructType;

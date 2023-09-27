@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export = React.__Addons.update;
 
-declare module 'react' {
+declare module "react" {
     interface UpdateSpecCommand {
         $set?: any;
         $merge?: {} | undefined;
@@ -32,4 +32,3 @@ declare module 'react' {
         export function update(value: {}, spec: UpdateSpec): any;
     }
 }
-

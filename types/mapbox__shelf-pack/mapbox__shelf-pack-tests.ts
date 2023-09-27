@@ -1,4 +1,4 @@
-import * as ShelfPack from '@mapbox/shelf-pack';
+import * as ShelfPack from "@mapbox/shelf-pack";
 
 let sprite = new ShelfPack(64, 64);
 

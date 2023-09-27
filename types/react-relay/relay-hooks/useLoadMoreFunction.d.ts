@@ -8,9 +8,9 @@ import {
     ReaderFragment,
     ReaderPaginationMetadata,
     VariablesOf,
-} from 'relay-runtime';
+} from "relay-runtime";
 
-export type Direction = 'forward' | 'backward';
+export type Direction = "forward" | "backward";
 
 export type LoadMoreFn<TQuery extends OperationType> = (
     count: number,
