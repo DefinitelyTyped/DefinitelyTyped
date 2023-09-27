@@ -2,8 +2,8 @@
  * This test code is simplified from https://github.com/paularmstrong/react-component-benchmark-example
  */
 
-import * as React from 'react';
-import Benchmark, { BenchmarkRef, BenchmarkType, BenchResultsType } from 'react-component-benchmark';
+import * as React from "react";
+import Benchmark, { BenchmarkRef, BenchmarkType, BenchResultsType } from "react-component-benchmark";
 
 // https://github.com/paularmstrong/react-component-benchmark-example/blob/main/src/Result.js
 
@@ -55,9 +55,7 @@ function Results({ results }: ResultsProps) {
                     <th>p99</th>
                 </tr>
             </thead>
-            {[...results].reverse().map((result, i) => (
-                <Result key={i} index={results.length - i} {...result} />
-            ))}
+            {[...results].reverse().map((result, i) => <Result key={i} index={results.length - i} {...result} />)}
         </table>
     );
 }
@@ -65,19 +63,21 @@ function Results({ results }: ResultsProps) {
 // https://github.com/paularmstrong/react-component-benchmark-example/blob/main/src/TestCases.js
 
 export function Tree({ breadth = 2, depth = 7 }) {
-    return breadth > 0 && depth > 0 ? (
-        <div>
-            {Array.from({ length: breadth }).map((_, index) => (
-                <Tree key={`${breadth}-${depth}-${index}`} breadth={breadth} depth={depth - 1} />
-            ))}
-        </div>
-    ) : null;
+    return breadth > 0 && depth > 0
+        ? (
+            <div>
+                {Array.from({ length: breadth }).map((_, index) => (
+                    <Tree key={`${breadth}-${depth}-${index}`} breadth={breadth} depth={depth - 1} />
+                ))}
+            </div>
+        )
+        : null;
 }
 
 // https://github.com/paularmstrong/react-component-benchmark-example/blob/main/src/App.js
 
-function resultsReducer(state: ResultInfo[] = [], results: ResultInfo | 'CLEAR') {
-    if (results === 'CLEAR') {
+function resultsReducer(state: ResultInfo[] = [], results: ResultInfo | "CLEAR") {
+    if (results === "CLEAR") {
         return [];
     }
     state.push(results);

@@ -29,13 +29,13 @@ export interface GlobalResolve {
      */
     (path: string, module: any):
         | {
-              /**
-               * The absolute path of the path argument passed to this `require` function (which could be relative).
-               */
-              path: string;
-              /** Valid CommonJS JavaScript module source code. */
-              source: string;
-          }
+            /**
+             * The absolute path of the path argument passed to this `require` function (which could be relative).
+             */
+            path: string;
+            /** Valid CommonJS JavaScript module source code. */
+            source: string;
+        }
         | undefined;
 }
 

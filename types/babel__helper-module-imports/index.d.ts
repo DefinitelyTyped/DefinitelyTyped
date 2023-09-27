@@ -3,8 +3,8 @@
 // Definitions by: Oleksandr Fediashov <https://github.com/layershifter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { types as t } from '@babel/core';
-import type { NodePath } from '@babel/traverse';
+import type { types as t } from "@babel/core";
+import type { NodePath } from "@babel/traverse";
 
 export interface ImportOptions {
     /**
@@ -17,7 +17,7 @@ export interface ImportOptions {
      *  * 'es6'      - An ES6 module.
      *  * 'commonjs' - A CommonJS module. (Default)
      */
-    importedType: 'es6' | 'commonjs';
+    importedType: "es6" | "commonjs";
     /**
      * The type of interop behavior for namespace/default/named when loading
      * CommonJS modules.
@@ -59,7 +59,7 @@ export interface ImportOptions {
      * * Default: The module.exports object.
      * * Named: The .named property of module.exports.
      */
-    importedInterop: 'babel' | 'node' | 'compiled' | 'uncompiled';
+    importedInterop: "babel" | "node" | "compiled" | "uncompiled";
     /**
      * The type of CommonJS interop included in the environment that will be
      * loading the output code.
@@ -69,7 +69,7 @@ export interface ImportOptions {
      *
      * See descriptions in 'importedInterop' for more details.
      */
-    importingInterop: 'babel' | 'node';
+    importingInterop: "babel" | "node";
     /**
      * Define whether we explicitly care that the import be a live reference.
      * Only applies when importing default and named imports, not the namespace.
@@ -91,7 +91,7 @@ export interface ImportOptions {
      * "after" is only allowed inside ECMAScript modules, since it's not possible to
      * reliably pick the location _after_ require() calls but _before_ other code in CJS.
      */
-    importPosition: 'before' | 'after';
+    importPosition: "before" | "after";
 
     nameHint?: string;
     blockHoist?: number;
@@ -113,13 +113,13 @@ export function addNamed(
     path: NodePath,
     name: string,
     importedSource: string,
-    opts?: Omit<Partial<ImportOptions>, 'ensureLiveReference' | 'ensureNoContext'>,
+    opts?: Omit<Partial<ImportOptions>, "ensureLiveReference" | "ensureNoContext">,
 ): t.Identifier;
 export function addNamed(
     path: NodePath,
     name: string,
     importedSource: string,
-    opts?: Omit<Partial<ImportOptions>, 'ensureLiveReference'> & {
+    opts?: Omit<Partial<ImportOptions>, "ensureLiveReference"> & {
         ensureLiveReference: true;
     },
 ): t.MemberExpression;
@@ -127,7 +127,7 @@ export function addNamed(
     path: NodePath,
     name: string,
     importedSource: string,
-    opts?: Omit<Partial<ImportOptions>, 'ensureNoContext'> & {
+    opts?: Omit<Partial<ImportOptions>, "ensureNoContext"> & {
         ensureNoContext: true;
     },
 ): t.SequenceExpression;

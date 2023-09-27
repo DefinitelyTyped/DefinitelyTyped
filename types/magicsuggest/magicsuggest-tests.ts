@@ -1,9 +1,9 @@
 function basicTest() {
-    $('#magicSuggest').magicSuggest();
+    $("#magicSuggest").magicSuggest();
 }
 
 function testWithConfigurationOptions() {
-    $('#magicSuggest').magicSuggest({
+    $("#magicSuggest").magicSuggest({
         data: [
             { id: 1, name: "Buenos Aires" },
             { id: 2, name: "New York" },
@@ -16,8 +16,8 @@ function testWithConfigurationOptions() {
 }
 
 function testSomeMethods() {
-    var ms = $('#magicSuggest').magicSuggest();
+    var ms = $("#magicSuggest").magicSuggest();
     ms.addToSelection([{ id: 1, name: "Mexico" }]);
     console.info(ms.getSelection());
-    ms.disable()
+    ms.disable();
 }

@@ -3,8 +3,8 @@
 // Definitions by: Merbin J Anselm <https://github.com/anselm94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as http from 'http';
-import * as express from 'express-serve-static-core';
+import * as express from "express-serve-static-core";
+import * as http from "http";
 
 export interface AppContextOptions {
     /**
@@ -107,7 +107,7 @@ export interface LogContext {
     enableNetworkLog(res: http.ServerResponse): void;
 }
 
-export type LogLevels = 'info' | 'warning' | 'error' | 'fatal';
+export type LogLevels = "info" | "warning" | "error" | "fatal";
 
 export interface Logger {
     /**
@@ -158,7 +158,7 @@ export interface Logger {
     fatal(...args: any[]): void;
 }
 
-export type TraceLevels = 'debug' | 'path' | 'info' | 'warning' | 'error' | 'fatal';
+export type TraceLevels = "debug" | "path" | "info" | "warning" | "error" | "fatal";
 
 export interface Tracer {
     /**
@@ -175,42 +175,36 @@ export interface Tracer {
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     debug(...args: any[]): void;
     /**
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     path(...args: any[]): void;
     /**
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     info(...args: any[]): void;
     /**
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     warning(...args: any[]): void;
     /**
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     error(...args: any[]): void;
     /**
      * Uses the same string interpolation mechanism as with {@link https://nodejs.org/api/util.html#util_util_format_format_args util.format}.
      *
      * If the first argument is an error, its message is appended to the log message. Also, the error stack is written to the trace.
-     *
      */
     fatal(...args: any[]): void;
 
@@ -260,4 +254,4 @@ export function middleware(options: {
      * @default false
      */
     logNetwork?: boolean;
-}): ReturnType<express.IRouter['use']>;
+}): ReturnType<express.IRouter["use"]>;

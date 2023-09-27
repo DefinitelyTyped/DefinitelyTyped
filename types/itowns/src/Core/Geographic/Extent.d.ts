@@ -7,11 +7,7 @@ import Coordinates from "./Coordinates";
 export default class Extent {
     static fromBox3(crs: string, box: THREE.Box3): Extent;
 
-    constructor(crs: string,
-                v0: number | number[] | Coordinates,
-                v1?: number | Coordinates,
-                v2?: number,
-                v3?: number);
+    constructor(crs: string, v0: number | number[] | Coordinates, v1?: number | Coordinates, v2?: number, v3?: number);
 
     readonly isExtent: boolean;
 
@@ -52,10 +48,7 @@ export default class Extent {
 
     intersect(extent: Extent): Extent;
 
-    set(v0: number | number[] | Coordinates | Extent,
-        v1?: number | Coordinates,
-        v2?: number,
-        v3?: number): Extent;
+    set(v0: number | number[] | Coordinates | Extent, v1?: number | Coordinates, v2?: number, v3?: number): Extent;
 
     copy(extent: Extent): Extent;
 

@@ -10,13 +10,13 @@ new AMap.Heatmap(map, {});
 const heatmap = new AMap.Heatmap(map, {
     radius: 30,
     gradient: {
-        0.4: 'rgb(0, 255, 255)',
-        0.65: 'rgb(0, 110, 255)',
-        0.85: 'rgb(100, 0, 255)',
-        1.0: 'rgb(100, 0, 255)'
+        0.4: "rgb(0, 255, 255)",
+        0.65: "rgb(0, 110, 255)",
+        0.85: "rgb(100, 0, 255)",
+        1.0: "rgb(100, 0, 255)",
     },
     opacity: [0, 0.5],
-    zooms: [1, 18]
+    zooms: [1, 18],
 });
 
 // $ExpectType void
@@ -30,13 +30,13 @@ heatmap.setOptions({});
 heatmap.setOptions({
     radius: 30,
     gradient: {
-        0.4: 'rgb(0, 255, 255)',
-        0.65: 'rgb(0, 110, 255)',
-        0.85: 'rgb(100, 0, 255)',
-        1.0: 'rgb(100, 0, 255)'
+        0.4: "rgb(0, 255, 255)",
+        0.65: "rgb(0, 110, 255)",
+        0.85: "rgb(100, 0, 255)",
+        1.0: "rgb(100, 0, 255)",
     },
     opacity: [0, 0.5],
-    zooms: [1, 18]
+    zooms: [1, 18],
 });
 
 // $ExpectType void
@@ -45,27 +45,27 @@ heatmap.setDataSet({
         {
             lng: 114.08594700023525,
             lat: 22.54699999968279,
-            count: 1
-        }
+            count: 1,
+        },
     ],
-    max: 1
+    max: 1,
 });
 
 // $ExpectType void
 heatmap.setDataSet({
-    data: '',
+    data: "",
     dataParser: () => {
         return {
             data: [
                 {
                     lng: 114.08594700023525,
                     lat: 22.54699999968279,
-                    count: 1
-                }
+                    count: 1,
+                },
             ],
-            max: 1
+            max: 1,
         };
-    }
+    },
 });
 
 // $ExpectType void

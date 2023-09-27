@@ -12,7 +12,7 @@
 
  ---------------------------------- */
 
-import { EventEmitter2 } from 'eventemitter2';
+import { EventEmitter2 } from "eventemitter2";
 
 export = ROSLIB;
 export as namespace ROSLIB;
@@ -49,19 +49,19 @@ declare namespace ROSLIB {
         constructor(options: {
             url?: string | undefined;
             groovyCompatibility?: boolean | undefined;
-            transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
+            transportLibrary?: "websocket" | "workersocket" | "socket.io" | RTCPeerConnection | undefined;
             transportOptions?: RTCDataChannelInit | undefined;
         });
 
         readonly isConnected: boolean;
 
-        readonly transportLibrary: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection;
+        readonly transportLibrary: "websocket" | "workersocket" | "socket.io" | RTCPeerConnection;
 
         readonly transportOptions: RTCDataChannelInit | {};
 
         on(eventName: string, callback: (event: any) => void): this;
 
-        on(eventName: 'connection' | 'close' | 'error', callback: (event: Event) => void): this;
+        on(eventName: "connection" | "close" | "error", callback: (event: Event) => void): this;
 
         /**
          * Connect to the specified WebSocket.
@@ -101,7 +101,7 @@ declare namespace ROSLIB {
          *
          * @param {any} messageEncoded - The encoded message to be sent.
          */
-         sendEncodedMessage(messageEncoded: any): void;
+        sendEncodedMessage(messageEncoded: any): void;
 
         /**
          * Send the message over the WebSocket, but queue the message up if not yet
@@ -194,7 +194,7 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-         getServiceRequestDetails(
+        getServiceRequestDetails(
             type: string,
             callback: (result: { typedefs: string[] }) => void,
             failedCallback?: (error: string) => void,
@@ -241,7 +241,11 @@ declare namespace ROSLIB {
          */
         // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
         // tslint:disable-next-line:unified-signatures
-        getNodeDetails(node: string, callback: (subscriptions: string[], publications: string[], services: string[]) => void, failedCallback?: (error: string) => void): void;
+        getNodeDetails(
+            node: string,
+            callback: (subscriptions: string[], publications: string[], services: string[]) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve a list of subscribed topics, publishing topics and services of a specific node.
@@ -257,9 +261,13 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
-        // tslint:disable-next-line:unified-signatures
-        getNodeDetails(node: string, callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void, failedCallback?: (error: string) => void): void;
+        getNodeDetails(
+            node: string,
+            // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
+            // tslint:disable-next-line:unified-signatures
+            callback: (result: { subscribing: string[]; publishing: string[]; services: string[] }) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve a list of parameter names from the ROS Parameter Server.
@@ -291,7 +299,11 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        getServiceType(service: string, callback: (type: string) => void, failedCallback?: (error: string) => void): void;
+        getServiceType(
+            service: string,
+            callback: (type: string) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve the details of a ROS message.
@@ -327,7 +339,7 @@ declare namespace ROSLIB {
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
         getTopicsAndRawTypes(
-            callback: (result: {topics: string[], types: string[], typedefs_full_text: string[]}) => void,
+            callback: (result: { topics: string[]; types: string[]; typedefs_full_text: string[] }) => void,
             failedCallback?: (error: string) => void,
         ): void;
     }
@@ -794,7 +806,17 @@ declare namespace ROSLIB {
          * @param {boolean} [options.omitStatus] - The flag to indicate whether to omit the status channel or not.
          * @param {boolean} [options.omitResult] - The flag to indicate whether to omit the result channel or not.
          */
-        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout?: number; omitFeedback?: boolean; omitStatus?: boolean; omitResult?: boolean });
+        constructor(
+            options: {
+                ros: Ros;
+                serverName: string;
+                actionName: string;
+                timeout?: number;
+                omitFeedback?: boolean;
+                omitStatus?: boolean;
+                omitResult?: boolean;
+            },
+        );
 
         /**
          * Cancel all goals associated with this ActionClient.
@@ -843,7 +865,7 @@ declare namespace ROSLIB {
          * @param {string} eventName - Name of event ('timeout', 'status', 'feedback', 'result').
          * @param {function} callback - Callback function executed on connected event.
          */
-        on(eventName: 'timeout' | 'status' | 'feedback' | 'result', callback: (event: any) => void): void;
+        on(eventName: "timeout" | "status" | "feedback" | "result", callback: (event: any) => void): void;
 
         /**
          * Send the goal to the action server.

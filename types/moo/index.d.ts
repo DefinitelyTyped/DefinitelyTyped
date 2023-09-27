@@ -11,7 +11,7 @@ export as namespace moo;
  * Reserved token for indicating a parse fail.
  */
 export interface ErrorRule {
-  error: true;
+    error: true;
 }
 
 export const error: ErrorRule;
@@ -20,18 +20,18 @@ export const error: ErrorRule;
  * Reserved token for indicating a fallback rule.
  */
 export interface FallbackRule {
-  fallback: true;
+    fallback: true;
 }
 
 export const fallback: FallbackRule;
 
 export type TypeMapper = (x: string) => string;
 
-export function keywords(kws: {[k: string]: string | string[]}): TypeMapper;
+export function keywords(kws: { [k: string]: string | string[] }): TypeMapper;
 
 export function compile(rules: Rules): Lexer;
 
-export function states(states: {[x: string]: Rules}, start?: string): Lexer;
+export function states(states: { [x: string]: Rules }, start?: string): Lexer;
 
 export interface Rule {
     match?: RegExp | string | string[] | undefined;

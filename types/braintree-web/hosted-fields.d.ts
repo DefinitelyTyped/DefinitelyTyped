@@ -1,5 +1,5 @@
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
 export interface HostedFieldsFieldMaskInput {
     /**
@@ -119,13 +119,13 @@ export interface HostedFieldsHostedFieldsFieldData {
  * - `"postalCode"`
  */
 export type HostedFieldsHostedFieldsFieldName =
-    | 'number'
-    | 'cvv'
-    | 'expirationDate'
-    | 'expirationMonth'
-    | 'expirationYear'
-    | 'postalCode'
-    | 'cardholderName';
+    | "number"
+    | "cvv"
+    | "expirationDate"
+    | "expirationMonth"
+    | "expirationYear"
+    | "postalCode"
+    | "cardholderName";
 
 export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
@@ -178,14 +178,14 @@ export interface HostedFieldsTokenizePayload {
      * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
      */
     authenticationInsight?: {
-        regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+        regulationEnvironment?: "psd2" | "unregulated" | "unavailable";
     };
 }
 
 /**
  * @description The name of a HostedFields attribute.
  */
-export type HostedFieldAttributeName = 'aria-invalid' | 'aria-required' | 'disabled' | 'placeholder';
+export type HostedFieldAttributeName = "aria-invalid" | "aria-required" | "disabled" | "placeholder";
 
 /**
  * @description Fields used in setAttribute() and removeAttribute() for modifying a HostedFields instance's attributes.
@@ -464,7 +464,6 @@ export interface HostedFields {
      *   field: 'number',
      *   message: ''
      * });
-     *
      */
     setMessage(options: HostedFieldMessageOptions): void;
 }

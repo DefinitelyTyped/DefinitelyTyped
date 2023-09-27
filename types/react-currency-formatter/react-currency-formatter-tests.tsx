@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as CurrencyFormatter from 'react-currency-formatter';
+import * as React from "react";
+import * as CurrencyFormatter from "react-currency-formatter";
 
 interface Props {
     price: number;

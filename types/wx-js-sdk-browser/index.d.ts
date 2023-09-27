@@ -110,7 +110,7 @@ declare namespace wx {
          * 以键值对的形式返回，可用的 api 值 true，不可用为 false
          * 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
          */
-        success(res: { checkResult: { [methodName: string]: boolean }, errMsg: { msg: string } }): void;
+        success(res: { checkResult: { [methodName: string]: boolean }; errMsg: { msg: string } }): void;
     }
 
     /**

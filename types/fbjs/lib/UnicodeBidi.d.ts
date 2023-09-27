@@ -1,4 +1,4 @@
-import { BidiDirection } from './UnicodeBidiDirection';
+import { BidiDirection } from "./UnicodeBidiDirection";
 
 /**
  * Basic (stateless) API for text direction detection

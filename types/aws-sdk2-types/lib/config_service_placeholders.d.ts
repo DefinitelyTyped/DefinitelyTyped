@@ -1,4 +1,4 @@
-import * as AWS from '../clients/all';
+import * as AWS from "../clients/all";
 export abstract class ConfigurationServicePlaceholders {
     dynamodb?: AWS.DynamoDB.Types.ClientConfiguration;
     rdsdataservice?: AWS.RDSDataService.Types.ClientConfiguration;

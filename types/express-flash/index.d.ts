@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
+import express = require("express");
 
 declare global {
     namespace Express {

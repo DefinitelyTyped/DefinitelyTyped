@@ -8,4 +8,4 @@ export class AtlasTexture extends Texture {
     getTextures(nameMask?: string | null, outTextures?: Texture[] | null): Texture[];
     get subTextures(): any;
 }
-import { Texture } from './Texture';
+import { Texture } from "./Texture";

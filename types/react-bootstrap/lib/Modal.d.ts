@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Sizes, TransitionCallbacks } from 'react-bootstrap';
-import ModalBody = require('./ModalBody');
-import ModalHeader = require('./ModalHeader');
-import ModalTitle = require('./ModalTitle');
-import ModalDialog = require('./ModalDialog');
-import ModalFooter = require('./ModalFooter');
+import * as React from "react";
+import { Sizes, TransitionCallbacks } from "react-bootstrap";
+import ModalBody = require("./ModalBody");
+import ModalHeader = require("./ModalHeader");
+import ModalTitle = require("./ModalTitle");
+import ModalDialog = require("./ModalDialog");
+import ModalFooter = require("./ModalFooter");
 
 declare namespace Modal {
     interface ModalProps extends TransitionCallbacks, React.HTMLProps<Modal> {
@@ -32,7 +32,7 @@ declare namespace Modal {
         onEscapeKeyDown?: ((node: HTMLElement) => any) | undefined;
         /**
          * @deprecated since Sept 25, 2017, use onEscapeKeyDown instead
-         **/
+         */
         onEscapeKeyUp?: ((node: HTMLElement) => any) | undefined;
         onShow?: ((node: HTMLElement) => any) | undefined;
         show?: boolean | undefined;

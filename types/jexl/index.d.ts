@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import Expression, { Context } from './Expression';
-import Grammar from './Grammar';
+import Expression, { Context } from "./Expression";
+import Grammar from "./Grammar";
 
 type TransformFunction = (value: any, ...args: any[]) => any;
 

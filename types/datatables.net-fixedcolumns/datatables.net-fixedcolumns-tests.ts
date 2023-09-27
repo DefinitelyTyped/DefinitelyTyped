@@ -2,10 +2,10 @@ $(document).ready(() => {
     const config: DataTables.Settings = {
         // FixedColumns extension options
         fixedColumns: {
-            heightMatch: 'semiauto',
+            heightMatch: "semiauto",
             leftColumns: 2,
-            rightColumns: 1
-        }
+            rightColumns: 1,
+        },
     };
 
     let cellIndex: DataTables.CellIndexReturn = {
@@ -14,7 +14,7 @@ $(document).ready(() => {
         columnVisible: 0,
     };
 
-    let dt = $('#example').DataTable();
+    let dt = $("#example").DataTable();
     const cells = dt.cells();
 
     dt = cells.fixedNodes();

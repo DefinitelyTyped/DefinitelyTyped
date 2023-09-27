@@ -1,2 +1,2 @@
-export * from '../es/Masonry';
-export { Masonry as default } from '../es/Masonry';
+export * from "../es/Masonry";
+export { Masonry as default } from "../es/Masonry";

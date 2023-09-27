@@ -5,23 +5,23 @@
  */
 export type EasingFunction = (value: number) => number;
 export interface EasingStatic {
-  step0: EasingFunction;
-  step1: EasingFunction;
-  linear: EasingFunction;
-  ease: EasingFunction;
-  quad: EasingFunction;
-  cubic: EasingFunction;
-  poly(n: number): EasingFunction;
-  sin: EasingFunction;
-  circle: EasingFunction;
-  exp: EasingFunction;
-  elastic(bounciness: number): EasingFunction;
-  back(s: number): EasingFunction;
-  bounce: EasingFunction;
-  bezier(x1: number, y1: number, x2: number, y2: number): EasingFunction;
-  in(easing: EasingFunction): EasingFunction;
-  out(easing: EasingFunction): EasingFunction;
-  inOut(easing: EasingFunction): EasingFunction;
+    step0: EasingFunction;
+    step1: EasingFunction;
+    linear: EasingFunction;
+    ease: EasingFunction;
+    quad: EasingFunction;
+    cubic: EasingFunction;
+    poly(n: number): EasingFunction;
+    sin: EasingFunction;
+    circle: EasingFunction;
+    exp: EasingFunction;
+    elastic(bounciness: number): EasingFunction;
+    back(s: number): EasingFunction;
+    bounce: EasingFunction;
+    bezier(x1: number, y1: number, x2: number, y2: number): EasingFunction;
+    in(easing: EasingFunction): EasingFunction;
+    out(easing: EasingFunction): EasingFunction;
+    inOut(easing: EasingFunction): EasingFunction;
 }
 
 export type Easing = EasingStatic;

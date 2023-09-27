@@ -1,15 +1,21 @@
-export interface BaseEvent {
-    type: string;
+/**
+ * The minimal basic Event that can be dispatched by a {@link EventDispatcher<>}.
+ */
+export interface BaseEvent<TEventType extends string = string> {
+    readonly type: TEventType;
 }
 
 /**
- * Event object.
+ * The minimal expected contract of a fired Event that was dispatched by a {@link EventDispatcher<>}.
  */
-export interface Event extends BaseEvent {
-    target?: any;
-    [attachment: string]: any;
+export interface Event<TEventType extends string = string, TTarget = unknown> {
+    readonly type: TEventType;
+    readonly target: TTarget;
 }
-export type EventListener<E, T, U> = (event: E & { type: T } & { target: U }) => void;
+
+export type EventListener<TEventData, TEventType extends string, TTarget> = (
+    event: TEventData & Event<TEventType, TTarget>,
+) => void;
 
 /**
  * JavaScript events for custom objects
@@ -32,7 +38,7 @@ export type EventListener<E, T, U> = (event: E & { type: T } & { target: U }) =>
  * @see {@link https://threejs.org/docs/index.html#api/en/core/EventDispatcher | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/EventDispatcher.js | Source}
  */
-export class EventDispatcher<E extends BaseEvent = Event> {
+export class EventDispatcher<TEventMap extends {} = {}> {
     /**
      * Creates {@link THREE.EventDispatcher | EventDispatcher} object.
      */
@@ -43,25 +49,37 @@ export class EventDispatcher<E extends BaseEvent = Event> {
      * @param type The type of event to listen to.
      * @param listener The function that gets called when the event is fired.
      */
-    addEventListener<T extends E['type']>(type: T, listener: EventListener<E, T, this>): void;
+    addEventListener<T extends Extract<keyof TEventMap, string>>(
+        type: T,
+        listener: EventListener<TEventMap[T], T, this>,
+    ): void;
+    addEventListener<T extends string>(type: T, listener: EventListener<{}, T, this>): void;
 
     /**
      * Checks if listener is added to an event type.
      * @param type The type of event to listen to.
      * @param listener The function that gets called when the event is fired.
      */
-    hasEventListener<T extends E['type']>(type: T, listener: EventListener<E, T, this>): boolean;
+    hasEventListener<T extends Extract<keyof TEventMap, string>>(
+        type: T,
+        listener: EventListener<TEventMap[T], T, this>,
+    ): boolean;
+    hasEventListener<T extends string>(type: T, listener: EventListener<{}, T, this>): boolean;
 
     /**
      * Removes a listener from an event type.
      * @param type The type of the listener that gets removed.
      * @param listener The listener function that gets removed.
      */
-    removeEventListener<T extends E['type']>(type: T, listener: EventListener<E, T, this>): void;
+    removeEventListener<T extends Extract<keyof TEventMap, string>>(
+        type: T,
+        listener: EventListener<TEventMap[T], T, this>,
+    ): void;
+    removeEventListener<T extends string>(type: T, listener: EventListener<{}, T, this>): void;
 
     /**
      * Fire an event type.
      * @param event The event that gets fired.
      */
-    dispatchEvent(event: E): void;
+    dispatchEvent<T extends Extract<keyof TEventMap, string>>(event: BaseEvent<T> & TEventMap[T]): void;
 }

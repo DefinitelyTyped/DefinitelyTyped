@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { GraphQLSchema } from 'graphql';
+import { GraphQLSchema } from "graphql";
 
 export type HandlerFunction = (err: Error) => Error;
 

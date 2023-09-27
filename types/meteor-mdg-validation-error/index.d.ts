@@ -6,7 +6,7 @@
 
 /// <reference types="meteor"/>
 
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/mdg:validation-error" {
     interface ValidationErrorDetail {
         name: string;

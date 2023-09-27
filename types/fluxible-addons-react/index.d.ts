@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 /// <reference types="node" />
-import * as React from 'react';
-import BaseStore = require('fluxible/addons/BaseStore');
-import { ComponentContext } from 'fluxible';
+import * as React from "react";
+import BaseStore = require("fluxible/addons/BaseStore");
+import { ComponentContext } from "fluxible";
 
 export type ConnectableComponent = typeof React.Component | React.ComponentType<any>;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export as namespace ActiveStorage
+export as namespace ActiveStorage;
 
 export function start(): void;
 
@@ -13,7 +13,7 @@ export class DirectUpload {
     file: File;
     url: string;
 
-    constructor(file: File, url: string, delegate?: DirectUploadDelegate)
+    constructor(file: File, url: string, delegate?: DirectUploadDelegate);
 
     create(callback: (error: Error, blob: Blob) => void): void;
 }

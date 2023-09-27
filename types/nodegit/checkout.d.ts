@@ -1,10 +1,10 @@
-import { Repository } from './repository';
-import { CheckoutOptions } from './checkout-options';
-import { Reference } from './reference';
-import { Oid } from './oid';
-import { Tree } from './tree';
-import { Commit } from './commit';
-import { Index } from './index';
+import { CheckoutOptions } from "./checkout-options";
+import { Commit } from "./commit";
+import { Index } from "./index";
+import { Oid } from "./oid";
+import { Reference } from "./reference";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace Checkout {
     const enum NOTIFY {

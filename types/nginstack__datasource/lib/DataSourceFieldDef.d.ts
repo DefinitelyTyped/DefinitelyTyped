@@ -22,9 +22,9 @@ declare class DataSourceFieldDef {
         | null;
 }
 declare namespace DataSourceFieldDef {
-    export { DateFormat, LatitudeFormat, LongitudeFormat, AngleFormat };
+    export { AngleFormat, DateFormat, LatitudeFormat, LongitudeFormat };
 }
-type DateFormat = typeof import('@nginstack/engine/lib/date/DateFormat');
-type LatitudeFormat = typeof import('@nginstack/engine/lib/geo/LatitudeFormat');
-type LongitudeFormat = typeof import('@nginstack/engine/lib/geo/LongitudeFormat');
-type AngleFormat = typeof import('@nginstack/engine/lib/geo/AngleFormat');
+type DateFormat = typeof import("@nginstack/engine/lib/date/DateFormat");
+type LatitudeFormat = typeof import("@nginstack/engine/lib/geo/LatitudeFormat");
+type LongitudeFormat = typeof import("@nginstack/engine/lib/geo/LongitudeFormat");
+type AngleFormat = typeof import("@nginstack/engine/lib/geo/AngleFormat");

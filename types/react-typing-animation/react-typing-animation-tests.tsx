@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import Typing from 'react-typing-animation';
+import Typing from "react-typing-animation";
 
 const AnimatedTypingComponent = () => (
     <Typing>

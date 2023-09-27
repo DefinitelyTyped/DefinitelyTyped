@@ -1,13 +1,13 @@
-import newrelicFormatter = require('@newrelic/winston-enricher');
-import winston = require('winston');
+import newrelicFormatter = require("@newrelic/winston-enricher");
+import winston = require("winston");
 
 const logger = winston.createLogger({
-    level: 'info',
+    level: "info",
     transports: new winston.transports.Console(),
     format: winston.format.combine(
-        winston.format.label({label: 'test'}),
-        newrelicFormatter()
-    )
+        winston.format.label({ label: "test" }),
+        newrelicFormatter(),
+    ),
 });
 
-logger.debug('test');
+logger.debug("test");

@@ -4,7 +4,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
+import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from "sharp";
 
 declare class StaticMaps {
     constructor(options: StaticMaps.StaticMapsOptions);
@@ -76,9 +76,9 @@ declare namespace StaticMaps {
          */
         zoomRange?:
             | {
-                  min?: ZoomLevel | undefined;
-                  max?: ZoomLevel | undefined;
-              }
+                min?: ZoomLevel | undefined;
+                max?: ZoomLevel | undefined;
+            }
             | undefined;
         /** @deprecated Use zoomRange.max instead: */
         maxZoom?: number | undefined;
@@ -133,7 +133,7 @@ declare namespace StaticMaps {
         offsetY?: number | undefined;
     }
 
-    type TextAnchor = 'start' | 'middle' | 'end';
+    type TextAnchor = "start" | "middle" | "end";
 
     interface AddCircleOptions {
         coord: [number, number];

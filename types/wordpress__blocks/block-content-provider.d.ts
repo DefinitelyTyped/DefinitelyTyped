@@ -1,5 +1,5 @@
-import { BlockInstance } from './';
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
+import { BlockInstance } from "./";
 
 /**
  * A Higher Order Component used to inject BlockContent using context to the wrapped component.
@@ -7,7 +7,7 @@ import { ComponentType, ReactNode } from 'react';
  * @deprecated since 11.12.0.
  */
 export function withBlockContentContext<T extends ComponentType<any>>(
-    OriginalComponent: T
+    OriginalComponent: T,
 ): T;
 
 declare namespace BlockContentProvider {

@@ -2,8 +2,8 @@ import HashMap = require("hashmap");
 const emptyMap: HashMap<string, number> = new HashMap<string, number>();
 const filledMap: HashMap<string, number> = new HashMap<string, number>("bar", 123, "bar2", 234);
 const filledMap2: HashMap<string, number> = new HashMap<string, number>([
-  ["bar", 123],
-  ["bar2", 234],
+    ["bar", 123],
+    ["bar2", 234],
 ]);
 const copiedMap: HashMap<string, number> = new HashMap(filledMap);
 

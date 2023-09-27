@@ -1,31 +1,31 @@
 export interface OpenCameraDialogOptions {
-  /** Defaults to false */
-  videoMode?: boolean | undefined;
+    /** Defaults to false */
+    videoMode?: boolean | undefined;
 }
 
 export interface OpenSelectDialogOptions {
-  /** Defaults to true */
-  showImages?: boolean | undefined;
-  /** Defaults to false */
-  showVideos?: boolean | undefined;
+    /** Defaults to true */
+    showImages?: boolean | undefined;
+    /** Defaults to false */
+    showVideos?: boolean | undefined;
 }
 
 /** [imageURL|tempImageTag, height, width] */
 export type ImagePickerResult = [string, number, number];
 
 export interface ImagePickerIOSStatic {
-  canRecordVideos(callback: (value: boolean) => void): void;
-  canUseCamera(callback: (value: boolean) => void): void;
-  openCameraDialog(
-    config: OpenCameraDialogOptions,
-    successCallback: (args: ImagePickerResult) => void,
-    cancelCallback: (args: any[]) => void,
-  ): void;
-  openSelectDialog(
-    config: OpenSelectDialogOptions,
-    successCallback: (args: ImagePickerResult) => void,
-    cancelCallback: (args: any[]) => void,
-  ): void;
+    canRecordVideos(callback: (value: boolean) => void): void;
+    canUseCamera(callback: (value: boolean) => void): void;
+    openCameraDialog(
+        config: OpenCameraDialogOptions,
+        successCallback: (args: ImagePickerResult) => void,
+        cancelCallback: (args: any[]) => void,
+    ): void;
+    openSelectDialog(
+        config: OpenSelectDialogOptions,
+        successCallback: (args: ImagePickerResult) => void,
+        cancelCallback: (args: any[]) => void,
+    ): void;
 }
 
 /**

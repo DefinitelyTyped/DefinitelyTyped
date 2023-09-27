@@ -57,7 +57,7 @@ export class EventBus {
     on(event_pattern: "__ON_STEP__", callback: (event: StepEvent) => void): this;
     on(event_pattern: "__ON_EXECUTE__", callback: (event: ExecuteEvent) => void): this;
     on(event_pattern: "__ON_DEFINE__", callback: (event: DefineEvent) => void): this;
-    on(event_pattern: RegExp, callback: (event: ScenarioEvent|StepEvent|ExecuteEvent|DefineEvent) => void): this;
+    on(event_pattern: RegExp, callback: (event: ScenarioEvent | StepEvent | ExecuteEvent | DefineEvent) => void): this;
 }
 
 export function instance(): EventBus;

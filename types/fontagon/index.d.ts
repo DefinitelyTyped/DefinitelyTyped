@@ -3,9 +3,9 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { SvgIcons2FontOptions } from 'svgicons2svgfont';
-import { FontOptions } from 'svg2ttf';
-import { Options as Ttf2WoffOptions } from 'ttf2woff';
+import { FontOptions } from "svg2ttf";
+import { SvgIcons2FontOptions } from "svgicons2svgfont";
+import { Options as Ttf2WoffOptions } from "ttf2woff";
 
 /**
  * You can easily create web-icon-font by creating svg as font.
@@ -41,7 +41,7 @@ declare namespace Fontagon {
          * stylesheet file generation type
          * @default `all`
          */
-        style?: StyleSheetGenerationType | 'all' | undefined;
+        style?: StyleSheetGenerationType | "all" | undefined;
         /**
          * Specify a custom style template.
          */
@@ -88,6 +88,6 @@ declare namespace Fontagon {
         types?: string[] | undefined;
     }
 
-    type StyleSheetGenerationType = 'css' | 'sass' | 'less' | 'stylus';
+    type StyleSheetGenerationType = "css" | "sass" | "less" | "stylus";
 }
 export = Fontagon;

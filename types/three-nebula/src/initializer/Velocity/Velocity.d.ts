@@ -1,8 +1,7 @@
-import Particle from '../../core/Particle';
-import Initializer from '../Initializer';
+import Particle from "../../core/Particle";
+import Initializer from "../Initializer";
 /**
  * Abstract class for Velocity initializers.
- *
  */
 export default class Velocity extends Initializer {
     /**
@@ -12,7 +11,6 @@ export default class Velocity extends Initializer {
     normailize(vr: number): number;
     /**
      * Sets the particle's initial velocity.
-     *
      */
     initialize(particle: Particle): Velocity;
 }

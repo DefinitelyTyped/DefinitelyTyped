@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export default interface Async extends EventEmitter, Promise<any> {
     sync(): void;

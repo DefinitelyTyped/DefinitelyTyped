@@ -1,2 +1,2 @@
-import { where } from '../index';
+import { where } from "../index.js";
 export default where;

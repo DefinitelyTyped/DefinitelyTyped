@@ -1,9 +1,9 @@
-import imagemin from 'imagemin';
-import imageminOptipng = require('imagemin-optipng');
+import imagemin from "imagemin";
+import imageminOptipng = require("imagemin-optipng");
 
-imagemin(['*.png'], {
+imagemin(["*.png"], {
     plugins: [
         imageminOptipng(),
-        imageminOptipng({ optimizationLevel: 2 })
-    ]
+        imageminOptipng({ optimizationLevel: 2 }),
+    ],
 });

@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 import { Radio, RadioGroup } from "react-radio-group";
 
 const DefaultComponent: React.FC<React.HTMLProps<HTMLDivElement>> = ({ children, ...rest }) => {
     return (
-        <div style={{ display: 'flex' }} {...rest}>
+        <div style={{ display: "flex" }} {...rest}>
             {children}
         </div>
     );
@@ -28,14 +28,14 @@ class ReactRadioGroup extends React.Component<RadioGroup.RadioGroupProps, ReactR
                 [key]: value,
             };
         });
-    }
+    };
 
     render() {
         return (
             <div>
                 <RadioGroup
                     name="radioGroupA"
-                    onChange={this.handleChange('selectedValueA')}
+                    onChange={this.handleChange("selectedValueA")}
                     selectedValue={this.state.selectedValueA}
                     Component={DefaultComponent}
                     className="here-is-a-classname"
@@ -46,15 +46,15 @@ class ReactRadioGroup extends React.Component<RadioGroup.RadioGroupProps, ReactR
                 </RadioGroup>
                 <RadioGroup
                     name="radioGroupB"
-                    onChange={this.handleChange('selectedValueB')}
+                    onChange={this.handleChange("selectedValueB")}
                     selectedValue={this.state.selectedValueB}
                     Component="span"
-                    style={{marginBottom: '10px'}}
+                    style={{ marginBottom: "10px" }}
                 >
                     <Radio id="Option D" value={true} />
                     <Radio id="Option E" value={null} />
                     <Radio id="Option F" value={undefined} />
-                    <Radio id="Option G" value={{name: 'Mark'}} disabled />
+                    <Radio id="Option G" value={{ name: "Mark" }} disabled />
                 </RadioGroup>
             </div>
         );

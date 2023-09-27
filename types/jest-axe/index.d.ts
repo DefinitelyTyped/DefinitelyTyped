@@ -6,7 +6,7 @@
 
 /// <reference types="jest" />
 
-import { AxeResults, ImpactValue, Result, RunOptions, Spec } from 'axe-core';
+import { AxeResults, ImpactValue, Result, RunOptions, Spec } from "axe-core";
 
 export interface JestAxeConfigureOptions extends RunOptions {
     globalOptions?: Spec | undefined;
@@ -78,5 +78,5 @@ declare global {
     }
 
     // axe-core depends on a global Node
-    interface Node { }
+    interface Node {}
 }

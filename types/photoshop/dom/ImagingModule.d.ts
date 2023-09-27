@@ -37,7 +37,6 @@ export declare namespace imaging {
      * the valid pixel bounds for a layer by calling `boundsNoEffects` on the DOM object corresponding
      * to the source layer.
      *
-     *
      * Example - create a thumbnail of an region of the target document that is 100 pixels tall.
      * ```javascript
      * const thumbnail = await imaging.getPixels({
@@ -203,7 +202,10 @@ export declare namespace imaging {
      * @minVersion 24.4
      * @async
      */
-    function createImageDataFromBuffer(arrayBuffer: Uint8Array | Uint16Array | Float32Array, options: CreateImageDataFromBufferOptions): Promise<PhotoshopImageData>;
+    function createImageDataFromBuffer(
+        arrayBuffer: Uint8Array | Uint16Array | Float32Array,
+        options: CreateImageDataFromBufferOptions,
+    ): Promise<PhotoshopImageData>;
     /**
      * This API is exposed to allow image data to be used with UXP image elements. With the current version of UXP
      * you must use jpeg/base64 encoding when assigning to an image element.

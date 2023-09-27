@@ -6,8 +6,8 @@ connection.connect(
         Host: "test",
         UserId: "Test",
         Password: "Test",
-        Server: "Test"
+        Server: "Test",
     },
-    err => err
+    err => err,
 );
 connection.exec("SELECT * FROM TEST", (err, res) => res);

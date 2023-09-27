@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-reference-import": false,
-        "no-var-keyword": false,
-        "strict-export-declare-modifiers": false
+        "no-var-keyword": false
     }
 }

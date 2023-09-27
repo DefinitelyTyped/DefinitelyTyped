@@ -37,7 +37,7 @@ declare namespace slug {
 
     type Options = {
         locale?: string | undefined;
-        mode?: 'pretty' | 'rfc3986' | null | undefined;
+        mode?: "pretty" | "rfc3986" | null | undefined;
     } & Partial<Mode>;
 
     type CharMap = Record<string, string>;

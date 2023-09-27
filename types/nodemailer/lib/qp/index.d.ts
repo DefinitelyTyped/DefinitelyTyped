@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 
 /** Encodes a Buffer into a Quoted-Printable encoded string */
 export function encode(buffer: Buffer | string): string;

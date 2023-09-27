@@ -73,11 +73,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface TargetedLocationSelector
-            extends Base.Selector<TargetedLocationIterator>,
+            extends
+                Base.Selector<TargetedLocationIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

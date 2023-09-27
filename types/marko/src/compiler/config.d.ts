@@ -3,7 +3,7 @@ export default interface Config {
     writeToDisk?: boolean | undefined;
     assumeUpToDate?: boolean | undefined;
     preserveWhitespace?: boolean | undefined;
-    output?: 'vdom' | 'html' | undefined;
+    output?: "vdom" | "html" | undefined;
     writeVersionComment?: boolean | undefined;
     ignoreUnrecognizedTags?: boolean | undefined;
     escapeAtTags?: boolean | undefined;

@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as passport from 'passport';
-import * as express from 'express';
-import * as oauth2 from 'passport-oauth2';
-import { OutgoingHttpHeaders } from 'http';
+import * as express from "express";
+import { OutgoingHttpHeaders } from "http";
+import * as passport from "passport";
+import * as oauth2 from "passport-oauth2";
 
 export interface Profile extends passport.Profile {
     id: string;
     displayName: string;
     gender?: string | undefined;
     ageRange?:
-    | {
-        min: number;
-        max?: number | undefined;
-    }
-    | undefined;
+        | {
+            min: number;
+            max?: number | undefined;
+        }
+        | undefined;
     profileUrl?: string | undefined;
     username?: string | undefined;
     birthday: string;
@@ -56,12 +56,12 @@ export interface StrategyOptions {
 }
 
 export interface AuthorizationParamsOptions {
-    display?: 'page' | 'popup' | 'touch' | undefined;
-    authType?: 'reauthenticate' | undefined;
+    display?: "page" | "popup" | "touch" | undefined;
+    authType?: "reauthenticate" | undefined;
     authNonce?: string | undefined;
 }
 
-export interface StrategyOptionsWithRequest extends Omit<StrategyOptions, 'passReqToCallback'> {
+export interface StrategyOptionsWithRequest extends Omit<StrategyOptions, "passReqToCallback"> {
     passReqToCallback: true;
 }
 

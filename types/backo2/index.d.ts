@@ -5,10 +5,10 @@
 // TypeScript Version: 2.1
 
 type BackoffOptions = Partial<{
-    min: number,
-    max: number,
-    jitter: number,
-    factor: number,
+    min: number;
+    max: number;
+    jitter: number;
+    factor: number;
 }>;
 
 declare class Backoff {

@@ -1,28 +1,28 @@
-import * as ScopedClient from "scoped-http-client";
 import { IncomingMessage } from "http";
+import * as ScopedClient from "scoped-http-client";
 
 // Basic client
-let client = ScopedClient.create('https://api.github.com')
-    .header('accept', 'application/json')
-    .path('user/show/technoweenie')
+let client = ScopedClient.create("https://api.github.com")
+    .header("accept", "application/json")
+    .path("user/show/technoweenie")
     .get()((err, resp, body) => {
         body; // $ExpectType string
     });
 
 // Setting the url through multiple steps
 client = ScopedClient.create()
-    .protocol('https')
-    .host('api.github.com')
+    .protocol("https")
+    .host("api.github.com")
     .port(443)
-    .path('user/show/technoweenie')
-    .query('key', 'value')
-    .encoding('utf-8')
-    .header('X-Test-Header', 'value')
+    .path("user/show/technoweenie")
+    .query("key", "value")
+    .encoding("utf-8")
+    .header("X-Test-Header", "value")
     .get()(handler);
 
 // Scoping
-client.path('https://api.github.com');
-client.scope('users/technoweenie', (cli) => {
+client.path("https://api.github.com");
+client.scope("users/technoweenie", (cli) => {
     cli.get()((err, resp, body) => {
         body; // $ExpectType string
     });
@@ -31,10 +31,10 @@ client.scope('users/technoweenie', (cli) => {
 function handler(err: Error, resp: IncomingMessage, body: string) {}
 
 // Other HTTP methods
-client.query({ login: 'technoweenie', token: '...' })
-    .scope('users/technoweenie', (cli) => {
-        cli.post('data')(handler);
-        cli.put('data')(handler);
+client.query({ login: "technoweenie", token: "..." })
+    .scope("users/technoweenie", (cli) => {
+        cli.post("data")(handler);
+        cli.put("data")(handler);
         cli.head()(handler);
         cli.delete()(handler);
         cli.del()(handler);
@@ -49,13 +49,13 @@ client.post((err, req) => {
 
 // HTTP Basic Authentication
 client
-    .auth('technoweenie', '...')
+    .auth("technoweenie", "...")
     .get((err, req) => {});
 
 // Setting a timeout
-client = ScopedClient.create('http://10.255.255.1:9999');
+client = ScopedClient.create("http://10.255.255.1:9999");
 client.timeout(100);
 
 // Fetching client information
-client.join('suffix'); // $ExpectType string
-client.fullPath('path'); // $ExpectType string
+client.join("suffix"); // $ExpectType string
+client.fullPath("path"); // $ExpectType string

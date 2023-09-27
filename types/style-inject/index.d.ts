@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StyleInjectOptions {
-    insertAt?: 'top';
+    insertAt?: "top";
 }
 
 declare function styleInject(css: string, options?: StyleInjectOptions): void;

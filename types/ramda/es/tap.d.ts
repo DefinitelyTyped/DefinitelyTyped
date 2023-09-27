@@ -1,2 +1,2 @@
-import { tap } from '../index';
+import { tap } from "../index.js";
 export default tap;

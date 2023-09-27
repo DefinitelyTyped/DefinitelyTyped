@@ -12,4 +12,6 @@ import ClientSocket = SocketIOClient.Socket;
 
 export = sioWildcard;
 
-declare function sioWildcard(emitterCtor?: { prototype: typeof EventEmitter.prototype }): (socket: Socket | ClientSocket, next?: (err?: any) => void) => void;
+declare function sioWildcard(
+    emitterCtor?: { prototype: typeof EventEmitter.prototype },
+): (socket: Socket | ClientSocket, next?: (err?: any) => void) => void;

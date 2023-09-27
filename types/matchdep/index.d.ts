@@ -9,10 +9,10 @@ declare namespace matchdep {
 }
 
 declare const matchdep: {
-    readonly filter: matchdep.FilterFunction
-    readonly filterDev: matchdep.FilterFunction
-    readonly filterPeer: matchdep.FilterFunction
-    readonly filterAll: matchdep.FilterFunction
+    readonly filter: matchdep.FilterFunction;
+    readonly filterDev: matchdep.FilterFunction;
+    readonly filterPeer: matchdep.FilterFunction;
+    readonly filterAll: matchdep.FilterFunction;
 };
 
 export = matchdep;

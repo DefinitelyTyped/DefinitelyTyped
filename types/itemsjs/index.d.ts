@@ -105,7 +105,7 @@ declare namespace itemsjs {
         reindex(data: I[]): void;
     }
 
-    type Order = 'asc' | 'desc';
+    type Order = "asc" | "desc";
 
     interface Sorting<I extends {}> {
         field: keyof I | Array<keyof I>;
@@ -118,7 +118,7 @@ declare namespace itemsjs {
         /** @default 10 */
         size?: number | undefined;
         /** @default 'count' */
-        sort?: 'term' | 'count' | undefined;
+        sort?: "term" | "count" | undefined;
         /** @default 'asc' */
         order?: Order | undefined;
         /** @default false */

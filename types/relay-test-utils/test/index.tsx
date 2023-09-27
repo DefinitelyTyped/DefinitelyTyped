@@ -1,9 +1,9 @@
-import { createMockEnvironment, MockPayloadGenerator, testResolver } from 'relay-test-utils';
-import { FragmentRefs, graphql } from 'relay-runtime';
-import { readFragment } from 'relay-runtime/lib/store/ResolverFragments';
+import { FragmentRefs, graphql } from "relay-runtime";
+import { readFragment } from "relay-runtime/lib/store/ResolverFragments";
+import { createMockEnvironment, MockPayloadGenerator, testResolver } from "relay-test-utils";
 
-import { loadQuery, PreloadedQuery, RelayEnvironmentProvider, useFragment, usePreloadedQuery } from 'react-relay';
-import React from 'react';
+import React from "react";
+import { loadQuery, PreloadedQuery, RelayEnvironmentProvider, useFragment, usePreloadedQuery } from "react-relay";
 
 interface UserComponent_user {
     readonly id: string;
@@ -11,14 +11,14 @@ interface UserComponent_user {
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_user';
+    readonly " $fragmentType": "UserComponent_user";
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-    readonly ' $data'?: UserComponent_user$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+    readonly " $data"?: UserComponent_user$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_user">;
 }
 
 const userQuery = graphql`
@@ -78,7 +78,7 @@ function MockPayloadGeneratorTests() {
             const id = generateId();
 
             return {
-                id: (context.name || '') + String(id),
+                id: (context.name || "") + String(id),
             };
         },
     });
@@ -135,22 +135,22 @@ function testResolverTests() {
             rootKey,
         );
 
-        return `Hello ${user.name ?? 'stranger'}!`;
+        return `Hello ${user.name ?? "stranger"}!`;
     }
 
     // $ExpectType string
     const result = testResolver(myTestResolver, {
-        name: 'Elizabeth',
-        id: '123',
+        name: "Elizabeth",
+        id: "123",
         profile_picture: {
-            uri: '/profile.png',
+            uri: "/profile.png",
         },
     });
 
     testResolver(myTestResolver, {
-        name: 'Elizabeth',
+        name: "Elizabeth",
         // @ts-expect-error foo is not in the object
-        foo: 'bar',
+        foo: "bar",
     });
 
     testResolver(myTestResolver, {

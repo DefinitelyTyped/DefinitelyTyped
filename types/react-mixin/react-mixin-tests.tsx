@@ -1,26 +1,27 @@
-import reactMixin = require('react-mixin');
-import * as React from 'react';
+import reactMixin = require("react-mixin");
+import * as React from "react";
 
 var someMixin: React.Mixin<any, any>;
 var someOtherMixin: React.Mixin<any, any>;
 
 class Foo extends React.Component {
-    render(): JSX.Element { return <div />; }
+    render(): JSX.Element {
+        return <div />;
+    }
 }
 
 reactMixin(Foo.prototype, someMixin);
 reactMixin(Foo.prototype, someOtherMixin);
 
-
 var mixin: React.Mixin<any, any> = {
     getDefaultProps: function(): any {
-        return {b: 2};
-    }
+        return { b: 2 };
+    },
 };
 
 class Foo2 extends React.Component {
     static defaultProps = {
-        a: 1
+        a: 1,
     };
     render(): JSX.Element {
         console.log(this.props); // {a: 1, b: 2}
@@ -40,7 +41,7 @@ function autobind(methodNames: string[]): React.Mixin<any, any> {
             methodNames.forEach((name) => {
                 this[name] = this[name].bind(this);
             });
-        }
+        },
     };
 }
 
@@ -48,5 +49,3 @@ function autobind(methodNames: string[]): React.Mixin<any, any> {
 @reactMixin.decorate(autobind(Object.keys(mixin)))
 class Foo4 extends React.Component {
 }
-
-

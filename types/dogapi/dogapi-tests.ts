@@ -1,19 +1,19 @@
-import * as dogapi from 'dogapi';
+import * as dogapi from "dogapi";
 
 dogapi.initialize({
-    api_key: '',
-    app_key: '',
+    api_key: "",
+    app_key: "",
 });
 
 dogapi.initialize({
-    api_host: 'a',
-    api_key: 'b',
-    app_key: 'c',
+    api_host: "a",
+    api_key: "b",
+    app_key: "c",
 });
-dogapi.event.create('', '', (err: Error | null, res: dogapi.EventCreateResponse) => {});
+dogapi.event.create("", "", (err: Error | null, res: dogapi.EventCreateResponse) => {});
 dogapi.event.create(
-    '',
-    '',
+    "",
+    "",
     { date_happened: Math.floor(Date.now() / 1000) },
     (err: Error | null, res: dogapi.EventCreateResponse) => {},
 );
@@ -24,7 +24,7 @@ dogapi.event.create(
 dogapi.metric.send_all(
     [
         {
-            metric: 'metricName',
+            metric: "metricName",
             points: 500,
         },
     ],
@@ -35,11 +35,11 @@ dogapi.metric.send_all(
 dogapi.metric.send_all(
     [
         {
-            metric: 'metricOne',
+            metric: "metricOne",
             points: 500,
         },
         {
-            metric: 'metricTwo',
+            metric: "metricTwo",
             points: 200,
         },
     ],
@@ -51,9 +51,9 @@ dogapi.metric.send_all(
 dogapi.metric.send_all(
     [
         {
-            metric: 'metricName',
+            metric: "metricName",
             points: [500, 600],
-            tags: ['tag1', 'tag2'],
+            tags: ["tag1", "tag2"],
         },
     ],
     (err: Error | null, res: dogapi.EventCreateResponse) => {},
@@ -64,12 +64,12 @@ dogapi.metric.send_all(
 dogapi.metric.send_all(
     [
         {
-            metric: 'metricName',
+            metric: "metricName",
             points: [
-                ['123', 500],
-                ['124', 600],
+                ["123", 500],
+                ["124", 600],
             ],
-            metric_type: 'type',
+            metric_type: "type",
         },
     ],
     (err: Error | null, res: dogapi.EventCreateResponse) => {},

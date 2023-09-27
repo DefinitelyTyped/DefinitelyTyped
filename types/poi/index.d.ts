@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-import { ICompiler, Configuration as WebpackConfig } from "webpack";
-import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
-import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
-import * as WebpackChainConfig from "webpack-chain";
 import CAC from "cac/types/CAC";
+import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
+import { Configuration as WebpackConfig, ICompiler } from "webpack";
+import * as WebpackChainConfig from "webpack-chain";
+import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
 
 /**
  * https://poi.js.org/api.html#constructor-argv
@@ -45,7 +45,7 @@ declare class PoiCore {
     getCacheConfig(
         dir: string,
         keys: { [k: string]: string },
-        files: ReadonlyArray<string>
+        files: ReadonlyArray<string>,
     ): {
         cacheDirectory: string;
         cacheIdentifier: string;
@@ -108,7 +108,8 @@ declare namespace PoiCore {
                 | "node"
                 | "node-webkit"
                 | "async-node"
-                | "webworker" | undefined;
+                | "webworker"
+                | undefined;
             html?: Output.Html | undefined;
         }
         namespace Output {
@@ -133,9 +134,9 @@ declare namespace PoiCore {
             [pageName: string]:
                 | string
                 | Partial<HtmlWebpackPluginOptions> & {
-                      entry: string;
-                      chunks?: string[] | undefined;
-                  };
+                    entry: string;
+                    chunks?: string[] | undefined;
+                };
         }
 
         interface Babel {
@@ -214,14 +215,14 @@ declare namespace PoiCore {
         resolve(
             files?: ReadonlyArray<string>,
             cwd?: string,
-            stopDir?: string
+            stopDir?: string,
         ): string | null;
         resolve(options?: ConfigLoader.Options): string | null;
 
         load(
             files?: ReadonlyArray<string>,
             cwd?: string,
-            stopDir?: string
+            stopDir?: string,
         ): any;
         load(options?: ConfigLoader.Options): any;
     }

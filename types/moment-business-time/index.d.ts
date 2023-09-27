@@ -4,9 +4,9 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-declare module 'moment' {
+declare module "moment" {
     interface Moment {
         nextWorkingDay: () => Moment;
         nextWorkingTime: () => Moment;
@@ -52,6 +52,6 @@ declare module 'moment' {
 
     interface TransitionTime {
         moment: Moment;
-        transition: 'open' | 'close';
+        transition: "open" | "close";
     }
 }

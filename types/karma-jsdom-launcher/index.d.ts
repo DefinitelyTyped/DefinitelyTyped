@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.5
 
-import 'karma';
-import jsdom = require('jsdom');
+import "karma";
+import jsdom = require("jsdom");
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Launcher for jsdom configuration

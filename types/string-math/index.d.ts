@@ -10,7 +10,7 @@
  */
 declare function stringMath(
     eq: string,
-    callback?: (errorObj: Error | null, result: number | null) => void
+    callback?: (errorObj: Error | null, result: number | null) => void,
 ): number | null;
 
 export = stringMath;

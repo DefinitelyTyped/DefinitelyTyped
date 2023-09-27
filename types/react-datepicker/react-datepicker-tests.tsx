@@ -1,22 +1,22 @@
-import * as React from 'react';
+import enUS from "date-fns/locale/en-US";
+import * as React from "react";
 import DatePicker, {
     CalendarContainer,
-    registerLocale,
-    ReactDatePickerProps,
     ReactDatePickerCustomHeaderProps,
-} from 'react-datepicker';
-import enUS from 'date-fns/locale/en-US';
-import { Modifier } from 'react-popper';
+    ReactDatePickerProps,
+    registerLocale,
+} from "react-datepicker";
+import { Modifier } from "react-popper";
 
-registerLocale('en-GB', { options: { weekStartsOn: 1 } });
+registerLocale("en-GB", { options: { weekStartsOn: 1 } });
 
-const topLogger: Modifier<'topLogger'> = {
-    name: 'topLogger',
+const topLogger: Modifier<"topLogger"> = {
+    name: "topLogger",
     enabled: true,
-    phase: 'main',
+    phase: "main",
     fn({ state }) {
-        if (state.placement === 'top') {
-            console.log('Popper is on the top');
+        if (state.placement === "top") {
+            console.log("Popper is on the top");
         }
     },
 };
@@ -45,10 +45,10 @@ const topLogger: Modifier<'topLogger'> = {
     customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
-    dayClassName={date => ''}
-    weekDayClassName={date => ''}
-    monthClassName={date => ''}
-    timeClassName={date => ''}
+    dayClassName={date => ""}
+    weekDayClassName={date => ""}
+    monthClassName={date => ""}
+    timeClassName={date => ""}
     disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
@@ -107,15 +107,15 @@ const topLogger: Modifier<'topLogger'> = {
     popperContainer={props => <div />}
     popperModifiers={[
         {
-            name: 'offset',
+            name: "offset",
             options: {
                 offset: [5, 10],
             },
         },
         {
-            name: 'preventOverflow',
+            name: "preventOverflow",
             options: {
-                rootBoundary: 'viewport',
+                rootBoundary: "viewport",
                 tether: false,
                 altAxis: true,
             },
@@ -217,7 +217,7 @@ function handleRef(ref: DatePicker | null) {
     }
 }
 
-<CalendarContainer arrowProps={{ someProp: 'someValue' }} className="" showPopperArrow>
+<CalendarContainer arrowProps={{ someProp: "someValue" }} className="" showPopperArrow>
     <div />
     <span />
 </CalendarContainer>;
@@ -228,10 +228,10 @@ const props: ReactDatePickerProps = {
     onChange: () => {},
 };
 
-<DatePicker<'topLogger'>
+<DatePicker<"topLogger">
     onChange={() => {}}
-    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={(instance: DatePicker<'topLogger'> | null) => {}}
+    popperModifiers={[{ name: "arrow", options: { padding: 5 } }, topLogger]}
+    ref={(instance: DatePicker<"topLogger"> | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({

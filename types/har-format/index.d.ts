@@ -234,7 +234,7 @@ export interface Page {
     /** _non-standard_  */
     _score_gzip?: number | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | null | undefined;
+    "_score_keep-alive"?: number | null | undefined;
     /** _non-standard_  */
     _score_minify?: number | null | undefined;
     /** _non-standard_  */
@@ -404,7 +404,7 @@ export interface Entry {
     /** _non-standard_  */
     _expires?: string | null | undefined;
     /** _non-standard_  */
-    _fromCache?: 'memory' | 'disk' | null | undefined;
+    _fromCache?: "memory" | "disk" | null | undefined;
     /** _non-standard_  */
     _full_url?: string | null | undefined;
     /** _non-standard_  */
@@ -471,29 +471,29 @@ export interface Entry {
     _request_id?: number | string | null | undefined;
     /** _non-standard_  */
     _resourceType?:
-        | 'document'
-        | 'stylesheet'
-        | 'image'
-        | 'media'
-        | 'font'
-        | 'script'
-        | 'texttrack'
-        | 'xhr'
-        | 'fetch'
-        | 'prefetch'
-        | 'eventsource'
-        | 'websocket'
-        | 'webtransport'
-        | 'wasm'
-        | 'manifest'
-        | 'signed-exchange'
-        | 'ping'
-        | 'csp-violation-report'
-        | 'other'
-        | 'preflight'
-        | 'sm-script'
-        | 'sm-stylesheet'
-        | 'webbundle'
+        | "document"
+        | "stylesheet"
+        | "image"
+        | "media"
+        | "font"
+        | "script"
+        | "texttrack"
+        | "xhr"
+        | "fetch"
+        | "prefetch"
+        | "eventsource"
+        | "websocket"
+        | "webtransport"
+        | "wasm"
+        | "manifest"
+        | "signed-exchange"
+        | "ping"
+        | "csp-violation-report"
+        | "other"
+        | "preflight"
+        | "sm-script"
+        | "sm-stylesheet"
+        | "webbundle"
         | null
         | undefined;
     /** _non-standard_  */
@@ -513,7 +513,7 @@ export interface Entry {
     /** _non-standard_  */
     _score_gzip?: number | string | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | string | null | undefined;
+    "_score_keep-alive"?: number | string | null | undefined;
     /** _non-standard_  */
     _score_minify?: number | string | null | undefined;
     /** _non-standard_  */
@@ -551,11 +551,11 @@ export interface Entry {
     /** _non-standard_  */
     _webSocketMessages?:
         | Array<{
-              type: 'send' | 'receive';
-              time: number;
-              opcode: number;
-              data: string;
-          }>
+            type: "send" | "receive";
+            time: number;
+            opcode: number;
+            data: string;
+        }>
         | null
         | undefined;
     /**

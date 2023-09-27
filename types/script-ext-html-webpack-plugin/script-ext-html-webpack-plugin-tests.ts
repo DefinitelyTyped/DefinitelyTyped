@@ -13,7 +13,7 @@ new ScriptExtHtmlWebpackPlugin({
     defer: "string",
     module: "string",
     preload: "string",
-    prefetch: "string"
+    prefetch: "string",
 });
 
 new ScriptExtHtmlWebpackPlugin({
@@ -23,7 +23,7 @@ new ScriptExtHtmlWebpackPlugin({
     defer: ["array"],
     module: ["array"],
     preload: ["array"],
-    prefetch: ["array"]
+    prefetch: ["array"],
 });
 
 new ScriptExtHtmlWebpackPlugin({
@@ -33,7 +33,7 @@ new ScriptExtHtmlWebpackPlugin({
     defer: /regexp/,
     module: /regexp/,
     preload: /regexp/,
-    prefetch: /regexp/
+    prefetch: /regexp/,
 });
 
 new ScriptExtHtmlWebpackPlugin({
@@ -43,7 +43,7 @@ new ScriptExtHtmlWebpackPlugin({
     defer: { test: "string" },
     module: { test: "string" },
     preload: { test: "string" },
-    prefetch: { test: "string" }
+    prefetch: { test: "string" },
 });
 
 new ScriptExtHtmlWebpackPlugin({
@@ -53,7 +53,7 @@ new ScriptExtHtmlWebpackPlugin({
     defer: { test: ["array"] },
     module: { test: ["array"] },
     preload: { test: ["array"] },
-    prefetch: { test: ["array"] }
+    prefetch: { test: ["array"] },
 });
 
 new ScriptExtHtmlWebpackPlugin({
@@ -63,22 +63,22 @@ new ScriptExtHtmlWebpackPlugin({
     defer: { test: /regexp/ },
     module: { test: /regexp/ },
     preload: { test: /regexp/ },
-    prefetch: { test: /regexp/ }
+    prefetch: { test: /regexp/ },
 });
 
 new ScriptExtHtmlWebpackPlugin({
     preload: { test: "string", chunks: "initial" },
-    prefetch: { test: "string", chunks: "initial" }
+    prefetch: { test: "string", chunks: "initial" },
 });
 
 new ScriptExtHtmlWebpackPlugin({
     preload: { test: "string", chunks: "async" },
-    prefetch: { test: "string", chunks: "async" }
+    prefetch: { test: "string", chunks: "async" },
 });
 
 new ScriptExtHtmlWebpackPlugin({
     preload: { test: "string", chunks: "all" },
-    prefetch: { test: "string", chunks: "all" }
+    prefetch: { test: "string", chunks: "all" },
 });
 
 new ScriptExtHtmlWebpackPlugin({ defaultAttribute: "sync" });
@@ -88,28 +88,28 @@ new ScriptExtHtmlWebpackPlugin({ defaultAttribute: "defer" });
 new ScriptExtHtmlWebpackPlugin({
     custom: {
         test: "string",
-        attribute: "string"
-    }
+        attribute: "string",
+    },
 });
 
 new ScriptExtHtmlWebpackPlugin({
     custom: {
         test: ["array"],
         attribute: "string",
-        value: "string"
-    }
+        value: "string",
+    },
 });
 
 new ScriptExtHtmlWebpackPlugin({
     custom: [
         {
             test: /regexp/,
-            attribute: "string"
+            attribute: "string",
         },
         {
             test: "string",
             attribute: "string",
-            value: "string"
-        }
-    ]
+            value: "string",
+        },
+    ],
 });

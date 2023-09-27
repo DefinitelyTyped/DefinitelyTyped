@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-import { EventEmitter } from 'events';
-import { Node, NodeDef, NodeInitializer, NodeCredentials } from 'node-red';
-import { LocalSettings } from '@node-red/runtime';
-import { SinonSpy } from 'sinon';
-import * as supertest from 'supertest';
+import { LocalSettings } from "@node-red/runtime";
+import { EventEmitter } from "events";
+import { Node, NodeCredentials, NodeDef, NodeInitializer } from "node-red";
+import { SinonSpy } from "sinon";
+import * as supertest from "supertest";
 
 declare class NodeTestHelper extends EventEmitter {
     init(nodeRedRuntime: string, userSettings?: LocalSettings): void;
@@ -56,7 +56,7 @@ declare class NodeTestHelper extends EventEmitter {
      */
     setFlows(
         testFlows: nodeRedNodeTestHelper.TestFlows,
-        type: 'full' | 'flows' | 'nodes',
+        type: "full" | "flows" | "nodes",
         testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
         cb?: () => void,
     ): Promise<void>;

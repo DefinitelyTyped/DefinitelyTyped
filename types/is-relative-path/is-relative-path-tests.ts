@@ -1,3 +1,3 @@
-import isRelative = require('is-relative-path');
+import isRelative = require("is-relative-path");
 
-isRelative('.'); // $ExpectType boolean
+isRelative("."); // $ExpectType boolean

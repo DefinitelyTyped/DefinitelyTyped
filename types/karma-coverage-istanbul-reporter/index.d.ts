@@ -59,7 +59,7 @@ export interface CoverageIstanbulReporter {
 
     // TODO: Add istanbul-api
     /** Most reporters accept additional config options. You can pass these through the `report-config` option. */
-    readonly 'report-config'?: any;
+    readonly "report-config"?: any;
 
     /**
      * Enforce percentage thresholds.
@@ -75,7 +75,7 @@ export interface CoverageIstanbulReporter {
     readonly instrumentation?: any;
 }
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /** {@link https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-api/lib/config.js#L33-L39 Any of these options are valid}. */
         readonly coverageIstanbulReporter?: CoverageIstanbulReporter | undefined;

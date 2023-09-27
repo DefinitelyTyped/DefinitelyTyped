@@ -28,45 +28,45 @@ declare const enum Token {
     dblQuote, // "
     bckQuote, // `
 
-    and,    // &
+    and, // &
     andAnd, // &&
-    orOr,   // ||
-    or,     // |
-    orAnd,  // |&
+    orOr, // ||
+    or, // |
+    orAnd, // |&
 
-    dollar,       // $
+    dollar, // $
     dollSglQuote, // $'
     dollDblQuote, // $"
-    dollBrace,    // ${
-    dollBrack,    // $[
-    dollParen,    // $(
+    dollBrace, // ${
+    dollBrack, // $[
+    dollParen, // $(
     dollDblParen, // $((
-    leftBrack,    // [
+    leftBrack, // [
     dblLeftBrack, // [[
-    leftParen,    // (
+    leftParen, // (
     dblLeftParen, // ((
 
-    rightBrace,    // }
-    rightBrack,    // ]
-    rightParen,    // )
+    rightBrace, // }
+    rightBrack, // ]
+    rightParen, // )
     dblRightParen, // ))
-    semicolon,     // ;
+    semicolon, // ;
 
     dblSemicolon, // ;;
-    semiAnd,      // ;&
-    dblSemiAnd,   // ;;&
-    semiOr,       // ;|
+    semiAnd, // ;&
+    dblSemiAnd, // ;;&
+    semiOr, // ;|
 
     exclMark, // !
-    tilde,    // ~
-    addAdd,   // ++
-    subSub,   // --
-    star,     // *
-    power,    // **
-    equal,    // ==
-    nequal,   // !=
-    lequal,   // <=
-    gequal,   // >=
+    tilde, // ~
+    addAdd, // ++
+    subSub, // --
+    star, // *
+    power, // **
+    equal, // ==
+    nequal, // !=
+    lequal, // <=
+    gequal, // >=
 
     addAssgn, // +=
     subAssgn, // -=
@@ -74,89 +74,89 @@ declare const enum Token {
     quoAssgn, // /=
     remAssgn, // %=
     andAssgn, // &=
-    orAssgn,  // |=
+    orAssgn, // |=
     xorAssgn, // ^=
     shlAssgn, // <<=
     shrAssgn, // >>=
 
-    rdrOut,   // >
-    appOut,   // >>
-    rdrIn,    // <
+    rdrOut, // >
+    appOut, // >>
+    rdrIn, // <
     rdrInOut, // <>
-    dplIn,    // <&
-    dplOut,   // >&
-    clbOut,   // >|
-    hdoc,     // <<
+    dplIn, // <&
+    dplOut, // >&
+    clbOut, // >|
+    hdoc, // <<
     dashHdoc, // <<-
     wordHdoc, // <<<
-    rdrAll,   // &>
-    appAll,   // &>>
+    rdrAll, // &>
+    appAll, // &>>
 
-    cmdIn,  // <(
+    cmdIn, // <(
     cmdOut, // >(
 
-    plus,     // +
-    colPlus,  // :+
-    minus,    // -
+    plus, // +
+    colPlus, // :+
+    minus, // -
     colMinus, // :-
-    quest,    // ?
+    quest, // ?
     colQuest, // :?
-    assgn,    // =
+    assgn, // =
     colAssgn, // :=
-    perc,     // %
-    dblPerc,  // %%
-    hash,     // #
-    dblHash,  // ##
-    caret,    // ^
+    perc, // %
+    dblPerc, // %%
+    hash, // #
+    dblHash, // ##
+    caret, // ^
     dblCaret, // ^^
-    comma,    // ,
+    comma, // ,
     dblComma, // ,,
-    at,       // @
-    slash,    // /
+    at, // @
+    slash, // /
     dblSlash, // //
-    colon,    // :
+    colon, // :
 
-    tsExists,  // -e
+    tsExists, // -e
     tsRegFile, // -f
-    tsDirect,  // -d
-    tsCharSp,  // -c
-    tsBlckSp,  // -b
-    tsNmPipe,  // -p
-    tsSocket,  // -S
+    tsDirect, // -d
+    tsCharSp, // -c
+    tsBlckSp, // -b
+    tsNmPipe, // -p
+    tsSocket, // -S
     tsSmbLink, // -L
-    tsSticky,  // -k
-    tsGIDSet,  // -g
-    tsUIDSet,  // -u
-    tsGrpOwn,  // -G
-    tsUsrOwn,  // -O
-    tsModif,   // -N
-    tsRead,    // -r
-    tsWrite,   // -w
-    tsExec,    // -x
+    tsSticky, // -k
+    tsGIDSet, // -g
+    tsUIDSet, // -u
+    tsGrpOwn, // -G
+    tsUsrOwn, // -O
+    tsModif, // -N
+    tsRead, // -r
+    tsWrite, // -w
+    tsExec, // -x
     tsNoEmpty, // -s
-    tsFdTerm,  // -t
-    tsEmpStr,  // -z
+    tsFdTerm, // -t
+    tsEmpStr, // -z
     tsNempStr, // -n
-    tsOptSet,  // -o
-    tsVarSet,  // -v
-    tsRefVar,  // -R
+    tsOptSet, // -o
+    tsVarSet, // -v
+    tsRefVar, // -R
 
     tsReMatch, // =~
-    tsNewer,   // -nt
-    tsOlder,   // -ot
-    tsDevIno,  // -ef
-    tsEql,     // -eq
-    tsNeq,     // -ne
-    tsLeq,     // -le
-    tsGeq,     // -ge
-    tsLss,     // -lt
-    tsGtr,     // -gt
+    tsNewer, // -nt
+    tsOlder, // -ot
+    tsDevIno, // -ef
+    tsEql, // -eq
+    tsNeq, // -ne
+    tsLeq, // -le
+    tsGeq, // -ge
+    tsLss, // -lt
+    tsGtr, // -gt
 
     globQuest, // ?(
-    globStar,  // *(
-    globPlus,  // +(
-    globAt,    // @(
-    globExcl   // !(
+    globStar, // *(
+    globPlus, // +(
+    globAt, // @(
+    globExcl, // !(
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -172,13 +172,13 @@ declare const enum RedirOperator {
     DashHdoc,
     WordHdoc,
     RdrAll,
-    AppAll
+    AppAll,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum ProcOperator {
     CmdIn = Token.cmdIn,
-    CmdOut
+    CmdOut,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -187,7 +187,7 @@ declare const enum GlobOperator {
     GlobZeroOrMore,
     GlobOneOrMore,
     GlobOne,
-    GlobExcept
+    GlobExcept,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -195,7 +195,7 @@ declare const enum BinCmdOperator {
     AndStmt = Token.andAnd,
     OrStmt,
     Pipe,
-    PipeAll
+    PipeAll,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -203,13 +203,13 @@ declare const enum CaseOperator {
     Break = Token.dblSemicolon,
     Fallthrough,
     Resume,
-    ResumeKorn
+    ResumeKorn,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
 declare const enum ParNamesOperator {
     NamesPrefix = Token.star,
-    NamesPrefixWords = Token.at
+    NamesPrefixWords = Token.at,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -230,7 +230,7 @@ declare const enum ParExpOperator {
     UpperAll,
     LowerFirst,
     LowerAll,
-    OtherParamOps
+    OtherParamOps,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -240,7 +240,7 @@ declare const enum UnAritOperator {
     Inc,
     Dec,
     Plus = Token.plus,
-    Minus = Token.minus
+    Minus = Token.minus,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -308,7 +308,7 @@ declare const enum UnTestOperator {
     TsOptSet,
     TsVarSet,
     TsRefVar,
-    TsNot = Token.exclMark
+    TsNot = Token.exclMark,
 }
 
 // eslint-disable-next-line @definitelytyped/no-const-enum
@@ -329,7 +329,7 @@ declare const enum BinTestOperator {
     TsMatch = Token.equal,
     TsNoMatch = Token.nequal,
     TsBefore = Token.rdrIn,
-    TsAfter = Token.rdrOut
+    TsAfter = Token.rdrOut,
 }
 
 declare namespace sh {
@@ -738,7 +738,7 @@ declare namespace sh {
             // helpers and utils
             DebugPrint(node: Node): void;
             NodeType(node: Node): string;
-            SplitBraces<T = {}>(word: T): T
+            SplitBraces<T = {}>(word: T): T;
             Walk(node: Node, walker: (node: Node) => boolean): void;
             IsIncomplete(err: any): boolean;
         };

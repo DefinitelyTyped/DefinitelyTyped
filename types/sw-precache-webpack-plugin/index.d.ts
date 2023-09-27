@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Options as SwPrecacheOptions } from 'sw-precache';
-import { Plugin } from 'webpack';
+import { Options as SwPrecacheOptions } from "sw-precache";
+import { Plugin } from "webpack";
 
 // workaround to override parent types
 interface _Options extends SwPrecacheOptions {
@@ -21,13 +21,15 @@ declare namespace SWPrecacheWebpackPlugin {
         minify?: boolean | undefined;
 
         // override sw-precache options
-        importScripts?: Array<
-            | string
-            | {
-                  chunkName?: string | undefined;
-                  filename?: string | undefined;
-              }
-        > | undefined;
+        importScripts?:
+            | Array<
+                | string
+                | {
+                    chunkName?: string | undefined;
+                    filename?: string | undefined;
+                }
+            >
+            | undefined;
     }
 }
 

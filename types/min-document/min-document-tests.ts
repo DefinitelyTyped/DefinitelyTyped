@@ -1,3 +1,3 @@
-import minDocument = require('min-document');
+import minDocument = require("min-document");
 
-minDocument.createElement('div');
+minDocument.createElement("div");

@@ -10,7 +10,7 @@ export interface AchDebit {
     routing_number: string;
 }
 
-export type AccountType = 'CHECKING' | 'SAVINGS';
+export type AccountType = "CHECKING" | "SAVINGS";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-activity_timestamps
 export interface ActivityTimestamps {
@@ -65,23 +65,23 @@ export interface Authorization extends ActivityTimestamps, AuthorizationStatus {
 }
 
 export type Status =
-    | 'CANCELLED'
-    | 'CAPTURED'
-    | 'COMPLETED'
-    | 'CREATED'
-    | 'DECLINED'
-    | 'DENIED'
-    | 'ELIGIBLE'
-    | 'EXPIRED'
-    | 'FAILED'
-    | 'NOT_ELIGIBLE'
-    | 'PARTIALLY_CAPTURED'
-    | 'PARTIALLY_CREATED'
-    | 'PARTIALLY_ELIGIBLE'
-    | 'PARTIALLY_REFUNDED'
-    | 'PENDING'
-    | 'REFUNDED'
-    | 'VOIDED';
+    | "CANCELLED"
+    | "CAPTURED"
+    | "COMPLETED"
+    | "CREATED"
+    | "DECLINED"
+    | "DENIED"
+    | "ELIGIBLE"
+    | "EXPIRED"
+    | "FAILED"
+    | "NOT_ELIGIBLE"
+    | "PARTIALLY_CAPTURED"
+    | "PARTIALLY_CREATED"
+    | "PARTIALLY_ELIGIBLE"
+    | "PARTIALLY_REFUNDED"
+    | "PENDING"
+    | "REFUNDED"
+    | "VOIDED";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-authorization_status
 export interface AuthorizationStatus {
@@ -95,17 +95,17 @@ export interface AuthorizationStatusDetails {
 }
 
 export type Reason =
-    | 'BUYER_COMPLAINT'
-    | 'CHARGEBACK'
-    | 'ECHECK'
-    | 'INTERNATIONAL_WITHDRAWAL'
-    | 'OTHER'
-    | 'PENDING_REVIEW'
-    | 'RECEIVING_PREFERENCE_MANDATES_MANUAL_ACTION'
-    | 'REFUNDED'
-    | 'TRANSACTION_APPROVED_AWAITING_FUNDING'
-    | 'UNILATERAL'
-    | 'VERIFICATION_REQUIRED';
+    | "BUYER_COMPLAINT"
+    | "CHARGEBACK"
+    | "ECHECK"
+    | "INTERNATIONAL_WITHDRAWAL"
+    | "OTHER"
+    | "PENDING_REVIEW"
+    | "RECEIVING_PREFERENCE_MANDATES_MANUAL_ACTION"
+    | "REFUNDED"
+    | "TRANSACTION_APPROVED_AWAITING_FUNDING"
+    | "UNILATERAL"
+    | "VERIFICATION_REQUIRED";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-capture
 export interface Capture extends ActivityTimestamps, CaptureStatus {
@@ -165,31 +165,31 @@ export interface Card {
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-card_brand
 export type CardBrand =
-    | 'AMEX'
-    | 'CB_NATIONALE'
-    | 'CETELEM'
-    | 'CHINA_UNION_PAY'
-    | 'CONFIDIS'
-    | 'CONFIGOGA'
-    | 'DELTA'
-    | 'DISCOVER'
-    | 'ELECTRON'
-    | 'JCB'
-    | 'MAESTRO'
-    | 'MASTERCARD'
-    | 'SOLO'
-    | 'STAR'
-    | 'SWITCH'
-    | 'VISA';
+    | "AMEX"
+    | "CB_NATIONALE"
+    | "CETELEM"
+    | "CHINA_UNION_PAY"
+    | "CONFIDIS"
+    | "CONFIGOGA"
+    | "DELTA"
+    | "DISCOVER"
+    | "ELECTRON"
+    | "JCB"
+    | "MAESTRO"
+    | "MASTERCARD"
+    | "SOLO"
+    | "STAR"
+    | "SWITCH"
+    | "VISA";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-card_type
-export type CardType = 'CREDIT' | 'DEBIT' | 'PREPAID' | 'STORE' | 'UNKNOWN';
+export type CardType = "CREDIT" | "DEBIT" | "PREPAID" | "STORE" | "UNKNOWN";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-disbursement_mode
-export type DisbursementMode = 'DELAYED' | 'INSTANT';
+export type DisbursementMode = "DELAYED" | "INSTANT";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-dispute_category
-export type DisputeCategory = 'ITEM_NOT_RECEIVED' | 'UNAUTHORIZED_TRANSACTION';
+export type DisputeCategory = "ITEM_NOT_RECEIVED" | "UNAUTHORIZED_TRANSACTION";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-error
 export interface Error {
@@ -224,7 +224,7 @@ export interface LinkDescription {
     rel: string;
 }
 
-export type Method = 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
+export type Method = "CONNECT" | "DELETE" | "GET" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-money
 export interface Money {
@@ -288,334 +288,334 @@ export interface ProcessorResponse {
 }
 
 export type AVSCode =
-    | 'A'
-    | 'B'
-    | 'C'
-    | 'D'
-    | 'E'
-    | 'F'
-    | 'G'
-    | 'I'
-    | 'M'
-    | 'N'
-    | 'P'
-    | 'R'
-    | 'S'
-    | 'U'
-    | 'W'
-    | 'X'
-    | 'Y'
-    | 'Z'
+    | "A"
+    | "B"
+    | "C"
+    | "D"
+    | "E"
+    | "F"
+    | "G"
+    | "I"
+    | "M"
+    | "N"
+    | "P"
+    | "R"
+    | "S"
+    | "U"
+    | "W"
+    | "X"
+    | "Y"
+    | "Z"
     /** MAESTRO_NOT_RESPONSE */
-    | 'Null'
+    | "Null"
     /** MAESTRO_ALL_MATCHES */
-    | '0'
+    | "0"
     /** MAESTRO_NONE_MATCHES */
-    | '1'
+    | "1"
     /** MAESTRO_PART_MATCHES */
-    | '2'
+    | "2"
     /** MAESTRO_NOT_PROCESSED */
-    | '3'
+    | "3"
     /** MAESTRO_NOT_AVAILABLE */
-    | '4';
+    | "4";
 
 export type CVVCode =
-    | 'E'
-    | 'I'
-    | 'M'
-    | 'N'
-    | 'P'
-    | 'S'
-    | 'U'
-    | 'X'
+    | "E"
+    | "I"
+    | "M"
+    | "N"
+    | "P"
+    | "S"
+    | "U"
+    | "X"
     /** ALL_OTHERS */
-    | 'All others'
+    | "All others"
     /** Maestro_matched */
-    | '0'
+    | "0"
     /** Maestro_not_match */
-    | '1'
+    | "1"
     /** Maestro_not_implemented */
-    | '2'
+    | "2"
     /** Maestro_not_present */
-    | '3'
+    | "3"
     /** Maestro_not_available */
-    | '4';
+    | "4";
 
 export type ResponseCode = /** APPROVED */
-    | '0000'
+    | "0000"
     /** REFERRAL */
-    | '0100'
+    | "0100"
     /** BAD_RESPONSE_REVERSAL_REQUIRED */
-    | '0800'
+    | "0800"
     /** PARTIAL_AUTHORIZATION */
-    | '1000'
+    | "1000"
     /** INVALID_DATA_FORMAT */
-    | '1300'
+    | "1300"
     /** INVALID_AMOUNT */
-    | '1310'
+    | "1310"
     /** INVALID_TRANSACTION_CARD_ISSUER_ACQUIRER */
-    | '1312'
+    | "1312"
     /** INVALID_CAPTURE_DATE */
-    | '1317'
+    | "1317"
     /** INVALID_CURRENCY_CODE */
-    | '1320'
+    | "1320"
     /** INVALID_ACCOUNT */
-    | '1330'
+    | "1330"
     /** INVALID_ACCOUNT_RECURRING */
-    | '1335'
+    | "1335"
     /** INVALID_TERMINAL */
-    | '1340'
+    | "1340"
     /** INVALID_MERCHANT */
-    | '1350'
+    | "1350"
     /** BAD_PROCESSING_CODE */
-    | '1360'
+    | "1360"
     /** INVALID_MCC */
-    | '1370'
+    | "1370"
     /** INVALID_EXPIRATION */
-    | '1380'
+    | "1380"
     /** INVALID_CARD_VERIFICATION_VALUE */
-    | '1382'
+    | "1382"
     /** INVALID_LIFE_CYCLE_OF_TRANSACTION */
-    | '1384'
+    | "1384"
     /** INVALID_ORDER */
-    | '1390'
+    | "1390"
     /** TRANSACTION_CANNOT_BE_COMPLETED */
-    | '1393'
+    | "1393"
     /** DO_NOT_HONOR */
-    | '0500'
+    | "0500"
     /** GENERIC_DECLINE */
-    | '5100'
+    | "5100"
     /** CVV2_FAILURE */
-    | '5110'
+    | "5110"
     /** INSUFFICIENT_FUNDS */
-    | '5120'
+    | "5120"
     /** INVALID_PIN */
-    | '5130'
+    | "5130"
     /** CARD_CLOSED */
-    | '5140'
+    | "5140"
     /** PICKUP_CARD_SPECIAL_CONDITIONS */
-    | '5150'
+    | "5150"
     /** UNAUTHORIZED_USER */
-    | '5160'
+    | "5160"
     /** AVS_FAILURE */
-    | '5170'
+    | "5170"
     /** INVALID_OR_RESTRICTED_CARD */
-    | '5180'
+    | "5180"
     /** SOFT_AVS */
-    | '5190'
+    | "5190"
     /** DUPLICATE_TRANSACTION */
-    | '5200'
+    | "5200"
     /** INVALID_TRANSACTION */
-    | '5210'
+    | "5210"
     /** EXPIRED_CARD */
-    | '5400'
+    | "5400"
     /** INCORRECT_PIN_REENTER */
-    | '5500'
+    | "5500"
     /** TRANSACTION_NOT_PERMITTED */
-    | '5700'
+    | "5700"
     /** REVERSAL_REJECTED */
-    | '5800'
+    | "5800"
     /** INVALID_ISSUE */
-    | '5900'
+    | "5900"
     /** ISSUER_NOT_AVAILABLE_NOT_RETRIABLE */
-    | '5910'
+    | "5910"
     /** ISSUER_NOT_AVAILABLE_RETRIABLE */
-    | '5920'
+    | "5920"
     /** ACCOUNT_NOT_ON_FILE */
-    | '6300'
+    | "6300"
     /** APPROVED_NON_CAPTURE */
-    | '7600'
+    | "7600"
     /** ERROR_3DS */
-    | '7700'
+    | "7700"
     /** AUTHENTICATION_FAILED */
-    | '7710'
+    | "7710"
     /** BIN_ERROR */
-    | '7800'
+    | "7800"
     /** PIN_ERROR */
-    | '7900'
+    | "7900"
     /** PROCESSOR_SYSTEM_ERROR */
-    | '8000'
+    | "8000"
     /** HOST_KEY_ERROR */
-    | '8010'
+    | "8010"
     /** CONFIGURATION_ERROR */
-    | '8020'
+    | "8020"
     /** UNSUPPORTED_OPERATION */
-    | '8030'
+    | "8030"
     /** FATAL_COMMUNICATION_ERROR */
-    | '8100'
+    | "8100"
     /** RETRIABLE_COMMUNICATION_ERROR */
-    | '8110'
+    | "8110"
     /** SYSTEM_UNAVAILABLE */
-    | '8220'
+    | "8220"
     /** DECLINED_PLEASE_RETRY */
-    | '9100'
+    | "9100"
     /** SUSPECTED_FRAUD */
-    | '9500'
+    | "9500"
     /** SECURITY_VIOLATION */
-    | '9510'
+    | "9510"
     /** LOST_OR_STOLEN */
-    | '9520'
+    | "9520"
     /** HOLD_CALL_CENTER */
-    | '9530'
+    | "9530"
     /** REFUSED_CARD */
-    | '9540'
+    | "9540"
     /** UNRECOGNIZED_RESPONSE_CODE */
-    | '9600'
+    | "9600"
     /** CARD_NOT_ACTIVATED */
-    | '5930'
+    | "5930"
     /** PPMD */
-    | 'PPMD'
+    | "PPMD"
     /** CE_REGISTRATION_INCOMPLETE */
-    | 'PPCE'
+    | "PPCE"
     /** NETWORK_ERROR */
-    | 'PPNT'
+    | "PPNT"
     /** CARD_TYPE_UNSUPPORTED */
-    | 'PPCT'
+    | "PPCT"
     /** TRANSACTION_TYPE_UNSUPPORTED */
-    | 'PPTT'
+    | "PPTT"
     /** CURRENCY_USED_INVALID */
-    | 'PPCU'
+    | "PPCU"
     /** QUASI_CASH_UNSUPPORTED */
-    | 'PPQC'
+    | "PPQC"
     /** VALIDATION_ERROR */
-    | 'PPVE'
+    | "PPVE"
     /** VIRTUAL_TERMINAL_UNSUPPORTED */
-    | 'PPVT'
+    | "PPVT"
     /** DCC_UNSUPPORTED */
-    | 'PPDC'
+    | "PPDC"
     /** INTERNAL_SYSTEM_ERROR */
-    | 'PPER'
+    | "PPER"
     /** ID_MISMATCH */
-    | 'PPIM'
+    | "PPIM"
     /** H1_ERROR */
-    | 'PPH1'
+    | "PPH1"
     /** STATUS_DESCRIPTION */
-    | 'PPSD'
+    | "PPSD"
     /** ADULT_GAMING_UNSUPPORTED */
-    | 'PPAG'
+    | "PPAG"
     /** LARGE_STATUS_CODE */
-    | 'PPLS'
+    | "PPLS"
     /** COUNTRY */
-    | 'PPCO'
+    | "PPCO"
     /** BILLING_ADDRESS */
-    | 'PPAD'
+    | "PPAD"
     /** MCC_CODE */
-    | 'PPAU'
+    | "PPAU"
     /** CURRENCY_CODE_UNSUPPORTED */
-    | 'PPUC'
+    | "PPUC"
     /** UNSUPPORTED_REVERSAL */
-    | 'PPUR'
+    | "PPUR"
     /** VALIDATE_CURRENCY */
-    | 'PPVC'
+    | "PPVC"
     /** BANKAUTH_ROW_MISMATCH */
-    | 'PPS0'
+    | "PPS0"
     /** BANKAUTH_ROW_SETTLED */
-    | 'PPS1'
+    | "PPS1"
     /** BANKAUTH_ROW_VOIDED */
-    | 'PPS2'
+    | "PPS2"
     /** BANKAUTH_EXPIRED */
-    | 'PPS3'
+    | "PPS3"
     /** CURRENCY_MISMATCH */
-    | 'PPS4'
+    | "PPS4"
     /** CREDITCARD_MISMATCH */
-    | 'PPS5'
+    | "PPS5"
     /** AMOUNT_MISMATCH */
-    | 'PPS6'
+    | "PPS6"
     /** INVALID_PARENT_TRANSACTION_STATUS */
-    | 'PPRF'
+    | "PPRF"
     /** EXPIRY_DATE */
-    | 'PPEX'
+    | "PPEX"
     /** AMOUNT_EXCEEDED */
-    | 'PPAX'
+    | "PPAX"
     /** AUTH_MESSAGE */
-    | 'PPDV'
+    | "PPDV"
     /** DINERS_REJECT */
-    | 'PPDI'
+    | "PPDI"
     /** AUTH_RESULT */
-    | 'PPAR'
+    | "PPAR"
     /** BAD_GAMING */
-    | 'PPBG'
+    | "PPBG"
     /** GAMING_REFUND_ERROR */
-    | 'PPGR'
+    | "PPGR"
     /** CREDIT_ERROR */
-    | 'PPCR'
+    | "PPCR"
     /** AMOUNT_INCOMPATIBLE */
-    | 'PPAI'
+    | "PPAI"
     /** IDEMPOTENCY_FAILURE */
-    | 'PPIF'
+    | "PPIF"
     /** BLOCKED_Mastercard */
-    | 'PPMC'
+    | "PPMC"
     /** AMEX_DISABLED */
-    | 'PPAE'
+    | "PPAE"
     /** FIELD_VALIDATION_FAILED */
-    | 'PPFV'
+    | "PPFV"
     /** INVALID_INPUT_FAILURE */
-    | 'PPII'
+    | "PPII"
     /** INVALID_PAYMENT_METHOD */
-    | 'PPPM'
+    | "PPPM"
     /** USER_NOT_AUTHORIZED */
-    | 'PPUA'
+    | "PPUA"
     /** INVALID_FUNDING_INSTRUMENT */
-    | 'PPFI'
+    | "PPFI"
     /** EXPIRED_FUNDING_INSTRUMENT */
-    | 'PPEF'
+    | "PPEF"
     /** RESTRICTED_FUNDING_INSTRUMENT */
-    | 'PPFR'
+    | "PPFR"
     /** EXCEEDS_FREQUENCY_LIMIT */
-    | 'PPEL'
+    | "PPEL"
     /** CVV_FAILURE */
-    | 'PCVV'
+    | "PCVV"
     /** INVALID_VERIFICATION_TOKEN */
-    | 'PPTV'
+    | "PPTV"
     /** VERIFICATION_TOKEN_EXPIRED */
-    | 'PPTE'
+    | "PPTE"
     /** INVALID_PRODUCT */
-    | 'PPPI'
+    | "PPPI"
     /** INVALID_TRACE_ID */
-    | 'PPIT'
+    | "PPIT"
     /** INVALID_TRACE_REFERENCE */
-    | 'PPTF'
+    | "PPTF"
     /** FUNDING_SOURCE_ALREADY_EXISTS */
-    | 'PPFE'
+    | "PPFE"
     /** VERIFICATION_TOKEN_REVOKED */
-    | 'PPTR'
+    | "PPTR"
     /** INVALID_TRANSACTION_ID */
-    | 'PPTI'
+    | "PPTI"
     /** SECURE_ERROR_3DS */
-    | 'PPD3'
+    | "PPD3"
     /** NO_PHONE_FOR_DCC_TRANSACTION */
-    | 'PPPH'
+    | "PPPH"
     /** ARC_AVS */
-    | 'PPAV'
+    | "PPAV"
     /** ARC_CVV */
-    | 'PPC2'
+    | "PPC2"
     /** LATE_REVERSAL */
-    | 'PPLR'
+    | "PPLR"
     /** NOT_SUPPORTED_NRC */
-    | 'PPNC'
+    | "PPNC"
     /** MERCHANT_NOT_REGISTERED */
-    | 'PPRR'
+    | "PPRR"
     /** ARC_SCORE */
-    | 'PPSC'
+    | "PPSC"
     /** AMEX_DENIED */
-    | 'PPSE'
+    | "PPSE"
     /** UNSUPPORT_ENTITY */
-    | 'PPUE'
+    | "PPUE"
     /** UNSUPPORT_INSTALLMENT */
-    | 'PPUI'
+    | "PPUI"
     /** UNSUPPORT_POS_FLAG */
-    | 'PPUP'
+    | "PPUP"
     /** UNSUPPORT_REFUND_ON_PENDING_BC */
-    | 'PPRE';
+    | "PPRE";
 
 export type PaymentAdviceCode = /** MASTERCARD_EXPIRED */
-    | '01'
+    | "01"
     /** MASTERCARD_CREDIT_LIMIT */
-    | '02'
+    | "02"
     /** MASTERCARD_ACCOUNT_CLOSED */
-    | '03'
+    | "03"
     /** MASTERCARD_UNSUCCESSFUL */
-    | '21';
+    | "21";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-reauthorize_request
 export interface ReauthorizeRequest {
@@ -680,7 +680,7 @@ export interface SellerReceivableBreakdown {
 }
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-shipping_type
-export type ShippingType = 'PICKUP' | 'PICKUP_IN_PERSON' | 'SHIPPING';
+export type ShippingType = "PICKUP" | "PICKUP_IN_PERSON" | "SHIPPING";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-supplementary_purchase_data
 export interface SupplementaryPurchaseData {
@@ -694,7 +694,7 @@ export interface TaxInfo {
     tax_id: string;
 }
 
-export type TaxIdType = 'BR_CNPJ' | 'BR_CPF';
+export type TaxIdType = "BR_CNPJ" | "BR_CPF";
 
 // https://developer.paypal.com/docs/api/payments/v2/#definition-token
 export interface Token {
@@ -702,16 +702,16 @@ export interface Token {
     type: TokenType;
 }
 
-export type TokenType = 'BILLING_AGREEMENT';
+export type TokenType = "BILLING_AGREEMENT";
 
 export interface BasePaymentHeaders {
     Authorization: string;
-    'Content-Type': 'application/json';
+    "Content-Type": "application/json";
 }
 
 export class BasePaymentRequest<H extends BasePaymentHeaders, D = null> {
     readonly path: string;
-    readonly verb: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
+    readonly verb: "CONNECT" | "DELETE" | "GET" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT";
     readonly body: D;
     readonly headers: H;
 
@@ -724,7 +724,7 @@ export class BasePaymentRequest<H extends BasePaymentHeaders, D = null> {
  */
 export namespace AuthorizationsCapture {
     interface RequestHeaders extends BasePaymentHeaders {
-        'PayPal-Request-Id'?: string;
+        "PayPal-Request-Id"?: string;
         Prefer?: string;
     }
 }
@@ -749,7 +749,7 @@ export class AuthorizationsGetRequest extends BasePaymentRequest<BasePaymentHead
  */
 export namespace AuthorizationsReauthorize {
     interface RequestHeaders extends BasePaymentHeaders {
-        'PayPal-Request-Id'?: string;
+        "PayPal-Request-Id"?: string;
         Prefer?: string;
     }
 
@@ -775,7 +775,7 @@ export class AuthorizationsReauthorizeRequest extends BasePaymentRequest<
  */
 export namespace AuthorizationsVoid {
     interface RequestHeaders extends BasePaymentHeaders {
-        'PayPal-Auth-Assertion'?: string;
+        "PayPal-Auth-Assertion"?: string;
         Prefer?: string;
     }
 }
@@ -794,8 +794,8 @@ export class CapturesGetRequest extends BasePaymentRequest<BasePaymentHeaders, C
  */
 export namespace CapturesRefund {
     interface RequestHeaders extends BasePaymentHeaders {
-        'PayPal-Auth-Assertion'?: string;
-        'PayPal-Request-Id'?: string;
+        "PayPal-Auth-Assertion"?: string;
+        "PayPal-Request-Id"?: string;
         Prefer?: string;
     }
 

@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'Synthetics' {
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "Synthetics" {
     const _exports: Synthetics;
     export = _exports;
     /**
@@ -221,11 +222,11 @@ declare module 'Synthetics' {
             launchTime?: number,
         ): string;
     }
-    import * as localPuppeteer from 'puppeteer';
-    import * as RequestResponseLogHelper_1 from 'RequestResponseLogHelper';
+    import * as localPuppeteer from "puppeteer";
+    import * as RequestResponseLogHelper_1 from "RequestResponseLogHelper";
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
-    import * as SyntheticsMetricEmitter_1 from 'SyntheticsMetricEmitter';
+    import * as SyntheticsMetricEmitter_1 from "SyntheticsMetricEmitter";
     import SyntheticsMetricEmitter = SyntheticsMetricEmitter_1.SyntheticsMetricEmitter;
-    import { SyntheticsReport, RequestsResult, ScreenshotResult } from 'SyntheticsReport';
-    import { SyntheticsConfiguration } from 'SyntheticsConfiguration';
+    import { RequestsResult, ScreenshotResult, SyntheticsReport } from "SyntheticsReport";
+    import { SyntheticsConfiguration } from "SyntheticsConfiguration";
 }

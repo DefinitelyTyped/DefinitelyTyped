@@ -1,4 +1,4 @@
-import valvelet = require('valvelet');
+import valvelet = require("valvelet");
 
 // $ExpectType (i: number) => Promise<string>
 valvelet(async (i: number) => `${i} - ${new Date().toISOString()}`, 2, 1000);

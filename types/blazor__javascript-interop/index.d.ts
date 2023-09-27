@@ -32,6 +32,34 @@ declare namespace DotNet {
      */
     function invokeMethodAsync<T>(assemblyName: string, methodIdentifier: string, ...args: any[]): Promise<T>;
     /**
+     * Creates a JavaScript object reference that can be passed to .NET via interop calls.
+     * @param jsObject The JavaScript Object used to create the JavaScript object reference.
+     * @returns The JavaScript object reference (this will be the same instance as the given object).
+     * @throws Error if the given value is not an Object.
+     */
+    function createJSObjectReference(jsObject: any): JsObjectReference;
+    /**
+     * Creates a JavaScript data reference that can be passed to .NET via interop calls.
+     * @param streamReference The ArrayBufferView or Blob used to create the JavaScript stream reference.
+     * @returns The JavaScript data reference (this will be the same instance as the given object).
+     * @throws Error if the given value is not an Object or doesn't have a valid byteLength.
+     */
+    function createJSStreamReference(streamReference: ArrayBuffer | ArrayBufferView | Blob): JsObjectReference;
+    /**
+     * Disposes the given JavaScript object reference.
+     *
+     * @param jsObjectReference The JavaScript Object reference.
+     */
+    function disposeJSObjectReference(jsObjectReference: JsObjectReference): void;
+
+    /**
+     * Represents the Javascript Object reference.
+     */
+    interface JsObjectReference {
+        __jsObjectId: number;
+    }
+
+    /**
      * Represents the .NET instance passed by reference to JavaScript.
      */
     interface DotNetObject {
@@ -52,5 +80,9 @@ declare namespace DotNet {
          * @returns A promise representing the result of the operation.
          */
         invokeMethodAsync<T>(methodIdentifier: string, ...args: any[]): Promise<T>;
+        /**
+         * Dispose the specified .NET instance.
+         */
+        dispose(): void;
     }
 }

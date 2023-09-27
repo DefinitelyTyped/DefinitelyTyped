@@ -3,8 +3,6 @@
 // Definitions by: Pedro Casaubon <https://github.com/xperiments>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 interface IEventEmitter {
     addListener(event: string, listener: Function): EventEmitter;
     on(event: string, listener: Function): EventEmitter;
@@ -73,7 +71,6 @@ export declare class Menu {
     popup(x: number, y: number): void;
     // since v0.10.0-rc1
     createMacBuiltin(appname: string, options?: HideMenusOptions): void;
-
 }
 
 export interface ShortcutOption {
@@ -90,7 +87,6 @@ export declare class Shortcut extends EventEmitter {
 }
 
 export interface WindowManifestOptions {
-
     title?: string | undefined;
     icon?: string | undefined;
     toolbar?: boolean | undefined;
@@ -169,16 +165,16 @@ export interface App extends EventEmitter {
     quit(): void;
     setCrashDumpDir(dir: string): void;
     addOriginAccessWhitelistEntry(
-        sourceOrigin: string
-        , destinationProtocol: string
-        , destinationHost: string
-        , allowDestinationSubdomains: boolean
+        sourceOrigin: string,
+        destinationProtocol: string,
+        destinationHost: string,
+        allowDestinationSubdomains: boolean,
     ): void;
     removeOriginAccessWhitelistEntry(
-        sourceOrigin: string
-        , destinationProtocol: string
-        , destinationHost: string
-        , allowDestinationSubdomains: boolean
+        sourceOrigin: string,
+        destinationProtocol: string,
+        destinationHost: string,
+        allowDestinationSubdomains: boolean,
     ): void;
     registerGlobalHotKey(shortcut: Shortcut): void;
     unregisterGlobalHotKey(shortcut: Shortcut): void;

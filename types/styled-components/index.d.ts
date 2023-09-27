@@ -8,6 +8,7 @@
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
 //                 Aaron Reisman <https://github.com/lifeiscontent>
+//                 Aaron Rose <https://github.com/acdr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // forward declarations
@@ -20,9 +21,9 @@ declare global {
     interface ShadowRoot {}
 }
 
-import * as CSS from 'csstype';
-import * as React from 'react';
-import * as hoistNonReactStatics from 'hoist-non-react-statics';
+import * as CSS from "csstype";
+import * as hoistNonReactStatics from "hoist-non-react-statics";
+import * as React from "react";
 
 export type CSSProperties = CSS.Properties<string | number>;
 
@@ -46,12 +47,11 @@ export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements;
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize<P, D> = P extends any
-    ? string extends keyof P
-        ? P
-        : PickU<P, Exclude<keyof P, keyof D>> &
-              Partial<PickU<P, Extract<keyof P, keyof D>>> &
-              Partial<PickU<D, Exclude<keyof D, keyof P>>>
+type Defaultize<P, D> = P extends any ? string extends keyof P ? P
+    :
+        & PickU<P, Exclude<keyof P, keyof D>>
+        & Partial<PickU<P, Extract<keyof P, keyof D>>>
+        & Partial<PickU<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D> : P;
@@ -75,14 +75,13 @@ export type StyledComponentProps<
     // The props that are made optional by .attrs
     A extends keyof any,
     // The Component passed with "forwardedAs" prop
-    FAsC extends string | React.ComponentType<any> = C
+    FAsC extends string | React.ComponentType<any> = C,
 > =
     // Distribute O if O is a union type
-    O extends object
-        ? WithOptionalTheme<
-              MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
-              T
-          >
+    O extends object ? WithOptionalTheme<
+            MakeAttrsOptional<C, O, A> & MakeAttrsOptional<FAsC, O, A>,
+            T
+        >
         : never;
 
 type StyledComponentPropsWithAs<
@@ -91,7 +90,7 @@ type StyledComponentPropsWithAs<
     O extends object,
     A extends keyof any,
     AsC extends string | React.ComponentType<any> = C,
-    FAsC extends string | React.ComponentType<any> = C
+    FAsC extends string | React.ComponentType<any> = C,
 > = StyledComponentProps<C, T, O, A, FAsC> & { as?: AsC | undefined; forwardedAs?: FAsC | undefined };
 
 export type FalseyValue = undefined | null | false;
@@ -111,7 +110,9 @@ export type ThemedGlobalStyledClassProps<P extends { theme?: T | undefined }, T>
     suppressMultiMountWarning?: boolean | undefined;
 };
 
-export interface GlobalStyleComponent<P extends { theme?: T | undefined }, T> extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
+export interface GlobalStyleComponent<P extends { theme?: T | undefined }, T>
+    extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>>
+{}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation =
@@ -139,21 +140,23 @@ export type StyledComponent<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
-    A extends keyof any = never
+    A extends keyof any = never,
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string &
-        StyledComponentBase<C, T, O, A> &
-        hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
+    & string
+    & StyledComponentBase<C, T, O, A>
+    & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
     C extends string | React.ComponentType<any>,
     T extends object,
     O extends object = {},
-    A extends keyof any = never
+    A extends keyof any = never,
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
-    (props: StyledComponentProps<C, T, O, A> & { as?: never | undefined; forwardedAs?: never | undefined }): React.ReactElement<
+    (
+        props: StyledComponentProps<C, T, O, A> & { as?: never | undefined; forwardedAs?: never | undefined },
+    ): React.ReactElement<
         StyledComponentProps<C, T, O, A>
     >;
     <AsC extends string | React.ComponentType<any> = C, FAsC extends string | React.ComponentType<any> = AsC>(
@@ -177,7 +180,7 @@ export interface ThemedStyledFunctionBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
-    A extends keyof any = never
+    A extends keyof any = never,
 > {
     (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
@@ -200,7 +203,7 @@ export interface ThemedStyledFunction<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
-    A extends keyof any = never
+    A extends keyof any = never,
 > extends ThemedStyledFunctionBase<C, T, O, A> {
     // Fun thing: 'attrs' can also provide a polymorphic 'as' prop
     // My head already hurts enough so maybe later...
@@ -208,7 +211,7 @@ export interface ThemedStyledFunction<
         U,
         NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
             [others: string]: any;
-        } = {}
+        } = {},
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>,
     ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
@@ -232,25 +235,20 @@ export type StyledComponentInnerComponent<C extends React.ComponentType<any>> = 
     any,
     any,
     any
->
-    ? I
-    : C extends StyledComponent<infer I, any, any>
-    ? I
+> ? I
+    : C extends StyledComponent<infer I, any, any> ? I
     : C;
 export type StyledComponentPropsWithRef<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
-> = C extends AnyStyledComponent
-    ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+> = C extends AnyStyledComponent ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
 export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends StyledComponent<
     any,
     any,
     infer O,
     any
->
-    ? O
-    : C extends StyledComponent<any, any, infer O>
-    ? O
+> ? O
+    : C extends StyledComponent<any, any, infer O> ? O
     : never;
 export type StyledComponentInnerAttrs<C extends AnyStyledComponent> = C extends StyledComponent<any, any, any, infer A>
     ? A
@@ -289,9 +287,9 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<AnyIfEmp
 
 // Helper type operators
 // Pick that distributes over union types
-export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
+export type PickU<T, K extends keyof T> = T extends any ? { [P in K]: T[P] } : never;
 export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
-type WithOptionalTheme<P extends { theme?: T | undefined }, T> = OmitU<P, 'theme'> & {
+type WithOptionalTheme<P extends { theme?: T | undefined }, T> = OmitU<P, "theme"> & {
     theme?: T | undefined;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -330,7 +328,9 @@ export type BaseWithThemeFnInterface<T extends object> = <C extends React.Compon
     // this check is roundabout because the extends clause above would
     // not allow any component that accepts _more_ than theme as a prop
     component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
-) => React.ForwardRefExoticComponent<WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>>;
+) => React.ForwardRefExoticComponent<
+    WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>
+>;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
@@ -359,7 +359,7 @@ export type ThemeProviderComponent<T extends object, U extends object = T> = Bas
 export const ThemeProvider: ThemeProviderComponent<AnyIfEmpty<DefaultTheme>>;
 // NOTE: this technically starts as undefined, but allowing undefined is unhelpful when used correctly
 export const ThemeContext: React.Context<AnyIfEmpty<DefaultTheme>>;
-export const ThemeConsumer: typeof ThemeContext['Consumer'];
+export const ThemeConsumer: typeof ThemeContext["Consumer"];
 
 export interface Keyframes {
     getName(): string;
@@ -385,6 +385,7 @@ export class ServerStyleSheet {
     interleaveWithNodeStream(readableStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
     readonly instance: this;
     seal(): void;
+    clearTag(): void;
 }
 
 export type StylisPlugin = (

@@ -1,6 +1,6 @@
-import Serializer from '@rdfjs/serializer-ntriples';
-import { EventEmitter } from 'events';
-import { Sink, Stream } from 'rdf-js';
+import Serializer from "@rdfjs/serializer-ntriples";
+import { EventEmitter } from "events";
+import { Sink, Stream } from "rdf-js";
 
 const stream: Stream = {} as any;
 

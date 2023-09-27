@@ -19,13 +19,13 @@ declare namespace StartToastifyInstance {
         destination?: string | undefined;
         newWindow?: boolean | undefined;
         close?: boolean | undefined;
-        gravity?: 'top' | 'bottom' | undefined;
-        position?: 'left' | 'center' | 'right' | undefined;
+        gravity?: "top" | "bottom" | undefined;
+        position?: "left" | "center" | "right" | undefined;
         /**
          * Announce the toast to screen readers
          * @default 'polite'
          */
-        ariaLive?: 'off' | 'polite' | 'assertive' | undefined;
+        ariaLive?: "off" | "polite" | "assertive" | undefined;
         /**
          * @deprecated use style.background option instead
          */

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
- import type * as React from 'react';
+import type * as React from "react";
 
- export type RootTag = number;
- export const RootTagContext: React.Context<RootTag>;
+export type RootTag = number;
+export const RootTagContext: React.Context<RootTag>;

@@ -13,7 +13,7 @@ worker;
 
 const { Keystore } = wallet;
 
-// $ExpectType Keystore
+// $ExpectType Promise<Keystore>
 new Keystore();
-// $ExpectType Keystore
-new Keystore(null, '');
+// $ExpectType Promise<Keystore>
+new Keystore(null, "");

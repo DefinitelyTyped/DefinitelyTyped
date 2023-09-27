@@ -22,7 +22,7 @@ declare namespace listen {
 
 declare function listen(
     stream: NodeJS.ReadStream,
-    callback: listen.Callback
+    callback: listen.Callback,
 ): listen.OffKeyPress;
 
 export = listen;
