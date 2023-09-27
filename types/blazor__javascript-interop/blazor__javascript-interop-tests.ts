@@ -26,11 +26,19 @@ interface ColorFlags {
     blue: boolean;
 }
 
+type JsObjectReference = DotNet.JsObjectReference;
+
 const testInteropApi = async (dotNetRef: DotNet.DotNetObject) => {
     // validate api patterns
     const tokens = [1, 2, 3];
+    const buffer = new ArrayBuffer(8);
     DotNet.invokeMethod<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType string
     DotNet.invokeMethod<number>("MyCoolApp.Core", "Foo", 1, 2); // $ExpectType number
+    const windowRef = DotNet.createJSObjectReference(window); // $ExceptType JsObjectReference
+    DotNet.createJSStreamReference(buffer) // $ExceptType JsObjectReference
+    DotNet.createJSStreamReference(new Int32Array(buffer)) // $ExceptType JsObjectReference
+    DotNet.createJSStreamReference(new Blob()) // $ExceptType JsObjectReference
+    DotNet.disposeJSObjectReference(windowRef) // $ExceptType void
     const fooResults = await DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType string
     DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType Promise<string>
     DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType Promise<string>
@@ -44,4 +52,5 @@ const testInteropApi = async (dotNetRef: DotNet.DotNetObject) => {
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", ...tokens); // $ExpectType Promise<void>
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", 5, ...tokens, 20, ...[25]); // $ExpectType Promise<void>
     dotNetRef.invokeMethodAsync<ColorFlags>("MyCoolApp.Core", "Foo", 1, 2, 3); // $ExpectType Promise<ColorFlags>
+    dotNetRef.dispose(); // $ExpectType void
 };
