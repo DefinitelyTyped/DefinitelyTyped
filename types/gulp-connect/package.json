@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/express": "*",
-        "@types/gulp": "*",
+        "@types/gulp": "^3.8.38",
         "@types/gulp-connect": "workspace:."
     },
     "owners": [
