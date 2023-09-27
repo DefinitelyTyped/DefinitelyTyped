@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace TabContainer {
     export interface TabContainerProps extends React.HTMLAttributes<TabContainer> {
@@ -7,5 +7,5 @@ declare namespace TabContainer {
         generateChildId?: ((eventKey: any, type: any) => string) | undefined;
     }
 }
-declare class TabContainer extends React.Component<TabContainer.TabContainerProps> { }
+declare class TabContainer extends React.Component<TabContainer.TabContainerProps> {}
 export = TabContainer;

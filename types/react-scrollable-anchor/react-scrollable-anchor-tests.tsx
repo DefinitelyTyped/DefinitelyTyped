@@ -1,5 +1,5 @@
-import * as React from 'react';
-import ScrollableAnchor, { goToAnchor, goToTop, removeHash, configureAnchors } from "react-scrollable-anchor";
+import * as React from "react";
+import ScrollableAnchor, { configureAnchors, goToAnchor, goToTop, removeHash } from "react-scrollable-anchor";
 
 /*
  * goToAnchor
@@ -35,13 +35,17 @@ configureAnchors();
 // @ts-expect-error
 configureAnchors({ wrongKey: 1 });
 // @ts-expect-error
-configureAnchors({ offset: 'string' });
+configureAnchors({ offset: "string" });
 // @ts-expect-error
-configureAnchors({ scrollDuration: 'string' });
+configureAnchors({ scrollDuration: "string" });
 // @ts-expect-error
 configureAnchors({ keepLastAnchorHash: 3 });
 
 // @ts-expect-error
-<ScrollableAnchor><div>Test</div></ScrollableAnchor>;
+<ScrollableAnchor>
+    <div>Test</div>
+</ScrollableAnchor>;
 
-<ScrollableAnchor id="anchorId"><div>Test</div></ScrollableAnchor>;
+<ScrollableAnchor id="anchorId">
+    <div>Test</div>
+</ScrollableAnchor>;

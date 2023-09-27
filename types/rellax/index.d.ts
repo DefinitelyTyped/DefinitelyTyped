@@ -17,7 +17,7 @@ declare namespace Rellax {
          * @param el Single element or string with selector of elements
          * @param options Options
          */
-        new (el?: string | Element, options?: RellaxOptions): RellaxInstance;
+        new(el?: string | Element, options?: RellaxOptions): RellaxInstance;
     }
 
     interface RellaxInstance {

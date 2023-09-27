@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface TwitterPickerStylesProps {
     card?: CSSProperties | undefined;
@@ -22,4 +22,4 @@ export interface TwitterPickerProps extends CustomPickerProps {
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
 }
 
-export default class TwitterPicker extends Component<TwitterPickerProps> { }
+export default class TwitterPicker extends Component<TwitterPickerProps> {}

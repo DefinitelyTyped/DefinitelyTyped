@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace MenuItem {
     export interface MenuItemProps extends React.HTMLProps<MenuItem> {
@@ -15,5 +15,5 @@ declare namespace MenuItem {
         title?: string | undefined;
     }
 }
-declare class MenuItem extends React.Component<MenuItem.MenuItemProps> { }
+declare class MenuItem extends React.Component<MenuItem.MenuItemProps> {}
 export = MenuItem;

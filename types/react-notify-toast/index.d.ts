@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 interface reactNotifyToastColor {
     background: string;
@@ -14,9 +14,9 @@ interface reactNotifyToastColor {
 declare class reactNotifyToast {
     show(
         text: string,
-        type?: 'success' | 'error' | 'warning' | 'custom',
+        type?: "success" | "error" | "warning" | "custom",
         timeout?: number,
-        color?: reactNotifyToastColor
+        color?: reactNotifyToastColor,
     ): void;
 
     hide(): void;

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace FormGroup {
     export interface FormGroupProps extends React.HTMLProps<FormGroup> {
@@ -9,5 +9,5 @@ declare namespace FormGroup {
         validationState?: "success" | "warning" | "error" | null | undefined;
     }
 }
-declare class FormGroup extends React.Component<FormGroup.FormGroupProps> { }
+declare class FormGroup extends React.Component<FormGroup.FormGroupProps> {}
 export = FormGroup;

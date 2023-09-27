@@ -1,4 +1,4 @@
-() => {
+(() => {
     // $ExpectType RaphaelPaper<"SVG" | "VML">
     Raphael("#id", 10, 20);
 
@@ -12,4 +12,4 @@
 
     // $ExpectType RaphaelMatrix
     matrix.clone();
-};
+});

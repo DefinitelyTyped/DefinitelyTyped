@@ -5,9 +5,8 @@
 
 /// <reference types="node" />
 
-
-import events = require('events');
-import stream = require('stream');
+import events = require("events");
+import stream = require("stream");
 
 export declare function createContext(url?: string): Context;
 
