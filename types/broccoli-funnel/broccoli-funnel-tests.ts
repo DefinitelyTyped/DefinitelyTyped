@@ -1,72 +1,72 @@
-import broccoliFunnel = require('broccoli-funnel');
+import broccoliFunnel = require("broccoli-funnel");
 
 // $ExpectType Funnel
-broccoliFunnel(['public', 'scripts'], {
+broccoliFunnel(["public", "scripts"], {
     exclude: [/exclude/],
     include: [/include/],
 });
 
 // $ExpectType Funnel
-broccoliFunnel('public', {
+broccoliFunnel("public", {
     exclude: [relativePath => true],
     include: [relativePath => true],
-    files: () => ['files'],
-    getDestinationPath: relativePath => 'path',
+    files: () => ["files"],
+    getDestinationPath: relativePath => "path",
 });
 
 // $ExpectType Funnel
-broccoliFunnel('public', {
+broccoliFunnel("public", {
     allowEmpty: false,
-    destDir: 'dest',
-    exclude: ['exclude'],
-    include: ['include'],
-    files: ['files'],
-    getDestinationPath: () => 'path',
-    srcDir: 'src',
+    destDir: "dest",
+    exclude: ["exclude"],
+    include: ["include"],
+    files: ["files"],
+    getDestinationPath: () => "path",
+    srcDir: "src",
 });
 
 // $ExpectType Funnel
-new broccoliFunnel.Funnel(['public', 'scripts'], {
+new broccoliFunnel.Funnel(["public", "scripts"], {
     exclude: [/exclude/],
     include: [/include/],
 });
 
 // $ExpectType Funnel
-new broccoliFunnel.Funnel('public', {
+new broccoliFunnel.Funnel("public", {
     exclude: [relativePath => true],
     include: [relativePath => true],
-    files: () => ['files'],
-    getDestinationPath: relativePath => 'path',
+    files: () => ["files"],
+    getDestinationPath: relativePath => "path",
 });
 
 // $ExpectType Funnel
-new broccoliFunnel.Funnel('public', {
+new broccoliFunnel.Funnel("public", {
     allowEmpty: false,
-    destDir: 'dest',
-    exclude: ['exclude'],
-    include: ['include'],
-    files: ['files'],
-    getDestinationPath: () => 'path',
-    srcDir: 'src',
+    destDir: "dest",
+    exclude: ["exclude"],
+    include: ["include"],
+    files: ["files"],
+    getDestinationPath: () => "path",
+    srcDir: "src",
 });
 
 // $ExpectType void
-broccoliFunnel('public').build();
+broccoliFunnel("public").build();
 
 // $ExpectType boolean
-broccoliFunnel('public').canMatchWalk();
+broccoliFunnel("public").canMatchWalk();
 
 // $ExpectType boolean
-broccoliFunnel('public').includeFile('relativePath');
+broccoliFunnel("public").includeFile("relativePath");
 
 // $ExpectType string
-broccoliFunnel('public').lookupDestinationPath('relativePath');
+broccoliFunnel("public").lookupDestinationPath("relativePath");
 
 // $ExpectType void
-broccoliFunnel('public').processFile('sorucePath', 'destPath', 'relativePath');
+broccoliFunnel("public").processFile("sorucePath", "destPath", "relativePath");
 
 // $ExpectType void
-broccoliFunnel('public').processFilters('inputPath');
+broccoliFunnel("public").processFilters("inputPath");
 
 // $ExpectType boolean
-broccoliFunnel('public').shouldLinkRoots();
+broccoliFunnel("public").shouldLinkRoots();

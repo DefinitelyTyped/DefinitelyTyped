@@ -3,7 +3,7 @@
 // Definitions by: Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import impl = require('./implementation');
+import impl = require("./implementation");
 
 type Impl = typeof impl;
 

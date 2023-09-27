@@ -26,7 +26,7 @@ google.accounts.id.initialize({
     itp_support: true,
     login_hint: "user@test.com",
     hd: "*",
-    use_fedcm_for_prompt: true
+    use_fedcm_for_prompt: true,
 });
 
 /**
@@ -81,4 +81,3 @@ window.onGoogleLibraryLoad = () => {
     google.accounts.id.initialize({ client_id: "YOUR_CLIENT_ID" });
     google.accounts.id.prompt(() => {});
 };
-

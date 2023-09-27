@@ -110,7 +110,10 @@ declare class Box {
     static isLoggedIn(address: string): boolean;
     static create(ethereumProvider: any): Promise<Box>;
 
-    openSpace(name: string, opts?: { consentCallback?: (() => void) | undefined; onSyncDone?: (() => void) | undefined }): Promise<Box.Space>;
+    openSpace(
+        name: string,
+        opts?: { consentCallback?: (() => void) | undefined; onSyncDone?: (() => void) | undefined },
+    ): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
     syncDone: Promise<Box.Space>;
     onSyncDone(syncDoneFn: () => void): void;
@@ -148,5 +151,8 @@ declare class Box {
         members: boolean,
         opts?: { profileServer?: string | undefined },
     ): Promise<Box.ThreadPost[]>;
-    static getThreadByAddress(address: string, opts?: { profileServer?: string | undefined }): Promise<Box.ThreadPost[]>;
+    static getThreadByAddress(
+        address: string,
+        opts?: { profileServer?: string | undefined },
+    ): Promise<Box.ThreadPost[]>;
 }

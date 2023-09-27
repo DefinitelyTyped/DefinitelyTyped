@@ -396,19 +396,19 @@ declare namespace OracleDB {
     function fetchTypeHandler(metadata: Metadata<any>): Promise<void>;
     /**
      * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
-        * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
-        * dbType: The database type, that is, one of the Oracle Database Type Objects.
-        * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
-        * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
-        * name: The name of the column.
-        * nullable: Indicates whether NULL values are permitted for this column.
-        * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
-        * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
+     * dbType: The database type, that is, one of the Oracle Database Type Objects.
+     * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
+     * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
+     * name: The name of the column.
+     * nullable: Indicates whether NULL values are permitted for this column.
+     * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
      * By default, this property is “undefined”, that is, it is not set.
      * The function is expected to return either nothing or an object containing:
-        * the type attribute
-        * or the converter attribute
-        * or both the type and converter attributes
+     * the type attribute
+     * or the converter attribute
+     * or both the type and converter attributes
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
      */
@@ -601,13 +601,13 @@ declare namespace OracleDB {
      */
     let stmtCacheSize: number;
     /**
-     * This property is a boolean that determines the node-oracledb driver mode which is in use. If the value is true, it indicates that node-oracledb Thin mode is in use. 
+     * This property is a boolean that determines the node-oracledb driver mode which is in use. If the value is true, it indicates that node-oracledb Thin mode is in use.
      * If the value is false, it indicates that node-oracledb Thick mode is in use.
      * The default value is true.
-     * Immediately after node-oracledb is imported, this property is set to true indicating that node-oracledb defaults to Thin mode. If oracledb.initOracleClient() is called, 
-     * then the value of this property is set to False indicating that Thick mode is enabled. Once the first standalone connection or connection pool is created, 
+     * Immediately after node-oracledb is imported, this property is set to true indicating that node-oracledb defaults to Thin mode. If oracledb.initOracleClient() is called,
+     * then the value of this property is set to False indicating that Thick mode is enabled. Once the first standalone connection or connection pool is created,
      * or a call to oracledb.initOracleClient() is made, then node-oracledb’s mode is fixed and the value set in oracledb.thin will never change for the lifetime of the process.
-     * The property connection.thin can be used to check a connection’s mode and the attribute pool.thin can be used to check a pool’s mode. 
+     * The property connection.thin can be used to check a connection’s mode and the attribute pool.thin can be used to check a pool’s mode.
      * The value that is displayed for the connection.thin, pool.thin, and oracledb.thin attributes will be the same.
      */
     let thin: boolean;
@@ -1425,7 +1425,7 @@ declare namespace OracleDB {
         /**
          * The directory in which the Optional Oracle Net Configuration Files are found.
          * For node-oracledb Thick mode, use the oracledb.initOracleClient() option configDir instead.
-        * @since 6.0
+         * @since 6.0
          */
         sourceRoute?: string | undefined;
         /**
@@ -1501,7 +1501,7 @@ declare namespace OracleDB {
         offset?: number | undefined;
         /**
          * This property is a string. When using Promises or Async/Await, the Error object includes a stack
-         * 
+         *
          * The stack trace displays only the application backtrace and not the driver’s internal frames or functions.
          * See Increasing the Stack Trace Limit to understand how to increase the number of stack frames displayed in a trace.
          */
@@ -1553,7 +1553,7 @@ declare namespace OracleDB {
         /**
          * Depreciated in Version 6.0.0
          * Use the oracledb.fetchTypeHandler method instead.
-         * 
+         *
          * Defines how query column data should be represented in JavaScript. It can be used in conjunction with,
          * or instead of, the global settings fetchAsString and fetchAsBuffer.
          *
@@ -2143,7 +2143,7 @@ declare namespace OracleDB {
          * The distinguished name (DN) that should be matched with the server. If specified, this value is used for any verification. Otherwise, the hostname will be used.
          * This value is ignored if the sslServerDNMatch property is not set to the value True.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * @since 6.0     
+         * @since 6.0
          */
         sslServerCertDN?: string | undefined;
         /**
@@ -2160,21 +2160,19 @@ declare namespace OracleDB {
          */
         httpsProxy?: string | undefined;
         /**
-         * 	
          * The port to be used to communicate with the proxy host.
          * The default value is 0.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * 
+         *
          * @since 6.0
          * @default 0
          */
         httpsProxyPort?: number | undefined;
         /**
-         * 	
          * The number of times that a connection attempt should be retried before the attempt is terminated.
          * The default value is 0.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * 
+         *
          * @since 6.0
          * @default 0
          */
@@ -2183,7 +2181,7 @@ declare namespace OracleDB {
          * The number of seconds to wait before making a new connection attempt.
          * The default value is 0.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * 
+         *
          * @since 6.0
          * @default 0
          */
@@ -2196,7 +2194,6 @@ declare namespace OracleDB {
          */
         connectTimeout?: number | undefined;
         /**
-         * 	
          * The maximum number of seconds to wait to establish a connection to the database host.
          * The default value is 60.0.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
@@ -2648,7 +2645,7 @@ declare namespace OracleDB {
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
          *
-         * Each column’s name is always given. 
+         * Each column’s name is always given.
          */
         metaData?: Metadata<T>[] | undefined;
         /**

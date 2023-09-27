@@ -1,4 +1,4 @@
-import { Metadata } from '.';
+import { Metadata } from ".";
 
 declare namespace generateHTML {
     /**
@@ -53,7 +53,7 @@ declare namespace generateHTML {
          * (a must-have for use in markdown files).
          * @default 'block'
          */
-        whitespaceMode?: 'inline' | 'block';
+        whitespaceMode?: "inline" | "block";
     }
 }
 

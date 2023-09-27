@@ -38,7 +38,7 @@ interface WebApp {
      * The color scheme currently used in the Telegram app. Either “light” or
      * “dark”. Also available as the CSS variable var(--tg-color-scheme).
      */
-    colorScheme: 'light' | 'dark';
+    colorScheme: "light" | "dark";
     /**
      * An object containing the current theme settings used in the Telegram app.
      */
@@ -123,13 +123,14 @@ interface WebApp {
     /**
      * A method that sets the app header color in the `#RRGGBB` format.
      * You can also use keywords bg_color and secondary_bg_color.
-     */ // string & {} prevents this from eagerly collapsing into just string
-    setHeaderColor(color: 'bg_color' | 'secondary_bg_color' | (string & {})): void;
+     */
+    // string & {} prevents this from eagerly collapsing into just string
+    setHeaderColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
      * A method that sets the app background color in the `#RRGGBB` format or
      * you can use keywords bg_color, secondary_bg_color instead.
      */
-    setBackgroundColor(color: 'bg_color' | 'secondary_bg_color' | (string & {})): void;
+    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
      * A method that enables a confirmation dialog while the user is trying to close the Web App.
      */
@@ -143,41 +144,41 @@ interface WebApp {
      * events.
      */
     onEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
         eventHandler: () => void,
     ): void;
-    onEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
-    onEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    onEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
+    onEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     onEvent(
-        eventType: 'invoiceClosed',
-        eventHandler: (eventData: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void,
+        eventType: "invoiceClosed",
+        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
     ): void;
-    onEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
-    onEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+    onEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
+    onEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
     onEvent(
-        eventType: 'writeAccessRequested',
-        eventHandler: (eventData: { status: 'allowed' | 'cancelled' }) => void,
+        eventType: "writeAccessRequested",
+        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    onEvent(eventType: 'contactRequested', eventHandler: (eventData: { status: 'sent' | 'cancelled' }) => void): void;
+    onEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
         eventHandler: () => void,
     ): void;
-    offEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
-    offEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    offEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
+    offEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     offEvent(
-        eventType: 'invoiceClosed',
-        eventHandler: (eventData: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void,
+        eventType: "invoiceClosed",
+        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
     ): void;
-    offEvent(eventType: 'qrTextReceived', eventHandler: (eventData: { data: string }) => void): void;
-    offEvent(eventType: 'clipboardTextReceived', eventHandler: (eventData: { data: string | null }) => void): void;
+    offEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
+    offEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
     offEvent(
-        eventType: 'writeAccessRequested',
-        eventHandler: (eventData: { status: 'allowed' | 'cancelled' }) => void,
+        eventType: "writeAccessRequested",
+        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    offEvent(eventType: 'contactRequested', eventHandler: (eventData: { status: 'sent' | 'cancelled' }) => void): void;
+    offEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -196,7 +197,7 @@ interface WebApp {
      * You can specify which types of chats the user will be able to choose from.
      * It can be one or more of the following types: users, bots, groups, channels.
      */
-    switchInlineQuery(query: string, choose_chat_types?: Array<'users' | 'bots' | 'groups' | 'channels'>): void;
+    switchInlineQuery(query: string, choose_chat_types?: Array<"users" | "bots" | "groups" | "channels">): void;
     /**
      * A method that opens a link in an external browser.
      * The Web App will not be closed.
@@ -220,7 +221,7 @@ interface WebApp {
      */
     openInvoice(
         url: string,
-        callback: (url: string, status: 'paid' | 'cancelled' | 'failed' | 'pending') => void,
+        callback: (url: string, status: "paid" | "cancelled" | "failed" | "pending") => void,
     ): void;
     /**
      * A method that shows a native popup described by the params argument of the type PopupParams.
@@ -365,37 +366,39 @@ interface PopupParams {
 /**
  * This object describes the native popup button.
  */
-type PopupButton = {
-    /**
-     * Identifier of the button, 0-64 characters. Set to empty string by default.
-     * If the button is pressed, its id is returned in the callback and the popupClosed event.
-     */
-    id?: string;
-    /**
-     * Type of the button. Set to default by default.
-     * Can be one of these values:
-     * - `default`, a button with the default style,
-     * - `ok`, a button with the localized text “OK”,
-     * - `close`, a button with the localized text “Close”,
-     * - `cancel`, a button with the localized text “Cancel”,
-     * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
-     */
-    type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive';
-    /**
-     * The text to be displayed on the button, 0-64 characters.
-     * Required if type is default or destructive. Irrelevant for other types.
-     */
-    text?: string;
-} & (
-    | {
-          type: 'default' | 'destructive';
-          text: string;
-      }
-    | {
-          type: 'ok' | 'close' | 'cancel';
-          text?: string;
-      }
-);
+type PopupButton =
+    & {
+        /**
+         * Identifier of the button, 0-64 characters. Set to empty string by default.
+         * If the button is pressed, its id is returned in the callback and the popupClosed event.
+         */
+        id?: string;
+        /**
+         * Type of the button. Set to default by default.
+         * Can be one of these values:
+         * - `default`, a button with the default style,
+         * - `ok`, a button with the localized text “OK”,
+         * - `close`, a button with the localized text “Close”,
+         * - `cancel`, a button with the localized text “Cancel”,
+         * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+         */
+        type?: "default" | "ok" | "close" | "cancel" | "destructive";
+        /**
+         * The text to be displayed on the button, 0-64 characters.
+         * Required if type is default or destructive. Irrelevant for other types.
+         */
+        text?: string;
+    }
+    & (
+        | {
+            type: "default" | "destructive";
+            text: string;
+        }
+        | {
+            type: "ok" | "close" | "cancel";
+            text?: string;
+        }
+    );
 
 /**
  * This object controls the back button, which can be displayed in the header of
@@ -515,7 +518,7 @@ interface HapticFeedback {
      * - rigid, indicates a collision between hard or inflexible UI objects,
      * - soft, indicates a collision between soft or flexible UI objects.
      */
-    impactOccurred(style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'): () => void;
+    impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): () => void;
     /**
      * A method tells that a task or action has succeeded, failed, or produced a
      * warning. The Telegram app may play the appropriate haptics based on type
@@ -524,7 +527,7 @@ interface HapticFeedback {
      * - success, indicates that a task or action has completed successfully,
      * - warning, indicates that a task or action produced a warning.
      */
-    notificationOccurred(type: 'error' | 'success' | 'warning'): () => void;
+    notificationOccurred(type: "error" | "success" | "warning"): () => void;
     /**
      * A method tells that the user has changed a selection. The Telegram app
      * may play the appropriate haptics.
@@ -645,7 +648,7 @@ interface WebAppInitData {
      * “private”, “group”, “supergroup”, or “channel”.
      * Returned only for Web Apps launched from direct links.
      */
-    chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
+    chat_type?: "sender" | "private" | "group" | "supergroup" | "channel";
     /**
      * Global identifier, uniquely corresponding to the chat from which the Web App was opened.
      * Returned only for Web Apps launched from a direct link.
@@ -721,7 +724,7 @@ interface WebAppChat {
     /**
      * Type of chat, can be either “group”, “supergroup” or “channel”
      */
-    type: 'group' | 'supergroup' | 'channel';
+    type: "group" | "supergroup" | "channel";
     /**
      * Title of the chat
      */

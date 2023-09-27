@@ -12,7 +12,7 @@
  */
 declare function groupBy<T, K extends PropertyKey>(
     iterable: Iterable<T>,
-    callbackfn: (value: T, index: number) => K
+    callbackfn: (value: T, index: number) => K,
 ): Record<K, T[]>;
 
 /**
@@ -22,7 +22,7 @@ declare function groupBy<T, K extends PropertyKey>(
  */
 declare function groupBy(
     iterable: Iterable<any>,
-    callbackfn: (value: any, index: number) => PropertyKey
+    callbackfn: (value: any, index: number) => PropertyKey,
 ): Record<PropertyKey, any[]>;
 
 export = groupBy;

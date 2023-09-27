@@ -4,4 +4,4 @@
 //                 vplasencia <https://github.com/vplasencia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './index.cjs';
+export * from "./index.cjs";

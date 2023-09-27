@@ -97,9 +97,9 @@ $( "<div/>", {
 ```
      */
     <TElement extends HTMLElement = HTMLElement>(
-      html: JQuery.htmlString,
-      ownerDocument_attributes?: Document | JQuery.PlainObject,
-      // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        html: JQuery.htmlString,
+        ownerDocument_attributes?: Document | JQuery.PlainObject,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -139,9 +139,9 @@ $( "div", xml.responseXML );
 ​
      */
     <TElement extends Element = HTMLElement>(
-      selector: JQuery.Selector,
-      context?: Element | Document | JQuery | JQuery.Selector,
-      // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        selector: JQuery.Selector,
+        context?: Element | Document | JQuery | JQuery.Selector,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.

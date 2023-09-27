@@ -11,7 +11,6 @@
 // the Ember namespace.
 import Rsvp from "rsvp";
 
-
 import { Registry as ControllerRegistry } from "@ember/controller";
 import * as EmberStringNs from "@ember/string";
 import * as EmberTemplateNs from "@ember/template";

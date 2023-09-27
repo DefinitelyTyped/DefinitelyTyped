@@ -1,11 +1,11 @@
-import OvenPlayer, { OvenPlayerQuality } from 'ovenplayer';
+import OvenPlayer, { OvenPlayerQuality } from "ovenplayer";
 
-const playerContainer1 = document.createElement('div');
-playerContainer1.id = 'player1';
+const playerContainer1 = document.createElement("div");
+playerContainer1.id = "player1";
 document.body.appendChild(playerContainer1);
 
-const playerContainer2 = document.createElement('div');
-playerContainer2.id = 'player2';
+const playerContainer2 = document.createElement("div");
+playerContainer2.id = "player2";
 document.body.appendChild(playerContainer2);
 
 // test interface OvenPlayer, interface OvenPlayerConfig,
@@ -16,32 +16,32 @@ const debug: boolean = OvenPlayer.debug(true);
 
 // generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
 const webrtcSources1 = OvenPlayer.generateWebrtcUrls({
-    host: 'ws://host:port',
-    application: 'app',
-    stream: 'stream_1080',
-    label: 'WebRTC 1080P',
+    host: "ws://host:port",
+    application: "app",
+    stream: "stream_1080",
+    label: "WebRTC 1080P",
 });
 
 const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
     {
-        host: 'ws://host:port',
-        application: 'app',
-        stream: 'stream_1080',
-        label: 'WebRTC 1080P',
+        host: "ws://host:port",
+        application: "app",
+        stream: "stream_1080",
+        label: "WebRTC 1080P",
     },
 ]);
 
 // create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
-const player = OvenPlayer.create('player1', {
+const player = OvenPlayer.create("player1", {
     mute: true,
     playbackRates: [1, 2, 3, 3],
     waterMark: {
-        image: '/path/to/watermark/image.png',
-        position: 'top-left',
-        y: '20px',
-        x: '20px',
-        width: '40px',
-        height: '30px',
+        image: "/path/to/watermark/image.png",
+        position: "top-left",
+        y: "20px",
+        x: "20px",
+        width: "40px",
+        height: "30px",
         opacity: 0.7,
     },
     autoStart: true,
@@ -58,8 +58,8 @@ const player = OvenPlayer.create('player1', {
     currentProtocolOnly: false,
     tracks: [],
     volume: 100,
-    adTagUrl: '<url>',
-    adClient: 'googleima',
+    adTagUrl: "<url>",
+    adClient: "googleima",
     hidePlaylistIcon: true,
     sources: webrtcSources1,
     webrtcConfig: {
@@ -68,7 +68,7 @@ const player = OvenPlayer.create('player1', {
         playoutDelayHint: 0,
         iceServers: [
             {
-                urls: ['stun:stun.l.google.com:19302'],
+                urls: ["stun:stun.l.google.com:19302"],
             },
         ],
     },
@@ -77,7 +77,7 @@ const player = OvenPlayer.create('player1', {
 const player2 = OvenPlayer.create(playerContainer2, {});
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-const playerInstance1 = OvenPlayer.getPlayerByContainerId('player');
+const playerInstance1 = OvenPlayer.getPlayerByContainerId("player");
 
 // getPlayerByIndex(index: number): OvenPlayerInstance | null;
 const playerInstance2 = OvenPlayer.getPlayerByIndex(0);
@@ -111,77 +111,77 @@ const providerName: string | null = player.getProviderName();
 // load(sources: OvenPlayerSource[] | OvenPlayerPlayList): void;
 player.load([
     {
-        type: 'webrtc',
-        file: 'file',
-        label: 'myLabel',
+        type: "webrtc",
+        file: "file",
+        label: "myLabel",
     },
     {
-        type: 'webrtc',
-        file: 'file',
+        type: "webrtc",
+        file: "file",
     },
 ]);
 
 player.load([
     {
-        title : "01",
-        adTagUrl : "https://pubads.g.doubleclick.net/gampad/ads?...",
-        image : "https://path.to/your_video_thumbnail.jpeg",
-        duration : 7343,
+        title: "01",
+        adTagUrl: "https://pubads.g.doubleclick.net/gampad/ads?...",
+        image: "https://path.to/your_video_thumbnail.jpeg",
+        duration: 7343,
         sources: [{
-            type : "mp4",
-            file :  "https://path.to/your_video",
-            label : "360P"
+            type: "mp4",
+            file: "https://path.to/your_video",
+            label: "360P",
         }],
         tracks: [{
-            kind : "captions",
-            file :  "https://path.to/your_caption.vtt",
-            label : "KO vtt"
-        }]
+            kind: "captions",
+            file: "https://path.to/your_caption.vtt",
+            label: "KO vtt",
+        }],
     },
     {
-        title : "02",
-        adTagUrl : "https://pubads.g.doubleclick.net/gampad/ads?...",
-        image : "https://path.to/your_video_thumbnail2.jpeg",
-        duration : 8333,
+        title: "02",
+        adTagUrl: "https://pubads.g.doubleclick.net/gampad/ads?...",
+        image: "https://path.to/your_video_thumbnail2.jpeg",
+        duration: 8333,
         sources: [
             {
-                type : "mp4",
-                file :  "https://path.to/your_video2",
-                label : "360P"
+                type: "mp4",
+                file: "https://path.to/your_video2",
+                label: "360P",
             },
             {
-                type : "hls",
-                file :  "https://path.to/your_video.m3u8",
-                label: "360P DASH"
+                type: "hls",
+                file: "https://path.to/your_video.m3u8",
+                label: "360P DASH",
             },
         ],
         tracks: [{
-            kind : "captions",
-            file :  "https://path.to/your_caption2.vtt",
-            label : "KO vtt"
-        }]
-    }
+            kind: "captions",
+            file: "https://path.to/your_caption2.vtt",
+            label: "KO vtt",
+        }],
+    },
 ]);
 
 const quality: OvenPlayerQuality = {
-    bitrate: '4000',
+    bitrate: "4000",
     height: 320,
     width: 320,
     index: 1,
-    label: '320p',
+    label: "320p",
 };
 
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
 // on(evnetName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
-player.on('ready', () => {});
+player.on("ready", () => {});
 
 // once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
-player.once('stateChanged', data => {});
+player.once("stateChanged", data => {});
 
 // off(eventName: string): void;
-player.off('ready');
+player.off("ready");
 
 // remove(): void;
 player.remove();
@@ -189,13 +189,13 @@ player.remove();
 // @ts-expect-error: it's deprecated method, should throw error for newest users.
 player.setCaption({
     // you can use player.setCaption?.()
-    file: 'https://youtu.be/dQw4w9WgXcQ',
-    kind: 'caption',
-    label: 'label',
+    file: "https://youtu.be/dQw4w9WgXcQ",
+    kind: "caption",
+    label: "label",
 });
 
 player.addCaption({
-    file: 'https://youtu.be/dQw4w9WgXcQ',
-    kind: 'caption',
-    label: 'label',
+    file: "https://youtu.be/dQw4w9WgXcQ",
+    kind: "caption",
+    label: "label",
 });
