@@ -164,7 +164,7 @@ player.load([
 ]);
 
 const quality: OvenPlayerQuality = {
-    bitrate: 4000,
+    bitrate: '4000',
     height: 320,
     width: 320,
     index: 1,

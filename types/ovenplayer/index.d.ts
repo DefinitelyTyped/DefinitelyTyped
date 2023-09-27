@@ -405,7 +405,7 @@ interface OvenPlayerInstance {
 }
 
 interface OvenPlayerQuality {
-    bitrate: number;
+    bitrate: string;
     height: number;
     index: number;
     label: string;
