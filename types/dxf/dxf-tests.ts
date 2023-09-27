@@ -17,6 +17,7 @@ helper.toSVG();
 // $ExpectType Polyline[]
 helper.toPolylines();
 
+
 const { entities } = helper.parsed!;
 
 // $ExpectType PointEntityData[]

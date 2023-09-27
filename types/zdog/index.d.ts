@@ -148,6 +148,7 @@ export interface PathBezierCommand {
  */
 export type PathCommand = VectorOptions | PathLineCommand | PathMoveCommand | PathArcCommand | PathBezierCommand;
 
+
 /** @see {@link Shape} */
 export interface ShapeOptions extends AnchorOptions {
     /**

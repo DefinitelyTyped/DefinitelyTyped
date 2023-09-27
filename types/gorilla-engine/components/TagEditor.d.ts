@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface TagEditorProps extends Common, Bounds, Background, Font {
+    interface TagEditorProps extends Common, Bounds, Background, Font  {
         value: any;
         tags: Tag[];
         editable: boolean;
@@ -12,3 +12,4 @@ declare namespace GorillaEngine.UI {
     }
     interface TagEditor extends TagEditorProps {}
 }
+

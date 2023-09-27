@@ -1146,22 +1146,7 @@ declare module "node:test" {
          */
         [Symbol.dispose](): void;
     }
-    export {
-        after,
-        afterEach,
-        before,
-        beforeEach,
-        describe,
-        it,
-        Mock,
-        mock,
-        only,
-        run,
-        skip,
-        test,
-        test as default,
-        todo,
-    };
+    export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, test as default, todo, Mock };
 }
 
 interface TestLocationInfo {

@@ -46,14 +46,14 @@ declare namespace GorillaEngine.UI {
         setValues: (values: any) => void;
     }
     interface GridMeasure {
-        fractionOfBar: number;
-        enabled: boolean;
-        showLabels?: boolean;
-        tickWidth: boolean;
-        tickHeight: number;
-        tickColor: string;
-        tickImage: string;
-        font?: { name: string; size: number; kerning: number; color: string };
+      fractionOfBar: number;
+      enabled: boolean;
+      showLabels?: boolean;
+      tickWidth: boolean;
+      tickHeight: number;
+      tickColor: string;
+      tickImage: string;
+      font?: {name: string; size: number; kerning: number; color: string };
     }
 
     interface SliceEditorProps extends Common, Bounds, Background, Clickable {
