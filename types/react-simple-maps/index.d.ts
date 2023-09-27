@@ -3,7 +3,6 @@
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
 //                 Kouame Komenan  <https://github.com/komenank>
-//                 Laurens Duin <https://github.com/laurens256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { GeoPath, GeoProjection } from 'd3-geo';
@@ -78,9 +77,18 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean | undefined;
-    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
-    onMove?: ((position: {x: number, y: number, zoom: number, dragging: WheelEvent }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
-    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMoveStart?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
+    onMove?:
+        | ((
+              position: { x: number; y: number; zoom: number; dragging: WheelEvent },
+              event: D3ZoomEvent<SVGElement, any>,
+          ) => void)
+        | undefined;
+    onMoveEnd?:
+        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
+        | undefined;
     filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
@@ -100,11 +108,13 @@ export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>,
 export interface GeographyProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     geography?: any;
-    style?: {
-        default?: React.CSSProperties | undefined;
-        hover?: React.CSSProperties | undefined;
-        pressed?: React.CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | {
+              default?: React.CSSProperties | undefined;
+              hover?: React.CSSProperties | undefined;
+              pressed?: React.CSSProperties | undefined;
+          }
+        | undefined;
     onMouseEnter?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
     onMouseLeave?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
     onMouseDown?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
@@ -116,11 +126,13 @@ export interface GeographyProps
 export interface MarkerProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     coordinates?: Point | undefined;
-    style?: {
-        default?: React.CSSProperties | undefined;
-        hover?: React.CSSProperties | undefined;
-        pressed?: React.CSSProperties | undefined;
-    } | undefined;
+    style?:
+        | {
+              default?: React.CSSProperties | undefined;
+              hover?: React.CSSProperties | undefined;
+              pressed?: React.CSSProperties | undefined;
+          }
+        | undefined;
     onMouseEnter?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
     onMouseLeave?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
     onMouseDown?: ((event: React.MouseEvent<SVGPathElement, MouseEvent>) => void) | undefined;
@@ -209,7 +221,7 @@ interface SphereProps extends React.SVGProps<SVGPathElement> {
 }
 
 export interface MapContextProps {
-  projection: (coordinates: [number, number]) => [number, number];
+    projection: (coordinates: [number, number]) => [number, number];
 }
 
 declare const ComposableMap: React.FunctionComponent<ComposableMapProps>;
@@ -223,4 +235,15 @@ declare const Line: React.FunctionComponent<LineProps>;
 declare const Sphere: React.FunctionComponent<SphereProps>;
 declare const MapContext: React.Context<MapContextProps>;
 
-export { ComposableMap, ZoomableGroup, Geographies, Geography, Marker, Annotation, Graticule, Line, Sphere, MapContext };
+export {
+    ComposableMap,
+    ZoomableGroup,
+    Geographies,
+    Geography,
+    Marker,
+    Annotation,
+    Graticule,
+    Line,
+    Sphere,
+    MapContext,
+};
