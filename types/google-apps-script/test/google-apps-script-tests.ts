@@ -70,7 +70,7 @@ const createEvent = (): void => {
 
 // Calendar Working Locations (Advanced Service)
 const createWorkingLocationEvent = (): void => {
-    const calendarId = 'primary';
+    const calendarId = "primary";
     const start = new Date();
     const end = new Date();
     start.setHours(10);
@@ -80,9 +80,9 @@ const createWorkingLocationEvent = (): void => {
         workingLocationProperties: {
             officeLocation: {
                 buildingId: "The-Office",
-                label: "The-Office"
+                label: "The-Office",
             },
-            type: "officeLocation"
+            type: "officeLocation",
         },
         kind: "calendar#event",
         summary: "The-Office (Office)",
@@ -93,14 +93,14 @@ const createWorkingLocationEvent = (): void => {
         eventType: "workingLocation",
         organizer: { "email": "bob@example.com", "self": true },
         start: {
-            date: "2023-09-25"
+            date: "2023-09-25",
         },
         end: {
-            date: "2023-09-26"
+            date: "2023-09-26",
         },
     };
     event = Calendar.Events.insert(event, calendarId);
-    Logger.log('Event ID: ' + event.id);
+    Logger.log("Event ID: " + event.id);
 };
 
 // Admin Directory (Advanced service)
@@ -132,24 +132,28 @@ const listAllUserOrganizations = () => {
     let page: GoogleAppsScript.AdminDirectory.Schema.Users;
     do {
         page = AdminDirectory.Users.list({
-            domain: 'example.com',
-            orderBy: 'givenName',
+            domain: "example.com",
+            orderBy: "givenName",
             maxResults: 100,
             pageToken: pageToken,
-            viewType: 'domain_public',
+            viewType: "domain_public",
         });
         const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
         if (users) {
             for (const user of users) {
-                Logger.log('%s: %s - %s)', user.name.fullName, user.organizations[0].location, user.organizations[0].department);
+                Logger.log(
+                    "%s: %s - %s)",
+                    user.name.fullName,
+                    user.organizations[0].location,
+                    user.organizations[0].department,
+                );
             }
         } else {
-            Logger.log('No users found.');
+            Logger.log("No users found.");
         }
         pageToken = page.nextPageToken;
     } while (pageToken);
 };
-
 
 // doPost function
 function doPost(e: GoogleAppsScript.Events.DoPost) {
@@ -887,7 +891,7 @@ const sheetDataSource = () => {
     dss.getDataSource();
     dss.getFilters();
     dss.getSheetValues("column1");
-    dss.getSheetValues("column1", 1, 1)
+    dss.getSheetValues("column1", 1, 1);
     dss.getSortSpecs();
     dss.getStatus();
     dss.refreshData();

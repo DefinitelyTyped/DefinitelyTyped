@@ -27,7 +27,18 @@
     "./types/sawtooth-sdk",
     "./types/three",
     "./types/winrt-uwp",
-    "./types/vscode"
+    "./types/vscode",
+
+    // These files will be formatted soon, but are failing in CI for now.
+    "./types/i18n*",
+    "./types/inquirer*",
+    "./types/react-blessed",
+    "./types/react-clipboardjs-copy",
+    "./types/react-map-gl",
+    "./types/react-native-awesome-card-io",
+    "./types/react-syntax-highlighter",
+    "./types/righto",
+    "./types/react-native-awesome-card-io"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.85.1.wasm"

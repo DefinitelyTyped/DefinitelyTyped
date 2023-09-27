@@ -17,7 +17,7 @@ declare namespace GorillaEngine.UI {
             y: number;
             width: number;
             height: number;
-        }
+        };
     }
 
     interface Knob extends KnobProps {}
