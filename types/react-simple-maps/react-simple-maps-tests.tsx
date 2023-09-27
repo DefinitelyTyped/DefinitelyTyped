@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup, MapContext } from 'react-simple-maps';
 
-const cities: { name: string; coordinates: [number, number] }[] = [
+const cities: Array<{ name: string; coordinates: [number, number] }> = [
     { name: 'New York', coordinates: [-74.006, 40.7128] },
     { name: 'Paris', coordinates: [2.3522, 48.8566] },
     { name: 'Singapore', coordinates: [103.8198, 1.3521] },
