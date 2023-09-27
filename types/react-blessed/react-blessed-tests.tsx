@@ -2,7 +2,7 @@
 import Blessed = require("blessed");
 import ReactBlessed = require("react-blessed");
 import React = require("react");
-import { BlessedAttributes, BlessedIntrinsicElementsPrefixed, Element } from "react-blessed";
+import { BlessedIntrinsicElementsPrefixed, BlessedAttributes, Element } from "react-blessed";
 
 // Testing example from demos page
 // https://github.com/Yomguithereal/react-blessed/blob/master/examples/dashboard.jsx
@@ -121,7 +121,8 @@ class Progress extends React.Component<any, any> {
                 onComplete={() =>
                     this.setState({
                         color: "green",
-                    })}
+                    })
+                }
                 onKeypress={(...args) => {}}
                 class={stylesheet.bordered}
                 filled={progress}
@@ -230,9 +231,8 @@ const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewConte
 
 const ForwardRef3 = React.forwardRef(
     (
-        props:
-            & BlessedIntrinsicElementsPrefixed["blessed-box"]
-            & Pick<BlessedIntrinsicElementsPrefixed["blessed-box"] & { theme?: {} }, "ref" | "theme">,
+        props: BlessedIntrinsicElementsPrefixed["blessed-box"] &
+            Pick<BlessedIntrinsicElementsPrefixed["blessed-box"] & { theme?: {} }, "ref" | "theme">,
         ref?: React.Ref<ReactBlessed.BoxElement>,
     ) => <blessed-box {...props} ref={ref} />,
 );

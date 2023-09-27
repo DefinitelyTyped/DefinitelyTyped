@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactClipboard;
 

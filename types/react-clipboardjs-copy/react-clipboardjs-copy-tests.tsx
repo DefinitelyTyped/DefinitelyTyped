@@ -1,5 +1,5 @@
-import * as React from "react";
-import ReactClipboard from "react-clipboardjs-copy";
+import * as React from 'react';
+import ReactClipboard from 'react-clipboardjs-copy';
 
 function MyApp() {
     return (
@@ -7,15 +7,14 @@ function MyApp() {
             text="text"
             target="target"
             action="action"
-            selection={false}
-            onSuccess={() => {}}
-            onError={() => {}}
-            options={{
+            selection={ false }
+            onSuccess={ () => {} }
+            onError={ () => {} }
+            options={ {
                 text: "text",
-                container: <div />,
-                target: () => {},
+                container: (<div/>),
+                target: () => {}
             }}
-        >
-        </ReactClipboard>
+        ></ReactClipboard>
     );
 }

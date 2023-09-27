@@ -1,17 +1,13 @@
 import * as React from "react";
-import SyntaxHighlighter, {
-    createElementProps,
-    Light as LightHighlighter,
-    SyntaxHighlighterProps,
-} from "react-syntax-highlighter";
-import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
-import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light";
-import { oneDark as oneDarkCjs, oneLight as oneLightCjs } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import createElement from "react-syntax-highlighter/dist/esm/create-element";
-import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import SyntaxHighlighter, { Light as LightHighlighter, SyntaxHighlighterProps, createElementProps } from "react-syntax-highlighter";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
+import PrismLightHighlighter from "react-syntax-highlighter/dist/cjs/prism-light";
+import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { coldarkCold, coldarkDark, oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { oneLight as oneLightCjs, oneDark as oneDarkCjs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { coldarkCold, coldarkDark, oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import createElement from "react-syntax-highlighter/dist/esm/create-element";
 
 const codeString = `class CPP {
     private year: number;
@@ -67,9 +63,9 @@ function codeTagProps() {
     const codeTagProps: SyntaxHighlighterProps["codeTagProps"] = {
         className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
     };
 
     return (
@@ -83,9 +79,9 @@ function linePropsObject() {
     const lineProps: SyntaxHighlighterProps["lineProps"] = {
         className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
     };
 
     return (
@@ -99,9 +95,9 @@ function lineTagPropsFunction() {
     const lineProps: lineTagPropsFunction = (lineNumber: number) => ({
         className: "some-classname",
         style: {
-            opacity: 0,
+            opacity: 0
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5,
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
     });
 
     return (
@@ -127,7 +123,7 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
 <PrismLightHighlighter style={oneLight}>{codeString}</PrismLightHighlighter>;
 <PrismLightHighlighter style={oneDarkCjs}>{codeString}</PrismLightHighlighter>;
 <PrismLightHighlighter style={oneLightCjs}>{codeString}</PrismLightHighlighter>;
-<PrismLightHighlighter style={{ keyword: { color: "red" } }}>{codeString}</PrismLightHighlighter>;
+<PrismLightHighlighter style={{ keyword: { color: 'red' } }}>{codeString}</PrismLightHighlighter>;
 // @ts-expect-error
 <PrismLightHighlighter style={{ color: "red" }}>{codeString}</PrismLightHighlighter>;
 
@@ -135,9 +131,7 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
 <PrismLightHighlighter>{codeString}</PrismLightHighlighter>;
 <PrismLightHighlighter>{[codeString, "hello world"]}</PrismLightHighlighter>;
 // @ts-expect-error
-<PrismLightHighlighter>
-    <div>Hello world</div>
-</PrismLightHighlighter>;
+<PrismLightHighlighter><div>Hello world</div></PrismLightHighlighter>;
 // @ts-expect-error
 <PrismLightHighlighter />;
 
@@ -235,8 +229,8 @@ createElement({
     ...correctCreateElementProps,
     node: {
         ...correctCreateElementProps.node,
-        tagName: TestComponent,
-    },
+        tagName: TestComponent
+    }
 });
 createElement({ ...correctCreateElementProps, style: undefined });
 // @ts-expect-error
@@ -247,7 +241,7 @@ createElement({
         ...correctCreateElementProps.node,
         // @ts-expect-error
         properties: { className: "some-class" },
-    },
+    }
 });
 createElement({
     ...correctCreateElementProps,
@@ -255,7 +249,7 @@ createElement({
         ...correctCreateElementProps.node,
         // @ts-expect-error
         tagName: "mycomponent",
-    },
+    }
 });
 // @ts-expect-error
 createElement({ ...correctCreateElementProps, stylesheet: undefined });
@@ -275,7 +269,7 @@ createElement({ ...correctCreateElementProps, key: undefined });
             node,
             stylesheet,
             useInlineStyles,
-            key: `code-segement${i}`,
+            key: `code-segement${i}`
         })
     ))}
 >
