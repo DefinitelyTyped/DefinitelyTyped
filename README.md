@@ -365,12 +365,8 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 #### Common mistakes
 
 * First, follow advice from the [handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatting: Use 4 spaces. Prettier is set up on this repo, so you can run `npm run prettier -- --write 'path/to/package/**/*.ts'`. [When using assertions](https://github.com/SamVerschueren/tsd#assertions), add `// prettier-ignore` exclusion to mark line(s) of code as excluded from formatting:
-  ```tsx
-  // prettier-ignore
-  // @ts-expect-error
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
-  ```
+* Formatting: [dprint](https://dprint.dev) is set up on this repo, so you can run `npx dprint fmt -- 'path/to/package/**/*.ts'`.
+  * Consider using the VS Code `.vscode/settings.template.json` (or equivalent for other editors) to format on save with the [VS Code dprint extension](https://marketplace.visualstudio.com/items?itemName=dprint.dprint)
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
   This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
@@ -452,7 +448,7 @@ Then they are wrong, and we've not noticed yet. You can help by submitting a pul
 
 #### Can I change/enforce formatting settings for modules?
 
-No. We've explored trying to make DT's code-formatting consistent before but reached an impasse due to the high activity on the repo. We include formatting settings via a [`.editorconfig`](.editorconfig) and [`.prettierrc.json`](.prettierrc.json). These are exclusively for tooling in your editor, their settings don't conflict and we don't plan on changing them. Nor do we plan on enforcing a specific style in the repo. We want to keep the barriers to contributions low.
+No. We've explored trying to make DT's code-formatting consistent before but reached an impasse due to the high activity on the repo. We include formatting settings via a [`.editorconfig`](.editorconfig) and [`.dprint.jsonc`](.dprint.jsonc). These are exclusively for tooling in your editor, their settings don't conflict and we don't plan on changing them. Nor do we plan on enforcing a specific style in the repo. We want to keep the barriers to contributions low.
 
 #### Can I request a definition?
 
