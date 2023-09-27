@@ -10,7 +10,7 @@ declare namespace WebIDLConversions {
 
         Number: (value?: unknown) => number;
         String: (value?: unknown) => string;
-        TypeError: new (message?: string) => TypeError;
+        TypeError: new(message?: string) => TypeError;
     }
 
     interface Options {
@@ -45,19 +45,19 @@ declare const WebIDLConversions: {
     octet(V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
 
     short(V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
-    ['unsigned short'](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
+    ["unsigned short"](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
 
     long(V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
-    ['unsigned long'](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
+    ["unsigned long"](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
 
-    ['long long'](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
-    ['unsigned long long'](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
+    ["long long"](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
+    ["unsigned long long"](V: unknown, opts?: WebIDLConversions.IntegerOptions): number;
 
     double(V: unknown, opts?: WebIDLConversions.Options): number;
-    ['unrestricted double'](V: unknown, opts?: WebIDLConversions.Options): number;
+    ["unrestricted double"](V: unknown, opts?: WebIDLConversions.Options): number;
 
     float(V: unknown, opts?: WebIDLConversions.Options): number;
-    ['unrestricted float'](V: unknown, opts?: WebIDLConversions.Options): number;
+    ["unrestricted float"](V: unknown, opts?: WebIDLConversions.Options): number;
 
     DOMString(V: unknown, opts?: WebIDLConversions.StringOptions): string;
     ByteString(V: unknown, opts?: WebIDLConversions.StringOptions): string;

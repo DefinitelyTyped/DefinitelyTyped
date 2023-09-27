@@ -36,5 +36,5 @@ export const KEYWORDS: Keywords;
 export function check(
     word: string,
     dialect?: Dialect,
-    strict?: boolean
+    strict?: boolean,
 ): boolean;

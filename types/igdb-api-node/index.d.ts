@@ -3,7 +3,7 @@
 // Definitions by: Susam <https://github.com/susam-projects>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Apicalypse, ApicalypseConfig } from 'apicalypse';
+import { Apicalypse, ApicalypseConfig } from "apicalypse";
 
 export function getTagNumber(category: number, id: number): number;
 

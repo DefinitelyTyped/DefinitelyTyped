@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as React from 'react';
-import { PropInjector } from '@material-ui/types';
-import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from 'react-swipeable-views';
+import { PropInjector } from "@material-ui/types";
+import * as React from "react";
+import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from "react-swipeable-views";
 
 export interface WithIndex {
     index?: number;
@@ -19,7 +19,7 @@ export interface WithAutoPlay extends WithIndex {
 }
 export interface WithAutoPlayProps extends WithIndex {
     autoplay?: boolean | undefined;
-    direction?: 'incremental' | 'decremental' | undefined;
+    direction?: "incremental" | "decremental" | undefined;
     interval?: number | undefined;
     slideCount?: number | undefined;
 }

@@ -45,7 +45,7 @@ export interface MiniMasonryOptions {
      * Sorting direction, "ltr" or "rtl".
      * @default "ltr"
      */
-    direction?: 'ltr' | 'rtl';
+    direction?: "ltr" | "rtl";
     /**
      * False will start to sort from center, true will start from left or right according to direction parameter.
      * @default false

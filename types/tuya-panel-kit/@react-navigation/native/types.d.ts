@@ -4,7 +4,8 @@ import type {
     PathConfigMap,
     Route,
 } from "../core";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Theme = {
     dark: boolean;
     colors: {
@@ -16,7 +17,7 @@ export declare type Theme = {
         notification: string;
     };
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type LinkingOptions = {
     /**
      * Whether deep link handling should be enabled.
@@ -99,12 +100,12 @@ export declare type LinkingOptions = {
      */
     getPathFromState?: typeof getPathFromStateDefault | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DocumentTitleOptions = {
     enabled?: boolean | undefined;
     formatter?: ((options: Record<string, any> | undefined, route: Route<string> | undefined) => string) | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type ServerContainerRef = {
     getCurrentOptions(): Record<string, any> | undefined;
 };

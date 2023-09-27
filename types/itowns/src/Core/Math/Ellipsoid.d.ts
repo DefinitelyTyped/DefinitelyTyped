@@ -11,29 +11,36 @@ declare class Ellipsoid {
 
     geodeticSurfaceNormal(
         cartesian: Coordinates,
-        target?: THREE.Vector3): THREE.Vector3;
+        target?: THREE.Vector3,
+    ): THREE.Vector3;
 
     geodeticSurfaceNormalCartographic(
         coordCarto: Coordinates,
-        target?: THREE.Vector3): THREE.Vector3;
+        target?: THREE.Vector3,
+    ): THREE.Vector3;
 
-    setSize(size: { x: number; y: number; z: number; }): void;
+    setSize(size: { x: number; y: number; z: number }): void;
 
     cartographicToCartesian(
-        coordCarto: Coordinates, target?: THREE.Vector3): THREE.Vector3;
+        coordCarto: Coordinates,
+        target?: THREE.Vector3,
+    ): THREE.Vector3;
 
     cartesianToCartographic(
-        position: { x: number; y: number; z: number; },
-        target?: Coordinates): Coordinates;
+        position: { x: number; y: number; z: number },
+        target?: Coordinates,
+    ): Coordinates;
 
     cartographicToCartesianArray(
-        coordCartoArray: Coordinates[]): THREE.Vector3[];
+        coordCartoArray: Coordinates[],
+    ): THREE.Vector3[];
 
     intersection(ray: THREE.Ray): THREE.Vector3 | false;
 
     geodesicDistance(
         coordCarto1: Coordinates,
-        coordCarto2: Coordinates): number;
+        coordCarto2: Coordinates,
+    ): number;
 }
 
 export default Ellipsoid;

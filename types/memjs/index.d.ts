@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import EventEmitter = require('node:events');
-import { Socket } from 'node:net';
+import EventEmitter = require("node:events");
+import { Socket } from "node:net";
 
 export interface ClientOptions<TIn = string | Buffer, TOut = Buffer | null> {
     /**

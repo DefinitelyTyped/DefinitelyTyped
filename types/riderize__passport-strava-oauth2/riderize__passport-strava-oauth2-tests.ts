@@ -1,12 +1,12 @@
-import { Strategy, Profile } from '@riderize/passport-strava-oauth2';
-import { Request } from 'express';
+import { Profile, Strategy } from "@riderize/passport-strava-oauth2";
+import { Request } from "express";
 
-import passport = require('passport');
+import passport = require("passport");
 
 // just some test model
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'james' });
+        callback(null, { username: "james" });
     },
 };
 
@@ -62,7 +62,7 @@ passport.use(
             profile: Profile,
             done: (error: any, user?: any, info?: any) => void,
         ) => {
-            done(null, false, { message: 'Some error.' });
+            done(null, false, { message: "Some error." });
         },
     ),
 );

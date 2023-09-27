@@ -4,7 +4,7 @@
 //                 Krishan <https://github.com/KrishyV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestInit } from 'node-fetch';
+import { RequestInit } from "node-fetch";
 declare namespace VersionCheck {
     /**
      * Returns device's country code of 2 characters.

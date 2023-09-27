@@ -1,65 +1,63 @@
-import type * as React from 'react';
-import {Constructor} from '../../../private/Utilities';
-import {NativeMethods} from '../../../public/ReactNativeTypes';
-import {ColorValue} from '../../StyleSheet/StyleSheet';
-import {ViewProps} from '../View/ViewPropTypes';
+import type * as React from "react";
+import { Constructor } from "../../../private/Utilities";
+import { NativeMethods } from "../../../public/ReactNativeTypes";
+import { ColorValue } from "../../StyleSheet/StyleSheet";
+import { ViewProps } from "../View/ViewPropTypes";
 
 export interface RefreshControlPropsIOS extends ViewProps {
-  /**
-   * The color of the refresh indicator.
-   */
-  tintColor?: ColorValue | undefined;
+    /**
+     * The color of the refresh indicator.
+     */
+    tintColor?: ColorValue | undefined;
 
-  /**
-   * The title displayed under the refresh indicator.
-   */
-  title?: string | undefined;
+    /**
+     * The title displayed under the refresh indicator.
+     */
+    title?: string | undefined;
 
-  /**
-   * Title color.
-   */
-  titleColor?: ColorValue | undefined;
+    /**
+     * Title color.
+     */
+    titleColor?: ColorValue | undefined;
 }
 
 export interface RefreshControlPropsAndroid extends ViewProps {
-  /**
-   * The colors (at least one) that will be used to draw the refresh indicator.
-   */
-  colors?: ColorValue[] | undefined;
+    /**
+     * The colors (at least one) that will be used to draw the refresh indicator.
+     */
+    colors?: ColorValue[] | undefined;
 
-  /**
-   * Whether the pull to refresh functionality is enabled.
-   */
-  enabled?: boolean | undefined;
+    /**
+     * Whether the pull to refresh functionality is enabled.
+     */
+    enabled?: boolean | undefined;
 
-  /**
-   * The background color of the refresh indicator.
-   */
-  progressBackgroundColor?: ColorValue | undefined;
+    /**
+     * The background color of the refresh indicator.
+     */
+    progressBackgroundColor?: ColorValue | undefined;
 
-  /**
-   * Size of the refresh indicator, see RefreshControl.SIZE.
-   */
-  size?: number | undefined;
+    /**
+     * Size of the refresh indicator, see RefreshControl.SIZE.
+     */
+    size?: number | undefined;
 }
 
-export interface RefreshControlProps
-  extends RefreshControlPropsIOS,
-    RefreshControlPropsAndroid {
-  /**
-   * Called when the view starts refreshing.
-   */
-  onRefresh?: (() => void) | undefined;
+export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshControlPropsAndroid {
+    /**
+     * Called when the view starts refreshing.
+     */
+    onRefresh?: (() => void) | undefined;
 
-  /**
-   * Whether the view should be indicating an active refresh.
-   */
-  refreshing: boolean;
+    /**
+     * Whether the view should be indicating an active refresh.
+     */
+    refreshing: boolean;
 
-  /**
-   * Progress view top offset
-   */
-  progressViewOffset?: number | undefined;
+    /**
+     * Progress view top offset
+     */
+    progressViewOffset?: number | undefined;
 }
 
 /**
@@ -71,8 +69,9 @@ export interface RefreshControlProps
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
 declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
-declare const RefreshControlBase: Constructor<NativeMethods> &
-  typeof RefreshControlComponent;
+declare const RefreshControlBase:
+    & Constructor<NativeMethods>
+    & typeof RefreshControlComponent;
 export class RefreshControl extends RefreshControlBase {
-  static SIZE: Object; // Undocumented
+    static SIZE: Object; // Undocumented
 }

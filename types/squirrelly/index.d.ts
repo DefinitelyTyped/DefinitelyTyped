@@ -36,7 +36,7 @@ export function load(options: Options): SqrlFn | string;
 export function load(options: Options, str: string): SqrlFn;
 export function Render(template: string | SqrlFn, options: object): string;
 export function renderFile(filePath: string, options: object): string;
-export function setDefaultFilters(obj: 'clear' | Record<string, boolean>): void;
+export function setDefaultFilters(obj: "clear" | Record<string, boolean>): void;
 
 export namespace F {
     function e(str: string): string;

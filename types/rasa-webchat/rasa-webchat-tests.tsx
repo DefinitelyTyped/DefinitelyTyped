@@ -1,24 +1,24 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import RasaWebchat, { RasaWebchatProps } from 'rasa-webchat';
+import RasaWebchat, { RasaWebchatProps } from "rasa-webchat";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 const validProps: RasaWebchatProps = {
-    title: 'Welcome',
+    title: "Welcome",
     customData: {},
-    inputTextFieldHint: 'Type a message...',
-    connectingText: 'Waiting for server...',
+    inputTextFieldHint: "Type a message...",
+    connectingText: "Waiting for server...",
     fullScreenMode: false,
     hideWhenNotConnected: true,
     autoClearCache: false,
-    connectOn: 'mount',
+    connectOn: "mount",
     onSocketEvent: {},
-    protocol: 'socketio',
-    socketUrl: 'http://localhost',
+    protocol: "socketio",
+    socketUrl: "http://localhost",
     protocolOptions: {},
     badge: 0,
     embedded: false,
     params: {
-        storage: 'local',
+        storage: "local",
     },
     docViewer: false,
     showCloseButton: true,
@@ -40,15 +40,15 @@ const validProps: RasaWebchatProps = {
         onChatHidden: () => {},
     },
     disableTooltips: false,
-    mainColor: '',
+    mainColor: "",
     withRules: true,
     rules: null,
     triggerEventListenerUpdateRate: 500,
-    conversationBackgroundColor: '',
-    userTextColor: '',
-    userBackgroundColor: '',
-    assistTextColor: '',
-    assistBackgoundColor: '',
+    conversationBackgroundColor: "",
+    userTextColor: "",
+    userBackgroundColor: "",
+    assistTextColor: "",
+    assistBackgoundColor: "",
 };
 
 ReactDOM.render(<RasaWebchat {...validProps} />, document.body);

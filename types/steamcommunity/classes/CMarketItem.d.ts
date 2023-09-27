@@ -11,11 +11,11 @@ declare class CMarketItem {
     commodityID: number;
     medianSalePrices: Array<{
         /** A Date object representing the hour that this object contains data for. */
-        hour: Date,
+        hour: Date;
         /** The median price at which this item was sold during this hour (as a float). */
-        price: number,
+        price: number;
         /** The amount of this item which was sold during this hour. */
-        quantity: number,
+        quantity: number;
     }>;
     firstAsset: any;
     assets: any;

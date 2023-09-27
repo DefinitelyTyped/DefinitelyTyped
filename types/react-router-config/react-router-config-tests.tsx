@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { RouteConfig, matchRoutes, MatchedRoute, renderRoutes, RouteConfigComponentProps } from 'react-router-config';
+import * as React from "react";
+import { MatchedRoute, matchRoutes, renderRoutes, RouteConfig, RouteConfigComponentProps } from "react-router-config";
 
 const Root = ({ route }: RouteConfigComponentProps) => (
     <div>
@@ -35,16 +35,16 @@ const routes: RouteConfig[] = [
         component: Root,
         routes: [
             {
-                path: '/',
+                path: "/",
                 exact: true,
                 component: Home,
             },
             {
-                path: '/child/:id',
+                path: "/child/:id",
                 component: Child,
                 routes: [
                     {
-                        path: '/child/:id/grand-child',
+                        path: "/child/:id/grand-child",
                         component: GrandChild,
                     },
                 ],
@@ -54,7 +54,7 @@ const routes: RouteConfig[] = [
     },
 ];
 
-const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, '/child/23');
+const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, "/child/23");
 // using the routes shown earlier, this returns
 // [
 //   routes[0],
@@ -71,10 +71,10 @@ interface CustomRouteConfig extends RouteConfig {
 const routesWithCustomConfig: CustomRouteConfig[] = [
     {
         component: Root,
-        customProperty: 'hello',
+        customProperty: "hello",
         routes: [
             {
-                path: '/',
+                path: "/",
                 exact: true,
                 component: Home,
             },
@@ -83,7 +83,7 @@ const routesWithCustomConfig: CustomRouteConfig[] = [
 ];
 
 // $ExpectType MatchedRoute<{}, CustomRouteConfig>[]
-const branchWithCustomRoutes = matchRoutes(routesWithCustomConfig, '/child/23');
+const branchWithCustomRoutes = matchRoutes(routesWithCustomConfig, "/child/23");
 // $ExpectType MatchedRoute<{}, CustomRouteConfig>
 const customRoute = branchWithCustomRoutes[0];
 // $ExpectType string

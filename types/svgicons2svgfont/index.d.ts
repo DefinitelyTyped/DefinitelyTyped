@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 declare class SVGIcons2SVGFontStream extends Stream.Transform {
     constructor(options?: SVGIcons2SVGFontStream.SvgIcons2FontOptions);
@@ -107,8 +107,8 @@ declare namespace SVGIcons2SVGFontStream {
     interface MetadataOptions {
         prependUnicode?: boolean | undefined;
         startUnicode?: number | undefined;
-        log?: typeof console['log'] | undefined;
-        err?: typeof console['error'] | undefined;
+        log?: typeof console["log"] | undefined;
+        err?: typeof console["error"] | undefined;
     }
 
     interface MetadataProvider {

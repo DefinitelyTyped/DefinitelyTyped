@@ -1,6 +1,6 @@
 /// <reference types="../experimental"/>
 
-import React = require('react');
+import React = require("react");
 
 // NOTE: forward declarations for tests
 declare var console: Console;
@@ -57,7 +57,7 @@ function useEvent() {
         return Number(value);
     });
     // $ExpectType number
-    typedEvent('1');
+    typedEvent("1");
     // Argument of type '{}' is not assignable to parameter of type 'string'.
     // @ts-expect-error
     typedEvent({});
@@ -117,7 +117,7 @@ function Optimistic() {
         // or declare the type of the generic (see addToOptimisticCartTyped2)
         // $ExpectType unknown
         newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
+        console.log("Increment optimistic cart size for " + newItem);
         return prevSize + 1;
     });
     // $ExpectType number
@@ -126,13 +126,13 @@ function Optimistic() {
     const [, addToOptimisticCartTyped] = useOptimistic(savedCartSize, (prevSize, newItem: string) => {
         // $ExpectType string
         newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
+        console.log("Increment optimistic cart size for " + newItem);
         return prevSize + 1;
     });
     const [, addToOptimisticCartTyped2] = useOptimistic<number, string>(savedCartSize, (prevSize, newItem) => {
         // $ExpectType string
         newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
+        console.log("Increment optimistic cart size for " + newItem);
         return prevSize + 1;
     });
 
@@ -156,31 +156,31 @@ function Optimistic() {
         setStateDefaultAction(() => 3);
         setStateDefaultAction(n => n + 1);
         // @ts-expect-error string is not assignable to number
-        setStateDefaultAction('4');
+        setStateDefaultAction("4");
     };
 }
 
 // ReactNode tests
 {
     // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement('div');
+    const render: React.ReactNode = () => React.createElement("div");
     // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
+    const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
-    const promise: React.ReactNode = Promise.resolve('React');
+    const promise: React.ReactNode = Promise.resolve("React");
     // @ts-expect-error plain objects are not allowed
     <div>{{ dave: true }}</div>;
-    <div>{Promise.resolve('React')}</div>;
+    <div>{Promise.resolve("React")}</div>;
 }
 
 function elementTypeTests() {
-    const ReturnPromise = () => Promise.resolve('React');
+    const ReturnPromise = () => Promise.resolve("React");
     // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
-          return Promise.resolve('React');
+            return Promise.resolve("React");
         }
     }
 

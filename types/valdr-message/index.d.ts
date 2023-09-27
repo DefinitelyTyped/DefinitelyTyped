@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace valdr.message {
-
     interface ValdrMessage {
         /*
          * Default message template URL.
@@ -31,7 +30,7 @@ declare namespace valdr.message {
          * Adds messages for AngularJS build-in validators (eg "required" and "number") or for specific fields (eg "Person.lastName.required").
          * @param messages the list of key/value pairs.
          */
-        addMessages(messages: {[key:string]: string}): void;
+        addMessages(messages: { [key: string]: string }): void;
 
         /**
          * Gets the validator message.
@@ -60,7 +59,7 @@ declare namespace valdr.message {
          * Adds messages for AngularJS build-in validators (eg "required" and "number") or for specific fields (eg "Person.lastName.required").
          * @param messages the list of key/value pairs.
          */
-        addMessages(messages: {[key:string]: string}): void;
+        addMessages(messages: { [key: string]: string }): void;
 
         /**
          * Gets the validator message.

@@ -1,5 +1,5 @@
 import reconnect = require("reconnect-core");
-import { NetConnectOpts, Socket, connect } from "net";
+import { connect, NetConnectOpts, Socket } from "net";
 
 // Approximation of example from docs
 const module: reconnect.CustomModule<NetConnectOpts | string | number, Socket> = reconnect(arg => {

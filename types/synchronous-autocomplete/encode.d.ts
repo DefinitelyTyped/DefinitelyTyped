@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Index } from './build';
+import { Index } from "./build";
 
 export = encode;
 

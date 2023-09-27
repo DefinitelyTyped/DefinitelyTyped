@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import StreamModule = require('stream');
-import { DecoderStream } from 'iconv-lite';
+import StreamModule = require("stream");
+import { DecoderStream } from "iconv-lite";
 import Stream = StreamModule.Stream;
 
 /**
@@ -31,7 +31,7 @@ export interface StructuredHeader {
     /**
      * Additional arguments.
      */
-    params: {[key: string]: string};
+    params: { [key: string]: string };
 }
 
 /**
@@ -93,7 +93,7 @@ export interface AttachmentCommon {
     /**
      * Message type.
      */
-    type: 'attachment';
+    type: "attachment";
     /**
      * Attachment contents.
      */
@@ -134,7 +134,7 @@ export interface AttachmentCommon {
     /**
      * `contentId` without `<` and `>`.
      */
-    cid?: string | undefined;   // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined; // e.g. '5.1321281380971@localhost'
     /**
      * If true then this attachment should not be offered for download
      * (at least not in the main attachments list).
@@ -255,7 +255,7 @@ export interface ParsedMail {
     /**
      * Priority of the e-mail.
      */
-    priority?: 'normal' | 'low' | 'high' | undefined;
+    priority?: "normal" | "low" | "high" | undefined;
 }
 
 /**
@@ -265,7 +265,7 @@ export interface MessageText {
     /**
      * Message type.
      */
-    type: 'text';
+    type: "text";
     /**
      * Includes the HTML version of the message.
      *
@@ -295,8 +295,8 @@ export interface MessageText {
 export class MailParser extends StreamModule.Transform {
     constructor(options?: MailParserOptions);
     on(event: string, callback: (any: any) => void): this;
-    on(event: 'headers', callback: (headers: Headers) => void): this;
-    on(event: 'data' | 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
+    on(event: "headers", callback: (headers: Headers) => void): this;
+    on(event: "data" | "readable", callback: (data: AttachmentStream | MessageText) => void): this;
 }
 
 /**
@@ -338,7 +338,11 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * @param options Transform options passed to MailParser's constructor
  * @param callback Function to get a structured email object.
  */
-export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
+export function simpleParser(
+    source: Source,
+    options: SimpleParserOptions,
+    callback: (err: any, mail: ParsedMail) => void,
+): void;
 
 /**
  * Parse email message to structure object.

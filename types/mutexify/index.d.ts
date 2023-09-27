@@ -11,7 +11,7 @@ interface Lock {
 type Release = (
     cb: (err?: any, value?: any) => any,
     err: any,
-    value: any
+    value: any,
 ) => void;
 
 declare function mutexify(): Lock;

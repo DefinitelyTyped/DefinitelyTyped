@@ -68,7 +68,7 @@ declare class AppUpgrade {
             version: string;
             trackViewUrl: string;
             [key: string]: any;
-        }
+        };
     }>;
 
     /**

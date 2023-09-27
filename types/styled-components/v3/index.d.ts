@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ThemeProps<T> {
     theme: T;
@@ -108,7 +108,7 @@ type KeyofBase = keyof any;
 type Diff<T extends KeyofBase, U extends KeyofBase> = ({ [P in T]: P } & { [P in U]: never })[T];
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 type DiffBetween<T, U> = Pick<T, Diff<keyof T, keyof U>> & Pick<U, Diff<keyof U, keyof T>>;
-type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, 'theme'> & {
+type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, "theme"> & {
     theme?: T | undefined;
 };
 

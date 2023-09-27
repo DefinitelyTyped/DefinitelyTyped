@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
-import { VSCodeEvent } from './events';
+import { VSCodeEvent } from "./events";
 
 /**
  * Information about a rendered cell output.

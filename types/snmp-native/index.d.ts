@@ -100,7 +100,7 @@ export class Session {
         options: {
             oid: OID;
         } & Options,
-        callback: ResponseCallback
+        callback: ResponseCallback,
     ): void;
     /**
      * Perform a simple GetNextRequest.
@@ -125,7 +125,7 @@ export class Session {
         options: {
             oid: OID;
         } & Options,
-        callback: ResponseCallback
+        callback: ResponseCallback,
     ): void;
     /**
      * Perform repeated GetRequests to fetch all the required values.
@@ -171,7 +171,7 @@ export class Session {
             abortOnError?: boolean | undefined;
             combinedTimeout?: number | undefined;
         } & Options,
-        callback: ResponseCallback
+        callback: ResponseCallback,
     ): void;
     /**
      * Perform repeated GetNextRequests to fetch all values in the
@@ -206,7 +206,7 @@ export class Session {
             oid: OID;
             combinedTimeout?: number | undefined;
         } & Options,
-        callback: ResponseCallback
+        callback: ResponseCallback,
     ): void;
     /**
      * Perform a simple SetRequest.
@@ -237,10 +237,10 @@ export class Session {
     set(
         options: {
             oid: OID;
-            type?: DataTypes[keyof DataTypes] | null | undefined,
+            type?: DataTypes[keyof DataTypes] | null | undefined;
             value?: any;
         } & Options,
-        callback?: ResponseCallback
+        callback?: ResponseCallback,
     ): void;
     /**
      * Cancels all outstanding requests and frees used OS resources.
@@ -292,7 +292,7 @@ export interface SessionOptions extends Options {
      * Address family to bind to. This is only used by the Session
      * constructor since that is when the bind is done.
      */
-    family?: 'udp4' | 'udp6' | undefined;
+    family?: "udp4" | "udp6" | undefined;
     /**
      * Function responsible for handling incoming messages and sending UDP
      * responses back. If nothing is given here, the default implementation
@@ -328,10 +328,8 @@ export interface Options {
      * Re-transmissions can be disabled by providing a single timeout
      * value.
      *
-     *
      * @example
      * [ 5000 ] // Disable re-transmission
-     *
      */
     timeouts?: number[] | undefined;
 }
@@ -352,7 +350,7 @@ export type ResponseCallback = (err: Error | null, varbinds: VarBind[]) => void;
 
 export interface ResponseInfo {
     address: string;
-    family: 'IPv4' | 'IPv6';
+    family: "IPv4" | "IPv6";
     port: number;
     size: number;
 }

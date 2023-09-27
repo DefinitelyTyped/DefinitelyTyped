@@ -96,9 +96,12 @@ import { promisify } from "node:util";
     function waitFor(options?: { timeout: number }) {
         const timerId = options && setTimeout(() => {}, options.timeout);
         clearTimeout(timerId);
+        timerId?.[Symbol.dispose]();
         const intervalId = options && setTimeout(() => {}, options.timeout);
         clearInterval(intervalId);
+        intervalId?.[Symbol.dispose]();
         const immediateId = options && setImmediate(() => {});
         clearImmediate(immediateId);
+        immediateId?.[Symbol.dispose]();
     }
 }

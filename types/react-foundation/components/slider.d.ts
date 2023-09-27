@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { Component } from 'react';
+import * as React from "react";
+import { Component } from "react";
 /**
  * Slider component.
  * http://foundation.zurb.com/sites/docs/slider.html

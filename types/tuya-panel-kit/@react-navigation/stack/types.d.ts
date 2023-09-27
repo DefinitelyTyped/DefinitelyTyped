@@ -11,7 +11,8 @@ import type {
     StackActionHelpers,
     StackNavigationState,
 } from "../native";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationEventMap = {
     /**
      * Event which fires when a transition animation starts.
@@ -52,7 +53,7 @@ export declare type StackNavigationEventMap = {
 export declare type StackNavigationHelpers =
     & NavigationHelpers<ParamListBase, StackNavigationEventMap>
     & StackActionHelpers<ParamListBase>;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> =
     & NavigationProp<
         ParamList,
@@ -62,19 +63,19 @@ export declare type StackNavigationProp<ParamList extends ParamListBase, RouteNa
         StackNavigationEventMap
     >
     & StackActionHelpers<ParamList>;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackScreenProps<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> = {
     navigation: StackNavigationProp<ParamList, RouteName>;
     route: RouteProp<ParamList, RouteName>;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Layout = {
     width: number;
     height: number;
 };
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type GestureDirection = "horizontal" | "horizontal-inverted" | "vertical" | "vertical-inverted";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Scene<T> = {
     /**
      * Current route object,
@@ -108,7 +109,7 @@ export declare type Scene<T> = {
 export declare type StackHeaderMode = "float" | "screen" | "none";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardMode = "card" | "modal";
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderOptions = {
     /**
      * String or a function that returns a React Element to be used by the header.
@@ -225,7 +226,7 @@ export declare type StackHeaderOptions = {
      */
     headerStatusBarHeight?: number | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderProps = {
     /**
      * Mode of the header: `float` renders a single floating header across all screens,
@@ -264,7 +265,7 @@ export declare type StackDescriptor = Descriptor<
     StackNavigationState<ParamListBase>,
     StackNavigationOptions
 >;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackDescriptorMap = {
     [key: string]: StackDescriptor;
 };
@@ -364,7 +365,7 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
      */
     detachPreviousScreen?: boolean | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationConfig = {
     mode?: StackCardMode | undefined;
     headerMode?: StackHeaderMode | undefined;
@@ -380,7 +381,7 @@ export declare type StackNavigationConfig = {
      */
     detachInactiveScreens?: boolean | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderLeftButtonProps = {
     /**
      * Whether the button is disabled.
@@ -454,7 +455,7 @@ export declare type StackHeaderLeftButtonProps = {
      */
     style?: StyleProp<ViewStyle> | undefined;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderTitleProps = {
     /**
      * Callback to trigger when the size of the title element changes.
@@ -485,7 +486,7 @@ export declare type TransitionSpec = {
     animation: "timing";
     config: Omit<Animated.TimingAnimationConfig, "toValue" | keyof Animated.AnimationConfig>;
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardInterpolationProps = {
     /**
      * Values for the current screen.
@@ -541,7 +542,7 @@ export declare type StackCardInterpolationProps = {
         left: number;
     };
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardInterpolatedStyle = {
     /**
      * Interpolated style for the container view wrapping the card.
@@ -562,7 +563,7 @@ export declare type StackCardInterpolatedStyle = {
 };
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardStyleInterpolator = (props: StackCardInterpolationProps) => StackCardInterpolatedStyle;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderInterpolationProps = {
     /**
      * Values for the current screen (the screen which owns this header).
@@ -605,7 +606,7 @@ export declare type StackHeaderInterpolationProps = {
         leftLabel?: Layout | undefined;
     };
 };
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderInterpolatedStyle = {
     /**
      * Interpolated style for the label of the left button (back button label).
@@ -632,7 +633,7 @@ export declare type StackHeaderInterpolatedStyle = {
 export declare type StackHeaderStyleInterpolator = (
     props: StackHeaderInterpolationProps,
 ) => StackHeaderInterpolatedStyle;
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TransitionPreset = {
     /**
      * The direction of swipe gestures, `horizontal` or `vertical`.

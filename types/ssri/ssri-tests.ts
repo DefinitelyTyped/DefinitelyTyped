@@ -181,9 +181,9 @@ ssri.integrityStream({
 });
 
 // ssri.merge
-const data = fs.readFileSync('data.txt');
-const expectedIntegrity = ssri.parse(fs.readFileSync('integrity.txt', 'utf8'));
-const updatedIntegrity = ssri.fromData(data, { algorithms: ['sha512'] });
+const data = fs.readFileSync("data.txt");
+const expectedIntegrity = ssri.parse(fs.readFileSync("integrity.txt", "utf8"));
+const updatedIntegrity = ssri.fromData(data, { algorithms: ["sha512"] });
 expectedIntegrity.merge(updatedIntegrity); // $ExpectType void
 expectedIntegrity.merge(updatedIntegrity, {}); // $ExpectType void
 expectedIntegrity.merge(updatedIntegrity, { strict: true }); // $ExpectType void

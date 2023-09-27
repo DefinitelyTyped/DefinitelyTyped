@@ -78,7 +78,7 @@ export interface BootConfig {
  *
  * @see https://developers.channel.io/docs/react-native-models#language
  */
-export type Language = 'ko' | 'jp' | 'en';
+export type Language = "ko" | "jp" | "en";
 
 /**
  * @see https://developers.channel.io/docs/react-native-models#channelbuttonoption
@@ -97,7 +97,7 @@ export interface ChannelButtonOption {
     /**
      * @default 'right'
      */
-    position?: 'right' | 'left';
+    position?: "right" | "left";
 }
 
 /**
@@ -107,7 +107,7 @@ export interface BubbleOption {
     /**
      * @default 'top'
      */
-    position?: 'top' | 'bottom';
+    position?: "top" | "bottom";
 
     /**
      * @default 20
@@ -277,32 +277,32 @@ export interface UserData {
  * @see https://developers.channel.io/docs/react-native-models#bootstatus
  */
 export type BootStatus =
-    | 'SUCCESS'
-    | 'NOT_INITIALIZED'
-    | 'NETWORK_TIMEOUT'
-    | 'NOT_AVAILABLE_VERSION'
-    | 'SERVICE_UNDER_CONSTRUCTION'
-    | 'REQUIRE_PAYMENT'
-    | 'ACCESS_DENIED'
-    | 'UNKNOWN_ERROR';
+    | "SUCCESS"
+    | "NOT_INITIALIZED"
+    | "NETWORK_TIMEOUT"
+    | "NOT_AVAILABLE_VERSION"
+    | "SERVICE_UNDER_CONSTRUCTION"
+    | "REQUIRE_PAYMENT"
+    | "ACCESS_DENIED"
+    | "UNKNOWN_ERROR";
 
 export interface BootSuccess {
     /**
      * The boot was successful.
      */
-    status: 'SUCCESS';
+    status: "SUCCESS";
     user: User;
 }
 
 export interface BootError {
     status:
-        | 'NOT_INITIALIZED'
-        | 'NETWORK_TIMEOUT'
-        | 'NOT_AVAILABLE_VERSION'
-        | 'SERVICE_UNDER_CONSTRUCTION'
-        | 'REQUIRE_PAYMENT'
-        | 'ACCESS_DENIED'
-        | 'UNKNOWN_ERROR';
+        | "NOT_INITIALIZED"
+        | "NETWORK_TIMEOUT"
+        | "NOT_AVAILABLE_VERSION"
+        | "SERVICE_UNDER_CONSTRUCTION"
+        | "REQUIRE_PAYMENT"
+        | "ACCESS_DENIED"
+        | "UNKNOWN_ERROR";
     user: undefined;
 }
 

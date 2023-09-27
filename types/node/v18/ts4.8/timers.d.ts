@@ -44,6 +44,11 @@ declare module "timers" {
                  */
                 hasRef(): boolean;
                 _onImmediate: Function; // to distinguish it from the Timeout class
+                /**
+                 * Cancels the immediate. This is similar to calling `clearImmediate()`.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
             interface Timeout extends Timer {
                 /**
@@ -64,8 +69,20 @@ declare module "timers" {
                  */
                 refresh(): this;
                 [Symbol.toPrimitive](): number;
+                /**
+                 * Cancels the timeout.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
         }
+        /**
+         * Schedules execution of a one-time `callback` after `delay` milliseconds. The `callback` will likely not be invoked in precisely `delay` milliseconds.
+         * Node.js makes no guarantees about the exact timing of when callbacks will fire, nor of their ordering. The callback will be called as close as possible to the time specified.
+         * When `delay` is larger than `2147483647` or less than `1`, the `delay` will be set to `1`. Non-integer delays are truncated to an integer.
+         * If `callback` is not a function, a [TypeError](https://nodejs.org/api/errors.html#class-typeerror) will be thrown.
+         * @since v0.0.1
+         */
         function setTimeout<TArgs extends any[]>(
             callback: (...args: TArgs) => void,
             ms?: number,
@@ -82,10 +99,10 @@ declare module "timers" {
             callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
-        ): NodeJS.Timer;
+        ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
+        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }

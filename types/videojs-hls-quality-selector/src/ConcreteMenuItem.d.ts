@@ -1,6 +1,6 @@
-import { HlsQualitySelectorPlugin, Item } from './../';
-import videojs from 'video.js';
-import ConcreteButton from './ConcreteButton';
+import videojs from "video.js";
+import { HlsQualitySelectorPlugin, Item } from "./../";
+import ConcreteButton from "./ConcreteButton";
 
 /**
  * Extend vjs menu item class.

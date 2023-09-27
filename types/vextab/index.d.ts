@@ -3,50 +3,50 @@
 // Definitions by: Franco Speziali <https://github.com/WeMakeMachines>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Vex = require('vexflow');
+import Vex = require("vexflow");
 
 export { Vex };
 
-type Articulation = 'b' | 's' | 'h' | 'p' | 't' | 'T' | 'v' | 'V';
+type Articulation = "b" | "s" | "h" | "p" | "t" | "T" | "v" | "V";
 
-type Decorator = 'v' | 'V' | 'u' | 'd';
+type Decorator = "v" | "V" | "u" | "d";
 
 interface ABC {
     key: any;
-    accidental: null | '' | '#' | '##' | 'b' | 'bb' | 'n' | undefined;
-    accidental_type: null | 'c';
+    accidental: null | "" | "#" | "##" | "b" | "bb" | "n" | undefined;
+    accidental_type: null | "c";
 }
 
 interface StaveOptions {
-    notation?: 'true' | 'false';
-    tablature?: 'true' | 'false';
+    notation?: "true" | "false";
+    tablature?: "true" | "false";
     key?: string;
-    clef?: 'treble' | 'bass' | 'tenor' | 'alto' | 'percussion' | 'none';
-    voice?: 'top' | 'bottom' | 'new';
+    clef?: "treble" | "bass" | "tenor" | "alto" | "percussion" | "none";
+    voice?: "top" | "bottom" | "new";
     time?: string;
     tuning?: string;
     strings?: number;
 }
 
 interface ArtistCustomizations {
-    'font-size'?: string;
-    'font-face'?: string;
-    'font-style'?: string;
-    'annotation-position'?: string;
+    "font-size"?: string;
+    "font-face"?: string;
+    "font-style"?: string;
+    "annotation-position"?: string;
     scale?: number;
     width?: number;
-    'stave-distance'?: number;
+    "stave-distance"?: number;
     space?: number;
     player?: string;
     tempo?: number;
     instrument?: string;
     accidentals?: string;
-    'tab-stems'?: string;
-    'tab-stem-direction'?: string;
-    'beam-rests'?: string;
-    'beam-stemlets'?: string;
-    'beam-middle-only'?: string;
-    'connector-space'?: number;
+    "tab-stems"?: string;
+    "tab-stem-direction"?: string;
+    "beam-rests"?: string;
+    "beam-stemlets"?: string;
+    "beam-middle-only"?: string;
+    "connector-space"?: number;
 }
 
 interface ArtistStaveNoteParams {
@@ -57,7 +57,7 @@ interface ArtistStaveNoteParams {
 }
 
 interface VexTabNote {
-    command?: 'bar' | 'tuplet' | 'annotations' | 'rest' | 'command';
+    command?: "bar" | "tuplet" | "annotations" | "rest" | "command";
     time?: number;
     dot?: boolean;
     fret?: string;
@@ -127,10 +127,12 @@ export class Artist {
 
     makeTuplets(tuplets: number, notes?: any): void;
 
-    makeFingering(text: string): null | Array<{
-        num: number;
-        modifier: Vex.Flow.FretHandFinger | Vex.Flow.StringNumber | null;
-    }>;
+    makeFingering(text: string):
+        | null
+        | Array<{
+            num: number;
+            modifier: Vex.Flow.FretHandFinger | Vex.Flow.StringNumber | null;
+        }>;
 
     makeStroke(text: string): Vex.Flow.Stroke | null;
 
@@ -175,14 +177,14 @@ export class Artist {
     addTextNote(
         text: string,
         position: number,
-        justification: 'center' | 'left' | 'right',
+        justification: "center" | "left" | "right",
         smooth: boolean,
         ignore_ticks: boolean,
     ): void;
 
-    addVoice(options: 'tabstave' | 'stave'): void;
+    addVoice(options: "tabstave" | "stave"): void;
 
-    addStave(element: 'tabstave' | 'stave', options?: StaveOptions): void;
+    addStave(element: "tabstave" | "stave", options?: StaveOptions): void;
 
     runCommand(line: string, _l: number, _c: number): void;
 }

@@ -24,7 +24,7 @@ declare namespace Sha512 {
 
     interface HMACCtor {
         (key: Uint8Array): HMAC;
-        new (key: Uint8Array): HMAC;
+        new(key: Uint8Array): HMAC;
     }
 
     interface HMAC {
