@@ -580,6 +580,14 @@ declare class Global {
      * TODO: Can have any property assigned to it
      */
     sendnamed(receive_name: string, property_name: string): void;
+
+    /*
+     * Global is used to set user defined properties that can't be known beforehand, casting
+     * a Globals instance as any to work with it defeats the whole purpose of using TS.
+     * This indexed access type will make sure you put the right checks in place before
+     * things go sideways, one can always cast to any if this becomes too annoying.
+     */
+    [index: string | number | symbol]: unknown;
 }
 
 /**

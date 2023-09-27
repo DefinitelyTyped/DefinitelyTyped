@@ -50,11 +50,41 @@ if (!folder.end) {
 folder.close();
 
 // maxmsp-tests.ts
+// working with Global
+//
+// 1. cast Global to any, lie to typescript that all is fine
+//    by using any or typescript ignore comments (see below)
+const globalOne = new Global('myGlobal');
+(<any> globalOne).prop = 'hello';
+messnamed("myobj", (<any> globalOne).prop);
+// @ts-expect-error
+messnamed("myobj", globalOne.prop);
+//
+// 2. Use a type guard
+const globalTwo = new Global("myGlobal");
+globalTwo.prop = "hello";
+// @ts-expect-error
+messnamed("myobj", globalTwo.prop);
+if (typeof globalTwo.prop !== "string") {
+    throw new Error("prop is not a string");
+}
+globalTwo.sendnamed("catcher", globalTwo.prop);
+messnamed("myobj", globalTwo.prop);
+//
+// 3. create a subclass with the properties you will work with
+class MyGlobal extends Global {
+    prop: string | undefined;
+}
+const myglobal = new MyGlobal("myGlobal");
+if (myglobal.prop === undefined) {
+    myglobal.prop = "hello";
+} else {
+    post(`global prop: ${myglobal.prop}`);
+}
 
-const glbl = new Global("myGlobal");
-(<any> glbl).prop = "hello";
+messnamed("myobj", myglobal.prop);
 // ou must have an [r] object in your patch named catcher
-glbl.sendnamed("catcher", "prop");
+myglobal.sendnamed("catcher", myglobal.prop);
 
 const liveApiCallback = (args: any) => {
     post(args);
