@@ -3,8 +3,8 @@
 // Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Plugin = require('broccoli-plugin');
-import { InputNode } from 'broccoli-node-api';
+import Plugin = require("broccoli-plugin");
+import { InputNode } from "broccoli-node-api";
 
 export = broccoliFunnel;
 

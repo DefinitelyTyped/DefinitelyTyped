@@ -329,7 +329,7 @@ declare namespace GorillaEngine {
     function showNativeMessageBox(options: {
         title: string;
         message: string;
-        iconType: 'info' | 'question' | 'warning';
+        iconType: "info" | "question" | "warning";
     }): void;
     function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
     function checkLicense(): boolean;

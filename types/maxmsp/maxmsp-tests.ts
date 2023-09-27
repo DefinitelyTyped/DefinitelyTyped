@@ -54,8 +54,8 @@ folder.close();
 //
 // 1. cast Global to any, lie to typescript that all is fine
 //    by using any or typescript ignore comments (see below)
-const globalOne = new Global('myGlobal');
-(<any> globalOne).prop = 'hello';
+const globalOne = new Global("myGlobal");
+(<any> globalOne).prop = "hello";
 messnamed("myobj", (<any> globalOne).prop);
 // @ts-expect-error
 messnamed("myobj", globalOne.prop);
