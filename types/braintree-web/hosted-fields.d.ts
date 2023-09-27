@@ -17,7 +17,7 @@ export interface HostedFieldsFieldSupportedCardBrands {
     /**
      * The options for supporting card brands as either valid or invalid.
      * Only applicable for the credit card number field.
-     * @default '•'
+     * An object used in {@link module:braintree-web/hosted-fields~field field objects}
      */
     visa?: boolean | undefined;
     mastercard?: boolean | undefined;
