@@ -41,7 +41,7 @@
     "./types/react-native-awesome-card-io"
   ],
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.85.1.wasm"
+    "https://plugins.dprint.dev/typescript-0.88.0.wasm"
   ],
   "indentWidth": 4,
   "lineWidth": 120
