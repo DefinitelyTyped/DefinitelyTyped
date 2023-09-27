@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 /* eslint-disable @definitelytyped/no-declare-current-package */
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@hapi/catbox-redis" {
     import { Cluster, Redis } from "ioredis";
     import { Client, ClientOptions, EnginePrototype } from "@hapi/catbox";

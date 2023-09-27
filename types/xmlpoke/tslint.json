@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "interface-over-type-literal": false,
-        "no-internal-module": false,
-        "no-single-declare-module": false
+        "no-internal-module": false
     }
 }

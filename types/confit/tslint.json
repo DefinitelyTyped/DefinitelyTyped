@@ -5,7 +5,6 @@
         "interface-over-type-literal": false,
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

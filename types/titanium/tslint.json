@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "unified-signatures": false
     }

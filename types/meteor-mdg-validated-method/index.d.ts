@@ -10,7 +10,7 @@
 
 /// <reference types="meteor"/>
 
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/mdg:validated-method" {
     export {};
     export type ValidatedMethodName<T> = T extends ValidatedMethod<infer TName, any> ? TName : never;

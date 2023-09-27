@@ -6,7 +6,6 @@
         "interface-over-type-literal": false,
         "jsdoc-format": false,
         "no-inferrable-types": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,

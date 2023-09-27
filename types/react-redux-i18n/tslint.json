@@ -4,7 +4,6 @@
         "ban-types": false,
         "interface-name": false,
         "interface-over-type-literal": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false
     }
 }

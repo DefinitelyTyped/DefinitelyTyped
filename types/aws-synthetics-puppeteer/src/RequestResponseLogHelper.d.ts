@@ -1,4 +1,5 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "RequestResponseLogHelper" {
     /**
      * Handles the fine grained configuration and creation of string representations of request and response payloads

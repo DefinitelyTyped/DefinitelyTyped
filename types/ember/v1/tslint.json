@@ -7,7 +7,6 @@
         "no-duplicate-variable": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

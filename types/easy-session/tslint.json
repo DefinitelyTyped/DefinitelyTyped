@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-reference-import": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

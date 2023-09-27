@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-boolean-literal-compare": false,
         "no-internal-module": false,
-        "no-single-declare-module": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,

@@ -4,7 +4,6 @@
         "ban-types": false,
         "jsdoc-format": false,
         "no-reference-import": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false
     }
 }

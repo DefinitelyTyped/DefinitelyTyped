@@ -3,7 +3,6 @@
     "rules": {
         "member-access": false,
         "no-internal-module": false,
-        "no-single-declare-module": false,
         "npm-naming": [
             true,
             {

@@ -3,7 +3,6 @@
     "rules": {
         "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "npm-naming": [
             true,
             {

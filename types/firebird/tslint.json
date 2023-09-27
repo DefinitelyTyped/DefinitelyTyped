@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-boolean-literal-compare": false,
-        "no-single-declare-module": false,
         "unified-signatures": false
     }
 }

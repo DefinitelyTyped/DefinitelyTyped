@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-internal-module": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "npm-naming": false,
         "unified-signatures": false
     }

@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "interface-name": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "unified-signatures": false
     }

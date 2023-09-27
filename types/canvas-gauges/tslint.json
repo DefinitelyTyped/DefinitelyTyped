@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "member-access": false,
-        "no-single-declare-module": false,
         "prefer-const": false,
         "unified-signatures": false
     }

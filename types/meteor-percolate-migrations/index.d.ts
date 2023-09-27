@@ -3,7 +3,7 @@
 // Definitions by: Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/percolate:migrations" {
     interface MigrationSpec {
         down?(): void;

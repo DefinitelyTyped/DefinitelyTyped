@@ -7,7 +7,6 @@
         "no-empty-interface": false,
         "unified-signatures": false,
         "interface-name": false,
-        "no-single-declare-module": false,
         "interface-over-type-literal": false,
         "no-mergeable-namespace": false
     }
