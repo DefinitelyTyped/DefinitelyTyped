@@ -31,7 +31,7 @@ jobs:
     - run: npx dprint fmt
     - uses: stefanzweifel/git-auto-commit-action@v4.16.0
       with:
-        commit_author: "TypeScript Bot <actions@github.com>"
-        commit_message: "chore: npx dprint fmt"
+        commit_author: "TypeScript Bot <typescriptbot@microsoft.com>"
+        commit_message: "🤖 dprint fmt"
         commit_user_email: "typescriptbot@microsoft.com"
         commit_user_name: "TypeScript Bot"
