@@ -44,10 +44,33 @@ const player = OvenPlayer.create('player1', {
         height: '30px',
         opacity: 0.7,
     },
+    autoStart: true,
+    autoFallback: true,
+    controls: true,
+    loop: true,
+    showBigPlayButton: true,
+    disableSeekUI: true,
+    showSeekControl: true,
+    seekControlInterval: 10,
+    expandFullScreenUI: true,
+    timecode: true,
+    playbackRate: 1,
+    currentProtocolOnly: false,
+    tracks: [],
+    volume: 100,
+    adTagUrl: '<url>',
+    adClient: 'googleima',
+    hidePlaylistIcon: true,
     sources: webrtcSources1,
     webrtcConfig: {
-        a: 1,
-        b: 2,
+        timeoutMaxRetry: 0,
+        connectionTimeout: 10000,
+        playoutDelayHint: 0,
+        iceServers: [
+            {
+                urls: ['stun:stun.l.google.com:19302'],
+            },
+        ],
     },
 });
 
@@ -99,44 +122,63 @@ player.load([
 ]);
 
 player.load([
-    [
-        {
-            type: 'webrtc',
-            file: 'file',
-        },
-        {
-            type: 'webrtc',
-            file: 'file',
-        },
-    ],
-    [
-        {
-            type: 'webrtc',
-            file: 'file',
-        },
-        {
-            type: 'webrtc',
-            file: 'file',
-        },
-    ],
+    {
+        title : "01",
+        adTagUrl : "https://pubads.g.doubleclick.net/gampad/ads?...",
+        image : "https://path.to/your_video_thumbnail.jpeg",
+        duration : 7343,
+        sources: [{
+            type : "mp4",
+            file :  "https://path.to/your_video",
+            label : "360P"
+        }],
+        tracks: [{
+            kind : "captions",
+            file :  "https://path.to/your_caption.vtt",
+            label : "KO vtt"
+        }]
+    },
+    {
+        title : "02",
+        adTagUrl : "https://pubads.g.doubleclick.net/gampad/ads?...",
+        image : "https://path.to/your_video_thumbnail2.jpeg",
+        duration : 8333,
+        sources: [
+            {
+                type : "mp4",
+                file :  "https://path.to/your_video2",
+                label : "360P"
+            },
+            {
+                type : "hls",
+                file :  "https://path.to/your_video.m3u8",
+                label: "360P DASH"
+            },
+        ],
+        tracks: [{
+            kind : "captions",
+            file :  "https://path.to/your_caption2.vtt",
+            label : "KO vtt"
+        }]
+    }
 ]);
 
 const quality: OvenPlayerQuality = {
     bitrate: '4000',
     height: 320,
     width: 320,
-    index: '320p',
+    index: 1,
     label: '320p',
 };
 
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
-// on(eventName: string, callback: OvenPlayerCallbackFunction): void;
-player.on('ready', (data, data2) => {});
+// on(evnetName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
+player.on('ready', () => {});
 
-// once(eventName: string, callback: OvenPlayerCallbackFunction): void;
-player.once('play', data => {});
+// once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+player.once('stateChanged', data => {});
 
 // off(eventName: string): void;
 player.off('ready');
