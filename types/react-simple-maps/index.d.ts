@@ -3,12 +3,13 @@
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
 //                 Kouame Komenan  <https://github.com/komenank>
+//                 Laurens Duin <https://github.com/laurens256>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { GeoPath, GeoProjection } from "d3-geo";
-import { D3ZoomEvent } from "d3-zoom";
-import { Feature } from "geojson";
-import * as React from "react";
+import { GeoPath, GeoProjection } from 'd3-geo';
+import { D3ZoomEvent } from 'd3-zoom';
+import { Feature } from 'geojson';
+import * as React from 'react';
 
 export type Point = [number, number];
 
@@ -77,18 +78,9 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean | undefined;
-    onMoveStart?:
-        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
-        | undefined;
-    onMove?:
-        | ((
-            position: { x: number; y: number; zoom: number; dragging: WheelEvent },
-            event: D3ZoomEvent<SVGElement, any>,
-        ) => void)
-        | undefined;
-    onMoveEnd?:
-        | ((position: { coordinates: [number, number]; zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void)
-        | undefined;
+    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMove?: ((position: {x: number, y: number, zoom: number, dragging: WheelEvent }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
     filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
@@ -99,15 +91,14 @@ interface GeographiesChildrenArgument {
     projection: GeoProjection;
 }
 
-export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, "children"> {
+export interface GeographiesProps extends Omit<React.SVGAttributes<SVGGElement>, 'children'> {
     parseGeographies?: ((features: Array<Feature<any, any>>) => Array<Feature<any, any>>) | undefined;
     geography?: string | Record<string, any> | string[] | undefined;
     children?: ((data: GeographiesChildrenArgument) => void) | undefined;
 }
 
 export interface GeographyProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "style">>
-{
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     geography?: any;
     style?: {
         default?: React.CSSProperties | undefined;
@@ -123,8 +114,7 @@ export interface GeographyProps
 }
 
 export interface MarkerProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "style">>
-{
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
     coordinates?: Point | undefined;
     style?: {
         default?: React.CSSProperties | undefined;
@@ -172,8 +162,7 @@ export interface GraticuleProps extends React.SVGProps<SVGPathElement> {
 }
 
 export interface LineProps
-    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "from" | "to">>
-{
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'from' | 'to'>> {
     /**
      * @default [0, 0]
      */
@@ -219,6 +208,10 @@ interface SphereProps extends React.SVGProps<SVGPathElement> {
     strokeWidth: number;
 }
 
+export interface MapContextProps {
+  projection: (coordinates: [number, number]) => [number, number];
+}
+
 declare const ComposableMap: React.FunctionComponent<ComposableMapProps>;
 declare const ZoomableGroup: React.FunctionComponent<ZoomableGroupProps>;
 declare const Geographies: React.FunctionComponent<GeographiesProps>;
@@ -228,5 +221,6 @@ declare const Annotation: React.FunctionComponent<AnnotationProps>;
 declare const Graticule: React.FunctionComponent<GraticuleProps>;
 declare const Line: React.FunctionComponent<LineProps>;
 declare const Sphere: React.FunctionComponent<SphereProps>;
+declare const MapContext: React.Context<MapContextProps>;
 
-export { Annotation, ComposableMap, Geographies, Geography, Graticule, Line, Marker, Sphere, ZoomableGroup };
+export { ComposableMap, ZoomableGroup, Geographies, Geography, Marker, Annotation, Graticule, Line, Sphere, MapContext };
