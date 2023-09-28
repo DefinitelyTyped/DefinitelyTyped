@@ -8,6 +8,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
+        "dnd-core": "^10.0.2",
         "react-dnd": "^10.0.2",
         "react-dnd-touch-backend": "^10.0.2"
     },
