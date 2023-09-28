@@ -23,7 +23,7 @@ export type Task = {
     TimeoutSeconds &
     HeartbeatSeconds;
 
-type TimeoutSeconds =
+export type TimeoutSeconds =
     | {
           TimeoutSeconds?: PositiveInteger;
           TimeoutSecondsPath?: never;
@@ -33,7 +33,7 @@ type TimeoutSeconds =
           TimeoutSecondsPath?: ReferencePath;
       };
 
-type HeartbeatSeconds =
+export type HeartbeatSeconds =
     | {
           HeartbeatSeconds?: PositiveInteger;
           HeartbeatSecondsPath?: never;
@@ -42,5 +42,3 @@ type HeartbeatSeconds =
           HeartbeatSeconds?: never;
           HeartbeatSecondsPath?: ReferencePath;
       };
-
-export {};

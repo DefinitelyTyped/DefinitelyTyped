@@ -56,5 +56,3 @@ export type EndOrNext =
           Next?: never;
           End: boolean;
       };
-
-export {};

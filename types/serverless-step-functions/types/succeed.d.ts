@@ -13,5 +13,3 @@ export interface Succeed {
     InputPath?: Path;
     OutputPath?: Path;
 }
-
-export {};

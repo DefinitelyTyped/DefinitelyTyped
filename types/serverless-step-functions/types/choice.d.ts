@@ -1,6 +1,6 @@
 import { Path } from './state';
 
-interface ChoiceRuleComparison {
+export interface ChoiceRuleComparison {
     Variable: string;
     BooleanEquals?: boolean;
     BooleanEqualsPath?: Path;
@@ -43,30 +43,30 @@ interface ChoiceRuleComparison {
     TimestampLessThanEqualsPath?: Path;
 }
 
-interface ChoiceRuleNot {
+export interface ChoiceRuleNot {
     Not: ChoiceRuleComparison;
     Next: string;
     Comment?: string;
 }
 
-interface ChoiceRuleAnd {
+export interface ChoiceRuleAnd {
     And: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
 }
 
-interface ChoiceRuleOr {
+export interface ChoiceRuleOr {
     Or: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
 }
 
-interface ChoiceRuleSimple extends ChoiceRuleComparison {
+export interface ChoiceRuleSimple extends ChoiceRuleComparison {
     Next: string;
     Comment?: string;
 }
 
-type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
+export type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
 /**
  * The Choice State (identified by "Type":"Choice") adds branching logic to a state machine.
@@ -82,5 +82,3 @@ export interface Choice {
     OutputPath?: Path;
     Default?: string;
 }
-
-export {};

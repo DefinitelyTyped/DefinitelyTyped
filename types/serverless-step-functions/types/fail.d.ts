@@ -12,7 +12,7 @@ export type Fail = {
 } & Cause &
     Error;
 
-type Cause =
+export type Cause =
     | {
           Cause?: string;
           CausePath?: never;
@@ -22,7 +22,7 @@ type Cause =
           CausePath?: ReferencePath | IntrinsicFunction;
       };
 
-type Error =
+export type Error =
     | {
           Error?: string;
           ErrorPath?: never;
@@ -31,5 +31,3 @@ type Error =
           Error?: never;
           ErrorPath?: ReferencePath | IntrinsicFunction;
       };
-
-export {};

@@ -1,7 +1,7 @@
 import { Catch, Retry } from './errors';
 import { EndOrNext, JsonObject, Path, ReferencePath, State } from './state';
 
-interface Branch {
+export interface Branch {
     StartAt: string;
     States: {
         [state: string]: State;
@@ -26,5 +26,3 @@ export type Parallel = {
     Retry?: Retry[];
     Catch?: Catch[];
 } & EndOrNext;
-
-export {};

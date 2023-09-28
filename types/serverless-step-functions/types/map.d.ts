@@ -12,7 +12,7 @@ export type Map = InlineMap | DistributedMap;
 /**
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
  */
-type InlineMap = {
+export type InlineMap = {
     Type: 'Map';
     Comment?: string;
     InputPath?: Path;
@@ -47,7 +47,7 @@ type InlineMap = {
 /**
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
  */
-type DistributedMap = {
+export type DistributedMap = {
     Type: 'Map';
     Comment?: string;
     InputPath?: Path;
@@ -76,5 +76,3 @@ type DistributedMap = {
     Retry?: Retry[];
     Catch?: Catch[];
 } & EndOrNext;
-
-export {};

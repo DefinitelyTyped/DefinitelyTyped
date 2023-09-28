@@ -3,7 +3,6 @@
 // Definitions by: Chris Cook <https://github.com/zirkelc>
 //                 Enric Bisbe Gil <https://github.com/ebisbe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// import { AwsResourceDependsOn, AwsResourceTags } from '@serverless/typescript';
 import { Resource } from './types/state';
 import { StateMachineDefinition } from './types/state-machine';
 

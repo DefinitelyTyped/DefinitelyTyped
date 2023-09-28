@@ -17,5 +17,3 @@ export type Pass = {
     ResultPath?: ReferencePath;
     Parameters?: JsonObject;
 } & EndOrNext;
-
-export {};

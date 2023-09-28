@@ -14,7 +14,7 @@ export type Wait = {
 } & EndOrNext &
     SecondsOrTimestamp;
 
-type SecondsOrTimestamp =
+export type SecondsOrTimestamp =
     | {
           Seconds?: PositiveInteger;
           SecondsPath?: never;
@@ -39,5 +39,3 @@ type SecondsOrTimestamp =
           Timestamp?: never;
           TimestampPath?: Path;
       };
-
-export {};

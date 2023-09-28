@@ -1,4 +1,4 @@
-import { Path, PositiveInteger, ReferencePath } from './state';
+import { PositiveInteger, ReferencePath } from './state';
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-error-representation
 export type Errors =
@@ -30,5 +30,3 @@ export interface Retry {
     MaxDelaySeconds?: PositiveInteger;
     JitterStrategy?: 'FULL' | 'NONE';
 }
-
-export {};

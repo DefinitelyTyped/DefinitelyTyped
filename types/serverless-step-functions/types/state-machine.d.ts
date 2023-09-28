@@ -10,5 +10,3 @@ export interface StateMachineDefinition {
     Version?: string;
     TimeoutSeconds?: PositiveInteger;
 }
-
-export {};
