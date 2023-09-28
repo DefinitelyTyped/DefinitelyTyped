@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@types/express-minify": "workspace:.",
-        "@types/uglify-js": "*"
+        "@types/uglify-js": "^2.6.0"
     },
     "owners": [
         {
