@@ -9,8 +9,7 @@
         "@types/react": "^15"
     },
     "devDependencies": {
-        "@types/react-addons-test-utils": "workspace:.",
-        "@types/react-dom-factories": "*"
+        "@types/react-addons-test-utils": "workspace:."
     },
     "owners": [
         {

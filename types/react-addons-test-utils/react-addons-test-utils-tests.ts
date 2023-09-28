@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as TestUtils from "react-addons-test-utils";
-import * as DOM from "react-dom-factories";
 
 declare const container: Element;
 
@@ -24,9 +23,10 @@ const props: Props & React.ClassAttributes<any> = {
     hello: "world",
     foo: 42,
 };
+declare const div: React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
+const node: Element = TestUtils.renderIntoDocument(div);
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
