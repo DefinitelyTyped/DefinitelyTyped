@@ -151,13 +151,6 @@ interface PostOtherOptions {
 }
 
 declare class PeakVault {
-    #private;
-    /**
-     * Open extension in popup
-     */
-    /**
-     * Open confirmation popup
-     */
     /**
      * Request user confirmation to sign generic operations using the given key.
      * @param account account with which the user must sign. Use '' to let the user decide which account to use.
