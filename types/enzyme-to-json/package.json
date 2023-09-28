@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/enzyme-to-json": "workspace:.",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "owners": [
         {
