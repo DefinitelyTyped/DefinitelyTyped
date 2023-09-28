@@ -10,8 +10,8 @@
     },
     "devDependencies": {
         "@types/ember-data__adapter": "workspace:.",
-        "@types/ember-data__model": "*",
-        "@types/ember-data__store": "*",
+        "@types/ember-data__model": "^3",
+        "@types/ember-data__store": "^3",
         "@types/ember__object": "*",
         "@types/ember__service": "*",
         "@types/jquery": "*"
