@@ -6,12 +6,12 @@
         "http://marnusw.github.io/react-css-transition-replace/"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^15",
         "@types/react-addons-css-transition-group": "*"
     },
     "devDependencies": {
         "@types/react-css-transition-replace": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-dom": "^15"
     },
     "owners": [
         {
