@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/enzyme-async-helpers": "workspace:.",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "owners": [
         {
