@@ -6,7 +6,7 @@
         "https://github.com/cristovao-trevisan/express-multipart-file-parser#readme"
     ],
     "dependencies": {
-        "@types/busboy": "^0.2.3",
+        "@types/busboy": "^0.2.3 || ^0.3.0",
         "@types/node": "*",
         "raw-body": "^2.3.2"
     },
