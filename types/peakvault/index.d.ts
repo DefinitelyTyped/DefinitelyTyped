@@ -218,8 +218,9 @@ declare class PeakVault {
     /**
      * Verify that the user has the required authority (keyRole) over the account.
      * @param account account to connect. Enter '' to let the user decide which account to use.
+     * @param keyRole key role that needs to be verified.
      */
-    connect: (account: string) => Promise<PeakVaultResponse>;
+    connect: (account: string, keyRole?: KeyRole) => Promise<PeakVaultResponse>;
     /**
      * Ask the user to decode a message (secret) with one of their private keys.
      * @param account account that should decode the message.
