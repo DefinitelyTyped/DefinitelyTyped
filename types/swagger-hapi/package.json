@@ -9,7 +9,7 @@
         "@types/swagger-node-runner": "*"
     },
     "devDependencies": {
-        "@types/hapi": "*",
+        "@types/hapi": "^16",
         "@types/swagger-hapi": "workspace:."
     },
     "owners": [
