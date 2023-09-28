@@ -1,118 +1,81 @@
 (async () => {
-    const filePickerOptions: FilePickerOptions = {
-        types: [{ description: "SVG images", accept: { "image/svg": ".svg" } }],
-        excludeAcceptAllOption: true,
-        startIn: "downloads",
-        id: "uniqueFileId"
-    };
-
-    const saveFilePickerOptions: SaveFilePickerOptions = {
-        suggestedName: "image.svg",
-    };
-
-    const openFilePickerOptions: OpenFilePickerOptions = {
-        multiple: true
-    }
-
-    const directoryPickerOptions: DirectoryPickerOptions = {
-        id: "uniqueDirId",
-        startIn: undefined,
-        mode: "readwrite",
-    }
-
-    // showOpenFilePicker
-
-    const [defaultFileHandle]: [FileSystemFileHandle] = await showOpenFilePicker();
-    const [fileHandleNoMultipleExplicit]: [FileSystemFileHandle] = await showOpenFilePicker({multiple: false});
-    const [fileHandleMultiple1, fileHandleMultiple2]: FileSystemFileHandle[] = await showOpenFilePicker({ multiple: true });
+    let [fileHandle]: [FileSystemFileHandle] = await showOpenFilePicker();
+    [fileHandle] = await showOpenFilePicker({ multiple: false });
     const fileHandles: FileSystemFileHandle[] = await showOpenFilePicker({
         excludeAcceptAllOption: true,
         multiple: true,
         types: [{ accept: { "image/*": [".png", ".jpg"], "text/plain": ".txt" } }],
     });
-    const [fileHandleFromFilePickerOptions]: [FileSystemFileHandle] = await showOpenFilePicker({...filePickerOptions})
-    const fileHandlesFromOpenFilePickerOptions: FileSystemFileHandle[] = await showOpenFilePicker({
-        ...openFilePickerOptions,
-        ...filePickerOptions
-    })
+    let w: FileSystemWritableFileStream = await fileHandle.createWritable();
+    w = await fileHandle.createWritable({ keepExistingData: true });
+    await w.write("abc");
+    await w.write(new Uint8Array([1, 2, 3]));
+    await w.write({ type: "seek", position: 0 });
+    await w.seek(1);
+    await w.write(new Blob(["xyz"]));
+    await w.write({ type: "write", position: 3, data: new Uint8Array([4, 5, 6]) });
+    await w.write({ type: "truncate", size: 2 });
+    await w.truncate(1);
+    await w.close();
 
-    // showSaveFilePicker
+    let permissionState: PermissionState = await fileHandle.queryPermission();
+    permissionState = await fileHandle.requestPermission({ mode: "read" });
+    permissionState = await fileHandle.requestPermission({ mode: "readwrite" });
 
-    const defaultSaveFileHandle: FileSystemFileHandle = await showSaveFilePicker();
-    const saveFileHandle = await showSaveFilePicker({
+    const saveFilePickerOptions = {
+        suggestedName: "image.svg",
+    };
+    const filePickerOptions: FilePickerOptions = {
         excludeAcceptAllOption: true,
-        types: [{ description: "Any text", accept: { "text/*": [".txt", '.json'] } }],
-    });
-    const saveFileHandleFromFilePickerOptions: FileSystemFileHandle = await showSaveFilePicker({
+        types: [{ description: "SVG images", accept: { "image/svg": [".svg"] } }],
+    };
+
+    fileHandle = await showSaveFilePicker();
+    fileHandle = await showSaveFilePicker({
         ...filePickerOptions,
     });
-    const saveFileHandlesFromSaveFilePickerOptions = await showSaveFilePicker({
+    fileHandle = await showSaveFilePicker({
+        ...saveFilePickerOptions,
+    });
+    fileHandle = await showSaveFilePicker({
         ...saveFilePickerOptions,
         ...filePickerOptions,
     });
 
+    const file: File = await fileHandle.getFile();
+    new ReadableStream().pipeTo(await fileHandle.createWritable());
 
-    // showDirectoryFilePicker
+    let dirHandle: FileSystemDirectoryHandle = await showDirectoryPicker();
+    dirHandle = await showDirectoryPicker({});
 
-    const defaultDirectoryHandle: FileSystemDirectoryHandle = await showDirectoryPicker();
-    const directoryHandleStartInDir: FileSystemDirectoryHandle = await showDirectoryPicker({
-        id: "uniqueDirIdManuaDir",
-        startIn: defaultDirectoryHandle,
-    });
-    const directoryHandleStartInFile: FileSystemDirectoryHandle = await showDirectoryPicker({
-        id: "uniqueDirIdManualFile",
-        startIn: defaultFileHandle,
-    });
-    const directoryHandleFromDirectoryPickerOptions: FileSystemDirectoryHandle = await showDirectoryPicker(directoryPickerOptions);
-
-    // permissions
-
-    const [permissionFileHandle] = await showOpenFilePicker();
-    const defaultPermissionState: PermissionState = await permissionFileHandle.queryPermission();
-    const permissionStateRead: PermissionState = await permissionFileHandle.requestPermission({ mode: "read" });
-    const permissionStateReadWrite: PermissionState = await permissionFileHandle.requestPermission({ mode: "readwrite" });
-
-    // reading, writing, deleting
-
-    const [rwFileHandle] = await showOpenFilePicker();
-    const file: File = await rwFileHandle.getFile();
-
-    new ReadableStream().pipeTo(await rwFileHandle.createWritable());
-
-    const fileStream: FileSystemWritableFileStream = await rwFileHandle.createWritable();
-    await fileStream.close();
-
-    const fileStreamCustom: FileSystemWritableFileStream = await rwFileHandle.createWritable({ keepExistingData: true });
-
-    await fileStreamCustom.write("abc");
-    await fileStreamCustom.write(new Uint8Array([1, 2, 3]));
-    await fileStreamCustom.write({ type: "seek", position: 0 });
-    await fileStreamCustom.seek(1);
-    await fileStreamCustom.write(new Blob(["xyz"]));
-    await fileStreamCustom.write({ type: "write", position: 3, data: new Uint8Array([4, 5, 6]) });
-    await fileStreamCustom.write({ type: "truncate", size: 2 });
-    await fileStreamCustom.truncate(1);
-    await fileStreamCustom.close();
-
-    // drag and drop
-
-    addEventListener('drop', async (e) => {
-        e.preventDefault();
-      
-        const dataTransferItemList: DataTransferItemList = e.dataTransfer!.items
-        const firstDataTranferItem: DataTransferItem = dataTransferItemList[0]
-        const maybeItemAsFileSystemHandle = await firstDataTranferItem.getAsFileSystemHandle()
-
-        if (maybeItemAsFileSystemHandle) {
-            const itemAsFileHandle: FileSystemHandle = maybeItemAsFileSystemHandle
+    (async function* recursivelyWalkDir(dirHandle: FileSystemDirectoryHandle): AsyncIterable<File> {
+        // Disable due to a bug in TSLint https://github.com/palantir/tslint/issues/3997:
+        // tslint:disable-next-line await-promise
+        for await (const [name, handle] of dirHandle) {
+            if (handle.kind === "file") {
+                yield handle.getFile();
+            } else {
+                yield* recursivelyWalkDir(handle);
+            }
         }
-    })
+    })(dirHandle);
+
+    const maybePath = await dirHandle.resolve(fileHandle);
+    if (maybePath) {
+        const pathItems: string[] = maybePath;
+    }
+
+    fileHandle = await dirHandle.getFileHandle("temp.txt");
+    fileHandle = await dirHandle.getFileHandle("temp.txt", { create: true });
+
+    dirHandle = await dirHandle.getDirectoryHandle("subdir", { create: false });
+
+    await dirHandle.removeEntry("temp.txt");
+    await dirHandle.removeEntry("nested-dir", { recursive: true });
+
+    dirHandle = await navigator.storage.getDirectory();
 
     // Testing Chromium <=85 methods, remove when all Chromium-based browsers have upgraded.
-
-    let fileHandle: FileSystemHandle;
-    let dirHandle: FileSystemDirectoryHandle;
-    let permissionState: PermissionState;
 
     fileHandle = await chooseFileSystemEntries();
     fileHandle = await chooseFileSystemEntries({

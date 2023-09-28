@@ -8,6 +8,10 @@ export {};
 
 declare global {
     interface FileSystemHandle {
+        readonly kind: "file" | "directory";
+        readonly name: string;
+
+        isSameEntry(other: FileSystemHandle): Promise<boolean>;
         queryPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
         requestPermission(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>;
 
@@ -21,7 +25,12 @@ declare global {
          */
         readonly isDirectory: boolean;
     }
-
+    var FileSystemHandle: {
+        prototype: FileSystemHandle;
+        new(): FileSystemHandle;
+    };
+    type FileSystemHandleUnion = FileSystemFileHandle | FileSystemDirectoryHandle;
+    
     type FileExtension = `.${string}`
     type MIMEType = `${string}/${string}`
 
@@ -87,11 +96,37 @@ declare global {
 
     // TODO: Implemented natively in TS 5.1, remove
     interface FileSystemCreateWritableOptions {
-        keepExistingData?: boolean;
+        keepExistingData?: boolean | undefined;
     }
 
+    interface FileSystemGetFileOptions {
+        create?: boolean | undefined;
+    }
+
+    interface FileSystemGetDirectoryOptions {
+        create?: boolean | undefined;
+    }
+
+    interface FileSystemRemoveOptions {
+        recursive?: boolean | undefined;
+    }
+
+    // type WriteParams =
+    //     | { type: 'write'; position?: number | undefined; data: BufferSource | Blob | string }
+    //     | { type: 'seek'; position: number }
+    //     | { type: 'truncate'; size: number };
+
+    // type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams;
+
+    // class FileSystemWritableFileStream extends WritableStream {
+    //     write(data: FileSystemWriteChunkType): Promise<void>;
+    //     seek(position: number): Promise<void>;
+    //     truncate(size: number): Promise<void>;
+    // }
+
     interface FileSystemFileHandle extends FileSystemHandle {
-        // TODO: Implemented natively in TS 5.1, remove
+        readonly kind: "file";
+        getFile(): Promise<File>;
         createWritable(options?: FileSystemCreateWritableOptions): Promise<FileSystemWritableFileStream>;
         /**
          * @deprecated Old property just for Chromium <=85. Use `kind` property in the new API.
@@ -103,7 +138,17 @@ declare global {
         readonly isDirectory: false;
     }
 
+    var FileSystemFileHandle: {
+        prototype: FileSystemFileHandle;
+        new(): FileSystemFileHandle;
+    };
+
     interface FileSystemDirectoryHandle extends FileSystemHandle {
+        readonly kind: "directory";
+        getDirectoryHandle(name: string, options?: FileSystemGetDirectoryOptions): Promise<FileSystemDirectoryHandle>;
+        getFileHandle(name: string, options?: FileSystemGetFileOptions): Promise<FileSystemFileHandle>;
+        removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
+        resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null>;
         keys(): AsyncIterableIterator<string>;
         values(): AsyncIterableIterator<FileSystemDirectoryHandle | FileSystemFileHandle>;
         entries(): AsyncIterableIterator<[string, FileSystemDirectoryHandle | FileSystemFileHandle]>;
@@ -118,11 +163,22 @@ declare global {
         readonly isDirectory: true;
     }
 
+    var FileSystemDirectoryHandle: {
+        prototype: FileSystemDirectoryHandle;
+        new(): FileSystemDirectoryHandle;
+    };
+
     interface DataTransferItem {
         getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
     }
 
-    function showOpenFilePicker(options?: OpenFilePickerOptions & { multiple?: false | undefined }): Promise<[FileSystemFileHandle]>;
+    interface StorageManager {
+        getDirectory(): Promise<FileSystemDirectoryHandle>;
+    }
+
+    function showOpenFilePicker(
+        options?: OpenFilePickerOptions & { multiple?: false | undefined },
+    ): Promise<[FileSystemFileHandle]>;
     function showOpenFilePicker(options?: OpenFilePickerOptions): Promise<FileSystemFileHandle[]>;
     function showSaveFilePicker(options?: SaveFilePickerOptions): Promise<FileSystemFileHandle>;
     function showDirectoryPicker(options?: DirectoryPickerOptions): Promise<FileSystemDirectoryHandle>;
