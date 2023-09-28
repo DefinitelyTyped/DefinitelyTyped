@@ -10,6 +10,8 @@
         "@types/autoprefixer": "^9.7.2",
         "@types/babel-core": "*",
         "@types/eslint": "*",
+        "@types/express": "*",
+        "@types/node": "*",
         "@types/webpack": "^4",
         "@types/webpack-dev-server": "^3.11.6"
     },

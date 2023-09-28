@@ -6,7 +6,8 @@
         "https://github.com/zazukoians/absolute-url"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/express-serve-static-core": "^4.17.33"
     },
     "devDependencies": {
         "@types/absolute-url": "workspace:."

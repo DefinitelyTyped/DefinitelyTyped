@@ -6,6 +6,7 @@
         "https://github.com/zazuko/barnard59-validate-shacl"
     ],
     "dependencies": {
+        "@rdfjs/types": "*",
         "@types/barnard59-core": "*",
         "@types/rdf-validate-shacl": "*",
         "rdf-js": "^4.0.2"

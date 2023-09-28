@@ -6,7 +6,7 @@
         "https://github.com/jashkenas/coffeescript"
     ],
     "dependencies": {
-        "@babel/core": "^7.1.15"
+        "@types/babel__core": "^7.1.15"
     },
     "devDependencies": {
         "@types/coffeescript": "workspace:."

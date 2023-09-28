@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/convict": "workspace:.",
-        "@types/js-yaml": "*",
+        "@types/js-yaml": "^3",
         "@types/validator": "*"
     },
     "owners": [
