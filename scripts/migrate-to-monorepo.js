@@ -103,6 +103,13 @@ function writeJSON(path, obj) {
 }
 
 /**
+ * @param {string} name
+ */
+function regularNameToTypesName(name) {
+    return `@types/${mangleScopedPackage(name)}`;
+}
+
+/**
  * @param {import("@definitelytyped/definitions-parser").TypingsData} typingsData
  */
 async function handlePackage(typingsData) {
@@ -115,11 +122,12 @@ async function handlePackage(typingsData) {
     const pkgName = typingsData.fullNpmName;
 
     const packageJsonPath = path.join(packageRoot, "package.json");
+    const hasPackageJsonOriginally = fs.existsSync(packageJsonPath);
 
     /** @type {Record<string, any>} */
     const packageJsonContents = { name: pkgName, private: true };
 
-    if (fs.existsSync(packageJsonPath)) {
+    if (hasPackageJsonOriginally) {
         const existing = JSON.parse(await fs.promises.readFile(packageJsonPath, { encoding: "utf8" }));
         if (existing.version) {
             // we've already processed this; skip.
@@ -168,13 +176,17 @@ async function handlePackage(typingsData) {
 
     for (let [dep, version] of Object.entries(typingsData.dependencies)) {
         if (isNodeBuiltin(dep)) {
-            dep = "node";
+            if (fs.existsSync(path.join(typesRoot, dep))) {
+                throw new Error(`ambiguous node dep ${dep}`);
+            } else {
+                dep = "node";
+            }
         }
 
         if (
             dep === pkgName
             || packageJsonContents.dependencies[dep]
-            || packageJsonContents.dependencies[`@types/${mangleScopedPackage(dep)}`]
+            || packageJsonContents.dependencies[regularNameToTypesName(dep)]
         ) {
             continue;
         }
@@ -214,15 +226,34 @@ async function handlePackage(typingsData) {
     packageJsonContents.devDependencies[pkgName] = "workspace:.";
 
     for (let dep of typingsData.testDependencies) {
-        if (isNodeBuiltin(dep)) {
-            dep = "node";
+        const allDeps = { ...packageJsonContents.dependencies, ...packageJsonContents.devDependencies };
+        /**
+         * @param {string} dep
+         */
+        function hasDep(dep) {
+            return allDeps[dep] || allDeps[regularNameToTypesName(dep)];
         }
 
-        const depTypes = `@types/${mangleScopedPackage(dep)}`;
-        const allDeps = { ...packageJsonContents.dependencies, ...packageJsonContents.devDependencies };
-        if (!allDeps[dep] && !allDeps[depTypes]) {
+        if (hasDep(dep)) continue;
+
+        if (isNodeBuiltin(dep)) {
+            if (!typingsData.dependencies["node"] && fs.existsSync(path.join(typesRoot, dep))) {
+                console.log(
+                    `${prettyPath(packageJsonPath)}: test dependency ${dep} could be node or ${
+                        regularNameToTypesName(
+                            dep,
+                        )
+                    }; skipping`,
+                );
+                continue;
+            } else {
+                dep = "node";
+            }
+        }
+
+        if (!hasDep(dep)) {
             if (allPackages.tryGetLatestVersion(dep)) {
-                packageJsonContents.devDependencies[depTypes] = "*";
+                packageJsonContents.devDependencies[regularNameToTypesName(dep)] = "*";
             } else {
                 console.log(`${prettyPath(packageJsonPath)}: could not find a local package for ${dep}`);
             }
