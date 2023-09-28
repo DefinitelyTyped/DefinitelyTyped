@@ -75,7 +75,7 @@ class TestNode extends TempNode {
         this.adjustmentNode = adjustmentNode;
     }
 
-    construct() {
+    setup() {
         const { method, colorNode, adjustmentNode } = this;
 
         const callParams = { color: colorNode, adjustment: adjustmentNode };
