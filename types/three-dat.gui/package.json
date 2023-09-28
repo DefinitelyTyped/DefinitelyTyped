@@ -6,7 +6,7 @@
         "https://github.com/SolalDR/three-dat.gui#readme"
     ],
     "dependencies": {
-        "three": "*"
+        "@types/three": "*"
     },
     "devDependencies": {
         "@types/dat.gui": "*",
