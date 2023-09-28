@@ -9,7 +9,7 @@
         "@types/react": "^16"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
+        "@types/react-dom": "^16",
         "@types/react-is": "workspace:."
     },
     "owners": [
