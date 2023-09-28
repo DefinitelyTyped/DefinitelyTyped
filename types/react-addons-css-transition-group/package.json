@@ -10,7 +10,6 @@
         "@types/react-addons-transition-group": "*"
     },
     "devDependencies": {
-        "@types/create-react-class": "*",
         "@types/react-addons-css-transition-group": "workspace:."
     },
     "owners": [

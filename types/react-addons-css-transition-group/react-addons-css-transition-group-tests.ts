@@ -1,11 +1,10 @@
 import * as React from "react";
 import CSSTransitionGroup = require("react-addons-css-transition-group");
-import createReactClass = require("create-react-class");
+
+declare const ComponentClass: React.ClassicComponentClass<{}>;
 
 React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null,
-    }),
+    component: ComponentClass,
     childFactory: c => c,
     transitionName: "transition",
     transitionAppear: false,
