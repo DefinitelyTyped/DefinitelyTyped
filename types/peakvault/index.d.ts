@@ -1,9 +1,7 @@
-// Type definitions for peakvault x.x
+// Type definitions for peakvault 0.0
 // Project: https://gitlab.com/peakd/peak-vault
-// Definitions by: My Self <https://github.com/AndreaDuina>
+// Definitions by: Andrea Duina (@muwave) <https://github.com/AndreaDuina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { z } from './lib';
 
 type KeyRole = 'posting' | 'active' | 'memo'
 
@@ -111,24 +109,20 @@ interface Operation {
   }
 }
 
-declare const schemaDisplayMessage: z.ZodUnion<[z.ZodString, z.ZodObject<{
-    title: z.ZodString;
-    message: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    message?: string | undefined;
-    title: string;
-}, {
-    message?: string | undefined;
-    title: string;
-}>]>;
-type DisplayMessage = z.infer<typeof schemaDisplayMessage>;
+type PeakVaultOperationName =
+  'verify' |
+  'sign_buffer'|
+  'decode' |
+  'connect'
 
-declare const schemaPeakVaultOperation: z.ZodType<[string, {
-    [key: string]: any;
-}], z.ZodTypeDef, [string, {
-    [key: string]: any;
-}]>;
-type PeakVaultOperation = z.infer<typeof schemaPeakVaultOperation>;
+  interface PeakVaultOperation {
+    0: PeakVaultOperationName
+    1: {
+        [key: string]: any
+    }
+  }
+
+  type DisplayMessage = string | { title: string, message: string}
 
 interface PeakVaultResponse {
   success: boolean
@@ -153,25 +147,22 @@ interface PostOtherOptions {
   allow_curation_rewards: boolean
   extensions:
     | []
-    | [[number, { beneficiaries?: { account: string; weight: number }; [key: string]: any }]]
+    | Array<[number, { beneficiaries?: { account: string; weight: number }; [key: string]: any }]>
 }
 
 declare class PeakVault {
     #private;
     /**
      * Open extension in popup
-     * @returns
      */
     /**
      * Open confirmation popup
-     * @returns
      */
     /**
      * Request user confirmation to sign generic operations using the given key.
      * @param account account with which the user must sign. Use '' to let the user decide which account to use.
      * @param operations operation array that needs to be signed.
      * @param keyRole 'posting', 'active' or 'memo'.
-     * @returns
      */
     requestSign: (account: string, operations: Operation[] | PeakVaultOperation[], keyRole: KeyRole, displayMessage?: DisplayMessage) => Promise<PeakVaultResponse>;
     /**
@@ -180,7 +171,6 @@ declare class PeakVault {
      * @param operations operation array that needs to be signed.
      * @param keyRole 'posting', 'active' or 'memo'.
      * @param displayMessage message explaining the operation to the user.
-     * @returns
      */
     requestBroadcast: (account: string, operations: Operation[], keyRole: KeyRole, displayMessage?: DisplayMessage) => Promise<PeakVaultResponse>;
     /**
@@ -202,7 +192,6 @@ declare class PeakVault {
      * @param amount amount to send.
      * @param currency currency, HIVE or HBD.
      * @param memo message to send along with the transfer.
-     * @returns
      */
     requestTransfer: (from: string, to: string, amount: number, currency: 'HIVE' | 'HBD', memo?: string) => Promise<PeakVaultResponse>;
     /**
@@ -211,7 +200,6 @@ declare class PeakVault {
      * @param permlink permlink to the post to vote.
      * @param author author of the post.
      * @param weight vote weight [1-10000].
-     * @returns
      */
     requestVote: (voter: string, permlink: string, author: string, weight: number) => Promise<PeakVaultResponse>;
     /**
@@ -224,7 +212,6 @@ declare class PeakVault {
      * @param json_metadata metadata, like tags or post format. Try to follow the community rules specified at https://developers.hive.io/apidefinitions/#broadcast_ops_comment
      * @param permlink permlink of the post/comment.
      * @param otherOptions specify advanced options. Check the docs for more information. https://developers.hive.io/apidefinitions/#broadcast_ops_comment_options
-     * @returns
      */
     requestPost: (account: string, title: string, body: string, parentPermlink: string, parentAccount: string, json_metadata: PostJsonMetadata, permlink: string, otherOptions?: PostOtherOptions) => Promise<PeakVaultResponse>;
     /**
@@ -233,13 +220,11 @@ declare class PeakVault {
      * @param keyRole 'posting', 'active' or 'memo'.
      * @param message message to be signed.
      * @param displayMessage message explaining the operation to the user.
-     * @returns
      */
     requestSignBuffer: (account: string, keyRole: KeyRole, message: string, displayMessage?: DisplayMessage) => Promise<PeakVaultResponse>;
     /**
      * Verify that the user has the required authority (keyRole) over the account.
      * @param account account to connect. Enter '' to let the user decide which account to use.
-     * @returns
      */
     connect: (account: string) => Promise<PeakVaultResponse>;
     /**
@@ -247,7 +232,6 @@ declare class PeakVault {
      * @param account account that should decode the message.
      * @param secret message that should be decoded.
      * @param keyRole key role used to encode the message.
-     * @returns
      */
     decode: (account: string, secret: string, keyRole?: KeyRole) => Promise<PeakVaultResponse>;
 }
