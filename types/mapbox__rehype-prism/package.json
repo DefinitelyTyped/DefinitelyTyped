@@ -6,7 +6,7 @@
         "https://github.com/mapbox/rehype-prism"
     ],
     "dependencies": {
-        "@types/hast": "*",
+        "@types/hast": "^2",
         "unified": "^10.0.0"
     },
     "devDependencies": {
