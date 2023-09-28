@@ -1,14 +1,21 @@
 // @ts-check
 import { $ as _$ } from "execa";
+import module from "module";
 import assert from "node:assert";
 import fs from "node:fs";
-import { builtinModules } from "node:module";
 import path from "node:path";
+import url from "node:url";
 import os from "os";
 import pLimit from "p-limit";
 
 const $ = _$({});
 // const $ = _$({ verbose: true, stdio: "inherit" });
+
+const __filename = url.fileURLToPath(new URL(import.meta.url));
+const __dirname = path.dirname(__filename);
+
+const dtRoot = path.resolve(__dirname, "..");
+const typesRoot = path.resolve(dtRoot, "types");
 
 const [brokenListFile] = process.argv.slice(2);
 const brokenList = fs.readFileSync(brokenListFile, "utf8").trim().split("\n");
@@ -100,6 +107,15 @@ async function addNode(pkgPath, addReference) {
     }
 }
 
+const nodePackages = new Set(module.builtinModules);
+
+/**
+ * @param {string} name
+ */
+function isNodeBuiltin(name) {
+    return name.startsWith("node:") || nodePackages.has(name);
+}
+
 /**
  * @param {string} pkgPath
  * @param {string} stdout
@@ -143,7 +159,11 @@ async function tryFix(pkgPath, stdout) {
     const match = stdout.match(cannotFindModuleRegex);
     if (match) {
         const missingModule = match[1];
-        if (builtinModules.includes(missingModule)) {
+        if (isNodeBuiltin(missingModule)) {
+            if (fs.existsSync(path.join(typesRoot, missingModule))) {
+                console.log(`${pkgPath}: needs ${missingModule} but it could be types/${missingModule} or @types/node`);
+                return false;
+            }
             await addNode(pkgPath, true && !checkingNodeModules);
             return true;
         }
