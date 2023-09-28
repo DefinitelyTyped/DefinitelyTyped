@@ -6,8 +6,8 @@
         "https://github.com/joetidee/enzyme-react-intl#readme"
     ],
     "dependencies": {
-        "@types/enzyme": "*",
-        "@types/react": "*",
+        "@types/enzyme": "^3",
+        "@types/react": "^16",
         "react-intl": "^3"
     },
     "devDependencies": {
