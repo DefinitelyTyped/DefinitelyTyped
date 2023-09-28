@@ -11,10 +11,10 @@
     },
     "devDependencies": {
         "@types/d3-axis": "workspace:.",
-        "@types/d3-format": "*",
-        "@types/d3-scale": "*",
-        "@types/d3-time": "*",
-        "@types/d3-transition": "*"
+        "@types/d3-format": "^2",
+        "@types/d3-scale": "^2",
+        "@types/d3-time": "^2",
+        "@types/d3-transition": "^2"
     },
     "owners": [
         {

@@ -6,7 +6,7 @@
         "https://github.com/jbyte/three-dragcontrols#readme"
     ],
     "dependencies": {
-        "three": "*"
+        "@types/three": "*"
     },
     "devDependencies": {
         "@types/drag-controls": "workspace:."

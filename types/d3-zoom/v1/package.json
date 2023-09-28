@@ -11,7 +11,7 @@
         "@types/d3-selection": "^1"
     },
     "devDependencies": {
-        "@types/d3-transition": "*",
+        "@types/d3-transition": "^1",
         "@types/d3-zoom": "workspace:."
     },
     "owners": [

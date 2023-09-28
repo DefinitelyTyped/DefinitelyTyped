@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@types/d3-brush": "workspace:.",
-        "@types/d3-transition": "*"
+        "@types/d3-transition": "^2"
     },
     "owners": [
         {

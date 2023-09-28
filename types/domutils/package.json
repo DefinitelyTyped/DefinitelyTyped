@@ -6,7 +6,7 @@
         "https://github.com/FB55/domutils#readme"
     ],
     "dependencies": {
-        "domhandler": "^2.4.0"
+        "@types/domhandler": "^2.4.0"
     },
     "devDependencies": {
         "@types/domutils": "workspace:."
