@@ -11,8 +11,8 @@
         "redux": "^4.0.0"
     },
     "devDependencies": {
-        "@types/react": "*",
-        "@types/react-dom": "*",
+        "@types/react": "^16",
+        "@types/react-dom": "^16",
         "@types/react-intl-redux": "workspace:."
     },
     "owners": [
