@@ -1,4 +1,4 @@
-// Type definitions for peakvault 0.0
+// Type definitions for non-npm package peakvault-browser 0.0
 // Project: https://gitlab.com/peakd/peak-vault
 // Definitions by: Andrea Duina (@muwave) <https://github.com/AndreaDuina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
