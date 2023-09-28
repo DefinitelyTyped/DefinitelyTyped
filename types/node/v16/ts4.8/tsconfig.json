@@ -1,0 +1,27 @@
+{
+  "files": [
+    "index.d.ts",
+    "node-tests.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "lib": [
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "baseUrl": "../../../",
+    "typeRoots": ["../../../"],
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "node": [
+        "node/v16"
+      ]
+    }
+  }
+}

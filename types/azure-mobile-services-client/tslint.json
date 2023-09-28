@@ -1,0 +1,13 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "interface-name": false,
+        "no-misused-new": false,
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "prefer-for-of": false,
+        "prefer-template": false,
+        "unified-signatures": false
+    }
+}

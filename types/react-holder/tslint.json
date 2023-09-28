@@ -1,0 +1,7 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "member-access": false,
+        "no-reference-import": false
+    }
+}

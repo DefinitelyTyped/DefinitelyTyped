@@ -1,0 +1,8 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "no-conditional-assignment": false,
+        "no-var-keyword": false
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "react-router-dom": "^6.0.0"
+    }
+}

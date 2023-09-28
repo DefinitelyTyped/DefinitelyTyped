@@ -1,0 +1,11 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "ban-types": false,
+        "interface-name": false,
+        "no-empty-interface": false,
+        "no-mergeable-namespace": false,
+        "unified-signatures": false
+    }
+}

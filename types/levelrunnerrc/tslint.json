@@ -1,0 +1,7 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-object-literal-type-assertion": false,
+        "no-unnecessary-class": false
+    }
+}

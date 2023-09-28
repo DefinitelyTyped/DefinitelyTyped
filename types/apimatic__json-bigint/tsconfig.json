@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+      "module": "commonjs",
+      "lib": [
+          "es6"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictFunctionTypes": true,
+      "strictNullChecks": true,
+      "baseUrl": "../",
+      "typeRoots": [
+          "../"
+      ],
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true,
+      "paths": {
+          "@apimatic/json-bigint": ["apimatic__json-bigint"]
+      }
+  },
+  "files": [
+      "index.d.ts",
+      "apimatic__json-bigint-tests.ts"
+  ]
+}

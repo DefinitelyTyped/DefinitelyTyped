@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./use-at-your-own-risk": {
+            "types": "./use-at-your-own-risk.d.ts"
+        },
+        "./rules": {
+            "types": "./rules/index.d.ts"
+        }
+    }
+}

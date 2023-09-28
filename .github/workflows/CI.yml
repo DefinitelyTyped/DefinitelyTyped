@@ -1,0 +1,43 @@
+name: CI
+on: pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # forbid symlinks
+      - name: "Pre-run validation"
+        run: |
+          symlinks="$(find . -type l)"
+          if [[ -n "$symlinks" ]]; then
+            printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
+          fi
+
+      # Get local dependencies
+      - run: npm install
+      - run: npm ls --all || true
+
+      # Run tests
+      - run: npm run test-all
+
+      - name: "Run Danger"
+        env:
+          # See https://github.com/danger/danger-js/issues/1042
+          DANGER_GITHUB_API_BASE_URL: "https://api.github.com"
+
+        # Danger failing (for example through rate-limiting) shouldn't fail the build
+        run: |
+          # Exposing this token is safe because the user of it has no other public repositories
+          # and has no permission to modify this repository. See #62638 for the discussion.
+          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
+          TOKEN+='On3bHOkcV2AmVY6'
+          DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci || $( exit 0 )

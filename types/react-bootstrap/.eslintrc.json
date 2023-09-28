@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
+    }
+}

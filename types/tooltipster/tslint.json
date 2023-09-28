@@ -1,0 +1,16 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "jsdoc-format": false,
+        "no-duplicate-variable": false,
+        "no-redundant-undefined": false,
+        "no-var-keyword": false,
+        "object-literal-shorthand": false,
+        "one-variable-per-declaration": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-template": false,
+        "unified-signatures": false
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "electron": "^10.1.2",
+        "fs-jetpack": "^3.1.0"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-var-keyword": false,
+        "only-arrow-functions": false,
+        "prefer-const": false,
+        "prefer-template": false
+    }
+}

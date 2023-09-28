@@ -1,0 +1,37 @@
+name: Update CODEOWNERs
+
+# For testing
+# on: push
+
+# For production
+on:
+  schedule:
+    # https://crontab.guru/#5_8_*_*_1
+    - cron: "5 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    permissions:
+      contents: write  # for Git to git push
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+
+      - run: git config --global user.email "typescriptbot@microsoft.com"
+      - run: git config --global user.name "TypeScript Bot"
+
+      - run: npm install
+      - run: npm run update-codeowners
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+

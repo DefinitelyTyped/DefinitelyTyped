@@ -1,0 +1,3 @@
+src/neighbourhood.d.ts
+src/sphere-random.d.ts
+src/tiny-ndarray.d.ts

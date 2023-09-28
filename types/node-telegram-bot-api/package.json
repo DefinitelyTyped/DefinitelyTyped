@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "eventemitter3": ">=3.0.0"
+    }
+}

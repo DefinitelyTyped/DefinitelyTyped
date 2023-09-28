@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "aws-xray-sdk-core": "=3.3.1",
+        "@types/puppeteer": "^5.4.0"
+    }
+}

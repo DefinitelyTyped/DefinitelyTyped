@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "safe-buffer": "~5.1.1"
+    }
+}

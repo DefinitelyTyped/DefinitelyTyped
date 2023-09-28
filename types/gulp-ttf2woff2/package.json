@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "plugin-error": "^1.0.1"
+    }
+}

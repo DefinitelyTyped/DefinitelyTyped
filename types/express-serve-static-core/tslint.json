@@ -1,0 +1,9 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "no-empty-interface": false,
+        "npm-naming": false,
+        "unified-signatures": false
+    }
+}

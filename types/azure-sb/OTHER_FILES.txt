@@ -1,0 +1,9 @@
+lib/models/acstokenresult.d.ts
+lib/models/notificationhubresult.d.ts
+lib/models/queuemessageresult.d.ts
+lib/models/queueresult.d.ts
+lib/models/registrationresult.d.ts
+lib/models/resourceresult.d.ts
+lib/models/ruleresult.d.ts
+lib/models/subscriptionresult.d.ts
+lib/models/topicresult.d.ts

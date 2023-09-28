@@ -1,0 +1,2 @@
+global.d.ts
+lib/addons/p5.sound.d.ts

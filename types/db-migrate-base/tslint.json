@@ -1,0 +1,8 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "no-object-literal-type-assertion": false,
+        "prefer-const": false
+    }
+}

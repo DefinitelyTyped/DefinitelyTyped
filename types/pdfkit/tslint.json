@@ -1,0 +1,11 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "no-mergeable-namespace": false,
+        "no-misused-new": false,
+        "no-unnecessary-qualifier": false,
+        "no-var-keyword": false,
+        "prefer-const": false
+    }
+}

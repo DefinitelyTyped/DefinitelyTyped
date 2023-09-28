@@ -1,0 +1,7 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-internal-module": false,
+        "unified-signatures": false
+    }
+}
