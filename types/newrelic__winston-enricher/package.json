@@ -6,6 +6,8 @@
         "https://github.com/newrelic/newrelic-winston-logenricher-node"
     ],
     "dependencies": {
+        "@types/node": "*",
+        "logform": "^2.5.1",
         "winston": "^3.0.0"
     },
     "devDependencies": {
