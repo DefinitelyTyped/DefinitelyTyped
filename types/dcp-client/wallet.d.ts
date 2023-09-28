@@ -1,6 +1,6 @@
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
-// tslint:disable-next-line:no-single-declare-module
-declare module 'dcp/wallet' {
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "dcp/wallet" {
     export default interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
@@ -51,7 +51,7 @@ declare module 'dcp/wallet' {
         /**
          * The keystore name.
          */
-        name: string | 'default';
+        name: string | "default";
 
         /**
          * An optional, user-defined identifier used for caching keystores.
@@ -95,7 +95,7 @@ declare module 'dcp/wallet' {
          * corresponds to a randomly-selected private key. This form will prompt the
          * user for a password to encrypt itself with.
          */
-        new (): Promise<Keystore>;
+        new(): Promise<Keystore>;
 
         /**
          * Constructs a locked keystore.
@@ -107,7 +107,7 @@ declare module 'dcp/wallet' {
          * @param privateKey If null, a randomly private key will be used.
          * @param passphrase The passphrase to encrypt the private key.
          */
-        new (privateKey: null, passphrase: string): Promise<Keystore>;
+        new(privateKey: null, passphrase: string): Promise<Keystore>;
     }
 
     const Keystore: KeystoreConstructor;
@@ -220,6 +220,6 @@ declare module 'dcp/wallet' {
         /**
          *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
          */
-        paths?: string[] | LoadOptions['dir'];
+        paths?: string[] | LoadOptions["dir"];
     }
 }

@@ -1,17 +1,17 @@
-import * as readlinePromises from 'node:readline/promises';
-import * as readline from 'node:readline';
-import * as stream from 'node:stream';
-import * as fs from 'node:fs';
+import * as fs from "node:fs";
+import * as readline from "node:readline";
+import * as readlinePromises from "node:readline/promises";
+import * as stream from "node:stream";
 
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream()
+        input: new fs.ReadStream(),
     };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
-    const completer: readline.Completer = str => [['asd'], 'asd'];
+    const completer: readline.Completer = str => [["asd"], "asd"];
     const terminal = false;
 
     let result: readline.ReadLine;
@@ -24,18 +24,18 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     result = readline.createInterface({
         input,
         completer(str: string): readline.CompleterResult {
-            return [['test'], 'test'];
-        }
+            return [["test"], "test"];
+        },
     });
     result = readline.createInterface({
         input,
         completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
-            callback(null, [['test'], 'test']);
-        }
+            callback(null, [["test"], "test"]);
+        },
     });
     result = readline.createInterface({
         input,
-        tabSize: 4
+        tabSize: 4,
     });
 }
 
@@ -78,7 +78,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     const key: readline.Key = {};
 
     rl.write(data);
-    rl.write('asd', key);
+    rl.write("asd", key);
 }
 
 {
@@ -94,7 +94,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     const data: undefined | null | string | Buffer = null;
-    const key: readline.Key = { ctrl: true, name: 'u' };
+    const key: readline.Key = { ctrl: true, name: "u" };
 
     rl.line; // $ExpectType string
     rl.cursor; // $ExpectType number
@@ -151,15 +151,15 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     });
     let _boolean: boolean;
 
-    _rl = _rl.addListener("close", () => { });
+    _rl = _rl.addListener("close", () => {});
     _rl = _rl.addListener("line", (input) => {
         const _input: string = input;
     });
-    _rl = _rl.addListener("pause", () => { });
-    _rl = _rl.addListener("resume", () => { });
-    _rl = _rl.addListener("SIGCONT", () => { });
-    _rl = _rl.addListener("SIGINT", () => { });
-    _rl = _rl.addListener("SIGTSTP", () => { });
+    _rl = _rl.addListener("pause", () => {});
+    _rl = _rl.addListener("resume", () => {});
+    _rl = _rl.addListener("SIGCONT", () => {});
+    _rl = _rl.addListener("SIGINT", () => {});
+    _rl = _rl.addListener("SIGTSTP", () => {});
     _rl = _rl.addListener("history", (history) => {
         const _input: string[] = history;
     });
@@ -173,54 +173,54 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     _boolean = _rl.emit("SIGTSTP");
     _boolean = _rl.emit("history");
 
-    _rl = _rl.on("close", () => { });
+    _rl = _rl.on("close", () => {});
     _rl = _rl.on("line", (input) => {
         const _input: string = input;
     });
-    _rl = _rl.on("pause", () => { });
-    _rl = _rl.on("resume", () => { });
-    _rl = _rl.on("SIGCONT", () => { });
-    _rl = _rl.on("SIGINT", () => { });
-    _rl = _rl.on("SIGTSTP", () => { });
+    _rl = _rl.on("pause", () => {});
+    _rl = _rl.on("resume", () => {});
+    _rl = _rl.on("SIGCONT", () => {});
+    _rl = _rl.on("SIGINT", () => {});
+    _rl = _rl.on("SIGTSTP", () => {});
     _rl = _rl.on("history", (history) => {
         const _input: string[] = history;
     });
 
-    _rl = _rl.once("close", () => { });
+    _rl = _rl.once("close", () => {});
     _rl = _rl.once("line", (input) => {
         const _input: string = input;
     });
-    _rl = _rl.once("pause", () => { });
-    _rl = _rl.once("resume", () => { });
-    _rl = _rl.once("SIGCONT", () => { });
-    _rl = _rl.once("SIGINT", () => { });
-    _rl = _rl.once("SIGTSTP", () => { });
+    _rl = _rl.once("pause", () => {});
+    _rl = _rl.once("resume", () => {});
+    _rl = _rl.once("SIGCONT", () => {});
+    _rl = _rl.once("SIGINT", () => {});
+    _rl = _rl.once("SIGTSTP", () => {});
     _rl = _rl.once("history", (history) => {
         const _input: string[] = history;
     });
 
-    _rl = _rl.prependListener("close", () => { });
+    _rl = _rl.prependListener("close", () => {});
     _rl = _rl.prependListener("line", (input) => {
         const _input: string = input;
     });
-    _rl = _rl.prependListener("pause", () => { });
-    _rl = _rl.prependListener("resume", () => { });
-    _rl = _rl.prependListener("SIGCONT", () => { });
-    _rl = _rl.prependListener("SIGINT", () => { });
-    _rl = _rl.prependListener("SIGTSTP", () => { });
+    _rl = _rl.prependListener("pause", () => {});
+    _rl = _rl.prependListener("resume", () => {});
+    _rl = _rl.prependListener("SIGCONT", () => {});
+    _rl = _rl.prependListener("SIGINT", () => {});
+    _rl = _rl.prependListener("SIGTSTP", () => {});
     _rl = _rl.prependListener("history", (history) => {
         const _input: string[] = history;
     });
 
-    _rl = _rl.prependOnceListener("close", () => { });
+    _rl = _rl.prependOnceListener("close", () => {});
     _rl = _rl.prependOnceListener("line", (input) => {
         const _input: string = input;
     });
-    _rl = _rl.prependOnceListener("pause", () => { });
-    _rl = _rl.prependOnceListener("resume", () => { });
-    _rl = _rl.prependOnceListener("SIGCONT", () => { });
-    _rl = _rl.prependOnceListener("SIGINT", () => { });
-    _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+    _rl = _rl.prependOnceListener("pause", () => {});
+    _rl = _rl.prependOnceListener("resume", () => {});
+    _rl = _rl.prependOnceListener("SIGCONT", () => {});
+    _rl = _rl.prependOnceListener("SIGINT", () => {});
+    _rl = _rl.prependOnceListener("SIGTSTP", () => {});
     _rl = _rl.prependOnceListener("history", (history) => {
         const _input: string[] = history;
     });
@@ -249,24 +249,24 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 const rlPromise = readlinePromises.createInterface(new stream.Readable());
 
 {
-    async () => {
+    (async () => {
         const signal = new AbortSignal();
 
         // @ts-expect-error
         rlPromise.question();
         // @ts-expect-error
-        rlPromise.question('test', { signal: 'bad' });
+        rlPromise.question("test", { signal: "bad" });
 
-        rlPromise.question('test'); // $ExpectType Promise<string>
-        rlPromise.question('test', { signal }); // $ExpectType Promise<string>
-    };
+        rlPromise.question("test"); // $ExpectType Promise<string>
+        rlPromise.question("test", { signal }); // $ExpectType Promise<string>
+    });
 }
 
 {
     // @ts-expect-error
     new readlinePromises.Readline(new stream.Readable());
     // @ts-expect-error
-    new readlinePromises.Readline(new stream.Writable(), { autoCommit: 'bad' });
+    new readlinePromises.Readline(new stream.Writable(), { autoCommit: "bad" });
 
     new readlinePromises.Readline(new stream.Writable(), { autoCommit: true });
     new readlinePromises.Readline(new stream.Writable(), { autoCommit: false });
@@ -299,7 +299,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     // @ts-expect-error
     readlineInstance.cursorTo();
     // @ts-expect-error
-    readlineInstance.cursorTo('bad');
+    readlineInstance.cursorTo("bad");
 
     readlineInstance.cursorTo(1); // $ExpectType Readline
     readlineInstance.cursorTo(1, 2); // $ExpectType Readline
@@ -311,7 +311,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     // @ts-expect-error
     readlineInstance.moveCursor(1);
     // @ts-expect-error
-    readlineInstance.moveCursor('bad');
+    readlineInstance.moveCursor("bad");
 
     readlineInstance.moveCursor(0, 1); // $ExpectType Readline
 }
@@ -326,7 +326,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
-    const completer: readline.Completer = str => [['asd'], 'asd'];
+    const completer: readline.Completer = str => [["asd"], "asd"];
     const terminal = false;
 
     let result: readlinePromises.Interface;
@@ -339,13 +339,13 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     result = readlinePromises.createInterface({
         input,
         completer(str: string): readline.CompleterResult {
-            return [['test'], 'test'];
+            return [["test"], "test"];
         },
     });
     result = readlinePromises.createInterface({
         input,
         completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
-            callback(null, [['test'], 'test']);
+            callback(null, [["test"], "test"]);
         },
     });
     result = readlinePromises.createInterface({

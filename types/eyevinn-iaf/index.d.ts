@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export interface Logger {
     verbose: (message: string) => void;

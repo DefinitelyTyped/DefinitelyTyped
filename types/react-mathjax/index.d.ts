@@ -3,7 +3,7 @@
 // Definitions by: ArtoLord <https://github.com/ArtoLord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 interface MathJaxContextValue {
     MathJax?: object | undefined;

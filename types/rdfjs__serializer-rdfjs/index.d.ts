@@ -4,11 +4,11 @@
 //                 Benjamin Hofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
-import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
+import { EventEmitter } from "events";
+import { BaseQuad, Quad, Sink, Stream } from "rdf-js";
 
 export interface SerializerOptions {
-    module?: 'commonjs' | 'ts' | undefined;
+    module?: "commonjs" | "ts" | undefined;
 }
 
 export default class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {

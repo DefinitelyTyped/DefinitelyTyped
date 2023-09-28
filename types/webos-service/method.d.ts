@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import { Message } from "./message";
 import { EventEmitter } from "events";
+import { Message } from "./message";
 
 export class Method extends EventEmitter {
     readonly description: Record<string, any>;

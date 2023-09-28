@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component } from "react";
 import { TransitionProps } from "./Transition";
 
 export interface CSSTransitionClassNames {

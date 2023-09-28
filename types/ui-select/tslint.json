@@ -12,7 +12,6 @@
             }
         ],
         "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false
+        "only-arrow-functions": false
     }
 }

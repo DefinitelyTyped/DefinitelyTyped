@@ -1,10 +1,10 @@
-import pem = require('pem');
-import * as fs from 'fs';
+import pem = require("pem");
+import * as fs from "fs";
 
 const tests = {
-    'Create default sized dhparam key': (test: any) => {
+    "Create default sized dhparam key": (test: any) => {
         pem.createDhparam((error: any, data: { dhparam: string }) => {
-            const dhparam = ((data && data.dhparam) || '').toString();
+            const dhparam = ((data && data.dhparam) || "").toString();
             test.ifError(error);
             test.ok(dhparam);
             test.ok(dhparam.match(/^\n*\-\-\-\-\-BEGIN DH PARAMETERS\-\-\-\-\-\n/));
@@ -15,9 +15,9 @@ const tests = {
         });
     },
 
-    'Create 2048bit dhparam key': (test: any) => {
+    "Create 2048bit dhparam key": (test: any) => {
         pem.createDhparam(2048, (error: any, data: { dhparam: string }) => {
-            const dhparam = ((data && data.dhparam) || '').toString();
+            const dhparam = ((data && data.dhparam) || "").toString();
             test.ifError(error);
             test.ok(dhparam);
             test.ok(dhparam.match(/^\n*\-\-\-\-\-BEGIN DH PARAMETERS\-\-\-\-\-\n/));
@@ -28,27 +28,27 @@ const tests = {
         });
     },
 
-    'Create default ecparam key': (test: any) => {
+    "Create default ecparam key": (test: any) => {
         pem.createEcparam((error: any, data: { ecparam: string }) => {
-            const ecparam = ((data && data.ecparam) || '').toString();
+            const ecparam = ((data && data.ecparam) || "").toString();
             test.ifError(error);
             test.ok(ecparam);
             test.done();
         });
     },
 
-    'Create ecparam key': (test: any) => {
-        pem.createEcparam('secp256k1', 'explicit', false, (error: any, data: any) => {
-            const ecparam = ((data && data.ecparam) || '').toString();
+    "Create ecparam key": (test: any) => {
+        pem.createEcparam("secp256k1", "explicit", false, (error: any, data: any) => {
+            const ecparam = ((data && data.ecparam) || "").toString();
             test.ifError(error);
             test.ok(ecparam);
             test.done();
         });
     },
 
-    'Create default sized Private key': (test: any) => {
+    "Create default sized Private key": (test: any) => {
         pem.createPrivateKey((error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+            const key = ((data && data.key) || "").toString();
             test.ifError(error);
             test.ok(key);
             test.ok(key.match(/^\n*\-\-\-\-\-BEGIN RSA PRIVATE KEY\-\-\-\-\-\n/));
@@ -59,9 +59,9 @@ const tests = {
         });
     },
 
-    'Create 2048bit Private key': (test: any) => {
+    "Create 2048bit Private key": (test: any) => {
         pem.createPrivateKey(2048, (error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+            const key = ((data && data.key) || "").toString();
             test.ifError(error);
             test.ok(key);
             test.ok(key.match(/^\n*\-\-\-\-\-BEGIN RSA PRIVATE KEY\-\-\-\-\-\n/));
@@ -72,9 +72,9 @@ const tests = {
         });
     },
 
-    'Create 2048bit Private key with Password': (test: any) => {
-        pem.createPrivateKey(2048, { cipher: 'des', password: 'TestMe' }, (error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+    "Create 2048bit Private key with Password": (test: any) => {
+        pem.createPrivateKey(2048, { cipher: "des", password: "TestMe" }, (error: any, data: any) => {
+            const key = ((data && data.key) || "").toString();
             test.ifError(error);
             test.ok(key);
             test.ok(key.match(/ENCRYPTED\n/));
@@ -86,9 +86,9 @@ const tests = {
         });
     },
 
-    'Create default CSR': (test: any) => {
+    "Create default CSR": (test: any) => {
         pem.createCSR((error: any, data: any) => {
-            const csr = ((data && data.csr) || '').toString();
+            const csr = ((data && data.csr) || "").toString();
             test.ifError(error);
             test.ok(csr);
             test.ok(csr.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE REQUEST\-\-\-\-\-\n/));
@@ -100,20 +100,20 @@ const tests = {
         });
     },
 
-    'Create CSR using config file': (test: any) => {
+    "Create CSR using config file": (test: any) => {
         const certInfo = {
             issuer: {},
-            country: 'EE',
-            state: 'Harjumaa',
-            locality: 'Tallinn',
-            organization: 'Node.ee',
-            organizationUnit: 'test',
-            commonName: 'www.node.ee',
-            emailAddress: 'andris@node.ee',
+            country: "EE",
+            state: "Harjumaa",
+            locality: "Tallinn",
+            organization: "Node.ee",
+            organizationUnit: "test",
+            commonName: "www.node.ee",
+            emailAddress: "andris@node.ee",
         };
 
-        pem.createCSR({ csrConfigFile: './test/fixtures/test.cnf' }, (error: any, data: any) => {
-            const csr = ((data && data.csr) || '').toString();
+        pem.createCSR({ csrConfigFile: "./test/fixtures/test.cnf" }, (error: any, data: any) => {
+            const csr = ((data && data.csr) || "").toString();
             test.ifError(error);
             test.ok(csr);
             test.ok(csr.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE REQUEST\-\-\-\-\-\n/));
@@ -131,16 +131,16 @@ const tests = {
         });
     },
 
-    'Create CSR with own key': (test: any) => {
+    "Create CSR with own key": (test: any) => {
         pem.createPrivateKey((error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+            const key = ((data && data.key) || "").toString();
 
             pem.createCSR(
                 {
                     clientKey: key,
                 },
                 (error: any, data: any) => {
-                    const csr = ((data && data.csr) || '').toString();
+                    const csr = ((data && data.csr) || "").toString();
                     test.ifError(error);
                     test.ok(csr);
                     test.ok(csr.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE REQUEST\-\-\-\-\-\n/));
@@ -156,10 +156,10 @@ const tests = {
         });
     },
 
-    'Create CSR with own encrypted key': (test: any) => {
-        const password = 'my:secure! "password\'s\nawesome';
-        pem.createPrivateKey(2048, { cipher: 'des3', password }, (error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+    "Create CSR with own encrypted key": (test: any) => {
+        const password = "my:secure! \"password's\nawesome";
+        pem.createPrivateKey(2048, { cipher: "des3", password }, (error: any, data: any) => {
+            const key = ((data && data.key) || "").toString();
 
             pem.createCSR(
                 {
@@ -167,7 +167,7 @@ const tests = {
                     clientKeyPassword: password,
                 },
                 (error: any, data: any) => {
-                    const csr = ((data && data.csr) || '').toString();
+                    const csr = ((data && data.csr) || "").toString();
                     test.ifError(error);
                     test.ok(csr);
                     test.ok(csr.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE REQUEST\-\-\-\-\-\n/));
@@ -183,9 +183,9 @@ const tests = {
         });
     },
 
-    'Create default certificate': (test: any) => {
+    "Create default certificate": (test: any) => {
         pem.createCertificate((error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             test.ok(certificate);
             test.ok(certificate.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE\-\-\-\-\-\n/));
@@ -201,13 +201,13 @@ const tests = {
         });
     },
 
-    'Create self signed certificate': (test: any) => {
+    "Create self signed certificate": (test: any) => {
         pem.createCertificate(
             {
                 selfSigned: true,
             },
             (error: any, data: any) => {
-                const certificate = ((data && data.certificate) || '').toString();
+                const certificate = ((data && data.certificate) || "").toString();
                 test.ifError(error);
                 test.ok(certificate);
                 test.ok(certificate.match(/^\n*\-\-\-\-\-BEGIN CERTIFICATE\-\-\-\-\-\n/));
@@ -224,9 +224,9 @@ const tests = {
         );
     },
 
-    'Read default cert data from CSR': (test: any) => {
+    "Read default cert data from CSR": (test: any) => {
         pem.createCSR((error: any, data: any) => {
-            const csr = ((data && data.csr) || '').toString();
+            const csr = ((data && data.csr) || "").toString();
             test.ifError(error);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
@@ -234,13 +234,13 @@ const tests = {
                 test.ifError(error);
                 test.deepEqual(data, {
                     issuer: {},
-                    country: '',
-                    state: '',
-                    locality: '',
-                    organization: '',
-                    organizationUnit: '',
-                    commonName: 'localhost',
-                    emailAddress: '',
+                    country: "",
+                    state: "",
+                    locality: "",
+                    organization: "",
+                    organizationUnit: "",
+                    commonName: "localhost",
+                    emailAddress: "",
                 });
                 // test.ok(fs.readdirSync('./tmp').length === 0);
                 test.done();
@@ -248,19 +248,19 @@ const tests = {
         });
     },
 
-    'Read edited cert data from CSR': (test: any) => {
+    "Read edited cert data from CSR": (test: any) => {
         const certInfo = {
             issuer: {},
-            country: 'EE',
-            state: 'Harjumaa',
-            locality: 'Tallinn',
-            organization: 'Node.ee',
-            organizationUnit: 'test',
-            commonName: 'www.node.ee',
-            emailAddress: 'andris@node.ee',
+            country: "EE",
+            state: "Harjumaa",
+            locality: "Tallinn",
+            organization: "Node.ee",
+            organizationUnit: "test",
+            commonName: "www.node.ee",
+            emailAddress: "andris@node.ee",
         };
         pem.createCSR(Object.create(certInfo), (error: any, data: any) => {
-            const csr = ((data && data.csr) || '').toString();
+            const csr = ((data && data.csr) || "").toString();
             test.ifError(error);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
@@ -273,9 +273,9 @@ const tests = {
         });
     },
 
-    'Read default cert data from certificate': (test: any) => {
+    "Read default cert data from certificate": (test: any) => {
         pem.createCertificate((error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
@@ -291,20 +291,20 @@ const tests = {
 
                 test.deepEqual(data, {
                     issuer: {
-                        country: '',
-                        state: '',
-                        locality: '',
-                        organization: '',
-                        organizationUnit: '',
-                        commonName: 'localhost',
+                        country: "",
+                        state: "",
+                        locality: "",
+                        organization: "",
+                        organizationUnit: "",
+                        commonName: "localhost",
                     },
-                    country: '',
-                    state: '',
-                    locality: '',
-                    organization: '',
-                    organizationUnit: '',
-                    commonName: 'localhost',
-                    emailAddress: '',
+                    country: "",
+                    state: "",
+                    locality: "",
+                    organization: "",
+                    organizationUnit: "",
+                    commonName: "localhost",
+                    emailAddress: "",
                 });
                 // test.ok(fs.readdirSync('./tmp').length === 0);
                 test.done();
@@ -312,26 +312,26 @@ const tests = {
         });
     },
 
-    'Read edited cert data from certificate': (test: any) => {
+    "Read edited cert data from certificate": (test: any) => {
         const certInfo = {
             issuer: {
-                country: 'EE',
-                state: 'Harjumaa',
-                locality: 'Tallinn',
-                organization: 'Node.ee',
-                organizationUnit: 'test',
-                commonName: 'www.node.ee',
+                country: "EE",
+                state: "Harjumaa",
+                locality: "Tallinn",
+                organization: "Node.ee",
+                organizationUnit: "test",
+                commonName: "www.node.ee",
             },
-            country: 'EE',
-            state: 'Harjumaa',
-            locality: 'Tallinn',
-            organization: 'Node.ee',
-            organizationUnit: 'test',
-            commonName: 'www.node.ee',
-            emailAddress: 'andris@node.ee',
+            country: "EE",
+            state: "Harjumaa",
+            locality: "Tallinn",
+            organization: "Node.ee",
+            organizationUnit: "test",
+            commonName: "www.node.ee",
+            emailAddress: "andris@node.ee",
         };
         pem.createCertificate(Object.create(certInfo), (error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
@@ -352,15 +352,15 @@ const tests = {
         });
     },
 
-    'Get public key from private key': (test: any) => {
+    "Get public key from private key": (test: any) => {
         pem.createPrivateKey((error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+            const key = ((data && data.key) || "").toString();
             test.ifError(error);
             test.ok(key);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
             pem.getPublicKey(key, (error: any, data: any) => {
-                const pubkey = ((data && data.publicKey) || '').toString();
+                const pubkey = ((data && data.publicKey) || "").toString();
                 test.ifError(error);
                 test.ok(pubkey);
 
@@ -373,15 +373,15 @@ const tests = {
         });
     },
 
-    'Get public key from CSR': (test: any) => {
+    "Get public key from CSR": (test: any) => {
         pem.createCSR((error: any, data: any) => {
-            const key = ((data && data.clientKey) || '').toString();
+            const key = ((data && data.clientKey) || "").toString();
             test.ifError(error);
             test.ok(key);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
             pem.getPublicKey(key, (error: any, data: any) => {
-                const pubkey = ((data && data.publicKey) || '').toString();
+                const pubkey = ((data && data.publicKey) || "").toString();
                 test.ifError(error);
                 test.ok(pubkey);
 
@@ -394,15 +394,15 @@ const tests = {
         });
     },
 
-    'Get public key from certificate': (test: any) => {
+    "Get public key from certificate": (test: any) => {
         pem.createCertificate((error: any, data: any) => {
-            const key = ((data && data.clientKey) || '').toString();
+            const key = ((data && data.clientKey) || "").toString();
             test.ifError(error);
             test.ok(key);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
             pem.getPublicKey(key, (error: any, data: any) => {
-                const pubkey = ((data && data.publicKey) || '').toString();
+                const pubkey = ((data && data.publicKey) || "").toString();
                 test.ifError(error);
                 test.ok(pubkey);
 
@@ -415,15 +415,15 @@ const tests = {
         });
     },
 
-    'Get fingerprint from certificate': (test: any) => {
+    "Get fingerprint from certificate": (test: any) => {
         pem.createCertificate((error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             test.ok(certificate);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
             pem.getFingerprint(certificate, (error: any, data: any) => {
-                const fingerprint = ((data && data.fingerprint) || '').toString();
+                const fingerprint = ((data && data.fingerprint) || "").toString();
                 test.ifError(error);
                 test.ok(fingerprint);
                 test.ok(fingerprint.match(/^[0-9A-F]{2}(:[0-9A-F]{2}){19}$/));
@@ -434,21 +434,21 @@ const tests = {
         });
     },
 
-    'Get modulus from certificate': (test: any) => {
+    "Get modulus from certificate": (test: any) => {
         pem.createCertificate((error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             test.ok(certificate);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
             pem.getModulus(certificate, (error: any, data: any) => {
-                const certmodulus = ((data && data.modulus) || '').toString();
+                const certmodulus = ((data && data.modulus) || "").toString();
                 test.ifError(error);
                 test.ok(certmodulus);
                 test.ok(certmodulus.match(/^[0-9A-F]*$/));
                 // test.ok(fs.readdirSync('./tmp').length === 0);
                 pem.getModulus(certificate, (error: any, data: any) => {
-                    const keymodulus = ((data && data.modulus) || '').toString();
+                    const keymodulus = ((data && data.modulus) || "").toString();
                     test.ifError(error);
                     test.ok(keymodulus);
                     test.ok(keymodulus.match(/^[0-9A-F]*$/));
@@ -460,18 +460,18 @@ const tests = {
         });
     },
 
-    'Get modulus from a protected key': (test: any) => {
-        const certificate = ''; // fs.readFileSync('./test/fixtures/test.crt').toString();
-        const key = ''; // fs.readFileSync('./test/fixtures/test.key').toString();
+    "Get modulus from a protected key": (test: any) => {
+        const certificate = ""; // fs.readFileSync('./test/fixtures/test.crt').toString();
+        const key = ""; // fs.readFileSync('./test/fixtures/test.key').toString();
 
         pem.getModulus(certificate, (error: any, data: any) => {
-            const certmodulus = ((data && data.modulus) || '').toString();
+            const certmodulus = ((data && data.modulus) || "").toString();
             test.ifError(error);
             test.ok(certmodulus);
             test.ok(certmodulus.match(/^[0-9A-F]*$/));
             // test.ok(fs.readdirSync('./tmp').length === 0);
-            pem.getModulus(key, 'password', (error: any, data: any) => {
-                const keymodulus = ((data && data.modulus) || '').toString();
+            pem.getModulus(key, "password", (error: any, data: any) => {
+                const keymodulus = ((data && data.modulus) || "").toString();
                 test.ifError(error);
                 test.ok(keymodulus);
                 test.ok(keymodulus.match(/^[0-9A-F]*$/));
@@ -482,28 +482,28 @@ const tests = {
         });
     },
 
-    'Get DH param info': (test: any) => {
-        const dh = ''; // fs.readFileSync('./test/fixtures/test.dh').toString();
+    "Get DH param info": (test: any) => {
+        const dh = ""; // fs.readFileSync('./test/fixtures/test.dh').toString();
 
         pem.getDhparamInfo(dh, (error: any, data: any) => {
             const size = (data && data.size) || 0;
-            const prime = ((data && data.prime) || '').toString();
+            const prime = ((data && data.prime) || "").toString();
             test.ifError(error);
             test.equal(size, 1024);
             test.ok(prime);
             // test.ok(fs.readdirSync('./tmp').length === 0);
-            test.equal(typeof size, 'number');
+            test.equal(typeof size, "number");
             test.ok(/([0-9a-f][0-9a-f]:)+[0-9a-f][0-9a-f]$/g.test(prime));
             test.done();
         });
     },
 
-    'Create and verify wildcard certificate': (test: any) => {
+    "Create and verify wildcard certificate": (test: any) => {
         const certInfo = {
-            commonName: '*.node.ee',
+            commonName: "*.node.ee",
         };
         pem.createCertificate(Object.create(certInfo), (error: any, data: any) => {
-            const certificate = ((data && data.certificate) || '').toString();
+            const certificate = ((data && data.certificate) || "").toString();
             test.ifError(error);
             // test.ok(fs.readdirSync('./tmp').length === 0);
 
@@ -515,15 +515,15 @@ const tests = {
             });
         });
     },
-    'Return an error if openssl was not found': (test: any) => {
+    "Return an error if openssl was not found": (test: any) => {
         pem.config({
-            pathOpenSSL: 'zzzzzzzzzzz',
+            pathOpenSSL: "zzzzzzzzzzz",
         });
 
         pem.createPrivateKey((error: any) => {
             test.ok(error);
             pem.config({
-                pathOpenSSL: 'openssl',
+                pathOpenSSL: "openssl",
             });
             pem.createPrivateKey((error: any) => {
                 test.ifError(error);
@@ -531,9 +531,9 @@ const tests = {
             });
         });
     },
-    'Create PKCS12 without key password': (test: any) => {
+    "Create PKCS12 without key password": (test: any) => {
         pem.createPrivateKey((error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+            const key = ((data && data.key) || "").toString();
 
             pem.createCertificate(
                 {
@@ -541,7 +541,7 @@ const tests = {
                     selfSigned: true,
                 },
                 (error: any, csr: any) => {
-                    pem.createPkcs12(csr.clientKey, csr.certificate, 'mypassword', (err: any, pkcs12: any) => {
+                    pem.createPkcs12(csr.clientKey, csr.certificate, "mypassword", (err: any, pkcs12: any) => {
                         test.ifError(err);
                         test.ok(pkcs12);
 
@@ -552,9 +552,9 @@ const tests = {
             );
         });
     },
-    'Create PKCS12 with key password': (test: any) => {
-        pem.createPrivateKey({ cipher: 'aes128', password: 'xxx' }, (error: any, data: any) => {
-            const key = ((data && data.key) || '').toString();
+    "Create PKCS12 with key password": (test: any) => {
+        pem.createPrivateKey({ cipher: "aes128", password: "xxx" }, (error: any, data: any) => {
+            const key = ((data && data.key) || "").toString();
 
             pem.createCertificate(
                 {
@@ -565,8 +565,8 @@ const tests = {
                     pem.createPkcs12(
                         csr.clientKey,
                         csr.certificate,
-                        'mypassword',
-                        { cipher: 'aes256', clientKeyPassword: 'xxx' },
+                        "mypassword",
+                        { cipher: "aes256", clientKeyPassword: "xxx" },
                         (err: any, pkcs12: any) => {
                             test.ifError(err);
                             test.ok(pkcs12);
@@ -579,10 +579,10 @@ const tests = {
             );
         });
     },
-    'Create PKCS12 with ca certificates': (test: any) => {
+    "Create PKCS12 with ca certificates": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
@@ -599,7 +599,7 @@ const tests = {
                         pem.createPkcs12(
                             cert.clientKey,
                             cert.certificate,
-                            '',
+                            "",
                             { certFiles: [ca.certificate] },
                             (error: any, pkcs12: any) => {
                                 test.ifError(error);
@@ -617,7 +617,7 @@ const tests = {
                                     test.equal(cert.clientKey, keystore.key);
                                 });
 
-                                const pkcs12File: string = __dirname + '/test.pkcs12';
+                                const pkcs12File: string = __dirname + "/test.pkcs12";
                                 fs.writeFileSync(pkcs12File, pkcs12Buffer);
 
                                 pem.readPkcs12(pkcs12File, (error: any, keystore: pem.Pkcs12ReadResult) => {
@@ -637,18 +637,18 @@ const tests = {
             },
         );
     },
-    'Respond with ENOENT for missing PKCS12 file': (test: any) => {
-        pem.readPkcs12('/i/do/not/exist.p12', (error: any) => {
+    "Respond with ENOENT for missing PKCS12 file": (test: any) => {
+        pem.readPkcs12("/i/do/not/exist.p12", (error: any) => {
             test.ok(error);
-            test.equal(error.code, 'ENOENT');
+            test.equal(error.code, "ENOENT");
 
             test.done();
         });
     },
-    'Verify sigining chain': (test: any) => {
+    "Verify sigining chain": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
@@ -673,17 +673,17 @@ const tests = {
             },
         );
     },
-    'Verify deep sigining chain': (test: any) => {
+    "Verify deep sigining chain": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
 
                 pem.createCertificate(
                     {
-                        commonName: 'Intermediate CA Certificate',
+                        commonName: "Intermediate CA Certificate",
                         serviceKey: ca.serviceKey,
                         serviceCertificate: ca.certificate,
                         serial: Date.now(),
@@ -717,10 +717,10 @@ const tests = {
             },
         );
     },
-    'Fail to verify invalid sigining chain': (test: any) => {
+    "Fail to verify invalid sigining chain": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
@@ -745,17 +745,17 @@ const tests = {
             },
         );
     },
-    'Fail to verify deep sigining chain with missing CA certificate': (test: any) => {
+    "Fail to verify deep sigining chain with missing CA certificate": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
 
                 pem.createCertificate(
                     {
-                        commonName: 'Intermediate CA Certificate',
+                        commonName: "Intermediate CA Certificate",
                         serviceKey: ca.serviceKey,
                         serviceCertificate: ca.certificate,
                         serial: Date.now(),
@@ -789,17 +789,17 @@ const tests = {
             },
         );
     },
-    'Fail to verify deep sigining chain with missing intermediate certificate': (test: any) => {
+    "Fail to verify deep sigining chain with missing intermediate certificate": (test: any) => {
         pem.createCertificate(
             {
-                commonName: 'CA Certificate',
+                commonName: "CA Certificate",
             },
             (error: any, ca: any) => {
                 test.ifError(error);
 
                 pem.createCertificate(
                     {
-                        commonName: 'Intermediate CA Certificate',
+                        commonName: "Intermediate CA Certificate",
                         serviceKey: ca.serviceKey,
                         serviceCertificate: ca.certificate,
                         serial: Date.now(),
@@ -830,66 +830,66 @@ const tests = {
             },
         );
     },
-    'Check a certificate': (test: any) => {
-        pem.checkCertificate('certificate', (_error: any, _result: boolean) => {
+    "Check a certificate": (test: any) => {
+        pem.checkCertificate("certificate", (_error: any, _result: boolean) => {
             test.done();
         });
     },
-    'Check a certificate with a password': (test: any) => {
-        pem.checkCertificate('certificate', 'password', (_error: any, _result: boolean) => {
+    "Check a certificate with a password": (test: any) => {
+        pem.checkCertificate("certificate", "password", (_error: any, _result: boolean) => {
             test.done();
         });
     },
-    'Check PKCS12 keystore': (test: any) => {
-        pem.checkPkcs12(Buffer.from('contents'), (_error: any, _result: boolean) => {
+    "Check PKCS12 keystore": (test: any) => {
+        pem.checkPkcs12(Buffer.from("contents"), (_error: any, _result: boolean) => {
             test.done();
         });
     },
-    'Check PKCS12 keystore with a path': (test: any) => {
-        pem.checkPkcs12('/dev/null', (_error: any, _result: boolean) => {
+    "Check PKCS12 keystore with a path": (test: any) => {
+        pem.checkPkcs12("/dev/null", (_error: any, _result: boolean) => {
             test.done();
         });
     },
-    'Check PKCS12 keystore with a passphrase': (test: any) => {
-        pem.checkPkcs12(Buffer.from('contents'), 'passphrase', (_error: any, _result: boolean) => {
+    "Check PKCS12 keystore with a passphrase": (test: any) => {
+        pem.checkPkcs12(Buffer.from("contents"), "passphrase", (_error: any, _result: boolean) => {
             test.done();
         });
     },
 };
 
 pem.promisified.createPrivateKey(); // $ExpectType Promise<{ key: string; }>
-pem.promisified.createPrivateKey(2048, { cipher: 'foo', password: 'bar' }); // $ExpectType Promise<{ key: string; }>
-pem.promisified.createPrivateKey({ cipher: 'foo', password: 'bar' }); // $ExpectType Promise<{ key: string; }>
+pem.promisified.createPrivateKey(2048, { cipher: "foo", password: "bar" }); // $ExpectType Promise<{ key: string; }>
+pem.promisified.createPrivateKey({ cipher: "foo", password: "bar" }); // $ExpectType Promise<{ key: string; }>
 pem.promisified.createDhparam(2048); // $ExpectType Promise<{ dhparam: string; }>
 pem.promisified.createDhparam(); // $ExpectType Promise<{ dhparam: string; }>
-pem.promisified.createEcparam('keyName', 'paramEnc', false); // $ExpectType Promise<{ ecparam: string; }>
-pem.promisified.createEcparam('keyName', 'paramEnc'); // $ExpectType Promise<{ ecparam: string; }>
-pem.promisified.createEcparam('keyName'); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam("keyName", "paramEnc", false); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam("keyName", "paramEnc"); // $ExpectType Promise<{ ecparam: string; }>
+pem.promisified.createEcparam("keyName"); // $ExpectType Promise<{ ecparam: string; }>
 pem.promisified.createEcparam(); // $ExpectType Promise<{ ecparam: string; }>
-pem.promisified.createCSR({ country: 'US' }); // $ExpectType Promise<{ csr: string; clientKey: string; }>
+pem.promisified.createCSR({ country: "US" }); // $ExpectType Promise<{ csr: string; clientKey: string; }>
 pem.promisified.createCSR(); // $ExpectType Promise<{ csr: string; clientKey: string; }>
-pem.promisified.createCertificate({ commonName: 'foo.bar' }); // $ExpectType Promise<CertificateCreationResult>
-pem.promisified.readCertificateInfo('blarg'); // $ExpectType Promise<CertificateSubjectReadResult>
-pem.promisified.getPublicKey('blarg'); // $ExpectType Promise<{ publicKey: string; }>
-pem.promisified.getFingerprint('blarg', 'sha1'); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint('blarg'); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint(Buffer.from('blarg'), 'sha1'); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint(Buffer.from('blarg')); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint(new DataView(Buffer.from('blarg').buffer), 'sha1'); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint(new DataView(Buffer.from('blarg').buffer)); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getFingerprint(new Uint8Array(), 'sha1'); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.createCertificate({ commonName: "foo.bar" }); // $ExpectType Promise<CertificateCreationResult>
+pem.promisified.readCertificateInfo("blarg"); // $ExpectType Promise<CertificateSubjectReadResult>
+pem.promisified.getPublicKey("blarg"); // $ExpectType Promise<{ publicKey: string; }>
+pem.promisified.getFingerprint("blarg", "sha1"); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint("blarg"); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint(Buffer.from("blarg"), "sha1"); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint(Buffer.from("blarg")); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint(new DataView(Buffer.from("blarg").buffer), "sha1"); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint(new DataView(Buffer.from("blarg").buffer)); // $ExpectType Promise<{ fingerprint: string; }>
+pem.promisified.getFingerprint(new Uint8Array(), "sha1"); // $ExpectType Promise<{ fingerprint: string; }>
 pem.promisified.getFingerprint(new Uint8Array()); // $ExpectType Promise<{ fingerprint: string; }>
-pem.promisified.getModulus('blarg', 'password'); // $ExpectType Promise<{ modulus: any; }>
-pem.promisified.getModulus('blarg'); // $ExpectType Promise<{ modulus: any; }>
-pem.promisified.getDhparamInfo('blarg'); // $ExpectType Promise<{ size: any; prime: any; }>
-pem.promisified.createPkcs12('key', 'cert', 'password'); // $ExpectType Promise<{ pkcs12: any; }>
-pem.promisified.readPkcs12('blarg', { clientKeyPassword: 'foo' }); // $ExpectType Promise<Pkcs12ReadResult>
-pem.promisified.readPkcs12('blarg'); // $ExpectType Promise<Pkcs12ReadResult>
-pem.promisified.readPkcs12(Buffer.from('blarg'), { clientKeyPassword: 'foo' }); // $ExpectType Promise<Pkcs12ReadResult>
-pem.promisified.readPkcs12(Buffer.from('blarg')); // $ExpectType Promise<Pkcs12ReadResult>
-pem.promisified.verifySigningChain('blarg', ['ca1', 'ca2']); // $ExpectType Promise<boolean>
-pem.promisified.checkCertificate('cert', 'password'); // $ExpectType Promise<boolean>
-pem.promisified.checkCertificate('cert'); // $ExpectType Promise<boolean>
-pem.promisified.checkPkcs12('path'); // $ExpectType Promise<boolean>
-pem.promisified.checkPkcs12(Buffer.from('cert')); // $ExpectType Promise<boolean>
-pem.promisified.checkPkcs12(Buffer.from('cert'), 'passphrase'); // $ExpectType Promise<boolean>
+pem.promisified.getModulus("blarg", "password"); // $ExpectType Promise<{ modulus: any; }>
+pem.promisified.getModulus("blarg"); // $ExpectType Promise<{ modulus: any; }>
+pem.promisified.getDhparamInfo("blarg"); // $ExpectType Promise<{ size: any; prime: any; }>
+pem.promisified.createPkcs12("key", "cert", "password"); // $ExpectType Promise<{ pkcs12: any; }>
+pem.promisified.readPkcs12("blarg", { clientKeyPassword: "foo" }); // $ExpectType Promise<Pkcs12ReadResult>
+pem.promisified.readPkcs12("blarg"); // $ExpectType Promise<Pkcs12ReadResult>
+pem.promisified.readPkcs12(Buffer.from("blarg"), { clientKeyPassword: "foo" }); // $ExpectType Promise<Pkcs12ReadResult>
+pem.promisified.readPkcs12(Buffer.from("blarg")); // $ExpectType Promise<Pkcs12ReadResult>
+pem.promisified.verifySigningChain("blarg", ["ca1", "ca2"]); // $ExpectType Promise<boolean>
+pem.promisified.checkCertificate("cert", "password"); // $ExpectType Promise<boolean>
+pem.promisified.checkCertificate("cert"); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12("path"); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12(Buffer.from("cert")); // $ExpectType Promise<boolean>
+pem.promisified.checkPkcs12(Buffer.from("cert"), "passphrase"); // $ExpectType Promise<boolean>

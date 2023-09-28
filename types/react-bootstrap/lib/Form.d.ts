@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Form {
     export interface FormProps extends React.HTMLProps<Form> {
@@ -8,5 +8,5 @@ declare namespace Form {
         inline?: boolean | undefined;
     }
 }
-declare class Form extends React.Component<Form.FormProps> { }
+declare class Form extends React.Component<Form.FormProps> {}
 export = Form;

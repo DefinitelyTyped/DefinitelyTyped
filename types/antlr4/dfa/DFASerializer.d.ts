@@ -1,5 +1,5 @@
-import DFA from './DFA';
-import DFAState from './DFAState';
+import DFA from "./DFA";
+import DFAState from "./DFAState";
 
 /**
  * A DFA walker that knows how to dump them to serialized strings.

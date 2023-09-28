@@ -1,5 +1,5 @@
-import * as React from 'react';
-import TextTruncate from 'react-text-truncate';
+import * as React from "react";
+import TextTruncate from "react-text-truncate";
 
 const TruncatedText = () => (
     <TextTruncate

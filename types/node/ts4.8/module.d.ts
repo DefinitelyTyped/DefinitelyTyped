@@ -1,9 +1,10 @@
 /**
  * @since v0.3.7
+ * @experimental
  */
-declare module 'module' {
-    import { URL } from 'node:url';
-    import { MessagePort } from 'node:worker_threads';
+declare module "module" {
+    import { URL } from "node:url";
+    import { MessagePort } from "node:worker_threads";
     namespace Module {
         /**
          * The `module.syncBuiltinESMExports()` method updates all the live bindings for
@@ -96,7 +97,7 @@ declare module 'module' {
         interface ImportAssertions extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = 'builtin' | 'commonjs' | 'json' | 'module' | 'wasm';
+        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
@@ -165,7 +166,10 @@ declare module 'module' {
         type ResolveHook = (
             specifier: string,
             context: ResolveHookContext,
-            nextResolve: (specifier: string, context?: ResolveHookContext) => ResolveFnOutput | Promise<ResolveFnOutput>
+            nextResolve: (
+                specifier: string,
+                context?: ResolveHookContext,
+            ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
             /**
@@ -204,7 +208,7 @@ declare module 'module' {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>
+            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
     interface RegisterOptions<Data> {
@@ -220,7 +224,11 @@ declare module 'module' {
         static builtinModules: string[];
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
-        static register<Data = any, ReturnType = any>(specifier: string, parentURL?: string, options?: RegisterOptions<Data>): ReturnType;
+        static register<Data = any, ReturnType = any>(
+            specifier: string,
+            parentURL?: string,
+            options?: RegisterOptions<Data>,
+        ): ReturnType;
         static register<Data = any, ReturnType = any>(specifier: string, options?: RegisterOptions<Data>): ReturnType;
         constructor(id: string, parent?: Module);
     }
@@ -251,7 +259,7 @@ declare module 'module' {
     }
     export = Module;
 }
-declare module 'node:module' {
-    import module = require('module');
+declare module "node:module" {
+    import module = require("module");
     export = module;
 }

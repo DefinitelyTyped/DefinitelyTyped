@@ -3,7 +3,7 @@
 // Definitions by: Pedro Mutter <https://github.com/MutterPedro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 interface CacheOptions {
     timeout?: number | undefined;

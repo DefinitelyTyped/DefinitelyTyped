@@ -3,12 +3,12 @@
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Emitter = require('component-emitter');
+import Emitter = require("component-emitter");
 
 declare class SCChannel extends Emitter {
-    readonly PENDING: 'pending';
-    readonly SUBSCRIBED: 'subscribed';
-    readonly UNSUBSCRIBED: 'unsubscribed';
+    readonly PENDING: "pending";
+    readonly SUBSCRIBED: "subscribed";
+    readonly UNSUBSCRIBED: "unsubscribed";
 
     name: string;
     state: SCChannel.ChannelState;
@@ -37,7 +37,7 @@ declare class SCChannel extends Emitter {
 export { SCChannel };
 
 declare namespace SCChannel {
-    type ChannelState = 'pending' | 'subscribed' | 'unsubscribed';
+    type ChannelState = "pending" | "subscribed" | "unsubscribed";
 
     type HandlerFunction = (data: any) => void;
 

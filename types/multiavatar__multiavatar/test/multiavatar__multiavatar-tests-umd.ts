@@ -1,4 +1,4 @@
-const globalGeneratedSvgCode = multiavatar('test', false, {
-    part: '01',
-    theme: 'A',
+const globalGeneratedSvgCode = multiavatar("test", false, {
+    part: "01",
+    theme: "A",
 });

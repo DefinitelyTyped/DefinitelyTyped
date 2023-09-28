@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from "prosemirror-view";
 
 export interface ApplyDevToolsOptions {
     diffWorker?: Worker | undefined;

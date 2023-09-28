@@ -1,4 +1,4 @@
-import ExtractFiles = require('extract-files');
+import ExtractFiles = require("extract-files");
 
 /**
  * The default implementation for [`createUploadLink`](https://github.com/jaydenseric/apollo-upload-client#function-createuploadlink) `options.formDataAppendFile`

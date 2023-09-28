@@ -1424,7 +1424,9 @@ declare namespace google.payments.api {
      * These parameters will be used to tokenize/transmit the
      * payment method returned to you in a format you can charge or reference.
      */
-    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
+    type PaymentMethodTokenizationSpecification =
+        | PaymentGatewayTokenizationSpecification
+        | DirectTokenizationSpecification;
 
     /**
      * Payment method tokenization type enum string.
@@ -1507,7 +1509,17 @@ declare namespace google.payments.api {
      * - `VISA`:
      *   Visa card network.
      */
-    type CardNetwork = "AMEX" | "DISCOVER" | "ELECTRON" | "ELO" | "ELO_DEBIT" | "INTERAC" | "JCB" | "MAESTRO" | "MASTERCARD" | "VISA";
+    type CardNetwork =
+        | "AMEX"
+        | "DISCOVER"
+        | "ELECTRON"
+        | "ELO"
+        | "ELO_DEBIT"
+        | "INTERAC"
+        | "JCB"
+        | "MAESTRO"
+        | "MASTERCARD"
+        | "VISA";
 
     /**
      * Card authentication method enum string.
@@ -1759,7 +1771,13 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "OFFER_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason =
+        | "SHIPPING_ADDRESS_INVALID"
+        | "SHIPPING_ADDRESS_UNSERVICEABLE"
+        | "SHIPPING_OPTION_INVALID"
+        | "OFFER_INVALID"
+        | "PAYMENT_DATA_INVALID"
+        | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.
@@ -2095,7 +2113,6 @@ declare namespace google.payments.api {
      * viewer's browser matches an [available
      * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
      *
-     *
      * Options:
      *
      * - `book`:
@@ -2128,7 +2145,17 @@ declare namespace google.payments.api {
      * - `short`:
      *   Same as "plain".
      */
-    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
+    type ButtonType =
+        | "book"
+        | "buy"
+        | "checkout"
+        | "donate"
+        | "order"
+        | "pay"
+        | "plain"
+        | "subscribe"
+        | "long"
+        | "short";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.
@@ -2203,7 +2230,9 @@ declare namespace google.payments.api {
          * shipping options and transaction info. Don't intentionally return
          * reject if possible.*
          */
-        (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
+        (
+            intermediatePaymentData: IntermediatePaymentData,
+        ) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
 
     /**
      * This object contains details about errors returned by client JavaScript
@@ -2231,5 +2260,9 @@ declare namespace google.payments.api {
      * - `INTERNAL_ERROR`:
      *   General server error.
      */
-    type PaymentsErrorStatusCode = "BUYER_ACCOUNT_ERROR" | "DEVELOPER_ERROR" | "MERCHANT_ACCOUNT_ERROR" | "INTERNAL_ERROR";
+    type PaymentsErrorStatusCode =
+        | "BUYER_ACCOUNT_ERROR"
+        | "DEVELOPER_ERROR"
+        | "MERCHANT_ACCOUNT_ERROR"
+        | "INTERNAL_ERROR";
 }

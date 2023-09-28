@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StorageInterface {
-  getItem(key: string): Promise<any>;
-  removeItem(key: string): Promise<void>;
-  setItem(key: string, value: any): Promise<void>;
+    getItem(key: string): Promise<any>;
+    removeItem(key: string): Promise<void>;
+    setItem(key: string, value: any): Promise<void>;
 }
 
 export const localStorage: StorageInterface;

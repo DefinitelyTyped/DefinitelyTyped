@@ -1,4 +1,4 @@
-import { BlankNode } from 'rdf-js';
+import { BlankNode } from "rdf-js";
 
 declare function blankNode(blankNode: BlankNode): string;
 

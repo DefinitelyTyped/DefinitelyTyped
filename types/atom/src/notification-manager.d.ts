@@ -1,4 +1,4 @@
-import { Disposable, ErrorNotificationOptions, Notification, NotificationOptions } from '../index';
+import { Disposable, ErrorNotificationOptions, Notification, NotificationOptions } from "../index";
 
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {

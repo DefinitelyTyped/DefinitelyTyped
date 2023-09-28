@@ -1,3 +1,3 @@
-import sandbox = require('sinon-sandbox');
+import sandbox = require("sinon-sandbox");
 
 sandbox; // $ExpectType SinonSandbox

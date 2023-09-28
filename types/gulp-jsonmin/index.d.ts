@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 declare function gulpJsonmin(options?: gulpJsonmin.Options): Transform;
 

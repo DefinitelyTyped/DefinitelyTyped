@@ -12,7 +12,7 @@ declare namespace pkginfo {
         /** Registry port. Default: 443 (HTTPS) or 80 (HTTP). */
         port?: number | undefined;
         /** Registry protocol. Default: 'https'. */
-        protocol?: 'http' | 'https' | undefined;
+        protocol?: "http" | "https" | undefined;
         /** Registry. Default: 'registry.npmjs.org'. */
         registry?: string | undefined;
     }

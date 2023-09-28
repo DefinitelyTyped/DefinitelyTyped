@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export default Radium;
 
@@ -46,7 +46,7 @@ declare namespace Radium {
      * StyleRoot component properties
      */
     export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
-         radiumConfig?: RadiumConfig | undefined
+        radiumConfig?: RadiumConfig | undefined;
     }
     /**
      * <StyleRoot />
@@ -114,5 +114,4 @@ declare namespace Radium {
     }
 
     var TestMode: RadiumTestMode;
-
 }

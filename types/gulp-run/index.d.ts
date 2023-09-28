@@ -5,8 +5,8 @@
 // Minimum TypeScript Version: 4.6
 /// <reference types="node" />
 
-import { Transform } from 'node:stream';
-import Command = require('./command');
+import { Transform } from "node:stream";
+import Command = require("./command");
 
 declare namespace GulpRunner {
     export { Command };

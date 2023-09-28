@@ -9,27 +9,27 @@
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { Component, CSSProperties, LegacyRef, ReactElement, ReactNode, SyntheticEvent } from 'react';
+import { Component, CSSProperties, LegacyRef, ReactElement, ReactNode, SyntheticEvent } from "react";
 
 /**
  * Table scroll position.
  */
-export type ScrollPosition = 'Top' | 'Bottom';
+export type ScrollPosition = "Top" | "Bottom";
 
 /**
  * Row selection mode. Single selection = 'radio', multiple selection = 'checkbox'.
  */
-export type SelectRowMode = 'none' | 'radio' | 'checkbox';
+export type SelectRowMode = "none" | "radio" | "checkbox";
 
 /**
  * Sort Order values. 'asc' = ascending, 'desc' = descending.
  */
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = "asc" | "desc";
 
 /**
  * Type of selection for cell editing.
  */
-export type CellEditClickMode = 'none' | 'click' | 'dbclick';
+export type CellEditClickMode = "none" | "click" | "dbclick";
 
 /**
  * Tell react-bootstrap-table how to trigger expanding by clicking on 'row' or 'column' level.
@@ -37,13 +37,13 @@ export type CellEditClickMode = 'none' | 'click' | 'dbclick';
  * unexpandable, check expandable.
  * Default is 'row'.
  */
-export type ExpandBy = 'row' | 'column';
+export type ExpandBy = "row" | "column";
 
 /**
  * Used to specify whether a dropdown button should use 'dropup' mode or 'dropdown' mode.
  * Default is usually 'dropdown'.
  */
-export type DropDirection = 'dropdown' | 'dropup';
+export type DropDirection = "dropdown" | "dropup";
 
 /**
  * List of valid filter types.
@@ -51,54 +51,54 @@ export type DropDirection = 'dropdown' | 'dropup';
  * function. It is NOT valid for use when specifying a filter to the TableHeaderColumn filter properties.
  */
 export type FilterType =
-    | 'TextFilter'
-    | 'RegexFilter'
-    | 'SelectFilter'
-    | 'NumberFilter'
-    | 'DateFilter'
-    | 'CustomFilter'
-    | 'ArrayFilter';
+    | "TextFilter"
+    | "RegexFilter"
+    | "SelectFilter"
+    | "NumberFilter"
+    | "DateFilter"
+    | "CustomFilter"
+    | "ArrayFilter";
 
 /**
  * Filter conditions that can be used with TextFilter/SelectFilter/RegexFilter filters.
  */
-export type FilterCondition = 'eq' | 'like';
+export type FilterCondition = "eq" | "like";
 
 /**
  * Filter comparators used for NumberFilter/DateFilter filters
  */
-export type FilterComparator = '=' | '<' | '<=' | '>' | '>=' | '!=';
+export type FilterComparator = "=" | "<" | "<=" | ">" | ">=" | "!=";
 
 /**
  * Element type to use for editing a particular column's cells.
  */
-export type EditCellType = 'textarea' | 'select' | 'checkbox' | 'datetime';
+export type EditCellType = "textarea" | "select" | "checkbox" | "datetime";
 
 /**
  * Position to show the Pagination Panel. Options are above the table ('top'), below the table ('bottom'), or both
  * above and below the table ('both').
  */
-export type PaginationPostion = 'top' | 'bottom' | 'both';
+export type PaginationPostion = "top" | "bottom" | "both";
 
 /**
  * Result type for validation when editing.
  */
-export type EditValidatorType = 'success' | 'error';
+export type EditValidatorType = "success" | "error";
 
 /**
  * Used to specify the text alignment for a column.
  */
-export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
+export type DataAlignType = "left" | "center" | "right" | "start" | "end";
 
 /**
  * Boostrap version number.
  */
-export type BootstrapVersion = '3' | '4';
+export type BootstrapVersion = "3" | "4";
 
 /**
  * CSV Field types supported.
  */
-export type CSVFieldType = 'string' | 'number';
+export type CSVFieldType = "string" | "number";
 
 /**
  * Custom attributes for a column/cell/etc.
@@ -111,7 +111,7 @@ export interface CustomAttrs {
 /**
  * Size per page list definition
  */
-export type SizePerPageList = number[] | Array<{ text: string, value: number }>;
+export type SizePerPageList = number[] | Array<{ text: string; value: number }>;
 
 /**
  * Interface spec for sepcifying functionality to handle remotely
@@ -561,7 +561,7 @@ export interface CellEdit<TRow extends object = any> {
         cellName: K,
         cellValue: TRow[K],
         done: (isValid: boolean) => void,
-        props: { rowIndex: number; colIndex: number }
+        props: { rowIndex: number; colIndex: number },
     ): boolean | 1;
     /**
      * Accept a custom callback function, after cell saving, this function will be called.
@@ -575,7 +575,7 @@ export interface CellEdit<TRow extends object = any> {
         row: TRow,
         cellName: K,
         cellValue: TRow[K],
-        props: { rowIndex: number; colIndex: number }
+        props: { rowIndex: number; colIndex: number },
     ): void;
 }
 
@@ -617,7 +617,8 @@ export interface Options<TRow extends object = any> {
      */
     onSortChange?:
         | ((sortName: keyof TRow, sortOrder: SortOrder) => void)
-        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void) | undefined;
+        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void)
+        | undefined;
     /**
      * Change the text displayed on the table if data is empty.
      */
@@ -647,7 +648,11 @@ export interface Options<TRow extends object = any> {
      *   `multiColumnSearch`: True if multiple column search is enabled.
      * In most cases, you only need to use searchText. This function usually used for remote searching.
      */
-    onSearchChange?(searchText: string, colInfos: ReadonlyArray<ColumnDescription<TRow>>, multiColumnSearch: boolean): void;
+    onSearchChange?(
+        searchText: string,
+        colInfos: ReadonlyArray<ColumnDescription<TRow>>,
+        multiColumnSearch: boolean,
+    ): void;
     /**
      * Assign a callback function which will be called after triggering searching.
      * This function takes two argument: search and result.
@@ -694,7 +699,11 @@ export interface Options<TRow extends object = any> {
      * The function should either return a string immediately, or return false and then return a string through the
      * error callback function later.
      */
-    onAddRow?(row: TRow, colInfo: ReadonlyArray<ColumnDescription<TRow>>, errorCallback: (message: string) => void): string | boolean;
+    onAddRow?(
+        row: TRow,
+        colInfo: ReadonlyArray<ColumnDescription<TRow>>,
+        errorCallback: (message: string) => void,
+    ): string | boolean;
     /**
      * Assign a callback function which will be called when a filter condition changes.
      * This function takes one argument: filterObj which is an object which take dataField
@@ -966,7 +975,7 @@ export interface Options<TRow extends object = any> {
         onSave: (row: TRow) => void,
         columns: ReadonlyArray<InsertModalColumnDescription<TRow>>,
         validateState: { [dataField: string]: string },
-        ignoreEditable: boolean
+        ignoreEditable: boolean,
     ): ReactElement;
     /**
      * You can customize the body of the insert modal via options.insertModalBody and we give you the following
@@ -979,7 +988,7 @@ export interface Options<TRow extends object = any> {
     insertModalBody?(
         columns: ReadonlyArray<InsertModalColumnDescription<TRow>>,
         validateState: { [dataField: string]: string },
-        ignoreEditable: boolean
+        ignoreEditable: boolean,
     ): React.ReactElement<React.Component<any> & ModalBodyInterface<TRow>>;
     /**
      * It's available to custom the header of insert modal by configuring options.insertModalHeader. It only accepts
@@ -1233,7 +1242,10 @@ export interface TableHeaderColumnProps {
      *   `rowIndex`: Index number for the current row data in the input data array.
      *   `columnIndex`: Index number for the current column that the cell is in.
      */
-    tdStyle?: CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties) | undefined;
+    tdStyle?:
+        | CSSProperties
+        | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties)
+        | undefined;
     /**
      * Allow you to add your custom style object on TH element.
      */
@@ -1350,7 +1362,11 @@ export interface TableHeaderColumnProps {
      * This callback accepts four arguments: cell, row, rowIndex, columnIndex.
      * object: @see Editable interface.
      */
-    editable?: boolean | Editable<any, any> | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject) | undefined;
+    editable?:
+        | boolean
+        | Editable<any, any>
+        | ((cell: any, row: any, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject)
+        | undefined;
     /**
      * Give an Object like following to able to customize your own editing component.
      * This Object should contain these two property:
@@ -1414,7 +1430,7 @@ export interface TableHeaderColumnProps {
             attr: EditableAttrs,
             editorClass: string,
             ignoreEditable: boolean,
-            defaultValue: any
+            defaultValue: any,
         ): ReactElement | boolean;
     } | undefined;
     /**
@@ -1449,7 +1465,7 @@ export interface EditableAttrs {
  * Editable Select option values
  */
 export type EditSelectOptionValue =
-    | Array<{ text: string; value: string; }>
+    | Array<{ text: string; value: string }>
     | string[]
     | number[];
 
@@ -1501,9 +1517,9 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
      */
     options?: {
         values:
-        | EditSelectOptionValue
-        | EditCheckboxOptionValue
-        | ((row: TRow) => EditCheckboxOptionValue | EditSelectOptionValue);
+            | EditSelectOptionValue
+            | EditCheckboxOptionValue
+            | ((row: TRow) => EditCheckboxOptionValue | EditSelectOptionValue);
     } | undefined;
     /**
      * Default value to show in the edit field in the Insert Modal for this column.
@@ -1527,7 +1543,7 @@ export interface TextFilter {
     /**
      * Filter type must be 'TextFilter'.
      */
-    type: 'TextFilter';
+    type: "TextFilter";
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
@@ -1562,7 +1578,7 @@ export interface SelectFilter {
     /**
      * Filter type must be 'SelectFilter'
      */
-    type: 'SelectFilter';
+    type: "SelectFilter";
     /**
      * Placeholder text to show in the filter.
      */
@@ -1596,7 +1612,7 @@ export interface RegexFilter {
     /**
      * Filter type must be 'RegexFilter'
      */
-    type: 'RegexFilter';
+    type: "RegexFilter";
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
@@ -1622,7 +1638,7 @@ export interface NumberFilter {
     /**
      * Filter type must be 'NumberFilter'
      */
-    type: 'NumberFilter';
+    type: "NumberFilter";
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
@@ -1680,7 +1696,7 @@ export interface DateFilter {
     /**
      * Filter type must be 'DateFilter'
      */
-    type: 'DateFilter';
+    type: "DateFilter";
     /**
      * Delay time in milliseconds after the last key press prior to applying the filter. Defaults to 500ms.
      */
@@ -1733,13 +1749,13 @@ export interface CustomFilter<FParams extends object = any, FElement extends Cus
     /**
      * Type must be 'CustomFilter'
      */
-    type: 'CustomFilter';
+    type: "CustomFilter";
     /**
      * Function to generate the filter component
      */
     getElement(
-        filterHandler: (value?: CustomFilterParameters<FParams>, type?: 'CustomFilter') => void,
-        customFilterParameters: CustomFilterParameters<FParams>
+        filterHandler: (value?: CustomFilterParameters<FParams>, type?: "CustomFilter") => void,
+        customFilterParameters: CustomFilterParameters<FParams>,
     ): ReactElement<FElement>;
     /**
      * Custom filter parameters to be passed to the generator function
@@ -1772,7 +1788,7 @@ export interface DateFilterValue {
  * Text Filter's data object.
  */
 export interface TextFilterData {
-    type: 'TextFilter';
+    type: "TextFilter";
     value: string;
 }
 
@@ -1780,7 +1796,7 @@ export interface TextFilterData {
  * Select Filter's data object.
  */
 export interface SelectFilterData {
-    type: 'SelectFilter';
+    type: "SelectFilter";
     value: string;
 }
 
@@ -1788,7 +1804,7 @@ export interface SelectFilterData {
  * Regex Filter's data object.
  */
 export interface RegexFilterData {
-    type: 'RegexFilter';
+    type: "RegexFilter";
     value: string;
 }
 
@@ -1796,7 +1812,7 @@ export interface RegexFilterData {
  * Number Filter's data object.
  */
 export interface NumberFilterData {
-    type: 'NumberFilter';
+    type: "NumberFilter";
     value: NumberFilterValue;
 }
 
@@ -1804,7 +1820,7 @@ export interface NumberFilterData {
  * Date Filter's data object.
  */
 export interface DateFilterData {
-    type: 'DateFilter';
+    type: "DateFilter";
     value: DateFilterValue;
 }
 
@@ -1812,7 +1828,7 @@ export interface DateFilterData {
  * Data object returned for an array filter.
  */
 export interface ArrayFilterData {
-    type: 'ArrayFilter';
+    type: "ArrayFilter";
     value: string[] | number[];
 }
 
@@ -2013,7 +2029,10 @@ export interface ColumnDescription<TRow extends object = any> {
      * Setting for whether the data in this column can be edited.
      * Comes from TableHeader.editable property.
      */
-    editable: boolean | Editable<TRow, any> | ((cell: any, row: TRow, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+    editable:
+        | boolean
+        | Editable<TRow, any>
+        | ((cell: any, row: TRow, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
     /**
      * Custom editor settings to use when editing the data in this column.
      * Comes from TableHeader.customEditor property.
@@ -2472,7 +2491,15 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
      * Flag to indicate whether this column is editable.
      * Comes from TableHeader.editable.
      */
-    editable: boolean | Editable<TRow, keyof TRow> | ((cell: TRow[keyof TRow], row: TRow, rowIndex: number, columnIndex: number) => boolean | string | EditValidatorObject);
+    editable:
+        | boolean
+        | Editable<TRow, keyof TRow>
+        | ((
+            cell: TRow[keyof TRow],
+            row: TRow,
+            rowIndex: number,
+            columnIndex: number,
+        ) => boolean | string | EditValidatorObject);
     /**
      * Custom element to use for the Insert field element.
      * Comes from TableHeader.customInsertEditor.
@@ -2482,7 +2509,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
         attr: EditableAttrs,
         editorClass: string,
         ignoreEditable: boolean,
-        defaultValue: TRow[keyof TRow]
+        defaultValue: TRow[keyof TRow],
     ): ReactElement | boolean;
     /**
      * Flag to indicate whether this column should be hidden on the Insert Modal page.
@@ -2628,7 +2655,7 @@ export interface SizePerPageDropDownProps {
     /**
      * Size Per Page options list
      */
-    options?: number[] | Array<{ text: string, value: number }> | undefined;
+    options?: number[] | Array<{ text: string; value: number }> | undefined;
     /**
      * Flag to indicate that the dropdown is open
      */

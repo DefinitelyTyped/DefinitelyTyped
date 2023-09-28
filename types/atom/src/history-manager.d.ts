@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /**
  *  History manager for remembering which projects have been opened.

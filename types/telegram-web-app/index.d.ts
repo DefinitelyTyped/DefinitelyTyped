@@ -1,4 +1,4 @@
-// Type definitions for non-npm package telegram-web-app 6.7
+// Type definitions for non-npm package telegram-web-app 6.9
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
 //                 MKRhere <https://github.com/MKRhere>
@@ -112,22 +112,25 @@ interface WebApp {
      */
     HapticFeedback: HapticFeedback;
     /**
+     * An object for controlling cloud storage.
+     */
+    CloudStorage: CloudStorage;
+    /**
      * Returns true if the user's app supports a version of the Bot API that is
      * equal to or higher than the version passed as the parameter.
      */
     isVersionAtLeast(version: string): boolean;
     /**
-     * A method that sets the app header color. You can only pass
-     * Telegram.WebApp.themeParams.bg_color or
-     * Telegram.WebApp.themeParams.secondary_bg_colo as a color or you can use
-     * keywords bg_color, secondary_bg_color instead.
+     * A method that sets the app header color in the `#RRGGBB` format.
+     * You can also use keywords bg_color and secondary_bg_color.
      */
-    setHeaderColor(color: "bg_color" | "secondary_bg_color"): void;
+    // string & {} prevents this from eagerly collapsing into just string
+    setHeaderColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
-     * A method that sets the app background color in the #RRGGBB format or you
-     * can use keywords bg_color, secondary_bg_color instead.
+     * A method that sets the app background color in the `#RRGGBB` format or
+     * you can use keywords bg_color, secondary_bg_color instead.
      */
-    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | string): void;
+    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
      * A method that enables a confirmation dialog while the user is trying to close the Web App.
      */
@@ -152,6 +155,11 @@ interface WebApp {
     ): void;
     onEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
     onEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
+    onEvent(
+        eventType: "writeAccessRequested",
+        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
+    ): void;
+    onEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
@@ -166,6 +174,11 @@ interface WebApp {
     ): void;
     offEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
     offEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
+    offEvent(
+        eventType: "writeAccessRequested",
+        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
+    ): void;
+    offEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -250,6 +263,26 @@ interface WebApp {
      * in response to a user interaction with the Web App interface (e.g. a click inside the Web App or on the main button).
      */
     readTextFromClipboard(callback?: (data: string | null) => void): void;
+    /**
+     * A method that shows a native popup requesting permission for the bot to
+     * send messages to the user.
+     *
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called when the popup is closed and the first
+     * argument will be a boolean indicating whether the user granted this
+     * access.
+     */
+    requestWriteAccess(callback?: (success: boolean) => void): void;
+    /**
+     * A method that shows a native popup prompting the user for their phone
+     * number.
+     *
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called when the popup is closed and the first
+     * argument will be a boolean indicating whether the user shared its
+     * phone number.
+     */
+    requestContact(callback?: (success: boolean) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -505,6 +538,86 @@ interface HapticFeedback {
     selectionChanged(): void;
 }
 
+interface CloudStorage {
+    /**
+     * A method that stores a value in the cloud storage using the
+     * specified key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param value The value should contain 0-4096 characters. You can store
+     * up to 1024 keys in the cloud storage.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first argument
+     * will contain the error. In case of success, the first argument will be
+     * null and the second argument will be a boolean indicating whether the
+     * value was stored.
+     */
+    setItem(key: string, value: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that receives a value from the cloud storage using
+     * the specified key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback In case of an error, the callback function will
+     * be called and the first argument will contain the error. In case of
+     * success, the first argument will be null and the value will be passed
+     * as the second argument.
+     */
+    getItem(key: string, callback?: (error: string | null, value: null | string) => void): CloudStorage;
+    /**
+     * A method that receives values from the cloud storage using the specified
+     * keys.
+     *
+     * @param key The keys should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback In case of an error, the callback? function will be
+     * called and the first argument will contain the error. In case of
+     * success, the first argument will be null and the values will be passed
+     * as the second argument.
+     */
+    getItems(
+        keys: string[],
+        callback?: (error: string | null, values: null | Record<string, string>) => void,
+    ): CloudStorage;
+    /**
+     * A method that removes a value from the cloud storage using the specified
+     * key.
+     *
+     * @param key The key should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first
+     * argument will contain the error. In case of success, the first
+     * argument will be null and the second argument will be a boolean
+     * indicating whether the value was removed.
+     */
+    removeItem(key: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that removes values from the cloud storage using the specified
+     * keys.
+     *
+     * @param key The keys should contain 1-128 characters, only A-Z, a-z, 0-9,
+     * _ and - are allowed.
+     * @param callback If an optional callback parameter was passed, the
+     * callback function will be called. In case of an error, the first
+     * argument will contain the error. In case of success, the first
+     * argument will be null and the second argument will be a boolean
+     * indicating whether the values were removed.
+     */
+    removeItems(keys: string[], callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    /**
+     * A method that receives the list of all keys stored in the cloud storage.
+     *
+     * @param callback In case of an error, the callback function will be called
+     * and the first argument will contain the error. In case of success, the
+     * first argument will be null and the list of keys will be passed as the
+     * second argument.
+     */
+    getKeys(callback?: (error: string | null, keys: null | string[]) => void): CloudStorage;
+}
+
 /**
  * This object contains data that is transferred to the Web App when it is
  * opened. It is empty if the Web App was launched from a keyboard button.
@@ -585,6 +698,10 @@ interface WebAppUser {
     language_code?: string;
     /** True, if this user is a Telegram Premium user. */
     is_premium?: true;
+    /** True, if this user added the bot to the attachment menu. */
+    added_to_attachment_menu?: true;
+    /** True, if this user allowed the bot to message them. */
+    allows_write_to_pm?: true;
     /**
      * URL of the user’s profile photo. The photo can be in .jpeg or .svg formats.
      * Only returned for Web Apps launched from the attachment menu.

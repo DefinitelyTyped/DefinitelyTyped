@@ -1,6 +1,6 @@
-import constantsImport = require('./constants');
-import parseImport = require('./parse');
-import scanImport = require('./scan');
+import constantsImport = require("./constants");
+import parseImport = require("./parse");
+import scanImport = require("./scan");
 
 /**
  * Creates a matcher function from one or more glob patterns. The
@@ -45,8 +45,8 @@ declare namespace picomatch {
         posix: boolean;
         input: string;
         output: string;
-        match: ReturnType<typeof test>['match'];
-        isMatch: ReturnType<typeof test>['isMatch'];
+        match: ReturnType<typeof test>["match"];
+        isMatch: ReturnType<typeof test>["isMatch"];
     }
 
     interface PicomatchOptions {
@@ -243,7 +243,7 @@ declare namespace picomatch {
         returnState?: boolean,
     ): ReturnType<typeof compileRe>;
 
-    type ToRegexOptions = Pick<PicomatchOptions, 'flags' | 'nocase' | 'debug'>;
+    type ToRegexOptions = Pick<PicomatchOptions, "flags" | "nocase" | "debug">;
 
     function toRegex(source: string | RegExp, options?: ToRegexOptions): RegExp;
 

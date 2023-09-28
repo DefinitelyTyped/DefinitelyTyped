@@ -24,7 +24,7 @@ authEngine.signToken(testObject, "shhhhh", { audience: "theAudience" });
 
 // sign with default (HMAC SHA256) and multiple audiences
 authEngine.signToken(testObject, "shhhhh", {
-    audience: ["audience1", "audience2"]
+    audience: ["audience1", "audience2"],
 });
 
 // sign with default (HMAC SHA256) and a keyid

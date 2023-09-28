@@ -18,7 +18,6 @@
  * 	.catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class PDFPropertiesOperation {
     /**
@@ -40,7 +39,6 @@ export class PDFPropertiesOperation {
     setInput(sourceFileRef: FileRef): void;
     /**
      * Sets the options for this operation. See {@link PDFPropertiesOptions} for how to specify options for PDF Properties.
-     *
      */
     setOptions(options?: PDFPropertiesOptions): void;
     /**
@@ -56,5 +54,5 @@ export class PDFPropertiesOperation {
     execute(context: ExecutionContext): Promise<any>;
     validate(): void;
 }
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { PDFPropertiesOptions } from './option/pdfproperties/pdf-properties-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { PDFPropertiesOptions } from "./option/pdfproperties/pdf-properties-options";

@@ -8,7 +8,7 @@ function test_options() {
         position: new google.maps.LatLng(0, 0),
         easing: "easeInOutSine",
         duration: 1000,
-        animateFunctionAdapter: (marker, destPoint, easing, duration) => {}
+        animateFunctionAdapter: (marker, destPoint, easing, duration) => {},
     };
     var m = new SlidingMarker(options);
     var g = new MarkerWithGhost(options);
@@ -18,7 +18,7 @@ function test_sliding_marker() {
     let googleMarker: google.maps.Marker;
     let p: google.maps.LatLng;
     let d: number;
-    let e:jQuery.easing.IEasingType;
+    let e: jQuery.easing.IEasingType;
 
     var m = new SlidingMarker();
     googleMarker = m;
@@ -35,7 +35,7 @@ function test_sliding_marker() {
 function test_marker_with_ghost() {
     let p: google.maps.LatLng;
     let d: number;
-    let e:jQuery.easing.IEasingType;
+    let e: jQuery.easing.IEasingType;
     let slidingMarker: SlidingMarker;
 
     var g = new MarkerWithGhost();

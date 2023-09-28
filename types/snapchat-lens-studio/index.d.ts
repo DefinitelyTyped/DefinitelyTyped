@@ -1696,13 +1696,13 @@ declare namespace Component {
         /** Adds a touch type that this component will ignore. */
         addTouchBlockingException(
             exception:
-                | 'TouchTypeNone'
-                | 'TouchTypeTouch'
-                | 'TouchTypeTap'
-                | 'TouchTypeDoubleTap'
-                | 'TouchTypeScale'
-                | 'TouchTypePan'
-                | 'TouchTypeSwipe',
+                | "TouchTypeNone"
+                | "TouchTypeTouch"
+                | "TouchTypeTap"
+                | "TouchTypeDoubleTap"
+                | "TouchTypeScale"
+                | "TouchTypePan"
+                | "TouchTypeSwipe",
         ): void;
 
         /** Returns the minimum bounding box size used for detecting touches. Value range is from 0-1, relative to screen width. */
@@ -1897,32 +1897,32 @@ declare namespace Component {
     /** Used to show and hide hints to the user. For more information and useful helper scripts, see the Scripting Hints Guide. */
     interface HintsComponent extends Component {
         /** Hides the hint with id hintID. */
-        hideHint(hintID: Parameters<HintsComponent['showHint']>[0]): boolean;
+        hideHint(hintID: Parameters<HintsComponent["showHint"]>[0]): boolean;
 
         /** Shows the hint with id hintID for a duration of duration seconds. Use a duration of -1 to keep the hint onscreen forever. */
         showHint(
             hintID: `lens_hint_${
-                | 'blow_a_kiss'
-                | 'come_closer'
-                | `do_not_${'smile' | 'try_with_a_friend'}`
-                | 'find_face'
-                | 'keep_raising_your_eyebrows'
-                | 'kiss'
-                | 'kiss_again'
-                | `look_${'around' | 'down' | 'left' | 'right' | 'up'}`
-                | 'make_some_noise'
-                | 'nod_your_head'
-                | `now_${'kiss' | 'open_your_mouth' | 'raise_your_eyebrows' | 'smile'}`
-                | `open_your_${'mouth' | 'mouth_again'}`
-                | `raise_${'eyebrows_or_open_mouth' | 'your_eyebrows' | 'your_eyebrows_again'}`
-                | 'smile'
-                | 'smile_again'
-                | 'swap_camera'
-                | 'tap'
-                | `tap_${'a_surface' | 'ground' | 'ground_to_place' | 'surface_to_place'}`
-                | `try_${'friend' | 'rear_camera'}`
-                | 'turn_around'
-                | 'walk_through_the_door'}`,
+                | "blow_a_kiss"
+                | "come_closer"
+                | `do_not_${"smile" | "try_with_a_friend"}`
+                | "find_face"
+                | "keep_raising_your_eyebrows"
+                | "kiss"
+                | "kiss_again"
+                | `look_${"around" | "down" | "left" | "right" | "up"}`
+                | "make_some_noise"
+                | "nod_your_head"
+                | `now_${"kiss" | "open_your_mouth" | "raise_your_eyebrows" | "smile"}`
+                | `open_your_${"mouth" | "mouth_again"}`
+                | `raise_${"eyebrows_or_open_mouth" | "your_eyebrows" | "your_eyebrows_again"}`
+                | "smile"
+                | "smile_again"
+                | "swap_camera"
+                | "tap"
+                | `tap_${"a_surface" | "ground" | "ground_to_place" | "surface_to_place"}`
+                | `try_${"friend" | "rear_camera"}`
+                | "turn_around"
+                | "walk_through_the_door"}`,
             time: number,
         ): boolean;
     }
@@ -2109,18 +2109,20 @@ declare namespace Component {
      */
     type ScriptComponent<
         Inputs extends object = SnapchatLensStudio.ScriptInputs,
-        Api extends object = SnapchatLensStudio.ScriptApi
-    > = {
-        /** Adds a new SceneEvent, triggered by eventType events, to the ScriptComponent. */
-        createEvent<T extends keyof EventMapping>(eventType: T): EventMapping[T];
+        Api extends object = SnapchatLensStudio.ScriptApi,
+    > =
+        & {
+            /** Adds a new SceneEvent, triggered by eventType events, to the ScriptComponent. */
+            createEvent<T extends keyof EventMapping>(eventType: T): EventMapping[T];
 
-        /** Removes a previously added SceneEvent from the ScriptComponent. */
-        removeEvent(event: SceneEvent): void;
+            /** Removes a previously added SceneEvent from the ScriptComponent. */
+            removeEvent(event: SceneEvent): void;
 
-        /** Generic object accessible by other instances of ScriptComponent. Use this object to store references to properties and methods that need to be accessible from other ScriptComponents. */
-        api: Api;
-    } & Component &
-        Inputs;
+            /** Generic object accessible by other instances of ScriptComponent. Use this object to store references to properties and methods that need to be accessible from other ScriptComponents. */
+            api: Api;
+        }
+        & Component
+        & Inputs;
 }
 
 /**
@@ -3105,7 +3107,6 @@ declare namespace Asset {
     /**
      * Configures an animation layer for a single SceneObject. Gives access to position, rotation, scale and blend shape animation tracks. See also: Playing 3D Animation Guide, AnimationMixer,
      * Animation.
-     *
      */
     interface AnimationLayer extends Asset {
         /** The Vec3AnimationTrack controlling position in this AnimationLayer. */
@@ -3169,18 +3170,20 @@ interface FaceRenderObjectProvider extends RenderObjectProvider {
  * ```
  */
 type Expressions = {
-    [E in
-        | `Brows${`Down${'Left' | 'Right'}` | `Up${'Center' | 'Left' | 'Right'}`}`
-        | `CheekSquint${'Left' | 'Right'}`
-        | `Eye${'Blink' | 'Down' | 'In' | 'Open' | 'Out' | 'Squint' | 'Up'}${'Left' | 'Right'}`
-        | `Jaw${'Forward' | 'Left' | 'Right' | 'Open'}`
-        | `${
-              | `Lips${'Funnel' | 'Pucker'}`
-              | `LowerLip${`Down${'Left' | 'Right'}` | 'Raise'}`
-              | `UpperLip${'Close' | 'Raise' | `Up${'Left' | 'Right'}`}`}`
-        | `Mouth${`Close` | `${'Dimple' | 'Frown' | '' | 'Smile' | 'Stretch' | 'Up'}${'Left' | 'Right'}`}`
-        | 'Puff'
-        | `Sneer${'Left' | 'Right'}`]: E;
+    [
+        E in
+            | `Brows${`Down${"Left" | "Right"}` | `Up${"Center" | "Left" | "Right"}`}`
+            | `CheekSquint${"Left" | "Right"}`
+            | `Eye${"Blink" | "Down" | "In" | "Open" | "Out" | "Squint" | "Up"}${"Left" | "Right"}`
+            | `Jaw${"Forward" | "Left" | "Right" | "Open"}`
+            | `${
+                | `Lips${"Funnel" | "Pucker"}`
+                | `LowerLip${`Down${"Left" | "Right"}` | "Raise"}`
+                | `UpperLip${"Close" | "Raise" | `Up${"Left" | "Right"}`}`}`
+            | `Mouth${`Close` | `${"Dimple" | "Frown" | "" | "Smile" | "Stretch" | "Up"}${"Left" | "Right"}`}`
+            | "Puff"
+            | `Sneer${"Left" | "Right"}`
+    ]: E;
 };
 
 /** RenderObjectProvider for mesh objects generated procedurally. */
@@ -3699,7 +3702,7 @@ interface SceneEvent<T extends SceneEvent = any> extends IEventParameters {
     enabled: boolean;
 
     /** Binds a callback function to this event. */
-    bind(evCallback: (eventData: Omit<T, 'enabled'>) => void): void;
+    bind(evCallback: (eventData: Omit<T, "enabled">) => void): void;
 
     /** Returns the typename of the SceneEvent. */
     getTypeName(): string;
@@ -4198,7 +4201,7 @@ interface OutlineSettings extends ScriptObject {
     size: number;
 }
 
-type TouchTypeException = `TouchType${'None' | 'Touch' | 'Tap' | 'DoubleTap' | 'Scale' | 'Pan' | 'Swipe'}`;
+type TouchTypeException = `TouchType${"None" | "Touch" | "Tap" | "DoubleTap" | "Scale" | "Pan" | "Swipe"}`;
 
 declare namespace SnapchatLensStudio {
     interface Global {
@@ -4234,46 +4237,46 @@ declare namespace SnapchatLensStudio {
     }
 
     interface ComponentMapping {
-        'Component.ScriptComponent': Component.ScriptComponent;
+        "Component.ScriptComponent": Component.ScriptComponent;
 
-        'Component.Visual': Component.Visual;
-        'Component.Camera': Component.Camera;
-        'Component.ScreenTransform': Component.ScreenTransform;
-        'Component.MLComponent': Component.MLComponent;
-        'Component.ObjectTracking': Component.ObjectTracking;
-        'Component.PinToMeshComponent': Component.PinToMeshComponent;
-        'Component.RectangleSetter': Component.RectangleSetter;
-        'Component.ScreenRegionComponent': Component.ScreenRegionComponent;
-        'Component.Animation': Component.Animation;
-        'Component.AnimationMixer': Component.AnimationMixer;
-        'Component.AudioComponent': Component.AudioComponent;
-        'Component.SpriteAligner': Component.SpriteAligner;
-        'Component.TouchComponent': Component.TouchComponent;
-        'Component.VertexCache': Component.VertexCache;
-        'Component.BlendShapes': Component.BlendShapes;
-        'Component.DeviceLocationTrackingComponent': Component.DeviceLocationTrackingComponent;
-        'Component.DeviceTracking': Component.DeviceTracking;
-        'Component.Head': Component.Head;
-        'Component.HintsComponent': Component.HintsComponent;
-        'Component.LightSource': Component.LightSource;
-        'Component.LookAtComponent': Component.LookAtComponent;
-        'Component.ManipulateComponent': Component.ManipulateComponent;
-        'Component.MarkerTrackingComponent': Component.MarkerTrackingComponent;
+        "Component.Visual": Component.Visual;
+        "Component.Camera": Component.Camera;
+        "Component.ScreenTransform": Component.ScreenTransform;
+        "Component.MLComponent": Component.MLComponent;
+        "Component.ObjectTracking": Component.ObjectTracking;
+        "Component.PinToMeshComponent": Component.PinToMeshComponent;
+        "Component.RectangleSetter": Component.RectangleSetter;
+        "Component.ScreenRegionComponent": Component.ScreenRegionComponent;
+        "Component.Animation": Component.Animation;
+        "Component.AnimationMixer": Component.AnimationMixer;
+        "Component.AudioComponent": Component.AudioComponent;
+        "Component.SpriteAligner": Component.SpriteAligner;
+        "Component.TouchComponent": Component.TouchComponent;
+        "Component.VertexCache": Component.VertexCache;
+        "Component.BlendShapes": Component.BlendShapes;
+        "Component.DeviceLocationTrackingComponent": Component.DeviceLocationTrackingComponent;
+        "Component.DeviceTracking": Component.DeviceTracking;
+        "Component.Head": Component.Head;
+        "Component.HintsComponent": Component.HintsComponent;
+        "Component.LightSource": Component.LightSource;
+        "Component.LookAtComponent": Component.LookAtComponent;
+        "Component.ManipulateComponent": Component.ManipulateComponent;
+        "Component.MarkerTrackingComponent": Component.MarkerTrackingComponent;
 
-        'Component.BaseMeshVisual': Component.BaseMeshVisual;
+        "Component.BaseMeshVisual": Component.BaseMeshVisual;
 
-        'Component.FaceStretchVisual': Component.FaceStretchVisual;
-        'Component.LiquifyVisual': Component.LiquifyVisual;
-        'Component.MaterialMeshVisual': Component.MaterialMeshVisual;
-        'Component.Text': Component.Text;
+        "Component.FaceStretchVisual": Component.FaceStretchVisual;
+        "Component.LiquifyVisual": Component.LiquifyVisual;
+        "Component.MaterialMeshVisual": Component.MaterialMeshVisual;
+        "Component.Text": Component.Text;
 
-        'Component.EyeColorVisual': Component.EyeColorVisual;
-        'Component.FaceInsetVisual': Component.FaceInsetVisual;
-        'Component.FaceMaskVisual': Component.FaceMaskVisual;
-        'Component.Image': Component.Image;
-        'Component.RenderMeshVisual': Component.RenderMeshVisual;
-        'Component.RetouchVisual': Component.RetouchVisual;
-        'Component.SpriteVisual': Component.SpriteVisual;
+        "Component.EyeColorVisual": Component.EyeColorVisual;
+        "Component.FaceInsetVisual": Component.FaceInsetVisual;
+        "Component.FaceMaskVisual": Component.FaceMaskVisual;
+        "Component.Image": Component.Image;
+        "Component.RenderMeshVisual": Component.RenderMeshVisual;
+        "Component.RetouchVisual": Component.RetouchVisual;
+        "Component.SpriteVisual": Component.SpriteVisual;
     }
 
     interface ScriptInputs {} // tslint:disable-line no-empty-interface

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import CloseOnEscape from 'react-close-on-escape';
+import * as React from "react";
+import CloseOnEscape from "react-close-on-escape";
 
 const onEscapeCallback = () => {};
 

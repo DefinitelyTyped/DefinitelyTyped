@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface HLocation<S = unknown> {
     pathname: string;
@@ -17,9 +17,9 @@ export interface HLocation<S = unknown> {
     hash: string;
     key?: string | undefined;
 }
-export type WindowLocation<S = unknown> = Window['location'] & HLocation<S>;
+export type WindowLocation<S = unknown> = Window["location"] & HLocation<S>;
 
-export type HistoryActionType = 'PUSH' | 'POP';
+export type HistoryActionType = "PUSH" | "POP";
 export type HistoryLocation = WindowLocation & { state?: any };
 export interface HistoryListenerParameter {
     location: HistoryLocation;
@@ -56,7 +56,7 @@ export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export type AnchorProps = Omit<
     React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>,
-    'href' // remove href, as it's ignored by the router
+    "href" // remove href, as it's ignored by the router
 >;
 
 export interface LinkProps<TState> extends AnchorProps {
@@ -79,10 +79,11 @@ export function Link<TState>(
     // TODO: Define this as ...params: Parameters<Link<TState>> when only TypeScript >= 3.1 support is needed.
     props: React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>,
 ): ReturnType<Link<TState>>;
-export interface Link<TState>
-    extends React.ForwardRefExoticComponent<
+export interface Link<TState> extends
+    React.ForwardRefExoticComponent<
         React.PropsWithoutRef<LinkProps<TState>> & React.RefAttributes<HTMLAnchorElement>
-    > {}
+    >
+{}
 
 export interface RedirectProps<TState> {
     from?: string | undefined;

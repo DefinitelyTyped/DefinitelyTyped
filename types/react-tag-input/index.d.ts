@@ -21,9 +21,9 @@ export interface ReactTagsProps {
     placeholder?: string | undefined;
     labelField?: string | undefined;
 
-    handleAddition: ((tag: { id: string, text: string }) => void);
-    handleDelete: ((i: number) => void);
-    handleDrag?: ((tag: { id: string; text: string; }, currPos: number, newPos: number) => void) | undefined;
+    handleAddition: (tag: { id: string; text: string }) => void;
+    handleDelete: (i: number) => void;
+    handleDrag?: ((tag: { id: string; text: string }, currPos: number, newPos: number) => void) | undefined;
     handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: Tag[]) => Tag[]) | undefined;
     handleTagClick?: ((i: number) => void) | undefined;
 
@@ -44,7 +44,7 @@ export interface ReactTagsProps {
     inputValue?: string | undefined;
 
     inline?: boolean | undefined;
-    inputFieldPosition?: 'top' | 'bottom' | 'inline' | undefined;
+    inputFieldPosition?: "top" | "bottom" | "inline" | undefined;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement> | undefined;
     allowUnique?: boolean | undefined;
     allowDragDrop?: boolean | undefined;
@@ -63,7 +63,7 @@ export interface ReactTagsProps {
     } | undefined;
 }
 
-export class WithContext extends React.Component<ReactTagsProps> { }
-export class WithOutContext extends React.Component<ReactTagsProps> { }
+export class WithContext extends React.Component<ReactTagsProps> {}
+export class WithOutContext extends React.Component<ReactTagsProps> {}
 
 export default WithContext;

@@ -37,7 +37,7 @@ export interface TransformFunction {
         key: string,
         value: any,
         settings: any,
-        param?: any
+        param?: any,
     ): any;
 }
 
@@ -45,7 +45,7 @@ export interface TransformFunction {
  * Set of transformation functions keyed by the transform function's name.
  */
 export interface TransformsList {
-    [ transformFnName: string ]: TransformFunction;
+    [transformFnName: string]: TransformFunction;
 }
 
 /**
@@ -60,7 +60,7 @@ export interface TransformsList {
 export function adlib(
     template: any,
     settings: any,
-    transforms?: TransformsList
+    transforms?: TransformsList,
 ): any;
 
 /**
@@ -71,5 +71,5 @@ export function adlib(
  * @return List of unique property values in template
  */
 export function listDependencies(
-    template: any
-): string [];
+    template: any,
+): string[];

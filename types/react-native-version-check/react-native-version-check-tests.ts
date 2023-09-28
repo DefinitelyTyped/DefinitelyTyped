@@ -1,4 +1,4 @@
-import VersionCheck from 'react-native-version-check';
+import VersionCheck from "react-native-version-check";
 
 VersionCheck.getCountry()
     .then((country: string) => {})

@@ -1,13 +1,13 @@
-import { pick, omit } from '@styled-system/props';
+import { omit, pick } from "@styled-system/props";
 
 omit({
-    color: 'red',
-    id: 'test',
+    color: "red",
+    id: "test",
 });
 
 pick({
-    color: 'red',
-    id: 'test',
+    color: "red",
+    id: "test",
 });
 
 interface ButtonProps {
@@ -16,8 +16,8 @@ interface ButtonProps {
 }
 
 const buttonProps: ButtonProps = {
-    id: 'my-button',
-    className: 'test'
+    id: "my-button",
+    className: "test",
 };
 
 const { id, ...rest } = buttonProps;

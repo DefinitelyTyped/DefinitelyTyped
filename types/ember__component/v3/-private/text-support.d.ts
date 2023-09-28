@@ -1,5 +1,5 @@
-import TargetActionSupport from '@ember/component/-private/target-action-support';
-import Mixin from '@ember/object/mixin';
+import TargetActionSupport from "@ember/component/-private/target-action-support";
+import Mixin from "@ember/object/mixin";
 
 /**
  * `TextSupport` is a shared mixin used by both `Ember.TextField` and

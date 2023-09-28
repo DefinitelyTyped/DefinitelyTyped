@@ -5,10 +5,10 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import * as Transport from 'winston-transport';
-import * as dgram from 'dgram';
-import * as glossy from 'glossy';
-import * as net from 'net';
+import * as dgram from "dgram";
+import * as glossy from "glossy";
+import * as net from "net";
+import * as Transport from "winston-transport";
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
     host?: string | undefined;
@@ -28,7 +28,7 @@ export interface SyslogTransportInstance extends Transport {
     producer: any;
     socket: dgram.Socket | net.Socket;
 
-    connect(callback: (err: (true | null)) => any): void;
+    connect(callback: (err: true | null) => any): void;
 
     new(options?: SyslogTransportOptions): SyslogTransportInstance;
 }

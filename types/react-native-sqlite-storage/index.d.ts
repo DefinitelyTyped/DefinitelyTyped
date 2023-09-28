@@ -16,7 +16,7 @@ export function openDatabase(
 ): SQLiteDatabase;
 export function deleteDatabase(params: DatabaseParams): Promise<void>;
 export function deleteDatabase(params: DatabaseParams, success?: () => void, error?: (err: SQLError) => void): void;
-export type Location = 'default' | 'Library' | 'Documents' | 'Shared';
+export type Location = "default" | "Library" | "Documents" | "Shared";
 export interface DatabaseOptionalParams {
     createFromLocation?: number | string | undefined;
     // Database encryption pass phrase

@@ -11,7 +11,7 @@
 
 declare namespace Vimeo {
     namespace Player {
-        export type TrackKind = 'captions' | 'subtitles';
+        export type TrackKind = "captions" | "subtitles";
 
         export interface Error {
             name: string;
@@ -247,7 +247,7 @@ declare namespace Vimeo {
         export type EventCallback<Data = any> = (data: Data) => any;
 
         export type VimeoTimeRange = [number, number];
-        export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
+        export type VimeoVideoQuality = "auto" | "4K" | "2K" | "1080p" | "720p" | "540p" | "360p" | "240p";
 
         export interface VimeoCuePoint {
             time: number;

@@ -1,3 +1,3 @@
-import { ColorPalette } from '@wordpress/components';
+import { ColorPalette } from "@wordpress/components";
 
 export default ColorPalette;

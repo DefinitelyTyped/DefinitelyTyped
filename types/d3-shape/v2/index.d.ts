@@ -10,7 +10,7 @@
 
 // Last module patch version validated against: 2.1.0
 
-import { Path } from 'd3-path';
+import { Path } from "d3-path";
 
 declare global {
     interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
@@ -30,7 +30,16 @@ export interface CanvasPath_D3Shape {
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
     bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
     closePath(): void;
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    ellipse(
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+        rotation: number,
+        startAngle: number,
+        endAngle: number,
+        anticlockwise?: boolean,
+    ): void;
     lineTo(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
@@ -812,7 +821,7 @@ export interface Line<Datum> {
  */
 export function line<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Line<Datum>;
 
 /**
@@ -1308,7 +1317,7 @@ export interface Area<Datum> {
 export function area<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
     y0?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y1?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y1?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Area<Datum>;
 
 /**
@@ -2414,7 +2423,7 @@ export interface Symbol<This, Datum> {
  */
 export function symbol<Datum = any>(
     type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: any, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: any, d: Datum, ...args: any[]) => number),
 ): Symbol<any, Datum>;
 
 /**
@@ -2429,7 +2438,7 @@ export function symbol<Datum = any>(
  */
 export function symbol<This, Datum>(
     type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: This, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: This, d: Datum, ...args: any[]) => number),
 ): Symbol<This, Datum>;
 
 /**

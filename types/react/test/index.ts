@@ -1,7 +1,7 @@
+import * as PropTypes from "prop-types";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
@@ -9,7 +9,7 @@ import shallowCompare = require("react-addons-shallow-compare");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
-import 'trusted-types';
+import "trusted-types";
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -51,11 +51,11 @@ const props: Props & React.ClassAttributes<any> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
-    foo: 42
+    foo: 42,
 };
 
 const scProps: SCProps = {
-    foo: 42
+    foo: 42,
 };
 
 declare const container: Element;
@@ -73,10 +73,12 @@ declare const container: Element;
             super(props);
             // @ts-expect-error
             this.state = {
-                inputValue: 'hello'
+                inputValue: "hello",
             };
         }
-        render() { return null; }
+        render() {
+            return null;
+        }
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
@@ -84,28 +86,32 @@ declare const container: Element;
         //     secondz: 0,
         //     inputValuez: 'hello'
         // };
-        render() { return null; }
+        render() {
+            return null;
+        }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
-        render() { return null; }
+        render() {
+            return null;
+        }
         componentDidMount() {
             console.log(this.state.inputValue);
         }
         mutateState() {
             // @ts-expect-error
             this.state = {
-                inputValue: 'hello'
+                inputValue: "hello",
             };
 
             // Even if state is not set, this is allowed by React
-            this.setState({ inputValue: 'hello' });
+            this.setState({ inputValue: "hello" });
             this.setState((prevState, props) => {
                 // @ts-expect-error
-                props = { foo: 'nope' };
+                props = { foo: "nope" };
                 // @ts-expect-error
-                props.foo = 'nope';
+                props.foo = "nope";
 
-                return { inputValue: prevState.inputValue + ' foo' };
+                return { inputValue: prevState.inputValue + " foo" };
             });
         }
         mutateProps() {
@@ -116,46 +122,47 @@ declare const container: Element;
                 key: 42,
                 ref: "myComponent42",
                 hello: "world",
-                foo: 42
+                foo: 42,
             };
         }
     }
 }
 
 class ModernComponent extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext> {
+    implements MyComponent, React.ChildContextProvider<ChildContext>
+{
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
-        foo: PropTypes.number.isRequired
+        foo: PropTypes.number.isRequired,
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string
+        someValue: PropTypes.string,
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string.isRequired
+        someOtherValue: PropTypes.string.isRequired,
     };
 
     context: Context = {};
 
     getChildContext() {
         return {
-            someOtherValue: "foo"
+            someOtherValue: "foo",
         };
     }
 
     state = {
         inputValue: this.context.someValue,
-        seconds: this.props.foo
+        seconds: this.props.foo,
     };
 
     reset() {
         this._myComponent.reset();
         this.setState({
             inputValue: this.context.someValue,
-            seconds: this.props.foo
+            seconds: this.props.foo,
         });
     }
 
@@ -163,14 +170,16 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     private _input: HTMLInputElement | null;
 
     render() {
-        return DOM.div(null,
+        return DOM.div(
+            null,
             DOM.input({
                 ref: input => this._input = input,
-                value: this.state.inputValue ? this.state.inputValue : undefined
+                value: this.state.inputValue ? this.state.inputValue : undefined,
             }),
             DOM.input({
-                onChange: event => console.log(event.target)
-            }));
+                onChange: event => console.log(event.target),
+            }),
+        );
     }
 
     shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
@@ -188,13 +197,12 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
 
 class ModernComponentArrayRender extends React.Component<Props> {
     render() {
-        return [DOM.h1({ key: "1" }, "1"),
-        DOM.h1({ key: "2" }, "2")];
+        return [DOM.h1({ key: "1" }, "1"), DOM.h1({ key: "2" }, "2")];
     }
 }
 
-class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoState extends React.Component<Props> {}
+class ModernComponentNoPropsAndState extends React.Component {}
 
 interface SCProps {
     foo?: number | undefined;
@@ -215,42 +223,54 @@ const FunctionComponent2: React.FunctionComponent<SCProps> =
     props => DOM.div(null, props.foo);
 FunctionComponent2.displayName = "FunctionComponent2";
 FunctionComponent2.defaultProps = {
-    foo: 42
+    foo: 42,
 };
 
 // React.createFactory
-const factory: React.CFactory<Props, ModernComponent> =
-    React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> =
-    factory(props);
+const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
+const factoryElement: React.CElement<Props, ModernComponent> = factory(props);
 
-const functionComponentFactory: React.FunctionComponentFactory<SCProps> =
-    React.createFactory(FunctionComponent);
-const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
-    functionComponentFactory(props);
+const functionComponentFactory: React.FunctionComponentFactory<SCProps> = React.createFactory(FunctionComponent);
+const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> = functionComponentFactory(props);
 
-const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
-    React.createFactory(FunctionComponent);
+const legacyStatelessComponentFactory: React.SFCFactory<SCProps> = React.createFactory(FunctionComponent);
 
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
-    React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
-    domFactory();
+const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> = React.createFactory("div");
+const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> = domFactory();
 
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
-const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
-const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
-const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent2, null);
+const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(
+    ModernComponentNoState,
+    props,
+);
+const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(
+    ModernComponentNoPropsAndState,
+    null,
+);
+const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(
+    FunctionComponent,
+    scProps,
+);
+const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(
+    FunctionComponent2,
+    null,
+);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
-const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
+const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React
+    .createElement("input", null);
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 const svgElementNullProps = React.createElement("svg", null);
-const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
-const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
+const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [
+    React.createElement("div"),
+    React.createElement("div"),
+]);
+const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [
+    React.createElement("div"),
+    React.createElement("div"),
+]);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
@@ -269,32 +289,32 @@ const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
 
-const clonedElement2: React.CElement<Props, ModernComponent> =
-    React.cloneElement(element, {
-        ref: c => c && c.reset()
-    });
-const clonedElement3: React.CElement<Props, ModernComponent> =
-    React.cloneElement(element, {
-        key: "8eac7",
-        foo: 55
-    });
-const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
-    React.cloneElement(functionComponentElement, { foo: 44 });
+const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
+    ref: c => c && c.reset(),
+});
+const clonedElement3: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
+    key: "8eac7",
+    foo: 55,
+});
+const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> = React.cloneElement(
+    functionComponentElement,
+    { foo: 44 },
+);
 // Clone base DOMElement
-const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
-    React.cloneElement(domElement, {
-        className: "clonedDOMElement"
-    });
+const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.cloneElement(
+    domElement,
+    {
+        className: "clonedDOMElement",
+    },
+);
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
-    React.cloneElement(htmlElement, {
-        className: "clonedHTMLElement"
-    });
+const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> = React.cloneElement(htmlElement, {
+    className: "clonedHTMLElement",
+});
 // Clone ReactSVGElement
-const clonedSvgElement: React.ReactSVGElement =
-    React.cloneElement(svgElement, {
-        className: "clonedVGElement"
-    });
+const clonedSvgElement: React.ReactSVGElement = React.cloneElement(svgElement, {
+    className: "clonedVGElement",
+});
 
 // React.render
 const component: ModernComponent = ReactDOM.render(element, container);
@@ -339,7 +359,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-interface RCProps { }
+interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
@@ -372,7 +392,7 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
 });
 
 // Declaring forwardRef render function separately (not inline).
-const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
+const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>) => {
     return React.createElement(RefComponent, { ref });
 };
 React.forwardRef(ForwardRefRenderFunction);
@@ -382,12 +402,12 @@ ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 // render function tests
 // need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} | undefined } = () => null;
+const ForwardRefRenderFunctionWithPropTypes: { (): null; propTypes?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
-const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} | undefined } = () => null;
+const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // @ts-expect-error
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
@@ -403,20 +423,20 @@ function RefCarryingComponent() {
         ForwardingRefComponent,
         {
             ref,
-            hello: 'there',
+            hello: "there",
             foo: 0,
         },
     );
 }
 const ForwardingRefComponent2 = React.forwardRef<HTMLElement>((props, ref) => {
-    return React.createElement('div', {
+    return React.createElement("div", {
         ref(e: HTMLDivElement) {
-            if (typeof ref === 'function') {
+            if (typeof ref === "function") {
                 ref(e);
             } else if (ref) {
                 ref.current = e;
             }
-        }
+        },
     });
 });
 
@@ -426,8 +446,8 @@ const LazyComponent = React.lazy(() => Promise.resolve({ default: RefComponent }
 type ClassComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
 type FunctionComponentWithoutPropsAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType never
 type FunctionComponentWithPropsAsRef = React.ElementRef<typeof FunctionComponent>; // $ExpectType never
-type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
-type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
+type HTMLIntrinsicAsRef = React.ElementRef<"div">; // $ExpectType HTMLDivElement
+type SVGIntrinsicAsRef = React.ElementRef<"svg">; // $ExpectType SVGSVGElement
 type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
 type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
 type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
@@ -439,7 +459,7 @@ type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType
 const children: any[] = ["Hello world", [null], DOM.span(null)];
 const divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
-    backgroundImage: "url('hello.png')"
+    backgroundImage: "url('hello.png')",
 };
 const htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
@@ -464,7 +484,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
             // $ExpectType (EventTarget & Element) | null
             relatedTarget,
             // $ExpectType EventTarget & Element
-            target
+            target,
         } = event;
     },
     onFocus: (event: React.FocusEvent) => {
@@ -472,37 +492,38 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
             // $ExpectType (EventTarget & Element) | null
             relatedTarget,
             // $ExpectType EventTarget & Element
-            target
+            target,
         } = event;
     },
     dangerouslySetInnerHTML: {
-        __html: "<strong>STRONG</strong>"
+        __html: "<strong>STRONG</strong>",
     },
-    unselectable: 'on',
-    'aria-atomic': false,
-    'aria-checked': 'true',
-    'aria-colcount': 7,
-    'aria-label': 'test',
-    'aria-relevant': 'additions removals'
+    unselectable: "on",
+    "aria-atomic": false,
+    "aria-checked": "true",
+    "aria-colcount": 7,
+    "aria-label": "test",
+    "aria-relevant": "additions removals",
 };
 DOM.div(htmlAttr);
 DOM.span(htmlAttr);
 DOM.input(htmlAttr);
 
-DOM.svg({
-    viewBox: "0 0 48 48",
-    xmlns: "http://www.w3.org/2000/svg"
-},
+DOM.svg(
+    {
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+    },
     DOM.rect({
-        className: 'foobar',
-        id: 'foo',
-        color: 'black',
+        className: "foobar",
+        id: "foo",
+        color: "black",
         x: 22,
         y: 10,
         width: 4,
         height: 28,
-        strokeDasharray: '30%',
-        strokeDashoffset: '20%'
+        strokeDasharray: "30%",
+        strokeDashoffset: "20%",
     }),
     DOM.rect({
         x: 10,
@@ -510,13 +531,13 @@ DOM.svg({
         width: 28,
         height: 4,
         strokeDasharray: 30,
-        strokeDashoffset: 20
+        strokeDashoffset: 20,
     }),
     DOM.path({
         d: "M0,0V3H3V0ZM1,1V2H2V1Z",
         fill: "#999999",
-        fillRule: "evenodd"
-    })
+        fillRule: "evenodd",
+    }),
 );
 
 declare const window: Window;
@@ -525,8 +546,8 @@ const trustedHtml = trustedTypes.emptyHTML;
 
 const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
     dangerouslySetInnerHTML: {
-        __html: trustedHtml
-    }
+        __html: trustedHtml,
+    },
 };
 DOM.div(trustedTypesHTMLAttr);
 DOM.span(trustedTypesHTMLAttr);
@@ -535,12 +556,10 @@ DOM.span(trustedTypesHTMLAttr);
 // React.Children
 // --------------------------------------------------------------------------
 
-const mappedChildrenArray: number[] =
-    React.Children.map(children, (child: any) => 42);
+const mappedChildrenArray: number[] = React.Children.map(children, (child: any) => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
-const mappedChildrenArrayWithKnownChildren: number[] =
-    React.Children.map(childrenArray, (child) => child.props.p);
-React.Children.forEach(children, (child) => { });
+const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, child => child.props.p);
+React.Children.forEach(children, child => {});
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
@@ -579,7 +598,7 @@ const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 // --------------------------------------------------------------------------
 createFragment({
     a: DOM.div(),
-    b: ["a", false, React.createElement("span")]
+    b: ["a", false, React.createElement("span")],
 });
 
 //
@@ -590,21 +609,22 @@ createReactClass({
     getInitialState() {
         return {
             isChecked: false,
-            message: "hello!"
+            message: "hello!",
         };
     },
     render() {
-        return DOM.div(null,
+        return DOM.div(
+            null,
             DOM.input({
                 type: "checkbox",
-                checkedLink: this.linkState("isChecked")
+                checkedLink: this.linkState("isChecked"),
             }),
             DOM.input({
                 type: "text",
-                valueLink: this.linkState("message")
-            })
+                valueLink: this.linkState("message"),
+            }),
         );
-    }
+    },
 });
 
 //
@@ -612,7 +632,9 @@ createReactClass({
 // --------------------------------------------------------------------------
 createReactClass({
     mixins: [PureRenderMixin],
-    render() { return DOM.div(null); }
+    render() {
+        return DOM.div(null);
+    },
 });
 
 //
@@ -630,8 +652,8 @@ createReactClass({
     const obj = { a: 5, b: 3 };
     const newObj = update(obj, {
         b: {
-            $apply: (x) => x * 2
-        }
+            $apply: x => x * 2,
+        },
     });
     // => {a: 5, b: 6}
     const newObj2 = update(obj, { b: { $set: obj.b * 2 } });
@@ -658,14 +680,14 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     state: { value: string };
     constructor(props: {}) {
         super(props);
-        this.state = { value: 'a' };
+        this.state = { value: "a" };
     }
     render() {
         return DOM.textarea({
             value: this.state.value,
             onChange: e => {
                 const target: HTMLTextAreaElement = e.target;
-            }
+            },
         });
     }
 }
@@ -674,7 +696,7 @@ DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
         const target: HTMLInputElement = event.target;
-    }
+    },
 });
 
 // A ChangeEvent is a valid FormEvent (maintain compatibility with existing
@@ -721,7 +743,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
 // ReactNode tests
 {
     // Mix of empty return and some return results in `(undefined | JSX.Element)[]`
-    const mixedEmptyReturn: React.ReactNode = ['a', 'b', null].map(label => {
+    const mixedEmptyReturn: React.ReactNode = ["a", "b", null].map(label => {
         if (!label) {
             return;
         }
@@ -729,37 +751,41 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     });
     // But just an empty return results in `void`.
     // @ts-expect-error
-    const emptyReturn: React.ReactNode = ['a', 'b'].map(label => {
+    const emptyReturn: React.ReactNode = ["a", "b"].map(label => {
         return;
     });
     // Mix of no return and some return results in `(undefined | JSX.Element)[]`
-    const mixedNoReturn: React.ReactNode = ['a', 'b', null].map(label => {
+    const mixedNoReturn: React.ReactNode = ["a", "b", null].map(label => {
         if (label) {
             return label;
         }
     });
     // But no return results in `void`.
     // @ts-expect-error
-    const noReturn: React.ReactNode = ['a', 'b'].map(label => {});
+    const noReturn: React.ReactNode = ["a", "b"].map(label => {});
 
     // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement('div');
+    const render: React.ReactNode = () => React.createElement("div");
     // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
+    const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
-    const promise: React.ReactNode = Promise.resolve('React');
+    const promise: React.ReactNode = Promise.resolve("React");
 }
 
-const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
-React.createElement(Memoized1, { foo: 'string' });
+const Memoized1 = React.memo(function Foo(props: { foo: string }) {
+    return null;
+});
+React.createElement(Memoized1, { foo: "string" });
 
 const Memoized2 = React.memo<{ bar: string }>(
-    function Bar(props: { bar: string }) { return null; },
-    (prevProps, nextProps) => prevProps.bar === nextProps.bar
+    function Bar(props: { bar: string }) {
+        return null;
+    },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar,
 );
-React.createElement(Memoized2, { bar: 'string' });
+React.createElement(Memoized2, { bar: "string" });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
@@ -771,25 +797,25 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
 };
 
 type UnionProps =
-    | ({ type: 'single'; value?: number } & React.RefAttributes<HTMLDivElement>)
-    | ({ type: 'multiple'; value?: number[] } & React.RefAttributes<HTMLDivElement>);
+    | ({ type: "single"; value?: number } & React.RefAttributes<HTMLDivElement>)
+    | ({ type: "multiple"; value?: number[] } & React.RefAttributes<HTMLDivElement>);
 
 // @ts-expect-error
 const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
-    type: 'single',
+    type: "single",
     value: [2],
 };
 
 // JSXElemenConstructor vs Component assignability
 {
     interface ExactProps {
-        value: 'A' | 'B';
+        value: "A" | "B";
     }
     interface NarrowerProps {
-        value: 'A';
+        value: "A";
     }
     interface WiderProps {
-        value: 'A' | 'B' | 'C';
+        value: "A" | "B" | "C";
     }
 
     // We don't actually care about the concrete type of `Wrapper` i.e.
@@ -816,10 +842,10 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
         }
     };
 
-    React.createElement(Wrapper, { value: 'A' });
-    React.createElement(Wrapper, { value: 'B' });
+    React.createElement(Wrapper, { value: "A" });
+    React.createElement(Wrapper, { value: "B" });
     // @ts-expect-error
-    React.createElement(Wrapper, { value: 'C' });
+    React.createElement(Wrapper, { value: "C" });
 }
 
 // ComponentPropsWithRef and JSXElementConstructor
@@ -829,13 +855,13 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     }
     type InferredProps = React.ComponentPropsWithRef<React.JSXElementConstructor<Props>>;
     const props: Props = {
-        value: 'inferred',
+        value: "inferred",
         // @ts-expect-error
-        notImplemented: 5
+        notImplemented: 5,
     };
     const inferredProps: InferredProps = {
-        value: 'inferred',
+        value: "inferred",
         // @ts-expect-error
-        notImplemented: 5
+        notImplemented: 5,
     };
 }

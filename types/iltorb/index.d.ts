@@ -7,7 +7,7 @@
 
 /// <reference types="node"/>
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export type BrotliMode = 0 | 1 | 2;
 export type BrotliCompressionQuality = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;

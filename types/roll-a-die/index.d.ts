@@ -28,7 +28,7 @@ export interface Options {
      * When provided, it overrides library genrated values.
      */
     values?: number[] | undefined;
-  }
+}
 
 /**
  * Run 3D dice roll animation.

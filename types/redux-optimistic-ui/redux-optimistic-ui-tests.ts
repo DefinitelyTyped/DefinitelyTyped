@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { OptimisticState, OptimisticAction, BEGIN, optimistic, ensureState } from "redux-optimistic-ui";
+import { BEGIN, ensureState, optimistic, OptimisticAction, OptimisticState } from "redux-optimistic-ui";
 
 interface TestState {
     a: number;
@@ -29,7 +29,7 @@ const myOptimisticAction: Action & OptimisticAction = {
     meta: {
         optimistic: {
             type: BEGIN,
-            id: 1
-        }
-    }
-}
+            id: 1,
+        },
+    },
+};

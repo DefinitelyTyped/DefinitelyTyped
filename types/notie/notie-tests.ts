@@ -1,89 +1,89 @@
-import { alert, force, confirm, input, select, date, setOptions, hideAlerts } from 'notie';
+import { alert, confirm, date, force, hideAlerts, input, select, setOptions } from "notie";
 
 // @ts-expect-error
 alert({});
-alert({ text: 'Hello, World!', position: 'bottom' });
-alert({ text: 'Hello, World!', type: 4 });
-alert({ text: 'Hello, World!', type: 'info' });
+alert({ text: "Hello, World!", position: "bottom" });
+alert({ text: "Hello, World!", type: 4 });
+alert({ text: "Hello, World!", type: "info" });
 
 // @ts-expect-error
 force({});
 force({
-    text: 'Alert',
+    text: "Alert",
     callback() {
-        alert({ text: 'callback' });
+        alert({ text: "callback" });
     },
 });
-force({ text: 'Alert' }, () => alert({ text: 'callback' }));
+force({ text: "Alert" }, () => alert({ text: "callback" }));
 
 // @ts-expect-error
 confirm({});
-confirm({ text: 'Are you sure?' });
+confirm({ text: "Are you sure?" });
 confirm({
-    text: 'Are you sure?',
+    text: "Are you sure?",
     submitCallback() {
-        alert({ text: 'Confirmed' });
+        alert({ text: "Confirmed" });
     },
     cancelCallback() {
-        alert({ text: 'Cancelled' });
+        alert({ text: "Cancelled" });
     },
 });
-confirm({ text: 'Are you sure?' }, () => alert({ text: 'Confirmed' }));
+confirm({ text: "Are you sure?" }, () => alert({ text: "Confirmed" }));
 confirm(
-    { text: 'Are you sure?' },
-    () => alert({ text: 'Confirmed' }),
-    () => alert({ text: 'Cancelled' }),
+    { text: "Are you sure?" },
+    () => alert({ text: "Confirmed" }),
+    () => alert({ text: "Cancelled" }),
 );
 
 // @ts-expect-error
 input({});
 input({
-    text: 'Input',
+    text: "Input",
     submitCallback() {
-        alert({ text: 'Confirmed' });
+        alert({ text: "Confirmed" });
     },
     cancelCallback() {
-        alert({ text: 'Cancelled' });
+        alert({ text: "Cancelled" });
     },
 });
-input({ text: 'Input' }, () => alert({ text: 'Confirmed' }));
+input({ text: "Input" }, () => alert({ text: "Confirmed" }));
 input(
-    { text: 'Input' },
-    () => alert({ text: 'Confirmed' }),
-    () => alert({ text: 'Cancelled' }),
+    { text: "Input" },
+    () => alert({ text: "Confirmed" }),
+    () => alert({ text: "Cancelled" }),
 );
 
 // @ts-expect-error
 select({});
 // @ts-expect-error
-select({ text: 'Select' });
+select({ text: "Select" });
 select({
-    text: 'Select',
+    text: "Select",
     choices: [
         {
-            type: 'abc',
-            text: 'Option 1',
+            type: "abc",
+            text: "Option 1",
             handler: () => {},
         },
         {
-            text: 'Option 2',
+            text: "Option 2",
             handler: () => {},
         },
     ],
 });
 select({
-    text: 'Select',
-    choices: [{ text: 'foo', handler: () => {} }],
+    text: "Select",
+    choices: [{ text: "foo", handler: () => {} }],
     cancelCallback() {
-        alert({ text: 'Cancelled' });
+        alert({ text: "Cancelled" });
     },
 });
 select(
     {
-        text: 'Select',
-        choices: [{ text: 'foo', handler: () => {} }],
+        text: "Select",
+        choices: [{ text: "foo", handler: () => {} }],
     },
-    () => alert({ text: 'Cancelled' }),
+    () => alert({ text: "Cancelled" }),
 );
 
 // @ts-expect-error
@@ -92,17 +92,17 @@ date({ value: new Date() });
 date({
     value: new Date(),
     submitCallback() {
-        alert({ text: 'Confirmed' });
+        alert({ text: "Confirmed" });
     },
     cancelCallback() {
-        alert({ text: 'Cancelled' });
+        alert({ text: "Cancelled" });
     },
 });
-date({ value: new Date() }, () => alert({ text: 'Confirmed' }));
+date({ value: new Date() }, () => alert({ text: "Confirmed" }));
 date(
     { value: new Date() },
-    () => alert({ text: 'Confirmed' }),
-    () => alert({ text: 'Cancelled' }),
+    () => alert({ text: "Confirmed" }),
+    () => alert({ text: "Cancelled" }),
 );
 
 setOptions({});
@@ -112,4 +112,4 @@ setOptions({ ids: {} });
 setOptions({ positions: {} });
 
 hideAlerts();
-hideAlerts(() => alert({ text: 'Alerts hidden' }));
+hideAlerts(() => alert({ text: "Alerts hidden" }));

@@ -1,7 +1,7 @@
-import { createConfig, match, env } from '@webpack-blocks/webpack';
-import extractText from '@webpack-blocks/extract-text';
-import { css } from '@webpack-blocks/assets';
+import { css } from "@webpack-blocks/assets";
+import extractText from "@webpack-blocks/extract-text";
+import { createConfig, env, match } from "@webpack-blocks/webpack";
 
-createConfig([extractText('path/to/output.file')]);
+createConfig([extractText("path/to/output.file")]);
 
-createConfig([match('*.css', [css(), env('production', [extractText()])])]);
+createConfig([match("*.css", [css(), env("production", [extractText()])])]);

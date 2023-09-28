@@ -1,5 +1,5 @@
-import { HttpResponse } from './http_response';
-import { Request } from './request';
+import { HttpResponse } from "./http_response";
+import { Request } from "./request";
 export class Response<D, E> {
     /**
      * Whether more pages of data can be returned by further requests.

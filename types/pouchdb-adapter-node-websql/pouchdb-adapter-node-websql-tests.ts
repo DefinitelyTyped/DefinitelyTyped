@@ -11,11 +11,11 @@ function testConstructor() {
     }
 
     let db = new PouchDB<MyModel>(null, {
-        adapter: 'websql',
+        adapter: "websql",
         size: 5,
     });
-    db = new PouchDB<MyModel>('myDb', {
-        adapter: 'websql',
+    db = new PouchDB<MyModel>("myDb", {
+        adapter: "websql",
     });
 
     db.info().then((info) => {

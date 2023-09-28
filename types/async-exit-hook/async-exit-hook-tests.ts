@@ -3,7 +3,7 @@ import exitHook = require("async-exit-hook");
 // You can add async hooks by accepting a callback
 exitHook(callback => {
     setTimeout(() => {
-        console.log('Waited 1 second, exiting...');
+        console.log("Waited 1 second, exiting...");
         callback();
     }, 1000);
 });
@@ -20,11 +20,11 @@ exitHook.uncaughtExceptionHandler((err, callback) => {
     console.error(err);
 
     setTimeout(() => {
-        console.log('Done:)');
+        console.log("Done:)");
         callback();
     }, 1000);
 });
 
 // Custom signal
 // Arguments are `signal, exitCode` (SIGBREAK is already handled, this is an example)
-exitHook.hookEvent('SIGBREAK', 21);
+exitHook.hookEvent("SIGBREAK", 21);

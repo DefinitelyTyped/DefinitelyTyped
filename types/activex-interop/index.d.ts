@@ -5,10 +5,10 @@
 // TypeScript Version: 2.6
 
 // tslint:disable-next-line no-empty-interface
-interface ActiveXObjectNameMap { }
+interface ActiveXObjectNameMap {}
 
 interface ActiveXObject {
-    new <K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
+    new<K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
     new(s: string): any;
 }
 declare var ActiveXObject: ActiveXObject;
@@ -50,7 +50,7 @@ interface Enumerator<T = any> {
 }
 
 interface EnumeratorConstructor {
-    new <T = any>(collection: { Item(index: any): T }): Enumerator<T>;
+    new<T = any>(collection: { Item(index: any): T }): Enumerator<T>;
 }
 
 declare var Enumerator: EnumeratorConstructor;
@@ -90,7 +90,7 @@ interface VBArray<T = any> {
 }
 
 interface VBArrayConstructor {
-    new <T = any>(safeArray: SafeArray<T>): VBArray<T>;
+    new<T = any>(safeArray: SafeArray<T>): VBArray<T>;
 }
 
 declare var VBArray: VBArrayConstructor;

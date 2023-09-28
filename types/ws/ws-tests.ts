@@ -9,7 +9,7 @@ import * as wslib from "ws";
     ws.on("open", () => ws.send("something"));
     ws.on("message", data => {});
     // @ts-expect-error
-    ws.send({ hello: 'world' });
+    ws.send({ hello: "world" });
 
     ws.send(new Uint8Array([]));
 
@@ -319,16 +319,16 @@ function f() {
 {
     const webSocketServer = new WebSocket.WebSocketServer();
     const server = new http.Server();
-    server.on('upgrade', (request, socket, head) => {
-        if (request.url === '/path') {
+    server.on("upgrade", (request, socket, head) => {
+        if (request.url === "/path") {
             webSocketServer.handleUpgrade(request, socket, head, (ws) => {
-                webSocketServer.emit('connection', ws, request);
+                webSocketServer.emit("connection", ws, request);
             });
         }
     });
 }
 
-declare module 'ws' {
+declare module "ws" {
     interface Server {
         getWebSocketId(): string;
     }
@@ -340,7 +340,7 @@ declare module 'ws' {
     }
     const server = new wslib.WebSocketServer({ WebSocket: MyWebSocket });
 
-    server.on('connection', (ws) => {
+    server.on("connection", (ws) => {
         // $ExpectType string | undefined
         ws.id;
 
@@ -357,13 +357,13 @@ declare module 'ws' {
 
 {
     class CustomWebSocket extends WebSocket.WebSocket {
-        foo(): 'foo' {
-            return 'foo';
+        foo(): "foo" {
+            return "foo";
         }
     }
     const server = new http.Server();
     const webSocketServer = new WebSocket.WebSocketServer({ WebSocket: CustomWebSocket, noServer: true });
-    webSocketServer.on('connection', (ws) => {
+    webSocketServer.on("connection", (ws) => {
         // $ExpectType CustomWebSocket
         ws;
         // $ExpectType "foo"
@@ -375,8 +375,8 @@ declare module 'ws' {
         // $ExpectType "foo"
         ws.foo();
     });
-    server.on('upgrade', (request, socket, head) => {
-        if (request.url === '/path') {
+    server.on("upgrade", (request, socket, head) => {
+        if (request.url === "/path") {
             webSocketServer.handleUpgrade(request, socket, head, (ws) => {
                 // $ExpectType CustomWebSocket
                 ws;
@@ -388,7 +388,7 @@ declare module 'ws' {
 }
 
 {
-    const ws = new WebSocket('ws://www.host.com/path');
+    const ws = new WebSocket("ws://www.host.com/path");
 
     if (ws.isPaused) {
         ws.resume();
@@ -411,54 +411,54 @@ declare module 'ws' {
     const server = http.createServer({ IncomingMessage: Request });
     const wss = new WebSocket.WebSocketServer({ WebSocket: MyWebsocket, server });
 
-    wss.on('connection', (ws, req) => {
+    wss.on("connection", (ws, req) => {
         // $ExpectType MyWebsocket
         ws;
         // $ExpectType Request
         req;
     });
-    wss.once('connection', (ws, req) => {
+    wss.once("connection", (ws, req) => {
         // $ExpectType MyWebsocket
         ws;
         // $ExpectType Request
         req;
     });
-    wss.off('connection', (ws, req) => {
+    wss.off("connection", (ws, req) => {
         // $ExpectType MyWebsocket
         ws;
         // $ExpectType Request
         req;
     });
-    wss.addListener('connection', (ws, req) => {
+    wss.addListener("connection", (ws, req) => {
         // $ExpectType MyWebsocket
         ws;
         // $ExpectType Request
         req;
     });
-    wss.removeListener('connection', (ws, req) => {
+    wss.removeListener("connection", (ws, req) => {
         // $ExpectType MyWebsocket
         ws;
         // $ExpectType Request
         req;
     });
 
-    wss.on('headers', (_headers, req) => {
+    wss.on("headers", (_headers, req) => {
         // $ExpectType Request
         req;
     });
-    wss.once('headers', (_headers, req) => {
+    wss.once("headers", (_headers, req) => {
         // $ExpectType Request
         req;
     });
-    wss.off('headers', (_headers, req) => {
+    wss.off("headers", (_headers, req) => {
         // $ExpectType Request
         req;
     });
-    wss.addListener('headers', (_headers, req) => {
+    wss.addListener("headers", (_headers, req) => {
         // $ExpectType Request
         req;
     });
-    wss.removeListener('headers', (_headers, req) => {
+    wss.removeListener("headers", (_headers, req) => {
         // $ExpectType Request
         req;
     });

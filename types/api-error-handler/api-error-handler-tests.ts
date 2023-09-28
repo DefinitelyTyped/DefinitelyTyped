@@ -1,9 +1,8 @@
-import errorHandler = require('api-error-handler');
-import * as express from 'express';
+import errorHandler = require("api-error-handler");
+import * as express from "express";
 
 var api = express.Router();
-api.get('/users/:userid', function (req, res, next) {
-
+api.get("/users/:userid", function(req, res, next) {
 });
 
 api.use(errorHandler());

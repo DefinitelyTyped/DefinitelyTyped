@@ -11,7 +11,7 @@ export function parse(acceptLanguage?: string): Language[];
 export function pick<T extends string>(
     supportedLanguages: T[],
     acceptLanguage: string | Language[],
-    options?: PickOptions
+    options?: PickOptions,
 ): T | null;
 
 export interface Language {

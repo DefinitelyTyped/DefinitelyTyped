@@ -1,30 +1,32 @@
-import * as sqlite3 from 'sqlite3-promise';
+import * as sqlite3 from "sqlite3-promise";
 
 runExamples();
 
 function createDb(): sqlite3.Database {
     return new sqlite3.Database(
-        ':memory:', sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE);
+        ":memory:",
+        sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE,
+    );
 }
 
 async function runExamples() {
     // Wraps all, get, and run
     let db = createDb();
-    let query = 'CREATE TABLE rows (str TEXT, num INT)';
+    let query = "CREATE TABLE rows (str TEXT, num INT)";
     await db.runAsync(query);
 
-    query = 'INSERT INTO rows (str, num) VALUES (\'foo\', 11), (\'bar\', 19)';
+    query = "INSERT INTO rows (str, num) VALUES ('foo', 11), ('bar', 19)";
     await db.runAsync(query);
 
-    query = 'SELECT rowid, * FROM rows';
+    query = "SELECT rowid, * FROM rows";
     let result = await db.allAsync(query);
     // expect(result.length).toBe(2);
 
-    query = 'SELECT str FROM rows WHERE num=19';
+    query = "SELECT str FROM rows WHERE num=19";
     result = await db.allAsync(query);
     // expect(result).toEqual([{str: 'bar'}]);
 
-    query = 'SELECT str FROM rows WHERE num=19';
+    query = "SELECT str FROM rows WHERE num=19";
     const singleResult = await db.getAsync(query);
     // expect(singleResult).toEqual({str: 'bar'});
 
@@ -44,7 +46,10 @@ async function runExamples() {
     let sum = 0;
     const eachResult = await db.eachAsync(
         "SELECT rowid AS id, info FROM lorem",
-        (err, row) => { sum += row.id; });
+        (err, row) => {
+            sum += row.id;
+        },
+    );
     // expect(result).toBe(10);
     // expect(sum).toBe(55);
     await db.closeAsync();
@@ -55,7 +60,7 @@ async function runExamples() {
         INSERT INTO lorem VALUES ('foo')`;
     const statement = await db.execAsync(query);
 
-    query = 'SELECT str FROM rows WHERE num=19';
+    query = "SELECT str FROM rows WHERE num=19";
     result = await db.allAsync(query);
     // expect(result).toEqual([{str: 'bar'}]);
     await db.closeAsync();
@@ -63,12 +68,14 @@ async function runExamples() {
     // Wraps verbose
     const verbose = sqlite3.verbose();
     db = new verbose.Database(
-            ':memory:', verbose.OPEN_CREATE | verbose.OPEN_READWRITE);
+        ":memory:",
+        verbose.OPEN_CREATE | verbose.OPEN_READWRITE,
+    );
     query = `CREATE TABLE rows (str TEXT, num INT);
         INSERT INTO rows (str, num) VALUES ('foo', 11), ('bar', 19)`;
     await db.execAsync(query);
 
-    query = 'SELECT str FROM rows WHERE num=19';
+    query = "SELECT str FROM rows WHERE num=19";
     result = await db.allAsync(query);
     // expect(result).toEqual([{str: 'bar'}]);
 

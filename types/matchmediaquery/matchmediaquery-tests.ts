@@ -1,3 +1,3 @@
 import matchMedia = require("matchmediaquery");
 
-const test = matchMedia('only screen');
+const test = matchMedia("only screen");

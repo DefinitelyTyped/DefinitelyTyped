@@ -1,3 +1,3 @@
-import { create } from 'ethereum-blockies';
+import { create } from "ethereum-blockies";
 
-const a: HTMLCanvasElement = create({ bgcolor: '1', color: '2', scale: 3 });
+const a: HTMLCanvasElement = create({ bgcolor: "1", color: "2", scale: 3 });

@@ -48,7 +48,7 @@ declare namespace Datepicker {
 }
 
 declare const Datepicker: Component<any, any, any, {
-    type?: 'date'|'datetime'|'year'|'month'|'time'|'week' | undefined;
+    type?: "date" | "datetime" | "year" | "month" | "time" | "week" | undefined;
     range?: boolean | undefined;
     format?: string | undefined;
     valueType?: Datepicker.ValueType | undefined;
@@ -71,11 +71,11 @@ declare const Datepicker: Component<any, any, any, {
     disabledDate?: ((date: Date) => boolean) | undefined;
     disabledTime?: ((date: Date) => boolean) | undefined;
     inline?: boolean | undefined;
-    open?: boolean | undefined
+    open?: boolean | undefined;
     popupClass?: string | undefined;
     titleFormat?: string | undefined;
     partialUpdate?: boolean | undefined;
-    showWeekNumber?: boolean | undefined
+    showWeekNumber?: boolean | undefined;
     hourStep?: number | undefined;
     secondStep?: number | undefined;
     hourOptions?: number[] | undefined;

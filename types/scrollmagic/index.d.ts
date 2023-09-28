@@ -8,24 +8,24 @@ when loaded outside a module loader */
 export as namespace ScrollMagic;
 export type LogLevel = 0 | 1 | 2 | 3;
 export type ElementOrSelector = Element | string;
-export type TriggerHook = number | 'onEnter' | 'onCenter' | 'onLeave';
-export type SceneState = 'BEFORE' | 'DURING' | 'AFTER';
-export type ScrollDirection = 'PAUSED' | 'FORWARD' | 'REVERSE';
+export type TriggerHook = number | "onEnter" | "onCenter" | "onLeave";
+export type SceneState = "BEFORE" | "DURING" | "AFTER";
+export type ScrollDirection = "PAUSED" | "FORWARD" | "REVERSE";
 
 export const version: string;
 
 export type EventType =
-    | 'add'
-    | 'change'
-    | 'destroy'
-    | 'end'
-    | 'enter'
-    | 'leave'
-    | 'progress'
-    | 'remove'
-    | 'shift'
-    | 'start'
-    | 'update';
+    | "add"
+    | "change"
+    | "destroy"
+    | "end"
+    | "enter"
+    | "leave"
+    | "progress"
+    | "remove"
+    | "shift"
+    | "start"
+    | "update";
 
 export interface Event<T> {
     readonly type: T;
@@ -36,31 +36,31 @@ export interface Event<T> {
     readonly timestamp: Date;
 }
 
-export interface AddEvent extends Event<'add'> {
+export interface AddEvent extends Event<"add"> {
     readonly controller: ScrollMagic.Controller;
 }
 
-export interface RemoveEvent extends Event<'remove'> {}
+export interface RemoveEvent extends Event<"remove"> {}
 
-export interface ChangeEvent extends Event<'change'> {
+export interface ChangeEvent extends Event<"change"> {
     readonly what: string;
     readonly newval: any;
 }
 
-export interface DestroyEvent extends Event<'destroy'> {
+export interface DestroyEvent extends Event<"destroy"> {
     readonly reset: boolean;
 }
 
-export interface EndEvent extends Event<'end'> {
+export interface EndEvent extends Event<"end"> {
     readonly progress: number;
     readonly state: SceneState;
 }
 
-export interface ShiftEvent extends Event<'shift'> {
+export interface ShiftEvent extends Event<"shift"> {
     readonly reason: string;
 }
 
-export interface UpdateEvent extends Event<'update'> {
+export interface UpdateEvent extends Event<"update"> {
     readonly startPos: number;
     readonly endPos: number;
     readonly scrollPos: number;
@@ -72,10 +72,10 @@ export interface SceneProgressEvent<T> extends Event<T> {
     readonly scrollDirection: ScrollDirection;
 }
 
-export interface EnterEvent extends SceneProgressEvent<'enter'> {}
-export interface LeaveEvent extends SceneProgressEvent<'leave'> {}
-export interface StartEvent extends SceneProgressEvent<'start'> {}
-export interface ProgressEvent extends SceneProgressEvent<'progress'> {}
+export interface EnterEvent extends SceneProgressEvent<"enter"> {}
+export interface LeaveEvent extends SceneProgressEvent<"leave"> {}
+export interface StartEvent extends SceneProgressEvent<"start"> {}
+export interface ProgressEvent extends SceneProgressEvent<"progress"> {}
 
 export interface SceneConstructorOptions {
     duration?: (() => number | string) | number | string | undefined;
@@ -111,7 +111,7 @@ export interface ControllerInfo {
     isDocument: boolean;
 }
 
-export type InfoOption = 'size' | 'vertical' | 'scrollPos' | 'scrollDirection' | 'container' | 'isDocument';
+export type InfoOption = "size" | "vertical" | "scrollPos" | "scrollDirection" | "container" | "isDocument";
 
 export interface ControllerConstructorOptions {
     container?: string | Element | undefined;

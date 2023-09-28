@@ -9,7 +9,7 @@ export as namespace SnuOwnd;
 export {};
 
 // Constructs a type from `T` where all properties additionally accept `null`
-type NullableValues<T> = {[K in keyof T]: T[K] | null};
+type NullableValues<T> = { [K in keyof T]: T[K] | null };
 
 /** A string buffer wrapper because JavaScript doesn't have mutable strings. */
 export class Buffer {
@@ -465,11 +465,13 @@ export interface Markdown {
     callbacks: Callbacks;
     inLinkBody: number;
     activeChars: Partial<Record<string, number>>;
-    refs: Partial<Record<string, {
-        id: string;
-        link: Buffer;
-        title: Buffer;
-    }>>;
+    refs: Partial<
+        Record<string, {
+            id: string;
+            link: Buffer;
+            title: Buffer;
+        }>
+    >;
     nestingLimit: number;
     maxTableCols: number;
     /**
@@ -491,6 +493,11 @@ export interface Markdown {
  * @param nestingLimit The maximum depth to which inline elements can be nested.
  * @return A configured markdown object.
  */
-export function getParser(renderer?: Renderer, extensions?: number, nestingLimit?: number, columnLimit?: number): Markdown;
+export function getParser(
+    renderer?: Renderer,
+    extensions?: number,
+    nestingLimit?: number,
+    columnLimit?: number,
+): Markdown;
 
 // #endregion Markdown

@@ -1,4 +1,4 @@
-import { Locator, WebDriver, WebElement } from '../';
+import { Locator, WebDriver, WebElement } from "../";
 
 /**
  * Typings for lib/by.js
