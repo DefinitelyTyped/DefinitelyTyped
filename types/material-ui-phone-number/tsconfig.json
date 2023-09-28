@@ -13,7 +13,12 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
