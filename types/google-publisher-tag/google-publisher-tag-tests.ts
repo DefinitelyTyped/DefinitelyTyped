@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20230918
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/0bfc2ab379899b2566f1af0cef5d31008d119eb6
+// Tests for Google Publisher Tag 1.20230925
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/db40c180491818f53f4b283cfa2eaf677c3be02c
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -624,8 +624,8 @@ function test_googletag_slot_updateTargetingFromMap() {
     const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!;
 
     slot.updateTargetingFromMap({
-        color: "red",
-        interests: ["sports", "music", "movies"],
+        "color": "red",
+        "interests": ["sports", "music", "movies"],
     });
 }
 
