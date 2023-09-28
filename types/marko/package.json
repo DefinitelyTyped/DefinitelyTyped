@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/async-writer": "*",
         "@types/express": "*",
+        "@types/express-serve-static-core": "*",
         "@types/node": "*"
     },
     "devDependencies": {
