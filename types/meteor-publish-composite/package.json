@@ -6,7 +6,8 @@
         "https://github.com/englue/meteor-publish-composite"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-publish-composite": "workspace:."

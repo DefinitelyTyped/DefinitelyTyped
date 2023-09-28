@@ -6,6 +6,7 @@
         "https://github.com/edx/new-relic-source-map-webpack-plugin#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "tapable": "^2.2.1",
         "webpack": "^5.50.0"
     },

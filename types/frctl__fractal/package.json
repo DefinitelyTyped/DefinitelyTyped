@@ -6,6 +6,7 @@
         "https://github.com/frctl/fractal"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/vinyl": "*"
     },
     "devDependencies": {

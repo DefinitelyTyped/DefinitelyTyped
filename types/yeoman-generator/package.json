@@ -11,6 +11,7 @@
         "@types/ejs": "*",
         "@types/inquirer": "^8",
         "@types/mem-fs-editor": "*",
+        "@types/node": "*",
         "@types/yeoman-environment": "*",
         "rxjs": "^6.4.0"
     },

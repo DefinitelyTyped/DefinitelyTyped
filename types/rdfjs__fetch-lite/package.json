@@ -8,6 +8,7 @@
     "type": "module",
     "dependencies": {
         "@rdfjs/types": "*",
+        "@types/node": "*",
         "@types/rdfjs__formats-common": "*"
     },
     "devDependencies": {

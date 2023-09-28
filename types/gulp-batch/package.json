@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/floatdrop/gulp-batch"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/gulp": "*",
         "@types/gulp-batch": "workspace:."

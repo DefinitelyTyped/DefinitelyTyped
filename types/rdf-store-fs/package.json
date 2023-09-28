@@ -6,7 +6,8 @@
         "https://github.com/rdf-ext/rdf-store-fs"
     ],
     "dependencies": {
-        "@rdfjs/types": ">=1"
+        "@rdfjs/types": ">=1",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/rdf-ext": "*",

@@ -7,6 +7,7 @@
     ],
     "dependencies": {
         "@types/clownface": "*",
+        "@types/node": "*",
         "@types/rdf-loaders-registry": "*",
         "@types/readable-stream": "*",
         "rdf-js": "^4.0.2",

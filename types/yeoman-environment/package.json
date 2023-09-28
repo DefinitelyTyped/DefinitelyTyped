@@ -10,6 +10,7 @@
         "@types/diff": "*",
         "@types/inquirer": "^8",
         "@types/mem-fs": "*",
+        "@types/node": "*",
         "@types/text-table": "*",
         "@types/vinyl": "*",
         "@types/yeoman-generator": "*",

@@ -6,7 +6,8 @@
         "https://github.com/msavin/SteveJobs"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-sjobs": "workspace:."

@@ -6,6 +6,7 @@
         "https://github.com/cryptocoinjs/bs58"
     ],
     "dependencies": {
+        "@types/node": "*",
         "base-x": "^3.0.6"
     },
     "devDependencies": {

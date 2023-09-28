@@ -6,6 +6,7 @@
         "https://github.com/mrsteele/dotenv-defaults#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "dotenv": "^8.2.0"
     },
     "devDependencies": {

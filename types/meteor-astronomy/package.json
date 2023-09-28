@@ -8,7 +8,8 @@
         "https://github.com/jagi/meteor-astronomy/"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-astronomy": "workspace:."

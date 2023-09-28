@@ -7,6 +7,7 @@
     ],
     "dependencies": {
         "@types/bunyan": "*",
+        "@types/node": "*",
         "winston": "^3.0.0"
     },
     "devDependencies": {

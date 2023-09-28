@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/connect": "*",
         "@types/jquery": "*",
+        "@types/node": "*",
         "@types/nodemailer": "*",
         "@types/react": "*",
         "@types/underscore": "*",

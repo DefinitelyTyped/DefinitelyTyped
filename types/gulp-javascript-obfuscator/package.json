@@ -6,6 +6,7 @@
         "https://github.com/javascript-obfuscator/gulp-javascript-obfuscator"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/readable-stream": "*",
         "javascript-obfuscator": "^3.0.0"
     },

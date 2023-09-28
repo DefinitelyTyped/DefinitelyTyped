@@ -6,6 +6,7 @@
         "https://github.com/itsfadnis/datadog-winston"
     ],
     "dependencies": {
+        "@types/node": "*",
         "logform": "^1.4.0",
         "winston-transport": "^4.3.0"
     },

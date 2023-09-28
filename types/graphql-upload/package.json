@@ -27,6 +27,7 @@
     "dependencies": {
         "@types/express": "*",
         "@types/koa": "*",
+        "@types/node": "*",
         "fs-capacitor": "^8.0.0",
         "graphql": "0.13.1 - 16"
     },

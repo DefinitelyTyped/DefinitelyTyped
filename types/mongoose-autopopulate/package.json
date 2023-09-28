@@ -6,6 +6,7 @@
         "https://github.com/mongodb-js/mongoose-autopopulate"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {

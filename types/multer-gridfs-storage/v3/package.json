@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/express": "*",
         "@types/multer": "*",
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {

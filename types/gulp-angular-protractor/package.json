@@ -6,6 +6,7 @@
         "https://github.com/rochejul/gulp-angular-protractor"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/through": "*"
     },
     "devDependencies": {

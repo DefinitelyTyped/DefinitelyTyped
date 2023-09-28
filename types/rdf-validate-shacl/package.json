@@ -7,7 +7,8 @@
     ],
     "dependencies": {
         "@rdfjs/types": "*",
-        "@types/clownface": "*"
+        "@types/clownface": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/rdf-ext": "*",

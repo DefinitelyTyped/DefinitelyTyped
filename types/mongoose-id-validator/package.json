@@ -6,6 +6,7 @@
         "https://github.com/CampbellSoftwareSolutions/mongoose-id-validator"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {

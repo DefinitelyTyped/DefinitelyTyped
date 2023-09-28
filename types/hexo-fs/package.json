@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/bluebird": "*",
         "@types/graceful-fs": "*",
+        "@types/node": "*",
         "chokidar": "^2.1.2"
     },
     "devDependencies": {

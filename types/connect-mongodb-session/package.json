@@ -7,6 +7,7 @@
     ],
     "dependencies": {
         "@types/express-session": "*",
+        "@types/node": "*",
         "mongodb": "^4.5.0"
     },
     "devDependencies": {

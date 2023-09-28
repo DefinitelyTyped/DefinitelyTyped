@@ -6,6 +6,7 @@
         "http://gulpjs.com"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/undertaker": ">=1.2.6",
         "@types/vinyl-fs": "*",
         "chokidar": "^3.3.1"

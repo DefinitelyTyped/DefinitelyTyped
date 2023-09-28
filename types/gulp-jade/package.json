@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/phated/gulp-jade"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/gulp": "*",
         "@types/gulp-jade": "workspace:."

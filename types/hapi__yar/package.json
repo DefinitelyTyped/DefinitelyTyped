@@ -9,6 +9,7 @@
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
         "@types/hapi__catbox": "*",
+        "@types/node": "*",
         "joi": "^17.7.0"
     },
     "devDependencies": {

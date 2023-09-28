@@ -6,6 +6,7 @@
         "https://github.com/buunguyen/mongoose-deep-populate"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { AuthenticationData, Plugin, Request, ResponseToolkit } from "@hapi/hapi";
 
 type ValidateReturn = AuthenticationData & { isValid: boolean };

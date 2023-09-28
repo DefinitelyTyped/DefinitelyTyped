@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/generic-pool": "3.1.11",
         "@types/koa": "*",
+        "@types/node": "*",
         "mongodb": "^4.5.0"
     },
     "devDependencies": {

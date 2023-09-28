@@ -6,7 +6,8 @@
         "https://github.com/alanning/meteor-roles/"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-roles": "workspace:.",

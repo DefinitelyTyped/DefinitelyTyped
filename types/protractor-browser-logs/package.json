@@ -6,6 +6,7 @@
         "https://github.com/wix/protractor-browser-logs"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/selenium-webdriver": "^3",
         "protractor": "5.4.3"
     },

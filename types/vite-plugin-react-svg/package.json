@@ -6,6 +6,7 @@
         "https://github.com/visualfanatic/vite-svg"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/react": "*",
         "@types/svgo": "2",
         "vite": "^2.3.8"

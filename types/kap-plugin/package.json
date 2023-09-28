@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/got": "^9",
         "@types/json-schema": "*",
+        "@types/node": "*",
         "electron-store": ">=8.0.2"
     },
     "devDependencies": {

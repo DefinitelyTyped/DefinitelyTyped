@@ -6,6 +6,7 @@
         "https://github.com/axelchalon/commander-remaining-args#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "commander": "^4.0.1"
     },
     "devDependencies": {

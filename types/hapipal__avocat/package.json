@@ -9,6 +9,7 @@
     "dependencies": {
         "@hapi/boom": "^9.1.1",
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0"
     },
     "devDependencies": {

@@ -6,6 +6,7 @@
         "https://github.com/filestack/filestack-react"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/react": "*",
         "filestack-js": "^3.20.0"
     },

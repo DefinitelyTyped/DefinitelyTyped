@@ -6,6 +6,7 @@
         "https://github.com/rideamigoscorp/mongoose-geojson-schema#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {

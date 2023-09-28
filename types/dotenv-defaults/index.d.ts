@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { DotenvConfigOptions, DotenvConfigOutput, DotenvParseOutput } from "dotenv";
 
 /**

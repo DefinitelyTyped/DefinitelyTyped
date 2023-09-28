@@ -8,7 +8,8 @@
         "https://github.com/meteor/validated-method"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-mdg-validated-method": "workspace:.",

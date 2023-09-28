@@ -9,6 +9,7 @@
         "@types/eslint": "*",
         "@types/express": "*",
         "@types/html-webpack-plugin": "*",
+        "@types/node": "*",
         "@types/webpack": "^4",
         "@types/webpack-dev-server": "3"
     },

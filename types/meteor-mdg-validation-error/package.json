@@ -8,7 +8,8 @@
         "https://github.com/meteor/validation-error"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-mdg-validation-error": "workspace:."

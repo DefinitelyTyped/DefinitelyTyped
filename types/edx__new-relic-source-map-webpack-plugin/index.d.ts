@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import webpack = require("webpack");
 
 declare class NewRelicPlugin {

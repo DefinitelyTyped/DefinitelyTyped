@@ -6,7 +6,8 @@
         "https://github.com/okgrow/meteor-persistent-session"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-persistent-session": "workspace:."

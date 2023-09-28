@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/OverZealous/gulp-task-listing"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/gulp": "*",
         "@types/gulp-task-listing": "workspace:."

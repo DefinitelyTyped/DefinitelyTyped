@@ -6,6 +6,7 @@
         "https://github.com/saintedlama/passport-local-mongoose"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/passport-local": "*",
         "mongoose": "^6.3.0"
     },

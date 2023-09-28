@@ -8,7 +8,8 @@
     "dependencies": {
         "@types/lerna__child-process": "*",
         "@types/lerna__package": "*",
-        "@types/lerna__package-graph": "*"
+        "@types/lerna__package-graph": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/lerna__collect-updates": "workspace:."

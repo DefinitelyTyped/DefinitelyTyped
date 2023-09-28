@@ -7,6 +7,7 @@
     ],
     "type": "module",
     "dependencies": {
+        "@types/node": "*",
         "@types/rdfjs__parser-jsonld": "*",
         "@types/rdfjs__parser-n3": "*",
         "@types/rdfjs__serializer-jsonld": "*",

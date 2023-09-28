@@ -8,6 +8,7 @@
     "dependencies": {
         "@types/express": "*",
         "@types/express-session": "*",
+        "@types/node": "*",
         "@types/redis": "^2.8.0",
         "ioredis": "^5.3.0"
     },

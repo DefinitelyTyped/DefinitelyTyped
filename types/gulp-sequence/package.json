@@ -6,7 +6,8 @@
         "https://github.com/teambition/gulp-sequence"
     ],
     "dependencies": {
-        "@types/gulp": "*"
+        "@types/gulp": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/gulp-sequence": "workspace:."

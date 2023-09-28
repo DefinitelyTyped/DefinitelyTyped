@@ -6,7 +6,8 @@
         "https://github.com/prime-8-consulting/meteor-oauth2/"
     ],
     "dependencies": {
-        "@types/meteor": "*"
+        "@types/meteor": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/meteor-prime8consulting-oauth2": "workspace:."

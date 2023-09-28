@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { Plugin, Request, ResponseObject, ResponseToolkit } from "@hapi/hapi";
 
 declare module "@hapi/hapi" {

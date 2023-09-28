@@ -6,6 +6,7 @@
         "https://github.com/sequelize/umzug"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/sequelize": "*",
         "mongodb": "^4.1.4"
     },

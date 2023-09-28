@@ -6,6 +6,7 @@
         "https://www.npmjs.com/package/isomorphic-form-data"
     ],
     "dependencies": {
+        "@types/node": "*",
         "form-data": "^2.5.1"
     },
     "devDependencies": {

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { CachePolicyOptions, Plugin, ServerStateCookieOptions } from "@hapi/hapi";
 import { BinaryLike } from "crypto";
 

@@ -6,6 +6,7 @@
         "https://github.com/stipsan/ioredis-mock#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "ioredis": ">=5"
     },
     "devDependencies": {

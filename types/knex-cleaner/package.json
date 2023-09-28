@@ -6,6 +6,7 @@
         "https://github.com/steven-ferguson/knex-cleaner"
     ],
     "dependencies": {
+        "@types/node": "*",
         "knex": ">=2.3.0"
     },
     "devDependencies": {
