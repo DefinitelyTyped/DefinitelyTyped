@@ -9,7 +9,7 @@
         "@types/ember-data": "^3"
     },
     "devDependencies": {
-        "@types/ember-data__model": "*",
+        "@types/ember-data__model": "^3",
         "@types/ember-data__store": "workspace:.",
         "@types/ember__array": "*"
     },
