@@ -22,5 +22,10 @@
             "name": "Steve Gravrock",
             "githubUsername": "sgravrock"
         }
-    ]
+    ],
+    "pnpm": {
+        "overrides": {
+            "@types/react": "^16"
+        }
+    }
 }
