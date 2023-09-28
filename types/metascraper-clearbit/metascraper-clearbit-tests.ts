@@ -1,4 +1,4 @@
-import metascraper = require("metascraper");
+import metascraper from "metascraper";
 import metascraperClearbit = require("metascraper-clearbit");
 
 const html = "example";

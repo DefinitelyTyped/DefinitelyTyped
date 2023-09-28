@@ -6,7 +6,8 @@
         "https://github.com/goodhood-eu/metascraper-address#readme"
     ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.14.8"
     },
     "devDependencies": {
         "@types/metascraper-address": "workspace:."

@@ -6,7 +6,8 @@
         "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-date"
     ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.14.8"
     },
     "devDependencies": {
         "@types/metascraper-date": "workspace:."
