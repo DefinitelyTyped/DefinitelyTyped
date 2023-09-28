@@ -8,6 +8,7 @@
     "type": "module",
     "dependencies": {
         "@types/express": "*",
+        "@types/express-serve-static-core": "*",
         "@types/rdfjs__sink-map": "*",
         "rdf-js": "^4.0.2"
     },
