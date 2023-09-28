@@ -6,7 +6,8 @@
         "https://github.com/alubbe/named-routes#readme"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
         "@types/named-routes": "workspace:."
