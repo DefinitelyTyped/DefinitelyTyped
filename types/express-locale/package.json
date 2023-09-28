@@ -6,7 +6,8 @@
         "https://github.com/smhg/express-locale#readme"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
         "@types/express-locale": "workspace:."
