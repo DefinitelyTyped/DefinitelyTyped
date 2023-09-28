@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/memory-fs": "workspace:.",
-        "@types/webpack": "*"
+        "@types/webpack": "^4"
     },
     "owners": [
         {
