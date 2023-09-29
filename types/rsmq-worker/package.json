@@ -6,6 +6,8 @@
         "http://smrchy.github.io/rsmq/rsmq-worker/"
     ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/redis": "^2.8.32",
         "@types/rsmq": "^0.3.27"
     },
     "devDependencies": {

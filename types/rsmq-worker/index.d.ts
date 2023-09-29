@@ -1,4 +1,5 @@
 /// <reference types="rsmq"/>
+/// <reference types="node" />
 
 import redis = require("redis");
 import events = require("events");
