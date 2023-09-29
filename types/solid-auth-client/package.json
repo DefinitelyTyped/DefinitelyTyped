@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/solid/solid-auth-client#readme"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/solid-auth-client": "workspace:."
     },
