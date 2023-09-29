@@ -6,7 +6,9 @@
         "https://github.com/egoist/poi/"
     ],
     "dependencies": {
+        "@types/express": "*",
         "@types/html-webpack-plugin": "*",
+        "@types/node": "*",
         "@types/webpack": "^4",
         "@types/webpack-dev-server": "3",
         "cac": "~6.4.2",
