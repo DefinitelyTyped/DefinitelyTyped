@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/adnanrahic/node-gcstats#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/sematext__gc-stats": "workspace:."
     },
