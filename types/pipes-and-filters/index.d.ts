@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { EventEmitter } from "events";
 
 export type NextFunction<TOutput> = (err?: Error | null, result?: TOutput) => void;

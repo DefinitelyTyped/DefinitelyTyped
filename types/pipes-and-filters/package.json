@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/slashdotdash/node-pipes-and-filters"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/pipes-and-filters": "workspace:."
     },
