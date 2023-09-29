@@ -6,6 +6,7 @@
         "https://github.com/larryprice/mongoose-simple-random"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
     },
     "devDependencies": {
