@@ -11,7 +11,12 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react-native": [
+                "../react-native/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
