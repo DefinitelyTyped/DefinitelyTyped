@@ -6,6 +6,7 @@
         "https://github.com/cdimascio/node-mongodb-fixtures#readme"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongodb": "^4.5.0"
     },
     "devDependencies": {
