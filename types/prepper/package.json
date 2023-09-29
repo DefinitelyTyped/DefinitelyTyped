@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/guidesmiths/prepper"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/prepper": "workspace:."
     },
