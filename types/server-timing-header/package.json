@@ -6,7 +6,8 @@
         "https://github.com/SilentImp/express-middleware-headers-server-timing#readme"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
         "@types/server-timing-header": "workspace:."
