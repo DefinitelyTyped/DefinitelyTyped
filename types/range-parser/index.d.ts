@@ -10,7 +10,11 @@
  *
  * @returns `-1` when unsatisfiable and `-2` when syntactically invalid, ranges otherwise.
  */
-declare function RangeParser(size: number, str: string, options?: RangeParser.Options): RangeParser.Result | RangeParser.Ranges;
+declare function RangeParser(
+    size: number,
+    str: string,
+    options?: RangeParser.Options,
+): RangeParser.Result | RangeParser.Ranges;
 
 declare namespace RangeParser {
     interface Ranges extends Array<Range> {

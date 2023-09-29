@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type Direction = 'fwd' | 'back';
+export type Direction = "fwd" | "back";
 
 type Callback = (err?: Error, result?: any) => void;
 
@@ -221,7 +221,7 @@ export interface StepperOptions {
     /**
      * Stepping style
      */
-    style?: 'single' | 'double' | 'interleaved' | 'microstep' | undefined;
+    style?: "single" | "double" | "interleaved" | "microstep" | undefined;
 
     current?: number | undefined;
 
@@ -333,7 +333,7 @@ export interface Stepper {
     step(
         dir: Direction,
         steps: number,
-        cb: (err?: Error, result?: StepResult) => void
+        cb: (err?: Error, result?: StepResult) => void,
     ): void;
 
     /**
@@ -391,7 +391,7 @@ export interface Stepper {
      *
      * @param   style   Stepping style.
      */
-    setStyle(style: 'single' | 'double' | 'interleaved' | 'microstep'): void;
+    setStyle(style: "single" | "double" | "interleaved" | "microstep"): void;
 
     /**
      * Set PWM Controller working frequency asynchronously.
@@ -504,7 +504,7 @@ export interface MotorHat {
     init(cb: Callback): void;
 }
 
-export type Motor = 'M1' | 'M2' | 'M3' | 'M4';
+export type Motor = "M1" | "M2" | "M3" | "M4";
 
 export interface MotorHatOptions {
     /**

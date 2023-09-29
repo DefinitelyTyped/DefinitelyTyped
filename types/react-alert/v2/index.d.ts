@@ -4,7 +4,7 @@
 //                 Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactElement, Component, ReactNode } from 'react';
+import { Component, ReactElement, ReactNode } from "react";
 
 export interface AlertContainerProps {
     /**
@@ -19,14 +19,14 @@ export interface AlertContainerProps {
      *
      * Default: 'bottom left'
      */
-    position?: 'bottom left' | 'bottom right' | 'top left' | 'top right' | undefined;
+    position?: "bottom left" | "bottom right" | "top left" | "top right" | undefined;
 
     /**
      * The color theme of the alert. Can be [dark, light].
      *
      * Default: 'dark'
      */
-    theme?: 'dark' | 'light' | undefined;
+    theme?: "dark" | "light" | undefined;
 
     /**
      * The time in miliseconds to the alert close itself. Use 0 to prevent auto close (apply to all alerts).
@@ -40,7 +40,7 @@ export interface AlertContainerProps {
      *
      * Default: 'scale'
      */
-    transition?: 'scale' | 'fade' | undefined;
+    transition?: "scale" | "fade" | undefined;
 }
 
 export interface AlertShowOptions {
@@ -49,7 +49,7 @@ export interface AlertShowOptions {
      *
      * Default: info
      */
-    type?: 'info' | 'success' | 'error' | undefined;
+    type?: "info" | "success" | "error" | undefined;
 
     /**
      * The time in miliseconds to the alert close itself. Use 0 to prevent auto close (apply to this alert only).

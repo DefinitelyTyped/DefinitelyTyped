@@ -119,27 +119,27 @@ declare namespace MarkItUp {
         /**
          * Markup to be added before selection. Accepts functions.
          */
-        openWith?: string|((h: MarkupSet) => string) | undefined;
+        openWith?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Markup to be added after selection. Accepts functions.
          */
-        closeWith?: string|((h: MarkupSet) => string) | undefined;
+        closeWith?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Text to be added in place of the cursor or selection. Accepts functions.
          */
-        replaceWith?: string|((h: MarkupSet) => string) | undefined;
+        replaceWith?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Text to be added before a whole block. Accepts functions.
          */
-        openBlockWith?: string|((h: MarkupSet) => string) | undefined;
+        openBlockWith?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Text to be added after a whole block. Accepts functions.
          */
-        closeBlockWith?: string|((h: MarkupSet) => string) | undefined;
+        closeBlockWith?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Set whether the tags has to be inserted at each line or on the whole selected block.
@@ -149,7 +149,7 @@ declare namespace MarkItUp {
         /**
          * Placeholder text to be inserted if no text is selected by the user.
          */
-        placeHolder?: string|((h: MarkupSet) => string) | undefined;
+        placeHolder?: string | ((h: MarkupSet) => string) | undefined;
 
         /**
          * Function to be called just before a markup insertion. If a global beforeInsert callback is already defined this function is fired just after.

@@ -1,5 +1,5 @@
-import { EnvironmentProviderOptions, IEnvironmentProvider, PreloadedEntryPoint } from './EntryPointTypes';
-import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from './helpers';
+import { EnvironmentProviderOptions, IEnvironmentProvider, PreloadedEntryPoint } from "./EntryPointTypes";
+import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from "./helpers";
 
 export function loadEntryPoint<TEntryPoint>(
     environmentProvider: IEnvironmentProvider<EnvironmentProviderOptions>,

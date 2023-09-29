@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import Loadable from './loadable-components';
+import Loadable from "./loadable-components";
 export default Loadable;

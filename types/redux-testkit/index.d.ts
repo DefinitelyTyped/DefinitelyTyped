@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Redux from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import * as Redux from "redux";
+import { ThunkAction } from "redux-thunk";
 
 export interface ReducerTestkit {
     expect: (action: Redux.Action) => {
-        toReturnState(expected: any): void,
+        toReturnState(expected: any): void;
         toStayTheSame(): void;
         toChangeInState(expectedChanges: any): void;
     };

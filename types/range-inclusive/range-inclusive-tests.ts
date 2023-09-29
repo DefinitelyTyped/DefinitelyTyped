@@ -1,4 +1,4 @@
-import rangeInclusive = require('range-inclusive');
+import rangeInclusive = require("range-inclusive");
 
 rangeInclusive(10); // $ExpectType number[]
 rangeInclusive(3, 9); // $ExpectType number[]

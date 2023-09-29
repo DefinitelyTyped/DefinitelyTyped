@@ -26,4 +26,8 @@ export function getNiceTickValues(domain: [number, number], tickCount?: number, 
  * @param tickCount        The count of ticks
  * @param allowDecimals    Allow the ticks to be decimals or not - defaults to true
  */
-export function getTickValuesFixedDomain(domain: [number, number], tickCount?: number, allowDecimals?: boolean): number[];
+export function getTickValuesFixedDomain(
+    domain: [number, number],
+    tickCount?: number,
+    allowDecimals?: boolean,
+): number[];

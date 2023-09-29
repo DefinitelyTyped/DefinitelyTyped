@@ -1,4 +1,4 @@
-import prepare = require('mocha-prepare');
+import prepare = require("mocha-prepare");
 
 prepare(
     done => {

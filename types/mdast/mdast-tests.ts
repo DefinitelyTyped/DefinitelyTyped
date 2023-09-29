@@ -1,6 +1,6 @@
 import type {
-    Blockquote,
     BlockContentMap,
+    Blockquote,
     Break,
     Code,
     Data,
@@ -36,7 +36,7 @@ import type {
     Text,
     ThematicBreak,
     Yaml,
-} from 'mdast';
+} from "mdast";
 
 const data: Data = {};
 
@@ -48,75 +48,75 @@ const position = {
 // ## CommonMark voids
 
 const break_: Break = {
-    type: 'break',
+    type: "break",
     position,
     data,
 };
 
 const definition: Definition = {
-    type: 'definition',
-    identifier: 'mdast',
-    url: 'https://github.com/syntax-tree/mdast',
+    type: "definition",
+    identifier: "mdast",
+    url: "https://github.com/syntax-tree/mdast",
     position,
     data,
 };
 
 // @ts-expect-error: `identifier` is required.
 const definitionWithoutIdentifier: Definition = {
-    type: 'definition',
-    url: '',
+    type: "definition",
+    url: "",
 };
 
 // @ts-expect-error: `url` is required.
 const definitionWithoutIdentifier: Definition = {
-    type: 'definition',
-    identifier: '',
+    type: "definition",
+    identifier: "",
 };
 
 const definitionWithTitle: Definition = {
-    type: 'definition',
-    identifier: '',
-    url: '',
-    title: '',
+    type: "definition",
+    identifier: "",
+    url: "",
+    title: "",
 };
 
 const definitionWithLabel: Definition = {
-    type: 'definition',
-    identifier: '',
-    label: '',
-    url: '',
+    type: "definition",
+    identifier: "",
+    label: "",
+    url: "",
 };
 
 const image: Image = {
-    type: 'image',
-    url: 'https://github.com/syntax-tree/mdast',
-    alt: 'image alternative',
+    type: "image",
+    url: "https://github.com/syntax-tree/mdast",
+    alt: "image alternative",
     position,
     data,
 };
 
 // @ts-expect-error: `url` is required.
 const imageWithoutUrl: Image = {
-    type: 'image',
+    type: "image",
 };
 
 const imageWithTitle: Image = {
-    type: 'image',
-    url: '',
-    title: '',
+    type: "image",
+    url: "",
+    title: "",
 };
 
 const imageReference: ImageReference = {
-    type: 'imageReference',
-    identifier: 'x',
-    referenceType: 'full',
-    alt: 'image alternative',
+    type: "imageReference",
+    identifier: "x",
+    referenceType: "full",
+    alt: "image alternative",
     position,
     data,
 };
 
 const thematicBreak: ThematicBreak = {
-    type: 'thematicBreak',
+    type: "thematicBreak",
     position,
     data,
 };
@@ -124,53 +124,53 @@ const thematicBreak: ThematicBreak = {
 // ## CommonMark literals
 
 const literal: Literal = {
-    type: 'whatever',
-    value: 'value',
+    type: "whatever",
+    value: "value",
     position,
     data,
 };
 
 const code: Code = {
-    type: 'code',
-    value: '',
+    type: "code",
+    value: "",
     position,
     data,
 };
 
 const codeWithLang: Code = {
-    type: 'code',
-    lang: 'js',
-    value: '',
+    type: "code",
+    lang: "js",
+    value: "",
     position,
     data,
 };
 
 const codeWithLangAndMeta: Code = {
-    type: 'code',
-    lang: 'js',
-    meta: 'eval',
-    value: '',
+    type: "code",
+    lang: "js",
+    meta: "eval",
+    value: "",
     position,
     data,
 };
 
 const html: Html = {
-    type: 'html',
-    value: '',
+    type: "html",
+    value: "",
     position,
     data,
 };
 
 const inlineCode: InlineCode = {
-    type: 'inlineCode',
-    value: '',
+    type: "inlineCode",
+    value: "",
     position,
     data,
 };
 
 const text: Text = {
-    type: 'text',
-    value: '',
+    type: "text",
+    value: "",
     position,
     data,
 };
@@ -178,35 +178,35 @@ const text: Text = {
 // ## CommonMark parents
 
 const parent: Parent = {
-    type: 'whatever',
+    type: "whatever",
     children: [text],
     position,
     data,
 };
 
 const paragraph: Paragraph = {
-    type: 'paragraph',
+    type: "paragraph",
     children: [text],
     position,
     data,
 };
 
 const blockquote: Blockquote = {
-    type: 'blockquote',
+    type: "blockquote",
     children: [paragraph],
     position,
     data,
 };
 
 const emphasis: Emphasis = {
-    type: 'emphasis',
+    type: "emphasis",
     children: [text],
     position,
     data,
 };
 
 const heading: Heading = {
-    type: 'heading',
+    type: "heading",
     depth: 1,
     children: [text],
     position,
@@ -215,22 +215,22 @@ const heading: Heading = {
 
 // @ts-expect-error: `depth` is required.
 const headingWithoutDepth: Heading = {
-    type: 'heading',
+    type: "heading",
     children: [],
 };
 
 const link: Link = {
-    type: 'link',
+    type: "link",
     children: [text],
-    url: 'https://example.com',
+    url: "https://example.com",
     position,
     data,
 };
 
 const linkReference: LinkReference = {
-    type: 'linkReference',
-    identifier: 'x',
-    referenceType: 'full',
+    type: "linkReference",
+    identifier: "x",
+    referenceType: "full",
     children: [text],
     position,
     data,
@@ -238,58 +238,58 @@ const linkReference: LinkReference = {
 
 // @ts-expect-error: `url` is required.
 const linkWithoutUrl: Link = {
-    type: 'link',
+    type: "link",
     children: [],
 };
 
 const linkWithTitle: Link = {
-    type: 'link',
+    type: "link",
     children: [],
-    url: 'https://example.com',
-    title: '',
+    url: "https://example.com",
+    title: "",
 };
 
 const listItem: ListItem = {
-    type: 'listItem',
+    type: "listItem",
     children: [paragraph],
     position,
     data,
 };
 
 const listItemWithChecked: ListItem = {
-    type: 'listItem',
+    type: "listItem",
     children: [],
     checked: true,
 };
 
 const listItemWithSpread: ListItem = {
-    type: 'listItem',
+    type: "listItem",
     children: [],
     spread: true,
 };
 
 const list: List = {
-    type: 'list',
+    type: "list",
     children: [listItem],
     position,
     data,
 };
 
 const listWithOrdered: List = {
-    type: 'list',
+    type: "list",
     children: [],
     ordered: true,
 };
 
 const root: Root = {
-    type: 'root',
+    type: "root",
     children: [],
     position,
     data,
 };
 
 const strong: Strong = {
-    type: 'strong',
+    type: "strong",
     children: [text],
     position,
     data,
@@ -297,51 +297,51 @@ const strong: Strong = {
 
 // ## GFM
 const delete_: Delete = {
-    type: 'delete',
+    type: "delete",
     children: [text],
     position,
     data,
 };
 
 const footnoteDefinition: FootnoteDefinition = {
-    type: 'footnoteDefinition',
-    identifier: 'mdast',
+    type: "footnoteDefinition",
+    identifier: "mdast",
     children: [paragraph],
     position,
     data,
 };
 
 const footnoteReference: FootnoteReference = {
-    type: 'footnoteReference',
-    identifier: 'mdast',
+    type: "footnoteReference",
+    identifier: "mdast",
     position,
     data,
 };
 
 const tableCell: TableCell = {
-    type: 'tableCell',
+    type: "tableCell",
     children: [text],
     position,
     data,
 };
 
 const tableRow: TableRow = {
-    type: 'tableRow',
+    type: "tableRow",
     children: [tableCell],
     position,
     data,
 };
 
 const table: Table = {
-    type: 'table',
+    type: "table",
     children: [tableRow],
     position,
     data,
 };
 
 const tableWithAlign: Table = {
-    type: 'table',
-    align: ['left', 'center', 'right'],
+    type: "table",
+    align: ["left", "center", "right"],
     children: [tableRow],
     position,
     data,
@@ -349,18 +349,18 @@ const tableWithAlign: Table = {
 
 // ## Frontmatter
 const yaml: Yaml = {
-    type: 'yaml',
-    value: '',
+    type: "yaml",
+    value: "",
     position,
     data,
 };
 
 // Test custom mdast node registration.
 interface Toml extends Literal {
-    type: 'toml';
+    type: "toml";
 }
 
-declare module 'mdast' {
+declare module "mdast" {
     interface RootContentMap {
         toml: Toml;
     }
@@ -371,24 +371,24 @@ declare module 'mdast' {
 }
 
 const rootOther: Root = {
-    type: 'root',
+    type: "root",
     data,
     position,
-    children: [{ type: 'toml', value: '' }],
+    children: [{ type: "toml", value: "" }],
 };
 
 const rootAnother: Root = {
-    type: 'root',
+    type: "root",
     data,
     position,
     children: [
         // @ts-expect-error: node not registered in `RootContentMap`.
-        { type: 'invalid' },
+        { type: "invalid" },
     ],
 };
 
 // Register a field on `Data`, which will be available on all nodes.
-declare module 'mdast' {
+declare module "mdast" {
     interface Data {
         someField?: string | undefined;
     }
@@ -399,30 +399,30 @@ declare module 'mdast' {
 }
 
 const textWithData: Text = {
-    type: 'text',
-    value: 'value',
+    type: "text",
+    value: "value",
     data: {
-        someField: 'a',
+        someField: "a",
         // @ts-expect-error: registered on inline codes, not on texts.
         someOtherField: 1,
     },
 };
 
 const textWithOtherData: Text = {
-    type: 'text',
-    value: 'value',
+    type: "text",
+    value: "value",
     data: {
-        someField: 'a',
+        someField: "a",
         // @ts-expect-error: not registered.
         someUnknownField: true,
     },
 };
 
 const inlineCodeWithData: InlineCode = {
-    type: 'inlineCode',
-    value: 'value',
+    type: "inlineCode",
+    value: "value",
     data: {
-        someField: 'a',
+        someField: "a",
         someOtherField: 1,
         // @ts-expect-error: not registered.
         someUnknownField: true,

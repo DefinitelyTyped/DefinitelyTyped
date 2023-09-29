@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import ReactCurvedText from 'react-curved-text';
+import ReactCurvedText from "react-curved-text";
 
 function MyCurvedText() {
     return (
@@ -14,9 +14,9 @@ function MyCurvedText() {
             ry={100}
             startOffset={53}
             textProps={{
-            fill: "#9cc19b",
-            fontFamily: "Luckybones",
-            fontSize: "20px",
+                fill: "#9cc19b",
+                fontFamily: "Luckybones",
+                fontSize: "20px",
             }}
         />
     );

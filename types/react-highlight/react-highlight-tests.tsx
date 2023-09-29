@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Highlight from 'react-highlight';
+import * as React from "react";
+import Highlight from "react-highlight";
 
 export const _ = () => (
     <>

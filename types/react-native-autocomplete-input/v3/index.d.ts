@@ -4,14 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from 'react';
-import {
-    GestureResponderHandlers,
-    ListViewProperties,
-    StyleProp,
-    TextInputProperties,
-    ViewStyle,
-} from 'react-native';
+import { Component, ReactNode } from "react";
+import { GestureResponderHandlers, ListViewProperties, StyleProp, TextInputProperties, ViewStyle } from "react-native";
 
 export interface AutocompleteProps<T> extends TextInputProperties {
     /**
@@ -60,7 +54,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'] | undefined;
+    onStartShouldSetResponderCapture?: GestureResponderHandlers["onStartShouldSetResponderCapture"] | undefined;
 
     /**
      * function
@@ -72,7 +66,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * renderSeparator will be called to render the list separators which will be displayed between the list elements in the result view below the text input.
      */
-    renderSeparator?: ListViewProperties['renderSeparator'] | undefined;
+    renderSeparator?: ListViewProperties["renderSeparator"] | undefined;
 
     /**
      * function

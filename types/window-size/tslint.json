@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "jsdoc-format": false,
-        "no-single-declare-module": false
+        "jsdoc-format": false
     }
 }

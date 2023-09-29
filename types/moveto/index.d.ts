@@ -12,7 +12,7 @@ declare class MoveTo {
      */
     constructor(
         options?: MoveTo.MoveToOptions,
-        easeFunctions?: MoveTo.MoveToEaseFunctionsObject
+        easeFunctions?: MoveTo.MoveToEaseFunctionsObject,
     );
     /**
      * Options
@@ -36,7 +36,7 @@ declare class MoveTo {
      */
     registerTrigger(
         dom: HTMLElement,
-        callback?: MoveTo.callbackType
+        callback?: MoveTo.callbackType,
     ): MoveTo.unregisterTriggerType;
     /**
      * Adds custom ease function
@@ -93,7 +93,7 @@ declare namespace MoveTo {
         t: number,
         b: number,
         c: number,
-        d: number
+        d: number,
     ) => number;
 }
 
