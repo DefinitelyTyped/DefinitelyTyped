@@ -3,6 +3,7 @@
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off"
     }
 }

@@ -1,4 +1,5 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "SyntheticsMetricEmitter" {
     class SyntheticsMetricEmitter {
         _namespace: string;

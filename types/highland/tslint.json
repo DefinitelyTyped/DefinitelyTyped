@@ -5,7 +5,6 @@
         "ban-types": false,
         "no-duplicate-variable": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "unified-signatures": false

@@ -1,5 +1,5 @@
 // In Node.js programs, calling `init()` injects `dcp/*` modules into the module cache.
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "dcp/wallet" {
     export default interface Wallet {
         /**
@@ -95,7 +95,7 @@ declare module "dcp/wallet" {
          * corresponds to a randomly-selected private key. This form will prompt the
          * user for a password to encrypt itself with.
          */
-        new (): Promise<Keystore>;
+        new(): Promise<Keystore>;
 
         /**
          * Constructs a locked keystore.
@@ -107,7 +107,7 @@ declare module "dcp/wallet" {
          * @param privateKey If null, a randomly private key will be used.
          * @param passphrase The passphrase to encrypt the private key.
          */
-        new (privateKey: null, passphrase: string): Promise<Keystore>;
+        new(privateKey: null, passphrase: string): Promise<Keystore>;
     }
 
     const Keystore: KeystoreConstructor;

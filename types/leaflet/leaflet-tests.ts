@@ -766,7 +766,7 @@ const multiPolygonLatLngs2: L.LatLng[][][] = polygon.getLatLngs() as L.LatLng[][
 let polyline: L.Polyline;
 
 // simple polyline
-const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68, 100], [37.77, -122.43], [34.04, -118.2, 200]];    // mix in some altitudes
+const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68, 100], [37.77, -122.43], [34.04, -118.2, 200]]; // mix in some altitudes
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);

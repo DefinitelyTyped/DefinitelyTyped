@@ -5,7 +5,7 @@
 
 /// <reference types='later' />
 
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/littledata:synced-cron" {
     /**
      * A simple cron system for Meteor.
