@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/Wizcorp/node-graylog2"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/graylog2": "workspace:."
     },
