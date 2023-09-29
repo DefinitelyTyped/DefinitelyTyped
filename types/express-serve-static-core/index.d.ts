@@ -562,11 +562,12 @@ export interface Request<
     secure: boolean;
 
     /**
-     * Return the remote address, or when
-     * "trust proxy" is `true` return
-     * the upstream addr.
+     * Return the remote address.
+     *
+     * If "trust proxy" is provided and none of the upstream addresses
+     * meet the conditions, then `undefined` will be returned.
      */
-    ip: string;
+    ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse
