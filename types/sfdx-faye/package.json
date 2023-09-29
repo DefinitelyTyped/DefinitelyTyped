@@ -5,6 +5,9 @@
     "projects": [
         "https://www.npmjs.com/package/sfdx-faye"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/sfdx-faye": "workspace:."
     },
