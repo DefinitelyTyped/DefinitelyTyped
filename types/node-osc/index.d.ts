@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import type { EventEmitter } from "events";
 
 /** Represents the content of a message */

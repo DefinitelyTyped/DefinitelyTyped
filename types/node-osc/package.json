@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/MylesBorins/node-osc#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/node-osc": "workspace:."
     },
