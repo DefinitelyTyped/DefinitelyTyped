@@ -6,6 +6,8 @@
         "https://github.com/mcollina/msgpack5/"
     ],
     "dependencies": {
+        "@types/readable-stream": "*",
+        "@types/node": "*",
         "bl": ">=5.1.0"
     },
     "devDependencies": {
