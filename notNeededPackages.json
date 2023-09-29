@@ -3279,7 +3279,7 @@
         },
         "matrix-js-sdk": {
             "libraryName": "matrix-js-sdk",
-            "asOfVersion": "11.0.3"
+            "asOfVersion": "11.1.0"
         },
         "matteodisabatino__gc_info": {
             "libraryName": "@matteodisabatino/gc_info",
