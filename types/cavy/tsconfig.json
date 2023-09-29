@@ -10,6 +10,11 @@
         "strictFunctionTypes": true,
         "types": [],
         "jsx": "react",
+        "paths": {
+            "react-native": [
+                "../react-native/index.d.ts"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -9,7 +9,7 @@
         "@types/chai": "*",
         "@types/cheerio": "*",
         "@types/enzyme": "*",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/chai-enzyme": "workspace:."

@@ -5,6 +5,9 @@
     "projects": [
         "https://www.npmjs.com/package/async-eventemitter"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/async-eventemitter": "workspace:."
     },

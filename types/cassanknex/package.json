@@ -7,7 +7,8 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "cassandra-driver": "^4.2.0"
+        "cassandra-driver": "^4.2.0",
+        "long": "^5.2.3"
     },
     "devDependencies": {
         "@types/cassanknex": "workspace:."

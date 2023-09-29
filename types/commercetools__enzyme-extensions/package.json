@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/commercetools__enzyme-extensions": "workspace:.",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "owners": [
         {
