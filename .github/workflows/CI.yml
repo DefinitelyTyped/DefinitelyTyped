@@ -121,6 +121,8 @@ jobs:
       - run: pnpm ls
 
       - run: |
+          shopt globstar
+          shopt -s globstar
           for i in types/**/tsconfig.json; do echo $i; done | grep -v node_modules | sort > all.txt
           split -n l/${{ matrix.index }}/${{ matrix.numJobs }} all.txt \
             | xargs -I{} sh -c 'echo "Compiling {}"; exec pnpm tsc -p {}'
