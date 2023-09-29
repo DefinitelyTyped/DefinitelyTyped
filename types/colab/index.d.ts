@@ -49,7 +49,7 @@ declare global {
             /**
              * APIs for leveraging Jupyter Comm channels within Colaboratory.
              * For more information about comm channels see:
-             * https://jupyter-notebook.readthedocs.io/en/stable/comms.html
+             * https://jupyter-notebook.readthedocs.io/en/v6.5.0/comms.html
              */
             namespace comms {
                 /** Placeholder for any JSON serializable type. */
@@ -89,7 +89,7 @@ declare global {
                  *
                  * The kernel should have registered a handler following the documentation
                  * at
-                 * https://jupyter-notebook.readthedocs.io/en/stable/comms.html#opening-a-comm-from-the-frontend.
+                 * https://jupyter-notebook.readthedocs.io/en/v6.5.0/comms.html#opening-a-comm-from-the-frontend.
                  *
                  * @param targetName The name of the channel registered on the kernel.
                  * @param data Any data to be sent with the open message.
@@ -102,7 +102,7 @@ declare global {
                  * Listen comm channels opened by the kernel.
                  *
                  * See
-                 * https://jupyter-notebook.readthedocs.io/en/stable/comms.html#opening-a-comm-from-the-kernel.
+                 * https://jupyter-notebook.readthedocs.io/en/v6.5.0/comms.html#opening-a-comm-from-the-kernel.
                  *
                  * @param targetName The name used by the kernel to open a new comm channel.
                  * @param callback Function invoked with any new comm channels.
