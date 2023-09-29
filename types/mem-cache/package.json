@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/silviom/node-mem-cache"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/mem-cache": "workspace:."
     },
