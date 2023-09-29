@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/tarantool/node-tarantool-driver"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/tarantool-driver": "workspace:."
     },
