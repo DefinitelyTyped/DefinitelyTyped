@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as events from "events";
 
 interface DotNode<State, Transitions> {

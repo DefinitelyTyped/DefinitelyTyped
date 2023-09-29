@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/faleij/promise-state-machine"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/promise-state-machine-es6": "workspace:."
     },
