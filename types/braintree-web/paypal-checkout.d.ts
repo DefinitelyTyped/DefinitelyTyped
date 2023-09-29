@@ -43,11 +43,15 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * wish to use a different intent when calling createPayment, make sure it matches here. If sale
      * is used, it will be converted to capture for the PayPal SDK. If the vault: true param is used,
      * no default intent will be passed.
+     *
+     * @default 'authorize'
      */
     intent?: "authorize" | "capture" | "sale" | "tokenize" | undefined;
 
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
+     *
+     * @default 'USD'
      */
     currency?: string | undefined;
 
@@ -60,6 +64,8 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * By default, the Braintree SDK will only load the PayPal smart buttons component. If you would
      * like to load just the messages component, pass messages. If you would like to load both, pass
      * buttons,messages
+     *
+     * @default 'buttons'
      */
     components?: "buttons" | "messages" | "buttons,messages" | undefined;
 
