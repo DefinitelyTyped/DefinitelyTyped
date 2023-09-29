@@ -12,7 +12,12 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
