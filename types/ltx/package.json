@@ -13,6 +13,9 @@
             }
         }
     },
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/ltx": "workspace:.",
         "@types/node": "*"
