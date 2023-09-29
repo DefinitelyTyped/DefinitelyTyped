@@ -71,8 +71,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        numJobs: [16]
+        index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        numJobs: [20]
 
     steps:
       - uses: actions/checkout@v3
@@ -112,7 +112,6 @@ jobs:
       - run: pnpm ls
 
       - run: |
-          for i in types/**/tsconfig.json; do echo $i; done \
-            | grep -v node_modules \
-            | awk '(NR-1) % ${{ matrix.numJobs }} == ${{ matrix.index }}' \
+          for i in types/**/tsconfig.json; do echo $i; done | grep -v node_modules | sort > all.txt
+          split -n l/${{ matrix.index }}/${{ matrix.numJobs }} all.txt \
             | xargs -I{} sh -c 'echo "Compiling {}"; exec pnpm tsc -p {}'
