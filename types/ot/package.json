@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/Operational-Transformation/ot.js"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/ot": "workspace:."
     },
