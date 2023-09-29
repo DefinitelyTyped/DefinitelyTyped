@@ -396,7 +396,7 @@ import * as url from "node:url";
     };
 }
 
-// http headers
+// incoming http headers
 {
     const headers: http.IncomingHttpHeaders = {
         "content-type": "application/json",
@@ -406,6 +406,22 @@ import * as url from "node:url";
     headers["access-control-request-headers"] = "content-type, x-custom-header";
     headers["access-control-request-method"] = "PUT";
     headers.origin = "https://example.com";
+}
+
+// outgoing http headers
+{
+    const headers: http.OutgoingHttpHeaders = {
+        'content-type': 'application/json',
+        'set-cookie': ['type=samurai', 'language=javascript']
+    };
+
+    headers["access-control-request-headers"] = "content-type, x-custom-header";
+    headers["access-control-allow-methods"] = "PUT";
+    headers.origin = "https://example.com";
+    headers["foo"] = "bar"; // custom header
+
+    headers['content-length'] = 100; // numeric header
+    headers['accept-charset'] = ["UTF-8", "windows-1252"]; // array example
 }
 
 // statics
