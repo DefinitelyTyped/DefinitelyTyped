@@ -6,6 +6,7 @@
         "https://github.com/mysqljs/sqlstring"
     ],
     "devDependencies": {
+        "@types/assert": "*",
         "@types/sqlstring": "workspace:."
     },
     "owners": [
