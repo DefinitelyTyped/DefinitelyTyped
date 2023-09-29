@@ -21,6 +21,7 @@
         "update-codeowners": "node scripts/update-codeowners.js",
         "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
         "clean": "node scripts/remove-empty.js",
+        "clean-node-modules": "node scripts/clean-node-modules.js",
         "test": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
         "lint": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
         "prettier": "prettier"
