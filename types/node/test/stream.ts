@@ -21,6 +21,7 @@ import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
+import { Blob } from "node:buffer";
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -734,4 +735,8 @@ async function testTransferringStreamWithPostMessage() {
         // $ExpectType Error
         err;
     });
+}
+
+{
+    new Blob(['1', '2']).stream().getReader({ mode: 'byob' })
 }
