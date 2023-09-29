@@ -133,7 +133,7 @@ declare global {
              * outputframe will be paused until this promise is resolved. This can be used
              * to reduce layout jank while rendering complex outputs.
              */
-            function pauseOutputUntil(promise: Promise<void>): void;
+            function pauseOutputUntil(promise: Promise<{}>): void;
 
             interface ResizeOptions {
                 /** The maximum height that the outputframe is allowed to have. */

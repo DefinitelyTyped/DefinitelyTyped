@@ -33,8 +33,7 @@ const div = document.createElement('div');
 google.colab.output.getActiveOutputArea().appendChild(div);
 google.colab.output.getDefaultOutputArea().appendChild(div);
 
-// will change type to Promise<{}> in next PR
-google.colab.output.pauseOutputUntil(fetch('http://example.com') as Promise<unknown> as Promise<void>);
+google.colab.output.pauseOutputUntil(fetch('http://example.com'));
 
 google.colab.output.setIframeHeight(100, true, { interactive: true });
 google.colab.output.resizeIframeToContent();
