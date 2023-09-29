@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/lmaccherone/node-localstorage"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/node-localstorage": "workspace:."
     },
