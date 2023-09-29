@@ -14,7 +14,7 @@ interface SCProps {
     foo?: number | undefined;
 }
 function FunctionComponent(props: SCProps) {
-    return props.foo ? DOM.div(null, props.foo) : null;
+    return props.foo ? div : null;
 }
 
 const props: Props & React.ClassAttributes<any> = {
