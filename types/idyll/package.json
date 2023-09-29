@@ -7,7 +7,8 @@
         "https://github.com/idyll-lang/idyll"
     ],
     "dependencies": {
-        "@types/idyll-compiler": "*"
+        "@types/idyll-compiler": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/idyll": "workspace:."
