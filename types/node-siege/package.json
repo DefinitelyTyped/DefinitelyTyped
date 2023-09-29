@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/npr/node-siege"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/node-siege": "workspace:."
     },
