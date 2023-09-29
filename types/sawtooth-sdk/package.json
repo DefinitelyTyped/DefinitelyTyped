@@ -7,6 +7,7 @@
         "https://github.com/hyperledger/sawtooth-core"
     ],
     "dependencies": {
+        "@types/long": "*",
         "@types/node": "*",
         "protobufjs": "^6.8.8"
     },
