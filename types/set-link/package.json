@@ -6,7 +6,8 @@
         "https://github.com/bergos/set-link"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
         "@types/set-link": "workspace:."
