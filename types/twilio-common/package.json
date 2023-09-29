@@ -6,6 +6,9 @@
         "https://github.com/twilio/twilio-common.js",
         "https://twilio.com"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/twilio-common": "workspace:."
     },
