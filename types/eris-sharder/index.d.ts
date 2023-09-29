@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as Eris from "eris";
 import { EventEmitter } from "events";
 

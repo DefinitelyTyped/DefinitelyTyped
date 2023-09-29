@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/discordjs/RPC#readme"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/discord-rpc": "workspace:."
     },

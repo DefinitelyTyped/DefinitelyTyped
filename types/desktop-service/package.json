@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/tariibaba/desktop-service#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/desktop-service": "workspace:."
     },

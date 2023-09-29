@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/node-file-api/FormData"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/formdata": "workspace:."
     },

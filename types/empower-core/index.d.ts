@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /**
  * Enhances Power Assert feature to assert function/object.
  *

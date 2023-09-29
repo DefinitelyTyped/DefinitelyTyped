@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/twada/power-assert-runtime"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/empower-core": "workspace:."
     },

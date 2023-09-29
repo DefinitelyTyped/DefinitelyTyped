@@ -10,7 +10,8 @@
         "@types/power-assert-formatter": "*"
     },
     "devDependencies": {
-        "@types/empower": "workspace:."
+        "@types/empower": "workspace:.",
+        "@types/node": "*"
     },
     "owners": [
         {
