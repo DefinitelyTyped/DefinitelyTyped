@@ -13,6 +13,9 @@
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ],
             "react-native": [
                 "../react-native/index.d.ts"
             ]
