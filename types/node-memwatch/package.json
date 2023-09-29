@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/eduardbcom/node-memwatch#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/node-memwatch": "workspace:."
     },
