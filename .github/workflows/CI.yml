@@ -12,8 +12,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        index: [1, 2, 3, 4]
+        numJobs: [4]
+
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: DefinitelyTyped
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -47,23 +55,24 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}
 
       - run: pnpm install
+        working-directory: DefinitelyTyped
       - run: pnpm ls
+        working-directory: DefinitelyTyped
+
+      - uses: actions/checkout@v3
+        with:
+          repository: microsoft/DefinitelyTyped-tools
+          path: DefinitelyTyped-tools
+          ref: pnpm-workspaces
+
+      - run: pnpm install
+        working-directory: DefinitelyTyped-tools
+
+      - run: pnpm run build
+        working-directory: DefinitelyTyped-tools
 
       # Run tests
-      - run: pnpm run test-all
-
-      - name: 'Run Danger'
-        env:
-          # See https://github.com/danger/danger-js/issues/1042
-          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
-
-        # Danger failing (for example through rate-limiting) shouldn't fail the build
-        run: |
-          # Exposing this token is safe because the user of it has no other public repositories
-          # and has no permission to modify this repository. See #62638 for the discussion.
-          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
-          TOKEN+='On3bHOkcV2AmVY6'
-          DANGER_GITHUB_API_TOKEN=$TOKEN pnpm exec danger ci || $( exit 0 )
+      - run: node ./DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path ./DefinitelyTyped --selection all --noInstall --shardId ${{ matrix.index }} --shardCount ${{ matrix.numJobs }}
 
   compile_all:
     runs-on: ubuntu-latest
