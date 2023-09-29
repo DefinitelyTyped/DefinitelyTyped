@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/dainis/node-gcstats#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/gc-stats": "workspace:."
     },
