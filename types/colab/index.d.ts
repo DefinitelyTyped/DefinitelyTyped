@@ -1,4 +1,4 @@
-// Type definitions for colab 388959523.0
+// Type definitions for colab 1.388959523
 // Project: https://github.com/googlecolab/colabtools
 // Definitions by: Google Colab team <https://github.com/googlecolab>
 //                 Brenton Simpson <https://github.com/appsforartists>
