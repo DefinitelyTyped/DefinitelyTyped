@@ -6,6 +6,9 @@
         "https://github.com/Kurento/kurento-utils-js",
         "https://www.kurento.org"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/kurento-utils": "workspace:."
     },
