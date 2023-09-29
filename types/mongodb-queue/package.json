@@ -6,6 +6,7 @@
         "https://github.com/chilts/mongodb-queue"
     ],
     "dependencies": {
+        "@types/node": "*",
         "mongodb": "^4.5.0"
     },
     "devDependencies": {
