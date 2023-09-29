@@ -11,6 +11,7 @@
         "@types/react-router-dom": "^5.3.0"
     },
     "devDependencies": {
+        "@types/react-router": "*",
         "@types/react-router-hash-link": "workspace:."
     },
     "owners": [

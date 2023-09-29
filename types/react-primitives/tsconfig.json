@@ -15,6 +15,11 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "jsx": "react",
-        "types": []
+        "types": [],
+        "paths": {
+            "react-native": [
+                "../react-native/index.d.ts"
+            ]
+        }
     }
 }
