@@ -1,12 +1,7 @@
 import { FilterBy } from './filterBy';
 import { ConsoleLogEntry, JavascriptLogEntry, GenericLogEntry } from './logEntries';
 
-export const LOG: {
-    TYPE_CONSOLE: string;
-    TYPE_JS_LOGS: string;
-};
-
-export class LogInspector {
+class LogInspector {
     private _driver: any;
     private _browsingContextIds: any;
     public listener: Record<string, Function[]>;
