@@ -9,8 +9,8 @@ import { EndOrNext, Path, PositiveInteger } from './state';
 export type Wait = {
     Type: 'Wait';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
 } & EndOrNext &
     SecondsOrTimestamp;
 

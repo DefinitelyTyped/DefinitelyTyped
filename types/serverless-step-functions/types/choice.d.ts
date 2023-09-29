@@ -78,7 +78,7 @@ export interface Choice {
     Type: 'Choice';
     Choices: ChoiceRule[];
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     Default?: string;
 }

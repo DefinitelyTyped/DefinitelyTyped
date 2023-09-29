@@ -10,12 +10,12 @@ import { EndOrNext, IntrinsicFunction, JsonObject, Path, PositiveInteger, Refere
 export type Task = {
     Type: 'Task';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     Resource: Resource;
     Parameters?: JsonObject;
     Credentials?: string | IntrinsicFunction | Path;
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];

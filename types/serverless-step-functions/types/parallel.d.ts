@@ -18,10 +18,10 @@ export interface Branch {
 export type Parallel = {
     Type: 'Parallel';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     Branches: Branch[];
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];

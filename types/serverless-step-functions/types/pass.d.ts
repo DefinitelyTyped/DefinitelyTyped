@@ -11,9 +11,9 @@ export type Pass = {
     Next?: string;
     End?: boolean;
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     Result?: JsonValue;
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
     Parameters?: JsonObject;
 } & EndOrNext;

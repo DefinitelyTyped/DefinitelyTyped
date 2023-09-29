@@ -10,6 +10,6 @@ import { Path } from './state';
 export interface Succeed {
     Type: 'Succeed';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
 }

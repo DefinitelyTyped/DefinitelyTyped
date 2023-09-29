@@ -18,7 +18,7 @@ export type Errors =
 export interface Catch {
     ErrorEquals: Errors[];
     Next: string;
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
 }
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-retrying-after-an-error

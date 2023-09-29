@@ -15,8 +15,8 @@ export type Map = InlineMap | DistributedMap;
 export type InlineMap = {
     Type: 'Map';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'INLINE';
@@ -29,7 +29,7 @@ export type InlineMap = {
     ItemsPath?: ReferencePath;
     ItemSelector?: JsonObject;
     MaxConcurrency?: number;
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];
@@ -50,8 +50,8 @@ export type InlineMap = {
 export type DistributedMap = {
     Type: 'Map';
     Comment?: string;
-    InputPath?: Path;
-    OutputPath?: Path;
+    InputPath?: Path | null;
+    OutputPath?: Path | null;
     ItemProcessor: {
         ProcessorConfig: {
             Mode: 'DISTRIBUTED';
@@ -71,7 +71,7 @@ export type DistributedMap = {
     ToleratedFailureCount?: number;
     Label?: string;
     ResultWriter?: JsonObject;
-    ResultPath?: ReferencePath;
+    ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
     Retry?: Retry[];
     Catch?: Catch[];
