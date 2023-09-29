@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/feross/yt-player"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/yt-player": "workspace:."
     },
