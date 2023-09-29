@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import assert = require("assert");
 
 declare module "assert" {

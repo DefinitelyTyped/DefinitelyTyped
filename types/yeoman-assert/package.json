@@ -6,6 +6,9 @@
         "https://github.com/yeoman/yeoman-assert",
         "http://yeoman.io"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/yeoman-assert": "workspace:."
     },
