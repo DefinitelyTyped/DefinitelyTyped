@@ -1,7 +1,7 @@
-import { FilterBy } from './filterBy';
-import { ConsoleLogEntry, JavascriptLogEntry, GenericLogEntry } from './logEntries';
+import type { FilterBy } from './filterBy';
+import type { ConsoleLogEntry, JavascriptLogEntry, GenericLogEntry } from './logEntries';
 
-class LogInspector {
+declare class LogInspector {
     private _driver: any;
     private _browsingContextIds: any;
     public listener: Record<string, Function[]>;
