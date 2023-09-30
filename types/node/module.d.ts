@@ -142,13 +142,13 @@ declare module "module" {
          */
         type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
         /**
-         * The `initialize` hook provides a way to define a custom function that runs in the loader's thread
-         * when the loader is initialized. Initialization happens when the loader is registered via `register`
-         * or registered via the `--experimental-loader` command line option.
+         * The `initialize` hook provides a way to define a custom function that runs in the hooks thread
+         * when the hooks module is initialized. Initialization happens when the hooks module is registered via `register`.
          *
-         * This hook can send and receive data from a `register` invocation, including ports and other transferrable objects.
+         * This hook can receive data from a `register` invocation, including ports and other transferrable objects.
+         * The return value of `initialize` can be a `Promise`, in which case it will be awaited before the main application thread execution resumes.
          */
-        type InitializeHook<Data = any, ReturnType = any> = (data: Data) => ReturnType;
+        type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
         interface ResolveHookContext {
             /**
              * Export conditions of the relevant `package.json`
@@ -240,7 +240,7 @@ declare module "module" {
         ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
     interface RegisterOptions<Data> {
-        parentURL: string;
+        parentURL: string | URL;
         data?: Data | undefined;
         transferList?: any[] | undefined;
     }
@@ -252,12 +252,12 @@ declare module "module" {
         static builtinModules: string[];
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
-        static register<Data = any, ReturnType = any>(
-            specifier: string,
-            parentURL?: string,
+        static register<Data = any>(
+            specifier: string | URL,
+            parentURL?: string | URL,
             options?: RegisterOptions<Data>,
-        ): ReturnType;
-        static register<Data = any, ReturnType = any>(specifier: string, options?: RegisterOptions<Data>): ReturnType;
+        ): void;
+        static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         constructor(id: string, parent?: Module);
     }
     global {

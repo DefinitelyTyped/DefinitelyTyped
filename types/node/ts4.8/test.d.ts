@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.4.0/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -84,7 +84,9 @@ declare module "node:test" {
     /**
      * ```js
      * import { tap } from 'node:test/reporters';
+     * import { run } from 'node:test';
      * import process from 'node:process';
+     * import path from 'node:path';
      *
      * run({ files: [path.resolve('./tests/test.js')] })
      *   .compose(tap)
@@ -292,6 +294,10 @@ declare module "node:test" {
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * If truthy, the test context will only run tests that have the `only` option set
+         */
+        only?: boolean;
         /**
          * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
          */
@@ -1146,7 +1152,22 @@ declare module "node:test" {
          */
         [Symbol.dispose](): void;
     }
-    export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, test as default, todo, Mock };
+    export {
+        after,
+        afterEach,
+        before,
+        beforeEach,
+        describe,
+        it,
+        Mock,
+        mock,
+        only,
+        run,
+        skip,
+        test,
+        test as default,
+        todo,
+    };
 }
 
 interface TestLocationInfo {
@@ -1353,5 +1374,9 @@ declare module "node:test/reporters" {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, Spec as spec, tap, TestEvent };
+    /**
+     * The `junit` reporter outputs test results in a jUnit XML format
+     */
+    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
+    export { dot, Spec as spec, tap, junit, TestEvent };
 }

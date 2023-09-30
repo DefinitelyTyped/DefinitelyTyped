@@ -1,6 +1,6 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
 import { after, afterEach, before, beforeEach, describe, it, only, run, skip, test, todo, mock, Mock } from "node:test";
-import { dot, spec, tap, TestEvent } from "node:test/reporters";
+import { dot, spec, tap, junit, TestEvent } from "node:test/reporters";
 
 // run without options
 // $ExpectType TestsStream
@@ -21,6 +21,7 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ["executed"],
+    only: true,
     setup: (root) => {},
     watch: true,
     shard: {
@@ -652,6 +653,10 @@ tap();
 tap("" as any);
 // $ExpectType Spec
 new spec();
+// @ts-expect-error
+junit();
+// $ExpectType AsyncGenerator<string, void, unknown>
+junit("" as any);
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {

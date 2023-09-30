@@ -419,8 +419,14 @@ declare module "util" {
      * const bigNumber = 123_456_789n;
      * const bigDecimal = 1_234.123_45;
      *
-     * console.log(thousand, million, bigNumber, bigDecimal);
-     * // 1_000 1_000_000 123_456_789n 1_234.123_45
+     * console.log(inspect(thousand, { numericSeparator: true }));
+     * // 1_000
+     * console.log(inspect(million, { numericSeparator: true }));
+     * // 1_000_000
+     * console.log(inspect(bigNumber, { numericSeparator: true }));
+     * // 123_456_789n
+     * console.log(inspect(bigDecimal, { numericSeparator: true }));
+     * // 1_234.123_45
      * ```
      *
      * `util.inspect()` is a synchronous method intended for debugging. Its maximum
@@ -1087,6 +1093,8 @@ declare module "util" {
      *   const stats = await stat('.');
      *   console.log(`This directory is owned by ${stats.uid}`);
      * }
+     *
+     * callStat();
      * ```
      *
      * If there is an `original[util.promisify.custom]` property present, `promisify`will return its value, see `Custom promisified functions`.
@@ -1632,7 +1640,7 @@ declare module "util" {
          * params.set('foo', 'def');
          * params.set('baz', 'xyz');
          * console.log(params.toString());
-         * // Prints: foo=def&#x26;bar=1&#x26;baz=xyz
+         * // Prints: foo=def;bar=1;baz=xyz
          * ```
          */
         set(name: string, value: string): void;
