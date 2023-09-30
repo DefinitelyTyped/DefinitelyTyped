@@ -14,7 +14,7 @@
         "jsx": "react-native",
         "paths": {
             "react-native": [
-                "../react-native/index.d.ts"
+                "../../react-native/index.d.ts"
             ]
         }
     },
