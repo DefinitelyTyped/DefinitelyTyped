@@ -117,28 +117,27 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     const parentURL = "some-url"; // import.meta.url
     Module.register(specifier);
     Module.register(specifier, { parentURL });
+    Module.register(specifier, { parentURL: new URL('data:') });
     Module.register(specifier, parentURL);
+    Module.register(specifier, new URL('data:'));
 
     const someArrayBuffer = new ArrayBuffer(100);
-    const registerResult1 = Module.register(specifier, {
+    Module.register(specifier, {
         parentURL,
         data: someArrayBuffer,
         transferList: [someArrayBuffer],
     });
-    registerResult1; // $ExpectType any
 
     interface TransferableData {
         number: number;
     }
-    const registerResult2 = Module.register<TransferableData, "ok" | "fail">(specifier, {
+    Module.register<TransferableData>(specifier, {
         parentURL,
         data: { number: 1 },
     });
-    registerResult2; // $ExpectType "ok" | "fail" || "fail" | "ok"
 
-    type MyInitializeHook = Module.InitializeHook<TransferableData, "ok" | "fail">;
-    const initializeHook: MyInitializeHook = ({ number }) => {
+    type MyInitializeHook = Module.InitializeHook<TransferableData>;
+    const initializeHook: MyInitializeHook = async ({ number }) => {
         number; // $ExpectType number
-        return "ok";
     };
 }

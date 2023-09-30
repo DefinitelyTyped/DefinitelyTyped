@@ -109,10 +109,11 @@ async function main() {
         writeFileSync(
             fileName,
             format(printer.printBundle(factory.createBundle(transformRes.transformed as SourceFile[])), {
-                printWidth: 200,
+                printWidth: 120,
                 parser: "typescript",
                 tabWidth: 4,
-                singleQuote: true,
+                singleQuote: false,
+                trailingComma: "all",
             }),
         );
     }

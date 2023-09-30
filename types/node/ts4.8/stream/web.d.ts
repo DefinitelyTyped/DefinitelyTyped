@@ -77,6 +77,15 @@ declare module "stream/web" {
     type ReadableStreamDefaultReadResult<T> =
         | ReadableStreamDefaultReadValueResult<T>
         | ReadableStreamDefaultReadDoneResult;
+    interface ReadableStreamReadValueResult<T> {
+        done: false;
+        value: T;
+    }
+    interface ReadableStreamReadDoneResult<T> {
+        done: true;
+        value?: T;
+    }
+    type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
     interface ReadableByteStreamControllerCallback {
         (controller: ReadableByteStreamController): void | PromiseLike<void>;
     }
@@ -138,6 +147,7 @@ declare module "stream/web" {
         readonly locked: boolean;
         cancel(reason?: any): Promise<void>;
         getReader(): ReadableStreamDefaultReader<R>;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -151,6 +161,10 @@ declare module "stream/web" {
     };
     interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
         read(): Promise<ReadableStreamDefaultReadResult<R>>;
+        releaseLock(): void;
+    }
+    interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
         releaseLock(): void;
     }
     const ReadableStreamDefaultReader: {

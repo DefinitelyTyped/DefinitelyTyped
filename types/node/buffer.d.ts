@@ -71,7 +71,7 @@ declare module "buffer" {
         MAX_LENGTH: number;
         MAX_STRING_LENGTH: number;
     };
-    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "utf-16le" | "ucs2" | "ucs-2" | "latin1" | "binary";
     /**
      * Re-encodes the given `Buffer` or `Uint8Array` instance from one character
      * encoding to another. Returns a new `Buffer` instance.
@@ -225,6 +225,7 @@ declare module "buffer" {
             | "utf8"
             | "utf-8"
             | "utf16le"
+            | "utf-16le"
             | "ucs2"
             | "ucs-2"
             | "base64"
