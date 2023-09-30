@@ -9,7 +9,7 @@ import * as superagent from "superagent";
 
 export = supertest;
 
-declare function supertest(app: any, options?: supertest.SuperTestOptions): supertest.SuperTest<supertest.Test>;
+declare function supertest(app: any, options?: supertest.Options): supertest.SuperTest<supertest.Test>;
 declare namespace supertest {
     interface Response extends superagent.Response {}
 
@@ -31,11 +31,11 @@ declare namespace supertest {
         end(callback?: CallbackHandler): this;
     }
 
-    interface SuperTestOptions {
+    interface Options {
         http2?: boolean;
     }
 
-    interface AgentOptions extends SuperTestOptions {
+    interface AgentOptions extends Options {
         ca?: any;
     }
     function agent(app?: any, options?: AgentOptions): SuperAgentTest;
