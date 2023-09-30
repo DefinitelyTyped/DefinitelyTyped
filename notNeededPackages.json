@@ -1585,6 +1585,10 @@
             "libraryName": "execall",
             "asOfVersion": "2.0.0"
         },
+        "exif-reader": {
+            "libraryName": "exif-reader",
+            "asOfVersion": "2.0.0"
+        },
         "exit-hook": {
             "libraryName": "exit-hook",
             "asOfVersion": "2.2.0"
