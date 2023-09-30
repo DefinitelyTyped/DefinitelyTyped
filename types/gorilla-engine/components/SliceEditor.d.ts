@@ -58,18 +58,18 @@ declare namespace GorillaEngine.UI {
 
     interface Marker {
         value: number;
-        snapToGrid: boolean;
-        snapToSlices: boolean;
-        boundToSlice: boolean;
-        fireChangeEventOnlyOnMouseUp: boolean;
-        group: string;
-        canPassPeers: boolean;
-        hideCoveredSlice: boolean;
-        overlayColorLeft: string;
-        overlayColorRight: string;
-        enforceValueOnConstraintViolation: boolean;
-        valueOffsetOnConstraintViolation: number;
-        styles: Partial<SliceStyle>[];
+        snapToGrid?: boolean;
+        snapToSlices?: boolean;
+        boundToSlice?: boolean;
+        fireChangeEventOnlyOnMouseUp?: boolean;
+        group?: string;
+        canPassPeers?: boolean;
+        hideCoveredSlice?: boolean;
+        overlayColorLeft?: string;
+        overlayColorRight?: string;
+        enforceValueOnConstraintViolation?: boolean;
+        valueOffsetOnConstraintViolation?: number;
+        styles?: SliceStyle[];
     }
 
     interface Slice {
