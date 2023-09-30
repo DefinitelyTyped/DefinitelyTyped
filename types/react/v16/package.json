@@ -35,7 +35,7 @@
         "@types/react-addons-pure-render-mixin": "*",
         "@types/react-addons-shallow-compare": "*",
         "@types/react-addons-update": "*",
-        "@types/react-dom": "*",
+        "@types/react-dom": "^16",
         "@types/react-dom-factories": "*",
         "@types/trusted-types": "*"
     },

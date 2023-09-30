@@ -30,7 +30,7 @@
         "@types/react-addons-shallow-compare": "*",
         "@types/react-addons-test-utils": "*",
         "@types/react-addons-update": "*",
-        "@types/react-dom": "*"
+        "@types/react-dom": "^15"
     },
     "owners": [
         {
