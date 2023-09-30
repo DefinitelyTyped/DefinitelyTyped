@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/ljharb/make-async-function#readme"
     ],
+    "dependencies": {
+        "@types/events": "*"
+    },
     "devDependencies": {
         "@types/make-async-function": "workspace:."
     },
