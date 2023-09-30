@@ -230,6 +230,14 @@ declare namespace CircuitBreaker {
          */
         cache?: boolean | undefined;
 
+
+        /**
+         * The cache time to live (TTL) in milliseconds.
+         * The default value is 0, which means the cache will never be cleared.
+         * @default 0
+         */
+        cacheTTL?: number;
+
         /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.
          * Passing false will result in snapshots not being emitted
