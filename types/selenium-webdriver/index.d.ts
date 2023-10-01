@@ -16,6 +16,7 @@
 // TypeScript Version: 2.4
 
 import { WebSocket } from "ws";
+import LogInspector = require("./bidi/logInspector")
 import * as chrome from "./chrome";
 import { HttpResponse } from "./devtools/networkinterceptor";
 import * as edge from "./edge";
@@ -33,10 +34,10 @@ import { ShadowRootPromise } from "./lib/webdriver";
 import * as safari from "./safari";
 
 export * from "./lib/by";
-export {default as LogInspector} from "./bidi/logInspector"
 export { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
 export { Actions, Button, Key, Origin } from "./lib/input";
 export { promise } from "./lib/promise";
+export { LogInspector }
 export { until };
 export { logging };
 
