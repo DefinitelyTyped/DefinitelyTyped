@@ -54,12 +54,12 @@ declare module "." {
     function experimental_useFormStatus(): FormStatus;
 
     function experimental_useFormState<State>(
-        action: (state: State) => State | Promise<State>,
+        action: (state: State) => Promise<State>,
         initialState: State,
         permalink?: string,
     ): [state: State, dispatch: () => void];
     function experimental_useFormState<State, Payload>(
-        action: (state: State, payload: Payload) => State | Promise<State>,
+        action: (state: State, payload: Payload) => Promise<State>,
         initialState: State,
         permalink?: string,
     ): [state: State, dispatch: (payload: Payload) => void];

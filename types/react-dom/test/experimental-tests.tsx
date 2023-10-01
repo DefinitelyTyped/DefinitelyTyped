@@ -47,8 +47,6 @@ function formTest() {
         }
 
         const [state, dispatch] = useFormState(action, 1, '/permalink');
-        // Sync would also be fine
-        useFormState(n => n + 1, 1, '/sync-permalink');
         return (
             <form action={dispatch}>
                 <span>Count: {state}</span>
