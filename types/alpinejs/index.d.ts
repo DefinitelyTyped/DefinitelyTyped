@@ -140,7 +140,7 @@ export type AlpineComponent<T> = T & XDataContext & ThisType<InferInterceptors<T
 
 interface XDataContext {
     /**
-     * Will be executed before Alpine initializes teh rest of the component.
+     * Will be executed before Alpine initializes the rest of the component.
      */
     init?(): void;
     /**
@@ -217,9 +217,32 @@ export interface ReactiveEffect<T = any> {
 }
 
 export interface Alpine {
+    /**
+     * Wraps an object in a reactive proxy
+     *
+     * @param obj an object to be wrapped
+     * @returns a reactive proxy
+     **/
     readonly reactive: <T>(obj: T) => T;
+    /**
+     * Stops an effect from re-evaluating on dependency change
+     *
+     * @param effect reactive operation
+     */
     readonly release: (effect: ReactiveEffect) => void;
+    /**
+     * Creates a reactive effect
+     *
+     * @param fn callback to be executed when dependencies change
+     * @returns effect
+     */
     readonly effect: <T>(fn: () => T) => ReactiveEffect<T>;
+    /**
+     * Returns the raw value of a reactive proxy
+     *
+     * @param obj reactive proxy
+     * @returns raw object
+     */
     readonly raw: <T>(obj: T) => T;
     version: string;
     flushAndStopDeferringMutations: () => void;
