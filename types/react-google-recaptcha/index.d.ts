@@ -1,4 +1,4 @@
-// Type definitions for React Google Recaptcha 2.1
+// Type definitions for React Google Recaptcha 3.1.0
 // Project: https://github.com/dozoisch/react-google-recaptcha
 // Definitions by: Koala Human <https://github.com/KoalaHuman>
 //                 Tom Sturge <https://github.com/tomsturge>
@@ -7,6 +7,7 @@
 //                 Florian Roher <https://github.com/RohrerF>
 //                 Timotei Mocan <https://github.com/mocantimoteidavid>
 //                 Michael Szmadzinski <https://github.com/smujmaiku>
+//                 Kostya Ten <https://github.com/kostyaten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -132,4 +133,11 @@ export interface ReCAPTCHAProps
      * @default "bottomright"
      */
     badge?: Badge | undefined;
+
+    /**
+     * For plugin owners to not interfere with existing reCAPTCHA installations on a page.
+     * If true, this reCAPTCHA instance will be part of a separate ID space.
+     * @default "false"
+     */
+    isolated?: Boolean | undefined;
 }
