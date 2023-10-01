@@ -4,10 +4,28 @@ import { Node, TagNode } from "./TagNode";
 export function isTagNode(node: Node): node is TagNode
 export function isStringNode(node: Node): node is string
 export function isEOL(el: string): boolean
-export function keysReduce<T extends string>(obj: {[key in T]: any}, reduce: (previousValue: T | null, currentValue: T, currentIndex: number, array: T[]) => T | null, def: T | null): T | null
+export function keysReduce<V>(obj: {[key: string]: any}, reduce: (previousValue: V, currentValue: string, currentIndex: number, array: string[]) => V, def: V): V
 export function getNodeLength(node: Node): boolean;
+/**
+ * Appends value to Tag Node
+ */
 export function appendToNode(node: TagNode, value: string): void;
+/**
+ * Replaces " to &qquot;
+ */
 export function escapeHTML(value: string): string
+/**
+ * Acept name and value and return valid html5 attribute string
+ */
 export function attrValue(name: string, value: any): string
-export function attrsToString(values: any): string // TODO
+
+/**
+ * Transforms attrs to html params string
+ */
+export function attrsToString(values: Attrs | null): string
+/**
+ * Gets value from
+ * @example
+ * getUniqAttr({ 'foo': true, 'bar': bar' }) => 'bar'
+ */
 export function getUniqAttr(obj: Attrs): Attr | null

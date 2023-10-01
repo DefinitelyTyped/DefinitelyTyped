@@ -5,8 +5,8 @@ import { Node, TagNode } from "./TagNode";
 const obj: {[key: string]: string} = {"a": "b"};
 keysReduce(obj, (e) => "b", "a" as string)
 
-function getUniqAttrTest(attrs: Attrs): string | null {
-    return keysReduce(
+function getUniqAttrTest(attrs: Attrs): Attr | null {
+    return keysReduce<Attr | null>(
         attrs,
         (res, key) => (attrs[key] === key ? attrs[key] : null),
         null,
@@ -25,6 +25,19 @@ function getNodeLengthTest(node: Node): number {
 
 const appendToNodeTest = (node: TagNode, value: string) => {
     node.content.push(value);
+};
+
+const attrsToStringTest = (values: Attrs | null): string => {
+    // To avoid some malformed attributes
+    if (values == null) {
+      return '';
+    }
+  
+    return keysReduce(
+      values,
+      (arr, key) => [...arr, attrValue(key, values[key])],
+      [''],
+    ).join(' ');
   };
 
 function getTagAttrsTest(tag: string, params: Attrs): string {
