@@ -3,3 +3,4 @@
 // Definitions by: shme-e <https://github.com/shme-e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export * from "./Token";

@@ -1,0 +1,26 @@
+export class Token {
+    constructor(type: string, value: string, line: string, row: string)
+    isEmpty(): boolean
+    isText(): boolean
+    isTag(): boolean
+    isAttrName(): boolean
+    isAttrValue(): boolean
+    isStart(): boolean
+    isEnd(): boolean
+    getName(): string
+    getValue(): string
+    getLine(): number
+    getColumn(): number
+    toString(): string
+}
+
+export const TYPE_ID = 'type';
+export const VALUE_ID = 'value';
+export const LINE_ID = 'line';
+export const COLUMN_ID = 'row';
+export const TYPE_WORD = 1;
+export const TYPE_TAG = 2;
+export const TYPE_ATTR_NAME = 3;
+export const TYPE_ATTR_VALUE = 4;
+export const TYPE_SPACE = 5;
+export const TYPE_NEW_LINE = 6;
