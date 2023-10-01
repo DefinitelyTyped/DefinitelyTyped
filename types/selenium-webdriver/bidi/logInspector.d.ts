@@ -4,9 +4,9 @@ import type { ConsoleLogEntry, JavascriptLogEntry, GenericLogEntry } from './log
 declare class LogInspector {
     private _driver: any;
     private _browsingContextIds: any;
-    public listener: Record<string, Function[]>;
-    public bidi: any;
-    public ws: { on: Function };
+    private listener: Record<string, Function[]>;
+    private bidi: any;
+    private ws: { on: Function };
 
     constructor(driver: any, browsingContextIds: any);
 
