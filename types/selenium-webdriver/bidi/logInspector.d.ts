@@ -19,6 +19,6 @@ declare class LogInspector {
     close(): Promise<void>;
 }
 
-declare const getLogInspectorInstance: (driver: any, browsingContextIds: any) => Promise<LogInspector>;
+declare function getLogInspectorInstance(driver: any, browsingContextIds: any): Promise<LogInspector>;
 
 export = getLogInspectorInstance;
