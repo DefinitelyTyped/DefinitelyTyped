@@ -18,13 +18,10 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "bidi/filterBy.d.ts",
-        "bidi/logEntries.d.ts",
-        "bidi/logInspector.d.ts",
         "index.d.ts",
-        "test/bidi/filterBy.d.ts",
-        "test/bidi/logEntries.d.ts",
-        "test/bidi/logInspector.d.ts",
+        "test/bidi/filterBy.ts",
+        "test/bidi/logEntries.ts",
+        "test/bidi/logInspector.ts",
         "test/ie.ts",
         "test/index.ts",
         "test/chrome.ts",
