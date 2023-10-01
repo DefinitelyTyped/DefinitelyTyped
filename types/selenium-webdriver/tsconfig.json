@@ -5,6 +5,7 @@
         "lib": [
             "es6"
         ],
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,

@@ -1,15 +1,37 @@
 import * as webdriver from "selenium-webdriver";
 import LogInspector from "selenium-webdriver/bidi/logInspector";
 
-function TestLogInspector() {
+const testText = 'hello!';
+
+async function TestLogInspector() {
     const driver: webdriver.WebDriver = new webdriver.Builder().build();
-    const logInspector = LogInspector(driver);
-    let lastLog: GenericLogEntry | undefined;
-    logInspector.onLog(log => {
-        lastLog = log;
+    const logInspector = await LogInspector(driver);
+    let error = '';
+    let complete = false;
+    const timeoutError = setTimeout(() => {
+        error = `Timed out waiting for log ${testText}`
+        complete = true
+    }, 1000)
+    logInspector.onLog(async ({text}) => {
+        if (text === testText) {
+            clearTimeout(timeoutError);
+            complete = true
+        }
     })
-    driver.executeScript("console.log('hello!')");
-    if (lastLog.text !== 'hello!') {
-        throw new Error(`Expected log text: ${lastLog.text} to equal 'hello!'`)
+
+    await driver.executeScript(`console.log('${testText}')`);
+    checkForLog();
+
+    async function checkForLog() {
+        if (!complete) {
+            setTimeout(checkForLog)
+        }
+
+        await logInspector.close()
+        await driver.close()
+
+        if (error) {
+            throw new Error(error)
+        }
     }
 }

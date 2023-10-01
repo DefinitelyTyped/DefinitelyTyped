@@ -23,9 +23,9 @@ import * as firefox from "./firefox";
 import * as http from "./http";
 import * as ie from "./ie";
 import { By, ByHash, RelativeBy } from "./lib/by";
-import { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
+import { Browser, Capabilities, ITimeouts } from "./lib/capabilities";
 import * as command from "./lib/command";
-import { Actions, Button, Key, Origin } from "./lib/input";
+import { Actions, Key } from "./lib/input";
 import * as logging from "./lib/logging";
 import { promise } from "./lib/promise";
 import * as until from "./lib/until";
@@ -33,6 +33,7 @@ import { ShadowRootPromise } from "./lib/webdriver";
 import * as safari from "./safari";
 
 export * from "./lib/by";
+export {default as LogInspector} from "./bidi/logInspector"
 export { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
 export { Actions, Button, Key, Origin } from "./lib/input";
 export { promise } from "./lib/promise";
