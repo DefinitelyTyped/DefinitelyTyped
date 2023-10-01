@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@bbob/plugin-helper": ["bbob__plugin-helper"]
+        }
     },
     "files": [
         "index.d.ts",
