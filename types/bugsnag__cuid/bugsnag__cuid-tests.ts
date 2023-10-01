@@ -1,4 +1,4 @@
-import cuid = require('bugsnag__cuid');
+import cuid = require('@bugsnag/cuid');
 
 const tests = () => {
     cuid();
