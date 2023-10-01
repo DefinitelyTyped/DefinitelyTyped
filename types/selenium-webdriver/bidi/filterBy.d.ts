@@ -8,4 +8,3 @@ declare class FilterBy {
 export {
     FilterBy
 };
-  
