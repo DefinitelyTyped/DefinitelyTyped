@@ -4,7 +4,7 @@ import LogInspector from "selenium-webdriver/bidi/logInspector";
 function TestLogInspector() {
     const driver: webdriver.WebDriver = new webdriver.Builder().build();
     const logInspector = LogInspector(driver);
-    let lastLog;
+    let lastLog: GenericLogEntry | undefined;
     logInspector.onLog(log => {
         lastLog = log;
     })
