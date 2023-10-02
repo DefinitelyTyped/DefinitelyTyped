@@ -2,12 +2,12 @@ export as namespace snarkjs;
 
 // Some types have been borrowed from https://github.com/erhant/circomkit.
 
-export type NumericString = `${number}`;
+export type NumericString = `${number}` | string;
 
 export type ZKArtifact = string | Uint8Array;
 
 // A signal value is a number, or an array of numbers (recursively).
-export type SignalValueType = NumericString | string | number | bigint | SignalValueType[];
+export type SignalValueType = NumericString | number | bigint | SignalValueType[];
 
 // An object with string keys and array of numerical values.
 // Each key represents a signal name as it appears in the circuit.
