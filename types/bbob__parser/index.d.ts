@@ -5,4 +5,5 @@
 
 export * from "./Token";
 export * from "./utils";
-export * from "./lexer"
+export * from "./lexer";
+export * from "./parse";
