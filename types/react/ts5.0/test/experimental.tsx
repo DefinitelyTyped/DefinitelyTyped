@@ -191,3 +191,50 @@ function elementTypeTests() {
     <RenderPromise />;
     React.createElement(RenderPromise);
 }
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
+        },
+    };
+    const user = {
+        name: "Sebbie",
+    };
+
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
+    );
+
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
+    );
+}
