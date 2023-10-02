@@ -13,6 +13,26 @@ export interface HostedFieldsFieldMaskInput {
     showLastFour?: boolean | undefined;
 }
 
+export interface HostedFieldsFieldSupportedCardBrands {
+    /**
+     * The options for supporting card brands as either valid or invalid.
+     * Only applicable for the credit card number field.
+     * An object used in {@link module:braintree-web/hosted-fields~field field objects}
+     */
+    visa?: boolean | undefined;
+    mastercard?: boolean | undefined;
+    "american-express"?: boolean | undefined;
+    "diners-club"?: boolean | undefined;
+    discover?: boolean | undefined;
+    jcb?: boolean | undefined;
+    "union-pay"?: boolean | undefined;
+    maestro?: boolean | undefined;
+    elo?: boolean | undefined;
+    mir?: boolean | undefined;
+    hiper?: boolean | undefined;
+    hipercard?: boolean | undefined;
+}
+
 /**
  * Fields used in {@link module:braintree-web/hosted-fields~fieldOptions fields options}
  */
@@ -32,6 +52,7 @@ export interface HostedFieldsField {
     minlength?: number | undefined;
     prefill?: string | undefined;
     rejectUnsupportedCards?: boolean | undefined;
+    supportedCardBrands?: HostedFieldsFieldSupportedCardBrands | undefined;
 }
 
 /**
