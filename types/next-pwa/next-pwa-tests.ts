@@ -2,6 +2,7 @@
 import nextPWA = require("next-pwa");
 import type { NextConfig } from "next";
 
+
 // $ExpectType (config: NextConfig) => NextConfig & PWAConfig
 const withPWA = nextPWA({
     dest: "public",
