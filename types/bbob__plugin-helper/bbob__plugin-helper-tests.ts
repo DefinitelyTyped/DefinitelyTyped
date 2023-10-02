@@ -1,6 +1,6 @@
 import { Attr, Attrs } from "@bbob/core";
 import { attrValue, attrsToString, escapeHTML, getUniqAttr, isStringNode, isTagNode, keysReduce } from "bbob__plugin-helper/helpers"
-import { Node, TagNode } from "./TagNode";
+import { Node, TagNode } from "@bbob/plugin-helper";
 
 const obj: {[key: string]: string} = {"a": "b"};
 keysReduce(obj, (e) => "b", "a" as string)
@@ -47,7 +47,7 @@ function getTagAttrsTest(tag: string, params: Attrs): string {
         const tagAttr = attrValue(tag, uniqAattr);
         const attrs = { ...params };
 
-        delete attrs[uniqAattr];
+        // delete attrs[uniqAattr];
 
         const attrsStr = attrsToString(attrs);
 
