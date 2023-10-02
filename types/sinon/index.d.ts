@@ -1673,6 +1673,16 @@ declare namespace Sinon {
                     | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]);
             },
         ): SinonStubbedInstance<TType>;
+
+        /**
+         * Defines a property on the given object which will be torn down when
+         * the sandbox is restored
+         */
+        define(
+            obj: object,
+            key: PropertyKey,
+            value: unknown
+        ): void;
     }
 
     type SinonPromise<T> = Promise<T> & {

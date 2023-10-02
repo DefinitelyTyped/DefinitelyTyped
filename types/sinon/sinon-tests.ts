@@ -135,6 +135,15 @@ function testSandbox() {
 
     // $ExpectType number
     objWithPrivateMembers.pubVar;
+
+    const objToDefine = {};
+
+    sb.define(objToDefine, 'someKey', 123);
+    sb.define(objToDefine, 100, 200);
+    sb.define(objToDefine, Symbol("abc"), 200);
+
+    // @ts-expect-error
+    sb.define(objToDefine, {}, 123);
 }
 
 function testFakeServer() {
