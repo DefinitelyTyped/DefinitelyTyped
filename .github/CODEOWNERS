@@ -120,6 +120,7 @@
 /types/alpinejs__focus/                                   @xt0rted @ekwoka
 /types/alpinejs__intersect/                               @ekwoka
 /types/alpinejs__mask/                                    @ekwoka
+/types/alpinejs__morph/                                   @ekwoka
 /types/alpinejs__persist/                                 @ekwoka
 /types/alt/                                               @Shearerbeard
 /types/amap-js-api/                                       @breeze9527
@@ -2335,6 +2336,7 @@
 /types/ftps/                                              @chrispanag
 /types/fullpage.js/                                       @jodiwarren
 /types/function-bind/                                     @ExE-Boss @ljharb
+/types/function.prototype.name/                           @ljharb
 /types/functional-red-black-tree/                         @CamWass
 /types/fundamental-react/                                 @Feinbube @milanpro @auryn31
 /types/furigana-markdown-it/                              @peterblazejewicz
@@ -4787,6 +4789,7 @@
 /types/mailparser/                                        @psnider @Avol-V @peterblazejewicz
 /types/mailparser-mit/                                    @atlowChemi
 /types/main-bower-files/                                  @k-kagurazaka
+/types/make-async-function/                               @ljharb
 /types/make-fetch-happen/                                 @abernix @trevor-scheer
 /types/makeup-expander/                                   @darkwebdev
 /types/makeup-floating-label/                             @darkwebdev
@@ -5659,7 +5662,7 @@
 /types/ottomated__passport-twitch/                        @ottomated
 /types/ouibounce/                                         @LiquidPL
 /types/outliers/                                          @glennreyes
-/types/ovenplayer/                                        @SangwonOh
+/types/ovenplayer/                                        @SangwonOh @dygy
 /types/overlayscrollbars/                                 @KingSora
 /types/overload-protection/                               @dornfeder
 /types/oversmash/                                         @cdias900
@@ -7449,6 +7452,7 @@
 /types/server-timing-header/                              @peterblazejewicz
 /types/serverless/                                        @hassankhan @JonathanWilbur @a-pavlenko @fredericbarthelet @bryan-hunter @thomasaribart @G-Rath @AbdullahAli @fargito @bacarybruno
 /types/serverless-jest-plugin/                            @Gaelan
+/types/serverless-step-functions/                         @zirkelc @ebisbe
 /types/serverless-tencent-scf/                            @yaozulv
 /types/service-worker-mock/                               @remcohaszing
 /types/service-worker-updater/                            @mlc
