@@ -11,7 +11,7 @@ import type { GenerateSWOptions, InjectManifestOptions, RuntimeCaching } from "w
 
 declare global {
     interface PopStateEventInit extends EventInit {
-        state?: unknown;
+        state?: any;
     }
 
     /**
@@ -22,13 +22,36 @@ declare global {
      */
     interface PopStateEvent extends Event {
         /** Returns a copy of the information that was provided to pushState() or replaceState(). */
-        readonly state: unknown;
+        readonly state: any;
     }
 
     var PopStateEvent: {
         prototype: PopStateEvent;
         new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
     };
+
+    // Forward declaration for `Location` from lib.dom so that `next` checks correctly:
+    /**
+     * The location (URL) of the object it is linked to. Changes done on it are reflected on the object it relates to. Both the Document and Window interface have such a linked Location, accessible via Document.location and Window.location respectively.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Location)
+     */
+    interface Location {
+        /**
+         * Returns the Location object's URL's origin.
+         *
+         * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Location/origin)
+         */
+        readonly origin: string;
+        /**
+         * Returns the Location object's URL's query (includes leading "?" if non-empty).
+         *
+         * Can be set, to navigate to the same URL with a changed query (ignores leading "?").
+         *
+         * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Location/search)
+         */
+        search: string;
+    }
 }
 
 /**
