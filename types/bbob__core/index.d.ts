@@ -3,5 +3,5 @@
 // Definitions by: shme-e <https://github.com/shme-e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Attrs = { [key: string]: Attr }
+export interface Attrs { [key: string]: Attr }
 export type Attr = string;
