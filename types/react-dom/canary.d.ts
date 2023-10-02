@@ -38,7 +38,7 @@ declare module "." {
         // Don't create a helper type.
         // It would have to be in module scope to be inlined in TS tooltips.
         // But then it becomes part of the public API.
-        // Once we drop support for TS versions not shipping CrossOriginSettingsAttribute from lib.dom.d.ts, we can use that instead.
+        // TODO: Upstream to microsoft/TypeScript-DOM-lib-generator -> w3c/webref since the spec has a notion of a dedicated type: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
     }
     function preconnect(href: string, options?: PreconnectOptions): void;
