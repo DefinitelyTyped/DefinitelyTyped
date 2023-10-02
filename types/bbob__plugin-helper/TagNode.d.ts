@@ -15,10 +15,10 @@ export class TagNode {
     attr(name: string, value: Attr): Attr;
     append(value: string): void
     get length(): number
-    toTagStart({openTag = OPEN_BRAKET, closeTag = CLOSE_BRAKET}): string
-    toTagEnd({openTag = OPEN_BRAKET, closeTag = CLOSE_BRAKET}): string
+    toTagStart(options?: {openTag?: string, closeTag?: string}): string
+    toTagEnd(options?: {openTag?: string, closeTag?: string}): string
     toTagNode(): TagNode
-    toString({openTag = OPEN_BRAKET, closeTag = CLOSE_BRAKET}): string
+    toString(options?: {openTag?: string, closeTag?: string}): string
 
     static create(tag: Tag, attrs: Attrs, content: Content): TagNode
     static isOf(node: Node, type: Tag): boolean
