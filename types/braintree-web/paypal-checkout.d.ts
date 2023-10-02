@@ -37,6 +37,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      */
     "client-id"?: string | undefined;
 
+    // tslint:disable:no-redundant-jsdoc
     /**
      * By default, the PayPal SDK defaults to an intent of capture. Since the default intent when
      * calling createPayment is authorize, the PayPal SDK will be loaded with intent=authorize. If you
@@ -47,7 +48,8 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * @default 'authorize'
      */
     intent?: "authorize" | "capture" | "sale" | "tokenize" | undefined;
-
+    
+    // tslint:disable:no-redundant-jsdoc
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
      *
@@ -60,11 +62,12 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      */
     vault?: boolean | undefined;
 
+    // tslint:disable:no-redundant-jsdoc
     /**
      * By default, the Braintree SDK will only load the PayPal smart buttons component. If you would
      * like to load just the messages component, pass messages. If you would like to load both, pass
      * buttons,messages
-     *
+     * 
      * @default 'buttons'
      */
     components?: "buttons" | "messages" | "buttons,messages" | undefined;
