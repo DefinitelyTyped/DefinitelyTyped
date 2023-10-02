@@ -71,8 +71,14 @@ jobs:
       - run: pnpm run build
         working-directory: DefinitelyTyped-tools
 
+      - run: pnpm run build
+        working-directory: DefinitelyTyped-tools
+
+      - run: pnpm link ../DefinitelyTyped-tools/packages/eslint-plugin
+        working-directory: DefinitelyTyped
+
       # Run tests
-      - run: node ./DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path ./DefinitelyTyped --selection all --noInstall --shardId ${{ matrix.index }} --shardCount ${{ matrix.numJobs }}
+      - run: NODE_ENV=test node ./DefinitelyTyped-tools/packages/dtslint-runner/dist/index.js --path ./DefinitelyTyped --selection all --noInstall --shardId ${{ matrix.index }} --shardCount ${{ matrix.numJobs }}
 
   compile_all:
     runs-on: ubuntu-latest
