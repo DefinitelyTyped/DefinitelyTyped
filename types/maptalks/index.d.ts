@@ -228,6 +228,10 @@ export namespace control {
         zoomLevel?: boolean | undefined;
     }
 
+    interface CompassOptions {
+        position?: string | object | undefined;
+    }
+
     interface LayerSwitcherOptions {
         position?: string | object | undefined;
         baseTitle?: string | object | undefined;
@@ -357,6 +361,17 @@ export namespace control {
 
     class Zoom extends Control {
         constructor(options: ZoomOptions);
+
+        /**
+         * method to build DOM of the control
+         * @param   map map to build on
+         * @return
+         */
+        buildOn(map: Map): HTMLElement;
+    }
+
+    class Compass extends Control {
+        constructor(options: CompassOptions);
 
         /**
          * method to build DOM of the control
