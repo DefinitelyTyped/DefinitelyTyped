@@ -636,7 +636,7 @@ export namespace Poool {
          */
         cookies_path?: string;
         /**
-         * Used to not wait Audit response before displaying the paywall. If true, you must initialize the paywall after the Audit event ìdentityAvailable` has been triggered
+         * Avoid waiting for Audit to load before displaying the paywall. If set to true, you must manually initialize the paywall after Audit's identityAvailable event has been triggered.
          *
          * Default: `false`
          *
