@@ -1,5 +1,6 @@
-import { trimChar, unquote } from "./utils";
+import { Token } from "@bbob/parser";
 
-const val = "";
-const QUOTEMARK = "";
-unquote(trimChar(val, QUOTEMARK))
+const token = new Token();
+
+// $ExpectType boolean
+token.isEmpty();

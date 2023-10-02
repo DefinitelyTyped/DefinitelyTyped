@@ -1,6 +1,6 @@
 import { Node } from "@bbob/plugin-helper"
 
-export type Options = {
+export interface Options {
     onSkip: boolean
 }
 
