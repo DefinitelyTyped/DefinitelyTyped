@@ -1,5 +1,5 @@
 export class Token {
-    constructor(type: TOKEN_TYPE, value: string, line: number, row: number)
+    constructor(type?: TOKEN_TYPE, value?: string, line?: number, row?: number)
     isEmpty(): boolean
     isText(): boolean
     isTag(): boolean
