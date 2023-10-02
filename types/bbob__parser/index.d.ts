@@ -4,3 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from "./Token";
+export * from "./utils";
