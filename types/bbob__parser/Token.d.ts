@@ -1,5 +1,5 @@
 export class Token {
-    constructor(type: string, value: string, line: string, row: string)
+    constructor(type: TOKEN_TYPE, value: string, line: number, row: number)
     isEmpty(): boolean
     isText(): boolean
     isTag(): boolean
@@ -24,3 +24,4 @@ export const TYPE_ATTR_NAME = 3;
 export const TYPE_ATTR_VALUE = 4;
 export const TYPE_SPACE = 5;
 export const TYPE_NEW_LINE = 6;
+export type TOKEN_TYPE = typeof TYPE_WORD | typeof TYPE_TAG | typeof TYPE_ATTR_NAME | typeof TYPE_ATTR_VALUE | typeof TYPE_SPACE | typeof TYPE_NEW_LINE
