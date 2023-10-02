@@ -54,7 +54,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
 // fetch
 {
-    // This tsconfig.json references lib.dom.d.t.s. The fetch
+    // This tsconfig.json references lib.dom.d.ts. The fetch
     // types included in globals.d.ts are designed to be empty
     // merges when lib.dom.d.ts is included. This test ensures
     // the merge works, but the types observed are from lib.dom.d.ts.
@@ -74,4 +74,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const headers = new Headers();
     headers.append("Accept", "application/json");
     fetch("https://example.com", { body: fd });
+
+    fetch(new URL("https://example.com"), {
+        // @ts-expect-error this should not be available when lib.dom.d.ts is present
+        dispatcher: undefined,
+    });
 }

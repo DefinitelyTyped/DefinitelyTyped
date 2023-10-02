@@ -58,4 +58,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const headers = new Headers();
     headers.append("Accept", "application/json");
     fetch("https://example.com", { body: fd });
+    fetch(new URL("https://example.com"), {
+        dispatcher: undefined,
+    });
 }

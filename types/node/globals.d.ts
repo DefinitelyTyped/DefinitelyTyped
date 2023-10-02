@@ -321,47 +321,62 @@ declare namespace NodeJS {
         readonly [key: string]: T | undefined;
     }
 
-    namespace undici {
-        type Request = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Request;
-        type Response = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Response;
-        type FormData = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').FormData;
-        type Headers = typeof globalThis extends { onmessage: any } ? {} : import('undici-types').Headers;
+    namespace fetch {
+        export {};
+        export type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
+        export type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
+        export type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
+        export type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+        export type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
+            : import("undici-types").RequestInit;
+        export import Request = globalThis.Request;
+        export import Response = globalThis.Response;
+        export import Headers = globalThis.Headers;
+        export import FormData = globalThis.FormData;
+        export type RequestInit = globalThis.RequestInit;
+        export type RequestInfo = import("undici-types").RequestInfo;
+        export type HeadersInit = import("undici-types").HeadersInit;
+        export type BodyInit = import("undici-types").BodyInit;
+        export type RequestRedirect = import("undici-types").RequestRedirect;
+        export type RequestCredentials = import("undici-types").RequestCredentials;
+        export type RequestMode = import("undici-types").RequestMode;
+        export type ReferrerPolicy = import("undici-types").ReferrerPolicy;
+        export type Dispatcher = import("undici-types").Dispatcher;
+        export type RequestDuplex = import("undici-types").RequestDuplex;
     }
 }
 
+interface RequestInit extends NodeJS.fetch._RequestInit {}
+
 declare function fetch(
-    input: import('undici-types').RequestInfo,
-    init?: import('undici-types').RequestInit,
+    input: NodeJS.fetch.RequestInfo,
+    init?: RequestInit,
 ): Promise<Response>;
 
-interface Request extends NodeJS.undici.Request {}
+interface Request extends NodeJS.fetch._Request {}
 declare var Request: typeof globalThis extends {
     onmessage: any;
     Request: infer T;
-}
-    ? T
-    : typeof import('undici-types').Request;
+} ? T
+    : typeof import("undici-types").Request;
 
-interface Response extends NodeJS.undici.Response {}
+interface Response extends NodeJS.fetch._Response {}
 declare var Response: typeof globalThis extends {
     onmessage: any;
     Response: infer T;
-}
-    ? T
-    : typeof import('undici-types').Response;
+} ? T
+    : typeof import("undici-types").Response;
 
+interface FormData extends NodeJS.fetch._FormData {}
 declare var FormData: typeof globalThis extends {
     onmessage: any;
     FormData: infer T;
-}
-    ? T
-    : typeof import('undici-types').FormData;
-interface FormData extends NodeJS.undici.FormData {}
+} ? T
+    : typeof import("undici-types").FormData;
 
+interface Headers extends NodeJS.fetch._Headers {}
 declare var Headers: typeof globalThis extends {
     onmessage: any;
     Headers: infer T;
-}
-    ? T
-    : typeof import('undici-types').Headers;
-interface Headers extends NodeJS.undici.Headers {}
+} ? T
+    : typeof import("undici-types").Headers;
