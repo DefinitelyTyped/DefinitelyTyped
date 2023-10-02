@@ -3277,6 +3277,10 @@
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
         },
+        "matrix-js-sdk": {
+            "libraryName": "matrix-js-sdk",
+            "asOfVersion": "11.1.0"
+        },
         "matteodisabatino__gc_info": {
             "libraryName": "@matteodisabatino/gc_info",
             "asOfVersion": "1.1.0"
