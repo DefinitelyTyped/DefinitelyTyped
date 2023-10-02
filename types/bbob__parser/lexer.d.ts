@@ -11,5 +11,6 @@ export function createLexer(buffer: string, options?: {
     onToken?(token: Token): void,
     openTag?: string,
     closeTag?: string,
-    enableEscapeTag?: boolean
+    enableEscapeTags?: boolean,
+    contextFreeTags?: string[]
 }): Lexer

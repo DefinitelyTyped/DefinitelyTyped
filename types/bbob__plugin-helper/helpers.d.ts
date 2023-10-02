@@ -1,4 +1,4 @@
-import { Attr, Attrs } from "@bbob/core";
+import { Attr, Attrs } from "@bbob/plugin-helper";
 import { Node, TagNode } from "./TagNode";
 
 export function isTagNode(node: Node): node is TagNode

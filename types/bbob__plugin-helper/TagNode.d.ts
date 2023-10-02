@@ -1,10 +1,11 @@
-import { Attr, Attrs } from "@bbob/core"
 import { CLOSE_BRAKET, OPEN_BRAKET } from "./char"
 
 export function getTagAttrs(tag: string, params: Attrs): string
 
 export type Tag = string
 export type Content = string[]
+export interface Attrs { [key: string]: Attr }
+export type Attr = string | number;
 
 export class TagNode {
     tag: Tag

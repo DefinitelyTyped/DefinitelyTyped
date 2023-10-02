@@ -1,4 +1,4 @@
-import { Attr, Attrs } from "@bbob/core";
+import { Attr, Attrs } from "@bbob/plugin-helper";
 import { attrValue, attrsToString, escapeHTML, getUniqAttr, isStringNode, isTagNode, keysReduce } from "bbob__plugin-helper/helpers"
 import { Node, TagNode } from "@bbob/plugin-helper";
 
