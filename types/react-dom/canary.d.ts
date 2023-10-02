@@ -54,6 +54,7 @@ declare module "." {
         imageSrcSet?: string | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
+        referrerPolicy?: ReferrerPolicy | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
 

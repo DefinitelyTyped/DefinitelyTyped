@@ -21,6 +21,12 @@ function preloadTest() {
             as: "image",
             imageSrcSet: "fooset",
             imageSizes: "foosizes",
+            referrerPolicy: "no-referrer",
+        });
+        ReactDOM.preload("foo", {
+            as: "image",
+            // @ts-expect-error Not specified in https://w3c.github.io/webappsec-referrer-policy/#referrer-policy
+            referrerPolicy: "unknown-policy",
         });
         ReactDOM.preload("foo", {
             as: "script",
