@@ -36,5 +36,37 @@ function preloadTest() {
             as: "script",
             nonce: "0xeac1",
         });
+
+        // @ts-expect-error
+        ReactDOM.preconnect();
+        ReactDOM.preconnect("foo");
+        ReactDOM.preconnect("bar", { crossOrigin: "anonymous" });
+
+        // @ts-expect-error
+        ReactDOM.prefetchDNS();
+        ReactDOM.prefetchDNS("foo");
+        ReactDOM.prefetchDNS(
+            "bar", // @ts-expect-error prefetchDNS does not accept any options at the moment
+            {},
+        );
+
+        // @ts-expect-error
+        ReactDOM.preloadModule();
+        ReactDOM.preloadModule("browserdefault");
+        ReactDOM.preloadModule("browserdefault", { as: "script", crossOrigin: "use-credentials", integrity: "0xeac1" });
+        ReactDOM.preloadModule("worker", { as: "worker" });
+        ReactDOM.preloadModule("worker", {
+            // @ts-expect-error Unknown request destination
+            as: "serviceworker",
+        });
+
+        // @ts-expect-error
+        ReactDOM.preinitModule();
+        ReactDOM.preinitModule("browserdefault");
+        ReactDOM.preinitModule("browserdefault", { as: "script", crossOrigin: "use-credentials", integrity: "0xeac1" });
+        ReactDOM.preinitModule("data", {
+            // @ts-expect-error Not supported (yet)
+            as: "json",
+        });
     }
 }

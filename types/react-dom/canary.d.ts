@@ -32,21 +32,56 @@ import ReactDOM = require(".");
 export {};
 
 declare module "." {
+    function prefetchDNS(href: string): void;
+
+    interface PreconnectOptions {
+        // Don't create a helper type.
+        // It would have to be in module scope to be inlined in TS tooltips.
+        // But then it becomes part of the public API.
+        // Once we drop support for TS versions not shipping CrossOriginSettingsAttribute from lib.dom.d.ts, we can use that instead.
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    }
+    function preconnect(href: string, options?: PreconnectOptions): void;
+
     type PreloadAs = "font" | "script" | "style";
     interface PreloadOptions {
         as: PreloadAs;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         integrity?: string | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
 
+    // https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload
+    type PreloadModuleAs = RequestDestination;
+    interface PreloadModuleOptions {
+        /**
+         * @default "script"
+         */
+        as: PreloadModuleAs;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        integrity?: string | undefined;
+    }
+    function preloadModule(href: string, options?: PreloadModuleOptions): void;
+
     type PreinitAs = "script" | "style";
     interface PreinitOptions {
         as: PreinitAs;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         precedence?: string | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
     }
     function preinit(href: string, options?: PreinitOptions): void;
+
+    // Will be expanded to include all of https://github.com/tc39/proposal-import-attributes
+    type PreinitModuleAs = "script";
+    interface PreinitModuleOptions {
+        /**
+         * @default "script"
+         */
+        as?: PreinitModuleAs;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        integrity?: string | undefined;
+    }
+    function preinitModule(href: string, options?: PreinitModuleOptions): void;
 }
