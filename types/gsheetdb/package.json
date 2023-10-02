@@ -6,7 +6,7 @@
         "https://github.com/zdettwiler/gsheetdb"
     ],
     "dependencies": {
-        "@types/node": "^18.0.25",
+        "@types/node": "*",
         "google-auth-library": "^7.14.1"
     },
     "devDependencies": {
