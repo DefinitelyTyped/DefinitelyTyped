@@ -74,7 +74,7 @@ jobs:
       - run: pnpm run build
         working-directory: DefinitelyTyped-tools
 
-      - run: pnpm link ../DefinitelyTyped-tools/packages/eslint-plugin
+      - run: pnpm add -w -D ../DefinitelyTyped-tools/packages/*
         working-directory: DefinitelyTyped
 
       # Run tests
