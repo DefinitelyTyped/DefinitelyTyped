@@ -10,6 +10,28 @@
 import type { NextConfig } from "next";
 import type { GenerateSWOptions, InjectManifestOptions, RuntimeCaching } from "workbox-build";
 
+declare global {
+    interface PopStateEventInit extends EventInit {
+        state?: any;
+    }
+
+    /**
+     * PopStateEvent is an event handler for the popstate event on the window.
+     *
+     * Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
+     * @see [DOM and WebWorker Should not be mutually exclusive](https://github.com/microsoft/TypeScript/issues/20595)
+     */
+    interface PopStateEvent extends Event {
+        /** Returns a copy of the information that was provided to pushState() or replaceState(). */
+        readonly state: any;
+    }
+
+    var PopStateEvent: {
+        prototype: PopStateEvent;
+        new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
+    };
+}
+
 /**
  * The declaration type for the `withPWA` function.
  */
