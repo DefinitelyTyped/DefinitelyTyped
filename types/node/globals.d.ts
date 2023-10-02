@@ -322,27 +322,26 @@ declare namespace NodeJS {
     }
 
     namespace fetch {
-        export {};
-        export type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
-        export type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
-        export type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
-        export type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
-        export type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
+        type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
+        type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
+        type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
+        type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+        type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
             : import("undici-types").RequestInit;
-        export type Request = globalThis.Request;
-        export type Response = globalThis.Response;
-        export type Headers = globalThis.Headers;
-        export type FormData = globalThis.FormData;
-        export type RequestInit = globalThis.RequestInit;
-        export type RequestInfo = import("undici-types").RequestInfo;
-        export type HeadersInit = import("undici-types").HeadersInit;
-        export type BodyInit = import("undici-types").BodyInit;
-        export type RequestRedirect = import("undici-types").RequestRedirect;
-        export type RequestCredentials = import("undici-types").RequestCredentials;
-        export type RequestMode = import("undici-types").RequestMode;
-        export type ReferrerPolicy = import("undici-types").ReferrerPolicy;
-        export type Dispatcher = import("undici-types").Dispatcher;
-        export type RequestDuplex = import("undici-types").RequestDuplex;
+        type Request = globalThis.Request;
+        type Response = globalThis.Response;
+        type Headers = globalThis.Headers;
+        type FormData = globalThis.FormData;
+        type RequestInit = globalThis.RequestInit;
+        type RequestInfo = import("undici-types").RequestInfo;
+        type HeadersInit = import("undici-types").HeadersInit;
+        type BodyInit = import("undici-types").BodyInit;
+        type RequestRedirect = import("undici-types").RequestRedirect;
+        type RequestCredentials = import("undici-types").RequestCredentials;
+        type RequestMode = import("undici-types").RequestMode;
+        type ReferrerPolicy = import("undici-types").ReferrerPolicy;
+        type Dispatcher = import("undici-types").Dispatcher;
+        type RequestDuplex = import("undici-types").RequestDuplex;
     }
 }
 
