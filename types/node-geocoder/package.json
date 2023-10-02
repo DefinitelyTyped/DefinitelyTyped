@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "node-fetch": "^3.3.0"
+    "@types/node-fetch": "^2"
   }
 }
