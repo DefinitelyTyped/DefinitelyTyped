@@ -79,4 +79,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         // @ts-expect-error this should not be available when lib.dom.d.ts is present
         dispatcher: undefined,
     });
+
+    // @ts-expect-error
+    NodeJS.fetch;
 }

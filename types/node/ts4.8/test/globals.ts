@@ -61,4 +61,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     fetch(new URL("https://example.com"), {
         dispatcher: undefined,
     });
+
+    // @ts-expect-error
+    NodeJS.fetch;
 }

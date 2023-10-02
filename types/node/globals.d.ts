@@ -329,10 +329,10 @@ declare namespace NodeJS {
         export type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
         export type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
             : import("undici-types").RequestInit;
-        export import Request = globalThis.Request;
-        export import Response = globalThis.Response;
-        export import Headers = globalThis.Headers;
-        export import FormData = globalThis.FormData;
+        export type Request = globalThis.Request;
+        export type Response = globalThis.Response;
+        export type Headers = globalThis.Headers;
+        export type FormData = globalThis.FormData;
         export type RequestInit = globalThis.RequestInit;
         export type RequestInfo = import("undici-types").RequestInfo;
         export type HeadersInit = import("undici-types").HeadersInit;
