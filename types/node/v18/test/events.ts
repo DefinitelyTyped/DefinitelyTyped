@@ -143,3 +143,20 @@ async function test() {
         disposable?.[Symbol.dispose]();
     }
 }
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: 'test'
+    });
+
+    emitter.asyncId // $ExpectType number
+    emitter.asyncResource // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId // $ExpectType number
+    emitter.emitDestroy();
+}

@@ -116,6 +116,9 @@ async function test() {
     let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
         events.EventEmitter.captureRejectionSymbol;
     captureRejectionSymbol2 = events.captureRejectionSymbol;
+
+    const emitter = new events.EventEmitter();
+    emitter[events.captureRejectionSymbol] = (err: Error, name: string, ...args: any[]) => {}
 }
 
 {
@@ -142,4 +145,21 @@ async function test() {
     } finally {
         disposable?.[Symbol.dispose]();
     }
+}
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: 'test'
+    });
+
+    emitter.asyncId // $ExpectType number
+    emitter.asyncResource // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId // $ExpectType number
+    emitter.emitDestroy();
 }
