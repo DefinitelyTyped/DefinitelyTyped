@@ -35,6 +35,16 @@ client.post("/login").end((err: any, res: supertest.Response) => {
     });
 });
 
+// allow passing http2 as option to supertest
+supertest(app, {
+    http2: true,
+});
+
+// allow passing http2 as option to TestAgent
+supertest.agent(app, {
+    http2: true,
+});
+
 // allow passing trusted CA as option to TestAgent
 supertest.agent(app, {
     ca: "test ca",
