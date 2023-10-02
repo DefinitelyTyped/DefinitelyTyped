@@ -109,10 +109,12 @@ export interface InterceptorObject<T> {
     initialize: (data: Record<string, unknown>, path: string, key: string) => T;
 }
 
-type InferInterceptor<T> = T extends InterceptorObject<infer U> ? U
-    : T extends Record<string | number | symbol, unknown> ? {
-            [K in keyof T]: InferInterceptor<T[K]>;
-        }
+type InferInterceptor<T> = T extends InterceptorObject<infer U>
+    ? U
+    : T extends Record<string | number | symbol, unknown>
+    ? {
+          [K in keyof T]: InferInterceptor<T[K]>;
+      }
     : T;
 
 export type InferInterceptors<T> = {
@@ -229,7 +231,7 @@ export interface Alpine {
      *
      * @param obj an object to be wrapped
      * @returns a reactive proxy
-     **/
+     */
     readonly reactive: <T>(obj: T) => T;
     /**
      * Stops an effect from re-evaluating on dependency change
@@ -323,13 +325,13 @@ export interface Alpine {
         el: ElementWithXAttributes,
         setFunction:
             | ((
-                el: ElementWithXAttributes,
-                value:
-                    | string
-                    | boolean
-                    | Record<string, boolean>
-                    | (() => string | boolean | Record<string, boolean>),
-            ) => () => void)
+                  el: ElementWithXAttributes,
+                  value:
+                      | string
+                      | boolean
+                      | Record<string, boolean>
+                      | (() => string | boolean | Record<string, boolean>),
+              ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         {
             during,
