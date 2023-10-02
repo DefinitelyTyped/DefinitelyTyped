@@ -2,8 +2,12 @@
 
 function preloadTest() {
     function Component() {
-        ReactDOM.preload("foo", { as: "style", integrity: "sad" });
-        ReactDOM.preload("bar", { as: "font" });
+        ReactDOM.preload("foo", { as: "style", fetchPriority: "high", integrity: "sad" });
+        ReactDOM.preload("bar", {
+            as: "font",
+            // @ts-expect-error Unknown fetch priority
+            fetchPriority: "unknown",
+        });
         ReactDOM.preload("baz", { as: "script", crossOrigin: "use-credentials" });
         ReactDOM.preload("baz", {
             // @ts-expect-error
@@ -11,13 +15,24 @@ function preloadTest() {
         });
         ReactDOM.preload("bar", {
             as: "font",
-            // @ts-expect-error -- Only allowed in preinit
             nonce: "0xeac1",
+        });
+        ReactDOM.preload("foo", {
+            as: "image",
+            imageSrcSet: "fooset",
+            imageSizes: "foosizes",
+        });
+        ReactDOM.preload("foo", {
+            as: "script",
+            // Undesired. Should not typecheck.
+            imageSrcSet: "fooset",
+            imageSizes: "foosizes",
         });
 
         ReactDOM.preinit("foo", {
             as: "style",
             crossOrigin: "anonymous",
+            fetchPriority: "high",
             precedence: "high",
             integrity: "sad",
         });
@@ -27,6 +42,8 @@ function preloadTest() {
         });
         ReactDOM.preinit("baz", {
             as: "script",
+            // @ts-expect-error Unknown fetch priority
+            fetchPriority: "unknown",
         });
         ReactDOM.preinit("baz", {
             // @ts-expect-error

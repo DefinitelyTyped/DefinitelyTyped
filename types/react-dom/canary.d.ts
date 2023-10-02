@@ -38,16 +38,22 @@ declare module "." {
         // Don't create a helper type.
         // It would have to be in module scope to be inlined in TS tooltips.
         // But then it becomes part of the public API.
-        // TODO: Upstream to microsoft/TypeScript-DOM-lib-generator -> w3c/webref since the spec has a notion of a dedicated type: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute
+        // TODO: Upstream to microsoft/TypeScript-DOM-lib-generator -> w3c/webref
+        // since the spec has a notion of a dedicated type: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
     }
     function preconnect(href: string, options?: PreconnectOptions): void;
 
-    type PreloadAs = "font" | "script" | "style";
+    type PreloadAs = "font" | "image" | "script" | "style";
     interface PreloadOptions {
         as: PreloadAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
+        // TODO: These should only be allowed with `as: 'image'` but it's not trivial to write tests against the full TS support matrix.
+        imageSizes?: string | undefined;
+        imageSrcSet?: string | undefined;
         integrity?: string | undefined;
+        nonce?: string | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
 
@@ -67,6 +73,7 @@ declare module "." {
     interface PreinitOptions {
         as: PreinitAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         precedence?: string | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
