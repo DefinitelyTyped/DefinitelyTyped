@@ -16,5 +16,6 @@
             "name": "Reece Berens",
             "githubUsername": "reece-berens"
         }
-    ]
+    ],
+    "minimumTypeScriptVersion": "4.9"
 }
