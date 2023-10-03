@@ -3153,6 +3153,10 @@
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
         },
+        "marked": {
+            "libraryName": "marked",
+            "asOfVersion": "6.0.0"
+        },
         "match-sorter": {
             "libraryName": "match-sorter",
             "asOfVersion": "6.0.0"
