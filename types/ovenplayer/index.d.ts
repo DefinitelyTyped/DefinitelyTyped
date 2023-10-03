@@ -6,7 +6,7 @@
 interface OvenPlayer {
     debug(debug: boolean): boolean;
     generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-    create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
+    create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
     getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
     getPlayerByIndex(index: number): OvenPlayerInstance | null;
     getPlayerList(): OvenPlayerInstance[];
@@ -256,9 +256,14 @@ interface OvenPlayerHandler {
      * Player is destroyed.
      */
     (evnetName: 'destroy', callback: (eventData: OvenPlayerEvents['destroy']) => void): void;
+    /**
+     * Error occurred.
+     * @internal
+     */
+    (evnetName: 'error', callback: (eventData: OvenPlayerEvents['error']) => void): void;
     }
 
-    interface OvenPlayerEvents {
+interface OvenPlayerEvents {
     ready: undefined;
     metaChanged: {
         /** Current media's duration (In seconds) */
@@ -350,7 +355,13 @@ interface OvenPlayerHandler {
     dashPrepared: object;
     dashDestroyed: undefined;
     destroy: undefined;
+    error: {
+        code: number;
+        error?: Error | string;
+        message: string;
+        reason: string;
     }
+}
 
 interface OvenPlayerInstance {
     getVersion(): string;
