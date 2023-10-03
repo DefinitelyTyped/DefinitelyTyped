@@ -1,7 +1,7 @@
 import * as React from "react";
 import CSSTransitionGroup = require("react-addons-css-transition-group");
 
-declare const ComponentClass: React.ClassicComponentClass<{}>;
+declare const ComponentClass: React.ClassicComponentClass;
 
 React.createFactory(CSSTransitionGroup)({
     component: ComponentClass,

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import * as self from "@feathersjs/authentication-client";
 
 declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => void) & typeof self;

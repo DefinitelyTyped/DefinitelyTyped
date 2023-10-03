@@ -16,5 +16,6 @@
             "name": "Nicolai Kasper",
             "githubUsername": "paull39"
         }
-    ]
+    ],
+    "minimumTypeScriptVersion": "4.9"
 }

@@ -2920,6 +2920,7 @@ declare class Tabulator {
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class Module {
     static moduleName: string;
     constructor(table: Tabulator);
