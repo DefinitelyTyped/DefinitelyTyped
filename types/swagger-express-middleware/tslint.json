@@ -5,7 +5,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "no-empty-interface": false,
-        "no-single-declare-module": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }

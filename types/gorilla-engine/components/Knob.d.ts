@@ -7,17 +7,11 @@ declare namespace GorillaEngine.UI {
         stepSize: number;
         inverted: boolean;
         scrollWheelEnabled: boolean;
-        thumbImage: string;
         image: string;
         snapsToMousePosition: boolean;
         minRotation: number;
         maxRotation: number;
-        sliderBounds: {
-            x: number;
-            y: number;
-            width: number;
-            height: number;
-        }
+        direction: 'horizontal' | 'vertical';
     }
 
     interface Knob extends KnobProps {}

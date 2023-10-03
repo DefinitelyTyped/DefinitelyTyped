@@ -21,6 +21,7 @@ import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
+import { Blob } from "node:buffer";
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -463,6 +464,25 @@ async function streamPipelineAsyncPromiseAbortTransform() {
     });
 }
 
+async function streamPipelineAsyncPromiseOptions() {
+    const { signal } = new AbortController();
+
+    // Empty options
+    pipelinePromise(process.stdin, process.stdout, {});
+
+    // options with signal property
+    pipelinePromise(process.stdin, process.stdout, { signal });
+
+    // options with end property
+    pipelinePromise(process.stdin, process.stdout, { end: false });
+
+    // options with both properties
+    pipelinePromise(process.stdin, process.stdout, { signal, end: false });
+
+    // options with undefined properties
+    pipelinePromise(process.stdin, process.stdout, { signal: undefined, end: undefined });
+}
+
 async function testConsumers() {
     const r = createReadStream("file.txt");
 
@@ -496,6 +516,9 @@ function stream_readable_pipe_test() {
     r.close();
     z.close();
     rs.close();
+
+    rs.destroy();
+    rs[Symbol.asyncDispose]();
 }
 
 function stream_duplex_allowHalfOpen_test() {
@@ -575,6 +598,54 @@ addAbortSignal(new AbortSignal(), new Readable());
     // When the param includes unsupported WritableStream
     // @ts-expect-error
     Writable.fromWeb(web, { write: true });
+}
+
+{
+    const duplex = new Duplex();
+    // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
+    Duplex.toWeb(duplex);
+}
+
+{
+    const readable = new ReadableStream();
+    const writable = new WritableStream();
+
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable });
+
+    // Handles subset of DuplexOptions param
+    // $ExpectType Duplex
+    Duplex.fromWeb({ readable, writable }, { objectMode: true });
+
+    // When the param includes unsupported DuplexOptions
+    // @ts-expect-error
+    Duplex.fromWeb({ readable, writable }, { emitClose: true });
+
+    // $ExpectType Duplex
+    Duplex.from(readable);
+
+    // $ExpectType Duplex
+    Duplex.from(writable);
+}
+
+function testReadableReduce() {
+    const readable = Readable.from([]);
+    // $ExpectType Promise<number>
+    readable.reduce((prev, data) => prev * data);
+    // $ExpectType Promise<number>
+    readable.reduce((prev, data) => prev * data, 1);
+    // @ts-expect-error when specifying an initial value, its type must be consistent with the reducer's return type
+    readable.reduce((prev, data) => prev * data, "1");
+    // @ts-expect-error when specifying an initial value, its type must be consistent with the reducer's first argument
+    readable.reduce((prev: string, data) => +prev * data, 1);
+}
+
+function testReadableFind() {
+    const readable = Readable.from([]);
+    // $ExpectType Promise<any>
+    readable.find(Boolean);
+    // $ExpectType Promise<any[] | undefined>
+    readable.find(Array.isArray);
 }
 
 async function testReadableStream() {
@@ -664,4 +735,8 @@ async function testTransferringStreamWithPostMessage() {
         // $ExpectType Error
         err;
     });
+}
+
+{
+    new Blob(['1', '2']).stream().getReader({ mode: 'byob' })
 }

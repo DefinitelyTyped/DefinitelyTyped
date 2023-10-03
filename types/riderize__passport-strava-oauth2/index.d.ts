@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* eslint-disable @definitelytyped/no-declare-current-package */
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@riderize/passport-strava-oauth2" {
     import { Request } from "express";
 

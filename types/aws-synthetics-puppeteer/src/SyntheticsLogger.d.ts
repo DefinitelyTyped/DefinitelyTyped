@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
 /// <reference types="node" />
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "SyntheticsLogger" {
     const _exports: SyntheticsLogger;
     export = _exports;

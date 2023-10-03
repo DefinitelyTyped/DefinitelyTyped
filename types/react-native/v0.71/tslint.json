@@ -7,7 +7,6 @@
         "jsdoc-format": false,
         "no-empty-interface": false,
         "no-misused-new": false,
-        "no-single-declare-module": false,
         "use-default-type-parameter": false,
         "interface-name": false
     }

@@ -6,7 +6,6 @@
         "interface-over-type-literal": false,
         "member-access": false,
         "no-empty-interface": false,
-        "no-single-declare-module": false,
         "npm-naming": false,
         "unified-signatures": false
     }

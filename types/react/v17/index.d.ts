@@ -141,7 +141,7 @@ declare namespace React {
     > {
         type: T;
         props: P;
-        key: Key | null;
+        key: string | null;
     }
 
     interface ReactComponentElement<
@@ -185,7 +185,6 @@ declare namespace React {
     }
 
     interface ReactPortal extends ReactElement {
-        key: Key | null;
         children: ReactNode;
     }
 

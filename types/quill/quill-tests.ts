@@ -1,6 +1,6 @@
 import { Blot } from "parchment/src/blot/abstract/blot";
 import { Quill, RangeStatic, StringMap } from "quill";
-import Delta = require("quill-delta");
+import Delta from "quill-delta";
 
 function test_quill() {
     const quillEditor = new Quill("#editor", {

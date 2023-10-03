@@ -5,6 +5,7 @@
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/no-single-element-tuple-type": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off"
     }
 }

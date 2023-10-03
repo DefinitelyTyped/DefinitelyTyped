@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import EventEmitter = require("events");
 
 export interface Params {
     progress: number;

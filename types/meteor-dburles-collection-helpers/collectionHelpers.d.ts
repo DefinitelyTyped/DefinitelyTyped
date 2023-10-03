@@ -1,4 +1,4 @@
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/dburles:collection-helpers" {
     export {};
     type PropertyNamesMatching<T, TPred> = {
