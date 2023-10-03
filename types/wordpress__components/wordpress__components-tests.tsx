@@ -581,8 +581,7 @@ const kbshortcuts = {
             actions: [{ label: "Action One", url: "https://wordpress.org" }],
         },
     ]}
->
-</C.NoticeList>;
+/>;
 
 //
 // panel
