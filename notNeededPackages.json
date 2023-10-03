@@ -2022,7 +2022,7 @@
             "asOfVersion": "2.3.0"
         },
         "google-cloud__tasks": {
-            "libraryName": "google-cloud__tasks",
+            "libraryName": "@google-cloud/tasks",
             "asOfVersion": "1.7.0"
         },
         "google-cloud__text-to-speech": {
