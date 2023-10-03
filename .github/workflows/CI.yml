@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        index: [1, 2, 3, 4]
-        numJobs: [4]
+        index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        numJobs: [20]
 
     steps:
       - uses: actions/checkout@v3
@@ -80,54 +80,54 @@ jobs:
       - run: NODE_ENV=test pnpm run test-all --noInstall --shardId ${{ matrix.index }} --shardCount ${{ matrix.numJobs }}
         working-directory: DefinitelyTyped
 
-  compile_all:
-    runs-on: ubuntu-latest
+  # compile_all:
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-        numJobs: [20]
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+  #       numJobs: [20]
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16'
 
-      # forbid symlinks
-      - name: 'Pre-run validation'
-        run: |
-          symlinks="$(find . -type l)"
-          if [[ -n "$symlinks" ]]; then
-            printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
-          fi
+  #     # forbid symlinks
+  #     - name: 'Pre-run validation'
+  #       run: |
+  #         symlinks="$(find . -type l)"
+  #         if [[ -n "$symlinks" ]]; then
+  #           printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
+  #         fi
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: latest
-          run_install: false
+  #     - uses: pnpm/action-setup@v2
+  #       name: Install pnpm
+  #       id: pnpm-install
+  #       with:
+  #         version: latest
+  #         run_install: false
 
-      - name: Get pnpm cache info
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
-          echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+  #     - name: Get pnpm cache info
+  #       id: pnpm-cache
+  #       shell: bash
+  #       run: |
+  #         echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
+  #         echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.pnpm-cache.outputs.store }}
-          key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}
+  #     - uses: actions/cache@v3
+  #       name: Setup pnpm cache
+  #       with:
+  #         path: ${{ steps.pnpm-cache.outputs.store }}
+  #         key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}
 
-      - run: pnpm install
-      - run: pnpm ls
+  #     - run: pnpm install
+  #     - run: pnpm ls
 
-      - run: |
-          shopt -s globstar
-          for i in types/**/tsconfig.json; do echo $i; done | grep -v node_modules | sort > all.txt
-          split -n l/${{ matrix.index }}/${{ matrix.numJobs }} all.txt \
-            | xargs -n1 node ./scripts/compile-one.js
+  #     - run: |
+  #         shopt -s globstar
+  #         for i in types/**/tsconfig.json; do echo $i; done | grep -v node_modules | sort > all.txt
+  #         split -n l/${{ matrix.index }}/${{ matrix.numJobs }} all.txt \
+  #           | xargs -n1 node ./scripts/compile-one.js
