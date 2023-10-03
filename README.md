@@ -127,7 +127,11 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it, install [node](https://nodejs.org/), and run `pnpm install`.
+First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it,
+install [node](https://nodejs.org/), and run `pnpm install`. Note that `pnpm install` will install the _entire_
+repository, including packages you may not be editing. If you'd like to install only a subset,
+you can run `pnpm install -w --filter "...@types/foo..."` to install `@types/foo` and all of
+its related dependencies and dependents.
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life-cycle of a pull request to DT:
 
