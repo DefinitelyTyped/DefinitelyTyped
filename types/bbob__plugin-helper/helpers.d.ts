@@ -1,11 +1,10 @@
-import { Attr, Attrs } from "@bbob/plugin-helper";
-import { Node, TagNode } from "./TagNode";
+import { Node, TagNode, Attr, Attrs } from "./TagNode";
 
 export function isTagNode(node: Node): node is TagNode
 export function isStringNode(node: Node): node is string
 export function isEOL(el: string): boolean
 export function keysReduce<V>(obj: {[key: string]: any}, reduce: (previousValue: V, currentValue: string, currentIndex: number, array: string[]) => V, def: V): V
-export function getNodeLength(node: Node): boolean;
+export function getNodeLength(node: Node): number;
 /**
  * Appends value to Tag Node
  */

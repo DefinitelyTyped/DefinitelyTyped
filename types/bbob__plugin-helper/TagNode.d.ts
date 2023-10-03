@@ -5,7 +5,7 @@ export function getTagAttrs(tag: string, params: Attrs): string
 export type Tag = string
 export type Content = string[]
 export interface Attrs { [key: string]: Attr }
-export type Attr = string | number;
+export type Attr = string | number | boolean;
 
 export class TagNode {
     tag: Tag

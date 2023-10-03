@@ -1,66 +1,76 @@
-import { Attr, Attrs } from "@bbob/plugin-helper";
-import { attrValue, attrsToString, escapeHTML, getUniqAttr, isStringNode, isTagNode, keysReduce } from "bbob__plugin-helper/helpers"
-import { Node, TagNode } from "@bbob/plugin-helper";
+import { Attr, Attrs, Node, TagNode, appendToNode, attrValue, attrsToString, getNodeLength, getUniqAttr, isEOL, isStringNode, isTagNode, keysReduce } from "@bbob/plugin-helper";
 
-const obj: {[key: string]: string} = {"a": "b"};
-keysReduce(obj, (e) => "b", "a" as string)
+const attrs: Attrs = {};
 
-function getUniqAttrTest(attrs: Attrs): Attr | null {
-    return keysReduce<Attr | null>(
-        attrs,
-        (res, key) => (attrs[key] === key ? attrs[key] : null),
-        null,
-    );
-}
+// TagNode.d.ts
 
-function getNodeLengthTest(node: Node): number {
-    if (isTagNode(node)) {
-        return node.content.reduce((count, contentNode) => count + getNodeLengthTest(contentNode), 0);
-    } if (isStringNode(node)) {
-        return node.length;
-    }
+// $ExpectType Attr | null
+keysReduce<Attr | null>(
+    attrs,
+    (res, key) => (attrs[key] === key ? attrs[key] : null),
+    null,
+);
 
-    return 0;
-};
+// $ExpectType string[]
+keysReduce(
+    attrs,
+    (arr, key) => [...arr, attrValue(key, attrs[key])],
+    [''],
+)
 
-const appendToNodeTest = (node: TagNode, value: string) => {
-    node.content.push(value);
-};
+// $ExpectType TagNode
+const tagNode = TagNode.create('test', {test: 1}, ['Hello']);
 
-const attrsToStringTest = (values: Attrs | null): string => {
-    // To avoid some malformed attributes
-    if (values == null) {
-      return '';
-    }
-  
-    return keysReduce(
-      values,
-      (arr, key) => [...arr, attrValue(key, values[key])],
-      [''],
-    ).join(' ');
-  };
+// $ExpectType boolean
+TagNode.isOf(tagNode, 'test');
 
-function getTagAttrsTest(tag: string, params: Attrs): string {
-    const uniqAattr = getUniqAttr(params);
+// helpers.d.ts
 
-    if (uniqAattr) {
-        const tagAttr = attrValue(tag, uniqAattr);
-        const attrs = { ...params };
+// $ExpectType TagNode
+const node = new TagNode("a", {}, []);
 
-        // delete attrs[uniqAattr];
+// $ExpectType void
+appendToNode(node, 'test');
 
-        const attrsStr = attrsToString(attrs);
+// $ExpectType string | undefined
+node.content.pop();
 
-        return `${tagAttr}${attrsStr}`;
-    }
+// $ExpectType number
+getNodeLength(node);
 
-    return `${tag}${attrsToString(params)}`;
-}
+// $ExpectType boolean
+isTagNode(node);
 
-function attrTest(tagNode: TagNode, name: string, value: Attr): Attr {
-    if (typeof value !== 'undefined') {
-      tagNode.attrs[name] = value;
-    }
+// $ExpectType boolean
+isStringNode(node);
 
-    return tagNode.attrs[name];
-}
+// $ExpectType string
+attrValue('test', true);
+
+// $ExpectType string
+attrValue('test', 123);
+
+// $ExpectType string
+attrValue('test', "hello");
+
+// $ExpectType string
+attrValue('test', { tag: 'test' });
+
+// $ExpectType boolean
+isEOL("\n");
+
+// $ExpectType string
+attrsToString({
+    tag: 'test',
+    foo: 'bar',
+    disabled: true
+})
+
+// $ExpectType string
+attrsToString(null)
+
+// $ExpectType Attr | null
+getUniqAttr({foo: true, 'http://bar.com': 'http://bar.com'})
+
+// $ExpectType Attr | null
+getUniqAttr({foo: true})
