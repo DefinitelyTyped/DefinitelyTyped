@@ -4,10 +4,6 @@ const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
 document.body.appendChild(playerContainer1);
 
-const playerContainer2 = document.createElement("div");
-playerContainer2.id = "player2";
-document.body.appendChild(playerContainer2);
-
 // test interface OvenPlayer, interface OvenPlayerConfig,
 // interface OvenPlayerWebRTCStream and interface OvenPlayerSource
 
@@ -31,7 +27,7 @@ const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
     },
 ]);
 
-// create(container: string | HTMLDivElement, config: OvenPlayerConfig): OvenPlayerInstance;
+// create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
 const player = OvenPlayer.create("player1", {
     mute: true,
     playbackRates: [1, 2, 3, 3],
@@ -74,8 +70,6 @@ const player = OvenPlayer.create("player1", {
     },
 });
 
-const player2 = OvenPlayer.create(playerContainer2, {});
-
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
 const playerInstance1 = OvenPlayer.getPlayerByContainerId("player");
 
@@ -84,9 +78,6 @@ const playerInstance2 = OvenPlayer.getPlayerByIndex(0);
 
 // getPlayerList(): OvenPlayerInstance[];
 OvenPlayer.getPlayerList();
-
-// removePlayer(player: OvenPlayerInstance): void;
-OvenPlayer.removePlayer(player2);
 
 // test interface OvenPlayerInstance
 
@@ -180,7 +171,7 @@ player.on("ready", () => {});
 // once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
 player.once("stateChanged", data => {});
 
-// off(eventName: string): void;
+// off(eventName: keyof OvenPlayerEvents): void;
 player.off("ready");
 
 // remove(): void;
@@ -199,3 +190,6 @@ player.addCaption({
     kind: "caption",
     label: "label",
 });
+
+// removePlayer(player: OvenPlayerInstance): void;
+OvenPlayer.removePlayer(player);
