@@ -76,6 +76,7 @@ jobs:
 
       # Run tests
       - run: NODE_ENV=test pnpm run test-all --noInstall --shardId ${{ matrix.index }} --shardCount ${{ matrix.numJobs }}
+        working-directory: DefinitelyTyped
 
   compile_all:
     runs-on: ubuntu-latest
