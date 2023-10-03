@@ -71,9 +71,7 @@ jobs:
       - run: pnpm run build
         working-directory: DefinitelyTyped-tools
 
-      - run: |
-          pnpm add -w -D ../DefinitelyTyped-tools/packages/*
-          git add .
+      - run: for i in ../DefinitelyTyped-tools/packages/*; do pnpm link $i; done
         working-directory: DefinitelyTyped
 
       # Run tests
