@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import * as marked from "marked";
+import { marked } from "marked";
 import * as TerminalRenderer from "marked-terminal";
 
 marked.setOptions({
