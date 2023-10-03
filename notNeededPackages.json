@@ -2023,7 +2023,7 @@
         },
         "google-cloud__tasks": {
             "libraryName": "google-cloud__tasks",
-            "asOfVersion": "1.7"
+            "asOfVersion": "1.7.0"
         },
         "google-cloud__text-to-speech": {
             "libraryName": "@google-cloud/text-to-speech",
