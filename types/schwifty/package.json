@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/hapipal/schwifty"
     ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
         "@types/node": "*",
