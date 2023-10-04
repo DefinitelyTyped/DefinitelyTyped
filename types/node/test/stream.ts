@@ -21,6 +21,7 @@ import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
+import { Blob } from "node:buffer";
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -495,6 +496,13 @@ async function testConsumers() {
     await arrayBuffer(r);
     // $ExpectType Blob
     await blob(r);
+
+    const iterable: AsyncGenerator<Buffer> = async function*(){}();
+    await buffer(iterable);
+
+    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() }
+    // @ts-expect-error
+    await buffer(iterator);
 }
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
@@ -734,4 +742,8 @@ async function testTransferringStreamWithPostMessage() {
         // $ExpectType Error
         err;
     });
+}
+
+{
+    new Blob(['1', '2']).stream().getReader({ mode: 'byob' })
 }

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package File System Access API 2020.09
+// Type definitions for non-npm package File System Access API 2023.10
 // Project: https://github.com/WICG/file-system-access
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,39 +30,71 @@ declare global {
         new(): FileSystemHandle;
     };
     type FileSystemHandleUnion = FileSystemFileHandle | FileSystemDirectoryHandle;
+    
+    type FileExtension = `.${string}`
+    type MIMEType = `${string}/${string}`
 
     interface FilePickerAcceptType {
+        /**
+         * @default ""
+         */
         description?: string | undefined;
-        accept: Record<string, string | string[]>;
+        accept?: Record<MIMEType, FileExtension | FileExtension[]> | undefined;
     }
+
+    /**
+     * https://wicg.github.io/file-system-access/#enumdef-wellknowndirectory
+     */
+    type WellKnownDirectory = "desktop" | "documents" | "downloads" | "music" | "pictures" | "videos"
 
     interface FilePickerOptions {
         types?: FilePickerAcceptType[] | undefined;
+        /**
+         * @default false
+         */
         excludeAcceptAllOption?: boolean | undefined;
+        startIn?: WellKnownDirectory | FileSystemHandle | undefined;
+        id?: string | undefined;
     }
 
     interface OpenFilePickerOptions extends FilePickerOptions {
+        /**
+         * @default false
+         */
         multiple?: boolean | undefined;
     }
 
     interface SaveFilePickerOptions extends FilePickerOptions {
-        suggestedName?: string;
+        suggestedName?: string | undefined;
     }
 
-    // tslint:disable-next-line:no-empty-interface
-    interface DirectoryPickerOptions {}
+    type FileSystemPermissionMode = "read" | "readwrite"
 
-    type FileSystemPermissionMode = "read" | "readwrite";
+    interface DirectoryPickerOptions {
+        id?: string | undefined;
+        startIn?: WellKnownDirectory | FileSystemHandle | undefined;
+        /**
+         * @default "read"
+         */
+        mode?: FileSystemPermissionMode | undefined;
+    }
 
     interface FileSystemPermissionDescriptor extends PermissionDescriptor {
         handle: FileSystemHandle;
+        /**
+         * @default "read"
+         */
         mode?: FileSystemPermissionMode | undefined;
     }
 
     interface FileSystemHandlePermissionDescriptor {
+        /**
+         * @default "read"
+         */
         mode?: FileSystemPermissionMode | undefined;
     }
 
+    // TODO: Implemented natively in TS 5.1, remove
     interface FileSystemCreateWritableOptions {
         keepExistingData?: boolean | undefined;
     }
