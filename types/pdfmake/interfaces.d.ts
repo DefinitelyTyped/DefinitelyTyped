@@ -692,7 +692,7 @@ export interface Style {
     /**
      * Text decoration to apply.
      */
-    decoration?: Decoration | undefined;
+    decoration?: Decoration | Decoration[] | undefined;
 
     /**
      * Style to apply to the given {@link decoration}.
