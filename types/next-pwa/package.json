@@ -7,7 +7,9 @@
     ],
     "minimumTypeScriptVersion": "5.1",
     "dependencies": {
+        "@types/node": "*",
         "@types/react": "*",
+        "@types/react-dom": "*",
         "next": "^12.2.5 || ^13.0.0",
         "workbox-build": "^6.5.4"
     },
