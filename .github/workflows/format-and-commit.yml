@@ -4,11 +4,10 @@ concurrency:
   group: ${{ github.ref }}
 
 on:
-    # Pending getting through individual PRs.
-    # push:
-    #   branches:
-    #     - master
-    workflow_dispatch: ~
+  push:
+    branches:
+      - master
+  workflow_dispatch: ~
 
 jobs:
   dprint-fmt:

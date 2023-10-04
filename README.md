@@ -646,11 +646,11 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 #### Are Files Formatted Automatically?
 
-They will be _soon_, using [dprint](https://dprint.dev).
+Yes, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
 
 Pull requests do not require correct formatting to be merged.
-Soon, we will automatically apply any needed formatting changes as an automatic quick followup commit on the `master` branch.
+Any unformatted code will be automatically reformatted after being merged.
 
 > 💡 If you're a VS Code user, we suggest copying the `.vscode/settings.template.json` file to `.vscode/settings.json`.
 > That template sets the [dprint VS Code extension](https://marketplace.visualstudio.com/items?itemName=dprint.dprint) as t

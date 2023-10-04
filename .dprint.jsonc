@@ -41,6 +41,7 @@
     "./types/righto",
     "./types/react-native-awesome-card-io"
   ],
+  // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.88.0.wasm"
   ],
