@@ -1,6 +1,6 @@
 // utils.d.ts
 
-import { match, same } from "./utils";
+import core, { Plugin, same } from "@bbob/core";
 
 // $ExpectType boolean
 same(1, {});
@@ -17,39 +17,27 @@ same([1, 2, 3], [1, 2, 3, 4]);
 // $ExpectType boolean
 same({ foo: true, bar: 'test' }, { foo: true, bar: 'test', ext: true });
 
-type Before = {
-    tag: string,
-    one?: number,
-    two?: number,
-    three?: number,
-    four?: number,
-    five?: number,
-    six?: number,
-}
+// index.d.ts
 
-type After = {
-    tag: string,
-    one?: number,
-    two?: number,
-    three?: number,
-    four?: number,
-    five?: number,
-    six?: number,
-    pass?: number
-}
+const stringify = (val: any) => JSON.stringify(val);
 
-const testArr: Before[] = [
-    { tag: 'mytag1', one: 1 },
-    { tag: 'mytag2', two: 1 },
-    { tag: 'mytag3', three: 1 },
-    { tag: 'mytag4', four: 1 },
-    { tag: 'mytag5', five: 1 },
-    { tag: 'mytag6', six: 1 },
-];
+const process = (plugins: Plugin | Plugin[], input: string) => core(plugins).process(input, { render: stringify });
 
-function callback(node: Before): After {
-    return {...node, pass: 1};
-}
+// $ExpectType ProcessResponse
+const response = process([], '[style size="15px"]Large Text[/style]');
 
-// $ExpectType (Before | After)[] 
-const resultArr = match([{ tag: 'mytag1' }, { tag: 'mytag2' }], callback);
+// $ExpectType string
+response.html
+
+// $ExpectType Tree
+response.tree
+
+const testPlugin: () => Plugin = () => (tree) => tree.walk(node => {
+    return node
+});
+
+// $ExpectType Plugin
+testPlugin();
+
+// $ExpectType (cb: (val: TagNode) => TagNode) => Tree
+response.tree.walk
