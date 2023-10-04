@@ -1,6 +1,6 @@
 // utils.d.ts
 
-import core, { Plugin, same } from "@bbob/core";
+import core, { Plugin, Plugins, same } from "@bbob/core";
 
 // $ExpectType boolean
 same(1, {});
@@ -21,7 +21,7 @@ same({ foo: true, bar: 'test' }, { foo: true, bar: 'test', ext: true });
 
 const stringify = (val: any) => JSON.stringify(val);
 
-const process = (plugins: Plugin | Plugin[], input: string) => core(plugins).process(input, { render: stringify });
+const process = (plugins: Plugins, input: string) => core(plugins).process(input, { render: stringify });
 
 // $ExpectType ProcessResponse
 const response = process([], '[style size="15px"]Large Text[/style]');

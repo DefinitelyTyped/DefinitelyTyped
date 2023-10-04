@@ -3,14 +3,14 @@ import { CLOSE_BRAKET, OPEN_BRAKET } from "./char"
 export function getTagAttrs(tag: string, params: Attrs): string
 
 export type Tag = string
-export type Content = string[]
+export type Content = Node[]
 export interface Attrs { [key: string]: Attr }
 export type Attr = string | number | boolean;
 
 export class TagNode {
     tag: Tag
     attrs: Attrs
-    content: Content
+    content: Content | null
     constructor(tag: Tag, attrs: Attrs, content: Content | string)
 
     attr(name: string, value: Attr): Attr;
@@ -25,5 +25,5 @@ export class TagNode {
     static isOf(node: Node, type: Tag): boolean
 }
 
-export type Node = TagNode | string
+export type Node = TagNode | string | number
 export default TagNode

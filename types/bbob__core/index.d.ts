@@ -16,12 +16,14 @@ type Tree = TagNode[] & {
     match: typeof match
 };
 
+export type Plugins = Plugin[] | Plugin
 export type Plugin = (tree: Tree, options: {parse: any, render: any, iterate: any, match: any, data: any}) => Tree | null
 
 export interface ProcessOptions {
     parser?: typeof parse,
-    render(val: any): string,
-    data?: any
+    render(val: Node): string,
+    data?: any,
+    skipParse?: boolean
 }
 
 export interface ProcessResponse {
@@ -31,6 +33,6 @@ export interface ProcessResponse {
     messages: string[]
 }
 
-export default function bbob(plugs?: Plugin[] | Plugin): {
+export default function bbob(plugs?: Plugins): {
     process(input: string, opts?: ProcessOptions): ProcessResponse
 };
