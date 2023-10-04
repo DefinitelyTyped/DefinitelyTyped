@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 5.1
 
+/// <reference path="global.d.ts" />
 /// <reference types="react"/>
 
 import type { NextConfig } from "next";
@@ -11,7 +12,7 @@ import type { GenerateSWOptions, InjectManifestOptions, RuntimeCaching } from "w
 
 declare global {
     interface PopStateEventInit extends EventInit {
-        state?: unknown;
+        state?: any;
     }
 
     /**
@@ -22,7 +23,7 @@ declare global {
      */
     interface PopStateEvent extends Event {
         /** Returns a copy of the information that was provided to pushState() or replaceState(). */
-        readonly state: unknown;
+        readonly state: any;
     }
 
     var PopStateEvent: {

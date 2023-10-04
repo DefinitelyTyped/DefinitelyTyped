@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1820,6 +1820,8 @@ declare module "sap/f/cards/Header" {
 
   import AvatarShape from "sap/m/AvatarShape";
 
+  import AvatarSize from "sap/m/AvatarSize";
+
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -2039,6 +2041,18 @@ declare module "sap/f/cards/Header" {
      */
     getIconInitials(): string;
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Gets current value of property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * Default value is `S`.
+     *
+     * @returns Value of property `iconSize`
+     */
+    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    /**
      * Gets current value of property {@link #getIconSrc iconSrc}.
      *
      * Defines the icon source.
@@ -2185,6 +2199,25 @@ declare module "sap/f/cards/Header" {
        * New value for property `iconInitials`
        */
       sIconInitials?: string
+    ): this;
+    /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Sets a new value for property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSize(
+      /**
+       * New value for property `iconSize`
+       */
+      sIconSize?: AvatarSize | keyof typeof AvatarSize
     ): this;
     /**
      * Sets a new value for property {@link #getIconSrc iconSrc}.
@@ -2393,6 +2426,16 @@ declare module "sap/f/cards/Header" {
     iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Defines the size of the icon.
+     */
+    iconSize?:
+      | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Fires when the user presses the control.
      */
     press?: (oEvent: Event) => void;
@@ -2466,6 +2509,8 @@ declare module "sap/f/cards/NumericHeader" {
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarSize from "sap/m/AvatarSize";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2752,6 +2797,18 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getIconInitials(): string;
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Gets current value of property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * Default value is `S`.
+     *
+     * @returns Value of property `iconSize`
+     */
+    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    /**
      * @since 1.118
      * @experimental (since 1.118) - For usage only by Work Zone.
      *
@@ -2786,6 +2843,16 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `number`
      */
     getNumber(): string;
+    /**
+     * Gets current value of property {@link #getNumberSize numberSize}.
+     *
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     *
+     * Default value is `"L"`.
+     *
+     * @returns Value of property `numberSize`
+     */
+    getNumberSize(): string;
     /**
      * @since 1.109
      *
@@ -3091,6 +3158,25 @@ declare module "sap/f/cards/NumericHeader" {
       sIconInitials?: string
     ): this;
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Sets a new value for property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSize(
+      /**
+       * New value for property `iconSize`
+       */
+      sIconSize?: AvatarSize | keyof typeof AvatarSize
+    ): this;
+    /**
      * @since 1.118
      * @experimental (since 1.118) - For usage only by Work Zone.
      *
@@ -3145,6 +3231,23 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `number`
        */
       sNumber: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNumberSize numberSize}.
+     *
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"L"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNumberSize(
+      /**
+       * New value for property `numberSize`
+       */
+      sNumberSize?: string
     ): this;
     /**
      * @since 1.109
@@ -3432,6 +3535,16 @@ declare module "sap/f/cards/NumericHeader" {
     iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Defines the size of the icon.
+     */
+    iconSize?:
+      | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * General unit of measurement for the header. Displayed as side information to the subtitle.
      */
     unitOfMeasurement?: string | PropertyBindingInfo;
@@ -3441,6 +3554,11 @@ declare module "sap/f/cards/NumericHeader" {
      * the first five are displayed. Without rounding the number.
      */
     number?: string | PropertyBindingInfo;
+
+    /**
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     */
+    numberSize?: string | PropertyBindingInfo;
 
     /**
      * @since 1.109
@@ -9468,7 +9586,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
          * for the first two pages, all other pages will open in fullscreen), and `SingleColumn` (one page at a
          * time only).
          */
-        mode: string;
+        mode?: string;
       }
     );
 
@@ -9678,7 +9796,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     /**
      * The value of the {@link sap.f.FlexibleColumnLayout#getLayout layout} property.
      */
-    layout?: string;
+    layout?: LayoutType | keyof typeof LayoutType;
     /**
      * The maximum number of columns that can be displayed at once based on the control width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
      */

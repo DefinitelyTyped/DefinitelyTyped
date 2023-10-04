@@ -3169,6 +3169,317 @@ export interface BankingScheduledPayment {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
+export interface BankingScheduledPaymentV2 {
+    /**
+     * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
+     */
+    from: {
+        /**
+         * ID of the account that is the source of funds for the payment
+         */
+        accountId: string;
+        [k: string]: unknown;
+    };
+    /**
+     * The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels
+     */
+    nickname?: string | null;
+    /**
+     * The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided
+     */
+    payeeReference?: string | null;
+    /**
+     * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
+     */
+    payerReference: string;
+    paymentSet: {
+        /**
+         * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
+         */
+        amount?: string | null;
+        /**
+         * The currency for the payment. AUD assumed if not present
+         */
+        currency?: string | null;
+        /**
+         * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
+         */
+        isAmountCalculated?: boolean | null;
+        /**
+         * Object containing details of the destination of the payment. Used to specify a variety of payment destination types
+         */
+        to: {
+            /**
+             * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
+             */
+            accountId?: string | null;
+            biller?: {
+                /**
+                 * BPAY Biller Code of the Biller
+                 */
+                billerCode: string;
+                /**
+                 * Name of the Biller
+                 */
+                billerName: string;
+                /**
+                 * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+                 */
+                crn?: string | null;
+                [k: string]: unknown;
+            };
+            digitalWallet: {
+                /**
+                 * The identifier of the digital wallet (dependent on type)
+                 */
+                identifier: string;
+                /**
+                 * The display name of the wallet as given by the customer, else a default value defined by the data holder
+                 */
+                name: string;
+                /**
+                 * The provider of the digital wallet
+                 */
+                provider: "PAYPAL_AU" | "OTHER";
+                /**
+                 * The type of the digital wallet identifier
+                 */
+                type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
+                [k: string]: unknown;
+            },
+            domestic?: {
+                account?: {
+                    /**
+                     * Name of the account to pay to
+                     */
+                    accountName?: string | null;
+                    /**
+                     * Number of the account to pay to
+                     */
+                    accountNumber: string;
+                    /**
+                     * BSB of the account to pay to
+                     */
+                    bsb: string;
+                    [k: string]: unknown;
+                };
+                card?: {
+                    /**
+                     * Name of the account to pay to
+                     */
+                    cardNumber: string;
+                    [k: string]: unknown;
+                };
+                payId?: {
+                    /**
+                     * The identifier of the PayID (dependent on type)
+                     */
+                    identifier: string;
+                    /**
+                     * The name assigned to the PayID by the owner of the PayID
+                     */
+                    name?: string | null;
+                    /**
+                     * The type of the PayID
+                     */
+                    type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
+                    [k: string]: unknown;
+                };
+                /**
+                 * Type of account object included. Valid values are: **account** A standard Australian account defined by BSB/Account Number. **card** A credit or charge card to pay to (note that PANs are masked). **payId** A PayID recognised by NPP
+                 */
+                payeeAccountUType: "account" | "card" | "payId";
+                [k: string]: unknown;
+            };
+            international?: {
+                bankDetails: {
+                    /**
+                     * Account Targeted for payment
+                     */
+                    accountNumber: string;
+                    bankAddress?: {
+                        /**
+                         * Address of the recipient Bank
+                         */
+                        address: string;
+                        /**
+                         * Name of the recipient Bank
+                         */
+                        name: string;
+                        [k: string]: unknown;
+                    } | null;
+                    /**
+                     * Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)
+                     */
+                    beneficiaryBankBIC?: string | null;
+                    /**
+                     * Number for the Clearing House Interbank Payments System
+                     */
+                    chipNumber?: string | null;
+                    /**
+                     * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                     */
+                    country: string;
+                    /**
+                     * Number for Fedwire payment (Federal Reserve Wire Network)
+                     */
+                    fedWireNumber?: string | null;
+                    /**
+                     * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+                     */
+                    legalEntityIdentifier?: string | null;
+                    /**
+                     * International bank routing number
+                     */
+                    routingNumber?: string | null;
+                    /**
+                     * Sort code used for account identification in some jurisdictions
+                     */
+                    sortCode?: string | null;
+                    [k: string]: unknown;
+                };
+                beneficiaryDetails: {
+                    /**
+                     * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                     */
+                    country: string;
+                    /**
+                     * Response message for the payment
+                     */
+                    message?: string | null;
+                    /**
+                     * Name of the beneficiary
+                     */
+                    name?: string | null;
+                    [k: string]: unknown;
+                };
+                [k: string]: unknown;
+            };
+            /**
+             * The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels
+             */
+            nickname?: string | null;
+            /**
+             * Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead
+             */
+            payeeId?: string | null;
+            /**
+             * The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.
+             */
+            payeeReference?: string | null;
+            /**
+             * The type of object provided that specifies the destination of the funds for the payment.
+             */
+            toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
+            [k: string]: unknown;
+        };
+        [k: string]: unknown;
+    }[];
+    /**
+     * Object containing the detail of the schedule for the payment
+     */
+    recurrence: {
+        /**
+         * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased
+         */
+        eventBased?: {
+            /**
+             * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer
+             */
+            description: string;
+            [k: string]: unknown;
+        };
+        /**
+         * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if recurrenceUType is set to intervalSchedule
+         */
+        intervalSchedule?: {
+            /**
+             * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+             */
+            finalPaymentDate?: string | null;
+            /**
+             * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
+             */
+            intervals: {
+                /**
+                 * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
+                 */
+                dayInInterval?: string | null;
+                /**
+                 * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)  (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+                 */
+                interval: string;
+                [k: string]: unknown;
+            }[];
+            /**
+             * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+             */
+            nonBusinessDayTreatment?: ("AFTER" | "BEFORE" | "ON" | "ONLY") | null;
+            /**
+             * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
+             */
+            paymentsRemaining?: number | null;
+            [k: string]: unknown;
+        };
+        /**
+         * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if recurrenceUType is set to lastWeekDay
+         */
+        lastWeekDay?: {
+            /**
+             * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+             */
+            finalPaymentDate?: string | null;
+            /**
+             * The interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+             */
+            interval: string;
+            /**
+             * The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval.
+             */
+            lastWeekDay: "FRI" | "MON" | "SAT" | "SUN" | "THU" | "TUE" | "WED";
+            /**
+             * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+             */
+            nonBusinessDayTreatment?: ("AFTER" | "BEFORE" | "ON" | "ONLY") | null;
+            /**
+             * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+             */
+            paymentsRemaining?: number | null;
+            [k: string]: unknown;
+        };
+        /**
+         * The date of the next payment under the recurrence schedule
+         */
+        nextPaymentDate?: string | null;
+        /**
+         * Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff
+         */
+        onceOff?: {
+            /**
+             * The scheduled date for the once off payment
+             */
+            paymentDate: string;
+            [k: string]: unknown;
+        };
+        /**
+         * The type of recurrence used to define the schedule
+         */
+        recurrenceUType: "eventBased" | "intervalSchedule" | "lastWeekDay" | "onceOff";
+        [k: string]: unknown;
+    };
+    /**
+     * A unique ID of the scheduled payment adhering to the standards for ID permanence
+     */
+    scheduledPaymentId: string;
+    /**
+     * Indicates whether the schedule is currently active. The value SKIP is equivalent to ACTIVE except that the customer has requested the next normal occurrence to be skipped.
+     */
+    status: "ACTIVE" | "INACTIVE" | "SKIP";
+    [k: string]: unknown;
+}
+
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
+
 /**
  * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
  */
@@ -3541,6 +3852,194 @@ export interface BankingScheduledPaymentSet {
     };
     [k: string]: unknown;
 }
+
+/**
+ * The set of payment amounts and destination accounts for this payment accommodating multi-part payments. A single entry indicates a simple payment with one destination account. Must have at least one entry
+ */
+export interface BankingScheduledPaymentSetV2 {
+    /**
+     * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
+     */
+    amount?: string | null;
+    /**
+     * The currency for the payment. AUD assumed if not present
+     */
+    currency?: string | null;
+    /**
+     * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
+     */
+    isAmountCalculated?: boolean | null;
+    /**
+     * Object containing details of the destination of the payment. Used to specify a variety of payment destination types
+     */
+    to: {
+        /**
+         * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
+         */
+        accountId?: string | null;
+        biller?: {
+            /**
+             * BPAY Biller Code of the Biller
+             */
+            billerCode: string;
+            /**
+             * Name of the Biller
+             */
+            billerName: string;
+            /**
+             * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+             */
+            crn?: string | null;
+            [k: string]: unknown;
+        };
+        digitalWallet: {
+            /**
+             * The identifier of the digital wallet (dependent on type)
+             */
+            identifier: string;
+            /**
+             * The display name of the wallet as given by the customer, else a default value defined by the data holder
+             */
+            name: string;
+            /**
+             * The provider of the digital wallet
+             */
+            provider: "PAYPAL_AU" | "OTHER";
+            /**
+             * The type of the digital wallet identifier
+             */
+            type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
+            [k: string]: unknown;
+        },
+        domestic?: {
+            account?: {
+                /**
+                 * Name of the account to pay to
+                 */
+                accountName?: string | null;
+                /**
+                 * Number of the account to pay to
+                 */
+                accountNumber: string;
+                /**
+                 * BSB of the account to pay to
+                 */
+                bsb: string;
+                [k: string]: unknown;
+            };
+            card?: {
+                /**
+                 * Name of the account to pay to
+                 */
+                cardNumber: string;
+                [k: string]: unknown;
+            };
+            payId?: {
+                /**
+                 * The identifier of the PayID (dependent on type)
+                 */
+                identifier: string;
+                /**
+                 * The name assigned to the PayID by the owner of the PayID
+                 */
+                name?: string | null;
+                /**
+                 * The type of the PayID
+                 */
+                type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
+                [k: string]: unknown;
+            };
+            /**
+             * Type of account object included. Valid values are: **account** A standard Australian account defined by BSB/Account Number. **card** A credit or charge card to pay to (note that PANs are masked). **payId** A PayID recognised by NPP
+             */
+            payeeAccountUType: "account" | "card" | "payId";
+            [k: string]: unknown;
+        };
+        international?: {
+            bankDetails: {
+                /**
+                 * Account Targeted for payment
+                 */
+                accountNumber: string;
+                bankAddress?: {
+                    /**
+                     * Address of the recipient Bank
+                     */
+                    address: string;
+                    /**
+                     * Name of the recipient Bank
+                     */
+                    name: string;
+                    [k: string]: unknown;
+                } | null;
+                /**
+                 * Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)
+                 */
+                beneficiaryBankBIC?: string | null;
+                /**
+                 * Number for the Clearing House Interbank Payments System
+                 */
+                chipNumber?: string | null;
+                /**
+                 * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                 */
+                country: string;
+                /**
+                 * Number for Fedwire payment (Federal Reserve Wire Network)
+                 */
+                fedWireNumber?: string | null;
+                /**
+                 * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+                 */
+                legalEntityIdentifier?: string | null;
+                /**
+                 * International bank routing number
+                 */
+                routingNumber?: string | null;
+                /**
+                 * Sort code used for account identification in some jurisdictions
+                 */
+                sortCode?: string | null;
+                [k: string]: unknown;
+            };
+            beneficiaryDetails: {
+                /**
+                 * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                 */
+                country: string;
+                /**
+                 * Response message for the payment
+                 */
+                message?: string | null;
+                /**
+                 * Name of the beneficiary
+                 */
+                name?: string | null;
+                [k: string]: unknown;
+            };
+            [k: string]: unknown;
+        };
+        /**
+         * The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels
+         */
+        nickname?: string | null;
+        /**
+         * Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead
+         */
+        payeeId?: string | null;
+        /**
+         * The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.
+         */
+        payeeReference?: string | null;
+        /**
+         * The type of object provided that specifies the destination of the funds for the payment.
+         */
+        toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
+        [k: string]: unknown;
+    };
+    [k: string]: unknown;
+}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 /**
@@ -3690,6 +4189,175 @@ export interface BankingScheduledPaymentTo {
      * The type of object provided that specifies the destination of the funds for the payment.
      */
     toUType: "accountId" | "biller" | "domestic" | "international" | "payeeId";
+    [k: string]: unknown;
+}
+
+/**
+ * Object containing details of the destination of the payment. Used to specify a variety of payment destination types
+ */
+export interface BankingScheduledPaymentToV2 {
+    /**
+     * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
+     */
+    accountId?: string | null;
+    biller?: {
+        /**
+         * BPAY Biller Code of the Biller
+         */
+        billerCode: string;
+        /**
+         * Name of the Biller
+         */
+        billerName: string;
+        /**
+         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+         */
+        crn?: string | null;
+        [k: string]: unknown;
+    };
+    digitalWallet: {
+        /**
+         * The identifier of the digital wallet (dependent on type)
+         */
+        identifier: string;
+        /**
+         * The display name of the wallet as given by the customer, else a default value defined by the data holder
+         */
+        name: string;
+        /**
+         * The provider of the digital wallet
+         */
+        provider: "PAYPAL_AU" | "OTHER";
+        /**
+         * The type of the digital wallet identifier
+         */
+        type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
+        [k: string]: unknown;
+    };
+    domestic?: {
+        account?: {
+            /**
+             * Name of the account to pay to
+             */
+            accountName?: string | null;
+            /**
+             * Number of the account to pay to
+             */
+            accountNumber: string;
+            /**
+             * BSB of the account to pay to
+             */
+            bsb: string;
+            [k: string]: unknown;
+        };
+        card?: {
+            /**
+             * Name of the account to pay to
+             */
+            cardNumber: string;
+            [k: string]: unknown;
+        };
+        payId?: {
+            /**
+             * The identifier of the PayID (dependent on type)
+             */
+            identifier: string;
+            /**
+             * The name assigned to the PayID by the owner of the PayID
+             */
+            name?: string | null;
+            /**
+             * The type of the PayID
+             */
+            type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
+            [k: string]: unknown;
+        };
+        /**
+         * Type of account object included. Valid values are: **account** A standard Australian account defined by BSB/Account Number. **card** A credit or charge card to pay to (note that PANs are masked). **payId** A PayID recognised by NPP
+         */
+        payeeAccountUType: "account" | "card" | "payId";
+        [k: string]: unknown;
+    };
+    international?: {
+        bankDetails: {
+            /**
+             * Account Targeted for payment
+             */
+            accountNumber: string;
+            bankAddress?: {
+                /**
+                 * Address of the recipient Bank
+                 */
+                address: string;
+                /**
+                 * Name of the recipient Bank
+                 */
+                name: string;
+                [k: string]: unknown;
+            } | null;
+            /**
+             * Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)
+             */
+            beneficiaryBankBIC?: string | null;
+            /**
+             * Number for the Clearing House Interbank Payments System
+             */
+            chipNumber?: string | null;
+            /**
+             * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+             */
+            country: string;
+            /**
+             * Number for Fedwire payment (Federal Reserve Wire Network)
+             */
+            fedWireNumber?: string | null;
+            /**
+             * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+             */
+            legalEntityIdentifier?: string | null;
+            /**
+             * International bank routing number
+             */
+            routingNumber?: string | null;
+            /**
+             * Sort code used for account identification in some jurisdictions
+             */
+            sortCode?: string | null;
+            [k: string]: unknown;
+        };
+        beneficiaryDetails: {
+            /**
+             * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+             */
+            country: string;
+            /**
+             * Response message for the payment
+             */
+            message?: string | null;
+            /**
+             * Name of the beneficiary
+             */
+            name?: string | null;
+            [k: string]: unknown;
+        };
+        [k: string]: unknown;
+    };
+    /**
+     * The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels
+     */
+    nickname?: string | null;
+    /**
+     * Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead
+     */
+    payeeId?: string | null;
+    /**
+     * The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.
+     */
+    payeeReference?: string | null;
+    /**
+     * The type of object provided that specifies the destination of the funds for the payment.
+     */
+    toUType: "accountId" | "biller" | "digitalWallet" | "domestic" | "international" | "payeeId";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -6585,6 +7253,360 @@ export interface ResponseBankingProductListV2 {
     };
     [k: string]: unknown;
 }
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
+
+export interface ResponseBankingScheduledPaymentsListV2 {
+    data: {
+        /**
+         * The list of scheduled payments to return
+         */
+        scheduledPayments: {
+            /**
+             * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
+             */
+            from: {
+                /**
+                 * ID of the account that is the source of funds for the payment
+                 */
+                accountId: string;
+                [k: string]: unknown;
+            };
+            /**
+             * The short display name of the scheduled payment as provided by the customer if provided. Where a customer has not provided a nickname, a display name derived by the bank for the scheduled payment should be provided that is consistent with existing digital banking channels
+             */
+            nickname?: string | null;
+            /**
+             * The reference for the transaction, if applicable, that will be provided by the originating institution for all payments in the payment set. Empty string if no data provided
+             */
+            payeeReference?: string | null;
+            /**
+             * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
+             */
+            payerReference: string;
+            paymentSet: {
+                /**
+                 * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
+                 */
+                amount?: string | null;
+                /**
+                 * The currency for the payment. AUD assumed if not present
+                 */
+                currency?: string | null;
+                /**
+                 * Flag indicating whether the amount of the payment is calculated based on the context of the event. For instance a payment to reduce the balance of a credit card to zero. If absent then false is assumed
+                 */
+                isAmountCalculated?: boolean | null;
+                /**
+                 * Object containing details of the destination of the payment. Used to specify a variety of payment destination types
+                 */
+                to: {
+                    /**
+                     * Present if toUType is set to accountId. Indicates that the payment is to another account that is accessible under the current consent
+                     */
+                    accountId?: string | null;
+                    biller?: {
+                        /**
+                         * BPAY Biller Code of the Biller
+                         */
+                        billerCode: string;
+                        /**
+                         * Name of the Biller
+                         */
+                        billerName: string;
+                        /**
+                         * BPAY CRN of the Biller (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
+                         */
+                        crn?: string | null;
+                        [k: string]: unknown;
+                    };
+                    digitalWallet: {
+                        /**
+                         * The identifier of the digital wallet (dependent on type)
+                         */
+                        identifier: string;
+                        /**
+                         * The display name of the wallet as given by the customer, else a default value defined by the data holder
+                         */
+                        name: string;
+                        /**
+                         * The provider of the digital wallet
+                         */
+                        provider: "PAYPAL_AU" | "OTHER";
+                        /**
+                         * The type of the digital wallet identifier
+                         */
+                        type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
+                        [k: string]: unknown;
+                    };
+                    domestic?: {
+                        account?: {
+                            /**
+                             * Name of the account to pay to
+                             */
+                            accountName?: string | null;
+                            /**
+                             * Number of the account to pay to
+                             */
+                            accountNumber: string;
+                            /**
+                             * BSB of the account to pay to
+                             */
+                            bsb: string;
+                            [k: string]: unknown;
+                        };
+                        card?: {
+                            /**
+                             * Name of the account to pay to
+                             */
+                            cardNumber: string;
+                            [k: string]: unknown;
+                        };
+                        payId?: {
+                            /**
+                             * The identifier of the PayID (dependent on type)
+                             */
+                            identifier: string;
+                            /**
+                             * The name assigned to the PayID by the owner of the PayID
+                             */
+                            name?: string | null;
+                            /**
+                             * The type of the PayID
+                             */
+                            type: "ABN" | "EMAIL" | "ORG_IDENTIFIER" | "TELEPHONE";
+                            [k: string]: unknown;
+                        };
+                        /**
+                         * Type of account object included. Valid values are: **account** A standard Australian account defined by BSB/Account Number. **card** A credit or charge card to pay to (note that PANs are masked). **payId** A PayID recognised by NPP
+                         */
+                        payeeAccountUType: "account" | "card" | "payId";
+                        [k: string]: unknown;
+                    };
+                    international?: {
+                        bankDetails: {
+                            /**
+                             * Account Targeted for payment
+                             */
+                            accountNumber: string;
+                            bankAddress?: {
+                                /**
+                                 * Address of the recipient Bank
+                                 */
+                                address: string;
+                                /**
+                                 * Name of the recipient Bank
+                                 */
+                                name: string;
+                                [k: string]: unknown;
+                            } | null;
+                            /**
+                             * Swift bank code.  Aligns with standard [ISO 9362](https://www.iso.org/standard/60390.html)
+                             */
+                            beneficiaryBankBIC?: string | null;
+                            /**
+                             * Number for the Clearing House Interbank Payments System
+                             */
+                            chipNumber?: string | null;
+                            /**
+                             * Country of the recipient institution. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                             */
+                            country: string;
+                            /**
+                             * Number for Fedwire payment (Federal Reserve Wire Network)
+                             */
+                            fedWireNumber?: string | null;
+                            /**
+                             * The legal entity identifier (LEI) for the beneficiary.  Aligns with [ISO 17442](https://www.iso.org/standard/59771.html)
+                             */
+                            legalEntityIdentifier?: string | null;
+                            /**
+                             * International bank routing number
+                             */
+                            routingNumber?: string | null;
+                            /**
+                             * Sort code used for account identification in some jurisdictions
+                             */
+                            sortCode?: string | null;
+                            [k: string]: unknown;
+                        };
+                        beneficiaryDetails: {
+                            /**
+                             * Country where the beneficiary resides. A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code
+                             */
+                            country: string;
+                            /**
+                             * Response message for the payment
+                             */
+                            message?: string | null;
+                            /**
+                             * Name of the beneficiary
+                             */
+                            name?: string | null;
+                            [k: string]: unknown;
+                        };
+                        [k: string]: unknown;
+                    };
+                    /**
+                     * The short display name of the payee as provided by the customer unless toUType is set to payeeId. Where a customer has not provided a nickname, a display name derived by the bank for payee should be provided that is consistent with existing digital banking channels
+                     */
+                    nickname?: string | null;
+                    /**
+                     * Present if toUType is set to payeeId. Indicates that the payment is to registered payee that can be accessed using the payee end point. If the Bank Payees scope has not been consented to then a payeeId should not be provided and the full payee details should be provided instead
+                     */
+                    payeeId?: string | null;
+                    /**
+                     * The reference for the transaction, if applicable, that will be provided by the originating institution for the specific payment. If not empty, it overrides the value provided at the BankingScheduledPayment level.
+                     */
+                    payeeReference?: string | null;
+                    /**
+                     * The type of object provided that specifies the destination of the funds for the payment.
+                     */
+                    toUType: "accountId" | "biller" | "domestic" | "international" | "payeeId";
+                    [k: string]: unknown;
+                };
+                [k: string]: unknown;
+            }[];
+            /**
+             * Object containing the detail of the schedule for the payment
+             */
+            recurrence: {
+                /**
+                 * Indicates that the schedule of payments is defined according to an external event that cannot be predetermined. Mandatory if recurrenceUType is set to eventBased
+                 */
+                eventBased?: {
+                    /**
+                     * Description of the event and conditions that will result in the payment. Expected to be formatted for display to a customer
+                     */
+                    description: string;
+                    [k: string]: unknown;
+                };
+                /**
+                 * Indicates that the schedule of payments is defined by a series of intervals. Mandatory if recurrenceUType is set to intervalSchedule
+                 */
+                intervalSchedule?: {
+                    /**
+                     * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+                     */
+                    finalPaymentDate?: string | null;
+                    /**
+                     * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
+                     */
+                    intervals: {
+                        /**
+                         * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
+                         */
+                        dayInInterval?: string | null;
+                        /**
+                         * An interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations)  (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+                         */
+                        interval: string;
+                        [k: string]: unknown;
+                    }[];
+                    /**
+                     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+                     */
+                    nonBusinessDayTreatment?: ("AFTER" | "BEFORE" | "ON" | "ONLY") | null;
+                    /**
+                     * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value, If neither field is present the payments will continue indefinitely
+                     */
+                    paymentsRemaining?: number | null;
+                    [k: string]: unknown;
+                };
+                /**
+                 * Indicates that the schedule of payments is defined according to the last occurrence of a specific weekday in an interval. Mandatory if recurrenceUType is set to lastWeekDay
+                 */
+                lastWeekDay?: {
+                    /**
+                     * The limit date after which no more payments should be made using this schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+                     */
+                    finalPaymentDate?: string | null;
+                    /**
+                     * The interval for the payment. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. This duration defines the period between payments starting with nextPaymentDate
+                     */
+                    interval: string;
+                    /**
+                     * The weekDay specified. The payment will occur on the last occurrence of this weekday in the interval.
+                     */
+                    lastWeekDay: "FRI" | "MON" | "SAT" | "SUN" | "THU" | "TUE" | "WED";
+                    /**
+                     * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
+                     */
+                    nonBusinessDayTreatment?: ("AFTER" | "BEFORE" | "ON" | "ONLY") | null;
+                    /**
+                     * Indicates the number of payments remaining in the schedule. If both finalPaymentDate and paymentsRemaining are present then payments will stop according to the most constraining value. If neither field is present the payments will continue indefinitely
+                     */
+                    paymentsRemaining?: number | null;
+                    [k: string]: unknown;
+                };
+                /**
+                 * The date of the next payment under the recurrence schedule
+                 */
+                nextPaymentDate?: string | null;
+                /**
+                 * Indicates that the payment is a once off payment on a specific future date. Mandatory if recurrenceUType is set to onceOff
+                 */
+                onceOff?: {
+                    /**
+                     * The scheduled date for the once off payment
+                     */
+                    paymentDate: string;
+                    [k: string]: unknown;
+                };
+                /**
+                 * The type of recurrence used to define the schedule
+                 */
+                recurrenceUType: "eventBased" | "intervalSchedule" | "lastWeekDay" | "onceOff";
+                [k: string]: unknown;
+            };
+            /**
+             * A unique ID of the scheduled payment adhering to the standards for ID permanence
+             */
+            scheduledPaymentId: string;
+            /**
+             * Indicates whether the schedule is currently active. The value SKIP is equivalent to ACTIVE except that the customer has requested the next normal occurrence to be skipped.
+             */
+            status: "ACTIVE" | "INACTIVE" | "SKIP";
+            [k: string]: unknown;
+        }[];
+        [k: string]: unknown;
+    };
+    links: {
+        /**
+         * URI to the first page of this set. Mandatory if this response is not the first page
+         */
+        first?: string | null;
+        /**
+         * URI to the last page of this set. Mandatory if this response is not the last page
+         */
+        last?: string | null;
+        /**
+         * URI to the next page of this set. Mandatory if this response is not the last page
+         */
+        next?: string | null;
+        /**
+         * URI to the previous page of this set. Mandatory if this response is not the first page
+         */
+        prev?: string | null;
+        /**
+         * Fully qualified link that generated the current response document
+         */
+        self: string;
+        [k: string]: unknown;
+    };
+    meta: {
+        /**
+         * The total number of pages in the full set. See [pagination](#pagination).
+         */
+        totalPages: number;
+        /**
+         * The total number of records in the full set. See [pagination](#pagination).
+         */
+        totalRecords: number;
+        [k: string]: unknown;
+    };
+    [k: string]: unknown;
+}
+
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseBankingScheduledPaymentsList {

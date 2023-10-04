@@ -208,6 +208,9 @@ google.accounts.id.initialize({
     allowed_parent_origin: "",
     intermediate_iframe_close_callback: () => {},
     itp_support: true,
+    hd: "*",
+    login_hint: "user@domain.net",
+    use_fedcm_for_prompt: true
 });
 
 google.accounts.id.prompt();
