@@ -158,7 +158,6 @@ For a more manageable clone that includes _only_ the type packages relevant to y
 
 #### Edit an existing package
 
-* `cd types/<package to edit>`
 * Make changes. Remember to [edit tests](#my-package-teststs).
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 * [Run `pnpm test <package to test>`](#running-tests).
@@ -198,7 +197,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 When a package [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
 
-You can remove it by running `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+You can remove it by running `pnpm run not-needed <typingsPackageName> <asOfVersion> [<libraryName>]`.
 * `<typingsPackageName>`: This is the name of the directory to delete.
 * `<asOfVersion>`: A stub will be published to `@types/<typingsPackageName>` with this version. Should be higher than any currently published version, and should be a version of `<libraryName>` on npm.
 * `<libraryName>`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to `<typingsPackageName>`, in which case you can omit it.
@@ -327,7 +326,7 @@ TL;DR: `esModuleInterop` and `allowSyntheticDefaultImports` are *not allowed* in
 This file is required.
 
 DefinitelyTyped's package publisher creates a `package.json` for packages with no dependencies outside Definitely Typed.
-A `package.json` may specify dependencies that are not other `@types` packages.
+A `package.json` specifies _all_ dependencies, including other `@types` packages.
 [Pikaday is a good example.](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 Even if you write your own `package.json`, you can only specify dependencies; other fields such as `"description"` are not allowed.
 You also need to add the dependency to [the list of allowed packages](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt).
@@ -380,16 +379,22 @@ DT has the concept of "Definition Owners" which are people who want to maintain 
 * Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
 * The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
-To Add yourself as a Definition Owner:
+To add yourself as a Definition Owner, modify the `contributors` array in `package.json`:
 
-* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Or if there are more people, it can be multiline
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
+```json
+"contributors": [
+    {
+        "name": "Some Person",
+        "githubUsername": "somebody"
+    },
+    {
+        "name": "Some Corp",
+        "url": "https://example.org"
+    }
+]
+```
+
+Note that this list is _not_ used to provide credit for contributions; it is only used for managing PR reviews.
 
 Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
 
@@ -496,9 +501,7 @@ You can find a detailed explanation of this feature in the [official TypeScript 
 
 Here's a short example to get you started:
 
-TODO(jakebailey): update
-
-1. You'll have to add a `package.json` file to your package definition, with the following contents:
+1. You'll have to add `typesVersions` to `package.json`:
 
    ```json
    {
@@ -515,17 +518,7 @@ TODO(jakebailey): update
 
    You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
 
-3. Set the `baseUrl` and `typeRoots` options in `ts3.6/tsconfig.json` to the correct paths, which should look something like this:
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": "../../",
-       "typeRoots": ["../../"]
-     }
-   }
-   ```
-
-4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
+3. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
    You can look at [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) for an example.
@@ -542,21 +535,21 @@ When it graduates draft mode, we may remove it from Definitely Typed and depreca
 *NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
 
 Each Definitely Typed package is versioned when published to npm.
-The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file.
-For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
+The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor.99999` version number listed in `package.json`.
+For example, here are the first few lines of Node's type declarations for version `20.8.x` at the time of writing:
 
-```js
-// Type definitions for Node.js 10.12
-// Project: https://nodejs.org/
-// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
-//                 Definitely Typed <https://github.com/DefinitelyTyped>
-//                 Alberto Schiabel <https://github.com/jkomyno>
+```json
+{
+    "private": true,
+    "name": "@types/node",
+    "version": "20.8.99999",
+}
 ```
 
-Because `10.12` is at the end of the first line, the npm version of the `@types/node` package will also be `10.12.x`.
-Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
-This is because only the major and minor release numbers are aligned between library packages and type declaration packages.
-The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to npm for the same major/minor version of the corresponding library.
+Because the verison is listed as `20.8.99999`, the npm version of the `@types/node` package will also be `20.8.x`.
+Note that the version in `package.json` should only contain `major.minor` version (e.g. `10.12`) followed by `.99999`.
+This is because only the major and minor release numbers are aligned between library packages and type declaration packages. (The `.99999` is to ensure that local `@types` packages are always newest during local development.)
+The patch release number of the type declaration package (e.g. `.0` in `20.8.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to npm for the same major/minor version of the corresponding library.
 
 Sometimes type declaration package versions and library package versions can get out of sync.
 Below are a few common reasons why, in order of how much they inconvenience users of a library.
@@ -570,7 +563,7 @@ Only the last case is typically problematic.
   So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
   If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
 
-:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in the first line of `index.d.ts` to match the library version that you're documenting! :exclamation:
+:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in `package.json` to match the library version that you're documenting! :exclamation:
 
 #### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
 
@@ -583,38 +576,30 @@ In the meantime, users of old library versions still may want to update type dec
 
 If you intend to continue updating the older version of a library's type declarations, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it.
 
-Because the root folder should always contain the type declarations for the latest ("new") version, you'll need to make a few changes to the files in your old-version subdirectory to ensure that relative path references point to the subdirectory, not the root.
+When creating a new version folder, ensure that the version field of `package.json` has been updated; `pnpm` will automatically resolve to this versioned package whenever it's needed. If other packages in the repo need to depend on this new version, ensure that their `package.json`s are also updated too.
 
-1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
-2. Add path mapping rules to ensure that tests are running against the intended version.
-
-For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.
-Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version.
-At the time of writing, the [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
-
-TODO(jakebailey): update
+For example, if we are creating `types/history/v2`, its `package.json` would look like:
 
 ```json
 {
-  "compilerOptions": {
-    "baseUrl": "../../",
-    "typeRoots": ["../../"],
-    "paths": {
-      "history": [ "history/v2" ]
-    }
-  },
-  "files": [
-    "index.d.ts",
-    "history-tests.ts"
-  ]
+    "private": true,
+    "name": "@types/history",
+    "version": "2.4.99999",
 }
 ```
 
-If there are other packages in Definitely Typed that are incompatible with the new version, you will need to add path mappings to the old version.
-You will also need to do this recursively for packages depending on the old version.
+Another package may select this verison by specifying:
 
-For example, `browser-sync` depends on `micromatch@2`, so [browser-sync `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) has a path mapping to `"micromatch": [ "micromatch/v2" ]`.
-Transitively, `browser-sync-webpack-plugin` (which depends on `browser-sync`) also needed to add the same path mapping (`"micromatch": [ "micromatch/v2" ]`) in its `tsconfig.json` until its `browser-sync` dependency was updated to the latest version.
+```json
+{
+    "private": true,
+    "name": "@types/browser-sync",
+    "version": "2.26.99999",
+    "dependencies": {
+        "@types/history": "^2"
+    }
+}
+```
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
@@ -629,18 +614,6 @@ Please note that it is not required to fully exercise the definition in each tes
 #### What about scoped packages?
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
-
-When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated `tsconfig.json` to correctly reference the scoped package:
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@foo/*": ["foo__*"]
-    }
-  }
-}
-```
 
 ## License
 
