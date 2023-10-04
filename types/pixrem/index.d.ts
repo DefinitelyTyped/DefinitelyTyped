@@ -9,13 +9,13 @@ declare namespace pixrem {
     interface Options {
         /**
          * The root element font size.
-         * Can be `px`, `rem`, `em`, `%,` or unitless pixel value.
+         * Can be `px`, `rem`, `em`, `%`, or unitless pixel value.
          * Pixrem also tries to get the root font-size from CSS (`html` or `:root`)
          * and overrides this option.
          * Use {@link html} option to disable this behaviour
          * @default 16
          */
-        rootValue?: number | undefined;
+        rootValue?: string | number | undefined;
         /**
          * *Replaces* rules containing `rem`s instead of adding fallbacks
          * @default false
