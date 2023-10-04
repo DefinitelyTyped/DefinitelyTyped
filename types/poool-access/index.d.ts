@@ -640,7 +640,7 @@ export namespace Poool {
          *
          * Default: `false`
          *
-         * More infos: https://www.poool.dev/fr/docs/access/javascript/audit/installation
+         * More infos: https://www.poool.dev/docs/access/javascript/audit/installation
          */
         skip_audit_loader?: boolean;
     }
