@@ -11,6 +11,7 @@
     "./types/fibjs",
     "./types/get-intrinsic",
     "./types/google-publisher-tag",
+    "./types/google.maps",
     "./types/locutus",
     "./types/lodash",
     "./types/material-ui",
@@ -27,6 +28,7 @@
     "./types/react-native",
     "./types/sawtooth-sdk",
     "./types/three",
+    "./types/webextension-polyfill",
     "./types/winrt-uwp",
     "./types/vscode",
 
