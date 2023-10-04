@@ -746,7 +746,7 @@ export interface AVPlayPlaybackCallback {
         duration: number,
         subtitles: string,
         type: number,
-        attributes: AVPlaySubtitleAttribute,
+        attributes: AVPlaySubtitleAttribute[],
     ): void;
 }
 
