@@ -797,6 +797,22 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getResetOnContextChange(): boolean;
     /**
+     * @since 1.118
+     *
+     * Gets current value of property {@link #getShowAsText showAsText}.
+     *
+     * Renders the name of the variant as a text. The name of the variant is usually rendered as {@link sap.m.Title }
+     * but there are use cases - related to accessibility requirements - where the rendering should be done
+     * using {@link sap.m.Text} instead. **Note:**:
+     *  If the name of the variant is rendered as `sap.m.Text`, all the `sap.m.Title`- specific information
+     * (`headerLevel` and `titleStyle`) is ignored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `showAsText`
+     */
+    getShowAsText(): boolean;
+    /**
      * Gets current value of property {@link #getShowSetAsDefault showSetAsDefault}.
      *
      * Indicated if the defaulting functionality is enabled.
@@ -1008,6 +1024,29 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bResetOnContextChange?: boolean
     ): this;
     /**
+     * @since 1.118
+     *
+     * Sets a new value for property {@link #getShowAsText showAsText}.
+     *
+     * Renders the name of the variant as a text. The name of the variant is usually rendered as {@link sap.m.Title }
+     * but there are use cases - related to accessibility requirements - where the rendering should be done
+     * using {@link sap.m.Text} instead. **Note:**:
+     *  If the name of the variant is rendered as `sap.m.Text`, all the `sap.m.Title`- specific information
+     * (`headerLevel` and `titleStyle`) is ignored.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowAsText(
+      /**
+       * New value for property `showAsText`
+       */
+      bShowAsText?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getShowSetAsDefault showSetAsDefault}.
      *
      * Indicated if the defaulting functionality is enabled.
@@ -1143,6 +1182,17 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Sets the maximum width of the control.
      */
     maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.118
+     *
+     * Renders the name of the variant as a text. The name of the variant is usually rendered as {@link sap.m.Title }
+     * but there are use cases - related to accessibility requirements - where the rendering should be done
+     * using {@link sap.m.Text} instead. **Note:**:
+     *  If the name of the variant is rendered as `sap.m.Text`, all the `sap.m.Title`- specific information
+     * (`headerLevel` and `titleStyle`) is ignored.
+     */
+    showAsText?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Contains the ids of the controls for which the variant management is responsible.
