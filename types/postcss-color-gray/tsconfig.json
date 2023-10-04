@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "index.es.d.ts", "postcss-color-gray-tests.ts"]
+    "files": ["index.d.ts", "postcss-color-gray-tests.ts"]
 }
