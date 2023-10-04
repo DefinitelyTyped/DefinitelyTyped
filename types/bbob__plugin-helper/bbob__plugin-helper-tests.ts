@@ -32,8 +32,8 @@ const node = new TagNode("a", {}, []);
 // $ExpectType void
 appendToNode(node, 'test');
 
-// $ExpectType string | undefined
-node.content.pop();
+// $ExpectType Node | undefined
+node.content?.pop();
 
 // $ExpectType number
 getNodeLength(node);
