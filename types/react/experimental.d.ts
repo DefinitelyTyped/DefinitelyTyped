@@ -137,4 +137,13 @@ declare module "." {
         passthrough: State,
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
+
+    type Reference = object;
+    type TaintableUniqueValue = string | bigint | ArrayBufferView;
+    function experimental_taintUniqueValue(
+        message: string | undefined,
+        lifetime: Reference,
+        value: TaintableUniqueValue,
+    ): void;
+    function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
 }
