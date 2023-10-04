@@ -35,6 +35,7 @@
         "test/dynamodb-tests.ts",
         "test/eventbridge-tests.ts",
         "test/iot-tests.ts",
+        "test/iot-authorizer-tests.ts",
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
         "test/lex-v2-tests.ts",
