@@ -48,4 +48,3 @@ declare namespace pixrem {
 declare const pixrem: Plugin<pixrem.Options>;
 
 export = pixrem;
-
