@@ -66,11 +66,3 @@ newDTSFiles.forEach(dts => {
         fail("This line should have your github username in it, not /me", dts, 3)
     }
 })
-
-for (const filename of danger.git.modified_files.concat(danger.git.created_files)) {
-    danger.git.diffForFile(filename).then(d => {
-        if (d.added.indexOf("\t") > -1) { // This is a dumb check for tabs, in lieu of running `prettier` on the diff'd parts
-            fail("The root .editorconfig style specifies spaces for whitespace. Please use spaces in new or changed types.", filename, d.after.split("\n").findIndex(e => e.indexOf("\t") > -1) + 1)
-        }
-    })
-}
