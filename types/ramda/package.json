@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "types-ramda": "^0.29.4"
+        "types-ramda": "^0.29.5"
     },
     "exports": {
         ".": {

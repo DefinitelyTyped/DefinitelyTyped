@@ -40,6 +40,7 @@ interface Obj {
     };
     const value = "";
 
+    // @ts-expect-error
     R.propEq(value, "foo")(obj);
 
     // @ts-expect-error

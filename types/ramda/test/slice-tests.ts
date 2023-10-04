@@ -40,16 +40,18 @@ import * as R from "ramda";
     const str = "Hello World";
     const arr = ["one", "two", "three", "four", "five"];
 
-    // $ExpectType (list: string) => string
-    const pipeSlice = R.pipe(R.slice(2, 5));
+    // must wrap in array func to use string overload
+    // $ExpectType (str: string) => string
+    const pipeSlice = R.pipe((str: string) => R.slice(2, 5, str));
     // $ExpectType string
     pipeSlice(str); // => 'llo'
 
     // $ExpectType string[]
     R.pipe((str: string[]) => R.slice(2, 5)(str))(arr); // => ['three', 'four', 'five']
 
+    // must wrap in array func to use string overload
     // $ExpectType string
-    R.pipe(R.slice(2))(5, str); // => 'llo'
+    R.pipe((b: number, str: string) => R.slice(2, b, str))(5, str); // => 'llo'
 
     // $ExpectType string[]
     R.pipe((b: number, str: string[]) => R.slice(2)(b, str))(5, arr); // => ['three', 'four', 'five']
