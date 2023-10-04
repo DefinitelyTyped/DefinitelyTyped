@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.es.d.ts",
+                "default": "./index.d.ts"
+            }
+        }
+    },
+    "dependencies": {
+        "postcss": "^7.0.5"
+    }
+}
