@@ -1,14 +1,13 @@
-// Type definitions for passport-apple 1.1
+// Type definitions for passport-apple 2.0
 // Project: https://github.com/ananay/passport-apple#readme
 // Definitions by: ytkalan <https://github.com/atomyyyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Request } from "express";
-import { Strategy } from "passport";
-import passportOAuth2 = require("passport-oauth2");
+import OAuth2Strategy = require("passport-oauth2");
 
 declare namespace AppleStrategy {
-    interface AuthenticateOptionsBase extends Partial<passportOAuth2._StrategyOptionsBase> {
+    interface AuthenticateOptionsBase extends Partial<OAuth2Strategy._StrategyOptionsBase> {
         authorizationURL?: string | undefined;
         tokenURL?: string | undefined;
         clientID: string;
@@ -19,24 +18,19 @@ declare namespace AppleStrategy {
     }
 
     interface AuthenticateOptions extends AuthenticateOptionsBase {
-        passReqToCallback?: false | undefined;
+        passReqToCallback: false;
     }
 
     interface AuthenticateOptionsWithRequest extends AuthenticateOptionsBase {
-        passReqToCallback: true;
+        passReqToCallback?: true | undefined;
     }
 
     type AppleAuthorizationParams = object & {
         response_mode: "form_post";
         scope: "name email";
-        response_type: "name email";
+        response_type: "code id_token";
         state: string | undefined;
     };
-
-    interface DecodedIdToken {
-        sub: string;
-        [key: string]: any;
-    }
 
     interface Profile {
         [key: string]: any;
@@ -47,7 +41,7 @@ declare namespace AppleStrategy {
     type VerifyFunction = (
         accessToken: string,
         refreshToken: string,
-        decodedIdToken: DecodedIdToken,
+        idToken: string,
         profile: Profile,
         verified: VerifyCallback,
     ) => void;
@@ -56,13 +50,16 @@ declare namespace AppleStrategy {
         req: Request,
         accessToken: string,
         refreshToken: string,
-        decodedIdToken: DecodedIdToken,
+        idToken: string,
         profile: Profile,
         verified: VerifyCallback,
     ) => void;
+
+    const Strategy: typeof AppleStrategy;
 }
 
-declare class AppleStrategy extends passportOAuth2 {
+//@ts-ignore AppleStrategy's options type incompatible with OAuth2Strategy's options type
+declare class AppleStrategy extends OAuth2Strategy {
     constructor(options: AppleStrategy.AuthenticateOptions, verify: AppleStrategy.VerifyFunction);
     constructor(options: AppleStrategy.AuthenticateOptionsWithRequest, verify: AppleStrategy.VerifyFunctionWithRequest);
 
