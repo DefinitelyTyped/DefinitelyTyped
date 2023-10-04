@@ -10,14 +10,13 @@ on:
     #     - master
     workflow_dispatch: ~
 
-permissions:
-  contents: write
-
 jobs:
   dprint-fmt:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
     - uses: actions/setup-node@v3
       with:
         node-version: '16'
