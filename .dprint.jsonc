@@ -10,6 +10,7 @@
     "./types/fhir",
     "./types/fibjs",
     "./types/get-intrinsic",
+    "./types/google-publisher-tag",
     "./types/locutus",
     "./types/lodash",
     "./types/material-ui",
