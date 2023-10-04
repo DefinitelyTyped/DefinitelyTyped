@@ -1,6 +1,8 @@
 import fs = require('fs')
 import os = require('os')
 import path = require('path')
+import cp = require('child_process')
+import stripAnsi = require('strip-ansi')
 import { markdown, danger, fail } from "danger"
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join('/')
 const lines: string[] = []
@@ -66,3 +68,43 @@ newDTSFiles.forEach(dts => {
         fail("This line should have your github username in it, not /me", dts, 3)
     }
 })
+
+// We batch this in chunks to avoid hitting max arg length issues.
+for (const files of chunked(allFiles, 50)) {
+    const result = cp.spawnSync(
+        process.execPath,
+        ["node_modules/dprint/bin.js", "check", ...files],
+        { encoding: "utf8", maxBuffer: 100 * 1024 * 1024 }
+    );
+    if (result.status !== 0) {
+        for (const line of result.stdout.split(/\r?\n/)) {
+            const match = stripAnsi(line).match(/^from (.*):$/);
+            if (match) {
+                unformatted.push(path.relative(process.cwd(), match[1]));
+            }
+        }
+    }
+}
+
+if (unformatted.length > 0) {
+    const message = [
+        "## Formatting",
+        "",
+    ];
+
+    message.push(`The following files are not formatted:
+1. ` + unformatted.slice(0,5).join('\n1. '))
+            if (unformatted.length > 5) {
+                const extras = unformatted.slice(5)
+                message.push(`
+<details>
+<summary>as well as these ${extras.length} other files...</summary>
+<p>${extras.join(", ")}</p>
+</details>
+`)
+            }
+
+    message.push("Consider running `dprint fmt` on these files to make review easier.")
+
+    markdown(message.join("\n"))
+}
