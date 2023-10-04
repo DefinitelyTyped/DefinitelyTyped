@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
