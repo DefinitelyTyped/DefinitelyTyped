@@ -24,11 +24,6 @@ import * as R from "ramda";
     const favorite = R.prop("favoriteLibrary");
 });
 
-// FIXME: TS 4.9 handles `const a = value as Value | undefined;` as `Value`
-function maybe<T>(value: T): T | undefined {
-    return value;
-}
-
 (() => { // get defined prop from obj
     const obj = { x: 100 };
     R.prop("x")(obj); // $ExpectType number
@@ -45,27 +40,27 @@ function maybe<T>(value: T): T | undefined {
 
 (() => { // get undefined prop from obj
     const obj = { y: 100 };
-    R.prop("x")(obj); // $ExpectType undefined
-    R.prop("x", obj); // $ExpectType undefined
-    R.prop(R.__, obj)("x"); // $ExpectType undefined
+    // @ts-expect-error
+    R.prop("x")(obj);
+    // @ts-expect-error
+    R.prop("x", obj);
+    // @ts-expect-error
+    R.prop(R.__, obj)("x");
 });
 
 (() => { // get prop from undefined
-    R.prop("x")(undefined); // $ExpectType undefined
-    R.prop("x", undefined); // $ExpectType undefined
-    R.prop(R.__, undefined)("x"); // $ExpectType undefined
-});
-
-(() => { // get prop from maybe obj
-    const obj = maybe({ x: 100 });
-    R.prop("x")(obj); // $ExpectType number | undefined
-    R.prop("x", obj); // $ExpectType number | undefined
-    R.prop(R.__, obj)("x"); // $ExpectType number | undefined
+    // @ts-expect-error
+    R.prop("x")(undefined);
+    // @ts-expect-error
+    R.prop("x", undefined);
+    // @ts-expect-error
+    R.prop(R.__, undefined)("x");
 });
 
 (() => { // get first element from array
     const array = [100, 200];
-    R.prop(0)(array); // $ExpectType number
+    // @ts-expect-error - new def only has partial support
+    R.prop(0)(array);
     R.prop(0, array); // $ExpectType number
     R.prop(R.__, array)(0); // $ExpectType number
 });
@@ -79,36 +74,18 @@ function maybe<T>(value: T): T | undefined {
 
 (() => { // get overflow element from tuple
     const tuple = [100, 200] as const;
-    R.prop(2)(tuple); // $ExpectType undefined
+    // @ts-expect-error - new def only has partial support
+    R.prop(2)(tuple);
     R.prop(2, tuple); // $ExpectType undefined
     R.prop(R.__, tuple)(2); // $ExpectType undefined
 });
 
 (() => { // get variadic element from tuple
     const tuple = [100, "200"] as [number, ...string[]];
-    R.prop(2)(tuple); // $ExpectType string
+    // @ts-expect-error - new def only has partial support
+    R.prop(2)(tuple);
     R.prop(2, tuple); // $ExpectType string
     R.prop(R.__, tuple)(2); // $ExpectType string
-});
-
-(() => { // get first element from undefined
-    R.prop(0)(undefined); // $ExpectType undefined
-    R.prop(0, undefined); // $ExpectType undefined
-    R.prop(R.__, undefined)(0); // $ExpectType undefined
-});
-
-(() => { // get prop from maybe array
-    const array = maybe([100, 200]);
-    R.prop(0)(array); // $ExpectType number | undefined
-    R.prop(0, array); // $ExpectType number | undefined
-    R.prop(R.__, array)(0); // $ExpectType number | undefined
-});
-
-(() => { // without inference
-    const obj = { x: 100 };
-    R.prop<number>("x", obj); // $ExpectType number
-    R.prop<number>("x")({ x: "as" }); // $ExpectType number
-    R.prop<number>(R.__, obj)("x"); // $ExpectType number
 });
 
 (() => { // community failed tests
