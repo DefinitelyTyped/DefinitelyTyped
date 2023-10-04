@@ -77,6 +77,7 @@ function chunked<T>(arr: T[], size: number): T[][] {
     return result;
 }
 
+const unformatted = [];
 const allFiles = [...danger.git.created_files, ...danger.git.modified_files];
 // We batch this in chunks to avoid hitting max arg length issues.
 for (const files of chunked(allFiles, 50)) {
