@@ -31,7 +31,8 @@ import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
 import Mobile from "sap/ui/util/Mobile";
 import Input from "sap/m/Input";
-import { DynamicDateRangeGroups } from "sap/m/library";
+import { DynamicDateRangeGroups, ITableItem } from "sap/m/library";
+import ColumnListItem from "sap/m/ColumnListItem";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -216,3 +217,6 @@ odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedE
 
 // 1.118
 const ddrg: DynamicDateRangeGroups = DynamicDateRangeGroups.SingleDates;
+
+// 1.119
+const iti: ITableItem = new ColumnListItem();
