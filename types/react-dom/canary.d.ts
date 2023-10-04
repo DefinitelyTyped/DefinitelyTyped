@@ -44,7 +44,19 @@ declare module "." {
     }
     function preconnect(href: string, options?: PreconnectOptions): void;
 
-    type PreloadAs = "font" | "image" | "script" | "style";
+    type PreloadAs =
+        | "audio"
+        | "document"
+        | "embed"
+        | "fetch"
+        | "font"
+        | "image"
+        | "object"
+        | "track"
+        | "script"
+        | "style"
+        | "video"
+        | "worker";
     interface PreloadOptions {
         as: PreloadAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
@@ -67,6 +79,7 @@ declare module "." {
         as: PreloadModuleAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         integrity?: string | undefined;
+        nonce?: string | undefined;
     }
     function preloadModule(href: string, options?: PreloadModuleOptions): void;
 
@@ -90,6 +103,7 @@ declare module "." {
         as?: PreinitModuleAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         integrity?: string | undefined;
+        nonce?: string | undefined;
     }
     function preinitModule(href: string, options?: PreinitModuleOptions): void;
 }

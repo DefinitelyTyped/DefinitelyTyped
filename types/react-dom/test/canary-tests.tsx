@@ -41,6 +41,7 @@ function preloadTest() {
             fetchPriority: "high",
             precedence: "high",
             integrity: "sad",
+            nonce: "0xeac1",
         });
         ReactDOM.preinit("bar", {
             // @ts-expect-error Only available in preload
@@ -76,7 +77,12 @@ function preloadTest() {
         // @ts-expect-error
         ReactDOM.preloadModule();
         ReactDOM.preloadModule("browserdefault");
-        ReactDOM.preloadModule("browserdefault", { as: "script", crossOrigin: "use-credentials", integrity: "0xeac1" });
+        ReactDOM.preloadModule("browserdefault", {
+            as: "script",
+            crossOrigin: "use-credentials",
+            integrity: "0xeac1",
+            nonce: "secret",
+        });
         ReactDOM.preloadModule("worker", { as: "worker" });
         ReactDOM.preloadModule("worker", {
             // @ts-expect-error Unknown request destination
