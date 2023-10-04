@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/base/assert" {
   /**
@@ -2207,6 +2207,7 @@ declare module "sap/base/util/uid" {
 declare module "sap/base/util/UriParameters" {
   /**
    * @since 1.68
+   * @deprecated (since 1.119) - See class description for details.
    *
    * Provides access to the individual parameters of a URL query string.
    *
@@ -2215,29 +2216,38 @@ declare module "sap/base/util/UriParameters" {
    * for a parameter and to {@link #getAll get a list of all values (`getAll()`)} for a parameter. Another
    * method allows to {@link #keys iterate over all parameter names (`keys()`)}.
    *
-   * The signature and behavior of those methods is aligned with the corresponding methods of the upcoming
-   * Web API `URLSearchParams`.
-   *
    * Decoding:
    *
    * The constructor and the factory methods expect percentage encoded input whereas all other APIs expect
    * and return decoded strings. After parsing the query string, any plus sign (0x2b) in names or values is
    * replaced by a blank (0x20) and the resulting strings are percentage decoded (`decodeURIComponent`).
    *
-   * Future Migration:
+   * Deprecation:
    *
-   * **Note:** To simplify a future migration from this class to the standard `URLSearchParams` API, consuming
-   * code should follow some recommendations:
-   * 	 - do not use the constructor, either use {@link #.fromURL UriParameters.fromURL} when the input is
-   *     a full URL, or use {@link #.fromQuery UriParameters.fromQuery} when the input only contains the query
-   *     part of an URL (e.g. `location.search`).
-   * 	 - do not use the `get` method with the second parameter `bAll`; use the `getAll` method instead
-   * 	 - do not access the internal property `mParams` (you never should access internal properties of UI5
-   *     classes or objects). With the predecessor of this API, access to `mParams` was often used to check whether
-   *     a parameter is defined at all. Using the new `has` method or checking the result of `get` against `null`
-   *     serves the same purpose.  Callers using `UriParameters.fromQuery(input)` can be migrated to `new
-   *     URLSearchParams(input)` once the new API is available in all supported browsers. Callers using `UriParameters.fromURL(input)`
-   *     can be migrated to `new URL(input).searchParams` then.
+   * This class is deprecated in favor of the URL web standard classes `URLSearchParams` / `URL`.
+   *
+   * `UriParameters.fromQuery(input)` can be migrated to `new URLSearchParams(input)`
+   *
+   * `UriParameters.fromURL(input)` can be migrated to `new URL(input).searchParams`
+   *
+   * Caveats:
+   *
+   * The API has already been designed to be a drop-in replacement but there are some important caveats to
+   * consider when switching to the standard APIs `URLSearchParams` / `URL`:
+   * 	 - `new URL(input).searchParams` validates the given URL according to the WHATWG URL Standard ({@link https://url.spec.whatwg.org}).
+   *     `UriParameters.fromURL(input)` only extracts the query string from the given input but does not perform
+   *     any validation.
+   * 	 - In some edge cases, especially for incomplete/invalid encoding, decoding behaves differently. Decoding
+   *     in `UriParameters` is described in the section above. For details about the encoding/decoding of `URLSearchParams`,
+   *     see the WHATWG URL Standard ({@link https://url.spec.whatwg.org}).
+   * 	 - The `get` method's second parameter, `bAll`, is not available; use the `getAll` method instead.
+   * 	 - The `keys` method's return value contains an entry for every occurrence of the key within the query,
+   *     in the defined order and including duplicates. `UriParameters#keys()` yields unique key values, even
+   *     when there are multiple values for the same key.
+   * 	 - The internal `mParams` property is not available anymore (you should never access internal properties
+   *     of UI5 classes or objects). With the predecessor of this API, access to `mParams` was often used to check
+   *     whether a parameter is defined at all. Using the `has` method or checking the result of `get` against
+   *     `null` serves the same purpose.
    */
   export default class UriParameters {
     /**
@@ -3261,6 +3271,24 @@ declare module "sap/ui/core/date/UI5Date" {
   }
 }
 
+declare module "sap/ui/core/getCompatibilityVersion" {
+  import Version from "sap/base/util/Version";
+
+  /**
+   * @deprecated (since 1.119.0)
+   *
+   * Returns the used compatibility version for the given feature.
+   *
+   * @returns the used compatibility version
+   */
+  export default function getCompatibilityVersion(
+    /**
+     * the key of desired feature
+     */
+    sFeature: string
+  ): Version;
+}
+
 declare module "sap/ui/core/InvisibleRenderer" {
   import Control from "sap/ui/core/Control";
 
@@ -3330,6 +3358,37 @@ declare module "sap/ui/core/InvisibleRenderer" {
   }
   const InvisibleRenderer: InvisibleRenderer;
   export default InvisibleRenderer;
+}
+
+declare module "sap/ui/core/message/MessageType" {
+  /**
+   * @since 1.118
+   *
+   * Specifies possible message types.
+   */
+  enum MessageType {
+    /**
+     * Message is an error
+     */
+    Error = "Error",
+    /**
+     * Message should be just an information
+     */
+    Information = "Information",
+    /**
+     * Message has no specific level
+     */
+    None = "None",
+    /**
+     * Message is a success message
+     */
+    Success = "Success",
+    /**
+     * Message is a warning
+     */
+    Warning = "Warning",
+  }
+  export default MessageType;
 }
 
 declare module "sap/ui/core/Messaging" {
@@ -3439,6 +3498,49 @@ declare module "sap/ui/core/Messaging" {
   export default Messaging;
 }
 
+declare module "sap/ui/core/StaticArea" {
+  import UIArea from "sap/ui/core/UIArea";
+
+  /**
+   * Helper module to access the static area.
+   *
+   * The static area is a hidden DOM element with a unique ID and managed by the framework. It is typically
+   * used for hidden or temporarily hidden elements like InvisibleText, Popup, Shadow, Blocklayer etc.
+   *
+   * All methods throw an `Error` when they are called before the document is ready.
+   */
+  interface StaticArea {
+    /**
+     * Checks whether the given DOM element is part of the static area.
+     *
+     * @returns Whether the given DOM reference is part of the static UIArea
+     */
+    contains(
+      /**
+       * The DOM element to check
+       */
+      oDomRef: Element
+    ): boolean;
+    /**
+     * Returns the root element of the static, hidden area.
+     *
+     * It can be used e.g. for hiding elements like Popup, Shadow, Blocklayer etc. If it is not yet available,
+     * a DIV element is created and appended to the body.
+     *
+     * @returns the root DOM element of the static, hidden area
+     */
+    getDomRef(): Element;
+    /**
+     * Returns the `UIArea` instance for the static area. If none exists yet, one gets created.
+     *
+     * @returns The `UIArea` instance for the static area
+     */
+    getUIArea(): UIArea;
+  }
+  const StaticArea: StaticArea;
+  export default StaticArea;
+}
+
 declare module "sap/ui/core/syncStyleClass" {
   import Control from "sap/ui/core/Control";
 
@@ -3476,7 +3578,11 @@ declare module "sap/ui/core/Theming" {
    */
   interface Theming {
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:applied applied} event
+     * Attaches event handler `fnFunction` to the {@link #event:applied applied} event.
+     *
+     * The given handler is called when the the applied event is fired. If the theme is already applied the
+     * handler will be called immediately. The handler stays attached to the applied event for future theme
+     * changes.
      */
     attachApplied(
       /**
@@ -3501,6 +3607,10 @@ declare module "sap/ui/core/Theming" {
      * @returns the theme name
      */
     getTheme(): string;
+    /**
+     * Notify content density changes
+     */
+    notifyContentDensityChanged(): void;
     /**
      * Allows setting the theme name
      *
@@ -7426,7 +7536,7 @@ declare module "sap/ui/base/ManagedObject" {
      * the same ID as an element or another `ManagedObject`.
      *
      * For the same reason, there is no general lookup for `ManagedObject`s via their ID. Only for subclasses
-     * that enforce unique IDs, there might be lookup mechanisms (e.g. {@link sap.ui.core.Core#byId sap.ui.getCore().byId() }
+     * that enforce unique IDs, there might be lookup mechanisms (e.g. {@link sap.ui.core.Element#getElementById sap.ui.core.Element.getElementById }
      * for elements).
      *
      * @returns The objects's ID.
@@ -9205,6 +9315,14 @@ declare module "sap/ui/base/ManagedObjectMetadata" {
        */
       oAggregatedObject: ManagedObject
     ): void;
+    /**
+     * @since 1.119.0
+     *
+     * Get the prefix used for the generated IDs from configuration
+     *
+     * @returns The prefix for the generated IDs
+     */
+    static getUIDPrefix(): string;
     /**
      * Test whether a given ID looks like it was automatically generated.
      *
@@ -11228,7 +11346,28 @@ declare module "sap/ui/core/library" {
   /**
    * Specifies possible message types.
    */
-  export enum MessageType {}
+  export enum MessageType {
+    /**
+     * Message is an error
+     */
+    Error = "Error",
+    /**
+     * Message should be just an information
+     */
+    Information = "Information",
+    /**
+     * Message has no specific level
+     */
+    None = "None",
+    /**
+     * Message is a success message
+     */
+    Success = "Success",
+    /**
+     * Message is a warning
+     */
+    Warning = "Warning",
+  }
   /**
    * Defines the different possible states of an element that can be open or closed and does not only toggle
    * between these states, but also spends some time in between (e.g. because of an animation).
@@ -12866,6 +13005,8 @@ declare module "sap/ui/core/Component" {
     onDeactivate(): void;
     /**
      * @since 1.15.1
+     * @deprecated (since 1.119) - recommended to use the browser-native page lifecycle API, providing events
+     * such as 'pageshow' and 'pagehide'
      *
      * The window before unload hook. Override this method in your Component class implementation, to handle
      * cleanup before the real unload or to prompt a question to the user, if the component should be exited.
@@ -12876,6 +13017,8 @@ declare module "sap/ui/core/Component" {
     onWindowBeforeUnload(): string | undefined;
     /**
      * @since 1.15.1
+     * @deprecated (since 1.119) - recommended to use the browser-native API to listen for errors: window.addEventListener("error",
+     * function() { ... })
      *
      * The window error hook. Override this method in your Component class implementation to listen to unhandled
      * errors.
@@ -12896,6 +13039,9 @@ declare module "sap/ui/core/Component" {
     ): void;
     /**
      * @since 1.15.1
+     * @deprecated (since 1.119) - Newer browser versions deprecate the browser-native 'unload' event. Therefore,
+     * the former API won't reliably work anymore. Please have a look at the browser-native page lifecycle API,
+     * e.g. its events 'pageshow' and 'pagehide'.
      *
      * The window unload hook. Override this method in your Component class implementation, to handle cleanup
      * of the component once the window will be unloaded (e.g. closed).
@@ -14179,6 +14325,8 @@ declare module "sap/ui/core/Configuration" {
     getAccessibility(): boolean;
     /**
      * @since 1.77.0
+     * @deprecated (since 1.118) - Please use {@link module:sap/base/i18n/Localization.getActiveTerminologies }
+     * instead.
      *
      * Returns the list of active terminologies defined via the Configuration.
      *
@@ -14246,6 +14394,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getCalendarWeekNumbering(): CalendarWeekNumbering;
     /**
+     * @deprecated (since 1.119.0)
+     *
      * Returns the used compatibility version for the given feature.
      *
      * @returns the used compatibility version
@@ -14452,6 +14602,9 @@ declare module "sap/ui/core/Configuration" {
      */
     getTimezone(): string;
     /**
+     * @deprecated (since 1.119.0) - Please use {@link sap.ui.base.ManagedObjectMetadata.getUIDPrefix ManagedObjectMetadata.getUIDPrefix }
+     * instead.
+     *
      * Prefix to be used for automatically generated control IDs. Default is a double underscore "__".
      *
      * @returns the prefix to be used
@@ -16072,7 +16225,7 @@ declare module "sap/ui/core/Core" {
 
   import UI5Element from "sap/ui/core/Element";
 
-  import Component from "sap/ui/core/Component";
+  import { default as Component, MetadataOptions } from "sap/ui/core/Component";
 
   import RenderManager from "sap/ui/core/RenderManager";
 
@@ -16088,7 +16241,7 @@ declare module "sap/ui/core/Core" {
 
   import ResourceBundle from "sap/base/i18n/ResourceBundle";
 
-  import MessageManager from "sap/ui/core/message/MessageManager";
+  import Messaging from "sap/ui/core/Messaging";
 
   import Metadata from "sap/ui/base/Metadata";
 
@@ -16099,65 +16252,54 @@ declare module "sap/ui/core/Core" {
   /**
    * Core Class of the SAP UI Library.
    *
-   * This class boots the Core framework and makes it available for the application via method `sap.ui.getCore()`.
+   * This class boots the Core framework and makes it available for the application by requiring `sap.ui.core.Core`.
+   *
+   * The Core provides a {@link #ready ready function} to execute code after the core was booted.
    *
    * Example:
    * ```javascript
    *
    *
-   *   var oCore = sap.ui.getCore();
-   *
-   * ```
-   *
-   *
-   * With methods of the Core framework you can {@link #attachInit execute code} after the framework has been
-   * initialized. It provides access to the {@link #getConfiguration configuration} and exposes events that
-   * an application or a control can register to (e.g. {@link #event:localizationChanged localizationChanged},
-   * {@link #event:parseError parseError}, {@link #event:validationError validationError}, {@link #event:formatError formatError},
-   * {@link #event:validationSuccess validationSuccess}).
-   *
-   * Example:
-   * ```javascript
-   *
-   *
-   *   oCore.attachInit(function() {
-   *     if ( oCore.getConfiguration().getRTL() ) {
+   *   oCore.ready(function() {
    *       ...
-   *     }
    *   });
    *
-   *   oCore.attachLocalizationChanged(function(oEvent) {
-   *     ...
-   *   });
+   *   await oCore.ready();
+   *   ...
    *
    * ```
    */
   interface Core {
     /**
-     * Creates a new subclass of class sap.ui.core.Core with name `sClassName` and enriches it with the information
+     * @deprecated (since 1.119.0)
+     *
+     * Creates a new subclass of class `sap.ui.core.Core` with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.Object.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
      *
-     * @returns Created class / constructor function
+     * @returns The created class / constructor function
      */
     extend(
       /**
-       * Name of the class being created
+       * Qualified name of the newly created class
        */
       sClassName: string,
       /**
        * Object literal with information about the class
        */
-      oClassInfo?: object,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
+      oClassInfo?: {
+        /**
+         * The metadata object describing the class. See {@link sap.ui.core.Component.MetadataOptions MetadataOptions }
+         * for the values allowed in every extend.
+         */
+        metadata?: MetadataOptions;
+      }
     ): Function;
     /**
-     * Returns a metadata object for class sap.ui.core.Core.
+     * @deprecated (since 1.119.0)
+     *
+     * Returns the metadata for class `sap.ui.core.Core`.
      *
      * @returns Metadata object describing this class
      */
@@ -16172,6 +16314,8 @@ declare module "sap/ui/core/Core" {
      */
     applyChanges(): void;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.setTheme Theming.setTheme} instead.
+     *
      * Applies the theme with the given name (by loading the respective style sheets, which does not disrupt
      * the application).
      *
@@ -16200,6 +16344,8 @@ declare module "sap/ui/core/Core" {
       sThemeBaseUrl?: string
     ): void;
     /**
+     * @deprecated (since 1.119)
+     *
      * Registers a listener for control events.
      *
      * When called, the context of the listener (its `this`) will be bound to `oListener` if specified, otherwise
@@ -16525,6 +16671,9 @@ declare module "sap/ui/core/Core" {
       vFieldGroupIds?: string | string[]
     ): Control[];
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Element.getElementById Element.getElementById }
+     * instead.
+     *
      * Returns the registered element with the given ID, if any.
      *
      * The ID must be the globally unique ID of an element, the same as returned by `oElement.getId()`.
@@ -16603,6 +16752,8 @@ declare module "sap/ui/core/Core" {
       mSettings?: object
     ): Component | Promise<Component>;
     /**
+     * @deprecated (since 1.119)
+     *
      * Returns a new instance of the RenderManager for exclusive use by the caller.
      *
      * The caller must take care to destroy the render manager when it is no longer needed. Calling this method
@@ -16625,6 +16776,8 @@ declare module "sap/ui/core/Core" {
       oDomRef: string | Element
     ): UIArea;
     /**
+     * @deprecated (since 1.119)
+     *
      * Unregisters a listener for control events.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -16955,6 +17108,10 @@ declare module "sap/ui/core/Core" {
       sId: ID | null | undefined
     ): UI5Element | undefined;
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Element.getActiveElement Element.getActiveElement }
+     * to get the currently focused element. You can then retrieve the ID of that element with {@link sap.ui.core.Element#getId Element#getId}.
+     * Please be aware, {@link sap.ui.core.Element.getActiveElement Element.getActiveElement} can return 'undefined'.
+     *
      * Returns the Id of the control/element currently in focus.
      *
      * @returns the Id of the control/element currently in focus.
@@ -16975,6 +17132,8 @@ declare module "sap/ui/core/Core" {
     ): UI5Element | undefined;
     /**
      * @since 1.8.0
+     * @deprecated (since 1.119.0) - Please use {@link sap.ui.core.EventBus.getInstance EventBus.getInstance }
+     * for global usage instead. Creating an own local instance is the preferred usage.
      *
      * Returns the event bus.
      *
@@ -16982,6 +17141,9 @@ declare module "sap/ui/core/Core" {
      */
     getEventBus(): EventBus;
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Lib.getResourceBundleFor Lib.getResourceBundleFor }
+     * instead.
+     *
      * Retrieves a resource bundle for the given library and locale.
      *
      * If only one argument is given, it is assumed to be the libraryName. The locale then falls back to the
@@ -17029,6 +17191,9 @@ declare module "sap/ui/core/Core" {
       bAsync?: boolean
     ): ResourceBundle | undefined | Promise<ResourceBundle | undefined>;
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Lib.getResourceBundleFor Lib.getResourceBundleFor }
+     * instead.
+     *
      * Retrieves a resource bundle for the given library and locale.
      *
      * If only one argument is given, it is assumed to be the libraryName. The locale then falls back to the
@@ -17072,6 +17237,8 @@ declare module "sap/ui/core/Core" {
       bAsync?: boolean
     ): ResourceBundle | undefined | Promise<ResourceBundle | undefined>;
     /**
+     * @deprecated (since 1.119)
+     *
      * Returns a map of library info objects for all currently loaded libraries, keyed by their names.
      *
      * The structure of the library info objects matches the structure of the info object that the {@link #initLibrary }
@@ -17087,11 +17254,11 @@ declare module "sap/ui/core/Core" {
     getLoadedLibraries(): Record<string, Object>;
     /**
      * @since 1.33.0
-     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Messaging Messaging} instead.
+     * @deprecated (since 1.118) - Please use {@link module:sap/ui/core/Messaging Messaging} instead.
      *
-     * Returns the active `MessageManager` instance.
+     * Returns the `Messaging` module.
      */
-    getMessageManager(): MessageManager;
+    getMessageManager(): Messaging;
     /**
      * @deprecated (since 1.118) - Please use {@link sap.ui.base.ManagedObject#getModel ManagedObject#getModel }
      * instead.
@@ -17128,6 +17295,9 @@ declare module "sap/ui/core/Core" {
      */
     getRootComponent(): Component;
     /**
+     * @deprecated (since 1.119.0) - Please use {@link module:sap/ui/core/StaticArea.getDomRef StaticArea.getDomRef }
+     * instead.
+     *
      * Returns the static, hidden area DOM element belonging to this core instance.
      *
      * It can be used e.g. for hiding elements like Popups, Shadow, Blocklayer etc.
@@ -17147,8 +17317,8 @@ declare module "sap/ui/core/Core" {
      */
     getTemplate(sId: string): Component;
     /**
-     * @deprecated (since 1.107) - use {@link sap.ui.core.UIArea.registry#get UIArea.registry#get} instead,
-     * but note that `UIArea.registry.get` only accepts the ID of the UIArea as argument.
+     * @deprecated (since 1.107) - For access to the static UIArea, please use the {@link module:sap/ui/core/StaticArea StaticArea }
+     * instead.
      *
      * Returns the {@link sap.ui.core.UIArea UIArea} with the given ID or that belongs to the given DOM element.
      *
@@ -17179,6 +17349,8 @@ declare module "sap/ui/core/Core" {
      */
     hasModel(): boolean;
     /**
+     * @deprecated (since 1.119)
+     *
      * Includes a library theme into the current page (if a variant is specified it will include the variant
      * library theme)
      */
@@ -17197,6 +17369,8 @@ declare module "sap/ui/core/Core" {
       sQuery?: string
     ): void;
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Lib.init Lib.init} instead.
+     *
      * Provides the framework with information about a library.
      *
      * This method is intended to be called exactly once while the main module of a library (its `library.js`
@@ -17289,6 +17463,8 @@ declare module "sap/ui/core/Core" {
      */
     isMobile(): boolean;
     /**
+     * @deprecated (since 1.119.0) - Please use {@link module:sap/ui/core/StaticArea.contains StaticArea.contains }
+     * instead.
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Checks whether the given DOM element is the root of the static area.
@@ -17302,6 +17478,9 @@ declare module "sap/ui/core/Core" {
       oDomRef: Element
     ): boolean;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.attachApplied Theming.attachApplied }
+     * instead.
+     *
      * Returns true, if the styles of the current theme are already applied, false otherwise.
      *
      * This function must not be used before the init event of the Core. If the styles are not yet applied a
@@ -17311,6 +17490,8 @@ declare module "sap/ui/core/Core" {
      */
     isThemeApplied(): boolean;
     /**
+     * @deprecated (since 1.119) - Please use {@link sap.ui.core.Lib.load Lib.load} instead.
+     *
      * Loads the given library and its dependencies and makes its content available to the application.
      *
      * What it does:
@@ -17411,6 +17592,9 @@ declare module "sap/ui/core/Core" {
      */
     lock(): void;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.notifyContentDensityChanged Theming.notifyContentDensityChanged }
+     * instead.
+     *
      * Triggers a realignment of controls
      *
      * This method should be called after changing the cozy/compact CSS class of a DOM element at runtime, for
@@ -17502,6 +17686,7 @@ declare module "sap/ui/core/Core" {
     ): void;
     /**
      * @since 1.10
+     * @deprecated (since 1.119)
      *
      * Defines the root directory from below which UI5 should load the theme with the given name. Optionally
      * allows restricting the setting to parts of a theme covering specific control libraries.
@@ -17571,6 +17756,7 @@ declare module "sap/ui/core/Core" {
     ): this;
     /**
      * @since 1.10
+     * @deprecated (since 1.119)
      *
      * Defines the root directory from below which UI5 should load the theme with the given name. Optionally
      * allows restricting the setting to parts of a theme covering specific control libraries.
@@ -19113,7 +19299,7 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DragDropInfo$DragStartEvent = Event<
@@ -19218,7 +19404,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
      *
-     * This event is fired when a drag operation is being ended.
+     * This event is fired when a drag operation is ended.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -19245,7 +19431,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.core.dnd.DragInfo` itself.
      *
-     * This event is fired when a drag operation is being ended.
+     * This event is fired when a drag operation is ended.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -19412,7 +19598,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * @since 1.56
      *
-     * This event is fired when a drag operation is being ended.
+     * This event is fired when a drag operation is ended.
      */
     dragEnd?: (oEvent: DragInfo$DragEndEvent) => void;
   }
@@ -19431,7 +19617,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DragInfo$DragEndEvent = Event<
@@ -19453,7 +19639,7 @@ declare module "sap/ui/core/dnd/DragInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DragInfo$DragStartEvent = Event<
@@ -20107,7 +20293,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DropInfo$DragEnterEvent = Event<
@@ -20127,7 +20313,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     dragSession?: DragSession;
 
     /**
-     * The calculated position of the drop action relative to the `target`.
+     * The calculated position of the drop action relative to the `target`
      */
     dropPosition?:
       | dnd.RelativeDropPosition
@@ -20136,7 +20322,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DropInfo$DragOverEvent = Event<
@@ -20161,7 +20347,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     droppedControl?: UI5Element;
 
     /**
-     * The calculated position of the drop action relative to the `droppedControl`.
+     * The calculated position of the drop action relative to the `droppedControl`
      */
     dropPosition?:
       | dnd.RelativeDropPosition
@@ -20170,7 +20356,7 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * The underlying browser event
      */
-    browserEvent?: Event;
+    browserEvent?: DragEvent;
   }
 
   export type DropInfo$DropEvent = Event<
@@ -20197,11 +20383,11 @@ declare module "sap/ui/core/Element" {
 
   import ContextBinding from "sap/ui/model/ContextBinding";
 
+  import { ID } from "sap/ui/core/library";
+
   import LayoutData from "sap/ui/core/LayoutData";
 
   import TooltipBase from "sap/ui/core/TooltipBase";
-
-  import { ID } from "sap/ui/core/library";
 
   /**
    * Base Class for UI Elements.
@@ -20381,7 +20567,7 @@ declare module "sap/ui/core/Element" {
        * to `data-sap-ui`
        */
       bIncludeRelated?: boolean
-    ): UI5Element;
+    ): UI5Element | undefined;
     /**
      * @deprecated (since 1.3.1) - Use the static `extend` method of the desired base class (e.g. {@link sap.ui.core.Element.extend})
      *
@@ -20448,6 +20634,28 @@ declare module "sap/ui/core/Element" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * @since 1.119
+     *
+     * Returns the element currently in focus.
+     *
+     * @returns The currently focused element
+     */
+    static getActiveElement(): UI5Element | undefined;
+    /**
+     * Retrieves an Element by its ID.
+     *
+     * When the ID is `null` or `undefined` or when there's no element with the given ID, then `undefined` is
+     * returned.
+     *
+     * @returns Element with the given ID or `undefined`
+     */
+    static getElementById(
+      /**
+       * ID of the element to retrieve
+       */
+      id: ID
+    ): UI5Element | undefined;
     /**
      * Returns a metadata object for class sap.ui.core.Element.
      *
@@ -21350,20 +21558,6 @@ declare module "sap/ui/core/Element" {
        */
       thisArg?: Object
     ): void;
-    /**
-     * Retrieves an Element by its ID.
-     *
-     * When the ID is `null` or `undefined` or when there's no element with the given ID, then `undefined` is
-     * returned.
-     *
-     * @returns Element with the given ID or `undefined`
-     */
-    get(
-      /**
-       * ID of the element to retrieve
-       */
-      id: ID
-    ): UI5Element | undefined;
   }
   export const registry: registry;
 
@@ -21531,6 +21725,14 @@ declare module "sap/ui/core/EventBus" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * @since 1.119.0
+     *
+     * Returns the singleton instance of the EventBus for global usage.
+     *
+     * @returns the event bus
+     */
+    static getInstance(): EventBus;
     /**
      * Returns a metadata object for class sap.ui.core.EventBus.
      *
@@ -26403,17 +26605,11 @@ declare module "sap/ui/core/Lib" {
   /**
    * @since 1.118
    *
-   * Library Loading: To load a library, {@link #.load} can be used directly without creating a library instance
-   * in advance.
+   * Constructor must not be used: To load a library, please use the static method {@link #.load}.
    *
-   * What a library does:
-   * 	 - preload: {@link #preload} loads the library-preload bundle and its resource bundle and apply the
-   *     same for its dependencies
-   * 	 - theming: {@link #_includeTheme} creates a <link> in the page referring to the corresponding
-   *     `library.css`
-   * 	 - resource bundle: {@link #getResourceBundle} returns the resource bundle directly when it's already
-   *     loaded or triggers a synchronous request to load it. {@link #loadResourceBundle} loads a library's resource
-   *     bundle file asynchronously. The resource bundle file is also loaded when the `preload` function is called
+   * This class also provides other static methods which are related to a library, such as {@link #.getResourceBundleFor }
+   * to retrieve the resource bundle of a library, {@link #.init} to provide information for a library and
+   * so on.
    */
   export default class Lib extends BaseObject {
     constructor();
@@ -26450,8 +26646,25 @@ declare module "sap/ui/core/Lib" {
     /**
      * Retrieves a resource bundle for the given library and locale.
      *
+     * This method returns the resource bundle directly. When the resource bundle for the given locale isn't
+     * loaded yet, synchronous request will be used to load the resource bundle.
+     *
      * If only one argument is given, it is assumed to be the library name. The locale then falls back to the
      * current {@link sap.ui.core.Configuration#getLanguage session locale}.
+     *
+     * Configuration via App Descriptor: When the App Descriptor for the library is available without further
+     * request (manifest.json has been preloaded) and when the App Descriptor is at least of version 1.9.0 or
+     * higher, then this method will evaluate the App Descriptor entry `"sap.ui5" / "library" / "i18n"`.
+     *
+     * 	 - When the entry is `true`, a bundle with the default name "messagebundle.properties" will be loaded
+     *
+     * 	 - If it is a string, then that string will be used as name of the bundle
+     * 	 - If it is `false`, no bundle will be loaded and the result will be `undefined`
+     *
+     * Caching: Once a resource bundle for a library has been loaded, it will be cached. Further calls for the
+     * same locale won't create new requests, but return the already loaded bundle. There's therefore no need
+     * for control code to cache the returned bundle for a longer period of time. Not further caching the result
+     * also prevents stale texts after a locale change.
      *
      * @returns The best matching resource bundle for the given parameters or `undefined`
      */
@@ -28952,20 +29165,37 @@ declare module "sap/ui/core/message/Message" {
 declare module "sap/ui/core/message/MessageManager" {
   import BaseObject from "sap/ui/base/Object";
 
+  import Message from "sap/ui/core/message/Message";
+
+  import MessageModel from "sap/ui/model/message/MessageModel";
+
   import Metadata from "sap/ui/base/Metadata";
 
+  import MessageProcessor from "sap/ui/core/message/MessageProcessor";
+
+  import ManagedObject from "sap/ui/base/ManagedObject";
+
   /**
-   * @deprecated (since 1.118) - Please use {@link sap.ui.core.Messaging Messaging} instead.
+   * @deprecated (since 1.118) - Please use {@link module:sap/ui/core/Messaging Messaging} instead.
    */
   export default class MessageManager extends BaseObject {
     /**
      * Constructor for a new MessageManager.
      *
-     * Creating own instances of MessageManager is deprecated. Please require 'sap/ui/core/Messaging' instead
-     * and use the module export directly without using 'new'.
+     * Creating own instances of MessageManager is deprecated. Please require {@link module:sap/ui/core/Messaging 'sap/ui/core/Messaging' }
+     * instead and use the module export directly without using 'new'.
      */
     constructor();
 
+    /**
+     * Add messages to Messaging
+     */
+    static addMessages(
+      /**
+       * Array of sap.ui.core.message.Message or single sap.ui.core.message.Message
+       */
+      vMessages: Message | Message[]
+    ): void;
     /**
      * Creates a new subclass of class sap.ui.core.message.MessageManager with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
@@ -28990,11 +29220,89 @@ declare module "sap/ui/core/message/MessageManager" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Get the MessageModel
+     *
+     * @returns oMessageModel The Message Model
+     */
+    static getMessageModel(): MessageModel;
+    /**
      * Returns a metadata object for class sap.ui.core.message.MessageManager.
      *
      * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
+    /**
+     * Register MessageProcessor
+     */
+    static registerMessageProcessor(
+      /**
+       * The MessageProcessor
+       */
+      oProcessor: MessageProcessor
+    ): void;
+    /**
+     * When using the databinding type system, the validation/parsing of a new property value could fail. In
+     * this case, a validationError/parseError event is fired. These events bubble up to the core. For registered
+     * ManagedObjects, the Messaging attaches to these events and creates a `sap.ui.core.message.Message` (bHandleValidation=true)
+     * for each of these errors and cancels the event bubbling.
+     */
+    static registerObject(
+      /**
+       * The sap.ui.base.ManagedObject
+       */
+      oObject: ManagedObject,
+      /**
+       * Handle validationError/parseError events for this object. If set to true, the Messaging creates a Message
+       * for each validation/parse error. The event bubbling is canceled in every case.
+       */
+      bHandleValidation: boolean
+    ): void;
+    /**
+     * Remove all messages
+     */
+    static removeAllMessages(): void;
+    /**
+     * Remove given Messages
+     */
+    static removeMessages(
+      /**
+       * The message(s) to be removed.
+       */
+      vMessages: Message | Message[]
+    ): void;
+    /**
+     * Deregister MessageProcessor
+     */
+    static unregisterMessageProcessor(
+      /**
+       * The MessageProcessor
+       */
+      oProcessor: MessageProcessor
+    ): void;
+    /**
+     * Unregister ManagedObject
+     */
+    static unregisterObject(
+      /**
+       * The sap.ui.base.ManagedObject
+       */
+      oObject: ManagedObject
+    ): void;
+    /**
+     * Update Messages by providing two arrays of old and new messages.
+     *
+     * The old ones will be removed, the new ones will be added.
+     */
+    static updateMessages(
+      /**
+       * Array of old messages to be removed
+       */
+      aOldMessages: Message[],
+      /**
+       * Array of new messages to be added
+       */
+      aNewMessages: Message[]
+    ): void;
   }
 }
 
@@ -29191,7 +29499,7 @@ declare module "sap/ui/core/message/MessageProcessor" {
       oListener?: object
     ): this;
     /**
-     * @deprecated - 1.115 Use {@link sap.ui.core.Messaging#updateMessages} instead
+     * @deprecated (since 1.115) - Use {@link module:sap/ui/core/Messaging.updateMessages} instead
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:messageChange messageChange} to attached listeners.
@@ -29237,35 +29545,6 @@ declare module "sap/ui/core/message/MessageProcessor" {
     MessageProcessor$MessageChangeEventParameters,
     MessageProcessor
   >;
-}
-
-declare module "sap/ui/core/message/MessageType" {
-  /**
-   * Specifies possible message types.
-   */
-  enum MessageType {
-    /**
-     * Message is an error
-     */
-    Error = "Error",
-    /**
-     * Message should be just an information
-     */
-    Information = "Information",
-    /**
-     * Message has no specific level
-     */
-    None = "None",
-    /**
-     * Message is a success message
-     */
-    Success = "Success",
-    /**
-     * Message is a warning
-     */
-    Warning = "Warning",
-  }
-  export default MessageType;
 }
 
 declare module "sap/ui/core/mvc/Controller" {
@@ -30701,7 +30980,7 @@ declare module "sap/ui/core/mvc/View" {
      * Returns an element by its ID in the context of this view.
      *
      * This method expects a view-local ID of an element (the same as e.g. defined in the *.view.xml of an XMLView).
-     * For a search with a global ID (the value returned by `oElement.getId()`) you should rather use {@link sap.ui.core.Core#byId sap.ui.getCore().byId()}.
+     * For a search with a global ID (the value returned by `oElement.getId()`) you should rather use {@link sap.ui.core.Element#getElementById Element.getElementById}.
      *
      * @returns Element by its ID or `undefined`
      */
@@ -32888,16 +33167,6 @@ declare module "sap/ui/core/RenderManager" {
    * rendering optimization.
    */
   export default class RenderManager extends Object {
-    /**
-     * Creates an instance of the RenderManager.
-     *
-     * Applications or controls must not call the `RenderManager` constructor on their own but should use the
-     * {@link sap.ui.core.Core#createRenderManager sap.ui.getCore().createRenderManager()} method to create
-     * an instance for their exclusive use.
-     * See:
-     * 	sap.ui.core.Core
-     * 	sap.ui.getCore
-     */
     constructor();
 
     /**
@@ -48836,6 +49105,8 @@ declare module "sap/ui/model/ClientListBinding" {
 declare module "sap/ui/model/ClientModel" {
   import Model from "sap/ui/model/Model";
 
+  import PropertyBinding from "sap/ui/model/PropertyBinding";
+
   import Metadata from "sap/ui/base/Metadata";
 
   /**
@@ -48881,6 +49152,41 @@ declare module "sap/ui/model/ClientModel" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
+    /**
+     * Creates a new property binding for this model.
+     * See:
+     * 	sap.ui.model.Model#bindProperty
+     * 	#getProperty
+     *
+     * @returns The new property binding
+     */
+    bindProperty(
+      /**
+       * The path pointing to the property that should be bound; either an absolute path or a path relative to
+       * a given `oContext`
+       */
+      sPath: string,
+      /**
+       * A context object for the new binding
+       */
+      oContext?: object,
+      /**
+       * Map of optional parameters for the binding
+       */
+      mParameters?: {
+        /**
+         * Whether this binding does not propagate model messages to the control; supported since 1.119.0. Some
+         * composite types like {@link sap.ui.model.type.Currency} automatically ignore model messages for some
+         * of their parts depending on their format options; setting this parameter to `true` or `false` overrules
+         * the automatism of the type.
+         *
+         * For example, a binding for a currency code is used in a composite binding for rendering the proper number
+         * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
+         * the currency code shall not be displayed at that control, only messages for the amount.
+         */
+        ignoreMessages?: boolean;
+      }
+    ): PropertyBinding;
     /**
      * See:
      * 	sap.ui.model.Model.prototype.destroy
@@ -48993,6 +49299,17 @@ declare module "sap/ui/model/ClientPropertyBinding" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
+    /**
+     * @since 1.119.0
+     *
+     * Returns `true`, as this binding supports the feature of not propagating model messages to the control.
+     * See:
+     * 	sap.ui.model.Binding#getIgnoreMessages
+     * 	sap.ui.model.Binding#setIgnoreMessages
+     *
+     * @returns `true`
+     */
+    supportsIgnoreMessages(): boolean;
   }
 }
 
@@ -50394,7 +50711,8 @@ declare module "sap/ui/model/Filter" {
        */
       vOperator?:
         | (FilterOperator | keyof typeof FilterOperator)
-        | ((p1: any) => boolean | boolean),
+        | boolean
+        | ((p1: any) => boolean),
       /**
        * First value to use with the given filter operator
        */
@@ -51541,8 +51859,6 @@ declare module "sap/ui/model/ListBinding" {
 declare module "sap/ui/model/message/MessageModel" {
   import ClientModel from "sap/ui/model/ClientModel";
 
-  import MessageManager from "sap/ui/core/message/MessageManager";
-
   import Metadata from "sap/ui/base/Metadata";
 
   import Context from "sap/ui/model/Context";
@@ -51556,12 +51872,7 @@ declare module "sap/ui/model/message/MessageModel" {
     /**
      * Constructor for a new JSONModel.
      */
-    constructor(
-      /**
-       * The MessageManager instance
-       */
-      oMessageManager: MessageManager
-    );
+    constructor();
 
     /**
      * Creates a new subclass of class sap.ui.model.message.MessageModel with name `sClassName` and enriches
@@ -57916,8 +58227,6 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
      */
     getPartsIgnoringMessages(): number[];
     /**
-     * @experimental (since 1.114.0)
-     *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
      *
@@ -58904,8 +59213,6 @@ declare module "sap/ui/model/odata/type/ODataType" {
      */
     static getMetadata(): Metadata;
     /**
-     * @experimental (since 1.114.0)
-     *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
      *
@@ -61572,9 +61879,12 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         serviceUrlParams?: Record<string, string>;
         /**
-         * Enable/disable security token handling
+         * Enable/disable security token handling. If the "skipServerCache" string value is provided, the security
+         * token is not cached with the server as key in order to avoid failing $batch requests when accessing services
+         * running on different back-end systems behind a reverse proxy (since 1.119).
+         *  Use this option only if the system landscape is known.
          */
-        tokenHandling?: boolean;
+        tokenHandling?: boolean | "skipServerCache";
         /**
          * Send security token for GET requests in case read access logging is activated for the OData Service in
          * the backend.
@@ -63226,13 +63536,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     getRefreshAfterChange(): boolean;
     /**
-     * Returns the current security token.
+     * @deprecated (since 1.119.0) - use {@link #securityTokenAvailable} instead
      *
-     * If the token has not been requested from the server it will be requested first (synchronously).
+     * Returns the current security token if available; triggers a request to fetch the security token if it
+     * is not available.
      *
-     * @returns The security token
+     * @returns The security token; `undefined` if it is not available
      */
-    getSecurityToken(): string;
+    getSecurityToken(): string | undefined;
     /**
      * Return the annotation object. Please note that the metadata is loaded asynchronously and this function
      * might return undefined because the metadata has not been loaded yet. In this case attach to the `annotationsLoaded`
@@ -65434,6 +65745,31 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isTransient(): boolean | undefined;
     /**
+     * @experimental (since 1.119.0)
+     *
+     * Moves this node to the given parent (in case of a recursive hierarchy, see {@link #setAggregation}, where
+     * `oAggregation.expandTo` must be one). No other {@link sap.ui.model.odata.v4.ODataListBinding#create creation},
+     * {@link #delete deletion}, or move must be pending, and no other modification (including collapse of some
+     * ancestor node) must happen while this move is pending!
+     *
+     * This context's {@link #getIndex index} may change and it becomes "created persisted", with {@link #isTransient }
+     * returning `false` etc.
+     *
+     * @returns A promise which is resolved without a defined result when the move is finished, or rejected
+     * in case of an error
+     */
+    move(
+      /**
+       * A parameter object
+       */
+      oParameters: {
+        /**
+         * The new parent's context
+         */
+        parent: Context;
+      }
+    ): Promise<void>;
+    /**
      * @since 1.53.0
      *
      * Refreshes the single entity represented by this context. Use {@link #requestRefresh} if you want to wait
@@ -66001,13 +66337,21 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * also rejected if `bReplaceWithRVC` is supplied, and there is no return value context at all or the existing
      * context as described above is currently part of the list's collection (that is, has an index).
      *  A return value context is an {@link sap.ui.model.odata.v4.Context} which represents a bound operation
-     * response. It is created only if the operation is bound and has a single entity return value from the
-     * same entity set as the operation's binding parameter and has a parent context which is an {@link sap.ui.model.odata.v4.Context }
-     * and points to an entity from an entity set. It is destroyed the next time this operation binding is executed
-     * again!
+     * response. It is created only if the operation is bound and these conditions apply:
+     * 	 The operation has a single entity return value from the same entity set as the operation's binding
+     * parameter.  It has a parent context which is an {@link sap.ui.model.odata.v4.Context} and points
+     * to (an entity from) an entity set. The path of the parent context must not contain a navigation property
+     * (but see last paragraph).  **Note:** A return value context is destroyed the next time the operation
+     * binding is executed again.
      *  If a return value context is created, it must be used instead of `this.getBoundContext()`. All bound
      * messages will be related to the return value context only. Such a message can only be connected to a
      * corresponding control if the control's property bindings use the return value context as binding context.
+     *
+     *  A return value context may also be provided if the parent context's path contains a maximum of one navigation
+     * property. In addition to the existing preconditions for a return value context, the metadata has to specify
+     * a partner attribute for the navigation property and the partner relationship has to be bi-directional.
+     * Also the navigation property binding has to be available in the entity set of the first segment in the
+     * parent context's path (@experimental as of version 1.119.0).
      */
     execute(
       /**
@@ -66593,8 +66937,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * (see {@link #setAggregation}). The parent node must be identified via a {@link sap.ui.model.odata.v4.Context }
      * instance given as `oInitialData["@$ui5.node.parent"]`. `oAggregation.expandTo` (see {@link #setAggregation})
      * must be one, `bSkipRefresh` must be set, but both `bAtEnd` and `bInactive` must not be set. No other
-     * creation must be pending, and no other modification (including collapse of some ancestor node) must happen
-     * while this creation is pending!
+     * creation or {@link sap.ui.model.odata.v4.Context#move move} must be pending, and no other modification
+     * (including collapse of some ancestor node) must happen while this creation is pending!
      *
      * @returns The context object for the created entity; its method {@link sap.ui.model.odata.v4.Context#created }
      * returns a promise that is resolved when the creation is finished
@@ -66783,8 +67127,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * identified via the `hierarchyQualifier` given to {@link #setAggregation}.
        * 	 "$DistanceFromRootProperty" holds the path to the property which provides the raw value for "@$ui5.node.level"
        * (minus one) and should be used only to interpret the response retrieved via {@link #getDownloadUrl}.
-       *  "$NodeProperty" holds the path to the property which provides the hierarchy node value. That property
-       * is always $select'ed automatically and can be accessed as usual.
+       *  "$DrillStateProperty" holds the path to the property which provides the raw value for "@$ui5.node.isExpanded"
+       * and should be used only to interpret the response retrieved via {@link #getDownloadUrl}.  "$NodeProperty"
+       * holds the path to the property which provides the hierarchy node value. That property is always $select'ed
+       * automatically and can be accessed as usual.
        */
       bVerbose?: boolean
     ): object | undefined;
@@ -71952,8 +72298,6 @@ declare module "sap/ui/model/type/Date" {
      */
     getOutputPattern(): string;
     /**
-     * @experimental (since 1.114.0)
-     *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
      *
@@ -72089,8 +72433,6 @@ declare module "sap/ui/model/type/DateInterval" {
       sTargetType: string
     ): string;
     /**
-     * @experimental (since 1.114.0)
-     *
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
      * using this type.
      *
@@ -82232,6 +82574,8 @@ declare namespace sap {
     "sap/ui/core/format/NumberFormat": undefined;
 
     "sap/ui/core/Fragment": undefined;
+
+    "sap/ui/core/getCompatibilityVersion": undefined;
 
     "sap/ui/core/History": undefined;
 

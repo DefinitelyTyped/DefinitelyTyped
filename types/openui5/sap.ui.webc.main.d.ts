@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1182,7 +1182,7 @@ declare module "sap/ui/webc/main/Avatar" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     IAvatar,
@@ -1195,7 +1195,7 @@ declare module "sap/ui/webc/main/Avatar" {
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -1257,7 +1257,7 @@ declare module "sap/ui/webc/main/Avatar" {
      * Creates a new subclass of class sap.ui.webc.main.Avatar with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -1803,13 +1803,13 @@ declare module "sap/ui/webc/main/AvatarGroup" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IAvatar, AvatarGroupType } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import Control from "sap/ui/core/Control";
 
@@ -1907,7 +1907,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * Creates a new subclass of class sap.ui.webc.main.AvatarGroup with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -2299,11 +2299,11 @@ declare module "sap/ui/webc/main/Badge" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IIcon } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -2363,7 +2363,7 @@ declare module "sap/ui/webc/main/Badge" {
      * Creates a new subclass of class sap.ui.webc.main.Badge with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -2549,7 +2549,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     IBreadcrumbsItem,
@@ -2557,7 +2557,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
     BreadcrumbsSeparatorStyle,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -2630,7 +2630,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      * Creates a new subclass of class sap.ui.webc.main.Breadcrumbs with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -2986,11 +2986,11 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IBreadcrumbsItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -3041,7 +3041,7 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
      * Creates a new subclass of class sap.ui.webc.main.BreadcrumbsItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -3236,11 +3236,11 @@ declare module "sap/ui/webc/main/BusyIndicator" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { BusyIndicatorSize } from "sap/ui/webc/main/library";
 
@@ -3315,7 +3315,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Creates a new subclass of class sap.ui.webc.main.BusyIndicator with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -3643,7 +3643,7 @@ declare module "sap/ui/webc/main/Button" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IButton, ButtonDesign } from "sap/ui/webc/main/library";
 
@@ -3658,7 +3658,7 @@ declare module "sap/ui/webc/main/Button" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -3732,7 +3732,7 @@ declare module "sap/ui/webc/main/Button" {
      * Creates a new subclass of class sap.ui.webc.main.Button with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -4319,14 +4319,14 @@ declare module "sap/ui/webc/main/Calendar" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     ICalendarDate,
     CalendarSelectionMode,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
 
@@ -4455,7 +4455,7 @@ declare module "sap/ui/webc/main/Calendar" {
      * Creates a new subclass of class sap.ui.webc.main.Calendar with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -4958,11 +4958,11 @@ declare module "sap/ui/webc/main/CalendarDate" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ICalendarDate } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -5013,7 +5013,7 @@ declare module "sap/ui/webc/main/CalendarDate" {
      * Creates a new subclass of class sap.ui.webc.main.CalendarDate with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -5078,7 +5078,7 @@ declare module "sap/ui/webc/main/Card" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -5086,7 +5086,7 @@ declare module "sap/ui/webc/main/Card" {
 
   import { ICardHeader } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -5143,7 +5143,7 @@ declare module "sap/ui/webc/main/Card" {
      * Creates a new subclass of class sap.ui.webc.main.Card with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -5465,7 +5465,7 @@ declare module "sap/ui/webc/main/CardHeader" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ICardHeader } from "sap/ui/webc/main/library";
 
@@ -5473,7 +5473,7 @@ declare module "sap/ui/webc/main/CardHeader" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -5540,7 +5540,7 @@ declare module "sap/ui/webc/main/CardHeader" {
      * Creates a new subclass of class sap.ui.webc.main.CardHeader with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -5950,7 +5950,7 @@ declare module "sap/ui/webc/main/Carousel" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Control from "sap/ui/core/Control";
 
@@ -5961,7 +5961,7 @@ declare module "sap/ui/webc/main/Carousel" {
     CarouselPageIndicatorStyle,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -6047,7 +6047,7 @@ declare module "sap/ui/webc/main/Carousel" {
      * Creates a new subclass of class sap.ui.webc.main.Carousel with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -6691,7 +6691,7 @@ declare module "sap/ui/webc/main/CheckBox" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -6699,7 +6699,7 @@ declare module "sap/ui/webc/main/CheckBox" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { WrappingType } from "sap/ui/webc/main/library";
 
@@ -6783,7 +6783,7 @@ declare module "sap/ui/webc/main/CheckBox" {
      * Creates a new subclass of class sap.ui.webc.main.CheckBox with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -7394,11 +7394,11 @@ declare module "sap/ui/webc/main/ColorPalette" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IColorPaletteItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -7453,7 +7453,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * Creates a new subclass of class sap.ui.webc.main.ColorPalette with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -7659,11 +7659,11 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IColorPaletteItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { CSSColor } from "sap/ui/core/library";
 
@@ -7716,7 +7716,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
      * Creates a new subclass of class sap.ui.webc.main.ColorPaletteItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -7784,13 +7784,13 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IColorPaletteItem } from "sap/ui/webc/main/library";
 
   import { CSSColor } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -7853,7 +7853,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
      * Creates a new subclass of class sap.ui.webc.main.ColorPalettePopover with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -8210,13 +8210,13 @@ declare module "sap/ui/webc/main/ColorPicker" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Event from "sap/ui/base/Event";
 
   import { CSSColor } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -8271,7 +8271,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
      * Creates a new subclass of class sap.ui.webc.main.ColorPicker with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -8426,7 +8426,7 @@ declare module "sap/ui/webc/main/ComboBox" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -8440,7 +8440,7 @@ declare module "sap/ui/webc/main/ComboBox" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -8521,7 +8521,7 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Creates a new subclass of class sap.ui.webc.main.ComboBox with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -9418,11 +9418,11 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IComboBoxItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -9472,7 +9472,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
      * Creates a new subclass of class sap.ui.webc.main.ComboBoxGroupItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -9538,11 +9538,11 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IComboBoxItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -9591,7 +9591,7 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * Creates a new subclass of class sap.ui.webc.main.ComboBoxItem with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -9689,7 +9689,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IListItem, IButton, ListItemType } from "sap/ui/webc/main/library";
 
@@ -9697,7 +9697,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -9752,7 +9752,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * Creates a new subclass of class sap.ui.webc.main.CustomListItem with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -10126,13 +10126,13 @@ declare module "sap/ui/webc/main/DatePicker" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
 
@@ -10243,7 +10243,7 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Creates a new subclass of class sap.ui.webc.main.DatePicker with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -11167,13 +11167,13 @@ declare module "sap/ui/webc/main/DateRangePicker" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
 
@@ -11243,7 +11243,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Creates a new subclass of class sap.ui.webc.main.DateRangePicker with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -12216,13 +12216,13 @@ declare module "sap/ui/webc/main/DateTimePicker" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
 
@@ -12327,7 +12327,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Creates a new subclass of class sap.ui.webc.main.DateTimePicker with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -13251,7 +13251,7 @@ declare module "sap/ui/webc/main/Dialog" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize, ValueState } from "sap/ui/core/library";
 
@@ -13261,7 +13261,7 @@ declare module "sap/ui/webc/main/Dialog" {
 
   import { PopupAccessibleRole } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -13343,7 +13343,7 @@ declare module "sap/ui/webc/main/Dialog" {
      * Creates a new subclass of class sap.ui.webc.main.Dialog with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -14481,13 +14481,13 @@ declare module "sap/ui/webc/main/FileUploader" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -14550,7 +14550,7 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Creates a new subclass of class sap.ui.webc.main.FileUploader with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -15146,11 +15146,11 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IListItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -15200,7 +15200,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * Creates a new subclass of class sap.ui.webc.main.GroupHeaderListItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -15333,7 +15333,7 @@ declare module "sap/ui/webc/main/Icon" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IIcon, IconDesign } from "sap/ui/webc/main/library";
 
@@ -15341,7 +15341,7 @@ declare module "sap/ui/webc/main/Icon" {
 
   import { CSSColor, CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -15451,7 +15451,7 @@ declare module "sap/ui/webc/main/Icon" {
      * Creates a new subclass of class sap.ui.webc.main.Icon with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -16014,7 +16014,7 @@ declare module "sap/ui/webc/main/Input" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     IInput,
@@ -16029,7 +16029,7 @@ declare module "sap/ui/webc/main/Input" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -16115,7 +16115,7 @@ declare module "sap/ui/webc/main/Input" {
      * Creates a new subclass of class sap.ui.webc.main.Input with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -17291,11 +17291,11 @@ declare module "sap/ui/webc/main/Label" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { Label as Label1, ID, CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { WrappingType } from "sap/ui/webc/main/library";
 
@@ -17358,7 +17358,7 @@ declare module "sap/ui/webc/main/Label" {
      * Creates a new subclass of class sap.ui.webc.main.Label with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -17600,7 +17600,7 @@ declare module "sap/ui/webc/main/Link" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID } from "sap/ui/core/library";
 
@@ -17608,7 +17608,7 @@ declare module "sap/ui/webc/main/Link" {
 
   import { LinkDesign, WrappingType } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -17675,7 +17675,7 @@ declare module "sap/ui/webc/main/Link" {
      * Creates a new subclass of class sap.ui.webc.main.Link with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -18261,7 +18261,7 @@ declare module "sap/ui/webc/main/List" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -18276,7 +18276,7 @@ declare module "sap/ui/webc/main/List" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -18357,7 +18357,7 @@ declare module "sap/ui/webc/main/List" {
      * Creates a new subclass of class sap.ui.webc.main.List with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -19674,13 +19674,13 @@ declare module "sap/ui/webc/main/Menu" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IMenuItem } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { ID } from "sap/ui/core/library";
 
@@ -19750,7 +19750,7 @@ declare module "sap/ui/webc/main/Menu" {
      * Creates a new subclass of class sap.ui.webc.main.Menu with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -20491,11 +20491,11 @@ declare module "sap/ui/webc/main/MenuItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IMenuItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -20556,7 +20556,7 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Creates a new subclass of class sap.ui.webc.main.MenuItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -20948,7 +20948,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Event from "sap/ui/base/Event";
 
@@ -20956,7 +20956,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
 
   import { CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -21013,7 +21013,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * Creates a new subclass of class sap.ui.webc.main.MessageStrip with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -21372,7 +21372,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -21386,7 +21386,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -21472,7 +21472,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Creates a new subclass of class sap.ui.webc.main.MultiComboBox with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -22492,11 +22492,11 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IMultiComboBoxItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -22546,7 +22546,7 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
      * Creates a new subclass of class sap.ui.webc.main.MultiComboBoxGroupItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -22613,11 +22613,11 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IMultiComboBoxItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -22666,7 +22666,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * Creates a new subclass of class sap.ui.webc.main.MultiComboBoxItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -22796,7 +22796,7 @@ declare module "sap/ui/webc/main/MultiInput" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     IFormContent,
@@ -22817,7 +22817,7 @@ declare module "sap/ui/webc/main/MultiInput" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -22877,7 +22877,7 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Creates a new subclass of class sap.ui.webc.main.MultiInput with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -24359,11 +24359,11 @@ declare module "sap/ui/webc/main/Option" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ISelectOption } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -24412,7 +24412,7 @@ declare module "sap/ui/webc/main/Option" {
      * Creates a new subclass of class sap.ui.webc.main.Option with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -24641,7 +24641,7 @@ declare module "sap/ui/webc/main/Panel" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Control from "sap/ui/core/Control";
 
@@ -24651,7 +24651,7 @@ declare module "sap/ui/webc/main/Panel" {
 
   import { CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -24737,7 +24737,7 @@ declare module "sap/ui/webc/main/Panel" {
      * Creates a new subclass of class sap.ui.webc.main.Panel with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -25318,7 +25318,7 @@ declare module "sap/ui/webc/main/Popover" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -25333,7 +25333,7 @@ declare module "sap/ui/webc/main/Popover" {
     PopoverVerticalAlign,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -25405,7 +25405,7 @@ declare module "sap/ui/webc/main/Popover" {
      * Creates a new subclass of class sap.ui.webc.main.Popover with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -26669,11 +26669,11 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -26726,7 +26726,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * Creates a new subclass of class sap.ui.webc.main.ProgressIndicator with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -26994,7 +26994,7 @@ declare module "sap/ui/webc/main/RadioButton" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -27002,7 +27002,7 @@ declare module "sap/ui/webc/main/RadioButton" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { WrappingType } from "sap/ui/webc/main/library";
 
@@ -27069,7 +27069,7 @@ declare module "sap/ui/webc/main/RadioButton" {
      * Creates a new subclass of class sap.ui.webc.main.RadioButton with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -27667,11 +27667,11 @@ declare module "sap/ui/webc/main/RangeSlider" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -27764,7 +27764,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Creates a new subclass of class sap.ui.webc.main.RangeSlider with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -28357,13 +28357,13 @@ declare module "sap/ui/webc/main/RatingIndicator" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, CSSSize } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -28435,7 +28435,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * Creates a new subclass of class sap.ui.webc.main.RatingIndicator with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -28764,7 +28764,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID } from "sap/ui/core/library";
 
@@ -28779,7 +28779,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     PopoverVerticalAlign,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -28840,7 +28840,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Creates a new subclass of class sap.ui.webc.main.ResponsivePopover with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -30056,7 +30056,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, CSSSize } from "sap/ui/core/library";
 
@@ -30065,7 +30065,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     SegmentedButtonMode,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -30125,7 +30125,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      * Creates a new subclass of class sap.ui.webc.main.SegmentedButton with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -30484,7 +30484,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ISegmentedButtonItem, ButtonDesign } from "sap/ui/webc/main/library";
 
@@ -30494,7 +30494,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -30550,7 +30550,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      * Creates a new subclass of class sap.ui.webc.main.SegmentedButtonItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -31079,7 +31079,7 @@ declare module "sap/ui/webc/main/Select" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -31089,7 +31089,7 @@ declare module "sap/ui/webc/main/Select" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -31152,7 +31152,7 @@ declare module "sap/ui/webc/main/Select" {
      * Creates a new subclass of class sap.ui.webc.main.Select with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -31865,13 +31865,13 @@ declare module "sap/ui/webc/main/Slider" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, CSSSize } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -31967,7 +31967,7 @@ declare module "sap/ui/webc/main/Slider" {
      * Creates a new subclass of class sap.ui.webc.main.Slider with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -32514,13 +32514,13 @@ declare module "sap/ui/webc/main/SplitButton" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import Event from "sap/ui/base/Event";
 
   import { ButtonDesign } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -32594,7 +32594,7 @@ declare module "sap/ui/webc/main/SplitButton" {
      * Creates a new subclass of class sap.ui.webc.main.SplitButton with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -33047,7 +33047,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IListItem, IButton, ListItemType } from "sap/ui/webc/main/library";
 
@@ -33057,7 +33057,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
 
   import { ValueState } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -33121,7 +33121,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Creates a new subclass of class sap.ui.webc.main.StandardListItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -33736,7 +33736,7 @@ declare module "sap/ui/webc/main/StepInput" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
 
@@ -33744,7 +33744,7 @@ declare module "sap/ui/webc/main/StepInput" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -33817,7 +33817,7 @@ declare module "sap/ui/webc/main/StepInput" {
      * Creates a new subclass of class sap.ui.webc.main.StepInput with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -34479,11 +34479,11 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IInputSuggestionItem } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -34533,7 +34533,7 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
      * Creates a new subclass of class sap.ui.webc.main.SuggestionGroupItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -34599,13 +34599,13 @@ declare module "sap/ui/webc/main/SuggestionItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IInputSuggestionItem, ListItemType } from "sap/ui/webc/main/library";
 
   import { ValueState } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -34654,7 +34654,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Creates a new subclass of class sap.ui.webc.main.SuggestionItem with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -34973,7 +34973,7 @@ declare module "sap/ui/webc/main/Switch" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
 
@@ -34983,7 +34983,7 @@ declare module "sap/ui/webc/main/Switch" {
 
   import { SwitchDesign } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -35047,7 +35047,7 @@ declare module "sap/ui/webc/main/Switch" {
      * Creates a new subclass of class sap.ui.webc.main.Switch with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -35475,13 +35475,13 @@ declare module "sap/ui/webc/main/Tab" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITab, SemanticColor } from "sap/ui/webc/main/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -35533,7 +35533,7 @@ declare module "sap/ui/webc/main/Tab" {
      * Creates a new subclass of class sap.ui.webc.main.Tab with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -35975,7 +35975,7 @@ declare module "sap/ui/webc/main/TabContainer" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     ITab,
@@ -35987,7 +35987,7 @@ declare module "sap/ui/webc/main/TabContainer" {
 
   import { CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -36062,7 +36062,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      * Creates a new subclass of class sap.ui.webc.main.TabContainer with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -36743,7 +36743,7 @@ declare module "sap/ui/webc/main/Table" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -36758,7 +36758,7 @@ declare module "sap/ui/webc/main/Table" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -36846,7 +36846,7 @@ declare module "sap/ui/webc/main/Table" {
      * Creates a new subclass of class sap.ui.webc.main.Table with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -37968,13 +37968,13 @@ declare module "sap/ui/webc/main/TableCell" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITableCell } from "sap/ui/webc/main/library";
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -38031,7 +38031,7 @@ declare module "sap/ui/webc/main/TableCell" {
      * Creates a new subclass of class sap.ui.webc.main.TableCell with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -38141,7 +38141,7 @@ declare module "sap/ui/webc/main/TableColumn" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     ITableColumn,
@@ -38150,7 +38150,7 @@ declare module "sap/ui/webc/main/TableColumn" {
 
   import Control from "sap/ui/core/Control";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -38212,7 +38212,7 @@ declare module "sap/ui/webc/main/TableColumn" {
      * Creates a new subclass of class sap.ui.webc.main.TableColumn with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -38502,11 +38502,11 @@ declare module "sap/ui/webc/main/TableGroupRow" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITableRow } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -38562,7 +38562,7 @@ declare module "sap/ui/webc/main/TableGroupRow" {
      * Creates a new subclass of class sap.ui.webc.main.TableGroupRow with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -38628,7 +38628,7 @@ declare module "sap/ui/webc/main/TableRow" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import {
     ITableRow,
@@ -38636,7 +38636,7 @@ declare module "sap/ui/webc/main/TableRow" {
     TableRowType,
   } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -38696,7 +38696,7 @@ declare module "sap/ui/webc/main/TableRow" {
      * Creates a new subclass of class sap.ui.webc.main.TableRow with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -38930,11 +38930,11 @@ declare module "sap/ui/webc/main/TabSeparator" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITab } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   /**
    * @since 1.92.0
@@ -38951,7 +38951,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor sap.ui.webc.common.WebComponent }
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.webc.WebComponent#constructor sap.ui.core.webc.WebComponent }
      * can be used.
      */
     constructor(
@@ -38967,7 +38967,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.webc.common.WebComponent#constructor sap.ui.webc.common.WebComponent }
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.webc.WebComponent#constructor sap.ui.core.webc.WebComponent }
      * can be used.
      */
     constructor(
@@ -38985,7 +38985,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
      * Creates a new subclass of class sap.ui.webc.main.TabSeparator with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -39025,7 +39025,7 @@ declare module "sap/ui/webc/main/TextArea" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ID, CSSSize, ValueState } from "sap/ui/core/library";
 
@@ -39033,7 +39033,7 @@ declare module "sap/ui/webc/main/TextArea" {
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -39092,7 +39092,7 @@ declare module "sap/ui/webc/main/TextArea" {
      * Creates a new subclass of class sap.ui.webc.main.TextArea with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -39936,11 +39936,11 @@ declare module "sap/ui/webc/main/TimePicker" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -40033,7 +40033,7 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Creates a new subclass of class sap.ui.webc.main.TimePicker with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -40618,11 +40618,11 @@ declare module "sap/ui/webc/main/Title" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { TitleLevel, WrappingType } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -40673,7 +40673,7 @@ declare module "sap/ui/webc/main/Title" {
      * Creates a new subclass of class sap.ui.webc.main.Title with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -40846,11 +40846,11 @@ declare module "sap/ui/webc/main/Toast" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { CSSSize } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { ToastPlacement } from "sap/ui/webc/main/library";
 
@@ -40912,7 +40912,7 @@ declare module "sap/ui/webc/main/Toast" {
      * Creates a new subclass of class sap.ui.webc.main.Toast with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -41150,7 +41150,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -41160,7 +41160,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
 
   import { ButtonDesign } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -41214,7 +41214,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Creates a new subclass of class sap.ui.webc.main.ToggleButton with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -41798,13 +41798,13 @@ declare module "sap/ui/webc/main/Token" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { IToken, IIcon } from "sap/ui/webc/main/library";
 
   import Event from "sap/ui/base/Event";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -41857,7 +41857,7 @@ declare module "sap/ui/webc/main/Token" {
      * Creates a new subclass of class sap.ui.webc.main.Token with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -42158,7 +42158,7 @@ declare module "sap/ui/webc/main/Tree" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -42166,7 +42166,7 @@ declare module "sap/ui/webc/main/Tree" {
 
   import { ITreeItem, ListMode } from "sap/ui/webc/main/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -42243,7 +42243,7 @@ declare module "sap/ui/webc/main/Tree" {
      * Creates a new subclass of class sap.ui.webc.main.Tree with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -43330,7 +43330,7 @@ declare module "sap/ui/webc/main/TreeItem" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITreeItem, IButton, ListItemType } from "sap/ui/webc/main/library";
 
@@ -43338,7 +43338,7 @@ declare module "sap/ui/webc/main/TreeItem" {
 
   import { ValueState } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -43400,7 +43400,7 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Creates a new subclass of class sap.ui.webc.main.TreeItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */
@@ -44043,7 +44043,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
   import {
     default as WebComponent,
     $WebComponentSettings,
-  } from "sap/ui/webc/common/WebComponent";
+  } from "sap/ui/core/webc/WebComponent";
 
   import { ITreeItem, IButton, ListItemType } from "sap/ui/webc/main/library";
 
@@ -44053,7 +44053,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
 
   import { ValueState } from "sap/ui/core/library";
 
-  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
   import {
     PropertyBindingInfo,
@@ -44119,7 +44119,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
      * Creates a new subclass of class sap.ui.webc.main.TreeItemCustom with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
      *
      * @returns Created class / constructor function
      */

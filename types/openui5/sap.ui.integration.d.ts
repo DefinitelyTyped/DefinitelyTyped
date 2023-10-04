@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -151,6 +151,14 @@ declare module "sap/ui/integration/library" {
      * The standard card variant.
      */
     Standard = "Standard",
+    /**
+     * Card renders and behaves like a tile of size 2x1.
+     */
+    TileFlat = "TileFlat",
+    /**
+     * Card renders and behaves like a tile of size 4x1.
+     */
+    TileFlatWide = "TileFlatWide",
     /**
      * Card renders and behaves like a tile of size 2x2.
      */
@@ -4394,6 +4402,8 @@ declare namespace sap {
     "sap/ui/integration/editor/fields/viz/ColorSelect": undefined;
 
     "sap/ui/integration/editor/fields/viz/IconSelect": undefined;
+
+    "sap/ui/integration/editor/fields/viz/ImageSelect": undefined;
 
     "sap/ui/integration/editor/fields/viz/ShapeSelect": undefined;
 

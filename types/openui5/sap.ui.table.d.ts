@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -4172,6 +4172,836 @@ declare module "sap/ui/table/RowActionItem" {
   >;
 }
 
+declare module "sap/ui/table/rowmodes/Auto" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @since 1.119
+   *
+   * The number of rows displayed in the table is calculated based on the space it is allowed to cover (limited
+   * by the surrounding container). The table must be rendered without siblings in the DOM. The only exception
+   * is if the table's parent element is a flexbox, and the table is a flex item allowed to grow and shrink.
+   * The number of rows to be displayed can only be determined after the layout has been completed. The data
+   * can already be requested before that. To avoid multiple data requests, the amount of initially requested
+   * data is based on the maximum number of potentially displayed rows, which takes the window size into consideration,
+   * for example.
+   */
+  export default class Auto extends RowMode {
+    /**
+     * Constructor for a new `Auto` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $AutoSettings
+    );
+    /**
+     * Constructor for a new `Auto` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $AutoSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.Auto with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.rowmodes.RowMode.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Auto>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Auto.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     *
+     * Default value is `-1`.
+     *
+     * @returns Value of property `maxRowCount`
+     */
+    getMaxRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * Default value is `5`.
+     *
+     * @returns Value of property `minRowCount`
+     */
+    getMinRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxRowCount(
+      /**
+       * New value for property `maxRowCount`
+       */
+      iMaxRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `5`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMinRowCount(
+      /**
+       * New value for property `minRowCount`
+       */
+      iMinRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+  }
+
+  export interface $AutoSettings extends $RowModeSettings {
+    /**
+     * The minimum number of displayed rows.
+     */
+    minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum number of displayed rows. The `minRowCount` is ignored if the maximum is lower than the minimum.
+     */
+    maxRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/Fixed" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @since 1.119
+   *
+   * A fixed number of rows is displayed in the table.
+   */
+  export default class Fixed extends RowMode {
+    /**
+     * Constructor for a new `Fixed` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FixedSettings
+    );
+    /**
+     * Constructor for a new `Fixed` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FixedSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.Fixed with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.rowmodes.RowMode.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Fixed>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Fixed.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Gets current value of property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * Default value is `10`.
+     *
+     * @returns Value of property `rowCount`
+     */
+    getRowCount(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowCount(
+      /**
+       * New value for property `rowCount`
+       */
+      iRowCount?: int
+    ): this;
+  }
+
+  export interface $FixedSettings extends $RowModeSettings {
+    /**
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     */
+    rowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/Interactive" {
+  import {
+    default as RowMode,
+    $RowModeSettings,
+  } from "sap/ui/table/rowmodes/RowMode";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @since 1.119
+   *
+   * The user can change the number of displayed rows by dragging a resizer.
+   */
+  export default class Interactive extends RowMode {
+    /**
+     * Constructor for a new `Interactive` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $InteractiveSettings
+    );
+    /**
+     * Constructor for a new `Interactive` row mode.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $InteractiveSettings
+    );
+
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.Interactive.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedBottomRowCount`
+     */
+    getFixedBottomRowCount(): int;
+    /**
+     * Gets current value of property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `fixedTopRowCount`
+     */
+    getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * Default value is `5`.
+     *
+     * @returns Value of property `minRowCount`
+     */
+    getMinRowCount(): int;
+    /**
+     * Gets current value of property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `rowContentHeight`
+     */
+    getRowContentHeight(): int;
+    /**
+     * Gets current value of property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * Default value is `10`.
+     *
+     * @returns Value of property `rowCount`
+     */
+    getRowCount(): int;
+    /**
+     * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
+     *
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedBottomRowCount(
+      /**
+       * New value for property `fixedBottomRowCount`
+       */
+      iFixedBottomRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFixedTopRowCount fixedTopRowCount}.
+     *
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFixedTopRowCount(
+      /**
+       * New value for property `fixedTopRowCount`
+       */
+      iFixedTopRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMinRowCount minRowCount}.
+     *
+     * The minimum number of displayed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `5`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMinRowCount(
+      /**
+       * New value for property `minRowCount`
+       */
+      iMinRowCount?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowContentHeight rowContentHeight}.
+     *
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowContentHeight(
+      /**
+       * New value for property `rowContentHeight`
+       */
+      iRowContentHeight?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRowCount rowCount}.
+     *
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowCount(
+      /**
+       * New value for property `rowCount`
+       */
+      iRowCount?: int
+    ): this;
+  }
+
+  export interface $InteractiveSettings extends $RowModeSettings {
+    /**
+     * The number of rows displayed in the table. The number of rows in the scrollable area is reduced by the
+     * number of fixed rows.
+     */
+    rowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The minimum number of displayed rows.
+     */
+    minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
+     * rows, the number of fixed rows is reduced. The table may limit the possible number of fixed rows.
+     */
+    fixedTopRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The number of rows in the fixed area at the bottom. If the number of fixed rows exceeds the number of
+     * displayed rows, the number of fixed rows is reduced. The table may limit the possible number of fixed
+     * rows.
+     */
+    fixedBottomRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The row content height in pixel. The actual row height is also influenced by other factors, such as the
+     * border width. If no value is set (includes 0), a default height is applied based on the content density
+     * configuration.
+     */
+    rowContentHeight?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/table/rowmodes/RowMode" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * @since 1.119
+   *
+   * Base class for row modes. Note: Do not create subclasses.
+   */
+  export default class RowMode extends UI5Element {
+    /**
+     * Constructor for a new `RowMode`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $RowModeSettings
+    );
+    /**
+     * Constructor for a new `RowMode`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $RowModeSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.table.rowmodes.RowMode with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RowMode>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.rowmodes.RowMode.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+  }
+
+  export interface $RowModeSettings extends $ElementSettings {}
+}
+
+declare module "sap/ui/table/rowmodes/Type" {
+  /**
+   * @since 1.119
+   *
+   * Defines the row mode.
+   */
+  enum Type {
+    /**
+     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Auto}
+     */
+    Auto = "Auto",
+    /**
+     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Fixed}
+     */
+    Fixed = "Fixed",
+    /**
+     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Interactive}
+     */
+    Interactive = "Interactive",
+  }
+  export default Type;
+}
+
 declare module "sap/ui/table/RowSettings" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
@@ -4444,6 +5274,10 @@ declare module "sap/ui/table/Table" {
   } from "sap/ui/table/library";
 
   import RowAction from "sap/ui/table/RowAction";
+
+  import RowMode from "sap/ui/table/rowmodes/RowMode";
+
+  import Type from "sap/ui/table/rowmodes/Type";
 
   import RowSettings from "sap/ui/table/RowSettings";
 
@@ -5549,6 +6383,14 @@ declare module "sap/ui/table/Table" {
      */
     destroyRowActionTemplate(): this;
     /**
+     * @since 1.119
+     *
+     * Destroys the rowMode in the aggregation {@link #getRowMode rowMode}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyRowMode(): this;
+    /**
      * Destroys all the rows in the aggregation {@link #getRows rows}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6463,6 +7305,7 @@ declare module "sap/ui/table/Table" {
     getFirstVisibleRow(): int;
     /**
      * @since 1.18.7
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Gets current value of property {@link #getFixedBottomRowCount fixedBottomRowCount}.
      *
@@ -6491,6 +7334,8 @@ declare module "sap/ui/table/Table" {
      */
     getFixedColumnCount(): int;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Gets current value of property {@link #getFixedRowCount fixedRowCount}.
      *
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
@@ -6517,6 +7362,8 @@ declare module "sap/ui/table/Table" {
      */
     getGroupBy(): ID;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Gets current value of property {@link #getMinAutoRowCount minAutoRowCount}.
      *
      * This property is used to set the minimum count of visible rows when the property visibleRowCountMode
@@ -6583,6 +7430,8 @@ declare module "sap/ui/table/Table" {
      */
     getRowActionTemplate(): RowAction;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Gets current value of property {@link #getRowHeight rowHeight}.
      *
      * Row height in pixel.
@@ -6602,6 +7451,14 @@ declare module "sap/ui/table/Table" {
      * @returns Value of property `rowHeight`
      */
     getRowHeight(): int;
+    /**
+     * @since 1.119
+     *
+     * Gets content of aggregation {@link #getRowMode rowMode}.
+     *
+     * Defines how the table handles the rows.
+     */
+    getRowMode(): RowMode | (Type | keyof typeof Type);
     /**
      * Gets content of aggregation {@link #getRows rows}.
      *
@@ -6756,6 +7613,8 @@ declare module "sap/ui/table/Table" {
      */
     getToolbar(): Toolbar;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Gets current value of property {@link #getVisibleRowCount visibleRowCount}.
      *
      * Number of visible rows of the table.
@@ -6767,6 +7626,7 @@ declare module "sap/ui/table/Table" {
     getVisibleRowCount(): int;
     /**
      * @since 1.9.2
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Gets current value of property {@link #getVisibleRowCountMode visibleRowCountMode}.
      *
@@ -7318,6 +8178,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @since 1.18.7
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Sets a new value for property {@link #getFixedBottomRowCount fixedBottomRowCount}.
      *
@@ -7360,6 +8221,8 @@ declare module "sap/ui/table/Table" {
       iFixedColumnCount?: int
     ): this;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Sets a new value for property {@link #getFixedRowCount fixedRowCount}.
      *
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
@@ -7404,6 +8267,8 @@ declare module "sap/ui/table/Table" {
       oGroupBy: ID | Column
     ): this;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Sets a new value for property {@link #getMinAutoRowCount minAutoRowCount}.
      *
      * This property is used to set the minimum count of visible rows when the property visibleRowCountMode
@@ -7484,6 +8349,8 @@ declare module "sap/ui/table/Table" {
       oRowActionTemplate: RowAction
     ): this;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Sets a new value for property {@link #getRowHeight rowHeight}.
      *
      * Row height in pixel.
@@ -7509,6 +8376,19 @@ declare module "sap/ui/table/Table" {
        * New value for property `rowHeight`
        */
       iRowHeight?: int
+    ): this;
+    /**
+     * @since 1.119
+     *
+     * Sets the aggregated {@link #getRowMode rowMode}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRowMode(
+      /**
+       * The rowMode to set
+       */
+      vRowMode: RowMode | (Type | keyof typeof Type)
     ): this;
     /**
      * Sets the aggregated {@link #getRowSettingsTemplate rowSettingsTemplate}.
@@ -7693,6 +8573,8 @@ declare module "sap/ui/table/Table" {
       vTooltip: string | TooltipBase
     ): this;
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Sets a new value for property {@link #getVisibleRowCount visibleRowCount}.
      *
      * Number of visible rows of the table.
@@ -7711,6 +8593,7 @@ declare module "sap/ui/table/Table" {
     ): this;
     /**
      * @since 1.9.2
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Sets a new value for property {@link #getVisibleRowCountMode visibleRowCountMode}.
      *
@@ -7799,6 +8682,8 @@ declare module "sap/ui/table/Table" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Row height in pixel.
      *
      * In the table's header, it defines the minimum height of the row, but it cannot be less than the default
@@ -7835,6 +8720,8 @@ declare module "sap/ui/table/Table" {
     columnHeaderVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Number of visible rows of the table.
      */
     visibleRowCount?: int | PropertyBindingInfo | `{${string}}`;
@@ -7950,6 +8837,7 @@ declare module "sap/ui/table/Table" {
 
     /**
      * @since 1.9.2
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Defines how the table handles the visible rows in the table.
      *
@@ -7973,6 +8861,8 @@ declare module "sap/ui/table/Table" {
       | `{${string}}`;
 
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * This property is used to set the minimum count of visible rows when the property visibleRowCountMode
      * is set to Auto or Interactive. For any other visibleRowCountMode, it is ignored.
      */
@@ -7990,6 +8880,8 @@ declare module "sap/ui/table/Table" {
     fixedColumnCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
+     *
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
      * fixed, will scroll.
      */
@@ -7997,6 +8889,7 @@ declare module "sap/ui/table/Table" {
 
     /**
      * @since 1.18.7
+     * @deprecated (since 1.119) - use the `rowMode` aggregation instead.
      *
      * Number of rows that are fix on the bottom. When you use a vertical scrollbar, only the rows which are
      * not fixed, will scroll.
@@ -8122,6 +9015,17 @@ declare module "sap/ui/table/Table" {
      * for information on requesting the count, for example, {@link sap.ui.model.odata.v2.ODataModel} or {@link sap.ui.model.odata.v4.ODataModel}.
      */
     rows?: Row[] | Row | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.119
+     *
+     * Defines how the table handles the rows.
+     */
+    rowMode?:
+      | (Type | keyof typeof Type)
+      | RowMode
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The value for the noData aggregation can be either a string value or a control instance. The control
@@ -9696,6 +10600,16 @@ declare namespace sap {
     "sap/ui/table/RowAction": undefined;
 
     "sap/ui/table/RowActionItem": undefined;
+
+    "sap/ui/table/rowmodes/Auto": undefined;
+
+    "sap/ui/table/rowmodes/Fixed": undefined;
+
+    "sap/ui/table/rowmodes/Interactive": undefined;
+
+    "sap/ui/table/rowmodes/RowMode": undefined;
+
+    "sap/ui/table/rowmodes/Type": undefined;
 
     "sap/ui/table/RowSettings": undefined;
 

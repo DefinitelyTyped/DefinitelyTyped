@@ -1,4 +1,4 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
 
 declare module "sap/tnt/library" {
   /**
@@ -50,20 +50,19 @@ declare module "sap/tnt/InfoLabel" {
    *
    * Overview:
    *
-   * The control visualizes text information without user interaction. The text inside the control is always
-   * in upper case. It can have smaller or larger side paddings which can be specified by the `renderMode`
-   * property. The text-background color pair can be changed by setting a number between 1 and 10 that corresponds
-   * to the 10 predefined color combinations of the `colorScheme` property. The control is designed to be
-   * vertically aligned with UI5 Input and Button control families. When using `InfoLabel` in non-editable
-   * `Forms`, `Tables`, etc., set `displayOnly=true` for best visual results.
+   * The control visualizes text information without user interaction. The text-background color pair can
+   * be changed by setting a number between 1 and 10 that corresponds to the 10 predefined color combinations
+   * of the `colorScheme` property. The control is designed to be vertically aligned with UI5 Input and Button
+   * control families. When using `InfoLabel` in non-editable `Forms`, `Tables`, etc., set `displayOnly=true`
+   * for best visual results.
    *
    * Usage Guidelines:
    * 	 - If the text is longer than the width of the control, it doesn’t wrap. Instead, it’s represented as
    *     ellipsis.
    * 	 - When truncated, the full text in the control is not visible. Therefore, it’s recommended to make
    *     more space for longer items to be fully displayed.
-   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb and sap_belize_hcw themes.
-   *
+   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb, sap_belize_hcw, sap_fiori_3_hcb
+   *     and sap_fiori_3_hcw themes.
    * 	 - The control shows plain text only, formatting is not visualized.
    */
   export default class InfoLabel extends Control implements IFormContent {
@@ -148,7 +147,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * Default value is `7`.
      *
@@ -183,7 +182,8 @@ declare module "sap/tnt/InfoLabel" {
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * Default value is `Loose`.
      *
@@ -226,7 +226,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -282,7 +282,8 @@ declare module "sap/tnt/InfoLabel" {
      * Sets a new value for property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -363,7 +364,8 @@ declare module "sap/tnt/InfoLabel" {
 
     /**
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      */
     renderMode?:
       | (RenderMode | keyof typeof RenderMode)
@@ -374,7 +376,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      */
     colorScheme?: int | PropertyBindingInfo | `{${string}}`;
 
