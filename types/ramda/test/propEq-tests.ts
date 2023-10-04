@@ -1,6 +1,6 @@
 import * as R from "ramda";
 
-() => {
+(() => {
     const obj = {
         foo: "bar",
         baz: 123,
@@ -17,20 +17,20 @@ import * as R from "ramda";
         <V>(val: V, obj: Record<"foo", V>): boolean;
         <V>(val: V): (obj: Record<"foo", V>) => boolean;
     } = R.propEq("foo");
-};
+});
 
 interface Obj {
     a: number;
     b: number;
 }
 
-() => {
+(() => {
     const xs: Obj = { a: 1, b: 0 };
     R.propEq(1, "a", xs); // => true
     R.propEq(4, "a", xs); // => false
-};
+});
 
-() => {
+(() => {
     interface A {
         foo: string | null;
     }
@@ -45,4 +45,4 @@ interface Obj {
 
     // @ts-expect-error
     R.propEq(value, "bar")(obj);
-};
+});

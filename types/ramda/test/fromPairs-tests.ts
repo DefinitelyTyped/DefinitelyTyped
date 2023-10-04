@@ -1,6 +1,6 @@
 import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType { a: number; b: number; c: number; }
     R.fromPairs([
         ["a", 1],
@@ -21,4 +21,4 @@ import * as R from "ramda";
         ["b", 2],
         ["c", 3],
     ] as Array<[string, number]>); // => {a: 1, b: 2, c: 3}
-};
+});
